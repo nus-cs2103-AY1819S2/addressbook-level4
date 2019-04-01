@@ -89,7 +89,7 @@ and removal of patient records in QuickDocs.
 
 Using just a few keystrokes, you can manage your patient records in a more organized and efficient manner.
 
-{nbsp} +
+'''
 
 [[addpat, Add patient]]
 ==== Adding patient: `addpat`
@@ -101,73 +101,73 @@ Patient details that can be stored include: name, NRIC, email, address, gender, 
 [TIP]
 You can add a tag to a patient to indicate his or her long term illnesses. You can add multiple tags to the patient to ease searching. +
 
-- - -
+{sp}+
 
 *Format:* `addpat n/NAME r/NRIC e/EMAIL a/ADDRESS g/GENDER d/DATE OF BIRTH c/CONTACT  [t/tag]...` +
 
-*Alias:* `ap`
+*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `ap`
 
-- - -
+{sp}+
 
 [TIP]
 The order of input does not matter as long as they are all captured. +
 
+{sp}+
 *Examples:*
-
 * `addpat n/Gary Goh r/S7332803I g/M d/1973-04-01 a/20 Upper Changi Road c/92347654 e/ggoh@gmail.com t/highbloodpressure t/diabetes`
 * `addpat n/Chan Mei Hua r/S8865281I d/1998-05-09 g/F c/92341221 a/2 Simei Street e/cmh@gmail.com`
 
-- - -
+{sp}+
+*Result:*
 
-*Results:*
+After entering the `addpat` command, QuickDocs will show the details of the recently added patient on the
+main display as demonstrated in the diagram below:
 
+.Main display after addpat command
 image::ap_after.png[width="600" align="center"]
 
-After entering the command, you can view the added patient record on the display.
-
-{nbsp} +
+'''
 
 [[editpat, Edit patient]]
 ==== Editing patient `editpat`
 
 If you made a mistake when registering a patient, fret not! You can always make changes to the patient record with the `editpat` command.
 
-All the fields in the record can be edited, including the tags.
+All the fields in the record can be edited, including the NRIC and tags.
 
 [NOTE]
 The tags entered during an edit patient command will override all the tags a patient record currently possess.
 
-- - -
+{sp} +
 *Format:* `editpat NRIC [n/NAME] [a/Address] [r/NRIC] …`
 you can view the prefixes for each of the fields at the <<addpat>> section. +
+*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `ep` +
 
-*Alias:* `ep` +
-
-- - -
-
-
+{sp} +
 *Example:* +
 
 * `editpat S7332803I n/Gary Doh e/gdoh@gmail.com`  +
-
-image::ep_after.png[width="600" align="center"]
-
 This changes the email and name of the patient with NRIC: S7332803I to Gary Doh and gdoh@gmail.com respectively.
 
-You will also be able to see the changes made to the patient record in the display after the command is entered.
+{sp} +
+*Result:* +
 
-image::ep_conflict.png[width="600" align="center"]
+After the `editpat` is performed, you can view the changes made to the patient record in the main display.
+
+.Result of an edit command, on a patient's name and email
+image::ep_after.png[width="600" align="center"]
 
 Since every citizen, permanent residents or foreigners in Singapore have their unique NRIC / FIN numbers, duplicate NRIC are not
 allowed in QuickDocs.
 
 When you edit a patient's NRIC/FIN and there is an existing patient with that NRIC, the current edit
-will not be executed. You will also be notified of the detection of duplicated NRIC entries through the input feedback box.
+will not be executed. You will also be notified of the detection of duplicated NRIC entries through the input feedback box,
+in the manner shown in the following picture.
 
-//[NOTE]
-//The index (4, 21 is retrieved from the `plist` command. See: <<plist>>.
+.Error message shown when QuickDocs detected a duplicate NRIC in the patient records
+image::ep_conflict.png[width="600" align="center"]
 
-{nbsp} +
+'''
 
 [[listpat, List patients]]
 ==== List patient details : `listpat`
@@ -185,83 +185,92 @@ You can then display a single patient's record by calling `listpat` with the ful
 Each patient record stored within QuickDocs have a record number, known as an *INDEX*. The
 Index can also be used to narrow down patient searches to a single record.
 
-- - -
+{sp} +
+*Format:* `listpat [PREFIX / KEYWORD] …` +
+*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `lp` +
 
-*Format:* `plist [PREFIX / KEYWORD] …` +
-
-*Alias:* `lp` +
-
-- - -
-
-*Examples:*
+{sp} +
+*Examples and results:*
 
 * `listpat` +
 
-image::lp_noargs.png[width="600" align="center"]
-
 If no keywords are entered, `listpat` will simply display the first 50 patients record stored.
 
-- - -
+.listpat command without any matching criteria
+image::lp_noargs.png[width="600" align="center"]
 
+{sp} +
 * `listpat n/P` +
 
+Suppose you want to quickly find a patient record whose name starts with "P", you can use `listpat` along
+with a sequence of characters to search for the specific patient record you are interested in.
+
+.listing patients with matching name
 image::lp_name_after.png[width="600" align="center"]
 
-QuickDocs will list all patients whose name starts with P, this is very useful in searching for
-the specific NRIC or index of a patient you are interested in.
-
-- - -
-
+{sp} +
 * `listpat r/S92` +
 
+You can narrow down your patient search by providing a NRIC sequence as well. For example,
+in the figure below, you can retrieve all the patients whose NRIC starts with "S92".
+
+.listing patients with matching NRIC
 image::lp_nric_after.png[width="600" align="center"]
 
-You can now view all the patient detail entries whose nric starts with S92.
+After narrowing down your search, you will be able to use the specific NRIC number of a particular patient to view the in-depth
+patient particulars.
 
+.showing specific patient's record using the full NRIC
 image::lp_nric_specific.png[width="600" align="center"]
 
-and then proceed to narrow down the search using the specific patient's nric.
+{sp} +
+* `listpat t/diabetes` +
 
-- - -
+The tags you assigned to each patient can also be used to expedite the `listpat` command. For example, diabetic patients can be
+listed using the `listpat` command along with "t/diabetes" value.
 
-`listpat t/diabetes` +
-
+.listing patients by specific tag
 image::lp_tag_after.png[width="600" align="center"]
 
-By specifying the tag to be diabetes, you can list all diabetic patients.
-
-- - -
-
-`listpat 5`
-
-image::lp_indexes.png[width="600" align="center"]
+{sp} +
+* `listpat 5`
 
 Did you notice that when QuickDocs display multiple patient records during filtering, each record starts with
-a number? This is the index of the patient record.
+a number? This is the index of the patient record, indicating the position the record is stored within QuickDoc's patient record storage.
 
-image::lp_index.png[width="600" align="center"]
+.Patient record indexes
+image::lp_indexes.png[width="600" align="center"]
 
 You can make use of the index number to view specific patient records as well.
 
-{nbsp} +
+.Patient search using record index
+image::lp_index.png[width="600" align="center"]
+
+'''
 
 [[deletepat, Delete patient]]
 ==== Deleting patient `deletepat`
 
 When a patient is no longer visiting your clinic (i.e. moved residency), you can choose to remove their details from QuickDocs.
 
-- - -
+{sp} +
 *Format:* `deletepat r/NRIC` +
+*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `dp` +
 
-*Alias:* `dp` +
-
-- - -
-
+{sp} +
 *Example:* `deletepat r/S7338031I`
 
+{sp} +
+*Result:*
+
+By specifying the NRIC along with the `deletepat` command, you will delete the patient with that specific NRIC.
+
+.Deleting patient records using the specific NRIC
 image::dp_after.png[width="600" align="center"]
 
-This will delete the patient with the NRIC you have specified.
+If you have difficulty finding the specific NRIC, you can refer to the <<listpat>> command section to help you retrieve the patient's NRIC.
+
+'''
 
 {nbsp} +
 
@@ -273,6 +282,8 @@ the patient's current condition.
 Using the Consultation Management module, you can now handle the prescription and diagnosis stages of each consultation session
 in one go.
 
+''''
+
 [[consult, Start consultation]]
 ==== Start consultation: `consult`
 
@@ -282,28 +293,28 @@ consultation session on QuickDocs.
 Consultation is started after the NRIC of the patient is provided, you can revisit the <<listpat>> section to help identify the NRIC
 of specific patients +
 
-- - -
-
+{sp} +
 *Format:* `consult r/NRIC` +
+*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `c` +
 
-*Alias:* `c` +
-
-- - -
-
+{sp} +
 *Example:*
 
 * `consult r/S9876542C` +
 
-image::consult_after.png[width="600" align="center"]
+*Result:*
 
 Once you started a consultation session for the patient, a message will be displayed on the main display area to indicate that the consultation session
 have started for the current patient.
+
+.Starting a consultation session on QuickDocs
+image::consult_after.png[width="600" align="center"]
 
 A text indicating that the consultation session have started for the particular patient will also
 appear at the bottom right corner of QuickDocs, so that you will be aware that a current consultation session is ongoing even after
 subsequent commands.
 
-{nbsp} +
+'''
 
 [[diagnose, Diagnose patient]]
 ==== Diagnosing a patient: `diagnose`
@@ -316,44 +327,41 @@ To complete the diagnosis, the record must have one assessment and at least one 
 [NOTE]
 This command requires you to have a consultation session already active. See: <<consult>>.
 
-- - -
-
+{sp}+
 *Format:* `diagnose s/SYMPTOM [s/SYMPTOM] ... a/ASSESSMENT` +
+*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `d` +
 
-*Alias:* `d` +
-
-- - -
-
+{sp}+
 *Example:*
 
 * `diagnose s/runny nose s/sore throat s/phlegmy cough a/influenza` +
 
-image::diagnose_before.png[width="600" align="center"]
-
 The order of symptoms and assessment does not matter here. You record as many symptoms per diagnosis.
 
-- - -
-
+{sp} +
 *Results:*
 
+After entering the command, QuickDocs will show the symptoms and assessment recorded on the main display as demonstrated
+in the following diagram.
+
+.Result of the diagnose command
 image::diagnose_after.png[width="600" align="center"]
-
-After entering the command, the display will show the symptoms and assessment recorded.
-
-image::diagnose_edit_after.png[width="600" align="center"]
 
 If you made a mistake when entering the diagnosis, you can always rectify it by re-entering the `diagnose` command with the correct
 symptoms and assessment. This will replace the current erroneous diagnosis with the one you have just entered.
 
+.Editing the diagnosis
+image::diagnose_edit_after.png[width="600" align="center"]
+
 [TIP]
 Whenever you make a mistake entering a command, you can always press the UP and DOWN buttons on your keyboard to cycle through the past
-commands you have entered into QuickDocs. This allow you to easily navigate to the erroneous command you have entered, make changes and then reenter
+commands you have entered into QuickDocs. This allow you to easily navigate to the erroneous command you have entered, make changes and then re-enter
 the command again to rectify your errors.
 
-{nbsp} +
+'''
 
 [[prescribe, Prescribe medicine]]
-==== Prescribing a patient: `prescribe` or `p`
+==== Prescribing medicine for a patient: `prescribe`
 
 After you are done recording the symptoms and assessing the illness of the patient, you can start prescribing medicine to your patient.
 
@@ -365,19 +373,13 @@ A minimum of one medicine and one quantity is required to record a prescription 
 [NOTE]
 This command requires you to have a consultation session already active. See: <<consult>>.
 
-- - -
+{sp} +
+*Format:* `prescribe m/MEDICINE [m/MEDICINE] ... q/QUANTITY [q/QUANTITY]` +
+*or:*{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} `prescribe m/MEDICINE q/QUANTITY [m/MEDICINE] [q/QUANTITY] ...` +
 
-*Format:* +
-`prescribe m/MEDICINE [m/MEDICINE] ... q/QUANTITY [q/QUANTITY]` +
+*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `p` +
 
-or
-
-`prescribe m/MEDICINE q/QUANTITY [m/MEDICINE] [q/QUANTITY] ...` +
-
-*Alias:* `p` +
-
-- - -
-
+{sp} +
 *Example:*
 
 * `prescribe m/penicillin q/1 m/Afrin spray q/1 m/ibuprofen q/2` +
@@ -386,16 +388,18 @@ or
 * `prescribe m/penicillin m/Afrin spray m/ibuprofen q/1 q/1 q/2` +
    Same as above example, quantity ordered based on medicine order.
 
-- - -
-
+{sp} +
 *Results:*
 
+After the medicine-quantity pairings are entered, the prescription to address the patient's current condition will be displayed on the main display
+area of QuickDocs.
+
+.Prescribing medicines to tackle the patient's current conditions
 image::prescription_after.png[width="600" align="center"]
 
-After the medicine-quantity pairings are entered, the prescription to address the patient's current condition will be displayed on the main display
-area of QuickDocs. Changes can still be made to the prescription as long as the consultation session is still ongoing.
+Changes can still be made to the prescription as long as the consultation session is still ongoing.
 
-{nbsp} +
+'''
 
 [[endconsult, End consultation]]
 ==== End consultation: `endconsult`
@@ -403,24 +407,23 @@ area of QuickDocs. Changes can still be made to the prescription as long as the 
 Once the diagnosis and prescription are finalized, you can end the consultation with a simple `endconsult` command.
 No further changes to the diagnosis and prescription details can be made after this point.+
 
-- - -
-
+{sp} +
 *Format:* `endconsult` +
-*Alias:* `ec`
+*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `ec`
 
-- - -
+{sp} +
+*Result:*
+Once you entered the `endconsult` command, a message to indicate the end of the consultation session is also shown on the main display area.
 
-*Results:*
-
+.results of an endconsult command
 image::endconsult.png[width="600" align="center"]
 
-Notice that the label for the ongoing consultation session is removed once this command is entered. A message to indicate
-the end of the consultation session is also shown on the main display area.
+Notice that the label for the ongoing consultation session is also removed after the command is entered.
 
-{nbsp} +
+'''
 
 [[listconsult, List consultations]]
-==== List consultation: `listconsult` or `lc`
+==== List consultation: `listconsult`
 
 Whenever you want to revisit a specific consultation record, you can filter it down by the patient before narrowing it down
 to the specific session.
@@ -428,38 +431,34 @@ to the specific session.
 You can use QuickDocs to list out all the past consultation sessions of a single patient by first specifying his or her NRIC,
 and then view the consultation details by passing in the session's index. +
 
-- - -
+{sp} +
+*Format:* `listconsult INDEX` +
+*or:*{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} `listconsult r/NRIC` +
+*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `lc` +
 
-*Format:* +
-`listconsult INDEX` +
-
-or +
-
-`listconsult r/NRIC` +
-
-*Alias:* `lc` +
-
-- - -
-
-*Examples:*
+{sp} +
+*Examples and results:*
 
 * `listconsult r/S9876542C` +
+Specifying the NRIC after the `listconsult` command will display a list of consultation records belonging to
+the patient with the specified NRIC.
 
+Note that the indexes are prepended on each of the past consultation records listed.
+
+.Displaying past visits of a particular patient
 image::listconsult_after.png[width="600" align="center"]
 
-Display a list of consultation records belonging to patient with NRIC S9876542C.
-The index of the consultation record will be shown, and you can call `listconsult`
-again, with the index, to view the specific consultation session details.
-
-- - -
-
+{sp}+
 * `listconsult 1` +
 
+You can then call `listconsult` again with the consultation record's index to view the specific consultation session details.
+
+.Revisiting a specific consultation session
 image::listconsult_index.png[width="600" align="center"]
 
-The consultation session detail stored in QuickDoc's first index will be shown.
 QuickDocs will display the time of the consultation, and also the diagnosis and prescription given to the patient.
 
+'''
 {nbsp} +
 
 === Medicine Management
@@ -685,9 +684,14 @@ Sets the consultation fee to $30.00. +
 * `setconsultfee $32.50` +
 Sets the consultation fee to $32.50. +
 
-==== Generate medical certificate: [coming in V2.0]
+==== Generate prescription list [coming in v2.0]
 
-Generates a custom MC
+The prescription list can be printed out for the pharmacists to expedite medicine preparation. The pharmacists can refer
+to the printed prescription list and prepare the medicines for the patient to collect after payment.
+
+==== Generate medical certificate: [coming in v2.0]
+
+You can print out a customised medical certificate for the patient, listing the symptoms and also the number of sick leave days.
 
 ==== Generate invoice: [coming in v2.0]
 

@@ -16,13 +16,14 @@ import seedu.address.model.deck.DeckNameContainsKeywordsPredicate;
  */
 public class FindDeckCommandParser implements Parser<FindDeckCommand> {
 
+    private static final String IN_BETWEEN_QUOTES_REGEX = "\"([^\"]*)\"";
+
     private DecksView decksView;
 
     public FindDeckCommandParser(DecksView decksView) {
         this.decksView = decksView;
     }
-
-    private static final String IN_BETWEEN_QUOTES_REGEX = "\"([^\"]*)\"";
+    
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindDeckCommand

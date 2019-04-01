@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -184,12 +185,12 @@ public class MainWindow extends UiPart<Stage> {
     public void changePanel(String commandText) {
         String[] cmdArray = commandText.split(" ");
         String command = cmdArray[0];
-        browserPlaceholder.getChildren().remove(0);
-        Node newPanel = commandPanelHandler.getCommandPanel(command);
-        if (newPanel == null) {
-            newPanel = (new BrowserPanel(logic.selectedPersonProperty())).getRoot();
+
+        Optional<Node> newPanel = commandPanelHandler.getCommandPanel(command);
+        if (newPanel.isPresent()) {
+            browserPlaceholder.getChildren().remove(0);
+            browserPlaceholder.getChildren().add(0, newPanel.get());
         }
-        browserPlaceholder.getChildren().add(0, newPanel);
     }
 
     /**

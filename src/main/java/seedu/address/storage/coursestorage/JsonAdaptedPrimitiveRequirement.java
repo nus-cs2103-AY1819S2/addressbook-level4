@@ -43,7 +43,7 @@ public class JsonAdaptedPrimitiveRequirement implements JsonAdaptedCourseRequire
         this.requirementName = primitiveRequirement.getCourseReqName();
         this.requirementDescription = primitiveRequirement.getCourseReqDesc();
         this.condition = new JsonAdaptedCondition(primitiveRequirement.getCondition());
-        this.requirementType = primitiveRequirement.getType().toString();
+        this.requirementType = primitiveRequirement.getType().name();
     }
 
 

@@ -334,12 +334,13 @@ The SRS method updates users profile using link:https://en.wikipedia.org/wiki/Le
 ==== Design Consideration
 
 ===== Aspect: SRS method for updating
-* **Alternative1: Leinter System (current choice)**
+* **Alternative 1: Leinter System (current choice)**
 ** Pros: Efficient in calculation and easy to understand.
 ** Cons: The time interval between levels cannot be long.
-* **Alternative2: Pimsleur's graduated-interval recall**
+* **Alternative 2: Pimsleur's graduated-interval recall**
 ** Pros: Short times interval between the first few repetitions.
 ** Cons: No level attribute to value the element clearly.
+* Alternative 1 was chosen because it clearly displays the due date in several levels.
 
 //end::session[]
 

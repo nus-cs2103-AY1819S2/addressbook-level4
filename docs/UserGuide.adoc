@@ -343,6 +343,9 @@ Format: `test`
 [NOTE]
 This command is only considered valid when inside the folder to be tested and is not already inside a test session.
 
+[NOTE]
+This command is invalid if the current folder is empty as there will be no flashcards to test.
+
 ====
 * Only questions and hints are presented and users are required to either input an attempt or enter the command to
 reveal the answer.

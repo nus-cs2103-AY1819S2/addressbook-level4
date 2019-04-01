@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w17-3/main
 
-By: `Team W17-3`      Since: `January 2019`      Licence: `MIT`
+By: `Team W17-3`      Since: `March 2019`      Licence: `MIT`
 
 == Introduction
 Welcome to the _In-Credit-Ble_ User Guide! _In-Credit-Ble_ is your all-in-one application in managing and tracking your

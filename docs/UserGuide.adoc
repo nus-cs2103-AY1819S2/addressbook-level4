@@ -215,14 +215,6 @@ Examples:
 * `deleteCard 2` +
 Deletes the second flashcard.
 
-==== Importing user profile : `importUser`
-Imports the selected `.csv` file and loads the current progress of the user. +
-Format: `importUser FILEPATH`
-
-==== Exporting user profile : `exportUser`
-Exports the current progress of the user into a `.csv` file. +
-Format: `exportUser FILEPATH`
-
 ==== Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +

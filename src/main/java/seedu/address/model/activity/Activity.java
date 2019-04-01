@@ -24,7 +24,6 @@ public class Activity implements Comparable<Activity> {
     private final ActivityStatus status;
 
     // Data fields
-    private Person inCharge;
     private Map<Person, Boolean> attendance = new HashMap<>();
 
     /**

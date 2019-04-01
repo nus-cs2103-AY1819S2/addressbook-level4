@@ -30,8 +30,8 @@ public class WorkListTest {
     public void equals() {
         assertFalse(LISTA.equals(null));
 
-        WorkList LISTACopy = new WorkListBuilder().withAssignee(LISTA.getAssignee())
+        WorkList listAcopy = new WorkListBuilder().withAssignee(LISTA.getAssignee())
                 .withDate(LISTA.getDate()).build();
-        assertFalse(LISTA.equals(LISTACopy));
+        assertFalse(LISTA.equals(listAcopy));
     }
 }

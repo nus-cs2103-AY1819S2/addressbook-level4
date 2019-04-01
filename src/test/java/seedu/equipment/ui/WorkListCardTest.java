@@ -3,13 +3,13 @@ package seedu.equipment.ui;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.equipment.testutil.TypicalEquipments.HWIYOHCC;
 import static seedu.equipment.ui.testutil.GuiTestAssert.assertCardDisplaysWorkList;
 
 import org.junit.Test;
 
 import guitests.guihandles.WorkListCardHandle;
 import seedu.equipment.model.WorkList;
-import static seedu.equipment.testutil.TypicalEquipments.HWIYOHCC;
 import seedu.equipment.testutil.WorkListBuilder;
 
 public class WorkListCardTest extends GuiUnitTest {

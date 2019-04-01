@@ -59,7 +59,7 @@ Format: `help`
 === Adding a patient: `add-patient`
 
 Adds a patient to docX +
-Format: `add-patient n/NAME g/GENDER [a/AGE] p/PHONE_NUMBER adr/ADDRESS`
+Format: `add-patient n/NAME g/GENDER [a/AGE] p/PHONE_NUMBER adr/ADDRESS t/TAG`
 
 // [TIP]
 // A person can have any number of tags (including 0)
@@ -67,7 +67,7 @@ Format: `add-patient n/NAME g/GENDER [a/AGE] p/PHONE_NUMBER adr/ADDRESS`
 Examples:
 
 * `add-patient n/John Doe g/Male a/21 p/98765432 adr/Utown College 2`
-* `add-patient n/Betsy Crowe g/Female p/1234567 a/32 adr/RVRC House 12`
+* `add-patient n/Betsy Crowe g/Female p/1234567 a/32 adr/RVRC House 12 t/Diabetic`
 
 === Listing all patients : `list-patient`
 
@@ -95,7 +95,7 @@ Edits the name and phone number of the patient with ID of '2' to be `Betsy Crowe
 === Locating patient by name: `search-patient`
 
 Search and return patient(s) whose names contain any of the given keywords. +
-Format: `search-patient [NAME] [PHONE_NUMBER]`
+Format: `search-patient [NAME]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`

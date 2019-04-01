@@ -26,23 +26,23 @@ import seedu.address.model.person.Patient;
 public class TypicalPatients {
 
     public static final Patient ALICE = new PatientBuilder().withName("Alice Pauline")
-            .withAddress("123, Jurong West Ave 6, #08-111").withGender("F").withAge("23")
-            .withPhone("94351251")
+            .withGender("F").withAge("23").withPhone("94351251")
+            .withAddress("123, Jurong West Ave 6, #08-111")
             .withTags("friends").build();
     public static final Patient BENSON = new PatientBuilder().withName("Benson Meier")
-            .withAddress("311, Clementi Ave 2, #02-25")
             .withGender("M").withAge("30").withPhone("98765432")
+            .withAddress("311, Clementi Ave 2, #02-25")
             .withTags("owesMoney", "friends").build();
-    public static final Patient CARL = new PatientBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withGender("M").withAge("101").withAddress("wall street").build();
-    public static final Patient DANIEL = new PatientBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withGender("M").withAge("7").withAddress("10th street").withTags("friends").build();
-    public static final Patient ELLE = new PatientBuilder().withName("Elle Meyer").withPhone("94822241")
-            .withGender("F").withAge("19").withAddress("michegan ave").build();
-    public static final Patient FIONA = new PatientBuilder().withName("Fiona Kunz").withPhone("94824271")
-            .withGender("F").withAge("110").withAddress("little tokyo").build();
-    public static final Patient GEORGE = new PatientBuilder().withName("George Best").withPhone("94824421")
-            .withGender("M").withAge("50").withAddress("4th street").build();
+    public static final Patient CARL = new PatientBuilder().withName("Carl Kurz")
+            .withGender("M").withAge("101").withPhone("95352563").withAddress("wall street").build();
+    public static final Patient DANIEL = new PatientBuilder().withName("Daniel Meier")
+            .withGender("M").withAge("7").withPhone("87652533").withAddress("10th street").withTags("friends").build();
+    public static final Patient ELLE = new PatientBuilder().withName("Elle Meyer")
+            .withGender("F").withAge("19").withPhone("94822241").withAddress("michegan ave").build();
+    public static final Patient FIONA = new PatientBuilder().withName("Fiona Kunz")
+            .withGender("F").withAge("110").withPhone("94824271").withAddress("little tokyo").build();
+    public static final Patient GEORGE = new PatientBuilder().withName("George Best")
+            .withGender("M").withAge("50").withPhone("94824421").withAddress("4th street").build();
 
     // Manually added
     public static final Patient HOON = new PatientBuilder().withName("Hoon Meier")

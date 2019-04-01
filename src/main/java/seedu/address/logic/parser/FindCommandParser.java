@@ -13,6 +13,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NOKR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ import seedu.address.model.util.predicate.NameContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.NricContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.PhoneContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.SexContainsKeywordsPredicate;
-
+import seedu.address.model.util.predicate.TagsContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -61,7 +62,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
                 PREFIX_NRIC, PREFIX_YEAR, PREFIX_SEX, PREFIX_DRUG_ALLERGY, PREFIX_NOKN, PREFIX_NOKR,
-                PREFIX_NOKP, PREFIX_NOKA, PREFIX_DESC);
+                PREFIX_NOKP, PREFIX_NOKA, PREFIX_DESC, PREFIX_TAG);
 
         String preamble = argMultimap.getPreamble().toLowerCase();
         if (!preamble.isEmpty()) {
@@ -89,7 +90,7 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         Prefix[] prefixArr = new Prefix[] {PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
             PREFIX_NRIC, PREFIX_YEAR, PREFIX_SEX, PREFIX_DRUG_ALLERGY, PREFIX_NOKN, PREFIX_NOKR,
-            PREFIX_NOKP, PREFIX_NOKA, PREFIX_DESC};
+            PREFIX_NOKP, PREFIX_NOKA, PREFIX_DESC, PREFIX_TAG};
 
         String[] keywords = new String[1];
         ContainsKeywordsPredicate predicate;
@@ -158,6 +159,9 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         case "noka/":
             return new KinAddressContainsKeywordsPredicate(keywords, isIgnorecase, isAnd);
+
+        case "tag/":
+            return new TagsContainsKeywordsPredicate(keywords, isIgnorecase, isAnd);
 
         default:
             throw new ParseException("");

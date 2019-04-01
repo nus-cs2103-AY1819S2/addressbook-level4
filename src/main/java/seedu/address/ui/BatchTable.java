@@ -10,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
+import seedu.address.commons.core.InformationPanelSettings.SortDirection;
+import seedu.address.commons.core.InformationPanelSettings.SortProperty;
 import seedu.address.model.medicine.Batch;
 import seedu.address.model.medicine.BatchNumber;
 import seedu.address.model.medicine.Expiry;
@@ -50,11 +52,12 @@ public class BatchTable extends UiPart<Region> {
     @FXML
     private TableColumn<Batch, Expiry> expiryColumn;
 
-    public BatchTable(Medicine selectedMedicine) {
+    public BatchTable(Medicine selectedMedicine, SortProperty sortProperty, SortDirection sortDirection) {
         super(FXML);
 
         setDescriptionTexts(selectedMedicine);
         populateTable(selectedMedicine);
+        sortTable(sortProperty, sortDirection);
     }
 
     private void setDescriptionTexts(Medicine selectedMedicine) {
@@ -70,6 +73,32 @@ public class BatchTable extends UiPart<Region> {
     private void populateTable(Medicine selectedMedicine) {
         ObservableList<Batch> batches = FXCollections.observableArrayList(selectedMedicine.getBatches().values());
         table.setItems(batches);
+    }
+
+    /**
+     * Sorts the table depending on the input sortProperty and sortDirection.
+     */
+    public void sortTable(SortProperty sortProperty, SortDirection sortDirection) {
+        table.getSortOrder().clear();
+        TableColumn<Batch, ?> column;
+
+        if (sortProperty.equals(SortProperty.BATCHNUMBER)) {
+            column = numberColumn;
+        } else if (sortProperty.equals(SortProperty.QUANTITY)) {
+            column = quantityColumn;
+        } else if (sortProperty.equals(SortProperty.EXPIRY)) {
+            column = expiryColumn;
+        } else {
+            return;
+        }
+
+        if (sortDirection.equals(SortDirection.ASCENDING)) {
+            column.setSortType(TableColumn.SortType.ASCENDING);
+        } else if (sortDirection.equals(SortDirection.DESCENDING)) {
+            column.setSortType(TableColumn.SortType.DESCENDING);
+        }
+
+        table.getSortOrder().add(column);
     }
 
     public String getNameLabelText() {

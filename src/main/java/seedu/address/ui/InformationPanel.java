@@ -6,6 +6,9 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import seedu.address.commons.core.InformationPanelSettings;
+import seedu.address.commons.core.InformationPanelSettings.SortDirection;
+import seedu.address.commons.core.InformationPanelSettings.SortProperty;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.medicine.Medicine;
 
@@ -18,11 +21,14 @@ public class InformationPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private BatchTable batchTable;
+    private SortProperty sortProperty = InformationPanelSettings.DEFAULT_SORT_PROPERTY;
+    private SortDirection sortDirection = InformationPanelSettings.DEFAULT_SORT_DIRECTION;
 
     @FXML
     private StackPane informationPanel;
 
-    public InformationPanel(ObservableValue<Medicine> selectedMedicine) {
+    public InformationPanel(ObservableValue<Medicine> selectedMedicine,
+            ObservableValue<InformationPanelSettings> settings) {
         super(FXML);
 
         // Load medicine information page when selected medicine changes.
@@ -33,13 +39,23 @@ public class InformationPanel extends UiPart<Region> {
                 showSelectedInformation(newSelectedMedicine);
             }
         });
+
+        settings.addListener((observable, oldSettings, newSettings) -> {
+            sortProperty = newSettings.getSortProperty();
+            sortDirection = newSettings.getSortDirection();
+            emptyInformationPanel();
+            showSelectedInformation(selectedMedicine.getValue());
+        });
     }
 
     private void showSelectedInformation(Medicine medicine) {
-        batchTable = new BatchTable(medicine);
+        batchTable = new BatchTable(medicine, sortProperty, sortDirection);
         informationPanel.getChildren().add(batchTable.getRoot());
     }
 
+    /**
+     * Empties the information panel by removing all children.
+     */
     private void emptyInformationPanel() {
         if (informationPanel.getChildren() != null) {
             informationPanel.getChildren().clear();

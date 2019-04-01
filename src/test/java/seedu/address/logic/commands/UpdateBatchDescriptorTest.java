@@ -32,7 +32,7 @@ public class UpdateBatchDescriptorTest {
         assertFalse(DESC_AMOXICILLIN_BATCH.equals(DESC_GABAPENTIN_BATCH));
 
         // different name -> returns false
-       UpdateBatchDescriptor editedBatch = new UpdateBatchDescriptorBuilder(DESC_AMOXICILLIN_BATCH)
+        UpdateBatchDescriptor editedBatch = new UpdateBatchDescriptorBuilder(DESC_AMOXICILLIN_BATCH)
                 .withBatchNumber(VALID_NAME_GABAPENTIN).build();
         assertFalse(DESC_AMOXICILLIN_BATCH.equals(editedBatch));
 

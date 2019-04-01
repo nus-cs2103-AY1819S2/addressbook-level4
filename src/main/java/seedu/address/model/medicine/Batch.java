@@ -16,7 +16,7 @@ public class Batch {
     /**
      * Constructs a {@code Batch}.
      */
-    public Batch(BatchNumber batchNumber, Quantity quantity, Expiry expiry)  {
+    public Batch(BatchNumber batchNumber, Quantity quantity, Expiry expiry) {
         requireAllNonNull(batchNumber, expiry, quantity);
         this.batchNumber = batchNumber;
         this.quantity = quantity;

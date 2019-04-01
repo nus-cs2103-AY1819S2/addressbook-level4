@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.commons.core.InformationPanelSettings.SortDirection;
+import seedu.address.commons.core.InformationPanelSettings.SortProperty;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.FileName;
 import seedu.address.commons.util.StringUtil;
@@ -179,5 +181,49 @@ public class ParserUtil {
             throw new ParseException(BatchNumber.MESSAGE_CONSTRAINTS);
         }
         return new BatchNumber(trimmedBatchNumber);
+    }
+
+    /**
+     * Parses a {@code String sortProperty} into a {@code SortProperty}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code SortProperty} is invalid.
+     */
+    public static SortProperty parseSortProperty(String sortProperty) throws ParseException {
+        requireNonNull(sortProperty);
+        String trimmedProperty = sortProperty.trim();
+        if (!SortProperty.isValidSortProperty(sortProperty)) {
+            throw new ParseException(SortProperty.MESSAGE_CONSTRAINTS);
+        }
+
+        sortProperty = trimmedProperty.toUpperCase();
+        if (sortProperty.equals("BATCHNUMBER")) {
+            return SortProperty.BATCHNUMBER;
+        } else if (sortProperty.equals("QUANTITY")) {
+            return SortProperty.QUANTITY;
+        } else {
+            return SortProperty.EXPIRY;
+        }
+    }
+
+    /**
+     * Parses a {@code String sortDirection} into a {@code SortDirection}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code SortDirection} is invalid.
+     */
+    public static SortDirection parseSortDirection(String sortDirection) throws ParseException {
+        requireNonNull(sortDirection);
+        String trimmedDirection = sortDirection.trim();
+        if (!SortDirection.isValidSortDirection(sortDirection)) {
+            throw new ParseException(SortDirection.MESSAGE_CONSTRAINTS);
+        }
+
+        sortDirection = trimmedDirection.toUpperCase();
+        if (sortDirection.equals("ASCENDING")) {
+            return SortDirection.ASCENDING;
+        } else {
+            return SortDirection.DESCENDING;
+        }
     }
 }

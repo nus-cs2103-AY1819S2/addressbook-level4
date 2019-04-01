@@ -33,14 +33,14 @@
     -fx-opacity: 1;
 }
 
-.information-label {
+.label-information-panel {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: #707070;
     -fx-opacity: 1;
 }
 
-.information-header {
+.information-panel-header {
     -fx-font-size: 26pt;
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: white;

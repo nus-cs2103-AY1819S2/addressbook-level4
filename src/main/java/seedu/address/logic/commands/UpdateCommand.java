@@ -228,7 +228,7 @@ public class UpdateCommand extends Command {
          * Return true if the required parameters for UpdateBatchDescriptor are missing.
          */
         public boolean hasMissingParameters() {
-           return batchNumber == null || (expiry == null && quantity == null);
+            return batchNumber == null || (expiry == null && quantity == null);
         }
 
         public void setBatchNumber(BatchNumber batchNumber) {

@@ -17,16 +17,13 @@ By: `Team T12-4`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-PDF++ is a desktop application that targets students who are looking for a pdf document manager in organising their PDF files.
-This application integrates both Text Input (TI) and Graphical User Interface (GUI)
-to provide an unique experience for you. All supported features can be performed via the TI and
-relevant feedback, based on your command, will be displayed in the Response Area of the application.
+Welcome to PDF&#43;&#43;! PDF++ is a desktop application that is meant for anyone who wants or needs a convenient tool that helps you manage all the documents in your computer.
+This application can be used by both Text Input (TI) and a Graphical User Interface (GUI)
+hence, both technical users and casual users can enjoy a comfortable experience using our program. All features provided by our application can be used via the TI and relevant feedback, based on your command, will be displayed in the Response Area of the application.
 
-This manager plans to enhance your typical experience managing PDF files.
-It strives to be the last PDF manager you ever need. It includes a multitude of
-functions in elevating your PDF reading and management experience. These functions
-include: set deadlines, tagging, label pages, zoom-in view, password, easy transfer,
-search - and much more to come! Are you fascinated by PDF++? What are you waiting for?
+This file management system plans to enhance your typical experience managing your documents and 
+it strives to be the last document manager you will ever need. It includes a multitude of
+functions in elevating your PDF reading and management experience. There are many features offered by our application that you can refer to in the table of contents on the left side of this screen with many more to come! Are you fascinated by PDF++? What are you waiting for?
 Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
@@ -36,16 +33,17 @@ Jump to the <<Quick Start>> to get started. Enjoy!
 .  Copy the file to the folder you want to use as the home folder for your PDF++.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="600"]
+image::UGAppOverview.png[width="800"]
+image::UGPdfCard.png[width="500"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open this PDF++ User Guide.
+.  Type any commands in the Input Area, also known as the Command Box, highlighted by the Orange area and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* in the command box and pressing kbd:[Enter] will open this PDF++ User Guide.
 .  Some example commands you can try:
 
 * *`list`* : lists all files in PDF++
-* **`add`**`f/C:\Users\Wei Tang\Documents\myfile.pdf` : adds a PDF file named `myfile`
-from the mentioned directory to the PDF++ list
-* **`delete`**`index` : deletes the file indexed at `index` of the list and all relevant information from the PDF++
+* **`add`**`f/C:\Users\Raj\Documents\myfile.pdf` : adds a PDF file named `myfile`
+from the mentioned directory to the PDF++ list.
+* **`delete`**`index` : deletes the file indexed at `index` of the list and all relevant information from PDF++.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -56,37 +54,45 @@ from the mentioned directory to the PDF++ list
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add f/FILENAME`, `FILENAME` is a parameter which can be used as `open f/myfile`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `TAG...` can be used as `{nbsp}` (i.e. 0 times), `MyTag`, `TagA TagB TagC` etc.
+* Words in `UPPER_CASE` are the additional information that you need to input e.g. in `add f/FILENAME`, `FILENAME` is a parameter which can be used as `add f/myfile`.
+* Items with `…`​ after them can be used multiple times or zero times e.g. `t/TAG...` can be left blank or used multiple times, `t/TagA t/TagB t/TagC` etc.
 ====
 === Viewing help : `help`
 
-Format: `help`
+Format: `help` +
+The help command displays this current page for any references you may need or questions that you may require answers to.
 
 === Importing a file: `add`
 
-The add command allows you to add a file through text input into to the application, +
+The add command allows you to add a file through TI into to the application, +
 or through the GUI. +
+The added file will appear in the Files Section, highlighted in green, shown above. +
 
-Format: `add f/PATH_TO_FILE` [Text Input]
+Format: `add f/PATH_TO_FILE` [Text Input] +
 Format: `add` [GUI]
 
 * The file must be a PDF file (with .pdf extension).
 
 Example:
 
-* `add f/C:\Users\Raj\Documents\Tutorial3.pdf` for the Windows Operating System.
-* `add f//Users/raj/Desktop/CS2101 Lecture.pdf` for the Mac Operating System.
+* `add f/C:\Users\Raj\Documents\Tutorial3.pdf`, for the Windows Operating System.
+* `add f//Users/raj/Desktop/CS2101 Lecture.pdf`, for the Mac Operating System.
+* `add`, would open the User Interface for easier usage.
 
 === Listing all files : `list`
 
 The list command shows you a list of all files that are tracked by the application. +
+The files will be displayed in the Files Section of the application, highlighted in green. +
+
 Format: `list`
 
 === Sorting all files : `sort`
 
 The sort command allows you to sort all the files in the application based on the input criteria. +
+Hence you may be able to, for example, sort the files by their name in ascending or descending order. +
+
 Format: `sort CRITERIA ORDER`
+
 ****
 * CRITERIA: `name`, `deadline`, `size`. +
 * ORDER: `up` or `down` corresponding to an ascending or descending order
@@ -95,11 +101,14 @@ Format: `sort CRITERIA ORDER`
 Example:
 
 * `sort name up` +
-* `sort ddeadline down` +
+* `sort deadline down` +
 
 === Opening a file : `open`
 
-The open command allows you to open an existing file of a specified index in the app with the default program that you have set +
+The open command allows you to open an existing file, specified by the index of the file that is next to + the name of the file in the Files Section, highlighted in green. +
+The selected file will then be opened with any application that you have set as the default for +
+your computer. +
+
 Format: `open INDEX`
 
 Example:
@@ -108,26 +117,32 @@ Example:
 
 === Renaming a file : `rename`
 
-The rename command allows you to change the name of the file that you may refer to by its index. +
-Format: `edit INDEX n/NAME`
+The rename command allows you to change the name of a file, specified by thr index of the file that is + next to the name of the file in the Files Section, highlighted in green. +
+
+Format: `rename INDEX n/NAME`
 
 ****
 * NAME: Must end with `.pdf` +
 * NAME: Must be a name that your Operating System deems valid.
+* OUTPUT: If the rename is invalid, our application will notify you in the output area, +
+highlighted in blue.
 ****
 
 Example:
 
-* `edit 1 n/newname.pdf`
+* `rename 1 n/newname.pdf`
 
 === Tagging a file : `tag`
 
-The tag command allows you to add or remove a tag to a file that you may refer to by its index. +
-Format (add tag) : `tag INDEX -a [t/ADD_TAG]...` +
-Format (remove tag) : `tag INDEX -r [t/REMOVE_TAG]...`
+The tag command allows you to add or remove a tag to a file, specified by the index of the file that is + next to the name of the file in the Files Section, highlighted in green. +
+The prefixes `-a` refers to "add" and `-r` refers to "remove". +
+
+Format: `tag INDEX -a [t/TAG]...` [To add a tag] + 
+Format: `tag INDEX -r [t/TAG]...` [To remove a tag]
 
 ****
-* Tags must be a continuous word without spaces
+* TAG: Tags must be a continuous word without spaces
+* TAG: You can only remove a tag that you have previously added.
 ****
 
 Example:
@@ -137,7 +152,10 @@ Example:
 
 === Deleting a file : `delete`
 
-The delete command lets you to delete a file from the application and your computer. The file that is to be deleted can be specified by its index on the list. +
+The delete command lets you to delete a file from the application and your computer. The file + 
+that is to be deleted must be specified by the index of the file that is + next to the name + 
+of the file in the Files Section, highlighted in green. +
+
 Format: `delete INDEX`
 
 Example:
@@ -146,7 +164,9 @@ Example:
 
 === Moving a file : `move`
 
-THe move command allows you to move a file at the specified index of the list from its current directory to another directory. +
+The move command allows you to move a file, specified by the index of the file that is + next to the name of the file in the Files Section, highlighted in green. +
+The file can be moved from its current directory on your computer to another directory on your computer. +
+The move file also has a User Interface Option to allow for an easier file moving experience. +
 
 Format: `move INDEX d/DIRECTORY`
 
@@ -154,40 +174,44 @@ Example:
 
 * `move 1 d/C:\User\Jeremy\Downloads` [Windows Operating System]
 * `move 1 d//Users/jet/Documents/Important` [Mac Operating System]
+* `move` [Launches the User Interface that lets you easily move files]
 
 === Exiting the program : `exit`
 
 This command lets you exits the program. +
 Format: `exit`
 
-=== Adding and Removing tags to a file : `tag` `[Coming in v1.3]`
+=== Retrieving information about a file:
 
-Assigns and/or deletes tags to an existing file in the list of the app. Use `-` to
- delete tag. No action will be taken when the tag you want to delete does not exist. +
-Format: `tag INDEX t/TAG...`
-
-Example:
-
-* `tag 3 t/DijkstraGraph t/Tutorial t/CS2040` +
-
-=== Retrieving information about the file : `info` `[Coming in v1.3]`
-
-Retrieve information about the pdf file at the specified index of the list, e.g. file directory, deadline, etc. +
-Format: `info INDEX`
-
-Example:
-
-* `info 3`
+In order to see a little more information on a file, clicking the file in the Files Section, +
+highlighted in green, allows you to view more information pertaining to that file. +
+This information will be displayed in the Upcoming Deadlines Area, highlighted in red. +
 
 === Setting a deadline for the file : `deadline`
 
-Set or remove a deadline for the pdf file of the specified index of the list.
+Set or remove a deadline for the a file, specified by the index of the file that is + next to the name of the file in the Files Section, highlighted in green. +
+A file's deadline is located under its name and has 4 colours to indicate the amount +
+of time you have before it is due. +
+
+The colour Green, indicates that there is more `7` days till the deadline is due, as shown below. +
+
+image::UGDeadlineFar.png[width="300"]
+
+The colour Orange, indicates that you have less than `7` days till it is due. As shown below. +
+
+image::UGDeadlineNear.png[width="300"]
+
+The colour Red, indicates that you have reached or failed to complete the task by the due date, as shown below +
+
+image::UGDeadlineDue.png[width="300"]
+
+All deadlines are also displayed in the Deadlines Section of the application highlighted by Red. +
 
 ****
-* Format for setting a deadline: `deadline INDEX date/DATE` +
-* Format for marking a deadline as done: `deadline INDEX done` +
-* Format for removing a deadline: `deadline INDEX remove` +
-* The date must be in the format of dd-mm-yyyy
+* DEADLINE: Format for setting a deadline: `deadline INDEX date/DATE` +
+* DEADLINE: Format for marking a deadline as done: `deadline INDEX done` +
+* DEADLINE: Format for removing a deadline: `deadline INDEX remove` +
+* DEADLINE: The date must be in the format of dd-mm-yyyy
 ****
 
 Examples:
@@ -196,31 +220,41 @@ Examples:
 * `deadline 2 done` +
 * `deadline 2 remove` +
 
-=== Filter files by tags: `filter` `[Coming in v1.3]`
+=== Filter files by tags: `filter`
 
-Display all files that contain any of the given tags. +
-Format: `filter tx/KEYWORD...`
+Shows you only the files that contain the tags specified in the `filter` command. +
+
+Format: `filter t/TAG...`
+
+Examples:
+
+* `filter t/JobApplication` +
 
 ****
-* The search is case insensitive. e.g `dfs` will match `DFS`
-* The order of the keywords does not matter. e.g. `Graphs DFS` will match `DFS Graphs`
-* Only full words will be matched e.g. `Graph` will not match `Graphs`
+* The search is case insensitive. e.g `lecture` will match `LECTURE`
+* The order of the tags does not matter. e.g. `Lecture Week_1` will match `Week_1 Lecture`
+* Only full words will be matched e.g. `Urgent` will not match `UrgentFiles`
 * File matching at least one keyword will be returned
 ****
-Example:
-
-* `filter tx/Graphs DFS` +
 
 // tag::undoredo[]
-=== Undo, redo command `[Coming in v2.0]`
+=== Undo & redo command: `undo` & `redo`
+The `undo` and `redo` commands allow you to reverse an action that was previously done on our application. + 
 
-_Users are able to undo previously entered commands and redo undone commands._
+WARNING: You *CANNOT* Undo or Redo an encrpytion command. 
+This functionality has been disabled for security reasons. +
+
+Format: `undo` [To Undo an Action] +
+Format: `redo` [To Redo an Action]
 // end::undoredo[]
 
 // tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Encrypting & Decryption: `encrypt` & `decrypt`
+The command `encrypt` allow you to lock your files such that they cannot be accessed without a password that you had specified. Similarly, the command `decrypt` will let you remove the password that you had set for the file.
 
-_Users will be prompted to enter the password for validation purpose to open encrypted files._
+Format: `encrypt INDEX password/PASSWORD` [To Encrypt a file] +
+Format: `decrypt INDEX password/PASSWORD` [To Decrypt a file]
+
 // end::dataencryption[]
 
 === Saving the data
@@ -250,3 +284,8 @@ e.g. `info 3`
 e.g. `deadline 3 20-02-2019` , `deadline 2`
 * *Help* : `help`
 * *Exit* : `exit`
+
+== Glossary
+* TI : Text Input
+* GUI : Graphical User Interface
+* Command : Keyword that tells the application what to do.

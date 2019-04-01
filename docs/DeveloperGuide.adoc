@@ -679,12 +679,46 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::fileprotection[]
+=== File Protection
 
-_{Explain here how the data encryption feature will be implemented}_
+PDF++ has a robust in-built file protection system which allows you to encrypt or decrypt any
+PDF files you want. Both encrypt and decrypt feature are facilitated by both `EncryptCommand /
+DecryptCommand` and `EncryptCommandParser / DecryptCommandParser`.
 
-// end::dataencryption[]
+For encryption, you can
+select the file on the list that you wish to encrypt with a password you specified. Likewise,
+for decryption, you have to enter the password of the encrypted file that you wish to decrypt.
+
+The Encrypt and Decrypt feature has the following syntax:
+
+Encryption: `encrypt INDEX password/PASSWORD`
+
+Decryption: `decrypt INDEX password/PASSWORD`
+
+* `INDEX` refers to the index of the file on the list that you wish to encrypt/decrypt
+* `password/` refers to the command immediately following after this prefix is the password
+of the file
+
+* `PASSWORD` refers to the password you wish to encrypt your file with / of the encrypted file
+you want to decrypt.
+
+[NOTE]
+Please ensure that you have entered the correct password as undo & redo functions do not work
+with encrypt & decrypt.
+
+Please refer to `Step-by-Step Guide -- encrypt` for encryption guide and `Step-by-Step Guide --
+decrypt` for decryption guide.
+
+==== Step-by-Step Guide -- encrypt
+Illustrate below is a sample usage scenario that provides a clear view to the inner workings
+of the Encrypt feature.
+
+Step 1:
+
+
+==== Step-by-Step Guide -- decrypt
+// end::fileprotection[]
 
 === Logging
 

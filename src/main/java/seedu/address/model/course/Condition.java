@@ -12,10 +12,10 @@ import java.util.stream.Stream;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 
 /**
- * Represents satisfiable condition of a CourseRequirement
+ * Represents Condition of a PrimitiveRequirement
  */
 public class Condition {
-
+    //TODO: Remove some of the redundant attributes such as conditionName
     public static final String INVALID_REGEXES =
             "At least one of the regular expressions is invalid or contains comma!";
     public static final String INVALID_REGEXES_SIZE =
@@ -30,7 +30,7 @@ public class Condition {
      * Constructs a {@code Condition}
      * @param minToSatisfy minimum number of modules that matches regex to satisfy condition
      * @param conditionName name of the condition
-     * @param regexes list of regular expression
+     * @param regexes list of regular expression - each regular expression is required to be unique
      */
     public Condition(int minToSatisfy, String conditionName, String... regexes) {
         requireAllNonNull(minToSatisfy, conditionName, regexes);
@@ -93,9 +93,9 @@ public class Condition {
      * @return true if condition satisfied, false otherwise
      */
     public boolean isSatisfied(List<ModuleInfoCode> moduleInfoCodes) {
-        //Will complete if modules taken list class is completed
-        return moduleInfoCodes.stream()
-                .filter(moduleInfoCode -> regexes.stream().anyMatch(regex -> moduleInfoCode.toString().matches(regex)))
+        return regexes.stream()
+                .filter(regex
+                    -> moduleInfoCodes.stream().anyMatch(moduleInfoCode -> moduleInfoCode.toString().matches(regex)))
                 .distinct().count() >= minToSatisfy;
     }
 
@@ -114,8 +114,9 @@ public class Condition {
      * @return a double in range of [0,1.0] to see percentage of completion
      */
     public double getPercentageCompleted(List<ModuleInfoCode> moduleInfoCodes) {
-        return Math.min(moduleInfoCodes.stream()
-                .filter(moduleInfoCode -> regexes.stream().anyMatch(regex -> moduleInfoCode.toString().matches(regex)))
+        return Math.min(regexes.stream()
+                .filter(regex
+                    -> moduleInfoCodes.stream().anyMatch(moduleInfoCode -> moduleInfoCode.toString().matches(regex)))
                 .distinct().count() / (double) minToSatisfy, 1.0);
     }
 

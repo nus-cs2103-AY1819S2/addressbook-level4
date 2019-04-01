@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.testutil.TypicalJobs.ENGINEER;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -78,6 +79,17 @@ public class AddressBookTest {
     public void hasPerson_personInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
         assertTrue(addressBook.hasPerson(ALICE));
+    }
+
+    @Test
+    public void hasJob_jobNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasJob(ENGINEER));
+    }
+
+    @Test
+    public void hasJob_jobInAddressBook_returnsTrue() {
+        addressBook.addJob(ENGINEER);
+        assertTrue(addressBook.hasJob(ENGINEER));
     }
 
     @Test

@@ -104,17 +104,15 @@ You can add a tag to a patient to indicate his or her long term illnesses. You c
 {sp}+
 
 *Format:* `addpat n/NAME r/NRIC e/EMAIL a/ADDRESS g/GENDER d/DATE OF BIRTH c/CONTACT  [t/tag]...` +
-
 *Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `ap`
-
-{sp}+
-
 [TIP]
 The order of input does not matter as long as they are all captured. +
 
 {sp}+
 *Examples:*
+
 * `addpat n/Gary Goh r/S7332803I g/M d/1973-04-01 a/20 Upper Changi Road c/92347654 e/ggoh@gmail.com t/highbloodpressure t/diabetes`
+
 * `addpat n/Chan Mei Hua r/S8865281I d/1998-05-09 g/F c/92341221 a/2 Simei Street e/cmh@gmail.com`
 
 {sp}+
@@ -131,17 +129,17 @@ image::ap_after.png[width="600" align="center"]
 [[editpat, Edit patient]]
 ==== Editing patient `editpat`
 
-If you made a mistake when registering a patient, fret not! You can always make changes to the patient record with the `editpat` command.
-
-All the fields in the record can be edited, including the NRIC and tags.
+If you made a mistake when registering a patient, fret not! You can always make changes to the patient record with the `editpat` command. All the fields in the record can be edited, including the NRIC and tags.
 
 [NOTE]
 The tags entered during an edit patient command will override all the tags a patient record currently possess.
 
 {sp} +
-*Format:* `editpat NRIC [n/NAME] [a/Address] [r/NRIC] …`
-you can view the prefixes for each of the fields at the <<addpat>> section. +
+*Format:* `editpat NRIC [n/NAME] [a/Address] [r/NRIC] …` +
 *Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `ep` +
+
+[NOTE]
+you can view the prefixes for each of the fields at the <<addpat>> section. +
 
 {sp} +
 *Example:* +
@@ -157,6 +155,7 @@ After the `editpat` is performed, you can view the changes made to the patient r
 .Result of an edit command, on a patient's name and email
 image::ep_after.png[width="600" align="center"]
 
+{sp} +
 Since every citizen, permanent residents or foreigners in Singapore have their unique NRIC / FIN numbers, duplicate NRIC are not
 allowed in QuickDocs.
 
@@ -200,6 +199,7 @@ If no keywords are entered, `listpat` will simply display the first 50 patients 
 image::lp_noargs.png[width="600" align="center"]
 
 {sp} +
+
 * `listpat n/P` +
 
 Suppose you want to quickly find a patient record whose name starts with "P", you can use `listpat` along
@@ -209,14 +209,18 @@ with a sequence of characters to search for the specific patient record you are 
 image::lp_name_after.png[width="600" align="center"]
 
 {sp} +
+
 * `listpat r/S92` +
 
 You can narrow down your patient search by providing a NRIC sequence as well. For example,
 in the figure below, you can retrieve all the patients whose NRIC starts with "S92".
 
+{sp} +
+
 .listing patients with matching NRIC
 image::lp_nric_after.png[width="600" align="center"]
 
+{sp} +
 After narrowing down your search, you will be able to use the specific NRIC number of a particular patient to view the in-depth
 patient particulars.
 
@@ -224,6 +228,7 @@ patient particulars.
 image::lp_nric_specific.png[width="600" align="center"]
 
 {sp} +
+
 * `listpat t/diabetes` +
 
 The tags you assigned to each patient can also be used to expedite the `listpat` command. For example, diabetic patients can be
@@ -233,6 +238,7 @@ listed using the `listpat` command along with "t/diabetes" value.
 image::lp_tag_after.png[width="600" align="center"]
 
 {sp} +
+
 * `listpat 5`
 
 Did you notice that when QuickDocs display multiple patient records during filtering, each record starts with
@@ -241,6 +247,7 @@ a number? This is the index of the patient record, indicating the position the r
 .Patient record indexes
 image::lp_indexes.png[width="600" align="center"]
 
+{sp}+
 You can make use of the index number to view specific patient records as well.
 
 .Patient search using record index
@@ -268,6 +275,7 @@ By specifying the NRIC along with the `deletepat` command, you will delete the p
 .Deleting patient records using the specific NRIC
 image::dp_after.png[width="600" align="center"]
 
+{sp} +
 If you have difficulty finding the specific NRIC, you can refer to the <<listpat>> command section to help you retrieve the patient's NRIC.
 
 '''
@@ -310,6 +318,7 @@ have started for the current patient.
 .Starting a consultation session on QuickDocs
 image::consult_after.png[width="600" align="center"]
 
+{sp}+
 A text indicating that the consultation session have started for the particular patient will also
 appear at the bottom right corner of QuickDocs, so that you will be aware that a current consultation session is ongoing even after
 subsequent commands.
@@ -347,12 +356,14 @@ in the following diagram.
 .Result of the diagnose command
 image::diagnose_after.png[width="600" align="center"]
 
+{sp} +
 If you made a mistake when entering the diagnosis, you can always rectify it by re-entering the `diagnose` command with the correct
 symptoms and assessment. This will replace the current erroneous diagnosis with the one you have just entered.
 
 .Editing the diagnosis
 image::diagnose_edit_after.png[width="600" align="center"]
 
+{sp}+
 [TIP]
 Whenever you make a mistake entering a command, you can always press the UP and DOWN buttons on your keyboard to cycle through the past
 commands you have entered into QuickDocs. This allow you to easily navigate to the erroneous command you have entered, make changes and then re-enter
@@ -375,7 +386,7 @@ This command requires you to have a consultation session already active. See: <<
 
 {sp} +
 *Format:* `prescribe m/MEDICINE [m/MEDICINE] ... q/QUANTITY [q/QUANTITY]` +
-*or:*{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} `prescribe m/MEDICINE q/QUANTITY [m/MEDICINE] [q/QUANTITY] ...` +
+*or:*{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} `prescribe m/MEDICINE q/QUANTITY [m/MEDICINE] [q/QUANTITY] ...` +
 
 *Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `p` +
 
@@ -397,6 +408,7 @@ area of QuickDocs.
 .Prescribing medicines to tackle the patient's current conditions
 image::prescription_after.png[width="600" align="center"]
 
+{sp} +
 Changes can still be made to the prescription as long as the consultation session is still ongoing.
 
 '''
@@ -418,6 +430,7 @@ Once you entered the `endconsult` command, a message to indicate the end of the 
 .results of an endconsult command
 image::endconsult.png[width="600" align="center"]
 
+{sp}+
 Notice that the label for the ongoing consultation session is also removed after the command is entered.
 
 '''
@@ -433,13 +446,14 @@ and then view the consultation details by passing in the session's index. +
 
 {sp} +
 *Format:* `listconsult INDEX` +
-*or:*{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} `listconsult r/NRIC` +
+*or:*{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} `listconsult r/NRIC` +
 *Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `lc` +
 
 {sp} +
 *Examples and results:*
 
 * `listconsult r/S9876542C` +
+
 Specifying the NRIC after the `listconsult` command will display a list of consultation records belonging to
 the patient with the specified NRIC.
 
@@ -456,6 +470,7 @@ You can then call `listconsult` again with the consultation record's index to vi
 .Revisiting a specific consultation session
 image::listconsult_index.png[width="600" align="center"]
 
+{sp}+
 QuickDocs will display the time of the consultation, and also the diagnosis and prescription given to the patient.
 
 '''

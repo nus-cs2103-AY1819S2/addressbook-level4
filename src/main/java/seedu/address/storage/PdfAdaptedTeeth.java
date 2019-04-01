@@ -1,25 +1,20 @@
 package seedu.address.storage;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.patient.Teeth;
 import seedu.address.model.patient.exceptions.TeethLayoutException;
 import seedu.address.model.tag.Tag;
 
 /**
- * Jackson-friendly version of {@link Tag}.
+ * PDF-friendly version of {@link Tag}.
  */
-class JsonAdaptedTeeth {
+class PdfAdaptedTeeth {
 
     private final int[] teethLayout;
 
     /**
-     * Constructs a {@code JsonAdaptedTeeth} with the given {@code teethString}.
+     * Constructs a {@code PdfAdaptedTeeth} with the given {@code teethString}.
      */
-    @JsonCreator
-    public JsonAdaptedTeeth(String teethString) {
+    public PdfAdaptedTeeth(String teethString) {
         String[] sb = teethString.split(StorageConstants.DIVIDER);
         int[] parsedTeeth = new int[Teeth.PERMANENTTEETHCOUNT];
 
@@ -37,9 +32,9 @@ class JsonAdaptedTeeth {
     }
 
     /**
-     * Converts a given {@code Teeth} into this class for Jackson use.
+     * Converts a given {@code Teeth} into this class for PDF use.
      */
-    public JsonAdaptedTeeth(Teeth source) {
+    public PdfAdaptedTeeth(Teeth source) {
         this.teethLayout = source.exportTeeth();
     }
 
@@ -47,7 +42,6 @@ class JsonAdaptedTeeth {
      * Converts teeth int representation to a String representation.
      * @return the String representation.
      */
-    @JsonValue
     public String getTeethName() {
         StringBuilder sb = new StringBuilder();
         sb.append(teethLayout[0]);
@@ -59,17 +53,7 @@ class JsonAdaptedTeeth {
         return sb.toString();
     }
 
-    /**
-     * Converts this Jackson-friendly adapted tag object into the model's {@code Tag} object.
-     *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
-     */
-    public Teeth toModelType() throws IllegalValueException {
-        if (Teeth.isValidTeeth(teethLayout)) {
-            return new Teeth(teethLayout);
-        } else {
-            throw new TeethLayoutException();
-        }
+    public int[] getTeeth() {
+        return teethLayout;
     }
-
 }

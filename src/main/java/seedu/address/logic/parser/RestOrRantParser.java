@@ -13,6 +13,7 @@ import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.BillCommand;
 import seedu.address.logic.commands.ClearOrderCommand;
+import seedu.address.logic.commands.ClearTableCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteFromOrderCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -97,6 +98,12 @@ public class RestOrRantParser {
             }
             return new UpdateTableCommandParser().parse(arguments);
 
+        case ClearTableCommand.COMMAND_WORD:
+            if (mode != Mode.RESTAURANT_MODE) {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            return new ClearTableCommand();
+
         // Commands that work in Menu Mode
         case AddToMenuCommand.COMMAND_WORD:
             if (mode != Mode.MENU_MODE) {
@@ -112,7 +119,6 @@ public class RestOrRantParser {
             return new AddToOrderCommandParser().parse(arguments);
 
         case ClearOrderCommand.COMMAND_WORD: // Fallthrough
-        case ClearOrderCommand.COMMAND_ALIAS:
             if (mode != Mode.TABLE_MODE) {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }
@@ -139,6 +145,15 @@ public class RestOrRantParser {
                 return new AddToMenuCommandParser().parse(arguments);
             } else if (mode == Mode.TABLE_MODE) {
                 return new AddToOrderCommandParser().parse(arguments);
+            } else {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+
+        case "clear":
+            if (mode == Mode.RESTAURANT_MODE) {
+                return new ClearTableCommand();
+            } else if (mode == Mode.TABLE_MODE) {
+                return new ClearOrderCommand();
             } else {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }

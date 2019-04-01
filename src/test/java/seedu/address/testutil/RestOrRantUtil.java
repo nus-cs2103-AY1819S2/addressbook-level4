@@ -11,6 +11,7 @@ import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.BillCommand;
+import seedu.address.logic.commands.UpdateTableCommand;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.statistics.Bill;
@@ -33,7 +34,11 @@ public class RestOrRantUtil {
      * Returns an add command string for adding the (@code table).
      */
     public static String getAddTableCommand(Table table) {
-        return AddTableCommand.COMMAND_WORD + " " + getTableDetails(table);
+        return AddTableCommand.COMMAND_WORD + " " + getAddTableDetails(table);
+    }
+
+    public static String getUpdateTableCommand(Table table) {
+        return UpdateTableCommand.COMMAND_WORD + " " + getUpdateTableDetails(table);
     }
 
     /**
@@ -84,9 +89,15 @@ public class RestOrRantUtil {
     /**
      * Return the part of command string for the given {@code table}'s details.
      */
-    public static String getTableDetails(Table table) {
+    public static String getAddTableDetails(Table table) {
+        return table.getTableStatus().toString().split("/")[1];
+    }
+
+    public static String getUpdateTableDetails(Table table) {
         StringBuilder sb = new StringBuilder();
-        sb.append(table.getTableStatus().numberOfSeats);
+        sb.append(table.getTableNumber());
+        sb.append(" ");
+        sb.append(table.getTableStatus().toString().split("/")[0]);
         return sb.toString();
     }
 

@@ -3,12 +3,16 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.description.Description;
+import seedu.address.model.patient.Patient;
+import seedu.address.model.record.Record;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.Task;
 
@@ -50,6 +54,18 @@ public class TaskDoneCommand extends Command {
         Task completedTask = taskToComplete;
         completedTask.setPriorityComplete();
         model.setTask(taskToComplete, completedTask);
+        if (taskToComplete.getLinkedPatient() != null) {
+            Optional<Patient> found = model.getAddressBook().getPersonList().stream().map(x -> (Patient) x)
+                    .filter(y -> y.getNric().getNric().equals(taskToComplete.getLinkedPatient()
+                            .getLinkedPatientNric())).findFirst();
+            if (found.isPresent()) {
+                Patient replacement = found.get();
+                replacement.addRecord(new Record(new Description(completedTask.getTitle().title)));
+                model.setPerson(found.get(), replacement);
+            } else {
+                System.out.println("PATIENT NOT FOUND");
+            }
+        }
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_TASK_DONE_SUCCESS, completedTask));
     }

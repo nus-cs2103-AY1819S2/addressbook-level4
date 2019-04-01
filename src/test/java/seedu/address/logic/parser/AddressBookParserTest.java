@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.commons.util.StringUtil.fromPathToString;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_REMINDER;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -24,6 +25,7 @@ import seedu.address.logic.commands.AddRemCommand;
 import seedu.address.logic.commands.ConsultationCommand;
 import seedu.address.logic.commands.DeleteAppCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteRemCommand;
 import seedu.address.logic.commands.DiagnosePatientCommand;
 import seedu.address.logic.commands.EditPatientCommand;
 import seedu.address.logic.commands.EndConsultationCommand;
@@ -386,6 +388,13 @@ public class AddressBookParserTest {
                 + " c/" + comment;
         AddRemCommand command = (AddRemCommand) parser.parseCommand(userInput);
         assertEquals(new AddRemCommand(toAdd), command);
+    }
+
+    @Test
+    public void parseCommand_deleteRem() throws Exception {
+        DeleteRemCommand command = (DeleteRemCommand) parser.parseCommand(
+                DeleteRemCommand.COMMAND_WORD + " " + INDEX_FIRST_REMINDER.getOneBased());
+        assertEquals(new DeleteRemCommand(INDEX_FIRST_REMINDER), command);
     }
 
     @Test

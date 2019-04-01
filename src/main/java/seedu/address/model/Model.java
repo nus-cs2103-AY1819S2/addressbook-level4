@@ -105,7 +105,7 @@ public interface Model {
      */
     ObservableList<Person> getFilteredPersonList();
 
-    ObservableList<Reminder> getFilteredReminderList();
+    ObservableList<Reminder> getFilteredReminderList(LocalDate date);
 
     ReadOnlyProperty<Reminder> selectedReminderProperty();
 

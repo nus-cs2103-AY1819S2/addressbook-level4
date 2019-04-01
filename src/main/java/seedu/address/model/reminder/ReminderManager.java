@@ -61,9 +61,9 @@ public class ReminderManager {
         }
     }
 
-    public ObservableList<Reminder> getFilteredReminderList() {
-        LocalDate start = LocalDate.now().with(previousOrSame(MONDAY)).minusDays(1);
-        LocalDate end = LocalDate.now().with(nextOrSame(SUNDAY)).minusDays(1);
+    public ObservableList<Reminder> getFilteredReminderList(LocalDate date) {
+        LocalDate start = date.with(previousOrSame(MONDAY)).minusDays(1);
+        LocalDate end = date.with(nextOrSame(SUNDAY)).plusDays(1);
 
         List<Reminder> filteredReminders = reminders
                 .stream()

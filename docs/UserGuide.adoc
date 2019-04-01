@@ -132,7 +132,7 @@ Examples:
 
 ==== Editing the Occupancy: `editPax`
 
-Edits the number of customers at the table. +
+Edits the occupancy of the table. +
 Format: `editPax TABLE_NUMBER NEW_OCCUPANCY`
 
 ****

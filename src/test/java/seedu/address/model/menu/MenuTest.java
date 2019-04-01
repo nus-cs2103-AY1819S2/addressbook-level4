@@ -49,9 +49,12 @@ public class MenuTest {
 
     @Test
     public void resetData_withValidReadOnlyMenu_replacesData() {
-        List<MenuItem> newData = getTypicalMenuItems();
-        menu.setMenuItems(newData);
-        assertEquals(newData, menu.getMenuItemList());
+        Menu newData = new Menu();
+        for (MenuItem menuItem : getTypicalMenuItems()) {
+            newData.addMenuItem(menuItem);
+        }
+        menu.resetData(newData);
+        assertEquals(newData, menu);
     }
 
     @Test
@@ -91,52 +94,6 @@ public class MenuTest {
                                           .withCode(CREPES.getCode().itemCode).withPrice(CREPES.getPrice().itemPrice)
                                           .build();
         assertTrue(menu.hasMenuItem(editedMenuItem));
-    }
-
-    @Test
-    public void addMenuItem_menuItemInMenu_throwsDuplicateMenuItemException() { // 0 0 0
-        menu.addMenuItem(FRENCH_FRIES);
-        thrown.expect(DuplicateMenuItemException.class);
-        menu.addMenuItem(FRENCH_FRIES);
-    }
-
-    @Test
-    public void addMenuItem_sameNameAndCodeDifferentPrice_throwsDuplicateMenuItemException() { // 0 0 1
-        menu.addMenuItem(CHICKEN_WINGS);
-        MenuItem newItem = new MenuItemBuilder(CHICKEN_WINGS).withPrice(FRENCH_FRIES.getPrice().itemPrice).build();
-        thrown.expect(DuplicateMenuItemException.class);
-        menu.addMenuItem(newItem);
-    }
-
-    @Test
-    public void addMenuItem_sameNameDifferentCodeSamePrice_returnsTrue() { // 0 1 0
-        menu.addMenuItem(CHICKEN_WINGS);
-        MenuItem newItem = new MenuItemBuilder(CHICKEN_WINGS).withCode(FRENCH_FRIES.getCode().itemCode).build();
-        menu.addMenuItem(newItem);
-        assertTrue(menu.hasMenuItem(newItem));
-    }
-
-    @Test
-    public void addMenuItem_differentNameSameCodeAndPrice_returnsTrue() { // 1 0 0
-        menu.addMenuItem(CHICKEN_WINGS);
-        MenuItem newItem = new MenuItemBuilder(CHICKEN_WINGS).withName(FRENCH_FRIES.getName().itemName).build();
-        menu.addMenuItem(newItem);
-        assertTrue(menu.hasMenuItem(newItem));
-    }
-
-    @Test
-    public void addMenuItem_differentNameAndCodeSamePrice_returnsTrue() { // 1 1 0
-        menu.addMenuItem(CHICKEN_WINGS);
-        MenuItem newItem = new MenuItemBuilder(FRENCH_FRIES).withPrice(CHICKEN_WINGS.getPrice().itemPrice).build();
-        menu.addMenuItem(newItem);
-        assertTrue(menu.hasMenuItem(newItem));
-    }
-
-    @Test
-    public void addMenuItem_newItem_returnTrue() {
-        menu.addMenuItem(CHICKEN_WINGS);
-        menu.addMenuItem(FRENCH_FRIES);
-        assertTrue(menu.hasMenuItem(FRENCH_FRIES));
     }
 
     @Test
@@ -184,15 +141,24 @@ public class MenuTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
         public Name getNameFromItem(MenuItem menuItem) {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
         public Code getCodeFromItem(MenuItem menuItem) {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
         public Price getPriceFromItem(MenuItem menuItem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        // TODO: test this method up there
+        @Override
+        public void updateMenuItemQuantity(MenuItem menuItem, int quantity) {
             throw new AssertionError("This method should not be called.");
         }
 

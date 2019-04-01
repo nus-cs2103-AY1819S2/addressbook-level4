@@ -1,9 +1,8 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CODE_FRIES;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_FRIES;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.testutil.TypicalRestOrRant.FRENCH_FRIES;
+import static seedu.address.testutil.TypicalRestOrRant.HONEY_MILK_TEA;
 import static seedu.address.testutil.TypicalRestOrRant.getTypicalRestOrRant;
 
 import org.junit.Before;
@@ -14,8 +13,14 @@ import seedu.address.logic.Mode;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.menu.Code;
 import seedu.address.model.menu.MenuItem;
+import seedu.address.model.menu.Name;
+import seedu.address.model.menu.Price;
 import seedu.address.testutil.MenuItemBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class AddToMenuCommandIntegrationTest {
@@ -30,8 +35,8 @@ public class AddToMenuCommandIntegrationTest {
 
     @Test
     public void execute_newMenuItem_success() {
-        MenuItem validMenuItem = new MenuItemBuilder().withName(VALID_CODE_FRIES).withCode(VALID_CODE_FRIES)
-                                         .withPrice(VALID_PRICE_FRIES).build();
+        MenuItem validMenuItem = new MenuItemBuilder().withName(VALID_NAME_TEA).withCode(VALID_CODE_TEA)
+                                         .withPrice(VALID_PRICE_TEA).withQuantity(VALID_QUANTITY_8).build();
 
         Model expectedModel = new ModelManager(model.getRestOrRant(), new UserPrefs());
         expectedModel.addMenuItem(validMenuItem);

@@ -62,16 +62,20 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_CHICKEN = "Chicken Wings";
     public static final String VALID_NAME_FRIES = "French Fries";
+    public static final String VALID_NAME_TEA = "Honey Milk Tea";
     public static final String VALID_CODE_CHICKEN = "W09";
     public static final String VALID_CODE_FRIES = "W12";
+    public static final String VALID_CODE_TEA  = "D01";
     public static final String VALID_PRICE_CHICKEN = "4.50";
     public static final String VALID_PRICE_FRIES = "2.20";
+    public static final String VALID_PRICE_TEA = "4.50";
     public static final String VALID_TABLE_NUMBER_1 = "1";
     public static final String VALID_TABLE_NUMBER_2 = "2";
     public static final String VALID_TABLE_STATUS_1 = "0/4";
     public static final String VALID_TABLE_STATUS_2 = "3/5";
     public static final String VALID_QUANTITY_3 = "3";
     public static final String VALID_QUANTITY_2 = "2";
+    public static final String VALID_QUANTITY_8 = "8";
     public static final String VALID_DAY_1 = "01";
     public static final String VALID_DAY_31 = "31";
     public static final String VALID_MONTH_1 = "1";

@@ -44,7 +44,7 @@ class JsonSerializableAddressBook {
                                         @JsonProperty("appointments") List<JsonAdaptedAppointment> appointments) {
         this.patients.addAll(patients);
         this.doctors.addAll(doctors);
-        //this.appointments.addAll(appointments);
+        this.appointments.addAll(appointments);
         this.medicalHistories.addAll(medicalHistories);
     }
 
@@ -56,13 +56,14 @@ class JsonSerializableAddressBook {
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         patients.addAll(source.getPatientList().stream().map(JsonAdaptedPatient::new).collect(Collectors.toList()));
 
+        doctors.addAll(source.getDoctorList().stream().map(JsonAdaptedDoctor::new).collect(Collectors.toList()));
+
         medicalHistories.addAll(source.getMedHistList().stream().map(JsonAdaptedMedicalHistory::new)
                 .collect(Collectors.toList()));
 
         appointments.addAll(source.getAppointmentList().stream().map(JsonAdaptedAppointment::new)
                 .collect(Collectors.toList()));
 
-        doctors.addAll(source.getDoctorList().stream().map(JsonAdaptedDoctor::new).collect(Collectors.toList()));
     }
 
     /**
@@ -106,6 +107,7 @@ class JsonSerializableAddressBook {
         }
 
         */
+        
         return addressBook;
     }
 }

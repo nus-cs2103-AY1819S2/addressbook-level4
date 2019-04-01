@@ -176,6 +176,18 @@ public class ModelManager implements Model {
 >>>>>>> added list doctor cmd
     }
 
+    public ReadOnlyProperty<Doctor> selectedDoctorProperty() {
+        return selectedDoctor;
+    }
+
+    @Override
+    public void setSelectedDoctor(Doctor doctor) {
+        if (doctor != null && !filteredDoctors.contains(doctor)) {
+            throw new DoctorNotFoundException();
+        }
+        selectedDoctor.setValue(doctor);
+    }
+
     // Needed to be implemented later
 
     @Override

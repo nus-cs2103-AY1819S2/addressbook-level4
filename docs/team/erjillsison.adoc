@@ -1,0 +1,57 @@
+= Erjill Sison - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Battleship
+
+---
+
+== Overview
+
+Battleship is a desktop game application based on the classic Battleship game. The user interacts with it using a CLI and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the map feature of the game*
+** What it does: The player can initialise the maps to the size they specified at the start of the game. The players can place ships on their own map and shoot the opposing players map. The maps are displayed in the UI and each cell will change colour depending on its status.
+** Justification: The map feature is crucial to the development of the game as it is the basis of all the interactions made in the game.
+** Highlights: [placeholder]
+** Credits: [placeholder]
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` - `v1.4` (2 releases) on GitHub
+** Enhancements to existing features:
+*** Overhaul of UI to display the maps (Pull requests https://github.com[#33], https://github.com[#34])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+** Tools:
+*** Integrated Netlify to the project
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=map]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=map]
+
+---

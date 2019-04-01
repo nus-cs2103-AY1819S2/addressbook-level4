@@ -65,6 +65,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 Opens a help window that displays this User Guide. +
 Format: `help`
 
+// tag::map[]
 === Map : `init`
 
 Initialises both player's maps to the specified size. +
@@ -96,6 +97,8 @@ _Figure 2_ below shows which colour is used for each status.
 .Cell colours
 image::maplegend.png[width=400]
 {empty} +
+
+// end::map[]
 
 === Placing a ship on the map: `put`
 

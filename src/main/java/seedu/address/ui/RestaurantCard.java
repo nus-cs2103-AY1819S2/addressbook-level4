@@ -43,6 +43,8 @@ public class RestaurantCard extends UiPart<Region> {
     @FXML
     private Label occasion;
     @FXML
+    private Label priceRange;
+    @FXML
     private Label weblink;
     @FXML
     private Label openingHours;
@@ -61,6 +63,8 @@ public class RestaurantCard extends UiPart<Region> {
                 .ifPresentOrElse(content -> cuisine.setText(content.value), () -> cuisine.setVisible(false));
         restaurant.getOccasion()
                 .ifPresentOrElse(content -> occasion.setText(content.value), () -> occasion.setVisible(false));
+        restaurant.getPriceRange()
+                .ifPresentOrElse(content -> priceRange.setText(content.value), () -> priceRange.setVisible(false));
 
         weblink.setText(restaurant.getWeblink().value);
         openingHours.setText(restaurant.getOpeningHours().value);

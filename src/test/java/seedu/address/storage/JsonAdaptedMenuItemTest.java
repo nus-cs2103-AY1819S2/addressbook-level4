@@ -20,6 +20,7 @@ public class JsonAdaptedMenuItemTest {
     private static final String VALID_NAME = FRENCH_FRIES.getName().toString();
     private static final String VALID_CODE = FRENCH_FRIES.getCode().toString();
     private static final String VALID_PRICE = FRENCH_FRIES.getPrice().toString();
+    private static final String QUANTITY = FRENCH_FRIES.itemQuantityOrdered();
 
     @Test
     public void toModelType_validMenuItemDetails_returnsMenuItem() throws Exception {
@@ -29,43 +30,50 @@ public class JsonAdaptedMenuItemTest {
 
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
-        JsonAdaptedMenuItem menuItem = new JsonAdaptedMenuItem(INVALID_NAME, VALID_CODE, VALID_PRICE);
+        JsonAdaptedMenuItem menuItem = new JsonAdaptedMenuItem(INVALID_NAME, VALID_CODE, VALID_PRICE, QUANTITY);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, menuItem::toModelType);
     }
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedMenuItem menuItem = new JsonAdaptedMenuItem(null, VALID_CODE, VALID_PRICE);
+        JsonAdaptedMenuItem menuItem = new JsonAdaptedMenuItem(null, VALID_CODE, VALID_PRICE, QUANTITY);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, menuItem::toModelType);
     }
 
     @Test
     public void toModelType_invalidCode_throwsIllegalValueException() {
-        JsonAdaptedMenuItem menuItem = new JsonAdaptedMenuItem(VALID_NAME, INVALID_CODE, VALID_PRICE);
+        JsonAdaptedMenuItem menuItem = new JsonAdaptedMenuItem(VALID_NAME, INVALID_CODE, VALID_PRICE, QUANTITY);
         String expectedMessage = Code.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, menuItem::toModelType);
     }
 
     @Test
     public void toModelType_nullCode_throwsIllegalValueException() {
-        JsonAdaptedMenuItem menuItem = new JsonAdaptedMenuItem(VALID_NAME, null, VALID_PRICE);
+        JsonAdaptedMenuItem menuItem = new JsonAdaptedMenuItem(VALID_NAME, null, VALID_PRICE, QUANTITY);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Code.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, menuItem::toModelType);
     }
 
     @Test
     public void toModelType_invalidPrice_throwsIllegalValueException() {
-        JsonAdaptedMenuItem menuItem = new JsonAdaptedMenuItem(VALID_NAME, VALID_CODE, INVALID_PRICE);
+        JsonAdaptedMenuItem menuItem = new JsonAdaptedMenuItem(VALID_NAME, VALID_CODE, INVALID_PRICE, QUANTITY);
         String expectedMessage = Price.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, menuItem::toModelType);
     }
 
     @Test
     public void toModelType_nullPrice_throwsIllegalValueException() {
-        JsonAdaptedMenuItem menuItem = new JsonAdaptedMenuItem(VALID_NAME, VALID_CODE, null);
+        JsonAdaptedMenuItem menuItem = new JsonAdaptedMenuItem(VALID_NAME, VALID_CODE, null, QUANTITY);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Price.class.getSimpleName());
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, menuItem::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullQuantityOrdered_throwsIllegalValueException() {
+        JsonAdaptedMenuItem menuItem = new JsonAdaptedMenuItem(VALID_NAME, VALID_CODE, VALID_PRICE, null);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, "Quantity ordered should not be null");
         Assert.assertThrows(IllegalValueException.class, expectedMessage, menuItem::toModelType);
     }
 

@@ -14,6 +14,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHOOL;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -22,7 +23,19 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.predicate.AddressContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.EmailContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.GenderContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.JobsApplyContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.KnownProgLangContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.MajorContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.NameContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.NricContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.PastJobContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.PhoneContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.PredicateManager;
+import seedu.address.model.person.predicate.RaceContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.SchoolContainsKeywordsPredicate;
 
 
 /**
@@ -81,8 +94,7 @@ public class SearchCommand extends Command {
     public SearchCommand(PredicatePersonDescriptor predicatePersonDescriptor) {
         requireNonNull(predicatePersonDescriptor);
         this.predicatePersonDescriptor = new PredicatePersonDescriptor(predicatePersonDescriptor);
-        Predicate<Person> predicator =
-            new PredicateManager().translatePredicateDescriptor(this.predicatePersonDescriptor);
+        Predicate<Person> predicator = this.predicatePersonDescriptor.toPredicate();
         this.predicate = predicator;
     }
 
@@ -151,7 +163,65 @@ public class SearchCommand extends Command {
             setPastJobs(toCopy.pastJobs);
             setJobsApply(toCopy.jobsApply);
         }
-
+        /**
+         * Translate and returns a Predicate object for search command
+         */
+        public Predicate toPredicate() {
+            Predicate<Person> predicator = new PredicateManager();
+            if (this.getName().isPresent()) {
+                predicator = predicator.and(new NameContainsKeywordsPredicate(
+                    new ArrayList<>(this.getName().get())));
+            }
+            if (this.getPhone().isPresent()) {
+                predicator = predicator.and(new PhoneContainsKeywordsPredicate(
+                    new ArrayList<>(this.getPhone().get())));
+            }
+            if (this.getEmail().isPresent()) {
+                predicator = predicator.and(new EmailContainsKeywordsPredicate(
+                    new ArrayList<>(this.getEmail().get())));
+            }
+            if (this.getRace().isPresent()) {
+                predicator = predicator.and(new RaceContainsKeywordsPredicate(
+                    new ArrayList<>(this.getRace().get())));
+            }
+            if (this.getName().isPresent()) {
+                predicator = predicator.and(new NameContainsKeywordsPredicate(
+                    new ArrayList<>(this.getName().get())));
+            }
+            if (this.getAddress().isPresent()) {
+                predicator = predicator.and(new AddressContainsKeywordsPredicate(
+                    new ArrayList<>(this.getAddress().get())));
+            }
+            if (this.getSchool().isPresent()) {
+                predicator = predicator.and(new SchoolContainsKeywordsPredicate(
+                    new ArrayList<>(this.getSchool().get())));
+            }
+            if (this.getMajor().isPresent()) {
+                predicator = predicator.and(new MajorContainsKeywordsPredicate(
+                    new ArrayList<>(this.getMajor().get())));
+            }
+            if (this.getGender().isPresent()) {
+                predicator = predicator.and(new GenderContainsKeywordsPredicate(
+                    new ArrayList<>(this.getGender().get())));
+            }
+            if (this.getNric().isPresent()) {
+                predicator = predicator.and(new NricContainsKeywordsPredicate(
+                    new ArrayList<>(this.getNric().get())));
+            }
+            if (this.getPastJobs().isPresent()) {
+                predicator = predicator.and(new PastJobContainsKeywordsPredicate(
+                    new ArrayList<>(this.getPastJobs().get())));
+            }
+            if (this.getJobsApply().isPresent()) {
+                predicator = predicator.and(new JobsApplyContainsKeywordsPredicate(
+                    new ArrayList<>(this.getJobsApply().get())));
+            }
+            if (this.getKnownProgLangs().isPresent()) {
+                predicator = predicator.and(new KnownProgLangContainsKeywordsPredicate(
+                    new ArrayList<>(this.getKnownProgLangs().get())));
+            }
+            return predicator;
+        }
         public void setName(Set<String> name) {
             this.name = name;
         }

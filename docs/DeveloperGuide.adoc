@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S2-W17-3/main/tree/master
 
 By: `Team W17-3`      Since: `March 2019`      Licence: `MIT`
 
@@ -50,20 +50,20 @@ Do not disable them. If you have disabled them, go to menu:File[Settings > Plugi
 === Setting up the project in your computer
 
 . Fork this repo, and clone the fork to your computer
-. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
+. Open IntelliJ (if you are not in the welcome screen, click menu:File[Close Project] to close the existing project dialog first)
 . Set up the correct JDK version for Gradle
-.. Click `Configure` > `Project Defaults` > `Project Structure`
-.. Click `New...` and find the directory of the JDK
-. Click `Import Project`
-. Locate the `build.gradle` file and select it. Click `OK`
-. Click `Open as Project`
-. Click `OK` to accept the default settings
+.. Click menu:Configure[Project Defaults > Project Structure]
+.. Click btn:[New...] and find the directory of the JDK
+. Click btn:[Import Project]
+. Locate the `build.gradle` file and select it. Click btn:[OK]
+. Click btn:[Open as Project]
+. Click btn:[OK] to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/src/main/java/seedu/finance/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
-.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select btn:[Add '--add-modules=...' to module compiler options] for each error
+. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/finance/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 

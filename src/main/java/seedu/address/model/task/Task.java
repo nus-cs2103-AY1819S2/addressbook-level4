@@ -157,7 +157,7 @@ public class Task {
                 && otherTask.getEndDate().equals(getEndDate())
                 && otherTask.getStartTime().equals(getStartTime())
                 && otherTask.getEndTime().equals(getEndTime())
-                && otherTask.getLinkedPatient().equals(otherTask.getLinkedPatient());
+                && otherTask.getLinkedPatient().equals(getLinkedPatient());
     }
 
     @Override
@@ -180,7 +180,9 @@ public class Task {
                 .append(" End Time: ")
                 .append(getEndTime())
                 .append(" Priority: ")
-                .append(getPriority());
+                .append(getPriority())
+                .append(" Linked Patient ")
+                .append(getLinkedPatient());
         return builder.toString();
     }
 

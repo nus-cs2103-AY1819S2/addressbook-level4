@@ -1,7 +1,10 @@
 package seedu.hms.model.util;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Objects;
@@ -13,6 +16,7 @@ public class DateRange {
 
     private final Calendar startDate;
     private final Calendar endDate;
+    private final Calendar cal = Calendar.getInstance();
 
     public DateRange(String startDate, String endDate) {
         String[] sd = startDate.split("/");
@@ -21,6 +25,7 @@ public class DateRange {
             Integer.parseInt(sd[0]));
         this.endDate = new GregorianCalendar(Integer.parseInt(ed[2]), Integer.parseInt(ed[1]),
             Integer.parseInt(ed[0]));
+
     }
 
     public DateRange(Calendar startDate, Calendar endDate) {
@@ -50,9 +55,9 @@ public class DateRange {
 
     @Override
     public String toString() {
-        return startDate.get(Calendar.DATE) + "/" + (startDate.get(Calendar.MONTH) + 1) + "/"
+        return startDate.get(Calendar.DATE) + "/" + startDate.get(Calendar.MONTH) + "/"
             + startDate.get(Calendar.YEAR) + "-"
-            + endDate.get(Calendar.DATE) + "/" + endDate.get(Calendar.MONTH) + 1 + "/" + endDate.get(Calendar.YEAR);
+            + endDate.get(Calendar.DATE) + "/" + endDate.get(Calendar.MONTH) + "/" + endDate.get(Calendar.YEAR);
     }
 
     @Override
@@ -82,5 +87,29 @@ public class DateRange {
             datelySlots.add(new DateRange(firstDate, startDate));
         }
         return datelySlots;
+    }
+
+    /**
+     * Generates the number of days the reservation was for
+     */
+    public long numOfDays() {
+        Date startDate = this.startDate.getTime();
+        Date endDate = this.endDate.getTime();
+        DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+        String startDateString = dateFormat.format(startDate);
+        String endDateString = dateFormat.format(endDate);
+        String[] sd = startDateString.split("/");
+        String[] ed = endDateString.split("/");
+        cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(sd[0]));
+        cal.set(Calendar.MONTH, Integer.parseInt(sd[1]));
+        cal.set(Calendar.YEAR, Integer.parseInt(sd[2]));
+        Date firstDate = cal.getTime();
+
+        cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(ed[0]));
+        cal.set(Calendar.MONTH, Integer.parseInt(ed[1]));
+        cal.set(Calendar.YEAR, Integer.parseInt(ed[2]));
+        Date secondDate = cal.getTime();
+        long diff = secondDate.getTime() - firstDate.getTime();
+        return diff / 1000 / 60 / 60 / 24;
     }
 }

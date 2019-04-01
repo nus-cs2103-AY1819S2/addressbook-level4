@@ -28,7 +28,7 @@ public class AddReservationCommand extends ReservationCommand {
         + "[" + PREFIX_CUSTOMERS + "CUSTOMER INDEX]... "
         + "[" + PREFIX_COMMENT + "COMMENT]\n"
         + "Example: " + COMMAND_WORD + " "
-        + PREFIX_ROOM + "SINGLE "
+        + PREFIX_ROOM + "SINGLE ROOM "
         + PREFIX_DATES + "05/05/19 - 07/05/19 "
         + PREFIX_PAYER + "2 "
         + PREFIX_CUSTOMERS + "1,3 "

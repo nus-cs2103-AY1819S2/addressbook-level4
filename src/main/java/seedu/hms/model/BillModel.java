@@ -2,42 +2,22 @@ package seedu.hms.model;
 
 import java.util.function.Predicate;
 
-import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.hms.model.booking.Booking;
-import seedu.hms.model.booking.ServiceType;
+import seedu.hms.model.reservation.Reservation;
+import seedu.hms.model.reservation.RoomType;
 
 /**
  * The API of the Model component.
  */
 public interface BillModel extends Model {
 
-    /**
-     * Selected booking in the filtered booking list.
-     * null if no booking is selected.
-     */
-    ReadOnlyProperty<Booking> selectedBookingProperty();
-
-    /**
-     * Returns the selected booking in the filtered booking list.
-     * null if no booking is selected.
-     */
-    Booking getSelectedBooking();
-
-    /**
-     * Sets the selected booking in the filtered booking list.
-     */
-    void setSelectedBooking(Booking booking);
 
     /**
      * Returns an unmodifiable view of the filtered booking list
      */
     ObservableList<Booking> getFilteredBookingList();
 
-    /**
-     * Returns an unmodifiable view of the serviceType list
-     */
-    ObservableList<ServiceType> getServiceTypeList();
 
     /**
      * Updates the filter of the filtered booking list to filter by the given {@code predicate}.
@@ -46,57 +26,32 @@ public interface BillModel extends Model {
      */
     void updateFilteredBookingList(Predicate<Booking> predicate);
 
-    /**
-     * Deletes the given booking.
-     * The booking must exist in the hms book.
-     */
-    void deleteBooking(int target);
 
     /**
-     * Deletes the given booking.
-     * The booking must exist in the hms book.
+     * Generates booking bill of the specific customer identified
      */
-    void deleteBooking(Booking b);
+    double generateBillForBooking(ObservableList<Booking> bookingObservableList);
 
     /**
-     * Adds the given booking.
-     * {@code booking} must not already exist in the hms book.
+     * Generates reservation bill of the specific customer identified
      */
-    void addBooking(Booking booking);
+    double generateBillForReservation(ObservableList<Reservation> reservationObservableList);
 
     /**
-     * Replaces the given booking {@code target} with {@code editedBooking}.
-     * {@code target} must exist in the hms book.
-     * The booking identity of {@code editedBooking} must not be the same as another existing booking in the hms
-     * book.
+     * Returns an unmodifiable view of the filtered reservation list
      */
-    void setBooking(int target, Booking editedBooking);
+    ObservableList<Reservation> getFilteredReservationList();
 
     /**
-     * Selected serviceType in the serviceType list.
-     * null if no service type is selected.
+     * Returns an unmodifiable view of the filtered reservation list
      */
-    ReadOnlyProperty<ServiceType> selectedServiceTypeProperty();
+    ObservableList<RoomType> getRoomTypeList();
 
     /**
-     * Returns the selected serviceType in the serviceType list.
-     * null if no serviceType is selected.
+     * Updates the filter of the filtered reservation list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
      */
-    ServiceType getSelectedServiceType();
-
-    /**
-     * Sets the selected serviceType in the serviceType list.
-     */
-    void setSelectedServiceType(ServiceType serviceType);
-
-    /**
-     * Clears all the bookings present in the {@code hotelManagementSystem}.
-     */
-    void setClearBooking(ReadOnlyHotelManagementSystem hotelManagementSystem);
-
-    /**
-     * Generates bill of the specific customer identified
-     */
-    double generateBill(ObservableList<Booking> bookingObservableList);
+    void updateFilteredReservationList(Predicate<Reservation> predicate);
 
 }

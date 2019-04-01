@@ -40,5 +40,4 @@ public class EquipmentContainsKeywordsPredicate implements Predicate<Equipment> 
                 || (other instanceof EquipmentContainsKeywordsPredicate // instanceof handles nulls
                 && keywords.equals(((EquipmentContainsKeywordsPredicate) other).keywords)); // state check
     }
-
 }

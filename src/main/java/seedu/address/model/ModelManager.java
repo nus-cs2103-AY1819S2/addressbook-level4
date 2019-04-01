@@ -20,6 +20,7 @@ import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.exceptions.MedHistNotFoundException;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.exceptions.DoctorNotFoundException;
 import seedu.address.model.person.exceptions.PatientNotFoundException;
 import seedu.address.model.prescription.Prescription;
 
@@ -160,6 +161,18 @@ public class ModelManager implements Model {
     @Override
     public void addAppointment(Appointment appointment) {
         versionedAddressBook.addAppointment(appointment);
+    }
+
+    public ReadOnlyProperty<Doctor> selectedDoctorProperty() {
+        return selectedDoctor;
+    }
+
+    @Override
+    public void setSelectedDoctor(Doctor doctor) {
+        if (doctor != null && !filteredDoctors.contains(doctor)) {
+            throw new DoctorNotFoundException();
+        }
+        selectedDoctor.setValue(doctor);
     }
 
     // Needed to be implemented later

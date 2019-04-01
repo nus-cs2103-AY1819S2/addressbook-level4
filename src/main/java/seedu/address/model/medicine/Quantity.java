@@ -14,7 +14,7 @@ public class Quantity {
     public static final String MESSAGE_CONSTRAINTS = "Quantity should only contain positive numbers. Max Quantity "
             + MAX_QUANTITY;
     public static final String VALIDATION_REGEX = "\\d+";
-    public final String value;
+    private final int value;
 
     /**
      * Constructs a {@code Quantity}.
@@ -24,7 +24,8 @@ public class Quantity {
     public Quantity(String quantity) {
         requireNonNull(quantity);
         checkArgument(isValidQuantity(quantity), MESSAGE_CONSTRAINTS);
-        value = quantity;
+
+        value = Integer.parseInt(quantity);
     }
 
     /**
@@ -44,24 +45,23 @@ public class Quantity {
      * Returns quantity as an int
      */
     public int getNumericValue() {
-        return Integer.parseInt(value);
+        return value;
     }
 
     @Override
     public String toString() {
-        return value;
+        return Integer.toString(value);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Quantity // instanceof handles nulls
-                && value.equals(((Quantity) other).value)); // state check
+                && value == ((Quantity) other).value); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return this.toString().hashCode();
     }
-
 }

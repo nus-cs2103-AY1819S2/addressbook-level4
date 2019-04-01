@@ -37,7 +37,7 @@ class JsonAdaptedBatch {
      */
     public JsonAdaptedBatch(Batch source) {
         batchNumber = source.getBatchNumber().batchNumber;
-        quantity = source.getQuantity().value;
+        quantity = source.getQuantity().toString();
         expiry = source.getExpiry().toString();
     }
 

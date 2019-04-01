@@ -89,7 +89,7 @@ public class MedicineBuilder {
      * Adds {@code quantity} to the {@code Quantity} of the {@code Medicine} that we are building.
      */
     public MedicineBuilder withAddedQuantity(String quantity) {
-        int sum = Integer.parseInt(this.quantity.value) + Integer.parseInt(quantity);
+        int sum = this.quantity.getNumericValue() + Integer.parseInt(quantity);
         this.quantity = new Quantity(Integer.toString(sum));
         return this;
     }

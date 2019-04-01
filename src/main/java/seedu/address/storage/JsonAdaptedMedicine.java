@@ -60,7 +60,7 @@ class JsonAdaptedMedicine {
      */
     public JsonAdaptedMedicine(Medicine source) {
         name = source.getName().fullName;
-        totalQuantity = source.getTotalQuantity().value;
+        totalQuantity = source.getTotalQuantity().toString();
         nextExpiry = source.getNextExpiry().toString();
         company = source.getCompany().companyName;
         tagged.addAll(source.getTags().stream()

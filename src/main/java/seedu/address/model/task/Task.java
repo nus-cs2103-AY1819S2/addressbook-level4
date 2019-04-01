@@ -144,6 +144,7 @@ public class Task {
                     && otherTask.getEndDate().equals(getEndDate())
                     && otherTask.getStartTime().equals(getStartTime())
                     && otherTask.getEndTime().equals(getEndTime())
+                    && otherTask.getPriority().equals(getPriority())
                     && (otherTask.getLinkedPatient() == null ? getLinkedPatient() == null
                     : otherTask.getLinkedPatient().equals(getLinkedPatient()));
         }
@@ -169,6 +170,7 @@ public class Task {
                 && otherTask.getEndDate().equals(getEndDate())
                 && otherTask.getStartTime().equals(getStartTime())
                 && otherTask.getEndTime().equals(getEndTime())
+                && otherTask.getPriority().equals(getPriority())
                 && (otherTask.getLinkedPatient() == null ? getLinkedPatient() == null
                 : otherTask.getLinkedPatient().equals(getLinkedPatient()));
     }

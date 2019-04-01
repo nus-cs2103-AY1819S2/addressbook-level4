@@ -9,6 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.task.Priority;
 import seedu.address.model.task.Task;
 
 /**
@@ -42,8 +43,13 @@ public class TaskDoneCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        Task completedTask = lastShownList.get(targetIndex.getZeroBased());
+        Task taskToComplete = lastShownList.get(targetIndex.getZeroBased());
+        if (taskToComplete.getPriority() == Priority.COMPLETED) {
+            throw new CommandException("The task is already completed. ");
+        }
+        Task completedTask = taskToComplete;
         completedTask.setPriorityComplete();
+        model.setTask(taskToComplete, completedTask);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_TASK_DONE_SUCCESS, completedTask));
     }

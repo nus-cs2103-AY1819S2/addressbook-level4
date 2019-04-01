@@ -27,5 +27,5 @@ public class Messages {
     public static final String MESSAGE_NOTHING_DONE = "Cancelled, nothing has been done";
     public static final String MESSAGE_CALENDAR_SHOWN = "Task Calendar is already displayed";
     public static final String MESSAGE_CANNOT_RUN_IN_GOTO = "This command cannot be used in this mode as the patient"
-                                        + " list needs to be seen. Use the back commadn to return to the right mode.";
+                                        + " list needs to be seen. Use the back command to return to the right mode.";
 }

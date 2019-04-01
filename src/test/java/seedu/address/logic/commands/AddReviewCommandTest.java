@@ -25,11 +25,11 @@ import seedu.address.testutil.ReviewBuilder;
 
 
 public class AddReviewCommandTest {
+    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
     private Model model = new ModelManager(getTypicalBookShelf(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 

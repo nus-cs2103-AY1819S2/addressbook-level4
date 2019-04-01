@@ -205,6 +205,7 @@ Examples:
 `editRestaurant 2 n/MACS  ` +
 Change the name of the second restaurant in the list to MACS.
 
+// tag::categorization[]
 === Setting the categories of a restaurant : `setCategories`
 
 Set the cuisine of a restaurant identified by the index number used in the listRestaurants. +
@@ -261,6 +262,7 @@ Returns restaurants with `Cuisine` or `Occasion` matching `fast`, `food` or `cas
 Returns restaurants with `Price Range` matching `$`
 * `filter $ casual western`
 Return restaurants with  `Cuisine`, `Occasion` or `Price Range` matching `$`, `casual` or `western`
+// end::categorization[]
 
 === Personalising your food diary with your name: `name`
 

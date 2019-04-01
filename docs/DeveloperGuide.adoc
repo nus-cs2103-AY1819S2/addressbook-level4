@@ -1109,6 +1109,7 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
+// tag::categorization[]
 === Setting the categories of a restaurant
 
 . Setting categories to a listed restaurant that does not have categories set yet with `setCategories`
@@ -1124,6 +1125,7 @@ _{ more test cases ... }_
    Expected: Only the `Cuisine` is set to `Fast Food`. All other categories remain unchanged.
 .. Test case: `setCategories c/ oc/ pr/` +
    Expected: No categories are set. Error details shown in status message.
+// end::categorization[]
 
 === Saving data
 

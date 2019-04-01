@@ -137,15 +137,13 @@ public class HotelManagementSystemParser {
         case GenerateBillForBookingCommand.COMMAND_ALIAS:
             return new GenerateBillForBookingCommandParser().parse(arguments);
 
-<<<<<<< HEAD
         case SwitchTabCommand.COMMAND_WORD:
         case SwitchTabCommand.COMMAND_ALIAS:
             return new SwitchTabCommandParser().parse(arguments);
-=======
+
         case GenerateBillForReservationCommand.COMMAND_WORD:
         case GenerateBillForReservationCommand.COMMAND_ALIAS:
             return new GenerateBillForReservationCommandParser().parse(arguments);
->>>>>>> 7479f88ce6e45ecb0debea6155e98db9f5698e59
 
         case ListCustomerCommand.COMMAND_WORD:
         case ListCustomerCommand.COMMAND_ALIAS:

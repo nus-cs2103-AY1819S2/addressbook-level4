@@ -19,6 +19,7 @@ import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.ClearOrderCommand;
 import seedu.address.logic.commands.ClearTableCommand;
+import seedu.address.logic.commands.DeleteFromMenuCommand;
 import seedu.address.logic.commands.DeleteFromOrderCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -168,6 +169,26 @@ public class RestOrRantParserTest {
         try {
             parser.parseCommand(Mode.RESTAURANT_MODE,
                     AddToMenuCommand.COMMAND_WORD + " " + RestOrRantUtil.getMenuItemDetails(menuItem));
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());
+        }
+    }
+
+    @Test
+    public void parseCommand_deleteFromMenu() throws Exception {
+        DeleteFromMenuCommand command = (DeleteFromMenuCommand) parser.parseCommand(Mode.MENU_MODE,
+                DeleteFromMenuCommand.COMMAND_WORD + " W09");
+        assertEquals(new DeleteFromMenuCommand(new Code("W09")), command);
+
+        try {
+            parser.parseCommand(Mode.RESTAURANT_MODE, DeleteFromMenuCommand.COMMAND_WORD);
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());
+        }
+        try {
+            parser.parseCommand(Mode.TABLE_MODE, DeleteFromMenuCommand.COMMAND_WORD);
             throw new AssertionError("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
             assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());

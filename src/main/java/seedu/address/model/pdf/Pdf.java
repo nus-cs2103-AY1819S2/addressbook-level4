@@ -99,7 +99,8 @@ public class Pdf {
         }
 
         return otherPdf != null
-                && otherPdf.getName().equals(getName());
+                && otherPdf.getName().equals(getName())
+                && otherPdf.getDirectory().equals(getDirectory());
     }
 
     public boolean isValidPdf() {
@@ -138,7 +139,8 @@ public class Pdf {
         return otherPdf.getName().equals(getName())
                 && otherPdf.getDirectory().equals(getDirectory())
                 && otherPdf.getSize().equals(getSize())
-                && otherPdf.getTags().equals(getTags());
+                && otherPdf.getTags().equals(getTags())
+                && otherPdf.getDeadline().equals(getDeadline());
     }
 
     @Override

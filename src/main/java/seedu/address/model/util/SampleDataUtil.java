@@ -22,7 +22,7 @@ public class SampleDataUtil {
     public static final String SAMPLE_DEADLINE_1 = "2019-04-10/READY";
     public static final String SAMPLE_DEADLINE_2 = "2019-04-09/COMPLETE";
     public static Pdf[] getSamplePdfs() {
-        Path sampleA = Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
+        Path sampleA = Paths.get("src", "test", "data", "SampleFiles", "NormalFiles",
                 "CS2103T_PDF++_UG_Intro.pdf");
         Path sampleB = Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
                 "CS2103T_Week9_Integration Approaches.pdf");

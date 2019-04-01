@@ -21,82 +21,82 @@ public class TypicalPdfs {
 
     // Original Pdfs
     private static final Path sample_pdf_1_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
+            Paths.get("src", "test", "data", "SampleFiles", "NormalFiles",
                     "CS2103T_PDF++_UG_Intro.pdf");
     private static final Path sample_pdf_2_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
+            Paths.get("src", "test", "data", "SampleFiles", "NormalFiles",
                     "CS2103T_Week9_Integration Approaches.pdf");
     private static final Path sample_pdf_3_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
+            Paths.get("src", "test", "data", "SampleFiles", "NormalFiles",
                     "CS3230_Lecture9_GreedyAlgorithm.pdf");
     private static final Path sample_pdf_4_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
+            Paths.get("src", "test", "data", "SampleFiles", "NormalFiles",
                     "CS2103T_Lecture3.pdf");
     private static final Path sample_pdf_5_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
+            Paths.get("src", "test", "data", "SampleFiles", "NormalFiles",
                     "CS2103_Schedule_AY1819S2.pdf");
     private static final Path sample_pdf_6_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
+            Paths.get("src", "test", "data", "SampleFiles", "NormalFiles",
                     "GitCheatSheet.pdf");
     private static final Path sample_pdf_7_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
+            Paths.get("src", "test", "data", "SampleFiles", "NormalFiles",
                     "Markdown-Cheatsheet.pdf");
     private static final Path sample_pdf_8_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
+            Paths.get("src", "test", "data", "SampleFiles", "NormalFiles",
                     "CS2101_UG and DG Peer Review.pdf");
     private static final Path sample_pdf_9_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
+            Paths.get("src", "test", "data", "SampleFiles", "NormalFiles",
                     "CS2101_Product Demo strategies1.pdf");
     private static final Path sample_pdf_10_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
+            Paths.get("src", "test", "data", "SampleFiles", "NormalFiles",
                     "CS2103T_sample PPP.pdf");
     private static final Path sample_pdf_11_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
+            Paths.get("src", "test", "data", "SampleFiles", "NormalFiles",
                     "CS2101_Writing User Guides.pdf");
     private static final Path sample_invalidPdf_1_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
+            Paths.get("src", "test", "data", "SampleFiles", "NormalFiles",
                     "invalidPathToFile.pdf");
     private static final Path sample_EditedPdf_1_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
+            Paths.get("src", "test", "data", "SampleFiles", "NormalFiles",
                     "JustEdited.pdf");
 
     //Duplicates - Pdfs that have the same name but in a different location
     private static final Path sample_pdf_1_duplicate_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
-                    "Duplicates", "CS2103T_PDF++_UG_Intro.pdf");
+            Paths.get("src", "test", "data", "SampleFiles",
+                    "DuplicateFiles", "CS2103T_PDF++_UG_Intro.pdf");
     private static final Path sample_pdf_2_duplicate_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
-                    "Duplicates", "CS2103T_Week9_Integration Approaches.pdf");
+            Paths.get("src", "test", "data", "SampleFiles",
+                    "DuplicateFiles", "CS2103T_Week9_Integration Approaches.pdf");
     private static final Path sample_pdf_3_duplicate_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
-                    "Duplicates", "CS3230_Lecture9_GreedyAlgorithm.pdf");
+            Paths.get("src", "test", "data", "SampleFiles",
+                    "DuplicateFiles", "CS3230_Lecture9_GreedyAlgorithm.pdf");
     private static final Path sample_pdf_4_duplicate_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
-                    "Duplicates", "CS2103T_Lecture3.pdf");
+            Paths.get("src", "test", "data", "SampleFiles",
+                    "DuplicateFiles", "CS2103T_Lecture3.pdf");
     private static final Path sample_pdf_5_duplicate_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
-                    "Duplicates", "CS2103_Schedule_AY1819S2.pdf");
+            Paths.get("src", "test", "data", "SampleFiles",
+                    "DuplicateFiles", "CS2103_Schedule_AY1819S2.pdf");
     private static final Path sample_pdf_6_duplicate_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
-                    "Duplicates", "GitCheatSheet.pdf");
+            Paths.get("src", "test", "data", "SampleFiles",
+                    "DuplicateFiles", "GitCheatSheet.pdf");
     private static final Path sample_pdf_7_duplicate_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
-                    "Duplicates", "Markdown-Cheatsheet.pdf");
+            Paths.get("src", "test", "data", "SampleFiles",
+                    "DuplicateFiles", "Markdown-Cheatsheet.pdf");
     private static final Path sample_pdf_8_duplicate_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
-                    "Duplicates", "CS2101_UG and DG Peer Review.pdf");
+            Paths.get("src", "test", "data", "SampleFiles",
+                    "DuplicateFiles", "CS2101_UG and DG Peer Review.pdf");
     private static final Path sample_pdf_9_duplicate_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
-                    "Duplicates", "CS2101_Product Demo strategies1.pdf");
+            Paths.get("src", "test", "data", "SampleFiles",
+                    "DuplicateFiles", "CS2101_Product Demo strategies1.pdf");
     private static final Path sample_pdf_10_duplicate_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
-                    "Duplicates", "CS2103T_sample PPP.pdf");
+            Paths.get("src", "test", "data", "SampleFiles",
+                    "DuplicateFiles", "CS2103T_sample PPP.pdf");
     private static final Path sample_pdf_11_duplicate_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
-                    "Duplicates", "CS2101_Writing User Guides.pdf");
+            Paths.get("src", "test", "data", "SampleFiles",
+                    "DuplicateFiles", "CS2101_Writing User Guides.pdf");
     private static final Path sample_invalidPdf_1_duplicate_path =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
-                    "Duplicates", "invalidPdf_1.pdf");
+            Paths.get("src", "test", "data", "SampleFiles",
+                    "DuplicateFiles", "invalidPdf_1.pdf");
 
     //Originals
     public static final Pdf SAMPLE_PDF_1 = new PdfBuilder().withName(sample_pdf_1_path.toFile().getName())

@@ -18,9 +18,9 @@ public class CsvUserStorageTest {
     private static final Path NO_VALID_FILE = Paths.get("src", "test", "data", "CsvUserStorageTest",
             "noValidFile");
     private static final Path TEST_DATA_FILE = Paths.get("src", "test", "data", "CsvUserStorageTest");
-    private static final Path SINGLE_TEST_DATA_FILE = Paths.get("src", "test", "data",
+    /*private static final Path SINGLE_TEST_DATA_FILE = Paths.get("src", "test", "data",
             "CsvLessonsUserTest", "singleTestUser");
-    /*private static final Path EMPTY_USER_FILE_FOLDER = Paths.get("src", "test", "data", "CsvUserStorageTest",
+    private static final Path EMPTY_USER_FILE_FOLDER = Paths.get("src", "test", "data", "CsvUserStorageTest",
             "emptyUserFile");
     private static final Path INVALID_VALUES_FOLDER = Paths.get("src", "test", "data",
             "CsvUserStorageTest", "invalidValues");
@@ -40,10 +40,11 @@ public class CsvUserStorageTest {
         CsvUserStorage cls = new CsvUserStorage(filePath);
         cls.saveUser(user);
     }
+    /*
     private User getTestUser() {
         User user = new User();
         return user;
-    }
+    }*/
 
     @Test
     public void getUserFilePath() {

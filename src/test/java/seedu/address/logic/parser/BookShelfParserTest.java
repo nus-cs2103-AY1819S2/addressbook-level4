@@ -80,8 +80,8 @@ public class BookShelfParserTest {
         List<String > sortTypes = new ArrayList<>();
         sortTypes.add(SORT_AUTHOR_WITHOUT_PREFIX);
         SortBookCommand command = (SortBookCommand) parser.parseCommand(
-            SortBookCommand.COMMAND_WORD + SORT_AUTHOR_WITH_PREFIX + ORDER_ASC_WITH_PREFIX);
-        assertEquals(new SortBookCommand(sortTypes, ORDER_ASC_WITHOUT_PREFIX, new HashMap<>()), command);
+            SortBookCommand.COMMAND_WORD + SORT_AUTHOR_WITH_PREFIX);
+        assertEquals(new SortBookCommand(sortTypes, null, new HashMap<>()), command);
     }
 
     @Test

@@ -130,9 +130,7 @@ public abstract class CardFolderSystemTest {
      */
     protected void executeCommand(String command) {
         rememberStates();
-        // Injects a fixed cloc
-        //
-        // k before executing a command so that the time stamp shown in the status bar
+        // Injects a fixed clock before executing a command so that the time stamp shown in the status bar
         // after each command is predictable and also different from the previous command.
         clockRule.setInjectedClockToCurrentTime();
 

@@ -101,7 +101,7 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedMedHist(MedicalHistory)
      */
     void setSelectedMedHist(MedicalHistory medHist);
-
+    
     /**
      * Sets the selected appointment in the filtered appointment list.
      *

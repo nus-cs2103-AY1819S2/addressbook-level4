@@ -41,7 +41,8 @@ class JsonSerializableAddressBook {
                                        @JsonProperty("doctors") List<JsonAdaptedDoctor> doctors,
                                        @JsonProperty("medicalHistories")
                                                List<JsonAdaptedMedicalHistory> medicalHistories,
-                                        @JsonProperty("appointments") List<JsonAdaptedAppointment> appointments) {
+                                        @JsonProperty("appointments") List<JsonAdaptedAppointment> appointments)
+            throws IllegalValueException {
         this.patients.addAll(patients);
         this.doctors.addAll(doctors);
         this.medicalHistories.addAll(medicalHistories);
@@ -53,8 +54,10 @@ class JsonSerializableAddressBook {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
-    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
+    public JsonSerializableAddressBook(ReadOnlyAddressBook source) throws IllegalValueException {
         patients.addAll(source.getPatientList().stream().map(JsonAdaptedPatient::new).collect(Collectors.toList()));
+
+        doctors.addAll(source.getDoctorList().stream().map(JsonAdaptedDoctor::new).collect(Collectors.toList()));
 
         medicalHistories.addAll(source.getMedHistList().stream().map(JsonAdaptedMedicalHistory::new)
                 .collect(Collectors.toList()));
@@ -62,7 +65,6 @@ class JsonSerializableAddressBook {
         appointments.addAll(source.getAppointmentList().stream().map(JsonAdaptedAppointment::new)
                 .collect(Collectors.toList()));
 
-        doctors.addAll(source.getDoctorList().stream().map(JsonAdaptedDoctor::new).collect(Collectors.toList()));
     }
 
     /**
@@ -103,8 +105,8 @@ class JsonSerializableAddressBook {
             }
             addressBook.addAppointment(appointment);
         }
-
         */
+
         return addressBook;
     }
 }

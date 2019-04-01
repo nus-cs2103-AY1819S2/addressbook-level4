@@ -141,6 +141,13 @@ public class MainWindow extends UiPart<Stage> {
         */
 
 
+        /*
+        doctorListPanel = new DoctorListPanel(logic.getFilteredDoctorList(), logic.selectedDoctorProperty(),
+                logic::setSelectedDoctor);
+        doctorListPanelPlaceholder.getChildren().add(doctorListPanel.getRoot());
+        */
+
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 

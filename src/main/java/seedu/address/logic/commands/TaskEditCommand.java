@@ -100,7 +100,8 @@ public class TaskEditCommand extends Command {
      * Creates and returns a {@code Task} with the details of {@code taskToEdit}
      * edited with {@code editTaskDescriptor}.
      */
-    private static Task createEditedTask(Task taskToEdit, EditTaskDescriptor editTaskDescriptor, Model model) {
+    private static Task createEditedTask(Task taskToEdit, EditTaskDescriptor editTaskDescriptor, Model model)
+            throws CommandException {
         assert taskToEdit != null;
 
         List<Person> lastShownPersonList = model.getFilteredPersonList();
@@ -111,19 +112,22 @@ public class TaskEditCommand extends Command {
         TimeCustom updatedStartTime = editTaskDescriptor.getStartTime().orElse(taskToEdit.getStartTime());
         TimeCustom updatedEndTime = editTaskDescriptor.getEndTime().orElse(taskToEdit.getEndTime());
         Priority updatedPriority = editTaskDescriptor.getPriority().orElse(taskToEdit.getPriority());
-        Index targetIndex = editTaskDescriptor.g
-        if (targetIndex != null) {
+        LinkedPatient updatedLinkedPatient = taskToEdit.getLinkedPatient();
+        Index targetIndex = editTaskDescriptor.getPatientIndex().orElse(null);
+        if (targetIndex != null && targetIndex.getZeroBased() != 0) {
             List<Person> lastShownList = model.getFilteredPersonList();
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(LinkedPatient.MESSAGE_CONSTRAINTS);
             }
             Person targetPerson = lastShownList.get(targetIndex.getZeroBased());
             Patient targetPatient = (Patient) targetPerson;
-            toAdd.setLinkedPatient(targetPatient.getName(), ((Patient) targetPerson).getNric());
+            updatedLinkedPatient = new LinkedPatient(targetPatient.getName(), ((Patient) targetPerson).getNric());
+        } else {
+            updatedLinkedPatient = null;
         }
 
         return new Task(updatedTitle, updatedStartDate, updatedEndDate, updatedStartTime,
-                updatedEndTime, updatedPriority);
+                updatedEndTime, updatedPriority, updatedLinkedPatient);
     }
 
     @Override
@@ -232,7 +236,7 @@ public class TaskEditCommand extends Command {
             this.priority = priority;
         }
 
-        public Optional<LinkedPatient> getLinkedPatient() {
+        public Optional<Index> getPatientIndex() {
             return Optional.ofNullable(patientIndex);
         }
 

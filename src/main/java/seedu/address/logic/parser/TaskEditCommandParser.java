@@ -73,9 +73,9 @@ public class TaskEditCommandParser implements Parser<TaskEditCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_LINKEDPATIENT).isPresent()) {
-            editTaskDescriptor.setPatientIndex(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_LINKEDPATIENT).get()));
+            editTaskDescriptor.setPatientIndex(ParserUtil.parseLinkedPatientIndex(argMultimap.getValue(PREFIX_LINKEDPATIENT).get()));
         } else {
-            editTaskDescriptor.setPatientIndex = null;
+            editTaskDescriptor.setPatientIndex(null);
         }
 
         return new TaskEditCommand(index, editTaskDescriptor);

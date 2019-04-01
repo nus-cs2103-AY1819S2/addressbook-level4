@@ -9,7 +9,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new ListReviewCommand object
  */
-public class ListReviewCommandParser {
+public class ListReviewCommandParser implements Parser<ListReviewCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the ListReviewCommand
      * and returns an ListReviewCommand object for execution.

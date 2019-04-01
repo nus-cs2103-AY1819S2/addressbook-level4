@@ -21,6 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.BookName;
 import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
+import seedu.address.model.book.Review;
 import seedu.address.testutil.EditBookDescriptorBuilder;
 
 /**
@@ -51,6 +52,8 @@ public class CommandTestUtil {
             + "wonderful people and animals.";
     public static final String VALID_REVIEWMESSAGE_CS = "It provides a great introduction to computer science. "
             + "The legendary SICP reminded me of the the Bible in many respects.";
+    public static final String VALID_DATE = "2019/03/16 18:20:00";
+    public static final String VALID_ALTERNATIVE_DATE = "2019/03/26 18:20:00";
 
     public static final String NAME_DESC_ALICE = " " + PREFIX_NAME + VALID_BOOKNAME_ALICE;
     public static final String NAME_DESC_CS = " " + PREFIX_NAME + VALID_BOOKNAME_CS;
@@ -184,6 +187,19 @@ public class CommandTestUtil {
 
         assertEquals(1, model.getFilteredBookList().size());
 
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the review at the given {@code targetIndex} in the
+     * {@code model}'s book shelf.
+     */
+    public static void showReviewAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredBookList().size());
+
+        Review review = model.getFilteredReviewList().get(targetIndex.getZeroBased());
+        model.updateFilteredReviewList((Review toTest) -> review.getTitle().equals(toTest.getTitle()));
+
+        assertEquals(1, model.getFilteredBookList().size());
     }
 
     /**

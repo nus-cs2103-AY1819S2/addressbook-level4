@@ -426,4 +426,9 @@ public class ModelManager implements Model {
                 && filteredBooks.equals(other.filteredBooks)
                 && Objects.equals(selectedBook.get(), other.selectedBook.get());
     }
+
+    @Override
+    public String toString() {
+        return filteredBooks.toString() + filteredReviews.toString();
+    }
 }

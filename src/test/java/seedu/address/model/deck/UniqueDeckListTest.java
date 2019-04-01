@@ -20,6 +20,7 @@ import seedu.address.model.deck.exceptions.DuplicateDeckException;
 import seedu.address.testutil.DeckBuilder;
 
 public class UniqueDeckListTest {
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 

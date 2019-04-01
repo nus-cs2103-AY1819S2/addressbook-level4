@@ -63,9 +63,11 @@ public class AddCardCommandTest {
         ModelStubAcceptingCardAdded modelStub = new ModelStubAcceptingCardAdded();
         Card validCard = new CardBuilder().build();
 
-        CommandResult commandResult = new AddCardCommand((CardsView) model.getViewState(), validCard).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddCardCommand((CardsView) model.getViewState(), validCard)
+                .execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCardCommand.MESSAGE_SUCCESS, validCard), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddCardCommand.MESSAGE_SUCCESS, validCard),
+                     commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validCard), modelStub.cardsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -86,13 +88,15 @@ public class AddCardCommandTest {
         Card addition = new CardBuilder().withQuestion("What is 1 + 1?").build();
         Card subtraction = new CardBuilder().withQuestion("What is 10 - 8?").build();
         AddCardCommand addAdditionCommand = new AddCardCommand((CardsView) model.getViewState(), addition);
-        AddCardCommand addSubtractionCommand = new AddCardCommand((CardsView) model.getViewState(), subtraction);
+        AddCardCommand addSubtractionCommand = new AddCardCommand((CardsView) model.getViewState(),
+                                                                  subtraction);
 
         // same object -> returns true
         assertTrue(addAdditionCommand.equals(addAdditionCommand));
 
         // same values -> returns true
-        AddCardCommand addAdditionCommandCopy = new AddCardCommand((CardsView) model.getViewState(), addition);
+        AddCardCommand addAdditionCommandCopy = new AddCardCommand((CardsView) model.getViewState(),
+                                                                   addition);
         assertTrue(addAdditionCommand.equals(addAdditionCommandCopy));
 
         // different types -> returns false
@@ -110,12 +114,12 @@ public class AddCardCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -140,12 +144,12 @@ public class AddCardCommandTest {
         }
 
         @Override
-        public void setTopDeck(ReadOnlyTopDeck newData) {
+        public ReadOnlyTopDeck getTopDeck() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyTopDeck getTopDeck() {
+        public void setTopDeck(ReadOnlyTopDeck newData) {
             throw new AssertionError("This method should not be called.");
         }
 

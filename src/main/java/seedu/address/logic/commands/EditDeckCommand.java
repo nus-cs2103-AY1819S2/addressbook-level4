@@ -27,12 +27,9 @@ public class EditDeckCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the deck identified "
-            + "by the index number used in the displayed deck list. "
-            + "Changes its name to NAME.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_NAME + "[NAME]";
+            + "by the index number used in the displayed deck list. " + "Changes its name to NAME.\n"
+            + "Parameters: INDEX (must be a positive integer) " + "[" + PREFIX_NAME + "NAME]...\n"
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_NAME + "[NAME]";
     public static final String DEFAULT_INDEX = "1";
 
     public static final String AUTOCOMPLETE_TEXT = COMMAND_WORD + " " + DEFAULT_INDEX;
@@ -40,13 +37,12 @@ public class EditDeckCommand extends Command {
     public static final String MESSAGE_EDIT_DECK_SUCCESS = "Edited Deck: %1$s";
 
 
-
     private final Index index;
     private final EditDeckDescriptor editDeckDescriptor;
     private final DecksView decksView;
 
     /**
-     * @param index of the deck in the filtered deck list to edit
+     * @param index              of the deck in the filtered deck list to edit
      * @param editDeckDescriptor details to edit the deck with
      */
     public EditDeckCommand(DecksView decksView, Index index, EditDeckDescriptor editDeckDescriptor) {
@@ -106,8 +102,7 @@ public class EditDeckCommand extends Command {
 
         // state check
         EditDeckCommand e = (EditDeckCommand) other;
-        return index.equals(e.index)
-                && editDeckDescriptor.equals(e.editDeckDescriptor);
+        return index.equals(e.index) && editDeckDescriptor.equals(e.editDeckDescriptor);
     }
 
     /**
@@ -180,8 +175,7 @@ public class EditDeckCommand extends Command {
             // state check
             EditDeckDescriptor e = (EditDeckDescriptor) other;
 
-            return getName().equals(e.getName())
-                    && getCards().equals(e.getCards());
+            return getName().equals(e.getName()) && getCards().equals(e.getCards());
         }
     }
 }

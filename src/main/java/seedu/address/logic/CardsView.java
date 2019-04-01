@@ -80,8 +80,9 @@ public class CardsView implements ListViewState {
                 return;
             }
 
-            boolean wasSelectedItemReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedCard.getValue());
+            boolean wasSelectedItemReplaced =
+                    change.wasReplaced() && change.getAddedSize() == change.getRemovedSize() && change
+                            .getRemoved().contains(selectedCard.getValue());
             if (wasSelectedItemReplaced) {
                 // Update selectedCard to its new value.
                 int index = change.getRemoved().indexOf(selectedCard.getValue());
@@ -89,12 +90,13 @@ public class CardsView implements ListViewState {
                 continue;
             }
 
-            boolean wasSelectedItemRemoved = change.getRemoved().stream()
-                    .anyMatch(removedItem -> selectedCard.getValue().equals(removedItem));
+            boolean wasSelectedItemRemoved = change.getRemoved().stream().anyMatch(
+                removedItem -> selectedCard.getValue().equals(removedItem));
             if (wasSelectedItemRemoved) {
                 // Select the card that came before it in the list,
                 // or clear the selection if there is no such card.
-                selectedCard.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+                selectedCard
+                        .setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }

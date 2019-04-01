@@ -37,13 +37,16 @@ public class RedoCommandTest {
     public void execute() {
         // multiple redoable states in model
         expectedModel.redoTopDeck();
-        assertUpdateCommandSuccess(new RedoCommand(model.getViewState()), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertUpdateCommandSuccess(new RedoCommand(model.getViewState()), model, commandHistory,
+                                   RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single redoable state in model
         expectedModel.redoTopDeck();
-        assertUpdateCommandSuccess(new RedoCommand(model.getViewState()), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertUpdateCommandSuccess(new RedoCommand(model.getViewState()), model, commandHistory,
+                                   RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no redoable state in model
-        assertCommandFailure(new RedoCommand(model.getViewState()), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(new RedoCommand(model.getViewState()), model, commandHistory,
+                             RedoCommand.MESSAGE_FAILURE);
     }
 }

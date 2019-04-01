@@ -20,18 +20,11 @@ public class StudyView implements ViewState {
     public final List<Card> listOfCards;
     private final Model model;
     private final Deck activeDeck;
-    private Card currentCard;
     private final SimpleObjectProperty<StudyState> currentStudyState = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<String> textShown = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<String> userAnswer = new SimpleObjectProperty<>();
+    private Card currentCard;
     private DeckShuffler deckShuffler;
-
-    /**
-     * The type of possible states that the study view can have.
-     */
-    public enum StudyState {
-        QUESTION, ANSWER
-    }
 
     public StudyView(Model model, Deck deck) {
         this.model = model;
@@ -61,8 +54,6 @@ public class StudyView implements ViewState {
         return activeDeck;
     }
 
-    //=========== Current Card ================================================================================
-
     /**
      * Sets the current card to be studied.
      */
@@ -70,39 +61,42 @@ public class StudyView implements ViewState {
         currentCard = card;
     }
 
+    //=========== Current Card
+    // ================================================================================
+
     /**
      * Generates the next card to be studied.
      */
     public void generateCard() {
         setCurrentCard(deckShuffler.generateCard());
         updateTextShown();
-    };
-
-    //=========== Study States ================================================================================
+    }
 
     public ReadOnlyProperty<StudyState> studyStateProperty() {
         return currentStudyState;
+    }
+
+    //=========== Study States
+    // ================================================================================
+
+    public StudyState getCurrentStudyState() {
+        return currentStudyState.getValue();
     }
 
     public void setCurrentStudyState(StudyState state) {
         currentStudyState.setValue(state);
     }
 
-    public StudyState getCurrentStudyState() {
-        return currentStudyState.getValue();
-    }
-
-    //=========== TextShown ================================================================================
-
     /**
      * Updates the text shown in the UI.
      */
     public void updateTextShown() {
-        String text = (getCurrentStudyState() == StudyState.QUESTION)
-                ? currentCard.getQuestion()
-                : currentCard.getAnswer();
+        String text = (getCurrentStudyState() == StudyState.QUESTION) ? currentCard
+                .getQuestion() : currentCard.getAnswer();
         textShown.setValue(text);
     }
+
+    //=========== TextShown ================================================================================
 
     /**
      * Returns the current textShown
@@ -112,8 +106,6 @@ public class StudyView implements ViewState {
         return textShown;
     }
 
-    //=========== User Answer ================================================================================
-
     /**
      * Returns the user's answer
      */
@@ -121,12 +113,19 @@ public class StudyView implements ViewState {
         return userAnswer;
     }
 
-    public void setUserAnswer(String answer) {
-        userAnswer.setValue(answer);
-    }
+    //=========== User Answer ================================================================================
 
     public String getUserAnswer() {
         return userAnswer.getValue();
     }
+
+    public void setUserAnswer(String answer) {
+        userAnswer.setValue(answer);
+    }
+
+    /**
+     * The type of possible states that the study view can have.
+     */
+    public enum StudyState { QUESTION, ANSWER }
 
 }

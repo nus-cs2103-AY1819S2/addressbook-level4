@@ -690,6 +690,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |Food lover |Add restaurant based on Google search |Easily add a new restaurant
 
+|`* *` |Food lover |Autocomplete categories I have keyed in before when setting categories|I can set categories faster
+
 |`*` |Food lover that travels |View restaurants and reviews separately by country |Easily see relevant restaurants and reviews when I can in a certain country
 
 |`*` |Food lover & influencer |Share my reviews on Facebook |Recommend my friends to food I’ve eaten

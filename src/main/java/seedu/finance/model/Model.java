@@ -1,14 +1,15 @@
 package seedu.finance.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.finance.commons.core.GuiSettings;
 import seedu.finance.model.budget.Budget;
-import seedu.finance.model.record.Amount;
+import seedu.finance.model.budget.CategoryBudget;
+import seedu.finance.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.finance.model.record.Record;
 
 /**
@@ -71,7 +72,7 @@ public interface Model {
      * Adds the given record.
      * {@code record} must not already exist in the finance tracker.
      */
-    void addRecord(Record record);
+    boolean addRecord(Record record);
 
     /**
      * Replaces the given record {@code target} with {@code editedRecord}.
@@ -91,6 +92,23 @@ public interface Model {
      * {@code budget} must not already exist in the finance tracker.
      */
     void addBudget(Budget budget);
+
+
+    /**
+     * Sets the given amount to the category budget
+     *
+     */
+    public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException;
+
+    /**
+     * Returns an unmodifiable view of the filtered record list in reverse order.
+     */
+    void reverseFilteredRecordList();
+
+    /**
+     * Sorts the filtered record list according to comparison function in {@code comparator}.
+     */
+    void sortFilteredRecordList(Comparator<Record> comparator);
 
     /** Returns the amount value of {@code budget} in a ObjectProperty wrapper */
     Budget getBudget();

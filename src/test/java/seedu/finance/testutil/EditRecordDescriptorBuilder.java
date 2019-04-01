@@ -1,9 +1,5 @@
 package seedu.finance.testutil;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import seedu.finance.logic.commands.EditCommand;
 import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;
@@ -34,7 +30,7 @@ public class EditRecordDescriptorBuilder {
         descriptor.setName(record.getName());
         descriptor.setAmount(record.getAmount());
         descriptor.setDate(record.getDate());
-        descriptor.setCategories(record.getCategories());
+        descriptor.setCategory(record.getCategory());
     }
 
     /**
@@ -65,9 +61,9 @@ public class EditRecordDescriptorBuilder {
      * Parses the {@code categories} into a {@code Set<Category>} and set it to the {@code EditRecordDescriptor}
      * that we are building.
      */
-    public EditRecordDescriptorBuilder withCategories(String... categories) {
-        Set<Category> categorySet = Stream.of(categories).map(Category::new).collect(Collectors.toSet());
-        descriptor.setCategories(categorySet);
+    public EditRecordDescriptorBuilder withCategory(String categoryName) {
+        Category category = new Category(categoryName);
+        descriptor.setCategory(category);
         return this;
     }
 

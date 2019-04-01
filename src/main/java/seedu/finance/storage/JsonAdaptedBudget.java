@@ -7,7 +7,9 @@ import seedu.finance.commons.exceptions.IllegalValueException;
 import seedu.finance.model.budget.Budget;
 import seedu.finance.model.record.Amount;
 
-
+/**
+ * Jackson-friendly version of {@link Budget}.
+ */
 public class JsonAdaptedBudget {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Budget's %s field is missing!";
 
@@ -23,7 +25,7 @@ public class JsonAdaptedBudget {
                              @JsonProperty("currentBudget") String currentBudget) {
         this.totalBudget = totalBudget;
         this.currentBudget = currentBudget;
-        }
+    }
 
     /**
      * Converts a given {@code Budget} into this class for Jackson use.

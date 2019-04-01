@@ -7,7 +7,6 @@ import java.util.stream.Stream;
 
 import seedu.finance.logic.commands.SetCommand;
 import seedu.finance.logic.parser.exceptions.ParseException;
-import seedu.finance.model.record.Amount;
 
 /**
  * Parses input arguments and creates a new SetCommand object

@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Record;
 
 /**
@@ -70,13 +71,12 @@ public class RecordCard extends UiPart<Region> {
      * @param record
      */
     private void initCategories(Record record) {
-        record.getCategories().forEach(category -> {
-            Label categoryLabel = new Label(category.categoryName);
+        Category category = record.getCategory();
+        Label categoryLabel = new Label(category.categoryName);
 
-            categoryLabel.getStyleClass().add(getCategoryColorStyleFor(category.categoryName));
+        categoryLabel.getStyleClass().add(getCategoryColorStyleFor(category.categoryName));
 
-            categories.getChildren().add(categoryLabel);
-        });
+        categories.getChildren().add(categoryLabel);
     }
     //@@author
 

@@ -2,7 +2,6 @@ package seedu.finance.logic;
 
 import java.nio.file.Path;
 
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.finance.commons.core.GuiSettings;
@@ -11,7 +10,6 @@ import seedu.finance.logic.commands.exceptions.CommandException;
 import seedu.finance.logic.parser.exceptions.ParseException;
 import seedu.finance.model.ReadOnlyFinanceTracker;
 import seedu.finance.model.budget.Budget;
-import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Record;
 
 /**

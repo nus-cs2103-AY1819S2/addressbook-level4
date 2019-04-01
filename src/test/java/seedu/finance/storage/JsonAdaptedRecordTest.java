@@ -4,10 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static seedu.finance.storage.JsonAdaptedRecord.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.finance.testutil.TypicalRecords.BANANA;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.Test;
 
 import seedu.finance.commons.exceptions.IllegalValueException;
@@ -26,9 +22,8 @@ public class JsonAdaptedRecordTest {
     private static final String VALID_AMOUNT = BANANA.getAmount().toString();
     private static final String VALID_DATE = BANANA.getDate().toString();
     private static final String VALID_DESCRIPTION = BANANA.getDescription().toString();
-    private static final List<JsonAdaptedCategory> VALID_CATEGORIES = BANANA.getCategories().stream()
-            .map(JsonAdaptedCategory::new)
-            .collect(Collectors.toList());
+    private static final JsonAdaptedCategory VALID_CATEGORIES = new JsonAdaptedCategory(BANANA.getCategory());
+
 
     @Test
     public void toModelType_validRecordDetails_returnsRecord() throws Exception {
@@ -85,11 +80,10 @@ public class JsonAdaptedRecordTest {
     }
 
     @Test
-    public void toModelType_invalidCategories_throwsIllegalValueException() {
-        List<JsonAdaptedCategory> invalidCategories = new ArrayList<>(VALID_CATEGORIES);
-        invalidCategories.add(new JsonAdaptedCategory(INVALID_CATEGORY));
+    public void toModelType_invalidCategory_throwsIllegalValueException() {
+        JsonAdaptedCategory invalidCategory = new JsonAdaptedCategory(INVALID_CATEGORY);
         JsonAdaptedRecord record =
-                new JsonAdaptedRecord(VALID_NAME, VALID_AMOUNT, VALID_DATE, VALID_DESCRIPTION, invalidCategories);
+                new JsonAdaptedRecord(VALID_NAME, VALID_AMOUNT, VALID_DATE, VALID_DESCRIPTION, invalidCategory);
         Assert.assertThrows(IllegalValueException.class, record::toModelType);
     }
 

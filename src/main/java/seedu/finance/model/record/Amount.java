@@ -34,6 +34,10 @@ public class Amount {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public Double getValue() {
+        return Double.parseDouble(value);
+    }
+
     @Override
     public String toString() {
         return value;

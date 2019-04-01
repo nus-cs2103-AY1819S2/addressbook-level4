@@ -2,13 +2,12 @@ package seedu.finance.ui.testutil;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import guitests.guihandles.RecordCardHandle;
 import guitests.guihandles.RecordListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
+import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Record;
 
 
@@ -26,10 +25,7 @@ public class GuiTestAssert {
         assertEquals(expectedCard.getAmount(), actualCard.getAmount());
         assertEquals(expectedCard.getDate(), actualCard.getDate());
         assertEquals(expectedCard.getName(), actualCard.getName());
-        assertEquals(expectedCard.getCategories(), actualCard.getCategories());
-
-        expectedCard.getCategories().forEach(category -> assertEquals(expectedCard.getCategoryStyleClasses(category),
-                actualCard.getCategoryStyleClasses(category)));
+        assertEquals(expectedCard.getCategory(), actualCard.getCategory());
     }
 
     /**
@@ -37,10 +33,10 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysRecord(Record expectedRecord, RecordCardHandle actualCard) {
         assertEquals(expectedRecord.getName().fullName, actualCard.getName());
-        assertEquals("$" + expectedRecord.getAmount().value, actualCard.getAmount());
+        assertEquals("$" + expectedRecord.getAmount().toString(), actualCard.getAmount());
         assertEquals(expectedRecord.getDate().toString(), actualCard.getDate());
         assertEquals(expectedRecord.getDescription().value, actualCard.getDescription());
-        assertCategoriesEqual(expectedRecord, actualCard);
+        assertCategoryEqual(expectedRecord, actualCard);
     }
 
     /**
@@ -104,13 +100,11 @@ public class GuiTestAssert {
      * Asserts that the categories in {@code actualCard} matches all the categories in {@code expectedRecord}
      * with the correct color.
      */
-    private static void assertCategoriesEqual(Record expectedRecord, RecordCardHandle actualCard) {
-        List<String> expectedCategories = expectedRecord.getCategories().stream()
-                .map(category -> category.categoryName).collect(Collectors.toList());
-        assertEquals(expectedCategories, actualCard.getCategories());
-        expectedCategories.forEach(category ->
-                assertEquals(Arrays.asList(LABEL_DEFAULT_STYLE, getCategoryColorStyleFor(category)),
-                        actualCard.getCategoryStyleClasses(category)));
+    private static void assertCategoryEqual(Record expectedRecord, RecordCardHandle actualCard) {
+        Category expectedCategory = expectedRecord.getCategory();
+        String actualCategory = actualCard.getCategory();
+        assertEquals(expectedCategory, actualCard.getCategory());
+        assertEquals(getCategoryColorStyleFor(expectedCategory.toString()), getCategoryColorStyleFor(actualCategory));
     }
 
     /**

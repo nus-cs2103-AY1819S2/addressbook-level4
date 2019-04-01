@@ -2,17 +2,19 @@ package seedu.finance.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
 
 import javafx.beans.InvalidationListener;
-import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.finance.commons.core.LogsCenter;
 import seedu.finance.commons.util.InvalidationListenerManager;
 import seedu.finance.model.budget.Budget;
-import seedu.finance.model.record.Amount;
+import seedu.finance.model.budget.CategoryBudget;
+import seedu.finance.model.budget.TotalBudget;
+import seedu.finance.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.finance.model.record.Record;
 import seedu.finance.model.record.UniqueRecordList;
 
@@ -24,7 +26,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private final UniqueRecordList records;
-    private final Budget budget;
+    private final TotalBudget budget;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -36,7 +38,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
      */
     {
         records = new UniqueRecordList();
-        budget = new Budget();
+        budget = new TotalBudget();
     }
 
     public FinanceTracker() {}
@@ -85,11 +87,13 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
      * Adds a record to the finance tracker.
      * The record must not already exist in the finance tracker.
      */
-    public void addRecord(Record r) {
+    public boolean addRecord(Record r) {
         records.add(r);
+        boolean budgetNotExceeded = budget.addRecord(r);
         budget.updateBudget(this.records.asUnmodifiableObservableList());
         logger.info("Current Budget: " + budget.getCurrentBudget());
         indicateModified();
+        return budgetNotExceeded;
     }
 
     /**
@@ -100,7 +104,6 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
      */
     public void setRecord(Record target, Record editedRecord) {
         requireNonNull(editedRecord);
-
         records.setRecord(target, editedRecord);
         budget.updateBudget(this.records.asUnmodifiableObservableList());
         indicateModified();
@@ -112,6 +115,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
      */
     public void removeRecord(Record key) {
         records.remove(key);
+        budget.removeRecord(key);
         budget.updateBudget(this.records.asUnmodifiableObservableList());
         indicateModified();
     }
@@ -132,6 +136,16 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
     public void addBudget(Budget budget) {
         this.budget.set(budget.getTotalBudget(), budget.getCurrentBudget());
         indicateModified();
+    }
+
+    // =============================== Category Budget =============================================================
+    //@author Jackimaru96
+    public Budget getBudget() {
+        return budget;
+    }
+
+    public void addCategoryBudget(CategoryBudget catBudget) throws CategoryBudgetExceedTotalBudgetException {
+        budget.setNewCategoryBudget(catBudget);
     }
 
     @Override
@@ -158,13 +172,18 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
         return records.asUnmodifiableObservableList().size() + " records";
     }
 
-    public Budget getBudget() {
-        return budget;
-    }
-
     @Override
     public ObservableList<Record> getRecordList() {
         return records.asUnmodifiableObservableList();
+    }
+
+
+    public void reverseRecordList() {
+        records.reverseList();
+    }
+
+    public void sortRecordList(Comparator<Record> comparator) {
+        records.sortList(comparator);
     }
 
     @Override

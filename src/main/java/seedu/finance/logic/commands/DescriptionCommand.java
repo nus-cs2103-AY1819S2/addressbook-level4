@@ -59,7 +59,7 @@ public class DescriptionCommand extends Command {
 
         Record recordToEdit = lastShownList.get(index.getZeroBased());
         Record editedRecord = new Record(recordToEdit.getName(), recordToEdit.getAmount(), recordToEdit.getDate(),
-                this.description, recordToEdit.getCategories());
+                this.description, recordToEdit.getCategory());
 
         model.setRecord(recordToEdit, editedRecord);
         model.updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORD);

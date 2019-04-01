@@ -21,6 +21,7 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.finance.model.budget.Budget;
 import seedu.finance.model.record.Record;
 import seedu.finance.model.record.exceptions.DuplicateRecordException;
 import seedu.finance.testutil.RecordBuilder;
@@ -54,7 +55,7 @@ public class FinanceTrackerTest {
     public void resetData_withDuplicateRecords_throwsDuplicateRecordException() {
         // Two records with the same identity fields
         Record editedApple = new RecordBuilder(APPLE).withAmount(VALID_AMOUNT_BOB)
-                .withCategories(VALID_CATEGORY_HUSBAND)
+                .withCategory(VALID_CATEGORY_HUSBAND)
                 .build();
         List<Record> newRecords = Arrays.asList(APPLE, editedApple);
         FinanceTrackerStub newData = new FinanceTrackerStub(newRecords);
@@ -84,7 +85,7 @@ public class FinanceTrackerTest {
     public void hasRecord_recordWithSameIdentityFieldsInFinanceTracker_returnsTrue() {
         financeTracker.addRecord(APPLE);
         Record editedApple = new RecordBuilder(APPLE).withAmount(VALID_AMOUNT_BOB)
-                .withCategories(VALID_CATEGORY_HUSBAND).build();
+                .withCategory(VALID_CATEGORY_HUSBAND).build();
         assertTrue(financeTracker.hasRecord(editedApple));
     }
 
@@ -118,6 +119,7 @@ public class FinanceTrackerTest {
      */
     private static class FinanceTrackerStub implements ReadOnlyFinanceTracker {
         private final ObservableList<Record> records = FXCollections.observableArrayList();
+        private Budget budget = new Budget(123.00);
 
         FinanceTrackerStub(Collection<Record> records) {
             this.records.setAll(records);
@@ -136,6 +138,11 @@ public class FinanceTrackerTest {
         @Override
         public void removeListener(InvalidationListener listener) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Budget getBudget() {
+            return this.budget;
         }
     }
 

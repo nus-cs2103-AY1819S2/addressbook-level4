@@ -206,7 +206,7 @@ The `Model`,
 * exposes unmodifiable instances of `FilteredList<Card>` and `FilteredList<VersionedCardFolder>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-//// 
+////
 This is a multiline comment, remove the four slashes to remove comment
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `card folder`, which `Card` can reference. This would allow `card folder` to only require one `Tag` object per unique `Tag`, instead of each `Card` needing their own `Tag` object. An example of how such a model may look like is given below. +
@@ -747,7 +747,7 @@ Step 9. `MainWindow` sees that `CommandResult` object `r` has the type `START_TE
 `MainWindow#handleStartTestSession(currentTestedCard)` to display the `currentTestedCard` question and hints to the
 user.
 
-//// 
+////
 insert sequence diagram for UI for test command?
 ////
 
@@ -865,7 +865,7 @@ cardToMark, boolean markCorrect)` followed by `model#setCard(cardToMark, scoredC
 Step 6. To complete the update in the change in score, model#updateFilteredCard(PREDICATE_SHOW_ALL_CARDS) and
 model#commitActiveCardFolder() are invoked.
 
-//// 
+////
     To elaborate further?
 ////
 

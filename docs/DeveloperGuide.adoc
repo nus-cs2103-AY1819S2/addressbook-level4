@@ -51,7 +51,7 @@ This will generate all resources required by the application and tests.
 . Open link:{repoURL}/src/main/java/seedu/knowitall/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/knowitall/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Repeat this for the test <<folder, folder>> as well (e.g. check link:{repoURL}/src/test/java/seedu/knowitall/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
@@ -101,10 +101,7 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 
 ==== Getting started with coding
 
-When you are ready to start coding,
-
-1. Get some sense of the overall design by reading <<Design-Architecture>>.
-2. Take a look at <<GetStartedProgramming>>.
+When you are ready to start coding, get some sense of the overall design by reading <<Design-Architecture>>.
 
 == Design
 
@@ -205,14 +202,17 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the card folder data.
-* exposes an unmodifiable `ObservableList<Card>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores a list of `VersionedCardFolders` representing the folders that the user has.
+* exposes unmodifiable instances of `FilteredList<Card>` and `FilteredList<VersionedCardFolder>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+////
+This is a multiline comment, remove the four slashes to remove comment
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `card folder`, which `Card` can reference. This would allow `card folder` to only require one `Tag` object per unique `Tag`, instead of each `Card` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
+////
 
 [[Design-Storage]]
 === Storage component
@@ -225,7 +225,7 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the card folder data in json format and read it back.
+* can save `CardFolder` data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -235,87 +235,6 @@ Classes used by multiple components are in the `seedu.knowitall.commons` package
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
-
-// tag::undoredo[]
-=== Undo/Redo feature
-==== Current Implementation
-
-The undo/redo mechanism is facilitated by `VersionedCardFolder`.
-It extends `CardFolder` with an undo/redo history, stored internally as an `cardFolderStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedCardFolder#commit()` -- Saves the current card folder state in its history.
-* `VersionedCardFolder#undo()` -- Restores the previous card folder state from its history.
-* `VersionedCardFolder#redo()` -- Restores a previously undone card folder state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitCardFolder()`, `Model#undoCardFolder()` and `Model#redoCardFolder()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedCardFolder` will be initialized with the initial card folder state, and the `currentStatePointer` pointing to that single card folder state.
-
-image::UndoRedoStartingStateListDiagram.png[width="800"]
-
-Step 2. The user executes `delete 5` command to delete the 5th card in the card folder. The `delete` command calls `Model#commitCardFolder()`, causing the modified state of the card folder after the `delete 5` command executes to be saved in the `cardFolderStateList`, and the `currentStatePointer` is shifted to the newly inserted card folder state.
-
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
-
-Step 3. The user executes `add q/Some question ...` to add a new card. The `add` command also calls `Model#commitCardFolder()`, causing another modified card folder state to be saved into the `cardFolderStateList`.
-
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitCardFolder()`, so the card folder state will not be saved into the `cardFolderStateList`.
-
-Step 4. The user now decides that adding the card was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoCardFolder()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous card folder state, and restores the card folder to that state.
-
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial card folder state, then there are no previous card folder states to restore. The `undo` command uses `Model#canUndoCardFolder()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoRedoSequenceDiagram.png[width="800"]
-
-The `redo` command does the opposite -- it calls `Model#redoCardFolder()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the card folder to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `cardFolderStateList.size() - 1`, pointing to the latest card folder state, then there are no undone card folder states to restore. The `redo` command uses `Model#canRedoCardFolder()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the card folder, such as `list`, will usually not call `Model#commitCardFolder()`, `Model#undoCardFolder()` or `Model#redoCardFolder()`. Thus, the `cardFolderStateList` remains unchanged.
-
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
-
-Step 6. The user executes `clear`, which calls `Model#commitCardFolder()`. Since the `currentStatePointer` is not pointing at the end of the `cardFolderStateList`, all card folder states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add q/Some question ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::UndoRedoActivityDiagram.png[width="650"]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire card folder.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the card being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of card folder states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedCardFolder`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
 
 === Cards
 ==== Current Implementation
@@ -334,19 +253,19 @@ To allow users to manage Cards, the following methods are available via the `Mod
 ==== Example Usage
 
 1. User is in the `Organs` folder and wants to add a new card, with question 'What is the largest organ?' and answer 'Skin'. This is done by typing `add q/What is the largest organ? a/Skin`.
-
+////
     picture of command box with user inputs
-
+////
     * Upon execution, the `AddCommand` checks if the card to be added is already present in the current folder. If so, an exception is thrown.
 
 2. The `AddCommand` then calls the `ModelManager#addCard(Card card)` method.
 
 3. The new card will then be added to the active `VersionedCardFolder`.
-
+////
     picture of main window with updated card thumbnail list
 
     sequence diagram showing how add command works
-
+////
 
 // tag::score[]
 === Score feature
@@ -424,11 +343,11 @@ The user types ``export 1 2``
     Draw export command object diagram with set<CardFolderExport> and CsvFile file
 
 3. Logic unit executes the command. The execute command calls `Model#exportCardFolders` method.
-
+////
     show list of VersionedCardFolders
     arrow up
     Contains the list of card folders present in the model
-
+////
 4. Model checks that all card folders specified by user exists inside the list of card folders.
    Throws `CardFolderNotFound` Exception if user specified card folder does not exist in the application.
 
@@ -436,9 +355,9 @@ The user types ``export 1 2``
     File exported will be created in the project root directory.
     File will be named after the name of the cardfolder.
     i.e `Human Anatomy.csv` and `Nervous System.csv`
-
+////
     Sequence diagram
-
+////
 
 6. User wants to import `Human Anatomy.csv` file.
 `Human Anatomy.csv` file contains flashcards represented in csv file format.
@@ -828,7 +747,9 @@ Step 9. `MainWindow` sees that `CommandResult` object `r` has the type `START_TE
 `MainWindow#handleStartTestSession(currentTestedCard)` to display the `currentTestedCard` question and hints to the
 user.
 
-    insert sequence diagram for UI for test command?
+////
+insert sequence diagram for UI for test command?
+////
 
 [[exampleusageofendcommand]]
 [discrete]
@@ -944,7 +865,9 @@ cardToMark, boolean markCorrect)` followed by `model#setCard(cardToMark, scoredC
 Step 6. To complete the update in the change in score, model#updateFilteredCard(PREDICATE_SHOW_ALL_CARDS) and
 model#commitActiveCardFolder() are invoked.
 
+////
     To elaborate further?
+////
 
 Step 7. `AnswerCommand` now creates a `CommandResult` object, `r` with either type `ANSWER_CORRECT` or `ANSWER_WRONG`
  depending on the outcome of the attempt.
@@ -964,8 +887,9 @@ Step 10. If `MainWindow` sees that `CommandResult` object `r` has the type `ANSW
 If `MainWindow` sees that `CommandResult` object `r` has the type `ANSWER_WRONG`, it invokes
 `MainWindow#handleWrongAnswer()` to display the wrong attempt `TestSession` page to the user.
 
+////
     insert sequence diagram for UI for answer command?
-
+////
 
 ==== Next Command
 ===== Current Implementation
@@ -1056,6 +980,90 @@ Evaluation of the two alternatives:
 With our target audience in mind, alternative 1 is the more user friendly and intuitive way to handle this scenario.
 
 //end::testsession[]
+
+// tag::undoredo[]
+=== Undo/Redo feature
+
+[NOTE]
+The following section details a feature implemented in the earlier iteration of the application. As such, the diagrams still refer to `AddressBook`, which has since replaced with `CardFolder`. The outdated diagrams here will be updated by `v2.0`.
+
+==== Current Implementation
+
+The undo/redo mechanism is facilitated by `VersionedCardFolder`.
+It extends `CardFolder` with an undo/redo history, stored internally as an `cardFolderStateList` and `currentStatePointer`.
+Additionally, it implements the following operations:
+
+* `VersionedCardFolder#commit()` -- Saves the current card folder state in its history.
+* `VersionedCardFolder#undo()` -- Restores the previous card folder state from its history.
+* `VersionedCardFolder#redo()` -- Restores a previously undone card folder state from its history.
+
+These operations are exposed in the `Model` interface as `Model#commitCardFolder()`, `Model#undoCardFolder()` and `Model#redoCardFolder()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedCardFolder` will be initialized with the initial card folder state, and the `currentStatePointer` pointing to that single card folder state.
+
+image::UndoRedoStartingStateListDiagram.png[width="800"]
+
+Step 2. The user executes `delete 5` command to delete the 5th card in the card folder. The `delete` command calls `Model#commitCardFolder()`, causing the modified state of the card folder after the `delete 5` command executes to be saved in the `cardFolderStateList`, and the `currentStatePointer` is shifted to the newly inserted card folder state.
+
+image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
+
+Step 3. The user executes `add q/Some question ...` to add a new card. The `add` command also calls `Model#commitCardFolder()`, causing another modified card folder state to be saved into the `cardFolderStateList`.
+
+image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitCardFolder()`, so the card folder state will not be saved into the `cardFolderStateList`.
+
+Step 4. The user now decides that adding the card was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoCardFolder()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous card folder state, and restores the card folder to that state.
+
+image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial card folder state, then there are no previous card folder states to restore. The `undo` command uses `Model#canUndoCardFolder()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+The following sequence diagram shows how the undo operation works:
+
+image::UndoRedoSequenceDiagram.png[width="800"]
+
+The `redo` command does the opposite -- it calls `Model#redoCardFolder()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the card folder to that state.
+
+[NOTE]
+If the `currentStatePointer` is at index `cardFolderStateList.size() - 1`, pointing to the latest card folder state, then there are no undone card folder states to restore. The `redo` command uses `Model#canRedoCardFolder()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the card folder, such as `list`, will usually not call `Model#commitCardFolder()`, `Model#undoCardFolder()` or `Model#redoCardFolder()`. Thus, the `cardFolderStateList` remains unchanged.
+
+image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+
+Step 6. The user executes `clear`, which calls `Model#commitCardFolder()`. Since the `currentStatePointer` is not pointing at the end of the `cardFolderStateList`, all card folder states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add q/Some question ...` command. This is the behavior that most modern desktop applications follow.
+
+image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::UndoRedoActivityDiagram.png[width="650"]
+
+==== Design Considerations
+
+===== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Saves the entire card folder.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the card being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use a list to store the history of card folder states.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedCardFolder`.
+* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+// end::undoredo[]
 
 === Logging
 
@@ -1264,284 +1272,6 @@ A project often depends on third-party libraries. For example, card folder depen
 [loweralpha]
 . Include those libraries in the repo (this bloats the repo size)
 . Require developers to download those libraries manually (this creates extra work for developers)
-
-[[GetStartedProgramming]]
-[appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all cards in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/knowitall/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/knowitall/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/knowitall/logic/parser/CardFolderParser.java[`CardFolderParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/knowitall/logic/parser/CardFolderParser.java[`CardFolderParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the card folder, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the card folder.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/knowitall/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/knowitall/model/CardFolder.java[`CardFolder`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting hints?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/knowitall/model/CardFolder.java[`CardFolder`] and link:{repoURL}/src/main/java/seedu/knowitall/model/card/Card.java[`Card`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/knowitall/model/CardFolder.java[`CardFolder`] allows you to update a card, and link:{repoURL}/src/main/java/seedu/knowitall/model/card/Card.java[`Card`] allows you to update the hints.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/knowitall/model/CardFolder.java[`CardFolder`]. Loop through each card, and remove the `tag` from each card.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/knowitall/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/knowitall/model/ModelManager.java[`ModelManager`] should call `CardFolder#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your card folder application. You realize that one of the users occasionally tries to delete non-existent hints from a contact, because the hints all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last card in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different hints inside card cards. For example, `friends` hints can be all in brown, and `colleagues` hints can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/knowitall/ui/CardCard.java[the `CardCard` constructor] (`new Label(tag.hintName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `CardThumbnail` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that hints retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/knowitall/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/knowitall/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/knowitall/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/knowitall/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/knowitall/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/knowitall/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/knowitall/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/knowitall/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/CardFolderSystemTest.java[`CardFolderSystemTest#assertCommandBoxShowsDefaultStyle() and CardFolderSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/knowitall/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the card folder.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/knowitall/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the card folder is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/knowitall/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of cards when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/knowitall/ui/StatusBarFooter.java[`StatusBarFooter#handleCardFolderChangedEvent(CardFolderChangedEvent)`] to update the number of cards whenever there are new changes to the knowitall.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/CardFolderSystemTest.java[`CardFolderSystemTest`] to also verify the new total number of cards status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the card folder to the cloud. However, the current implementation of the application constantly saves the card folder after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the card folder storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupCardFolder(ReadOnlyCardFolder)`, so that the card folder can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/knowitall/storage/CardFolderStorage.java[`CardFolderStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/knowitall/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/knowitall/storage/JsonCardFolderStorage.java[`JsonCardFolderStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `cardfolder`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on hints alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a card specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first card to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first card.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/knowitall/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/knowitall/logic/parser/CardFolderParser.java[`CardFolderParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/knowitall/logic/parser/CardFolderParserTest.java[`CardFolderParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/knowitall/logic/parser/CardFolderParser.java[`CardFolderParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/knowitall/logic/parser/CardFolderParserTest.java[`CardFolderParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `CardCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/knowitall/ui/CardCard.java[`CardCard`] s to display a remark for each card later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/CardListThumbnail.fxml[`CardListThumbnail.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/knowitall/ui/CardCard.java[`CardCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/CardCardHandle.java[`CardCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/knowitall/model/card/Card.java[`Card`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/knowitall/model/card/Address.java[`Address`], remove the regex and change the questions accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Card` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/knowitall/model/card/Card.java[`Card`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/knowitall/model/card/Card.java[`Card`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the card will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/knowitall/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/cardfolder.json` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `JsonAdaptedCard` class
-We now have `Remark` s for `Card` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/knowitall/storage/JsonAdaptedCard.java[`JsonAdaptedCard`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new JSON field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidCardCardFolder.json`, `typicalCardsCardFolder.json`, `validCardFolder.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
-
-===== [Step 6b] Test: Add withRemark() for `CardBuilder`
-Since `Card` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/knowitall/testutil/CardBuilder.java[`CardBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/knowitall/model/card/Card.java[`Card`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/knowitall/testutil/CardBuilder.java[`CardBuilder`]. This method will create a new `Remark` for the card that it is currently building.
-. Try and use the method on any sample `Card` in link:{repoURL}/src/test/java/seedu/knowitall/testutil/TypicalCards.java[`TypicalCards`].
-
-===== [Step 7] Ui: Connect `Remark` field to `CardCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/knowitall/ui/CardCard.java[`CardCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/knowitall/ui/CardCard.java[`CardCard`]'s constructor to bind the `Remark` field to the `Card` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/knowitall/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysCard(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a card.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
 == Product Scope
@@ -1752,11 +1482,21 @@ _{More to be added}_
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+[[mainstream-os]]**Mainstream OS**: Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[flashcard]]**Flashcard/Card**: An object containing a single question and answer, and optionally hints.
+
+[[folder]] **Folder**: A collections of flashcards, grouped topically. There are no
+sub-folders.
+
+[[testsession]] **Test Session**: A session where all flashcards in a folder are queued to have their
+questions displayed. The user is required to key in an answer for each question.
+
+[[cardscore]]  **Card Score**: The number of correct answers divided by the number of attempts for a single card. When the user is tested on a card, this number is automatically calculated and recorded.
+
+[[folderscore]] **Folder Score**: The average of all <<cardscore, card scores>> in a folder after a test session. This number is automatically recorded after each test session.
+
+[[homedirectory]] **Home Directory**: The home page where all the folders are listed. From here, users can enter folders to view cards.
 
 [appendix]
 == Instructions for Manual Testing
@@ -1780,7 +1520,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+_{ more test cases to be added ... }_
 
 === Deleting a card
 
@@ -1794,7 +1534,7 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+_{ more test cases to be added ... }_
 
 === Saving data
 
@@ -1802,4 +1542,4 @@ _{ more test cases ... }_
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
-_{ more test cases ... }_
+_{ more test cases to be added ... }_

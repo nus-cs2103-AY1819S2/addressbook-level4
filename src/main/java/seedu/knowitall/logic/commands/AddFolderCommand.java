@@ -7,6 +7,7 @@ import seedu.knowitall.logic.CommandHistory;
 import seedu.knowitall.logic.commands.exceptions.CommandException;
 import seedu.knowitall.model.CardFolder;
 import seedu.knowitall.model.Model;
+import seedu.knowitall.model.Model.State;
 
 /**
  * Adds a card folder.
@@ -37,7 +38,7 @@ public class AddFolderCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        if (model.isInFolder()) {
+        if (model.getState() != State.IN_HOMEDIR) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_INSIDE_FOLDER);
         }
         if (model.hasFolder(toAdd)) {

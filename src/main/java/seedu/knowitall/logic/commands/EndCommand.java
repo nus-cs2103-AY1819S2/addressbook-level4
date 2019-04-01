@@ -4,6 +4,7 @@ import seedu.knowitall.commons.core.Messages;
 import seedu.knowitall.logic.CommandHistory;
 import seedu.knowitall.logic.commands.exceptions.CommandException;
 import seedu.knowitall.model.Model;
+import seedu.knowitall.model.Model.State;
 
 /**
  * Ends the current test session.
@@ -19,11 +20,11 @@ public class EndCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        if (!model.isInTestSession() && !model.inReportDisplay()) {
+        if ((model.getState() != State.IN_TEST) && (model.getState() != State.IN_REPORT)) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN);
         }
 
-        if (model.isInTestSession()) {
+        if (model.getState() == State.IN_TEST) {
             model.endTestSession();
             return new CommandResult(MESSAGE_END_TEST_SESSION_SUCCESS, CommandResult.Type.END_TEST_SESSION);
         } else {

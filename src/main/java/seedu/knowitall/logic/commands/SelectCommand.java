@@ -37,7 +37,7 @@ public class SelectCommand extends Command {
 
         List<Card> filteredCardList = model.getFilteredCards();
 
-        if (!model.isInFolder()) {
+        if (model.getState() != Model.State.IN_FOLDER) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
         }
 

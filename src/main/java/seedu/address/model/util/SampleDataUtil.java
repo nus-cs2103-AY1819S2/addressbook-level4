@@ -17,7 +17,7 @@ import seedu.address.model.restaurant.OpeningHours;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Weblink;
-import seedu.address.model.restaurant.categories.Category;
+import seedu.address.model.restaurant.categories.Categories;
 import seedu.address.model.restaurant.categories.Cuisine;
 import seedu.address.model.restaurant.categories.Occasion;
 import seedu.address.model.restaurant.categories.PriceRange;
@@ -87,10 +87,10 @@ public class SampleDataUtil {
     }
 
     /**
-     * Returns a Category containing the cuisine and occasion given
+     * Returns a Categories containing the cuisine and occasion given
      */
-    public static Category getCategories(String cuisine, String occasion, String priceRange) {
-        return new Category(new Cuisine(cuisine), new Occasion(occasion), new PriceRange(priceRange));
+    public static Categories getCategories(String cuisine, String occasion, String priceRange) {
+        return new Categories(new Cuisine(cuisine), new Occasion(occasion), new PriceRange(priceRange));
     }
 
     /**

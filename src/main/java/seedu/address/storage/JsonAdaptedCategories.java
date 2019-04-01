@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.restaurant.categories.Category;
+import seedu.address.model.restaurant.categories.Categories;
 import seedu.address.model.restaurant.categories.Cuisine;
 import seedu.address.model.restaurant.categories.Occasion;
 import seedu.address.model.restaurant.categories.PriceRange;
 
 /**
- * Jackson-friendly version of {@link Category}.
+ * Jackson-friendly version of {@link Categories}.
  */
 public class JsonAdaptedCategories {
 
@@ -32,20 +32,20 @@ public class JsonAdaptedCategories {
     }
 
     /**
-     * Converts a given {@code Category} into this class for Jackson use.
+     * Converts a given {@code Categories} into this class for Jackson use.
      */
-    public JsonAdaptedCategories(Category categories) {
+    public JsonAdaptedCategories(Categories categories) {
         this.cuisine = categories.getCuisine().map(cuisine -> cuisine.value).orElse(null);
         this.occasion = categories.getOccasion().map(occasion -> occasion.value).orElse(null);
         this.priceRange = categories.getPriceRange().map(priceRange -> priceRange.value).orElse(null);
     }
 
     /**
-     * Converts this Jackson-friendly adapted categories object into the model's {@code Category} object.
+     * Converts this Jackson-friendly adapted categories object into the model's {@code Categories} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted categories.
      */
-    public Category toModelType() throws IllegalValueException {
+    public Categories toModelType() throws IllegalValueException {
         if (cuisine != null && !Cuisine.isValidCuisine(cuisine)) {
             throw new IllegalValueException(Cuisine.MESSAGE_CONSTRAINTS);
         }
@@ -58,6 +58,6 @@ public class JsonAdaptedCategories {
         final Optional<Cuisine> modelCuisine = Optional.ofNullable(cuisine).map(Cuisine::new);
         final Optional<Occasion> modelOccasion = Optional.ofNullable(occasion).map(Occasion::new);
         final Optional<PriceRange> modelPriceRange = Optional.ofNullable(priceRange).map(PriceRange::new);
-        return new Category(modelCuisine, modelOccasion, modelPriceRange);
+        return new Categories(modelCuisine, modelOccasion, modelPriceRange);
     }
 }

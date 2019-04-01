@@ -17,7 +17,7 @@ import seedu.address.model.restaurant.OpeningHours;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Weblink;
-import seedu.address.model.restaurant.categories.Category;
+import seedu.address.model.restaurant.categories.Categories;
 import seedu.address.model.review.Review;
 import seedu.address.model.tag.Tag;
 
@@ -134,9 +134,9 @@ class JsonAdaptedRestaurant {
         }
         final Address modelAddress = new Address(address);
 
-        final Category modelCategories;
+        final Categories modelCategories;
         if (categories == null) {
-            modelCategories = Category.empty();
+            modelCategories = Categories.empty();
         } else {
             modelCategories = categories.toModelType();
         }

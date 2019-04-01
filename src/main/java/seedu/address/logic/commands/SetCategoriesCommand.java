@@ -14,14 +14,14 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.restaurant.Restaurant;
-import seedu.address.model.restaurant.categories.Category;
+import seedu.address.model.restaurant.categories.Categories;
 
 /**
  * Sets the cuisine of an existing restaurant in the food diary.
  */
-public class SetCategoryCommand extends Command {
+public class SetCategoriesCommand extends Command {
 
-    public static final String COMMAND_WORD = "setCategory";
+    public static final String COMMAND_WORD = "setCategories";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sets categories of the restaurant identified by the index number used in the displayed "
@@ -35,17 +35,17 @@ public class SetCategoryCommand extends Command {
             + PREFIX_OCCASION + "Wedding"
             + PREFIX_PRICE_RANGE + "$$$$";
 
-    public static final String MESSAGE_SET_CUISINE_SUCCESS = "Category Set for Restaurant: %1$s";
+    public static final String MESSAGE_SET_CUISINE_SUCCESS = "Categories Set for Restaurant: %1$s";
 
     private final Index index;
-    private final Category category;
+    private final Categories categories;
 
-    public SetCategoryCommand(Index index, Category category) {
+    public SetCategoriesCommand(Index index, Categories categories) {
         requireNonNull(index);
-        requireNonNull(category);
+        requireNonNull(categories);
 
         this.index = index;
-        this.category = category;
+        this.categories = categories;
     }
 
     @Override
@@ -58,8 +58,8 @@ public class SetCategoryCommand extends Command {
         }
 
         Restaurant restaurantToUpdateCategory = lastShownList.get(index.getZeroBased());
-        Category existingCategories = restaurantToUpdateCategory.getCategories();
-        Category updatedCategories = Category.merge(existingCategories, this.category);
+        Categories existingCategories = restaurantToUpdateCategory.getCategories();
+        Categories updatedCategories = Categories.merge(existingCategories, this.categories);
         Restaurant restaurantWithCategoryUpdated = new Restaurant(restaurantToUpdateCategory, updatedCategories);
 
         model.setRestaurant(restaurantToUpdateCategory, restaurantWithCategoryUpdated);
@@ -76,13 +76,13 @@ public class SetCategoryCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof SetCategoryCommand)) {
+        if (!(other instanceof SetCategoriesCommand)) {
             return false;
         }
 
         // state check
-        SetCategoryCommand e = (SetCategoryCommand) other;
+        SetCategoriesCommand e = (SetCategoriesCommand) other;
         return index.equals(e.index)
-                && category.equals(e.category);
+                && categories.equals(e.categories);
     }
 }

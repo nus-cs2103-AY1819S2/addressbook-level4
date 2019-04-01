@@ -9,18 +9,18 @@ import seedu.address.commons.util.StringUtil;
 /**
  * Encapsulates the categories of a restaurant.
  */
-public class Category {
+public class Categories {
     private final Optional<Cuisine> cuisine;
     private final Optional<Occasion> occasion;
     private final Optional<PriceRange> priceRange;
 
-    public Category(Cuisine cuisine, Occasion occasion, PriceRange priceRange) {
+    public Categories(Cuisine cuisine, Occasion occasion, PriceRange priceRange) {
         this.cuisine = Optional.ofNullable(cuisine);
         this.occasion = Optional.ofNullable(occasion);
         this.priceRange = Optional.ofNullable(priceRange);
     }
 
-    public Category(Optional<Cuisine> cuisine, Optional<Occasion> occasion, Optional<PriceRange> priceRange) {
+    public Categories(Optional<Cuisine> cuisine, Optional<Occasion> occasion, Optional<PriceRange> priceRange) {
         this.cuisine = cuisine;
         this.occasion = occasion;
         this.priceRange = priceRange;
@@ -38,19 +38,19 @@ public class Category {
         return this.priceRange;
     }
 
-    public static Category empty() {
-        return new Category(Optional.empty(), Optional.empty(), Optional.empty());
+    public static Categories empty() {
+        return new Categories(Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
      * Merge the updated category with the old category.
      * Ensures previous category fields are retained if updated fields are not present.
      */
-    public static Category merge(Category previous, Category updated) {
+    public static Categories merge(Categories previous, Categories updated) {
         Optional<Cuisine> mergedCuisine = updated.cuisine.or(() -> previous.cuisine);
         Optional<Occasion> mergedOccasion = updated.occasion.or(() -> previous.occasion);
         Optional<PriceRange> mergedPriceRange = updated.priceRange.or(() -> previous.priceRange);
-        return new Category(mergedCuisine, mergedOccasion, mergedPriceRange);
+        return new Categories(mergedCuisine, mergedOccasion, mergedPriceRange);
     }
 
     /**
@@ -81,10 +81,10 @@ public class Category {
     @Override
     public boolean equals(Object obj) {
         return obj == this // short circuit if same object
-                || (obj instanceof Category // instanceof handles nulls
-                && cuisine.equals(((Category) obj).cuisine))
-                && occasion.equals(((Category) obj).occasion)
-                && priceRange.equals(((Category) obj).priceRange); // state check
+                || (obj instanceof Categories // instanceof handles nulls
+                && cuisine.equals(((Categories) obj).cuisine))
+                && occasion.equals(((Categories) obj).occasion)
+                && priceRange.equals(((Categories) obj).priceRange); // state check
     }
 
     @Override

@@ -6,12 +6,12 @@ import java.util.function.Predicate;
 import seedu.address.model.restaurant.Restaurant;
 
 /**
- * Tests that a {@code Restaurant}'s {@code Category} matches any of the keywords given.
+ * Tests that a {@code Restaurant}'s {@code Categories} matches any of the keywords given.
  */
-public class CategoryContainsKeywordsPredicate implements Predicate<Restaurant> {
+public class CategoriesContainKeywordsPredicate implements Predicate<Restaurant> {
     private final List<String> keywords;
 
-    public CategoryContainsKeywordsPredicate(List<String> keywords) {
+    public CategoriesContainKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
@@ -24,7 +24,7 @@ public class CategoryContainsKeywordsPredicate implements Predicate<Restaurant> 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CategoryContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((CategoryContainsKeywordsPredicate) other).keywords)); // state check
+                || (other instanceof CategoriesContainKeywordsPredicate // instanceof handles nulls
+                && keywords.equals(((CategoriesContainKeywordsPredicate) other).keywords)); // state check
     }
 }

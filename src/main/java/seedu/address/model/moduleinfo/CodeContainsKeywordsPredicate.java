@@ -59,7 +59,7 @@ public class CodeContainsKeywordsPredicate implements Predicate<ModuleInfo> {
                     if (keyword.matches(COMBINATION_REGEX)) {
                         return combinationSearch(splitPredicate(keyword), module);
                     } else {
-                         return StringUtil.containsWordIgnoreCase(module.getCodeString(), keyword)
+                        return StringUtil.containsWordIgnoreCase(module.getCodeString(), keyword)
                                 || StringUtil.containsWordIgnoreCase(module.getTitleString(), keyword);
                     }
                 });

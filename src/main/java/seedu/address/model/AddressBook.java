@@ -114,6 +114,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         return status;
     }
 
+    /**
+     * Adds a person to the job.
+     * The person must not already exist in the job.
+     * Adds to the first list
+     * This version directly adds from job
+     */
     public void addPersonToJob(Person person, Job job) {
         job.add(person);
         indicateModified();

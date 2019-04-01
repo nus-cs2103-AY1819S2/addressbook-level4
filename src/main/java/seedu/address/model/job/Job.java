@@ -111,7 +111,7 @@ public class Job {
             return true;
         }
 
-        return(otherJob.getName() == this.getName());
+        return (otherJob.getName() == this.getName());
     }
 
     /**

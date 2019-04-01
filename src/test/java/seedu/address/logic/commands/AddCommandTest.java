@@ -242,10 +242,14 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addFilteredPersonsToJob(Job job) { throw  new AssertionError("This method should not be called."); }
+        public void addFilteredPersonsToJob(Job job) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
-        public boolean addPersonToJob(JobName job, Nric nric) { throw  new AssertionError("This method should not be called."); }
+        public boolean addPersonToJob(JobName job, Nric nric) {
+            throw new AssertionError("This method should not be called.");
+        }
 
     }
 

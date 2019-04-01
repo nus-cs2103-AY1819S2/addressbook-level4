@@ -10,7 +10,6 @@ import static seedu.address.testutil.TypicalJobs.PROFESSOR;
 import static seedu.address.testutil.TypicalJobs.TEACHER;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import org.junit.Rule;
@@ -27,13 +26,13 @@ public class JobTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void TestToString() {
+    public void testToString() {
         Job Teacher = new JobBuilder(TEACHER).build();
-        assertEquals( VALID_JOB_NAME_TEACHER ,Teacher.toString());
+        assertEquals(VALID_JOB_NAME_TEACHER, Teacher.toString());
     }
 
     @Test
-    public void TestAddPerson() {
+    public void testAddPerson() {
         Person alice = new PersonBuilder(ALICE).build();
         Job Teacher = new JobBuilder(TEACHER).build();
 

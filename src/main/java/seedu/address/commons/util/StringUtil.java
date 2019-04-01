@@ -43,9 +43,9 @@ public class StringUtil {
      */
     public static String capitalize(String string) {
         requireNonNull(string);
-        char toArr[] = string.toCharArray();
+        char[] toArr = string.toCharArray();
         for (int i = 0; i < string.length(); i++) {
-            boolean isFirstCharOfWordFound = (i == 0 && toArr[i] != ' ') || (toArr[i] != ' ' && toArr[i-1] == ' ');
+            boolean isFirstCharOfWordFound = (i == 0 && toArr[i] != ' ') || (toArr[i] != ' ' && toArr[i - 1] == ' ');
             boolean isCharUpperCaseExceptFirstLetter = (toArr[i] >= 'A') && (toArr[i] <= 'Z');
             if (isFirstCharOfWordFound) {
                 boolean isCharLowerCase = (toArr[i] >= 'a') && (toArr[i] <= 'z');

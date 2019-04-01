@@ -309,13 +309,13 @@ Example:
 `memberSort name` +
 Sorts the list by name.
 
-image::MemberSortCommand_sortby_name.PNG[width="790"]
+image::MemberSortCommand_sortby_name.png[width="790"]
 
 * `list` +
 `memberSort yearOfStudy` +
 Sorts the list by year of study.
 
-image::MemberSortCommand_sortby_yearofstudy.PNG[width="790"]
+image::MemberSortCommand_sortby_yearofstudy.png[width="790"]
 
 === Activity Management Features
 

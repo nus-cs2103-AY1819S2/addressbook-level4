@@ -10,7 +10,6 @@ import java.util.Optional;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.medicine.Directory;
 import seedu.address.model.medicine.Medicine;
 
 /**
@@ -70,10 +69,6 @@ public class AddMedicineCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         try {
-            Optional<Directory> findDirectory = model.findDirectory(path);
-            if (!findDirectory.isPresent()) {
-                throw new CommandException("No Directory found at given path");
-            }
             if ((price.isPresent() && !quantity.isPresent())
                     || (!price.isPresent() && quantity.isPresent())) {
                 throw new CommandException(ERRORMESSAGE_INSUFFICIENTINFO_NEWMEDICINE);
@@ -82,7 +77,7 @@ public class AddMedicineCommand extends Command {
             Optional<Medicine> findMedicine = model.findMedicine(name);
             if (existing) {
                 if (findMedicine.isPresent()) {
-                    findDirectory.get().addMedicine(findMedicine.get());
+                    model.addExistingMedicineToDirectory(findMedicine.get(), path);
                     model.commitAddressBook();
                     String feedback = String.format(MESSAGE_SUCCESS_EXISTING_MED,
                             findMedicine.get().toString(), fromPathToString(path));

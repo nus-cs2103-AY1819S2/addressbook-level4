@@ -55,7 +55,7 @@ public class AddMedicineCommandTest {
                             .execute(modelManager, history);
             Assert.fail();
         } catch (CommandException ex) {
-            Assert.assertEquals("No Directory found at given path", ex.getMessage());
+            Assert.assertEquals("Invalid path", ex.getMessage());
         }
     }
 

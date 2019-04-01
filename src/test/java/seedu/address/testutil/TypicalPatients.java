@@ -103,6 +103,4 @@ public class TypicalPatients {
     public static List<Patient> getTypicalPatients() {
         return new ArrayList<>(Arrays.asList(ALICE, BOB, CHUCK));
     }
-
-
 }

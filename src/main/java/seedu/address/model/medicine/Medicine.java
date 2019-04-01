@@ -13,8 +13,13 @@ public class Medicine {
     public static final String MESSAGE_CONSTRAINTS = "Medicine name can take any values, and it should not be blank";
     public static final String VALIDATION_REGEX = "\\S+";
     public static final String TO_STRING = "Medicine: %1$s, Quantity: %2$d, Price: %3$s";
-    private static final int DEFAULT_THRESHOLD = 50;
+    public static final String REMINDER_TITLE_IF_INSUFFICIENT = "Quantity of %1$s is too low.";
+    public static final String REMINDER_COMMENT_IF_INSUFFICIENT =
+            "Current quantity is at %1$d.\nThe minimum treshold is %2$d.";
+    private static final int DEFAULT_THRESHOLD = 0;
 
+    //private static ReminderManager reminderManager = new ReminderManager();
+    //
     public final String name;
     private int quantity;
     private int threshold;
@@ -47,7 +52,11 @@ public class Medicine {
         setQuantity(amount);
         this.threshold = DEFAULT_THRESHOLD;
     }
-
+    /**
+    public static void setReminderManager(ReminderManager newReminderManager) {
+        reminderManager = newReminderManager;
+    }
+    */
     public static boolean isValidMedicine(String test) {
         return test.matches(VALIDATION_REGEX);
     }
@@ -57,6 +66,7 @@ public class Medicine {
             throw new IllegalArgumentException("Quantity must be positive");
         }
         quantity = amount;
+        //generateOrDeleteReminder();
     }
 
     public int getQuantity() {
@@ -89,17 +99,13 @@ public class Medicine {
         }
         int current = this.getQuantity();
         setQuantity(current - change);
-        checkIfSufficient();
     }
 
     /**
      * Called after each subtraction to detect if the storage is running low
      */
-    private void checkIfSufficient() {
-        int current = this.getQuantity();
-        if (quantity < threshold) {
-            //throw a reminder
-        }
+    public boolean isSufficient() {
+        return quantity >= threshold;
     }
 
     public int getThreshold() {

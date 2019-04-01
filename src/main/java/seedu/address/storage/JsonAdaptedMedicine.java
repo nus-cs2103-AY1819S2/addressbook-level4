@@ -39,9 +39,14 @@ public class JsonAdaptedMedicine {
      * @return A model-type medicine object.
      * @throws IllegalValueException If the quantity/price values violates preconditions.
      */
-    public Medicine toModelType() throws IllegalValueException {
+    public Medicine toModelType() {
         Medicine medicine = new Medicine(name, quantity);
         medicine.setPrice(price);
+        medicine.setThreshold(threshold);
         return medicine;
+    }
+
+    public String getName() {
+        return name;
     }
 }

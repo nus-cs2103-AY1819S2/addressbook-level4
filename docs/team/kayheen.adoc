@@ -7,7 +7,7 @@
 
 ---
 
-== Overview of the project 
+== Overview of the project
 My team and I were tasked with enhancing a basic command line addressbook for our Software Engineering project. We decided to morph the project into a image editor. +
 
 FomoFoto is a robust yet simple image-editing tool. Users interact with the application through worded commands from their keyboard, and receive visual feedback from it through the displayed image on the application. +
@@ -21,11 +21,11 @@ This section provides a summary of my coding, documentation and miscellaneous co
 
 * *Major enhancement*: I added *image manipulation commands*
 
-** _What it does:_ This feature allows the user manipulate images on a physical level, such as rotating, cropping and resizing the target image. Users key in keywords like `rotate`, `crop` and `resize` to activate the respective commands. 
+** _What it does:_ This feature allows the user manipulate images on a physical level, such as rotating, cropping and resizing the target image. Users key in keywords like `rotate`, `crop` and `resize` to activate the respective commands.
 
 ** _Justification:_ This feature improves the product significantly because it is an essential feature of an image editor. Users might want to `rotate` their images because the position is wrong or `crop` out certain unwanted parts in the image. Should the image be too large, the user can `resize` it as well.
 
-** _Highlights:_ This enhancement works with all other commands, including the image filters that were implemented by my teammate. An in-depth analysis of the commands were done before we decided to make use of a library. The implementation was challenging because there was a need to coordinate between the image filter commands and the commands here, because the two libraries returned different objects. There was a need to ensure that the `Image` class and `CurrentEdit` class could accept changes from both libraries. 
+** _Highlights:_ This enhancement works with all other commands, including the image filters that were implemented by my teammate. An in-depth analysis of the commands were done before we decided to make use of a library. The implementation was challenging because there was a need to coordinate between the image filter commands and the commands here, because the two libraries returned different objects. There was a need to ensure that the `Image` class and `CurrentEdit` class could accept changes from both libraries.
 
 ** _Credits:_ https://github.com/rkalla/imgscalr[`ImgScalr Library`]
 

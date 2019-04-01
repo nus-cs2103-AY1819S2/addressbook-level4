@@ -219,7 +219,7 @@ public class Enemy extends Player {
         } else { //increase row
             for (int i = 0; i < shipSize; i++) { //col stays the same
                 int rowStart = head.getRowIndex().getZeroBased();
-                Coordinates markedCoord = new Coordinates(rowStart + 1, head.getColIndex().getZeroBased());
+                Coordinates markedCoord = new Coordinates(rowStart + i, head.getColIndex().getZeroBased());
                 allPossiblePopulateCoords.remove(markedCoord);
                 logger.info(String.format("++++++++MARK_AS_OCCUPIED: " + markedCoord.toString()));
 

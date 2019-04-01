@@ -67,6 +67,14 @@ public class Booking {
         return 1 + otherUsers.map(Collection::size).orElse(0);
     }
 
+    public boolean isCustomerInOtherUsers(Customer key) {
+        return this.otherUsers.filter(list -> list.indexOf(key) != -1).isPresent();
+    }
+
+    public void removeCustomerFromOtherUsers(Customer key) {
+        this.otherUsers.ifPresent(list -> list.remove(key));
+    }
+
     @Override
     public String toString() {
         String otherUsersToString = "";

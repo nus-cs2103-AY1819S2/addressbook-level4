@@ -10,6 +10,8 @@ import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.hms.model.booking.Booking;
+import seedu.hms.model.booking.exceptions.BookingNotFoundException;
 import seedu.hms.model.reservation.exceptions.ReservationNotFoundException;
 import seedu.hms.model.reservation.exceptions.RoomFullException;
 import seedu.hms.model.util.DateRange;
@@ -91,6 +93,17 @@ public class ReservationList implements Iterable<Reservation> {
             throw new ReservationNotFoundException();
         }
         internalList.remove(toRemove);
+    }
+
+    /**
+     * Removes the equivalent reservation from the list.
+     * The reservation must exist in the list.
+     */
+    public void remove(Reservation toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new ReservationNotFoundException();
+        }
     }
 
     public void setReservations(ReservationList replacement) {

@@ -149,6 +149,22 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
      * {@code key} must exist in the hms book.
      */
     public void removeCustomer(Customer key) {
+        for (Booking b: bookings) {
+            if (b.getPayer().equals(key)) {
+                this.removeBooking(b);
+            }
+            if (b.isCustomerInOtherUsers(key)) {
+                b.removeCustomerFromOtherUsers(key);
+            }
+        }
+        for (Reservation r: reservations) {
+            if (r.getPayer().equals(key)) {
+                this.removeReservation(r);
+            }
+            if (r.isCustomerInOtherUsers(key)) {
+                r.removeCustomerFromOtherUsers(key);
+            }
+        }
         customers.remove(key);
         indicateModified();
     }
@@ -219,6 +235,15 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
      */
     public void removeReservation(int removeIndex) {
         reservations.remove(removeIndex);
+        indicateModified();
+    }
+
+    /**
+     * Removes {@code reservation} from this {@code HotelManagementSystem}.
+     * {@code reservation} must exist in the hms book.
+     */
+    public void removeReservation(Reservation r) {
+        reservations.remove(r);
         indicateModified();
     }
 

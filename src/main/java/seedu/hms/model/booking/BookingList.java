@@ -108,7 +108,7 @@ public class BookingList implements Iterable<Booking> {
 
     /**
      * Removes the equivalent booking from the list.
-     * The customer must exist in the list.
+     * The booking must exist in the list.
      */
     public void remove(Booking toRemove) {
         requireNonNull(toRemove);

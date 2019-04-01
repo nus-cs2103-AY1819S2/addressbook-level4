@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.hms.model.booking.Booking;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.util.DateRange;
 
@@ -51,6 +52,14 @@ public class Reservation {
         return otherUsers;
     }
 
+    public boolean isCustomerInOtherUsers(Customer key) {
+        return this.otherUsers.filter(list -> list.indexOf(key) != -1).isPresent();
+    }
+
+    public void removeCustomerFromOtherUsers(Customer key) {
+        this.otherUsers.ifPresent(list -> list.remove(key));
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -74,5 +83,22 @@ public class Reservation {
             + " from " + dates
             + " by " + payer.getName()
             + ". Comment - " + comment.orElse("N/A");
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Booking)) {
+            return false;
+        }
+
+        Reservation ob = (Reservation) other;
+        return ob.getRoom().equals(getRoom())
+            && ob.getDates().equals(getDates())
+            && ob.getPayer().equals(getPayer())
+            && ob.getOtherUsers().equals(getOtherUsers());
     }
 }

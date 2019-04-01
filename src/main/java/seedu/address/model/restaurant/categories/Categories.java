@@ -54,7 +54,7 @@ public class Categories {
     }
 
     /**
-     * Checks if the given keyword matches any of the categories
+     * Checks if the given keyword matches any of the categories.
      */
     public boolean match(String keyword) {
         boolean matchesCuisine = StringUtil
@@ -66,6 +66,9 @@ public class Categories {
         return matchesCuisine || matchesOccasion || matchesPriceRange;
     }
 
+    /**
+     * Sets the labels in the UI with the value of each category if present. Else toggles visibility of label to false.
+     */
     public void setLabels(Label cuisineLabel, Label occasionLabel, Label priceRangeLabel) {
         cuisine.ifPresentOrElse(content -> cuisineLabel.setText(content.value), () -> cuisineLabel.setVisible(false));
         occasion.ifPresentOrElse(content -> occasionLabel.setText(content.value), () ->

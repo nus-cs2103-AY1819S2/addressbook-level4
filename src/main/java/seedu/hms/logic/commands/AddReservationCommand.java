@@ -11,6 +11,8 @@ import seedu.hms.logic.CommandHistory;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.model.ReservationModel;
 import seedu.hms.model.reservation.Reservation;
+import seedu.hms.model.reservation.exceptions.RoomFullException;
+import seedu.hms.model.reservation.exceptions.RoomUnavailableException;
 
 /**
  * Adds a reservation to the hms book.
@@ -51,7 +53,13 @@ public class AddReservationCommand extends ReservationCommand {
     @Override
     public CommandResult execute(ReservationModel model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        model.addReservation(toAdd);
+        try {
+            model.addReservation(toAdd);
+        } catch (RoomUnavailableException e) {
+            return new CommandResult(MESSAGE_ROOM_UNAVAILABLE);
+        } catch (RoomFullException e) {
+            return new CommandResult(MESSAGE_ROOM_FULL);
+        }
         model.commitHotelManagementSystem();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

@@ -1,8 +1,10 @@
 package seedu.hms.model.util;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,13 +16,21 @@ public class DateRange {
     private final Calendar startDate;
     private final Calendar endDate;
 
-    public DateRange(String startDate, String endDate) {
+    public DateRange(String startDate, String endDate) throws seedu.hms.logic.parser.exceptions.ParseException {
         String[] sd = startDate.split("/");
         String[] ed = endDate.split("/");
-        this.startDate = new GregorianCalendar(Integer.parseInt(sd[2]), Integer.parseInt(sd[1]),
-            Integer.parseInt(sd[0]));
-        this.endDate = new GregorianCalendar(Integer.parseInt(ed[2]), Integer.parseInt(ed[1]),
-            Integer.parseInt(ed[0]));
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        format.setLenient(false);
+        try {
+            format.parse(startDate);
+            format.parse(endDate);
+        } catch (ParseException e) {
+            throw new seedu.hms.logic.parser.exceptions.ParseException("You have entered an invalid date");
+        }
+        this.startDate = Calendar.getInstance();
+        this.startDate.set(Integer.parseInt(sd[2]), Integer.parseInt(sd[1]), Integer.parseInt(sd[0]));
+        this.endDate = Calendar.getInstance();
+        this.endDate.set(Integer.parseInt(ed[2]), Integer.parseInt(ed[1]), Integer.parseInt(ed[0]));
     }
 
     public DateRange(Calendar startDate, Calendar endDate) {
@@ -51,7 +61,7 @@ public class DateRange {
     @Override
     public String toString() {
         return startDate.get(Calendar.DATE) + "/" + (startDate.get(Calendar.MONTH) + 1) + "/"
-            + startDate.get(Calendar.YEAR) + "-"
+            + startDate.get(Calendar.YEAR) + " - "
             + endDate.get(Calendar.DATE) + "/" + endDate.get(Calendar.MONTH) + 1 + "/" + endDate.get(Calendar.YEAR);
     }
 
@@ -75,9 +85,9 @@ public class DateRange {
 
     public Iterable<DateRange> getEachDay() {
         List<DateRange> datelySlots = new ArrayList<DateRange>();
-        Calendar startDate = (GregorianCalendar) this.startDate.clone();
+        Calendar startDate = (Calendar) this.startDate.clone();
         while (startDate.before(this.endDate)) {
-            Calendar firstDate = (GregorianCalendar) startDate.clone();
+            Calendar firstDate = (Calendar) startDate.clone();
             startDate.add(Calendar.DAY_OF_MONTH, 1);
             datelySlots.add(new DateRange(firstDate, startDate));
         }

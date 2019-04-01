@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -17,6 +18,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.InvalidCommandModeException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.AppMode;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -34,7 +36,8 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
-    //private ActivityListPanel activityListPanel;
+    //private PersonListPanel personNotInActivityListPanel;
+    private ActivityListPanel activityListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -48,10 +51,15 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane leftListPanelPlaceholder;
+    @FXML
+    private StackPane rightListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private Label modeLabel;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -81,6 +89,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -118,9 +127,10 @@ public class MainWindow extends UiPart<Stage> {
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
                 logic::setSelectedPerson);
-        //activityListPanel = new ActivityListPanel(logic.getFilteredActivityList(), logic.selectedActivityProperty(),
-        //      logic:: setSelectedActivity);
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        activityListPanel = new ActivityListPanel(logic.getFilteredActivityList(), logic.selectedActivityProperty(),
+                logic::setSelectedActivity);
+        leftListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        //rightListPanelPlaceholder.getChildren().add(activityListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -130,6 +140,8 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        setModeLabel(logic.getAddressBook().getCurrMode());
     }
 
     /**
@@ -154,6 +166,48 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             helpWindow.focus();
         }
+    }
+
+    /**
+     * Change mode
+     */
+    @FXML
+    private void handleModeHasChanged() {
+        logic.callAllListFn();
+        if (isModeChangeToMember()) {
+            leftListPanelPlaceholder.getChildren().set(0, personListPanel.getRoot());
+            setModeLabel(AppMode.Modes.MEMBER);
+        }
+        if (isModeChangeToActivity()) {
+            leftListPanelPlaceholder.getChildren().set(0, activityListPanel.getRoot());
+            setModeLabel(AppMode.Modes.ACTIVITY);
+        }
+    }
+
+    @FXML
+    private void setModeLabel(AppMode.Modes mode) {
+        switch (mode) {
+        case MEMBER:
+            modeLabel.setText("Mode : MEMBER");
+            modeLabel.getStyleClass().remove("labelMode-Activity");
+            modeLabel.getStyleClass().add("labelMode-Member");
+            break;
+        case ACTIVITY:
+            modeLabel.setText("Mode : ACTIVITY");
+            modeLabel.getStyleClass().remove("labelMode-Member");
+            modeLabel.getStyleClass().add("labelMode-Activity");
+            break;
+        default:
+            break;
+        }
+    }
+
+    private boolean isModeChangeToMember() {
+        return logic.modeHasChange_isCurrModeMember();
+    }
+
+    private boolean isModeChangeToActivity() {
+        return logic.modeHasChange_isCurrModeActivity();
     }
 
     void show() {
@@ -194,6 +248,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isModeHasChanged()) {
+                handleModeHasChanged();
             }
 
             return commandResult;

@@ -747,7 +747,9 @@ Step 9. `MainWindow` sees that `CommandResult` object `r` has the type `START_TE
 `MainWindow#handleStartTestSession(currentTestedCard)` to display the `currentTestedCard` question and hints to the
 user.
 
-// insert sequence diagram for UI for test command?
+//// 
+insert sequence diagram for UI for test command?
+////
 
 [[exampleusageofendcommand]]
 [discrete]
@@ -863,7 +865,9 @@ cardToMark, boolean markCorrect)` followed by `model#setCard(cardToMark, scoredC
 Step 6. To complete the update in the change in score, model#updateFilteredCard(PREDICATE_SHOW_ALL_CARDS) and
 model#commitActiveCardFolder() are invoked.
 
+//// 
     To elaborate further?
+////
 
 Step 7. `AnswerCommand` now creates a `CommandResult` object, `r` with either type `ANSWER_CORRECT` or `ANSWER_WRONG`
  depending on the outcome of the attempt.

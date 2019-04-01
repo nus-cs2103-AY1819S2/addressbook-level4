@@ -70,6 +70,7 @@ public class FinanceTrackerParser {
             return new SetCommandParser().parse(arguments);
 
         case AllocateCommand.COMMAND_WORD:
+        case AllocateCommand.COMMAND_ALIAS:
             return new AllocateCommandParser().parse(arguments);
 
         case IncreaseCommand.COMMAND_WORD:

@@ -19,7 +19,7 @@ By: `Team W14-4`      Since: `Feb 2019`      Licence: `MIT`
 == Introduction
 
 GradTrak is an application designed for students of National University of Singapore (NUS) to easily track their graduation progress.
-It is currently limited to courses offered in School of Computing (SoC). The primary method of input is the Command Line Interface (CLI) which will benefit students of SoC as they generally type quickly. Proceed to <<Quick Start>> to get started. Enjoy!
+It is currently limited to Computer Science courses offered in School of Computing (SoC). The primary method of input is the Command Line Interface (CLI) which will benefit students of SoC as they generally type quickly. Proceed to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 

@@ -8,6 +8,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+
+import org.apache.commons.io.FileUtils;
+
 import seedu.address.model.image.Image;
 
 /**
@@ -74,6 +78,53 @@ public class Album {
             imageList.add(new Image(file.getAbsolutePath()));
         }
     }
+
+    /* @@author itszp*/
+
+    /**
+     * Check if file exists in assets folder.
+     * Returns true if file name exists
+     *
+     * @param args string of file name.
+     */
+    public boolean checkFileExist(String args) {
+        File file = new File(ASSETS_FILEPATH + args);
+        return (file.isFile());
+    }
+
+    /**
+     * Uses assetsFilePath to retrieve file as specified by args.
+     * Returns an Image object.
+     *
+     * @param args string of file name.
+     */
+    public Image retrieveImage(String args) {
+        return new Image(ASSETS_FILEPATH + args);
+    }
+
+    /**
+     * Retrieves a list of all filenames in assets folder. Returns the list as String[].
+     */
+    public String[] getFileNames() {
+        File file = new File(ASSETS_FILEPATH);
+        return file.list();
+    }
+
+    /**
+     * Saves tempImage to assetsFolder as {@code name} or original name if not specified.
+     */
+    public void saveToAssets(Image image, String name) {
+        try {
+            File outputFile = new File(name);
+            File saveDirectory = new File(ASSETS_FILEPATH);
+            ImageIO.write(image.getBufferedImage(), image.getFileType(), outputFile);
+            FileUtils.copyFileToDirectory(outputFile, saveDirectory, false);
+            outputFile.delete();
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+    }
+    /* @@author*/
 
     /**
      * Resets the Album to empty.

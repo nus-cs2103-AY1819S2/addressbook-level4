@@ -14,9 +14,13 @@ public class Major {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Not among list of possible majors.";
-    private static final String[] POSSIBLE_MAJORS = {"CS", "ME", "MATH", "ECON", "ART", "Computer Science"};
-    private static final TreeSet<String> POSSIBLE_MAJORS_TREE = new TreeSet<>(Arrays.asList(POSSIBLE_MAJORS));
+            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+
+    /*
+     * The first character of the address must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
+     */
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
     public final String value;
 
     /**
@@ -34,10 +38,7 @@ public class Major {
      * Returns true if a given string is a valid major.
      */
     public static boolean isValidMajor(String test) {
-        if (test == null) {
-            throw new NullPointerException("Parameter Type cannot be null");
-        }
-        return POSSIBLE_MAJORS_TREE.contains(test);
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override

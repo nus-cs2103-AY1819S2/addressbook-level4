@@ -8,7 +8,6 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -17,26 +16,30 @@ import seedu.hms.commons.core.GuiSettings;
 import seedu.hms.commons.core.LogsCenter;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.ServiceType;
-import seedu.hms.model.booking.exceptions.BookingNotFoundException;
-import seedu.hms.model.booking.exceptions.ServiceTypeNotFoundException;
+import seedu.hms.model.reservation.Reservation;
+import seedu.hms.model.reservation.RoomType;
+import seedu.hms.model.util.DateRange;
+import seedu.hms.model.util.TimeRange;
 
 /**
  * Represents the in-memory model of the hms book data.
  */
-public class BookingManager implements BookingModel {
-    private static final Logger logger = LogsCenter.getLogger(BookingManager.class);
+public class BillManager implements BillModel {
+    private static final Logger logger = LogsCenter.getLogger(BillManager.class);
 
     private final VersionedHotelManagementSystem versionedHotelManagementSystem;
     private final UserPrefs userPrefs;
     private final FilteredList<Booking> filteredBookings;
     private final FilteredList<ServiceType> serviceTypeList;
     private final SimpleObjectProperty<Booking> selectedBooking = new SimpleObjectProperty<>();
-    private final SimpleObjectProperty<ServiceType> selectedServiceType = new SimpleObjectProperty<>();
+    private final FilteredList<Reservation> filteredReservations;
+    private final FilteredList<RoomType> roomTypeList;
+    private final SimpleObjectProperty<Reservation> selectedReservation = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given hotelManagementSystem and userPrefs.
      */
-    public BookingManager(VersionedHotelManagementSystem hotelManagementSystem, ReadOnlyUserPrefs userPrefs) {
+    public BillManager(VersionedHotelManagementSystem hotelManagementSystem, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(hotelManagementSystem, userPrefs);
 
@@ -47,9 +50,12 @@ public class BookingManager implements BookingModel {
         filteredBookings = new FilteredList<>(versionedHotelManagementSystem.getBookingList());
         serviceTypeList = new FilteredList<>(versionedHotelManagementSystem.getServiceTypeList());
         filteredBookings.addListener(this::ensureSelectedBookingIsValid);
+        filteredReservations = new FilteredList<>(versionedHotelManagementSystem.getReservationList());
+        roomTypeList = new FilteredList<>(versionedHotelManagementSystem.getRoomTypeList());
+        filteredReservations.addListener(this::ensureSelectedReservationIsValid);
     }
 
-    public BookingManager() {
+    public BillManager() {
         this(new VersionedHotelManagementSystem(new HotelManagementSystem()), new UserPrefs());
     }
 
@@ -100,30 +106,22 @@ public class BookingManager implements BookingModel {
         versionedHotelManagementSystem.resetData(hotelManagementSystem);
     }
 
-    public void deleteBooking(int bookingIndex) {
-        versionedHotelManagementSystem.removeBooking(bookingIndex);
-    }
+    //=========== Filtered Reservation List Accessors =============================================================
 
-    public void deleteBooking(Booking b) {
-        versionedHotelManagementSystem.removeBooking(b);
-    }
-
-    /*
-     * Adds a booking
+    /**
+     * Returns an unmodifiable view of the list of {@code Reservation} backed by the internal list of
+     * {@code versionedHotelManagementSystem}
      */
-    public void addBooking(Booking booking) {
-        versionedHotelManagementSystem.addBooking(booking);
+    public ObservableList<Reservation> getFilteredReservationList() {
+        return filteredReservations;
     }
 
-    public void setBooking(int bookingIndex, Booking editedBooking) {
-        requireNonNull(editedBooking);
-
-        versionedHotelManagementSystem.setBooking(bookingIndex, editedBooking);
-    }
-
-    @Override
-    public void setClearBooking(ReadOnlyHotelManagementSystem hotelManagementSystem) {
-        versionedHotelManagementSystem.resetDataBooking(hotelManagementSystem);
+    /**
+     * Returns an unmodifiable view of the list of {@code RoomType} backed by the internal list of
+     * {@code versionedHotelManagementSystem}
+     */
+    public ObservableList<RoomType> getRoomTypeList() {
+        return roomTypeList;
     }
 
     //=========== Filtered Booking List Accessors =============================================================
@@ -173,21 +171,6 @@ public class BookingManager implements BookingModel {
 
     //=========== Selected Booking ===========================================================================
 
-    public ReadOnlyProperty<Booking> selectedBookingProperty() {
-        return selectedBooking;
-    }
-
-    public Booking getSelectedBooking() {
-        return selectedBooking.getValue();
-    }
-
-    public void setSelectedBooking(Booking booking) {
-        if (booking != null && !filteredBookings.contains(booking)) {
-            throw new BookingNotFoundException();
-        }
-        selectedBooking.setValue(booking);
-    }
-
     /**
      * Ensures {@code selectedBooking} is a valid Booking in {@code filteredBookings}.
      */
@@ -218,24 +201,39 @@ public class BookingManager implements BookingModel {
         }
     }
 
-    //=========== Selected ServiceType ===========================================================================
+    //=========== Selected Reservation ===========================================================================
 
-    public ReadOnlyProperty<ServiceType> selectedServiceTypeProperty() {
-        return selectedServiceType;
-    }
 
-    @Override
-    public ServiceType getSelectedServiceType() {
-        return selectedServiceType.getValue();
-    }
+    /**
+     * Ensures {@code selectedReservation} is a valid Reservation in {@code filteredReservations}.
+     */
+    private void ensureSelectedReservationIsValid(ListChangeListener.Change<? extends Reservation> change) {
+        while (change.next()) {
+            if (selectedReservation.getValue() == null) {
+                // null is always a valid selected Reservation, so we do not need to check that it is valid anymore.
+                return;
+            }
 
-    @Override
-    public void setSelectedServiceType(ServiceType serviceType) {
-        if (serviceType != null && !serviceTypeList.contains(serviceType)) {
-            throw new ServiceTypeNotFoundException();
+            boolean wasSelectedReservationReplaced = change.wasReplaced()
+                && change.getAddedSize() == change.getRemovedSize()
+                && change.getRemoved().contains(selectedReservation.getValue());
+            if (wasSelectedReservationReplaced) {
+                // Update selectedReservation to its new value.
+                int index = change.getRemoved().indexOf(selectedReservation.getValue());
+                selectedReservation.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedReservationRemoved = change.getRemoved().stream()
+                .anyMatch(removedReservation -> selectedReservation.getValue().equals(removedReservation));
+            if (wasSelectedReservationRemoved) {
+                // Select the Reservation that came before it in the list,
+                // or clear the selection if there is no such Reservation.
+                selectedReservation.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
         }
-        selectedServiceType.setValue(serviceType);
     }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -245,16 +243,18 @@ public class BookingManager implements BookingModel {
         }
 
         // instanceof handles nulls
-        if (!(obj instanceof BookingManager)) {
+        if (!(obj instanceof BillManager)) {
             return false;
         }
 
         // state check
-        BookingManager other = (BookingManager) obj;
+        BillManager other = (BillManager) obj;
         return versionedHotelManagementSystem.equals(other.versionedHotelManagementSystem)
             && userPrefs.equals(other.userPrefs)
             && filteredBookings.equals(other.filteredBookings)
-            && Objects.equals(selectedBooking.get(), other.selectedBooking.get());
+            && Objects.equals(selectedBooking.get(), other.selectedBooking.get())
+            && filteredReservations.equals(other.filteredReservations)
+            && Objects.equals(selectedReservation.get(), other.selectedReservation.get());
     }
 
     /**
@@ -267,6 +267,55 @@ public class BookingManager implements BookingModel {
         filteredBookings.setPredicate(predicate);
     }
 
+    /**
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    public void updateFilteredReservationList(Predicate<Reservation> predicate) {
+        requireNonNull(predicate);
+        filteredReservations.setPredicate(predicate);
+    }
+
+    /**
+     * Generates bill for all bookings for the specific customer
+     *
+     * @param bookingObservableList
+     * @return
+     */
+    public double generateBillForBooking(ObservableList<Booking> bookingObservableList) {
+        double totalAmount = 0.0;
+        for (Booking booking : bookingObservableList) {
+            ServiceType serviceType = booking.getService();
+            TimeRange timeRange = booking.getTiming();
+            int hoursBooked = timeRange.numOfHours();
+            double ratePerHour = serviceType.getRatePerHour();
+            double amount = hoursBooked * ratePerHour;
+            totalAmount = totalAmount + amount;
+        }
+        return totalAmount;
+    }
+
+
+    /**
+     * Generates bill for all reservations for the specific customer
+     *
+     * @param reservationObservableList
+     * @return
+     */
+    public double generateBillForReservation(ObservableList<Reservation> reservationObservableList) {
+        double totalAmount = 0.0;
+        for (Reservation reservation : reservationObservableList) {
+            RoomType roomType = reservation.getRoom();
+            DateRange dateRange = reservation.getDates();
+            long daysBooked = dateRange.numOfDays();
+            double ratePerHour = roomType.getRatePerDay();
+            double amount = daysBooked * ratePerHour;
+            totalAmount = totalAmount + amount;
+        }
+        return totalAmount;
+
+    }
 }
 
 

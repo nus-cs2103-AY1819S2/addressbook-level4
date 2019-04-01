@@ -22,7 +22,9 @@ import seedu.hms.logic.commands.EditReservationCommand;
 import seedu.hms.logic.commands.ExitCommand;
 import seedu.hms.logic.commands.FindBookingCommand;
 import seedu.hms.logic.commands.FindNameCommand;
-import seedu.hms.logic.commands.GenerateBillCommand;
+import seedu.hms.logic.commands.FindReservationCommand;
+import seedu.hms.logic.commands.GenerateBillForBookingCommand;
+import seedu.hms.logic.commands.GenerateBillForReservationCommand;
 import seedu.hms.logic.commands.HelpCommand;
 import seedu.hms.logic.commands.HistoryCommand;
 import seedu.hms.logic.commands.ListBookingCommand;
@@ -32,8 +34,10 @@ import seedu.hms.logic.commands.RedoCommand;
 import seedu.hms.logic.commands.SelectCustomerCommand;
 import seedu.hms.logic.commands.UndoCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
+import seedu.hms.model.BillModel;
 import seedu.hms.model.BookingModel;
 import seedu.hms.model.CustomerModel;
+import seedu.hms.model.ReservationModel;
 
 /**
  * Parses user input.
@@ -52,7 +56,8 @@ public class HotelManagementSystemParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput, CustomerModel customerModel, BookingModel bookingModel)
+    public Command parseCommand(String userInput, CustomerModel customerModel, BookingModel bookingModel,
+                                ReservationModel reservationModel, BillModel billModel)
         throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
@@ -123,9 +128,17 @@ public class HotelManagementSystemParser {
         case FindBookingCommand.COMMAND_ALIAS:
             return new FindBookingCommandParser().parse(arguments);
 
-        case GenerateBillCommand.COMMAND_WORD:
-        case GenerateBillCommand.COMMAND_ALIAS:
-            return new GenerateBillCommandParser().parse(arguments);
+        case FindReservationCommand.COMMAND_WORD:
+        case FindReservationCommand.COMMAND_ALIAS:
+            return new FindReservationCommandParser().parse(arguments);
+
+        case GenerateBillForBookingCommand.COMMAND_WORD:
+        case GenerateBillForBookingCommand.COMMAND_ALIAS:
+            return new GenerateBillForBookingCommandParser().parse(arguments);
+
+        case GenerateBillForReservationCommand.COMMAND_WORD:
+        case GenerateBillForReservationCommand.COMMAND_ALIAS:
+            return new GenerateBillForReservationCommandParser().parse(arguments);
 
         case ListCustomerCommand.COMMAND_WORD:
         case ListCustomerCommand.COMMAND_ALIAS:

@@ -8,18 +8,22 @@ import seedu.hms.model.customer.Customer;
 public class Bill {
 
     private Customer customer;
-    private int amountPaid;
+    private double amountReservation;
+    private double amountBooking;
 
     /**
      * Constructs a {@code Bill}.
      *
      * @param customer   Customer details.
-     * @param amountPaid Amount already paid by customers.
+     * @param amountBooking Amount to be paid by customer for booking.
+     * @param amountReservation Amount to be paid by the customer for reservation.
      */
-    public Bill(Customer customer, int amountPaid) {
+
+    public Bill(Customer customer, double amountReservation, double amountBooking) {
 
         this.customer = customer;
-        this.amountPaid = amountPaid;
+        this.amountBooking = amountBooking;
+        this.amountReservation = amountReservation;
 
     }
 
@@ -31,15 +35,23 @@ public class Bill {
     }
 
     /**
-     * Returns the amount already paid by the customer.
+     * Returns the amount customer has to pay for reservation.
      */
-    public int getAmountPaid() {
-        return amountPaid;
+    public double getAmountReservation() {
+        return amountReservation;
     }
+
+    /**
+     * Returns the amount customer has to pay for booking.
+     */
+    public double getAmountBooking() {
+        return amountBooking;
+    }
+
 
     @Override
     public String toString() {
-        return " Amount already paid " + amountPaid
-            + " by " + customer;
+        return " Amount to be paid " + amountReservation + amountBooking
+            + " by " + customer.getName();
     }
 }

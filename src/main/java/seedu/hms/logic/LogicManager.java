@@ -8,6 +8,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.hms.commons.core.GuiSettings;
 import seedu.hms.commons.core.LogsCenter;
+import seedu.hms.logic.commands.BookingCommand;
 import seedu.hms.logic.commands.Command;
 import seedu.hms.logic.commands.CommandResult;
 import seedu.hms.logic.commands.CustomerCommand;
@@ -15,6 +16,7 @@ import seedu.hms.logic.commands.ReservationCommand;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.logic.parser.HotelManagementSystemParser;
 import seedu.hms.logic.parser.exceptions.ParseException;
+import seedu.hms.model.BillModel;
 import seedu.hms.model.BookingModel;
 import seedu.hms.model.CustomerModel;
 import seedu.hms.model.ReadOnlyHotelManagementSystem;
@@ -35,6 +37,7 @@ public class LogicManager implements Logic {
 
     private final CustomerModel customerModel;
     private final BookingModel bookingModel;
+    private final BillModel billModel;
     private final ReservationModel reservationModel;
     private final Storage storage;
     private final CommandHistory history;
@@ -42,9 +45,10 @@ public class LogicManager implements Logic {
     private boolean hotelManagementSystemModified;
 
     public LogicManager(CustomerModel customerModel, BookingModel bookingModel, ReservationModel reservationModel,
-                        Storage storage) {
+                        BillModel billModel, Storage storage) {
         this.customerModel = customerModel;
         this.bookingModel = bookingModel;
+        this.billModel = billModel;
         this.reservationModel = reservationModel;
         this.storage = storage;
         history = new CommandHistory();
@@ -54,6 +58,7 @@ public class LogicManager implements Logic {
         customerModel.getHotelManagementSystem().addListener(observable -> hotelManagementSystemModified = true);
         bookingModel.getHotelManagementSystem().addListener(observable -> hotelManagementSystemModified = true);
         reservationModel.getHotelManagementSystem().addListener(observable -> hotelManagementSystemModified = true);
+        billModel.getHotelManagementSystem().addListener(observable -> hotelManagementSystemModified = true);
     }
 
     @Override
@@ -63,14 +68,18 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         try {
-            Command command = hotelManagementSystemParser.parseCommand(commandText, customerModel, bookingModel);
+            Command command = hotelManagementSystemParser.parseCommand(commandText, customerModel, bookingModel,
+                reservationModel, billModel);
             if (command instanceof CustomerCommand) {
                 commandResult = command.execute(customerModel, history);
             } else if (command instanceof ReservationCommand) {
                 commandResult = command.execute(reservationModel, history);
-            } else {
+            } else if (command instanceof BookingCommand) {
                 commandResult = command.execute(bookingModel, history);
+            } else {
+                commandResult = command.execute(billModel, history);
             }
+
         } finally {
             history.add(commandText);
         }

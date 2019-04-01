@@ -206,6 +206,9 @@ public class ParserUtil {
         requireNonNull(timing);
         String trimmedTiming = timing.trim();
         String[] hours = trimmedTiming.split("-");
+        if (hours.length != 2) {
+            throw new ParseException("You have entered an invalid timing");
+        }
         return new TimeRange(Integer.parseInt(hours[0].trim()), Integer.parseInt(hours[1].trim()));
     }
 
@@ -217,6 +220,9 @@ public class ParserUtil {
         requireNonNull(dates);
         String trimmedDates = dates.trim();
         String[] dateRange = trimmedDates.split("-");
+        if (dateRange.length != 2) {
+            throw new ParseException("You have entered an invalid date");
+        }
         return new DateRange(dateRange[0].trim(), dateRange[1].trim());
     }
 

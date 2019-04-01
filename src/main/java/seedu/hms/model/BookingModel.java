@@ -93,4 +93,5 @@ public interface BookingModel extends Model {
      * Clears all the bookings present in the {@code hotelManagementSystem}.
      */
     void setClearBooking(ReadOnlyHotelManagementSystem hotelManagementSystem);
+
 }

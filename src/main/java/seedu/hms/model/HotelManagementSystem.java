@@ -327,4 +327,5 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
     public int hashCode() {
         return customers.hashCode();
     }
+
 }

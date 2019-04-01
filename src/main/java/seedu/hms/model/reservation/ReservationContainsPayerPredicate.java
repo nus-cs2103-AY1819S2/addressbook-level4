@@ -3,13 +3,13 @@ package seedu.hms.model.reservation;
 import java.util.function.Predicate;
 
 /**
- * Tests that a {@code Reservation}'s {@code Payer}'s IdentificationNo matches the payerId given.
+ * Tests that a {@code Reservtion}'s {@code Payer}'s IdentificationNo matches the payerId given.
  */
 public class ReservationContainsPayerPredicate implements Predicate<Reservation> {
     private final String payerId;
 
     public ReservationContainsPayerPredicate(String payerId) {
-        this.payerId = payerId.substring(1);
+        this.payerId = payerId.trim();
     }
 
     @Override

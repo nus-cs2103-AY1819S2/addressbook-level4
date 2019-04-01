@@ -38,7 +38,7 @@ public class ServiceTypeListCard extends UiPart<Region> {
         this.serviceType = serviceType;
         serviceTypeName.setText(serviceType.getName());
         capacity.setText("Capacity: " + Integer.toString(serviceType.getCapacity()));
-        timeRange.setText("TimeRange: " + serviceType.getTiming().toString());
+        timeRange.setText("Operation hours: " + serviceType.getTiming().toString());
         ratePerHour.setText("Rate per hour: " + serviceType.getRatePerHour());
     }
 

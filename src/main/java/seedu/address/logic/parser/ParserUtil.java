@@ -1,9 +1,17 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.interviews.Interviews.HOUR;
+import static seedu.address.model.interviews.Interviews.MINUTE;
+import static seedu.address.model.interviews.Interviews.SECOND;
+import static seedu.address.model.interviews.Interviews.MILLISECOND;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -26,6 +34,7 @@ import seedu.address.model.person.Race;
 import seedu.address.model.person.School;
 import seedu.address.model.tag.Tag;
 
+
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
@@ -34,6 +43,7 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_MAX_INTERVIEWS_A_DAY =
             "Maximum number of interviews a day is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_DATE = "Not a valid date.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -352,4 +362,107 @@ public class ParserUtil {
         }
         return Integer.parseInt(trimmedMaxInterviewsADay);
     }
+
+    /**
+     * Parses a {@code String name} into a {@code List<Calendar>}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code blockOutDates} is invalid.
+     */
+    public static List<Calendar> parseBlockOutDates(String blockOutDates) throws ParseException {
+        requireNonNull(blockOutDates);
+        List<Calendar> result = new ArrayList<>();
+        String trimmedBlockOutDates = blockOutDates.trim();
+        String[] stringArray = trimmedBlockOutDates.split(",");
+        for (String date: stringArray) {
+
+            int day = Integer.parseInt(date.substring(0, 2));
+            int month = Integer.parseInt(date.substring(3, 5));
+            int year = Integer.parseInt(date.substring(6, 10));
+            Calendar currentCalendar = new GregorianCalendar(year, month - 1, day, HOUR, MINUTE, SECOND);
+            currentCalendar.set(Calendar.MILLISECOND, MILLISECOND);
+
+            if (isValidDateRange(date)) {
+                int endDay = Integer.parseInt(date.substring(13, 15));
+                int endMonth = Integer.parseInt(date.substring(16, 18));
+                int endYear = Integer.parseInt(date.substring(19, 23));
+                Calendar endCalendar = new GregorianCalendar(endYear, endMonth - 1, endDay, HOUR, MINUTE, SECOND);
+                endCalendar.set(Calendar.MILLISECOND, MILLISECOND);
+                while (currentCalendar.compareTo(endCalendar) < 0) {
+                    result.add(currentCalendar);
+                    currentCalendar = (Calendar) currentCalendar.clone();
+                    currentCalendar.add(Calendar.DATE, 1);
+                }
+                result.add(endCalendar);
+            } else if (isValidDate(date)) {
+                result.add(currentCalendar);
+            } else {
+                throw new ParseException(MESSAGE_INVALID_DATE);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Returns a boolean testing for validity of date.
+     */
+    protected static boolean isValidDate(String date) {
+        if (!date.matches("\\d\\d/\\d\\d/\\d\\d\\d\\d")) {
+            return false;
+        }
+
+        int day = Integer.parseInt(date.substring(0, 2));
+        int month = Integer.parseInt(date.substring(3, 5));
+        int year = Integer.parseInt(date.substring(6, 10));
+
+        if (month == 2) {
+            if (isLeapYear(year)) {
+                if (day <= 29) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                if (day <= 28) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        if (month % 2 == 1 && day <= 31 && day >= 1) {
+            return true;
+        }
+
+        if (month % 2 == 0 && day <= 30 && day >= 1) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks if year is a leap year.
+     */
+    protected static boolean isLeapYear(int year) {
+        if ((year % 4 == 0) && (year % 100 != 0)) {
+            return true;
+        } else if ((year % 4 == 0) && (year % 100 == 0) && (year % 400 == 0)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Check if the date range provided is valid.
+     */
+    protected static boolean isValidDateRange(String dateRange) {
+        if (!dateRange.matches("\\d\\d/\\d\\d/\\d\\d\\d\\d - \\d\\d/\\d\\d/\\d\\d\\d\\d")) {
+            return false;
+        }
+        return isValidDate(dateRange.substring(0, 10)) && isValidDate(dateRange.substring(13, 23));
+    }
+
 }

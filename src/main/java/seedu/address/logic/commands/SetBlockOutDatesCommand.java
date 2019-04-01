@@ -15,16 +15,24 @@ import seedu.address.model.Model;
 public class SetBlockOutDatesCommand extends Command {
 
     public static final String COMMAND_WORD = "setBlockOutDates";
+    public static final String MESSAGE_SUCCESS = "Block Out Dates set:\n";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Sets block out dates.\n"
+            + "Parameters: dd/mm/yyyy - dd/mm/yyyy or dd/mm/yyyy"
+            + "Example: " + COMMAND_WORD + " 01/04/2019 - 04/04/2019, 06/04/2019\n";
 
-    public static final String MESSAGE_SET_DATES_SUCCESS = "Block Out Dates set:\n";
+    private final List<Calendar> blockOutDates;
+
+    public SetBlockOutDatesCommand(List<Calendar> blockOutDates) {
+        this.blockOutDates = blockOutDates;
+    }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        List<Calendar> blockOutDates = new ArrayList<>();
         model.setBlockOutDates(blockOutDates);
         model.commitAddressBook();
-        return null;
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
 }

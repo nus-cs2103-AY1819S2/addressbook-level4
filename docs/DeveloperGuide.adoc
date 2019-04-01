@@ -206,13 +206,11 @@ The `Model`,
 * exposes unmodifiable instances of `FilteredList<Card>` and `FilteredList<VersionedCardFolder>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-////
-This is a multiline comment, remove the four slashes to remove comment
+
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `card folder`, which `Card` can reference. This would allow `card folder` to only require one `Tag` object per unique `Tag`, instead of each `Card` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Hint` list in `VersionedCardFolder`, which `Card` can reference. This would allow `VersionedCardFolder` to only require one `Hint` object per unique `Hint`, instead of each `Card` needing their own `Hint` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
-////
 
 [[Design-Storage]]
 === Storage component

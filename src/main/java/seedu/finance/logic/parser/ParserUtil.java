@@ -90,6 +90,9 @@ public class ParserUtil {
     public static Path parseFile(String filename) throws ParseException {
         requireNonNull(filename);
         String trimmedFilename = filename.trim();
+        if (trimmedFilename.indexOf('/') != -1) {
+            throw new ParseException("Filename should not contain '\\' character.");
+        }
         return Paths.get(trimmedFilename);
     }
 

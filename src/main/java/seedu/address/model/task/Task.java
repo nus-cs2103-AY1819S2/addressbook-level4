@@ -8,7 +8,6 @@ import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.datetime.TimeCustom;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.person.Name;
-import seedu.address.model.record.LinkedPatient;
 
 
 /**

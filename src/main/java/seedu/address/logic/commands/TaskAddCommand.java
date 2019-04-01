@@ -18,7 +18,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
-import seedu.address.model.record.LinkedPatient;
+import seedu.address.model.task.LinkedPatient;
 import seedu.address.model.task.Task;
 
 

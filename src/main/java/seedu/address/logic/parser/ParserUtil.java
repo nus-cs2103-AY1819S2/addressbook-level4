@@ -25,7 +25,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.record.LinkedPatient;
+import seedu.address.model.task.LinkedPatient;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.Title;

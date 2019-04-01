@@ -402,7 +402,7 @@ image::ContrastCommandSequenceDiagram.png[width="800"]
 ==== Brightness Command:
 This command calls for an adjustment of brightness on a targetted image. After adjusting the brightness, it adds this specific command called by the user to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
 
-Refer to the example usage scenario and design considerations in <<Contrast Command>>.
+Refer to the example usage scenario and design considerations in <<Contrast Command>>
 
 .Sequence Diagram for Brightness Command
 image::BrightnessCommandSequenceDiagram.png[width="800"]
@@ -410,7 +410,7 @@ image::BrightnessCommandSequenceDiagram.png[width="800"]
 ==== BlackWhite Command:
 This command calls for a transformation of a targetted image to a black and white image. After applying the black and white transformation, it adds this specific command called by the user to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
 
-Refer to the example usage scenario and design considerations in <<Contrast Command>>.
+Refer to the example usage scenario and design considerations in <<Contrast Command>>
 
 .Sequence Diagram for BlackWhite Command
 image::BlackWhiteCommandSequenceDiagram.png[width="800"]

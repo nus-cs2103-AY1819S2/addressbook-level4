@@ -12,8 +12,6 @@ import static seedu.equipment.testutil.TypicalEquipments.AMY;
 import static seedu.equipment.testutil.TypicalEquipments.ANCHORVALECC;
 import static seedu.equipment.testutil.TypicalEquipments.BOB;
 import static seedu.equipment.testutil.TypicalEquipments.HWIYOHCC;
-import static seedu.equipment.testutil.TypicalWorkLists.LISTA;
-import static seedu.equipment.testutil.TypicalWorkLists.LISTB;
 import static seedu.equipment.testutil.TypicalWorkLists.LISTD;
 import static seedu.equipment.testutil.TypicalWorkLists.LISTE;
 

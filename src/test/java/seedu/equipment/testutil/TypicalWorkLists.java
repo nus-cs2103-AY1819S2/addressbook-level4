@@ -3,9 +3,9 @@ package seedu.equipment.testutil;
 import static seedu.equipment.logic.commands.CommandTestUtil.ASSIGNEE_DESC_LISTA;
 import static seedu.equipment.logic.commands.CommandTestUtil.DATE_DESC_LISTA;
 import static seedu.equipment.testutil.TypicalEquipments.ANCHORVALECC;
+import static seedu.equipment.testutil.TypicalEquipments.AYERRAJAHCC;
 import static seedu.equipment.testutil.TypicalEquipments.BOB;
 import static seedu.equipment.testutil.TypicalEquipments.TECKGHEECC;
-import static seedu.equipment.testutil.TypicalEquipments.AYERRAJAHCC;
 
 import java.util.ArrayList;
 import java.util.Arrays;

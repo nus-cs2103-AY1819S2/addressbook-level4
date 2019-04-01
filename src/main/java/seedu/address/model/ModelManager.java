@@ -227,7 +227,6 @@ public class ModelManager implements Model {
         return (ObservableList<ListItem>) filteredItems;
     }
 
-    // TODO: This is no longer used by actual code. Update tests
     @Override
     public void updateFilteredList(Predicate<? extends ListItem> predicate) {
         requireNonNull(predicate);

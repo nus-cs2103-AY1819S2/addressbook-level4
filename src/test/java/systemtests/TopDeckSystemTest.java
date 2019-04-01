@@ -144,29 +144,6 @@ public abstract class TopDeckSystemTest {
         assertTrue(getModel().getFilteredList().size() < getModel().getTopDeck().getDeckList().size());
     }
 
-
-    //    /**
-    //     * Selects the person at {@code index} of the displayed list.
-    //     */
-    //    protected void selectPerson(Index index) {
-    //        executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-    //        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
-    //    }
-
-
-//    protected void showDecksWithQuestion(String keyword) {
-//        executeCommand(FindDeckCommand.COMMAND_WORD + " " + keyword);
-//        assertTrue(getModel().getFilteredList().size() < getModel().getTopDeck().getDeckList().size());
-//    }
-
-    /**
-     protected void showDecksWithQuestion(String keyword) {
-     executeCommand(FindDeckCommand.COMMAND_WORD + " " + keyword);
-     assertTrue(getModel().getFilteredList().size() < getModel().getTopDeck().getDeckList().size());
-     }
-     **/
-
-
     /**
      * Selects the Deck at {@code index} of the displayed list.
      */

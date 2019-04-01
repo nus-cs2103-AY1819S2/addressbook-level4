@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -53,6 +54,8 @@ public class TopDeckParser {
                     return new ListCommand(model.getViewState());
                 case HistoryCommand.COMMAND_WORD:
                     return new HistoryCommand();
+                case ClearCommand.COMMAND_WORD:
+                    return new ClearCommand();
                 case UndoCommand.COMMAND_WORD:
                     return new UndoCommand(model.getViewState());
                 case RedoCommand.COMMAND_WORD:

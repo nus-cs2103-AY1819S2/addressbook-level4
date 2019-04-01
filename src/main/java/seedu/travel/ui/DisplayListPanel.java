@@ -3,7 +3,6 @@ package seedu.travel.ui;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -27,8 +26,7 @@ public class DisplayListPanel extends UiPart<Region> {
     @FXML
     private ListView<Chart> displayListView;
 
-    public DisplayListPanel(ObservableList<Place> placeList, ObservableValue<Place> selectedDisplay,
-                          Consumer<Place> onSelectedDisplayChange) {
+    public DisplayListPanel(ObservableList<Place> placeList, Consumer<Place> onSelectedDisplayChange) {
         super(FXML);
 
         ObservableList<Chart> charts = FXCollections.observableArrayList();

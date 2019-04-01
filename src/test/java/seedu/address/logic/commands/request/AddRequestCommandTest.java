@@ -304,5 +304,9 @@ class AddRequestCommandTest {
         public ReadOnlyRequestBook getRequestBook() {
             return new RequestBook();
         }
+        @Override
+        public void commit(CommandType commandType) {
+            // called by {@code AddRequestCommand#execute()}
+        }
     }
 }

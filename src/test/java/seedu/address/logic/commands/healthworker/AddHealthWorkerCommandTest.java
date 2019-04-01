@@ -117,6 +117,11 @@ public class AddHealthWorkerCommandTest {
            // called by {@code AddHealthWorkerCommand#execute()}
         }
 
+        @Override
+        public void commit(CommandType commandType) {
+            // called by {@code AddHealthWorkerCommand#execute()}
+        }
+
 
     }
 

@@ -207,7 +207,7 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Teeth.class.getSimpleName()));
         }
 
-        String[] rawLayout = teeth.split(JsonAdaptedConstants.DIVIDER);
+        String[] rawLayout = teeth.split(StorageConstants.DIVIDER);
         int[] layout = new int[Teeth.PERMANENTTEETHCOUNT];
 
         for (int i = 0; i < Teeth.PERMANENTTEETHCOUNT; i++) {

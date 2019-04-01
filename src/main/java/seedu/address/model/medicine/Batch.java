@@ -35,21 +35,17 @@ public class Batch {
         return quantity;
     }
 
-    public boolean hasExpiry() {
-        return expiry.getExpiryDate() != null;
-    }
-
     public boolean hasNonZeroQuantity() {
-        return quantity != null && !quantity.value.equals("0");
+        return !quantity.value.equals("0");
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.model.medicine.Batch // instanceof handles nulls
-                && batchNumber.equals(((seedu.address.model.medicine.Batch) other).batchNumber))
-                && expiry.equals(((seedu.address.model.medicine.Batch) other).expiry)
-                && quantity.equals(((seedu.address.model.medicine.Batch) other).quantity); // state check
+                || (other instanceof Batch // instanceof handles nulls
+                && batchNumber.equals(((Batch) other).batchNumber))
+                && expiry.equals(((Batch) other).expiry)
+                && quantity.equals(((Batch) other).quantity); // state check
     }
 
     @Override

@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private EquipmentListPanel equipmentListPanel;
+    private WorkListListPanel workListListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -49,6 +50,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane workListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -119,6 +123,10 @@ public class MainWindow extends UiPart<Stage> {
         equipmentListPanel = new EquipmentListPanel(logic.getFilteredPersonList(), logic.selectedEquipmentProperty(),
                 logic::setSelectedPerson);
         personListPanelPlaceholder.getChildren().add(equipmentListPanel.getRoot());
+
+        workListListPanel = new WorkListListPanel(logic.getFilteredWorkListList(), logic.selectedWorkListProperty(),
+                logic::setSelectedWorkList);
+        workListPanelPlaceholder.getChildren().add(workListListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -191,6 +199,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public EquipmentListPanel getEquipmentListPanel() {
         return equipmentListPanel;
+    }
+
+    public WorkListListPanel getWorkListListPanel() {
+        return workListListPanel;
     }
 
     /**

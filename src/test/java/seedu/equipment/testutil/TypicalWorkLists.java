@@ -3,7 +3,9 @@ package seedu.equipment.testutil;
 import static seedu.equipment.logic.commands.CommandTestUtil.ASSIGNEE_DESC_LISTA;
 import static seedu.equipment.logic.commands.CommandTestUtil.DATE_DESC_LISTA;
 import static seedu.equipment.testutil.TypicalEquipments.ANCHORVALECC;
+import static seedu.equipment.testutil.TypicalEquipments.AYERRAJAHCC;
 import static seedu.equipment.testutil.TypicalEquipments.BOB;
+import static seedu.equipment.testutil.TypicalEquipments.TECKGHEECC;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,12 +19,16 @@ import seedu.equipment.model.WorkList;
  */
 public class TypicalWorkLists {
 
-    public static final WorkList LISTA = new WorkList("2019-01-01", "Anchorvale CC");
-    public static final WorkList LISTB = new WorkList("2018-01-01", "BOB");
+    public static final WorkList LISTA = new WorkList("01 January 2019", "Anchorvale CC");
+    public static final WorkList LISTB = new WorkList("01 January 2019", "BOB");
     public static final WorkList LISTC = new WorkList(DATE_DESC_LISTA, ASSIGNEE_DESC_LISTA);
+    public static final WorkList LISTD = new WorkList("09 May 2020", "Liu Xuan");
+    public static final WorkList LISTE = new WorkList("10 May 2019", "Yiqun");
     {
         LISTA.addEquipment(ANCHORVALECC);
         LISTB.addEquipment(BOB);
+        LISTD.addEquipment(TECKGHEECC);
+        LISTE.addEquipment(AYERRAJAHCC);
     }
 
     /**
@@ -37,6 +43,7 @@ public class TypicalWorkLists {
     }
 
     public static List<WorkList> getTypicalWorkLists() {
-        return new ArrayList<>(Arrays.asList(LISTA, LISTB));
+        return new ArrayList<>(Arrays.asList(LISTA,
+                LISTB, LISTD, LISTE));
     }
 }

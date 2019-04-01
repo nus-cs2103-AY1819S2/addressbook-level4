@@ -15,6 +15,7 @@ import seedu.equipment.logic.parser.EquipmentManagerParser;
 import seedu.equipment.logic.parser.exceptions.ParseException;
 import seedu.equipment.model.Model;
 import seedu.equipment.model.ReadOnlyEquipmentManager;
+import seedu.equipment.model.WorkList;
 import seedu.equipment.model.equipment.Equipment;
 import seedu.equipment.storage.Storage;
 
@@ -77,6 +78,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<WorkList> getFilteredWorkListList() {
+        return model.getFilteredWorkListList();
+    }
+
+    @Override
     public ObservableList<String> getHistory() {
         return history.getHistory();
     }
@@ -102,7 +108,17 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyProperty<WorkList> selectedWorkListProperty() {
+        return model.selectedWorkListProperty();
+    }
+
+    @Override
     public void setSelectedPerson(Equipment equipment) {
         model.setSelectedEquipment(equipment);
+    }
+
+    @Override
+    public void setSelectedWorkList(WorkList workList) {
+        model.setSelectedWorkList(workList);
     }
 }

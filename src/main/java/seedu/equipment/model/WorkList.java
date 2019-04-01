@@ -64,6 +64,27 @@ public class WorkList {
     //}
 
     /**
+     * Returns true if both WorkLists have the same identity and data fields.
+     * This defines a stronger notion of equality between two WorkLists.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof WorkList)) {
+            return false;
+        }
+
+        WorkList otherWorkList = (WorkList) other;
+        return otherWorkList.getAssignee().equals(getAssignee())
+                && otherWorkList.getDate().equals(getDate())
+                && otherWorkList.getId().equals(getId())
+                && otherWorkList.getEquipments().equals(getEquipments());
+    }
+
+    /**
      * Returns true if both worklists have the same WorkListId.
      */
     public boolean isSameWorkList(WorkList otherWorkList) {

@@ -30,6 +30,7 @@ public class ModelManager implements Model {
     private final FilteredList<Equipment> filteredEquipments;
     private final FilteredList<WorkList> filteredWorkList;
     private final SimpleObjectProperty<Equipment> selectedEquipment = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<WorkList> selectedWorkList = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given equipmentManager and userPrefs.
@@ -114,6 +115,11 @@ public class ModelManager implements Model {
     @Override
     public void deleteEquipment(Equipment target) {
         versionedEquipmentManager.removePerson(target);
+    }
+
+    @Override
+    public void deleteWorkList(WorkList target) {
+        versionedEquipmentManager.removeWorkList(target);
     }
 
     @Override
@@ -206,6 +212,26 @@ public class ModelManager implements Model {
         versionedEquipmentManager.commit();
     }
 
+    //=========== Selected WorkList ===========================================================================
+
+    @Override
+    public ReadOnlyProperty<WorkList> selectedWorkListProperty() {
+        return selectedWorkList;
+    }
+
+    @Override
+    public WorkList getSelectedWorkList() {
+        return selectedWorkList.getValue();
+    }
+
+    @Override
+    public void setSelectedWorkList(WorkList workList) {
+        if (workList != null && !filteredWorkList.contains(workList)) {
+            throw new EquipmentNotFoundException();
+        }
+        selectedWorkList.setValue(workList);
+    }
+
     //=========== Selected equipment ===========================================================================
 
     @Override
@@ -259,7 +285,6 @@ public class ModelManager implements Model {
             }
         }
     }
-
 
     @Override
     public boolean equals(Object obj) {

@@ -205,7 +205,7 @@ Deletes the 1st member in the results of the `find` command.
 ==== Editing a member : `memberEdit`
 
 Edits an existing member in ClubManager. +
-Format: `memberEdit INDEX n/NAME an/ADMIN_NUMBER p/PHONE_NUMBER e/EMAIL yos/YEAR_OF_STUDY m/MAJOR [t/TAG]`
+Format: `memberEdit INDEX n/NAME mn/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL yos/YEAR_OF_STUDY m/MAJOR [t/TAG]`
 
 ****
 * Edits the member at the specified `INDEX`. The index refers to the index number shown in the displayed member list.
@@ -231,7 +231,7 @@ Format: `memberFind CRITERIA KEYWORD [MORE_KEYWORDS]`
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name and/or matric number is searched. CRITERIA is only `name` or `matricnum`
+* Only the name and/or matric number is searched. CRITERIA is only `name` or `matricnum, case insensitive
 * Partial words will be matched e.g. `Han` will match `Hans`
 * members matching at least one keyword will be returned (i.e. `OR` search). e.g. `memberFind name Hans Bo` will return `Hans Gruber`, `Bo Yang` e.g. `memberFind matricnum A01` will return all members with matriculation number starting with `A01`
 * 
@@ -243,6 +243,10 @@ Examples:
 Returns `john` and `John Doe`
 * `memberFind name Betsy Tim John` +
 Returns any member having names `Betsy`, `Tim`, or `John`
+* `memberFind matricnum A0123456Y` +
+Returns `James Ong`
+* `memberFind name John matric A0123456Y` +
+Returns `John Doe`, `john` and `James Ong`
 
 ==== Listing members : `memberList`
 

@@ -25,7 +25,8 @@ public class SpendCommand extends Command {
             + PREFIX_NAME + "NAME "
             + PREFIX_AMOUNT + "AMOUNT "
             + PREFIX_DATE + "DATE "
-            + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
+            + PREFIX_CATEGORY + "CATEGORY\n"
+            + "Note that each record should only have one category.\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_AMOUNT + "123.23 "
@@ -33,6 +34,8 @@ public class SpendCommand extends Command {
             + PREFIX_CATEGORY + "Food ";
 
     public static final String MESSAGE_SUCCESS = "New record added: %1$s";
+    public static final String MESSAGE_SUCCESS_EXCEED_BUDGET = "Your spending in %s "
+            + "category has exceeded the allocated budget!";
     public static final String MESSAGE_DUPLICATE_RECORD = "This record already exists in the finance tracker";
 
     private final Record toSpend;
@@ -53,9 +56,14 @@ public class SpendCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_RECORD);
         }
 
-        model.addRecord(toSpend);
+        boolean withinBudget = model.addRecord(toSpend);
         model.commitFinanceTracker();
+        if (!withinBudget) {
+            return new CommandResult (String.format(MESSAGE_SUCCESS_EXCEED_BUDGET, toSpend.getCategory()),
+                    true, false, false);
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toSpend), true, false, false);
+
     }
 
     @Override

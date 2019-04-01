@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.finance.commons.core.GuiSettings;
@@ -17,7 +16,6 @@ import seedu.finance.logic.parser.exceptions.ParseException;
 import seedu.finance.model.Model;
 import seedu.finance.model.ReadOnlyFinanceTracker;
 import seedu.finance.model.budget.Budget;
-import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Record;
 import seedu.finance.storage.Storage;
 

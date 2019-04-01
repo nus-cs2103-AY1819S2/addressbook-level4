@@ -47,7 +47,7 @@ public class EditRecordDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different categories -> returns false
-        editedAmy = new EditRecordDescriptorBuilder(DESC_AMY).withCategories(VALID_CATEGORY_HUSBAND).build();
+        editedAmy = new EditRecordDescriptorBuilder(DESC_AMY).withCategory(VALID_CATEGORY_HUSBAND).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 }

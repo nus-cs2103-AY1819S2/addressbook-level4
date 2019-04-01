@@ -1,5 +1,12 @@
 package seedu.finance.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_FILE;
+
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import seedu.finance.commons.core.LogsCenter;
 import seedu.finance.commons.exceptions.DataConversionException;
 import seedu.finance.logic.CommandHistory;
@@ -10,25 +17,24 @@ import seedu.finance.model.ReadOnlyFinanceTracker;
 import seedu.finance.model.util.SampleDataUtil;
 import seedu.finance.storage.JsonFinanceTrackerStorage;
 
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.logging.Logger;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.finance.logic.parser.CliSyntax.PREFIX_FILE;
 
+/**
+ * Sets a file path to store data.
+ */
 public class SetFileCommand extends Command {
-    private static final Logger logger = LogsCenter.getLogger(JsonFinanceTrackerStorage.class);
 
     public static final String COMMAND_WORD = "setfile";
-
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets the file path to store data. "
             + "Parameters: "
             + PREFIX_FILE + "FILE "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FILE + "data\\finance.json";
+
     public static final String MESSAGE_SUCCESS = "File Set: %1$s";
+
+    private static final Logger logger = LogsCenter.getLogger(JsonFinanceTrackerStorage.class);
 
     private final Path path;
 

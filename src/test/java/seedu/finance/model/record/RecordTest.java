@@ -19,12 +19,13 @@ public class RecordTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    /*
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Record record = new RecordBuilder().build();
         thrown.expect(UnsupportedOperationException.class);
         record.getCategories().remove(0);
-    }
+    }*/
 
     @Test
     public void isSameRecord() {
@@ -43,11 +44,11 @@ public class RecordTest {
         assertFalse(APPLE.isSameRecord(editedApple));
 
         // same name, same amount, different attributes -> returns true
-        editedApple = new RecordBuilder(APPLE).withDate(VALID_DATE_BOB).withCategories(VALID_CATEGORY_HUSBAND).build();
+        editedApple = new RecordBuilder(APPLE).withDate(VALID_DATE_BOB).withCategory(VALID_CATEGORY_HUSBAND).build();
         assertTrue(APPLE.isSameRecord(editedApple));
 
         // same name, same date, different attributes -> returns true
-        editedApple = new RecordBuilder(APPLE).withAmount(VALID_AMOUNT_BOB).withCategories(VALID_CATEGORY_HUSBAND)
+        editedApple = new RecordBuilder(APPLE).withAmount(VALID_AMOUNT_BOB).withCategory(VALID_CATEGORY_HUSBAND)
                 .build();
         assertTrue(APPLE.isSameRecord(editedApple));
     }
@@ -83,7 +84,7 @@ public class RecordTest {
         assertFalse(APPLE.equals(editedApple));
 
         // different categories -> returns false
-        editedApple = new RecordBuilder(APPLE).withCategories(VALID_CATEGORY_HUSBAND).build();
+        editedApple = new RecordBuilder(APPLE).withCategory(VALID_CATEGORY_HUSBAND).build();
         assertFalse(APPLE.equals(editedApple));
     }
 }

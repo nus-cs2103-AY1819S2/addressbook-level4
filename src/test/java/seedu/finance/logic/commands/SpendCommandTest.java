@@ -15,7 +15,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.finance.commons.core.GuiSettings;
@@ -25,7 +24,9 @@ import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.Model;
 import seedu.finance.model.ReadOnlyFinanceTracker;
 import seedu.finance.model.ReadOnlyUserPrefs;
-import seedu.finance.model.record.Amount;
+import seedu.finance.model.budget.Budget;
+import seedu.finance.model.budget.CategoryBudget;
+import seedu.finance.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.finance.model.record.Record;
 import seedu.finance.testutil.RecordBuilder;
 
@@ -126,7 +127,12 @@ public class SpendCommandTest {
         }
 
         @Override
-        public void addRecord(Record record) {
+        public boolean addRecord(Record record) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -136,7 +142,7 @@ public class SpendCommandTest {
         }
 
         @Override
-        public ObjectProperty<Amount> getBudget() {
+        public Budget getBudget() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -166,7 +172,7 @@ public class SpendCommandTest {
         }
 
         @Override
-        public void addBudget(Amount amount) {
+        public void addBudget(Budget budget) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -262,9 +268,9 @@ public class SpendCommandTest {
         }
 
         @Override
-        public void addRecord(Record record) {
+        public boolean addRecord(Record record) {
             requireNonNull(record);
-            recordsAdded.add(record);
+            return recordsAdded.add(record);
         }
 
         @Override

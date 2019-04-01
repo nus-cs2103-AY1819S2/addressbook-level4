@@ -9,7 +9,6 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
@@ -18,7 +17,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.finance.commons.core.GuiSettings;
 import seedu.finance.commons.core.LogsCenter;
 import seedu.finance.model.budget.Budget;
-import seedu.finance.model.record.Amount;
+import seedu.finance.model.budget.CategoryBudget;
+import seedu.finance.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.finance.model.record.Record;
 import seedu.finance.model.record.exceptions.RecordNotFoundException;
 
@@ -111,9 +111,10 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addRecord(Record record) {
-        versionedFinanceTracker.addRecord(record);
+    public boolean addRecord(Record record) {
+        boolean budgetNotExceeded = versionedFinanceTracker.addRecord(record);
         updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORD);
+        return budgetNotExceeded;
     }
 
     @Override
@@ -133,6 +134,12 @@ public class ModelManager implements Model {
         requireNonNull(budget);
 
         versionedFinanceTracker.addBudget(budget);
+    }
+
+    //================ Category Budget =========================================================================
+    //@author Jackimaru96
+    public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException {
+        this.versionedFinanceTracker.addCategoryBudget(budget);
     }
 
     @Override

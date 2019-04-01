@@ -1,6 +1,5 @@
 package seedu.finance.logic.parser;
 
-import java.util.Arrays;
 import java.util.Comparator;
 
 import seedu.finance.model.category.Category;
@@ -12,21 +11,7 @@ import seedu.finance.model.record.Record;
 public class RecordCategoryComparator implements Comparator<Record> {
     @Override
     public int compare(Record r1, Record r2) {
-        if (r1.getCategories().size() == 0) {
-            return -1;
-        }
-
-        if (r2.getCategories().size() == 0) {
-            return 1;
-        }
-
-        Category[] r1Cat = r1.getCategories().toArray(new Category[r1.getCategories().size()]);
-        Category[] r2Cat = r2.getCategories().toArray(new Category[r2.getCategories().size()]);
-        CategoryComparator comparator = new CategoryComparator();
-        Arrays.sort(r1Cat, comparator);
-        Arrays.sort(r2Cat, comparator);
-
-        return r1Cat[0].categoryName.compareToIgnoreCase(r2Cat[0].categoryName);
+        return r1.getCategory().toString().compareToIgnoreCase(r2.getCategory().toString());
     }
 
     /**

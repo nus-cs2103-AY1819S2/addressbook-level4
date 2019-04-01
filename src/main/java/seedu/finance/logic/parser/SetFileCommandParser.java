@@ -1,14 +1,17 @@
 package seedu.finance.logic.parser;
 
-import seedu.finance.logic.commands.SetFileCommand;
-import seedu.finance.logic.parser.exceptions.ParseException;
+import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_FILE;
 
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
-import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.finance.logic.parser.CliSyntax.PREFIX_FILE;
+import seedu.finance.logic.commands.SetFileCommand;
+import seedu.finance.logic.parser.exceptions.ParseException;
 
+/**
+ * Parse given string of argumentsin context of SetFileCommand
+ */
 public class SetFileCommandParser implements Parser<SetFileCommand> {
 
     /**

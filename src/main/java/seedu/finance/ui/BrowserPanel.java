@@ -39,6 +39,9 @@ public class BrowserPanel extends UiPart<Region> {
     @FXML
     private Label currentBudget;
 
+    @FXML
+    private Label currentSpending;
+
     public BrowserPanel(ObservableValue<Record> selectedRecord, Budget budget) {
         super(FXML);
 
@@ -57,11 +60,17 @@ public class BrowserPanel extends UiPart<Region> {
         });
     }
 
+    /**
+     * Method to update Budget
+     * @param budget the budget to be updated to.
+     */
     public void updateBudget(Budget budget) {
         String totalBudgetString = String.format("%.2f", budget.getTotalBudget());
         String currentBudgetString = String.format("%.2f", budget.getCurrentBudget());
+        String currentSpendingString = String.format("%.2f", budget.getCurrentSpendings());
         this.totalBudget.textProperty().setValue("Total Budget: " + totalBudgetString);
         this.currentBudget.textProperty().setValue("Current Budget: " + currentBudgetString);
+        this.currentSpending.textProperty().setValue("Current Spendings: " + currentSpendingString);
     }
 
     public void loadPage(String url) {

@@ -1,10 +1,8 @@
 package seedu.finance.model;
 
 import javafx.beans.Observable;
-import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.finance.model.budget.Budget;
-import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Record;
 
 /**

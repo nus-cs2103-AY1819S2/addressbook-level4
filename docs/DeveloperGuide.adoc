@@ -659,6 +659,7 @@ A project often depends on third-party libraries. For example, Address Book depe
 *Value proposition*: Allow all food lovers to have a centralised platform to document their food adventures and experience at each restaurant
 
 [appendix]
+// tag::userstories[]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -700,6 +701,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |Food Lover |List unreviewed restaurants |Visit restaurants that I have added but yet to review
 |=======================================================================
+// end::userstories[]
 
 [appendix]
 == Use Cases

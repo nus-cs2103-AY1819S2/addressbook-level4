@@ -62,9 +62,7 @@ public class VisitWebCommand extends Command {
             // if original weblink is removed, prompt user to change weblink
             Weblink weblink = filteredRestaurantList.get(targetIndex.getZeroBased()).getWeblink();
             try {
-                if (Weblink.isNotValidWeblinkUrl(weblink.value)) {
-                    throw new CommandException(String.format(Messages.MESSAGE_CHANGE_WEBLINK, weblink.value));
-                }
+                checkUrl(weblink);
             } catch (NoInternetException e) {
                 return new CommandResult(e.getMessage());
             }
@@ -74,6 +72,18 @@ public class VisitWebCommand extends Command {
         } else {
             // if params of visitWeb command is a Weblink, pass weblink to CommandResult
             return new CommandResult(String.format(MESSAGE_VISIT_WEBLINK, weblink.value), weblink);
+        }
+    }
+
+    /**
+     * Checks if url is valid using isNotValidWeblinkUrl method from Weblink
+     * @param weblink
+     * @throws NoInternetException when internet connection fails
+     * @throws CommandException when url is invalid
+     */
+    private void checkUrl(Weblink weblink) throws NoInternetException, CommandException {
+        if (Weblink.isNotValidWeblinkUrl(weblink.value)) {
+            throw new CommandException(String.format(Messages.MESSAGE_CHANGE_WEBLINK, weblink.value));
         }
     }
 

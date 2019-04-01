@@ -17,8 +17,8 @@ public class LinkedPatient {
                                                     + "patient list\n"
                                                     + "Example: pat/1 or pat/3";
 
-    public Name fullname;
-    public Nric nric;
+    private Name fullname;
+    private Nric nric;
 
     public LinkedPatient(Name name, Nric nric) {
         this.fullname = name;
@@ -28,4 +28,11 @@ public class LinkedPatient {
     public static boolean isValidLinkedPatient(String nametest, String nrictest) {
         return (Name.isValidName(nametest) && Nric.isValidNric(nrictest));
     }
+
+    @Override
+    public String toString() {
+        return fullname.fullName + " " + nric.getNric();
+    }
+
+
 }

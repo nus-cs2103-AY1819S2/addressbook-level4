@@ -39,18 +39,17 @@ This section provides a summary of my coding, documentation and miscellaneous co
 *** Ensured that we are on task with our project documentation by allocating roles and ensuring consistency with our words and diagrams. (user guide and developer guide)
 
 ** Enhancements to existing features (to be updated):
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** EXAMPLE: Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** EXAMPLE: Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 
 ** Documentation:
 *** Did architecture and sequence diagram for the overall App: https://github.com/CS2103-AY1819S2-W14-2/main/pull/118[#118]
 *** Did the documentation for image manipulation: https://github.com/CS2103-AY1819S2-W14-2/main/pull/123/files[#123]
 
 ** Community (to be updated):
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (to be updated) (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (to be updated once we review other people's code) (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** EXAMPLE: PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** EXAMPLE: Contributed to forum discussions (to be updated) (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** EXAMPLE: Reported bugs and suggestions for other teams in the class (to be updated once we review other people's code) (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 
 ** Tools:
 *** Integrated a third party library (ImgScalr) to the project (https://github.com/CS2103-AY1819S2-W14-2/main/pull/26[#26])

@@ -12,7 +12,8 @@ import seedu.address.model.Model;
 import seedu.address.model.task.Task;
 
 /**
- * Deletes a task identified using it's displayed index from the address book.
+ * Sets a task identified using it's displayed index to be completed.
+ * Adds a record to a patient linked to it if any.
  */
 public class TaskDoneCommand extends Command {
 

@@ -48,13 +48,13 @@ import seedu.address.testutil.TableBuilder;
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
 
-    public static final String ADD_TABLE_ARGS = " 4";
     public static final String ADD_MENU_ITEM_ARGS = " n/Chicken Wings c/W09 p/3.99";
+    public static final String ADD_TABLE_ARGS = " 4";
     public static final String ADD_ORDER_ITEM_ARGS = " W09 3";
     public static final String OCCUPIED_TABLE_STATUS = "3/4";
-    public static final float TOTAL_BILL = (float) 11.97;
     public static final String RECEIPT = "\nTable 1\n\nW09  Chicken Wings\n $3.99   x 3\n\nTotal Bill: $ 11.97\n";
-    public static final Bill bill = new Bill(new TableNumber("1"), TOTAL_BILL, RECEIPT);
+    public static final float TOTAL_BILL = (float) 11.97;
+    public static final Bill BILL = new Bill(new TableNumber("1"), TOTAL_BILL, RECEIPT);
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -135,13 +135,13 @@ public class LogicManagerTest {
         OrderItem expectedOrderItem = new OrderItemBuilder().build();
         MenuItem expectedMenuItem = new MenuItemBuilder().build();
         DailyRevenue expectedDailyRevenue = new StatisticsBuilder()
-                .withDay(bill.getDay().toString())
-                .withMonth(bill.getMonth().toString())
-                .withYear(bill.getYear().toString())
-                .withTotalBill(String.valueOf(bill.getTotalBill()))
+                .withDay(BILL.getDay().toString())
+                .withMonth(BILL.getMonth().toString())
+                .withYear(BILL.getYear().toString())
+                .withTotalBill(String.valueOf(BILL.getTotalBill()))
                 .withTotalDailyRevenue(String.valueOf(TOTAL_BILL))
-                .withTableNumber(bill.getTableNumber().toString())
-                .withReceipt(bill.getReceipt())
+                .withTableNumber(BILL.getTableNumber().toString())
+                .withReceipt(BILL.getReceipt())
                 .build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addTable(expectedTable);
@@ -170,8 +170,8 @@ public class LogicManagerTest {
         // Execute addDailyRevenue command
         expectedModel.addDailyRevenue(expectedDailyRevenue);
         expectedModel.deleteOrderItem(expectedOrderItem);
-//        expectedModel.setSelectedTable(null);
-        expectedModel.setRecentBill(bill);
+        //        expectedModel.setSelectedTable(null);
+        expectedModel.setRecentBill(BILL);
         expectedModel.setTable(occupiedTable, expectedTable);
         assertCommandBehavior(CommandException.class, billCommand, expectedMessage, expectedModel);
         assertHistoryCorrect(billCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n"
@@ -252,8 +252,8 @@ public class LogicManagerTest {
             assertEquals(expectedMessage, result.getFeedbackToUser());
         } catch (CommandException | ParseException e) {
             assertEquals(expectedException, e.getClass());
-            assertEquals(expectedMessage, e.getMessage()); 
-        } 
+            assertEquals(expectedMessage, e.getMessage());
+        }
 
         assertEquals(expectedModel, model);
     }

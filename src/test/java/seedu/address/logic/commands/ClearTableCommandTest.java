@@ -22,9 +22,9 @@ import seedu.address.testutil.TableBuilder;
 
 public class ClearTableCommandTest {
 
-    private CommandHistory commandHistory = new CommandHistory();
-
     public static final String UNOCCUPIED_TABLE_STATUS = "0/4";
+
+    private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_noTablesInRestaurant_failure() {

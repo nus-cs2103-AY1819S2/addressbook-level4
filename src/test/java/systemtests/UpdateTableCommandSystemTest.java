@@ -25,7 +25,7 @@ public class UpdateTableCommandSystemTest extends RestOrRantSystemTest {
     @Test
     public void update() {
 
-      /* ------------------------ Perform update operations on the shown unfiltered list ----------------------------- */
+        /* ------------------------ Perform update operations on the shown unfiltered list -------------------------- */
 
         /* Case: update a table restaurant, command with leading spaces and trailing spaces -> updated */
         Table updateTo = new TableBuilder().withTableStatus(VALID_TABLE_STATUS).build();
@@ -39,7 +39,7 @@ public class UpdateTableCommandSystemTest extends RestOrRantSystemTest {
                 + updateTo.getTableStatus().toString().split("/")[0];
         assertCommandSuccess(command, new TableBuilder().withTableStatus("1/4").build(), updateTo);
 
-      /* ----------------------------------- Perform invalid update operations --------------------------------------- */
+        /* ----------------------------------- Perform invalid update operations ------------------------------------ */
 
         /* Case: invalid table number -> rejected */
         command = UpdateTableCommand.COMMAND_WORD + " " + INVALID_TABLE_NUMBER + " 3";

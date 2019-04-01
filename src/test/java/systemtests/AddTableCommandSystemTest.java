@@ -9,8 +9,8 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.model.Model;
 import seedu.address.model.table.Table;
-import seedu.address.testutil.TableBuilder;
 import seedu.address.testutil.RestOrRantUtil;
+import seedu.address.testutil.TableBuilder;
 
 public class AddTableCommandSystemTest extends RestOrRantSystemTest {
 
@@ -21,7 +21,7 @@ public class AddTableCommandSystemTest extends RestOrRantSystemTest {
     @Test
     public void add() {
 
-      /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
+        /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
         /* Case: add a table to a non-empty restaurant, command with leading spaces and trailing spaces -> added */
         Table toAdd = new TableBuilder().withTableNumber("9").withTableStatus(VALID_EMPTY_TABLE_STATUS).build();
@@ -37,7 +37,7 @@ public class AddTableCommandSystemTest extends RestOrRantSystemTest {
         deleteAllTables();
         assertCommandSuccess(new TableBuilder(TABLE1).withTableStatus(VALID_EMPTY_TABLE_STATUS).build());
 
-      /* ----------------------------------- Perform invalid add operations --------------------------------------- */
+        /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: missing table status -> rejected */
         command = AddTableCommand.COMMAND_WORD;

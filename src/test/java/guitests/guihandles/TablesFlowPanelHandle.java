@@ -28,7 +28,7 @@ public class TablesFlowPanelHandle extends NodeHandle<FlowPane> {
         return guiRobot.lookup(CARD_PANE_ID).queryAll();
     }
 
-    private Table getTable(int index) {// TODO: figure out if we need this.
+    private Table getTable(int index) { // TODO: figure out if we need this.
         return (Table) getRootNode().getChildren();
     }
 

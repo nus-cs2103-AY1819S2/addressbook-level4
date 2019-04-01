@@ -27,10 +27,10 @@ import seedu.address.logic.commands.ClearTableCommand;
 import seedu.address.logic.commands.UpdateTableCommand;
 import seedu.address.model.Model;
 import seedu.address.model.RestOrRant;
+import seedu.address.model.table.Table;
 import seedu.address.testutil.TypicalRestOrRant;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.testutil.OrdersGuiTestAssert;
-import seedu.address.ui.testutil.TablesGuiTestAssert;
 
 /**
  * A system test class for RestOrRant, which provides access to handles of GUI components and helper methods
@@ -187,18 +187,19 @@ public abstract class RestOrRantSystemTest {
         assertEquals(0, getModel().getRestOrRant().getTables().getTableList().size());
     }
 
+    /**
+     * Clears the occupancy of all tables in the restaurant.
+     */
     protected void clearOccupancy() {
-        executeCommand(UpdateTableCommand.COMMAND_WORD + " 1 0");
-        executeCommand(UpdateTableCommand.COMMAND_WORD + " 2 0");
-        executeCommand(UpdateTableCommand.COMMAND_WORD + " 3 0");
-        executeCommand(UpdateTableCommand.COMMAND_WORD + " 4 0");
-        executeCommand(UpdateTableCommand.COMMAND_WORD + " 5 0");
-        executeCommand(UpdateTableCommand.COMMAND_WORD + " 6 0");
-        executeCommand(UpdateTableCommand.COMMAND_WORD + " 7 0");
-        executeCommand(UpdateTableCommand.COMMAND_WORD + " 8 0");
+        for (Table table : getModel().getRestOrRant().getTables().getTableList()) {
+            executeCommand(UpdateTableCommand.COMMAND_WORD + " " + table.getTableNumber() + " 0");
+        }
         assertTrue(getModel().isRestaurantEmpty());
     }
 
+    /**
+     * Adds 8 tables and occupies some of them.
+     */
     protected void occupyTables() {
         executeCommand(AddTableCommand.COMMAND_WORD + " 4 5 4 5 6 7 4 5");
         executeCommand(UpdateTableCommand.COMMAND_WORD + " 1 4");

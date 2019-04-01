@@ -24,8 +24,8 @@ import seedu.hms.model.util.TimeRange;
 /**
  * Represents the in-memory model of the hms book data.
  */
-public class BookingManager implements BookingModel {
-    private static final Logger logger = LogsCenter.getLogger(BookingManager.class);
+public class BillManager implements BillModel {
+    private static final Logger logger = LogsCenter.getLogger(BillManager.class);
 
     private final VersionedHotelManagementSystem versionedHotelManagementSystem;
     private final UserPrefs userPrefs;
@@ -37,7 +37,7 @@ public class BookingManager implements BookingModel {
     /**
      * Initializes a ModelManager with the given hotelManagementSystem and userPrefs.
      */
-    public BookingManager(VersionedHotelManagementSystem hotelManagementSystem, ReadOnlyUserPrefs userPrefs) {
+    public BillManager(VersionedHotelManagementSystem hotelManagementSystem, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(hotelManagementSystem, userPrefs);
 
@@ -50,7 +50,7 @@ public class BookingManager implements BookingModel {
         filteredBookings.addListener(this::ensureSelectedBookingIsValid);
     }
 
-    public BookingManager() {
+    public BillManager() {
         this(new VersionedHotelManagementSystem(new HotelManagementSystem()), new UserPrefs());
     }
 
@@ -246,12 +246,12 @@ public class BookingManager implements BookingModel {
         }
 
         // instanceof handles nulls
-        if (!(obj instanceof BookingManager)) {
+        if (!(obj instanceof BillManager)) {
             return false;
         }
 
         // state check
-        BookingManager other = (BookingManager) obj;
+        BillManager other = (BillManager) obj;
         return versionedHotelManagementSystem.equals(other.versionedHotelManagementSystem)
             && userPrefs.equals(other.userPrefs)
             && filteredBookings.equals(other.filteredBookings)

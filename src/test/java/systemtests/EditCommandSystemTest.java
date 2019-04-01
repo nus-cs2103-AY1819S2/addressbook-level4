@@ -5,10 +5,10 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.equipment.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.equipment.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.equipment.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.equipment.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.equipment.logic.commands.CommandTestUtil.DATE_DESC_AMY;
+import static seedu.equipment.logic.commands.CommandTestUtil.DATE_DESC_BOB;
 import static seedu.equipment.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.equipment.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.equipment.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.equipment.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.equipment.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.equipment.logic.commands.CommandTestUtil.INVALID_SERIAL_NUMBER_DESC;
@@ -21,7 +21,7 @@ import static seedu.equipment.logic.commands.CommandTestUtil.SERIAL_NUMBER_DESC_
 import static seedu.equipment.logic.commands.CommandTestUtil.SERIAL_NUMBER_DESC_BOB;
 import static seedu.equipment.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.equipment.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-//import static seedu.equipment.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+//import static seedu.equipment.logic.commands.CommandTestUtil.VALID_DATE_AMY;
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 //import static seedu.equipment.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_AMY;
@@ -66,7 +66,7 @@ public class EditCommandSystemTest extends EquipmentManagerSystemTest {
          */
         Index index = INDEX_FIRST_PERSON;
         String command = EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
-                + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + SERIAL_NUMBER_DESC_BOB
+                + PHONE_DESC_BOB + " " + DATE_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + SERIAL_NUMBER_DESC_BOB
                 + " " + TAG_DESC_HUSBAND + " ";
         Equipment editedEquipment = new EquipmentBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedEquipment);
@@ -83,7 +83,7 @@ public class EditCommandSystemTest extends EquipmentManagerSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit an equipment with new values same as existing values -> edited */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + DATE_DESC_BOB
                 + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, index, BOB);
 
@@ -93,7 +93,7 @@ public class EditCommandSystemTest extends EquipmentManagerSystemTest {
         assertTrue(getModel().getEquipmentManager().getPersonList().contains(BOB));
         index = INDEX_SECOND_PERSON;
         assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + DATE_DESC_BOB
                 + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedEquipment = new EquipmentBuilder(BOB).withSerialNumber(VALID_SERIAL_NUMBER_AMY).build();
         assertCommandSuccess(command, index, editedEquipment);
@@ -110,7 +110,7 @@ public class EditCommandSystemTest extends EquipmentManagerSystemTest {
          */
         index = INDEX_SECOND_PERSON;
         assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), AMY);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + DATE_DESC_AMY
                 + ADDRESS_DESC_AMY + SERIAL_NUMBER_DESC_AMY + TAG_DESC_FRIEND;
         editedEquipment = new EquipmentBuilder(AMY).withSerialNumber(VALID_SERIAL_NUMBER_AMY).build();
         assertCommandSuccess(command, index, editedEquipment);
@@ -142,7 +142,7 @@ public class EditCommandSystemTest extends EquipmentManagerSystemTest {
         showAllPersons();
         index = INDEX_FIRST_PERSON;
         selectPerson(index);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + DATE_DESC_BOB
                 + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new equipment's name
@@ -183,9 +183,9 @@ public class EditCommandSystemTest extends EquipmentManagerSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
                 + INVALID_SERIAL_NUMBER_DESC, SerialNumber.MESSAGE_CONSTRAINTS);
 
-        /* Case: invalid email -> rejected */
+        /* Case: invalid date -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
-                + INVALID_EMAIL_DESC, Date.MESSAGE_CONSTRAINTS);
+                + INVALID_DATE_DESC, Date.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid equipment -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
@@ -197,7 +197,7 @@ public class EditCommandSystemTest extends EquipmentManagerSystemTest {
 
         /* Case: edit an equipment with new values same as another equipment's values -> rejected */
         index = INDEX_SECOND_PERSON;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + DATE_DESC_BOB
                 + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_EQUIPMENT);
 
@@ -205,35 +205,35 @@ public class EditCommandSystemTest extends EquipmentManagerSystemTest {
          * but with different tags -> rejected
          */
         index = INDEX_SECOND_PERSON;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + DATE_DESC_BOB
                 + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_EQUIPMENT);
 
         /* Case: edit an equipment with new values same as another equipment's values
          * but with different equipment -> rejected
          */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + DATE_DESC_BOB
                 + ADDRESS_DESC_AMY + SERIAL_NUMBER_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_EQUIPMENT);
 
         /* Case: edit a equipment with new values same as another equipment's values
          * but with different phone -> rejected
          */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + DATE_DESC_BOB
                 + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_EQUIPMENT);
 
         /* Case: edit a equipment with new values same as another equipment's values
-         * but with different email -> rejected
+         * but with different date -> rejected
          */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + DATE_DESC_AMY
                 + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_EQUIPMENT);
 
         /* Case: edit an equipment with new values same as another equipment's values but with
          * different name -> rejected
          */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_AMY
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + DATE_DESC_AMY
                 + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_EQUIPMENT);
     }

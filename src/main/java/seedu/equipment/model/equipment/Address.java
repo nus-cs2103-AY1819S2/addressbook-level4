@@ -19,6 +19,12 @@ public class Address implements Comparable<Address> {
 
     public final String value;
 
+    private double latitude;
+
+    private double longitude;
+
+    private boolean hasCoordinate;
+
     /**
      * Constructs an {@code Address}.
      *
@@ -28,13 +34,55 @@ public class Address implements Comparable<Address> {
         requireNonNull(address);
         checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
         value = address;
+        hasCoordinate = false;
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Constructs an {@code Address} with known coordinates.
+     *
+     * @param address A valid equipment.
+     * @param latitude the latitude to be set
+     * @param longitude the longitude to be set
+     */
+    public Address(String address, double latitude, double longitude) {
+        this(address);
+        hasCoordinate = true;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    /**
+     * Returns true if a given string is a valid address.
      */
     public static boolean isValidAddress(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     *  Check whether the address has known coordinates or not.
+     * @return true if the address has known coordinates.
+     */
+    public boolean isHasCoordinate() {
+        return hasCoordinate;
+    }
+
+    /**
+     *  Set the coordinates of the address
+     * @param latitude the latitude to be set
+     * @param longitude the longitude to be set
+     */
+    public void setCoordinates(double latitude, double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.hasCoordinate = true;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
     }
 
     @Override

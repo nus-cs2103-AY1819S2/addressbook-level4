@@ -3,10 +3,10 @@ package systemtests;
 import static seedu.equipment.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.equipment.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.equipment.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.equipment.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.equipment.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.equipment.logic.commands.CommandTestUtil.DATE_DESC_AMY;
+import static seedu.equipment.logic.commands.CommandTestUtil.DATE_DESC_BOB;
 //import static seedu.equipment.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-//import static seedu.equipment.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+//import static seedu.equipment.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.equipment.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 //import static seedu.equipment.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 //import static seedu.equipment.logic.commands.CommandTestUtil.INVALID_SERIAL_NUMBER_DESC;
@@ -20,7 +20,7 @@ import static seedu.equipment.logic.commands.CommandTestUtil.SERIAL_NUMBER_DESC_
 import static seedu.equipment.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.equipment.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.equipment.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.equipment.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 //import static seedu.equipment.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOB;
@@ -63,7 +63,7 @@ public class AddCommandSystemTest extends EquipmentManagerSystemTest {
          */
         Equipment toAdd = AMY;
         String command = " " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + SERIAL_NUMBER_DESC_AMY + "   " + TAG_DESC_FRIEND
+                + DATE_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + SERIAL_NUMBER_DESC_AMY + "   " + TAG_DESC_FRIEND
                 + " ";
         assertCommandSuccess(command, toAdd);
 
@@ -81,7 +81,7 @@ public class AddCommandSystemTest extends EquipmentManagerSystemTest {
         /* Case: add an equipment with all fields same as another equipment in the equipment manager
          * except serial number -> added */
         toAdd = new EquipmentBuilder(AMY).withSerialNumber(VALID_SERIAL_NUMBER_BOB).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + DATE_DESC_AMY + ADDRESS_DESC_AMY
                 + SERIAL_NUMBER_DESC_BOB + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
@@ -92,7 +92,7 @@ public class AddCommandSystemTest extends EquipmentManagerSystemTest {
         /* Case: add a equipment with tags, command with parameters in random order -> added */
         toAdd = BOB;
         command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
-                + SERIAL_NUMBER_DESC_BOB + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
+                + SERIAL_NUMBER_DESC_BOB + TAG_DESC_HUSBAND + DATE_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a equipment, missing tags -> added */
@@ -121,8 +121,8 @@ public class AddCommandSystemTest extends EquipmentManagerSystemTest {
         command = EquipmentUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EQUIPMENT);
 
-        /* Case: add a duplicate equipment except with different email -> rejected */
-        toAdd = new EquipmentBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
+        /* Case: add a duplicate equipment except with different date -> rejected */
+        toAdd = new EquipmentBuilder(HOON).withDate(VALID_DATE_BOB).build();
         command = EquipmentUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EQUIPMENT);
 
@@ -137,26 +137,26 @@ public class AddCommandSystemTest extends EquipmentManagerSystemTest {
 
         /* Case: missing name -> rejected */
         command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
+                + DATE_DESC_AMY + ADDRESS_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing phone -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
+                + DATE_DESC_AMY + ADDRESS_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
-        /* Case: missing email -> rejected */
+        /* Case: missing date -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY
                 + PHONE_DESC_AMY + ADDRESS_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing equipment -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY
-                + PHONE_DESC_AMY + EMAIL_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
+                + PHONE_DESC_AMY + DATE_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing serial number -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + DATE_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
@@ -164,7 +164,7 @@ public class AddCommandSystemTest extends EquipmentManagerSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY
+        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + DATE_DESC_AMY
                 + ADDRESS_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_CONSTRAINTS);
     }

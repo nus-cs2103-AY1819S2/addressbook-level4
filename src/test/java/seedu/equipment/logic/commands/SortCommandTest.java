@@ -27,9 +27,9 @@ public class SortCommandTest {
 
     @Test
     public void execute_sortListByEmail() {
-        String emailSortParameter = "email";
-        SortCommand sortCommand = new SortCommand(emailSortParameter);
-        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, emailSortParameter);
+        String dateSortParameter = "date";
+        SortCommand sortCommand = new SortCommand(dateSortParameter);
+        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, dateSortParameter);
         assertCommandSuccessWithChanges(sortCommand, model, commandHistory, expectedMessage);
     }
 

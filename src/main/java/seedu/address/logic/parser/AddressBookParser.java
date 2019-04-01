@@ -19,7 +19,6 @@ import seedu.address.logic.commands.ListCommandParser;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetReminderCommand;
 import seedu.address.logic.commands.StatisticsCommand;
-import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.request.AssignRequestCommand;
 import seedu.address.logic.commands.request.ClearRequestCommand;
 import seedu.address.logic.commands.request.CompleteRequestCommand;

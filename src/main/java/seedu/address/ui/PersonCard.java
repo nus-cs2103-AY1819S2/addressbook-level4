@@ -75,7 +75,7 @@ public class PersonCard extends UiPart<Region> {
                             + "-fx-background-radius: 3;"
                             + "-fx-label-padding: 0;");
 
-                } else if (pdf.getDeadline().getDaysToDeadline() > 3 && pdf.getDeadline().getDaysToDeadline() > 0) {
+                } else if (pdf.getDeadline().getDaysToDeadline() > 0) {
                     deadline.setStyle("-fx-text-fill: white;"
                             + "-fx-background-color: #b36b00;"
                             + "-fx-padding: 1;"

@@ -2,6 +2,8 @@ package seedu.address.model.pdf;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_COMPLETE;
+import static seedu.address.logic.commands.CommandTestUtil.DIR_1_VALID;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -41,35 +43,37 @@ public class NameContainsKeywordsPredicateTest {
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
-        assertTrue(predicate.test(new PdfBuilder().withName("Alice Bob").build()));
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(
+                Collections.singletonList("CS2103T"));
+        assertTrue(predicate.test(new PdfBuilder().withName("CS2103T Lecture.pdf").build()));
 
         // Multiple keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(new PdfBuilder().withName("Alice Bob").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("CS2103T", "Lecture"));
+        assertTrue(predicate.test(new PdfBuilder().withName("CS2103T Lecture.pdf").build()));
 
         // Only one matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new PdfBuilder().withName("Alice Carol").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Your", "Lecture"));
+        assertTrue(predicate.test(new PdfBuilder().withName("My Lecture.pdf").build()));
 
         // Mixed-case keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
-        assertTrue(predicate.test(new PdfBuilder().withName("Alice Bob").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("cS2103t", "lEctUre"));
+        assertTrue(predicate.test(new PdfBuilder().withName("CS2103T Lecture.pdf").build()));
     }
-    /*
+
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new PdfBuilder().withName("Alice").build()));
+        assertFalse(predicate.test(new PdfBuilder().withName("Resume.pdf").build()));
 
         // Non-matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
-        assertFalse(predicate.test(new PdfBuilder().withName("Alice Bob").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("CS2107"));
+        assertFalse(predicate.test(new PdfBuilder().withName("CS2103T Lecture.pdf").build()));
 
         // Keywords match phone, email and address, but does not match name
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
-        assertFalse(predicate.test(new PdfBuilder().withName("Alice").withSize("12345")
-                .withEmail("alice@email.com").withDirectory("Main Street").build()));
-    }*/
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", DIR_1_VALID,
+                "Transcript.pdf", DEADLINE_JSON_COMPLETE));
+        assertFalse(predicate.test(new PdfBuilder().withName("Resume.pdf").withSize("12345")
+                .withDirectory(DIR_1_VALID).withDeadline(DEADLINE_JSON_COMPLETE).build()));
+    }
 }

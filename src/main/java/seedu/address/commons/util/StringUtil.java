@@ -40,7 +40,7 @@ public class StringUtil {
 
         return Arrays.stream(preppedWord.split("\\s+")).allMatch(
                 key -> Arrays.stream(preppedSentence.split("\\s+"))
-                             .anyMatch(sentenceWord -> sentenceWord.equals(key)));
+                    .anyMatch(sentenceWord -> sentenceWord.equals(key)));
     }
 
     /**

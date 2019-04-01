@@ -91,7 +91,7 @@ public class CardsView implements ListViewState {
             }
 
             boolean wasSelectedItemRemoved = change.getRemoved().stream().anyMatch(
-                    removedItem -> selectedCard.getValue().equals(removedItem));
+                removedItem -> selectedCard.getValue().equals(removedItem));
             if (wasSelectedItemRemoved) {
                 // Select the card that came before it in the list,
                 // or clear the selection if there is no such card.

@@ -43,6 +43,7 @@ public class TypicalWorkLists {
     }
 
     public static List<WorkList> getTypicalWorkLists() {
-        return new ArrayList<>(Arrays.asList(LISTA, LISTB));
+        return new ArrayList<>(Arrays.asList(LISTA,
+                LISTB, LISTD, LISTE));
     }
 }

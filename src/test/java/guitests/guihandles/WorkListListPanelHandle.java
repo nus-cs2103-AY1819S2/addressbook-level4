@@ -102,6 +102,8 @@ public class WorkListListPanelHandle extends NodeHandle<ListView<WorkList>> {
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public WorkListCardHandle getWorkListCardHandle(int index) {
+        System.out.println(index);
+        System.out.println(getWorkList(index).getAssignee());
         return getAllCardNodes().stream()
                 .map(WorkListCardHandle::new)
                 .filter(handle -> handle.equals(getWorkList(index)))

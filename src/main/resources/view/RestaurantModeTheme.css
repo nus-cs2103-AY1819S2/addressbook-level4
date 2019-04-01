@@ -132,6 +132,14 @@
     -fx-text-fill: #010504;
 }
 
+.list_panel_title {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-text-fill: #d6d6d6;
+    -fx-alignment: center;
+    -fx-padding: 0 0 10 10;
+}
+
 .stack-pane {
      -fx-background-color: derive(#1d1d1d, 0%);
 }
@@ -143,7 +151,7 @@
 }
 
 .status-bar {
-    -fx-background-color: derive(derive(#1d1d1d, 0%), 30%);
+    -fx-background-color: derive(#3d6170, 0%);
 }
 
 .result-display {
@@ -317,13 +325,13 @@
 
 #tableCardPane {
     -fx-background-color: #3d6170;
-    -fx-border-color: #5e8b9e;
+    -fx-border-color: #1d1d1d;
     -fx-scale-shape: false;
 }
 
 #menuItemCardPane {
     -fx-background-color: #3d6170;
-    -fx-border-color: #5e8b9e;
+    -fx-border-color: #1d1d1d;
     -fx-scale-shape: false;
 }
 
@@ -353,7 +361,7 @@
 #commandTextField {
     -fx-background-color: transparent #3d6170 transparent #3d6170;
     -fx-background-insets: 0;
-    -fx-border-color: #3d6170 #3d6170 #ffffff #3d6170;
+    -fx-border-color: #1d1d1d #1d1d1d #ffffff #1d1d1d;
     -fx-border-insets: 0;
     -fx-border-width: 1;
     -fx-font-family: "Segoe UI Light";

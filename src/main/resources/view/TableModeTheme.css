@@ -1,6 +1,6 @@
 .background {
     -fx-background-color: derive(#1d1d1d, 0%);
-    background-color: #424d5f; /* Used in the default.html file */
+    background-color: #1d1d1d; /* Used in the default.html file */
 }
 
 .label {
@@ -151,7 +151,7 @@
 }
 
 .status-bar {
-    -fx-background-color: derive(#323a4f, 0%);
+    -fx-background-color: derive(#333c56, 0%);
 }
 
 .result-display {

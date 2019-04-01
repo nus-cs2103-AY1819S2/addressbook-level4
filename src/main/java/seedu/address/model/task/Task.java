@@ -24,12 +24,11 @@ public class Task {
     protected final DateCustom endDate;
     protected final TimeCustom startTime;
     protected final TimeCustom endTime;
-    protected final Priority priority;
     protected final boolean isCopy;
     protected int copyCount;
 
     private LinkedPatient linkedPatient;
-
+    private Priority priority;
 
 
 
@@ -97,6 +96,10 @@ public class Task {
 
     public void setLinkedPatient(Name name, Nric nric) {
         this.linkedPatient = new LinkedPatient(name, nric);
+    }
+
+    public void setPriorityComplete() {
+        this.priority = Priority.COMPLETED;
     }
 
     /**

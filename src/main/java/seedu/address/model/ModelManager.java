@@ -19,7 +19,6 @@ import seedu.address.model.analytics.Analytics;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
 import seedu.address.model.job.JobName;
-import seedu.address.model.job.UniqueJobList;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -156,7 +155,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public UniquePersonList getJobList(JobName name,int listNumber) {
+    public UniquePersonList getJobList(JobName name, int listNumber) {
         return versionedAddressBook.getJobPersonList(name, listNumber);
     }
 
@@ -186,7 +185,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void revertList(){
+    public void revertList() {
         variableFilteredPersons = filteredPersons;
     }
 

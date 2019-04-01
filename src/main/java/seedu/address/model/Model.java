@@ -107,7 +107,7 @@ public interface Model {
     /**
      * Returns one of the UniquePersonList in the job
      */
-    UniquePersonList getJobList(JobName name,int listNumber);
+    UniquePersonList getJobList(JobName name, int listNumber);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();

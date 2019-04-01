@@ -263,7 +263,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public UniquePersonList getJobList(JobName name,int listNumber) {
+        public UniquePersonList getJobList(JobName name, int listNumber) {
             throw new AssertionError("This method should not be called.");
         }
     }

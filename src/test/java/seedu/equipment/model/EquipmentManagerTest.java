@@ -155,6 +155,7 @@ public class EquipmentManagerTest {
      */
     private static class EquipmentManagerStub implements ReadOnlyEquipmentManager {
         private final ObservableList<Equipment> equipment = FXCollections.observableArrayList();
+        private final ObservableList<WorkList> workLists = FXCollections.observableArrayList();
 
         EquipmentManagerStub(Collection<Equipment> equipment) {
             this.equipment.setAll(equipment);
@@ -163,6 +164,11 @@ public class EquipmentManagerTest {
         @Override
         public ObservableList<Equipment> getPersonList() {
             return equipment;
+        }
+
+        @Override
+        public ObservableList<WorkList> getWorkListList() {
+            return workLists;
         }
 
         @Override

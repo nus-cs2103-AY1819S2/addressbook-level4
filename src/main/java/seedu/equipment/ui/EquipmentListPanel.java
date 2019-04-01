@@ -26,6 +26,7 @@ public class EquipmentListPanel extends UiPart<Region> {
     public EquipmentListPanel(ObservableList<Equipment> equipmentList, ObservableValue<Equipment> selectedPerson,
                               Consumer<Equipment> onSelectedPersonChange) {
         super(FXML);
+        //System.out.println(personListView.getEditingIndex());
         personListView.setItems(equipmentList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {

@@ -15,4 +15,10 @@ public interface ReadOnlyEquipmentManager extends Observable {
      */
     ObservableList<Equipment> getPersonList();
 
+    /**
+     * Returns an unmodifiable view of the WorkList list.
+     * This list will not contain any duplicate WorkLists.
+     */
+    ObservableList<WorkList> getWorkListList();
+
 }

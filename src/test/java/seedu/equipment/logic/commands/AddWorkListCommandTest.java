@@ -175,6 +175,12 @@ public class AddWorkListCommandTest {
         }
 
         @Override
+        public void deleteWorkList(WorkList target) {
+
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setEquipment(Equipment target, Equipment editedEquipment) {
             throw new AssertionError("This method should not be called.");
         }
@@ -245,13 +251,28 @@ public class AddWorkListCommandTest {
         }
 
         @Override
+        public ReadOnlyProperty<WorkList> selectedWorkListProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Equipment getSelectedEquipment() {
 
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public WorkList getSelectedWorkList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setSelectedEquipment(Equipment equipment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedWorkList(WorkList workList) {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -82,7 +82,8 @@ public class UniqueWorkListList implements Iterable<WorkList> {
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<WorkList> asUnmodifiableObservableList() {
-        return internalUnmodifiableList;
+        internalList.add(new WorkList("12 May 2019", "Mei Yen"));
+        return FXCollections.unmodifiableObservableList(internalList);
     }
 
     @Override

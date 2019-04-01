@@ -14,6 +14,7 @@ public class WorkListId {
      */
     public WorkListId() {
         thisId = idHist + 1;
+        idHist++;
     }
 
     public int getId() {

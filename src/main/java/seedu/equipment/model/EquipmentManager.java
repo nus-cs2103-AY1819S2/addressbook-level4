@@ -199,6 +199,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
         return equipment.asUnmodifiableObservableList();
     }
 
+    @Override
     public ObservableList<WorkList> getWorkListList() {
         return worklist.asUnmodifiableObservableList();
     }

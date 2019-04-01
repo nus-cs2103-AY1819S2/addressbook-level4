@@ -12,7 +12,8 @@ import static seedu.equipment.testutil.TypicalEquipments.AMY;
 import static seedu.equipment.testutil.TypicalEquipments.ANCHORVALECC;
 import static seedu.equipment.testutil.TypicalEquipments.BOB;
 import static seedu.equipment.testutil.TypicalEquipments.HWIYOHCC;
-import static seedu.equipment.testutil.TypicalWorkLists.LISTA;
+import static seedu.equipment.testutil.TypicalWorkLists.LISTD;
+import static seedu.equipment.testutil.TypicalWorkLists.LISTE;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -116,13 +117,18 @@ public class ModelManagerTest {
 
     @Test
     public void hasWorkList_workListNotInEquipmentManager_returnsFalse() {
-        assertFalse(modelManager.hasWorkList(LISTA));
+        //System.out.println(modelManager.hasWorkList(LISTD));
+        //System.out.println(LISTD.getId().getId());
+        //System.out.println(LISTB.getId().getId());
+        //modelManager.deleteWorkList(LISTD);
+        assertFalse(modelManager.hasWorkList(LISTD));
     }
 
     @Test
     public void hasWorkList_workListInEquipmentManager_returnsTrue() {
-        modelManager.addWorkList(LISTA);
-        assertTrue(modelManager.hasWorkList(LISTA));
+        //System.out.println(modelManager.hasWorkList(LISTE));
+        modelManager.addWorkList(LISTE);
+        assertTrue(modelManager.hasWorkList(LISTE));
     }
 
     @Test

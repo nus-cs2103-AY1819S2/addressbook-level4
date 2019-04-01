@@ -14,6 +14,25 @@ public class WorkListId {
      */
     public WorkListId() {
         thisId = idHist + 1;
+        idHist++;
+    }
+
+    /**
+     * Returns true if both WorkListIds have the same id.
+     * This defines a stronger notion of equality between two WorkListIds.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof WorkListId)) {
+            return false;
+        }
+
+        WorkListId otherWorkListId = (WorkListId) other;
+        return otherWorkListId.getId() == getId();
     }
 
     public int getId() {

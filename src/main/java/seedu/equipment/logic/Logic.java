@@ -10,6 +10,7 @@ import seedu.equipment.logic.commands.exceptions.CommandException;
 import seedu.equipment.logic.parser.exceptions.ParseException;
 import seedu.equipment.model.Model;
 import seedu.equipment.model.ReadOnlyEquipmentManager;
+import seedu.equipment.model.WorkList;
 import seedu.equipment.model.equipment.Equipment;
 
 /**
@@ -34,6 +35,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Equipment> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of WorkLists */
+    ObservableList<WorkList> getFilteredWorkListList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -65,9 +69,24 @@ public interface Logic {
     ReadOnlyProperty<Equipment> selectedEquipmentProperty();
 
     /**
+     * Selected WorkList in the filtered WorkList list.
+     * null if no WorkList is selected.
+     *
+     * @see Model#selectedWorkListProperty()
+     */
+    ReadOnlyProperty<WorkList> selectedWorkListProperty();
+
+    /**
      * Sets the selected equipment in the filtered equipment list.
      *
      * @see Model#setSelectedEquipment(Equipment)
      */
     void setSelectedPerson(Equipment equipment);
+
+    /**
+     * Sets the selected WorkList in the filtered WorkList list.
+     *
+     * @see Model#setSelectedWorkList(WorkList)
+     */
+    void setSelectedWorkList(WorkList workList);
 }

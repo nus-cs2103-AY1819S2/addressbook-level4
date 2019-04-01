@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import guitests.guihandles.EquipmentCardHandle;
 import guitests.guihandles.EquipmentListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
+import guitests.guihandles.WorkListCardHandle;
+import seedu.equipment.model.WorkList;
 import seedu.equipment.model.equipment.Equipment;
 
 /**
@@ -30,6 +32,18 @@ public class GuiTestAssert {
     }
 
     /**
+     * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
+     */
+    public static void assertCardEquals(WorkListCardHandle expectedCard, WorkListCardHandle actualCard) {
+        assertEquals(expectedCard.getId(), actualCard.getId());
+        assertEquals(expectedCard.getAssignee(), actualCard.getAssignee());
+        assertEquals(expectedCard.getDate(), actualCard.getDate());
+        assertEquals(expectedCard.getworklistid(), actualCard.getworklistid());
+        assertEquals(expectedCard.getEquipments(), actualCard.getEquipments());
+        assertEquals(expectedCard.getEquipments(), actualCard.getEquipments());
+    }
+
+    /**
      * Asserts that {@code actualCard} displays the details of {@code expectedEquipment}.
      */
     public static void assertCardDisplaysPerson(Equipment expectedEquipment, EquipmentCardHandle actualCard) {
@@ -39,6 +53,16 @@ public class GuiTestAssert {
         assertEquals(expectedEquipment.getAddress().value, actualCard.getAddress());
         assertTagsEqual(expectedEquipment, actualCard);
     }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedWorkList}.
+     */
+    public static void assertCardDisplaysWorkList(WorkList expectedWorkList, WorkListCardHandle actualCard) {
+        assertEquals(expectedWorkList.getAssignee(), actualCard.getAssignee());
+        assertEquals(expectedWorkList.getDate(), actualCard.getDate());
+        assertEquipmentsEqual(expectedWorkList, actualCard);
+    }
+
     /**
      * Asserts that the tags in {@code actualCard} matches all the tags in {@code expectedEquipment} with the correct
      * color.
@@ -47,6 +71,16 @@ public class GuiTestAssert {
         List<String> expectedTags = expectedEquipment.getTags().stream()
                 .map(tag -> tag.tagName).collect(Collectors.toList());
         assertEquals(expectedTags, actualCard.getTags());
+    }
+
+    /**
+     * Asserts that the tags in {@code actualCard} matches all the tags in {@code expectedWorkList} with the correct
+     * color.
+     */
+    private static void assertEquipmentsEqual(WorkList expectedWorkList, WorkListCardHandle actualCard) {
+        List<String> expectedEquipments = expectedWorkList.getEquipments().stream()
+                .map(equipments -> equipments.getName().name).collect(Collectors.toList());
+        assertEquals(expectedEquipments, actualCard.getEquipments());
     }
 
     /**

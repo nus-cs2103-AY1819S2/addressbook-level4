@@ -77,6 +77,12 @@ public interface Model {
     void deleteEquipment(Equipment target);
 
     /**
+     * Deletes the given WorkList.
+     * The WorkList must exist in the Equipment Manager.
+     */
+    void deleteWorkList(WorkList target);
+
+    /**
      * Adds the given equipment.
      * {@code equipment} must not already exist in the equipment manager.
      */
@@ -146,15 +152,32 @@ public interface Model {
     ReadOnlyProperty<Equipment> selectedEquipmentProperty();
 
     /**
+     * Selected WorkList in the filtered WorkList list.
+     * null if no WorkList is selected.
+     */
+    ReadOnlyProperty<WorkList> selectedWorkListProperty();
+
+    /**
      * Returns the selected equipment in the filtered equipment list.
      * null if no equipment is selected.
      */
     Equipment getSelectedEquipment();
 
     /**
+     * Returns the selected WorkList in the filtered WorkList list.
+     * null if no WorkList is selected.
+     */
+    WorkList getSelectedWorkList();
+
+    /**
      * Sets the selected equipment in the filtered equipment list.
      */
     void setSelectedEquipment(Equipment equipment);
+
+    /**
+     * Sets the selected WorkList in the filtered WorkList list.
+     */
+    void setSelectedWorkList(WorkList workList);
 
     /** Removes the given {@code tag} from all {@code Equipment}s. */
     void deleteTag(Tag tag);

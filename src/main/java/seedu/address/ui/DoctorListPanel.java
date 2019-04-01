@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
@@ -12,6 +13,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Doctor;
+
 
 /**
  * Panel containing the list of doctors.

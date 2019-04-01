@@ -65,7 +65,6 @@ class JsonSerializableAddressBook {
 
         appointments.addAll(source.getAppointmentList().stream().map(JsonAdaptedAppointment::new)
                 .collect(Collectors.toList()));
-
     }
 
     /**
@@ -91,6 +90,7 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPatient(patient);
         }
+
         /*
         for (JsonAdaptedMedicalHistory jsonAdaptedMedicalHistory : medicalHistories) {
             MedicalHistory medicalHistory = jsonAdaptedMedicalHistory.toModelType();
@@ -108,9 +108,7 @@ class JsonSerializableAddressBook {
             //System.out.println(appointment);
             addressBook.addAppointment(appointment);
         }
-
         */
-        
         return addressBook;
     }
 }

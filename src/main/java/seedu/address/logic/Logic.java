@@ -108,7 +108,6 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedAppointment(Appointment)
      */
     void setSelectedAppointment(Appointment appointment);
-
     /** Returns an unmodifiable view of the filtered list of doctors */
     ObservableList<Doctor> getFilteredDoctorList();
 

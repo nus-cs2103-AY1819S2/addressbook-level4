@@ -11,12 +11,12 @@ import seedu.address.model.util.SampleCourseRequirement;
 import seedu.address.testutil.Assert;
 
 public class PrimitiveRequirementTest {
-    public static final PrimitiveRequirement sampleRequirement =
+    public static final PrimitiveRequirement SAMPLE_REQUIREMENT =
             (PrimitiveRequirement) SampleCourseRequirement.UNIVERSITY_LEVEL_REQUIREMENT;
     public static final Condition sampleCondition = SampleCourseRequirement.ULR_CONDITION;
-    public static final PrimitiveRequirement sampleRequirement2 =
+    public static final PrimitiveRequirement SAMPLE_REQUIREMENT_2 =
             (PrimitiveRequirement) SampleCourseRequirement.COMPUTER_SCIENCE_FOUNDATION;
-    public static final PrimitiveRequirement getSampleRequirement3 =
+    public static final PrimitiveRequirement SAMPLE_REQUIREMENT_3 =
             (PrimitiveRequirement) SampleCourseRequirement.IT_PROFESSIONALISM;
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -36,57 +36,57 @@ public class PrimitiveRequirementTest {
     @Test
     public void equal() {
         //same object
-        assertTrue(sampleRequirement.equals(sampleRequirement));
+        assertTrue(SAMPLE_REQUIREMENT.equals(SAMPLE_REQUIREMENT));
 
         //not equals null
-        assertFalse(sampleRequirement.equals(null));
+        assertFalse(SAMPLE_REQUIREMENT.equals(null));
 
         //not equals another object
-        assertFalse(sampleRequirement.equals(5));
+        assertFalse(SAMPLE_REQUIREMENT.equals(5));
 
         //different name
-        assertFalse(sampleRequirement.equals(new PrimitiveRequirement("Other name",
-                sampleRequirement.getCourseReqDesc(), sampleCondition, sampleRequirement.getType())));
+        assertFalse(SAMPLE_REQUIREMENT.equals(new PrimitiveRequirement("Other name",
+                SAMPLE_REQUIREMENT.getCourseReqDesc(), sampleCondition, SAMPLE_REQUIREMENT.getType())));
         //different description
-        assertFalse(sampleRequirement.equals(new PrimitiveRequirement(sampleRequirement.getCourseReqName(),
-                "other description", sampleCondition, sampleRequirement.getType())));
+        assertFalse(SAMPLE_REQUIREMENT.equals(new PrimitiveRequirement(SAMPLE_REQUIREMENT.getCourseReqName(),
+                "other description", sampleCondition, SAMPLE_REQUIREMENT.getType())));
 
         //different condition
-        assertFalse(sampleRequirement.equals(new PrimitiveRequirement(sampleRequirement.getCourseReqName(),
-                sampleRequirement.getCourseReqDesc(), SampleCourseRequirement.COMPLETE_40_MODULES,
-                sampleRequirement.getType())));
+        assertFalse(SAMPLE_REQUIREMENT.equals(new PrimitiveRequirement(SAMPLE_REQUIREMENT.getCourseReqName(),
+                SAMPLE_REQUIREMENT.getCourseReqDesc(), SampleCourseRequirement.COMPLETE_40_MODULES,
+                SAMPLE_REQUIREMENT.getType())));
 
         //different type
-        assertFalse(sampleRequirement.equals(new PrimitiveRequirement(sampleRequirement.getCourseReqName(),
-                sampleRequirement.getCourseReqDesc(), sampleCondition,
+        assertFalse(SAMPLE_REQUIREMENT.equals(new PrimitiveRequirement(SAMPLE_REQUIREMENT.getCourseReqName(),
+                SAMPLE_REQUIREMENT.getCourseReqDesc(), sampleCondition,
                 CourseReqType.UE)));
 
         //everything same but different object
-        assertTrue(sampleRequirement.equals(new PrimitiveRequirement(sampleRequirement.getCourseReqName(),
-                sampleRequirement.getCourseReqDesc(), sampleCondition,
-                sampleRequirement.getType())));
+        assertTrue(SAMPLE_REQUIREMENT.equals(new PrimitiveRequirement(SAMPLE_REQUIREMENT.getCourseReqName(),
+                SAMPLE_REQUIREMENT.getCourseReqDesc(), sampleCondition,
+                SAMPLE_REQUIREMENT.getType())));
     }
 
     @Test
     public void or() {
-        assertEquals(sampleRequirement.or(sampleRequirement2), sampleRequirement.or(
-                new PrimitiveRequirement(sampleRequirement2.getCourseReqName(),
-                        sampleRequirement2.getCourseReqDesc(),
-                        sampleRequirement2.getCondition(), sampleRequirement2.getType())));
-        assertNotEquals(sampleRequirement2.or(sampleRequirement), sampleRequirement.or(sampleRequirement2));
-        assertEquals(sampleRequirement2.or(getSampleRequirement3),
-                getSampleRequirement3.or(sampleRequirement2));
+        assertEquals(SAMPLE_REQUIREMENT.or(SAMPLE_REQUIREMENT_2), SAMPLE_REQUIREMENT.or(
+                new PrimitiveRequirement(SAMPLE_REQUIREMENT_2.getCourseReqName(),
+                        SAMPLE_REQUIREMENT_2.getCourseReqDesc(),
+                        SAMPLE_REQUIREMENT_2.getCondition(), SAMPLE_REQUIREMENT_2.getType())));
+        assertNotEquals(SAMPLE_REQUIREMENT_2.or(SAMPLE_REQUIREMENT), SAMPLE_REQUIREMENT.or(SAMPLE_REQUIREMENT_2));
+        assertEquals(SAMPLE_REQUIREMENT_2.or(SAMPLE_REQUIREMENT_3),
+                SAMPLE_REQUIREMENT_3.or(SAMPLE_REQUIREMENT_2));
     }
 
     @Test
     public void and() {
-        assertEquals(sampleRequirement.and(sampleRequirement2), sampleRequirement.and(
-                new PrimitiveRequirement(sampleRequirement2.getCourseReqName(),
-                        sampleRequirement2.getCourseReqDesc(),
-                        sampleRequirement2.getCondition(), sampleRequirement2.getType())));
-        assertNotEquals(sampleRequirement2.and(sampleRequirement), sampleRequirement.and(sampleRequirement2));
-        assertEquals(sampleRequirement2.and(getSampleRequirement3),
-                getSampleRequirement3.and(sampleRequirement2));
+        assertEquals(SAMPLE_REQUIREMENT.and(SAMPLE_REQUIREMENT_2), SAMPLE_REQUIREMENT.and(
+                new PrimitiveRequirement(SAMPLE_REQUIREMENT_2.getCourseReqName(),
+                        SAMPLE_REQUIREMENT_2.getCourseReqDesc(),
+                        SAMPLE_REQUIREMENT_2.getCondition(), SAMPLE_REQUIREMENT_2.getType())));
+        assertNotEquals(SAMPLE_REQUIREMENT_2.and(SAMPLE_REQUIREMENT), SAMPLE_REQUIREMENT.and(SAMPLE_REQUIREMENT_2));
+        assertEquals(SAMPLE_REQUIREMENT_2.and(SAMPLE_REQUIREMENT_3),
+                SAMPLE_REQUIREMENT_3.and(SAMPLE_REQUIREMENT_2));
     }
 
 }

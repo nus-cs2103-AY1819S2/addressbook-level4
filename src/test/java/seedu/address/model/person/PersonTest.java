@@ -40,6 +40,14 @@ public class PersonTest {
         Person editedAlice = new PersonBuilder(ALICE).withNric(VALID_NRIC_BOB).build();
         assertFalse(ALICE.isSamePerson(editedAlice));
 
+        // different person same Nric -> returns true
+        Person fakeBob = new PersonBuilder(ALICE).withNric(VALID_NRIC_BOB).build();
+        assertTrue(BOB.isSamePerson(fakeBob));
+
+        // null person same Nric -> returns true
+        Nric nric = new Nric(VALID_NRIC_BOB);
+        Person nullPerson = new Person(nric);
+        assertTrue(BOB.isSamePerson(nullPerson));
 
         // same Nric, different attributes -> returns true
         editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)

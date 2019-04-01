@@ -345,6 +345,10 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(topDeck, differentUserPrefs)));
     }
 
+    /**
+     * Returns the activeDeck pointed to by CardsView in {@code model}.
+     * @param model must be in CardsView
+     */
     private Deck extractActiveDeck(Model model) {
         CardsView cardsView = (CardsView) modelManager.getViewState();
         Deck activeDeck = cardsView.getActiveDeck();

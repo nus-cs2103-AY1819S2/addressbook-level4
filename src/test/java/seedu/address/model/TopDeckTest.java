@@ -33,9 +33,11 @@ import seedu.address.testutil.CardBuilder;
 import seedu.address.testutil.DeckBuilder;
 
 public class TopDeckTest {
-    private final TopDeck topDeck = new TopDeck();
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    private final TopDeck topDeck = new TopDeck();
 
     @Test
     public void constructor() {

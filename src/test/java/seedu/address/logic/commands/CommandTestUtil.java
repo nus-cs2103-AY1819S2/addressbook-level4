@@ -241,6 +241,10 @@ public class CommandTestUtil {
         model.changeDeck(newDeck);
     }
 
+    /**
+     * Returns the current active deck in {@code model}'s CardsView.
+     * The model must be in CardsView.
+     */
     public static Deck extractActiveDeck(Model model) {
         CardsView cardsView = (CardsView) model.getViewState();
         Deck activeDeck = cardsView.getActiveDeck();

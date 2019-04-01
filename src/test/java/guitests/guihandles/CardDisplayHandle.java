@@ -59,9 +59,8 @@ public class CardDisplayHandle extends NodeHandle<Node> {
      */
     public boolean equals(Card card) {
         return getQuestion().equals(card.getQuestion()) && getAnswer().equals(card.getAnswer())
-                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(card.getTags().stream()
-                                                                                           .map(tag -> tag.tagName)
-                                                                                           .collect(Collectors
-                                                                                                            .toList())));
+            && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset
+            .copyOf(card.getTags().stream().map(tag -> tag.tagName)
+                    .collect(Collectors.toList())));
     }
 }

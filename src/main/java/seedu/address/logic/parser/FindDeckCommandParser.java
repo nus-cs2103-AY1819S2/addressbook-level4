@@ -2,14 +2,14 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import seedu.address.logic.DecksView;
 import seedu.address.logic.commands.FindDeckCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.DeckNameContainsKeywordsPredicate;
-
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Parses input arguments and creates a new FindDeckCommand object
@@ -22,7 +22,7 @@ public class FindDeckCommandParser implements Parser<FindDeckCommand> {
         this.decksView = decksView;
     }
 
-    private final String IN_BETWEEN_QUOTES_REGEX = "\"([^\"]*)\"";
+    private static final String IN_BETWEEN_QUOTES_REGEX = "\"([^\"]*)\"";
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindDeckCommand
@@ -37,8 +37,8 @@ public class FindDeckCommandParser implements Parser<FindDeckCommand> {
         }
 
         ArrayList<String> nameKeyword = new ArrayList<>();
-        Pattern p = Pattern.compile( IN_BETWEEN_QUOTES_REGEX );
-        Matcher m = p.matcher( trimmedArgs );
+        Pattern p = Pattern.compile(IN_BETWEEN_QUOTES_REGEX);
+        Matcher m = p.matcher(trimmedArgs);
         while (m.find()) {
             nameKeyword.add(m.group(1));
         }

@@ -264,13 +264,10 @@ When a patient is no longer visiting your clinic (i.e. moved residency), you can
 {sp} +
 *Result:*
 
-By specifying the NRIC along with the `deletepat` command, you will delete the patient with that specific NRIC.
+By specifying the NRIC along with the `deletepat` command, you will delete the patient with that specific NRIC. If you have difficulty finding the specific NRIC, you can refer to the <<listpat>> command section to help you retrieve the patient's NRIC.
 
 .Deleting patient records using the specific NRIC
 image::dp_after.png[width="600" align="center"]
-
-{sp} +
-If you have difficulty finding the specific NRIC, you can refer to the <<listpat>> command section to help you retrieve the patient's NRIC.
 
 '''
 
@@ -396,14 +393,10 @@ This command requires you to have a consultation session already active. See: <<
 {sp} +
 *Results:*
 
-After the medicine-quantity pairings are entered, the prescription to address the patient's current condition will be displayed on the main display
-area of QuickDocs.
+After the medicine-quantity pairings are entered, the prescription to address the patient's current condition will be displayed on the main display area of QuickDocs. Changes can still be made to the prescription as long as the consultation session is still ongoing.
 
-.Prescribing medicines to tackle the patient's current conditions
+.Prescribing medicines to tackle the patient's current conditions 
 image::prescription_after.png[width="600" align="center"]
-
-{sp} +
-Changes can still be made to the prescription as long as the consultation session is still ongoing.
 
 '''
 
@@ -419,13 +412,10 @@ No further changes to the diagnosis and prescription details can be made after t
 
 {sp} +
 *Result:*
-Once you entered the `endconsult` command, a message to indicate the end of the consultation session is also shown on the main display area.
+Once you entered the `endconsult` command, a message to indicate the end of the consultation session is also shown on the main display area. The label for the ongoing consultation session is also removed after the command is entered.
 
 .results of an endconsult command
 image::endconsult.png[width="600" align="center"]
-
-{sp}+
-Notice that the label for the ongoing consultation session is also removed after the command is entered.
 
 '''
 
@@ -459,13 +449,10 @@ image::listconsult_after.png[width="600" align="center"]
 {sp}+
 * `listconsult 1` +
 
-You can then call `listconsult` again with the consultation record's index to view the specific consultation session details.
+You can then call `listconsult` again with the consultation record's index to view the specific consultation session details. QuickDocs will display the time of the consultation, and also the diagnosis and prescription given to the patient.
 
 .Revisiting a specific consultation session
 image::listconsult_index.png[width="600" align="center"]
-
-{sp}+
-QuickDocs will display the time of the consultation, and also the diagnosis and prescription given to the patient.
 
 '''
 {nbsp} +

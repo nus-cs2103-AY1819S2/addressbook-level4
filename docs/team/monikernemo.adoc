@@ -1,0 +1,55 @@
+= Lee Yi Quan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: GradTrak - Graduation Tracker for NUS
+
+---
+
+== Overview
+
+GradTrak blablabla
+
+== Summary of contributions
+
+* *Major enhancement*: added the ability for users to check their coures requirement
+** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
+** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Minor enhancement*: created user editable files
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+** Refactored Code
+*** Renamed variables, morphed some of the classes
+
+** Enhancements to existing features:
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+** Tools:
+*** Integrated a third party library (Natty) to the project (https://github.com[#42])
+*** Integrated a new Github plugin (CircleCI) to the team repo
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+include::../UserGuide.adoc[tag=Displayreq]
+
+include::../UserGuide.adoc[tag=Study]
+
+== Contributions to the Developer Guide
+
+include::../DeveloperGuide.adoc[tag=CourseRequirement]
+
+
+== PROJECT: CuckooHash
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

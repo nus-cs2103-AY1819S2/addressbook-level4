@@ -20,7 +20,6 @@ public class JsonAdaptedPrimitiveRequirement implements JsonAdaptedCourseRequire
     private final String requirementType;
     private final JsonAdaptedCondition condition;
 
-
     /**
      * Creates a {@code JsonAdaptedPrimitiveRequirement} with Primitive Requirement details
      */

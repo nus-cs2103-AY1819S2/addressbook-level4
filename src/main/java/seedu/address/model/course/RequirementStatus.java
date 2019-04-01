@@ -9,7 +9,8 @@ import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 
 /**
- * Represents status of a requirement
+ * Wrapper class of CourseRequirement to store a snapshot of the completion of requirement
+ * at the specific time frame when this class is created
  */
 public class RequirementStatus {
 
@@ -19,7 +20,6 @@ public class RequirementStatus {
     private double percentageFulfilled;
     private boolean isFulfilled;
     private List<String> unsatisfiedRegex = new ArrayList<>();
-    private List<ModuleInfoCode> moduleInfoCodeList = new ArrayList<>();
 
     public RequirementStatus(CourseRequirement courseRequirement,
                              List<ModuleInfoCode> moduleInfoCodes,
@@ -37,11 +37,7 @@ public class RequirementStatus {
         this.isFulfilled = courseRequirement.isFulfilled(moduleInfoCodes);
         this.percentageFulfilled = courseRequirement.getFulfilledPercentage(moduleInfoCodes);
         unsatisfiedRegex.addAll(courseRequirement.getUnfulfilled(moduleInfoCodes));
-        moduleInfoCodeList.addAll(allModules.stream()
-                .map(moduleInfo -> moduleInfo.getModuleInfoCode())
-                .filter(moduleInfoCode -> unsatisfiedRegex.stream()
-                .anyMatch(regex -> moduleInfoCode.toString().matches(regex)))
-                .collect(Collectors.toList()));
+
     }
 
     public CourseRequirement getCourseRequirement() {
@@ -53,11 +49,15 @@ public class RequirementStatus {
     }
 
     public List<ModuleInfoCode> getModuleInfoCodeList() {
-        return moduleInfoCodeList;
+        return allModules.stream()
+                .map(moduleInfo -> moduleInfo.getModuleInfoCode())
+                .filter(moduleInfoCode -> unsatisfiedRegex.stream()
+                .anyMatch(regex -> moduleInfoCode.toString().matches(regex)))
+                .collect(Collectors.toList());
     }
 
     public List<ModuleInfoCode> getTruncatedCodeList(int truncatedSize) {
-        return moduleInfoCodeList.subList(0, truncatedSize);
+        return getModuleInfoCodeList().subList(0, truncatedSize);
     }
 
     public boolean isFulfilled() {

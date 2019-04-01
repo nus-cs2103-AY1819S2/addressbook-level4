@@ -114,6 +114,7 @@ public class ModelManager implements Model {
     public void setCourse(CourseName courseName) {
         requireNonNull(courseName);
         course = courseList.getCourse(courseName);
+        requirementStatusList.updateCourseRequirements(course, getModuleInfoCodeList(), allModules);
         userInfo.setCourse(course);
     }
 

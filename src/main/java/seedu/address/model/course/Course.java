@@ -13,7 +13,7 @@ import seedu.address.model.moduleinfo.ModuleInfoCode;
  *  Represents course of the user that is enrolled in
  */
 public class Course {
-
+    //TODO: Remove some of the classes such as Course Description
     public static final String MESSAGE_REQ_COMPLETED = "All course requirements have been completed.";
 
     private final CourseName courseName;
@@ -91,7 +91,6 @@ public class Course {
         if (!(obj instanceof Course)) {
             return false;
         }
-
         Course other = (Course) obj;
         //TODO: Will implement this properly in the future
         return this.courseName.equals(other.courseName);

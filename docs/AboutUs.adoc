@@ -15,7 +15,7 @@ image::simjiazhi.png[width="150", align="left"]
 {empty}[https://github.com/simjiazhi[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead and deliverables +
-Responsibilities: Patient Management
+Responsibilities: Patient and consultation management module
 
 '''
 
@@ -24,7 +24,7 @@ image::bentwj.png[width="150", align="left"]
 {empty}[http://github.com/bentwj[github]] [<<johndoe#, portfolio>>]
 
 Role: Code Quality and Documentation +
-Responsibilities: Administrative Features
+Responsibilities: Administration and statistics module
 
 '''
 
@@ -33,7 +33,7 @@ image::ongaaron96.png[width="150", align="left"]
 {empty}[http://github.com/ongaaron96[github]] [<<johndoe#, portfolio>>]
 
 Role: Testing and Integration +
-Responsibilities: Appointment and Reminder Features
+Responsibilities: Appointment and reminder management module
 
 '''
 
@@ -42,7 +42,7 @@ image::xue-chenyang.png[width="150", align="left"]
 {empty}[http://github.com/Xue-Chenyang[github]] [<<johndoe#, portfolio>>]
 
 Role: Scheduling and Tracking +
-Responsibilities: Inventory Management
+Responsibilities: Medical inventory management module
 
 '''
 

@@ -311,6 +311,7 @@ Step 5. `CurrenEdit#displayTempImage()` displays the opened image on the GUI.
 
 The following sequence diagram shows how the `open` command works:
 
+.Sequence Diagram for Open Command
 image::OpenCommandSequenceDiagram.png[width=800]
 
 ==== Design Considerations
@@ -346,7 +347,9 @@ Step 3. The String array is displayed on the GUI.
 
 The following sequence diagram shows how the `listfiles` command works:
 
-image::ListFilesSequenceDiagram.png[width=800]
+
+.Sequence Diagram for ListFiles
+image::ListFilesCommandSequenceDiagram.png[width=800]
 
 ==== Design Considerations
 
@@ -600,6 +603,7 @@ Step 8.`Album#refreshAlbum()` is called to update the Information Panel on the G
 
 The following sequence diagram shows how the `save` command works:
 
+.Sequence Diagram for Save Command
 image::SaveCommandSequenceDiagram.png[width=800]
 
 ==== Design Considerations

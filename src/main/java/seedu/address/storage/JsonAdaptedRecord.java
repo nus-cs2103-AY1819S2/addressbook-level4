@@ -46,50 +46,6 @@ class JsonAdaptedRecord {
     }
 
     /**
-     * Constructs a {@code JsonAdaptedRecord} with the given {@code recordLine}.
-     */
-    /*
-    @JsonCreator
-    public JsonAdaptedRecord(String recordLine) {
-        String[] sb = recordLine.split(DIVIDER);
-
-        if (sb.length == 3) {
-            doctorName = sb[0];
-            description = sb[1];
-            recordDate = sb[2];
-        } else {
-            throw new BadRecordFormatException();
-        }
-    }*/
-
-    /*
-    /**
-     * Converts a given {@code Record} into this class for Jackson use.
-
-    public JsonAdaptedRecord(Record record) {
-        String recordLine = record.toString();
-        String[] sb = recordLine.split(DIVIDER);
-
-        if (sb.length == 3) {
-            doctorName = sb[0];
-            description = sb[1];
-            recordDate = sb[2];
-        } else {
-            throw new BadRecordFormatException();
-        }
-    }
-    */
-
-    /**
-     * Formats the attributes into a text String to be stored in Json.
-     * @return the String representing the record.
-     */
-//    @JsonValue
-//    public String getRecordName() {
-//        return doctorName + DIVIDER + description + DIVIDER + recordDate;
-//    }
-
-    /**
      * Converts this Jackson-friendly adapted record object into the model's {@code Record} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted record.

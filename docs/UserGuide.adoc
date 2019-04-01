@@ -18,8 +18,8 @@ endif::[]
 By: `Team W17-3`      Since: `January 2019`      Licence: `MIT`
 
 == Introduction
-Welcome to the _In-Credit-Ble_ User Guide! _In-Credit-Ble_ is your "one-stop shop" in managing and tracking your
-personal finances. Our user-friendly interface will make it easy for you to stick to your budget and be more aware
+Welcome to the _In-Credit-Ble_ User Guide! _In-Credit-Ble_ is your all-in-one application in managing and tracking your
+personal finances. Our user-friendly interface will make it easy for you to see how much you can safely spend within your budget and be more aware
 of your spending habits. If you are a *fast typer*, *prefer to type* over using your mouse and *like to get things done
 efficiently*, then this is the product just for you! _In-Credit-Ble_ is designed for those who prefer to work with a
 *Command Line Interface (CLI)*.
@@ -33,9 +33,9 @@ Follow these steps to get _In-Credit-Ble_ up and running on your computer in no 
 .  Ensure you have Java version `9` or later installed in your computer.
 .  Download the latest `increditble.jar` file link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your finance tracker.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the app. The GUI should appear in a few seconds as shown below.
 +
-image::Ui.png[width="790"]
+image::startUi.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -88,7 +88,7 @@ You can use this command to set a budget for a particular category that has alre
 
 ==== Increasing the budget: `increase`
 
-With this command, you will be able to increase the budget limit for the month/week by the specified amount.
+You can increase your budget limit for the month/week by the specified amount.
 
 *Format*: `increase $/AMOUNT`
 
@@ -114,7 +114,7 @@ You can keep track of how much you have spent by adding an expense entry to _In-
 
 ==== Adding a description to an entry: `description`
 
-Adds a description to an existing entry in the records.
+You can add a description to an existing entry in the records to remember details of the amount spent.
 
 *Alias*: `descr`
 
@@ -136,7 +136,7 @@ Removes the description of entry at index 1
 
 ==== Editing an entry: `edit`
 
-Edits an existing entry in the record. +
+You can easily edit any part of an existing entry in the records. +
 Index refers to the index number shown in the list.
 
 *Alias*: `e`
@@ -158,7 +158,7 @@ Index refers to the index number shown in the list.
 
 ==== Selecting an entry: `select`
 
-Selects an existing entry in the records
+You can select an existing entry in the records to view its details by specifying the entry's index number.
 
 *Alias*: `s`, `sel`
 
@@ -176,7 +176,8 @@ Selects an existing entry in the records
 
 ==== Deleting an entry: `delete`
 
-Deletes an entry in the record.
+You can delete an entry in the record by specifying the entry's index number.
+Deleted entries can be recovered via the `undo` command.
 
 *Alias*: `d`, `del`
 
@@ -196,7 +197,7 @@ Deletes an entry in the record.
 
 ==== Listing all entries: `list`
 
-You can see all the entries you have entered with the list command.
+You can see all the entries you have entered, as long as they are not deleted entries.
 
 *Alias*: `l`, `ls`
 
@@ -204,7 +205,7 @@ You can see all the entries you have entered with the list command.
 
 ==== Locating entry based on name/category: `search`
 
-Search for an entry using a name or category as keyword.
+You can easily search for an entry in the records using a name or category as keywords.
 
 *Alias*: `find`
 
@@ -222,7 +223,7 @@ Search for an entry using a name or category as keyword.
 
 ==== Sorting the entries according to name/amount/date/category: `sort`
 
-You can choose to sort the entries by name, amount, date or category.
+You can choose to sort the list of entries by name, amount, date or category.
 
 *Format*: `sort FLAG`
 
@@ -245,7 +246,7 @@ Sorts the list of records by category
 
 ==== Reversing the entries: `reverse`
 
-Reverses the entries in the records.
+You can also reverse the order of the list of entries in the records.
 
 *Alias*: `rev`
 
@@ -253,8 +254,10 @@ Reverses the entries in the records.
 
 ==== Showing summary of records: `summary`
 
-Shows the summary of your previous expenditures, with statistics on how your spending habits are like in the
+You can see the summary of your previous expenditures, with an aster plot graph showing how your spending habits are like in the
 different categories. It also displays the remaining budget amount for each category.
+
+Deleted entries are not included in the summary.
 
 *Format*: `summary`
 
@@ -271,7 +274,7 @@ by using the following command:
 // tag::undoredo[]
 ==== Undoing previous command : `undo`
 
-Restores to the state before the previous _undoable_ command was executed.
+You can restore the program to the state before the previous _undoable_ command was executed.
 
 *Alias*: `u`
 
@@ -303,7 +306,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 
 ==== Redoing the previously undone command : `redo`
 
-Reverses the most recent `undo` command.
+You can reverse the most recent `undo` command.
 
 *Alias*: `r`
 
@@ -329,7 +332,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 ==== Listing entered commands: `history`
 
-List all the commands you have entered in reverse chronological order.
+You can list all the commands you have entered in reverse chronological order.
 
 *Alias*: `h`, `hist`
 
@@ -337,7 +340,7 @@ List all the commands you have entered in reverse chronological order.
 
 ==== Clearing all entries : `clear`
 
-Deletes all the entries and reset budget to 0.
+You can delete all existing entries in the records and reset your budget to $0.00.
 
 *Alias*: `c`, `clr`
 
@@ -345,7 +348,7 @@ Deletes all the entries and reset budget to 0.
 
 ==== Exiting the program : `exit`
 
-Exits the program.
+You can quit the program at any point in time when you use this command.
 
 *Alias*: `quit`
 
@@ -354,15 +357,15 @@ Exits the program.
 ==== Saving the data
 
 The finance record and allocated budget will be saved in the hard disk automatically after any command that changes
-the data. There is no need to save manually.
+the data. There is no need for you to save manually.
 
 === Upcoming features
 
 // tag::savingpatterns[]
 ==== Establish saving patterns based on record and derive projected savings/expenses in a time span `[coming in v2.0]`
 
-The finance records for each month will be archived at the end of the month. This information will be used to derive
-the projected savings/expenses based on your typical spending patterns.
+Your monthly finance records will be archived at the end of the month. This information will be used to derive
+the projected savings and expenses based on your typical spending patterns.
 // end::savinrgpatterns[]
 
 ==== Links to financial articles `[coming in v2.0]`
@@ -374,73 +377,71 @@ related articles for you to view.
 ==== Separate expenditures based on methods of payment (Cash, Visa, Paylah) `[coming in v2.0]`
 
 _In-Credit-Ble_ will link up with secure methods of payment such as payLah, Visa/MasterCard, Amex or Paypal to allow
-transactions between users. By paying through _In-Credit-Ble, transactions will automatically be updated
-onto the records.
+tracking of your cashless transactions. By paying through _In-Credit-Ble, transactions will automatically be updated
+and recorded as entries.
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer?
 
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file
+*A*: You can install the app in the other computer and overwrite the empty data file it creates with the file
 that contains the data of your previous _In-Credit-Ble_ folder.
 
 *Q*: Will the application support different currency?
 
 *A*: At the current version, the application is unable to support transactions record in different currency.
-User will need to calculate and input based on the local currency. This will be rectified in the subsequent version
-of our application.
+You will need to calculate and enter your input based on your local currency.
+
+_In-Credit-Ble_  aims to support multi-currency transactions in `v2.0`.
 
 == Command Summary
 
 === Budget Management
-* *Set Budget*: `set $/AMOUNT` +
-e.g. `set $/500`
-* *Allocate budgeting based on categories*: `allocate $/AMOUNT c/CATEGORY` +
-e.g. `allocate $/100 c/Shopping`
-* *Increase budget*: `increase $/AMOUNT` +
-e.g. `increase $/10.10`
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+| Command | Command Format | Alias | Example
+| Set Budget | `set $/AMOUNT` | - | `set $/500`
+| Allocate budgeting based on categories | `allocate $/AMOUNT c/CATEGORY` | - | `allocate $/100 c/Shopping`
+| Increase budget | `increase $/AMOUNT` | - | `increase $/10.10`
+
+|=======================================================================
 
 === Expense Entry Management
-* *Add expense*: `spend n/NAME $/AMOUNT d/DATE [c/CATEGORY] ...` +
-Alias: `add` +
-e.g. `spend n/movie $/10 d/16/03/2019 c/Entertainment`
-* *Add a description to an entry*: `description INDEX d/DESCRIPTION` +
-Alias: `descr` +
-e.g. `description 1 d/Father's birthday present`
-* *Edit an entry*: `edit INDEX [n/NAME] [$/AMOUNT] [d/DATE] [c/CATEGORY]` +
-Alias: `e` +
-e.g. `edit 1 n/burger c/Food`
-* *Select an entry*: `select INDEX` +
-Alias: `s`, `sel` +
-e.g. `select 3`
-* *Delete an entry*: `delete INDEX` +
-Alias: `d`, `del` +
-e.g. `delete 2`
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+| Command | Command Format | Alias | Example
+| Add expense | `spend n/NAME $/AMOUNT d/DATE [c/CATEGORY] ...` | `add` | `spend n/movie $/10 d/16/03/2019 c/Entertainment`
+| Add a description to an entry | `description INDEX d/DESCRIPTION` | `descr` | `description 1 d/Father's birthday present`
+| Edit an entry | `edit INDEX [n/NAME] [$/AMOUNT] [d/DATE] [c/CATEGORY]` | `e` | `edit 1 n/burger c/Food`
+| Select an entry | `select INDEX` | `s`, `sel` | `select 3`
+| Delete an entry | `delete INDEX` | `d`, `del` | `delete 2`
+
+|=======================================================================
 
 === Records Management
-* *List all entries*: `list` +
-Alias: `l`, `ls`
-* *Locate entry based on name/category*: `search KEYWORD [MORE_KEYWORDS]` +
-Alias: `find` +
-e.g. `search cake break Food`
-* *Sort the entries*: `sort FLAG` +
-e.g. `sort -name`
-* *Reverse all entries*: `reverse` +
-Alias: `rev`
-* *Show summary of record*: `summary`
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+| Command | Command Format | Alias | Example
+| List all entries | `list` | `l`, `ls` | -
+| Locate entry based on name/category |`search KEYWORD [MORE_KEYWORDS]` | `find` | `search cake break Food`
+| Sort the entries | `sort FLAG` | - | `sort -name`
+| Reverse all entries | `reverse` | `rev` | -
+| Show summary of records | `summary` | - | -
+
+|=======================================================================
 
 === Miscellaneous
-* *Help*: `help`
-* *Undo previous command*: `undo` +
-Alias: `u`
-* *Redo previously undone command*: `redo` +
-Alias: `r`
-* *List entered commands*: `history` +
-Alias: `h`, `hist`
-* *Clear all entries*: `clear` +
-Alias: `c`, `clr`
-* *Exit the program*: `exit` +
-Alias: `quit`
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+| Command | Command Format | Alias | Example
+| Help | `help` | - | -
+| Undo previous command | `undo` | `u` | -
+| Redo previously undone command | `redo` | `r` | -
+| List entered commands | `history` | `h`, `hist` | -
+| Clear all entries | `clear` | `c`, `clr` | -
+| Exit the program | `exit` | `quit` | -
+
+|=======================================================================
 
 == Glossary
 

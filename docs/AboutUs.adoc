@@ -13,6 +13,7 @@ In-credit-ble is currently being developed by https://github.com/orgs/cs2103-ay1
 === Jeremy Loye
 image::jeremyloye.png[width="150", align="left"]
 {empty}[https://github.com/JeremyLoye[github]]
+{empty}[https://cs2103-ay1819s2-w17-3.github.io/main/team/JeremyLoye.html[portfolio]]
 
 Role: Team Lead, Developer +
 Responsibilities: Code Quality
@@ -22,6 +23,7 @@ Responsibilities: Code Quality
 === Louise Lee
 image::geezlouisee.png[width="150", align="left"]
 {empty}[http://github.com/geezlouisee[github]]
+{empty}[https://cs2103-ay1819s2-w17-3.github.io/main/team/geezlouisee.html[portfolio]]
 
 Role: Developer +
 Responsibilities: Deliverables and Deadlines, Integration
@@ -31,6 +33,7 @@ Responsibilities: Deliverables and Deadlines, Integration
 === Eugene Yong
 image::eugeneyl.png[width="150", align="left"]
 {empty}[http://github.com/eugeneyl[github]]
+{empty}[https://cs2103-ay1819s2-w17-3.github.io/main/team/eugeneyl.html[portfolio]]
 
 Role: Developer +
 Responsibilities: Testing
@@ -40,6 +43,7 @@ Responsibilities: Testing
 === Jia Xuan
 image::kjiaxuan.png[width="150", align="left"]
 {empty}[http://github.com/kjiaxuan[github]]
+{empty}[https://cs2103-ay1819s2-w17-3.github.io/main/team/kjiaxuan.html[portfolio]]
 
 Role: Developer +
 Responsibilities: Scheduling and Tracking
@@ -49,6 +53,7 @@ Responsibilities: Scheduling and Tracking
 === Jack Chen
 image::jackimaru96.png[width="150", align="left"]
 {empty}[http://github.com/Jackimaru96[github]]
+{empty}[https://cs2103-ay1819s2-w17-3.github.io/main/team/Jackimaru96.html[portfolio]]
 
 Role: Developer +
 Responsibilities: Documentation

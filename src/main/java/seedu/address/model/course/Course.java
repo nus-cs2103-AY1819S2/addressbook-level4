@@ -41,9 +41,9 @@ public class Course {
     }
 
     /**
-     * Returns a list of req types satisfied by the given module code.
-     * @param moduleInfoCode The module code.
-     * @return A list of req types.
+     * Returns a {@code List} of {@code CourseReqType} satisfied by the given {@code ModuleInfoCode}.
+     * @param moduleInfoCode The given {@code ModuleInfoCode}.
+     * @return A {@code List} of {@code CourseReqType} satisfied by the given {@code ModuleInfoCode}.
      */
     public List<CourseReqType> getCourseReqTypeOf(ModuleInfoCode moduleInfoCode) {
         List<CourseReqType> reqTypeList = new ArrayList<>();

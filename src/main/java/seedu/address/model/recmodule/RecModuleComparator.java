@@ -11,6 +11,7 @@ public class RecModuleComparator implements Comparator<RecModule> {
 
     @Override
     public int compare(RecModule first, RecModule second) {
+        // req type satisfied by first and second must be present at time of comparison
         assert(first.getCourseReqType().isPresent() && second.getCourseReqType().isPresent());
         CourseReqType firstReqType = first.getCourseReqType().get();
         CourseReqType secondReqType = second.getCourseReqType().get();

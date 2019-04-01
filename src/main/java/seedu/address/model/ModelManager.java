@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -32,7 +33,8 @@ import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.moduletaken.exceptions.ModuleTakenNotFoundException;
 import seedu.address.model.recmodule.RecModule;
-import seedu.address.model.recmodule.RecModuleManager;
+import seedu.address.model.recmodule.RecModuleComparator;
+import seedu.address.model.recmodule.RecModulePredicate;
 
 /**
  * Represents the in-memory model of the GradTrak data.
@@ -83,7 +85,7 @@ public class ModelManager implements Model {
         updateDisplayList(new CodeContainsKeywordsPredicate(null));
 
         // Initialise list of RecModule
-        this.recModuleList = new FilteredList<>(RecModuleManager.getObservableRecModuleList(allModules));
+        this.recModuleList = new FilteredList<>(getObservableRecModuleList(allModules));
         this.recModuleListSorted = new SortedList<>(recModuleList);
 
         //Get a non-modifiable list of all courses
@@ -336,9 +338,23 @@ public class ModelManager implements Model {
 
     @Override
     public void updateRecModuleList() {
-        RecModuleManager recModuleManager = new RecModuleManager(course, versionedGradTrak);
-        recModuleList.setPredicate(recModuleManager.getRecModulePredicate());
-        recModuleListSorted.setComparator(recModuleManager.getRecModuleComparator());
+        recModuleList.setPredicate(new RecModulePredicate(course, versionedGradTrak));
+        recModuleListSorted.setComparator(new RecModuleComparator());
+    }
+
+    /**
+     * Generates a List of {@code RecModule} from a List of {@code ModuleInfo}
+     * for initialisation in {@code ModelManager}.
+     * @param moduleInfoList The List of {@code ModuleInfo}.
+     * @return A List of {@code RecModule}.
+     */
+    private static ObservableList<RecModule> getObservableRecModuleList(ObservableList<ModuleInfo> moduleInfoList) {
+        ArrayList<RecModule> recModuleList = new ArrayList<>();
+        for (ModuleInfo moduleInfo : moduleInfoList) {
+            recModuleList.add(new RecModule(moduleInfo.getModuleInfoCode(), moduleInfo.getModuleInfoTitle()));
+        }
+
+        return FXCollections.observableArrayList(recModuleList);
     }
 
     /**

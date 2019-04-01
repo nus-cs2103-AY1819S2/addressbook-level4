@@ -600,7 +600,14 @@ image::listmed_med_after.png[align="center" width="600"]
 You will be displayed a detailed description of medicine paracetamol which is placed under root\fever.
 
 [[alarm, Set alert threshold for medicine]]
-==== Setting notification for low stock: `alarm`
+==== Setting automatic notification for low stock: `alarm`
+
+To further ease your management of the clinic, QuickDocs could automatically alert you should any of your medicine is running low in storage! +
+
+All you need to do is to set an alarm level for the medicine you are concerned with. +
+
+[TIP]
+In addition, QuickDocs can make your life even easier! You can set an alarm level for a directory so that every medicine placed under that directory and all its sub-directories will immediately have that alarm level.
 
 If the path specified corresponds to a medicine, set the alarm level for that specific medicine.
 

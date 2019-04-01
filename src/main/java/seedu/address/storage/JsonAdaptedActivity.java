@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -52,10 +53,9 @@ public class JsonAdaptedActivity {
         time = source.getDateTime().fullDateTime;
         location = source.getLocation().value;
         description = source.getDescription().value;
-        /*
         attendance.addAll(source.getAttendance().stream()
                 .map(JsonAdaptedMatric::new)
-                .collect(Collectors.toList())); */
+                .collect(Collectors.toList()));
     }
 
     /**

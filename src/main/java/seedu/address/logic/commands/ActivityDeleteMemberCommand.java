@@ -26,7 +26,7 @@ public class ActivityDeleteMemberCommand extends ActivityCommand {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1" + " A1234567H";
 
-    public static final String MESSAGE_ACTIVITY_ADD_MEMBER_SUCCESS = "Successfully removed member from "
+    public static final String MESSAGE_ACTIVITY_DELETE_MEMBER_SUCCESS = "Successfully removed member from "
             + "selected Activity: %1$s";
 
     private final Index targetIndex;
@@ -49,15 +49,15 @@ public class ActivityDeleteMemberCommand extends ActivityCommand {
 
         model.setSelectedActivity(filteredActivityList.get(targetIndex.getZeroBased()));
         Activity selectedActivity = model.getSelectedActivity();
-        Person selectedPerson = model.getPersonWithMatricNumber(targetMatric);
+
         if (!model.hasMatricNumber(targetMatric)) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_MATRIC_NUMBER);
-        } else if (!selectedActivity.hasPersonInAttendance(selectedPerson)) {
+        } else if (!selectedActivity.hasPersonInAttendance(targetMatric)) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_IN_ACTIVITY);
         }
-        selectedActivity.removeMemberFromActivity(selectedPerson);
-
-        return new CommandResult(String.format(MESSAGE_ACTIVITY_ADD_MEMBER_SUCCESS, targetIndex.getOneBased()));
+        selectedActivity.removeMemberFromActivity(targetMatric);
+        model.commitAddressBook();
+        return new CommandResult(String.format(MESSAGE_ACTIVITY_DELETE_MEMBER_SUCCESS, targetIndex.getOneBased()));
 
     }
 

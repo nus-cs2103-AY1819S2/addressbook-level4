@@ -51,14 +51,13 @@ public class ActivityAddMemberCommand extends ActivityCommand {
         if (!model.hasMatricNumber(targetMatric)) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_MATRIC_NUMBER);
         }
-        Person selectedPerson = model.getPersonWithMatricNumber(targetMatric);
-        if (selectedActivity.hasPersonInAttendance(selectedPerson)) {
-            throw new CommandException(Messages.MESSAGE_ACTIVITY_ALREADY_HAS_PERSON);
-        } else {
-            selectedActivity.addMemberToActivity(selectedPerson);
-        }
-        return new CommandResult(String.format(MESSAGE_ACTIVITY_ADD_MEMBER_SUCCESS, targetIndex.getOneBased()));
 
+        if (selectedActivity.hasPersonInAttendance(targetMatric)) {
+            throw new CommandException(Messages.MESSAGE_ACTIVITY_ALREADY_HAS_PERSON);
+        }
+        selectedActivity.addMemberToActivity(targetMatric);
+        model.commitAddressBook();
+        return new CommandResult(String.format(MESSAGE_ACTIVITY_ADD_MEMBER_SUCCESS, targetIndex.getOneBased()));
     }
 
     @Override

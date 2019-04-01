@@ -40,9 +40,9 @@ public class CsvUserStorage implements UserStorage {
     }
 
     /**
-     *
-     * @param filePath
-     * @return
+     * Parses the given file at the path into a user
+     * @param filePath is not null
+     * @return the parsed user
      */
     private Optional<User> parseFileIntoUser(Path filePath) {
         List<String[]> data;
@@ -67,7 +67,7 @@ public class CsvUserStorage implements UserStorage {
     }
 
     /**
-     * TODO
+     * Parses the current user into a file
      * @param user
      * @param filePath
      * @throws IOException
@@ -85,7 +85,7 @@ public class CsvUserStorage implements UserStorage {
     }
 
     /**
-     *
+     * Converts a card with its constructor values into a String Array ready for CSV file
      * @param card
      * @return a String array with the cardData(hashcode, numAttempts, streak, srs, isDifficult)
      */
@@ -102,9 +102,9 @@ public class CsvUserStorage implements UserStorage {
     }
 
     /**
-     * TODO
+     * Converts a card from a String Array in the CSV file
      * @param cardArray
-     * @return
+     * @return card type with the constructor values
      */
     private CardSrsData parseStringIntoCard(String[] cardArray) {
         int hashCode;

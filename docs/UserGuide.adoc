@@ -215,14 +215,6 @@ Examples:
 * `deleteCard 2` +
 Deletes the second flashcard.
 
-==== Importing user profile : `importUser`
-Imports the selected `.csv` file and loads the current progress of the user. +
-Format: `importUser FILEPATH`
-
-==== Exporting user profile : `exportUser`
-Exports the current progress of the user into a `.csv` file. +
-Format: `exportUser FILEPATH`
-
 ==== Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
@@ -267,14 +259,18 @@ Format: `\status`
 Any input without the escape character `\` is treated as an answer to the current flashcard. +
 Format: `[*]`
 
-* For each type of question, there is total attempts and streak.
-* The total attempts refers to how many times you have tried this question, getting it wrong is
-also considered as tried.
+* For each type of question, there are total attempts and streak.
+* The total attempts refer to how many times you have tried this question, getting it wrong is
+also considered as tried attempt.
 * The streak refers to how many times you have gotten it correctly in a row.
 * The streak will be reduced to 0 for getting it wrong twice in a row.
 
+[NOTE]
+If you accidentally enter the wrong answer once, your streak for the question will not be
+affected.
+
 [TIP]
-If you accidentally enter the wrong answer once, your streak for the question will not be affected.
+If you're want to see the answer to a question, just press kbd:[ENTER] twice.
 
 Examples:
 

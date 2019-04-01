@@ -1,0 +1,69 @@
+= Kerryn Eer - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Know-It-All
+
+---
+
+== Overview
+
+Know-It-All is a flashcard application that helps users store and organise their learning material. With an easy to
+use interface and a storage solution that supports content sharing, Know-It-All is designed to help students perform rote learning more efficiently. From cramming in between lessons to focused study, the in-built test session boosts the effectiveness of repetition and recall for memorisation. Know-It-All targets medicine students as their studies involve a considerable amount of memory work, and deals with content that is suitable for the bite-sized flashcard format. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *test session feature*
+** What it does: allows the user to begin and end a test session where user will be presented flashcards questions in
+ the folder and user can then input their answer or choose to reveal the answer before moving on to the next
+ flashcard.
+** Justification: This feature is the main highlight of Know-It-All, as users use flashcards to test how
+much content they have memorised. Equipped with the user friendly answer command that is missing in existing
+flashcard applications, Know-It-All provides a more engaging and interactive testing experience for the user.
+** Highlights: This enhancement modifies the existing UI to facilitate the addition of a new test
+session page. It also has a heavy dependency on folder methods. Hence, this feature required an in-depth analysis of
+design alternatives. Implementation and writing tests were tedious as many checks of the current state of the app
+needs to be done to permit only certain commands and ban others.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=kerryneer[Collated code]]
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Wrote additional tests for existing features to increase coverage from __% to __% (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/74[#74])
+
+** Documentation:
+*** Updated user guide by adding QuickStart section, new features, remove unnecessary features and modify existing
+commands for milestone v1.2 (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/60[#60], https://github.com/cs2103-ay1819s2-w10-4/main/pull/59[#59], https://github.com/cs2103-ay1819s2-w10-4/main/pull/80[#80],
+https://github.com/cs2103-ay1819s2-w10-4/main/pull/106[#106])
+*** Update developer guide from an addressbook to a flashcard context (Configurations to do before writing code,
+Product scope and Non-Functional Requirements etc), update its class diagrams and sequence diagrams, and added
+implementation for test session (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/80[#80],
+https://github.com/cs2103-ay1819s2-w10-4/main/pull/106[#106])
+*** Update About Us page (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/6[#6])
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w10-4/main/pull/65[#65],
+https://github.com/cs2103-ay1819s2-w10-4/main/pull/46[#46]
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=testoperations]
+
+include::../UserGuide.adoc[tag=quickstart]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=testsession]
+
+include::../DeveloperGuide.adoc[tag=testsessionusecases]
+

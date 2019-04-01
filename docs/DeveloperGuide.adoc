@@ -51,7 +51,7 @@ This will generate all resources required by the application and tests.
 . Open link:{repoURL}/src/main/java/seedu/knowitall/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/knowitall/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Repeat this for the test <<folder, folder>> as well (e.g. check link:{repoURL}/src/test/java/seedu/knowitall/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
@@ -101,10 +101,7 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 
 ==== Getting started with coding
 
-When you are ready to start coding,
-
-1. Get some sense of the overall design by reading <<Design-Architecture>>.
-2. Take a look at <<GetStartedProgramming>>.
+When you are ready to start coding, get some sense of the overall design by reading <<Design-Architecture>>.
 
 == Design
 
@@ -205,14 +202,17 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the card folder data.
-* exposes an unmodifiable `ObservableList<Card>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores a list of `VersionedCardFolders` representing the folders that the user has.
+* exposes unmodifiable instances of `FilteredList<Card>` and `FilteredList<VersionedCardFolder>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+////
+This is a multiline comment, remove the four slashes to remove comment
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `card folder`, which `Card` can reference. This would allow `card folder` to only require one `Tag` object per unique `Tag`, instead of each `Card` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
+////
 
 [[Design-Storage]]
 === Storage component
@@ -225,7 +225,7 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the card folder data in json format and read it back.
+* can save `CardFolder` data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -235,87 +235,6 @@ Classes used by multiple components are in the `seedu.knowitall.commons` package
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
-
-// tag::undoredo[]
-=== Undo/Redo feature
-==== Current Implementation
-
-The undo/redo mechanism is facilitated by `VersionedCardFolder`.
-It extends `CardFolder` with an undo/redo history, stored internally as an `cardFolderStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedCardFolder#commit()` -- Saves the current card folder state in its history.
-* `VersionedCardFolder#undo()` -- Restores the previous card folder state from its history.
-* `VersionedCardFolder#redo()` -- Restores a previously undone card folder state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitCardFolder()`, `Model#undoCardFolder()` and `Model#redoCardFolder()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedCardFolder` will be initialized with the initial card folder state, and the `currentStatePointer` pointing to that single card folder state.
-
-image::UndoRedoStartingStateListDiagram.png[width="800"]
-
-Step 2. The user executes `delete 5` command to delete the 5th card in the card folder. The `delete` command calls `Model#commitCardFolder()`, causing the modified state of the card folder after the `delete 5` command executes to be saved in the `cardFolderStateList`, and the `currentStatePointer` is shifted to the newly inserted card folder state.
-
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
-
-Step 3. The user executes `add q/Some question ...` to add a new card. The `add` command also calls `Model#commitCardFolder()`, causing another modified card folder state to be saved into the `cardFolderStateList`.
-
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitCardFolder()`, so the card folder state will not be saved into the `cardFolderStateList`.
-
-Step 4. The user now decides that adding the card was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoCardFolder()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous card folder state, and restores the card folder to that state.
-
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial card folder state, then there are no previous card folder states to restore. The `undo` command uses `Model#canUndoCardFolder()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoRedoSequenceDiagram.png[width="800"]
-
-The `redo` command does the opposite -- it calls `Model#redoCardFolder()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the card folder to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `cardFolderStateList.size() - 1`, pointing to the latest card folder state, then there are no undone card folder states to restore. The `redo` command uses `Model#canRedoCardFolder()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the card folder, such as `list`, will usually not call `Model#commitCardFolder()`, `Model#undoCardFolder()` or `Model#redoCardFolder()`. Thus, the `cardFolderStateList` remains unchanged.
-
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
-
-Step 6. The user executes `clear`, which calls `Model#commitCardFolder()`. Since the `currentStatePointer` is not pointing at the end of the `cardFolderStateList`, all card folder states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add q/Some question ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::UndoRedoActivityDiagram.png[width="650"]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire card folder.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the card being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of card folder states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedCardFolder`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
 
 === Cards
 ==== Current Implementation
@@ -396,147 +315,143 @@ For example, 2 correct attempts and 4 total attempts becomes 0.5. When instantia
 // end::score[]
 
 === Import/Export feature
+[discrete]
 ==== Current Implementation
-The Import and Export feature is facilitated by the addition of 3 new classes inside the csvmanager package defined under storage component.
+The Import and Export feature is facilitated by the Logic and model components, together
+with the addition of 2 new classes inside the csvmanager package defined under
+the storage component.
+
+[discrete]
+===== Logic
+Similar to how the current commands are implemented, the two new commands, the logic unit now accepts two
+new commands, `ImportCommand` and `ExportCommand`.
+
+[discrete]
+===== Model
+The model component supports the addition of a new object variable `CsvManager`, that carries out the read and
+write logic of cards to files.
+
+Additionally, model implements two new methods, `Model#importCardFolders` and `Model#exportCardFolders`.
+These two methods further call the CsvManager API to read and write card folders.
+
+Model also implements `Model#setTestCsvPath` and the `Model#getDefaultPath` which are only used during testing.
 
 [discrete]
 ===== csvmanager package:
 * CsvManager - Main class responsible for the writing and reading of .csv files during the import and export of files
-* CsvCardFolder - Wrapper class for a folder name input by user
 * CsvFile - Wrapper class for file name input by user
+* CsvCommands interface - API for import/export method in CsvManager
 
-The main logic for the import / export command is carried out inside the CsvManager class specified by it's API `CsvManager#writeFoldersToCsv` and `CsvManager#readFoldersToCsv`.
-
-CsvManager's API’s are exposed in the model interface as  `Model#ExportCardFolders` and `Model#ImportCardFolders` method
-
-[discrete]
-==== Example Usage
-
-1. User wants to export folders `Human Anatomy` and `Nervous System`. User inputs the following folders and the csvFile specified that he wants to export the folders to.
-
-    picture of command box with user inputs
-
-2. Export command parser extracts prefixes and parses the corresponding folders into the CsvCardFolder and CsvFile objects. Returns an ExportCommand to be executed.
-
-    Draw export command object diagram with set<CardFolderExport> and CsvFile file
-
-3. Logic unit executes the command. The execute command calls `Model#exportCardFolders` method.
-
-    show list of VersionedCardFolders
-    arrow up
-    Contains the list of card folders present in the model
-
-4. Model checks that all card folders specified by user exists inside the list of card folders. Throws `CardFolderNotFound` Exception if user specified card folder does not exist in the application.
-
-5. `CsvManager` is called to carry out the main logic of writing the cardfolders to file. File exported will be created in the root directory.
-
-    Sequence diagram
-
-=== Test Session feature
-==== Current Implementation
-This feature mainly involves `UI`, `Logic` and `Model` components.
-
-[discrete]
-===== Model:
-The following variables in `ModelManager` are introduced to keep track of the current state in a test session. The related methods are exposed in the `Model` interface.
-
-* `insideTestSession`
-** A boolean variable to indicate if user is running a test session.
-** Related methods:
-*** `Model#checkIfInsideTestSession()`
-
-* `currentTestedCard`
-** The current card the user is seeing in the test session.
-** Set to null if user is not inside a test session
-** Related methods:
-*** `Model#setCurrentTestedCard()`
-*** `Model#getCurrentTestedCard()`
-
-
-* `cardAlreadyAnswered`
-** A boolean variable to indicate if the user has already execute a valid answer command for the current card.
-** Related methods:
-*** `Model#setCardAsAlreadyAnswered()`
-
-==== Test / End Command
-
-[discrete]
-===== Model
-The main logic for  `test` and `end` command is carried out inside the ModelManager with the following methods:
-
-* `#testCardFolder()` - begins a test session on the card folder specified (or the current card folder - to be
-implemented) and updates the three variables introduced earlier that are used to track the state of a test session
-accordingly.
-** `insideTestSession` is set to true.
-** `Model#setCurrentTestedCard()` is invoked to set `currentTestedCard` to the first card in the folder.
-
-* `#endTestSession()` - ends the current test session and updates the three variables accordingly.
-** `insideTestSession` is set to false.
-** `Model#setCurrentTestedCard()` is invoked to set `currentTestedCard` to null.
-** `cardAlreadyAnswered` is reset to false.
-
-They are exposed in the `model` interface as `Model#testCardFolder()` and `Model#endTestSession()`.
-
-[discrete]
-===== UI
-To update the change in the `UI` to reflect that the user is a test session (app goes to full screen with question of
-the current presented), the following methods are introduced.
-
-* `MainWindow#handleStartTestSession` - creates a new `testSession` page and bring it forward in front of the
-current `cardMainScreen` page.
-* `MainWindow#handleEndTestSession` - deletes the current `testSession` page and the `cardMainScreen` page at the back
- is now presented to the user.
+The main logic for the import / export command is carried out inside the CsvManager class specified by it's
+API `CsvManager#writeFoldersToCsv` and `CsvManager#readFoldersToCsv`.
 
 
 [discrete]
 ===== Example Usage
+1. User wants to export folders `Human Anatomy` and `Nervous System`.
+Suppose that these two folders are indicated by the index 1 and 2 respectively.
+The user types ``export 1 2``
 
-1. User is in the home directory and wants to enter a test session on the first folder by executing the command `test 1`.
+2. The Export command parser extracts the indices, parses the indices into a `ExportCommand` object.
+    Draw export command object diagram with set<CardFolderExport> and CsvFile file
 
-    picture of command box with user inputs
+3. Logic unit executes the command. The execute command calls `Model#exportCardFolders` method.
+////
+    show list of VersionedCardFolders
+    arrow up
+    Contains the list of card folders present in the model
+////
+4. Model checks that all card folders specified by user exists inside the list of card folders.
+   Throws `CardFolderNotFound` Exception if user specified card folder does not exist in the application.
 
-    * First, the `logic` unit checks if this is a valid folder index. If it is not, an exception is thrown.
-    * Second, the `logic` unit also checks if the user is already in a test session using
-    `Model#checkIfInsideTestSession()`. If true, this `test` command would be rendered invalid and an
-    exception is thrown.
+5. `CsvManager` is called to carry out the main logic of writing the cardfolders to file.
+    File exported will be created in the project root directory.
+    File will be named after the name of the cardfolder.
+    i.e `Human Anatomy.csv` and `Nervous System.csv`
+////
+    Sequence diagram
+////
 
-2. The application enters this folder by setting `ActiveCardFolderIndex` to this current index.
+6. User wants to import `Human Anatomy.csv` file.
+`Human Anatomy.csv` file contains flashcards represented in csv file format.
+User types `import Blood.csv` command
 
-3. The `test` command calls `Model#testCardFolder()` method.
+2. Import command parser extracts file name and wraps file into a `CsvFile` object and
+    parses the CsvFile into an Import Command object.
 
-4. The `currentTestedCard` will then be passed to `CommandResult` which checks that `testSessionCard` is not null.
+3. Logic unit executes the import command.
+The execute method makes a call to `Model#importCardFolder` method.
 
-    draw commandResult object diagram
+4. CsvManager is called to carry out the main logic of reading cardfolders to file.
+File imported will be serialized into a `CardFolder` object and
+added to the `filteredFoldersList` variable.
 
-5. `CommandResult` invokes `MainWindow#handleStartTestSession()` in the `UI` component to display the
-`currentTestedCard` question and hints to the user.
 
-    insert sequence diagram for test command
+NOTE: Both Imported and Exported files have to be placed in the project root directory.
 
-6. When the user executes the command `end`
+==== CSV file structure
+Example of a common cardfolder csv file +
 
-    picture of command box with the end command
+Blood.csv
 
-* The `logic` unit checks if the user is already in a test session using `Model#checkIfInsideTestSession()`, which if
- not, this `end` command would be rendered invalid.
+image::Blood.csv.png[width="800"]
 
-7. The `end` command calls Model#endTestSession().
 
-8. `end` command will then construct a `CommandResult` class with `isEndTestSession` parameter set to true. `CommandResult`
-will then invoke `MainWindow#handleEndTestSession()` in the `UI` component.
+* The first line of any file contains the headers for each card.
+Headers have to be present in the csv file for import.
 
-    insert sequence diagram for end command
+* Each row of the csv file represents a single flashcard.
 
-==== Answer Command
+* Options header can take more than one value or none.
 
-[discrete]
-===== Model
+* Hints header can take either 0 or 1 value.
 
-To facilitate the marking of attempted answer, `#markAttemptedAnswer()` method is introduced in `ModelManager` which compares the attempted answer and the correct answer obtained from the current card.
-[NOTE]
-Comparison is not case-sensitive
+==== Design Considerations
+====== Aspect: Which component responsible for import/export logic
+* Alternative 1: Implement read and write card folders in `StorageManager` class
+** Pros:
+*** The most intuitive solution,
+since Storage involves read and write logic
+** Cons:
+*** Model and Storage are now more coupled together.
+*** Storage has more than one responsibility now.
+Instead of managing the internal data of card folder, it now has to
+manage the read and write to csv files.
 
-Similar to other test session methods, this is exposed in the model interface as `Model#markAttemptedAnswer()`.
+
+* Alternative 2: Implement read and write card folders in `csvmanager` package class. (Current)
+** Pros:
+*** Separate responsibilities of both Storage and Model. +
+1.  Model class can focus on the representation of the in-memory card folders
+Storage +
+2. Storage class can focus on managing the internal card folder data (.json files)
+** Cons:
+*** More code to write. Storage class could possibly call the relevant API's
+to convert .json file  into .csv file
+
+
+======  Aspect: csv file design structure
+* Alternative 1: Export multiple card folders into a single file.
+** Pros:
+*** Saves user trouble of calling multiple import for files.
+Each card folder is separated by a new line.
+** Cons:
+*** Not a .csv file anymore.
+First line header would now specify cardfolder name before card headers,
+leading to unequal rows and columns
+*** Users will be unable to select specific card folders to import if multiple card folders
+have been exported into a single file.
+
+* Alternative 2: Export each card folder into a single file (Current)
+** Pros:
+*** More flexibility for users to import desired card folders,
+since 1 cardfolder = 1 csv file.
+*** Files are now correctly formatted as .csv file
+
+** Cons:
+*** Slightly more work needed to import multiple card folders.
+
+
 
 //tag::folders[]
 === Folders
@@ -710,6 +625,458 @@ image::ChangeCommandSequenceDiagram.png[width="600"]
 ** Cons: Harder for the user to get acquainted with as there are two separate commands with logically similar functionality; introduces redundancy.
 
 //end::folders[]
+
+
+//tag::testsession[]
+=== Test Session feature
+
+==== Overall Current Implementation
+This big feature mainly involves `UI`, `Logic` and `Model` components.
+
+There are 4 main variables in `ModelManager` introduced to keep track of the current state in a test
+session.
+
+* `currentTestedCardFolder`
+** The current card folder (stored as an `ObservableList` of cards) that the user is running a test session on.
+** Set to null if user is not inside a test session
+
+* `currentTestedCard`
+** The current card the user is seeing in the test session, obtained from `currentTestedCardFolder` using
+`currentTestedCardIndex`.
+** Set to null if user is not inside a test session
+** Related methods:
+*** `ModelManager#setCurrentTestedCard(Card card)` - set `currentTestedCard` to the card specified.
+*** `ModelManager#getCurrentTestedCard()` - returns the `currentTestedCard`.
+
+* `inTestSession`
+** A boolean variable to indicate if user is running a test session.
+** Related methods:
+*** `ModelManager#isInTestSession()` - returns true if user is in a test session and false otherwise.
+
+* `cardAlreadyAnswered`
+** A boolean variable to indicate if the user has already execute a valid answer command for the current card.
+** Related methods:
+*** `ModelManager#setCardAsAnswered()` - set `cardAlreadyAnswered` to true.
+*** `ModelManager#setCardAsNotAnswered()` - set `cardAlreadyAnswered` to false.
+*** `ModelManager#isCardAlreadyAnswered()` - returns true if the current card has already been answered and false
+otherwise.
+
+==== Overall Design Considerations
+
+===== Aspect: Usage of an extra card variable to keep track of the current card in test session
+
+* **Alternative 1 (current choice)**: Introduction of another variable, `currentTestedCard`, to store the card.
+** Pros: More reader friendly. Save time from accessing the list to get card at that index.
+** Cons: Extra space used.
+
+* **Alternative 2**: No introduction of `currentTestedCard` as using the `currentTestedCardIndex` suffices. Every time a
+card is needed, can reference it using `currentTestedCardFolder.getIndex(currentTestedCardIndex)`.
+** Pros: No need to store an extra variable, use less space.
+** Cons: Not so reader friendly. Need to keep accessing the list at that index. Potentially lead to
+possible violation of the Law of Demeter where an object should only interact with objects that are closely related to it.
+
+Evaluation of the 2 alternatives:
+We went with alternative 1 since not a large amount of memory is taken up with just an extra variable. As there will
+be a number of references to the `currentTestedCard`, it will be better to store them somewhere. Abiding by the Law
+of Demeter, `currentTestedCard` object will not be interacting with `currentTestedCardFolder`,  limiting its
+knowledge of that object.
+
+
+==== Test / End Command
+
+===== Current Implementation
+
+[discrete]
+====== Model
+The main logic for  `test` and `end` command is carried out in `ModelManager` with the following methods:
+
+* `ModelManager#testCardFolder()` - begins a test session on the current card folder user is in and implicitly sorts
+the cards in it.
+* `ModelManager#endTestSession()` - ends the current test session.
+
+[discrete]
+====== UI
+To update the change in the `UI` to reflect that the user is a test session (app goes to full screen with question of
+the current card presented), the following methods are introduced.
+
+* `MainWindow#handleStartTestSession(Card card)` - creates a new `TestSession` page with the card specified and bring
+ the page forward in front of the current `CardMainScreen` page.
+* `MainWindow#handleEndTestSession()` - deletes the current `TestSession` page and the `CardMainScreen` page at the back
+ is now presented to the user.
+
+[discrete]
+====== Example Usage of test command
+
+To illustrate how the `UI`, `Model` and `Logic` components interact, below is a walkthrough of a typical usage scenario of
+the test command.
+<<testcommandsequencediagram>> is a sequence diagram that summarises `Model` and `Logic` interactions, namely steps 1 to 7.
+
+Step 1. User is inside a folder and wants to begin a test session on the current folder by executing the command
+`test`.
+
+Step 2. As with every command, the command parser reads the input and generates the relevant `Command` object, in
+this case a `TestCommand`. The object is returned to the `LogicManager`.
+
+Step 3. The `LogicManager` executes the `TestCommand`, storing the result and then transferring control to the
+Model component, with `ModelManager#isInFolder()` and `ModelManager#isInTestSession()` to check that user is inside a
+folder and is not already in a test session. (This is omitted from <<testcommandsequencediagram>> for simplicity.)
+
+[NOTE]
+If the user is not inside a folder or is already in a test session, this `test` command would be rendered
+invalid. Step 4 would not proceed and an error message is displayed.
+
+Step 4. After both checks have passed, `ModelManager#testCardFolder()` method is invoked, which does the following:
+
+1. `currentTestedCardFolder` is set to the current folder the user is in, by invoking `getCardList()` from the active
+`VersionedCardFolder` in `folders`.
+[NOTE]
+If this folder is empty such that there is no card to present to the user, an `EmptyCardFolderException` is thrown,
+to be caught in `TestCommand`, which then throws a `CommandException` to display an error message.
+
+2. The cards in this folder is sorted in ascending scores by invoking `sortFilteredCard(comparator)`, so that
+lowest score cards will be presented first to the user in a test session.
+3. `ModelManager#setCurrentTestedCard(currentTestedCardIndex)` is then invoked to set `currentTestedCard` to the first
+card in the folder as `currentTestedCardIndex` is set to 0.
+4. `inTestSession` is set to true.
+5. No change to `cardAlreadyAnswered` as it is by default false.
+
+Step 5. For `TestCommand` to obtain the first card to present in the test session, `ModelManager#getCurrentTestedCard` is
+invoked and the `Card`, `c`, is returned.
+
+Step 6. With control now transferred back to the logic unit, `TestCommand` creates a `CommandResult` object, `r` with the type `START_TEST_SESSION`, and
+set `testSessionCard` in `CommandResult` to `c` obtained in Step 5.
+
+Step 7. `r` is returned to `LogicManager` which then terminates and returns `r` to the calling method.
+
+[[testcommandsequencediagram]]
+.Component interactions for a `test` command
+image::TestCommandSequenceDiagram.png[width="800"]
+
+{empty} +
+
+Step 8. The caller method here is `MainWindow`. Control is now transferred to the UI component.
+
+Step 9. `MainWindow` sees that `CommandResult` object `r` has the type `START_TEST_SESSION`. It invokes
+`MainWindow#handleStartTestSession(currentTestedCard)` to display the `currentTestedCard` question and hints to the
+user.
+
+////
+insert sequence diagram for UI for test command?
+////
+
+[[exampleusageofendcommand]]
+[discrete]
+====== Example Usage of end command
+
+Step 1. User is currently in a test session and executes the command `end`.
+
+Step 2. An `EndCommand` object is created and `LogicManager` executes the `EndCommand`, storing the result and then
+transferring control to the Model component, with `ModelManager#isInTestSession()` to
+check that user is indeed in a test session.
+
+[NOTE]
+If the user is not in a test session, Step 3 would not proceed.
+
+Step 3. `ModelManager#endTestSession()` method is invoked, which does the following:
+
+1. `currentTestedCardFolder` is set to null.
+2. `ModelManager#setCurrentTestedCard(null)` is invoked to set `currentTestedCard` to null.
+3. `inTestSession` is set to false.
+4. `ModelManager#setCardAsNotAnswered()` is invoked.
+
+Step 4. As control is now transferred back to the logic unit, `EndCommand` creates a `CommandResult` object, `r` with
+the type `END_TEST_SESSION`.
+
+Step 5. `r` is returned to `LogicManager` which then terminates and returns `r` to the calling method, MainWindow.
+Control is now transferred to the UI component.
+
+Step 6. `MainWindow` sees that `CommandResult` object `r` has the type `END_TEST_SESSION`. It invokes
+`MainWindow#handleEndTestSession()` to delete the current `testSession` page, presenting `cardMainScreen` page at the
+back (the screen the user was seeing before entering the test session) to the user.
+
+
+===== Design Considerations
+====== Aspect: Way to execute a test/end command
+
+* **Alternative 1 (current choice)**: `test` is executed when inside a folder. The user does not have to specify the
+folder index and `test` would just immediately display the first card in the this current folder.
+** Pros: The most logical way of carrying out a test session is where user is in the folder that he or she wants to be tested on. Lesser dependency on entering and exiting folder methods.
+** Cons: Requires the extra step of entering the folder before it can actually test the folder. User may actually see the questions before the test session.
+
+* **Alternative 2**: `test` is executed when outside a folder, in the home directory. `test` command would require a
+folder index, e.g `test 1` to test the first folder. Implementation of getting the card from the folder would rely on
+enter folder command as well.
+** Pros: Fast way to enter test session from home directory
+** Cons: Not logical for test to be called from home directory which should only allow folder operations. Test will
+then have to implicitly enter the folder to get access to the cards in it in order to display them, creating a dependency between test and enter folder command.
+Similar issue will arise for the end test session command where user will need to implicitly exit the folder.
+
+Evaluation of the two alternatives:
+Overall, alternative 1 is a better choice following the Single Level of Abstraction Principle(SLAP) where a function should not mix different levels of abstractions. We can then better achieve higher cohesion and lower coupling.
+Also, user being able to see the questions before the test session is not a big issue since the answer will not be shown unless user selects the card.
+
+
+==== Answer Command
+===== Current Implementation
+
+[discrete]
+====== Model
+To facilitate the marking of attempted answer, we introduce the following method in `ModelManager`.
+
+* `ModelManager#markAttemptedAnswer(Answer attemptedAnswer)` - returns true if attemptedAnswer is correct and
+false if attemptedAnswer is wrong. It compares the attempted answer and the correct answer obtained from the current
+card.
+
+[NOTE]
+Comparison is not case-sensitive
+
+[discrete]
+====== Logic
+To facilitate the update of score after marking the card, we introduce the following method in `AnswerCommand`.
+
+* `AnswerCommand#createScoredCard(Card cardToMark, boolean markCorrect)` - creates a new card with the updated
+score.
+
+[discrete]
+====== UI
+To update the change in the `UI` to show the user the result of the marked answer, whether it is correct or wrong, the following methods are introduced.
+
+* `MainWindow#handleCorrectAnswer()` - invokes `TestSession#handleCorrectAnswer()`
+* `MainWindow#handleWrongAnswer()` - invokes `TestSession#handleWrongAnswer()`
+* `TestSession#handleCorrectAnswer()` - updates current `TestSession` page to green colour background with correct
+answer and correct answer description
+* `TestSession#handleWrongAnswer()` - updates current `TestSession` page to red colour background with correct answer
+and wrong answer description
+
+[discrete]
+====== Example Usage of answer command
+
+To illustrate how the components interact, below is a walkthrough of a typical usage scenario of the answer command.
+<<answercommandsequencediagram>> is a sequence diagram that summarises `Model` and `Logic` interactions, namely steps 1
+to 8.
+
+Step 1. User is in a test session and wants to answer the question on the card currently presented by executing a `ans
+ four`.
+
+Step 2. An `AnswerCommand` object is created and `LogicManager` executes the `AnswerCommand`, storing the result and
+then transferring control to the Model component, with `ModelManager#isInTestSession()` and
+`ModelManager#isCardAlreadyAnswered()` to check that user is indeed in a test session and has not attempted an answer
+ already. (This is omitted from <<answercommandsequencediagram>> for simplicity.)
+
+[NOTE]
+If the user is not in a test session or already attempted an answer for the current card, this `ans` command would be
+rendered invalid. Step 3 would not proceed and an error message is displayed.
+
+Step 3. After both checks have passed, `ModelManager#setCardAsAnswered()` is invoked.
+
+Step 4. ModelManager now marks the attempted answer by invoking `ModelManager#markAttemptedAnswer(attemptedAnswer)`.
+
+Step 5. After knowing the result of the attempt, the `Logic` unit creates a new card exactly the same as the current
+card but with the updated score and replaced the current one by invoking `AnswerCommand#createScoredCard(Card
+cardToMark, boolean markCorrect)` followed by `model#setCard(cardToMark, scoredCard)`.
+
+Step 6. To complete the update in the change in score, model#updateFilteredCard(PREDICATE_SHOW_ALL_CARDS) and
+model#commitActiveCardFolder() are invoked.
+
+////
+    To elaborate further?
+////
+
+Step 7. `AnswerCommand` now creates a `CommandResult` object, `r` with either type `ANSWER_CORRECT` or `ANSWER_WRONG`
+ depending on the outcome of the attempt.
+
+Step 8. `r` is returned to `LogicManager` which then terminates and returns `r` to the calling method.
+
+[[answercommandsequencediagram]]
+.Component interactions for a answer command
+image::AnswerCommandSequenceDiagram.png[width="800"]
+
+{empty} +
+
+Step 9. The caller method here is `MainWindow`. Control is now transferred to the UI component.
+
+Step 10. If `MainWindow` sees that `CommandResult` object `r` has the type `ANSWER_CORRECT`, it invokes
+`MainWindow#handleCorrectAnswer()` to display the correct attempt `TestSession` page to the user.
+If `MainWindow` sees that `CommandResult` object `r` has the type `ANSWER_WRONG`, it invokes
+`MainWindow#handleWrongAnswer()` to display the wrong attempt `TestSession` page to the user.
+
+////
+    insert sequence diagram for UI for answer command?
+////
+
+==== Next Command
+===== Current Implementation
+[discrete]
+====== Model
+The following method is introduced in `ModelManager` to display to the user the next card in the test session.
+
+`ModelManager#testNextCard()` - returns true if it successfully finds a next card to present in the test session and
+false otherwise (if there is no more cards left to test in the folder).
+
+[discrete]
+====== UI
+To display the next card in the test session, the method below is introduced in `MainWindow`.
+
+* `MainWindow#handleNextCardTestSession(Card card)` - deletes the current `TestSession` page and adds a new
+`TestSession` page with this next card specified.
+
+[discrete]
+====== Example Usage of next command
+
+To illustrate how the `UI`, `Model` and `Logic` components interact, below is a walkthrough of a typical usage scenario of
+the next command.
+<<nextcommandsequencediagram>> is a sequence diagram that summarises `Model` and `Logic` interactions, namely steps 1
+to 6.
+
+Step 1. User is in a test session and wants to move on to the next card by executing a `next`.
+
+Step 2. A `NextCommand` object is created and `LogicManager` executes the `NextCommand`, storing the result and
+then transferring control to the Model component, with `ModelManager#isInTestSession()` and
+`ModelManager#isCardAlreadyAnswered()` to check that user is indeed in a test session and has attempted an
+answer already. (This is omitted from <<nextcommandsequencediagram>> for simplicity.)
+
+[NOTE]
+If the user is not in a test session or has not attempted an answer for the current card, this `next` command would be
+rendered invalid. Step 3 would not proceed and an error message is displayed.
+
+Step 3. After both checks have passed, `ModelManager#testNextCard()` method is invoked, which does the following:
+
+1. `currentTestedCardIndex` incremented by 1.
+2. `currentTestedCardIndex` is then checked if it equals to the size of `currentTestedCardFolder`.
+* Case 1: This check returns true. +
+This means `currentTestedCardIndex` is invalid and there
+is no more next card to be presented to the user. This method immediately returns false.
+
+* Case 2: This check returns true. +
+This means `currentTestedCardIndex` is valid and will be used to get the next card
+ from `currentTestedCardFolder`. This card is set as the `currentTestedCard` via the `ModelManager#setCurrentTestedCard
+(cardToTest)`. `ModelManager#setCardAsNotAnswered` is then invoked to reset the value of `cardAlreadyAnswered`. This
+method returns true.
+
+Step 4. From the result of `ModelManager#testNextCard()` method earlier:
+
+* Case 1: Method returns false. +
+A `next` command will be equivalent to an `end` command. `ModelManager#endTestSession()` is invoked. Step 5 does not
+proceed. Instead, step 3 and onwards of the <<exampleusageofendcommand>> takes over.
+
+* Case 2: Method returns true.
+For `NextCommand` to obtain the next card to present in the test session, `ModelManager#getCurrentTestedCard` is
+invoked and the `Card`, `c`, is returned.
+
+Step 5. With control now transferred back to the logic unit, `NextCommand` creates a `CommandResult` object, `r` with
+the type `SHOW_NEXT_CARD`, and set `testSessionCard` in `CommandResult` to `c`.
+
+Step 6. `r` is returned to `LogicManager` which then terminates and returns `r` to the calling method.
+
+Step 7. The caller method here is `MainWindow`. Control is now transferred to the UI component.
+
+Step 8. `MainWindow` sees that `CommandResult` object `r` has the type `SHOW_NEXT_CARD`. It invokes
+`MainWindow#handleNextCardTestSession(currentTestedCard)` to display this new `currentTestedCard` question and hints
+to the user.
+
+[[nextcommandsequencediagram]]
+.Component interactions for a `next` command
+image::NextCommandSequenceDiagram.png[width="800"]
+
+===== Design Considerations
+====== Aspect: Behavior of next command executed on the last card
+
+* **Alternative 1 (current choice)**:  A `next` command will be equivalent to an `end` command
+** Pros: More convenient and user-friendly. It is common sense to end the test session for the user.
+** Cons: By right, it is not correct since next command is just to show the next card.
+
+* **Alternative 2**: A `next` command will throw an exception
+** Pros: Most correct way to do it since there is no next card to display.
+** Cons: User may not understand. It is not user-friendly as user has to keep track of which card it is at to prevent the exception thrown.
+
+Evaluation of the two alternatives:
+With our target audience in mind, alternative 1 is the more user friendly and intuitive way to handle this scenario.
+
+//end::testsession[]
+
+// tag::undoredo[]
+=== Undo/Redo feature
+
+[NOTE]
+The following section details a feature implemented in the earlier iteration of the application. As such, the diagrams still refer to `AddressBook`, which has since replaced with `CardFolder`. The outdated diagrams here will be updated by `v2.0`.
+
+==== Current Implementation
+
+The undo/redo mechanism is facilitated by `VersionedCardFolder`.
+It extends `CardFolder` with an undo/redo history, stored internally as an `cardFolderStateList` and `currentStatePointer`.
+Additionally, it implements the following operations:
+
+* `VersionedCardFolder#commit()` -- Saves the current card folder state in its history.
+* `VersionedCardFolder#undo()` -- Restores the previous card folder state from its history.
+* `VersionedCardFolder#redo()` -- Restores a previously undone card folder state from its history.
+
+These operations are exposed in the `Model` interface as `Model#commitCardFolder()`, `Model#undoCardFolder()` and `Model#redoCardFolder()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedCardFolder` will be initialized with the initial card folder state, and the `currentStatePointer` pointing to that single card folder state.
+
+image::UndoRedoStartingStateListDiagram.png[width="800"]
+
+Step 2. The user executes `delete 5` command to delete the 5th card in the card folder. The `delete` command calls `Model#commitCardFolder()`, causing the modified state of the card folder after the `delete 5` command executes to be saved in the `cardFolderStateList`, and the `currentStatePointer` is shifted to the newly inserted card folder state.
+
+image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
+
+Step 3. The user executes `add q/Some question ...` to add a new card. The `add` command also calls `Model#commitCardFolder()`, causing another modified card folder state to be saved into the `cardFolderStateList`.
+
+image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitCardFolder()`, so the card folder state will not be saved into the `cardFolderStateList`.
+
+Step 4. The user now decides that adding the card was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoCardFolder()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous card folder state, and restores the card folder to that state.
+
+image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial card folder state, then there are no previous card folder states to restore. The `undo` command uses `Model#canUndoCardFolder()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+The following sequence diagram shows how the undo operation works:
+
+image::UndoRedoSequenceDiagram.png[width="800"]
+
+The `redo` command does the opposite -- it calls `Model#redoCardFolder()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the card folder to that state.
+
+[NOTE]
+If the `currentStatePointer` is at index `cardFolderStateList.size() - 1`, pointing to the latest card folder state, then there are no undone card folder states to restore. The `redo` command uses `Model#canRedoCardFolder()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the card folder, such as `list`, will usually not call `Model#commitCardFolder()`, `Model#undoCardFolder()` or `Model#redoCardFolder()`. Thus, the `cardFolderStateList` remains unchanged.
+
+image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+
+Step 6. The user executes `clear`, which calls `Model#commitCardFolder()`. Since the `currentStatePointer` is not pointing at the end of the `cardFolderStateList`, all card folder states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add q/Some question ...` command. This is the behavior that most modern desktop applications follow.
+
+image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::UndoRedoActivityDiagram.png[width="650"]
+
+==== Design Considerations
+
+===== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Saves the entire card folder.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the card being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use a list to store the history of card folder states.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedCardFolder`.
+* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+// end::undoredo[]
 
 === Logging
 
@@ -919,284 +1286,6 @@ A project often depends on third-party libraries. For example, card folder depen
 . Include those libraries in the repo (this bloats the repo size)
 . Require developers to download those libraries manually (this creates extra work for developers)
 
-[[GetStartedProgramming]]
-[appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all cards in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/knowitall/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/knowitall/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/knowitall/logic/parser/CardFolderParser.java[`CardFolderParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/knowitall/logic/parser/CardFolderParser.java[`CardFolderParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the card folder, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the card folder.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/knowitall/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/knowitall/model/CardFolder.java[`CardFolder`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting hints?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/knowitall/model/CardFolder.java[`CardFolder`] and link:{repoURL}/src/main/java/seedu/knowitall/model/card/Card.java[`Card`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/knowitall/model/CardFolder.java[`CardFolder`] allows you to update a card, and link:{repoURL}/src/main/java/seedu/knowitall/model/card/Card.java[`Card`] allows you to update the hints.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/knowitall/model/CardFolder.java[`CardFolder`]. Loop through each card, and remove the `tag` from each card.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/knowitall/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/knowitall/model/ModelManager.java[`ModelManager`] should call `CardFolder#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your card folder application. You realize that one of the users occasionally tries to delete non-existent hints from a contact, because the hints all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last card in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different hints inside card cards. For example, `friends` hints can be all in brown, and `colleagues` hints can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/knowitall/ui/CardCard.java[the `CardCard` constructor] (`new Label(tag.hintName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `CardThumbnail` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that hints retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/knowitall/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/knowitall/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/knowitall/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/knowitall/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/knowitall/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/knowitall/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/knowitall/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/knowitall/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/CardFolderSystemTest.java[`CardFolderSystemTest#assertCommandBoxShowsDefaultStyle() and CardFolderSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/knowitall/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the card folder.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/knowitall/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the card folder is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/knowitall/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of cards when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/knowitall/ui/StatusBarFooter.java[`StatusBarFooter#handleCardFolderChangedEvent(CardFolderChangedEvent)`] to update the number of cards whenever there are new changes to the knowitall.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/CardFolderSystemTest.java[`CardFolderSystemTest`] to also verify the new total number of cards status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the card folder to the cloud. However, the current implementation of the application constantly saves the card folder after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the card folder storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupCardFolder(ReadOnlyCardFolder)`, so that the card folder can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/knowitall/storage/CardFolderStorage.java[`CardFolderStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/knowitall/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/knowitall/storage/JsonCardFolderStorage.java[`JsonCardFolderStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `cardfolder`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on hints alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a card specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first card to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first card.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/knowitall/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/knowitall/logic/parser/CardFolderParser.java[`CardFolderParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/knowitall/logic/parser/CardFolderParserTest.java[`CardFolderParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/knowitall/logic/parser/CardFolderParser.java[`CardFolderParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/knowitall/logic/parser/CardFolderParserTest.java[`CardFolderParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `CardCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/knowitall/ui/CardCard.java[`CardCard`] s to display a remark for each card later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/CardListThumbnail.fxml[`CardListThumbnail.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/knowitall/ui/CardCard.java[`CardCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/CardCardHandle.java[`CardCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/knowitall/model/card/Card.java[`Card`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/knowitall/model/card/Address.java[`Address`], remove the regex and change the questions accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Card` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/knowitall/model/card/Card.java[`Card`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/knowitall/model/card/Card.java[`Card`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the card will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/knowitall/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/cardfolder.json` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `JsonAdaptedCard` class
-We now have `Remark` s for `Card` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/knowitall/storage/JsonAdaptedCard.java[`JsonAdaptedCard`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new JSON field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidCardCardFolder.json`, `typicalCardsCardFolder.json`, `validCardFolder.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
-
-===== [Step 6b] Test: Add withRemark() for `CardBuilder`
-Since `Card` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/knowitall/testutil/CardBuilder.java[`CardBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/knowitall/model/card/Card.java[`Card`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/knowitall/testutil/CardBuilder.java[`CardBuilder`]. This method will create a new `Remark` for the card that it is currently building.
-. Try and use the method on any sample `Card` in link:{repoURL}/src/test/java/seedu/knowitall/testutil/TypicalCards.java[`TypicalCards`].
-
-===== [Step 7] Ui: Connect `Remark` field to `CardCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/knowitall/ui/CardCard.java[`CardCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/knowitall/ui/CardCard.java[`CardCard`]'s constructor to bind the `Remark` field to the `Card` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/knowitall/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysCard(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a card.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
-
 [appendix]
 == Product Scope
 
@@ -1266,6 +1355,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 (For all use cases below, the *System* is `Know-It-All` and the *Actor* is the `Student`, unless specified otherwise)
 
+//tag::testsessionusecases[]
 [discrete]
 === UC01 Test flashcards
 
@@ -1287,6 +1377,8 @@ Use case ends
 [none]
 ** 3a1. Student uses the reveal command
 ** 3a2. Answer is displayed to the student
+
+//end::testsessionusecases[]
 
 [discrete]
 === UC02 Add flashcards
@@ -1396,17 +1488,28 @@ Use case resumes from step 1.
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 cards without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  The user interface should be intuitive enough even for medical students to use the app.
 
 _{More to be added}_
 
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+[[mainstream-os]]**Mainstream OS**: Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[flashcard]]**Flashcard/Card**: An object containing a single question and answer, and optionally hints.
+
+[[folder]] **Folder**: A collections of flashcards, grouped topically. There are no
+sub-folders.
+
+[[testsession]] **Test Session**: A session where all flashcards in a folder are queued to have their
+questions displayed. The user is required to key in an answer for each question.
+
+[[cardscore]]  **Card Score**: The number of correct answers divided by the number of attempts for a single card. When the user is tested on a card, this number is automatically calculated and recorded.
+
+[[folderscore]] **Folder Score**: The average of all <<cardscore, card scores>> in a folder after a test session. This number is automatically recorded after each test session.
+
+[[homedirectory]] **Home Directory**: The home page where all the folders are listed. From here, users can enter folders to view cards.
 
 [appendix]
 == Instructions for Manual Testing
@@ -1430,7 +1533,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+_{ more test cases to be added ... }_
 
 === Deleting a card
 
@@ -1444,7 +1547,7 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+_{ more test cases to be added ... }_
 
 === Saving data
 
@@ -1452,4 +1555,4 @@ _{ more test cases ... }_
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
-_{ more test cases ... }_
+_{ more test cases to be added ... }_

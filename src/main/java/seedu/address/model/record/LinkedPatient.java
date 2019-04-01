@@ -29,6 +29,14 @@ public class LinkedPatient {
         return (Name.isValidName(nametest) && Nric.isValidNric(nrictest));
     }
 
+    public String getLinkedPatientName() {
+        return fullname.fullName;
+    }
+
+    public String getLinkedPatientNric() {
+        return nric.getNric();
+    }
+
     @Override
     public String toString() {
         return fullname.fullName + " " + nric.getNric();

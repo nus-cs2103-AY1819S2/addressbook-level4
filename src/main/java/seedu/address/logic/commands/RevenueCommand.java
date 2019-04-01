@@ -10,7 +10,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Mode;
 import seedu.address.model.Model;
 import seedu.address.model.statistics.DailyRevenue;
-import seedu.address.model.statistics.Date;
 import seedu.address.model.statistics.Day;
 import seedu.address.model.statistics.Month;
 import seedu.address.model.statistics.Year;
@@ -121,33 +120,32 @@ public class RevenueCommand extends Command {
 
     private String getMonth(String month) {
         switch(Integer.parseInt(month)) {
-
-            case 1:
-                return("Jan ");
-            case 2:
-                return("Feb ");
-            case 3:
-                return("Mar ");
-            case 4:
-                return("Apr ");
-            case 5:
-                return("May ");
-            case 6:
-                return("Jun ");
-            case 7:
-                return("Jul ");
-            case 8:
-                return("Aug ");
-            case 9:
-                return("Sep ");
-            case 10:
-                return("Oct ");
-            case 11:
-                return("Nov ");
-            case 12:
-                return("Dec ");
-            default:
-                return(month);
+        case 1:
+            return "Jan ";
+        case 2:
+            return "Feb ";
+        case 3:
+            return "Mar ";
+        case 4:
+            return "Apr ";
+        case 5:
+            return "May ";
+        case 6:
+            return "Jun ";
+        case 7:
+            return "Jul ";
+        case 8:
+            return "Aug ";
+        case 9:
+            return "Sep ";
+        case 10:
+            return "Oct ";
+        case 11:
+            return "Nov ";
+        case 12:
+            return "Dec ";
+        default:
+            return month;
         }
     }
 

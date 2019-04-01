@@ -8,7 +8,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.order.exceptions.DuplicateOrderItemException;
 import seedu.address.model.statistics.exceptions.DailyRevenueNotFoundException;
 import seedu.address.model.statistics.exceptions.DuplicateDailyRevenueException;
 

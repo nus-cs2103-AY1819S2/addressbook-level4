@@ -60,7 +60,7 @@ public class StatisticsFlowPanel extends UiPart<Region> {
             } else {
                 limit = listSize - 20;
             }
-            for (int i = listSize-1; i >= limit; i--) {
+            for (int i = listSize - 1; i >= limit; i--) {
                 DailyRevenue dailyRevenue = dailyRevenueObservableList.get(i);
                 statisticsFlowPane.getChildren().add(new DailyStatisticsCard(dailyRevenue).getRoot());
             }

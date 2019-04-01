@@ -249,7 +249,7 @@ public class MainWindow extends UiPart<Stage> {
             break;
 
         case BILL_MODE:
-            if (logic.getRecentBill().equals(null)){
+            if (logic.getRecentBill().equals(null)) {
                 throw new BillNotFoundException();
             }
             billPanel = new BillPanel(logic.getRecentBill());

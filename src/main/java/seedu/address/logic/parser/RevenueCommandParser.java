@@ -45,7 +45,7 @@ public class RevenueCommandParser implements Parser<RevenueCommand> {
                 PREFIX_MONTH)) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RevenueCommand.MESSAGE_USAGE));
 
-        } else if (arePrefixesPresent(argMultimap, PREFIX_DAY, PREFIX_MONTH, PREFIX_YEAR)){
+        } else if (arePrefixesPresent(argMultimap, PREFIX_DAY, PREFIX_MONTH, PREFIX_YEAR)) {
             //daily
             day = ParserUtil.parseDay(argMultimap.getValue(PREFIX_DAY).get());
             month = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_MONTH).get());

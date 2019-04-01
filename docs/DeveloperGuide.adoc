@@ -21,6 +21,9 @@ By: `Team W10-3`      Since: `Feb 2019`      Licence: `MIT`
 == Introduction
 Welcome to the Developer Guide for _Equipment Manager_!
 
+[[GUI]]
+image::Ui.png[width="790"]
+
 _Equipment Manager_ is an application that allows engineers to keep track of the Preventive Maintenance schedule of all Resuscitation Devices in Singapore. It will help engineers to plan the number of equipment to carry out preventive maintenance, and also keep track on each equipment details such as status and location. +
 
 Objectives of the application include:

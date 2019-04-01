@@ -26,6 +26,4 @@ public class ShowAnswerCommand extends Command {
     }
 
 
-
-
 }

@@ -12,9 +12,9 @@ public class BackCommand extends Command {
 
     public static final String COMMAND_WORD = "back";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Close the deck and return to the main page.\n"
-            + "Example: " + COMMAND_WORD + " 1";
+    public static final String MESSAGE_USAGE =
+            COMMAND_WORD + ": Close the deck and return to the main page.\n" + "Example: " + COMMAND_WORD
+                    + " 1";
 
     private static final String MESSAGE_CLOSE_DECK_SUCCESS = "Closed deck";
 

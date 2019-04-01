@@ -23,7 +23,8 @@ public class TopDeckParser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern
+            .compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.
@@ -35,7 +36,8 @@ public class TopDeckParser {
     public Command parseCommand(String userInput, Model model) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches() && !userInput.equals("")) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
         String commandWord = "";
         String arguments = "";
@@ -47,69 +49,69 @@ public class TopDeckParser {
             return model.parse(commandWord, arguments);
         } catch (ParseException e) {
             switch (commandWord) {
-                case ListCommand.COMMAND_WORD:
-                    return new ListCommand(model.getViewState());
-                case HistoryCommand.COMMAND_WORD:
-                    return new HistoryCommand();
-                case UndoCommand.COMMAND_WORD:
-                    return new UndoCommand(model.getViewState());
-                case RedoCommand.COMMAND_WORD:
-                    return new RedoCommand(model.getViewState());
-                case ExitCommand.COMMAND_WORD:
-                    return new ExitCommand();
-                case HelpCommand.COMMAND_WORD:
-                    return new HelpCommand();
-                default:
-                    throw e;
+            case ListCommand.COMMAND_WORD:
+                return new ListCommand(model.getViewState());
+            case HistoryCommand.COMMAND_WORD:
+                return new HistoryCommand();
+            case UndoCommand.COMMAND_WORD:
+                return new UndoCommand(model.getViewState());
+            case RedoCommand.COMMAND_WORD:
+                return new RedoCommand(model.getViewState());
+            case ExitCommand.COMMAND_WORD:
+                return new ExitCommand();
+            case HelpCommand.COMMAND_WORD:
+                return new HelpCommand();
+            default:
+                throw e;
             }
         }
 
         /**
-        switch (commandWord) {
+         switch (commandWord) {
 
-        case AddCardCommand.COMMAND_WORD:
-            return new AddCardCommandParser().parse(arguments);
+         case AddCardCommand.COMMAND_WORD:
+         return new AddCardCommandParser().parse(arguments);
 
-        case EditCardCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+         case EditCardCommand.COMMAND_WORD:
+         return new EditCommandParser().parse(arguments);
 
-        case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
+         case SelectCommand.COMMAND_WORD:
+         return new SelectCommandParser().parse(arguments);
 
-        case DeleteCardCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+         case DeleteCardCommand.COMMAND_WORD:
+         return new DeleteCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+         case ClearCommand.COMMAND_WORD:
+         return new ClearCommand();
 
-        case FindCardCommand.COMMAND_WORD:
-            return new FindCardCommandParser().parse(arguments);
+         case FindCardCommand.COMMAND_WORD:
+         return new FindCardCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+         case ListCommand.COMMAND_WORD:
+         return new ListCommand();
 
-        case HistoryCommand.COMMAND_WORD:
-            return new HistoryCommand();
+         case HistoryCommand.COMMAND_WORD:
+         return new HistoryCommand();
 
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
+         case ExitCommand.COMMAND_WORD:
+         return new ExitCommand();
 
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+         case HelpCommand.COMMAND_WORD:
+         return new HelpCommand();
 
-        case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
+         case UndoCommand.COMMAND_WORD:
+         return new UndoCommand();
 
-        case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
+         case RedoCommand.COMMAND_WORD:
+         return new RedoCommand();
 
-        case AddDeckCommand.COMMAND_WORD:
-            return new AddDeckCommandParser().parse(arguments);
+         case AddDeckCommand.COMMAND_WORD:
+         return new AddDeckCommandParser().parse(arguments);
 
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-        }
-        **/
+         default:
+         throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+         }
+         **/
     }
 
 }

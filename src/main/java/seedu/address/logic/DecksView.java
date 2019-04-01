@@ -44,20 +44,20 @@ public class DecksView implements ListViewState {
     @Override
     public Command parse(String commandWord, String arguments) throws ParseException {
         switch (commandWord) {
-            case AddDeckCommand.COMMAND_WORD:
-                return new AddDeckCommandParser(this).parse(arguments);
-            case SelectCommand.COMMAND_WORD:
-                return new SelectCommandParser(this).parse(arguments);
-            case OpenDeckCommand.COMMAND_WORD:
-                return new OpenDeckCommandParser(this).parse(arguments);
-            case StudyDeckCommand.COMMAND_WORD:
-                return new StudyDeckCommandParser(this).parse(arguments);
-            case DeleteDeckCommand.COMMAND_WORD:
-                return new DeleteDeckCommandParser(this).parse(arguments);
-            case EditDeckCommand.COMMAND_WORD:
-                return new EditDeckCommandParser(this).parse(arguments);
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        case AddDeckCommand.COMMAND_WORD:
+            return new AddDeckCommandParser(this).parse(arguments);
+        case SelectCommand.COMMAND_WORD:
+            return new SelectCommandParser(this).parse(arguments);
+        case OpenDeckCommand.COMMAND_WORD:
+            return new OpenDeckCommandParser(this).parse(arguments);
+        case StudyDeckCommand.COMMAND_WORD:
+            return new StudyDeckCommandParser(this).parse(arguments);
+        case DeleteDeckCommand.COMMAND_WORD:
+            return new DeleteDeckCommandParser(this).parse(arguments);
+        case EditDeckCommand.COMMAND_WORD:
+            return new EditDeckCommandParser(this).parse(arguments);
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 
@@ -71,8 +71,9 @@ public class DecksView implements ListViewState {
                 return;
             }
 
-            boolean wasSelectedItemReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedDeck.getValue());
+            boolean wasSelectedItemReplaced =
+                    change.wasReplaced() && change.getAddedSize() == change.getRemovedSize() && change
+                            .getRemoved().contains(selectedDeck.getValue());
             if (wasSelectedItemReplaced) {
                 // Update selectedDeck to its new value.
                 int index = change.getRemoved().indexOf(selectedDeck.getValue());
@@ -80,12 +81,13 @@ public class DecksView implements ListViewState {
                 continue;
             }
 
-            boolean wasSelectedItemRemoved = change.getRemoved().stream()
-                    .anyMatch(removedItem -> selectedDeck.getValue().equals(removedItem));
+            boolean wasSelectedItemRemoved = change.getRemoved().stream().anyMatch(
+                    removedItem -> selectedDeck.getValue().equals(removedItem));
             if (wasSelectedItemRemoved) {
                 // Select the card that came before it in the list,
                 // or clear the selection if there is no such card.
-                selectedDeck.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+                selectedDeck
+                        .setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }

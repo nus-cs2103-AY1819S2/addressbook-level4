@@ -93,8 +93,8 @@ public class DeleteCardCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_CARD;
         // ensures that outOfBoundIndex is still in bounds of cards list
-        assertTrue(outOfBoundIndex.getZeroBased() <
-            model.getTopDeck().getDeckList().get(0).getCards().internalList.size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getTopDeck().getDeckList().get(0)
+                                                         .getCards().internalList.size());
 
         DeleteCardCommand deleteCommand = new DeleteCardCommand(cardsView, outOfBoundIndex);
 
@@ -119,13 +119,15 @@ public class DeleteCardCommandTest {
         expectedModel.undoTopDeck();
         updateCardsView(expectedModel);
 
-        assertUpdateCommandSuccess(new UndoCommand(cardsView), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertUpdateCommandSuccess(new UndoCommand(cardsView), model, commandHistory,
+                                   UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first card deleted again
         expectedModel.redoTopDeck();
         updateCardsView(expectedModel);
 
-        assertUpdateCommandSuccess(new RedoCommand(cardsView), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertUpdateCommandSuccess(new RedoCommand(cardsView), model, commandHistory,
+                                   RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -167,12 +169,14 @@ public class DeleteCardCommandTest {
         // undo -> reverts topdeck back to previous state and filtered card list to show all cards
         expectedModel.undoTopDeck();
         updateCardsView(expectedModel);
-        assertUpdateCommandSuccess(new UndoCommand(cardsView), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertUpdateCommandSuccess(new UndoCommand(cardsView), model, commandHistory,
+                                   UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> deletes same second card in unfiltered card list
         expectedModel.redoTopDeck();
         updateCardsView(expectedModel);
-        assertUpdateCommandSuccess(new RedoCommand(cardsView), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertUpdateCommandSuccess(new RedoCommand(cardsView), model, commandHistory,
+                                   RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test

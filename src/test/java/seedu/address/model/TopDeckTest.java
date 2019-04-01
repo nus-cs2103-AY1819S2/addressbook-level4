@@ -33,10 +33,9 @@ import seedu.address.testutil.CardBuilder;
 import seedu.address.testutil.DeckBuilder;
 
 public class TopDeckTest {
+    private final TopDeck topDeck = new TopDeck();
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
-    private final TopDeck topDeck = new TopDeck();
 
     @Test
     public void constructor() {
@@ -141,8 +140,7 @@ public class TopDeckTest {
         TopDeck typicalTopDeck = getTypicalTopDeck();
         Deck newDeck = typicalTopDeck.addCard(ADDITION, DECK_A);
 
-        Deck expectedDeck = new DeckBuilder(DECK_A)
-            .withCards(Arrays.asList(ADDITION)).build();
+        Deck expectedDeck = new DeckBuilder(DECK_A).withCards(Arrays.asList(ADDITION)).build();
 
         assertEquals(newDeck, expectedDeck);
     }
@@ -201,8 +199,7 @@ public class TopDeckTest {
     @Test
     public void setCard_cardInList_returnsEditedDeck() {
         TopDeck typicalTopDeck = getTypicalTopDeck();
-        Card newCard = new CardBuilder().withQuestion("Edited Question")
-            .withAnswer("Edited Answer").build();
+        Card newCard = new CardBuilder().withQuestion("Edited Question").withAnswer("Edited Answer").build();
         Deck newDeck = typicalTopDeck.setCard(ADDITION, newCard, DECK_WITH_CARDS);
 
         Deck expectedDeck = new DeckBuilder(DECK_WITH_CARDS).build();

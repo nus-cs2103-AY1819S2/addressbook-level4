@@ -22,10 +22,9 @@ import seedu.address.model.deck.exceptions.DuplicateCardException;
 import seedu.address.testutil.CardBuilder;
 
 public class UniqueCardListTest {
+    private final UniqueCardList uniqueCardList = new UniqueCardList();
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
-    private final UniqueCardList uniqueCardList = new UniqueCardList();
 
     @Test
     public void contains_nullCard_throwsNullPointerException() {
@@ -48,7 +47,7 @@ public class UniqueCardListTest {
     public void contains_cardWithSameIdentityFieldsInList_returnsTrue() {
         uniqueCardList.add(ADDITION);
         Card editedAddition = new CardBuilder(ADDITION).withAnswer(VALID_ANSWER_MOD).withTags(VALID_TAG_MOD)
-                .build();
+                                                       .build();
         assertTrue(uniqueCardList.contains(editedAddition));
     }
 
@@ -96,7 +95,7 @@ public class UniqueCardListTest {
     public void setCard_editedCardHasSameIdentity_success() {
         uniqueCardList.add(ADDITION);
         Card editedAddition = new CardBuilder(ADDITION).withAnswer(VALID_ANSWER_HELLO).withTags(VALID_TAG_MOD)
-                .build();
+                                                       .build();
         uniqueCardList.setCard(ADDITION, editedAddition);
         UniqueCardList expectedUniqueCardList = new UniqueCardList();
         expectedUniqueCardList.add(editedAddition);

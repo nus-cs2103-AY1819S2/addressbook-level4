@@ -36,6 +36,7 @@ For the full list of commands, you can head to <<Command Summary>>
 
 === Interacting with QuickDocs
 
+.The user interface for QuickDocs
 image::ui_explanation.png[width="600" align="center"]
 
 .   This is the *command input* box , this is where you can type and execute the various commands
@@ -83,6 +84,8 @@ Format: `help`
 
 {nbsp} +
 
+'''
+
 === Patient Management
 The Patient Management module features commands involving the registration, update, searching
 and removal of patient records in QuickDocs.
@@ -121,7 +124,7 @@ The order of input does not matter as long as they are all captured. +
 After entering the `addpat` command, QuickDocs will show the details of the recently added patient on the
 main display as demonstrated in the diagram below:
 
-.Main display after addpat command
+.The main display after addpat command
 image::ap_after.png[width="600" align="center"]
 
 '''
@@ -195,7 +198,7 @@ Index can also be used to narrow down patient searches to a single record.
 
 If no keywords are entered, `listpat` will simply display the first 50 patients record stored.
 
-.listpat command without any matching criteria
+.executing the listpat command without any matching criteria
 image::lp_noargs.png[width="600" align="center"]
 
 {sp} +
@@ -205,7 +208,7 @@ image::lp_noargs.png[width="600" align="center"]
 Suppose you want to quickly find a patient record whose name starts with "P", you can use `listpat` along
 with a sequence of characters to search for the specific patient record you are interested in.
 
-.listing patients with matching name
+.Listing patients with matching name
 image::lp_name_after.png[width="600" align="center"]
 
 {sp} +
@@ -215,14 +218,14 @@ image::lp_name_after.png[width="600" align="center"]
 You can narrow down your patient search by providing a NRIC sequence as well. For example,
 in the figure below, you can retrieve all the patients whose NRIC starts with "S92".
 
-.listing patients with matching NRIC
+.Listing patients with matching NRIC
 image::lp_nric_after.png[width="600" align="center"]
 
 {sp} +
 After narrowing down your search, you will be able to use the specific NRIC number of a particular patient to view the in-depth
 patient particulars.
 
-.showing specific patient's record using the full NRIC
+.Showing specific patient's record using the full NRIC
 image::lp_nric_specific.png[width="600" align="center"]
 
 {sp} +
@@ -232,7 +235,7 @@ image::lp_nric_specific.png[width="600" align="center"]
 The tags you assigned to each patient can also be used to expedite the `listpat` command. For example, diabetic patients can be
 listed using the `listpat` command along with "t/diabetes" value.
 
-.listing patients by specific tag
+.Listing patients by specific tag
 image::lp_tag_after.png[width="600" align="center"]
 
 {sp} +
@@ -269,9 +272,11 @@ By specifying the NRIC along with the `deletepat` command, you will delete the p
 .Deleting patient records using the specific NRIC
 image::dp_after.png[width="600" align="center"]
 
+{nbsp} +
+
 '''
 
-{nbsp} +
+
 
 === Consultation Management
 
@@ -414,7 +419,7 @@ No further changes to the diagnosis and prescription details can be made after t
 *Result:*
 Once you entered the `endconsult` command, a message to indicate the end of the consultation session is also shown on the main display area. The label for the ongoing consultation session is also removed after the command is entered.
 
-.results of an endconsult command
+.Results of an endconsult command
 image::endconsult.png[width="600" align="center"]
 
 '''
@@ -454,8 +459,9 @@ You can then call `listconsult` again with the consultation record's index to vi
 .Revisiting a specific consultation session
 image::listconsult_index.png[width="600" align="center"]
 
-'''
 {nbsp} +
+
+'''
 
 === Medicine Management
 [[adddirec, Add directory]]

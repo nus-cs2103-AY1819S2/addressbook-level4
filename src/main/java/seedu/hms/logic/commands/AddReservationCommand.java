@@ -22,7 +22,7 @@ public class AddReservationCommand extends ReservationCommand {
     public static final String COMMAND_ALIAS = "ar";
     public static final String COMMAND_WORD = "add-reservation";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a reservation to the hotel management system. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a reservation to the hotel management system.\n"
         + "Parameters: "
         + PREFIX_ROOM + "ROOM NAME "
         + PREFIX_DATES + "DATES(DD/MM/YY - DD/MM/YY) "

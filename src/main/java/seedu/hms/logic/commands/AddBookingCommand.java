@@ -22,7 +22,7 @@ public class AddBookingCommand extends BookingCommand {
     public static final String COMMAND_ALIAS = "ab";
     public static final String COMMAND_WORD = "add-booking";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a booking to the hotel management system. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a booking to the hotel management system.\n"
         + "Parameters: "
         + PREFIX_SERVICE + "SERVICE NAME "
         + PREFIX_TIMING + "TIMING(HH - HH in 24 hour format) "

@@ -32,12 +32,12 @@ public class EditBookingCommand extends BookingCommand {
     public static final String COMMAND_ALIAS = "eb";
     public static final String COMMAND_WORD = "edit-booking";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a booking to the hotel management system. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a booking to the hotel management system.\n"
         + "Parameters: BOOKING INDEX (to edit) "
         + "[" + PREFIX_SERVICE + "SERVICE NAME "
         + "[" + PREFIX_TIMING + "TIMING(HH - HH in 24 hour format)] "
-        + "[" + PREFIX_PAYER + "PAYER INDEX]"
-        + "[" + PREFIX_CUSTOMERS + "CUSTOMER INDEX(s)]... "
+        + "[" + PREFIX_PAYER + "PAYER INDEX]\n"
+        + "[" + PREFIX_CUSTOMERS + "CUSTOMER INDEX(s)...] "
         + "[" + PREFIX_COMMENT + "COMMENT]\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_SERVICE + "GYM "

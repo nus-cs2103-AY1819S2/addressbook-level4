@@ -1,8 +1,5 @@
 package seedu.finance.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Date;
@@ -20,19 +17,20 @@ public class RecordBuilder {
     public static final String DEFAULT_AMOUNT = "12";
     public static final String DEFAULT_DATE = "12/12/2019";
     public static final String DEFAULT_DESCRIPTION = "";
+    public static final String DEFAULT_CATEGORY = "friend";
 
     private Name name;
     private Amount amount;
     private Date date;
     private Description description;
-    private Set<Category> categories;
+    private Category category;
 
     public RecordBuilder() {
         name = new Name(DEFAULT_NAME);
         amount = new Amount(DEFAULT_AMOUNT);
         date = new Date(DEFAULT_DATE);
         description = new Description(DEFAULT_DESCRIPTION);
-        categories = new HashSet<>();
+        category = new Category(DEFAULT_CATEGORY);
     }
 
     /**
@@ -44,7 +42,7 @@ public class RecordBuilder {
         amount = recordToCopy.getAmount();
         date = recordToCopy.getDate();
         description = recordToCopy.getDescription();
-        categories = new HashSet<>(recordToCopy.getCategories());
+        category = recordToCopy.getCategory();
     }
 
     /**
@@ -56,10 +54,10 @@ public class RecordBuilder {
     }
 
     /**
-     * Parses the {@code categories} into a {@code Set<Category>} and set it to the {@code Record} that we are building.
+     * Parses the {@code category} into a {@code Category} and set it to the {@code Record} that we are building.
      */
-    public RecordBuilder withCategories(String ... categories) {
-        this.categories = SampleDataUtil.getCategorySet(categories);
+    public RecordBuilder withCategory(String category) {
+        this.category = SampleDataUtil.getCategory(category);
         return this;
     }
 
@@ -92,7 +90,7 @@ public class RecordBuilder {
      * @return Record with fields specified by Class
      */
     public Record build() {
-        return new Record(name, amount, date, description, categories);
+        return new Record(name, amount, date, description, category);
     }
 
 }

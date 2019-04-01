@@ -140,6 +140,9 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
 
     // =============================== Category Budget =============================================================
     //@author Jackimaru96
+    public Budget getBudget() {
+        return budget;
+    }
 
     public void addCategoryBudget(CategoryBudget catBudget) throws CategoryBudgetExceedTotalBudgetException {
         budget.setNewCategoryBudget(catBudget);
@@ -167,10 +170,6 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
     @Override
     public String toString() {
         return records.asUnmodifiableObservableList().size() + " records";
-    }
-
-    public Budget getBudget() {
-        return budget;
     }
 
     @Override

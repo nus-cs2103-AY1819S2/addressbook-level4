@@ -61,10 +61,10 @@ public class CommandTestUtil {
     static {
         DESC_AMY = new EditRecordDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withAmount(VALID_AMOUNT_AMY).withDate(VALID_DATE_AMY)
-                .withCategories(VALID_CATEGORY_FRIEND).build();
+                .withCategory(VALID_CATEGORY_FRIEND).build();
         DESC_BOB = new EditRecordDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withAmount(VALID_AMOUNT_BOB).withDate(VALID_DATE_BOB)
-                .withCategories(VALID_CATEGORY_HUSBAND, VALID_CATEGORY_FRIEND).build();
+                .withCategory(VALID_CATEGORY_HUSBAND).build();
     }
 
     /**

@@ -1,9 +1,5 @@
 package seedu.finance.model.util;
 
-import java.util.Arrays;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.ReadOnlyFinanceTracker;
 import seedu.finance.model.category.Category;
@@ -47,10 +43,11 @@ public class SampleDataUtil {
     /**
      * Returns a category set containing the list of strings given.
      */
-    public static Set<Category> getCategorySet(String... strings) {
-        return Arrays.stream(strings)
+    public static Category getCategory(String string) {
+        /*return Arrays.stream(strings)
                 .map(Category::new)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toSet());*/
+        return new Category(string);
     }
 
 }

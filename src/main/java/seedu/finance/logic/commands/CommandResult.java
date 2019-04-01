@@ -41,7 +41,7 @@ public class CommandResult {
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
-     * For changing of theme
+     * For changing of budget
      */
     public CommandResult(String feedbackToUser, boolean changeBudget, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
@@ -50,6 +50,15 @@ public class CommandResult {
         this.exit = exit;
     }
 
+    /**
+     * Constructs a {@code CommandResult} with specified fields.
+     * Given by AB4
+     */
+    public CommandResult(String feedbacktoUser, boolean showHelp, boolean exit) {
+        this.feedbackToUser = requireNonNull(feedbacktoUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+    }
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value.

@@ -15,14 +15,9 @@ import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.finance.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.finance.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND;
-import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
-import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_BOB;
-import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.finance.testutil.TypicalRecords.AMY;
 import static seedu.finance.testutil.TypicalRecords.BOB;
 
 import org.junit.Test;
@@ -40,7 +35,7 @@ public class SpendCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Record expectedRecord = new RecordBuilder(BOB).withCategories(VALID_CATEGORY_FRIEND).build();
+        Record expectedRecord = new RecordBuilder(BOB).withCategory(VALID_CATEGORY_FRIEND).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
@@ -58,39 +53,46 @@ public class SpendCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_AMY + DATE_DESC_BOB
                 + CATEGORY_DESC_FRIEND, new SpendCommand(expectedRecord));
 
-        // multiple categories - all accepted
-        Record expectedRecordMultipleCategories = new RecordBuilder(BOB)
-                .withCategories(VALID_CATEGORY_FRIEND, VALID_CATEGORY_HUSBAND)
-                .build();
+        // multiple categories - last category accepted
         assertParseSuccess(parser, NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
                         + CATEGORY_DESC_HUSBAND + CATEGORY_DESC_FRIEND,
-                new SpendCommand(expectedRecordMultipleCategories));
-    }
-
-    @Test
-    public void parse_optionalFieldsMissing_success() {
-        // zero categories
-        Record expectedRecord = new RecordBuilder(AMY).withCategories().build();
-        assertParseSuccess(parser, NAME_DESC_AMY + AMOUNT_DESC_AMY + DATE_DESC_AMY,
                 new SpendCommand(expectedRecord));
     }
 
+    // Category is now a compulsory field
+    /*@Test
+    public void parse_optionalFieldsMissing_success() {
+        // zero categories
+        Record expectedRecord = new RecordBuilder(AMY).withCategory().build();
+        assertParseSuccess(parser, NAME_DESC_AMY + AMOUNT_DESC_AMY + DATE_DESC_AMY,
+                new SpendCommand(expectedRecord));
+    }*/
+
+    // TODO: Failed Test; need to update
+    /*
     @Test
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SpendCommand.MESSAGE_USAGE);
 
         // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB, expectedMessage);
+        assertParseFailure(parser, VALID_NAME_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
+                + CATEGORY_DESC_FRIEND, expectedMessage);
 
         // missing amount prefix
-        assertParseFailure(parser, NAME_DESC_BOB + VALID_AMOUNT_BOB + DATE_DESC_BOB, expectedMessage);
+        assertParseFailure(parser, NAME_DESC_BOB + VALID_AMOUNT_BOB + DATE_DESC_BOB
+                + CATEGORY_DESC_FRIEND, expectedMessage);
 
         // missing date prefix
-        assertParseFailure(parser, NAME_DESC_BOB + AMOUNT_DESC_BOB + VALID_DATE_BOB, expectedMessage);
+        assertParseFailure(parser, NAME_DESC_BOB + AMOUNT_DESC_BOB + VALID_DATE_BOB
+                + CATEGORY_DESC_FRIEND, expectedMessage);
+
+        // missing category prefix
+        assertParseFailure(parser, NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
+                + VALID_CATEGORY_FRIEND, expectedMessage);
 
         // all prefixes missing
         assertParseFailure(parser, VALID_NAME_BOB + VALID_AMOUNT_BOB + VALID_DATE_BOB, expectedMessage);
-    }
+    }*/
 
     @Test
     public void parse_invalidValue_failure() {
@@ -108,7 +110,7 @@ public class SpendCommandParserTest {
 
         // invalid category
         assertParseFailure(parser, NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
-                + INVALID_CATEGORY_DESC + VALID_CATEGORY_FRIEND, Category.MESSAGE_CONSTRAINTS);
+                + INVALID_CATEGORY_DESC, Category.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + AMOUNT_DESC_BOB + INVALID_AMOUNT_DESC

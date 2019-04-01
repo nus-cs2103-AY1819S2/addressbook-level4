@@ -47,7 +47,7 @@ public class UniqueRecordListTest {
     public void contains_recordWithSameIdentityFieldsInList_returnsTrue() {
         uniqueRecordList.add(APPLE);
         Record editedApple = new RecordBuilder(APPLE).withAmount(VALID_AMOUNT_BOB)
-                .withCategories(VALID_CATEGORY_HUSBAND)
+                .withCategory(VALID_CATEGORY_HUSBAND)
                 .build();
         assertTrue(uniqueRecordList.contains(editedApple));
     }
@@ -96,7 +96,7 @@ public class UniqueRecordListTest {
     public void setRecord_editedRecordHasSameIdentity_success() {
         uniqueRecordList.add(APPLE);
         Record editedApple = new RecordBuilder(APPLE).withAmount(VALID_AMOUNT_BOB)
-                .withCategories(VALID_CATEGORY_HUSBAND)
+                .withCategory(VALID_CATEGORY_HUSBAND)
                 .build();
         uniqueRecordList.setRecord(APPLE, editedApple);
         UniqueRecordList expectedUniqueRecordList = new UniqueRecordList();

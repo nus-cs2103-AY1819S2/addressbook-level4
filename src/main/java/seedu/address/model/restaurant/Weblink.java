@@ -60,18 +60,18 @@ public class Weblink {
      * Checks if a given string is a valid weblink URL, ie. HTTP response code should not be 400 and above
      * The only acceptable malformed Url is the default placeholder for no weblinks, NO_WEBLINK_STRING
      */
-    public static boolean isValidWeblinkUrl(String urlString) {
+    public static boolean isNotValidWeblinkUrl(String urlString) {
         try {
             urlString = Weblink.prependHttps(urlString);
             URL u = new URL(urlString);
             HttpURLConnection huc = (HttpURLConnection) u.openConnection();
             huc.setRequestMethod("HEAD");
             huc.connect();
-            return huc.getResponseCode() < 400;
+            return huc.getResponseCode() >= 400;
         } catch (MalformedURLException e) {
-            return urlString.equals(NO_WEBLINK_STRING);
+            return !urlString.equals(NO_WEBLINK_STRING);
         } catch (IOException e) {
-            return false;
+            return true;
         }
     }
 

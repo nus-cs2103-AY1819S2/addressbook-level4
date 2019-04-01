@@ -60,7 +60,7 @@ public class VisitWebCommand extends Command {
 
             // if original weblink is removed, prompt user to change weblink
             Weblink weblink = filteredRestaurantList.get(targetIndex.getZeroBased()).getWeblink();
-            if (!Weblink.isValidWeblinkUrl(weblink.value)) {
+            if (Weblink.isNotValidWeblinkUrl(weblink.value)) {
                 throw new CommandException(String.format(Messages.MESSAGE_CHANGE_WEBLINK, weblink.value));
             }
 

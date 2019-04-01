@@ -27,6 +27,7 @@ public class InformationPanel extends UiPart<Region> {
         selectedMedicine.addListener((observable, oldSelectMedicine, newSelectedMedicine) -> {
             emptyInformationPanel();
             if (newSelectedMedicine != null) {
+                logger.fine("Information panel displaying details of " + newSelectedMedicine);
                 showSelectedInformation(newSelectedMedicine);
             }
         });
@@ -41,5 +42,4 @@ public class InformationPanel extends UiPart<Region> {
             informationPanel.getChildren().clear();
         }
     }
-
 }

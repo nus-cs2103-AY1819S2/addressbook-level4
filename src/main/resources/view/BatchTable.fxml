@@ -22,7 +22,7 @@
     </top>
 
     <center>
-        <TableView fx:id="tablePane" minWidth="400" prefWidth="400">
+        <TableView fx:id="table" minWidth="400" prefWidth="400">
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>

@@ -152,7 +152,6 @@ public class ModelManager implements Model {
         // updateFilteredDoctorList(PREDICATE_SHOW_ALL_DOCTORS);
     }
 
-<<<<<<< HEAD
     @Override
     public boolean hasAppointment(Appointment appointment) {
         requireNonNull(appointment);
@@ -162,19 +161,8 @@ public class ModelManager implements Model {
     @Override
     public void addAppointment(Appointment appointment) {
         versionedAddressBook.addAppointment(appointment);
-=======
-    public ReadOnlyProperty<Doctor> selectedDoctorProperty() {
-        return selectedDoctor;
     }
 
-    @Override
-    public void setSelectedDoctor(Doctor doctor) {
-        if (doctor != null && !filteredDoctors.contains(doctor)) {
-            throw new DoctorNotFoundException();
-        }
-        selectedDoctor.setValue(doctor);
->>>>>>> added list doctor cmd
-    }
 
     public ReadOnlyProperty<Doctor> selectedDoctorProperty() {
         return selectedDoctor;

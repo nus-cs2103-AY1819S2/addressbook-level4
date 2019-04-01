@@ -104,31 +104,12 @@ class JsonSerializableAddressBook {
             if (addressBook.hasAppointment(appointment)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
             }
-<<<<<<< HEAD
-        }
-=======
             //System.out.println(appointment);
             addressBook.addAppointment(appointment);
         }
 
-        for (JsonAdaptedDoctor jsonAdaptedDoctor : doctors) {
-            Doctor doctor = jsonAdaptedDoctor.toModelType();
-            if (addressBook.hasDoctor(doctor)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_DOCTOR);
-            }
-            addressBook.addDoctor(doctor);
-        }
-        /*
-        for (JsonAdaptedMedicalHistory jsonAdaptedMedicalHistory : medicalHistories) {
-            MedicalHistory medicalHistory = jsonAdaptedMedicalHistory.toModelType();
-            if (addressBook.hasMedHist(medicalHistory)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_MEDHIST);
-            }
-            addressBook.addMedicalHistory(medicalhistory);
-        }
-
->>>>>>> added list doctor cmd
         */
+        
         return addressBook;
     }
 }

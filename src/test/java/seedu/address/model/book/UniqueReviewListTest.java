@@ -1,25 +1,25 @@
-package seedu.address.model.review;
-
-import org.junit.Rule;
-import org.junit.rules.ExpectedException;
-import org.junit.Test;
-import seedu.address.model.book.Review;
-import seedu.address.model.book.UniqueReviewList;
-import seedu.address.model.book.exceptions.DuplicateReviewException;
-import seedu.address.model.book.exceptions.ReviewNotFoundException;
-import seedu.address.testutil.ReviewBuilder;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+package seedu.address.model.book;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ALTERNATIVE_DATE;
-import static seedu.address.testutil.TypicalBooks.ALI;
 import static seedu.address.testutil.TypicalBooks.ALICE_REVIEW;
 import static seedu.address.testutil.TypicalBooks.CS_REVIEW;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import seedu.address.model.book.exceptions.DuplicateReviewException;
+import seedu.address.model.book.exceptions.ReviewNotFoundException;
+import seedu.address.testutil.ReviewBuilder;
+
+
 
 public class UniqueReviewListTest {
     @Rule

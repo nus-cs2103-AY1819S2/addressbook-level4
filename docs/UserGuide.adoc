@@ -50,11 +50,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME a/AUTHOR`, `a/AUTHOR n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== Book Commands
 
-Format: `help`
-
-=== Adding a book: `addBook`
+==== Adding a book: `addBook`
 
 Adds a book to the book list +
 Format: `addBook n/BOOKNAME a/author m/RATING(0-10) [t/TAG]…​`
@@ -64,19 +62,8 @@ Examples:
 * `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale`
 * `addBook n/Structure and Interpretation of Computer Programs a/Hal Abelson Jerry Sussman m/4 t/textbook`
 
-=== Adding a book review: `addReview`
 
-Adds a book review to a certain book in the book list +
-
-Format: `addReview n/BOOKNAME rt/REVIEW TITLE r/REVIEW MESSAGE
-
-Examples:
-
-* `addReview n/Alice in Wonderland rt/An interesting child book r/While Lewis Carroll purists will scoff at the aging of his curious young protagonist, most movie audiences will enjoy this colorful world.`
-* `addReview n/Structure and Interpretation of Computer Programs rt/Computing Bible r/A very difficult book:(`
-
-
-=== Listing book entries : `listBook`
+==== Listing book entries : `listBook`
 
 Shows a list of all book entries, with the specified TAG and RATING. +
 Format: `listBook [n/BOOKNAME] [a/AUTHOR] [t/TAG] [m/RATING]`
@@ -99,22 +86,7 @@ Examples:
 * `listBook n/CS2104T t/textbook`
 * `listBook m/5`
 
-=== Listing book reviews of a certain book : `listReview`
-
-Shows a list of all review entries of a book. +
-Format: `listReview n/BOOKNAME`
-
-****
-* The book name need to match exactly
-* The search by book name is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does matter. e.g. `Alice Wonderland` will not match `Wonderland Alice`
-****
-
-Examples:
-
-* `listReview n/Alice in Wonderland`
-
-=== Editing book entry : `editBook`
+==== Editing book entry : `editBook`
 
 Edits an existing book entry (eg. edit the mark, author or tag). +
 Format: `editBook INDEX [n/BOOKNAME] [a/AUTHOR] [m/RATING] [t/TAG]...`
@@ -134,7 +106,7 @@ Change the name, author, tag of the first book to Alice in Wonderland, some auth
 * `edit 2 t/` +
 Clear all the existing tags of the second book in the result list.
 
-=== Deleting a book : `deleteBook`
+==== Deleting a book : `deleteBook`
 
 Deletes the specified book from the book list. +
 Format: `deleteBook INDEX`
@@ -143,6 +115,7 @@ Format: `deleteBook INDEX`
 * Deletes the book of the specified `INDEX`.
 * The index refers to the index number shown in the displayed book list.
 * The index must be a positive integer 1, 2, 3, …​
+* The reviews of the deleted book will also be deleted.
 ****
 
 Examples:
@@ -151,27 +124,8 @@ Examples:
 `deleteBook 1` +
 Deletes the 1st person in the results of the listBook command.
 
-=== Deleting a book review: `deleteReview`
 
-Deletes the review of the specified book from the review list. +
-Format: `deleteReview rt/REVIEW TITLE`
-
-****
-* Deletes of the book with the specified REVIEW TITLE.
-* The REVIEW TITLE must only contain alphanumeric characters
-* and exist in the review list.
-****
-
-Examples:
-
-* `listBook` +
-`deleteBook 2` +
-Deletes the 2nd person in the book shelf.
-* `listReview n/Alice in Wonderland` +
-`deleteReview rt/An interesting children's book` +
-Deletes the review with the title "An interesting children's book"
-
-=== Sort books commands : `sortBook`
+==== Sort books command : `sortBook`
 
 sort bookList in specify order. +
 Format: `sortBook st/TYPE o/ORDER`
@@ -189,7 +143,76 @@ sort bookList by book name in ascending order.
 * `sortBook st/RATING o/des`
 sort bookList by rating of the book in descending order.
 
-=== Listing entered commands : `history`
+=== Review Commands
+
+==== Adding a book review: `addReview`
+
+Adds a book review to a certain book in the book list +
+
+Format: `addReview n/BOOKNAME rt/REVIEW TITLE r/REVIEW MESSAGE
+
+Examples:
+
+* `addReview n/Alice in Wonderland rt/An interesting child book r/While Lewis Carroll purists will scoff at the aging of his curious young protagonist, most movie audiences will enjoy this colorful world.`
+* `addReview n/Structure and Interpretation of Computer Programs rt/Computing Bible r/A very difficult book:(`
+
+
+==== Listing book reviews of a certain book : `listReview`
+
+Lists the reviews of the book identified by the index number used in the displayed book list. +
+Format: `listReview INDEX`
+Example:
+* `listReview 1`
+
+****
+* Lists the review of the book at the specified `INDEX`.
+* The index refers to the index number shown in the displayed book list.
+* The index must be a positive integer 1, 2, 3, …​
+****
+
+
+
+==== Listing all book reviews: `listAllReviews`
+Lists all the reviews in the Book Shelf.
+Format: `listAllReviews`
+
+==== Selecting an review: `selectReview`
+Selects a review.
+
+Format: `selectReview INDEX`
+Example:
+* `selectReview 1`
+****
+* Selects the review of the specified `INDEX`.
+* The complete review will be displayed at the rightmost panel.
+* The index refers to the index number shown in the displayed review list.
+* The index must be a positive integer 1, 2, 3, …​
+****
+
+==== Deleting a book review: `deleteReview`
+
+Deletes the review of the specified index number from the review list. +
+Format: `deleteReview INDEX`
+
+Example:
+
+* `deleteReview 1`
+
+****
+* Deletes the review of the specified `INDEX`.
+* The index refers to the index number shown in the displayed review list.
+* The index must be a positive integer 1, 2, 3, …​
+****
+
+
+=== System Commands
+
+==== Viewing help : `help`
+
+Format: `help`
+
+
+==== Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
@@ -200,7 +223,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 // tag::undoredo[]
-=== Undoing previous command : `undo`
+==== Undoing previous command : `undo`
 
 Restores the records to the state before the previous _undoable_ command was executed. +
 Format: `undo`
@@ -225,7 +248,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `deleteBook 1` command) +
 
-=== Redoing the previously undone command : `redo`
+==== Redoing the previously undone command : `redo`
 
 Reverses the most recent `undo` command. +
 Format: `redo`
@@ -240,7 +263,7 @@ Examples:
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
 
-=== Give a summary of all the books read : `summary`
+==== Give a summary of all the books read : `summary`
 
 Generate a summary of all the books read so far. +
 Format: `summary`
@@ -250,26 +273,20 @@ Examples:
 * `summary`
 An example of a summary `You have read 100 books so far. Your favourite book is Alice in Wonderland. You wrote 13 reviews for it. The tag you use most commonly is “textbook.” Your favourite author is “John Doe”, you read 11 books written by him. The book that you gave the lowest rating is “Algorithms”`
 
-=== Clearing all entries : `clear`
+==== Clearing all entries : `clear`
 
 Clears all entries from the book shelf. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+==== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+==== Saving the data
 
 Book review data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
@@ -278,25 +295,35 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
+=== Book Commands
 * *AddBook* `addBook n/BOOKNAME a/author m/RATING(0-10) [t/TAG]…` +
 e.g. `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/textbook`
-* *AddReview* `addReview n/BOOKNAME r/review` +
-e.g. `addReview n/Alice in Wonderland r/While Lewis Carroll purists will scoff at the aging of his curious young protagonist, most movie audiences will enjoy this colorful world.`
-* *Clear* : `clear`
-* *DeleteBook* : `deleteBook INDEX` +
-e.g. `deleteBook 4`
-* *DeleteReview* : `deleteReview rt/REVIEW TITLE`
-* *EditBook* : `edit INDEX [n/BOOKNAME] [a/AUTHOR] [m/RATING]...` +
-e.g. `edit 1 n/Alice in Wonderland a/some author`
 * *ListBook* : `listBook [n/NAME] [t/TAG] [m/RATING] [a/Author]` +
 e.g. `listBook t/textbook m/5`
-* *ListReview* : `listReview n/BOOKNAME` +
-e.g. `listReview n/Alice in Wonderland`
+* *EditBook* : `edit INDEX [n/BOOKNAME] [a/AUTHOR] [m/RATING]...` +
+e.g. `edit 1 n/Alice in Wonderland a/some author`
+* *DeleteBook* : `deleteBook INDEX` +
+e.g. `deleteBook 4`
 * *sortBook* : `sortBook st/TYPE o/ORDER` +
 e.g. `sortBook st/AUTHOR o/ASC`
+
+=== Review Commands
+* *AddReview* `addReview n/BOOKNAME r/review` +
+e.g. `addReview n/Alice in Wonderland r/While Lewis Carroll purists will scoff at the aging of his curious young protagonist, most movie audiences will enjoy this colorful world.`
+* *ListReview* : `listReview INDEX` +
+e.g. `listReview 1`
+* *ListAllReviews* : `listAllReviews +
+e.g. `listAllReviews`
+* *SelectReview* : `selectReview INDEX` +
+e.g. `selectReview 1`
+* *DeleteReview* : `deleteReview INDEX` +
+eg. `deleteReview 1`
+
+=== System Commands
 * *Help* : `help`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Summary* : `summary`
+* *Clear* : `clear`
 * *Exit* : `exit`

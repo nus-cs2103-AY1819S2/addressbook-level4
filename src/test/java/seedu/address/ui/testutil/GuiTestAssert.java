@@ -13,7 +13,6 @@ import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.ReviewCardHandle;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.Review;
-import seedu.address.ui.BookBrowserPanel;
 import seedu.address.ui.BookCard;
 
 

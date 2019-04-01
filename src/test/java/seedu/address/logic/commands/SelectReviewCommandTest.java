@@ -7,9 +7,9 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalBooks.getTypicalBookShelfWithAllReviews;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_REVIEW;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_REVIEW;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_REVIEW;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;

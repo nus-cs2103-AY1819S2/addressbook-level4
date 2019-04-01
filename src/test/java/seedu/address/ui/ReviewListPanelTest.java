@@ -1,23 +1,23 @@
 package seedu.address.ui;
 
-import guitests.guihandles.ReviewCardHandle;
-import guitests.guihandles.ReviewListPanelHandle;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import org.junit.Test;
-import seedu.address.model.book.Author;
-import seedu.address.model.book.BookName;
-import seedu.address.model.book.Review;
-import seedu.address.model.book.ReviewTitle;
-
 import static java.time.Duration.ofMillis;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.TypicalBooks.getTypicalReviews;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_REVIEW;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysReview;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 import static seedu.address.ui.testutil.GuiTestAssert.assertReviewCardEquals;
+
+import org.junit.Test;
+
+import guitests.guihandles.ReviewCardHandle;
+import guitests.guihandles.ReviewListPanelHandle;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.model.book.BookName;
+import seedu.address.model.book.Review;
+import seedu.address.model.book.ReviewTitle;
+
 
 public class ReviewListPanelTest extends GuiUnitTest {
     private static final ObservableList<Review> TYPICAL_REVIEWS =

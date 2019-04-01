@@ -1,15 +1,14 @@
 package seedu.address.ui;
 
+import static seedu.address.ui.testutil.GuiTestAssert.assertPanelDisplaysReview;
+
 import org.junit.Before;
+import org.junit.Test;
 
 import guitests.guihandles.BookBrowserPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
-import org.junit.Test;
 import seedu.address.model.book.Review;
 import seedu.address.testutil.ReviewBuilder;
-
-import static seedu.address.ui.testutil.GuiTestAssert.assertPanelDisplaysReview;
-
 
 public class BookBrowserPanelTest extends GuiUnitTest {
     private Review review = new ReviewBuilder().build();

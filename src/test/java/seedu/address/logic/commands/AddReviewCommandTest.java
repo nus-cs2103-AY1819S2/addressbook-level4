@@ -1,10 +1,25 @@
 package seedu.address.logic.commands;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
+import static java.util.Objects.requireNonNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REVIEWMESSAGE_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REVIEWTITLE_ALICE;
+import static seedu.address.testutil.TypicalBooks.getTypicalBookShelf;
+import static seedu.address.testutil.TypicalBooks.getTypicalBookShelfWithReview;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
+
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.function.Predicate;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -20,19 +35,6 @@ import seedu.address.model.book.ReviewTitle;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ReviewBuilder;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.function.Predicate;
-
-import static java.util.Objects.requireNonNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_REVIEWMESSAGE_ALICE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_REVIEWTITLE_ALICE;
-import static seedu.address.testutil.TypicalBooks.getTypicalBookShelf;
-import static seedu.address.testutil.TypicalBooks.getTypicalBookShelfWithReview;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
 
 public class AddReviewCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();

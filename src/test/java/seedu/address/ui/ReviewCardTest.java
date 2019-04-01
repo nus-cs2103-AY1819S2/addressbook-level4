@@ -1,13 +1,15 @@
 package seedu.address.ui;
 
-import guitests.guihandles.ReviewCardHandle;
-import org.junit.Test;
-import seedu.address.model.book.Review;
-import seedu.address.testutil.ReviewBuilder;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysReview;
+
+import org.junit.Test;
+
+import guitests.guihandles.ReviewCardHandle;
+import seedu.address.model.book.Review;
+import seedu.address.testutil.ReviewBuilder;
+
 
 public class ReviewCardTest extends GuiUnitTest {
     @Test

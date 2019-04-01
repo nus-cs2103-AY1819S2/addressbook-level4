@@ -60,11 +60,11 @@ public class SrsCardsManagerTest {
     public void checkSort() {
         cardData.put(CARD_BELGIUM.hashCode(), DEFAULT_CARDSRSDATA);
         CardSrsData cardSrsDataJapan = new CardSrsData(CARD_JAPAN.hashCode(), 1, 1,
-                Instant.ofEpochMilli(1233));
+                Instant.ofEpochMilli(1233), false);
         cardData.put(CARD_JAPAN.hashCode(), cardSrsDataJapan);
         lesson.addCard(CARD_CAT);
         CardSrsData cardSrsDataCat = new CardSrsData(CARD_CAT.hashCode(), 1, 1,
-                Instant.now());
+                Instant.now(), false);
         SrsCardsManager currentManager = new SrsCardsManager(lesson, cardData);
         List<SrsCard> srsCards = currentManager.sort();
         List<SrsCard> expected = new ArrayList<>();
@@ -77,7 +77,7 @@ public class SrsCardsManagerTest {
     public void checkSortReverse() {
         cardData.put(CARD_BELGIUM.hashCode(), DEFAULT_CARDSRSDATA);
         CardSrsData cardSrsDataJapan = new CardSrsData(CARD_JAPAN.hashCode(), 1, 1,
-                Instant.ofEpochMilli(1233));
+                Instant.ofEpochMilli(1233), false);
         cardData.put(CARD_JAPAN.hashCode(), cardSrsDataJapan);
         SrsCardsManager currentManager = new SrsCardsManager(new LessonBuilder(
                 new Lesson("Capitals", List.of("Country", "Capital"), List.of("Hint"), 0,
@@ -99,20 +99,21 @@ public class SrsCardsManagerTest {
         quizInformation.add(List.of(4, 1, 0, 0));
         quizInformation.add(List.of(5, 1, 1, 0));
         SrsCardsManager currentManager = new SrsCardsManager(srsCards, quizInformation, currentDate);
-        List<CardSrsData> cardData = currentManager.updateCardData();
+        List<CardSrsData> cardData = currentManager
+                .updateCardData();
         List<CardSrsData> expected = new ArrayList<>();
         expected.add(new CardSrsData(CARD_BELGIUM.hashCode(), 2, 2, currentDate
-                .plus(Duration.ofHours(5))));
+                .plus(Duration.ofHours(5)), false));
         expected.add(new CardSrsData(CARD_JAPAN.hashCode(), 2, 2, currentDate
-                .plus(Duration.ofHours(48))));
+                .plus(Duration.ofHours(48)), false));
         expected.add(new CardSrsData(CARD_CAT.hashCode(), 2, 2, currentDate
-                .plus(Duration.ofHours(48))));
+                .plus(Duration.ofHours(48)), false));
         expected.add(new CardSrsData(CARD_DOG.hashCode(), 2, 2, currentDate
-                .plus(Duration.ofHours(24))));
+                .plus(Duration.ofHours(24)), false));
         expected.add(new CardSrsData(CARD_DOGCAT.hashCode(), 2, 0, currentDate
-                .plus(Duration.ofHours(1))));
+                .plus(Duration.ofHours(1)), false));
         expected.add(new CardSrsData(CARD_MULTI.hashCode(), 2, 2, currentDate
-                .plus(Duration.ofHours(12))));
+                .plus(Duration.ofHours(12)), false));
         for (int i = 0; i < 5; i++) {
             assertEquals(expected.get(i).getSrsDueDate(), cardData.get(i).getSrsDueDate());
             assertEquals(expected.get(i).getNumOfAttempts(), cardData.get(i).getNumOfAttempts());

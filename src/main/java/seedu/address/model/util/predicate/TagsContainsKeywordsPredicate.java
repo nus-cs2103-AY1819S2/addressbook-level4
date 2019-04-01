@@ -2,6 +2,7 @@ package seedu.address.model.util.predicate;
 
 import java.util.List;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.model.person.Person;
 
 /**
@@ -21,21 +22,23 @@ public class TagsContainsKeywordsPredicate extends ContainsKeywordsPredicate<Per
     public boolean test(Person person) {
         if (!isIgnoreCase && !isAnd) {
             return keywords.stream()
-                .anyMatch(keyword -> person.getTags().stream().anyMatch(tag -> tag.getTagName().equals(keyword)));
+                .anyMatch(keyword -> person.getTags().stream()
+                    .anyMatch(tag -> StringUtil.containsWordCaseSensitive(tag.getTagName(), keyword)));
 
         } else if (isIgnoreCase && !isAnd) {
             return keywords.stream()
-                .anyMatch(keyword -> person.getTags().stream().anyMatch(tag -> tag.getTagName()
-                    .toLowerCase().equals(keyword)));
+                .anyMatch(keyword -> person.getTags().stream()
+                    .anyMatch(tag -> StringUtil.containsWordIgnoreCase(tag.getTagName(), keyword)));
 
         } else if (!isIgnoreCase && isAnd) {
             return keywords.stream()
-                .allMatch(keyword -> person.getTags().stream().anyMatch(tag -> tag.getTagName().equals(keyword)));
+                .allMatch(keyword -> person.getTags().stream()
+                    .anyMatch(tag -> StringUtil.containsWordCaseSensitive(tag.getTagName(), keyword)));
 
         } else {
             return keywords.stream()
-                .allMatch(keyword -> person.getTags().stream().anyMatch(tag -> tag.getTagName()
-                    .toLowerCase().equals(keyword)));
+                .allMatch(keyword -> person.getTags().stream()
+                    .anyMatch(tag -> StringUtil.containsWordIgnoreCase(tag.getTagName(), keyword)));
         }
     }
 }

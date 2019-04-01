@@ -62,7 +62,7 @@ public class DailyRevenueList implements Iterable<DailyRevenue> {
         }
 
         if (!target.isSameDailyRevenue(editedDailyRevenue) && contains(editedDailyRevenue)) {
-            throw new DuplicateOrderItemException();
+            throw new DuplicateDailyRevenueException();
         }
 
         internalList.set(index, editedDailyRevenue);
@@ -94,7 +94,7 @@ public class DailyRevenueList implements Iterable<DailyRevenue> {
     public void setDailyRevenueList(List<DailyRevenue> dailyRevenueList) {
         requireAllNonNull(dailyRevenueList);
         if (!dailyRevenuesAreUnique(dailyRevenueList)) {
-            throw new DuplicateOrderItemException();
+            throw new DuplicateDailyRevenueException();
         }
         internalList.setAll(dailyRevenueList);
     }

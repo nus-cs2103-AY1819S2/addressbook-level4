@@ -45,7 +45,7 @@ public class AddToMenuCommandParser implements Parser<AddToMenuCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Price price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
 
-        MenuItem menuItem = new MenuItem(name, code, price);
+        MenuItem menuItem = new MenuItem(name, code, price, 0);
 
         return new AddToMenuCommand(menuItem);
     }

@@ -253,22 +253,6 @@ Format: `quit`
 When you <<start, `start`>> a quiz session successfully, you will enter quiz mode which allows you
 to enter the following commands.
 
-==== Viewing help: `\help`
-
-Displays usage information on all Quiz Mode commands and acceptable inputs for answering cards. +
-Format: `\help`
-
-[[hint]]
-==== Viewing the current flashcard's hint: `\hint`
-
-Reveals the hint for the current flashcard. +
-Format: `\hint`
-
-==== Viewing the session status: `\status`
-
-Displays information on the current session's status such as progression. +
-Format: `\status`
-
 ==== Answering a flashcard : `[*]`
 
 Any input without the escape character `\` is treated as an answer to the current flashcard. +
@@ -303,10 +287,42 @@ Examples:
   `Jappan` +
   This is the wrong answer, the streak is reduced to 0 while total attempts increased by 2.
 
+==== Labelling current flashcard as difficult: `\difficult`
+Labels the current flashcard as difficult. +
+Format: `\difficult`
+
+Examples:
+
+* The question is "Japan" and is asking for the capital of "Japan": +
+  `\difficult` +
+  This will label flashcard of "Japan" as difficult.
+
+* The question is "Japan" and is asking for the capital of "Japan": +
+  `\difficult` +
+  `\difficult` +
+  This will label flashcard of "Japan" as not difficult.
+
+==== Viewing help: `\help`
+
+Displays usage information on all Quiz Mode commands and acceptable inputs for answering cards. +
+Format: `\help`
+
+[[hint]]
+==== Viewing the current flashcard's hint: `\hint`
+
+Reveals the hint for the current flashcard. +
+Format: `\hint`
+
 ==== Quitting the current quiz session: `\quit`
 
 Quits the current quiz session and switches back to Management Mode. +
 Format: `\quit`
+
+==== Viewing the session status: `\status`
+
+Displays information on the current session's status such as progression. +
+Format: `\status`
+
 // end::quiz[]
 
 {empty} +

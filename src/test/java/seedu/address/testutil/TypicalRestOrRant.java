@@ -11,7 +11,9 @@ import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.Orders;
 import seedu.address.model.statistics.Bill;
 import seedu.address.model.statistics.DailyRevenue;
+import seedu.address.model.statistics.MonthlyRevenue;
 import seedu.address.model.statistics.Statistics;
+import seedu.address.model.statistics.YearlyRevenue;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.Tables;
 
@@ -100,12 +102,29 @@ public class TypicalRestOrRant {
     public static final DailyRevenue DAILY_REVENUE8 = new StatisticsBuilder().withDay("8").withMonth("3")
             .withYear("2019").withTotalDailyRevenue("50").build();
 
-    public static final Bill BILL1 = new StatisticsBuilder().withTableNumber("1").withDay("1").withMonth("3")
-            .withYear("2019").withTotalBill("10").withReceipt("").buildBill();
-    public static final Bill BILL2 = new StatisticsBuilder().withTableNumber("2").withDay("2").withMonth("3")
-            .withYear("2019").withTotalBill("20").withReceipt("").buildBill();
-    public static final Bill BILL3 = new StatisticsBuilder().withTableNumber("3").withDay("3").withMonth("3")
-            .withYear("2019").withTotalBill("30").withReceipt("").buildBill();
+    // Monthly Revenue (month, year and total monthly revenue)
+    public static final MonthlyRevenue MONTHLY_REVENUE1 = new MonthlyRevenueBuilder().withMonth("1")
+            .withYear("2019").withTotalMonthlyRevenue("700").build();
+    public static final MonthlyRevenue MONTHLY_REVENUE2 = new MonthlyRevenueBuilder().withMonth("2")
+            .withYear("2019").withTotalMonthlyRevenue("600").build();
+    public static final MonthlyRevenue MONTHLY_REVENUE3 = new MonthlyRevenueBuilder().withMonth("3")
+            .withYear("2019").withTotalMonthlyRevenue("500").build();
+
+    // Yearly Revenue (year and total yearly revenue)
+    public static final YearlyRevenue YEARLY_REVENUE1 = new YearlyRevenueBuilder().withYear("2017")
+            .withTotalYearlyRevenue("700").build();
+    public static final YearlyRevenue YEARLY_REVENUE2 = new YearlyRevenueBuilder().withYear("2018")
+            .withTotalYearlyRevenue("600").build();
+    public static final YearlyRevenue YEARLY_REVENUE3 = new YearlyRevenueBuilder().withYear("2019")
+            .withTotalYearlyRevenue("500").build();
+
+    //Bill (day, month, year, totalBill and receipt)
+    public static final Bill BILL1 = new BillBuilder().withTableNumber("1").withDay("1").withMonth("3")
+            .withYear("2019").withTotalBill("10").withReceipt("").build();
+    public static final Bill BILL2 = new BillBuilder().withTableNumber("2").withDay("2").withMonth("3")
+            .withYear("2019").withTotalBill("20").withReceipt("").build();
+    public static final Bill BILL3 = new BillBuilder().withTableNumber("3").withDay("3").withMonth("3")
+            .withYear("2019").withTotalBill("30").withReceipt("").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     //    public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)

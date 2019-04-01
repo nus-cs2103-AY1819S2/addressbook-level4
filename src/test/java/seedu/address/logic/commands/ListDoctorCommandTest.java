@@ -13,7 +13,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
-
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListDoctorCommand.
  */
@@ -31,7 +30,7 @@ public class ListDoctorCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListDoctorCommand(), model, commandHistory,
+        assertCommandSuccess(new ListPatientCommand(), model, commandHistory,
                 ListDoctorCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

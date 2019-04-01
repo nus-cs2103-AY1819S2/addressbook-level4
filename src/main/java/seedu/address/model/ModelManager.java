@@ -169,10 +169,6 @@ public class ModelManager implements Model {
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
     }
 
-    @Override
-    public void deleteDoctor(Doctor target) {
-        versionedAddressBook.removeDoctor(target);
-    }
 
     public ReadOnlyProperty<Doctor> selectedDoctorProperty() {
         return selectedDoctor;

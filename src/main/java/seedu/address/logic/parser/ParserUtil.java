@@ -48,7 +48,7 @@ public class ParserUtil {
         if (numeric) {
             return Integer.parseInt(trimmedCount);
         } else {
-            throw new ParseException("Count of number should an integer.");
+            throw new ParseException("Count of number should be an integer.");
         }
     }
     /**
@@ -64,7 +64,7 @@ public class ParserUtil {
             return QuizMode.valueOf(trimmedMode);
         } else {
             throw new ParseException("Mode of quiz is not acceptable. You can choose from: "
-                    + "learn, preview, review and difficult");
+                    + "learn, preview, review and difficult.");
         }
     }
 }

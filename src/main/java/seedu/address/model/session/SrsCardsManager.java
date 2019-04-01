@@ -37,7 +37,7 @@ public class SrsCardsManager {
     }
 
     /**
-     * Show the cards in lesson in order for PREVIEW or DIFFICULT mode.
+     * Show the cards in lesson in order for PREVIEW mode.
      */
     public List<SrsCard> preview() {
         List<Card> cards = lesson.getCards();

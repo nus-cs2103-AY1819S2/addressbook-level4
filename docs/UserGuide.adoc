@@ -92,7 +92,6 @@ Usage rules:
 ====
 Flashcards are tested based on the link:https://en.wikipedia.org/wiki/Spaced_repetition[Space-Repetition technique].
 ====
-Format: `start n/NAME [c/COUNT] m/MODE`
 
 Examples:
 

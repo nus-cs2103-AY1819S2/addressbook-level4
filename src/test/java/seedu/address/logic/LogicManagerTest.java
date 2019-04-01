@@ -184,6 +184,16 @@ public class LogicManagerTest {
 
         assertEquals(LogicManager.Mode.MANAGEMENT, logic.getMode());
     }
+    @Test
+    public void getLessons() {
+        LessonList lessonList = new LessonList();
+        lessonList.addLesson(new LessonBuilder().build());
+        managementModel = new ManagementModelManager(new UserPrefs(), lessonList, new User());
+        logic = new LogicManager(managementModel, quizModel, storage);
+        expectedModel.init(quizExpected, SESSION_DEFAULT_2);
+        quizModel.init(quizActual, SESSION_DEFAULT_2_ACTUAL);
+        assertEquals(new LessonBuilder().build(), logic.getLessons().get(0));
+    }
 
     @Test
     public void getDisplayFormatter() {

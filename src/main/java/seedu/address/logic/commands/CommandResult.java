@@ -48,6 +48,11 @@ public class CommandResult {
         if (isSuccessfulAnalytics()) {
             analytics = results;
         }
+
+    }
+
+    public CommandResult(String feedbackToUser, String results) {
+        this(feedbackToUser, false, false);
         if (isSuccessfulInterviews()) {
             interviews = results;
         }

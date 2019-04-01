@@ -4,15 +4,19 @@ import java.nio.file.Path;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyHealthWorkerBook;
+import seedu.address.model.ReadOnlyRequestBook;
+import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.request.Request;
 
 /**
  * API of the Logic component
+ *
  */
 public interface Logic {
     /**
@@ -25,14 +29,22 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getRequestBook()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyRequestBook getRequestBook();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    /**
+     *
+     * @see seedu.address.model.Model#getHealthWorkerBook()
+     */
+    ReadOnlyHealthWorkerBook getHealthWorkerBook();
+
+    /** Returns an unmodifiable view of the filtered list of health workers */
+    ObservableList<HealthWorker> getFilteredHealthWorkerList();
+
+    /** Returns an unmodifiable view of the filtered list of requests */
+    ObservableList<Request> getFilteredRequestList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -41,9 +53,14 @@ public interface Logic {
     ObservableList<String> getHistory();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs'request book file path.
      */
-    Path getAddressBookFilePath();
+    Path getRequestBookFilePath();
+
+    /**
+     * Returns the user prefs' health worker book file path.
+     */
+    Path getHealthWorkerBookFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -55,18 +72,27 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
-     *
-     * @see seedu.address.model.Model#selectedPersonProperty()
-     */
-    ReadOnlyProperty<Person> selectedPersonProperty();
 
     /**
-     * Sets the selected person in the filtered person list.
-     *
-     * @see seedu.address.model.Model#setSelectedPerson(Person)
+     * Selected health worker in the filtered health worker list.
+     * null if no health worker is selected.
      */
-    void setSelectedPerson(Person person);
+    ReadOnlyProperty<HealthWorker> selectedHealthWorkerProperty();
+
+    /**
+     * Selected request in the filtered request list.
+     * null if no request is selected.
+     */
+    ReadOnlyProperty<Request> selectedRequestProperty();
+
+
+    /**
+     * Sets the selected health worker in the filtered health worker list.
+     */
+    void setSelectedHealthWorker(HealthWorker worker);
+
+    /**
+     * Sets the selected request in the filtered request list.
+     */
+    void setSelectedRequest(Request request);
 }

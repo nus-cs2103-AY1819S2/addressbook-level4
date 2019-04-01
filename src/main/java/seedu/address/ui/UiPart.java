@@ -17,6 +17,9 @@ public abstract class UiPart<T> {
     /** Resource folder where FXML files are stored. */
     public static final String FXML_FILE_FOLDER = "/view/";
 
+    /** Resource folder where font-awesome files are stored. */
+    public static final String FA_FILE_FOLDER = "/font-awesome/";
+
     private final FXMLLoader fxmlLoader = new FXMLLoader();
 
     /**

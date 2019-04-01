@@ -1,0 +1,27 @@
+{
+  "healthWorkers" : [ {
+    "name" : "Paniel Meier",
+    "phone" : "87652133",
+    "nric" : "S8412942G",
+    "organization" : "NUH",
+    "skills" : "GENERAL_PRACTICE "
+  }, {
+    "name" : "Ella Meyer",
+    "phone" : "94824524",
+    "nric" : "S9112942G",
+    "organization" : "NUH",
+    "skills" : "GENERAL_PRACTICE "
+  }, {
+    "name" : "Fione Kunz",
+    "phone" : "94822371",
+    "nric" : "S7812942G",
+    "organization" : "NUH",
+    "skills" : "GENERAL_PRACTICE "
+  }, {
+    "name" : "George Best",
+    "phone" : "94824422",
+    "nric" : "S8812942G",
+    "organization" : "NUH",
+    "skills" : "GENERAL_PRACTICE "
+  } ]
+}

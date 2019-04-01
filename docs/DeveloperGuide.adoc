@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/CS2103-AY1819S2-W09-2/main
+:repoURL: https://github.com/CS2103-AY1819S2-W09-2/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W9-02 (HealthHub)`      Since: `Jan 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -71,30 +71,6 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 * For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
-
-==== Updating documentation to match your fork
-
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
-
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
-
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
-
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
-
-==== Setting up CI
-
-Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
-
-After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
-
-[NOTE]
-Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
-
-Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
-
-[NOTE]
-Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
 ==== Getting started with coding
 
@@ -159,16 +135,16 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/address/ui[UI Package]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `RequestListPanel`, `InfoPanel`, `HealthWorkerListPanel`, `StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses the JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Listens for changes to `Model` data so that the UI can be updated with the modified data dynamically.
 
 [[Design-Logic]]
 === Logic component
@@ -201,13 +177,15 @@ image::modelUmlDiagram.jpg[width="800"]
 
 The `Model`,
 
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Request Book data.
+* stores the Health Worker Book data.
+* stores the Statistics Book data
+* exposes an unmodifiable `ObservableList<T>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
+As a more OOP model, we store a list of `Request` objects in `Request Book`, which stores the details of every request, including the patient's details, request date and status.
+In addition, each `Request` also stores a `Set` of `Conditions` of the patient. +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
@@ -221,7 +199,8 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Address, Request, HealthWorker Book data in json format and read it back.
+
 
 [[Design-Commons]]
 === Common classes
@@ -232,8 +211,120 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Add/Edit/Delete feature
+
+The `add`, `edit` and `delete` command have been tweaked from the original AB4
+ to include addition of and `Request` and `HealthWorker`.
+
+==== Additional Implementation from v1.1
+
+* `CommandMode` Enum class was introduced in v1.1 to allow for `add`, `edit`
+and `delete` different types of objects respective to the different
+`CommandMode` Enums. The various `CommandMode` enums are:
+** `CommandMode.HEALTHWORKER`
+** `CommandMode.REQUEST`
+** `CommandMode.PATIENT`
+** `CommandMode.OTHER`
+** `CommandMode.INVALID`
+
+* Each of the `add`, `edit` and `delete` command is parsed through the
+`EditCommandParser`, `AddCommandParser` and `DeleteCommandParser` classes,
+where the `CommandMode` is parsed to return the appropriate type of `Command`
+ class:
+** `AddCommand`
+** `EditCommand`
+** `DeleteCommand`
+
+* Each of the `AddCommand` and `EditCommand` and `DeleteCommand` provides
+subclasses for each of the `Command` classes respective to `Patient`,
+`HealthWorker` and `Request` class which adds respective objects to
+`PatientBook`, `RequestBook` and `HealthWorkerBook` for storage, for example
+the subclasses for `AddCommand` for `Request` are as follows:
+** `AddRequestCommand`
+** `EditRequestCommand`
+** `DeleteRequestCommand`
+
+=== Select Request feature
+
+The select request feature allows the administrator to view a specific request by keying in the index of the request.
+The select request mechanism is facilitated by the `filteredRequestList` in the `ModelManager`. The `filteredRequestList`
+stores information on a request, that can be viewed on the Request UI panel. Select simply retrieves the information of
+the request stored at that particular index of this list.
+
+=== Assign Request feature
+
+The assign request feature allows an administrator to assign a request to a particular healthworker.
+
+==== Current Implementation
+
+1. When `LogicManager` receives the `execute` command, it calls the `parseCommand` method in `RequestBookParser`.
+2. `RequestBookParser` will receive `assign` as the command and instantiate `AssignRequestParser` to further parse the command.
+3. If the arguments specified in the `assign` command are invalid, a `AssignCommand` will be created and returned back to the `LogicManager`.
+4. `LogicManager` will proceed to call the `execute` command of `AssignCommand`
+5. `AssignRequestCommand` will proceed to call the `getFilteredRequestList` method of `Model`.
+6. Iterate through the `requestIds`, if valid, add the `request` corresponding to that `index` to the set of `Request`.
+7. Writes the updated request to the `RequestBook` in `ModelManager`
+
+==== Design Consideration
+
+===== Aspect: Relationship between `Request` and `Healthworker`
+* Alternative 1 (current choice): The `Request` holds only some of the details of the healthworker assigned to it.
+** Pros: Simplification of implementation.
+** Pros: Does not violate the Law of Demeter (LOD), as the Request should only have limited knowledge of another object (`HealthWorker`, in this case).
+** Cons: Makes it difficult to implement certain features, like obtaining the requests assigned to a particular healthworker, for example.
+
+* Alternative 2: The `Request` does holds the details of the `HealthWorker` and the `HealthWorker` keeps track of a list of `Request`s.
+** Pros: Can quickly access details of a `HealthWorker` from a `Request`, and can quickly access the `Requests` assigned to a `HealthWorker` from the `Request`.
+** Cons: Violates the LOD principle, as the `Request` object should contain limited knowledge of the `HealthWorker` object.
+** Cons: Complicates the code base, making it difficult to maintain in the long run.
+
+=== List Feature
+The `list` command allows the user to be able to display all `HealthWorker`
+or `Request` objects stored in the current application.
+
+==== Listing `HealthWorker` objects
+* Format: `list healthworker/h/1`
+* Displays all `HealthWorker` objects already stored in the current
+application, and the following details:
+** `name` - Name of the `HealthWorker`
+** `nric` - NRIC of the `HealthWorker`
+** `organization` - Organization of the `HealthWorker`
+** `skills` - Skills and Specialisations that the `HealthWorker` object
+possesses
+
+==== Listing `Request` objects
+* Format: `list request/r/2`
+* Displays all `Request` objects already stored in the current
+application, and the following details:
+** `name` - Name of the patient that made the request in `Request` object.
+** `address` - Address of the patient
+** `condition` - Condition of the patient that made the request.
+
+=== Filter Feature
+The `filter` command allows users to filter either the current displayed
+list of `HealthWorker` and `Request` objects and replaces the current list
+shown on the UI with the respective filtered lists.
+
+****
+*Notes*:
+
+* The `<prefix>` and `<parameters>` specified in the command descriptions
+below follow the same valid prefix and parameter formats as the `add`, `edit`
+ and `delete` commands
+****
+
+==== Filtering `HealthWorker` s
+* Format: `filter healthworker/h/1 <prefix>/<parameter> [<prefix/<parameter>]
+...`
+* The `filter` command checks for `HealthWorker` whose field specific to the
+`<specific>` contains or matches the `<parameter>` provided.
+* Example: `filter h n/John` changes the UI to display only `HealthWorker`
+whose name is John, or contains John (Johnny, Johnson, ...)
+
+
 // tag::undoredo[]
 === Undo/Redo feature
+
 ==== Current Implementation
 
 The undo/redo mechanism is facilitated by `VersionedAddressBook`.
@@ -486,6 +577,14 @@ e.g. `seedu.address.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
 e.g. `seedu.address.logic.LogicManagerTest`
 
+=== Generation of test files
+
+We use classes located in the `seedu.address.jsonfilegenerator` folder to generate JSON
+test files. Developers are free to modify the code within the classes to generate person/patient/healthworker/request
+book containing the respective data they require for tests. +
+All the test file generator classes have a main function and hence can be ran independently by compiling the file.
+
+
 
 === Troubleshooting Testing
 **Problem: `HelpWindowTest` fails with a `NullPointerException`.**
@@ -576,8 +675,8 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 ****
 * Hints
 ** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
+** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting conditions?
+**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the conditions.
 * Solution
 ** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
 ** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
@@ -588,12 +687,12 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 [discrete]
 ==== `Ui` component
 
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
+*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent conditions from a contact, because the conditions all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
 
 [TIP]
 Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
 
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
+. Use different colors for different conditions inside person cards. For example, `friends` conditions can be all in brown, and `colleagues` conditions can be all in yellow.
 +
 **Before**
 +
@@ -611,7 +710,7 @@ image::getting-started-ui-tag-after.png[width="300"]
 * Solution
 ** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
 ** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
+*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that conditions retain their colors even if the hash code algorithm changes.
 ****
 
 . Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
@@ -683,7 +782,7 @@ Do take a look at <<Design-Storage>> before attempting to modify the `Storage` c
 
 By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
 
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
+*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on conditions alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
 
 ==== Description
 Edits the remark for a person specified in the `INDEX`. +

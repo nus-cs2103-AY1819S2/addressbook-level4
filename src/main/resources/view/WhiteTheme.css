@@ -1,0 +1,133 @@
+/**
+ This css file is written from scratch to convert the dark theme in AB4 to a white theme
+ that is more appropriate for the context of our application, HealthHub.
+ Author: Hui Chun
+ Date: 21-03-2019
+**/
+@import url(https://fonts.googleapis.com/css?family=Inconsolata:400,700);
+
+.menu-bar .label {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Light";
+}
+
+/* For the command box input and result */
+#commandTextField, #resultDisplay {
+    -fx-font-family: "Inconsolata";
+    -fx-font-size: 12pt;
+}
+
+/* For the requestListPanel */
+#conditions, #specialisations {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#conditions .label {
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: white;
+    -fx-background-color: #3e7b91;
+    -fx-padding: 2 5 2 5;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-font-size: 10pt;
+}
+
+.cell_big_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 15px;
+    -fx-text-fill: #010504;
+}
+
+.cell_small_label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+    -fx-text-fill: #010504;
+}
+
+.status_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 12pt;
+}
+
+/* For the welcome message in infoPanel */
+.background {
+    font-family: "Comic Sans MS";
+    padding-left: 20px;
+    font-size: 13pt;
+}
+
+.welcome-message {
+    font-family: "Segoe UI Light";
+    margin: 10px 5px 10px 5px;
+}
+
+span.command {
+    font-family: "Inconsolata";
+    font-weight: 400;
+    font-size: 12pt;
+    color: #079992;
+}
+
+.request-details {
+    font-family: "Segoe UI";
+    font-size: 11pt;
+    padding: 10px 20px 10px 20px;
+}
+
+/* For the pink rounded border around specialisations */
+#specialisations .label {
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: white;
+    -fx-background-color: #ee5253;
+    -fx-padding: 2 5 2 5;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-font-size: 10pt;
+}
+
+.status-bar-info  {
+    -fx-font-family: "Segoe UI";
+    -fx-font-style: italic;
+    -fx-font-size: 12pt;
+}
+
+/* reduces the darkness of the default border style around each cell */
+.list-cell {
+    -fx-border-color: #D0D0D0;
+    -fx-border-style: solid;
+    -fx-border-width: 0.25;
+}
+
+/* adds a light blue color for selected cells */
+.list-cell:filled:selected {
+    -fx-background-color: #c7ecee;
+}
+
+/* removes cell styling for empty cells */
+.list-cell:empty {
+    -fx-background-color: transparent;
+    -fx-border-style: none;
+    -fx-border-width: 0;
+}
+
+.alertDialog:header *.header-panel *.label{
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14pt;
+    -fx-font-style: italic;
+    -fx-fill: #292929;
+}
+
+.alertDialog > *.label.content{
+   -fx-font-family: "Segoe UI";
+   -fx-font-size: 12pt;
+}
+
+
+/* removes unwanted horizontal scroll bar */
+.list-view .scroll-bar:horizontal .increment-arrow,
+.list-view .scroll-bar:horizontal .decrement-arrow,
+.list-view .scroll-bar:horizontal .increment-button,
+.list-view .scroll-bar:horizontal .decrement-button {
+    -fx-padding:0;
+}

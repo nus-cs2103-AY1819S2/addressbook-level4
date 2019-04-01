@@ -4,53 +4,53 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
+HealthHub is developed with love and compassion by the https://github.com/CS2103-AY1819S2-W09-2[W9-02] team. +
 
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
 === Rohan Dev
-image::rohan.jpg[width="150", align="left"]
-{empty}[https://github.com/brohandev[github page]]
+image::brohandev.png[width="150", align="left"]
+{empty}[https://github.com/brohandev[github]] [<<brohandev#, portfolio>>]
 
-Role: A (To be changed later) +
-Responsibilities: B
+Role: Software Developer +
+Responsibilities: Modifying the commands (Add/Edit/Delete/Find) for the Patient class.
 
 '''
 
 === Choong Wey Yeh
-image::lukaz.jpg[width="150", align="left"]
-{empty}[http://github.com/Lookuz[github page]]
+image::lookuz.png[width="150", align="left"]
+{empty}[http://github.com/Lookuz[github]] [<<lookuz#, portfolio>>]
 
-Role: A (To be changed later) +
-Responsibilities: B
+Role: Software Developer +
+Responsibilities: Modifying the commands (Add/Edit/Delete/Find) for the HealthWorker Class.
 
 '''
 
 === David Livingston
-image::david.jpg[width="150", align="left"]
-{empty}[https://github.com/daviddl9[github page]]
+image::daviddl9.png[width="150", align="left"]
+{empty}[https://github.com/daviddl9[github]] [<<daviddl9#, portfolio>>]
 
-Role: A (To be changed later) +
-Responsibilities: B
+Role: Software Developer +
+Responsibilities: Modifying the commands (Add/Edit/Delete/Find) for the different type of requests.
 
 '''
 
 === Jin Jing
-image::jinjing.jpg[width="150", align="left"]
-{empty}[https://github.com/jing1324[github page]]
+image::jing1324.png[width="150", align="left"]
+{empty}[https://github.com/jing1324[github]] [<<jing1324#, portfolio>>]
 
-Role: A (To be changed later) +
-Responsibilities: B
+Role: Software Developer +
+Responsibilities: Managing the storage related classes and its associated dependencies.
 
 '''
 
 === Tay Hui Chun
-image::huichun.jpg[width="150", align="left"]
-{empty}[http://github.com/huichun66[github page]]
+image::huichun66.png[width="150", align="left"]
+{empty}[http://github.com/huichun66[github]] [<<huichun#, portfolio>>]
 
-Role: A (To be changed later) +
-Responsibilities: B
+Role: User Interface Developer +
+Responsibilities: Responsible for the UI of the main app and its different interactions.
 
 '''

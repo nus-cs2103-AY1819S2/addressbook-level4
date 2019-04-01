@@ -10,7 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Names should only contain alphabets and spaces, and "
+                    + "it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -18,7 +19,7 @@ public class Name {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public final String fullName;
+    private final String fullName;
 
     /**
      * Constructs a {@code Name}.
@@ -36,6 +37,13 @@ public class Name {
      */
     public static boolean isValidName(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Method that returns true if the full name contains the specified substring
+     */
+    public boolean contains(String substring) {
+        return this.fullName.toLowerCase().contains(substring.toLowerCase());
     }
 
 

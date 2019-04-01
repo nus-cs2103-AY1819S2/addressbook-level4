@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +27,29 @@ public class ArgumentTokenizer {
     public static ArgumentMultimap tokenize(String argsString, Prefix... prefixes) {
         List<PrefixPosition> positions = findAllPrefixPositions(argsString, prefixes);
         return extractArguments(argsString, positions);
+    }
+
+    /**
+     * @author Lookaz
+     * Checks a given argument string and returns the corresponding
+     * CommandMode enum
+     * @param args argument string to check
+     * @return CommandMode enum type if available, else CommandMode.INVALID
+     */
+    public static CommandMode checkMode(String args) throws NullPointerException {
+        String commandMode = args.trim().split("\\s")[0];
+        return CommandMode.checkMode(commandMode);
+    }
+
+    /**
+     * @author Lookaz
+     * Trims the argument string from it's command mode in the first two indices.
+     * Precondition: First two indices of argument string must contain a command mode number followed by a space.
+     * @param args argument string to trim
+     * @return trimmed argument string.
+     */
+    public static String trimMode(String args) throws ArrayIndexOutOfBoundsException {
+        return args.trim().split("\\s", 2)[1];
     }
 
     /**
@@ -87,7 +111,7 @@ public class ArgumentTokenizer {
     private static ArgumentMultimap extractArguments(String argsString, List<PrefixPosition> prefixPositions) {
 
         // Sort by start position
-        prefixPositions.sort((prefix1, prefix2) -> prefix1.getStartPosition() - prefix2.getStartPosition());
+        prefixPositions.sort(Comparator.comparingInt(PrefixPosition::getStartPosition));
 
         // Insert a PrefixPosition to represent the preamble
         PrefixPosition preambleMarker = new PrefixPosition(new Prefix(""), 0);

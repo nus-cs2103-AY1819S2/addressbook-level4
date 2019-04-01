@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.ORDER_ASC_WITHOUT_PREFIX;
-import static seedu.address.logic.commands.CommandTestUtil.ORDER_ASC_WITH_PREFIX;
 import static seedu.address.logic.commands.CommandTestUtil.SORT_AUTHOR_WITHOUT_PREFIX;
 import static seedu.address.logic.commands.CommandTestUtil.SORT_AUTHOR_WITH_PREFIX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
@@ -80,8 +78,8 @@ public class BookShelfParserTest {
         List<String > sortTypes = new ArrayList<>();
         sortTypes.add(SORT_AUTHOR_WITHOUT_PREFIX);
         SortBookCommand command = (SortBookCommand) parser.parseCommand(
-            SortBookCommand.COMMAND_WORD + SORT_AUTHOR_WITH_PREFIX + ORDER_ASC_WITH_PREFIX);
-        assertEquals(new SortBookCommand(sortTypes, ORDER_ASC_WITHOUT_PREFIX, new HashMap<>()), command);
+            SortBookCommand.COMMAND_WORD + SORT_AUTHOR_WITH_PREFIX);
+        assertEquals(new SortBookCommand(sortTypes, null, new HashMap<>()), command);
     }
 
     @Test

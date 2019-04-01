@@ -377,17 +377,17 @@ We decided to go ahead with this implementation as we feel that from a user's po
 // end::changemode[]
 
 // tag::editseats
-=== Edit number of Customers feature
+=== Edit pax feature
 ==== Current Implementation
 
-The edit number of customers mechanism is facilitated by `UniqueTableList`. It stores the all tables currently in the system and ensures that there are no duplicated tables. Additionally, it implements the following operations:
+The edit pax mechanism is facilitated by `UniqueTableList`. It stores the all tables currently in the system and ensures that there are no duplicated tables. Additionally, it implements the following operations:
 
 * `UniqueTableList#contains(targetTable)` -- Checks if the target table exists within the unique list of tables.
 * `UniqueTableList#setTable(targetTable, editedTable)` -- Replaces the target table in the list with the new table with the updated `TableStatus`.
 
 These operations are exposed in the Model interface as `Model#setTable(targetTable, editedTable)` and `Model#hasTable(targetTable)`.
 
-Given below is an example usage scenario and how the edit number of customers mechanism behaves at each step.
+Given below is an example usage scenario and how the edit pax mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time. The `UniqueTableList` will be initialised to be empty.
 
@@ -401,7 +401,7 @@ Step 3. The user then has 4 customers enter his/her restaurant and executes `edi
 
 image::EditPaxEditPaxStateListDiagram.png[width="800"]
 
-The following sequence diagram shows how the edit number of customers operation works:
+The following sequence diagram shows how the edit pax operation works:
 
 image::EditPaxSequenceDiagram.png[width="800"]
 

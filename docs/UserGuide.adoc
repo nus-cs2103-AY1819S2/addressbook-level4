@@ -161,7 +161,7 @@ Examples:
 
 ==== Clears the Tables : `clearTable`
 
-Clears the RestOrRant of all tables. + 
+Clears the RestOrRant of all tables. +
 Format: `clearTable`
 
 ****

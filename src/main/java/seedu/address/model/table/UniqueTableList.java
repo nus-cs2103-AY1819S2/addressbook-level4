@@ -132,6 +132,9 @@ public class UniqueTableList implements Iterable<Table> {
         return internalList.iterator();
     }
 
+    /**
+     * Checks and returns true if all tables are not occupied.
+     */
     public boolean isRestaurantEmpty() {
         for (Table table : internalUnmodifiableList) {
             if (table.isOccupied()) {

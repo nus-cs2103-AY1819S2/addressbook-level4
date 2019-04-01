@@ -4,12 +4,14 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Mode;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Clears the tables in the restaurant if all tables are not occupied.
+ */
 public class ClearTableCommand extends Command {
 
     public static final String COMMAND_WORD = "clearTable";

@@ -13,13 +13,13 @@ import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.BillCommand;
 import seedu.address.logic.commands.ClearOrderCommand;
+import seedu.address.logic.commands.ClearTableCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteFromOrderCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.MenuModeCommand;
-import seedu.address.logic.commands.ClearTableCommand;
 import seedu.address.logic.commands.RestaurantModeCommand;
 import seedu.address.logic.commands.StatisticsModeCommand;
 import seedu.address.logic.commands.TableModeCommand;
@@ -148,7 +148,7 @@ public class RestOrRantParser {
             } else {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }
-            
+
         case "clear":
             if (mode == Mode.RESTAURANT_MODE) {
                 return new ClearTableCommand();

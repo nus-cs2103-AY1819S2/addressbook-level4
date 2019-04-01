@@ -759,13 +759,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new user |see usage instructions |refer to it when I forget how to use the application
 
 |`* * *` |user |have a record of my recent expenses (day, week, month, category) |be more aware of where I am spending my money
 
 |`* * *` |user |add a new entry |
 
-|`* * *` |user |delete an entry |remove entries that is no longer needed anymore
+|`* * *` |user |delete an entry |remove an entry that is no longer needed anymore
 
 |`* * *` |user |categorise my expenses |be aware of what I am spending most of my money on
 

@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalRestOrRant.BILL2;
 
 import org.junit.Test;
 
+import seedu.address.testutil.BillBuilder;
 import seedu.address.testutil.StatisticsBuilder;
 
 public class BillTest {
@@ -14,7 +15,7 @@ public class BillTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Bill billCopy = new StatisticsBuilder(BILL1).buildBill();
+        Bill billCopy = new BillBuilder(BILL1).build();
         assertTrue(BILL1.equals(billCopy));
 
         // same object -> returns true
@@ -30,23 +31,23 @@ public class BillTest {
         assertFalse(BILL1.equals(BILL2));
 
         // different table number -> returns false
-        Bill editedBill = new StatisticsBuilder(BILL1).withTableNumber("4").buildBill();
+        Bill editedBill = new BillBuilder(BILL1).withTableNumber("4").build();
         assertFalse(BILL1.equals(editedBill));
 
         // different day -> returns false
-        editedBill = new StatisticsBuilder(BILL1).withDay("4").buildBill();
+        editedBill = new BillBuilder(BILL1).withDay("4").build();
         assertFalse(BILL1.equals(editedBill));
 
         // different month -> returns false
-        editedBill = new StatisticsBuilder(BILL1).withMonth("4").buildBill();
+        editedBill = new BillBuilder(BILL1).withMonth("4").build();
         assertFalse(BILL1.equals(editedBill));
 
         // different year -> returns false
-        editedBill = new StatisticsBuilder(BILL1).withYear("2014").buildBill();
+        editedBill = new BillBuilder(BILL1).withYear("2014").build();
         assertFalse(BILL1.equals(editedBill));
 
         // different total bill -> returns false
-        editedBill = new StatisticsBuilder(BILL1).withTotalBill("4025.36").buildBill();
+        editedBill = new BillBuilder(BILL1).withTotalBill("4025.36").build();
         assertFalse(BILL1.equals(editedBill));
     }
 }

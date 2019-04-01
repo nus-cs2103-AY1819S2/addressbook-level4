@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalRestOrRant.DAILY_REVENUE1;
 import static seedu.address.testutil.TypicalRestOrRant.DAILY_REVENUE2;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.statistics.exceptions.DailyRevenueNotFoundException;
+import seedu.address.model.statistics.exceptions.DuplicateDailyRevenueException;
 import seedu.address.testutil.StatisticsBuilder;
 
 public class DailyRevenueListTest {
@@ -52,6 +54,12 @@ public class DailyRevenueListTest {
         dailyRevenueList.add(null);
     }
 
+    @Test
+    public void add_duplicateDailyRevenue_throwsDuplicateDailyRevenueException() {
+        dailyRevenueList.add(DAILY_REVENUE1);
+        thrown.expect(DuplicateDailyRevenueException.class);
+        dailyRevenueList.add(DAILY_REVENUE1);
+    }
     @Test
     public void setDailyRevenue_nullTargetDailyRevenue_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
@@ -96,6 +104,14 @@ public class DailyRevenueListTest {
         DailyRevenueList expectedDailyRevenueList = new DailyRevenueList();
         expectedDailyRevenueList.add(DAILY_REVENUE2);
         assertEquals(expectedDailyRevenueList, dailyRevenueList);
+    }
+
+    @Test
+    public void setDailyRevenue_editedDailyRevenueHasNonUniqueIdentity_throwsDuplicateDailyRevenueException() {
+        dailyRevenueList.add(DAILY_REVENUE1);
+        dailyRevenueList.add(DAILY_REVENUE2);
+        thrown.expect(DuplicateDailyRevenueException.class);
+        dailyRevenueList.setDailyRevenue(DAILY_REVENUE1, DAILY_REVENUE2);
     }
 
     @Test
@@ -147,6 +163,13 @@ public class DailyRevenueListTest {
         DailyRevenueList expectedDailyRevenueList = new DailyRevenueList();
         expectedDailyRevenueList.add(DAILY_REVENUE2);
         assertEquals(expectedDailyRevenueList, this.dailyRevenueList);
+    }
+
+    @Test
+    public void setDailyRevenue_listWithDuplicateDailyRevenues_throwsDuplicateDailyRevenueException() {
+        List<DailyRevenue> listWithDuplicateDailyRevenue = Arrays.asList(DAILY_REVENUE1, DAILY_REVENUE1);
+        thrown.expect(DuplicateDailyRevenueException.class);
+        dailyRevenueList.setDailyRevenueList(listWithDuplicateDailyRevenue);
     }
 
     @Test

@@ -221,6 +221,14 @@ public class UpdateCommand extends Command {
             setExpiry(toCopy.expiry);
         }
 
+        /**
+         * Return true if the required parameters for UpdateBatchDescriptor are missing.
+         * UpdateBatchDescriptor must include batchNumber and at least one field, expiry or quantity, as parameters.
+         */
+        public boolean hasMissingParameters() {
+           return batchNumber == null || (expiry == null && quantity == null);
+        }
+
         public void setBatchNumber(BatchNumber batchNumber) {
             this.batchNumber = batchNumber;
         }

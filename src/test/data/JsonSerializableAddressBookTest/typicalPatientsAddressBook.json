@@ -1,10 +1,9 @@
 {
-  "_comment": "docX save file which contains the same Patient values as in TypicalPatients#getTypicalAddressBook()",
   "patients" : [ {
     "name" : "Alice Pauline",
     "gender": "F",
     "age": "23",
-    "phone" : "94351253",
+    "phone" : "94351251",
     "address" : "123, Jurong West Ave 6, #08-111",
     "tagged" : [ "friends" ]
   }, {
@@ -16,7 +15,7 @@
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
-    "gender": "F",
+    "gender": "M",
     "age": "101",
     "phone" : "95352563",
     "address" : "wall street",
@@ -49,6 +48,5 @@
     "phone" : "94824421",
     "address" : "4th street",
     "tagged" : [ ]
-  } ],
-  "medicalHistories" : [ ]
+  } ]
 }

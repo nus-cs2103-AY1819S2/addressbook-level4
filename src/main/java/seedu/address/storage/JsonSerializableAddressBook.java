@@ -38,8 +38,8 @@ class JsonSerializableAddressBook {
                                                List<JsonAdaptedMedicalHistory> medicalHistories,
                                         @JsonProperty("appointments") List<JsonAdaptedAppointment> appointments) {
         this.patients.addAll(patients);
-        this.medicalHistories.addAll(medicalHistories);
-        this.appointments.addAll(appointments);
+        //this.medicalHistories.addAll(medicalHistories);
+        //this.appointments.addAll(appointments);
         //this.medicalHistories.addAll(medicalHistories);
     }
 

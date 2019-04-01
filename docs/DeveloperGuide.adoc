@@ -259,9 +259,12 @@ This 2D array is encapsulated within the `MapGrid` class.
 
 * `MapGrid#initialise(Cell[][] map)` -- initialises the map using the given `Cell` 2D array.
 
+{empty} +
 The following sequence diagram shows how a map is initialised:
 
 image::InitialiseMapCommandSequenceDiagram.png[width=800]
+
+{empty} +
 
 ==== Design Considerations
 ===== Aspect: How initialise map works
@@ -289,6 +292,8 @@ Alternative 1 was chosen as the overhead is negligible and a defensive approach 
 ** Cons: May have worse performance than a simpler 2D array.
 
 // end::map[]
+
+{empty} +
 
 === Battleship Feature
 ==== Current Implementation

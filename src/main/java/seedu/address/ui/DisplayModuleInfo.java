@@ -70,16 +70,16 @@ public class DisplayModuleInfo extends UiPart<Region> {
         list.add(moduleInfo.getModuleInfoWorkload());
         workloadtable.setItems(list);
 
-        TableColumn<ModuleInfoWorkload, Integer> lecture = new TableColumn("Lecture");
-        lecture.setCellValueFactory(new PropertyValueFactory<ModuleInfoWorkload, Integer>("lecture"));
-        TableColumn<ModuleInfoWorkload, Integer> tutorial = new TableColumn("Tutorial");
-        tutorial.setCellValueFactory(new PropertyValueFactory<ModuleInfoWorkload, Integer>("tutorial"));
-        TableColumn<ModuleInfoWorkload, Integer> lab = new TableColumn("Lab");
-        lab.setCellValueFactory(new PropertyValueFactory<ModuleInfoWorkload, Integer>("lab"));
-        TableColumn<ModuleInfoWorkload, Integer> project = new TableColumn("Project");
-        project.setCellValueFactory(new PropertyValueFactory<ModuleInfoWorkload, Integer>("project"));
-        TableColumn<ModuleInfoWorkload, Integer> preparation = new TableColumn("Preparation");
-        preparation.setCellValueFactory(new PropertyValueFactory<ModuleInfoWorkload, Integer>("preparation"));
+        TableColumn<ModuleInfoWorkload, Double> lecture = new TableColumn("Lecture");
+        lecture.setCellValueFactory(new PropertyValueFactory<ModuleInfoWorkload, Double>("lecture"));
+        TableColumn<ModuleInfoWorkload, Double> tutorial = new TableColumn("Tutorial");
+        tutorial.setCellValueFactory(new PropertyValueFactory<ModuleInfoWorkload, Double>("tutorial"));
+        TableColumn<ModuleInfoWorkload, Double> lab = new TableColumn("Lab");
+        lab.setCellValueFactory(new PropertyValueFactory<ModuleInfoWorkload, Double>("lab"));
+        TableColumn<ModuleInfoWorkload, Double> project = new TableColumn("Project");
+        project.setCellValueFactory(new PropertyValueFactory<ModuleInfoWorkload, Double>("project"));
+        TableColumn<ModuleInfoWorkload, Double> preparation = new TableColumn("Preparation");
+        preparation.setCellValueFactory(new PropertyValueFactory<ModuleInfoWorkload, Double>("preparation"));
 
         workloadtable.getColumns().addAll(lecture, tutorial, lab, project, preparation);
     }

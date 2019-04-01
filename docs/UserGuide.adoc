@@ -114,7 +114,7 @@ Format: `sort CATEGORY ORDER`
 Example: `sort n increasing` +
 Displays the contact list sorted by name in forward alphabetical order.
 
-=== Finding contact(s) by keyword(s) : `find`
+=== Finding contact(s) by keyword(s) : `find` `[coming in v2.0]`
 
 Finds contact(s) whose information contains any of the keyword(s). +
 e.g. search by name, search by address, search by tags etc. +
@@ -311,7 +311,7 @@ Archives the 3rd contact in the sorted list displayed earlier.
 Lists all the contacts in the archive. +
 Format: `archivelist`
 
-=== Finding archived contact(s) : `archivefind`
+=== Finding archived contact(s) : `archivefind` `[coming in v2.0]`
 
 Searches the archive and finds contact(s) whose information contains any of the keyword(s). +
 Format: `archivefind KEYWORD [KEYWORD]...`

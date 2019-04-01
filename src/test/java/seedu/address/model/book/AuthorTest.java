@@ -25,11 +25,14 @@ public class AuthorTest {
         // null author
         Assert.assertThrows(NullPointerException.class, () -> Author.isValidAuthor(null));
 
+        String tooLongName = "This string is too long that it will not be accepted by author as "
+                + "no one has such a long name";
         // invalid author
         assertFalse(Author.isValidAuthor("")); // empty string
         assertFalse(Author.isValidAuthor(" ")); // spaces only
         assertFalse(Author.isValidAuthor("^")); // only non-alphanumeric characters
         assertFalse(Author.isValidAuthor("peter*")); // contains non-alphanumeric characters
+        assertFalse(Author.isValidAuthor(tooLongName)); // name too long to be considered as legal
 
         // valid author
         assertTrue(Author.isValidAuthor("peter jack")); // alphabets only

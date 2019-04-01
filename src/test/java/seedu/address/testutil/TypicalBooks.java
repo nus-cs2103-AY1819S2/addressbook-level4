@@ -70,6 +70,11 @@ public class TypicalBooks {
             .withBookName("Twilight")
             .withAuthor("Stephenie Meyer")
             .withRating("2").build();
+    public static final Book ANOTHER_ERIKA_WORK = new BookBuilder()
+            .withBookName("Fifty Shades Darker")
+            .withAuthor("Erika Leonard")
+            .withRating("1")
+            .build();
 
     // Manually added - Book's details found in {@code CommandTestUtil}
     public static final Book ALI = new BookBuilder().withBookName(VALID_BOOKNAME_ALICE).withAuthor(VALID_AUTHOR_ALICE)
@@ -113,6 +118,26 @@ public class TypicalBooks {
         BookShelf bs = new BookShelf();
         for (Book book : getTypicalBooks()) {
             bs.addBook(book);
+        }
+        return bs;
+    }
+
+    public static BookShelf getTypicalBookShelfWithReview(Review review) {
+        BookShelf bs = new BookShelf();
+        for (Book book : getTypicalBooks()) {
+            bs.addBook(book);
+        }
+        bs.addReview(review);
+        return bs;
+    }
+
+    public static BookShelf getTypicalBookShelfWithAllReviews() {
+        BookShelf bs = new BookShelf();
+        for (Book book : getTypicalBooks()) {
+            bs.addBook(book);
+        }
+        for (Review review : getTypicalReviews()) {
+            bs.addReview(review);
         }
         return bs;
     }

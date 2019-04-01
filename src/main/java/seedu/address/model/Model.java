@@ -185,5 +185,41 @@ public interface Model {
     /**
      * Sort the Book list into different order
      */
+
     void sortBook(List<String> types, String mainOrder, Map<String, String> subOrder);
+
+    /**
+     * Get total number of books
+     */
+    int getNumberOfBooks();
+
+    /**
+     * Get the most read authors.
+     */
+    List<String> getMostReadAuthors();
+
+    /**
+     * Get books by certain author.
+     */
+    List<String> getBooksByAuthor(String authorName);
+
+    /**
+     * Get the highest marks.
+     */
+    String getHighestMark();
+
+    /**
+     * Get the books of the highest marks.
+     */
+    List<String> getBooksWithHighestMark(String mark);
+
+    /**
+     * Get the most read tags.
+     */
+    List<String> getMostReadTags();
+
+    /**
+     * Get the books with the most read tags
+     */
+    List<String> getBooksWithTag(String tagContent);
 }

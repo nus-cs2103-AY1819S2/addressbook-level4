@@ -31,6 +31,7 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListBookCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SortBookCommand;
+import seedu.address.logic.commands.SummaryCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.book.Book;
@@ -81,6 +82,12 @@ public class BookShelfParserTest {
         SortBookCommand command = (SortBookCommand) parser.parseCommand(
             SortBookCommand.COMMAND_WORD + SORT_AUTHOR_WITH_PREFIX + ORDER_ASC_WITH_PREFIX);
         assertEquals(new SortBookCommand(sortTypes, ORDER_ASC_WITHOUT_PREFIX, new HashMap<>()), command);
+    }
+
+    @Test
+    public void parseCommand_summary() throws Exception {
+        assertTrue(parser.parseCommand(SummaryCommand.COMMAND_WORD) instanceof SummaryCommand);
+        assertTrue(parser.parseCommand(SummaryCommand.COMMAND_WORD + " 3") instanceof SummaryCommand);
     }
 
     @Test

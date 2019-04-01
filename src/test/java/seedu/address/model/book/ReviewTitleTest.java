@@ -24,11 +24,12 @@ public class ReviewTitleTest {
         // null name
         Assert.assertThrows(NullPointerException.class, () -> ReviewTitle.isValidReviewTitle(null));
 
+        String tooLongStr = "This string is too long that it will not be accepted by some attributes. "
+                + "For example, the book name cannot be such long.";
         // invalid name
         assertFalse(ReviewTitle.isValidReviewTitle("")); // empty string
         assertFalse(ReviewTitle.isValidReviewTitle(" ")); // spaces only
-        assertFalse(ReviewTitle.isValidReviewTitle("^")); // only non-alphanumeric characters
-        assertFalse(ReviewTitle.isValidReviewTitle("peter*")); // contains non-alphanumeric characters
+        assertFalse(ReviewTitle.isValidReviewTitle(tooLongStr)); // only non-alphanumeric characters
 
         // valid name
         assertTrue(ReviewTitle.isValidReviewTitle("peter jack")); // alphabets only

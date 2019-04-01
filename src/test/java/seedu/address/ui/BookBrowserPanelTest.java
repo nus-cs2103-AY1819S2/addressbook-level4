@@ -1,13 +1,17 @@
 package seedu.address.ui;
 
+import static seedu.address.ui.testutil.GuiTestAssert.assertPanelDisplaysReview;
+
 import org.junit.Before;
+import org.junit.Test;
 
 import guitests.guihandles.BookBrowserPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import seedu.address.model.book.Review;
-
+import seedu.address.testutil.ReviewBuilder;
 
 public class BookBrowserPanelTest extends GuiUnitTest {
+    private Review review = new ReviewBuilder().build();
     private SimpleObjectProperty<Review> selectedReview = new SimpleObjectProperty<>();
     private BookBrowserPanel browserPanel;
     private BookBrowserPanelHandle browserPanelHandle;
@@ -19,18 +23,11 @@ public class BookBrowserPanelTest extends GuiUnitTest {
 
         browserPanelHandle = new BookBrowserPanelHandle(browserPanel.getRoot());
     }
-    //
-    //    @Test
-    //    public void display() throws Exception {
-    //        // default web page
-    //        assertEquals(BookBrowserPanel.DEFAULT_PAGE, browserPanelHandle.getLoadedUrl());
-    //
-    //        // associated web page of a person
-    //        guiRobot.interact(() -> selectedBook.set(BOOKTHIEF));
-    //        URL expectedPersonUrl = new URL(BookBrowserPanel.SEARCH_PAGE_URL
-    //            + BOOKTHIEF.getBookName().fullName.replaceAll(" ", "%20"));
-    //
-    //        waitUntilBrowserLoaded(browserPanelHandle);
-    //        assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
-    //    }
+
+    @Test
+    public void display() throws Exception {
+        guiRobot.interact(() -> selectedReview.set(review));
+        guiRobot.pauseForHuman();
+        assertPanelDisplaysReview(review, browserPanelHandle);
+    }
 }

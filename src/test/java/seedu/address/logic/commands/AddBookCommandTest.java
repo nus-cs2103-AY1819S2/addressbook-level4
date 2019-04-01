@@ -255,6 +255,41 @@ public class AddBookCommandTest {
         public void sortBook(List<String> types, String mainOrder, Map<String, String> subOrder) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public int getNumberOfBooks() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<String> getMostReadAuthors() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<String> getBooksByAuthor(String authorName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getHighestMark() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<String> getBooksWithHighestMark(String mark) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<String> getMostReadTags() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<String> getBooksWithTag(String tagContent) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

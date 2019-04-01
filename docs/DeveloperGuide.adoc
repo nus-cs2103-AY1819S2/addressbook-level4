@@ -315,13 +315,6 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -381,45 +374,6 @@ Step 4. The book shelf now adds the book to the book list after making sure ther
 // end::addBook[]
 
 
-// tag::addReview[]
-=== AddReview Feature
-
-==== Current Implementation
-
-Given below is an example usage and how addReview feature behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
-
-Step 2. The user executes `addReview n/Alice in Wonderland rt/Carroll has depicted a unique world I hadn't seen before r/Alice's Adventures in Wonderland by Lewis Carroll is a story about Alice who falls down a rabbit hole and lands into a fantasy world that is full of weird, wonderful people and animals.`
-
-Step 3. The `AddReviewCommandParser` parses this command, and returns an `AddReviewCommand`. Exception will be thrown if the command is invalid.
-
-Step 4. The `AddReviewCommand` creates a `Review` object based on the parameter the user keyed in.
-
-Step 5. The `AddReviewCommand` executes. The command checks if the book to which the review is added exists in the `BookShelf`, based on `BookNameContainsExactKeywordPredicate`. If the book does not exist, an exception is thrown. If the book exists, the `Review` object is added to the set of reviews of the book.
-
-==== Design Considerations
-
-===== Aspect: Data structure to store Reviews
-
-* **Alternative 1 (current choice):** Use a Set to store all Reviews, just like tags.
-** Pros: Easy to code and manage because it is the same implementation as tags.
-** Cons: Set does not allow duplicate reviews. Need to check for duplicate reviews added.
-* **Alternative 2:** Use a List to store Reviews
-** Pros: There will be an order for the reviews added based on time created. More clear to users.
-** Cons: May have unforeseen bugs or implications.
-
-===== Aspect: Where to store Reviews
-
-* **Alternative 1 (current choice):** Use a Set within a Book, just like tags.
-** Pros: Easy to code and manage because it is the same implementation as tags. The design makes sense because Reviews belong to Books.
-** Cons: It is not known whether this design is compatible with the UI component.
-* **Alternative 2:** Have another ObservableList for Reviews.
-** Pros: Maybe makes it easier for the UI to implement.
-** Cons: Harder to implement.
-
-// end::addReview[]
-
 // tag::listBook[]
 === ListBook Feature
 
@@ -447,6 +401,80 @@ Step 4. The `ListBookCommand` executes. The command checks all the book in the `
 ** Cons: Hard to test and manage.
 
 // end::listBook[]
+
+
+// tag::addReview[]
+=== Review Features
+
+==== AddReview Feature
+
+===== Current Implementation
+
+Given below is an example usage and how addReview feature behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
+
+Step 2. The user executes `addReview n/Alice in Wonderland rt/Carroll has depicted a unique world I hadn't seen before r/Alice's Adventures in Wonderland by Lewis Carroll is a story about Alice who falls down a rabbit hole and lands into a fantasy world that is full of weird, wonderful people and animals.`
+
+Step 3. The `AddReviewCommandParser` parses this command, and creates a `Review` object based on the parameters in user input.
+
+Step 4. The `AddReviewCommandParser`returns an `AddReviewCommand`. Exception will be thrown if the command is invalid.
+
+Step 5. The `AddReviewCommand` executes. The command checks if the book to which the review is added exists in the `BookShelf`, based on `BookNameContainsExactKeywordPredicate`. If the book does not exist, an exception is thrown.
+
+Step 6. If the book exists, the review is added to the review list of the Book Shelf.
+
+===== Design Considerations
+
+====== Aspect: Data structure to store Reviews
+
+* **Alternative 1 (current choice):** Use a List to store Reviews
+** Pros: There will be an order for the reviews added based on time created. More clear to users.
+** Cons: May have unforeseen bugs or implications.
+* **Alternative 2:** Use a Set to store all Reviews, just like tags.
+** Pros: Easy to code and manage because it is the same implementation as tags.
+** Cons: Set does not allow duplicate reviews. Need to check for duplicate reviews added.
+
+====== Aspect: Where to store Reviews
+
+* **Alternative 1 (current choice):** Have another independent list for reviews in the book shelf.
+** Pros: Much easier to implement.
+** Cons: Reviews and Books now have exactly the same structure, which violates the DRY principle.
+* **Alternative 2:** Use a Set within a Book, just like tags.
+** Pros: The model makes more sense because Reviews belong to Books.
+** Cons: Makes it more difficult to link with the UI component.
+
+==== ListReview Feature
+
+===== Current Implementation
+
+The ListReview Feature is currently combined with the previous SelectPerson.
+
+Given below is an example usage and program behaviour:
+
+Step 1. The user executes `listReview 1`
+
+Step 2. The ListReviewCommandParser parses this command, and returns a new ListReviewCommand with the specified index.
+
+Step 3. The ListReviewCommand executes. The book with the specified index is selected.
+
+Step 4. Reviews of the selected book will be displayed in the rightmost panel.
+
+===== Design Considerations
+
+====== Aspect:
+
+==== ListAllReview Feature
+===== Current Implementation
+
+==== SelectReview Feature
+===== Current Implementation
+
+==== DeleteReview Feature
+===== Current Implementation
+
+// end::addReview[]
+
 
 == Documentation
 

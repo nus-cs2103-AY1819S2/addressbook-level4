@@ -1,17 +1,16 @@
 package seedu.equipment.ui;
 
 import static java.time.Duration.ofMillis;
-import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
-import static seedu.equipment.testutil.TypicalIndexes.INDEX_SECOND_WORKLIST;
+//import static seedu.equipment.testutil.TypicalIndexes.INDEX_SECOND_WORKLIST;
 import static seedu.equipment.testutil.TypicalWorkLists.getTypicalWorkLists;
-import static seedu.equipment.ui.testutil.GuiTestAssert.assertCardDisplaysWorkList;
-import static seedu.equipment.ui.testutil.GuiTestAssert.assertCardEquals;
+//import static seedu.equipment.ui.testutil.GuiTestAssert.assertCardDisplaysWorkList;
+//import static seedu.equipment.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import org.junit.Test;
 
-
-import guitests.guihandles.WorkListCardHandle;
+//import guitests.guihandles.WorkListCardHandle;
 import guitests.guihandles.WorkListListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;

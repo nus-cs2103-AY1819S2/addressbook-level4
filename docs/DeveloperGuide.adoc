@@ -253,19 +253,19 @@ To allow users to manage Cards, the following methods are available via the `Mod
 ==== Example Usage
 
 1. User is in the `Organs` folder and wants to add a new card, with question 'What is the largest organ?' and answer 'Skin'. This is done by typing `add q/What is the largest organ? a/Skin`.
-
+////
     picture of command box with user inputs
-
+////
     * Upon execution, the `AddCommand` checks if the card to be added is already present in the current folder. If so, an exception is thrown.
 
 2. The `AddCommand` then calls the `ModelManager#addCard(Card card)` method.
 
 3. The new card will then be added to the active `VersionedCardFolder`.
-
+////
     picture of main window with updated card thumbnail list
 
     sequence diagram showing how add command works
-
+////
 
 // tag::score[]
 === Score feature
@@ -343,11 +343,11 @@ The user types ``export 1 2``
     Draw export command object diagram with set<CardFolderExport> and CsvFile file
 
 3. Logic unit executes the command. The execute command calls `Model#exportCardFolders` method.
-
+////
     show list of VersionedCardFolders
     arrow up
     Contains the list of card folders present in the model
-
+////
 4. Model checks that all card folders specified by user exists inside the list of card folders.
    Throws `CardFolderNotFound` Exception if user specified card folder does not exist in the application.
 
@@ -355,9 +355,9 @@ The user types ``export 1 2``
     File exported will be created in the project root directory.
     File will be named after the name of the cardfolder.
     i.e `Human Anatomy.csv` and `Nervous System.csv`
-
+////
     Sequence diagram
-
+////
 
 6. User wants to import `Human Anatomy.csv` file.
 `Human Anatomy.csv` file contains flashcards represented in csv file format.

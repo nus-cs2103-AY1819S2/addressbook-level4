@@ -184,7 +184,7 @@ public class Task {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(" Title: ")
+        builder.append("Title: ")
                 .append(getTitle())
                 .append(" Start Date: ")
                 .append(getStartDate())
@@ -197,7 +197,7 @@ public class Task {
                 .append(" Priority: ")
                 .append(getPriority())
                 .append(" Linked Patient ")
-                .append(getLinkedPatient());
+                .append(getLinkedPatient() == null ? "None" : getLinkedPatient());
         return builder.toString();
     }
 

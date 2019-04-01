@@ -456,7 +456,6 @@ Violates Single Responsibility Principle and Separation of Concerns as `Appointm
 The statistics command is started through the command `stats START_MMYY [END_MMYY]`.
 The two MMYY corresponds to a range of dates. The end range is optional,
 and is defaulted to the start range by the StatisticsCommandParser if it does not exist. +
-
 [NOTE]
 MMYY is a string, e.g. "0119", which stands for January 2019. It is parsed by StatisticsCommandParser into a YearMonth
 object.
@@ -500,6 +499,7 @@ Current fields of a Statistics object are:  +
 * Medicines
 
 ==== Design considerations ====
+////
 ==== Alternatives Considered
 [cols="1,2a,1, 1", options="header"]
 |===
@@ -516,6 +516,7 @@ specific month is queried, update the latest statistics and return it.
 |y
 |y
 |===
+////
 * The records are stored in months as the design only allows the doctor to query with a minimum timespan of 1 month. Hence,
 it was decided to store the records in months for ease of access and calculation. +
 
@@ -529,7 +530,7 @@ MonthRecord object of a specific MMYY by indexing.
 
 * The Statistics class was decided to be immutable as it would not make sense for past records to change.
 
-==== Alternatives considered ====
+==== Alternatives Considered ====
 * RecordManager could store the MonthRecord objects in a LinkedList instead. However, that would slow down the access time.
 
 * The different Record classes could be stored in separate MonthRecords. This would reduce the amount of calculations

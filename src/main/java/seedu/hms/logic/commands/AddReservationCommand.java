@@ -33,7 +33,8 @@ public class AddReservationCommand extends ReservationCommand {
         + PREFIX_ROOM + "SINGLE "
         + PREFIX_DATES + "05/05/19 - 07/05/19 "
         + PREFIX_PAYER + "2 "
-        + PREFIX_CUSTOMERS + "1,3 "
+        + PREFIX_CUSTOMERS + "1 "
+        + PREFIX_CUSTOMERS + "3 "
         + PREFIX_COMMENT + "Need one more pillow.\n";
 
     public static final String MESSAGE_SUCCESS = "New reservation added: %1$s";

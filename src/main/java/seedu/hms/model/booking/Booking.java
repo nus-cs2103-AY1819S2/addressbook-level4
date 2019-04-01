@@ -80,14 +80,14 @@ public class Booking {
         String otherUsersToString = "";
         if (otherUsers.isPresent()) {
             for (Customer u : otherUsers.get()) {
-                otherUsersToString += u.getName();
+                otherUsersToString += u.getName() + ", ";
             }
         }
         return "Booking for "
             + service.getName()
             + " from " + timing
-            + " by " + payer.getName()
-            + " with " + otherUsersToString
+            + " by " + payer.getName() + (!otherUsersToString.equals("") ? " with "
+            + otherUsersToString.substring(0, otherUsersToString.length() - 2) : "")
             + ". Comment - " + comment.orElse("N/A");
     }
 

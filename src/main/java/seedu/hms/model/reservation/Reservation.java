@@ -78,10 +78,17 @@ public class Reservation {
 
     @Override
     public String toString() {
+        String otherUsersToString = "";
+        if (otherUsers.isPresent()) {
+            for (Customer u : otherUsers.get()) {
+                otherUsersToString += u.getName() + ", ";
+            }
+        }
         return "Reservation for "
             + room.getName()
             + " from " + dates
-            + " by " + payer.getName()
+            + " by " + payer.getName() + (!otherUsersToString.equals("") ? " with "
+            + otherUsersToString.substring(0, otherUsersToString.length() - 2) : "")
             + ". Comment - " + comment.orElse("N/A");
     }
 

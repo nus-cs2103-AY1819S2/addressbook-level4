@@ -28,8 +28,8 @@ public class TestApp extends MainApp {
     public static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.json");
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
             TestUtil.getFilePathInSandboxFolder("pref_testing.json");
-    private static final double DEFAULT_WIDTH = 1280.0;
-    private static final double DEFAULT_HEIGHT = 720.0;
+    private static final double DEFAULT_WIDTH = 3840.0;
+    private static final double DEFAULT_HEIGHT = 2160.0;
 
     protected Supplier<ReadOnlyTravelBuddy> initialDataSupplier = () -> null;
     protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;

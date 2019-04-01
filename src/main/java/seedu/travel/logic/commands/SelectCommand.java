@@ -41,8 +41,8 @@ public class SelectCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PLACE_DISPLAYED_INDEX);
         }
 
-        model.setChartDisplayed(false);
         model.setSelectedPlace(filteredPlaceList.get(targetIndex.getZeroBased()));
+        model.setChartDisplayed(false);
         return new CommandResult(String.format(MESSAGE_SELECT_PLACE_SUCCESS, targetIndex.getOneBased()));
 
     }

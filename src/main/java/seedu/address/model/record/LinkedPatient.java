@@ -7,7 +7,7 @@ import seedu.address.model.person.Name;
 
 /**
  * Represents a person linked to a task in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidLinkedPatient(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidLinkedPatient(String, String)} (String)}
  */
 public class LinkedPatient {
     public static final String MESSAGE_CONSTRAINTS = "Index of patient should be a positive integer and should be "
@@ -18,11 +18,22 @@ public class LinkedPatient {
     private Name fullname;
     private Nric nric;
 
+    /**
+     * Constructs a (@Code LinkedPatient)
+     *
+     * @param name A valid name
+     * @param nric A valid nric
+     */
     public LinkedPatient(Name name, Nric nric) {
         this.fullname = name;
         this.nric = nric;
     }
 
+    /**
+     * Uses the validity checks for Name and Nric classes to determine the validity
+     * of a LinkedPatient. Returns false if any of the two fields are invalid.
+     * Due to the way LinkedPatient is added to tasks, this should never be false.
+     */
     public static boolean isValidLinkedPatient(String nametest, String nrictest) {
         return (Name.isValidName(nametest) && Nric.isValidNric(nrictest));
     }

@@ -11,6 +11,7 @@ import static seedu.equipment.testutil.TypicalWorkLists.getTypicalWorkLists;
 import org.junit.Test;
 
 //import guitests.guihandles.WorkListCardHandle;
+
 import guitests.guihandles.WorkListListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;

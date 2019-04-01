@@ -225,7 +225,7 @@ public interface Model extends Observable {
      * Returns true if user is in a test session
      * false user is not.
      */
-    boolean checkIfInsideTestSession();
+    boolean isInTestSession();
 
     /**
      * End the current test session.
@@ -246,6 +246,12 @@ public interface Model extends Observable {
     boolean markAttemptedAnswer(Answer attemptedAnswer);
 
     /**
+     * Returns true if the index provided matches the answerIndex of the currently tested card,
+     * false otherwise.
+     */
+    boolean markAttemptedMcqAnswer(int answerIndex);
+
+    /**
      * Set cardAlreadyAnswered variable to true to indicate current card as answered
      */
     void setCardAsAnswered();
@@ -254,7 +260,7 @@ public interface Model extends Observable {
      * Returns true if the answer has already been input for that card
      * false if otherwise
      */
-    boolean checkIfCardAlreadyAnswered();
+    boolean isCardAlreadyAnswered();
 
 
     void exportCardFolders(List<Integer> cardFolderExports) throws IOException, CsvManagerNotInitialized;

@@ -1,5 +1,7 @@
 package seedu.knowitall.ui;
 
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -24,6 +26,8 @@ public class TestSession extends UiPart<Region> {
     @FXML
     private Label testCardAnswer;
     @FXML
+    private Label testCardOptions;
+    @FXML
     private Label testMessage;
 
     public TestSession() {
@@ -42,8 +46,16 @@ public class TestSession extends UiPart<Region> {
     public void displayCard(Card cardToTest) {
         testSessionPage.getChildren().clear();
         testCardQuestion.setText(cardToTest.getQuestion().fullQuestion);
+        testCardOptions.setText("");
+        if (cardToTest.getCardType() == Card.CardType.MCQ) {
+            cardToTest.shuffleMcqOptions();
+            List<String> completeOptions = cardToTest.getCompleteMcqOptions();
+            for (int i = 1; i <= completeOptions.size(); i++) {
+                testCardOptions.setText(testCardOptions.getText() + i + ") " + completeOptions.get(i - 1) + "\n");
+            }
+        }
         testCardAnswer.setText("Correct answer:\n" + cardToTest.getAnswer().fullAnswer);
-        testSessionPage.getChildren().add(testCardQuestion);
+        testSessionPage.getChildren().addAll(testCardQuestion, testCardOptions);
     }
 
     /**
@@ -64,4 +76,3 @@ public class TestSession extends UiPart<Region> {
         testSessionPage.getChildren().addAll(testCardAnswer, testMessage);
     }
 }
-

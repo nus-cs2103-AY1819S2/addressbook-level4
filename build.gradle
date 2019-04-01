@@ -77,7 +77,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'knowitall.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

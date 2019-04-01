@@ -85,10 +85,18 @@ public class RestaurantBuilder {
     }
 
     /**
-     * Parses the {@code reviews} into a {@code Set<Review>} and set it to the {@code Restaurant} that we are building.
+     * Parses the {@code reviews} into a {@code List<Review>} and set it to the {@code Restaurant} that we are building.
      */
     public RestaurantBuilder withReviews(String ... reviews) {
         this.reviews = SampleDataUtil.getReviewList(reviews);
+        return this;
+    }
+
+    /**
+     * Sets the {@code List<Review>} to the {@code Restaurant} that we are building.
+     */
+    public RestaurantBuilder withReviews(List<Review> reviews) {
+        this.reviews = reviews;
         return this;
     }
 

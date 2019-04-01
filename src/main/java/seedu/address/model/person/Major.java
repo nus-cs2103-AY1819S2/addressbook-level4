@@ -3,9 +3,6 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.util.Arrays;
-import java.util.TreeSet;
-
 /**
  * Represents a Person's major in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidMajor(String)}

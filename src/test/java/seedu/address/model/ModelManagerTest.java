@@ -241,7 +241,7 @@ public class ModelManagerTest {
         activeDeck = extractActiveDeck(modelManager);
         assertTrue(modelManager.hasCard(SUBTRACTION, activeDeck));
     }
-    
+
     @Test
     public void getFilteredList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);

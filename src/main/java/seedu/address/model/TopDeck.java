@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javafx.beans.InvalidationListener;
@@ -40,7 +41,7 @@ public class TopDeck implements ReadOnlyTopDeck {
     }
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates TopDeck using the data in the {@code toBeCopied}
      */
     public TopDeck(ReadOnlyTopDeck toBeCopied) {
         this();
@@ -78,7 +79,7 @@ public class TopDeck implements ReadOnlyTopDeck {
     }
 
     /**
-     * Notifies listeners that the address book has been modified.
+     * Notifies listeners that TopDeck has been modified.
      */
     protected void indicateModified() {
         invalidationListenerManager.callListeners(this);
@@ -209,8 +210,18 @@ public class TopDeck implements ReadOnlyTopDeck {
 
     @Override
     public String toString() {
-        return decks.asUnmodifiableObservableList().size() + " decks";
-        // TODO: refine later
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("TopDeck: " + decks.asUnmodifiableObservableList().size() + " decks\n");
+        Iterator<Deck> iterator = decks.iterator();
+        while (iterator.hasNext()) {
+            Deck cur = iterator.next();
+            stringBuilder.append(cur.toString() + "\n");
+            Iterator<Card> cardIterator = cur.getCards().iterator();
+            while (cardIterator.hasNext()) {
+                stringBuilder.append("\t" + cardIterator.next().toString() + "\n");
+            }
+        }
+        return stringBuilder.toString();
     }
 
     @Override

@@ -17,14 +17,18 @@ endif::[]
 
 By: `CS2103-AY2018/19s2-W10-4 Team`      Since: `Mar 2019`      Licence: `MIT`
 
+// tag::introabout[]
 == Introduction
 
-*Know-It-All* is a flashcard application that helps users store and organise their learning material. With an easy to use interface and a storage solution that supports content sharing, *Know-It-All* is designed to help students perform rote learning more efficiently. From cramming in between lessons to focused study, the in-built test session boosts the effectiveness of repetition and recall for memorisation. *Know-It-All* targets medicine students in NUS as their studies involve a considerable amount of memory work, and deals with content that is suitable for the bite-sized flashcard format.
+*Know-It-All* is a flashcard application that helps users store and organise their learning material. With an easy to use interface and a storage solution that supports content sharing, *Know-It-All* is designed to help students perform rote learning more efficiently. From cramming in between lessons to focused study, the in-built test session boosts the effectiveness of repetition and recall for memorisation. *Know-It-All* targets medicine students as their studies involve a considerable amount of memory work, and deals with content that is suitable for the bite-sized flashcard format.
 
 == About
 
 Welcome to the *Know-It-All* User Guide! This document will equip you with what you need in order to use `v1.4` of the application. While some familiarity with command line programs will come in handy, simply adhere to the command formats specified in this guide closely and the rest will be a breeze.  Head over to <<Quick Start>> to get started.
 
+// end::introabout[]
+
+// tag::quickstart[]
 == Quick Start
 
 .  Ensure that you have Java version `9` or later installed in your Computer.
@@ -45,7 +49,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
-
+// end::quickstart[]
 [[Features]]
 == Features
 
@@ -108,7 +112,7 @@ Edits the hint, question and answer of the 2nd card respectively.
 
 ==== Selecting a flashcard : `select`
 
-Displays flashcard details (question, answer, hint, user performance) on the right panel on selection by index.
+Displays flashcard details (question, answer, hint, card score) on the right panel on selection by index.
 
 Format: `select INDEX`
 
@@ -136,7 +140,7 @@ Deletes the 2nd card in the address book.
 
 ==== Sort flashcards by score within a folder : `sort`
 
-Displays all flashcards sorted such that the lowest scoring cards are at the top temporarily.
+Displays all flashcards sorted such that the lowest <<cardscore, card scores>> are at the top temporarily.
 
 Format: `sort`
 
@@ -150,9 +154,70 @@ Format: `list`
 * This command is implicitly invoked upon entering a folder, and can be used to reset the view after search or sort.
 ====
 
+// tag::undoredo[]
+==== Undoing previous command : `undo`
+
+Restores the cards in a particular card folder to the state before the previous _undoable_ command was executed.
+
+Format: `undo`
+
+====
+* This command is performed with respect to the present folder you are in. For example, if you perform an `add` operation in folder A and enter folder B, invoking the `undo` command will undo the previous _undoable_ command performed in folder B and not the aforementioned `add` operation.
+====
+
+[NOTE]
+====
+Undoable commands: commands that modify a card folder's content (`add`, `delete` and `edit`).
+====
+
+Examples:
+
+* `delete 1` +
+`list` +
+`undo` (reverses the `delete 1` command) +
+
+* `select 1` +
+`list` +
+`undo` +
+The `undo` command fails as there are no undoable commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+
+==== Redoing the previously undone command : `redo`
+
+Reverses the most recent `undo` command performed in a folder.
+
+Format: `redo`
+
+====
+* As with the `undo` command, this command is performed with respect to the present folder you are in. For example, if you perform an `undo` operation in folder A and enter folder B, invoking the `redo` command will redo the previous `undo` command performed in folder B and not the one in folder A.
+====
+
+Examples:
+
+* `delete 1` +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+
+* `delete 1` +
+`redo` +
+The `redo` command fails as there are no `undo` commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+`redo` (reapplies the `clear` command) +
+// end::undoredo[]
+
+
 ==== Exit folder : `change ..`
 
-Return to the root directory (exit the current folder). Side panel on the left will display the list of folders.
+Return to the root directory (exit the current folder). A list of folders will be displayed
 
 Format: `change ..`
 
@@ -160,13 +225,15 @@ Examples:
 
 * `change 2` +
 `change ..` +
-The first command enters the second folder in the folder list on the <<homedirectory, home directory>>. The second command then returns the user back to the home directory by exiting the folder.
+The first command enters the second folder in the folder list on the <<homedirectory, home directory>>. The second command then returns you back to the home directory by exiting the folder.
 
+
+//tag::folderoperations[]
 === Folder Operations
 Commands listed in this section affect the application and not a single folder.
 
 [NOTE]
-The commands in this section can only be executed when the user is at the home directory, outside of any folder
+The commands in this section can only be executed when you are at the home directory, outside of any folder
 
 ==== Create new folder : `addfolder`
 
@@ -176,7 +243,7 @@ Format: `addfolder FOLDER_NAME`
 
 ====
 * The newly created folder will not contain any cards.
-* Folder names must be unique. Attempting to add a folder with the same name as an existing folder will result in an error.
+* Folder names must be unique and non-blank. Attempting to add a folder with the same name as an existing folder will result in an error.
 * Each folder and its cards are stored independently in the directory specified in `preferences.json`. By default, this is the `data/` directory.
 ====
 
@@ -200,16 +267,24 @@ Examples:
 * `deletefolder 2` +
 Deletes the second folder in the folder list, along with its cards, on the home directory.
 
-==== Report user performance for folder : `report`
+==== Rename folder : `editfolder`
 
-Displays user performance on the right panel for the folder specified by index.
+Renames the flashcard folder specified by index.
 
-Format: `report FOLDER_INDEX`
+Format: `editfolder FOLDER_INDEX NEW_FOLDER_NAME`
 
+====
+* The new name of the folder cannot be the same as an existing folder.
+====
+
+Examples:
+
+* `editfolder 2 Circulatory System` +
+Renames the second folder in the folder list to "Circulatory System".
 
 ==== Enter folder : `change`
 
-Enters the folder specified by index. Side panel on the left will display the list of cards in that folder.
+Enters the folder specified by index. Panel on the left will display the list of cards in that folder.
 
 Format: `change FOLDER_INDEX`
 
@@ -223,22 +298,29 @@ Enters the second folder in the folder list on the home directory.
 This feature will enable users to join multiple folders together, reducing the number of folders and grouping two topics.
 
 Format: `merge FOLDER_INDEX_1 FOLDER_INDEX_1 NEW_FOLDER_NAME`
+//end::folderoperations[]
 
+//tag::testoperations[]
 === Test Operations
 After memorising the content of the flashcards, it is helpful to test how much information have been internalised and retained in a timed setting. The following commands show just how this can be done with the <<testsession, Test Session>> functionality of *Know-It-All*.
 
 ==== Test flashcards in a folder : `test`
 
-This command begins a test session, where the display area enters a fullscreen (see figure below).
+This command begins a test session, where the display area enters a fullscreen (see Figure 1 below).
 
-Format: `test FOLDER_INDEX`
-
+.A successful test command will display a test session page
 image::startTestSessionPage.png[width="790"]
 
+{empty} +
+Format: `test`
+
+[NOTE]
+This command is only considered valid when inside the folder to be tested and is not already inside a test session.
+
 ====
-* Only questions and
-hints are presented and users are required to either input an attempt or the command to reveal the answer within 20 seconds.
-* When the 20 seconds is up before the question is answered, this attempt will be marked as wrong.
+* Only questions and hints are presented and users are required to either input an attempt or enter the command to
+reveal the answer.
+* (**MCQ cards**) the ordering of options will be randomized each time the card is tested.
 * Internally, flashcards in a folder are queued to be displayed one by one in the order of lowest existing score to highest existing score.
 * The next card will only be presented when the next command is carried out.
 ====
@@ -246,14 +328,21 @@ hints are presented and users are required to either input an attempt or the com
 
 Examples:
 
-* `test 1` +
-Starts a session by displaying a flashcard (both question and hint) from the 1st folder where 20 seconds is given to each card to be answered.
+* `test` +
+Starts a session by displaying a flashcard (both question and hint) from the current folder.
 
 **Hint toggle on / off feature** `Coming in v2.0`
 
 When extra help is needed and familiarity with the content is not yet established hints can be toggled on during a test session when a ‘-hint’ is added on at the end of the test command. Hint will be displayed along with the question when the card is presented.
 
-Format: `test FOLDER_INDEX [-hint]`
+Format: `test [-hint]`
+
+**Timer feature** `Coming in v2.0`
+
+If you are preparing for an exam that will require you to recall information quickly within the limited time given.
+This timer feature is just right for you! You will be given only 20 seconds to answer each question. If the 20 seconds is up before the question is answered, this attempt will be marked as wrong.
+
+Format: `test [-timer]`
 
 ==== Keying in answer to a flashcard: `ans`
 
@@ -262,12 +351,24 @@ currently displayed flashcard question. Know-It-All compares the attempt with th
 shows if it is correct or wrong.
 
 ====
-* Answering a flashcard will increase the total number of attempts. If the answer is correct, the action will also increase the number of correct attempt.
+* Answering a flashcard will increase the total number of attempts. If the answer is correct, the action will also increase the number of correct attempts.
 * Answer matching is case insensitive.
+* To answer **MCQ cards**, enter the number of option that you think is correct, rather than the option itself. +
+E.g. `ans 1` rather than `ans myanswer`
 ====
 
+If the answer has been submitted successfully and it is wrong, you will see the following page (see Figure 2).
 
+.Wrong Answer page
+image::WrongAnswerPage.png[width="790"]
 
+{empty} +
+If the answer has been submitted successfully and it is correct, you will see the following page (see Figure 3).
+
+.Correct Answer page
+image::CorrectAnswerPage.png[width="790"]
+
+{empty} +
 Format: `ans ANSWER`
 
 Examples:
@@ -275,13 +376,20 @@ Examples:
 * `ans Mitochondrion` +
 in response to the card question: What is the powerhouse of the cell?
 
+.Answering an MCQ card
+image::AnsweringMcqCard.png[width="790"]
+
+* `ans 4` +
+in response to the card displayed in Figure 4, where choosing option 4 will give the right answer.
+
 [NOTE]
 This command is only considered valid if a card question is currently being
 displayed in an active test session.
 
 
-==== Reveal answer to a flashcard : `reveal`
-Immediately reveals the correct answer. The user will not need enter any response or wait the full 20 seconds before being presented the correct answer.
+==== Reveal answer to a flashcard : `reveal` `Coming in v1.4`
+Immediately reveals the correct answer. The user will not need attempt any answer before being presented the correct
+answer.
 
 Format: `reveal`
 
@@ -295,8 +403,13 @@ This command is only considered valid if a card question is currently being disp
 
 ==== Go to next flashcard : `next`
 
-Presents the next lowest score flashcard in this current test session and the 20 seconds starts running again before the answer is revealed.
+Presents the next lowest score flashcard in this current test session. Upon a successful next command, you will see a
+ similar page below (see Figure 4).
 
+.Next card question displayed upon a successful next command
+image::NextCommandPage.png[width="790"]
+
+{empty} +
 Format: `next`
 
 [NOTE]
@@ -305,15 +418,47 @@ This command is only considered valid if a card question and answer is currently
 [NOTE]
 There is no backtracking in the current session so there is no `prev` command.
 
-
-==== End the current session : `end`
+[[EndCommand]]
+==== End the current test session : `end`
 
 Quits the current test session.
 
 Format: `end`
+//end::testoperations[]
+
+//tag::reportoperations[]
+=== Report Operations
+After testing, you can track your how you scored against previous attempts using our report feature. Because cards
+about a particular topic are expected to be in the same folder, the <<folderscore, folder scores>> are tracked per folder.
+
+==== Display a folder score report : `report`
+
+Displays a full-screen <<folderscore, folder score>> report for the current folder.
+The report comprises a graph showing the last 10 <<folderscore, folder scores>>,
+the latest score change, and a list of cards and their individual <<cardscore, card scores>>.
+An example is shown below:
+
+.Report display
+image::ReportDisplay.png[width="790"]
+
+Format: `report`
+
+[NOTE]
+This command is only valid inside a folder.
+
+[NOTE]
+There must be at least two test attempts for a graph to be drawn.
+
+==== End the current report session : `end`
+
+Quits the current report session.
+
+Format: `end`
+
+//end::reportoperations[]
 
 === Global Operations
-The commands shown in this section are applicable irregardless of whether the user is inside a folder or at the home directory.
+The commands shown in this section are applicable regardless of whether the user is inside a folder or at the home directory.
 
 ==== Search by keywords : `search`
 
@@ -324,65 +469,22 @@ Format: `search KEYWORDS [MORE_KEYWORDS]`
 
 ==== Import flashcards : `import`
 
-Searches for a json file with the specified filename in the program directory and parses the file to generate a flashcard folder.
+Searches for a csv file in the root project directory and parses the file to generate a flashcard folder.
+
+NOTE: The csv file imported should follow the format below
+
+
 
 Format: `import FILENAME`
 
 ==== Export flashcards : `export`
 
-Creates a json file containing the flashcards from the specified folder, which can later be imported.
+Creates a csv file containing the flashcards from the specified folder, which can later be imported.
+Exported card folder will be created in the project root directory.
 
-Format: `export FOLDER_INDEX FILENAME`
+Format: `export FOLDER_INDEX FILENAME [MORE_INDEXES]`
 
-// tag::undoredo[]
-==== Undoing previous command : `undo`
 
-Restores the application to the state before the previous _undoable_ command was executed. +
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the card folder's content (`add`, `delete` and `edit`).
-====
-
-Examples:
-
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
-
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-
-==== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
 
 ==== Viewing help : `help`
 
@@ -394,7 +496,7 @@ Exits the program.
 
 Format: `exit`
 
-
+//tag::glossarycmdsummary[]
 == Glossary
 
 * [[flashcard]] **Flashcard/Card**: An object containing a single question and answer, and optionally hints.
@@ -402,6 +504,9 @@ Format: `exit`
 sub-folders.
 * [[testsession]] **Test Session**: A session where all flashcards in a folder are queued to have their
 questions displayed. The user is required to key in an answer for each question.
+* [[cardscore]]  **Card Score**: The number of correct answers divided by the number of attempts for a single card. When the user is tested on a card,
+this number is automatically calculated and recorded.
+* [[folderscore]] **Folder Score**: The average of all <<cardscore, card scores>> in a folder after a test session. This number is automatically recorded after each test session.
 * [[homedirectory]] **Home Directory**: The home page where all the folders are listed. From here, users can enter folders to view cards.
 * [[index]] **Index**: The unique number associated with an item in a list. The first item in a list has an index of 1.
 
@@ -412,20 +517,23 @@ questions displayed. The user is required to key in an answer for each question.
 |Command | Summary
 |`add q/QUESTION a/ANSWER [h/HINT]` | Adds a flashcard to the current folder.
 |`edit i/INDEX [q/QUESTION] [a/ANSWER] [h/HINT]` | Edits the flashcard specified by the index in the current folder.
-|`select INDEX` | Displays flashcard details (question, answer, hint, user performance) on the right panel on selection by index.
+|`select INDEX` | Displays flashcard details (question, answer, hint, card score) on the right panel on selection by index.
 |`delete INDEX` | Deletes the flashcard identified by index from the current folder.
 |`sort` | Displays all flashcards sorted such that the lowest scoring cards are at the top temporarily.
 |`list` | Display a list of the flashcards in the current folder
-|`change ..` | Return to the root directory (exit the current folder). Side panel on the left will display the list of folders.
-|`change FOLDER_INDEX`|Enters the folder specified by index. Side panel on the left will display the list of cards in that folder.
+|`report` | Display a folder score report for the current folder
+|`undo` | Undoes the previous undoable command.
+|`redo` | Redoes the last `undo`.
+|`change ..` | Return to the root directory (exit the current folder). A list of folders will be displayed.
+|`change FOLDER_INDEX`|Enters the folder specified by index. Panel on the left will display the list of cards in that folder.
 |`addfolder FOLDER_NAME` | Creates a new flashcard folder with the specified name.
 |`deletefolder FOLDER_INDEX` | Removes the flashcard folder specified by index.
-|`report FOLDER_INDEX` | Displays user performance on the right panel for the folder specified by index.
-|`test FOLDER_INDEX` | This command begins a test session, where the display area enters a fullscreen.
+|`editfolder FOLDER_INDEX NEW_FOLDER_NAME`| Renames the flashcard folder specified by index to the new name specified.
+|`test` | This command begins a test session, where the display area enters a fullscreen.
 |`ans ANSWER` | Enter answer for a flashcard.
 |`reveal` | Immediately reveals the correct answer.
 |`next` | Presents the next lowest score flashcard in this current test session.
-|`end` | Quits the current test session.
+|`end` | Quits the current test session or report display.
 |`search KEYWORDS [MORE_KEYWORDS]` | At the root directory, searches for folders using keywords in folder names. +
 Within a folder, user can search for flashcards inside the current folder using keywords in flashcard questions.
 |`import FILENAME` | Imports a file with the specified name.
@@ -433,3 +541,4 @@ Within a folder, user can search for flashcards inside the current folder using 
 |`help` | Brings up help information.
 |`exit` | Exits the application.
 |=======================================================================
+//end::glossarycmdsummary[]

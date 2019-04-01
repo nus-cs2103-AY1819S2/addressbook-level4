@@ -3,14 +3,14 @@
 
 ret=0
 
-# Preserve filename with spaces by only splitting on newlines.
+# Preserve csvFile with spaces by only splitting on newlines.
 IFS='
 '
 
-for filename in $(git grep --cached -I -l -e '' -- ':/'); do
-    if [ "$(tail -c 1 "./$filename")" != '' ]; then
-        line="$(wc -l "./$filename" | cut -d' ' -f1)"
-        echo "ERROR:$filename:$line: no newline at EOF."
+for csvFile in $(git grep --cached -I -l -e '' -- ':/'); do
+    if [ "$(tail -c 1 "./$csvFile")" != '' ]; then
+        line="$(wc -l "./$csvFile" | cut -d' ' -f1)"
+        echo "ERROR:$csvFile:$line: no newline at EOF."
         ret=1
     fi
 done

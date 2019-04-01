@@ -1,25 +1,25 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
-import static seedu.address.commons.core.Messages.MESSAGE_CARDS_LISTED_OVERVIEW;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalCards.BENSON;
-import static seedu.address.testutil.TypicalCards.CARL;
-import static seedu.address.testutil.TypicalCards.DANIEL;
-import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_MEIER;
+import static seedu.knowitall.commons.core.Messages.MESSAGE_CARDS_LISTED_OVERVIEW;
+import static seedu.knowitall.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.knowitall.testutil.TypicalCards.BENSON;
+import static seedu.knowitall.testutil.TypicalCards.CARL;
+import static seedu.knowitall.testutil.TypicalCards.DANIEL;
+import static seedu.knowitall.testutil.TypicalCards.KEYWORD_MATCHING_MEIER;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SearchCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.hint.Hint;
+import seedu.knowitall.commons.core.index.Index;
+import seedu.knowitall.logic.commands.DeleteCommand;
+import seedu.knowitall.logic.commands.RedoCommand;
+import seedu.knowitall.logic.commands.SearchCommand;
+import seedu.knowitall.logic.commands.UndoCommand;
+import seedu.knowitall.model.Model;
+import seedu.knowitall.model.hint.Hint;
 
 public class SearchCommandSystemTest extends CardFolderSystemTest {
 

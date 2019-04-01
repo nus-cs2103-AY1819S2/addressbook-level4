@@ -1,17 +1,17 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_MEIER;
+import static seedu.knowitall.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.knowitall.testutil.TypicalCards.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.testutil.TypicalCards;
+import seedu.knowitall.commons.core.index.Index;
+import seedu.knowitall.logic.commands.ClearCommand;
+import seedu.knowitall.logic.commands.RedoCommand;
+import seedu.knowitall.logic.commands.UndoCommand;
+import seedu.knowitall.model.Model;
+import seedu.knowitall.model.ModelManager;
+import seedu.knowitall.testutil.TypicalCards;
 
 public class ClearCommandSystemTest extends CardFolderSystemTest {
 

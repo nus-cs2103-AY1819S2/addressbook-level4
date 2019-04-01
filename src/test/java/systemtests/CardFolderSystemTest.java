@@ -4,9 +4,9 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.knowitall.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
+import static seedu.knowitall.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.knowitall.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,16 +26,16 @@ import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
-import seedu.address.TestApp;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.SearchCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.model.CardFolder;
-import seedu.address.model.Model;
-import seedu.address.testutil.TypicalCards;
-import seedu.address.ui.CommandBox;
+import seedu.knowitall.TestApp;
+import seedu.knowitall.commons.core.index.Index;
+import seedu.knowitall.logic.commands.ClearCommand;
+import seedu.knowitall.logic.commands.ListCommand;
+import seedu.knowitall.logic.commands.SearchCommand;
+import seedu.knowitall.logic.commands.SelectCommand;
+import seedu.knowitall.model.CardFolder;
+import seedu.knowitall.model.Model;
+import seedu.knowitall.testutil.TypicalCards;
+import seedu.knowitall.ui.CommandBox;
 
 /**
  * A system test class for CardFolder, which provides access to handles of GUI components and helper methods
@@ -171,7 +171,7 @@ public abstract class CardFolderSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new CardFolder(expectedModel.getActiveCardFolder()), testApp.readStorageCardFolder());
+        assertEquals(new CardFolder(expectedModel.getActiveCardFolder()), testApp.readFirstStorageCardFolder());
         assertListMatching(getCardListPanel(), expectedModel.getFilteredCards());
     }
 

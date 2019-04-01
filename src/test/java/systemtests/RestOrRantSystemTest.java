@@ -1,13 +1,11 @@
 package systemtests;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static org.junit.Assert.assertTrue;
 
 import java.nio.file.Path;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
@@ -15,17 +13,21 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
-import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.OrderItemListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
+import guitests.guihandles.TablesFlowPanelHandle;
 import seedu.address.TestApp;
 
+import seedu.address.logic.commands.AddTableCommand;
+import seedu.address.logic.commands.ClearTableCommand;
+import seedu.address.logic.commands.UpdateTableCommand;
 import seedu.address.model.Model;
 import seedu.address.model.RestOrRant;
+import seedu.address.model.table.Table;
 import seedu.address.testutil.TypicalRestOrRant;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.testutil.OrdersGuiTestAssert;
@@ -61,7 +63,7 @@ public abstract class RestOrRantSystemTest {
 
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
-        waitUntilBrowserLoaded(getBrowserPanel());
+        //        waitUntilBrowserLoaded(getBrowserPanel());
         assertApplicationStartingStateIsCorrect();
     }
 
@@ -108,13 +110,17 @@ public abstract class RestOrRantSystemTest {
         return mainWindowHandle.getOrderItemListPanel();
     }
 
+    public TablesFlowPanelHandle getTablesFlowPanel() {
+        return mainWindowHandle.getTableFlowPanel();
+    }
+
     public MainMenuHandle getMainMenu() {
         return mainWindowHandle.getMainMenu();
     }
 
-    public BrowserPanelHandle getBrowserPanel() {
-        return mainWindowHandle.getBrowserPanel();
-    }
+    //    public BrowserPanelHandle getBrowserPanel() {
+    //        return mainWindowHandle.getBrowserPanel();
+    //    }
 
     public StatusBarFooterHandle getStatusBarFooter() {
         return mainWindowHandle.getStatusBarFooter();
@@ -136,7 +142,7 @@ public abstract class RestOrRantSystemTest {
 
         mainWindowHandle.getCommandBox().run(command);
 
-        waitUntilBrowserLoaded(getBrowserPanel());
+        //        waitUntilBrowserLoaded(getBrowserPanel());
     }
 
     //    /**
@@ -173,6 +179,38 @@ public abstract class RestOrRantSystemTest {
     //    }
 
     /**
+     * Deletes all tables in the restaurant.
+     */
+    protected void deleteAllTables() {
+        clearOccupancy();
+        executeCommand(ClearTableCommand.COMMAND_WORD);
+        assertEquals(0, getModel().getRestOrRant().getTables().getTableList().size());
+    }
+
+    /**
+     * Clears the occupancy of all tables in the restaurant.
+     */
+    protected void clearOccupancy() {
+        for (Table table : getModel().getRestOrRant().getTables().getTableList()) {
+            executeCommand(UpdateTableCommand.COMMAND_WORD + " " + table.getTableNumber() + " 0");
+        }
+        assertTrue(getModel().isRestaurantEmpty());
+    }
+
+    /**
+     * Adds 8 tables and occupies some of them.
+     */
+    protected void occupyTables() {
+        executeCommand(AddTableCommand.COMMAND_WORD + " 4 5 4 5 6 7 4 5");
+        executeCommand(UpdateTableCommand.COMMAND_WORD + " 1 4");
+        executeCommand(UpdateTableCommand.COMMAND_WORD + " 2 4");
+        executeCommand(UpdateTableCommand.COMMAND_WORD + " 3 4");
+        executeCommand(UpdateTableCommand.COMMAND_WORD + " 6 4");
+        executeCommand(UpdateTableCommand.COMMAND_WORD + " 8 4");
+        assertFalse(getModel().isRestaurantEmpty());
+    }
+
+    /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
      * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
      * and the order item list panel displays the order items in the model correctly.
@@ -183,6 +221,8 @@ public abstract class RestOrRantSystemTest {
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new RestOrRant(expectedModel.getRestOrRant()), testApp.readStorageRestOrRant());
         OrdersGuiTestAssert.assertListMatching(getOrderItemListPanel(), expectedModel.getFilteredOrderItemList());
+        // TODO: check if we need this for tables
+        // TablesGuiTestAssert.assertListMatching(getTablesFlowPanel(), expectedModel.getFilteredTableList());
         // TODO: check for the other lists and panes too
     }
 
@@ -192,7 +232,7 @@ public abstract class RestOrRantSystemTest {
      */
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
-        getBrowserPanel().rememberUrl(); // TODO: update
+        //        getBrowserPanel().rememberUrl(); // TODO: update
         statusBarFooterHandle.rememberCurrentMode();
         statusBarFooterHandle.rememberSyncStatus();
         getOrderItemListPanel().rememberSelectedOrderItemCard();
@@ -267,9 +307,9 @@ public abstract class RestOrRantSystemTest {
      */
     protected void assertStatusBarUnchangedExceptSyncStatus() {
         StatusBarFooterHandle handle = getStatusBarFooter();
-        String timestamp = new Date(clockRule.getInjectedClock().millis()).toString();
-        String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
-        assertEquals(expectedSyncStatus, handle.getSyncStatus());
+        //        String timestamp = new Date(clockRule.getInjectedClock().millis()).toString();
+        //        String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
+        assertEquals("", handle.getSyncStatus());
         assertFalse(handle.isCurrentModeChanged());
     }
 
@@ -280,6 +320,8 @@ public abstract class RestOrRantSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         OrdersGuiTestAssert.assertListMatching(getOrderItemListPanel(), getModel().getFilteredOrderItemList());
+        // TODO: Check if we need this for tables
+        // TablesGuiTestAssert.assertListMatching(getTablesFlowPanel(), getModel().getFilteredTableList());
         // assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());TODO: what does browser panel show?
         assertEquals("Restaurant Mode", getStatusBarFooter().getCurrentMode());
     }

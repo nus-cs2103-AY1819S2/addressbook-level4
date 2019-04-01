@@ -1,5 +1,5 @@
 .background {
-    -fx-background-color: derive(#1d1d1d, 0%);
+    -fx-background-color: #1d1d1d;
     background-color: #3d6170; /* Used in the default.html file */
 }
 
@@ -40,9 +40,9 @@
 }
 
 .table-view {
-    -fx-base: derive(#1d1d1d, 0%);
-    -fx-control-inner-background: derive(#1d1d1d, 0%);
-    -fx-background-color: derive(#1d1d1d, 0%);
+    -fx-base: #1d1d1d;
+    -fx-control-inner-background: #1d1d1d;
+    -fx-background-color: #1d1d1d;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -77,20 +77,20 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-background-color: derive(#1d1d1d, 0%);
+    -fx-background-color: #1d1d1d;
     -fx-border-color: transparent transparent transparent #4d4d4d;
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#1d1d1d, 0%);
+    -fx-background-color: #1d1d1d;
 }
 
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#1d1d1d, 0%);
+    -fx-background-color: #1d1d1d;
 }
 
 .list-cell {
@@ -141,17 +141,17 @@
 }
 
 .stack-pane {
-     -fx-background-color: derive(#1d1d1d, 0%);
+     -fx-background-color: #1d1d1d;
 }
 
 .pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 0%);
-     -fx-border-color: derive(#1d1d1d, 0%);
+     -fx-background-color: #1d1d1d;
+     -fx-border-color: #1d1d1d;
      -fx-border-top-width: 1px;
 }
 
 .status-bar {
-    -fx-background-color: derive(#3d6170, 0%);
+    -fx-background-color: #1d1d1d;
 }
 
 .result-display {
@@ -162,7 +162,7 @@
 }
 
 .result-display .label {
-    -fx-text-fill: derive(#1d1d1d, 0%) !important;
+    -fx-text-fill: #1d1d1d !important;
 }
 
 .status-bar .label {
@@ -173,27 +173,37 @@
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(derive(#1d1d1d, 0%), 30%);
-    -fx-border-color: derive(derive(#1d1d1d, 0%), 25%);
+    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-border-color: derive(#1d1d1d, 25%);
     -fx-border-width: 1px;
 }
 
 .status-bar-with-border .label {
+    -fx-text-fill: black;
+    -fx-background-color: #5e8b9e;
+}
+
+#statusBox .label {
+    -fx-background-color: #5e8b9e;
     -fx-text-fill: white;
 }
 
+#statusBox {
+    -fx-background-color: #5e8b9e;
+}
+
 .grid-pane {
-    -fx-background-color: derive(derive(#1d1d1d, 0%), 30%);
-    -fx-border-color: derive(derive(#1d1d1d, 0%), 30%);
+    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-border-color: derive(#1d1d1d, 30%);
     -fx-border-width: 1px;
 }
 
 .grid-pane .stack-pane {
-    -fx-background-color: derive(derive(#1d1d1d, 0%), 30%);
+    -fx-background-color: derive(#1d1d1d, 30%);
 }
 
 .context-menu {
-    -fx-background-color: derive(derive(#1d1d1d, 0%), 50%);
+    -fx-background-color: derive(#1d1d1d, 50%);
 }
 
 .context-menu .label {
@@ -201,7 +211,7 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d, 0%);
+    -fx-background-color: #1d1d1d;
 }
 
 .menu-bar .label {
@@ -212,7 +222,7 @@
 }
 
 .menu .left-container {
-    -fx-background-color: derive(#1d1d1d, 0%);
+    -fx-background-color: #1d1d1d;
 }
 
 /*
@@ -225,7 +235,7 @@
     -fx-border-color: #e2e2e2;
     -fx-border-width: 2;
     -fx-background-radius: 0;
-    -fx-background-color: derive(#1d1d1d, 0%);
+    -fx-background-color: #1d1d1d;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
@@ -238,7 +248,7 @@
 
 .button:pressed, .button:default:hover:pressed {
   -fx-background-color: white;
-  -fx-text-fill: derive(#1d1d1d, 0%);
+  -fx-text-fill: #1d1d1d;
 }
 
 .button:focused {
@@ -251,7 +261,7 @@
 
 .button:disabled, .button:default:disabled {
     -fx-opacity: 0.4;
-    -fx-background-color: derive(#1d1d1d, 0%);
+    -fx-background-color: #1d1d1d;
     -fx-text-fill: white;
 }
 
@@ -265,11 +275,11 @@
 }
 
 .dialog-pane {
-    -fx-background-color: derive(#1d1d1d, 0%);
+    -fx-background-color: #1d1d1d;
 }
 
 .dialog-pane > *.button-bar > *.container {
-    -fx-background-color: derive(#1d1d1d, 0%);
+    -fx-background-color: #1d1d1d;
 }
 
 .dialog-pane > *.label.content {
@@ -279,7 +289,7 @@
 }
 
 .dialog-pane:header *.header-panel {
-    -fx-background-color: derive(derive(#1d1d1d, 0%), 25%);
+    -fx-background-color: derive(#1d1d1d, 25%);
 }
 
 .dialog-pane:header *.header-panel *.label {
@@ -290,11 +300,11 @@
 }
 
 .scroll-bar {
-    -fx-background-color: derive(#1d1d1d, 0%);
+    -fx-background-color: #1d1d1d;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(derive(#1d1d1d, 0%), 50%);
+    -fx-background-color: derive(#1d1d1d, 50%);
     -fx-background-insets: 3;
 }
 
@@ -316,11 +326,11 @@
 }
 
 .scroll-pane > .viewport {
-    -fx-background-color: derive(#1d1d1d, 0%);
+    -fx-background-color: #1d1d1d;
 }
 
 #scrollPane {
-    -fx-background-color: derive(#1d1d1d, 0%);
+    -fx-background-color: #1d1d1d;
 }
 
 #tableCardPane {
@@ -346,11 +356,11 @@
 }
 
 #tableFlowPane {
-    -fx-background-color: derive(#1d1d1d, 0%);
+    -fx-background-color: #1d1d1d;
 }
 
 #menuItemFlowPane {
-    -fx-background-color: derive(#1d1d1d, 0%);
+    -fx-background-color: #1d1d1d;
 }
 
 #commandTypeLabel {
@@ -370,7 +380,7 @@
 }
 
 #filterField, #personListPanel, #personWebpage {
-    -fx-effect: innershadow(gaussian, derive(#1d1d1d, 0%), 10, 0, 0, 0);
+    -fx-effect: innershadow(gaussian, #1d1d1d, 10, 0, 0, 0);
 }
 
 #resultDisplay .content {

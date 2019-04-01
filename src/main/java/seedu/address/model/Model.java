@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -131,6 +132,16 @@ public interface Model {
      * The table identity og {@code editedTable} must not be the same as  another existing table in Tables.
      */
     void setTable(Table target, Table editedTable);
+
+    /**
+     * Replaces the current list of tables with the new one {@code tables}.
+     */
+    void setTables(List<Table> tables);
+
+    /**
+     * Checks and returns true if all tables are unoccupied.
+     */
+    boolean isRestaurantEmpty();
 
     /**
      * Returns an unmodifiable view of the filtered table list

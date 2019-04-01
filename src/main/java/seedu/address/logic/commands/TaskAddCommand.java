@@ -10,10 +10,16 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTDATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
+import java.util.List;
+
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.patient.Patient;
+import seedu.address.model.person.Person;
+import seedu.address.model.record.LinkedPatient;
 import seedu.address.model.task.Task;
 
 
@@ -69,8 +75,14 @@ public class TaskAddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 
-        if(targetIndex != null) {
-
+        if (targetIndex != null) {
+            List<Person> lastShownList = model.getFilteredPersonList();
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(LinkedPatient.MESSAGE_CONSTRAINTS);
+            }
+            Person targetPerson = lastShownList.get(targetIndex.getZeroBased());
+            Patient targetPatient = (Patient) targetPerson;
+            toAdd.setLinkedPatient(targetPatient.getName().fullName, ((Patient) targetPerson).getNric() );
         }
 
         model.addTask(toAdd);

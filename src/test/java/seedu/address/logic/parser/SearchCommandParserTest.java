@@ -43,7 +43,7 @@ public class SearchCommandParserTest {
     }
 
     @Test
-    public void parse_validArgs_returnsFindCommand() {
+    public void parse_validArgs_returnsSearchCommand() {
         // no leading and trailing whitespaces
         SearchCommand.PredicatePersonDescriptor descriptorAmy = new SearchCommand.PredicatePersonDescriptor();
         descriptorAmy.setName(new HashSet<>(Arrays.asList(VALID_NAME_AMY.split("\\s+"))));

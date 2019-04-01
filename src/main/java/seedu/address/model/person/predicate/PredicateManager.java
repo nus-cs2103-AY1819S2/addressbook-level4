@@ -12,12 +12,12 @@ import seedu.address.model.person.Person;
 public class PredicateManager implements Predicate<Person> {
 
     /**
-     * @param predicatePersonDescriptor details to predicate the person with
+     * @param descriptor details to predicate the person with
      * and returns a Predicate object for search command
      */
-    public Predicate translatePredicateDescriptor(PredicatePersonDescriptor predicatePersonDescriptor) {
+    public Predicate translatePredicateDescriptor(PredicatePersonDescriptor descriptor) {
         Predicate<Person> predicator = new PredicateManager();
-        predicatePersonDescriptor = new PredicatePersonDescriptor(predicatePersonDescriptor);
+        PredicatePersonDescriptor predicatePersonDescriptor = new PredicatePersonDescriptor(descriptor);
         if (predicatePersonDescriptor.getName().isPresent()) {
             predicator = predicator.and(new NameContainsKeywordsPredicate(
                 new ArrayList<>(predicatePersonDescriptor.getName().get())));

@@ -23,9 +23,6 @@ public class PredicatePersonDescriptorTest {
         descriptorReverse.setName(new HashSet<>(Arrays.asList("Bob", "Alice")));
         assertTrue(descriptorReverse.equals(descriptor));
 
-        // null -> returns false
-        assertFalse(descriptor.equals(null));
-
         // different types -> returns false
         assertFalse(descriptor.equals(5));
 

@@ -25,7 +25,7 @@ import seedu.address.model.person.predicate.PredicateManager;
 
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+ * Contains integration tests (interaction with the Model) for {@code SearchCommand}.
  */
 public class SearchCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -34,29 +34,30 @@ public class SearchCommandTest {
 
     @Test
     public void equals() {
-        NameContainsKeywordsPredicate firstPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-        NameContainsKeywordsPredicate secondPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
-
-        FindCommand findFirstCommand = new FindCommand(firstPredicate);
-        FindCommand findSecondCommand = new FindCommand(secondPredicate);
+        SearchCommand.PredicatePersonDescriptor firstDescriptor = preparePredicatePersonDescriptor("first");
+        SearchCommand firstCommand = new SearchCommand(firstDescriptor);
+        SearchCommand.PredicatePersonDescriptor secondDescriptor
+            = preparePredicatePersonDescriptor("second");
+        SearchCommand secondCommand = new SearchCommand(secondDescriptor);
+        NameContainsKeywordsPredicate findPredicate =
+            new NameContainsKeywordsPredicate(Collections.singletonList("first"));
+        FindCommand findCommand = new FindCommand(findPredicate);
 
         // same object -> returns true
-        assertTrue(findFirstCommand.equals(findFirstCommand));
+        assertTrue(firstCommand.equals(firstCommand));
 
         // same values -> returns true
-        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
-        assertTrue(findFirstCommand.equals(findFirstCommandCopy));
+        SearchCommand firstCommandCopy = new SearchCommand(firstDescriptor);
+        assertTrue(firstCommand.equals(firstCommandCopy));
 
         // different types -> returns false
-        assertFalse(findFirstCommand.equals(1));
-
-        // null -> returns false
-        assertFalse(findFirstCommand.equals(null));
+        assertFalse(firstCommand.equals(1));
 
         // different person -> returns false
-        assertFalse(findFirstCommand.equals(findSecondCommand));
+        assertFalse(firstCommand.equals(secondCommand));
+
+        // different command type -> returns false
+        assertFalse(firstCommand.equals(findCommand));
     }
 
     @Test

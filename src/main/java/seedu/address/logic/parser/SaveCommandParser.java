@@ -1,9 +1,5 @@
+/* @@author itszp */
 package seedu.address.logic.parser;
-
-import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
-import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_FILE;
-
-import java.io.File;
 
 import seedu.address.logic.commands.SaveCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -19,12 +15,9 @@ public class SaveCommandParser implements Parser<SaveCommand> {
      */
     public SaveCommand parse(String args) throws ParseException {
         args = args.trim();
-        File file = new File(ASSETS_FILEPATH + args);
 
         if (args.isEmpty()) {
             return new SaveCommand(args);
-        } else if (file.exists()) {
-            throw new ParseException(String.format(MESSAGE_DUPLICATE_FILE + " Try using another name."));
         }
         return new SaveCommand(args);
     }

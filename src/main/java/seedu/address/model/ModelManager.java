@@ -265,10 +265,10 @@ public class ModelManager implements Model {
     @Override
     public void clearAssetFolder(File dir) {
         for (File file : dir.listFiles()) {
-            if (file.getName().equals("sample.png") || file.getName().equals("sample2.png")) {
-                continue;
+            // Boolean check for placeholder file in assets folder.
+            if (!file.getName().equals("README.adoc")) {
+                file.delete();
             }
-            file.delete();
         }
     }
 

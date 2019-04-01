@@ -18,46 +18,46 @@ public class TypicalPersons {
             .withPhone("94351253")
             .withEmail("alice@example.com")
             .withEducation("NUS")
-            .withGpa("4")
+            .withGpa("4.0")
             .withAddress("123, Jurong West Ave 6, #08-111")
             .build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withPhone("98765432")
             .withEmail("johnd@example.com")
             .withEducation("NTU")
-            .withGpa("3")
+            .withGpa("3.1")
             .withAddress("311, Clementi Ave 2, #02-25")
             .build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz")
             .withPhone("95352563")
             .withEmail("heinz@example.com")
             .withEducation("SIM")
-            .withGpa("2")
+            .withGpa("2.9")
             .withAddress("wall street").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier")
             .withPhone("87652533")
             .withEmail("cornelia@example.com")
             .withEducation("SIT")
-            .withGpa("3")
+            .withGpa("3.5")
             .withAddress("10th street")
             .build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer")
             .withPhone("9482224")
             .withEmail("werner@example.com")
             .withEducation("SUTD")
-            .withGpa("4")
+            .withGpa("3.8")
             .withAddress("michegan ave").build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz")
             .withPhone("9482427")
             .withEmail("lydia@example.com")
             .withEducation("SUSS")
-            .withGpa("3")
+            .withGpa("3.4")
             .withAddress("little tokyo").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best")
             .withPhone("9482442")
             .withEmail("anna@example.com")
             .withEducation("NUS")
-            .withGpa("1")
+            .withGpa("2.6")
             .withAddress("4th street").build();
 
     // Manually added

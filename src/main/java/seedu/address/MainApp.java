@@ -201,6 +201,16 @@ public class MainApp extends Application {
         Path userFilePath = storage.getUserFilePath();
         logger.info("Using user data folder : " + userFilePath);
 
+        if (!Files.exists(userFilePath)) {
+            logger.info("User folder not found. Creating...");
+        }
+
+        try {
+            Files.createDirectories(userFilePath.getParent());
+        } catch (IOException e) {
+            logger.warning("Failed to create folder at: " + userFilePath);
+        }
+
         User initializedUser = null;
         Optional<User> prefsOptional = storage.readUser();
         initializedUser = prefsOptional.orElse(new User());

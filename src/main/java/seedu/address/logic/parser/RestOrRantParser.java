@@ -15,6 +15,7 @@ import seedu.address.logic.commands.BillCommand;
 import seedu.address.logic.commands.ClearOrderCommand;
 import seedu.address.logic.commands.ClearTableCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteFromMenuCommand;
 import seedu.address.logic.commands.DeleteFromOrderCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -110,6 +111,12 @@ public class RestOrRantParser {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }
             return new AddToMenuCommandParser().parse(arguments);
+
+        case DeleteFromMenuCommand.COMMAND_WORD:
+            if (mode != Mode.MENU_MODE) {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            return new DeleteFromMenuCommandParser().parse(arguments);
 
         // Commands that work in Table Mode
         case AddToOrderCommand.COMMAND_WORD:

@@ -99,6 +99,22 @@ public class UniqueMenuItemList implements Iterable<MenuItem> {
     }
 
     /**
+     * Updates the quantity ordered of the menu item specified in the parameters.
+     */
+    public void updateMenuItemQuantity(MenuItem toBeReplaced, int quantityToAdd) {
+        for (int i = 0; i < internalList.size(); i++) {
+            if (internalList.get(i).equals(toBeReplaced)) {
+                internalList.remove(i);
+                int newQuantityOrdered = toBeReplaced.getNewQuantity(quantityToAdd);
+                MenuItem newMenuItem = new MenuItem(toBeReplaced.getName(), toBeReplaced.getCode(),
+                        toBeReplaced.getPrice(), newQuantityOrdered);
+                internalList.add(i, newMenuItem);
+                break;
+            }
+        }
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<MenuItem> asUnmodifiableObservableList() {

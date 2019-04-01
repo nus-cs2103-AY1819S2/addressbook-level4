@@ -9,13 +9,14 @@ import java.util.Optional;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
-// methods
 
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
 public class Menu implements ReadOnlyMenu {
+
+    public static final String MESSAGE_ILLEGAL_QUANTITY = "The quantity to add should be more than 0.";
 
     private final UniqueMenuItemList menuItems;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
@@ -113,6 +114,15 @@ public class Menu implements ReadOnlyMenu {
             }
         }
         return Optional.empty();
+    }
+
+    @Override
+    public void updateMenuItemQuantity(MenuItem menuItem, int quantityToAdd) {
+        if (quantityToAdd <= 0) {
+            throw new IllegalArgumentException(MESSAGE_ILLEGAL_QUANTITY);
+        }
+        menuItems.updateMenuItemQuantity(menuItem, quantityToAdd);
+        indicateModified();
     }
 
     public Name getNameFromItem(MenuItem menuItem) {

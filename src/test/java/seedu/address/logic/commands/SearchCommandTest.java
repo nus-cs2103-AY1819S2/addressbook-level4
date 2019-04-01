@@ -63,6 +63,7 @@ public class SearchCommandTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void execute_zeroKeywords_noPersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         SearchCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
@@ -74,6 +75,7 @@ public class SearchCommandTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         SearchCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor("Kurz Elle Kunz");

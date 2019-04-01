@@ -206,13 +206,11 @@ The `Model`,
 * exposes unmodifiable instances of `FilteredList<Card>` and `FilteredList<VersionedCardFolder>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-////
-This is a multiline comment, remove the four slashes to remove comment
+
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `card folder`, which `Card` can reference. This would allow `card folder` to only require one `Tag` object per unique `Tag`, instead of each `Card` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can change the `Card` implementation to be that of a parent class, from which 2 subclasses, `SingleAnswerCard` and `McqCard` can inherit from. This would eliminate the need for the `Card` class to maintain a Set of MCQ `Options` even if it is a Single-answer card. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
-////
 
 [[Design-Storage]]
 === Storage component
@@ -236,6 +234,7 @@ Classes used by multiple components are in the `seedu.knowitall.commons` package
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::[cards]
 === Cards
 ==== Current Implementation
 The `Card` is one of the core aspects of the application. Cards are the result of morphing of the `Person` class from the original AddressBook model. The implementation incorporates the `Logic` and `Model` components.
@@ -253,19 +252,33 @@ To allow users to manage Cards, the following methods are available via the `Mod
 ==== Example Usage
 
 1. User is in the `Organs` folder and wants to add a new card, with question 'What is the largest organ?' and answer 'Skin'. This is done by typing `add q/What is the largest organ? a/Skin`.
-////
-    picture of command box with user inputs
-////
++
+image:CardImplementationAddExample.png[width="800"]
+
     * Upon execution, the `AddCommand` checks if the card to be added is already present in the current folder. If so, an exception is thrown.
 
 2. The `AddCommand` then calls the `ModelManager#addCard(Card card)` method.
 
 3. The new card will then be added to the active `VersionedCardFolder`.
-////
-    picture of main window with updated card thumbnail list
 
-    sequence diagram showing how add command works
-////
+4. If the user is not inside a folder, or if the card to add already exists inside the current folder, the `addCommand` will throw a `CommandException`.
+
+The following sequence diagram demonstrates how `AddCommand` works.
+
+image:AddCommandSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: How to represent options for MCQ cards
+
+* **Alternative 1 (current choice):** Maintain a set of `Option` objects to represent incorrect options, separate from the `Answer` field of each `Card`.
+** Pros: Simple to implement, easy to convert the card type between MCQ and Single-answer, requires the least amount of implementation changes to `Card`.
+** Cons: Single-answer cards still have to maintain an empty `Option` set.
+* **Alternative 2:** Maintain 2 separate subclasses of `Card`, one for Single-answer and another for MCQ.
+** Pros: More correct implementation.
+** Cons: Harder to implement.
+
+// end::cards[]
 
 // tag::score[]
 === Score feature
@@ -1479,24 +1492,35 @@ Use case resumes from step 1.
 
 _{More to be added}_
 
+
 [appendix]
+// tag::glossary[]
 == Glossary
 
-[[mainstream-os]]**Mainstream OS**: Windows, Linux, Unix, OS-X
+[[cardanswer]] **Card Answer**: The correct answer of a card.
 
-[[flashcard]]**Flashcard/Card**: An object containing a single question and answer, and optionally hints.
+[[cardhint]] **Card Hint**: The optional hint of a card.
+
+[[cardoption]] **Card Option**: An incorrect option for an MCQ card.
+
+[[cardquestion]] **Card Question**: The question of a card.
+
+[[cardscore]]  **Card Score**: The number of correct answers divided by the number of attempts for a single card. When the user is tested on a card, this number is automatically calculated and recorded.
+
+[[flashcard]]**Flashcard/Card**: An object containing a single question and answer, and optionally, hints. There are 2 types of cards, Single-answer and MCQ. MCQ cards feature incorrect options in addition to the card answer, while Single-answer cards do not.
 
 [[folder]] **Folder**: A collections of flashcards, grouped topically. There are no
 sub-folders.
 
-[[testsession]] **Test Session**: A session where all flashcards in a folder are queued to have their
-questions displayed. The user is required to key in an answer for each question.
-
-[[cardscore]]  **Card Score**: The number of correct answers divided by the number of attempts for a single card. When the user is tested on a card, this number is automatically calculated and recorded.
-
 [[folderscore]] **Folder Score**: The average of all <<cardscore, card scores>> in a folder after a test session. This number is automatically recorded after each test session.
 
 [[homedirectory]] **Home Directory**: The home page where all the folders are listed. From here, users can enter folders to view cards.
+
+[[mainstream-os]]**Mainstream OS**: Windows, Linux, Unix, OS-X
+
+[[testsession]] **Test Session**: A session where all flashcards in a folder are queued to have their
+questions displayed. The user is required to key in an answer for each question.
+// end::gloassary[]
 
 [appendix]
 == Instructions for Manual Testing

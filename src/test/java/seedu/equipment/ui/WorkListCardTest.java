@@ -3,7 +3,6 @@ package seedu.equipment.ui;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.equipment.testutil.TypicalEquipments.HWIYOHCC;
 import static seedu.equipment.ui.testutil.GuiTestAssert.assertCardDisplaysWorkList;
 
 import org.junit.Test;
@@ -32,7 +31,6 @@ public class WorkListCardTest extends GuiUnitTest {
     @Test
     public void equals() {
         WorkList workList = new WorkListBuilder().build();
-        workList.addEquipment(HWIYOHCC);
         WorkListCard workListCard = new WorkListCard(workList, 0);
 
         // same WorkList, same index -> returns true

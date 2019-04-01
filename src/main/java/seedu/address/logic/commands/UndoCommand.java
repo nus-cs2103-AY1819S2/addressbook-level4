@@ -20,7 +20,7 @@ public class UndoCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.canUndoAddressBook() && !model.canUndoPinBook()) {
+        if (!model.canUndoAddressBook()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
@@ -38,11 +38,6 @@ public class UndoCommand extends Command {
 
     @Override
     public boolean requiresArchiveList() {
-        return false;
-    }
-
-    @Override
-    public boolean requiresPinList() {
         return false;
     }
 }

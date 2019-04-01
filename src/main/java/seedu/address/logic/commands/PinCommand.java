@@ -78,9 +78,4 @@ public class PinCommand extends Command {
     public boolean requiresArchiveList() {
         return false;
     }
-
-    @Override
-    public boolean requiresPinList() {
-        return true;
-    }
 }

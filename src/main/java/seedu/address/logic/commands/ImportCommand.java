@@ -38,8 +38,8 @@ public class ImportCommand extends Command {
     public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history) {
         requireNonNull(model);
         album.populateAlbum();
-        model.refreshAlbum();
+        album.refreshAlbum();
         String returnString = isDirectory ? MESSAGE_DIR_SUCCESS : MESSAGE_SUCCESS;
-        return new CommandResult(String.format(returnString));
+        return new CommandResult(returnString);
     }
 }

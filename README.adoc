@@ -1,10 +1,8 @@
 = OurTeeth (Morphed from Address Book Level 4)
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.org/se-edu/addressbook-level4[image:https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level4[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
-https://coveralls.io/github/se-edu/addressbook-level4?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master[Coverage Status]]
-
+https://travis-ci.org/CS2103-AY1819S2-W17-2/main[image:https://travis-ci.org/CS2103-AY1819S2-W17-2/main.svg?branch=master["Build Status", link="https://travis-ci.org/CS2103-AY1819S2-W17-2/main"]]
+https://app.netlify.com/sites/cs2103-w17-2/deploys[image:https://api.netlify.com/api/v1/badges/0ed4dd99-3443-483f-94e5-64bb727aa43c/deploy-status[Netlify Status]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]

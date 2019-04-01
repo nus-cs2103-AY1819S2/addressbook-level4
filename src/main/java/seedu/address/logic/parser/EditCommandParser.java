@@ -3,23 +3,23 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DRUG_ALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOKA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOKN;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOKP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOKR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -32,12 +32,11 @@ public class EditCommandParser implements Parser<EditCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditCommand parse(String args) throws ParseException {
-        System.out.println("Edit command parser parse is run.");
-
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG,
-                        PREFIX_NRIC, PREFIX_YEAR);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
+                    PREFIX_NRIC, PREFIX_YEAR, PREFIX_SEX, PREFIX_DRUG_ALLERGY, PREFIX_NOKN, PREFIX_NOKR,
+                    PREFIX_NOKP, PREFIX_NOKA, PREFIX_DESC);
 
         Index index;
 
@@ -50,6 +49,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        }
+        if (argMultimap.getValue(PREFIX_SEX).isPresent()) {
+            editPersonDescriptor.setSex(ParserUtil.parseSex(argMultimap.getValue(PREFIX_SEX).get()));
         }
         if (argMultimap.getValue(PREFIX_NRIC).isPresent()) {
             editPersonDescriptor.setNric(ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get()));
@@ -66,28 +68,45 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
+        if (argMultimap.getValue(PREFIX_DRUG_ALLERGY).isPresent()) {
+            editPersonDescriptor.setDrugAllergy(ParserUtil
+                .parseDrugAllergy(argMultimap.getValue(PREFIX_DRUG_ALLERGY).get()));
+        }
+        if (argMultimap.getValue(PREFIX_DESC).isPresent()) {
+            editPersonDescriptor.setDescription(ParserUtil.parseDesc(argMultimap.getValue(PREFIX_DESC).get()));
+        }
+
+        //Next Of Kin checks
+        if (argMultimap.getValue(PREFIX_NOKN).isPresent()) {
+            editPersonDescriptor.setNextOfKinName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NOKN).get()));
+        }
+        if (argMultimap.getValue(PREFIX_NOKR).isPresent()) {
+            editPersonDescriptor.setNextOfKinRelation(ParserUtil.parseRelation(argMultimap
+                .getValue(PREFIX_NOKR).get()));
+        }
+        if (argMultimap.getValue(PREFIX_NOKP).isPresent()) {
+            editPersonDescriptor.setNextOfKinPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_NOKP).get()));
+        }
+        if (argMultimap.getValue(PREFIX_NOKA).isPresent()) {
+            String updatedValue = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_NOKA).get()).toString();
+            if (!updatedValue.toLowerCase().equals("same")) {
+                editPersonDescriptor.setNextOfKinAddress(ParserUtil.parseAddress(argMultimap
+                    .getValue(PREFIX_NOKA).get()));
+            } else {
+                if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+                    editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap
+                        .getValue(PREFIX_ADDRESS).get()));
+                } else {
+                    editPersonDescriptor.setSameAddr();
+                }
+            }
+        }
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
         return new EditCommand(index, editPersonDescriptor);
-    }
-
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero tags.
-     */
-    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
-        assert tags != null;
-
-        if (tags.isEmpty()) {
-            return Optional.empty();
-        }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        return Optional.of(ParserUtil.parseTags(tagSet));
     }
 
 }

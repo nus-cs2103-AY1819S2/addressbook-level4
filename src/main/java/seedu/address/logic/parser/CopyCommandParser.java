@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import javafx.util.Pair;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CopyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -22,14 +23,18 @@ public class CopyCommandParser implements Parser<CopyCommand> {
         requireNonNull(args);
 
         Index index;
+        int numOfCopies;
 
         try {
-            index = ParserUtil.parseIndex(args);
+            Pair<Index, Integer> parsedPair = ParserUtil.parseCopy(args);
+            index = parsedPair.getKey();
+            numOfCopies = parsedPair.getValue();
+
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CopyCommand.MESSAGE_USAGE), pe);
         }
 
 
-        return new CopyCommand(index);
+        return new CopyCommand(index, numOfCopies);
     }
 }

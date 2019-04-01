@@ -16,8 +16,10 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.record.Record;
 import seedu.address.model.task.Task;
 import seedu.address.storage.Storage;
+import seedu.address.ui.MainWindow;
 
 /**
  * The main LogicManager of the app.
@@ -30,6 +32,7 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
+    private MainWindow mainWindow;
     private boolean addressBookModified;
 
     public LogicManager(Model model, Storage storage) {
@@ -52,7 +55,9 @@ public class LogicManager implements Logic {
             Command command = addressBookParser.parseCommand(commandText);
             commandResult = command.execute(model, history);
         } finally {
-            history.add(commandText);
+            if (!commandText.contains("taskcal")) {
+                history.add(commandText);
+            }
         }
 
         if (addressBookModified) {
@@ -68,6 +73,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public boolean checkNoCopy() {
+        return model.checkNoCopy();
+    }
+
+    @Override
     public ReadOnlyAddressBook getAddressBook() {
         return model.getAddressBook();
     }
@@ -80,6 +90,14 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Task> getFilteredTaskList() {
         return model.getFilteredTaskList();
+    }
+
+    /**
+     * Returns an unmodifiable view of the filtered list of tasks
+     */
+    @Override
+    public ObservableList<Record> getFilteredRecordList() {
+        return model.getFilteredRecordList();
     }
 
     @Override
@@ -110,5 +128,15 @@ public class LogicManager implements Logic {
     @Override
     public void setSelectedPerson(Person person) {
         model.setSelectedPerson(person);
+    }
+
+    /**
+     * Sets the main window associated with this logic.
+     *
+     * @param mainWindow the associated main window.
+     */
+    @Override
+    public void setMainWindow(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
     }
 }

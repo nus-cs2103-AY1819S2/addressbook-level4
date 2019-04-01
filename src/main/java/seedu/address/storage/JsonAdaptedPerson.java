@@ -10,15 +10,21 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.patient.DateOfBirth;
+import seedu.address.model.datetime.DateOfBirth;
+import seedu.address.model.description.Description;
+import seedu.address.model.nextofkin.NextOfKin;
+import seedu.address.model.patient.DrugAllergy;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
+import seedu.address.model.patient.Sex;
+import seedu.address.model.patient.Teeth;
 import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.record.Record;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -30,29 +36,52 @@ class JsonAdaptedPerson {
 
     @JsonProperty("index") private int index;
     private final String name;
+    private final String sex;
     private final String nric;
     private final String dateOfBirth;
     private final String phone;
     private final String email;
     private final String address;
+    private final String drugAllergy;
+    private final String description;
+    private final String teeth;
+    private final JsonAdaptedNextOfKin nextOfKin;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedRecord> records = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("nric") String nric,
-            @JsonProperty("dateOfBirth") String dateOfBirth, @JsonProperty("phone") String phone,
+            @JsonProperty("dateOfBirth") String dateOfBirth, @JsonProperty("sex") String sex,
+            @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("drugAllergy") String drugAllergy,
+            @JsonProperty("teeth") String teeth,
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+            @JsonProperty("records") List<JsonAdaptedRecord> records,
+            @JsonProperty("nextOfKin") JsonAdaptedNextOfKin nextOfKin,
+            @JsonProperty("description") String description) {
+
         this.name = name;
+        this.sex = sex;
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.teeth = teeth;
+        this.drugAllergy = drugAllergy;
+        this.description = description;
+        this.nextOfKin = nextOfKin;
+
         if (tagged != null) {
             this.tagged.addAll(tagged);
+        }
+
+        if (records != null) {
+            this.records.addAll(records);
         }
     }
 
@@ -62,13 +91,21 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(Person source) {
         if (source instanceof Patient) {
             name = source.getName().fullName;
+            sex = ((Patient) source).getSex().getSex();
             nric = ((Patient) source).getNric().getNric();
             dateOfBirth = ((Patient) source).getDateOfBirth().getRawFormat();
             phone = source.getPhone().value;
             email = source.getEmail().value;
             address = source.getAddress().value;
+            drugAllergy = ((Patient) source).getDrugAllergy().toString();
+            description = ((Patient) source).getPatientDesc().toString();
+            teeth = new JsonAdaptedTeeth(((Patient) source).getTeeth()).getTeethName();
+            nextOfKin = new JsonAdaptedNextOfKin(((Patient) source).getNextOfKin());
             tagged.addAll(source.getTags().stream()
                     .map(JsonAdaptedTag::new)
+                    .collect(Collectors.toList()));
+            records.addAll(((Patient) source).getRecords().stream()
+                    .map(JsonAdaptedRecord::new)
                     .collect(Collectors.toList()));
         } else {
             throw new PersonIsNotPatient();
@@ -86,6 +123,11 @@ class JsonAdaptedPerson {
             personTags.add(tag.toModelType());
         }
 
+        final List<Record> patientRecords = new ArrayList<>();
+        for (JsonAdaptedRecord record : records) {
+            patientRecords.add(record.toModelType());
+        }
+
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -93,6 +135,14 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelName = new Name(name);
+
+        if (sex == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Sex.class.getSimpleName()));
+        }
+        if (!Sex.isValidSex(sex)) {
+            throw new IllegalValueException(Sex.MESSAGE_CONSTRAINTS);
+        }
+        final Sex modelSex = new Sex(sex);
 
         if (nric == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName()));
@@ -106,7 +156,7 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     DateOfBirth.class.getSimpleName()));
         }
-        if (!DateOfBirth.isValidDob(dateOfBirth)) {
+        if (!DateOfBirth.isValidDate(dateOfBirth)) {
             throw new IllegalValueException(DateOfBirth.MESSAGE_CONSTRAINTS);
         }
         final DateOfBirth modelDob = new DateOfBirth(dateOfBirth);
@@ -135,8 +185,45 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
+        if (drugAllergy == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                DrugAllergy.class.getSimpleName()));
+        }
+        if (!DrugAllergy.isValidDrugAllergy(drugAllergy)) {
+            throw new IllegalValueException(DrugAllergy.MESSAGE_CONSTRAINTS);
+        }
+        final DrugAllergy modelDrugAllergy = new DrugAllergy(drugAllergy);
+
+        if (description == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                Description.class.getSimpleName()));
+        }
+        if (!Description.isValidDescription(description)) {
+            throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
+        }
+        final Description modelDescription = new Description(description);
+
+        if (teeth == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Teeth.class.getSimpleName()));
+        }
+
+        String[] rawLayout = teeth.split(JsonAdaptedConstants.DIVIDER);
+        int[] layout = new int[Teeth.PERMANENTTEETHCOUNT];
+
+        for (int i = 0; i < Teeth.PERMANENTTEETHCOUNT; i++) {
+            layout[i] = Integer.parseInt(rawLayout[i]);
+        }
+
+        final Teeth modelTeeth = new Teeth(layout);
+
+        final NextOfKin modelNextOfKin = nextOfKin.toModelType();
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Patient(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelNric, modelDob);
+
+        final List<Record> modelRecords = patientRecords;
+
+        return new Patient(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelNric,
+                modelDob, modelRecords, modelTeeth, modelSex, modelDrugAllergy, modelNextOfKin, modelDescription);
     }
 
     /**

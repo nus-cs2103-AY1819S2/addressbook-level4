@@ -3,7 +3,10 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDDATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTDATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import seedu.address.commons.core.index.Index;
@@ -22,11 +25,10 @@ public class TaskEditCommandParser implements Parser<TaskEditCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public TaskEditCommand parse(String args) throws ParseException {
-        System.out.println("Edit task command parser parse is run.");
-
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_STARTDATE, PREFIX_ENDDATE);
+                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_STARTDATE, PREFIX_ENDDATE,
+                        PREFIX_STARTTIME, PREFIX_ENDTIME, PREFIX_PRIORITY);
 
         Index index;
 
@@ -40,20 +42,34 @@ public class TaskEditCommandParser implements Parser<TaskEditCommand> {
         if (argMultimap.getValue(PREFIX_TITLE).isPresent()) {
             editTaskDescriptor.setTitle(ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get()));
         }
-        if (argMultimap.getValue(PREFIX_STARTDATE).isPresent() || argMultimap.getValue(PREFIX_ENDDATE).isPresent()) {
-            if (argMultimap.getValue(PREFIX_STARTDATE).isPresent() ^ argMultimap.getValue(PREFIX_ENDDATE)
-                    .isPresent()) {
-                throw new ParseException("Please give a Start Date AND End Date when changing dates");
-            } else {
-                editTaskDescriptor.setStartDate(ParserUtil.parseStartDate(argMultimap.getValue(PREFIX_STARTDATE)
-                        .get()));
-                editTaskDescriptor.setEndDate(ParserUtil.parseEndDate(argMultimap.getValue(PREFIX_ENDDATE)
-                        .get(), argMultimap.getValue(PREFIX_STARTDATE).get()));
-            }
+        if (argMultimap.getValue(PREFIX_STARTDATE).isPresent()) {
+            editTaskDescriptor.setStartDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_STARTDATE)
+                    .get()));
         }
+        if (argMultimap.getValue(PREFIX_ENDDATE).isPresent()) {
+            editTaskDescriptor.setEndDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_ENDDATE)
+                    .get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_STARTTIME).isPresent()) {
+            editTaskDescriptor.setStartTime(ParserUtil.parseTime(argMultimap.getValue(PREFIX_STARTTIME)
+                    .get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_ENDTIME).isPresent()) {
+            editTaskDescriptor.setEndTime(ParserUtil.parseTime(argMultimap.getValue(PREFIX_ENDTIME)
+                    .get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_PRIORITY).isPresent()) {
+            editTaskDescriptor.setPriority(ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY)
+                    .get()));
+        }
+
         if (!editTaskDescriptor.isAnyFieldEdited()) {
             throw new ParseException(TaskEditCommand.MESSAGE_NOT_EDITED);
         }
+
         return new TaskEditCommand(index, editTaskDescriptor);
     }
 }

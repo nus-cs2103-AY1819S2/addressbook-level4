@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "cchj1995",
+      "displayName": "CHO...HAN",
+      "authorNames": ["cchj1995"]
+    },
+    {
+      "githubId": "kylerwsm",
+      "displayName": "KYL...ENG",
+      "authorNames": ["kylerwsm", "Kyler Wong Shen Meng"]
+    },
+    {
+      "githubId": "JiaHaoLim",
+      "displayName": "LIM...HAO",
+      "authorNames": ["JiaHaoLim"]
+    },
+    {
+      "githubId": "kthSim",
+      "displayName": "SIM...ITH",
+      "authorNames": ["kthSim"]
+    },
+    {
+      "githubId": "wSemis",
+      "displayName": "WAN...ANG",
+      "authorNames": ["wSemis"]
+    }
+  ]
+}

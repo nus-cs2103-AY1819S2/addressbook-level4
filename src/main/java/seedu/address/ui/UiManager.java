@@ -83,4 +83,11 @@ public class UiManager implements Ui {
         System.exit(1);
     }
 
+    /**
+     * Gets the main window to allow manipulation of panels in methods.
+     * @return the main window.
+     */
+    public MainWindow getMainWindow() {
+        return mainWindow;
+    }
 }

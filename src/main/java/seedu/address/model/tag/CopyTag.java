@@ -9,7 +9,7 @@ import seedu.address.model.person.Person;
  * Represents a Tag in the address book.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
-public class CopyTag {
+public class CopyTag extends Tag {
 
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be like $Copy1";
     public static final String VALIDATION_REGEX = "(\\$)(Copy)([0-9]+)";
@@ -24,6 +24,7 @@ public class CopyTag {
      * @param tagName A valid tag name.
      */
     public CopyTag(Person personToCopy, String tagName) {
+        super("Copy");
         requireNonNull(personToCopy);
         originalPerson = personToCopy;
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);

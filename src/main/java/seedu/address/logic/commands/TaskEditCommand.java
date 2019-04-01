@@ -112,17 +112,19 @@ public class TaskEditCommand extends Command {
         Priority updatedPriority = editTaskDescriptor.getPriority().orElse(taskToEdit.getPriority());
         LinkedPatient updatedLinkedPatient = taskToEdit.getLinkedPatient();
         Index targetIndex = editTaskDescriptor.getPatientIndex().orElse(null);
-        if (targetIndex != null && targetIndex.getZeroBased() != 0) {
-            int actualIndex = targetIndex.getZeroBased() - 1;
-            List<Person> lastShownList = model.getFilteredPersonList();
-            if (actualIndex >= lastShownList.size()) {
-                throw new CommandException(LinkedPatient.MESSAGE_CONSTRAINTS);
+        if (targetIndex != null ) {
+            if (targetIndex.getZeroBased() != 0) {
+                int actualIndex = targetIndex.getZeroBased() - 1;
+                List<Person> lastShownList = model.getFilteredPersonList();
+                if (actualIndex >= lastShownList.size()) {
+                    throw new CommandException(LinkedPatient.MESSAGE_CONSTRAINTS);
+                }
+                Person targetPerson = lastShownList.get(actualIndex);
+                Patient targetPatient = (Patient) targetPerson;
+                updatedLinkedPatient = new LinkedPatient(targetPatient.getName(), ((Patient) targetPerson).getNric());
+            } else {
+                updatedLinkedPatient = null;
             }
-            Person targetPerson = lastShownList.get(actualIndex);
-            Patient targetPatient = (Patient) targetPerson;
-            updatedLinkedPatient = new LinkedPatient(targetPatient.getName(), ((Patient) targetPerson).getNric());
-        } else {
-            updatedLinkedPatient = null;
         }
 
         return new Task(updatedTitle, updatedStartDate, updatedEndDate, updatedStartTime,

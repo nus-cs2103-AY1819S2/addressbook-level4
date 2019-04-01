@@ -8,7 +8,6 @@ import static java.time.temporal.TemporalAdjusters.previousOrSame;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -63,19 +62,14 @@ public class ReminderManager {
     }
 
     public ObservableList<Reminder> getFilteredReminderList() {
-        List<Reminder> filteredReminders = new ArrayList<>();
         LocalDate start = LocalDate.now().with(previousOrSame(MONDAY)).minusDays(1);
         LocalDate end = LocalDate.now().with(nextOrSame(SUNDAY)).minusDays(1);
-        LocalDate remDate;
 
-        for (Reminder rem : reminders) {
-            remDate = rem.getDate();
-            if (remDate.isAfter(start) && remDate.isBefore(end)) {
-                filteredReminders.add(rem);
-            }
-        }
-        Collections.sort(filteredReminders);
-
+        List<Reminder> filteredReminders = reminders
+                .stream()
+                .filter(r -> r.getDate().isAfter(start) && r.getDate().isBefore(end))
+                .sorted()
+                .collect(Collectors.toList());
         return FXCollections.observableArrayList(filteredReminders);
     }
 

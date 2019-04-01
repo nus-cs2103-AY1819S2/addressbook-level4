@@ -9,9 +9,6 @@ ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
 endif::[]
 
-[[GUI]]
-image::docs/images/Ui.png[width="600"]
-
 * *Equipment Manager* is a desktop CLI (Command Line Interface) application that allows engineers to keep track on the Preventive Maintenance schedule of all Resuscitation Devices in singapore. It has a GUI (Graphic User Interface) that allows users to get further information on each equipment.
 
 * Our purpose is to help engineers plan the number of equipment that they would like to carry out preventive maintenance and keep track on each equipment details such as status, location and more information.

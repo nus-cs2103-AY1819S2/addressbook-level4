@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import seedu.address.model.CommandType;
 import static seedu.address.testutil.TypicalHealthWorkers.ANDY;
 import static seedu.address.testutil.TypicalHealthWorkers.BETTY;
 
@@ -293,6 +294,32 @@ public class AddHealthWorkerCommandTest {
         public void commitRequestBook() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean canUndo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commit(CommandType commandType) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
 

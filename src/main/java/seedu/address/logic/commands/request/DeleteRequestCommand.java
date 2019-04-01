@@ -16,7 +16,7 @@ import seedu.address.model.request.Request;
 /**
  * Deletes a request identified using it's displayed index from the request book.
  */
-public class DeleteRequestCommand extends DeleteCommand {
+public class DeleteRequestCommand extends DeleteCommand implements RequestCommand{
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes the request identified "
         + "by the index number used in the displayed request list.\n"
@@ -32,7 +32,8 @@ public class DeleteRequestCommand extends DeleteCommand {
     @Override
     public void delete(Model model, Object toDelete) {
         model.deleteRequest((Request) toDelete);
-        model.commitRequestBook();
+        //model.commitRequestBook();
+        commitRequestBook(model);
     }
 
     @Override

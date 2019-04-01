@@ -36,7 +36,7 @@ public interface VersionedBook {
      */
     class NoUndoableStateException extends RuntimeException {
         protected NoUndoableStateException() {
-            super("Current state pointer at start of addressBookState list, unable to undo.");
+            super("Current state pointer at start of BookState list, unable to undo.");
         }
     }
 
@@ -45,7 +45,7 @@ public interface VersionedBook {
      */
     class NoRedoableStateException extends RuntimeException {
         protected NoRedoableStateException() {
-            super("Current state pointer at end of addressBookState list, unable to redo.");
+            super("Current state pointer at end of BookState list, unable to redo.");
         }
     }
 }

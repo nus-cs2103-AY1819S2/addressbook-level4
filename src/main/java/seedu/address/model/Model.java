@@ -196,4 +196,9 @@ public interface Model {
      * Restores the model's address book to its previously undone state.
      */
     void redo();
+
+    /**
+     * Commits the book based on command issued.
+     */
+    void commit(CommandType commandType);
 }

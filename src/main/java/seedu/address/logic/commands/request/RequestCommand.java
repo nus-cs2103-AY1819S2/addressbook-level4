@@ -6,6 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import seedu.address.model.CommandType;
+import seedu.address.model.Model;
 
 /**
  * Interface that represents a command involving a request
@@ -40,4 +42,7 @@ public interface RequestCommand {
     String MESSAGE_DUPLICATE_REQUEST = "This request already exists in the "
             + "request book.";
 
+    default void commitRequestBook(Model model) {
+        model.commit(CommandType.REQUEST_COMMAND);
+    }
 }

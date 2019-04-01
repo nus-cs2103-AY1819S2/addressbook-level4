@@ -1,11 +1,5 @@
 {
   "healthWorkers" : [ {
-    "name" : "Carlie Kurz",
-    "phone" : "95358463",
-    "nric" : "S9312942G",
-    "organization" : "NUH",
-    "skills" : "GENERAL_PRACTICE "
-  }, {
     "name" : "Paniel Meier",
     "phone" : "87652133",
     "nric" : "S8412942G",

@@ -3,8 +3,8 @@ package seedu.address.model;
 /**
  * Class that represents different types of books
  */
-public enum BookType {
+public enum CommandType {
 
-    HEALTHWORKER,
-    REQUEST
+    HEALTHWORKER_COMMAND,
+    REQUEST_COMMAND
 }

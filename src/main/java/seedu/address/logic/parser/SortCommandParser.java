@@ -2,8 +2,10 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import static seedu.address.logic.parser.CliSyntax.SORTWORD_ALPHABETICAL;
-import static seedu.address.logic.parser.CliSyntax.SORTWORD_REVERSE_ALPHABETICAL;
+import static seedu.address.logic.parser.CliSyntax.SORTWORD_NAME;
+import static seedu.address.logic.parser.CliSyntax.SORTWORD_REVERSE_NAME;
+import static seedu.address.logic.parser.CliSyntax.SORTWORD_SURNAME;
+import static seedu.address.logic.parser.CliSyntax.SORTWORD_REVERSE_SURNAME;
 import static seedu.address.logic.parser.CliSyntax.SORTWORD_SKILLS;
 import static seedu.address.logic.parser.CliSyntax.SORTWORD_REVERSE_SKILLS;
 import static seedu.address.logic.parser.CliSyntax.SORTWORD_GPA;
@@ -30,9 +32,10 @@ public class SortCommandParser implements Parser<SortCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public SortCommand parse(String args) throws ParseException {
-        String word = args;
+        String word = args.substring(1);
         String[] possibleSortWords = {SORTWORD_SKILLS.toString(), SORTWORD_REVERSE_SKILLS.toString(),
-                SORTWORD_ALPHABETICAL.toString(), SORTWORD_REVERSE_ALPHABETICAL.toString(), SORTWORD_GPA.toString(),
+                SORTWORD_NAME.toString(), SORTWORD_REVERSE_NAME.toString(), SORTWORD_SURNAME.toString(),
+                SORTWORD_REVERSE_SURNAME.toString(), SORTWORD_GPA.toString(),
                 SORTWORD_REVERSE_GPA.toString(), SORTWORD_EDUCATION.toString(),
                 SORTWORD_REVERSE_EDUCATION.toString()};
         if (!areSortWordsPresent(word, possibleSortWords)) {
@@ -46,6 +49,6 @@ public class SortCommandParser implements Parser<SortCommand> {
      * Returns true if args is a sortWord.
      */
     private static boolean areSortWordsPresent(String inputWord, String[] sortWords) {
-        return Arrays.stream(sortWords).parallel().anyMatch(inputWord::contains);
+        return Arrays.stream(sortWords).parallel().anyMatch(inputWord::equals);
     }
 }

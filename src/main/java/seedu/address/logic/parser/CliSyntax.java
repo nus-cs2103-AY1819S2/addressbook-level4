@@ -18,6 +18,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_STARTTIME = new Prefix("st/");
     public static final Prefix PREFIX_ENDTIME = new Prefix("et/");
     public static final Prefix PREFIX_PRIORITY = new Prefix("pri/");
+    public static final Prefix PREFIX_LINKEDPATIENT = new Prefix("pat/");
     public static final Prefix PREFIX_SEX = new Prefix("sex/");
     public static final Prefix PREFIX_STATUS = new Prefix("s/");
     public static final Prefix PREFIX_DESC = new Prefix("desc/");

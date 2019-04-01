@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTDATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -42,14 +43,16 @@ public class TaskAddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 
     private final Task toAdd;
+    private final Index targetIndex;
 
     /**
      * Creates an AddCommand to add the specified {@code Task}
      * @param task the task to be added.
      */
-    public TaskAddCommand(Task task) {
+    public TaskAddCommand(Task task, Index index) {
         requireNonNull(task);
         toAdd = task;
+        targetIndex = index;
     }
 
     @Override

@@ -1,7 +1,5 @@
 package seedu.hms.model.util;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -95,21 +93,7 @@ public class DateRange {
     public long numOfDays() {
         Date startDate = this.startDate.getTime();
         Date endDate = this.endDate.getTime();
-        DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
-        String startDateString = dateFormat.format(startDate);
-        String endDateString = dateFormat.format(endDate);
-        String[] sd = startDateString.split("/");
-        String[] ed = endDateString.split("/");
-        cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(sd[0]));
-        cal.set(Calendar.MONTH, Integer.parseInt(sd[1]));
-        cal.set(Calendar.YEAR, Integer.parseInt(sd[2]));
-        Date firstDate = cal.getTime();
-
-        cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(ed[0]));
-        cal.set(Calendar.MONTH, Integer.parseInt(ed[1]));
-        cal.set(Calendar.YEAR, Integer.parseInt(ed[2]));
-        Date secondDate = cal.getTime();
-        long diff = secondDate.getTime() - firstDate.getTime();
+        long diff = endDate.getTime() - startDate.getTime();
         return diff / 1000 / 60 / 60 / 24;
     }
 }

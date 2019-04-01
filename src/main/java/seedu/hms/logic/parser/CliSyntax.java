@@ -20,5 +20,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_COMMENT = new Prefix("com/");
     public static final Prefix PREFIX_IDENTIFICATION_NUMBER = new Prefix("id/");
     public static final Prefix PREFIX_DATE_OF_BIRTH = new Prefix("dob/");
+    public static final Prefix PREFIX_INDEX = new Prefix("i/");
 
 }

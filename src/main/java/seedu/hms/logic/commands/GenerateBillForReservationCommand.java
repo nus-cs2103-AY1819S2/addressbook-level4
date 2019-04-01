@@ -2,7 +2,7 @@ package seedu.hms.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATES;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_ROOM;
 
 import java.util.function.Predicate;
@@ -22,16 +22,17 @@ import seedu.hms.model.reservation.ReservationWithTypePredicate;
 public class GenerateBillForReservationCommand extends BillCommand {
 
     public static final String COMMAND_ALIAS = "gb-r";
-    public static final String COMMAND_WORD = "generatebill-reservation";
+    public static final String COMMAND_WORD = "generate-bill-reservation";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Generates reservation bill for the customer identified by the identfication number used in the displayed "
+        + ": Generates reservation bill for the customer identified by the index used in the displayed "
         + "customer list.\n"
-        + "Parameters: IDENTIFICATION NO\n"
-        + "Example: " + COMMAND_WORD + " 1"
-        + PREFIX_IDENTIFICATION_NUMBER + "1234567 "
+        + "Parameters: INDEX\n"
+        + "Example: " + COMMAND_WORD
+        + PREFIX_INDEX + "1 "
         + "[" + PREFIX_ROOM + "SINGLE ROOM] "
         + "[" + PREFIX_DATES + "12/12/2019 - 14/12/2019]";
+
 
     public static final String MESSAGE_GENERATE_BILL_FOR_RESERVATION_SUCCESS = "Reservation Bill: %1$s";
 

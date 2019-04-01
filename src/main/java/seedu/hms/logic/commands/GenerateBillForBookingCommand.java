@@ -1,6 +1,9 @@
 package seedu.hms.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_SERVICE;
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_TIMING;
 
 import java.util.function.Predicate;
 
@@ -19,13 +22,16 @@ import seedu.hms.model.booking.BookingWithinTimePredicate;
 public class GenerateBillForBookingCommand extends BillCommand {
 
     public static final String COMMAND_ALIAS = "gb-b";
-    public static final String COMMAND_WORD = "generatebill-booking";
+    public static final String COMMAND_WORD = "generate-bill-booking";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Generates reservation bill for the customer identified by the identification number used in the displayed "
+        + ": Generates booking bill for the customer identified by the index number used in the displayed "
         + "customer list.\n"
-        + "Parameters: IDENTIFICATION NO\n"
-        + "Example: " + COMMAND_WORD + " 1";
+        + "Parameters: INDEX\n"
+        + "Example: " + COMMAND_WORD
+        + PREFIX_INDEX + "1 "
+        + "[" + PREFIX_SERVICE + "GYM] "
+        + "[" + PREFIX_TIMING + "10 - 11]";
 
     public static final String MESSAGE_GENERATE_BILL_SUCCESS = "Bill: %1$s";
 
@@ -47,13 +53,9 @@ public class GenerateBillForBookingCommand extends BillCommand {
     public CommandResult execute(BillModel model, CommandHistory history) throws CommandException {
 
         requireNonNull(model);
-
         model.updateFilteredBookingList(bookingPredicate);
         ObservableList<Booking> bookingObservableList = model.getFilteredBookingList();
-
         double amount = model.generateBillForBooking(bookingObservableList);
-
-
         return new CommandResult(String.format(MESSAGE_GENERATE_BILL_SUCCESS, amount));
     }
 

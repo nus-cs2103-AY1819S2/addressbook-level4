@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import java.util.stream.Collectors;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.battleship.Name;

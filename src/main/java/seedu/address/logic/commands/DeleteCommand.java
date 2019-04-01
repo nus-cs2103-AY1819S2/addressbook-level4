@@ -65,9 +65,9 @@ public class DeleteCommand extends Command {
             Alert alert = new Alert(Alert.AlertType.NONE,
                     "There is one or more tasks linked to this patient.\n"
                     + "Do you want to delete them as well?\n"
-                    + "Choosing NO set the tasks to have no linked patient.",
+                    + "Choosing NO or closing this box will set the tasks to have no linked patient.",
                     ButtonType.YES, ButtonType.NO);
-            alert.setTitle("Tasks linked to Patient detected");
+            alert.setHeaderText("Tasks linked to patient detect!");
             alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
             alert.showAndWait();
             for (Task task : linkedTasks) {

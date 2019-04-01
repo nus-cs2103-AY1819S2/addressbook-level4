@@ -253,10 +253,28 @@ This section describes some noteworthy details on how certain features are imple
 === Map Feature
 ==== Current Implementation
 The map feature is facilitated by `MapGrid` and `Cell`.
-The map grid is stored internally in `MapGrid` as a 2D array of `Cell`.
+The map grid is stored internally in `MapGrid` as a 2D array of `Cell` objects.
 `MapGrid` implements the following method to initialise the map.
 
 * `MapGrid#initialise(Cell[][] map)` -- initialises the map using the given `Cell` 2D array.
+
+Below is the code snippet for the `initialise` method
+[source,java]
+----
+include::../src/main/java/seedu/address/model/MapGrid.java[lines=64..71]
+----
+`cellGrid` is the internal 2D array comprising of `Cell` objects. +
+The method `copy2dArray` copies the `map` parameter passed in to the internal `cellGrid`
+
+Below is the code snippet for the `copy2dArray` method.
+[source,java]
+----
+include::../src/main/java/seedu/address/model/MapGrid.java[lines=118..124]
+----
+
+The `copy2dArray` method creates a new `Cell` object for each of the input `Cell` objects.
+The copying is done using a constructor in `Cell` that takes in a parameter `Cell`.
+This constructor copies the private attributes of the given `Cell` parameter.
 
 {empty} +
 The following sequence diagram shows how a map is initialised:
@@ -283,12 +301,16 @@ Alternative 1 was chosen as the overhead is negligible and a defensive approach 
 
 ===== Aspect: Data structure to support the map
 * **Alternative 1 (current choice):** 2D array of `Cell` objects.
-** Pros: Resulting code will be simpler.
+** Pros: Resulting code is simple and readable.
 ** Cons: More changes to be done from the original AB4 codebase.
 
 * **Alternative 2:** List of lists of `Cell` objects.
 ** Pros: Easier to implement from the original AB4 codebase.
-** Cons: May have worse performance than a simpler 2D array.
+** Cons: Bad code readability and more complicated.
+
+Alternative 1 was chosen because of good code readability and it being the simpler implementation.
+Good code readability is important for new developers taking on the project.
+Simpler implementation means the likelihood of bugs being introduced is less when changes are made.
 
 // end::map[]
 

@@ -56,7 +56,7 @@ public class DeleteCommand extends Command {
                 .filter(y -> y.getLinkedPatient() != null)
                 .filter(z -> z.getLinkedPatient().getLinkedPatientNric().equals(((Patient) deletedPerson)
                         .getNric().getNric())).toArray(Task[]::new);
-                if (linkedTasks.length >0) {
+                if (linkedTasks.length > 0) {
                     Alert alert = new Alert(Alert.AlertType.NONE,
                             "There is one or more tasks linked to this patient.\n"
                             + "Do you want to delete them as well?\n"
@@ -65,12 +65,13 @@ public class DeleteCommand extends Command {
                     alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
                     alert.showAndWait();
                     for (Task task : linkedTasks) {
-                        Task replacement = task.isCopy() ? new Task(task) : new Task(task, true);
                         if (alert.getResult() == ButtonType.YES) {
+                            model.deleteTask(task);
+                        } else {
+                            Task replacement = task.isCopy() ? new Task(task) : new Task(task, true);
                             replacement.setNullLinkedPatient();
-                            replacement.setLinkedPatient(deletedPerson.getName(), ((Patient) deletedPerson).getNric());
+                            model.setTask(task, replacement);
                         }
-                        model.setTask(task, replacement);
                     }
                 }
     }

@@ -1,0 +1,88 @@
+= Chong Kay Heen - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: FomoFoto
+
+---
+
+== Overview of the project
+My team and I were tasked with enhancing a basic command line addressbook for our Software Engineering project. We decided to morph the project into a image editor. +
+
+FomoFoto is a robust yet simple image-editing tool. Users interact with the application through worded commands from their keyboard, and receive visual feedback from it through the displayed image on the application. +
+
+Unlike other heavy image editors, FomoFoto has a very gentle learning curve as it abstracts out clutter by providing the more essential features (complex editing can still be done with special commands). The features and implementations are well documented in guides for users and developers respectively. +
+
+In addition, FomoFoto is well maintained with high reliability and code quality as it is covered by rigorous tests and checks.
+
+== Summary of contributions
+This section provides a summary of my coding, documentation and miscellaneous contributions to FomoFoto, our team project.
+
+* *Major enhancement*: I added *image manipulation commands*
+
+** _What it does:_ This feature allows the user manipulate images on a physical level, such as rotating, cropping and resizing the target image. Users key in keywords like `rotate`, `crop` and `resize` to activate the respective commands.
+
+** _Justification:_ This feature improves the product significantly because it is an essential feature of an image editor. Users might want to `rotate` their images because the position is wrong or `crop` out certain unwanted parts in the image. Should the image be too large, the user can `resize` it as well.
+
+** _Highlights:_ This enhancement works with all other commands, including the image filters that were implemented by my teammate. An in-depth analysis of the commands were done before we decided to make use of a library. The implementation was challenging because there was a need to coordinate between the image filter commands and the commands here, because the two libraries returned different objects. There was a need to ensure that the `Image` class and `CurrentEdit` class could accept changes from both libraries.
+
+** _Credits:_ https://github.com/rkalla/imgscalr[`ImgScalr Library`]
+
+* *Minor enhancement*: I added a feature where the `Image` returns a file type (e.g. JPEG), because edits to images are affected by the file type.
+
+* *Code contributed*: https://github.com/CS2103-AY1819S2-W14-2/main/commits?author=kayheen[List of commits]
+
+* *Other contributions*:
+
+** Project management:
+*** Ensured that we are on task with our project documentation by allocating roles and ensuring consistency with our words and diagrams. (user guide and developer guide)
+
+** Enhancements to existing features (to be updated):
+*** EXAMPLE: Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** EXAMPLE: Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+
+** Documentation:
+*** Did architecture and sequence diagram for the overall App: https://github.com/CS2103-AY1819S2-W14-2/main/pull/118[#118]
+*** Did the documentation for image manipulation: https://github.com/CS2103-AY1819S2-W14-2/main/pull/123/files[#123]
+
+** Community (to be updated):
+*** EXAMPLE: PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** EXAMPLE: Contributed to forum discussions (to be updated) (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** EXAMPLE: Reported bugs and suggestions for other teams in the class (to be updated once we review other people's code) (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+
+** Tools:
+*** Integrated a third party library (ImgScalr) to the project (https://github.com/CS2103-AY1819S2-W14-2/main/pull/26[#26])
+
+_{to add/remove categories in the list above once our coding is completed}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+include::../UserGuide.adoc[tag= A Walk Through]
+
+include::../UserGuide.adoc[tag=Rotate Command]
+
+include::../UserGuide.adoc[tag= Crop Command]
+
+include::../UserGuide.adoc[tag= Resize Command]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag= Architecture]
+
+include::../DeveloperGuide.adoc[tag=Image Manipulation]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

@@ -215,8 +215,6 @@ image::lp_name_after.png[width="600" align="center"]
 You can narrow down your patient search by providing a NRIC sequence as well. For example,
 in the figure below, you can retrieve all the patients whose NRIC starts with "S92".
 
-{sp} +
-
 .listing patients with matching NRIC
 image::lp_nric_after.png[width="600" align="center"]
 
@@ -244,10 +242,6 @@ image::lp_tag_after.png[width="600" align="center"]
 Did you notice that when QuickDocs display multiple patient records during filtering, each record starts with
 a number? This is the index of the patient record, indicating the position the record is stored within QuickDoc's patient record storage.
 
-.Patient record indexes
-image::lp_indexes.png[width="600" align="center"]
-
-{sp}+
 You can make use of the index number to view specific patient records as well.
 
 .Patient search using record index

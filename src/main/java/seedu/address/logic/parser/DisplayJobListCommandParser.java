@@ -3,16 +3,12 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LISTNUMBER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddPersonToJobCommand;
-import seedu.address.logic.commands.CreateJobCommand;
 import seedu.address.logic.commands.DisplayJobListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.job.JobName;
-import seedu.address.model.person.Nric;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -31,7 +27,8 @@ public class DisplayJobListCommandParser implements Parser<DisplayJobListCommand
 
         if (!arePrefixesPresent(argMultimap, PREFIX_JOBNAME, PREFIX_LISTNUMBER)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DisplayJobListCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DisplayJobListCommand.MESSAGE_USAGE));
         }
 
         JobName job = ParserUtil.parseJobName(argMultimap.getValue(PREFIX_JOBNAME).get());

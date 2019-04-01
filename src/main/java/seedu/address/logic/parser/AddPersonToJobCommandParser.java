@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddPersonToJobCommand;
-import seedu.address.logic.commands.CreateJobCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.job.JobName;
 import seedu.address.model.person.Nric;
@@ -29,7 +28,8 @@ public class AddPersonToJobCommandParser implements Parser<AddPersonToJobCommand
 
         if (!arePrefixesPresent(argMultimap, PREFIX_JOBNAME, PREFIX_NRIC)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPersonToJobCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddPersonToJobCommand.MESSAGE_USAGE));
         }
 
         JobName job = ParserUtil.parseJobName(argMultimap.getValue(PREFIX_JOBNAME).get());

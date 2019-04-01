@@ -1,0 +1,58 @@
+= Louise Lee - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: In-Credit-Ble
+
+---
+
+== Overview
+
+_In-Credit-Ble_ is an expense tracker that is tailored to help users manage their finances and keep track of their budget in an easy and efficient manner. It is designed for those who prefer to work with a Command Line Interface (CLI), especially for those who prefer to type over using their mouse.
+
+_In-Credit-Ble_ was developed by four friends and I, from the National University of Singapore. This product was developed as part of our Software Engineering module, CS2103T. We had to adapt to an existing codebase in Java and develop a functional product in a short span of 13 weeks. In this project portfolio, I will be documenting my personal contributions to this project.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to undo/redo previous commands*
+** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
+** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=geezlouisee[Functional code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Helped to manage issue tracker (https://github.com/CS2103-AY1819S2-W17-3/main/issues/89[#89])
+** Enhancements to existing features:
+*** Added more colours to tags, and refactored them as categories to suit our product (https://github.com/CS2103-AY1819S2-W17-3/main/pull/20[#20], https://github.com/CS2103-AY1819S2-W17-3/main/pull/59[#59], https://github.com/CS2103-AY1819S2-W17-3/main/pull/73[#73])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Did cosmetic tweaks to the Developer Guide (https://github.com/CS2103-AY1819S2-W17-3/main/pull/4[#4], https://github.com/CS2103-AY1819S2-W17-3/main/pull/8[#8], https://github.com/CS2103-AY1819S2-W17-3/main/pull/78[#78])
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#64]
+** Tools:
+*** Integrated a third party library (d3.js) to the project (https://github.com[#104])
+*** Configured project to link properly to RepoSense (https://github.com[#70])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide, showcasing my ability to write documentation tailored for end-users of our product._
+|===
+
+include::../UserGuide.adoc[tag=undoredo]
+
+include::../UserGuide.adoc[tag=savingpatterns]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide, showcasing my ability to write technical documentation and the technical depth of my code contributions._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]

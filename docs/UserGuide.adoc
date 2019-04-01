@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  The application has three modes: Restaurant Mode, Table Mode and Menu Mode. RestOrRant starts in Restaurant Mode by default. You can switch between the modes using the `xxxMode` commands. Each mode comes with a set of commands to perform mode-specific operations.
 .  Some example commands you can try:
 
-* *`addTables 2 1 4`* (in Restaurant Mode): adds 3 tables to the restaurant with 2, 1 and 4 seats respectively.
+* *`addTable 2 1 4`* (in Restaurant Mode): adds 3 tables to the restaurant with 2, 1 and 4 seats respectively.
 * *`menuMode`*: switches RestOrRant to Menu Mode and displays the list of menu items for the restaurant.
 * *`addToMenu c/W09 n/Chicken Wings p/12.50`* (in Menu Mode): adds a new item "W09 Chicken Wings - $12.50" to the menu.
 * *`tableMode 2`*: switches RestOrRant to Table Mode for the table with table number 2 and displays the list of order items for table 2.
@@ -49,7 +49,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addTables NUMBER_OF_SEATS`, `NUMBER_OF_SEATS` is a parameter which can be used as `addTables 4`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addTable NUMBER_OF_SEATS`, `NUMBER_OF_SEATS` is a parameter which can be used as `addTable 4`.
 * Items in square brackets are optional e.g `ITEM_CODE QUANTITY [ITEM_CODE QUANTITY]` can be used as `W09 3 A02 4` or as `W09 3`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[ITEM_CODE QUANTITY]...` can be used as `{nbsp}` (i.e. 0 times), `W09 3`, `W09 3 A02 4` etc.
 ====
@@ -68,7 +68,7 @@ Changes RestOrRant to Restaurant Mode which allows the user to add tables and up
 Format: `restaurantMode` (or `RM`)
 
 ****
-* The RestOrRant application's default mode is Restaurant Mode. At start up, the application is already in Restaurant Mode.
+* At start up, the application is already in Restaurant Mode.
 ****
 
 Examples:
@@ -115,49 +115,71 @@ In Restaurant Mode, which is the default mode, you can perform table-related ope
 
 image::RMUi.png[width="790"]
 
-==== Adding tables : `addTables`
+==== Adding tables : `addTable`
 
 Adds tables to the restaurant. +
-Format: `addTables NUMBER_OF_SEATS [NUMBER_OF_SEATS]...`
+Format: `addTable NUMBER_OF_SEATS [NUMBER_OF_SEATS]...`
 
 ****
-* Table number increases from the last added table number.
+* Table number increases sequentially starting from 1.
 * There is no limit to the number of tables that can be added.
 ****
 
 Examples:
 
-* `addTables 4`
-* `addTables 4 2 4`
+* `addTable 4`
+* `addTable 4 2 4`
 
-==== Updating the table: `updateTable`
+==== Editing the Occupancy: `editPax`
 
-Updates the status of the table. +
-Format: `updateTable TABLE_NUMBER NEW_OCCUPANCY`
+Edits the number of customers at the table. +
+Format: `editPax TABLE_NUMBER NEW_OCCUPANCY`
 
 ****
-* Checks if the specified table exists before updating.
+* Checks if the specified table exists before editing.
 * Checks if the specified `NEW_OCCUPANCY` is greater than 0 and not more than the capacity of the table.
 ****
 
 Examples:
 
-* `updateTable 2 0`
-* `updateTable 1 4`
+* `editPax 2 0`
+* `editPax 1 4`
 
-==== Removing a table : `removeTable`
+==== Editing the Available Seats : `editSeats`
 
-Removes an existing table in the restaurant. +
-Format: `removeTable TABLE_NUMBER`
+Edits the number of available seats at a table. +
+Format: `editSeats TABLE_NUMBER NEW_NUMBER_OF_SEATS`
 
 ****
 * Checks that the table exists.
-* Checks that the table is not occupied.
+* Checks that the new number of seats is not less than the current number of customers at the table.
 ****
 
 Examples:
 
-* `removeTable 3`
+* `editSeats 3 4`
+
+==== Clears the Tables : `clearTable`
+
+Clears the RestOrRant of all tables. + 
+Format: `clearTable`
+
+****
+* Checks that all tables are unoccupied before clearing the tables.
+****
+
+==== Getting Available tables for customers : `spaceFor`
+
+Searches the restaurant for the table that best fits the number of customers to be seated. +
+Format: `spaceFor NUMBER_OF_CUSTOMERS`
+
+****
+* Returns the best fit table with the smallest table number.
+* Best fit is determined by the smallest table able to accommodate the number of customers.
+****
+
+Examples
+* `spaceFor 5`
 
 === Table Mode
 
@@ -405,11 +427,11 @@ Returns All the statistics it has computed.
 
 * *Changing to RestaurantMode* : `restaurantMode`
 * *Add tables* : `addTable NUMBER_OF_SEATS [NUMBER_OF_SEATS] ...` +
-e.g. `addTables 2 4 6 8`
+e.g. `addTable 2 4 6 8`
 * *Remove table* : `removeTable TABLE_NUMBER` +
 e.g. `removeTable 3`
-* *Update table* : `updateTable TABLE_NUMBER NEW_OCCUPANCY` +
-e.g. `updateTable 3 2`
+* *Update table* : `editPax TABLE_NUMBER NEW_OCCUPANCY` +
+e.g. `editPax 3 2`
 * *Add items to order* : `addToOrder TABLE_NUMBER ITEM_CODE QUANTITY [ITEM_CODE QUANTITY] …` +
 e.g. `addToOrder 5 W09 1 N01 1 C04 2`
 * *Add note to order* : `addNote TABLE_NUMBER ITEM_CODE NOTE` +

@@ -284,11 +284,14 @@ Your users must type the file name **after** the directory copied at __Step 2__
 
 image::AddFeatureStep3UserInput.png[width="600"]
 
+[NOTE] you can enter `add` and hit enter, to open up a GUI for you to select the file you
+wish to add.
+
 Step 4: Upon hitting enter to execute the command, the `AddCommandParser` parses the input
 into several components that are required to be executed by the `AddCommand`.
 
-Upon parsing, the parser then creates a new `AddCommand` that will execute according to
-the user's input.
+Upon parsing, the parser then creates a new `AddCommand` that will be executed according to
+the your input.
 
 Step 5: Upon receiving the necessary information from the parser, the `AddCommand` first
 begins by checking for validity as shown below.
@@ -714,10 +717,43 @@ decrypt` for decryption guide.
 Illustrate below is a sample usage scenario that provides a clear view to the inner workings
 of the Encrypt feature.
 
-Step 1:
+Step 1: The user launches the application with either an existing set of `Pdf` or a new
+sample set of `Pdf` stored within as shown below.
 
+image::EncryptFeatureStep1Default.png[width="600"]
+
+Step 2: You select the file that you wish to encrypt via the INDEX on the list
+
+image::EncryptFeatureStep2Index.png[width="600"]
+
+Step 3: Enter the `encrypt` command into the CLI interface, following the outlined syntax as
+illustrated below.
+
+image::EncryptFeatureStep3UserInput.png[width="600"]
+
+Step 4: Upon hitting enter to execute the command, the `EncryptCommandParser` parses the input
+into several components that are required to be executed by the `EncryptCommand`.
+
+Upon parsing, the parser then creates a new `EncryptCommand` that will be executed according
+to your input.
+
+Step 5: Upon receiving the necessary information from the parser, which includes the INDEX and
+PASSWORD, the `EncryptCommand` first checks if the INDEX is valid.
+
+* `INDEX` is invalid or out of bound.
+
+image::EncryptFeatureStep5InvalidIndex.png[width="600"]
+
+* `INDEX` and `PASSWORD` are both valid. The file you selected will be encrypted with the
+password you specified.
+
+image::EncryptFeatureStep5Sucess.png[width="600"]
+
+Step 6: If the command passes the validity check, the file you have selected is encrypted.
+You can open your file to see the result. Please refer to <<Open feature>>.
 
 ==== Step-by-Step Guide -- decrypt
+
 // end::fileprotection[]
 
 === Logging

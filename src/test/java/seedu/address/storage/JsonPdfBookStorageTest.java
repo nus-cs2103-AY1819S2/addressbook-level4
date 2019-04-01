@@ -74,7 +74,7 @@ public class JsonPdfBookStorageTest {
 
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.json");
+        Path filePath = testFolder.getRoot().toPath().resolve("TempPdfPlusPlus.json");
         PdfBook original = getTypicalPdfBook();
         JsonPdfBookStorage jsonPdfBookStorage = new JsonPdfBookStorage(filePath);
 

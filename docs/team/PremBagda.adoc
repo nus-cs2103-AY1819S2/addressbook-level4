@@ -1,11 +1,10 @@
-= Arielyte Tsen Chung Ming - Project Portfolio
+= Prem Rajeshkumar Bagdawala - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
 == PROJECT: TravelBuddy
 
----
 
 == Overview
 

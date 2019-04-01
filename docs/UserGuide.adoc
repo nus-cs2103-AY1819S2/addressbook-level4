@@ -18,11 +18,39 @@ By: `Team W10-3`      Since: `JAN 2019`      Licence: `MIT`
 
 == Introduction
 
-Equipment Manager is a desktop CLI (Command Line Interface) application that allows engineers to keep track on the Preventive Maintenance schedule of all Resuscitation Devices in singapore. It has a GUI (Graphic User Interface) that allows users to get further information on each equipment.
+*Equipment Manager* is a desktop CLI (Command Line Interface) application that allows engineers to keep track on the Preventive Maintenance schedule of all Resuscitation Devices in singapore. It has a GUI (Graphic User Interface) that allows users to get further information on each equipment.
 
 Our purpose is to help engineers plan the number of equipment that they would like to carry out preventive maintenance and keep track on each equipment details such as status, location and more information.
 
-Interested? Jump to the <<Quick Start>> to get started. If you already have Equipment Manager up and running, then head over to <<Features>>. Enjoy!
+
+== About This User Guide
+Welcome to *Equipment Manager* User Guide! +
+
+This User Guide document will equip you with all the information you need in order to use the v1.4 application. Before reading this user guide,
+this section will explain the key things to take note of. +
+
+If this is not a problem for you, jump to the <<Quick Start>> to get started. If you already have Equipment Manager up and running, then head over to <<Features>>. Enjoy!
+
+
+=== Icons Meaning
+The following section provides a quick understanding on each of the legends used throughout the user guide.
+These legends alert reader on special information such as tips, notes and warnings. +
+
+|===
+|Legend |Meaning
+|image:tip.png[width="40"]
+| The more information icon indicates any additional tips users can consider while using *Equipment Manager* application.
+
+|image:lightbulb.png[width="40"]
+| Lightbulb icon
+
+|image:exclamation.png[width="40"]
+| The exclamation mark icon indicates any warnings that users can take note of while using *Equipment Manager* application.
+
+|image:advanced.png[width="40"]
+| The book icon indicates that it is an additional information for advanced users.
+|===
+
 
 == Quick Start
 
@@ -38,18 +66,16 @@ To get Equipment manager up and running, simply follow these few steps.
 === Graphical User Interface (GUI)
 .A total of six regions to note in our GUI
 [[GUI]]
-image::Ui.png[width="790"]
+image::ui_labelled.png[width="790"]
 
 The GUI for _Equipment Manager_ as shown in <<GUI>> consists of six regions:
 
-
 [1] Menu Bar {nbsp} {nbsp} {nbsp} [2] Result Panel {nbsp} {nbsp} {nbsp} [3] Google Map +
-[4] Message Box {nbsp}[5] Command Box{nbsp} {nbsp} [6] Status Bar
+[4] Message Box {nbsp} {nbsp} [5] Command Box {nbsp} {nbsp} [6] Status Bar
 
-[IMPORTANT]
-Please remember the naming convention for the different regions in GUI as they will be used to explain when explaining Equipment Manager.
-
- Note to editor: add labels to GUI picture, change auto figure link to sentence
+|===
+| image:exclamation.png[width="40"] |Please remember the naming convention for the different regions in GUI as they will be used to explain when explaining Equipment Manager.
+|===
 
 === Entering a command
 
@@ -63,8 +89,9 @@ Type the command in the Command Box and press kbd:[Enter] to execute it. +
 * **`delete`**`3`: deletes the 3rd contact shown in the current list
 * *`exit`*: exits the app
 
-[TIP]
-Refer to <<Features>> for details of each command.
+|===
+| image:tip.png[width="40"] |Refer to <<Features>> for details of each command.
+|===
 
 [[Features]]
 == Features
@@ -379,57 +406,44 @@ For more details on what each command does, please refer to <<Features>>.
 
 .General Commands
 [[generaltable]]
-[cols="^.^2,^.^2,^.^2", width=50%, options="header"]
 |===
-|Command |Format |Example
+|Command |Format
 
 |*Help*
 |help
-|he
 
 |*Add Equipment*
 |add-e
-|l
 
 |*Add Work List*
 |add-w
-|l
 
 |*List Equipment*
 |list-e
-|l
 
 |*List Work List*
 |list-w
-|l
 
 |*Delete Equipment*
 |delete-e
-|l
 
 |*Delete Work List*
 |delete-w
-|l
 
 |*Undo*
 |undo
-|u
 
 |*Redo*
 |redo
-|r
 
 |*Clear*
 |clear
-|cl
 
 |*History*
 |history
-|hi
 
 |*Exit*
 |exit
-|e
 |===
 
 .Equipment Manager

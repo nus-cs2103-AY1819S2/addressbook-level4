@@ -19,9 +19,9 @@ endif::[]
 By: `Team W10-3`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
-Welcome to the Developer Guide for _Equipment Manager_!
+Welcome to the Developer Guide for *Equipment Manager*!
 
-_Equipment Manager_ is an application that allows engineers to keep track of the Preventive Maintenance schedule of all Resuscitation Devices in Singapore. It will help engineers to plan the number of equipment to carry out preventive maintenance, and also keep track on each equipment details such as status and location. +
+*Equipment Manager* is an application that allows engineers to keep track of the Preventive Maintenance schedule of all Resuscitation Devices in Singapore. It will help engineers to plan the number of equipment to carry out preventive maintenance, and also keep track on each equipment details such as status and location. +
 
 Objectives of the application include:
 
@@ -121,8 +121,9 @@ image::Architecture.png[width="600"]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
-[TIP]
-The `.pptx` files used to create diagrams in this document can be found in the link:https://github.com/CS2103-AY1819S2-W10-3/main/tree/master/docs/diagrams[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+|===
+|image:tip.png[width="40"] |The `.pptx` files used to create diagrams in this document can be found in the link:https://github.com/CS2103-AY1819S2-W10-3/main/tree/master/docs/diagrams[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+|===
 
 `Main` has only one class called link:https://github.com/CS2103-AY1819S2-W10-3/main/tree/master/src/main/java/seedu/equipment/MainApp.java[`MainApp`]. It is responsible for,
 
@@ -212,14 +213,17 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Equipment Manager data.
+* stores the *Equipment Manager* data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
+|===
+|image:tip.png[width="40"] |
 As a more OOP model, we can store a `Tag` list in `Equipment Manager`, which `Equipment` can reference. This would allow `Equipment Manager` to only require one `Tag` object per unique `Tag`, instead of each `Equipment` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
+|===
+
+.Class diagram of Model Component
+image::ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component
@@ -232,7 +236,7 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Equipment Manager data in json format and read it back.
+* can save the *Equipment Manager* data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -269,7 +273,7 @@ the arguments supplied to the command.
 
 Step 4. The `FilterCommandParser` trims and splits the arguments by white spaces.
 
-Step 5. Then, `EquipmentContainsKeywordsPredicate` checks that the equipment manager has either the respective serial
+Step 5. Then, `EquipmentContainsKeywordsPredicate` checks that the *Equipment Manager* has either the respective serial
 number, tags, address, name, preventive maintenance date, phone.
 
 Step 6. The argument is filtered against the predicate and returned to the GUI.
@@ -372,50 +376,50 @@ The undo/redo mechanism is facilitated by `VersionedEquipmentManager`.
 It extends `EquipmentManager` with an undo/redo history, stored internally as an `EquipmentManagerStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedEquipmentManager#commit()` -- Saves the current equipment manager state in its history.
-* `VersionedEquipmentManager#undo()` -- Restores the previous equipment manager state from its history.
-* `VersionedEquipmentManager#redo()` -- Restores a previously undone equipment manager  state from its history.
+* `VersionedEquipmentManager#commit()` -- Saves the current *Equipment Manager* state in its history.
+* `VersionedEquipmentManager#undo()` -- Restores the previous *Equipment Manager* state from its history.
+* `VersionedEquipmentManager#redo()` -- Restores a previously undone *Equipment Manager*  state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitEquipmentManager()`, `Model#undoEquipmentManager()` and `Model#redoEquipmentManager()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedEquipmentManager` will be initialized with the initial equipment manager state, and the `currentStatePointer` pointing to that single equipment manager state.
+Step 1. The user launches the application for the first time. The `VersionedEquipmentManager` will be initialized with the initial *Equipment Manager* state, and the `currentStatePointer` pointing to that single *equipment manager* state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete-e 5` command to delete the 5th equipment in the equipment manager. The `delete` command calls `Model#commitEquipmentManager()`, causing the modified state of the equipment manager after the `delete 5` command executes to be saved in the `equipmentManagerStateList`, and the `currentStatePointer` is shifted to the newly inserted equipment manager state.
+Step 2. The user executes `delete-e 5` command to delete the 5th equipment in the *Equipment Manager*. The `delete` command calls `Model#commitEquipmentManager()`, causing the modified state of the *Equipment Manager* after the `delete 5` command executes to be saved in the `equipmentManagerStateList`, and the `currentStatePointer` is shifted to the newly inserted *Equipment Manager*r state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add-e n/Clementi CC ...` to add a new equipment. The `add` command also calls `Model#commitEquipmentManager()`, causing another modified equipment manager state to be saved into the `equipmentManagerStateList`.
+Step 3. The user executes `add-e n/Clementi CC ...` to add a new equipment. The `add` command also calls `Model#commitEquipmentManager()`, causing another modified *Equipment Manager* state to be saved into the `equipmentManagerStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitEquipmentManager()`, so the equipment manager state will not be saved into the `equipmentManagerStateList`.
+If a command fails its execution, it will not call `Model#commitEquipmentManager()`, so the *Equipment Manager* state will not be saved into the `equipmentManagerStateList`.
 
-Step 4. The user now decides that adding the equipment was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoEquipmentManager()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous equipment manager state, and restores the equipment manager to that state.
+Step 4. The user now decides that adding the equipment was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoEquipmentManager()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous *Equipment Manager* state, and restores the *Equipment Manager* to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial equipment manager state, then there are no previous equipment manager states to restore. The `undo` command uses `Model#canUndoEquipmentManager()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial *Equipment Manager* state, then there are no previous *Equipment Manager* states to restore. The `undo` command uses `Model#canUndoEquipmentManager()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoEquipmentManager()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the equipment manager to that state.
+The `redo` command does the opposite -- it calls `Model#redoEquipmentManager()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the *Equipment Manager* to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `equipmentManagerStateList.size() - 1`, pointing to the latest equipment manager state, then there are no undone equipment manager states to restore. The `redo` command uses `Model#canRedoEquipmentManager()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `equipmentManagerStateList.size() - 1`, pointing to the latest *Equipment Manager* state, then there are no undone *Equipment Manager* states to restore. The `redo` command uses `Model#canRedoEquipmentManager()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the equipment manager, such as `list`, will usually not call `Model#commitEquipmentManager()`, `Model#undoEquipmentManager()` or `Model#redoEquipmentManager()`. Thus, the `equipmentManagerStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the *Equipment Manager*, such as `list`, will usually not call `Model#commitEquipmentManager()`, `Model#undoEquipmentManager()` or `Model#redoEquipmentManager()`. Thus, the `equipmentManagerStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitEquipmentManager()`. Since the `currentStatePointer` is not pointing at the end of the `equipmentManagerStateList`, all equipment manager states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitEquipmentManager()`. Since the `currentStatePointer` is not pointing at the end of the `equipmentManagerStateList`, all *Equipment Manager* states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -427,7 +431,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire equipment manager.
+* **Alternative 1 (current choice):** Saves the entire *Equipment Manager*.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
@@ -436,7 +440,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of equipment manager states.
+* **Alternative 1 (current choice):** Use a list to store the history of *Equipment Manager* states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedEquipmentManager`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
@@ -752,7 +756,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Equipment Manager` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the *Equipment Manager* and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete equipment
@@ -762,7 +766,7 @@ _{More to be added}_
 1.  User requests to list equipments
 2.  Equipment shows a list of equipments
 3.  User requests to delete a specific equipment in the list
-4.  Equipment Manager deletes the equipment
+4.  *Equipment Manager* deletes the equipment
 +
 Use case ends.
 
@@ -776,7 +780,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. Equipment Manager shows an error message.
+** 3a1. *Equipment Manager* shows an error message.
 +
 Use case resumes at step 2.
 

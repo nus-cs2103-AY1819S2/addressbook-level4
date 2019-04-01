@@ -47,6 +47,11 @@ public class CardSrsDataTest {
         assertEquals(expectedCardData.getStreak(), outCardInt);
     }
 
+    @Test
+    public void isDifficult() {
+        assertEquals(testCardData.isDifficult(), expectedCardData.isDifficult());
+    }
+
 
     @Test
     public void getSrsDueDateTest() {
@@ -68,20 +73,5 @@ public class CardSrsDataTest {
 
         // different types -> returns false
         assertFalse(card.equals(5));
-
-        /*
-        CardSrsData card1 = new CardSrsData(1, 1, 1, date);
-        CardSrsData card2 = new CardSrsData(1, 1, 1, date);
-        CardSrsData card3 = new CardSrsData(20, 1, 20, date);
-        CardSrsData card4 = new CardSrsData(1, 20, 1, date);
-        CardSrsData card5 = new CardSrsData(1, 1, 20, date);
-        CardSrsData card6 = new CardSrsData(1, 1, 1, seconds);
-
-        assertTrue("Card is the same", card1.equals(card2));
-        assertFalse("Srs date is not the same", card6.equals(card1));
-        assertFalse ("Card number of attempts is not the same", card5.equals(card1));
-        assertFalse ("Card number of attempts is not the same", card4.equals(card1));
-        assertFalse("Card hashcode is not the same", card3.equals(card1));*/
-
     }
 }

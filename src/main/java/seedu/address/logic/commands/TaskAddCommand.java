@@ -75,7 +75,7 @@ public class TaskAddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 
-        if (targetIndex != null) {
+        if (targetIndex != null && targetIndex.getZeroBased() != 0) {
             List<Person> lastShownList = model.getFilteredPersonList();
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(LinkedPatient.MESSAGE_CONSTRAINTS);

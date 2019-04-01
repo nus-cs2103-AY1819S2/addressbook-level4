@@ -25,6 +25,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.record.LinkedPatient;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.Title;
@@ -46,6 +47,19 @@ public class ParserUtil {
         String trimmedIndex = oneBasedIndex.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
+        return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static Index parseLinkedPatientIndex(String oneBasedIndex) throws ParseException {
+        String trimmedIndex = oneBasedIndex.trim();
+        if (!StringUtil.isUnsignedInteger(trimmedIndex)) {
+            throw new ParseException(LinkedPatient.MESSAGE_CONSTRAINTS);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }

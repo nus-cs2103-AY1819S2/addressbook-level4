@@ -48,7 +48,7 @@ public class TaskAddCommandParser implements Parser<TaskAddCommand> {
         Priority priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).orElse("low"));
         Index patientIndex;
         if (argMultimap.getValue(PREFIX_LINKEDPATIENT).isPresent()) {
-            patientIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_LINKEDPATIENT).get());
+            patientIndex = ParserUtil.parseLinkedPatientIndex(argMultimap.getValue(PREFIX_LINKEDPATIENT).get());
         } else {
             patientIndex = null;
         }

@@ -34,7 +34,13 @@ public class HealthWorkerCard extends UiPart<Region> {
     private VBox healthWorkerInfo;
 
     @FXML
+    private Label id;
+
+    @FXML
     private Label name;
+
+    @FXML
+    private Label phone;
 
     @FXML
     private Label organisation;
@@ -46,8 +52,10 @@ public class HealthWorkerCard extends UiPart<Region> {
     public HealthWorkerCard(HealthWorker worker, int displayedIndex) {
         super(FXML);
         this.worker = worker;
+        this.id.setText(displayedIndex + ". ");
         this.name.setText(worker.getName().toString());
-        this.organisation.setText(worker.getOrganization().toString());
+        this.organisation.setText("(" + worker.getOrganization().toString() + ")");
+        this.phone.setText(worker.getPhone().toString());
         this.worker.getSkills().getSkills().forEach(s ->
             specialisations.getChildren().add(new Label(s.toString().toLowerCase())));
     }

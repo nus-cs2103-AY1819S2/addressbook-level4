@@ -1,15 +1,16 @@
 package seedu.address.logic;
 
-//import java.nio.file.Path;
+import java.nio.file.Path;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-//import seedu.address.model.ReadOnlyAddressBook;
-//import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyHealthWorkerBook;
+import seedu.address.model.ReadOnlyRequestBook;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.request.Request;
 
@@ -29,10 +30,15 @@ public interface Logic {
 
     /**
      *
-     * @see seedu.address.model.Model#getAddressBook()
-     * left behind in case someone needs to reference
+     * @see seedu.address.model.Model#getRequestBook()
      */
-    //ReadOnlyAddressBook getAddressBook();
+    ReadOnlyRequestBook getRequestBook();
+
+    /**
+     *
+     * @see seedu.address.model.Model#getHealthWorkerBook()
+     */
+    ReadOnlyHealthWorkerBook getHealthWorkerBook();
 
     /** Returns an unmodifiable view of the filtered list of health workers */
     ObservableList<HealthWorker> getFilteredHealthWorkerList();
@@ -47,10 +53,14 @@ public interface Logic {
     ObservableList<String> getHistory();
 
     /**
-     * Returns the user prefs' address book file path.
-     * kept in case for reference
+     * Returns the user prefs'request book file path.
      */
-    //Path getAddressBookFilePath();
+    Path getRequestBookFilePath();
+
+    /**
+     * Returns the user prefs' health worker book file path.
+     */
+    Path getHealthWorkerBookFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

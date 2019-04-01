@@ -68,7 +68,7 @@ public class ModelManager implements Model {
         this(new HealthWorkerBook(), new RequestBook(), new UserPrefs());
     }
 
-    //=========== UserPrefs ==================================================================================
+    //=========================== UserPrefs ====================================================
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -154,9 +154,16 @@ public class ModelManager implements Model {
         versionedHealthWorkerBook.commit();
     }
 
+    /**
+     * Returns the user prefs' health worker book file path.
+     */
+    @Override
+    public Path getHealthWorkerBookFilePath() {
+        return userPrefs.getHealthWorkerBookFilePath();
+    }
+
     //=========== Undo/Redo =================================================================================
     // @author Jing1324
-    // TODO: Modify to do redo/undo for HealthWorkerBook. Suggestion: Use a state to maintain previous type of op.
 
     @Override
     public boolean canUndo() {
@@ -217,6 +224,7 @@ public class ModelManager implements Model {
 
 
     //=========== Selected Person ===========================================================================
+    //=========== Implemented methods for Request through the Model interface  ==============================
 
     @Override
     public ObservableList<Request> getFilteredRequestList() {
@@ -228,7 +236,7 @@ public class ModelManager implements Model {
      */
     @Override
     public Path getRequestBookFilePath() {
-        return null;
+        return userPrefs.getRequestBookFilePath();
     }
 
     /**

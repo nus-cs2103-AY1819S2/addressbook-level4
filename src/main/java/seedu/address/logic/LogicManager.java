@@ -1,6 +1,8 @@
 package seedu.address.logic;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.text.SimpleDateFormat;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -13,6 +15,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyHealthWorkerBook;
+import seedu.address.model.ReadOnlyRequestBook;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.request.Request;
 import seedu.address.storage.Storage;
@@ -21,7 +25,9 @@ import seedu.address.storage.Storage;
  * The main LogicManager of the app.
  */
 public class LogicManager implements Logic {
+
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
+    public static final SimpleDateFormat FORMATTER = new SimpleDateFormat("hh:mma");
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
@@ -45,16 +51,17 @@ public class LogicManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
+        logger.info("-----------------[USER COMMAND][" + commandText + "]-------------------");
         requestBookModified = false;
         healthWorkerBookModified = false;
+        long timestamp = System.currentTimeMillis();
 
         CommandResult commandResult;
         try {
             Command command = addressBookParser.parseCommand(commandText);
             commandResult = command.execute(model, history);
         } finally {
-            history.add(commandText);
+            history.add(FORMATTER.format(timestamp) + ": " + commandText);
         }
 
         if (requestBookModified) {
@@ -67,7 +74,7 @@ public class LogicManager implements Logic {
         }
 
         if (healthWorkerBookModified) {
-            logger.info("Healthworker book modified, saving to file.");
+            logger.info("Health worker book modified, saving to file.");
             try {
                 storage.saveHealthWorkerBook(model.getHealthWorkerBook());
             } catch (IOException ioe) {
@@ -78,19 +85,32 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
-
+    @Override
+    public ReadOnlyRequestBook getRequestBook() {
+        return model.getRequestBook();
+    }
 
     @Override
-    public ObservableList<HealthWorker> getFilteredHealthWorkerList() {
-        return model.getFilteredHealthWorkerList(); }
+    public ReadOnlyHealthWorkerBook getHealthWorkerBook() {
+        return model.getHealthWorkerBook();
+    }
 
     @Override
     public ObservableList<Request> getFilteredRequestList() {
         return model.getFilteredRequestList(); }
 
     @Override
-    public ObservableList<String> getHistory() {
-        return history.getHistory();
+    public ObservableList<HealthWorker> getFilteredHealthWorkerList() {
+        return model.getFilteredHealthWorkerList(); }
+
+    @Override
+    public Path getRequestBookFilePath() {
+        return model.getRequestBookFilePath();
+    }
+
+    @Override
+    public Path getHealthWorkerBookFilePath() {
+        return model.getHealthWorkerBookFilePath();
     }
 
 
@@ -104,22 +124,27 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
+    @Override
+    public ReadOnlyProperty<Request> selectedRequestProperty() {
+        return model.selectedRequestProperty();
+    }
 
     @Override
     public ReadOnlyProperty<HealthWorker> selectedHealthWorkerProperty() {
         return model.selectedHealthWorkerProperty(); }
 
     @Override
-    public ReadOnlyProperty<Request> selectedRequestProperty() {
-        return model.selectedRequestProperty();
+    public void setSelectedRequest(Request request) {
+        model.setSelectedRequest(request);
     }
+
     @Override
     public void setSelectedHealthWorker(HealthWorker worker) {
         model.setSelectedHealthWorker(worker);
     }
 
     @Override
-    public void setSelectedRequest(Request request) {
-        model.setSelectedRequest(request);
+    public ObservableList<String> getHistory() {
+        return history.getHistory();
     }
 }

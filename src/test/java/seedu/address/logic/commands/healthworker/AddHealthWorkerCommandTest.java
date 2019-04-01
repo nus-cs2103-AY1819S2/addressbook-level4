@@ -200,6 +200,11 @@ public class AddHealthWorkerCommandTest {
         }
 
         @Override
+        public Path getHealthWorkerBookFilePath() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
         public void commitHealthWorkerBook() {
             throw new AssertionError("This method should not be called.");
         }

@@ -125,6 +125,7 @@ public class ParserUtil {
         }
         return new Email(trimmedEmail);
     }
+
     // ===== Methods for parsing Patient Conditions =====
     // @author Rohan
     /**

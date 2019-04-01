@@ -63,7 +63,7 @@ public class RequestCard extends UiPart<Region> {
             this.status.setTextFill(Color.web("#F22613"));
             break;
         case "ONGOING": // yellow light
-            this.status.setTextFill(Color.web("#F7CA18"));
+            this.status.setTextFill(Color.web("#FFA400"));
             break;
         case "COMPLETED": // green light
             this.status.setTextFill(Color.web("#00E640"));

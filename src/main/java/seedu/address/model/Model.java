@@ -48,7 +48,8 @@ public interface Model {
     /** Returns the HealthWorkerBook */
     ReadOnlyHealthWorkerBook getHealthWorkerBook();
 
-
+    /** Returns the user prefs' health worker book file path. */
+    Path getHealthWorkerBookFilePath();
 
     // ============== Added methods for AddHealthWorkerCommand ===============
     // @author: Lookaz

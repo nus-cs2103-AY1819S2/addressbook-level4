@@ -1,15 +1,16 @@
-= John Doe - Project Portfolio
+= Choong Wey Yeh - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
-
----
+== Project: Health Hub
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Health Hub is a desktop application designed for hospital administrative staff. With many people requiring Intermediate and Long-Term Care (ILTC) services, there is a growing need
+for health care professionals to tend to these people. Yet, the current messy system requires a lot of manual work from the admin's perspective. Health Hub aims to eradicate all of these.
+
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
@@ -50,9 +51,9 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
-
-include::../UserGuide.adoc[tag=dataencryption]
+//include::../UserGuide.adoc[tag=undoredo]
+//
+//include::../UserGuide.adoc[tag=dataencryption]
 
 == Contributions to the Developer Guide
 

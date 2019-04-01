@@ -1,35 +1,36 @@
 package seedu.finance.logic.parser;
 
 import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.finance.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_FILE;
 
+import java.nio.file.Path;
 import java.util.stream.Stream;
 
-import seedu.finance.logic.commands.SetCommand;
+import seedu.finance.logic.commands.SetFileCommand;
 import seedu.finance.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new SetCommand object
+ * Parse given string of argumentsin context of SetFileCommand
  */
-public class SetCommandParser implements Parser<SetCommand> {
+public class SetFileCommandParser implements Parser<SetFileCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the SetCommand
      * and returns an SetCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public SetCommand parse(String args) throws ParseException {
+    public SetFileCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT);
+                ArgumentTokenizer.tokenize(args, PREFIX_FILE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT)
+        if (!arePrefixesPresent(argMultimap, PREFIX_FILE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetFileCommand.MESSAGE_USAGE));
         }
 
-        String amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()).toString();
+        Path path = ParserUtil.parseFile(argMultimap.getValue(PREFIX_FILE).get());
 
-        return new SetCommand(amount);
+        return new SetFileCommand(path);
     }
 
     /**

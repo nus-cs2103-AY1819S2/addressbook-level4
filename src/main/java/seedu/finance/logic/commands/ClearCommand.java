@@ -22,6 +22,6 @@ public class ClearCommand extends Command {
         requireNonNull(model);
         model.setFinanceTracker(new FinanceTracker());
         model.commitFinanceTracker();
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, true, false, false);
     }
 }

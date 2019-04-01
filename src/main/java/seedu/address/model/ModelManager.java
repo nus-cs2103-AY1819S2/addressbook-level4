@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -188,6 +189,17 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedTable);
 
         restOrRant.getTables().setTable(target, editedTable);
+    }
+
+    @Override
+    public void setTables(List<Table> tables) {
+        requireNonNull(tables);
+        restOrRant.getTables().setTables(tables);
+    }
+
+    @Override
+    public boolean isRestaurantEmpty() {
+        return restOrRant.getTables().isRestaurantEmpty();
     }
 
     @Override

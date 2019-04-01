@@ -23,9 +23,11 @@ public class UpdateTableCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the status of the table."
             + "Parameters: TABLE_NUMBER NEW_OCCUPANCY\n" + "Example: " + COMMAND_WORD + " 2 0";
 
-    public static final String MESSAGE_SUCCESS = "Table status updated: \nTable%1$s: %2$s";
+    public static final String MESSAGE_SUCCESS = "Table status updated: \nTable %1$s: %2$s";
 
     public static final String MESSAGE_INVALID_TABLE_NUMBER = "Table %1$s does not exist";
+
+    public static final String MESSAGE_NO_CHANGE_IN_STATUS = "Table status of Table %1$s is already %2$s";
 
     private final String[] newTableStatus;
 
@@ -53,6 +55,10 @@ public class UpdateTableCommand extends Command {
         } catch (IllegalArgumentException e) {
             throw new CommandException(String.format(TableStatus.MESSAGE_INVALID_NUMBER_OF_CUSTOMERS,
                     updatedTableStatusInString.substring(2)));
+        }
+        if (updatedTableStatus.equals(optionalTable.get().getTableStatus())) {
+            throw new CommandException(String.format(MESSAGE_NO_CHANGE_IN_STATUS, optionalTable.get().getTableNumber(),
+                    optionalTable.get().getTableStatus()));
         }
         Table updatedTable = new Table(tableNumber, updatedTableStatus);
         model.setTable(optionalTable.get(), updatedTable);

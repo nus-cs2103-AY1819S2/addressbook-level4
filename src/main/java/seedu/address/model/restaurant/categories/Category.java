@@ -1,6 +1,11 @@
 package seedu.address.model.restaurant.categories;
 
+import javafx.scene.control.Label;
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
+import seedu.address.commons.util.StringUtil;
+import seedu.address.model.restaurant.Restaurant;
 
 /**
  * Encapsulates the categories of a restaurant.
@@ -16,7 +21,7 @@ public class Category {
         this.priceRange = Optional.ofNullable(priceRange);
     }
 
-    private Category(Optional<Cuisine> cuisine, Optional<Occasion> occasion, Optional<PriceRange> priceRange) {
+    public Category(Optional<Cuisine> cuisine, Optional<Occasion> occasion, Optional<PriceRange> priceRange) {
         this.cuisine = cuisine;
         this.occasion = occasion;
         this.priceRange = priceRange;
@@ -45,6 +50,27 @@ public class Category {
         Optional<Occasion> mergedOccasion = updated.occasion.or(() -> previous.occasion);
         Optional<PriceRange> mergedPriceRange = updated.priceRange.or(() -> previous.priceRange);
         return new Category(mergedCuisine, mergedOccasion, mergedPriceRange);
+    }
+
+    /**
+     * Checks if the given keyword matches any of the categories
+     */
+    public boolean match(String keyword) {
+        boolean matchesCuisine = StringUtil
+                .containsWordIgnoreCase(cuisine.map(content -> content.value).orElse(""), keyword);
+        boolean matchesOccasion = StringUtil
+                .containsWordIgnoreCase(occasion.map(content -> content.value).orElse(""), keyword);
+        boolean matchesPriceRange = StringUtil
+                .containsWordIgnoreCase(priceRange.map(content -> content.value).orElse(""), keyword);
+        return matchesCuisine || matchesOccasion || matchesPriceRange;
+    }
+
+    public void setLabels(Label cuisineLabel, Label occasionLabel, Label priceRangeLabel) {
+        cuisine.ifPresentOrElse(content -> cuisineLabel.setText(content.value), () -> cuisineLabel.setVisible(false));
+        occasion.ifPresentOrElse(content -> occasionLabel.setText(content.value),
+                () -> priceRangeLabel.setVisible(false));
+        priceRange.ifPresentOrElse(content -> priceRangeLabel.setText(content.value),
+                () -> priceRangeLabel.setVisible(false));
     }
 
     @Override

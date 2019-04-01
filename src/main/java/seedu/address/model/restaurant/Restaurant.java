@@ -117,18 +117,6 @@ public class Restaurant {
         return openingHours;
     }
 
-    public Optional<Cuisine> getCuisine() {
-        return categories.getCuisine();
-    }
-
-    public Optional<Occasion> getOccasion() {
-        return categories.getOccasion();
-    }
-
-    public Optional<PriceRange> getPriceRange() {
-        return categories.getPriceRange();
-    }
-
     public Category getCategories() {
         return categories;
     }

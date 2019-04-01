@@ -27,7 +27,7 @@ efficiently*, then this is the product just for you! _In-Credit-Ble_ is designed
 This user guide shows you how to get started using _In-Credit-Ble_. It also provides in-depth documentation on the
 different features and shows you how to perform basic _In-Credit-Ble_ operations.
 
-//tag::quickstart[]
+// tag::quickstart[]
 == Quick Start
 Follow these steps to get _In-Credit-Ble_ up and running on your computer in no time!
 
@@ -50,7 +50,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 
 .  Refer to <<Features>> for details of each command.
-//end:quickstart[]
+// end:quickstart[]
 
 [[Features]]
 == Features
@@ -69,7 +69,7 @@ step-by-step instructions on how to use the different commands.
 
 === Budget Management
 
-//tag::set[]
+// tag::set[]
 ==== Setting a budget: `set`
 
 This command enables you to set a fixed budget for a month/week. The command format is as follows:
@@ -82,9 +82,9 @@ This command enables you to set a fixed budget for a month/week. The command for
 * `set $/500`
 * `set $/500.50`
 ****
-//end::set[]
+// end::set[]
 
-//tag::allocate[]
+// tag::allocate[]
 ==== Allocating budget based on categories: `allocate`
 
 You can use this command to set a budget for a category in _In-Credit-Ble_ Finance Tracker. +
@@ -113,9 +113,9 @@ by the new `allocate` command
 * Category name supplied must be https://en.wikipedia.org/wiki/Alphanumeric[alphanumeric]
 and cannot contain special characters such as `:<>;\/|?~^%$#@`
 ====
-//end::allocate[]
+// end::allocate[]
 
-//tag::increase[]
+// tag::increase[]
 ==== Increasing the budget: `increase`
 
 You can increase your budget limit for the month/week by the specified amount.
@@ -128,15 +128,18 @@ You can increase your budget limit for the month/week by the specified amount.
 * `increase $/10.10`
 * `increase $/100`
 ****
+// end::increase[]
+
 === Expense Entry Management
 
+// tag::spend[]
 ==== Adding an expense: `spend`
 
 You can keep track of how much you have spent by adding an expense entry to _In-Credit-Ble_.
 
 *Alias*: `add`
 
-*Format*: `spend n/NAME $/AMOUNT d/DATE [c/CATEGORY] ...`
+*Format*: `spend n/NAME $/AMOUNT d/DATE c/CATEGORY`
 
 ****
 *Examples*:
@@ -144,9 +147,21 @@ You can keep track of how much you have spent by adding an expense entry to _In-
 * `spend n/cake $/5.50 d/15/03/2019 c/Food`
 * `spend n/movie $/10 d/16/03/2019 c/Entertainment`
 ****
-//end::increase[]
 
-//tag::description[]
+[NOTE]
+====
+* If you provide multiple categories (e.g. `spend n/Tshirt $/10.00 d/31/03/2019 c/Food c/Clothes`),
+only the last category you provided will be taken (in the previous e.g., the command will
+add expense for `Clothes` category.
+* Category names are case-insensitive. (e.g. `CLotHes`, `clothes` and `CLOTHES` refer to the same
+category and will be shown with the first character in uppercase and the rest of the characters
+in lowercase (in the above example, it will be shown as `Clothes`)
+* Category name supplied must be https://en.wikipedia.org/wiki/Alphanumeric[alphanumeric]
+and cannot contain special characters such as `:<>;\/|?~^%$#@`
+====
+// end::spend[]
+
+// tag::description[]
 ==== Adding a description to an entry: `description`
 
 You can add a description to an existing entry in the records to remember details of the amount spent.
@@ -170,9 +185,9 @@ Removes the description of entry at index 1
 * `INDEX` here refers to the index number shown in the displayed records.
 * `INDEX` *must be a positive integer* 1, 2, 3, ...
 ====
-//end::description[]
+// end::description[]
 
-//tag::edit[]
+// tag::edit[]
 ==== Editing an entry: `edit`
 
 You can easily edit any part of an existing entry in the records. +
@@ -196,9 +211,9 @@ Index refers to the index number shown in the list.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ====
-//end::edit[]
+// end::edit[]
 
-//tag::select[]
+// tag::select[]
 ==== Selecting an entry: `select`
 
 You can select an existing entry in the records to view its details by specifying the entry's index number.
@@ -218,6 +233,7 @@ You can select an existing entry in the records to view its details by specifyin
 * `INDEX` here refers to the index number shown in the displayed records.
 * `INDEX` *must be a positive integer* 1, 2, 3, ...
 ====
+// end::select[]
 
 //tag::delete[]
 ==== Deleting an entry: `delete`
@@ -252,7 +268,9 @@ You can see all the entries you have entered, as long as they are not deleted en
 *Alias*: `l`, `ls`
 
 *Format*: `list`
+//end::list[]
 
+// tag::search[]
 ==== Locating entry based on name/category: `search`
 
 You can easily search for an entry in the records using a name or category as keywords.
@@ -273,7 +291,7 @@ You can easily search for an entry in the records using a name or category as ke
 * `FLAG` here refers to either `-name` or `-cat`.
 * Only one flag should be provided.
 ====
-//end::list[]
+// end::search[]
 
 //tag::sort[]
 ==== Sorting the entries according to name/amount/date/category: `sort`
@@ -394,7 +412,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 ****
 // end::undoredo[]
 
-//tag::theme[]
+// tag::theme[]
 ==== Changing theme of application: `theme`
 
 You can change the theme of the application with pre-set colour themes specified.
@@ -421,7 +439,7 @@ the menu bar.
 image::themeMenuBar.png[width="300"]
 ====
 
-//end::theme[]
+// end::theme[]
 ==== Listing entered commands: `history`
 
 You can list all the commands you have entered in reverse chronological order.

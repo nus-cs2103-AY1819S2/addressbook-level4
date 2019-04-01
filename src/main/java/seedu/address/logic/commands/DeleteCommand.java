@@ -66,7 +66,10 @@ public class DeleteCommand extends Command {
                     alert.showAndWait();
                     for (Task task : linkedTasks) {
                         Task replacement = task.isCopy() ? new Task(task) : new Task(task, true);
-                        replacement.setLinkedPatient(deletedPerson.getName(), ((Patient) deletedPerson).getNric());
+                        if (alert.getResult() == ButtonType.YES) {
+                            replacement.setNullLinkedPatient();
+                            replacement.setLinkedPatient(deletedPerson.getName(), ((Patient) deletedPerson).getNric());
+                        }
                         model.setTask(task, replacement);
                     }
                 }

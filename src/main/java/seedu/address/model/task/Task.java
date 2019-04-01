@@ -110,6 +110,10 @@ public class Task {
         linkedPatient = new LinkedPatient(name, nric);
     }
 
+    public void setNullLinkedPatient() {
+        linkedPatient = null;
+    }
+
     public void setPriorityComplete() {
         this.priority = Priority.COMPLETED;
     }

@@ -59,8 +59,8 @@ public class ParserUtil {
     public static QuizMode parseMode(String mode) throws ParseException {
         requireNonNull(mode);
         String trimmedMode = mode.trim().toUpperCase();
-        if (trimmedMode.equals("LEARN") || trimmedMode.equals("PREVIEW")
-                || trimmedMode.equals("REVIEW") || trimmedMode.equals("DIFFICULT")) {
+        if ("LEARN".equals(trimmedMode) || "PREVIEW".equals(trimmedMode)
+                || "REVIEW".equals(trimmedMode) || "DIFFICULT".equals(trimmedMode)) {
             return QuizMode.valueOf(trimmedMode);
         } else {
             throw new ParseException("Mode of quiz is not acceptable. You can choose from: "

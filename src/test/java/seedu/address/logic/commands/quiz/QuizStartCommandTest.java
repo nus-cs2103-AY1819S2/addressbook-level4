@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.quiz;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static seedu.address.testutil.TypicalCards.CARD_BELGIUM;
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN;
 
@@ -51,6 +52,7 @@ public class QuizStartCommandTest {
         Session session = new SessionBuilder().build();
         thrown.expectMessage("Expected ManagementModel but received QuizModel instead.");
         CommandResult commandResult = new QuizStartCommand(session).execute(quizModel, commandHistory);
+        assertNull(commandResult);
     }
     @Test
     public void execute_lessonExist() throws Exception {
@@ -58,6 +60,7 @@ public class QuizStartCommandTest {
         final Session session = new SessionBuilder().build();
         thrown.expectMessage("Lesson is not found. Please try another one.");
         CommandResult commandResult = new QuizStartCommand(session).execute(managementModel, commandHistory);
+        assertNull(commandResult);
     }
     @Test
     public void execute_difficultMode() throws CommandException {
@@ -70,10 +73,18 @@ public class QuizStartCommandTest {
         SrsCard srsCard = new SrsCardBuilder().build();
         Session session = new SessionBuilder(new Session("Capitals", 1, QuizMode.DIFFICULT,
                 List.of(srsCard))).build();
+        Session session_moreCount = new SessionBuilder(new Session("Capitals", 3, QuizMode.DIFFICULT,
+                List.of(srsCard))).build();
         CommandResult commandResult = new QuizStartCommand(session).execute(managementModel, commandHistory);
+        assertEquals("Starting new quiz", commandResult.getFeedbackToUser());
         assertEquals(session.getSrsCards().get(0), srsCard);
+        CommandResult commandResult_moreCount = new QuizStartCommand(session_moreCount).execute(managementModel,
+                commandHistory);
+        assertEquals("Not enough cards in current lesson. Set the count to the maximum"
+                + " number for you by default.", commandResult_moreCount.getFeedbackToUser());
         thrown.expectMessage("There is no difficult card in this lesson.");
         CommandResult wrongCommandResult = new QuizStartCommand(session).execute(failManagementModel, commandHistory);
+        assertNull(wrongCommandResult);
     }
     @Test
     public void execute_learnMode() throws CommandException {
@@ -89,9 +100,11 @@ public class QuizStartCommandTest {
         Session session = new SessionBuilder(new Session("Capitals", 1, QuizMode.LEARN,
                 List.of(srsCard))).build();
         CommandResult commandResult = new QuizStartCommand(session).execute(managementModel, commandHistory);
+        assertEquals("Starting new quiz", commandResult.getFeedbackToUser());
         assertEquals(session.getSrsCards().get(0), srsCard);
         thrown.expectMessage("There is no more new card to learn in this lesson.");
         CommandResult wrongCommandResult = new QuizStartCommand(session).execute(failManagementModel, commandHistory);
+        assertNull(wrongCommandResult);
     }
     @Test
     public void execute_reviewMode() throws CommandException {
@@ -108,10 +121,12 @@ public class QuizStartCommandTest {
         Session session = new SessionBuilder(new Session("Capitals", 1, QuizMode.REVIEW,
                 List.of(srsCard))).build();
         CommandResult commandResult = new QuizStartCommand(session).execute(managementModel, commandHistory);
+        assertEquals("Starting new quiz", commandResult.getFeedbackToUser());
         assertEquals(session.getSrsCards().get(0), srsCard);
         thrown.expectMessage("There is no card for review since all cards in current lesson"
                 + " do not reach the due date.");
         CommandResult wrongCommandResult = new QuizStartCommand(session).execute(failManagementModel, commandHistory);
+        assertNull(wrongCommandResult);
     }
     @Test
     public void executeActual_learn_success() {

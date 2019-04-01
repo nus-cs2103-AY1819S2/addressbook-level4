@@ -3,34 +3,42 @@
   "menuItems" : [ {
     "name" : "Chicken Wings",
     "code" : "W09",
-    "price" : "3.99"
+    "price" : "3.99",
+    "quantity" : "0"
   }, {
     "name" : "French Fries",
     "code" : "W12",
-    "price" : "2.20"
+    "price" : "2.20",
+    "quantity" : "1"
   }, {
     "name" : "Salad",
     "code" : "A05",
-    "price" : "5.50"
+    "price" : "5.50",
+    "quantity" : "2"
   }, {
     "name" : "Cheese Nachos",
     "code" : "M17",
-    "price" : "7.23"
+    "price" : "7.23",
+    "quantity" : "3"
   }, {
     "name" : "Shrimp Fried Rice",
     "code" : "C02",
-    "price" : "8.90"
+    "price" : "8.90",
+    "quantity" : "4"
   }, {
     "name" : "Mee Sua",
     "code" : "T01",
-    "price" : "4.99"
+    "price" : "4.99",
+    "quantity" : "5"
   }, {
     "name" : "Kimchi Fried Rice",
     "code" : "K12",
-    "price" : "5.50"
+    "price" : "5.50",
+    "quantity" : "6"
   }, {
     "name" : "Crepes",
     "code" : "F11",
-    "price" : "7.50"
+    "price" : "7.50",
+    "quantity" : "7"
   } ]
 }

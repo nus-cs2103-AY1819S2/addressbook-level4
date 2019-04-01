@@ -2,10 +2,12 @@
   "menuItems" : [ {
     "name" : "Chicken Nuggets",
     "code" : "W06",
-    "price" : "3.40"
+    "price" : "3.40",
+    "quantity" : "0"
   }, {
     "name" : "French Fries",
     "code" : "Invalid1234",
-    "price" : "2.20"
+    "price" : "2.20",
+    "quantity" : "1"
   } ]
 }

@@ -13,15 +13,18 @@ public class MenuItemBuilder {
     public static final String DEFAULT_NAME = "Chicken Wings";
     public static final String DEFAULT_CODE = "W09";
     public static final String DEFAULT_PRICE = "3.99";
+    public static final String DEFAULT_QUANTITY = "0";
 
     private Name name;
     private Code code;
     private Price price;
+    private int quantity;
 
     public MenuItemBuilder() {
         name = new Name(DEFAULT_NAME);
         code = new Code(DEFAULT_CODE);
         price = new Price(DEFAULT_PRICE);
+        quantity = Integer.parseInt(DEFAULT_QUANTITY);
     }
 
     /**
@@ -31,6 +34,7 @@ public class MenuItemBuilder {
         name = itemToCopy.getName();
         code = itemToCopy.getCode();
         price = itemToCopy.getPrice();
+        quantity = itemToCopy.getQuantity();
     }
 
     /**
@@ -57,8 +61,13 @@ public class MenuItemBuilder {
         return this;
     }
 
+    public MenuItemBuilder withQuantity(String quantity) {
+        this.quantity = Integer.parseInt(quantity);
+        return this;
+    }
+
     public MenuItem build() {
-        return new MenuItem(name, code, price);
+        return new MenuItem(name, code, price, quantity);
     }
 
 }

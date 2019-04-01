@@ -24,9 +24,9 @@ public class SampleDataUtil {
     }
 
     public static MenuItem[] getSampleMenuItems() {
-        return new MenuItem[]{new MenuItem(new Name("Chicken Wings"), new Code("W09"), new Price("3.99")),
-            new MenuItem(new Name("French Fries"), new Code("W12"), new Price("2.20")),
-            new MenuItem(new Name("Salad"), new Code("A05"), new Price("5.50"))};
+        return new MenuItem[]{new MenuItem(new Name("Chicken Wings"), new Code("W09"), new Price("3.99"), 0),
+            new MenuItem(new Name("French Fries"), new Code("W12"), new Price("2.20"), 1),
+            new MenuItem(new Name("Salad"), new Code("A05"), new Price("5.50"), 2)};
     }
 
     public static OrderItem[] getSampleOrderItems() {

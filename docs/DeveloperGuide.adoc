@@ -17,6 +17,7 @@ endif::[]
 
 By: `Team T12-3`      Since: `Feb 2019`      Licence: `MIT`
 
+// tag::introduction[]
 == Introduction
 
 Welcome to the _MediTabs Developer Guide_. You can find step by step instructions on how to set up MediTabs project on your computer and modify the project to suit your needs. You can also find out more about the development process of MediTabs such as its design and implementation. Interested? You can jump to <<Setting Up>> to get started. Enjoy!
@@ -30,14 +31,18 @@ MediTabs supports Windows, Linux and MacOS operating systems.
 === Who is this guide for?
 
 Are you a developer who wants to learn how MediTabs is designed and implemented, contribute to the development of MediTabs or modify MediTabs for your needs? If so, this guide provides information that will not only help you better understand the inner workings of MediTabs but also the various classes provided which you can use when modifying MediTabs.
+// end::introduction[]
 
+// tag::settingup[]
 == Setting up
 
 Follow the step by step instructions below to set up MediTabs project with IntelliJ Integrated Development Environment (IDE).
 
 [NOTE]
 You are free to use any IDE which you are comfortable with but we *highly recommend* using IntelliJ. As we use IntelliJ in the development of MediTabs, the instructions to set up MediTabs will be catered for users of IntelliJ. You can download IntelliJ link:https://www.jetbrains.com/idea/download/[here]. If you are planning to use IntelliJ, both the community (free) and ultimate (paid) editions of IntelliJ can be used to set up MediTabs project.
+// end::settingup[]
 
+// tag::prerequisites[]
 === Prerequisites
 
 . *JDK `9` (highly recommended) or `10`*
@@ -47,6 +52,7 @@ JDK `11` and later are not recommended due to some features being removed which 
 [WARNING]
 JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
 Windows developers are highly recommended to use JDK `9`.
+// end::prerequisites[]
 
 . *IntelliJ* IDE
 +
@@ -232,10 +238,12 @@ As a more OOP model, we can store a `Tag` list in `Inventory`, which `Medicine` 
 image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
+// tag::storagecomponent[]
 === Storage component
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
+// end::storagecomponent[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -585,6 +593,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
+// tag::validationoffilename[]
 === Validation of File Name
 
 We are using the `seedu.address.commons.FileName` class which is created by our team for the validation of file name specified by the user. This is important for commands in MediTabs which supports the file name field.
@@ -649,6 +658,7 @@ Examples of commands in MediTabs which uses the `FileName` class to validate the
 
 * `export [FILE_NAME]`
 * `label INDEX [f/FILE_NAME]`
+// end::validationoffilename[]
 
 [[Implementation-Configuration]]
 === Configuration

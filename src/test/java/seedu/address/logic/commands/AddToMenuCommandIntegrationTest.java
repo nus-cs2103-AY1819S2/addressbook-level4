@@ -1,8 +1,11 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.testutil.TypicalRestOrRant.FRENCH_FRIES;
-import static seedu.address.testutil.TypicalRestOrRant.HONEY_MILK_TEA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CODE_TEA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_TEA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_TEA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_8;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalRestOrRant.getTypicalRestOrRant;
 
 import org.junit.Before;
@@ -13,14 +16,8 @@ import seedu.address.logic.Mode;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.menu.Code;
 import seedu.address.model.menu.MenuItem;
-import seedu.address.model.menu.Name;
-import seedu.address.model.menu.Price;
 import seedu.address.testutil.MenuItemBuilder;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class AddToMenuCommandIntegrationTest {

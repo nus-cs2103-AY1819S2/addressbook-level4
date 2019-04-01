@@ -26,11 +26,11 @@ public class WorkListListPanel extends UiPart<Region> {
     public WorkListListPanel(ObservableList<WorkList> workListList, ObservableValue<WorkList> selectedPerson,
                               Consumer<WorkList> onselectedWorkListChange) {
         super(FXML);
-        if(workListListView == null) {
+        if (workListListView == null) {
             System.out.println("NULL!!!!!");
         }
         workListListView.setItems(workListList);
-        workListListView.setCellFactory(listView -> new workListListViewCell());
+        workListListView.setCellFactory(listView -> new WorkListListViewCell());
         workListListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             logger.fine("Selection in WorkList list panel changed to : '" + newValue + "'");
             onselectedWorkListChange.accept(newValue);
@@ -57,7 +57,7 @@ public class WorkListListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code WorkList} using a {@code WorkListCard}.
      */
-    class workListListViewCell extends ListCell<WorkList> {
+    class WorkListListViewCell extends ListCell<WorkList> {
         @Override
         protected void updateItem(WorkList workList, boolean empty) {
             super.updateItem(workList, empty);

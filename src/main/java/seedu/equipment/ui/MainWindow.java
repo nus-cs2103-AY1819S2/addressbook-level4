@@ -50,7 +50,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
-    
+
     @FXML
     private StackPane workListPanelPlaceholder;
 

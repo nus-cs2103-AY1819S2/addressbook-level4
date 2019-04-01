@@ -214,6 +214,82 @@
     -fx-background-color: white;
 }
 
+.chartBar {
+    -fx-padding: 20 20 20 20;
+}
+
+.chartPie {
+    -fx-padding: 20 20 20 20;
+}
+
+.chartLine {
+    -fx-padding: 20 20 20 20;
+}
+
+.data0.chart-bar {
+    -fx-bar-fill: #f9d900;;
+}
+
+.data1.chart-bar {
+    -fx-bar-fill: #a9e200;;
+}
+
+.data2.chart-bar {
+    -fx-bar-fill: #22bad9;;
+}
+
+.data3.chart-bar {
+    -fx-bar-fill: #0181e2;;
+}
+
+.data4.chart-bar {
+    -fx-bar-fill: #2f357f;;
+}
+
+.data5.chart-bar {
+    -fx-bar-fill: #860061;;
+}
+
+.data6.chart-bar {
+    -fx-bar-fill: #c62b00;;
+}
+
+.data7.chart-bar {
+    -fx-bar-fill: #ff5700;;
+}
+
+.default-color0.chart-pie {
+    -fx-pie-color: #ff5700;
+}
+
+.default-color1.chart-pie {
+    -fx-pie-color: #c62b00;
+}
+
+.default-color2.chart-pie {
+    -fx-pie-color: #860061;
+}
+
+.default-color3.chart-pie {
+    -fx-pie-color: #2f357f;
+}
+
+.default-color4.chart-pie {
+    -fx-pie-color: #0181e2;
+}
+
+.default-color5.chart-pie {
+    -fx-pie-color: #22bad9;
+}
+
+.default-color6.chart-pie {
+    -fx-pie-color: #a9e200;
+}
+
+.default-color7.chart-pie {
+    -fx-pie-color: #f9d900;
+}
+
 /*
  * Metro style Push Button
  * Author: Pedro Duque Vieira
@@ -244,7 +320,7 @@
 .button:focused {
     -fx-border-color: white, white;
     -fx-border-width: 1, 1;
-    -fx-border-style: solid, segments(1, 1);
+    -fx-border-style: solid;
     -fx-border-radius: 0, 0;
     -fx-border-insets: 1 1 1 1, 0;
 }
@@ -279,11 +355,11 @@
     -fx-text-fill: white;
 }
 
-.dialog-pane:header *.header-panel {
+.dialog-pane *.header-panel {
     -fx-background-color: derive(#1d1d1d, 25%);
 }
 
-.dialog-pane:header *.header-panel *.label {
+.dialog-pane *.header-panel *.label {
     -fx-font-size: 18px;
     -fx-font-style: italic;
     -fx-fill: white;

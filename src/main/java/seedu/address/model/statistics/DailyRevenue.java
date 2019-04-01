@@ -26,6 +26,17 @@ public class DailyRevenue {
     }
 
     /**
+     * Creates a daily revenue that accepts null as it's field.
+     * Mainly used for revenueCommand
+     */
+    public DailyRevenue(Day day, Month month, Year year) {
+        this.day = day;
+        this.month = month;
+        this.year = year;
+        this.totalDailyRevenue = 0;
+    }
+
+    /**
      * Adds the bill's total bill into the revenue.
      */
     public void addToRevenue(Bill bill) {

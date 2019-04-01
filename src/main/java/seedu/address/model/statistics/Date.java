@@ -11,7 +11,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 public class Date {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Day should be in the format <double digit integer>, it should not be blank and should be a valid day";
+            "Date should be in the format <double digit integer>.<double digit integer>.<four digit integer>,"
+                    + "it should not be blank and should be a valid date";
 
     /*
      * The first character of the item code must not be a whitespace,
@@ -33,14 +34,12 @@ public class Date {
      * @param date A valid code.
      */
     public Date(String date) {
-
-
         requireNonNull(date);
+        this.date = date.trim();
         String[] data = date.split("\\.", 3);
         this.day = new Day(data[0]);
         this.month = new Month(data[1]);
         this.year = new Year(data[2]);
-        this.date = new String(this.day + "." + this.month + this.year);
         checkArgument(isValidDate(date, day, month, year), MESSAGE_CONSTRAINTS);
     }
 

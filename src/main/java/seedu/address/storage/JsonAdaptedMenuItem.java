@@ -19,16 +19,18 @@ class JsonAdaptedMenuItem {
     private final String name;
     private final String code;
     private final String price;
+    private final String quantity;
 
     /**
-     * Constructs a {@code JsonAdaptedMenu} with the given person details.
+     * Constructs a {@code JsonAdaptedMenu} with the given menu item details.
      */
     @JsonCreator
     public JsonAdaptedMenuItem(@JsonProperty("name") String name, @JsonProperty("code") String code,
-            @JsonProperty("price") String price) {
+            @JsonProperty("price") String price, @JsonProperty("quantity") String quantity) {
         this.name = name;
         this.code = code;
         this.price = price;
+        this.quantity = quantity;
     }
 
     /**
@@ -38,6 +40,7 @@ class JsonAdaptedMenuItem {
         name = item.getName().itemName;
         code = item.getCode().itemCode;
         price = item.getPrice().itemPrice;
+        quantity = item.itemQuantityOrdered();
     }
 
     /**
@@ -70,7 +73,13 @@ class JsonAdaptedMenuItem {
         }
         final Price modelPrice = new Price(price);
 
-        return new MenuItem(modelName, modelCode, modelPrice);
+        if(quantity == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    "Quantity should not be null"));
+        }
+        final int modelQuantity = Integer.parseInt(quantity);
+
+        return new MenuItem(modelName, modelCode, modelPrice, modelQuantity);
     }
 
 }

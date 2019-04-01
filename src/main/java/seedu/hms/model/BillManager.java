@@ -373,7 +373,7 @@ public class BillManager implements BillModel {
 
         case "GYM":
             for (Booking booking : bookingObservableList) {
-                if((booking.getService().getName()).equals("GYM")) {
+                if ((booking.getService().getName()).equals("GYM")) {
                     count++;
                     TimeRange timeRange = booking.getTiming();
                     int hoursBooked = timeRange.numOfHours();
@@ -386,7 +386,7 @@ public class BillManager implements BillModel {
 
         case "SWIMMING POOL":
             for (Booking booking : bookingObservableList) {
-                if((booking.getService().getName()).equals("SWIMMING POOL")) {
+                if ((booking.getService().getName()).equals("SWIMMING POOL")) {
                     count++;
                     TimeRange timeRange = booking.getTiming();
                     int hoursBooked = timeRange.numOfHours();
@@ -399,7 +399,7 @@ public class BillManager implements BillModel {
 
         case "SPA":
             for (Booking booking : bookingObservableList) {
-                if((booking.getService().getName()).equals("SPA")) {
+                if ((booking.getService().getName()).equals("SPA")) {
                     count++;
                     TimeRange timeRange = booking.getTiming();
                     int hoursBooked = timeRange.numOfHours();
@@ -412,7 +412,7 @@ public class BillManager implements BillModel {
 
         case "GAMES ROOM":
             for (Booking booking : bookingObservableList) {
-                if((booking.getService().getName()).equals("GAMES ROOM")) {
+                if ((booking.getService().getName()).equals("GAMES ROOM")) {
                     count++;
                     TimeRange timeRange = booking.getTiming();
                     int hoursBooked = timeRange.numOfHours();
@@ -516,9 +516,8 @@ public class BillManager implements BillModel {
     }
 
     /**
-     *
      * @param reservationObservableList unmodifiable reservation list
-     * @param roomType the room type based on which the bill has to be calculated
+     * @param roomType                  the room type based on which the bill has to be calculated
      * @return a pair that contains the total amount for the room type and number of times the room type was used
      */
     private Pair<Double, Integer> generateTotalBillBasedOnRoomType(ObservableList<Reservation>
@@ -529,7 +528,7 @@ public class BillManager implements BillModel {
 
         case "SINGLE ROOM":
             for (Reservation reservation : reservationObservableList) {
-                if((reservation.getRoom().getName()).equals("SINGLE ROOM")) {
+                if ((reservation.getRoom().getName()).equals("SINGLE ROOM")) {
                     count++;
                     DateRange dateRange = reservation.getDates();
                     long daysBooked = dateRange.numOfDays();
@@ -543,7 +542,7 @@ public class BillManager implements BillModel {
 
         case "DOUBLE ROOM":
             for (Reservation reservation : reservationObservableList) {
-                if((reservation.getRoom().getName()).equals("DOUBLE ROOM")) {
+                if ((reservation.getRoom().getName()).equals("DOUBLE ROOM")) {
                     count++;
                     DateRange dateRange = reservation.getDates();
                     long daysBooked = dateRange.numOfDays();
@@ -557,7 +556,7 @@ public class BillManager implements BillModel {
 
         case "DELUXE ROOM":
             for (Reservation reservation : reservationObservableList) {
-                if((reservation.getRoom().getName()).equals("DELUXE ROOM")) {
+                if ((reservation.getRoom().getName()).equals("DELUXE ROOM")) {
                     count++;
                     DateRange dateRange = reservation.getDates();
                     long daysBooked = dateRange.numOfDays();
@@ -571,7 +570,7 @@ public class BillManager implements BillModel {
 
         case "FAMILY SUITE":
             for (Reservation reservation : reservationObservableList) {
-                if((reservation.getRoom().getName()).equals("FAMILY SUITE")) {
+                if ((reservation.getRoom().getName()).equals("FAMILY SUITE")) {
                     count++;
                     DateRange dateRange = reservation.getDates();
                     long daysBooked = dateRange.numOfDays();

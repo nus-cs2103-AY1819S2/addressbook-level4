@@ -47,22 +47,22 @@ public class CardsView implements ListViewState {
     @Override
     public Command parse(String commandWord, String arguments) throws ParseException {
         switch (commandWord) {
-        case AddCardCommand.COMMAND_WORD:
-            return new AddCardCommandParser(this).parse(arguments);
-        case DeleteCardCommand.COMMAND_WORD:
-            return new DeleteCardCommandParser(this).parse(arguments);
-        case EditCardCommand.COMMAND_WORD:
-            return new EditCardCommandParser(this).parse(arguments);
-        case FindCardCommand.COMMAND_WORD:
-            return new FindCardCommandParser(this).parse(arguments);
-        case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser(this).parse(arguments);
-        case BackCommand.COMMAND_WORD:
-            return new BackCommand();
-        case StudyDeckCommand.COMMAND_WORD:
-            return new StudyDeckCommand(activeDeck);
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            case AddCardCommand.COMMAND_WORD:
+                return new AddCardCommandParser(this).parse(arguments);
+            case DeleteCardCommand.COMMAND_WORD:
+                return new DeleteCardCommandParser(this).parse(arguments);
+            case EditCardCommand.COMMAND_WORD:
+                return new EditCardCommandParser(this).parse(arguments);
+            case FindCardCommand.COMMAND_WORD:
+                return new FindCardCommandParser(this).parse(arguments);
+            case SelectCommand.COMMAND_WORD:
+                return new SelectCommandParser(this).parse(arguments);
+            case BackCommand.COMMAND_WORD:
+                return new BackCommand();
+            case StudyDeckCommand.COMMAND_WORD:
+                return new StudyDeckCommand(activeDeck);
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 

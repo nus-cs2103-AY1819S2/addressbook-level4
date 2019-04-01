@@ -11,8 +11,8 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.appointment.Appointment;
-import seedu.address.model.medicalhistory.MedicalHistory;
+//import seedu.address.model.appointment.Appointment;
+//import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
 
@@ -44,8 +44,9 @@ class JsonSerializableAddressBook {
                                         @JsonProperty("appointments") List<JsonAdaptedAppointment> appointments) {
         this.patients.addAll(patients);
         this.doctors.addAll(doctors);
-        this.medicalHistories.addAll(medicalHistories);
         this.appointments.addAll(appointments);
+        this.medicalHistories.addAll(medicalHistories);
+        this.doctors.addAll(doctors);
     }
 
     /**
@@ -56,13 +57,14 @@ class JsonSerializableAddressBook {
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         patients.addAll(source.getPatientList().stream().map(JsonAdaptedPatient::new).collect(Collectors.toList()));
 
+        doctors.addAll(source.getDoctorList().stream().map(JsonAdaptedDoctor::new).collect(Collectors.toList()));
+
         medicalHistories.addAll(source.getMedHistList().stream().map(JsonAdaptedMedicalHistory::new)
                 .collect(Collectors.toList()));
 
         appointments.addAll(source.getAppointmentList().stream().map(JsonAdaptedAppointment::new)
                 .collect(Collectors.toList()));
 
-        doctors.addAll(source.getDoctorList().stream().map(JsonAdaptedDoctor::new).collect(Collectors.toList()));
     }
 
     /**
@@ -101,8 +103,6 @@ class JsonSerializableAddressBook {
             if (addressBook.hasAppointment(appointment)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
             }
-            System.out.println(appointment);
-            addressBook.addAppointment(appointment);
         }
         */
         return addressBook;

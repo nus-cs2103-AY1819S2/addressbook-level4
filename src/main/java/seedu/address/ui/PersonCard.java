@@ -52,7 +52,10 @@ public class PersonCard extends UiPart<Region> {
     }
 
     /**
+<<<<<<< HEAD
+=======
      * Method to get tag color from each tag element associated with Person
+>>>>>>> faf83f1c6d7509fcadcb3dfb0120b740ba2e574b
      * Change Tag color
      */
     private void formatTags(Person person) {

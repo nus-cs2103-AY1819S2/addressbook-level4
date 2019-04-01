@@ -73,7 +73,7 @@ class JsonAdaptedMenuItem {
         }
         final Price modelPrice = new Price(price);
 
-        if(quantity == null) {
+        if (quantity == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     "Quantity should not be null"));
         }

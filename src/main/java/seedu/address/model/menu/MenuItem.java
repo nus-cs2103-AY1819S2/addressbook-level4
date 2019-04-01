@@ -52,13 +52,16 @@ public class MenuItem {
         return String.valueOf(quantity);
     }
 
+    /**
+     * Updates the quantity of this menu item ordered.
+     */
     public void updateMenuItemQuantity(int newQuantity) {
         int currentQuantity = this.getQuantity();
         this.quantity = currentQuantity + newQuantity;
     }
 
     /**
-     * Returns true if both menu items of the same name have both identity fields that is the same.
+     * Returns true if both menu items have the same code.
      * This defines a weaker notion of equality between two menu items.
      */
     public boolean isSameMenuItem(MenuItem otherItem) {

@@ -98,6 +98,9 @@ public class UniqueMenuItemList implements Iterable<MenuItem> {
         internalList.setAll(items);
     }
 
+    /**
+     * Updates the quantity ordered of the menu item specified in the parameters.
+     */
     public void updateMenuItemQuantity(MenuItem menuItem, int newQuantity) {
         for (int i = 0; i < internalList.size(); i++) {
             if (internalList.get(i).equals(menuItem)) {

@@ -10,6 +10,7 @@ import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
 import seedu.address.model.job.UniqueJobList;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniqueNricMap;
 import seedu.address.model.person.UniquePersonList;
@@ -102,8 +103,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The person must not already exist in the job.
      * Adds to the first list
      */
-    public void addPersonToJob(String nric, Job job) {
+    public boolean addPersonToJobByNric(Nric nric, Job job) {
         Person person = persons.getPerson(nric);
+        boolean status = job.add(person);
+        indicateModified();
+
+        return status;
+    }
+
+    public void addPersonToJob(Person person, Job job) {
         job.add(person);
         indicateModified();
     }

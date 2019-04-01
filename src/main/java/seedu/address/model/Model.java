@@ -9,6 +9,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 
 /**
@@ -65,6 +66,16 @@ public interface Model {
      * Returns true if a job with the same identity as {@code job} exists in the address book.
      */
     boolean hasJob(Job job);
+
+    /**
+     * adds all persons in filtered personlist to {@code job}.
+     */
+    void addFilteredPersonsToJob(Job job);
+
+    /**
+     * adds person with {@code nric} to {@code job}.
+     */
+    boolean addPersonToJob(Job job, Nric nric);
 
     /**
      * Deletes the given person.

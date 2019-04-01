@@ -18,6 +18,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -108,6 +109,22 @@ public class ModelManager implements Model {
     public boolean hasJob(Job job) {
         requireNonNull(job);
         return versionedAddressBook.hasJob(job);
+    }
+
+    @Override
+    public void addFilteredPersonsToJob(Job job) {
+        requireNonNull(job);
+
+        for (int i = 0; i < filteredPersons.size(); i++) {
+            versionedAddressBook.addPersonToJob(filteredPersons.get(i), job);
+        }
+    }
+
+    @Override
+    public boolean addPersonToJob(Job job, Nric nric) {
+        requireAllNonNull(job, nric);
+
+        return versionedAddressBook.addPersonToJobByNric(nric, job);
     }
 
     @Override

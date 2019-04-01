@@ -44,12 +44,25 @@ public class Job {
     }
 
     /**
+     * Adds all persons on displayed filter list to first list of job.
+     * Only adds if not already in job.
+     */
+    public void addFilteredList() {
+
+    }
+
+    /**
      * Adds a person to a job.
      * Goes to the first list
      */
-    public void add(Person person) {
+    public boolean add(Person person) {
+        if (personsHash.contains(person)) {
+            return false;
+        }
         personsHash.get(0).add(person);
         personsList.get(0).add(person);
+
+        return true;
     }
 
     /**

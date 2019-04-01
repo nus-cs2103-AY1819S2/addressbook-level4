@@ -1107,6 +1107,22 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
+=== Setting the categories of a restaurant
+
+. Setting categories to a listed restaurant that does not have categories set yet with `setCategories`
+
+.. Test case: `setCategories c/fast food oc/casual pr/$` +
+   Expected: `Cuisine` set as `Fast Food`, `Occasion` set as `Casual` and `Price Range` set as `$`.
+.. Test case: `setCategories c/$ oc/casual pr/expensive` +
+   Expected: No categories are set. Error details shown in the status message, indicating command invalid.
+
+. Setting categories to a listed restaurant that already has categories set with `setCategories`
+
+.. Test case: `setCategories c/fast food` +
+   Expected: Only the `Cuisine` is set to `Fast Food`. All other categories remain unchanged.
+.. Test case: `setCategories c/ oc/ pr/` +
+   Expected: No categories are set. Error details shown in status message.
+
 === Saving data
 
 . Dealing with missing/corrupted data files

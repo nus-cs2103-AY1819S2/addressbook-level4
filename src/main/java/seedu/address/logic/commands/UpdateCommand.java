@@ -50,6 +50,7 @@ public class UpdateCommand extends Command {
     public static final String MESSAGE_NEW_BATCH_ZERO_QUANTITY = "Batch not found. Cannot remove batch.";
     public static final String MESSAGE_MAX_QUANTITY_EXCEEDED = "Max quantity exceeded. Max quantity: "
             + Quantity.MAX_QUANTITY;
+    public static final String MESSAGE_EXPIRED_BATCH = "Expiry date has passed.";
 
     private final Index targetIndex;
     private final UpdateBatchDescriptor newBatchDetails;
@@ -78,7 +79,7 @@ public class UpdateCommand extends Command {
         Batch batchToUpdate = medicineToUpdate.getBatches().get(newBatchDetails.getBatchNumber());
 
         if (batchToUpdate == null) {
-            checkCommandForNewBatch();
+            checkCommandForAddingNewBatch();
         }
 
         Batch updatedBatch = createUpdatedBatch(batchToUpdate);
@@ -90,9 +91,9 @@ public class UpdateCommand extends Command {
     }
 
     /**
-     * Throws CommandException if fields needed to add a new batch is not input correctly.
+     * @throws CommandException if fields needed to add a new batch is not input correctly.
      */
-    private void checkCommandForNewBatch() throws CommandException {
+    private void checkCommandForAddingNewBatch() throws CommandException {
         if (!newBatchDetails.getQuantity().isPresent() || !newBatchDetails.getExpiry().isPresent()) {
             throw new CommandException(MESSAGE_NEW_BATCH_MISSING_PARAMETER);
         }
@@ -104,7 +105,7 @@ public class UpdateCommand extends Command {
     /**
      * Returns a {@code Batch} with the details of {@code batchToUpdate} updated with {@code newBatchDetails}.
      */
-    private Batch createUpdatedBatch(Batch batchToUpdate) {
+    private Batch createUpdatedBatch(Batch batchToUpdate) throws CommandException {
         Quantity quantity;
         Expiry expiry;
 
@@ -116,6 +117,9 @@ public class UpdateCommand extends Command {
 
         if (newBatchDetails.getExpiry().isPresent()) {
             expiry = newBatchDetails.getExpiry().get();
+            if (expiry.isExpired()) {
+                throw new CommandException(MESSAGE_EXPIRED_BATCH);
+            }
         } else {
             expiry = batchToUpdate.getExpiry();
         }
@@ -187,10 +191,9 @@ public class UpdateCommand extends Command {
 
         if (updatedBatch.getExpiry().compareTo(currentExpiry) < 0) {
             return updatedBatch.getExpiry();
-        } else {
-            return currentExpiry;
         }
 
+        return currentExpiry;
     }
 
     @Override
@@ -223,7 +226,6 @@ public class UpdateCommand extends Command {
 
         /**
          * Return true if the required parameters for UpdateBatchDescriptor are missing.
-         * UpdateBatchDescriptor must include batchNumber and at least one field, expiry or quantity, as parameters.
          */
         public boolean hasMissingParameters() {
            return batchNumber == null || (expiry == null && quantity == null);

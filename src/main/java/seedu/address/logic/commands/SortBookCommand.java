@@ -51,8 +51,7 @@ public class SortBookCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof SortBookCommand // instanceof handles nulls
-            && (this.mainOrder == ((SortBookCommand) other).mainOrder)
-            || this.mainOrder.equals(((SortBookCommand) other).mainOrder)
+            && (this.mainOrder.equals(((SortBookCommand) other).mainOrder))
             && this.subOrders.equals(((SortBookCommand) other).subOrders)
             && this.types.equals(((SortBookCommand) other).types));
     }

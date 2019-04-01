@@ -33,7 +33,7 @@ In addition, FomoFoto is well maintained with high reliability and code quality 
 ** Documentation:
 *** Wrote skeleton for the User Guide: https://github.com/CS2103-AY1819S2-W14-2/main/issues/132[#132]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W14-2/main/pull/98[#98], https://github.com/CS2103-AY1819S2-W14-2/main/pull/52[#52], https://github.com/CS2103-AY1819S2-W14-2/main/pull/46[#46], 
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W14-2/main/pull/98[#98], https://github.com/CS2103-AY1819S2-W14-2/main/pull/52[#52], https://github.com/CS2103-AY1819S2-W14-2/main/pull/46[#46]
 *** Reported bugs and provided solutions to team: https://github.com/CS2103-AY1819S2-W14-2/main/issues/99[#99], https://github.com/CS2103-AY1819S2-W14-2/main/issues/133[#133]
 ** Tools:
 *** Integrated a third party library (https://github.com/sksamuel/scrimage[`scrimage`]) to the project (https://github.com[#42])

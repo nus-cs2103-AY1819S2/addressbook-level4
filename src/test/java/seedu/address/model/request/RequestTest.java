@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BENSON;
+import static seedu.address.testutil.TypicalHealthWorkers.ANDY;
 import static seedu.address.testutil.TypicalHealthWorkers.BETTY;
 import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
 import static seedu.address.testutil.TypicalRequests.BENSON_REQUEST;
@@ -18,6 +19,18 @@ import seedu.address.model.tag.Condition;
 import seedu.address.testutil.RequestBuilder;
 
 public class RequestTest {
+
+    @Test
+    public void assignHealthWorker_statusChange_toPending() {
+        Request request = new RequestBuilder(ALICE_REQUEST).build();
+        request.setHealthStaff(ANDY.getName().toString());
+
+        assertEquals(request.getRequestStatus(), new RequestStatus("ONGOING"));
+
+        request = new RequestBuilder(ALICE_REQUEST).build();
+        request.setHealthStaff("Zach");
+        assertEquals(request.getRequestStatus(), new RequestStatus("ONGOING"));
+    }
 
     @Test
     public void test_default_constructor() {

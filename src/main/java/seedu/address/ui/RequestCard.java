@@ -20,7 +20,6 @@ public class RequestCard extends UiPart<Region> {
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
      *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
     public final Request request;
@@ -64,7 +63,7 @@ public class RequestCard extends UiPart<Region> {
             this.status.setTextFill(Color.web("#F22613"));
             break;
         case "ONGOING": // yellow light
-            this.status.setTextFill(Color.web("#F7CA18"));
+            this.status.setTextFill(Color.web("#FFA400"));
             break;
         case "COMPLETED": // green light
             this.status.setTextFill(Color.web("#00E640"));

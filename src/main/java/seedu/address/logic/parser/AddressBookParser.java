@@ -7,7 +7,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -17,12 +16,21 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListCommandParser;
-import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SetReminderCommand;
 import seedu.address.logic.commands.StatisticsCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.request.AssignRequestCommand;
+import seedu.address.logic.commands.request.ClearRequestCommand;
+import seedu.address.logic.commands.request.CompleteRequestCommand;
+//import seedu.address.logic.commands.UndoCommand;
+//import seedu.address.logic.commands.request.DeleteRequestCommand;
+//import seedu.address.logic.commands.request.FindRequestCommand;
+//import seedu.address.logic.commands.request.ListRequestCommand;
 import seedu.address.logic.commands.request.SelectRequestCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.request.AssignRequestCommandParser;
+import seedu.address.logic.parser.request.CompleteRequestParser;
 
 
 /**
@@ -52,6 +60,14 @@ public class AddressBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
+        case CompleteRequestCommand.COMMAND_WORD:
+            return new CompleteRequestParser().parse(arguments);
+
+        case ClearRequestCommand.COMMAND_WORD:
+            return new ClearRequestCommand();
+
+        case AssignRequestCommand.COMMAND_WORD:
+            return new AssignRequestCommandParser().parse(arguments);
 
         case SelectRequestCommand.COMMAND_WORD:
             return new SelectRequestCommandParser().parse(arguments);
@@ -68,8 +84,8 @@ public class AddressBookParser {
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+        //case ClearCommand.COMMAND_WORD:
+            //return new ClearCommand();
 
         case FilterCommand.COMMAND_WORD:
             return new FilterCommandParser().parse(arguments);
@@ -80,17 +96,20 @@ public class AddressBookParser {
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
 
+        case SetReminderCommand.COMMAND_WORD:
+            return new SetReminderCommandParser().parse(arguments);
+
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
+        //case UndoCommand.COMMAND_WORD:
+            //return new UndoCommand();
 
-        case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
+        //case RedoCommand.COMMAND_WORD:
+            //  return new RedoCommand();
 
         case StatisticsCommand.COMMAND_WORD:
             return new StatisticsCommand();

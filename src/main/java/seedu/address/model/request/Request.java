@@ -3,6 +3,7 @@ package seedu.address.model.request;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
@@ -136,7 +137,7 @@ public class Request {
                 .append("Address: ")
                 .append(getAddress() + "\n")
                 .append("Assigned staff: ")
-            .append(hw + "\n")
+                .append(hw + "\n")
                 .append("Request Date: ")
                 .append(getRequestDate() + "\n")
                 .append("Condition(s): ");
@@ -164,7 +165,7 @@ public class Request {
             && (otherRequest.phone.equals(this.phone))
             && (otherRequest.nric.equals(this.nric))
             && (otherRequest.getConditions().equals(this.conditions))
-            && otherRequest.getHealthStaff().equals(this.healthWorker)
+            && (Objects.equals(this.healthWorker, otherRequest.getHealthStaff()))
             && (otherRequest.getRequestStatus().equals(this.requestStatus));
     }
 
@@ -187,11 +188,13 @@ public class Request {
     public void setHealthStaff(String healthStaff) {
         requireNonNull(healthStaff);
         this.healthWorker = healthStaff;
+        this.requestStatus = new RequestStatus("ONGOING");
     }
 
     public void setHealthWorker(HealthWorker healthWorker) {
         requireNonNull(healthWorker);
         this.healthWorker = healthWorker.getName().toString();
+        this.requestStatus = new RequestStatus("ONGOING");
     }
 
     public boolean isOngoingStatus() {
@@ -206,4 +209,7 @@ public class Request {
         return phone;
     }
 
+    public void complete() {
+        this.requestStatus = new RequestStatus("COMPLETED");
+    }
 }

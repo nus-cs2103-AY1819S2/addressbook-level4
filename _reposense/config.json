@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "Lookuz",
+      "displayName": "CHO...YEH",
+      "authorNames": ["Lookuz"]
+    },
+    {
+      "githubId": "daviddl9",
+      "displayName": "D D...TON",
+      "authorNames": ["daviddl9"]
+    },
+    {
+      "githubId": "jing1324",
+      "displayName": "JIN...ING",
+      "authorNames": ["jing1324"]
+    },
+    {
+      "githubId": "brohandev",
+      "displayName": "ROH...DEV",
+      "authorNames": ["brohandev"]
+    },
+    {
+      "githubId": "huichun66",
+      "displayName": "TAY...HUN",
+      "authorNames": ["huichun66"]
+    }
+  ]
+}

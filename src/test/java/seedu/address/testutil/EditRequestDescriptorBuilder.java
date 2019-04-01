@@ -16,6 +16,7 @@ import seedu.address.model.tag.Condition;
  * A utility class to help with building EditRequestDescriptor objects
  */
 public class EditRequestDescriptorBuilder {
+
     private EditRequestDescriptor descriptor;
 
     public EditRequestDescriptorBuilder() {
@@ -32,9 +33,12 @@ public class EditRequestDescriptorBuilder {
     public EditRequestDescriptorBuilder(Request request) {
         descriptor = new EditRequestDescriptor();
         descriptor.setName(request.getName());
+        descriptor.setNric(request.getNric());
+        descriptor.setAddress(request.getAddress());
         descriptor.setPhone(request.getPhone());
         descriptor.setDate(request.getRequestDate());
         descriptor.setConditions(request.getConditions());
+        descriptor.setHealthWorker(request.getHealthStaff());
     }
 
     /**

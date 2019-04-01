@@ -6,6 +6,11 @@
 **/
 @import url(https://fonts.googleapis.com/css?family=Inconsolata:400,700);
 
+.menu-bar .label {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Light";
+}
+
 /* For the command box input and result */
 #commandTextField, #resultDisplay {
     -fx-font-family: "Inconsolata";
@@ -36,7 +41,7 @@
 
 .cell_small_label {
     -fx-font-family: "Segoe UI";
-    -fx-font-size: 13px;
+    -fx-font-size: 14px;
     -fx-text-fill: #010504;
 }
 
@@ -45,27 +50,29 @@
     -fx-font-size: 12pt;
 }
 
-/* For the welcome message in displayInfoPanel */
+/* For the welcome message in infoPanel */
 .background {
     font-family: "Comic Sans MS";
     padding-left: 20px;
-    font-size: 12pt;
+    font-size: 13pt;
 }
 
 .welcome-message {
     font-family: "Segoe UI Light";
+    margin: 10px 5px 10px 5px;
 }
 
 span.command {
-    font-family: "Lucida Console";
-    color: #00b894;
+    font-family: "Inconsolata";
+    font-weight: 400;
+    font-size: 12pt;
+    color: #079992;
 }
 
-/* For the healthWorkerListPanel */
-.health_worker_label {
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 11pt;
-    -fx-text-fill: #010504;
+.request-details {
+    font-family: "Segoe UI";
+    font-size: 11pt;
+    padding: 10px 20px 10px 20px;
 }
 
 /* For the pink rounded border around specialisations */
@@ -79,12 +86,20 @@ span.command {
     -fx-font-size: 10pt;
 }
 
+.status-bar-info  {
+    -fx-font-family: "Segoe UI";
+    -fx-font-style: italic;
+    -fx-font-size: 12pt;
+}
+
+/* reduces the darkness of the default border style around each cell */
 .list-cell {
     -fx-border-color: #D0D0D0;
     -fx-border-style: solid;
     -fx-border-width: 0.25;
 }
 
+/* adds a light blue color for selected cells */
 .list-cell:filled:selected {
     -fx-background-color: #c7ecee;
 }
@@ -96,6 +111,20 @@ span.command {
     -fx-border-width: 0;
 }
 
+.alertDialog:header *.header-panel *.label{
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14pt;
+    -fx-font-style: italic;
+    -fx-fill: #292929;
+}
+
+.alertDialog > *.label.content{
+   -fx-font-family: "Segoe UI";
+   -fx-font-size: 12pt;
+}
+
+
+/* removes unwanted horizontal scroll bar */
 .list-view .scroll-bar:horizontal .increment-arrow,
 .list-view .scroll-bar:horizontal .decrement-arrow,
 .list-view .scroll-bar:horizontal .increment-button,

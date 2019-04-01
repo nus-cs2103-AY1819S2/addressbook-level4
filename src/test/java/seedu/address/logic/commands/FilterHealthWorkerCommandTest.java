@@ -13,7 +13,6 @@ import static seedu.address.testutil.TypicalHealthWorkers.BETTY;
 import static seedu.address.testutil.TypicalHealthWorkers.ELLA;
 import static seedu.address.testutil.TypicalHealthWorkers.PANIEL;
 import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
 import java.util.Arrays;
@@ -34,9 +33,9 @@ import seedu.address.model.tag.Specialisation;
  */
 public class FilterHealthWorkerCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(),
+    private Model model = new ModelManager(getTypicalHealthWorkerBook(),
             getTypicalRequestBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(),
+    private Model expectedModel = new ModelManager(getTypicalHealthWorkerBook(),
             getTypicalRequestBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 

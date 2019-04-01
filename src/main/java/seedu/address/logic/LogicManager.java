@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.text.SimpleDateFormat;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -14,8 +15,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyHealthWorkerBook;
+import seedu.address.model.ReadOnlyRequestBook;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.request.Request;
 import seedu.address.storage.Storage;
@@ -24,14 +25,15 @@ import seedu.address.storage.Storage;
  * The main LogicManager of the app.
  */
 public class LogicManager implements Logic {
+
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
+    public static final SimpleDateFormat FORMATTER = new SimpleDateFormat("hh:mma");
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
     private final Storage storage;
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
-    private boolean addressBookModified;
     private boolean requestBookModified;
     private boolean healthWorkerBookModified;
 
@@ -42,7 +44,6 @@ public class LogicManager implements Logic {
         this.addressBookParser = new AddressBookParser();
 
         // Set addressBookModified to true whenever the models' address book is modified.
-        model.getAddressBook().addListener(observable -> addressBookModified = true);
         model.getRequestBook().addListener(observable -> requestBookModified = true);
         model.getHealthWorkerBook().addListener(observable -> healthWorkerBookModified = true);
 
@@ -50,24 +51,17 @@ public class LogicManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
-        addressBookModified = false;
+        logger.info("-----------------[USER COMMAND][" + commandText + "]-------------------");
+        requestBookModified = false;
+        healthWorkerBookModified = false;
+        long timestamp = System.currentTimeMillis();
 
         CommandResult commandResult;
         try {
             Command command = addressBookParser.parseCommand(commandText);
             commandResult = command.execute(model, history);
         } finally {
-            history.add(commandText);
-        }
-
-        if (addressBookModified) {
-            logger.info("Address book modified, saving to file.");
-            try {
-                storage.saveAddressBook(model.getAddressBook());
-            } catch (IOException ioe) {
-                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-            }
+            history.add(FORMATTER.format(timestamp) + ": " + commandText);
         }
 
         if (requestBookModified) {
@@ -80,7 +74,7 @@ public class LogicManager implements Logic {
         }
 
         if (healthWorkerBookModified) {
-            logger.info("Healthworker book modified, saving to file.");
+            logger.info("Health worker book modified, saving to file.");
             try {
                 storage.saveHealthWorkerBook(model.getHealthWorkerBook());
             } catch (IOException ioe) {
@@ -90,33 +84,35 @@ public class LogicManager implements Logic {
 
         return commandResult;
     }
+
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyRequestBook getRequestBook() {
+        return model.getRequestBook();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ReadOnlyHealthWorkerBook getHealthWorkerBook() {
+        return model.getHealthWorkerBook();
     }
-
-    @Override
-    public ObservableList<HealthWorker> getFilteredHealthWorkerList() {
-        return model.getFilteredHealthWorkerList(); }
 
     @Override
     public ObservableList<Request> getFilteredRequestList() {
         return model.getFilteredRequestList(); }
 
     @Override
-    public ObservableList<String> getHistory() {
-        return history.getHistory();
+    public ObservableList<HealthWorker> getFilteredHealthWorkerList() {
+        return model.getFilteredHealthWorkerList(); }
+
+    @Override
+    public Path getRequestBookFilePath() {
+        return model.getRequestBookFilePath();
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getHealthWorkerBookFilePath() {
+        return model.getHealthWorkerBookFilePath();
     }
+
 
     @Override
     public GuiSettings getGuiSettings() {
@@ -129,8 +125,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
-        return model.selectedPersonProperty();
+    public ReadOnlyProperty<Request> selectedRequestProperty() {
+        return model.selectedRequestProperty();
     }
 
     @Override
@@ -138,13 +134,8 @@ public class LogicManager implements Logic {
         return model.selectedHealthWorkerProperty(); }
 
     @Override
-    public ReadOnlyProperty<Request> selectedRequestProperty() {
-        return model.selectedRequestProperty();
-    }
-
-    @Override
-    public void setSelectedPerson(Person person) {
-        model.setSelectedPerson(person);
+    public void setSelectedRequest(Request request) {
+        model.setSelectedRequest(request);
     }
 
     @Override
@@ -153,7 +144,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void setSelectedRequest(Request request) {
-        model.setSelectedRequest(request);
+    public ObservableList<String> getHistory() {
+        return history.getHistory();
     }
 }

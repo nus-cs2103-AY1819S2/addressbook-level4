@@ -99,6 +99,10 @@ public class EditCommandParserTest {
 
         // invalid prefix being parsed as preamble
         assertParseFailure(parser, MODE_HEALTHWORKER + "1 d/ string", INVALID_HEALTHWORKER_FORMAT);
+
+        // no arguments
+        assertParseFailure(parser, MODE_HEALTHWORKER, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                EditHealthWorkerCommand.MESSAGE_NOT_EDITED));
     }
 
     @Test
@@ -114,6 +118,10 @@ public class EditCommandParserTest {
 
         // invalid prefix being parsed as preamble
         assertParseFailure(parser, MODE_REQUEST + "1 d/ string", INVALID_REQUEST_FORMAT);
+
+        // no arguments
+        assertParseFailure(parser, MODE_REQUEST, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                EditRequestCommand.MESSAGE_NOT_EDITED));
     }
 
     @Test

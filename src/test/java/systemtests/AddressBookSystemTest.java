@@ -3,13 +3,17 @@ package systemtests;
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+//import static org.junit.Assert.assertTrue;
+//import seedu.address.model.HealthWorkerBook;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.address.ui.testutil.GuiTestAssert.assertHealthWorkerListMatching;
+import static seedu.address.ui.testutil.GuiTestAssert.assertRequestListMatching;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
+//import java.nio.file.Path;
+
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -20,6 +24,7 @@ import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
 import guitests.guihandles.CommandBoxHandle;
+import guitests.guihandles.HealthWorkerListPanelHandle;
 import guitests.guihandles.InfoPanelHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
@@ -29,14 +34,12 @@ import guitests.guihandles.StatusBarFooterHandle;
 
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.FilterHealthWorkerCommand;
-import seedu.address.logic.commands.ListHealthWorkerCommand;
+//import seedu.address.logic.commands.ClearCommand;
+//import seedu.address.logic.commands.FilterHealthWorkerCommand;
+//import seedu.address.logic.commands.ListHealthWorkerCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.testutil.TypicalPersons;
-import seedu.address.ui.CommandBox;
+import seedu.address.ui.AutoCompleteTextField;
 import seedu.address.ui.InfoPanel;
 
 /**
@@ -49,7 +52,7 @@ public abstract class AddressBookSystemTest {
 
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
-            Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
+            Arrays.asList("text-input", "text-field", AutoCompleteTextField.ERROR_STYLE_CLASS);
 
     private MainWindowHandle mainWindowHandle;
     private TestApp testApp;
@@ -63,7 +66,7 @@ public abstract class AddressBookSystemTest {
     @Before
     public void setUp() {
         setupHelper = new SystemTestSetupHelper();
-        testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
+        //testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
         waitUntilBrowserLoaded(getInfoPanel());
@@ -78,15 +81,19 @@ public abstract class AddressBookSystemTest {
     /**
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
-    protected AddressBook getInitialData() {
-        return TypicalPersons.getTypicalAddressBook();
-    }
+    //protected AddressBook getInitialData() {
+    //return TypicalPersons.getTypicalAddressBook();
+    //}
 
     /**
      * Returns the directory of the data file.
      */
-    protected Path getDataFileLocation() {
-        return TestApp.SAVE_LOCATION_FOR_TESTING;
+    //protected Path getDataFileLocation() {
+    //return TestApp.SAVE_LOCATION_FOR_TESTING;
+    //}
+
+    public MainMenuHandle getMainMenu() {
+        return mainWindowHandle.getMainMenu();
     }
 
     public MainWindowHandle getMainWindowHandle() {
@@ -101,12 +108,12 @@ public abstract class AddressBookSystemTest {
         return mainWindowHandle.getRequestListPanel();
     }
 
-    public MainMenuHandle getMainMenu() {
-        return mainWindowHandle.getMainMenu();
+    public InfoPanelHandle getInfoPanel() {
+        return mainWindowHandle.getInfoPanel();
     }
 
-    public InfoPanelHandle getInfoPanel() {
-        return mainWindowHandle.getInfoPanelHandle();
+    public HealthWorkerListPanelHandle getHealthWorkerListPanel() {
+        return mainWindowHandle.getHealthWorkerListPanel();
     }
 
     public StatusBarFooterHandle getStatusBarFooter() {
@@ -135,18 +142,18 @@ public abstract class AddressBookSystemTest {
     /**
      * Displays all persons in the address book.
      */
-    protected void showAllPersons() {
-        executeCommand(ListHealthWorkerCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
-    }
+    //protected void showAllPersons() {
+    //  executeCommand(ListHealthWorkerCommand.COMMAND_WORD);
+    //assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
+    //}
 
     /**
      * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    protected void showPersonsWithName(String keyword) {
-        executeCommand(FilterHealthWorkerCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
-    }
+    //protected void showPersonsWithName(String keyword) {
+    //executeCommand(FilterHealthWorkerCommand.COMMAND_WORD + " " + keyword);
+    //  assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
+    //}
 
     /**
      * Selects the person at {@code index} of the displayed list.
@@ -159,10 +166,10 @@ public abstract class AddressBookSystemTest {
     /**
      * Deletes all persons in the address book.
      */
-    protected void deleteAllPersons() {
-        executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAddressBook().getPersonList().size());
-    }
+    //protected void deleteAllPersons() {
+    //  executeCommand(ClearCommand.COMMAND_WORD);
+    //assertEquals(0, getModel().getAddressBook().getPersonList().size());
+    //}
 
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
@@ -173,13 +180,14 @@ public abstract class AddressBookSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
-        assertListMatching(getRequestListPanel(), expectedModel.getFilteredRequestList());
+        //assertEquals(new HealthWorkerBook(expectedModel.getHealthWorkerBook()), testApp.readStorageAddressBook());
+        assertRequestListMatching(getRequestListPanel(), expectedModel.getFilteredRequestList());
+        assertHealthWorkerListMatching(getHealthWorkerListPanel(), expectedModel.getFilteredHealthWorkerList());
     }
 
     /**
-     * Calls {@code MapHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
-     * their current state.
+     * Calls {@code RequestListPanelHandle}, {@code InfoPanel}, {@code HealthWorkerListPanelHandle} and
+     * {@code StatusBarFooterHandle} to remember their current states.
      */
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
@@ -187,31 +195,32 @@ public abstract class AddressBookSystemTest {
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
         getRequestListPanel().rememberSelectedRequestCard();
+        getHealthWorkerListPanel().rememberSelectedHealthWorkerCard();
     }
 
     /**
-     * Asserts that the previously selected card is now deselected and the browser's url is now displaying the
-     * default page.
-     * @see InfoPanelHandle#isUrlChanged()
+     * Asserts that the previously selected card is now deselected and there is no new load event.
+     * @see InfoPanelHandle#isLoaded()
      */
     protected void assertSelectedCardDeselected() {
-        assertEquals(InfoPanel.DEFAULT_PAGE, getInfoPanel().getLoadedUrl());
+        assertFalse(!getInfoPanel().isLoaded());
         assertFalse(getRequestListPanel().isAnyCardSelected());
     }
 
     /**
-     * Asserts that the browser's url is changed to display the details of the person in the person list panel at
-     * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
-     * @see InfoPanelHandle#isUrlChanged()
+     * Asserts that the info panel's content is updated to display the details of a request from the request list panelt
+     * at {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
+     * @see InfoPanelHandle#isLoaded()
      * @see RequestListPanelHandle#isSelectedRequestCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getRequestListPanel().navigateToCard(getRequestListPanel().getSelectedCardIndex());
+        assertTrue(getInfoPanel().isLoaded());
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getRequestListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
+     * Asserts that the info panel's url and the selected card in the person list panel remain unchanged.
      * @see InfoPanelHandle#isUrlChanged()
      * @see RequestListPanelHandle#isSelectedRequestCardChanged()
      */
@@ -249,7 +258,8 @@ public abstract class AddressBookSystemTest {
      */
     protected void assertStatusBarUnchangedExceptSyncStatus() {
         StatusBarFooterHandle handle = getStatusBarFooter();
-        String timestamp = new Date(clockRule.getInjectedClock().millis()).toString();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM YYYY, hh:mm a");
+        String timestamp = formatter.format(new Date(clockRule.getInjectedClock().millis()));
         String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertEquals(expectedSyncStatus, handle.getSyncStatus());
         assertFalse(handle.isSaveLocationChanged());
@@ -261,10 +271,11 @@ public abstract class AddressBookSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getRequestListPanel(), getModel().getFilteredRequestList());
+        assertRequestListMatching(getRequestListPanel(), getModel().getFilteredRequestList());
+        assertHealthWorkerListMatching(getHealthWorkerListPanel(), getModel().getFilteredHealthWorkerList());
         assertEquals(InfoPanel.DEFAULT_PAGE, getInfoPanel().getLoadedUrl());
-        assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
-                getStatusBarFooter().getSaveLocation());
+        //assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
+        //      getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 

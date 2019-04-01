@@ -41,7 +41,7 @@ public class AddHealthWorkerCommand extends AddCommand implements HealthWorkerCo
     @Override
     public void add(Model model, Object toAdd) {
         model.addHealthWorker((HealthWorker) toAdd);
-        model.commitAddressBook();
+        model.commitHealthWorkerBook();
     }
 
     @Override

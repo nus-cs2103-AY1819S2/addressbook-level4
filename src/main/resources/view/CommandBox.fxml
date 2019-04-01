@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.StackPane?>
+<?import seedu.address.ui.AutoCompleteTextField?>
 
 <StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
-    <TextField fx:id="commandTextField" onAction="#handleCommandEntered" onKeyPressed="#handleKeyPress"
-               promptText="Please start by typing a command here..." minHeight="40" maxHeight="40"/>
+    <AutoCompleteTextField fx:id="commandTextField" onAction="#handleCommandEntered" onKeyPressed="#handleKeyPress"
+               promptText="Please start by typing a command here..." minHeight="40" maxHeight="40" />
 </StackPane>
 

@@ -167,7 +167,7 @@
 //
 //        /* Case: invalid tag -> rejected */
 //        assertCommandFailure(EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + " "
-//                + INDEX_FIRST.getOneBased() + INVALID_TAG_DESC, Condition.MESSAGE_CONDITION_CONSTRAINTS);
+//                + INDEX_FIRST.getOneBased() + INVALID_TAG_DESC, Condition.MESSAGE_CONSTRAINTS);
 //
 //        /* Case: edit a person with new values same as another person's values -> rejected */
 ////        executeCommand(PersonUtil.getAddCommand(BOB));

@@ -8,7 +8,6 @@ import static seedu.address.logic.commands.request.AssignRequestCommand.MESSAGE_
 import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
 import java.util.HashSet;
@@ -33,7 +32,7 @@ class AssignRequestCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(),
+    private Model model = new ModelManager(getTypicalHealthWorkerBook(),
         getTypicalRequestBook(), new UserPrefs());
     private Request validRequest = model.getFilteredRequestList().get(INDEX_FIRST.getZeroBased());
     private Index validRequestIndex = Index.fromOneBased(model.getFilteredRequestList().size());
@@ -77,8 +76,7 @@ class AssignRequestCommandTest {
         String expectedMessage = String.format(MESSAGE_SUCCESS, INDEX_FIRST.getOneBased(),
             assignedHealthWorker);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(),
-            model.getHealthWorkerBook(), model.getRequestBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getHealthWorkerBook(), model.getRequestBook(), new UserPrefs());
         // todo needs model.updateHealthworker()
         expectedModel.updateRequest(validRequest, toAssign);
         expectedModel.commitRequestBook();

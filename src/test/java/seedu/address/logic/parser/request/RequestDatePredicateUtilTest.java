@@ -17,13 +17,13 @@ public class RequestDatePredicateUtilTest {
     @Test
     public void test_invalidDateGiven_throwsParseException() throws ParseException {
         List<String> invalidDates = Collections.singletonList("first");
-        assertParseFailure(invalidDates, RequestDate.MESSAGE_DATE_CONSTRAINTS);
+        assertParseFailure(invalidDates, RequestDate.MESSAGE_CONSTRAINTS);
 
         invalidDates = Collections.singletonList("57-10-1908 00:00:00");
-        assertParseFailure(invalidDates, RequestDate.MESSAGE_DATE_CONSTRAINTS);
+        assertParseFailure(invalidDates, RequestDate.MESSAGE_CONSTRAINTS);
 
         invalidDates = Collections.singletonList("01-15-1908 00:00:00");
-        assertParseFailure(invalidDates, RequestDate.MESSAGE_DATE_CONSTRAINTS);
+        assertParseFailure(invalidDates, RequestDate.MESSAGE_CONSTRAINTS);
     }
 
     @Test

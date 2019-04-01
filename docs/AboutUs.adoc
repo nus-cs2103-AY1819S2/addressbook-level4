@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Rohan Dev
 image::brohandev.png[width="150", align="left"]
-{empty}[https://github.com/brohandev[github page]]
+{empty}[https://github.com/brohandev[github]] [<<brohandev#, portfolio>>]
 
 Role: Software Developer +
 Responsibilities: Modifying the commands (Add/Edit/Delete/Find) for the Patient class.
@@ -21,7 +21,7 @@ Responsibilities: Modifying the commands (Add/Edit/Delete/Find) for the Patient 
 
 === Choong Wey Yeh
 image::lookuz.png[width="150", align="left"]
-{empty}[http://github.com/Lookuz[github page]]
+{empty}[http://github.com/Lookuz[github]] [<<lookuz#, portfolio>>]
 
 Role: Software Developer +
 Responsibilities: Modifying the commands (Add/Edit/Delete/Find) for the HealthWorker Class.
@@ -30,7 +30,7 @@ Responsibilities: Modifying the commands (Add/Edit/Delete/Find) for the HealthWo
 
 === David Livingston
 image::daviddl9.png[width="150", align="left"]
-{empty}[https://github.com/daviddl9[github page]]
+{empty}[https://github.com/daviddl9[github]] [<<daviddl9#, portfolio>>]
 
 Role: Software Developer +
 Responsibilities: Modifying the commands (Add/Edit/Delete/Find) for the different type of requests.
@@ -39,7 +39,7 @@ Responsibilities: Modifying the commands (Add/Edit/Delete/Find) for the differen
 
 === Jin Jing
 image::jing1324.png[width="150", align="left"]
-{empty}[https://github.com/jing1324[github page]]
+{empty}[https://github.com/jing1324[github]] [<<jing1324#, portfolio>>]
 
 Role: Software Developer +
 Responsibilities: Managing the storage related classes and its associated dependencies.
@@ -48,7 +48,7 @@ Responsibilities: Managing the storage related classes and its associated depend
 
 === Tay Hui Chun
 image::huichun66.png[width="150", align="left"]
-{empty}[http://github.com/huichun66[github page]]
+{empty}[http://github.com/huichun66[github]] [<<huichun#, portfolio>>]
 
 Role: User Interface Developer +
 Responsibilities: Responsible for the UI of the main app and its different interactions.

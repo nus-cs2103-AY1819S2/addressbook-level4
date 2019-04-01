@@ -23,7 +23,6 @@ public class HealthWorkerCard extends UiPart<Region> {
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
      *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
     public final HealthWorker worker;
@@ -35,7 +34,13 @@ public class HealthWorkerCard extends UiPart<Region> {
     private VBox healthWorkerInfo;
 
     @FXML
+    private Label id;
+
+    @FXML
     private Label name;
+
+    @FXML
+    private Label phone;
 
     @FXML
     private Label organisation;
@@ -47,8 +52,10 @@ public class HealthWorkerCard extends UiPart<Region> {
     public HealthWorkerCard(HealthWorker worker, int displayedIndex) {
         super(FXML);
         this.worker = worker;
+        this.id.setText(displayedIndex + ". ");
         this.name.setText(worker.getName().toString());
-        this.organisation.setText(worker.getOrganization().toString());
+        this.organisation.setText("(" + worker.getOrganization().toString() + ")");
+        this.phone.setText(worker.getPhone().toString());
         this.worker.getSkills().getSkills().forEach(s ->
             specialisations.getChildren().add(new Label(s.toString().toLowerCase())));
     }
@@ -67,6 +74,7 @@ public class HealthWorkerCard extends UiPart<Region> {
 
         // state check
         HealthWorkerCard card = (HealthWorkerCard) other;
-        return true;
+        return name.getText().equals(card.name.getText())
+                && organisation.getText().equals(card.organisation.getText());
     }
 }

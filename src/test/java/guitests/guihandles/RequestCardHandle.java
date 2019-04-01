@@ -10,6 +10,7 @@ import seedu.address.model.request.Request;
 
 /**
  * Provides a handle to a request card in the request list panel.
+ * @author Hui Chun
  */
 public class RequestCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
@@ -75,6 +76,6 @@ public class RequestCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(Request request) {
         return getName().equals(request.getName().toString())
-                && getPhone().equals(request.getNric().toString());
+                && getPhone().equals(request.getPhone().toString());
     }
 }

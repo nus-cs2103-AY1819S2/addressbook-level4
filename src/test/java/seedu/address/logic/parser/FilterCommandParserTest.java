@@ -24,7 +24,6 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalHealthWorkers.ANDY;
 import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthStaff;
 import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
 import java.util.Arrays;
@@ -50,9 +49,9 @@ import seedu.address.model.tag.Specialisation;
 
 public class FilterCommandParserTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(),
+    private Model model = new ModelManager(getTypicalHealthWorkerBook(),
             getTypicalRequestBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(),
+    private Model expectedModel = new ModelManager(getTypicalHealthWorkerBook(),
             getTypicalRequestBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 

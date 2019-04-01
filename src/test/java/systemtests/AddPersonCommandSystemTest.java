@@ -170,7 +170,7 @@
 //        /* Case: invalid tag -> rejected */
 //        command = AddPersonCommand.COMMAND_WORD + NAME_DESC_AMY
 //                + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + INVALID_TAG_DESC;
-//        assertCommandFailure(command, Condition.MESSAGE_CONDITION_CONSTRAINTS);
+//        assertCommandFailure(command, Condition.MESSAGE_CONSTRAINTS);
 //    }
 //
 //    /**

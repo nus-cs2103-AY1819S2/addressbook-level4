@@ -52,7 +52,7 @@ public class RequestDatePredicateUtil {
                 sf.setLenient(false);
                 dates.add(sf.parse(stringDate));
             } catch (java.text.ParseException pE) {
-                throw new ParseException(RequestDate.MESSAGE_DATE_CONSTRAINTS);
+                throw new ParseException(RequestDate.MESSAGE_CONSTRAINTS);
             }
         }
 

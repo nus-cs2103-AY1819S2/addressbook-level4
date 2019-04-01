@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.BoundaryValueChecker;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Name;
 
@@ -163,29 +165,34 @@ public class Enemy extends Player {
      * and marks those occupied cells in allPossiblePopulateCoords
      */
     private void placeMultipleDestroyerAndCruiser(int numShips, String shipType, int shipSize) {
-        Orientation useOrientation;
-        Coordinates useCoord;
+        Orientation useOrientation = new Orientation("v");
+        Coordinates useCoord = new Coordinates(0, 0);
         ArrayList<Battleship> preppedShips = generateBattleships(numShips, shipType, shipSize);
-
+        Battleship useShip = new Battleship();
         while (!preppedShips.isEmpty()) {
             try {
                 useOrientation = generateOrientation();
                 java.util.Collections.shuffle(allPossiblePopulateCoords, randGen2);
                 useCoord = allPossiblePopulateCoords.get(0);
-                Battleship useShip = preppedShips.get(0);
+                useShip = preppedShips.get(0);
+                BoundaryValueChecker boundaryValueChecker = new BoundaryValueChecker(this.getMapGrid(), useShip,
+                        useCoord, useOrientation);
+                boundaryValueChecker.performChecks();
                 this.getMapGrid().putShip(useShip, useCoord, useOrientation);
                 preppedShips.remove(0);
                 markAsOccupied(useCoord, shipSize, useOrientation);
-                logger.info(String.format("++++++++POPULATED " + useShip.getName() + "at "
+                logger.info(String.format("++++++++POPULATED " + useShip.getName() + " at "
                         + useCoord.toString()
                         + " orientation is " + useOrientation.toString()));
-            } catch (ArrayIndexOutOfBoundsException e) {
+            } catch (ArrayIndexOutOfBoundsException aIoObEx) {
                 //TODO log the error later from putship
+            } catch (CommandException cmdEx) {
+                logger.info(String.format("++++++++REJECTED POPULATING " + useShip.getName())
+                        + " at " + useCoord + " orientation: " + useOrientation);
             }
         }
 
     }
-
 
 
     /************************************************************************

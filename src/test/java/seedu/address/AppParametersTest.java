@@ -41,7 +41,6 @@ public class AppParametersTest {
     @Test
     public void equals() {
         parametersStub.namedParameters.put("config", "config.json");
-        AppParameters copy = AppParameters.parse(parametersStub);
         expected.setConfigPath(Paths.get("config.json"));
 
         // same object

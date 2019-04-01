@@ -252,7 +252,7 @@ This section describes some noteworthy details on how certain features are imple
 // tag::map[]
 === Map Feature
 ==== Current Implementation
-The map feature is facilitated by `MapGrid`.
+The map feature is facilitated by `MapGrid` and `Cell`.
 The map grid is stored as a 2D array of `Cell`.
 This 2D array is encapsulated within the `MapGrid` class.
 `MapGrid` implements the following method to initialise the map.
@@ -265,17 +265,25 @@ image::InitialiseMapCommandSequenceDiagram.png[width=800]
 
 ==== Design Considerations
 ===== Aspect: How initialise map works
-* **Alternative 1 (current choice):** MapGrid will have an initialise method that takes in a 2D array of `Cell` objects. The method will deep copy the new 2D array to the `MapGrid` map grid.
-** Pros: The underlying 2D array in `MapGrid` is better protected from modification.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Have a method that returns a shallow copy of the 2D array. Initialise command will then populate the 2D array.
+* **Alternative 1 (current choice):** `MapGrid` will have an initialise method that takes in a 2D array of `Cell` objects.
+The initialise method in `MapGrid` will then do a deep copy of the passed in 2D array to initialise the underlying 2D array of `Cell`.
+
+** Pros: The underlying 2D array in `MapGrid` is better protected from modification as it can only be modified through the initialise method.
+** Cons: Might have more overhead due to deep copying.
+
+* **Alternative 2:** `MapGrid` will have a getter method that returns the 2D array of `Cell`.
+`InitialiseMapCommand` will then use this method to get the underlying 2D array and populate it from outside of the `MapGrid` class.
+
 ** Pros: Easy to implement.
 ** Cons: The 2D array within `MapGrid` is unprotected and open for modification.
+
+Alternative 1 was chosen as the overhead is negligible and a defensive approach to the design is preferable.
 
 ===== Aspect: Data structure to support the map
 * **Alternative 1 (current choice):** 2D array of `Cell` objects.
 ** Pros: Resulting code will be simpler.
 ** Cons: More changes to be done from the original AB4 codebase.
+
 * **Alternative 2:** List of lists of `Cell` objects.
 ** Pros: Easier to implement from the original AB4 codebase.
 ** Cons: May have worse performance than a simpler 2D array.

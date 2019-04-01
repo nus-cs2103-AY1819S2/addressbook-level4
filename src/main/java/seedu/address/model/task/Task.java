@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.datetime.TimeCustom;
+import seedu.address.model.record.LinkedPatient;
 
 
 /**
@@ -22,6 +23,9 @@ public class Task {
     protected final TimeCustom startTime;
     protected final TimeCustom endTime;
     protected final Priority priority;
+
+    private LinkedPatient linkedPatient;
+
     protected final boolean isCopy;
     protected int copyCount;
 
@@ -30,7 +34,7 @@ public class Task {
      * Every field must be present and not null.
      */
     public Task(Title title, DateCustom startDate, DateCustom endDate, TimeCustom startTime,
-                TimeCustom endTime, Priority priority) {
+                TimeCustom endTime, Priority priority, LinkedPatient linkedPatient) {
         requireAllNonNull(title, startDate, endDate, startTime, endTime, priority);
         this.title = title;
         this.startDate = startDate;
@@ -38,6 +42,7 @@ public class Task {
         this.startTime = startTime;
         this.endTime = endTime;
         this.priority = priority;
+        this.linkedPatient = linkedPatient;
         this.isCopy = false;
         this.copyCount = 0;
     }
@@ -50,9 +55,10 @@ public class Task {
         this.title = t.getTitle();
         this.startDate = t.getStartDate();
         this.endDate = t.getEndDate();
-        this.startTime = t.startTime;
-        this.endTime = t.endTime;
-        this.priority = t.priority;
+        this.startTime = t.getStartTime();
+        this.endTime = t.getEndTime();
+        this.priority = t.getPriority();
+        this.linkedPatient = t.getLinkedPatient();
         this.isCopy = true;
         this.copyCount = 0;
     }
@@ -80,6 +86,10 @@ public class Task {
 
     public Priority getPriority() {
         return priority;
+    }
+
+    public LinkedPatient getLinkedPatient() {
+        return linkedPatient;
     }
 
     /**

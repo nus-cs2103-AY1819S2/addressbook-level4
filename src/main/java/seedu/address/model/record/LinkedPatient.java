@@ -35,7 +35,11 @@ public class LinkedPatient {
      * Due to the way LinkedPatient is added to tasks, this should never be false.
      */
     public static boolean isValidLinkedPatient(String nametest, String nrictest) {
-        return (Name.isValidName(nametest) && Nric.isValidNric(nrictest));
+        if (nametest == null || nrictest == null) {
+            return true;
+        } else {
+            return (Name.isValidName(nametest) && Nric.isValidNric(nrictest));
+        }
     }
 
     public String getLinkedPatientName() {
@@ -48,7 +52,11 @@ public class LinkedPatient {
 
     @Override
     public String toString() {
-        return fullname.fullName + " " + nric.getNric();
+        if (fullname == null || nric == null) {
+            return "Not linked to a patient";
+        } else {
+            return fullname.fullName + " " + nric.getNric();
+        }
     }
 
     @Override

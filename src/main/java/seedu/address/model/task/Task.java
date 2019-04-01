@@ -156,7 +156,8 @@ public class Task {
                 && otherTask.getStartDate().equals(getStartDate())
                 && otherTask.getEndDate().equals(getEndDate())
                 && otherTask.getStartTime().equals(getStartTime())
-                && otherTask.getEndTime().equals(getEndTime());
+                && otherTask.getEndTime().equals(getEndTime())
+                && otherTask.getLinkedPatient().equals(otherTask.getLinkedPatient());
     }
 
     @Override

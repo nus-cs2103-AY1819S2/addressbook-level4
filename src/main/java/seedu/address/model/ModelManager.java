@@ -24,6 +24,7 @@ import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.exceptions.PersonNotFoundException;
+import seedu.address.model.player.Enemy;
 import seedu.address.model.player.Fleet;
 import seedu.address.model.player.Player;
 import seedu.address.model.statistics.PlayerStatistics;
@@ -59,14 +60,17 @@ public class ModelManager implements Model {
         // Initialize new statistics
         this.playerStats = new PlayerStatistics();
 
-        Player humanPlayer = new Player();
-        humanPlayer.getMapGrid().resetData(addressBook);
-        batMan = new BattleManager(humanPlayer, humanPlayer);
+        batMan = new BattleManager(new Player(), new Enemy());
         state = BattleState.PRE_BATTLE;
     }
 
     public ModelManager() {
         this(new MapGrid(), new UserPrefs());
+    }
+
+    public ModelManager(BattleManager batMan) {
+        this();
+        this.batMan = batMan;
     }
 
     //=========== MapGrid ================================================================================
@@ -301,7 +305,7 @@ public class ModelManager implements Model {
      * Returns the computer player.
      */
     @Override
-    public Player getEnemyPlayer() {
+    public Enemy getEnemyPlayer() {
         return batMan.getEnemyPlayer();
     }
 

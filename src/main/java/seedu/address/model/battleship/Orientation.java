@@ -3,8 +3,11 @@ package seedu.address.model.battleship;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import seedu.address.commons.core.LogsCenter;
 
 /**
  * Represents the orientation of a battleship on the map.
@@ -32,6 +35,8 @@ public class Orientation {
 
     public final String orientation;
 
+    private final Logger logger = LogsCenter.getLogger(Orientation.class);
+
     /**
      * Constructs a {@code Name}.
      *
@@ -50,6 +55,8 @@ public class Orientation {
         } else {
             this.orientation = orientation;
         }
+
+        logger.fine("Created orientation");
     }
 
     /**

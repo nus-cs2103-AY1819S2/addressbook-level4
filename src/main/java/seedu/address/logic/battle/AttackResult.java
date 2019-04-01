@@ -1,13 +1,14 @@
 package seedu.address.logic.battle;
 
 import seedu.address.model.cell.Coordinates;
+import seedu.address.model.cell.Status;
 import seedu.address.model.player.Player;
 
 /**
  * An AttackResult represents the end result of an attack.
  */
 public abstract class AttackResult {
-    public static final String ATTACK = "Attack by player %s on cell %s of player %s";
+    public static final String ATTACK = "Attack by player %s on cell %s of player %s ";
 
     protected Player attacker;
     protected Player target;
@@ -45,6 +46,10 @@ public abstract class AttackResult {
      * (guess they never miss, huh?)
      */
     public abstract boolean isHit();
+
+    public Status getStatus() {
+        return attacker.getMapGrid().getCell(coords).getStatus();
+    }
 
     /**
      * Returns a String representation of the attack result.

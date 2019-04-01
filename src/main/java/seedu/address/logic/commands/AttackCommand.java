@@ -26,6 +26,7 @@ public class AttackCommand extends Command {
         + "Parameters: "
         + "SQUARE (a letter followed by a positive integer)\n"
         + "Example: attack b5";
+    public static final String MESSAGE_DUPLICATE = "You have already attacked cell ";
 
     private Coordinates coord;
 
@@ -46,7 +47,7 @@ public class AttackCommand extends Command {
         if (human.addToTargetHistory(coord)) {
             res = model.getBattle().humanPerformAttack(coord);
         } else {
-            throw new CommandException("You have already attacked cell " + coord);
+            throw new CommandException(MESSAGE_DUPLICATE + coord);
         }
         model.getPlayerStats().addResultToStats(res);
 

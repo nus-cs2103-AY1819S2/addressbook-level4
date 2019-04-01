@@ -224,6 +224,22 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
 
+[[Design-Battle]]
+=== Battle component
+
+.Structure of the Battle Component
+image::StorageClassDiagram.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/logic/battle/Battle.java[`Battle.java`]
+
+The `Battle` component,
+
+* keeps track of the progress of the battle,
+* restricts the computer to place its ships at the correct time,
+* allows the user and the computer enemy to attack each other and maintain proper turn-taking while doing so.
+
+As the
+
 [[Design-Commons]]
 === Common classes
 
@@ -266,7 +282,89 @@ image::InitialiseMapCommandSequenceDiagram.png[width=800]
 
 === Battleship Feature
 ==== Current Implementation
-A battleship is a basic class representing a battleship that can be placed on the map grid. The battleship must be variable in length, depending on the type of battleship.
+A battleship is a basic class representing a battleship that can be placed on the map grid. The length of the battleship varies, depending on the type of battleship. There are three types of battleships: +
+
+1. Cruiser of length 2.
+1. Destroyer of length 3.
+1. Aircraft carrier of length 5.
+
+The number of battleship types that a user can deploy on the map depends on the size of the map. It is given by the formula:
+
+1. Number of cruisers = `mapSize` - 5.
+1. Number of destroyers = (`mapSize` + 2) / 5.
+1. Number of aircraft carriers = 1.
+
+The user can tag a battleship using a `t/[TAG]` parameter in the `put` command. Tagging battleships is optional.
+
+[NOTE]
+The head of a battleship refers to the top-most and left-most cell of the battleship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the battleship, as shown in the figure below.
+
+image:BattleshipHeadExample.png[width=800]
+
+.The coordinates of the `put` command refer to the coordinates of the battleship head.
+image:BattleshipHeadExample2.png[width=800]
+
+The following operations are called when the `put` command is called.
+
+* `performChecks()` - performs boundary checks on the map grid to ensure that the battleship can be placed on the map.
+* `putShip()` - puts the battleship into the cell.
+* `getCell()` - gets the cell that is specified by the coordinates provided by the user.
+
+Here is an example of a given user scenario.
+
+Step 1. Initialise the map to a map of size 10.
+
+image:PutShipWalkThrough1.png[width=800]
+
+Step 2. Put the battleship on the map by specifying the name, coordinates, orientation, and tags.
+
+image:PutShipWalkThrough2.png[width=800]
+
+The following sequence diagram shows how a battleship is put on the map.
+
+.Sequence diagram of putting a battleship on the map.
+image::PutShipSequenceDiagram.png[width=800]
+
+Battleships can be tagged. You can list all the tags used by battleships that have been deployed on the map grid using the `listTags` command. The sequence diagram below shows how the tags are listed.
+
+.Sequence diagram of listing battleship tags.
+image::ListTagsSequenceDiagram.png[width=800]
+
+Battleships that have been deployed can also be listed. Battleships can be listed in four different ways:
+
+1. List all battleships.
+1. List battleships that have certain tags.
+1. List battleships of a certain type.
+1. List battleships of a certain type that have certain tags.
+
+Here is an example of a given user scenario. In this scenario, the user has deployed some battleships on a 10 by 10 map grid with various tags.
+
+Step 1. Initialise the map to a map of size 10.
+Step 2. Deploy battleships by specifying the name, coordinates, orientation, and tags. We will deploy the following battleships:
+
+* Cruiser at a4 vertical with tag `tag1`.
+* Cruiser at d4 vertical with tag `tag1`.
+* Cruiser at f7 horizontal with tag `tag2`.
+* Cruiser at h8 horizontal with tag `tag2`.
+* Destroyer at d4 horizontal with tag `tag1`.
+
+Step 3. List the battleships.
+
+image::ListExample1.png[width=800]
+
+Step 4. List the battleships by name. Use `cruiser`.
+
+image::ListExample2.png[width=800]
+
+Step 5. List the battleships by name and tags. Use `cruiser` with `tag2`.
+
+image::ListExample3.png[width=800]
+
+
+The following sequence diagram shows how deployed battleships are listed when the `list` command is entered into the command line.
+
+.Sequence diagram of listing battleships deployed on the map.
+image::ListShipSequenceDiagram.png[width=1499][height=2249]
 
 ==== Design Considerations
 ===== Aspect: How a battleship is placed on the map
@@ -287,15 +385,47 @@ A battleship is a basic class representing a battleship that can be placed on th
 
 === Battle Feature
 ==== Current Implementation
-<Esther>
+The Battle feature handles the following:
+
+* keeping track of the stage of the battle, and ensuring that the player does not
+  enter a command in the wrong stage of the game,
+* allowing the computer to place its ships at the correct time,
+* allowing the user and the computer enemy to attack each other and maintain proper turn-taking while doing so.
+
+The Battle feature is split between several packages:
+
+  * `seedu.address.battle`: the main `Battle` class is implemented here
+  * `seedu.address.battle.state`: the battle state classes are implemented here, and
+    can be stored and retrieved via `Model`.
+  * `seedu.address.battle.result`: the attack result classes are implemented here.
+    These classes are returned by `Battle#humanPerformAttack(coordinates)` and
+    `Battle#takeComputerTurn()`.
+  * `BeginCommand`, `AttackCommand` and `EndTurnCommand` handle the player's interaction
+    with this component.
 
 ==== Design Considerations
-* **Alternative 1 (current choice):**
+* **Alternative 1 (current choice):** +
+  `BattleManager` is stored under `Model`. Every time `Attack`, `EndTurn` or `Begin` commands
+  are executed, they will use this `BattleManager` to actually perform the actions,
+  with the logic in the `Command`-s mostly being error handling. +
+  When AI performs attacks, the `BattleManager` will call the AI to compute its attack
+  and return it, then call an internal method to actually perform the attack.
 ** Pros:
+*** Command logic is abstracted into places where it can be reused by the AI.
 ** Cons:
-* **Alternative 2:**
+*** The `Model` component now contains game logic (`BattleManager`) within it.
+* **Alternative 2:** +
+  `BattleManager` is stored under `Logic`. Every time `Attack`, `EndTurn` or `Begin` commands
+  are executed, they will perform the action using the logic coded within themselves, not
+  interfacing with `BattleManager`. +
+  When AI performs attacks, the `BattleManager` will create these commands and execute them.
+  In the `Model`, the current attacking player is kept track of, allowing the commands to be
+  used for both a human and AI player.
 ** Pros:
+*** The game's model and logic are kept separate from each other.
 ** Cons:
+*** AttackCommand is now state-dependent (the state being the current attacking player) which
+    can more easily lead to bugs and race conditions.
 
 === Enemy AI Feature
 ==== Current Implementation
@@ -311,11 +441,51 @@ A battleship is a basic class representing a battleship that can be placed on th
 
 === Statistics Feature
 ==== Current Implementation
-The Statistics Class is an abstract class that can be extended to accommodate a Player and an Enemy. It is initialized with the main components upon the start of the application and is subsequently passed down as a parameter to the respective events for tracking.
+The `stats` feature allows users to view their current gameplay information. This information will be displayed in a pop-up window and will include: Number of Attacks Made, Number of Successful Hits, Number of Misses, Number of Enemy Ships Destroyed and Accuracy of Shots made.
+This feature stems from a central abstract class that is extended to for a player. It is initialized with the main components upon the start of the application and is subsequently passed down as a parameter to the relevant methods which will invoke the corresponding updating methods to the statistical information.
+
+The following operations are invoked upon the calling of the `stats` command.
+
+** `getAttacksMade()` - Returns the number of attacks made by the User
+** `getMovesLeft()` - Returns the remaining number of moves left for the User
+** `getHitCount()` - Returns the number of successful hit on enemy ships
+** `getMissCount()` Returns the number of misses made
+** `getEnemyShipsDestroyed()` Returns the number of Enemy Ships Destroyed by the player
+** `getAccuracy()` Returns the current Hit-Miss Ratio of the User based on the game so far
+
+Given below is an example usage scenario and how the `stats` command behaves at each step.
+
+Step 1. The User initializes the game with the `init 8` which will create a 8x8 map.
+
+! The Map can be initialized to any valid size (This is just a sample scenario)
+
+Step 2. Put the ships accordingly...
+
+Step 3. Input `stats` into the command-line and press enter to obtain the current statistical data.
+
+image::inputStatsCommandSS.png[width=250]
+! Note, there should not be any valid data at the moment as the game as not started.
+! Include Screenshot explaining pop-up window and lack of data
+
+image::StatsWindowSS.png[width=600]
+Step 4. Now proceed with the game and perform an attack ....
+
+Step 5. Invoke the `stats` command again to view the updated statistics
+
+image::StatsWindowUpdatedSS.PNG[width=400]
+
+The following sequence diagram summarizes what happens when a User invokes the `stats` command.
+
+image::StatsSequenceDiagram.PNG[width=800]
+
+==== Output Statistical Data
+Besides the pop-up window, the data is also captured in the command-line result box.
+
+image::StatsCommandBox.PNG[width=400]
 
 ==== Design Considerations
-* **Alternative 1 (current choice):** Statistics will have an initialise method that with a set of default configuration that are used by any Statistics Variant.
-** Pros: The underlying variables and values in `Statistics` is better protected from modification.
+* **Alternative 1 (current choice):** Statistics class will have an initialise method that with a set of default configuration that are used by any Statistics Variant.
+** Pros: The underlying variables and values in Statistics is better protected from modification.
 ** Cons: It does not accommodate changes in default settings.
 * **Alternative 2:** Statistics is stored entirely within StatsCommands
 ** Pros: Easy to code and less lines of code.
@@ -553,11 +723,19 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new player |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |player |initialise a new game board / map|start a new game
+|`* * *` | player |initialise a new game board / map|start a new game
 
 |`* * *` | player | put a battleship on the map |play the game
 
+|`* * *` | player | tag my battleships | manage my battleships during the game
+
+|`* * *` | player | list my battleships | check the status of my battleships during the game
+
+|`* * *` | player | list my battleships by tag | check the status of specific battleships during the game
+
 |`* * *` | user | see the number of actions I made |keep track of my play style
+
+|`* * *` | user | see the number of successful attacks I made |keep track of how well I am doing in the game
 
 |`* * *` | user | see where my battleships are on the map |have a visual representation of the game
 
@@ -565,13 +743,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` | player | end my turn |the enemy can start its turn
 
-|`* * *` |player |delete a person |remove entries that I no longer need
-
-|`* * *` |player |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |player |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |player with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
 
 _{More to be added}_
@@ -614,6 +785,43 @@ Use case ends.
 
 [none]
 * 2a. If there is a ship present in the cell, show an error.
+
+=== Use case: List Battleship
+
+*MSS*
+
+1. User requests to list battleships deployed on map.
+2. Shows all of the user's battleships deployed on map.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. If there are no ships deployed, inform the user.
+
+=== Use case: List tags that Battleships have
+
+*MSS*
+
+1. User requests to list tags of battleships that have already been deployed on map.
+2. Shows all of the tags of battleships that have already been deployed on map.
++
+Use case ends.
+
+=== Use case: List Battleships by tag
+
+*MSS*
+
+1. User requests to list battleships deployed on map that have certain tags.
+2. Shows all of the user's battleships deployed on map that have certain tags.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. If there are no ships deployed, inform the user.
 
 === Use case: End player turn
 
@@ -705,19 +913,37 @@ _{ more test cases ... }_
 .. Other incorrect initialise commands to try: `init`, `init x` (where x is smaller or larger than the specified minimum or maximum map size respectively). +
    Expected: No map will be displayed if this is the first command ran. Otherwise, no changes will be made to the displayed map.
 
-=== Deleting a person
+=== Putting a ship
 
-. Deleting a person while all persons are listed
+. Putting a ship on the map after initialising the map.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. Prerequisites: There are ships in your fleet ready to be deployed. This means that the number of battleships in the fleet is more than 0. The map is initialised to a size between 6 and 10.
+.. Test case: `put n/destroyer r/horizontal c/b1` +
+   Expected: Destroyer battleship of size 3 will be put horizontally on coordinates `b1`, `b2` and `b3`. The map is updated with 3 black cells on each of these coordinates representing the Destroyer battleship.
+.. Test case: `put n/aircraft carrier r/horizontal c/c1 t/bluefleet` +
+   Expected: Aircraft Carrier battleship of size 5 will be put horizontally on coordinates `c1`, `c2`, `c3`, `c4` and `c5`. The map is updated with 5 black cells on each of these coordinates representing the Aircraft Carrier battleship.
+.. Test case: `put n/aircraft carrier r/horizontal c/e1 t/nomore` +
+   Expected: No battleship is put down on the map. Error details shown in the status message. Map remains the same.
+.. Test case: `put n/destroyer r/vertical c/b1` +
+   Expected: No battleship is put down on the map. Error details shown in the status message. Map remains the same.
+.. Test case: `put n/destroyer r/vertical c/a1` +
+   Expected: No battleship is put down on the map. Error details shown in the status message. Map remains the same.
+.. Test case: `put n/destroyer r/vertical c/z1` +
+   Expected: No battleship is put down on the map. Error details shown in the status message. Map remains the same.
 
 _{ more test cases ... }_
+
+=== Viewing the statistics
+
+To test the `stats` feature. We will perform a before and after check to see if the statistical data of a simple behaviour is captured. In this case, we will perform an attack with a miss result.
+
+1. Initialize a 8x8 map using `init 8`.
+2. Run the `stats` command and observe the results
+.. Test case : `stats`  (before) +
+   Expected: All fields are 0.
+3. Now input `attack c1` to simulate an attack on the enemy map.
+.. Test case : `stats` (after) +
+    Expected: Number of attacks : 1, Number of Misses : 1
 
 === Saving data
 

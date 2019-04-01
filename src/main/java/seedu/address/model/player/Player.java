@@ -30,7 +30,7 @@ public class Player {
     private final int fleetSize;
     private final Fleet fleet;
     private final MapGrid mapGrid;
-    private Set targetHistory = new HashSet();
+    private Set<Coordinates> targetHistory = new HashSet<>();
 
     /**
      * Constructor presented to user.
@@ -46,7 +46,7 @@ public class Player {
     }
 
     /**
-     * Default constructor with name Player1 and fleet size 5.
+     * Default constructor with name Player1 and fleet size 8.
      */
     public Player() {
         this("Player1",

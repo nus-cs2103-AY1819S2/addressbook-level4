@@ -13,6 +13,7 @@ import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
+import seedu.address.model.player.Enemy;
 import seedu.address.model.player.Fleet;
 import seedu.address.model.player.Player;
 import seedu.address.model.statistics.PlayerStatistics;
@@ -189,7 +190,7 @@ public interface Model {
     /**
      * Returns the computer player.
      */
-    Player getEnemyPlayer();
+    Enemy getEnemyPlayer();
 
     /**
      * Retrieves the Battle API.

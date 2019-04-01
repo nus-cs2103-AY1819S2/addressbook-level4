@@ -89,6 +89,12 @@ https://github.com/nus-cs2103-AY1819S2/forum/issues/59[59]
  a user guide for end-users of our product._
 |===
 
+include::../UserGuide.adoc[tag=quickstart]
+
+include::../UserGuide.adoc[tag=allocate]
+
+include::../UserGuide.adoc[tag=theme]
+
 == Contributions to the Developer Guide
 |===
 |_Given below are sections I contributed to the Developer Guide, showcasing my ability to write technical documentation and the technical depth of my code contributions._

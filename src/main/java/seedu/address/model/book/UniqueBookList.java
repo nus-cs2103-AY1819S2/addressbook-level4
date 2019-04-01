@@ -3,6 +3,7 @@ package seedu.address.model.book;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -116,36 +117,37 @@ public class UniqueBookList implements Iterable<Book> {
         Comparator<Book> bookComparator = (b1, b2) -> {
             Iterator<String> iterator = types.iterator();
             String firstType = iterator.next().toLowerCase();
-
+            List<BiFunction<Book, Book, Integer>> functions = new ArrayList<>();
             if (firstType.equals(SortBookCommandParser.AUTHOR)) {
-
+                functions.add(this::compareAuthor);
+                functions.add(this::compareBookName);
+                functions.add(this::compareRating);
                 return handleSort(b1, b2, iterator,
                     firstType,
                     SortBookCommandParser.BOOKNAME,
                     mainOrder, subOrder,
-                    this::compareAuthor,
-                    this::compareBookName,
-                    this::compareRating);
+                    functions);
 
             } else if (firstType.equals(SortBookCommandParser.BOOKNAME)) {
-
+                functions.add(this::compareBookName);
+                functions.add(this::compareAuthor);
+                functions.add(this::compareRating);
                 return handleSort(b1, b2, iterator,
                     firstType,
                     SortBookCommandParser.AUTHOR,
                     mainOrder, subOrder,
-                    this::compareBookName,
-                    this::compareAuthor,
-                    this::compareRating);
+                    functions);
 
             } else {
 
+                functions.add(this::compareRating);
+                functions.add(this::compareAuthor);
+                functions.add(this::compareBookName);
                 return handleSort(b1, b2, iterator,
                     firstType,
                     SortBookCommandParser.AUTHOR,
                     mainOrder, subOrder,
-                    this::compareRating,
-                    this::compareAuthor,
-                    this::compareBookName);
+                    functions);
 
             }
         };
@@ -187,9 +189,7 @@ public class UniqueBookList implements Iterable<Book> {
      * @param sortType the second type that going to be sort
      * @param mainOrder order that apply for all types
      * @param subOrder sub order for individual type
-     * @param firstFunction first sort function
-     * @param secondFunction second sort function
-     * @param thirdFunction third sort function
+     * @param functions functions that provide sort function
      * @return sort result, -1, 0 or 1 depend one value of b1 and b2
      */
     private int handleSort(Book b1, Book b2,
@@ -197,12 +197,9 @@ public class UniqueBookList implements Iterable<Book> {
                            String firstType, String sortType,
                            String mainOrder,
                            Map<String, String> subOrder,
-                           BiFunction<Book, Book, Integer> firstFunction,
-                           BiFunction<Book, Book, Integer> secondFunction,
-                           BiFunction<Book, Book, Integer> thirdFunction) {
+                           List<BiFunction<Book, Book, Integer>> functions) {
 
-
-        int result = sort(b1, b2, subOrder, mainOrder, firstType, firstFunction);
+        int result = sort(b1, b2, subOrder, mainOrder, firstType, functions.get(0));
 
         if (result != 0 || !iterator.hasNext()) {
             return result;
@@ -212,12 +209,12 @@ public class UniqueBookList implements Iterable<Book> {
         if (secondType.equals(sortType)) {
 
             return sortByType(b1, b2, iterator, mainOrder, secondType,
-                subOrder, secondFunction, thirdFunction);
+                subOrder, functions.get(1), functions.get(2));
 
         } else {
 
             return sortByType(b1, b2, iterator, mainOrder, secondType,
-                subOrder, thirdFunction, secondFunction);
+                subOrder, functions.get(2), functions.get(1));
         }
     }
 

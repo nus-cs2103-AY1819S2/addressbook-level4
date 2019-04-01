@@ -136,7 +136,7 @@ public class RestaurantBuilder {
      * Sets the {@code Cuisine} of the {@code Restaurant} that we are building.
      */
     public RestaurantBuilder withCategories(String cuisine) {
-        this.categories = new Category(new Cuisine(cuisine), null);
+        this.categories = new Category(new Cuisine(cuisine), null, null);
         return this;
     }
 

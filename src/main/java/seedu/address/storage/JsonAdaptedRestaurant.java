@@ -137,7 +137,12 @@ class JsonAdaptedRestaurant {
         }
         final Address modelAddress = new Address(address);
 
-        final Category modelCategories = categories.toModelType();
+        final Category modelCategories;
+        if (categories == null) {
+            modelCategories = Category.empty();
+        } else {
+            modelCategories = categories.toModelType();
+        }
 
         if (weblink == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Weblink.class.getSimpleName()));

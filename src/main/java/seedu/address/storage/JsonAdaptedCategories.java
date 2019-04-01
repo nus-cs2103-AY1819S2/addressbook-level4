@@ -44,13 +44,13 @@ public class JsonAdaptedCategories {
      * @throws IllegalValueException if there were any data constraints violated in the adapted categories.
      */
     public Category toModelType() throws IllegalValueException {
-        if(!Cuisine.isValidCuisine(cuisine)) {
+        if(cuisine != null && !Cuisine.isValidCuisine(cuisine)) {
             throw new IllegalValueException(Cuisine.MESSAGE_CONSTRAINTS);
         }
-        if(!Occasion.isValidOccasion(occasion)) {
+        if(occasion != null && !Occasion.isValidOccasion(occasion)) {
             throw new IllegalValueException(Occasion.MESSAGE_CONSTRAINTS);
         }
-        if(!PriceRange.isValidPriceRange(priceRange)) {
+        if(priceRange != null && !PriceRange.isValidPriceRange(priceRange)) {
             throw new IllegalValueException(PriceRange.MESSAGE_CONSTRAINTS);
         }
         final Optional<Cuisine> modelCuisine = Optional.ofNullable(cuisine).map(Cuisine::new);

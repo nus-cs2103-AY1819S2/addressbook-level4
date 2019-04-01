@@ -30,7 +30,7 @@ public class SetCategoryCommandTest {
     public void execute_validCuisineUnfilteredList_success() {
         Restaurant restaurantCuisineAdded = new RestaurantBuilder(model.getFilteredRestaurantList().get(0))
                 .withCategories(VALID_CUISINE_FAST_FOOD).build();
-        Category validCategory = new Category(new Cuisine(VALID_CUISINE_FAST_FOOD), null);
+        Category validCategory = new Category(new Cuisine(VALID_CUISINE_FAST_FOOD), null, null);
         SetCategoryCommand categoryCommand = new SetCategoryCommand(INDEX_FIRST_RESTAURANT, validCategory);
 
         String expectedMessage = String.format(SetCategoryCommand.MESSAGE_SET_CUISINE_SUCCESS, restaurantCuisineAdded);

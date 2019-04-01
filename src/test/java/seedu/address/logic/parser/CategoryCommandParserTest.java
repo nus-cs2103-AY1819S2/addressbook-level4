@@ -60,7 +60,7 @@ public class CategoryCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_RESTAURANT;
         String validFormat = targetIndex.getOneBased() + " " + PREFIX_CUISINE + VALID_CUISINE;
-        Category validCategory = new Category(new Cuisine(VALID_CUISINE), null);
+        Category validCategory = new Category(new Cuisine(VALID_CUISINE), null, null);
         SetCategoryCommand expectedCommand = new SetCategoryCommand(targetIndex, validCategory);
         assertParseSuccess(parser, validFormat, expectedCommand);
     }

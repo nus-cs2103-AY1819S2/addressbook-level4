@@ -38,7 +38,8 @@ public class SetCategoriesCommandTest {
                 new Occasion(VALID_OCCASION_CASUAL), new PriceRange(VALID_PRICE_RANGE));
         SetCategoriesCommand categoryCommand = new SetCategoriesCommand(INDEX_FIRST_RESTAURANT, validCategories);
 
-        String expectedMessage = String.format(SetCategoriesCommand.MESSAGE_SET_CUISINE_SUCCESS, restaurantCuisineAdded);
+        String expectedMessage = String.format(SetCategoriesCommand.MESSAGE_SET_CUISINE_SUCCESS,
+                restaurantCuisineAdded);
 
         Model expectedModel = new ModelManager(getTypicalFoodDiary(), new UserPrefs(), new PostalDataSet());
         expectedModel.setRestaurant(model.getFilteredRestaurantList().get(0), restaurantCuisineAdded);

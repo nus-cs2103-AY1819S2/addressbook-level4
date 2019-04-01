@@ -3,7 +3,9 @@ package seedu.address.model.player;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Name;
@@ -22,6 +24,8 @@ public class Enemy extends Player {
 
     private static final Random randGen = new Random();
     private static final Random randGen2 = new Random();
+    private static final Logger logger = LogsCenter.getLogger(Enemy.class);
+
 
     private static ArrayList<Coordinates> allPossibleTargets = new ArrayList<>(); //one-based
     private static ArrayList<Coordinates> allParityTargets = new ArrayList<>(); //one-based
@@ -78,8 +82,12 @@ public class Enemy extends Player {
 
         if (watchlist.isEmpty()) {
             newTarget = drawPartityTarget();
+            logger.info(String.format("Watchlist is empty " + "enemy shoot parity: " + newTarget.toString()));
+
         } else {
             newTarget = drawFromWatchList();
+            logger.info(String.format("Watchlist has stuff " + "enemy shoot watched: " + newTarget.toString()));
+
         }
         modeCleanup(newTarget);
 
@@ -110,7 +118,6 @@ public class Enemy extends Player {
      */
     private void populateEnemyMap() {
 
-        int numAirCraftCarrier = this.getFleet().getNumAircraftCarrier();
         int numDestroyer = this.getFleet().getNumDestroyer();
         int numCruiser = this.getFleet().getNumCruiser();
 
@@ -145,6 +152,8 @@ public class Enemy extends Player {
         //should have no error, since it is the first ship placed, and all map sizes have a max of 1 aircraft carrier
         this.getMapGrid().putShip(currentBattleship, currentBattleshipHead, useOrientation);
         markAsOccupied(currentBattleshipHead, 5, useOrientation);
+        logger.info(String.format("Placed aircraft carrier at " + currentBattleshipHead.toString()
+                + " orientation is " + useOrientation.toString()));
     }
 
     /*****************************************************************************
@@ -164,6 +173,9 @@ public class Enemy extends Player {
                 this.getMapGrid().putShip(preppedShips.get(0), useCoord, useOrientation);
                 preppedShips.remove(0);
                 markAsOccupied(useCoord, shipSize, useOrientation);
+                logger.info(String.format("Placed " + preppedShips.get(0).getName() + "at "
+                        + useCoord.toString()
+                        + " orientation is " + useOrientation.toString()));
             } catch (ArrayIndexOutOfBoundsException e) {
                 //TODO log the error later from putship
             }

@@ -32,7 +32,7 @@ Welcome to the *Know-It-All* User Guide! This document will equip you with what 
 == Quick Start
 
 .  Ensure that you have Java version `9` or later installed in your Computer.
-.  Download the latest `know-it-all.jar` here (to be coming in v2.0).
+.  Download the latest `know-it-all.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for *Know-It-All*.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +

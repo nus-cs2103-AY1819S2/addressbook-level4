@@ -1,0 +1,54 @@
+= Matthew Low - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Know-It-All
+
+---
+
+== Overview
+
+Know-It-All is a flashcard application that helps users store and organise their learning material. With an easy to use interface and a storage solution that supports content sharing, Know-It-All is designed to help students perform rote learning more efficiently. From cramming in between lessons to focused study, the in-built test session boosts the effectiveness of repetition and recall for memorisation. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of Contributions
+* *Major enhancement*: *reworked the model component for flashcards*
+** What it does: Allows users to create, edit and delete different kinds of flashcards.
+** Justification: This is a core feature of the project, as users will be spending a large portion of their time interacting with the flashcards they have created or imported.
+** Highlights:
+*** Users can create 2 different types of flashcards, Single-answer cards and MCQ cards. This provides greater versatility in how users choose to structure their learning material through the flashcards.
+*** Users can easily convert between both types of cards by simply adding or removing MCQ options.
+*** Users have the option to include a hint for each flashcard.
+
+* *Minor enhancement*: implemented testing for MCQ cards
+** What it does: For MCQ card test, allows users to input a number corresponding to the options available for an MCQ card, instead of having to input the entire answer.
+** Justification: Provides greater flexibility in the way users can interact with test sessions.
+** Highlights: MCQ card options are randomized every time the card is tested, thus preventing users from simply memorizing the correct option number.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=afterdusk[Collated code]]
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Wrote additional tests for new and existing features: https://github.com/cs2103-ay1819s2-w10-4/main/pull/100[#100], https://github.com/cs2103-ay1819s2-w10-4/main/pull/110[#110]
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w10-4/main/pull/54[#54], https://github.com/cs2103-ay1819s2-w10-4/main/pull/73[#73]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+== Contributions to the Developer Guide
+
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=cards]
+
+include::../DeveloperGuide.adoc[tag=glossary]

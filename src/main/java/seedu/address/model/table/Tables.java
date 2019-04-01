@@ -104,6 +104,11 @@ public class Tables implements ReadOnlyTables {
         return tableList.getTable(tableNumber).isOccupied();
     }
 
+    @Override
+    public boolean isRestaurantEmpty() {
+        return tableList.isRestaurantEmpty();
+    }
+
     /**
      * Notifies listeners that the RestOrRant has been modified.
      */

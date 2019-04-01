@@ -71,7 +71,7 @@ public class Date {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Date // instanceof handles nulls
-                && date.equals(((Date) other).date) && day.equals(((Date) other).day)
+                && day.equals(((Date) other).day)
                 && month.equals(((Date) other).month) && year.equals(((Date) other).year)); // state check
     }
 

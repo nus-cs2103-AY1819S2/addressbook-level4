@@ -69,7 +69,7 @@ public class Category {
     public void setLabels(Label cuisineLabel, Label occasionLabel, Label priceRangeLabel) {
         cuisine.ifPresentOrElse(content -> cuisineLabel.setText(content.value), () -> cuisineLabel.setVisible(false));
         occasion.ifPresentOrElse(content -> occasionLabel.setText(content.value), () ->
-                priceRangeLabel.setVisible(false));
+                occasionLabel.setVisible(false));
         priceRange.ifPresentOrElse(content -> priceRangeLabel.setText(content.value), () ->
                 priceRangeLabel.setVisible(false));
     }

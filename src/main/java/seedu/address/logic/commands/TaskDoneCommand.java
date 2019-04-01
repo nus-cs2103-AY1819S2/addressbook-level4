@@ -54,7 +54,7 @@ public class TaskDoneCommand extends Command {
         if (taskToComplete.getPriority() == Priority.COMPLETED) {
             throw new CommandException("The task is already completed. ");
         }
-        Task completedTask = new Task(taskToComplete, true);
+        Task completedTask = taskToComplete.isCopy() ? new Task(taskToComplete) : new Task(taskToComplete, true);
         completedTask.setPriorityComplete();
         model.setTask(taskToComplete, completedTask);
         if (taskToComplete.getLinkedPatient() != null) {

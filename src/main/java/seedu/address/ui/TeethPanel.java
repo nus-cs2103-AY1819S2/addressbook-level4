@@ -85,7 +85,7 @@ public class TeethPanel extends UiPart<Region> {
             space.getChildren().add(test);
 
         } catch (IOException e) {
-            new IOException("Error opening image file");
+            logger.info("Error opening image file");
         }
     }
     private void clearTeeth() {

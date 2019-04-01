@@ -65,6 +65,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 Opens a help window that displays this User Guide. +
 Format: `help`
 
+// tag::map[]
 === Map : `init`
 
 Initialises both player's maps to the specified size. +
@@ -76,6 +77,7 @@ _Figure 1_ below shows how the maps will be displayed in the UI.
 .Player and enemy maps
 image::initmapresult.png[width=750]
 
+{empty} +
 Throughout the course of the game, the cells in the map will change colour based on their status. +
 
 [NOTE]
@@ -89,10 +91,14 @@ Throughout the course of the game, the cells in the map will change colour based
 - Ship Destroyed - Ship cell that has been destroyed
 ====
 
+{empty} +
 _Figure 2_ below shows which colour is used for each status.
 
 .Cell colours
 image::maplegend.png[width=400]
+{empty} +
+
+// end::map[]
 
 === Placing a ship on the map: `put`
 

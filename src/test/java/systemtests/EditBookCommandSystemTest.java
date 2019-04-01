@@ -126,11 +126,11 @@ public class EditBookCommandSystemTest extends BookShelfSystemTest {
         index = INDEX_FIRST_BOOK;
         selectBook(index);
         command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased()
-        + NAME_DESC_ALICE + AUTHOR_DESC_ALICE + RATING_DESC_ALICE
-                + TAG_DESC_FANTASY;
+        + NAME_DESC_TWILIGHT + AUTHOR_DESC_TWILIGHT + RATING_DESC_TWILIGHT + " t/";
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new book's name
-        assertCommandSuccess(command, index, ALI, index);
+        assertCommandSuccess(command, index, TWILIGHT, index);
+        */
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
@@ -222,7 +222,8 @@ public class EditBookCommandSystemTest extends BookShelfSystemTest {
      * @param toEdit the index of the current model's filtered list.
      * @see EditBookCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
-    private void assertCommandSuccess(String command, Index toEdit, Book editedBook,
+    private void
+    assertCommandSuccess(String command, Index toEdit, Book editedBook,
             Index expectedSelectedBookCardIndex) {
         Model expectedModel = getModel();
         expectedModel.setBook(expectedModel.getFilteredBookList().get(toEdit.getZeroBased()), editedBook);

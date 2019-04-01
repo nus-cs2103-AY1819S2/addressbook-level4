@@ -11,13 +11,18 @@ public class ModuleInfoWorkload {
             "Module Workload has 5 fields of Integers";
     public static final String MESSAGE_NOWORKLOAD =
             "No work load information provided";
-    public static final String VALIDATION_REGEX = "\\d{1,2}-\\d{1,2}-\\d{1,2}-\\d{1,2}-\\d{1,2}";
+    public static final String VALIDATION_INTEGER_REGEX = "\\d\\.?\\d?-"
+            + "\\d\\.?\\d?-"
+            + "\\d\\.?\\d?-"
+            + "\\d\\.?\\d?-"
+            + "\\d\\.?\\d?";
+
     public final String workload;
-    public final int lecture;
-    public final int tutorial;
-    public final int lab;
-    public final int project;
-    public final int preparation;
+    public final double lecture;
+    public final double tutorial;
+    public final double lab;
+    public final double project;
+    public final double preparation;
 
     public ModuleInfoWorkload(String moduleInfoWorkload) {
         this.workload = moduleInfoWorkload;
@@ -29,45 +34,44 @@ public class ModuleInfoWorkload {
             this.preparation = 0;
         } else {
             String[] attribute = splitWorkload(moduleInfoWorkload);
-
-            this.lecture = Integer.valueOf(attribute[0]);
-            this.tutorial = Integer.valueOf(attribute[1]);
-            this.lab = Integer.valueOf(attribute[2]);
-            this.project = Integer.valueOf(attribute[3]);
-            this.preparation = Integer.valueOf(attribute[4]);
+            this.lecture = Double.valueOf(attribute[0]);
+            this.tutorial = Double.valueOf(attribute[1]);
+            this.lab = Double.valueOf(attribute[2]);
+            this.project = Double.valueOf(attribute[3]);
+            this.preparation = Double.valueOf(attribute[4]);
         }
 
     }
 
     public static boolean isValidModuleInfoWorkload(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_INTEGER_REGEX);
     }
 
     public String toString() {
         return workload;
     }
 
-    public int getLecture() {
+    public double getLecture() {
         return lecture;
     }
 
-    public int getTutorial() {
+    public double getTutorial() {
         return tutorial;
     }
 
-    public int getLab() {
+    public double getLab() {
         return lab;
     }
 
-    public int getProject() {
+    public double getProject() {
         return project;
     }
 
-    public int getPreparation() {
+    public double getPreparation() {
         return preparation;
     }
 
-    public int getTotal() {
+    public double getTotal() {
         return lecture + tutorial + lab + project + preparation;
     }
 

@@ -116,100 +116,37 @@ public class UniqueBookList implements Iterable<Book> {
         Comparator<Book> bookComparator = (b1, b2) -> {
             Iterator<String> iterator = types.iterator();
             String firstType = iterator.next().toLowerCase();
-            int result;
 
             if (firstType.equals(SortBookCommandParser.AUTHOR)) {
 
-                result = sort(b1, b2, subOrder, mainOrder, firstType, this::compareAuthor);
+                return handleSort(b1, b2, iterator,
+                    firstType,
+                    SortBookCommandParser.BOOKNAME,
+                    mainOrder, subOrder,
+                    this::compareAuthor,
+                    this::compareBookName,
+                    this::compareRating);
 
-                if (result != 0 || !iterator.hasNext()) {
-                    return result;
-                }
-
-                String secondType = iterator.next().toLowerCase();
-
-                if (secondType.equals(SortBookCommandParser.BOOKNAME)) {
-
-                    result = sort(b1, b2, subOrder, mainOrder, secondType, this::compareBookName);
-
-                    if (result != 0 || !iterator.hasNext()) {
-                        return result;
-                    }
-
-                    return sort(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase(), this::compareRating);
-
-                } else {
-
-                    result = sort(b1, b2, subOrder, mainOrder, secondType, this::compareRating);
-
-                    if (result != 0 || !iterator.hasNext()) {
-                        return result;
-                    }
-
-                    return sort(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase(), this::compareBookName);
-
-                }
             } else if (firstType.equals(SortBookCommandParser.BOOKNAME)) {
 
-                result = sort(b1, b2, subOrder, mainOrder, firstType, this::compareBookName);
-
-                if (result != 0 || !iterator.hasNext()) {
-                    return result;
-                }
-
-                String secondOrder = iterator.next().toLowerCase();
-
-                if (secondOrder.equals(SortBookCommandParser.AUTHOR)) {
-
-                    result = sort(b1, b2, subOrder, mainOrder, secondOrder, this::compareAuthor);
-
-                    if (result != 0 || !iterator.hasNext()) {
-                        return result;
-                    }
-
-                    return sort(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase(), this::compareRating);
-
-                } else {
-
-                    result = sort(b1, b2, subOrder, mainOrder, secondOrder, this::compareRating);
-
-                    if (result != 0 || !iterator.hasNext()) {
-                        return result;
-                    }
-
-                    return sort(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase(), this::compareAuthor);
-                }
+                return handleSort(b1, b2, iterator,
+                    firstType,
+                    SortBookCommandParser.AUTHOR,
+                    mainOrder, subOrder,
+                    this::compareBookName,
+                    this::compareAuthor,
+                    this::compareRating);
 
             } else {
 
-                result = sort(b1, b2, subOrder, mainOrder, firstType, this::compareRating);
+                return handleSort(b1, b2, iterator,
+                    firstType,
+                    SortBookCommandParser.AUTHOR,
+                    mainOrder, subOrder,
+                    this::compareRating,
+                    this::compareAuthor,
+                    this::compareBookName);
 
-                if (result != 0 || !iterator.hasNext()) {
-                    return result;
-                }
-
-                String secondOrder = iterator.next().toLowerCase();
-
-                if (secondOrder.equals(SortBookCommandParser.AUTHOR)) {
-
-                    result = sort(b1, b2, subOrder, mainOrder, secondOrder, this::compareAuthor);
-
-                    if (result != 0 || !iterator.hasNext()) {
-                        return result;
-                    }
-
-                    return sort(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase(), this::compareBookName);
-
-                } else {
-
-                    result = sort(b1, b2, subOrder, mainOrder, secondOrder, this::compareBookName);
-
-                    if (result != 0 || !iterator.hasNext()) {
-                        return result;
-                    }
-
-                    return sort(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase(), this::compareAuthor);
-                }
             }
         };
 
@@ -242,6 +179,76 @@ public class UniqueBookList implements Iterable<Book> {
         }
     }
 
+    /**
+     * Handles the sort.
+     * @param b1 first book that going to be compare
+     * @param b2 second book that going to be compare
+     * @param firstType that going to be sort
+     * @param sortType the second type that going to be sort
+     * @param mainOrder order that apply for all types
+     * @param subOrder sub order for individual type
+     * @param firstFunction first sort function
+     * @param secondFunction second sort function
+     * @param thirdFunction third sort function
+     * @return sort result, -1, 0 or 1 depend one value of b1 and b2
+     */
+    private int handleSort(Book b1, Book b2,
+                           Iterator<String> iterator,
+                           String firstType, String sortType,
+                           String mainOrder,
+                           Map<String, String> subOrder,
+                           BiFunction<Book, Book, Integer> firstFunction,
+                           BiFunction<Book, Book, Integer> secondFunction,
+                           BiFunction<Book, Book, Integer> thirdFunction) {
+
+
+        int result = sort(b1, b2, subOrder, mainOrder, firstType, firstFunction);
+
+        if (result != 0 || !iterator.hasNext()) {
+            return result;
+        }
+
+        String secondType = iterator.next().toLowerCase();
+        if (secondType.equals(sortType)) {
+
+            return sortByType(b1, b2, iterator, mainOrder, secondType,
+                subOrder, secondFunction, thirdFunction);
+
+        } else {
+
+            return sortByType(b1, b2, iterator, mainOrder, secondType,
+                subOrder, thirdFunction, secondFunction);
+        }
+    }
+
+    /**
+     * Sorts by the given order and type
+     * @param b1 book 1
+     * @param b2 book 2
+     * @param iterator of list of sort type
+     * @param mainOrder of all sort type
+     * @param type of sort type
+     * @param subOrder for individual
+     * @param firstFunction first sort function
+     * @param secondFunction second sort function
+     * @return compare result -1 , 0 or 1
+     */
+    private int sortByType(Book b1, Book b2,
+                           Iterator<String> iterator,
+                           String mainOrder,
+                           String type,
+                           Map<String, String> subOrder,
+                           BiFunction<Book, Book, Integer> firstFunction,
+                           BiFunction<Book, Book, Integer> secondFunction) {
+
+        int result = sort(b1, b2, subOrder, mainOrder, type, firstFunction);
+
+        if (result != 0 || !iterator.hasNext()) {
+            return result;
+        }
+        return sort(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase(), secondFunction);
+    }
+
     private int compareAuthor(Book b1, Book b2) {
 
         return b1.getAuthor().fullName.compareTo(b2.getAuthor().fullName);
@@ -252,9 +259,21 @@ public class UniqueBookList implements Iterable<Book> {
         return b1.getBookName().fullName.compareTo(b2.getBookName().fullName);
     }
 
+    /**
+     * Compares rating between two books
+     * @param b1 first book
+     * @param b2 second book
+     * @return -1, 0 or 1
+     */
     private int compareRating(Book b1, Book b2) {
 
-        return Integer.valueOf(b1.getRating().value) - Integer.valueOf(b2.getRating().value);
+        int result = Integer.valueOf(b1.getRating().value) - Integer.valueOf(b2.getRating().value);
+        if (result > 0) {
+            return 1;
+        } else if (result < 0) {
+            return -1;
+        }
+        return result;
     }
 
     /**

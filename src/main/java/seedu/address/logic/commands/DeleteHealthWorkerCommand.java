@@ -30,7 +30,8 @@ public class DeleteHealthWorkerCommand extends DeleteCommand implements HealthWo
     @Override
     public void delete(Model model, Object toDelete) {
         model.deleteHealthWorker((HealthWorker) toDelete);
-        model.commitHealthWorkerBook();
+        commitHealthWorkerBook(model);
+        //model.commitHealthWorkerBook();
     }
 
     @Override

@@ -24,6 +24,7 @@ import seedu.address.logic.commands.AddHealthWorkerCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 //import seedu.address.model.AddressBook;
+import seedu.address.model.CommandType;
 import seedu.address.model.Model;
 //import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyHealthWorkerBook;
@@ -114,6 +115,11 @@ public class AddHealthWorkerCommandTest {
         @Override
         public void commitHealthWorkerBook() {
            // called by {@code AddHealthWorkerCommand#execute()}
+        }
+
+        @Override
+        public void commit(CommandType commandType) {
+            // called by {@code AddHealthWorkerCommand#execute()}
         }
 
 
@@ -298,6 +304,32 @@ public class AddHealthWorkerCommandTest {
         public void commitRequestBook() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean canUndo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commit(CommandType commandType) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
 

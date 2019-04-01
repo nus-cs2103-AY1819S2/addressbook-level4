@@ -6,6 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANIZATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILLS;
 
+import seedu.address.model.CommandType;
+import seedu.address.model.Model;
 import seedu.address.model.tag.Specialisation;
 
 /**
@@ -41,4 +43,8 @@ public interface HealthWorkerCommand {
 
     String DUPLICATE_HEALTH_WORKER = "This health worker "
             + "already exists in the address book";
+
+    default void commitHealthWorkerBook(Model model) {
+        model.commit(CommandType.HEALTHWORKER_COMMAND);
+    }
 }

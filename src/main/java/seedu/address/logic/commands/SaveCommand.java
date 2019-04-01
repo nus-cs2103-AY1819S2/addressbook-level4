@@ -2,6 +2,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_FILE;
 import static seedu.address.commons.core.Messages.MESSAGE_UNABLE_TO_SAVE;
 
 import seedu.address.logic.CommandHistory;
@@ -33,7 +34,7 @@ public class SaveCommand extends Command {
     public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history) throws CommandException {
         requireNonNull(currentEdit);
 
-        if (currentEdit.getTempImage() == null) {
+        if (currentEdit.tempImageExist()) {
             throw new CommandException(MESSAGE_UNABLE_TO_SAVE);
         }
 
@@ -41,6 +42,8 @@ public class SaveCommand extends Command {
 
         if (toName.isEmpty()) {
             this.toName = currentEdit.getOriginalImageName();
+        } else if (album.checkFileExist(toName)) {
+            throw new CommandException(MESSAGE_DUPLICATE_FILE);
         }
         album.saveToAssets(image, toName);
         currentEdit.overwriteOriginal(toName);

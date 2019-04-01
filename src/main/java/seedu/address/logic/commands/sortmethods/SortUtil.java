@@ -64,6 +64,19 @@ public class SortUtil {
     }
 
     /**
+     * sorts the persons by their surname
+     */
+    public static List<Person> sortPersonsBySurnames(List<Person> persons) {
+        System.out.println("called1");
+        for (Person person:persons) {
+            System.out.println(person.surnamesToString());
+        }
+        List<Person> sortedList =
+                persons.stream().sorted(Comparator.comparing(Person::surnamesToString)).collect(Collectors.toList());
+        return sortedList;
+    }
+
+    /**
      * sorts the persons by their gpa
      */
     public static List<Person> sortPersonsByGpa(List<Person> persons) {

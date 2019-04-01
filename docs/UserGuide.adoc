@@ -66,7 +66,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Commands listed in this section affect the <<flashcard, flashcards>> within a single <<folder, folder>>.
 
 [NOTE]
-The commands in this section can only be executed when the user is within a folder
+The commands in this section can only be executed when you are within a folder
+
+[NOTE]
+The commands in this section are also not valid inside a test or report session.
 
 ==== Adding a flashcard : `add`
 
@@ -241,6 +244,9 @@ Commands listed in this section affect the application and not a single folder.
 
 [NOTE]
 The commands in this section can only be executed when you are at the home directory, outside of any folder
+
+[NOTE]
+The commands in this section are also not valid inside a test or report session.
 
 ==== Create new folder : `addfolder`
 
@@ -487,7 +493,8 @@ Format: `end`
 //end::reportoperations[]
 
 === Global Operations
-The commands shown in this section are applicable regardless of whether the user is inside a folder or at the home directory.
+The commands shown in this section are applicable regardless of whether the user is inside a folder, at the home
+directory, inside a test or report session.
 
 ==== Viewing help : `help`
 

@@ -189,12 +189,22 @@ public class CsvManager implements CsvCommands {
         return stringBuilder.toString();
     }
 
+    private String parseQuotationMarks(String cardField) {
+        if (cardField.contains(",")) {
+            return "\"" + cardField + "\"";
+        } else {
+            return cardField;
+        }
+    }
+
     private void parseQuestion(Question question, StringBuilder stringBuilder) {
-        stringBuilder.append(question + COMMA_DELIMITTER);
+        String questionString = parseQuotationMarks(question.toString());
+        stringBuilder.append(questionString + COMMA_DELIMITTER);
     }
 
     private void parseAnswer(Answer answer, StringBuilder stringBuilder) {
-        stringBuilder.append(answer + COMMA_DELIMITTER);
+        String answerString = parseQuotationMarks(answer.toString());
+        stringBuilder.append(answerString + COMMA_DELIMITTER);
     }
 
     /**
@@ -204,7 +214,7 @@ public class CsvManager implements CsvCommands {
         if (options.isEmpty()) {
             stringBuilder.append("" + COMMA_DELIMITTER);
         } else {
-            options.forEach(option -> stringBuilder.append(option.optionValue)
+            options.forEach(option -> stringBuilder.append(parseQuotationMarks(option.optionValue))
                     .append(COMMA_DELIMITTER));
         }
     }
@@ -216,7 +226,7 @@ public class CsvManager implements CsvCommands {
         if (hintSet.isEmpty()) {
             stringBuilder.append("" + COMMA_DELIMITTER);
         } else {
-            hintSet.forEach(hint -> stringBuilder.append(hint.hintName)
+            hintSet.forEach(hint -> stringBuilder.append(parseQuotationMarks(hint.hintName))
                     .append(COMMA_DELIMITTER));
         }
     }

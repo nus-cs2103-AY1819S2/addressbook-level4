@@ -30,6 +30,7 @@ public class ModelManager implements Model {
     private final VersionedHealthWorkerBook versionedHealthWorkerBook;
 
     private final VersionedRequestBook versionedRequestBook;
+    private final ModifyCommandHistory modifyCommandHistory;
     private final UserPrefs userPrefs;
 
     private final FilteredList<HealthWorker> filteredHealthWorkers;
@@ -60,6 +61,7 @@ public class ModelManager implements Model {
         filteredRequests = new FilteredList<>(versionedRequestBook.getRequestList());
         filteredHealthWorkers.addListener(this::ensureSelectedHealthWorkerIsValid);
         filteredRequests.addListener(this::ensureSelectedRequestIsValid);
+        modifyCommandHistory = new ModifyCommandHistory();
     }
 
     public ModelManager() {
@@ -161,8 +163,67 @@ public class ModelManager implements Model {
     }
 
     //=========== Undo/Redo =================================================================================
-    // TODO: Modify to do redo/undo for HealthWorkerBook. Suggestion: Use a state to maintain previous type of op.
+    // @author Jing1324
 
+    @Override
+    public boolean canUndo() {
+
+        return versionedHealthWorkerBook.canUndo() || versionedRequestBook.canUndo();
+    }
+
+    @Override
+    public boolean canRedo() {
+        return versionedHealthWorkerBook.canRedo() || versionedRequestBook.canRedo();
+    }
+
+    @Override
+    public void undo() {
+        CommandType commandType = modifyCommandHistory.getUndoCommand();
+        modifyCommandHistory.undo();
+        switch(commandType) {
+        case HEALTHWORKER_COMMAND:
+            versionedHealthWorkerBook.undo();
+            break;
+        case REQUEST_COMMAND:
+            versionedRequestBook.undo();
+            break;
+        default:
+        }
+    }
+
+    @Override
+    public void redo() {
+        CommandType commandType = modifyCommandHistory.getRedoCommand();
+        modifyCommandHistory.redo();
+        switch (commandType) {
+        case HEALTHWORKER_COMMAND:
+            versionedHealthWorkerBook.redo();
+            break;
+
+        case REQUEST_COMMAND:
+            versionedRequestBook.redo();
+            break;
+        default:
+        }
+    }
+
+    @Override
+    public void commit(CommandType commandType) {
+        modifyCommandHistory.addLatestCommand(commandType);
+        switch (commandType) {
+        case HEALTHWORKER_COMMAND:
+            commitHealthWorkerBook();
+            break;
+
+        case REQUEST_COMMAND:
+            commitRequestBook();
+            break;
+        default:
+        }
+    }
+
+
+    //=========== Selected Person ===========================================================================
     //=========== Implemented methods for Request through the Model interface  ==============================
 
     @Override

@@ -20,6 +20,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.CommandType;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyHealthWorkerBook;
 import seedu.address.model.ReadOnlyRequestBook;
@@ -178,28 +179,6 @@ class AddRequestCommandTest {
         }
 
 
-
-        //@Override
-        //public boolean canUndoAddressBook() {
-        //    throw new AssertionError("This method should not be called.");
-        //}
-
-        //@Override
-        //public boolean canRedoAddressBook() {
-        //  throw new AssertionError("This method should not be called.");
-        // }
-
-        //@Override
-        //public void undoAddressBook() {
-        // throw new AssertionError("This method should not be called.");
-        //}
-
-        //@Override
-        //public void redoAddressBook() {
-        //throw new AssertionError("This method should not be called.");
-        //}
-
-
         @Override
         public Path getRequestBookFilePath() {
             throw new AssertionError("This method should not be called.");
@@ -263,7 +242,32 @@ class AddRequestCommandTest {
         @Override
         public void commitRequestBook() {
             throw new AssertionError("This method should not be called.");
+        } @Override
+        public boolean canUndo() {
+            throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean canRedo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commit(CommandType commandType) {
+            throw new AssertionError("This method should not be called.");
+
+        }
+
     }
 
     private class ModelStubWithRequest extends ModelStub {
@@ -304,6 +308,10 @@ class AddRequestCommandTest {
         @Override
         public ReadOnlyRequestBook getRequestBook() {
             return new RequestBook();
+        }
+        @Override
+        public void commit(CommandType commandType) {
+            // called by {@code AddRequestCommand#execute()}
         }
     }
 }

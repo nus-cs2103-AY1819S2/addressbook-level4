@@ -44,7 +44,8 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
     public void edit(Model model, Object toEdit, Object edited) {
         model.setHealthWorker((HealthWorker) toEdit, (HealthWorker) edited);
         model.updateFilteredHealthWorkerList(Model.PREDICATE_SHOW_ALL_HEALTHWORKERS);
-        model.commitHealthWorkerBook();
+        //model.commitHealthWorkerBook();
+        commitHealthWorkerBook(model);
     }
 
     @Override

@@ -55,7 +55,7 @@ public class TaskCard extends UiPart<Region> {
         endDate.setText("End Date:  " + task.getEndDate().toString());
         startTime.setText("Start Time: " + task.getStartTime().toString());
         endTime.setText("End Time: " + task.getEndTime().toString());
-        if(task.getLinkedPatient() != null) {
+        if (task.getLinkedPatient() != null) {
             linkedPatient.setText("Patient involved: " + task.getLinkedPatient().getLinkedPatientName()
                                 + " ( " + task.getLinkedPatient().getLinkedPatientNric() + " )");
         } else {

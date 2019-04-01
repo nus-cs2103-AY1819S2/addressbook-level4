@@ -51,29 +51,35 @@ public class DeleteCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
 
+    /**
+     * Method to check if there are any tasks linked to the person to be deleted
+     * Lets user choose if
+     *
+     */
     private void checkLinkedTasks(Model model, Person deletedPerson) {
         Task[] linkedTasks = model.getAddressBook().getTaskList().stream()
                 .filter(y -> y.getLinkedPatient() != null)
                 .filter(z -> z.getLinkedPatient().getLinkedPatientNric().equals(((Patient) deletedPerson)
                         .getNric().getNric())).toArray(Task[]::new);
-                if (linkedTasks.length > 0) {
-                    Alert alert = new Alert(Alert.AlertType.NONE,
-                            "There is one or more tasks linked to this patient.\n"
-                            + "Do you want to delete them as well?\n"
-                            + "Choosing NO set the tasks to have no linked patient.",
-                            ButtonType.YES, ButtonType.NO);
-                    alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
-                    alert.showAndWait();
-                    for (Task task : linkedTasks) {
-                        if (alert.getResult() == ButtonType.YES) {
-                            model.deleteTask(task);
-                        } else {
-                            Task replacement = task.isCopy() ? new Task(task) : new Task(task, true);
-                            replacement.setNullLinkedPatient();
-                            model.setTask(task, replacement);
-                        }
-                    }
+        if (linkedTasks.length > 0) {
+            Alert alert = new Alert(Alert.AlertType.NONE,
+                    "There is one or more tasks linked to this patient.\n"
+                    + "Do you want to delete them as well?\n"
+                    + "Choosing NO set the tasks to have no linked patient.",
+                    ButtonType.YES, ButtonType.NO);
+            alert.setTitle("Tasks linked to Patient detected");
+            alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+            alert.showAndWait();
+            for (Task task : linkedTasks) {
+                if (alert.getResult() == ButtonType.YES) {
+                    model.deleteTask(task);
+                } else {
+                    Task replacement = task.isCopy() ? new Task(task) : new Task(task, true);
+                    replacement.setNullLinkedPatient();
+                    model.setTask(task, replacement);
                 }
+            }
+        }
     }
     @Override
     public boolean equals(Object other) {

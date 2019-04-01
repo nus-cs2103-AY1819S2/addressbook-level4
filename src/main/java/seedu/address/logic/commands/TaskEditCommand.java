@@ -112,7 +112,7 @@ public class TaskEditCommand extends Command {
         Priority updatedPriority = editTaskDescriptor.getPriority().orElse(taskToEdit.getPriority());
         LinkedPatient updatedLinkedPatient = taskToEdit.getLinkedPatient();
         Index targetIndex = editTaskDescriptor.getPatientIndex().orElse(null);
-        if (targetIndex != null ) {
+        if (targetIndex != null) {
             if (targetIndex.getZeroBased() != 0) {
                 int actualIndex = targetIndex.getZeroBased() - 1;
                 List<Person> lastShownList = model.getFilteredPersonList();

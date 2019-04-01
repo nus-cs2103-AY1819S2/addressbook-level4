@@ -20,6 +20,9 @@ public class SlotTest {
         Slot slotA = new Slot(dateA, startA, endA);
 
         // test equality of same referenced object
+        Assert.assertEquals(slotA, slotA);
+
+        // test equality of object with same values
         Slot slotB = new Slot(dateA, startA, endA);
         Assert.assertEquals(slotA, slotB);
 

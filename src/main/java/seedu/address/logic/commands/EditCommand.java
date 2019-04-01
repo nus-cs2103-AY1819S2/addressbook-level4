@@ -10,10 +10,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -36,6 +38,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.Task;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -88,7 +91,17 @@ public class EditCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-
+        if (editPersonDescriptor.getName().isPresent() || editPersonDescriptor.getNric().isPresent()) {
+            model.getAddressBook().getTaskList().stream()
+                    .filter(y -> y.getLinkedPatient() != null)
+                    .filter(z -> z.getLinkedPatient().getLinkedPatientNric().equals(((Patient) personToEdit)
+                            .getNric().getNric()))
+                    .forEach(task -> {
+                        Task replacement = task.isCopy() ? new Task(task) : new Task(task, true);
+                        replacement.setLinkedPatient(editedPerson.getName(), ((Patient) editedPerson).getNric());
+                        model.setTask(task, replacement);
+                    });
+            }
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }

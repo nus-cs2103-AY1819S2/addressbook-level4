@@ -65,6 +65,19 @@ public class Task {
         this.copyCount = 0;
     }
 
+    public Task(Task t, boolean isClone) {
+        requireAllNonNull(t);
+        this.title = t.getTitle();
+        this.startDate = t.getStartDate();
+        this.endDate = t.getEndDate();
+        this.startTime = t.getStartTime();
+        this.endTime = t.getEndTime();
+        this.priority = t.getPriority();
+        this.linkedPatient = t.getLinkedPatient();
+        this.isCopy = false;
+        this.copyCount = 0;
+    }
+
 
     public Title getTitle() {
         return title;
@@ -95,7 +108,7 @@ public class Task {
     }
 
     public void setLinkedPatient(Name name, Nric nric) {
-        this.linkedPatient = new LinkedPatient(name, nric);
+        linkedPatient = new LinkedPatient(name, nric);
     }
 
     public void setPriorityComplete() {
@@ -161,6 +174,10 @@ public class Task {
         }
 
         if (!(other instanceof Task)) {
+            return false;
+        }
+
+        if (this.isCopy || ((Task) other).isCopy) {
             return false;
         }
 

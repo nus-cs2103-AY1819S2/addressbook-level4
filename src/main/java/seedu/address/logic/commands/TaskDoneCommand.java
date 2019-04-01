@@ -42,6 +42,7 @@ public class TaskDoneCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Task> lastShownList = model.getFilteredTaskList();
+        String patientRecordAddedMessage = "";
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -51,7 +52,7 @@ public class TaskDoneCommand extends Command {
         if (taskToComplete.getPriority() == Priority.COMPLETED) {
             throw new CommandException("The task is already completed. ");
         }
-        Task completedTask = taskToComplete;
+        Task completedTask = new Task(taskToComplete,true);
         completedTask.setPriorityComplete();
         model.setTask(taskToComplete, completedTask);
         if (taskToComplete.getLinkedPatient() != null) {
@@ -62,12 +63,16 @@ public class TaskDoneCommand extends Command {
                 Patient replacement = found.get();
                 replacement.addRecord(new Record(new Description(completedTask.getTitle().title)));
                 model.setPerson(found.get(), replacement);
+                patientRecordAddedMessage = String.format("\n Added Record to Patient: %s ( %s )",
+                        found.get().getName().fullName, found.get().getNric().getNric());
             } else {
-                System.out.println("PATIENT NOT FOUND");
+                patientRecordAddedMessage = "\n Linked Patient not found. Record not added.";
             }
+        } else {
+            patientRecordAddedMessage = "\n Task not linked to any patients. No Records are added.";
         }
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_TASK_DONE_SUCCESS, completedTask));
+        return new CommandResult(String.format(MESSAGE_TASK_DONE_SUCCESS + patientRecordAddedMessage, completedTask));
     }
 
     @Override

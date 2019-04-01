@@ -202,7 +202,7 @@ public class CsvManager implements CsvCommands {
      */
     private void parseOptions(Set<Option> options, StringBuilder stringBuilder) {
         if (options.isEmpty()) {
-            stringBuilder.append(" " + COMMA_DELIMITTER);
+            stringBuilder.append("" + COMMA_DELIMITTER);
         } else {
             options.forEach(option -> stringBuilder.append(option.optionValue)
                     .append(COMMA_DELIMITTER));
@@ -214,7 +214,7 @@ public class CsvManager implements CsvCommands {
      */
     private void parseHints(Set<Hint> hintSet, StringBuilder stringBuilder) {
         if (hintSet.isEmpty()) {
-            stringBuilder.append(" " + COMMA_DELIMITTER);
+            stringBuilder.append("" + COMMA_DELIMITTER);
         } else {
             hintSet.forEach(hint -> stringBuilder.append(hint.hintName)
                     .append(COMMA_DELIMITTER));

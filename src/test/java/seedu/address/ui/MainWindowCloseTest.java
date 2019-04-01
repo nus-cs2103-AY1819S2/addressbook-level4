@@ -87,8 +87,7 @@ public class MainWindowCloseTest extends GuiUnitTest {
          * the {@code MainWindow} or closing the app through the taskbar).
          */
         private void closeMainWindowExternally() {
-            guiRobot.interact(
-                    () -> stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST)));
+            guiRobot.interact(() -> stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST)));
         }
 
         /**

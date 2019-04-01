@@ -1,0 +1,72 @@
+= Chong Kay Heen - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: FomoFoto
+
+---
+
+== Overview
+
+FomoFoto is a image processing software suite written in Java. This application is optimised for users who are familiar with the Command Line Interface (CLI), while providing a Graphical User Interface (GUI) created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *image manipulation commands*
+** What it does: allows the user manipulate images on a physical level, such as rotating, cropping and resizing the target image.
+** Justification: This feature improves the product significantly because it is an essential feature to an image editor. Users might want to rotate their images because the position is wrong or crop out certain unwanted parts in the image. Should the image be too large, the user can resize it as well.
+** Highlights: This enhancement affects the way in which the images are stored within the application. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Credits: ImageSclr Library 
+
+* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+** Tools:
+*** Integrated a third party library (Natty) to the project (https://github.com[#42])
+*** Integrated a new Github plugin (CircleCI) to the team repo
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=undoredo]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

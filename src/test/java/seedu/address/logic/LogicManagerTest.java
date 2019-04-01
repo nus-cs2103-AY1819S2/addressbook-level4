@@ -46,7 +46,6 @@ import seedu.address.testutil.StatisticsBuilder;
 import seedu.address.testutil.TableBuilder;
 
 public class LogicManagerTest {
-    private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
 
     public static final String ADD_MENU_ITEM_ARGS = " n/Chicken Wings c/W09 p/3.99";
     public static final String ADD_TABLE_ARGS = " 4";
@@ -55,6 +54,8 @@ public class LogicManagerTest {
     public static final String RECEIPT = "\nTable 1\n\nW09  Chicken Wings\n $3.99   x 3\n\nTotal Bill: $ 11.97\n";
     public static final float TOTAL_BILL = (float) 11.97;
     public static final Bill BILL = new Bill(new TableNumber("1"), TOTAL_BILL, RECEIPT);
+
+    private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

@@ -418,6 +418,15 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean markAttemptedMcqAnswer(int answerIndex) {
+        if (answerIndex == currentTestedCard.getValue().getAnswerIndex()) {
+            numAnsweredCorrectly++;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public void setCardAsAnswered() {
         isCardAlreadyAnswered = true;
     }

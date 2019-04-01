@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
+import seedu.address.model.job.JobName;
 import seedu.address.model.job.UniqueJobList;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
@@ -103,9 +104,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The person must not already exist in the job.
      * Adds to the first list
      */
-    public boolean addPersonToJobByNric(Nric nric, Job job) {
+    public boolean addPersonToJobByNric(Nric nric, JobName jobName) {
         Person person = persons.getPerson(nric);
+        Job job = jobs.getJob(jobName);
         boolean status = job.add(person);
+        this.jobs.setJob(job, job);
         indicateModified();
 
         return status;
@@ -143,6 +146,17 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         persons.setPerson(target, editedPerson);
         nrics.setPerson(target, editedPerson);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the given job {@code target} in the list with {@code editedJob}.
+     * {@code target} must exist in the address book.
+     */
+    public void setJob(Job target, Job editedJob) {
+        requireNonNull(editedJob);
+
+        jobs.setJob(target, editedJob);
         indicateModified();
     }
 

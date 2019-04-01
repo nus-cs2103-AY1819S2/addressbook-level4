@@ -18,6 +18,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
+import seedu.address.model.job.JobName;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -121,7 +122,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean addPersonToJob(Job job, Nric nric) {
+    public boolean addPersonToJob(JobName job, Nric nric) {
         requireAllNonNull(job, nric);
 
         return versionedAddressBook.addPersonToJobByNric(nric, job);

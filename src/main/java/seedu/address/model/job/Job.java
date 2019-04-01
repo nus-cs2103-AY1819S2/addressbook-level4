@@ -1,5 +1,6 @@
 package seedu.address.model.job;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
@@ -105,11 +106,12 @@ public class Job {
      * This defines a weaker notion of equality between two jobs.
      */
     public boolean isSameJob(Job otherJob) {
+        requireNonNull(otherJob);
         if (otherJob == this) {
             return true;
         }
 
-        return false;
+        return(otherJob.getName() == this.getName());
     }
 
     /**

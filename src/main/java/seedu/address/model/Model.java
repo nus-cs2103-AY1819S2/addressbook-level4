@@ -9,6 +9,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
+import seedu.address.model.job.JobName;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 
@@ -75,7 +76,7 @@ public interface Model {
     /**
      * adds person with {@code nric} to {@code job}.
      */
-    boolean addPersonToJob(Job job, Nric nric);
+    boolean addPersonToJob(JobName job, Nric nric);
 
     /**
      * Deletes the given person.

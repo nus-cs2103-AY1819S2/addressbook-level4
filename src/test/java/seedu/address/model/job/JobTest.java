@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_JOB_NAME_TEACHER;
 import static seedu.address.testutil.TypicalJobs.ENGINEER;
 import static seedu.address.testutil.TypicalJobs.PASTOR;
+import static seedu.address.testutil.TypicalJobs.PROFESSOR;
 import static seedu.address.testutil.TypicalJobs.TEACHER;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
@@ -51,8 +52,9 @@ public class JobTest {
         // same object -> returns true
         assertTrue(ENGINEER.isSameJob(ENGINEER));
 
-        // null -> returns false
-        assertFalse(ENGINEER.isSameJob(null));
+        // diff object same name -> returns true
+        Job editedProfessor = new JobBuilder(PROFESSOR).withName(VALID_JOB_NAME_TEACHER).build();
+        assertFalse(TEACHER.isSameJob(editedProfessor));
 
         // different name -> returns false
         Job editedEngineer = new JobBuilder(ENGINEER).withName(VALID_JOB_NAME_TEACHER).build();

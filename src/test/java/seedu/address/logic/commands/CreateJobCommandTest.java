@@ -26,6 +26,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
+import seedu.address.model.job.JobName;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.JobBuilder;
@@ -245,7 +246,7 @@ public class CreateJobCommandTest {
         public void addFilteredPersonsToJob(Job job) { throw  new AssertionError("This method should not be called."); }
 
         @Override
-        public boolean addPersonToJob(Job job, Nric nric) { throw  new AssertionError("This method should not be called."); }
+        public boolean addPersonToJob(JobName job, Nric nric) { throw  new AssertionError("This method should not be called."); }
 
     }
 

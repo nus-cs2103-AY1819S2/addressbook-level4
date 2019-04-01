@@ -8,6 +8,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.job.Job;
+import seedu.address.model.job.JobName;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 
@@ -37,15 +38,16 @@ public class AddPersonToJobCommand extends Command {
     public static final String MESSAGE_MISSING_PERSON = "This NRIC is not in the addressbook";
     public static final String MESSAGE_MISSING_JOB = "This job does not exist";
 
-    private final Job toAdd;
+    private final JobName toAdd;
     private final Nric toAddNric;
 
     /**
      * Creates an AddCommand to add the specified {@code job}
      */
-    public AddPersonToJobCommand(Job job, Nric nric) {
-        requireNonNull(job);
-        toAdd = job;
+    public AddPersonToJobCommand(JobName name, Nric nric) {
+        requireNonNull(name);
+        requireNonNull(nric);
+        toAdd = name;
         toAddNric = nric;
     }
 
@@ -53,7 +55,8 @@ public class AddPersonToJobCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasJob(toAdd)) {
+        Job tempJob = new Job(toAdd);
+        if (!model.hasJob(tempJob)) {
             throw new CommandException(MESSAGE_MISSING_JOB);
         }
 

@@ -63,6 +63,8 @@ public class QuizCard {
     }
 
     public List<String> getOpt() {
+        assert index == -1;
+
         return opt;
     }
 

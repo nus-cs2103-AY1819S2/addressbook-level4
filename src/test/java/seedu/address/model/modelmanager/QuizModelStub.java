@@ -51,6 +51,14 @@ public class QuizModelStub implements QuizModel {
     /**
      * This method should not be called.
      */
+    @Override
+    public List<String> getOpt() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    /**
+     * This method should not be called.
+     */
     public String getName() {
         throw new AssertionError("This method should not be called.");
     }

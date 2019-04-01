@@ -136,6 +136,11 @@ public class QuizModelManager implements QuizModel {
     }
 
     @Override
+    public List<String> getOpt() {
+        return quiz.getOpt();
+    }
+
+    @Override
     public boolean isQuizDone() {
         if (quiz != null) {
             return quiz.isQuizDone();

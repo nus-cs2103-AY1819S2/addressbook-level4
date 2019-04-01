@@ -95,6 +95,11 @@ public interface QuizModel extends Model {
     String getAnswerHeader();
 
     /**
+     * Returns list of optional of the original {@code QuizCard} with index.
+     */
+    List<String> getOpt();
+
+    /**
      * Returns if User is done with {@code Quiz}.
      */
     boolean isQuizDone();

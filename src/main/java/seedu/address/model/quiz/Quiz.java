@@ -197,6 +197,14 @@ public class Quiz {
         return original.getQuestionHeader();
     }
 
+    public List<String> getOpt() {
+        assert currentCardIndex != -1;
+
+        QuizCard original = currentSession.get(currentQuizCard.getIndex());
+
+        return original.getOpt();
+    }
+
     /**
      * Returns the current session.
      */

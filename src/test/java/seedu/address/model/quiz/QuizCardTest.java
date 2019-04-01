@@ -84,10 +84,14 @@ public class QuizCardTest {
     }
 
     @Test
+    public void getOpt_invalidIndex_throwsAssertionError() {
+        // do not contain actual index.
+        Assert.assertThrows(AssertionError.class, VALID_QUIZCARD_INDEX::getOpt);
+    }
+
+    @Test
     public void getOpt() {
         assertEquals(FIELDS_OPTIONALS, VALID_QUIZCARD.getOpt());
-
-        assertEquals(null, VALID_QUIZCARD_INDEX.getOpt());
     }
 
     @Test
@@ -98,14 +102,12 @@ public class QuizCardTest {
     @Test
     public void getIndex_invalidIndex_throwsAssertionError() {
         // do not contain actual index.
-        Assert.assertThrows(AssertionError.class, () ->
-            VALID_QUIZCARD.getIndex());
+        Assert.assertThrows(AssertionError.class, VALID_QUIZCARD::getIndex);
     }
 
     @Test
     public void getQuizMode_invalidQuizMode_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () ->
-            VALID_QUIZCARD.getQuizMode());
+        Assert.assertThrows(NullPointerException.class, VALID_QUIZCARD::getQuizMode);
     }
 
     @Test

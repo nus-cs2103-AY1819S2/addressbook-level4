@@ -39,7 +39,8 @@ public class MainPanelTest extends GuiUnitTest {
             mainPanelHandle.getText());
 
         // only question
-        QuizUiDisplayFormatter formatterReview = new QuizUiDisplayFormatter("Question", "some question", "Answer", QuizMode.REVIEW);
+        QuizUiDisplayFormatter formatterReview = new QuizUiDisplayFormatter(
+            "Question", "some question", "Answer", QuizMode.REVIEW);
 
         guiRobot.interact(() -> mainPanel.setFeedbackToUser(formatterReview));
         guiRobot.pauseForHuman();
@@ -47,12 +48,13 @@ public class MainPanelTest extends GuiUnitTest {
             mainPanelHandle.getText());
 
         // wrong twice in a row
-        QuizUiDisplayFormatter formatterWrongTwice = new QuizUiDisplayFormatter("Question", "some question",
-            "Answer", "some answer", QuizMode.PREVIEW, true);
+        QuizUiDisplayFormatter formatterWrongTwice = new QuizUiDisplayFormatter(
+            "Question", "some question", "Answer", "some answer", QuizMode.PREVIEW, true);
 
         guiRobot.interact(() -> mainPanel.setFeedbackToUser(formatterWrongTwice));
         guiRobot.pauseForHuman();
-        assertEquals("Question: some question\nAnswer: some answer\nType the Answer for the Question above and press Enter",
+        assertEquals("Question: some question\nAnswer: some answer\n"
+                + "Type the Answer for the Question above and press Enter",
             mainPanelHandle.getText());
 
         // switch back to management mode, so become blank

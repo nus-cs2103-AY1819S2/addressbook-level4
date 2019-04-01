@@ -1,8 +1,12 @@
 package seedu.equipment.model.equipment;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.equipment.commons.util.AppUtil.checkArgument;
 
-import seedu.equipment.commons.util.AppUtil;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 
 /**
  * Represents a Equipment's due date in the equipment book.
@@ -14,11 +18,13 @@ public class Date implements Comparable<Date> {
             "Next preventive maintenance due date should only contain alphanumeric characters and spaces, "
                     + "and it should not be blank" + "\n" + "It should be in a format [date] [month] [year].";
 
+
     /*
      * The first character of the preventive maintenance date must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
+     *
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final DateFormat VALID_DATE_FORMAT = new SimpleDateFormat("dd MMMM yyyy");
 
     public final String value;
 
@@ -29,15 +35,22 @@ public class Date implements Comparable<Date> {
      */
     public Date(String date) {
         requireNonNull(date);
-        AppUtil.checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
         value = date;
     }
 
     /**
      * Returns if a given string is a valid date.
+     * The date must be a valid date, e.g: 32 February 2019 is not accepted.
      */
     public static boolean isValidDate(String test) {
-        return test.matches(VALIDATION_REGEX);
+        VALID_DATE_FORMAT.setLenient(false);
+        try {
+            VALID_DATE_FORMAT.parse(test);
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
     }
 
     @Override

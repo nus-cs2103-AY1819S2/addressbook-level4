@@ -39,6 +39,8 @@ public class RestaurantCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
+    private HBox categoriesPane;
+    @FXML
     private Label cuisine;
     @FXML
     private Label occasion;
@@ -60,6 +62,10 @@ public class RestaurantCard extends UiPart<Region> {
         restaurant.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
 
         restaurant.getCategories().setLabels(cuisine, occasion, priceRange);
+        if (restaurant.getCategories().isEmpty()) {
+            categoriesPane.setVisible(false);
+            categoriesPane.setManaged(false);
+        }
 
         weblink.setText(restaurant.getWeblink().value);
         openingHours.setText(restaurant.getOpeningHours().value);

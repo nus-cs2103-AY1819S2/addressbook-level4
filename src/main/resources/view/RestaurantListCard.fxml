@@ -28,7 +28,7 @@
         </Label>
         <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
       </HBox>
-      <HBox>
+      <HBox fx:id="categoriesPane">
         <Label fx:id="cuisine" styleClass="cell_cuisine_label" text="\$cuisine" />
         <Label fx:id="occasion" styleClass="cell_occasion_label" text="\$occasion" />
         <Label fx:id="priceRange" styleClass="cell_price_label" text="\$priceRange" />

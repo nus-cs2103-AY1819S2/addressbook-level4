@@ -74,6 +74,10 @@ public class Category {
                 priceRangeLabel.setVisible(false));
     }
 
+    public boolean isEmpty() {
+        return !cuisine.isPresent() && !occasion.isPresent() && !priceRange.isPresent();
+    }
+
     @Override
     public boolean equals(Object obj) {
         return obj == this // short circuit if same object

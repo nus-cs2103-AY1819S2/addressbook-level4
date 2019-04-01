@@ -33,7 +33,7 @@ public class DecksView implements ListViewState {
 
     public final FilteredList<Deck> filteredDecks;
 
-    private final SimpleObjectProperty<Deck> selectedDeck = new SimpleObjectProperty<>();
+    public final SimpleObjectProperty<Deck> selectedDeck = new SimpleObjectProperty<>();
 
     private Model model;
 

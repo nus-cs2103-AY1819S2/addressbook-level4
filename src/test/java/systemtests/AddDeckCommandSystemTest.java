@@ -49,7 +49,7 @@ public class AddDeckCommandSystemTest extends TopDeckSystemTest {
         /* Case: redo adding DECK_A to the list -> Deck_A added again */
         command = RedoCommand.COMMAND_WORD;
         model.addDeck(toAdd);
-        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS + AddDeckCommand.COMMAND_WORD;
+        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: add a Deck with a different name -> added */

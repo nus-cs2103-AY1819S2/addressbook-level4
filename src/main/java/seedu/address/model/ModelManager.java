@@ -185,7 +185,6 @@ public class ModelManager implements Model {
     public void addDeck(Deck deck) {
         logger.info("Added a new deck to TopDeck.");
         versionedTopDeck.addDeck(deck);
-        commitTopDeck();
     }
 
     @Override
@@ -286,7 +285,8 @@ public class ModelManager implements Model {
             CardsView cardsView = (CardsView) viewState;
             cardsView.selectedCard.set((Card) card);
         } else if (card instanceof Deck && isAtDecksView()) {
-            //TODO: Deck has to set its selection
+            DecksView decksView = (DecksView) viewState;
+            decksView.selectedDeck.set((Deck) card);
         } else if (card != null) {
             throw new IllegalOperationWhileReviewingCardException();
         }

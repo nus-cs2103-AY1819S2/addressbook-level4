@@ -24,6 +24,7 @@ import seedu.address.logic.CardsView;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.DeckNameContainsKeywordsPredicate;
 import seedu.address.model.deck.exceptions.CardNotFoundException;
+import seedu.address.testutil.DeckBuilder;
 import seedu.address.testutil.TopDeckBuilder;
 
 public class ModelManagerTest {
@@ -240,38 +241,7 @@ public class ModelManagerTest {
         activeDeck = extractActiveDeck(modelManager);
         assertTrue(modelManager.hasCard(SUBTRACTION, activeDeck));
     }
-
-    //TODO addDeck delete deck functionality
-//    @Test
-//    public void deleteDeck_deckIsSelectedAndSecondDeckInFilteredDeckList_firstDeckSelected() {
-//        modelManager.addDeck(DECK_A);
-//        modelManager.addDeck(DECK_B);
-//        assertEquals(Arrays.asList(DECK_A, DECK_B), modelManager.getFilteredList());
-//        modelManager.setSelectedItem(DECK_B);
-//        modelManager.deleteDeck(DECK_B);
-//        assertEquals(DECK_A, modelManager.getSelectedItem());
-//    }
-
-    //TODO for card
-//    @Test
-//    public void setCard_cardIsSelected_selectedCardUpdated() {
-//        modelManager.addCard(ADDITION);
-//        modelManager.setSelectedItem(ADDITION);
-//        Card updatedAddition = new CardBuilder(ADDITION).withAnswer(VALID_ANSWER_MOD).build();
-//        modelManager.setCard(ADDITION, updatedAddition);
-//        assertEquals(updatedAddition, modelManager.getSelectedItem());
-//    }
-
-    //TODO addDeck setDeck
-//    @Test
-//    public void setDeck_deckIsSelected_selectedDeckUpdated() {
-//        modelManager.addDeck(DECK_A);
-//        modelManager.setSelectedItem(DECK_A);
-//        Deck updatedAddition = new DeckBuilder(DECK_A).build();
-//        modelManager.setDeck(DECK_A, updatedAddition);
-//        assertEquals(updatedAddition, modelManager.getSelectedItem());
-//    }
-
+    
     @Test
     public void getFilteredList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);

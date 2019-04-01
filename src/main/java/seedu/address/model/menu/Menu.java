@@ -1,7 +1,6 @@
 package seedu.address.model.menu;
 
 import static java.util.Objects.requireNonNull;
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +18,7 @@ public class Menu implements ReadOnlyMenu {
 
     private final UniqueMenuItemList menuItems;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
+    public static final String MESSAGE_ILLEGAL_QUANTITY = "The quantity to add should be more than 0.";
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -116,8 +116,11 @@ public class Menu implements ReadOnlyMenu {
     }
 
     @Override
-    public void updateMenuItemQuantity(MenuItem menuItem, int newQuantity) {
-        menuItems.updateMenuItemQuantity(menuItem, newQuantity);
+    public void updateMenuItemQuantity(MenuItem menuItem, int quantityToAdd) {
+        if (quantityToAdd <= 0) {
+            throw new IllegalArgumentException(MESSAGE_ILLEGAL_QUANTITY);
+        }
+        menuItems.updateMenuItemQuantity(menuItem, quantityToAdd);
         indicateModified();
     }
 

@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CODE_TEA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_TEA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_TEA;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_8;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_ORDERED_8;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalRestOrRant.getTypicalRestOrRant;
@@ -33,7 +33,7 @@ public class AddToMenuCommandIntegrationTest {
     @Test
     public void execute_newMenuItem_success() {
         MenuItem validMenuItem = new MenuItemBuilder().withName(VALID_NAME_TEA).withCode(VALID_CODE_TEA)
-                                         .withPrice(VALID_PRICE_TEA).withQuantity(VALID_QUANTITY_8).build();
+                                         .withPrice(VALID_PRICE_TEA).withQuantity(VALID_QUANTITY_ORDERED_8).build();
 
         Model expectedModel = new ModelManager(model.getRestOrRant(), new UserPrefs());
         expectedModel.addMenuItem(validMenuItem);

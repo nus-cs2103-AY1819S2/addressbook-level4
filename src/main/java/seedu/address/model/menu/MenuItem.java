@@ -16,7 +16,7 @@ public class MenuItem {
 
     // Data fields
     private final Price price;
-    private int quantity;
+    private final int quantityOrdered;
     //    private final Address address;
     //    private final Set<Tag> tags = new HashSet<>();
     //  private int quantity; TODO: update qty method (get from beatrice)
@@ -24,12 +24,12 @@ public class MenuItem {
     /**
      * Every field must be present and not null.
      */
-    public MenuItem(Name name, Code code, Price price, int quantity) {
+    public MenuItem(Name name, Code code, Price price, int quantityOrdered) {
         requireAllNonNull(name, code, price);
         this.name = name;
         this.code = code;
         this.price = price;
-        this.quantity = quantity;
+        this.quantityOrdered = quantityOrdered;
     }
 
     public Name getName() {
@@ -45,19 +45,19 @@ public class MenuItem {
     }
 
     public int getQuantity() {
-        return quantity;
+        return quantityOrdered;
     }
 
     public String itemQuantityOrdered() {
-        return String.valueOf(quantity);
+        return String.valueOf(quantityOrdered);
     }
 
     /**
      * Updates the quantity of this menu item ordered.
      */
-    public void updateMenuItemQuantity(int newQuantity) {
+    public int getNewQuantity(int quantityToAdd) {
         int currentQuantity = this.getQuantity();
-        this.quantity = currentQuantity + newQuantity;
+        return currentQuantity + quantityToAdd;
     }
 
     /**
@@ -94,7 +94,7 @@ public class MenuItem {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, code, price, quantity);
+        return Objects.hash(name, code, price, quantityOrdered);
     }
 
     @Override

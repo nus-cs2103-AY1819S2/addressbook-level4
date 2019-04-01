@@ -121,6 +121,12 @@ public class MenuTest {
         assertEquals(0, counter.get());
     }
 
+    @Test
+    public void updateMenuItemQuantity_zeroQuantity_throwsIllegalValueException() {
+        thrown.expect(IllegalArgumentException.class);
+        menu.updateMenuItemQuantity(FRENCH_FRIES, 0);
+    }
+
     /**
      * A stub ReadOnlyOrders whose order item list can violate interface constraints.
      */

@@ -198,4 +198,14 @@ public class UniqueMenuItemListTest {
         uniqueMenuItemList.setMenuItems(listWithDuplicateMenuItem);
     }
 
+    @Test
+    public void updateMenuItemQuantity_validQuantity() {
+        uniqueMenuItemList.add(FRENCH_FRIES);
+        uniqueMenuItemList.updateMenuItemQuantity(FRENCH_FRIES, 10);
+        UniqueMenuItemList expectedMenuItemList = new UniqueMenuItemList();
+        expectedMenuItemList.add(new MenuItem(FRENCH_FRIES.getName(), FRENCH_FRIES.getCode(), FRENCH_FRIES.getPrice(),
+                FRENCH_FRIES.getQuantity() + 10));
+        assertEquals(uniqueMenuItemList, expectedMenuItemList);
+    }
+
 }

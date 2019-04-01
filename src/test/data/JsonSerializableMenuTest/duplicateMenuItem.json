@@ -3,11 +3,11 @@
     "name" : "Chicken Nuggets",
     "code" : "W06",
     "price" : "3.40",
-    "quantity" : "0"
+    "quantityOrdered" : "0"
   }, {
     "name" : "Chicken Nuggets",
     "code" : "W06",
     "price" : "2.30",
-    "quantity" : "1"
+    "quantityOrdered" : "1"
   } ]
 }

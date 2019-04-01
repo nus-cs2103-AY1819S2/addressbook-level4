@@ -37,12 +37,10 @@ public class MenuItemTest {
     }
 
     @Test
-    public void updateMenuItemQuantity() {
-        // valid quantity -> returns true
+    public void getNewQuantity() {
         int currentQuantity = FRENCH_FRIES.getQuantity();
         int newQuantity = 10 + currentQuantity;
-        FRENCH_FRIES.updateMenuItemQuantity(10);
-        assertEquals(FRENCH_FRIES.getQuantity(), newQuantity);
+        assertEquals(FRENCH_FRIES.getNewQuantity(10), newQuantity);
     }
 
     @Test

@@ -3,6 +3,6 @@
     "name" : "Invalid Name!@",
     "code" : "W06",
     "price" : "3.40",
-    "quantity" : "2"
+    "quantityOrdered" : "2"
   } ]
 }

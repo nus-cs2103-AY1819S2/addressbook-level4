@@ -71,9 +71,9 @@ public class JsonAdaptedMenuItemTest {
     }
 
     @Test
-    public void toModelType_nullQuantity_throwsIllegalValueException() {
+    public void toModelType_nullQuantityOrdered_throwsIllegalValueException() {
         JsonAdaptedMenuItem menuItem = new JsonAdaptedMenuItem(VALID_NAME, VALID_CODE, VALID_PRICE, null);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, "Quantity should not be null");
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, "Quantity ordered should not be null");
         Assert.assertThrows(IllegalValueException.class, expectedMessage, menuItem::toModelType);
     }
 

@@ -4,6 +4,6 @@
     "name" : "Chicken Nuggets",
     "code" : "W06",
     "price" : "3.405",
-    "quantity" : "2"
+    "quantityOrdered" : "2"
   } ]
 }

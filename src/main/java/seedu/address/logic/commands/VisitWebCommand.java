@@ -46,7 +46,9 @@ public class VisitWebCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        // assert that either one parameters must be present
         assert(targetIndex != null || weblink != null);
+
         if (targetIndex != null) {
             requireNonNull(model);
 
@@ -54,6 +56,11 @@ public class VisitWebCommand extends Command {
 
             if (targetIndex.getZeroBased() >= filteredRestaurantList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);
+            }
+
+            Weblink weblink = filteredRestaurantList.get(targetIndex.getZeroBased()).getWeblink();
+            if (!Weblink.isValidWeblinkUrl(weblink.value)) {
+                throw new CommandException(String.format(Messages.MESSAGE_CHANGE_WEBLINK, weblink.value));
             }
 
             model.setSelectedRestaurant(filteredRestaurantList.get(targetIndex.getZeroBased()));

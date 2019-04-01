@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import seedu.hms.commons.core.GuiSettings;
 import seedu.hms.commons.core.LogsCenter;
 import seedu.hms.logic.Logic;
+import seedu.hms.logic.LogicManager;
 import seedu.hms.logic.commands.CommandResult;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.logic.parser.exceptions.ParseException;
@@ -132,7 +133,8 @@ public class MainWindow extends UiPart<Stage> {
                 logic.selectedReservationProperty(),
                 logic::setSelectedReservation);
 
-        bookingAndReservationPanel = new BookingAndReservationPanel(bookingListPanel, reservationListPanel);
+        bookingAndReservationPanel = new BookingAndReservationPanel(bookingListPanel, reservationListPanel,
+                LogicManager.selectedPanelOneTabIndexProperty(), LogicManager::setSelectedPanelOneTabIndex);
         bookingAndReservationPanelPlaceholder.getChildren().add(bookingAndReservationPanel.getRoot());
 
         serviceTypeListPanel = new ServiceTypeListPanel(logic.getServiceTypeList(), logic.selectedServiceTypeProperty(),
@@ -141,7 +143,8 @@ public class MainWindow extends UiPart<Stage> {
         roomTypeListPanel = new RoomTypeListPanel(logic.getRoomTypeList(), logic.selectedRoomTypeProperty(),
                 logic::setSelectedRoomType);
 
-        serviceTypeAndRoomTypePanel = new ServiceTypeAndRoomTypePanel(serviceTypeListPanel, roomTypeListPanel);
+        serviceTypeAndRoomTypePanel = new ServiceTypeAndRoomTypePanel(serviceTypeListPanel, roomTypeListPanel,
+                LogicManager.selectedPanelTwoTabIndexProperty(), LogicManager::setSelectedPanelTwoTabIndex);
         serviceTypeAndRoomTypePlaceholder.getChildren().add(serviceTypeAndRoomTypePanel.getRoot());
 
         resultDisplay = new ResultDisplay();

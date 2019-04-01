@@ -181,83 +181,69 @@ Examples:
 * `addToOrder W09 2`
 * `addToOrder W09 1 N01 1 C04 2`
 
-==== Adding a note to an item in an order: `addNote`
+==== Adding a note to an item in an order: `addNote` _(coming in v2.0)_
 
-Adds a note to an item in the order of the specified table. +
+Adds a note to an item in the order of the current selected table. +
 Format: `addNote ITEM_CODE NOTE`
 
 ****
-* Item has to exist both in the menu (i.e. item code has to be valid) and order before the note is added.
+* Item has to exist both in the menu (i.e. item code has to be valid) and order (i.e. item has been ordered) before the note can be added.
 ****
 
 Examples:
 
-* `addNote 1 W09 Less spicy`
+* `addNote W09 Less spicy`
 
 ==== Deleting an item from an order: `deleteFromOrder`
 
-Deletes a specified item from the order of the specified table. +
+Deletes a specified item from the order of the current selected table. +
 Format: `deleteFromOrder ITEM_CODE`
 
 ****
-* Item has to exist both in the menu (i.e. item code has to be valid) and order before it is deleted from the order.
+* Item has to exist both in the menu (i.e. item code has to be valid) and order (i.e. item has been ordered) before it can be deleted from the order.
 ****
 
 Examples:
 
-* `deleteFromOrder 1 W09` +
-Deletes W09 Chicken Wings from table 1’s order.
+* `deleteFromOrder W09` +
+Deletes W09 Chicken Wings from the current table's order.
 
 ==== Clearing all the items in an order: `clearOrder`
 
-Deletes all the items ordered by the specified table. +
-Format: `clearOrder TABLE_NUMBER`
+Deletes all the items ordered by the current selected table. +
+Format: `clearOrder`
 
 Examples:
 
-* `clearOrder 1`
+* `clearOrder`
 
-==== Marking an item in an order as served: `serve`
+==== Marking an item in an order as served: `serve` _(coming in v1.4)_
 
-Marks the specified item as served for the specified table. +
+Marks the specified item as served for the current selected table. +
 Format: `serve ITEM_CODE [QUANTITY]`
 
 ****
-* Item has to exist in both the menu (i.e. item code has to be valid) and order before it is marked as served.
-* The quantity served cannot be greater than the ordered quantity of the item.
+* Item has to exist in both the menu (i.e. item code has to be valid) and order (i.e. item has to be ordered) before it can be marked as served.
+* The quantity served cannot be greater than the unserved quantity of the item.
 * If quantity is not specified, the default quantity is 1.
 ****
 
 Examples:
 
-* `serve 1 W09` +
-Updates the status of table 1’s order with 1 W09 Chicken Wings served.
-* `serve 5 C04 2` +
-Updates the status of table 5’s order with 2 C04 Shrimp Fried Rice served.
-
-==== Checking if table is served : `isTableServed`
-
-Checks if all menu items on the order has been served. +
-Format: `isTableServed`
-
-****
-* Checks if the table exists.
-****
-
-Examples:
-
-* `isTableServed` +
-Returns `Table is fully served`, `Table is not fully served` or `Table is empty`
+* `serve W09` +
+Updates the status of the current table's order with 1 W09 Chicken Wings served.
+* `serve C04 2` +
+Updates the status of the current table's order with 2 C04 Shrimp Fried Rice served.
 
 ==== Calculating the bill of an order : `bill`
 
-Calculates the bill of an order from the specified table and displays the receipt. +
+Calculates the bill of an order from the current selected table and displays the receipt. +
 Format: `bill`
 
 Examples:
 
-* `TableMode 1` then `bill` +
-Returns the total price of the order from table 1.
+* `bill` +
+Returns the total price of the order from the current table.
 
 === Menu Mode
 
@@ -302,6 +288,8 @@ Checks if item with code A02 exists in the menu.
 === Statistics Mode
 
 In Statistics Mode, you can obtain statistics related to your restaurant, such as daily revenue and the popularity of dishes.
+
+image::SMUi.png[width="790"]
 
 ==== Getting the most popular item ordered: `getMostPopularItem`
 
@@ -403,38 +391,62 @@ Returns All the statistics it has computed.
 
 == Command Summary
 
-* *Changing to RestaurantMode* : `restaurantMode`
-* *Add tables* : `addTable NUMBER_OF_SEATS [NUMBER_OF_SEATS] ...` +
-e.g. `addTables 2 4 6 8`
-* *Remove table* : `removeTable TABLE_NUMBER` +
-e.g. `removeTable 3`
-* *Update table* : `updateTable TABLE_NUMBER NEW_OCCUPANCY` +
-e.g. `updateTable 3 2`
-* *Add items to order* : `addToOrder TABLE_NUMBER ITEM_CODE QUANTITY [ITEM_CODE QUANTITY] …` +
-e.g. `addToOrder 5 W09 1 N01 1 C04 2`
-* *Add note to order* : `addNote TABLE_NUMBER ITEM_CODE NOTE` +
-e.g. `addNote 1 W09 Less spicy`
-* *Delete item from order* : `deleteFromOrder TABLE_NUMBER ITEM_CODE [QUANTITY]` +
-e.g. `deleteFromOrder 1 W09 1`
-* *Clear order* : `clearOrder TABLE_NUMBER` +
-e.g. `clearOrder 1`
-* *Update item served status* : `serve TABLE_NUMBER ITEM_CODE [QUANTITY]` +
-e.g. `serve 5 C04 2`
-* *Table serve status* : `isTableServed`
-* *Add item to menu* : `addToMenu` +
-e.g. `addToMenu c/A02 n/French Fries p/2.00`
-* *Remove item from menu* : `removeFromMenu` +
-e.g. `removeFromMenu c/A02 n/French Fries`
-* *Check if item exists in the menu* : `itemExists` +
-e.g. `itemExists ITEM_CODE`
-* *Calculate bill of an order* : `bill` +
-e.g. `bill TABLE_NUMBER`
-* *Get most popular item* : `getMostPopularItem` +
-e.g. `getMostPopularItem`
-* *Get total number of customers* : `getTotalCustomers` +
-e.g. `getTotalCustomers [YEAR] [MONTH] [DAY]`
-* *Get total revenue* : `getTotalRevenue` +
-e.g. `getTotalRevenue [YEAR] [MONTH] [DAY]`
-* *Get all statistics* : `getStatistics` +
-e.g. `getStatistics`
-* *Help* : `help`
+Here is our reference sheet so that you can have all of RestOrRant's commands and features at your fingertips!
+
+=== General
+
+[width="90%",cols="25%,15%,30%,30%",options="header",]
+|=======================================================================
+|Command |Shortcut |Usage |Example
+|`help` | kbt:[F1] | `help` | Shows the user guide
+|`restaurantMode` | `*RM*` | `restaurantMode` | Switches to Restaurant Mode
+|`tableMode` | `*TM*` | `tableMode TABLE_NUMBER` | `tableMode 1` + 
+Switches to Table Mode for Table 1
+|`menuMode` | `*MM*` | `menuMode` | Switches to Menu Mode
+|`statisticsMode` | `*SM*` | `statisticsMode` | Switches to Statistics Mode
+|`exit` | - | `exit` | Exits RestOrRant
+|=======================================================================
+
+=== Restaurant Mode
+
+[width="90%",cols="25%,15%,30%,30%",options="header",]
+|=======================================================================
+|Command |Shortcut |Usage |Example
+|`addTable` | `add` | `addTable NUMBER_OF_SEATS [NUMBER_OF_SEATS] ...` | `addTable 2 4 6 8` +
+Adds 4 tables with 2, 4, 6 and 8 seats
+|`editPax` | - | `editPax TABLE_NUMBER NEW_OCCUPANCY` | `editPax 1 2` +
+Updates Table 1 to have 2 diners
+|`editSeats` | - | `editSeats TABLE_NUMBER NUMBER_OF_SEATS` | `editSeats 1 5` +
+Updates Table 1 to have 5 seats
+|`clearTable` | `clear` | `clearTable` | Clears all the tables in RestOrRant
+|=======================================================================
+
+=== Table Mode
+
+[width="90%",cols="25%,15%,30%,30%",options="header",]
+|=======================================================================
+|Command |Shortcut |Usage |Example
+|`addToOrder` | `add` | `addToOrder ITEM_CODE QUANTITY [ITEM_CODE QUANTITY] …` | `addToOrder W09 1 W12 2` +
+Adds 1 W09 and 2 W12 to the current table's order
+|`deleteFromOrder` | - | `deleteFromOrder ITEM_CODE` | `deleteFromOrder W09` +
+Removes W09 from the current table's order
+|`clearOrder` | `clear` | `clearOrder` | Clears all the items from the current table's order
+|`bill` | `b` | `bill` | Returns the bill for the current table's order
+|=======================================================================
+
+=== Menu Mode
+
+[width="90%",cols="25%,15%,30%,30%",options="header",]
+|=======================================================================
+|Command |Shortcut |Usage |Example
+|`addToMenu` | `add` | `addToMenu c/ITEM_CODE n/ITEM_NAME p/ITEM_PRICE …` | `addToMenu c/A02 n/French Fries p/2.00` +
+Adds A02 to the menu
+|=======================================================================
+
+=== Statistics Mode
+
+[width="90%",cols="25%,15%,30%,30%",options="header",]
+|=======================================================================
+|Command |Shortcut |Usage |Example
+|`command`|`shortcut`|`usage`|`example`
+|=======================================================================

@@ -23,7 +23,7 @@ public class FindDeckCommandParser implements Parser<FindDeckCommand> {
     public FindDeckCommandParser(DecksView decksView) {
         this.decksView = decksView;
     }
-    
+
     /**
      * Parses the given {@code String} of arguments in the context of the FindDeckCommand
      * and returns an FindDeckCommand object for execution.

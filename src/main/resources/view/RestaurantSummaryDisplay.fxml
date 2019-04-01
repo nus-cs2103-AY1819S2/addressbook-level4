@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+     <Label fx:id="name" text="\$name" wrapText="true" />
+     <Label fx:id="avgRating" text="\$avgRating" wrapText="true" />
+     <Label fx:id="totalVisits" text="\$totalVisits" wrapText="true" />
+     <Label fx:id="address" text="\$address" wrapText="true" />
+     <Label fx:id="phone" text="\$phone" wrapText="true" />
+     <Label fx:id="openingHours" text="\$openingHours" wrapText="true" />
+     <Label fx:id="email" text="\$email" wrapText="true" />
+     <Label fx:id="weblink" text="\$weblink" wrapText="true" />
+  </children>
+</VBox>

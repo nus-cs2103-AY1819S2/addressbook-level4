@@ -44,6 +44,8 @@ public class ModelManager implements Model {
 
     private final UserPrefs userPrefs;
 
+    private State state;
+
     //Card related
     private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
 
@@ -52,18 +54,13 @@ public class ModelManager implements Model {
     private final FilteredList<VersionedCardFolder> filteredFolders;
     private final List<FilteredList<Card>> filteredCardsList;
     private int activeCardFolderIndex;
-    private boolean inFolder;
 
     // Test Session related
     private final SimpleObjectProperty<Card> currentTestedCard = new SimpleObjectProperty<>();
     private ObservableList<Card> currentTestedCardFolder;
     private int currentTestedCardIndex;
-    private boolean inTestSession = false;
     private boolean cardAlreadyAnswered = false;
     private int numAnsweredCorrectly = 0;
-
-    // Report display related
-    private boolean inReportDisplay = false;
 
     // Export related
     private CsvManager csvManager;
@@ -103,7 +100,7 @@ public class ModelManager implements Model {
 
         // ModelManager initialises to first card folder
         activeCardFolderIndex = 0;
-        inFolder = true;
+        state = State.IN_FOLDER;
     }
 
     public ModelManager(String newFolderName) {
@@ -232,19 +229,14 @@ public class ModelManager implements Model {
 
     @Override
     public void enterFolder(int index) {
-        inFolder = true;
+        state = State.IN_FOLDER;
         activeCardFolderIndex = index;
     }
 
     @Override
     public void exitFolderToHome() {
-        inFolder = false;
+        state = State.IN_HOMEDIR;
         removeSelectedCard();
-    }
-
-    @Override
-    public boolean isInFolder() {
-        return inFolder;
     }
 
     @Override
@@ -344,19 +336,15 @@ public class ModelManager implements Model {
     }
 
     //=========== Report Displayed =======================================================================
-    @Override
-    public boolean inReportDisplay() {
-        return inReportDisplay;
-    }
 
     @Override
     public void enterReportDisplay() {
-        inReportDisplay = true;
+        state = State.IN_REPORT;
     }
 
     @Override
     public void exitReportDisplay() {
-        inReportDisplay = false;
+        state = State.IN_FOLDER;
     }
 
 
@@ -375,7 +363,7 @@ public class ModelManager implements Model {
         currentTestedCardIndex = 0;
         Card cardToTest = currentTestedCardFolder.get(currentTestedCardIndex);
         setCurrentTestedCard(cardToTest);
-        inTestSession = true;
+        state = State.IN_TEST;
         numAnsweredCorrectly = 0;
     }
 
@@ -397,7 +385,7 @@ public class ModelManager implements Model {
         getActiveVersionedCardFolder()
                 .addFolderScore((double) numAnsweredCorrectly / getActiveCardFolder().getCardList().size());
         getActiveVersionedCardFolder().commit();
-        inTestSession = false;
+        state = State.IN_FOLDER;
         setCardAsNotAnswered();
         numAnsweredCorrectly = 0;
         setCurrentTestedCard(null);
@@ -438,11 +426,6 @@ public class ModelManager implements Model {
     @Override
     public boolean isCardAlreadyAnswered() {
         return cardAlreadyAnswered;
-    }
-
-    @Override
-    public boolean isInTestSession() {
-        return inTestSession;
     }
 
     @Override
@@ -512,6 +495,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public State getState() {
+        return state;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -529,11 +517,10 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredCardsList.equals(other.filteredCardsList)
                 && Objects.equals(selectedCard.get(), other.selectedCard.get())
-                && inTestSession == other.inTestSession
+                && state == other.state
                 && currentTestedCardIndex == other.currentTestedCardIndex
                 && cardAlreadyAnswered == other.cardAlreadyAnswered
-                && activeCardFolderIndex == other.activeCardFolderIndex
-                && inFolder == other.inFolder;
+                && activeCardFolderIndex == other.activeCardFolderIndex;
     }
 
 

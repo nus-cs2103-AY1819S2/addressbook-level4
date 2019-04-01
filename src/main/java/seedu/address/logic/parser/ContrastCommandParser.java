@@ -26,6 +26,10 @@ public class ContrastCommandParser implements Parser<ContrastCommand> {
         } else {
             args = args.trim();
             String[] parsed = args.split(" ");
+            if (parsed.length > 2) {
+                throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    ContrastCommand.MESSAGE_USAGE));
+            }
             if (parsed.length == 1) {
                 try {
                     contrastValue = OptionalDouble.of(Double.parseDouble(parsed[0]));

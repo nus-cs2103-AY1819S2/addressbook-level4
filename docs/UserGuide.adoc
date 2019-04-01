@@ -252,6 +252,7 @@ You can also reverse the order of the list of entries in the records.
 
 *Format*: reverse
 
+// tag::summary[]
 ==== Showing summary of records: `summary`
 
 You can see the summary of your previous expenditures, with an aster plot graph showing how your spending habits are like in the
@@ -260,7 +261,7 @@ different categories. It also displays the remaining budget amount for each cate
 Deleted entries are not included in the summary.
 
 *Format*: `summary`
-
+// end::summary[]
 
 === Miscellaneous
 

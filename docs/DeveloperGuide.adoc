@@ -208,7 +208,7 @@ The `Model`,
 
 
 [NOTE]
-As a more OOP model, we can store a `Hint` list in `VersionedCardFolder`, which `Card` can reference. This would allow `VersionedCardFolder` to only require one `Hint` object per unique `Hint`, instead of each `Card` needing their own `Hint` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can change the `Card` implementation to be that of a parent class, from which 2 subclasses, `SingleAnswerCard` and `McqCard` can inherit from. This would eliminate the need for the `Card` class to maintain a Set of MCQ `Options` even if it is a Single-answer card. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 

@@ -184,10 +184,11 @@ public class MainWindow extends UiPart<Stage> {
     public void changePanel(String commandText) {
         String[] cmdArray = commandText.split(" ");
         String command = cmdArray[0];
+
         browserPlaceholder.getChildren().remove(0);
         Node newPanel = commandPanelHandler.getCommandPanel(command);
         if (newPanel == null) {
-            newPanel = (new BrowserPanel(logic.selectedPersonProperty())).getRoot();
+            newPanel = new BrowserPanel(logic.selectedPersonProperty()).getRoot();
         }
         browserPlaceholder.getChildren().add(0, newPanel);
     }

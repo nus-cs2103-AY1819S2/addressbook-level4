@@ -69,6 +69,10 @@ public class TaskAddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 
+        if(targetIndex != null) {
+
+        }
+
         model.addTask(toAdd);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getTitle()));

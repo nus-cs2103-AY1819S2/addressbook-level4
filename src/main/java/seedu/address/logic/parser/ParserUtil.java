@@ -13,7 +13,6 @@ import javafx.util.Pair;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
 import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.datetime.DateOfBirth;
 import seedu.address.model.datetime.TimeCustom;
@@ -26,7 +25,6 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.record.LinkedPatient;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.Title;
@@ -271,20 +269,6 @@ public class ParserUtil {
         }
         return Priority.returnPriority(trimmedPriority);
     }
-
-    /**
-     * Parses a {@code Index index} into an {@code LinkedPatient}.
-     * Leading and trailing whitespaces will be trimmed.
-     */
-    public static LinkedPatient linkedPatient(Index index) throws ParseException {
-        requireNonNull(priority);
-        String trimmedPriority = priority.trim().toLowerCase();
-        if (!Priority.isValidPriority(trimmedPriority)) {
-            throw new ParseException(Priority.MESSAGE_CONSTRAINTS);
-        }
-        return Priority.returnPriority(trimmedPriority);
-    }
-
 
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.

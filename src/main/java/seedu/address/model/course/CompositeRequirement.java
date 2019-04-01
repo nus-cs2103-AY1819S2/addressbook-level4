@@ -10,6 +10,8 @@ import seedu.address.model.moduleinfo.ModuleInfoCode;
  * Represents a composite Course Requirement that is connected by logical connectors.
  */
 public class CompositeRequirement implements CourseRequirement {
+    //TODO: Refine implementation of Course Requirement to store more than 2 modules
+
     /**
      * Represents logical connectors of CompositeRequirement
      */
@@ -43,11 +45,13 @@ public class CompositeRequirement implements CourseRequirement {
         return courseReqType;
     }
 
+    //TODO: Refine this method. Now only get name of first requirement, perhaps add name attribute
     @Override
     public String getCourseReqName() {
         return first.getCourseReqName();
     }
 
+    //TODO: Refine this method. Perhaps add desc attribute for class
     @Override
     public String getCourseReqDesc() {
         switch(connector) {
@@ -93,6 +97,8 @@ public class CompositeRequirement implements CourseRequirement {
                     second.getFulfilledPercentage(moduleInfoCode));
         case AND:
         default:
+            //TODO: "AND" does not reveal the true rate of completion.
+            // Perhaps use some method to get aggregate min to Satisfy
             return (first.getFulfilledPercentage(moduleInfoCode) + second.getFulfilledPercentage(moduleInfoCode)) / 2.0;
         }
     }
@@ -111,7 +117,7 @@ public class CompositeRequirement implements CourseRequirement {
 
     @Override
     public CourseRequirement or(CourseRequirement other) {
-        return new CompositeRequirement(this, other, LogicalConnector.AND, this.courseReqType);
+        return new CompositeRequirement(this, other, LogicalConnector.OR, this.courseReqType);
     }
 
 

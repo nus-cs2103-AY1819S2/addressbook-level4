@@ -68,12 +68,12 @@ public class ReviewListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Returns a list of Reviews containing {@code ReviewCount} Reviews that is used to populate the
+     * Returns a list of Reviews containing {@code reviewCount} Reviews that is used to populate the
      * {@code ReviewListPanel}.
      */
-    private ObservableList<Review> createBackingList(int ReviewCount) {
+    private ObservableList<Review> createBackingList(int reviewCount) {
         ObservableList<Review> backingList = FXCollections.observableArrayList();
-        for (int i = 0; i < ReviewCount; i++) {
+        for (int i = 0; i < reviewCount; i++) {
 
             ReviewTitle name = new ReviewTitle(i + "a");
             BookName bookName = new BookName(i + "Alice");
@@ -90,11 +90,11 @@ public class ReviewListPanelTest extends GuiUnitTest {
      * Also shows the {@code Stage} that displays only {@code ReviewListPanel}.
      */
     private void initUi(ObservableList<Review> backingList) {
-        ReviewListPanel ReviewListPanel =
+        ReviewListPanel reviewListPanel =
                 new ReviewListPanel(backingList, selectedReview, selectedReview::set);
-        uiPartRule.setUiPart(ReviewListPanel);
+        uiPartRule.setUiPart(reviewListPanel);
 
-        reviewListPanelHandle = new ReviewListPanelHandle(getChildNode(ReviewListPanel.getRoot(),
+        reviewListPanelHandle = new ReviewListPanelHandle(getChildNode(reviewListPanel.getRoot(),
                 ReviewListPanelHandle.REVIEW_LIST_VIEW_ID));
     }
 }

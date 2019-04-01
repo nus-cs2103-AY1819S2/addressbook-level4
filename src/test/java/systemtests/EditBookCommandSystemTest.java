@@ -222,9 +222,8 @@ public class EditBookCommandSystemTest extends BookShelfSystemTest {
      * @param toEdit the index of the current model's filtered list.
      * @see EditBookCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
-    private void
-    assertCommandSuccess(String command, Index toEdit, Book editedBook,
-            Index expectedSelectedBookCardIndex) {
+    private void assertCommandSuccess(String command, Index toEdit,
+            Book editedBook, Index expectedSelectedBookCardIndex) {
         Model expectedModel = getModel();
         expectedModel.setBook(expectedModel.getFilteredBookList().get(toEdit.getZeroBased()), editedBook);
         expectedModel.updateFilteredBookList(PREDICATE_SHOW_ALL_BOOKS);

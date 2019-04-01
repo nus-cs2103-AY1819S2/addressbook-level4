@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.Activity;
+package seedu.address.logic.commands.activity;
 
 public class ActivityAddMemberCommandTest {
 }

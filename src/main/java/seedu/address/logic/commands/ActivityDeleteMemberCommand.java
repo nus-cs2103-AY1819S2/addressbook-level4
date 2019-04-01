@@ -11,7 +11,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.person.MatricNumber;
-import seedu.address.model.person.Person;
 
 /**
  * Selects an activity identified using it's displayed index from the address book.

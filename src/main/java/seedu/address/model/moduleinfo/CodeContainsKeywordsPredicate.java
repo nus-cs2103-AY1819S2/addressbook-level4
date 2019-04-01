@@ -11,6 +11,8 @@ import seedu.address.commons.util.StringUtil;
  */
 public class CodeContainsKeywordsPredicate implements Predicate<ModuleInfo> {
 
+    private static final String SPLITTER_REGEX = "\\+";
+    private static final String COMBINATION_REGEX = ".*?\\+.*?";
     private final List<String> keywords;
     private final List<String> defaultKeywords = new ArrayList<>();
 
@@ -25,10 +27,42 @@ public class CodeContainsKeywordsPredicate implements Predicate<ModuleInfo> {
         }
     }
 
+    public String[] splitPredicate(String keyword) {
+        return keyword.split(SPLITTER_REGEX);
+    }
+
+    /**
+     * Checks if a combination of words is found in the search target
+     * @param keywordList
+     * @param module
+     * @return result boolean to see if all the words matches
+     */
+    public boolean combinationSearch(String[] keywordList, ModuleInfo module) {
+        boolean result = false;
+
+        for (int i = 0; i < keywordList.length; i++) {
+            if (!StringUtil.containsWordIgnoreCase(module.getTitleString(), keywordList[i])) {
+                break;
+            }
+
+            if (i >= keywordList.length - 1) {
+                result = true;
+            }
+        }
+        return result;
+    }
+
     @Override
     public boolean test(ModuleInfo module) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(module.getCodeString(), keyword));
+                .anyMatch(keyword -> {
+                    if (keyword.matches(COMBINATION_REGEX)) {
+                        return combinationSearch(splitPredicate(keyword), module);
+                    } else {
+                         return StringUtil.containsWordIgnoreCase(module.getCodeString(), keyword)
+                                || StringUtil.containsWordIgnoreCase(module.getTitleString(), keyword);
+                    }
+                });
     }
 
     @Override

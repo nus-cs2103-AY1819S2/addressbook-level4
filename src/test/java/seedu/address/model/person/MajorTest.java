@@ -28,9 +28,8 @@ public class MajorTest {
         // invalid majors
         assertFalse(Major.isValidMajor("")); // empty string
         assertFalse(Major.isValidMajor(" ")); // spaces only
-        assertFalse(Major.isValidMajor("91")); // numeric
-        assertFalse(Major.isValidMajor("phone")); // not in list
-        assertFalse(Major.isValidMajor("phone999")); // mix
+        assertFalse(Major.isValidMajor("^^")); // symbols
+        assertFalse(Major.isValidMajor(" phone999")); // space before
 
 
         // valid majors

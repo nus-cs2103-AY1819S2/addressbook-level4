@@ -60,6 +60,21 @@ public class Person {
         this.tags.addAll(tags);
     }
 
+    public Person(Nric nric) {
+        this.nric = nric;
+
+        this.name = null;
+        this.phone = null;
+        this.email = null;
+        this.gender = null;
+        this.race = null;
+        this.address = null;
+        this.school = null;
+        this.major = null;
+        this.grade = null;
+        this.interviewScores = null;
+    }
+
     public Name getName() {
         return name;
     }

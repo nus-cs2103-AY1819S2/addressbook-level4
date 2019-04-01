@@ -1,12 +1,20 @@
 package seedu.address.model.reminder;
 
+import static java.time.DayOfWeek.MONDAY;
+import static java.time.DayOfWeek.SUNDAY;
+import static java.time.temporal.TemporalAdjusters.nextOrSame;
+import static java.time.temporal.TemporalAdjusters.previousOrSame;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicine.Medicine;
 
@@ -54,6 +62,23 @@ public class ReminderManager {
         }
     }
 
+    public ObservableList<Reminder> getFilteredReminderList() {
+        List<Reminder> filteredReminders = new ArrayList<>();
+        LocalDate start = LocalDate.now().with(previousOrSame(MONDAY)).minusDays(1);
+        LocalDate end = LocalDate.now().with(nextOrSame(SUNDAY)).minusDays(1);
+        LocalDate remDate;
+
+        for (Reminder rem : reminders) {
+            remDate = rem.getDate();
+            if (remDate.isAfter(start) && remDate.isBefore(end)) {
+                filteredReminders.add(rem);
+            }
+        }
+        Collections.sort(filteredReminders);
+
+        return FXCollections.observableArrayList(filteredReminders);
+    }
+
     /**
      * create and add a new reminder when medicine amount falls below threshold for some medicine
      * @param medicine
@@ -94,6 +119,7 @@ public class ReminderManager {
         }
         return changed;
     }
+
     /**
      * Returns a {@code String} of reminders created.
      */

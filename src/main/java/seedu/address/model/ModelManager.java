@@ -17,7 +17,6 @@ import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -343,7 +342,7 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Reminder> getFilteredReminderList() {
-        return FXCollections.observableArrayList(reminderManager.getReminderList());
+        return reminderManager.getFilteredReminderList();
     }
 
     //=========== Undo/Redo =================================================================================

@@ -1,8 +1,10 @@
 package seedu.address.storage;
 
 import java.util.Optional;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.restaurant.categories.Category;
 import seedu.address.model.restaurant.categories.Cuisine;
@@ -44,13 +46,13 @@ public class JsonAdaptedCategories {
      * @throws IllegalValueException if there were any data constraints violated in the adapted categories.
      */
     public Category toModelType() throws IllegalValueException {
-        if(cuisine != null && !Cuisine.isValidCuisine(cuisine)) {
+        if (cuisine != null && !Cuisine.isValidCuisine(cuisine)) {
             throw new IllegalValueException(Cuisine.MESSAGE_CONSTRAINTS);
         }
-        if(occasion != null && !Occasion.isValidOccasion(occasion)) {
+        if (occasion != null && !Occasion.isValidOccasion(occasion)) {
             throw new IllegalValueException(Occasion.MESSAGE_CONSTRAINTS);
         }
-        if(priceRange != null && !PriceRange.isValidPriceRange(priceRange)) {
+        if (priceRange != null && !PriceRange.isValidPriceRange(priceRange)) {
             throw new IllegalValueException(PriceRange.MESSAGE_CONSTRAINTS);
         }
         final Optional<Cuisine> modelCuisine = Optional.ofNullable(cuisine).map(Cuisine::new);

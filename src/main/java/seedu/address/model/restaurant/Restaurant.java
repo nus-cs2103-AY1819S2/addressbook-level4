@@ -7,13 +7,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.restaurant.categories.Category;
-import seedu.address.model.restaurant.categories.Cuisine;
-import seedu.address.model.restaurant.categories.Occasion;
-import seedu.address.model.restaurant.categories.PriceRange;
 import seedu.address.model.review.Review;
 import seedu.address.model.tag.Tag;
 

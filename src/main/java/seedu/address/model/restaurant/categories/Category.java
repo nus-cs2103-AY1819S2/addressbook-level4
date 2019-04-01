@@ -1,11 +1,10 @@
 package seedu.address.model.restaurant.categories;
 
-import javafx.scene.control.Label;
-import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
+
+import javafx.scene.control.Label;
+
 import seedu.address.commons.util.StringUtil;
-import seedu.address.model.restaurant.Restaurant;
 
 /**
  * Encapsulates the categories of a restaurant.
@@ -35,7 +34,9 @@ public class Category {
         return this.occasion;
     }
 
-    public Optional<PriceRange> getPriceRange() { return this.priceRange; }
+    public Optional<PriceRange> getPriceRange() {
+        return this.priceRange;
+    }
 
     public static Category empty() {
         return new Category(Optional.empty(), Optional.empty(), Optional.empty());
@@ -67,10 +68,10 @@ public class Category {
 
     public void setLabels(Label cuisineLabel, Label occasionLabel, Label priceRangeLabel) {
         cuisine.ifPresentOrElse(content -> cuisineLabel.setText(content.value), () -> cuisineLabel.setVisible(false));
-        occasion.ifPresentOrElse(content -> occasionLabel.setText(content.value),
-                () -> priceRangeLabel.setVisible(false));
-        priceRange.ifPresentOrElse(content -> priceRangeLabel.setText(content.value),
-                () -> priceRangeLabel.setVisible(false));
+        occasion.ifPresentOrElse(content -> occasionLabel.setText(content.value), () ->
+                priceRangeLabel.setVisible(false));
+        priceRange.ifPresentOrElse(content -> priceRangeLabel.setText(content.value), () ->
+                priceRangeLabel.setVisible(false));
     }
 
     @Override

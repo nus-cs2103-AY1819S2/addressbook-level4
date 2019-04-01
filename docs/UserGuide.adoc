@@ -21,7 +21,7 @@ Welcome to PDF&#43;&#43;! PDF++ is a desktop application that is meant for anyon
 This application can be used by both Text Input (TI) and a Graphical User Interface (GUI)
 hence, both technical users and casual users can enjoy a comfortable experience using our program. All features provided by our application can be used via the TI and relevant feedback, based on your command, will be displayed in the Response Area of the application.
 
-This file management system plans to enhance your typical experience managing your documents and 
+This file management system plans to enhance your typical experience managing your documents and
 it strives to be the last document manager you will ever need. It includes a multitude of
 functions in elevating your PDF reading and management experience. There are many features offered by our application that you can refer to in the table of contents on the left side of this screen with many more to come! Are you fascinated by PDF++? What are you waiting for?
 Jump to the <<Quick Start>> to get started. Enjoy!
@@ -137,7 +137,7 @@ Example:
 The tag command allows you to add or remove a tag to a file, specified by the index of the file that is + next to the name of the file in the Files Section, highlighted in green. +
 The prefixes `-a` refers to "add" and `-r` refers to "remove". +
 
-Format: `tag INDEX -a [t/TAG]...` [To add a tag] + 
+Format: `tag INDEX -a [t/TAG]...` [To add a tag] +
 Format: `tag INDEX -r [t/TAG]...` [To remove a tag]
 
 ****
@@ -152,8 +152,8 @@ Example:
 
 === Deleting a file : `delete`
 
-The delete command lets you to delete a file from the application and your computer. The file + 
-that is to be deleted must be specified by the index of the file that is + next to the name + 
+The delete command lets you to delete a file from the application and your computer. The file +
+that is to be deleted must be specified by the index of the file that is + next to the name +
 of the file in the Files Section, highlighted in green. +
 
 Format: `delete INDEX`
@@ -239,9 +239,9 @@ Examples:
 
 // tag::undoredo[]
 === Undo & redo command: `undo` & `redo`
-The `undo` and `redo` commands allow you to reverse an action that was previously done on our application. + 
+The `undo` and `redo` commands allow you to reverse an action that was previously done on our application. +
 
-WARNING: You *CANNOT* Undo or Redo an encrpytion command. 
+WARNING: You *CANNOT* Undo or Redo an encrpytion command.
 This functionality has been disabled for security reasons. +
 
 Format: `undo` [To Undo an Action] +

@@ -112,7 +112,7 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_SCHOOL_DESC = " " + PREFIX_SCHOOL; // empty string not allowed for school
     public static final String INVALID_PASTJOB_DESC = " " + PREFIX_PASTJOB; // empty string not allowed for past job
-    public static final String INVALID_MAJOR_DESC = " " + PREFIX_MAJOR + "12345"; //numbers not allowed
+    public static final String INVALID_MAJOR_DESC = " " + PREFIX_MAJOR + "^^"; //symbols not allowed
     public static final String INVALID_GRADE_DESC = " " + PREFIX_GRADE + "4.2"; // 1 decimal place not allowed
     public static final String INVALID_KNOWNPROGLANG_DESC = " " + PREFIX_KNOWNPROGLANG + "  "; //blank not allowed
     public static final String INVALID_JOBSAPPLY_DESC = " " + PREFIX_JOBSAPPLY + " "; //blank not allowed

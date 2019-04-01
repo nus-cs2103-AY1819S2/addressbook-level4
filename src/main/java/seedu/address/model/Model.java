@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.analytics.Analytics;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
 import seedu.address.model.person.Person;
@@ -171,6 +172,6 @@ public interface Model {
     /**
      * Generates analytics.
      */
-    String generateAnalytics();
+    Analytics generateAnalytics();
 
 }

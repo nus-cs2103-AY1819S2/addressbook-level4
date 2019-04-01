@@ -2,8 +2,7 @@ package seedu.address.model.person.predicate;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.Arrays;;
 import java.util.HashSet;
 
 import org.junit.Test;
@@ -12,15 +11,6 @@ import seedu.address.logic.commands.SearchCommand;
 import seedu.address.testutil.PersonBuilder;
 
 public class PredicateManagerTest {
-
-    @Test
-    public void test_translatePredicateDescriptor() {
-        // always return true
-        SearchCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
-        NameContainsKeywordsPredicate firstPredicate =
-            new NameContainsKeywordsPredicate(Collections.singletonList(" "));
-        assertTrue(firstPredicate.equals(descriptor.toPredicate()));
-    }
 
     @Test
     public void test_returnsTrue() {

@@ -31,7 +31,7 @@ public class ListDoctorCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListDoctorCommand(), model, commandHistory,
+        assertCommandSuccess(new ListPatientCommand(), model, commandHistory,
                 ListDoctorCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -40,5 +40,7 @@ public class ListDoctorCommandTest {
         showDoctorAtIndex(model, INDEX_FIRST_PERSON);
         assertCommandSuccess(new ListDoctorCommand(), model, commandHistory,
                 ListDoctorCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListPatientCommand(), model, commandHistory,
+                ListPatientCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

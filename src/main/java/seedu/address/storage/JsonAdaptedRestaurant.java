@@ -39,9 +39,7 @@ class JsonAdaptedRestaurant {
     private final List<JsonAdaptedReview> reviewed = new ArrayList<>();
     private final String weblink;
     private final String openingHours;
-    private final String cuisine;
-    private final String occasion;
-    private final String priceRange;
+    private final JsonAdaptedCategories categories;
 
     /**
      * Constructs a {@code JsonAdaptedRestaurant} with the given restaurant details.
@@ -50,9 +48,7 @@ class JsonAdaptedRestaurant {
     public JsonAdaptedRestaurant(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-            @JsonProperty("cuisine") String cuisine,
-            @JsonProperty("occasion") String occasion,
-            @JsonProperty("priceRange") String priceRange,
+            @JsonProperty("categories") JsonAdaptedCategories categories,
             @JsonProperty("weblink") String weblink,
             @JsonProperty("openinghours") String openingHours,
             @JsonProperty("reviewed") List<JsonAdaptedReview> reviewed) {
@@ -61,9 +57,7 @@ class JsonAdaptedRestaurant {
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.cuisine = cuisine;
-        this.occasion = occasion;
-        this.priceRange = priceRange;
+        this.categories = categories;
         this.weblink = weblink;
         this.openingHours = openingHours;
         if (tagged != null) {
@@ -89,23 +83,7 @@ class JsonAdaptedRestaurant {
                 .map(JsonAdaptedReview::new)
                 .collect(Collectors.toList()));
 
-        if (source.getCuisine().isPresent()) {
-            cuisine = source.getCuisine().get().value;
-        } else {
-            cuisine = null;
-        }
-
-        if (source.getOccasion().isPresent()) {
-            occasion = source.getOccasion().get().value;
-        } else {
-            occasion = null;
-        }
-
-        if (source.getPriceRange().isPresent()) {
-            priceRange = source.getPriceRange().get().value;
-        } else {
-            priceRange = null;
-        }
+        categories = new JsonAdaptedCategories(source.getCategories());
 
         weblink = source.getWeblink().value;
         openingHours = source.getOpeningHours().value;
@@ -159,35 +137,7 @@ class JsonAdaptedRestaurant {
         }
         final Address modelAddress = new Address(address);
 
-        final Cuisine modelCuisine;
-        if (cuisine == null) {
-            modelCuisine = null;
-        } else {
-            if (!Cuisine.isValidCuisine(cuisine)) {
-                throw new IllegalValueException(Cuisine.MESSAGE_CONSTRAINTS);
-            }
-            modelCuisine = new Cuisine(cuisine);
-        }
-
-        final Occasion modelOccasion;
-        if (occasion == null) {
-            modelOccasion = null;
-        } else {
-            if (!Occasion.isValidOccasion(occasion)) {
-                throw new IllegalValueException(Occasion.MESSAGE_CONSTRAINTS);
-            }
-            modelOccasion = new Occasion(occasion);
-        }
-
-        final PriceRange modelPriceRange;
-        if (priceRange == null) {
-            modelPriceRange = null;
-        } else {
-            if (!PriceRange.isValidPriceRange(priceRange)) {
-                throw new IllegalValueException(PriceRange.MESSAGE_CONSTRAINTS);
-            }
-            modelPriceRange = new PriceRange(priceRange);
-        }
+        final Category modelCategories = categories.toModelType();
 
         if (weblink == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Weblink.class.getSimpleName()));
@@ -211,7 +161,7 @@ class JsonAdaptedRestaurant {
         final ArrayList<Review> modelReviews = new ArrayList<>(restaurantReviews);
 
         return new Restaurant(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelWeblink,
-                modelOpeningHours, new Category(modelCuisine, modelOccasion, modelPriceRange), modelReviews);
+                modelOpeningHours, modelCategories, modelReviews);
     }
 
 }

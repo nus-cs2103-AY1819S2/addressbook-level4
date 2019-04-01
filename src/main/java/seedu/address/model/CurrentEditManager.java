@@ -126,6 +126,7 @@ public class CurrentEditManager implements CurrentEdit {
         tempImage.setIndex(tempIndex);
         tempImage.setHistory(tempList);
     }
+    /* @@author*/
 
     /* @@author kayheen */
 

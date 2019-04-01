@@ -84,6 +84,9 @@ public class CommandTestUtil {
     public static final String DATE_INVALID_DATE = "2019-10-32";
     public static final String DATE_INVALID_FORMAT = "2019/10-03";
 
+    //Password Constant
+    public static final String PASSWORD_1_VALID = "validPassword1";
+
     public static final String PROPERTY_SEPARATOR_PREFIX = "/";
 
     public static final String DEADLINE_STATUS_READY = "READY";
@@ -109,6 +112,11 @@ public class CommandTestUtil {
             + PROPERTY_SEPARATOR_PREFIX + DEADLINE_STATUS_READY;
     public static final String DEADLINE_DESC_INVALID_FORMAT = " " + PREFIX_DEADLINE_NEW + DATE_INVALID_FORMAT
             + PROPERTY_SEPARATOR_PREFIX + DEADLINE_STATUS_READY;
+
+    //Delete Constants
+    public static final String DELETE_TYPE_SOFT = "soft";
+    public static final String DELETE_TYPE_HARD = "hard";
+    public static final String DELETE_TYPE_INVALID = "invalidType";
 
     //Tag Constants
     public static final String TAG_VALID_CS2103T = "CS2103T";

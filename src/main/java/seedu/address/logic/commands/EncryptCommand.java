@@ -32,10 +32,10 @@ public class EncryptCommand extends Command {
             + "[" + PREFIX_PASSWORD + "PASSWORD]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PASSWORD + "NewSecuredPassword";
-    private static final String MESSAGE_ENCRYPT_PDF_SUCCESS = "Encrypted PDF: %1$s";
-    private static final String MESSAGE_ENCRYPT_PDF_FAILURE = "%1$s did not get encrypted successfully.\n"
+    public static final String MESSAGE_ENCRYPT_PDF_SUCCESS = "Encrypted PDF: %1$s";
+    public static final String MESSAGE_ENCRYPT_PDF_FAILURE = "%1$sdid not get encrypted successfully.\n"
             + "Please check if the file is not already encrypted and it exists.";
-    private static final int ENCRYPTION_KEY_LENGTH = 128;
+    public static final int ENCRYPTION_KEY_LENGTH = 128;
 
     private final Index index;
     private final String password;
@@ -67,7 +67,7 @@ public class EncryptCommand extends Command {
 
         model.setPdf(pdfToEncrypt, pdfEncrypted);
         model.updateFilteredPdfList(PREDICATE_SHOW_ALL_PDFS);
-        model.commitPdfBook();
+        //model.commitPdfBook();
 
         return new CommandResult(String.format(MESSAGE_ENCRYPT_PDF_SUCCESS, pdfEncrypted));
     }

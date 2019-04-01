@@ -71,7 +71,7 @@ public class InformationPanel extends UiPart<Region> implements PropertyChangeLi
         if (event.getPropertyName().equals("refreshDetails")) {
             refreshDetails(event);
         }
-        if (event.getPropertyName().equals("switch")) {
+        if (event.getPropertyName().equals("switchTab")) {
             switchTab();
         }
     }

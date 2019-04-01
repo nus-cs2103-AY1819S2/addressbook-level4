@@ -135,15 +135,10 @@ public class CurrentEditManager implements CurrentEdit {
      */
     public void updateTempImage(BufferedImage bufferedimage) {
         tempList = tempImage.getCommandHistory();
-        System.out.println(tempList);
         tempIndex = tempImage.getIndex();
-        System.out.println(tempIndex);
         try {
             File outputFile = new File(tempFileName);
-            File directory = new File(tempFilePath);
             ImageIO.write(bufferedimage, tempImage.getFileType(), outputFile);
-            FileUtils.copyFileToDirectory(outputFile, directory, false);
-            outputFile.delete();
         } catch (IOException e) {
             System.out.println(e.toString());
         }

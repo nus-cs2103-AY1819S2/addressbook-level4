@@ -26,7 +26,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.PdfBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.VersionedPdfBook;
 import seedu.address.model.pdf.Pdf;
 
 
@@ -145,6 +144,9 @@ public class EncryptCommandTest {
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
 
+    /**
+     * Decrypts {@code pdfToInitialise} if it is encrypted.
+     */
     private void initialiseTest(Pdf pdfToInitialise) throws CommandException {
         if (pdfToInitialise.getIsEncryted()) {
             Model initialisationModel = new ModelManager(getTypicalPdfBook(), new UserPrefs());

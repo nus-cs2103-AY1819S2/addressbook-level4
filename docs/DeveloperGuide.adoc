@@ -385,11 +385,12 @@ The `redo` command does the opposite -- it calls `Model#redoFinanceTracker()`, w
 If the `currentStatePointer` is at index `financeTrackerStateList.size() - 1`, pointing to the latest finance tracker state, then there are no undone finance tracker states to restore. The `redo` command uses `Model#canRedoFinanceTracker()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 *Step 5.* +
-The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+The user then decides to execute the command `list`. Commands that do not modify the finance tracker, such as `list`, will usually not call `Model#commitFinanceTracker()`, `Model#undoFinanceTracker()` or `Model#redoFinanceTracker()`. Thus, the `financeTrackerStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+*Step 6.* +
+The user executes `clear`, which calls `Model#commitFinanceTracker()`. Since the `currentStatePointer` is not pointing at the end of the `financeTrackerStateList`, all finance tracker states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `spend n/burger ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -401,7 +402,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire finance tracker.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
@@ -410,9 +411,9 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of finance tracker states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedFinanceTracker`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
@@ -541,7 +542,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 * `SEVERE` : Critical problem detected which may possibly cause the termination of the application
 * `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
+* `INFO` : Information showing noteworthy actions by the application
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]

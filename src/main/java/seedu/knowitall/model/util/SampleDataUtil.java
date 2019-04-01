@@ -22,24 +22,15 @@ import seedu.knowitall.model.hint.Hint;
 public class SampleDataUtil {
     public static Card[] getSampleCards() {
         return new Card[] {
-            new Card(new Question("Alex Yeoh"), new Answer("87438807"),
-                    new Score(5, 10), Collections.emptySet(),
-                    getHintSet("friends")),
-            new Card(new Question("Bernice Yu"), new Answer("99272758"),
-                    new Score(10, 60), Collections.emptySet(),
-                    getHintSet("colleagues", "friends")),
-            new Card(new Question("Charlotte Oliveiro"), new Answer("93210283"),
-                    new Score(0, 24), Collections.emptySet(),
-                    getHintSet("neighbours")),
-            new Card(new Question("David Li"), new Answer("91031282"),
-                    new Score(69, 420), Collections.emptySet(),
-                    getHintSet("family")),
-            new Card(new Question("Irfan Ibrahim"), new Answer("92492021"),
-                    new Score(9, 99), Collections.emptySet(),
-                    getHintSet("classmates")),
-            new Card(new Question("Roy Balakrishnan"), new Answer("92624417"),
-                    new Score(120, 500), Collections.emptySet(),
-                    getHintSet("colleagues"))
+            new Card(new Question("What is the best Software Engineering module?"), new Answer("CS2103T"),
+                    new Score(5, 10),
+                    Collections.emptySet(), getHintSet("Best taken with CS2101")),
+            new Card(new Question("What is the best flashcard application?"), new Answer("Know-It-All"),
+                    new Score(10, 60),
+                    getOptionSet("Anki", "Physical Flashcards"), getHintSet("The answer is obvious")),
+            new Card(new Question("_____ benefits memorisation."), new Answer("Repetition"),
+                    new Score(0, 24),
+                    Collections.emptySet(), Collections.emptySet()),
         };
     }
 

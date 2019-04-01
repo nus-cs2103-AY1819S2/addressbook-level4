@@ -425,7 +425,7 @@ Returns All the statistics it has computed.
 
 == Command Summary
 
-* *Changing to RestaurantMode* : `restaurantMode`
+* *Changing to Restaurant Mode* : `restaurantMode`
 * *Add tables* : `addTable NUMBER_OF_SEATS [NUMBER_OF_SEATS] ...` +
 e.g. `addTable 2 4 6 8`
 * *Remove table* : `removeTable TABLE_NUMBER` +

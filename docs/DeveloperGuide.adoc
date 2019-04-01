@@ -443,7 +443,7 @@ Lastly, `BillCommand#updateOrderList` is called to empty the order list of the c
 image::BillMode.png[width="650"]
 
 
-Step 3. Once the user is in BillMode, they can change their execute any commands that are related to StatisticsMode or manually change their mode to `RestaurantMode`, `TableMode` and `MenuMode`.
+Step 3. Once the user is in BillMode, they can change their execute any commands that are related to StatisticsMode or manually change their mode to `Restaurant Mode`, `TableMode` and `MenuMode`.
 
 [NOTE]
 The command will not execute the functions stated above until it has confirmed that the user is in `TableMode` and the current table exists.
@@ -1057,7 +1057,7 @@ User case ends.
 * 2a. The program is already in Restaurant Mode.
 +
 [none]
-** 2a1. RestOrRant Program returns an error message that it is already in Restaurant Mode.
+** 2a1. RestOrRant returns an error message that it is already in Restaurant Mode.
 +
 Use case ends.
 
@@ -1067,7 +1067,7 @@ Use case ends.
 *MSS*
 
 1. User enters the menuMode command to switch mode to menu mode
-2. RestOrRant Program changes the UI to show the menu in the list panel, and allows addToMenu command.
+2. RestOrRant changes the UI to show the menu in the list panel, and allows addToMenu command.
 +
 Use case ends.
 
@@ -1076,18 +1076,18 @@ Use case ends.
 * 1a. The program mode is already in Menu Mode.
 +
 [none]
-** 1a1. RestOrRant Program returns an message that program is already in menu mode.
+** 1a1. RestOrRant returns an message that program is already in menu mode.
 +
 Use case ends.
 
 
 [discrete]
-=== Use case: Adding tables to the RestOrRant Program
+=== Use case: Adding tables to RestOrRant
 
 *MSS*
 
 1. User enters command to add a table to the restaurant
-2. RestOrRant Program returns success message that the table is added, providing the table number and table status.
+2. RestOrRant returns success message that the table is added, providing the table number and table status.
 
 [discrete]
 
@@ -1097,7 +1097,7 @@ Use case ends.
 *MSS*
 
 1.  User enters command to list all tableList in the restaurant.
-2.  RestOrRant Program returns the status (number of customers at the table/number of seats at the table) of all tableList in the restaurant.
+2.  RestOrRant returns the status (number of customers at the table/number of seats at the table) of all tableList in the restaurant.
 +
 Use case ends.
 
@@ -1107,7 +1107,7 @@ Use case ends.
 * 2a. The list is empty.
 +
 [none]
-** 2a1. RestOrRant Program returns an error message that there are no tableList in the restaurant.
+** 2a1. RestOrRant returns an error message that there are no tableList in the restaurant.
 +
 Use case ends.
 
@@ -1117,7 +1117,7 @@ Use case ends.
 *MSS*
 
 1.  User enters the table number, along with item codes and quantities of the menu items.
-2.  RestOrRant Program updates the specified table's order with the menu items and displays the new order list.
+2.  RestOrRant updates the specified table's order with the menu items and displays the new order list.
 +
 Use case ends.
 
@@ -1127,7 +1127,7 @@ Use case ends.
 * 1a. The item code(s) is/are invalid.
 +
 [none]
-** 1a1. RestOrRant Program displays the item codes that are invalid and remove them from the list of item codes to add to the order.
+** 1a1. RestOrRant displays the item codes that are invalid and remove them from the list of item codes to add to the order.
 +
 Use case resumes from step 2.
 
@@ -1139,7 +1139,7 @@ Use case resumes from step 2.
 *MSS*
 
 1.  User enters the addToMenu command along with the item's code, name and price.
-2.  RestOrRant Program updates the menu to include the added menu item.
+2.  RestOrRant updates the menu to include the added menu item.
 +
 Use case ends.
 
@@ -1149,7 +1149,7 @@ Use case ends.
 * 1a. The menu already contains the item to be added.
 +
 [none]
-** 1a1. RestOrRant Program prints out "Invalid arguments, item already exists in the menu!".
+** 1a1. RestOrRant prints out "Invalid arguments, item already exists in the menu!".
 +
 Use case ends.
 
@@ -1157,7 +1157,7 @@ Use case ends.
 * 1b. The item code already exists in the menu.
 +
 [none]
-** 1b1. RestOrRant Program prints out "Invalid arguments, item code exists in the menu!".
+** 1b1. RestOrRant prints out "Invalid arguments, item code exists in the menu!".
 +
 Use case ends.
 
@@ -1165,7 +1165,7 @@ Use case ends.
 * 1c. The item code does not follow the standard alphanumeric format.
 +
 [none]
-** 1c1. RestOrRant Program prints out "Invalid code. Please use an alphanumeric code. Example: W09".
+** 1c1. RestOrRant prints out "Invalid code. Please use an alphanumeric code. Example: W09".
 +
 Use case ends.
 
@@ -1175,7 +1175,7 @@ Use case ends.
 *MSS*
 
 1.  User enters the statistic command with specific optional arguements (year, month and date).
-2.  RestOrRant Program collates data from the stated period, calculates all the statistics and prints out the calculated data in a neat presentation for the user to refer to.
+2.  RestOrRant collates data from the stated period, calculates all the statistics and prints out the calculated data in a neat presentation for the user to refer to.
 +
 Use case ends.
 
@@ -1185,7 +1185,7 @@ Use case ends.
 * 1a. The arguments are invalid.
 +
 [none]
-** 1a1. RestOrRant Program prints out "Invalid arguments. All arguments should be a numercial number. Format: getStatistics [Year] [Month] [Date]".
+** 1a1. RestOrRant prints out "Invalid arguments. All arguments should be a numercial number. Format: getStatistics [Year] [Month] [Date]".
 +
 Use case ends.
 
@@ -1193,7 +1193,7 @@ Use case ends.
 * 2a. There is no data recorded, list is empty.
 +
 [none]
-** 2a1. RestOrRant Program prints out "No available data recorded."
+** 2a1. RestOrRant prints out "No available data recorded."
 +
 Use case ends.
 
@@ -1201,7 +1201,7 @@ Use case ends.
 * 2b. Not all arguments were keyed in.
 +
 [none]
-* 2b1. RestOrRant Program returns the statistical data based on the year if only 1 argument was specified; and the month if only 2 arguments were specified.
+* 2b1. RestOrRant returns the statistical data based on the year if only 1 argument was specified; and the month if only 2 arguments were specified.
 +
 Use case ends.
 

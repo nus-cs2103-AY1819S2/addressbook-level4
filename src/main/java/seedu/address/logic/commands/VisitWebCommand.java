@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.NoInternetException;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -60,8 +61,12 @@ public class VisitWebCommand extends Command {
 
             // if original weblink is removed, prompt user to change weblink
             Weblink weblink = filteredRestaurantList.get(targetIndex.getZeroBased()).getWeblink();
-            if (Weblink.isNotValidWeblinkUrl(weblink.value)) {
-                throw new CommandException(String.format(Messages.MESSAGE_CHANGE_WEBLINK, weblink.value));
+            try {
+                if (Weblink.isNotValidWeblinkUrl(weblink.value)) {
+                    throw new CommandException(String.format(Messages.MESSAGE_CHANGE_WEBLINK, weblink.value));
+                }
+            } catch (NoInternetException e) {
+                return new CommandResult(e.getMessage());
             }
 
             model.setSelectedRestaurant(filteredRestaurantList.get(targetIndex.getZeroBased()));

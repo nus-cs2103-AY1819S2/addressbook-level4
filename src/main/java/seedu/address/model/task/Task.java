@@ -6,6 +6,8 @@ import java.util.Objects;
 
 import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.datetime.TimeCustom;
+import seedu.address.model.patient.Nric;
+import seedu.address.model.person.Name;
 import seedu.address.model.record.LinkedPatient;
 
 
@@ -90,6 +92,10 @@ public class Task {
 
     public LinkedPatient getLinkedPatient() {
         return linkedPatient;
+    }
+
+    public void setLinkedPatient(Name name, Nric nric) {
+        this.linkedPatient = new LinkedPatient(name, nric);
     }
 
     /**

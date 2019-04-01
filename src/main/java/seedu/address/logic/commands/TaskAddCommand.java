@@ -82,7 +82,7 @@ public class TaskAddCommand extends Command {
             }
             Person targetPerson = lastShownList.get(targetIndex.getZeroBased());
             Patient targetPatient = (Patient) targetPerson;
-            toAdd.setLinkedPatient(targetPatient.getName().fullName, ((Patient) targetPerson).getNric() );
+            toAdd.setLinkedPatient(targetPatient.getName(), ((Patient) targetPerson).getNric());
         }
 
         model.addTask(toAdd);

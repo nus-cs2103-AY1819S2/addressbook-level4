@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDDATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LINKEDPATIENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTDATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
@@ -31,6 +32,7 @@ public class TaskEditCommandParser implements Parser<TaskEditCommand> {
                         PREFIX_STARTTIME, PREFIX_ENDTIME, PREFIX_PRIORITY);
 
         Index index;
+        Index patientIndex;
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
@@ -68,6 +70,12 @@ public class TaskEditCommandParser implements Parser<TaskEditCommand> {
 
         if (!editTaskDescriptor.isAnyFieldEdited()) {
             throw new ParseException(TaskEditCommand.MESSAGE_NOT_EDITED);
+        }
+
+        if (argMultimap.getValue(PREFIX_LINKEDPATIENT).isPresent()) {
+            editTaskDescriptor.setPatientIndex(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_LINKEDPATIENT).get()));
+        } else {
+            editTaskDescriptor.setPatientIndex = null;
         }
 
         return new TaskEditCommand(index, editTaskDescriptor);

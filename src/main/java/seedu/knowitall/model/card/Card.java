@@ -2,8 +2,10 @@ package seedu.knowitall.model.card;
 
 import static seedu.knowitall.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -15,6 +17,16 @@ import seedu.knowitall.model.hint.Hint;
  */
 public class Card {
 
+    /**
+     * {@code CardType} representing the type of Card question.
+     */
+    public enum CardType {
+        MCQ,
+        SINGLE_ANSWER
+    }
+    private int answerIndex;
+    private List<String> completeOptions;
+
     // Identity fields
     private final Question question;
     private final Answer answer;
@@ -23,6 +35,7 @@ public class Card {
     private final Score score;
     private final Set<Option> options = new HashSet<>();
     private final Set<Hint> hints = new HashSet<>();
+    private CardType type;
 
     /**
      * Every field must be present and not null.
@@ -34,6 +47,17 @@ public class Card {
         this.score = score;
         this.options.addAll(options);
         this.hints.addAll(hints);
+
+        this.completeOptions = new ArrayList<>();
+        options.forEach(option -> completeOptions.add(option.optionValue));
+        completeOptions.add(answer.fullAnswer);
+        answerIndex = completeOptions.indexOf(answer.fullAnswer) + 1;
+
+        if (options.isEmpty()) {
+            this.type = CardType.SINGLE_ANSWER;
+        } else {
+            this.type = CardType.MCQ;
+        }
     }
 
     public Question getQuestion() {
@@ -62,6 +86,33 @@ public class Card {
      */
     public Set<Option> getOptions() {
         return Collections.unmodifiableSet(options);
+    }
+
+    /**
+     * Returns the assigned {@code CardType} of this Card.
+     */
+    public CardType getCardType() {
+        return this.type;
+    }
+
+    /**
+     * Returns a list of options, inclusive of the answer, for MCQ cards.
+     */
+    public List<String> getCompleteMcqOptions() {
+        return completeOptions;
+    }
+
+    public int getAnswerIndex() {
+        return answerIndex;
+    }
+
+    /**
+     * Randomizes the order of completeOptions list and updates answerIndex.
+     */
+    public void shuffleMcqOptions() {
+        Collections.shuffle(completeOptions);
+        answerIndex = completeOptions.indexOf(answer.fullAnswer) + 1;
+        System.out.println(answerIndex);
     }
 
     /**
@@ -95,6 +146,7 @@ public class Card {
         Card otherCard = (Card) other;
         return otherCard.getQuestion().equals(getQuestion())
                 && otherCard.getAnswer().equals(getAnswer())
+                && otherCard.getOptions().equals(getOptions())
                 && otherCard.getScore().equals(getScore())
                 && otherCard.getHints().equals(getHints());
     }
@@ -119,5 +171,4 @@ public class Card {
         getHints().forEach(builder::append);
         return builder.toString();
     }
-
 }

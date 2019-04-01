@@ -26,6 +26,7 @@ public class AnswerCommand extends Command {
             + "Example: " + COMMAND_WORD + " Mitochondrion";
 
     public static final String MESSAGE_ANSWER_SUCCESS = "Answer sent successfully";
+    public static final String MESSAGE_INT_EXPECTED_NOT_STRING = "MCQ question expects option number as answer";
 
     private final Answer attemptedAnswer;
 
@@ -43,10 +44,25 @@ public class AnswerCommand extends Command {
         if (model.isCardAlreadyAnswered()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ANSWER_COMMAND);
         }
-        model.setCardAsAnswered();
         Card cardToMark = model.getCurrentTestedCard();
 
-        boolean isAttemptCorrect = model.markAttemptedAnswer(attemptedAnswer);
+        boolean isAttemptCorrect;
+        switch (cardToMark.getCardType()) {
+        case MCQ:
+            try {
+                int answerIndex = Integer.parseInt(attemptedAnswer.fullAnswer);
+                isAttemptCorrect = model.markAttemptedMcqAnswer(answerIndex);
+            } catch (NumberFormatException e) {
+                throw new CommandException(MESSAGE_INT_EXPECTED_NOT_STRING);
+            }
+            break;
+        case SINGLE_ANSWER:
+            isAttemptCorrect = model.markAttemptedAnswer(attemptedAnswer);
+            break;
+        default:
+            isAttemptCorrect = false;
+        }
+        model.setCardAsAnswered();
 
         Card scoredCard = createScoredCard(cardToMark, isAttemptCorrect);
         model.setCard(cardToMark, scoredCard);

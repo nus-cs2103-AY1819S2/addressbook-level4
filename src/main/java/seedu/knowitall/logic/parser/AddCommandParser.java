@@ -1,5 +1,6 @@
 package seedu.knowitall.logic.parser;
 
+import static seedu.knowitall.commons.core.Messages.MESSAGE_ILLEGAL_OPTION_CANNOT_BE_SAME_AS_ANSWER;
 import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.knowitall.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.knowitall.logic.parser.CliSyntax.PREFIX_HINT;
@@ -44,6 +45,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         Score score = new Score(0, 0);
         Set<Hint> hintList = ParserUtil.parseHints(argMultimap.getAllValues(PREFIX_HINT));
         Set<Option> optionList = ParserUtil.parseOptions(argMultimap.getAllValues(PREFIX_OPTION));
+        // Check if options list contains answer
+        for (Option option: optionList) {
+            if (option.optionValue.equalsIgnoreCase(answer.fullAnswer)) {
+                throw new ParseException(MESSAGE_ILLEGAL_OPTION_CANNOT_BE_SAME_AS_ANSWER);
+            }
+        }
 
         Card card = new Card(question, answer, score, optionList, hintList);
 

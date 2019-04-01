@@ -260,7 +260,7 @@ Step 2. The user executes `delete 5` command to delete the 5th card in the card 
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new card. The `add` command also calls `Model#commitCardFolder()`, causing another modified card folder state to be saved into the `cardFolderStateList`.
+Step 3. The user executes `add q/Some question ...` to add a new card. The `add` command also calls `Model#commitCardFolder()`, causing another modified card folder state to be saved into the `cardFolderStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
@@ -287,7 +287,7 @@ Step 5. The user then decides to execute the command `list`. Commands that do no
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitCardFolder()`. Since the `currentStatePointer` is not pointing at the end of the `cardFolderStateList`, all card folder states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitCardFolder()`. Since the `currentStatePointer` is not pointing at the end of the `cardFolderStateList`, all card folder states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add q/Some question ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -383,28 +383,44 @@ For example, 2 correct attempts and 4 total attempts becomes 0.5. When instantia
 // end::score[]
 
 === Import/Export feature
+[discrete]
 ==== Current Implementation
-The Import and Export feature is facilitated by the addition of 3 new classes inside the csvmanager package defined under storage component.
+The Import and Export feature is facilitated by the Logic and model components, together
+with the addition of 2 new classes inside the csvmanager package defined under
+the storage component.
+
+[discrete]
+===== Logic
+Similar to how the current commands are implemented, the two new commands, the logic unit now accepts two
+new commands, `ImportCommand` and `ExportCommand`.
+
+[discrete]
+===== Model
+The model component supports the addition of a new object variable `CsvManager`, that carries out the read and
+write logic of cards to files.
+
+Additionally, model implements two new methods, `Model#importCardFolders` and `Model#exportCardFolders`.
+These two methods further call the CsvManager API to read and write card folders.
+
+Model also implements `Model#setTestCsvPath` and the `Model#getDefaultPath` which are only used during testing.
 
 [discrete]
 ===== csvmanager package:
 * CsvManager - Main class responsible for the writing and reading of .csv files during the import and export of files
-* CsvCardFolder - Wrapper class for a folder name input by user
 * CsvFile - Wrapper class for file name input by user
+* CsvCommands interface - API for import/export method in CsvManager
 
-The main logic for the import / export command is carried out inside the CsvManager class specified by it's API `CsvManager#writeFoldersToCsv` and `CsvManager#readFoldersToCsv`.
+The main logic for the import / export command is carried out inside the CsvManager class specified by it's
+API `CsvManager#writeFoldersToCsv` and `CsvManager#readFoldersToCsv`.
 
-CsvManager's API’s are exposed in the model interface as  `Model#ExportCardFolders` and `Model#ImportCardFolders` method
 
 [discrete]
-==== Example Usage
+===== Example Usage
+1. User wants to export folders `Human Anatomy` and `Nervous System`.
+Suppose that these two folders are indicated by the index 1 and 2 respectively.
+The user types ``export 1 2``
 
-1. User wants to export folders `Human Anatomy` and `Nervous System`. User inputs the following folders and the csvFile specified that he wants to export the folders to.
-
-    picture of command box with user inputs
-
-2. Export command parser extracts prefixes and parses the corresponding folders into the CsvCardFolder and CsvFile objects. Returns an ExportCommand to be executed.
-
+2. The Export command parser extracts the indices, parses the indices into a `ExportCommand` object.
     Draw export command object diagram with set<CardFolderExport> and CsvFile file
 
 3. Logic unit executes the command. The execute command calls `Model#exportCardFolders` method.
@@ -413,11 +429,97 @@ CsvManager's API’s are exposed in the model interface as  `Model#ExportCardFol
     arrow up
     Contains the list of card folders present in the model
 
-4. Model checks that all card folders specified by user exists inside the list of card folders. Throws `CardFolderNotFound` Exception if user specified card folder does not exist in the application.
+4. Model checks that all card folders specified by user exists inside the list of card folders.
+   Throws `CardFolderNotFound` Exception if user specified card folder does not exist in the application.
 
-5. `CsvManager` is called to carry out the main logic of writing the cardfolders to file. File exported will be created in the root directory.
+5. `CsvManager` is called to carry out the main logic of writing the cardfolders to file.
+    File exported will be created in the project root directory.
+    File will be named after the name of the cardfolder.
+    i.e `Human Anatomy.csv` and `Nervous System.csv`
 
     Sequence diagram
+
+
+6. User wants to import `Human Anatomy.csv` file.
+`Human Anatomy.csv` file contains flashcards represented in csv file format.
+User types `import Blood.csv` command
+
+2. Import command parser extracts file name and wraps file into a `CsvFile` object and
+    parses the CsvFile into an Import Command object.
+
+3. Logic unit executes the import command.
+The execute method makes a call to `Model#importCardFolder` method.
+
+4. CsvManager is called to carry out the main logic of reading cardfolders to file.
+File imported will be serialized into a `CardFolder` object and
+added to the `filteredFoldersList` variable.
+
+
+NOTE: Both Imported and Exported files have to be placed in the project root directory.
+
+==== CSV file structure
+Example of a common cardfolder csv file +
+
+Blood.csv
+
+image::Blood.csv.png[width="800"]
+
+
+* The first line of any file contains the headers for each card.
+Headers have to be present in the csv file for import.
+
+* Each row of the csv file represents a single flashcard.
+
+* Options header can take more than one value or none.
+
+* Hints header can take either 0 or 1 value.
+
+==== Design Considerations
+====== Aspect: Which component responsible for import/export logic
+* Alternative 1: Implement read and write card folders in `StorageManager` class
+** Pros:
+*** The most intuitive solution,
+since Storage involves read and write logic
+** Cons:
+*** Model and Storage are now more coupled together.
+*** Storage has more than one responsibility now.
+Instead of managing the internal data of card folder, it now has to
+manage the read and write to csv files.
+
+
+* Alternative 2: Implement read and write card folders in `csvmanager` package class. (Current)
+** Pros:
+*** Separate responsibilities of both Storage and Model. +
+1.  Model class can focus on the representation of the in-memory card folders
+Storage +
+2. Storage class can focus on managing the internal card folder data (.json files)
+** Cons:
+*** More code to write. Storage class could possibly call the relevant API's
+to convert .json file  into .csv file
+
+
+======  Aspect: csv file design structure
+* Alternative 1: Export multiple card folders into a single file.
+** Pros:
+*** Saves user trouble of calling multiple import for files.
+Each card folder is separated by a new line.
+** Cons:
+*** Not a .csv file anymore.
+First line header would now specify cardfolder name before card headers,
+leading to unequal rows and columns
+*** Users will be unable to select specific card folders to import if multiple card folders
+have been exported into a single file.
+
+* Alternative 2: Export each card folder into a single file (Current)
+** Pros:
+*** More flexibility for users to import desired card folders,
+since 1 cardfolder = 1 csv file.
+*** Files are now correctly formatted as .csv file
+
+** Cons:
+*** Slightly more work needed to import multiple card folders.
+
+
 
 //tag::folders[]
 === Folders
@@ -1643,6 +1745,7 @@ Use case resumes from step 1.
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 cards without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  The user interface should be intuitive enough even for medical students to use the app.
 
 _{More to be added}_
 

@@ -1,10 +1,7 @@
 package seedu.address.storage;
 
-import static seedu.address.storage.JsonAdaptedConstants.DIVIDER;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.datetime.DateBase;
@@ -12,7 +9,6 @@ import seedu.address.model.datetime.RecordDate;
 import seedu.address.model.description.Description;
 import seedu.address.model.person.Name;
 import seedu.address.model.record.Record;
-import seedu.address.model.record.exceptions.BadRecordFormatException;
 
 /**
  * Jackson-friendly version of {@link Record}.

@@ -15,23 +15,23 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team W17-3`      Since: `May 2019`      Licence: `MIT`
+By: `Team W17-3`      Since: `March 2019`      Licence: `MIT`
 
 == Introduction
 
-Welcome to *In-Credit-Ble*!
+Welcome to the _In-Credit-Ble_ Developer Guide!
 
-In-Credit-Ble is a finance tracker application created to simplify the managing and tracking
-of the user’s personal finances. With In-Credit-Ble, users will be able to stick to their budget
+_In-Credit-Ble_ is a finance tracker application created to simplify the managing and tracking
+of the user’s personal finances. With _In-Credit-Ble_, users will be able to stick to their budget
 and be more aware of their spending habits.
 
-This developer guide specifies the design and implementation of In-Credit-Ble. The intended audience of
+This developer guide specifies the design and implementation of _In-Credit-Ble_. The intended audience of
 this document is the developers, designers and software testers of our application.
 
-Please continue on to the <<Setting up#, Setting Up>> section to get started. You can also read the <<AboutUs#, AboutUs.adoc>>
+Please continue on to the <<Setting Up, Setting Up>> section to get started. You can also read <<AboutUs#, AboutUs.adoc>>
 and <<ContactUs#, ContactUs.adoc>> for more information on how to contact us!
 
-== Setting up
+== Setting Up
 
 === Prerequisites
 
@@ -47,6 +47,9 @@ Windows developers are highly recommended to use JDK `9`.
 IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
+menu:View[Zoom > Reset]
+kbd:[Alt+F11]
+btn:[OK]
 
 === Setting up the project in your computer
 

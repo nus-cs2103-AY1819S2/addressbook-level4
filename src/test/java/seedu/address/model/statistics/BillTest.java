@@ -8,7 +8,6 @@ import static seedu.address.testutil.TypicalRestOrRant.BILL2;
 import org.junit.Test;
 
 import seedu.address.testutil.BillBuilder;
-import seedu.address.testutil.StatisticsBuilder;
 
 public class BillTest {
 

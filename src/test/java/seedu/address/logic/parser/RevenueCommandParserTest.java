@@ -4,15 +4,13 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.commands.CommandTestUtil.DAY_DESC_1;
 import static seedu.address.logic.commands.CommandTestUtil.DAY_DESC_29;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DAY_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_MONTH_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_YEAR_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.MONTH_DESC_2;
 import static seedu.address.logic.commands.CommandTestUtil.MONTH_DESC_3;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DAY_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MONTH_3;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_YEAR_2019;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.YEAR_DESC_1998;
 import static seedu.address.logic.commands.CommandTestUtil.YEAR_DESC_2019;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -23,9 +21,6 @@ import org.junit.Test;
 import seedu.address.logic.commands.RevenueCommand;
 import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.Date;
-import seedu.address.model.statistics.Day;
-import seedu.address.model.statistics.Month;
-import seedu.address.model.statistics.Year;
 
 import seedu.address.testutil.StatisticsBuilder;
 

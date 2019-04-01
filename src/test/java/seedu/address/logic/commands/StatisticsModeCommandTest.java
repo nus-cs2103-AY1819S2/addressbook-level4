@@ -9,7 +9,6 @@ import org.junit.Test;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Mode;
 
-
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 

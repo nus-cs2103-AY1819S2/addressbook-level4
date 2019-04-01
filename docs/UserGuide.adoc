@@ -400,7 +400,7 @@ Here is our reference sheet so that you can have all of RestOrRant's commands an
 |Command |Shortcut |Usage |Example
 |`help` | kbt:[F1] | `help` | Shows the user guide
 |`restaurantMode` | `*RM*` | `restaurantMode` | Switches to Restaurant Mode
-|`tableMode` | `*TM*` | `tableMode TABLE_NUMBER` | `tableMode 1` + 
+|`tableMode` | `*TM*` | `tableMode TABLE_NUMBER` | `tableMode 1` +
 Switches to Table Mode for Table 1
 |`menuMode` | `*MM*` | `menuMode` | Switches to Menu Mode
 |`statisticsMode` | `*SM*` | `statisticsMode` | Switches to Statistics Mode

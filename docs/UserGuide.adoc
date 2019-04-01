@@ -509,7 +509,7 @@ e.g. `d 3`
 |*Delete Multiple* |`deletem START_INDEX END_INDEX` +
 e.g. `deletem 2 5`
 
-|*Edit* | `e INDEX [n/NAME] [cc/COUNTRYCODE] [r/RATING] [d/DESCRIPTION] [a/ADDRESS] [t/TAG]...` +
+|*Edit* | `e INDEX [n/NAME] [cc/COUNTRYCODE] [dv/DATE_VISITED] [r/RATING] [d/DESCRIPTION] [a/ADDRESS] [t/TAG]...` +
 e.g. `e 2 n/Starbucks d/I like the coffee here`
 
 |*Search* |`search KEYWORD [MORE_KEYWORDS]` +

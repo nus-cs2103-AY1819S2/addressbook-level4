@@ -558,7 +558,7 @@ CountryCodes.adoc
 Given below is a sequence of steps, illustrating the interaction between various classes when the add command is
 entered.
 
-image::AddCommandSequenceDiagram.png[width="800"]
+image::AddCommandSequenceDiagram.PNG[width="800"]
 Figure 10: Add Command Sequence Diagram
 
 Step 1: The user enters the command `add n/NUS Computing cc/SGP dv/10/10/2017 r/3 d/My School a/13 Computing Drive,

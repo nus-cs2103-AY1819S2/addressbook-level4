@@ -1,5 +1,6 @@
 package seedu.address.model.util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -96,9 +97,11 @@ public class SampleDataUtil {
                 .collect(Collectors.toSet());
     }
 
-    public static List<Appointment> getAppointments(String... strings) {
-        return Arrays.stream(strings)
-                .map(Appointment::new)
-                .collect(Collectors.toList());
+    public static List<Appointment> getAppointments() {
+        List<Appointment> appointments = new ArrayList<Appointment>();
+        appointments.add(new Appointment(1, 1, "2019-03-25", "9"));
+        appointments.add(new Appointment(2, 2, "2019-04-25", "10"));
+
+        return appointments;
     }
 }

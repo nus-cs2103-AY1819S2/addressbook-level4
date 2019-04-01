@@ -1,12 +1,14 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_APPT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 
 import java.util.stream.Stream;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddAppointmentCommand;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
 
@@ -22,23 +24,23 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
      */
     @Override
     public AddAppointmentCommand parse(String args) throws ParseException {
-        Prefix remark = new Prefix("r/");
-
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, remark);
+                ArgumentTokenizer.tokenize(args, PREFIX_PATIENT_ID, PREFIX_DOCTOR_ID,
+                        PREFIX_DATE_OF_APPT, PREFIX_START_TIME);
 
-        if (!arePrefixesPresent(argMultimap, remark)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        if (!arePrefixesPresent(argMultimap, PREFIX_PATIENT_ID, PREFIX_DOCTOR_ID,
+                PREFIX_DATE_OF_APPT, PREFIX_START_TIME)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddAppointmentCommand.MESSAGE_USAGE));
         }
 
-        Index index;
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE), pe);
-        }
+        Appointment appointment = new Appointment(
+                Integer.parseInt(argMultimap.getValue(PREFIX_PATIENT_ID).get()),
+                Integer.parseInt(argMultimap.getValue(PREFIX_DOCTOR_ID).get()),
+                argMultimap.getValue(PREFIX_DATE_OF_APPT).get(),
+                argMultimap.getValue(PREFIX_START_TIME).get());
 
-        return new AddAppointmentCommand(index, new Appointment(argMultimap.getValue(remark).get()));
+        return new AddAppointmentCommand(appointment);
     }
 
     /**

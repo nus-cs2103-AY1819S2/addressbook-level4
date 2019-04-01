@@ -1,7 +1,6 @@
 package seedu.address.model.appointment;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
@@ -12,17 +11,29 @@ public class Appointment {
 
     public static final String MESSAGE_CONSTRAINTS = "Appointments can only be made in the future";
 
-    public final String value;
+    private final int patientId;
+    private final int doctorId;
+    private final String dateOfAppt;
+    private final String timeOfAppt;
 
     /**
      * Constructs an {@code Appointment}.
      *
-     * @param appointment A valid appointment.
+     * @param patientId A valid patientId.
+     * @param doctorId A valid doctorId.
+     * @param dateOfAppt A valid appointment date in the future
+     * @param timeOfAppt A valid appointment time in the future
      */
-    public Appointment(String appointment) {
-        requireNonNull(appointment);
-        checkArgument(isValidAppointment(appointment), MESSAGE_CONSTRAINTS);
-        value = appointment;
+    public Appointment(int patientId, int doctorId, String dateOfAppt, String timeOfAppt) {
+        /**
+         * Every field must be present and not null.
+         */
+        requireAllNonNull(dateOfAppt, timeOfAppt);
+        //checkArgument(isValidAppointment(appointment), MESSAGE_CONSTRAINTS);
+        this.patientId = patientId;
+        this.doctorId = doctorId;
+        this.dateOfAppt = dateOfAppt;
+        this.timeOfAppt = timeOfAppt;
     }
 
     /**
@@ -34,7 +45,33 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return value;
+        String str = "";
+        str += "Appointment - ";
+        str += "Patient ID: " + patientId;
+        str += " Doctor ID: " + doctorId;
+        str += " Date: " + dateOfAppt;
+        str += " Time: " + timeOfAppt;
+        return str;
+    }
+
+    public int getPatientId() {
+        return patientId;
+    }
+
+    public int getDoctorId() {
+        return doctorId;
+    }
+
+    public String getDateOfAppt() {
+        return dateOfAppt;
+    }
+
+    public String getTimeOfAppt() {
+        return timeOfAppt;
+    }
+
+    boolean isSameAppointment(Appointment that) {
+        return this.equals(that);
     }
 
     @Override
@@ -45,12 +82,30 @@ public class Appointment {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+
         Appointment that = (Appointment) o;
-        return Objects.equals(value, that.value);
+
+        if (this.doctorId != that.doctorId) {
+            return false;
+        }
+
+        if (this.patientId != that.patientId) {
+            return false;
+        }
+
+        if (!this.dateOfAppt.equals(that.dateOfAppt)) {
+            return false;
+        }
+
+        if (!this.timeOfAppt.equals(that.timeOfAppt)) {
+            return false;
+        }
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(value);
+        return Objects.hash(this.dateOfAppt);
     }
 }

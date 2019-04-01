@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.exceptions.MedHistNotFoundException;
 import seedu.address.model.person.Doctor;
@@ -148,6 +149,17 @@ public class ModelManager implements Model {
     public void addPrescription(Prescription prescription) {
         versionedAddressBook.addPrescription(prescription);
         // updateFilteredDoctorList(PREDICATE_SHOW_ALL_DOCTORS);
+    }
+
+    @Override
+    public boolean hasAppointment(Appointment appointment) {
+        requireNonNull(appointment);
+        return versionedAddressBook.hasAppointment(appointment);
+    }
+
+    @Override
+    public void addAppointment(Appointment appointment) {
+        versionedAddressBook.addAppointment(appointment);
     }
 
     // Needed to be implemented later

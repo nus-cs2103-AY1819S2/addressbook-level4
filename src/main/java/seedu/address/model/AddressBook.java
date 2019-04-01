@@ -7,7 +7,8 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
-
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.UniqueMedHistList;
 import seedu.address.model.person.Doctor;
@@ -16,6 +17,7 @@ import seedu.address.model.person.UniqueDoctorList;
 import seedu.address.model.person.UniquePatientList;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.UniquePrescriptionList;
+
 
 /**
  * Wraps all data at the address-book level
@@ -28,6 +30,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueMedHistList medHists;
     private final UniquePrescriptionList prescriptions;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
+    private final UniqueAppointmentList appointments;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -41,6 +44,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         doctors = new UniqueDoctorList();
         medHists = new UniqueMedHistList();
         prescriptions = new UniquePrescriptionList();
+        appointments = new UniqueAppointmentList();
     }
 
     public AddressBook() {
@@ -84,6 +88,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the appointment list with {@code appointments}.
+     * {@code appointments} must not contain duplicate appointments.
+     */
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments.setAppointments(appointments);
+        indicateModified();
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -91,6 +104,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPatients(newData.getPatientList());
         setMedHists(newData.getMedHistList());
         setDoctors(newData.getDoctorList());
+        setAppointments(newData.getAppointmentList());
     }
 
     //// patient-level operations
@@ -140,6 +154,28 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         patients.setPatient(target, editedPatient);
         indicateModified();
+    }
+
+    /**
+     * Returns true if a duplicate {@code appointment} exists in docX.
+     */
+    public boolean hasAppointment(Appointment appointment) {
+        requireNonNull(appointment);
+        return appointments.contains(appointment);
+    }
+
+    /**
+     * Adds an appointment.
+     * The appointment must not already exist.
+     */
+    public void addAppointment(Appointment appointment) {
+        appointments.add(appointment);
+        indicateModified();
+    }
+
+    @Override
+    public ObservableList<Appointment> getAppointmentList() {
+        return appointments.asUnmodifiableObservableList();
     }
 
     /**

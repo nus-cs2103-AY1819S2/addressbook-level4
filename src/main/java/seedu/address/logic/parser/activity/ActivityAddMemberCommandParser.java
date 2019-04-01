@@ -20,7 +20,7 @@ public class ActivityAddMemberCommandParser implements Parser<ActivityAddMemberC
      * @throws ParseException if the user input does not conform the expected format
      */
     public ActivityAddMemberCommand parse(String args) throws ParseException {
-        String[] splitArgs = args.split("\\s+");
+        String[] splitArgs = args.trim().split("\\s+");
 
         try {
             Index index = ParserUtil.parseIndex(splitArgs[0]);

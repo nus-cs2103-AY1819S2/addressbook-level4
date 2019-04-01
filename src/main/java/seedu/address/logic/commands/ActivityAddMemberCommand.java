@@ -11,6 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.person.MatricNumber;
+import seedu.address.model.person.Person;
 
 /**
  * Selects an activity identified using it's displayed index from the address book.
@@ -47,8 +48,14 @@ public class ActivityAddMemberCommand extends ActivityCommand {
 
         model.setSelectedActivity(filteredActivityList.get(targetIndex.getZeroBased()));
         Activity selectedActivity = model.getSelectedActivity();
-        if (model.hasMatricNumber(targetMatric)) {
-            selectedActivity.addMemberToActivity(model.getPersonWithMatricNumber(targetMatric));
+        if (!model.hasMatricNumber(targetMatric)) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_MATRIC_NUMBER);
+        }
+        Person selectedPerson = model.getPersonWithMatricNumber(targetMatric);
+        if (selectedActivity.hasPersonInAttendance(selectedPerson)) {
+            throw new CommandException(Messages.MESSAGE_ACTIVITY_ALREADY_HAS_PERSON);
+        } else {
+            selectedActivity.addMemberToActivity(selectedPerson);
         }
         return new CommandResult(String.format(MESSAGE_ACTIVITY_ADD_MEMBER_SUCCESS, targetIndex.getOneBased()));
 

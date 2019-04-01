@@ -20,7 +20,7 @@ public class ActivityDeleteMemberCommandParser implements Parser<ActivityDeleteM
      * @throws ParseException if the user input does not conform the expected format
      */
     public ActivityDeleteMemberCommand parse(String args) throws ParseException {
-        String[] splitArgs = args.split("\\s+");
+        String[] splitArgs = args.trim().split("\\s+");
 
         try {
             Index index = ParserUtil.parseIndex(splitArgs[0]);

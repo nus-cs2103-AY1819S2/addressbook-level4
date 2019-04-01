@@ -224,6 +224,22 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
 
+[[Design-Battle]]
+=== Battle component
+
+.Structure of the Battle Component
+image::StorageClassDiagram.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/logic/battle/Battle.java[`Battle.java`]
+
+The `Battle` component,
+
+* keeps track of the progress of the battle,
+* restricts the computer to place its ships at the correct time,
+* allows the user and the computer enemy to attack each other and maintain proper turn-taking while doing so.
+
+As the
+
 [[Design-Commons]]
 === Common classes
 
@@ -327,15 +343,47 @@ image::ListShipSequenceDiagram.png[width=1499][height=2249]
 
 === Battle Feature
 ==== Current Implementation
-<Esther>
+The Battle feature handles the following:
+
+* keeping track of the stage of the battle, and ensuring that the player does not
+  enter a command in the wrong stage of the game,
+* allowing the computer to place its ships at the correct time,
+* allowing the user and the computer enemy to attack each other and maintain proper turn-taking while doing so.
+
+The Battle feature is split between several packages:
+
+  * `seedu.address.battle`: the main `Battle` class is implemented here
+  * `seedu.address.battle.state`: the battle state classes are implemented here, and
+    can be stored and retrieved via `Model`.
+  * `seedu.address.battle.result`: the attack result classes are implemented here.
+    These classes are returned by `Battle#humanPerformAttack(coordinates)` and
+    `Battle#takeComputerTurn()`.
+  * `BeginCommand`, `AttackCommand` and `EndTurnCommand` handle the player's interaction
+    with this component.
 
 ==== Design Considerations
-* **Alternative 1 (current choice):**
+* **Alternative 1 (current choice):** +
+  `BattleManager` is stored under `Model`. Every time `Attack`, `EndTurn` or `Begin` commands
+  are executed, they will use this `BattleManager` to actually perform the actions,
+  with the logic in the `Command`-s mostly being error handling. +
+  When AI performs attacks, the `BattleManager` will call the AI to compute its attack
+  and return it, then call an internal method to actually perform the attack.
 ** Pros:
+*** Command logic is abstracted into places where it can be reused by the AI.
 ** Cons:
-* **Alternative 2:**
+*** The `Model` component now contains game logic (`BattleManager`) within it.
+* **Alternative 2:** +
+  `BattleManager` is stored under `Logic`. Every time `Attack`, `EndTurn` or `Begin` commands
+  are executed, they will perform the action using the logic coded within themselves, not
+  interfacing with `BattleManager`. +
+  When AI performs attacks, the `BattleManager` will create these commands and execute them.
+  In the `Model`, the current attacking player is kept track of, allowing the commands to be
+  used for both a human and AI player.
 ** Pros:
+*** The game's model and logic are kept separate from each other.
 ** Cons:
+*** AttackCommand is now state-dependent (the state being the current attacking player) which
+    can more easily lead to bugs and race conditions.
 
 === Enemy AI Feature
 ==== Current Implementation

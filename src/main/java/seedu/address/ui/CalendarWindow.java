@@ -118,12 +118,13 @@ public class CalendarWindow extends UiPart<Stage> {
             }
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             runningCommand = false;
             return commandResult;
         } catch (CommandException | ParseException e) {
             runningCommand = false;
             logger.info("Invalid command: " + commandText);
-            logger.info(e.getMessage());
+            resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
     }

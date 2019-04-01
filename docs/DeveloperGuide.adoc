@@ -887,8 +887,9 @@ Step 10. If `MainWindow` sees that `CommandResult` object `r` has the type `ANSW
 If `MainWindow` sees that `CommandResult` object `r` has the type `ANSWER_WRONG`, it invokes
 `MainWindow#handleWrongAnswer()` to display the wrong attempt `TestSession` page to the user.
 
+////
     insert sequence diagram for UI for answer command?
-
+////
 
 ==== Next Command
 ===== Current Implementation

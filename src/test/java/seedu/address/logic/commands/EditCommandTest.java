@@ -187,13 +187,13 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of pdf book
      */
     @Test
     public void execute_invalidPdfIndexFilteredList_failure() {
         showPdfAtIndex(model, INDEX_FIRST_PDF);
         Index outOfBoundIndex = INDEX_SECOND_PDF;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of pdf book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getPdfBook().getPdfList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
@@ -235,10 +235,10 @@ public class EditCommandTest {
         EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder().withName(NAME_1_VALID).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
-        // execution failed -> address book state not added into model
+        // execution failed -> pdf book state not added into model
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PDF_DISPLAYED_INDEX);
 
-        // single address book state in model -> undoCommand and redoCommand fail
+        // single pdf book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
@@ -265,7 +265,7 @@ public class EditCommandTest {
         // edit -> edits second pdf in unfiltered pdf list / first pdf in filtered pdf list
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered pdf list to show all persons
+        // undo -> reverts pdf book back to previous state and filtered pdf list to show all persons
         expectedModel.undoPdfBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -304,7 +304,7 @@ public class EditCommandTest {
      * Initialises the files for th test
      */
     private void initialiseTest(Pdf target) {
-        if (Paths.get(target.getDirectory().getDirectory() + "\\" + target.getName()).toFile().exists()) {
+        if (Paths.get(target.getDirectory().getDirectory() , target.getName().getFullName()).toFile().exists()) {
             try {
                 Files.delete(Paths.get(target.getDirectory().getDirectory() + "\\" + target.getName()));
             } catch (IOException ioe) {

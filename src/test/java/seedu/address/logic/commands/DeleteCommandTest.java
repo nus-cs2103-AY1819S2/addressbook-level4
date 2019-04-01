@@ -18,7 +18,7 @@ import java.nio.file.StandardCopyOption;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
+import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -35,10 +35,19 @@ import seedu.address.model.pdf.exceptions.PdfNotFoundException;
  */
 public class DeleteCommandTest {
     @Rule
-    public final TemporaryFolder tempFolder = new TemporaryFolder();
+    public ExpectedException thrown = ExpectedException.none();
 
     private Model model = new ModelManager(getTypicalPdfBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
+
+    @Test
+    public void constructor_invalidIndex_throwsIndexOutOfBoundsException() {
+        thrown.expect(IndexOutOfBoundsException.class);
+        new DeleteCommand(Index.fromZeroBased(model.getFilteredPdfList().size() + 1));
+
+        thrown.expect(IndexOutOfBoundsException.class);
+        new DeleteCommand(Index.fromZeroBased(-1));
+    }
 
     @Test
     public void execute_validIndexUnfilteredList_success() {

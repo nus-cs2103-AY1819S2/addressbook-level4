@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,9 +63,11 @@ public class TaskDoneCommand extends Command {
                             .getLinkedPatientNric())).findFirst();
             if (found.isPresent()) {
                 Patient replacement = found.get();
-                replacement.addRecord(new Record(new Description(completedTask.getTitle().title)));
+                String recordDescription = "Completed task - " + completedTask.getTitle().title + " at "
+                                            + DateTimeFormatter.ofPattern("HHmm").format(LocalDateTime.now());
+                replacement.addRecord(new Record(new Description(recordDescription)));
                 model.setPerson(found.get(), replacement);
-                patientRecordAddedMessage = String.format("\n Added Record to Patient: %s ( %s )",
+                patientRecordAddedMessage = String.format("\nAdded Record to Patient: %s ( %s )",
                         found.get().getName().fullName, found.get().getNric().getNric());
             } else {
                 patientRecordAddedMessage = "\n Linked Patient not found. Record not added.";

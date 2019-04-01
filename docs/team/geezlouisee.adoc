@@ -26,12 +26,12 @@ _In-Credit-Ble_ was developed by four friends and I, from the National Universit
 * *Other contributions*:
 
 ** Project management:
-*** Helped to manage issue tracker (https://github.com[#89], https://github.com[#105])
+*** Helped to manage issue tracker (https://github.com/CS2103-AY1819S2-W17-3/main/issues/89[#89])
 ** Enhancements to existing features:
-*** o	Added more colours to tags, and refactored them as categories to suit our product (https://github.com[#20], https://github.com[#59], https://github.com[#73])
+*** Added more colours to tags, and refactored them as categories to suit our product (https://github.com/CS2103-AY1819S2-W17-3/main/pull/20[#20], https://github.com/CS2103-AY1819S2-W17-3/main/pull/59[#59], https://github.com/CS2103-AY1819S2-W17-3/main/pull/73[#73])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-*** Did cosmetic tweaks to the Developer Guide (https://github.com[#4], https://github.com[#8], https://github.com[#78])
+*** Did cosmetic tweaks to the Developer Guide (https://github.com/CS2103-AY1819S2-W17-3/main/pull/4[#4], https://github.com/CS2103-AY1819S2-W17-3/main/pull/8[#8], https://github.com/CS2103-AY1819S2-W17-3/main/pull/78[#78])
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#64]
 ** Tools:

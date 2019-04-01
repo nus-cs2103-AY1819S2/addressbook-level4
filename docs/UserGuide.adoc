@@ -205,10 +205,10 @@ Examples:
 `editRestaurant 2 n/MACS  ` +
 Change the name of the second restaurant in the list to MACS.
 
-=== Setting the category of a restaurant : `setCategory`
+=== Setting the categories of a restaurant : `setCategories`
 
 Set the cuisine of a restaurant identified by the index number used in the listRestaurants. +
-Format: `setCategory INDEX [c/CUISINE] [o/OCCASION] [p/PRICE_RANGE]`
+Format: `setCategories INDEX [c/CUISINE] [o/OCCASION] [p/PRICE_RANGE]`
 
 ****
 * The index refers to the index number show in the displayed restaurants list.
@@ -233,14 +233,14 @@ Note:
 * setCategory for `Cuisine`, `Occasion` and `Price Range` supported as of v1.3
 * Autocomplete feature planned for v1.4
 
-=== Filter restaurants based on category : `filter`
+=== Filter restaurants based on categories : `filter`
 
 Filters and lists the restaurants with categories matching the keywords entered. +
 Format: `filter KEYWORD [MORE_KEYWORDS]`
 
 ****
 * You do not need to worry about case. Filtering is case insensitive. e.g. `fast food` will match `Fast Food`
-* You do not need to be concerned about which category you want to filter. Filtering works across categories.
+* You do not need to be concerned about which categories you want to filter. Filtering works across categories.
 e.g. `japanese $$$$` will match all restaurants with `Cuisine` set as `Japanese` or `Price Range` set as `\$$$$`.
 Note this also means that the more keywords you add, the more general the filter becomes.
 * You can enter keywords in any order. `$ casual` is the same as `casual $`. Both will match restaurants that has

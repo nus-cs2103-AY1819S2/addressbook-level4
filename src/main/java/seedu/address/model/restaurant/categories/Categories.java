@@ -47,6 +47,8 @@ public class Categories {
      * Ensures previous category fields are retained if updated fields are not present.
      */
     public static Categories merge(Categories previous, Categories updated) {
+        assert(previous != null);
+        assert(updated != null);
         Optional<Cuisine> mergedCuisine = updated.cuisine.or(() -> previous.cuisine);
         Optional<Occasion> mergedOccasion = updated.occasion.or(() -> previous.occasion);
         Optional<PriceRange> mergedPriceRange = updated.priceRange.or(() -> previous.priceRange);
@@ -57,6 +59,7 @@ public class Categories {
      * Checks if the given keyword matches any of the categories.
      */
     public boolean match(String keyword) {
+        assert(keyword != null);
         boolean matchesCuisine = StringUtil
                 .containsWordIgnoreCase(cuisine.map(content -> content.value).orElse(""), keyword);
         boolean matchesOccasion = StringUtil
@@ -70,6 +73,9 @@ public class Categories {
      * Sets the labels in the UI with the value of each category if present. Else toggles visibility of label to false.
      */
     public void setLabels(Label cuisineLabel, Label occasionLabel, Label priceRangeLabel) {
+        assert(cuisineLabel != null);
+        assert(occasionLabel != null);
+        assert(priceRangeLabel != null);
         cuisine.ifPresentOrElse(content -> cuisineLabel.setText(content.value), () -> cuisineLabel.setVisible(false));
         occasion.ifPresentOrElse(content -> occasionLabel.setText(content.value), () ->
                 occasionLabel.setVisible(false));

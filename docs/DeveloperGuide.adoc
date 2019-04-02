@@ -370,6 +370,7 @@ The updated `Model`,
 * exposes an unmodifiable `ObservableList<Activity>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * Each activity can have a HashMap of `Person` Object for attendance.
 
+*to be completed*
 [discrete]
 ===== Activity Add Command
 The `activityAdd` command enables users to create a new activity with name, datetime, location. User could

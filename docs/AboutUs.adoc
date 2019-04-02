@@ -65,7 +65,7 @@ Responsibilities:
 
 === Yang Yiqing
 image::ivyyangyq.png[width="150", align="left"]
-{empty}[http://github.com/ivyyangyq[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/ivyyangyq[github]] [<<ivyyangyq#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities:

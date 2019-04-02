@@ -1,0 +1,195 @@
+= 0blivious - Project Portfolio for Book Squirrel
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== About the Project
+
+My team and I were tasked with enhancing a application addressbook-level4 for our
+Software Engineering project. We chose to morph it into an book review recording application called
+Book Squirrel. This enhanced application enables readers to keep track of their reading, recording down their
+reviews of books and obtain statistics of their past reading habits.
+
+My role was to design and write the codes to support the CRUD of books. The following sections
+illustrate these enhancements in more detail, as well as the relevant sections I have added to the
+user and developer guides in relation to these enhancements.
+
+== Summary of contributions
+This section shows a summary of my coding, documentation, and other helpful contributions to the
+team project.
+
+* *Enhancement added*: support CRUD of book object
+** What it does: allows the user to add, edit, delete book in the book shelf and check reviews of selected book.
+** Justification: This feature is the basis of the application. As our app is viewed as a big book shelf
+that keeps numerous books and the reviews related to each book. The CRUD features of book object is necessary to support
+all the other operations.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth
+analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=0blivious[Link to Code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
+*** Setting up Travis, Coveralls, Codacy for code checking purpose.
+*** Managing Issue Tracker and merging of PRs.
+** Enhancements to existing features:
+*** Updated the GUI to show list of reviews of certain book when click on that book card (Pull requests https://github.com/cs2103-ay1819s2-w11-4/main/pull/90[#90])
+*** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/cs2103-ay1819s2-w11-4/main/pull/67[#67], https://github.com/cs2103-ay1819s2-w11-4/main/pull/69[#69],
+ https://github.com/cs2103-ay1819s2-w11-4/main/pull/92[#92])
+** Documentation:
+*** Update User Guide and Developer Guide to reflect current product (Pull requests https://github.com/cs2103-ay1819s2-w11-4/main/pull/61[#61], https://github.com/cs2103-ay1819s2-w11-4/main/pull/97[#97],
+ https://github.com/cs2103-ay1819s2-w11-4/main/pull/96[#96])
+** Community:
+*** PRs reviewed (with non-trivial review comments): (Pull requests https://github.com/cs2103-ay1819s2-w11-4/main/pull/42[#42], https://github.com/cs2103-ay1819s2-w11-4/main/pull/65[#65], https://github.com/cs2103-ay1819s2-w11-4/main/pull/66[#66], , https://github.com/cs2103-ay1819s2-w11-4/main/pull/93[#93])
+
+== Contributions to the User Guide
+We had to update the original addressbook User Guide with instructions for the enhancements that
+we had added. The following is an excerpt from our Book Squirrel User Guide, showing additions that I have
+made for the CRUD features for book.
+
+==== Adding a book: `addBook`
+
+Adds a book to the book shelf +
+Format: `addBook n/BOOKNAME a/author m/RATING(0-10) [t/TAG]…​`
+
+Examples:
+
+* `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale` +
+Adds a book named Alice in Wonderland to the record. The book is written by Lewis Carroll, rated 5 stars, and labeled with tags ‘fantasy’ and ‘fairy tale’.
+* `addBook n/Structure and Interpretation of Computer Programs a/Hal Abelson Jerry Sussman m/4 t/textbook` +
+Adds a book named Structure and Interpretation of Computer Programs to the record. The book is written by Hal Abelson Jerry Sussman, rated 4 stars, and labeled with tag ‘textbook’.
+
+****
+* The book name is case sensitive
+* Two books with same book name are considered same book
+* Trying to add a book which is already present in the book shelf will result in duplicate book error, and the addBook command will fail
+* Book names should only contain no more than 50 characters (space included), and it should not be blank
+* Author names should only contain alphanumeric characters and spaces, and it should not be blank nor longer than 50 characters
+* Tags names should be alphanumeric and contains less than 20 characters
+* Rating should be an integer ranging from 0 to 10 inclusive
+****
+
+==== Editing book entry : `editBook`
+
+Edits an existing book entry (eg. edit the mark, author or tag). +
+Format: `editBook INDEX [n/BOOKNAME] [a/AUTHOR] [m/RATING] [t/TAG]...`
+
+****
+* Edits the book at the specified INDEX. The index refers to the index number shown in the displayed book list. The index must be a positive integer 1, 2, 3, …​
+* Edit a book with new name same as the name of other book which is already existing in book shelf is not allowed
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the book will be removed i.e adding of tags is not cumulative.
+* You can remove all the book’s tags by typing t/ without specifying any tags after it.
+****
+
+Examples:
+
+* `edit 1 n/Alice in Wonderland a/some author t/some tag` +
+Change the name, author, tag of the first book to Alice in Wonderland, some author, some tag.
+* `edit 2 t/` +
+Clear all the existing tags of the second book in the result list.
+
+==== Deleting a book : `deleteBook`
+
+Deletes the specified book from the book list. +
+Format: `deleteBook INDEX`
+
+****
+* Deletes the book of the specified `INDEX`.
+* All the reviews of the deleted book will also be deleted.
+* The index refers to the index number shown in the displayed book list.
+* The index must be a positive integer 1, 2, 3, …​
+****
+
+Examples:
+
+* `listBook n/Computer Security` +
+`deleteBook 1` +
+Deletes the 1st book in the results of the listBook command.
+
+== Contributions to the Developer Guide
+The following section shows my additions to the Book Squirrel Developer Guide for the addBook
+features.
+
+=== AddBook feature
+==== Current Implementation
+
+The addBook mechanism is facilitated by `BookShelf`.
+It contains `UniqueBookList` in which all the book data are stored and duplicates are not allowed. Books with same book name are considered as duplicates.
+Additionally, it uses the following operations from `BookShelf`:
+
+* `model#hasBook()` -- Check if the book already exists in the book shelf.
+* `model#addBook()` -- To add the new book into book shelf.
+* `model#commitBookShelf()` -- Saves the current book shelf state for undo/redo..
+
+These operations are exposed in the `Model` interface.
+
+Given below is an example usage scenario and how the addBook mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
+
+Step 2. The user executes `addBook n/Alice a/HR m/5 tag/fantasy` command to add the book called Alice, written by HR, with rating of 5 and tag of fantasy in the book list. The `addBook` command calls `Model#hasBook()`, checking if the book already exists in the book shelf.
+
+[NOTE]
+If the book already exists, CommandException(MESSAGE_DUPLICATE_BOOK) will be thrown. It will not call `Model#commitBookShelf()`, so the book shelf state will not be saved into the `BookShelfStateList`.
+
+Step 4. The book shelf now adds the book to the book list after making sure there is no duplicates, and calls Model#commitBookShelf(), causing the modified state of the book list after the `addBook` command executes to be saved in the BookShelfStateList
+
+==== Design Considerations
+
+===== Aspect: How duplicate of book is defined
+
+* **Alternative 1 (current choice):** Books with same book name are considered as duplicates.
+** Pros: Easy to support other command such as addReview which search for the book based on its name.
+** Cons: User may encounter trouble if they read two books with same name but written by different authors.
+* **Alternative 2:** Books with multiple identical fields (eg. book name and author, book name and rating, etc) are considered same book.
+** Pros: Able to store books with same same but different in other fields.
+** Cons: Causing trouble to executing other commands like addReview as more parameters must be provided to search for a certain book.
+//end::addBook[]
+
+===== Aspect: Data structure to support the addBook command
+
+* **Alternative 1 (current choice):** Saves the entire book as one object contains different components such as author, rating, etc.
+** Pros: Easy to implement delete and other features that change an entire book.
+** Cons: May be more difficult to implement the summary feature which needs to obtain statistics of all separate components, eg. find the most popular author.
+* **Alternative 2:** Components stored as individual objects.
+** Pros: Easier to obtain statistics regarding each component.
+** Cons: It is hard to manage book object as we need to find a way to connect all components together.
+
+=== EditBook feature
+==== Current Implementation
+
+The editBook mechanism is facilitated by `BookShelf`.
+It contains `UniqueBookList` in which all the book data are stored and duplicates are not allowed. Books with same book name are considered as duplicates.
+Additionally, it uses the following operations from `BookShelf`:
+
+* `model#hasBook()` -- Check if the book already exists in the book shelf.
+* `model#setBook()` -- To set a book with field values provided.
+* `model#commitBookShelf()` -- Saves the current book shelf state for undo/redo..
+
+These operations are exposed in the `Model` interface.
+
+Given below is an example usage scenario and how the addBook mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
+
+Step 2. The user executes `editBook 1 n/Alice a/HR m/5 tag/fantasy` command to edit the first book present in the book list to be a book called Alice, written by HR, with rating of 5 and tag of fantasy in the book list. The `addBook` command calls `Model#hasBook()`, checking if the book already exists in the book shelf.
+
+[NOTE]
+If the new book name already exists, CommandException(MESSAGE_DUPLICATE_BOOK) will be thrown. It will not call `Model#commitBookShelf()`, so the book shelf state will not be saved into the `BookShelfStateList`.
+
+Step 4. The book shelf now set the fields of the first book to the new ones provided, and calls Model#commitBookShelf(), causing the modified state of the book list after the `addBook` command executes to be saved in the BookShelfStateList
+
+==== Design Considerations
+
+===== Aspect: How editBook is executed
+
+* **Alternative 1 (current choice):** Use index to figure out the book user wishes to edit.
+** Pros: Easy to select the book user wish to edit with the support of our UI.
+** Cons: A listBook command might be needed before executing editBook if the current filtered book list is empty
+* **Alternative 2:** Use exact book name to figure out the book user wishes to edit.
+** Pros: No need to first filter out a non-empty book list.
+** Cons: Causing trouble for user to type in the full name of the book.

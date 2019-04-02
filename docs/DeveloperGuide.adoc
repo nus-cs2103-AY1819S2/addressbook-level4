@@ -236,7 +236,61 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
+=== SortBook feature
+==== Current Implementation
+
+The sortBook mechanism is facilitated by `VersionedBookShelf`.
+It extends `BookShelf` with the sort function which will sort the `UniqueBookList`. `UniqueBookList` implemented the Book list as `ObservableList<Book>`. sortBook command sort the book list in specify order by implementing the `Comaparator<Book>`.
+
+Additionally, it uses/implements the following operations:
+
+* `VersionedBookShelf#sort()` -- It calls `UniqueBookList` sortBooks function and notifies the listeners.
+
+* `BookShelf#indicateModified()` -- Notifies listeners that the book shelf has been modified.
+
+* `UniqueBookList#sortBooks()` -- Implement the comparaotr, call `ObservableList<Book>` and pass in the comparator.
+
+* `ObservableList<Book>#sort()` -- sort the internalList is specify order.
+
+Given below is an example usage scenario and how the sortBook mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
+
+Step 2. The user executes `sortBook st/rating` command to sort all the books in the book shelf in ascending order. The command will be pass to SortBookCommand Parser to convert it to SortBook command, the parser will checks the correctness of the command. If command is in incorrect format, parser will shows correct command instruction to user, otherwise parser will call the constructor of SortBook command.
+
+Step 3. `SortBookCommand#execute` will be call, it will check whether the book list is empty before proceed to call `ModelManager#sort()`.
+
+[NOTE]
+If the book list is empty, CommandException(MESSAGE_BOOK_LIST_EMPTY) will be thrown.
+
+Step 4. If everything is correct, `VersionedBookShelf#sort()` will be call. It will executes `UniqueBookList#sortBooks` and `BookShelf#indicateModified` will be called after the list is been sorted to notify listener that display data has been modify.
+
+Step 5. `ObservableList<Book>` was implemented in `UniqueBookList` as internal list. `UniqueBookList#sortBooks` will call `ObservableList<Book>#sort` to sort the internal list by providing custom Comparator.
+
+Step 6. ` model#commitBookShelf()` will be execute to store current book list into `List<ReadOnlyBookShelf>` for support undo/redo command after the list is sorted and notify the listener.
+
+==== Design Considerations
+
+===== Aspect: Sorting algorithm implemented.
+
+* **Alternative 1 (current choice):** Sorts using library sorting method.
+** Pros: Easy to implement, easy to maintain.
+** Cons: The sorting method is too general, can have better sorting algorithm.
+
+* **Alternative 2:** Using custom sorting method.
+** Pros: more custom, may improve performance.
+** Cons: hard to maintain and easy to produce bugs.
+
+===== Aspect: Data structure to support the sort commands
+
+* **Alternative 1 (current choice):** Sorts with the complete list.
+** Pros: Easy to implement, as the list coming with sort function.
+** Cons: May have performance issues in terms of speed, as we need to sort whole list.
+
+* **Alternative 2:** Sorts with sub-list that available to user.
+** Pros: It is faster than first choice as we only need to sort partial list.
+** Cons: The sub-list is not support sort function, its hard and time comsume to manipulate sorting and put it back to sub-list.
+
 === Undo/Redo feature
 ==== Current Implementation
 
@@ -336,8 +390,6 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-
-// tag::addBook[]
 === AddBook feature
 ==== Current Implementation
 
@@ -372,7 +424,7 @@ Step 4. The book shelf now adds the book to the book list after making sure ther
 * **Alternative 2:** Books with multiple identical fields (eg. book name and author, book name and rating, etc) are considered same book.
 ** Pros: Able to store books with same same but different in other fields.
 ** Cons: Causing trouble to executing other commands like addReview as more parameters must be provided to search for a certain book.
-// end::addBook[]
+//end::addBook[]
 
 ===== Aspect: Data structure to support the addBook command
 
@@ -382,7 +434,41 @@ Step 4. The book shelf now adds the book to the book list after making sure ther
 * **Alternative 2:** Components stored as individual objects.
 ** Pros: Easier to obtain statistics regarding each component.
 ** Cons: It is hard to manage book object as we need to find a way to connect all components together.
-// end::addBook[]
+
+=== EditBook feature
+==== Current Implementation
+
+The editBook mechanism is facilitated by `BookShelf`.
+It contains `UniqueBookList` in which all the book data are stored and duplicates are not allowed. Books with same book name are considered as duplicates.
+Additionally, it uses the following operations from `BookShelf`:
+
+* `model#hasBook()` -- Check if the book already exists in the book shelf.
+* `model#setBook()` -- To set a book with field values provided.
+* `model#commitBookShelf()` -- Saves the current book shelf state for undo/redo..
+
+These operations are exposed in the `Model` interface.
+
+Given below is an example usage scenario and how the addBook mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
+
+Step 2. The user executes `editBook 1 n/Alice a/HR m/5 tag/fantasy` command to edit the first book present in the book list to be a book called Alice, written by HR, with rating of 5 and tag of fantasy in the book list. The `addBook` command calls `Model#hasBook()`, checking if the book already exists in the book shelf.
+
+[NOTE]
+If the new book name already exists, CommandException(MESSAGE_DUPLICATE_BOOK) will be thrown. It will not call `Model#commitBookShelf()`, so the book shelf state will not be saved into the `BookShelfStateList`.
+
+Step 4. The book shelf now set the fields of the first book to the new ones provided, and calls Model#commitBookShelf(), causing the modified state of the book list after the `addBook` command executes to be saved in the BookShelfStateList
+
+==== Design Considerations
+
+===== Aspect: How editBook is executed
+
+* **Alternative 1 (current choice):** Use index to figure out the book user wishes to edit.
+** Pros: Easy to select the book user wish to edit with the support of our UI.
+** Cons: A listBook command might be needed before executing editBook if the current filtered book list is empty
+* **Alternative 2:** Use exact book name to figure out the book user wishes to edit.
+** Pros: No need to first filter out a non-empty book list.
+** Cons: Causing trouble for user to type in the full name of the book.
 
 // tag::listBook[]
 === ListBook Feature
@@ -491,11 +577,23 @@ Step 6. If the book exists, the review is added to the review list of the Book S
 ** Pros: The model makes more sense because Reviews belong to Books.
 ** Cons: Makes it more difficult to link with the UI component.
 
+====== Aspect: Constraints on Review Parameters
+
+* ReviewTitle has the same constraints as BookName, less than 50 characters.
+* ReviewMessage should be less than or equal to 400 characters. This is because the
+BookBrowserPanel used to display the ReviewMessage currently cannot hold more than 400 characters.
+Longer text also makes it more difficult to edit in the small CommandBox. Future releases would consider
+adding enhanced review input panel to make the review feature more user friendly.
+
+====== Aspect: Auto-creation of Date for the Review
+
+* Currently, the constructor of Review automatically assigns a dateCreated to it.
+This feature is provided for the convenience of the user. An overloaded constructor
+is available where the date can be passed in as a parameter, to be used in testing.
+
 ==== ListReview Feature
 
 ===== Current Implementation
-
-The ListReview Feature is currently combined with the previous SelectPerson.
 
 Given below is an example usage and program behaviour:
 
@@ -507,9 +605,69 @@ Step 3. The ListReviewCommand executes. The book with the specified index is sel
 
 Step 4. Reviews of the selected book will be displayed in the rightmost panel.
 
-===== Design Considerations
+Alternatively, the user can click the book to select it.
 
 ====== Aspect:
+
+==== ListAllReviews Feature
+===== Current Implementation
+
+The ListAllReviews Feature uses the same implementation as the ListBook feature:
+
+Step 1. The user executes `listAllReviews`
+
+Step 2. A new ListAllReviewsCommand is returned by the BookShelfParser
+
+Step 3. The ListAllReviewsCommand executes. Review list panel is updated to show all reviews.
+
+===== Design Considerations
+
+====== Aspect: Whether to combine ListAllReviews command with ListReview command
+
+* **Alternative 1 (current choice):** not to combine.
+** Pros: Command is more logical and user friendly because it is actually not intuitive to have two functions combined in one ListReview command.
+** Cons: Inconsistency with the ListBook command may cause confusion.
+* **Alternative 2:** Combine.
+** Pros: Consistency.
+** Cons: Command is not intuitive, and takes extra time to implement review predicates.
+
+==== SelectReview Feature
+===== Current Implementation
+
+Selection of review is implemented the same way as selection of book.
+
+In addition, review message of selected review will be displayed in the book browser panel.
+
+Step 1. The user executes `selectReview 1`
+
+Step 2. The SelectReviewCommandParser parses this command, and returns a new SelectReviewCommand with index 1.
+
+Step 3. The SelectReviewCommand executes. The review with the specified index is selected.
+
+Step 4. The BookBrowserPanel listens to the change in selected review, and displays its review message.
+
+
+==== DeleteReview Feature
+===== Current Implementation
+
+Review is deleted based on index.
+
+Step 1. The user executes `deleteReview 1`
+
+Step 2. The DeleteReviewCommandParser parses this command, and returns a new DeleteReviewCommand with index 1.
+
+Step 3. The DeleteReviewCommand executes. The review with the specified index is deleted.
+
+==== Other Design Considerations
+
+===== Whether to Implement EditReview
+
+It seems natural to implement EditReview as one component of the CRUD features. However,
+editing an existing review requires re-typing everything and seems painstaking to the user. It makes much more sense to just delete
+the original review and add a new one. Hence. EditReview is currently not implemented.
+
+
+
 
 // end::addReview[]
 

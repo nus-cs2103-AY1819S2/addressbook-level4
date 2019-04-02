@@ -19,19 +19,19 @@ By: `Team W11-04`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-BookSquirrel is for those who *want to keep record of books they've read*. More importantly, BookSquirrel is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BookSquirrel can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+BookSquirrel is for those who *want to keep a record of books they've read*. More importantly, BookSquirrel is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BookSquirrel can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `bookSquirrel.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Book Shelf.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Copy the file to the folder you want to use as the home folder for your application.
+.  Double-click the file to start the app. The main window should appear in a few seconds, as shown in the screenshot below.
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+E.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * **`addBook`**`n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale` : adds a book named `Alice in Wonderland` to the record.
@@ -56,6 +56,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Tags should not exceed 20 characters (space included).
 ====
 
+// tag::book[]
 === Book Commands
 
 ==== Adding a book: `addBook`
@@ -65,8 +66,10 @@ Format: `addBook n/BOOKNAME a/author m/RATING(0-10) [t/TAG]…​`
 
 Examples:
 
-* `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale`
-* `addBook n/Structure and Interpretation of Computer Programs a/Hal Abelson Jerry Sussman m/4 t/textbook`
+* `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale` +
+Adds a book named Alice in Wonderland to the record. The book is written by Lewis Carroll, rated 5 stars, and labeled with tags ‘fantasy’ and ‘fairy tale’.
+* `addBook n/Structure and Interpretation of Computer Programs a/Hal Abelson Jerry Sussman m/4 t/textbook` +
+Adds a book named Structure and Interpretation of Computer Programs to the record. The book is written by Hal Abelson Jerry Sussman, rated 4 stars, and labeled with tag ‘textbook’.
 
 ****
 * The book name is case sensitive
@@ -115,7 +118,8 @@ Examples:
 
 * `listBook n/Computer Security` +
 `deleteBook 1` +
-Deletes the 1st person in the results of the listBook command.
+Deletes the 1st book in the results of the listBook command.
+// end::book[]
 
 ==== Listing book entries : `listBook`
 
@@ -143,20 +147,28 @@ Examples:
 ==== Sort books command : `sortBook`
 
 sort bookList in specify order. +
-Format: `sortBook st/TYPE o/ORDER`
+Format: `sortBook st/TYPE... [o/ORDER] [o1/ORDER] [o2/ORDER] [o3/ORDER]`
 
 ****
-* TYPE can be either *AUTHOR*, *NAME* or *RATING*.
+* TYPE can only be either *AUTHOR*, *NAME* or *RATING*.
+* Able to sort more than one *TYPE* by writing down more than one *TYPE* after the *sortBook*.
 * ORDER can be either *ASC*(ascending) and *DES*(descending).
-* TYPE and ORDER are all case-insensitive.
+* Omit o/ORDER, it will sort in *ASC*(ascending).
+* o1, o2, o3 is corresponding specify order for each *TYPE* that specify in front.
+* o/ORDER is the orderfor all *TYPEs*, it will overwrite order if both o and o1 appear at same time.
+* *TYPE* and *ORDER* are all case-insensitive.
 ****
 
 Examples:
 
-* `sortBook st/name o/asc`
+* `sortBook st/name`
 sort bookList by book name in ascending order.
-* `sortBook st/RATING o/des`
-sort bookList by rating of the book in descending order.
+* `sortBook st/rating st/name o1/des`
+sort bookList by rating of the book in descending order and if they having same rating it will sort them by book name is asc order.
+* `sortBook st/author st/rating o/des o2/asc`
+sort bookList by author in descending order and if they having same rating it will sort them by rating in des order.(o/des overwrite o2/asc)
+
+// tag::reviews[]
 
 === Review Commands
 
@@ -164,12 +176,18 @@ sort bookList by rating of the book in descending order.
 
 Adds a book review to a certain book in the book list +
 
-Format: `addReview n/BOOKNAME rt/REVIEW TITLE r/REVIEW MESSAGE
+Format: `addReview n/BOOKNAME rt/REVIEW TITLE r/REVIEW MESSAGE`
 
 Examples:
 
 * `addReview n/Alice in Wonderland rt/An interesting child book r/While Lewis Carroll purists will scoff at the aging of his curious young protagonist, most movie audiences will enjoy this colorful world.`
 * `addReview n/Structure and Interpretation of Computer Programs rt/Computing Bible r/A very difficult book:(`
+
+****
+* The book having specified `BOOKNAME` must already exist in the Book Shelf.
+* `BOOKNAME` and `REVIEW TITLE` should not contain more than 50 characters.
+* `REVIEW MESSAGE` should not contain more than 400 characters.
+****
 
 ==== Deleting a book review: `deleteReview`
 
@@ -187,14 +205,16 @@ Example:
 ****
 
 ==== Listing all book reviews: `listAllReviews`
-Lists all the reviews in the Book Shelf.
+Lists all the reviews in the Book Shelf. +
 Format: `listAllReviews`
 
 ==== Listing book reviews of a certain book : `listReview`
 
 Lists the reviews of the book identified by the index number used in the displayed book list. +
 Format: `listReview INDEX`
+
 Example:
+
 * `listReview 1`
 
 ****
@@ -207,7 +227,9 @@ Example:
 Selects a review.
 
 Format: `selectReview INDEX`
+
 Example:
+
 * `selectReview 1`
 ****
 * Selects the review of the specified `INDEX`.
@@ -216,10 +238,13 @@ Example:
 * The index must be a positive integer 1, 2, 3, …​
 ****
 
+// end::reviews[]
+
 === System Commands
 
 ==== Viewing help : `help`
 
+Offer a guide of all possible commands. +
 Format: `help`
 
 ==== Listing entered commands : `history`
@@ -240,7 +265,7 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the records content (`addBook`, `addReview`, ``deleteBook`, `deleteReview`, `editBook` and `clear`).
+Undoable commands: those commands that modify the records content (`addBook`, `addReview`, `deleteBook`, `deleteReview`, `editBook`, `sortBook` and `clear`).
 ====
 
 Examples:
@@ -248,6 +273,9 @@ Examples:
 * `listBook n/Alice` +
 `deleteBook 1` +
 `undo` (reverses the `deleteBook 1` command) +
+
+* `sortBook st/rating` +
+`undo` (reverses the `sortBook st/rating` command) +
 
 * `listBook a/James` +
 `undo` +
@@ -273,7 +301,7 @@ Examples:
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
 
-==== Give a summary of all the books read : `summary`
+==== Providing statistics of all the books read : `summary`
 
 Generate a summary of all the books read so far. +
 Format: `summary`
@@ -329,7 +357,7 @@ e.g. `sortBook st/AUTHOR o/ASC`
 e.g. `addReview n/Alice in Wonderland r/While Lewis Carroll purists will scoff at the aging of his curious young protagonist, most movie audiences will enjoy this colorful world.`
 * *DeleteReview* : `deleteReview INDEX` +
 eg. `deleteReview 1`
-* *ListAllReviews* : `listAllReviews +
+* *ListAllReviews* : `listAllReviews` +
 e.g. `listAllReviews`
 * *ListReview* : `listReview INDEX` +
 e.g. `listReview 1`

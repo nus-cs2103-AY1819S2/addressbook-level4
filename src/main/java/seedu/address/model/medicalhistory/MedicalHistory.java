@@ -3,7 +3,6 @@ package seedu.address.model.medicalhistory;
 import java.util.Objects;
 
 import seedu.address.model.person.Doctor;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Patient;
 
 
@@ -14,20 +13,30 @@ import seedu.address.model.person.Patient;
 public class MedicalHistory {
 
     // Identity field
-    private Patient patient;
-    private Name name;
-    private Doctor doctor;
+    private Patient patient = null;
+    private Doctor doctor = null;
+
+    //Current id field, will be modified later
+    private String patientId;
+    private String doctorId;
+    private String medHistId;
 
     // Data field
+    private Date date;
     private WriteUp writeUp;
 
     //Constructor
-    public MedicalHistory(Patient patient, Doctor doctor, Name name, WriteUp writeUp) {
+    public MedicalHistory(String patientId, String doctorId, Date date, WriteUp writeUp) {
         // Doctor, Time, MedicalHistory Id are needed
-        this.patient = patient;
-        this.doctor = doctor;
-        this.name = name;
+        this.patientId = patientId;
+        this.doctorId = doctorId;
+        this.date = date;
         this.writeUp = writeUp;
+        this.medHistId = patientId + "/" + doctorId + "/" + date;
+    }
+
+    public String getMedHistId() {
+        return this.medHistId;
     }
 
     public Patient getPatient() {
@@ -38,8 +47,16 @@ public class MedicalHistory {
         return this.doctor;
     }
 
-    public Name getName() {
-        return this.name;
+    public String getPatientId() {
+        return this.patientId;
+    }
+
+    public String getDoctorId() {
+        return this.doctorId;
+    }
+
+    public Date getDate() {
+        return this.date;
     }
 
     public WriteUp getWriteUp() {
@@ -57,8 +74,7 @@ public class MedicalHistory {
         }
 
         return otherMedHist != null
-                && otherMedHist.getName().equals(getName())
-                && (otherMedHist.getWriteUp().equals(getWriteUp()));
+                && otherMedHist.getMedHistId().equals(getMedHistId());
     }
 
     /**
@@ -76,21 +92,26 @@ public class MedicalHistory {
         }
 
         MedicalHistory otherMedHist = (MedicalHistory) other;
-        return otherMedHist.getName().equals(getName())
-                && otherMedHist.getWriteUp().equals(getWriteUp());
+        return otherMedHist.getMedHistId().equals(getMedHistId());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(patient, name, writeUp);
+        return Objects.hash(medHistId);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(" Name: ")
-                .append(getName())
+        builder.append(" Medical History ID: ")
+                .append(getMedHistId())
+                .append("Patient ID: ")
+                .append(getPatientId())
+                .append("Doctor ID: ")
+                .append(getDoctorId())
+                .append("Date: ")
+                .append(getDate())
                 .append(" WriteUp: ")
                 .append(getWriteUp());
         return builder.toString();

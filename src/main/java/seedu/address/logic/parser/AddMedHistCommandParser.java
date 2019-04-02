@@ -1,18 +1,18 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_MEDHIST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WRITEUP;
 
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddMedHistCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.medicalhistory.Date;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.WriteUp;
-import seedu.address.model.person.Doctor;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Patient;
 
 
 /**
@@ -26,20 +26,21 @@ public class AddMedHistCommandParser implements Parser<AddMedHistCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddMedHistCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_WRITEUP);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
+                args, PREFIX_PATIENT_ID, PREFIX_DOCTOR_ID, PREFIX_DATE_OF_MEDHIST, PREFIX_WRITEUP);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_WRITEUP)
+        if (!arePrefixesPresent
+                (argMultimap, PREFIX_PATIENT_ID, PREFIX_DOCTOR_ID, PREFIX_DATE_OF_MEDHIST, PREFIX_WRITEUP)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMedHistCommand.MESSAGE_USAGE));
         }
 
-        Patient patient = null;
-        Doctor doctor = null;
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        String patientId = argMultimap.getValue(PREFIX_PATIENT_ID).get();
+        String doctorId = argMultimap.getValue(PREFIX_DOCTOR_ID).get();
+        Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_MEDHIST).get());
         WriteUp writeUp = ParserUtil.parseWriteUp(argMultimap.getValue(PREFIX_WRITEUP).get());
 
-        MedicalHistory medicalHistory = new MedicalHistory(patient, doctor, name, writeUp);
+        MedicalHistory medicalHistory = new MedicalHistory(patientId, doctorId, date, writeUp);
 
         return new AddMedHistCommand(medicalHistory);
     }

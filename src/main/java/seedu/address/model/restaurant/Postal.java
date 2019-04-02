@@ -4,31 +4,32 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Restaurant's phone number in the food diary.
- * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
+ * Represents a Restaurant's postal code in the food diary.
+ * Guarantees: immutable; is valid as declared in {@link #isValidPostal(String)}
  */
-public class Phone {
+public class Postal {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Phone numbers should only contain numbers, and it should be at least 3 digits long";
-    public static final String VALIDATION_REGEX = "\\d{3,}";
+            "Postal Code should only contain numbers, and it should 6 digits long";
+    public static final String VALIDATION_REGEX = "\\d{6,}";
     public final String value;
 
     /**
-     * Constructs a {@code Phone}.
-     * @param phone A valid phone number.
+     * Constructs a {@code Postal}.
+     *
+     * @param postal A valid postal code.
      */
-    public Phone(String phone) {
-        requireNonNull(phone);
-        checkArgument(isValidPhone(phone), MESSAGE_CONSTRAINTS);
-        value = phone;
+    public Postal(String postal) {
+        requireNonNull(postal);
+        checkArgument(isValidPostal(postal), MESSAGE_CONSTRAINTS);
+        value = postal;
     }
 
     /**
      * Returns true if a given string is a valid phone number.
      */
-    public static boolean isValidPhone(String test) {
+    public static boolean isValidPostal(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

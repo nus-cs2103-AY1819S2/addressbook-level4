@@ -234,30 +234,66 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 
-// tag::listUnvisited[]
+// tag::listUnvisitedDG[]
 === listUnvisited feature which sorts by distance nearest to you
-==== Current Implementation(v1.3)
-The 'listUnvisited' feature accepts the user's current postal code and displays unreviewed restaurants nearest to the user's postal code.
-This mechanism is facilitated by `PostalDataSet`.
-It contains a `HashMap<Integer,PostalData> of `PostalData` which contains the x and y-coordinate of every postal code in Singapore.
+==== Current Implementation
+The 'listUnvisited' feature accepts the user's current postal code and displays restaurants without reviews nearest to the user's postal code.
 
-`PostalDataSet` is constructed by `JsonPostalDataStorage` which processes the `data.json` file from `JsonSerializablePostalData` into `PostalDataSet`.
-This is exposed in the `Storage` interface as `Storage#loadPostalData()`
+This mechanism is facilitated by `PostalDataSet` which
+contains a `HashMap<Integer,PostalData>` of every postal code represented by an `Integer` mapped to a `PostalData` containing the x and y-coordinate of the given postal code.
+
+`PostalDataSet` is constructed by `JsonPostalDataStorage` which processes the `data.json` file into `PostalDataSet`.
+[WARNING]
+If `data.json` is in the incorrect format, `PostalDataSet` will be empty.
+
+`PostalData` is exposed through the `Model` interface as `Model#checkPostalData(int postal)` which returns the `Optional<PostalData>` of a given postal code.
+
+`listUnvisitedCommand` contains a inner `SortDistance` class which implements the `Comparator` class. `SortDistance` contains the `PostalData` of the postal code provided by the user and
+a `HashMap<Integer, Double>` which maps the `Restaurant` postal code represented by the `Integer` to the distance from the user provided postal code represented as a `Double`.
+[NOTE]
+If a `Restaurant` postal code is invalid or not in `PostalDataSet`, the distance will be set to `Double.MAX_VALUE`.
+
+`SortDistance` implements the function `compare(Restaurant firstRestaurant ,Restaurant secondRestaurant)`.
+
+
 
 Given below is an example usage scenario and how the `listUnvisited` and 'PostalDataSet' behaves at each step.
 
 Step 1. The user launches the application for the first time. The `PostalDataSet` will be initialised with data from `data.json` through the `Storage` interface.
 
-Step 2. The user calls `listUnvisited postal/267951`. This command will call the method `Model#filterAndSortByLocation(PREDICATE_SHOW_UNVISITED_RESTAURANTS, postal)`
+Step 2. The user calls `listUnvisited po/267951`. A new `SortBy` will be created containing the `PostalData` of '267951'. This command will then call the method `Model#filterAndSort(Predicate PREDICATE_SHOW_UNVISITED_RESTAURANTS, Comparator sortBy).`
+[NOTE]
+If the postal code provided by the user is invalid, there will be no change in ordering of the `Restaurant`.
 
-Step 3. The `Model#filterAndSortByLocation()` will first filter the `RestaurantList` to show all `Restaurants` with zero reviews. It will then call `PostalDataSet#checkPostal(int postal)` for each of the restaurants then sort it based on the distance from the given postal code.
 
-Step 4. The `filteredList` will then be updated to show the nearest `Restaurants` with zero review.
+Step 3. The `Model#filterAndSortByLocation()` will first filter the `filterList` to show all `Restaurants` with zero reviews.
+
+Step 4. The `sortedList` which encapsulates the `filteredList` will then be sorted based on the `sortBy` `Comparator` provided to show the nearest `Restaurants` with zero review.
 
 The following sequence diagram summarizes what happens when the user executes a listUnvisited Command.
 
 image::ListUnvisitedSequenceDiagram.png[width="800"]
-// tag::undoredo[]
+
+==== Design Considerations
+
+===== Aspect: How is location data accessed for each postal code?
+
+* **Alternative 1 (current choice):** Preload the data from a json file
+** Pros: Internet Service is not required.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Making a API call to an external library e.g.Google API
+** Pros: Will use less memory and will always be updated and accurate.
+** Cons: Internet Service is required for the usage of the feature.
+
+===== Aspect: Construction of comparator to compare Restaurants
+
+* **Alternative 1 (current choice):** Comparator constructor is done in the `listUnvisitedCommand`.
+** Pros: Easy to implement.
+** Cons: Increased coupling between `Command` and `Model`.
+* **Alternative 2:** Passing the user entered postal code into the `ModelManager`.
+** Pros: Coupling is reduced between `Command` and `Model`.
+** Cons: Violates Single Responsibility Principle and Separation of Concerns as `ModelManager` needs to handle the logic component of the command.
+// end::listUnvisitedDG[]
 === Undo/Redo feature
 ==== Current Implementation
 
@@ -341,50 +377,98 @@ image::UndoRedoActivityDiagram.png[width="650"]
 === Restaurant Categorisation
 
 Restaurants can be classified using categories. Each restaurant can have each of the optional categories defined.
-Currently, 2 different types of categories are implemented in v1.2: `Cuisine` and `Occasion`.
+Currently, 3 different types of categories are implemented in v1.3: `Cuisine`, `Occasion` and `Price Range`.
 
 ==== Current Implementation
 
 Restaurant Categorisation is mainly implemented using the following commands:
 
-* `setCategory` -- sets the different categories of the restaurant using its respective prefixes.
+* `setCategories` -- sets the different categories of the restaurant using its respective prefixes.
 * `filter` -- filters out restaurants using keywords matching that of its categories.
 
-All supported categories are defined in the `seedu.address.model.restaurant.categories` package, along with the `Category`
-class that encapsulates all categories into a `Category` object to be used in the `Restaurant` class.
+All supported categories are defined in the `seedu.address.model.restaurant.categories` package, along with the `Categories`
+class that encapsulates all categories into a `Categories` object to be used in the `Restaurant` class.
 
-The restaurants are categorised by a `Category` field in the `Restaurant` class.
-The `Category` class encapsulates all the different categories a restaurant can have such as `Cuisine` and `Occasion`.
-Additionally, it implements the `merge` operation. The `merge` operation is essential in ensuring that when one category
-is being set, it does not override the other categories. For example, if an existing restaurant has the following preexisting
-categories: `cuisine` and `occasion`, doing a `setCategory` for `cuisine` will override its `occasion` category if the
-merge operation is not implemented.
+===== SetCategories Command
 
-The `merge` operation is implemented by taking in two `Category` arguments, `previous` and `updated`. All categories in
-`updated` will replace any existing categories in `previous`. The merged `Category` will retain those categories in
-`previous` for any category not present in `updated`.
+The following activity diagram shows the chain of events when setting categories of a restaurant with the setCategories command:
 
-The `merge` operation is used by `SetCategoryCommand#execute()` to update a restaurant's categories by merging it with
-its existing categories.
+image::SetCategoriesActivityDiagram.png[width="650"]
 
-The `setCategory` command is implemented as follows:
+The feature is evolved as follows:
 
-* `CategoryCommandParser` parses the user input arguments, creating a `SetCategoryCommand` object with the target `Index`
-and new `Category` object containing all the categories in the user input.
-* Inside `SetCategoryCommand#execute()`, the restaurant identified by the index is retrieved from `Model`.
-* Existing categories are retrieved from the target restaurant.
-* New `Category` object is created by merging existing categories and categories inputted by the user.
-* The new `Category` object is used to create a new `Restaurant` with the updated `Category` object.
-* `Model#setRestaurant()` is called to update the target restaurant.
-* `Model#updateFilteredRestaurantList()` is called to update the list of restaurants displayed/
-* `Model#commitFoodDiary()` is called to commit the changes to the food diary.
+1. Categorisation only by Cuisine
+* Add Cuisine class
+* Implement SetCuisine command that extends Command
+* Implement parser for SetCuisine command
+* Support filtering restaurants by cuisine
 
-The `filter` command is implemented as follows:
+2. Categorisation by Occasion
+* Add new Categories class to encapsulate different category types
+* Add Occasion class. Model `Occasion` and `Cuisine` by composition inside `Categories`.
+* Change SetCuisine command to SetCategories command that extends Command
+* Add support for Occasion in filter command
+* Add new merge method to ensure setting one category only does not override the other
 
-* `FilterCommandParser` parses the user input arguments, creating a `FilterCommand` object containing the predicate that
-tests if a restaurant matches any of the keywords.
-* Inside `FilterCommand#execute()`, `Model#updateFilteredRestaurantList()` is called with the predicate to update the
-list of restaurants that matches the keywords.
+3. Categorisation by Price Range
+* Add new PriceRange class, composed inside `Categories`
+* Add new match method to abstract out matching responsibilities of each Category type to `Categories` class
+* Add new setLabels method to allow UI to set Label of each category without being aware of its existence
+
+You can refer to the following sequence diagram to get a better understanding of how a typical valid setCategories command
+executes internally.
+
+image::SetCategoriesSequenceDiagram.png[width="650"]
+
+==== Design Considerations
+===== Price Range Categorisation
+
+* Alternative 1: Use dollar signs to represent price (Current implementation)
+
+|=====================
+| Pros | It is easier for the user to type and also visually clearer to the viewer
+| Cons | Restricts the range of price between one and five
+|=====================
+
+* Alternative 2: Use words such as `cheap`, `expensive` to represent price
+
+|=========
+| Pros | User has complete freedom as to how they want to key in the price range
+| Cons | Lacks proper structure, not very intuitive to the viewer if the user keys in something that does not make sense
+|=========
+
+===== How categories are added and edited
+
+* Alternative 1: Use one single command to add and edit, only overriding the present categories keyed in (Current implementation)
+
+|=====================
+| Pros | User does not need to remember multiple commands to set categories.
+| Cons | Users are restricted to the preset types of categories they can set.
+|=====================
+
+* Alternative 2: Use separate commands for add and edit
+
+|=====================
+| Pros | User can add their own types of categories.
+| Cons | User needs to remember which restaurants do not have categories added yet, else add or edit commands might fail.
+|=====================
+
+===== Filtering restaurants by categories
+
+* Alternative 1: Key in as many key words as possible, without specifying which keyword is for which category (Current implementation)
+
+|=====================
+| Pros | More user friendly since users do not have to be concerned with which keywords should match which category
+| Cons | Cross category filtering generalises the search results instead of making it more specific
+|=====================
+
+* Alternative 2: For each keyword entered, specify which category it is for
+
+|=====================
+| Pros | Users can find specific restaurants matching each category type
+| Cons | Troublesome for user to type the commands since they now need to indicate which category should match which keyword
+|=====================
+
 // end::categorisation[]
 
 === Adding a Review to a selected Restaurant
@@ -419,7 +503,7 @@ Given the stable implementation of the current system of parsing commands, any n
 
 Website can be displayed on the `BrowserPanel` with `visitWeb` command.
 
-==== current implementation
+==== Current implementation
 
 * Restaurants has a field `Weblink` which contains the URL of the restaurant website.
 * Weblink have to be valid https or http link before browser can display the website.
@@ -666,6 +750,8 @@ A project often depends on third-party libraries. For example, Address Book depe
 *Value proposition*: Allow all food lovers to have a centralised platform to document their food adventures and experience at each restaurant
 
 [appendix]
+
+// tag::userstories[]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -697,6 +783,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |Food lover |Add restaurant based on Google search |Easily add a new restaurant
 
+|`* *` |Food lover |Autocomplete categories I have keyed in before when setting categories|I can set categories faster
+
 |`*` |Food lover that travels |View restaurants and reviews separately by country |Easily see relevant restaurants and reviews when I can in a certain country
 
 |`*` |Food lover & influencer |Share my reviews on Facebook |Recommend my friends to food I’ve eaten
@@ -705,6 +793,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |Food Lover |List unreviewed restaurants |Visit restaurants that I have added but yet to review
 |=======================================================================
+// end::userstories[]
 
 [appendix]
 == Use Cases
@@ -816,37 +905,38 @@ Use case ends.
 ** 1a1. FoodLover asks user to enter index again
 
 [discrete]
-=== Use case: Filter Restaurants in FoodDiary (cuisine, occasion, price)
+=== Use case: Setting categories of a Restaurant
 
 *MSS*
 
-1. FoodLover enters command, category to filter by (i.e. cuisine, occasion, price range) and keyword / price range (e.g.japanese, lunch, 5 10)
-2. FoodDiary displays restaurant’s that fit the filter.
+1. FoodLover enters command, index and categories to set to the restaurant
+2. FoodDiary updates the categories entered, leaving unentered categories unedited
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. FoodLover enters an invalid category
+* 1a. FoodLover enters an invalid index
 [none]
-** 1a1. FoodLover tells user that no such category exists.
+** 1a1. FoodDiary shows invalid command format
 +
 Use case ends.
 
 [none]
-* 1b. FoodLover enters an invalid price range (i.e. 1 number / 3 numbers input)
+* 2a. FoodLover enters invalid category prefix
 [none]
-** 1b1. FoodLover tells user that an invalid price range is entered
-** 1b2. FoodLover displays the correct format to input command
+** 2a1. FoodDiary shows invalid command format
 +
 Use case ends.
 
-[none]
-* 1c. FoodLover enters an invalid price range (i.e. 1 number / 3 numbers input)
-[none]
-** 1c1. FoodLover tells user that an invalid price range is entered
-** 1c2. FoodLover displays the correct format to input command
+[discrete]
+=== Use case: Filtering Restaurants in FoodDiary (cuisine, occasion, price)
+
+*MSS*
+
+1. FoodLover enters command and keywords to filter by.
+2. FoodDiary displays restaurant’s that match the keywords.
 +
 Use case ends.
 
@@ -855,17 +945,17 @@ Use case ends.
 
 *MSS*
 
-1. FoodLover enters command, category to sort by (i.e. rating, price)
-2. FoodDiary displays restaurants according to category
+1. FoodLover enters command, categories to sort by (i.e. rating, price)
+2. FoodDiary displays restaurants according to categories
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. FoodLover enters an invalid category
+* 1a. FoodLover enters an invalid categories
 [none]
-** 1a1. FoodLover tells user that no such category exists.
+** 1a1. FoodLover tells user that no such categories exists.
 +
 Use case ends.
 
@@ -1052,6 +1142,27 @@ Use case ends
 +
 Use case ends.
 
+// tag::useCaseDG[]
+[discrete]
+=== Use case: Getting unvisited restaurant recommendations
+
+*MSS*
+
+1. FoodLover enters command and his current postal code
+2. FoodDiary displays a list of restaurants ranked based on his proximity to the provided postal code.
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 2a. Postal code entered is not valid.
+[none]
+** 2a1. FoodDiary displays all the unreviewed restaurants.
++
+Use case ends.
+// end::useCaseDG[]
+
 [appendix]
 == Non Functional Requirements
 
@@ -1114,6 +1225,7 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
+// tag::selection[]
 === Selecting a restaurant
 
 . Selecting a restaurant while all restaurants are listed
@@ -1128,13 +1240,32 @@ _{ more test cases ... }_
 
 . Selecting a restaurant when `Filter` command is called
 
-.. Prerequisites: There is at least one restaurant in the list. 
+.. Prerequisites: There is at least one restaurant in the list.
 .. Test case: `select 1` +
    Expected: First restaurant in the list is selected. Details of the selected restaurant is shown in the 3 panels next to the restaurant list panel.
 .. Test case: `select 0` +
    Expected: No restaurant is selected. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect select commands to try: `select`, `select x` (where x is larger than the list size)
    Expected: Similar to previous.
+// end::selection[]
+
+// tag::categorization[]
+=== Setting the categories of a restaurant
+
+. Setting categories to a listed restaurant that does not have categories set yet with `setCategories`
+
+.. Test case: `setCategories c/fast food oc/casual pr/$` +
+   Expected: `Cuisine` set as `Fast Food`, `Occasion` set as `Casual` and `Price Range` set as `$`.
+.. Test case: `setCategories c/$ oc/casual pr/expensive` +
+   Expected: No categories are set. Error details shown in the status message, indicating command invalid.
+
+. Setting categories to a listed restaurant that already has categories set with `setCategories`
+
+.. Test case: `setCategories c/fast food` +
+   Expected: Only the `Cuisine` is set to `Fast Food`. All other categories remain unchanged.
+.. Test case: `setCategories c/ oc/ pr/` +
+   Expected: No categories are set. Error details shown in status message.
+// end::categorization[]
 
 === Saving data
 

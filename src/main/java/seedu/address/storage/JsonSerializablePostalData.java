@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.PostalData;
 import seedu.address.model.PostalDataSet;
 
@@ -31,7 +32,7 @@ class JsonSerializablePostalData {
      * Converts this postalData into the model's {@code PostalDataSet} object.
      *
      */
-    public PostalDataSet toModelType() {
+    public PostalDataSet toModelType() throws IllegalValueException {
         PostalDataSet postalDataSet = new PostalDataSet();
         for (JsonAdaptedPostalData jsonAdaptedPostalData : postalData) {
             PostalData postalData = jsonAdaptedPostalData.toModelType();

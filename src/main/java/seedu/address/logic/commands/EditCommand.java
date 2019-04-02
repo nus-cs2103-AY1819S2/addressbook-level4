@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OPENING_HOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POSTAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEBLINK;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RESTAURANTS;
@@ -28,9 +29,10 @@ import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
 import seedu.address.model.restaurant.OpeningHours;
 import seedu.address.model.restaurant.Phone;
+import seedu.address.model.restaurant.Postal;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Weblink;
-import seedu.address.model.restaurant.categories.Category;
+import seedu.address.model.restaurant.categories.Categories;
 import seedu.address.model.review.Review;
 import seedu.address.model.tag.Tag;
 
@@ -49,6 +51,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_POSTAL + "POSTAL] "
             + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_WEBLINK + "WEBLINK] "
             + "[" + PREFIX_OPENING_HOURS + "OPENING HOURS]\n"
@@ -109,18 +112,19 @@ public class EditCommand extends Command {
         Phone updatedPhone = editRestaurantDescriptor.getPhone().orElse(restaurantToEdit.getPhone());
         Email updatedEmail = editRestaurantDescriptor.getEmail().orElse(restaurantToEdit.getEmail());
         Address updatedAddress = editRestaurantDescriptor.getAddress().orElse(restaurantToEdit.getAddress());
+        Postal updatedPostal = editRestaurantDescriptor.getPostal().orElse(restaurantToEdit.getPostal());
         Set<Tag> updatedTags = editRestaurantDescriptor.getTags().orElse(restaurantToEdit.getTags());
         Weblink updatedWeblink = editRestaurantDescriptor.getWeblink().orElse(restaurantToEdit.getWeblink());
         OpeningHours updatedOpeninghours = editRestaurantDescriptor.getOpeningHours()
                 .orElse(restaurantToEdit.getOpeningHours());
 
-        Category updatedCategories = restaurantToEdit.getCategories();
+        Categories updatedCategories = restaurantToEdit.getCategories();
 
         //Ensures that reviews are copied over exactly, because they are not modified by this command.
         ArrayList<Review> sameReviews = new ArrayList<>();
         sameReviews.addAll(restaurantToEdit.getReviews());
 
-        return new Restaurant(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
+        return new Restaurant(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedPostal, updatedTags,
                 updatedWeblink, updatedOpeninghours, updatedCategories, sameReviews);
     }
 
@@ -151,6 +155,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Address address;
+        private Postal postal;
         private Set<Tag> tags;
         private Weblink weblink;
         private OpeningHours openingHours;
@@ -166,6 +171,7 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
+            setPostal(toCopy.postal);
             setTags(toCopy.tags);
             setWeblink(toCopy.weblink);
             setOpeningHours(toCopy.openingHours);
@@ -175,7 +181,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, weblink);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, postal, tags, weblink);
         }
 
         public void setName(Name name) {
@@ -206,8 +212,16 @@ public class EditCommand extends Command {
             this.address = address;
         }
 
+        public void setPostal(Postal postal) {
+            this.postal = postal;
+        }
+
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
+        }
+
+        public Optional<Postal> getPostal() {
+            return Optional.ofNullable(postal);
         }
 
         /**
@@ -262,6 +276,7 @@ public class EditCommand extends Command {
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
+                    && getPostal().equals(e.getPostal())
                     && getTags().equals(e.getTags())
                     && getWeblink().equals(e.getWeblink());
         }

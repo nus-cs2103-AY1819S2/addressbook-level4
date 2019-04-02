@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.NoInternetException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.restaurant.Address;
@@ -14,9 +15,11 @@ import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
 import seedu.address.model.restaurant.OpeningHours;
 import seedu.address.model.restaurant.Phone;
+import seedu.address.model.restaurant.Postal;
 import seedu.address.model.restaurant.Weblink;
 import seedu.address.model.restaurant.categories.Cuisine;
 import seedu.address.model.restaurant.categories.Occasion;
+import seedu.address.model.restaurant.categories.PriceRange;
 import seedu.address.model.review.Entry;
 import seedu.address.model.review.Rating;
 import seedu.address.model.tag.Tag;
@@ -84,6 +87,22 @@ public class ParserUtil {
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);
         }
         return new Address(trimmedAddress);
+    }
+
+
+    /**
+     * Parses a {@code String posta} into an {@code Postal}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code postal} is invalid.
+     */
+    public static Postal parsePostal(String postal) throws ParseException {
+        requireNonNull(postal);
+        String trimmedPostal = postal.trim();
+        if (!Postal.isValidPostal(postal)) {
+            throw new ParseException(Postal.MESSAGE_CONSTRAINTS);
+        }
+        return new Postal(trimmedPostal);
     }
 
     /**
@@ -176,7 +195,7 @@ public class ParserUtil {
      * Parses a {@code String occasion} into a {@code Occasion}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the give {@code occasion} is invalid.
+     * @throws ParseException if the given {@code occasion} is invalid.
      */
     public static Occasion parseOccasion(String occasion) throws ParseException {
         requireNonNull(occasion);
@@ -185,6 +204,21 @@ public class ParserUtil {
             throw new ParseException(Occasion.MESSAGE_CONSTRAINTS);
         }
         return new Occasion(trimmedOccasion);
+    }
+
+    /**
+     * Parses a {@code String priceRange} into a {@code PriceRange}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code } is invalid.
+     */
+    public static PriceRange parsePriceRange(String priceRange) throws ParseException {
+        requireNonNull(priceRange);
+        String trimmedPriceRange = priceRange.trim();
+        if (!PriceRange.isValidPriceRange(trimmedPriceRange)) {
+            throw new ParseException(PriceRange.MESSAGE_CONSTRAINTS);
+        }
+        return new PriceRange(trimmedPriceRange);
     }
 
     /**
@@ -199,10 +233,25 @@ public class ParserUtil {
         if (!Weblink.isValidWeblinkString(trimmedWeblink)) {
             throw new ParseException(Weblink.MESSAGE_CONSTRAINTS);
         }
-        if (!Weblink.isValidWeblinkUrl(trimmedWeblink)) {
-            throw new ParseException(Weblink.INVALID_URL_MESSAGE);
+
+        try {
+            checkUrl(trimmedWeblink);
+        } catch (NoInternetException e) {
+            throw new ParseException(e.getMessage());
         }
         return new Weblink(trimmedWeblink);
+    }
+
+    /**
+     * Checks if url is valid using isNotValidWeblinkUrl method from Weblink
+     * @param trimmedWeblink
+     * @throws NoInternetException when internet connection fails
+     * @throws ParseException when url is invalid
+     */
+    private static void checkUrl(String trimmedWeblink) throws NoInternetException, ParseException {
+        if (Weblink.isNotValidWeblinkUrl(trimmedWeblink)) {
+            throw new ParseException(String.format(Weblink.INVALID_URL_MESSAGE, trimmedWeblink));
+        }
     }
 
     /**

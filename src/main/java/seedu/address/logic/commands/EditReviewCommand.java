@@ -68,7 +68,7 @@ public class EditReviewCommand extends Command {
         if (selectedRestaurant.getReviews().size() == 0) {
             throw new CommandException(Messages.MESSAGE_NO_REVIEWS);
         }
-        if (selectedRestaurant.getReviews().size() > index.getOneBased()) {
+        if (selectedRestaurant.getReviews().size() < index.getOneBased()) {
             throw new CommandException(Messages.MESSAGE_INVALID_REVIEW_INDEX);
         }
 
@@ -108,7 +108,7 @@ public class EditReviewCommand extends Command {
 
         return new Restaurant(restaurantSelected.getName(), restaurantSelected.getPhone(),
                 restaurantSelected.getEmail(),
-                restaurantSelected.getAddress(), restaurantSelected.getTags(),
+                restaurantSelected.getAddress(), restaurantSelected.getPostal(), restaurantSelected.getTags(),
                 restaurantSelected.getWeblink(), restaurantSelected.getOpeningHours(),
                 restaurantSelected.getCategories(), editedReviews);
     }

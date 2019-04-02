@@ -11,6 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_POSTAL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
@@ -46,6 +47,7 @@ import seedu.address.model.restaurant.Address;
 import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
 import seedu.address.model.restaurant.Phone;
+import seedu.address.model.restaurant.Postal;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.RestaurantBuilder;
@@ -188,6 +190,11 @@ public class EditCommandSystemTest extends FoodDiarySystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RESTAURANT.getOneBased()
                         + INVALID_ADDRESS_DESC,
                 Address.MESSAGE_CONSTRAINTS);
+
+        /* Case: invalid postal -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RESTAURANT.getOneBased()
+                        + INVALID_POSTAL_DESC,
+                Postal.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RESTAURANT.getOneBased()

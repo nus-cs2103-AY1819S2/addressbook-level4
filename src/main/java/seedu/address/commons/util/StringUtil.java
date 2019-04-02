@@ -39,6 +39,29 @@ public class StringUtil {
     }
 
     /**
+     * Returns a string with the first letter of each word of the original string capitalized.
+     */
+    public static String capitalize(String string) {
+        requireNonNull(string);
+        char[] toArr = string.toCharArray();
+        for (int i = 0; i < string.length(); i++) {
+            boolean isFirstCharOfWordFound = (i == 0 && toArr[i] != ' ') || (toArr[i] != ' ' && toArr[i - 1] == ' ');
+            boolean isCharUpperCaseExceptFirstLetter = (toArr[i] >= 'A') && (toArr[i] <= 'Z');
+            if (isFirstCharOfWordFound) {
+                boolean isCharLowerCase = (toArr[i] >= 'a') && (toArr[i] <= 'z');
+                if (isCharLowerCase) {
+                    toArr[i] = (char) (toArr[i] - 'a' + 'A'); /* convert to upper case */
+                }
+            } else if (isCharUpperCaseExceptFirstLetter) {
+                toArr[i] = (char) (toArr[i] + 'a' - 'A'); /* convert to lower case */
+            }
+        }
+
+        String newString = new String(toArr);
+        return newString;
+    }
+
+    /**
      * Returns a detailed message of the t, including the stack trace.
      */
     public static String getDetails(Throwable t) {

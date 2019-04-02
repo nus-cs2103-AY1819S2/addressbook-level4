@@ -499,6 +499,7 @@ Elements of lists in Java are ordered by when they were added. Sorting is possib
 To add a new sort command, the following should be taken into account... (INSERT CLASS DIAGRAM)
 
 NOT COMPLETE.
+Add the test description
 // end::sort[]
 
 // tag::dataencryption[]

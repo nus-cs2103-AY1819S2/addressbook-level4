@@ -2,16 +2,16 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import static seedu.address.logic.parser.CliSyntax.SORTWORD_EDUCATION;
+import static seedu.address.logic.parser.CliSyntax.SORTWORD_GPA;
 import static seedu.address.logic.parser.CliSyntax.SORTWORD_NAME;
+import static seedu.address.logic.parser.CliSyntax.SORTWORD_REVERSE_EDUCATION;
+import static seedu.address.logic.parser.CliSyntax.SORTWORD_REVERSE_GPA;
 import static seedu.address.logic.parser.CliSyntax.SORTWORD_REVERSE_NAME;
-import static seedu.address.logic.parser.CliSyntax.SORTWORD_SURNAME;
+import static seedu.address.logic.parser.CliSyntax.SORTWORD_REVERSE_SKILLS;
 import static seedu.address.logic.parser.CliSyntax.SORTWORD_REVERSE_SURNAME;
 import static seedu.address.logic.parser.CliSyntax.SORTWORD_SKILLS;
-import static seedu.address.logic.parser.CliSyntax.SORTWORD_REVERSE_SKILLS;
-import static seedu.address.logic.parser.CliSyntax.SORTWORD_GPA;
-import static seedu.address.logic.parser.CliSyntax.SORTWORD_REVERSE_GPA;
-import static seedu.address.logic.parser.CliSyntax.SORTWORD_EDUCATION;
-import static seedu.address.logic.parser.CliSyntax.SORTWORD_REVERSE_EDUCATION;
+import static seedu.address.logic.parser.CliSyntax.SORTWORD_SURNAME;
 
 import java.util.Arrays;
 

@@ -9,7 +9,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EndorseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-public class EndorseCommandParser implements Parser<EndorseCommand>{
+/**
+ *  Parser implementation for EndorseCommand
+ */
+public class EndorseCommandParser implements Parser<EndorseCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the SelectCommand

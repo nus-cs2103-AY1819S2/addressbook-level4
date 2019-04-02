@@ -33,7 +33,7 @@ image::kerryneer.png[width="150", align="left"]
 {empty}[https://github.com/KerrynEer[github]] [<<kerryneer#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Test session feature
+Responsibilities: Test session features
 
 '''
 

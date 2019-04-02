@@ -9,40 +9,36 @@
 
 == Overview
 
-Recruit Me is a desktop application designed for . It is an adaptation of AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Recruit Me is a Java Desktop GUI application that is specifically designed for a recruiting agency for their processes about the candidates in their storage.
 
 == Summary of contributions
 
-* *Major enhancement*: added *something*
-** What it does: _{What Baris did}_.
-** Justification: _{Justification for what Baris did}_.
-** Highlights: _{Highlights of what Baris did}_.
+* *Major enhancement*: added *filtering command*
+** What it does: it filters the persons according to their every single aspect (Name, Phone, Email, Skills, ...), ait can manage multiple filterings at the same time and also the filter can be cleared in any time the user wants.
+** Justification: This feature improves the usability of the product significantly, because it can eliminate al the candidates that are not fitting for the wanted job positions. Also it makes the searching and classification process easier for the app users.
+** Highlights: This new feature affects all the commands already implemented and all other commands that will be implemented in the future. Thus, the interaction of this command with other commands are strongly investigated and minor changes for other  commands are also made to make the other commands compatible with filtering.
 
-* *Minor enhancement*: _{To be added at a later date}_.
+* *Minor enhancement*:
+** Some minor changes are made for the methods in AddressBook, ModelManager and VersionedAddressBook classes that AddCommand, DeleteCommand and EditCommand uses for the compatibility with filtering process.
+** Travis Checkstyle errors and some test errors are fixed.
 
-_{you can add/remove categories in the list above}_
+== Other contributions:
 
-== Contributions to the User Guide
+* Contributions to the User Guide
 
+** Filtering process is added to the User guide in a new section.
+** The form of it, the usage and some examples are given for the user.
+** The changes can be seen in `UserGuide -> Features -> Filtering Recruit Me: filter`
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+* Contributions to the Developer Guide
 
-include::../UserGuide.adoc
+** A new section for filtering is added to the developer guide.
+** Implementation of filtering process, other alternatives and implementation of tests are explained.
+** Some of the use cases and user stories are updated.
+** The changes can be seen in `DeveloperGuide -> Implementation -> Filter or/and/clear feature`
 
+* Contributions to the README.doc
 
-== Contributions to the Developer Guide
-
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
-
-include::../DeveloperGuide.adoc
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+** Explanation of the application is updated.
+** Some parts about the changes in every version is updated.
+** UI.png is updated.

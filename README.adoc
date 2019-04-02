@@ -15,28 +15,54 @@ ifndef::env-github[]
 image::images/UI.png[width="600"]
 endif::[]
 
-* This is a desktop recruiting application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java application that is intended for a company looking to recruit new employees.
-* Employer is able to find applicants that meet the needs of the company.
-
-* In Version 1.1:
-** Refactoring of Tag Class
-** Basic implementation of filtering system will be added to the application, that filters the contacts according to one of their properties.
-** Parameters for each contact to include valuable information for clients in their profile: Education, Grade point average.
-** A general method for sorting a data set with the structure used in.
 
 
-* In Version 1.2:
-** Tag search function with keyword tag. Creating color coordination for each category in UI.
-** Filtering system will be improved and filtering for multiple entries will be added. Filtering is also made compatible with other commands.
-** Implement method into application ensuring it is callable through the keyword sort. The sort feature should also be able to account for new parameters (e.g. Birthday, Education level etc.) as the client requires.
+This application is a Java Desktop GUI application that is specifically designed for a recruiting agency for their processes about the candidates in their storage.
 
+- **Some aspects about the application itself**:
+* Although it is a GUI application, all the commands are taken through CLI (Command Line Interface). You can learn how to use it by reading User Guide Document linked below.
+* This application requires Java 9 for a proper working experience.
+
+- **A summary of what can be done through this application**:
+* A new candidate can be added to the storage
+* Candidates can be deleted
+* Candidates can be edited according to their aspects
+* Candidates can be filtered according to their every different aspect
+* Candidates can be sorted according to their features
+* Candidates can be listed and selected
+* The processes made can be undone and redone
+* A specific search according to the candidate name can be done
+* All the candidate storage can be cleared.
+
+
+- **In Version 2.0 (expected)**:
+* CVs of the candidates can be shown in the right window block when they are clicked
+
+- **In Version 1.4 (expected)**:
+* Integration tests will be made for filtering, also some additions and improvements in unit tests will take place
+
+- **In Version 1.3**:
+** Unit tests for filtering processes are written.
+
+- **In Version 1.2**:
+* Tag search function with keyword tag. Creating color coordination for each category in UI.
+* Filtering system will be improved and filtering for multiple entries will be added. Filtering is also made compatible with other commands.
+* Implement method into application ensuring it is callable through the keyword sort. The sort feature should also be able to account for new parameters (e.g. Birthday, Education level etc.) as the client requires.
+
+- **In Version 1.1**:
+* Refactoring of Tag Class
+* Basic implementation of filtering system is added to the application, that filters the contacts according to one of their properties.
+* Parameters for each contact to include valuable information for clients in their profile: Education, Grade point average.
+* A general method for sorting a data set with the structure used in.
+
+- **In Version 1.0**:
+* The base of the application is uploaded to the Github organization page.
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
+* <<LearningOutcomes#, Applied Techniques in the Application>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 

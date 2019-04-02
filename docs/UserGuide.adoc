@@ -1,4 +1,4 @@
-= PDF++ - User Guide
+= PDF++ User Guide
 :site-section: UserGuide
 :toc: left
 :toc-title:
@@ -17,9 +17,11 @@ By: `Team T12-4`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-Welcome to PDF&#43;&#43;! PDF++ is a desktop application that is meant for anyone who wants or needs a convenient tool that helps you manage all the documents in your computer.
-This application can be used by both Text Input (TI) and a Graphical User Interface (GUI)
-hence, both technical users and casual users can enjoy a comfortable experience using our program. All features provided by our application can be used via the TI and relevant feedback, based on your command, will be displayed in the Response Area of the application.
+=== PDF++ ?
+
+PDF++ is a desktop application that is meant for anyone who wants or needs a convenient tool that helps you manage all the documents in your computer.
+This application can be used by both *Text Input (TI)* and a Graphical *User Interface (GUI)*
+hence, both technical users and casual users can enjoy a comfortable experience using our program. All features provided by our application can be used via the *TI* and relevant feedback, based on your command, will be displayed in the Response Area of the application.
 
 This file management system plans to enhance your typical experience managing your documents and
 it strives to be the last document manager you will ever need. It includes a multitude of
@@ -48,6 +50,8 @@ from the mentioned directory to the PDF++ list.
 
 .  Refer to <<Features>> for details of each command.
 
+CAUTION: Please ensure that you have the permissions to Read, Write and Execute the files that you wish to manage through our application. Please use a web search, like Google, to assist you in identifying if you possess the permissions. If you are lacking these permissions our application may not be able to carry out the actions specified by you.
+
 [[Features]]
 == Features
 
@@ -56,6 +60,8 @@ from the mentioned directory to the PDF++ list.
 
 * Words in `UPPER_CASE` are the additional information that you need to input e.g. in `add f/FILENAME`, `FILENAME` is a parameter which can be used as `add f/myfile`.
 * Items with `…`​ after them can be used multiple times or zero times e.g. `t/TAG...` can be left blank or used multiple times, `t/TagA t/TagB t/TagC` etc.
+* ALL Commands are to be entered in the Input Area that is highlighted in Orange.
+* ALL Responses to your input Commands will be displayed in the Output area that is highlighted in blue.
 ====
 === Viewing help : `help`
 
@@ -64,8 +70,7 @@ The help command displays this current page for any references you may need or q
 
 === Importing a file: `add`
 
-The add command allows you to add a file through TI into to the application, +
-or through the GUI. +
+The add command allows you to add a file through TI into to the application, or through the GUI. +
 The added file will appear in the Files Section, highlighted in green, shown above. +
 
 Format: `add f/PATH_TO_FILE` [Text Input] +
@@ -75,9 +80,9 @@ Format: `add` [GUI]
 
 Example:
 
-* `add f/C:\Users\Raj\Documents\Tutorial3.pdf`, for the Windows Operating System.
-* `add f//Users/raj/Desktop/CS2101 Lecture.pdf`, for the Mac Operating System.
-* `add`, would open the User Interface for easier usage.
+* `add f/C:\Users\Raj\Documents\Tutorial3.pdf` [Windows Operating System]
+* `add f//Users/raj/Desktop/CS2101 Lecture.pdf` [Mac / Linux Operating System]
+* `add` [Any Operating System]
 
 === Listing all files : `list`
 
@@ -105,7 +110,7 @@ Example:
 
 === Opening a file : `open`
 
-The open command allows you to open an existing file, specified by the index of the file that is next to + the name of the file in the Files Section, highlighted in green. +
+The open command allows you to open an existing file, specified by the index of the file that is next to the name of the file in the Files Section, highlighted in green. +
 The selected file will then be opened with any application that you have set as the default for +
 your computer. +
 
@@ -117,9 +122,13 @@ Example:
 
 === Renaming a file : `rename`
 
-The rename command allows you to change the name of a file, specified by thr index of the file that is + next to the name of the file in the Files Section, highlighted in green. +
+The rename command allows you to change the name of a file, specified by thr index of the file that is next to the name of the file in the Files Section, highlighted in green. +
 
-Format: `rename INDEX n/NAME`
+Format: `rename INDEX n/NAME` +
+
+Example:
+
+* `rename 1 n/newname.pdf`
 
 ****
 * NAME: Must end with `.pdf` +
@@ -128,33 +137,28 @@ Format: `rename INDEX n/NAME`
 highlighted in blue.
 ****
 
-Example:
-
-* `rename 1 n/newname.pdf`
-
 === Tagging a file : `tag`
 
-The tag command allows you to add or remove a tag to a file, specified by the index of the file that is + next to the name of the file in the Files Section, highlighted in green. +
+The tag command allows you to add or remove a tag to a file, specified by the index of the file that is next to the name of the file in the Files Section, highlighted in green. +
 The prefixes `-a` refers to "add" and `-r` refers to "remove". +
 
 Format: `tag INDEX -a [t/TAG]...` [To add a tag] +
 Format: `tag INDEX -r [t/TAG]...` [To remove a tag]
-
-****
-* TAG: Tags must be a continuous word without spaces
-* TAG: You can only remove a tag that you have previously added.
-****
 
 Example:
 
 * `tag 1 -a t/CS2103T t/SE`
 * `tag 2 -r t/tutorials`
 
+****
+* TAG: Tags must be a continuous word without spaces
+* TAG: You can only remove a tag that you have previously added.
+****
+
 === Deleting a file : `delete`
 
-The delete command lets you to delete a file from the application and your computer. The file +
-that is to be deleted must be specified by the index of the file that is + next to the name +
-of the file in the Files Section, highlighted in green. +
+The delete command lets you to delete a file from the application and your computer. + 
+The file that is to be deleted must be specified by the index of the file that is next to the name of the file in the Files Section, highlighted in green. +
 
 Format: `delete INDEX`
 
@@ -164,7 +168,7 @@ Example:
 
 === Moving a file : `move`
 
-The move command allows you to move a file, specified by the index of the file that is + next to the name of the file in the Files Section, highlighted in green. +
+The move command allows you to move a file, specified by the index of the file that is next to the name of the file in the Files Section, highlighted in green. +
 The file can be moved from its current directory on your computer to another directory on your computer. +
 The move file also has a User Interface Option to allow for an easier file moving experience. +
 
@@ -173,25 +177,23 @@ Format: `move INDEX d/DIRECTORY`
 Example:
 
 * `move 1 d/C:\User\Jeremy\Downloads` [Windows Operating System]
-* `move 1 d//Users/jet/Documents/Important` [Mac Operating System]
-* `move` [Launches the User Interface that lets you easily move files]
+* `move 1 d//Users/jet/Documents/Important` [Mac / Linux Operating System]
+* `move` [Any Operating System]
 
 === Exiting the program : `exit`
 
-This command lets you exits the program. +
+This command lets you exit the program. +
 Format: `exit`
 
 === Retrieving information about a file:
 
-In order to see a little more information on a file, clicking the file in the Files Section, +
-highlighted in green, allows you to view more information pertaining to that file. +
+In order to see a little more information on a file, clicking the file in the Files Section, highlighted in green, allows you to view more information pertaining to that file. +
 This information will be displayed in the Upcoming Deadlines Area, highlighted in red. +
 
 === Setting a deadline for the file : `deadline`
 
-Set or remove a deadline for the a file, specified by the index of the file that is + next to the name of the file in the Files Section, highlighted in green. +
-A file's deadline is located under its name and has 4 colours to indicate the amount +
-of time you have before it is due. +
+Set or remove a deadline for the a file, specified by the index of the file that is next to the name of the file in the Files Section, highlighted in green. +
+A file's deadline is located under its name and has 4 colours to indicate the amount of time you have before it is due. +
 
 The colour Green, indicates that there is more `7` days till the deadline is due, as shown below. +
 
@@ -205,30 +207,34 @@ The colour Red, indicates that you have reached or failed to complete the task b
 
 image::UGDeadlineDue.png[width="300"]
 
+The colour Blue indicates that you have completed the set task. +
+
+image::UGDeadlineDone.png[width='300']
+
 All deadlines are also displayed in the Deadlines Section of the application highlighted by Red. +
 
-****
-* DEADLINE: Format for setting a deadline: `deadline INDEX date/DATE` +
-* DEADLINE: Format for marking a deadline as done: `deadline INDEX done` +
-* DEADLINE: Format for removing a deadline: `deadline INDEX remove` +
-* DEADLINE: The date must be in the format of dd-mm-yyyy
-****
+Format: `deadline INDEX date/DATE` [To Set a Deadline] +
+Format: `deadline INDEX done` [To Complete a Deadline] +
+Format: `deadline INDEX remove` [To remove a Deadline] +
 
 Examples:
 
 * `deadline 1 date/20-02-2019` +
-* `deadline 2 done` +
-* `deadline 2 remove` +
+* `deadline 1 done` +
+* `deadline 1 remove` +
+
+WARNING: The date must be in the format of dd-mm-yyyy. +
 
 === Filter files by tags: `filter`
 
-Shows you only the files that contain the tags specified in the `filter` command. +
+The filter command shows you only the files that contain the tags specified in the `filter` command. +
 
 Format: `filter t/TAG...`
 
 Examples:
 
 * `filter t/JobApplication` +
+* `filter t/Lecture t/Week10`
 
 ****
 * The search is case insensitive. e.g `lecture` will match `LECTURE`
@@ -253,9 +259,32 @@ Format: `redo` [To Redo an Action]
 The command `encrypt` allow you to lock your files such that they cannot be accessed without a password that you had specified. Similarly, the command `decrypt` will let you remove the password that you had set for the file.
 
 Format: `encrypt INDEX password/PASSWORD` [To Encrypt a file] +
-Format: `decrypt INDEX password/PASSWORD` [To Decrypt a file]
+Format: `decrypt INDEX password/PASSWORD` [To Decrypt a file] +
+
+Examples:
+
+* `encrypt 2 password/ThisIsNotASecurePassword`
+* `decrypt 2 password/ThisIsNotASecurePassword`
 
 // end::dataencryption[]
+
+=== Merging Files: `merge`
+With the `merge` command , you can merge two or more files into a new single file.
+
+Format: `merge INDEX INDEX...`
+
+Examples:
+
+* `merge 1 2 3` +
+* `merge 1 2 1` +
+* `merge 1 1`
+
+****
+* A minimum of 2 files must be specified by their indexes
+* The same file can be merged with itself, hence creating a new file that is composed of the same file twice.
+* The newly created file will be stored in the directory of the `INDEX` that was first specified.
+****
+
 
 === Saving the data
 
@@ -284,10 +313,12 @@ e.g. `info 3`
 e.g. `deadline 3 20-02-2019` , `deadline 2`
 * *Encrypt* : `encrypt INDEX password/PASSWORD`
 * *Decrypt* : `decrypt INDEX password/PASSWORD`
+* *Merge* : `merge INDEX INDEX...`
 * *Help* : `help`
 * *Exit* : `exit`
 
 == Glossary
-* TI : Text Input
-* GUI : Graphical User Interface
-* Command : Keyword that tells the application what to do.
+* *INDEX* : The number that references a file managed by the application.
+* *Command* : Keyword that tells the application what to do.
+* *GUI* : Graphical User Interface
+* *TI* : Text Input

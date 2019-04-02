@@ -1,6 +1,6 @@
 package seedu.knowitall.logic.commands;
 
-import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_COMMAND_INSIDE_REPORT;
+import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolders;
@@ -45,7 +45,7 @@ public class ReportCommandTest {
                 CommandResult.Type.ENTERED_REPORT);
         assertCommandSuccess(reportCommand, model, commandHistory, expectedCommandResult, expectedModel);
 
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_INSIDE_REPORT);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
         assertCommandFailure(reportCommand, model, commandHistory, expectedMessage);
     }
 }

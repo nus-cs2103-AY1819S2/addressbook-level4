@@ -550,6 +550,8 @@ After you enter the command, if it is executed successfully, a confirmation mess
 .Sucess message of sample addmed command
 image::addmed_newmedicien_after.png[align="center" width="600"]
 
+{sp} +
+
 [NOTE]
 If you entered a medicine name that already exists in the storage in this format, a error message will pop up. +
 
@@ -579,6 +581,7 @@ After you enter the command, if it is executed successfully, a confirmation mess
 .Success message of sample addmed command
 image::addmed_existing.png[align="center" width="600"]
 
+{sp} +
 
 [NOTE]
 If you entered a medicine name that has not existed in the storage in this format, an error message will pop up.
@@ -691,8 +694,6 @@ As a doctor running your own clinic, you will certainly purchase medicine from t
 
 This command allows you to record every purchase you made in the simplest way! +
 
-{sp} +
-
 [TIP]
 You can access the medicine via two ways. You can either provide the full path to the medicine, or provide the name of medicine only.
 
@@ -721,9 +722,13 @@ The following figures illustrates the states of QuickDocs before and after you e
 .The state before purchasing medicine
 image::buymed_before.png[width='600']
 
+{sp} +
+
 [[buymed_after]]
 .The state after purchasing medicine. Note that the reminder is gone.
 image::buymed_after.png[width='600']
+
+{sp} +
 
 [NOTE]
 To make your life easier, QuickDocs automatically records every purchase you made via this command so that you can check your clinic's statistics any time.
@@ -736,8 +741,6 @@ To make your life easier, QuickDocs automatically records every purchase you mad
 Through QuickDocs, you have hundred percent freedom to set the price of your medicine via this simple command! +
 
 The price you set will be used in your prescriptions.
-
-{sp} +
 
 [TIP]
 Similar to buymed command, you can either provide the full path to your interested medicine or the name of it only.

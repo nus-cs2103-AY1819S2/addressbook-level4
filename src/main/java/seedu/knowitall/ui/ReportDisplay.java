@@ -9,6 +9,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+import seedu.knowitall.model.Model;
 import seedu.knowitall.model.ReadOnlyCardFolder;
 import seedu.knowitall.model.card.Card;
 
@@ -20,6 +21,10 @@ public class ReportDisplay extends UiPart<Region> {
     private static final String FXML = "ReportDisplay.fxml";
 
     private static final String MESSAGE_SCORE_CHANGE_PREFIX = "Your latest score has changed by ";
+
+    private static final int NUM_QUESTIONS_SHOWN = 3;
+    private static final int MAX_QUESTION_CHAR = 60;
+
 
     // Pixel values used for manipulating string offset (see below)
     private static final int PIXELS_PER_CHARACTER = 6;
@@ -126,10 +131,13 @@ public class ReportDisplay extends UiPart<Region> {
      */
     private void displayQuestions(ObservableList<Card> cards) {
         String result = "";
-        for (Card card: cards) {
-            result += "Question: " + card.getQuestion() + " | ";
-            result += "Score: " + card.getScore();
-            result += "\n";
+        int toShow = Math.min(NUM_QUESTIONS_SHOWN, cards.size());
+        String question;
+        for (int i=0; i<toShow; i++) {
+            Card card = cards.get(i);
+            question = "Question: " + card.getQuestion();
+            question = question.substring(0, Math.min(MAX_QUESTION_CHAR, question.length()));
+            result += question +  " | " + "Score: " + card.getScore() + "\n";
         }
         questionsDisplay.setText(result);
     }

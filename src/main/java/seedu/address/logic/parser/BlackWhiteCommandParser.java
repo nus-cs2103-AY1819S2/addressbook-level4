@@ -26,7 +26,7 @@ public class BlackWhiteCommandParser implements Parser<BlackWhiteCommand> {
         } else {
             args = args.trim();
             String[] parsed = args.split(" ");
-            if (parsed.length > 2) {
+            if (parsed.length > 1) {
                 throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                     BlackWhiteCommand.MESSAGE_USAGE));
             }

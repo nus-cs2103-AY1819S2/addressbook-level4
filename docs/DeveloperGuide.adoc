@@ -195,6 +195,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
+// tag::LogicComponentSequenceDiagrams[]
 Given below are the Sequence Diagrams for interactions within the `Logic` component for the `execute("import C:\User\Pictures\image.png")` and `execute("rotate 90")` API call.
 
 .Interactions Inside the Logic Component for the `import C:\User\Pictures\image.png` Command
@@ -202,6 +203,7 @@ image::LogicImportSd.png[width="800"]
 
 .Interactions Inside the Logic Component for the `rotate 90` Command
 image::LogicRotateSd.png[width="800"]
+// end::LogicComponentSequenceDiagrams[]
 
 [[Design-Model]]
 === Model component
@@ -234,6 +236,7 @@ As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person`
 image:ModelClassBetterOopDiagram.png[width="800"]
 ////
 
+// tag::StorageComponent[]
 [[Design-Storage]]
 === Storage component
 
@@ -246,6 +249,7 @@ The `assets` and `temp` folders form the storage component of FomoFoto.
 * The `temp` folder stores the image that the program is currently editing on.
 * The `Album` class contains methods to save and retrieve images from the `assets` folder.
 * The `CurrentEdit` class contains methods to overwrite and retrieve the image that the program is currently editing on.
+// end::StorageComponent[]
 
 [[Design-Commons]]
 === Common classes
@@ -361,6 +365,7 @@ image::ListFilesCommandSequenceDiagram.png[width=800]
 
 `listfiles` command was created to allow users to know what files are stored in `assets` folder so that they can call `open` using the right file names.
 
+// tag::ImageFilter[]
 === Image Filters
 ==== Current Implementation
 
@@ -430,6 +435,7 @@ Refer to the example usage scenario and design considerations in <<Contrast Comm
 
 .Sequence Diagram for BlackWhite Command
 image::BlackWhiteCommandSequenceDiagram.png[width="800"]
+// end::ImageFilter[]
 
 === Image Manipulation
 ==== Current Implementation

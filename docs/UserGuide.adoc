@@ -114,6 +114,7 @@ This section describes all the commands available in FomoFoto and includes examp
 
 ====
 
+// tag::BlackWhiteCommand[]
 === Black and White Filter : `bw`
 
 Applies black and white filter on opened image based on an integer threshold value. If threshold value is not specified, the black and white filter will use a preset threshold value of 127. Pixels lighter than the threshold value will become white and pixels darker than the threshold value will become black. +
@@ -123,7 +124,9 @@ Examples:
 
 * `bw` (threshold value preset to 127)
 * `bw 130`
+// end::BlackWhiteCommand[]
 
+// tag::BrightnessCommand[]
 === Brightness: `brightness`
 
 Adjusts the brightness of the opened image based on a double-valued ratio. If the brightness ratio is not specified, a preset ratio value of 1.1 will be used. +
@@ -134,8 +137,9 @@ Examples:
 * `brightness` (brightness ratio preset to 1.1)
 * `brightness 1.9` (increases brightness)
 * `brightness 0.3` (reduces brightness)
+// end::BrightnessCommand[]
 
-
+// tag::ContrastCommand[]
 === Contrast: `contrast`
 
 Adjusts the contrast of the opened image based on a double-valued ratio. If the contrast ratio is not specified, a preset ratio value of 1.1 will be used.+
@@ -146,7 +150,7 @@ Examples:
 * `contrast` (contrast ratio preset to 1.1)
 * `contrast 1.4` (increases contrast)
 * `contrast 0.3` (reduces contrast)
-
+// end::ContrastCommand[]
 
 === Crop an image : `crop`
 
@@ -305,7 +309,7 @@ This command is not undo-able and transformations on each layer do not affect ot
 Format: `ruler [ON|OFF]` -> Toggles a ruler that surrounds the canvas. This will help you in estimating the number of pixels to move when using `layer position` or resizing objects.
 
 
-
+// tag::CommandSummary[]
 == Command Summary
 Below is a quick summary of all the commands available in FomoFoto.
 
@@ -348,3 +352,4 @@ e.g. `resize 100 200` +
 e.g. `save MyNewImage.png` +
 
 * *Undo* `undo` +
+// end::CommandSummary[]

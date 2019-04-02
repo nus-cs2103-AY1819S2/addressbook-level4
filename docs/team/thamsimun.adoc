@@ -54,13 +54,13 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=Blackwhite Command]
+include::../UserGuide.adoc[tag=BlackWhiteCommand]
 
-include::../UserGuide.adoc[tag=Contrast Command]
+include::../UserGuide.adoc[tag=ContrastCommand]
 
-include::../UserGuide.adoc[tag=Brightness Command]
+include::../UserGuide.adoc[tag=BrightnessCommand]
 
-include::../UserGuide.adoc[tag=Command Summary]
+include::../UserGuide.adoc[tag=CommandSummary]
 
 == Contributions to the Developer Guide
 
@@ -68,11 +68,11 @@ include::../UserGuide.adoc[tag=Command Summary]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=Logic Component]
+include::../DeveloperGuide.adoc[tag=LogicComponentSequenceDiagrams]
 
-include::../DeveloperGuide.adoc[tag=Storage Component]
+include::../DeveloperGuide.adoc[tag=StorageComponent]
 
-include::../DeveloperGuide.adoc[tag=Image Filters]
+include::../DeveloperGuide.adoc[tag=ImageFilter]
 
 
 == PROJECT: PowerPointLabs

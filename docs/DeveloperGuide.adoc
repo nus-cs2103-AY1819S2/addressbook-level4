@@ -79,9 +79,9 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/TravelBuddy-level4` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/TravelBuddy-level4`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -219,7 +219,7 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `TravelBuddyParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a place).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -241,13 +241,13 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the place data.
 * exposes an unmodifiable `ObservableList<Place>` that can be 'observed' e.g. the UI can be bound to this list so that
 the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Place` can reference. This would allow `Address
+As a more OOP model, we can store a `Tag` list in `TravelBuddy`, which `Place` can reference. This would allow `Address
  Book` to only require one `Tag` object per unique `Tag`, instead of each `Place` needing their own `Tag` object. An
  example of how such a model may look like is given below. +
  +
@@ -264,12 +264,12 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the TravelBuddy data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.TravelBuddy.commons` package.
 
 == Implementation
 
@@ -277,59 +277,62 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::undoredo[]
 === Undo/Redo feature
+
+Called by the `undo` and `redo` commands to undo and redo changes to TravelBuddy Place entries.
+
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedTravelBuddy`.
+It extends `TravelBuddy` with an undo/redo history, stored internally as an `TravelBuddyStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedTravelBuddy#commit()` -- Saves the current TravelBuddy state in its history.
+* `VersionedTravelBuddy#undo()` -- Restores the previous TravelBuddy state from its history.
+* `VersionedTravelBuddy#redo()` -- Restores a previously undone TravelBuddy state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitTravelBuddy()`, `Model#undoTravelBuddy()` and `Model#redoTravelBuddy()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedTravelBuddy` will be initialized with the initial TravelBuddy state, and the `currentStatePointer` pointing to that single TravelBuddy state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th place in the address book. The `delete` command calls
-`Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th place in TravelBuddy. The `delete` command calls
+`Model#commitTravelBuddy()`, causing the modified state of TravelBuddy after the `delete 5` command executes to be saved in the `TravelBuddyStateList`, and the `currentStatePointer` is shifted to the newly inserted TravelBuddy state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new place. The `add` command also calls `Model#commitAddressBook()
-`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new place. The `add` command also calls `Model#commitTravelBuddy()
+`, causing another modified TravelBuddy state to be saved into the `TravelBuddyStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitTravelBuddy()`, so the TravelBuddy state will not be saved into the `TravelBuddyStateList`.
 
 Step 4. The user now decides that adding the place was a mistake, and decides to undo that action by executing the
-`undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+`undo` command. The `undo` command will call `Model#undoTravelBuddy()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous TravelBuddy state, and restores the TravelBuddy to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial TravelBuddy state, then there are no previous TravelBuddy states to restore. The `undo` command uses `Model#canUndoTravelBuddy()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoTravelBuddy()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores TravelBuddy to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `TravelBuddyStateList.size() - 1`, pointing to the latest TravelBuddy state, then there are no undone TravelBuddy states to restore. The `redo` command uses `Model#canRedoTravelBuddy()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify TravelBuddy, such as `list`, will usually not call `Model#commitTravelBuddy()`, `Model#undoTravelBuddy()` or `Model#redoTravelBuddy()`. Thus, the `TravelBuddyStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitTravelBuddy()`. Since the `currentStatePointer` is not pointing at the end of the `TravelBuddyStateList`, all TravelBuddy states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -341,7 +344,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire TravelBuddy.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
@@ -350,9 +353,9 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of TravelBuddy states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedTravelBuddy`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
@@ -628,7 +631,7 @@ The `generate` command is used to generate different charts in the application.
 
 ==== Current Implementation
 At the GUI, the user enters the `generate` command, without any parameters. The UI takes in the input and passes it
-on to `LogicManager#execute()` in the Logic. The`AddressBookParser#parseCommand()` is then called, which parses the
+on to `LogicManager#execute()` in the Logic. The`TravelBuddyParser#parseCommand()` is then called, which parses the
 command and redirects to the `GenerateCommand` class.
 
 The `GenerateCommand#execute()` in Logic calls on Model to do two things:
@@ -908,7 +911,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else
 seeing them by accident
 
-|`*` |user with many places in the address book |sort places by name |locate a place easily
+|`*` |user with many places in the TravelBuddy |sort places by name |locate a place easily
 |=======================================================================
 
 _{More to be added}_
@@ -916,7 +919,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `TravelBuddy` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete place
@@ -924,9 +927,9 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to list places
-2.  AddressBook shows a list of places
+2.  TravelBuddy shows a list of places
 3.  User requests to delete a specific place in the list
-4.  AddressBook deletes the place
+4.  TravelBuddy deletes the place
 +
 Use case ends.
 
@@ -940,7 +943,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. TravelBuddy shows an error message.
 +
 Use case resumes at step 2.
 

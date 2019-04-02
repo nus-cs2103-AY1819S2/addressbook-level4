@@ -1402,6 +1402,30 @@ _{ more test cases ... }_
 
 === Statistics
 
+. Bill order
+
+.. Switch to Table Mode of the selected table. Orders should have been populated from the Order tests above.
+.. Test case: `bill` or `b` +
+   Expected: Mode change to Bill Mode where a receipt of the orders will be shown. The total bill is calculated and
+   recorded. If Bill is the first bill of the day, a new daily revenue card will appear in the default display of
+   Statistics Mode. Otherwise, it just updates the daily revenue by adding the total bill to the current revenue of the
+   current date.
+
+. Retrieve revenue of specified day, month or year
+
+.. Switch to Statistics Mode. Daily revenue should have been populated from the Bill test.
+.. Test case: `revenue` or `r` +
+   Expected: Revenue of the current date will be calculated.
+.. Test case: `revenue d/1 m/1 y/2019` or `r d/1 m/1 y/2019` +
+   Expected: Revenue of 1-Jan-2019 will be calculated.
+.. Test case: `revenue m/1 y/2019` or `r m/1 y/2019` +
+   Expected: Revenue of Jan-2019 will be calculated.
+.. Test case: `revenue y/2019` or `y/2019` +
+   Expected: Revenue of year 2019 will be calculated.
+.. Test case: `revenue d/1 y/2019` or `r d/1 y/2019` +
+   Expected: No revenue are calculated. Error message is shown in the result display.
+.. Other invalid test cases: `revenue d/1`, `revenue d/29 m/2 y/2019`
+
 === Saving data
 
 . Dealing with missing/corrupted data files

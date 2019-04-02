@@ -1,5 +1,9 @@
 package seedu.address.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,6 +13,7 @@ import seedu.address.model.activity.ActivityDateTime;
 import seedu.address.model.activity.ActivityDescription;
 import seedu.address.model.activity.ActivityLocation;
 import seedu.address.model.activity.ActivityName;
+import seedu.address.model.person.MatricNumber;
 
 
 /**
@@ -21,6 +26,7 @@ public class JsonAdaptedActivity {
     private final String time;
     private final String location;
     private final String description;
+    private final List<JsonAdaptedMatric> attendance = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedActivity} with the given person details.
@@ -28,11 +34,15 @@ public class JsonAdaptedActivity {
     @JsonCreator
     public JsonAdaptedActivity(@JsonProperty("name") String name, @JsonProperty("time") String time,
                                @JsonProperty("location") String location,
-                               @JsonProperty("description") String description) {
+                               @JsonProperty("description") String description,
+                               @JsonProperty("attendance") List<JsonAdaptedMatric> attendance) {
         this.name = name;
         this.time = time;
         this.location = location;
         this.description = description;
+        if (attendance != null) {
+            this.attendance.addAll(attendance);
+        }
     }
 
     /**
@@ -43,6 +53,9 @@ public class JsonAdaptedActivity {
         time = source.getDateTime().fullDateTime;
         location = source.getLocation().value;
         description = source.getDescription().value;
+        attendance.addAll(source.getAttendance().stream()
+                .map(JsonAdaptedMatric::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -51,6 +64,10 @@ public class JsonAdaptedActivity {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Activity toModelType() throws IllegalValueException {
+        final List<MatricNumber> attending = new ArrayList<>();
+        for (JsonAdaptedMatric matric : attendance) {
+            attending.add(matric.toModelType());
+        }
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     ActivityName.class.getSimpleName()));
@@ -90,7 +107,6 @@ public class JsonAdaptedActivity {
 
         final ActivityDescription modelDescription = new ActivityDescription(description);
 
-        return new Activity(modelName, modelDateTime, modelLocation, modelDescription);
+        return new Activity(modelName, modelDateTime, modelLocation, modelDescription, attending);
     }
-
 }

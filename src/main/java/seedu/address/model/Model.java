@@ -238,5 +238,4 @@ public interface Model {
      * Update entire activity list
      */
     void updateActivityList();
-
 }

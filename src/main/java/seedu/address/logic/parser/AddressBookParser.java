@@ -7,7 +7,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.ActivityAddCommand;
+import seedu.address.logic.commands.ActivityAddMemberCommand;
 import seedu.address.logic.commands.ActivityDeleteCommand;
+import seedu.address.logic.commands.ActivityDeleteMemberCommand;
 import seedu.address.logic.commands.ActivityFilterCommand;
 import seedu.address.logic.commands.ActivityFindCommand;
 import seedu.address.logic.commands.ActivityListCommand;
@@ -29,7 +31,9 @@ import seedu.address.logic.commands.ModeCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.activity.ActivityAddCommandParser;
+import seedu.address.logic.parser.activity.ActivityAddMemberCommandParser;
 import seedu.address.logic.parser.activity.ActivityDeleteCommandParser;
+import seedu.address.logic.parser.activity.ActivityDeleteMemberCommandParser;
 import seedu.address.logic.parser.activity.ActivityFilterCommandParser;
 import seedu.address.logic.parser.activity.ActivityFindCommandParser;
 import seedu.address.logic.parser.activity.ActivitySelectCommandParser;
@@ -94,6 +98,12 @@ public class AddressBookParser {
 
         case ActivityAddCommand.COMMAND_WORD:
             return new ActivityAddCommandParser().parse(arguments);
+
+        case ActivityAddMemberCommand.COMMAND_WORD:
+            return new ActivityAddMemberCommandParser().parse(arguments);
+
+        case ActivityDeleteMemberCommand.COMMAND_WORD:
+            return new ActivityDeleteMemberCommandParser().parse(arguments);
 
         case ActivityFindCommand.COMMAND_WORD:
             return new ActivityFindCommandParser().parse(arguments);

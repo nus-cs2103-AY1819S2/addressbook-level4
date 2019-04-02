@@ -2,12 +2,12 @@ package seedu.address.model.activity;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
-import seedu.address.model.person.Person;
+import seedu.address.model.person.MatricNumber;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 
 /**
@@ -23,8 +23,7 @@ public class Activity implements Comparable<Activity> {
     private final ActivityStatus status;
 
     // Data fields
-    private Person inCharge;
-    private Map<Person, Boolean> attendance = new HashMap<>();
+    private final List<MatricNumber> attendance;
 
     /**
      * Every field must be present and not null.
@@ -37,6 +36,7 @@ public class Activity implements Comparable<Activity> {
         this.location = location;
         this.description = description;
         this.status = setStatus(dateTime);
+        this.attendance = new ArrayList<>();
     }
 
     public Activity(ActivityName name, ActivityDateTime dateTime, ActivityLocation location) {
@@ -46,10 +46,11 @@ public class Activity implements Comparable<Activity> {
         this.location = location;
         this.description = new ActivityDescription();
         this.status = setStatus(dateTime);
+        this.attendance = new ArrayList<>();
     }
 
     public Activity(ActivityName name, ActivityDateTime dateTime, ActivityLocation location,
-        ActivityDescription description, Optional<Person> inCharge, Map<Person, Boolean> attendance) {
+        ActivityDescription description, List<MatricNumber> attendance) {
         requireAllNonNull(name, dateTime, location, description);
         this.name = name;
         this.dateTime = dateTime;
@@ -57,7 +58,6 @@ public class Activity implements Comparable<Activity> {
         this.description = description;
         this.status = setStatus(dateTime);
         this.attendance = attendance;
-        inCharge.ifPresent(this::setInCharge);
     }
 
 
@@ -77,11 +77,7 @@ public class Activity implements Comparable<Activity> {
         return description;
     }
 
-    public Optional<Person> getInCharge() {
-        return Optional.ofNullable(inCharge);
-    }
-
-    public Map<Person, Boolean> getAttendance() {
+    public List<MatricNumber> getAttendance() {
         return attendance;
     }
 
@@ -93,8 +89,23 @@ public class Activity implements Comparable<Activity> {
         return new ActivityStatus(dateTime.isPast());
     }
 
-    public void setInCharge(Person person) {
-        this.inCharge = person;
+    public void addMemberToActivity(MatricNumber matricNumber) {
+        attendance.add(matricNumber);
+    }
+
+    /**
+     * Removes member from attendance list
+     * */
+    public void removeMemberFromActivity(MatricNumber matricNumber) throws PersonNotFoundException {
+        if (!attendance.contains(matricNumber)) {
+            throw new PersonNotFoundException();
+        } else {
+            attendance.remove(matricNumber);
+        }
+    }
+
+    public boolean hasPersonInAttendance(MatricNumber matricNumber) {
+        return attendance.contains(matricNumber);
     }
 
     public int getNumberAttending() {
@@ -144,9 +155,8 @@ public class Activity implements Comparable<Activity> {
         ActivityDateTime dateTime = this.getDateTime();
         ActivityLocation location = this.getLocation();
         ActivityDescription description = this.getDescription();
-        Optional<Person> inCharge = this.getInCharge();
-        Map<Person, Boolean> attendance = this.getAttendance();
-        return new Activity(name, dateTime, location, description, inCharge, attendance);
+        List<MatricNumber> attendance = this.getAttendance();
+        return new Activity(name, dateTime, location, description, attendance);
     }
 
 
@@ -169,14 +179,13 @@ public class Activity implements Comparable<Activity> {
                 && otherActivity.getDateTime().equals(getDateTime())
                 && otherActivity.getLocation().equals(getLocation())
                 && otherActivity.getDescription().equals(getDescription())
-                && otherActivity.getInCharge().equals(getInCharge())
                 && otherActivity.getAttendance().equals(getAttendance());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, dateTime, location, description, inCharge, attendance);
+        return Objects.hash(name, dateTime, location, description, attendance);
     }
 
     @Override
@@ -189,8 +198,6 @@ public class Activity implements Comparable<Activity> {
                 .append(getLocation())
                 .append(" Description: ")
                 .append(getDescription())
-                .append(" In Charge: ")
-                .append(getInCharge())
                 .append(" Number Attending: ")
                 .append(getNumberAttending());
         return builder.toString();

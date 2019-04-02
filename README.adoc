@@ -24,6 +24,14 @@ ifndef::env-github[]
 image::docs/images/Ui.png[width="600"]
 endif::[]
 
+ifdef::env-github[]
+image::docs/images/Ui2.png[width="600"]
+endif::[]
+
+ifndef::env-github[]
+image::docs/images/Ui2.png[width="600"]
+endif::[]
+
 == What is ClubManager?
 * ClubManager is an *exciting and revolutionary* desktop application for CCA management. It comes with a GUI but
 most of the user interactions takes place on the CLI (Command Line Interface) provided.

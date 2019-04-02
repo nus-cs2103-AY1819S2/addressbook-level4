@@ -293,7 +293,9 @@ image::ListUnvisitedSequenceDiagram.png[width="800"]
 * **Alternative 2:** Passing the user entered postal code into the `ModelManager`.
 ** Pros: Coupling is reduced between `Command` and `Model`.
 ** Cons: Violates Single Responsibility Principle and Separation of Concerns as `ModelManager` needs to handle the logic component of the command.
+
 // end::listUnvisitedDG[]
+
 === Undo/Redo feature
 ==== Current Implementation
 

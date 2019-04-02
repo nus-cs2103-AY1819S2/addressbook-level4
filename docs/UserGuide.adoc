@@ -53,7 +53,7 @@ These legends alert reader on special information such as tips, notes and warnin
 |===
 // end::aboutug[]
 
-// tag:quickstart[]
+// tag::quickstart[]
 == Quick Start
 
 To get Equipment manager up and running, simply follow these few steps.
@@ -197,7 +197,7 @@ Example:
 * `list-c`
 
 
-//tag:select[]
+// tag::select[]
 === Selecting an equipment or work list: `select`
 Selects the equipment or work list identified by the index number used in the displayed equipment list or displayed work list. The address of the equipment will be shown as marker on the map. The details of the equipment will be shown together with the map in split window format, means top half the screen will be showing the details, and the bottom half of the screen will be showing the map. +
 Format: `select INDEX`
@@ -219,9 +219,9 @@ Selects the 1st worklist in the equipment manager.
 * `find Clementi` +
 `select 1` +
 Selects the 1st equipment in the results of the find command.
-//end:select[]
+// end::select[]
 
-//tag:find[]
+// tag::find[]
 === Locating equipment by location: `find`
 Finds equipment whose location contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -238,9 +238,9 @@ Examples:
 
 * `find Clementi` +
 Returns `Clementi Police Station` and `Clementi CC`
-//end:find[]
+// end::find[]
 
-//tag:display[]
+// tag::display[]
 === Show in map: `display`
 Display entries on the list to the map. Addresses of the equipment will be taken to plot marker on map.
 Format: `display`
@@ -248,9 +248,9 @@ Format: `display`
 Example:
 
 * `display`
-//end:display[]
+// end::display[]
 
-//tag:sort[]
+// tag::sort[]
 === Sort the list: `sort`
 Sort the current shown list.
 
@@ -278,9 +278,9 @@ Returns the list sorted according to the day.
 
 * `sort phone` +
 Returns the list sorted by phone number.
-//end:sort[]
+// end::sort[]
 
-//tag:filter[]
+// tag::filter[]
 === Filtering the list: `filter`
 Filter the current shown list which match the given keywords.
 
@@ -320,7 +320,7 @@ Returns any equipment whose tags contains urgent and west.
 
 * `filter n/jurong a/blk 123 t/urgent` +
 Returns any equipment whose names that contains jurong, address that contains blk 123, and whose tags contains urgent.
-//end:filter[]
+// end::filter[]
 
 === Autocomplete: kbd:[tab]
 If you have forgotten how to type a command, do not worry!  By typing in the first letter of the command in the command and pressing the kbd:[tab] key, it will display the full format of the command.
@@ -370,6 +370,7 @@ Lists all the commands that you have entered in reverse chronological order.
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+// tag::undoredo[]
 === Undoing previous command: `undo`
 Restores Equipment Manager to the state before the previous undoable command was executed.
 
@@ -414,6 +415,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `undo` (reverses the `delete 1` command) +
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `clear` command) +
+// end::undoredo[]
 
 === Clearing all entries: `clear`
 If you want to clear out all the client or equipment details in Equipment Manager, you can use the clear command. For example, clear all clients or clear all equipment. +
@@ -428,16 +430,18 @@ Format: `exit`
 Equipment Manager data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+// tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
 _{explain how the user can enable/disable data encryption}_
+// end::dataencryption[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Equipment Manager folder.
 
-//tag:glossary[]
+// tag::glossary[]
 == Glossary
 Unsure of a few technical terms? We got you covered. Refer to [underline]#<<techtable>># below.
 
@@ -460,9 +464,9 @@ Unsure of a few technical terms? We got you covered. Refer to [underline]#<<tech
 |Allows the user to interact with the application through inputs and outputs of data.
 |===
 
-//end:glossary[]
+// end::glossary[]
 
-//tag:commandsummary[]
+// tag::commandsummary[]
 == Command Summary
 
 This is the last section of the User Guide, but the most useful if you just want a list of commands to try.
@@ -537,4 +541,4 @@ For more details on what each command does, please refer to <<Features>>.
 |fil punggol november ongoing
 |===
 
-//end:commandsummary[]
+// end::commandsummary[]

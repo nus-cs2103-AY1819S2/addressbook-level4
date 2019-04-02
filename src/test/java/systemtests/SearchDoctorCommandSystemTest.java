@@ -30,7 +30,8 @@
 //         */
 //        String command = "   " + SearchDoctorCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
 //        Model expectedModel = getModel();
-//        ModelHelper.setFilteredDoctorList(expectedModel, ALICE, DANIEL); // first names of Benson and Daniel are "Meier"
+//        ModelHelper.setFilteredDoctorList(expectedModel, ALICE, DANIEL);
+// first names of Benson and Daniel are "Meier"
 //        assertCommandSuccess(command, expectedModel);
 //        assertSelectedCardUnchanged();
 //

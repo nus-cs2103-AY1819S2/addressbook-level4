@@ -26,7 +26,7 @@
 //public class SelectDoctorCommandSystemTest extends AddressBookSystemTest {
 //    @Test
 //    public void select() {
-//        /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
+//        /* ----------------------- Perform select operations on the shown unfiltered list ------------------------- */
 //
 //        /* Case: select the first card in the doctor list, command with leading spaces and trailing spaces
 //         * -> selected
@@ -57,7 +57,7 @@
 //        /* Case: select the current selected card -> selected */
 //        assertCommandSuccess(command, middleIndex);
 //
-//        /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
+//        /* ----------------------- Perform select operations on the shown filtered list --------------------------- */
 //
 //        /* Case: filtered doctor list, select index within bounds of docX but out of bounds of doctor list
 //         * -> rejected
@@ -73,7 +73,7 @@
 //        command = SelectDoctorCommand.COMMAND_WORD + " " + validIndex.getOneBased();
 //        assertCommandSuccess(command, validIndex);
 //
-//        /* ----------------------------------- Perform invalid select operations ------------------------------------ */
+//        /* ---------------------------------- Perform invalid select operations ----------------------------------- */
 //
 //        /* Case: invalid index (0) -> rejected */
 //        assertCommandFailure(SelectDoctorCommand.COMMAND_WORD + " " + 0,

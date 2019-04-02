@@ -27,7 +27,7 @@
 //
 //    @Test
 //    public void delete() {
-//        /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
+//        /* ---------------- Performing delete operation while an unfiltered list is being shown ------------------- */
 //
 //        /* Case: delete the first doctor in the list, command with leading spaces and trailing spaces -> deleted */
 //        Model expectedModel = getModel();
@@ -57,7 +57,7 @@
 //        Index middleDoctorIndex = getDoctorMidIndex(getModel());
 //        assertCommandSuccess(middleDoctorIndex);
 //
-//        /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
+//        /* ----------------- Performing delete operation while a filtered list is being shown --------------------- */
 //
 //        /* Case: filtered doctor list, delete index within bounds of address book and doctor list -> deleted */
 //        showDoctorsWithName(KEYWORD_MATCHING_MEIER);
@@ -73,7 +73,7 @@
 //        command = DeleteDoctorCommand.COMMAND_WORD + " " + invalidIndex;
 //        assertCommandFailure(command, MESSAGE_INVALID_DOCTOR_DISPLAYED_INDEX);
 //
-//        /* --------------------- Performing delete operation while a doctor card is selected ----------------------- */
+//        /* -------------------- Performing delete operation while a doctor card is selected ---------------------- */
 //
 //        /* Case: delete the doctor patient -> doctor list panel selects the doctor before the deleted doctor */
 //        showAllDoctors(); showAllPatients();
@@ -86,7 +86,7 @@
 //        expectedResultMessage = String.format(MESSAGE_DELETE_DOCTOR_SUCCESS, deletedDoctor);
 //        assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 //
-//        /* --------------------------------- Performing invalid delete operation ------------------------------------ */
+//        /* -------------------------------- Performing invalid delete operation ----------------------------------- */
 //
 //        /* Case: invalid index (0) -> rejected */
 //        command = DeleteDoctorCommand.COMMAND_WORD + " 0";
@@ -138,7 +138,8 @@
 //        String expectedResultMessage = String.format(MESSAGE_DELETE_DOCTOR_SUCCESS, deletedDoctor);
 //
 //        assertCommandSuccess(
-//                DeleteDoctorCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);
+//                DeleteDoctorCommand.COMMAND_WORD + " " + toDelete.getOneBased(),
+//                      expectedModel, expectedResultMessage);
 //    }
 //
 //    /**
@@ -158,8 +159,10 @@
 //    }
 //
 //    /**
-//     * Performs the same verification as {@code assertCommandSuccess(String, Model, String)} except that the browser url
-//     * and selected card are expected to update accordingly depending on the card at {@code expectedSelectedCardIndex}.
+//     * Performs the same verification as {@code assertCommandSuccess(String, Model, String)}
+//     * except that the browser url
+//     * and selected card are expected to update accordingly depending
+//     * on the card at {@code expectedSelectedCardIndex}.
 //     *
 //     * @see DeleteDoctorCommandSystemTest#assertCommandSuccess(String, Model, String)
 //     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)

@@ -197,7 +197,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void selectDoctor(Index index) {
         executeCommand(SelectDoctorCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getDoctorListPanel().getSelectedCardIndex()); getPatientListPanel();
+        assertEquals(index.getZeroBased(), getDoctorListPanel().getSelectedCardIndex());
     }
 
     /**

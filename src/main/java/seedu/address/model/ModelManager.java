@@ -169,18 +169,6 @@ public class ModelManager implements Model {
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
     }
 
-    public ReadOnlyProperty<Doctor> selectedDoctorProperty() {
-        return selectedDoctor;
-    }
-
-    @Override
-    public void setSelectedDoctor(Doctor doctor) {
-        if (doctor != null && !filteredDoctors.contains(doctor)) {
-            throw new DoctorNotFoundException();
-        }
-        selectedDoctor.setValue(doctor);
-    }
-
     @Override
     public void deleteDoctor(Doctor target) {
         versionedAddressBook.removeDoctor(target);
@@ -196,11 +184,6 @@ public class ModelManager implements Model {
             throw new DoctorNotFoundException();
         }
         selectedDoctor.setValue(doctor);
-    }
-
-    @Override
-    public void deleteDoctor(Doctor target) {
-        versionedAddressBook.removeDoctor(target);
     }
 
     // Needed to be implemented later

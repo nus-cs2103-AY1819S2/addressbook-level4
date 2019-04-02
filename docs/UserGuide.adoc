@@ -511,15 +511,19 @@ The new directory's name should not contain white spaces or "\" characters.
 
 *Example:* +
 
-`adddirec root\fever oral` +
+`adddirec root fever` +
+
+followed by `adddirec root\fever oral` +
 
 *Result:* +
+
+These commands add a new directory called fever to root, and then add another new directory called oral under fever. +
+
+There will be success messages confirming every successful addition of directories. +
 
 [[adddirec_after]]
 .Result of sample add directory command
 image::adddirec_after.png[width="600"]
-
-There will be success messages confirming every successful addition of directories.
 
 - - -
 

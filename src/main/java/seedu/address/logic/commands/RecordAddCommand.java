@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.description.Description;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.record.Record;
 import seedu.address.ui.MainWindow;
@@ -32,17 +31,6 @@ public class RecordAddCommand extends Command {
 
     private final Patient toAdd;
     private Record addRecord;
-    private Description description;
-
-    /**
-     * Creates an RecordAddCommand to add a new dental record to a specified {@code Patient}
-     * @param description the description of the record to be added.
-     */
-    public RecordAddCommand(Description description) {
-        requireNonNull(description);
-        toAdd = MainWindow.getRecordPatient();
-        this.description = description;
-    }
 
     /**
      * Creates an RecordAddCommand to add a new dental record to a specified {@code Patient}
@@ -67,10 +55,9 @@ public class RecordAddCommand extends Command {
         if (MainWindow.isGoToMode() && toAdd != null) {
             requireNonNull(model);
 
-            Record record = new Record(description);
-            boolean isDuplicate = model.hasRecord(record);
+            boolean isDuplicate = model.hasRecord(this.addRecord);
 
-            model.addRecord(record);
+            model.addRecord(this.addRecord);
 
             if (isDuplicate) {
                 return new CommandResult(String.format(MESSAGE_DUPLICATE_RECORD, toAdd.getName()));

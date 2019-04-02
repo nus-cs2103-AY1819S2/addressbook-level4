@@ -138,7 +138,7 @@ Calculation of proximity is based on postal codes. If no postal code or an inval
 
 Examples:
 
-[red]#* `listUnvisited po/267951` #+
+* **`listUnvisited`**`po/267951` +
 Return all the restaurants that has no reviews ranked based on the proximity to a given postal code
 
 [TIP]

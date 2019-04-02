@@ -6,11 +6,11 @@ import java.util.List;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import seedu.address.logic.commands.BackCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.GenerateQuestionCommand;
+import seedu.address.logic.commands.OpenDeckCommand;
 import seedu.address.logic.commands.ShowAnswerCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 
@@ -35,11 +35,12 @@ public class StudyView implements ViewState {
     }
 
     @Override
-    public Command parse(String commandWord, String arguments) throws ParseException {
-
+    public Command parse(String commandWord, String arguments) {
         switch (commandWord) {
-            case DoneCommand.COMMAND_WORD:
-                return new DoneCommand();
+            case OpenDeckCommand.ALT_COMMAND_WORD:
+                return new OpenDeckCommand(activeDeck);
+            case BackCommand.COMMAND_WORD:
+                return new BackCommand();
             default:
                 if (getCurrentStudyState() == StudyState.QUESTION) {
                     return new ShowAnswerCommand(commandWord + arguments);

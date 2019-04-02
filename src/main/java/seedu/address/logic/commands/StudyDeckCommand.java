@@ -41,7 +41,8 @@ public class StudyDeckCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (targetIndex != null) {
+
+        if (targetIndex != null) { //if OpenDeckCommand is directly based on target deck
             List<Deck> filteredDeckList = decksView.filteredDecks;
 
             if (targetIndex.getZeroBased() >= filteredDeckList.size()) {
@@ -51,7 +52,6 @@ public class StudyDeckCommand extends Command {
             if (filteredDeckList.get(targetIndex.getZeroBased()).isEmpty()) {
                 throw new CommandException(Messages.MESSAGE_EMPTY_DECK);
             }
-
             targetDeck = filteredDeckList.get(targetIndex.getZeroBased());
         }
 

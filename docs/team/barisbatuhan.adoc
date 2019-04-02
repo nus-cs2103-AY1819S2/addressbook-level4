@@ -28,16 +28,14 @@ Recruit Me is a Java Desktop GUI application that is specifically designed for a
 
 ** Filtering process is added to the User guide in a new section.
 ** The form of it, the usage and some examples are given for the user.
-
-include::../UserGuide.adoc[tag=filter]
+** The changes can be seen in `UserGuide -> Features -> Filtering Recruit Me: filter`
 
 * Contributions to the Developer Guide
 
 ** A new section for filtering is added to the developer guide.
 ** Implementation of filtering process, other alternatives and implementation of tests are explained.
 ** Some of the use cases and user stories are updated.
-
-include::../DeveloperGuide.adoc[tag=filter]
+** The changes can be seen in `DeveloperGuide -> Implementation -> Filter or/and/clear feature`
 
 * Contributions to the README.doc
 

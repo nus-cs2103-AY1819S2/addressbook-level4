@@ -45,7 +45,7 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ TopDeck methods ==============================
 
     @Override
     public Path getTopDeckFilePath() {

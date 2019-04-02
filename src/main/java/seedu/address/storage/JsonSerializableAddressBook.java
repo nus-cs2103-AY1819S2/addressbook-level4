@@ -74,13 +74,6 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
-        for (JsonAdaptedPatient jsonAdaptedPatient : patients) {
-            Patient patient = jsonAdaptedPatient.toModelType();
-            if (addressBook.hasPatient(patient)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
-            }
-            addressBook.addPatient(patient);
-        }
 
         for (JsonAdaptedDoctor jsonAdaptedDoctor : doctors) {
             Doctor doctor = jsonAdaptedDoctor.toModelType();
@@ -89,6 +82,16 @@ class JsonSerializableAddressBook {
             }
             addressBook.addDoctor(doctor);
         }
+
+        for (JsonAdaptedPatient jsonAdaptedPatient : patients) {
+            Patient patient = jsonAdaptedPatient.toModelType();
+            if (addressBook.hasPatient(patient)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+            }
+            addressBook.addPatient(patient);
+        }
+
+
         /*
         for (JsonAdaptedMedicalHistory jsonAdaptedMedicalHistory : medicalHistories) {
             MedicalHistory medicalHistory = jsonAdaptedMedicalHistory.toModelType();

@@ -30,7 +30,7 @@ public class ListDoctorCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListPatientCommand(), model, commandHistory,
+        assertCommandSuccess(new ListDoctorCommand(), model, commandHistory,
                 ListDoctorCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

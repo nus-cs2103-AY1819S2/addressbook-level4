@@ -28,7 +28,7 @@ Responsibilities: Logic, git expert
 
 === Koh Wei Xin
 image::weixin-koh.png[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]]
+{empty}[http://github.com/weixin-koh[github]] [<<weixin-koh#, portfolio>>]
 
 Role: Restaurant Reviews +
 Responsibilities: UI, design
@@ -42,7 +42,7 @@ Responsibilities: Storage, documentation
 
 === Pai Si Kai
 image::skpai27.png[width="150", align="left"]
-{empty}[https://github.com/skpai27[github]]
+{empty}[https://github.com/skpai27[github]] [<<skpai27#, portfolio>>]
 
 Role: Restaurant Reviews Categorisation +
 Responsibilities: Commons, code quality

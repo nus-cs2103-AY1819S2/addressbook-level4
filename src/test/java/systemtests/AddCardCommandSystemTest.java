@@ -17,107 +17,28 @@ import seedu.address.testutil.CardUtil;
 
 public class AddCardCommandSystemTest extends TopDeckSystemTest {
 
-        private static final String CHANGE_DECK_COMMAND = "open 2";
-        private static final Deck TEST_DECK = DECK_A;
+    private static final String CHANGE_DECK_COMMAND = "open 2";
+    private static final Deck TEST_DECK = DECK_A;
 
-        @Test
-        public void add() {
-            Model model = getModel();
-            model.changeDeck(TEST_DECK);
-            /* ------------------------ Perform add operations on the shown unfiltered list
-            ----------------------------- */
+    @Test
+    public void add() {
+        Model model = getModel();
+        model.changeDeck(TEST_DECK);
+        /* ------------------------ Perform add operations on the shown unfiltered list------------------------ */
+        executeCommand(CHANGE_DECK_COMMAND);
 
-            executeCommand(CHANGE_DECK_COMMAND);
+        /* Case: add a card without tags to a non-empty topdeck, command with leading spaces and
+        trailing spaces* -> added*/
+        Card toAdd = SUBTRACTION;
+        String command = "   " + AddCardCommand.COMMAND_WORD + "  " + QUESTION_DESC_SUBTRACTION + "  "
+            + ANSWER_DESC_SUBTRACTION + "   " + TAG_DESC_MATH + " ";
+        assertCommandSuccess(command, toAdd);
 
-            /* Case: add a card without tags to a non-empty address book, command with leading spaces and
-            trailing spaces
-             * -> added
-             */
-            Card toAdd = SUBTRACTION;
-            String command = "   " + AddCardCommand.COMMAND_WORD + "  " + QUESTION_DESC_SUBTRACTION + "  "
-                + ANSWER_DESC_SUBTRACTION + "   " + TAG_DESC_MATH + " ";
-            assertCommandSuccess(command, toAdd);
-
-            /* Case: undo adding Subtraction card to the list -> Subtraction card deleted */
-            command = UndoCommand.COMMAND_WORD;
-            String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
-            assertCommandSuccess(command, model, expectedResultMessage);
-
-    //        /* Case: redo adding Subtraction card to the list -> Subtraction card added again */
-    //        command = RedoCommand.COMMAND_WORD;
-    //        model.addCard(toAdd);
-    //        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-    //        assertCommandSuccess(command, model, expectedResultMessage);
-    //
-    //        /* Case: add a card with all fields same as another card in the deck except question -> added */
-    //        toAdd = new CardBuilder(ADDITION).withQuestion(VALID_QUESTION_UNIQUE).build();
-    //        command = AddCardCommand.COMMAND_WORD + QUESTION_DESC_UNIQUE + ANSWER_DESC_ADDITION
-    //                + TAG_DESC_MATH;
-    //        assertCommandSuccess(command, toAdd);
-    //
-    //        /* Case: add to empty address book -> added */
-    //        deleteAllDecks();
-    //        assertCommandSuccess(ADDITION);
-    //
-    //        /* Case: add a card with tags, command with parameters in random order -> added */
-    //        toAdd = SUBTRACTION;
-    //        command = AddCardCommand.COMMAND_WORD + TAG_DESC_MATH + ANSWER_DESC_SUBTRACTION +
-    //        QUESTION_DESC_SUBTRACTION;
-    //        assertCommandSuccess(command, toAdd);
-    //
-    //        /* Case: add a card, missing tags -> added */
-    //        assertCommandSuccess(NO_TAG);
-    //
-    //        /* -------------------------- Perform add operation on the shown filtered list
-    //        ------------------------------ */
-    //
-    //        /* Case: filters the card list before adding -> added */
-    //        showDecksWithQuestion(KEYWORD_MATCHING_HTTP);
-    //        assertCommandSuccess(HELLO_WORLD);
-    //
-    //        /* ------------------------ Perform add operation while a card card is selected
-    //        --------------------------- */
-    //
-    //        /* Case: selects first card in the card list, add a card -> added, card selection remains
-    //        unchanged */
-    //        selectDeck(Index.fromOneBased(1));
-    //        assertCommandSuccess(MULTIPLICATION);
-    //
-    //        /* ----------------------------------- Perform invalid add operations
-    //        --------------------------------------- */
-    //
-    //        /* Case: add a duplicate card -> rejected */
-    //        command = CardUtil.getAddCommand(NO_TAG);
-    //        assertCommandFailure(command, AddCardCommand.MESSAGE_DUPLICATE_CARD);
-    //
-    //        /* Case: add a duplicate card except with different answer -> rejected */
-    //        toAdd = new CardBuilder(NO_TAG).withAnswer(VALID_ANSWER_ADDITION).build();
-    //        command = CardUtil.getAddCommand(toAdd);
-    //        assertCommandFailure(command, AddCardCommand.MESSAGE_DUPLICATE_CARD);
-    //
-    //        /* Case: add a duplicate card except with different tags -> rejected */
-    //        command = CardUtil.getAddCommand(NO_TAG) + " " + PREFIX_TAG.getPrefix() + "interesting";
-    //        assertCommandFailure(command, AddCardCommand.MESSAGE_DUPLICATE_CARD);
-    //
-    //        /* Case: missing question -> rejected */
-    //        command = AddCardCommand.COMMAND_WORD + ANSWER_DESC_ADDITION + TAG_DESC_MATH;
-    //        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand
-    //        .MESSAGE_USAGE));
-    //
-    //        /* Case: missing answer -> rejected */
-    //        command = AddCardCommand.COMMAND_WORD + QUESTION_DESC_ADDITION + TAG_DESC_MATH;
-    //        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand
-    //        .MESSAGE_USAGE));
-    //
-    //        /* Case: invalid keyword -> rejected */
-    //        command = "adds " + CardUtil.getCardDetails(toAdd);
-    //        assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
-    //
-    //        /* Case: invalid tag -> rejected */
-    //        command = AddCardCommand.COMMAND_WORD + QUESTION_DESC_ADDITION + ANSWER_DESC_ADDITION +
-    //        INVALID_TAG_DESC;
-    //        assertCommandFailure(command, Tag.MESSAGE_CONSTRAINTS);
-            }
+        /* Case: undo adding Subtraction card to the list -> Subtraction card deleted */
+        command = UndoCommand.COMMAND_WORD;
+        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, model, expectedResultMessage);
+    }
 
     /**
      * Executes the {@code AddCardCommand} that adds {@code toAdd} to the model and asserts that the,<br>

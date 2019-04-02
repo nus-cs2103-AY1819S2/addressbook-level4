@@ -22,24 +22,23 @@ public class AddCustomerCommand extends CustomerCommand {
     public static final String COMMAND_ALIAS = "ac";
     public static final String COMMAND_WORD = "add-customer";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a customer to the hms book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a customer to the hms book.\n"
         + "Parameters: "
         + PREFIX_NAME + "NAME "
         + PREFIX_PHONE + "PHONE "
-        + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH "
         + PREFIX_EMAIL + "EMAIL "
         + PREFIX_IDENTIFICATION_NUMBER + "IDENTIFICATION "
+        + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH "
         + PREFIX_ADDRESS + "ADDRESS "
         + "[" + PREFIX_TAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_NAME + "John Doe "
         + PREFIX_PHONE + "98765432 "
-        + PREFIX_DATE_OF_BIRTH + "28/05/1999 "
-        + PREFIX_EMAIL + "johnd@example.com "
+        + PREFIX_EMAIL + "jd@ex.com "
         + PREFIX_IDENTIFICATION_NUMBER + "123456 "
-        + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-        + PREFIX_TAG + "friends "
-        + PREFIX_TAG + "owesMoney";
+        + PREFIX_DATE_OF_BIRTH + "28/05/1999 "
+        + PREFIX_ADDRESS + "311, Clementi Ave 2"
+        + PREFIX_TAG + "friends ";
 
     public static final String MESSAGE_SUCCESS = "New customer added: %1$s";
     public static final String MESSAGE_DUPLICATE_CUSTOMER = "This customer already exists in the hms book";

@@ -40,14 +40,14 @@ public class EditCustomerCommand extends CustomerCommand {
     public static final String COMMAND_WORD = "edit-customer";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the customer identified "
-        + "by the index number used in the displayed customer list. "
+        + "by the index number used in the displayed customer list.\n"
         + "Existing values will be overwritten by the input values.\n"
         + "Parameters: INDEX (must be a positive integer) "
         + "[" + PREFIX_NAME + "NAME] "
         + "[" + PREFIX_PHONE + "PHONE] "
-        + "[" + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH] "
         + "[" + PREFIX_EMAIL + "EMAIL] "
-        + "[" + PREFIX_IDENTIFICATION_NUMBER + "IDENTIFICATION NO] "
+        + "[" + PREFIX_IDENTIFICATION_NUMBER + "IDENTIFICATION NO]\n"
+        + "[" + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH] "
         + "[" + PREFIX_ADDRESS + "ADDRESS] "
         + "[" + PREFIX_TAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " 1 "

@@ -291,7 +291,49 @@ In Statistics Mode, you can obtain statistics related to your restaurant, such a
 
 image::SMUi.png[width="790"]
 
-==== Getting the most popular item ordered: `getMostPopularItem`
+==== Getting the total revenue : `revenue`
+
+Returns the total revenue earned by the restaurant by the stated year, month or day. +
+Format: `revenue [d/DAY] [m/MONTH] [y/YEAR]`
+
+****
+* `DAY`, `MONTH`, `YEAR` have to be valid.
+* If the stated period has no records, it will return $0.
+* If *no arguments* are included, by default it returns the total revenue for the *current day*.
+****
+
+Examples:
+
+* `revenue` +
+Returns the total revenue of the current day `$45`
+* `revenue y/2019 m/01 d/01` +
+Returns the total revenue on the specific day 01/01/2019 `$45`
+* `revenue y/2019 m/02` +
+Returns the total revenue of the month February 2019 `$7000`
+* `revenue y/2019` +
+Returns the total revenue of the year 2019 `15000`
+
+
+==== Getting the daily revenue : `daily` _(coming in v1.4)_
+
+Change the interface to display the statistical dailyly revenue. +
+Format: `daily`
+
+****
+* This is the default page for Statistics Mode. +
+****
+
+==== Getting the monthly revenue : `monthly` _(coming in v1.4)_
+
+Change the interface to display the statistical monthly revenue. +
+Format: `monthly`
+
+==== Getting the yearly revenue : `yearly` _(coming in v1.4)_
+
+Change the interface to display the statistical yearly revenue. +
+Format: `yearly`
+
+==== Getting the most popular item ordered: `getMostPopularItem` _(coming in v1.4)_
 
 Returns the item on the menu that has the most orders. +
 Format: `getMostPopularItem`
@@ -301,7 +343,7 @@ Examples:
 * `getMostPopularItem` +
 Returns the most popular item `W09 Chicken Wings`
 
-==== Getting the total number of customers : `getTotalCustomers`
+==== Getting the total number of customers : `getTotalCustomers` _(coming in v2.0)_
 
 Returns the total number of customer for the stated day, month or year. +
 Format: `getTotalCustomers [YEAR] [MONTH] [DAY]`
@@ -323,29 +365,7 @@ Returns the total number of customers of the month February 2019 `600`
 * `getTotalCustomers y/2019` +
 Returns the total number of customers of the year 2019 `1200`
 
-==== Getting the total revenue : `getTotalRevenue`
-
-Returns the total revenue earned by the restaurant by the stated year, month or day. +
-Format: `getTotalRevenue [YEAR] [MONTH] [DAY]`
-
-****
-* `YEAR`, `MONTH`, `DAY` has to be valid.
-* If the stated period has no records, it will inform the user that there is no record.
-* If *no arguments* are included, by default it returns the total revenue for the *current day*.
-****
-
-Examples:
-
-* `getTotalRevenue` +
-Returns the total revenue of the current day `$45`
-* `getTotalCustomers y/2019 m/01 d/01` +
-Returns the total revenue on the specific day 01/01/2019 `$45`
-* `getTotalCustomers y/2019 m/02` +
-Returns the total revenue of the month February 2019 `$7000`
-* `getTotalCustomers y/2019` +
-Returns the total revenue of the year 2019 `15000`
-
-==== Getting all the statistics : `getStatistics`
+==== Getting all the statistics : `getStatistics` _(coming in v2.0)_
 
 Returns all the calculated statistics. +
 Format: `getStatistics`
@@ -448,5 +468,12 @@ Adds A02 to the menu
 [width="90%",cols="25%,15%,30%,30%",options="header",]
 |=======================================================================
 |Command |Shortcut |Usage |Example
-|`command`|`shortcut`|`usage`|`example`
+|`revenue`|`r`|`revenue [d/DAY] [m/MONTH] [y/YEAR]` |`revenue d/1 m/1 y/2019` +
+Returns the revenue earned on 01 January 2019.
+|`daily`|`d`|`daily` |`daily` +
+Changes the interface to display the statistical daily revenue.
+|`monthly`|`m`|`monthly` |`monthly` +
+Changes the interface to display the statistical monthly revenue.
+|`yearly`|`y`|`yearly` |`yearly` +
+Changes the interface to display the statistical yearly revenue.
 |=======================================================================

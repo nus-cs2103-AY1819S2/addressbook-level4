@@ -79,11 +79,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void setSelectedItem(ListItem item) {
-        model.setSelectedItem(item);
-    }
-
-    @Override
     public ObservableList<ListItem> getFilteredList() {
         return ((ListViewState) model.getViewState()).getFilteredList();
     }
@@ -106,29 +101,6 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
-    }
-
-    @Override
-    public ReadOnlyProperty<ListItem> selectedItemProperty() {
-        return ((ListViewState) model.getViewState()).getSelectedItemProperty();
-    }
-
-    @Override
-    public ReadOnlyProperty<String> textShownProperty() {
-        StudyView studyView = (StudyView) model.getViewState();
-        return studyView.textShownProperty();
-    }
-
-    @Override
-    public ReadOnlyProperty<StudyView.StudyState> studyStateProperty() {
-        StudyView studyView = (StudyView) model.getViewState();
-        return studyView.studyStateProperty();
-    }
-
-    @Override
-    public ReadOnlyProperty<String> userAnswerProperty() {
-        StudyView studyView = (StudyView) model.getViewState();
-        return studyView.userAnswerProperty();
     }
 
     @Override

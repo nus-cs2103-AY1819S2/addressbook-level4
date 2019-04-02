@@ -34,11 +34,6 @@ public interface Logic {
     ReadOnlyTopDeck getTopDeck();
 
     /**
-     * Sets the selected item.
-     */
-    void setSelectedItem(ListItem item);
-
-    /**
      * Returns an unmodifiable view of the current filtered list. The element type depends on the view state.
      */
     ObservableList<ListItem> getFilteredList();
@@ -63,27 +58,6 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
-
-    /**
-     * Selected item in the filtered card list.
-     * null if no item is selected.
-     */
-    ReadOnlyProperty<ListItem> selectedItemProperty();
-
-    /**
-     * Current text in the StudyView
-     */
-    ReadOnlyProperty<String> textShownProperty();
-
-    /**
-     * Current StudyState in the StudyView
-     */
-    ReadOnlyProperty<StudyView.StudyState> studyStateProperty();
-
-    /**
-     * Current userAnswer
-     */
-    ReadOnlyProperty<String> userAnswerProperty();
 
     UiPart<Region> getPanel();
 }

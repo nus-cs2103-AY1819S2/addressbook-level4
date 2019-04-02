@@ -1,16 +1,16 @@
 package seedu.address.model;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.*;
+import seedu.address.logic.CardsView;
+import seedu.address.logic.DecksView;
+import seedu.address.logic.StudyView;
+import seedu.address.logic.ViewState;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
-import seedu.address.model.deck.exceptions.IllegalOperationWhileReviewingCardException;
 
 import java.nio.file.Path;
 import java.util.Objects;
@@ -27,7 +27,6 @@ public class ModelManager implements Model {
 
     private final VersionedTopDeck versionedTopDeck;
     private final UserPrefs userPrefs;
-    private final SimpleObjectProperty<ListItem> selectedItem = new SimpleObjectProperty<>();
     private ViewState viewState;
 
     /**
@@ -245,26 +244,6 @@ public class ModelManager implements Model {
     @Override
     public void commitTopDeck() {
         versionedTopDeck.commit();
-    }
-
-    //=========== Selected item ===========================================================================
-
-    @Override
-    public ReadOnlyProperty<ListItem> selectedItemProperty() {
-        return selectedItem;
-    }
-
-    @Override
-    public void setSelectedItem(ListItem item) {
-        if (item instanceof Card && isAtCardsView()) {
-            CardsView cardsView = (CardsView) viewState;
-            cardsView.setSelectedItem((Card) item);
-        } else if (item instanceof Deck && isAtDecksView()) {
-            DecksView decksView = (DecksView) viewState;
-            decksView.setSelectedItem((Deck) item);
-        } else if (item != null) {
-            throw new IllegalOperationWhileReviewingCardException();
-        }
     }
 
     @Override

@@ -3,8 +3,6 @@ package seedu.address.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.ListItem;
 import seedu.address.logic.ViewState;
@@ -116,17 +114,6 @@ public interface Model {
      * Saves the current TopDeck state for undo/redo.
      */
     void commitTopDeck();
-
-    /**
-     * Selected item in the filtered list.
-     * null if no item is selected.
-     */
-    ReadOnlyProperty<ListItem> selectedItemProperty();
-
-    /**
-     * Sets the selected item in the filtered list.
-     */
-    void setSelectedItem(ListItem item);
 
     /**
      * Adds a new deck in the filtered deck list.

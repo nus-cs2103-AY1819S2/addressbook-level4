@@ -185,7 +185,7 @@ public class ModelManagerTest {
         modelManager.addCard(SUBTRACTION, activeDeck);
         activeDeck = extractActiveDeck(modelManager);
 
-        modelManager.setSelectedItem(ADDITION);
+        ((CardsView) modelManager.getViewState()).setSelectedItem(ADDITION);
         modelManager.deleteCard(SUBTRACTION, activeDeck);
 
         assertEquals(null, extractSelectedItem(modelManager));

@@ -1,9 +1,11 @@
-= CLI Battleship - User Guide
+= Battleship - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
+:toclevels: 4
 :toc-placement: preamble
 :sectnums:
+:sectnumlevels: 4
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -68,6 +70,9 @@ The commands will go on, until either your or the enemy's fleet is completely de
 
 Refer to <<Features>> for details of each command.
 
+== How To Play
+This section will describe how to play the classic Battleship game
+
 [[Features]]
 == Features
 
@@ -90,8 +95,9 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 Opens a help window that displays this User Guide. +
 Format: `help`
 
+=== Preparation Phase
 // tag::map[]
-=== Map : `init`
+==== Map : `init`
 
 Initialises both player's maps to the specified size. +
 Format: `init MAP_SIZE` +
@@ -125,7 +131,8 @@ image::maplegend.png[width=400]
 
 // end::map[]
 
-=== Placing a ship on the map: `put`
+==== Ship Management:
+===== Placing a ship on the map: `put`
 
 Adds a battleship onto the player's map. The coordinates specified is the position of the battleship's head. +
 
@@ -151,7 +158,7 @@ image::putshipheadexample.png[width=750]
 
 The orientation of the battleship can be horizontal or vertical. The orientation of the battleship must be specified. It may be shortened to `h` or `v`. +
 
-=== Listing all ships : `list`
+===== Listing all ships : `list`
 
 Shows a list of all the player's battleships that are have been deployed on the map. There are four ways of using the `list` command:
 
@@ -196,7 +203,7 @@ We are able to list a specific battleship by the name of `destroyer` with the ta
 .The `list` command with name and tags
 image::listbytagbyname.png[width=750]
 
-=== Locating ships by name: `find`
+===== Locating ships by name: `find`
 
 Finds battleships whose names contain any of the given keywords. +
 Format: `find NAME [MORE_NAMES]`
@@ -218,7 +225,7 @@ Returns `Name: RSS Vengeance, Size: 4, Command: true, Position: d2`
 [NOTE]
 The position may not be displayed if the ship has not been placed.
 
-=== List all tags: `listTags`
+===== List all tags: `listTags`
 
 Lists all the tags that have been used to tag the battleships deployed on the map. +
 
@@ -229,7 +236,7 @@ Examples: `listTags`
 [NOTE]
 The list of tags is given in square brackets.
 
-=== Selecting a ship : `select`
+===== Selecting a ship : `select`
 
 Selects the battleship identified by the index number used in the displayed ship list. +
 Format: `select INDEX`
@@ -248,7 +255,9 @@ Selects the 2nd battleship in the inventory.
 `select 1` +
 Selects the 1st battleship in the results of the `find` command.
 
-=== Beginning the battle: `begin`
+=== Battle Phase
+
+==== Beginning the battle: `begin`
 
 Begins the battle against the computer enemy. +
 Format: `begin` +
@@ -258,7 +267,7 @@ Alternative command: `start`
 * After this command is entered, the program's AI will place its own ships.
 ****
 
-=== Shooting at a coordinate: `shoot`
+==== Shooting at a coordinate: `shoot`
 
 Launches an attack against given coordinate on the enemy's map. +
 Format: `shoot COORDINATES` +
@@ -275,7 +284,7 @@ Example:
 After attacking, they should use `endturn` to allow the computer to make its move.
 ****
 
-=== Finishing a turn: `endturn`
+==== Finishing a turn: `endturn`
 
 Ends Player turn and starts Enemy's turn. +
 Format: `endturn` +
@@ -295,67 +304,13 @@ Example:
 
 * `stats`
 // end::stats[]
-// tag::undoredo[]
-=== Undoing previous command : `undo`
-
-Restores the inventory to the state before the previous _undoable_ command was executed. +
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the inventory's content (`add`, `delete`, `edit` and `clear`).
-====
-
-Examples:
-
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
-
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-
-=== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
-
-=== Clearing all entries : `clear`
-
-Clears all entries from the inventory. +
-Format: `clear`
 
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+=== Saving the data `[coming in v2.0]`
 
 (placeholder for Statistics saving)
 

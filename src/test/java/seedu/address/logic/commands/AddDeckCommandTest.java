@@ -203,11 +203,6 @@ public class AddDeckCommandTest {
         }
 
         @Override
-        public ListItem getSelectedItem() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setSelectedItem(ListItem item) {
             throw new AssertionError("This method should not be called.");
         }

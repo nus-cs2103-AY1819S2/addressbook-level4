@@ -18,6 +18,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CardsView;
+import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.testutil.TopDeckBuilder;
 
@@ -32,7 +33,6 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new TopDeck(), modelManager.getTopDeck());
-        assertEquals(null, modelManager.getSelectedItem());
     }
 
     @Test
@@ -187,7 +187,8 @@ public class ModelManagerTest {
 
         modelManager.setSelectedItem(ADDITION);
         modelManager.deleteCard(SUBTRACTION, activeDeck);
-        assertEquals(null, modelManager.getSelectedItem());
+
+        assertEquals(null, extractSelectedItem(modelManager));
     }
 
     @Test
@@ -318,10 +319,20 @@ public class ModelManagerTest {
      * @param model must be in CardsView
      */
     private Deck extractActiveDeck(Model model) {
-        CardsView cardsView = (CardsView) modelManager.getViewState();
+        assertTrue(model.isAtCardsView());
+        CardsView cardsView = (CardsView) model.getViewState();
         Deck activeDeck = cardsView.getActiveDeck();
-
         return activeDeck;
     }
 
+    /**
+     * Returns the selectedItem in CardsView in {@code model}.
+     * @param model must be in CardsView
+     */
+    private Card extractSelectedItem(Model model) {
+        assertTrue(model.isAtCardsView());
+        CardsView cardsView = (CardsView) model.getViewState();
+        Card card = cardsView.getSelectedItem();
+        return card;
+    }
 }

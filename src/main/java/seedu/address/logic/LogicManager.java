@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
+import javafx.scene.layout.Region;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.BackCommand;
@@ -17,6 +18,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyTopDeck;
 import seedu.address.storage.Storage;
+import seedu.address.ui.UiPart;
 
 /**
  * The main LogicManager of the app.
@@ -108,7 +110,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyProperty<ListItem> selectedItemProperty() {
-        return model.selectedItemProperty();
+        return ((ListViewState) model.getViewState()).getSelectedItemProperty();
     }
 
     @Override
@@ -127,5 +129,10 @@ public class LogicManager implements Logic {
     public ReadOnlyProperty<String> userAnswerProperty() {
         StudyView studyView = (StudyView) model.getViewState();
         return studyView.userAnswerProperty();
+    }
+
+    @Override
+    public UiPart<Region> getPanel() {
+        return model.getViewState().getPanel();
     }
 }

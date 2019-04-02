@@ -124,12 +124,6 @@ public interface Model {
     ReadOnlyProperty<ListItem> selectedItemProperty();
 
     /**
-     * Returns the selected Item in the filtered list.
-     * null if no card is selected.
-     */
-    ListItem getSelectedItem();
-
-    /**
      * Sets the selected item in the filtered list.
      */
     void setSelectedItem(ListItem item);

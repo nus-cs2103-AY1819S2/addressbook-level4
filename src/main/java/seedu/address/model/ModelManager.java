@@ -70,8 +70,6 @@ public class ModelManager implements Model {
      */
     public void changeDeck(Deck deck) {
         viewState = new CardsView(deck);
-
-        setSelectedItem(null);
     }
 
     public void studyDeck(Deck deck) {
@@ -81,7 +79,6 @@ public class ModelManager implements Model {
     @Override
     public void goToDecksView() {
         viewState = new DecksView(new FilteredList<>(versionedTopDeck.getDeckList()));
-        setSelectedItem(null);
     }
 
     @Override
@@ -258,21 +255,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ListItem getSelectedItem() {
-        return selectedItem.getValue();
-    }
-
-    @Override
-    public void setSelectedItem(ListItem card) {
-        selectedItem.setValue(card);
-
-        if (card instanceof Card && isAtCardsView()) {
+    public void setSelectedItem(ListItem item) {
+        if (item instanceof Card && isAtCardsView()) {
             CardsView cardsView = (CardsView) viewState;
-            cardsView.selectedCard.set((Card) card);
-        } else if (card instanceof Deck && isAtDecksView()) {
+            cardsView.setSelectedItem((Card) item);
+        } else if (item instanceof Deck && isAtDecksView()) {
             DecksView decksView = (DecksView) viewState;
-            decksView.selectedDeck.set((Deck) card);
-        } else if (card != null) {
+            decksView.setSelectedItem((Deck) item);
+        } else if (item != null) {
             throw new IllegalOperationWhileReviewingCardException();
         }
     }

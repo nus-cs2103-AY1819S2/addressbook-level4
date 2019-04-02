@@ -6,10 +6,12 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.Objects;
 import java.util.function.Predicate;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.scene.layout.Region;
 import seedu.address.logic.commands.AddCardCommand;
 import seedu.address.logic.commands.BackCommand;
 import seedu.address.logic.commands.Command;
@@ -26,6 +28,8 @@ import seedu.address.logic.parser.SelectCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
+import seedu.address.ui.ListPanel;
+import seedu.address.ui.UiPart;
 
 /**
  * Stores the state of the Card's view.
@@ -33,7 +37,7 @@ import seedu.address.model.deck.Deck;
 public class CardsView implements ListViewState<Card> {
 
     public final FilteredList<Card> filteredCards;
-    public final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
     private final Deck activeDeck;
 
     public CardsView(Deck deck) {
@@ -106,13 +110,45 @@ public class CardsView implements ListViewState<Card> {
     /**
      * Updates the filtered list in CardsView.
      */
+    @Override
     public void updateFilteredList(Predicate<Card> predicate) {
         requireNonNull(predicate);
         filteredCards.setPredicate(predicate);
     }
 
+    @Override
     public ObservableList<Card> getFilteredList() {
         return filteredCards;
+    }
+
+    /**
+     * Sets the selected Item in the filtered list.
+     */
+    @Override
+    public void setSelectedItem(Card card) {
+        selectedCard.setValue(card);
+    }
+
+    /**
+     * Returns the selected Item in the filtered list.
+     * null if no card is selected.
+     */
+    @Override
+    public Card getSelectedItem() {
+        return selectedCard.getValue();
+    }
+
+    /**
+     * Returns the selected Item in the filtered list.
+     * null if no card is selected.
+     */
+    @Override
+    public ReadOnlyProperty<Card> getSelectedItemProperty() {
+        return selectedCard;
+    }
+
+    public UiPart<Region> getPanel() {
+        return new ListPanel<>(getFilteredList(), getSelectedItemProperty(), this::setSelectedItem);
     }
 
     @Override

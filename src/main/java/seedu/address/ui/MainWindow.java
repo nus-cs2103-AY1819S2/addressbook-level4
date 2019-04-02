@@ -8,6 +8,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -16,7 +17,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ExitCommandResult;
 import seedu.address.logic.commands.HelpCommandResult;
-import seedu.address.logic.commands.StudyPanelCommandResult;
 import seedu.address.logic.commands.UpdatePanelCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -35,11 +35,10 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private ListPanel listPanel;
+    private UiPart<Region> mainPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private CommandBox commandBox;
-    private StudyPanel studyPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -115,9 +114,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        listPanel = new ListPanel(logic.getFilteredList(), logic.selectedItemProperty(),
+        mainPanel = new ListPanel<>(logic.getFilteredList(), logic.selectedItemProperty(),
                                   logic::setSelectedItem);
-        contentPanelPlaceholder.getChildren().add(listPanel.getRoot());
+        contentPanelPlaceholder.getChildren().add(mainPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -170,10 +169,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public ListPanel getListPanel() {
-        return listPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *
@@ -185,15 +180,9 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             if (commandResult instanceof UpdatePanelCommandResult) {
-                listPanel = new ListPanel(logic.getFilteredList(), logic.selectedItemProperty(),
-                                          logic::setSelectedItem);
+                mainPanel = logic.getPanel();
                 contentPanelPlaceholder.getChildren().clear();
-                contentPanelPlaceholder.getChildren().add(listPanel.getRoot());
-            } else if (commandResult instanceof StudyPanelCommandResult) {
-                studyPanel = new StudyPanel(logic.textShownProperty(), logic.studyStateProperty(),
-                                            logic.userAnswerProperty());
-                contentPanelPlaceholder.getChildren().clear();
-                contentPanelPlaceholder.getChildren().add(studyPanel.getRoot());
+                contentPanelPlaceholder.getChildren().add(mainPanel.getRoot());
             } else if (commandResult instanceof HelpCommandResult) {
                 handleHelp();
             } else if (commandResult instanceof ExitCommandResult) {

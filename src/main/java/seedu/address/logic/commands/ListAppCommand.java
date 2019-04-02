@@ -15,14 +15,14 @@ import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 
 /**
- * Lists all appointments in quickdocs to the user.
+ * Lists filtered appointments on the main display to the user.
  */
 public class ListAppCommand extends Command {
 
     public static final String COMMAND_WORD = "listapp";
     public static final String COMMAND_ALIAS = "la";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all appointments.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists appointments.\n"
             + "Parameters: "
             + "[" + PREFIX_FORMAT + "FORMAT] "
             + "[" + PREFIX_DATE + "DATE]\n"
@@ -40,12 +40,6 @@ public class ListAppCommand extends Command {
     private final LocalDate start;
     private final LocalDate end;
     private final Nric nric;
-
-    public ListAppCommand() {
-        start = LocalDate.now();
-        end = LocalDate.now();
-        nric = null;
-    }
 
     public ListAppCommand(LocalDate start, LocalDate end) {
         this.start = start;

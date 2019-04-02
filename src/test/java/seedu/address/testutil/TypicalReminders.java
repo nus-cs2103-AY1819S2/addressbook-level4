@@ -45,7 +45,7 @@ public class TypicalReminders {
     public static final Reminder REM_E = new Reminder(
             "Appointment with Phillip Wong",
             "Weekly Checkup",
-            LocalDate.parse("2019-10-28"),
+            LocalDate.parse("2019-10-22"),
             LocalTime.parse("16:00"),
             LocalTime.parse("17:00")
     );

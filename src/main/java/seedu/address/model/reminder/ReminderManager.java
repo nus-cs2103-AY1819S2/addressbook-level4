@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicine.Medicine;
 
@@ -15,13 +17,38 @@ import seedu.address.model.medicine.Medicine;
  */
 public class ReminderManager {
     private final List<Reminder> reminders;
+    private final ObservableList<Reminder> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Reminder> internalUnmodifiableList =
+            FXCollections.unmodifiableObservableList(internalList);
 
     public ReminderManager() {
         reminders = new ArrayList<>();
     }
 
-    public void addReminder(Reminder rem) {
-        reminders.add(rem);
+    /**
+     * Adds a {@code Reminder} to the ordered list of reminders, in the correct position.
+     *
+     * @param toAdd the {@code Reminder} to be added.
+     */
+    public void addReminder(Reminder toAdd) {
+        if (reminders.isEmpty()) {
+            reminders.add(toAdd);
+            internalList.add(toAdd);
+            return;
+        }
+
+        for (Reminder rem : reminders) {
+            if (rem.compareTo(toAdd) > 0) {
+                int index = reminders.indexOf(rem);
+                reminders.add(index, toAdd);
+                internalList.add(index, toAdd);
+                return;
+            }
+        }
+
+        // toAdd is to be placed at the end of the list
+        reminders.add(toAdd);
+        internalList.add(toAdd);
     }
 
     public boolean hasDuplicateReminder(Reminder rem) {
@@ -32,8 +59,22 @@ public class ReminderManager {
         return reminders;
     }
 
+    public ObservableList<Reminder> getObservableReminderList() {
+        return internalUnmodifiableList;
+    }
+
+    public List<Reminder> getReminders() {
+        return reminders;
+    }
+
+    /**
+     * Deletes a {@code Reminder} in the list of reminders.
+     *
+     * @param reminder the {@code Reminder} to be deleted.
+     */
     public void delete(Reminder reminder) {
         reminders.remove(reminder);
+        internalList.remove(reminder);
     }
 
     public Optional<Reminder> getReminder(Appointment appointment) {
@@ -94,6 +135,7 @@ public class ReminderManager {
         }
         return changed;
     }
+
     /**
      * Returns a {@code String} of reminders created.
      */

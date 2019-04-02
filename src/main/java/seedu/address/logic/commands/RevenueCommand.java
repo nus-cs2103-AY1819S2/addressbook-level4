@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.logic.CommandHistory;
@@ -25,7 +26,7 @@ public class RevenueCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Gets the revenue from the specified day, month or year."
             + "Parameters: [d/DAY] [m/MONTH] [y/YEAR]\n"
-            + "Combination of [d/DAY] and [y/YEAR] is not allowed.\n"
+            + "Combinations not allowed:\n 1. [d/DAY] and [y/YEAR] only\n 2. [d/DAY] and [m/MONTH] only\n"
             + "Example: " + COMMAND_WORD + " d/30 m/12 y/2019 or "
             + COMMAND_WORD + " m/12 y/2019 or "
             + COMMAND_WORD + " y/2019";
@@ -36,6 +37,8 @@ public class RevenueCommand extends Command {
 
     private final DailyRevenue dailyRevenue;
 
+    private final ArrayList<String> monthsInWords = new
+            ArrayList<>(List.of("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"));
     /**
      * Creates an RevenueCommand to get revenue specified by the day, month or year.
      */
@@ -60,8 +63,8 @@ public class RevenueCommand extends Command {
                     revenue += dailyRevenueItem.getTotalDailyRevenue();
                 }
             }
-            sbFinalOutput.append(dailyRevenue.getDay()).append(".")
-                    .append(dailyRevenue.getMonth()).append(".")
+            sbFinalOutput.append(dailyRevenue.getDay()).append(" ")
+                    .append(monthsInWords.get(Integer.parseInt(dailyRevenue.getMonth().toString()) - 1)).append(" ")
                     .append(dailyRevenue.getYear());
 
         } else if (dailyRevenue.getDay() == null && dailyRevenue.getMonth() != null
@@ -78,7 +81,8 @@ public class RevenueCommand extends Command {
                     revenue += dailyRevenueItem.getTotalDailyRevenue();
                 }
             }
-            sbFinalOutput.append(getMonth(requestedMonth.toString())).append(dailyRevenue.getYear());
+            sbFinalOutput.append(monthsInWords.get(Integer.parseInt(requestedMonth.toString()) - 1)).append(" ")
+                    .append(dailyRevenue.getYear());
 
         } else if (dailyRevenue.getDay() == null && dailyRevenue.getMonth() == null
                 && dailyRevenue.getYear() != null) {
@@ -113,40 +117,12 @@ public class RevenueCommand extends Command {
                     revenue += dailyRevenueItem.getTotalDailyRevenue();
                 }
             }
+            sbFinalOutput.append(requestedDay.toString()).append(" ")
+                    .append(monthsInWords.get(Integer.parseInt(requestedMonth.toString()) - 1)).append(" ")
+                    .append(requestedYear.toString());
         }
         sbFinalOutput.append(String.format(MESSAGE_REVENUE, revenue));
         return new CommandResult(sbFinalOutput.toString());
-    }
-
-    private String getMonth(String month) {
-        switch(Integer.parseInt(month)) {
-        case 1:
-            return "Jan ";
-        case 2:
-            return "Feb ";
-        case 3:
-            return "Mar ";
-        case 4:
-            return "Apr ";
-        case 5:
-            return "May ";
-        case 6:
-            return "Jun ";
-        case 7:
-            return "Jul ";
-        case 8:
-            return "Aug ";
-        case 9:
-            return "Sep ";
-        case 10:
-            return "Oct ";
-        case 11:
-            return "Nov ";
-        case 12:
-            return "Dec ";
-        default:
-            return month;
-        }
     }
 
     @Override

@@ -28,7 +28,7 @@ public class EquipmentListPanel extends UiPart<Region> {
         super(FXML);
         //System.out.println(personListView.getEditingIndex());
         personListView.setItems(equipmentList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        personListView.setCellFactory(listView -> new EquipmentListViewCell());
         personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             logger.fine("Selection in equipment list panel changed to : '" + newValue + "'");
             onSelectedPersonChange.accept(newValue);
@@ -55,7 +55,7 @@ public class EquipmentListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Equipment} using a {@code EquipmentCard}.
      */
-    class PersonListViewCell extends ListCell<Equipment> {
+    class EquipmentListViewCell extends ListCell<Equipment> {
         @Override
         protected void updateItem(Equipment equipment, boolean empty) {
             super.updateItem(equipment, empty);
@@ -68,5 +68,24 @@ public class EquipmentListPanel extends UiPart<Region> {
             }
         }
     }
+
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code Equipment} using a {@code EquipmentCard}.
+     */
+    class ClientListViewCell extends ListCell<Equipment> {
+        @Override
+        protected void updateItem(Equipment equipment, boolean empty) {
+            super.updateItem(equipment, empty);
+
+            if (empty || equipment == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(new EquipmentCard(equipment, getIndex() + 1).getRoot());
+            }
+        }
+    }
+
+
 
 }

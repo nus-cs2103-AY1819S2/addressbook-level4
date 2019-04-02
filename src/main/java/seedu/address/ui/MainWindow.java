@@ -20,6 +20,7 @@ import seedu.address.logic.Mode;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.statistics.exceptions.BillNotFoundException;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -248,6 +249,9 @@ public class MainWindow extends UiPart<Stage> {
             break;
 
         case BILL_MODE:
+            if (logic.getRecentBill().equals(null)) {
+                throw new BillNotFoundException();
+            }
             billPanel = new BillPanel(logic.getRecentBill());
             browserPlaceholder.getChildren().add(billPanel.getRoot());
 

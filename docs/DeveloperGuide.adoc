@@ -38,7 +38,7 @@ To help you follow this Developer Guide better, here is the legend of the markup
 [width="80%",cols="^20%,80%"]
 |=======================================================================
 |`HelloWorld`|Code in the codebase
-| kbt:[ENTER] |Keyboard key
+| kbd:[ENTER] |Keyboard key
 | :information_source: |Notes that provides additional information
 | :bulb: |Tips and tricks
 | :warning: |Warnings
@@ -168,10 +168,10 @@ The following class plays an important role at the architecture level:
 
 The rest of the App consists of four components.
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Ui,*`UI`*>> : The UI of the App.
+* <<Design-Logic,*`Logic`*>> : The command executor.
+* <<Design-Model,*`Model`*>> : Holds the data of the App in-memory.
+* <<Design-Storage,*`Storage`*>> : Reads data from, and writes data to, the hard disk.
 
 Each of the four components
 
@@ -245,7 +245,7 @@ image::ModelClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
-The `Model`:
+The `Model` :
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the RestOrRant data.
@@ -376,7 +376,7 @@ We decided to go ahead with this implementation as we feel that from a user's po
 
 // end::changemode[]
 
-// tag::editseats
+// tag::editpax[]
 === Edit Pax feature
 ==== Current Implementation
 
@@ -423,7 +423,7 @@ image::EditPaxActivityDiagram.png[width="800"]
 ** Pros: Potentially more efficient as there is no need to create new object and replace items in a list.
 ** Cons: Breaks abstraction to a certain extent and allows future developers to abuse the object.
 
-// end::updatetable
+// end::editpax[]
 
 // tag::bill[]
 === Bill feature
@@ -1401,6 +1401,30 @@ _{ more test cases ... }_
 .. Other invalid test cases: `addToOrder 3`, `addToOrder W99 1`, `addToOrder W09 0`, `addToOrder W09 1 W12`
 
 === Statistics
+
+. Bill order
+
+.. Switch to Table Mode of the selected table. Orders should have been populated from the Order tests above.
+.. Test case: `bill` or `b` +
+   Expected: Mode change to Bill Mode where a receipt of the orders will be shown. The total bill is calculated and
+   recorded. If Bill is the first bill of the day, a new daily revenue card will appear in the default display of
+   Statistics Mode. Otherwise, it just updates the daily revenue by adding the total bill to the current revenue of the
+   current date.
+
+. Retrieve revenue of specified day, month or year
+
+.. Switch to Statistics Mode. Daily revenue should have been populated from the Bill test.
+.. Test case: `revenue` or `r` +
+   Expected: Revenue of the current date will be calculated.
+.. Test case: `revenue d/1 m/1 y/2019` or `r d/1 m/1 y/2019` +
+   Expected: Revenue of 1-Jan-2019 will be calculated.
+.. Test case: `revenue m/1 y/2019` or `r m/1 y/2019` +
+   Expected: Revenue of Jan-2019 will be calculated.
+.. Test case: `revenue y/2019` or `y/2019` +
+   Expected: Revenue of year 2019 will be calculated.
+.. Test case: `revenue d/1 y/2019` or `r d/1 y/2019` +
+   Expected: No revenue are calculated. Error message is shown in the result display.
+.. Other invalid test cases: `revenue d/1`, `revenue d/29 m/2 y/2019`
 
 === Saving data
 

@@ -3,8 +3,11 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MONTH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,9 +80,9 @@ public class CommandTestUtil {
     public static final String VALID_QUANTITY_2 = "2";
     public static final String VALID_QUANTITY_ORDERED_8 = "8";
     public static final String VALID_DAY_1 = "01";
-    public static final String VALID_DAY_31 = "31";
-    public static final String VALID_MONTH_1 = "1";
-    public static final String VALID_MONTH_12 = "12";
+    public static final String VALID_DAY_29 = "29";
+    public static final String VALID_MONTH_3 = "3";
+    public static final String VALID_MONTH_2 = "2";
     public static final String VALID_YEAR_2019 = "2019";
     public static final String VALID_YEAR_1998 = "1998";
 
@@ -91,9 +94,12 @@ public class CommandTestUtil {
     public static final String PRICE_DESC_FRIES = " " + PREFIX_PRICE + VALID_PRICE_FRIES;
     public static final String ORDER_DESC_2_CHICKEN = " " + VALID_CODE_CHICKEN + " " + VALID_QUANTITY_2;
     public static final String ORDER_DESC_3_FRIES = " " + VALID_CODE_FRIES + " " + VALID_QUANTITY_3;
-    public static final String DATE_DESC_1_JAN_2019 = " " + VALID_DAY_1 + "." + VALID_MONTH_1 + "." + VALID_YEAR_2019;
-    public static final String DATE_DESC_31_DEC_1998 = " " + VALID_DAY_31 + "." + VALID_MONTH_12 + "."
-            + VALID_YEAR_1998;
+    public static final String DAY_DESC_1 = " " + PREFIX_DAY + VALID_DAY_1;
+    public static final String MONTH_DESC_3 = " " + PREFIX_MONTH + VALID_MONTH_3;
+    public static final String YEAR_DESC_2019 = " " + PREFIX_YEAR + VALID_YEAR_2019;
+    public static final String DAY_DESC_29 = " " + PREFIX_DAY + VALID_DAY_29;
+    public static final String MONTH_DESC_2 = " " + PREFIX_MONTH + VALID_MONTH_2;
+    public static final String YEAR_DESC_1998 = " " + PREFIX_YEAR + VALID_YEAR_1998;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Ch!ck3n W!n95"; // non-alphanumeric characters
     public static final String INVALID_CODE_DESC = " " + PREFIX_CODE + "31A"; // first character should be a letter
@@ -101,7 +107,9 @@ public class CommandTestUtil {
     public static final String INVALID_ORDER_CODE_DESC = " " + "31A" + " " + VALID_QUANTITY_2;
     public static final String INVALID_ORDER_QUANTITY_DESC = " " + VALID_CODE_CHICKEN + " " + "A";
     public static final String INVALID_ORDER_DESC = " " + VALID_QUANTITY_2 + " " + VALID_CODE_CHICKEN; // order swapped
-    public static final String INVALID_DATE_DESC = " " + VALID_DAY_1 + "." + VALID_MONTH_1 + ".2020"; //Future date
+    public static final String INVALID_DAY_DESC = " " + PREFIX_DAY + "er";
+    public static final String INVALID_MONTH_DESC = " " + PREFIX_MONTH + "e&";
+    public static final String INVALID_YEAR_DESC = " " + PREFIX_YEAR + "er23";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

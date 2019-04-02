@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 
 import seedu.finance.logic.commands.AllocateCommand;
 import seedu.finance.logic.parser.exceptions.ParseException;
+import seedu.finance.model.budget.CategoryBudget;
 import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;
 
@@ -34,7 +35,7 @@ public class AllocateCommandParser implements Parser<AllocateCommand> {
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
 
-        return new AllocateCommand(amount, category);
+        return new AllocateCommand(new CategoryBudget(category.categoryName, amount.getValue()));
     }
 
     /**

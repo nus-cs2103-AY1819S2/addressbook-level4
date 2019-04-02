@@ -51,8 +51,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             editRecordDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
         }
-        parseCategoriesForEdit(argMultimap.getAllValues(PREFIX_CATEGORY))
-                .ifPresent(editRecordDescriptor::setCategories);
+        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
+            editRecordDescriptor.setCategory(ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get()));
+        }
 
         if (!editRecordDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);

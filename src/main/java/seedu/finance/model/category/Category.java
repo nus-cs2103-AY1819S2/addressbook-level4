@@ -22,7 +22,17 @@ public class Category {
     public Category(String categoryName) {
         requireNonNull(categoryName);
         checkArgument(isValidCategoryName(categoryName), MESSAGE_CONSTRAINTS);
-        this.categoryName = categoryName;
+        this.categoryName = formatCategory(categoryName);
+    }
+
+    /**
+     * This methods formats the input String so that user input can be case-insensitive
+     * @param categoryName the theme to change to
+     * @return the theme to change to with first character being in upper-case and rest in lower-case
+     */
+    private String formatCategory(String categoryName) {
+        categoryName = (categoryName.trim()).toLowerCase();
+        return categoryName.substring(0, 1).toUpperCase() + categoryName.substring(1);
     }
 
     /**
@@ -34,9 +44,16 @@ public class Category {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Category // instanceof handles nulls
-                && categoryName.equals(((Category) other).categoryName)); // state check
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Category)) {
+            return false;
+        }
+
+        Category e = (Category) other;
+        return this.categoryName.equals(((Category) other).categoryName);
     }
 
     @Override
@@ -48,7 +65,7 @@ public class Category {
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + categoryName + ']';
+        return categoryName;
     }
 
 }

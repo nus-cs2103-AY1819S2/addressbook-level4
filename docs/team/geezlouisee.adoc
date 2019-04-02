@@ -1,0 +1,65 @@
+= Louise Lee - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: In-Credit-Ble
+
+---
+
+== Overview
+
+_In-Credit-Ble_ is an expense tracker that is tailored to help users manage their finances and keep track of their budget in an easy and efficient manner. It is designed for those who prefer to work with a Command Line Interface (CLI), especially for those who prefer to type over using their mouse.
+
+_In-Credit-Ble_ was developed by four friends and I, from the National University of Singapore. This product was developed as part of our Software Engineering module, CS2103T. We had to adapt to an existing codebase in Java and develop a functional product in a short span of 13 weeks. In this project portfolio, I will be documenting my personal contributions to this project.
+
+== Summary of contributions
+
+* *Major enhancement*: added *Summary* command to represent the overview of expenses in a graphical form
+** What it does: Allows the user to view an overview of all their expenditures in a single graph. Each sector represents a category and gets “filled up” according to the percentage spent of the allocated budget for that particular sector.
+** Justification: This feature improves the product significantly because a user will be able to see a quick overview of their spending in a pictorial form. This allows users to easily perceive whether their spending is within their budget for each category.
+** Highlights: This enhancement required an in-depth analysis of design alternatives. The implementation was also quite challenging as it required linking to third party libraries.
+** Credits: Usage of D3, a JavaScript library for data visualisations via HTML, SVG, and CSS.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=geezlouisee[Functional code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Helped to manage issue tracker (https://github.com/CS2103-AY1819S2-W17-3/main/issues/89[#89])
+** Enhancements to existing features:
+*** Added more colours to tags, and refactored them as categories to suit our product (https://github.com/CS2103-AY1819S2-W17-3/main/pull/20[#20], https://github.com/CS2103-AY1819S2-W17-3/main/pull/59[#59], https://github.com/CS2103-AY1819S2-W17-3/main/pull/73[#73])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/CS2103-AY1819S2-W17-3/main/pull/109[#109]
+*** Did cosmetic tweaks to the Developer Guide (https://github.com/CS2103-AY1819S2-W17-3/main/pull/4[#4], https://github.com/CS2103-AY1819S2-W17-3/main/pull/8[#8], https://github.com/CS2103-AY1819S2-W17-3/main/pull/78[#78])
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W17-3/main/pull/64[#64]
+** Tools:
+*** Integrated a third party library (d3.js) to the project (https://github.com/CS2103-AY1819S2-W17-3/main/pull/104[#104])
+*** Configured project to link properly to RepoSense (https://github.com/CS2103-AY1819S2-W17-3/main/pull/70[#70])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide, showcasing my ability to write documentation tailored for end-users of our product._
+|===
+
+include::../UserGuide.adoc[tag=summary]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide, showcasing my ability to write technical documentation and the technical depth of my code contributions._
+|===
+
+include::../DeveloperGuide.adoc[tag=summary]
+
+|===
+|_While the whole group was involved in the discussion and formulation of our Product Scope, User Stories and Use Cases, I was the one who collated it at the end, streamlined redundancies and standardised the format and grammar._
+|===
+
+include::../DeveloperGuide.adoc[tag=appendixA]
+
+include::../DeveloperGuide.adoc[tag=appendixB]
+
+include::../DeveloperGuide.adoc[tag=appendixC]

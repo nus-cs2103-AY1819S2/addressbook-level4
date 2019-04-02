@@ -14,7 +14,7 @@ public class Amount {
             + "with either 2 decimal place or none.";
     public static final String VALIDATION_REGEX = "(([1-9]\\d{0,2}(,\\d{3})*)|(([1-9]\\d*)?\\d))(\\.\\d\\d)?$";
 
-    public final String value;
+    private String value;
 
     /**
      * Constructs an {@code Amount}.
@@ -34,7 +34,9 @@ public class Amount {
         return test.matches(VALIDATION_REGEX);
     }
 
-    //public static double convertAmount(String value) { return Double.parseDouble(value); }
+    public Double getValue() {
+        return Double.parseDouble(value);
+    }
 
     @Override
     public String toString() {

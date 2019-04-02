@@ -45,7 +45,8 @@ public class DeleteCommand extends Command {
         Record recordToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteRecord(recordToDelete);
         model.commitFinanceTracker();
-        return new CommandResult(String.format(MESSAGE_DELETE_RECORD_SUCCESS, recordToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_RECORD_SUCCESS, recordToDelete),
+                true, false, false);
     }
 
     @Override

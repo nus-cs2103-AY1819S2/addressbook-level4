@@ -57,7 +57,7 @@ public class ReverseCommandTest {
         // reverse -> list is reversed
         reverseCommand.execute(model, commandHistory);
 
-        // undo -> reverse financetracker back to previous state
+        // undo -> reverse finance tracker back to previous state
         expectedModel.undoFinanceTracker();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 

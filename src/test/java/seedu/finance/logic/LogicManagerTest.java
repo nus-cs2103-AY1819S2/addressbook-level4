@@ -4,8 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_RECORD_DISPLAYED_INDEX;
 import static seedu.finance.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.finance.logic.commands.CommandTestUtil.AMOUNT_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
 import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND;
 import static seedu.finance.testutil.TypicalRecords.AMY;
 
 import java.io.IOException;
@@ -86,14 +88,15 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = SpendCommand.COMMAND_WORD + NAME_DESC_AMY + AMOUNT_DESC_AMY + DATE_DESC_AMY;
-        Record expectedRecord = new RecordBuilder(AMY).withCategories().build();
+        String spendCommand = SpendCommand.COMMAND_WORD + NAME_DESC_AMY + AMOUNT_DESC_AMY + DATE_DESC_AMY
+                + CATEGORY_DESC_FRIEND;
+        Record expectedRecord = new RecordBuilder(AMY).withCategory(VALID_CATEGORY_FRIEND).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addRecord(expectedRecord);
         expectedModel.commitFinanceTracker();
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
-        assertCommandBehavior(CommandException.class, addCommand, expectedMessage, expectedModel);
-        assertHistoryCorrect(addCommand);
+        assertCommandBehavior(CommandException.class, spendCommand, expectedMessage, expectedModel);
+        assertHistoryCorrect(spendCommand);
     }
 
     @Test

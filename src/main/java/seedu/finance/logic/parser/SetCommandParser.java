@@ -7,7 +7,6 @@ import java.util.stream.Stream;
 
 import seedu.finance.logic.commands.SetCommand;
 import seedu.finance.logic.parser.exceptions.ParseException;
-import seedu.finance.model.record.Amount;
 
 /**
  * Parses input arguments and creates a new SetCommand object
@@ -28,7 +27,7 @@ public class SetCommandParser implements Parser<SetCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetCommand.MESSAGE_USAGE));
         }
 
-        Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
+        String amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()).toString();
 
         return new SetCommand(amount);
     }

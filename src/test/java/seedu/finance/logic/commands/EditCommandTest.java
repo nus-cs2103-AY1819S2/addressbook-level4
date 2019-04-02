@@ -58,10 +58,10 @@ public class EditCommandTest {
 
         RecordBuilder recordInList = new RecordBuilder(lastRecord);
         Record editedRecord = recordInList.withName(VALID_NAME_BOB).withAmount(VALID_AMOUNT_BOB)
-                .withCategories(VALID_CATEGORY_HUSBAND).build();
+                .withCategory(VALID_CATEGORY_HUSBAND).build();
 
         EditCommand.EditRecordDescriptor descriptor = new EditRecordDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withAmount(VALID_AMOUNT_BOB).withCategories(VALID_CATEGORY_HUSBAND).build();
+                .withAmount(VALID_AMOUNT_BOB).withCategory(VALID_CATEGORY_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastRecord, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECORD_SUCCESS, editedRecord);

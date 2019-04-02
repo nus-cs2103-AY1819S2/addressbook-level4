@@ -2,6 +2,8 @@ package seedu.finance.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -77,6 +79,18 @@ public class ParserUtil {
             throw new ParseException(Date.MESSAGE_CONSTRAINTS);
         }
         return new Date(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String date} into an {@code Date}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Path parseFile(String filename) throws ParseException {
+        requireNonNull(filename);
+        String trimmedFilename = filename.trim();
+        return Paths.get(trimmedFilename);
     }
 
     /**

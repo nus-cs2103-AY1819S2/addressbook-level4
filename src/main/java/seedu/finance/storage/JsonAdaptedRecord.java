@@ -1,11 +1,5 @@
 package seedu.finance.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -28,7 +22,7 @@ class JsonAdaptedRecord {
     private final String amount;
     private final String date;
     private final String description;
-    private final List<JsonAdaptedCategory> tagged = new ArrayList<>();
+    private final JsonAdaptedCategory tagged;
 
     /**
      * Constructs a {@code JsonAdaptedRecord} with the given record details.
@@ -36,14 +30,12 @@ class JsonAdaptedRecord {
     @JsonCreator
     public JsonAdaptedRecord(@JsonProperty("name") String name, @JsonProperty("amount") String amount,
                              @JsonProperty("date") String date, @JsonProperty("description") String description,
-                             @JsonProperty("tagged") List<JsonAdaptedCategory> tagged) {
+                             @JsonProperty("tagged") JsonAdaptedCategory tagged) {
         this.name = name;
         this.amount = amount;
         this.date = date;
         this.description = description;
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
-        }
+        this.tagged = tagged;
     }
 
     /**
@@ -51,12 +43,10 @@ class JsonAdaptedRecord {
      */
     public JsonAdaptedRecord(Record source) {
         name = source.getName().fullName;
-        amount = source.getAmount().value;
+        amount = source.getAmount().toString();
         date = source.getDate().toString();
         description = source.getDescription().value;
-        tagged.addAll(source.getCategories().stream()
-                .map(JsonAdaptedCategory::new)
-                .collect(Collectors.toList()));
+        tagged = new JsonAdaptedCategory(source.getCategory());
     }
 
     /**
@@ -65,11 +55,6 @@ class JsonAdaptedRecord {
      * @throws IllegalValueException if there were any data constraints violated in the adapted record.
      */
     public Record toModelType() throws IllegalValueException {
-        final List<Category> recordTags = new ArrayList<>();
-        for (JsonAdaptedCategory tag : tagged) {
-            recordTags.add(tag.toModelType());
-        }
-
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -100,8 +85,12 @@ class JsonAdaptedRecord {
         }
         final Description modelDescription = new Description(description);
 
-        final Set<Category> modelTags = new HashSet<>(recordTags);
-        return new Record(modelName, modelAmount, modelDate, modelDescription, modelTags);
+        if (!Category.isValidCategoryName(tagged.getCategoryName())) {
+            throw new IllegalValueException(Category.MESSAGE_CONSTRAINTS);
+        }
+        final Category modelTag = new Category(tagged.getCategoryName());
+
+        return new Record(modelName, modelAmount, modelDate, modelDescription, modelTag);
     }
 
 }

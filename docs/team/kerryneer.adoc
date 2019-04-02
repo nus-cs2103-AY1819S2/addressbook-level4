@@ -10,7 +10,7 @@ endif::[]
 
 I worked in a team of 5 for a software engineering project to morph a basic command line interface addressbook into a
 flashcard management application called Know-It-All. Know-It-All is designed to help medical students store, organise
-and share their learning material, integrated with a test session feature and scoring system to facilitate more efficient rote learning.
+and share their learning material, integrated with a test session feature and scoring system to allow for a more efficient rote learning process.
 
 My role was to design and implement the test session feature. The following sections illustrate this major feature in more detail.
 
@@ -18,7 +18,7 @@ Note the following icons and formatting used in this document:
 
 NOTE: This symbol indicates important information related to this section.
 
-`test` A grey highlight (called a mark-up) indicates that this is a command to be executed or a component, class
+`test`: A grey highlight (called a mark-up) indicates that this is a command to be executed or a component, class
 or object in the architecture of the application.
 
 ====
@@ -29,7 +29,7 @@ Information in a box like this represents additional useful information related 
 == Summary of contributions
 This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
 
-*Feature implemented*: I added the functionalities of a test session.
+*Feature implemented*: I implemented the functionalities of a test session.
 
 * What it does: Student can begin and end a test session. While inside a test session, flashcard questions will be
 presented and student can input an answer or choose to reveal the answer before moving on to the next flashcard.
@@ -47,9 +47,8 @@ done to permit only certain commands and ban others.
 
 *Other contributions*:
 
-* Enhancements to existing features:
-** Wrote additional tests for existing features to increase coverage from 79% to 81% (Pull requests https://github
-.com/cs2103-ay1819s2-w10-4/main/pull/74[#74])
+* Enhancements to features:
+** Wrote additional tests for new features to increase coverage from 79% to 81% (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/74[#74])
 
 * Documentation:
 ** User guide: I updated the QuickStart section, added new features, remove previous addressbook features and modify

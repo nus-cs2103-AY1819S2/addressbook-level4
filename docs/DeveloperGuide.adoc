@@ -491,6 +491,10 @@ image::BeginSequenceDiagram.png[width=800]
   and return it, then call an internal method to actually perform the attack.
 ** Pros:
 *** Command logic is abstracted into places where it can be reused by the AI.
+*** Flow of program is clear - it always is a higher level component calling a lower-level component. +
+    (e.g. when the player types in an Attack command, user interacts with `UI`, which calls `Logic`,
+    which calls `Model` and `BattleManager`,
+    which call the lowest level classes `Map` and `Player`)
 ** Cons:
 *** The `Model` component now contains game logic (`BattleManager`) within it.
 * **Alternative 2:** +
@@ -503,9 +507,13 @@ image::BeginSequenceDiagram.png[width=800]
 ** Pros:
 *** The game's model and logic are kept separate from each other.
 ** Cons:
-*** AttackCommand is now state-dependent (the state being the current attacking player) which
+*** `AttackCommand` is now state-dependent (the state being the current attacking player) which
     can more easily lead to bugs and race conditions.
 
++
+In the end, we decided to implement Option 1. Even though some team members preferred either option,
+we decided that `Logic` and `Model` not being kept separate was a worthy tradeoff
+for the advantages of Option 1.
 
 // end::battle[]
 

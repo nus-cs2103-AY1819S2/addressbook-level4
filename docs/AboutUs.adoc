@@ -48,9 +48,9 @@ Responsibilities: Card features
 
 === Ong Yi Chong
 image::yichong96.png[width="150", align="left"]
-{empty}[https://github.com/yichong96[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/yichong96[github]] [<<ongyichong#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Enhanced user functionality features
+Responsibilities: Advanced features
 
 '''

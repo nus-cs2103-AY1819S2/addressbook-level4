@@ -325,10 +325,10 @@ Here is the list of operations involved in the execution of command, `sort -name
 . `FinanceTracker#parseCommand(_"sort -name"_)` creates a new `SortCommandParser` object and calls `SortCommandParser#parse(_" -name"_)`.
 . `SortCommandParser#parse()` creates a new `RecordNameComparator()` object, _comparator_ and passes it as a parameter into the `SortCommand` constructor.
 . The `SortCommand` object, _s_, is then passed back to the `SortCommandParser`, `FinanceTrackerParser`, and finally back to the `LogicManager`.
-
++
 .Sequence Diagram of Sort Command I
 image::SortSequenceDiagram1.png[width="800"]
-
++
 . `LogicManager#execute(_"sort -name"_)` then continues to call `SortCommand#execute()`.
 . `SortCommand#execute()` calls `Model#SortFilteredRecordList(_comparator_)`.
 . `Model#SortFilteredRecordList(_comparator_)` calls `FinanceTracker#sortRecordList(_comparator_)`.
@@ -348,9 +348,31 @@ image::SortSequenceDiagram2.png[width="800"]
 // tag::reverse[]
 === Reverse feature
 
+The reverse feature allows users to reverse the list of entries displayed on the graphic user interface.
+The sort features are implemented with a default ordering.
+The reverse command provides a convenient way for users to sort their entries in reverse order.
+
 ==== Current Implementation
 
+This is how the reverse command is implemented:
+
+. `LogicManager#execute(_"reverse"_)` calls `FinanceTrackerParser#parseCommand(_"reverse"_)`.
+. `FinanceTrackerParser#parseCommand(_"reverse"_)` creates a `ReverseCommand` object, _r_.
+. _r_ is passed back to the `FinanceTrackerParser`, and then back to the `LogicManager`.
+. `LogicManager#execute(_"reverse"_)` then moves on to call `ReverseCommand#execute()`.
+. `ReverseCommand#execute()` calls `Model#reverseFilteredRecordList()`.
+. `Model#reverseFilteredRecordList()` calls `FinanceTracker#reverseRecordList()`.
+. `FinanceTracker#reverseRecordList()` calls `UniqueRecordList#reverseList()`.
+. `UniqueRecordList#reverseList()` uses `FXCollection`’s static method `reverse()` to reverse the list of records.
+. `ReverseCommand#execute()` then creates a `CommandResult` object and returns it back to the `LogicManager`.
+
+.Sequence Diagram of Reverse Command
+image::ReverseSequenceDiagram.png[width="800"]
+
+
 ==== Design Considerations
+
+*_Design considerations will be added next time._*
 
 // end::reverse[]
 

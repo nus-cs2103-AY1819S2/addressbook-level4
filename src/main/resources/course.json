@@ -14,7 +14,7 @@
       }
     }, {
       "type" : "PrimitiveReq",
-      "requirementName" : "Computer Science Foundation:",
+      "requirementName" : "Computer Science Foundation",
       "requirementDescription" : "Pass all of CS1101S, CS1231, CS2030, CS2040, CS2100, CS2103T, CS2105, CS2106, CS3230",
       "requirementType" : "CORE",
       "condition" : {
@@ -28,7 +28,7 @@
         "type" : "CompositeReq",
         "first" : {
           "type" : "PrimitiveReq",
-          "requirementName" : "Complete 3 Area Primary from Algorithms",
+          "requirementName" : "Focus Area: Algorithms",
           "requirementDescription" : "Pass 3 Area Primary from Algorithms",
           "requirementType" : "TE",
           "condition" : {
@@ -86,9 +86,9 @@
         "type" : "CompositeReq",
         "first" : {
           "type" : "PrimitiveReq",
-          "requirementName" : "Complete Industrial System Experience",
-          "requirementDescription" : "Complete 6 month internship thru ATAP",
-          "requirementType" : "CORE",
+          "requirementName" : "Industrial Experience Requirement",
+          "requirementDescription" : "Complete 6 month internship through ATAP",
+          "requirementType" : "IE",
           "condition" : {
             "conditionName" : "Complete CP3880",
             "minToSatisfy" : "1",
@@ -99,28 +99,28 @@
           "type" : "PrimitiveReq",
           "requirementName" : "Complete 2 3 - months internships",
           "requirementDescription" : "Complete CP3200 and CP3202",
-          "requirementType" : "CORE",
+          "requirementType" : "IE",
           "condition" : {
             "conditionName" : "Complete CP3200, CP3202 or CP3107",
             "minToSatisfy" : "2",
             "regexes" : [ "CP3200", "CP3202|CP3107" ]
           }
         },
-        "courseReqType" : "CORE",
+        "courseReqType" : "IE",
         "logicalConnector" : "OR"
       },
       "second" : {
         "type" : "PrimitiveReq",
         "requirementName" : "Complete IS4010",
         "requirementDescription" : "Complete IS4010",
-        "requirementType" : "CORE",
+        "requirementType" : "IE",
         "condition" : {
           "conditionName" : "Complete IS4010",
           "minToSatisfy" : "1",
           "regexes" : [ "IS4010" ]
         }
       },
-      "courseReqType" : "CORE",
+      "courseReqType" : "IE",
       "logicalConnector" : "OR"
     }, {
       "type" : "CompositeReq",
@@ -128,7 +128,7 @@
         "type" : "CompositeReq",
         "first" : {
           "type" : "PrimitiveReq",
-          "requirementName" : "Complete CS3203",
+          "requirementName" : "Computer Systems Team Project",
           "requirementDescription" : "Complete CS3203",
           "requirementType" : "CORE",
           "condition" : {
@@ -157,7 +157,7 @@
         "requirementDescription" : "Complete CS3281 and CS3282",
         "requirementType" : "CORE",
         "condition" : {
-          "conditionName" : "Compelte CS3281 and CS3282",
+          "conditionName" : "Complete CS3281 and CS3282",
           "minToSatisfy" : "2",
           "regexes" : [ "CS3281", "CS3282" ]
         }
@@ -176,21 +176,21 @@
       }
     }, {
       "type" : "PrimitiveReq",
-      "requirementName" : "Science Requirements",
-      "requirementDescription" : "Complete MA1521, MA1101R, ST2334 and one other science mod",
-      "requirementType" : "UE",
+      "requirementName" : "Mathematics & Sciences",
+      "requirementDescription" : "Complete MA1521, MA1101R, ST2334 and one other Science module",
+      "requirementType" : "FAC",
       "condition" : {
         "conditionName" : "Complete MA1521, MA1101R, ST2334 and one other Science module",
         "minToSatisfy" : "4",
-        "regexes" : [ "MA1521", "ST2334", "MA1101R", "(MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z]?" ]
+        "regexes" : [ "MA1521", "ST2334", "MA1101R", "^(?!(MA1521)|(ST2334)|(MA1101R))((MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z]?)$" ]
       }
     }, {
       "type" : "PrimitiveReq",
-      "requirementName" : "Complete at least 40 modules",
-      "requirementDescription" : "At least 40 modules needed to graduate.",
+      "requirementName" : "Unrestricted Electives",
+      "requirementDescription" : "At least 40 modules required to graduate",
       "requirementType" : "UE",
       "condition" : {
-        "conditionName" : "Complete any 40 modules",
+        "conditionName" : "Complete 40 modules in total",
         "minToSatisfy" : "40",
         "regexes" : [ "[A-Z]{2,3}[0-9]{4}[A-Z]?" ]
       }
@@ -210,7 +210,7 @@
       }
     }, {
       "type" : "PrimitiveReq",
-      "requirementName" : "Computer Science Foundation:",
+      "requirementName" : "Computer Science Foundation",
       "requirementDescription" : "Pass all of CS1101S, CS1231, CS2030, CS2040, CS2100, CS2103T, CS2105, CS2106, CS3230",
       "requirementType" : "CORE",
       "condition" : {
@@ -224,7 +224,7 @@
         "type" : "CompositeReq",
         "first" : {
           "type" : "PrimitiveReq",
-          "requirementName" : "Complete 3 Area Primary from AI",
+          "requirementName" : "Focus Area: Artificial Intelligence",
           "requirementDescription" : "Pass 3 Area Primary from AI",
           "requirementType" : "TE",
           "condition" : {
@@ -282,9 +282,9 @@
         "type" : "CompositeReq",
         "first" : {
           "type" : "PrimitiveReq",
-          "requirementName" : "Complete Industrial System Experience",
-          "requirementDescription" : "Complete 6 month internship thru ATAP",
-          "requirementType" : "CORE",
+          "requirementName" : "Industrial Experience Requirement",
+          "requirementDescription" : "Complete 6 month internship through ATAP",
+          "requirementType" : "IE",
           "condition" : {
             "conditionName" : "Complete CP3880",
             "minToSatisfy" : "1",
@@ -295,28 +295,28 @@
           "type" : "PrimitiveReq",
           "requirementName" : "Complete 2 3 - months internships",
           "requirementDescription" : "Complete CP3200 and CP3202",
-          "requirementType" : "CORE",
+          "requirementType" : "IE",
           "condition" : {
             "conditionName" : "Complete CP3200, CP3202 or CP3107",
             "minToSatisfy" : "2",
             "regexes" : [ "CP3200", "CP3202|CP3107" ]
           }
         },
-        "courseReqType" : "CORE",
+        "courseReqType" : "IE",
         "logicalConnector" : "OR"
       },
       "second" : {
         "type" : "PrimitiveReq",
         "requirementName" : "Complete IS4010",
         "requirementDescription" : "Complete IS4010",
-        "requirementType" : "CORE",
+        "requirementType" : "IE",
         "condition" : {
           "conditionName" : "Complete IS4010",
           "minToSatisfy" : "1",
           "regexes" : [ "IS4010" ]
         }
       },
-      "courseReqType" : "CORE",
+      "courseReqType" : "IE",
       "logicalConnector" : "OR"
     }, {
       "type" : "CompositeReq",
@@ -324,7 +324,7 @@
         "type" : "CompositeReq",
         "first" : {
           "type" : "PrimitiveReq",
-          "requirementName" : "Complete CS3203",
+          "requirementName" : "Computer Systems Team Project",
           "requirementDescription" : "Complete CS3203",
           "requirementType" : "CORE",
           "condition" : {
@@ -353,7 +353,7 @@
         "requirementDescription" : "Complete CS3281 and CS3282",
         "requirementType" : "CORE",
         "condition" : {
-          "conditionName" : "Compelte CS3281 and CS3282",
+          "conditionName" : "Complete CS3281 and CS3282",
           "minToSatisfy" : "2",
           "regexes" : [ "CS3281", "CS3282" ]
         }
@@ -372,21 +372,21 @@
       }
     }, {
       "type" : "PrimitiveReq",
-      "requirementName" : "Science Requirements",
-      "requirementDescription" : "Complete MA1521, MA1101R, ST2334 and one other science mod",
-      "requirementType" : "UE",
+      "requirementName" : "Mathematics & Sciences",
+      "requirementDescription" : "Complete MA1521, MA1101R, ST2334 and one other Science module",
+      "requirementType" : "FAC",
       "condition" : {
         "conditionName" : "Complete MA1521, MA1101R, ST2334 and one other Science module",
         "minToSatisfy" : "4",
-        "regexes" : [ "MA1521", "ST2334", "MA1101R", "(MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z]?" ]
+        "regexes" : [ "MA1521", "ST2334", "MA1101R", "^(?!(MA1521)|(ST2334)|(MA1101R))((MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z]?)$" ]
       }
     }, {
       "type" : "PrimitiveReq",
-      "requirementName" : "Complete at least 40 modules",
-      "requirementDescription" : "At least 40 modules needed to graduate.",
+      "requirementName" : "Unrestricted Electives",
+      "requirementDescription" : "At least 40 modules required to graduate",
       "requirementType" : "UE",
       "condition" : {
-        "conditionName" : "Complete any 40 modules",
+        "conditionName" : "Complete 40 modules in total",
         "minToSatisfy" : "40",
         "regexes" : [ "[A-Z]{2,3}[0-9]{4}[A-Z]?" ]
       }
@@ -406,7 +406,7 @@
       }
     }, {
       "type" : "PrimitiveReq",
-      "requirementName" : "Computer Science Foundation:",
+      "requirementName" : "Computer Science Foundation",
       "requirementDescription" : "Pass all of CS1101S, CS1231, CS2030, CS2040, CS2100, CS2103T, CS2105, CS2106, CS3230",
       "requirementType" : "CORE",
       "condition" : {
@@ -420,7 +420,7 @@
         "type" : "CompositeReq",
         "first" : {
           "type" : "PrimitiveReq",
-          "requirementName" : "Complete Software Engineering Focus Area",
+          "requirementName" : "Focus Area: Software Engineering",
           "requirementDescription" : "Pass 3 Area Primary from SE",
           "requirementType" : "TE",
           "condition" : {
@@ -478,9 +478,9 @@
         "type" : "CompositeReq",
         "first" : {
           "type" : "PrimitiveReq",
-          "requirementName" : "Complete Industrial System Experience",
-          "requirementDescription" : "Complete 6 month internship thru ATAP",
-          "requirementType" : "CORE",
+          "requirementName" : "Industrial Experience Requirement",
+          "requirementDescription" : "Complete 6 month internship through ATAP",
+          "requirementType" : "IE",
           "condition" : {
             "conditionName" : "Complete CP3880",
             "minToSatisfy" : "1",
@@ -491,28 +491,28 @@
           "type" : "PrimitiveReq",
           "requirementName" : "Complete 2 3 - months internships",
           "requirementDescription" : "Complete CP3200 and CP3202",
-          "requirementType" : "CORE",
+          "requirementType" : "IE",
           "condition" : {
             "conditionName" : "Complete CP3200, CP3202 or CP3107",
             "minToSatisfy" : "2",
             "regexes" : [ "CP3200", "CP3202|CP3107" ]
           }
         },
-        "courseReqType" : "CORE",
+        "courseReqType" : "IE",
         "logicalConnector" : "OR"
       },
       "second" : {
         "type" : "PrimitiveReq",
         "requirementName" : "Complete IS4010",
         "requirementDescription" : "Complete IS4010",
-        "requirementType" : "CORE",
+        "requirementType" : "IE",
         "condition" : {
           "conditionName" : "Complete IS4010",
           "minToSatisfy" : "1",
           "regexes" : [ "IS4010" ]
         }
       },
-      "courseReqType" : "CORE",
+      "courseReqType" : "IE",
       "logicalConnector" : "OR"
     }, {
       "type" : "CompositeReq",
@@ -520,7 +520,7 @@
         "type" : "CompositeReq",
         "first" : {
           "type" : "PrimitiveReq",
-          "requirementName" : "Complete CS3203",
+          "requirementName" : "Computer Systems Team Project",
           "requirementDescription" : "Complete CS3203",
           "requirementType" : "CORE",
           "condition" : {
@@ -549,7 +549,7 @@
         "requirementDescription" : "Complete CS3281 and CS3282",
         "requirementType" : "CORE",
         "condition" : {
-          "conditionName" : "Compelte CS3281 and CS3282",
+          "conditionName" : "Complete CS3281 and CS3282",
           "minToSatisfy" : "2",
           "regexes" : [ "CS3281", "CS3282" ]
         }
@@ -568,21 +568,21 @@
       }
     }, {
       "type" : "PrimitiveReq",
-      "requirementName" : "Science Requirements",
-      "requirementDescription" : "Complete MA1521, MA1101R, ST2334 and one other science mod",
-      "requirementType" : "UE",
+      "requirementName" : "Mathematics & Sciences",
+      "requirementDescription" : "Complete MA1521, MA1101R, ST2334 and one other Science module",
+      "requirementType" : "FAC",
       "condition" : {
         "conditionName" : "Complete MA1521, MA1101R, ST2334 and one other Science module",
         "minToSatisfy" : "4",
-        "regexes" : [ "MA1521", "ST2334", "MA1101R", "(MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z]?" ]
+        "regexes" : [ "MA1521", "ST2334", "MA1101R", "^(?!(MA1521)|(ST2334)|(MA1101R))((MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z]?)$" ]
       }
     }, {
       "type" : "PrimitiveReq",
-      "requirementName" : "Complete at least 40 modules",
-      "requirementDescription" : "At least 40 modules needed to graduate.",
+      "requirementName" : "Unrestricted Electives",
+      "requirementDescription" : "At least 40 modules required to graduate",
       "requirementType" : "UE",
       "condition" : {
-        "conditionName" : "Complete any 40 modules",
+        "conditionName" : "Complete 40 modules in total",
         "minToSatisfy" : "40",
         "regexes" : [ "[A-Z]{2,3}[0-9]{4}[A-Z]?" ]
       }

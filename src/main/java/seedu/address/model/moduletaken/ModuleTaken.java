@@ -102,19 +102,30 @@ public class ModuleTaken {
     }
 
     /**
-     * Checks if this moduleTaken has been finished given the current Semester.
-     * @return true if the moduleTaken has been finished, false otherwise.
+     * Checks if this {@code ModuleTaken} has been finished given the current {@code Semester}.
+     * @param currentSemester The current {@code Semester}.
+     * @return true if the {@code ModuleTaken} has been finished, false otherwise.
      */
     public boolean isFinished(Semester currentSemester) {
         return semester.compareTo(currentSemester) < 0;
     }
 
     /**
-     * Checks if this module has been passed.
-     * @return true if this module has been passed, false otherwise.
+     * Checks if this {@code ModuleTaken} has been passed (must be finished) given the current {@code Semester}.
+     * @param currentSemester The current {@code Semester}.
+     * @return true if this {@code ModuleTaken} has been passed, false otherwise.
      */
     public boolean isPassed(Semester currentSemester) {
         return isFinished(currentSemester) && getExpectedMaxGrade().isPassingGrade();
+    }
+
+    /**
+     * Checks if this {@code ModuleTaken} has been failed (must be finished) given the current {@code Semester}.
+     * @param currentSemester The current {@code Semester}.
+     * @return true if this {@code ModuleTaken} has been failed, false otherwise.
+     */
+    public boolean isFailed(Semester currentSemester) {
+        return isFinished(currentSemester) && !getExpectedMaxGrade().isPassingGrade();
     }
 
     /**

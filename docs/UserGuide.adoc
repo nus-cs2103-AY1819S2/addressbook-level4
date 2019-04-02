@@ -36,9 +36,9 @@ image::Ui.PNG[width="800"]
 
 
 == A Walk Through
-Let's start on our image editing journey, shall we? In this walk through, we will be learning some simple commands to edit a sample image! Let's get started!
+Let's start on our image editing journey. In this walk through, we will be demonstrating some simple commands to edit a sample image.
 
-.  Head over to this https://twistedsifter.files.wordpress.com/2012/03/squirrel-photobomb-banff.jpg[`link`] over here to get a suggested sample image to start from. Alternatively, you can choose any image you have in your own device currently.
+.  Head over to this https://twistedsifter.files.wordpress.com/2012/03/squirrel-photobomb-banff.jpg[`link`] to get a suggested sample image to start from.
 
 .  Save the image in any desired folder you like on your device, like your Pictures folder for example. Name your image *squirrel.jpg*.
 
@@ -48,48 +48,47 @@ Let's start on our image editing journey, shall we? In this walk through, we wil
 * In Windows: Hold on to the kbd:[Shift] key and *right click* on your image file. Click the option *Copy path*.
 * In Mac: Go to terminal and navigate to your image file. Type 'pwd' to get the filepath to your image file and copy paste.
 
-.  You can now go back to the FomoFoto application. You would now want to import the image into FomoFoto. In the Command Line, type as follows:
+.  Go back to the FomoFoto application. Import the image into FomoFoto by typing as follows:
 +
 .Import Command
 image::import.JPG[width="912"]
 +
-. Then, while keeping your cursor on the command line, paste the file path, by simultaneously pressing kbd:[Ctrl] and kbd:[V] keys.
-* In Windows: if you used the above method to copy the filepath, please remove the kbd:["] and kbd:["] signs on the two ends of the filepath.
+.  Paste the file path by simultaneously pressing kbd:[Ctrl] and kbd:[V] keys.
+* In Windows: Remove the kbd:["] and kbd:["] signs at the two ends of the filepath.
 
-.  Your final command should look something like this, with a different filepath:
+.  Ensure your final command looks similar to the figure below (filepath may differ):
 +
 .Import with Filepath
 image::importCommand.JPG[width="915"]
 +
 
-.  Then, you can press kbd:[Enter] to execute the import command. Tadah! Your image is now displayed on the FomoFoto application. Your screen should be similar to this.
+.  Press kbd:[Enter] to execute the import command. Your image should be now displayed on the FomoFoto application as shown in the figure below.
 +
 .Import Success
 image::importSuccess.JPG[width="917"]
 +
 
-. Now let's move on to other commands, shall we? Now suppose you want to decrease the brightness of the photo slightly, maybe 0.9 of the original brightness. So, you type the following command: `brightness 0.9 squirrel.jpg`.
+. Increase the brightness of the image by typing the following command: `brightness 2.0`. This doubles the brightness of the image.
 
 +
 .Brightness Command
 image::brightnessCommand.JPG[width="915"]
 +
 
-.  Once you press kbd:[Enter], FomoFoto will inform you that the filter has been applied successfully, like the image below:
-
+.  Press kbd:[Enter]. Your image should be brighter as shown in the figure below.
 +
 .Brightness Success
 image::brightnessSuccess.JPG[width="917"]
 +
 
-.  Now, you seem to prefer to just have the cute squirrel instead of the humans behind. So, it makes sense that you want to crop the humans away. You can then make use of the crop command: `crop 310 250 140 200 squirrel.jpg` to crop the humans away. After executing, your application would look something like this:
+.  Crop your photo by typing the following command: `crop 310 250 140 200 squirrel.jpg`. Press kbd:[Enter]. Your image should look similar as the figure below.
 
 +
 .Crop Success
 image::cropSuccess.PNG[width="918"]
 +
 
-.  To save, simply use the save command: `save`. Voila! You're done!
+.  Save your edits by typing command: `save`.
 
 [[Features]]
 == Features

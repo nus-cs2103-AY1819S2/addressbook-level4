@@ -136,7 +136,7 @@ public class ReportDisplay extends UiPart<Region> {
             Card card = cards.get(i);
             question = "Question: " + card.getQuestion();
             question = question.substring(0, Math.min(MAX_QUESTION_CHAR, question.length()));
-            result += question +  " | " + "Score: " + card.getScore() + "\n";
+            result += question + " | " + "Score: " + card.getScore() + "\n";
         }
         questionsDisplay.setText(result);
     }

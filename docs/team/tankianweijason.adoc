@@ -1,0 +1,52 @@
+= Tan Kian Wei Jason - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: MediTabs
+
+---
+
+== Overview
+
+MediTabs is a desktop application for managing medicine stock taking. 
+It aims to equip clinics with the ability to easily keep track of their medicine inventory and take note of important information such as which medicines are low in stock, expiring soon or have expired. 
+MediTabs is a brownfield project that initially started as an address book application. 
+It was developed in a team of 4 as part of a software engineering module which spanned a total of about 13 weeks. 
+Our team identified the strengths of the initial product, which is the ability to store and organize information easily, and chose to morph the product in order to capitalize on these strengths and use them to solve a more realistic problem. 
+
+== Summary of contributions
+
+* *Major enhancement*: added *the information panel and the commands to manipulate information on the panel*
+** What it does: allows users to add, edit and remove information of different batches of medicine. This information is displayed in a table format for easy reference in the information panel. Information of the batches is also collated by the panel and a summary of important information such as total quantity and next expiry date is shown. The table can also be sorted by batch number, quantity or expiry date.
+** Justification: The information panel provides a visual interface for users to refer to when updating their inventory. Organzing medicine by type and batch instead of just by type also allows for quicker identification of problematic batches.
+** Highlights: The information panel is the main visual interface that the user will be referring to, hence it was essential to provide enough details for it to be useful to the user, but not so much that it looks cluttered. Implementation was challenging as it not only involved changing existing commands (add and edit) but also required a good understanding of the whole architecture of the program. This is because the feature involved adding functionality to all components of the architecture, namely UI, Logic, Model and Storage.
+** Credits: The existing code for UI and commands in address book was used as a reference to implement this feature. 
+
+* *Minor enhancement*: 
+
+* *Code contributed*: 
+
+* *Other contributions*:
+
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=update]
+
+include::../UserGuide.adoc[tag=select]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=informationpanel]

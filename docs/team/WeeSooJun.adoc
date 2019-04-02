@@ -35,7 +35,6 @@ slaveFinder() is a desktop address book application used for people in the HR de
 ** Tools:
 *** Integrated TravisCI, Appveyor, Codacy, and Coveralls to team repo
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 

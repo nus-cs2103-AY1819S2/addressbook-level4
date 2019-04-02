@@ -13,7 +13,7 @@ public class Medicine {
     public static final String MESSAGE_CONSTRAINTS = "Medicine name can take any values, and it should not be blank";
     public static final String VALIDATION_REGEX = "\\S+";
     public static final String TO_STRING = "Medicine: %1$s, Quantity: %2$d, Price: %3$s";
-    public static final String REMINDER_TITLE_IF_INSUFFICIENT = "Quantity of %1$s is too low.";
+    public static final String REMINDER_TITLE_IF_INSUFFICIENT = "Quantity of %1$s is low.";
     public static final String REMINDER_COMMENT_IF_INSUFFICIENT =
             "Current quantity is at %1$d.\nThe minimum treshold is %2$d.";
     private static final int DEFAULT_THRESHOLD = 0;

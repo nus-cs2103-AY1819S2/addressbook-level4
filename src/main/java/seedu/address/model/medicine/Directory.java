@@ -64,7 +64,6 @@ public class Directory {
         if (threshold.isPresent()) {
             newDirectory.setThreshold(threshold.get());
         }
-        //String[] newPath = path;
         listOfDirectory.add(newDirectory);
         listOfDirectory.sort(Comparator.comparing((Directory directory) -> (directory.name)));
         return newDirectory;

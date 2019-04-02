@@ -153,21 +153,26 @@ public class AddressBookParser {
             return new ListConsultationCommandParser().parse(arguments);
 
         case AddMedicineCommand.COMMAND_WORD:
+        case AddMedicineCommand.COMMAND_ALIAS:
             return new AddMedicineCommandParser().parse(arguments);
 
         case ViewStorageCommand.COMMAND_WORD:
+        case ViewStorageCommand.COMMAND_ALIAS:
             return new ViewStorageCommandParser().parse(arguments);
 
         case AlarmCommand.COMMAND_WORD:
             return new AlarmCommandParser().parse(arguments);
 
         case AddDirectoryCommand.COMMAND_WORD:
+        case AddDirectoryCommand.COMMAND_ALIAS:
             return new AddDirectoryCommandParser().parse(arguments);
 
         case PurchaseMedicineCommand.COMMAND_WORD:
+        case PurchaseMedicineCommand.COMMAND_ALIAS:
             return new PurchaseMedicineCommandParser().parse(arguments);
 
         case SetPriceCommand.COMMAND_WORD:
+        case SetPriceCommand.COMMAND_ALIAS:
             return new SetPriceCommandParser().parse(arguments);
 
         case DeletePatientCommand.COMMAND_WORD:

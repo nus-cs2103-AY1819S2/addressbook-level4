@@ -291,6 +291,21 @@ public class AddPatientCommandTest {
         public void addDoctor(Doctor toAdd) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ReadOnlyProperty<Doctor> selectedDoctorProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedDoctor(Doctor doctor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteDoctor(Doctor target) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

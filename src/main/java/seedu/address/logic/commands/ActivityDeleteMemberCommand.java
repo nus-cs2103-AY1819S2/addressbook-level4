@@ -22,7 +22,7 @@ public class ActivityDeleteMemberCommand extends ActivityCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Selects the activity identified by the index number used in the displayed activity list and removes"
             + "the Person object with given matriculation number from its attendance list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX (must be a positive integer) MATRICNUMBER\n"
             + "Example: " + COMMAND_WORD + " 1" + " A1234567H";
 
     public static final String MESSAGE_ACTIVITY_DELETE_MEMBER_SUCCESS = "Successfully removed member from "

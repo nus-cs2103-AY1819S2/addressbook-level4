@@ -17,6 +17,7 @@ import static seedu.address.logic.commands.CommandTestUtil.MAJOR_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MAJOR_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.MATRICNUMBER_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MATRICNUMBER_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MATRICNUMBER_DESC_CINDY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
@@ -24,6 +25,7 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_RUNNING;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_SWIMMING;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MATRICNUMBER_CINDY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
@@ -89,24 +91,27 @@ public class MemberEditCommandSystemTest extends AddressBookSystemTest {
                 + MAJOR_DESC_BOB + TAG_DESC_RUNNING + TAG_DESC_SWIMMING;
         assertCommandSuccess(command, index, BOB);
 
-        /* Case: edit a person with new values same as another person's values but with different name -> edited */
+        /* Case: edit a person with new values same as another person's values but with different name & matricNumber
+         -> edited */
         assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
         index = INDEX_SECOND_PERSON;
         assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
-        command = MemberEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + MATRICNUMBER_DESC_BOB
+        command = MemberEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + MATRICNUMBER_DESC_CINDY
                 + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + GENDER_DESC_BOB + YEAROFSTUDY_DESC_BOB
                 + MAJOR_DESC_BOB + TAG_DESC_RUNNING + TAG_DESC_SWIMMING;
-        editedPerson = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
+        editedPerson = new PersonBuilder(BOB).withName(VALID_NAME_AMY)
+                .withMatricNumber(VALID_MATRICNUMBER_CINDY).build();
         assertCommandSuccess(command, index, editedPerson);
 
         /* Case: edit a person with new values same as another person's values but with different phone and email
          * -> edited
          */
         index = INDEX_SECOND_PERSON;
-        command = MemberEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + MATRICNUMBER_DESC_BOB
+        command = MemberEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + MATRICNUMBER_DESC_CINDY
                 + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + GENDER_DESC_BOB + YEAROFSTUDY_DESC_BOB
                 + MAJOR_DESC_BOB + TAG_DESC_RUNNING + TAG_DESC_SWIMMING;
-        editedPerson = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
+        editedPerson = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
+                .withMatricNumber(VALID_MATRICNUMBER_CINDY).build();
         assertCommandSuccess(command, index, editedPerson);
 
         /* Case: clear tags -> cleared */

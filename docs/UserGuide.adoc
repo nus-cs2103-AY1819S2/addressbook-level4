@@ -50,7 +50,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 
 .  Refer to <<Features>> for details of each command.
-// end:quickstart[]
+// end::quickstart[]
 
 [[Features]]
 == Features
@@ -235,7 +235,7 @@ You can select an existing entry in the records to view its details by specifyin
 ====
 // end::select[]
 
-//tag::delete[]
+// tag::delete[]
 ==== Deleting an entry: `delete`
 
 You can delete an entry in the record by specifying the entry's index number.
@@ -256,11 +256,11 @@ Deleted entries can be recovered via the `undo` command.
 * `INDEX` here refers to the index number shown in the displayed records.
 * `INDEX` *must be a positive integer* 1, 2, 3, ...
 ====
-//end::delete[]
+// end::delete[]
 
 === Records Management
 
-//tag::list[]
+// tag::list[]
 ==== Listing all entries: `list`
 
 You can see all the entries you have entered, as long as they are not deleted entries.
@@ -268,7 +268,7 @@ You can see all the entries you have entered, as long as they are not deleted en
 *Alias*: `l`, `ls`
 
 *Format*: `list`
-//end::list[]
+// end::list[]
 
 // tag::search[]
 ==== Locating entry based on name/category: `search`
@@ -293,7 +293,7 @@ You can easily search for an entry in the records using a name or category as ke
 ====
 // end::search[]
 
-//tag::sort[]
+// tag::sort[]
 ==== Sorting the entries according to name/amount/date/category: `sort`
 
 You can choose to sort the list of entries by name, amount, date or category.
@@ -318,9 +318,9 @@ Sorts the list of records by category
 * `FLAG` here refers to either `-name`, `-amount, `-date` or `-cat`.
 * Only one flag should be provided.
 ====
-//end::sort[]
+// end::sort[]
 
-//tag::reverse[]
+// tag::reverse[]
 ==== Reversing the entries: `reverse`
 
 You can also reverse the order of the list of entries in the records.
@@ -328,9 +328,9 @@ You can also reverse the order of the list of entries in the records.
 *Alias*: `rev`
 
 *Format*: reverse
-//end::reverse[]
+// end::reverse[]
 
-//tag:summary[]
+// tag::summary[]
 ==== Showing summary of records: `summary`
 
 You can see the summary of your previous expenditures, with an aster plot graph showing how your spending habits are like in the
@@ -339,19 +339,19 @@ different categories. It also displays the remaining budget amount for each cate
 Deleted entries are not included in the summary.
 
 *Format*: `summary`
-//end::summary[]
+// end::summary[]
 
 
 === Miscellaneous
 
-//tag::help[]
+// tag::help[]
 ==== Viewing help: `help`
 
 Forgotten which commands to use? You can easily find the commands you need to navigate the software
 by using the following command:
 
 *Format*: `help`
-//end::help[]
+// end::help[]
 
 // tag::undoredo[]
 ==== Undoing previous command : `undo`
@@ -477,7 +477,7 @@ the data. There is no need for you to save manually.
 
 Your monthly finance records will be archived at the end of the month. This information will be used to derive
 the projected savings and expenses based on your typical spending patterns.
-// end::savinrgpatterns[]
+// end::savingpatterns[]
 
 ==== Links to financial articles `[coming in v2.0]`
 

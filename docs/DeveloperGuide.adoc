@@ -305,29 +305,6 @@ The sort mechanism allows users to view their expense records in a different way
 
 *_Details of implementation will be added next time._*
 
-.Commands that I am planning to implement:
-|===
-|Commands |Description
-
-|`sort expenses` (alias: `sort expenses desc`) | Sort according to the amount stated in each entry.
-By default, the entry with the largest amount will be at the top,
-while the entry with the smallest amount will be at the bottom.
-
-|`sort expenses asc` | Entries will be sorted according to amount stated, but in the opposite order from the default,
-with the entry containing the smallest amount at the top,
-and the one with the largest amount at the bottom.
-|`sort cat budget` (alias: `sort cat budget desc`) |Sorts categories with an assigned budget according to the
-remaining budget left. By default, the category with the largest remaining budget will be at the top of the list,
-and the one with the smallest remaining budget will be at the bottom.
-|`sort cat budget asc` |Similar to sort cat budget, but the category with the smallest remaining budget will be
-at the top, and the one with the largest remaining budget will be at the bottom.
-|`sort date` (alias: `sort date desc`) |sorts entries according to date stated in each entry, with the latest one on
-top, and the earliest one at the bottom.
-|`sort date asc` |Similar to sort date, but the entry with the earliest date will be at the top, and the one with the
-latest date will be at the bottom.
-
-|===
-
 ==== Design Considerations
 
 *_Design considerations will be added next time._*

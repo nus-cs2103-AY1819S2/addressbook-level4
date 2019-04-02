@@ -501,11 +501,13 @@ The primary consideration was the compatibility of this new command with the exi
 Given the stable implementation of the current system of parsing commands, any new command created should fit into the existing architecture with minimal changes to other components.
 // end::skpai27[]
 
+// tag::visitweb[]
 === Visit Webpage Feature
 
 Website can be displayed on the `BrowserPanel` with `visitWeb` command.
 
-==== Current implementation
+==== visitWeb `INDEX`
+Visits website of `Restaurant` selected by user.
 
 * Restaurants has a field `Weblink` which contains the URL of the restaurant website.
 * Weblink have to be valid https or http link before browser can display the website.
@@ -515,9 +517,29 @@ Website can be displayed on the `BrowserPanel` with `visitWeb` command.
 * `BrowserPanel` of `UI` component will listen to this change in selected Restaurant and thus, display website of
  Restaurant on the `BrowserPanel`.
 
-The following sequence diagram shows how the visitWeb operation works:
+The following sequence diagram shows how the visitWeb `index` works:
 
 image::VisitWebSequenceDiagram.png[width="800"]
+
+==== visitWeb `weblink`
+Visits website entered by user.
+
+* A `weblink` is a valid Url of websites of restaurants.
+* Users can visit website of any restaurant through visitWeb command by entering the `weblink` as a parameter.
+* Upon `visitWeb` command, `Parser` in the `Logic` component will call `VisitWebCommandParser` to parse `weblink` into
+`VisitWebCommand`.
+* This `weblink` will be passed to CommandResult which is passed to `MainWindow` in `UI` component.
+* `MainWindow` will then load the `weblink` through `BrowserPanel`.
+
+The following sequence diagram shows how the visitWeb `weblink` works:
+
+image::VisitWebUrlSequenceDiagram.png[width="800"]
+
+==== Enhancements
+* Before loading the website, the `weblink` will be validated by checking it's HTTP response code.
+* If response code is above 400, it suggests that the `weblink` is not found and that there is an error requesting the website if response code is above 500
+* If there is no internet connection, throws an `NoInternetException` that prints an error message to inform user that there is no internet connection.
+// end::visitweb[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -800,11 +822,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 *MSS*
 
 1. FoodLover enters command to add restaurant
-2. FoodDiary asks user to enter name and location
-3. FoodLover enters name and location of restaurant
-4. FoodDiary asks user for confirmation
-5. FoodLover confirms
-6. FoodDiary adds restaurant
+2. FoodDiary adds restaurant
 +
 Use case ends.
 
@@ -813,10 +831,7 @@ Use case ends.
 [none]
 * 2a. FoodLover enters a name and location that already exists in FoodDiary
 [none]
-** 2a1. FoodDiary tells FoodLover that the restaurant already exists
-** 2a2. FoodDiary asks user to enter another name and location
-+
-Use case resumes at step 3 if name and location are valid else repeat step 2a1.
+** 2a1. FoodDiary tells FoodLover that the restaurant already exists and asks user to enter another name and location
 
 [discrete]
 === Use case: Adding a restaurant by Google Search by FoodLover to FoodDiary
@@ -824,11 +839,7 @@ Use case resumes at step 3 if name and location are valid else repeat step 2a1.
 *MSS*
 
 1. FoodLover enters command to add restaurant by Google Search
-2. FoodDiary asks user to enter name of restaurant
-3. FoodLover enters name
-4. FoodDiary retrieves data from Google, displays retrieved data to User. FoodDiary asks User to verify displayed information as correct.
-5. FoodLover confirms
-6. FoodDiary adds restaurant
+2. FoodDiary adds restaurant
 +
 Use case ends.
 
@@ -840,18 +851,11 @@ Use case ends.
 ** 2a1. FoodDiary tells FoodLover that the restaurant already exists
 ** 2a2. FoodDiary asks user to enter another name and location
 +
-Use case resumes at step 3 if name and location are valid else repeat step 2a1.
 
 [none]
-* 4a. FoodDiary is unable to retrieve anything from Google.
+* 2b. FoodDiary is unable to retrieve anything from Google.
 [none]
-** 4a1. FoodDiary tells user that retrieval of information has failed.
-** 4a2. FoodDiary asks user to enter another name and location, or enter command to exit.
-+
-Use case resumes at step 3 if user enters another name, use case ends if command to exit is entered.
-
-[none]
-* 5a. FoodLover does not confirm
+** 2b1. FoodDiary tells user that retrieval of information has failed.
 +
 Use case ends
 
@@ -861,9 +865,7 @@ Use case ends
 *MSS*
 
 1. FoodLover enters command and index to delete restaurant
-2. FoodDiary asks user for confirmation
-3. FoodLover confirms
-4. FoodDiary deletes restaurant
+2. FoodDiary deletes restaurant
 +
 Use case ends.
 
@@ -872,12 +874,7 @@ Use case ends.
 [none]
 * 1a. FoodLover enters an invalid index
 [none]
-** 1a1. FoodLover asks user to enter index again
-+
-Use case resumes at step 2 if index is valid, else repeat step 1a1.
-
-[none]
-* 3a. FoodLover does not confirm
+** 1a1. FoodDiary tells user that he has entered an invalid index and deletion of restaurant has failed.
 +
 Use case ends
 
@@ -896,41 +893,40 @@ Use case ends.
 [none]
 * 1a. FoodLover enters an invalid index
 [none]
-** 1a1. FoodLover asks user to enter index again
+** 1a1. FoodDiary tells user that he has entered an invalid index and selection of restaurant has failed.
 
 [discrete]
-=== Use case: Setting categories of a Restaurant
+=== Use case: Filter Restaurants in FoodDiary (cuisine, occasion, price)
 
 *MSS*
 
-1. FoodLover enters command, index and categories to set to the restaurant
-2. FoodDiary updates the categories entered, leaving unentered categories unedited
+1. FoodLover enters command, category to filter by (i.e. cuisine, occasion, price range) and keyword / price range (e.g.japanese, lunch, 5 10)
+2. FoodDiary displays restaurant’s that fit the filter.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. FoodLover enters an invalid index
+* 1a. FoodLover enters an invalid category
 [none]
-** 1a1. FoodDiary shows invalid command format
+** 1a1. FoodLover tells user that no such category exists.
 +
 Use case ends.
 
 [none]
-* 2a. FoodLover enters invalid category prefix
+* 1b. FoodLover enters an invalid price range (i.e. 1 number / 3 numbers input)
 [none]
-** 2a1. FoodDiary shows invalid command format
+** 1b1. FoodLover tells user that an invalid price range is entered
+** 1b2. FoodLover displays the correct format to input command
 +
 Use case ends.
 
-[discrete]
-=== Use case: Filtering Restaurants in FoodDiary (cuisine, occasion, price)
-
-*MSS*
-
-1. FoodLover enters command and keywords to filter by.
-2. FoodDiary displays restaurant’s that match the keywords.
+[none]
+* 1c. FoodLover enters an invalid price range (i.e. 1 number / 3 numbers input)
+[none]
+** 1c1. FoodLover tells user that an invalid price range is entered
+** 1c2. FoodLover displays the correct format to input command
 +
 Use case ends.
 
@@ -939,17 +935,17 @@ Use case ends.
 
 *MSS*
 
-1. FoodLover enters command, categories to sort by (i.e. rating, price)
-2. FoodDiary displays restaurants according to categories
+1. FoodLover enters command, category to sort by (i.e. rating, price)
+2. FoodDiary displays restaurants according to category
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. FoodLover enters an invalid categories
+* 1a. FoodLover enters an invalid category
 [none]
-** 1a1. FoodLover tells user that no such categories exists.
+** 1a1. FoodLover tells user that no such category exists.
 +
 Use case ends.
 
@@ -961,11 +957,8 @@ Use case ends.
 1. FoodLover lists all restaurants
 2. FoodDiary displays all restaurants
 3. FoodLover enters command to add review and the index of the restaurant it should be added to
-4. FoodDiary asks FoodLover for rating and comment
-5. FoodLover enters rating and comment
-6. FoodDiary asks user for confirmation
-7. FoodLover confirms
-8. FoodDiary adds review to restaurant selected
+4. FoodLover enters rating and comment in the command
+5. FoodDiary adds review to restaurant selected
 +
 Use case ends.
 
@@ -994,9 +987,7 @@ Use case resumes at step 6 if rating is valid else repeat step 4a.
 1. FoodLover lists all reviews
 2. FoodDiary displays all reviews in chronological order
 3. FoodLover enters command to delete review and the index of the review to be deleted
-4. FoodDiary asks user for confirmation
-5. FoodLover confirms
-6. FoodDiary deletes selected review
+4. FoodDiary deletes selected review
 +
 Use case ends.
 
@@ -1019,11 +1010,8 @@ Use case resumes at step 3.
 1. FoodLover lists all reviews
 2. FoodDiary displays all reviews in chronological order
 3. FoodLover enters command to edit review and the index of the review to be edited
-4. FoodDiary prompts FoodLover to edit at least one field (rating/comment)
-5. FoodLover enters rating and comment
-6. FoodDiary asks user for confirmation
-7. FoodLover confirms
-8. FoodDiary updates selected review
+4. FoodLover enters rating and comment
+5. FoodDiary updates selected review
 +
 Use case ends.
 
@@ -1130,9 +1118,17 @@ Use case ends
 *Extensions*
 
 [none]
-* 2a. There is no website added for this restaurant
+* 1a. FoodLover enters command and website of any restaurant
 [none]
-** 2a1. FoodDiary tells FoodLover that there is no website for this restaurant
+** 2a. Website is valid and FoodDiary displays website
+** 2b. Website is invalid and FoodDiary tells FoodLover that the website he entered is invalid
++
++
+
+[none]
+* 2c. There is no website added for this restaurant
+[none]
+** 2c1. FoodDiary tells FoodLover that there is no website for this restaurant
 +
 Use case ends.
 

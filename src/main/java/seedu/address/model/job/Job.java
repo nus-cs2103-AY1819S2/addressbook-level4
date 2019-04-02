@@ -66,7 +66,10 @@ public class Job {
         return true;
     }
 
-    public boolean move(Person target, int source, int dest){
+    /**
+     * Moves a person from one list to another
+     */
+    public boolean move(Person target, int source, int dest) {
         if (!personsHash.get(source).contains(target)) {
             return false;
         }

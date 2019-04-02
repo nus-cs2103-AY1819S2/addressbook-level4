@@ -80,6 +80,8 @@ All commands have aliases, which can be used to execute the same command with fe
 [[help,Help]]
 === Viewing help : `help`
 
+Whenever you want to find out in-depth
+
 Format: `help`
 
 {nbsp} +
@@ -460,6 +462,7 @@ Note that the indexes are prepended on each of the past consultation records lis
 image::listconsult_after.png[width="600"]
 
 {sp}+
+
 * `listconsult 1` +
 
 You can then call `listconsult` again with the consultation record's index to view the specific consultation session details. QuickDocs will display the time of the consultation, and also the diagnosis and prescription given to the patient.

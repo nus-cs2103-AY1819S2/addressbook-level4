@@ -83,7 +83,7 @@ public class Consultation {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Consultation for: " + getPatient().getNric().getNric()
-                + " NRIC: " + getPatient().getName().getName() + "\n");
+                + " Name: " + getPatient().getName().getName() + "\n");
         sb.append("====================\n");
         sb.append("\n");
         sb.append(getDiagnosis());

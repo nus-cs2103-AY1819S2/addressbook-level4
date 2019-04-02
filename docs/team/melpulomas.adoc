@@ -1,0 +1,50 @@
+= Melvin Vito - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: MediTabs
+
+---
+
+== Overview
+
+Our team of 4 was task to either enhance or morph a basic addressbook for our project. We decided to morph it to be a medicine inventory management system named MediTabs. We chose pharmacist to be our target audience, favouring keyboard inputs.
+
+== Summary of contributions
+
+* *Major enhancement*: added the label command to allow user to output the medicine information onto a pdf file
+** What it does: Enables the user to transfer the medicine information over to a pdf file. Then, the user could use printers or external 3rd party software to print or edit the file.
+** Justification: Pharmacist would like to have the printed information of certain medicine and label the physical counterpart. With the PDF, the pharmacist may use external printers and print out the information on the label as a sticker. PDF is widely used as a file extension and hence very portable which all computers and printer can identify.
+** Highlights: Added security layer to the naming of the file (Auto include .pdf extension) such that users may not over write other important files.
+** Credits: Apache PDFBox external library is imported to help manipulate and output the stream of information to the PDF file.
+
+* *Minor enhancement*:
+
+* *Code contributed*:
+
+* *Other contributions*:
+
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=label]
+
+
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=label]
+
+include::../DeveloperGuide.adoc[tag=usecase]

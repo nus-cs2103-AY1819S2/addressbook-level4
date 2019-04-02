@@ -77,16 +77,6 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
-==== Updating documentation to match your fork
-
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/TravelBuddy-level4` repo.
-
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/TravelBuddy-level4`), you should do the following:
-
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
-
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
-
 ==== Setting up CI
 
 Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
@@ -269,7 +259,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.TravelBuddy.commons` package.
+Classes used by multiple components are in the `seedu.travel.commons` package.
 
 == Implementation
 
@@ -285,7 +275,7 @@ Redoable commands include `add` `edit` `delete` `deletem` `clear` `generate` and
 ==== Current Implementation
 
 The undo/redo mechanism is facilitated by `VersionedTravelBuddy`.
-It extends `TravelBuddy` with an undo/redo history, stored internally as an `TravelBuddyStateList` and `currentStatePointer`.
+It extends `TravelBuddy` with an undo/redo history, stored internally as an `travelBuddyStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
 * `VersionedTravelBuddy#commit()` -- Saves the current TravelBuddy state in its history.
@@ -301,17 +291,17 @@ Step 1. The user launches the application for the first time. The `VersionedTrav
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
 Step 2. The user executes `delete 5` command to delete the 5th place in TravelBuddy. The `delete` command calls
-`Model#commitTravelBuddy()`, causing the modified state of TravelBuddy after the `delete 5` command executes to be saved in the `TravelBuddyStateList`, and the `currentStatePointer` is shifted to the newly inserted TravelBuddy state.
+`Model#commitTravelBuddy()`, causing the modified state of TravelBuddy after the `delete 5` command executes to be saved in the `travelBuddyStateList`, and the `currentStatePointer` is shifted to the newly inserted TravelBuddy state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
 Step 3. The user executes `add n/David ...` to add a new place. The `add` command also calls `Model#commitTravelBuddy()
-`, causing another modified TravelBuddy state to be saved into the `TravelBuddyStateList`.
+`, causing another modified TravelBuddy state to be saved into the `travelBuddyStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitTravelBuddy()`, so the TravelBuddy state will not be saved into the `TravelBuddyStateList`.
+If a command fails its execution, it will not call `Model#commitTravelBuddy()`, so the TravelBuddy state will not be saved into the `travelBuddyStateList`.
 
 Step 4. The user now decides that adding the place was a mistake, and decides to undo that action by executing the
 `undo` command. The `undo` command will call `Model#undoTravelBuddy()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous TravelBuddy state, and restores the TravelBuddy to that state.
@@ -328,13 +318,13 @@ image::UndoRedoSequenceDiagram.png[width="800"]
 The `redo` command does the opposite -- it calls `Model#redoTravelBuddy()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores TravelBuddy to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `TravelBuddyStateList.size() - 1`, pointing to the latest TravelBuddy state, then there are no undone TravelBuddy states to restore. The `redo` command uses `Model#canRedoTravelBuddy()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `travelBuddyStateList.size() - 1`, pointing to the latest TravelBuddy state, then there are no undone TravelBuddy states to restore. The `redo` command uses `Model#canRedoTravelBuddy()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify TravelBuddy, such as `list`, will usually not call `Model#commitTravelBuddy()`, `Model#undoTravelBuddy()` or `Model#redoTravelBuddy()`. Thus, the `TravelBuddyStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify TravelBuddy, such as `list`, will usually not call `Model#commitTravelBuddy()`, `Model#undoTravelBuddy()` or `Model#redoTravelBuddy()`. Thus, the `travelBuddyStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitTravelBuddy()`. Since the `currentStatePointer` is not pointing at the end of the `TravelBuddyStateList`, all TravelBuddy states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitTravelBuddy()`. Since the `currentStatePointer` is not pointing at the end of the `travelBuddyStateList`, all TravelBuddy states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 

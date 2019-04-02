@@ -320,8 +320,11 @@ Format: `view`
 Examples:
 
 `view` +
-`View personalised statistics for John Doe. You have a total of 7 reviews and a total of 11 restaurants.` +
-image::UiUpdated.png[width="790"]
+`View personalised statistics for John Doe. You have a total of 7 reviews and a total of 11 restaurants.`
+
+* Example of profile statistics is shown below:
+
+image:viewCommand.png[width="790"]
 
 
 

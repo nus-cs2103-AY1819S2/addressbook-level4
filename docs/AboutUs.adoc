@@ -59,7 +59,7 @@ Responsibilities: In-progress
 
 === Sun Yiqun
 image::dukesun99.png[width="150", align="left"]
-{empty}[https://github.com/dukesun99[github]]
+{empty}[https://github.com/dukesun99[github]] [https://github.com/CS2103-AY1819S2-W10-3/main/blob/master/docs/team/yiqun.adoc[portfolio]]
 
 Role: Developer +
 Responsibilities: In-progress

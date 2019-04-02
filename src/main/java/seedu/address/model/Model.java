@@ -248,13 +248,11 @@ public interface Model {
 
     void addRem(Reminder rem);
 
-    String listRem();
-
-    Optional<Reminder> getReminder(Appointment appointment);
-
     void deleteReminder(Reminder reminder);
 
     void reminderForMedicine(Medicine medicine);
+
+    Predicate<Reminder> getCurrentWeekRemindersPredicate();
 
     void deleteExistingReminderForMedicine(Medicine medicine);
     //===========Record module operations=============================

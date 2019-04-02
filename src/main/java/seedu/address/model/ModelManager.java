@@ -1,5 +1,9 @@
 package seedu.address.model;
 
+import static java.time.DayOfWeek.MONDAY;
+import static java.time.DayOfWeek.SUNDAY;
+import static java.time.temporal.TemporalAdjusters.nextOrSame;
+import static java.time.temporal.TemporalAdjusters.previousOrSame;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -17,7 +21,6 @@ import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -43,6 +46,7 @@ import seedu.address.model.record.Statistics;
 import seedu.address.model.record.StatisticsManager;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.reminder.ReminderManager;
+import seedu.address.model.reminder.ReminderWithinDatesPredicate;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleAppUtil;
 import seedu.address.model.util.SamplePatientsUtil;
@@ -92,8 +96,7 @@ public class ModelManager implements Model {
         this.statisticsManager = new StatisticsManager();
 
         quickDocs = new QuickDocs();
-        filteredReminders = new FilteredList<>(FXCollections.observableArrayList(reminderManager.getReminderList()));
-
+        filteredReminders = new FilteredList<>(reminderManager.getObservableReminderList());
 
         iniQuickDocs();
     }
@@ -120,8 +123,7 @@ public class ModelManager implements Model {
         this.appointmentManager = quickDocs.getAppointmentManager();
         this.reminderManager = quickDocs.getReminderManager();
         this.statisticsManager = quickDocs.getStatisticsManager();
-
-        filteredReminders = new FilteredList<>(FXCollections.observableArrayList(reminderManager.getReminderList()));
+        filteredReminders = new FilteredList<>(reminderManager.getObservableReminderList());
 
         iniQuickDocs();
     }
@@ -345,6 +347,8 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    //=========== Filtered Reminder List Accessors ===========================================================
+
     @Override
     public void updateFilteredReminderList(Predicate<Reminder> predicate) {
         requireNonNull(predicate);
@@ -354,6 +358,14 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Reminder> getFilteredReminderList() {
         return filteredReminders;
+    }
+
+    @Override
+    public Predicate<Reminder> getCurrentWeekRemindersPredicate() {
+        LocalDate todaysDate = LocalDate.now();
+        LocalDate start = todaysDate.with(previousOrSame(MONDAY));
+        LocalDate end = todaysDate.with(nextOrSame(SUNDAY));
+        return new ReminderWithinDatesPredicate(start, end);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -630,14 +642,6 @@ public class ModelManager implements Model {
     public void addRem(Reminder rem) {
         reminderManager.addReminder(rem);
         quickDocs.indicateModification(true);
-    }
-
-    public String listRem() {
-        return reminderManager.list();
-    }
-
-    public Optional<Reminder> getReminder(Appointment appointment) {
-        return reminderManager.getReminder(appointment);
     }
 
     private Reminder createRemFromApp(Appointment app) {

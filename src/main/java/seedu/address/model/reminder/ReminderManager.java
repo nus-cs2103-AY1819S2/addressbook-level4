@@ -1,10 +1,5 @@
 package seedu.address.model.reminder;
 
-import static java.time.DayOfWeek.MONDAY;
-import static java.time.DayOfWeek.SUNDAY;
-import static java.time.temporal.TemporalAdjusters.nextOrSame;
-import static java.time.temporal.TemporalAdjusters.previousOrSame;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -22,13 +17,22 @@ import seedu.address.model.medicine.Medicine;
  */
 public class ReminderManager {
     private final List<Reminder> reminders;
+    private final ObservableList<Reminder> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Reminder> internalUnmodifiableList =
+            FXCollections.unmodifiableObservableList(internalList);
 
     public ReminderManager() {
         reminders = new ArrayList<>();
     }
 
-    public void addReminder(Reminder rem) {
-        reminders.add(rem);
+    /**
+     * Adds a {@code Reminder} to the list of reminders.
+     *
+     * @param reminder the {@code Reminder} to be added.
+     */
+    public void addReminder(Reminder reminder) {
+        reminders.add(reminder);
+        internalList.add(reminder);
     }
 
     public boolean hasDuplicateReminder(Reminder rem) {
@@ -39,8 +43,22 @@ public class ReminderManager {
         return reminders;
     }
 
+    public ObservableList<Reminder> getObservableReminderList() {
+        return internalUnmodifiableList;
+    }
+
+    public List<Reminder> getReminders() {
+        return reminders;
+    }
+
+    /**
+     * Deletes a {@code Reminder} in the list of reminders.
+     *
+     * @param reminder the {@code Reminder} to be deleted.
+     */
     public void delete(Reminder reminder) {
         reminders.remove(reminder);
+        internalList.remove(reminder);
     }
 
     public Optional<Reminder> getReminder(Appointment appointment) {
@@ -59,18 +77,6 @@ public class ReminderManager {
         } else {
             return Optional.of(filtered.get(0));
         }
-    }
-
-    public ObservableList<Reminder> getFilteredReminderList(LocalDate date) {
-        LocalDate start = date.with(previousOrSame(MONDAY)).minusDays(1);
-        LocalDate end = date.with(nextOrSame(SUNDAY)).plusDays(1);
-
-        List<Reminder> filteredReminders = reminders
-                .stream()
-                .filter(r -> r.getDate().isAfter(start) && r.getDate().isBefore(end))
-                .sorted()
-                .collect(Collectors.toList());
-        return FXCollections.observableArrayList(filteredReminders);
     }
 
     /**

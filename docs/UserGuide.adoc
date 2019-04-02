@@ -121,6 +121,7 @@ Examples:
 Deletes the 1st book in the results of the listBook command.
 // end::book[]
 
+// tag::list[]
 ==== Listing book entries : `listBook`
 
 Shows a list of all book entries, with the specified TAG and RATING. +
@@ -130,7 +131,7 @@ Format: `listBook [n/BOOKNAME] [a/AUTHOR] [t/TAG] [m/RATING]`
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Alice Wonderland` will match `Wonderland Alice`
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Only books match all the search criteria will be returned
+* Only books match at least one criteria of each each kind will be returned. For example, if two book name keywords and two tag keywords are provided, book that matches at least one name keyword and at least one tag keyword will be displayed. Books only has name key word found but no tah key words matching will not be selected.
 * If no search criteria given, the command will give the complete list of the books
 * For book name searching, books matching at least one keyword will be returned. e.g. `Alice` will return `Alice in Wonderland`, `the Westminster Alice`
 * For author name searching, books whose author name matching at least one keyword will be returned. e.g. `James` will return books whose author name is `Henry James`
@@ -143,6 +144,8 @@ Examples:
 * `listBook t/textbook m/5`
 * `listBook n/CS2104T t/textbook`
 * `listBook m/5`
+
+// end::list[]
 
 ==== Sort books command : `sortBook`
 
@@ -301,6 +304,8 @@ Examples:
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
 
+// tag::summary[]
+
 ==== Providing statistics of all the books read : `summary`
 
 Generate a summary of all the books read so far. +
@@ -317,6 +322,8 @@ Examples:
 
 * `summary`
 An example of a summary `You've read 9 books. You prefered books by Erika Leonard, as you've read: Fifty Shades of Grey, Fifty Shades Darker. These book receive a rating of 10 from you: To Kill a Mocking Bird. You preferred books that you labeled as fantasy(including The Hunger Games, Life of Pi).`
+
+// end::summary[]
 
 ==== Clearing all entries : `clear`
 

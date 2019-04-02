@@ -40,6 +40,7 @@ import seedu.address.storage.JsonStatisticsStorage;
 import seedu.address.storage.JsonTablesStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.testutil.BillBuilder;
 import seedu.address.testutil.MenuItemBuilder;
 import seedu.address.testutil.OrderItemBuilder;
 import seedu.address.testutil.StatisticsBuilder;
@@ -135,14 +136,19 @@ public class LogicManagerTest {
         Table occupiedTable = new TableBuilder().withTableStatus(OCCUPIED_TABLE_STATUS).build();
         OrderItem expectedOrderItem = new OrderItemBuilder().build();
         MenuItem expectedMenuItem = new MenuItemBuilder().build();
-        DailyRevenue expectedDailyRevenue = new StatisticsBuilder()
+
+        Bill expectedBill = new BillBuilder()
                 .withDay(BILL.getDay().toString())
                 .withMonth(BILL.getMonth().toString())
                 .withYear(BILL.getYear().toString())
                 .withTotalBill(String.valueOf(BILL.getTotalBill()))
-                .withTotalDailyRevenue(String.valueOf(TOTAL_BILL))
-                .withTableNumber(BILL.getTableNumber().toString())
                 .withReceipt(BILL.getReceipt())
+                .build();
+        DailyRevenue expectedDailyRevenue = new StatisticsBuilder()
+                .withDay(BILL.getDay().toString())
+                .withMonth(BILL.getMonth().toString())
+                .withYear(BILL.getYear().toString())
+                .withTotalDailyRevenue(String.valueOf(TOTAL_BILL))
                 .build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addTable(expectedTable);
@@ -168,12 +174,14 @@ public class LogicManagerTest {
         assertHistoryCorrect(addToOrderCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n"
                 + addToMenuCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n" + addTableCommand);
 
-        // Execute addDailyRevenue command
+
+        // Execute Bill command
+        expectedModel.setTable(occupiedTable, expectedTable);
         expectedModel.addDailyRevenue(expectedDailyRevenue);
         expectedModel.deleteOrderItem(expectedOrderItem);
-        //        expectedModel.setSelectedTable(null);
-        expectedModel.setRecentBill(BILL);
-        expectedModel.setTable(occupiedTable, expectedTable);
+        expectedModel.setSelectedTable(null);
+        expectedModel.setRecentBill(expectedBill);
+
         assertCommandBehavior(CommandException.class, billCommand, expectedMessage, expectedModel);
         assertHistoryCorrect(billCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n"
                 + addToOrderCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n" + addToMenuCommand + "\n"

@@ -11,7 +11,7 @@ import seedu.address.testutil.StatisticsBuilder;
 
 public class DailyRevenueTest {
     @Test
-    public void isSameOrderItem() {
+    public void isSameDailyRevenue() {
         // same object -> returns true
         assertTrue(DAILY_REVENUE1.isSameDailyRevenue(DAILY_REVENUE1));
 
@@ -38,8 +38,8 @@ public class DailyRevenueTest {
     @Test
     public void equals() {
         // same values -> returns true
-        DailyRevenue orderItemCopy = new StatisticsBuilder(DAILY_REVENUE1).build();
-        assertTrue(DAILY_REVENUE1.equals(orderItemCopy));
+        DailyRevenue dailyRevenueCopy = new StatisticsBuilder(DAILY_REVENUE1).build();
+        assertTrue(DAILY_REVENUE1.equals(dailyRevenueCopy));
 
         // same object -> returns true
         assertTrue(DAILY_REVENUE1.equals(DAILY_REVENUE1));

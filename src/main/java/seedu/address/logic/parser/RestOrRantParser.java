@@ -24,6 +24,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.MenuModeCommand;
 import seedu.address.logic.commands.RestaurantModeCommand;
+import seedu.address.logic.commands.RevenueCommand;
 import seedu.address.logic.commands.StatisticsModeCommand;
 import seedu.address.logic.commands.TableModeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -150,6 +151,13 @@ public class RestOrRantParser {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }
             return new BillCommand();
+
+        case RevenueCommand.COMMAND_WORD: // Fallthrough
+        case RevenueCommand.COMMAND_ALIAS:
+            if (mode != Mode.STATISTICS_MODE) {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            return new RevenueCommandParser().parse(arguments);
 
         // General alias commands that do different functions in different modes
         case "add":

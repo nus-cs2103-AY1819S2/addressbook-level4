@@ -382,7 +382,7 @@ public class ModelManagerTest {
         modelManager.setDailyRevenue(DAILY_REVENUE1, updatedDailyRevenue);
         assertEquals(updatedDailyRevenue, modelManager.getSelectedDailyRevenue());
     }
-     **/
+    **/
 
     @Test
     public void getFilteredDailyRevenueList_modifyList_throwsUnsupportedOperationException() {

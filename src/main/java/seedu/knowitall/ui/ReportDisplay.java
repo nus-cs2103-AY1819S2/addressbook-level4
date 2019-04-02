@@ -9,7 +9,6 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import seedu.knowitall.model.Model;
 import seedu.knowitall.model.ReadOnlyCardFolder;
 import seedu.knowitall.model.card.Card;
 
@@ -133,7 +132,7 @@ public class ReportDisplay extends UiPart<Region> {
         String result = "";
         int toShow = Math.min(NUM_QUESTIONS_SHOWN, cards.size());
         String question;
-        for (int i=0; i<toShow; i++) {
+        for (int i = 0; i < toShow; i++) {
             Card card = cards.get(i);
             question = "Question: " + card.getQuestion();
             question = question.substring(0, Math.min(MAX_QUESTION_CHAR, question.length()));

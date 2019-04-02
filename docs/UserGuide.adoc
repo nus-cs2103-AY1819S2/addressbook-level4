@@ -448,6 +448,7 @@ Unsure of a few technical terms? We got you covered. Refer to [underline]#<<tech
 |*User Interface (UI)*
 |Allows the user to interact with the application through inputs and outputs of data.
 |===
+
 //end:glossary[]
 
 //tag:commandsummary[]
@@ -524,4 +525,5 @@ For more details on what each command does, please refer to <<Features>>.
 |filter [n/NAME_KEYWORD] [pm/DATE_KEYWORD] [t/TAG_KEYWORD]
 |fil punggol november ongoing
 |===
+
 //end:commandsummary[]

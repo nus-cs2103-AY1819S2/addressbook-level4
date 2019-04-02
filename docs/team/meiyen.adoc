@@ -11,7 +11,7 @@ toc::[]
 
 == Introduction
 
-image::meiyen_dp.png[width="200", align="left"]
+image::bendymochi.png[width="200", align="left"]
 {empty} [https://github.com/bendymochi[GitHub]]
 
 Hello! My name is Tan Mei Yen and I am currently a second year student studying Computer Science at National University of Singapore. +

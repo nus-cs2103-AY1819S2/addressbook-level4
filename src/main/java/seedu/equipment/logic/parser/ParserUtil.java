@@ -9,7 +9,6 @@ import java.util.Set;
 import seedu.equipment.commons.core.index.Index;
 import seedu.equipment.commons.util.StringUtil;
 import seedu.equipment.logic.parser.exceptions.ParseException;
-import seedu.equipment.model.WorkList;
 import seedu.equipment.model.WorkListId;
 import seedu.equipment.model.equipment.Address;
 import seedu.equipment.model.equipment.Date;

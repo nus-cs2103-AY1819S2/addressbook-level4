@@ -62,8 +62,7 @@ public class WorkListId {
         int result;
         try {
             result = Integer.parseInt(this.value);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             result = 0;
         }
         return result;

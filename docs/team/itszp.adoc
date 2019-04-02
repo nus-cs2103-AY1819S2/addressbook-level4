@@ -30,7 +30,7 @@ This section provides a summary of my coding, documentation and other contributi
 
 ** *Code contributed*: [https://github.com/CS2103-AY1819S2-W14-2/main/commits?author=itszp[List of commits]]
 
-** *Other contributions*:
+=== *Other contributions*:
 
 ** Project management:
 *** Managed release `v1.2` and `v1.3` (2 releases) on GitHub

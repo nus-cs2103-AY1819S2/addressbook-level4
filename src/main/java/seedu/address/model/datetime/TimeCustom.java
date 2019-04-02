@@ -8,11 +8,18 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
  */
 public class TimeCustom implements Comparable<TimeCustom> {
-    public static final String MESSAGE_CONSTRAINTS = "Time should only contain exactly 4 numbers,"
+
+    public static final String MESSAGE_CONSTRAINTS_START_TIME = "Start time should only contain exactly 4 numbers,"
                                             + " the first two not going above 24, the latter two not going above 59.\n"
-                                            + "Start time should not be after End time "
-                                            + "if Start Date is equal to End Date"
-                                            + "Example: 0015, 2359 or 1130.\n";
+                                            + "Start time should not be after end time "
+                                            + "if start date is equal to end date\n"
+                                            + "Example: 0015, 2359 or 1130.";
+
+    public static final String MESSAGE_CONSTRAINTS_END_TIME = "End time should only contain exactly 4 numbers,"
+                                            + " the first two not going above 24, the latter two not going above 59.\n"
+                                            + "Start time should not be after end time "
+                                            + "if start date is equal to end date\n"
+                                            + "Example: 0015, 2359 or 1130.";
 
     public static final String VALIDATION_REGEX = "^([0-1][0-9]|2[0-3])([0-5][0-9])$";
 
@@ -26,7 +33,7 @@ public class TimeCustom implements Comparable<TimeCustom> {
      */
     public TimeCustom(String time) {
         requireNonNull(time);
-        checkArgument(isValidTime(time), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidTime(time), MESSAGE_CONSTRAINTS_START_TIME);
         storedTime = time;
     }
 

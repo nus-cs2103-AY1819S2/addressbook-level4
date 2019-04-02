@@ -6,6 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.datetime.TimeCustom;
+import seedu.address.model.patient.Nric;
+import seedu.address.model.person.Name;
+import seedu.address.model.task.LinkedPatient;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.Title;
@@ -24,6 +27,8 @@ class JsonAdaptedTask {
     private final String starttime;
     private final String endtime;
     private final String priority;
+    private final String linkedname;
+    private final String linkednric;
 
     /**
      * Constructs a {@code JsonAdaptedTask} with the given task details.
@@ -31,13 +36,17 @@ class JsonAdaptedTask {
     @JsonCreator
     public JsonAdaptedTask(@JsonProperty("title") String title, @JsonProperty("startdate") String startdate,
                              @JsonProperty("enddate") String enddate, @JsonProperty("starttime") String starttime,
-                             @JsonProperty("endtime") String endtime, @JsonProperty("priority") String priority) {
+                             @JsonProperty("endtime") String endtime, @JsonProperty("priority") String priority,
+                             @JsonProperty("linkedname") String linkedname,
+                             @JsonProperty("linkednric") String linkednric) {
         this.title = title;
         this.startdate = startdate;
         this.enddate = enddate;
         this.starttime = starttime;
         this.endtime = endtime;
         this.priority = priority;
+        this.linkedname = linkedname;
+        this.linkednric = linkednric;
 
     }
 
@@ -51,6 +60,13 @@ class JsonAdaptedTask {
         starttime = source.getStartTime().toString();
         endtime = source.getEndTime().toString();
         priority = source.getPriority().toString();
+        if (source.getLinkedPatient() == null) {
+            linkedname = null;
+            linkednric = null;
+        } else {
+            linkedname = source.getLinkedPatient().getLinkedPatientName();
+            linkednric = source.getLinkedPatient().getLinkedPatientNric();
+        }
     }
 
     /**
@@ -107,7 +123,15 @@ class JsonAdaptedTask {
             throw new IllegalValueException(Priority.MESSAGE_CONSTRAINTS);
         }
         final Priority modelPriority = Priority.returnPriority(priority);
-        return new Task(modelTitle, modelStartdate, modelEnddate, modelStartTime, modelEndTime, modelPriority);
+
+        final LinkedPatient modelLinkedPatient;
+        if (linkednric == null || linkedname == null) {
+            modelLinkedPatient = null;
+        } else {
+            modelLinkedPatient = new LinkedPatient(new Name(linkedname), new Nric(linkednric));
+        }
+        return new Task(modelTitle, modelStartdate, modelEnddate, modelStartTime, modelEndTime, modelPriority,
+                modelLinkedPatient);
     }
 
 }

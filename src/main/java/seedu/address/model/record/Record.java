@@ -1,7 +1,7 @@
 package seedu.address.model.record;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.storage.JsonAdaptedConstants.DIVIDER;
+import static seedu.address.storage.StorageConstants.DIVIDER;
 
 import java.util.Objects;
 

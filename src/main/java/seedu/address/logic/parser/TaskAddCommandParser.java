@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDDATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LINKEDPATIENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTDATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
@@ -10,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.TaskAddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.datetime.DateCustom;
@@ -31,7 +33,7 @@ public class TaskAddCommandParser implements Parser<TaskAddCommand> {
     public TaskAddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_STARTDATE, PREFIX_ENDDATE,
-                        PREFIX_STARTTIME, PREFIX_ENDTIME, PREFIX_PRIORITY);
+                        PREFIX_STARTTIME, PREFIX_ENDTIME, PREFIX_PRIORITY, PREFIX_LINKEDPATIENT);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_STARTDATE, PREFIX_ENDDATE, PREFIX_STARTTIME,
                 PREFIX_ENDTIME) || !argMultimap.getPreamble().isEmpty()) {
@@ -39,14 +41,21 @@ public class TaskAddCommandParser implements Parser<TaskAddCommand> {
         }
 
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
-        DateCustom startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_STARTDATE).get());
-        DateCustom endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_ENDDATE).get());
-        TimeCustom startTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_STARTTIME).get());
-        TimeCustom endTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_ENDTIME).get());
+        DateCustom startDate = ParserUtil.parseStartDate(argMultimap.getValue(PREFIX_STARTDATE).get());
+        DateCustom endDate = ParserUtil.parseEndDate(argMultimap.getValue(PREFIX_ENDDATE).get());
+        TimeCustom startTime = ParserUtil.parseStartTime(argMultimap.getValue(PREFIX_STARTTIME).get());
+        TimeCustom endTime = ParserUtil.parseEndTime(argMultimap.getValue(PREFIX_ENDTIME).get());
         Priority priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).orElse("low"));
+        Index patientIndex;
+        if (argMultimap.getValue(PREFIX_LINKEDPATIENT).isPresent()) {
+            patientIndex = ParserUtil.parseLinkedPatientIndex(argMultimap.getValue(PREFIX_LINKEDPATIENT).get());
+        } else {
+            patientIndex = null;
+        }
 
-        Task task = new Task(title, startDate, endDate, startTime, endTime, priority);
-        return new TaskAddCommand(task);
+
+        Task task = new Task(title, startDate, endDate, startTime, endTime, priority, null);
+        return new TaskAddCommand(task, patientIndex);
     }
 
     /**

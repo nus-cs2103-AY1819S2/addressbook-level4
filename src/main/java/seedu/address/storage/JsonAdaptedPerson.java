@@ -11,6 +11,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.datetime.DateOfBirth;
+import seedu.address.model.description.Description;
+import seedu.address.model.nextofkin.NextOfKin;
+import seedu.address.model.patient.DrugAllergy;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.Sex;
@@ -39,7 +42,10 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
+    private final String drugAllergy;
+    private final String description;
     private final String teeth;
+    private final JsonAdaptedNextOfKin nextOfKin;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final List<JsonAdaptedRecord> records = new ArrayList<>();
 
@@ -51,9 +57,13 @@ class JsonAdaptedPerson {
             @JsonProperty("dateOfBirth") String dateOfBirth, @JsonProperty("sex") String sex,
             @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
+            @JsonProperty("drugAllergy") String drugAllergy,
             @JsonProperty("teeth") String teeth,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-            @JsonProperty("records") List<JsonAdaptedRecord> records) {
+            @JsonProperty("records") List<JsonAdaptedRecord> records,
+            @JsonProperty("nextOfKin") JsonAdaptedNextOfKin nextOfKin,
+            @JsonProperty("description") String description) {
+
         this.name = name;
         this.sex = sex;
         this.nric = nric;
@@ -62,6 +72,9 @@ class JsonAdaptedPerson {
         this.email = email;
         this.address = address;
         this.teeth = teeth;
+        this.drugAllergy = drugAllergy;
+        this.description = description;
+        this.nextOfKin = nextOfKin;
 
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -84,7 +97,10 @@ class JsonAdaptedPerson {
             phone = source.getPhone().value;
             email = source.getEmail().value;
             address = source.getAddress().value;
+            drugAllergy = ((Patient) source).getDrugAllergy().toString();
+            description = ((Patient) source).getPatientDesc().toString();
             teeth = new JsonAdaptedTeeth(((Patient) source).getTeeth()).getTeethName();
+            nextOfKin = new JsonAdaptedNextOfKin(((Patient) source).getNextOfKin());
             tagged.addAll(source.getTags().stream()
                     .map(JsonAdaptedTag::new)
                     .collect(Collectors.toList()));
@@ -169,11 +185,29 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
+        if (drugAllergy == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                DrugAllergy.class.getSimpleName()));
+        }
+        if (!DrugAllergy.isValidDrugAllergy(drugAllergy)) {
+            throw new IllegalValueException(DrugAllergy.MESSAGE_CONSTRAINTS);
+        }
+        final DrugAllergy modelDrugAllergy = new DrugAllergy(drugAllergy);
+
+        if (description == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                Description.class.getSimpleName()));
+        }
+        if (!Description.isValidDescription(description)) {
+            throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
+        }
+        final Description modelDescription = new Description(description);
+
         if (teeth == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Teeth.class.getSimpleName()));
         }
 
-        String[] rawLayout = teeth.split(JsonAdaptedConstants.DIVIDER);
+        String[] rawLayout = teeth.split(StorageConstants.DIVIDER);
         int[] layout = new int[Teeth.PERMANENTTEETHCOUNT];
 
         for (int i = 0; i < Teeth.PERMANENTTEETHCOUNT; i++) {
@@ -182,12 +216,14 @@ class JsonAdaptedPerson {
 
         final Teeth modelTeeth = new Teeth(layout);
 
+        final NextOfKin modelNextOfKin = nextOfKin.toModelType();
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
         final List<Record> modelRecords = patientRecords;
 
         return new Patient(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelNric,
-                modelDob, modelRecords, modelTeeth, modelSex);
+                modelDob, modelRecords, modelTeeth, modelSex, modelDrugAllergy, modelNextOfKin, modelDescription);
     }
 
     /**

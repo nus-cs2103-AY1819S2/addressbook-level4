@@ -3,7 +3,7 @@ package seedu.address.model.patient;
 import java.util.ArrayList;
 
 import seedu.address.model.patient.exceptions.TeethLayoutException;
-import seedu.address.storage.JsonAdaptedConstants;
+import seedu.address.storage.StorageConstants;
 
 /**
  * Represents a set of teeth a Person has.
@@ -183,10 +183,11 @@ public class Teeth implements ExportableTeeth {
     public String getRawFormat() {
         int[] teethLayout = exportTeeth();
 
-        StringBuilder sb = new StringBuilder(teethLayout[0]);
+        StringBuilder sb = new StringBuilder();
+        sb.append(teethLayout[0]);
 
         for (int i = 1; i < teethLayout.length; i++) {
-            sb.append(JsonAdaptedConstants.DIVIDER + teethLayout[i]);
+            sb.append(StorageConstants.DIVIDER + teethLayout[i]);
         }
 
         return sb.toString();

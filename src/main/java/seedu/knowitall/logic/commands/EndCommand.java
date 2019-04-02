@@ -4,7 +4,6 @@ import seedu.knowitall.commons.core.Messages;
 import seedu.knowitall.logic.CommandHistory;
 import seedu.knowitall.logic.commands.exceptions.CommandException;
 import seedu.knowitall.model.Model;
-import seedu.knowitall.model.Model.State;
 
 /**
  * Ends the current test session.
@@ -21,14 +20,14 @@ public class EndCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         switch(model.getState()) {
-            case IN_TEST:
-                model.endTestSession();
-                return new CommandResult(MESSAGE_END_TEST_SESSION_SUCCESS, CommandResult.Type.END_TEST_SESSION);
-            case IN_REPORT:
-                model.exitReportDisplay();
-                return new CommandResult(MESSAGE_END_REPORT_DISPLAY_SUCCESS, CommandResult.Type.EXITED_REPORT);
-            default:
-                throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN);
+        case IN_TEST:
+            model.endTestSession();
+            return new CommandResult(MESSAGE_END_TEST_SESSION_SUCCESS, CommandResult.Type.END_TEST_SESSION);
+        case IN_REPORT:
+            model.exitReportDisplay();
+            return new CommandResult(MESSAGE_END_REPORT_DISPLAY_SUCCESS, CommandResult.Type.EXITED_REPORT);
+        default:
+            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN);
         }
     }
 }

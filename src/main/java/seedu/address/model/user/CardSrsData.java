@@ -15,25 +15,6 @@ public class CardSrsData {
     private boolean isDifficult;
     private Instant srsDueDate; // SRS Due Date for a User
     private HashMap <Integer, CardSrsData> cardMap = new HashMap<>();
-
-    //TODO remove this constructor
-    // after Session have implemented the new constructor with isDifficult
-    /**
-     * Constructor for the CardData
-     * Takes in the hashCode, numOfAttempts, streak and the srsDueDate
-     * @param hashCode this corresponds to a Card's hashCode
-     * @param numOfAttempts this corresponds to the number of attempts
-     * @param streak this corresponds to the number of correct answers consecutively
-     * @param srsDueDate this corresponds to the space repetition storage due date
-     */
-    public CardSrsData(int hashCode, int numOfAttempts, int streak, Instant srsDueDate) {
-        requireAllNonNull(hashCode, numOfAttempts, streak, srsDueDate);
-        this.hashCode = hashCode;
-        this.numOfAttempts = numOfAttempts;
-        this.streak = streak;
-        this.srsDueDate = srsDueDate;
-    }
-
     /**
      * Constructor for the CardData
      * Takes in the hashCode, numOfAttempts, streak, the srsDueDate and isDifficult

@@ -3,6 +3,9 @@ package seedu.address.model.session;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.TypicalCards.CARD_BELGIUM;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -10,6 +13,7 @@ import org.junit.Test;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.srscard.SrsCard;
+import seedu.address.model.user.CardSrsData;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.SessionBuilder;
 import seedu.address.testutil.SrsCardBuilder;
@@ -49,13 +53,26 @@ public class SessionTest {
     @Test
     public void generateSession() {
         SrsCard currentSrsCard = new SrsCardBuilder().build();
-        Session newSession = new Session("01-01-Learn", 1, QuizMode.LEARN, List.of(currentSrsCard));
+        Session newSession = new Session("Capitals", 1, QuizMode.LEARN, List.of(currentSrsCard));
         List<QuizCard> quizCards = newSession.generateSession();
         assertEquals(quizCards.get(0).getQuestion(), CARD_BELGIUM.getCore(0));
         assertEquals(quizCards.get(0).getAnswer(), CARD_BELGIUM.getCore(1));
+        assertEquals("Country", newSession.getQuestionHeader());
+        assertEquals("Capital", newSession.getAnswerHeader());
         newSession.setCount(15);
         assertEquals(15, newSession.getCount());
         newSession.setCount(1);
         assertEquals(currentSrsCard.getHashcode(), newSession.getQuizSrsCards().get(0).getHashcode());
+    }
+
+    @Test
+    public void updateUser() {
+        SrsCard currentSrsCard = new SrsCardBuilder().build();
+        Session newSession = new Session("Capitals", 1, QuizMode.LEARN, List.of(currentSrsCard));
+        List<List<Integer>> quizInformation = new ArrayList<>();
+        quizInformation.add(List.of(0, 1, 1, 0));
+        CardSrsData actual = new CardSrsData(currentSrsCard.getHashcode(), 2, 2,
+                Instant.ofEpochMilli(123).plus(Duration.ofHours(5)), false);
+        assertEquals(newSession.updateUserProfile(quizInformation).get(0).getHashCode(), actual.getHashCode());
     }
 }

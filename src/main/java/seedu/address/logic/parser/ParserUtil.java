@@ -26,6 +26,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.LinkedPatient;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.Title;
 import seedu.address.storage.ParsedInOut;
@@ -48,6 +49,20 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static Index parseLinkedPatientIndex(String oneBasedIndex) throws ParseException {
+        String trimmedIndex = oneBasedIndex.trim();
+        System.out.println("tesst");
+        if (!StringUtil.isUnsignedInteger(trimmedIndex)) {
+            throw new ParseException(LinkedPatient.MESSAGE_CONSTRAINTS);
+        }
+        return Index.fromZeroBased(Integer.parseInt(trimmedIndex));
     }
 
     /**
@@ -209,16 +224,25 @@ public class ParserUtil {
      * Parses a {@code String date} into an {@code DateCustom}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static DateCustom parseDate(String date) throws ParseException {
+    public static DateCustom parseStartDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
         if (!DateCustom.isValidDate(date)) {
-            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
+            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS_START_DATE);
         }
-        /** Not checking if date is before today temporarily, might enable if decision changes
-        if (DateCustom.isDateBeforeToday(date)) {
-            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
-        }*/
+        return new DateCustom(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String date} into an {@code DateCustom}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static DateCustom parseEndDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!DateCustom.isValidDate(date)) {
+            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS_END_DATE);
+        }
         return new DateCustom(trimmedDate);
     }
 
@@ -226,11 +250,24 @@ public class ParserUtil {
      * Parses a {@code String time} into an {@code TimeCustom}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static TimeCustom parseTime(String time) throws ParseException {
+    public static TimeCustom parseStartTime(String time) throws ParseException {
         requireNonNull(time);
         String trimmedTime = time.trim();
         if (!TimeCustom.isValidTime(time)) {
-            throw new ParseException(TimeCustom.MESSAGE_CONSTRAINTS);
+            throw new ParseException(TimeCustom.MESSAGE_CONSTRAINTS_START_TIME);
+        }
+        return new TimeCustom(trimmedTime);
+    }
+
+    /**
+     * Parses a {@code String time} into an {@code TimeCustom}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static TimeCustom parseEndTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        if (!TimeCustom.isValidTime(time)) {
+            throw new ParseException(TimeCustom.MESSAGE_CONSTRAINTS_END_TIME);
         }
         return new TimeCustom(trimmedTime);
     }
@@ -247,6 +284,7 @@ public class ParserUtil {
         }
         return Priority.returnPriority(trimmedPriority);
     }
+
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */

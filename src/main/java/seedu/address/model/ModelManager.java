@@ -141,7 +141,7 @@ public class ModelManager implements Model {
     @Override
     public void addTask(Task task) {
         versionedAddressBook.addTask(task);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
     }
 
     @Override

@@ -30,4 +30,28 @@ public class Seller extends Person {
     public Price getSellingPrice() {
         return property.getSellingPrice();
     }
+
+    public Property getProperty() {
+        return property;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(" Phone: ")
+                .append(getPhone())
+                .append(" Email: ")
+                .append(getEmail())
+                .append(" Remark: ")
+                .append(getRemark())
+                .append(" Address: ")
+                .append(getAddress())
+                .append(" Selling Price: ")
+                .append(getSellingPrice())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
+    }
+
 }

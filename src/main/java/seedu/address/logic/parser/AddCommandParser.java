@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RENTALPRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLINGPRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -65,8 +66,8 @@ public class AddCommandParser implements Parser<AddCommand> {
                         && argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
                     Price sellingPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_SELLINGPRICE).get());
                     Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-                    Seller seller = new Seller(name, phone, email, remark, new Property("sell", address,
-                            sellingPrice, tagList));
+                    Seller seller = new Seller(name, phone, email, remark, new Property(Property.PROPERTY_TYPE_RENT,
+                            address, sellingPrice, tagList));
                     return new AddCommand(seller);
                 } else {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -76,8 +77,8 @@ public class AddCommandParser implements Parser<AddCommand> {
                         && argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
                     Price rentalPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_RENTALPRICE).get());
                     Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-                    Landlord landlord = new Landlord(name, phone, email, remark, new Property("rent", address,
-                            rentalPrice, tagList));
+                    Landlord landlord = new Landlord(name, phone, email, remark,
+                            new Property(Property.PROPERTY_TYPE_RENT, address, rentalPrice, tagList));
                     return new AddCommand(landlord);
                 } else {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));

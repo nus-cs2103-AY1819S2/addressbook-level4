@@ -31,4 +31,27 @@ public class Landlord extends Person {
         return property.getRentalPrice();
     }
 
+    public Property getProperty() {
+        return property;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(" Phone: ")
+                .append(getPhone())
+                .append(" Email: ")
+                .append(getEmail())
+                .append(" Remark: ")
+                .append(getRemark())
+                .append(" Address: ")
+                .append(getAddress())
+                .append(" Rental Price: ")
+                .append(getRentalPrice())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
+    }
+
 }

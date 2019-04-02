@@ -183,7 +183,7 @@ class JsonAdaptedPerson {
                 }
                 final Set<Tag> modelTags = new HashSet<>(personTags);
                 return new Seller(modelName, modelPhone, modelEmail, modelRemark,
-                        new Property("selling", modelAddress, modelSellingPrice, modelTags));
+                        new Property(Property.PROPERTY_TYPE_SELL, modelAddress, modelSellingPrice, modelTags));
             }
             case "landlord": {
                 if (address == null) {
@@ -210,7 +210,7 @@ class JsonAdaptedPerson {
                 }
                 final Set<Tag> modelTags = new HashSet<>(personTags);
                 return new Landlord(modelName, modelPhone, modelEmail, modelRemark,
-                        new Property("selling", modelAddress, modelRentalPrice, modelTags));
+                        new Property(Property.PROPERTY_TYPE_RENT, modelAddress, modelRentalPrice, modelTags));
             }
             case "tenant":
                 return new Tenant(modelName, modelPhone, modelEmail, modelRemark);

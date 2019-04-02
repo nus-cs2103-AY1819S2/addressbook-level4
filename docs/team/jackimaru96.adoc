@@ -1,10 +1,37 @@
+:profile-caption: :computer:
 = Jack Chen Yu Jie - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-[#img-ProfilePhoto]
-image:: ../images/jackimaru96.png
+[PROFILE]
+====
+--
+image::jackimaru96_pp.png[120,120,float="left",link=https://github.com/Jackimaru96]
+--
+This page aims to showcase my contributions to the project +
+*In-Credit-Ble* under module _CS2103T_. It consists of an overview of the project
+and also summary of my contributions to the User Guide and Developer Guide for the
+features I developed for the project
+
+[.float-group]
+--
+[.left]
+image::github_icon.png[65,90,float="left",link=https://github.com/]
+[.left]
+image::java.png[70,90,float="left",link=https://www.java.com/en/download/]
+[.left]
+image::junit5-logo.png[66,90,float="left" link=https://junit.org/junit5/]
+[.left]
+image::json.png[67,90, float="left" link=https://www.json.org/]
+[.left]
+image::travis.png[66,90,link=https://travis-ci.org/]
+--
+
+
+
+
+====
 
 == PROJECT: In-Credit-Ble (Finance Tracker)
 
@@ -85,8 +112,10 @@ https://github.com/nus-cs2103-AY1819S2/forum/issues/59[59]
 
 == Contributions to the User Guide
 |===
-|_Listed below are sections of my contribution to the User Guide, showcasing my ability in documenting
- a user guide for end-users of our product._
+|_The next section will include my contribution to the User Guide. It will showcase my ability
+in documenting a reader-friendly User Guide that is aimed at the end-users of _In-Credit-Ble_.
+It is important to be able to write a user-friendly guide that will allow the users to quickly grasp
+how to use our application.
 |===
 
 include::../UserGuide.adoc[tag=quickstart]
@@ -97,10 +126,13 @@ include::../UserGuide.adoc[tag=theme]
 
 == Contributions to the Developer Guide
 |===
-|_Given below are sections I contributed to the Developer Guide, showcasing my ability to write technical documentation and the technical depth of my code contributions._
+|_The following section will include the sections of my contribution to the Developer Guide.
+It showcases my ability to write technical documentation and the technical depth of my code contributions.
+This is important as in real-world software engineering projects, we are expected to work in team and being able to
+document Developer Guide well will allow colleagues or other developers to understand what we have coded better._
 |===
 
-TO BE INCLUDED
+include::../DeveloperGuide.adoc[tag=categorybudget]
 
 
 

@@ -139,15 +139,16 @@ Each of the first three components do the following:
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[width="800"]
 
 The `Model` component consists of two components:
 
 *  `Album` which stores the pool of images that has been imported into the App.
 *  `CurrentEdit` which holds the image that the App is currently editing in-memory.
+
+For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+
+.Class Diagram of the Logic Component
+image::LogicClassDiagram.png[width="800"]
 
 [discrete]
 ==== How the architecture components interact with each other

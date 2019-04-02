@@ -64,6 +64,14 @@ public class CommandResult {
         return feedbackToUser.equals("Analytics generated!");
     }
 
+    public boolean isSuccessfulDisplayJob() {
+        return feedbackToUser.equals("Displaying job");
+    }
+
+    public boolean isList() {
+        return feedbackToUser.equals("Listed all persons");
+    }
+
     //remember to handle null later
     public Analytics getAnalytics() {
         return analytics;

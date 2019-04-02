@@ -184,7 +184,7 @@ Example:
 * `list-w`
 
 === Selecting an equipment or work list: `select`
-Selects the equipment or work list identified by the index number used in the displayed equipment list or displayed work list. The address of the equipment will be shown as marker on the map. +
+Selects the equipment or work list identified by the index number used in the displayed equipment list or displayed work list. The address of the equipment will be shown as marker on the map. The details of the equipment will be shown together with the map in split window format, means top half the screen will be showing the details, and the bottom half of the screen will be showing the map. +
 Format: `select INDEX`
 
 * Selects the equipment and loads the equipment at the specified INDEX. +

@@ -1,7 +1,5 @@
 package seedu.address.commons.core.index;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 /**
  * Represents a zero-based or one-based index.
  *
@@ -11,8 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * convert it back to an int if the index will not be passed to a different component again.
  */
 public class Index {
-    private final Integer zeroBasedIndex;
-    private static AtomicInteger nextPid = new AtomicInteger();
+    private int zeroBasedIndex;
 
     /**
      * Index can only be created by calling {@link Index#fromZeroBased(int)} or

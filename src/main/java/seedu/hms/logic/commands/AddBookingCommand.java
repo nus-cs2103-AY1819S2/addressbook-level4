@@ -11,6 +11,8 @@ import seedu.hms.logic.CommandHistory;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.model.BookingModel;
 import seedu.hms.model.booking.Booking;
+import seedu.hms.model.booking.exceptions.ServiceFullException;
+import seedu.hms.model.booking.exceptions.ServiceUnavailableException;
 
 /**
  * Adds a booking to the hms book.
@@ -20,7 +22,7 @@ public class AddBookingCommand extends BookingCommand {
     public static final String COMMAND_ALIAS = "ab";
     public static final String COMMAND_WORD = "add-booking";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a booking to the hotel management system. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a booking to the hotel management system.\n"
         + "Parameters: "
         + PREFIX_SERVICE + "SERVICE NAME "
         + PREFIX_TIMING + "TIMING(HH - HH in 24 hour format) "
@@ -51,7 +53,13 @@ public class AddBookingCommand extends BookingCommand {
     @Override
     public CommandResult execute(BookingModel model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        model.addBooking(toAdd);
+        try {
+            model.addBooking(toAdd);
+        } catch (ServiceUnavailableException e) {
+            return new CommandResult(MESSAGE_SERVICE_UNAVAILABLE);
+        } catch (ServiceFullException e) {
+            return new CommandResult(MESSAGE_SERVICE_FULL);
+        }
         model.commitHotelManagementSystem();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

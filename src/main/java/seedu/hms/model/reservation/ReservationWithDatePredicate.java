@@ -15,8 +15,8 @@ public class ReservationWithDatePredicate implements Predicate<Reservation> {
     }
 
     @Override
-    public boolean test(Reservation reservation) {
-        return reservation.getDates().withinDates(dateRange);
+    public boolean test(Reservation booking) {
+        return booking.getDates().withinDates(dateRange);
     }
 
     @Override

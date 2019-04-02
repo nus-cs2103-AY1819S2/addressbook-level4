@@ -127,20 +127,19 @@ public class Customer {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
+        System.out.println(getDateOfBirth());
         builder.append(getName())
             .append(" Phone: ")
             .append(getPhone())
-            .append(" Date of Birth: ")
-            .append(getDateOfBirth())
             .append(" Email: ")
             .append(getEmail())
-            .append(" ID num: ")
+            .append(" ID Num: ")
             .append(getIdNum())
-            .append(" Address: ")
+            .append(!getDateOfBirth().toString().equals("") ? " Date of Birth: " : "")
+            .append(getDateOfBirth())
+            .append(!getAddress().toString().equals("") ? " Address: " : "")
             .append(getAddress())
-            .append(" VIP Status: ")
-            .append(isVip())
-            .append(" Tags: ");
+            .append(!getTags().isEmpty() ? " Tags: " : "");
         getTags().forEach(builder::append);
         return builder.toString();
     }

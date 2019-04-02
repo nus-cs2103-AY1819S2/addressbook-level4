@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.hms.model.customer.Customer;
 import seedu.hms.model.reservation.exceptions.ReservationNotFoundException;
 import seedu.hms.model.reservation.exceptions.RoomFullException;
 import seedu.hms.model.util.DateRange;
@@ -91,6 +92,45 @@ public class ReservationList implements Iterable<Reservation> {
             throw new ReservationNotFoundException();
         }
         internalList.remove(toRemove);
+    }
+
+    /**
+     * Removes the equivalent reservation from the list.
+     * The reservation must exist in the list.
+     */
+    public void remove(Reservation toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new ReservationNotFoundException();
+        }
+    }
+
+    /**
+     * Removes bookings with payer as customer and removes customer from other associated bookings
+     * @param key
+     */
+    public void removeCustomer(Customer key) {
+        List<Reservation> reservationsToRemove = new ArrayList<>();
+        for (int i = 0; i < internalList.size(); i++) {
+            Reservation r = internalList.get(i);
+            if (r.getPayer().equals(key)) {
+                reservationsToRemove.add(r);
+            }
+            if (r.isCustomerInOtherUsers(key)) {
+                r.getOtherUsers().ifPresent(l -> l.remove(key));
+                this.setReservation(i, new Reservation(r.getRoom(), r.getDates(), r.getPayer(),
+                    r.getOtherUsers(), r.getComment()));
+            }
+        }
+        internalList.removeAll(reservationsToRemove);
+    }
+
+    /**
+     * Removes {@code reservation} from this {@code HotelManagementSystem}.
+     * {@code reservation} must exist in the hms book.
+     */
+    public void removeAllReservations(List<Reservation> reservations) {
+        internalList.removeAll(reservations);
     }
 
     public void setReservations(ReservationList replacement) {

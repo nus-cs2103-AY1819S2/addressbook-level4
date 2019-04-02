@@ -16,6 +16,7 @@ import seedu.hms.commons.core.index.Index;
 import seedu.hms.commons.util.CollectionUtil;
 import seedu.hms.logic.CommandHistory;
 import seedu.hms.logic.commands.exceptions.CommandException;
+import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.ReservationModel;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.reservation.Reservation;
@@ -32,12 +33,12 @@ public class EditReservationCommand extends ReservationCommand {
     public static final String COMMAND_ALIAS = "er";
     public static final String COMMAND_WORD = "edit-reservation";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a reservation to the hotel management system. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a reservation to the hotel management system.\n"
         + "Parameters: RESERVATION INDEX (to edit) "
-        + "[" + PREFIX_ROOM + "ROOM TYPE] "
-        + "[" + PREFIX_DATES + "DATES(DD/MM/YYYY - DD/MM/YYYY)] "
-        + "[" + PREFIX_PAYER + "PAYER INDEX]"
-        + "[" + PREFIX_CUSTOMERS + "CUSTOMER INDEX(s)]... "
+        + "[" + PREFIX_ROOM + "ROOM NAME "
+        + "[" + PREFIX_DATES + "DATES(DD/MM/YY - DD/MM/YY)] "
+        + "[" + PREFIX_PAYER + "PAYER INDEX]\n"
+        + "[" + PREFIX_CUSTOMERS + "CUSTOMER INDEX(s)...] "
         + "[" + PREFIX_COMMENT + "COMMENT]\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_ROOM + "GYM "
@@ -143,7 +144,8 @@ public class EditReservationCommand extends ReservationCommand {
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditReservationDescriptor(EditReservationCommand.EditReservationDescriptor toCopy) {
+        public EditReservationDescriptor(EditReservationCommand.EditReservationDescriptor toCopy)
+            throws ParseException {
             setRoomType(toCopy.roomType);
             setDates(toCopy.dates);
             setPayer(toCopy.payer);

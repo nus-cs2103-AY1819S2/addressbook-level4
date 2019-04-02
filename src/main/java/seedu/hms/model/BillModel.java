@@ -1,10 +1,8 @@
 package seedu.hms.model;
 
-import java.util.HashMap;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import javafx.util.Pair;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.RoomType;
@@ -56,14 +54,4 @@ public interface BillModel extends Model {
      */
     void updateFilteredReservationList(Predicate<Reservation> predicate);
 
-    /**
-     * Returns a HashMap that contains the entire booking bill for selected customer
-     */
-    HashMap<String, Pair<Double, Integer>> generateHashMapForBooking(ObservableList<Booking> bookingObservableList);
-
-    /**
-     * Returns a HashMap that contains the entire reservation bill for selected customer
-     */
-    HashMap<String, Pair<Double, Long>> generateHashMapForReservation(ObservableList<Reservation>
-                                                                             reservationObservableList);
 }

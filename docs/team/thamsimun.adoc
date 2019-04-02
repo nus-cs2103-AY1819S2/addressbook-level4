@@ -24,7 +24,7 @@ This section provides a summary of my coding, documentation and other contributi
 
 ** What it does: It parses the arguments specified by user, validate the filter commands and apply the filter on a targetted image. Users can key in commands such as `contrast`, `brightness` and `bw` to apply the filters.
 
-** Justification: This feature improves the product significantly because applying filters on images is one of the main feature of our image-editing product, FomoFoto. Users might need to adjust the brightness and contrast of an image as the image they have might be under-exposed and is not well contrasted. The black and white filter is useful for users who like vintage images. 
+** Justification: This feature improves the product significantly because applying filters on images is one of the main feature of our image-editing product, FomoFoto. Users might need to adjust the brightness and contrast of an image as the image they have might be under-exposed and is not well contrasted. The black and white filter is useful for users who like vintage images.
 
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation was challenging as it required changes to existing commands. Furthermore, it required the gradle script to declare a compile-time dependency on an external API that provides images editing tools.footnote:[Gradle is an open-source build automation tool that is designed to be flexible enough to build almost any type of software.]
 

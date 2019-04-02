@@ -24,7 +24,7 @@ public class ActivityAddMemberCommandParser implements Parser<ActivityAddMemberC
 
         try {
             Index index = ParserUtil.parseIndex(splitArgs[0]);
-            MatricNumber matricNumber = new MatricNumber(splitArgs[1]);
+            MatricNumber matricNumber = ParserUtil.parseMatricNumber(splitArgs[1]);
             return new ActivityAddMemberCommand(index, matricNumber);
         } catch (ParseException pe) {
             throw new ParseException(

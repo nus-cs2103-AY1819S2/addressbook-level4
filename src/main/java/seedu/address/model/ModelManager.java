@@ -146,6 +146,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setReview(Review target, Review editedReview) {
+        requireAllNonNull(target, editedReview);
+        versionedBookShelf.setReview(target, editedReview);
+    }
+
+    @Override
     public void deleteTag(Tag tag) {
         versionedBookShelf.removeTag(tag);
     }

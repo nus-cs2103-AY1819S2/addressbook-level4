@@ -23,6 +23,8 @@ import seedu.address.model.book.Author;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.BookName;
 import seedu.address.model.book.Rating;
+import seedu.address.model.book.Review;
+import seedu.address.model.book.ReviewBookNameContainsExactKeywordsPredicate;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -77,6 +79,23 @@ public class EditBookCommand extends Command {
 
         if (!bookToEdit.isSameBook(editBookedBook) && model.hasBook(editBookedBook)) {
             throw new CommandException(MESSAGE_DUPLICATE_BOOK);
+        }
+
+        if (!bookToEdit.getBookName().equals(editBookedBook.getBookName())) {
+            ReviewBookNameContainsExactKeywordsPredicate predicate =
+                    new ReviewBookNameContainsExactKeywordsPredicate(bookToEdit.getBookName());
+            model.updateFilteredReviewList(predicate);
+            List<Review> reviewsToEdit = model.getFilteredReviewList();
+            Review reviewToEdit;
+            Review editedReview;
+            while (!reviewsToEdit.isEmpty()) {
+                reviewToEdit = reviewsToEdit.get(0);
+                editedReview = new Review(reviewToEdit.getTitle(), editBookedBook.getBookName(),
+                        reviewToEdit.getDateCreated(), reviewToEdit.getReviewMessage());
+                model.setReview(reviewToEdit, editedReview);
+                model.updateFilteredReviewList(predicate);
+                reviewsToEdit = model.getFilteredReviewList();
+            }
         }
 
         model.setBook(bookToEdit, editBookedBook);

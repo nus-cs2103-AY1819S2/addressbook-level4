@@ -42,9 +42,17 @@ public class SampleDataUtil {
     public static Review[] getSampleReviews() {
         return new Review[] {
             new Review(new ReviewTitle("A Childhood Favorite"), new BookName("Green Eggs and Ham"),
-                "This is my favorite book when I was a kid. Read it again with my younger brother. "),
+                    "This is my favorite book when I was a kid. Read it again with my younger brother. "),
             new Review(new ReviewTitle("Magical Realism"), new BookName("One Hundred Years of Solitude"),
-                    "One of the best books I've ever read. ")
+                    "One of the best books I've ever read. "),
+            new Review(new ReviewTitle("Desperate Housewife"), new BookName("Madame Bovary"),
+                    "Poor Emma Bovary. She will never escape the tyranny of her desires, never avoid the "
+                            + "anguish into which her romantic conceits deliver her, never claim the oblivion she "
+                            + "sought from what is perhaps the most excruciating slow suicide ever written."),
+            new Review(new ReviewTitle("Belief Systems"), new BookName("Pride and Prejudice"),
+                    "Most of the characters believe that nothing matters more than social class. Characters "
+                            + "threaten, criticize, ostracize, flatter, marry, venerate and despise other characters, "
+                            + "all for the sake of maintaining or elevating their status in society."),
         };
     }
 

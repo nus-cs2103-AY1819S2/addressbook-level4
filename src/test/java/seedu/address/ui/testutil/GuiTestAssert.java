@@ -57,6 +57,10 @@ public class GuiTestAssert {
      */
     public static void assertListMatching(ListPanelHandle listPanelHandle,
                                           List<? extends ListItem> listItems) {
+        if (listItems.size() == 0) {
+            return;
+        }
+
         ListItem firstItem = listItems.get(0);
         if (firstItem instanceof Deck) {
             ArrayList<Deck> deckList = new ArrayList<>();
@@ -64,6 +68,13 @@ public class GuiTestAssert {
                 deckList.add((Deck) item);
             }
             assertDeckListMatching(listPanelHandle, deckList);
+        } else if (firstItem instanceof Card) {
+            ArrayList<Card> cardList = new ArrayList<>();
+            for (ListItem item : listItems) {
+                cardList.add((Card) item);
+            }
+
+            assertCardListMatching(listPanelHandle, cardList);
         }
     }
 
@@ -81,11 +92,29 @@ public class GuiTestAssert {
      */
     public static void assertDeckListMatching(ListPanelHandle listPanelHandle, Deck... decks) {
         for (int i = 0; i < decks.length; i++) {
-            listPanelHandle.navigateToDeck(i);
+            listPanelHandle.navigateToItem(i);
             assertCardDisplaysDeckObject(decks[i], listPanelHandle.getDeckDisplayHandle(i));
         }
     }
 
+    /**
+     * Asserts that the list in {@code listPanelHandle} displays the details of {@code cards} correctly and
+     * in the correct order.
+     */
+    public static void assertCardListMatching(ListPanelHandle listPanelHandle, List<Card> cards) {
+        assertCardListMatching(listPanelHandle, cards.toArray(new Card[0]));
+    }
+
+    /**
+     * Asserts that the list in {@code listPanelHandle} displays the details of {@code cards} correctly and
+     * in the correct order.
+     */
+    public static void assertCardListMatching(ListPanelHandle listPanelHandle, Card... cards) {
+        for (int i = 0; i < cards.length; i++) {
+            listPanelHandle.navigateToItem(i);
+            assertCardDisplaysCardObject(cards[i], listPanelHandle.getCardDisplayHandle(i));
+        }
+    }
 
     /**
      * Asserts the size of the list in {@code listPanelHandle} equals to {@code size}.

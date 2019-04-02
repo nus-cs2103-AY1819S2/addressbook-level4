@@ -26,6 +26,9 @@ import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CardsView;
+import seedu.address.logic.DecksView;
+import seedu.address.logic.ViewState;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -149,7 +152,7 @@ public abstract class TopDeckSystemTest {
      */
     protected void selectDeck(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getDeckListPanel().getSelectedDeckIndex());
+        assertEquals(index.getZeroBased(), getDeckListPanel().getSelectedItemIndex());
     }
 
     /**
@@ -171,7 +174,12 @@ public abstract class TopDeckSystemTest {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new TopDeck(expectedModel.getTopDeck()), testApp.readStorageTopDeck());
-        assertListMatching(getDeckListPanel(), expectedModel.getFilteredList());
+        ViewState state = expectedModel.getViewState();
+        if (state instanceof DecksView) {
+            assertListMatching(getDeckListPanel(), expectedModel.getFilteredList());
+        } else if (state instanceof CardsView) {
+            assertListMatching(getCardListPanel(), expectedModel.getFilteredList());
+        }
     }
 
     /**
@@ -199,10 +207,10 @@ public abstract class TopDeckSystemTest {
      * @see ListPanelHandle#isSelectedDeckDisplayChanged()
      */
     protected void assertSelectedDeckChanged(Index expectedSelectedDeckIndex) {
-        getDeckListPanel().navigateToDeck(getDeckListPanel().getSelectedDeckIndex());
+        getDeckListPanel().navigateToItem(getDeckListPanel().getSelectedItemIndex());
         String selectedDeckName = getDeckListPanel().getHandleToSelectedDeck().getName();
 
-        assertEquals(expectedSelectedDeckIndex.getZeroBased(), getDeckListPanel().getSelectedDeckIndex());
+        assertEquals(expectedSelectedDeckIndex.getZeroBased(), getDeckListPanel().getSelectedItemIndex());
     }
 
     /**

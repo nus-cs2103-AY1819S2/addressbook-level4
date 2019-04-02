@@ -16,6 +16,7 @@ endif::[]
 
 By: `Team T12-3`      Since: `Feb 2019`      Licence: `MIT`
 
+// tag::introduction[]
 == Introduction
 
 Welcome to the _MediTabs User Guide_! Over here, you can find step by step instructions on setting up MediTabs and learn ways to take advantage features provided to optimise your clinic's inventory management flow. Interested? You can jump to  <<Quick Start>> to get started. Enjoy!
@@ -29,6 +30,7 @@ MediTabs supports Windows, Linux and MacOS operating systems.
 === Who is it for?
 
 If you are looking for a medicine stock taking application for clinics, MediTabs is the product you are looking for. Whether you are an owner of a clinic or a pharmacist in charge of your clinic's medicine inventory, you can use MediTabs to help improve your workflow. It is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, MediTabs can get your medicine stock taking done faster than traditional GUI apps.
+// end::introduction[]
 
 == Quick Start
 
@@ -102,9 +104,22 @@ On top of that, the panel features flexible thresholds to determine what is expi
 
 You can learn about related commands related in <<WarningPanel>>.
 
+// tag::exportingascsvfileformat[]
+=== Exporting as CSV file format
+
+You can export the current medicine inventory data shown in the GUI as Comma-separated values (CSV) file format which is supported by many commonly used spreadsheet applications such as Microsoft Excel (Windows), LibreOffice (Linux) or Numbers (MacOS).
+
+*Motivation* +
+This feature is especially useful if you want to save the current medicine inventory data shown in the GUI in a file so that it can be printed later or if you want to organise the medicine inventory data using a spreadsheet application for you, your superior or your supplier's reference.
+
+In addition, you can even use the spreadsheet application to convert the CSV file to Microsoft Excel format and use all the functionalities provided by Microsoft Excel such as drawing graphs or chart to display the overview of your clinic's medicine inventory.
+
+You can use the `export` command to take advantage of this feature. You can learn more about how to use the `export` command <<ExportCommand, here>>.
+// end::exportingascsvfileformat[]
+
 === Coming in v2.0
 
-The team is constantly working to improve your user experience. Here are some features to look forward to in our next release.
+Our team is constantly working to improve your user experience. Here are some features to look forward to in our next release.
 
 ==== Suggested medicine names
 
@@ -115,6 +130,7 @@ When typing fields that include medicine name, a list of suggested medicine name
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows to select from the generated list of suggestions.
 ====
 
+// tag::integrationaddon[]
 ==== Integration Addon Support
 
 You can download and install integration addons created for MediTabs such as addons which allows MediTabs to integrate with different third party services which your clinic might currently be using. +
@@ -134,10 +150,13 @@ An example of an integration addon which would be supported by MediTabs:
 
 [NOTE]
 This feature could be further expanded to support medical databases of different countries.
+// end::integrationaddon[]
 
+// tag::dataencryption[]
 ==== Encrypting data files
 
 Due to the nature of medical inventories, the integrity of data stored is of utmost importance. The next release will feature data encryption to keep your inventory safe and keep unauthorised users away. With this feature, you will be required to log in with a password to view and edit your inventory. This feature can be disabled if it is not required for your needs.
+// end::dataencryption[]
 
 [[Commands]]
 == Commands
@@ -308,13 +327,11 @@ Medicines with quanities of less than or equal to 20 will be displayed in the wa
 * `warning show` +
 Current thresholds used for the warning panel will be shown.
 
+// tag::exportcommand[]
+[[ExportCommand]]
 === Exporting as CSV file format : `export`
 
-You can export the current medicine inventory data shown in the GUI as Comma-separated values (CSV) file format which is supported by many commonly used spreadsheet applications such as Microsoft Excel (Windows), LibreOffice (Linux) or Numbers (MacOS).
-
-This feature is especially useful if you want to save the current medicine inventory data shown in the GUI in a file so that it can be printed later or if you want to organise the medicine inventory data using a spreadsheet application for you, your superior or your supplier's reference.
-
-In addition, you can even use the spreadsheet application to convert the CSV file to Microsoft Excel format and use all the functionalities provided by Microsoft Excel such as drawing graphs or chart to display the overview of your clinic's medicine inventory. +
+Exports the current medicine inventory data shown in the GUI as CSV file format. +
 Format: `export [FILE_NAME]`
 
 ****
@@ -345,6 +362,7 @@ From the image above, you can observe that different batches of the same medicin
 
 [IMPORTANT]
 You would observe that medicines without any batches are not included in the exported CSV file though they might be present in the current medicine inventory data shown in the GUI. This is by design, as our team believes that the exported CSV file should provide *useful detailed information*. Medicines without any batches would not have any useful information such as the quantity and expiry dates which are important when it comes to keeping track of your medicine inventory.
+// end::exportcommand[]
 
 === Printing labels : `label`
 
@@ -460,6 +478,7 @@ Format: `exit`
 Inventory data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+// tag::FAQ[]
 == Frequently Asked Questions (FAQ)
 
 *Q*: Where can I find Java version `9`? +
@@ -476,6 +495,7 @@ We recommend following the steps below to solve this issue:
 
 [NOTE]
 If you encounter any problems running `jarfix.exe`, you can read the documentation available on the link:https://johann.loefflmann.net/en/software/jarfix/[website] for more detailed instructions on how to run the program on your computer.
+// end::FAQ[]
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous MediTabs folder.
@@ -514,6 +534,7 @@ e.g. `warning e/20 s/10`
 * *Inventory:* This refers to the storage containing all medicines that have been added. Display all medicines in the inventory by using the `list` command.
 * *Batch:* This refers to medicine with the same name, medical properties and manufacturing date. There may be more than one batch of medicine with the same name, but they will have different batch numbers and manufacturing dates. View all batches of a medicine by using the `select` command.
 
+// tag::filenamingconvention[]
 == Appendix A: File Naming Convention
 
 MediTabs uses the following file naming convention when file name field is used e.g. The `export` command's optional `[FILE_NAME]` field. The file naming convention is to ensure consistency and to avoid potential bugs involving file names with different operating systems such as Windows, Linux and MacOS +
@@ -543,4 +564,5 @@ Examples of correct and incorrect file names:
 You must follow the file naming convention format when specifying the file name field for any commands that support file name as a field.
 
 [CAUTION]
-The characters of the file name cannot contain any spacing or symbols, including but not limited to, `\/:*?"<>|.+[]{};!@#$%^&~`` Reserved names, indicated in Windows documentation, are also *not allowed* to be used as file names such as `COM1` and `LPT8`. You can read more about file naming conventions in Windows link:https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#naming-conventions[here].
+The characters of the file name cannot contain any spacing or symbols, including but not limited to, `\/:*?"<>|.+[]{};!@#$%^&~`` Reserved names, indicated in Windows documentation, are also *not allowed* to be used as file names such as `COM1` and `LPT8`. The reserved names are *case insensitive* for example, `com1` or `CoM1` are also reserved names. You can read more about file naming conventions in Windows link:https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#naming-conventions[here].
+// end::filenamingconvention[]

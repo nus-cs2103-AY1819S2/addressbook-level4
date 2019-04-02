@@ -89,8 +89,7 @@ public class GradTrak implements ReadOnlyGradTrak {
     //// moduleTaken-level operations
 
     /**
-     * Returns true if a moduleTaken with the same identity as {@code ModuleTaken} exists in the
-     * GradTrak.
+     * Returns true if a {@code ModuleTaken} in GradTrak has the same identity as the given {@code ModuleTaken}.
      */
     public boolean hasModuleTaken(ModuleTaken moduleTaken) {
         requireNonNull(moduleTaken);
@@ -168,40 +167,18 @@ public class GradTrak implements ReadOnlyGradTrak {
     }
 
     /**
-     * Returns a {@code List} of {@code ModuleInfoCode} representing passed {@code ModuleTaken}.
+     * Returns a {@code List} of {@code ModuleInfoCode} representing non-failed {@code ModuleTaken}.
+     * @return a {@code List} of {@code ModuleInfoCode} representing non-failed {@code ModuleTaken}.
      */
-    public List<ModuleInfoCode> getPassedModuleList() {
+    public List<ModuleInfoCode> getNonFailedCodeList() {
         List<ModuleInfoCode> codeList = new ArrayList<>();
-
         for (ModuleTaken moduleTaken : getModulesTakenList()) {
-            if (moduleTaken.isPassed(currentSemester)) {
+            if (!moduleTaken.isFailed(currentSemester)) {
                 codeList.add(moduleTaken.getModuleInfoCode());
             }
         }
 
         return codeList;
-    }
-
-    /**
-     * Returns true if the module represented by the given {@code ModuleInfoCode} has been passed.
-     */
-    public boolean hasPassedModule(ModuleInfoCode moduleInfoCode) {
-        return getPassedModuleList().contains(moduleInfoCode);
-    }
-
-    /**
-     * Returns true if {@code modulesTaken} contains an unfinished {@code ModuleTaken}
-     * represented by the given {@code ModuleInfoCode}.
-     */
-    public boolean hasUnfinishedModule(ModuleInfoCode moduleInfoCode) {
-        requireNonNull(moduleInfoCode);
-        for (ModuleTaken moduleTaken : getModulesTakenList()) {
-            if (moduleTaken.getModuleInfoCode().equals(moduleInfoCode)) {
-                return !moduleTaken.isFinished(currentSemester);
-            }
-        }
-
-        return false;
     }
 
     @Override

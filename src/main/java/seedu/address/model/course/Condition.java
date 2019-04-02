@@ -135,6 +135,10 @@ public class Condition {
             .filter(regex -> moduleInfoCodes.stream()
             .noneMatch(moduleInfoCode -> moduleInfoCode.toString().matches(regex)))
             .forEach(regex -> unsatisfiedRegexes.add(regex));
+
+        if (!isSatisfied(moduleInfoCodes) && regexes.size() == 1) { // temp fix for UE
+            unsatisfiedRegexes.add(regexes.get(0));
+        }
         return unsatisfiedRegexes;
     }
 

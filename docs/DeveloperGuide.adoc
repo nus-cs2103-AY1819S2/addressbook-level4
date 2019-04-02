@@ -387,7 +387,7 @@ For example, 2 correct attempts and 4 total attempts becomes 0.5. When instantia
 ==== Current Implementation
 The Import and Export feature is facilitated by the Logic and model components, together
 with the addition of 2 new classes inside the csvmanager package defined under
-the storage component.
+the storage package.
 
 [discrete]
 ===== Logic

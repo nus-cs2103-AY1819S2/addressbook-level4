@@ -84,10 +84,6 @@ include::../UserGuide.adoc[tag=aboutug]
 
 include::../UserGuide.adoc[tag=quickstart]
 
-include::../UserGuide.adoc[tag=features]
-
-include::../UserGuide.adoc[tag=faq]
-
 include::../UserGuide.adoc[tag=glossary]
 
 include::../UserGuide.adoc[tag=commandsummary]

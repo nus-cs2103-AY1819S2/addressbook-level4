@@ -180,13 +180,6 @@ Format: `list`
 * This command is implicitly invoked upon entering a folder, and can be used to reset the view after search or sort.
 ====
 
-==== Search by keywords : `search`
-
-You can search for flashcards inside the current folder using keywords in flashcard questions.
-
-Format: `search KEYWORDS [MORE_KEYWORDS]`
-
-
 // tag::undoredo[]
 ==== Undoing previous command : `undo`
 
@@ -334,23 +327,6 @@ Enters the second folder in the folder list on the home directory.
 This feature will enable users to join multiple folders together, reducing the number of folders and grouping two topics.
 
 Format: `merge FOLDER_INDEX_1 FOLDER_INDEX_1 NEW_FOLDER_NAME`
-
-==== Import flashcards : `import`
-
-Searches for a csv file in the root project directory and parses the file to generate a flashcard folder.
-
-NOTE: The csv file imported should follow the format below
-
-
-
-Format: `import FILENAME`
-
-==== Export flashcards : `export`
-
-Creates a csv file containing the flashcards from the specified folder, which can later be imported.
-Exported card folder will be created in the project root directory.
-
-Format: `export FOLDER_INDEX FILENAME [MORE_INDEXES]`
 
 //end::folderoperations[]
 

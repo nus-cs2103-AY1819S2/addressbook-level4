@@ -26,13 +26,29 @@ public class ReminderManager {
     }
 
     /**
-     * Adds a {@code Reminder} to the list of reminders.
+     * Adds a {@code Reminder} to the ordered list of reminders, in the correct position.
      *
-     * @param reminder the {@code Reminder} to be added.
+     * @param toAdd the {@code Reminder} to be added.
      */
-    public void addReminder(Reminder reminder) {
-        reminders.add(reminder);
-        internalList.add(reminder);
+    public void addReminder(Reminder toAdd) {
+        if (reminders.isEmpty()) {
+            reminders.add(toAdd);
+            internalList.add(toAdd);
+            return;
+        }
+
+        for (Reminder rem : reminders) {
+            if (rem.compareTo(toAdd) > 0) {
+                int index = reminders.indexOf(rem);
+                reminders.add(index, toAdd);
+                internalList.add(index, toAdd);
+                return;
+            }
+        }
+
+        // toAdd is to be placed at the end of the list
+        reminders.add(toAdd);
+        internalList.add(toAdd);
     }
 
     public boolean hasDuplicateReminder(Reminder rem) {

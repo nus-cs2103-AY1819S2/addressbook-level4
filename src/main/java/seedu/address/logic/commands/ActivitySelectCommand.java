@@ -37,7 +37,7 @@ public class ActivitySelectCommand extends ActivityCommand {
         List<Activity> filteredActivityList = model.getFilteredActivityList();
 
         if (targetIndex.getZeroBased() >= filteredActivityList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
 
         model.setSelectedActivity(filteredActivityList.get(targetIndex.getZeroBased()));

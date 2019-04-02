@@ -21,10 +21,16 @@ Role: Project Advisor
 
 === Rachel Tan Xue Qi
 image::e0191632.png[width="150", align="left"]
-{empty}[https://github.com/e0191632[github]]
+{empty}[https://github.com/e0191632[github]] [https://github.com/CS2103-AY1819S2-W10-3/main/blob/master/docs/team/rachel.adoc[portfolio]]
 
 Role: Developer +
-Responsibilities: In-progress
+Responsibilities: 
+
+* UX Enhancement
+* UI
+* Count Client's Equipment
+* Commands
+* Documentation
 
 '''
 

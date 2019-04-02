@@ -233,6 +233,7 @@ Example:
 === Sort the list: `sort`
 Sort the current shown list.
 Format: `sort [FIELD_NAME to be sorted by]`
+
 The user can sort the current shown list with any valid field.
 
 The sort parameters are case-insensitive.

@@ -18,6 +18,7 @@ endif::[]
 
 By: `Team W10-3`      Since: `Feb 2019`      Licence: `MIT`
 
+//tag:introduction[]
 == Introduction
 Welcome to the Developer Guide for *Equipment Manager*!
 
@@ -30,7 +31,7 @@ Objectives of the application include:
 * Displaying location of equipment in Google Maps.
 
 * Planning the most efficient route to take for visiting multiple locations.
-
+//end:introduction[]
 
 == Setting up
 
@@ -111,6 +112,7 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
+//tag::design[]
 == Design
 
 [[Design-Architecture]]
@@ -237,6 +239,7 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the *Equipment Manager* data in json format and read it back.
+//end::design[]
 
 [[Design-Commons]]
 === Common classes
@@ -247,6 +250,7 @@ Classes used by multiple components are in the `seedu.equipment.commons` package
 
 This section describes some noteworthy details on how certain features are implemented.
 
+//tag::filter[]
 === Filter feature
 
 ==== Introduction
@@ -356,8 +360,6 @@ Output: The list is sorted in alphabetical order.
 
 Output: The list is sorted in ascending order.
 
-
-
 ==== Design Considerations
 *Implementation of `SortCommand`*
 
@@ -367,6 +369,7 @@ Output: The list is sorted in ascending order.
 * **Alternative 2:** Sort by client name
 ** Pros: Overall list is sorted fully by client name
 ** Cons: Unable to sort other specific fields such as serial number of the equipment.
+// end::sort[]
 
 // tag::display[]
 === Display feature
@@ -400,6 +403,7 @@ Step 5. The webpage receive the coordinates in parameter form. It will first par
 * **Alternative 2:** Use third party JavaFX map libraries.
 ** Pros: No unexpected behaviors, and more consistant running on different platforms.
 ** Cons: Harder to implement, less flexibility, and limit to extendsions.
+// end::display[]
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -713,6 +717,7 @@ A project often depends on third-party libraries. For example, Address Book depe
 
 *Value proposition*: help plan an efficient route for busy engineers to multiple locations and also carrying preventive maintance on multiple equipments in a day.
 
+//tag:userstories[]
 [appendix]
 == User Stories
 
@@ -784,6 +789,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 
 _{More to be added}_
+//end:userstories[]
 
 
 [appendix]
@@ -819,6 +825,7 @@ Use case resumes at step 2.
 
 _{More to be added}_
 
+//tag:: appendix[]
 [appendix]
 == Non Functional Requirements
 Non-functional requirements specify the constraints under which system is developed and operated.
@@ -854,6 +861,7 @@ If you do not understand a technical term used in this document, refer to [under
 |*User Interface (UI)*
 |Allows the user to interact with the application through inputs and outputs of data.
 |===
+//end:: appendix[]
 
 [appendix]
 == Instructions for Manual Testing
@@ -862,6 +870,7 @@ Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
 
 === Launch and Shutdown
 

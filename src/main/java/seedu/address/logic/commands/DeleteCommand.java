@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Region;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -68,6 +69,7 @@ public class DeleteCommand extends Command {
                     + "Choosing NO or closing this box will set the tasks to have no linked patient.",
                     ButtonType.YES, ButtonType.NO);
             alert.setHeaderText("Tasks linked to patient detect!");
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
             alert.showAndWait();
             for (Task task : linkedTasks) {

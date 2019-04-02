@@ -28,7 +28,7 @@ Responsibilities: Logic, git expert
 
 === Koh Wei Xin
 image::weixin-koh.png[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]]
+{empty}[http://github.com/weixin-koh[github]] [<<weixin-koh#, portfolio>>]
 
 Role: Restaurant Reviews +
 Responsibilities: UI, design

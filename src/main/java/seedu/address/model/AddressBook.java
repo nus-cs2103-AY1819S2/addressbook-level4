@@ -277,12 +277,6 @@ public class AddressBook implements ReadOnlyAddressBook {
                 ifIncluded = true;
             }
 
-            if (gpa != null) {
-                System.out.println("Gpa will be printed!");
-                System.out.println(Float.parseFloat(gpa));
-                System.out.println(Float.parseFloat(person.getGpa().toString()));
-            }
-
             if (gpa != null && Float.parseFloat(gpa) <= Float.parseFloat(person.getGpa().toString())) {
                 ifIncluded = true;
             }

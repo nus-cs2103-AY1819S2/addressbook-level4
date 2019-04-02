@@ -1,0 +1,57 @@
+= Ian Wu - Project Portfolio for Battleship
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Project: Battleship CLI
+
+Battleships CLI is a revival of the popular retro game Battleships, where two players try to destroy the opponent's fleets by shooting on a map grid. My team was presented with an existing codebase for a Command Line Interface (CLI) address book, which we decided to morph into the current Battleship CLI. While the user interacts with it using a CLI, the application has a Graphical User Interface (GUI) that was created using JavaFX. The codebase is also well-tested against a rigorous system of checks and tests to ensure that code quality is consistently high.
+
+My role in the team was to design and implement the `battleship` feature, which allows users to manage their battleships that have been deployed in the game.
+
+The following sections illustrate the feature in more detail, as well as the relevant sections I have added to the user and developer guides in relation to this feature.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the battleship feature of the game*
+** What it does: the player can deploy the battleships of different sizes on the map grid and tag the battleships. There are three types of battleships: aircraft carriers, destroyers, and cruisers. Each of them have a different length.
+** Justification: the battleship feature is crucial to the game, as it works together with the map grid to allow the human player and computer player to interact in a turn-taking game.
+** Highlights: [placeholder]
+** Credits: [placeholder]
+
+* *Code contributed*: Here are my [https://github.com/CS2103-AY1819S2-W14-3/main/commits/master?author=iwle[code commits]].
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` - `v1.4` (2 releases) on GitHub
+** Enhancements to existing features:
+*** Overhaul of UI to display the maps (Pull requests https://github.com[#33], https://github.com[#34])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+** Tools:
+*** Integrated Netlify to the project
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=map]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=map]
+
+---

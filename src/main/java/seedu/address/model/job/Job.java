@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -27,7 +28,7 @@ public class Job {
 
     // Data fields
     private ArrayList<UniquePersonList> personsHash = new ArrayList<> (NUMBER_OF_LISTS);
-    private Set<Set<Nric>> personsNricList = new Set<>(NUMBER_OF_LISTS);
+    private ArrayList<Set<Nric>> personsNricList = new ArrayList<>(NUMBER_OF_LISTS);
 
 
     /**
@@ -39,7 +40,7 @@ public class Job {
         this.name = name;
         for (int i = 0; i < 4; i++) {
             personsHash.add(new UniquePersonList());
-            personsNricList.add(new ArrayList<>());
+            personsNricList.add(new HashSet<>());
         }
     }
 
@@ -108,25 +109,6 @@ public class Job {
             names.add(peopleList.get(i).getName());
         }
         return names;
-    }
-
-    /**
-     * Returns an ArrayList of Person that can be edited but does not change the list in job directly
-     */
-    public final ArrayList<Person> getList(int listNumber) {
-        return personsNricList.get(listNumber);
-    }
-
-    /**
-     * Replaces a list of persons in Job
-     */
-    public final boolean replaceList(int listNumber, ArrayList<Person> personList) {
-        if (listNumber > 3) {
-            return false;
-        }
-        personsNricList.set(listNumber, personList);
-
-        return true;
     }
 
     /**

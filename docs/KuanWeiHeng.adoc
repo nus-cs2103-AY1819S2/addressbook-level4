@@ -1,0 +1,208 @@
+= Kuan Wei Heng - Project Portfolio for TopDeck
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+:experimental:
+endif::[]
+:repoURL: https://github.com/cs2103-ay1819s2-w11-1/main/tree/master
+
+== About the Project
+
+
+My team and I were tasked to with morphing a basic commandline interface addressbook for our
+so!ware engineering project. We decided to morph the application into a Flashcard management
+application called TopDeck TopDeck is a user-friendly tool that aims to help users better memorise any
+content that they desire. Users can use it to learn a language, remember a math formula or simply
+recall an answer to a question.
+
+One of the key features of our application is the simplicity that we would like
+to provide out user in terms of the commands and this meant that we had to implement states for
+different part of the application namely, a state for card management, decks management and
+one for studying the cards. I was in charge of implementing this states and decided to implement it
+using polymorphism.
+
+
+== Summary of Contributions
+
+This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
+
+**Enhancement added:** I modified the architecture of our software such that
+stateful interface is supported. I added the state management features in the application so that the
+same commands given by the user can be overloaded. For example, `add` can mean both
+adding a deck or a card depending on which state the app is currently in.
+
+Justification: A user should be able to execute simple commands easily instead of having
+to give a context to the application.
+
+
+**Code Contributed:** Please view our github page to see the code that I have contributed.
+
+**Other contributions**:
+
+* Project management:
+ - I ensured that members were on track and not falling behind.
+
+* Enhancements to existing features:
+ - I added the autocomplete feature to reduce typing needed for the "Edit Card" command.
+
+* Documentation:
+ - I made our documentation look better.
+
+* Community:
+ - I reviewed pull requests and gave comments on how my peers can improve the readability of their code.
+ - I contributed to discussions on how the UI should look like, and how lists should be stored internally.
+ - I put up issues and enhancements to keep our team on track.
+ - I gave our team a few tips on the git workflow.
+
+* Tools:
+
+
+== Contributions to User Guide
+
+== Quick Start
+
+To get started with TopDeck:
+
+.  Ensure you have Java version `9` or later installed in your Computer.
+.  Download the latest `topdeck.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for TopDeck.
+.  Double-click the file to start the app. The GUI should appear in a few seconds.
++
+image::Ui.png[width="790"]
++
+.  Type the command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+
+Once you have set up TopDeck, you can try these commands:
+
+* `add Capitals` : creates a new deck named "Capitals"
+* `delete 3` : deletes the third deck in the list
+* `exit` : exits the app
+
+You may refer to <<commands>> for details of each command.
+
+== User interface
+
+TopDeck's interface is seperated into three different views.
+By default, TopDeck starts in <<decksview,Decks View>>.
+
+=== Decks View [[decksview]]
+
+This view displays a list of the decks in your collection.
+In decks view, you can:
+
+- Create, edit and delete decks.
+- Open a deck to view its contents. TopDeck will enter <<cardsview,cards view>>.
+- Pick a deck to study. TopDeck will enter <<studyview,study view>>.
+
+=== Cards View [[cardsview]]
+
+This view displays the cards in a particular deck. In cards view, you can:
+
+- Create, edit and delete cards in the deck.
+- View your performance for specific cards.
+
+=== Study View [[studyview]]
+
+In this view you can study a deck of cards.
+
+- Test your knowledge of the cards in your chosen deck
+- Rate the difficulty of the cards.
+
+image::study_ug_diagrams/study_1.png[width="800"]
+
+
+== Commands [[commands]]
+
+====
+*Command Format*
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user. +
+  Example: In `add DECK_NAME`, `DECK_NAME` is a parameter which can be used as `add Spanish`.
+* Items in square brackets are optional. +
+  Example: `q/QUESTION a/ANSWER [t/TAG]` can be used as `q/China a/Beijing t/Asia` or as `q/China a/Beijing`.
+* Items with `…`​ after them can be used any number of times including zero. +
+  Example: `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Asia`, `t/trivia t/history` etc.
+* Parameters can be in any order. +
+  Example: If the command specifies `q/QUESTION a/ANSWER`, `q/QUESTION a/ANSWER` is also acceptable.
+====
+
+
+== Contributions to Developer Guide
+
+
+=== Stateful user interface
+==== Introduction
+
+TopDeck has a stateful user interface.
+This means that the set of valid commands and their respective functionality
+depend on the context of the application state.
+
+For example, the command word `add` is "overloaded" with two capabilities:
+
+1. In decks view, it adds a new deck: `add DECK_NAME`
+2. In cards view, it adds a new card to a particular deck: `add q/QUESTION a/ANSWER`
+
+It is the active state in TopDeck that resolves the actual command that is called.
+Also, TopDeck does not request information from the user that is already implicit in the state
+(e.g. the target deck in the second command).
+
+The reasons for choosing to implement a stateful user interface are manifold.
+Most importantly, it is necessary to support the implementation of study view which is stateful in nature.
+A stateful user interface is also preferable to end users since it
+requires less cognitive effort to operate by virtue of the fewer and shorter commands.
+
+However, implementing state in full generality required nontrivial modifications to the AB4 architecture.
+We will now describe how state is implemented in TopDeck.
+
+==== Current implementation
+
+States partition the functionalities that are exposed to users.
+Hence, it is natural to consider distinct views in the user interface as separate states.
+States in TopDeck correspond to the three possible views described in the user guide:
+decks view, cards view and study view.
+
+The following figure illustrates the transitions between these states.
+
+.State diagram for TopDeck
+image::state_diagram.png[]
+////
+[plantuml]
+....
+(*) --> "Decks view"
+"Decks view" -> [Open] "Cards view"
+"Cards view" --> [Close] "Decks view"
+"Decks view" --> [Study] "Study view"
+"Study view" -> [Finish study] "Decks view"
+....
+////
+
+Each state implements a common interface `ViewState`
+and holds transient data that is relevant only while the state is active.
+For example, `CardsView` has a member `activeDeck` which holds a reference to the deck opened in decks view.
+Commands in cards view such as `add` will then operate on this deck.
+
+`ModelManager` owns the sole instance of `ViewState`.
+Having only one instance of any state makes it trivial to enforce mutual exclusion.
+The `Model` is also responsible for executing state transitions.
+Each transition is exposed as a method in the `Model` API.
+For example, `Model#changeDeck(Deck deck)` implements the transition from decks view to cards view.
+As state entry is handled by the constructors of each state,
+the implementation of a transition is as simple as constructing a new state object.
+
+Technically, `Model#changeDeck(Deck deck)` can be called from any state, not just decks view.
+This is a consequence of the design of `Model`.
+The `Model` API is designed such that no state tracking is necessary.
+All methods are expected to work regardless of the current state.
+We assume that if a caller is capable of providing the required arguments to a method,
+the method call is valid and expected.
+This obviates the need for state-checking code in `ModelManager`.

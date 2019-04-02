@@ -595,7 +595,9 @@ The `Help` feature has to following syntax:
 
 `help`
 
-* Enter here
+After execution, the user will be directed to the start of the _UserGuide.adoc_ as shown.
+
+image::UserGuide.png[width="600"]
 
 [NOTE]
 Enter note here

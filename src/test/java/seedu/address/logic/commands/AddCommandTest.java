@@ -29,7 +29,6 @@ import seedu.address.model.analytics.Analytics;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.Assert;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {

@@ -148,6 +148,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Integer movePerson(JobName jobName, Nric nric, Integer source, Integer dest) {
+        return versionedAddressBook.movePerson(jobName, nric, source, dest);
+    }
+
+    @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 

@@ -272,6 +272,11 @@ public class CreateJobCommandTest {
         public UniquePersonList getJobList(JobName name, int listNumber) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Integer movePerson(JobName jobName, Nric nric, Integer source, Integer dest) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

@@ -46,9 +46,9 @@ public class UniqueWorkListListTest {
 
     @Test
     public void addEquipment_noSuchWorkListFound() {
+        thrown.expect(EquipmentNotFoundException.class);
         WorkListId noSuchId = new WorkListId("999");
         uniqueWorkListList.addEquipment(ANCHORVALECC, noSuchId);
-        thrown.expect(EquipmentNotFoundException.class);
     }
 
     @Test
@@ -56,7 +56,7 @@ public class UniqueWorkListListTest {
         uniqueWorkListList.add(LISTA);
         uniqueWorkListList.addEquipment(ANCHORVALECC, LISTA.getId());
         UniqueWorkListList expectedUniqueWorkListList = new UniqueWorkListList();
-        uniqueWorkListList.add(LISTA);
+        expectedUniqueWorkListList.add(LISTA);
         expectedUniqueWorkListList.addEquipment(ANCHORVALECC, LISTA.getId());
         assertEquals(expectedUniqueWorkListList, uniqueWorkListList);
     }

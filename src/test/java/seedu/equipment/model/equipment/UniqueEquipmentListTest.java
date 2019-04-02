@@ -46,8 +46,8 @@ public class UniqueEquipmentListTest {
 
     @Test
     public void getEquipment_notFound() {
-        uniqueEquipmentList.getEquipment(TECKGHEECC.getSerialNumber());
         thrown.expect(EquipmentNotFoundException.class);
+        uniqueEquipmentList.getEquipment(TECKGHEECC.getSerialNumber());
     }
 
     @Test

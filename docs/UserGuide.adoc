@@ -30,7 +30,7 @@ Follow the steps below to set up your computer to run FomoFoto.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 .Home Page of FomoFoto
-image::Ui.PNG[width="800"]
+image::Ui.png[width="800"]
 +
 .  And you have just started up FomoFoto on your device! You can refer to <<Features>> for details of each command. If you would like a step-by-step walk through of our application, scroll down to the next section: A Walk Through.
 
@@ -51,7 +51,7 @@ Let's start on our image editing journey. In this walk through, we will be demon
 .  Go back to the FomoFoto application. Import the image into FomoFoto by typing as follows:
 +
 .Import Command
-image::import.JPG[width="912"]
+image::import.PNG[width="912"]
 +
 .  Paste the file path by simultaneously pressing kbd:[Ctrl] and kbd:[V] keys.
 * In Windows: Remove the kbd:["] and kbd:["] signs at the two ends of the filepath.
@@ -59,26 +59,38 @@ image::import.JPG[width="912"]
 .  Ensure your final command looks similar to the figure below (filepath may differ):
 +
 .Import with Filepath
-image::importCommand.JPG[width="915"]
+image::importCommand.PNG[width="915"]
 +
 
-.  Press kbd:[Enter] to execute the import command. Your image should be now displayed on the FomoFoto application as shown in the figure below.
+.  Press kbd:[Enter] to execute the import command. Your image should be now displayed on the Album tab on the FomoFoto application as shown in the figure below.
 +
 .Import Success
-image::importSuccess.JPG[width="917"]
+image::importSuccess.PNG[width="917"]
 +
 
-. Increase the brightness of the image by typing the following command: `brightness 2.0`. This doubles the brightness of the image.
+.  Open the imported image in FomoFoto by typing as follows:
++
+.Open Command
+image::open.PNG[width="917"]
++
+
+.  Press kbd:[Enter] to execute the open command. Your image should be now displayed on the FomoFoto application as shown in the figure below.
++
+.Open Success
+image::openImage.PNG[width="917"]
++
+
+.  Increase the brightness of the image by typing the following command: `brightness 2.0`. This doubles the brightness of the image.
 
 +
 .Brightness Command
-image::brightnessCommand.JPG[width="915"]
+image::brightnessCommand.PNG[width="915"]
 +
 
 .  Press kbd:[Enter]. Your image should be brighter as shown in the figure below.
 +
 .Brightness Success
-image::brightnessSuccess.JPG[width="917"]
+image::brightnessSuccess.PNG[width="917"]
 +
 
 .  Crop your photo by typing the following command: `crop 310 250 140 200 squirrel.jpg`. Press kbd:[Enter]. Your image should look similar as the figure below.

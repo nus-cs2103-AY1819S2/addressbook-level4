@@ -30,7 +30,7 @@ import seedu.address.model.deck.Deck;
 /**
  * Stores the state of the Card's view.
  */
-public class CardsView implements ListViewState {
+public class CardsView implements ListViewState<Card> {
 
     public final FilteredList<Card> filteredCards;
     public final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();

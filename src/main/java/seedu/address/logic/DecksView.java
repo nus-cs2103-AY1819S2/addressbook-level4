@@ -29,7 +29,7 @@ import seedu.address.model.deck.Deck;
 /**
  * Stores the state of the Deck's view.
  */
-public class DecksView implements ListViewState {
+public class DecksView implements ListViewState<Deck> {
 
     public final FilteredList<Deck> filteredDecks;
 
@@ -105,5 +105,22 @@ public class DecksView implements ListViewState {
 
     public ObservableList<Deck> getFilteredList() {
         return filteredDecks;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof DecksView)) {
+            return false;
+        }
+
+        // state check
+        DecksView other = (DecksView) obj;
+        return filteredDecks.equals(other.filteredDecks) && selectedDeck.equals(other.selectedDeck);
     }
 }

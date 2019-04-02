@@ -1361,22 +1361,22 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 *MSS*
 
-1. Student begins a test session
-2. System presents the question on the lowest-performing flashcard first
-3. Student inputs his/her answer
-4. System indicates whether student’s answer is correct or wrong and shows the answer of the flashcard
-5. Student navigates to next flashcard
-6. Repeat steps 2-4 until all the flashcards in the folder are tested
+1. Student begins a test session.
+2. System presents the question on the lowest-performing flashcard first.
+3. Student inputs his/her answer.
+4. System indicates whether student’s answer is correct or wrong and shows the answer of the flashcard.
+5. Student navigates to next flashcard.
+6. Repeat steps 2-4 until all the flashcards in the folder are tested.
 +
 Use case ends
 
 *Extensions*
 
 [none]
-* 3a. Student doesn’t know the answer and wants to see the answer without attempting
+* 3a. Student doesn't know the answer and wants to see the answer without attempting.
 [none]
-** 3a1. Student uses the reveal command
-** 3a2. Answer is displayed to the student
+** 3a1. Student uses the reveal command.
+** 3a2. Answer is displayed to the student.
 
 //end::testsessionusecases[]
 
@@ -1385,15 +1385,42 @@ Use case ends
 
 *MSS*
 
-1. Student enters a folder that he wants to add a flashcard to
-2. Student inputs question and answer to be stored as flashcard
-3. System stores the details as a flashcard under the current folder
+1. Student navigates to a folder that he wants to add a flashcard to.
+2. Student inputs question and answer to be stored as flashcard.
+3. System stores the details as a flashcard under the current folder.
 +
 Use case ends
 
+[discrete]
+=== UC03 Edit flashcard question
+
+*MSS*
+
+1. Student navigates to the folder that contains the flashcard to be edited.
+2. Student indicates the card to be edited, as well as the new question.
+3. System stores the updated details for the edited card.
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 2a. Student enters a blank as the desired question.
+[none]
+** 2a1. System displays an error message informing that the question cannot be a blank.
++
+Use case resumes from step 2.
+
+[none]
+* 2b. Student enters a card index that does not exist.
+[none]
+** 2b1. System displays an error message prompting the user to choose a valid card index.
++
+Use case resumes from step 2.
+
 //tag::folderusecases[]
 [discrete]
-=== UC03 Add folder
+=== UC04 Add folder
 
 *Guarantees*
 
@@ -1401,9 +1428,9 @@ Use case ends
 
 *MSS*
 
-1. Student navigates to home directory
-2. Student inputs the name of the folder he wants to create
-3. System creates a folder of the desired name and shows it on the home directory
+1. Student navigates to home directory.
+2. Student inputs the name of the folder he wants to create.
+3. System creates a folder of the desired name and shows it on the home directory.
 +
 Use case ends
 
@@ -1417,17 +1444,17 @@ Use case ends
 Use case resumes from step 2.
 
 [discrete]
-=== UC04 Edit folder name
+=== UC05 Edit folder name
 
 *Guarantees*
 
-* A particular folder as selected by the student is renamed to the desired name
+* A particular folder as selected by the student is renamed to the desired name.
 
 *MSS*
 
-1. Student navigates to home directory
+1. Student navigates to home directory.
 2. Student indicates the folder he wants to rename, as well as the new name.
-3. System renames the folder to the new name and shows it on the home directory
+3. System renames the folder to the new name and shows it on the home directory.
 +
 Use case ends
 
@@ -1455,7 +1482,7 @@ Use case resumes from step 2.
 Use case resumes from step 2.
 
 [discrete]
-=== UC05 Navigating into folders
+=== UC06 Navigating into folders
 
 *MSS*
 

@@ -19,56 +19,56 @@ By: `Team W14-4`      Since: `Feb 2019`      Licence: `MIT`
 == Introduction
 
 GradTrak is an application designed for students of National University of Singapore (NUS) to easily track their graduation progress.
-The current version of the application offers graduation requirement tracking to some of the Computer Science majors (namely the Algorithms, Artificial Intelligence and Software Engineering Focus Areas)
-and stay tuned to this space as we will adding other courses in the near future!
+The current version of the application offers graduation requirement tracking to Computer Science majors (namely the Algorithms, Artificial Intelligence and Software Engineering Focus Areas).
+Stay tuned as we will be adding other courses in the near future!
 
-Users can interact with the application by keying in inputs into the command box. Hence our first group of audience
-is primarily the Computer Science majors as they can generally type more quickly than students
-of other disciplines :D
+Users can interact with the application by entering commands into the command box. This will benefit Computer Science majors as they can generally type quickly.
 
 == Installation Guide
 
-.  Ensure you have Java version `9` or later installed in your Computer.
+Follow the instructions below to install this application.
+
+.  Ensure you have Java version `9` or later installed in your computer.
 .  Download the latest `GradTrak.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Module Plan.
-.  Double-click the file to start the app. The Window for the application should appear in a few seconds.
+.  Copy the file to the folder you want to use as the home folder for your GradTrak.
+.  Double-click the file to start the app. The app window should appear within a few seconds.
 
 == Quick Guide
-.Parts of the user interface
+
+Read the guide below to have a quick understanding of the usage of this app.
+
+.Parts of the User Interface
 [caption = "Fig. 1: " ]
 image::annotated-ui.png[width="790"]
 
-. Refer to `Fig 1` for parts of the interface. Here are the brief functionalities
-of the user interface annotated above:
+. Refer to `Fig 1` for parts of the User Interface (UI). Here are the brief functionalities
+of the UI annotated above:
 
-.. Task Bar: Users can use the task bar to exit the application or to access the help menu (this guide)
+.. Task Bar: You can exit the application or access the help menu (this guide) here.
 
-.. Command Box: Users can enter command to interact to access the features of the application here
+.. Command Box: You can enter a command here to access the features of the application
 
-.. Result Box: Users can know whether their command is successfully executed here or if their command
-is not successfully executed, the application will tell them what are the appropriate inputs are.
+.. Result Box: You receive feedback for your entered command here. If the command is unsuccessfully executed,
+the correct input format of the command will be provided.
 
-.. Result Panel: Users can view the information associated with the command they have executed.
+.. Result Panel: You can view the information associated with the command entered here.
 
-.. Modules Taken Panel: Users can view the details of the modules that they have taken
+.. Module Panel: You can view the details of the modules that you have taken
 or are planning to take.
 
-.  To access a feature of the application, type a command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-. You might want to set your course of study first. Currently there are 3 courses
-where the application can keep track of your graduation progress; namely Computer Science Algorithms,
+.  To access a feature of the application, type a command in the command box and press kbd:[Enter] to execute it.
+For example, typing *`help`* and pressing kbd:[Enter] will open the help window.
+. You might wish to set the course of study first. There are currently 3 courses available in this app: Computer Science Algorithms,
 Computer Science Artificial Intelligence, Computer Science Software Engineering.
-To set the course that you are currently studying in simply type the following:
-`study Computer Science Algorithms` or  `study Computer Science Software Engineering`!
-.  Some easy to follow commands you might want to try:
-* **`add`**`c/cs1010 s/y1s1` : adds the module "CS1010", taken in Y1S1, into the module plan.
+To set the course, enter one of the following commands:
+`study Computer Science Algorithms`, `study Computer Science Software Engineering` or `study Computer Science Artificial Intelligence`.
+.  Here are some commands you can try:
+* **`add`**`c/CS1010 s/Y1S1` : adds the module "CS1010", taken in Y1S1, into the module plan.
 * **`delete`**`1` : deletes the first module on the most recently displayed list.
-* **`displayreq`**: displays information on your course requirement. Also displays the
-the degree of completion of the requirement alongside suggestions for modules
-that you can take to satisfy the course requirement
+* **`displayreq`**: displays information on your course requirements and the percentage completed for each requirement.
 * *`exit`* : exits the app
 
-Here we only introduced some of the more basic versions of functions and commands of GradTrak. The following section, <<Features>> ,
+Here we only introduced some of the more basic functions and commands of GradTrak. The following section, <<Features>>,
 will give you a more detailed guide/walk through for each command.
 
 [[Features]]
@@ -78,12 +78,12 @@ will give you a more detailed guide/walk through for each command.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user, e.g. in `add c/MODULE_CODE`, `MODULE_CODE` is a parameter which can be used as `add c/cs1010`.
-* Items in square brackets are optional e.g `c/MODULE_CODE [g/GRADE_OBTAINED]` can be used as `c/cs1010 g/A` or as `c/cs1010`.
+* Items in square brackets are optional e.g `c/MODULE_CODE [g/GRADE_OBTAINED]` can be used as `c/CS1010 g/A` or as `c/CS1010`.
 ====
 
 === Add module: `add`
 
-Adds a module to the module plan based on the given module code, semester taken and expected / obtained grade. +
+Adds a module to GradTrak based on the given module code, semester taken and expected / obtained grade. +
 Format: `add c/MODULE_CODE s/SEMESTER [min/NEW_EXPECTED_MIN_GRADE] [max/NEW_EXPECTED_MAX_GRADE] [lec/NEW_LECTURE_HOURS] [tut/NEW_TUTORIAL_HOURS] [lab/NEW_LAB_HOURS] [proj/NEW_PROJ_HOURS] [prep/NEW_PREP_HOURS]` +
 or +
 `add c/MODULE_CODE s/SEMESTER [g/NEW_EXPECTED_MIN_GRADE NEW_EXPECTED_MAX_GRADE] [lec/NEW_LECTURE_HOURS] [tut/NEW_TUTORIAL_HOURS] [lab/NEW_LAB_HOURS] [proj/NEW_PROJ_HOURS] [prep/NEW_PREP_HOURS]`
@@ -119,7 +119,7 @@ Format: `cursem`
 
 === Delete module: `delete`
 
-Removes a module from the module plan based on module code or index in the most recently displayed list. +
+Removes a module from GradTrak based on module code or index in the most recently displayed list. +
 Format: `delete INDEX` +
 or +
 `delete c/MODULE_CODE`
@@ -131,7 +131,7 @@ or +
 Examples:
 
 * `delete c/CS2103T` +
-Deletes CS2103T from the module plan.
+Deletes CS2103T from GradTrak.
 * `delete 1` +
 Deletes the first module on the most recently displayed list.
 
@@ -203,7 +203,7 @@ Format: `exit`
 
 === Find module: `find`
 
-Finds modules in user GradTrak matching all given module code, semester, grade or finished status. +
+Finds modules in GradTrak matching all given module code, semester, grade or finished status. +
 Format: `find [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]`
 
 ****
@@ -215,10 +215,10 @@ Format: `find [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]`
 
 Examples:
 
-* `find c/cs2` +
-Lists all level-2000 CS modules in the module plan.
-* `find c/cs s/y1s2` +
-Lists all CS modules (to be) taken in Y1S2.
+* `find c/CS2` +
+Lists all level-2000 CS modules in GradTrak.
+* `find c/CS s/Y1S2` +
+Lists all CS modules in Y1S2 in GradTrak.
 
 === View all other commands : `help`
 
@@ -237,13 +237,13 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 === Listing all modules in module plan: `list`
 
-Shows a list of all modules added by the user. +
+Shows a list of all modules in GradTrak. +
 Format: `list`
 
 === Recommend module: `rec`
 
-Recommends a list of modules that can be taken based on completed modules and course requirements.
-Modules are displayed in decreasing priority of the requirement satisfied: Core, Programme/Technical Electives & Focus Area, General Education, Unrestricted Electives. +
+Recommends a list of modules that can be taken based on GradTrak modules and course requirements.
+Modules are displayed in order of requirement satisfied: Core, Programme/Technical Electives or Focus Area, Industry Experience, Faculty, General Education, Unrestricted Electives. +
 Format: `rec`
 
 === Redo the previously undone command: `redo`
@@ -290,7 +290,7 @@ Examples:
 Sets the course of study to Computer Science with Focus Area Algorithms. Invoking `study` command again will change your course of study.
 
 Feeling left out as you are unable to track your course of study? Fear not! We will roll
-out more courses of study for users to track in the future iteration of GradTrak, so stay tuned!
+out more courses of study in a future version of GradTrak, so stay tuned!
 // end::study[]
 
 === Sets the total expected CAP and workload limit for each semester: `setlimit`
@@ -304,7 +304,7 @@ Examples:
 
 === Undo previous command: `undo`
 
-Restores the module plan to the state before the previous _undoable_ command was executed. +
+Restores GradTrak to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
@@ -335,7 +335,7 @@ Data are saved in the hard disk automatically after any command that changes the
 // tag::dataencryption[]
 === Encrypt data files `[coming in v2.0]`
 
-Encrypts user data files.
+Encrypts your data files.
 // end::dataencryption[]
 
 === Update module information `[coming in v2.0]`

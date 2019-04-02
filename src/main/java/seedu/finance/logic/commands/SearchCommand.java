@@ -27,7 +27,7 @@ public class SearchCommand extends Command {
             + "Flags: -name search for names, -cat search based on categories\n"
             + "Example: " + COMMAND_WORD + " -name" + " fries chicken bus fare";
 
-    public static final String INVALID_FLAG = "Flag not recognised. Valid flags:\n"
+    public static final String INVALID_FLAG = "CommandFlag not recognised. Valid flags:\n"
             + "-name: Find all records that contains specified keywords in name\n"
             + "-cat: Find all records that has specified keywords in category.\n"
             + "Example: " + COMMAND_WORD + " -name" + " fries chicken bus fare";

@@ -4,7 +4,7 @@ package seedu.finance;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.function.Supplier;
+import java.comparatorUtil.function.Supplier;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;

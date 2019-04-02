@@ -6,6 +6,10 @@ import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseSucces
 import org.junit.Test;
 
 import seedu.finance.logic.commands.SortCommand;
+import seedu.finance.logic.parser.comparatorUtil.RecordAmountComparator;
+import seedu.finance.logic.parser.comparatorUtil.RecordCategoryComparator;
+import seedu.finance.logic.parser.comparatorUtil.RecordDateComparator;
+import seedu.finance.logic.parser.comparatorUtil.RecordNameComparator;
 
 public class SortCommandParserTest {
 

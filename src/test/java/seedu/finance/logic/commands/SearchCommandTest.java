@@ -57,7 +57,7 @@ public class SearchCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
+    public void execute_zeroKeywords_noRecordsFound() {
         String expectedMessage = String.format(MESSAGE_RECORDS_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         SearchCommand command = new SearchCommand(predicate);
@@ -67,7 +67,7 @@ public class SearchCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
+    public void execute_multipleKeywords_multipleRecordsFound() {
         String expectedMessage = String.format(MESSAGE_RECORDS_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("Cap Earrings Fruits");
         SearchCommand command = new SearchCommand(predicate);

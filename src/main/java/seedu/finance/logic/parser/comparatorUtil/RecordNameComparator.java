@@ -1,4 +1,4 @@
-package seedu.finance.logic.parser;
+package seedu.finance.logic.parser.comparatorUtil;
 
 import java.util.Comparator;
 

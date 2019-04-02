@@ -17,9 +17,9 @@ import org.junit.Test;
 
 import seedu.finance.logic.CommandHistory;
 import seedu.finance.logic.commands.exceptions.CommandException;
-import seedu.finance.logic.parser.RecordAmountComparator;
-import seedu.finance.logic.parser.RecordDateComparator;
-import seedu.finance.logic.parser.RecordNameComparator;
+import seedu.finance.logic.parser.comparatorUtil.RecordAmountComparator;
+import seedu.finance.logic.parser.comparatorUtil.RecordDateComparator;
+import seedu.finance.logic.parser.comparatorUtil.RecordNameComparator;
 import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.Model;
 import seedu.finance.model.ModelManager;

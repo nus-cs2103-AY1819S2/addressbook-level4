@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.finance.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.finance.logic.parser.CliSyntax.FLAG_NAME;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_NAME;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
@@ -37,6 +37,7 @@ import seedu.finance.logic.commands.SpendCommand;
 import seedu.finance.logic.commands.SummaryCommand;
 import seedu.finance.logic.commands.UndoCommand;
 import seedu.finance.logic.parser.exceptions.ParseException;
+import seedu.finance.logic.parser.comparatorUtil.RecordNameComparator;
 import seedu.finance.model.record.Description;
 import seedu.finance.model.record.NameContainsKeywordsPredicate;
 import seedu.finance.model.record.Record;
@@ -280,7 +281,7 @@ public class FinanceTrackerParserTest {
     @Test
     public void parseCommand_sort() throws Exception {
         SortCommand command = (SortCommand) parser.parseCommand(
-                SortCommand.COMMAND_WORD + " " + FLAG_NAME);
+                SortCommand.COMMAND_WORD + " " + COMMAND_FLAG_NAME);
         assertEquals(new SortCommand(new RecordNameComparator()), command);
     }
 

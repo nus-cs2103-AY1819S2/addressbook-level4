@@ -1,10 +1,10 @@
 package seedu.finance.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.finance.logic.parser.CliSyntax.FLAG_AMOUNT;
-import static seedu.finance.logic.parser.CliSyntax.FLAG_CATEGORY;
-import static seedu.finance.logic.parser.CliSyntax.FLAG_DATE;
-import static seedu.finance.logic.parser.CliSyntax.FLAG_NAME;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_AMOUNT;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_CATEGORY;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_DATE;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_NAME;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -12,6 +12,10 @@ import java.util.List;
 
 import seedu.finance.logic.commands.SortCommand;
 import seedu.finance.logic.parser.exceptions.ParseException;
+import seedu.finance.logic.parser.comparatorUtil.RecordAmountComparator;
+import seedu.finance.logic.parser.comparatorUtil.RecordCategoryComparator;
+import seedu.finance.logic.parser.comparatorUtil.RecordDateComparator;
+import seedu.finance.logic.parser.comparatorUtil.RecordNameComparator;
 import seedu.finance.model.record.Record;
 
 /**
@@ -33,19 +37,19 @@ public class SortCommandParser implements Parser<SortCommand> {
         String[] words = args.split("\\s");
         List<String> list = Arrays.asList(words);
 
-        if (list.contains(FLAG_NAME.getFlag())) {
+        if (list.contains(COMMAND_FLAG_NAME.getFlag())) {
             comparator = new RecordNameComparator();
             numFlags++;
         }
-        if (list.contains(FLAG_AMOUNT.getFlag())) {
+        if (list.contains(COMMAND_FLAG_AMOUNT.getFlag())) {
             comparator = new RecordAmountComparator();
             numFlags++;
         }
-        if (list.contains(FLAG_DATE.getFlag())) {
+        if (list.contains(COMMAND_FLAG_DATE.getFlag())) {
             comparator = new RecordDateComparator();
             numFlags++;
         }
-        if (list.contains(FLAG_CATEGORY.getFlag())) {
+        if (list.contains(COMMAND_FLAG_CATEGORY.getFlag())) {
             comparator = new RecordCategoryComparator();
             numFlags++;
         }

@@ -1,10 +1,10 @@
 package seedu.finance.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.finance.logic.parser.CliSyntax.FLAG_AMOUNT;
-import static seedu.finance.logic.parser.CliSyntax.FLAG_CATEGORY;
-import static seedu.finance.logic.parser.CliSyntax.FLAG_DATE;
-import static seedu.finance.logic.parser.CliSyntax.FLAG_NAME;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_AMOUNT;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_CATEGORY;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_DATE;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_NAME;
 
 import java.util.Comparator;
 
@@ -25,11 +25,11 @@ public class SortCommand extends Command {
             + "either by name, amount, date or category.\n"
             + "Parameters: FLAG \n"
             + "Possible flags: "
-            + FLAG_NAME + ", "
-            + FLAG_AMOUNT + ", "
-            + FLAG_DATE + ", "
-            + FLAG_CATEGORY + "\n"
-            + "Example: " + COMMAND_WORD + " " + FLAG_NAME;
+            + COMMAND_FLAG_NAME + ", "
+            + COMMAND_FLAG_AMOUNT + ", "
+            + COMMAND_FLAG_DATE + ", "
+            + COMMAND_FLAG_CATEGORY + "\n"
+            + "Example: " + COMMAND_WORD + " " + COMMAND_FLAG_NAME;
 
     public static final String MESSAGE_SUCCESS = "List is sorted.";
     public static final String MESSAGE_NOT_SORTED = "Only one flag should be provided.";

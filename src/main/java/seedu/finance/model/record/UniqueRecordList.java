@@ -39,13 +39,10 @@ public class UniqueRecordList implements Iterable<Record> {
 
     /**
      * Adds a record to the list.
-     * The record must not already exist in the list.
+     * Can have duplicate records in the list.
      */
     public void add(Record toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
-            throw new DuplicateRecordException();
-        }
         internalList.add(toAdd);
     }
 
@@ -86,16 +83,13 @@ public class UniqueRecordList implements Iterable<Record> {
     }
 
     /**
-     * Replaces the contents of this list with {@code people}.
-     * {@code people} must not contain duplicate people.
+     * Replaces the contents of this list with {@code records}.
+     * {@code records} can contain duplicate records.
      */
-    public void setRecords(List<Record> people) {
-        requireAllNonNull(people);
-        if (!recordsAreUnique(people)) {
-            throw new DuplicateRecordException();
-        }
+    public void setRecords(List<Record> records) {
+        requireAllNonNull(records);
 
-        internalList.setAll(people);
+        internalList.setAll(records);
     }
 
     /**

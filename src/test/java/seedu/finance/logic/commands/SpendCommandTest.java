@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.finance.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -22,8 +23,10 @@ import seedu.finance.logic.CommandHistory;
 import seedu.finance.logic.commands.exceptions.CommandException;
 import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.Model;
+import seedu.finance.model.ModelManager;
 import seedu.finance.model.ReadOnlyFinanceTracker;
 import seedu.finance.model.ReadOnlyUserPrefs;
+import seedu.finance.model.UserPrefs;
 import seedu.finance.model.budget.Budget;
 import seedu.finance.model.budget.CategoryBudget;
 import seedu.finance.model.exceptions.CategoryBudgetExceedTotalBudgetException;
@@ -58,14 +61,21 @@ public class SpendCommandTest {
     }
 
     @Test
-    public void execute_duplicateRecord_throwsCommandException() throws Exception {
+    public void execute_duplicateRecord_addSuccessful() throws Exception {
         Record validRecord = new RecordBuilder().build();
         SpendCommand spendCommand = new SpendCommand(validRecord);
-        ModelStub modelStub = new ModelStubWithRecord(validRecord);
+        Model model = new ModelManager();
+        model.addRecord(validRecord);
 
-        thrown.expect(CommandException.class);
-        thrown.expectMessage(SpendCommand.MESSAGE_DUPLICATE_RECORD);
-        spendCommand.execute(modelStub, commandHistory);
+        String expectedMessage = String.format(SpendCommand.MESSAGE_SUCCESS_EXCEED_BUDGET, validRecord.getCategory());
+        Model expectedModel = new ModelManager(new FinanceTracker(model.getFinanceTracker()), new UserPrefs());
+        expectedModel.addRecord(validRecord);
+
+        CommandResult commandResult = spendCommand.execute(model, commandHistory);
+
+        assertEquals(expectedMessage, commandResult.getFeedbackToUser());
+        assertEquals(model.getFinanceTracker(), expectedModel.getFilteredRecordList());
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test

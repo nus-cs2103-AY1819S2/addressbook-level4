@@ -40,10 +40,15 @@ public class SpendCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicateRecord_throwsCommandException() {
+    public void execute_duplicateRecord_success() {
         Record recordInList = model.getFinanceTracker().getRecordList().get(0);
-        assertCommandFailure(new SpendCommand(recordInList), model, commandHistory,
-                SpendCommand.MESSAGE_DUPLICATE_RECORD);
+
+        Model expectedModel = new ModelManager(model.getFinanceTracker(), new UserPrefs());
+        expectedModel.addRecord(recordInList);
+        expectedModel.commitFinanceTracker();
+
+        assertCommandSuccess(new SpendCommand(recordInList), model, commandHistory,
+                String.format(SpendCommand.MESSAGE_SUCCESS, recordInList), expectedModel);
     }
 
 }

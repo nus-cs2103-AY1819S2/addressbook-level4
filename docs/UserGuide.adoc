@@ -80,8 +80,13 @@ Format: `start n/NAME [c/COUNT] m/MODE`
 
 Usage rules:
 
-* You can optionally specify the `COUNT` parameter. `COUNT` sets the number of cards to be tested in the quiz session. If no `COUNT` is specified, by default 10 cards are tested.
-* You must specify `MODE`. `MODE` sets the testing mode of the quiz session. The three available modes are `LEARN`, `PREVIEW` and `REVIEW`.
+* You can optionally specify the `COUNT` parameter. `COUNT` sets the number of cards to be tested in the quiz session. If no `COUNT` is specified, by default 1 card is tested.
+* The name field is used to choose lesson.
+* You must specify `MODE`. `MODE` sets the testing mode of the quiz session. The three available modes are `LEARN`, `PREVIEW`, `REVIEW` and `DIFFICULT`.
+. PREVIEW: displays both question and answer in file order (the same order as the cards in the storage file) but you will not be tested.
+. DIFFICULT: displays cards labelled as difficult with both question and answer together but you will not be tested.
+. REVIEW: tests the words which are urgent for you to review based on the srs value, meaning the due date for you to review these words are before the current time.
+. LEARN: displays new cards with both question and answer first then you will be tested on these words.
 
 [NOTE]
 ====
@@ -90,8 +95,11 @@ Flashcards are tested based on the link:https://en.wikipedia.org/wiki/Spaced_rep
 
 Examples:
 
-* `start n/Capitals of the world m/LEARN`
-* `start n/Operating System c/20 m/PREVIEW`
+* `start n/country-capitals m/LEARN` +
+Starts a quiz containing the first card in the country-capitals file that is new for the user. Firstly the question and answer of this card will display and then the user will be tested on this card.
+* `start n/country-capitals-asia c/20 m/PREVIEW` +
+Starts a quiz containing 20 cards which are the first 20 cards in the country-capitals-asia file. Question and answer will display together for all of these 20 cards.
+
 
 [[listLessons]]
 ==== Listing all lessons: `listLessons`
@@ -323,7 +331,7 @@ If the file is saved without UTF-8 encoding, the data may have already been save
 === Management Mode
 * *Viewing help*: `help`
 * *Starting quiz session*: `start n/NAME [c/COUNT] m/MODE` +
-e.g. `start n/02-03-LEARN c/15 m/LEARN`
+e.g. `start n/country-capitals c/15 m/LEARN`
 * *Listing all lessons*: `listLessons`
 * *Adding a lesson*: `addLesson n/NAME q/QUESTION CORE a/ANSWER CORE [c/CORE]... [o/OPTIONAL]...` +
 e.g. `addLesson n/Capitals of the world q/Country a/Capital c/Language o/Hint`
@@ -337,10 +345,10 @@ e.g. `openLesson 1`
 e.g. `addCard c/Australia c/Canberra c/English o/Starts with C`
 * *Deleting a flashcard*: `deleteCard INDEX` +
 e.g. `deleteCard 2`
-* *Import user profile*: `import user`
-* *Export user profile*: `export user`
-* *View history*: `history`
-* *Quit BrainTrain*: `quit`
+* *Importing user profile*: `import user`
+* *Exporting user profile*: `export user`
+* *Viewing history*: `history`
+* *Quiting BrainTrain*: `quit`
 
 {empty} +
 

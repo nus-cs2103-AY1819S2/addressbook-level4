@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalCards.CARD_BELGIUM;
 import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2;
 import static seedu.address.testutil.TypicalSession.SESSION_LEARNT_BEFORE;
 
@@ -51,8 +52,21 @@ public class QuizModelManagerTest {
         assertEquals(1, modelManager.getCount());
         assertEquals(QuizMode.LEARN, modelManager.getMode());
         assertEquals(List.of(new SrsCardBuilder().build()), modelManager.getQuizSrsCards());
+        assertEquals("Country", modelManager.getQuestionHeader());
+        assertEquals("Capital", modelManager.getAnswerHeader());
     }
-
+    @Test
+    public void testUpdateUser() {
+        ManagementModelManager mgtManager = new ManagementModelManager();
+        QuizModelManager manager = new QuizModelManager(mgtManager);
+        manager.init(quiz, SESSION_LEARNT_BEFORE);
+        List<List<Integer>> quizInformation = new ArrayList<>();
+        quizInformation.add(List.of(0, 1, 1, 0));
+        manager.updateUserProfile(quizInformation);
+        assertEquals(mgtManager.getCardSrsData(CARD_BELGIUM.hashCode()).getNumOfAttempts(), 2);
+        assertEquals(mgtManager.getCardSrsData(CARD_BELGIUM.hashCode()).getStreak(), 2);
+        assertEquals(mgtManager.getCardSrsData(CARD_BELGIUM.hashCode()).isDifficult(), false);
+    }
     @Test
     public void getNextCard() {
         modelManager.init(quiz, SESSION_DEFAULT_2);

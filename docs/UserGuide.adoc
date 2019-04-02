@@ -291,10 +291,28 @@ Example:
  `fbcs 12345678` +
 Returns any booking which is paid by the customer with identification number 12345678
 
-=== [underline]#Generate customer's bill# : `generate-bill`, `gb`   `[coming in v2.0]`
+=== [underline]#Bill Generation commands#
 
-Effect: Generates the bill for the customer based on his room reservations and service bookings. +
-Format: `{[aqua]#generate-bill#/[aqua]#gb#} [lime]#INDEX#`
+==== [underline]#Generate bill for specific booking# : `generate-bill-booking`, `gb-b`
+
+Effect: Generates the bill for the specific booking of a customer +
+Format: `{[aqua]#generate-bill-booking#/[aqua]#gb-b#} [lime]#INDEX# [black]#[# [blue]#r/# [lime]#ROOM_TYPE# [black]#]# [black]#[# [blue]#d/# [lime]#START_DATE - END_DATE# [black]#]#`
+
+
+==== [underline]#Generate bill for specific reservation# : `generate-bill-reservation`, `gb-r`
+
+Effect: Generates the bill for the specific booking of a customer +
+Format: `{[aqua]#generate-bill-reservation#/[aqua]#gb-r#} [lime]#INDEX# [black]#[# [blue]#s/# [lime]#SERVICE_NAME# [black]#]# [black]#[# [blue]#:/# [lime]#START_TIME - END_TIME# [black]#]#`
+
+
+==== [underline]#Generate customer's bill# : `generate-bill-customer`, `gb-c`
+
+Effect: Generates the bill for the customer based on his total room reservations and service bookings. +
+Format: `{[aqua]#generate-bill-customer#/[aqua]#gb-c#} [lime]#INDEX#`
+
+[TIP]
+This command is a super set of all the other "generate bill" commands and can be used
+to obtain the complete breakup for a customer.
 
 [NOTE]
 ====
@@ -513,7 +531,7 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Help* : `help` <<Viewing help : `help`>>
+* *Help* : `help`
 * *Add Customer* : `{add-customer/ac} n/NAME p/PHONE_NUMBER e/EMAIL  id/IDENTIFICATION_NO [a/ADDRESS] [dob/DATE_OF_BIRTH] [t/TAG]…`
 * *List Customers* : `{list-customers/lc}`
 * *Edit Customer* : `{edit-customer/ec} INDEX [n/NAME] [p/PHONE] [e/EMAIL] [id/IDENTIFICATIONNO] [a/ADDRESS] [t/TAG]…`

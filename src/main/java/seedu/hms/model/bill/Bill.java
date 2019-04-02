@@ -11,7 +11,7 @@ import seedu.hms.model.customer.Customer;
 public class Bill {
 
     private HashMap<String, Pair<Double, Integer>> bookingBill;
-    private HashMap<String, Pair<Double, Integer>> reservationBill;
+    private HashMap<String, Pair<Double, Long>> reservationBill;
     private Customer customer;
     private double amountReservation;
     private double amountBooking;
@@ -28,7 +28,7 @@ public class Bill {
      */
 
     public Bill(Customer customer, double amountReservation, double amountBooking, HashMap<String, Pair<Double,
-        Integer>> bookingBill, HashMap<String, Pair<Double, Integer>> reservationBill) {
+        Integer>> bookingBill, HashMap<String, Pair<Double, Long>> reservationBill) {
 
         this.customer = customer;
         this.amountBooking = amountBooking;
@@ -104,7 +104,7 @@ public class Bill {
     /**
      * Returns the number of single rooms the customer has reserved
      */
-    public int getSingleRoomCount() {
+    public long getSingleRoomCount() {
         return reservationBill.get("SINGLE ROOM").getValue();
     }
 
@@ -118,7 +118,7 @@ public class Bill {
     /**
      * Returns the number of double rooms the customer has reserved
      */
-    public int getDoubleRoomCount() {
+    public long getDoubleRoomCount() {
         return reservationBill.get("DOUBLE ROOM").getValue();
     }
 
@@ -132,7 +132,7 @@ public class Bill {
     /**
      * Returns the number of single rooms the customer has reserved
      */
-    public int getDeluxeRoomCount() {
+    public long getDeluxeRoomCount() {
         return reservationBill.get("DELUXE ROOM").getValue();
     }
 
@@ -146,7 +146,7 @@ public class Bill {
     /**
      * Returns the number of family suites the customer has reserved
      */
-    public int getFamilySuiteCount() {
+    public long getFamilySuiteCount() {
         return reservationBill.get("FAMILY SUITE").getValue();
     }
 
@@ -182,6 +182,6 @@ public class Bill {
     @Override
     public String toString() {
         return " Amount to be paid: " + totalAmount
-            + " by " + customer.getName();
+            + " by " + customer.getName() + " " + this.bookingBill + " " + this.reservationBill;
     }
 }

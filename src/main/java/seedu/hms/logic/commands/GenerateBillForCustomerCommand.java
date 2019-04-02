@@ -1,7 +1,6 @@
 package seedu.hms.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_INDEX;
 
 import java.util.function.Predicate;
 
@@ -26,8 +25,7 @@ public class GenerateBillForCustomerCommand extends BillCommand {
         + ": Generates total bill for the customer identified by the index number used in the displayed "
         + "customer list.\n"
         + "Parameters: INDEX\n"
-        + "Example: " + COMMAND_WORD
-        + PREFIX_INDEX + "1";
+        + "Example: " + COMMAND_WORD + "1";
 
     public static final String MESSAGE_GENERATE_BILL_SUCCESS = "%1$s";
 
@@ -40,8 +38,8 @@ public class GenerateBillForCustomerCommand extends BillCommand {
                                           ReservationContainsPayerPredicate reservationContainsPayerPredicate,
                                           Bill bill) {
 
-        this.bookingPredicate = (bookingTested) -> bookingContainsPayerPredicate.test(bookingTested);
-        this.reservationPredicate = (reservationTested) -> reservationContainsPayerPredicate.test(reservationTested);
+        this.bookingPredicate = bookingContainsPayerPredicate;
+        this.reservationPredicate = reservationContainsPayerPredicate;
         this.bill = bill;
     }
 

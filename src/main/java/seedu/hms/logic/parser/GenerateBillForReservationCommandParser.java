@@ -2,11 +2,13 @@ package seedu.hms.logic.parser;
 
 import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATES;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_ROOM;
 
+import java.util.List;
 import java.util.stream.Stream;
 
+import seedu.hms.commons.core.index.Index;
+import seedu.hms.logic.commands.GenerateBillForBookingCommand;
 import seedu.hms.logic.commands.GenerateBillForReservationCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.CustomerManager;
@@ -19,17 +21,10 @@ import seedu.hms.model.reservation.ReservationWithTypePredicate;
 import seedu.hms.model.util.DateRange;
 
 /**
- * Parses input arguments and creates a new AddCustomerCommand object
+ * Parses input arguments and creates a new GenerateBillForReservationCommand object
  */
 public class GenerateBillForReservationCommandParser implements Parser<GenerateBillForReservationCommand> {
 
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
 
     /**
      * Parses the given {@code String} of arguments in the context of the GenerateBillForReservationCommand
@@ -39,18 +34,28 @@ public class GenerateBillForReservationCommandParser implements Parser<GenerateB
      */
     public GenerateBillForReservationCommand parse(String args, CustomerModel customerModel) throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_INDEX,
-                PREFIX_ROOM, PREFIX_DATES);
+            ArgumentTokenizer.tokenize(args, PREFIX_ROOM, PREFIX_DATES);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_INDEX)
-            || !argMultimap.getPreamble().isEmpty()) {
+
+
+        Index index;
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                GenerateBillForReservationCommand.MESSAGE_USAGE));
+                GenerateBillForBookingCommand.MESSAGE_USAGE),
+                pe);
         }
 
-        Customer payer = ParserUtil.parseCustomer(argMultimap.getValue(PREFIX_INDEX).get(),
-            customerModel.getFilteredCustomerList());
-        IdentificationNo payerIdentificationNo = payer.getIdNum();
+        List<Customer> lastShownList = customerModel.getFilteredCustomerList();
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                GenerateBillForBookingCommand.MESSAGE_USAGE));
+        }
+
+        //Finds the selected customer
+        Customer customer = lastShownList.get(index.getZeroBased());
+        IdentificationNo payerIdentificationNo = customer.getIdNum();
         String payerId = payerIdentificationNo.toString();
 
         ReservationContainsPayerPredicate reservationContainsPayerPredicate =

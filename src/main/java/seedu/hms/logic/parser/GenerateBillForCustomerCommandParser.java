@@ -1,14 +1,14 @@
 package seedu.hms.logic.parser;
 
 import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_INDEX;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
+import seedu.hms.commons.core.index.Index;
 import seedu.hms.logic.commands.GenerateBillForCustomerCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.BillManager;
@@ -24,17 +24,9 @@ import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.ReservationContainsPayerPredicate;
 
 /**
- * Parses input arguments and creates a new AddCustomerCommand object
+ * Parses input arguments and creates a new GenerateBillForCustomerCommand object
  */
 public class GenerateBillForCustomerCommandParser implements Parser<GenerateBillForCustomerCommand> {
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
 
 
     /**
@@ -45,25 +37,32 @@ public class GenerateBillForCustomerCommandParser implements Parser<GenerateBill
      */
     public GenerateBillForCustomerCommand parse(String args, CustomerModel customerModel, BillModel billModel)
         throws ParseException {
-        ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_INDEX);
+        Index index;
+        try {
+            index = ParserUtil.parseIndex(args);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                GenerateBillForCustomerCommand.MESSAGE_USAGE),
+                pe);
+        }
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_INDEX)
-            || !argMultimap.getPreamble().isEmpty()) {
+        List<Customer> lastShownList = customerModel.getFilteredCustomerList();
+        if (index.getZeroBased() >= lastShownList.size()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 GenerateBillForCustomerCommand.MESSAGE_USAGE));
         }
 
+        //Finds the selected customer
+        Customer customer = lastShownList.get(index.getZeroBased());
+
         // Customer selected
-        Customer payer = ParserUtil.parseCustomer(argMultimap.getValue(PREFIX_INDEX).get(),
-            customerModel.getFilteredCustomerList());
-        IdentificationNo payerIdentificationNo = payer.getIdNum();
+        IdentificationNo payerIdentificationNo = customer.getIdNum();
         String payerId = payerIdentificationNo.toString();
 
         //Booking bill
         BookingContainsPayerPredicate bookingContainsPayerPredicate = new BookingContainsPayerPredicate(payerId);
         Predicate<Booking> bookingPredicate;
-        bookingPredicate = (bookingTested) -> bookingContainsPayerPredicate.test(bookingTested);
+        bookingPredicate = bookingContainsPayerPredicate;
         billModel.updateFilteredBookingList(bookingPredicate);
         ObservableList<Booking> bookingObservableList = billModel.getFilteredBookingList();
         HashMap<String, Pair<Double, Integer>> bookingBill = billModel.generateHashMapForBooking(bookingObservableList);
@@ -72,10 +71,10 @@ public class GenerateBillForCustomerCommandParser implements Parser<GenerateBill
         ReservationContainsPayerPredicate reservationContainsPayerPredicate =
             new ReservationContainsPayerPredicate(payerId);
         Predicate<Reservation> reservationPredicate;
-        reservationPredicate = (reservationTested) -> reservationContainsPayerPredicate.test(reservationTested);
+        reservationPredicate = reservationContainsPayerPredicate;
         billModel.updateFilteredReservationList(reservationPredicate);
         ObservableList<Reservation> reservationObservableList = billModel.getFilteredReservationList();
-        HashMap<String, Pair<Double, Integer>> reservationBill =
+        HashMap<String, Pair<Double, Long>> reservationBill =
             billModel.generateHashMapForReservation(reservationObservableList);
 
         // total amount for booking
@@ -84,7 +83,7 @@ public class GenerateBillForCustomerCommandParser implements Parser<GenerateBill
         //total amount for reservation
         double amountReservation = billModel.generateBillForReservation(reservationObservableList);
 
-        Bill bill = new Bill(payer, amountReservation, amountBooking, bookingBill, reservationBill);
+        Bill bill = new Bill(customer, amountReservation, amountBooking, bookingBill, reservationBill);
 
         return new GenerateBillForCustomerCommand(bookingContainsPayerPredicate, reservationContainsPayerPredicate,
             bill);

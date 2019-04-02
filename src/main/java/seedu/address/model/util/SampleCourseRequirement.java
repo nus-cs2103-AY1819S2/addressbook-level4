@@ -218,7 +218,7 @@ public class SampleCourseRequirement {
             CompositeRequirement.LogicalConnector.AND, CourseReqType.TE);
 
     public static final String[] SCIENCE_REGEXES = { "MA1521", "ST2334", "MA1101R",
-        "(MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z]?"};
+            "(MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z]?"};
     public static final Condition SCIENCE_CONDITION = new Condition(
             "Complete MA1521, MA1101R, ST2334 and one other Science module",
             SCIENCE_REGEXES);

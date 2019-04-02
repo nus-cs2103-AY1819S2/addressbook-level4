@@ -55,7 +55,7 @@ public class AddBookingCommandParser implements Parser<AddBookingCommand> {
         Customer payer = ParserUtil.parseCustomer(argMultimap.getValue(PREFIX_PAYER).get(),
             customerModel.getFilteredCustomerList());
         Optional<List<Customer>> otherUsers = ParserUtil.parseCustomers(argMultimap.getAllValues(PREFIX_CUSTOMERS),
-            customerModel.getFilteredCustomerList());
+            customerModel.getFilteredCustomerList(), payer);
         Optional<String> comment = argMultimap.getValue(PREFIX_COMMENT);
 
         Booking booking = new Booking(serviceType, timing, payer, otherUsers, comment);

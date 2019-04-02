@@ -56,7 +56,7 @@ public class AddReservationCommandParser implements Parser<AddReservationCommand
         Customer payer = ParserUtil.parseCustomer(argMultimap.getValue(PREFIX_PAYER).get(),
             customerModel.getFilteredCustomerList());
         Optional<List<Customer>> otherUsers = ParserUtil.parseCustomers(argMultimap.getAllValues(PREFIX_CUSTOMERS),
-            customerModel.getFilteredCustomerList());
+            customerModel.getFilteredCustomerList(), payer);
         Optional<String> comment = argMultimap.getValue(PREFIX_COMMENT);
 
         Reservation reservation = new Reservation(roomType, dates, payer, otherUsers, comment);

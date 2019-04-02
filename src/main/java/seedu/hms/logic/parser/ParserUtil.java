@@ -258,11 +258,16 @@ public class ParserUtil {
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
-    public static Optional<List<Customer>> parseCustomers(Collection<String> customerIndices, List<Customer> customers)
+    public static Optional<List<Customer>> parseCustomers(Collection<String> customerIndices, List<Customer> customers,
+                                                          Customer payer)
         throws ParseException {
         requireNonNull(customerIndices);
         final List<Customer> result = new ArrayList<>();
         for (String customerIndex : customerIndices) {
+            Customer toAdd = customers.get(Integer.parseInt(customerIndex) - 1);
+            if (payer.equals(toAdd)) {
+                throw new ParseException("You do not need to include the payer's index in the customer indices");
+            }
             result.add(customers.get(Integer.parseInt(customerIndex) - 1));
         }
         return Optional.of(result);

@@ -197,6 +197,7 @@ Example:
 
 * `import Users/Fomo/Pictures/sample.jpg`
 
+// tag::ListAndOpen[]
 === List Files: `listfiles`
 
 Lists all files in assets folder. +
@@ -210,6 +211,7 @@ Format: `open FILENAME`
 Example:
 
 * `open sample.jpg`
+// end::ListAndOpen[]
 
 //tag ::Redo[]
 === Redo edit steps : `redo`
@@ -259,6 +261,7 @@ Example:
 * `resize 100 200`
 // end::ResizeCommand[]
 
+// tag::UserSave[]
 === Save image : `save`
 
 Applies and saves your edits. +
@@ -267,6 +270,7 @@ Format: `save` or `save FILENAME`
 Example:
 
 * `save MyNewImage.png`
+// end::UserSave[]
 
 // tag::Undo[]
 === Undo edit steps : `undo`

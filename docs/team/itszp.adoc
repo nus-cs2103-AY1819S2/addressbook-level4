@@ -40,8 +40,6 @@ This section provides a summary of my coding, documentation and other contributi
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W14-2/main/pull/39[#39]
 *** Reported bugs and provided solutions to team: https://github.com/CS2103-AY1819S2-W14-2/main/issues/103[#103], https://github.com/CS2103-AY1819S2-W14-2/main/issues/93[#93], https://github.com/CS2103-AY1819S2-W14-2/main/pull/39[#39], https://github.com/CS2103-AY1819S2-W14-2/main/issues/70[#70], https://github.com/CS2103-AY1819S2-W14-2/main/issues/89[#89]
-** Tools:
-*** Integrated a third party library (https://github.com/sksamuel/scrimage[`scrimage`]) to the project (https://github.com[#42])
 
 
 == Contributions to the User Guide
@@ -51,13 +49,12 @@ This section provides a summary of my coding, documentation and other contributi
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=BlackWhiteCommand]
+include::../UserGuide.adoc[tag=AWalkThrough]
 
-include::../UserGuide.adoc[tag=ContrastCommand]
+include::../UserGuide.adoc[tag=ListAndOpen]
 
-include::../UserGuide.adoc[tag=BrightnessCommand]
+include::../UserGuide.adoc[tag=UserSave]
 
-include::../UserGuide.adoc[tag=CommandSummary]
 
 == Contributions to the Developer Guide
 
@@ -65,11 +62,13 @@ include::../UserGuide.adoc[tag=CommandSummary]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=LogicComponentSequenceDiagrams]
+include::../DeveloperGuide.adoc[tag=DesignModel]
 
-include::../DeveloperGuide.adoc[tag=StorageComponent]
+include::../DeveloperGuide.adoc[tag=OpenAndListFiles]
 
-include::../DeveloperGuide.adoc[tag=ImageFilter]
+include::../DeveloperGuide.adoc[tag=Save]
+
+include::../DeveloperGuide.adoc[tag=UserStories]
 
 
 == PROJECT: PowerPointLabs

@@ -130,7 +130,7 @@ Examples:
 * `addTable 4`
 * `addTable 4 2 4`
 
-==== Editing the Occupancy: `editPax`
+==== Editing the occupancy : `editPax`
 
 Edits the occupancy of the table. +
 Format: `editPax TABLE_NUMBER NEW_OCCUPANCY`
@@ -145,7 +145,7 @@ Examples:
 * `editPax 2 0`
 * `editPax 1 4`
 
-==== Editing the Available Seats : `editSeats`
+==== Editing the available seats : `editSeats`
 
 Edits the number of available seats at a table. +
 Format: `editSeats TABLE_NUMBER NEW_NUMBER_OF_SEATS`
@@ -159,7 +159,7 @@ Examples:
 
 * `editSeats 3 4`
 
-==== Clears the Tables : `clearTable`
+==== Clearing all the tables : `clearTable`
 
 Clears the RestOrRant of all tables. +
 Format: `clearTable`
@@ -168,7 +168,7 @@ Format: `clearTable`
 * Checks that all tables are unoccupied before clearing the tables.
 ****
 
-==== Getting Available tables for customers : `spaceFor` _(Coming in v2.0)_
+==== Getting available tables for customers : `spaceFor` _(Coming in v2.0)_
 
 Searches the restaurant for the table that best fits the number of customers to be seated. +
 Format: `spaceFor NUMBER_OF_CUSTOMERS`
@@ -188,7 +188,7 @@ In Table Mode, you can perform order-related operations for the chosen table. Th
 
 image::TMUi.png[width="790"]
 
-==== Adding item(s) to an order: `addToOrder`
+==== Adding item(s) to an order : `addToOrder`
 
 Adds the specified item(s) to the order of the current selected table and displays the new list of order items. +
 Format: `addToOrder ITEM_CODE QUANTITY [ITEM_CODE QUANTITY]…`
@@ -204,7 +204,7 @@ Examples:
 * `addToOrder W09 2`
 * `addToOrder W09 1 N01 1 C04 2`
 
-==== Adding a note to an item in an order: `addNote` _(Coming in v2.0)_
+==== Adding a note to an item in an order : `addNote` _(Coming in v2.0)_
 
 Adds a note to an item in the order of the current selected table. +
 Format: `addNote ITEM_CODE NOTE`
@@ -217,7 +217,7 @@ Examples:
 
 * `addNote W09 Less spicy`
 
-==== Deleting an item from an order: `deleteFromOrder`
+==== Deleting an item from an order : `deleteFromOrder`
 
 Deletes a specified item from the order of the current selected table. +
 Format: `deleteFromOrder ITEM_CODE`
@@ -231,7 +231,7 @@ Examples:
 * `deleteFromOrder W09` +
 Deletes W09 Chicken Wings from the current table's order.
 
-==== Clearing all the items in an order: `clearOrder`
+==== Clearing all the items in an order : `clearOrder`
 
 Deletes all the items ordered by the current selected table. +
 Format: `clearOrder`
@@ -240,7 +240,7 @@ Examples:
 
 * `clearOrder`
 
-==== Marking an item in an order as served: `serve` _(Coming in v1.4)_
+==== Marking an item in an order as served : `serve` _(Coming in v1.4)_
 
 Marks the specified item as served for the current selected table. +
 Format: `serve ITEM_CODE [QUANTITY]`
@@ -421,7 +421,7 @@ Here is our reference sheet so that you can have all of RestOrRant's commands an
 [width="90%",cols="25%,15%,30%,30%",options="header",]
 |=======================================================================
 |Command |Shortcut |Usage |Example
-|`help` | kbt:[F1] | `help` | Shows the user guide
+|`help` | kbd:[F1] | `help` | Shows the user guide
 |`restaurantMode` | `*RM*` | `restaurantMode` | Switches to Restaurant Mode
 |`tableMode` | `*TM*` | `tableMode TABLE_NUMBER` | `tableMode 1` +
 Switches to Table Mode for Table 1
@@ -435,13 +435,13 @@ Switches to Table Mode for Table 1
 [width="90%",cols="25%,15%,30%,30%",options="header",]
 |=======================================================================
 |Command |Shortcut |Usage |Example
-|`addTable` | `add` | `addTable NUMBER_OF_SEATS [NUMBER_OF_SEATS] ...` | `addTable 2 4 6 8` +
+|`addTable` | `*add*` | `addTable NUMBER_OF_SEATS [NUMBER_OF_SEATS] ...` | `addTable 2 4 6 8` +
 Adds 4 tables with 2, 4, 6 and 8 seats
 |`editPax` | - | `editPax TABLE_NUMBER NEW_OCCUPANCY` | `editPax 1 2` +
 Updates Table 1 to have 2 diners
 |`editSeats` | - | `editSeats TABLE_NUMBER NUMBER_OF_SEATS` | `editSeats 1 5` +
 Updates Table 1 to have 5 seats
-|`clearTable` | `clear` | `clearTable` | Clears all the tables in RestOrRant
+|`clearTable` | `*clear*` | `clearTable` | Clears all the tables in RestOrRant
 |=======================================================================
 
 === Table Mode
@@ -449,12 +449,12 @@ Updates Table 1 to have 5 seats
 [width="90%",cols="25%,15%,30%,30%",options="header",]
 |=======================================================================
 |Command |Shortcut |Usage |Example
-|`addToOrder` | `add` | `addToOrder ITEM_CODE QUANTITY [ITEM_CODE QUANTITY] …` | `addToOrder W09 1 W12 2` +
+|`addToOrder` | `*add*` | `addToOrder ITEM_CODE QUANTITY [ITEM_CODE QUANTITY] …` | `addToOrder W09 1 W12 2` +
 Adds 1 W09 and 2 W12 to the current table's order
-|`deleteFromOrder` | - | `deleteFromOrder ITEM_CODE` | `deleteFromOrder W09` +
+|`deleteFromOrder` | `*del*` | `deleteFromOrder ITEM_CODE` | `deleteFromOrder W09` +
 Removes W09 from the current table's order
-|`clearOrder` | `clear` | `clearOrder` | Clears all the items from the current table's order
-|`bill` | `b` | `bill` | Returns the bill for the current table's order
+|`clearOrder` | `*clear*` | `clearOrder` | Clears all the items from the current table's order
+|`bill` | `*b*` | `bill` | Returns the bill for the current table's order
 |=======================================================================
 
 === Menu Mode
@@ -462,7 +462,7 @@ Removes W09 from the current table's order
 [width="90%",cols="25%,15%,30%,30%",options="header",]
 |=======================================================================
 |Command |Shortcut |Usage |Example
-|`addToMenu` | `add` | `addToMenu c/ITEM_CODE n/ITEM_NAME p/ITEM_PRICE …` | `addToMenu c/A02 n/French Fries p/2.00` +
+|`addToMenu` | `*add*` | `addToMenu c/ITEM_CODE n/ITEM_NAME p/ITEM_PRICE …` | `addToMenu c/A02 n/French Fries p/2.00` +
 Adds A02 to the menu
 |=======================================================================
 

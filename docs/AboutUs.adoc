@@ -15,7 +15,7 @@ image::afterdusk.png[width="150", align="left"]
 {empty}[https://github.com/afterdusk[github]] [<<auliangjun#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Folder features
 
 '''
 
@@ -30,10 +30,10 @@ Responsibilities: Scoring features
 
 === Kerryn Eer
 image::kerryneer.png[width="150", align="left"]
-{empty}[https://github.com/KerrynEer[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/KerrynEer[github]] [<<kerryneer#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Documentation
+Responsibilities: Test session feature
 
 '''
 
@@ -42,7 +42,7 @@ image::mmdlow.png[width="150", align="left"]
 {empty}[https://github.com/mmdlow[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Code Quality
+Responsibilities: Card features
 
 '''
 
@@ -51,6 +51,6 @@ image::yichong96.png[width="150", align="left"]
 {empty}[https://github.com/yichong96[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Integration
+Responsibilities: Enhanced user functionality features
 
 '''

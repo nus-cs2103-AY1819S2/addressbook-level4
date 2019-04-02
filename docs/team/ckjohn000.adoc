@@ -1,21 +1,30 @@
-= John Doe - Project Portfolio
+= Wong Chin Kiat, John - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
-
----
+This portfolio aims to provide a summary of my contribution towards the project I have undertaken in the
+course CS2103T - Software Engineering.
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+TopDeck is a desktop app for anyone who relies on flash cards to memorise things.
+It comprises three different view states - 1)Deck, 2)Card, 3)Study, each of which plays
+a role to help you digitise your flash cards and keeps them organised.
+You can easily review your cards and TopDeck will track your performance.
+
+Improve your memory without the hassle of managing a physical pile of cards!
+
+//TODO
+_Screenshot of TopDeck_
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+* *Major enhancement*: added *the ability to manage decks*
+** What it does: allows the user manage decks in *deck view*.
+** Justification: This feature improves the product significantly because it can be hard to manage multiple cards.
+ To have a list of decks, each deck containing similar cards allows for better management.
+
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 ** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 

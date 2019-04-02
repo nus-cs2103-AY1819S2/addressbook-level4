@@ -1,9 +1,10 @@
-= HealthHub - Developer Guide
+= Health Hub - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
 :sectnums:
+:icons: font
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -15,7 +16,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S2-W09-2/main/tree/master
 
-By: `Team W9-02 (HealthHub)`      Since: `Jan 2019`      Licence: `MIT`
+By: `Team W9-02 (Health Hub)`      Since: `Jan 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -25,7 +26,7 @@ By: `Team W9-02 (HealthHub)`      Since: `Jan 2019`      Licence: `MIT`
 +
 [WARNING]
 JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
-Windows developers are highly recommended to use JDK `9`.
+Windows developers are highly recommended to use JDK `9` to retain consistency.
 
 . *IntelliJ* IDE
 +
@@ -45,7 +46,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Locate the `build.gradle` file and select it. Click `OK`
 . Click `Open as Project`
 . Click `OK` to accept the default settings
-. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
+. Open a console and run the command `gradlew processResources`. For Mac/Linux environments, run `./gradlew processResources`). It should finish with the [green]`BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
 . Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
@@ -54,7 +55,7 @@ This will generate all resources required by the application and tests.
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the `seedu.address.MainApp` and try a few basic commands.
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -70,7 +71,7 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 * For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
 * For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
 
-Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
+Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure IntelliJ to check style-compliance as you write code.
 
 ==== Getting started with coding
 
@@ -137,11 +138,13 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui[UI Package]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `RequestListPanel`, `InfoPanel`, `HealthWorkerListPanel`, `StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of different UI components e.g.`CommandBox`, `ResultDisplay`, `RequestListPanel`, `InfoPanel`, `HealthWorkerListPanel`, `StatusBarFooter`, etc.
+
+All of these, including the `MainWindow`, inherit from the `UiPart` class, which is an abstract class containing methods to load FXML files.
 
 The `UI` component uses the JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component,
+ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data dynamically.
@@ -213,8 +216,8 @@ This section describes some noteworthy details on how certain features are imple
 
 === Add/Edit/Delete feature
 
-The `add`, `edit` and `delete` command have been tweaked from the original AB4
- to include addition of and `Request` and `HealthWorker`.
+The `add`, `edit` and `delete` commands have been tweaked from the original AB4
+ to include addition of `Request` and `HealthWorker`.
 
 ==== Additional Implementation from v1.1
 
@@ -426,6 +429,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
+
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
@@ -907,15 +911,15 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 [appendix]
 == Product Scope
 
-*Target user profile*:
+*Target User Profile*:
 
-* has a need to manage a significant number of contacts
+* handles many requests daily to support homecare services
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* is reasonably comfortable in using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value Proposition*: helps eliminate the manual and messy workload of handling the different requests by integrating into a single management system.
 
 [appendix]
 == User Stories
@@ -926,23 +930,21 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
-|`* * *` |user |Check the details of new or unassigned requests|See what requests have yet to be assigned a health worker and what type of request it is
-|`* * *` |user |Assign a health worker to an existing request|Close a currently open request by assigning a new health worker who has the skillset to fufill the request at the time of the request
+|`* * *` |user |check the details of new or unassigned requests|see which requests have yet to be assigned a health worker and what type of request it is
+|`* * *` |user |assign a health worker to an existing request|close an open request by assigning a health worker who has the skills to attend to the patient's needs at the time of the request
 
-|`* * *` |user |Register a new health worker|
-|`* * *` |user |Register a new patient|
-|`* * *` |user |Register a new caretaker|
+|`* * *` |user |register a new health worker|
+|`* * *` |user |register a new request (either from the patient or caretaker)|key in a new request with the specific request and patient details
+|`* * *` |user |filter requests by patient's conditions|perform assignment of staff to requests that fit their skillset
+|`* * *` |user |filter requests by patient's name|find all the past requests he had with the system, if any.
+|`* * *` |user |delete a health worker |remove health workers who are no longer active
+|`* * *` |user |find a health worker by name |find a particular health worker registered in the system
+|`* * *` |user |check the professional details of existing health workers|identify which health worker has the appropriate skillsets and certification to fufill the corresponding requests
 
-|`* * *` |user |delete a person |remove entries that I no longer need
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-
-|`* * *` |user |Check the professional details of existing health workers|Identify which health worker has the appropriate skillsets and certificates to fufill the corresponding requests
-|`* * *` |user |Register a new request from a caretaker|Key in a new request from a caretaker with the specific request and patient details
-|`* *` |user handling many requests at once|Identify the number of requests and their proportion|Immediately see which type of requests have the most demand
-
-
-|`* *` |user |filter requests by type|Perform assignment of staff of tasks of a specific type
-|`* *` |user |Delete a request|Remove a request that is no longer valid or cancelled
+|`* *` |user handling many requests at once|identify the number of requests and their proportion|immediately see which type of requests have the most demand
+|`* *` |user |delete a request|remove a request that is no longer valid or cancelled
+|`* *` |user |set a reminder|phone up the patient to remind him that a health worker will be visiting his home on the day of the request
+|`* *` |user |undo my previous action|I can revert some unintended actions in the system
 
 |=======================================================================
 
@@ -950,7 +952,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise.
 
 [discrete]
 === Use case: Delete person
@@ -1077,7 +1079,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected output: Shows the GUI with a set of sample requests and health workers. The
 
 . Saving window preferences
 

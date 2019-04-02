@@ -16,6 +16,11 @@ public class Difficulty {
         totalRating = 0;
     }
 
+    public Difficulty(int numberOfAttempts, int totalRating) {
+        this.numberOfAttempts = numberOfAttempts;
+        this.totalRating = totalRating;
+    }
+
     /**
      * Includes the current rating into
      * the Difficulty class which computes
@@ -28,5 +33,13 @@ public class Difficulty {
 
     public int getDifficulty() {
         return numberOfAttempts == 0 ? 0 : totalRating / numberOfAttempts;
+    }
+
+    public int getTotalRating() {
+        return this.totalRating;
+    }
+
+    public int getNumberOfAttempts() {
+        return this.numberOfAttempts;
     }
 }

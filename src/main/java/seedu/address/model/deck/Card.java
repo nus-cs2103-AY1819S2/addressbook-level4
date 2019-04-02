@@ -35,8 +35,23 @@ public class Card implements ListItem {
         this.difficulty = new Difficulty();
     }
 
+    /**
+     * For when we load a card
+     */
+    public Card(String question, String answer, Difficulty difficulty, Set<Tag> tags) {
+        requireNonNull(question, answer);
+        this.question = question;
+        this.answer = answer;
+        this.difficulty = difficulty;
+        this.tags.addAll(tags);
+    }
+
     public int getDifficulty() {
         return difficulty.getDifficulty();
+    }
+
+    public Difficulty getDifficultyObj() {
+        return difficulty;
     }
 
     public String getAnswer() {

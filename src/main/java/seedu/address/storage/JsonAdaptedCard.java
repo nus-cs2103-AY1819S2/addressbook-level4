@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Difficulty;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -21,6 +22,8 @@ public class JsonAdaptedCard {
 
     private final String question;
     private final String answer;
+    private final int totalRating;
+    private final int numberOfAttempts;
 
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
@@ -29,9 +32,13 @@ public class JsonAdaptedCard {
      */
     @JsonCreator
     public JsonAdaptedCard(@JsonProperty("question") String question, @JsonProperty("answer") String answer,
-                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                           @JsonProperty("totalRating") int totalRating,
+                           @JsonProperty("numberOfAttempts") int numberOfAttempts) {
         this.question = question;
         this.answer = answer;
+        this.totalRating = totalRating;
+        this.numberOfAttempts = numberOfAttempts;
         if (tagged != null) {
             this.tags.addAll(tagged);
         }
@@ -43,6 +50,9 @@ public class JsonAdaptedCard {
     public JsonAdaptedCard(Card source) {
         this.question = source.getQuestion();
         this.answer = source.getAnswer();
+        Difficulty difficultyObj = source.getDifficultyObj();
+        this.totalRating = difficultyObj.getTotalRating();
+        this.numberOfAttempts = difficultyObj.getNumberOfAttempts();
         this.tags.addAll(source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
     }
 
@@ -67,6 +77,8 @@ public class JsonAdaptedCard {
 
         final Set<Tag> modelTags = new HashSet<Tag>(cardTags);
 
-        return new Card(question, answer, modelTags);
+        Difficulty difficulty = new Difficulty(numberOfAttempts, totalRating);
+
+        return new Card(question, answer, difficulty, modelTags);
     }
 }

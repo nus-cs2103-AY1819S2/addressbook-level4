@@ -168,7 +168,7 @@ public class ModelManager implements Model {
         versionedAddressBook.addAppointment(appointment);
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
     }
-    
+
 
     @Override
     public void deleteDoctor(Doctor target) {

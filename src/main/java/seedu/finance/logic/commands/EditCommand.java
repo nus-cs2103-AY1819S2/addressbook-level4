@@ -45,7 +45,6 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_RECORD_SUCCESS = "Edited Record: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_RECORD = "This record already exists in the finance tracker.";
 
     private final Index index;
     private final EditRecordDescriptor editRecordDescriptor;
@@ -73,10 +72,6 @@ public class EditCommand extends Command {
 
         Record recordToEdit = lastShownList.get(index.getZeroBased());
         Record editedRecord = createEditedRecord(recordToEdit, editRecordDescriptor);
-
-        if (!recordToEdit.isSameRecord(editedRecord) && model.hasRecord(editedRecord)) {
-            throw new CommandException(MESSAGE_DUPLICATE_RECORD);
-        }
 
         model.setRecord(recordToEdit, editedRecord);
         model.updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORD);

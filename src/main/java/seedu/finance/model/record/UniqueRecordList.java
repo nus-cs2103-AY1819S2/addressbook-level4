@@ -9,14 +9,12 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.finance.model.record.exceptions.DuplicateRecordException;
 import seedu.finance.model.record.exceptions.RecordNotFoundException;
 
 /**
  * A list of records that enforces uniqueness between its elements and does not allow nulls.
- * A record is considered unique by comparing using {@code Record#isSameRecord(Record)}. As such, adding and updating of
- * records uses Record#isSameRecord(Record) for equality so as to ensure that the record being added or updated is
- * unique in terms of identity in the UniqueRecordList. However, the removal of a record uses Record#equals(Object) so
+ * A record is considered unique by comparing using {@code Record#isSameRecord(Record)}.
+ * However, the removal of a record uses Record#equals(Object) so
  * as to ensure that the record with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
@@ -49,7 +47,6 @@ public class UniqueRecordList implements Iterable<Record> {
     /**
      * Replaces the record {@code target} in the list with {@code editedRecord}.
      * {@code target} must exist in the list.
-     * The record identity of {@code editedRecord} must not be the same as another existing record in the list.
      */
     public void setRecord(Record target, Record editedRecord) {
         requireAllNonNull(target, editedRecord);
@@ -57,10 +54,6 @@ public class UniqueRecordList implements Iterable<Record> {
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new RecordNotFoundException();
-        }
-
-        if (!target.isSameRecord(editedRecord) && contains(editedRecord)) {
-            throw new DuplicateRecordException();
         }
 
         internalList.set(index, editedRecord);

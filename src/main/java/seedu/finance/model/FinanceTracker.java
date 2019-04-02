@@ -20,7 +20,6 @@ import seedu.finance.model.record.UniqueRecordList;
 
 /**
  * Wraps all data at the finance-tracker level
- * Duplicates are not allowed (by .isSameRecord comparison)
  */
 public class FinanceTracker implements ReadOnlyFinanceTracker {
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -85,7 +84,6 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
 
     /**
      * Adds a record to the finance tracker.
-     * The record must not already exist in the finance tracker.
      */
     public boolean addRecord(Record r) {
         records.add(r);
@@ -99,8 +97,6 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
     /**
      * Replaces the given record {@code target} in the list with {@code editedRecord}.
      * {@code target} must exist in the finance tracker.
-     * The record identity of {@code editedRecord} must not be the same as
-     * another existing record in the finance tracker.
      */
     public void setRecord(Record target, Record editedRecord) {
         requireNonNull(editedRecord);

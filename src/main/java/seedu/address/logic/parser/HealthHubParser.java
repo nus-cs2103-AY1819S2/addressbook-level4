@@ -37,7 +37,7 @@ import seedu.address.logic.parser.request.CompleteRequestParser;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class HealthHubParser {
 
     /**
      * Used for initial separation of command word and args.

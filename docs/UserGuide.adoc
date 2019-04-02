@@ -619,5 +619,5 @@ any unforeseen circumstances happen.
 * <<Clearing Requests : `clr`>>
 * <<Closing Requests : `complete`>>
 * <<Listing previous commands : `history`>>
-* <<Viewing a request : `sr`>>
+* <<Viewing a request : `select`>>
 * <<Setting Reminder Alerts: `setreminder`>>

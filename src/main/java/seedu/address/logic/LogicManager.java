@@ -12,7 +12,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.HealthHubParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyHealthWorkerBook;
@@ -33,7 +33,7 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final CommandHistory history;
-    private final AddressBookParser addressBookParser;
+    private final HealthHubParser healthHubParser;
     private boolean requestBookModified;
     private boolean healthWorkerBookModified;
 
@@ -41,7 +41,7 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         this.history = new CommandHistory();
-        this.addressBookParser = new AddressBookParser();
+        this.healthHubParser = new HealthHubParser();
 
         // Set addressBookModified to true whenever the models' address book is modified.
         model.getRequestBook().addListener(observable -> requestBookModified = true);
@@ -58,7 +58,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         try {
-            Command command = addressBookParser.parseCommand(commandText);
+            Command command = healthHubParser.parseCommand(commandText);
             commandResult = command.execute(model, history);
         } finally {
             history.add(FORMATTER.format(timestamp) + ": " + commandText);

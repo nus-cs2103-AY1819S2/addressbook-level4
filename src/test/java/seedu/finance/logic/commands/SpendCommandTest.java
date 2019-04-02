@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.finance.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.finance.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
 import static seedu.finance.testutil.TypicalRecords.APPLE;
 import static seedu.finance.testutil.TypicalRecords.BANANA;
@@ -29,7 +28,6 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.finance.commons.core.GuiSettings;
 import seedu.finance.logic.CommandHistory;
-import seedu.finance.logic.commands.exceptions.CommandException;
 import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.Model;
 import seedu.finance.model.ModelManager;
@@ -77,7 +75,8 @@ public class SpendCommandTest {
 
         CommandResult commandResult = new SpendCommand(validRecord).execute(model, commandHistory);
         assertEquals(expectedMessage, commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(APPLE, BANANA, CAP, DONUT, EARRINGS, FRUITS, GIFT, APPLE), model.getFilteredRecordList());
+        assertEquals(Arrays.asList(APPLE, BANANA, CAP, DONUT, EARRINGS, FRUITS, GIFT, APPLE),
+                model.getFilteredRecordList());
     }
 
     @Test

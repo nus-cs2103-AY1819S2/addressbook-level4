@@ -1,6 +1,5 @@
 package seedu.finance.logic.commands;
 
-import static seedu.finance.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.finance.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
 

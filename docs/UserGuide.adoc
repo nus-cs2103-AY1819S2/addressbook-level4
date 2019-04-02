@@ -356,7 +356,7 @@ Format: `monthly`
 Change the interface to display the statistical yearly revenue. +
 Format: `yearly`
 
-==== Getting the most popular item ordered: `getMostPopularItem` _(coming in v1.4)_
+==== Getting the most popular item ordered : `getMostPopularItem` _(coming in v1.4)_
 
 Returns the item on the menu that has the most orders. +
 Format: `getMostPopularItem`

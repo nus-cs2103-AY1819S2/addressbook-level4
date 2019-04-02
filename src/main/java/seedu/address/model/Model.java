@@ -98,6 +98,13 @@ public interface Model {
     void addJob(Job job);
 
     /**
+     * Moves Person with {@code nric} in Job with {@code jobName}
+     * from list {@code source} to list {@code dest}
+     * {@code job} must exist in the address book.
+     */
+    Integer movePerson(JobName jobName, Nric nric, Integer source, Integer dest);
+
+    /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.

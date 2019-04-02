@@ -32,16 +32,16 @@ public class DisplayJobListCommand extends Command {
             + PREFIX_LISTNUMBER + "0 "
             + PREFIX_JOBNAME + "Helper ";
 
-    public static final String MESSAGE_SUCCESS = "Displaying job: %1$s";
+    public static final String MESSAGE_SUCCESS = "Displaying job";
     public static final String MESSAGE_MISSING_JOB = "This job does not exist";
 
-    private final int listNumber;
+    private final Integer listNumber;
     private final JobName toAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code job}
      */
-    public DisplayJobListCommand(JobName name, int number) {
+    public DisplayJobListCommand(JobName name, Integer number) {
         requireNonNull(name);
         requireNonNull(number);
         toAdd = name;

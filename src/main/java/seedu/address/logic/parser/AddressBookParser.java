@@ -22,6 +22,7 @@ import seedu.address.logic.commands.GenerateInterviewsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.MovePersonCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -167,6 +168,12 @@ public class AddressBookParser {
 
         case DisplayJobListCommand.COMMAND_ALIAS:
             return new DisplayJobListCommandParser().parse(arguments);
+
+        case MovePersonCommand.COMMAND_WORD:
+            return new MovePersonCommandParser().parse(arguments);
+
+        case MovePersonCommand.COMMAND_ALIAS:
+            return new MovePersonCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

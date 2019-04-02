@@ -69,18 +69,19 @@ public class Job {
     /**
      * Moves a person from one list to another
      */
-    public boolean move(Person target, int source, int dest) {
-        if (!personsHash.get(source).contains(target)) {
-            return false;
+    public int move(Person target, Integer source, Integer dest) {
+
+        if (!(personsHash.get(source).contains(target))) {
+            return 0;
         }
 
         if (personsHash.get(dest).contains(target)) {
-            return false;
+            return 1;
         }
 
         personsHash.get(dest).add(target);
         personsList.get(dest).add(target);
-        return true;
+        return 2;
     }
 
     /**

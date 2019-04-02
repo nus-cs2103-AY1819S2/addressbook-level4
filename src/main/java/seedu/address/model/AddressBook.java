@@ -145,6 +145,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a job with the same identity as {@code job} exists in the address book.
      */
+    public int movePerson(JobName jobName, Nric nric, int source, int dest) {
+        requireNonNull(jobName);
+        requireNonNull(nric);
+        requireNonNull(source);
+        requireNonNull(dest);
+
+        Person person = persons.getPerson(nric);
+        Job job = jobs.getJob(jobName);
+
+        return job.move(person, source, dest);
+    }
+
+    /**
+     * Returns true if a job with the same identity as {@code job} exists in the address book.
+     */
     public boolean hasJob(Job job) {
         requireNonNull(job);
         return jobs.contains(job);

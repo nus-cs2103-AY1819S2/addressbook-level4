@@ -6,6 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CardsView;
+import seedu.address.logic.DecksView;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
@@ -34,30 +36,30 @@ public class TestUtil {
     }
 
     /**
-     * Returns the middle index of the card in the {@code model}'s card list.
+     * Returns the middle index of the card in the {@code cardsView}'s card list.
      */
-    public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredList().size() / 2);
+    public static Index getMidIndex(CardsView cardsView) {
+        return Index.fromOneBased(cardsView.getFilteredList().size() / 2);
     }
 
     /**
-     * Returns the last index of the card in the {@code model}'s card list.
+     * Returns the last index of the card in the {@code cardsView}'s card list.
      */
-    public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredList().size());
+    public static Index getLastIndex(CardsView cardsView) {
+        return Index.fromOneBased(cardsView.getFilteredList().size());
     }
 
     /**
-     * Returns the card in the {@code model}'s card list at {@code index}.
+     * Returns the card in the {@code cardsView}'s card list at {@code index}.
      */
-    public static Card getCard(Model model, Index index) {
-        return (Card) model.getFilteredList().get(index.getZeroBased());
+    public static Card getCard(CardsView cardsView, Index index) {
+        return cardsView.getFilteredList().get(index.getZeroBased());
     }
 
     /**
-     * Returns the deck in the {@code model}'s deck list at {@code index}.
+     * Returns the deck in the {@code deckView}'s deck list at {@code index}.
      */
-    public static Deck getDeck(Model model, Index index) {
-        return (Deck) model.getFilteredList().get(index.getZeroBased());
+    public static Deck getDeck(DecksView decksView, Index index) {
+        return decksView.getFilteredList().get(index.getZeroBased());
     }
 }

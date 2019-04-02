@@ -174,16 +174,6 @@ public class AddCardCommandTest {
         }
 
         @Override
-        public ObservableList<ListItem> getFilteredList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredList(Predicate<? extends ListItem> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public boolean canUndoTopDeck() {
             throw new AssertionError("This method should not be called.");
         }

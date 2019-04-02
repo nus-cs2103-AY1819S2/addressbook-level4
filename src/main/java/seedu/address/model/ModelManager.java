@@ -1,30 +1,23 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.nio.file.Path;
-import java.util.Objects;
-import java.util.function.Predicate;
-import java.util.logging.Logger;
-
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.CardsView;
-import seedu.address.logic.DecksView;
-import seedu.address.logic.ListItem;
-import seedu.address.logic.StudyView;
-import seedu.address.logic.ViewState;
+import seedu.address.logic.*;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
-import seedu.address.model.deck.exceptions.CardNotFoundException;
 import seedu.address.model.deck.exceptions.IllegalOperationWhileReviewingCardException;
+
+import java.nio.file.Path;
+import java.util.Objects;
+import java.util.logging.Logger;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents the in-memory model of top deck data.
@@ -35,7 +28,6 @@ public class ModelManager implements Model {
     private final VersionedTopDeck versionedTopDeck;
     private final UserPrefs userPrefs;
     private final SimpleObjectProperty<ListItem> selectedItem = new SimpleObjectProperty<>();
-    private FilteredList<? extends ListItem> filteredItems;
     private ViewState viewState;
 
     /**
@@ -50,7 +42,6 @@ public class ModelManager implements Model {
         versionedTopDeck = new VersionedTopDeck(topDeck);
         this.userPrefs = new UserPrefs(userPrefs);
         viewState = new DecksView(new FilteredList<>(versionedTopDeck.getDeckList()));
-        filteredItems = ((DecksView) viewState).filteredDecks;
     }
 
     public ModelManager() {
@@ -60,12 +51,12 @@ public class ModelManager implements Model {
     public ModelManager(Model model) {
         versionedTopDeck = new VersionedTopDeck(model.getTopDeck());
         userPrefs = new UserPrefs(model.getUserPrefs());
-        ViewState viewState = getViewState();
+        ViewState viewState = model.getViewState();
         if (viewState instanceof DecksView) {
             this.viewState = new DecksView((DecksView) viewState);
-        } if (model.getViewState() instanceof CardsView) {
+        } if (viewState instanceof CardsView) {
             this.viewState = new CardsView((CardsView) viewState);
-        } else if (model.getViewState() instanceof StudyView) {
+        } else if (viewState instanceof StudyView) {
             this.viewState = new StudyView((StudyView) viewState);
         }
     }
@@ -80,7 +71,6 @@ public class ModelManager implements Model {
     public void changeDeck(Deck deck) {
         viewState = new CardsView(deck);
 
-        filteredItems = ((CardsView) viewState).filteredCards;
         setSelectedItem(null);
     }
 
@@ -91,7 +81,6 @@ public class ModelManager implements Model {
     @Override
     public void goToDecksView() {
         viewState = new DecksView(new FilteredList<>(versionedTopDeck.getDeckList()));
-        filteredItems = ((DecksView) viewState).filteredDecks;
         setSelectedItem(null);
     }
 
@@ -234,23 +223,6 @@ public class ModelManager implements Model {
         versionedTopDeck.updateDeck(target, editedDeck);
     }
 
-    //=========== Filtered Card List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Item} backed by the internal list of
-     * {@code versionedTopDeck}
-     */
-    @Override
-    public ObservableList<ListItem> getFilteredList() {
-        return (ObservableList<ListItem>) filteredItems;
-    }
-
-    @Override
-    public void updateFilteredList(Predicate<? extends ListItem> predicate) {
-        requireNonNull(predicate);
-        filteredItems.setPredicate((Predicate<ListItem>) predicate);
-    }
-
     //=========== Undo/Redo =================================================================================
 
     @Override
@@ -292,11 +264,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setSelectedItem(ListItem card) {
-        if (card != null && !filteredItems.contains(card)) {
-            throw new CardNotFoundException();
-        }
         selectedItem.setValue(card);
-
 
         if (card instanceof Card && isAtCardsView()) {
             CardsView cardsView = (CardsView) viewState;
@@ -327,4 +295,8 @@ public class ModelManager implements Model {
                 && viewState.equals(other.viewState);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(versionedTopDeck, userPrefs, viewState);
+    }
 }

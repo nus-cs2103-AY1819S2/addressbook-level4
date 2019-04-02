@@ -24,7 +24,6 @@ import seedu.address.logic.parser.EditDeckCommandParser;
 import seedu.address.logic.parser.FindDeckCommandParser;
 import seedu.address.logic.parser.SelectCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
 
 /**
@@ -42,8 +41,7 @@ public class DecksView implements ListViewState<Deck> {
     }
 
     public DecksView(DecksView decksView) {
-        filteredDecks = new FilteredList<>(decksView.getFilteredList());
-        filteredDecks.addListener(this::ensureSelectedItemIsValid);
+        this(new FilteredList<>(decksView.getFilteredList()));
     }
 
     @Override
@@ -126,5 +124,10 @@ public class DecksView implements ListViewState<Deck> {
         DecksView other = (DecksView) obj;
         return filteredDecks.equals(other.filteredDecks) &&
                 Objects.equals(selectedDeck.getValue(), other.selectedDeck.getValue());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(filteredDecks, selectedDeck.getValue());
     }
 }

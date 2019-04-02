@@ -24,7 +24,6 @@ import seedu.address.logic.parser.EditCardCommandParser;
 import seedu.address.logic.parser.FindCardCommandParser;
 import seedu.address.logic.parser.SelectCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 
@@ -132,5 +131,10 @@ public class CardsView implements ListViewState<Card> {
         CardsView other = (CardsView) obj;
         return filteredCards.equals(other.filteredCards) &&
                 Objects.equals(selectedCard.getValue(), other.selectedCard.getValue());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(filteredCards, selectedCard);
     }
 }

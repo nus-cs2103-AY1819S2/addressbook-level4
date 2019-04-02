@@ -93,18 +93,6 @@ public interface Model {
     void setCard(Card target, Card editedCard, Deck deck);
 
     /**
-     * Returns an unmodifiable view of the filtered list
-     */
-    ObservableList<ListItem> getFilteredList();
-
-    /**
-     * Updates the filter of the filtered card list to filter by the given {@code predicate}.
-     *
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredList(Predicate<? extends ListItem> predicate);
-
-    /**
      * Returns true if the model has previous TopDeck states to restore.
      */
     boolean canUndoTopDeck();

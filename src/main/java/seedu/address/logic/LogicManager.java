@@ -83,7 +83,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<ListItem> getFilteredList() {
-        return model.getFilteredList();
+        return ((ListViewState) model.getViewState()).getFilteredList();
     }
 
     @Override

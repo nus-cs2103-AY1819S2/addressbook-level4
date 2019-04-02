@@ -1,13 +1,11 @@
 package systemtests;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
 import seedu.address.logic.ListItem;
 import seedu.address.logic.ListViewState;
-import seedu.address.model.Model;
 
 /**
  * Contains helper methods to set up {@code Model} for testing.

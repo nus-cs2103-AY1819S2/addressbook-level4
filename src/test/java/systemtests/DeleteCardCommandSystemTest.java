@@ -37,11 +37,10 @@ public class DeleteCardCommandSystemTest extends TopDeckSystemTest {
 
     @Test
     public void delete() {
-            /* ----------------- Performing delete operation while an unfiltered list is being shown
-            -------------------- */
+        /* ----------------- Performing delete operation while an unfiltered list is being shown ------------------- */
 
         Model model = getModel();
-        model.changeDeck(DECK_A);
+        model.changeDeck(TEST_DECK);
 
         executeCommand(CHANGE_DECK_COMMAND);
         CardsView cardsView = (CardsView) model.getViewState();
@@ -71,8 +70,7 @@ public class DeleteCardCommandSystemTest extends TopDeckSystemTest {
         command = CardUtil.getAddCommand(toAdd);
         executeCommand(command);
 
-            /* Case: delete the first card in the list, command with leading spaces and trailing spaces
-            -> deleted */
+        /* Case: delete the first card in the list, command with leading spaces and trailing spaces -> deleted */
         Card target = SUBTRACTION;
 
         command = "   " + DeleteCardCommand.COMMAND_WORD + " " + 1 + "   ";
@@ -99,11 +97,9 @@ public class DeleteCardCommandSystemTest extends TopDeckSystemTest {
 
         assertCommandSuccess(command, model, expectedResultMessage);
 
-            /* ------------------ Performing delete operation while a filtered list is being shown
-            ---------------------- */
+        /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
-            /* Case: filtered card list, delete index within bounds of top deck and card list ->
-            deleted */
+        /* Case: filtered card list, delete index within bounds of top deck and card list -> deleted */
         showCardsWithQuestion(KEYWORD_MATCHING_HTTP, cardsView.getActiveDeck());
         Index index = INDEX_FIRST_CARD;
         assertTrue(index.getZeroBased() < model.getFilteredList().size());
@@ -113,18 +109,14 @@ public class DeleteCardCommandSystemTest extends TopDeckSystemTest {
 
         cardsView = assertCommandSuccess(command, target, model, cardsView);
 
-            /* Case: filtered card list, delete index within bounds of address book but out of bounds of
-            card list
-             * -> rejected
-             */
+        /* Case: filtered card list, delete index within bounds of address book but out of bounds of card list
+        -> rejected */
         showCardsWithQuestion(KEYWORD_MATCHING_HTTP, cardsView.getActiveDeck());
         int invalidIndex = cardsView.getActiveDeck().getCards().internalList.size() + 1;
         command = DeleteCardCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, model, MESSAGE_INVALID_DISPLAYED_INDEX);
 
-
-            /* --------------------------------- Performing invalid delete operation
-            ------------------------------------ */
+        /* --------------------------------- Performing invalid delete operation ----------------------------------- */
 
         /* Case: invalid index (0) -> rejected */
         command = DeleteCardCommand.COMMAND_WORD + " 0";

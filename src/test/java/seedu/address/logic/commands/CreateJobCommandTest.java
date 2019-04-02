@@ -26,7 +26,10 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
+import seedu.address.model.job.JobName;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.testutil.JobBuilder;
 
 public class CreateJobCommandTest {
@@ -161,6 +164,11 @@ public class CreateJobCommandTest {
         }
 
         @Override
+        public void updateBaseFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -240,7 +248,30 @@ public class CreateJobCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void addFilteredPersonsToJob(Job job) {
+            throw new AssertionError("This method should not be called.");
+        }
 
+        @Override
+        public boolean addPersonToJob(JobName job, Nric nric) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void changeFilteredPersonList(UniquePersonList list) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void revertList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public UniquePersonList getJobList(JobName name, int listNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

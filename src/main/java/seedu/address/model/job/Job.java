@@ -1,5 +1,6 @@
 package seedu.address.model.job;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
@@ -43,13 +44,51 @@ public class Job {
         return name;
     }
 
+    /**
+     * Adds all persons on displayed filter list to first list of job.
+     * Only adds if not already in job.
+     */
+    public void addFilteredList() {
+
+    }
+
+    /**
+     * Adds a person to a job.
+     * Goes to the first list
+     */
+    public boolean add(Person person) {
+        if (personsHash.get(0).contains(person)) {
+            return false;
+        }
+        personsHash.get(0).add(person);
+        personsList.get(0).add(person);
+
+        return true;
+    }
+
+    /**
+     * Moves a person from one list to another
+     */
+    public boolean move(Person target, int source, int dest) {
+        if (!personsHash.get(source).contains(target)) {
+            return false;
+        }
+
+        if (personsHash.get(dest).contains(target)) {
+            return false;
+        }
+
+        personsHash.get(dest).add(target);
+        personsList.get(dest).add(target);
+        return true;
+    }
 
     /**
      * Returns an immutable  people set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public final List<Person> getPeople(int listNumber) {
-        return personsHash.get(listNumber).asUnmodifiableObservableList();
+    public final UniquePersonList getPeople(int listNumber) {
+        return personsHash.get(listNumber);
     }
 
     public final ArrayList<Name> getPeopleNames(List<Person> peopleList) {
@@ -84,11 +123,12 @@ public class Job {
      * This defines a weaker notion of equality between two jobs.
      */
     public boolean isSameJob(Job otherJob) {
+        requireNonNull(otherJob);
         if (otherJob == this) {
             return true;
         }
 
-        return false;
+        return ((otherJob.getName()).equals(this.getName()));
     }
 
     /**

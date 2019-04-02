@@ -187,7 +187,8 @@ public class UniquePersonListTest {
     @Test
     public void checkGetPerson() {
         uniquePersonList.add(BOB);
-        Person person = uniquePersonList.getPerson(VALID_NRIC_BOB);
+        Nric nric = new Nric(VALID_NRIC_BOB);
+        Person person = uniquePersonList.getPerson(nric);
         assertTrue(person.isSamePerson(BOB));
     }
 }

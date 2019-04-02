@@ -7,11 +7,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddPersonToJobCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ClearInterviewsCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CreateJobCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DisplayJobListCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -153,6 +155,18 @@ public class AddressBookParser {
 
         case GenerateAnalyticsCommand.COMMAND_WORD:
             return new GenerateAnalyticsCommand();
+
+        case AddPersonToJobCommand.COMMAND_WORD:
+            return new AddPersonToJobCommandParser().parse(arguments);
+
+        case AddPersonToJobCommand.COMMAND_ALIAS:
+            return new AddPersonToJobCommandParser().parse(arguments);
+
+        case DisplayJobListCommand.COMMAND_WORD:
+            return new DisplayJobListCommandParser().parse(arguments);
+
+        case DisplayJobListCommand.COMMAND_ALIAS:
+            return new DisplayJobListCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

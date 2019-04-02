@@ -225,7 +225,7 @@ The `Storage` component,
 * can save the Book Shelf data in json format and read it back.
 * both the data of books and reviews will be saved.
 * users are not supposed to touch the data file (file inside the `data` folder) directly. If the user insists on doing so, the data might be corrupted.
-* users are not supposed to add data files into the app manually. If you accidentally do so and find the data corrupted, you should reinstall the app and all previous data will get lost.
+* users are not supposed to add data files into the app manually. If the user accidentally corrupt the data file, he or she may have to reinstall the app and all data will get lost.
 
 [[Design-Commons]]
 === Common classes
@@ -389,7 +389,9 @@ Step 4. The book shelf now adds the book to the book list after making sure ther
 
 ==== Current Implementation
 
-The current version of listBook command works to help the user to search books that satisfy certain criteria. The user can look for books by giving keywords of book name, author. The user can also search book by tags or rating. This would be handy when there are many books in the book shelf. It also makes the app more user-friendly as the user sometimes cannot remember the exact full name of a book but only know a few things about the book he/she is looking for. For example, if the user is looking for a book with the keyword ‘Girl’ two or three years ago, and he only knows that he rated this book highly, then after he key in `listBook n/girl m/7 m/8 m/9 m/10` and press the enter, he will find the book he is looking for in the book list panel.  Or he cannot remember how to spell Garcia Marquez’s full name, he will be able to locate the book by using `listBookCommand t/magical`.
+The current version of listBook command works to help the user to search books that satisfy certain criteria. The user can look for books by giving keywords of book name, author, tag or rating.
+
+This would be handy when there are many books in the book shelf. It also makes the app more user-friendly as the user sometimes cannot remember the exact full name of a book but only know a few things about the book desired.
 
 Compared to to the `list` command in the address book app, our `listBookCommand` is an implementation of the combination of `list` and `find` and even more functional helpful, as it accepts more filtering criteria than the original command does.
 
@@ -834,11 +836,7 @@ These instructions only provide a starting point for testers to work on; testers
 . Dealing with missing/corrupted data files
 
 .. Data is saved in `bookshelf.json`, which is under the `data` directory.
-.. After the installation, `bookshelf.json` is not present. The file is initialized after main app runs for the first time. +
-   At this point the file is loaded with the sample data.
+.. After the installation, `bookshelf.json` is not present. The file is initialized after main app runs for the first time. At this point the file is loaded with the sample data.
 .. The data will not be saved automatically. If the user does not exit the program using the `exit` command,the changes will not be kept.
-.. If the developer modify the storage component, to make the data structure and content consistent with the newly updated code,+
-   The developer should delete the file before relaunching the app.
-.. If the file is corrupted, the developer or the user can manually fix the bookshelf.json to restore the data. +
-   However, he or she should stick to the format specified or the data will not be read properly. +
-   Therefore, change the `bookshelf.json` is not encouraged as such behavior will cause unexpected bugs.
+.. If the developer modifies the storage component, to make the data structure and content consistent with the newly updated code, The developer should delete the file before relaunching the app.
+.. If the file is corrupted, the developer or the user can manually fix the bookshelf.json to restore the data. However, he or she should stick to the format specified or the data will not be read properly. Therefore, modifying the `bookshelf.json` directly is not encouraged as such behavior will cause unexpected bugs.

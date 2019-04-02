@@ -52,6 +52,7 @@ include::../UserGuide.adoc[tag=introductionUG]
 include::../UserGuide.adoc[tag=listUnvisitedUG]
 
 include::../UserGuide.adoc[tag=nameUG]
+
 == Contributions to the Developer Guide
 
 |===

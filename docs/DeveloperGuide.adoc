@@ -237,7 +237,7 @@ This section describes some noteworthy details on how certain features are imple
 // tag::cards[]
 === Cards
 ==== Current Implementation
-The `Card` is one of the core aspects of the application. Cards are the result of morphing of the `Person` class from the original AddressBook model. The implementation incorporates the `Logic` and `Model` components.
+The `Card` is one of the core aspects of the application. Cards are the result of morphing the `Person` class from the original AddressBook model. This implementation incorporates the `Model` and `Logic` components.
 
 [discrete]
 ==== Model
@@ -249,13 +249,21 @@ To allow users to manage Cards, the following methods are available via the `Mod
 * `ModelManager#hasCard(Card card)` - Checks if a card is already present in the currently active folder
 
 [discrete]
+==== Logic
+As with all other commands, the `LogicManager#execute(String commandText)` method of the `Logic` component parses the user's input, say a command to add a new card, and executes the corresponding `Command`.
+
+[discrete]
 ==== Example Usage
+
+The following steps detail the underlying logic executed when a user does a card-related operation, say an add card operation.
 
 1. User is in the `Organs` folder and wants to add a new card, with question 'What is the largest organ?' and answer 'Skin'. This is done by typing `add q/What is the largest organ? a/Skin`.
 +
 image:CardImplementationAddExample.png[width="800"]
 
-    * Upon execution, the `AddCommand` checks if the card to be added is already present in the current folder. If so, an exception is thrown.
+2. The command parser reads the string input (as entered by the user) and returns the corresponding `Command`, an `AddCommand` object in this instance.
+
+3. Upon execution, the `AddCommand` checks if the card to be added is already present in the current folder. If so, an exception is thrown.
 
 2. The `AddCommand` then calls the `ModelManager#addCard(Card card)` method.
 
@@ -275,7 +283,7 @@ image:AddCommandSequenceDiagram.png[width="800"]
 ** Pros: Simple to implement, easy to convert the card type between MCQ and Single-answer, requires the least amount of implementation changes to `Card`.
 ** Cons: Single-answer cards still have to maintain an empty `Option` set.
 * **Alternative 2:** Maintain 2 separate subclasses of `Card`, one for Single-answer and another for MCQ.
-** Pros: More correct implementation.
+** Pros: More object-oriented implementation.
 ** Cons: Harder to implement.
 
 // end::cards[]

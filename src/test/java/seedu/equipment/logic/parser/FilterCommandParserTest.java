@@ -29,12 +29,14 @@ public class FilterCommandParserTest {
                 new FilterCommand(new EquipmentContainsKeywordsPredicate(Arrays.asList("Jurong", "Bedok"),
                         Arrays.asList("jurong", "bedok"), Arrays.asList("30 November", "September"),
                         Arrays.asList("987617", "9293"), Arrays.asList("west", "east"), Arrays.asList("A00", "X10")));
-        assertParseSuccess(parser, " n/Jurong n/Bedok a/jurong a/bedok pm/30 November pm/September "
-                + "p/987617 p/9293 " + "t/west t/east s/A00 s/X10", expectedFilterCommand);
+        assertParseSuccess(parser,
+                " n/Jurong n/Bedok a/jurong a/bedok pm/30 November pm/September p/987617 p/9293 "
+                        + "t/west t/east s/A00 s/X10", expectedFilterCommand);
 
         // multiple whitespaces between keywords
         assertParseSuccess(parser, " n/Jurong \n n/Bedok          "
                 + "a/jurong    \n a/bedok \n pm/30 November pm/September p/987617 p/9293 "
                 + "                t/west t/east s/A00 s/X10", expectedFilterCommand);
     }
+
 }

@@ -22,7 +22,8 @@ import seedu.equipment.logic.CommandHistory;
 import seedu.equipment.model.Model;
 import seedu.equipment.model.ModelManager;
 import seedu.equipment.model.UserPrefs;
-import seedu.equipment.model.equipment.*;
+import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.equipment.EquipmentContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FilterCommand}.
@@ -81,8 +82,9 @@ public class FilterCommandTest {
 
     public void execute_zeroKeywords_noEquipmentFound() {
         String expectedMessage = String.format(MESSAGE_EQUIPMENTS_LISTED_OVERVIEW, 0);
-        EquipmentContainsKeywordsPredicate predicate = new EquipmentContainsKeywordsPredicate(Arrays.asList("anchorvalecc", " "),
-                Arrays.asList(), Arrays.asList(), Arrays.asList(), Arrays.asList(), Arrays.asList());
+        EquipmentContainsKeywordsPredicate predicate = new EquipmentContainsKeywordsPredicate(
+                Arrays.asList("anchorvalecc", " "), Arrays.asList(), Arrays.asList(), Arrays.asList(), Arrays.asList(),
+                Arrays.asList());
         FilterCommand command = new FilterCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);

@@ -44,6 +44,7 @@ public class CurrentEditManager implements CurrentEdit {
         this.tempImage = null;
         this.originalImageName = null;
     }
+    /* @@author*/
 
     /* @@author itszp */
 

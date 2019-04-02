@@ -54,3 +54,4 @@ public interface CurrentEdit {
 
     boolean tempImageExist();
 }
+/* @@author*/

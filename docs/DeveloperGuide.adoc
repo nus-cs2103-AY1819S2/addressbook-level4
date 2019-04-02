@@ -1380,6 +1380,7 @@ Use case ends
 
 //end::testsessionusecases[]
 
+//tag::cardusecases[]
 [discrete]
 === UC02 Add flashcards
 
@@ -1390,6 +1391,15 @@ Use case ends
 3. System stores the details as a flashcard under the current folder.
 +
 Use case ends
+
+*Extensions*
+
+[none]
+* 2a. Student only inputs a question but no answer.
+[none]
+** 2a1. System displays an error message informing the user that the command format is invalid.
++
+Use case resumes from step 2.
 
 [discrete]
 === UC03 Edit flashcard question
@@ -1407,7 +1417,7 @@ Use case ends
 [none]
 * 2a. Student enters a blank as the desired question.
 [none]
-** 2a1. System displays an error message informing that the question cannot be a blank.
+** 2a1. System displays an error message informing the user that the question cannot be a blank.
 +
 Use case resumes from step 2.
 
@@ -1417,6 +1427,7 @@ Use case resumes from step 2.
 ** 2b1. System displays an error message prompting the user to choose a valid card index.
 +
 Use case resumes from step 2.
+//end::cardusecases[]
 
 //tag::folderusecases[]
 [discrete]

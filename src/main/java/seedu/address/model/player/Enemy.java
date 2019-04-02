@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.BoundaryValueChecker;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Name;
 
@@ -82,11 +84,11 @@ public class Enemy extends Player {
 
         if (watchlist.isEmpty()) {
             newTarget = drawPartityTarget();
-            logger.info(String.format("Watchlist is empty " + "enemy shoot parity: " + newTarget.toString()));
+            logger.info(String.format("++++++++WATCHLIST EMPTY " + "enemy shoot parity: " + newTarget.toString()));
 
         } else {
             newTarget = drawFromWatchList();
-            logger.info(String.format("Watchlist has stuff " + "enemy shoot watched: " + newTarget.toString()));
+            logger.info(String.format("++++++++WATCHLIST STUFFED " + "enemy shoot watched: " + newTarget.toString()));
 
         }
         modeCleanup(newTarget);
@@ -154,7 +156,7 @@ public class Enemy extends Player {
         //AircraftCarrierBattleship x = new AircraftCarrierBattleship(currentBattleshipName);
         this.getMapGrid().putShip(currentBattleship, currentBattleshipHead, useOrientation);
         markAsOccupied(currentBattleshipHead, 5, useOrientation);
-        logger.info(String.format("Placed aircraft carrier at " + currentBattleshipHead.toString()
+        logger.info(String.format("++++++++POPULATED aircraft carrier at " + currentBattleshipHead.toString()
                 + " orientation is " + useOrientation.toString()));
     }
 
@@ -163,28 +165,34 @@ public class Enemy extends Player {
      * and marks those occupied cells in allPossiblePopulateCoords
      */
     private void placeMultipleDestroyerAndCruiser(int numShips, String shipType, int shipSize) {
-        Orientation useOrientation;
-        Coordinates useCoord;
+        Orientation useOrientation = new Orientation("v");
+        Coordinates useCoord = new Coordinates(0, 0);
         ArrayList<Battleship> preppedShips = generateBattleships(numShips, shipType, shipSize);
-
+        Battleship useShip = new Battleship();
         while (!preppedShips.isEmpty()) {
             try {
                 useOrientation = generateOrientation();
                 java.util.Collections.shuffle(allPossiblePopulateCoords, randGen2);
                 useCoord = allPossiblePopulateCoords.get(0);
-                this.getMapGrid().putShip(preppedShips.get(0), useCoord, useOrientation);
-                logger.info(String.format("Placed " + preppedShips.get(0).getName() + "at "
-                        + useCoord.toString()
-                        + " orientation is " + useOrientation.toString()));
+                useShip = preppedShips.get(0);
+                BoundaryValueChecker boundaryValueChecker = new BoundaryValueChecker(this.getMapGrid(), useShip,
+                        useCoord, useOrientation);
+                boundaryValueChecker.performChecks();
+                this.getMapGrid().putShip(useShip, useCoord, useOrientation);
                 preppedShips.remove(0);
                 markAsOccupied(useCoord, shipSize, useOrientation);
-            } catch (ArrayIndexOutOfBoundsException e) {
+                logger.info(String.format("++++++++POPULATED " + useShip.getName() + " at "
+                        + useCoord.toString()
+                        + " orientation is " + useOrientation.toString()));
+            } catch (ArrayIndexOutOfBoundsException aIoObEx) {
                 //TODO log the error later from putship
+            } catch (CommandException cmdEx) {
+                logger.info(String.format("++++++++REJECTED POPULATING " + useShip.getName())
+                        + " at " + useCoord + " orientation: " + useOrientation);
             }
         }
 
     }
-
 
 
     /************************************************************************
@@ -198,7 +206,7 @@ public class Enemy extends Player {
             Battleship currentBattleship = new Battleship(currentBattleshipName, shipSize, shipSize);
             preppedFleet.add(currentBattleship);
         }
-        logger.info(String.format("GENERATED SMALLER SHIPS: " + preppedFleet.toString()));
+        logger.info(String.format("++++++++GENERATED: " + preppedFleet.toString()));
         return preppedFleet;
     }
     /***************************************************************
@@ -211,12 +219,17 @@ public class Enemy extends Player {
         if (useOrientation.isHorizontal()) { //row stays the same
             int colStart = head.getColIndex().getZeroBased();
             for (int i = 0; i < shipSize; i++) {
-                allPossiblePopulateCoords.remove(new Coordinates(head.getRowIndex().getZeroBased(), colStart + i));
+                Coordinates markedCoord = new Coordinates(head.getRowIndex().getZeroBased(), colStart + i);
+                allPossiblePopulateCoords.remove(markedCoord);
+                logger.info(String.format("++++++++MARK_AS_OCCUPIED: " + markedCoord.toString()));
             }
         } else { //increase row
             for (int i = 0; i < shipSize; i++) { //col stays the same
                 int rowStart = head.getRowIndex().getZeroBased();
-                allPossiblePopulateCoords.remove(new Coordinates(rowStart + 1, head.getColIndex().getZeroBased()));
+                Coordinates markedCoord = new Coordinates(rowStart + i, head.getColIndex().getZeroBased());
+                allPossiblePopulateCoords.remove(markedCoord);
+                logger.info(String.format("++++++++MARK_AS_OCCUPIED: " + markedCoord.toString()));
+
             }
         }
     }
@@ -266,7 +279,7 @@ public class Enemy extends Player {
      */
     public void receiveStatus(Status latestStatusInfo) {
         lastAttackStatus = latestStatusInfo;
-        logger.info(String.format("LAST HIT ON: " + lastCoordAttacked.toString()
+        logger.info(String.format("++++++++RECEIVE_STATUS: " + lastCoordAttacked.toString()
                 + " status: " + latestStatusInfo.toString()));
         updateWatchlist(lastCoordAttacked);
     }
@@ -277,11 +290,12 @@ public class Enemy extends Player {
      * to the watchlist
      */
     private void updateWatchlist(Coordinates lastCoordAttacked) {
-        if (lastAttackStatus == Status.EMPTYHIT) {
+        logger.info(String.format("++++++++BEFORE_UPDATE_WATCHLIST_STATUS_CHECK " + lastCoordAttacked.toString()
+                + " status: " + lastAttackStatus.toString()));
+        if (lastAttackStatus == Status.SHIP) { //TO-DO: FIX THE STATUS TO SHIPHIT. NOW USING SHIP CUZ IM READING OWN MAP
             int oldRow = lastCoordAttacked.getRowIndex().getZeroBased();
             int oldCol = lastCoordAttacked.getColIndex().getZeroBased();
-            Coordinates updatedCoord = new Coordinates(0, 0);
-            boolean hasCardinals = false;
+            Coordinates updatedCoord;
 
             //ADD CARDINAL DIRECTIONS TO WATCHLIST.
             //WATCHLIST COORDS IN FORM a1
@@ -289,29 +303,34 @@ public class Enemy extends Player {
             if (oldRow - 1 >= 0) {
                 //add cardinal NORTH to watchlist. ROW MINUS ONE
                 updatedCoord = new Coordinates(oldRow - 1, oldCol);
-                hasCardinals = true;
+                if (isValidCardinal(updatedCoord)) {
+                    watchlist.push(updatedCoord);
+                }
             }
             if (oldRow + 1 < mapSize) {
                 //add cardinal SOUTH to watchlist  ROW PLUS ONE
                 updatedCoord = new Coordinates(oldRow + 1, oldCol);
-                hasCardinals = true;
+                if (isValidCardinal(updatedCoord)) {
+                    watchlist.push(updatedCoord);
+                }
             }
             if (oldCol - 1 >= 0) {
                 //add cardinal WEST to watchlist   COL MINUS ONE
                 updatedCoord = new Coordinates(oldRow, oldCol - 1);
-                hasCardinals = true;
+                if (isValidCardinal(updatedCoord)) {
+                    watchlist.push(updatedCoord);
+                }
             }
             if (oldCol + 1 < mapSize) {
                 //add cardinal EAST to watchlist   COL PLUS ONE
                 updatedCoord = new Coordinates(oldRow, oldCol + 1);
-                hasCardinals = true;
+                if (isValidCardinal(updatedCoord)) {
+                    watchlist.push(updatedCoord);
+                }
+            }
 
-            }
-            if (isValidCardinal(updatedCoord) && hasCardinals) {
-                watchlist.push(updatedCoord);
-            }
-            logger.info(String.format("WATCHLIST UPDATING:\n" + watchlist.toString()));
-            logger.info(String.format("WATCHLIST SIZE:\n" + watchlist.size()));
+            logger.info(String.format("++++++++WATCHLIST UPDATING:\n" + watchlist.toString()));
+            logger.info(String.format("++++++++WATCHLIST SIZE:\n" + watchlist.size()));
 
         }
 

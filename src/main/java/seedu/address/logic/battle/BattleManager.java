@@ -77,6 +77,8 @@ public class BattleManager implements Battle {
 
         AttackResult res = performAttack(enemyPlayer, humanPlayer, enemyAttack);
         // update the enemy with it's result
+        logger.info(String.format("+++++++BATMAN SAYS: LAST HIT ON: " + enemyAttack.toString()
+                + " status: " + res.toString()));
         return res;
     }
 

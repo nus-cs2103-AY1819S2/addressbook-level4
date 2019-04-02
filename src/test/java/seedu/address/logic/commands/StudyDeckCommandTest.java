@@ -120,7 +120,7 @@ public class StudyDeckCommandTest {
 
         // same values -> returns true
         StudyDeckCommand studyFirstCommandCopy = new StudyDeckCommand(decksView, INDEX_FIRST_DECK);
-        assertTrue(studyFirstCommandCopy.equals(studyFirstCommandCopy));
+        assertTrue(studyFirstCommand.equals(studyFirstCommandCopy));
 
         // different types -> returns false
         assertFalse(studyFirstCommand.equals(1));

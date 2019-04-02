@@ -39,10 +39,8 @@ public class OpenDeckCommandTest {
     //from decks view
     private DecksView decksView;
     private Index index;
-    private OpenDeckCommand openDeckTargetIndex;
     //from study view
     private StudyView studyView;
-    private OpenDeckCommand getOpenDeckTargetDeck;
 
 
     @Before
@@ -114,7 +112,7 @@ public class OpenDeckCommandTest {
 
         // same values -> returns true
         OpenDeckCommand openFirstCommandCopy = new OpenDeckCommand(INDEX_FIRST_DECK, decksView);
-        assertTrue(openFirstCommandCopy.equals(openFirstCommandCopy));
+        assertTrue(openFirstCommand.equals(openFirstCommandCopy));
 
         // different types -> returns false
         assertFalse(openFirstCommand.equals(1));

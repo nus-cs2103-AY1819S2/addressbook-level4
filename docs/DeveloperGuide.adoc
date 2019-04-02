@@ -103,6 +103,7 @@ When you are ready to start coding,
 1. Get some sense of the overall design by reading <<Design-Architecture>>.
 2. Take a look at <<GetStartedProgramming>>.
 
+// tag::Architecture[]
 == Design
 
 [[Design-Architecture]]
@@ -162,6 +163,8 @@ image::SDforImportcommand.png[width="800"]
 image::SDforRotatecommand.png[width="800"]
 
 The sections below give more details of each component.
+// end::Architecture[]
+
 [[Design-Ui]]
 // tag::ui[]
 === UI component
@@ -440,6 +443,7 @@ Refer to the example usage scenario and design considerations in <<Contrast Comm
 image::BlackWhiteCommandSequenceDiagram.png[width="800"]
 // end::ImageFilter[]
 
+// tag::ImageManipulation[]
 === Image Manipulation
 ==== Current Implementation
 
@@ -507,6 +511,8 @@ Refer to the example usage scenario and design considerations in <<Rotate Comman
 
 .Sequence Diagram for Resize Command
 image::ResizeCommandSequenceDiagram.png[width="800"]
+
+// end::ImageManipulation[]
 
 // tag::undoredo[]
 === Undo/Redo feature

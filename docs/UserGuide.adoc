@@ -34,7 +34,7 @@ image::Ui.png[width="800"]
 +
 .  And you have just started up FomoFoto on your device! You can refer to <<Features>> for details of each command. If you would like a step-by-step walk through of our application, scroll down to the next section: A Walk Through.
 
-
+// tag::AWalkThrough[]
 == A Walk Through
 Let's start on our image editing journey. In this walk through, we will be demonstrating some simple commands to edit a sample image.
 
@@ -100,6 +100,8 @@ image::brightnessSuccess.PNG[width="917"]
 image::cropSuccess.PNG[width="918"]
 +
 
+// end::AWalkThrough[]
+
 .  Save your edits by typing command: `save`.
 
 [[Features]]
@@ -152,6 +154,7 @@ Examples:
 * `contrast 0.3` (reduces contrast)
 // end::ContrastCommand[]
 
+// tag::CropCommand[]
 === Crop an image : `crop`
 
 Crops an image based on given top left hand corner coordinates, width and height of final cropped image wanted. +
@@ -164,6 +167,8 @@ Format: `crop X_POINTCOORD Y_POINTCOORD WIDTH HEIGHT`
 Example:
 
 * `crop 2 3 500 500`
+
+// end::CropCommand[]
 
 === Exit the program : `exit`
 
@@ -232,6 +237,7 @@ Examples:
 `redo` (runs `crop 2 3 500 500` command again)
 // end::Redo[]
 
+// tag::RotateCommand[]
 === Rotate an image : `rotate`
 
 Rotates the photo by a given degree provided by the user. Only 90, 180 or 270 degrees of rotation is allowed. +
@@ -240,7 +246,9 @@ Format: `rotate ANGLE`
 Example:
 
 * `rotate 90`
+// end::RotateCommand[]
 
+// tag::ResizeCommand[]
 === Resize an image : `resize`
 
 Resizes the photo to a given width and height provided by the user. +
@@ -249,6 +257,7 @@ Format: `resize WIDTH HEIGHT`
 Example:
 
 * `resize 100 200`
+// end::ResizeCommand[]
 
 === Save image : `save`
 

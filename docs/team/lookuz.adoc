@@ -7,49 +7,206 @@
 
 == Overview
 
-Health Hub is a desktop application designed for hospital administrative staff. With many people requiring Intermediate and Long-Term Care (ILTC) services, there is a growing need
-for health care professionals to tend to these people. Yet, the current messy system requires a lot of manual work from the admin's perspective. Health Hub aims to eradicate all of these.
+In light of the overwhelming workload of hospital administration teams due
+to rising need for more and better healthcare services, we at
+team W09-2 have designed and developed a desktop application that aims to
+improve the hectic workload of hospital administrative staff by providing a
+simple and efficient solution for managing requests for healthcare services
+from home-stay patients: *HealthHub*.
 
-The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+HealthHub is a desktop application built in Java and JavaFX that supports
+both a Command Line Interface(CLI) and a Graphical User Interface(GUI),
+providing the user with the flexbility to choose the mode of use that he or
+she prefers.
 
-== Summary of contributions
+As a member of the team tasked with the development of HealthHub, my role was
+to design the command logic structure for parsing commands and inputs
+entered by the user, as well as implementing the logic for commands
+involving `HealthWorker` which represents the details of medical experts
+register in HealthHub.
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+== Notation
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* Words used that are highlighted in grey represents an existing `Class` or
+`Object` that is implemented in HealthHub. E.g `HealthWorker` denotes the
+object used to describe the details representing a registered medical expert.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+[NOTE]
+====
+Documentation under this section denotes any additional information used to
+supplement existing description.
+====
 
-* *Other contributions*:
+== Contributions
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*Major Enhancements*:
+
+* Implemented the logical structure for representing a person working in the
+medical profession through the `HealthWorker` class.
+** Before health staff can be assigned to `Request` in HealthHub, there needs
+ to be a way for a person working in the medical profession to be represented
+  in the system. Through my contribution in form of creation of the
+  `HealthWorker` logic structure, this allows users to create a
+  representation of medical workers in HealthHub
+** When designing and implementing the `HealthWorker` class, one of the
+considerations I had was to only maintain information necessary to the user such
+ as the medical specialisations that the worker has, in order to reduce
+ cluttering of information and keep the application simple and easy to use.
+ With that in mind, the necessary
+
+* Reworked the `CommandParser` classes in HealthHub to facilitate the parsing
+ of inputs for commands involving both `HealthWorker` and `Request` objects.
+** Introduced the `CommandMode` class that differentiated the new design of
+`CommandParser` from the original by allowing the same `CommandParser` class to
+parse commands involving multiple different classes such as both
+`HealthWorker` and `Request` classes, giving it more expressive power than
+it's original implementation
+** My contribution through the modification of the existing `CommandParser`
+architecture paved the way for other team members to utilize the new reworked
+`CommandParser` class for their individual contributions to HealthHub.
+
+* Implemented the `add` command to facilitate the registering of a new health
+ staff through adding the represented `HealthWorker` class to HealthHub.
+** For users to assign health staff to existing requests, the user needs to make
+ sure that the `HealthWorker` representation of the worker is already
+ registered in the HealthHub system for tracking and management
+** With this command, users can now register a new health staff into the
+system by creating a representation of his/her details in HealthHub
+
+* Implemented the `edit` command to facilitate the registering of a new health
+ staff through modifying an existing `HealthWorker` object in HealthHub.
+** The ability to modify details of an existing `HealthWorker` allows the
+user to update any outdated or incorrect information stored in HealthHub that
+ may hinder the streamlining of handling requests by users.
+
+* Implemented the `delete` command to facilitate the registering of a new health
+ staff through removing the selected `HealthWorker` object to HealthHub.
+** The roster of health staff in a medical organization may change over time.
+ By adding the `delete` command, users now have the ability to remove medical
+  staff that are no longer employed or available to handle requests.
+
+* Added the functionality to filter `HealthWorker` objects in the HealthHub
+system using various fields.
+** Through my implementation of the ability to filter the existing list of
+`HealthWorker` in HealthHub, users are able to reduce their search for the
+most appropriate health staff for assignment to requests to a shorter list
+based on filter conditions they input.
+** A significant difficulty that was faced when implementing this feature, is
+ the ability to combine multiple conditions of user inputs. The following
+ considerations and possible solutions for this problem are as follows:
+
+[width="100%",cols="50%, 50%",options="header"]
+|=======================================================================
+|List of `Predicate` |Composing using `and`
+| Using this method, all the conditions collected by the user through input
+are parsed into `Predicate` equivalents.
+
+ An `ArrayList` is then maintained that keeps all the parsed `Predicates`.
+ During the filter process, the system uses the maintained list of
+ `Predicate` to check for items that match the entire list of conditions
+
+ *Pros*:
+
+ Easy to manage all the conditions, as they are kept separate in a list and
+ individual `Predicate` are easily managed.
+
+ *Cons*:
+
+ Limited expressiveness in implementing functions that use the `List` of
+ `Predicate` due to the additional layer of abstraction provided by `List`.
+ Even if a single condition is supplied, it must be wrapped in a `List` for
+ standardization.
+
+ | Similar to using a List of `Predicate`, all user input conditions are
+ first parsed into it's `Predicate` equivalents.
+
+ After this step, all the `Predicate` are composed into a single `Predicate`
+ using the provided `and` method in the `Predicate` library in Java.
+
+ *Pros*:
+
+ Higher expressive power. The end result of the `and` function produces a
+ `Predicate` which can be easily passed to function calls.
+
+ *Cons*:
+
+ No way to track individual conditions for additional granularity.
+
+ I decided to go with this option as the expressive power of using the `and`
+ function to compose multiple `Predicate` into a single one allows for other
+ team members to use my implementation without having to understand any
+ additional logic used if a `List` of `Predicate` were used instead, and also
+  allows for future implementations to be more flexible in using just a
+  `Predicate` rather than having to account for multiple `Predicate`.
+
+|=======================================================================
+
+
+* Added the functionality to display all `HealthWorker` objects in the
+HealthHub system through the GUI. This provides functionality for the user to
+ return from looking at a list of filtered `HealthWorker` to the original
+ list of `HealthWorker`
+
+*Minor Enhancements*:
+
+* Adjusted the implementation for `FilterCommandParser`, `ListCommandParser`
+and `DeleteCommandParser` implemented by my teammates to for a more seamless
+ integration of the `filter`, `list` and `delete` commands into HealthHub.
+
+*Other contributions*:
+
+*Project Management*:
+
+* Proposed the architecture design of the current implementation for the
+command logic side of HealthHub.
+* Delegated features and roles to various team members for their
+contributions to HealthHub.
+
+*Enhancements to existing features*:
+
+* Wrote incremental integration tests for existing features in HealthHub, as
+well as features implemented by my teammates to ensure that the logic and
+model components in HealthHub are integrated together smoothly without hiccups.
+
+*Documentation*:
+
+* Created the base skeleton and layout for the HealthHub User Guide
+documentation.
+* Contributed to the descriptions of each feature by reviewing the
+explanation of features in the User Guide, and overhauling it to be more
+informative and audience-focused.
+* Provided various notation means in the User Guide to differentiate various
+levels that different information holds, such as:
+[TIP]
+Shows useful tips for the user when using HealthHub
+[NOTE]
+Highlights additional information that the user may wish to take note of
+
+* Provided easy navigation through the User Guide by adding links to various
+sections both at the start and at the summary.
+
+*Community*:
+
+* PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+* Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+* Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+* Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+
+*Tools*:
+
+* Set up the continuous integration plugins TravisCI for the team repository
+for HealthHub.
+*  Set up auto-publishing of documentation for HealthHub for the team
+repository.
 
 _{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+//|===
+//|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+//|===
 
 //include::../UserGuide.adoc[tag=undoredo]
 //
@@ -57,17 +214,11 @@ _{you can add/remove categories in the list above}_
 
 == Contributions to the Developer Guide
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+//|===
+//|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+//|===
+//
+//include::../DeveloperGuide.adoc[tag=undoredo]
+//
+//include::../DeveloperGuide.adoc[tag=dataencryption]
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

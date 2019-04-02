@@ -1,7 +1,6 @@
 package seedu.address.storage.coursestorage;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.regex.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,25 +15,19 @@ import seedu.address.model.course.Condition;
 public class JsonAdaptedCondition {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Condition's %s field is missing!";
-    private final String conditionName;
     private final String minToSatisfy;
-    private final List<String> regexes = new ArrayList<>();
+    private final String pattern;
 
     /**
      * Constructs a {@code JsonAdaptedCondition} given condition details
-     * @param conditionName name of condition to be satisfied
      * @param minToSatisfy minimum number of regexes matches to satisfy condition
-     * @param regexes regexes to be matched
+     * @param pattern regular expression to be matched
      */
     @JsonCreator
-    public JsonAdaptedCondition(@JsonProperty("conditionName") String conditionName,
-                                @JsonProperty("minToSatisfy") String minToSatisfy,
-                                @JsonProperty("regexes") List<String> regexes) {
-        this.conditionName = conditionName;
-        if (regexes != null) {
-            this.regexes.addAll(regexes);
-        }
-        this.minToSatisfy = minToSatisfy;
+    public JsonAdaptedCondition(@JsonProperty("minToSatisfy") String minToSatisfy,
+                                @JsonProperty("pattern") String pattern) {
+            this.minToSatisfy = minToSatisfy;
+            this.pattern = pattern;
     }
 
     /**
@@ -42,9 +35,8 @@ public class JsonAdaptedCondition {
      * @param condition a condition object to be converted into JsonAdaptedCondition
      */
     public JsonAdaptedCondition(Condition condition) {
-        this.conditionName = condition.getConditionName();
         this.minToSatisfy = String.valueOf(condition.getMinToSatisfy());
-        this.regexes.addAll(condition.getRegexes());
+        this.pattern = condition.getPattern().toString();
     }
 
 
@@ -55,28 +47,20 @@ public class JsonAdaptedCondition {
      */
     public Condition toModelType() throws IllegalValueException {
         try {
-            if (conditionName == null) {
-                throw new IllegalValueException(
-                        String.format(MISSING_FIELD_MESSAGE_FORMAT, "conditionName"));
-            }
 
             if (minToSatisfy == null) {
-                throw new IllegalValueException(
-                        String.format(MISSING_FIELD_MESSAGE_FORMAT, "minToSatisfy"));
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "minToSatisfy"));
             }
-
-            if (regexes.size() == 0) {
-                throw new IllegalValueException(
-                        String.format(MISSING_FIELD_MESSAGE_FORMAT, "regexes"));
+            if (pattern == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                        Pattern.class.getSimpleName()));
             }
 
             final int minToSatisfy = Integer.parseInt(this.minToSatisfy);
 
-            return new Condition(minToSatisfy, conditionName, regexes.toArray(new String[0]));
-
+            return new Condition(minToSatisfy, pattern);
         } catch (NumberFormatException e) {
             throw new IllegalValueException(String.format("minToSatisfy not parseable as integer"));
         }
     }
-
 }

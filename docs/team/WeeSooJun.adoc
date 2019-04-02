@@ -1,0 +1,62 @@
+= John Doe - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: slaveFinder()
+
+---
+
+== Overview
+
+slaveFinder() is a desktop address book application used for people in the HR department of a company to help them filter people and schedule interviews. It also helps with analytics of the hiring process in the company.
+
+== Summary of contributions
+
+* *Major enhancement*: added *Interview scheduling*
+** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
+** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Minor enhancement*: Added a school field which helped in the ranking and filtering of individuals for interviews
+
+* *Code contributed*:
+
+* *Other contributions*:
+
+** Project management:
+*** Managed release `v1.3` on GitHub
+** Enhancements to existing features:
+** Documentation:
+*** Updated Model Component image of slaveFinder()
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W15-3/main/pull/44[#44]
+** Tools:
+*** Integrated TravisCI, Appveyor, Codacy, and Coveralls to team repo
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=interviews]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=interviews]
+
+
+
+
+
+---

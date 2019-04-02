@@ -223,21 +223,40 @@ Note:
 
 * Filter support for `Price range` coming in v1.3
 
-==== Display website of selected restaurant : `visitWeb`
+// tag::visitweb[]
+=== Display website of selected restaurant : visitWeb
 
 Display the website of a restaurant identified by the index number used in the listRestaurants based on its weblink. +
-Format: `visitWeb INDEX`
+Format: visitWeb INDEX
 
 ****
 * The index refers to the index number shown in the displayed restaurants list.
-* The index *must be a positive integer* `1, 2, 3, ...`
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Display the website of any restaurant by entering its url. +
+Format: visitWeb URL
+
+****
+* A URL is a valid link to a website. It should be in this format: local-part.domain and adhere to the following
+ contraints:
+1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses,
+(!#$%&'*+/=?`{|}~^.-)
+2. This is followed by a '.' and then a domain name. The domain name must:
+** be at least 2 characters long
+** start and end with alphanumeric characters
+** consist of alphanumeric characters, a period or a hyphen for the characters in between, if any.
 ****
 
 Examples:
 
-* `list` +
-`visitWeb 1` +
+* list +
+visitWeb 1 +
 Displays webpage of Restaurant at index 1 of list.
+
+* visitWeb www.jollibee.com.ph
+Displays webpage of Jollibee
+// end::visitweb[]
 
 
 === Review Features
@@ -262,6 +281,7 @@ Format: `editReview INDEX [re/ENTRY] [rr/RATING]`
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****
+
 
 Examples:
 

@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.NoInternetException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.restaurant.Address;
@@ -216,10 +217,25 @@ public class ParserUtil {
         if (!Weblink.isValidWeblinkString(trimmedWeblink)) {
             throw new ParseException(Weblink.MESSAGE_CONSTRAINTS);
         }
-        if (!Weblink.isValidWeblinkUrl(trimmedWeblink)) {
-            throw new ParseException(Weblink.INVALID_URL_MESSAGE);
+
+        try {
+            checkUrl(trimmedWeblink);
+        } catch (NoInternetException e) {
+            throw new ParseException(e.getMessage());
         }
         return new Weblink(trimmedWeblink);
+    }
+
+    /**
+     * Checks if url is valid using isNotValidWeblinkUrl method from Weblink
+     * @param trimmedWeblink
+     * @throws NoInternetException when internet connection fails
+     * @throws ParseException when url is invalid
+     */
+    private static void checkUrl(String trimmedWeblink) throws NoInternetException, ParseException {
+        if (Weblink.isNotValidWeblinkUrl(trimmedWeblink)) {
+            throw new ParseException(String.format(Weblink.INVALID_URL_MESSAGE, trimmedWeblink));
+        }
     }
 
     /**

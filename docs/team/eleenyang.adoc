@@ -35,10 +35,10 @@ BookSquirrel(v1.3) is for those who want to keep a record of books they’ve rea
 ** Project management:
 *** Created the organization
 ** Enhancements to existing features:
-*** Make the storage part compatible with the app after the reviews part is added. (Pull request https://github.com/cs2103-ay1819s2-w11-4/main/pulls)
-*** Write some parts in UI to work with the current version. (Pull request https://github.com/cs2103-ay1819s2-w11-4/main/pull/107[#107])
+*** Make the storage part compatible with the app after the reviews part is added. (Pull request https://github.com/cs2103-ay1819s2-w11-4/main/pull/70[#70], https://github.com/cs2103-ay1819s2-w11-4/main/pull/85[#85])
+*** Write some parts in UI to work with the current version. (Pull request https://github.com/cs2103-ay1819s2-w11-4/main/pull/42[#42])
 ** Documentation:
-*** Update diagrams DeveloperGuide. (Pull request https://github.com/cs2103-ay1819s2-w11-4/main/pull/107[#107], https://github.com/cs2103-ay1819s2-w11-4/main/pull/99[#99], )
+*** Update diagrams DeveloperGuide. (Pull request https://github.com/cs2103-ay1819s2-w11-4/main/pull/107[#107], https://github.com/cs2103-ay1819s2-w11-4/main/pull/99[#99], https://github.com/cs2103-ay1819s2-w11-4/main/pull/74[#74])
 *** Update User Guide and Developer Guide: (Pull request https://github.com/cs2103-ay1819s2-w11-4/main/pull/107[#107])
 
 

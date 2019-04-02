@@ -38,7 +38,7 @@ To help you follow this Developer Guide better, here is the legend of the markup
 [width="80%",cols="^20%,80%"]
 |=======================================================================
 |`HelloWorld`|Code in the codebase
-| kbt:[ENTER] |Keyboard key
+| kbd:[ENTER] |Keyboard key
 | :information_source: |Notes that provides additional information
 | :bulb: |Tips and tricks
 | :warning: |Warnings
@@ -376,7 +376,7 @@ We decided to go ahead with this implementation as we feel that from a user's po
 
 // end::changemode[]
 
-// tag::editseats
+// tag::editpax[]
 === Edit Pax feature
 ==== Current Implementation
 
@@ -423,7 +423,7 @@ image::EditPaxActivityDiagram.png[width="800"]
 ** Pros: Potentially more efficient as there is no need to create new object and replace items in a list.
 ** Cons: Breaks abstraction to a certain extent and allows future developers to abuse the object.
 
-// end::updatetable
+// end::editpax[]
 
 // tag::bill[]
 === Bill feature

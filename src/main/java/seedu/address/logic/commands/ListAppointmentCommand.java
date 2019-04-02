@@ -1,32 +1,31 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEDHISTS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PATIENTS;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.ui.MainWindow;
 
 /**
- * Lists all medical histories in the docX record to the user.
+ * Lists all appointments in docX to the user.
  */
-public class ListMedHistCommand extends Command {
+public class ListAppointmentCommand extends Command {
 
-    public static final String COMMAND_WORD = "list-med-hist";
+    public static final String COMMAND_WORD = "list-appt";
 
-    public static final String MESSAGE_SUCCESS = "Listed all medical histories";
+    public static final String MESSAGE_SUCCESS = "Listed all appointments";
 
     /**
      * This command requires the change of panel in the UI, therefore needs to access the UI.
      */
     private static MainWindow mainWindow;
 
-
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredMedHistList(PREDICATE_SHOW_ALL_MEDHISTS);
-        mainWindow.showMedHistPanel();
+        model.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
+        mainWindow.showAppointmentPanel();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
@@ -36,6 +35,6 @@ public class ListMedHistCommand extends Command {
      */
     public static void addMainWindow(MainWindow mainWindow) {
         requireNonNull(mainWindow);
-        ListMedHistCommand.mainWindow = mainWindow;
+        ListAppointmentCommand.mainWindow = mainWindow;
     }
 }

@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.exceptions.MedHistNotFoundException;
 import seedu.address.model.person.Doctor;
@@ -38,6 +39,8 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Doctor> selectedDoctor = new SimpleObjectProperty<>();
     private final FilteredList<MedicalHistory> filteredMedHists;
     private final SimpleObjectProperty<MedicalHistory> selectedMedHist = new SimpleObjectProperty<>();
+    private final FilteredList<Appointment> filteredAppointments;
+    private final SimpleObjectProperty<Appointment> selectedAppointment = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -56,6 +59,8 @@ public class ModelManager implements Model {
         filteredDoctors.addListener(this::ensureSelectedDoctorIsValid);
         filteredMedHists = new FilteredList<>(versionedAddressBook.getMedHistList());
         filteredMedHists.addListener(this::ensureSelectedMedHistIsValid);
+        filteredAppointments = new FilteredList<>(versionedAddressBook.getAppointmentList());
+        filteredAppointments.addListener(this::ensureSelectedAppointmentIsValid);
     }
 
     public ModelManager() {
@@ -160,9 +165,8 @@ public class ModelManager implements Model {
     @Override
     public void addAppointment(Appointment appointment) {
         versionedAddressBook.addAppointment(appointment);
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
     }
-
-    // Needed to be implemented later
 
     @Override
     public boolean hasMedHist(MedicalHistory medicalHistory) {
@@ -244,6 +248,23 @@ public class ModelManager implements Model {
     public void updateFilteredMedHistList(Predicate<MedicalHistory> predicate) {
         requireNonNull(predicate);
         filteredMedHists.setPredicate(predicate);
+    }
+
+    //=========== Filtered Appointment List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Appointment} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Appointment> getFilteredAppointmentList() {
+        return filteredAppointments;
+    }
+
+    @Override
+    public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
+        requireNonNull(predicate);
+        filteredAppointments.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -352,7 +373,7 @@ public class ModelManager implements Model {
         }
     }
 
-    // Selected Medical History
+    //=========== Selected Medical History ===================================================================
     @Override
     public ReadOnlyProperty<MedicalHistory> selectedMedHistProperty() {
         return selectedMedHist;
@@ -421,4 +442,54 @@ public class ModelManager implements Model {
                 && Objects.equals(selectedPatient.get(), other.selectedPatient.get());
     }
 
+    //=========== Selected appointment ======================================================================
+
+    @Override
+    public ReadOnlyProperty<Appointment> selectedAppointmentProperty() {
+        return selectedAppointment;
+    }
+
+    @Override
+    public Appointment getSelectedAppointment() {
+        return selectedAppointment.getValue();
+    }
+
+    @Override
+    public void setSelectedAppointment(Appointment appointment) {
+        if (appointment != null && !filteredAppointments.contains(appointment)) {
+            throw new AppointmentNotFoundException();
+        }
+        selectedAppointment.setValue(appointment);
+    }
+
+    /**
+     * Ensures {@code selectedAppointment} is a valid appointment in {@code filteredAppointments}.
+     */
+    private void ensureSelectedAppointmentIsValid(ListChangeListener.Change<? extends Appointment> change) {
+        while (change.next()) {
+            if (selectedAppointment.getValue() == null) {
+                // null is always a valid selected appointment, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedAppointmentReplaced =
+                    change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                            && change.getRemoved().contains(selectedAppointment.getValue());
+            if (wasSelectedAppointmentReplaced) {
+                // Update selectedAppointment to its new value.
+                int index = change.getRemoved().indexOf(selectedAppointment.getValue());
+                selectedAppointment.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedAppointmentRemoved = change.getRemoved().stream()
+                    .anyMatch(removedAppointment -> selectedAppointment.getValue()
+                            .isSameAppointment(removedAppointment));
+            if (wasSelectedAppointmentRemoved) {
+                // Select the appointment that came before it in the list,
+                // or clear the selection if there is no such appointment.
+                selectedAppointment.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
 }

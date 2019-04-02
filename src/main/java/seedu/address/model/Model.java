@@ -26,6 +26,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<MedicalHistory> PREDICATE_SHOW_ALL_MEDHISTS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -148,6 +151,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered doctor list */
     ObservableList<Doctor> getFilteredDoctorList();
 
+    /** Returns an unmodifiable view of the filtered appointment list */
+    ObservableList<Appointment> getFilteredAppointmentList();
+
     /**
      * Updates the filter of the filtered patient list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -165,6 +171,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredDoctorList(Predicate<Doctor> predicate);
+
+    /**
+     * Updates the filter of the filtered patient list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredAppointmentList(Predicate<Appointment> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.
@@ -204,6 +216,12 @@ public interface Model {
     ReadOnlyProperty<MedicalHistory> selectedMedHistProperty();
 
     /**
+     * Selected appointment in the filtered appointment list.
+     * null if no appointment is selected.
+     */
+    ReadOnlyProperty<Appointment> selectedAppointmentProperty();
+
+    /**
      * Returns the selected patient in the filtered patient list.
      * null if no patient is selected.
      */
@@ -216,6 +234,12 @@ public interface Model {
     MedicalHistory getSelectedMedHist();
 
     /**
+     * Returns the selected appointment in the filtered appointment list.
+     * null if no appointment is selected.
+     */
+    Appointment getSelectedAppointment();
+
+    /**
      * Sets the selected patient in the filtered patient list.
      */
     void setSelectedPatient(Patient patient);
@@ -224,6 +248,12 @@ public interface Model {
      * Sets the selected medHist in the filtered medHist list.
      */
     void setSelectedMedHist(MedicalHistory medHist);
+
+    /**
+     * Sets the selected appointment in the filtered appointment list.
+     */
+    void setSelectedAppointment(Appointment appointment);
+
 
     /**
      * Returns true if a doctor with the same identity as {@code doctor} exists in docX.

@@ -15,6 +15,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ListAppointmentCommand;
+import seedu.address.logic.commands.ListMedHistCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -36,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     //private MedHistBrowserPanel medHistBrowserPanel;
     private PatientListPanel patientListPanel;
     private MedHistListPanel medHistListPanel;
+    private AppointmentListPanel appointmentListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -52,7 +55,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane patientListPanelPlaceholder;
 
     @FXML
-    private StackPane medHistListPanelPlaceholder;
+    private StackPane middleListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -71,7 +74,6 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
-
         helpWindow = new HelpWindow();
     }
 
@@ -125,9 +127,8 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedPatient);
         patientListPanelPlaceholder.getChildren().add(patientListPanel.getRoot());
 
-        medHistListPanel = new MedHistListPanel(logic.getFilteredMedHistList(), logic.selectedMedHistProperty(),
-                logic::setSelectedMedHist);
-        medHistListPanelPlaceholder.getChildren().add(medHistListPanel.getRoot());
+        ListAppointmentCommand.addMainWindow(this);
+        ListMedHistCommand.addMainWindow(this);
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -137,6 +138,25 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Show the medical history panel
+     */
+    public void showMedHistPanel() {
+        medHistListPanel = new MedHistListPanel(logic.getFilteredMedHistList(), logic.selectedMedHistProperty(),
+                logic::setSelectedMedHist);
+        middleListPanelPlaceholder.getChildren().add(medHistListPanel.getRoot());
+    }
+
+    /**
+     * Show the appointment panel
+     */
+    public void showAppointmentPanel() {
+        appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList(),
+                logic.selectedAppointmentProperty(),
+                logic::setSelectedAppointment);
+        middleListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
     }
 
     /**

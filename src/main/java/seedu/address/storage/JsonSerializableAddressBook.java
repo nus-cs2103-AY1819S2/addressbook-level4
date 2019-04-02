@@ -86,7 +86,6 @@ class JsonSerializableAddressBook {
             if (addressBook.hasAppointment(appointment)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
             }
-            System.out.println(appointment);
             addressBook.addAppointment(appointment);
         }
 

@@ -15,14 +15,18 @@ public class Difficulty {
         numberOfAttempts = 0;
         totalRating = 0;
     }
+
+    /**
+     * Includes the current rating into
+     * the Difficulty class which computes
+     * average difficulty of card.
+     */
     public void addDifficulty(int rating) {
         totalRating += rating;
         numberOfAttempts += 1;
     }
 
     public int getDifficulty() {
-        return numberOfAttempts==0? 0 : totalRating / numberOfAttempts;
-    };
-
-
+        return numberOfAttempts == 0 ? 0 : totalRating / numberOfAttempts;
+    }
 }

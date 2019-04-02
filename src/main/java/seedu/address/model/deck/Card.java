@@ -35,7 +35,9 @@ public class Card implements ListItem {
         this.difficulty = new Difficulty();
     }
 
-    public int getDifficulty() { return difficulty.getDifficulty(); }
+    public int getDifficulty() {
+        return difficulty.getDifficulty();
+    }
 
     public String getAnswer() {
         return answer;
@@ -100,6 +102,8 @@ public class Card implements ListItem {
         return builder.toString();
     }
 
-    public void addDifficulty(int rating) { difficulty.addDifficulty(rating); }
+    public void addDifficulty(int rating) {
+        difficulty.addDifficulty(rating);
+    }
 
 }

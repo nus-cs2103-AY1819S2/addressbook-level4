@@ -1,0 +1,63 @@
+= eleenyang - Project Portfolio for Book Squirrel
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Book Squirrel
+
+---
+
+== Overview
+
+BookSquirrel(v1.3) is for those who want to keep a record of books they’ve read. More importantly, BookSquirrel is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BookSquirrel can get your note management tasks done faster than traditional GUI apps.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ListBook feature*.
+** What it does: allows the user to search the book.
+** Justification: This feature help the user quickly find the books that satisfy certain criteria.
+** Highlights: This feature is critical for testing as it is used to display the books.
+
+* *Major enhancement*: modified the storage part of the app.
+** What it does: loads data into the app at runtime and saves data when the program exits.
+** Justification: This part is critical for data saving and updating.
+** Highlights: This part is critical as it gurantee the consistency between the saved data and the attempted modification of the bookshelf.
+
+* *Minor enhancement*: added *the Summary feature*.
+** What it does: gives a brief summary of books in the book shelf.
+** Justification: This feature provides the user an overview of what he/she has read.
+** Highlights: This feature makes the app more interesting.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=eleenyang[Functional code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Created the organization
+** Enhancements to existing features:
+*** Make the storage part compatible with the app after the reviews part is added. (Pull request https://github.com/cs2103-ay1819s2-w11-4/main/pull/70[#70], https://github.com/cs2103-ay1819s2-w11-4/main/pull/85[#85])
+*** Write some parts in UI to work with the current version. (Pull request https://github.com/cs2103-ay1819s2-w11-4/main/pull/42[#42])
+** Documentation:
+*** Update diagrams DeveloperGuide. (Pull request https://github.com/cs2103-ay1819s2-w11-4/main/pull/107[#107], https://github.com/cs2103-ay1819s2-w11-4/main/pull/99[#99], https://github.com/cs2103-ay1819s2-w11-4/main/pull/74[#74])
+*** Update User Guide and Developer Guide: (Pull request https://github.com/cs2103-ay1819s2-w11-4/main/pull/107[#107])
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=list]
+include::../UserGuide.adoc[tag=summary]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=listBook]
+include::../DeveloperGuide.adoc[tag=summary]

@@ -17,6 +17,10 @@ endif::[]
 
 By: `Team W11-4`      Since: `Jun 2019`      Licence: `MIT`
 
+== Introduction
+
+BookSquirrel is for those who *want to keep a record of books they've read*. More importantly, BookSquirrel is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BookSquirrel can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
 == Setting up
 
 === Prerequisites
@@ -223,8 +227,9 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Book Shelf data in json format and read it back.
+* both the data of books and reviews will be saved.
 * users are not supposed to touch the data file (file inside the `data` folder) directly. If the user insists on doing so, the data might be corrupted.
-* users are not supposed to add data files into the app manually. If you accidentally do so and find the data corrupted, you should reinstall the app and all previous data will get lost.
+* users are not supposed to add data files into the app manually. If the user accidentally corrupt the data file, he or she may have to reinstall the app and all data will get lost.
 
 [[Design-Commons]]
 === Common classes
@@ -474,6 +479,12 @@ Step 4. The book shelf now set the fields of the first book to the new ones prov
 
 ==== Current Implementation
 
+The current version of listBook command works to help the user to search books that satisfy certain criteria. The user can look for books by giving keywords of book name, author, tag or rating.
+
+This would be handy when there are many books in the book shelf. It also makes the app more user-friendly as the user sometimes cannot remember the exact full name of a book but only know a few things about the book desired.
+
+Compared to to the `list` command in the address book app, our `listBookCommand` is an implementation of the combination of `list` and `find` and even more functionally helpful, as it accepts more filtering criteria than the original command does.
+
 Given below is an example usage and how listBook feature behaves at each step.
 
 Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
@@ -482,21 +493,52 @@ Step 2. The user executes `listBook n/Life`.
 
 Step 3. The `ListBookCommandParser` parses this command, and returns an `ListBookCommand`. Exception will be thrown if the command is invalid.
 
-Step 4. The `ListBookCommand` executes. The command checks all the book in the `BookShelf`, filters out books whose name contain `Life` based on `BookNameContainsKeywordPredicate`.
+Step 4. The `ListBookCommand` be executed. The command checks all the book in the `BookShelf`, selects out books whose name contain `Life` based on `BookNameContainsKeywordPredicate`.
 
 ==== Design Considerations
 
 ===== Aspect: How to select books.
 
-* **Alternative 1 (current choice):** Only books match all criteria provided will be selected.
+* **Alternative 1 (current choice):** Only books match all criteria provided will be selected. For example, if the user give 2 book name keywords and 2 ratings, only books matching at least 1 name keyword and at least 1 rating will be selected. Books match 1 name keyword but no ratings will not be considered.
 ** Pros: Easy to test and manage.
 ** Cons: Such searching technique may fail to provide the user with enough inforamtion.
-* **Alternative 2:** Select books that match at least one criteria.
-** Pros: More likely to find the book that the user is looking for.
-** Cons: Hard to test and manage.
+* **Alternative 2:** Books that match at least one criteria will be selected. For example, if the user give 2 book name keywords and 2 ratings, books that match 1 name keyword but no ratings will still be selected.
+** Pros: More likely to provide the user with the book that the user is looking for.
+** Cons: Hard to test and manage. Such design also fails to narrow down search results when the user is providing more keywords for the targetd book.
 
 // end::listBook[]
 
+// tag::summary[]
+=== Summary Feature
+
+==== Current Implementation
+
+The summary feature is a command works to summarize the books in the bookshlef. The user can have a rough overview of what he/she has read.
+
+Given below is an example usage and how summary feature works.
+
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
+
+Step 2. The user executes `summary`
+
+Step 3. The `SummaryCommandParser` parses this command.
+
+Step 4. The `SummaryCommandParser`returns an `SummaryCommand`. Exception will be thrown if the command is invalid.
+
+Step 5. The `SummaryCommand` executes. The command will traverse all books in the book shelf, checks if there are authors or tags appear more than once and give relative details. The command will also show the highest rating of books in the book shelf.
+
+==== Design Consideration
+
+===== Aspect: Component to fetch the data
+
+* **Alternative 1 (current choice):** Model manager in charge of data processing, then return the result to the command.
+** Pros: This prevent the command from accessing data managed by the model manager, thus independency of different parts is guaranteed.
+** Cons: More methods are introduced into the model manager. To get include more information in the summary, not ony the summary command should be modified, but also more information query methodS should be added in THE `Model`.
+* **Alternative 2:** Model manager pass the whole book list to the command, then command process the data according to this list.
+** Pros: More flexible as the command can extract any information it desires.
+** Cons: This approach is unsafe and may leads to more bugs as it violates the principle of independency.
+
+// end::summary[]
 
 // tag::addReview[]
 === Review Features
@@ -955,6 +997,8 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+.. Data is saved in `bookshelf.json`, which is under the `data` directory.
+.. After the installation, `bookshelf.json` is not present. The file is initialized after main app runs for the first time. At this point the file is loaded with the sample data.
+.. The data will not be saved automatically. If the user does not exit the program using the `exit` command,the changes will not be kept.
+.. If the developer modifies the storage component, to make the data structure and content consistent with the newly updated code, The developer should delete the file before relaunching the app.
+.. If the file is corrupted, the developer or the user can manually fix the bookshelf.json to restore the data. However, he or she should stick to the format specified or the data will not be read properly. Therefore, modifying the `bookshelf.json` directly is not encouraged as such behavior will cause unexpected bugs.

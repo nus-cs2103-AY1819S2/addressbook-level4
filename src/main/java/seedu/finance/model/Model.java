@@ -70,15 +70,11 @@ public interface Model {
 
     /**
      * Adds the given record.
-     * {@code record} must not already exist in the finance tracker.
      */
     boolean addRecord(Record record);
 
     /**
      * Replaces the given record {@code target} with {@code editedRecord}.
-     * {@code target} must exist in the finance tracker.
-     * The record identity of {@code editedRecord} must not be the same as
-     * another existing record in the finance tracker.
      */
     void setRecord(Record target, Record editedRecord);
 

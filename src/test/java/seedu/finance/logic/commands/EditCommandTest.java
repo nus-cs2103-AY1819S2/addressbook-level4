@@ -105,16 +105,21 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_duplicateRecordUnfilteredList_failure() {
+    public void execute_duplicateRecordUnfilteredList_success() {
         Record firstRecord = model.getFilteredRecordList().get(INDEX_FIRST_RECORD.getZeroBased());
         EditCommand.EditRecordDescriptor descriptor = new EditRecordDescriptorBuilder(firstRecord).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_RECORD, descriptor);
 
-        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_RECORD);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECORD_SUCCESS, firstRecord);
+        Model expectedModel = new ModelManager(new FinanceTracker(model.getFinanceTracker()), new UserPrefs());
+        expectedModel.setRecord(model.getFilteredRecordList().get(1), firstRecord);
+        expectedModel.commitFinanceTracker();
+
+        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_duplicateRecordFilteredList_failure() {
+    public void execute_duplicateRecordFilteredList_success() {
         showRecordAtIndex(model, INDEX_FIRST_RECORD);
 
         // edit record in filtered list into a duplicate in finance tracker
@@ -122,7 +127,12 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RECORD,
                 new EditRecordDescriptorBuilder(recordInList).build());
 
-        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_RECORD);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECORD_SUCCESS, recordInList);
+        Model expectedModel = new ModelManager(new FinanceTracker(model.getFinanceTracker()), new UserPrefs());
+        expectedModel.setRecord(model.getFilteredRecordList().get(0), recordInList);
+        expectedModel.commitFinanceTracker();
+
+        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test

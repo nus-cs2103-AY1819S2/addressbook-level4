@@ -36,7 +36,6 @@ public class SpendCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New record added: %1$s";
     public static final String MESSAGE_SUCCESS_EXCEED_BUDGET = "Your spending in %s "
             + "category has exceeded the allocated budget!";
-    public static final String MESSAGE_DUPLICATE_RECORD = "This record already exists in the finance tracker";
 
     private final Record toSpend;
 
@@ -51,10 +50,6 @@ public class SpendCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-
-        if (model.hasRecord(toSpend)) {
-            throw new CommandException(MESSAGE_DUPLICATE_RECORD);
-        }
 
         boolean withinBudget = model.addRecord(toSpend);
         model.commitFinanceTracker();

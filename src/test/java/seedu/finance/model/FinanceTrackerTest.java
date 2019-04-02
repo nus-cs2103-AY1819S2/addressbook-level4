@@ -23,7 +23,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.finance.model.budget.Budget;
 import seedu.finance.model.record.Record;
-import seedu.finance.model.record.exceptions.DuplicateRecordException;
 import seedu.finance.testutil.RecordBuilder;
 
 public class FinanceTrackerTest {
@@ -52,7 +51,7 @@ public class FinanceTrackerTest {
     }
 
     @Test
-    public void resetData_withDuplicateRecords_throwsDuplicateRecordException() {
+    public void resetData_withDuplicateRecords_replacesData() {
         // Two records with the same identity fields
         Record editedApple = new RecordBuilder(APPLE).withAmount(VALID_AMOUNT_BOB)
                 .withCategory(VALID_CATEGORY_HUSBAND)
@@ -60,8 +59,8 @@ public class FinanceTrackerTest {
         List<Record> newRecords = Arrays.asList(APPLE, editedApple);
         FinanceTrackerStub newData = new FinanceTrackerStub(newRecords);
 
-        thrown.expect(DuplicateRecordException.class);
         financeTracker.resetData(newData);
+        assertEquals(newRecords, financeTracker.getRecordList());
     }
 
     @Test

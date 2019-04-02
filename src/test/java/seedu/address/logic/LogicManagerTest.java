@@ -93,7 +93,7 @@ public class LogicManagerTest {
         long now = System.currentTimeMillis();
         String invalidCommand = "wnfookdasd";
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
-        assertHistoryCorrect(LogicManager.FORMATTER.format(now) + ": " + invalidCommand);
+        assertHistoryCorrect(invalidCommand);
     }
 
     @Test
@@ -102,7 +102,7 @@ public class LogicManagerTest {
         String deleteCommand = "delete 9";
         assertParseException(deleteCommand, String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteCommandParser.INVALID_COMMAND_USAGE));
-        assertHistoryCorrect(LogicManager.FORMATTER.format(now) + ": " + deleteCommand);
+        assertHistoryCorrect(deleteCommand);
     }
 
     @Test
@@ -110,7 +110,7 @@ public class LogicManagerTest {
         long now = System.currentTimeMillis();
         String listCommand = ListCommand.COMMAND_WORD + " request";
         assertCommandSuccess(listCommand, ListRequestCommand.MESSAGE_SUCCESS, model);
-        assertHistoryCorrect(LogicManager.FORMATTER.format(now) + ": " + listCommand);
+        assertHistoryCorrect(listCommand);
     }
 
     @Test
@@ -134,7 +134,7 @@ public class LogicManagerTest {
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandBehavior(CommandException.class, addHealthWorkerCommand, expectedMessage, expectedModel);
         long now = System.currentTimeMillis();
-        assertHistoryCorrect(LogicManager.FORMATTER.format(now) + ": " + addHealthWorkerCommand);
+        assertHistoryCorrect(addHealthWorkerCommand);
 
         // Saving Request
         String addRequestCommand = AddCommand.COMMAND_WORD + " " + MODE_REQUEST + NAME_DESC_ALICE + PHONE_DESC_ALICE
@@ -146,9 +146,7 @@ public class LogicManagerTest {
         expectedModel.commitRequestBook();
         now = System.currentTimeMillis();
         assertCommandBehavior(CommandException.class, addRequestCommand, expectedMessage, expectedModel);
-        assertHistoryCorrect(LogicManager.FORMATTER.format(now) + ": " + addRequestCommand,
-                LogicManager.FORMATTER.format(now) + ": " + HistoryCommand.COMMAND_WORD,
-                LogicManager.FORMATTER.format(now) + ": " + addHealthWorkerCommand);
+        assertHistoryCorrect(addRequestCommand, HistoryCommand.COMMAND_WORD, addHealthWorkerCommand);
 
     }
 

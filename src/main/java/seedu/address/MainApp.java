@@ -52,7 +52,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing HealthHub ]===========================");
+        logger.info("=============================[ Initializing Health Hub ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -92,7 +92,6 @@ public class MainApp extends Application {
 
             healthWorkerBookOptional = storage.readHealthWorkerBook();
             requestBookOptional = storage.readRequestBook();
-
 
             if (!requestBookOptional.isPresent()) {
                 logger.info("RequestBook file not found. Will be starting with sample RequestBook");
@@ -194,7 +193,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting HealthHub " + MainApp.VERSION);
+        logger.info("Starting Health Hub " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 

@@ -18,5 +18,7 @@ public class Messages {
         + "format! \n%1$s";
     public static final String MESSAGE_REQUEST_ONGOING_CANNOT_CLEAR = "There is at least one "
         + "ongoing request in the list, request list cannot be cleared.";
+    public static final String MESSAGE_REQUEST_COMPLETED_CANNOT_ASSIGN = "Completed request "
+        + "cannot be assigned. To make changes to a completed request, use edit instead.";
 
 }

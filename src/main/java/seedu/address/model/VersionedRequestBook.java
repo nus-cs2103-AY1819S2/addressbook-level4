@@ -56,7 +56,12 @@ public class VersionedRequestBook extends RequestBook implements VersionedBook {
      */
     @Override
     public void redo() {
+        if (!canRedo()) {
+            throw new NoRedoableStateException();
+        }
 
+        this.currentStatePointer++;
+        resetData(this.requestBookStateList.get(this.currentStatePointer));
     }
 
     /**

@@ -47,7 +47,8 @@ public class AddRequestCommand extends AddCommand implements RequestCommand {
             throw new CommandException(MESSAGE_DUPLICATE_REQUEST);
         }
         model.addRequest(newRequest);
-        model.commitRequestBook();
+        //model.commitRequestBook();
+        commitRequestBook(model);
         Statistics.updateStatistics(newRequest.getConditions());
         return new CommandResult(String.format(MESSAGE_SUCCESS, newRequest));
     }

@@ -2,7 +2,6 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.text.SimpleDateFormat;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -12,7 +11,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.HealthHubParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyHealthWorkerBook;
@@ -27,13 +26,12 @@ import seedu.address.storage.Storage;
 public class LogicManager implements Logic {
 
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
-    public static final SimpleDateFormat FORMATTER = new SimpleDateFormat("hh:mma");
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
     private final Storage storage;
     private final CommandHistory history;
-    private final AddressBookParser addressBookParser;
+    private final HealthHubParser healthHubParser;
     private boolean requestBookModified;
     private boolean healthWorkerBookModified;
 
@@ -41,7 +39,7 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         this.history = new CommandHistory();
-        this.addressBookParser = new AddressBookParser();
+        this.healthHubParser = new HealthHubParser();
 
         // Set addressBookModified to true whenever the models' address book is modified.
         model.getRequestBook().addListener(observable -> requestBookModified = true);
@@ -54,14 +52,13 @@ public class LogicManager implements Logic {
         logger.info("-----------------[USER COMMAND][" + commandText + "]-------------------");
         requestBookModified = false;
         healthWorkerBookModified = false;
-        long timestamp = System.currentTimeMillis();
 
         CommandResult commandResult;
         try {
-            Command command = addressBookParser.parseCommand(commandText);
+            Command command = healthHubParser.parseCommand(commandText);
             commandResult = command.execute(model, history);
         } finally {
-            history.add(FORMATTER.format(timestamp) + ": " + commandText);
+            history.add(commandText);
         }
 
         if (requestBookModified) {

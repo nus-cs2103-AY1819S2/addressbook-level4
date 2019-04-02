@@ -23,7 +23,7 @@ import seedu.address.model.request.Request;
 /**
  * Assigns multiple requests to a HealthWorker with two way association.
  */
-public class AssignRequestCommand extends Command {
+public class AssignRequestCommand extends Command implements RequestCommand {
 
     public static final String COMMAND_WORD = "assign";
 
@@ -70,6 +70,9 @@ public class AssignRequestCommand extends Command {
             }
 
             Request request = lastShownRequestList.get(i.getZeroBased());
+            if (request.isCompleted()) {
+                throw new CommandException(Messages.MESSAGE_REQUEST_COMPLETED_CANNOT_ASSIGN);
+            }
             requestsToAdd.add(request);
         }
 
@@ -81,7 +84,8 @@ public class AssignRequestCommand extends Command {
         }
 
         model.updateFilteredRequestList(Model.PREDICATE_SHOW_ALL_REQUESTS);
-        model.commitRequestBook();
+        //model.commitRequestBook();
+        commitRequestBook(model);
 
         StringJoiner sj = new StringJoiner(", ");
         for (Index i : requestIds) {

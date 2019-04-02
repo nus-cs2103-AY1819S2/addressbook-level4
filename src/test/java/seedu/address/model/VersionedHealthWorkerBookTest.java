@@ -1,4 +1,3 @@
-//TODO @Lukaz help me pls
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;

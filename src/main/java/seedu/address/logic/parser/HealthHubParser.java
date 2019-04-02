@@ -16,13 +16,15 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListCommandParser;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetReminderCommand;
 import seedu.address.logic.commands.StatisticsCommand;
+import seedu.address.logic.commands.UndoCommand;
+//import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.request.AssignRequestCommand;
 import seedu.address.logic.commands.request.ClearRequestCommand;
 import seedu.address.logic.commands.request.CompleteRequestCommand;
-//import seedu.address.logic.commands.UndoCommand;
 //import seedu.address.logic.commands.request.DeleteRequestCommand;
 //import seedu.address.logic.commands.request.FindRequestCommand;
 //import seedu.address.logic.commands.request.ListRequestCommand;
@@ -35,7 +37,7 @@ import seedu.address.logic.parser.request.CompleteRequestParser;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class HealthHubParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -104,11 +106,11 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        //case UndoCommand.COMMAND_WORD:
-            //return new UndoCommand();
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
 
-        //case RedoCommand.COMMAND_WORD:
-            //  return new RedoCommand();
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
         case StatisticsCommand.COMMAND_WORD:
             return new StatisticsCommand();

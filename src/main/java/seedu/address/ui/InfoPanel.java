@@ -154,7 +154,7 @@ public class InfoPanel extends UiPart<Region> {
         urlBuilder.append("https://gothere.sg/maps/staticmap?center=%22");
         urlBuilder.append(address + "%22&zoom=16&size=400x200&markers=%22");
         urlBuilder.append(address + "%22,orange&sensor=false");
-        logger.info(urlBuilder.toString());
+        //logger.info(urlBuilder.toString());
         return urlBuilder.toString();
     }
 

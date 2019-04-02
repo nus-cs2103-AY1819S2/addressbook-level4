@@ -108,6 +108,20 @@ class AssignRequestCommandTest {
     }
 
     @Test
+    public void execute_completedRequest_throwsCommandException() {
+        Set<Index> requestIds = new HashSet<>();
+        requestIds.add(validRequestIndex);
+        Request req = model.getFilteredRequestList().get(validRequestIndex.getZeroBased());
+        Request newRequest = new Request(req);
+        newRequest.complete();
+        model.setRequest(req, newRequest);
+        AssignRequestCommand assignRequestCommand =
+            new AssignRequestCommand(validHealthWorkerIndex, requestIds);
+        assertThrows(CommandException.class, () -> assignRequestCommand.execute(model,
+            commandHistory), Messages.MESSAGE_REQUEST_COMPLETED_CANNOT_ASSIGN);
+    }
+
+    @Test
     public void equals() {
         Set<Index> indexOne = new HashSet<>();
         indexOne.add(INDEX_FIRST);

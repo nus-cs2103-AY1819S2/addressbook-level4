@@ -112,7 +112,8 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
     public void edit(Model model, Object toEdit, Object edited) {
         model.setRequest((Request) toEdit, (Request) edited);
         model.updateFilteredRequestList(Model.PREDICATE_SHOW_ALL_REQUESTS);
-        model.commitRequestBook();
+        //model.commitRequestBook();
+        commitRequestBook(model);
     }
 
     @Override

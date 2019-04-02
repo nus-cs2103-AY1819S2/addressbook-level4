@@ -21,7 +21,7 @@ import seedu.address.model.card.Card;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.ManagementModelStub;
 import seedu.address.model.modelmanager.QuizModelStub;
-import seedu.address.testutil.TypicalLessons;
+import seedu.address.testutil.TypicalLessonList;
 
 /**
  * Contains tests for ListCommand.
@@ -98,17 +98,17 @@ public class ListCardsCommandTest {
     private class MgtModelStubWithCards extends ManagementModelStub {
         @Override
         public List<Card> getOpenedLessonCards() {
-            return TypicalLessons.LESSON_DEFAULT.getCards();
+            return TypicalLessonList.LESSON_DEFAULT.getCards();
         }
 
         @Override
         public List<String> getOpenedLessonCoreHeaders() {
-            return TypicalLessons.LESSON_DEFAULT.getCoreHeaders();
+            return TypicalLessonList.LESSON_DEFAULT.getCoreHeaders();
         }
 
         @Override
         public List<String> getOpenedLessonOptionalHeaders() {
-            return TypicalLessons.LESSON_DEFAULT.getOptionalHeaders();
+            return TypicalLessonList.LESSON_DEFAULT.getOptionalHeaders();
         }
     }
 }

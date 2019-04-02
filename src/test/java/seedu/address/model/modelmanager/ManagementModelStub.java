@@ -111,6 +111,11 @@ public class ManagementModelStub implements ManagementModel {
     }
 
     @Override
+    public void setLessonList(LessonList lessonList) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public List<Lesson> getLessons() {
         throw new AssertionError("This method should not be called.");
     }

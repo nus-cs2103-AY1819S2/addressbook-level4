@@ -21,8 +21,8 @@ import seedu.address.model.lesson.LessonList;
 /**
  * A class to access LessonList stored in the hard disk as a csv file
  */
-public class CsvLessonsStorage implements LessonsStorage {
-    private static final Logger logger = LogsCenter.getLogger(CsvLessonsStorage.class);
+public class CsvLessonListStorage implements LessonListStorage {
+    private static final Logger logger = LogsCenter.getLogger(CsvLessonListStorage.class);
 
     private static final String CORE_ESCAPE = "*";
     private static final String QUESTION_ESCAPE = "?";
@@ -34,17 +34,17 @@ public class CsvLessonsStorage implements LessonsStorage {
 
     private Path folderPath;
 
-    public CsvLessonsStorage(Path folderPath) {
+    public CsvLessonListStorage(Path folderPath) {
         this.folderPath = folderPath;
     }
 
     @Override
-    public Path getLessonsFolderPath() {
+    public Path getLessonListFolderPath() {
         return folderPath;
     }
 
     @Override
-    public void setLessonsFolderPath(Path folderPath) {
+    public void setLessonListFolderPath(Path folderPath) {
         requireNonNull(folderPath);
         this.folderPath = folderPath;
     }
@@ -136,7 +136,7 @@ public class CsvLessonsStorage implements LessonsStorage {
      * @param lesson
      * @return Header data with relevant escape characters.
      */
-    private String[] parseHeaderData(Lesson lesson) {
+    private String[] parseHeaderDataToStringArray(Lesson lesson) {
         String[] header;
 
         List<String> headerList = new ArrayList<>();
@@ -163,7 +163,7 @@ public class CsvLessonsStorage implements LessonsStorage {
      * @param card
      * @return Formatted card data.
      */
-    private String[] parseCardData(Card card) {
+    private String[] parseCardDataToStringArray(Card card) {
         String[] cardArray;
 
         List<String> cardData = new ArrayList<>();
@@ -184,31 +184,43 @@ public class CsvLessonsStorage implements LessonsStorage {
         List<String[]> data = new ArrayList<>();
         Path filePath = Paths.get(folderPath.toString(), lesson.getName() + ".csv");
 
-        data.add(parseHeaderData(lesson));
+        data.add(parseHeaderDataToStringArray(lesson));
 
         for (Card card : lesson.getCards()) {
-            data.add(parseCardData(card));
+            data.add(parseCardDataToStringArray(card));
         }
 
         CsvUtil.writeCsvFile(filePath, data);
     }
 
-    @Override
-    public Optional<LessonList> readLessons() {
-        return readLessons(folderPath);
+    private List<Path> getFilePathsInFolder(Path folderPath) {
+        List<Path> paths = new ArrayList<>();
+        try {
+            Files.walk(folderPath, 1).filter(path ->
+                path.toString().endsWith(".csv")).forEach(paths::add);
+        } catch (IOException e) {
+            return null;
+        }
+        return paths;
     }
 
     @Override
-    public Optional<LessonList> readLessons(Path folderPath) {
+    public Optional<LessonList> readLessonList() {
+        return readLessonList(folderPath);
+
+    }
+
+    @Override
+    public Optional<LessonList> readLessonList(Path folderPath) {
         requireNonNull(folderPath);
-        List<Path> paths = new ArrayList<>();
-        LessonList lessonList = new LessonList();
-        try {
-            Files.walk(folderPath, 1).filter(path ->
-                    path.toString().endsWith(".csv")).forEach(paths::add);
-        } catch (IOException e) {
+
+        List<Path> paths = getFilePathsInFolder(folderPath);
+
+        if (paths == null) {
             return Optional.empty();
         }
+
+        LessonList lessonList = new LessonList();
         for (Path filePath : paths) {
             Optional<Lesson> newLesson = parseFileIntoLesson(filePath);
             newLesson.ifPresent(lessonList::addLesson);
@@ -217,12 +229,12 @@ public class CsvLessonsStorage implements LessonsStorage {
     }
 
     @Override
-    public int saveLessons(LessonList lessonList) {
-        return saveLessons(lessonList, folderPath);
+    public int saveLessonList(LessonList lessonList) {
+        return saveLessonList(lessonList, folderPath);
     }
 
     @Override
-    public int saveLessons(LessonList lessonList, Path folderPath) {
+    public int saveLessonList(LessonList lessonList, Path folderPath) {
         requireNonNull(lessonList);
         requireNonNull(folderPath);
 
@@ -235,7 +247,7 @@ public class CsvLessonsStorage implements LessonsStorage {
                 saveLessonToFile(lesson, folderPath);
                 saveCount++;
             } catch (IOException e) {
-                logger.warning(lesson.getName() + " failed to save; IOException occurred");
+                logger.warning("Lesson: \"" + lesson.getName() + "\" failed to save; IOException occurred");
             }
         }
         return saveCount;

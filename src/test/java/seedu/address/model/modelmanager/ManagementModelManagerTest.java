@@ -19,7 +19,7 @@ import seedu.address.model.lesson.LessonList;
 import seedu.address.model.user.CardSrsData;
 import seedu.address.model.user.User;
 import seedu.address.testutil.TypicalCards;
-import seedu.address.testutil.TypicalLessons;
+import seedu.address.testutil.TypicalLessonList;
 
 public class ManagementModelManagerTest {
     @Rule
@@ -139,8 +139,16 @@ public class ManagementModelManagerTest {
     }
 
     @Test
+    public void setLessonList() {
+        LessonList test = new LessonList();
+        test.addLesson(getTestLesson());
+        assertEquals(modelManager.getLessonList(), new LessonList());
+        modelManager.setLessonList(test);
+        assertEquals(test, modelManager.getLessonList());
+    }
+    @Test
     public void openLesson() {
-        Lesson lesson = TypicalLessons.LESSON_DEFAULT;
+        Lesson lesson = TypicalLessonList.LESSON_DEFAULT;
         modelManager.addLesson(lesson);
         modelManager.openLesson(0); // Open added lesson
         // Adding lesson to modelManager should not change the lesson
@@ -152,7 +160,7 @@ public class ManagementModelManagerTest {
 
     @Test
     public void closeLesson() {
-        Lesson lesson = TypicalLessons.LESSON_DEFAULT;
+        Lesson lesson = TypicalLessonList.LESSON_DEFAULT;
         modelManager.addLesson(lesson);
         modelManager.openLesson(0); // Open added lesson
         assertEquals(modelManager.getOpenedLesson(), lesson);
@@ -162,7 +170,7 @@ public class ManagementModelManagerTest {
 
     @Test
     public void addCardToOpenedLesson() {
-        Lesson lesson = TypicalLessons.LESSON_DEFAULT;
+        Lesson lesson = TypicalLessonList.LESSON_DEFAULT;
         Card card = TypicalCards.CARD_CAT;
 
         modelManager.addLesson(lesson);
@@ -174,7 +182,7 @@ public class ManagementModelManagerTest {
 
     @Test
     public void deleteCardFromOpenedLesson() {
-        Lesson lesson = TypicalLessons.LESSON_DEFAULT;
+        Lesson lesson = TypicalLessonList.LESSON_DEFAULT;
 
         modelManager.addLesson(lesson);
         modelManager.openLesson(0); // Open added lesson

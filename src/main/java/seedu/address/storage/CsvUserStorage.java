@@ -20,7 +20,7 @@ import seedu.address.model.user.User;
  * A class to access User stored in the hard disk as a csv file
  */
 public class CsvUserStorage implements UserStorage {
-    private static final Logger logger = LogsCenter.getLogger(CsvLessonsStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(CsvLessonListStorage.class);
 
     private Path filePath;
 

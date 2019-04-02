@@ -13,7 +13,7 @@ import seedu.address.model.lesson.Lesson;
 /**
  * A utility class containing a list of {@link Lesson} objects used for testing.
  */
-public class TypicalLessons {
+public class TypicalLessonList {
     public static final Lesson LESSON_DEFAULT = new LessonBuilder().build();
     public static final Lesson LESSON_TRUE_FALSE = new LessonBuilder()
             .withName("True and False Trivia")
@@ -23,9 +23,9 @@ public class TypicalLessons {
             .withAnswerCoreIndex(1)
             .withCards(CARD_CAT, CARD_DOG, CARD_DOGCAT)
             .build();
-    private TypicalLessons() {} // Prevents instantiation
+    private TypicalLessonList() {} // Prevents instantiation
 
-    public static List<Lesson> getTypicalLessons() {
+    public static List<Lesson> getTypicalLessonList() {
         return new ArrayList<>(Arrays.asList(LESSON_DEFAULT, LESSON_TRUE_FALSE));
     }
 }

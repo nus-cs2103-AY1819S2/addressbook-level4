@@ -31,9 +31,4 @@ public class ArchiveListCommand extends Command {
     public boolean requiresArchiveList() {
         return false;
     }
-
-    @Override
-    public boolean requiresPinList() {
-        return false;
-    }
 }

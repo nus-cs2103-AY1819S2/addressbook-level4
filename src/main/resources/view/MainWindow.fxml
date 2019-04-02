@@ -8,18 +8,19 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="The Real App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
-    <Image url="@/images/address_book_32.png" />
+    <Image url="@/images/the_real_app_32.png" />
   </icons>
   <scene>
     <Scene>
       <stylesheets>
-        <URL value="@DarkTheme.css" />
+        <URL value="@BlueTheme.css" />
         <URL value="@Extensions.css" />
       </stylesheets>
 
@@ -47,21 +48,21 @@
         </StackPane>
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <SplitPane id="splitPane2" fx:id="splitPane2" dividerPositions="0.4" orientation="VERTICAL" VBox.vgrow="ALWAYS">
-            <VBox fx:id="pinList" maxWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
-              <padding>
-                <Insets top="10" right="10" bottom="10" left="10" />
-              </padding>
-              <StackPane fx:id="pinListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-            </VBox>
-
-            <VBox fx:id="personList" maxWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
-              <padding>
-                <Insets top="10" right="10" bottom="10" left="10" />
-              </padding>
-              <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-            </VBox>
-          </SplitPane>
+               <GridPane id="listPane" fx:id="listPane" SplitPane.resizableWithParent="false">
+                 <VBox fx:id="pinList" minHeight="105" maxHeight="150" minWidth="340" prefWidth="340"
+                       GridPane.rowIndex="0">
+                   <padding>
+                     <Insets top="10" right="10" bottom="10" left="10" />
+                   </padding>
+                   <StackPane fx:id="pinListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                 </VBox>
+                 <VBox fx:id="personList" minWidth="340" prefWidth="340" GridPane.rowIndex="1">
+                  <padding>
+                    <Insets top="10" right="10" bottom="10" left="10" />
+                  </padding>
+                  <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                </VBox>
+               </GridPane>
 
           <StackPane fx:id="browserPlaceholder" prefWidth="340" >
             <padding>

@@ -285,16 +285,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean canUndoPinBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canRedoPinBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void undoPinBook() {
             throw new AssertionError("This method should not be called.");
         }

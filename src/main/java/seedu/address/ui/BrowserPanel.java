@@ -22,7 +22,7 @@ public class BrowserPanel extends UiPart<Region> {
 
     public static final URL DEFAULT_PAGE =
             requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
-    public static final String SEARCH_PAGE_URL = "https://se-education.org/dummy-search-page/?name=";
+    public static final String SEARCH_PAGE_URL = "https://www.google.com/maps/search/?api=1&query=";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -50,7 +50,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     private void loadPersonPage(Person person) {
-        loadPage(SEARCH_PAGE_URL + person.getName().fullName);
+        loadPage(SEARCH_PAGE_URL + person.getAddress().value);
     }
 
     public void loadPage(String url) {

@@ -78,6 +78,7 @@ Format **(MCQ)**: `add q/QUESTION a/ANSWER [i/INCORRECT_OPTION]... [h/HINT]`
 
 ====
 * A card can have at most 1 hint (including 0)
+* If multiple hints are included in the command, only the last hint will be added to the card
 * A card can have any number of incorrect options to denote an MCQ card
 * A card with 0 incorrect options will automatically be denoted as a Single answer card
 ====
@@ -87,6 +88,8 @@ Examples:
 * `add q/Hello? a/World`
 * `add q/The cat ___ on the mat a/sat h/poetry`
 * `add q/What is the powerhouse of the cell? a/mitochondria i/cell wall i/nucleus h/biology`
+* `add q/The Hippocrates Oath states to Do no ___? a/harm h/4 letters h/Rhymes with farm` +
+Creates a card with `hint` "Rhymes with farm".
 // end::add[]
 
 // tag::edit[]

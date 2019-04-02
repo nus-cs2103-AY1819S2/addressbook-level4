@@ -36,7 +36,7 @@ Responsibilities:
 
 === Tan Mei Yen
 image::bendymochi.png[width="150", align="left"]
-{empty}[https://github.com/bendymochi[github]]
+{empty}[https://github.com/bendymochi[github]] [https://github.com/dukesun99[github]] [https://cs2103-ay1819s2-w10-3.github.io/main/team/meiyen.html[portfolio]]
 
 Role: Developer +
 Responsibilities:
@@ -45,12 +45,13 @@ Responsibilities:
 * Sort
 * Commands
 * Documentation
+* UI
 
 '''
 
 === Liu Xuan
 image::liuxuanian.png[width="150", align="left"]
-{empty}[https://github.com/liuxuanian[github]]
+{empty}[https://github.com/liuxuanian[github]] [https://github.com/dukesun99[github]] [https://cs2103-ay1819s2-w10-3.github.io/main/team/liuxuan.html[portfolio]]
 
 Role: Developer +
 Responsibilities: In-progress

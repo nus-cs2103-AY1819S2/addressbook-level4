@@ -137,14 +137,14 @@ Example:
 // tag::add-w[]
 === Creating a new worklist: `add-w`
 Create a worklist in the Equipment Manager by giving the worklist an ID +
-Format: `add-w /[worklist value] `
+Format: `add-w d/DATE a/ASSIGNEE i/ID`
 
 [TIP]
-The user can enter multiple field name and values.
+The user can enter multiple assignees, but only one date and id.
 
 Example:
 
-* `add-w /date 2019-02-12 /assignee Mei Yen`
+* `add-w d/09 May 2019 a/Mei Yen i/13`
 //end:add-w[]
 
 // tag::put[]
@@ -193,7 +193,7 @@ Example:
 
 // tag::list-w[]
 === View work list: `list-w`
-Shows a list of all clients in the Equipment Manager +
+Shows a list of all worklists in the Equipment Manager +
 Format: `list-w`
 
 Example:
@@ -202,7 +202,7 @@ Example:
 
 // tag::select[]
 === Selecting an equipment or work list: `select`
-Selects the equipment or work list identified by the index number used in the displayed equipment list or displayed work list. The address of the equipment will be shown as marker on the map. +
+Selects the equipment or work list identified by the index number used in the displayed equipment list or displayed work list. The address of the equipment will be shown as marker on the map. The details of the equipment will be shown together with the map in split window format, means top half the screen will be showing the details, and the bottom half of the screen will be showing the map. +
 Format: `select INDEX`
 
 * Selects the equipment and loads the equipment at the specified INDEX. +

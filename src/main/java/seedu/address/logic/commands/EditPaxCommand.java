@@ -16,11 +16,11 @@ import seedu.address.model.table.TableStatus;
 /**
  * Updates the status of the table.
  */
-public class UpdateTableCommand extends Command {
+public class EditPaxCommand extends Command {
 
-    public static final String COMMAND_WORD = "updateTable";
+    public static final String COMMAND_WORD = "editPax";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the status of the table."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the number of pax of the table."
             + "Parameters: TABLE_NUMBER NEW_OCCUPANCY\n" + "Example: " + COMMAND_WORD + " 2 0";
 
     public static final String MESSAGE_SUCCESS = "Table status updated: \nTable %1$s: %2$s";
@@ -32,9 +32,9 @@ public class UpdateTableCommand extends Command {
     private final String[] newTableStatus;
 
     /**
-     * Creates an UpdateTableCommand to update the status of the table specified by the table number.
+     * Creates an EditPaxCommand to update the status of the table specified by the table number.
      */
-    public UpdateTableCommand(String[] newTableStatusInString) {
+    public EditPaxCommand(String[] newTableStatusInString) {
         this.newTableStatus = newTableStatusInString;
     }
 
@@ -71,8 +71,8 @@ public class UpdateTableCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this || (other instanceof UpdateTableCommand
-                && Arrays.equals(newTableStatus, ((UpdateTableCommand) other).newTableStatus));
+        return other == this || (other instanceof EditPaxCommand
+                && Arrays.equals(newTableStatus, ((EditPaxCommand) other).newTableStatus));
     }
 
     @Override

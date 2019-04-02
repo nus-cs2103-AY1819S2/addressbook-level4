@@ -303,6 +303,7 @@
     -fx-background-color: #1d1d1d;
 }
 
+
 .scroll-bar .thumb {
     -fx-background-color: derive(#1d1d1d, 50%);
     -fx-background-insets: 3;
@@ -325,11 +326,15 @@
     -fx-padding: 8 1 8 1;
 }
 
+.scroll-pane .corner {
+    -fx-background-color: transparent;
+}
+
 .scroll-pane > .viewport {
     -fx-background-color: #1d1d1d;
 }
 
-#scrollPane {
+.scroll-pane {
     -fx-background-color: #1d1d1d;
 }
 

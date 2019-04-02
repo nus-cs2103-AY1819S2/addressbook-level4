@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.equipment.model.WorkList;
+import seedu.equipment.model.WorkListId;
 import seedu.equipment.model.equipment.Equipment;
 
 /**
@@ -13,14 +14,17 @@ public class WorkListBuilder {
 
     public static final String DEFAULT_DATE = "2019-02-12";
     public static final String DEFAULT_ASSIGNEE = "Mei Yen";
+    public static final String DEFAULT_ID = "201";
 
     private String date;
     private String assignee;
+    private WorkListId id;
     private Set<Equipment> equipmentSet;
 
     public WorkListBuilder() {
         date = DEFAULT_DATE;
         assignee = DEFAULT_ASSIGNEE;
+        id = new WorkListId(DEFAULT_ID);
         equipmentSet = new HashSet<>();
     }
 
@@ -30,6 +34,7 @@ public class WorkListBuilder {
     public WorkListBuilder(WorkList workListToCopy) {
         date = workListToCopy.getDate();
         assignee = workListToCopy.getAssignee();
+        id = workListToCopy.getId();
         equipmentSet = workListToCopy.getEquipments();
     }
 
@@ -49,8 +54,16 @@ public class WorkListBuilder {
         return this;
     }
 
+    /**
+     * Parses the {@code WorkListId} of the {@code WorkList} that we are building.
+     */
+    public WorkListBuilder withId(String id) {
+        this.id = new WorkListId(id);
+        return this;
+    }
+
     public WorkList build() {
-        return new WorkList(date, assignee);
+        return new WorkList(date, assignee, id);
     }
 
 }

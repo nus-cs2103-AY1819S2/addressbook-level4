@@ -2,6 +2,7 @@ package seedu.equipment.ui;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -12,14 +13,17 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.equipment.commons.core.LogsCenter;
 import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.tag.Tag;
 
 /**
  * The Browser Panel of the App.
  */
 public class BrowserPanel extends UiPart<Region> {
 
-    public static final String MAP_PAGE_BASE_URL = "https://cs2103-ay1819s2-w10-3.github.io/main/DisplayGmap";
-    public static final URL DEFAULT_PAGE = processDefaultPage(MAP_PAGE_BASE_URL);
+    public static final String MAP_PAGE_BASE_URL = "https://cs2103-ay1819s2-w10-3.github.io/"
+            + "main/DisplayEquipmentDetail";
+    public static final String MAP_MULTIPLE_POINT_BASE_URL = "https://cs2103-ay1819s2-w10-3.github.io/main/DisplayGmap";
+    public static final URL DEFAULT_PAGE = processDefaultPage(MAP_MULTIPLE_POINT_BASE_URL);
     private static final String FXML = "BrowserPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -53,8 +57,21 @@ public class BrowserPanel extends UiPart<Region> {
         double[] coordiantes = equipment.getCoordiantes();
         if (coordiantes != null) {
             url = MAP_PAGE_BASE_URL + "?coordinates=[[" + coordiantes[0] + ","
-                    + coordiantes[1] + "]]&title=[\"" + equipment.getName()
-                    + "\"]&icon=[\"monument\"]";
+                    + coordiantes[1] + "]]&name=[\"" + equipment.getName()
+                    + "\"]&address=[\"" + equipment.getAddress() + "\"]&phone=[\""
+                    + equipment.getPhone() + "\"]&serial=[\""
+                    + equipment.getSerialNumber() + "\"]&date=[\""
+                    + equipment.getDate().toString() + "\"]&tags=[[";
+            Set<Tag> tags = equipment.getTags();
+            int count = 0;
+            for (Tag tag:tags) {
+                url += "\"" + tag.getTagName() + "\"";
+                count++;
+                if (count < tags.size()) {
+                    url += ",";
+                }
+            }
+            url += "]]";
         }
         System.out.println("Loading page: " + url);
         loadPage(url);

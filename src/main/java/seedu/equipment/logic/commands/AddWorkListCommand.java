@@ -19,10 +19,12 @@ public class AddWorkListCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Create a WorkList in the Equipment Manager. "
             + "Parameters: "
             + CliSyntax.PREFIX_DATE + "DATE "
-            + "[" + CliSyntax.PREFIX_ASSIGNEE + "ASSIGNEE]...\n"
+            + CliSyntax.PREFIX_ASSIGNEE + "ASSIGNEE "
+            + CliSyntax.PREFIX_ID + "ID \n"
             + "Example: " + COMMAND_WORD + " "
-            + CliSyntax.PREFIX_DATE + "2019-02-12 "
-            + CliSyntax.PREFIX_ASSIGNEE + "Mei Yen ";
+            + CliSyntax.PREFIX_DATE + "12 December 2019 "
+            + CliSyntax.PREFIX_ASSIGNEE + "Mei Yen "
+            + CliSyntax.PREFIX_ID + "13 ";
 
     public static final String MESSAGE_SUCCESS = "New WorkList created: %1$s";
     public static final String MESSAGE_DUPLICATE_EQUIPMENT = "Duplicated WorkList ID, "

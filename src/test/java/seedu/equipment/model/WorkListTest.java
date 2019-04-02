@@ -22,8 +22,8 @@ public class WorkListTest {
     @Test
     public void isSameWorkList() {
 
-        // same id -> same worklist.
-        assertTrue(LISTA.getId().getId() == LISTA.getId().getId());
+        // same id, different attributes -> same WorkList.
+        assertTrue(LISTA.isSameWorkList(LISTA));
     }
 
     @Test

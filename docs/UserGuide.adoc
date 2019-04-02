@@ -175,13 +175,23 @@ Example:
 
 * `list-e`
 
-=== View work list: `list-w`
-Shows a list of all clients in the Equipment Manager +
+=== List all work list: `list-w`
+Shows a list of all work list in the Equipment Manager +
 Format: `list-w`
 
 Example:
 
 * `list-w`
+
+=== List all clients : `list-c`
+Shows a list of all clients in the Equipment Manager +
+The client card will shows its client name and the number of equipment this client owns.
+
+Format: `list-c`
+
+Example:
+
+* `list-c`
 
 === Selecting an equipment or work list: `select`
 Selects the equipment or work list identified by the index number used in the displayed equipment list or displayed work list. The address of the equipment will be shown as marker on the map. +

@@ -29,13 +29,17 @@ public class MainWindow extends UiPart<Stage> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+    private String command;
+
     private Stage primaryStage;
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private EquipmentListPanel equipmentListPanel;
+    private EquipmentListPanel equipmentListPanel2;
     private WorkListListPanel workListListPanel;
+    private ClientListPanel clientListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -50,6 +54,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane clientListPanelPlaceholder;
 
     @FXML
     private StackPane workListPanelPlaceholder;
@@ -112,11 +119,35 @@ public class MainWindow extends UiPart<Stage> {
             }
         });
     }
+    /**
+     * Fills up all the placeholders of this window.
+     */
+    void fillInnerPartsWithClient() {
+        browserPanel = new BrowserPanel(logic.selectedEquipmentProperty());
+        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+
+        equipmentListPanel = new EquipmentListPanel(logic.getFilteredClient());
+        personListPanelPlaceholder.getChildren().add(equipmentListPanel.getRoot());
+
+        workListListPanel = new WorkListListPanel(logic.getFilteredWorkListList(), logic.selectedWorkListProperty(),
+                logic::setSelectedWorkList);
+        workListPanelPlaceholder.getChildren().add(workListListPanel.getRoot());
+
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getEquipmentManagerFilePath(),
+                logic.getEquipmentManager());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
 
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
+    void fillInnerPartsWithEquipment() {
         browserPanel = new BrowserPanel(logic.selectedEquipmentProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
@@ -212,6 +243,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+            setCommand(commandText);
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
@@ -234,5 +266,13 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private void setCommand(String commandText) {
+        this.command = commandText;
+    }
+
+    public String getCommand() {
+        return command;
     }
 }

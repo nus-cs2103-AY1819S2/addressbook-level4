@@ -12,9 +12,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.equipment.commons.core.LogsCenter;
 import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.equipment.Name;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of equipments.
  */
 public class EquipmentListPanel extends UiPart<Region> {
     private static final String FXML = "EquipmentListPanel.fxml";
@@ -22,6 +23,10 @@ public class EquipmentListPanel extends UiPart<Region> {
 
     @FXML
     private ListView<Equipment> personListView;
+
+    @FXML
+    private ListView<Equipment> clientListView;
+
 
     public EquipmentListPanel(ObservableList<Equipment> equipmentList, ObservableValue<Equipment> selectedPerson,
                               Consumer<Equipment> onSelectedPersonChange) {
@@ -52,6 +57,13 @@ public class EquipmentListPanel extends UiPart<Region> {
         });
     }
 
+    public EquipmentListPanel(ObservableList<Equipment> equipmentList) {
+        super(FXML);
+        //System.out.println(personListView.getEditingIndex());
+        clientListView.setItems(equipmentList);
+        clientListView.setCellFactory(listView -> new EquipmentListPanel.ClientListViewCell());
+    }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Equipment} using a {@code EquipmentCard}.
      */
@@ -70,7 +82,7 @@ public class EquipmentListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Equipment} using a {@code EquipmentCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Equipment} using a {@code ClientListCard}.
      */
     class ClientListViewCell extends ListCell<Equipment> {
         @Override
@@ -81,11 +93,8 @@ public class EquipmentListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new EquipmentCard(equipment, getIndex() + 1).getRoot());
+                setGraphic(new ClientListCard(equipment, getIndex() + 1).getRoot());
             }
         }
     }
-
-
-
 }

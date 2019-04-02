@@ -79,6 +79,7 @@ This view displays the cards in a particular deck. In cards view, you can:
 === Study View [[studyview]]
 
 In this view you can study a deck of cards.
+
 image::study_ug_diagrams/study_1.png[width="800"]
 
 
@@ -307,9 +308,11 @@ image::study_ug_diagrams/study_2.png[width="800"]
 **Outcome**: Displays another card from the deck. Stores your difficulty rating for the card.
 
 Entering a number 3 indicates that you rate the difficulty as 3.
+
 image::study_ug_diagrams/study_3.png[width="800"]
 
 Submitting this reveals the next question.
+
 image::study_ug_diagrams/study_4.png[width="800"]
 
 

@@ -31,13 +31,14 @@ public class DateTest {
         // invalid date
         assertFalse(Date.isValidDate("^")); // only non-alphanumeric characters
         assertFalse(Date.isValidDate("22/09/2019")); // contains non-alphanumeric characters
+        assertFalse(Date.isValidDate("2222/11/2019"));
 
         // valid date --> not whhat we auctally want
-        assertTrue(Date.isValidDate("peter jack")); // alphabets only
-        assertTrue(Date.isValidDate("12345")); // numbers only
-        assertTrue(Date.isValidDate("peter the 2nd")); // alphanumeric characters
-        assertTrue(Date.isValidDate("Capital Tan")); // with capital letters
-        assertTrue(Date.isValidDate("David Roger Jackson Ray Jr 2nd")); // long names
+        assertFalse(Date.isValidDate("peter jack")); // alphabets only
+        assertFalse(Date.isValidDate("12345")); // numbers only
+        assertFalse(Date.isValidDate("peter the 2nd")); // alphanumeric characters
+        assertFalse(Date.isValidDate("Capital Tan")); // with capital letters
+        assertFalse(Date.isValidDate("David Roger Jackson Ray Jr 2nd")); // long names
 
         // valid date --> in proper date format
         assertTrue(Date.isValidDate("22 April 2019")); // no ambiguousness in dates

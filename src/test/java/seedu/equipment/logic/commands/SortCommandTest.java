@@ -26,7 +26,7 @@ public class SortCommandTest {
     }
 
     @Test
-    public void execute_sortListByEmail() {
+    public void execute_sortListByDate() {
         String dateSortParameter = "date";
         SortCommand sortCommand = new SortCommand(dateSortParameter);
         String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, dateSortParameter);

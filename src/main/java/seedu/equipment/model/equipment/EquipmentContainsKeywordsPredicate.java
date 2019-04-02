@@ -26,12 +26,12 @@ public class EquipmentContainsKeywordsPredicate implements Predicate<Equipment> 
                                 || StringUtil.containsWordIgnoreCase(equipment.getAddress().value, keyword)
                                 || StringUtil.containsWordIgnoreCase(equipment.getName().name, keyword)
                                 || StringUtil.containsWordIgnoreCase(equipment.getTags().toString(), keyword)
-                                || StringUtil.containsPartialWorldIgnoreCase(equipment.getSerialNumber().serialNumber,
-                                                                                        keyword)
-                                || StringUtil.containsPartialWorldIgnoreCase(equipment.getAddress().value, keyword)
-                                || StringUtil.containsPartialWorldIgnoreCase(equipment.getName().name, keyword)
-                                || StringUtil.containsPartialWorldIgnoreCase(equipment.getTags().toString(), keyword)
-                                || StringUtil.containsPartialWorldIgnoreCase(equipment.getPhone().value, keyword));
+                                || StringUtil.containsPartialWordIgnoreCase(equipment.getSerialNumber().serialNumber,
+                                keyword)
+                                || StringUtil.containsPartialWordIgnoreCase(equipment.getAddress().value, keyword)
+                                || StringUtil.containsPartialWordIgnoreCase(equipment.getName().name, keyword)
+                                || StringUtil.containsPartialWordIgnoreCase(equipment.getTags().toString(), keyword)
+                                || StringUtil.containsPartialWordIgnoreCase(equipment.getPhone().value, keyword));
     }
 
     @Override
@@ -40,5 +40,4 @@ public class EquipmentContainsKeywordsPredicate implements Predicate<Equipment> 
                 || (other instanceof EquipmentContainsKeywordsPredicate // instanceof handles nulls
                 && keywords.equals(((EquipmentContainsKeywordsPredicate) other).keywords)); // state check
     }
-
 }

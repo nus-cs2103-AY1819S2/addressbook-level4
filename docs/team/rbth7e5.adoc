@@ -13,6 +13,8 @@ This portfolio showcases my contributions for a software engineering team projec
 
 Our project, The Food Diary, is a fast and reliable food journal meant for nostalgic food lovers looking to document their food adventures. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLo.
 
+My role was to implement the categorisation of restaurants as well as manage the git workflow of members. The following sections illustrate these enhancements in more detail, as well as the relevant sections I have added to the user and developer guides in relation to these enhancements.
+
 == Summary of contributions
 
 * *Major enhancement*: added *Restaurant Categorisation*
@@ -48,7 +50,7 @@ Our project, The Food Diary, is a fast and reliable food journal meant for nosta
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_The following describes the contributions I made to the User Guide. The following is an excerpt from the User Guide. More specifically, it shows my ability to document the Restaurant Categorization feature for end users._
 |===
 
 include::../UserGuide.adoc[tag=categorization]
@@ -56,7 +58,7 @@ include::../UserGuide.adoc[tag=categorization]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Two main sections I contributed to the Developer Guide are User Stories and Categorization as shown below. It reflects my ability to articulate how I implemented my features_
 |===
 
 include::../DeveloperGuide.adoc[tag=userstories]

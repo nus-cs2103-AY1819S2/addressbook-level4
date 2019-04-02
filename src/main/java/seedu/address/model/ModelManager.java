@@ -162,7 +162,11 @@ public class ModelManager implements Model {
     public void addAppointment(Appointment appointment) {
         versionedAddressBook.addAppointment(appointment);
     }
-
+    
+    @Override
+    public void deleteDoctor(Doctor target) {
+        versionedAddressBook.removeDoctor(target);
+    }
 
     public ReadOnlyProperty<Doctor> selectedDoctorProperty() {
         return selectedDoctor;
@@ -174,11 +178,6 @@ public class ModelManager implements Model {
             throw new DoctorNotFoundException();
         }
         selectedDoctor.setValue(doctor);
-    }
-
-    @Override
-    public void deleteDoctor(Doctor target) {
-        versionedAddressBook.removeDoctor(target);
     }
 
     // Needed to be implemented later

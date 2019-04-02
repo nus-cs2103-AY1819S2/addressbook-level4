@@ -1,10 +1,11 @@
 package seedu.finance.model.record;
 
-import seedu.finance.commons.util.StringUtil;
-import seedu.finance.model.category.Category;
-
 import java.util.List;
 import java.util.function.Predicate;
+
+import seedu.finance.commons.util.StringUtil;
+
+
 
 
 /**

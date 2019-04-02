@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.record.Record;
-import seedu.finance.model.comparatorUtil.SampleDataUtil;
+import seedu.finance.model.comparator.SampleDataUtil;
 import seedu.finance.testutil.TestUtil;
 
 public class SampleDataTest extends FinanceTrackerSystemTest {

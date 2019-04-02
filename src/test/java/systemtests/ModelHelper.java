@@ -2,10 +2,10 @@
 /*
 package systemtests;
 
-import java.comparatorUtil.Arrays;
-import java.comparatorUtil.List;
-import java.comparatorUtil.Optional;
-import java.comparatorUtil.function.Predicate;
+import java.comparator.Arrays;
+import java.comparator.List;
+import java.comparator.Optional;
+import java.comparator.function.Predicate;
 
 import seedu.finance.model.Model;
 import seedu.finance.model.record.Record;

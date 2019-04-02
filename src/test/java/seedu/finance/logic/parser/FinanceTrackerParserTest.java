@@ -37,7 +37,7 @@ import seedu.finance.logic.commands.SpendCommand;
 import seedu.finance.logic.commands.SummaryCommand;
 import seedu.finance.logic.commands.UndoCommand;
 import seedu.finance.logic.parser.exceptions.ParseException;
-import seedu.finance.logic.parser.comparatorUtil.RecordNameComparator;
+import seedu.finance.logic.parser.comparator.RecordNameComparator;
 import seedu.finance.model.record.Description;
 import seedu.finance.model.record.NameContainsKeywordsPredicate;
 import seedu.finance.model.record.Record;

@@ -3,8 +3,8 @@
 package systemtests;
 
 import java.nio.file.Path;
-import java.comparatorUtil.concurrent.TimeoutException;
-import java.comparatorUtil.function.Supplier;
+import java.comparator.concurrent.TimeoutException;
+import java.comparator.function.Supplier;
 
 import org.testfx.api.FxToolkit;
 

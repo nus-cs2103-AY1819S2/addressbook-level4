@@ -11,11 +11,11 @@ import java.util.Comparator;
 import java.util.List;
 
 import seedu.finance.logic.commands.SortCommand;
+import seedu.finance.logic.parser.comparator.RecordAmountComparator;
+import seedu.finance.logic.parser.comparator.RecordCategoryComparator;
+import seedu.finance.logic.parser.comparator.RecordDateComparator;
+import seedu.finance.logic.parser.comparator.RecordNameComparator;
 import seedu.finance.logic.parser.exceptions.ParseException;
-import seedu.finance.logic.parser.comparatorUtil.RecordAmountComparator;
-import seedu.finance.logic.parser.comparatorUtil.RecordCategoryComparator;
-import seedu.finance.logic.parser.comparatorUtil.RecordDateComparator;
-import seedu.finance.logic.parser.comparatorUtil.RecordNameComparator;
 import seedu.finance.model.record.Record;
 
 /**

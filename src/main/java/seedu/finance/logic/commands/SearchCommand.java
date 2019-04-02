@@ -46,7 +46,9 @@ public class SearchCommand extends Command {
         this.predicate = predicate;
     }
 
-    public SearchCommand(DateContainsKeywordsPredicate predicate) { this.predicate = predicate; }
+    public SearchCommand(DateContainsKeywordsPredicate predicate) {
+        this.predicate = predicate;
+    }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
@@ -55,7 +57,7 @@ public class SearchCommand extends Command {
         ObservableList<Record> filteredRecord = model.getFilteredRecordList();
         Double totalSpent = Double.valueOf(0);
         Iterator<Record> recordIterator = filteredRecord.iterator();
-        while(recordIterator.hasNext()) {
+        while (recordIterator.hasNext()) {
             totalSpent += recordIterator.next().getAmount().getValue();
         }
         String outputMessage = Messages.MESSAGE_RECORDS_LISTED_OVERVIEW + "\nTotal spent on searched records = $ "

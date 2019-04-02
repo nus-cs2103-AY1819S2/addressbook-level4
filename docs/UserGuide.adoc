@@ -237,6 +237,8 @@ Examples:
 * `deleteCard 2` +
 Deletes the second flashcard.
 
+// end::evan[]
+
 ==== Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +

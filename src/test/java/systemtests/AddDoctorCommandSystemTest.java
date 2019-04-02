@@ -83,9 +83,10 @@
 //    public void add() {
 //        Model model = getModel();
 //
-//        /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
+//        /* ----------------------- Perform add operations on the shown unfiltered list ---------------------------- */
 //
-//        /* Case: add a doctor without specialisations to a non-empty address book, command with leading spaces and trailing spaces
+//        /* Case: add a doctor without specialisations to a non-empty address book, command
+//         * with leading spaces and trailing spaces
 //         * -> added
 //         */
 //        Doctor toAdd = ALVINA;
@@ -132,19 +133,19 @@
 //        /* Case: add a doctor, missing specialisations -> added */
 //        assertCommandSuccess(HAN);
 //
-//        /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
+//        /* ------------------------- Perform add operation on the shown filtered list ----------------------------- */
 //
 //        /* Case: filters the doctor list before adding -> added */
 //        showPatientsWithName(KEYWORD_MATCHING_MEIER);
 //        assertCommandSuccess(ILI);
 //
-//        /* ------------------------ Perform add operation while a doctor card is selected -------------------------- */
+//        /* ----------------------- Perform add operation while a doctor card is selected ------------------------- */
 //
 //        /* Case: selects first card in the doctor list, add a doctor -> added, card selection remains unchanged */
 //        selectDoctor(Index.fromOneBased(1));
 //        assertCommandSuccess(CHARLIE);
 //
-//        /* ----------------------------------- Perform invalid add operations --------------------------------------- */
+//        /* ---------------------------------- Perform invalid add operations -------------------------------------- */
 //
 //        /* Case: add a duplicate doctor -> rejected */
 //        command = DoctorUtil.getAddDoctorCommand(HAN);

@@ -4,13 +4,12 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import org.junit.Test;
 import java.util.Arrays;
 
+import org.junit.Test;
+
 import seedu.address.logic.commands.SearchDoctorCommand;
-import seedu.address.logic.commands.SearchPatientCommand;
 import seedu.address.model.person.DoctorNameContainsKeywordsPredicate;
-import seedu.address.model.person.PatientNameContainsKeywordsPredicate;
 
 public class SearchDoctorCommandParserTest {
 

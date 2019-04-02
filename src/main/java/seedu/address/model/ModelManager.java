@@ -151,10 +151,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void sortBook(String type, String order) {
-        versionedBookShelf.sort(type, order);
+    public void sortBook(List<String> types, String mainOrder, Map<String, String> subOrder) {
+        versionedBookShelf.sort(types, mainOrder, subOrder);
     }
-
 
     //=========== Filtered Book List Accessors =============================================================
 

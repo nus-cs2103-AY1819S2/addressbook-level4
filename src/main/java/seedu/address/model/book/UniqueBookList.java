@@ -3,12 +3,16 @@ package seedu.address.model.book;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.function.BiFunction;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.logic.parser.SortBookCommandParser;
 import seedu.address.model.book.exceptions.BookNotFoundException;
 import seedu.address.model.book.exceptions.DuplicateBookException;
 
@@ -100,45 +104,173 @@ public class UniqueBookList implements Iterable<Book> {
     }
 
     /**
-     * Sort the books with {@code type} in {@code order}.
-     * @param type sorting type
-     * @param order order of sorting
+     * sort the books in book card in order
+     * @param types need to be sort
+     * @param mainOrder for all types
+     * @param subOrder if mainOrder is not specify and subOrder will replace mainOrder
      */
-    public void sortBooks(String type, String order) throws Exception {
-        requireAllNonNull(type, order);
-        type = type.toUpperCase();
-        order = order.toUpperCase();
+    public void sortBooks(List<String> types,
+                          String mainOrder,
+                          Map<String, String> subOrder) {
+        requireAllNonNull(types);
 
-        switch (type) {
-        case "AUTHOR":
-            if (order.equals("ASC")) {
-                internalList.sort(Comparator.comparing(a -> a.getAuthor().toString().toLowerCase()));
-            } else if (order.equals("DES")) {
-                internalList.sort((a, b)
-                    -> b.getAuthor().toString().toLowerCase().compareTo(a.getAuthor().toString().toLowerCase()));
-            }
-            break;
+        Comparator<Book> bookComparator = (b1, b2) -> {
+            Iterator<String> iterator = types.iterator();
+            String firstType = iterator.next().toLowerCase();
+            List<BiFunction<Book, Book, Integer>> functions = new ArrayList<>();
+            if (firstType.equals(SortBookCommandParser.AUTHOR)) {
+                functions.add(this::compareAuthor);
+                functions.add(this::compareBookName);
+                functions.add(this::compareRating);
+                return handleSort(b1, b2, iterator,
+                    firstType,
+                    SortBookCommandParser.BOOKNAME,
+                    mainOrder, subOrder,
+                    functions);
 
-        case "NAME":
-            if (order.equals("ASC")) {
-                internalList.sort(Comparator.comparing(a -> a.getBookName().toString().toLowerCase()));
-            } else if (order.equals("DES")) {
-                internalList.sort((a, b)
-                    -> b.getBookName().toString().toLowerCase().compareTo(a.getBookName().toString().toLowerCase()));
-            }
-            break;
+            } else if (firstType.equals(SortBookCommandParser.BOOKNAME)) {
+                functions.add(this::compareBookName);
+                functions.add(this::compareAuthor);
+                functions.add(this::compareRating);
+                return handleSort(b1, b2, iterator,
+                    firstType,
+                    SortBookCommandParser.AUTHOR,
+                    mainOrder, subOrder,
+                    functions);
 
-        case "RATING":
-            if (order.equals("ASC")) {
-                FXCollections.sort(internalList, Comparator.comparingInt(a -> Integer.valueOf(a.getRating().value)));
-            } else if (order.equals("DES")) {
-                FXCollections.sort(internalList, (a, b)
-                    -> Integer.valueOf(b.getRating().value) - Integer.valueOf(a.getRating().value));
+            } else {
+
+                functions.add(this::compareRating);
+                functions.add(this::compareAuthor);
+                functions.add(this::compareBookName);
+                return handleSort(b1, b2, iterator,
+                    firstType,
+                    SortBookCommandParser.AUTHOR,
+                    mainOrder, subOrder,
+                    functions);
+
             }
-            break;
-        default:
-            throw new Exception("Unknown sorting type");
+        };
+
+        internalList.sort(bookComparator);
+    }
+
+    /**
+     * Compares two books with a sort types base on given bi-function
+     * @param b1 first book that going to be compare
+     * @param b2 second book that going to be compare
+     * @param subOrders hash map that contains sub order
+     * @param mainOrder main order if available
+     * @param currentType current sort type
+     * @param compare bifunction that will change base on different sort type
+     * @return -1, 0 or 1 depend one value of b1 and b2
+     */
+    private int sort(Book b1, Book b2,
+                     Map<String, String> subOrders,
+                     String mainOrder, String currentType,
+                     BiFunction<Book, Book, Integer> compare) {
+        String order = mainOrder;
+        if (order == null) {
+            order = subOrders.getOrDefault(currentType, SortBookCommandParser.ASCENDING);
         }
+
+        if (order.equals(SortBookCommandParser.ASCENDING)) {
+            return compare.apply(b1, b2);
+        } else {
+            return compare.apply(b2, b1);
+        }
+    }
+
+    /**
+     * Handles the sort.
+     * @param b1 first book that going to be compare
+     * @param b2 second book that going to be compare
+     * @param firstType that going to be sort
+     * @param sortType the second type that going to be sort
+     * @param mainOrder order that apply for all types
+     * @param subOrder sub order for individual type
+     * @param functions functions that provide sort function
+     * @return sort result, -1, 0 or 1 depend one value of b1 and b2
+     */
+    private int handleSort(Book b1, Book b2,
+                           Iterator<String> iterator,
+                           String firstType, String sortType,
+                           String mainOrder,
+                           Map<String, String> subOrder,
+                           List<BiFunction<Book, Book, Integer>> functions) {
+
+        int result = sort(b1, b2, subOrder, mainOrder, firstType, functions.get(0));
+
+        if (result != 0 || !iterator.hasNext()) {
+            return result;
+        }
+
+        String secondType = iterator.next().toLowerCase();
+        if (secondType.equals(sortType)) {
+
+            return sortByType(b1, b2, iterator, mainOrder, secondType,
+                subOrder, functions.get(1), functions.get(2));
+
+        } else {
+
+            return sortByType(b1, b2, iterator, mainOrder, secondType,
+                subOrder, functions.get(2), functions.get(1));
+        }
+    }
+
+    /**
+     * Sorts by the given order and type
+     * @param b1 book 1
+     * @param b2 book 2
+     * @param iterator of list of sort type
+     * @param mainOrder of all sort type
+     * @param type of sort type
+     * @param subOrder for individual
+     * @param firstFunction first sort function
+     * @param secondFunction second sort function
+     * @return compare result -1 , 0 or 1
+     */
+    private int sortByType(Book b1, Book b2,
+                           Iterator<String> iterator,
+                           String mainOrder,
+                           String type,
+                           Map<String, String> subOrder,
+                           BiFunction<Book, Book, Integer> firstFunction,
+                           BiFunction<Book, Book, Integer> secondFunction) {
+
+        int result = sort(b1, b2, subOrder, mainOrder, type, firstFunction);
+
+        if (result != 0 || !iterator.hasNext()) {
+            return result;
+        }
+        return sort(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase(), secondFunction);
+    }
+
+    private int compareAuthor(Book b1, Book b2) {
+
+        return b1.getAuthor().fullName.compareTo(b2.getAuthor().fullName);
+    }
+
+    private int compareBookName(Book b1, Book b2) {
+
+        return b1.getBookName().fullName.compareTo(b2.getBookName().fullName);
+    }
+
+    /**
+     * Compares rating between two books
+     * @param b1 first book
+     * @param b2 second book
+     * @return -1, 0 or 1
+     */
+    private int compareRating(Book b1, Book b2) {
+
+        int result = Integer.valueOf(b1.getRating().value) - Integer.valueOf(b2.getRating().value);
+        if (result > 0) {
+            return 1;
+        } else if (result < 0) {
+            return -1;
+        }
+        return result;
     }
 
     /**

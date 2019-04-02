@@ -43,9 +43,9 @@ class JsonSerializableAddressBook {
                                                List<JsonAdaptedMedicalHistory> medicalHistories,
                                         @JsonProperty("appointments") List<JsonAdaptedAppointment> appointments) {
         this.patients.addAll(patients);
+        this.doctors.addAll(doctors);
         //this.appointments.addAll(appointments);
         this.medicalHistories.addAll(medicalHistories);
-        this.doctors.addAll(doctors);
     }
 
     /**
@@ -63,7 +63,6 @@ class JsonSerializableAddressBook {
 
         appointments.addAll(source.getAppointmentList().stream().map(JsonAdaptedAppointment::new)
                 .collect(Collectors.toList()));
-
     }
 
     /**
@@ -79,6 +78,8 @@ class JsonSerializableAddressBook {
             if (addressBook.hasAppointment(appointment)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
             }
+            //System.out.println(appointment);
+            addressBook.addAppointment(appointment);
         }
 
         for (JsonAdaptedDoctor jsonAdaptedDoctor : doctors) {
@@ -97,6 +98,13 @@ class JsonSerializableAddressBook {
             addressBook.addPatient(patient);
         }
 
+        for (JsonAdaptedDoctor jsonAdaptedDoctor : doctors) {
+            Doctor doctor = jsonAdaptedDoctor.toModelType();
+            if (addressBook.hasDoctor(doctor)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_DOCTOR);
+            }
+            addressBook.addDoctor(doctor);
+        }
 
         /*
         for (JsonAdaptedMedicalHistory jsonAdaptedMedicalHistory : medicalHistories) {
@@ -104,10 +112,9 @@ class JsonSerializableAddressBook {
             if (addressBook.hasMedHist(medicalHistory)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MEDHIST);
             }
-            System.out.println(appointment);
-            addressBook.addAppointment(appointment);
-        }*/
-        
+            addressBook.addMedHist(medicalHistory);
+        }
+        */
         return addressBook;
     }
 }

@@ -119,7 +119,7 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-// tag::redoundo[]
+// tag::undoredo[]
 ==== Redoing the previously undone command : `redo`
 
 Reverses the most recent `undo` command. +
@@ -167,7 +167,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `clear` +
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
-// end::redoundo[]
+// end::undoredo[]
 
 === Member Management Features
 
@@ -311,6 +311,7 @@ Selects the 2nd person in the address book.
 `memberSelect 1` +
 Selects the 1st member in the results of the `find` command.
 
+//tag::membersort[]
 ==== Sort members’ list : `memberSort`
 
 Sort the members list by a member’s attribute in ascending order
@@ -351,6 +352,8 @@ image::MemberSortCommand_sortby_name.png[width="790"]
 Sorts the list by year of study.
 
 image::MemberSortCommand_sortby_yearofstudy.png[width="790"]
+
+//end::membersort[]
 
 ==== Exporting details of a member : `memberExport`
 

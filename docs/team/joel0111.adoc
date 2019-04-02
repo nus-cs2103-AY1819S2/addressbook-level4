@@ -1,0 +1,52 @@
+= Joel Ng - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Club Manager - v1.3
+
+---
+
+== Overview
+
+Club Manager is a desktop CCA management application used for managing CCA members. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: Organise the member list as well as display members' information.
+** What it does:
+
+*** Sorts the members' list based on a given sorting criteria. This allows the user to be able to organise their members based on a particular member attribute, facilitating the planning of CCA activities and the export list function.
+*** Selectively list members based on a given filter criteria. This allows the user to shortlist members for activities (e.g. competition) based on a particular member's attribute.
+*** View the complete members' information page.
+** Justification: This feature improves the product significantly because a user needs to be able to view the entire set of member's information, as well as organise members in the list to prepare the list to be exported and printed for attendance taking in the CCA activities.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Minor enhancement*: Modified the add command to accept other forms of members' information such as gender, major, matric number, and year of study.
+** Add members to the member's list, and checks if the user input matches the correct format required.
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=membersort]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+include::../DeveloperGuide.adoc[tag=membersort]
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

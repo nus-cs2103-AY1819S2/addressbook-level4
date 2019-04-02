@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.equipment.model.equipment.exceptions.DuplicateEquipmentException;
 import seedu.equipment.model.equipment.exceptions.EquipmentNotFoundException;
-import seedu.equipment.model.tag.Tag;
 import seedu.equipment.model.util.SampleDataUtil;
 
 /**
@@ -118,7 +117,7 @@ public class UniqueEquipmentList implements Iterable<Equipment> {
         } else {
             int size = internalList.size();
             Iterator<Equipment> ir = iterator();
-            for(int i = 0; i < size; i++) {
+            for (int i = 0; i < size; i++) {
                 Equipment thisEquip = ir.next();
                 if (thisEquip.isSameEquipment(sampleEquipment)) {
                     result = thisEquip;

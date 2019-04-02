@@ -344,8 +344,8 @@ directory.
 Format: `export FOLDER_INDEX FILENAME [MORE_INDEXES]`
 
 IMPORTANT: The files used for Import and Export commands should be placed in the project root directory. +
-i.e The directory where the .jar file is located +
-.project root directory / where the jar file is located.
+i.e The directory where the .jar file is located
+
 image::project_root_dir.png[width ="800"]
 
 NOTE: The current version does not support the importing and exporting of files outside of this directory

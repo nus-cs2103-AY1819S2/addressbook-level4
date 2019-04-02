@@ -4,10 +4,15 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
+import javafx.collections.transformation.FilteredList;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -24,7 +29,7 @@ public class Job {
 
     // Data fields
     private ArrayList<UniquePersonList> personsHash = new ArrayList<> (NUMBER_OF_LISTS);
-    private ArrayList<ArrayList<Person>> personsList = new ArrayList<>(NUMBER_OF_LISTS);
+    private ArrayList<Set<Nric>> personsNricList = new ArrayList<>(NUMBER_OF_LISTS);
 
 
     /**
@@ -36,7 +41,7 @@ public class Job {
         this.name = name;
         for (int i = 0; i < 4; i++) {
             personsHash.add(new UniquePersonList());
-            personsList.add(new ArrayList<>());
+            personsNricList.add(new HashSet<>());
         }
     }
 
@@ -48,8 +53,13 @@ public class Job {
      * Adds all persons on displayed filter list to first list of job.
      * Only adds if not already in job.
      */
-    public void addFilteredList() {
-
+    public void addFilteredList(FilteredList<Person> filteredPersons) {
+        for (int i = 0; i < filteredPersons.size(); i++) {
+            if (personsHash.get(0).contains(filteredPersons.get(i))) {
+                continue;
+            }
+            add(filteredPersons.get(i));
+        }
     }
 
     /**
@@ -61,7 +71,7 @@ public class Job {
             return false;
         }
         personsHash.get(0).add(person);
-        personsList.get(0).add(person);
+        personsNricList.get(0).add(person.getNric());
 
         return true;
     }
@@ -69,26 +79,34 @@ public class Job {
     /**
      * Moves a person from one list to another
      */
-    public boolean move(Person target, int source, int dest) {
-        if (!personsHash.get(source).contains(target)) {
-            return false;
+    public int move(Person target, Integer source, Integer dest) {
+
+        if (!(personsHash.get(source).contains(target))) {
+            return 0;
         }
 
         if (personsHash.get(dest).contains(target)) {
-            return false;
+            return 1;
         }
 
         personsHash.get(dest).add(target);
-        personsList.get(dest).add(target);
-        return true;
+        personsNricList.get(dest).add(target.getNric());
+        return 2;
     }
 
     /**
-     * Returns an immutable  people set, which throws {@code UnsupportedOperationException}
+     * Returns an UniquePerson list using {@code listNumber}
+     */
+    public final UniquePersonList getPeople(Integer listNumber) {
+        return personsHash.get(listNumber);
+    }
+
+    /**
+     * Returns an immutable known programming language set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public final UniquePersonList getPeople(int listNumber) {
-        return personsHash.get(listNumber);
+    public final Set<Nric> getPersonsNric(Integer listNumber) {
+        return Collections.unmodifiableSet(personsNricList.get(listNumber));
     }
 
     public final ArrayList<Name> getPeopleNames(List<Person> peopleList) {
@@ -97,25 +115,6 @@ public class Job {
             names.add(peopleList.get(i).getName());
         }
         return names;
-    }
-
-    /**
-     * Returns an ArrayList of Person that can be edited but does not change the list in job directly
-     */
-    public final ArrayList<Person> getList(int listNumber) {
-        return personsList.get(listNumber);
-    }
-
-    /**
-     * Replaces a list of persons in Job
-     */
-    public final boolean replaceList(int listNumber, ArrayList<Person> personList) {
-        if (listNumber > 3) {
-            return false;
-        }
-        personsList.set(listNumber, personList);
-
-        return true;
     }
 
     /**

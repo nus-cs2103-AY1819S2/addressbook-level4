@@ -7,12 +7,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddListToJobCommand;
 import seedu.address.logic.commands.AddPersonToJobCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ClearInterviewsCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CreateJobCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteJobCommand;
 import seedu.address.logic.commands.DisplayJobListCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -22,6 +24,7 @@ import seedu.address.logic.commands.GenerateInterviewsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.MovePersonCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -167,6 +170,24 @@ public class AddressBookParser {
 
         case DisplayJobListCommand.COMMAND_ALIAS:
             return new DisplayJobListCommandParser().parse(arguments);
+
+        case MovePersonCommand.COMMAND_WORD:
+            return new MovePersonCommandParser().parse(arguments);
+
+        case MovePersonCommand.COMMAND_ALIAS:
+            return new MovePersonCommandParser().parse(arguments);
+
+        case DeleteJobCommand.COMMAND_WORD:
+            return new DeleteJobCommandParser().parse(arguments);
+
+        case DeleteJobCommand.COMMAND_ALIAS:
+            return new DeleteJobCommandParser().parse(arguments);
+
+        case AddListToJobCommand.COMMAND_WORD:
+            return new AddListToJobCommandParser().parse(arguments);
+
+        case AddListToJobCommand.COMMAND_ALIAS:
+            return new AddListToJobCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

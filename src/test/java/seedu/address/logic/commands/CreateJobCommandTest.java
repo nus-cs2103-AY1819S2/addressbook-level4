@@ -249,7 +249,7 @@ public class CreateJobCommandTest {
         }
 
         @Override
-        public void addFilteredPersonsToJob(Job job) {
+        public void addFilteredPersonsToJob(JobName jobName) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -270,6 +270,16 @@ public class CreateJobCommandTest {
 
         @Override
         public UniquePersonList getJobList(JobName name, int listNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Integer movePerson(JobName jobName, Nric nric, Integer source, Integer dest) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteJob(Job job) {
             throw new AssertionError("This method should not be called.");
         }
     }

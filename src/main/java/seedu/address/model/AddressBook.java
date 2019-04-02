@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
@@ -115,6 +116,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Adds a person to the job.
+     * The person must not already exist in the job.
+     * Adds to the first list
+     * This version directly adds from job
+     */
+    public void addFilteredListToJob(FilteredList<Person> filteredPersons, JobName jobName) {
+        Job job = jobs.getJob(jobName);
+        job.addFilteredList(filteredPersons);
+        this.jobs.setJob(job, job);
+        indicateModified();
+    }
+
+    /**
      * Retrieves UniquePersonList from job
      */
     public UniquePersonList getJobPersonList(JobName jobName, int listNumber) {
@@ -133,6 +147,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+
     /**
      * Adds a job to the address book.
      * The job must not already exist in the address book.
@@ -140,6 +155,30 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addJob(Job j) {
         jobs.add(j);
         indicateModified();
+    }
+
+    /**
+     * Deletes a job in the address book.
+     * The job must exist in the address book.
+     */
+    public void deleteJob(Job j) {
+        jobs.remove(j);
+        indicateModified();
+    }
+
+    /**
+     * Returns true if a job with the same identity as {@code job} exists in the address book.
+     */
+    public int movePerson(JobName jobName, Nric nric, int source, int dest) {
+        requireNonNull(jobName);
+        requireNonNull(nric);
+        requireNonNull(source);
+        requireNonNull(dest);
+
+        Person person = persons.getPerson(nric);
+        Job job = jobs.getJob(jobName);
+
+        return job.move(person, source, dest);
     }
 
     /**

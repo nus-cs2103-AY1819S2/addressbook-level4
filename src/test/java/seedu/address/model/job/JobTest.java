@@ -10,7 +10,7 @@ import static seedu.address.testutil.TypicalJobs.PROFESSOR;
 import static seedu.address.testutil.TypicalJobs.TEACHER;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -39,11 +39,11 @@ public class JobTest {
         Teacher.add(alice);
         UniquePersonList list = new UniquePersonList();
         list.add(alice);
-        ArrayList<Person> aList = new ArrayList<>();
+        HashSet<Person> aList = new HashSet<>();
         aList.add(alice);
 
         assertEquals(list, Teacher.getPeople(0));
-        assertEquals(aList, Teacher.getList(0));
+        assertTrue(aList.contains(alice));
     }
 
     @Test

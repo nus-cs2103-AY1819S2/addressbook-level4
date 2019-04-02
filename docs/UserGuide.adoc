@@ -161,17 +161,90 @@ In this section, the active deck is the deck used in the `open` command.
 
 **Outcome**: Creates a new card with some front and back text and add it to the current deck.
 
+**Example**: `add q/Hello a/World`
+
+Below is an example of what the user should see upon the execution of the command:
+
+Before:
+
+image::card_ug_diagrams/add_card_1.png[width="800"]
+
+After:
+
+image::card_ug_diagrams/add_card_2.png[width="800"]
+
+==== Deleting a card in the active deck: `delete`
+
+**Format**: `delete INDEX`
+
+**Outcome**: Deletes the card at `INDEX`
+
+**Example**: `delete 2`
+
 ==== Editing a card in the active deck: `edit`
 
 **Format**: `edit INDEX q/QUESTION a/ANSWER`
 
 **Outcome**: Edits the text of the card at `INDEX`.
 
+**Example**: `edit 3 q/Hello a/World`
+
+**Auto-Complete**: Instead of typing the whole command,
+TopDeck also provides an auto-complete feature for the `edit` command.
+Users need only type `edit INDEX` and TopDeck will fill up the commandline
+for the user to edit accordingly.
+
+Below is a walk-through of the `edit` command:
+
+Suppose the user adds a new card with a typo:
+
+image::card_ug_diagrams/edit_card_1.png[width="800"]
+
+The user can then retrieve the full detail of the card by simply typing `edit 2`
+
+image::card_ug_diagrams/edit_card_2.png[width="800"]
+
+After pressing enter, the following should appear:
+
+image::card_ug_diagrams/edit_card_3.png[width="800"]
+
+The user can then edit and correct the mistake made.
+
+image::card_ug_diagrams/edit_card_4.png[width="800"]
+
+
 ==== Finding a card in the active deck by name: `find`
 
-**Format**: `find KEYWORD`
+**Format**: `find KEYWORD [KEYWORD]...`
+
+**Search for phrases**: TopDeck provides users the ability to search for
+specific question by searching for a whole phrase instead of only individual words.
+This is done by putting `"` around `KEYWORD`.
+
+[CAUTION]
+Phrases should have only alphanumeric characters and spaces.
 
 **Outcome**: Lists all cards within the current deck containing `KEYWORD` in its text.
+
+[NOTE]
+`find` will only search for full-matching words. For e.g. `Animals` will not be found if
+`animal` is used to search for it.
+
+**Example**:
+
+* `find animals`
+
+Below is the result of executing this command:
+
+image::card_ug_diagrams/find_card_2.png[width="800"]
+
+* `find "What is the largest"`
+
+Below is the result of executing this command:
+
+image::card_ug_diagrams/find_card_3.png[width="800"]
+
+
 
 ==== Listing all cards in the active deck: `list`
 
@@ -179,11 +252,6 @@ In this section, the active deck is the deck used in the `open` command.
 
 **Outcome**: Displays a list of all cards in the deck.
 
-==== Deleting a card in the active deck: `delete`
-
-**Format**: `delete INDEX`
-
-**Outcome**: Deletes the card at `INDEX`.
 
 ==== Studying the active deck: `study`
 

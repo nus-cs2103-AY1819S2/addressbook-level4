@@ -33,7 +33,7 @@ public class ListPanelTest extends GuiUnitTest {
         initUi(TYPICAL_DECKS);
 
         for (int i = 0; i < TYPICAL_DECKS.size(); i++) {
-            listPanelHandle.navigateToDeck(TYPICAL_DECKS.get(i));
+            listPanelHandle.navigateToItem(i);
             Deck expectedDeck = TYPICAL_DECKS.get(i);
             DeckDisplayHandle actualDeck = listPanelHandle.getDeckDisplayHandle(i);
 

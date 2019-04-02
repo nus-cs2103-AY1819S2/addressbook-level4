@@ -399,8 +399,16 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_listReminder() throws Exception {
+        String formatString = "day";
+        String dateString = "2019-03-15";
+        LocalDate date = LocalDate.parse(dateString);
+
+        String userInput = ListRemCommand.COMMAND_WORD
+                + " f/" + formatString
+                + " d/" + dateString;
+        ListRemCommand command = (ListRemCommand) parser.parseCommand(userInput);
+        assertEquals(new ListRemCommand(date, date), command);
         assertTrue(parser.parseCommand(ListRemCommand.COMMAND_WORD) instanceof ListRemCommand);
-        assertTrue(parser.parseCommand(ListRemCommand.COMMAND_WORD + " 3") instanceof ListRemCommand);
     }
 
     @Test

@@ -1,6 +1,5 @@
 package seedu.travel.ui;
 
-import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
@@ -26,17 +25,24 @@ public class DisplayListPanel extends UiPart<Region> {
     @FXML
     private ListView<Chart> displayListView;
 
-    public DisplayListPanel(ObservableList<Place> placeList, Consumer<Place> onSelectedDisplayChange) {
+    public DisplayListPanel(ObservableList<Place> placeList) {
         super(FXML);
 
+        if (placeList.size() == 0) {
+            return;
+        }
         ObservableList<Chart> charts = FXCollections.observableArrayList();
         charts.add(new Chart(placeList));
         displayListView.setItems(charts);
         displayListView.setCellFactory(listView -> new DisplayListViewCell());
         System.out.println("generate outer");
+
         placeList.addListener(new ListChangeListener<Place>() {
             @Override
             public void onChanged(Change<? extends Place> c) {
+                if (placeList.size() == 0) {
+                    return;
+                }
                 ObservableList<Chart> charts = FXCollections.observableArrayList();
                 charts.add(new Chart(placeList));
                 displayListView.setItems(charts);
@@ -48,23 +54,14 @@ public class DisplayListPanel extends UiPart<Region> {
         charts.addListener(new ListChangeListener<Chart>() {
             @Override
             public void onChanged(Change<? extends Chart> c) {
+                if (placeList.size() == 0) {
+                    return;
+                }
                 ObservableList<Chart> charts = FXCollections.observableArrayList();
                 charts.add(new Chart(placeList));
                 displayListView.setItems(charts);
                 displayListView.setCellFactory(listView -> new DisplayListViewCell());
                 System.out.println("generate inner 2");
-            }
-        });
-
-
-        placeList.addListener(new ListChangeListener<Place>() {
-            @Override
-            public void onChanged(Change<? extends Place> c) {
-                ObservableList<Chart> charts = FXCollections.observableArrayList();
-                charts.add(new Chart(placeList));
-                // adds only one dummy Place to the list
-                displayListView.setItems(charts);
-                displayListView.setCellFactory(listView -> new DisplayListViewCell());
             }
         });
 

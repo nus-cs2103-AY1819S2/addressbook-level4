@@ -98,6 +98,8 @@ public interface Model {
      */
     void sortAddressBook(Comparator<Patient> patientComparator, boolean isReverse);
 
+    void sortTasks(Comparator<Task> c);
+
     /**
      * Returns true if the model has previous address book states to restore.
      * Selected person in the filtered person list.

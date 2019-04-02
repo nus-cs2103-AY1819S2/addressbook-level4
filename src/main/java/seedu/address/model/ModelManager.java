@@ -246,6 +246,11 @@ public class ModelManager implements Model {
         versionedAddressBook.sortPatients(compPa, isReverse);
     }
 
+    @Override
+    public void sortTasks(Comparator<Task> c) {
+        versionedAddressBook.sortTasks(c);
+    }
+
     //=========== Filtered Task List Accessors =============================================================
 
     /**

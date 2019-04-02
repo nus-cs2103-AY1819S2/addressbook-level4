@@ -400,3 +400,11 @@
     -fx-font-size: 9;
 }
 
+.scroll-pane{
+    -fx-background-color: derive(#1d1d1d, 30%);
+}
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+
+

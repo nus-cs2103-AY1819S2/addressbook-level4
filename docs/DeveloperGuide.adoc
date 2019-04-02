@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S2-W14-1/main/tree/master
 
 By: `Team BrainTrain`      Since: `Jan 2019`      Licence: `MIT`
 
@@ -94,7 +94,7 @@ Coverage reporting could be useful for a team repository that hosts the final ve
 Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
 
 [NOTE]
-Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
+Having both Travis and AppVeyor ensures your app works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
 ==== Getting started with coding
 
@@ -111,35 +111,32 @@ When you are ready to start coding,
 .Architecture Diagram
 image::Architecture.png[width="600"]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the app. Given below is a quick overview of each component.
 
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+* `Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`] which is responsible for:
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+** Initializing the components in the correct sequence and connecting them at app launch.
+** Shutting down the components and invoking necessary clean-up methods at app closure.
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
+* <<Design-Commons,*`Commons`*>> is a collection of classes which provides useful utility methods used by multiple other components.
 The following class plays an important role at the architecture level:
 
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+** `LogsCenter` : Used by many classes to write log messages to the app's log file.
+* <<Design-Ui,*`UI`*>>: Handles the user interface.
+* <<Design-Logic,*`Logic`*>>: Executes commands.
+* <<Design-ManagementModel,*`ManagementModel`*>>: Handles the in-memory data of management mode.
+* <<Design-QuizModel,*`QuizModel`*>>: Handles the in-memory data of quiz mode.
+* <<Design-Storage,*`Storage`*>>: Reads and writes data to the hard disk.
 
-The rest of the App consists of five components.
+The <<Design-Ui,*`UI`*>>, <<Design-Logic,*`Logic`*>>, <<Design-ManagementModel,*`ManagementModel`*>>, <<Design-QuizModel,*`QuizModel`*>> and <<Design-Storage,*`Storage`*>> components have the following structure:
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-QuizModel,*`QuizModel`*>>: Holds the data of the Quiz in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* Has an API in the form of an Java interface named after the component.
+* Has its functionality exposed through a Java class named `{Component Name}Manager`.
 
-Each of the four components
-
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
-
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component (refer to class diagram below) defines it's API in the `Logic.java`, interface and exposes its functionality through the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
@@ -183,7 +180,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses either the `ManagementModeParser` or `QuizModeParser` class to parse the user command.
 ..  If `ManagementParser` is used to parse the user command:
-...  This results in a `Command` object which is executed by the `LogicManager`.
+...  This results in a `ManagementCommand` object which is executed by the `LogicManager`.
 ...  The command execution can affect the `Model` (e.g. adding a person).
 ..  If `QuizModeParser` is used to parse the user command:
 ...  This results in a `QuizCommand` object which is executed by the `LogicManager`.
@@ -196,20 +193,19 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeletePersonSdForLogic.png[width="800"]
 
-[[Design-Model]]
-=== Model component
+[[Design-ManagementModel]]
+=== ManagementModel component
 
-.Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+.Structure of the ManagementModel Component
+image::ManagementModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/managementModel/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/address/model/modelmanager/ManagementModel.java[`ManagementModel.java`]
 
-The `Model`,
+The `ManagementModel`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other four components.
+* stores a `UserPref` object which represents the user's preferences.
+* stores the in-memory lessons in `LessonList`.
+* depends on none of the other components.
 
 [[Design-QuizModel]]
 === QuizModel component
@@ -217,13 +213,15 @@ The `Model`,
 .Structure of the QuizModel Component
 image::QuizModelClassDiagram.png[width="500"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/quiz/QuizModel.java[`QuizModel.java`]
+*API* : link:{repoURL}/src/main/java/seedu/address/model/modelmanager/QuizModel.java[`QuizModel.java`]
 
 The `QuizModel`,
 
-* stores a `Quiz` object that represents the list of `QuizCard`.
-* stores the Address Book data.
-* does not depend on any of the other four components.
+* stores a `Quiz` object that represents a list of `QuizCard`.
+* stores a `Session` object that represents a list of `SrsCard`.
+* stores a `QuizUiDisplayFormatter` object that represents the information needed to display to Ui
+
+It does not depend on any of the other four components.
 
 
 [[Design-Storage]]
@@ -236,20 +234,21 @@ image::StorageClassDiagram.png[width="800"]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save user preferences in json format and read it back.
+* can save lesson data in csv format and read it back.
+* can save the user's SRS data in csv format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::datastorage[]
-=== Data Storage Feature
+=== Data storage feature
 The data storage feature manages the saving of data, such as lessons and user progress, to disk for the application. This lets the user keep their progress between usage sessions.
 
 ==== Current Implementation
@@ -269,7 +268,7 @@ NOTE: These functions are automatically performed on opening/closing the Session
 
 
 // tag::csvstorage[]
-=== CSV Storage Feature
+=== CSV storage feature
 ==== Current Implementation
 The lesson CSV storage feature implements the following functions:
 
@@ -282,7 +281,7 @@ Actual file I/O is handled in the CsvUtil class, which uses the opencsv library 
 .Data flow diagram for Lessons saving
 image::CsvStorageDiagram.png[width="800"]
 
-Lessons are parsed by CsvLessonsStorage, being converted between Lesson and List<String[]> formats. The List<String[]> format is the primary format handled by CsvUtil for reading and writing to CSV files.
+Lessons are parsed by CsvLessonListStorage, being converted between Lesson and List<String[]> formats. The List<String[]> format is the primary format handled by CsvUtil for reading and writing to CSV files.
 
 For lessons, there are three main components when saved to a CSV file.
 
@@ -334,12 +333,13 @@ The SRS method updates users profile using link:https://en.wikipedia.org/wiki/Le
 ==== Design Consideration
 
 ===== Aspect: SRS method for updating
-* **Alternative1: Leinter System (current choice)**
+* **Alternative 1: Leinter System (current choice)**
 ** Pros: Efficient in calculation and easy to understand.
 ** Cons: The time interval between levels cannot be long.
-* **Alternative2: Pimsleur's graduated-interval recall**
+* **Alternative 2: Pimsleur's graduated-interval recall**
 ** Pros: Short times interval between the first few repetitions.
 ** Cons: No level attribute to value the element clearly.
+* Alternative 1 was chosen because it clearly displays the due date in several levels.
 
 //end::session[]
 
@@ -352,18 +352,12 @@ Quiz feature allows users to enter quiz related commands and answer.
 ==== Current Implementation
 The quiz feature implements the following commands and processes answer:
 
-* `\quit` - Quits a quiz session.
+* `Answer [*]` - Enters any character without escape character \ is treated as an answer.
+* `\difficult` - Labels current question in quiz as difficult or not.
 * `\help` - Lists all commands in quiz and inputs the program will accept.
 * `\hint` - Reveals additional information to help user to solve the question.
+* `\quit` - Quits a quiz and save attempted progress.
 * `\status` - Lists current status and lesson progress of user.
-* `Answer [*]` - Enters any character without escape character \ is treated as an answer.
-
-==== \status
-The `\status` feature list the total attempts you have attempted, total number of question you
-have gotten correct in this session and which question you are currently on.
-
-.Sequence diagram for status feature
-image::QuizStatusCommandSequenceDiagram.png[width="800"]
 
 ==== Answer [*]
 The `Answer [*]` feature is facilitated by `QuizAnswerCommand`. The command takes in user input
@@ -375,15 +369,39 @@ answers a question:
 .Sequence diagram for answer feature
 image::QuizAnswerCommandSequenceDiagram.png[width="800"]
 
+==== \quit
+The `\quit` will force quit the current quiz and save the attempted question to the location that
+the user have specified in `UserPref`, by default it will saved to `\data\user\savedata.csv`. Once
+the `\quit` command have succeeded running, it will return back to the `ManagementMode`.
+
+.Sequence diagram for quit feature
+image::QuizQuitCommandSequenceDiagram.png[width="800"]
+
+==== \status
+The `\status` feature lists the total number of attempts you have attempted, total number of
+question you have gotten correct in this quiz and which question you are currently on.
+
+.Sequence diagram for status feature
+image::QuizStatusCommandSequenceDiagram.png[width="800"]
+
 ==== Design Considerations
 
 ===== Aspect: How Quiz executes
 * **Alternative 1 (current choice):** Run quiz in a different mode
-** Pros: Answer can be anything excluding word starting with a backslash `\` (e.g. `\help`)
-** Cons: Tedious to implement
-* **Alternative 2:** Run quiz in the same mode as the rest of the management commands
-** Pros: Easier to implement compared to alternative 1
-** Cons: Answer cannot start with those from the list of management commands (e.g. `start`)
+** Pros: Least restricted choice of answer.
+** Cons: Tedious to implement.
+
+* **Alternative 2:** Run quiz together with the rest of the commands
+** Pros: Easy to implement.
+** Cons: Restricted answer. Answer cannot start with words already listed as management commands
+(e.g. `start`)
+
+**Alternative 1** is chosen because it allows the user to have a more comprehensive choice of
+word as
+answer without restricting the possible choices. In certain question, it is possible for the
+answer to be "start". Hence by choosing alternative 1, the choice of answer is the least
+restricted. Also, by running the quiz in a different mode, it allows the user to concentrate on the quiz
+without having unrelated display as distraction.
 // end::quiz[]
 
 === Logging
@@ -398,7 +416,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 * `SEVERE` : Critical problem detected which may possibly cause the termination of the application
 * `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
+* `INFO` : Information showing the noteworthy actions by the app
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
@@ -413,16 +431,16 @@ We use asciidoc for writing documentation.
 [NOTE]
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
 
-=== Editing Documentation
+=== Editing documentation
 
 See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
 Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
 
-=== Publishing Documentation
+=== Publishing documentation
 
 See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
 
-=== Converting Documentation to PDF format
+=== Converting documentation to PDF format
 
 We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
@@ -437,7 +455,7 @@ Here are the steps to convert the project documentation files to PDF format.
 image::chrome_save_as_pdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]
-=== Site-wide Documentation Settings
+=== Site-wide documentation settings
 
 The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
 
@@ -467,7 +485,7 @@ This will render the SE-EDU navigation bar at the top of the page, and add some 
 |===
 
 [[Docs-PerFileDocSettings]]
-=== Per-file Documentation Settings
+=== Per-file documentation settings
 
 Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
 
@@ -495,7 +513,7 @@ _{asterisk} Official SE-EDU projects only_
 
 |===
 
-=== Site Template
+=== Site template
 
 The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
@@ -513,7 +531,7 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
-=== Running Tests
+=== Running tests
 
 There are three ways to run tests.
 
@@ -543,7 +561,7 @@ To run tests in headless mode, open a console and run the command `gradlew clean
 We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
-.. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
+.. _System Tests_ that test the entire app by simulating user actions on the GUI. These are in the `systemtests` package.
 .. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
@@ -554,30 +572,30 @@ e.g. `seedu.address.storage.StorageManagerTest`
 e.g. `seedu.address.logic.LogicManagerTest`
 
 
-=== Troubleshooting Testing
+=== Troubleshooting testing
 **Problem: `HelpWindowTest` fails with a `NullPointerException`.**
 
 * Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
 * Solution: Execute Gradle task `processResources`.
 
-== Dev Ops
+== Dev ops
 
-=== Build Automation
+=== Build automation
 
 See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
 
-=== Continuous Integration
+=== Continuous integration
 
 We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
 
-=== Coverage Reporting
+=== Coverage reporting
 
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
-=== Documentation Previews
+=== Documentation previews
 When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
-=== Making a Release
+=== Making a release
 
 Here are the steps to create a new release.
 
@@ -586,7 +604,7 @@ Here are the steps to create a new release.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
-=== Managing Dependencies
+=== Managing dependencies
 
 A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
@@ -596,7 +614,7 @@ A project often depends on third-party libraries. For example, Address Book depe
 
 [[GetStartedProgramming]]
 [appendix]
-== Suggested Programming Tasks to Get Started
+== Suggested programming tasks to get started
 
 Suggested path for new programmers:
 
@@ -631,25 +649,23 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 ****
 
 [discrete]
-==== `Model` component
+==== `ManagementModel` component
 
-*Scenario:* You are in charge of `managementModel`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the managementModel API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
+*Scenario:* You are in charge of `managementModel`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular `core` from the opened lesson's headers and also from all its cards, but the `managementModel` API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
 
 [TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
+Do take a look at <<Design-ManagementModel>> before attempting to modify the `Model` component.
 
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
+Add a `removeCoreFromlesson(String core)` method. The specified core will be removed from the opened lesson's headers and from all its cards.
 ****
 * Hints
-** The link:{repoURL}/src/main/java/seedu/address/managementModel/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/managementModel/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/managementModel/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/managementModel/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/managementModel/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/managementModel/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/managementModel/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/managementModel/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/managementModel/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
+** The link:{repoURL}/src/main/java/seedu/address/model/modelmanager/ManagementModel.java[ManagementModel], link:{repoURL}/src/main/java/seedu/address/model/lesson/LessonList.java[LessonList] and link:{repoURL}/src/main/java/seedu/address/model/lesson/Lesson.java[Lesson] need to be updated.
+** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting cores?
+**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/lesson/LessonList.java[LessonList] and link:{repoURL}/src/main/java/seedu/address/model/lesson/Lesson.java[Lesson] classes can be used to implement the core removal logic.
+* Suggested solution
+** Implement a `removeCoreFromlesson(String core)` method in link:{repoURL}/src/main/java/seedu/address/managementModel/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
+** Add a new method `removeCoreFromlesson(String core)` in link:{repoURL}/src/main/java/seedu/address/model/lesson/LessonList.java[LessonList]. Your {repoURL}/src/main/java/seedu/address/model/modelmanager/ManagementModel.java[ManagementModel] should call `Lessonlist#removeCoreFromlesson(String core)`.
 ** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
 ****
 
 [discrete]
@@ -873,7 +889,7 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
-== Product Scope
+== Product scope
 
 *Target user profile*:
 
@@ -891,16 +907,16 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 *Value proposition*: Flashcard integrated with <<srs,SRS>> that assists in memorization
 
 [appendix]
-== User Stories
+== User stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that...
-|`* * *` |new user |see usage instructions |I can refer to instructions when I forget how to use the App
+|`* * *` |new user |see usage instructions |I can refer to instructions when I forget how to use the app
 
-|`* * *` |user |load/import lessons |I can use the App without needing to make my own lists first
+|`* * *` |user |load/import lessons |I can use the app without needing to make my own lists first
 
 |`* * *` |Creator |export lessons |I can share my lessons easily in a multiple files
 
@@ -958,7 +974,7 @@ remember it better
 |=======================================================================
 
 [appendix]
-== Use Cases
+== Use cases
 
 
 [discrete]
@@ -1083,7 +1099,7 @@ Use case resumes at step 3.
 
 
 [appendix]
-== Non Functional Requirements
+== Non-functional requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 lessons without a noticeable sluggishness in performance for typical usage.
@@ -1097,6 +1113,9 @@ _{More to be added}_
 [[lesson]] Lesson::
 A labelled set of <<question,questions>>.
 
+[[mainstream-os]] Mainstream OS::
+Windows, Linux, Unix, OS-X
+
 [[question]] Question::
 A set of values, where one value is given as a prompt to the user, and another value is used as the correct answer for that given question. Other values may be shown to supplement the question.
 
@@ -1106,39 +1125,15 @@ User’s current learning progress
 [[srs]] Spaced Repetition System (SRS)::
 The technique of gradually delaying or accelerating the testing of content based on the user’s success.
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
-== Instructions for Manual Testing
+== Instructions for manual testing
 
 Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== Launch and shutdown
 
 . Initial launch
 

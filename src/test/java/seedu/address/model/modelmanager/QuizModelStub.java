@@ -37,6 +37,28 @@ public class QuizModelStub implements QuizModel {
     /**
      * This method should not be called.
      */
+    public String getQuestionHeader() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    /**
+     * This method should not be called.
+     */
+    public String getAnswerHeader() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    /**
+     * This method should not be called.
+     */
+    @Override
+    public List<String> getOpt() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    /**
+     * This method should not be called.
+     */
     public String getName() {
         throw new AssertionError("This method should not be called.");
     }
@@ -47,21 +69,9 @@ public class QuizModelStub implements QuizModel {
     }
 
     /**
-     * Sets the {@code Quiz} information.
-     */
-    public void init(Quiz quiz) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void initWithSession(Quiz quiz, Session session, ManagementModel managementModel) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    /**
      * Sets the {@code Quiz} and {@code Session} information.
      */
-    public void initWithSession(Quiz quiz, Session session) {
+    public void init(Quiz quiz, Session session) {
         throw new AssertionError("This method should not be called.");
     }
 

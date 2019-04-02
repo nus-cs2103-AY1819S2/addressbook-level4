@@ -20,7 +20,7 @@ import seedu.address.model.user.User;
  * A class to access User stored in the hard disk as a csv file
  */
 public class CsvUserStorage implements UserStorage {
-    private static final Logger logger = LogsCenter.getLogger(CsvLessonsStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(CsvLessonListStorage.class);
 
     private Path filePath;
 
@@ -40,9 +40,9 @@ public class CsvUserStorage implements UserStorage {
     }
 
     /**
-     *
-     * @param filePath
-     * @return
+     * Parses the given file at the path into a user
+     * @param filePath is not null
+     * @return the parsed user
      */
     private Optional<User> parseFileIntoUser(Path filePath) {
         List<String[]> data;
@@ -67,7 +67,7 @@ public class CsvUserStorage implements UserStorage {
     }
 
     /**
-     * TODO
+     * Parses the current user into a file
      * @param user
      * @param filePath
      * @throws IOException
@@ -85,38 +85,47 @@ public class CsvUserStorage implements UserStorage {
     }
 
     /**
-     *
+     * Converts a card with its constructor values into a String Array ready for CSV file
      * @param card
-     * @return a String array with the cardData(hashcode, numAttempts, streak, srs)
+     * @return a String array with the cardData(hashcode, numAttempts, streak, srs, isDifficult)
      */
     private String[] parseCardIntoString(CardSrsData card) {
-        String[] cardArray = new String[4];
+        String[] cardArray = new String[5];
 
         cardArray[0] = Integer.toString(card.getHashCode());
         cardArray[1] = Integer.toString(card.getNumOfAttempts());
         cardArray[2] = Integer.toString(card.getStreak());
         cardArray[3] = card.getSrsDueDate().toString();
+        cardArray[4] = String.valueOf(card.isDifficult());
 
         return cardArray;
     }
 
     /**
-     * TODO
+     * Converts a card from a String Array in the CSV file
      * @param cardArray
-     * @return
+     * @return card type with the constructor values
      */
     private CardSrsData parseStringIntoCard(String[] cardArray) {
         int hashCode;
         int numOfAttempts;
         int streak;
         Instant srs;
+        boolean isDifficult;
 
         hashCode = Integer.parseInt(cardArray[0]);
         numOfAttempts = Integer.parseInt(cardArray[1]);
         streak = Integer.parseInt(cardArray[2]);
         srs = Instant.parse(cardArray[3]);
 
-        CardSrsData card = new CardSrsData(hashCode, numOfAttempts, streak, srs);
+        // TODO remove this check after session uses the new constructor
+        if (cardArray.length == 5) {
+            isDifficult = cardArray[4].equals("true");
+        } else {
+            isDifficult = false;
+        }
+
+        CardSrsData card = new CardSrsData(hashCode, numOfAttempts, streak, srs, isDifficult);
 
         return card;
     }

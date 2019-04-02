@@ -12,7 +12,7 @@ import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
 
 /**
- * Execute User answer
+ * Processes user answer
  */
 public class QuizAnswerCommand extends QuizCommand {
     public static final String COMMAND_WORD = "answer";
@@ -21,7 +21,7 @@ public class QuizAnswerCommand extends QuizCommand {
     public static final String MESSAGE_WRONG_ONCE = "Your answer %1$s is wrong, "
             + "you have one more chance to answer it.\n";
     public static final String MESSAGE_WRONG = "Your answer is %1$s but the correct answer is %2$s.\n";
-    public static final String MESSAGE_COMPLETE = "You have completed all the questions in this quiz.\n";
+    public static final String MESSAGE_SUCCESS = "You have completed all the questions in this quiz.\n";
 
     private String answer;
     public QuizAnswerCommand(String answer) {
@@ -30,41 +30,35 @@ public class QuizAnswerCommand extends QuizCommand {
     }
 
     @Override
-    /**
-     * Executes the command and returns the result message.
-     *
-     * @param model {@link QuizModel} which the command should operate on.
-     * @param history {@code CommandHistory} which the command should operate on.
-     * @return feedback message of the operation result for display
-     * @throws CommandException If the {@link Model} passed in is not a {@link QuizModel}
-     */
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         QuizModel quizModel = requireQuizModel(model);
 
         QuizCard card = quizModel.getCurrentQuizCard();
         StringBuilder sb = new StringBuilder();
-        String questionHeader = "question"; //quizModel.getQuizSrsCards().get(0).getLesson().getCoreHeaders().get(0);
-        String answerHeader = "answer"; //quizModel.getQuizSrsCards().get(0).getLesson().getCoreHeaders().get(1);
+
         if (card.getQuizMode() == QuizMode.PREVIEW) {
             // don't need to update totalAttempts and streak
             if (quizModel.hasCardLeft()) {
                 card = quizModel.getNextCard();
+
                 if (card.getQuizMode() == QuizMode.PREVIEW) {
-                    quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(questionHeader, card.getQuestion(),
-                            answerHeader, card.getAnswer(), QuizMode.PREVIEW));
+                    quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(quizModel.getQuestionHeader(),
+                        card.getQuestion(), quizModel.getAnswerHeader(), card.getAnswer(), QuizMode.PREVIEW));
                     return new CommandResult("", true, false, false);
                 }
-                quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(questionHeader, card.getQuestion(),
-                        answerHeader, QuizMode.REVIEW));
+
+                quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(quizModel.getQuestionHeader(),
+                    card.getQuestion(), quizModel.getAnswerHeader(), QuizMode.REVIEW));
                 return new CommandResult("", true, false, false);
             }
 
-            quizModel.updateUserProfile(quizModel.end());
+            // don't need to update card of 0 attempts
+            quizModel.end();
 
             // set the display to blank for management mode display
             quizModel.setDisplayFormatter(null);
-            return new CommandResult(MESSAGE_COMPLETE);
+            return new CommandResult(MESSAGE_SUCCESS, true, false, false);
         }
 
         boolean result = quizModel.updateTotalAttemptsAndStreak(card.getIndex(), answer);
@@ -74,28 +68,25 @@ public class QuizAnswerCommand extends QuizCommand {
 
             if (quizModel.hasCardLeft()) {
                 card = quizModel.getNextCard();
-                quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(questionHeader, card.getQuestion(),
-                        answerHeader, QuizMode.REVIEW));
+                quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(quizModel.getQuestionHeader(),
+                    card.getQuestion(), quizModel.getAnswerHeader(), QuizMode.REVIEW));
             } else {
-                sb.append(MESSAGE_COMPLETE);
+                quizModel.updateUserProfile(quizModel.end());
 
-                // TODO return this to session
-                System.out.println(quizModel.end());
-
-                // TODO change back to management mode display
-                // set the display to blank
+                // set the display to blank for management mode display
                 quizModel.setDisplayFormatter(null);
+                sb.append(MESSAGE_SUCCESS);
             }
 
         } else {
             if (!card.isWrongTwice()) {
                 sb.append(String.format(MESSAGE_WRONG_ONCE, answer));
-                quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(questionHeader, card.getQuestion(),
-                        answerHeader, QuizMode.REVIEW));
+                quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(quizModel.getQuestionHeader(),
+                    card.getQuestion(), quizModel.getAnswerHeader(), QuizMode.REVIEW));
             } else {
                 sb.append(String.format(MESSAGE_WRONG, answer, card.getAnswer()));
-                quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(questionHeader, card.getQuestion(),
-                        answerHeader, card.getAnswer(), QuizMode.PREVIEW));
+                quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(quizModel.getQuestionHeader(),
+                    card.getQuestion(), quizModel.getAnswerHeader(), card.getAnswer(), QuizMode.PREVIEW, true));
             }
         }
 
@@ -105,7 +96,7 @@ public class QuizAnswerCommand extends QuizCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof QuizAnswerCommand // instanceof handles nulls
-                && answer.equals(((QuizAnswerCommand) other).answer)); // state check
+            || (other instanceof QuizAnswerCommand // instanceof handles nulls
+            && answer.equals(((QuizAnswerCommand) other).answer)); // state check
     }
 }

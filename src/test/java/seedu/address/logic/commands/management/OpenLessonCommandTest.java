@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
 import static seedu.address.model.lesson.LessonList.EXCEPTION_INVALID_INDEX;
-import static seedu.address.testutil.TypicalLessons.LESSON_DEFAULT;
+import static seedu.address.testutil.TypicalLessonList.LESSON_DEFAULT;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -153,7 +153,7 @@ public class OpenLessonCommandTest {
         }
 
         @Override
-        public List<Lesson> getLessonList() {
+        public List<Lesson> getLessons() {
             return lessons;
         }
 

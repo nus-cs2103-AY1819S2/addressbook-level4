@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 
@@ -11,22 +12,27 @@ import seedu.address.model.lesson.LessonList;
 import seedu.address.model.user.User;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of Lesson and user data in local storage.
  */
 public class StorageManager implements Storage {
 
     private UserPrefsStorage userPrefsStorage;
-    private LessonsStorage lessonsStorage;
+    private LessonListStorage lessonListStorage;
     private UserStorage userStorage;
 
 
     public StorageManager(UserPrefsStorage userPrefsStorage,
-                          LessonsStorage lessonsStorage,
+                          LessonListStorage lessonListStorage,
                           UserStorage userStorage) {
         super();
         this.userPrefsStorage = userPrefsStorage;
-        this.lessonsStorage = lessonsStorage;
+        this.lessonListStorage = lessonListStorage;
         this.userStorage = userStorage;
+    }
+
+    private void deleteLessonFile(String lessonName) throws IOException {
+        Path lessonPath = getLessonListFolderPath().resolve(lessonName + ".csv");
+        Files.delete(lessonPath);
     }
 
     // ================ UserPrefs methods ==============================
@@ -49,35 +55,39 @@ public class StorageManager implements Storage {
     // ================ LessonList methods ==============================
 
     @Override
-    public Path getLessonsFolderPath() {
-        return lessonsStorage.getLessonsFolderPath();
+    public Path getLessonListFolderPath() {
+        return lessonListStorage.getLessonListFolderPath();
     }
 
     @Override
-    public void setLessonsFolderPath(Path folderPath) {
-        lessonsStorage.setLessonsFolderPath(folderPath);
+    public void setLessonListFolderPath(Path folderPath) {
+        lessonListStorage.setLessonListFolderPath(folderPath);
     }
 
     @Override
-    public Optional<LessonList> readLessons() {
-        return lessonsStorage.readLessons();
+    public Optional<LessonList> readLessonList() {
+        return lessonListStorage.readLessonList();
     }
 
     @Override
-    public Optional<LessonList> readLessons(Path filePath) {
-        return lessonsStorage.readLessons(filePath);
+    public Optional<LessonList> readLessonList(Path filePath) {
+        return lessonListStorage.readLessonList(filePath);
     }
 
     @Override
-    public int saveLessons(LessonList lessonList) {
-        return lessonsStorage.saveLessons(lessonList);
+    public int saveLessonList(LessonList lessonList) {
+        return lessonListStorage.saveLessonList(lessonList);
     }
 
     @Override
-    public int saveLessons(LessonList lessonList, Path filePath) {
-        return lessonsStorage.saveLessons(lessonList, filePath);
+    public int saveLessonList(LessonList lessonList, Path filePath) {
+        return lessonListStorage.saveLessonList(lessonList, filePath);
     }
 
+    @Override
+    public void deleteLesson(String lessonName) throws IOException {
+        deleteLessonFile(lessonName);
+    }
     // ================ User methods ==============================
 
     @Override

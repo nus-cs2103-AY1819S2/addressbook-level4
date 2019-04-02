@@ -35,14 +35,9 @@ public interface QuizModel extends Model {
     List<SrsCard> getQuizSrsCards();
 
     /**
-     * Sets the {@code Quiz} information.
-     */
-    void init(Quiz quiz);
-
-    /**
      * Sets the {@code Quiz} and {@code Session} information.
      */
-    void initWithSession(Quiz quiz, Session session, ManagementModel managementModel);
+    void init(Quiz quiz, Session session);
 
     /**
      * Returns if there is still card left in {@code Quiz}.
@@ -88,6 +83,21 @@ public interface QuizModel extends Model {
      * @return result after toggling
      */
     boolean toggleIsCardDifficult(int index);
+
+    /**
+     * Returns the question header of a {@code QuizCard}
+     */
+    String getQuestionHeader();
+
+    /**
+     * Returns the answer header of a {@code QuizCard}
+     */
+    String getAnswerHeader();
+
+    /**
+     * Returns list of optional of the original {@code QuizCard} with index != -1.
+     */
+    List<String> getOpt();
 
     /**
      * Returns if User is done with {@code Quiz}.

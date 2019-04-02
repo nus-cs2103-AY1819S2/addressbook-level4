@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
@@ -21,6 +24,7 @@ public class MainPanel extends UiPart<Region> {
     @FXML
     private TextFlow mainPanel;
 
+    private QuizUiDisplayFormatter formatter;
 
     public MainPanel() {
         super(FXML);
@@ -31,6 +35,8 @@ public class MainPanel extends UiPart<Region> {
 
         if (formatter != null) {
             // contains only question
+            this.formatter = formatter;
+
             QuizMode mode = formatter.getMode();
             Text questionAnswer = new Text();
 
@@ -38,21 +44,21 @@ public class MainPanel extends UiPart<Region> {
             case PREVIEW:
                 questionAnswer.setText(String.format(MESSAGE_QUESTION_ANSWER, formatter.getQuestionHeader(),
                     formatter.getQuestion(), formatter.getAnswerHeader(), formatter.getAnswer()));
-                Text text = new Text("Press Enter to go to the next question");
-                mainPanel.getChildren().addAll(questionAnswer, text);
+
+                if (!formatter.isWrongTwice()) {
+                    Text text = new Text("Press Enter to go to the next question");
+                    mainPanel.getChildren().addAll(questionAnswer, text);
+                    break;
+                }
+
+                mainPanel.getChildren().add(questionAnswer);
+                setAnswerPrompt();
                 break;
             case REVIEW:
                 questionAnswer.setText(String.format(MESSAGE_QUESTION, formatter.getQuestionHeader(),
                     formatter.getQuestion()));
-                Text text1 = new Text("Type the ");
-                Text answer = new Text(formatter.getAnswerHeader() + " ");
-                Text text2 = new Text("for the ");
-                Text question = new Text(formatter.getQuestionHeader() + " ");
-                Text text3 = new Text("above and press Enter");
-
-                answer.setStyle(boldStyle);
-
-                mainPanel.getChildren().addAll(questionAnswer, text1, answer, text2, question, text3);
+                mainPanel.getChildren().add(questionAnswer);
+                setAnswerPrompt();
                 break;
             default:
                 break;
@@ -61,5 +67,16 @@ public class MainPanel extends UiPart<Region> {
             mainPanel.getChildren().add(new Text(""));
 
         }
+    }
+
+    private void setAnswerPrompt() {
+        Text text1 = new Text("Type the ");
+        Text answer = new Text(formatter.getAnswerHeader() + " ");
+        Text text2 = new Text("for the ");
+        Text question = new Text(formatter.getQuestionHeader() + " ");
+        Text text3 = new Text("above and press Enter");
+        answer.setStyle(boldStyle);
+        List<Text> texts = Arrays.asList(text1, answer, text2, question, text3);
+        mainPanel.getChildren().addAll(texts);
     }
 }

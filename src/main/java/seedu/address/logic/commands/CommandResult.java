@@ -9,6 +9,16 @@ import java.util.Objects;
  */
 public class CommandResult {
 
+    /**
+     * Enum for all possible storage request types.
+     */
+    public enum UpdateStorage {
+        NONE,
+        SAVE,
+        LOAD,
+        DELETE
+    }
+
     private final String feedbackToUser;
 
     /** Quiz UI should be shown to the user. */
@@ -17,8 +27,29 @@ public class CommandResult {
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
+    private final UpdateStorage updateStorage;
+
+    /**
+     *  Name of lesson to be deleted. This would've been done in another way for CS2103T but
+     *  sadly there isn't time to rewrite logic.
+     */
+    private final String deleteLessonName;
+
     /** The application should exit. */
     private final boolean exit;
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
+     * and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showQuiz = false;
+        this.showHelp = false;
+        this.exit = false;
+        this.updateStorage = UpdateStorage.NONE;
+        this.deleteLessonName = null;
+    }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -28,14 +59,26 @@ public class CommandResult {
         this.showQuiz = showQuiz;
         this.showHelp = showHelp;
         this.exit = exit;
+        this.updateStorage = UpdateStorage.NONE;
+        this.deleteLessonName = null;
     }
 
-    /**
-     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
-     * and other fields set to their default value.
-     */
-    public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
+    public CommandResult (String feedbackToUser, UpdateStorage type) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showQuiz = false;
+        this.showHelp = false;
+        this.exit = false;
+        this.updateStorage = type;
+        this.deleteLessonName = null;
+    }
+
+    public CommandResult (String feedbackToUser, String deleteLessonName) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showQuiz = false;
+        this.showHelp = false;
+        this.exit = false;
+        this.updateStorage = UpdateStorage.DELETE;
+        this.deleteLessonName = deleteLessonName;
     }
 
     public String getFeedbackToUser() {
@@ -52,6 +95,14 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public UpdateStorage getUpdateStorageType() {
+        return updateStorage;
+    }
+
+    public String getDeleteLessonName() {
+        return deleteLessonName;
     }
 
     @Override
@@ -75,5 +126,4 @@ public class CommandResult {
     public int hashCode() {
         return Objects.hash(feedbackToUser, showHelp, exit);
     }
-
 }

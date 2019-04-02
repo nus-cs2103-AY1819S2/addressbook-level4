@@ -1,7 +1,5 @@
 package seedu.hms.model.util;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,11 +32,17 @@ public class DateRange {
     }
 
     /**
-     * Returns whether the other timing is inside this timing.
+     * Returns whether the other date range is inside this date range.
      *
-     * @param other The timing to check if exists inside this timing or not.
+     * @param other The date range to check if exists inside this date range or not.
      */
     public boolean withinDates(DateRange other) {
+        System.out.println(this.startDate);
+        System.out.println(other.getStartDate());
+        System.out.println();
+        System.out.println(this.endDate);
+        System.out.println(other.getEndDate());
+        System.out.println();
         return (this.startDate.after(other.getStartDate())
             || this.startDate.equals(other.getStartDate()))
             && (this.endDate.before(other.getEndDate())
@@ -95,21 +99,7 @@ public class DateRange {
     public long numOfDays() {
         Date startDate = this.startDate.getTime();
         Date endDate = this.endDate.getTime();
-        DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
-        String startDateString = dateFormat.format(startDate);
-        String endDateString = dateFormat.format(endDate);
-        String[] sd = startDateString.split("/");
-        String[] ed = endDateString.split("/");
-        cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(sd[0]));
-        cal.set(Calendar.MONTH, Integer.parseInt(sd[1]));
-        cal.set(Calendar.YEAR, Integer.parseInt(sd[2]));
-        Date firstDate = cal.getTime();
-
-        cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(ed[0]));
-        cal.set(Calendar.MONTH, Integer.parseInt(ed[1]));
-        cal.set(Calendar.YEAR, Integer.parseInt(ed[2]));
-        Date secondDate = cal.getTime();
-        long diff = secondDate.getTime() - firstDate.getTime();
+        long diff = endDate.getTime() - startDate.getTime();
         return diff / 1000 / 60 / 60 / 24;
     }
 }

@@ -146,6 +146,7 @@ public class MainWindow extends UiPart<Stage> {
     public void showMedHistPanel() {
         medHistListPanel = new MedHistListPanel(logic.getFilteredMedHistList(), logic.selectedMedHistProperty(),
                 logic::setSelectedMedHist);
+        middleListPanelPlaceholder.getChildren().clear();
         middleListPanelPlaceholder.getChildren().add(medHistListPanel.getRoot());
     }
 
@@ -156,6 +157,7 @@ public class MainWindow extends UiPart<Stage> {
         appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList(),
                 logic.selectedAppointmentProperty(),
                 logic::setSelectedAppointment);
+        middleListPanelPlaceholder.getChildren().clear();
         middleListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
     }
 

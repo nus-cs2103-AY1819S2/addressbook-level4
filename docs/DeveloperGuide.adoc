@@ -477,16 +477,22 @@ Currently, no test cases are prepared but next release these test methods will b
 ==== Current Implementation
 There are currently five main sorting methods present: `name`, `surname`, `gpa`, `education`, `skills`.
 There is also a complimentary `reverse` sort method for each main sorting method.
-* **name** is called by the user through the following cli input: `sort name`.
+
+* **name** is called by the user through the following cli input: `sort name`. +
 It takes the _current_ list displayed in the left hand GUI panel and sorts them by name alphabetically. The name sort begins with the first name and then proceeds to last name.
-* **surname** is called by the user through the following cli input: `sort surname`.
+
+* **surname** is called by the user through the following cli input: `sort surname`. +
 It takes the _current_ list displayed in the left hand GUI panel and sorts them by surname alphabetically.
-* **gpa** is called by the user through the following cli input: `sort gpa`.
+
+* **gpa** is called by the user through the following cli input: `sort gpa`. +
 It takes the _current_ list displayed in the left hand GUI panel and sorts them by gpa in increasing numeric order.
-* **education** is called by the user through the following cli input: `sort education`.
+
+* **education** is called by the user through the following cli input: `sort education`. +
 It takes the _current_ list displayed in the left hand GUI panel and sorts them by education alphabetically.
-* **skills** is called by the user through the following cli input: `sort skills`.
+
+* **skills** is called by the user through the following cli input: `sort skills`. +
 It takes the _current_ list displayed in the left hand GUI panel and first orders the skill tags for each person alphabetically. The method then proceeds to sort all persons based on their skill tags, in alphabetical order.
+
 * **reverse** can be applied before the sort keyword (e.g. `name`) through the following cli input: `sort reverse name`
 
 _(the **current** list means that if filter is on, only those filtered persons shall be sorted and the filter shall remain on)_
@@ -506,11 +512,13 @@ Elements of lists in Java are ordered by when they were added. Sorting is possib
 ==== Adding a New Sort Command
 
 To add a new sort command, the following classes should be altered accordingly:
-** `cliSyntax` - add the necessary new SortWord (and the reverse option)
-** `SortCommandParser` - add the new SortWord as an accepted input
-** `SortCommand` - add the call to the new `SortNewMethod` class when the new SortWord is inputted
-** `SortNewMethod` - a new class, following the example of `SortName`, that will return a list of Persons correctly ordered according to the new method
-** `SortUtil` - a place for lower-level processes required by the new sort method and called from `SortNewMethod`
+
+* `cliSyntax` - add the necessary new SortWord (and the reverse option)
+* `SortCommandParser` - add the new SortWord as an accepted input
+* `SortCommand` - add the call to the new `SortNewMethod` class when the new SortWord is inputted
+* `SortNewMethod` - a new class, following the example of `SortName`, that will return a list of Persons correctly ordered according to the new method
+* `SortUtil` - a place for lower-level processes required by the new sort method and called from `SortNewMethod`
+
 It is also sometimes of use to alter `Person` should the new method demand access of a certain element of `Person` that may be useful for other classes in the future.
 The developer should also add the necessary testing methods in `SortCommandTest`
 (TODO: INSERT CLASS DIAGRAM FOR v1.4)

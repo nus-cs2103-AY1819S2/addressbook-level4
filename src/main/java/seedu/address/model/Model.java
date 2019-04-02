@@ -119,6 +119,12 @@ public interface Model {
     void updateBaseFilteredPersonList(Predicate<Person> predicate);
 
     /**
+     * Updates the filter of the active filtered person list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
      * Changes the filtered person list to the given {@code list}.
      * @throws NullPointerException if {@code predicate} is null.
      */

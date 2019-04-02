@@ -21,7 +21,6 @@ import seedu.address.logic.commands.EditPaxCommand;
 import seedu.address.logic.commands.EditSeatsCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.MenuModeCommand;
 import seedu.address.logic.commands.RestaurantModeCommand;
 import seedu.address.logic.commands.RevenueCommand;
@@ -60,16 +59,14 @@ public class RestOrRantParser {
 
         switch (commandWord) {
 
-        case HelpCommand.COMMAND_WORD: // Fallthrough
-        case HelpCommand.COMMAND_ALIAS:
+        case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case HistoryCommand.COMMAND_WORD: // Fallthrough
-        case HistoryCommand.COMMAND_ALIAS:
-            return new HistoryCommand();
+        // case HistoryCommand.COMMAND_WORD: // Fallthrough
+        // case HistoryCommand.COMMAND_ALIAS:
+        //    return new HistoryCommand();
 
-        case ExitCommand.COMMAND_WORD: // Fallthrough
-        case ExitCommand.COMMAND_ALIAS:
+        case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case RestaurantModeCommand.COMMAND_WORD: // Fallthrough
@@ -176,6 +173,15 @@ public class RestOrRantParser {
                 return new ClearTableCommand();
             } else if (mode == Mode.TABLE_MODE) {
                 return new ClearOrderCommand();
+            } else {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+
+        case "del":
+            if (mode == Mode.MENU_MODE) {
+                return new DeleteFromMenuCommandParser().parse(arguments);
+            } else if (mode == Mode.TABLE_MODE) {
+                return new DeleteFromOrderCommandParser().parse(arguments);
             } else {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }

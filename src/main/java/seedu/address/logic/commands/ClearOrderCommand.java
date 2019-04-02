@@ -13,7 +13,6 @@ import seedu.address.model.table.TableNumber;
  */
 public class ClearOrderCommand extends Command {
     public static final String COMMAND_WORD = "clearOrder";
-    public static final String COMMAND_ALIAS = "clear";
     public static final String MESSAGE_SUCCESS = "All items from Table %1$s cleared!";
     public static final String MESSAGE_FAILURE = "Invalid table. Application should not be in this state.";
 

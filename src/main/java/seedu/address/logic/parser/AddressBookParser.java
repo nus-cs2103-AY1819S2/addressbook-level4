@@ -107,7 +107,6 @@ public class AddressBookParser {
 
         case ExportCommand.COMMAND_WORD:
             return new ExportCommandParser().parse(arguments);
-            
         default: throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }

@@ -440,7 +440,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 
 See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
 
-=== Converting documentation to pdf format
+=== Converting documentation to PDF format
 
 We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
@@ -1099,7 +1099,7 @@ Use case resumes at step 3.
 
 
 [appendix]
-== Non functional requirements
+== Non-functional requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 lessons without a noticeable sluggishness in performance for typical usage.
@@ -1126,14 +1126,14 @@ User’s current learning progress
 The technique of gradually delaying or accelerating the testing of content based on the user’s success.
 
 [appendix]
-== Instructions for Manual Testing
+== Instructions for manual testing
 
 Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== Launch and shutdown
 
 . Initial launch
 

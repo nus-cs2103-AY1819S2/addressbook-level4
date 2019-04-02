@@ -35,7 +35,7 @@ Responsibilities: UI, design
 
 === Chan Qing Zhou
 image::chanqingzhou.png[width="150", align="left"]
-{empty}[https://github.com/chanqingzhou[github]]
+{empty}[https://github.com/chanqingzhou[github]] [<<chanqingzhou#, portfolio>>]
 
 Role: Data management +
 Responsibilities: Storage, documentation

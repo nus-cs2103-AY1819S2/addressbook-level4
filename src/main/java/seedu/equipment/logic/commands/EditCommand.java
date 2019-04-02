@@ -1,7 +1,7 @@
 package seedu.equipment.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.equipment.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.equipment.model.Model.PREDICATE_SHOW_ALL_EQUIPMENT;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -81,7 +81,7 @@ public class EditCommand extends Command {
         }
 
         model.setEquipment(equipmentToEdit, editedEquipment);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_EQUIPMENT);
         model.commitEquipmentManager();
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedEquipment));
     }

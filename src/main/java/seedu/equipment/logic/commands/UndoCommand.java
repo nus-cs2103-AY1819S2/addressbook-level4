@@ -24,7 +24,7 @@ public class UndoCommand extends Command {
         }
 
         model.undoEquipmentManager();
-        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_EQUIPMENT);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

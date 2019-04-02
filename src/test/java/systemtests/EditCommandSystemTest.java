@@ -28,7 +28,7 @@ import static seedu.equipment.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER
 //import static seedu.equipment.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOB;
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.equipment.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.equipment.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.equipment.model.Model.PREDICATE_SHOW_ALL_EQUIPMENT;
 import static seedu.equipment.testutil.TypicalEquipments.AMY;
 import static seedu.equipment.testutil.TypicalEquipments.BOB;
 import static seedu.equipment.testutil.TypicalEquipments.KEYWORD_MATCHING_CC;
@@ -260,7 +260,7 @@ public class EditCommandSystemTest extends EquipmentManagerSystemTest {
             Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
         expectedModel.setEquipment(expectedModel.getFilteredPersonList().get(toEdit.getZeroBased()), editedEquipment);
-        expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_EQUIPMENT);
 
         assertCommandSuccess(command, expectedModel,
                 String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedEquipment), expectedSelectedCardIndex);
@@ -291,7 +291,7 @@ public class EditCommandSystemTest extends EquipmentManagerSystemTest {
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
         executeCommand(command);
-        expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_EQUIPMENT);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         if (expectedSelectedCardIndex != null) {

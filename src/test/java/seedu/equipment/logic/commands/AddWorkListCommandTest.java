@@ -201,6 +201,11 @@ public class AddWorkListCommandTest {
         }
 
         @Override
+        public ObservableList<Equipment> getFilteredClient() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Equipment> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -212,6 +217,11 @@ public class AddWorkListCommandTest {
 
         @Override
         public void updateFilteredWorkListList (Predicate<WorkList> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredClient (Predicate<Equipment> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -120,7 +120,7 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel(logic.selectedEquipmentProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        equipmentListPanel = new EquipmentListPanel(logic.getFilteredPersonList(), logic.selectedEquipmentProperty(),
+        equipmentListPanel = new EquipmentListPanel(logic.getFilteredEquipment(), logic.selectedEquipmentProperty(),
                 logic::setSelectedPerson);
         personListPanelPlaceholder.getChildren().add(equipmentListPanel.getRoot());
 
@@ -184,7 +184,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleDisplayMap() {
-        List<Equipment> equipmentList = logic.getFilteredPersonList();
+        List<Equipment> equipmentList = logic.getFilteredEquipment();
         String coordiantesString = "[";
         for (Equipment equipment:equipmentList) {
             double[] coordinates = equipment.getCoordiantes();

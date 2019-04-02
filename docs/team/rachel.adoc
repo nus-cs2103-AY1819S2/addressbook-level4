@@ -1,0 +1,111 @@
+= Rachel Tan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== About Me
+
+---
+image:e0191632.png[width="100"]
+
+Hello! I am Rachel Tan!
+
+I am a Year 2 Computer Science student studying in National University of Singapore. I am currently working on *Equipment Manager* application, a project for a module called CS2103T Software Engineering along with 3 other team mates, Mei Yen, Yiqun and Liu Xuan. This is my Project Portfolio where I will showcase my contributions to team in making *Equipment Manager* a successful application.
+
+---
+
+== PROJECT: Equipment Manager
+
+---
+
+== Overview
+
+*Equipment Manager* is a Preventive Maintenance (PM) planner application that allows users, specifically the engineers, to keep track of the PM schedule of all Resuscitation Equipment in Singapore. *Equipment Manager* is designed to allow engineers assign the equipment they are going to carry out maintenance work to their own work schedule. When they are carrying out maintenance work on multiple equipments in their work schedule, they are able to have a visual representation on the locations of all equipment. In order to carry out maintenance work efficiently, *Equipment Manager* provide engineers with an efficient route to take for visiting multiple locations, minimizing the chance that the resuscitation devices will fail and cause costly unscheduled downtime.
+
+== Summary of contributions
+This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
+
+* *Major Enhancement 1*: I added a model for client to keep track of their name, address and the equipments they own
+** What it does: allows the user know the details to the clients and the number of equipments the clients own.
+** Justification: Having the details of the client improves the overall efficiency of the maintenance work.
+*** User will head for maintenance work based on client address.
+*** Client address can be represented on google map for planning of efficient routes to take.
+*** Knowing how many equipment a client owns, allows user to be aware that there are equivalent number of equipment to carry out maintenance work at that location.
+** Highlights: This enhancement allows a visual representation of equipment location on Google Map and route planning.
+
+** Codes contributed:
+
+* *Major enhancement 2*: I enhanced the initial Person model to *Equipment model*
+** What it does: All the `commands` carried out by user will be based on details of an Equipment. Specifically, an equipment has a serial number, a due date to carry out preventive maintenance and a sub-location where the equipment is installed.
+** Justification: This enhancement allow users to get access to detailed information of an equipment easily and for tracking purposes in the program. Main tracking purposes include:
+*** Knowing specifically where equipment is installed. For example, in the client's level 1 reception counter, level 2 ball room and etc.
+*** Alerting when preventive maintenance due date is nearing
+*** Allow assignation of each selected equipment with all its details into work agenda
+** Highlights: This enhancement modifies the existing UI, specifically the selected equipment details in `ResultPanel` and showing full details of a selected equipment on `FullResultPanel`.
+** Codes contributed:
+
+image:tip.png[width="40"]
+`commands`
+: add-e, edit-e, filter, find, list-e
+
+* *Minor enhancement*: {in progress}
+
+* *Other contributions*:
+
+** Project management:
+*** Morphed the code from address book to equipment manager. https://github.com/CS2103-AY1819S2-W10-3/main/pull/16[#16], https://github.com/CS2103-AY1819S2-W10-3/main/pull/19[#19]
+*** Morphed the test cases from address book to equipment manager. https://github.com/CS2103-AY1819S2-W10-3/main/pull/72[#72], https://github.com/CS2103-AY1819S2-W10-3/main/pull/63[#63]
+
+** Enhancements to existing features:
+*** Changed the condition to check for duplicate equipments https://github.com/CS2103-AY1819S2-W10-3/main/pull/59[#59]
+*** Updated command word and prefixes https://github.com/CS2103-AY1819S2-W10-3/main/pull/58[#58]
+*** Updated the GUI color scheme https://github.com[#33], https://github.com[#34]
+
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide and Developer Guide: https://github.com/CS2103-AY1819S2-W10-3/main/pull/90[#90], https://github.com/CS2103-AY1819S2-W10-3/main/pull/88[#88]
+*** Updated images, diagrams and contents of User Guide and Developer Guide: https://github.com/CS2103-AY1819S2-W10-3/main/pull/90[#90], https://github.com/CS2103-AY1819S2-W10-3/main/pull/73[#73], https://github.com/CS2103-AY1819S2-W10-3/main/pull/37[#37], https://github.com/CS2103-AY1819S2-W10-3/main/pull/36[#36]
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W10-3/main/pull/65[#65], https://github.com/CS2103-AY1819S2-W10-3/main/pull/52[#52], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+
+** Tools:
+*** Set up coverall badges, appveyors and travis bot for the team.
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=introduction]
+
+include::../UserGuide.adoc[tag=aboutug]
+
+include::../UserGuide.adoc[tag=quickstart]
+
+include::../UserGuide.adoc[tag=features]
+
+include::../UserGuide.adoc[tag=faq]
+
+include::../UserGuide.adoc[tag=glossary]
+
+include::../UserGuide.adoc[tag=commandsummary]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=introduction]
+
+include::../DeveloperGuide.adoc[tag=design]
+
+include::../DeveloperGuide.adoc[tag=userstories]
+
+include::../DeveloperGuide.adoc[tag=appendix]
+
+== PROJECT: PowerPointLabs
+
+---

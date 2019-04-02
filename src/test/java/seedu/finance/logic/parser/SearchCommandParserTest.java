@@ -9,6 +9,8 @@ import java.util.Arrays;
 import org.junit.Test;
 
 import seedu.finance.logic.commands.SearchCommand;
+import seedu.finance.model.record.CategoryContainsKeywordsPredicate;
+import seedu.finance.model.record.DateContainsKeywordsPredicate;
 import seedu.finance.model.record.NameContainsKeywordsPredicate;
 
 public class SearchCommandParserTest {
@@ -21,14 +23,36 @@ public class SearchCommandParserTest {
     }
 
     @Test
-    public void parse_validArgs_returnsSearchCommand() {
+    public void parse_validNameArgs_returnsSearchCommand() {
         // no leading and trailing whitespaces
         SearchCommand expectedFindCommand =
-                new SearchCommand(new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
-        assertParseSuccess(parser, "-name Alice Bob", expectedFindCommand);
+                new SearchCommand(new NameContainsKeywordsPredicate(Arrays.asList("Apple", "Banana")));
+        assertParseSuccess(parser, "-name Apple Banana", expectedFindCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, "-name \n Alice \n \t Bob  \t", expectedFindCommand);
+        assertParseSuccess(parser, "-name \n Apple \n \t Banana  \t", expectedFindCommand);
+    }
+
+    @Test
+    public void parse_validCategoryArgs_returnsSearchCommand() {
+        // no leading and trailing whitespaces
+        SearchCommand expectedFindCommand =
+                new SearchCommand(new CategoryContainsKeywordsPredicate(Arrays.asList("Food", "Drinks")));
+        assertParseSuccess(parser, "-cat Food Drinks", expectedFindCommand);
+
+        // multiple whitespaces between keywords
+        assertParseSuccess(parser, "-cat \n Food \n \t Drinks  \t", expectedFindCommand);
+    }
+
+    @Test
+    public void parse_validDateArgs_returnsSearchCommand() {
+        // no leading and trailing whitespaces
+        SearchCommand expectedFindCommand =
+                new SearchCommand(new DateContainsKeywordsPredicate(Arrays.asList("10/3/2018", "2/12/2017")));
+        assertParseSuccess(parser, "-date 10/3/2018 2/12/2017", expectedFindCommand);
+
+        // multiple whitespaces between keywords
+        assertParseSuccess(parser, "-date \n 10/3/2018 \n \t 2/12/2017  \t", expectedFindCommand);
     }
 
 }

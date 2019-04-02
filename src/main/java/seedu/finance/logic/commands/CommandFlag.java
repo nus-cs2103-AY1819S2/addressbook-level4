@@ -1,13 +1,13 @@
-package seedu.finance.logic.parser;
+package seedu.finance.logic.commands;
 
 /**
  * A flag that gives more information to the command.
  * E.g. -name in 'sort -name'.
  */
-public class Flag {
+public class CommandFlag {
     private final String flag;
 
-    public Flag(String flag) {
+    public CommandFlag(String flag) {
         this.flag = flag;
     }
 
@@ -26,7 +26,7 @@ public class Flag {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Flag)) {
+        if (!(obj instanceof CommandFlag)) {
             return false;
         }
 
@@ -34,7 +34,7 @@ public class Flag {
             return true;
         }
 
-        Flag otherFlag = (Flag) obj;
-        return otherFlag.getFlag().equals(getFlag());
+        CommandFlag otherCommandFlag = (CommandFlag) obj;
+        return otherCommandFlag.getFlag().equals(getFlag());
     }
 }

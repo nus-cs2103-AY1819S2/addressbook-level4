@@ -273,7 +273,8 @@ You can see all the entries you have entered, as long as they are not deleted en
 // tag::search[]
 ==== Locating entry based on name/category: `search`
 
-You can easily search for an entry in the records using a name or category as keywords.
+You can easily search for entries in the records using a name, category or date as keywords. The total sum of money
+spent on all the results of the search will also be shown.
 
 *Alias*: `find`
 
@@ -284,11 +285,12 @@ You can easily search for an entry in the records using a name or category as ke
 
 * `search -cat Transport`
 * `search -name cake bread`
+* `search -date 10/10/2001
 ****
 
 [NOTE]
 ====
-* `FLAG` here refers to either `-name` or `-cat`.
+* `FLAG` here refers to either `-name`, `-cat` or `date`.
 * Only one flag should be provided.
 ====
 // end::search[]
@@ -448,7 +450,8 @@ You can change the theme of the application with pre-set colour themes specified
 to `Blue`)
 * You can also change the theme of the application by choosing the theme under
 the menu bar.
-image::themeMenuBar.png[width="300"]
+
+image::themeMenuBar.png[]
 ====
 
 // end::theme[]
@@ -545,7 +548,7 @@ _In-Credit-Ble_  aims to support multi-currency transactions in `v2.0`.
 |=======================================================================
 | Command | Command Format | Alias | Example
 | List all entries | `list` | `l`, `ls` | -
-| Locate entry based on name/category |`search KEYWORD [MORE_KEYWORDS]` | `find` | `search cake break Food`
+| Locate entry based on name, category or date |`search -FLAG KEYWORD [MORE_KEYWORDS]` | `find` | `search -cat Food`
 | Sort the entries | `sort FLAG` | - | `sort -name`
 | Reverse all entries | `reverse` | `rev` | -
 | Show summary of records | `summary` | - | -

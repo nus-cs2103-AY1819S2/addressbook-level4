@@ -31,8 +31,8 @@
           <Menu mnemonicParsing="false" text="Help">
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
-          <Menu mnemonicParsing="false" text ="Theme">
-            <MenuItem fx:id="LightTheme" mnemonicParsing ='false' onAction ='#setLightTheme' text="Light" />
+          <Menu mnemonicParsing="false" text="Theme">
+            <MenuItem fx:id="LightTheme" mnemonicParsing="false" onAction="#setLightTheme" text="Light" />
             <MenuItem fx:id="DarkTheme" mnemonicParsing="false" onAction="#setDarkTheme" text="Dark" />
             <MenuItem fx:id="BlueTheme" mnemonicParsing="false" onAction="#setBlueTheme" text="Blue" />
             <MenuItem fx:id="PinkTheme" mnemonicParsing="false" onAction="#setPinkTheme" text="Pink" />
@@ -42,14 +42,14 @@
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
           <VBox fx:id="recordList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
             <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
+              <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
-            <StackPane fx:id="recordListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            <StackPane fx:id="recordListPanelPlaceholder" VBox.vgrow="ALWAYS" />
           </VBox>
 
-          <StackPane fx:id="browserPlaceholder" prefWidth="340" >
+          <StackPane fx:id="browserPlaceholder" prefWidth="340">
             <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
+              <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
           </StackPane>
         </SplitPane>

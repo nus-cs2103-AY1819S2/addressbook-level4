@@ -14,9 +14,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.comparator.Arrays;
+import java.comparator.Date;
+import java.comparator.List;
 
 import org.junit.After;
 import org.junit.Before;

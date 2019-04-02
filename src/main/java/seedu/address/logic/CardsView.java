@@ -171,6 +171,6 @@ public class CardsView implements ListViewState<Card> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(filteredCards, selectedCard);
+        return Objects.hash(filteredCards, selectedCard.getValue());
     }
 }

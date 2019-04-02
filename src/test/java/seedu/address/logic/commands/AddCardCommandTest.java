@@ -199,16 +199,6 @@ public class AddCardCommandTest {
         }
 
         @Override
-        public ReadOnlyProperty<ListItem> selectedItemProperty() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setSelectedItem(ListItem item) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public Deck getDeck(Deck target) {
             throw new AssertionError("This method should not be called.");
         }

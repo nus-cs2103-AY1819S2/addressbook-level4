@@ -198,16 +198,6 @@ public class AddDeckCommandTest {
         }
 
         @Override
-        public ReadOnlyProperty<ListItem> selectedItemProperty() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setSelectedItem(ListItem item) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void addDeck(Deck deck) {
             throw new AssertionError("This method should not be called.");
         }

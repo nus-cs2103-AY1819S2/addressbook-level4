@@ -59,15 +59,15 @@ Format: `help`
 === Adding a patient: `add-patient`
 
 Adds a patient to docX +
-Format: `add-patient n/NAME g/GENDER [a/AGE] p/PHONE_NUMBER adr/ADDRESS t/TAG`
+Format: `add-patient n/NAME g/GENDER a/AGE p/PHONE_NUMBER adr/ADDRESS t/TAG`
 
 // [TIP]
-// A person can have any number of tags (including 0)
+// A patient can have any number of tags (including 0)
 
 Examples:
 
 * `add-patient n/John Doe g/Male a/21 p/98765432 adr/Utown College 2`
-* `add-patient n/Betsy Crowe g/Female p/1234567 a/32 adr/RVRC House 12 t/Diabetic`
+* `add-patient n/Betsy Crowe g/Female p/1234567 a/32 adr/RVRC House 12 t/diabetic`
 
 === Listing all patients : `list-patient`
 
@@ -112,6 +112,24 @@ Returns `john` and `John Doe`
 * `search-patient Betsy Tim John` +
 Returns any patient having names `Betsy`, `Tim`, or `John`
 
+=== Locating patient by name: `search-tag`
+
+Search and return patient(s) whose tags contain any of the given keywords. +
+Format: `search-patient [tagName]`
+
+****
+* The search is case insensitive. e.g `HighBloodPressure` will match `highbloodpressure`
+* The order of the keywords does not matter. e.g. `stroke cancer` will match `cancer stroke`
+* Only the tagName is searched.
+* Only full words will be matched e.g. `high` will not match `highbloodpressure`
+* Patients matching at least one keyword will be returned (i.e. `OR` search). e.g. `diabetic` will return Patients with `diabetic` as one of their tags
+****
+
+Examples:
+
+* `search-tag diabetic` +
+Returns `John Doe` who has a `diabetic` tag
+
 === Deleting an existing patient : `delete-patient`
 
 Deletes the specified patient from docX. +
@@ -127,9 +145,9 @@ Examples:
 
 * `list-patient` +
 `delete-patient 3` +
-Deletes the patient with ID of '3' in the address book.
+Deletes the patient with ID of '3' in the docX.
 * `delete-patient 2` +
-Deletes the patient with ID of '2' in the address book.
+Deletes the patient with ID of '2' in the docX.
 
 
 === Adding a doctor: `add-doctor`

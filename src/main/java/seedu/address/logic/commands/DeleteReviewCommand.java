@@ -32,7 +32,7 @@ public class DeleteReviewCommand extends Command {
     private final Index index;
 
     /**
-     * @param index of the restaurant in the filtered restaurant list to edit
+     * @param index of the review of the restaurant in the filtered restaurant list to delete
      */
     public DeleteReviewCommand(Index index) {
         requireNonNull(index);
@@ -59,6 +59,12 @@ public class DeleteReviewCommand extends Command {
 
         model.setRestaurant(selectedRestaurant, restaurantWithDeletedReview);
         model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
+
+        // To display the Reviews of the Restaurant
+        List<Restaurant> filteredRestaurantList = model.getFilteredRestaurantList();
+        model.setSelectedRestaurant(filteredRestaurantList
+                .get(filteredRestaurantList.indexOf(restaurantWithDeletedReview)));
+
         model.commitFoodDiary();
         return new CommandResult(String.format(MESSAGE_DELETE_REVIEW_SUCCESS, index.getOneBased(),
                 restaurantWithDeletedReview.getName()));

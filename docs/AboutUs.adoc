@@ -21,7 +21,7 @@ Responsibilities: Model, system testing
 
 === Chen Caijie
 image::rbth7e5.png[width="150", align="left"]
-{empty}[https://github.com/rbth7e5[github]]
+{empty}[https://github.com/rbth7e5[github]] [<<rbth7e5#, portfolio>>]
 
 Role: Restaurant Categorisation +
 Responsibilities: Logic, git expert

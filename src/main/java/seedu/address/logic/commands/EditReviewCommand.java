@@ -46,7 +46,7 @@ public class EditReviewCommand extends Command {
     private final EditReviewDescriptor editReviewDescriptor;
 
     /**
-     * @param index of the restaurant in the filtered restaurant list to edit
+     * @param index of the review of the restaurant in the filtered restaurant list to edit
      * @param editReviewDescriptor details to edit the restaurant with
      */
     public EditReviewCommand(Index index, EditReviewDescriptor editReviewDescriptor) {
@@ -68,7 +68,7 @@ public class EditReviewCommand extends Command {
         if (selectedRestaurant.getReviews().size() == 0) {
             throw new CommandException(Messages.MESSAGE_NO_REVIEWS);
         }
-        if (selectedRestaurant.getReviews().size() > index.getOneBased()) {
+        if (selectedRestaurant.getReviews().size() < index.getOneBased()) {
             throw new CommandException(Messages.MESSAGE_INVALID_REVIEW_INDEX);
         }
 
@@ -77,6 +77,12 @@ public class EditReviewCommand extends Command {
 
         model.setRestaurant(selectedRestaurant, restaurantWithEditedReview);
         model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
+
+        // To display the edited Review
+        List<Restaurant> filteredRestaurantList = model.getFilteredRestaurantList();
+        model.setSelectedRestaurant(filteredRestaurantList
+                .get(filteredRestaurantList.indexOf(restaurantWithEditedReview)));
+
         model.commitFoodDiary();
         return new CommandResult(String.format(MESSAGE_EDIT_REVIEW_SUCCESS, restaurantWithEditedReview.getName()));
     }

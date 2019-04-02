@@ -26,8 +26,12 @@ public class ReviewListPanel extends UiPart<Region> {
     public ReviewListPanel(ObservableValue<Restaurant> selectedRestaurant) {
         super(FXML);
 
+        // To prevent selection of Review cards
+        getRoot().setMouseTransparent(true);
+        getRoot().setFocusTraversable(false);
+
         selectedRestaurant.addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selected review changed to: " + newValue);
+            logger.fine("Selected restaurant changed to: " + newValue);
 
             if (newValue == null) {
                 reviewListView.setItems(null);

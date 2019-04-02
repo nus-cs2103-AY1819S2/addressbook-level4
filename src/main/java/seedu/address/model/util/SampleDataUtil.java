@@ -56,11 +56,17 @@ public class SampleDataUtil {
      */
     public static Set<SkillsTag> getTagSet(List<String> skills, List<String> positions) {
         final Set<SkillsTag> tagSet = new HashSet<>();
-        for (String skill : skills) {
-            tagSet.add(new SkillsTag(skill, "yellow"));
+
+        if(skills != null) {
+            for (String skill : skills) {
+                tagSet.add(new SkillsTag(skill, "yellow"));
+            }
         }
-        for (String pos : positions) {
-            tagSet.add(new SkillsTag(pos, "pink"));
+
+        if (positions != null) {
+            for (String pos : positions) {
+                tagSet.add(new SkillsTag(pos, "pink"));
+            }
         }
 
         return tagSet;

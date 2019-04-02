@@ -91,8 +91,6 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPatient(patient);
         }
-
-
         /*
         for (JsonAdaptedMedicalHistory jsonAdaptedMedicalHistory : medicalHistories) {
             MedicalHistory medicalHistory = jsonAdaptedMedicalHistory.toModelType();

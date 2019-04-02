@@ -49,6 +49,49 @@
     "address" : "4th street",
     "tagged" : [ ]
   } ],
+  "doctors" : [ {
+    "name" : "Alice Pauline",
+    "gender": "F",
+    "age": "32",
+    "phone" : "98761234",
+    "specs" : [ "massage" ]
+  }, {
+    "name" : "Benson Meier",
+    "gender": "M",
+    "age": "31",
+    "phone" : "90123456",
+    "specs" : [ "massage", "acupuncture" ]
+  }, {
+    "name" : "Carl Kurz",
+    "gender": "F",
+    "age": "22",
+    "phone" : "95678934",
+    "specs" : [ "general" ]
+  }, {
+    "name" : "Daniel Meier",
+    "gender": "M",
+    "age": "57",
+    "phone" : "89023456",
+    "specs" : [ "general" ]
+  }, {
+    "name" : "Elle Meyer",
+    "gender": "F",
+    "age": "29",
+    "phone" : "94567893",
+    "specs" : [ "acupuncture" ]
+  }, {
+    "name" : "Fiona Kunz",
+    "gender": "F",
+    "age": "43",
+    "phone" : "87654312",
+    "specs" : [ "general", "acupuncture" ]
+  }, {
+    "name" : "George Best",
+    "gender": "M",
+    "age": "50",
+    "phone" : "90345622",
+    "specs" : [ "general" ]
+  } ],
   "medicalHistories" : [ ],
   "appointments": [ ]
 }

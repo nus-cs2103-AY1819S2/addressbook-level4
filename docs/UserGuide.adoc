@@ -294,11 +294,11 @@ These are commands are only available in study view, after `study INDEX` or `stu
 
 For example, you can type in `CO2` and hit kbd:[Enter]
 
-image::study_ug_diagrams/study_1.png
+image::study_ug_diagrams/study_1.png[width="800"]
 
 The following image is the result of the command.
 
-image::study_ug_diagrams/study_2.png
+image::study_ug_diagrams/study_2.png[width="800"]
 
 ==== Displaying the next card: `[your difficulty rating]`
 
@@ -307,10 +307,10 @@ image::study_ug_diagrams/study_2.png
 **Outcome**: Displays another card from the deck. Stores your difficulty rating for the card.
 
 Entering a number 3 indicates that you rate the difficulty as 3.
-image::study_ug_diagrams/study_3.png
+image::study_ug_diagrams/study_3.png[width="800"]
 
 Submitting this reveals the next question.
-image::study_ug_diagrams/study_4.png
+image::study_ug_diagrams/study_4.png[width="800"]
 
 
 === Global commands

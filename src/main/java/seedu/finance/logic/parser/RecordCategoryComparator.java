@@ -14,16 +14,6 @@ public class RecordCategoryComparator implements Comparator<Record> {
         return r1.getCategory().toString().compareToIgnoreCase(r2.getCategory().toString());
     }
 
-    /**
-     * A comparison function to sort the categories in lexicographical order (case insensitive).
-     */
-    public static class CategoryComparator implements Comparator<Category> {
-        @Override
-        public int compare(Category c1, Category c2) {
-            return c1.categoryName.compareToIgnoreCase(c2.categoryName);
-        }
-    }
-
     @Override
     public boolean equals(Object obj) {
         return true;

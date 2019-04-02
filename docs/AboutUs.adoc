@@ -25,6 +25,7 @@ image::e0191632.png[width="150", align="left"]
 
 Role: Developer +
 Responsibilities: 
+
 * UX Enhancement
 * UI
 * Count Client's Equipment

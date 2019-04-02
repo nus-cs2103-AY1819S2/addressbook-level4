@@ -137,9 +137,6 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedDoctor);
         doctorListPanelPlaceholder.getChildren().add(doctorListPanel.getRoot());
 
-
-
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 

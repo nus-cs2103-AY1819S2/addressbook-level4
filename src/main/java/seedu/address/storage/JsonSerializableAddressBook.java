@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-//import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.Appointment;
 //import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
@@ -63,6 +63,7 @@ class JsonSerializableAddressBook {
 
         appointments.addAll(source.getAppointmentList().stream().map(JsonAdaptedAppointment::new)
                 .collect(Collectors.toList()));
+
     }
 
     /**
@@ -72,6 +73,16 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
+
+
+        for (JsonAdaptedAppointment jsonAdaptedAppointment : appointments) {
+            Appointment appointment = jsonAdaptedAppointment.toModelType();
+            if (addressBook.hasAppointment(appointment)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
+            }
+            //System.out.println(appointment);
+            addressBook.addAppointment(appointment);
+        }
 
         for (JsonAdaptedDoctor jsonAdaptedDoctor : doctors) {
             Doctor doctor = jsonAdaptedDoctor.toModelType();
@@ -95,21 +106,13 @@ class JsonSerializableAddressBook {
             MedicalHistory medicalHistory = jsonAdaptedMedicalHistory.toModelType();
             if (addressBook.hasMedHist(medicalHistory)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MEDHIST);
+
             }
             addressBook.addMedHist(medicalHistory);
         }
 
-        for (JsonAdaptedAppointment jsonAdaptedAppointment : appointments) {
-            Appointment appointment = jsonAdaptedAppointment.toModelType();
-            if (addressBook.hasAppointment(appointment)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
-            }
-            //System.out.println(appointment);
-            addressBook.addAppointment(appointment);
-        }
 
         */
-        
         return addressBook;
     }
 }

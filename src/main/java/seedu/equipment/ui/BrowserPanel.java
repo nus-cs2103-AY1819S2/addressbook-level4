@@ -20,8 +20,9 @@ import seedu.equipment.model.tag.Tag;
  */
 public class BrowserPanel extends UiPart<Region> {
 
-    public static final String MAP_PAGE_BASE_URL = "https://cs2103-ay1819s2-w10-3.github.io/main/DisplayGmap";
-    public static final URL DEFAULT_PAGE = processDefaultPage(MAP_PAGE_BASE_URL);
+    public static final String MAP_PAGE_BASE_URL = "https://cs2103-ay1819s2-w10-3.github.io/main/DisplayEquipmentDetail";
+    public static final String MAP_MULTIPLE_POINT_BASE_URL = "https://cs2103-ay1819s2-w10-3.github.io/main/DisplayGmap";
+    public static final URL DEFAULT_PAGE = processDefaultPage(MAP_MULTIPLE_POINT_BASE_URL);
     private static final String FXML = "BrowserPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());

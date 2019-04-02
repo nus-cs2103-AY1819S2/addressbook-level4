@@ -7,10 +7,13 @@ import java.util.List;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
+import seedu.address.model.job.JobName;
 import seedu.address.model.job.UniqueJobList;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniqueNricMap;
 import seedu.address.model.person.UniquePersonList;
@@ -103,12 +106,84 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Adds a person to the job.
+     * The person must not already exist in the job.
+     * Adds to the first list
+     */
+    public boolean addPersonToJobByNric(Nric nric, JobName jobName) {
+        Person person = persons.getPerson(nric);
+        Job job = jobs.getJob(jobName);
+        boolean status = job.add(person);
+        this.jobs.setJob(job, job);
+        indicateModified();
+
+        return status;
+    }
+
+    /**
+     * Adds a person to the job.
+     * The person must not already exist in the job.
+     * Adds to the first list
+     * This version directly adds from job
+     */
+    public void addFilteredListToJob(FilteredList<Person> filteredPersons, JobName jobName) {
+        Job job = jobs.getJob(jobName);
+        job.addFilteredList(filteredPersons);
+        this.jobs.setJob(job, job);
+        indicateModified();
+    }
+
+    /**
+     * Retrieves UniquePersonList from job
+     */
+    public UniquePersonList getJobPersonList(JobName jobName, int listNumber) {
+        Job job = jobs.getJob(jobName);
+        return job.getPeople(listNumber);
+    }
+
+    /**
+     * Adds a person to the job.
+     * The person must not already exist in the job.
+     * Adds to the first list
+     * This version directly adds from job
+     */
+    public void addPersonToJob(Person person, Job job) {
+        job.add(person);
+        indicateModified();
+    }
+
+
+    /**
      * Adds a job to the address book.
      * The job must not already exist in the address book.
      */
     public void addJob(Job j) {
         jobs.add(j);
         indicateModified();
+    }
+
+    /**
+     * Deletes a job in the address book.
+     * The job must exist in the address book.
+     */
+    public void deleteJob(Job j) {
+        jobs.remove(j);
+        indicateModified();
+    }
+
+    /**
+     * Returns true if a job with the same identity as {@code job} exists in the address book.
+     */
+    public int movePerson(JobName jobName, Nric nric, int source, int dest) {
+        requireNonNull(jobName);
+        requireNonNull(nric);
+        requireNonNull(source);
+        requireNonNull(dest);
+
+        Person person = persons.getPerson(nric);
+        Job job = jobs.getJob(jobName);
+
+        return job.move(person, source, dest);
     }
 
     /**
@@ -129,6 +204,17 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         persons.setPerson(target, editedPerson);
         nrics.setPerson(target, editedPerson);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the given job {@code target} in the list with {@code editedJob}.
+     * {@code target} must exist in the address book.
+     */
+    public void setJob(Job target, Job editedJob) {
+        requireNonNull(editedJob);
+
+        jobs.setJob(target, editedJob);
         indicateModified();
     }
 

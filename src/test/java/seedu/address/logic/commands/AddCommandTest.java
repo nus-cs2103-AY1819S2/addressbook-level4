@@ -28,7 +28,10 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
+import seedu.address.model.job.JobName;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -163,6 +166,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void updateBaseFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -244,6 +252,41 @@ public class AddCommandTest {
 
         @Override
         public void addJob(Job job) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addFilteredPersonsToJob(JobName jobName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean addPersonToJob(JobName job, Nric nric) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void changeFilteredPersonList(UniquePersonList list) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void revertList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public UniquePersonList getJobList(JobName name, int listNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Integer movePerson(JobName jobName, Nric nric, Integer source, Integer dest) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteJob(Job job) {
             throw new AssertionError("This method should not be called.");
         }
     }

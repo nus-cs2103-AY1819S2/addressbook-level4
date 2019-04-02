@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.testutil.TypicalJobs.ENGINEER;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -81,6 +82,17 @@ public class AddressBookTest {
     }
 
     @Test
+    public void hasJob_jobNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasJob(ENGINEER));
+    }
+
+    @Test
+    public void hasJob_jobInAddressBook_returnsTrue() {
+        addressBook.addJob(ENGINEER);
+        assertTrue(addressBook.hasJob(ENGINEER));
+    }
+
+    @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
@@ -111,6 +123,14 @@ public class AddressBookTest {
         addressBook.removeListener(listener);
         addressBook.addPerson(ALICE);
         assertEquals(0, counter.get());
+    }
+
+    @Test
+    public void addPersonToAddressbook_returnsTrue() {
+        addressBook.addJob(ENGINEER);
+        addressBook.addPerson(ALICE);
+
+        assertTrue(addressBook.addPersonToJobByNric(ALICE.getNric(), ENGINEER.getName()));
     }
 
     /**

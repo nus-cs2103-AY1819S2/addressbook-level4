@@ -68,7 +68,7 @@ public class SearchCommandTest {
         SearchCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
         SearchCommand command = new SearchCommand(descriptor);
         Predicate<Person> predicator = (Predicate<Person>) descriptor.toPredicate();
-        expectedModel.updateFilteredPersonList(predicator);
+        expectedModel.updateBaseFilteredPersonList(predicator);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredPersonList());
     }
@@ -80,7 +80,7 @@ public class SearchCommandTest {
         SearchCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor("Kurz Elle Kunz");
         SearchCommand command = new SearchCommand(descriptor);
         Predicate<Person> predicator = (Predicate<Person>) descriptor.toPredicate();
-        expectedModel.updateFilteredPersonList(predicator);
+        expectedModel.updateBaseFilteredPersonList(predicator);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
     }

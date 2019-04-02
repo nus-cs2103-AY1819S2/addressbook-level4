@@ -2,7 +2,6 @@ package seedu.address.logic;
 
 import java.nio.file.Path;
 
-import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.GuiSettings;

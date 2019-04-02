@@ -53,7 +53,7 @@ public class ModelManager implements Model {
         ViewState viewState = model.getViewState();
         if (viewState instanceof DecksView) {
             this.viewState = new DecksView((DecksView) viewState);
-        } if (viewState instanceof CardsView) {
+        } else if (viewState instanceof CardsView) {
             this.viewState = new CardsView((CardsView) viewState);
         } else if (viewState instanceof StudyView) {
             this.viewState = new StudyView((StudyView) viewState);

@@ -154,8 +154,8 @@ public class DecksView implements ListViewState<Deck> {
 
         // state check
         DecksView other = (DecksView) obj;
-        return filteredDecks.equals(other.filteredDecks) &&
-                Objects.equals(selectedDeck.getValue(), other.selectedDeck.getValue());
+        return filteredDecks.equals(other.filteredDecks)
+                && Objects.equals(selectedDeck.getValue(), other.selectedDeck.getValue());
     }
 
     @Override

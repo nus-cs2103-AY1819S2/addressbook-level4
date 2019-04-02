@@ -165,8 +165,8 @@ public class CardsView implements ListViewState<Card> {
 
         // state check
         CardsView other = (CardsView) obj;
-        return filteredCards.equals(other.filteredCards) &&
-                Objects.equals(selectedCard.getValue(), other.selectedCard.getValue());
+        return filteredCards.equals(other.filteredCards)
+                && Objects.equals(selectedCard.getValue(), other.selectedCard.getValue());
     }
 
     @Override

@@ -21,7 +21,20 @@ public class DeckShuffler {
         Deck shuffledDeck = new Deck(deck);
         cards = shuffledDeck.getCards().internalList;
         shuffleCards();
+    }
 
+    /**
+     * Gets the activeDeck in deckShuffler
+     */
+    public Deck getDeck() {
+        return deck;
+    }
+
+    /**
+     * Gets the iterator in deckShuffler
+     */
+    public Iterator<Card> getIt() {
+        return it;
     }
 
     /**

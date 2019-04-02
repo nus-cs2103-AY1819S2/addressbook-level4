@@ -24,7 +24,7 @@ public class OpenDeckCommand extends Command {
             COMMAND_WORD + ": Opens the deck identified by the index number.\n"
                     + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
 
-    private static final String MESSAGE_OPEN_DECK_SUCCESS = "Opened deck";
+    public static final String MESSAGE_OPEN_DECK_SUCCESS = "Opened deck";
 
     private Index targetIndex;
     private DecksView decksView;
@@ -44,7 +44,7 @@ public class OpenDeckCommand extends Command {
 
         requireNonNull(model);
 
-        if (targetIndex != null) { //if OpenDeckCommand is directly based on target deck
+        if (targetIndex != null) { //if OpenDeckCommand is based on target index
             List<Deck> filteredDeckList = decksView.filteredDecks;
 
             if (targetIndex.getZeroBased() >= filteredDeckList.size()) {

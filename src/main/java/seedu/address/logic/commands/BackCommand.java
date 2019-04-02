@@ -16,7 +16,7 @@ public class BackCommand extends Command {
             COMMAND_WORD + ": Close the deck and return to the main page.\n" + "Example: " + COMMAND_WORD
                     + " 1";
 
-    private static final String MESSAGE_CLOSE_DECK_SUCCESS = "Closed deck";
+    public static final String MESSAGE_CLOSE_DECK_SUCCESS = "Closed deck";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {

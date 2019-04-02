@@ -72,7 +72,7 @@ public class ModelManager implements Model {
     }
 
     public void studyDeck(Deck deck) {
-        viewState = new StudyView(this, deck);
+        viewState = new StudyView(deck);
     }
 
     @Override
@@ -90,6 +90,11 @@ public class ModelManager implements Model {
     @Override
     public boolean isAtCardsView() {
         return (viewState instanceof CardsView);
+    }
+
+    @Override
+    public boolean isAtStudyView() {
+        return (viewState instanceof StudyView);
     }
 
     @Override

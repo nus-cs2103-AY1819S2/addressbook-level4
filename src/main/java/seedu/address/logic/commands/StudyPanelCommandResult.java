@@ -3,9 +3,9 @@ package seedu.address.logic.commands;
 /**
  * Represents a command result that requires the panel to reload.
  */
-public class StudyPanelCommand extends CommandResult {
+public class StudyPanelCommandResult extends CommandResult {
 
-    public StudyPanelCommand(String feedbackToUser) {
+    public StudyPanelCommandResult(String feedbackToUser) {
         super(feedbackToUser);
     }
 }

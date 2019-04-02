@@ -81,6 +81,7 @@ Format: `help`
 The help page will be shown in another window, but you can resize and move it
 around. This can be useful to refer to when using the app.
 
+// tag::crud[]
 === Adding a place: `add`
 
 The `add` command adds a place to TravelBuddy. +
@@ -140,6 +141,7 @@ Examples:
 Edits the rating and description address of the 1st place to be `3` and `No description` respectively.
 * `edit 2 n/Raffles Hotel t/` +
 Edits the name of the 2nd place to be `Raffles Hotel` and clears all existing tags.
+// end::crud[]
 
 // tag::search[]
 === Searching places by name: `search`
@@ -256,6 +258,7 @@ Returns a list of places visited in the year `2016` or `2018`
 Returns a list of places visited from `2010` to `2017`
 // end::search[]
 
+// tag::delete[]
 === Deleting a place : `delete`
 
 The `delete` command deletes the specified place from TravelBuddy. +
@@ -285,6 +288,7 @@ Deletes the 2nd place in TravelBuddy.
 * `search Raffles` +
 `delete 1` +
 Deletes the 1st place in the results of the `find` command.
+// end::delete[]
 
 === Deleting multiple places : `deletem`
 

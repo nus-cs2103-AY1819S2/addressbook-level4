@@ -13,6 +13,9 @@ public class SummaryCommand extends Command {
     public static final String COMMAND_WORD = "summary";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": A brief summary of books you've read.\n"
             + "Example: " + COMMAND_WORD;
+    public static final String MESSAGE_NO_AUTHOR_PREFERED = "You don't seem to prefer certain author.\n";
+    public static final String MESSAGE_NO_RATING_GIVEN = "You haven't rated any book yet.\n";
+    public static final String MESSAGE_NO_TAG_PREFERED = "You don't seem to prefer certain genre.\n";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
@@ -21,16 +24,22 @@ public class SummaryCommand extends Command {
         List<String> lovedAuthors = model.getMostReadAuthors();
         if (!lovedAuthors.isEmpty()) {
             feedback += getAutorRelatedSummary(model, lovedAuthors);
+        } else {
+            feedback += MESSAGE_NO_AUTHOR_PREFERED;
         }
 
         String highestRating = model.getHighestMark();
         if (highestRating != null) {
             feedback += getRatingRelatedSummary(model, highestRating);
+        } else {
+            feedback += MESSAGE_NO_RATING_GIVEN;
         }
 
         List<String> lovedTags = model.getMostReadTags();
         if (!lovedTags.isEmpty()) {
             feedback += getTagRelatedSummary(model, lovedTags);
+        } else {
+            feedback += MESSAGE_NO_TAG_PREFERED;
         }
 
         return new CommandResult(feedback, false, false);

@@ -1,5 +1,6 @@
 package systemtests;
 
+import static seedu.address.logic.commands.SummaryCommand.MESSAGE_NO_AUTHOR_PREFERED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
@@ -20,6 +21,7 @@ public class SummaryCommandSystemTest extends BookShelfSystemTest {
     public void summary() {
         Model expectedModel = getModel();
         String expectedResultMessage = "You've read 8 books.\n"
+            + MESSAGE_NO_AUTHOR_PREFERED
             + "These book receive a rating of 10 from you: To Kill a Mocking Bird\n"
             + "You preferred books that you labeled as fantasy(including The Hunger Games, Life of Pi)\n";
         assertCommandSuccess(command, expectedResultMessage, expectedModel);

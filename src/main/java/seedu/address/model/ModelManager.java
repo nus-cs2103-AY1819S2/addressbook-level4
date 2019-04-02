@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -116,12 +118,10 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addFilteredPersonsToJob(Job job) {
-        requireNonNull(job);
-
-        for (int i = 0; i < filteredPersons.size(); i++) {
-            versionedAddressBook.addPersonToJob(filteredPersons.get(i), job);
-        }
+    public void addFilteredPersonsToJob(JobName jobName) {
+        requireNonNull(jobName);
+        versionedAddressBook.addFilteredListToJob(variableFilteredPersons, jobName);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
@@ -145,6 +145,18 @@ public class ModelManager implements Model {
     @Override
     public void addJob(Job job) {
         versionedAddressBook.addJob(job);
+    }
+
+    @Override
+    public void deleteJob(Job job) {
+        versionedAddressBook.deleteJob(job);
+        revertList();
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public Integer movePerson(JobName jobName, Nric nric, Integer source, Integer dest) {
+        return versionedAddressBook.movePerson(jobName, nric, source, dest);
     }
 
     @Override
@@ -297,6 +309,11 @@ public class ModelManager implements Model {
     public Analytics generateAnalytics() {
         Analytics analytics = new Analytics(getFilteredPersonList());
         return analytics;
+    }
+
+    @Override
+    public void setBlockOutDates(List<Calendar> blockOutDates) {
+        versionedAddressBook.setBlockOutDates(blockOutDates);
     }
 
     @Override

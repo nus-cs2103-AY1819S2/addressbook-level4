@@ -1,0 +1,61 @@
+= Wee Soo Jun - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: slaveFinder()
+
+---
+
+== Overview
+
+slaveFinder() is a desktop address book application used for people in the HR department of a company to help them filter people and schedule interviews. It also helps with analytics of the hiring process in the company.
+
+== Summary of contributions
+
+* *Major enhancement*: added *Interview scheduling*
+** What it does: allows the user to schedule interviews with block out dates.
+** Justification: This feature improves the product significantly because a user can improve his/her productivity as the app can take over the task of scheduling to the app.
+** Highlights:
+** Credits:
+
+* *Minor enhancement*: Added a school field which helped in the ranking and filtering of individuals for interviews
+
+* *Code contributed*:
+
+* *Other contributions*:
+
+** Project management:
+*** Managed release `v1.3` on GitHub
+** Enhancements to existing features:
+** Documentation:
+*** Updated Model Component image of slaveFinder()
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W15-3/main/pull/44[#44]
+** Tools:
+*** Integrated TravisCI, Appveyor, Codacy, and Coveralls to team repo
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=interviews]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=interviews]
+
+
+
+
+
+---

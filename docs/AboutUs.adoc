@@ -47,7 +47,7 @@ Responsibilities: Dev Ops + Threading
 
 === Wee Soo Jun
 image::weesoojun.png[width="150", align="left"]
-{empty}[http://github.com/weesoojun[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/weesoojun[github]] [<<WeeSooJun#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Logic

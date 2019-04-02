@@ -2,8 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBNAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LISTNUMBER;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -15,37 +13,31 @@ import seedu.address.model.job.JobName;
 /**
  * Adds a person to the address book.
  */
-public class DisplayJobListCommand extends Command {
+public class AddListToJobCommand extends Command {
 
-    public static final String COMMAND_WORD = "DisplayJob";
-    public static final String COMMAND_ALIAS = "dj";
+    public static final String COMMAND_WORD = "addAll";
+    public static final String COMMAND_ALIAS = "aa";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": displays a list from a job. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": adds all shown people to job . "
             + "Parameters: "
-            + PREFIX_LISTNUMBER + "ListNumber "
             + PREFIX_JOBNAME + "JobName "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_LISTNUMBER + "0 "
             + PREFIX_JOBNAME + "Helper "
-            + "The alias \"dj\" can be used instead.\n"
+            + "The alias \"aa\" can be used instead.\n"
             + "Example: " + COMMAND_ALIAS + " "
-            + PREFIX_LISTNUMBER + "0 "
             + PREFIX_JOBNAME + "Helper ";
 
-    public static final String MESSAGE_SUCCESS = "Displaying job";
+    public static final String MESSAGE_SUCCESS = "All people added to job: %1$s ";
     public static final String MESSAGE_MISSING_JOB = "This job does not exist";
 
-    private final Integer listNumber;
     private final JobName toAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code job}
      */
-    public DisplayJobListCommand(JobName name, Integer number) {
+    public AddListToJobCommand(JobName name) {
         requireNonNull(name);
-        requireNonNull(number);
         toAdd = name;
-        listNumber = number;
     }
 
     @Override
@@ -57,16 +49,17 @@ public class DisplayJobListCommand extends Command {
             throw new CommandException(MESSAGE_MISSING_JOB);
         }
 
-        model.changeFilteredPersonList(model.getJobList(toAdd, listNumber));
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.addFilteredPersonsToJob(toAdd);
+
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        String command = String.format(MESSAGE_SUCCESS, toAdd);
+        return new CommandResult(command);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DisplayJobListCommand // instanceof handles nulls
-                && toAdd.equals(((DisplayJobListCommand) other).toAdd));
+                || (other instanceof AddListToJobCommand // instanceof handles nulls
+                && toAdd.equals(((AddListToJobCommand) other).toAdd));
     }
 }

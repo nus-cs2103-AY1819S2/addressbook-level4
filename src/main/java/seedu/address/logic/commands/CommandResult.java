@@ -17,6 +17,8 @@ public class CommandResult {
 
     private Analytics analytics;
 
+    private String interviews;
+
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
@@ -46,6 +48,14 @@ public class CommandResult {
         if (isSuccessfulAnalytics()) {
             analytics = results;
         }
+
+    }
+
+    public CommandResult(String feedbackToUser, String results) {
+        this(feedbackToUser, false, false);
+        if (isSuccessfulInterviews()) {
+            interviews = results;
+        }
     }
 
     public String getFeedbackToUser() {
@@ -64,11 +74,17 @@ public class CommandResult {
         return feedbackToUser.equals("Analytics generated!");
     }
 
-    public boolean isSuccessfulDisplayJob() { return feedbackToUser.equals("Displaying job"); }
+    public boolean isSuccessfulInterviews() {
+        return feedbackToUser.equals("Interviews shown");
+    }
 
     //remember to handle null later
     public Analytics getAnalytics() {
         return analytics;
+    }
+
+    public String getInterviews() {
+        return interviews;
     }
 
     @Override

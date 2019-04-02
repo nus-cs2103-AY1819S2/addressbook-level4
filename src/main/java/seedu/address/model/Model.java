@@ -1,6 +1,8 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Calendar;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -72,7 +74,7 @@ public interface Model {
     /**
      * adds all persons in filtered personlist to {@code job}.
      */
-    void addFilteredPersonsToJob(Job job);
+    void addFilteredPersonsToJob(JobName jobName);
 
     /**
      * adds person with {@code nric} to {@code job}.
@@ -96,6 +98,19 @@ public interface Model {
      * {@code job} must not already exist in the address book.
      */
     void addJob(Job job);
+
+    /**
+     * Deletes the given job.
+     * {@code job} must exist in the address book.
+     */
+    void deleteJob(Job job);
+
+    /**
+     * Moves Person with {@code nric} in Job with {@code jobName}
+     * from list {@code source} to list {@code dest}
+     * {@code job} must exist in the address book.
+     */
+    Integer movePerson(JobName jobName, Nric nric, Integer source, Integer dest);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -193,6 +208,11 @@ public interface Model {
      * Clears the generated interviews.
      */
     void clearInterviews();
+
+    /**
+     * Sets Block Out Dates.
+     */
+    void setBlockOutDates(List<Calendar> blockOutDates);
 
     /**
      * Generates analytics.

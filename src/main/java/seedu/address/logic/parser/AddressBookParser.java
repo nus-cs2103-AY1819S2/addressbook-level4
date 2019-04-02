@@ -163,6 +163,12 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
+
         case ExitAnywayCommand.COMMAND_WORD:
             return new ExitAnywayCommand();
 

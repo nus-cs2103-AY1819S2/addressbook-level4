@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a time.
  * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
  */
-public class TimeCustom {
+public class TimeCustom implements Comparable<TimeCustom> {
     public static final String MESSAGE_CONSTRAINTS = "Time should only contain exactly 4 numbers,"
                                             + " the first two not going above 24, the latter two not going above 59.\n"
                                             + "Start time should not be after End time "

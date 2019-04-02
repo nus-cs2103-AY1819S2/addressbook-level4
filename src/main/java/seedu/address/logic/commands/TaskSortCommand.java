@@ -1,51 +1,41 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDDATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTDATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.Comparator;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.datetime.DateCustom;
+import seedu.address.model.datetime.TimeCustom;
+import seedu.address.model.task.Priority;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.Title;
 
 /**
  * Edits the details of an existing task in the address book.
  */
 public class TaskSortCommand extends Command {
 
-    public static final String COMMAND_WORD = "taskedit";
+    public static final String COMMAND_WORD = "tasksort";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": sort tasks in place by start time,"
-                                                            + " end time or priority. Sort ascendingly by default.\n"
-                                                            + "Parameters: sortField [sortOrder]\n"
-                                                            + "Example 1: tasksort starttime\n"
-                                                            + "Example 2: tasksort priority desc";
+            + " end time or priority. Sort ascendingly by default.\n"
+            + "Parameters: sortField [sortOrder]\n"
+            + "Example 1: tasksort starttime\n"
+            + "Example 2: tasksort priority desc";
     public static final String MESSAGE_SORT_TASK_SUCCESS = "Tasks sorted by %s in %s order";
     public static final String MESSAGE_SORT_TASK_WRONG_FILED = "Supporting fields are: starttime, endtime, priority.";
 
-
-    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book.";
-
-    private final Index index;
-    private final EditTaskDescriptor editTaskDescriptor;
+    private final String sortField;
+    private final boolean isAscending;
+    private final Comparator<Task> sortComparator;
 
     /**
-     * @param index of the task in the filtered task list to edit
-     * @param editTaskDescriptor details to edit the task with
+     * @param sortField start date, end date or priority
+     * @param isAscending true for ascending order
      */
     public TaskSortCommand(String sortField, boolean isAscending) throws ParseException {
         requireNonNull(sortField);
@@ -89,11 +79,10 @@ public class TaskSortCommand extends Command {
             };
         } else {
             throw new ParseException(MESSAGE_SORT_TASK_WRONG_FILED);
-
         }
 
-        Task taskToEdit = lastShownList.get(index.getZeroBased());
-        Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
+        return t;
+    }
 
     /**
      *
@@ -108,6 +97,12 @@ public class TaskSortCommand extends Command {
         if (dateCompare == 0) {
             return t1.compareTo(t2);
         }
+        return dateCompare;
+    }
+
+    @Override
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
 
         model.sortTasks(sortComparator);
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
@@ -116,19 +111,6 @@ public class TaskSortCommand extends Command {
                 String.format(MESSAGE_SORT_TASK_SUCCESS, sortField, isAscending ? "ascending" : "descending"));
     }
 
-    /**
-     * Creates and returns a {@code Task} with the details of {@code taskToEdit}
-     * edited with {@code editTaskDescriptor}.
-     */
-    private static Task createEditedTask(Task taskToEdit, EditTaskDescriptor editTaskDescriptor) {
-        assert taskToEdit != null;
-
-        Title updatedTitle = editTaskDescriptor.getTitle().orElse(taskToEdit.getTitle());
-        DateCustom updatedStartDate = editTaskDescriptor.getStartDate().orElse(taskToEdit.getStartDate());
-        DateCustom updatedEndDate = editTaskDescriptor.getEndDate().orElse(taskToEdit.getEndDate());
-
-        return new Task(updatedTitle, updatedStartDate, updatedEndDate);
-    }
 
     @Override
     public boolean equals(Object other) {
@@ -138,85 +120,12 @@ public class TaskSortCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof TaskEditCommand)) {
+        if (!(other instanceof TaskSortCommand)) {
             return false;
         }
 
         // state check
-        TaskEditCommand e = (TaskEditCommand) other;
-        return true;
-    }
-
-    /**
-     * Stores the details to edit the task with. Each non-empty field value will replace the
-     * corresponding field value of the task.
-     */
-    public static class EditTaskDescriptor {
-        private Title title;
-        private DateCustom startDate;
-        private DateCustom endDate;
-
-        public EditTaskDescriptor() {}
-
-        /**
-         * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public EditTaskDescriptor(EditTaskDescriptor toCopy) {
-            setTitle(toCopy.title);
-            setStartDate(toCopy.startDate);
-            setEndDate(toCopy.endDate);
-        }
-
-        /**
-         * Returns true if at least one field is edited.
-         */
-        public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(title, startDate, endDate);
-        }
-
-        public void setTitle(Title title) {
-            this.title = title;
-        }
-
-        public Optional<Title> getTitle() {
-            return Optional.ofNullable(title);
-        }
-
-        public void setStartDate(DateCustom startDate) {
-            this.startDate = startDate;
-        }
-
-        public Optional<DateCustom> getStartDate() {
-            return Optional.ofNullable(startDate);
-        }
-
-        public void setEndDate(DateCustom endDate) {
-            this.endDate = endDate;
-        }
-
-        public Optional<DateCustom> getEndDate() {
-            return Optional.ofNullable(endDate);
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            // short circuit if same object
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof EditTaskDescriptor)) {
-                return false;
-            }
-
-            // state check
-            EditTaskDescriptor e = (EditTaskDescriptor) other;
-
-            return getTitle().equals(e.getTitle())
-                    && getStartDate().equals(e.getStartDate())
-                    && getEndDate().equals(e.getEndDate());
-        }
+        TaskSortCommand s = (TaskSortCommand) other;
+        return s.sortField.equals(sortField) && s.isAscending == isAscending;
     }
 }

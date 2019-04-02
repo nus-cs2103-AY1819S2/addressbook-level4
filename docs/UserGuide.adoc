@@ -18,7 +18,7 @@ By: `W17-1`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-The Food Diary (FD) is for those who *prefer to use a desktop app for storing their personal food reviews and obtain food recommendations*. More importantly, FD is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, FD can get your foodie tasks done faster than traditional GUI apps.
+The Food Diary (TFD) is for those who *prefer to use a desktop app for storing their personal food reviews and obtain food recommendations*. More importantly, TFD is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TFD can get your foodie tasks done faster than traditional GUI apps.
 
 Some of the features that can look forward to:
 
@@ -230,6 +230,35 @@ Note:
 * setCategory for `Cuisine` and `Occasion` supported as of v1.2
 * `Price range` support coming in v1.3
 * Autocomplete feature planned for v1.4
+
+// tag::select[]
+=== Select a restaurant : `select`
+
+Select a restaurant based on its index on the list and display information about it. +
+Format: `select INDEX`
+
+****
+* The index refers to the index number show in the displayed restaurants list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `select 3` +
+Selects the restaurant in the displayed restaurants list with index 3 and displays its summary, reviews and website.
+
+image::selectbefore.png[width="800"]
+Figure 1. Before selecting any restaurant
+
+image::selectafter.png[width="800"]
+Figure 2. After selecting restaurant with index 3, Chilis' summary, reviews and website are displayed in the second, third and fourth panels (from left to right) respectively.
+
+Note:
+
+* Placeholder for Restaurant Summary panel after changes to the Food Diary has been made will be coming in v1.4
+* Details of the restaurant in the Restaurant Summary beyond a certain length will be cut off. This will be dealt with in v1.4.
+
+// end::select[]
 
 === Filter restaurants based on category : `filter`
 

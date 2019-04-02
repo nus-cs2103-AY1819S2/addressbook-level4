@@ -19,6 +19,7 @@ public class ImportCommand extends Command {
             + "Parameters: <absolute path of file>\n"
             + "Example: " + COMMAND_WORD + " C:/Users/Fomo/Pictures/sample.jpg";
 
+
     public static final String MESSAGE_SUCCESS = "Image successfully imported.";
     public static final String MESSAGE_DIR_SUCCESS =
             "Directory successfully imported (Note: Invalid file types, hidden files and duplicates are skipped).";

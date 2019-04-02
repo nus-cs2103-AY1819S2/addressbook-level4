@@ -3,6 +3,8 @@ package seedu.address.model.restaurant.categories;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import seedu.address.commons.util.StringUtil;
+
 /**
  * Represents a Restaurant's occasion in the food diary.
  * Guarantees: immutable; is valid as declared in {@link #isValidOccasion(String)}
@@ -22,7 +24,7 @@ public class Occasion {
     public Occasion(String occasion) {
         requireNonNull(occasion);
         checkArgument(isValidOccasion(occasion), MESSAGE_CONSTRAINTS);
-        value = occasion;
+        value = StringUtil.capitalize(occasion);
     }
 
     /**

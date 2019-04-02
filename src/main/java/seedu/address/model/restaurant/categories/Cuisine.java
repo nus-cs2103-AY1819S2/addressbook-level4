@@ -3,6 +3,8 @@ package seedu.address.model.restaurant.categories;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import seedu.address.commons.util.StringUtil;
+
 /**
  * Represents a Restaurant's cuisine in the food diary.
  * Guarantees: immutable; is valid as declared in {@link #isValidCuisine(String)}
@@ -22,7 +24,7 @@ public class Cuisine {
     public Cuisine(String cuisine) {
         requireNonNull(cuisine);
         checkArgument(isValidCuisine(cuisine), MESSAGE_CONSTRAINTS);
-        value = cuisine;
+        value = StringUtil.capitalize(cuisine);
     }
 
     /**

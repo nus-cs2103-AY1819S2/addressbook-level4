@@ -45,6 +45,8 @@ public class CommandTestUtil {
     public static final String VALID_WEBLINK_BOB = "No weblink added";
     public static final String VALID_OPENING_HOURS = "0900 to 2300";
     public static final String VALID_CUISINE_FAST_FOOD = "Fast Food";
+    public static final String VALID_OCCASION_CASUAL = "Casual";
+    public static final String VALID_PRICE_RANGE = "$$$";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;

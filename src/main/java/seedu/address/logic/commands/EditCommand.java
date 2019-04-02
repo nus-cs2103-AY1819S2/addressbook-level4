@@ -32,7 +32,7 @@ import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Postal;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Weblink;
-import seedu.address.model.restaurant.categories.Category;
+import seedu.address.model.restaurant.categories.Categories;
 import seedu.address.model.review.Review;
 import seedu.address.model.tag.Tag;
 
@@ -118,7 +118,7 @@ public class EditCommand extends Command {
         OpeningHours updatedOpeninghours = editRestaurantDescriptor.getOpeningHours()
                 .orElse(restaurantToEdit.getOpeningHours());
 
-        Category updatedCategories = restaurantToEdit.getCategories();
+        Categories updatedCategories = restaurantToEdit.getCategories();
 
         //Ensures that reviews are copied over exactly, because they are not modified by this command.
         ArrayList<Review> sameReviews = new ArrayList<>();

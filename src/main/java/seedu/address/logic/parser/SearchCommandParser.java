@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBSAPPLY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_KNOWNPROGLANG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MAJOR;
@@ -38,7 +39,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_RACE, PREFIX_ADDRESS,
-                PREFIX_SCHOOL, PREFIX_MAJOR, PREFIX_KNOWNPROGLANG, PREFIX_PASTJOB, PREFIX_TAG, PREFIX_GENDER,
+                PREFIX_SCHOOL, PREFIX_MAJOR, PREFIX_PASTJOB, PREFIX_TAG, PREFIX_GENDER, PREFIX_GRADE,
                 PREFIX_NRIC, PREFIX_JOBSAPPLY, PREFIX_KNOWNPROGLANG);
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
@@ -78,6 +79,10 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         if (argMultimap.getValue(PREFIX_GENDER).isPresent()) {
             predicatePersonDescriptor.setGender(new HashSet<>((
                 Arrays.asList(argMultimap.getValue(PREFIX_GENDER).get().split("\\s+")))));
+        }
+        if (argMultimap.getValue(PREFIX_GRADE).isPresent()) {
+            predicatePersonDescriptor.setGrade(new HashSet<>((
+                Arrays.asList(argMultimap.getValue(PREFIX_GRADE).get().split("\\s+")))));
         }
         if (argMultimap.getValue(PREFIX_NRIC).isPresent()) {
             predicatePersonDescriptor.setNric(new HashSet<>((

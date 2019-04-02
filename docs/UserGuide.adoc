@@ -18,7 +18,7 @@ By: `Team T12-3`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-Welcome to the _MediTabs User Guide_. You can find step by step instructions on how to set up MediTabs and take advantage of the features provided by MediTabs to optimise your clinic's medicine stock taking workflow. Interested? You can jump to the <<Quick Start>> to get started. Enjoy!
+Welcome to the _MediTabs User Guide_! Over here, you can find step by step instructions on setting up MediTabs and learn ways to take advantage features provided to optimise your clinic's inventory management flow. Interested? You can jump to  <<Quick Start>> to get started. Enjoy!
 
 === What is MediTabs?
 
@@ -48,27 +48,27 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`delete`* `3` : deletes the 3rd entry shown in the current list
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+.  Refer to <<Commands>> for details of each command.
 .  Having trouble setting up MediTabs? You can refer to the <<Frequently Asked Questions (FAQ)>> for solutions to common problems you might encounter. Do you require further assistance? If so, you can also post your queries link:{repoURL}/issues[here] and our team would do our best to assist you.
 
 == Application Interface
 
-image::UserGuide_Components.png[width="1000"]
+image::UserGuide_ApplicationInterface.png[width="1000"]
 
 *Command Box*
 
-* Type commmands into the command box and press kbd:[Enter] to execute them.
+* Type commands into the command box and press kbd:[Enter] to execute them.
 * You may refer to <<Commands Summary>> for a list of all possible commands.
 
 *Result Display*
 
-* The result of the command will be displayed in the Result Display.
+* The result from executing the command will be displayed in the Result Display.
 * If commands are entered incorrectly, error messages will be shown here.
 
 *Medicine List*
 
-* A list of medicines can be seen in the medicine list.
-* The list may contain all medicine in the inventory, or it may be filtered if the `find` command was used.
+* Medicine list provides a list view of the inventory.
+* The list may contain all medicine in the inventory, or a filtered view if the `find` command was executed.
 
 *Information Panel*
 
@@ -80,18 +80,10 @@ image::UserGuide_Components.png[width="1000"]
 * The list of medicine running low on stock or expiring soon medicine will be displayed in the warning panel to notify the user.
 * Warnings will be logged in the warnings panel until action has been taken to either remove or update the medicine.
 
-image::UserGuide_WarningPanel.png[width="250"]
-
-*Terminology*
-
-* *List:* This refers to the currently displayed list (possibly filtered).
-* *Inventory:* This refers to the storage containing all medicines that have been added. Display all medicines in the inventory by using the `list` command.
-* *Batch:* This refers to medicine with the same name, medical properties and manufacturing date. There may be more than one batch of medicine with the same name, but they will have different batch numbers and manufacturing dates. View all batches of a medicine by using the `select` command.
-
 [[Features]]
 == Features
 
-On top of the most basic features we are offering in our something something i'll think of something, MediTabs offers exciting features blah blah blah.
+As an inventory management application, MediTabs supports basic functionalities (add, edit, delete, list). On top of these basic functions, MediTabs also boasts several features tailored to your needs. These features aim to streamline your inventory management process, thereby enhancing your user experience.
 
 === your feature here
 
@@ -99,16 +91,20 @@ introduce here. give you an example below.
 
 === Warning Panel
 
-The warning panel makes it easy to view expirying/expired medicine blah blah draws your attention to the most pressing matters that have to be taken care of as a pharmacist something something. features real time values and changes as you make changes to your inventory.
+.Warning panel
+image::UserGuide_WarningPanel.png[width="190", float="right"]
 
-*Motivation* +
-you can include the motivation behind this if you wanna
+A standard clinical inventory holds around a hundred types of medicine. This makes sieving out medicines which are expiring, expired or running low in stock extremely cumbersome and time consuming. Thus, to streamline this aspect of inventory management, the warning panel was included as one of the features in our first product release.
 
-Click here to learn how to change the threshold! or something you need to link
+The warning panel provides an overview of the most pressing issues that have to be taken care of. With a quick glance, you will be able to identify expiring or expired batches of medicine, and medicines running low in stock.
+
+On top of that, the panel features flexible thresholds to determine what is expiring and what is low in stock. These thresholds can be changed according your own preferences and needs with a simple command.
+
+You can learn about related commands related in <<WarningPanel>>.
 
 === Coming in v2.0
 
-The team is constantly striving to improve your user experience. Here are some features to look forward to in our next release.
+The team is constantly working to improve your user experience. Here are some features to look forward to in our next release.
 
 ==== Suggested medicine names
 
@@ -139,11 +135,9 @@ An example of an integration addon which would be supported by MediTabs:
 [NOTE]
 This feature could be further expanded to support medical databases of different countries.
 
-// tag::dataencryption[]
-=== Encrypting data files
+==== Encrypting data files
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Due to the nature of medical inventories, the integrity of data stored is of utmost importance. The next release will feature data encryption to keep your inventory safe and keep unauthorised users away. With this feature, you will be required to log in with a password to view and edit your inventory. This feature can be disabled if it is not required for your needs.
 
 [[Commands]]
 == Commands
@@ -290,7 +284,8 @@ Updates quantity and expiry date of batch `s9c4x9532` in batch records of the 2n
 `update 1 b/8937v1x7 q/500` +
 Updates quantity of batch `8937v1x7` in batch records of the 1st medicine in the results of the `find` command to `500`.
 
-=== Managing warning panel : `warning`
+[[WarningPanel]]
+=== Managing the warning panel : `warning`
 
 Manage the threshold for expiry date and low stock warnings. +
 Format: `warning [e/EXPIRY_THRESHOLD] [q/LOW_STOCK_THRESHOLD] [SHOW]` +
@@ -512,6 +507,12 @@ e.g.`select 2`
 e.g.`update 2 b/A030F21 q/1000 e/25/1/2020`
 * *Warning* : `warning [e/EXPIRY_THRESHOLD] [s/LOWSTOCK_THRESHOLD]` +
 e.g. `warning e/20 s/10`
+
+== Terminology
+
+* *List:* This refers to the currently displayed list (possibly filtered).
+* *Inventory:* This refers to the storage containing all medicines that have been added. Display all medicines in the inventory by using the `list` command.
+* *Batch:* This refers to medicine with the same name, medical properties and manufacturing date. There may be more than one batch of medicine with the same name, but they will have different batch numbers and manufacturing dates. View all batches of a medicine by using the `select` command.
 
 == Appendix A: File Naming Convention
 

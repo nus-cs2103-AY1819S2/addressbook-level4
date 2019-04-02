@@ -183,6 +183,7 @@ Example:
 
 * `list-w`
 
+// tag::select[]
 === Selecting an equipment or work list: `select`
 Selects the equipment or work list identified by the index number used in the displayed equipment list or displayed work list. The address of the equipment will be shown as marker on the map. +
 Format: `select INDEX`
@@ -222,6 +223,7 @@ Examples:
 * `find Clementi` +
 Returns `Clementi Police Station` and `Clementi CC`
 
+// tag::display[]
 === Show in map: `display`
 Display entries on the list to the map. Addresses of the equipment will be taken to plot marker on map.
 Format: `display`

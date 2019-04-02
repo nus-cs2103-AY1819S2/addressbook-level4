@@ -177,15 +177,6 @@ public class JsonAdaptedRestaurantTest {
     }
 
     @Test
-    public void toModelType_invalidWebLink_throwsIllegalValueException() {
-        JsonAdaptedRestaurant restaurant = new JsonAdaptedRestaurant(VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                VALID_ADDRESS, VALID_POSTAL, VALID_TAGS, null, null, INVALID_WEBLINK,
-                VALID_OPENING_HOURS, VALID_REVIEWS);
-        String expectedMessage = Weblink.MESSAGE_CONSTRAINTS;
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, restaurant::toModelType);
-    }
-
-    @Test
     public void toModelType_invalidOpeningHours_throwsIllegalValueException() {
         JsonAdaptedRestaurant restaurant = new JsonAdaptedRestaurant(VALID_NAME, VALID_PHONE, VALID_EMAIL,
                 VALID_ADDRESS, VALID_POSTAL, VALID_TAGS, null, null, VALID_WEBLINK,

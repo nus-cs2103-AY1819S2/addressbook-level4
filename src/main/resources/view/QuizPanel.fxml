@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" xmlns="http://javafx.com/javafx/11.0.1">
+    <Label fx:id="cardsRemaining" style="-fx-font-size: 64; -fx-text-fill: white;" text="41"/>
+    <Label style="-fx-font-size: 32; -fx-text-fill: white;" text="cards remaining"/>
+    <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+          prefHeight="60.0" prefWidth="100.0" style="-fx-background-color: #3e7b91#3e7b91; -fx-background-radius: 10;">
+        <children>
+            <Label style="-fx-font-size: 20; -fx-text-fill: white;" text="Good"/>
+            <Label fx:id="good" style="-fx-text-fill: white;" text="0"/>
+        </children>
+        <VBox.margin>
+            <Insets top="75.0"/>
+        </VBox.margin>
+    </VBox>
+    <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+          prefHeight="60.0" prefWidth="100.0" style="-fx-background-color: #ad3b24#ad3b24; -fx-background-radius: 10;">
+        <children>
+            <Label style="-fx-font-size: 20; -fx-text-fill: white;" text="Bad"/>
+            <Label fx:id="bad" style="-fx-text-fill: white;" text="0"/>
+        </children>
+        <VBox.margin>
+            <Insets top="20.0"/>
+        </VBox.margin>
+    </VBox>
+</VBox>

@@ -92,7 +92,8 @@ public class SelectCommandTest {
      */
     private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = new SelectCommand(index);
-        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_FLASHCARD_SUCCESS, index.getOneBased());
+        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_FLASHCARD_SUCCESS, index.getOneBased(),
+            model.getFilteredFlashcardList().get(index.getZeroBased()).getStatistics().getSuccessRate() * 100);
         expectedModel.setSelectedFlashcard(model.getFilteredFlashcardList().get(index.getZeroBased()));
 
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);

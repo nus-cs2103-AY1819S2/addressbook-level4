@@ -120,7 +120,9 @@ public class SelectCommandSystemTest extends CardCollectionSystemTest {
     private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
         String expectedResultMessage = String.format(
-            MESSAGE_SELECT_FLASHCARD_SUCCESS, expectedSelectedCardIndex.getOneBased());
+            MESSAGE_SELECT_FLASHCARD_SUCCESS, expectedSelectedCardIndex.getOneBased(),
+            expectedModel.getFilteredFlashcardList().get(
+                expectedSelectedCardIndex.getZeroBased()).getStatistics().getSuccessRate() * 100);
         int preExecutionSelectedCardIndex = getFlashcardListPanel().getSelectedCardIndex();
 
         executeCommand(command);

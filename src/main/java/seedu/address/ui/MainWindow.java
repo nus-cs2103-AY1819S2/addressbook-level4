@@ -32,7 +32,6 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private CardViewPanel cardViewPanel;
     private FlashcardListPanel flashcardListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -132,7 +131,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        cardViewPanel = new CardViewPanel(logic.selectedFlashcardProperty());
+        CardViewPanel cardViewPanel = new CardViewPanel(logic.selectedFlashcardProperty(), logic.quizModeProperty());
         cardViewPlaceholder.getChildren().add(cardViewPanel.getRoot());
 
         flashcardListPanel = new FlashcardListPanel(logic.getFilteredFlashcardList(), logic.selectedFlashcardProperty(),
@@ -148,6 +147,41 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Sets up the listeners needed.
+     */
+    void setupListeners() {
+        logic.quizModeProperty().addListener(((observableValue, oldValue, newValue) -> onQuizModeChanged(newValue)));
+    }
+
+    /**
+     * Prepares view when quiz mode changes.
+     *
+     * @param newQuizMode the changed quiz mode
+     */
+    private void onQuizModeChanged(Integer newQuizMode) {
+        if (newQuizMode == 0) {
+            endQuizMode();
+        } else {
+            startQuizMode();
+        }
+    }
+
+    /**
+     * Starts a quiz mode.
+     */
+    private void startQuizMode() {
+        flashcardListPanelPlaceholder.getChildren().clear();
+        QuizPanel quizPanel = new QuizPanel(logic.getQuizFlashcards(),
+            logic.quizGoodProperty(), logic.quizBadProperty());
+        flashcardListPanelPlaceholder.getChildren().add(quizPanel.getRoot());
+    }
+
+    private void endQuizMode() {
+        flashcardListPanelPlaceholder.getChildren().clear();
+        flashcardListPanelPlaceholder.getChildren().add(flashcardListPanel.getRoot());
     }
 
     /**

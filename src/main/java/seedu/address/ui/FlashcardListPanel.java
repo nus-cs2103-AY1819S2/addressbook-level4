@@ -29,8 +29,12 @@ public class FlashcardListPanel extends UiPart<Region> {
         flashcardListView.setItems(flashcardList);
         flashcardListView.setCellFactory(listView -> new FlashcardListViewCell());
         flashcardListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selection in flashcard list panel changed to : '" + newValue + "'");
-            onSelectedFlashcardChange.accept(newValue);
+            if (newValue == null) {
+                flashcardListView.getSelectionModel().select(selectedFlashcard.getValue());
+            } else {
+                logger.fine("Selection in flashcard list panel changed to : '" + newValue + "'");
+                onSelectedFlashcardChange.accept(newValue);
+            }
         });
         selectedFlashcard.addListener((observable, oldValue, newValue) -> {
             logger.fine("Selected flashcard changed to: " + newValue);

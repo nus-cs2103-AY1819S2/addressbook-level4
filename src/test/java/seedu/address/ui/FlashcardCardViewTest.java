@@ -52,7 +52,7 @@ public class FlashcardCardViewTest extends GuiUnitTest {
     }
 
     /**
-     * Asserts that {@code flashcardListCard} displays the details of {@code expectedFlashcard} correctly and matches
+     * Asserts that {@code flashcardCardView} displays the details of {@code expectedFlashcard} correctly and matches
      * {@code expectedId}.
      */
     private void assertCardDisplay(FlashcardCardView flashcardCardView, Flashcard expectedFlashcard) {

@@ -201,6 +201,61 @@ public class AddCommandTest {
         public void setSelectedFlashcard(Flashcard flashcard) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ReadOnlyProperty<Integer> quizModeProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Integer getQuizMode() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setQuizMode(Integer quizMode) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Flashcard> getQuizFlashcards() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setQuizFlashcards(ObservableList<Flashcard> flashcards) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void showNextQuizCard() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Integer> getQuizGood() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Integer> getQuizBad() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetQuizStat() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addGoodFeedback() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addBadFeedback() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

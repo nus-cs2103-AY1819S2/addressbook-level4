@@ -77,6 +77,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Flashcard> getQuizFlashcards() {
+        return model.getQuizFlashcards();
+    }
+
+    @Override
     public ObservableList<String> getHistory() {
         return history.getHistory();
     }
@@ -102,7 +107,27 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyProperty<Integer> quizModeProperty() {
+        return model.quizModeProperty();
+    }
+
+    @Override
     public void setSelectedFlashcard(Flashcard flashcard) {
         model.setSelectedFlashcard(flashcard);
+    }
+
+    @Override
+    public void setQuizMode(Integer quizMode) {
+        model.setQuizMode(quizMode);
+    }
+
+    @Override
+    public ReadOnlyProperty<Integer> quizGoodProperty() {
+        return model.getQuizGood();
+    }
+
+    @Override
+    public ReadOnlyProperty<Integer> quizBadProperty() {
+        return model.getQuizBad();
     }
 }

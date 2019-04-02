@@ -126,6 +126,11 @@ public interface Model {
     ReadOnlyProperty<Flashcard> selectedFlashcardProperty();
 
     /**
+     * Current quiz mode. -1 for front face, 1 for back face, 0 for non-quiz mode.
+     */
+    ReadOnlyProperty<Integer> quizModeProperty();
+
+    /**
      * Returns the selected flashcard in the filtered flashcard list.
      * null if no flashcard is selected.
      */
@@ -135,4 +140,56 @@ public interface Model {
      * Sets the selected flashcard in the filtered flashcard list.
      */
     void setSelectedFlashcard(Flashcard flashcard);
+
+    /**
+     * Returns the quiz mode.
+     */
+    Integer getQuizMode();
+
+    /**
+     * Sets the quiz mode.
+     */
+    void setQuizMode(Integer quizMode);
+
+    /**
+     * Gets the quiz mode flashcards.
+     */
+    ObservableList<Flashcard> getQuizFlashcards();
+
+    /**
+     * Sets the quiz mode flashcards.
+     *
+     * @param flashcards the flashcards that is going to be quizzed
+     */
+    void setQuizFlashcards(ObservableList<Flashcard> flashcards);
+
+    /**
+     * Shows a flashcard for quiz mode from quiz flashcards.
+     */
+    void showNextQuizCard();
+
+    /**
+     * @return the number of good feedback in the current quiz mode
+     */
+    ReadOnlyProperty<Integer> getQuizGood();
+
+    /**
+     * @return the number of bad feedback in the current quiz mode
+     */
+    ReadOnlyProperty<Integer> getQuizBad();
+
+    /**
+     * Resets the quiz statistics.
+     */
+    void resetQuizStat();
+
+    /**
+     * Adds good feedback.
+     */
+    void addGoodFeedback();
+
+    /**
+     * Adds bad feedback.
+     */
+    void addBadFeedback();
 }

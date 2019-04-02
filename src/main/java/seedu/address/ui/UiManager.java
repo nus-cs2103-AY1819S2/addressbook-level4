@@ -43,6 +43,7 @@ public class UiManager implements Ui {
             mainWindow.getPrimaryStage().initStyle(StageStyle.UNDECORATED);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
+            mainWindow.setupListeners();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));

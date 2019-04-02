@@ -67,9 +67,37 @@ public interface Logic {
     ReadOnlyProperty<Flashcard> selectedFlashcardProperty();
 
     /**
+     * Current quiz mode. -1 for front face, 1 for back face, 0 for non-quiz mode.
+     *
+     * @see seedu.address.model.Model#quizModeProperty()
+     */
+    ReadOnlyProperty<Integer> quizModeProperty();
+
+    /**
      * Sets the selected flashcard in the filtered flashcard list.
      *
      * @see seedu.address.model.Model#setSelectedFlashcard(Flashcard)
      */
     void setSelectedFlashcard(Flashcard flashcard);
+
+    /**
+     * Sets the quiz mode
+     *
+     * @see seedu.address.model.Model#setQuizMode(Integer)
+     */
+    void setQuizMode(Integer quizMode);
+
+    ObservableList<Flashcard> getQuizFlashcards();
+
+    /**
+     * @return the number of good feedback in the current quiz
+     * @see seedu.address.model.Model#getQuizGood()
+     */
+    ReadOnlyProperty<Integer> quizGoodProperty();
+
+    /**
+     * @return the number of bad feedback in the current quiz
+     * @see seedu.address.model.Model#getQuizBad()
+     */
+    ReadOnlyProperty<Integer> quizBadProperty();
 }

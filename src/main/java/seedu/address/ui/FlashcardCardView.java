@@ -31,6 +31,23 @@ public class FlashcardCardView extends UiPart<Region> {
         backFace.setText(flashcard.getBackFace().text);
     }
 
+    /**
+     * Constructs a {@code FlashCardView} with the given mode.
+     *
+     * @param flashcard the flashcard to show
+     * @param mode      -1 for front only, 1 for back only, and 0 for showing both
+     */
+    public FlashcardCardView(Flashcard flashcard, int mode) {
+        super(FXML);
+        this.flashcard = flashcard;
+        frontFace.setText(flashcard.getFrontFace().text);
+        if (mode != -1) {
+            backFace.setText(flashcard.getBackFace().text);
+        } else {
+            backFace.setText("");
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

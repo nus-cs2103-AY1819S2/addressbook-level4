@@ -93,8 +93,8 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_FLASHCARD);
         }
 
-        model.setFlashcard(flashcardToEdit, editedFlashcard);
         model.updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
+        model.setFlashcard(flashcardToEdit, editedFlashcard);
         model.commitCardCollection();
         return new CommandResult(String.format(MESSAGE_EDIT_FLASHCARD_SUCCESS, editedFlashcard));
     }

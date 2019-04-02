@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.QuizState;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.exceptions.FlashcardNotFoundException;
 
@@ -28,6 +29,10 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Flashcard> filteredFlashcards;
     private final SimpleObjectProperty<Flashcard> selectedFlashcard = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Integer> quizMode = new SimpleObjectProperty<>(0);
+    private final SimpleObjectProperty<Integer> quizGood = new SimpleObjectProperty<>(0);
+    private final SimpleObjectProperty<Integer> quizBad = new SimpleObjectProperty<>(0);
+    private ObservableList<Flashcard> quizFlashcards;
 
     /**
      * Initializes a ModelManager with the given cardCollection and userPrefs.
@@ -136,7 +141,7 @@ public class ModelManager implements Model {
         filteredFlashcards.setPredicate(predicate);
     }
 
-    //=========== Undo/Redo =================================================================================
+    //=========== Undo/Redo ====================================================================================
 
     @Override
     public boolean canUndoCardCollection() {
@@ -163,7 +168,7 @@ public class ModelManager implements Model {
         versionedCardCollection.commit();
     }
 
-    //=========== Selected flashcard ===========================================================================
+    //=========== Selected flashcard ============================================================================
 
     @Override
     public ReadOnlyProperty<Flashcard> selectedFlashcardProperty() {
@@ -204,7 +209,8 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedFlashcardRemoved = change.getRemoved().stream()
-                .anyMatch(removedFlashcard -> selectedFlashcard.getValue().isSameFlashcard(removedFlashcard));
+                .anyMatch(removedFlashcard -> selectedFlashcard.getValue().isSameFlashcard(removedFlashcard))
+                && !change.getAddedSubList().contains(selectedFlashcard.getValue());
             if (wasSelectedFlashcardRemoved) {
                 // Select the flashcard that came before it in the list,
                 // or clear the selection if there is no such flashcard.
@@ -212,6 +218,72 @@ public class ModelManager implements Model {
             }
         }
     }
+
+    //=========== Quiz Mode =====================================================================================
+
+    @Override
+    public ObservableList<Flashcard> getQuizFlashcards() {
+        return quizFlashcards;
+    }
+
+    @Override
+    public void setQuizFlashcards(ObservableList<Flashcard> flashcards) {
+        quizFlashcards = flashcards;
+    }
+
+    @Override
+    public ReadOnlyProperty<Integer> quizModeProperty() {
+        return quizMode;
+    }
+
+    @Override
+    public Integer getQuizMode() {
+        return quizMode.getValue();
+    }
+
+    @Override
+    public void setQuizMode(Integer quizMode) {
+        this.quizMode.setValue(quizMode);
+    }
+
+    @Override
+    public void showNextQuizCard() {
+        quizMode.setValue(QuizState.QUIZ_MODE_FRONT);
+        Flashcard flashcard = quizFlashcards.get(0);
+        setSelectedFlashcard(flashcard);
+        quizFlashcards.remove(0);
+    }
+
+    @Override
+    public ReadOnlyProperty<Integer> getQuizGood() {
+        return quizGood;
+    }
+
+    @Override
+    public ReadOnlyProperty<Integer> getQuizBad() {
+        return quizBad;
+    }
+
+    @Override
+    public void resetQuizStat() {
+        quizGood.setValue(0);
+        quizBad.setValue(0);
+    }
+
+    @Override
+    public void addGoodFeedback() {
+        selectedFlashcard.getValue().getStatistics().quizAttempt(true);
+        quizGood.setValue(quizGood.getValue() + 1);
+        commitCardCollection();
+    }
+
+    @Override
+    public void addBadFeedback() {
+        selectedFlashcard.getValue().getStatistics().quizAttempt(false);
+        quizBad.setValue(quizBad.getValue() + 1);
+        commitCardCollection();
+    }
+
 
     @Override
     public boolean equals(Object obj) {

@@ -19,34 +19,43 @@ public class CardViewPanel extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+    private int quizMode;
+
     @FXML
     private StackPane cardPlaceholder;
 
-    public CardViewPanel(ObservableValue<Flashcard> selectedPerson) {
+    public CardViewPanel(ObservableValue<Flashcard> selectedCard, ObservableValue<Integer> quizMode) {
         super(FXML);
 
-        // Load person page when selected person changes.
-        selectedPerson.addListener((observable, oldValue, newValue) -> {
+        // Reload page when selected card changes.
+        selectedCard.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
-                loadDefaultPage();
+                loadEmptyCard();
                 return;
             }
             loadCardPage(newValue);
         });
 
-        loadDefaultPage();
+        quizMode.addListener(((observableValue, oldValue, newValue) -> {
+            this.quizMode = newValue;
+            loadCardPage(selectedCard.getValue());
+        }));
+
+        loadEmptyCard();
     }
 
     private void loadCardPage(Flashcard flashcard) {
-        loadPage(new FlashcardCardView(flashcard));
+        if (flashcard != null) {
+            loadCard(new FlashcardCardView(flashcard, quizMode));
+        }
     }
 
     /**
-     * Loads page given uiPart
+     * Loads card view given uiPart
      *
      * @param uiPart the uiPart to show
      */
-    public void loadPage(UiPart<Region> uiPart) {
+    public void loadCard(UiPart<Region> uiPart) {
         cardPlaceholder.getChildren().clear();
         if (uiPart != null) {
             cardPlaceholder.getChildren().add(uiPart.getRoot());
@@ -54,10 +63,10 @@ public class CardViewPanel extends UiPart<Region> {
     }
 
     /**
-     * Loads a default HTML file with a background that matches the general theme.
+     * Loads an empty card view.
      */
-    private void loadDefaultPage() {
-        loadPage(null);
+    private void loadEmptyCard() {
+        loadCard(null);
     }
 
 }

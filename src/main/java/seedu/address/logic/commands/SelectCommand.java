@@ -23,7 +23,7 @@ public class SelectCommand extends Command {
         + "Parameters: INDEX (must be a positive integer)\n"
         + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_FLASHCARD_SUCCESS = "Selected Flashcard: %1$s";
+    public static final String MESSAGE_SELECT_FLASHCARD_SUCCESS = "Selected Flashcard: %1$s, %2$.2f%% success";
 
     private final Index targetIndex;
 
@@ -42,7 +42,8 @@ public class SelectCommand extends Command {
         }
 
         model.setSelectedFlashcard(filteredFlashcardList.get(targetIndex.getZeroBased()));
-        return new CommandResult(String.format(MESSAGE_SELECT_FLASHCARD_SUCCESS, targetIndex.getOneBased()));
+        return new CommandResult(String.format(MESSAGE_SELECT_FLASHCARD_SUCCESS, targetIndex.getOneBased(),
+            filteredFlashcardList.get(targetIndex.getZeroBased()).getStatistics().getSuccessRate() * 100));
 
     }
 

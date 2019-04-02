@@ -97,6 +97,14 @@ public class TestApp extends MainApp {
         return copy;
     }
 
+    public Integer getModelQuizMode() {
+        return model.getQuizMode();
+    }
+
+    public int getModelQuizFlashcardSize() {
+        return model.getQuizFlashcards().size();
+    }
+
     @Override
     public void start(Stage primaryStage) {
         ui.start(primaryStage);

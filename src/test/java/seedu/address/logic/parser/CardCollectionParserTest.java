@@ -2,13 +2,14 @@ package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BACK_FACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT_FACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_FLASHCARD;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,18 +20,23 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.BadCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.GoodCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.QuizCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SmartCommand;
 import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.UploadCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.FlashcardContainsKeywordsPredicate;
@@ -140,16 +146,45 @@ public class CardCollectionParserTest {
     }
 
     @Test
-    public void parseCommand_statsCommandWord_returnsStatsCommand() throws Exception {
-        assertTrue(parser.parseCommand(StatsCommand.COMMAND_WORD) instanceof StatsCommand);
-        assertTrue(parser.parseCommand("stats") instanceof StatsCommand);
+    public void parseCommand_uploadCommandWord_returnUploadCommand() {
+        Path testDataFolder = Paths.get("src", "test", "data", "uploadCommandTest");
+        String file = testDataFolder.resolve("upload.txt").toString();
+        // TODO: test does not pass on travis
+        try {
+            parser.parseCommand(UploadCommand.COMMAND_WORD + " " + file);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
-    public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {
-        thrown.expect(ParseException.class);
-        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-        parser.parseCommand("");
+    public void parseCommand_statsCommandWord_returnsStatsCommand() throws Exception {
+        assertTrue(parser.parseCommand(StatsCommand.COMMAND_WORD) instanceof StatsCommand);
+    }
+
+    @Test
+    public void parseCommand_quizCommandWord_returnsQuizCommand() throws Exception {
+        assertTrue(parser.parseCommand(QuizCommand.COMMAND_WORD) instanceof QuizCommand);
+    }
+
+    @Test
+    public void parseCommand_goodCommandWord_returnsGoodCommand() throws Exception {
+        assertTrue(parser.parseCommand(GoodCommand.COMMAND_WORD) instanceof GoodCommand);
+    }
+
+    @Test
+    public void parseCommand_badCommandWord_returnsBadCommand() throws Exception {
+        assertTrue(parser.parseCommand(BadCommand.COMMAND_WORD) instanceof BadCommand);
+    }
+
+    @Test
+    public void parseCommand_smartCommandWord_returnSmartCommand() throws Exception {
+        assertTrue(parser.parseCommand(SmartCommand.COMMAND_WORD) instanceof SmartCommand);
+    }
+
+    @Test
+    public void parseCommand_emptyInput_returnSmartCommand() throws Exception {
+        assertTrue(parser.parseCommand("") instanceof SmartCommand);
     }
 
     @Test

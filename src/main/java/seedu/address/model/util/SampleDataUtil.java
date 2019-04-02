@@ -105,16 +105,25 @@ public class SampleDataUtil {
      */
     public static Set<SkillsTag> getTagSet(List<String> skills, List<String> positions, List<String> endorsements) {
         final Set<SkillsTag> tagSet = new HashSet<>();
-        for (String skill : skills) {
-            tagSet.add(new SkillsTag(skill, "skill"));
-        }
-        for (String pos : positions) {
-            tagSet.add(new SkillsTag(pos, "pos"));
-        }
-        for (String end: endorsements){
-            tagSet.add(new SkillsTag(end, "endorse"));
+
+
+        if (skills != null) {
+            for (String skill : skills) {
+                tagSet.add(new SkillsTag(skill, "yellow"));
+            }
         }
 
+        if (positions != null) {
+            for (String pos : positions) {
+                tagSet.add(new SkillsTag(pos, "pink"));
+            } 
+        }
+          
+        if (endorsements != null) {
+          for (String end: endorsements){
+            tagSet.add(new SkillsTag(end, "endorse"));
+          }
+        }
         return tagSet;
     }
 

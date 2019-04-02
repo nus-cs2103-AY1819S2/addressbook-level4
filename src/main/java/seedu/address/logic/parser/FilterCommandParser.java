@@ -23,6 +23,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Education;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Gpa;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
+import seedu.address.model.tag.SkillsTag;
 
 /**
  * Parses the information in filter command
@@ -30,6 +37,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class FilterCommandParser implements Parser<FilterCommand> {
 
     private final int totalNumberOfInfo = 8;
+    private boolean inputParameterInCorrectForm = true;
 
     /**
      * Since there are multiple options in filtering: and, or , clear
@@ -63,9 +71,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      *  7- Gpa
      *  8- Education
      *  !!! If some of the above ones are not given, then their value will be null
-     */
-
-    /**
+     *
      * Since there can be multiple filtering criterion at once, this function detects which criteron exist and
      * Places evey criteria text into a String array
      */
@@ -144,39 +150,79 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             if (criterion[0] != null) {
                 criterion[0] = infoBetweenPrefixes(args, PREFIX_NAME.toString(), PREFIX_NAME_REVERSE.toString(),
                         typeOfProcess, false);
+                if (!Name.isValidName(criterion[0])) {
+                    inputParameterInCorrectForm = false;
+                    typeOfProcess.set(-1);
+                }
             }
 
             if (criterion[1] != null) {
                 criterion[1] = infoBetweenPrefixes(args, PREFIX_PHONE.toString(), PREFIX_PHONE_REVERSE.toString(),
                         typeOfProcess, false);
+                if (!Phone.isValidPhone(criterion[1])) {
+                    inputParameterInCorrectForm = false;
+                    typeOfProcess.set(-1);
+                }
             }
 
             if (criterion[2] != null) {
                 criterion[2] = infoBetweenPrefixes(args, PREFIX_EMAIL.toString(), PREFIX_EMAIL_REVERSE.toString(),
                         typeOfProcess, false);
+                if (!Email.isValidEmail(criterion[2])) {
+                    inputParameterInCorrectForm = false;
+                    typeOfProcess.set(-1);
+                }
             }
 
             if (criterion[3] != null) {
                 criterion[3] = infoBetweenPrefixes(args, PREFIX_ADDRESS.toString(), PREFIX_ADDRESS_REVERSE.toString(),
                         typeOfProcess, false);
+                if (!Address.isValidAddress(criterion[3])) {
+                    inputParameterInCorrectForm = false;
+                    typeOfProcess.set(-1);
+                }
             }
 
             if (criterion[4] != null) {
                 criterion[4] = infoBetweenPrefixes(args, PREFIX_SKILL.toString(), PREFIX_SKILL_REVERSE.toString(),
                         typeOfProcess, false);
+                for (String tag : criterion[4].split(",")) {
+                    tag.trim();
+                    if (!SkillsTag.isValidTagName(tag)) {
+                        inputParameterInCorrectForm = false;
+                        typeOfProcess.set(-1);
+                    }
+                }
             }
 
             if (criterion[5] != null) {
                 criterion[5] = infoBetweenPrefixes(args, PREFIX_POS.toString(), PREFIX_POS_REVERSE.toString(),
                         typeOfProcess, false);
+                for (String tag : criterion[5].split(",")) {
+                    tag = tag.trim();
+                    System.out.println(tag);
+                    if (!SkillsTag.isValidTagName(tag)) {
+                        inputParameterInCorrectForm = false;
+                        typeOfProcess.set(-1);
+                    }
+                }
             }
+
             if (criterion[6] != null) {
                 criterion[6] = infoBetweenPrefixes(args, PREFIX_GPA.toString(), PREFIX_GPA_REVERSE.toString(),
                         typeOfProcess, true);
+                if (!Gpa.isValidGpa(criterion[6])) {
+                    inputParameterInCorrectForm = false;
+                    typeOfProcess.set(-1);
+                }
             }
             if (criterion[7] != null) {
                 criterion[7] = infoBetweenPrefixes(args, PREFIX_EDUCATION.toString(),
                         PREFIX_EDUCATION_REVERSE.toString(), typeOfProcess, false);
+                if (!Education.isValidEducation(criterion[7])) {
+                    inputParameterInCorrectForm = false;
+                    typeOfProcess.set(-1);
+                }
             }
         }
 
@@ -239,6 +285,9 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         }
 
         if (typeOfProcess.get() == -1) {
+            if (!inputParameterInCorrectForm) {
+                throw new ParseException("The filtering parameters entered is not correct accepted form!");
+            }
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
         } else if (typeOfProcess.get() == 1) {
             return new FilterCommand(args, criterion, 1);

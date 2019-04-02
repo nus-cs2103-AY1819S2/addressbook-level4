@@ -159,4 +159,18 @@ public class Person {
     public String namesToString() {
         return getName().toString();
     }
+
+    public String surnamesToString() {
+        String fullName = namesToString();
+        int finalSpace =  fullName.lastIndexOf(" ");
+        return fullName.substring(finalSpace+1);
+    }
+
+    public String gpaToString() {
+        return getGpa().toString();
+    }
+
+    public String educationToString() {
+        return getEducation().toString();
+    }
 }

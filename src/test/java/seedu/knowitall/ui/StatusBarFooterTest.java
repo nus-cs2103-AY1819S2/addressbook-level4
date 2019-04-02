@@ -42,25 +42,26 @@ public class StatusBarFooterTest extends GuiUnitTest {
         // restore original clock
         StatusBarFooter.setClock(originalClock);
     }
+    /*
+    @Before
+    public void setUp() {
+        StatusBarFooter statusBarFooter = new StatusBarFooter(STUB_SAVE_LOCATION, cardFolder);
+        uiPartRule.setUiPart(statusBarFooter);
 
-    //@Before
-    //public void setUp() {
-        //StatusBarFooter statusBarFooter = new StatusBarFooter(STUB_SAVE_LOCATION, cardFolder);
-        //uiPartRule.setUiPart(statusBarFooter);
+        statusBarFooterHandle = new StatusBarFooterHandle(statusBarFooter.getRoot());
+    }
 
-        //statusBarFooterHandle = new StatusBarFooterHandle(statusBarFooter.getRoot());
-    //}
+    @Test
+    public void display() {
+        // initial state
+        assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(), SYNC_STATUS_INITIAL);
 
-    //@Test
-    //public void display() {
-        //// initial state
-        //assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(), SYNC_STATUS_INITIAL);
-
-        //// after card folder is updated
-        //guiRobot.interact(() -> cardFolder.addCard(ALICE));
-    //    assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(), String.format
-    // (SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));
-    //}
+        // after card folder is updated
+        guiRobot.interact(() -> cardFolder.addCard(ALICE));
+        assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
+     String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));
+    }
+     */
 
     /**
      * Asserts that the save location matches that of {@code expectedSaveLocation}, and the

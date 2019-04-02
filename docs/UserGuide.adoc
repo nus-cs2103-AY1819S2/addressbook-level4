@@ -458,11 +458,12 @@ Format: `end`
 //end::reportoperations[]
 
 === Advanced Operations
-All the above operations described above focuses on how individual users may use the app.
-However, Know-It-All isn't wasn't designed for individual users in mind. It was designed to be the
-application that could empower others to 'Know-It-All' as well.
+All the above operations described above focuses on how individual users may use the app, but this section
+describes also how you can use it more effectively; creating multiple flashcards even faster and sharing it
+with your friends.
 
-The following `Import` and `Export` operations describe just how you can share your flashcards with other users and vice versa.
+The following `Import` and `Export` operations describe how you can do just that.
+
 
 ==== Important to Note
 IMPORTANT: The files used for Import and Export commands should be placed in the project root directory. +

@@ -236,8 +236,6 @@ public class Restaurant {
         builder.append(" Categories: ")
                 .append(categories.toString());
 
-//        builder.append(" Reviews: ");
-//        getReviews().forEach(builder::append);
         return builder.toString();
     }
 

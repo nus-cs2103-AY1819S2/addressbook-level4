@@ -36,10 +36,17 @@ public class Summary {
         requireAllNonNull(totalVisits, avgRating);
     }
 
+    /**
+     * Returns the total number of visits to the restaurant based on
+     * the number of reviews it has.
+     */
     public int computeTotalVisits(List<Review> reviews) {
         return reviews.size();
     }
 
+    /**
+     * Computes the average ratings from all the reviews of the restaurant.
+     */
     public float computeAvgRating(List<Review> reviews, int numVisits) {
         Iterator<Review> iterator = reviews.listIterator();
         float sumRatings = 0;

@@ -4,16 +4,25 @@ import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATES;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_ROOM;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.function.Predicate;
 
+import javafx.collections.ObservableList;
+import javafx.util.Pair;
+import seedu.hms.commons.core.Messages;
 import seedu.hms.commons.core.index.Index;
 import seedu.hms.logic.commands.GenerateBillForBookingCommand;
 import seedu.hms.logic.commands.GenerateBillForReservationCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
+import seedu.hms.model.BillManager;
+import seedu.hms.model.BillModel;
 import seedu.hms.model.CustomerManager;
 import seedu.hms.model.CustomerModel;
+import seedu.hms.model.bill.Bill;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.IdentificationNo;
+import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.ReservationContainsPayerPredicate;
 import seedu.hms.model.reservation.ReservationWithDatePredicate;
 import seedu.hms.model.reservation.ReservationWithTypePredicate;
@@ -31,7 +40,7 @@ public class GenerateBillForReservationCommandParser implements Parser<GenerateB
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public GenerateBillForReservationCommand parse(String args, CustomerModel customerModel) throws ParseException {
+    public GenerateBillForReservationCommand parse(String args, CustomerModel customerModel, BillModel billModel) throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_ROOM, PREFIX_DATES);
 
@@ -47,8 +56,7 @@ public class GenerateBillForReservationCommandParser implements Parser<GenerateB
 
         List<Customer> lastShownList = customerModel.getFilteredCustomerList();
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                GenerateBillForBookingCommand.MESSAGE_USAGE));
+            throw new ParseException(Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
         }
 
         //Finds the selected customer
@@ -67,14 +75,29 @@ public class GenerateBillForReservationCommandParser implements Parser<GenerateB
             reservationWithTypePredicate = new ReservationWithTypePredicate("");
         }
 
-        //search in whole day if timing is not provided
+        //Search in whole day if timing is not provided
         DateRange dateRange = ParserUtil.parseDates(argMultimap.getValue(PREFIX_DATES)
             .orElse("01/01/0000 - 31/12/9999"));
-        ReservationWithDatePredicate reservationWithinDatePredicate = new ReservationWithDatePredicate(dateRange);
+        ReservationWithDatePredicate reservationWithDatePredicate = new ReservationWithDatePredicate(dateRange);
+
+        //Reservation bill
+        Predicate<Reservation> reservationPredicate;
+        reservationPredicate = (reservationTested) -> reservationContainsPayerPredicate.test(reservationTested)
+            && reservationWithTypePredicate.test(reservationTested)
+            && reservationWithDatePredicate.test(reservationTested);
+        billModel.updateFilteredReservationList(reservationPredicate);
+        ObservableList<Reservation> reservationObservableList = billModel.getFilteredReservationList();
+        HashMap<String, Pair<Double, Long>> reservationBill =
+            billModel.generateHashMapForReservation(reservationObservableList);
+
+        //total amount for reservation
+        double amountReservation = billModel.generateBillForReservation(reservationObservableList);
+
+        Bill bill = new Bill(customer, amountReservation, new HashMap<>(), reservationBill);
 
         return new GenerateBillForReservationCommand(reservationContainsPayerPredicate,
             reservationWithTypePredicate,
-            reservationWithinDatePredicate);
+            reservationWithDatePredicate, bill);
     }
 
     /**
@@ -84,7 +107,7 @@ public class GenerateBillForReservationCommandParser implements Parser<GenerateB
      * @throws ParseException if the user input does not conform the expected format
      */
     public GenerateBillForReservationCommand parse(String args) throws ParseException {
-        return parse(args, new CustomerManager());
+        return parse(args, new CustomerManager(), new BillManager());
     }
 
 }

@@ -586,7 +586,7 @@ public class BillManager implements BillModel {
             return new Pair<>(totalAmount, totalDays);
 
         default:
-            return new Pair<>(0.0, 0l);
+            return new Pair<>(0.0, 0L);
 
         }
     }

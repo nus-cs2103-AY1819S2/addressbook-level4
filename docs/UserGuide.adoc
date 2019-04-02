@@ -288,7 +288,8 @@ Format: `{[aqua]#findbookingcontainspayer#/[aqua]#fbcp#} [lime]#PAYER_IDENTIFICA
 ====
 
 Example:
- `fbcs 12345678` +
+
+* `fbcs 12345678` +
 Returns any booking which is paid by the customer with identification number 12345678
 
 === [underline]#Bill Generation commands#
@@ -298,12 +299,26 @@ Returns any booking which is paid by the customer with identification number 123
 Effect: Generates the bill for the specific booking of a customer +
 Format: `{[aqua]#generate-bill-booking#/[aqua]#gb-b#} [lime]#INDEX# [black]#[# [blue]#r/# [lime]#ROOM_TYPE# [black]#]# [black]#[# [blue]#d/# [lime]#START_DATE - END_DATE# [black]#]#`
 
+Example:
+
+ * `gb-b 2` +
+Returns the bill for all bookings for the customer at index 2
+
+* `gb-b 2 s/SPA` +
+Returns the bill for all spa bookings for the customer at index 2
 
 ==== [underline]#Generate bill for specific reservation# : `generate-bill-reservation`, `gb-r`
 
 Effect: Generates the bill for the specific booking of a customer +
 Format: `{[aqua]#generate-bill-reservation#/[aqua]#gb-r#} [lime]#INDEX# [black]#[# [blue]#s/# [lime]#SERVICE_NAME# [black]#]# [black]#[# [blue]#:/# [lime]#START_TIME - END_TIME# [black]#]#`
 
+Example:
+
+ * `gb-r 2` +
+Returns the bill for all reservations for the customer at index 2
+
+* `gb-r 2 r/SINGLE ROOM` +
+Returns the bill for all single room reservations for the customer at index 2
 
 ==== [underline]#Generate customer's bill# : `generate-bill-customer`, `gb-c`
 
@@ -313,6 +328,9 @@ Format: `{[aqua]#generate-bill-customer#/[aqua]#gb-c#} [lime]#INDEX#`
 [TIP]
 This command is a super set of all the other "generate bill" commands and can be used
 to obtain the complete breakup for a customer.
+
+Example: `gb-c` 2 +
+Returns the total bill (includes all bookings and reservations) for the customer at index 2
 
 [NOTE]
 ====

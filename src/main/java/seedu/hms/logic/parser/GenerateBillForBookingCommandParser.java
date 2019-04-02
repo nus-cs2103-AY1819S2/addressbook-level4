@@ -4,13 +4,22 @@ import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_SERVICE;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_TIMING;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.function.Predicate;
 
+import javafx.collections.ObservableList;
+import javafx.util.Pair;
+import seedu.hms.commons.core.Messages;
 import seedu.hms.commons.core.index.Index;
 import seedu.hms.logic.commands.GenerateBillForBookingCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
+import seedu.hms.model.BillManager;
+import seedu.hms.model.BillModel;
 import seedu.hms.model.CustomerManager;
 import seedu.hms.model.CustomerModel;
+import seedu.hms.model.bill.Bill;
+import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.BookingContainsPayerPredicate;
 import seedu.hms.model.booking.BookingWithTypePredicate;
 import seedu.hms.model.booking.BookingWithinTimePredicate;
@@ -30,7 +39,7 @@ public class GenerateBillForBookingCommandParser implements Parser<GenerateBillF
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public GenerateBillForBookingCommand parse(String args, CustomerModel customerModel) throws ParseException {
+    public GenerateBillForBookingCommand parse(String args, CustomerModel customerModel, BillModel billModel) throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_SERVICE, PREFIX_TIMING);
 
@@ -45,8 +54,7 @@ public class GenerateBillForBookingCommandParser implements Parser<GenerateBillF
 
         List<Customer> lastShownList = customerModel.getFilteredCustomerList();
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                GenerateBillForBookingCommand.MESSAGE_USAGE));
+            throw new ParseException(Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
         }
 
         //Finds the selected customer
@@ -69,9 +77,24 @@ public class GenerateBillForBookingCommandParser implements Parser<GenerateBillF
         TimeRange timeRange = ParserUtil.parseTiming(argMultimap.getValue(PREFIX_TIMING).orElse("0 - 23"));
         BookingWithinTimePredicate bookingWithinTimePredicate = new BookingWithinTimePredicate(timeRange);
 
+        //Booking bill
+        final Predicate<Booking> bookingPredicate;
+        bookingPredicate = (bookingTested) -> bookingContainsPayerPredicate.test(bookingTested)
+            && bookingWithTypePredicate.test(bookingTested)
+            && bookingWithinTimePredicate.test(bookingTested);
+        billModel.updateFilteredBookingList(bookingPredicate);
+        ObservableList<Booking> bookingObservableList = billModel.getFilteredBookingList();
+        HashMap<String, Pair<Double, Integer>> bookingBill = billModel.generateHashMapForBooking(bookingObservableList);
+
+        // total amount for booking
+        double amountBooking = billModel.generateBillForBooking(bookingObservableList);
+
+        Bill bill = new Bill(customer, amountBooking, bookingBill, new HashMap<>());
+
+
         return new GenerateBillForBookingCommand(bookingContainsPayerPredicate,
             bookingWithTypePredicate,
-            bookingWithinTimePredicate);
+            bookingWithinTimePredicate, bill);
     }
 
     /**
@@ -81,7 +104,7 @@ public class GenerateBillForBookingCommandParser implements Parser<GenerateBillF
      * @throws ParseException if the user input does not conform the expected format
      */
     public GenerateBillForBookingCommand parse(String args) throws ParseException {
-        return parse(args, new CustomerManager());
+        return parse(args, new CustomerManager(), new BillManager());
     }
 
 

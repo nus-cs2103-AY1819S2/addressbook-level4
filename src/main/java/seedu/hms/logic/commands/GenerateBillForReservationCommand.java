@@ -6,10 +6,10 @@ import static seedu.hms.logic.parser.CliSyntax.PREFIX_ROOM;
 
 import java.util.function.Predicate;
 
-import javafx.collections.ObservableList;
 import seedu.hms.logic.CommandHistory;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.model.BillModel;
+import seedu.hms.model.bill.Bill;
 import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.ReservationContainsPayerPredicate;
 import seedu.hms.model.reservation.ReservationWithDatePredicate;
@@ -34,18 +34,21 @@ public class GenerateBillForReservationCommand extends BillCommand {
         + "[" + PREFIX_DATES + "12/12/2019 - 14/12/2019]";
 
 
-    public static final String MESSAGE_GENERATE_BILL_FOR_RESERVATION_SUCCESS = "Reservation Bill: %1$s";
+    public static final String MESSAGE_GENERATE_BILL_FOR_RESERVATION_SUCCESS = "Reservation bill generated for " +
+        "customer: %1$s";
 
     private final Predicate<Reservation> reservationPredicate;
-
+    private final Bill bill;
 
     public GenerateBillForReservationCommand(ReservationContainsPayerPredicate reservationContainsPayerPredicate,
                                              ReservationWithTypePredicate reservationWithTypePredicate,
-                                             ReservationWithDatePredicate reservationWithDatePredicate) {
+                                             ReservationWithDatePredicate reservationWithDatePredicate,
+                                             Bill bill) {
 
         this.reservationPredicate = (reservationTested) -> reservationContainsPayerPredicate.test(reservationTested)
             && reservationWithTypePredicate.test(reservationTested)
             && reservationWithDatePredicate.test(reservationTested);
+        this.bill = bill;
     }
 
 
@@ -54,14 +57,9 @@ public class GenerateBillForReservationCommand extends BillCommand {
     public CommandResult execute(BillModel model, CommandHistory history) throws CommandException {
 
         requireNonNull(model);
-
         model.updateFilteredReservationList(reservationPredicate);
-        ObservableList<Reservation> reservationObservableList = model.getFilteredReservationList();
-
-        double amount = model.generateBillForReservation(reservationObservableList);
-
-
-        return new CommandResult(String.format(MESSAGE_GENERATE_BILL_FOR_RESERVATION_SUCCESS, amount));
+        return new CommandResult(String.format(MESSAGE_GENERATE_BILL_FOR_RESERVATION_SUCCESS,
+            bill.getCustomer().getName()));
     }
 
     @Override

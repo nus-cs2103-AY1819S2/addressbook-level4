@@ -8,8 +8,10 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
+import seedu.hms.commons.core.Messages;
 import seedu.hms.commons.core.index.Index;
 import seedu.hms.logic.commands.GenerateBillForCustomerCommand;
+import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.BillManager;
 import seedu.hms.model.BillModel;
@@ -48,8 +50,7 @@ public class GenerateBillForCustomerCommandParser implements Parser<GenerateBill
 
         List<Customer> lastShownList = customerModel.getFilteredCustomerList();
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                GenerateBillForCustomerCommand.MESSAGE_USAGE));
+            throw new ParseException(Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
         }
 
         //Finds the selected customer
@@ -96,7 +97,7 @@ public class GenerateBillForCustomerCommandParser implements Parser<GenerateBill
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public GenerateBillForCustomerCommand parse(String args) throws ParseException {
+    public GenerateBillForCustomerCommand parse(String args) throws ParseException{
         return parse(args, new CustomerManager(), new BillManager());
     }
 

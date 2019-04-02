@@ -38,6 +38,16 @@ public class Bill {
         this.reservationBill = reservationBill;
     }
 
+    public Bill(Customer customer, double amountBooking, HashMap<String, Pair<Double, Integer>> bookingBill,
+                HashMap<String, Pair<Double, Long>> reservationBill){
+        this.customer = customer;
+        this.amountBooking = amountBooking;
+        this.bookingBill = bookingBill;
+        this.reservationBill = reservationBill;
+    }
+
+
+
     /**
      * Returns the amount customer has to pay for all gym bookings
      */
@@ -182,6 +192,6 @@ public class Bill {
     @Override
     public String toString() {
         return " Amount to be paid: " + totalAmount
-            + " by " + customer.getName() + " " + this.bookingBill + " " + this.reservationBill;
+            + " by " + customer.getName();
     }
 }

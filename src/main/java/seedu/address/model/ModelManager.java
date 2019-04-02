@@ -49,7 +49,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
-        variableFilteredPersons = filteredPersons;
+        this.variableFilteredPersons = filteredPersons;
     }
 
     public ModelManager() {
@@ -177,16 +177,22 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        variableFilteredPersons.setPredicate(predicate);
+    }
+
+    @Override
     public void changeFilteredPersonList(UniquePersonList list) {
         requireNonNull(list);
 
         FilteredList<Person> tempList = new FilteredList<>(list.asUnmodifiableObservableList());
-        filteredPersons = tempList;
+        this.variableFilteredPersons = tempList;
     }
 
     @Override
     public void revertList() {
-        variableFilteredPersons = filteredPersons;
+        this.variableFilteredPersons = filteredPersons;
     }
 
     //=========== Undo/Redo =================================================================================

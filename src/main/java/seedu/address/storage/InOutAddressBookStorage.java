@@ -16,6 +16,7 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 import seedu.address.commons.core.LogsCenter;
@@ -156,9 +157,9 @@ public class InOutAddressBookStorage implements AddressBookStorage {
             PDPageContentStream[] contents = new PDPageContentStream[1];
             contents[0] = new PDPageContentStream(doc, page);
 
-            PDImageXObject pdImage = PDImageXObject.createFromFile(TEETH_IMAGE_PATH, doc);
+            PDImageXObject titleImage = PDImageXObject.createFromFile(TEETH_IMAGE_PATH, doc);
             contents[0].setFont(TITLE_FONT, TITLE_FONT_SIZE);
-            ty = writeTitle(contents[0], page, pdImage, ty);
+            ty = writeTitle(contents[0], page, titleImage, ty);
 
             contents[0].setFont(DATE_TIME_FONT, DATE_TIME_FONT_SIZE);
             writeDateTime(contents[0], page);
@@ -167,6 +168,12 @@ public class InOutAddressBookStorage implements AddressBookStorage {
             ty = writeSubtitle(contents[0], page, type, ty);
 
             ty = drawLine(contents[0], LINE_SIDE_MARGIN, page.getMediaBox().getWidth() - LINE_SIDE_MARGIN, ty);
+
+            if (type.equals("Patients")) {
+                PDImageXObject teethImage =
+                        LosslessFactory.createFromImage(doc, ((PdfAdaptedPerson) pdfAdaptedObj).getTeethImage());
+                ty = drawImage(contents[0], teethImage, SIDE_MARGIN, ty);
+            }
 
             contents[0].setFont(FONT, FONT_SIZE);
             for (String toWrite : stringArr) {
@@ -268,19 +275,20 @@ public class InOutAddressBookStorage implements AddressBookStorage {
      * Writes a single line of content followed by an image.
      * @param contents The content stream for writing
      * @param page The page to write to
-     * @param pdImage The Image to draw
+     * @param titleImage The Image to draw
      * @param ty The y coordinate to write at
      * @throws IOException If file cannot be written
      */
-    private float writeTitle(PDPageContentStream contents, PDPage page, PDImageXObject pdImage,
+    private float writeTitle(PDPageContentStream contents, PDPage page, PDImageXObject titleImage,
                              float ty) throws IOException {
         try {
             float textWidth = TITLE_FONT.getStringWidth(TITLE) / 1000 * TITLE_FONT_SIZE;
             float textHeight = TITLE_FONT.getFontDescriptor().getFontBoundingBox().getHeight() / 1000 * TITLE_FONT_SIZE;
-            float tx = ((page.getMediaBox().getWidth() - textWidth - (pdImage.getWidth() * textHeight / 1000)) / 2) - 3;
+            float tx = ((page.getMediaBox().getWidth() - textWidth - (titleImage.getWidth() * textHeight / 1000))
+                        / 2) - 3;
             writeString(contents, TITLE, tx, ty, TITLE_FONT_SIZE);
-            contents.drawImage(pdImage, tx + textWidth + 5, ty - 1,
-                pdImage.getHeight() * textHeight / 1000, pdImage.getHeight() * textHeight / 1000);
+            contents.drawImage(titleImage, tx + textWidth + 5, ty - 1,
+                    titleImage.getHeight() * textHeight / 1000, titleImage.getHeight() * textHeight / 1000);
             return ty - TITLE_FONT_SIZE - LINE_SPACING;
         } catch (IOException e) {
             throw new IOException(e.getMessage());
@@ -354,7 +362,7 @@ public class InOutAddressBookStorage implements AddressBookStorage {
             contents.moveTo(start, ty - LINE_SPACING);
             contents.lineTo(end, ty - LINE_SPACING);
             contents.stroke();
-            return ty - (10 * LINE_SPACING);
+            return ty - (5 * LINE_SPACING);
         } catch (IOException e) {
             throw new IOException("File cannot be written.");
         }
@@ -368,10 +376,19 @@ public class InOutAddressBookStorage implements AddressBookStorage {
      * @param ty The y coordinates to draw at
      * @throws IOException If file cannot be written
      */
-    private void drawImage(PDPageContentStream contents, PDImageXObject image, float tx, float ty) throws IOException {
+    private float drawImage(PDPageContentStream contents, PDImageXObject image, float tx, float ty) throws IOException {
+        float imageWidth = (float) image.getWidth();
+        float imageHeight = (float) image.getHeight();
+        float limit = 200;
+
+        if (imageHeight > limit || imageWidth > limit) {
+            imageHeight = imageHeight / imageWidth * limit;
+            imageWidth = limit;
+        }
+
         try {
-            contents.drawImage(image, tx + ((float) image.getWidth() / 1000) - 7,
-                            ty - 1, (float) image.getWidth() / 1000, (float) image.getHeight() / 1000);
+            contents.drawImage(image, tx, ty - imageHeight, imageWidth, imageHeight);
+            return ty - imageHeight - (5 * LINE_SPACING);
         } catch (IOException e) {
             throw new IOException(e.getMessage());
         }

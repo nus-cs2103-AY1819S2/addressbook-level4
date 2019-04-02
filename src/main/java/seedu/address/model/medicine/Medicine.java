@@ -34,13 +34,13 @@ public class Medicine {
     /**
      * Every field must be present and not null.
      */
-    public Medicine(Name name, Quantity quantity, Expiry expiry, Company company, Set<Tag> tags,
+    public Medicine(Name name, Company company, Quantity quantity, Expiry expiry, Set<Tag> tags,
             Map<BatchNumber, Batch> batches) {
-        requireAllNonNull(name, quantity, expiry, company, tags);
+        requireAllNonNull(name, company, quantity, expiry, tags);
         this.name = name;
+        this.company = company;
         this.totalQuantity = quantity;
         this.nextExpiry = expiry;
-        this.company = company;
         this.tags.addAll(tags);
         this.batches.putAll(batches);
     }
@@ -49,16 +49,16 @@ public class Medicine {
         return name;
     }
 
+    public Company getCompany() {
+        return company;
+    }
+
     public Quantity getTotalQuantity() {
         return totalQuantity;
     }
 
     public Expiry getNextExpiry() {
         return nextExpiry;
-    }
-
-    public Company getCompany() {
-        return company;
     }
 
     /**
@@ -112,9 +112,9 @@ public class Medicine {
 
         Medicine otherMedicine = (Medicine) other;
         return otherMedicine.getName().equals(getName())
+                && otherMedicine.getCompany().equals(getCompany())
                 && otherMedicine.getTotalQuantity().equals(getTotalQuantity())
                 && otherMedicine.getNextExpiry().equals(getNextExpiry())
-                && otherMedicine.getCompany().equals(getCompany())
                 && otherMedicine.getTags().equals(getTags())
                 && otherMedicine.getBatches().equals(getBatches());
     }
@@ -122,7 +122,7 @@ public class Medicine {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, totalQuantity, nextExpiry, company, tags, batches);
+        return Objects.hash(name, company, totalQuantity, nextExpiry, tags, batches);
     }
 
     @Override

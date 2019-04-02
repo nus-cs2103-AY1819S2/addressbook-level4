@@ -78,7 +78,7 @@ public class MedicineCardHandle extends NodeHandle<Node> {
     public boolean equals(Medicine medicine) {
         return getName().equals(medicine.getName().fullName)
                 && getCompany().equals(medicine.getCompany().companyName)
-                && getQuantity().equals(medicine.getTotalQuantity().value)
+                && getQuantity().equals(medicine.getTotalQuantity().toString())
                 && getExpiry().equals(medicine.getNextExpiry().toString())
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(medicine.getTags().stream()
                         .map(tag -> tag.tagName)

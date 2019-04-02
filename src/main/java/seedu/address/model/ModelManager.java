@@ -14,6 +14,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.InformationPanelSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.WarningPanelSettings;
 import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
@@ -37,6 +38,8 @@ public class ModelManager implements Model {
     private final FilteredList<Medicine> medicinesExpiring;
     private final FilteredList<Medicine> medicinesLowStock;
     private final SimpleObjectProperty<Medicine> selectedMedicine = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<InformationPanelSettings> informationPanelSettings =
+            new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given inventory and userPrefs.
@@ -96,6 +99,17 @@ public class ModelManager implements Model {
     public void setWarningPanelSettings(WarningPanelSettings warningPanelSettings) {
         requireNonNull(warningPanelSettings);
         userPrefs.setWarningPanelSettings(warningPanelSettings);
+    }
+
+    @Override
+    public void setInformationPanelSettings(InformationPanelSettings informationPanelSettings) {
+        requireNonNull(informationPanelSettings);
+        this.informationPanelSettings.setValue(informationPanelSettings);
+    }
+
+    @Override
+    public ReadOnlyProperty<InformationPanelSettings> getInformationPanelSettings() {
+        return informationPanelSettings;
     }
 
     @Override

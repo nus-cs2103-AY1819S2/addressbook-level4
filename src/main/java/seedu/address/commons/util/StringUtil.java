@@ -63,17 +63,18 @@ public class StringUtil {
         Float value = Float.parseFloat(word);
 
         String preppedSentence = sentence.trim();
-        checkArgument(!preppedSentence.isEmpty(), "Word parameter cannot be empty");
-        checkArgument(preppedSentence.split("\\s+").length == 1, "Word parameter should be a single word");
+        checkArgument(!preppedSentence.isEmpty(), "Range parameter cannot be empty");
         String[] rangesInPreppedSentence = preppedSentence.split("\\s+");
-        for (String range: rangesInPreppedSentence){
-            checkArgument(range.split("-").length == 2, "Word parameter should be a single word");
+        for (String range : rangesInPreppedSentence) {
+            checkArgument(range.split("-").length == 2, "Range parameter format wrong");
             String[] vaules = range.split("-");
-            if (value>=Float.parseFloat(vaules[0])&&value<=Float.parseFloat(vaules[1]))
+            if (value >= Float.parseFloat(vaules[0]) && value <= Float.parseFloat(vaules[1])) {
                 return true;
+            }
         }
         return false;
     }
+
     /**
      * Returns a detailed message of the t, including the stack trace.
      */

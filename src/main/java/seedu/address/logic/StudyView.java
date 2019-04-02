@@ -38,16 +38,16 @@ public class StudyView implements ViewState {
     @Override
     public Command parse(String commandWord, String arguments) {
         switch (commandWord) {
-        case OpenDeckCommand.ALT_COMMAND_WORD:
-            return new OpenDeckCommand(activeDeck);
-        case BackCommand.COMMAND_WORD:
-            return new BackCommand();
-        default:
-            if (getCurrentStudyState() == StudyState.QUESTION) {
-                return new ShowAnswerCommand(commandWord + arguments);
-            } else {
-                return new GenerateQuestionCommand();
-            }
+            case OpenDeckCommand.ALT_COMMAND_WORD:
+                return new OpenDeckCommand(activeDeck);
+            case BackCommand.COMMAND_WORD:
+                return new BackCommand();
+            default:
+                if (getCurrentStudyState() == StudyState.QUESTION) {
+                    return new ShowAnswerCommand(commandWord + arguments);
+                } else {
+                    return new GenerateQuestionCommand();
+                }
         }
     }
 

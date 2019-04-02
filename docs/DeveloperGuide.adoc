@@ -250,50 +250,83 @@ This section describes some noteworthy details on how certain features are imple
 === Filter feature
 
 ==== Introduction
-We have implemented a `FilterCommand` that allow users to filter the current shown list with any fields.
+We have implemented a `FilterCommand` that allow users to filter the current shown list with the specified fields.
 
-The filter feature allow users to filter the current shown list with any fields, and can filter by multiple fields.
+The filter feature allow users to filter the current shown list with any specified fields, and also can filter by multiple fields.
 
 The `FilterCommand` is able to filter the shown list according to the user's preference at a time.
 
 ==== Current Implementation
 
-The following sequence diagram shows how the filter command works:
+The *filter* mechanism is supported by `FilterCommandParser`. It implements `Parser` that implements the following operation:
+
+- `FilterCommand#execute()`  -  Checks the arguments for empty strings and throws a ParseException if empty string is found.
+It then splits the arguments using ArgumentTokenizer#tokenize() and returns an ArgumentMultimap. Keywords of the same prefix are then grouped using ArgumentMultimap#getAllValues().
+
+The *filter* mechanism is also facilitated by `FilterCommand`. It extends `Command` and implements the following operation:
+
+FilterCommand#execute() — Executes the command by updating the current `FilteredPersonList` with the `EquipmentContainsKeywordPredicate`.
+
+`EquipmentContainsKeywordsPredicate` takes in the lists of keywords for the following:
+
+- Name
+- Address
+- Date
+- Phone
+- Tags
+- Serial Number
 
 image::FilterCommandSequenceDiagram.png[width="800"]
+
+Example
 
 Given below is an example usage scenario of how the filter mechanism behaves at each step when filtering.
 
 Step 1. The user launches the application.
 
-Step 2. The user executes `filter /region north`
+Step 2. The user executes `filter n/jurong a/west t/urgent` command to get all fields whose equipment contains the keywords
 
-Step 3. After `EquipmentManagerParser` detects `filter` as the command word, a FilterCommandParser is created to parse
-the arguments supplied to the command.
+Step 3. After `EquipmentManagerParser` detects *filter* as the command word, a `FilterCommandParser#parse()` is called and
+the EquipmentContainsKeywordsPredicate is constructed with the arguments of the filter command.
 
-Step 4. The `FilterCommandParser` trims and splits the arguments by white spaces.
+Step 4. `FilterCommand#execute()` is then called.
 
-Step 5. Then, `EquipmentContainsKeywordsPredicate` checks that the *Equipment Manager* has either the respective serial
-number, tags, address, name, preventive maintenance date, phone.
+Step 5. The entire equipment list is filtered by the predicate `EquipmentContainsKeywordsPredicate`.
 
-Step 6. The argument is filtered against the predicate and returned to the GUI.
+Step 6. The filtered list of wishes is returned to the GUI.
+
+Step 7. Then, `EquipmentContainsKeywordsPredicate` checks that the *Equipment Manager* has either the respective
+attributes - serial number, tags, address, name, preventive maintenance date, phone.
+
+Step 8. The argument is filtered against the predicate and returned to the GUI.
 
 ==== Design Considerations
 *Implementation of `FilterCommand`*
 
-* **Alternative 1 (current choice):** filter by specific field
-** Pros: It is easy to implement and it is also consistent with how `FindCommand`
-** Cons: The overall list is not 100% sorted by specific field
-* **Alternative 2:** filter by tags
-** Pros: It is more specific and more strictly
-** Cons: More difficult to implement
+* **Alternative 1 (current choice):** Require user to prepend every keyword argument with the appropriate attribute prefix.
+Supports multiple fields in the same command.
+** Pros: It is easy to implement and easy to match keyword against a Equipment if the matching attribute is known.
+** Pros: User has more control over the results returned.
+** Pros: User can also filter by multiple fields.
+e.g: `filter n/jurong t/west`
+** Cons: User is required to type slightly more.
 
+* **Alternative 2:** filter by specific fields
+
+** Pros: It is easy to implement and it is also consistent with how `FilterCommand` works.
+** Cons: User has less control over the results returned.
+** Cons: User can input anything and the results returned is not specific by type.
+
+* **Alternative 3:** filter by tags
+** Pros: It is more specific and more restricted.
+** Cons: More difficult to implement
+** Cons: Too restricted as it is only filtered by tags.
 
 // tag::sort[]
 === Sort feature
 
 ==== Introduction
-We have implemented a `SortCommand` that allow users to sort the current shown list with any fields.
+We have implemented a `SortCommand` that allow users to sort the current shown list with any specified fields.
 
 ==== Current Implementation
 

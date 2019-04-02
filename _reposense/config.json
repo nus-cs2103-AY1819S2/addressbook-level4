@@ -1,0 +1,33 @@
+{
+  "ignoreGlobList": ["about-us/**", "**index.html"],
+  "formats": ["html", "css"],
+  "ignoreCommitList": ["90018e49f129ce7e0abdc8b18e91c9813588c601", "67890def"],
+  "authors":
+  [
+    {
+      "githubId": "GongChangda",
+      "displayName": "GON...GDA",
+      "authorNames": ["DESKTOP-BFINHE4\\Gong changda"]
+    },
+    {
+      "githubId": "Liuyy99",
+      "displayName": "LIU...ANG",
+      "authorNames": ["Liuyy99"]
+    },
+    {
+      "githubId": "siyingpoof",
+      "displayName": "ONG...ING",
+      "authorNames": ["siyingpoof"]
+    },
+    {
+      "githubId": "wayneswq",
+      "displayName": "SEA...UAN",
+      "authorNames": ["wayneswq"]
+    },
+    {
+      "githubId": "amuletxheart",
+      "displayName": "YON...HEN",
+      "authorNames": ["amuletxheart"]
+    }
+  ]
+}

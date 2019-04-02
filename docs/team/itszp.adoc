@@ -22,7 +22,7 @@ This section provides a summary of my coding, documentation and other contributi
 
 === *Major Enhancement* -- Ability to open files
 
-** What is does: It allows users to open an image that was previously imported into the album for editing.
+** What it does: It allows users to open an image that was previously imported into the album for editing.
 
 ** Justification: This feature is essential as it sets up the application to allow image manipulation and image filters commands to work. Upon using the `open` command, the image is displayed prominently in the main window of the application, allowing users to confirm and know which image they are currently editing.
 

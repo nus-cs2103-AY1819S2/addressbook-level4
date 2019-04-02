@@ -463,11 +463,13 @@ Step 5. Replace the original restaurant with the new restaurant object in the mo
 The primary consideration was the compatibility of this new command with the existing architecture.
 Given the stable implementation of the current system of parsing commands, any new command created should fit into the existing architecture with minimal changes to other components.
 
+// tag::visitweb[]
 === Visit Webpage Feature
 
 Website can be displayed on the `BrowserPanel` with `visitWeb` command.
 
-==== current implementation
+==== visitWeb `INDEX`
+Visits website of `Restaurant` selected by user.
 
 * Restaurants has a field `Weblink` which contains the URL of the restaurant website.
 * Weblink have to be valid https or http link before browser can display the website.
@@ -477,9 +479,29 @@ Website can be displayed on the `BrowserPanel` with `visitWeb` command.
 * `BrowserPanel` of `UI` component will listen to this change in selected Restaurant and thus, display website of
  Restaurant on the `BrowserPanel`.
 
-The following sequence diagram shows how the visitWeb operation works:
+The following sequence diagram shows how the visitWeb `index` works:
 
 image::VisitWebSequenceDiagram.png[width="800"]
+
+==== visitWeb `weblink`
+Visits website entered by user.
+
+* A `weblink` is a valid Url of websites of restaurants.
+* Users can visit website of any restaurant through visitWeb command by entering the `weblink` as a parameter.
+* Upon `visitWeb` command, `Parser` in the `Logic` component will call `VisitWebCommandParser` to parse `weblink` into
+`VisitWebCommand`.
+* This `weblink` will be passed to CommandResult which is passed to `MainWindow` in `UI` component.
+* `MainWindow` will then load the `weblink` through `BrowserPanel`.
+
+The following sequence diagram shows how the visitWeb `weblink` works:
+
+image::VisitWebUrlSequenceDiagram.png[width="800"]
+
+==== Enhancements
+* Before loading the website, the `weblink` will be validated by checking it's HTTP response code.
+* If response code is above 400, it suggests that the `weblink` is not found and that there is an error requesting the website if response code is above 500
+* If there is no internet connection, throws an `NoInternetException` that prints an error message to inform user that there is no internet connection.
+// end::visitweb[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

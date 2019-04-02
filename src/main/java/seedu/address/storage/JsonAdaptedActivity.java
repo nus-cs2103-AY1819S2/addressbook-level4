@@ -107,6 +107,6 @@ public class JsonAdaptedActivity {
 
         final ActivityDescription modelDescription = new ActivityDescription(description);
 
-        return new Activity(modelName, modelDateTime, modelLocation, modelDescription);
+        return new Activity(modelName, modelDateTime, modelLocation, modelDescription, attending);
     }
 }

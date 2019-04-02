@@ -3,6 +3,7 @@ package seedu.address.model.activity;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import seedu.address.model.person.MatricNumber;
@@ -22,7 +23,7 @@ public class Activity implements Comparable<Activity> {
     private final ActivityStatus status;
 
     // Data fields
-    private final ArrayList<MatricNumber> attendance;
+    private final List<MatricNumber> attendance;
 
     /**
      * Every field must be present and not null.
@@ -49,7 +50,7 @@ public class Activity implements Comparable<Activity> {
     }
 
     public Activity(ActivityName name, ActivityDateTime dateTime, ActivityLocation location,
-        ActivityDescription description, ArrayList<MatricNumber> attendance) {
+        ActivityDescription description, List<MatricNumber> attendance) {
         requireAllNonNull(name, dateTime, location, description);
         this.name = name;
         this.dateTime = dateTime;
@@ -76,7 +77,7 @@ public class Activity implements Comparable<Activity> {
         return description;
     }
 
-    public ArrayList<MatricNumber> getAttendance() {
+    public List<MatricNumber> getAttendance() {
         return attendance;
     }
 
@@ -154,7 +155,7 @@ public class Activity implements Comparable<Activity> {
         ActivityDateTime dateTime = this.getDateTime();
         ActivityLocation location = this.getLocation();
         ActivityDescription description = this.getDescription();
-        ArrayList<MatricNumber> attendance = this.getAttendance();
+        List<MatricNumber> attendance = this.getAttendance();
         return new Activity(name, dateTime, location, description, attendance);
     }
 

@@ -28,6 +28,7 @@ import seedu.address.logic.commands.MovePersonCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SetBlockOutDatesCommand;
 import seedu.address.logic.commands.SetMaxInterviewsADayCommand;
 import seedu.address.logic.commands.ShowInterviewsCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -158,6 +159,9 @@ public class AddressBookParser {
 
         case GenerateAnalyticsCommand.COMMAND_WORD:
             return new GenerateAnalyticsCommand();
+
+        case SetBlockOutDatesCommand.COMMAND_WORD:
+            return new SetBlockOutDatesCommandParser().parse(arguments);
 
         case AddPersonToJobCommand.COMMAND_WORD:
             return new AddPersonToJobCommandParser().parse(arguments);

@@ -1,6 +1,8 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Calendar;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -206,6 +208,11 @@ public interface Model {
      * Clears the generated interviews.
      */
     void clearInterviews();
+
+    /**
+     * Sets Block Out Dates.
+     */
+    void setBlockOutDates(List<Calendar> blockOutDates);
 
     /**
      * Generates analytics.

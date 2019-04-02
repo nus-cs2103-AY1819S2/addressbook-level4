@@ -8,6 +8,8 @@ import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -234,10 +236,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setBlockOutDates(List<Calendar> blockOutDates) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
         public Analytics generateAnalytics() {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
         public boolean hasJob(Job job) {
             throw new AssertionError("This method should not be called.");
         }

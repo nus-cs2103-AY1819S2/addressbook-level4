@@ -16,6 +16,7 @@ import seedu.finance.model.Model;
 import seedu.finance.model.ReadOnlyFinanceTracker;
 import seedu.finance.model.util.SampleDataUtil;
 import seedu.finance.storage.JsonFinanceTrackerStorage;
+import seedu.finance.storage.StorageManager;
 
 
 
@@ -28,10 +29,9 @@ public class SetFileCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets the file path to store data. "
             + "Parameters: "
-            + PREFIX_FILE + "FILE "
+            + PREFIX_FILE + "FILENAME (Without file extension or folder path) "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_FILE + "data\\finance.json";
-
+            + PREFIX_FILE + "finance";
     public static final String MESSAGE_SUCCESS = "File Set: %1$s";
 
     private static final Logger logger = LogsCenter.getLogger(JsonFinanceTrackerStorage.class);
@@ -56,7 +56,7 @@ public class SetFileCommand extends Command {
         try {
             financeTrackerOptional = newStorage.readFinanceTracker();
             if (!financeTrackerOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample FinanceTracker");
+                logger.info("Data file not found. Will load a sample FinanceTracker");
             }
             initialData = financeTrackerOptional.orElseGet(SampleDataUtil::getSampleFinanceTracker);
         } catch (DataConversionException e) {
@@ -66,8 +66,8 @@ public class SetFileCommand extends Command {
 
         model.setFinanceTrackerFilePath(path);
         model.setFinanceTracker(initialData);
-        model.commitFinanceTracker();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, path));
+        StorageManager.setFinanceTrackerStorage(newStorage);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, path), true, false, false);
     }
 
     @Override
@@ -77,7 +77,7 @@ public class SetFileCommand extends Command {
             return true;
         }
 
-        // instaceof handles null
+        // instanceof handles null
         if (!(other instanceof SetFileCommand)) {
             return false;
         }

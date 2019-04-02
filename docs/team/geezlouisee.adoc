@@ -14,6 +14,7 @@ _In-Credit-Ble_ is an expense tracker that is tailored to help users manage thei
 _In-Credit-Ble_ was developed by four friends and I, from the National University of Singapore. This product was developed as part of our Software Engineering module, CS2103T. We had to adapt to an existing codebase in Java and develop a functional product in a short span of 13 weeks. In this project portfolio, I will be documenting my personal contributions to this project.
 
 == Summary of contributions
+This section summarises my contributions towards the code, documentation, as well as other helpful contributions to the team project.
 
 * *Major enhancement*: added *Summary* command to represent the overview of expenses in a graphical form
 ** What it does: Allows the user to view an overview of all their expenditures in a single graph. Each sector represents a category and gets “filled up” according to the percentage spent of the allocated budget for that particular sector.
@@ -41,7 +42,7 @@ _In-Credit-Ble_ was developed by four friends and I, from the National Universit
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide, showcasing my ability to write documentation tailored for end-users of our product._
+|_We had to update the original addressbook's User Guide with instructions for the enhancements that we had added. The following is an excerpt from our In-Credit-Ble User Guide, showing additions that I have made for the `summary` feature._
 |===
 
 include::../UserGuide.adoc[tag=summary]
@@ -49,17 +50,18 @@ include::../UserGuide.adoc[tag=summary]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide, showcasing my ability to write technical documentation and the technical depth of my code contributions._
+|_This section contains excerpts from our In-Credit-Ble Developer Guide, showing additions that I have made for the `summary` feature and appendices A and B._
 |===
 
 include::../DeveloperGuide.adoc[tag=summary]
 
 |===
-|_While the whole group was involved in the discussion and formulation of our Product Scope, User Stories and Use Cases, I was the one who collated it at the end, streamlined redundancies and standardised the format and grammar._
+|_While the whole group was involved in the discussion and formulation of our Product Scope and User Stories, I was the one who collated it at the end, streamlined redundancies and standardised the format and grammar._
 |===
 
 include::../DeveloperGuide.adoc[tag=appendixA]
 
 include::../DeveloperGuide.adoc[tag=appendixB]
 
-include::../DeveloperGuide.adoc[tag=appendixC]
+== [Proposed Enhancement] Additional parameters for `summary` feature (coming in v1.4)
+I intend for the `summary` command to be able to accept parameters (ie. start and end date specified by the user). This will enable users to see their expenditures for each category within their specified duration. However, these parameters will be optional. If the user does not specify the start and end dates, the application will just reflect changes according to their total budget and expenditures.

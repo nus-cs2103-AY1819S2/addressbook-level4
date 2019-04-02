@@ -9,6 +9,7 @@ import java.util.Set;
 import seedu.equipment.commons.core.index.Index;
 import seedu.equipment.commons.util.StringUtil;
 import seedu.equipment.logic.parser.exceptions.ParseException;
+import seedu.equipment.model.WorkListId;
 import seedu.equipment.model.equipment.Address;
 import seedu.equipment.model.equipment.Date;
 import seedu.equipment.model.equipment.Name;
@@ -77,6 +78,21 @@ public class ParserUtil {
             throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
         }
         return new Phone(trimmedPhone);
+    }
+
+    /**
+     * Parses a {@code String WorkListId} into a {@code WorkListId}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code WorkListId} is invalid.
+     */
+    public static WorkListId parseWorkListId(String id) throws ParseException {
+        requireNonNull(id);
+        String trimmedId = id.trim();
+        if (!WorkListId.isValidWorkListId(trimmedId)) {
+            throw new ParseException(WorkListId.MESSAGE_CONSTRAINTS);
+        }
+        return new WorkListId(trimmedId);
     }
 
     /**

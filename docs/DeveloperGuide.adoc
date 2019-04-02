@@ -297,12 +297,10 @@ Step 4. `FilterCommand#execute()` is then called.
 
 Step 5. The entire equipment list is filtered by the predicate `EquipmentContainsKeywordsPredicate`.
 
-Step 6. The filtered list of wishes is returned to the GUI.
-
-Step 7. Then, `EquipmentContainsKeywordsPredicate` checks that the *Equipment Manager* has either the respective
+Step 6. Then, `EquipmentContainsKeywordsPredicate` checks that the *Equipment Manager* has either the respective
 attributes - serial number, tags, address, name, preventive maintenance date, phone.
 
-Step 8. The argument is filtered against the predicate and returned to the GUI.
+Step 7. The argument is filtered against the predicate and returned to the GUI.
 
 ==== Design Considerations
 *Implementation of `FilterCommand`*
@@ -331,7 +329,7 @@ e.g: `filter n/jurong t/west`
 === Sort feature
 
 ==== Introduction
-We have implemented a `SortCommand` that allow users to sort the current shown list with any fields.
+We have implemented a `SortCommand` that allow users to sort the current shown list with specific fields.
 
 ==== Current Implementation
 
@@ -353,13 +351,13 @@ Output: By default, the list is sorted in alphabetical order of the client names
 
 Output: The list is sorted in alphabetical order.
 
-- Input: `sort date`
-
-Output: The list is sorted in alphabetical order.
-
 - Input: `sort phone`
 
 Output: The list is sorted in ascending order.
+
+[TIP]
+`SortCommand` only supports sorting by address and phone number.
+
 
 ==== Design Considerations
 *Implementation of `SortCommand`*

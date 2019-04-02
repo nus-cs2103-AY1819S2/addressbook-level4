@@ -197,7 +197,7 @@ public class MainWindow extends UiPart<Stage> {
         }
         coordiantesString = coordiantesString.replaceAll(",$", "");
         coordiantesString += "]";
-        String url = BrowserPanel.MAP_PAGE_BASE_URL + "?coordinates=" + coordiantesString;
+        String url = BrowserPanel.MAP_MULTIPLE_POINT_BASE_URL + "?coordinates=" + coordiantesString;
         System.out.println("Loading page: " + url);
         browserPanel.loadPage(url);
     }

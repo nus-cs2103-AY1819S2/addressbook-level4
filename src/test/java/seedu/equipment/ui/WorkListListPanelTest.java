@@ -17,6 +17,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.equipment.model.WorkList;
+import seedu.equipment.model.WorkListId;
 
 public class WorkListListPanelTest extends GuiUnitTest {
     private static final ObservableList<WorkList> TYPICAL_WORKLISTS =
@@ -78,7 +79,8 @@ public class WorkListListPanelTest extends GuiUnitTest {
         for (int i = 0; i < workListCount; i++) {
             String date = "a aaa aaaa";
             String assignee = i + "a";
-            WorkList workList = new WorkList(date, assignee);
+            WorkListId id = new WorkListId("111");
+            WorkList workList = new WorkList(date, assignee, id);
             backingList.add(workList);
         }
         return backingList;

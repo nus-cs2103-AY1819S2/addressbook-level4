@@ -53,8 +53,6 @@ public class QuizModelManagerTest {
         assertEquals(1, modelManager.getCount());
         assertEquals(QuizMode.LEARN, modelManager.getMode());
         assertEquals(List.of(new SrsCardBuilder().build()), modelManager.getQuizSrsCards());
-        assertEquals("Country", modelManager.getQuestionHeader());
-        assertEquals("Capital", modelManager.getAnswerHeader());
     }
     @Test
     public void testUpdateUser() {

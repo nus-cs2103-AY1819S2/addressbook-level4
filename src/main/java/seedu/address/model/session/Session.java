@@ -110,14 +110,6 @@ public class Session {
         }
         return quizSrsCards;
     }
-    public String getQuestionHeader() {
-        SrsCard srsCard = srsCards.get(0);
-        return srsCard.getQuestionHeader();
-    }
-    public String getAnswerHeader() {
-        SrsCard srsCard = srsCards.get(0);
-        return srsCard.getAnswerHeader();
-    }
 
     /**
      * Returns user profile after quiz ends.

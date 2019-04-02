@@ -16,7 +16,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ExitCommandResult;
 import seedu.address.logic.commands.HelpCommandResult;
-import seedu.address.logic.commands.StudyPanelCommand;
+import seedu.address.logic.commands.StudyPanelCommandResult;
 import seedu.address.logic.commands.UpdatePanelCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -189,7 +189,7 @@ public class MainWindow extends UiPart<Stage> {
                                           logic::setSelectedItem);
                 contentPanelPlaceholder.getChildren().clear();
                 contentPanelPlaceholder.getChildren().add(listPanel.getRoot());
-            } else if (commandResult instanceof StudyPanelCommand) {
+            } else if (commandResult instanceof StudyPanelCommandResult) {
                 studyPanel = new StudyPanel(logic.textShownProperty(), logic.studyStateProperty(),
                                             logic.userAnswerProperty());
                 contentPanelPlaceholder.getChildren().clear();

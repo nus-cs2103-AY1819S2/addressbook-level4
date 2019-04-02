@@ -57,7 +57,7 @@ public class StudyDeckCommand extends Command {
 
         model.studyDeck(targetDeck);
 
-        return new StudyPanelCommand(String.format(MESSAGE_STUDY_DECK_SUCCESS, targetDeck.getName()));
+        return new StudyPanelCommandResult(String.format(MESSAGE_STUDY_DECK_SUCCESS, targetDeck.getName()));
     }
 
     @Override

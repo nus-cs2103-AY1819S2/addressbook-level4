@@ -23,22 +23,22 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
         return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
+            new Person(new Name("David Li"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 131 Geylang East Ave 1, #06-40"),
                 getTagSet("friends")),
             new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 new Address("Blk 101 Serangoon North Ave 1, #07-18"),
                 getTagSet("colleagues", "friends")),
-            new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
+            new Person(new Name("Alex Yeoh"), new Phone("93210283"), new Email("charlotte@example.com"),
                 new Address("Blk 11 Marsiling Dr, #11-04"),
                 getTagSet("neighbours")),
-            new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
+            new Person(new Name("Charlotte Oliveiro"), new Phone("91031282"), new Email("lidavid@example.com"),
                 new Address("Blk 444 Pasir Ris Dr 6, #01-43"),
                 getTagSet("family")),
-            new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
+            new Person(new Name("Roy Balakrishnan"), new Phone("92492021"), new Email("irfan@example.com"),
                 new Address("Blk 150 Tampines Street 12, #17-35"),
                 getTagSet("classmates")),
-            new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
+            new Person(new Name("Irfan Ibrahim"), new Phone("92624417"), new Email("royb@example.com"),
                 new Address("Blk 18 Bedok S Road, #11-31"),
                 getTagSet("colleagues"))
         };

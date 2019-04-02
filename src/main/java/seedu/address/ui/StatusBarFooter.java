@@ -34,13 +34,16 @@ public class StatusBarFooter extends UiPart<Region> {
     private Label syncStatus;
     @FXML
     private Label saveLocationStatus;
+    @FXML
+    private Label archiveSaveLocationStatus;
 
 
-    public StatusBarFooter(Path saveLocation, ReadOnlyAddressBook addressBook) {
+    public StatusBarFooter(Path abSaveLocation, Path arbSaveLocation, ReadOnlyAddressBook addressBook) {
         super(FXML);
         addressBook.addListener(observable -> updateSyncStatus());
         syncStatus.setText(SYNC_STATUS_INITIAL);
-        saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
+        saveLocationStatus.setText("AddressBook: " + Paths.get(".").resolve(abSaveLocation).toString());
+        archiveSaveLocationStatus.setText("ArchiveBook: " + Paths.get(".").resolve(arbSaveLocation).toString());
     }
 
     /**

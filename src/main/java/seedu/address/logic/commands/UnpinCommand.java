@@ -23,7 +23,7 @@ public class UnpinCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_UNPIN_PERSON_SUCCESS = "Unpinned Person: %1$s";
+    public static final String MESSAGE_UNPIN_PERSON_SUCCESS = "Unpinned Person: %1$s\nDisplaying main person list!";
     public static final String MESSAGE_PERSON_NOT_IN_PIN_LIST = "Person: %1$s is not in the pin list";
 
     private final Index targetIndex;
@@ -57,7 +57,7 @@ public class UnpinCommand extends Command {
 
     @Override
     public boolean requiresMainList() {
-        return true;
+        return false;
     }
 
     @Override

@@ -13,20 +13,21 @@ Recruit Me is a desktop application designed for . It is an adaptation of Addres
 
 == Summary of contributions
 
-* *Major enhancement*: added *something*
-** What it does: _{What Charlotte did}_.
-** Justification: _{Justification for what Charlotte did}_.
-** Highlights: _{Highlights of what Charlotte did}_.
+* *Major enhancement*: added *GPA and Education Parameter*
+** What it does: _{Allows users to input their GPA and Education attributs}_.
+** Justification: _{It is important for the employeers to be able to know the protential employees GPA and education}_.
+** Highlights: _{Employees can see on the contact this information}_.
 
-* *Minor enhancement*: _{To be added at a later date}_.
+* *Minor enhancement*: _{CV}_.
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+
+The V1.1 and V1.2 information
 |===
 
 include::../UserGuide.adoc
@@ -36,6 +37,8 @@ include::../UserGuide.adoc
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+
+Education and GPA
 |===
 
 include::../DeveloperGuide.adoc

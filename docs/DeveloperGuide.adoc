@@ -506,7 +506,6 @@ Website can be displayed on the `BrowserPanel` with `visitWeb` command.
 
 ==== visitWeb `INDEX`
 Visits website of `Restaurant` selected by user.
-==== Current implementation
 
 * Restaurants has a field `Weblink` which contains the URL of the restaurant website.
 * Weblink have to be valid https or http link before browser can display the website.

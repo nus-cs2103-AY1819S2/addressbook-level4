@@ -2,15 +2,14 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showDeckAtIndex;
 import static seedu.address.testutil.TypicalCards.getTypicalDeck;
 import static seedu.address.testutil.TypicalDecks.getTypicalTopDeck;
 import static seedu.address.testutil.TypicalIndexes.INDEX_EMPTY_DECK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DECK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_DECK;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -25,7 +24,6 @@ import seedu.address.logic.DecksView;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.testutil.TypicalCards;
 
 public class StudyDeckCommandTest {
 
@@ -104,8 +102,8 @@ public class StudyDeckCommandTest {
     @Test
     public void execute_validDeck_success() {
         StudyDeckCommand studyDeckCommand = new StudyDeckCommand(getTypicalDeck());
-        String expectedMessage = String.format(StudyDeckCommand.MESSAGE_STUDY_DECK_SUCCESS,
-                                               getTypicalDeck().getName());
+        String expectedMessage = String
+                .format(StudyDeckCommand.MESSAGE_STUDY_DECK_SUCCESS, getTypicalDeck().getName());
         CommandResult expectedCommandResult = new StudyPanelCommandResult(expectedMessage);
         expectedModelDeck.studyDeck(getTypicalDeck());
         assertCommandSuccess(studyDeckCommand, modelDeck, commandHistory, expectedCommandResult,
@@ -142,7 +140,8 @@ public class StudyDeckCommandTest {
     private void assertExecutionSuccessIndex(Index index) {
         StudyDeckCommand studyDeckCommand = new StudyDeckCommand(decksView, index);
         String expectedMessage = String.format(StudyDeckCommand.MESSAGE_STUDY_DECK_SUCCESS,
-                                               decksView.getFilteredList().get(index.getZeroBased()).getName());
+                                               decksView.getFilteredList().get(index.getZeroBased())
+                                                        .getName());
         CommandResult expectedCommandResult = new StudyPanelCommandResult(expectedMessage);
         expectedModelDeck.studyDeck(decksView.getFilteredList().get(index.getZeroBased()));
         assertCommandSuccess(studyDeckCommand, modelDeck, commandHistory, expectedCommandResult,

@@ -17,14 +17,12 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.CardsView;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.DecksView;
 import seedu.address.logic.StudyView;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.testutil.TypicalCards;
 
 public class OpenDeckCommandTest {
 
@@ -98,8 +96,8 @@ public class OpenDeckCommandTest {
     @Test
     public void execute_validDeck_success() {
         OpenDeckCommand openDeckCommand = new OpenDeckCommand(getTypicalDeck());
-        String expectedMessage = String.format(OpenDeckCommand.MESSAGE_OPEN_DECK_SUCCESS,
-                                               getTypicalDeck().getName());
+        String expectedMessage = String
+                .format(OpenDeckCommand.MESSAGE_OPEN_DECK_SUCCESS, getTypicalDeck().getName());
         CommandResult expectedCommandResult = new UpdatePanelCommandResult(expectedMessage);
         expectedModelDeck.changeDeck(getTypicalDeck());
         assertCommandSuccess(openDeckCommand, modelDeck, commandHistory, expectedCommandResult,
@@ -136,7 +134,8 @@ public class OpenDeckCommandTest {
     private void assertExecutionSuccessIndex(Index index) {
         OpenDeckCommand openDeckCommand = new OpenDeckCommand(index, decksView);
         String expectedMessage = String.format(OpenDeckCommand.MESSAGE_OPEN_DECK_SUCCESS,
-                                               decksView.getFilteredList().get(index.getZeroBased()).getName());
+                                               decksView.getFilteredList().get(index.getZeroBased())
+                                                        .getName());
         CommandResult expectedCommandResult = new UpdatePanelCommandResult(expectedMessage);
         expectedModelDeck.changeDeck(decksView.getFilteredList().get(index.getZeroBased()));
         assertCommandSuccess(openDeckCommand, modelDeck, commandHistory, expectedCommandResult,

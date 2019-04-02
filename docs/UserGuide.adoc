@@ -460,7 +460,7 @@ e.g. `filter r/Chinese`
 * *Display Hiring Process* : `displayProcess`
 * *Display Analytics* : `analytics`
 * *Create Job* : `createJob jn/JOBNAME`
-* *Delete Job* : 'deleteJob jn/JOBNAME'
+* *Delete Job* : `deleteJob jn/JOBNAME`
 * *Add list of people to Job* : `addAll jn/JOBNAME`
 * *Add specific person to Job* : `addPersonToJob jn/JOBNAME nric/NRIC`
 * *Display selected list in Job* : `DisplayJob ln/LISTNUMBER jn/JOBNAME`

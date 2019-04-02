@@ -94,7 +94,63 @@ public class RecordEditCommand extends Command {
         // state check
         RecordEditCommand e = (RecordEditCommand) other;
         return index.equals(e.index)
-                && this.description.equals(((RecordEditCommand) other).description);
+                && this.editRecordDescriptor.equals(((RecordEditCommand) other).editRecordDescriptor);
     }
+
+    /**
+     * Stores the details to edit the record with. Each non-empty field value will replace the
+     * corresponding field value of the record.
+     */
+    public static class EditRecordDescriptor {
+        private Procedure procedure;
+        private Description description;
+
+        public EditRecordDescriptor() {}
+
+        public EditRecordDescriptor(EditRecordDescriptor toCopy) {
+            setDescription(toCopy.description);
+            setProcedure(toCopy.procedure);
+        }
+
+        /**
+         * Returns true if at least one field is edited.
+         */
+        public boolean isAnyFieldEditted() {
+            return CollectionUtil.isAnyNonNull(procedure, description);
+        }
+
+        public void setProcedure(Procedure procedure) {
+            this.procedure = procedure;
+        }
+
+        public Optional<Procedure> getProcedure() {
+            return Optional.ofNullable(procedure);
+        }
+
+        public void setDescription(Description description) {
+            this.description = description;
+        }
+
+        public Optional<Description> getDescription() {
+            return Optional.ofNullable(description);
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            if (other == this) {
+                return true;
+            }
+
+            if (!(other instanceof EditRecordDescriptor)) {
+                return false;
+            }
+            EditRecordDescriptor e = (EditRecordDescriptor) other;
+
+            return getDescription().equals(e.getDescription())
+                && getProcedure().equals(e.getProcedure());
+        }
+    }
+
+
 
 }

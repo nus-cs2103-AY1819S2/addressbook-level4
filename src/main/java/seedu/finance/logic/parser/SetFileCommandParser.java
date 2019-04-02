@@ -15,8 +15,8 @@ import seedu.finance.logic.parser.exceptions.ParseException;
 public class SetFileCommandParser implements Parser<SetFileCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the SetCommand
-     * and returns an SetCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the SetFileCommand
+     * and returns an SetFileCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public SetFileCommand parse(String args) throws ParseException {
@@ -28,7 +28,7 @@ public class SetFileCommandParser implements Parser<SetFileCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetFileCommand.MESSAGE_USAGE));
         }
 
-        Path path = ParserUtil.parseFile(argMultimap.getValue(PREFIX_FILE).get());
+        Path path = ParserUtil.parseFile("data\\\\" + argMultimap.getValue(PREFIX_FILE).get() + ".json");
 
         return new SetFileCommand(path);
     }

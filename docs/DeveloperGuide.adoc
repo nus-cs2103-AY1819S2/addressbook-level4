@@ -414,9 +414,54 @@ This group of features allows the user to set a total budget and
 allocate a portion of the total budget to different categories.
 The current spending will increase when records are added.
 
-This implementation is under `Logic`, `Model` and `UI` Component.
-
+This implementation is under `Logic`, `Model`, `Storage` and `UI` Component.
+// tag::budget[]
 ==== Setting a Budget
+This feature allows the particular user to set a budget for the FinanceTracker. The user
+may only set the budget once and increase or decrease it later.
+
+Given below is a sequence diagram and step by step explanation of how Finance Tracker
+creates a budget when the user sets a budget.
+
+.Sequence diagram of user setting a budget
+image::SetCommandSequenceDiagram.png[width="800"]
+
+. The user enters a Set command (e.g. set $/120). The command is received by MainWindow and
+the method `LogicManager#execute()` is called. The argument of the command ($/120) is passed to
+`FinanceTrackerParser#parseCommand` method to handle.
+. The `FinanceTrackerParser#parseCommand` creates a `SetCommandParser` object and passes the command
+arguments into `SetCommandParser#parse()` method. The argument is checked to be in the correct format
+by `ParserUtil.parseAmount()` before `SetCommandParser#parse()` creates a `SetCommand` with the argument
+parsed into an amount passed in.
+. The `SetCommand` object is passed back to `LogicManager#execute()` and it calls the `SetCommand#execute()`
+to excute the logic to create the budget. The method creates a `Budget` object with the amount and passes
+the budget object into the `Model` by calling `ModelManager#addBudget()`.
+. `ModelManager#addBudget()` calls `FinanceTracker#addBudget()` to set the Budget of the FinanceTracker for
+the current user of the app. `FinanceTracker#addBudget()` uses the `Budget#set()` method to set the Budget of
+the app using the amount put in the inital command before returning to the `SetCommand#execute()` in the `Logic`
+of the app.
+. `SetCommand#execute()` now creates a `CommandResult` object to convey a message to be pushed to the UI and user.
+The `commandresult` object created is passed back to `LogicManager#execute()` and then back to `MainWindow#executeCommand()`.
+. `MainWindow#executeCommand()` checks whether there is a need to update the budget in the UI by calling `commandResult#isChangeBudget()`
+and getting a `true` boolean return from the method for the set command. The `#handleChangeBudget()` within `MainWindow` is called
+since `MainWindow#executeCommand()` notes that budget is changed.
+. `MainWindow#handleChangeBudget()` calls `LogicManager#getBudget()` to get the current budget of the FinanceTracker. The budget is then
+passed as argument into the `BrowserPanel#updateBudget()` method which will reflect the budget set by the command in the UI. The current budget
+will be the same as the total budget when it is set.
+
+
+==== Design Consideration
+The logic for keeping track of budgets can be implemented in different ways for individual categories.
+
+* *Solution 1*: Keep a list of expenditure for individual categories and budget allocations in one Budget class.
+** Pros: Easier to maintain one Budget object.
+** Cons: Iterating through the list could be slow if there are a lot of categories. Lists could be confusing to maintain.
+
+* *Solution 2*: Create Budget classes to keep track of expenditure and budget for individual categories.
+** Pros: More human readable to maintain Budget classes with names of categories.
+** Cons: Budget classes for individual categories need to be iterated through to get totals leading to slow UI updates each time values are changed.
+
+//end::budget[]
 
 // tag::categorybudget[]
 ==== Allocating a budget to category
@@ -427,6 +472,7 @@ executes when a user sets a category budget.
 
 .Sequence diagram of user setting a category budget
 image::AllocateSequenceDiagram.png[]
+
 
 . User enters command `allocate $/10 c/Food`. The command is received by `FinanceBookParser`
 . FinanceTrackerParser will then create a `AllocateCommandParser` Object
@@ -470,17 +516,6 @@ one command to allocate a fixed amount to the budget
 * Implement `reset` command to reset current budget expenditure and total budget.
 * Reflecting total budget and current budget for each category when selected in UI.
 * Expand `undo` and `redo` command to be able to work on `set`, `allocate` and `increase` command.
-
-==== Design Consideration
-The logic for keeping track of budgets can be implemented in different ways for individual categories.
-
-* *Solution 1*: Keep a list of expenditure for individual categories and budget allocations in one Budget class.
-** Pros: Easier to maintain one Budget object.
-** Cons: Iterating through the list could be slow if there are a lot of categories. Lists could be confusing to maintain.
-
-* *Solution 2*: Create Budget classes to keep track of expenditure and budget for individual categories.
-** Pros: More human readable to maintain Budget classes with names of categories.
-** Cons: Budget classes for individual categories need to be iterated through to get totals leading to slow UI updates each time values are changed.
 
 //end::budgetmanagement[]
 

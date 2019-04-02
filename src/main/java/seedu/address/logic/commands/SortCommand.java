@@ -19,10 +19,10 @@ public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the batch table according to the entered "
-            + "property and direction."
+            + "property and direction. "
             + "Parameters: "
             + PREFIX_PROPERTY + "PROPERTY "
-            + PREFIX_DIRECTION + "DIRECTION "
+            + PREFIX_DIRECTION + "DIRECTION\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_PROPERTY + "Paracetamol "
             + PREFIX_DIRECTION + "Novartis ";

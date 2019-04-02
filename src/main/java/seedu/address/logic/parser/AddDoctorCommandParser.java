@@ -41,7 +41,7 @@ public class AddDoctorCommandParser implements Parser<AddDoctorCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_GENDER, PREFIX_AGE, PREFIX_PHONE,
                 PREFIX_SPECIALISATION) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, "error message"));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddDoctorCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());

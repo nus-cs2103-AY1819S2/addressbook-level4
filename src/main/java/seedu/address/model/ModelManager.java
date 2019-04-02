@@ -21,6 +21,7 @@ import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.exceptions.MedHistNotFoundException;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.exceptions.DoctorNotFoundException;
 import seedu.address.model.person.exceptions.PatientNotFoundException;
 import seedu.address.model.prescription.Prescription;
 
@@ -168,6 +169,26 @@ public class ModelManager implements Model {
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
     }
 
+
+    @Override
+    public void deleteDoctor(Doctor target) {
+        versionedAddressBook.removeDoctor(target);
+    }
+
+    public ReadOnlyProperty<Doctor> selectedDoctorProperty() {
+        return selectedDoctor;
+    }
+
+    @Override
+    public void setSelectedDoctor(Doctor doctor) {
+        if (doctor != null && !filteredDoctors.contains(doctor)) {
+            throw new DoctorNotFoundException();
+        }
+        selectedDoctor.setValue(doctor);
+    }
+
+    // Needed to be implemented later
+
     @Override
     public boolean hasMedHist(MedicalHistory medicalHistory) {
         requireAllNonNull(medicalHistory);
@@ -233,7 +254,7 @@ public class ModelManager implements Model {
         filteredDoctors.setPredicate(predicate);
     }
 
-    //=========== Filtered Patient List Accessors =============================================================
+    //=========== Filtered Medical History List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code MedicalHistory} backed by the internal list of

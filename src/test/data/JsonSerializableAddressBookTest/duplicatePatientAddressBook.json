@@ -11,8 +11,16 @@
     "gender": "F",
     "age": "24",
     "phone": "94351253",
-    "address": "4th street"
+    "address": "4th street",
+    "tagged": [ "friends" ]
   } ],
-  "medicalHistories" : [ ],
+  "doctors": [ ],
+  "medicalHistories" : [ {
+    "name" : "John Doe",
+    "writeUp" : "Fever"
+  }, {
+    "name" : "Amy Doe",
+    "writeUp" : "Sneeze"
+  } ],
   "appointments": [ ]
 }

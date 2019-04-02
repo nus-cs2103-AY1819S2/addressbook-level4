@@ -23,6 +23,7 @@ import org.junit.ClassRule;
 
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
+import guitests.guihandles.DoctorListPanelHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.PatientListPanelHandle;
@@ -31,9 +32,13 @@ import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.DeleteDoctorCommand;
+import seedu.address.logic.commands.ListDoctorCommand;
 import seedu.address.logic.commands.ListPatientCommand;
+import seedu.address.logic.commands.SearchDoctorCommand;
 import seedu.address.logic.commands.SearchPatientCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SelectDoctorCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalPatients;
@@ -102,6 +107,10 @@ public abstract class AddressBookSystemTest {
         return mainWindowHandle.getPatientListPanel();
     }
 
+    public DoctorListPanelHandle getDoctorListPanel() {
+        return mainWindowHandle.getDoctorListPanel();
+    }
+
     public MainMenuHandle getMainMenu() {
         return mainWindowHandle.getMainMenu();
     }
@@ -164,6 +173,39 @@ public abstract class AddressBookSystemTest {
     protected void deleteAllPatients() {
         executeCommand(ClearCommand.COMMAND_WORD);
         assertEquals(0, getModel().getAddressBook().getPatientList().size());
+    }
+
+    /**
+     * Displays all doctors in the address book.
+     */
+    protected void showAllDoctors() {
+        executeCommand(ListDoctorCommand.COMMAND_WORD);
+        assertEquals(getModel().getAddressBook().getDoctorList().size(), getModel().getFilteredDoctorList().size());
+    }
+
+    /**
+     * Displays all doctors with any parts of their names matching {@code keyword} (case-insensitive).
+     */
+    protected void showDoctorsWithName(String keyword) {
+        executeCommand(SearchDoctorCommand.COMMAND_WORD + " " + keyword);
+        assertTrue(getModel().getFilteredDoctorList().size()
+                < getModel().getAddressBook().getDoctorList().size());
+    }
+
+    /**
+     * Selects the doctor at {@code index} of the displayed list.
+     */
+    protected void selectDoctor(Index index) {
+        executeCommand(SelectDoctorCommand.COMMAND_WORD + " " + index.getOneBased());
+        assertEquals(index.getZeroBased(), getDoctorListPanel().getSelectedCardIndex());
+    }
+
+    /**
+     * Deletes all doctors in the address book.
+     */
+    protected void deleteAllDoctors() {
+        executeCommand(DeleteDoctorCommand.COMMAND_WORD);
+        assertEquals(0, getModel().getAddressBook().getDoctorList().size());
     }
 
     /**

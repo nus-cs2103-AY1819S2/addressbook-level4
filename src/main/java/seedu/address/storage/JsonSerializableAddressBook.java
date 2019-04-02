@@ -12,7 +12,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.medicalhistory.MedicalHistory;
+//import seedu.address.model.medicalhistory.MedicalHistory;
+import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
 
 /**
@@ -22,11 +23,13 @@ import seedu.address.model.person.Patient;
 class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Patients list contains duplicate patient(s).";
+    public static final String MESSAGE_DUPLICATE_DOCTOR = "Doctors list contains duplicate doctor(s).";
     public static final String MESSAGE_DUPLICATE_MEDHIST =
             "Medical history list contains duplicate medical history(s).";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "Appointment list contains duplicate appointments.";
 
     private final List<JsonAdaptedPatient> patients = new ArrayList<>();
+    private final List<JsonAdaptedDoctor> doctors = new ArrayList<>();
     private final List<JsonAdaptedMedicalHistory> medicalHistories = new ArrayList<>();
     private final List<JsonAdaptedAppointment> appointments = new ArrayList<>();
 
@@ -35,12 +38,15 @@ class JsonSerializableAddressBook {
      */
     @JsonCreator
     public JsonSerializableAddressBook(@JsonProperty("patients") List<JsonAdaptedPatient> patients,
+                                       @JsonProperty("doctors") List<JsonAdaptedDoctor> doctors,
                                        @JsonProperty("medicalHistories")
                                                List<JsonAdaptedMedicalHistory> medicalHistories,
-                                        @JsonProperty("appointments") List<JsonAdaptedAppointment> appointments) {
+                                        @JsonProperty("appointments") List<JsonAdaptedAppointment> appointments)
+            throws IllegalValueException {
         this.patients.addAll(patients);
-        this.medicalHistories.addAll(medicalHistories);
+        this.doctors.addAll(doctors);
         this.appointments.addAll(appointments);
+        this.medicalHistories.addAll(medicalHistories);
     }
 
     /**
@@ -51,11 +57,14 @@ class JsonSerializableAddressBook {
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         patients.addAll(source.getPatientList().stream().map(JsonAdaptedPatient::new).collect(Collectors.toList()));
 
+        doctors.addAll(source.getDoctorList().stream().map(JsonAdaptedDoctor::new).collect(Collectors.toList()));
+
         medicalHistories.addAll(source.getMedHistList().stream().map(JsonAdaptedMedicalHistory::new)
                 .collect(Collectors.toList()));
 
         appointments.addAll(source.getAppointmentList().stream().map(JsonAdaptedAppointment::new)
                 .collect(Collectors.toList()));
+
     }
 
     /**
@@ -65,6 +74,24 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
+
+        for (JsonAdaptedAppointment jsonAdaptedAppointment : appointments) {
+            Appointment appointment = jsonAdaptedAppointment.toModelType();
+            if (addressBook.hasAppointment(appointment)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
+            }
+            //System.out.println(appointment);
+            addressBook.addAppointment(appointment);
+        }
+
+        for (JsonAdaptedDoctor jsonAdaptedDoctor : doctors) {
+            Doctor doctor = jsonAdaptedDoctor.toModelType();
+            if (addressBook.hasDoctor(doctor)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_DOCTOR);
+            }
+            addressBook.addDoctor(doctor);
+        }
+
         for (JsonAdaptedPatient jsonAdaptedPatient : patients) {
             Patient patient = jsonAdaptedPatient.toModelType();
             if (addressBook.hasPatient(patient)) {
@@ -72,11 +99,12 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPatient(patient);
         }
-
+        /*
         for (JsonAdaptedMedicalHistory jsonAdaptedMedicalHistory : medicalHistories) {
             MedicalHistory medicalHistory = jsonAdaptedMedicalHistory.toModelType();
             if (addressBook.hasMedHist(medicalHistory)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MEDHIST);
+
             }
             addressBook.addMedHist(medicalHistory);
         }
@@ -86,8 +114,9 @@ class JsonSerializableAddressBook {
             if (addressBook.hasAppointment(appointment)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
             }
-            addressBook.addAppointment(appointment);
+            //System.out.println(appointment);
         }
+        */
 
         return addressBook;
     }

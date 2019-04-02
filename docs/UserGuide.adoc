@@ -3,6 +3,7 @@
 :toc:
 :toc-title:
 :toc-placement: preamble
+:tip-caption: 💡
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -16,6 +17,8 @@ endif::[]
 
 By: `W17-1`      Since: `Feb 2019`      Licence: `MIT`
 
+
+
 == Introduction
 
 The Food Diary (FD) is for those who *prefer to use a desktop app for storing their personal food reviews and obtain food recommendations*. More importantly, FD is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, FD can get your foodie tasks done faster than traditional GUI apps.
@@ -27,6 +30,11 @@ Some of the features that can look forward to:
 * Finding out about new restaurants near you for your next gastronomical adventure!
 
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
+
+
+[TIP]
+It's possible to use Unicode glyphs as admonition icons.
 
 == Quick Start
 
@@ -43,7 +51,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * *`listRestaurants`* : lists all restaurants
 * **`addReview`** `n/MCDONALDS r/4 m/delicious` : adds a review to MCDONALDS with rating 4 with the comment "delicious"
-* **`delete`**`3` : deletes the 3rd review shown in the index
+* **`delete`**`3` : deletes the 3rd restaurant shown in the index
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -125,10 +133,6 @@ Examples:
 * `listUnvisited po/267951` +
 Return all the restaurants that has no reviews ranked based on the proximity to a given postal code
 
-Examples:
-
-* `listUnvisited po/267951` +
-Return all the restaurants that has no reviews ranked based on the proximity to a 'S267951'
 
 ==== 'Find'
 
@@ -255,6 +259,13 @@ Examples:
 * `addImage 2 f/apple pie i/apple.jpg` +
 Adds a picture to the second review of an apple pie
 
+
+=== General Features
+
+==== Viewing help : `help`
+
+Format: `help`
+
 ==== Personalising your food diary with your name: `name`
 
 Personalise your foodDiary with your name +
@@ -262,23 +273,18 @@ Format: `name n/YourName`
 
 Examples:
 
-* `name n/JackTheSheep`
+* `name n/Jack The Sheep`
 
-=== General Features
-==== Viewing help : `help`
-
-Format: `help`
 
 ==== View your profile and usage statistics : `view`
 
 Set the cuisine of a restaurant identified by the index number used in the listRestaurants. +
 Format: `view`
 
-
 Examples:
 
 `view` +
-`View personalised statistics for IAMAwesome. You have a total of 0 reviews and a total of 1 restaurants.`
+`View personalised statistics for Jack The Sheep. You have a total of 0 reviews and a total of 1 restaurants.`
 
 
 ==== Exiting the program : `exit`
@@ -297,6 +303,8 @@ There is no need to save manually.
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Food Diary folder.
 
+*Q*: How do I return to default screen? +
+*A*: Enter the command `list` to show all the restaurants.
 == Command Summary
 
 `Restaurant` Class

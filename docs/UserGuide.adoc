@@ -63,9 +63,11 @@ By default, TopDeck starts in <<decksview,Decks View>>.
 === Decks View [[decksview]]
 
 This view displays a list of the decks in your collection.
+
+
 In decks view, you can:
 
-- Create, edit and delete decks.
+- Create, edit, delete and find decks.
 - Open a deck to view its contents. TopDeck will enter <<cardsview,cards view>>.
 - Pick a deck to study. TopDeck will enter <<studyview,study view>>.
 

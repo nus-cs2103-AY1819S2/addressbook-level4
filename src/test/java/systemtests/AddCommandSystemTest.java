@@ -41,7 +41,6 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
     @Test
     public void add() {
         Model model = getModel();
-
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
         /* Case: add a card without hints to a non-empty card folder, command with leading spaces and trailing spaces

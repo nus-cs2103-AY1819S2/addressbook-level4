@@ -100,7 +100,7 @@ public class ModelManager implements Model {
 
         // ModelManager initialises to first card folder
         activeCardFolderIndex = 0;
-        state = State.IN_FOLDER;
+        state = State.IN_HOMEDIR;
     }
 
     public ModelManager(String newFolderName) {

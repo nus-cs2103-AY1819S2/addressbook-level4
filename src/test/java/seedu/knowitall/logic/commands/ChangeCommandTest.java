@@ -25,10 +25,8 @@ public class ChangeCommandTest {
 
     @Test
     public void execute_validChangeCommandIntoFolder_success() {
-        expectedModel.exitFolderToHome();
         expectedModel.enterFolder(TypicalIndexes.INDEX_FIRST_CARD.getZeroBased());
 
-        model.exitFolderToHome();
         ChangeCommand changeCommand = new ChangeCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER);
         CommandResult expectedCommandResult = new CommandResult(
                 String.format(
@@ -40,7 +38,7 @@ public class ChangeCommandTest {
 
     @Test
     public void execute_validChangeCommandExitFolder_success() {
-        expectedModel.exitFolderToHome();
+        model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
 
         ChangeCommand changeCommand = new ChangeCommand();
         CommandResult expectedCommandResult = new CommandResult(ChangeCommand.MESSAGE_EXIT_FOLDER_SUCCESS,
@@ -50,6 +48,8 @@ public class ChangeCommandTest {
 
     @Test
     public void execute_invalidEnterFolderCommand_failure() {
+        model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+
         ChangeCommand changeCommand = new ChangeCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER);
         String expectedMessage = Messages.MESSAGE_INVALID_COMMAND_INSIDE_FOLDER;
         assertCommandFailure(changeCommand, model, commandHistory, expectedMessage);

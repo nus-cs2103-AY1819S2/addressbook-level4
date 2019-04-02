@@ -92,16 +92,16 @@ public class SampleDataUtil {
 
     public static Task[] getSampleTasks() {
         return new Task[]{
-            new Task(new Title("Tooth Extraction for Alex"), new DateCustom("30-03-2019"),
-                    new DateCustom("30-03-2019"), new TimeCustom("1130"), new TimeCustom("1230"), Priority.HIGH),
-            new Task(new Title("Tooth Filling for Bernice"), new DateCustom("22-06-2019"),
-                    new DateCustom("22-06-2019"), new TimeCustom("1130"), new TimeCustom("1230"), Priority.LOW),
-            new Task(new Title("Review all patient's records"), new DateCustom("30-03-2019"),
-                    new DateCustom("22-06-2019"), new TimeCustom("1130"), new TimeCustom("1230"), Priority.MED),
-            new Task(new Title("Removal of John's braces"), new DateCustom("30-05-2019"),
-                    new DateCustom("30-05-2019"), new TimeCustom("1130"), new TimeCustom("1230"), Priority.MED),
-            new Task(new Title("Knock off early"), new DateCustom("22-03-2019"),
-                    new DateCustom("22-03-2019"), new TimeCustom("1130"), new TimeCustom("1230"), Priority.HIGH)
+            new Task(new Title("Tooth Extraction for Alex"), new DateCustom("30-03-2019"), new DateCustom("30-03-2019"),
+                    new TimeCustom("1130"), new TimeCustom("1230"), Priority.HIGH, null),
+            new Task(new Title("Tooth Filling for Bernice"), new DateCustom("22-06-2019"), new DateCustom("22-06-2019"),
+                    new TimeCustom("1130"), new TimeCustom("1230"), Priority.LOW, null),
+            new Task(new Title("Check all patient records"), new DateCustom("30-03-2019"), new DateCustom("22-06-2019"),
+                    new TimeCustom("1130"), new TimeCustom("1230"), Priority.MED, null),
+            new Task(new Title("Removal of John's braces"), new DateCustom("30-05-2019"), new DateCustom("30-05-2019"),
+                    new TimeCustom("1130"), new TimeCustom("1230"), Priority.MED, null),
+            new Task(new Title("Knock off early"), new DateCustom("22-03-2019"), new DateCustom("22-03-2019"),
+                    new TimeCustom("1130"), new TimeCustom("1230"), Priority.HIGH, null)
         };
     }
 

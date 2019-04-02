@@ -216,7 +216,7 @@ public abstract class EquipmentManagerSystemTest {
      * @see BrowserPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
-        assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        assertEquals(BrowserPanel.DEFAULT_PAGE.toString(), getBrowserPanel().getLoadedUrl().toString());
         assertFalse(getPersonListPanel().isAnyCardSelected());
     }
 
@@ -322,7 +322,7 @@ public abstract class EquipmentManagerSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
-        assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        assertEquals(BrowserPanel.DEFAULT_PAGE.toString(), getBrowserPanel().getLoadedUrl().toString());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

@@ -128,14 +128,14 @@ Example:
 
 === Creating a new worklist: `add-w`
 Create a worklist in the Equipment Manager by giving the worklist an ID +
-Format: `add-w /[worklist value] `
+Format: `add-w d/DATE a/ASSIGNEE i/ID`
 
 [TIP]
-The user can enter multiple field name and values.
+The user can enter multiple assignees, but only one date and id.
 
 Example:
 
-* `add-w /date 2019-02-12 /assignee Mei Yen`
+* `add-w d/09 May 2019 a/Mei Yen i/13`
 
 === Adding to work list: `put`
 Adds equipment to working list in the Equipment Manager +
@@ -176,7 +176,7 @@ Example:
 * `list-e`
 
 === View work list: `list-w`
-Shows a list of all clients in the Equipment Manager +
+Shows a list of all worklists in the Equipment Manager +
 Format: `list-w`
 
 Example:
@@ -184,7 +184,7 @@ Example:
 * `list-w`
 
 === Selecting an equipment or work list: `select`
-Selects the equipment or work list identified by the index number used in the displayed equipment list or displayed work list. The address of the equipment will be shown as marker on the map. +
+Selects the equipment or work list identified by the index number used in the displayed equipment list or displayed work list. The address of the equipment will be shown as marker on the map. The details of the equipment will be shown together with the map in split window format, means top half the screen will be showing the details, and the bottom half of the screen will be showing the map. +
 Format: `select INDEX`
 
 * Selects the equipment and loads the equipment at the specified INDEX. +
@@ -232,6 +232,7 @@ Example:
 
 === Sort the list: `sort`
 Sort the current shown list.
+
 Format: `sort [FIELD_NAME to be sorted by]`
 
 The user can sort the current shown list with any valid field.
@@ -241,26 +242,27 @@ The sort parameters are case-insensitive.
 By default, `sort` sorts the list by name in lexicographical order.
 
 [TIP]
-Equipment, client, and work list can only be sorted by address, preventive maintenance date and phone at the moment.
+Equipment, client, and work list can only be sorted by address, preventive maintenance date day and phone at the moment.
 
-Example:
+For example,
 
-* `sort`
+* `sort` +
 Returns the list sorted by name.
 
-* `sort address`
+* `sort address` +
 Returns the list sorted by address.
 
-* `sort date`
-Returns the list sorted according to date.
+* `sort date` +
+Returns the list sorted according to the day.
 
-* `sort phone`
+* `sort phone` +
 Returns the list sorted by phone number.
 
 
 
 === Filtering the list: `filter`
-Filter the current shown list which match the given keywords
+Filter the current shown list which match the given keywords.
+
 Format: `filter [n/NAME_KEYWORD]...[t/TAG_KEYWORD]...[a/ADDRESS_KEYWORD]`
 
 - At least *one* keyword must be provided.
@@ -272,30 +274,30 @@ Format: `filter [n/NAME_KEYWORD]...[t/TAG_KEYWORD]...[a/ADDRESS_KEYWORD]`
 
 
 [TIP]
-* The user can filter the current shown list with any specified fields, and can filter by multiple fields.
+* The user can filter the current shown list with any specified fields, and can filter by multiple fields and keywords.
 * Equipment, client, and worklist can all be filtered, by any fields of them.
 
-Example:
+For example,
 
-* `filter n/jurong`
+* `filter n/jurong` +
 Returns any equipment whose name contains jurong.
 
-* `filter a/bedok north`
+* `filter a/bedok north` +
 Returns any equipment whose address contains bedok north.
 
-* `filter pm/20 May`
+* `filter pm/20 May` +
 Returns any equipment whose preventative maintenance date contains 20 May.
 
-* `filter s/9888`
+* `filter s/9888` +
 Returns any equipment whose phone number contains 9888.
 
-* `filter s/A200`
+* `filter s/A200` +
 Returns any equipment whose serial number contains A200.
 
-* `filter t/urgent t/west`
+* `filter t/urgent t/west` +
 Returns any equipment whose tags contains urgent and west.
 
-* `filter n/jurong a/blk 123 t/urgent`
+* `filter n/jurong a/blk 123 t/urgent` +
 Returns any equipment whose names that contains jurong, address that contains blk 123, and whose tags contains urgent.
 
 

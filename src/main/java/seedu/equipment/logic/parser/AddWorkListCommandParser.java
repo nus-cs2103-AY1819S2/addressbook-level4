@@ -6,6 +6,7 @@ import seedu.equipment.commons.core.Messages;
 import seedu.equipment.logic.commands.AddWorkListCommand;
 import seedu.equipment.logic.parser.exceptions.ParseException;
 import seedu.equipment.model.WorkList;
+import seedu.equipment.model.WorkListId;
 import seedu.equipment.model.equipment.Date;
 
 /**
@@ -20,9 +21,10 @@ public class AddWorkListCommandParser implements Parser<AddWorkListCommand> {
      */
     public AddWorkListCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_DATE, CliSyntax.PREFIX_ASSIGNEE);
+                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_DATE, CliSyntax.PREFIX_ASSIGNEE,
+                        CliSyntax.PREFIX_ID);
 
-        if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_DATE, CliSyntax.PREFIX_ASSIGNEE)
+        if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_DATE, CliSyntax.PREFIX_ASSIGNEE, CliSyntax.PREFIX_ID)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(
                     Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddWorkListCommand.MESSAGE_USAGE));
@@ -30,8 +32,9 @@ public class AddWorkListCommandParser implements Parser<AddWorkListCommand> {
 
         Date date = ParserUtil.parseDate(argMultimap.getValue(CliSyntax.PREFIX_DATE).get());
         String assignee = ParserUtil.parseAssignee(argMultimap.getValue(CliSyntax.PREFIX_ASSIGNEE).get());
+        WorkListId id = ParserUtil.parseWorkListId(argMultimap.getValue(CliSyntax.PREFIX_ID).get());
 
-        WorkList workList = new WorkList(date.value, assignee);
+        WorkList workList = new WorkList(date.value, assignee, id);
 
         return new AddWorkListCommand(workList);
     }

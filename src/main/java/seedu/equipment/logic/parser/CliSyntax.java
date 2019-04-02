@@ -14,6 +14,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_DATE = new Prefix("d/");
     public static final Prefix PREFIX_ASSIGNEE = new Prefix("a/");
+    public static final Prefix PREFIX_ID = new Prefix("i/");
 
     public static final String DEFAULT_SORT_PARAMETER = "equipment";
     public static final String ADDRESS_SORT_PARAMETER = "address";

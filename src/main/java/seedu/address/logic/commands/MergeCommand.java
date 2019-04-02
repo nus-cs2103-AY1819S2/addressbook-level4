@@ -91,7 +91,7 @@ public class MergeCommand extends Command {
             }
 
             pdfMerger.mergeDocuments(org.apache.pdfbox.io.MemoryUsageSetting.setupMainMemoryOnly());
-            for (PDDocument doc :pdfSources) {
+            for (PDDocument doc : pdfSources) {
                 doc.close();
             }
 

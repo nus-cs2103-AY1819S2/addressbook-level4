@@ -1,4 +1,4 @@
-= Ian Wu - Project Portfolio for Battleship
+= Chong Shao Wei - Project Portfolio for Battleship
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -25,21 +25,18 @@ The following sections illustrate the feature in more detail, as well as the rel
 ** What it does: it allows the player to make attacks, and ensures that the player and enemy take turns with each other.
 ** Justification: the battle feature is important as it is one of the two important phases of Battleship, along with the placing of ships.
 ** Highlights: [placeholder]
-** Credits: [placeholder]
 
-* *Code contributed*: Here are my [https://github.com/CS2103-AY1819S2-W14-3/main/commits/master?author=iwle[code commits]].
+* *Code contributed*: Here are my [https://github.com/CS2103-AY1819S2-W14-3/main/commits/master?author=s-tr[code commits]].
 
 * *Other contributions*:
 
 ** Project management:
 *** [placeholder]
-** Enhancements to existing features:
-*** [placeholder]
+** Testing:
+*** Wrote tests for that increased coverage by 4% (Pull requests https://github.com/CS2103-AY1819S2-W14-3/main/pull/231[#231], https://github.com/CS2103-AY1819S2-W14-3/main/pull/269[#269])
 ** Documentation:
-*** [placeholder]
+*** Wrote the sections of the User Guide and Developer guide, as reproduced below
 ** Community:
-*** [placeholder]
-** Tools:
 *** [placeholder]
 
 == Contributions to the User Guide

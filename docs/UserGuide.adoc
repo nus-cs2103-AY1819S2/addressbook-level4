@@ -157,7 +157,7 @@ Example:
 
 === Deleting a file : `delete`
 
-The delete command lets you to delete a file from the application and your computer. + 
+The delete command lets you to delete a file from the application and your computer. +
 The file that is to be deleted must be specified by the index of the file that is next to the name of the file in the Files Section, highlighted in green. +
 
 Format: `delete INDEX`

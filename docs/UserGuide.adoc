@@ -16,7 +16,7 @@ endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w17-1/main
 
 By: `W17-1`      Since: `Feb 2019`      Licence: `MIT`
-
+// tag::introductionUG[]
 == Welcome to the Food Diary
 If you would like to get use the Food Diary straightaway, jump to the <<Quick Start>> to get started
 
@@ -50,7 +50,7 @@ This is a *tip*. A tip indicates good to know information that would improve you
 
 [WARNING]
 This is a *warning*. A warning indicates critical information that would affect the functionality of this programme.
-
+// end::introductionUG[]
 
 == Quick Start
 
@@ -140,7 +140,7 @@ Examples:
 
 * `list` +
 Return all the restaurants
-
+// tag::listUnvisitedUG[]
 ==== Listing all restaurants that you haven't visited : `listUnvisited`
 
 Shows a list of all restaurants that hasn't been reveiwed by you, ranked based on the proximity to a given postal code. +
@@ -157,6 +157,7 @@ Return all the restaurants that has no reviews ranked based on the proximity to 
 
 [TIP]
 If you simply want to view unreviewed restaurants, enter `listUnvisited po/000000`
+// end::listUnvisitedUG[]
 
 ==== Searching Restaurants by name: `find`
 
@@ -301,7 +302,7 @@ Adds a picture to the second review of an apple pie
 ==== Viewing help : `help`
 
 Format: `help`
-
+// tag::nameUG[]
 ==== Personalising your food diary with your name: `name`
 
 Personalise your foodDiary with your name +
@@ -326,7 +327,7 @@ Examples:
 
 image:viewCommand.png[width="790"]
 
-
+// end::nameUG[]
 
 ==== Exiting the program : `exit`
 

@@ -234,7 +234,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 
-// tag::listUnvisited[]
+// tag::listUnvisitedDG[]
 === listUnvisited feature which sorts by distance nearest to you
 ==== Current Implementation
 The 'listUnvisited' feature accepts the user's current postal code and displays restaurants without reviews nearest to the user's postal code.
@@ -293,7 +293,7 @@ image::ListUnvisitedSequenceDiagram.png[width="800"]
 * **Alternative 2:** Passing the user entered postal code into the `ModelManager`.
 ** Pros: Coupling is reduced between `Command` and `Model`.
 ** Cons: Violates Single Responsibility Principle and Separation of Concerns as `ModelManager` needs to handle the logic component of the command.
-// end::undoredo[]
+// end::listUnvisitedDG[]
 === Undo/Redo feature
 ==== Current Implementation
 
@@ -1080,6 +1080,27 @@ Use case ends
 ** 2a1. FoodDiary tells FoodLover that there is no website for this restaurant
 +
 Use case ends.
+
+// tag::useCaseDG[]
+[discrete]
+=== Use case: Getting unvisited restaurant recommendations
+
+*MSS*
+
+1. FoodLover enters command and his current postal code
+2. FoodDiary displays a list of restaurants ranked based on his proximity to the provided postal code.
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 2a. Postal code entered is not valid.
+[none]
+** 2a1. FoodDiary displays all the unreviewed restaurants.
++
+Use case ends.
+// end::useCaseDG[]
 
 [appendix]
 == Non Functional Requirements

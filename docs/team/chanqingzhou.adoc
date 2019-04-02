@@ -14,13 +14,13 @@ The Food Diary is a *journal application* for food lovers in Singapore to record
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to get restaurant recommendations based proximity to a location *
+* *Major enhancement*: I added *the ability to get restaurant recommendations based proximity to a location. *
 ** What it does: allows the user to list restaurants that they haven't reviewed ranked based on how close the restaurant is to the location they provide.
 ** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
 ** Highlights: This enhancement required the creation of many components to function. Firstly, a python script was used to collect the postal data and parse it into a json file. A new storage system was then created to parse the postal data json file. Finally, this data was then used to sort the restaurants.
 ** Credits: https://docs.onemap.sg/ API is used to generate the postal data.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: I added a name command that allows users to *personalise The Food Diary with their own name.*
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
@@ -30,20 +30,15 @@ The Food Diary is a *journal application* for food lovers in Singapore to record
 *** Managed releases `v1.3` (1 release) on GitHub
 *** Released `v1.3` jar file on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Wrote additional tests for existing features to increase coverage.
 ** Documentation:
 *** Create the initial User Guide: https://github.com[#2]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#18]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+** Project conceptualisation:
+*** Conceptualised the idea for Food Diary.
 
 
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -52,19 +47,20 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=introductionUG]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=listUnvisitedUG]
 
+include::../UserGuide.adoc[tag=nameUG]
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=listUnvisitedDG]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=useCaseDG]
 
 
 == PROJECT: PowerPointLabs

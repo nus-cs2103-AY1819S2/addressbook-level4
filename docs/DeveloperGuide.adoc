@@ -191,6 +191,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteCardSdForLogic.png[width="800"]
 
+//tag::modeldesign[]
 [[Design-Model]]
 === Model component
 
@@ -206,6 +207,7 @@ The `Model`,
 * exposes unmodifiable instances of `FilteredList<Card>` and `FilteredList<VersionedCardFolder>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+//end::modeldesign[]
 
 [NOTE]
 As a more OOP model, we can change the `Card` implementation to be that of a parent class, from which 2 subclasses, `SingleAnswerCard` and `McqCard` can inherit from. This would eliminate the need for the `Card` class to maintain a Set of MCQ `Options` even if it is a Single-answer card. An example of how such a model may look like is given below. +

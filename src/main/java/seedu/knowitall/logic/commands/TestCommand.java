@@ -10,7 +10,7 @@ import seedu.knowitall.model.Model;
 import seedu.knowitall.model.card.Card;
 
 /**
- * Test a card folder identified using it's displayed index from the card folder list.
+ * Enters a test session using the current card folder.
  */
 public class TestCommand extends Command {
 
@@ -31,7 +31,7 @@ public class TestCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
         }
 
-        if (model.checkIfInsideTestSession()) {
+        if (model.isInTestSession()) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_INSIDE_TEST_SESSION);
         }
 

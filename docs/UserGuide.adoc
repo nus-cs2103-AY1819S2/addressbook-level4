@@ -27,6 +27,8 @@ By: `CS2103-AY2018/19s2-W10-4 Team`      Since: `Mar 2019`      Licence: `MIT`
 Welcome to the *Know-It-All* User Guide! This document will equip you with what you need in order to use `v1.4` of the application. While some familiarity with command line programs will come in handy, simply adhere to the command formats specified in this guide closely and the rest will be a breeze.  Head over to <<Quick Start>> to get started.
 
 // end::introabout[]
+
+// tag::quickstart[]
 == Quick Start
 
 .  Ensure that you have Java version `9` or later installed in your Computer.
@@ -47,7 +49,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
-
+// end::quickstart[]
 [[Features]]
 == Features
 
@@ -298,6 +300,7 @@ This feature will enable users to join multiple folders together, reducing the n
 Format: `merge FOLDER_INDEX_1 FOLDER_INDEX_1 NEW_FOLDER_NAME`
 //end::folderoperations[]
 
+//tag::testoperations[]
 === Test Operations
 After memorising the content of the flashcards, it is helpful to test how much information have been internalised and retained in a timed setting. The following commands show just how this can be done with the <<testsession, Test Session>> functionality of *Know-It-All*.
 
@@ -317,6 +320,7 @@ This command is only considered valid when inside the folder to be tested and is
 ====
 * Only questions and hints are presented and users are required to either input an attempt or enter the command to
 reveal the answer.
+* (**MCQ cards**) the ordering of options will be randomized each time the card is tested.
 * Internally, flashcards in a folder are queued to be displayed one by one in the order of lowest existing score to highest existing score.
 * The next card will only be presented when the next command is carried out.
 ====
@@ -349,6 +353,8 @@ shows if it is correct or wrong.
 ====
 * Answering a flashcard will increase the total number of attempts. If the answer is correct, the action will also increase the number of correct attempts.
 * Answer matching is case insensitive.
+* To answer **MCQ cards**, enter the number of option that you think is correct, rather than the option itself. +
+E.g. `ans 1` rather than `ans myanswer`
 ====
 
 If the answer has been submitted successfully and it is wrong, you will see the following page (see Figure 2).
@@ -369,6 +375,12 @@ Examples:
 
 * `ans Mitochondrion` +
 in response to the card question: What is the powerhouse of the cell?
+
+.Answering an MCQ card
+image::AnsweringMcqCard.png[width="790"]
+
+* `ans 4` +
+in response to the card displayed in Figure 4, where choosing option 4 will give the right answer.
 
 [NOTE]
 This command is only considered valid if a card question is currently being
@@ -412,6 +424,7 @@ There is no backtracking in the current session so there is no `prev` command.
 Quits the current test session.
 
 Format: `end`
+//end::testoperations[]
 
 //tag::reportoperations[]
 === Report Operations

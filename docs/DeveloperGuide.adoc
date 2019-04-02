@@ -223,7 +223,7 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the GradTrak data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -253,7 +253,7 @@ The purpose of having ModuleInfoList is not only for temporary use; it also serv
 is unable to find the location of the JSON file containing all of the module information, a blank ModuleInfoList is handed to the
 ModelManager.
 
-image::ObservableList.png[width="200"]
+image::Observable.png[width="800"]
 
 This is done as `ObservableList<>` comes with a `FilteredList<>` feature: which wraps an ObservableList and filters the contents
 based on `predicates`.
@@ -382,6 +382,8 @@ We employ the "Composite" design pattern for this class as there are desirable b
 (one that can be achieved without "and", "or") and a more complicated one (one that can only be achieved with "and", "or") to be the same.
 As such the logical choice would be to make `CourseRequirement` an interface and its implementation is restricted to
 the `PrimitiveRequirement` and `CompositeRequirement` classes.
+
+image::CompositeDesignPattern.png[width==800]
 
 As the name suggests,
 `CompositeRequirement` is made up of two other `CourseRequirements`, a `LogicalConnector` class (which is used to represent
@@ -659,7 +661,7 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+A project often depends on third-party libraries. For example, GradTrak depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
 [loweralpha]
 . Include those libraries in the repo (this bloats the repo size)

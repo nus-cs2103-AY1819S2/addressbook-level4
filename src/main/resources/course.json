@@ -92,7 +92,7 @@
           "condition" : {
             "conditionName" : "Complete CP3880",
             "minToSatisfy" : "1",
-            "regexes" : [ "CS3880" ]
+            "regexes" : [ "CP3880" ]
           }
         },
         "second" : {
@@ -164,6 +164,16 @@
       },
       "courseReqType" : "CORE",
       "logicalConnector" : "OR"
+    }, {
+      "type" : "PrimitiveReq",
+      "requirementName" : "IT Professionalism",
+      "requirementDescription" : "Pass all IS1103/X, CS2101 and ES2660",
+      "requirementType" : "CORE",
+      "condition" : {
+        "conditionName" : "pass all",
+        "minToSatisfy" : "3",
+        "regexes" : [ "IS1103X?", "CS2101", "ES2660" ]
+      }
     }, {
       "type" : "PrimitiveReq",
       "requirementName" : "Science Requirements",
@@ -278,7 +288,7 @@
           "condition" : {
             "conditionName" : "Complete CP3880",
             "minToSatisfy" : "1",
-            "regexes" : [ "CS3880" ]
+            "regexes" : [ "CP3880" ]
           }
         },
         "second" : {
@@ -352,6 +362,16 @@
       "logicalConnector" : "OR"
     }, {
       "type" : "PrimitiveReq",
+      "requirementName" : "IT Professionalism",
+      "requirementDescription" : "Pass all IS1103/X, CS2101 and ES2660",
+      "requirementType" : "CORE",
+      "condition" : {
+        "conditionName" : "pass all",
+        "minToSatisfy" : "3",
+        "regexes" : [ "IS1103X?", "CS2101", "ES2660" ]
+      }
+    }, {
+      "type" : "PrimitiveReq",
       "requirementName" : "Science Requirements",
       "requirementDescription" : "Complete MA1521, MA1101R, ST2334 and one other science mod",
       "requirementType" : "UE",
@@ -359,6 +379,16 @@
         "conditionName" : "Complete MA1521, MA1101R, ST2334 and one other Science module",
         "minToSatisfy" : "4",
         "regexes" : [ "MA1521", "ST2334", "MA1101R", "(MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z]?" ]
+      }
+    }, {
+      "type" : "PrimitiveReq",
+      "requirementName" : "Complete at least 40 modules",
+      "requirementDescription" : "At least 40 modules needed to graduate.",
+      "requirementType" : "UE",
+      "condition" : {
+        "conditionName" : "Complete any 40 modules",
+        "minToSatisfy" : "40",
+        "regexes" : [ "[A-Z]{2,3}[0-9]{4}[A-Z]?" ]
       }
     } ]
   }, {
@@ -454,7 +484,7 @@
           "condition" : {
             "conditionName" : "Complete CP3880",
             "minToSatisfy" : "1",
-            "regexes" : [ "CS3880" ]
+            "regexes" : [ "CP3880" ]
           }
         },
         "second" : {
@@ -526,6 +556,16 @@
       },
       "courseReqType" : "CORE",
       "logicalConnector" : "OR"
+    }, {
+      "type" : "PrimitiveReq",
+      "requirementName" : "IT Professionalism",
+      "requirementDescription" : "Pass all IS1103/X, CS2101 and ES2660",
+      "requirementType" : "CORE",
+      "condition" : {
+        "conditionName" : "pass all",
+        "minToSatisfy" : "3",
+        "regexes" : [ "IS1103X?", "CS2101", "ES2660" ]
+      }
     }, {
       "type" : "PrimitiveReq",
       "requirementName" : "Science Requirements",

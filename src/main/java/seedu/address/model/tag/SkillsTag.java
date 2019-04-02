@@ -29,11 +29,11 @@ public class SkillsTag {
         this.tagType = type;
         if(type.equals("skill")){
             //skill tag
-            this.tagColor = "yellow";
+            this.tagColor = "pink";
 
         }else if(type.equals("pos")){
             //position tag
-            this.tagColor = "pink";
+            this.tagColor = "yellow";
 
         }else{
             //endorsement tag

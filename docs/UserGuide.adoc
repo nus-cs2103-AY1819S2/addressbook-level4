@@ -74,7 +74,7 @@ image::importSuccess.PNG[width="917"]
 image::open.PNG[width="917"]
 +
 
-.  Press kbd:[Enter] to execute the open command. Your image should be now displayed on the FomoFoto application as shown in the figure below. 
+.  Press kbd:[Enter] to execute the open command. Your image should be now displayed on the FomoFoto application as shown in the figure below.
 +
 .Open Success
 image::openImage.PNG[width="917"]

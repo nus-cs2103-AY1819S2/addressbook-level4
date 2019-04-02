@@ -1,5 +1,6 @@
-= Prithivi Raj - Portfolio
+= Portfolio
 Prithivi Raj <www.github.com/ptvrajsk>
+:imagesdir: images
 
 == Introduction
 
@@ -16,6 +17,8 @@ users. +
 The application has a working Graphical User Interface (GUI), built upon the
 JavaFX framework, that is supplemented with a Command Line Interface (CLI)
 to accept more specific requests by the User. +
+{nbsp} +
+
 Although not built to its final form, it boasts a large feature set such as:
 
 - Adding, Moving and Deleting Documents.
@@ -25,3 +28,40 @@ Although not built to its final form, it boasts a large feature set such as:
 - Permanent Encryption and Decryption of Documents such that they require
 set passwords to open even if accessed outside the application.
 - Merging multiple documents into a single document.
+
+=== Contributions
+
+The following are some of my contributions to this project:
+
+==== Dynamic User Interface (UI)
+
+Through the use of JavaFX and the FXML Scripting Language, I had upgraded the
+initial UI that was lacking several key features that were crucial for our
+application. +
+{nbsp} +
+The UI had to include labels that displayed the Deadlines keyed in by the User
+which had to reflect the duration to the due date by changing colours. The UI
+also needed to have a default _Welcome Screen_ that served as a central
+dashboard to the User. +
+Furthermore, the dashboard had to be replaced with a details screen when the
+User interacted with one of the Files in our application. +
+{nbsp} +
+The scripted UI is attached below:
+
+image::Ui.png[width="600", align="center"]
+
+==== Introduction of Deadline Feature
+
+The deadline feature is an integral part of our application and is one of the
+major features that was advertised to stand out. +
+
+
+
+
+
+==== JUnit Test Creation
+
+
+==== User Guide
+
+==== Other Contributions

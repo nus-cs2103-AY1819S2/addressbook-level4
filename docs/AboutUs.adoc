@@ -37,7 +37,7 @@ Role: Developer
 
 === Tieze
 image::miaaaaa97.png[width="150", align="left"]
-{empty}[https://github.com/miaaaaa97[github]]
+{empty}[https://github.com/miaaaaa97[github]] [<<miaaaaa97#, portfolio>>]
 
 Role: Developer
 

@@ -158,6 +158,8 @@ sort bookList by book name in ascending order.
 * `sortBook st/RATING o/des`
 sort bookList by rating of the book in descending order.
 
+// tag::reviews[]
+
 === Review Commands
 
 ==== Adding a book review: `addReview`
@@ -170,6 +172,12 @@ Examples:
 
 * `addReview n/Alice in Wonderland rt/An interesting child book r/While Lewis Carroll purists will scoff at the aging of his curious young protagonist, most movie audiences will enjoy this colorful world.`
 * `addReview n/Structure and Interpretation of Computer Programs rt/Computing Bible r/A very difficult book:(`
+
+****
+* The book having specified `BOOKNAME` must already exist in the Book Shelf.
+* `BOOKNAME` and `REVIEW TITLE` should not contain more than 50 characters.
+* `REVIEW MESSAGE` should not contain more than 400 characters.
+****
 
 ==== Deleting a book review: `deleteReview`
 
@@ -187,7 +195,7 @@ Example:
 ****
 
 ==== Listing all book reviews: `listAllReviews`
-Lists all the reviews in the Book Shelf.
+Lists all the reviews in the Book Shelf. +
 Format: `listAllReviews`
 
 ==== Listing book reviews of a certain book : `listReview`
@@ -215,6 +223,8 @@ Example:
 * The index refers to the index number shown in the displayed review list.
 * The index must be a positive integer 1, 2, 3, …​
 ****
+
+// end::reviews[]
 
 === System Commands
 

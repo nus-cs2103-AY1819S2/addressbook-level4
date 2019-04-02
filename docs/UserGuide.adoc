@@ -85,6 +85,9 @@ Format: `editReview INDEX [re/ENTRY] [rr/RATING]`
 * Existing values will be updated to the input values.
 ****
 
+image::EditReviewCommandFlowchart.png[width="790"]
+
+
 Examples:
 
 * `edit 1 rr/3` +

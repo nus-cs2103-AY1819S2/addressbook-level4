@@ -1,5 +1,6 @@
 package seedu.travel.model.chart;
 
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
@@ -8,12 +9,10 @@ import java.util.logging.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonReader;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import seedu.travel.commons.core.LogsCenter;
-import seedu.travel.commons.util.InvalidationListenerManager;
 import seedu.travel.model.place.CountryCode;
 import seedu.travel.model.place.Place;
 import seedu.travel.model.place.Rating;
@@ -21,42 +20,24 @@ import seedu.travel.model.place.Rating;
 /**
  * Stores chart data into JSON files
  */
-public class Chart implements Observable {
+public class Chart {
 
     public static final String FILE_CHART_COUNTRY = "data/countryChart.json";
     public static final String FILE_CHART_RATING = "data/ratingChart.json";
     public static final String FILE_CHART_YEAR = "data/yearChart.json";
 
-    private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
     private final Logger logger = LogsCenter.getLogger(getClass());
-    private final Map<CountryCode, Integer> mapCountry;
-    private final Map<Rating, Integer> mapRating;
-    private final Map<String, Integer> mapYear;
 
     public Chart(ObservableList<Place> placeList) {
-        this.mapCountry = createMapCountry(placeList);
-        storeJsonCountry();
+        Map<CountryCode, Integer> mapCountry = createMapCountry(placeList);
+        storeJsonCountry(mapCountry);
 
-        this.mapRating = createMapRating(placeList);
-        storeJsonRating();
+        Map<Rating, Double> mapRating = createMapRating(placeList);
+        storeJsonRating(mapRating);
 
-        this.mapYear = createMapYear(placeList);
-        storeJsonYear();
-    }
+        Map<String, Integer> mapYear = createMapYear(placeList);
+        storeJsonYear(mapYear);
 
-    public void addListener(InvalidationListener listener) {
-        invalidationListenerManager.addListener(listener);
-    }
-
-    public void removeListener(InvalidationListener listener) {
-        invalidationListenerManager.removeListener(listener);
-    }
-
-    /**
-     * Notifies listeners that the travel book has been modified.
-     */
-    public void indicateModified() {
-        invalidationListenerManager.callListeners(this);
     }
 
     /**
@@ -79,15 +60,15 @@ public class Chart implements Observable {
     /**
      * Returns the rating set map
      */
-    private Map<Rating, Integer> createMapRating(ObservableList<Place> placeList) {
+    private Map<Rating, Double> createMapRating(ObservableList<Place> placeList) {
         Rating rating;
-        Map<Rating, Integer> mapRating = new HashMap<>();
+        Map<Rating, Double> mapRating = new HashMap<>();
         for (Place place : placeList) {
             rating = place.getRating();
             if (mapRating.containsKey(rating)) {
-                mapRating.put(rating, mapRating.get(rating) + 1);
+                mapRating.put(rating, mapRating.get(rating) + 1.0);
             } else {
-                mapRating.put(rating, 1);
+                mapRating.put(rating, 1.0);
             }
         }
         return mapRating;
@@ -113,7 +94,7 @@ public class Chart implements Observable {
     /**
      * Stores country in Json file
      */
-    private void storeJsonCountry() {
+    private void storeJsonCountry(Map<CountryCode, Integer> mapCountry) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
             FileWriter fileWriterCountry = new FileWriter(FILE_CHART_COUNTRY);
@@ -127,7 +108,7 @@ public class Chart implements Observable {
     /**
      * Stores rating in Json file
      */
-    private void storeJsonRating() {
+    private void storeJsonRating(Map<Rating, Double> mapRating) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
             FileWriter fileWriterRating = new FileWriter(FILE_CHART_RATING);
@@ -141,7 +122,7 @@ public class Chart implements Observable {
     /**
      * Stores year in Json file
      */
-    private void storeJsonYear() {
+    private void storeJsonYear(Map<String, Integer> mapYear) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
             FileWriter fileWriterYear = new FileWriter(FILE_CHART_YEAR);
@@ -153,23 +134,56 @@ public class Chart implements Observable {
     }
 
     /**
-     * Returns country
+     * Returns the hash map of the country
      */
     public Map<CountryCode, Integer> getMapCountry() {
+        Map<CountryCode, Integer> mapCountry = new HashMap<>();
+        try {
+            FileReader fileReader = new FileReader(FILE_CHART_COUNTRY);
+            JsonReader jsonReader = new JsonReader(fileReader);
+            Gson gson = new Gson();
+            mapCountry = gson.fromJson(jsonReader, HashMap.class);
+            fileReader.close();
+            jsonReader.close();
+        } catch (IOException e) {
+            logger.warning(e.getMessage());
+        }
         return mapCountry;
     }
 
     /**
-     * Returns rating
+     * Returns the hash map of the rating
      */
-    public Map<Rating, Integer> getMapRating() {
+    public Map<Rating, Double> getMapRating() {
+        Map<Rating, Double> mapRating = new HashMap<>();
+        try {
+            FileReader fileReader = new FileReader(FILE_CHART_RATING);
+            JsonReader jsonReader = new JsonReader(fileReader);
+            Gson gson = new Gson();
+            mapRating = gson.fromJson(jsonReader, HashMap.class);
+            fileReader.close();
+            jsonReader.close();
+        } catch (IOException e) {
+            logger.warning(e.getMessage());
+        }
         return mapRating;
     }
 
     /**
-     * Returns year
+     * Returns the hash map of the year
      */
     public Map<String, Integer> getMapYear() {
+        Map<String, Integer> mapYear = new HashMap<>();
+        try {
+            FileReader fileReader = new FileReader(FILE_CHART_YEAR);
+            JsonReader jsonReader = new JsonReader(fileReader);
+            Gson gson = new Gson();
+            mapYear = gson.fromJson(jsonReader, HashMap.class);
+            fileReader.close();
+            jsonReader.close();
+        } catch (IOException e) {
+            logger.warning(e.getMessage());
+        }
         return mapYear;
     }
 }

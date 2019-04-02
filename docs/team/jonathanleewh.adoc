@@ -17,6 +17,9 @@ This document uses the following labels and formatting:
 |===
 |Label/Formatting |Description
 
+a|`Text`
+|Indicates command, format or code.
+
 a|NOTE: {sp}
 |Information to take note.
 
@@ -25,9 +28,6 @@ a|IMPORTANT: {sp}
 
 a|WARNING: {sp}
 |Indicates potential error message.
-
-|`Text`
-|Indicates command, format or code.
 |===
 
 == Summary of contributions

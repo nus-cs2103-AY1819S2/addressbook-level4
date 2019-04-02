@@ -326,7 +326,7 @@ previous test sessions.
 
 * **Alternative 1 (current choice):** Display previous folder scores in a graph
 ** Pros: More visual, easier to see change in folder score.
-** Cons: More performance and memory intensive as a graph needs to be rendered. Remedy: dispaly only last ten.
+** Cons: More performance and memory intensive as a graph needs to be rendered. Remedy: display only last ten.
 * **Alternative 2:** List the previous folder scores
 ** Pros: User can see more accurate numbers
 ** Cons: Hard to see change from test session to test session.

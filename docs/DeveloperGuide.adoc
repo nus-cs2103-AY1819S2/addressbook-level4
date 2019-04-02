@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/CS2103-AY1819S2-W14-2/main
+:repoURL: https://github.com/CS2103-AY1819S2-W14-2/main/tree/master
 
 By: `W14-2`      Since: `Feb 2019`      Licence: `MIT`
 
@@ -195,21 +195,32 @@ image::DeletePersonSdForLogic.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::ModelComponents.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/address/model/CurrentEdit.java[`CurrentEdit.java`], link:{repoURL}/src/main/java/seedu/address/model/Album.java[`Album.java`]
 
-The `Model`,
+The Model component consists of `Album` class and `CurrentEdit` class.
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+`Album` Class:
 
+* stores imported images as a list of images.
+* contains methods to access `assets` folder.
+
+
+`CurrentEdit` Class:
+
+* stores an `Image` instance in `tempImage` and `originalImage` when an image is opened.
+* creates a copy of the opened image and the current edited image in `temp` folder.
+* `tempImage` is updated each time a command to edit the image is called. (e.g. `RotateCommand`, `ContrastCommand`)
+* stores a list of commands that the user input after an image is opened.
+* contains methods to access `temp` folder.
+
+////
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
+////
 
 [[Design-Storage]]
 === Storage component
@@ -219,10 +230,12 @@ image::StorageClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The `assets` and `temp` folders form the storage component of FomoFoto.
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+*  The `assets` folder stores images that the user imported
+* The `temp` folder stores the image that the program is currently editing on.
+* The `Album` class contains methods to save and retrieve images from the `assets` folder.
+* The `CurrentEdit` class contains methods to overwrite and retrieve the image that the program is currently editing on.
 
 [[Design-Commons]]
 === Common classes
@@ -261,43 +274,97 @@ image::ImportSequenceDiagram.png[width=800]
 ** Pros: Can import many images without repeating the command.
 ** Cons: Can result in errors in too mny images or images are of alternative formats.
 
+
 === Open Feature
 
 The open command allows users to open a previously imported image for image-editing.
 
 ==== Current Implementation
-The open function is facilitated by the ModelManager and contains the following operations:
+The open function is facilitated by `Album` and `CurrentEdit`. It uses the following operations:
 
-* `Model#setCurrentImage(Image)` - Sets the `currentImage` to the opened image.
+* `Album#checkFileExist(String)` - Checks if file name specified by the `String` exists in assets folder.
 
-* `Model#createTempImage(Image)` - Creates a new temporary image inside the directory: "src/main/resources/temp/"
+* `Album#retrieveImage(String)` - Return an `Image` specified by the `String` in assets folder.
 
-* `Model#displayImage()` - Displays the temporary image stored in directory: "src/main/resources/temp/"
+* `CurrentEdit#openImage(Image)` - Creates two copies of the opened image in `temp` folder. The duplicated images are instantiated as `tempImage` and `originalImage`.
 
-Given below is an example usage scenario and how the open mechanism behaves at each step.
+* `CurrentEdit#updateExIF(Image)` - Updates the Exif data of the image.
 
-Step 1. The user executes `open sample1.png` and the open function checks whether the image exists in the directory: "src/main/resources/assets".
+* `CurrenEdit#displayTempImage()` - Displays the temporary image stored in directory: "src/main/resources/temp/".
 
-Step 2. The open function retrieves the image before it calls `Model#setCurrentImage(Image)` to store a new `Image` instance of the retrieved image into `currentImage`. Subsequent edits will be done on `currentImage`.
+Given below is an example usage scenario and how the `open` mechanism behaves at each step.
 
-Step 3. `Model#createTempImage(Image)` creates a copy of `currentImage` as a temporary image file "temp_img" and stores it in directory: "src/main/resources/temp/".
+Step 1. The user executes `open sample.png`.
 
-Step 4. `Model#displayImage()` displays "temp_img" on Graphical User Interface.
+Step 2. `Album#checkFileExist(String)` is called to check if the file specified by the `String` exist in `assets` folder. If it exists, `Album#retrieveImage(String)` is called to create an `Image` object from the specified file. Otherwise, `CommandException` is thrown.
+
+Step 3. The `Image` is passed to `CurrentEdit#openImage(Image)` to create two copies of `Image`, named `temp_img.png` and `ori_img.png`, in `temp` folder. These copies are then instantiated as `tempImage` and `originalImage`.
+
+Step 4. `CurrentEdit#updateExIF(Image)` is called to updates the information of the opened image in the GUI.
+
+Step 5. `CurrenEdit#displayTempImage()` displays the opened image on the GUI.
 
 
-The following sequence diagram shows how the open command works:
+The following sequence diagram shows how the `open` command works:
 
-<to be added>
+.Sequence Diagram for Open Command
+image::OpenCommandSequenceDiagram.png[width=800]
 
 ==== Design Considerations
 
-Open command must be called before the user can edit the image. The command initialises `currentImage`, which all edits will be applied on. Users are unable to edit other images unless the open command is called again.
+* *Alternative 1 (current choice)*: User can only open and edit one image at a time.
+** Pros: Easy to implement. `temp` folder only stores one original image and one temporary image. Clear to users that edits are done to the only opened image.
+** Cons: Users are unable to open other images while editing.
 
+* *Alternative 2* : User can open and edit multiple images.
+** Pros: Users are able to edit multiple images simultaneously.
+** Cons: Open has to distinguish whether user is opening an image from `assets` folder or `temp` folder. Requires many duplicates with different names. This may be confusing.
+
+
+=== List Files Feature
+
+The `listfiles` command displays a list of all the files in `assets` folder.
+
+==== Current Implementation
+The listfiles function is facilitated by `Album`. It uses the following operations:
+
+* `Album#getFileNames()` - Returns a list of all the files in `assets` folder.
+
+
+Given below is an example usage scenario and how the `listfiles` mechanism behaves at each step.
+
+Step 1. The user executes `listfiles`.
+
+Step 2. `Album#getFileNames()` accesses `assets` folder and returns all the file names in a String array.
+
+Step 3. The String array is displayed on the GUI.
+
+
+
+The following sequence diagram shows how the `listfiles` command works:
+
+
+.Sequence Diagram for ListFiles
+image::ListFilesCommandSequenceDiagram.png[width=800]
+
+==== Design Considerations
+
+`listfiles` command was created to allow users to know what files are stored in `assets` folder so that they can call `open` using the right file names.
 
 === Image Filters
 ==== Current Implementation
 
-The filter mechanism is facilitated by https://github.com/sksamuel/scrimage [`scrimage`], an external API Library that provides image filters methods for our image editor. The gradle script declares a compile-time dependency on this external API through the coordinates:  `group: 'com.sksamuel.scrimage'`, `name: 'scrimage-filters_2.12'`, `version: '3.0.0-alpha4'`.
+The filter mechanism is facilitated by https://github.com/sksamuel/scrimage[`scrimage`], an external API Library that provides image filters methods for our image editor. The gradle script declares a compile-time dependency on this external API through the coordinates:  `group: 'com.sksamuel.scrimage'`, `name: 'scrimage-filters_2.12'`, `version: '3.0.0-alpha4'`.
+
+The image filters feature is facilitated by `CurrentEdit`. It uses the following operations:
+
+* `CurrentEdit#getTempImage` - Retrieves the temporary image `tempImage` which stores the filepath of the temporary image in `temp` folder, its history of edits [`List<Command>`] and its metadata.
+
+* `CurrenEdit#updateTempImage` - Replaces the temporary image in `temp` folder with the newly edited image and update the `tempImage` instance in the class.
+
+* `CurrentEdit#addCommand` - add this command to the edit history [`List<Command>`] in `tempImage` for the undo/redo function
+
+* `CurrenEdit#displayTempImage()` - Displays the temporary image stored in directory: "src/main/resources/temp/".
 
 The filter feature mainly consists of:
 
@@ -305,9 +372,9 @@ The filter feature mainly consists of:
 * `brightnessCommand`: Applies the specified brightness ratio value on the targetted image
 * `black/whiteCommand`: Transforms colored targetted image to a black and white image
 
-The following describes main operations and processes contained in the classes above.
+The following describes main operations and processes for each command stated above.
 
-==== ContrastCommand:
+==== Contrast Command
 
 This command calls for an adjustment of contrast on a targetted image and adds this specific command called by the user to `Image`'s `List<EditCommands>` which saves the editing history of the targetted image.
 
@@ -321,55 +388,99 @@ Step 3. During execution, the `execute` method in the `contrastCommand` class ca
 
 Step 4. Calling `Model#applyContrast()` creates a `BufferedOpFilter` object in the external library [`scrimage`] named `contrastFilter` which is applied on the image with the filepath: "src/main/resources/temp/" + `currentImage#getFileName()`
 
-Step 5. Calling `Model#displayImage` updates the user interface and the user interface will now display the image with the filepath: "src/main/resources/temp/" + `currentImage#getFileName()`
+Step 7. `isNewCommand` is set to `false` to signal that this command is not a new contrast command if it is executed again through the undo/redo function.
+`currentEdit#addCommand(this)` is invoked to add this command to the `List<Command>` in `tempImage` for the undo/redo function and `currentEdit#displayTempImage()` is used to display the edited image on the graphical user interface.
 
 ===== Design Considerations
 
  - Intermediate images have to be stored and edited in a temp folder first due to our `undo/redo` implementation.
 
 .Sequence Diagram for Contrast Command
-image::ContrastCommandSequenceDiagram.png[width="740"]
+image::ContrastCommandSequenceDiagram.png[width="800"]
 
+==== Brightness Command
+This command calls for an adjustment of brightness on a targetted image. After adjusting the brightness, it adds this specific command called by the user to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
+
+Refer to the example usage scenario and design considerations in <<Contrast Command>>
+
+.Sequence Diagram for Brightness Command
+image::BrightnessCommandSequenceDiagram.png[width="800"]
+
+==== BlackWhite Command
+This command calls for a transformation of a targetted image to a black and white image. After applying the black and white transformation, it adds this specific command called by the user to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
+
+Refer to the example usage scenario and design considerations in <<Contrast Command>>
+
+.Sequence Diagram for BlackWhite Command
+image::BlackWhiteCommandSequenceDiagram.png[width="800"]
 
 === Image Manipulation
 ==== Current Implementation
 
 This segment involves manipulating the physical image itself, such as rotating, cropping and resizing. The implementations of these features are facilitated by https://github.com/rkalla/imgscalr[`ImgScalr Library`], which is an external API Library that helps process the target image.
 
+The manipulation feature is facilitated by `CurrentEdit`. It uses the following operations:
+
+* `CurrentEdit#getTempImage` - Retrieves the temporary image `tempImage` which stores the filepath of the temporary image in `temp` folder, its history of edits [`List<Command>`] and its metadata.
+
+* `CurrenEdit#updateTempImage` - Replaces the temporary image in `temp` folder with the newly edited image and update the `tempImage` instance in the class.
+
+* `CurrentEdit#addCommand` - add this command to the edit history [`List<Command>`] in `tempImage` for the undo/redo function
+
+* `CurrenEdit#displayTempImage()` - Displays the temporary image stored in directory: "src/main/resources/temp/".
+
 This manipulation feature mainly consists of:
 
-* `rotateCommand`: Allows user to rotate images by specifying a degree (90, 180 or 270 only).
-* `cropCommand`: Allows user to crop images by specifying the coordinates of the top left corner, the width and the height of the desired cropped image.
-* `resizeCommand`: Allows user to resize images to the desired size while maintaining the proportions.
+* `RotateCommand`: Allows user to rotate images by specifying a degree (90, 180 or 270 only).
+* `CropCommand`: Allows user to crop images by specifying the coordinates of the top left corner, the width and the height of the desired cropped image.
+* `resizeCommand`: Allows user to resize images to the desired width and height.
+
+The follwing describes main operations and processes for each command stated above.
 
 ==== Rotate Command
-This command allows the user to rotate images by specifying a degree (90, 180 or 270 only). Upon receiving an input degree by the user, the degree will be checked for its validity and will throw an error if the degree is not within the specified range. The command will then be added to the `Image`'s `List<EditCommands>` which saves the editing history of the targetted image.
+This command allows the user to rotate the targetted image by specifying a degree (90, 180 or 270 only). Upon receiving an input degree by the user, the degree will be checked for its validity and will throw an error if the degree is not within the specified range. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
 
-Given below is an example usage scenario and how the command should behave at each step:
+Given below is an example usage scenario and how the command should behave at each step [This applies to the other image manipulation commands as well.]:
 
-
-Step 1. When the users run the application and open an image to edit, a new `Image` object is created which stores the filename of the image,  history of edits `List<EditCommand>` and the image's metadata. This `Image` object will be set as the `currentImage` in the `Model` for editing.
-
+Step 1. When the user runs an open command to edit an image, it invokes a method which creates an instance of an `Image` that stores the filepath of the image, its history of edits `List<Command>` and its metadata. This `Image` object is saved under the variable name `tempImage` in `currentEdit` for editing.
 
 Step 2. When the user enters the command (e.g. `rotate 90`), the entered command is parsed and the command will be executed.
 
+[NOTE]
+If an invalid command is provided, a reminder of how to use the command will be given to the user and no command will be run.
 
-Step 3. During execution, the `execute` method in the `rotateCommand` class calls for the methods `applyRotate` and `displayImage` in `Model`.
+Step 3. During execution, the `execute` method in the `RotateCommand` class invokes `currentEdit#getTempIMage()` to get the `tempImage` from the `currentEdit`.
 
+Step 4. Upon retrieving the `tempImage`, the `execute` method in `RotateCommand` gets a `BufferedImage` instance from `tempImage`.The method then calls the external library https://github.com/rkalla/imgscalr[`ImgScalr`]'s class `rotate` and passes the `BufferedImage` object in.
 
-Step 4. The method `applyRotate` calls the external library https://github.com/rkalla/imgscalr[`ImgScalr`]'s class `rotate` which is applied on the image with the filepath `src/main/resources/temp/` + `currentImage#getFileName()`
+Step 5. A `BufferedImage` object is returned from the external library and `currentEdit#updateTempImage()` is invoked to overwrite the current image in the filepath: "src/main/resources/temp/" + `tempImage#getUrl` with a new `BufferedImage` object.
 
+Step 6. The `execute` method then checks if the boolean `isNewCommand` is true. If it is true, it indicates that the command is a new rotate command called directly from the user and not through an undo/redo command which triggers Step 7 in the line below. Otherwise, the command’s execution ends in this step.
 
-Step 5. The method `displayImage` updates the user interface and the user interface will now display the image with the filepath `src/main/resources/temp/` + `currentImage.getFileName()`
+Step 7. `isNewCommand` is set to false to signal that this command is not a new rotate command if it is executed again through the `undo/redo` function. `currentEdit#addCommand(this)` is invoked to add this command to the `List<Command>` in `tempImage` for the `undo/redo` function and `currentEdit#displayTempImage()` is used to display the edited image on the graphical user interface.
 
 ==== Design Considerations
 
 * Intermediate images have to be stored and edited in a temp folder first due to our `undo/redo` implementation.
 
-* Furthermore, there was an attempt to self-implement the rotation feature, and thus allows the user to input a range of degree values from 0 to 360. However, there were issues with the saving images of odd sizes and we hence decided against it.
-
 .Sequence Diagram for Rotate Command
-image::RotateCommandSequenceDiagram.png[width="1280"]
+image::RotateCommandSequenceDiagram.png[width="800"]
+
+==== Crop Command
+This command allows the user to crop the targetted image by specifying the coordinates of the top left hand corner of the desired image, the width of the desired image and the height of the desired image. Upon receiving the inputs, the values will be checked for their validity and will throw an error if any value is not within the specified range. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
+
+Refer to the example usage scenario and design considerations in <<Rotate Command>>
+
+.Sequence Diagram for Crop Command
+image::CropCommandSequenceDiagram.png[width="800"]
+
+==== Resize Command
+This command allows the user to resize the targetted image by specifying the width and height of the desired image. Upon receiving the inputs, the values will be checked for their validity and will throw an error if any value is not within the specified range. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
+
+Refer to the example usage scenario and design considerations in <<Rotate Command>>
+
+.Sequence Diagram for Resize Command
+image::ResizeCommandSequenceDiagram.png[width="800"]
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -450,6 +561,64 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+
+=== Save Feature
+
+The `save` command applies the edits to the current edit image and saves it into `assets` folder.
+
+==== Current Implementation
+The save function is facilitated by `Album` and `CurrentEdit`. It uses the following operations:
+
+* `CurrentEdit#tempImageExist()` - Returns true `tempImage` in `CurrentEdit` is null. `tempImage` is null only if `open` command was never called.
+
+* `CurrentEdit#getTempImage()` - Returns the latest edited image stored in `tempImage` in `CurrentEdit`.
+
+* `CurrentEdit#getOriginalName()` - Returns original name of opened image.
+
+* `CurrentEdit#overwriteOriginal(String)` - Replaces `ori_img.png` with `temp_img.png' in `temp` folder. Updates `originalImage` to `tempImage` and `originalImageName` to `String` in `CurrentEdit`.
+
+* `Album#checkFileExist(String)` - Checks if file name specified by the `String` exists in assets folder.
+
+* `Album#saveToAssets(Image, String)` - Saves the `Image` as `String` into `assets` folder.
+
+* `Album#populateAlbum()` - Updates list of images in `Album` class.
+
+* `Album#refreshAlbum()` - Updates and displays the latest images in `assets` folder on the GUI.
+
+
+
+Given below is an example usage scenario and how the `save` mechanism behaves at each step.
+
+Step 1. The user executes `save`.
+
+Step 2. `CurrentEdit#tempImageExist()` checks if an image was previously opened. If no `open` was called previously, `CommandException` is thrown.
+
+Step 3. `CurrentEdit#getTempImage()` retrieves the `tempImage` from `CurrentEdit`.
+
+Step 4. If user did not input a `String` after `save` previously, `CurrentEdit#getOriginalName()` will retrieve the `originalImageName` from `CurrentEdit`. Otherwise, `Album#checkFileExist(String)` will be called to check if a file name is similar to `String`. If it is a duplicate, `CommandException` will be thrown.
+
+Step 5. `Album#saveToAssets(Image, String)` takes in the previously retrieved `Image` and `String` to create a new image file in `assets` folder.
+
+Step 6. `CurrentEdit#overwriteOriginal(String)` is called to update the files in `temp` folder and their respective instances in `CurrentEdit`.
+
+Step 7. `Album#populateAlbum()` updates the list of image in `Album` class to ensure it reflects all the files in `assets` folder.
+
+Step 8.`Album#refreshAlbum()` is called to update the Information Panel on the GUI.
+
+
+The following sequence diagram shows how the `save` command works:
+
+.Sequence Diagram for Save Command
+image::SaveCommandSequenceDiagram.png[width=800]
+
+==== Design Considerations
+* *Alternative 1*: User must input a string to name the the new image.
+** Pros: Name of the new image is clear to the user.
+** Cons: Tedious for user to type in a name each time `save` is performed.
+
+* *Alternative 2 (current choice)* : User can choose to input a string to name the new image or overwrite the opened image.
+** Pros: Convenient for user to `save` quickly without having to type a new name everytime.
+** Cons: User may unintentionally overwrite the opened image.
 
 === Logging
 
@@ -975,11 +1144,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |open a photo stored in the application for editing |
 
-|`* * ` |user |list the names of the photos stored in the application |know what photos are currently stored inside
+|`* *` |user |list the names of the photos stored in the application |know what photos are currently stored inside
 
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases

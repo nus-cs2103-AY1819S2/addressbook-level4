@@ -26,7 +26,7 @@ public class BrightnessCommand extends Command {
         + "If ratio is not given, default brightness ratio will be 1.1\n"
         + "Parameters: [BRIGHTNESS RATIO (double)] "
         + "Example: " + COMMAND_WORD
-        + "Example2: " + COMMAND_WORD;
+        + "Example2: " + COMMAND_WORD + "0.9";
     private OptionalDouble brightnessValue;
     private boolean isNewCommand;
 

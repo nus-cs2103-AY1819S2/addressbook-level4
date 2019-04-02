@@ -26,7 +26,7 @@ public class BlackWhiteCommand extends Command {
         + "If threshold is not given, default threshold value is 127.\n"
         + "[THRESHOLD VALUE (int)] "
         + "Example: " + COMMAND_WORD
-        + "Example2: " + COMMAND_WORD;
+        + "Example2: " + COMMAND_WORD + "130";
     private OptionalInt threshold;
     private boolean isNewCommand;
 

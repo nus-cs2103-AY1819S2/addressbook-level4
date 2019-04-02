@@ -22,6 +22,7 @@ FomoFoto is a image processing software suite written in Java. This application 
 
 
 == Quick Start
+Follow the steps below to set up your computer to run FomoFoto.
 
 .  Ensure you have Java version 9 or later installed in your Computer.
 .  Download the latest FomoFoto.jar here.
@@ -29,7 +30,7 @@ FomoFoto is a image processing software suite written in Java. This application 
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 .Home Page of FomoFoto
-image::Ui.png[width="790"]
+image::Ui.PNG[width="800"]
 +
 .  And you have just started up FomoFoto on your device! You can refer to <<Features>> for details of each command. If you would like a step-by-step walk through of our application, scroll down to the next section: A Walk Through.
 
@@ -45,7 +46,7 @@ Let's start on our image editing journey, shall we? In this walk through, we wil
 
 .  Open the folder that the image file is stored in. Then, to get the file path of the image:
 * In Windows: Hold on to the kbd:[Shift] key and *right click* on your image file. Click the option *Copy path*.
-* In Mac: {to be filled in}
+* In Mac: Go to terminal and navigate to your image file. Type 'pwd' to get the filepath to your image file and copy paste.
 
 .  You can now go back to the FomoFoto application. You would now want to import the image into FomoFoto. In the Command Line, type as follows:
 +
@@ -92,40 +93,49 @@ image::cropSuccess.PNG[width="918"]
 
 [[Features]]
 == Features
+This section describes all the commands available in FomoFoto and includes examples on how to use them.
 
 ====
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `import FILEPATH`, `FILEPATH` is a parameter which can be used as `import desktop/photoalbum/image1`.
-* Items in square brackets are optional e.g `brightness [BRIGHTNESS_RATIO]` can be used as `brightnees or as `brightness 0.9`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items in square brackets are optional e.g `brightness [BRIGHTNESS_RATIO]` can be used as `brightness or as `brightness 0.9`.
+
 ====
 
 === Black and White Filter : `bw`
 
-Applies black and white filter on opened image. +
-Format: `bw`
+Applies black and white filter on opened image based on an integer threshold value. If threshold value is not specified, the black and white filter will use a preset threshold value of 127. Pixels lighter than the threshold value will become white and pixels darker than the threshold value will become black. +
+Format: `bw [THRESHOLD_VALUE]`
+
+Examples:
+
+* `bw` (threshold value preset to 127)
+* `bw 130`
 
 === Brightness: `brightness`
 
-Adjusts the brightness of the image. +
+Adjusts the brightness of the opened image based on a double-valued ratio. If the brightness ratio is not specified, a preset ratio value of 1.1 will be used. +
 Format: `brightness [BRIGHTNESS_RATIO]`
 
 Examples:
 
-* `brightness 1.9`
 * `brightness` (brightness ratio preset to 1.1)
+* `brightness 1.9` (increases brightness)
+* `brightness 0.3` (reduces brightness)
+
 
 === Contrast: `contrast`
 
-Adjusts the contrast of the image. +
+Adjusts the contrast of the opened image based on a double-valued ratio. If the contrast ratio is not specified, a preset ratio value of 1.1 will be used.+
 Format: `contrast CONTRAST_RATIO`
 
 Examples:
 
-* `contrast 1.4` (increase contrast)
-* `contrast 0.3` (reduce contrast)
 * `contrast` (contrast ratio preset to 1.1)
+* `contrast 1.4` (increases contrast)
+* `contrast 0.3` (reduces contrast)
+
 
 === Crop an image : `crop`
 
@@ -216,7 +226,7 @@ Example:
 
 === Resize an image : `resize`
 
-Resize the photo to a given width and height provided by the user. +
+Resizes the photo to a given width and height provided by the user. +
 Format: `resize WIDTH HEIGHT`
 
 Example:
@@ -225,7 +235,7 @@ Example:
 
 === Save image : `save`
 
-Apply and save your edits. +
+Applies and saves your edits. +
 Format: `save` or `save FILENAME`
 
 Example:
@@ -234,12 +244,12 @@ Example:
 
 === Undo edit steps : `undo`
 
-Go back to the previous state of the image. +
+Goes back to the previous state of the image. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the image (`rotate`, `crop`, `brightness`, `contrast` and `bw`).
+Undoable commands: those commands that modify the image (`rotate`, `crop`, `resize`, `brightness`, `contrast` and `bw`).
 ====
 
 Examples:
@@ -286,13 +296,15 @@ Format: `ruler [ON|OFF]` -> Toggles a ruler that surrounds the canvas. This will
 
 
 == Command Summary
+Below is a quick summary of all the commands available in FomoFoto.
 
-* *Black/White* `bw`
+* *Black/White* `bw [THRESHOLD_VALUE]` +
+e.g. `bw 127` +
 
 * *Brightness* `brightness [BRIGHTNESS_RATIO]` +
 e.g. `brightness 0.8` +
 
-* *Contrast* `contrast [CONTRAST_RATIO]]` +
+* *Contrast* `contrast [CONTRAST_RATIO]` +
 e.g. `contrast 1.9` +
 
 * *Crop* `crop X_POINTCOORD Y_POINTCOORD W_WIDTH H_HEIGHT` +

@@ -2,6 +2,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
 
@@ -16,9 +17,11 @@ public class TabCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Tab switched.";
 
+    private final Album album = Album.getInstance();
+
     @Override
     public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history) {
-        model.switchTab();
+        album.switchTab();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

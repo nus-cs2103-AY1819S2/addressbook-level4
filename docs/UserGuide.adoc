@@ -103,9 +103,13 @@ image::study_ug_diagrams/study_1.png[width="800"]
   Example: If the command specifies `q/QUESTION a/ANSWER`, `q/QUESTION a/ANSWER` is also acceptable.
 ====
 
-=== Decks View
+=== Deck View
 
-These commands are only available in decks view.
+In this view you can create, edit and find decks. This is the default view when TopDeck is first launched.
+
+image::deck_ug_diagrams/deck.png[width="800"]
+
+These are commands only available in deck view.
 
 ==== Creating a deck: `add`
 
@@ -113,16 +117,36 @@ These commands are only available in decks view.
 
 **Outcome**: Creates a new deck called `DECK_NAME`.
 
+**Example**: `add n/History`
+
+Before:
+
+image::deck_ug_diagrams/add_deck_1.png[width="800"]
+
+After:
+
+image::deck_ug_diagrams/add_deck_2.png[width="800"]
+
 ==== Deleting a deck: `delete`
 
 **Format**: `delete INDEX`
 
 **Outcome**: Deletes the deck at `INDEX`.
 
+**Example**: `delete 2`
+
 [NOTE]
 ====
 The index refers to the index number shown in the displayed deck list. The index *must be a positive integer* 1, 2, 3...
 ====
+
+Before:
+
+image::deck_ug_diagrams/delete_deck_1.png[width="800"]
+
+After:
+
+image::deck_ug_diagrams/delete_deck_2.png[width="800"]
 
 ==== Editing the name of a deck: `edit`
 
@@ -130,11 +154,31 @@ The index refers to the index number shown in the displayed deck list. The index
 
 **Outcome**: Changes the name of the deck at `INDEX` to `NEW_DECK_NAME`.
 
+**Example**: `edit 2 Addition`
+
+Before:
+
+image::deck_ug_diagrams/edit_deck_1.png[width="800"]
+
+After:
+
+image::deck_ug_diagrams/edit_deck_2.png[width="800"]
+
 ==== Finding a deck by name: `find`
 
 **Format**: `find KEYWORD`
 
 **Outcome**: Lists all decks containing `KEYWORD` in its name.
+
+**Example**: `find sci`
+
+Before:
+
+image::deck_ug_diagrams/find_deck_1.png[width="800"]
+
+After:
+
+image::deck_ug_diagrams/find_deck_2.png[width="800"]
 
 ==== Listing all decks: `list`
 
@@ -142,11 +186,10 @@ The index refers to the index number shown in the displayed deck list. The index
 
 **Outcome**: Displays a list of all decks.
 
-==== Selecting a deck: `select`
+image::deck_ug_diagrams/list_deck_1.png[width="800"]
 
-**Format**: `select INDEX`
+image::deck_ug_diagrams/list_deck_2.png[width="800"]
 
-**Outcome**: Selects the deck at `INDEX`
 
 ==== Navigating into a deck: `open`
 
@@ -154,11 +197,19 @@ The index refers to the index number shown in the displayed deck list. The index
 
 **Outcome**: Opens the deck at `INDEX`
 
+**Example**: `open 1`
+
+image::deck_ug_diagrams/open_deck.png[width="800"]
+
 ==== Studying a deck: `study`
 
 **Format**: `study INDEX`
 
 **Outcome**: Enters study view with the deck at `INDEX`.
+
+**Example**: `study 1`
+
+image::deck_ug_diagrams/study_deck.png[width="800"]
 
 === Cards View
 

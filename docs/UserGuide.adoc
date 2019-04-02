@@ -474,7 +474,7 @@ Through QuickDocs, you could place the same medicine under different directories
 [TIP]
 Following the same logic, you may not be able to store two different medicine with the same name in QuickDocs. All instances of medicine with the same name will refer to the same medicine.
 [[adddirec, Add directory]]
-==== Add new directory into storage: `adddirec` or `ad`
+==== Add new directory into storage: `adddirec`
 
 By providing the path pointing to a specific directory, you can add a new directory under that directory. +
 
@@ -487,13 +487,13 @@ The new directory's name should not contain white spaces or "\" characters.
 
 *Format:* `adddirec [PATH OF THE PARENT DIRECORY] [NAME OF NEW DIRECTORY]` +
 
+*Alias:* `ad`
+
 - - -
 
 *Example:* +
 
 `adddirec root\fever oral` + 
-
-- - -
 
 *Result:* +
 
@@ -504,7 +504,7 @@ image::adddirec_after.png[align="center" width="600"]
 There will be success messages confirming every successful addition of directories.
 
 [[addmed, Add medicine]]
-==== Add medicine into storage: `addmed` or `am`
+==== Add medicine into storage: `addmed`
 
 Through this command, you can either add a new medicine into the storage, or to place an existing medicine under another directory. +
 
@@ -514,17 +514,19 @@ You can add a new medicine by specifying where it should go to, its initial quan
 
 *Format:* `addmed [PATH OF DIRECTORY TO ADD TO] [MEDICINE_NAME] [q/QUANTITY] [p/PRICE]` +
 
+*Alias:* `am`
+
+- - -
+
 *Example:* +
 
 `addmed root\fever paracetamol q/50 p/9.99`
 
-- - -
-
 *Result:* +
 
-image::addmed_newmedicien_after.png[align="center" width="600"]
-
 After you enter the command, if it is executed successfully, a confirmation message will appear.
+
+image::addmed_newmedicien_after.png[align="center" width="600"]
 
 [NOTE]
 If you entered a medicine name that already exists in the storage in this format, a error message will pop up. +
@@ -534,8 +536,6 @@ image::addmed_newMedicine_existing.png[align="center" width="600"]
 - - -
 
 You can also place an existing medicine into a directory. +
-
-- - -
 
 *Format:* `addmed [PATH] [MEDICINE_NAME]`
 
@@ -547,13 +547,11 @@ You can also place an existing medicine into a directory. +
 
 Assuming there already exists a medicine called paracetamol in the storage, you can place this medicine under root\headache via this command. +
 
-- - -
-
 *Result:* +
 
-image::addmed_existing.png[align="center" width="600"]
-
 After you enter the command, if it is executed successfully, a confirmation message showing the detailed information of that medicine will appear.
+
+image::addmed_existing.png[align="center" width="600"]
 
 [NOTE]
 If you entered a medicine name that has not existed in the storage in this format, an error message will pop up.
@@ -563,7 +561,7 @@ image::addmed_existing_nonExisting.png[align="center" width="600"]
 In this case, no medicine called aspirin has yet existed in the storage.
 
 [[listmed, List medicines]]
-==== List medicine storage: `listmed` or `lm`
+==== List medicine storage: `listmed`
 
 Whenever you want to see what is inside your medicine storage, you can always use this command to view the detailed information about any directory or medicine through this command. +
 
@@ -571,19 +569,19 @@ Whenever you want to see what is inside your medicine storage, you can always us
 
 *Format:* `listmed [PATH]`
 
+*Alias:* `lm`
+
 - - -
 
 *Example:* +
 
 `listmed root\fever`
 
-- - -
-
 *Result:* +
 
-image::listmed_after.png[align="center" width="600"]
-
 You will be able to view a detailed description of all the medicines and directories under root\fever.
+
+image::listmed_after.png[align="center" width="600"]
 
 - - -
 
@@ -591,13 +589,11 @@ You will be able to view a detailed description of all the medicines and directo
 
 `listmed root\fever\paracetamol`
 
-- - -
-
 *Result:* +
 
-image::listmed_med_after.png[align="center" width="600"]
-
 You will be displayed a detailed description of medicine paracetamol which is placed under root\fever.
+
+image::listmed_med_after.png[align="center" width="600"]
 
 [[alarm, Set alert threshold for medicine]]
 ==== Setting automatic notification for low stock: `alarm`
@@ -609,6 +605,15 @@ All you need to do is to set an alarm level for the medicine you are concerned w
 [TIP]
 In addition, QuickDocs can make your life even easier! You can set an alarm level for a directory so that every medicine placed under that directory and all its sub-directories will immediately have that alarm level.
 
+- - -
+
+*Format:* `alarm [PATH OF DIRECTORY OR MEDICINE]` +
+
+- - -
+
+*Example:*
+
+`alarm 
 If the path specified corresponds to a medicine, set the alarm level for that specific medicine.
 
 If the path soecified corresponds to a directory, set the alarm level for all medicine under that directory and all its sub-directories.

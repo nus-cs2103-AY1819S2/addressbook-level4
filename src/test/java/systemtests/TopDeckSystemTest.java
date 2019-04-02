@@ -1,5 +1,6 @@
 package systemtests;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
@@ -30,10 +31,12 @@ import seedu.address.logic.CardsView;
 import seedu.address.logic.DecksView;
 import seedu.address.logic.ViewState;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.FindCardCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.Model;
 import seedu.address.model.TopDeck;
+import seedu.address.model.deck.Deck;
 import seedu.address.testutil.TypicalDecks;
 import seedu.address.ui.CommandBox;
 
@@ -125,6 +128,8 @@ public abstract class TopDeckSystemTest {
         // after each command is predictable and also different from the previous command.
         clockRule.setInjectedClockToCurrentTime();
 
+
+
         mainWindowHandle.getCommandBox().run(command);
     }
 
@@ -146,6 +151,15 @@ public abstract class TopDeckSystemTest {
      assertTrue(getModel().getFilteredList().size() < getModel().getTopDeck().getDeckList().size());
      }
      **/
+
+    /**
+     * Displays all cards with any parts of their names matching {@code keyword} (case-insensitive).
+     */
+     protected void showCardsWithQuestion(String keyword, Deck activeDeck) {
+        executeCommand(FindCardCommand.COMMAND_WORD + " " + keyword);
+        assertTrue(getModel().getFilteredList().size() < activeDeck.getCards().internalList.size());
+     }
+
 
     /**
      * Selects the Deck at {@code index} of the displayed list.
@@ -242,7 +256,6 @@ public abstract class TopDeckSystemTest {
     protected void assertStatusBarUnchanged() {
         StatusBarFooterHandle handle = getStatusBarFooter();
         assertFalse(handle.isSaveLocationChanged());
-        assertFalse(handle.isTotalPersonsStatusChanged());
         assertFalse(handle.isSyncStatusChanged());
     }
 
@@ -257,7 +270,7 @@ public abstract class TopDeckSystemTest {
         String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertEquals(expectedSyncStatus, handle.getSyncStatus());
         assertFalse(handle.isSaveLocationChanged());
-        assertFalse(handle.isTotalPersonsStatusChanged());
+        assertFalse(handle.isTotalCardsStatusChanged());
     }
 
     /**

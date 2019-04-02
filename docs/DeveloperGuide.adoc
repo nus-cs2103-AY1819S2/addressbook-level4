@@ -235,7 +235,61 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
+=== SortBook feature
+==== Current Implementation
+
+The sortBook mechanism is facilitated by `VersionedBookShelf`.
+It extends `BookShelf` with the sort function which will sort the `UniqueBookList`. `UniqueBookList` implemented the Book list as `ObservableList<Book>`. sortBook command sort the book list in specify order by implementing the `Comaparator<Book>`.
+
+Additionally, it uses/implements the following operations:
+
+* `VersionedBookShelf#sort()` -- It calls `UniqueBookList` sortBooks function and notifies the listeners.
+
+* `BookShelf#indicateModified()` -- Notifies listeners that the book shelf has been modified.
+
+* `UniqueBookList#sortBooks()` -- Implement the comparaotr, call `ObservableList<Book>` and pass in the comparator.
+
+* `ObservableList<Book>#sort()` -- sort the internalList is specify order.
+
+Given below is an example usage scenario and how the sortBook mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
+
+Step 2. The user executes `sortBook st/rating` command to sort all the books in the book shelf in ascending order. The command will be pass to SortBookCommand Parser to convert it to SortBook command, the parser will checks the correctness of the command. If command is in incorrect format, parser will shows correct command instruction to user, otherwise parser will call the constructor of SortBook command.
+
+Step 3. `SortBookCommand#execute` will be call, it will check whether the book list is empty before proceed to call `ModelManager#sort()`.
+
+[NOTE]
+If the book list is empty, CommandException(MESSAGE_BOOK_LIST_EMPTY) will be thrown.
+
+Step 4. If everything is correct, `VersionedBookShelf#sort()` will be call. It will executes `UniqueBookList#sortBooks` and `BookShelf#indicateModified` will be called after the list is been sorted to notify listener that display data has been modify.
+
+Step 5. `ObservableList<Book>` was implemented in `UniqueBookList` as internal list. `UniqueBookList#sortBooks` will call `ObservableList<Book>#sort` to sort the internal list by providing custom Comparator.
+
+Step 6. ` model#commitBookShelf()` will be execute to store current book list into `List<ReadOnlyBookShelf>` for support undo/redo command after the list is sorted and notify the listener.
+
+==== Design Considerations
+
+===== Aspect: Sorting algorithm implemented.
+
+* **Alternative 1 (current choice):** Sorts using library sorting method.
+** Pros: Easy to implement, easy to maintain.
+** Cons: The sorting method is too general, can have better sorting algorithm. 
+
+* **Alternative 2:** Using custom sorting method.
+** Pros: more custom, may improve performance.
+** Cons: hard to maintain and easy to produce bugs.
+
+===== Aspect: Data structure to support the sort commands
+
+* **Alternative 1 (current choice):** Sorts with the complete list.
+** Pros: Easy to implement, as the list coming with sort function.
+** Cons: May have performance issues in terms of speed, as we need to sort whole list.
+
+* **Alternative 2:** Sorts with sub-list that available to user.
+** Pros: It is faster than first choice as we only need to sort partial list.
+** Cons: The sub-list is not support sort function, its hard and time comsume to manipulate sorting and put it back to sub-list. 
+
 === Undo/Redo feature
 ==== Current Implementation
 

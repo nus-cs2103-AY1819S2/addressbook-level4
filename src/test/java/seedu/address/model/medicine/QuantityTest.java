@@ -35,7 +35,6 @@ public class QuantityTest {
         // valid quantities
         assertTrue(Quantity.isValidQuantity("1")); // 1 number
         assertTrue(Quantity.isValidQuantity("911")); // exactly 3 numbers
-        assertTrue(Quantity.isValidQuantity("1000000000"));
-
+        assertTrue(Quantity.isValidQuantity(Integer.toString(Quantity.MAX_QUANTITY)));
     }
 }

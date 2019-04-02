@@ -6,6 +6,9 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import seedu.address.commons.core.InformationPanelSettings;
+import seedu.address.commons.core.InformationPanelSettings.SortDirection;
+import seedu.address.commons.core.InformationPanelSettings.SortProperty;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.medicine.Medicine;
 
@@ -17,29 +20,50 @@ public class InformationPanel extends UiPart<Region> {
     private static final String FXML = "InformationPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+    private BatchTable batchTable;
+    private SortProperty sortProperty = InformationPanelSettings.DEFAULT_SORT_PROPERTY;
+    private SortDirection sortDirection = InformationPanelSettings.DEFAULT_SORT_DIRECTION;
+
     @FXML
     private StackPane informationPanel;
 
-    public InformationPanel(ObservableValue<Medicine> selectedMedicine) {
+    public InformationPanel(ObservableValue<Medicine> selectedMedicine,
+            ObservableValue<InformationPanelSettings> settings) {
         super(FXML);
 
         // Load medicine information page when selected medicine changes.
         selectedMedicine.addListener((observable, oldSelectMedicine, newSelectedMedicine) -> {
             emptyInformationPanel();
             if (newSelectedMedicine != null) {
+                logger.fine("Information panel displaying details of " + newSelectedMedicine);
                 showSelectedInformation(newSelectedMedicine);
             }
+        });
+
+        settings.addListener((observable, oldSettings, newSettings) -> {
+            sortProperty = newSettings.getSortProperty();
+            sortDirection = newSettings.getSortDirection();
+            emptyInformationPanel();
+            showSelectedInformation(selectedMedicine.getValue());
         });
     }
 
     private void showSelectedInformation(Medicine medicine) {
-        informationPanel.getChildren().add(new BatchTable(medicine).getRoot());
+        batchTable = new BatchTable(medicine, sortProperty, sortDirection);
+        informationPanel.getChildren().add(batchTable.getRoot());
     }
 
+    /**
+     * Empties the information panel by removing all children.
+     */
     private void emptyInformationPanel() {
         if (informationPanel.getChildren() != null) {
             informationPanel.getChildren().clear();
+            batchTable = null;
         }
     }
 
+    public BatchTable getBatchTable() {
+        return batchTable;
+    }
 }

@@ -113,7 +113,7 @@ public class FindCommandSystemTest extends MediTabsSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find quantity of medicine in inventory -> 0 medicines found */
-        command = FindCommand.COMMAND_WORD + " " + LEVOTHYROXINE.getTotalQuantity().value;
+        command = FindCommand.COMMAND_WORD + " " + LEVOTHYROXINE.getTotalQuantity().toString();
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

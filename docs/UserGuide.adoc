@@ -385,7 +385,7 @@ in response to the card question: What is the powerhouse of the cell?
 image::AnsweringMcqCard.png[width="790"]
 
 * `ans 4` +
-in response to the card displayed in Figure 4, where choosing option 4 will give the right answer.
+in response to the card displayed above, where choosing option 4 will give the right answer.
 
 [NOTE]
 This command is only considered valid if a card question is currently being

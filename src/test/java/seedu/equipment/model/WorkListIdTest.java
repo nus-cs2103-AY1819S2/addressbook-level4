@@ -31,4 +31,12 @@ public class WorkListIdTest {
 
         assertTrue(id1.equals(id1));
     }
+
+    @Test
+    public void getIntIdMustFollowFormat() {
+
+        WorkListId validId = new WorkListId("1000");
+
+        assertTrue(validId.getIntId() == 1000);
+    }
 }

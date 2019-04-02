@@ -59,12 +59,6 @@ public class WorkListId {
      * @return integer equals to value, throw exception is cannot convert.
      */
     public int getIntId() throws NumberFormatException {
-        int result;
-        try {
-            result = Integer.parseInt(this.value);
-        } catch (NumberFormatException e) {
-            result = 0;
-        }
-        return result;
+        return Integer.parseInt(this.value);
     }
 }

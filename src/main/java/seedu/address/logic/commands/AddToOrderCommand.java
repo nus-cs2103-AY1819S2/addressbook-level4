@@ -28,7 +28,7 @@ public class AddToOrderCommand extends Command {
             + " W09 2 C18 1 C02 1";
 
     public static final String MESSAGE_SUCCESS = "New order items added:\n%1$s";
-    public static final String MESSAGE_INVALID_ITEM_CODE = "The item code [%1$s] is invalid. " 
+    public static final String MESSAGE_INVALID_ITEM_CODE = "The item code [%1$s] is invalid. "
             + "All items after this were not added.";
 
     private final List<Code> itemCodes;

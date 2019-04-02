@@ -50,10 +50,10 @@ public class EncryptCommandTest {
     @Test
     public void constructor_invalidIndex_throwsNullPointerException() {
         thrown.expect(IndexOutOfBoundsException.class);
-        new EncryptCommand((Index.fromZeroBased(-1)), "123");
+        new EncryptCommand((Index.fromZeroBased(-1)), PASSWORD_1_VALID);
 
         thrown.expect(IndexOutOfBoundsException.class);
-        new EncryptCommand((Index.fromZeroBased(model.getFilteredPdfList().size() + 1)), "123");
+        new EncryptCommand((Index.fromZeroBased(model.getFilteredPdfList().size() + 1)), PASSWORD_1_VALID);
     }
 
     @Test

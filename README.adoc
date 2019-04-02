@@ -43,6 +43,8 @@ This application is a Java Desktop GUI application that is specifically designed
 
 - **In Version 1.3**:
 ** Unit tests for filtering processes are written.
+** Additional sorting functionality by name, last name, gpa, education, and skills
+** Endorse Command written and tested.
 
 - **In Version 1.2**:
 * Tag search function with keyword tag. Creating color coordination for each category in UI.

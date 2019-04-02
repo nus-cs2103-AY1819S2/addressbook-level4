@@ -475,17 +475,32 @@ Currently, no test cases are prepared but next release these test methods will b
 // tag::sort[]
 === Sort Commands
 ==== Current Implementation
-There are currently two sorting methods present: `alphabetical` and `skills`.
-* `alphabetical` is called by the user through the following cli input: `sort alphabetical`.
-It takes the **current** list displayed in the left hand GUI panel and sorts them alphabetically. The alphabetical sort begins with the first name and then proceeds to last name.
-* `skills` is called by the user through the following cli input: `sort skills`.
-It takes the **current** list displayed in the left hand GUI panel and first orders the skill tags for each person alphabetically. The method then proceeds to sort all persons based on their skill tags, in alphabetical order.
+There are currently five main sorting methods present: `name`, `surname`, `gpa`, `education`, `skills`.
+There is also a complimentary `reverse` sort method for each main sorting method.
+
+* **name** is called by the user through the following cli input: `sort name`. +
+It takes the _current_ list displayed in the left hand GUI panel and sorts them by name alphabetically. The name sort begins with the first name and then proceeds to last name.
+
+* **surname** is called by the user through the following cli input: `sort surname`. +
+It takes the _current_ list displayed in the left hand GUI panel and sorts them by surname alphabetically.
+
+* **gpa** is called by the user through the following cli input: `sort gpa`. +
+It takes the _current_ list displayed in the left hand GUI panel and sorts them by gpa in increasing numeric order.
+
+* **education** is called by the user through the following cli input: `sort education`. +
+It takes the _current_ list displayed in the left hand GUI panel and sorts them by education alphabetically.
+
+* **skills** is called by the user through the following cli input: `sort skills`. +
+It takes the _current_ list displayed in the left hand GUI panel and first orders the skill tags for each person alphabetically. The method then proceeds to sort all persons based on their skill tags, in alphabetical order.
+
+* **reverse** can be applied before the sort keyword (e.g. `name`) through the following cli input: `sort reverse name`
 
 _(the **current** list means that if filter is on, only those filtered persons shall be sorted and the filter shall remain on)_
 
 
 ==== Implementation Rational
-Despite the risk of slightly increasing the coupling, the aim was to use methods already written and rely on good cohesion. For example, once a sort command has correctly written the correctly ordered persons to a `List<Person>`, rather than duplicating large amounts of code by modifying the already listed persons, it shall use the already written delete person and add person commands.
+Despite the risk of slightly increasing the coupling, the aim was to use methods already written and rely on good cohesion.
+For example, once a sort command has correctly written the correctly ordered persons to a `List<Person>`, rather than duplicating large amounts of code by modifying the already listed persons in the GUI, it shall simply remove the persons in that addressbook version and then immediately re-add them in the correct order.
 
 It is of note that the temporary deletion of persons from the addressbook should be foolproof and there should be no way that the sort command ever permanently deletes the addressbook. Furthermore, ensuring the command works with the already implemented undo/redo command should ensure the user still has full control over all the persons in the contact book.
 
@@ -496,13 +511,24 @@ Elements of lists in Java are ordered by when they were added. Sorting is possib
 
 ==== Adding a New Sort Command
 
-To add a new sort command, the following should be taken into account... (INSERT CLASS DIAGRAM)
+To add a new sort command, the following classes should be altered accordingly:
 
-NOT COMPLETE.
-Add the test description
+* `cliSyntax` - add the necessary new SortWord (and the reverse option)
+* `SortCommandParser` - add the new SortWord as an accepted input
+* `SortCommand` - add the call to the new `SortNewMethod` class when the new SortWord is inputted
+* `SortNewMethod` - a new class, following the example of `SortName`, that will return a list of Persons correctly ordered according to the new method
+* `SortUtil` - a place for lower-level processes required by the new sort method and called from `SortNewMethod`
+
+It is also sometimes of use to alter `Person` should the new method demand access of a certain element of `Person` that may be useful for other classes in the future.
+The developer should also add the necessary testing methods in `SortCommandTest`
+(TODO: INSERT CLASS DIAGRAM FOR v1.4)
+(TODO: INSERT SEQUENCE DIAGRAM FOR v1.4)
 // end::sort[]
 
 // tag::dataencryption[]
+
+=== Endorse Command
+
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_

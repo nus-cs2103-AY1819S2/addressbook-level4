@@ -101,6 +101,7 @@ public class SampleDataUtil {
         if (positions != null) {
             for (String pos : positions) {
                 tagSet.add(new SkillsTag(pos, "pos"));
+
             }
         }
 

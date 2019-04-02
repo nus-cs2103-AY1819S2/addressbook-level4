@@ -42,7 +42,7 @@ Responsibilities: Storage, documentation
 
 === Pai Si Kai
 image::skpai27.png[width="150", align="left"]
-{empty}[https://github.com/skpai27[github]]
+{empty}[https://github.com/skpai27[github]] [<<skpai27#, portfolio>>]
 
 Role: Restaurant Reviews Categorisation +
 Responsibilities: Commons, code quality

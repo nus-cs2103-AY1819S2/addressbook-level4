@@ -11,8 +11,10 @@
 
 Know-It-All is a flashcard application that helps users store and organise their learning material. With an easy to use interface and a storage solution that supports content sharing, Know-It-All is designed to help students perform rote learning more efficiently. From cramming in between lessons to focused study, the in-built test session boosts the effectiveness of repetition and recall for memorisation. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
+My role involved the restructuring of the `model` and `logic` components of the original addressbook application, as well as implementing flashcard creation and management for Know-It-All. A more detailed breakdown of my contributions are detailed below, together with my additions to the user and developer guides.
+
 == Summary of Contributions
-* *Major enhancement*: *reworked the model component for flashcards*
+* *Major enhancement*: implemented *flashcard creation and management*
 ** What it does: Allows users to create, edit and delete different kinds of flashcards.
 ** Justification: This is a core feature of the project, as users will be spending a large portion of their time interacting with the flashcards they have created or imported.
 ** Highlights:

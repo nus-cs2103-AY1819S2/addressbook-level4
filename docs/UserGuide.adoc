@@ -87,8 +87,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Restaurant Commands
 
-This section contains
-
 ==== Adding a restaurant: `add`
 
 Add a restaurant that is not found in the current list of restaurants. +
@@ -140,6 +138,7 @@ Examples:
 
 * `list` +
 Return all the restaurants
+
 // tag::listUnvisitedUG[]
 ==== Listing all restaurants that you haven't visited : `listUnvisited`
 

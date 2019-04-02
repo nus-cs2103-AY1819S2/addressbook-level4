@@ -279,6 +279,8 @@ This section describes some noteworthy details on how certain features are imple
 === Undo/Redo feature
 
 Called by the `undo` and `redo` commands to undo and redo changes to TravelBuddy Place entries.
+Undoable commands include `add` `edit` `delete` `deletem` `clear` `generate` and 'redo'
+Redoable commands include `add` `edit` `delete` `deletem` `clear` `generate` and 'undo'
 
 ==== Current Implementation
 

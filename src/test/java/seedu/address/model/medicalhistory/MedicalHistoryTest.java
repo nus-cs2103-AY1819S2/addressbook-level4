@@ -12,10 +12,10 @@ public class MedicalHistoryTest {
 
     @Test
     public void equals() {
-        MedicalHistory mh1 = new MedicalHistory(null, null, new Name("a"), new WriteUp("fever"));
-        MedicalHistory mh2 = new MedicalHistory(null, null, new Name("a"), new WriteUp("sneeze"));
-        MedicalHistory mh3 = new MedicalHistory(null, null, new Name("b"), new WriteUp("fever"));
-        MedicalHistory mh1Copy = new MedicalHistory(null, null, new Name("a"), new WriteUp("fever"));
+        MedicalHistory mh1 = new MedicalHistory("1", "1", new Date("2018-05-05"), new WriteUp("testWriteUp"));
+        MedicalHistory mh2 = new MedicalHistory("1", "2", new Date("2018-05-05"), new WriteUp("testWriteUp"));
+        MedicalHistory mh3 = new MedicalHistory("1", "1", new Date("2018-05-06"), new WriteUp("testWriteUp"));
+        MedicalHistory mh1Copy = new MedicalHistory("1", "1", new Date("2018-05-05"), new WriteUp("testWriteUp"));
 
         // same object -> returns true
         assertTrue(mh1.equals(mh1));
@@ -29,10 +29,10 @@ public class MedicalHistoryTest {
         // different type -> returns false
         assertFalse(mh1.equals(5));
 
-        // different writeup -> returns false
+        // different id -> returns false
         assertFalse(mh1.equals(mh2));
 
-        // different name -> returns false
+        // different date -> returns false
         assertFalse(mh1.equals(mh3));
     }
 

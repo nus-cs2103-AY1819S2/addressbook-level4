@@ -323,7 +323,7 @@ In Statistics Mode, you can obtain statistics related to your restaurant, such a
 
 image::SMUi.png[width="790"]
 
-==== Getting the most popular item ordered: `getMostPopularItem`
+==== Getting the most popular item ordered : `getMostPopularItem`
 
 Returns the item on the menu that has the most orders. +
 Format: `getMostPopularItem`

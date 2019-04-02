@@ -1,4 +1,4 @@
-= Jonathan Choo - Project Portfolio
+= Wang Debang - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets

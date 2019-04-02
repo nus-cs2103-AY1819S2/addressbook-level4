@@ -2,8 +2,10 @@ package seedu.finance.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Iterator;
 import java.util.function.Predicate;
 
+import javafx.collections.ObservableList;
 import seedu.finance.commons.core.Messages;
 import seedu.finance.logic.CommandHistory;
 import seedu.finance.model.Model;
@@ -50,8 +52,17 @@ public class SearchCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredRecordList(predicate);
+        ObservableList<Record> filteredRecord = model.getFilteredRecordList();
+        Double totalSpent = Double.valueOf(0);
+        Iterator<Record> recordIterator = filteredRecord.iterator();
+        while(recordIterator.hasNext()) {
+            totalSpent += recordIterator.next().getAmount().getValue();
+        }
+        String outputMessage = Messages.MESSAGE_RECORDS_LISTED_OVERVIEW + "\nTotal spent on searched records = $ "
+                + totalSpent;
+
         return new CommandResult(
-                String.format(Messages.MESSAGE_RECORDS_LISTED_OVERVIEW, model.getFilteredRecordList().size()));
+                String.format(outputMessage, model.getFilteredRecordList().size()));
     }
 
     @Override

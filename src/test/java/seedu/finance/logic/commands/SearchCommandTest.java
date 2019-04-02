@@ -58,7 +58,8 @@ public class SearchCommandTest {
 
     @Test
     public void execute_zeroKeywords_noRecordsFound() {
-        String expectedMessage = String.format(MESSAGE_RECORDS_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_RECORDS_LISTED_OVERVIEW
+                + "\nTotal spent on searched records = $ 0.0", 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredRecordList(predicate);
@@ -68,7 +69,8 @@ public class SearchCommandTest {
 
     @Test
     public void execute_multipleKeywords_multipleRecordsFound() {
-        String expectedMessage = String.format(MESSAGE_RECORDS_LISTED_OVERVIEW, 3);
+        String expectedMessage = String.format(MESSAGE_RECORDS_LISTED_OVERVIEW
+                + "\nTotal spent on searched records = $ 47.99" , 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("Cap Earrings Fruits");
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredRecordList(predicate);

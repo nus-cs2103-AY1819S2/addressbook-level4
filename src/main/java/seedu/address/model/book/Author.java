@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Author {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Author names should only contain alphanumeric characters and spaces, should not be blank "
+            "Author names should only contain alphanumeric characters and spaces, and it should not be blank "
             + "or longer than 50 characters";
 
     /*

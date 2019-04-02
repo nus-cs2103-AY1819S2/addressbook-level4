@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -251,7 +252,7 @@ public class AddBookCommandTest {
         }
 
         @Override
-        public void sortBook(String type, String order) {
+        public void sortBook(List<String> types, String mainOrder, Map<String, String> subOrder) {
             throw new AssertionError("This method should not be called.");
         }
 

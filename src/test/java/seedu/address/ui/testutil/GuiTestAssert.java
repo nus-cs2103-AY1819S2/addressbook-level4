@@ -6,10 +6,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import guitests.guihandles.BookBrowserPanelHandle;
 import guitests.guihandles.BookCardHandle;
 import guitests.guihandles.BookListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
+import guitests.guihandles.ReviewCardHandle;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.Review;
 import seedu.address.ui.BookCard;
 
 
@@ -33,6 +36,16 @@ public class GuiTestAssert {
     }
 
     /**
+     * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
+     */
+    public static void assertReviewCardEquals(ReviewCardHandle expectedCard, ReviewCardHandle actualCard) {
+        assertEquals(expectedCard.getName(), actualCard.getName());
+        assertEquals(expectedCard.getBookName(), actualCard.getBookName());
+        assertEquals(expectedCard.getMessage(), actualCard.getMessage());
+        assertEquals(expectedCard.getDate(), actualCard.getDate());
+    }
+
+    /**
      * Asserts that {@code actualCard} displays the details of {@code expectedBook}.
      */
     public static void assertCardDisplaysBook(Book expectedBook, BookCardHandle actualCard) {
@@ -41,6 +54,24 @@ public class GuiTestAssert {
         assertEquals(expectedBook.getAuthor().fullName, actualCard.getAuthor());
         assertEquals(expectedBook.getRating().value, actualCard.getRating());
         assertTagsEqual(expectedBook, actualCard);
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedBook}.
+     */
+    public static void assertCardDisplaysReview(Review expectedReview, ReviewCardHandle actualCard) {
+
+        assertEquals(expectedReview.getBookName().fullName, actualCard.getBookName());
+        assertEquals(expectedReview.getTitle().fullName, actualCard.getName());
+        assertEquals(expectedReview.getReviewMessage(), actualCard.getMessage());
+        assertEquals(expectedReview.getDateCreated(), actualCard.getDate());
+    }
+
+    /**
+     * Asserts that {@code actualPanel} displays the details of {@code expectedReview}.
+     */
+    public static void assertPanelDisplaysReview(Review expectedReview, BookBrowserPanelHandle actualPanel) {
+        assertEquals(expectedReview.getReviewMessage(), actualPanel.getMessageField());
     }
 
     /**

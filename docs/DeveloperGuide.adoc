@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/CS2103-AY1819S2-W11-4/main
+:repoURL: https://github.com/cs2103-ay1819s2-w11-4/main/tree/master
 
 By: `Team W11-4`      Since: `Jun 2019`      Licence: `MIT`
 
@@ -255,7 +255,7 @@ Step 1. The user launches the application for the first time. The `VersionedBook
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `deleteBook 1` command to delete the first book in the book list. The `deleteBook` command calls `Model#commitBookShelf()`, causing the modified state of the book list after the `deleteBook n/Alice` command executes to be saved in the `BookShelfStateList`, and the `currentStatePointer` is shifted to the newly inserted book list state.
+Step 2. The user executes `deleteBook 1` command to delete the first book in the book shelf. The `deleteBook` command calls `Model#commitBookShelf()`, causing the modified state of the book list after the `deleteBook 1` command executes to be saved in the `BookShelfStateList`, and the `currentStatePointer` is shifted to the newly inserted book list state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
@@ -315,13 +315,6 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -348,7 +341,7 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 ==== Current Implementation
 
 The addBook mechanism is facilitated by `BookShelf`.
-It contains `UniqueBookList` in which all the book data are stored and duplicates are not allowed.
+It contains `UniqueBookList` in which all the book data are stored and duplicates are not allowed. Books with same book name are considered as duplicates.
 Additionally, it uses the following operations from `BookShelf`:
 
 * `model#hasBook()` -- Check if the book already exists in the book shelf.
@@ -370,7 +363,17 @@ Step 4. The book shelf now adds the book to the book list after making sure ther
 
 ==== Design Considerations
 
-===== Aspect: How addBook executes
+===== Aspect: How duplicate of book is defined
+
+* **Alternative 1 (current choice):** Books with same book name are considered as duplicates.
+** Pros: Easy to support other command such as addReview which search for the book based on its name.
+** Cons: User may encounter trouble if they read two books with same name but written by different authors.
+* **Alternative 2:** Books with multiple identical fields (eg. book name and author, book name and rating, etc) are considered same book.
+** Pros: Able to store books with same same but different in other fields.
+** Cons: Causing trouble to executing other commands like addReview as more parameters must be provided to search for a certain book.
+// end::addBook[]
+
+===== Aspect: Data structure to support the addBook command
 
 * **Alternative 1 (current choice):** Saves the entire book as one object contains different components such as author, rating, etc.
 ** Pros: Easy to implement delete and other features that change an entire book.
@@ -379,46 +382,6 @@ Step 4. The book shelf now adds the book to the book list after making sure ther
 ** Pros: Easier to obtain statistics regarding each component.
 ** Cons: It is hard to manage book object as we need to find a way to connect all components together.
 // end::addBook[]
-
-
-// tag::addReview[]
-=== AddReview Feature
-
-==== Current Implementation
-
-Given below is an example usage and how addReview feature behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
-
-Step 2. The user executes `addReview n/Alice in Wonderland rt/Carroll has depicted a unique world I hadn't seen before r/Alice's Adventures in Wonderland by Lewis Carroll is a story about Alice who falls down a rabbit hole and lands into a fantasy world that is full of weird, wonderful people and animals.`
-
-Step 3. The `AddReviewCommandParser` parses this command, and returns an `AddReviewCommand`. Exception will be thrown if the command is invalid.
-
-Step 4. The `AddReviewCommand` creates a `Review` object based on the parameter the user keyed in.
-
-Step 5. The `AddReviewCommand` executes. The command checks if the book to which the review is added exists in the `BookShelf`, based on `BookNameContainsExactKeywordPredicate`. If the book does not exist, an exception is thrown. If the book exists, the `Review` object is added to the set of reviews of the book.
-
-==== Design Considerations
-
-===== Aspect: Data structure to store Reviews
-
-* **Alternative 1 (current choice):** Use a Set to store all Reviews, just like tags.
-** Pros: Easy to code and manage because it is the same implementation as tags.
-** Cons: Set does not allow duplicate reviews. Need to check for duplicate reviews added.
-* **Alternative 2:** Use a List to store Reviews
-** Pros: There will be an order for the reviews added based on time created. More clear to users.
-** Cons: May have unforeseen bugs or implications.
-
-===== Aspect: Where to store Reviews
-
-* **Alternative 1 (current choice):** Use a Set within a Book, just like tags.
-** Pros: Easy to code and manage because it is the same implementation as tags. The design makes sense because Reviews belong to Books.
-** Cons: It is not known whether this design is compatible with the UI component.
-* **Alternative 2:** Have another ObservableList for Reviews.
-** Pros: Maybe makes it easier for the UI to implement.
-** Cons: Harder to implement.
-
-// end::addReview[]
 
 // tag::listBook[]
 === ListBook Feature
@@ -447,6 +410,70 @@ Step 4. The `ListBookCommand` executes. The command checks all the book in the `
 ** Cons: Hard to test and manage.
 
 // end::listBook[]
+
+
+// tag::addReview[]
+=== Review Features
+
+==== AddReview Feature
+
+===== Current Implementation
+
+Given below is an example usage and how addReview feature behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
+
+Step 2. The user executes `addReview n/Alice in Wonderland rt/Carroll has depicted a unique world I hadn't seen before r/Alice's Adventures in Wonderland by Lewis Carroll is a story about Alice who falls down a rabbit hole and lands into a fantasy world that is full of weird, wonderful people and animals.`
+
+Step 3. The `AddReviewCommandParser` parses this command, and creates a `Review` object based on the parameters in user input.
+
+Step 4. The `AddReviewCommandParser`returns an `AddReviewCommand`. Exception will be thrown if the command is invalid.
+
+Step 5. The `AddReviewCommand` executes. The command checks if the book to which the review is added exists in the `BookShelf`, based on `BookNameContainsExactKeywordPredicate`. If the book does not exist, an exception is thrown.
+
+Step 6. If the book exists, the review is added to the review list of the Book Shelf.
+
+===== Design Considerations
+
+====== Aspect: Data structure to store Reviews
+
+* **Alternative 1 (current choice):** Use a List to store Reviews
+** Pros: There will be an order for the reviews added based on time created. More clear to users.
+** Cons: May have unforeseen bugs or implications.
+* **Alternative 2:** Use a Set to store all Reviews, just like tags.
+** Pros: Easy to code and manage because it is the same implementation as tags.
+** Cons: Set does not allow duplicate reviews. Need to check for duplicate reviews added.
+
+====== Aspect: Where to store Reviews
+
+* **Alternative 1 (current choice):** Have another independent list for reviews in the book shelf.
+** Pros: Much easier to implement.
+** Cons: Reviews and Books now have exactly the same structure, which violates the DRY principle.
+* **Alternative 2:** Use a Set within a Book, just like tags.
+** Pros: The model makes more sense because Reviews belong to Books.
+** Cons: Makes it more difficult to link with the UI component.
+
+==== ListReview Feature
+
+===== Current Implementation
+
+The ListReview Feature is currently combined with the previous SelectPerson.
+
+Given below is an example usage and program behaviour:
+
+Step 1. The user executes `listReview 1`
+
+Step 2. The ListReviewCommandParser parses this command, and returns a new ListReviewCommand with the specified index.
+
+Step 3. The ListReviewCommand executes. The book with the specified index is selected.
+
+Step 4. Reviews of the selected book will be displayed in the rightmost panel.
+
+===== Design Considerations
+
+====== Aspect:
+
+// end::addReview[]
 
 == Documentation
 
@@ -732,26 +759,6 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
 [appendix]
 == Instructions for Manual Testing
 
@@ -766,7 +773,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample books and reviews. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -774,21 +781,17 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a book
 
-. Deleting a book by its name
+. Deleting a book while all books are listed
 
-.. Prerequisites: The book is inside the list. User knows the full name of the book.
+.. Prerequisites: List all book using the `listBook` command. Multiple books in the list.
 .. Test case: `deleteBook 1` +
-   Expected: The first book in the list is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First book is deleted from the list. Details of the deleted book shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `deleteBook 0` +
    Expected: No book is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `deleteBook` +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
 
 === Saving data
 

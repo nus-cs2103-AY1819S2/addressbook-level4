@@ -122,6 +122,26 @@ public class TypicalBooks {
         return bs;
     }
 
+    public static BookShelf getTypicalBookShelfWithReview(Review review) {
+        BookShelf bs = new BookShelf();
+        for (Book book : getTypicalBooks()) {
+            bs.addBook(book);
+        }
+        bs.addReview(review);
+        return bs;
+    }
+
+    public static BookShelf getTypicalBookShelfWithAllReviews() {
+        BookShelf bs = new BookShelf();
+        for (Book book : getTypicalBooks()) {
+            bs.addBook(book);
+        }
+        for (Review review : getTypicalReviews()) {
+            bs.addReview(review);
+        }
+        return bs;
+    }
+
     public static List<Book> getTypicalBooks() {
         return new ArrayList<>(Arrays.asList(BOOKTHIEF, HUNGERGAME, KITERUNNER, LIFEPI, LIFEWAO,
                 MIDDLESEX, FIFTYSHADE, MOCKINGBIRD));

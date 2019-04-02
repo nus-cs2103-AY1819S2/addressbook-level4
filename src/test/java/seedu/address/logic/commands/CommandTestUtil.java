@@ -21,6 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.BookName;
 import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
+import seedu.address.model.book.Review;
 import seedu.address.testutil.EditBookDescriptorBuilder;
 
 /**
@@ -31,6 +32,7 @@ public class CommandTestUtil {
     public static final String VALID_BOOKNAME_CS = "Structure and Interpretation of Computer Programs";
     public static final String VALID_BOOKNAME_LIFE = "The Secret Life of Bees";
     public static final String VALID_BOOKNAME_TEST = "Test book";
+    public static final String VALID_BOOKNAME_TWILIGHT = "Twilight";
     public static final String VALID_BOOKNAME_PART_ALICE = "Alice";
     public static final String VALID_BOOKNAME_PART_CS = "Computer";
     public static final String VALID_AUTHOR_ALICE = "Lewis Carroll";
@@ -38,9 +40,11 @@ public class CommandTestUtil {
     public static final String VALID_AUTHOR_LIFE = "Sue Monk Kidd";
     public static final String VALID_AUTHOR_PART_ALICE = "Carroll";
     public static final String VALID_AUTHOR_PART_CS = "Sussman";
+    public static final String VALID_AUTHOR_TWILIGHT = "Stephenie Meyer";
     public static final String VALID_RATING_ALICE = "5";
     public static final String VALID_RATING_CS = "4";
     public static final String VALID_RATING_LIFE = "3";
+    public static final String VALID_RATING_TWILIGHT = "2";
     public static final String VALID_TAG_FANTASY = "fantasy";
     public static final String VALID_TAG_TEXTBOOK = "textbook";
     public static final String VALID_TAG_INTERESTING = "interesting";
@@ -51,21 +55,26 @@ public class CommandTestUtil {
             + "wonderful people and animals.";
     public static final String VALID_REVIEWMESSAGE_CS = "It provides a great introduction to computer science. "
             + "The legendary SICP reminded me of the the Bible in many respects.";
+    public static final String VALID_DATE = "2019/03/16 18:20:00";
+    public static final String VALID_ALTERNATIVE_DATE = "2019/03/26 18:20:00";
 
     public static final String NAME_DESC_ALICE = " " + PREFIX_NAME + VALID_BOOKNAME_ALICE;
     public static final String NAME_DESC_CS = " " + PREFIX_NAME + VALID_BOOKNAME_CS;
     public static final String NAME_DESC_LIFE = " " + PREFIX_NAME + VALID_BOOKNAME_LIFE;
     public static final String NAME_DESC_TEST = " " + PREFIX_NAME + VALID_BOOKNAME_TEST;
+    public static final String NAME_DESC_TWILIGHT = " " + PREFIX_NAME + VALID_BOOKNAME_TWILIGHT;
     public static final String NAME_PART_DESC_ALICE = " " + PREFIX_NAME + VALID_BOOKNAME_PART_ALICE;
     public static final String NAME_PART_DESC_CS = " " + PREFIX_NAME + VALID_BOOKNAME_PART_CS;
     public static final String AUTHOR_DESC_ALICE = " " + PREFIX_AUTHOR + VALID_AUTHOR_ALICE;
     public static final String AUTHOR_DESC_CS = " " + PREFIX_AUTHOR + VALID_AUTHOR_CS;
     public static final String AUTHOR_DESC_LIFE = " " + PREFIX_AUTHOR + VALID_AUTHOR_LIFE;
+    public static final String AUTHOR_DESC_TWILIGHT = " " + PREFIX_AUTHOR + VALID_AUTHOR_TWILIGHT;
     public static final String AUTHOR_PART_DESC_ALICE = " " + PREFIX_AUTHOR + VALID_AUTHOR_PART_ALICE;
     public static final String AUTHOR_PART_DESC_CS = " " + PREFIX_AUTHOR + VALID_AUTHOR_PART_CS;
     public static final String RATING_DESC_ALICE = " " + PREFIX_RATING + VALID_RATING_ALICE;
     public static final String RATING_DESC_CS = " " + PREFIX_RATING + VALID_RATING_CS;
     public static final String RATING_DESC_LIFE = " " + PREFIX_RATING + VALID_RATING_LIFE;
+    public static final String RATING_DESC_TWILIGHT = " " + PREFIX_RATING + VALID_RATING_TWILIGHT;
     public static final String TAG_DESC_FANTASY = " " + PREFIX_TAG + VALID_TAG_FANTASY;
     public static final String TAG_DESC_TEXTBOOK = " " + PREFIX_TAG + VALID_TAG_TEXTBOOK;
     public static final String TAG_DESC_INTERESTING = " " + PREFIX_TAG + VALID_TAG_INTERESTING;
@@ -96,12 +105,19 @@ public class CommandTestUtil {
     public static final String INVALID_SORT_TYPE_WITH_PREFIX = " st/type";
     public static final String ORDER_ASC_WITH_PREFIX = " o/asc";
     public static final String ORDER_DES_WITH_PREFIX = " o/des";
+    public static final String FIRST_SUBORDER_ASC_WITH_PREFIX = " o1/asc";
+    public static final String SECOND_SUBORDER_ASC_WITH_PREFIX = " o2/asc";
+    public static final String THIRD_SUBORDER_ASC_WITH_PREFIX = " o3/asc";
+    public static final String FIRST_SUBORDER_DES_WITH_PREFIX = " o1/des";
+    public static final String SECOND_SUBORDER_DES_WITH_PREFIX = " o2/des";
+    public static final String THIRD_SUBORDER_DES_WITH_PREFIX = " o3/des";
     public static final String INVALID_ORDER_WITH_PREFIX = "o/abc";
     public static final String SORT_NAME_WITHOUT_PREFIX = "name";
     public static final String SORT_AUTHOR_WITHOUT_PREFIX = "author";
     public static final String SORT_RATING_WITHOUT_PREFIX = "rating";
     public static final String ORDER_ASC_WITHOUT_PREFIX = "asc";
     public static final String ORDER_DES_WITHOUT_PREFIX = "des";
+
     public static final String EMPTY_STR = "      ";
     public static final String SORT_EXCEPTION = "The list is not sorted correctly";
 
@@ -184,6 +200,19 @@ public class CommandTestUtil {
 
         assertEquals(1, model.getFilteredBookList().size());
 
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the review at the given {@code targetIndex} in the
+     * {@code model}'s book shelf.
+     */
+    public static void showReviewAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredBookList().size());
+
+        Review review = model.getFilteredReviewList().get(targetIndex.getZeroBased());
+        model.updateFilteredReviewList((Review toTest) -> review.getTitle().equals(toTest.getTitle()));
+
+        assertEquals(1, model.getFilteredBookList().size());
     }
 
     /**

@@ -16,7 +16,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::weitanglau.png[width="150", align="left"]
 
 image::github-icon.png[width=30, link=https://github.com/WeiTangLau]
-image:portfolio-icon.jpg[width=30, link="LauWeiTang_PPP.adoc"]
+image:portfolio-icon.jpg[width=30, link="team/LauWeiTang_PPP.adoc"]
 
 
 Role: Developer
@@ -27,7 +27,7 @@ Role: Developer
 image::ptvrajsk.png[width="150", align="left"]
 
 image::github-icon.png[width=30, link=https://github.com/ptvrajsk]
-image:portfolio-icon.jpg[width=30, link="ptvrajsk_PPP.adoc"]
+image:portfolio-icon.jpg[width=30, link="team/ptvrajsk_PPP.adoc"]
 
 Role: Developer
 
@@ -37,7 +37,7 @@ Role: Developer
 image::jetkan-yk.png[width="150", align="left"]
 
 image::github-icon.png[width=30, link=http://github.com/jetkan-yk]
-image:portfolio-icon.jpg[width=30, link=KanYipKengPPP.adoc]
+image:portfolio-icon.jpg[width=30, link=team/KanYipKeng_PPP.adoc]
 
 Role: Developer
 
@@ -47,7 +47,7 @@ Role: Developer
 image::lormee94.png[width="150", align="left"]
 
 image::github-icon.png[width=30, link=http://github.com/lormee9]
-image:portfolio-icon.jpg[width=30, link=JeremyYirenLow_PPP.adoc]
+image:portfolio-icon.jpg[width=30, link=team/JeremyYirenLow_PPP.adoc]
 
 
 Role: Developer

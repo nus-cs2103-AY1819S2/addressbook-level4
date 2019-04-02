@@ -465,15 +465,51 @@ The Battle feature is split between several packages:
 
 === Enemy AI Feature
 ==== Current Implementation
-<Lucy>
+The Enemy AI feature is currently implemented as an extension of the Player class,
+and serves as the opponent player since `Battleship` is a single-player game.
+The Enemy AI can automatically perform initialising actions similar to the human player.
+Mainly, the Enemy AI can randomly initialise its own mapGrid with randomly generated ships,
+which is invoked by the command `start game`.
+The Enemy AI also supports the ability for the enemy to intelligently shoot
+the player's map when the player inputs the `end turn` command.
+
+Note that the Enemy AI feature does not contain any explicit commands to be
+entered by the Player. Its methods are called by other features instead, and does its
+magic in the background.
+
+*Initialising Enemy MapGrid*
+
+The Enemy AI has the method `populateMapGrid` which is called by the method `prepEnemy()`,
+which is in turn called by the Battle Manager when the Player enters the command `start game`.
+
+`populateMapGrid()` will generate randomised battleships based on the number of battleships
+available to it for the current game, as specified in its Parent class - Player.
+The number of battleships available to the Enemy AI is congruent to the number of battleships
+available to the Player. The exact number of the different types of battleships is decided from on
+a formula that is based on the map size specified by the player in the `init` command. Once these randomised
+battleships are generated, `populateMapGrid` will proceed to call `placeAirCraftCarrier()` and `placeMultipleDestroyerAndCruiser()`.
+
+*Calculating Cell to Attack*
+
+The Enemy AI has the method `enemyShootAt()` that is invoked when the player ends their turn
+with the command `end turn`. The Enemy AI will attempt to generate a random Coordinate to attack,
+and pass this Coordinate to the `BattleManager`. The Enemy AI supports the ability to
+check that its generated coordinates are all valid, and has further algorithm that will
+increase its accuracy upon detecting a successful hit.
+
+image::enemyShoot.gif[width=500]
+
+__Note: All actions taken by the Enemy AI are seeded by a pseudo-random generator.
+Thus, its behaviour will be different for every game session.__
+
 
 ==== Design Considerations
-* **Alternative 1 (current choice):**
-** Pros:
-** Cons:
-* **Alternative 2:**
-** Pros:
-** Cons:
+* **Alternative 1 (current choice):** seed all methods with pseudo-random seed
+** Pros: each game will be a different experience
+** Cons: testing will be more difficult
+* **Alternative 2:** pre-calculate and hardcode the actions the Enemy AI performs
+** Pros: testing is made very much easier
+** Cons: games would be less dynamic since the enemy's behaviour is non-organic
 
 // tag::stats[]
 === Statistics Feature

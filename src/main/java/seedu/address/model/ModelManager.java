@@ -162,7 +162,7 @@ public class ModelManager implements Model {
     public void addAppointment(Appointment appointment) {
         versionedAddressBook.addAppointment(appointment);
     }
-    
+
     @Override
     public void deleteDoctor(Doctor target) {
         versionedAddressBook.removeDoctor(target);

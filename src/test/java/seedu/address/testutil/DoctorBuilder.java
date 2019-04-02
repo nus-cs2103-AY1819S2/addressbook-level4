@@ -46,9 +46,9 @@ public class DoctorBuilder {
      */
     public DoctorBuilder(Doctor doctorToCopy) {
         name = doctorToCopy.getName();
-        phone = doctorToCopy.getPhone();
         gender = doctorToCopy.getGender();
         age = doctorToCopy.getAge();
+        phone = doctorToCopy.getPhone();
         specialisations = new HashSet<>(doctorToCopy.getSpecs());
     }
 

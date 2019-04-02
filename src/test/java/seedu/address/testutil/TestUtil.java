@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
+import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
 
 /**
@@ -51,5 +52,26 @@ public class TestUtil {
      */
     public static Patient getPatient(Model model, Index index) {
         return model.getFilteredPatientList().get(index.getZeroBased());
+    }
+
+    /**
+     * Returns the middle index of the doctor in the {@code model}'s doctor list.
+     */
+    public static Index getDoctorMidIndex(Model model) {
+        return Index.fromOneBased(model.getFilteredDoctorList().size() / 2);
+    }
+
+    /**
+     * Returns the last index of the doctor in the {@code model}'s doctor list.
+     */
+    public static Index getDoctorLastIndex(Model model) {
+        return Index.fromOneBased(model.getFilteredDoctorList().size());
+    }
+
+    /**
+     * Returns the doctor in the {@code model}'s doctor list at {@code index}.
+     */
+    public static Doctor getDoctor(Model model, Index index) {
+        return model.getFilteredDoctorList().get(index.getZeroBased());
     }
 }

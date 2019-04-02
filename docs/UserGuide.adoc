@@ -18,21 +18,23 @@ endif::[]
 By: `W17-1`      Since: `Feb 2019`      Licence: `MIT`
 
 == Welcome to the Food Diary
-If you would like to get started straightaway,  jump to the <<Quick Start>> to get started
+If you would like to get use the Food Diary straightaway, jump to the <<Quick Start>> to get started
 
 **What is the Food Diary? **
 
 The Food Diary (FD) is a desktop app for storing your personal food reviews and obtain food recommendations based on your past reviews.
+
 
 **Why use the Food Diary? **
 
 FD is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, FD can get your foodie tasks done faster than traditional GUI apps.
 Additionally, FD also stores your data locally, ensuring that your privacy is protected.
 
+
 Some of the features that can look forward to:
 
-* Keeping track of restaurants you've visited
-* Getting an aggregate rating over all your visits
+* Keeping track of restaurants you've visited.
+* Getting an aggregate rating over all your visits.
 * Finding out about new restaurants near you for your next gastronomical adventure!
 
 
@@ -83,7 +85,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 
 
-=== Restaurant Features
+=== Restaurant Commands
+
+This section contains
 
 ==== Adding a restaurant: `add`
 
@@ -162,10 +166,12 @@ Format: `find KEYWORD [MORE_KEYWORD]`
 [NOTE]
 Only full words will be matched e.g. `Mac` would not return `MacDonald's`
 
+
 Examples:
 
 * **`find KFC`** +
 Returns any restaurant with name containing `KFC`
+
 ==== Setting the category of a restaurant : `setCategory`
 
 Set the cuisine of a restaurant identified by the index number used in the listRestaurants. +
@@ -314,7 +320,9 @@ Format: `view`
 Examples:
 
 `view` +
-`View personalised statistics for Jack The Sheep. You have a total of 0 reviews and a total of 1 restaurants.`
+`View personalised statistics for John Doe. You have a total of 7 reviews and a total of 11 restaurants.` +
+image::UiUpdated.png[width="790"]
+
 
 
 ==== Exiting the program : `exit`

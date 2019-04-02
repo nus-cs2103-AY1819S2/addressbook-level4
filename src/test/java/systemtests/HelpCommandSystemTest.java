@@ -46,6 +46,10 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         getDoctorListPanel().click();
         getMainMenu().openHelpWindowUsingAccelerator();
         assertHelpWindowOpen();
+        
+        getDoctorListPanel().click();
+        getMainMenu().openHelpWindowUsingAccelerator();
+        assertHelpWindowOpen();
 
         /*getBrowserPanel().click();
         getMainMenu().openHelpWindowUsingAccelerator();

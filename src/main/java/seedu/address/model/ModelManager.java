@@ -186,6 +186,23 @@ public class ModelManager implements Model {
         selectedDoctor.setValue(doctor);
     }
 
+    @Override
+    public void deleteDoctor(Doctor target) {
+        versionedAddressBook.removeDoctor(target);
+    }
+
+    public ReadOnlyProperty<Doctor> selectedDoctorProperty() {
+        return selectedDoctor;
+    }
+
+    @Override
+    public void setSelectedDoctor(Doctor doctor) {
+        if (doctor != null && !filteredDoctors.contains(doctor)) {
+            throw new DoctorNotFoundException();
+        }
+        selectedDoctor.setValue(doctor);
+    }
+
     // Needed to be implemented later
 
     @Override

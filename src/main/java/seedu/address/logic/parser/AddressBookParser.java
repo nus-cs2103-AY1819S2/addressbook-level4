@@ -80,14 +80,12 @@ public class AddressBookParser {
 
         case DeletePatientCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
-            
+
         case ListMedHistCommand.COMMAND_WORD:
             return new ListMedHistCommand();
 
         case SearchMedHistCommand.COMMAND_WORD:
             return new SearchMedHistCommandParser().parse(arguments);
-
-
 
         case AddDoctorCommand.COMMAND_WORD:
             return new AddDoctorCommandParser().parse(arguments);

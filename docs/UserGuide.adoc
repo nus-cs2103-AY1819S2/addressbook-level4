@@ -25,8 +25,9 @@ If you would like to get started straightaway,  jump to the <<Quick Start>> to g
 The Food Diary (FD) is a desktop app for storing your personal food reviews and obtain food recommendations based on your past reviews.
 
 **Why use the Food Diary? **
-FD is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, FD can get your foodie tasks done faster than traditional GUI apps.
-FD also stores your data locally, ensuring that your privacy is protected.
+
+FD is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, FD can get your foodie tasks done faster than traditional GUI apps.
+Additionally, FD also stores your data locally, ensuring that your privacy is protected.
 
 Some of the features that can look forward to:
 

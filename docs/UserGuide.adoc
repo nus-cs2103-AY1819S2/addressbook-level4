@@ -16,13 +16,14 @@ endif::[]
 
 By: `Team W10-3`      Since: `JAN 2019`      Licence: `MIT`
 
+// tag::introduction[]
 == Introduction
 
 *Equipment Manager* is a desktop CLI (Command Line Interface) application that allows engineers to keep track on the Preventive Maintenance schedule of all Resuscitation Devices in singapore. It has a GUI (Graphic User Interface) that allows users to get further information on each equipment.
 
 Our purpose is to help engineers plan the number of equipment that they would like to carry out preventive maintenance and keep track on each equipment details such as status, location and more information.
 
-
+// tag::aboutug[]
 == About This User Guide
 Welcome to *Equipment Manager* User Guide! +
 
@@ -51,7 +52,7 @@ These legends alert reader on special information such as tips, notes and warnin
 | The book icon indicates that it is an additional information for advanced users.
 |===
 
-
+// tag::quickstart[]
 == Quick Start
 
 To get Equipment manager up and running, simply follow these few steps.
@@ -418,6 +419,7 @@ _{explain how the user can enable/disable data encryption}_
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Equipment Manager folder.
 
+// tag::glossary[]
 == Glossary
 Unsure of a few technical terms? We got you covered. Refer to [underline]#<<techtable>># below.
 
@@ -440,7 +442,7 @@ Unsure of a few technical terms? We got you covered. Refer to [underline]#<<tech
 |Allows the user to interact with the application through inputs and outputs of data.
 |===
 
-
+// tag::commandsummary[]
 == Command Summary
 
 This is the last section of the User Guide, but the most useful if you just want a list of commands to try.

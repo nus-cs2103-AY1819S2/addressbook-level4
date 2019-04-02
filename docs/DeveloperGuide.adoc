@@ -17,8 +17,12 @@ endif::[]
 
 By: `CS2103T W11-3 Team`      Since: `Feb 2019`      Licence: `MIT`
 
+
+== Introduction
+
 Welcome to the TravelBuddy developer guide, put together by Chung Ming, Prem, Niven and Shaun.
 In this guide, you will find enough information to get your started on contributing to the TravelBuddy source code.
+<<Setting up>> provides details on how to start contributing to TravelBuddy.
 
 == Setting up
 
@@ -360,7 +364,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 The following diagram shows how the search feature works:
 
 image::SearchCommandSequenceDiagram.png[width="800"]
-Figure 3.2.1.1 Sequence Diagram for `search` command
+Figure 4.2.1.1 Sequence Diagram for `search` command
 
 The control flow of the sequence diagram above is as follows:
 
@@ -393,9 +397,12 @@ The search name mechanism is facilitated by `SearchCommand`, which extends `Comm
 
 Given below is an example usage scenario and how the search mechanism behaves at each step.
 
-Step 1. The user launches the application and sees the GUI with the user's list of places.
+Step 1. The user launches the application and sees the GUI with the user's list of places as shown in the diagram below.
 
 image::UIsearch.png[width="800"]
+
+Figure 4.2.1.2 GUI with user's list of places, prior to running `search Singapore` command
+
 
 Step 2. The user executes `search Singapore` command to search for all entries in TravelBuddy with `Singapore` in its name.
 The user input will be passed into `LogicManager#execute()`, which in turn uses `TravelBuddyParser#parseCommand()`. Since the argument is `search`, `SearchCommandParser#parse(arguments)` will be called to parse the arguments to be used in `SearchCommand`.
@@ -404,9 +411,11 @@ The parsed arguments will be used as a predicate to filter out entries that sati
 [NOTE]
 The command `search` is in lower-case. Mixed-case or upper-case commands are not recognised by the application.
 
-Step 3. The filtered list is now displayed according to the requirements set by the user input.
+Step 3. The filtered list is now displayed according to the requirements set by the user input as shown in the diagram below.
 
 image::UIsearchresults.png[width="800"]
+
+Figure 4.2.1.3 Application Interface displaying the results of `search Singapore` command
 
 ===== Search Rating Feature
 The command word for search rating is `searchr` and is parsed by `TravelBuddyParser`. The arguments are then passed into `SearchRatingCommandParser`.
@@ -417,9 +426,11 @@ The search rating mechanism is facilitated by `SearchRatingCommand`, which exten
 
 Given below is an example usage scenario and how the search rating mechanism behaves at each step.
 
-Step 1. The user launches the application and sees the GUI with the user's list of places.
+Step 1. The user launches the application and sees the GUI with the user's list of places as shown in the diagram below.
 
-pimage::UIsearchrating.png[width="800"]
+image::UIsearchrating.png[width="800"]
+
+Figure 4.2.1.4 GUI with user's list of places, prior to running `searchr 4` command
 
 Step 2. The user executes `searchr 4` command to search for all entries in TravelBuddy with `4` as its rating.
 The user input will be passed into `LogicManager#execute()`, which in turn uses `TravelBuddyParser#parseCommand()`. Since
@@ -433,9 +444,11 @@ The command `searchr` is in lower-case. Mixed-case or upper-case commands are no
 [NOTE]
 The arguments for `searchr` range from 1 to 5. Non-integer values outside the range are not recognised by the application.
 
-Step 3. The filtered list is now displayed according to the requirements set by the user input.
+Step 3. The filtered list is now displayed according to the requirements set by the user input as shown in the diagram below.
 
 image::UIsearchratingresults.png[width="800"]
+
+Figure 4.2.1.5 Application Interface displaying the results of `searchr 4` command
 
 ===== Search Tags Feature
 The command word for search tags is `searcht` and is parsed by `TravelBuddyParser`. The arguments are then passed into `SearchTagsCommandParser`.
@@ -446,9 +459,11 @@ The search tags mechanism is facilitated by `SearchTagsCommand`, which extends `
 
 Given below is an example usage scenario and how the search tags mechanism behaves at each step.
 
-Step 1. The user launches the application and sees the GUI with the user's list of places.
+Step 1. The user launches the application and sees the GUI with the user's list of places as shown in the diagram below.
 
 image::UIsearchtags.png[width="800"]
+
+Figure 4.2.1.6 GUI with user's list of places, prior to running `searcht distillery` command
 
 Step 2. The user executes `searcht distillery` command to search for all entries in TravelBuddy with `distillery`
 as its tag. The user input will be passed into `LogicManager#execute()`, which in turn uses
@@ -459,9 +474,11 @@ predicate to filter out entries that satisfy the predicate to be displayed.
 [NOTE]
 The command `searcht` is in lower-case. Mixed-case or upper-case commands are not recognised by the application.
 
-Step 3. The filtered list is now displayed according to the requirements set by the user input.
+Step 3. The filtered list is now displayed according to the requirements set by the user input as shown in the diagram below.
 
 image::UIsearchtagsresults.png[width="800"]
+
+Figure 4.2.1.7 Application Interface displaying the results of `searcht distillery` command
 
 ===== Search Country Feature
 The command word for search country is `searchc` and is parsed by `TravelBuddyParser`. The arguments are then passed into `SearchCountryCommandParser`.
@@ -472,9 +489,11 @@ The search country mechanism is facilitated by `SearchCountryCommand`, which ext
 
 Given below is an example usage scenario and how the search country mechanism behaves at each step.
 
-Step 1. The user launches the application and sees the GUI with the user's list of places.
+Step 1. The user launches the application and sees the GUI with the user's list of places as shown in the diagram below.
 
 image::UIsearchcountry.png[width="800"]
+
+Figure 4.2.1.8 GUI with user's list of places, prior to running `searchc JPN` command
 
 Step 2. The user executes `searchc SGP JPN` command to search for all entries in TravelBuddy with `SGP` or `JPN`
 as its country. The `searchc` command will call `LogicManager#execute()`, which in turn uses
@@ -482,15 +501,17 @@ as its country. The `searchc` command will call `LogicManager#execute()`, which 
 will be called to parse the arguments to be used in `SearchCountryCommand`. The parsed arguments will be used as a
 predicate to filter out entries that satisfy the predicate to be displayed.
 
-image::UIsearchcountryresults.png[width="800"]
-
 [NOTE]
 The command `searchc` is in lower-case. Mixed-case or upper-case commands are not recognised by the application.
 
 [NOTE]
 The country code arguments for `searchc` must be valid 3-letter ISO-3166 country codes.
 
-Step 3. The filtered list is now displayed according to the requirements set by the user input.
+Step 3. The filtered list is now displayed according to the requirements set by the user input as shown in the diagram below.
+
+image::UIsearchcountryresults.png[width="800"]
+
+Figure 4.2.1.9 Application Interface displaying the results of `searchc JPN` command
 
 ===== Search Year Feature
 The command word for search year is `searchyear` and is parsed by `TravelBuddyParser`. The arguments are then passed into `SearchYearCommandParser`.
@@ -501,9 +522,11 @@ The search year mechanism is facilitated by `SearchYearCommand`, which extends `
 
 Given below is an example usage scenario and how the search year mechanism behaves at each step.
 
-Step 1. The user launches the application and sees the GUI with the user's list of places.
+Step 1. The user launches the application and sees the GUI with the user's list of places as shown in the diagram below.
 
 image::UIsearchyear.png[width="800"]
+
+Figure 4.2.1.10 GUI with user's list of places, prior to running `searchyear 2016` command
 
 Step 2. The user executes `searchyear 2016` command to search for all entries in TravelBuddy with `2016`
 as its year visited. The `searchyear` command will call `LogicManager#execute()`, which in turn uses
@@ -511,15 +534,17 @@ as its year visited. The `searchyear` command will call `LogicManager#execute()`
 will be called to parse the arguments to be used in `SearchYearCommand`. The parsed arguments will be used as a
 predicate to filter out entries that satisfy the predicate to be displayed.
 
-image::UIsearchyearresults.png[width="800"]
-
 [NOTE]
 The command `searchyear` is in lower-case. Mixed-case or upper-case commands are not recognised by the application.
 
 [NOTE]
 The year arguments range from 1900 to the current year. A single year, multiple years or a range of years can be passed in as arguments.
 
-Step 3. The filtered list is now displayed according to the requirements set by the user input.
+Step 3. The filtered list is now displayed according to the requirements set by the user input as shown in the diagram below.
+
+image::UIsearchyearresults.png[width="800"]
+
+Figure 4.2.1.11 Application Interface displaying the results of `searchyear 2016` command
 
 ==== Design Considerations
 
@@ -532,6 +557,9 @@ Step 3. The filtered list is now displayed according to the requirements set by 
 ** Pros: Can match partial keywords.
 ** Cons: Uses more processing power and time during checking.
 
+*Decision*: Alternative 1 of matching the entire keyword is adopted as it reduces processing time during keyword matching.
+In addition, it narrows down the search options by only returning keywords that matches the search query, which is the main objective of implementing a search feature.
+
 ===== Aspect: Data structure to support search commands
 * **Alternative 1 (current choice):** Use a list to store the user input keywords and places.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming
@@ -540,6 +568,8 @@ developers of our project.
 * **Alternative 2:** Use `HashMap` to map keywords to each place
 ** Pros: Faster searching as HashMap lookup runs in O(1) time.
 ** Cons: Requires more memory as a separate HashMap needs to be stored.
+
+*Decision*: Alternative 1 of using a list is preferred as it uses less memory compared to alternative 2. Moreover, future contributors to the project are likely to be student undergraduates, so a simple data structure would be more optimal for educational purposes.
 // end::search[]
 
 // tag::countrycode[]

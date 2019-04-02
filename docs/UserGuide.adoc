@@ -19,7 +19,7 @@ By: `Team BrainTrain`      Since: `Jan 2019`      Licence: `MIT`
 
 // tag::evan[]
 == Introduction
-
+      
 BrainTrain is an open-source spaced repetition flashcard application which makes *memorizing easy and efficient*. Research has shown that the Spaced-Repetition System (SRS) is *much more effective* than traditional memorization techniques. With BrainTrain, you will *learn more with less time*.
 
 BrainTrain is also a *portable* and *easy-to-navigate* desktop program. It is an *offline* application which you can use anywhere, even in places with limited or no Internet availability. It can be navigated and used via *easy-to-use* commands through the Command Line Interface (CLI). The CLI is supplemented by a minimalistic Graphical User Interface (GUI) which provides *helpful but non-distracting visual aid*. Together, the CLI and GUI provides an *effective and straightforward* way for you to use BrainTrain.
@@ -37,6 +37,7 @@ To begin using BrainTrain, follow the following set of instructions: +
 . Download the latest `braintrain.jar` file link:{repoURL}/releases[here].
 . Create a folder to use as the home folder for BrainTrain (e.g. `braintrain/`).
 . Move the downloaded file to the created folder.
+. You can **optionally** download a sample lesson here: link:../src/test/data/country-capitals-asia.csv[`country-capitals-asia.csv`].
 . Double-click the file to run BrainTrain. The GUI will appear in a few seconds.
 +
 .BrainTrain's GUI on first run

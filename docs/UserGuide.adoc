@@ -484,6 +484,9 @@ Initially, the medicine storage only contains one root directory named as "root"
 Through QuickDocs, you could place the same medicine under different directories. For example, medicine paracetamol could be placed under "fever" and "headache" simultaneously. +
 [TIP]
 Following the same logic, you may not be able to store two different medicine with the same name in QuickDocs. All instances of medicine with the same name will refer to the same medicine.
+
+- - -
+
 [[adddirec, Add directory]]
 ==== Add new directory into storage: `adddirec`
 
@@ -491,16 +494,16 @@ By providing the path pointing to a specific directory, you can add a new direct
 
 The new directory will be an empty directory whose name is up to you to decide.
 
-- - -
-
 [NOTE]
 The new directory's name should not contain white spaces or "\" characters.
+
+{sp} +
 
 *Format:* `adddirec [PATH OF THE PARENT DIRECORY] [NAME OF NEW DIRECTORY]` +
 
 *Alias:* `ad`
 
-- - -
+{sp} +
 
 *Example:* +
 
@@ -510,16 +513,18 @@ The new directory's name should not contain white spaces or "\" characters.
 
 [[adddirec_after]]
 .Result of sample add directory command
-image::adddirec_after.png[align="center" width="600"]
+image::adddirec_after.png[width="600"]
 
 There will be success messages confirming every successful addition of directories.
+
+- - -
 
 [[addmed, Add medicine]]
 ==== Add medicine into storage: `addmed`
 
 Through this command, you can either add a new medicine into the storage, or to place an existing medicine under another directory. +
 
-- - -
+{sp} +
 
 You can add a new medicine by specifying where it should go to, its initial quantity and its price +
 
@@ -527,7 +532,7 @@ You can add a new medicine by specifying where it should go to, its initial quan
 
 *Alias:* `am`
 
-- - -
+{sp} +
 
 *Example:* +
 
@@ -537,20 +542,24 @@ You can add a new medicine by specifying where it should go to, its initial quan
 
 After you enter the command, if it is executed successfully, a confirmation message will appear.
 
+[[addmed_newmedicien_after]]
+.Sucess message of sample addmed command
 image::addmed_newmedicien_after.png[align="center" width="600"]
 
 [NOTE]
 If you entered a medicine name that already exists in the storage in this format, a error message will pop up. +
 
-image::addmed_newMedicine_existing.png[align="center" width="600"]
+[[addmed_newMedicine_existing]]
+.Error message of adding an existing medicine in wrong format
+image::addmed_newMedicine_existing.png[width="600"]
 
-- - -
+{sp} +
 
 You can also place an existing medicine into a directory. +
 
 *Format:* `addmed [PATH] [MEDICINE_NAME]`
 
-- - -
+{sp} +
 
 *Example:* +
 
@@ -562,27 +571,36 @@ Assuming there already exists a medicine called paracetamol in the storage, you 
 
 After you enter the command, if it is executed successfully, a confirmation message showing the detailed information of that medicine will appear.
 
+[[addmed_existing]]
+.Success message of sample addmed command
 image::addmed_existing.png[align="center" width="600"]
+
 
 [NOTE]
 If you entered a medicine name that has not existed in the storage in this format, an error message will pop up.
 
+
+[[addmed_existing_nonExisting]]
+.Error message for adding new medicine in wrong format
 image::addmed_existing_nonExisting.png[align="center" width="600"]
 
 In this case, no medicine called aspirin has yet existed in the storage.
+
+- - -
 
 [[listmed, List medicines]]
 ==== List medicine storage: `listmed`
 
 Whenever you want to see what is inside your medicine storage, you can always use this command to view the detailed information about any directory or medicine through this command. +
 
-- - -
+
+{sp} +
 
 *Format:* `listmed [PATH]`
 
 *Alias:* `lm`
 
-- - -
+{sp} +
 
 *Example:* +
 
@@ -592,9 +610,11 @@ Whenever you want to see what is inside your medicine storage, you can always us
 
 You will be able to view a detailed description of all the medicines and directories under root\fever.
 
+[[listmed_after]]
+.Response for a sample listmed command viewing a directory
 image::listmed_after.png[align="center" width="600"]
 
-- - -
+{sp} +
 
 *Example:* +
 
@@ -604,7 +624,11 @@ image::listmed_after.png[align="center" width="600"]
 
 You will be displayed a detailed description of medicine paracetamol which is placed under root\fever.
 
+[[listmed_med_after]]
+.Response for a sample listmed command viewing a medicine
 image::listmed_med_after.png[align="center" width="600"]
+
+- - -
 
 [[alarm, Set alert threshold for medicine]]
 ==== Setting automatic notification for low stock: `alarm`
@@ -616,63 +640,128 @@ All you need to do is to set an alarm level for the medicine you are concerned w
 [TIP]
 In addition, QuickDocs can make your life even easier! You can set an alarm level for a directory so that every medicine placed under that directory and all its sub-directories will immediately have that alarm level.
 
-- - -
+{sp} +
 
 *Format:* `alarm [PATH OF DIRECTORY OR MEDICINE]` +
 
-- - -
+{sp} +
+
+
 
 *Example:*
 
-`alarm 
-If the path specified corresponds to a medicine, set the alarm level for that specific medicine.
+`alarm root\fever 60`
 
-If the path soecified corresponds to a directory, set the alarm level for all medicine under that directory and all its sub-directories.
+*Result:*
 
-An automatic notification will pop up when the storage of any medicine fall below the alert value of that medicine set by the user.
+As the path points to a medicine, the sample command set the alarm level for aspirin to 60. +
 
-Format: `alarm PATH AMOUNT`
+As the storage only has 50 units of aspirin, a reminder is shown on the right.
 
-Example:
+[[alarm_medicine_after]]
+.Response for the sample alarm command
+image::alarm_medicine_after.png[width='600]
 
-* `alarm root\fever\panadol 50` +
-Sets the alert level of panadol storage to 50. A notification will appear when amount of panadol falls below 50.
+{sp} +
 
-* `alarm root\fever 50` +
-Sets the alart level of every medicine under root\fever to 50. SO do all medicines under its subdirectories and subdirectories of subdirectories and so on.
+*Example:*
 
-[[buymed, Buying a medicine, adding it to inventory count]]
+`alarm root\high_blood_pressure\aspirin`
+
+*Result:*
+
+As the path points to a directory, the sample command set the alarm level for all medicine under "fever" directory and all its subdirectories to 60. +
+
+As the medicine paracetamol under "fever" has only 50 units, which is below the limit, a reminder is shown on the right.
+
+[[alarm_directory_after]]
+.Responses for the sample alarm command
+image::alarm_directory_after.png[width='600']
+
+- - -
+
+[[buymed, Buying a medicine]]
 ==== Recording purchases of medicine: `buymed`
 
-Records the purchase of medicine into the medicine inventory, and updates the inventory accordingly. +
+As a doctor running your own clinic, you will certainly purchase medicine from time to time to keep your medicine storage updated. +
+
+This command allows you to record every purchase you made in the simplest way! +
+
+{sp} +
+
+[TIP]
+You can access the medicine via two ways. You can either provide the full path to the medicine, or provide the name of medicine only.
 
 Format: +
-`buyMed MEDICINE_NAME AMOUNT UNIT_COST` +
+`buymed [MEDICINE_NAME] [AMOUNT] [UNIT_COST]` +
 
-or
+or `buymed [PATH_OF_MEDICINE] [AMOUNT] [UNIT_COST]`
 
-`buyMed PATH_OF_MEDICINE AMOUNT UNIT_COST`
+*Alias:* `bm`
 
-Example:
+{sp} +
 
-* `buymed panadol 10 4.3` +
-Purchases 10 units of panadol at a unit price of $4.3.
+*Example:*
 
-* `buymed root\fever\panadol 10 4.3` +
-Purchases 10 units of panadol under directory root\fever at a unit price of $4.3.
+`buymed aspirin 20 4.3` +
+
+*Result:*
+
+Using this command, you update the amount of aspirin in the storage form 34 to 54. +
+
+As the amount of aspirin now exceed the minimum threshold set, which is 50, the reminder for low storage automatically disappears. +
+
+The following figures illustrates the states of QuickDocs before and after you executing that command.
+
+[[buymed_before]]
+.The state before purchasing medicine
+image::buymed_before.png[width='600']
+
+[[buymed_after]]
+.The state after purchasing medicine. Note that the reminder is gone.
+image::buymed_after.png[width='600']
 
 [NOTE]
-The first input after the command name can either be the name of the medicine itself `MEDICINE_NAME` or path of the medicine `PATH_OF_MEDICINE`.
+To make your life easier, QuickDocs automatically records every purchase you made via this command so that you can check your clinic's statistics any time.
+
+- - -
+
+[[setprice, set price for a medicine]]
+==== Setting Price for a medicine: `setprice`
+
+Through QuickDocs, you have hundred percent freedom to set the price of your medicine via this simple command! +
+
+The price you set will be used in your prescriptions.
+
+{sp} +
+
+[TIP]
+Similar to buymed command, you can either provide the full path to your interested medicine or the name of it only.
+
+*Format:* `setprice [PATH_OF_MEDICNE] [PRICE]` +
+
+or `setprice [NAME_OF_MEDICINE] [PRICE]`
+
+*Alias:* `sp`
+
+{sp} +
+
+*Example:*
+
+`setprice aspirin 10.50`
+
+*Result:*
+
+This command sets the unit price of aspirin to $10.50. You will then have no need to key in the price during each prescription, this price will automatically be used.
+
+[[setprice_after]]
+.Responce for the sample setprice command
+image::setprice_after.png[width='600']
+
+- - -
 
 ==== View the detailed information about any medicine: [coming in V2.0]
 Using external APIs, the users could view more detailed information about any medicine.
-
-==== Automatic information of medicine supply after prescription: [coming in V2.0]
-
-After each prescription, if the medicine in storage is insufficient for the prescription, a warning will appear and the prescription will not be record.
-
-After each successful prescription, the updated storage amount of affected medicine will automatically be reflected. +
-{sp} +
 
 '''
 === Appointment and Reminders
@@ -1152,11 +1241,12 @@ This is the summary of all the possible commands for QuickDocs. For detailed exp
 
 *Medicine Management* +
 
-* *<<addMed>>* : `addMed` +
-* *<<viewMed>>* : `viewMed` +
-* *<<setalert>>* : `setalert` +
-* *<<buyMed>>* : `buyMed` +
-* *<<purchaserecord>>* : `purchaserecord` +
+* *<<addmed>>* : `addmed` +
+* *<<adddirec>>* : `adddirec` +
+* *<<listmed>>* : `listmed` +
+* *<<alarm>>* : `alarm` +
+* *<<buymed>>* : `buymed` +
+* *<<setprice>>* : `setptice` +
 
 *Appointment and Reminders* +
 

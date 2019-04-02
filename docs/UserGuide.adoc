@@ -206,6 +206,7 @@ Example:
 
 * `open sample.jpg`
 
+//tag ::Redo[]
 === Redo edit steps : `redo`
 
 Returns to a previously undone state. +
@@ -229,6 +230,7 @@ Examples:
 `undo` (reverses the `contrast 0.3`) +
 `redo` (runs `contrast 0.3` command again) +
 `redo` (runs `crop 2 3 500 500` command again)
+// end::Redo[]
 
 === Rotate an image : `rotate`
 
@@ -257,6 +259,7 @@ Example:
 
 * `save MyNewImage.png`
 
+// tag::Undo[]
 === Undo edit steps : `undo`
 
 Goes back to the previous state of the image. +
@@ -277,7 +280,9 @@ Examples:
 `crop 2 3 500 500` +
 `undo` (reverses the `crop 2 3 500 500` command +
 `undo` (reverses the `contrast 0.3`)
+// end::Undo[]
 
+// tag::UpcomingFeatures[]
 == Upcoming Features (in v2.0)
 
 === Layer

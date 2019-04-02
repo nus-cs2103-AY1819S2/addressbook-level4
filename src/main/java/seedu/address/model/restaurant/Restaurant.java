@@ -30,6 +30,7 @@ public class Restaurant {
     private final Weblink weblink;
     private final List<Review> reviews = new ArrayList<>();
     private final OpeningHours openingHours;
+    private final Summary summary;
 
     // Categories fields
     private final Categories categories;
@@ -49,6 +50,7 @@ public class Restaurant {
         this.weblink = weblink;
         this.openingHours = openingHours;
         this.categories = Categories.empty();
+        this.summary = new Summary(reviews);
     }
 
     /**
@@ -70,6 +72,7 @@ public class Restaurant {
         } else {
             this.categories = categories;
         }
+        this.summary = new Summary(reviews);
     }
 
     /**
@@ -87,6 +90,7 @@ public class Restaurant {
         this.categories = categories;
         this.weblink = restaurant.weblink;
         this.openingHours = restaurant.openingHours;
+        this.summary = new Summary(restaurant.getReviews());
     }
 
     public Name getName() {
@@ -115,6 +119,10 @@ public class Restaurant {
 
     public Categories getCategories() {
         return categories;
+    }
+
+    public Summary getSummary() {
+        return summary;
     }
 
     /**
@@ -198,8 +206,6 @@ public class Restaurant {
         builder.append(" Categories: ")
                 .append(categories.toString());
 
-        builder.append(" Reviews: ");
-        getReviews().forEach(builder::append);
         return builder.toString();
     }
 

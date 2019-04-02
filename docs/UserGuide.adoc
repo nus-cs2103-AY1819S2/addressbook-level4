@@ -38,6 +38,7 @@ Some of the features that can look forward to:
 
 
 *Callout*
+
 Callouts are boxes with important information regarding the usage of the Food Diary. These 3 callouts are used throughout our User Guide.
 [NOTE]
 This is a *note*. A warning indicates important additional information that should be read.
@@ -136,13 +137,13 @@ Examples:
 * `list` +
 Return all the restaurants
 
-==== Listing all restaurants : `listUnvisited`
+==== Listing all restaurants that you haven't visited : `listUnvisited`
 
 Shows a list of all restaurants that hasn't been reveiwed by you, ranked based on the proximity to a given postal code. +
 Format: `listUnvisited po/POSTAL_CODE`
 
 [NOTE]
-Calculation of proximity is based on postal codes. If no postal code or an invalid postal code is provided for a `Restaurant`, it will appear at the bottom of the list.
+Calculation of proximity is based on postal codes. If no postal code or an invalid postal code is provided for a restaurant, it will appear at the bottom of the list.
 
 
 Examples:
@@ -151,10 +152,20 @@ Examples:
 Return all the restaurants that has no reviews ranked based on the proximity to a given postal code
 
 [TIP]
-If you simply want to view unreviewed `Restaurant`, enter `listUnvisited po/000000`
+If you simply want to view unreviewed restaurants, enter `listUnvisited po/000000`
 
-==== 'Find'
+==== Searching Restaurants by name: `find`
 
+Find restaurants with names containing any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORD]`
+
+[NOTE]
+Only full words will be matched e.g. `Mac` would not return `MacDonald's`
+
+Examples:
+
+* **`find KFC`** +
+Returns any restaurant with name containing `KFC`
 ==== Setting the category of a restaurant : `setCategory`
 
 Set the cuisine of a restaurant identified by the index number used in the listRestaurants. +

@@ -1482,6 +1482,21 @@ Use case resumes from step 1.
 Use case resumes from step 1.
 //end::folderusecases[]
 
+//tag::reportusecase[]
+[discrete]
+=== UC06 Display report for a folder
+
+*MSS*
+
+1. Student enters the a folder.
+2. Student indicates that they want to see the report for this folder.
+3. System displays a full-screen report.
++
+Use case ends
+
+//end::reportusecase[]
+
+
 [appendix]
 == Non Functional Requirements
 

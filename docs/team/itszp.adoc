@@ -28,9 +28,9 @@ This section provides a summary of my coding, documentation and other contributi
 
 ** Highlights: This enhancement requires in depth analysis on how the temporary image is stored. It retrieves the opened image from `assets` folder and creates two copies of it in `temp` folder named `ori_img.png` and `temp_img.png`. Subsequent edits will update and replace the `temp_img.png`. The `ori_img.png` is utilised during an `undo` or `redo`. The implementation was challenging as it required many changes to the `Model` to ensure components access only folders that they are related to. 
 
-* *Code contributed*: [https://github.com/CS2103-AY1819S2-W14-2/main/commits?author=itszp[List of commits]]
+** *Code contributed*: [https://github.com/CS2103-AY1819S2-W14-2/main/commits?author=itszp[List of commits]]
 
-* *Other contributions*:
+** *Other contributions*:
 
 ** Project management:
 *** Managed release `v1.2` and `v1.3` (2 releases) on GitHub
@@ -43,8 +43,6 @@ This section provides a summary of my coding, documentation and other contributi
 ** Tools:
 *** Integrated a third party library (https://github.com/sksamuel/scrimage[`scrimage`]) to the project (https://github.com[#42])
 
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 

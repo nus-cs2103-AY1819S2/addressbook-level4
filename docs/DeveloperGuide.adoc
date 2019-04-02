@@ -149,6 +149,7 @@ image::LogicClassDiagram.png[width="800"]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command
+
 image::SDforDeletePdf.png[width="800"]
 
 The sections below give more details of each component.
@@ -315,6 +316,8 @@ added to PDF++
 As of v1.2, the Add feature is only capable of adding 1 `Pdf` file at a time. By v1.4,
 the feature will support adding multiple files.
 
+image::AddCommandActivityDiagram.png[width="600"]
+
 // tag:edit[]
 === Edit feature
 ==== Current Implementation
@@ -374,7 +377,8 @@ As of V1.2, the Edit Feature removes any existing `Tag` s and replaces them with
 input by the user (If any). By `V1.4` The user will be able to select tags he wishes
 to remove or add.
 
-// tag:merge[]
+
+// tag::merge[]
 === Merge feature
 ==== Current Implementation
 
@@ -421,11 +425,12 @@ Step 3: The `MergeCommand` is then executed. Successful execution
 of the command would return a *CommandResult* object and create the a new file with the merged
 content, while unsuccessful execution due to validation failure will throw a *CommandException*.
 
-image::MergeCommandExecuteProcess.png[width="600"]
+image::MergeCommandActivityDiagram.png[width="600"]
 
 [NOTE]
 The new name of the merged file follows the format: "merged[hashcode].pdf". This is to ensure
 unique file name. The hashcode in the name will be modified if name already exists.
+// end::merge[]
 
 // tag::move[]
 === Move feature
@@ -486,7 +491,7 @@ image::MoveCommandExecuteProcess.png[width="600"]
 
 // end::move[]
 
-
+// tag::open[]
 === Open feature
 ==== Current Implementation
 
@@ -527,6 +532,7 @@ with the user-default Pdf reader.
 
 [NOTE]
 For more information about the behavior of launching the Pdf, please refer to Java SE 9 class Desktop.
+// end::open[]
 
 // tag::clear[]
 === Clear feature
@@ -541,6 +547,9 @@ The `Clear` feature has to following syntax: `clear`
 [NOTE]
 If you have accidentally entered the `clear` command and wish to revert the action, please refer to
 <<Undo/Redo feature>> for more information.
+
+image::ClearCommandActivityDiagram.png[width="600"]
+// end::clear[]
 
 // tag::deadline[]
 === Deadline feature
@@ -565,39 +574,49 @@ The `Deadline` feature has the following syntax: `deadline <INDEX> <ACTION>`.
 [NOTE]
 After a deadline has been added to the PDF file you specified, the date will be color coded according to
 certain criteria
+// end::deadline[]
 
 // tag::delete[]
 === Delete feature
 ==== Current Implementation
 The delete feature is facilitated by both `DeleteCommand` and `DeleteCommandParser`. This feature
 either soft or hard deletes the PDF file specified by you from PDF++.
-
+// end::delete[]
 
 // tag::exit[]
 === Exit feature
 ==== Current Implementation
 The exit feature is facilitated by `ExitCommand`. This feature allows you to exit from PDF++.
 
-The `Exit` feature has to following syntax: `exit`
+The `Exit` feature has to following syntax:
+
+`exit`...
 
 * The `exit` command will be executed regardless if there is any invalid text that comes after the command
 
 [NOTE]
-As your files and commands are immediately stored after execute, you do not need to worry for any unsaved
-files
+Your files and commands are immediately stored after execution, and can be retrieved on
+reopening the application.
+// end::exit[]
+
 
 // tag::help[]
 === Help feature
 ==== Current Implementation
-The help feature is facilitated by `HelpCommand`. This feature allows you to exit from PDF++.
+The `help` feature brings up the UserGuide in a browser window as a html file. Following other
+features, the command is parsed and a *HelpCommand* object is created to be executed.
 
-The `Help` feature has to following syntax: `help`
+The `Help` feature has to following syntax:
 
-* Enter here
+`help`
+
+After execution, the user will be directed to the start of the _UserGuide.adoc_ as shown.
+
+image::UserGuide.png[width="600"]
 
 [NOTE]
 Enter note here
-
+// end::help[]
 
 // tag::History[]
 === History feature
@@ -610,6 +629,7 @@ The `History` feature has to following syntax: `history`
 
 [NOTE]
 Enter note here
+// end::History[]
 
 // tag::list[]
 === List feature
@@ -622,6 +642,7 @@ The `List` feature has to following syntax: `list`
 
 [NOTE]
 Enter note here
+// end::list[]
 
 // tag::select[]
 === Select feature
@@ -634,6 +655,7 @@ The `Select` feature has to following syntax: `select`
 
 [NOTE]
 Enter note here
+// end::select[]
 
 // tag::sort[]
 === Sort feature
@@ -646,6 +668,7 @@ The `Sort` feature has to following syntax: `sort`
 
 [NOTE]
 Enter note here
+// end::sort[]
 
 // tag::tag[]
 === Tag feature
@@ -658,6 +681,7 @@ The `Tag` feature has to following syntax: `tag t/`
 
 [NOTE]
 Enter note here
+// end::tag[]
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -810,6 +834,8 @@ image::EncryptFeatureStep5Sucess.png[width="600"]
 Step 6: If the command passes the validity check, the file you have selected is encrypted.
 You can open your file to see the result. Please refer to <<Open feature>> for the `open` feature.
 
+image::EncryptCommandActivityDiagram.png[width="600"]
+
 ==== Step-by-Step Guide -- decrypt
 Illustrate below is a sample usage scenario that provides a clear view to the inner workings
 of the Decrypt feature.
@@ -859,6 +885,8 @@ image::DecryptFeatureStep5Sucess.png[width="600"]
 
 Step 6: If the command passes the validity check, the file you have selected is decrypted.
 You can open your file to see the result. Please refer to <<Open feature>> for the `open` feature.
+
+image::DecryptCommandActivityDiagram.png[width="600"]
 // end::fileprotection[]
 
 === Logging
@@ -1353,7 +1381,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 *Target user profile*:
 
 * has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* prefers desktop app over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
@@ -1466,7 +1494,7 @@ The software should respond within two seconds.
 
 * **Cost**
 +
-The software should be free of charge.
+The software is free of charge. However, we do appreciate any contributions to our coffee fund.
 
 * **Privacy**
 +
@@ -1478,7 +1506,7 @@ The software is free, open-source does not require installation.
 
 * **Portability**
 +
-The software should not require any installer, in other words, should be able to run without installing any additional softwares.
+The software should not require any installer; it should be able to run without installing any additional software.
 
 * **Extensibility**
 +

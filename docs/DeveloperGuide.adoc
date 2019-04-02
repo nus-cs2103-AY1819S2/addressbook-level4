@@ -718,11 +718,12 @@ Illustrate below is a sample usage scenario that provides a clear view to the in
 of the Encrypt feature.
 
 Step 1: The user launches the application with either an existing set of `Pdf` or a new
-sample set of `Pdf` stored within as shown below.
+sample set of `Pdf` stored within as shown below. Please refer to <<Add feature>> for guide
+in how you can add your files into PDF++.
 
 image::EncryptFeatureStep1Default.png[width="600"]
 
-Step 2: You select the file that you wish to encrypt via the INDEX on the list
+Step 2: You select the file that you wish to encrypt via the INDEX on the list.
 
 image::EncryptFeatureStep2Index.png[width="600"]
 
@@ -750,10 +751,57 @@ password you specified.
 image::EncryptFeatureStep5Sucess.png[width="600"]
 
 Step 6: If the command passes the validity check, the file you have selected is encrypted.
-You can open your file to see the result. Please refer to <<Open feature>>.
+You can open your file to see the result. Please refer to <<Open feature>> for the `open` feature.
 
 ==== Step-by-Step Guide -- decrypt
+Illustrate below is a sample usage scenario that provides a clear view to the inner workings
+of the Decrypt feature.
 
+[NOTE]
+`decrypt` feature is very similar to `encrypt` feature.
+
+Step 1: The user launches the application with either an existing set of `Pdf` or a new
+sample set of `Pdf` stored within as shown below. Please refer to <<Add feature>> for guide
+in how you can add your files into PDF++.
+
+image::DecryptFeatureStep1Default.png[width="600"]
+
+Step 2: You select the file that you wish to decrypt via the INDEX on the list.
+
+image::DecryptFeatureStep2Index.png[width="600"]
+
+Step 3: Enter the `decrypt` command into the CLI interface, following the outlined syntax as
+illustrate below.
+
+image::DecryptFeatureStep3UserInput.png[width="600"]
+
+Step 4: Upon hitting enter to execute the command, the `DecryptCommandParser` parses the input
+into several components that are required to be executed by the `DecryptCommand`.
+
+Upon parsing, the parser then creates a new `DecryptCommand` that will be executed according
+to your input.
+
+Step 5: Upon receiving the necessary information from the parser, which includes the INDEX and
+PASSWORD, the `DecryptCommand` first checks if the INDEX is valid.
+
+* `INDEX` is invalid or out of bound.
+
+image::DecryptFeatureStep5InvalidIndex.png[width="600"]
+
+* `PASSWORD` is invalid
+[NOTE]
+Please enter the password of the encrypted file. You will not be able to decrypt the file
+without the password.
+
+image::DecryptFeatureStep5InvalidPassword.png[width="600"]
+
+* `INDEX` and `PASSWORD` are both valid. The file you selected will be decrypted with the
+password you specified.
+
+image::DecryptFeatureStep5Sucess.png[width="600"]
+
+Step 6: If the command passes the validity check, the file you have selected is decrypted.
+You can open your file to see the result. Please refer to <<Open feature>> for the `open` feature.
 // end::fileprotection[]
 
 === Logging

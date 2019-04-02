@@ -554,127 +554,358 @@ Using external APIs, the users could view more detailed information about any me
 
 After each prescription, if the medicine in storage is insufficient for the prescription, a warning will appear and the prescription will not be record.
 
-After each successful prescription, the updated storage amount of affected medicine will automatically be reflected.
+After each successful prescription, the updated storage amount of affected medicine will automatically be reflected. +
+{sp} +
 
+'''
 === Appointment and Reminders
-[[appadd, Add appointment]]
-==== Adding appointments: `appadd`
+The appointment and reminder modules give you more control over your busy schedule, featuring commands such as adding, removing,
+and searching appointments and reminders. There is also a command to list out all free appointment timings to help you choose
+your appointment timings more wisely.
 
-Create an appointment with a patient to add to your schedule. A reminder will be automatically created.
+You will never forget about any tasks or appointments again! +
 
-Format: `appadd r/NRIC d/DATE s/START e/END c/COMMENT`
+'''
+[[addapp, Add appointment]]
+==== Adding appointments: `addapp`
+After a consultation session, you may want to schedule a follow-up appointment with your patient. You can use `addapp`
+to create an appointment with an existing patient in QuickDocs to add to your schedule.
 
-Example:
-
-* `appadd r/S9123456A d/2019-10-23 s/16:00 e/17:00 c/Weekly checkup` +
-
-[[applist, List appointments]]
-==== Listing appointments: `applist`
-Displays a list of appointments made, ordered by time and date. Can be filtered using dates or by patient's NRIC. Format can be day, week or month.
-
-Format: +
-`applist f/FORMAT d/DATE` +
-
-or
-
-`applist r/NRIC` +
-
-Example:
-
-* `applist` +
-Lists all appointments on the current day (by default with no tags). +
-* `applist f/day d/2019-07-19` +
-Lists all appointments on 23rd July 2019. +
-* `applist f/month d/2019-07-19` +
-Lists all appointments in the month of the given date, July 2019. +
-* `applist r/S9123456A` +
-Lists all appointments made with patient with NRIC S9123456A. +
-
-[[appdelete, Delete appointment]]
-==== Deleting appointments: `appdelete`
-Delete an appointment previously created.
-
-Format: `appdelete d/DATE s/START`
-
-Example:
-
-* `appdelete d/2019-10-23 s/16:00` +
-Deletes appointment created on 23rd July 2019, at 4pm.
-
-[[appfree, Check free appointment slots]]
-==== List free appointment slots: `appfree`
-
-Displays a list of free slots, ordered by time and date. Can be filtered using dates and tags. Format can be day, week or month.
-
-Format: `appfree f/FORMAT d/DATE`
-
-Example: +
-
-* `appfree` +
-Lists all free slots in the current week. (By default without any tags) +
-* `appfree f/day d/2019-07-23` +
-Lists all free slots on 23rd July 2019. +
-* `appfree f/month d/2019-07-23` +
-Lists all free slots in the month of the given date, July 2019.
-
-[[remadd, Add reminder]]
-==== Adding reminders: `remadd`
-
-Create a reminder to add to your reminder sidebar. End time and comments are optional.
-
-Format: `remadd t/TITLE d/DATE s/START e/END c/COMMENT`
-
-Example:
-
-* `remadd t/Purchase Medicine ABC d/2019-5-20 s/12:00 e/13:00 c/Urgent` +
-
-[[remlist, List reminders]]
-==== Listing reminders: `remlist`
-Displays a list of reminders made, ordered by time and date. Can be filtered using dates. Format can be day, week or month.
-
-Format: `remlist f/FORMAT d/DATE`
-
-Example:
-
-* `remlist` +
-Lists all reminders on the current day (by default with no tags). +
-* `remlist f/day d/2019-07-19` +
-Lists all reminders on 23rd July 2019. +
-* `remlist f/month d/2019-07-19` +
-Lists all reminders in the month of the given date, July 2019. +
-
-[[remdelete, Delete reminder]]
-==== Deleting reminders: `remdelete`
-Delete a reminder previously created.
-
-Format: `remdelete i/INDEX`
-
-Example:
-
-* `remdelete i/3` +
-Deletes the third reminder listed.
+[TIP]
+The `<<fa>>` command may be useful for you to first list out all free appointment timings for a given range of dates
+before choosing an appropriate appointment timing.
 
 [NOTE]
-The index is retrieved from the last `remlist` command. See: <<remlist>>.
+To ensure that you do not forget about about any future appointments, QuickDocs will automatically create a reminder for
+the added appointment. You may not notice this reminder as it will only appear on your reminder sidebar closer to the date
+of the actual appointment (on the week of the appointment date)!
 
-[[ntime, Set time before the actual reminder for a notification to appear]]
-==== Timing of notification: `ntime`
+{sp} +
+*Format:* `addapp r/NRIC d/DATE s/START e/END c/COMMENT` +
+*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `aa` +
 
-Adjust how long before the actual reminder start time to receive the notification, in minutes.
+[NOTE]
+The format for a valid date is strictly YYYY-MM-DD (including the dashes) and a valid time is strictly HH:MM (including the colon).
+If unsure, you can refer to the example below.
 
-Format: `ntime t/TIME`
+{sp} +
+*Example and results:*
 
-Example:
+* `addapp r/S9534567B d/2019-07-23 s/16:00 e/17:00 c/Weekly checkup` +
+
+This adds an appointment allocated to the patient with NRIC S9534567B, on 23rd July 2019, from 4pm to 5pm. You can
+include any comments or notes you want to this appointment, which is 'Weekly checkup' in this case.
+
+If the addition of the appointment was successful, QuickDocs will show the details of the added appointment on the
+main display as demonstrated in the diagram below:
+
+.The main display after adding an appointment
+image::addapp success.png[width="600" align="center"]
+
+{sp} +
+
+The addition of the appointment could have failed as there is a conflict in timing with another existing appointment.
+QuickDocs will display a message in the input feedback box notifying you of this error, as demonstrated in the diagram below.
+
+.Adding an appointment that has conflicting timing with an existing appointment
+image::addapp time clash.png[width="600" align="center"]
+{sp} +
+
+
+Another reason for failing to add an appointment could be due to the appointment timing being outside of office hours
+which is from 9am to 6pm. QuickDocs will remind you of this error, as demonstrated in the diagram below:
+
+.Adding an appointment that is not within the office hours, from 9am to 6pm
+image::addapp office hours.png[width="600" align="center"]
+
+'''
+[[listapp, List appointments]]
+==== Listing appointments: `listapp`
+[[la, listapp]]
+You can list all past and future appointments that you have added using the `listapp` command. The appointments will be ordered and
+listed, with the earliest appointment at the top and the latest at the bottom. You can filter the appointments
+you want to see either by specifying a format and a date, or by specifying an existing patient's NRIC.
+
+{sp} +
+*Format:* `listapp f/FORMAT d/DATE` +
+{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} or{nbsp} `listapp r/NRIC` +
+*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `aa` +
+
+[NOTE]
+The only valid keywords for `FORMAT` are `day`, `week`, or `month`.
+
+{sp} +
+*Examples:*
+
+* `listapp` +
+
+By default, `listapp` will list all appointments scheduled in the current week if there are no keywords provided. +
+{sp} +
+
+* `listapp f/day d/2019-07-23` +
+
+Lists all appointments scheduled on 23rd July 2019.+
+{sp} +
+
+* `listapp f/week d/2019-07-23` +
+
+Lists all appointments scheduled on the given week of 23rd July 2019, which is from 22nd to 28th July. A week starts on a
+Monday and ends on a Sunday.
+{sp} +
+
+* `listapp f/month d/2019-07-23` +
+
+Lists all appointments scheduled in the month of the given date, July 2019. +delee
+{sp} +
+
+* `listapp r/S9123456A` +
+
+Lists all appointments allocated to the patient with NRIC S9123456A, if this patient is registered in QuickDocs. +
+{sp} +
+
+*Result:*
+
+The filtered appointments will be ordered by time and listed on the main display of QuickDocs, as demonstrated in the diagram below:
+
+.Listing appointments scheduled on the week of 23rd July 2019.
+image::listapp week.png[width="600" align="center"]
+
+'''
+[[deleteapp, Delete appointment]]
+==== Deleting appointments: `deleteapp`
+If the patient would like to change the appointment date, or if there is a mistake in the appointment details, you can
+delete the existing scheduled appointment with `deleteapp` and then create a new appointment.
+
+[NOTE]
+Deletion of an appointment is final!
+
+[NOTE]
+QuickDocs will automatically delete the corresponding reminder created for the deleted appointment, if it still exists,
+so you don't have to worry about any discrepancies with your sidebar!
+
+{sp} +
+*Format:* `deleteapp d/DATE s/START` +
+*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `da` +
+
+[NOTE]
+Since there cannot be any overlapping appointment timings, you are able to uniquely identify any appointment with
+just the appointment date and start time.
+
+{sp} +
+*Example and results*:
+
+* `deleteapp d/2019-07-23 s/16:00` +
+
+This command will delete the appointment created on 23rd July 2019 with a start time of 4pm, if it exists. If successful,
+QuickDocs will display the details of the deleted appointment on the main display, as demonstrated in the diagram below:
+
+.Deleting an existing appointment in QuickDocs successfully
+image::deleteapp success.png[width="600" align="center"]
+{sp} +
+
+If the given appointment was not found, QuickDocs will display an error message on the input feedback display,
+as demonstrated in the diagram below. Use the `<<la>>` command to find existing appointments for a given date!
+
+.Deleting a non-existent appointment in QuickDocs
+image::deleteapp failure.png[width="600" align="center"]
+
+'''
+[[freeapp, List free appointment slots]]
+==== List free appointment slots: `freeapp`
+[[fa, freeapp]]
+Unsure of what appointment timings are available in your schedule? Instead of using `<<la>>` to display all existing
+appointments, use `freeapp` instead to display a more intuitive list of free appointment slots -
+QuickDocs does the thinking for you!
+
+The free appointment slots will be ordered and listed, with the earliest appointment at the top and the latest at the bottom.
+You can filter the free slots you want to see by specifying a format and a date.
+
+{sp} +
+*Format:* `freeapp f/FORMAT d/DATE` +
+*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `fa` +
+
+[NOTE]
+Similarly to `<<la>>`, the only valid keywords for `FORMAT` are `day`, `week`, or `month`.
+
+{sp} +
+*Examples:* +
+
+* `freeapp` +
+
+By default, `freeapp` will list all free appointment slots in the current week if there are no keywords provided. +
+{sp} +
+
+* `freeapp f/day d/2019-07-23` +
+
+Lists all free appointment slots on 23rd July 2019.+
+{sp} +
+
+* `freeapp f/week d/2019-07-23` +
+
+Lists all free appointment slots on the given week of 23rd July 2019, which is from 22nd to 28th July. A week starts on a
+Monday and ends on a Sunday.
+{sp} +
+
+* `freeapp f/month d/2019-07-23` +
+
+Lists all free appointment slots in the month of the given date, July 2019. +
+{sp} +
+
+*Result:* +
+
+The free appointment slots will be ordered by time and listed on the main display of QuickDocs, as demonstrated in the diagram below:
+
+.Listing free appointment slots on the week of 23rd July 2019.
+image::freeapp success.png[width="600" align="center"]
+
+'''
+[[addrem, Add reminder]]
+==== Adding reminders: `addrem`
+Need to take note of a task to do in the future? You can create a reminder for an event or task with `addrem`,
+and the reminder will show up on your sidebar closer to the date of the event (the week of the reminder date).
+Never forget about your to-dos ever again!
+
+{sp} +
+*Format:* `addrem t/TITLE d/DATE s/START [e/END] [c/COMMENT]` +
+*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `ar` +
+
+[NOTE]
+`END` and `COMMENT` are optional fields for a reminder.
+
+{sp} +
+*Example:*
+
+* `addrem t/Check financial records d/2019-07-31 s/18:00 e/18:30 c/Monthly check` +
+
+This command will create a reminder to 'check financial records' which is a 'monthly check', on 31st July 2019
+from 6pm to 6:30pm.
+{sp} +
+
+*Result:*
+
+If the addition of the reminder was successful, QuickDocs will show the details of the added reminder on the
+main display as demonstrated in the diagram below:
+
+.The main display after adding a reminder
+image::addrem success.png[width="600" align="center"]
+
+'''
+[[listrem, List reminders]]
+==== Listing reminders: `listrem`
+To view your past or future reminders on the sidebar, you can do so using the `listrem` command.
+The reminders will be ordered and listed, with the earliest reminder at the top and the latest at the bottom.
+You can filter the reminders you want to see by specifying a format and a date.
+
+[NOTE]
+On startup, QuickDocs will display the reminders for the current week on the sidebar.
+
+{sp} +
+*Format:* `listrem f/FORMAT d/DATE` +
+*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `lr` +
+
+{sp} +
+*Examples:*
+
+* `listrem` +
+
+By default, `listrem` will list all reminders in the current week if there are no keywords provided. +
+{sp} +
+
+* `listrem f/day d/2019-07-31` +
+
+Lists all reminders on 31st July 2019.+
+{sp} +
+
+* `listrem f/week d/2019-07-31` +
+
+Lists all reminders on the given week of 31st July 2019, which is from 29th July to 4th August. A week starts on a
+Monday and ends on a Sunday.
+{sp} +
+
+* `listrem f/month d/2019-07-31` +
+
+Lists all reminders in the month of the given date, July 2019. +
+{sp} +
+
+*Result:*
+
+The filtered reminders will be ordered by time and listed on the main display of QuickDocs, as demonstrated in the diagram below:
+
+.Listing reminders scheduled on the week of 31st July 2019.
+image::listrem week.png[width="600" align="center"]
+
+'''
+[[deleterem, Delete reminder]]
+==== Deleting reminders: `deleterem`
+If you would like to clear out your reminder sidebar after completing a task, you can do so using the `deleterem` command.
+You might have noticed that the reminders on the sidebar are identified with an index, which you will use to specify the
+reminder to be deleted.
+
+[NOTE]
+Deletion of a reminder is final!
+
+{sp} +
+*Format:* `deleterem INDEX` +
+*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `dr` +
+
+{sp} +
+*Example and results:*
+
+* `deleterem 3` +
+
+This command will delete the third reminder listed on the sidebar, if it exists. If successful, QuickDocs will display
+the details of the deleted reminder on the main display, as demonstrated in the diagram below:
+
+.Deleting an existing reminder in QuickDocs successfully
+image::deleterem success.png[width="600" align="center"]
+
+{sp} +
+
+If the given `INDEX` is not present in the sidebar, QuickDocs will display an error message on the input feedback display,
+as demonstrated in the diagram below.
+
+.Invalid index provided to deleterem
+image::deleterem failure.png[width="600" align="center"]
+
+'''
+[[ntime, Set time before a reminder for notification to appear]]
+==== Timing of notification: `ntime` [coming in v2.0]
+Did you know that QuickDocs displays a pop-up notification for you when a reminder is approaching?
+You can adjust how long before the actual reminder start time to receive this notification using `ntime`.
+
+{sp} +
+*Format:* `ntime t/TIME` +
+*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `nt` +
+
+[NOTE]
+`TIME` is specified in minutes.
+
+{sp} +
+*Example:*
 
 * `ntime t/30` +
-Receives notifications 30 minutes before the actual reminder start time.
 
-==== Sending email reminders to patients: [coming in v2.0]
+Receives pop-up notifications 30 minutes before the actual reminder start time.
 
-Sends an auto-generated email reminder to patients regarding an approaching appointment date.
+'''
+[[sendemail, Send an email reminder to patients]]
+==== Sending email reminders to patients: `sendemail` [coming in v2.0]
+With QuickDoc's reminder sidebar, you will never forget about your appointments - however your patients still might!
+To prevent this, `sendemail` allows you to send an auto-generated email reminder to patients regarding an approaching
+appointment date.
 
-{empty} +
+{sp} +
+*Format:* `sendemail d/DATE s/START` +
+*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `se` +
 
+{sp} +
+*Example:*
+
+* `sendemail d/2019-07-23 s/16:00` +
+
+Sends an email to the patient allocated to the appointment on 23rd July 2019 at 4pm.
+
+'''
 === Administration and Statistics
 The Administration and Statistics module feature commands that are related to any Administrative tasks such as setting
 the clinic's consultation fee, and the Statistics command to get information about your clinic recorded through the use of QuickDocs.
@@ -812,14 +1043,15 @@ This is the summary of all the possible commands for QuickDocs. For detailed exp
 
 *Appointment and Reminders* +
 
-* *<<appadd>>* : `appadd` +
-* *<<applist>>* : `applist` +
-* *<<appdelete>>* : `appdelete` +
-* *<<appfree>>* : `appfree` +
-* *<<remadd>>* : `remadd` +
-* *<<remlist>>* : `remlist` +
-* *<<remdelete>>* : `remdelete` +
+* *<<addapp>>* : `appadd` +
+* *<<listapp>>* : `applist` +
+* *<<deleteapp>>* : `appdelete` +
+* *<<freeapp>>* : `appfree` +
+* *<<addrem>>* : `remadd` +
+* *<<listrem>>* : `remlist` +
+* *<<deleterem>>* : `remdelete` +
 * *<<ntime>>* : `ntime` +
+* *<<sendemail>>* : `sendemail` +
 
 *Administration and Statistics* +
 

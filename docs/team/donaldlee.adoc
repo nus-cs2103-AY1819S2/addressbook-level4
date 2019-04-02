@@ -41,7 +41,7 @@ between the last and second last test session is also shown.
 *** Wrote additional tests for new features to increase coverage from 80% to 82% (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/75[#75])
 
 ** Documentation:
-*** Rewrote the project README: https://github.com/cs2103-ay1819s2-w10-4/main/pull/107[#107]
+*** Rewrote the project README to look like a real product: https://github.com/cs2103-ay1819s2-w10-4/main/pull/107[#107]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w10-4/main/pull/57[#57], https://github.com/cs2103-ay1819s2-w10-4/main/pull/49[#49], https://github.com/cs2103-ay1819s2-w10-4/main/pull/72[#72], https://github.com/cs2103-ay1819s2-w10-4/main/pull/129[#129]
 ** Tools:
@@ -52,6 +52,9 @@ between the last and second last test session is also shown.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+I implemented a new report command as well as sort command, which required updates to the user guide so that new users
+know how to use it.
+
 include::../UserGuide.adoc[tag=reportoperations]
 include::../UserGuide.adoc[tag=sortcommand]
 
@@ -59,6 +62,10 @@ include::../UserGuide.adoc[tag=sortcommand]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+Besides new features for the user, I also refactored internal code which affects how other developers should contribute
+to the project, namely how to pass results from Model into Ui and Model state that the user is in.
+
 include::../DeveloperGuide.adoc[tag=report]
 include::../DeveloperGuide.adoc[tag=state]
 include::../DeveloperGuide.adoc[tag=reportusecase]

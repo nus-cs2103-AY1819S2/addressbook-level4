@@ -4,6 +4,8 @@ import java.text.DecimalFormat;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.restaurant.Restaurant;
@@ -16,8 +18,6 @@ public class RestaurantSummaryDisplay extends UiPart<Region> {
     private static final String FXML = "RestaurantSummaryDisplay.fxml";
     private static final DecimalFormat ONE_DP = new DecimalFormat("0.0");
     private static final String FIELD_NOT_ADDED = "N.A.";
-    private static final String RESTAURANT_NOT_VISITED =
-            "Ratings are not available as this restaurant has not been visited.";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -57,8 +57,7 @@ public class RestaurantSummaryDisplay extends UiPart<Region> {
             totalVisits.setText("from " + restaurant.getSummary().getTotalVisits() + " visit(s)");
         } else {
             avgRating.setText(FIELD_NOT_ADDED);
-            totalVisits.setText("from " + restaurant.getSummary().getTotalVisits() + " visit(s)\n"
-                    + RESTAURANT_NOT_VISITED);
+            totalVisits.setText("from " + restaurant.getSummary().getTotalVisits() + " visit(s)");
         }
 
         address.setText(restaurant.getAddress().toString());
@@ -66,18 +65,18 @@ public class RestaurantSummaryDisplay extends UiPart<Region> {
 
         // Check if Restaurant has Opening Hours added
         if (restaurant.getOpeningHours() != null) {
-            openingHours.setText("Opening Hours: " + restaurant.getOpeningHours().toString());
+            openingHours.setText(restaurant.getOpeningHours().toString());
         } else {
-            openingHours.setText("Opening Hours: " + FIELD_NOT_ADDED);
+            openingHours.setText(FIELD_NOT_ADDED);
         }
 
         email.setText(restaurant.getEmail().toString());
 
         // Check if Restaurant has a Weblink
         if (restaurant.getWeblink() != null) {
-            weblink.setText("Website: " + restaurant.getWeblink().toString());
+            weblink.setText(restaurant.getWeblink().toString());
         } else {
-            weblink.setText("Website: " + FIELD_NOT_ADDED);
+            weblink.setText(FIELD_NOT_ADDED);
         }
     }
 

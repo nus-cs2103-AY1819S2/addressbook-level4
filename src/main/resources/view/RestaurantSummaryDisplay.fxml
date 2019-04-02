@@ -4,16 +4,74 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8"
-      xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<VBox fx:id="infoVbox" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER"
+      xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-     <Label fx:id="name" text="\$name" wrapText="true" />
-     <Label fx:id="avgRating" text="\$avgRating" wrapText="true" />
-     <Label fx:id="totalVisits" text="\$totalVisits" wrapText="true" />
-     <Label fx:id="address" text="\$address" wrapText="true" />
-     <Label fx:id="phone" text="\$phone" wrapText="true" />
-     <Label fx:id="openingHours" text="\$openingHours" wrapText="true" />
-     <Label fx:id="email" text="\$email" wrapText="true" />
-     <Label fx:id="weblink" text="\$weblink" wrapText="true" />
+     <Label fx:id="name" styleClass="vbox_name_label" text="\$name">
+         <minWidth>
+             <!-- Ensures that the label text is never truncated -->
+             <Region fx:constant="USE_PREF_SIZE" />
+         </minWidth>
+     </Label>
+     <Label fx:id="avgRating" styleClass="vbox_rating_label" text="\$avgRating">
+         <minWidth>
+             <!-- Ensures that the label text is never truncated -->
+             <Region fx:constant="USE_PREF_SIZE" />
+         </minWidth>
+         <graphic>
+             <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                 <Image url="@/images/star.png"/>
+             </ImageView>
+         </graphic>
+     </Label>
+     <Label fx:id="totalVisits" styleClass="vbox_visits_label" text="\$totalVisits" wrapText="true">
+         <minWidth>
+             <!-- Ensures that the label text is never truncated -->
+             <Region fx:constant="USE_PREF_SIZE" />
+         </minWidth>
+     </Label>
+
+     <Label text="Address" styleClass="vbox_label_header" />
+     <Label fx:id="address" styleClass="vbox_label" text="\$address" wrapText="true" >
+         <minWidth>
+             <!-- Ensures that the label text is never truncated -->
+             <Region fx:constant="USE_PREF_SIZE" />
+         </minWidth>
+     </Label>
+
+     <Label text="Contact No." styleClass="vbox_label_header" />
+     <Label fx:id="phone" styleClass="vbox_label" text="\$phone" wrapText="true">
+         <minWidth>
+             <!-- Ensures that the label text is never truncated -->
+             <Region fx:constant="USE_PREF_SIZE" />
+         </minWidth>
+     </Label>
+
+     <Label text="Opening Hours" styleClass="vbox_label_header" />
+     <Label fx:id="openingHours" styleClass="vbox_label" text="\$openingHours" wrapText="true">
+         <minWidth>
+             <!-- Ensures that the label text is never truncated -->
+             <Region fx:constant="USE_PREF_SIZE" />
+         </minWidth>
+     </Label>
+
+     <Label text="Email" styleClass="vbox_label_header" />
+     <Label fx:id="email" styleClass="vbox_label" text="\$email" wrapText="true">
+         <minWidth>
+             <!-- Ensures that the label text is never truncated -->
+             <Region fx:constant="USE_PREF_SIZE" />
+         </minWidth>
+     </Label>
+
+     <Label text="Website" styleClass="vbox_label_header" />
+     <Label fx:id="weblink" styleClass="vbox_label" text="\$weblink" wrapText="true">
+         <minWidth>
+             <!-- Ensures that the label text is never truncated -->
+             <Region fx:constant="USE_PREF_SIZE" />
+         </minWidth>
+     </Label>
   </children>
 </VBox>

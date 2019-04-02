@@ -43,29 +43,8 @@ public class RestaurantSummaryPanel extends UiPart<Region> {
                 Restaurant restaurant = selectedRestaurant.getValue();
 
                 infoVbox.getChildren().addAll((new RestaurantSummaryDisplay(restaurant)).getRoot());
-//                summaryPane.getChildren().add(infoVbox);
-
-//                reviewListView.setItems(reviewList);
-//                reviewListView.setCellFactory(listView -> new ReviewListViewCell());
             }
         });
     }
-
-//    /**
-//     * Custom {@code ListCell} that displays the graphics of a {@code RestaurantSummary} using a {@code ReviewCard}.
-//     */
-//    class ReviewListViewCell extends ListCell<Review> {
-//        @Override
-//        protected void updateItem(Review review, boolean empty) {
-//            super.updateItem(review, empty);
-//
-//            if (empty || review == null) {
-//                setGraphic(null);
-//                setText(null);
-//            } else {
-//                setGraphic(new ReviewCard(review, getIndex() + 1).getRoot());
-//            }
-//        }
-//    }
 
 }

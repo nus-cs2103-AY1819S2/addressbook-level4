@@ -457,8 +457,13 @@ Format: `end`
 
 //end::reportoperations[]
 
-=== Global Operations
-The commands shown in this section are applicable regardless of whether the user is inside a folder or at the home directory.
+=== Advanced Operations
+All the above operations described above focuses on how individual users may use the app.
+However, Know-It-All isn't wasn't designed for individual users in mind. It was designed to be the
+application that could empower others to 'Know-It-All' as well.
+
+The following operations describe just how you can share your flashcards with other users and vice versa.
+
 
 ==== Search by keywords : `search`
 

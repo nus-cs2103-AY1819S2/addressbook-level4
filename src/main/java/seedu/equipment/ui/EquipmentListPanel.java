@@ -56,13 +56,6 @@ public class EquipmentListPanel extends UiPart<Region> {
         });
     }
 
-//    public EquipmentListPanel(ObservableList<Equipment> equipmentList) {
-//        super(FXML);
-//        //System.out.println(personListView.getEditingIndex());
-//        clientListView.setItems(equipmentList);
-//        clientListView.setCellFactory(listView -> new EquipmentListPanel.ClientListViewCell());
-//    }
-
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Equipment} using a {@code EquipmentCard}.
      */
@@ -79,21 +72,4 @@ public class EquipmentListPanel extends UiPart<Region> {
             }
         }
     }
-
-//    /**
-//     * Custom {@code ListCell} that displays the graphics of a {@code Equipment} using a {@code ClientListCard}.
-//     */
-//    class ClientListViewCell extends ListCell<Equipment> {
-//        @Override
-//        protected void updateItem(Equipment equipment, boolean empty) {
-//            super.updateItem(equipment, empty);
-//
-//            if (empty || equipment == null) {
-//                setGraphic(null);
-//                setText(null);
-//            } else {
-//                setGraphic(new ClientListCard(equipment, getIndex() + 1).getRoot());
-//            }
-//        }
-//    }
 }

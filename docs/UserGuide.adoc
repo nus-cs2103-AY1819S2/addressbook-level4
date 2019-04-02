@@ -16,15 +16,13 @@ endif::[]
 
 By: `Team W10-3`      Since: `JAN 2019`      Licence: `MIT`
 
-//tag::Introduction[]
 == Introduction
 
 *Equipment Manager* is a desktop CLI (Command Line Interface) application that allows engineers to keep track on the Preventive Maintenance schedule of all Resuscitation Devices in singapore. It has a GUI (Graphic User Interface) that allows users to get further information on each equipment.
 
 Our purpose is to help engineers plan the number of equipment that they would like to carry out preventive maintenance and keep track on each equipment details such as status, location and more information.
-//end::Introduction[]
 
-//tag::aboutug[]
+
 == About This User Guide
 Welcome to *Equipment Manager* User Guide! +
 
@@ -33,16 +31,17 @@ this section will explain the key things to take note of. +
 
 If this is not a problem for you, jump to the <<Quick Start>> to get started. If you already have Equipment Manager up and running, then head over to <<Features>>. Enjoy!
 
+
 === Icons Meaning
 The following section provides a quick understanding on each of the legends used throughout the user guide.
 These legends alert reader on special information such as tips, notes and warnings. +
 
 |===
-|Legend |Meaning
-|image:tip.png[width="40"]
+| Legend |Meaning
+| image:tip.png[width="40"]
 | The more information icon indicates any additional tips users can consider while using *Equipment Manager* application.
 
-|image:lightbulb.png[width="40"]
+| image:lightbulb.png[width="40"]
 | Lightbulb icon
 
 |image:exclamation.png[width="40"]
@@ -51,9 +50,8 @@ These legends alert reader on special information such as tips, notes and warnin
 |image:advanced.png[width="40"]
 | The book icon indicates that it is an additional information for advanced users.
 |===
-//end::aboutug[]
 
-//tag::quickstart[]
+
 == Quick Start
 
 To get Equipment manager up and running, simply follow these few steps.
@@ -94,9 +92,7 @@ Type the command in the Command Box and press kbd:[Enter] to execute it. +
 |===
 | image:tip.png[width="40"] |Refer to <<Features>> for details of each command.
 |===
-//end::quickstart[]
 
-//tag::features[]
 [[Features]]
 == Features
 
@@ -155,7 +151,7 @@ Example:
 
 === Editing an equipment: `edit-e`
 Edits an existing equipment in the _Equipment Manager_. +
-Format: `edit INDEX [n/CLENT_NAME] [p/CLIENT_PHONE] [pm/PM_DATE] [a/CLIENT_ADDRESS] [s/SERIAL_NUMBER] [t/TAG]…​`
+Format: `edit INDEX [n/CLIENT_NAME] [p/CLIENT_PHONE] [pm/PM_DATE] [a/CLIENT_ADDRESS] [s/SERIAL_NUMBER] [t/TAG]…​`
 
 * Edits the equipment at the specified INDEX. The index refers to the index number shown in the displayed equipment list. The index must be a positive integer 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -236,33 +232,72 @@ Example:
 
 === Sort the list: `sort`
 Sort the current shown list.
-Format: `sort /[fieldname to be sorted by]`
+Format: `sort [FIELD_NAME to be sorted by]`
+
 The user can sort the current shown list with any valid field.
 
 The sort parameters are case-insensitive.
 
 By default, `sort` sorts the list by name in lexicographical order.
+
 [TIP]
 Equipment, client, and work list can only be sorted by address, preventive maintenance date and phone at the moment.
 
 Example:
 
+* `sort`
+Returns the list sorted by name.
+
 * `sort address`
+Returns the list sorted by address.
+
 * `sort date`
+Returns the list sorted according to date.
+
 * `sort phone`
+Returns the list sorted by phone number.
+
+
 
 === Filtering the list: `filter`
-Filter the current shown list.
-Format: `filter /[fieldname to be filtered with] [value or value range of the field]`
+Filter the current shown list which match the given keywords
+Format: `filter [n/NAME_KEYWORD]...[t/TAG_KEYWORD]...[a/ADDRESS_KEYWORD]`
+
+- At least *one* keyword must be provided.
+- Filtering multiple keywords of the same prefix will return equipment/client whose attribute corresponding to the prefix contain
+ any one of the keywords.
+- Filtering with keywords of different prefixes will return only equipment/client that matches with all the keywords of
+ the different prefixes.
+- The filter is case insensitive, e.g. jurong will match Jurong.
+
 
 [TIP]
-* The user can filter the current shown list with any fields, and can filter by multiple fields.
+* The user can filter the current shown list with any specified fields, and can filter by multiple fields.
 * Equipment, client, and worklist can all be filtered, by any fields of them.
 
 Example:
 
-* `filter /region north /type HDB /status spoiled`
-* `filter /year 1987-2018 /status in-use`
+* `filter n/jurong`
+Returns any equipment whose name contains jurong.
+
+* `filter a/bedok north`
+Returns any equipment whose address contains bedok north.
+
+* `filter pm/20 May`
+Returns any equipment whose preventative maintenance date contains 20 May.
+
+* `filter s/9888`
+Returns any equipment whose phone number contains 9888.
+
+* `filter s/A200`
+Returns any equipment whose serial number contains A200.
+
+* `filter t/urgent t/west`
+Returns any equipment whose tags contains urgent and west.
+
+* `filter n/jurong a/blk 123 t/urgent`
+Returns any equipment whose names that contains jurong, address that contains blk 123, and whose tags contains urgent.
+
 
 === Autocomplete: kbd:[tab]
 If you have forgotten how to type a command, do not worry!  By typing in the first letter of the command in the command and pressing the kbd:[tab] key, it will display the full format of the command.
@@ -373,16 +408,12 @@ There is no need to save manually.
 === Encrypting data files `[coming in v2.0]`
 
 _{explain how the user can enable/disable data encryption}_
-//end::features[]
 
-//tag::faq[]
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Equipment Manager folder.
-//end::faq[]
 
-//tag::glossary[]
 == Glossary
 Unsure of a few technical terms? We got you covered. Refer to [underline]#<<techtable>># below.
 
@@ -404,9 +435,8 @@ Unsure of a few technical terms? We got you covered. Refer to [underline]#<<tech
 |*User Interface (UI)*
 |Allows the user to interact with the application through inputs and outputs of data.
 |===
-//end::glossary[]
 
-//tag::commandsummary[]
+
 == Command Summary
 
 This is the last section of the User Guide, but the most useful if you just want a list of commands to try.
@@ -474,7 +504,6 @@ For more details on what each command does, please refer to <<Features>>.
 |fin punggol
 
 |*Filter*
-|filter /year 1987-2018 /status in-use`
-|fil ongoing
+|filter [n/NAME_KEYWORD] [pm/DATE_KEYWORD] [t/TAG_KEYWORD]
+|fil punggol november ongoing
 |===
-//end::commandsummary[]

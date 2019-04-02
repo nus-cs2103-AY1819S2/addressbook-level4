@@ -249,6 +249,7 @@ public class ModelManager implements Model {
     @Override
     public void sortTasks(Comparator<Task> c) {
         versionedAddressBook.sortTasks(c);
+    }
 
     /**
      * Sorts the records within address book according to the given comparator

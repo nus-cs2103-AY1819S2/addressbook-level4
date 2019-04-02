@@ -13,7 +13,7 @@ Unlike other heavy image editors, FomoFoto has a very gentle learning curve as i
 
 === Summary of contributions
 
-* *Major enhancement*: added *overall UI/UX design and interaction.*.
+* *Major enhancement*: added *overall UI/UX design and interaction*.
 
 ** What it does: As a photo editor, it is pivotal for end-users to be able to see the images they are editing. Updates to the UI/UX allows for end-users to see their updates and image data in realtime. Adds an interface in the form of `Notifier` for components to interact with each other and draw updates to the UI.
 

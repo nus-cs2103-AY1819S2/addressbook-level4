@@ -70,7 +70,7 @@ public class Appointment {
         return timeOfAppt;
     }
 
-    boolean isSameAppointment(Appointment that) {
+    public boolean isSameAppointment(Appointment that) {
         return this.equals(that);
     }
 

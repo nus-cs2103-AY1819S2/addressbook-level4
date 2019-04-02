@@ -860,6 +860,14 @@ Use case ends.
 [none]
 * 2a. If there are no ships deployed, inform the user.
 
+=== Use case: View statistics
+*MSS*
+
+1. User requests to display current gameplay statistics
+2. Shows all of the user's gameplay data in one location.
++
+Use case ends.
+
 === Use case: End player turn
 
 *MSS*

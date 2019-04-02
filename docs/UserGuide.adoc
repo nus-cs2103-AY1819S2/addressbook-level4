@@ -341,19 +341,20 @@ Format: `exit`
 
 == Command Summary
 
-* **Exit**: `exit`
-* **Clear**: `clear`
-* **Redo**: `redo`
-* **Undo**: `undo`
-* **Statistics**: `stats`
-* **Stats**: `stats`
-* **enemyTurn**: `enemyturn`
-* **Shoot**: `shoot COORDINATES`
-* **Play**: `play`
-* **Select**: `select INDEX`
-* **Find Tag**: `findTag TAG [MORE_TAGS]`
-* **Find**: `find NAME [MORE_NAMES]`
-* **Put**: `put c/COORDINATES r/ORIENTATION`
-* **List**: `list`
-* **Initialise maps**: `init [s/MAP_SIZE]`
-* **Help**: `help`
+[width="200%",cols="<30%,<70%,50%, 50",options="header",]
+|=======================================================================
+|Feature |Format |Purpose   | Example
+|*Attack*| `attack [coordinate]` |Attacks a selected cell on the enemy map.| `attack c1`
+|*Clear*| `clear` |Clears the command box. | `clear`
+|*End player turn*| `end turn` |Relinquish player turn to allow enemy to shoot once. | `end turn`
+|*Help*| `help` |Opens up the help guide window. | `help`
+|*Create map*| `init [integer_size]` | Initializes the map grid. | `init 8`
+|*List ships*| `list` |List all available battleships | `list`
+|*List tags*| `listTags` |List all available battleships by tags | `listTags`
+|*Put ship on map*| `put n/NAME r/ORIENTATION c/COORDINATE [optional]t/TAG` |Place your battleship on the map. | `put n/Destroyer r/vertical c/a1 t/myfleet`
+|*View statistics*| `stats` |Opens a Statistics Window. | `stats`
+|*Start game*| `start game` |Let enemy place ships on enemy grid. | `start game`
+
+
+
+

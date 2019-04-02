@@ -13,6 +13,7 @@ public class QuizUiDisplayFormatter {
     private String answerHeader;
     private String answer;
     private QuizMode mode;
+    private boolean isWrongTwice;
 
     public QuizUiDisplayFormatter(String questionHeader, String question, String answerHeader, String answer,
                                   QuizMode mode) {
@@ -22,6 +23,17 @@ public class QuizUiDisplayFormatter {
         this.answerHeader = answerHeader;
         this.answer = answer;
         this.mode = mode;
+    }
+
+    public QuizUiDisplayFormatter(String questionHeader, String question, String answerHeader, String answer,
+                                  QuizMode mode, boolean isWrongTwice) {
+        requireAllNonNull(questionHeader, question, answerHeader, answer);
+        this.questionHeader = questionHeader;
+        this.question = question;
+        this.answerHeader = answerHeader;
+        this.answer = answer;
+        this.mode = mode;
+        this.isWrongTwice = isWrongTwice;
     }
 
     public QuizUiDisplayFormatter(String questionHeader, String question, String answerHeader, QuizMode mode) {
@@ -50,6 +62,10 @@ public class QuizUiDisplayFormatter {
 
     public QuizMode getMode() {
         return mode;
+    }
+
+    public boolean isWrongTwice() {
+        return isWrongTwice;
     }
 
     @Override

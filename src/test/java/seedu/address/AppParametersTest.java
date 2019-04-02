@@ -1,6 +1,7 @@
 package seedu.address;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -35,6 +36,39 @@ public class AppParametersTest {
         parametersStub.namedParameters.put("config", "a\0");
         expected.setConfigPath(null);
         assertEquals(expected, AppParameters.parse(parametersStub));
+    }
+
+    @Test
+    public void equals() {
+        parametersStub.namedParameters.put("config", "config.json");
+        expected.setConfigPath(Paths.get("config.json"));
+
+        // same object
+        assertEquals(expected, expected);
+
+        // different type
+        assertNotEquals(5, expected);
+
+        // different object
+        assertNotEquals(expected, parametersStub);
+    }
+
+    @Test
+    public void hashcode() {
+        parametersStub.namedParameters.put("config", "config.json");
+        AppParameters appParameters = AppParameters.parse(parametersStub);
+
+        AppParameters copy = new AppParameters();
+        copy.setConfigPath(Paths.get("config.json"));
+
+        AppParameters different = new AppParameters();
+        different.setConfigPath(Paths.get("random"));
+
+        // same value
+        assertEquals(appParameters.hashCode(), copy.hashCode());
+
+        // different values
+        assertNotEquals(appParameters.hashCode(), different.hashCode());
     }
 
     private static class ParametersStub extends Application.Parameters {

@@ -419,7 +419,7 @@ These are the ones that requires almost no changes or only small amount of chang
 
 // tag::sort[]
 === Sort Commands
-====Current Implementation
+==== Current Implementation
 There are currently two sorting methods present: `alphabetical` and `skills`.
 * `alphabetical` is called by the user through the following cli input: `sort alphabetical`.
 It takes the **current** list displayed in the left hand GUI panel and sorts them alphabetically. The alphabetical sort begins with the first name and then proceeds to last name.
@@ -429,7 +429,7 @@ It takes the **current** list displayed in the left hand GUI panel and first ord
 _(the **current** list means that if filter is on, only those filtered persons shall be sorted and the filter shall remain on)_
 
 
-====Implementation Rational
+==== Implementation Rational
 Despite the risk of slightly increasing the coupling, the aim was to use methods already written and rely on good cohesion. For example, once a sort command has correctly written the correctly ordered persons to a `List<Person>`, rather than duplicating large amounts of code by modifying the already listed persons, it shall use the already written delete person and add person commands.
 
 It is of note that the temporary deletion of persons from the addressbook should be foolproof and there should be no way that the sort command ever permanently deletes the addressbook. Furthermore, ensuring the command works with the already implemented undo/redo command should ensure the user still has full control over all the persons in the contact book.
@@ -439,7 +439,7 @@ When writing sort commands, there were two approaches considered: modify the ind
 
 Elements of lists in Java are ordered by when they were added. Sorting is possible using _Collections_, however this requires them to be strings. Since the Recruit Me application contains lists of various types, typically _Person_, there is no immediate compatibility with _Collections_. Furthermore it was suspected that to simply modify the indices of persons, a lot of duplicate code would be need to be written since this aspect of addressbook-level4 was not easily modifiable. Because of this the second method was opted for.
 
-====Adding a New Sort Command
+==== Adding a New Sort Command
 
 To add a new sort command, the following should be taken into account... (INSERT CLASS DIAGRAM)
 

@@ -31,43 +31,43 @@ public class TypicalCustomers {
 
     public static final Customer ALICE = new CustomerBuilder().withName("Alice Pauline")
         .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-        .withPhone("94351253").withIdNum("1231212A").withDateOfBirth("30/12/1999")
+        .withPhone("94351253").withIdNum("12312").withDateOfBirth("30/12/1999")
         .withTags("friends").build();
     public static final Customer BENSON = new CustomerBuilder().withName("Benson Meier")
         .withAddress("311, Clementi Ave 2, #02-25")
-        .withEmail("johnd@example.com").withPhone("98765432").withIdNum("1233512A").withDateOfBirth("30/12/2000")
+        .withEmail("johnd@example.com").withPhone("98765432").withIdNum("12335").withDateOfBirth("30/12/2000")
         .withTags("owesMoney", "friends").build();
     public static final Customer CARL = new CustomerBuilder().withName("Carl Kurz").withPhone("95352563")
-        .withEmail("heinz@example.com").withAddress("wall street").withIdNum("10453512A").withDateOfBirth("30/12/2001")
+        .withEmail("heinz@example.com").withAddress("wall street").withIdNum("104535").withDateOfBirth("30/12/2001")
         .build();
     public static final Customer DANIEL =
         new CustomerBuilder().withName("Daniel Meier").withPhone("87652533").withDateOfBirth("30/12/2002")
-            .withEmail("cornelia@example.com").withAddress("10th street").withIdNum("1200512A")
+            .withEmail("cornelia@example.com").withAddress("10th street").withIdNum("12005")
             .withTags("friends").build();
     public static final Customer ELLE = new CustomerBuilder().withName("Elle Meyer").withPhone("9482224")
         .withDateOfBirth("30/12/2003").withEmail("werner@example.com").withAddress("michegan ave").withIdNum("123300")
         .build();
     public static final Customer FIONA = new CustomerBuilder().withName("Fiona Kunz").withPhone("9482427")
-        .withEmail("lydia@example.com").withAddress("little tokyo").withIdNum("1009512A").withDateOfBirth("30/12/2004")
+        .withEmail("lydia@example.com").withAddress("little tokyo").withIdNum("10095").withDateOfBirth("30/12/2004")
         .build();
     public static final Customer GEORGE = new CustomerBuilder().withName("George Best").withPhone("9482442")
-        .withEmail("anna@example.com").withAddress("4th street").withIdNum("1233912A").withDateOfBirth("30/12/2005")
+        .withEmail("anna@example.com").withAddress("4th street").withIdNum("1233999").withDateOfBirth("30/12/2005")
         .build();
     public static final Customer VIP_CUSTOMER =
         new CustomerBuilder().withName("I am VIP").withPhone("94824425").withDateOfBirth("30/12/2006")
-            .withEmail("vip@example.com").withAddress("VIP street").withIdNum("2536A163")
+            .withEmail("vip@example.com").withAddress("VIP street").withIdNum("2536363")
             .withTags("VIP").build();
     public static final Customer VIP_CUSTOMER2 =
         new CustomerBuilder().withName("I am also VIP").withPhone("34824425").withDateOfBirth("30/12/2007")
-            .withEmail("vip2@example.com").withAddress("VVIP street").withIdNum("5352A525")
+            .withEmail("vip2@example.com").withAddress("VVIP street").withIdNum("5352525")
             .withTags("vip").build();
 
     // Manually added
     public static final Customer HOON = new CustomerBuilder().withName("Hoon Meier").withPhone("8482424")
-        .withDateOfBirth("30/12/2008").withEmail("stefan@example.com").withIdNum("A4563631Q")
+        .withDateOfBirth("30/12/2008").withEmail("stefan@example.com").withIdNum("456363")
         .withAddress("little india").build();
     public static final Customer IDA = new CustomerBuilder().withName("Ida Mueller").withPhone("8482131")
-        .withDateOfBirth("30/12/2009").withEmail("hans@example.com").withIdNum("A1113342T")
+        .withDateOfBirth("30/12/2009").withEmail("hans@example.com").withIdNum("13342")
         .withAddress("chicago ave").build();
 
 

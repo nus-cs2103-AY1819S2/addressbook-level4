@@ -36,7 +36,7 @@ public class AddCustomerCommand extends CustomerCommand {
         + PREFIX_PHONE + "98765432 "
         + PREFIX_DATE_OF_BIRTH + "28/05/1999 "
         + PREFIX_EMAIL + "johnd@example.com "
-        + PREFIX_IDENTIFICATION_NUMBER + "A123456Q "
+        + PREFIX_IDENTIFICATION_NUMBER + "123456 "
         + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
         + PREFIX_TAG + "friends "
         + PREFIX_TAG + "owesMoney";

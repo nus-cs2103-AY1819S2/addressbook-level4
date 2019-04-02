@@ -1,0 +1,125 @@
+= Tan Mei Yen - Project Portfolio
+:site-section: AboutUs
+:toc: macro
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:stylesheet: meiyen.css
+:sourceDir: https://cs2103-ay1819s1-t09-4.github.io/main/
+:xrefstyle: short
+
+toc::[]
+
+== Introduction
+
+image::bendymochi.png[width="200", align="left"]
+{empty} [https://github.com/bendymochi[GitHub]]
+
+Hello! My name is Tan Mei Yen and I am currently a second year student studying Computer Science at National University of Singapore. +
+
+This Personal Project Portfolio details the contributions which I have made to the Equipment Manager project for CS2103T Software Engineering module. My main responsibilites is implementing command features and ensuring proper documentation.
+
+
+== Project: `Equipment Manager`
+
+---
+
+
+:sectnums:
+== Overview
+_Equipment Manager_ is a desktop CLI (Command Line Interface) application that allows engineers to keep track on the Preventive Maintenance schedule of all Resuscitation Devices in Singapore. It has a GUI (Graphic User Interface) that allows users to get further information on each equipment. +
+
+If you are an engineer that uses the computer frequently and want to improve efficiency at work, why not try out
+https://github.com/CS2103-AY1819S2-W10-3/main/releases[_Equipment Manager_]? No installation is required!
+
+Main Features of _Equipment Manager_:
+
+* Viewing of equipment information through typing
+* Searching and filtering by equipment serial number, equipment status or work list
+* Display equipment location in Google Maps
+* Plan the most efficient route to take for visiting multiple locations
+
+
+== Summary of contributions
+|===
+|This section is to provide a summary of my contributions to the project.
+|===
+
+'''
+
+* *Major enhancements*: Implement filter feature to *filter the current shown list according to specified keywords*
+** What it does: This feature allows the user to filter the current shown list which matches the given keywords:
+*** Name
+*** Address
+*** Date
+*** Phone
+*** Tags
+*** Serial Number
+
+** Justification: The user can filter the current shown list with certain keywords, expediting the search process, and reducing the time needed to find a specific equipment or client.
+
+** Highlights:
+*** The command is simple to use and allows multiple keywords to filter by.
+*** If users were to forget what are the fields/keywords available, error messages would guide them to execute the commands correctly.
+
+* *Minor enhancement*: Implement sort feature to *sort the current shown list according to specified fields*
+** What it does: This feature allows the user to sort the current shown list by the given fields:
+*** Name
+*** Address
+*** Phone
+
+** Justification: The user can sort the current shown list in lexicographical order for better viewing purposes.
+
+** Highlights:
+*** The command is simple to use and sort by.
+
+* *Code contributed*:
+** https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=bendymochi[Click here] to view my code on the CS2103T Project Code Dashboard.
+
+** Filter Command: [https://github.com/CS2103-AY1819S2-W10-3/main/pull/94[#94]] [https://github.com/CS2103-AY1819S2-W10-3/main/pull/60[#60]] [https://github.com/CS2103-AY1819S2-W10-3/main/pull/52[#52]]
+** Sort Command: [https://github.com/CS2103-AY1819S2-W10-3/main/pull/75[#75]] [https://github.com/CS2103-AY1819S2-W10-3/main/pull/39[#39]]
+
+*** Checking if Date is in correct format and valid [https://github.com/CS2103-AY1819S2-W10-3/main/pull/91[#91]]
+*** Refactoring person to equipment [https://github.com/CS2103-AY1819S2-W10-3/main/pull/60[#60]]
+*** Refactor PersonCard to EquipmentCard [https://github.com/CS2103-AY1819S2-W10-3/main/pull/18[#18]]
+*** Added total number of entries in StatusBarFooter [https://github.com/CS2103-AY1819S2-W10-3/main/pull/13[#13]]
+*** Added tag colors [https://github.com/CS2103-AY1819S2-W10-3/main/pull/4[#4]]
+
+* *Other contributions*:
+
+** Documentation:
+*** Helped write the user stories in User Guide
+
+*** Updated contents of the User Guide and Developer Guide with new features
+*** Changed UI colors
+[https://github.com/CS2103-AY1819S2-W10-3/main/pull/17[#17]] +
+
+** Community:
+
+*** PRs reviewed
+[https://github.com/CS2103-AY1819S2-W10-3/main/pull/79[#79]],
+[https://github.com/CS2103-AY1819S2-W10-3/main/pull/59[#59]],
+[https://github.com/CS2103-AY1819S2-W10-3/main/pull/45[#45]].
+
+
+== Contributions to the User Guide
+|===
+|Given below are sections I contributed to the User Guide, which consists of documentation of filter and sort commands. They showcase my ability to write documentation targeting end-users.
+|===
+
+'''
+[https://github.com/CS2103-AY1819S2-W10-3/main/commit/cdfb70685902e82505a7ec48034467c5a9fc756d[Update SortFeature]]
+
+include::../UserGuide.adoc[tag=filter]
+
+include::../UserGuide.adoc[tag=sort]
+
+== Contributions to the Developer Guide
+|===
+|Given below are sections I contributed to the Developer Guide, which consists of documentation of filter and sort commands and user stories. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+|===
+
+'''
+include::../DeveloperGuide.adoc[tag=filter]
+
+include::../DeveloperGuide.adoc[tag=sort]
+

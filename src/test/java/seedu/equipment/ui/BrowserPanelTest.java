@@ -2,24 +2,19 @@ package seedu.equipment.ui;
 
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static seedu.equipment.testutil.TypicalEquipments.ANCHORVALECC;
 
-import java.io.IOException;
 import java.net.URL;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.maps.GeoApiContext;
-import com.google.maps.GeocodingApi;
-import com.google.maps.errors.ApiException;
-import com.google.maps.model.GeocodingResult;
-
 import guitests.guihandles.BrowserPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.tag.Tag;
 
 public class BrowserPanelTest extends GuiUnitTest {
     private SimpleObjectProperty<Equipment> selectedPerson = new SimpleObjectProperty<>();
@@ -41,31 +36,33 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a equipment
         guiRobot.interact(() -> selectedPerson.set(ANCHORVALECC));
-        GeoApiContext context = new GeoApiContext.Builder()
-                .apiKey("AIzaSyBQ5YiOpupDO8JnZqmqYTujAwP9U4R5JBA")
-                .build();
-        String expectedUrlString = BrowserPanel.MAP_PAGE_BASE_URL;
+        String url = BrowserPanel.MAP_PAGE_BASE_URL;
         URL expectedUrl;
         try {
-            GeocodingResult[] results = GeocodingApi.geocode(context,
-                    ANCHORVALECC.getAddress().toString()).await();
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            if (results.length > 0) {
-                System.out.println();
-                expectedUrlString = BrowserPanel.MAP_PAGE_BASE_URL + "?coordinates=[["
-                        + results[0].geometry.location.lng + ","
-                        + results[0].geometry.location.lat + "]]&title=[\""
-                        + ANCHORVALECC.getName()
-                        + "\"]&icon=[\"monument\"]";
+
+            double[] coordiantes = ANCHORVALECC.getCoordiantes();
+            if (coordiantes != null) {
+                url = BrowserPanel.MAP_PAGE_BASE_URL + "?coordinates=[[" + coordiantes[0] + ","
+                        + coordiantes[1] + "]]&name=[\"" + ANCHORVALECC.getName()
+                        + "\"]&address=[\"" + ANCHORVALECC.getAddress() + "\"]&phone=[\""
+                        + ANCHORVALECC.getPhone() + "\"]&serial=[\""
+                        + ANCHORVALECC.getSerialNumber() + "\"]&date=[\""
+                        + ANCHORVALECC.getDate().toString() + "\"]&tags=[[";
+                Set<Tag> tags = ANCHORVALECC.getTags();
+                int count = 0;
+                for (Tag tag:tags) {
+                    url += "\"" + tag.getTagName() + "\"";
+                    count++;
+                    if (count < tags.size()) {
+                        url += ",";
+                    }
+                }
+                url += "]]";
             }
-        } catch (ApiException e) {
-            System.err.println(e.getMessage());
-        } catch (InterruptedException e) {
-            System.err.println(e.getMessage());
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
+        } catch (Exception e) {
+            fail("No exception should be raised. But " + e.getMessage() + " is raised.");
         } finally {
-            expectedUrl = new URL(expectedUrlString.replace("\"", "%22").replace(" ", "%20"));
+            expectedUrl = new URL(url.replace("\"", "%22").replace(" ", "%20"));
         }
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedUrl, browserPanelHandle.getLoadedUrl());

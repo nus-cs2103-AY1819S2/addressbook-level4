@@ -42,14 +42,6 @@ public class RecModulePredicate implements Predicate<RecModule> {
         /* eligible module */
         List<CourseReqType> reqTypeList = course.getCourseReqTypeOf(moduleInfoCode);
         for (CourseReqType reqType : reqTypeList) { // starting from most important requirement
-            /*
-            if (!course.isReqFulfilled(reqType, nonFailedCodeList)) {
-                // module can contribute towards unfulfilled requirement
-                recModule.setCourseReqType(reqType);
-                logger.fine(moduleInfoCode.toString() + " fulfills " + reqType.name());
-                return true;
-            }
-            */
             if (course.isCodeContributing(reqType, nonFailedCodeList, moduleInfoCode)) {
                 recModule.setCourseReqType(reqType);
                 logger.fine(moduleInfoCode.toString() + " fulfills " + reqType.name());

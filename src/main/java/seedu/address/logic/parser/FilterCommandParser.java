@@ -23,7 +23,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Education;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Gpa;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
 import seedu.address.model.tag.SkillsTag;
 
 /**
@@ -181,7 +186,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             if (criterion[4] != null) {
                 criterion[4] = infoBetweenPrefixes(args, PREFIX_SKILL.toString(), PREFIX_SKILL_REVERSE.toString(),
                         typeOfProcess, false);
-                for(String tag : criterion[4].split(",")) {
+                for (String tag : criterion[4].split(",")) {
                     tag.trim();
                     if (!SkillsTag.isValidTagName(tag)) {
                         inputParameterInCorrectForm = false;
@@ -193,7 +198,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             if (criterion[5] != null) {
                 criterion[5] = infoBetweenPrefixes(args, PREFIX_POS.toString(), PREFIX_POS_REVERSE.toString(),
                         typeOfProcess, false);
-                for(String tag : criterion[5].split(",")) {
+                for (String tag : criterion[5].split(",")) {
                     tag = tag.trim();
                     System.out.println(tag);
                     if (!SkillsTag.isValidTagName(tag)) {

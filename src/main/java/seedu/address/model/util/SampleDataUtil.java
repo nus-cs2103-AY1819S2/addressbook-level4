@@ -57,7 +57,7 @@ public class SampleDataUtil {
     public static Set<SkillsTag> getTagSet(List<String> skills, List<String> positions) {
         final Set<SkillsTag> tagSet = new HashSet<>();
 
-        if(skills != null) {
+        if (skills != null) {
             for (String skill : skills) {
                 tagSet.add(new SkillsTag(skill, "yellow"));
             }

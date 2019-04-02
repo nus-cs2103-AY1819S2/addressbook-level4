@@ -62,7 +62,6 @@ include::../UserGuide.adoc[tag=editfeatures]
 
 include::../DeveloperGuide.adoc[tag=modelcomponent]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
 
 
 == PROJECT: PowerPointLabs

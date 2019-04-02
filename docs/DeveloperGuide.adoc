@@ -185,7 +185,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeletePersonSdForLogic.png[width="800"]
 
-// tag::modelcomponent
+// tag::modelcomponent[]
 [[Design-Model]]
 === Model component
 
@@ -205,7 +205,7 @@ The `Model`,
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Property` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Property` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
-// end::modelcomponent
+// end::modelcomponent[]
 
 [[Design-Storage]]
 === Storage component

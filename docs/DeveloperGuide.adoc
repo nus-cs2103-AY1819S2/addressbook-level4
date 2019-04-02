@@ -314,6 +314,66 @@ For example, 2 correct attempts and 4 total attempts becomes 0.5. When instantia
 
 // end::score[]
 
+
+// tag::report[]
+=== Report feature
+==== Current Implementation
+
+The report feature is meant to provide the user with the ability to look back and compare their folder score from
+previous test sessions.
+
+==== Design Considerations
+
+===== Aspect: How to display folder scores
+
+* **Alternative 1 (current choice):** Display previous folder scores in a graph and lowest scoring cards
+** Pros: Has benefits of seeing the graph as well as knowing which cards the user needs help in.
+** Cons: More performance and memory intensive. Screen may get messy if there are too many items.
+* **Alternative 2:** Display previous folder scores in a graph
+** Pros: More visual, easier to see change in folder score.
+** Cons: More performance and memory intensive as a graph needs to be rendered. Remedy: Display only last ten.
+* **Alternative 3:** List the previous folder scores
+** Pros: User can see more accurate numbers. They can also see the individual card scores, so that
+they can tell where they need help.
+** Cons: Hard to see change from test session to test session.
+
+===== Aspect: Where to display folder scores
+* **Alternative 1 (current choice):** Display in full screen, entered from card folder
+** Pros: Works because the folder scores are scored by card folders.
+** Cons: Need to implement a new state for commands, because it should not be possible to do some e.g. add card while
+in fullscreen report.
+* **Alternative 2:** Display in right panel, with cards on the left
+** Pros: User can see all their cards at the same time.
+** Cons: Less space to render report details such as graph.
+
+// end::report[]
+
+// tag::state[]
+=== State
+==== Current Implementation
+===== Model
+Previously, Model did not have a concept of state as there was only one screen where the user could be. But
+as Know-It-All grew, there are more screens that a user can be in and more commands that can only be executed in certain
+screens. Thus there is a need to manage the state in Model.
+
+==== Design Considerations
+
+===== Aspect: How to manage state
+
+* **Alternative 1 (current choice):** Use enum of States
+** Pros: Fixes the states that Model can be in. By design, only one state can be true at any point in time, if state is set to type State which is a enum.
+** Cons: Need to add new states to enum.
+* **Alternative 2:** Use Strings
+** Pros: No need to define new states. Trivial to change into new state: Simply set state to "folder", or "homeDir". Easy to check as well, e.g. to Check state == "folder".
+** Cons: Becomes very unsafe as even a typo would mean entering a state that other parts of the application would not understand.
+e.g. Setting state to "Folder" instead of "folder".
+* **Alternative 2:** Use boolean flags
+** Pros: Easy to manipulate. Clear when there are only two states.
+** Cons: Becomes very messy when there are more states, since there is a need to ensure that only one boolean flag
+is true at any point in time. E.g., only one of inFolder, inHomeDir, inTest... can be true.
+
+// end::state[]
+
 //tag::importexport[]
 === Import/Export feature
 [discrete]
@@ -1490,6 +1550,21 @@ Use case resumes from step 1.
 +
 Use case resumes from step 1.
 //end::folderusecases[]
+
+//tag::reportusecase[]
+[discrete]
+=== UC06 Display report for a folder
+
+*MSS*
+
+1. Student enters the a folder.
+2. Student indicates that they want to see the report for this folder.
+3. System displays a full-screen report.
++
+Use case ends
+
+//end::reportusecase[]
+
 
 [appendix]
 == Non Functional Requirements

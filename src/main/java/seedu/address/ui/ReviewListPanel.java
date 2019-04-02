@@ -31,7 +31,7 @@ public class ReviewListPanel extends UiPart<Region> {
         getRoot().setFocusTraversable(false);
 
         selectedRestaurant.addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selected review changed to: " + newValue);
+            logger.fine("Selected restaurant changed to: " + newValue);
 
             if (newValue == null) {
                 reviewListView.setItems(null);

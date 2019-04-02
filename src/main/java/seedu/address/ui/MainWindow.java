@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private BrowserPanel browserPanel;
     private ReviewListPanel reviewListPanel;
     private RestaurantListPanel restaurantListPanel;
+    private RestaurantSummaryPanel restaurantSummaryPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -49,6 +50,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane restaurantListPanelPlaceholder;
+
+    @FXML
+    private StackPane restaurantSummaryPanelPlaceholder;
 
     @FXML
     private StackPane reviewListPanelPlaceholder;
@@ -121,6 +125,9 @@ public class MainWindow extends UiPart<Stage> {
 
         reviewListPanel = new ReviewListPanel(logic.selectedRestaurantProperty());
         reviewListPanelPlaceholder.getChildren().add(reviewListPanel.getRoot());
+
+        restaurantSummaryPanel = new RestaurantSummaryPanel(logic.selectedRestaurantProperty());
+        restaurantSummaryPanelPlaceholder.getChildren().add(restaurantSummaryPanel.getRoot());
 
         restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList(),
                 logic.selectedRestaurantProperty(), logic::setSelectedRestaurant);

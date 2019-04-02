@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * Represents a Restaurant in the food diary.
+ * Represents a Review of a Restaurant in the food diary.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Review {

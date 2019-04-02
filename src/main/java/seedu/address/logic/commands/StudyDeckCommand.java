@@ -22,7 +22,7 @@ public class StudyDeckCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enters the session using a deck.\n"
             + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
 
-    private static final String MESSAGE_STUDY_DECK_SUCCESS = "Entered study mode";
+    public static final String MESSAGE_STUDY_DECK_SUCCESS = "Entered study mode";
 
     private Index targetIndex;
     private DecksView decksView;
@@ -40,7 +40,6 @@ public class StudyDeckCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-
 
         if (targetIndex != null) { //if OpenDeckCommand is directly based on target deck
             List<Deck> filteredDeckList = decksView.filteredDecks;

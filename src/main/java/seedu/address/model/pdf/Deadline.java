@@ -62,6 +62,13 @@ public class Deadline implements Comparable<Deadline> {
      *
      */
     public Deadline(String jsonFormat) {
+
+        if (jsonFormat.equals("")) {
+            this.date = LocalDate.MIN;
+            this.status = DeadlineStatus.REMOVE;
+            return;
+        }
+
         String stringStatus = "";
 
         try {
@@ -113,7 +120,7 @@ public class Deadline implements Comparable<Deadline> {
         if (status == DeadlineStatus.COMPLETE) {
             if (LocalDate.of(year, month, date).equals(LocalDate.MIN)) {
                 this.date = LocalDate.MIN;
-                this.status = DeadlineStatus.REMOVE;
+                this.status = DeadlineStatus.COMPLETE;
             } else {
                 this.date = LocalDate.of(year, month, date);
                 this.status = DeadlineStatus.COMPLETE;
@@ -184,7 +191,7 @@ public class Deadline implements Comparable<Deadline> {
 
     @Override
     public String toString() {
-        return (this.status == DeadlineStatus.READY | this.status == DeadlineStatus.COMPLETE)
+        return (!this.date.equals(LocalDate.MIN))
                 ? new StringBuilder().append(this.date.toString())
                 .append(Deadline.PROPERTY_SEPARATOR_PREFIX)
                 .append(this.status)

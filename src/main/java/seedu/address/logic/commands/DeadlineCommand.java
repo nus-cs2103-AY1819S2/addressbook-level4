@@ -57,11 +57,16 @@ public class DeadlineCommand extends Command {
         Pdf oPdf = lastShownList.get(this.index.getZeroBased());
         Pdf nPdf;
 
-        if (!deadline.exists()) {
+        if (deadline.exists()) {
+            if (deadline.isDone()) {
+                nPdf = DeadlineCommand.getPdfWithNewDeadline(oPdf,
+                        Deadline.updateStatus(oPdf.getDeadline(), this.deadline));
+            } else {
+                nPdf = DeadlineCommand.getPdfWithNewDeadline(oPdf, this.deadline);
+            }
+        } else {
             nPdf = DeadlineCommand.getPdfWithNewDeadline(oPdf,
                     Deadline.updateStatus(oPdf.getDeadline(), this.deadline));
-        } else {
-            nPdf = DeadlineCommand.getPdfWithNewDeadline(oPdf, this.deadline);
         }
 
         model.setPdf(oPdf, nPdf);

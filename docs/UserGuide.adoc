@@ -203,7 +203,7 @@ Format: `exit`
 
 === Find module: `find`
 
-Finds module(s) in the module plan matching all given module code, semester, grade or finished status. +
+Finds modules in user GradTrak matching all given module code, semester, grade or finished status. +
 Format: `find [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]`
 
 ****

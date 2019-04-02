@@ -211,7 +211,7 @@ public interface Model {
     ObservableList<RecModule> getRecModuleListSorted();
 
     /**
-     * Updates the recommended module list by creating a new {@code RecModuleManager},
+     * Updates the recommended module list.
      */
     void updateRecModuleList();
 

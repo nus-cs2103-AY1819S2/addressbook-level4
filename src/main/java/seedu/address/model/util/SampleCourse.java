@@ -38,16 +38,18 @@ public class SampleCourse {
             INDUSTRIAL_SYSTEM_EXPERIENCE, COMPUTER_SYSTEM_TEAM_PROJECT, IT_PROFESSIONALISM,
             SCIENCE_REQUIREMENT, TOTAL_MODULE_COUNT);
 
-//    public static void main(String args[]) {
-//        List<JsonAdaptedCourse> courseList = new ArrayList<>();
-//        courseList.add(new JsonAdaptedCourse(COMPUTER_SCIENCE_ALGORITHMS));
-//        courseList.add(new JsonAdaptedCourse(COMPUTER_SCIENCE_AI));
-//        courseList.add(new JsonAdaptedCourse(COMPUTER_SCIENCE_SOFTWARE_ENG));
-//        JsonCourseStorage courseManager = new JsonCourseStorage(Paths.get("src", "main", "resources", "course.json"));
-//        try {
-//            courseManager.saveCourse(courseList, Paths.get("src", "main", "resources", "course.json"));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    /*
+    public static void main(String args[]) {
+        List<JsonAdaptedCourse> courseList = new ArrayList<>();
+        courseList.add(new JsonAdaptedCourse(COMPUTER_SCIENCE_ALGORITHMS));
+        courseList.add(new JsonAdaptedCourse(COMPUTER_SCIENCE_AI));
+        courseList.add(new JsonAdaptedCourse(COMPUTER_SCIENCE_SOFTWARE_ENG));
+        JsonCourseStorage courseManager = new JsonCourseStorage(Paths.get("src", "main", "resources", "course.json"));
+        try {
+            courseManager.saveCourse(courseList, Paths.get("src", "main", "resources", "course.json"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    */
 }

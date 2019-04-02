@@ -41,15 +41,15 @@ public class Course {
     }
 
     /**
-     * Returns a list of req types satisfied by the given module code.
-     * @param moduleInfoCode The module code.
-     * @return A list of req types.
+     * Returns a {@code List} of {@code CourseReqType} satisfied by the given {@code ModuleInfoCode}.
+     * @param moduleInfoCode The given {@code ModuleInfoCode}.
+     * @return A {@code List} of {@code CourseReqType} satisfied by the given {@code ModuleInfoCode}.
      */
     public List<CourseReqType> getCourseReqTypeOf(ModuleInfoCode moduleInfoCode) {
         List<CourseReqType> reqTypeList = new ArrayList<>();
 
         for (CourseRequirement courseReq : courseRequirements) {
-            if (courseReq.canFulfill(moduleInfoCode)) {
+            if (courseReq.canFulfill(moduleInfoCode) && !reqTypeList.contains(courseReq.getType())) {
                 reqTypeList.add(courseReq.getType());
             }
         }
@@ -59,18 +59,27 @@ public class Course {
     }
 
     /**
-     * Checks if the list of module codes satisfy the given req type.
-     * @param reqType The req type to be checked against.
-     * @param passedModuleList The list of module codes passed.
-     * @return
+     * Checks if the given {@code ModuleInfoCode} contributes to the given {@code CourseReqType} based on
+     * the given {@code List} of non-failed {@code ModuleInfoCode}.
+     * @param reqType The {@code CourseReqType} to be checked against.
+     * @param nonFailedCodeList The {@code List} of non-failed {@code ModuleInfoCode} to be checked against.
+     * @param moduleInfoCode The {@code ModuleInfoCode} to be checked.
+     * @return true if the given {@code ModuleInfoCode} contributes to the given {@code CourseReqType} based on
+     * the given {@code List} of non-failed {@code ModuleInfoCode}, false otherwise.
      */
-    public boolean isReqFulfilled(CourseReqType reqType, List<ModuleInfoCode> passedModuleList) {
+    public boolean isCodeContributing(CourseReqType reqType, List<ModuleInfoCode> nonFailedCodeList,
+                                  ModuleInfoCode moduleInfoCode) {
         for (CourseRequirement courseReq : courseRequirements) {
-            if (courseReq.getType().equals(reqType)) {
-                return courseReq.isFulfilled(passedModuleList);
+            if (!courseReq.getType().equals(reqType)) {
+                continue;
+            }
+            List<String> unfulfilledRegexList = courseReq.getUnfulfilled(nonFailedCodeList);
+            if (unfulfilledRegexList.stream().anyMatch(regex -> moduleInfoCode.toString().matches(regex))) {
+                return true;
             }
         }
-        return false; // should not reach here
+
+        return false;
     }
 
     @Override
@@ -86,5 +95,4 @@ public class Course {
         //TODO: Will implement this properly in the future
         return this.courseName.equals(other.courseName);
     }
-
 }

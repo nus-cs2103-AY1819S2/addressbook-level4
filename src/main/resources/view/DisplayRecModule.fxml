@@ -28,7 +28,6 @@
                 <Label fx:id="moduleInfoTitle" text="\$moduleInfoTitle" styleClass="cell_big_label" />
             </HBox>
             <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label fx:id="reqTypeText" text="Requirement type: " styleClass="cell_small_label" />
                 <Label fx:id="courseReqType" text="\$courseReqType" styleClass="cell_small_label" />
             </HBox>
         </VBox>

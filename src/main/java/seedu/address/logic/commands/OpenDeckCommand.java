@@ -45,7 +45,7 @@ public class OpenDeckCommand extends Command {
 
         requireNonNull(model);
 
-        if (targetIndex != null) {
+        if (targetIndex != null) { //if OpenDeckCommand is directly based on target deck
             List<Deck> filteredDeckList = decksView.filteredDecks;
 
             if (targetIndex.getZeroBased() >= filteredDeckList.size()) {

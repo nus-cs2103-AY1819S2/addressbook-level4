@@ -38,10 +38,12 @@ import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.TaskAddCommand;
 import seedu.address.logic.commands.TaskCalendarCommand;
+import seedu.address.logic.commands.TaskCopyCommand;
 import seedu.address.logic.commands.TaskDeleteCommand;
 import seedu.address.logic.commands.TaskDoneCommand;
 import seedu.address.logic.commands.TaskEditCommand;
-import seedu.address.logic.commands.TaskcopyCommand;
+import seedu.address.logic.commands.TaskListCommand;
+import seedu.address.logic.commands.TaskSortCommand;
 import seedu.address.logic.commands.TeethEditCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -200,11 +202,17 @@ public class AddressBookParser {
         case TaskEditCommand.COMMAND_WORD:
             return new TaskEditCommandParser().parse(arguments);
 
+        case TaskSortCommand.COMMAND_WORD:
+            return new TaskSortCommandParser().parse(arguments);
+
         case TaskDeleteCommand.COMMAND_WORD:
             return new TaskDeleteCommandParser().parse(arguments);
 
-        case TaskcopyCommand.COMMAND_WORD:
-            return new TaskcopyCommandParser().parse(arguments);
+        case TaskCopyCommand.COMMAND_WORD:
+            return new TaskCopyCommandParser().parse(arguments);
+
+        case TaskListCommand.COMMAND_WORD:
+            return new TaskListCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

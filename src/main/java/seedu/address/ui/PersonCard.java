@@ -93,7 +93,7 @@ public class PersonCard extends UiPart<Region> {
         remark.setText(seller.getRemark().value);
         email.setText(seller.getEmail().value);
         address.getChildren().add(new Label(seller.getAddress().value));
-        sellingPrice.getChildren().add(new Label("Selling Price $:" + seller.getSellingPrice().toString()));
+        sellingPrice.getChildren().add(new Label("Selling Price: $" + seller.getSellingPrice().toString()));
         seller.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 

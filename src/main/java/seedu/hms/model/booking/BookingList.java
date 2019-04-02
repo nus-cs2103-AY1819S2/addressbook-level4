@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import seedu.hms.model.booking.exceptions.BookingNotFoundException;
 import seedu.hms.model.booking.exceptions.ServiceFullException;
 import seedu.hms.model.booking.exceptions.ServiceUnavailableException;
+import seedu.hms.model.customer.Customer;
 import seedu.hms.model.util.TimeRange;
 
 /**
@@ -55,6 +56,26 @@ public class BookingList implements Iterable<Booking> {
             }
         }
         return Optional.empty();
+    }
+
+    /**
+     * Removes bookings with payer as customer and removes customer from other associated bookings
+     * @param key
+     */
+    public void removeCustomer(Customer key) {
+        List<Booking> bookingsToRemove = new ArrayList<>();
+        for (int i = 0; i < internalList.size(); i++) {
+            Booking b = internalList.get(i);
+            if (b.getPayer().equals(key)) {
+                bookingsToRemove.add(b);
+            }
+            if (b.isCustomerInOtherUsers(key)) {
+                b.getOtherUsers().ifPresent(l -> l.remove(key));
+                this.setBooking(i, new Booking(b.getService(), b.getTiming(), b.getPayer(),
+                    b.getOtherUsers(), b.getComment()));
+            }
+        }
+        internalList.removeAll(bookingsToRemove);
     }
 
     /**
@@ -115,14 +136,6 @@ public class BookingList implements Iterable<Booking> {
         if (!internalList.remove(toRemove)) {
             throw new BookingNotFoundException();
         }
-    }
-
-    /**
-     * Removes {@code booking} from this {@code HotelManagementSystem}.
-     * {@code booking} must exist in the hms book.
-     */
-    public void removeAllBookings(List<Booking> bookings) {
-        internalList.removeAll(bookings);
     }
 
     public void setBookings(BookingList replacement) {

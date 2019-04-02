@@ -2,7 +2,6 @@ package seedu.hms.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javafx.beans.InvalidationListener;
@@ -150,28 +149,8 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
      * {@code key} must exist in the hms book.
      */
     public void removeCustomer(Customer key) {
-        List<Booking> bookingsToRemove = new ArrayList<>();
-        for (Booking b: bookings) {
-            if (b.getPayer().equals(key)) {
-                bookingsToRemove.add(b);
-            }
-            if (b.isCustomerInOtherUsers(key)) {
-                b.removeCustomerFromOtherUsers(key);
-            }
-        }
-        bookings.removeAllBookings(bookingsToRemove);
-
-        List<Reservation> reservationsToRemove = new ArrayList<>();
-        for (Reservation r: reservations) {
-            if (r.getPayer().equals(key)) {
-                reservationsToRemove.add(r);
-            }
-            if (r.isCustomerInOtherUsers(key)) {
-                r.removeCustomerFromOtherUsers(key);
-            }
-        }
-        reservations.removeAllReservations(reservationsToRemove);
-
+        bookings.removeCustomer(key);
+        reservations.removeCustomer(key);
         customers.remove(key);
         indicateModified();
     }

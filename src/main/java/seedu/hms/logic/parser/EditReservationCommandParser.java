@@ -55,9 +55,7 @@ public class EditReservationCommandParser implements Parser<EditReservationComma
         }
         if (argMultimap.getValue(PREFIX_CUSTOMERS).isPresent()) {
             editReservationDescriptor.setOtherUsers(ParserUtil.parseCustomers(
-                argMultimap.getAllValues(PREFIX_CUSTOMERS), customerModel.getFilteredCustomerList(),
-                ParserUtil.parseCustomer(argMultimap.getValue(PREFIX_PAYER).get(),
-                    customerModel.getFilteredCustomerList())));
+                argMultimap.getAllValues(PREFIX_CUSTOMERS), customerModel.getFilteredCustomerList()));
         }
         if (argMultimap.getValue(PREFIX_COMMENT).isPresent()) {
             editReservationDescriptor.setComment(argMultimap.getValue(PREFIX_COMMENT));

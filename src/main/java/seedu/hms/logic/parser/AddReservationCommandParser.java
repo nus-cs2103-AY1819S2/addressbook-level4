@@ -1,6 +1,7 @@
 package seedu.hms.logic.parser;
 
 import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_OTHER_USERS_INDICES;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_COMMENT;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_CUSTOMERS;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATES;
@@ -56,8 +57,12 @@ public class AddReservationCommandParser implements Parser<AddReservationCommand
         Customer payer = ParserUtil.parseCustomer(argMultimap.getValue(PREFIX_PAYER).get(),
             customerModel.getFilteredCustomerList());
         Optional<List<Customer>> otherUsers = ParserUtil.parseCustomers(argMultimap.getAllValues(PREFIX_CUSTOMERS),
-            customerModel.getFilteredCustomerList(), payer);
+            customerModel.getFilteredCustomerList());
         Optional<String> comment = argMultimap.getValue(PREFIX_COMMENT);
+
+        if (otherUsers.filter(l -> l.contains(payer)).isPresent()) {
+            throw new ParseException(MESSAGE_INVALID_OTHER_USERS_INDICES);
+        }
 
         Reservation reservation = new Reservation(roomType, dates, payer, otherUsers, comment);
 

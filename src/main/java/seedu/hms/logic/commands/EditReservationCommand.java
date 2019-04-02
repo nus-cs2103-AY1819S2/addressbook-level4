@@ -1,6 +1,7 @@
 package seedu.hms.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_OTHER_USERS_INDICES;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_COMMENT;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_CUSTOMERS;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATES;
@@ -16,6 +17,7 @@ import seedu.hms.commons.core.index.Index;
 import seedu.hms.commons.util.CollectionUtil;
 import seedu.hms.logic.CommandHistory;
 import seedu.hms.logic.commands.exceptions.CommandException;
+import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.ReservationModel;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.reservation.Reservation;
@@ -143,7 +145,8 @@ public class EditReservationCommand extends ReservationCommand {
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditReservationDescriptor(EditReservationCommand.EditReservationDescriptor toCopy) {
+        public EditReservationDescriptor(EditReservationCommand.EditReservationDescriptor toCopy)
+            throws ParseException {
             setRoomType(toCopy.roomType);
             setDates(toCopy.dates);
             setPayer(toCopy.payer);

@@ -30,9 +30,7 @@ public class Booking {
         this.otherUsers = otherUsers;
         this.comment = comment;
         this.allUsers.add(payer);
-        if (otherUsers.isPresent()) {
-            this.allUsers.addAll(otherUsers.get());
-        }
+        otherUsers.ifPresent(l -> this.allUsers.addAll(l));
     }
 
     public ServiceType getService() {
@@ -52,7 +50,7 @@ public class Booking {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable user set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Customer> getAllusers() {
@@ -76,24 +74,19 @@ public class Booking {
      * @param key is the customer to be removed from other users.
      */
     public void removeCustomerFromOtherUsers(Customer key) {
-        System.out.println(this.otherUsers.get());
         this.otherUsers.ifPresent(list -> list.remove(key));
-        System.out.println(this.otherUsers.get());
     }
 
     @Override
     public String toString() {
-        String otherUsersToString = "";
-        if (otherUsers.isPresent()) {
-            for (Customer u : otherUsers.get()) {
-                otherUsersToString += u.getName() + ", ";
-            }
+        String usersToString = "";
+        for (Customer u : this.allUsers) {
+            usersToString += u.getName() + ", ";
         }
         return "Booking for "
             + service.getName()
             + " from " + timing
-            + " by " + payer.getName() + (!"".equals(otherUsersToString) ? " with "
-            + otherUsersToString.substring(0, otherUsersToString.length() - 2) : "")
+            + " for " + usersToString.substring(0, usersToString.length() - 2)
             + ". Comment - " + comment.orElse("N/A");
     }
 

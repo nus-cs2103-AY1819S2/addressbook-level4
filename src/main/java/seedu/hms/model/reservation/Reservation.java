@@ -31,9 +31,7 @@ public class Reservation {
         this.otherUsers = otherUsers;
         this.comment = comment;
         this.allUsers.add(payer);
-        if (otherUsers.isPresent()) {
-            this.allUsers.addAll(otherUsers.get());
-        }
+        otherUsers.ifPresent(l -> this.allUsers.addAll(l));
     }
 
     public RoomType getRoom() {
@@ -78,17 +76,14 @@ public class Reservation {
 
     @Override
     public String toString() {
-        String otherUsersToString = "";
-        if (otherUsers.isPresent()) {
-            for (Customer u : otherUsers.get()) {
-                otherUsersToString += u.getName() + ", ";
-            }
+        String usersToString = "";
+        for (Customer u : this.allUsers) {
+            usersToString += u.getName() + ", ";
         }
         return "Reservation for "
             + room.getName()
             + " from " + dates
-            + " by " + payer.getName() + (!"".equals(otherUsersToString) ? " with "
-            + otherUsersToString.substring(0, otherUsersToString.length() - 2) : "")
+            + " by " + usersToString.substring(0, usersToString.length() - 2)
             + ". Comment - " + comment.orElse("N/A");
     }
 

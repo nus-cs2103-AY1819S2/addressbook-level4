@@ -1,0 +1,82 @@
+== Project Portfolio Page
+
+Lau Wei Tang image:images/github-icon.png[width=30, link=https://github.com/WeiTangLau]
+
+=== [underline]#1. About me#
+I am a second year undergraduate student, pursuing a bachelor's degree in
+Computer Science from National University of Singapore. During the course of
+my education, I worked on a Software Engineering Project. We were required to
+implement several key features to enhance on the basic command line interface
+application. My team and I decided to morph the project into a file management
+system that manages all our files. However, given the limitation of the project,
+we decided to work on supporting PDF files, and the application is called
+link:https://github.com/CS2103-AY1819S2-T12-4/main[PDF++]
+
+__Additional stuff to include in this portion__
+----
+Portfolio purpose: document my role and contributions
+
+Project name and description - what were my tasks, what I did do to meet task requirements
+
+Background info about the project scope
+
+A legend to the icons and formatting used in the document
+----
+<<<
+
+
+=== [underline]#2. Summary of contributions#
+==== [underline]#Robust File Protection System#
+
+Encrypt
+
+Decrypt
+
+==== [underline]#Test Cases for Commands and Command Parsers#
+The challenges faced and how I contributed in reviewing the code and suggested
+fixes to bugs found in code
+
+
+==== [underline]#Technical Leadership#
+Show examples of code for team to reuse
+
+----
+Enhancements
+
+code contributed
+
+other contributions
+----
+<<<
+
+
+
+
+=== [underline]#3. Contributions to the User Guide#
+Insert description as well as abstract from the User Guide
+----
+Include some enhancement made using abstract from the Developer Guide
+
+Proposed enhancement for v2.0
+----
+<<<
+
+=== [underline]#4. Contributions to the Developer Guide#
+Insert description as well as abstract from the Developer Guide
+
+----
+Include some enhancement made using abstract from the Developer Guide
+
+Proposed enhancement for v2.0
+----
+
+
+----
+Main things to include:
+
+1. Links to collated code
+
+2. features I purpose to implement in the future (from DG and UG if possible)
+
+3. Other significant contributions
+----

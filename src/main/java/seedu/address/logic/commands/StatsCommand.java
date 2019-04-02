@@ -20,8 +20,6 @@ public class StatsCommand extends Command {
 
     public static final String COMMAND_WORD = "stats";
     public static final String MESSAGE_SUCCESS = "CURRENT STATISTICS:\n%1$s";
-    public static final String MESSAGE_NO_HISTORY = "There are no statistics to show";
-
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(history);

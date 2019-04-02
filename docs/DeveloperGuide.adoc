@@ -148,7 +148,7 @@ image::LogicClassDiagram.png[width="800"]
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete n/Alice`.
 
-.Component interactions for `deleteBook n/Alice` command
+.Component interactions for `deleteBook 1` command
 image::SDforDeleteBook.png[width="800"]
 
 The sections below give more details of each component.
@@ -186,9 +186,9 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("deleteBook n/Alice")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("deleteBook 1")` API call.
 
-.Interactions Inside the Logic Component for the `deleteBook n/Alice` Command
+.Interactions Inside the Logic Component for the `deleteBook 1` Command
 image::DeleteBookSdForLogic.png[width="800"]
 
 [[Design-Model]]
@@ -255,7 +255,7 @@ Step 1. The user launches the application for the first time. The `VersionedBook
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `deleteBook n/Alice` command to delete the book called Alice in the book list. The `deleteBook` command calls `Model#commitBookShelf()`, causing the modified state of the book list after the `deleteBook n/Alice` command executes to be saved in the `BookShelfStateList`, and the `currentStatePointer` is shifted to the newly inserted book list state.
+Step 2. The user executes `deleteBook 1` command to delete the first book in the book list. The `deleteBook` command calls `Model#commitBookShelf()`, causing the modified state of the book list after the `deleteBook n/Alice` command executes to be saved in the `BookShelfStateList`, and the `currentStatePointer` is shifted to the newly inserted book list state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
@@ -703,7 +703,7 @@ _{More to be added}_
 
 *MSS*
 
-1.  User requests to delete a book and all its reviews by the book's exact name
+1.  User requests to delete a book and all its reviews by the book's index in the list
 2.  Book Squirrel deletes the book
 +
 Use case ends.
@@ -781,8 +781,8 @@ _{ more test cases ... }_
 . Deleting a book by its name
 
 .. Prerequisites: The book is inside the list. User knows the full name of the book.
-.. Test case: `deleteBook n/Alice` +
-   Expected: The book named Alice is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `deleteBook 1` +
+   Expected: The first book in the list is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `deleteBook 0` +
    Expected: No book is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `deleteBook` +

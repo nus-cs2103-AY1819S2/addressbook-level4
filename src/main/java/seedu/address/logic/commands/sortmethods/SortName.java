@@ -8,11 +8,11 @@ import seedu.address.model.person.Person;
 /**
  * Sorts all persons by age.
  */
-public class SortAlphabetical {
+public class SortName {
 
     private List<Person> newList;
 
-    public SortAlphabetical(List<Person> lastShownList) {
+    public SortName(List<Person> lastShownList) {
         List<Person> sortedList = SortUtil.sortPersonsByNames(lastShownList);
         this.newList = sortedList;
     }

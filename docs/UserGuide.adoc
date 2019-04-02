@@ -160,29 +160,45 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 === Sorting persons: `sort`
 
 Sorts persons by method described by the given keywords. +
-Format: `sort KEYWORD`
+Format: `sort [reverse] KEYWORD`
 
 Accepted KEYWORDs:
-
-* alphabetical
-* skills
-
-****
-* The sort method is compatible with both the `find` and `filter` method.
-* The Alphabetical Sort compares first name first and then surname. e.g. `Adam Smith` will come before `Shaun Adams`; +
-`Adam Blacksmith` will come before `Adam Smith`
-* The Skills Sort arranges each person's skills alphabetically and then arranges the people based on their skills in +
-alphabetical order. e.g. `Adam Smith` with skills `mathematics` and `economics` shall come before `Mother Theresa` +
-with skill `faith` since `economics` comes before `faith`.
-****
+        `name`; `surname`; `education`; `gpa`; `skills`
 
 Examples:
 
-* `sort alphabetical` +
-Returns the people in order alphabetical order of their names with new index numbers.
-* `sort skills` +
-Returns the people in order of their skills with new index numbers.
+* `sort education` +
+Returns the persons, with new index numbers, in alphabetical order of their education.
+* `sort reverse skills` +
+Returns the persons, with new index numbers, in reverse alphabetical order of their first skill. Their first +
+skill is that which appears first when the person's skills have been ordered alphabetically.
 
+Methodology:
+****
+* The `sort name` command compares the Christian name first and then the surname. +
+_e.g. `Adam Smith` shall come before `Shaun Adams` and `Adam Blacksmith` shall come before `Adam Smith`._
+* The `sort surname` command compares the surname only. +
+If two surnames match, then the previous relative ordering of the two shall be kept. +
+_e.g. `Ben Adams` shall come before `Adam Black`._
+* The `sort education` command sorts the persons by the alphabetical ordering of their education. +
+_e.g. `Charlotte Green (NTU)` shall come before `Adam Smith (NUS)`._
+* The `sort gpa` command sorts the persons by increasing gpa numeric value. +
+_e.g. `Adam Smith (3.1)` shall come before `Charlotte Green (3.9)`._
+* The `sort skills` arranges each person's skills alphabetically and then arranges the people based on their skills in alphabetical order. +
+_e.g. `Adam Smith (mathematics, economics)` shall come before `Mother Theresa (faith)` +
+since `economics` comes before `faith`._
+* The `reverse` keyword can be used in conjunction with any of the above keywords and it shall reverse the ordering. +
+_e.g. The `sort reverse surname` command shall result in `Adam Black` coming before `Ben Adams`._
+* The `sort` command is compatible with the `filter` command. +
+If the Address Book contains ten persons, but the filter has selected just three persons, then only the three persons shall be ordered and returned with the new index numbers. +
+Additional filters can be applied within the sort.
+* The `sort` command is partially compatible with the `find` command. +
+If the Address Book is currently sorted according to a certain method, the `find` command shall return the persons, according to the specified find keyword, ordered by the previous sort method. +
+If the Address Book has currently _found_ certain persons from the `find` command, an additional sort shall sort all those in the address book and not just those that have been _found_.
+Should the user wish to just sort a few people, the `filter` command should be used as outlined above.
+* The `sort` command is compatible with all other commands (add/clear/delete/edit/exit/help/history/list/redo/select/undo). +
+It shall not automatically update the returned list of persons. For example adding a person shall simply add them to the end of the list of persons.
+****
 
 === Deleting a person : `delete`
 
@@ -324,8 +340,9 @@ e.g. `delete 3`
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
-* *Sort* : `sort KEYWORD` +
-e.g. `sort alphabetical`
+* *Sort* : `sort [reverse] KEYWORD` +
+e.g. `sort name` +
+e.g. `sort reverse education`
 * *List* : `list`
 * *Help* : `help`
 * *Select* : `select INDEX` +

@@ -36,7 +36,6 @@ import seedu.address.model.medicalhistory.Date;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.WriteUp;
 import seedu.address.model.person.Doctor;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.PatientNameContainsKeywordsPredicate;
 import seedu.address.testutil.DoctorBuilder;

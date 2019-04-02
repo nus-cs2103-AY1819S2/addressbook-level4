@@ -8,7 +8,6 @@ import seedu.address.logic.commands.AddMedHistCommand;
 import seedu.address.model.medicalhistory.Date;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.WriteUp;
-import seedu.address.model.person.Name;
 
 public class AddMedHistCommandParserTest {
     private AddMedHistCommandParser parser = new AddMedHistCommandParser();

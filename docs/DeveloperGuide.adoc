@@ -294,6 +294,9 @@ all the records of a particular tag.
 each tag. Will take up more space if there is many different tags.
 
 
+
+
+// tag::sort[]
 === Sort feature
 
 By default, the list of entries is ordered according to the time the entry is entered into the application,
@@ -303,11 +306,57 @@ The sort mechanism allows users to view their expense records in a different way
 
 ==== Current Implementation
 
-*_Details of implementation will be added next time._*
+The sort command uses comparators that implement java.util.Comparator interface to provide the comparison functions.
+
+.Sort feature
+|===
+|Command |Comparator used |Effect
+
+|`sort -name` |`RecordNameComparator` |Lexicographical order
+|`sort -amount` |`RecordAmountComparator` |Descending order
+|`sort -date` |`RecordDateComparator` |Most recent to least recent
+|`sort -cat` |`RecordCategoryComparator` |Lexicographical order
+
+|===
+
+Here is the list of operations involved in the execution of command, `sort -name`.
+
+. `LogicManager#execute(_"sort -name"_)` calls `FinanceTrackerParser#parseCommand(_"sort -name"_)`.
+. `FinanceTracker#parseCommand(_"sort -name"_)` creates a new `SortCommandParser` object and calls `SortCommandParser#parse(_" -name"_)`.
+. `SortCommandParser#parse()` creates a new `RecordNameComparator()` object, _comparator_ and passes it as a parameter into the `SortCommand` constructor.
+. The `SortCommand` object, _s_, is then passed back to the `SortCommandParser`, `FinanceTrackerParser`, and finally back to the `LogicManager`.
+
+.Sequence Diagram of Sort Command I
+image::SortSequenceDiagram1.png[width="800"]
+
+. `LogicManager#execute(_"sort -name"_)` then continues to call `SortCommand#execute()`.
+. `SortCommand#execute()` calls `Model#SortFilteredRecordList(_comparator_)`.
+. `Model#SortFilteredRecordList(_comparator_)` calls `FinanceTracker#sortRecordList(_comparator_)`.
+. `FinanceTracker#sortRecordList(_comparator_)` calls `UniqueRecordList#sortList(_comparator_)`.
+. `UniqueRecordList#sortList(_comparator_)` then uses `FXCollection`’s static method `sort()`  to sort the records.
+. `SortCommand#execute()` then creates a `CommandResult` object and returns it back to the `LogicManager`.
+
+.Sequence Diagram of Sort Command II
+image::SortSequenceDiagram2.png[width="800"]
 
 ==== Design Considerations
 
 *_Design considerations will be added next time._*
+
+// end::undoredo[]
+
+// tag::reverse[]
+=== Reverse feature
+
+==== Current Implementation
+
+==== Design Considerations
+
+// end::reverse[]
+
+
+
+
 
 // tag::undoredo[]
 === Undo/Redo feature

@@ -1,5 +1,11 @@
 package seedu.address.model;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static seedu.address.testutil.TypicalCards.ADDITION;
+import static seedu.address.testutil.TypicalCards.SUBTRACTION;
+import static seedu.address.testutil.TypicalDecks.DECK_A;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -10,13 +16,6 @@ import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.testutil.CardBuilder;
 import seedu.address.testutil.DeckBuilder;
-
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static seedu.address.testutil.TypicalCards.ADDITION;
-import static seedu.address.testutil.TypicalCards.SUBTRACTION;
-import static seedu.address.testutil.TypicalDecks.DECK_A;
 
 public class StudyViewTest {
     @Rule
@@ -39,7 +38,8 @@ public class StudyViewTest {
         assertEquals(null, studyView.getUserAnswer());
     }
 
-    //=========== Current Card ================================================================================
+    //=========== Current Card
+    // ================================================================================
 
     @Test
     public void setCurrentCard_nullCard_throwsNullPointerException() {
@@ -59,7 +59,8 @@ public class StudyViewTest {
         assertNotNull(studyView.getCurrentCard());
     }
 
-    //=========== Study States ================================================================================
+    //=========== Study States
+    // ================================================================================
 
     @Test
     public void setStudyState_nullState_throwsNullPointerException() {

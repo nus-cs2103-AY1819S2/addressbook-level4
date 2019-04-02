@@ -83,10 +83,12 @@ image::UserGuide_ApplicationInterface.png[width="1000"]
 * The list of medicine running low on stock or expiring soon medicine will be displayed in the warning panel to notify the user.
 * Warnings will be logged in the warnings panel until action has been taken to either remove or update the medicine.
 
+// tag:featureintro[]
 [[Features]]
 == Features
 
 As an inventory management application, MediTabs supports basic functionalities (add, edit, delete, list). On top of these basic functions, MediTabs also boasts several features tailored to your needs. These features aim to streamline your inventory management process, thereby enhancing your user experience.
+// end:featureintro[]
 
 === Information Panel
 .Information panel
@@ -100,7 +102,7 @@ You can easily refer to the batch table provided in the information panel while 
 
 You can also sort the table by any of its columns with the `sort` command to suit your needs and preference. You may refer to <<SortCommand>> for more details.
 
-
+// tag::warningpanelfeature[]
 === Warning Panel
 
 .Warning panel
@@ -113,6 +115,7 @@ The warning panel provides an overview of the most pressing issues that have to 
 On top of that, the panel features flexible thresholds to determine what is expiring and what is low in stock. These thresholds can be changed according your own preferences and needs with a simple command.
 
 You can learn about related commands related in <<WarningPanel>>.
+// end::warningpanelfeature[]
 
 // tag::exportingascsvfileformat[]
 === Exporting as CSV file format
@@ -353,6 +356,7 @@ Updates quantity and expiry date of batch `s9c4x9532` in batch records of the 2n
 Updates quantity of batch `8937v1x7` in batch records of the 1st medicine in the results of the `find` command to `500`.
 //end::update[]
 
+// tag::warningpanelcommand[]
 [[WarningPanel]]
 === Managing the warning panel : `warning`
 
@@ -376,6 +380,7 @@ Medicines with expiry dates within 10 days to expiry from today will be displaye
 Medicines with quanities of less than or equal to 20 will be displayed in the warning panel.
 * `warning show` +
 Current thresholds used for the warning panel will be shown.
+// end::warningpanelcommand[]
 
 // tag::exportcommand[]
 [[ExportCommand]]

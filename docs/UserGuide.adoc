@@ -482,6 +482,22 @@ Exported card folder will be created in the project root directory.
 
 Format: `export FOLDER_INDEX FILENAME [MORE_INDEXES]`
 
+====
+* You should key in indices corresponding to the folder index
+* Negative numbers are not allowed
+====
+
+Examples:
+
+* `export` +
+`1 2 3` +
+exports the first, second and third cardfolder in your home directory.
+Suppose that the first, second and third cardfolder corresponds to the card folder names : +
+`Blood` +
+`Circulatory System` +
+`Cardiovascular` +
+Then the following files `Blood.csv`, `Circulatory System.csv` and `Cardiovascular.csv`
+will be created in the project root directory.
 
 ==== Import flashcards : `import`
 Searches for a csv file in the root project directory and parses the file to generate a flashcard folder.

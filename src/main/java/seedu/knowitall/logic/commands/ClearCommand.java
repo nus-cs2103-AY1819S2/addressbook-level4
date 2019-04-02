@@ -7,6 +7,7 @@ import seedu.knowitall.logic.CommandHistory;
 import seedu.knowitall.logic.commands.exceptions.CommandException;
 import seedu.knowitall.model.CardFolder;
 import seedu.knowitall.model.Model;
+import seedu.knowitall.model.Model.State;
 
 /**
  * Clears the card folder.
@@ -21,7 +22,7 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         // Name of CardFolder is preserved in clear operation
-        if (!model.isInFolder()) {
+        if (model.getState() != State.IN_FOLDER) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
         }
         model.resetCardFolder(new CardFolder(model.getActiveCardFolder().getFolderName()));

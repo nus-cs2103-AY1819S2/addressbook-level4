@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.InformationPanelSettings;
 import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -59,6 +60,11 @@ public interface Logic {
      * Returns the user prefs' GUI settings.
      */
     GuiSettings getGuiSettings();
+
+    /**
+     * Get the current InformationPanel settings.
+     */
+    ReadOnlyProperty<InformationPanelSettings> getInformationPanelSetting();
 
     /**
      * Set the user prefs' GUI settings.

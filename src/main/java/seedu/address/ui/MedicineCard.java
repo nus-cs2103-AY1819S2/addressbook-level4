@@ -36,7 +36,7 @@ public class MedicineCard extends UiPart<Region> {
         this.medicine = medicine;
         id.setText(displayedIndex + ". ");
         name.setText(medicine.getName().fullName);
-        quantity.setText(medicine.getTotalQuantity().value);
+        quantity.setText(medicine.getTotalQuantity().toString());
         company.setText(medicine.getCompany().companyName);
         expiry.setText(medicine.getNextExpiry().toString());
         medicine.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

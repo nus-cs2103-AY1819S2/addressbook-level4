@@ -21,6 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.NameContainsKeywordsPredicate;
 import seedu.address.testutil.EditMedicineDescriptorBuilder;
+import seedu.address.testutil.UpdateBatchDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -70,11 +71,19 @@ public class CommandTestUtil {
     public static final EditCommand.EditMedicineDescriptor DESC_AMOXICILLIN;
     public static final EditCommand.EditMedicineDescriptor DESC_GABAPENTIN;
 
+    public static final UpdateCommand.UpdateBatchDescriptor DESC_AMOXICILLIN_BATCH;
+    public static final UpdateCommand.UpdateBatchDescriptor DESC_GABAPENTIN_BATCH;
+
     static {
         DESC_AMOXICILLIN = new EditMedicineDescriptorBuilder().withName(VALID_NAME_AMOXICILLIN)
                 .withCompany(VALID_COMPANY_AMOXICILLIN).withTags(VALID_TAG_FEVER).build();
         DESC_GABAPENTIN = new EditMedicineDescriptorBuilder().withName(VALID_NAME_GABAPENTIN)
                 .withCompany(VALID_COMPANY_GABAPENTIN).withTags(VALID_TAG_PAINKILLER, VALID_TAG_FEVER).build();
+
+        DESC_AMOXICILLIN_BATCH = new UpdateBatchDescriptorBuilder().withBatchNumber(VALID_BATCHNUMBER_AMOXICILLIN)
+                .withQuantity(VALID_QUANTITY_AMOXICILLIN).withExpiry(VALID_EXPIRY_AMOXICILLIN).build();
+        DESC_GABAPENTIN_BATCH = new UpdateBatchDescriptorBuilder().withBatchNumber(VALID_BATCHNUMBER_GABAPENTIN)
+                .withQuantity(VALID_QUANTITY_GABAPENTIN).withExpiry(VALID_EXPIRY_GABAPENTIN).build();
     }
 
     /**

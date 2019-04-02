@@ -62,6 +62,7 @@ public class MemberEditCommand extends MemberCommand {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_MATRICNUMBER = "This matricNumber already exists in Club Manager";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -92,6 +93,8 @@ public class MemberEditCommand extends MemberCommand {
 
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        } else if (model.hasMatricNumber(editedPerson.getMatricNumber())) {
+            throw new CommandException(MESSAGE_DUPLICATE_MATRICNUMBER);
         }
 
         model.setPerson(personToEdit, editedPerson);
@@ -178,7 +181,7 @@ public class MemberEditCommand extends MemberCommand {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, major, yearOfStudy, matricNumber);
         }
 
         public void setName(Name name) {

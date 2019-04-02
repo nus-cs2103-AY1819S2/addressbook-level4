@@ -16,7 +16,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.finance.model.record.exceptions.DuplicateRecordException;
 import seedu.finance.model.record.exceptions.RecordNotFoundException;
 import seedu.finance.testutil.RecordBuilder;
 
@@ -59,10 +58,10 @@ public class UniqueRecordListTest {
     }
 
     @Test
-    public void add_duplicateRecord_throwsDuplicateRecordException() {
+    public void add_duplicateRecord_success() {
         uniqueRecordList.add(APPLE);
-        thrown.expect(DuplicateRecordException.class);
         uniqueRecordList.add(APPLE);
+        assertEquals(Arrays.asList(APPLE, APPLE), uniqueRecordList.asUnmodifiableObservableList());
     }
 
     @Test
@@ -114,11 +113,11 @@ public class UniqueRecordListTest {
     }
 
     @Test
-    public void setRecord_editedRecordHasNonUniqueIdentity_throwsDuplicateRecordException() {
+    public void setRecord_editedRecordHasNonUniqueIdentity_success() {
         uniqueRecordList.add(APPLE);
         uniqueRecordList.add(BOB);
-        thrown.expect(DuplicateRecordException.class);
         uniqueRecordList.setRecord(APPLE, BOB);
+        assertEquals(Arrays.asList(BOB, BOB), uniqueRecordList.asUnmodifiableObservableList());
     }
 
     @Test
@@ -173,10 +172,13 @@ public class UniqueRecordListTest {
     }
 
     @Test
-    public void setRecords_listWithDuplicateRecords_throwsDuplicateRecordException() {
+    public void setRecords_listWithDuplicateRecords_success() {
         List<Record> listWithDuplicateRecords = Arrays.asList(APPLE, APPLE);
-        thrown.expect(DuplicateRecordException.class);
         uniqueRecordList.setRecords(listWithDuplicateRecords);
+
+        assertEquals(Arrays.asList(APPLE, APPLE), uniqueRecordList.asUnmodifiableObservableList());
+
+
     }
 
     @Test

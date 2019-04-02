@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
@@ -115,6 +116,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Adds a person to the job.
+     * The person must not already exist in the job.
+     * Adds to the first list
+     * This version directly adds from job
+     */
+    public void addFilteredListToJob(FilteredList<Person> filteredPersons, JobName jobName) {
+        Job job = jobs.getJob(jobName);
+        job.addFilteredList(filteredPersons);
+        this.jobs.setJob(job, job);
+        indicateModified();
+    }
+
+    /**
      * Retrieves UniquePersonList from job
      */
     public UniquePersonList getJobPersonList(JobName jobName, int listNumber) {
@@ -132,6 +146,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         job.add(person);
         indicateModified();
     }
+
 
     /**
      * Adds a job to the address book.

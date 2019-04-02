@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.collections.transformation.FilteredList;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
@@ -52,8 +53,13 @@ public class Job {
      * Adds all persons on displayed filter list to first list of job.
      * Only adds if not already in job.
      */
-    public void addFilteredList() {
-
+    public void addFilteredList(FilteredList<Person> filteredPersons) {
+        for (int i = 0; i < filteredPersons.size(); i++) {
+            if (personsHash.get(0).contains(filteredPersons.get(i))) {
+                continue;
+            }
+            add(filteredPersons.get(i));
+        }
     }
 
     /**

@@ -249,7 +249,7 @@ public class CreateJobCommandTest {
         }
 
         @Override
-        public void addFilteredPersonsToJob(Job job) {
+        public void addFilteredPersonsToJob(JobName jobName) {
             throw new AssertionError("This method should not be called.");
         }
 

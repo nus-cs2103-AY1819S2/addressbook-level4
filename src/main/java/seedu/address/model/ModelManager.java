@@ -116,12 +116,10 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addFilteredPersonsToJob(Job job) {
-        requireNonNull(job);
-
-        for (int i = 0; i < filteredPersons.size(); i++) {
-            versionedAddressBook.addPersonToJob(filteredPersons.get(i), job);
-        }
+    public void addFilteredPersonsToJob(JobName jobName) {
+        requireNonNull(jobName);
+        versionedAddressBook.addFilteredListToJob(variableFilteredPersons, jobName);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override

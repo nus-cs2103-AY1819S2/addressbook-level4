@@ -1,0 +1,15 @@
+= Kok Jia Xuan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Project: In-Credit-Ble
+
+
+== Overview
+
+== Summary of contributions
+
+== Contributions to the User Guide
+
+== Contributions to the Developer Guide

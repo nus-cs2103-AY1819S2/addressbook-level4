@@ -564,8 +564,8 @@ and searching appointments and reminders. There is also a command to list out al
 your appointment timings more wisely.
 
 You will never forget about any tasks or appointments again! +
-{sp} +
 
+'''
 [[addapp, Add appointment]]
 ==== Adding appointments: `addapp`
 After a consultation session, you may want to schedule a follow-up appointment with your patient. You can use `addapp`
@@ -617,8 +617,6 @@ which is from 9am to 6pm. QuickDocs will remind you of this error, as demonstrat
 
 .Adding an appointment that is not within the office hours, from 9am to 6pm
 image::addapp office hours.png[width="600" align="center"]
-
-{sp} +
 
 '''
 [[listapp, List appointments]]
@@ -672,8 +670,6 @@ The filtered appointments will be ordered by time and listed on the main display
 .Listing appointments scheduled on the week of 23rd July 2019.
 image::listapp week.png[width="600" align="center"]
 
-{sp} +
-
 '''
 [[deleteapp, Delete appointment]]
 ==== Deleting appointments: `deleteapp`
@@ -712,9 +708,6 @@ as demonstrated in the diagram below. Use the `<<la>>` command to find existing 
 
 .Deleting a non-existent appointment in QuickDocs
 image::deleteapp failure.png[width="600" align="center"]
-
-{sp} +
-
 
 '''
 [[freeapp, List free appointment slots]]
@@ -765,8 +758,6 @@ The free appointment slots will be ordered by time and listed on the main displa
 .Listing free appointment slots on the week of 23rd July 2019.
 image::freeapp success.png[width="600" align="center"]
 
-{sp} +
-
 '''
 [[addrem, Add reminder]]
 ==== Adding reminders: `addrem`
@@ -797,8 +788,6 @@ main display as demonstrated in the diagram below:
 
 .The main display after adding a reminder
 image::addrem success.png[width="600" align="center"]
-
-{sp} +
 
 '''
 [[listrem, List reminders]]
@@ -845,8 +834,6 @@ The filtered reminders will be ordered by time and listed on the main display of
 .Listing reminders scheduled on the week of 31st July 2019.
 image::listrem week.png[width="600" align="center"]
 
-{sp} +
-
 '''
 [[deleterem, Delete reminder]]
 ==== Deleting reminders: `deleterem`
@@ -879,7 +866,6 @@ as demonstrated in the diagram below.
 
 .Invalid index provided to deleterem
 image::deleterem failure.png[width="600" align="center"]
-{sp} +
 
 '''
 [[ntime, Set time before a reminder for notification to appear]]

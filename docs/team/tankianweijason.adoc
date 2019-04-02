@@ -34,14 +34,17 @@ _{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
-
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=select]
+
+include::../UserGuide.adoc[tag=sort]
+
 include::../UserGuide.adoc[tag=update]
 
-include::../UserGuide.adoc[tag=select]
+
 
 == Contributions to the Developer Guide
 
@@ -50,3 +53,5 @@ include::../UserGuide.adoc[tag=select]
 |===
 
 include::../DeveloperGuide.adoc[tag=informationpanel]
+
+include::../DeveloperGuide.adoc[tag=usecase]

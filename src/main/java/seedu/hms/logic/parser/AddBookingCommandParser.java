@@ -59,10 +59,6 @@ public class AddBookingCommandParser implements Parser<AddBookingCommand> {
             customerModel.getFilteredCustomerList());
         Optional<String> comment = argMultimap.getValue(PREFIX_COMMENT);
 
-        if (otherUsers.filter(l -> l.contains(payer)).isPresent()) {
-            throw new ParseException(MESSAGE_INVALID_OTHER_USERS_INDICES);
-        }
-
         Booking booking = new Booking(serviceType, timing, payer, otherUsers, comment);
 
         return new AddBookingCommand(booking);

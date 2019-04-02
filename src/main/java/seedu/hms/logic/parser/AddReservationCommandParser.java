@@ -60,10 +60,6 @@ public class AddReservationCommandParser implements Parser<AddReservationCommand
             customerModel.getFilteredCustomerList());
         Optional<String> comment = argMultimap.getValue(PREFIX_COMMENT);
 
-        if (otherUsers.filter(l -> l.contains(payer)).isPresent()) {
-            throw new ParseException(MESSAGE_INVALID_OTHER_USERS_INDICES);
-        }
-
         Reservation reservation = new Reservation(roomType, dates, payer, otherUsers, comment);
 
         return new AddReservationCommand(reservation);

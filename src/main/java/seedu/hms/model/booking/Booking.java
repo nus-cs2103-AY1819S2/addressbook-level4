@@ -87,6 +87,7 @@ public class Booking {
             + service.getName()
             + " from " + timing
             + " for " + usersToString.substring(0, usersToString.length() - 2)
+            + " paid by " + payer.getName()
             + ". Comment - " + comment.orElse("N/A");
     }
 

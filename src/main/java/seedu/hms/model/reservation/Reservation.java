@@ -83,7 +83,8 @@ public class Reservation {
         return "Reservation for "
             + room.getName()
             + " from " + dates
-            + " by " + usersToString.substring(0, usersToString.length() - 2)
+            + " for " + usersToString.substring(0, usersToString.length() - 2)
+            + " paid by " + payer.getName()
             + ". Comment - " + comment.orElse("N/A");
     }
 

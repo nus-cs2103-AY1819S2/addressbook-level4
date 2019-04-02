@@ -23,7 +23,7 @@ RestOrRant (ROR) is for those who *prefer to use a desktop app for managing a re
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `RestOrRant.jar` link:{repoURL}/releases[here].
+.  Download the latest `restorrant.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your RestOrRant application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -91,7 +91,7 @@ Switches to Table Mode for table 2 and displays the list of order items from tab
 
 ==== Switching to Menu Mode : `menuMode`
 
-Changes RestOrRant to Menu Mode in order to edit the menu. +
+Changes RestOrRant to Menu Mode in order to add to, delete from or edit the menu items in the menu. +
 Format: `menuMode` (or `MM`)
 
 ****
@@ -288,25 +288,34 @@ Examples:
 * `addToMenu c/A02 n/French Fries p/2.00` +
 Adds French Fries with item code A02 and price $2.00 to the menu.
 
-==== Removing menu items from the menu : `removeFromMenu`
+==== Deleting menu items from the menu : `deleteFromMenu`
 
-Removes the specified item from the menu. +
-Format: `removeFromMenu ITEM_CODE ITEM_NAME`
+Deletes the item specified by the item code from the menu. +
+Format: `deleteFromMenu ITEM_CODE`
 
-Examples:
-
-* `removeFromMenu c/A02 n/French Fries` +
-Removes French Fries with item code A02 from the menu.
-
-==== Checking if item exists in the menu : `itemExists`
-
-Checks if item with the specified item code exists in the menu. +
-Format: `itemExists ITEM_CODE`
+****
+* Item has to exist in the menu (item code must be valid).
+* The restaurant must be empty (there should be no customers).
+****
 
 Examples:
 
-* `itemExists A02` +
-Checks if item with code A02 exists in the menu.
+* `deleteFromMenu A02` +
+Deletes the menu item with item code A02 from the menu.
+
+==== Clearing all the items in the menu : `clearMenu` _(Coming in v1.4)_
+
+Removes all menu items from the menu. +
+Format: `clearMenu`
+
+****
+* The menu must be non-empty (there should already be items in the menu).
+* The restaurant must be empty (there should be no customers).
+****
+
+Examples:
+
+* `clearMenu`
 
 === Statistics Mode
 
@@ -484,6 +493,8 @@ Removes W09 from the current table's order
 |Command |Shortcut |Usage |Example
 |`addToMenu` | `*add*` | `addToMenu c/ITEM_CODE n/ITEM_NAME p/ITEM_PRICE …` | `addToMenu c/A02 n/French Fries p/2.00` +
 Adds A02 to the menu
+|`deleteFromMenu` | `*del*` | `deleteFromMenu ITEM_CODE` | `deleteFromMenu A02` +
+Removes A02 from the menu
 |=======================================================================
 
 === Statistics Mode
@@ -491,12 +502,12 @@ Adds A02 to the menu
 [width="90%",cols="25%,15%,30%,30%",options="header",]
 |=======================================================================
 |Command |Shortcut |Usage |Example
-|`revenue`|`r`|`revenue [d/DAY] [m/MONTH] [y/YEAR]` |`revenue d/1 m/1 y/2019` +
+|`revenue`|`*r*`|`revenue [d/DAY] [m/MONTH] [y/YEAR]` |`revenue d/1 m/1 y/2019` +
 Returns the revenue earned on 01 January 2019.
-|`daily`|`d`|`daily` |`daily` +
+|`daily`|`*d*`|`daily` |`daily` +
 Changes the interface to display the statistical daily revenue.
-|`monthly`|`m`|`monthly` |`monthly` +
+|`monthly`|`*m*`|`monthly` |`monthly` +
 Changes the interface to display the statistical monthly revenue.
-|`yearly`|`y`|`yearly` |`yearly` +
+|`yearly`|`*y*`|`yearly` |`yearly` +
 Changes the interface to display the statistical yearly revenue.
 |=======================================================================

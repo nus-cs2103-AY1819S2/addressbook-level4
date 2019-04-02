@@ -501,8 +501,6 @@ These operations are exposed in the `CurrentEdit` interface as `CurrentEdit#addC
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-image::UndoSeqTEMP.PNG[width="800"]
-
 Step 1. The user opens an image. The `Image` will be initialized with an empty commandHistory List.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
@@ -518,7 +516,7 @@ Step 3. The user wants to undo the previous transformation by using the `undo` c
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will return the image before undo was called and produce an error message.
 
 Step 4. After executing Undo, `index` will be less than size of commandHistory. If redo is not executed before a new command is added, all commands in the list after `index` will be deleted.
 
@@ -540,8 +538,6 @@ If the `index` is at index `commandHistory.size()`, pointing to the latest image
 
 Step 5. The user executes `saves`, which calls `CurrentEdit#saveToAssets()`. This replaces the original image with the temp image since a name is not specified. When this happens, the user can no longer call `undo` as there is no original image to work on. The command history is also cleared.
 
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
-
 The following activity diagram summarizes what happens when a user executes a new command:
 
 image::UndoRedoActivityDiagram.png[width="650"]
@@ -550,19 +546,19 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1:** Saves the each transformation as a separate image.
+* *Alternative 1:* Saves the each transformation as a separate image.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2(current choice):** Save all transformation in a list and apply them when undo/redo is called.
+* *Alternative 2(current choice):* Save all transformation in a list and apply them when undo/redo is called. We chose this method as we do not want our application to take up too much space in the PC.
 ** Pros: Will use less memory
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of commands.
+* *Alternative 1 (current choice):* Use a list to store the history of commands. We chose this so as to preserve good Object Oriented Programming principles.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `Image`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
+* *Alternative 2:* Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
@@ -589,8 +585,6 @@ The save function is facilitated by `Album` and `CurrentEdit`. It uses the follo
 * `Album#populateAlbum()` - Updates list of images in `Album` class.
 
 * `Album#refreshAlbum()` - Updates and displays the latest images in `assets` folder on the GUI.
-
-
 
 Given below is an example usage scenario and how the `save` mechanism behaves at each step.
 

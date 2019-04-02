@@ -134,7 +134,7 @@ public class Customer {
             .append(getDateOfBirth())
             .append(" Email: ")
             .append(getEmail())
-            .append(" ID num: ")
+            .append(" Idnum: ")
             .append(getIdNum())
             .append(" Address: ")
             .append(getAddress())

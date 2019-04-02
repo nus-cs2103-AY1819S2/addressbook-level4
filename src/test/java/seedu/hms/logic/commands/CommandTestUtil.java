@@ -45,8 +45,8 @@ public class CommandTestUtil {
     public static final String VALID_DATE_OF_BIRTH_BOB = "28/05/1986";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
-    public static final String VALID_ID_AMY = "A33425541";
-    public static final String VALID_ID_BOB = "A4566474T";
+    public static final String VALID_ID_AMY = "3345541";
+    public static final String VALID_ID_BOB = "4566474";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";

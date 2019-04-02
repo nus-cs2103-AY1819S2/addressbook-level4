@@ -518,6 +518,9 @@ The developer should also add the necessary testing methods in `SortCommandTest`
 // end::sort[]
 
 // tag::dataencryption[]
+
+=== Endorse Command
+
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_

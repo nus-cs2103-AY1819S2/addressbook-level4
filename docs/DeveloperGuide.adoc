@@ -335,8 +335,6 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-
-//tag::addBook[]
 === AddBook feature
 ==== Current Implementation
 
@@ -381,7 +379,41 @@ Step 4. The book shelf now adds the book to the book list after making sure ther
 * **Alternative 2:** Components stored as individual objects.
 ** Pros: Easier to obtain statistics regarding each component.
 ** Cons: It is hard to manage book object as we need to find a way to connect all components together.
-// end::addBook[]
+
+=== EditBook feature
+==== Current Implementation
+
+The editBook mechanism is facilitated by `BookShelf`.
+It contains `UniqueBookList` in which all the book data are stored and duplicates are not allowed. Books with same book name are considered as duplicates.
+Additionally, it uses the following operations from `BookShelf`:
+
+* `model#hasBook()` -- Check if the book already exists in the book shelf.
+* `model#setBook()` -- To set a book with field values provided.
+* `model#commitBookShelf()` -- Saves the current book shelf state for undo/redo..
+
+These operations are exposed in the `Model` interface.
+
+Given below is an example usage scenario and how the addBook mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
+
+Step 2. The user executes `editBook 1 n/Alice a/HR m/5 tag/fantasy` command to edit the first book present in the book list to be a book called Alice, written by HR, with rating of 5 and tag of fantasy in the book list. The `addBook` command calls `Model#hasBook()`, checking if the book already exists in the book shelf.
+
+[NOTE]
+If the new book name already exists, CommandException(MESSAGE_DUPLICATE_BOOK) will be thrown. It will not call `Model#commitBookShelf()`, so the book shelf state will not be saved into the `BookShelfStateList`.
+
+Step 4. The book shelf now set the fields of the first book to the new ones provided, and calls Model#commitBookShelf(), causing the modified state of the book list after the `addBook` command executes to be saved in the BookShelfStateList
+
+==== Design Considerations
+
+===== Aspect: How editBook is executed
+
+* **Alternative 1 (current choice):** Use index to figure out the book user wishes to edit.
+** Pros: Easy to select the book user wish to edit with the support of our UI.
+** Cons: A listBook command might be needed before executing editBook if the current filtered book list is empty
+* **Alternative 2:** Use exact book name to figure out the book user wishes to edit.
+** Pros: No need to first filter out a non-empty book list.
+** Cons: Causing trouble for user to type in the full name of the book.
 
 // tag::listBook[]
 === ListBook Feature

@@ -158,6 +158,7 @@ public class Restaurant {
     public Postal getPostal() {
         return postal;
     }
+
     public Summary getSummary() {
         return summary;
     }

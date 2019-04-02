@@ -348,7 +348,7 @@ Returns the total revenue of the year 2019 `15000`
 
 ==== Getting the daily revenue : `daily` _(coming in v1.4)_
 
-Change the interface to display the statistical dailyly revenue. +
+Change the interface to display the statistical daily revenue. +
 Format: `daily`
 
 ****
@@ -503,11 +503,11 @@ Removes A02 from the menu
 |=======================================================================
 |Command |Shortcut |Usage |Example
 |`revenue`|`*r*`|`revenue [d/DAY] [m/MONTH] [y/YEAR]` |`revenue d/1 m/1 y/2019` +
-Returns the revenue earned on 01 January 2019.
+Returns the revenue earned on 01 January 2019
 |`daily`|`*d*`|`daily` |`daily` +
-Changes the interface to display the statistical daily revenue.
+Changes the interface to display the statistical daily revenue
 |`monthly`|`*m*`|`monthly` |`monthly` +
-Changes the interface to display the statistical monthly revenue.
+Changes the interface to display the statistical monthly revenue
 |`yearly`|`*y*`|`yearly` |`yearly` +
-Changes the interface to display the statistical yearly revenue.
+Changes the interface to display the statistical yearly revenue
 |=======================================================================

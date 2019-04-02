@@ -60,7 +60,7 @@ include::../DeveloperGuide.adoc[tag=activityAddMember]
 
 include::../DeveloperGuide.adoc[tag=activityDeleteMember]
 
-== PROJECT: 
+== PROJECT:
 
 ---
 

@@ -51,6 +51,7 @@ public class DeadlineCommandParser implements Parser<DeadlineCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_DEADLINE_DONE).isPresent()) {
+            System.out.println("DONE PRESENT");
             deadline = Deadline.setDone(deadline);
         } else if (argMultimap.getValue(PREFIX_DEADLINE_REMOVE).isPresent()) {
             deadline = Deadline.setRemove(deadline);

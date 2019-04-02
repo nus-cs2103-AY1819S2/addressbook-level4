@@ -13,15 +13,15 @@ import static seedu.equipment.logic.commands.CommandTestUtil.VALID_ASSIGNEE_LIST
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_DATE_LISTA;
 import static seedu.equipment.logic.parser.CommandParserTestUtil.assertParseFailure;
 //import static seedu.equipment.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.equipment.testutil.TypicalWorkLists.LISTC;
+//import static seedu.equipment.testutil.TypicalWorkLists.LISTC;
 
 import org.junit.Test;
 
 import seedu.equipment.logic.commands.AddWorkListCommand;
-import seedu.equipment.model.WorkList;
+//import seedu.equipment.model.WorkList;
 //import seedu.equipment.model.equipment.Name;
 //import seedu.equipment.model.equipment.Phone;
-import seedu.equipment.testutil.WorkListBuilder;
+//import seedu.equipment.testutil.WorkListBuilder;
 
 public class AddWorkListCommandParserTest {
     private AddWorkListCommandParser parser = new AddWorkListCommandParser();

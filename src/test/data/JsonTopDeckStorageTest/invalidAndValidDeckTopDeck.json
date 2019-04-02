@@ -8,14 +8,18 @@
           "answer": "Yes it is",
           "tagged": [
             "tag1"
-          ]
+          ],
+          "totalRating": 10,
+          "numberOfAttempts": 5
         },
         {
           "question": "Is this an invalid question?",
           "answer": "Yes it is",
           "tagged": [
             "bad*tag"
-          ]
+          ],
+          "totalRating": 10,
+          "numberOfAttempts": 5
         }
       ]
     }

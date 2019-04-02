@@ -109,22 +109,21 @@ public class SampleDataUtil {
 
         if (skills != null) {
             for (String skill : skills) {
-                tagSet.add(new SkillsTag(skill, "yellow"));
+                tagSet.add(new SkillsTag(skill, "skill"));
             }
         }
 
         if (positions != null) {
             for (String pos : positions) {
-                tagSet.add(new SkillsTag(pos, "pink"));
+                tagSet.add(new SkillsTag(pos, "pos"));
             }
         }
 
         if (endorsements != null) {
-          for (String end: endorsements){
-            tagSet.add(new SkillsTag(end, "endorse"));
-          }
+            for (String end : endorsements) {
+                tagSet.add(new SkillsTag(end, "endorse"));
+            }
         }
         return tagSet;
     }
-
 }

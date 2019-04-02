@@ -114,7 +114,7 @@ public class SelectCommandSystemTest extends TopDeckSystemTest {
         Model expectedModel = getModel();
         String expectedResultMessage = String
                 .format(MESSAGE_SELECT_SUCCESS, expectedSelectedCardIndex.getOneBased());
-        int preExecutionSelectedCardIndex = getCardListPanel().getSelectedDeckIndex();
+        int preExecutionSelectedCardIndex = getCardListPanel().getSelectedItemIndex();
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);

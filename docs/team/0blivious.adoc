@@ -56,8 +56,10 @@ Format: `addBook n/BOOKNAME a/author m/RATING(0-10) [t/TAG]…​`
 
 Examples:
 
-* `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale`
-* `addBook n/Structure and Interpretation of Computer Programs a/Hal Abelson Jerry Sussman m/4 t/textbook`
+* `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale` +
+Adds a book named Alice in Wonderland to the record. The book is written by Lewis Carroll, rated 5 stars, and labeled with tags ‘fantasy’ and ‘fairy tale’.
+* `addBook n/Structure and Interpretation of Computer Programs a/Hal Abelson Jerry Sussman m/4 t/textbook` +
+Adds a book named Structure and Interpretation of Computer Programs to the record. The book is written by Hal Abelson Jerry Sussman, rated 4 stars, and labeled with tag ‘textbook’.
 
 ****
 * The book name is case sensitive

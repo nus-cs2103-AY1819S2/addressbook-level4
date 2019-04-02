@@ -19,19 +19,19 @@ By: `Team W11-04`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-BookSquirrel is for those who *want to keep record of books they've read*. More importantly, BookSquirrel is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BookSquirrel can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+BookSquirrel is for those who *want to keep a record of books they've read*. More importantly, BookSquirrel is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BookSquirrel can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `bookSquirrel.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Book Shelf.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Copy the file to the folder you want to use as the home folder for your application.
+.  Double-click the file to start the app. The main window should appear in a few seconds, as shown in the screenshot below.
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+E.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * **`addBook`**`n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale` : adds a book named `Alice in Wonderland` to the record.
@@ -66,8 +66,10 @@ Format: `addBook n/BOOKNAME a/author m/RATING(0-10) [t/TAG]…​`
 
 Examples:
 
-* `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale`
-* `addBook n/Structure and Interpretation of Computer Programs a/Hal Abelson Jerry Sussman m/4 t/textbook`
+* `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale` +
+Adds a book named Alice in Wonderland to the record. The book is written by Lewis Carroll, rated 5 stars, and labeled with tags ‘fantasy’ and ‘fairy tale’.
+* `addBook n/Structure and Interpretation of Computer Programs a/Hal Abelson Jerry Sussman m/4 t/textbook` +
+Adds a book named Structure and Interpretation of Computer Programs to the record. The book is written by Hal Abelson Jerry Sussman, rated 4 stars, and labeled with tag ‘textbook’.
 
 ****
 * The book name is case sensitive
@@ -242,6 +244,7 @@ Example:
 
 ==== Viewing help : `help`
 
+Offer a guide of all possible commands. +
 Format: `help`
 
 ==== Listing entered commands : `history`
@@ -298,7 +301,7 @@ Examples:
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
 
-==== Give a summary of all the books read : `summary`
+==== Providing statistics of all the books read : `summary`
 
 Generate a summary of all the books read so far. +
 Format: `summary`

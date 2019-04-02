@@ -7,8 +7,8 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.PostalDataSet;
 
@@ -47,8 +47,7 @@ public class JsonPostalDataStorage {
         } else {
             try {
                 return Optional.of(jsonPostalData.get().toModelType());
-            }
-            catch (IllegalValueException ive) {
+            } catch (IllegalValueException ive) {
                 logger.info("Illegal values found in postal data " + filePath + ": " + ive.getMessage());
                 throw new DataConversionException(ive);
             }

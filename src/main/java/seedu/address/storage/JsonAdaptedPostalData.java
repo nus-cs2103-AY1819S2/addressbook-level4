@@ -13,7 +13,7 @@ import seedu.address.model.restaurant.Postal;
  */
 class JsonAdaptedPostalData {
 
-    private static final String MISSING_FIELD_MESSAGE_FORMAT = "MISSING" ;
+    private static final String MISSING_FIELD_MESSAGE_FORMAT = "MISSING";
     private final String postal;
     private final double x;
     private final double y;

@@ -82,6 +82,11 @@ public class ListUnvisitedCommand extends Command {
                 }
             }
 
+            /**
+             *
+             * @param postal
+             * check if a given postal is in the HashMap else put it in otherwise.
+             */
             private void checkHashMap(int postal) {
                 if (!distanceData.containsKey(postal)) {
                     Optional<PostalData> postalDataA = model.getPostalData(postal);

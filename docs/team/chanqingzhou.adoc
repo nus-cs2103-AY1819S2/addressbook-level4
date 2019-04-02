@@ -41,6 +41,8 @@ The Food Diary is a *journal application* for food lovers in Singapore to record
 *** Integrated a third party library (Natty) to the project (https://github.com[#42])
 *** Integrated a new Github plugin (CircleCI) to the team repo
 
+
+
 _{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide

@@ -17,8 +17,6 @@ public abstract class Statistics {
     protected static int attackCount;
     protected static final int TOTAL_MOVES = 10;
     private static final Logger logger = LogsCenter.getLogger(Statistics.class);
-    // private int shipsLeft;
-    // private int hatTricks // 3 in a row
 
     /**
      * initialization of class will begin with default configuration.

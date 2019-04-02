@@ -93,7 +93,8 @@ public class MemberEditCommand extends MemberCommand {
 
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        } else if (model.hasMatricNumber(editedPerson.getMatricNumber())) {
+        } else if (model.hasMatricNumber(editedPerson.getMatricNumber())
+                && !model.getPersonWithMatricNumber(editedPerson.getMatricNumber()).isSamePerson(personToEdit)) {
             throw new CommandException(MESSAGE_DUPLICATE_MATRICNUMBER);
         }
 

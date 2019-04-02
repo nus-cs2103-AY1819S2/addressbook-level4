@@ -24,7 +24,6 @@ import seedu.address.logic.CardsView;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.DeckNameContainsKeywordsPredicate;
 import seedu.address.model.deck.exceptions.CardNotFoundException;
-import seedu.address.testutil.DeckBuilder;
 import seedu.address.testutil.TopDeckBuilder;
 
 public class ModelManagerTest {

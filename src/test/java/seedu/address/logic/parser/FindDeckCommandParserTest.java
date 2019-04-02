@@ -31,13 +31,15 @@ public class FindDeckCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindDeckCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "     ", String
+                .format(MESSAGE_INVALID_COMMAND_FORMAT, FindDeckCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_validArgs_returnsFindCommand() {
         FindDeckCommand expectedFindCommand =
-                new FindDeckCommand((DecksView) model.getViewState(), new DeckNameContainsKeywordsPredicate(Arrays.asList("John", "Doe")));
+                new FindDeckCommand((DecksView) model.getViewState(), new DeckNameContainsKeywordsPredicate(Arrays
+                        .asList("John", "Doe")));
         assertParseSuccess(parser, "John Doe", expectedFindCommand);
 
         // multiple whitespaces between keywords

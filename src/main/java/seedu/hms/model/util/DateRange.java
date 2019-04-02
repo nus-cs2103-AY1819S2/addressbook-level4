@@ -44,9 +44,9 @@ public class DateRange {
     }
 
     /**
-     * Returns whether the other timing is inside this timing.
+     * Returns whether the other date is inside this date
      *
-     * @param other The timing to check if exists inside this timing or not.
+     * @param other The date to check if exists inside this date or not.
      */
     public boolean withinDates(DateRange other) {
         return (this.startDate.after(other.getStartDate())

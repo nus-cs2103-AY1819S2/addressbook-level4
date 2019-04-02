@@ -303,11 +303,13 @@ the method call is valid and expected.
 This obviates the need for state-checking code in `ModelManager`.
 
 
-=== Deck management
-==== Data structure implementation
+// tag::deck[]
+=== Deck operations
 
-A Deck consists of a list of `cards`. Decks are deemed as equal if they have the same name. This
-is to prevent users from creating 2 or more decks with the same name.
+==== Current implementation
+
+Deck operations are supported in TopDeck class: A Deck consists of a list of `cards`. Decks are deemed as equal if they
+have the same name. This is to prevent users from creating 2 or more decks with the same name.
 
 Within the Model, `Deck` is encapsulated by the following data structure:
 
@@ -324,10 +326,10 @@ and be executed in `UniqueDeckList`.
 
 Deck Management is facilitated by `Deck` which implements the following operations:
 
-* adddeck(Deck deck)
-* editdeck(Deck deck)
-* deletedeck(Deck deck)
-* select(Deck toSelect)
+* add(Deck deck)
+* edit(Deck target, Deck editedDeck)
+* delete(Deck deck)
+* find(Name name)
 
 The CRUD operations are exposed in the Model interface as `Model#addDeck(Deck deck)` and
 `Model#deleteDeck(Deck toDelete)`. For each deck operation,
@@ -336,8 +338,10 @@ and the second will be on the `ViewState`.
 
 Given below is an example usage scenario and how the addDeck(Deck) mechanism behaves at each step:
 
+image::addDeckSequence.png[width="800"]
+
 1. The user starts up the application and is in the `DecksView`. The user then
-executes the `addDeck` command `adddeck n/NAME` to create a new deck. The `adddeck` command
+executes the `add` command `add n/NAME` to create a new deck. The `add` command
 is parsed and calls `Model#addDeck(Deck deck)`.
 
 2. `Model#addDeck(Deck deck)` first checks if the current state is a
@@ -348,6 +352,26 @@ DecksView. Following, it will create a new deck to be added into `VersionedTopDe
 4. To continue to add `cards`, the user will then execute the command `select INDEX`. For example, user
 executes the `select 1` command to select the first deck. This should change the `ViewState` in the
 `ModelManager` from `DeckView` to `CardView`. For more information on `cards`, refer to cards's feature.
+
+==== Design considerations
+
+* *Alternative 1 (current choice):* Implement the logic of deck operations in TopDeck class.
+
+** Pros: Easy to implement and debug as all logic related with executing commands are implemented in TopDeck.
+** Cons: Card class is not informed, or notified when its UniqueDeckList is modified. This might result in unexpected
+behaviors if a deck command is executed and the person in charge of Card class assumes that the UniqueDeckList is
+unmodified.
+
+* *Alternative 2:* Implement the logic of card-level operations in Deck class.
+
+** Pros: The responsibility of each class is clear, only a Deck can modify its list of cards.
+** Cons: The logic for executing deck-level and card-level commands are implemented at different places.
+We must ensure that the implementation of each command is correct.
+
+* *Why Alternative 1:* Without changing the current Undo/Redo feature makes it difficult to implement as we have
+decided to go with a stateful implementation. However being stateful allows for more features like our study mode in
+the future. The following design considerations for card management will better illustrate why we decided to go with
+this approach.
 
 // tag::card[]
 === Card management
@@ -593,18 +617,21 @@ Step 1. The user launches the application for the first time. The `VersionedTopD
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in TopDeck. The `delete` command calls `Model#commitTopDeck()`, causing the modified state of TopDeck after the `delete 5` command executes to be saved in the `topDeckStateList`, and the `currentStatePointer` is shifted to the newly inserted TopDeck state.
+Step 2. The user executes `delete 5` command to delete the 5th deck in TopDeck. The `delete` command calls
+`Model#commitTopDeck()`, causing the modified state of TopDeck after the `delete 5` command executes to be saved in the `topDeckStateList`, and the `currentStatePointer` is shifted to the newly inserted TopDeck state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitTopDeck()`, causing another modified TopDeck state to be saved into the `topDeckStateList`.
+Step 3. The user executes `add n/History ...` to add a new deck. The `add` command also calls `Model#commitTopDeck()`,
+causing another modified TopDeck state to be saved into the `topDeckStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitTopDeck()`, so the TopDeck state will not be saved into the `topDeckStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoTopDeck()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous TopDeck state, and restores TopDeck to that state.
+Step 4. The user now decides that adding the deck was a mistake, and decides to undo that action by executing the `undo`
+ command. The `undo` command will call `Model#undoTopDeck()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous TopDeck state, and restores TopDeck to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
@@ -640,7 +667,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the deck being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
@@ -891,15 +918,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new deck |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |delete a deck |remove entries that I no longer need
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |find a deck by name |locate details of decks without having to go through the entire list
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
-|`*` |user with many persons in TopDeck |sort persons by name |locate a person easily
+|`*` |user with many decks in TopDeck |sort decks by name |locate a deck easily
 |=======================================================================
 
 _{More to be added}_
@@ -941,7 +968,7 @@ _{More to be added}_
 == Non functional requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 decks without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_

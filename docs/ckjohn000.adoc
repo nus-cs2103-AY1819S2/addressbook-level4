@@ -1,0 +1,242 @@
+= Wong Chin Kiat, John - Project Portfolio for TopDeck
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+:experimental:
+endif::[]
+:repoURL: https://github.com/cs2103-ay1819s2-w11-1/main/tree/master
+
+== Overview
+
+This portfolio documents my contributions to the project I have undertaken in the course CS2103T -
+Software Engineering. It aims to demonstrate the theoretical and practical knowledge I have gained in the
+field of Software Engineering over the semester.
+
+== Project
+
+TopDeck is a general purpose flashcard application created to solve the inherent problems associated with physical
+flashcards. It aims to facilitate quick and intuitive management of virtual flashcards as well as having a study mode
+which allows for extra-efficient studying.
+
+== Summary of Contributions
+
+This section acts as a summary of my contributions to TopDeck.
+
+**Enhancement added:** I added the deck list to allow for the management of decks.
+
+* What it does: The decklist allows users to better navigate and manage decks. It allows users to add, edit and
+find decks with ease.
+
+* Justification: In order for a flash card application to work seamlessly, it needs the ability to manage and store
+cards easily. This deck management system allows the user to store related cards into decks.
+
+**Code Contributed:**
+https://github.com/cs2103-ay1819s2-w11-1/main/commits?author=ckjohn000[My GitHub commits],
+https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=ckjohn000&sort=displayName&since=2019-02-10&until=2019-04-02&timeframe=day&reverse=false&repoSort=true[My RepoSense Dashboard]
+
+**Other contributions**:
+
+* Project management:
+ - Ensured loose coupling between deck and card management.
+ - Ensured Storage component of TopDeck preserved functionality throughout.
+
+* Enhancements to existing features:
+ - Added the ability to store a list of cards instead of just one card.
+ - Wrote additional tests for existing features.
+
+* Documentation:
+ - Did changes to the user and developer guide to improve reader-friendliness of existing content.
+
+* Community:
+ - I reviewed pull requests for decks and cards.
+
+
+== Contributions to User Guide
+
+=== Deck View
+
+In this view you can create, edit and find decks. This is the default view when TopDeck is first launched.
+
+image::deck_ug_diagrams/deck.png[width="800"]
+
+These are commands only available in deck view.
+
+==== Creating a deck: `add`
+
+**Format**: `add DECK_NAME`
+
+**Outcome**: Creates a new deck called `DECK_NAME`.
+
+**Example**: `add n/History`
+
+Before:
+
+image::deck_ug_diagrams/add_deck_1.png[width="800"]
+
+After:
+
+image::deck_ug_diagrams/add_deck_2.png[width="800"]
+
+==== Deleting a deck: `delete`
+
+**Format**: `delete INDEX`
+
+**Outcome**: Deletes the deck at `INDEX`.
+
+**Example**: `delete 2`
+
+[NOTE]
+====
+The index refers to the index number shown in the displayed deck list. The index *must be a positive integer* 1, 2, 3...
+====
+
+Before:
+
+image::deck_ug_diagrams/delete_deck_1.png[width="800"]
+
+After:
+
+image::deck_ug_diagrams/delete_deck_2.png[width="800"]
+
+==== Editing the name of a deck: `edit`
+
+**Format**: `edit INDEX NEW_DECK_NAME`
+
+**Outcome**: Changes the name of the deck at `INDEX` to `NEW_DECK_NAME`.
+
+**Example**: `edit 2 Addition`
+
+Before:
+
+image::deck_ug_diagrams/edit_deck_1.png[width="800"]
+
+After:
+
+image::deck_ug_diagrams/edit_deck_2.png[width="800"]
+
+==== Finding a deck by name: `find`
+
+**Format**: `find KEYWORD`
+
+**Outcome**: Lists all decks containing `KEYWORD` in its name.
+
+**Example**: `find sci`
+
+Before:
+
+image::deck_ug_diagrams/find_deck_1.png[width="800"]
+
+After:
+
+image::deck_ug_diagrams/find_deck_2.png[width="800"]
+
+==== Listing all decks: `list`
+
+**Format**: `list`
+
+**Outcome**: Displays a list of all decks.
+
+image::deck_ug_diagrams/list_deck_1.png[width="800"]
+
+image::deck_ug_diagrams/list_deck_2.png[width="800"]
+
+
+==== Navigating into a deck: `open`
+
+**Format**: `open INDEX`
+
+**Outcome**: Opens the deck at `INDEX`
+
+**Example**: `open 1`
+
+image::deck_ug_diagrams/open_deck.png[width="800"]
+
+==== Studying a deck: `study`
+
+**Format**: `study INDEX`
+
+**Outcome**: Enters study view with the deck at `INDEX`.
+
+**Example**: `study 1`
+
+image::deck_ug_diagrams/study_deck.png[width="800"]
+
+== Contributions to Developer Guide
+
+=== Deck operations
+
+==== Current implementation
+
+Deck operations are supported in TopDeck class: A Deck consists of a list of `cards`. Decks are deemed as equal if they
+have the same name. This is to prevent users from creating 2 or more decks with the same name.
+
+Within the Model, `Deck` is encapsulated by the following data structure:
+
+* `Model`
+* `VersionedTopDeck`
+* `TopDeck`
+* `UniqueDeckList`
+* `Deck`
+
+The Create, Read, Update and Delete(CRUD) operation will trickle down the encapsulations
+and be executed in `UniqueDeckList`.
+
+==== Current implementation
+
+Deck Management is facilitated by `Deck` which implements the following operations:
+
+* add(Deck deck)
+* edit(Deck target, Deck editedDeck)
+* delete(Deck deck)
+* find(Name name)
+
+The CRUD operations are exposed in the Model interface as `Model#addDeck(Deck deck)` and
+`Model#deleteDeck(Deck toDelete)`. For each deck operation,
+there are 2 main updates that need to be done. The first update will be on the model
+and the second will be on the `ViewState`.
+
+Given below is an example usage scenario and how the addDeck(Deck) mechanism behaves at each step:
+
+image::addDeckSequence.png[width="800"]
+
+1. The user starts up the application and is in the `DecksView`. The user then
+executes the `add` command `add n/NAME` to create a new deck. The `add` command
+is parsed and calls `Model#addDeck(Deck deck)`.
+
+2. `Model#addDeck(Deck deck)` first checks if the current state is a
+DecksView. Following, it will create a new deck to be added into `VersionedTopDeck.addDeck(Deck deck).
+
+3. Once that is done, the filteredItems list is being updated to reflect the change.
+
+4. To continue to add `cards`, the user will then execute the command `select INDEX`. For example, user
+executes the `select 1` command to select the first deck. This should change the `ViewState` in the
+`ModelManager` from `DeckView` to `CardView`. For more information on `cards`, refer to cards's feature.
+
+==== Design considerations
+
+* *Alternative 1 (current choice):* Implement the logic of deck operations in TopDeck class.
+
+** Pros: Easy to implement and debug as all logic related with executing commands are implemented in TopDeck.
+** Cons: Card class is not informed, or notified when its UniqueDeckList is modified. This might result in unexpected
+behaviors if a deck command is executed and the person in charge of Card class assumes that the UniqueDeckList is
+unmodified.
+
+* *Alternative 2:* Implement the logic of card-level operations in Deck class.
+
+** Pros: The responsibility of each class is clear, only a Deck can modify its list of cards.
+** Cons: The logic for executing deck-level and card-level commands are implemented at different places.
+We must ensure that the implementation of each command is correct.
+
+* *Why Alternative 1:* Without changing the current Undo/Redo feature makes it difficult to implement as we have
+decided to go with a stateful implementation. However being stateful allows for more features like our study mode in
+the future.
+

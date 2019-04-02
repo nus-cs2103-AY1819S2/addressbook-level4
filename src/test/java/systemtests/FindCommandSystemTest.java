@@ -1,7 +1,5 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_CARDS_LISTED_OVERVIEW;
-
 import seedu.address.model.Model;
 
 public class FindCommandSystemTest extends TopDeckSystemTest {

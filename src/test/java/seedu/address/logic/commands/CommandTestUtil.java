@@ -16,7 +16,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CardsView;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.DecksView;
-import seedu.address.logic.ListItem;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.TopDeck;
@@ -167,7 +166,7 @@ public class CommandTestUtil {
         // only do so by copying its components.
         TopDeck expectedTopDeck = new TopDeck(actualModel.getTopDeck());
         /** TODO
-        List<ListItem> expectedFilteredList = new ArrayList<>(actualModel.getFilteredList());
+        List< ListItem > expectedFilteredList = new ArrayList<>(actualModel.getFilteredList());
         ListItem expectedSelectedItem = actualModel.getSelectedItem();
          **/
 

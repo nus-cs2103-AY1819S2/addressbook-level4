@@ -9,8 +9,6 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.logic.ListItem;
-import seedu.address.logic.ListViewState;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyTopDeck;
@@ -33,9 +31,6 @@ public class TestApp extends MainApp {
             .getFilePathInSandboxFolder("pref_testing.json");
     protected Supplier<ReadOnlyTopDeck> initialDataSupplier = () -> null;
     protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
-
-    public TestApp() {
-    }
 
     public TestApp(Supplier<ReadOnlyTopDeck> initialDataSupplier, Path saveFileLocation) {
         super();

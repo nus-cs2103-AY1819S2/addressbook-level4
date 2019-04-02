@@ -1,7 +1,5 @@
 package systemtests;
 
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCardCommand;
 import seedu.address.model.Model;

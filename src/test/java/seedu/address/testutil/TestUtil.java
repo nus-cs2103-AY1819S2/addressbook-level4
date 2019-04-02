@@ -8,7 +8,6 @@ import java.nio.file.Paths;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CardsView;
 import seedu.address.logic.DecksView;
-import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 

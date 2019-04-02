@@ -34,11 +34,11 @@ public class SampleDataUtil {
                 new Remark("I am a buyer")),
             new Seller(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 new Remark("I am a seller"),
-                new Property("selling", new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
+                new Property("selling", new Address("Blk 131 Geylang East Ave 1, #06-40"),
                 new Price("750000"), getTagSet("MRT", "4Room"))),
             new Landlord(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
                 new Remark("I am a Landlord"),
-                new Property("rental", new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
+                new Property("rental", new Address("Blk 11 Marsiling Dr, #11-04"),
                 new Price("2500"), getTagSet("3Room"))),
             new Tenant(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
                 new Remark("I am a tenant")),
@@ -46,8 +46,8 @@ public class SampleDataUtil {
                 new Remark("I am also a buyer")),
             new Seller(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                 new Remark("I am also a seller"),
-                new Property("selling", new Address("Blk 45 Aljunied Street 85, #11-31"),
-                new Price("500000"), getTagSet("colleagues")))
+                new Property("selling", new Address("Blk 444 Pasir Ris Dr 6, #01-43"),
+                new Price("500000"), getTagSet("4Room")))
         };
     }
 
@@ -57,7 +57,7 @@ public class SampleDataUtil {
                     new Remark("I am an archived buyer")),
             new Seller(new Name("Tan Ah Beng"), new Phone("87654321"), new Email("tab@example.com"),
                     new Remark("I am an archived seller"), new Property("selling",
-                    new Address("Blk 456 Woodlands Ave 1, #10-10"), new Price("500000"),
+                    new Address("Blk 150 Tampines Street 12, #17-35"), new Price("500000"),
                     getTagSet("3Room", "new"))),
             new Landlord(new Name("Ricky Young"), new Phone("91827364"), new Email("rickyoung@example.com"),
                     new Remark("I am an archived landlord"), new Property("rental",
@@ -72,11 +72,11 @@ public class SampleDataUtil {
                 new Remark("I am a pinned buyer")),
             new Seller(new Name("Irwin King"), new Phone("83070006"), new Email("irwinking@example.com"),
                 new Remark("I am a pinned seller"), new Property("selling",
-                new Address("Blk 504 Clementi Road, #04-04"), new Price("600000"),
+                new Address("Blk 345 Clementi Ave 5, #04-04"), new Price("600000"),
                 getTagSet("MRT", "4Room"))),
             new Landlord(new Name("Jimmy Lee"), new Phone("83070007"), new Email("jimmylee@example.com"),
                 new Remark("I am a pinned landlord"), new Property("rental",
-                new Address("Blk 505 Clementi Road, #05-05"), new Price("2500"),
+                new Address("Blk 346 Clementi Ave 5, #05-05"), new Price("2500"),
                 getTagSet("MRT", "4Room")))
         };
     }

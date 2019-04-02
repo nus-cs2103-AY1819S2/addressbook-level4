@@ -39,7 +39,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
-    private Label address;
+    private FlowPane address;
     @FXML
     private Label email;
     @FXML
@@ -47,9 +47,9 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
-    private Label sellingPrice;
+    private FlowPane sellingPrice;
     @FXML
-    private Label rentalPrice;
+    private FlowPane rentalPrice;
 
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
@@ -64,7 +64,7 @@ public class PersonCard extends UiPart<Region> {
     public PersonCard(Buyer buyer, int displayedIndex) {
         super(FXML);
         this.person = buyer;
-        customer.setText("buyer");
+        customer.setText("Buyer");
         id.setText(displayedIndex + ". ");
         name.setText(buyer.getName().fullName);
         phone.setText(buyer.getPhone().value);
@@ -75,7 +75,7 @@ public class PersonCard extends UiPart<Region> {
     public PersonCard(Tenant tenant, int displayedIndex) {
         super(FXML);
         this.person = tenant;
-        customer.setText("tenant");
+        customer.setText("Tenant");
         id.setText(displayedIndex + ". ");
         name.setText(tenant.getName().fullName);
         phone.setText(tenant.getPhone().value);
@@ -86,28 +86,28 @@ public class PersonCard extends UiPart<Region> {
     public PersonCard(Seller seller, int displayedIndex) {
         super(FXML);
         this.person = seller;
-        customer.setText("seller");
+        customer.setText("Seller");
         id.setText(displayedIndex + ". ");
         name.setText(seller.getName().fullName);
         phone.setText(seller.getPhone().value);
         remark.setText(seller.getRemark().value);
         email.setText(seller.getEmail().value);
-        address.setText(seller.getAddress().value);
-        sellingPrice.setText(seller.getSellingPrice().toString());
+        address.getChildren().add(new Label(seller.getAddress().value));
+        sellingPrice.getChildren().add(new Label("Selling Price $:" + seller.getSellingPrice().toString()));
         seller.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     public PersonCard(Landlord landlord, int displayedIndex) {
         super(FXML);
         this.person = landlord;
-        customer.setText("landlord");
+        customer.setText("Landlord");
         id.setText(displayedIndex + ". ");
         name.setText(landlord.getName().fullName);
         phone.setText(landlord.getPhone().value);
         remark.setText(landlord.getRemark().value);
         email.setText(landlord.getEmail().value);
-        address.setText(landlord.getAddress().value);
-        rentalPrice.setText(landlord.getRentalPrice().toString());
+        address.getChildren().add(new Label(landlord.getAddress().value));
+        rentalPrice.getChildren().add(new Label("Rental Price: $" + landlord.getRentalPrice().toString()));
         landlord.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 

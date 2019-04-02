@@ -350,3 +350,27 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#customer.label {
+    -fx-text-fill: white;
+    -fx-background-color: #388e3c;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}
+
+#sellingPrice .label {
+    -fx-text-fill: #b0bec5;
+    -fx-font-size: 11;
+}
+
+#rentalPrice .label {
+    -fx-text-fill: #b0bec5;
+    -fx-font-size: 11;
+}
+
+#address .label {
+    -fx-text-fill: #b0bec5;
+    -fx-font-size: 11;
+}

@@ -48,15 +48,15 @@
         </StackPane>
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-               <GridPane id="listPane" fx:id="listPane" SplitPane.resizableWithParent="false">
-                 <VBox fx:id="pinList" minHeight="105" maxHeight="150" minWidth="340" prefWidth="340"
+               <GridPane id="listPane" fx:id="listPane" SplitPane.resizableWithParent="false" >
+                 <VBox fx:id="pinList" minHeight="150" maxHeight="200" minWidth="340" prefWidth="340"
                        GridPane.rowIndex="0">
                    <padding>
                      <Insets top="10" right="10" bottom="10" left="10" />
                    </padding>
                    <StackPane fx:id="pinListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                  </VBox>
-                 <VBox fx:id="personList" minWidth="340" prefWidth="340" GridPane.rowIndex="1">
+                 <VBox fx:id="personList" minWidth="340" prefWidth="340" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                   <padding>
                     <Insets top="10" right="10" bottom="10" left="10" />
                   </padding>

@@ -13,7 +13,7 @@ public class IdentificationNo {
     public static final String MESSAGE_CONSTRAINTS =
         "Identification numbers should only contain numbers or uppercase letters,"
             + " and it should be between 3 and 10 characters";
-    public static final String VALIDATION_REGEX = "^[A-Z0-9]{3,10}$";
+    public static final String VALIDATION_REGEX = "^[A-Z0-9]{7,10}$";
     public final String value;
 
     /**

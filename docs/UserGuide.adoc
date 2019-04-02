@@ -346,7 +346,7 @@ Deleted entries are not included in the summary.
 
 === Miscellaneous
 
-<<<<<<< HEAD
+// tag::setfile[]
 ==== Changing FinanceTracker data storage location: `setfile`
 Want to maintain multiple users of the FinanceTracker? You can use this command to load FinanceTracker data from another file.
 The command will create a file if it does not already exist.
@@ -354,10 +354,9 @@ The command will create a file if it does not already exist.
 File paths and extension should not be included in command.
 
 *Format*: `setfile f/finance`
+//end::setfile[]
 
-=======
 // tag::help[]
->>>>>>> c957ac49f1728585d2b62881f4ce6605b84340c2
 ==== Viewing help: `help`
 
 Forgotten which commands to use? You can easily find the commands you need to navigate the software

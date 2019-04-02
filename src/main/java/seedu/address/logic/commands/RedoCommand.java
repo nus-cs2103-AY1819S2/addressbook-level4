@@ -48,9 +48,9 @@ public class RedoCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        Command command = currentEdit.getTempImage().getCommand();
+        Command command = currentEdit.getCommandTemp();
         command.execute(currentEdit, model, history);
-        currentEdit.getTempImage().setRedo();
+        currentEdit.setRedoTemp();
 
         currentEdit.displayTempImage();
 

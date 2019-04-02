@@ -6,30 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.BlackWhiteCommand;
-import seedu.address.logic.commands.BrightnessCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.ContrastCommand;
-import seedu.address.logic.commands.CropCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ImportCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.ListFilesCommand;
-import seedu.address.logic.commands.OpenCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.ResizeCommand;
-import seedu.address.logic.commands.RotateCommand;
-import seedu.address.logic.commands.SaveCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.TabCommand;
-import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -128,8 +105,10 @@ public class AddressBookParser {
         case ResizeCommand.COMMAND_WORD:
             return new ResizeCommandParser().parse(arguments);
 
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        case ExportCommand.COMMAND_WORD:
+            return new ExportCommandParser().parse(arguments);
+            
+        default: throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 

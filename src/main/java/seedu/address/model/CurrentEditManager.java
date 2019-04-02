@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -209,9 +210,6 @@ public class CurrentEditManager implements CurrentEdit {
         return tempImage.getCommand();
     }
 
-    public List<Command> getSubHistoryTemp() {
-        return tempImage.getSubHistory();
-    }
     /**
      * Retrieves a list of all filenames in assets folder. Returns the list as String[].
      */
@@ -242,6 +240,8 @@ public class CurrentEditManager implements CurrentEdit {
             ImageIO.write(tempImage.getBufferedImage(), tempImage.getFileType(), outputFile);
             FileUtils.copyFileToDirectory(outputFile, saveDirectory, false);
             outputFile.delete();
+            tempImage.setHistory(new ArrayList<Command>());
+            tempImage.setIndex(0);
         } catch (IOException e) {
             System.out.println(e.toString());
         }

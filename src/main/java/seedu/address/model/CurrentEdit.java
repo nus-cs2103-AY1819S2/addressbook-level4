@@ -43,4 +43,12 @@ public interface CurrentEdit {
     void updateExif();
 
     void openImage(Image image);
+
+    void setRedoTemp();
+
+    void setUndoTemp();
+
+    Command getCommandTemp();
+
+    boolean tempImageExist();
 }

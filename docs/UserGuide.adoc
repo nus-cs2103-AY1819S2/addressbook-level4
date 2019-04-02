@@ -282,6 +282,8 @@ e.g. `filter tx/GraphsDFS`
 e.g. `info 3`
 * *Deadline* : `deadline INDEX DATE` or `deadline INDEX`
 e.g. `deadline 3 20-02-2019` , `deadline 2`
+* *Encrypt* : `encrypt INDEX password/PASSWORD`
+* *Decrypt* : `decrypt INDEX password/PASSWORD`
 * *Help* : `help`
 * *Exit* : `exit`
 

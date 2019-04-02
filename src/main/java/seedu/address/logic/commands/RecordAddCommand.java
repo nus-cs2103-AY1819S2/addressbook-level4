@@ -31,7 +31,8 @@ public class RecordAddCommand extends Command {
     public static final String MESSAGE_ERROR = "Please specify the patient using the goto command first";
 
     private final Patient toAdd;
-    private final Description description;
+    private Record addRecord;
+    private Description description;
 
     /**
      * Creates an RecordAddCommand to add a new dental record to a specified {@code Patient}
@@ -41,6 +42,16 @@ public class RecordAddCommand extends Command {
         requireNonNull(description);
         toAdd = MainWindow.getRecordPatient();
         this.description = description;
+    }
+
+    /**
+     * Creates an RecordAddCommand to add a new dental record to a specified {@code Patient}
+     * @param record the record to be added.
+     */
+    public RecordAddCommand(Record record) {
+        requireNonNull(record);
+        toAdd = MainWindow.getRecordPatient();
+        this.addRecord = record;
     }
 
     /**

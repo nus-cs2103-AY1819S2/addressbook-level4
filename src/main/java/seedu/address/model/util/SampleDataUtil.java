@@ -29,22 +29,22 @@ public class SampleDataUtil {
         return new Patient[] {
             new Patient(new Name("Alex Yeoh"), new Gender("M"), new Age("25"), new Phone("87438807"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends")),
+                getTagSet("foodpoisoning")),
             new Patient(new Name("Bernice Yu"), new Gender("F"), new Age("7"), new Phone("99272758"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("colleagues", "friends")),
+                getTagSet("highbloodpressure", "stroke")),
             new Patient(new Name("Charlotte Oliveiro"), new Gender("F"), new Age("101"), new Phone("93210283"),
                 new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("neighbours")),
+                getTagSet("others")),
             new Patient(new Name("David Li"), new Gender("M"), new Age("28"), new Phone("91031282"),
                 new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("family")),
+                getTagSet("diabetes")),
             new Patient(new Name("Irfan Ibrahim"), new Gender("M"), new Age("60"), new Phone("92492021"),
                 new Address("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("classmates")),
+                getTagSet("lungcancer")),
             new Patient(new Name("Roy Balakrishnan"), new Gender("M"), new Age("110"), new Phone("92624417"),
                 new Address("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("colleagues"))
+                getTagSet("flu"))
         };
     }
 

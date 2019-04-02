@@ -172,7 +172,7 @@ Examples:
 Returns any restaurant with name containing `KFC`
 
 // tag::select[]
-=== Select a restaurant : `select`
+==== Select a restaurant : `select`
 
 Select a restaurant based on its index on the list and display information about it. +
 Format: `select INDEX`

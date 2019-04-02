@@ -62,7 +62,7 @@ public class SortCommand extends Command {
         List<Person> lastShownList = model.getAddressBook().getPersonList();
         //Maybe use switch statement here?
         String input = this.method.getSortWord();
-        int finalSpace =  input.lastIndexOf(" ");
+        int finalSpace = input.lastIndexOf(" ");
         String commandInput = input.substring(finalSpace + 1);
         if (commandInput.equals("name")) {
             SortName sorted = new SortName(lastShownList);

@@ -48,28 +48,28 @@ public class SampleDataUtil {
                     getTagSet(Arrays.asList("Java", "JavaScript", "Excel", "Hadoop", "Market Analysis"), Arrays.asList(
                             "Software ", "Engineer", "Financial Analyst"),
                             Arrays.asList("Jeff Bezos", "Warren Buffett"))),
-                new Person(new Name("Susan McDonald"), new Phone("35810495"), new Email("susanM@gmail.com"),
-                        new Education("Yale"), new Gpa("4"), new Address("32 Independence Way, New York NY"),
-                        getTagSet(Arrays.asList("Java", "HTML", "CSS", "JavaScript", "Swift"), Arrays.asList("Front "
-                                + "End Specialist", "UI Developer", "Project Manager"), Arrays.asList("Jeff Bezos"))),
+            new Person(new Name("Susan McDonald"), new Phone("35810495"), new Email("susanM@gmail.com"),
+                    new Education("Yale"), new Gpa("4"), new Address("32 Independence Way, New York NY"),
+                    getTagSet(Arrays.asList("Java", "HTML", "CSS", "JavaScript", "Swift"), Arrays.asList("Front "
+                            + "End Specialist", "UI Developer", "Project Manager"), Arrays.asList("Jeff Bezos"))),
             new Person(new Name("Tony Stark"), new Phone("92874639"), new Email("tonys@avengers.com"),
                     new Education("MIT"), new Gpa("4"), new Address("911 Avengers Way, New York NY"),
                     getTagSet(Arrays.asList("Java", "Electrical Engineering", "MATLab", "Software Development",
                             "Leadership", "Presentation Skills"), Arrays.asList("Software Engineer", "Project Manager"),
                             Arrays.asList("Stan Lee"))),
-                new Person(new Name("Bruce Wayne"), new Phone("92875639"), new Email("bruce@wayne.com"),
-                        new Education("Stanford"), new Gpa("4"), new Address("1 Wayne Manor, New York NY"),
-                        getTagSet(Arrays.asList("Hardware Testing", "Business Analysis", "Finance", "Cyber Crime"),
-                                Arrays.asList("Project Consultant", "Crime Analyst"), Arrays.asList("Thomas Wayne"))),
-                new Person(new Name("Peter Parker"), new Phone("92874339"), new Email("peterp@gmail.com"),
-                        new Education("Brooklyn High School"), new Gpa("4"), new Address("99 Sunflower Dr, Brooklyn "
-                        + "NY"), getTagSet(Arrays.asList( "Electrical Engineering", "Java", "Python",
-                                "Design", "Photography"), Arrays.asList("Advanced Graphics Designer", "Software "
-                                + "Testing"), Arrays.asList("Stan Lee"))),
-                new Person(new Name("Claire Smith"), new Phone("98765432"), new Email("claireS@gmail.com"),
-                        new Education("Oxford"), new Gpa("3"), new Address("12 Biscuits Way, Oxford"),
-                        getTagSet(Arrays.asList("C#", "PHP", "Linux", "C++", "Finance"), Arrays.asList("Systems "
-                                        + "Analyst"), Arrays.asList("Elon Musk"))),
+            new Person(new Name("Bruce Wayne"), new Phone("92875639"), new Email("bruce@wayne.com"),
+                    new Education("Stanford"), new Gpa("4"), new Address("1 Wayne Manor, New York NY"),
+                    getTagSet(Arrays.asList("Hardware Testing", "Business Analysis", "Finance", "Cyber Crime"),
+                            Arrays.asList("Project Consultant", "Crime Analyst"), Arrays.asList("Thomas Wayne"))),
+            new Person(new Name("Peter Parker"), new Phone("92874339"), new Email("peterp@gmail.com"),
+                    new Education("Brooklyn High School"), new Gpa("4"), new Address("99 Sunflower Dr, Brooklyn "
+                    + "NY"), getTagSet(Arrays.asList("Electrical Engineering", "Java", "Python",
+                            "Design", "Photography"), Arrays.asList("Advanced Graphics Designer", "Software "
+                            + "Testing"), Arrays.asList("Stan Lee"))),
+            new Person(new Name("Claire Smith"), new Phone("98765432"), new Email("claireS@gmail.com"),
+                    new Education("Oxford"), new Gpa("3"), new Address("12 Biscuits Way, Oxford"),
+                    getTagSet(Arrays.asList("C#", "PHP", "Linux", "C++", "Finance"), Arrays.asList("Systems "
+                                    + "Analyst"), Arrays.asList("Elon Musk"))),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                     new Education("NUS"), new Gpa("3"), new Address("Blk 45 Aljunied Street 85, #11-31"),
                     getTagSet(Arrays.asList("Swift", "Java", "Linux", "Operating Systems", "Graphic Design",

@@ -22,6 +22,7 @@ import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
 import seedu.address.model.restaurant.OpeningHours;
 import seedu.address.model.restaurant.Phone;
+import seedu.address.model.restaurant.Postal;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Weblink;
 
@@ -86,9 +87,10 @@ public class RestaurantListPanelTest extends GuiUnitTest {
             Phone phone = new Phone("000");
             Email email = new Email("a@aa");
             Address address = new Address("a");
+            Postal postal = new Postal("123456");
             Weblink weblink = new Weblink("https://a.com");
             OpeningHours openingHours = new OpeningHours("24hrs");
-            Restaurant restaurant = new Restaurant(name, phone, email, address, Collections.emptySet(),
+            Restaurant restaurant = new Restaurant(name, phone, email, address, postal, Collections.emptySet(),
                     weblink, openingHours);
             backingList.add(restaurant);
         }

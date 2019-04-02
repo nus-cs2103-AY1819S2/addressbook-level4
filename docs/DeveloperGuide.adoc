@@ -234,30 +234,66 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 
-// tag::listUnvisited[]
+// tag::listUnvisitedDG[]
 === listUnvisited feature which sorts by distance nearest to you
-==== Current Implementation(v1.3)
-The 'listUnvisited' feature accepts the user's current postal code and displays unreviewed restaurants nearest to the user's postal code.
-This mechanism is facilitated by `PostalDataSet`.
-It contains a `HashMap<Integer,PostalData> of `PostalData` which contains the x and y-coordinate of every postal code in Singapore.
+==== Current Implementation
+The 'listUnvisited' feature accepts the user's current postal code and displays restaurants without reviews nearest to the user's postal code.
 
-`PostalDataSet` is constructed by `JsonPostalDataStorage` which processes the `data.json` file from `JsonSerializablePostalData` into `PostalDataSet`.
-This is exposed in the `Storage` interface as `Storage#loadPostalData()`
+This mechanism is facilitated by `PostalDataSet` which
+contains a `HashMap<Integer,PostalData>` of every postal code represented by an `Integer` mapped to a `PostalData` containing the x and y-coordinate of the given postal code.
+
+`PostalDataSet` is constructed by `JsonPostalDataStorage` which processes the `data.json` file into `PostalDataSet`.
+[WARNING]
+If `data.json` is in the incorrect format, `PostalDataSet` will be empty.
+
+`PostalData` is exposed through the `Model` interface as `Model#checkPostalData(int postal)` which returns the `Optional<PostalData>` of a given postal code.
+
+`listUnvisitedCommand` contains a inner `SortDistance` class which implements the `Comparator` class. `SortDistance` contains the `PostalData` of the postal code provided by the user and
+a `HashMap<Integer, Double>` which maps the `Restaurant` postal code represented by the `Integer` to the distance from the user provided postal code represented as a `Double`.
+[NOTE]
+If a `Restaurant` postal code is invalid or not in `PostalDataSet`, the distance will be set to `Double.MAX_VALUE`.
+
+`SortDistance` implements the function `compare(Restaurant firstRestaurant ,Restaurant secondRestaurant)`.
+
+
 
 Given below is an example usage scenario and how the `listUnvisited` and 'PostalDataSet' behaves at each step.
 
 Step 1. The user launches the application for the first time. The `PostalDataSet` will be initialised with data from `data.json` through the `Storage` interface.
 
-Step 2. The user calls `listUnvisited postal/267951`. This command will call the method `Model#filterAndSortByLocation(PREDICATE_SHOW_UNVISITED_RESTAURANTS, postal)`
+Step 2. The user calls `listUnvisited po/267951`. A new `SortBy` will be created containing the `PostalData` of '267951'. This command will then call the method `Model#filterAndSort(Predicate PREDICATE_SHOW_UNVISITED_RESTAURANTS, Comparator sortBy).`
+[NOTE]
+If the postal code provided by the user is invalid, there will be no change in ordering of the `Restaurant`.
 
-Step 3. The `Model#filterAndSortByLocation()` will first filter the `RestaurantList` to show all `Restaurants` with zero reviews. It will then call `PostalDataSet#checkPostal(int postal)` for each of the restaurants then sort it based on the distance from the given postal code.
 
-Step 4. The `filteredList` will then be updated to show the nearest `Restaurants` with zero review.
+Step 3. The `Model#filterAndSortByLocation()` will first filter the `filterList` to show all `Restaurants` with zero reviews.
+
+Step 4. The `sortedList` which encapsulates the `filteredList` will then be sorted based on the `sortBy` `Comparator` provided to show the nearest `Restaurants` with zero review.
 
 The following sequence diagram summarizes what happens when the user executes a listUnvisited Command.
 
 image::ListUnvisitedSequenceDiagram.png[width="800"]
-// tag::undoredo[]
+
+==== Design Considerations
+
+===== Aspect: How is location data accessed for each postal code?
+
+* **Alternative 1 (current choice):** Preload the data from a json file
+** Pros: Internet Service is not required.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Making a API call to an external library e.g.Google API
+** Pros: Will use less memory and will always be updated and accurate.
+** Cons: Internet Service is required for the usage of the feature.
+
+===== Aspect: Construction of comparator to compare Restaurants
+
+* **Alternative 1 (current choice):** Comparator constructor is done in the `listUnvisitedCommand`.
+** Pros: Easy to implement.
+** Cons: Increased coupling between `Command` and `Model`.
+* **Alternative 2:** Passing the user entered postal code into the `ModelManager`.
+** Pros: Coupling is reduced between `Command` and `Model`.
+** Cons: Violates Single Responsibility Principle and Separation of Concerns as `ModelManager` needs to handle the logic component of the command.
+// end::listUnvisitedDG[]
 === Undo/Redo feature
 ==== Current Implementation
 
@@ -469,7 +505,7 @@ Given the stable implementation of the current system of parsing commands, any n
 
 Website can be displayed on the `BrowserPanel` with `visitWeb` command.
 
-==== current implementation
+==== Current implementation
 
 * Restaurants has a field `Weblink` which contains the URL of the restaurant website.
 * Weblink have to be valid https or http link before browser can display the website.
@@ -1099,6 +1135,27 @@ Use case ends
 ** 2a1. FoodDiary tells FoodLover that there is no website for this restaurant
 +
 Use case ends.
+
+// tag::useCaseDG[]
+[discrete]
+=== Use case: Getting unvisited restaurant recommendations
+
+*MSS*
+
+1. FoodLover enters command and his current postal code
+2. FoodDiary displays a list of restaurants ranked based on his proximity to the provided postal code.
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 2a. Postal code entered is not valid.
+[none]
+** 2a1. FoodDiary displays all the unreviewed restaurants.
++
+Use case ends.
+// end::useCaseDG[]
 
 [appendix]
 == Non Functional Requirements

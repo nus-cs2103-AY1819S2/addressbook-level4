@@ -45,6 +45,7 @@ Responsibilities:
 * Sort
 * Commands
 * Documentation
+* UI
 
 '''
 

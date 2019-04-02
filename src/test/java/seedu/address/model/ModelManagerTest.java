@@ -241,36 +241,6 @@ public class ModelManagerTest {
         assertTrue(modelManager.hasCard(SUBTRACTION, activeDeck));
     }
 
-    //TODO delete functionality for deck
-    //    @Test
-    //    public void deleteDeck_deckIsSelectedAndFirstDeckInFilteredDeckList_selectionCleared() {
-    //        modelManager.addDeck(DECK_A);
-    //        modelManager.setSelectedItem(DECK_A);
-    //        modelManager.deleteDeck(DECK_A);
-    //        assertEquals(null, modelManager.getSelectedItem());
-    //    }
-
-    //TODO add delete deck functionality
-    //    @Test
-    //    public void deleteDeck_deckIsSelectedAndSecondDeckInFilteredDeckList_firstDeckSelected() {
-    //        modelManager.addDeck(DECK_A);
-    //        modelManager.addDeck(DECK_B);
-    //        assertEquals(Arrays.asList(DECK_A, DECK_B), modelManager.getFilteredList());
-    //        modelManager.setSelectedItem(DECK_B);
-    //        modelManager.deleteDeck(DECK_B);
-    //        assertEquals(DECK_A, modelManager.getSelectedItem());
-    //    }
-
-    //TODO add setDeck
-    //    @Test
-    //    public void setDeck_deckIsSelected_selectedDeckUpdated() {
-    //        modelManager.addDeck(DECK_A);
-    //        modelManager.setSelectedItem(DECK_A);
-    //        Deck updatedAddition = new DeckBuilder(DECK_A).build();
-    //        modelManager.setDeck(DECK_A, updatedAddition);
-    //        assertEquals(updatedAddition, modelManager.getSelectedItem());
-    //    }
-
     @Test
     public void getFilteredList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);

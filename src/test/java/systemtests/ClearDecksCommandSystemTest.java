@@ -10,35 +10,24 @@ public class ClearDecksCommandSystemTest extends TopDeckSystemTest {
     //    public void clear() {
     //        final Model defaultModel = getModel();
     //
-    //        /* Case: clear non-empty address book, command with leading spaces and trailing alphanumeric
-    //        characters and
-    //         * spaces -> cleared
-    //         */
-    //        assertCommandSuccess("   " + ClearCommand.COMMAND_WORD + " ab12   ");
-    //        assertSelectedDeckUnchanged();
+    //        /* Case: clear non-empty TopDeck -> cleared */
+    //        assertCommandSuccess(ClearCommand.COMMAND_WORD);
     //
     //        /* Case: undo clearing address book -> original address book restored */
     //        String command = UndoCommand.COMMAND_WORD;
-    //        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+    //        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS + ClearCommand.COMMAND_WORD;
     //        assertCommandSuccess(command, expectedResultMessage, defaultModel);
     //        assertSelectedDeckUnchanged();
     //
     //        /* Case: redo clearing address book -> cleared */
     //        command = RedoCommand.COMMAND_WORD;
-    //        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
+    //        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS + ClearCommand.COMMAND_WORD;
     //        assertCommandSuccess(command, expectedResultMessage, new ModelManager());
     //        assertSelectedDeckUnchanged();
     //
-    //        /* Case: selects first card in card list and clears address book -> cleared and no card
-    //        selected */
+    //        /* Case: filters the deck list before clearing -> entire address book cleared */
     //        executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
-    //        selectDeck(Index.fromOneBased(1));
-    //        assertCommandSuccess(ClearCommand.COMMAND_WORD);
-    //        assertSelectedDeckDeselected();
-    //
-    //        /* Case: filters the card list before clearing -> entire address book cleared */
-    //        executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
-    //        showDecksWithQuestion(KEYWORD_MATCHING_HTTP);
+    //        showDecksWithName(KEYWORD_MATCHING_JOHN);
     //        assertCommandSuccess(ClearCommand.COMMAND_WORD);
     //        assertSelectedDeckUnchanged();
     //
@@ -84,7 +73,7 @@ public class ClearDecksCommandSystemTest extends TopDeckSystemTest {
      * box displays {@code expectedResultMessage} and the model related components equal to the current model.
      * These verifications are done by
      * {@code TopDeckSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * Also verifies that the browser url, selected card and status bar remain unchanged, and the command
+     * Also verifies that the browser url, selected deck and status bar remain unchanged, and the command
      * box has the
      * error style.
      *

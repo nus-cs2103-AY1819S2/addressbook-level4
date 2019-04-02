@@ -17,7 +17,7 @@ import seedu.address.model.tag.Tag;
 public class CardUtil {
 
     /**
-     * Returns an add command string for adding the {@code card}.
+     * Returns an addCard command string for adding the {@code card}.
      *
      * @param card
      */

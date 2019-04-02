@@ -25,6 +25,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.record.Procedure;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.LinkedPatient;
 import seedu.address.model.task.Priority;
@@ -283,6 +284,19 @@ public class ParserUtil {
             throw new ParseException(Priority.MESSAGE_CONSTRAINTS);
         }
         return Priority.returnPriority(trimmedPriority);
+    }
+
+    /**
+     * Parses a {@code String procedure} into an {@code Procedure}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Procedure parseProcedure(String procedure) throws ParseException {
+        requireNonNull(procedure);
+        String trimmedProcedure = procedure.trim();
+        if (!Procedure.isValidProcedure(trimmedProcedure)) {
+            throw new ParseException(Procedure.MESSAGE_CONSTRAINTS);
+        }
+        return new Procedure(trimmedProcedure);
     }
 
     /**

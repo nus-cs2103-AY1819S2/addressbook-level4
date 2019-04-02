@@ -7,7 +7,7 @@ import seedu.address.logic.commands.TaskSortCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parser to create a task sort command
+ * Parser to create a task sort command.
  */
 public class TaskSortCommandParser implements Parser<TaskSortCommand> {
 

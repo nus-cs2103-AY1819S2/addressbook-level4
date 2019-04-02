@@ -89,7 +89,7 @@ public class SortCommandTest {
         SortWord type = new SortWord("education");
         SortCommand command = new SortCommand(type);
         expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(BENSON, ALICE, GEORGE, CARL, DANIEL, FIONA, ELLE);
+        correctPersonOrder = Arrays.asList(FIONA, ELLE, BENSON, CARL, ALICE, DANIEL, GEORGE);
         for (Person newPerson : correctPersonOrder) {
             expectedModel.addPersonWithFilter(newPerson);
         }
@@ -103,7 +103,7 @@ public class SortCommandTest {
         SortWord type = new SortWord("reverse education");
         SortCommand command = new SortCommand(type);
         expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(ELLE, FIONA, DANIEL, CARL, GEORGE, ALICE, BENSON);
+        correctPersonOrder = Arrays.asList(GEORGE, DANIEL, ALICE, CARL, BENSON, ELLE, FIONA);
         for (Person newPerson : correctPersonOrder) {
             expectedModel.addPersonWithFilter(newPerson);
         }
@@ -117,7 +117,7 @@ public class SortCommandTest {
         SortWord type = new SortWord("gpa");
         SortCommand command = new SortCommand(type);
         expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(GEORGE, CARL, BENSON, FIONA, DANIEL, ELLE, ALICE);
+        correctPersonOrder = Arrays.asList(GEORGE, ELLE, DANIEL, BENSON, CARL, ALICE, FIONA);
         for (Person newPerson : correctPersonOrder) {
             expectedModel.addPersonWithFilter(newPerson);
         }
@@ -131,7 +131,7 @@ public class SortCommandTest {
         SortWord type = new SortWord("reverse gpa");
         SortCommand command = new SortCommand(type);
         expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(ALICE, ELLE, DANIEL, FIONA, BENSON, CARL, GEORGE);
+        correctPersonOrder = Arrays.asList(FIONA, ALICE, CARL, BENSON, DANIEL, ELLE, GEORGE);
         for (Person newPerson : correctPersonOrder) {
             expectedModel.addPersonWithFilter(newPerson);
         }

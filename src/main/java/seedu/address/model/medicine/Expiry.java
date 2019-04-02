@@ -50,6 +50,10 @@ public class Expiry implements Comparable<Expiry> {
         return this.expiryDate;
     }
 
+    public boolean isExpired() {
+        return this.expiryDate.compareTo(LocalDate.now()) < 0;
+    }
+
     @Override
     public int compareTo(Expiry o) {
         LocalDate date1 = this.expiryDate;

@@ -29,7 +29,6 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
                 PREFIX_EXPIRY);
 
         Index index;
-
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
@@ -38,10 +37,9 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
 
         UpdateBatchDescriptor updateBatchDescriptor = new UpdateBatchDescriptor();
 
-        if (!argMultimap.getValue(PREFIX_BATCHNUMBER).isPresent()
-                || !(argMultimap.getValue(PREFIX_EXPIRY).isPresent()
-                || argMultimap.getValue(PREFIX_QUANTITY).isPresent())) {
-            throw new ParseException(UpdateCommand.MESSAGE_MISSING_PARAMETER);
+        if (argMultimap.getValue(PREFIX_BATCHNUMBER).isPresent()) {
+            updateBatchDescriptor.setBatchNumber(ParserUtil.parseBatchNumber(argMultimap.getValue(PREFIX_BATCHNUMBER)
+                .get()));
         }
 
         if (argMultimap.getValue(PREFIX_QUANTITY).isPresent()) {
@@ -52,8 +50,9 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
             updateBatchDescriptor.setExpiry(ParserUtil.parseExpiry(argMultimap.getValue(PREFIX_EXPIRY).get()));
         }
 
-        updateBatchDescriptor.setBatchNumber(ParserUtil.parseBatchNumber(argMultimap.getValue(PREFIX_BATCHNUMBER)
-                .get()));
+        if (updateBatchDescriptor.hasMissingParameters()) {
+            throw new ParseException(UpdateCommand.MESSAGE_MISSING_PARAMETER);
+        }
 
         return new UpdateCommand(index, updateBatchDescriptor);
     }

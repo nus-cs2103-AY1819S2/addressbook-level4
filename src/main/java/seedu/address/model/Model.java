@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.InformationPanelSettings;
 import seedu.address.commons.core.WarningPanelSettings;
 import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.commons.util.warning.WarningPanelPredicateType;
@@ -56,6 +57,16 @@ public interface Model {
      * Sets the user prefs' GUI settings.
      */
     void setWarningPanelSettings(WarningPanelSettings warningPanelSettings);
+
+    /**
+     * Returns the current InformationPanel settings.
+     */
+    ReadOnlyProperty<InformationPanelSettings> getInformationPanelSettings();
+
+    /**
+     * Sets the InformationPanel settings.
+     */
+    void setInformationPanelSettings(InformationPanelSettings informationPanelSettings);
 
     /**
      * Returns the user prefs' inventory file path.

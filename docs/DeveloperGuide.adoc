@@ -148,7 +148,7 @@ image::LogicClassDiagram.png[width="800"]
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `padd ...` (values are not added for brevity).
 
-.Component interactions for `padd ...` command
+.Component interactions for `addpat ...` command
 image::SDforAddPatient.png[width="800"]
 
 The sections below give more details of each component.
@@ -197,7 +197,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("statistics finances 0119")` API call.
 
-.Interactions Inside the Logic Component for the `statistics finances 0119` Command
+.Interactions Inside the Logic Component for the `statistics 0119` Command
 image::StatisticsCommandSdForLogic.png[width="800"]
 
 [[Design-Model]]
@@ -232,7 +232,8 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save all the QuickDocs data in json format into a single file and read it back.
+* can save all the QuickDocs data in json format into a single json file and read it back
+** this json file contains 6 different lists, with each list consisting of only one of the six main `JsonAdapted` Class objects.
 
 [[Design-Commons]]
 === Common classes
@@ -452,51 +453,70 @@ Violates Single Responsibility Principle and Separation of Concerns as `Appointm
 
 === Record & Statistics feature ===
 ==== Current implementation ====
+The statistics command is started through the command `stats START_MMYY [END_MMYY]`.
+The two MMYY corresponds to a range of dates. The end range is optional,
+and is defaulted to the start range by the StatisticsCommandParser if it does not exist. +
+[NOTE]
+MMYY is a string, e.g. "0119", which stands for January 2019. It is parsed by StatisticsCommandParser into a YearMonth
+object.
+
+Currently, Record objects are being created when a command that processes useful information such as finances and
+consultations are executed. For example, a PurchaseMedicine command would create a PurchaseMedicineRecord object that
+stores information such as the name of the medicine, quantity of the medicine, and cost of the medicine. The command
+will then call ModelManager's addRecord(record) function, which will then result in ModelManager calling
+StatisticsManager's addRecord(record) function to add the record's statistics to the respective
+MonthStatistics.
+
+StatisticsManager holds an ArrayList of MonthStatistics. When the StatisticsCommand queries for the statistics for a range
+of months, Logic will call the ModelManager's getStatistics(FROM_YEARMONTH, TO_YEARMONTH), which then calls
+StatisticsManager's getStatistics() with the same arguments. StatisticsManager will convert the YearMonth objects to
+their respective indexes with the StatisticsManager's getYearMonthIndex(YearMonth) function.
+
+StatisticsManager will then obtain the statistics for each of the queried months, and merge them together into a new
+Statistics object. StatisticsManager will then return the Statistics back to the ModelManager, which would then return
+it to the StatisticsCommand, which would then return the CommandResult with the statistics converted to a String to the
+LogicManager.
+
+// TODO add sequence diagram for StatisticsCommand
+
 The Record class is an abstract class that is extended by more specialised classes such as PurchaseMedicineRecord and
 ConsultationRecord. All Record and Record subclasses should be able to be converted to a Statistics object.
-The MonthRecord class is a class that holds all the Records created for a specific month. There is a Statistics object
-in a MonthRecord object that holds the statistics for the month. This Statistics object is overridden whenever there is
-a new record added to the MonthRecord.
+
+The MonthStatistics class contains a YearMonth object and a Statistics object. The Statistics object of a
+MonthStatistics object is updated whenever there is a new Record object added. This Statistics object is reassigned to
+the combined Statistics of the record and the original statistics.
 // TODO add UML diagram here
 
 The Statistics class is a class that holds all the information useful to the doctor. The Statistics objects aren't
 modifiable. In order to add 2 statistics object together, a new Statistics object will be created by merge().
-Current fields are:  +
+Current fields of a Statistics object are:  +
 
 * Number of consultations
 * Revenue
 * Expenditure
 * Profit
-* Symptom (To be added in v1.3)
-* Medicine (To be added in v1.3)
-
-Currently, Record objects are being created when a command that processes useful information such as finances and
-consultations are executed. For example, a PurchaseMedicine command would create a PurchaseMedicineRecord object that
-stores information such as the name of the medicine, quantity of the medicine, and cost of the medicine. The command
-will then call the ModelManager's addRecord(record) function to store the record. This will then result in the
-ModelManager calling the RecordManager's addRecord(record) function.
-
-RecordManager holds an ArrayList of MonthRecord. When the StatisticsCommand queuries for the statistics of for a range
-of months, Logic will call the ModelManager's getStatistics(FROM_YEARMONTH, TO_YEARMONTH), which then calls
-RecordManager's getStatistics() with the same arguments. RecordManager will convert the YearMonth objects to their
-respective indexes with the RecordManager's getYearMonthIndex(YearMonth) function.
-
-RecordManager will then obtain the statistics for each of the queried months, and merge them together into a new
-Statistics object. RecordManager will then return the Statistics back to
-the ModelManager, which would then return it to the StatisticsCommand, which would then return the CommandResult with
-the statistics converted to a String to the LogicManager.
-
-// TODO add sequence diagram for StatisticsCommand
-
-[NOTE]
-MMYY is a string, e.g. "0119", which stands for January 2019. It is parsed by StatisticsCommandParser into a YearMonth
-object.
-
-The statistics command is started through the command `stats START_MMYY [END_MMYY]`.
-The two MMYY corresponds to a range of dates. The end range is optional,
-and is defaulted to the start range by the StatisticsCommandParser if it does not exist. +
+* Symptoms
+* Medicines
 
 ==== Design considerations ====
+////
+==== Alternatives Considered
+[cols="1,2a,1, 1", options="header"]
+|===
+|Alternative |Description |Pros | Cons
+// row 1
+|*Storage of Records*
+|Individual records are stored within the MonthStatistics, along with the latest Statistics. When the Statistics for a
+specific month is queried, update the latest statistics and return it.
+|x
+|x
+// row 2
+|*y*
+|y
+|y
+|y
+|===
+////
 * The records are stored in months as the design only allows the doctor to query with a minimum timespan of 1 month. Hence,
 it was decided to store the records in months for ease of access and calculation. +
 
@@ -510,7 +530,7 @@ MonthRecord object of a specific MMYY by indexing.
 
 * The Statistics class was decided to be immutable as it would not make sense for past records to change.
 
-==== Alternatives considered ====
+==== Alternatives Considered ====
 * RecordManager could store the MonthRecord objects in a LinkedList instead. However, that would slow down the access time.
 
 * The different Record classes could be stored in separate MonthRecords. This would reduce the amount of calculations
@@ -741,7 +761,7 @@ We have two types of tests:
 .. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.address.model.PersonTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
 e.g. `seedu.address.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
@@ -779,14 +799,6 @@ Here are the steps to create a new release.
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
-
-=== Managing Dependencies
-
-A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
-
-[loweralpha]
-. Include those libraries in the repo (this bloats the repo size)
-. Require developers to download those libraries manually (this creates extra work for developers)
 
 [appendix]
 == Product Scope
@@ -989,9 +1001,9 @@ Use case resumes from step 2.
 +
 Use case resumes from step 4.
 [none]
-* 5a. Quickdocs displays an error message, showing clashes in timing with another appointment slot
+* 5b. Quickdocs displays an error message, showing clashes in timing with another appointment slot
 +
-Use case ends here.
+Use case resumes from step 4.
 [none]
 * 5b. Patient wants to change appointment slot timing
 [none]
@@ -1145,9 +1157,9 @@ Use case resumes at step 9.
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 patients without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 patients and their consultation records without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  Response time for commands should be below 3 seconds so that consultations can be expedited
+.  Response time for commands should be below 3 seconds so that clinical operations can be expedited
 .  Commands should be easy to pick up for novice users, and convenient for expert users.
 .  Data stored can be easily transferred to another device installed with Quickdocs for operation continuation.
 .  Data stored, especially patient records and particulars, need to be encrypted to prevent unauthorised access and misuse.
@@ -1169,40 +1181,93 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== Adding patient records
 
-. Initial launch
+. Add a new patient record
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Prerequisites: patient to be added must not have the same NRIC as an existing patient's NRIC, the
+`listpat` command can be used to check if there are conflicting NRIC
+.. Test case 1: `addpat n/Mohd Hamiru Bin Hamza r/S9876543C a/1 Tampines Street e/mhbh@gmail.com c/92344321 g/M d/1998-07-06` +
+   Expected: Patient with name "Mohd Hamiru Bin Hamza" with NRIC S9876542C added
+.. Test case 2: `add n/Nurul Huda Binte Hamza r/S9876543C a/3 Tampines Street e/nhbh@gmail.com c/93124432 g/F d/1998-11-02 ` +
+   Expected: Patient will not be added, an error message will be shown to indicate that a patient with the same NRIC existed in the records
+.. Other incorrect `addpat` commands to try: `addpat` with missing parameters such as gender and date of birth, `addpat` with name containing of symbols,
+`addpat` with invalid NRIC values (8 numbers or invalid last letters).
 
-. Saving window preferences
+=== Editing patient records
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+. Edit the fields of an existing patient record
 
-_{ more test cases ... }_
+.. Prerequisites: use the `listpat` command to check for existing patients to be edited, or simply add one using `addpat`
+if there isn't any. You need at least 2 patients to perform this manual test.
+.. Test case1: `editPat EXISTING_NRIC n/Peter Tan g/M d/1990-09-01` +
+   Expected: selected patient will have his or her name changed to "Peter Tan", gender changed to "M" and date of birth changed
+   to 1990-09-01.
+.. Test case2: `editPat EXISTING_NRIC n/Perry Tan r/ANOTHER_EXISTING_NRIC` +
+   Expected: An error message will be shown to indicate that the edit to the current patient will cause it to have a conflicting NRIC
+   with another patient's NRIC
+.. Test case 3: `editPat EXISTING_NRIC` +
+   Expected: An error message will be shown to indicate that there is nothing to edit for the current selected patient
+.. Other incorrect `editpat` commands to try: name with numbers, `editpat` with a non existent NRIC, `editPat` without an NRIC (without prefix)
 
-=== Deleting a person
+=== Starting a consultation
 
-. Deleting a person while all persons are listed
+. Start a consultation for a registered patient
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. Prerequisites: Existing patients must already be stored in QuickDocs, use `listpat` to check for both existing and non existing
+   patients' NRIC
+.. Test case 1: `consult r/EXISTING_NRIC` +
+   Expected: A message to indicate the start of the consultation session will be shown at the main display. A label will be displayed
+   at the bottom right, displaying the message along with the patient's NRIC as well.
+.. Test case 2: After test case 1, enter `consult r/ANOTHER_EXISTING_NRIC` +
+   Expected: An error message will be shown to alert you that there is already an ongoing consultation session.
+.. Test case 3: exit QuickDocs, and then enter `consult r/NON_EXISTING_NRIC` +
+   Expected: since there are no patients with the NRIC, an error message will be shown to indicate that the consultation session cannot start
+   for a non-existing patient
 
-_{ more test cases ... }_
+=== Ending a consultation
 
-=== Saving data
+. End a consultation session after providing the prescription and diagnosis. A consultation session can only end after
+  both the diagnosis and prescription have been recorded.
 
-. Dealing with missing/corrupted data files
+.. Prerequisites: consultation session must already been started for a patient, medicine to be assigned for prescription is already
+   stored in QuickDocs
+.. Test case 1: after starting a consultation, `endconsult` immediately +
+   Expected: Error message will be shown to alert you that a diagnosis have not been provided.
+.. Test case 2: add the diagnosis and then `endconsult` after test case 1 +
+   Expected: Error message will be shown to alert you that a prescription have not been given to end the consultation session.
+.. Test case 3: add the prescription and then `endconsult` after test case 2 +
+   Expected: A message indicating that the current consultation session have ended. The ongoing session label at the bottom right
+   of QuickDocs is also removed.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+=== Adding and removing an appointment
 
-_{ more test cases ... }_
+. Add an appointment for a registered patient
+
+.. Prerequisites:
+... Appointment you are adding must not have conflicting timing with other existing appointments.
+    You can use the `freeapp` command to find an available time slot for any date.
+... The patient allocated to the appointment must be registered in QuickDocs. You can use the `listpat` command to
+    search for existing patients to be allocated the new appointment.
+.. Test case 1: `addapp r/EXISTING_NRIC d/2019-10-23 s/16:00 e/17:00 c/Weekly checkup` +
+   Expected: A message to indicate that the appointment was successfully added will be shown on the main display,
+   together with the appointment details. A reminder for this appointment will also be created and you can see it in the reminder
+   sidebar on the right, if the date of the appointment is in the current week.
+.. Test case 2: After test case 1, enter `addapp r/EXISTING_NRIC d/2019-10-23 s/16:30 e/17:30 c/Weekly checkup` +
+   Expected: since this new appointment a clash in timing with the appointment added in test case 1, an error message will be shown
+   to indicate this conflict and the appointment will not be added.
+.. Test case 3: `addapp r/EXISTING_NRIC d/23-10-2019 s/16:00 e/17:00 c/Weekly checkup` +
+   Expected: Error message will be shown to alert you that the date is in the wrong format, as the correct format is YYYY-MM-DD.
+.. Other incorrect `addapp` commands to try: date without `-` between month and day, invalid start and end time (start time must be before
+   end time; appointment must be within office hours of 9am to 6pm), any missing prefixes, any missing parameters.
+
+. Delete an existing appointment
+.. Prerequisites: appointment to be deleted must already be added in QuickDocs. You can use `listapp` command to list the existing appointments
+   for a given date. We will assume that the appointment in Test case 1 for adding an appointment has been added.
+.. Test case 1: `deleteapp d/2019-10-23 s/16:00` +
+   Expected: A message to indicate that the appointment was successfully deleted will be shown on the main display.
+   The reminder created for this appointment will also be deleted. If this reminder was displayed on the reminder sidebar, it will be removed.
+.. Test case 2: `deleteapp d/2030-10-23 s/16:00` +
+   Expected: Assuming that there is no appointment on the given date and time, you will be informed through the error message shown.
+.. Other incorrect `deleteapp` commands to try: date without `-` between month and day, invalid start time (start time must be
+   within office hours of 9am to 6pm), any missing prefixes, any missing parameters.

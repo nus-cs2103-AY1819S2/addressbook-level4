@@ -44,7 +44,7 @@ public class AddAppCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Appointment added:\n%1$s\n";
     public static final String MESSAGE_CONFLICTING_APP = "There are clashes in the time slot chosen."
-            + " Please use 'appfree' to find free slots.";
+            + " Please use 'freeapp' to find free slots.";
     public static final String MESSAGE_PATIENT_NOT_FOUND = "No patient with the given nric found";
     public static final String MESSAGE_START_EQUALS_END = "Appointment start time and end time should not be the same.";
     public static final String MESSAGE_START_AFTER_END = "Appointment start time should not be after end time.";

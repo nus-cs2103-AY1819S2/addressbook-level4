@@ -1,0 +1,64 @@
+= Ong Ai Hui - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: MediTabs
+
+---
+
+== Overview
+
+MediTabs is a desktop inventory management application used by pharmacists to keep track of medicines in a clinic. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: Added a warning panel and its related commands
+** What it does: Gives users an overview of what medicines are expiring, expired and low in stock. Thresholds used for the determination of what medicines are considered expiring and what are low in stock can be set by the user via the command line.
+** Justification: Simplifies the process of sieving through an inventory to take stock of expiring or expired medicines that need to be disposed of, and medicines that require replenishing. The flexible threholds add customisability to the feature.
+** Highlights: Offers users a way to get the information they need quickly, while also providing customisability by allowing users to set their own thresholds. To achieve this, an additional column had to be rendered in the application's user interface to accomodate the warning panel. Furthermore, to add on to the user experience, the thresholds set by the user in previous session are saved and reused for later sessions.
+
+* *Minor enhancement*: -
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Updated the GUI colour scheme (Pull request https://github.com/CS2103-AY1819S2-T12-3/main/pull/134[#134])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com/CS2103-AY1819S2-T12-3/main/pull/139[#139], https://github.com[#38])
+** Documentation:
+*** Restructured existing contents of the User Guide: https://github.com/CS2103-AY1819S2-T12-3/main/pull/151[#151]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=featureintro]
+
+include::../UserGuide.adoc[tag=warningpanelfeature]
+
+include::../UserGuide.adoc[tag=warningpanelcommand]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=uicomponent]
+
+include::../DeveloperGuide.adoc[tag=warningpanel]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+include::../DeveloperGuide.adoc[tag=userstories]
+
+include::../DeveloperGuide.adoc[tag=usecase]
+
+include::../DeveloperGuide.adoc[tag=nonfunctionalreq]

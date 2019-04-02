@@ -21,7 +21,7 @@ Responsibilities: Storage
 
 === Tan Kian Wei, Jason
 image::jtankw3.png[width="150", align="left"]
-{empty}[https://github.com/jtankw3[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/jtankw3[github]] [<<jtankw3#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Model
@@ -30,7 +30,7 @@ Responsibilities: Model
 
 === Ong Ai Hui
 image::flxffy.png[width="150", align="left"]
-{empty}[https://github.com/flxffy[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/flxffy[github]] [<<flxffy#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI
@@ -39,7 +39,7 @@ Responsibilities: UI
 
 === Melvin Vito
 image::melpulomas.png[width="150", align="left"]
-{empty}[https://github.com/melpulomas[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/melpulomas[github]] [<<melpulomas#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Logic

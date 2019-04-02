@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.hms.commons.core.GuiSettings;
 import seedu.hms.commons.core.LogsCenter;
+import seedu.hms.logic.commands.BillCommand;
 import seedu.hms.logic.commands.BookingCommand;
 import seedu.hms.logic.commands.Command;
 import seedu.hms.logic.commands.CommandResult;
@@ -80,10 +81,17 @@ public class LogicManager implements Logic {
                 commandResult = command.execute(customerModel, history);
             } else if (command instanceof ReservationCommand) {
                 commandResult = command.execute(reservationModel, history);
+                setSelectedPanelOneTabIndex(1);
+                setSelectedPanelTwoTabIndex(1);
             } else if (command instanceof BookingCommand) {
                 commandResult = command.execute(bookingModel, history);
-            } else {
+                setSelectedPanelOneTabIndex(0);
+                setSelectedPanelTwoTabIndex(0);
+            } else if (command instanceof BillCommand) {
                 commandResult = command.execute(billModel, history);
+                setSelectedPanelOneTabIndex(2);
+            } else {
+                commandResult = command.execute(billModel, history); //maybe it's better to input an empty model?
             }
 
         } finally {

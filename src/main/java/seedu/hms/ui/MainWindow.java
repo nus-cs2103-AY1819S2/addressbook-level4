@@ -134,7 +134,7 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedReservation);
 
         bookingAndReservationPanel = new BookingAndReservationPanel(bookingListPanel, reservationListPanel,
-                LogicManager.selectedPanelOneTabIndexProperty());
+                LogicManager.selectedPanelOneTabIndexProperty(), LogicManager::setSelectedPanelOneTabIndex);
         bookingAndReservationPanelPlaceholder.getChildren().add(bookingAndReservationPanel.getRoot());
 
         serviceTypeListPanel = new ServiceTypeListPanel(logic.getServiceTypeList(), logic.selectedServiceTypeProperty(),
@@ -144,7 +144,7 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedRoomType);
 
         serviceTypeAndRoomTypePanel = new ServiceTypeAndRoomTypePanel(serviceTypeListPanel, roomTypeListPanel,
-                LogicManager.selectedPanelTwoTabIndexProperty());
+                LogicManager.selectedPanelTwoTabIndexProperty(), LogicManager::setSelectedPanelTwoTabIndex);
         serviceTypeAndRoomTypePlaceholder.getChildren().add(serviceTypeAndRoomTypePanel.getRoot());
 
         resultDisplay = new ResultDisplay();

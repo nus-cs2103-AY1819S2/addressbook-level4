@@ -35,7 +35,13 @@ public class SwitchTabCommandParser implements Parser<SwitchTabCommand> {
             if (panelNumber < 1 || panelNumber > 2) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchTabCommand.MESSAGE_USAGE));
             }
-            return new SwitchTabCommand(panelNumber, tabNumber - 1); //transfer tp 0 based
+            if (panelNumber == 1 && (panelNumber < 1 || panelNumber > 3)) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchTabCommand.MESSAGE_USAGE));
+            }
+            if (panelNumber == 1 && (panelNumber < 1 || panelNumber > 2)) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchTabCommand.MESSAGE_USAGE));
+            }
+            return new SwitchTabCommand(panelNumber, tabNumber - 1); //transfer to 0 based
         } catch (Exception e) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchTabCommand.MESSAGE_USAGE));

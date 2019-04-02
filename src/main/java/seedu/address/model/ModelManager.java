@@ -311,8 +311,7 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedTopDeck.equals(other.versionedTopDeck) && userPrefs.equals(other.userPrefs)
-                && filteredItems.equals(other.filteredItems) && Objects
-                .equals(selectedItem.get(), other.selectedItem.get());
+                && viewState.equals(other.viewState);
     }
 
 }

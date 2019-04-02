@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.updateCardsView;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DECKS;
 import static seedu.address.testutil.TypicalCards.ADDITION;
 import static seedu.address.testutil.TypicalCards.SUBTRACTION;
 import static seedu.address.testutil.TypicalDecks.DECK_A;
@@ -12,7 +11,6 @@ import static seedu.address.testutil.TypicalDecks.DECK_B;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.Rule;
@@ -22,7 +20,6 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CardsView;
 import seedu.address.model.deck.Deck;
-import seedu.address.model.deck.DeckNameContainsKeywordsPredicate;
 import seedu.address.model.deck.exceptions.CardNotFoundException;
 import seedu.address.testutil.TopDeckBuilder;
 
@@ -301,13 +298,12 @@ public class ModelManagerTest {
         // different topDeck -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentTopDeck, userPrefs)));
 
-        // different filteredList -> returns false
-        String keyword = DECK_A.getName().toString();
-        modelManager.updateFilteredList(new DeckNameContainsKeywordsPredicate((Arrays.asList(keyword))));
+        // different viewState -> returns false
+        modelManager.changeDeck(DECK_A);
         assertFalse(modelManager.equals(new ModelManager(topDeck, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredList(PREDICATE_SHOW_ALL_DECKS);
+        modelManager.goToDecksView();
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

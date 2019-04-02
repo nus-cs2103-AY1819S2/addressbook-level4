@@ -3,6 +3,7 @@ package seedu.address.logic;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.Objects;
 import java.util.function.Predicate;
 
 import javafx.beans.property.SimpleObjectProperty;
@@ -121,6 +122,7 @@ public class DecksView implements ListViewState<Deck> {
 
         // state check
         DecksView other = (DecksView) obj;
-        return filteredDecks.equals(other.filteredDecks) && selectedDeck.equals(other.selectedDeck);
+        return filteredDecks.equals(other.filteredDecks) &&
+                Objects.equals(selectedDeck.getValue(), other.selectedDeck.getValue());
     }
 }

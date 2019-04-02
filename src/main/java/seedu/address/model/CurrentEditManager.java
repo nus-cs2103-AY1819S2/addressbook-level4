@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
 
+import com.google.common.io.Files;
 import com.sksamuel.scrimage.nio.JpegWriter;
 
 import seedu.address.Notifier;
@@ -21,11 +22,12 @@ import seedu.address.model.image.Image;
  */
 public class CurrentEditManager implements CurrentEdit {
 
-    private final String tempFilePath = "src/main/resources/temp/";
-    private final String tempFileName = "src/main/resources/temp/temp_img.png";
-    private final String originalFileName = "src/main/resources/temp/ori_img.png";
+    private final String editName = "temp_img.png";
     private final String originalName = "ori_img.png";
-    private final File directoryTo = new File(tempFilePath);
+    private final String editFilePath;
+    private final String editFileName;
+    private final String originalFileName;
+    private final File directoryTo;
 
     private Image originalImage;
     private Image tempImage;
@@ -35,7 +37,10 @@ public class CurrentEditManager implements CurrentEdit {
 
     /* @@author thamsimun */
     public CurrentEditManager() {
-        tempExist();
+        this.editFilePath = generateEdit();
+        this.editFileName = editFilePath + editName;
+        this.originalFileName = editFileName + originalName;
+        this.directoryTo = new File(editFilePath);
         this.originalImage = null;
         this.tempImage = null;
         this.originalImageName = null;
@@ -52,11 +57,11 @@ public class CurrentEditManager implements CurrentEdit {
     public void openImage(Image image) {
         this.originalImageName = image.getName().getFullName();
         try {
-            FileUtils.cleanDirectory(new File(tempFilePath));
+            FileUtils.cleanDirectory(new File(editFilePath));
             File file = new File(image.getUrl());
             FileUtils.copyFileToDirectory(file, directoryTo);
-            File currentFile = new File(tempFilePath + this.originalImageName);
-            File tempFile = new File(tempFileName);
+            File currentFile = new File(editFilePath + this.originalImageName);
+            File tempFile = new File(editFileName);
             FileUtils.moveFile(currentFile, tempFile);
             FileUtils.copyFileToDirectory(file, directoryTo);
             File originalFile = new File(originalFileName);
@@ -73,7 +78,7 @@ public class CurrentEditManager implements CurrentEdit {
      * Saves a copy of {@code image} to temp folder as temp_img.png and instantiate it as tempImage .
      */
     public void saveAsTemp(Image image) {
-        saveIntoTempFolder(tempFileName, image);
+        saveIntoTempFolder(editFileName, image);
         setTempImage();
     }
 
@@ -93,7 +98,7 @@ public class CurrentEditManager implements CurrentEdit {
     public void saveIntoTempFolder(String filename, Image image) {
         try {
             File outputFile = new File(filename);
-            File directory = new File(tempFilePath);
+            File directory = new File(editFilePath);
             ImageIO.write(image.getBufferedImage(), image.getFileType(), outputFile);
             FileUtils.copyFileToDirectory(outputFile, directory, false);
             outputFile.delete();
@@ -110,7 +115,7 @@ public class CurrentEditManager implements CurrentEdit {
      * Creates tempImage instance of temp_img.png located in temp folder.
      */
     public void setTempImage() {
-        Image image = new Image(tempFileName);
+        Image image = new Image(editFileName);
         this.tempImage = image;
     }
     /* @@author*/
@@ -124,7 +129,7 @@ public class CurrentEditManager implements CurrentEdit {
         tempList = tempImage.getCommandHistory();
         tempIndex = tempImage.getIndex();
         image.output(tempImage.getUrl(), new JpegWriter(100, true));
-        tempImage = new Image(tempFileName);
+        tempImage = new Image(editFileName);
         tempImage.setIndex(tempIndex);
         tempImage.setHistory(tempList);
     }
@@ -139,12 +144,12 @@ public class CurrentEditManager implements CurrentEdit {
         tempList = tempImage.getCommandHistory();
         tempIndex = tempImage.getIndex();
         try {
-            File outputFile = new File(tempFileName);
+            File outputFile = new File(editFileName);
             ImageIO.write(bufferedimage, tempImage.getFileType(), outputFile);
         } catch (IOException e) {
             System.out.println(e.toString());
         }
-        tempImage = new Image(tempFileName);
+        tempImage = new Image(editFileName);
         tempImage.setHistory(tempList);
         tempImage.setIndex(tempIndex);
     }
@@ -155,7 +160,7 @@ public class CurrentEditManager implements CurrentEdit {
      * Creates originalImage instance of {@code image} located in temp_folder.
      */
     public void setOriginalImage(Image image) {
-        this.originalImage = new Image(tempFileName);
+        this.originalImage = new Image(editFileName);
     }
     /* @@author*/
 
@@ -178,7 +183,7 @@ public class CurrentEditManager implements CurrentEdit {
         //List<Command> tempList = tempImage.getCommandHistory();
         //int index = tempImage.getIndex();
         try {
-            File newTemp = new File(tempFilePath + originalName);
+            File newTemp = new File(editFilePath + originalName);
             File directory = new File(tempImage.getUrl());
             FileUtils.copyFile(newTemp, directory, false);
             BufferedImage tempBuffer = originalImage.getBufferedImage();
@@ -222,7 +227,7 @@ public class CurrentEditManager implements CurrentEdit {
     public void overwriteOriginal(String name) {
         saveIntoTempFolder("ori_img.png", tempImage);
         this.originalImageName = name;
-        this.originalImage = new Image(tempFileName);
+        this.originalImage = new Image(editFileName);
     }
 
     public String getOriginalImageName() {
@@ -243,16 +248,15 @@ public class CurrentEditManager implements CurrentEdit {
      * Helper method to clean up temp folder on application exit.
      */
     public void clearTemp() {
-        File dir = new File(tempFilePath);
+        File dir = new File(editFilePath);
         for (File file : dir.listFiles()) {
             file.delete();
         }
         // Create a placeholder file so git can track the folder.
         try {
-            File placeholder = new File(tempFilePath + "README.adoc");
+            File placeholder = new File(editFilePath + "README.adoc");
             placeholder.getParentFile().mkdir();
             placeholder.createNewFile();
-
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -260,19 +264,25 @@ public class CurrentEditManager implements CurrentEdit {
     }
 
     /**
-     * Checks if an asset folder exists on Album construction.
-     * Creates a new asset folder if one does not exist.
+     * Generates a temp edit folder in the system to store edited images.
+     * Temp edit folder is deleted on termination of the program by means of shutdown hook.
+     *
+     * @return Absolute path to generated temp folder.
      */
-    public void tempExist() {
-        File tempFolder = new File(tempFilePath);
-        if (!tempFolder.exists()) {
-            tempFolder.mkdir();
+    public String generateEdit() {
+        String tempPath = null;
+        try {
+            File editFolder = Files.createTempDir();
+            editFolder.deleteOnExit();
+            tempPath = editFolder.getAbsolutePath() + File.separator;
+        } catch (Exception e) {
+            System.out.println(e);
         }
+        return tempPath;
     }
 
     public boolean tempImageExist() {
         return tempImage == null;
     }
-
     /* @@author*/
 }

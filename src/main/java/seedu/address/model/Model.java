@@ -88,7 +88,7 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
-    void displayTempImage();
+//    void displayTempImage();
 
     /**
      * Returns an unmodifiable view of the filtered person list
@@ -152,20 +152,20 @@ public interface Model {
     /**
      * List all file names in assets folder
      */
-    String[] getFileNames();
+//    String[] getFileNames();
 
 
     /**
      * replaces image in Temp folder with original from Assets
      */
-    void replaceTempImage();
+//    void replaceTempImage();
 
     /**
      * Updates tempImage to Opened image
      *
      * @param image
      */
-    void setCurrentImage(Image image);
+//    void setCurrentImage(Image image);
 
     /**
      * Creates a copy of the original {@code name} of the opened image
@@ -176,7 +176,7 @@ public interface Model {
      * Saves the edited image as {@code name} into assets folder)
      * To use originalName if {@code name} is empty
      */
-    String saveToAssets(String name);
+//    String saveToAssets(String name);
 
     //=========== Filtered Person List Accessors =============================================================
 

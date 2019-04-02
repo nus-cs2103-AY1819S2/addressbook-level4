@@ -248,6 +248,7 @@ Selects the 2nd battleship in the inventory.
 `select 1` +
 Selects the 1st battleship in the results of the `find` command.
 
+// tag::battle[]
 === Beginning the battle: `begin`
 
 Begins the battle against the computer enemy. +
@@ -256,35 +257,38 @@ Alternative command: `start`
 
 ****
 * After this command is entered, the program's AI will place its own ships.
+* After the AI completes its placing of ships, you can take your first turn.
 ****
 
 === Shooting at a coordinate: `shoot`
 
 Launches an attack against given coordinate on the enemy's map. +
 Format: `shoot COORDINATES` +
-Alternative command: `attack`, `fire`, `hit`
+Alternative commands: `attack`, `fire`, `hit`
 
 Example:
 
 * `shoot A6`
 
 ****
-* The program will prevent an attack on an invalid coordinate..
-* The program will prevent an attack on a square that has already been attacked.
-* The program will prevent the user when attacking when they have already attacked. +
-After attacking, they should use `endturn` to allow the computer to make its move.
+* The program will prevent you from attacking an invalid coordinate.
+* The program will prevent you from attacking a square that you have already attacked.
+* The program will prevent the you from making another attack when you have already taken your turn.
+After attacking, you should use `endturn` to allow the computer to make its move.
 ****
 
 === Finishing a turn: `endturn`
 
-Ends Player turn and starts Enemy's turn. +
+Ends your turn and starts Enemy's turn. +
 Format: `endturn` +
 Alternative command: `end`
 
 ****
-* The program will end the player's turn and automatically play the Enemy's turn.
-The player can see the enemy's attack reflected on the map and in the results box.
+* The program will end your turn and automatically play the Enemy's turn.
+Youwill  see the enemy's attack reflected on the map and in the results box.
 ****
+// end::battle[]
+
 // tag::stats[]
 === Retrieving game statistics: `stats`
 

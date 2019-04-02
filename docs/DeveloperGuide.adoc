@@ -224,6 +224,9 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
 
+
+// tag::battle[]
+
 [[Design-Battle]]
 === Battle component
 
@@ -239,6 +242,9 @@ The `Battle` component,
 * allows the user and the computer enemy to attack each other and maintain proper turn-taking while doing so.
 
 As the
+
+
+// end::battle[]
 
 [[Design-Commons]]
 === Common classes
@@ -419,6 +425,8 @@ image::ListShipSequenceDiagram.png[width=1499][height=2249]
 ** Pros: Cleaner and easier to implement.
 ** Cons: Cannot check position of `Battleship` on the map grid.
 
+
+// tag::battle[]
 === Battle Feature
 ==== Current Implementation
 The Battle feature handles the following:
@@ -462,6 +470,9 @@ The Battle feature is split between several packages:
 ** Cons:
 *** AttackCommand is now state-dependent (the state being the current attacking player) which
     can more easily lead to bugs and race conditions.
+
+
+// end::battle[]
 
 === Enemy AI Feature
 ==== Current Implementation

@@ -25,12 +25,14 @@
                     </minWidth>
                 </Label>
                 <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+                <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
             </HBox>
-            <FlowPane fx:id="tags" />
-            <Label fx:id="gender" styleClass="cell_small_label" text="\$gender" />
-            <Label fx:id="age" styleClass="cell_small_label" text="\$age" />
-            <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
+            <HBox spacing="5" alignment="CENTER_LEFT">
+                <Label fx:id="gender" styleClass="cell_small_label" text="\$gender" />
+                <Label fx:id="age" styleClass="cell_small_label" text="\$age" />
+            </HBox>
             <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
+            <FlowPane fx:id="tags" />
         </VBox>
     </GridPane>
 </HBox>

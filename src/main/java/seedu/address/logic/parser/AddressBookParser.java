@@ -24,6 +24,7 @@ import seedu.address.logic.commands.ListPatientCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SearchMedHistCommand;
 import seedu.address.logic.commands.SearchPatientCommand;
+import seedu.address.logic.commands.SearchPatientTagCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SelectMedHistCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -64,20 +65,27 @@ public class AddressBookParser {
         case ListPatientCommand.COMMAND_WORD:
             return new ListPatientCommand();
 
-        case ListMedHistCommand.COMMAND_WORD:
-            return new ListMedHistCommand();
-
         case EditPatientCommand.COMMAND_WORD:
             return new EditPatientCommandParser().parse(arguments);
 
         case SearchPatientCommand.COMMAND_WORD:
             return new SearchPatientCommandParser().parse(arguments);
 
-        case SearchMedHistCommand.COMMAND_WORD:
-            return new SearchMedHistCommandParser().parse(arguments);
+        case SearchPatientTagCommand.COMMAND_WORD:
+            return new SearchPatientTagCommandParser().parse(arguments);
 
         case DeletePatientCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+
+
+
+        case ListMedHistCommand.COMMAND_WORD:
+            return new ListMedHistCommand();
+
+        case SearchMedHistCommand.COMMAND_WORD:
+            return new SearchMedHistCommandParser().parse(arguments);
+
+
 
         case AddDoctorCommand.COMMAND_WORD:
             return new AddDoctorCommandParser().parse(arguments);

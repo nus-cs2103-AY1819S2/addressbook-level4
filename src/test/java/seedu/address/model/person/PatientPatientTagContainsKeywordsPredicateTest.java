@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import seedu.address.testutil.PatientBuilder;
 
-public class PatientNameContainsKeywordsPredicateTest {
+public class PatientPatientTagContainsKeywordsPredicateTest {
 
     @Test
     public void equals() {

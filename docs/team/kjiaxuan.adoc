@@ -5,10 +5,62 @@
 
 == Project: In-Credit-Ble
 
+---
 
 == Overview
 
+* rephrase another day *
+
+My team and I were tasked with morphing a basic command line interface addressbook into something else for our Software Engineering project.
+We decided to morph it into a finance tracker, and named it In-Credit-Ble. This application allows users
+to set budgets and track their spendings through the command line interface.
+
+
+My role was to design and write the codes for the reverse and sort features.
+The following sections explain these enhancements in more detail, and also show the relevant sections
+I have added to the user and developer guide in relation to these enhancements.
+
+
 == Summary of contributions
+
+* rephrase another day *
+
+This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
+
+=== Enhancement added
+
+* rephrase another day *
+
+I added a reverse and sort feature into the software.
+
+* What they do: +
+The `reverse` command allows users to reverse the list of entries displayed on the graphic user interface.
+The `sort` command allows users to sort the entries by name or category in alphabetical order,
+amount from largest to smallest and date from most recent to least recent
+(`sort -name`, `sort -cat`, `sort -amount` and `sort -date` ).
+
+* Justification: +
+Without the sort command, entries will be displayed in an order where the most recently entered entry is at the bottom of the list.
+However, this may not be very helpful and user-friendly to the user. A user may want to sort the entries by amount,
+so that he/she can find out what he/she has been spending the most on.
+A user may also want to sort entries by name, date and category to make the list more organised.
+
+The reverse command will allow the user to reverse the list. Since the 4 sort capabilities have a default ordering,
+a user may want to view the entries in the opposite way. For example, a user may want the entry with the smallest expense
+at the top of the list, or a user  may want the entries to be sorted in a way where the least recent expense is the top.
+The user can then execute the `reverse command` after the `sort -amount` command and `sort -date` command respectively.
+
+* Highlights:
+
+-- not doneeee --
+
+This enhancement … +
+An in-depth analysis of design alternatives was necessary to … +
+The implementation was also challenging as it required changes to existing commands ….
+
+=== Code contributed
+
+=== Other contributions
 
 == Contributions to the User Guide
 

@@ -387,6 +387,7 @@ tests if a restaurant matches any of the keywords.
 list of restaurants that matches the keywords.
 // end::categorisation[]
 
+// tag::skpai27[]
 === Adding a Review to a selected Restaurant
 
 ==== Current Implementation

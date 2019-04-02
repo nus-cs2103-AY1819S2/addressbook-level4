@@ -16,6 +16,7 @@ endif::[]
 
 By: `W17-1`      Since: `Feb 2019`      Licence: `MIT`
 
+// tag::ade[]
 == Introduction
 
 The Food Diary (FD) is for those who *prefer to use a desktop app for storing their personal food reviews and obtain food recommendations*. More importantly, FD is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, FD can get your foodie tasks done faster than traditional GUI apps.
@@ -27,6 +28,7 @@ Some of the features that can look forward to:
 * Finding out about new restaurants near you for your next gastronomical adventure!
 
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+// end::ade[]
 
 == Quick Start
 
@@ -64,10 +66,18 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
+// tag::reviewcommands[]
 === Adding a review: `addReview`
 
 Adds a review to the Food Diary +
 Format: `addReview INDEX re/ENTRY rr/RATING`
+
+****
+* Adds the review to the restaurant specified by the `INDEX`. The index refers to the index number of the restaurant of the currently displayed list of restaurants.. The index *must be a positive integer* 1, 2, 3, ...
+* ENTRY is a text field that include both alphabets and numbers.
+* RATING is a number that has to be a value from 0-5 inclusive. It represents a score out of 5 that is assigned to the restaurant with the added review.
+* Both fields (ENTRY and RATING) are compulsory and must be provided. There are no default values that either will take should the field be unspecified.
+****
 
 Examples:
 
@@ -80,13 +90,29 @@ Edit selected fields in a specified entry. +
 Format: `editReview INDEX [re/ENTRY] [rr/RATING]`
 
 ****
-* Edits the review at the specified `INDEX`. The index refers to the index number of the reviews of the selected Restaurant. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
+* Edits the review at the specified `INDEX`. The index refers to the index number of the review of the selected Restaurant. The index *must be a positive integer* 1, 2, 3, ...
+* A restaurant must be selected with a mouse click on the desired restaurant card (see screenshots below for an illustration)
+* At least one of the optional fields (either ENTRY or RATING) must be provided.
 * Existing values will be updated to the input values.
 ****
 
-image::EditReviewCommandFlowchart.png[width="790"]
+Steps to execute editReview command:
 
+* From the main screen of the application, first select a restaurant by clicking on it with the mouse.
+
+image::UG_editReview_start.png[width="790"]
+
+The above screenshot shows the case when no restaurant is selected. Upon selecting a restaurant, the reviews of the restaurant will show on the review panel, and the rightmost browser panel will show the webpage of the restaurant (if available) :
+
+image::UG_editReview_selected_restaurant.png[width="790"]
+
+* Following the above, enter the command:
+
+image::UG_editReview_selected_restaurant_entered_command.png[width="790"]
+
+* Upon successful execution of the command:
+
+image::UG_editReview_command_executed.png[width="790"]
 
 Examples:
 
@@ -94,6 +120,8 @@ Examples:
 Edits the rating of the 1st review to be 3.
 * `edit 2 re/Food isn't the best` +
 Edits the comment of the second review to "Food isn't the best"
+* `edit 2 re/Food isn't the best` rr/4 +
+Edits the comment of the second review to "Food isn't the best" and the rating to be 4.
 
 === Deleting a review : `deleteReview`
 
@@ -101,7 +129,7 @@ Deletes the review from the Food Diary. +
 Format: `deleteReview INDEX`
 
 ****
-* Deletes the review at the specified `INDEX` of the selected Restaurant.
+* Deletes the review at the specified `INDEX`. The index refers to the index number of the review of the selected Restaurant. The index *must be a positive integer* 1, 2, 3, ...
 * The index refers to the index number shown in the displayed reviews list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
@@ -110,6 +138,7 @@ Examples:
 
 * `deleteReview 2` +
 Deletes the 2nd review of the selected Restaurant in the Food Diary.
+// end::reviewcommands[]
 
 === Add a picture of the food to a review : `addImage`
 

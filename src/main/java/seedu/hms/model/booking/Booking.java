@@ -86,7 +86,7 @@ public class Booking {
         return "Booking for "
             + service.getName()
             + " from " + timing
-            + " by " + payer.getName() + (!otherUsersToString.equals("") ? " with "
+            + " by " + payer.getName() + (!"".equals(otherUsersToString) ? " with "
             + otherUsersToString.substring(0, otherUsersToString.length() - 2) : "")
             + ". Comment - " + comment.orElse("N/A");
     }

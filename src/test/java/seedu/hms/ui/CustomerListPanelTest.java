@@ -17,7 +17,6 @@ import guitests.guihandles.CustomerListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import seedu.hms.model.customer.Address;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.DateOfBirth;

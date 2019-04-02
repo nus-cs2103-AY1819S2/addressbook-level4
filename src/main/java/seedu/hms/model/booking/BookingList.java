@@ -10,7 +10,6 @@ import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.booking.exceptions.BookingNotFoundException;
 import seedu.hms.model.booking.exceptions.ServiceFullException;
 import seedu.hms.model.booking.exceptions.ServiceUnavailableException;

@@ -28,7 +28,7 @@ public class BookingAndReservationPanel extends UiPart<Region> {
     private TabPane tabPane;
 
     public BookingAndReservationPanel(BookingListPanel bookingListPanel, ReservationListPanel reservationListPanel,
-                                      //BillPanel billPanel,
+                                      BillPanel billPanel,
                                       ObservableValue<Integer> selectedTabIndex,
                                       Consumer<Integer> onSelectedTabIndexChange) {
         super(FXML);
@@ -46,7 +46,7 @@ public class BookingAndReservationPanel extends UiPart<Region> {
         });
         bookingListPanelPlaceholder.getChildren().add(bookingListPanel.getRoot());
         reservationListPanelPlaceholder.getChildren().add(reservationListPanel.getRoot());
-        //billPanelPlaceholder.getChildren().add(billPanel.getRoot());
+        billPanelPlaceholder.getChildren().add(billPanel.getRoot());
     }
 
 }

@@ -17,6 +17,7 @@ import seedu.hms.logic.LogicManager;
 import seedu.hms.logic.commands.CommandResult;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.logic.parser.exceptions.ParseException;
+import seedu.hms.model.BillManager;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -35,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private CustomerListPanel customerListPanel;
     private BookingListPanel bookingListPanel;
     private ReservationListPanel reservationListPanel;
+    private BillPanel billPanel;
     private BookingAndReservationPanel bookingAndReservationPanel;
     private ServiceTypeListPanel serviceTypeListPanel;
     private RoomTypeListPanel roomTypeListPanel;
@@ -133,7 +135,9 @@ public class MainWindow extends UiPart<Stage> {
                 logic.selectedReservationProperty(),
                 logic::setSelectedReservation);
 
-        bookingAndReservationPanel = new BookingAndReservationPanel(bookingListPanel, reservationListPanel,
+        billPanel = new BillPanel(new BillManager());
+
+        bookingAndReservationPanel = new BookingAndReservationPanel(bookingListPanel, reservationListPanel, billPanel,
                 LogicManager.selectedPanelOneTabIndexProperty(), LogicManager::setSelectedPanelOneTabIndex);
         bookingAndReservationPanelPlaceholder.getChildren().add(bookingAndReservationPanel.getRoot());
 

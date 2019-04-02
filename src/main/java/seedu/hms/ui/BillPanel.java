@@ -2,12 +2,9 @@ package seedu.hms.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
-import seedu.hms.model.bill.Bill;
-
-//import javafx.scene.layout.HBox;
+import seedu.hms.model.BillModel;
 
 /**
  * An UI component that displays information of a {@code Booking}.
@@ -22,32 +19,45 @@ public class BillPanel extends UiPart<Region> {
      *
      */
 
-    public final Bill bill;
+    public final BillModel billModel;
 
     @FXML
-    private HBox cardPane;
+    private ScrollPane cardPane;
     @FXML
-    private Label serviceType;
+    private Label billHead;
     @FXML
-    private Label time;
+    private Label serviceBookingBillHead;
     @FXML
-    private Label id;
-    @FXML
-    private Label payerName;
-    @FXML
-    private Label phone;
-    @FXML
-    private Label identificationNo;
-    @FXML
-    private Label comments;
-    @FXML
-    private FlowPane allUsers;
+    private Label roomReservationBillHead;
 
-    public BillPanel(Bill bill) {
+    public BillPanel(BillModel billModel) {
         super(FXML);
-        this.bill = bill;
-        identificationNo.setText("");
-        comments.setText("");
+        this.billModel = billModel;
+        billHead.setText("Bill");
+        serviceBookingBillHead.setText("Service Booking(s)  -------Subtotal:" + "100"
+                + "\n100 111\n 12313 131"
+                + "\n100 111\n 12313 131"
+                + "\n100 111\n 12313 131"
+                + "\n100 111\n 12313 131"
+                + "\n100 111\n 12313 131"
+                + "\n100 111\n 12313 131"
+                + "\n100 111\n 12313 131"
+                + "\n100 111\n 12313 131"
+                + "\n100 111\n 12313 131"
+                + "\n100 111\n 12313 131"
+                + "\n100 111\n 12313 131"
+                + "\n100 111\n 12313 131"
+                + "\n100 111\n 12313 131"
+                + "\n100 111\n 12313 131"
+                + "\n100 111\n 12313 131"
+                + "\n100 111\n 12313 131"
+                + "\n100 111\n 12313 131"
+                + "\n100 111\n 12313 131"
+                + "\n100 111\n 12313 131"
+                + "\n100 111\n 12313 131"
+                + "\n100 111\n 12313 131"
+                + "\n100 111\n 12313 131");
+        roomReservationBillHead.setText("Room Reservation(s)-------Subtotal:" + "100");
         //forEach(user -> allUsers.getChildren().add(new Label(user.getName().fullName + "|")));
     }
 }

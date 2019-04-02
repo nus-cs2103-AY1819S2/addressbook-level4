@@ -42,6 +42,7 @@ My role was to implement the categorisation of restaurants as well as manage the
 *** Added user stories, use cases and and NFRs (PR https://github.com/CS2103-AY1819S2-W17-1/main/pull/22[#22])
 *** Added details on Categorisation implementation (PR https://github.com/CS2103-AY1819S2-W17-1/main/pull/57[#57], https://github.com/CS2103-AY1819S2-W17-1/main/pull/88[#88])
 ** Community:
+*** PRs reviewed (with non-trivial review comments): (PR https://github.com/CS2103-AY1819S2-W17-1/main/pull/103[#103])
 *** Fixed tutor PR comments: (PR https://github.com/CS2103-AY1819S2-W17-1/main/pull/76[#76])
 *** Fixed AboutUs photos not linking properly for all members: (PR https://github.com/CS2103-AY1819S2-W17-1/main/pull/40[#40])
 *** Helping team members with git workflow

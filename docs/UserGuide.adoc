@@ -604,7 +604,7 @@ If the addition of the appointment was successful, QuickDocs will show the detai
 main display as demonstrated in the diagram below:
 
 .The main display after adding an appointment
-image::addapp_success.png[width="600"]
+image::addapp_success.PNG[width="600"]
 
 {sp} +
 
@@ -612,7 +612,7 @@ The addition of the appointment could have failed as there is a conflict in timi
 QuickDocs will display a message in the input feedback box notifying you of this error, as demonstrated in the diagram below.
 
 .Adding an appointment that has conflicting timing with an existing appointment
-image::addapp_time_clash.png[width="600"]
+image::addapp_time_clash.PNG[width="600"]
 {sp} +
 
 
@@ -620,7 +620,7 @@ Another reason for failing to add an appointment could be due to the appointment
 which is from 9am to 6pm. QuickDocs will remind you of this error, as demonstrated in the diagram below:
 
 .Adding an appointment that is not within the office hours, from 9am to 6pm
-image::addapp_office_hours.png[width="600"]
+image::addapp_office_hours.PNG[width="600"]
 
 '''
 [[listapp, List appointments]]
@@ -672,7 +672,7 @@ Lists all appointments allocated to the patient with NRIC S9123456A, if this pat
 The filtered appointments will be ordered by time and listed on the main display of QuickDocs, as demonstrated in the diagram below:
 
 .Listing appointments scheduled on the week of 23rd July 2019.
-image::listapp_week.png[width="600"]
+image::listapp_week.PNG[width="600"]
 
 '''
 [[deleteapp, Delete appointment]]
@@ -704,14 +704,14 @@ This command will delete the appointment created on 23rd July 2019 with a start 
 QuickDocs will display the details of the deleted appointment on the main display, as demonstrated in the diagram below:
 
 .Deleting an existing appointment in QuickDocs successfully
-image::deleteapp_success.png[width="600"]
+image::deleteapp_success.PNG[width="600"]
 {sp} +
 
 If the given appointment was not found, QuickDocs will display an error message on the input feedback display,
 as demonstrated in the diagram below. Use the `<<la>>` command to find existing appointments for a given date!
 
 .Deleting a non-existent appointment in QuickDocs
-image::deleteapp_failure.png[width="600"]
+image::deleteapp_failure.PNG[width="600"]
 
 '''
 [[freeapp, List free appointment slots]]
@@ -760,7 +760,7 @@ Lists all free appointment slots in the month of the given date, July 2019. +
 The free appointment slots will be ordered by time and listed on the main display of QuickDocs, as demonstrated in the diagram below:
 
 .Listing free appointment slots on the week of 23rd July 2019.
-image::freeapp_success.png[width="600"]
+image::freeapp_success.PNG[width="600"]
 
 '''
 [[addrem, Add reminder]]
@@ -791,7 +791,7 @@ If the addition of the reminder was successful, QuickDocs will show the details 
 main display as demonstrated in the diagram below:
 
 .The main display after adding a reminder
-image::addrem_success.png[width="600"]
+image::addrem_success.PNG[width="600"]
 
 '''
 [[listrem, List reminders]]
@@ -836,7 +836,7 @@ Lists all reminders in the month of the given date, July 2019. +
 The filtered reminders will be ordered by time and listed on the main display of QuickDocs, as demonstrated in the diagram below:
 
 .Listing reminders scheduled on the week of 31st July 2019.
-image::listrem_week.png[width="600"]
+image::listrem_week.PNG[width="600"]
 
 '''
 [[deleterem, Delete reminder]]
@@ -861,7 +861,7 @@ This command will delete the third reminder listed on the sidebar, if it exists.
 the details of the deleted reminder on the main display, as demonstrated in the diagram below:
 
 .Deleting an existing reminder in QuickDocs successfully
-image::deleterem_success.png[width="600"]
+image::deleterem_success.PNG[width="600"]
 
 {sp} +
 
@@ -869,7 +869,7 @@ If the given `INDEX` is not present in the sidebar, QuickDocs will display an er
 as demonstrated in the diagram below.
 
 .Invalid index provided to deleterem
-image::deleterem_failure.png[width="600"]
+image::deleterem_failure.PNG[width="600"]
 
 '''
 [[ntime, Set time before a reminder for notification to appear]]

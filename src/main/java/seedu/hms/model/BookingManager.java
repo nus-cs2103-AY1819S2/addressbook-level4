@@ -266,4 +266,7 @@ public class BookingManager implements BookingModel {
         requireNonNull(predicate);
         filteredBookings.setPredicate(predicate);
     }
+
 }
+
+

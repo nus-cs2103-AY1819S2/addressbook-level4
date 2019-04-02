@@ -15,6 +15,8 @@ import seedu.hms.commons.util.ConfigUtil;
 import seedu.hms.commons.util.StringUtil;
 import seedu.hms.logic.Logic;
 import seedu.hms.logic.LogicManager;
+import seedu.hms.model.BillManager;
+import seedu.hms.model.BillModel;
 import seedu.hms.model.BookingManager;
 import seedu.hms.model.BookingModel;
 import seedu.hms.model.CustomerManager;
@@ -48,6 +50,7 @@ public class MainApp extends Application {
     protected Logic logic;
     protected Storage storage;
     protected CustomerModel customerModel;
+    protected BillModel billModel;
     protected BookingModel bookingModel;
     protected ReservationModel reservationModel;
     protected Config config;
@@ -76,8 +79,9 @@ public class MainApp extends Application {
         customerModel = (CustomerModel) models[0];
         bookingModel = (BookingModel) models[1];
         reservationModel = (ReservationModel) models[2];
+        billModel = (BillModel) models[3];
 
-        logic = new LogicManager(customerModel, bookingModel, reservationModel, storage);
+        logic = new LogicManager(customerModel, bookingModel, reservationModel, billModel, storage);
 
         ui = new UiManager(logic);
     }
@@ -106,7 +110,8 @@ public class MainApp extends Application {
         VersionedHotelManagementSystem versionedHotelManagementSystem = new VersionedHotelManagementSystem(initialData);
         Model[] result = {new CustomerManager(versionedHotelManagementSystem, userPrefs),
             new BookingManager(versionedHotelManagementSystem, userPrefs),
-            new ReservationManager(versionedHotelManagementSystem, userPrefs) {
+            new ReservationManager(versionedHotelManagementSystem, userPrefs),
+            new BillManager(versionedHotelManagementSystem, userPrefs) {
             }};
         return result;
     }

@@ -9,6 +9,7 @@ import guitests.guihandles.StageHandle;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import seedu.hms.logic.LogicManager;
+import seedu.hms.model.BillManager;
 import seedu.hms.model.BookingManager;
 import seedu.hms.model.CustomerManager;
 import seedu.hms.model.ReservationManager;
@@ -36,7 +37,7 @@ public class MainWindowCloseTest extends GuiUnitTest {
         FxToolkit.setupStage(stage -> {
             this.stage = stage;
             mainWindow = new MainWindow(stage, new LogicManager(new CustomerManager(), new BookingManager(),
-                new ReservationManager(), storageManager));
+                new ReservationManager(), new BillManager(), storageManager));
             mainWindowHandle = new EmptyMainWindowHandle(stage);
             mainWindowHandle.focus();
         });

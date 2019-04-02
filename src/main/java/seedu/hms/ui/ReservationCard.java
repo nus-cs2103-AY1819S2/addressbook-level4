@@ -48,7 +48,7 @@ public class ReservationCard extends UiPart<Region> {
         this.reservation = reservation;
         this.payer = reservation.getPayer();
         roomType.setText(reservation.getRoom().getName());
-        date.setText(reservation.getDates().toString());
+        date.setText("Date: " + reservation.getDates().toString());
         id.setText(displayedIndex + ". ");
         payerName.setText("Payer Name: " + payer.getName().fullName);
         phone.setText("Payer Phone: " + payer.getPhone().value);

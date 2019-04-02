@@ -13,12 +13,12 @@ import seedu.hms.model.booking.BookingWithinTimePredicate;
 import seedu.hms.model.util.TimeRange;
 
 /**
- * Parses input arguments and creates a new AddCustomerCommand object
+ * Parses input arguments and creates a new FindBookingCommand object
  */
 public class FindBookingCommandParser implements Parser<FindBookingCommand> {
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCustomerCommand
-     * and returns an AddCustomerCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the FindBookingCommand
+     * and returns an FindBookingCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */

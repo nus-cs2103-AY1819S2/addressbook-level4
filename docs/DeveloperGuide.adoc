@@ -457,10 +457,10 @@ Currently, no test cases are prepared but next release these test methods will b
 * executing add after filtering once
 * executing add after filtering twice
 * a complex case of different processes combined: The flow will be as follows for the next test:
-1- filter and
-2- filter or
-3- sort alphabetical
-4- delete 1
+** 1- filter and
+** 2- filter or
+** 3- sort alphabetical
+** 4- delete 1
 ** 5- undo
 ** 6- undo
 ** 7- redo
@@ -505,7 +505,7 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 // end::configuration[]
 
 // tag::sort[]
-=== Sort Commands [[Implementation-Sort Commands]]
+=== Sort Commands [Implementation-Sort Commands]
 ==== Current Implementation
 There are currently two sorting methods present: `alphabetical` and `skills`.
 * `alphabetical` is called by the user through the following cli input: `sort alphabetical`.

@@ -143,20 +143,26 @@ Examples:
 ==== Sort books command : `sortBook`
 
 sort bookList in specify order. +
-Format: `sortBook st/TYPE o/ORDER`
+Format: `sortBook st/TYPE... [o/ORDER] [o1/ORDER] [o2/ORDER] [o3/ORDER]`
 
 ****
-* TYPE can be either *AUTHOR*, *NAME* or *RATING*.
+* TYPE can only be either *AUTHOR*, *NAME* or *RATING*.
+* Able to sort more than one *TYPE* by writing down more than one *TYPE* after the *sortBook*.
 * ORDER can be either *ASC*(ascending) and *DES*(descending).
-* TYPE and ORDER are all case-insensitive.
+* Omit o/ORDER, it will sort in *ASC*(ascending).
+* o1, o2, o3 is corresponding specify order for each *TYPE* that specify in front.
+* o/ORDER is the orderfor all *TYPEs*, it will overwrite order if both o and o1 appear at same time.
+* *TYPE* and *ORDER* are all case-insensitive.
 ****
 
 Examples:
 
-* `sortBook st/name o/asc`
+* `sortBook st/name`
 sort bookList by book name in ascending order.
-* `sortBook st/RATING o/des`
-sort bookList by rating of the book in descending order.
+* `sortBook st/rating st/name o1/des`
+sort bookList by rating of the book in descending order and if they having same rating it will sort them by book name is asc order.
+* `sortBook st/author st/rating o/des o2/asc`
+sort bookList by author in descending order and if they having same rating it will sort them by rating in des order.(o/des overwrite o2/asc)
 
 === Review Commands
 

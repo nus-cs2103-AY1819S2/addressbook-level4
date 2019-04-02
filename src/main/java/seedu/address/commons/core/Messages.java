@@ -13,5 +13,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_BOOK = "The book name provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_BOOKS_LISTED_OVERVIEW = "%1$d books listed!";
+    public static final String MESSAGE_BOOK_LIST_EMPTY = "The book Shelf is empty";
 
 }

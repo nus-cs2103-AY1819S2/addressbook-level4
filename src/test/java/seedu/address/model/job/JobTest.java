@@ -53,7 +53,7 @@ public class JobTest {
 
         // diff object same name -> returns true
         Job editedProfessor = new JobBuilder(PROFESSOR).withName(VALID_JOB_NAME_TEACHER).build();
-        assertFalse(TEACHER.isSameJob(editedProfessor));
+        assertTrue(TEACHER.isSameJob(editedProfessor));
 
         // different name -> returns false
         Job editedEngineer = new JobBuilder(ENGINEER).withName(VALID_JOB_NAME_TEACHER).build();

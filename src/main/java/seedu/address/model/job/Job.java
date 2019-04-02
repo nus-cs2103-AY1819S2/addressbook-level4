@@ -57,12 +57,26 @@ public class Job {
      * Goes to the first list
      */
     public boolean add(Person person) {
-        if (personsHash.contains(person)) {
+        if (personsHash.get(0).contains(person)) {
             return false;
         }
         personsHash.get(0).add(person);
         personsList.get(0).add(person);
 
+        return true;
+    }
+
+    public boolean move(Person target, int source, int dest){
+        if (!personsHash.get(source).contains(target)) {
+            return false;
+        }
+
+        if (personsHash.get(dest).contains(target)) {
+            return false;
+        }
+
+        personsHash.get(dest).add(target);
+        personsList.get(dest).add(target);
         return true;
     }
 

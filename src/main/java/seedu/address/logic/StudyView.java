@@ -4,12 +4,8 @@ import java.util.List;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
-<<<<<<< HEAD
 import seedu.address.logic.commands.BackCommand;
-=======
->>>>>>> dfdcc39b686743fd6c10e862aabf32a9f03f3114
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.GenerateQuestionCommand;
 import seedu.address.logic.commands.OpenDeckCommand;
 import seedu.address.logic.commands.ShowAnswerCommand;

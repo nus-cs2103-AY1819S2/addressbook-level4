@@ -27,7 +27,7 @@ My role involved the restructuring of the `model` and `logic` components of the 
 ** Justification: Provides greater flexibility in the way users can interact with test sessions.
 ** Highlights: MCQ card options are randomized every time the card is tested, thus preventing users from simply memorizing the correct option number.
 
-* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=afterdusk[Collated code]]
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=mmdlow[Collated code]]
 
 * *Other contributions*:
 

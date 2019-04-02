@@ -12,7 +12,7 @@ import seedu.address.model.tag.SkillsTag;
 class JsonAdaptedTag {
 
     private final String tagName;
-    private final String tagColor;
+    private final String tagType;
 
     /**
      * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
@@ -21,7 +21,8 @@ class JsonAdaptedTag {
     @JsonCreator
     public JsonAdaptedTag(String tagName) {
         this.tagName = tagName;
-        this.tagColor = "teal";
+        this.tagType = "pos";
+
     }
 
     /**
@@ -29,7 +30,7 @@ class JsonAdaptedTag {
      */
     public JsonAdaptedTag(SkillsTag source) {
         this.tagName = source.tagName;
-        this.tagColor = source.tagColor;
+        this.tagType = source.tagType;
     }
 
     @JsonValue
@@ -46,7 +47,7 @@ class JsonAdaptedTag {
         if (!SkillsTag.isValidTagName(tagName)) {
             throw new IllegalValueException(SkillsTag.MESSAGE_CONSTRAINTS);
         }
-        return new SkillsTag(tagName, tagColor);
+        return new SkillsTag(tagName, tagType);
     }
 
 }

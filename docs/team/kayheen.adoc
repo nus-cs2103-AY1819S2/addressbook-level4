@@ -66,7 +66,7 @@ include::../UserGuide.adoc[tag= AWalkThrough]
 
 include::../UserGuide.adoc[tag=CropCommand]
 
-include::../UserGuide.adoc[tag=ResizeCommand]\
+include::../UserGuide.adoc[tag=ResizeCommand]
 
 include::../UserGuide.adoc[tag=RotateCommand]
 

@@ -430,7 +430,7 @@ Currently implemented test cases are below:
 
 For future release test cases:
 
-*
+* Division of the unordered input for different criterion will be tested
 
 ===== FilterCommandTests
 
@@ -456,12 +456,11 @@ Currently, no test cases are prepared but next release these test methods will b
 * executing delete after filtering twice
 * executing add after filtering once
 * executing add after filtering twice
-* a complex case of different processes combined:
-** The flow will be as follows for the next test:
-** 1- filter and
-** 2- filter or
-** 3- sort alphabetical
-** 4- delete 1
+* a complex case of different processes combined: The flow will be as follows for the next test:
+1- filter and
+2- filter or
+3- sort alphabetical
+4- delete 1
 ** 5- undo
 ** 6- undo
 ** 7- redo
@@ -471,7 +470,6 @@ Currently, no test cases are prepared but next release these test methods will b
 ** 11- filter clear
 ** 12-undo
 ** 13- filter clear
-
 // end::filter[]
 
 // tag::dataencryption[]
@@ -506,11 +504,9 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 // end::configuration[]
 
-
 // tag::sort[]
-[[Implementation-Sort Commands]]
-=== Sort Commands
-====Current Implementation
+=== Sort Commands [[Implementation-Sort Commands]]
+==== Current Implementation
 There are currently two sorting methods present: `alphabetical` and `skills`.
 * `alphabetical` is called by the user through the following cli input: `sort alphabetical`.
 It takes the **current** list displayed in the left hand GUI panel and sorts them alphabetically. The alphabetical sort begins with the first name and then proceeds to last name.

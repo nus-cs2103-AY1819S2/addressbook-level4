@@ -5,6 +5,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.finance.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.finance.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
+import static seedu.finance.testutil.TypicalRecords.APPLE;
+import static seedu.finance.testutil.TypicalRecords.BANANA;
+import static seedu.finance.testutil.TypicalRecords.CAP;
+import static seedu.finance.testutil.TypicalRecords.DONUT;
+import static seedu.finance.testutil.TypicalRecords.EARRINGS;
+import static seedu.finance.testutil.TypicalRecords.FRUITS;
+import static seedu.finance.testutil.TypicalRecords.GIFT;
+import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -62,20 +71,13 @@ public class SpendCommandTest {
 
     @Test
     public void execute_duplicateRecord_addSuccessful() throws Exception {
-        Record validRecord = new RecordBuilder().build();
-        SpendCommand spendCommand = new SpendCommand(validRecord);
-        Model model = new ModelManager();
-        model.addRecord(validRecord);
+        Model model = new ModelManager(getTypicalFinanceTracker(), new UserPrefs());
+        Record validRecord = model.getFilteredRecordList().get(INDEX_FIRST_RECORD.getZeroBased());
+        String expectedMessage = String.format(SpendCommand.MESSAGE_SUCCESS, validRecord);
 
-        String expectedMessage = String.format(SpendCommand.MESSAGE_SUCCESS_EXCEED_BUDGET, validRecord.getCategory());
-        Model expectedModel = new ModelManager(new FinanceTracker(model.getFinanceTracker()), new UserPrefs());
-        expectedModel.addRecord(validRecord);
-
-        CommandResult commandResult = spendCommand.execute(model, commandHistory);
-
+        CommandResult commandResult = new SpendCommand(validRecord).execute(model, commandHistory);
         assertEquals(expectedMessage, commandResult.getFeedbackToUser());
-        assertEquals(model.getFinanceTracker(), expectedModel.getFilteredRecordList());
-        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+        assertEquals(Arrays.asList(APPLE, BANANA, CAP, DONUT, EARRINGS, FRUITS, GIFT, APPLE), model.getFilteredRecordList());
     }
 
     @Test

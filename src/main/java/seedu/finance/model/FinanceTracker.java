@@ -55,7 +55,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
 
     /**
      * Replaces the contents of the record list with {@code records}.
-     * {@code records} must not contain duplicate records.
+     * {@code records} can contain duplicate records.
      */
     public void setRecords(List<Record> records) {
         this.records.setRecords(records);

@@ -263,6 +263,37 @@ Examples:
 `undo` (reverses the `crop 2 3 500 500` command +
 `undo` (reverses the `contrast 0.3`)
 
+== Upcoming Features (in v2.0)
+
+=== Layer
+
+Format: `layer add (layer name)` -> Creates a new layer for the user to work on.
+
+Example:
+
+* `layer add BW-layer` adds a new layer with name BW-layer.
+
+
+Format: `layer select (layer name)` -> Selects the layer the user wants to work on.
+
+Example:
+
+* `layer select BW-layer` selects the BW-layer.
+
+Format: `layer delete (layer name)` -> deletes the layer with input name.
+
+Example:
+
+* `layer delete (BW-layer)` -> deletes the BW-layer
+
+This command is not undo-able and transformations on each layer do not affect other layers.
+
+
+=== Ruler
+
+Format: `ruler [ON|OFF]` -> Toggles a ruler that surrounds the canvas. This will help you in estimating the number of pixels to move when using `layer position` or resizing objects.
+
+
 
 == Command Summary
 Below is a quick summary of all the commands available in FomoFoto.

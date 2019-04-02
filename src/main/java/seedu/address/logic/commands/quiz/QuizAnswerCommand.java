@@ -36,18 +36,20 @@ public class QuizAnswerCommand extends QuizCommand {
 
         QuizCard card = quizModel.getCurrentQuizCard();
         StringBuilder sb = new StringBuilder();
-        String questionHeader = quizModel.getQuestionHeader();
-        String answerHeader = quizModel.getAnswerHeader();
-        if (card.getQuizMode() == QuizMode.PREVIEW || card.getQuizMode() == QuizMode.DIFFICULT) {
+
+        if (card.getQuizMode() == QuizMode.PREVIEW) {
+            // don't need to update totalAttempts and streak
             if (quizModel.hasCardLeft()) {
                 card = quizModel.getNextCard();
-                if (card.getQuizMode() == QuizMode.PREVIEW || card.getQuizMode() == QuizMode.DIFFICULT) {
-                    quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(questionHeader, card.getQuestion(),
-                            answerHeader, card.getAnswer(), QuizMode.PREVIEW));
+
+                if (card.getQuizMode() == QuizMode.PREVIEW) {
+                    quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(quizModel.getQuestionHeader(),
+                        card.getQuestion(), quizModel.getAnswerHeader(), card.getAnswer(), QuizMode.PREVIEW));
                     return new CommandResult("", true, false, false);
                 }
-                quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(questionHeader, card.getQuestion(),
-                        answerHeader, QuizMode.REVIEW));
+
+                quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(quizModel.getQuestionHeader(),
+                    card.getQuestion(), quizModel.getAnswerHeader(), QuizMode.REVIEW));
                 return new CommandResult("", true, false, false);
             }
 
@@ -66,8 +68,8 @@ public class QuizAnswerCommand extends QuizCommand {
 
             if (quizModel.hasCardLeft()) {
                 card = quizModel.getNextCard();
-                quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(questionHeader, card.getQuestion(),
-                        answerHeader, QuizMode.REVIEW));
+                quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(quizModel.getQuestionHeader(),
+                    card.getQuestion(), quizModel.getAnswerHeader(), QuizMode.REVIEW));
             } else {
                 quizModel.updateUserProfile(quizModel.end());
 
@@ -79,12 +81,12 @@ public class QuizAnswerCommand extends QuizCommand {
         } else {
             if (!card.isWrongTwice()) {
                 sb.append(String.format(MESSAGE_WRONG_ONCE, answer));
-                quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(questionHeader, card.getQuestion(),
-                        answerHeader, QuizMode.REVIEW));
+                quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(quizModel.getQuestionHeader(),
+                    card.getQuestion(), quizModel.getAnswerHeader(), QuizMode.REVIEW));
             } else {
                 sb.append(String.format(MESSAGE_WRONG, answer, card.getAnswer()));
-                quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(questionHeader, card.getQuestion(),
-                        answerHeader, card.getAnswer(), QuizMode.PREVIEW));
+                quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(quizModel.getQuestionHeader(),
+                    card.getQuestion(), quizModel.getAnswerHeader(), card.getAnswer(), QuizMode.PREVIEW, true));
             }
         }
 
@@ -94,7 +96,7 @@ public class QuizAnswerCommand extends QuizCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof QuizAnswerCommand // instanceof handles nulls
-                && answer.equals(((QuizAnswerCommand) other).answer)); // state check
+            || (other instanceof QuizAnswerCommand // instanceof handles nulls
+            && answer.equals(((QuizAnswerCommand) other).answer)); // state check
     }
 }

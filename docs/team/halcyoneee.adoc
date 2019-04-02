@@ -2,6 +2,7 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:sectnums:
 
 == PROJECT: BrainTrain
 
@@ -30,7 +31,7 @@ commands are not.
 ** *Highlights*: Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/32[#32],
 https://github.com/CS2103-AY1819S2-W14-1/main/pull/43[#42],
 https://github.com/CS2103-AY1819S2-W14-1/main/pull/96[#96],
-https://github.com/CS2103-AY1819S2-W14-1/main/pull/108[#108]
+https://github.com/CS2103-AY1819S2-W14-1/main/pull/108[#108],
 https://github.com/CS2103-AY1819S2-W14-1/main/pull/129[#129]
 
 * *Minor enhancement*:

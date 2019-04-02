@@ -7,8 +7,6 @@ import static seedu.address.testutil.TypicalCards.CARD_JAPAN;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Rule;
@@ -24,7 +22,6 @@ import seedu.address.model.modelmanager.ManagementModelManager;
 import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.modelmanager.QuizModelManager;
 import seedu.address.model.quiz.Quiz;
-import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.session.Session;
 import seedu.address.model.srscard.SrsCard;
@@ -135,10 +132,7 @@ public class QuizStartCommandTest {
                 QuizMode.LEARN, List.of(new SrsCardBuilder().build(),
                 new SrsCardBuilder(new SrsCard(CARD_JAPAN, new CardSrsData(CARD_JAPAN.hashCode(), 1,
                         1, Instant.now().plus(Duration.ofHours(2)), false), lesson)).build()))).build();
-        final QuizCard card1 = new QuizCard("Belgium", "Brussels");
-        final QuizCard card2 = new QuizCard("Japan", "Tokyo");
-        final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));
-        final Quiz quiz = new Quiz(quizCards, QuizMode.LEARN);
+        final Quiz quiz = new Quiz(session.generateSession(), QuizMode.LEARN);
 
         QuizModelManager expectedModel = new QuizModelManager();
         expectedModel.init(quiz, session);
@@ -164,10 +158,7 @@ public class QuizStartCommandTest {
             QuizMode.REVIEW, List.of(new SrsCardBuilder().build(),
             new SrsCardBuilder(new SrsCard(CARD_JAPAN, new CardSrsData(CARD_JAPAN.hashCode(), 1,
                 1, Instant.now().plus(Duration.ofHours(2)), false), lesson)).build()))).build();
-        final QuizCard card1 = new QuizCard("Belgium", "Brussels");
-        final QuizCard card2 = new QuizCard("Japan", "Tokyo");
-        final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));
-        final Quiz quiz = new Quiz(quizCards, QuizMode.REVIEW);
+        final Quiz quiz = new Quiz(session.generateSession(), QuizMode.REVIEW);
 
         QuizModelManager expectedModel = new QuizModelManager();
         expectedModel.init(quiz, session);

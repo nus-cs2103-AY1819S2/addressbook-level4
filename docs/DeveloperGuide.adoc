@@ -179,11 +179,13 @@ image::SDforDeleteMedicine.png[width="800"]
 
 The sections below give more details of each component.
 
+// tag::uicomponent[]
 [[Design-Ui]]
 === UI component
 
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
+// end::uicomponent[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -857,6 +859,7 @@ A project often depends on third-party libraries. For example, MediTabs depends 
 . Require developers to download those libraries manually (this creates extra work for developers)
 
 [appendix]
+// tag::userstories[]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -899,6 +902,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |pharmacist |save information on medicine's usage |remind myself of its usage
 
 |=======================================================================
+// end::userstories[]
 
 [appendix]
 // tag::usecase[]
@@ -995,6 +999,7 @@ Use case resume at step 2.
 // end::usecase[]
 
 [appendix]
+// tag::nonfunctionalreq[]
 == Non Functional Requirements
 
 . User Constraints
@@ -1015,7 +1020,7 @@ Use case resume at step 2.
 . Testability
 .. Avoid implementing features that are difficult to test manually and automatically. i.e, avoid dependence on remote APIs as their behaviours are beyond our control.
 .. Due to the project's constraints, audio related features were not taken into consideration. Avoid any features using audio indicators.
-
+// end::nonfunctionalreq[]
 
 
 [appendix]

@@ -17,6 +17,10 @@ endif::[]
 
 By: `Team W11-4`      Since: `Jun 2019`      Licence: `MIT`
 
+== Introduction
+
+BookSquirrel is for those who *want to keep a record of books they've read*. More importantly, BookSquirrel is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BookSquirrel can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
 == Setting up
 
 === Prerequisites

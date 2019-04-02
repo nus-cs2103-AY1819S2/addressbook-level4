@@ -21,7 +21,7 @@ Role: Developer
 
 === Jiang Qinhua
 image::jiangqinhua.png[width="150", align="left"]
-{empty}[https://github.com/jiangqinhua[github]]
+{empty}[https://github.com/jiangqinhua[github]] [<<jiangqinhua#, portfolio>>]
 
 Role: Developer
 
@@ -29,7 +29,7 @@ Role: Developer
 
 === Yang Sihan
 image::eleenyang.png[width="150", align="left"]
-{empty}[https://github.com/eleenyang[github]]
+{empty}[https://github.com/eleenyang[github]] [<<eleenyang#, portfolio>>]
 
 Role: Developer
 

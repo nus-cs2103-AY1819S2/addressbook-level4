@@ -14,7 +14,7 @@ We are a team undertaking CS2103T Software Engineering module in the National Un
 
 === Lee Wei Kang
 image::wklee96.png[width="150", align="left"]
-{empty} [https://github.com/Wklee96[github]]
+{empty} [https://github.com/Wklee96[github]] [<<wklee96#, portfolio>>]
 
 Role: Project Leader +
 Responsibilities: Model, system testing

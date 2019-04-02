@@ -1,4 +1,4 @@
-= Chan Qing Zhougi - Project Portfolio
+= Chan Qing Zhou - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets

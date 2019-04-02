@@ -1,0 +1,1297 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>ClubManager - User Guide</title><link rel="stylesheet" href="stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level3">AB-3</a></li><li class="nav-item"><a class="nav-link active" href="index.html">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="index.html">Club-Manager</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link active" href="UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/cs2103-ay1819s2-w13-2/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>ClubManager - User Guide</h1></div><div id="content"><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>By: <code>W13-2</code>      Since: <code>Jan 2019</code>      Licence: <code>MIT</code></p>
+</div>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle"></div>
+<ul class="sectlevel1">
+<li><a href="#introduction">1. Introduction</a></li>
+<li><a href="#quick-start">2. Quick Start</a></li>
+<li><a href="#Features">3. Features</a>
+<ul class="sectlevel2">
+<li><a href="#general-features">3.1. General Features</a></li>
+<li><a href="#member-management-features">3.2. Member Management Features</a></li>
+<li><a href="#activity-management-features">3.3. Activity Management Features</a></li>
+<li><a href="#saving-the-data">3.4. Saving the data</a></li>
+<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">3.5. Encrypting data files <code>[coming in v2.0]</code></a></li>
+</ul>
+</li>
+<li><a href="#faq">4. FAQ</a></li>
+<li><a href="#command-summary">5. Command Summary</a>
+<ul class="sectlevel2">
+<li><a href="#general-commands">5.1. General Commands</a></li>
+<li><a href="#member-management-commands">5.2. Member Management Commands</a></li>
+<li><a href="#activity-management-commands">5.3. Activity Management Commands</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introduction"><a class="link" href="#introduction">1. Introduction</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>ClubManager is for Co-Curricular Activities (CCAs) leaders who <strong>prefer to use a desktop app for managing their members
+and activities</strong>. More importantly, ClubManager is <strong>optimized for those who prefer to work with a Command Line Interface</strong>
+(CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ClubManager can get
+your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <a href="#quick-start">Section 2, &#8220;Quick Start&#8221;</a> to get
+started. Enjoy!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="quick-start"><a class="link" href="#quick-start">2. Quick Start</a></h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Ensure you have Java version <code>9</code> or later installed in your Computer.</p>
+</li>
+<li>
+<p>Download the latest <code>clubmanager.jar</code> <a href="https://github.com/cs2103-ay1819s2-w13-2/main/releases">here</a>.</p>
+</li>
+<li>
+<p>Copy the file to the folder you want to use as the home folder for your ClubManager.</p>
+</li>
+<li>
+<p>Double-click the file to start the app. The GUI should appear in a few seconds.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/Ui.png" alt="Ui" width="790">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Ui2.png" alt="Ui2" width="790">
+</div>
+</div>
+</li>
+<li>
+<p>Type the command in the command box and press <kbd>Enter</kbd> to execute it.<br>
+e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will open the help window.</p>
+</li>
+<li>
+<p>Some example commands you can try:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><code>list</code></strong> : lists all contacts</p>
+</li>
+<li>
+<p><strong><code>memberAdd n/James Ong an/A0123456Y p/98765432 e/jamesong@example.com yos/year1 m/mathematics</code></strong> : adds a member named
+<code>John Doe</code> to the ClubManager.</p>
+</li>
+<li>
+<p><strong><code>memberDelete 3</code></strong> : deletes the 3rd member shown in the current list</p>
+</li>
+<li>
+<p><strong><code>exit</code></strong> : exits the app</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Refer to <a href="#Features">Section 3, &#8220;Features&#8221;</a> for details of each command.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Features"><a class="link" href="#Features">3. Features</a></h2>
+<div class="sectionbody">
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Command Format</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g. in <code>add n/NAME</code>, <code>NAME</code> is a parameter which can be used as <code>add n/John Doe</code>.</p>
+</li>
+<li>
+<p>Items in square brackets are optional e.g <code>n/NAME [t/TAG]</code> can be used as <code>n/John Doe t/friend</code> or as <code>n/John Doe</code>.</p>
+</li>
+<li>
+<p>Items with <code>…</code>​ after them can be used multiple times including zero times e.g. <code>[t/TAG]&#8230;&#8203;</code> can be used as <code>&#160;</code> (i.e. 0 times), <code>t/friend</code>, <code>t/friend t/family</code> etc.</p>
+</li>
+<li>
+<p>Parameters can be in any order e.g. if the command specifies <code>n/NAME p/PHONE_NUMBER</code>, <code>p/PHONE_NUMBER n/NAME</code> is also acceptable.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="general-features"><a class="link" href="#general-features">3.1. General Features</a></h3>
+<div class="sect3">
+<h4 id="get-set-the-mode-of-clubmanager-code-mode-code"><a class="link" href="#get-set-the-mode-of-clubmanager-code-mode-code">3.1.1. Get / Set the mode of ClubManager: <code>mode</code></a></h4>
+<div class="paragraph">
+<p>ClubManager operates in 2 modes. This function allows user to check the mode and change the mode<br></p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 55%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Mode</th>
+<th class="tableblock halign-left valign-top">Definition</th>
+<th class="tableblock halign-left valign-top">Example of allowed commands</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>member</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Member Management Mode</p>
+<p class="tableblock">This mode allows the user to manage members in ClubManager</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>memberAdd</code>,  <code>memberFind</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>activity</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Activity Management Mode</p>
+<p class="tableblock"> This mode allows the user to manage members in ClubManager</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>activityAdd</code>, <code>activityList</code>, <code>activitySelect</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Format:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>mode [MODE_CHOICE]</code></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If MODE_CHOICE is left blank, returns current mode</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>mode</code>
+Returns current management mode of ClubManager</p>
+</li>
+<li>
+<p><code>mode activity</code>
+Changes current management mode of ClubManager to Activity</p>
+</li>
+<li>
+<p><code>mode member</code>
+Changes current management mode of ClubManager to Member</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.1.2. Clearing all entries : <code>clear</code></a></h4>
+<div class="paragraph">
+<p>Clears all entries from the address book.<br>
+Format: <code>clear</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.1.3. Exiting the program : <code>exit</code></a></h4>
+<div class="paragraph">
+<p>Exits the program.<br>
+Format: <code>exit</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="viewing-help-code-help-code"><a class="link" href="#viewing-help-code-help-code">3.1.4. Viewing help : <code>help</code></a></h4>
+<div class="paragraph">
+<p>Displays a list of commands and the help messages to guide the user.
+Format: <code>help</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.1.5. Listing entered commands : <code>history</code></a></h4>
+<div class="paragraph">
+<p>Lists all the commands that you have entered in reverse chronological order.<br>
+Format: <code>history</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Pressing the <kbd>&uarr;</kbd> and <kbd>&darr;</kbd> arrows will display the previous and next input respectively in the command box.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.1.6. Redoing the previously undone command : <code>redo</code></a></h4>
+<div class="paragraph">
+<p>Reverses the most recent <code>undo</code> command.<br>
+Format: <code>redo</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>memberDelete 1</code><br>
+<code>undo</code> (reverses the <code>delete 1</code> command)<br>
+<code>redo</code> (reapplies the <code>delete 1</code> command)<br></p>
+</li>
+<li>
+<p><code>memberDelete 1</code><br>
+<code>redo</code><br>
+The <code>redo</code> command fails as there are no <code>undo</code> commands executed previously.</p>
+</li>
+<li>
+<p><code>memberDelete 1</code><br>
+<code>clear</code><br>
+<code>undo</code> (reverses the <code>clear</code> command)<br>
+<code>undo</code> (reverses the <code>delete 1</code> command)<br>
+<code>redo</code> (reapplies the <code>delete 1</code> command)<br>
+<code>redo</code> (reapplies the <code>clear</code> command)<br></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.1.7. Undoing previous command : <code>undo</code></a></h4>
+<div class="paragraph">
+<p>Restores the address book to the state before the previous <em>undoable</em> command was executed.<br>
+Format: <code>undo</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Undoable commands: those commands that modify the address book&#8217;s content (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>memberDelete 1</code><br>
+<code>memberList</code><br>
+<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
+</li>
+<li>
+<p><code>memberSelect 1</code><br>
+<code>memberList</code><br>
+<code>undo</code><br>
+The <code>undo</code> command fails as there are no undoable commands executed previously.</p>
+</li>
+<li>
+<p><code>memberDelete 1</code><br>
+<code>clear</code><br>
+<code>undo</code> (reverses the <code>clear</code> command)<br>
+<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="member-management-features"><a class="link" href="#member-management-features">3.2. Member Management Features</a></h3>
+<div class="sect3">
+<h4 id="adding-a-member-code-memberadd-code"><a class="link" href="#adding-a-member-code-memberadd-code">3.2.1. Adding a member: <code>memberAdd</code></a></h4>
+<div class="paragraph">
+<p>You can add members to ClubManager.<br></p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 23.0769%;">
+<col style="width: 38.4615%;">
+<col style="width: 38.4616%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Information of Member</th>
+<th class="tableblock halign-left valign-top">Definition</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NAME refers to the name of the member.</p>
+<p class="tableblock">Only alphabets are accepted.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">John Sim</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Matric Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MATRIC_NUMBER refers to the member&#8217;s matriculation number.</p>
+<p class="tableblock">Only 9 Alphanumeric characters are accepted.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A0123456Z</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Phone Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PHONE_NUMBER refers to the member&#8217;s phone number.</p>
+<p class="tableblock">Only 8 digits are accepted.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">91234567</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Email Address</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EMAIL_ADDRESS refers to the member&#8217;s student/personal email address</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="mailto:johnsim@example.com">johnsim@example.com</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Address</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADDRESS refers to the member&#8217;s home address.</p>
+<p class="tableblock">Alphanumeric and Special characters are acceptable.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Jurong East Avenue 1 Block 2 #03-04</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Gender</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GENDER refers to the sex of the member, i.e. male or female</p>
+<p class="tableblock">Only "Male" or "Female" is accepted (case-insensitive)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Male</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Year of Study</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">YEAR_OF_STUDY refers to the academic level (in years)
+in which the member is currently studying.</p>
+<p class="tableblock">Only Alphabets are accepted in the first input.</p>
+<p class="tableblock">Only Digits are accepted in the second input.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Year 1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Major</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MAJOR refers to the field of discipline in which member is currently enrolled in.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Chemistry</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Tags</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TAGS refers to the hobbies and interests of the member.</p>
+<p class="tableblock">Only Alphabets are acceptable, restricted to a single word.</p>
+<p class="tableblock">A member can have any number of tags (including 0).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Swimming</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Format:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>memberAdd n/NAME mn/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL a/ yos/YEAR_OF_STUDY m/MAJOR [t/TAG]&#8230;&#8203;</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>memberAdd n/James Ong mn/A0123456Y p/98765432 e/jamesong@example.com a/123, Jurong West Ave 6, #08-111 g/male y/year 2 m/mathematics</code></p>
+</li>
+<li>
+<p><code>memberAdd n/Jane Lim mn/A0654321T p/91324756 e/janelim@example.com a/123, Sengkang Ave 6, #02-123 g/Female y/Year 3  m/physics t/Swimming</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="deleting-a-member-code-memberdelete-code"><a class="link" href="#deleting-a-member-code-memberdelete-code">3.2.2. Deleting a member : <code>memberDelete</code></a></h4>
+<div class="paragraph">
+<p>Deletes the specified member from ClubManager.<br>
+Format: <code>memberDelete INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Deletes the member at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the displayed member list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>memberList</code><br>
+<code>memberDelete 2</code><br>
+Deletes the 2nd member in ClubManager.</p>
+</li>
+<li>
+<p><code>memberFind Betsy</code><br>
+<code>memberDelete 1</code><br>
+Deletes the 1st member in the results of the <code>find</code> command.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="editing-a-member-code-memberedit-code"><a class="link" href="#editing-a-member-code-memberedit-code">3.2.3. Editing a member : <code>memberEdit</code></a></h4>
+<div class="paragraph">
+<p>Edits an existing member in ClubManager.<br>
+Format: <code>memberEdit INDEX n/NAME Mn/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL yos/YEAR_OF_STUDY m/MAJOR [t/TAG]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Edits the member at the specified <code>INDEX</code>. The index refers to the index number shown in the displayed member list.
+The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>At least one of the optional fields must be provided.</p>
+</li>
+<li>
+<p>Existing values will be updated to the input values.</p>
+</li>
+<li>
+<p>You can remove all the member&#8217;s tags by typing <code>t/</code> without specifying any tags after it.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>memberEdit 1 p/91234567 e/johndoe@example.com</code><br>
+Edits the phone number and email address of the 1st member to be <code>91234567</code> and <code>johndoe@example.com</code> respectively.</p>
+</li>
+<li>
+<p><code>memberEdit 2 n/Betsy Crower t/</code><br>
+Edits the name of the 2nd member to be <code>Betsy Crower</code> and clears all existing tags.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="locating-members-by-name-code-memberfind-code"><a class="link" href="#locating-members-by-name-code-memberfind-code">3.2.4. Locating members by name: <code>memberFind</code></a></h4>
+<div class="paragraph">
+<p>Finds members whose names contain any of the given keywords.<br>
+Format: <code>memberFind CONDITION KEYWORD [MORE_KEYWORDS]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The search is case insensitive. e.g <code>hans</code> will match <code>Hans</code></p>
+</li>
+<li>
+<p>The order of the keywords does not matter. e.g. <code>Hans Bo</code> will match <code>Bo Hans</code></p>
+</li>
+<li>
+<p>Only the name is searched.</p>
+</li>
+<li>
+<p>Only full words will be matched e.g. <code>Han</code> will not match <code>Hans</code></p>
+</li>
+<li>
+<p>members matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>Hans Bo</code> will return <code>Hans Gruber</code>, <code>Bo Yang</code></p>
+</li>
+<li>
+<p>CONDITION could be "name" or "matricnum" (case insensitive).</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>memberFind name John</code><br>
+Returns <code>john</code> and <code>John Doe</code></p>
+</li>
+<li>
+<p><code>memberFind name Betsy Tim John</code><br>
+Returns any member having names <code>Betsy</code>, <code>Tim</code>, or <code>John</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="listing-members-code-memberlist-code"><a class="link" href="#listing-members-code-memberlist-code">3.2.5. Listing members : <code>memberList</code></a></h4>
+<div class="paragraph">
+<p>Shows a list of all members in ClubManager.<br>
+Format: <code>memberList</code></p>
+</div>
+<div class="paragraph">
+<p><strong>(below will be implemented in 1.4)</strong>
+fimage::memberList_example_all.png[width="300"]</p>
+</div>
+<div class="paragraph">
+<p>Shows a list of members by a particular year of study in ClubManager.<br>
+Format: <code>memberList yearOfStudy year 4</code></p>
+</div>
+<div class="paragraph">
+<p>Shows a list of members by a particular major
+Format: <code>memberList major computing</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="selecting-a-member-code-memberselect-code"><a class="link" href="#selecting-a-member-code-memberselect-code">3.2.6. Selecting a member : <code>memberSelect</code></a></h4>
+<div class="paragraph">
+<p>Selects the member identified by the index number used in the displayed member list.<br>
+Format: <code>memberSelect INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Selects the member and loads the members page of the member at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the displayed member list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>memberSelect 2</code><br>
+Selects the 2nd person in the address book.</p>
+</li>
+<li>
+<p><code>find Betsy</code><br>
+<code>memberSelect 1</code><br>
+Selects the 1st member in the results of the <code>find</code> command.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="sort-members-list-code-membersort-code"><a class="link" href="#sort-members-list-code-membersort-code">3.2.7. Sort members’ list : <code>memberSort</code></a></h4>
+<div class="paragraph">
+<p>Sort the members list by a member’s attribute in ascending order</p>
+</div>
+<div class="paragraph">
+<p><strong>Format</strong></p>
+</div>
+<table class="tableblock frame-all grid-all" style="width: 59%;">
+<colgroup>
+<col style="width: 37.5%;">
+<col style="width: 62.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Sort By</th>
+<th class="tableblock halign-left valign-top">Command Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">memberSort name</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Gender</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">memberSort Gender</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Year of Study</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">memberSort yearOfStudy</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Major</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">memberSort major</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Sorts the member at the specified sorting criteria. The attribute refers to the name, matric number, phone number, email, year of study, and major. There can only be a single attribute provided.</p>
+</li>
+<li>
+<p>At least one of the sorting criteria are provided.</p>
+</li>
+<li>
+<p>Members will be sorted in ascending order based on the sorting criteria.</p>
+</li>
+<li>
+<p>Within each of the sort criteria, the members are further sorted by name in ascending order.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Sorts the member at the specified attribute. The attribute refers to the name, admin number, phone number, email, year of study, and major. There can only be a single attribute provided.</p>
+</li>
+<li>
+<p>At least one of the attributes are provided.</p>
+</li>
+<li>
+<p>Members will be sorted in ascending order based on the attribute.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>memberList</code><br>
+<code>memberSort name</code><br>
+Sorts the list by name.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/MemberSortCommand_sortby_name.png" alt="MemberSortCommand sortby name" width="790">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>memberList</code><br>
+<code>memberSort yearOfStudy</code><br>
+Sorts the list by year of study.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/MemberSortCommand_sortby_yearofstudy.png" alt="MemberSortCommand sortby yearofstudy" width="790">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="exporting-details-of-a-member-code-memberexport-code"><a class="link" href="#exporting-details-of-a-member-code-memberexport-code">3.2.8. Exporting details of a member : <code>memberExport</code></a></h4>
+<div class="paragraph">
+<p>Export the details of the member identified by the index number used in the displayed member list.<br>
+Format: <code>memberExport INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Exports the details of member at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the displayed member list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>memberlist</code><br>
+<code>memberExport 2</code><br>
+Export the details of the 2nd person in the address book.</p>
+</li>
+<li>
+<p><code>memberFind name Betsy</code><br>
+<code>memberExport 1</code><br>
+Export the details of the 1st member in the results of the <code>find</code> command.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The exported file will be stored in the same directory where ClubManager is installed in.</p>
+</div>
+<div class="paragraph">
+<p>File name with the following format:
+YYYYMMDD_HHMMSS_xxxxx_NameOfPerson.txt</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="activity-management-features"><a class="link" href="#activity-management-features">3.3. Activity Management Features</a></h3>
+<div class="sect3">
+<h4 id="adding-an-activity-code-activityadd-code"><a class="link" href="#adding-an-activity-code-activityadd-code">3.3.1. Adding an activity : <code>activityAdd</code></a></h4>
+<div class="paragraph">
+<p>Adds a new activity to the activity list<br></p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 23.0769%;">
+<col style="width: 38.4615%;">
+<col style="width: 38.4616%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Information of Activity</th>
+<th class="tableblock halign-left valign-top">Definition</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ActivityName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ACTIVITYNAME refers to the name of the activity.</p>
+<p class="tableblock"> Only alphabets are accepted.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sentosa Outing</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ActivityDateTime</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DATETIME refers to the date and time of the activity</p>
+<p class="tableblock">Activity Date and time should be in "dd/MM/YYYY HHMM" format, where dd, MM, YYYY refers
+to day of month, month and year respectively. HH refers to the hour in 24 hour format (
+0-23).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">28/02/2019 2359</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ActivityLocation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LOCATION refers to the location of an activity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kent Ridge MRT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ActivityDescription</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DESCRIPTION refers to the detailed description of the activity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Meeting at MRT before leaving together.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Format: <code>activityAdd n/ACTIVITYNAME d/DATETIME l/LOCATION [de/DESCRIPTION] &#8230;&#8203;</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Inputing description is optional. If no description is found, the default description
+will be "More details to be added."</p>
+</li>
+<li>
+<p>The added activity will be displayed at the sorted position according to its time.<br>
+The ongoing activities will be display on top while the completed activity will be at
+the bottom of the list.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>activityAdd n/Sentosa Outing d/16022019 1000 l/Harbour Front MRT de/Bring swim suits.</code></p>
+</li>
+<li>
+<p><code>activityAdd n/HTML workshop d/1402019 l/ICube Auditorium ic/A0123456Z</code></p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ActivityAddCommand.png" alt="ActivityAddCommand" width="790">
+</div>
+</div>
+<div class="paragraph">
+<p>Adding activity to the correct position based on the time.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="add-a-member-to-activity-code-activityaddmember-code"><a class="link" href="#add-a-member-to-activity-code-activityaddmember-code">3.3.2. Add a member to activity <code>activityAddMember</code></a></h4>
+<div class="paragraph">
+<p>Adds an existing member to an existing activity to indicate that they will be going for the activity.
+Format: <code>activityAddMember ACTIVITY_INDEX MATRIC_NO</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Adds a member to the activity at the specified <code>ACTIVITY_INDEX</code> which refers to the index number shown in the displayed activity list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>MATRIC_NO must be a currently existing entry in any existing member’s MATRIC_NO information column in the member list.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>activityAddMember 1 A1234567N</code><br>
+Adds the member with matric number <code>A1234567N</code> to the attending list for activity 1.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="delete-an-activity-code-activitydelete-code"><a class="link" href="#delete-an-activity-code-activitydelete-code">3.3.3. Delete an activity <code>activityDelete</code></a></h4>
+<div class="paragraph">
+<p>Deletes an existing activity in the activity list
+Format: <code>activityDelete ACTIVITY_INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Deletes the activity at the specified <code>ACTIVITY_INDEX</code> which refers to the index number shown in the displayed activity list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>activityDelete 1</code><br>
+Deletes the first activity in the displayed activity list</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="delete-a-member-from-activity-code-activitydeletemember-code"><a class="link" href="#delete-a-member-from-activity-code-activitydeletemember-code">3.3.4. Delete a member from activity <code>activityDeleteMember</code></a></h4>
+<div class="paragraph">
+<p>Removes an existing member who has already indicated that he/she will be attending the activity from the attending list of the activity.
+Format: <code>activityDeleteMember ACTIVITY_INDEX MATRIC_NO</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Removes a member from the attending list of the activity at the specified <code>ACTIVITY_INDEX</code> which refers to the index number shown in the displayed activity list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>MATRIC_NO must be a currently existing entry in the specified activity’s attending list.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>activityDeleteMember 1 A1234567N</code><br>
+Removes the member with matric number A1234567N from activity 1’s attending list.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="edit-an-activity-code-activityedit-code-strong-up-in-v1-4-strong"><a class="link" href="#edit-an-activity-code-activityedit-code-strong-up-in-v1-4-strong">3.3.5. Edit an activity: <code>activityEdit</code> <strong>up in v1.4</strong></a></h4>
+<div class="paragraph">
+<p>Edits an existing activity in the activity list
+Format: `activityEdit ACTIVITY_INDEX [n/ACTIVITY_NAME] [d/DATE] [t/TAG] … `</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Edits the activity at the specified <code>ACTIVITY_INDEX</code> which refers to the index number shown in the displayed activity list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>At least one of the optional fields must be provided.</p>
+</li>
+<li>
+<p>Existing values will be updated to the input values.</p>
+</li>
+<li>
+<p>When editing tags, the existing tags of the activity will be removed i.e adding of tags is not cumulative.</p>
+</li>
+<li>
+<p>You can remove all the activity’s tags by typing <code>t/</code> without specifying any tags after it.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>activityEdit 1 d/13022019</code><br>
+Edits the date of the first activity to be 13 Feb 2019.</p>
+</li>
+<li>
+<p><code>activityEdit 2 t/</code><br>
+Clears all existing tags of the second activity.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="filtering-activities-by-date-code-activityfilter-code"><a class="link" href="#filtering-activities-by-date-code-activityfilter-code">3.3.6. Filtering activities by date: <code>activityFilter</code></a></h4>
+<div class="paragraph">
+<p>Filters the activities that is the given number of days away from today (inclusive)
+and displays them as a list with index numbers.
+Format: <code>activityFilter CONDITION NUMBEROFDAYS</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The filter condition must be specified. <code>+</code> is to filter future activities and <code>-</code> is to filter activities.</p>
+</li>
+<li>
+<p><code>NUMBEROFDAYS</code> refers to the range of days from the current date.</p>
+</li>
+<li>
+<p><code>NUMBEROFDAYS</code> <strong>must be a postive integer</strong> <code>1 2 3</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="finding-activities-by-criteria-code-activityfind-code"><a class="link" href="#finding-activities-by-criteria-code-activityfind-code">3.3.7. Finding activities by criteria: <code>activityFind</code></a></h4>
+<div class="paragraph">
+<p>Finds all activities whose attribute contain any of the specified keywords
+(case-insensitive) and displays them as a list with index numbers.<br>
+Format: <code>activityFind [a/] [n/] [de/] [l/] KEYWORD [MORE_KEYWORDS]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The search is case insensitive. e.g <code>workshop</code> will match <code>Workshop</code></p>
+</li>
+<li>
+<p>The order of the keywords does not matter. e.g. <code>Talk Seminar</code> will match <code>Seminar Talk</code></p>
+</li>
+<li>
+<p>The search parameter is determined by the prefix. <code>a/</code> is to search all descriptive fields (ActivityName,
+ActivityLocation, ActivityDescription); <code>n/</code> searches for match in ActivityName; <code>l/</code> searches for match in
+ActivityLocation; <code>de/</code> searches for matches in ActivityDescription.</p>
+</li>
+<li>
+<p>There can be one and only one prefix.</p>
+</li>
+<li>
+<p>Only full words will be matched e.g. <code>CS</code> will not match <code>CSS</code></p>
+</li>
+<li>
+<p>Activities matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>HTML workshop</code> will return <code>HTML camp</code>, <code>CSS workshop</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>activityFind l/ Hall</code><br>
+Returns activities with location <code>University Hall</code> and <code>Eusoff Hall</code></p>
+</li>
+<li>
+<p><code>activityFind n/ HTML CSS Javascript</code><br>
+Returns any activity having names <code>HTML</code>, <code>CSS</code>, or <code>Javascript</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="listing-all-activities-code-activitylist-code"><a class="link" href="#listing-all-activities-code-activitylist-code">3.3.8. Listing all activities : <code>activityList</code></a></h4>
+<div class="paragraph">
+<p>Shows a list of all activities in the activity list.<br>
+Format: <code>activityList</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>If the status of some activities have changed from <code>ONGOING</code> to <code>COMPLETED</code>, the
+<code>activityList</code> command will automatically update the status of these activities.</p>
+</div>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ActivityListCommand.png" alt="ActivityListCommand" width="790">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="selecting-an-activity-code-activityselect-code"><a class="link" href="#selecting-an-activity-code-activityselect-code">3.3.9. Selecting an activity : <code>activitySelect</code></a></h4>
+<div class="paragraph">
+<p>Selects the activity identified by the index number used in the displayed activity list.<br>
+Format: <code>activitySelect ACTIVITY_INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Selects the activity and displays the specific details of the activity at the specified <code>ACTIVITY_INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the displayed activity list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>activityList</code><br>
+<code>activitySelect 2</code><br>
+Selects the 2nd person in the displayed activity list.</p>
+</li>
+<li>
+<p><code>activityFind workshop</code><br>
+<code>activitySelect 1</code><br>
+Selects the 1st activity in the results of the <code>find</code> command.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.4. Saving the data</a></h3>
+<div class="paragraph">
+<p>Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+There is no need to save manually.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">3.5. Encrypting data files <code>[coming in v2.0]</code></a></h3>
+<div class="paragraph">
+<p><em>{explain how the user can enable/disable data encryption}</em></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="faq"><a class="link" href="#faq">4. FAQ</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
+<strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="command-summary"><a class="link" href="#command-summary">5. Command Summary</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section provides a comprehensive list of commands that ClubManager offers.</p>
+</div>
+<div class="sect2">
+<h3 id="general-commands"><a class="link" href="#general-commands">5.1. General Commands</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Help</strong> : <code>help</code></p>
+</li>
+<li>
+<p><strong>History</strong> : <code>history</code></p>
+</li>
+<li>
+<p><strong>Redo</strong> : <code>redo</code></p>
+</li>
+<li>
+<p><strong>Undo</strong> : <code>undo</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="member-management-commands"><a class="link" href="#member-management-commands">5.2. Member Management Commands</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Add member</strong> : <code>memberAdd n/NAME mn/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL yos/YEAR_OF_STUDY m/MAJOR [t/TAG]&#8230;&#8203;</code><br>
+e.g. <code>memberAdd n/James Ong an/A0123456Y p/98765432 e/jamesong@example.com yos/year1 m/mathematics</code></p>
+</li>
+<li>
+<p><strong>Clear member list</strong> : <code>memberClear</code></p>
+</li>
+<li>
+<p><strong>Delete a member</strong> : <code>memberDelete INDEX</code><br>
+e.g. <code>memberDelete 3</code></p>
+</li>
+<li>
+<p><strong>Edit a member</strong> : <code>memberEdit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]
+[mn/MATRIC_NUMBER] [yos/YEAR_OF_STUDY] [m/MAJOR] [t/TAG]&#8230;&#8203;</code><br>
+e.g. <code>memberEdit 2 n/James Lee e/jameslee@example.com</code></p>
+</li>
+<li>
+<p><strong>Find a member</strong> : <code>memberFind KEYWORD [MORE_KEYWORDS]</code><br>
+e.g. <code>memberFind John</code></p>
+</li>
+<li>
+<p><strong>List all members</strong> : <code>memberList</code></p>
+</li>
+<li>
+<p><strong>Select a member</strong> : <code>memberSelect INDEX</code><br>
+e.g.<code>memberSelect 2</code></p>
+</li>
+<li>
+<p><strong>Sort the member list</strong> : <code>memberSort [name] [gender] [yearOfStudy] [major]</code><br>
+e.g. <code>memberSort NAME</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="activity-management-commands"><a class="link" href="#activity-management-commands">5.3. Activity Management Commands</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Add a activity</strong> : <code>activityAdd n/gACTIVITYNAME d/DATETIME l/LOCATION [de/DESCRIPTION] [ic/INCHARGEMATRIC] &#8230;&#8203;</code><br>
+e.g. <code>activityAdd n/Sentosa Outing d/16022019 1000 l/Harbour Front MRT de/Bring swim suits.</code></p>
+</li>
+<li>
+<p><strong>Add a member to activity</strong> : <code>activityAddMember ACTIVITY_INDEX MATRIC_NO</code><br>
+e.g. <code>activityAddMember 1 A1234567N</code></p>
+</li>
+<li>
+<p><strong>Delete an activity</strong> : <code>activityDelete ACTIVITY_INDEX</code><br>
+e.g. <code>activityDelete 1</code></p>
+</li>
+<li>
+<p><strong>Delete a member from activity</strong> : <code>activityDeleteMember ACTIVITY_INDEX MATRIC_NO</code><br>
+e.g. <code>activityDeleteMember 1 A1234567N</code></p>
+</li>
+<li>
+<p><strong>Edit an activity</strong> : <code>activityEdit ACTIVITY_INDEX [n/ACTIVITY_NAME] [d/DATE] [t/TAG] … `<br>
+e.g. `activityEdit 1 d/13022019</code></p>
+</li>
+<li>
+<p><strong>Find an activity</strong> : <code>activityFind [a/] [n/] [de/] [l/] KEYWORD [MORE_KEYWORDS]</code><br>
+e.g. <code>activityFind n/ Workshop</code></p>
+</li>
+<li>
+<p><strong>Filtering activities</strong> : <code>activityFilter CONDITION NUMBEROFDAYS</code><br>
+e.g. <code>activityFilter + 30</code></p>
+</li>
+<li>
+<p><strong>List all the activities</strong> : <code>activityList</code></p>
+</li>
+<li>
+<p><strong>Select an activity</strong> : <code>activitySelect ACTIVITY_INDEX</code><br>
+e.g. <code>activitySelect 2</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-02 10:51:29 UTC</div></div></div></body></html>

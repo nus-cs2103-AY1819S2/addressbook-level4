@@ -61,14 +61,14 @@ public class StringUtil {
         requireNonNull(word);
 
         Float value = Float.parseFloat(word);
-        //checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
-        //checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
 
-        String preppedSentence = sentence;
+        String preppedSentence = sentence.trim();
+        checkArgument(!preppedSentence.isEmpty(), "Word parameter cannot be empty");
+        checkArgument(preppedSentence.split("\\s+").length == 1, "Word parameter should be a single word");
         String[] rangesInPreppedSentence = preppedSentence.split("\\s+");
         for (String range: rangesInPreppedSentence){
+            checkArgument(range.split("-").length == 2, "Word parameter should be a single word");
             String[] vaules = range.split("-");
-            System.out.print(vaules);
             if (value>=Float.parseFloat(vaules[0])&&value<=Float.parseFloat(vaules[1]))
                 return true;
         }

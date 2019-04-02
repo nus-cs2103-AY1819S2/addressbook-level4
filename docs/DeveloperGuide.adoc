@@ -575,20 +575,25 @@ either soft or hard deletes the PDF file specified by you from PDF++.
 ==== Current Implementation
 The exit feature is facilitated by `ExitCommand`. This feature allows you to exit from PDF++.
 
-The `Exit` feature has to following syntax: `exit`
+The `Exit` feature has to following syntax:
+
+`exit`...
 
 * The `exit` command will be executed regardless if there is any invalid text that comes after the command
 
 [NOTE]
-As your files and commands are immediately stored after execute, you do not need to worry for any unsaved
-files
+Your files and commands are immediately stored after execution, and can be retrieved on
+reopening the application.
 
 // tag::help[]
 === Help feature
 ==== Current Implementation
-The help feature is facilitated by `HelpCommand`. This feature allows you to exit from PDF++.
+The `help` feature brings up the UserGuide in a browser window as a html file. Following other
+features, the command is parsed and a *HelpCommand* object is created to be executed.
 
-The `Help` feature has to following syntax: `help`
+The `Help` feature has to following syntax:
+
+`help`
 
 * Enter here
 

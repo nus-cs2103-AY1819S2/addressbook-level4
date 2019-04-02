@@ -24,7 +24,6 @@ import seedu.hms.logic.commands.FindBookingCommand;
 import seedu.hms.logic.commands.FindNameCommand;
 import seedu.hms.logic.commands.FindReservationCommand;
 import seedu.hms.logic.commands.GenerateBillForBookingCommand;
-import seedu.hms.logic.commands.GenerateBillForCustomerCommand;
 import seedu.hms.logic.commands.GenerateBillForReservationCommand;
 import seedu.hms.logic.commands.HelpCommand;
 import seedu.hms.logic.commands.HistoryCommand;
@@ -136,11 +135,7 @@ public class HotelManagementSystemParser {
 
         case GenerateBillForBookingCommand.COMMAND_WORD:
         case GenerateBillForBookingCommand.COMMAND_ALIAS:
-            return new GenerateBillForBookingCommandParser().parse(arguments, customerModel, billModel);
-
-        case GenerateBillForCustomerCommand.COMMAND_WORD:
-        case GenerateBillForCustomerCommand.COMMAND_ALIAS:
-            return new GenerateBillForCustomerCommandParser().parse(arguments, customerModel, billModel);
+            return new GenerateBillForBookingCommandParser().parse(arguments);
 
         case SwitchTabCommand.COMMAND_WORD:
         case SwitchTabCommand.COMMAND_ALIAS:
@@ -148,7 +143,7 @@ public class HotelManagementSystemParser {
 
         case GenerateBillForReservationCommand.COMMAND_WORD:
         case GenerateBillForReservationCommand.COMMAND_ALIAS:
-            return new GenerateBillForReservationCommandParser().parse(arguments, customerModel, billModel);
+            return new GenerateBillForReservationCommandParser().parse(arguments);
 
         case ListCustomerCommand.COMMAND_WORD:
         case ListCustomerCommand.COMMAND_ALIAS:

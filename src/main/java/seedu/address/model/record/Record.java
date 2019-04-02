@@ -79,7 +79,9 @@ public class Record {
 
     public String getRecord() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Doctor: ")
+        builder.append("Procedure: ")
+                .append(getProcedure())
+                .append("Doctor: ")
                 .append(getDoctorName())
                 .append(", Description: ")
                 .append(getDescription())

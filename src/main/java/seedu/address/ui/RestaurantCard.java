@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.text.DecimalFormat;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -13,6 +15,8 @@ import seedu.address.model.restaurant.Restaurant;
 public class RestaurantCard extends UiPart<Region> {
 
     private static final String FXML = "RestaurantListCard.fxml";
+    private static final DecimalFormat ONE_DP = new DecimalFormat("0.0");
+    private static final String FIELD_NOT_ADDED = "N.A.";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -39,6 +43,8 @@ public class RestaurantCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
+    private Label avgRating;
+    @FXML
     private Label cuisine;
     @FXML
     private Label occasion;
@@ -64,6 +70,13 @@ public class RestaurantCard extends UiPart<Region> {
 
         weblink.setText(restaurant.getWeblink().value);
         openingHours.setText(restaurant.getOpeningHours().value);
+
+        // Check if Restaurant has been visited before
+        if (restaurant.getSummary().getTotalVisits() > 0) {
+            avgRating.setText(ONE_DP.format(restaurant.getSummary().getAvgRating()));
+        } else {
+            avgRating.setText(FIELD_NOT_ADDED);
+        }
     }
 
     @Override

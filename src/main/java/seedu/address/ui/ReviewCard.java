@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
 import javafx.fxml.FXML;
@@ -15,7 +16,7 @@ public class ReviewCard extends UiPart<Region> {
 
     private static final String FXML = "ReviewListCard.fxml";
     private static final SimpleDateFormat TIMESTAMP = new SimpleDateFormat("EEE, d MMM yyyy, h.mm aa");
-    private static final String ONE_DP = "%.1f";
+    private static final DecimalFormat ONE_DP = new DecimalFormat("0.0");
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -43,7 +44,7 @@ public class ReviewCard extends UiPart<Region> {
         this.review = review;
         id.setText(displayedIndex + ". ");
         timestamp.setText(TIMESTAMP.format(review.getTimeStamp()));
-        rating.setText(String.format(ONE_DP, review.getRating().toFloat()) + " / 5.0");
+        rating.setText(ONE_DP.format(review.getRating().toFloat()) + " / 5.0");
         entry.setText(review.getEntry().toString());
     }
 

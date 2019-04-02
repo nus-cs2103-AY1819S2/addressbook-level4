@@ -27,7 +27,8 @@ public class ListAppCommandParser implements Parser<ListAppCommand> {
     public ListAppCommand parse(String args) throws ParseException {
         // Use default range of dates to list if there are no arguments
         if (args.isEmpty()) {
-            return new ListAppCommand();
+            List<LocalDate> dates = ParserUtil.parseFormatDate(ParserUtil.FORMAT_WEEK, LocalDate.now());
+            return new ListAppCommand(dates.get(0), dates.get(1));
         }
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FORMAT, PREFIX_DATE, PREFIX_NRIC);

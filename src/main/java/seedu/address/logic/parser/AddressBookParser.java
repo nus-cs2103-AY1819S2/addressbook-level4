@@ -114,7 +114,7 @@ public class AddressBookParser {
 
         case ListRemCommand.COMMAND_WORD:
         case ListRemCommand.COMMAND_ALIAS:
-            return new ListRemCommand();
+            return new ListRemCommandParser().parse(arguments);
 
         case EditPatientCommand.COMMAND_WORD:
         case EditPatientCommand.COMMAND_ALIAS:

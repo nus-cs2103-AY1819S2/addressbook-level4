@@ -577,9 +577,9 @@ of the actual appointment (on the week of the appointment date)!
 {sp} +
 *Example and results:*
 
-* `addapp r/S9123456A d/2019-07-23 s/16:00 e/17:00 c/Weekly checkup` +
+* `addapp r/S9534567B d/2019-07-23 s/16:00 e/17:00 c/Weekly checkup` +
 
-This adds an appointment allocated to the patient with NRIC S9123456A, on 23rd July 2019, from 4pm to 5pm. You can
+This adds an appointment allocated to the patient with NRIC S9534567B, on 23rd July 2019, from 4pm to 5pm. You can
 include any comments or notes you want to this appointment, which is 'Weekly checkup' in this case.
 
 [NOTE]
@@ -637,13 +637,13 @@ Lists all appointments scheduled on 23rd July 2019.+
 
 * `listapp f/week d/2019-07-23` +
 
-Lists all appointments scheduled on the given week of 23rd July 2019, which is from 15th to 21st July. A week starts on a
+Lists all appointments scheduled on the given week of 23rd July 2019, which is from 22nd to 28th July. A week starts on a
 Monday and ends on a Sunday.
 {sp} +
 
 * `listapp f/month d/2019-07-23` +
 
-Lists all appointments scheduled in the month of the given date, July 2019. +
+Lists all appointments scheduled in the month of the given date, July 2019. +delee
 {sp} +
 
 * `listapp r/S9123456A` +
@@ -733,7 +733,7 @@ Lists all free appointment slots on 23rd July 2019.+
 
 * `freeapp f/week d/2019-07-23` +
 
-Lists all free appointment slots on the given week of 23rd July 2019, which is from 15th to 21st July. A week starts on a
+Lists all free appointment slots on the given week of 23rd July 2019, which is from 22nd to 28th July. A week starts on a
 Monday and ends on a Sunday.
 {sp} +
 
@@ -760,6 +760,9 @@ Never forget about your to-dos ever again!
 {sp} +
 *Format:* `addrem t/TITLE d/DATE s/START [e/END] [c/COMMENT]` +
 *Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `ar` +
+
+[NOTE]
+`END` and `COMMENT` are optional fields for a reminder.
 
 {sp} +
 *Example:*

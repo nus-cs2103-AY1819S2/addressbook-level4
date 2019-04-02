@@ -2,7 +2,6 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -122,9 +121,15 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<Reminder> getFilteredReminderList() {
-        LocalDate todaysDate = LocalDate.now();
-        return model.getFilteredReminderList(todaysDate);
+        return model.getFilteredReminderList();
     }
+
+
+//    @Override
+//    public ObservableList<Reminder> getFilteredReminderList() {
+//        LocalDate todaysDate = LocalDate.now();
+//        return model.getFilteredReminderList(todaysDate);
+//    }
 
     @Override
     public ReadOnlyProperty<Reminder> selectedReminderProperty() {

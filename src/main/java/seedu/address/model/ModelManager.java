@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -60,6 +61,7 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
     // to handle QuickDocs operations
     private final QuickDocs quickDocs;
+    private final FilteredList<Reminder> filteredReminders;
     private final SimpleObjectProperty<Reminder> selectedReminder = new SimpleObjectProperty<>();
     private final MedicineManager medicineManager;
     private final PatientManager patientManager;
@@ -90,6 +92,8 @@ public class ModelManager implements Model {
         this.statisticsManager = new StatisticsManager();
 
         quickDocs = new QuickDocs();
+        filteredReminders = new FilteredList<>(FXCollections.observableArrayList(reminderManager.getReminderList()));
+
 
         iniQuickDocs();
     }
@@ -117,6 +121,7 @@ public class ModelManager implements Model {
         this.reminderManager = quickDocs.getReminderManager();
         this.statisticsManager = quickDocs.getStatisticsManager();
 
+        filteredReminders = new FilteredList<>(FXCollections.observableArrayList(reminderManager.getReminderList()));
 
         iniQuickDocs();
     }
@@ -338,6 +343,17 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredReminderList(Predicate<Reminder> predicate) {
+        requireNonNull(predicate);
+        filteredReminders.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Reminder> getFilteredReminderList() {
+        return filteredReminders;
     }
 
     @Override

@@ -650,6 +650,10 @@ public class AddToOrderCommandTest {
         public ReadOnlyRestOrRant getRestOrRant() {
             return new RestOrRantStub();
         }
+
+        @Override
+        public void updateFilteredOrderItemList(Predicate<OrderItem> predicate) {
+        }
     }
 
     /**

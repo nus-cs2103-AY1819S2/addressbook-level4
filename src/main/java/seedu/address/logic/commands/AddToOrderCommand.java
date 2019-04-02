@@ -28,7 +28,8 @@ public class AddToOrderCommand extends Command {
             + " W09 2 C18 1 C02 1";
 
     public static final String MESSAGE_SUCCESS = "New order items added:\n%1$s";
-    public static final String MESSAGE_INVALID_ITEM_CODE = "The item code [%1$s] is invalid";
+    public static final String MESSAGE_INVALID_ITEM_CODE = "The item code [%1$s] is invalid. "
+            + "All items after this were not added.";
 
     private final List<Code> itemCodes;
     private final List<Integer> itemQuantities;
@@ -51,6 +52,7 @@ public class AddToOrderCommand extends Command {
         for (int i = 0; i < itemCodes.size(); i++) {
             Optional<MenuItem> itemOptional = model.getRestOrRant().getMenu().getItemFromCode(itemCodes.get(i));
             if (!itemOptional.isPresent()) {
+                model.updateFilteredOrderItemList(orderItem -> orderItem.getTableNumber().equals(tableNumber));
                 throw new CommandException(String.format(MESSAGE_INVALID_ITEM_CODE, itemCodes.get(i)));
             }
             OrderItem orderItem = new OrderItem(tableNumber, itemCodes.get(i),

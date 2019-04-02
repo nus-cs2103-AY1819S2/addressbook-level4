@@ -30,6 +30,7 @@ public class Restaurant {
     private final Weblink weblink;
     private final List<Review> reviews = new ArrayList<>();
     private final OpeningHours openingHours;
+    private final Postal postal;
     private final Summary summary;
 
     // Categories fields
@@ -39,9 +40,9 @@ public class Restaurant {
      * Constructor for Restaurant class without Reviews and Categories
      * Every field must be present and not null.
      */
-    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink,
-                      OpeningHours openingHours) {
-        requireAllNonNull(name, phone, email, address, tags, weblink, openingHours);
+    public Restaurant(Name name, Phone phone, Email email, Address address, Postal postal,
+                      Set<Tag> tags, Weblink weblink, OpeningHours openingHours) {
+        requireAllNonNull(name, phone, email, address, tags, weblink, openingHours, postal);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -50,15 +51,17 @@ public class Restaurant {
         this.weblink = weblink;
         this.openingHours = openingHours;
         this.categories = Categories.empty();
+        this.postal = postal;
         this.summary = new Summary(reviews);
     }
+
 
     /**
      * Create new restaurant with Categories and Reviews.
      */
-    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink,
-                      OpeningHours openingHours, Categories categories, List<Review> reviews) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Restaurant(Name name, Phone phone, Email email, Address address, Postal postal, Set<Tag> tags,
+                      Weblink weblink, OpeningHours openingHours, Categories categories, List<Review> reviews) {
+        requireAllNonNull(name, phone, email, address, tags, postal);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -72,6 +75,7 @@ public class Restaurant {
         } else {
             this.categories = categories;
         }
+        this.postal = postal;
         this.summary = new Summary(reviews);
     }
 
@@ -90,6 +94,7 @@ public class Restaurant {
         this.categories = categories;
         this.weblink = restaurant.weblink;
         this.openingHours = restaurant.openingHours;
+        this.postal = restaurant.postal;
         this.summary = new Summary(restaurant.getReviews());
     }
 
@@ -119,6 +124,10 @@ public class Restaurant {
 
     public Categories getCategories() {
         return categories;
+    }
+
+    public Postal getPostal() {
+        return postal;
     }
 
     public Summary getSummary() {

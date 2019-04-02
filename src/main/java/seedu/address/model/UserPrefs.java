@@ -14,13 +14,14 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private String name = "Annon";
+    private String name = "Anonymous";
     private Path foodDiaryFilePath = Paths.get("data" , "fooddiary.json");
 
 
     /**
      * Creates a {@code UserPrefs} with default values.
      */
+
     public UserPrefs() {}
 
     /**

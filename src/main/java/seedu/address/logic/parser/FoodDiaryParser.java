@@ -92,7 +92,7 @@ public class FoodDiaryParser {
             return new ListCommand();
 
         case ListUnvisitedCommand.COMMAND_WORD:
-            return new ListUnvisitedCommand();
+            return new ListUnvisitedParser().parse(arguments);
 
         case ViewCommand.COMMAND_WORD:
             return new ViewCommand();

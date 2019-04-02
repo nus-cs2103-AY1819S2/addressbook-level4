@@ -6,6 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_POSTAL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalRestaurants.ALICE;
 import static seedu.address.testutil.TypicalRestaurants.BOB;
@@ -57,6 +58,9 @@ public class RestaurantTest {
         // same name, same phone, same email, different attributes -> returns true
         editedAlice = new RestaurantBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameRestaurant(editedAlice));
+
+        editedAlice = new RestaurantBuilder(ALICE).withPostal(VALID_POSTAL_BOB).build();
+        assertTrue(ALICE.isSameRestaurant((editedAlice)));
     }
 
     @Test

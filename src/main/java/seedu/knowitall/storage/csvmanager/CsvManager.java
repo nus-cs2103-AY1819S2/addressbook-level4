@@ -189,6 +189,9 @@ public class CsvManager implements CsvCommands {
         return stringBuilder.toString();
     }
 
+    /**
+     * Method ensures the correct parsing of commas within card field names
+     */
     private String parseQuotationMarks(String cardField) {
         if (cardField.contains(",")) {
             return "\"" + cardField + "\"";

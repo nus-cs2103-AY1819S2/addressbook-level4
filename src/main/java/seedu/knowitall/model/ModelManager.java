@@ -546,7 +546,9 @@ public class ModelManager implements Model {
         CardFolder cardFolder = csvManager.readFoldersToCsv(csvFile);
         addFolder(cardFolder);
     }
-
+    /**
+     * checks whether cardfolder already exists in the model when importing file
+     */
     private boolean isCardFolderExists(String cardFolderName) {
         for (CardFolder cardFolder : folders) {
             if (cardFolderName.equals(cardFolder.getFolderName())) {

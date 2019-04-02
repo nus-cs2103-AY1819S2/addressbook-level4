@@ -382,13 +382,13 @@ image::import_export_model_list1.png[width = "800"]
 `Human Anatomy.csv` file contains flashcards represented in csv file format.
 User types `import Blood.csv` command
 
-2. Import command parser extracts file name, wraps file into a `CsvFile` object and
+7. Import command parser extracts file name, wraps file into a `CsvFile` object and
    parses the CsvFile into an Import Command object.
 
-3. Logic unit executes the import command.
+8. Logic unit executes the import command.
 The execute method makes a call to `Model#importCardFolder` method.
 
-4. CsvManager is called to carry out the main logic of reading cardfolders to file.
+9. CsvManager is called to carry out the main logic of reading cardfolders to file.
 File imported will be serialized into a `CardFolder` object and
 added to the `filteredFoldersList` variable.
 
@@ -417,7 +417,7 @@ Headers have to be present in the csv file for import.
 * Hints header can take either 0 or 1 value.
 
 ==== Design Considerations
-====== Aspect: Which component responsible for import/export logic
+===== Aspect: Which component responsible for import/export logic
 * Alternative 1: Implement read and write card folders in `StorageManager` class
 ** Pros:
 *** The most intuitive solution,
@@ -440,7 +440,7 @@ Storage +
 to convert .json file  into .csv file
 
 
-======  Aspect: csv file design structure
+=====  Aspect: csv file design structure
 * Alternative 1: Export multiple card folders into a single file.
 ** Pros:
 *** Saves user trouble of calling multiple import for files.

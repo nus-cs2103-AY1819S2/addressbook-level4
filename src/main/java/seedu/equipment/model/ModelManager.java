@@ -16,6 +16,7 @@ import seedu.equipment.commons.core.GuiSettings;
 import seedu.equipment.commons.core.LogsCenter;
 import seedu.equipment.commons.util.CollectionUtil;
 import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.equipment.SerialNumber;
 import seedu.equipment.model.equipment.exceptions.EquipmentNotFoundException;
 import seedu.equipment.model.tag.Tag;
 
@@ -132,6 +133,11 @@ public class ModelManager implements Model {
     public void addWorkList(WorkList workList) {
         versionedEquipmentManager.addWorkList(workList);
         updateFilteredWorkListList(PREDICATE_SHOW_ALL_WORKLISTS);
+    }
+
+    @Override
+    public void putEquipment(WorkListId workListId, SerialNumber serialNumber) {
+        versionedEquipmentManager.putEquipment(workListId, serialNumber);
     }
 
     @Override

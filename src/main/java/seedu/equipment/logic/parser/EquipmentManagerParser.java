@@ -18,6 +18,7 @@ import seedu.equipment.logic.commands.HelpCommand;
 import seedu.equipment.logic.commands.HistoryCommand;
 import seedu.equipment.logic.commands.ListEquipmentCommand;
 import seedu.equipment.logic.commands.ListWorkListCommand;
+import seedu.equipment.logic.commands.PutCommand;
 import seedu.equipment.logic.commands.RedoCommand;
 import seedu.equipment.logic.commands.SelectCommand;
 import seedu.equipment.logic.commands.SortCommand;
@@ -92,6 +93,9 @@ public class EquipmentManagerParser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
+
+        case PutCommand.COMMAND_WORD:
+            return new PutCommandParser().parse(arguments);
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();

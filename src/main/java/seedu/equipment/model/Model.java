@@ -7,6 +7,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.equipment.commons.core.GuiSettings;
 import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.equipment.SerialNumber;
 import seedu.equipment.model.tag.Tag;
 
 /**
@@ -69,6 +70,12 @@ public interface Model {
      * Returns true if a WorkList with the same identity as {@code workList} exists in the equipment manager.
      */
     boolean hasWorkList(WorkList workList);
+
+    /**
+     * Put the equipment with the serialNumber into the worklist with workListId.
+     * The workListId and the serialNumber must exist.
+     */
+    void putEquipment(WorkListId workListId, SerialNumber serialNumber);
 
     /**
      * Deletes the given equipment.

@@ -24,7 +24,9 @@ import seedu.equipment.model.Model;
 import seedu.equipment.model.ReadOnlyEquipmentManager;
 import seedu.equipment.model.ReadOnlyUserPrefs;
 import seedu.equipment.model.WorkList;
+import seedu.equipment.model.WorkListId;
 import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.equipment.SerialNumber;
 import seedu.equipment.model.tag.Tag;
 import seedu.equipment.testutil.WorkListBuilder;
 
@@ -165,6 +167,11 @@ public class AddWorkListCommandTest {
         @Override
         public boolean hasEquipment(Equipment equipment) {
 
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void putEquipment(WorkListId id, SerialNumber sr) {
             throw new AssertionError("This method should not be called.");
         }
 

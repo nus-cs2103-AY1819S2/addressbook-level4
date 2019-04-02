@@ -78,6 +78,7 @@ public class CommandTestUtil {
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_PM_DATE_DESC = " " + PREFIX_DATE + "2019-02";
     public static final String INVALID_ASSIGNEE_DESC = " " + PREFIX_ASSIGNEE + " ";
+    public static final String INVALID_WORKLISTID_DESC = " " + PREFIX_ID + "-1";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

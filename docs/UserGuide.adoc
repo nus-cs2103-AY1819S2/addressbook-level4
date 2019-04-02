@@ -171,6 +171,34 @@ Examples:
 * **`find KFC`** +
 Returns any restaurant with name containing `KFC`
 
+// tag::select[]
+=== Select a restaurant : `select`
+
+Select a restaurant based on its index on the list and display information about it. +
+Format: `select INDEX`
+
+****
+* The index refers to the index number show in the displayed restaurants list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `select 3` +
+Selects the restaurant in the displayed restaurants list with index 3 and displays its summary, reviews and website.
+
+image::selectbefore.png[width="800"]
+Figure 1. Before selecting any restaurant
+
+image::selectafter.png[width="800"]
+Figure 2. After selecting restaurant with index 3, Chilis' summary, reviews and website are displayed in the second, third and fourth panels (from left to right) respectively.
+
+Note:
+
+* Placeholder for Restaurant Summary panel after changes to the Food Diary has been made will be coming in v1.4
+* Details of the restaurant in the Restaurant Summary beyond a certain length will be cut off. This will be dealt with in v1.4.
+
+// end::select[]
 
 // tag::categorization[]
 ==== Setting the categories of a restaurant : `setCategories`
@@ -203,7 +231,6 @@ Note:
 * Autocomplete feature planned for v1.4
 
 ==== Filter restaurants based on category : `filter`
-
 
 Filters and lists the restaurants with categories matching the keywords entered. +
 Format: `filter KEYWORD [MORE_KEYWORDS]`
@@ -397,6 +424,7 @@ There is no need to save manually.
 
 *Q*: How do I return to default screen? +
 *A*: Enter the command `list` to show all the restaurants.
+
 == Command Summary
 
 `Restaurant` Class

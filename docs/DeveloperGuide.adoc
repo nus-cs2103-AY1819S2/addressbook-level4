@@ -157,7 +157,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagramV1.2.png[width="800"]
+image::UiClassDiagramV1.3.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -195,7 +195,7 @@ image::DeleteRestaurantSdForLogic.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagramV1.2.png[width="800"]
+image::ModelClassDiagramV1.3.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -548,6 +548,13 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+// tag::sharereviews[]
+=== [Proposed] Share Reviews to Facebook
+
+_{Explain here how the share reviews feature will be implemented}_
+
+// end::sharereviews[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -767,6 +774,7 @@ A project often depends on third-party libraries. For example, Address Book depe
 *Value proposition*: Allow all food lovers to have a centralised platform to document their food adventures and experience at each restaurant
 
 [appendix]
+
 // tag::userstories[]
 == User Stories
 
@@ -1214,6 +1222,30 @@ _{ more test cases ... }_
    Expected: Similar to previous.
 
 _{ more test cases ... }_
+
+// tag::selection[]
+=== Selecting a restaurant
+
+. Selecting a restaurant while all restaurants are listed
+
+.. Prerequisites: List all restaurants using the `list` command. Multiple restaurants in the list.
+.. Test case: `select 1` +
+   Expected: First restaurant in the list is selected. Details of the selected restaurant is shown in the 3 panels next to the restaurant list panel.
+.. Test case: `select 0` +
+   Expected: No restaurant is selected. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect select commands to try: `select`, `select x` (where x is larger than the list size)
+   Expected: Similar to previous.
+
+. Selecting a restaurant when `Filter` command is called
+
+.. Prerequisites: There is at least one restaurant in the list.
+.. Test case: `select 1` +
+   Expected: First restaurant in the list is selected. Details of the selected restaurant is shown in the 3 panels next to the restaurant list panel.
+.. Test case: `select 0` +
+   Expected: No restaurant is selected. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect select commands to try: `select`, `select x` (where x is larger than the list size)
+   Expected: Similar to previous.
+// end::selection[]
 
 // tag::categorization[]
 === Setting the categories of a restaurant

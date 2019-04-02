@@ -475,6 +475,7 @@ The Battle feature is split between several packages:
 ** Pros:
 ** Cons:
 
+// tag::stats[]
 === Statistics Feature
 ==== Current Implementation
 The `stats` feature allows users to view their current gameplay information. This information will be displayed in a pop-up window and will include: Number of Attacks Made, Number of Successful Hits, Number of Misses, Number of Enemy Ships Destroyed and Accuracy of Shots made.
@@ -526,7 +527,7 @@ image::StatsCommandBox.PNG[width=400]
 * **Alternative 2:** Statistics is stored entirely within StatsCommands
 ** Pros: Easy to code and less lines of code.
 ** Cons: Does not abide by Single Responsibility Principle as the `StatsCommand` will also contain filtering and analysis of data.
-
+// tag::stats[]
 
 === Logging
 
@@ -858,6 +859,14 @@ Use case ends.
 
 [none]
 * 2a. If there are no ships deployed, inform the user.
+
+=== Use case: View statistics
+*MSS*
+
+1. User requests to display current gameplay statistics
+2. Shows all of the user's gameplay data in one location.
++
+Use case ends.
 
 === Use case: End player turn
 

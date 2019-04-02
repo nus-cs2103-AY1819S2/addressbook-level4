@@ -59,10 +59,10 @@ public class UniqueRecordListTest {
     }
 
     @Test
-    public void add_duplicateRecord_throwsDuplicateRecordException() {
+    public void add_duplicateRecord_success() {
         uniqueRecordList.add(APPLE);
-        thrown.expect(DuplicateRecordException.class);
         uniqueRecordList.add(APPLE);
+        assertEquals(Arrays.asList(APPLE, APPLE), uniqueRecordList.asUnmodifiableObservableList());
     }
 
     @Test
@@ -173,10 +173,13 @@ public class UniqueRecordListTest {
     }
 
     @Test
-    public void setRecords_listWithDuplicateRecords_throwsDuplicateRecordException() {
+    public void setRecords_listWithDuplicateRecords_success() {
         List<Record> listWithDuplicateRecords = Arrays.asList(APPLE, APPLE);
-        thrown.expect(DuplicateRecordException.class);
         uniqueRecordList.setRecords(listWithDuplicateRecords);
+
+        assertEquals(Arrays.asList(APPLE, APPLE), uniqueRecordList.asUnmodifiableObservableList());
+
+
     }
 
     @Test

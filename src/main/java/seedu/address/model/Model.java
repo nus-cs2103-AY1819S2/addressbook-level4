@@ -99,6 +99,13 @@ public interface Model {
      */
     void setBook(Book target, Book editedBook);
 
+    /**
+     * Replaces the given review {@code target} in the list with {@code editedReview}.
+     * {@code target} must exist in the book shelf.
+     * The review identity of {@code editedReview} must not be the same as another existing review in the book shelf.
+     */
+    void setReview(Review target, Review editedReview);
+
     /** Returns an unmodifiable view of the filtered book list */
     ObservableList<Book> getFilteredBookList();
 

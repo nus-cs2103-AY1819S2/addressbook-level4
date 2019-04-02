@@ -122,6 +122,17 @@ public class BookShelf implements ReadOnlyBookShelf {
     }
 
     /**
+     * Replaces the given review {@code target} in the list with {@code editedReview}.
+     * {@code target} must exist in the book shelf.
+     * The review identity of {@code editedReview} must not be the same as another existing review in the book shelf.
+     */
+    public void setReview(Review target, Review editedReview) {
+        requireNonNull(editedReview);
+        reviews.setReview(target, editedReview);
+        indicateModified();
+    }
+
+    /**
      * Removes {@code key} from this {@code BookShelf}.
      * {@code key} must exist in the book shelf.
      */

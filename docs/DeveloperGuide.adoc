@@ -485,6 +485,20 @@ Step 6. If the book exists, the review is added to the review list of the Book S
 ** Pros: The model makes more sense because Reviews belong to Books.
 ** Cons: Makes it more difficult to link with the UI component.
 
+====== Aspect: Constraints on Review Parameters
+
+* ReviewTitle has the same constraints as BookName, less than 50 characters.
+* ReviewMessage should be less than or equal to 400 characters. This is because the
+BookBrowserPanel used to display the ReviewMessage currently cannot hold more than 400 characters.
+Longer text also makes it more difficult to edit in the small CommandBox. Future releases would consider
+adding enhanced review input panel to make the review feature more user friendly.
+
+====== Aspect: Auto-creation of Date for the Review
+
+* Currently, the constructor of Review automatically assigns a dateCreated to it.
+This feature is provided for the convenience of the user. An overloaded constructor
+is available where the date can be passed in as a parameter, to be used in testing.
+
 ==== ListReview Feature
 
 ===== Current Implementation
@@ -499,9 +513,69 @@ Step 3. The ListReviewCommand executes. The book with the specified index is sel
 
 Step 4. Reviews of the selected book will be displayed in the rightmost panel.
 
-===== Design Considerations
+Alternatively, the user can click the book to select it.
 
 ====== Aspect:
+
+==== ListAllReviews Feature
+===== Current Implementation
+
+The ListAllReviews Feature uses the same implementation as the ListBook feature:
+
+Step 1. The user executes `listAllReviews`
+
+Step 2. A new ListAllReviewsCommand is returned by the BookShelfParser
+
+Step 3. The ListAllReviewsCommand executes. Review list panel is updated to show all reviews.
+
+===== Design Considerations
+
+====== Aspect: Whether to combine ListAllReviews command with ListReview command
+
+* **Alternative 1 (current choice):** not to combine.
+** Pros: Command is more logical and user friendly because it is actually not intuitive to have two functions combined in one ListReview command.
+** Cons: Inconsistency with the ListBook command may cause confusion.
+* **Alternative 2:** Combine.
+** Pros: Consistency.
+** Cons: Command is not intuitive, and takes extra time to implement review predicates.
+
+==== SelectReview Feature
+===== Current Implementation
+
+Selection of review is implemented the same way as selection of book.
+
+In addition, review message of selected review will be displayed in the book browser panel.
+
+Step 1. The user executes `selectReview 1`
+
+Step 2. The SelectReviewCommandParser parses this command, and returns a new SelectReviewCommand with index 1.
+
+Step 3. The SelectReviewCommand executes. The review with the specified index is selected.
+
+Step 4. The BookBrowserPanel listens to the change in selected review, and displays its review message.
+
+
+==== DeleteReview Feature
+===== Current Implementation
+
+Review is deleted based on index.
+
+Step 1. The user executes `deleteReview 1`
+
+Step 2. The DeleteReviewCommandParser parses this command, and returns a new DeleteReviewCommand with index 1.
+
+Step 3. The DeleteReviewCommand executes. The review with the specified index is deleted.
+
+==== Other Design Considerations
+
+===== Whether to Implement EditReview
+
+It seems natural to implement EditReview as one component of the CRUD features. However,
+editing an existing review requires re-typing everything and seems painstaking to the user. It makes much more sense to just delete
+the original review and add a new one. Hence. EditReview is currently not implemented.
+
+
+
 
 // end::addReview[]
 

@@ -5,7 +5,7 @@ import static seedu.address.logic.commands.quiz.QuizHintCommand.MESSAGE_EMPTY;
 import static seedu.address.logic.commands.quiz.QuizHintCommand.MESSAGE_SUCCESS;
 import static seedu.address.logic.commands.quiz.QuizHintCommand.MESSAGE_SUCCESS_ONE;
 import static seedu.address.testutil.CardBuilder.DEFAULT_OPTIONAL;
-import static seedu.address.testutil.TypicalLessons.LESSON_DEFAULT;
+import static seedu.address.testutil.TypicalLessonList.LESSON_DEFAULT;
 import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2;
 import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2_ACTUAL;
 

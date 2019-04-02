@@ -23,6 +23,7 @@ By: `Team W10-3`      Since: `JAN 2019`      Licence: `MIT`
 
 Our purpose is to help engineers plan the number of equipment that they would like to carry out preventive maintenance and keep track on each equipment details such as status, location and more information.
 // end::introduction[]
+
 // tag::aboutug[]
 == About This User Guide
 Welcome to *Equipment Manager* User Guide! +
@@ -31,7 +32,6 @@ This User Guide document will equip you with all the information you need in ord
 this section will explain the key things to take note of. +
 
 If this is not a problem for you, jump to the <<Quick Start>> to get started. If you already have Equipment Manager up and running, then head over to <<Features>>. Enjoy!
-
 
 === Icons Meaning
 The following section provides a quick understanding on each of the legends used throughout the user guide.

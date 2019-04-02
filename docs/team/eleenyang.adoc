@@ -35,10 +35,11 @@ BookSquirrel(v1.3) is for those who want to keep a record of books they’ve rea
 ** Project management:
 *** Created the organization
 ** Enhancements to existing features:
-*** Wrote additional tests for existing features to increase coverage from 87% to 92% (Pull request https://github.com/cs2103-ay1819s2-w11-4/main/pull/95[#95])
+*** Make the storage part compatible with the app after the reviews part is added. (Pull request https://github.com/cs2103-ay1819s2-w11-4/main/pulls)
+*** Write some parts in UI to work with the current version. (Pull request https://github.com/cs2103-ay1819s2-w11-4/main/pull/107[#107])
 ** Documentation:
-*** Update diagrams DeveloperGuide. (Pull request https://github.com/cs2103-ay1819s2-w11-4/main/pull/17[#17], https://github.com/cs2103-ay1819s2-w11-4/main/pull/21[#21])
-*** Update User Guide and Developer Guide: (Pull request https://github.com/cs2103-ay1819s2-w11-4/main/pull/95[#95])
+*** Update diagrams DeveloperGuide. (Pull request https://github.com/cs2103-ay1819s2-w11-4/main/pull/107[#107], https://github.com/cs2103-ay1819s2-w11-4/main/pull/99[#99], )
+*** Update User Guide and Developer Guide: (Pull request https://github.com/cs2103-ay1819s2-w11-4/main/pull/107[#107])
 
 
 == Contributions to the User Guide

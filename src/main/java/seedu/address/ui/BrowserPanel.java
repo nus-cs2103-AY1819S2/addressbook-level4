@@ -63,7 +63,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     public void loadPage(String url) {
-        Platform.runLater(() -> browser.getEngine().load(url));
+        Platform.runLater(() -> browser.getEngine().load(Weblink.prependHttps(url)));
     }
 
     /**

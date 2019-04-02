@@ -37,7 +37,7 @@ This section provides a summary of my coding, documentation and other contributi
 ** Documentation:
 *** Wrote detailed documentation on undo/redo command in developer guide https://github.com/CS2103-AY1819S2-W14-2/main/pull/138[#138]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W14-2/main/pull/98[#98], https://github.com/CS2103-AY1819S2-W14-2/main/pull/52[#52], https://github.com/CS2103-AY1819S2-W14-2/main/pull/141[#141]
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W14-2/main/pull/141[#141]
 
 
 _{you can add/remove categories in the list above}_

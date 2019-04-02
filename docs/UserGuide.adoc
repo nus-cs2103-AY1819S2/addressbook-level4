@@ -174,7 +174,7 @@ sort bookList by author in descending order and if they having same rating it wi
 
 Adds a book review to a certain book in the book list +
 
-Format: `addReview n/BOOKNAME rt/REVIEW TITLE r/REVIEW MESSAGE
+Format: `addReview n/BOOKNAME rt/REVIEW TITLE r/REVIEW MESSAGE`
 
 Examples:
 
@@ -210,7 +210,9 @@ Format: `listAllReviews`
 
 Lists the reviews of the book identified by the index number used in the displayed book list. +
 Format: `listReview INDEX`
+
 Example:
+
 * `listReview 1`
 
 ****
@@ -223,7 +225,9 @@ Example:
 Selects a review.
 
 Format: `selectReview INDEX`
+
 Example:
+
 * `selectReview 1`
 ****
 * Selects the review of the specified `INDEX`.
@@ -350,7 +354,7 @@ e.g. `sortBook st/AUTHOR o/ASC`
 e.g. `addReview n/Alice in Wonderland r/While Lewis Carroll purists will scoff at the aging of his curious young protagonist, most movie audiences will enjoy this colorful world.`
 * *DeleteReview* : `deleteReview INDEX` +
 eg. `deleteReview 1`
-* *ListAllReviews* : `listAllReviews +
+* *ListAllReviews* : `listAllReviews` +
 e.g. `listAllReviews`
 * *ListReview* : `listReview INDEX` +
 e.g. `listReview 1`

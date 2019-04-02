@@ -94,7 +94,7 @@ public class CsvManager implements CsvCommands {
     private Set<Option> buildOptions(String[] card) {
         Set<Option> optionSet = new HashSet<>();
         String[] options = Arrays.copyOfRange(card, 2, card.length - 1);
-        if (options[0].equals(" ")) {
+        if (options[0].equals("")) {
             return optionSet;
         }
         Arrays.stream(options).map(Option::new).forEach(option -> optionSet.add(option));
@@ -107,7 +107,7 @@ public class CsvManager implements CsvCommands {
     private Set<Hint> buildHint(String[] card) {
         Set<Hint> hintSet = new HashSet<>();
         String hint = card[card.length - 1];
-        if (hint.equals(" ")) {
+        if (hint.equals("")) {
             return hintSet;
         }
         hintSet.add(new Hint(hint));

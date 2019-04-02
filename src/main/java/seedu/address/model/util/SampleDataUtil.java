@@ -36,7 +36,7 @@ public class SampleDataUtil {
             new HealthWorker(new Name("Billy Batson"), new Nric("T5857367J"), new Phone("98875432"),
                         new Organization("SGH"), getSkillsFromString("GYNAECOLOGY")),
             new HealthWorker(new Name("Charles Anderson"), new Nric("S5856787J"), new Phone("91234432"),
-                        new Organization("NUH"), getSkillsFromString("GYNAECOLOGY")),
+                        new Organization("NUH"), getSkillsFromString("GENERAL_PRACTICE")),
             new HealthWorker(new Name("Dawgs Galore"), new Nric("T2334567J"), new Phone("90987432"),
                         new Organization("SGH"), getSkillsFromString("UROLOGY"))
         };
@@ -51,12 +51,15 @@ public class SampleDataUtil {
     }
     public static Request[] getSampleRequests() {
         return new Request[] {
-            new Request(new Name("Aggie Tan"), new Nric("S9875432L"), new Phone("81234567"),
-                        new Address("311, Clementi Ave 2, #02-25"), new RequestDate("02-01-2919 08:00:00"),
+            new Request(new Name("Angie Lim"), new Nric("S9875432L"), new Phone("91665831"),
+                        new Address("39 Upper Boon Keng Road, #07-45"), new RequestDate("10-04-2019 10:00:00"),
                         getConditionSet("Palliative"), new RequestStatus("PENDING")),
             new Request(new Name("Benson Tan"), new Nric("S9878932L"), new Phone("84561267"),
-                        new Address("14, Bishan Ave 2, #01-20"), new RequestDate("02-01-2009 08:00:00"),
-                        getConditionSet("Palliative"), new RequestStatus("COMPLETED"))
+                        new Address("14, Bishan Ave 2, #11-90"), new RequestDate("05-04-2019 15:00:00"),
+                        getConditionSet("Palliative"), new RequestStatus("COMPLETED")),
+            new Request(new Name("Rajuratnam"), new Nric("S8016757C"), new Phone("81654488"),
+                    new Address("108, McNair Road, #09-65"), new RequestDate("01-03-2019 08:00:00"),
+                    getConditionSet("Diabetic", "Kidney Dialysis"), new RequestStatus("COMPLETED"))
         };
     }
 
@@ -67,6 +70,7 @@ public class SampleDataUtil {
         }
         return sampleRb;
     }
+
     /**
      * Returns a Condition set containing the list of strings given.
      * @param strings the conditions in String form.

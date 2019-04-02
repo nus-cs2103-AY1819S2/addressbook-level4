@@ -10,6 +10,7 @@ import static seedu.knowitall.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 import static seedu.knowitall.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 import static seedu.knowitall.testutil.TypicalIndexes.INDEX_THIRD_CARD;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import seedu.knowitall.commons.core.Messages;
@@ -18,6 +19,7 @@ import seedu.knowitall.logic.CommandHistory;
 import seedu.knowitall.model.Model;
 import seedu.knowitall.model.ModelManager;
 import seedu.knowitall.model.UserPrefs;
+import seedu.knowitall.testutil.TypicalIndexes;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
@@ -26,6 +28,12 @@ public class SelectCommandTest {
     private Model model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
+
+    @Before
+    public void setUp() {
+        model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        expectedModel.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+    }
 
     @Test
     public void execute_validIndexUnfilteredList_success() {

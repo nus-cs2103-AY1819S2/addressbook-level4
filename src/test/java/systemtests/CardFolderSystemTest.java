@@ -4,6 +4,7 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.knowitall.logic.commands.CommandTestUtil.TEST_FOLDER_INDEX;
 import static seedu.knowitall.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.knowitall.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.knowitall.ui.testutil.GuiTestAssert.assertListMatching;
@@ -28,6 +29,7 @@ import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.knowitall.TestApp;
 import seedu.knowitall.commons.core.index.Index;
+import seedu.knowitall.logic.commands.ChangeCommand;
 import seedu.knowitall.logic.commands.ClearCommand;
 import seedu.knowitall.logic.commands.ListCommand;
 import seedu.knowitall.logic.commands.SearchCommand;
@@ -64,8 +66,15 @@ public abstract class CardFolderSystemTest {
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
+        String command = ChangeCommand.COMMAND_WORD + " " + TEST_FOLDER_INDEX.getOneBased();
+        String resultDisplayString = String.format(ChangeCommand.MESSAGE_ENTER_FOLDER_SUCCESS,
+                TEST_FOLDER_INDEX.getOneBased());
+
+        mainWindowHandle.getCommandBox().run(command);
+        setupHelper.initialiseCardListPanelHandle();
+
         waitUntilBrowserLoaded(getBrowserPanel());
-        assertApplicationStartingStateIsCorrect();
+        assertApplicationStartingStateIsCorrect(resultDisplayString);
     }
 
     @After
@@ -258,10 +267,11 @@ public abstract class CardFolderSystemTest {
 
     /**
      * Asserts that the starting state of the application is correct.
+     * @param resultDisplayString is the string that result display should show.
      */
-    private void assertApplicationStartingStateIsCorrect() {
+    private void assertApplicationStartingStateIsCorrect(String resultDisplayString) {
         assertEquals("", getCommandBox().getInput());
-        assertEquals("", getResultDisplay().getText());
+        assertEquals(resultDisplayString, getResultDisplay().getText());
         assertListMatching(getCardListPanel(), getModel().getFilteredCards());
         assertEquals("", getBrowserPanel().getCurrentQuestion());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),

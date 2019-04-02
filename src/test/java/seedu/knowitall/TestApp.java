@@ -131,8 +131,16 @@ public class TestApp extends MainApp {
     public Model getModel() {
         Model copy = new ModelManager(Collections.singletonList(model.getActiveCardFolder()),
                 new UserPrefs());
+        copy.enterFolder(model.getActiveCardFolderIndex());
         ModelHelper.setFilteredList(copy, model.getFilteredCards());
         return copy;
+    }
+
+    /**
+     * Makes model enter folder at {@code index}
+     */
+    public void enterFolder(int index) {
+        model.enterFolder(index);
     }
 
     @Override

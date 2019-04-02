@@ -32,7 +32,7 @@ Welcome to the *Know-It-All* User Guide! This document will equip you with what 
 == Quick Start
 
 .  Ensure that you have Java version `9` or later installed in your Computer.
-.  Download the latest `know-it-all.jar` here (to be coming in v2.0).
+.  Download the latest `know-it-all.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for *Know-It-All*.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -66,7 +66,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Commands listed in this section affect the <<flashcard, flashcards>> within a single <<folder, folder>>.
 
 [NOTE]
-The commands in this section can only be executed when the user is within a folder
+The commands in this section can only be executed when you are within a folder
+
+[NOTE]
+The commands in this section are also not valid inside a test or report session.
 
 ==== Adding a flashcard : `add`
 
@@ -162,6 +165,13 @@ Format: `list`
 * This command is implicitly invoked upon entering a folder, and can be used to reset the view after search or sort.
 ====
 
+==== Search by keywords : `search`
+
+You can search for flashcards inside the current folder using keywords in flashcard questions.
+
+Format: `search KEYWORDS [MORE_KEYWORDS]`
+
+
 // tag::undoredo[]
 ==== Undoing previous command : `undo`
 
@@ -242,6 +252,9 @@ Commands listed in this section affect the application and not a single folder.
 
 [NOTE]
 The commands in this section can only be executed when you are at the home directory, outside of any folder
+
+[NOTE]
+The commands in this section are also not valid inside a test or report session.
 
 ==== Create new folder : `addfolder`
 
@@ -326,6 +339,25 @@ Format: `export FOLDER_INDEX FILENAME [MORE_INDEXES]`
 
 //end::folderoperations[]
 
+
+==== Import flashcards : `import`
+
+Searches for a csv file in the root project directory and parses the file to generate a flashcard folder.
+
+NOTE: The csv file imported should follow the format below
+
+
+
+Format: `import FILENAME`
+
+==== Export flashcards : `export`
+
+Creates a csv file containing the flashcards from the specified folder, which can later be imported.
+Exported card folder will be created in the project root directory.
+
+Format: `export FOLDER_INDEX FILENAME [MORE_INDEXES]`
+
+
 //tag::testoperations[]
 === Test Operations
 After memorising the content of the flashcards, it is helpful to test how much information have been internalised and retained in a timed setting. The following commands show just how this can be done with the <<testsession, Test Session>> functionality of *Know-It-All*.
@@ -342,6 +374,9 @@ Format: `test`
 
 [NOTE]
 This command is only considered valid when inside the folder to be tested and is not already inside a test session.
+
+[NOTE]
+This command is invalid if the current folder is empty as there will be no flashcards to test.
 
 ====
 * Only questions and hints are presented and users are required to either input an attempt or enter the command to

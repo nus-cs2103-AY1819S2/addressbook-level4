@@ -11,6 +11,7 @@ import seedu.knowitall.model.CardFolder;
 import seedu.knowitall.model.Model;
 import seedu.knowitall.model.ModelManager;
 import seedu.knowitall.model.UserPrefs;
+import seedu.knowitall.testutil.TypicalIndexes;
 
 public class ClearCommandTest {
 
@@ -19,7 +20,9 @@ public class ClearCommandTest {
     @Test
     public void execute_emptyCardFolder_success() {
         Model model = new ModelManager(this.getClass().getName());
+        model.enterFolder(0);
         Model expectedModel = new ModelManager(this.getClass().getName());
+        expectedModel.enterFolder(0);
         expectedModel.commitActiveCardFolder();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
@@ -28,7 +31,9 @@ public class ClearCommandTest {
     @Test
     public void execute_nonEmptyCardFolder_success() {
         Model model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
+        model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
+        expectedModel.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         expectedModel.resetCardFolder(new CardFolder(getTypicalFolderName()));
         expectedModel.commitActiveCardFolder();
 

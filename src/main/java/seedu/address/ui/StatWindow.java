@@ -118,8 +118,9 @@ public class StatWindow extends UiPart<Stage> {
         SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
         selectedPerson.setValue(toStat);
         ObservableValue<Person> localPatient = selectedPerson;
-        this.teethPanel = new TeethPanel(localPatient, true);
-        teethHolder.getChildren().add(teethPanel.getRoot());
+
+        //this.teethPanel = new TeethPanel(localPatient, true);
+        //teethHolder.getChildren().add(teethPanel.getRoot());
 
         populateStatTable();
         populateBarChart();

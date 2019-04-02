@@ -32,7 +32,8 @@ public class DisplayJobListCommand extends Command {
             + PREFIX_LISTNUMBER + "0 "
             + PREFIX_JOBNAME + "Helper ";
 
-    public static final String MESSAGE_SUCCESS = "Displaying job: %1$s";
+    //%1$s
+    public static final String MESSAGE_SUCCESS = "Displaying job";
     public static final String MESSAGE_MISSING_JOB = "This job does not exist";
 
     private final int listNumber;

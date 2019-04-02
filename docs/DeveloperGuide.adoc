@@ -234,7 +234,7 @@ Classes used by multiple components are in the `seedu.knowitall.commons` package
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::[cards]
+// tag::cards[]
 === Cards
 ==== Current Implementation
 The `Card` is one of the core aspects of the application. Cards are the result of morphing of the `Person` class from the original AddressBook model. The implementation incorporates the `Logic` and `Model` components.
@@ -1520,7 +1520,8 @@ sub-folders.
 
 [[testsession]] **Test Session**: A session where all flashcards in a folder are queued to have their
 questions displayed. The user is required to key in an answer for each question.
-// end::gloassary[]
+
+// end::glossary[]
 
 [appendix]
 == Instructions for Manual Testing

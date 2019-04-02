@@ -241,7 +241,7 @@ public class SampleCourseRequirement {
             new PrimitiveRequirement("Complete CS3281 and CS3282",
             "Complete CS3281 and CS3282", CONDITION_CS3281_CS3282, CORE),
             CompositeRequirement.LogicalConnector.OR, CORE);
-    public static final Condition CP3880 = new Condition("Complete CP3880", "CS3880");
+    public static final Condition CP3880 = new Condition("Complete CP3880", "CP3880");
     public static final Condition CP3200_CP3202 = new Condition("Complete CP3200, CP3202 or CP3107",
             "CP3200", "CP3202|CP3107");
     public static final Condition IS4010 = new Condition("Complete IS4010", "IS4010");

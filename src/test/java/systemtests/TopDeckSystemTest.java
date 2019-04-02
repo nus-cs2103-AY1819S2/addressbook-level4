@@ -155,10 +155,10 @@ public abstract class TopDeckSystemTest {
     /**
      * Displays all cards with any parts of their names matching {@code keyword} (case-insensitive).
      */
-     protected void showCardsWithQuestion(String keyword, Deck activeDeck) {
+    protected void showCardsWithQuestion(String keyword, Deck activeDeck) {
         executeCommand(FindCardCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredList().size() < activeDeck.getCards().internalList.size());
-     }
+    }
 
 
     /**

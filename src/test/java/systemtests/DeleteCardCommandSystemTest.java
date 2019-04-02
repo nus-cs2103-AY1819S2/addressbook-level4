@@ -35,122 +35,122 @@ public class DeleteCardCommandSystemTest extends TopDeckSystemTest {
     private static final String CHANGE_DECK_COMMAND = "open 2";
     private static final Deck TEST_DECK = DECK_A;
 
-        @Test
-        public void delete() {
+    @Test
+    public void delete() {
             /* ----------------- Performing delete operation while an unfiltered list is being shown
             -------------------- */
 
-            Model model = getModel();
-            model.changeDeck(DECK_A);
+        Model model = getModel();
+        model.changeDeck(DECK_A);
 
-            executeCommand(CHANGE_DECK_COMMAND);
-            CardsView cardsView = (CardsView) model.getViewState();
+        executeCommand(CHANGE_DECK_COMMAND);
+        CardsView cardsView = (CardsView) model.getViewState();
 
-            Card toAdd = SUBTRACTION;
-            model.addCard(toAdd, cardsView.getActiveDeck());
-            updateCardsView(model);
-            cardsView = (CardsView) model.getViewState();
+        Card toAdd = SUBTRACTION;
+        model.addCard(toAdd, cardsView.getActiveDeck());
+        updateCardsView(model);
+        cardsView = (CardsView) model.getViewState();
 
-            String command = "   " + AddCardCommand.COMMAND_WORD + "  " + QUESTION_DESC_SUBTRACTION + "  "
-                + ANSWER_DESC_SUBTRACTION + "   " + TAG_DESC_MATH + " ";
-            executeCommand(command);
+        String command = "   " + AddCardCommand.COMMAND_WORD + "  " + QUESTION_DESC_SUBTRACTION + "  "
+            + ANSWER_DESC_SUBTRACTION + "   " + TAG_DESC_MATH + " ";
+        executeCommand(command);
 
-            toAdd = LAYER;
-            model.addCard(toAdd, cardsView.getActiveDeck());
-            updateCardsView(model);
-            cardsView = (CardsView) model.getViewState();
+        toAdd = LAYER;
+        model.addCard(toAdd, cardsView.getActiveDeck());
+        updateCardsView(model);
+        cardsView = (CardsView) model.getViewState();
 
-            command = CardUtil.getAddCommand(toAdd);
-            executeCommand(command);
+        command = CardUtil.getAddCommand(toAdd);
+        executeCommand(command);
 
-            toAdd = TRANSPORT;
-            model.addCard(toAdd, cardsView.getActiveDeck());
-            updateCardsView(model);
-            cardsView = (CardsView) model.getViewState();
+        toAdd = TRANSPORT;
+        model.addCard(toAdd, cardsView.getActiveDeck());
+        updateCardsView(model);
+        cardsView = (CardsView) model.getViewState();
 
-            command = CardUtil.getAddCommand(toAdd);
-            executeCommand(command);
+        command = CardUtil.getAddCommand(toAdd);
+        executeCommand(command);
 
             /* Case: delete the first card in the list, command with leading spaces and trailing spaces
             -> deleted */
-            Card target = SUBTRACTION;
+        Card target = SUBTRACTION;
 
-            command = "   " + DeleteCardCommand.COMMAND_WORD + " " + 1 + "   ";
+        command = "   " + DeleteCardCommand.COMMAND_WORD + " " + 1 + "   ";
 
-            cardsView = assertCommandSuccess(command, target, model, cardsView);
+        cardsView = assertCommandSuccess(command, target, model, cardsView);
 
-            /* Case: undo deleting the last card in the list -> last card restored */
-            command = UndoCommand.COMMAND_WORD;
-            String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        /* Case: undo deleting the last card in the list -> last card restored */
+        command = UndoCommand.COMMAND_WORD;
+        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
 
-            model.undoTopDeck();
-            updateCardsView(model);
-            cardsView = (CardsView) model.getViewState();
+        model.undoTopDeck();
+        updateCardsView(model);
+        cardsView = (CardsView) model.getViewState();
 
-            assertCommandSuccess(command, model, expectedResultMessage);
+        assertCommandSuccess(command, model, expectedResultMessage);
 
-            /* Case: redo deleting the last card in the list -> last card deleted again */
-            command = RedoCommand.COMMAND_WORD;
-            expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
+        /* Case: redo deleting the last card in the list -> last card deleted again */
+        command = RedoCommand.COMMAND_WORD;
+        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
 
-            model.redoTopDeck();
-            updateCardsView(model);
-            cardsView = (CardsView) model.getViewState();
+        model.redoTopDeck();
+        updateCardsView(model);
+        cardsView = (CardsView) model.getViewState();
 
-            assertCommandSuccess(command, model, expectedResultMessage);
+        assertCommandSuccess(command, model, expectedResultMessage);
 
             /* ------------------ Performing delete operation while a filtered list is being shown
             ---------------------- */
 
             /* Case: filtered card list, delete index within bounds of top deck and card list ->
             deleted */
-            showCardsWithQuestion(KEYWORD_MATCHING_HTTP, cardsView.getActiveDeck());
-            Index index = INDEX_FIRST_CARD;
-            assertTrue(index.getZeroBased() < model.getFilteredList().size());
-            target = LAYER;
+        showCardsWithQuestion(KEYWORD_MATCHING_HTTP, cardsView.getActiveDeck());
+        Index index = INDEX_FIRST_CARD;
+        assertTrue(index.getZeroBased() < model.getFilteredList().size());
+        target = LAYER;
 
-            command = "   " + DeleteCardCommand.COMMAND_WORD + " " + 1 + "   ";
+        command = "   " + DeleteCardCommand.COMMAND_WORD + " " + 1 + "   ";
 
-            cardsView = assertCommandSuccess(command, target, model, cardsView);
+        cardsView = assertCommandSuccess(command, target, model, cardsView);
 
             /* Case: filtered card list, delete index within bounds of address book but out of bounds of
             card list
              * -> rejected
              */
-            showCardsWithQuestion(KEYWORD_MATCHING_HTTP, cardsView.getActiveDeck());
-            int invalidIndex = cardsView.getActiveDeck().getCards().internalList.size() + 1;
-            command = DeleteCardCommand.COMMAND_WORD + " " + invalidIndex;
-            assertCommandFailure(command, model, MESSAGE_INVALID_DISPLAYED_INDEX);
+        showCardsWithQuestion(KEYWORD_MATCHING_HTTP, cardsView.getActiveDeck());
+        int invalidIndex = cardsView.getActiveDeck().getCards().internalList.size() + 1;
+        command = DeleteCardCommand.COMMAND_WORD + " " + invalidIndex;
+        assertCommandFailure(command, model, MESSAGE_INVALID_DISPLAYED_INDEX);
 
 
             /* --------------------------------- Performing invalid delete operation
             ------------------------------------ */
 
-            /* Case: invalid index (0) -> rejected */
-            command = DeleteCardCommand.COMMAND_WORD + " 0";
-            assertCommandFailure(command, model,MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+        /* Case: invalid index (0) -> rejected */
+        command = DeleteCardCommand.COMMAND_WORD + " 0";
+        assertCommandFailure(command, model, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
-            /* Case: invalid index (-1) -> rejected */
-            command = DeleteCardCommand.COMMAND_WORD + " -1";
-            assertCommandFailure(command, model, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+        /* Case: invalid index (-1) -> rejected */
+        command = DeleteCardCommand.COMMAND_WORD + " -1";
+        assertCommandFailure(command, model, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
-            /* Case: invalid index (size + 1) -> rejected */
-            Index outOfBoundsIndex = Index.fromOneBased(
-                    getModel().getTopDeck().getDeckList().size() + 1);
-            command = DeleteCardCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
-            assertCommandFailure(command, model, MESSAGE_INVALID_DISPLAYED_INDEX);
+        /* Case: invalid index (size + 1) -> rejected */
+        Index outOfBoundsIndex = Index.fromOneBased(
+            getModel().getTopDeck().getDeckList().size() + 1);
+        command = DeleteCardCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
+        assertCommandFailure(command, model, MESSAGE_INVALID_DISPLAYED_INDEX);
 
-            /* Case: invalid arguments (alphabets) -> rejected */
-            assertCommandFailure(DeleteCardCommand.COMMAND_WORD + " abc", model,
+        /* Case: invalid arguments (alphabets) -> rejected */
+        assertCommandFailure(DeleteCardCommand.COMMAND_WORD + " abc", model,
             MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
-            /* Case: invalid arguments (extra argument) -> rejected */
-            assertCommandFailure(DeleteCardCommand.COMMAND_WORD + " 1 abc", model,
+        /* Case: invalid arguments (extra argument) -> rejected */
+        assertCommandFailure(DeleteCardCommand.COMMAND_WORD + " 1 abc", model,
             MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
-            /* Case: mixed case command word -> rejected */
-            assertCommandFailure("DelETE 1", model, MESSAGE_UNKNOWN_COMMAND);
-            }
+        /* Case: mixed case command word -> rejected */
+        assertCommandFailure("DelETE 1", model, MESSAGE_UNKNOWN_COMMAND);
+    }
 
 
     /**

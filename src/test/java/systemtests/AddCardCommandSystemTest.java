@@ -78,8 +78,8 @@ public class AddCardCommandSystemTest extends TopDeckSystemTest {
         toAdd = ADDITION;
         model.addCard(toAdd, cardsView.getActiveDeck());
 
-        command = AddCardCommand.COMMAND_WORD + TAG_DESC_MATH + ANSWER_DESC_ADDITION +
-        QUESTION_DESC_ADDITION;
+        command = AddCardCommand.COMMAND_WORD + TAG_DESC_MATH + ANSWER_DESC_ADDITION
+            + QUESTION_DESC_ADDITION;
 
         cardsView = assertCommandSuccess(command, toAdd, model, cardsView);
 
@@ -128,8 +128,8 @@ public class AddCardCommandSystemTest extends TopDeckSystemTest {
         assertCommandFailure(command, model, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid tag -> rejected */
-        command = AddCardCommand.COMMAND_WORD + QUESTION_DESC_ADDITION + ANSWER_DESC_ADDITION +
-            INVALID_TAG_DESC;
+        command = AddCardCommand.COMMAND_WORD + QUESTION_DESC_ADDITION + ANSWER_DESC_ADDITION
+            + INVALID_TAG_DESC;
         assertCommandFailure(command, model, Tag.MESSAGE_CONSTRAINTS);
     }
 

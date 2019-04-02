@@ -14,7 +14,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import javafx.collections.ListChangeListener;
 import seedu.equipment.logic.commands.AddCommand;
 import seedu.equipment.logic.commands.ClearCommand;
 import seedu.equipment.logic.commands.DeleteCommand;

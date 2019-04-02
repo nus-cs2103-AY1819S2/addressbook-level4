@@ -16,7 +16,7 @@ public class PutCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullWorkListID_nullSerialNumber_throwsNullPointerException() {
+    public void constructor_nullWorkListIdNullSerialNumber_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new PutCommand(null, null);
     }

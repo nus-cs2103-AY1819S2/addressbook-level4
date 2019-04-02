@@ -29,16 +29,16 @@ public class PutCommandParserTest {
         SerialNumber expectedSerialNumber = new SerialNumber(VALID_SERIAL_NUMBER_BOB);
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + ID_DESC_LISTA + SERIAL_NUMBER_DESC_BOB
-                , new PutCommand(expectedId, expectedSerialNumber));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + ID_DESC_LISTA + SERIAL_NUMBER_DESC_BOB,
+                new PutCommand(expectedId, expectedSerialNumber));
 
         // multiple Ids - last Id accepted
-        assertParseSuccess(parser, ID_DESC_LISTB + ID_DESC_LISTA + SERIAL_NUMBER_DESC_BOB
-                , new PutCommand(expectedId, expectedSerialNumber));
+        assertParseSuccess(parser, ID_DESC_LISTB + ID_DESC_LISTA + SERIAL_NUMBER_DESC_BOB,
+                new PutCommand(expectedId, expectedSerialNumber));
 
         // multiple Serial Numbers - last Serial Numbers accepted
-        assertParseSuccess(parser, ID_DESC_LISTA + SERIAL_NUMBER_DESC_AMY + SERIAL_NUMBER_DESC_BOB
-                , new PutCommand(expectedId, expectedSerialNumber));
+        assertParseSuccess(parser, ID_DESC_LISTA + SERIAL_NUMBER_DESC_AMY + SERIAL_NUMBER_DESC_BOB,
+                new PutCommand(expectedId, expectedSerialNumber));
     }
 
     @Test
@@ -59,11 +59,11 @@ public class PutCommandParserTest {
     public void parse_invalidValue_failure() {
 
         // invalid WorkListId
-        assertParseFailure(parser, INVALID_WORKLISTID_DESC + SERIAL_NUMBER_DESC_BOB
-                , WorkListId.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_WORKLISTID_DESC + SERIAL_NUMBER_DESC_BOB,
+                WorkListId.MESSAGE_CONSTRAINTS);
 
         // invalid Serial Number
-        assertParseFailure(parser, ID_DESC_LISTA + INVALID_SERIAL_NUMBER_DESC
-                , SerialNumber.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, ID_DESC_LISTA + INVALID_SERIAL_NUMBER_DESC,
+                SerialNumber.MESSAGE_CONSTRAINTS);
     }
 }

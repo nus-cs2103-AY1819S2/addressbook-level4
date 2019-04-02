@@ -64,7 +64,7 @@ public class CsvManager implements CsvCommands {
         while ((line = bufferedReader.readLine()) != null) {
 
             // use comma as separator
-            String[] stringCard = line.split(COMMA_DELIMITTER);
+            String[] stringCard = line.split("\\,", -1);
 
             Card card = buildCard(stringCard);
             cardFolder.addCard(card);
@@ -93,7 +93,7 @@ public class CsvManager implements CsvCommands {
      */
     private Set<Option> buildOptions(String[] card) {
         Set<Option> optionSet = new HashSet<>();
-        String[] options = Arrays.copyOfRange(card, 2, card.length - 1);
+        String[] options = Arrays.copyOfRange(card, 2, card.length - 2);
         if (options[0].equals("")) {
             return optionSet;
         }
@@ -106,7 +106,7 @@ public class CsvManager implements CsvCommands {
      */
     private Set<Hint> buildHint(String[] card) {
         Set<Hint> hintSet = new HashSet<>();
-        String hint = card[card.length - 1];
+        String hint = card[card.length - 2];
         if (hint.equals("")) {
             return hintSet;
         }

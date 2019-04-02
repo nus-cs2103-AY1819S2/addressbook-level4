@@ -13,8 +13,8 @@ import java.util.Set;
  * Guarantees: immutable; is valid as declared in {@link #isValidProcedure(String)}
  */
 public class Procedure {
-    public static final String[] PROCEDURE_LIST = new String[] {"Consultation", "Preventive", "Fillings", "Crown",
-        "Gum", "Extraction", "Replacement", "Braces", "Aesthetic", "Implants", "Other"};
+    public static final String[] PROCEDURE_LIST = new String[] {"consultation", "preventive", "fillings", "crown",
+        "gum", "extraction", "replacement", "braces", "aesthetic", "implants", "other"};
 
     /*
      * The first character of the description must not be a whitespace,

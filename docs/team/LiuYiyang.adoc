@@ -1,23 +1,24 @@
-= John Doe - Project Portfolio
+= Liu Yiyang - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
+== PROJECT: DocX
 
 ---
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+docX is for those who prefer to use a desktop app for managing contacts. More importantly, docX is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *add, list, delete, view, search and sort command of medical history*
+** What it does:
+** 1. Adds a medical history to the patient
+** 2. Shows a list of all medical histories or a list of all medical histories of one specified patient.;
+** 3. View the full specified medical history with specified ID.
+** 4. Finds medical history(ies) whose write up contains any of the given keywords.
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 

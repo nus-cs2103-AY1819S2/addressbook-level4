@@ -17,7 +17,12 @@ endif::[]
 
 By: `CS2103T W11-3 Team`      Since: `Feb 2019`      Licence: `MIT`
 
+Welcome to the TravelBuddy developer guide, put together by Chung Ming, Prem, Niven and Shaun.
+In this guide, you will find enough information to get your started on contributing to the TravelBuddy source code.
+
 == Setting up
+
+This section gives a quick guide to getting started with the TravelBuddy source code on your machine.
 
 === Prerequisites
 
@@ -104,6 +109,9 @@ When you are ready to start coding,
 2. Take a look at <<GetStartedProgramming>>.
 
 == Design
+
+This section provides a high-level overview of overall architecture of TravelBuddy,
+including the design and structure of components and their constituent classes.
 
 [[Design-Architecture]]
 === Architecture

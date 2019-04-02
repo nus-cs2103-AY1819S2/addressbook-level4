@@ -177,6 +177,14 @@ public class Bill {
         return amountBooking;
     }
 
+    /**
+     * Returns the amount customer has to pay for all service bookings.
+     */
+    public double getAmountTotal() {
+        return totalAmount;
+    }
+
+
 
     @Override
     public String toString() {

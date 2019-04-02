@@ -2,10 +2,8 @@ package seedu.hms.logic.parser;
 
 import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATES;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_ROOM;
 
-import seedu.hms.logic.commands.FindReservationCommand;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
@@ -14,7 +12,6 @@ import javafx.collections.ObservableList;
 import javafx.util.Pair;
 import seedu.hms.commons.core.Messages;
 import seedu.hms.commons.core.index.Index;
-import seedu.hms.logic.commands.GenerateBillForBookingCommand;
 import seedu.hms.logic.commands.GenerateBillForReservationCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.BillManager;

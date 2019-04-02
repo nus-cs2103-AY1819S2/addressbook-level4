@@ -1,6 +1,7 @@
 package seedu.hms.logic.parser;
 
 import seedu.hms.logic.commands.Command;
+import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.logic.parser.exceptions.ParseException;
 
 /**
@@ -13,5 +14,5 @@ public interface Parser<T extends Command> {
      *
      * @throws ParseException if {@code userInput} does not conform the expected format
      */
-    T parse(String userInput) throws ParseException;
+    T parse(String userInput) throws ParseException, CommandException;
 }

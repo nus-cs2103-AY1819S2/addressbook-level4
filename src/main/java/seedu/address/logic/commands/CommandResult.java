@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.analytics.Analytics;
+
 /**
  * Represents the result of a command execution.
  */
@@ -13,7 +15,9 @@ public class CommandResult {
 
     /** Analytics information should be shown to user*/
 
-    private String analytics;
+    private Analytics analytics;
+
+    private String interviews;
 
     /** Help information should be shown to the user. */
     private final boolean showHelp;
@@ -39,10 +43,18 @@ public class CommandResult {
         this(feedbackToUser, false, false);
     }
 
-    public CommandResult(String feedbackToUser, String results) {
+    public CommandResult(String feedbackToUser, Analytics results) {
         this(feedbackToUser, false, false);
         if (isSuccessfulAnalytics()) {
             analytics = results;
+        }
+
+    }
+
+    public CommandResult(String feedbackToUser, String results) {
+        this(feedbackToUser, false, false);
+        if (isSuccessfulInterviews()) {
+            interviews = results;
         }
     }
 
@@ -62,9 +74,17 @@ public class CommandResult {
         return feedbackToUser.equals("Analytics generated!");
     }
 
+    public boolean isSuccessfulInterviews() {
+        return feedbackToUser.equals("Interviews shown");
+    }
+
     //remember to handle null later
-    public String getAnalytics() {
+    public Analytics getAnalytics() {
         return analytics;
+    }
+
+    public String getInterviews() {
+        return interviews;
     }
 
     @Override

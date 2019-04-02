@@ -10,8 +10,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class SetMaxInterviewsADayCommandParser implements Parser<SetMaxInterviewsADayCommand> {
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteCommand
-     * and returns an DeleteCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the SetMaxInterviewsADayCommand
+     * and returns an SetMaxInterviewsADayCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public SetMaxInterviewsADayCommand parse(String args) throws ParseException {

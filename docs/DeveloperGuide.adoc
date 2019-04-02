@@ -292,6 +292,38 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 image::UndoRedoActivityDiagram.png[width="650"]
 
+// tag::interviews[]
+=== Interviews Feature
+==== Current Implementation
+
+The interviews and its functionalities are facilitated by the Interviews class.
+It is a field present in the versionedAddressBook, therefore it works naturally with the implemented undo/redo operation in slaveFinder().
+(Show is not counted as an operation and hence it is not saved as a state).
+The Interview class acts as an association class between calendar and person.
+
+image::InterviewsAssociationClass.png[width="650"]
+
+For the generate command. There are total 2 parameters that determines how the interviews list is generated.
+The 2 parameters are: maxInterviewsADay and blockOutDates.
+maxInterviewsADay determines the number of interviews that can be scheduled a day and it is saved in the interviews class
+blockOutDates are the user's own block out dates which represent unavailable dates that the user is not free and therefore interviews cannot be scheduled.
+Another thing to note is that weekends are not considered in the scheduled as the user is assumed to have normal working hours from Monday to Friday.
+
+Given below is the sequence diagram for generateInterviews:
+
+image::GenerateInterviewsDiagram.png[width="650"]
+
+An example of generateInterviews:
+
+Step 1. User launches the application. The blockOutDates field in the interviews class is currently empty.
+
+Step 2. User sets the block out dates with the respective command. User does not change the max interviews a day and it it set to a default value.
+
+Step 3. User request for interviews to be generated.
+
+Step 4. Interviews are generated with the restriction based on the parameters and working hours of a normal working adult.
+
+// end::interviews[]
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
@@ -883,27 +915,53 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-=== Use case: Arrange interview dates
+=== Use case: Generate and show interview dates
 
 *MSS*
 
-1. User requests to arrange interview dates for applicants
-2. slaveFinder() shows a ranked list of interviewees
-3. slaveFinder() asks for confirmation of interviewees
-4. slaveFinder() assigns to each interviewee a date and shows it to user
-5. slaveFinder() asks for confirmation of dates
-6. slaveFinder() ask User for confirmation of interviewees and dates
-7. Email is sent to the interviewees
+1. User requests to arrange interview dates for applicants in slaveFinder()
+2. slaveFinder() assigns to each interviewee a date
+3. User request for the interview dates list
++
+Use case ends.
 
 *Extensions*
 
-* 3a. User is not satisfied with the interviewees
-* 3b. User removes unwanted interviewees +
-Use case resumes at step 4.
+[none]
+* 1a. User wants to set block out dates so no dates are arranged on that day.
+** 1a1. Block out dates set using the command.
++
+Use case resumes at step 2.
 
-* 5a. User is not satisfied with the dates
-* 5b. User rearranges dates +
-Use case resumes at step 6.
+* 1b. User wants to set maximum interviews a day
+** 1b1. Max interviews a day set by using
++
+Use case resumes at step 2.
+
+[none]
+* 3a. User is not satisfied with the dates
+** 3a1. User request to reassign a person to another date
+** 3a2. slaveFinder() reassigns that person
+** 3a3. slaveFinder() shows the updated interviews dates
++
+Use case ends.
+
+=== Use case: Clear interview dates
+
+*MSS*
+
+1. User request to clear interviews
+2. slaveFinder() clears interviews
++
+Use case ends.
+
+*Extensions*
+
+* 3a. User wants to recover the cleared interviews through undo
+* 3b. slaveFinder() undos the clear interview operation
+* 3c. Previous interview dates are recovered.
++
+Use case ends.
 
 === Use case: Search person
 

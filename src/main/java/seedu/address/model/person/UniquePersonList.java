@@ -36,6 +36,17 @@ public class UniquePersonList implements Iterable<Person> {
         return internalList.stream().anyMatch(toCheck::isSamePerson);
     }
 
+    public Person getPerson(Nric nric) {
+        requireAllNonNull(nric);
+        Person person = new Person(nric);
+        for (int i = 0; i < internalList.size(); i++) {
+            if (internalList.get(i).isSamePerson(person)) {
+                return internalList.get(i);
+            }
+        }
+        return null;
+    }
+
     /**
      * Adds a person to the list.
      * The person must not already exist in the list.

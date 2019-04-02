@@ -129,6 +129,15 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Refreshes the personListPanel
+     */
+    void refreshPersonList() {
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
+                logic::setSelectedPerson);
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
+
+    /**
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
@@ -188,6 +197,11 @@ public class MainWindow extends UiPart<Stage> {
                 analytics.show(commandResult.getAnalytics());
             }
 
+            if (commandResult.isSuccessfulInterviews()) {
+                InterviewsWindow interviews = new InterviewsWindow();
+                interviews.show(commandResult.getInterviews());
+            }
+
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -195,6 +209,8 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
+            refreshPersonList();
 
             return commandResult;
         } catch (CommandException | ParseException e) {

@@ -36,7 +36,7 @@ public class JsonAdaptedPersonTest {
     private static final String INVALID_INTERVIEWSCORES = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_SCHOOL = " ";
-    private static final String INVALID_MAJOR = "1234";
+    private static final String INVALID_MAJOR = "^^";
     private static final String INVALID_KNOWNPROGLANG = " ";
     private static final String INVALID_PASTJOB = " ";
     private static final String INVALID_TAG = "#friend";

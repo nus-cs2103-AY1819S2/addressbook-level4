@@ -11,6 +11,7 @@ import seedu.address.model.Model;
 public class ShowInterviewsCommand extends Command {
 
     public static final String COMMAND_WORD = "showInterviews";
+    public static final String COMMAND_SUCCESS = "Interviews shown";
     public static final String MESSAGE_INTERVIEWS_NOT_PRESENT = "Interviews not present";
 
     @Override
@@ -20,6 +21,6 @@ public class ShowInterviewsCommand extends Command {
         if (result.isEmpty()) {
             return new CommandResult(MESSAGE_INTERVIEWS_NOT_PRESENT);
         }
-        return new CommandResult(result);
+        return new CommandResult(COMMAND_SUCCESS, result);
     }
 }

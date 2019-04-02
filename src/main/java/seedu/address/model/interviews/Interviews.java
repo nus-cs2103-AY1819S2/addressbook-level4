@@ -2,6 +2,7 @@ package seedu.address.model.interviews;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -14,11 +15,28 @@ import seedu.address.model.person.Person;
  */
 public class Interviews {
 
+    public static final int SECOND = 0;
+    public static final int MINUTE = 0;
+    public static final int HOUR = 0;
+    public static final int MILLISECOND = 0;
+
     private int maxInterviewsADay = 2;
 
-    private final HashMap<Calendar, List<Person>> interviewsHashMap = new HashMap<>();
+    private final HashMap<Calendar, List<Person>> interviewsHashMap;
+    private final ArrayList<Calendar> blockOutDates;
 
-    public Interviews() {}
+    public Interviews() {
+        this.interviewsHashMap = new HashMap<>();
+        this.blockOutDates = new ArrayList<>();
+    }
+
+    /**
+     * Helper method for test.
+     */
+    protected Interviews(HashMap<Calendar, List<Person>> interviewsHashMap) {
+        this.interviewsHashMap = interviewsHashMap;
+        this.blockOutDates = new ArrayList<>();
+    }
 
     /**
      * Generates a interviews date list where there are multiple interviewees in a day.
@@ -27,19 +45,28 @@ public class Interviews {
         if (!interviewsHashMap.isEmpty()) {
             throw new InterviewsPresentException();
         }
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, 1);
+        Calendar now = Calendar.getInstance();
+        int year = now.get(Calendar.YEAR);
+        int month = now.get(Calendar.MONTH);
+        int day = now.get(Calendar.DATE);
+        Calendar calendar = new GregorianCalendar(year, month, day);
+        calendar = nextAvailableday(calendar);
         interviewsHashMap.put(calendar, new ArrayList<>());
         for (Person person : persons) {
             List<Person> personList = interviewsHashMap.get(calendar);
             if (personList.size() < maxInterviewsADay) {
                 personList.add(person);
             } else {
-                calendar = (Calendar) calendar.clone();
-                calendar.add(Calendar.DATE, 1);
+                calendar = nextAvailableday(calendar);
                 interviewsHashMap.put(calendar, new ArrayList<>());
                 interviewsHashMap.get(calendar).add(person);
             }
+        }
+    }
+
+    public void setBlockOutDates(List<Calendar> availableDates) {
+        for (Calendar dates : availableDates) {
+            this.blockOutDates.add((Calendar) dates.clone());
         }
     }
 
@@ -48,6 +75,10 @@ public class Interviews {
         this.interviewsHashMap.clear();
         other.interviewsHashMap.forEach(((calendar, personList) ->
                 this.interviewsHashMap.put(calendar, personList)));
+        this.blockOutDates.clear();
+        for (Calendar calendar : other.blockOutDates) {
+            this.blockOutDates.add(calendar);
+        }
     }
 
     public void clear() {
@@ -61,16 +92,53 @@ public class Interviews {
     @Override
     public String toString() {
         PriorityQueue<Calendar> calendarPriorityQueue = new PriorityQueue<>(interviewsHashMap.keySet());
-        StringBuilder stringBuilder = new StringBuilder();
+        String result = "";
         while (!calendarPriorityQueue.isEmpty()) {
             Calendar currentCalendar = calendarPriorityQueue.poll();
             List<Person> currentPersonList = interviewsHashMap.get(currentCalendar);
-            stringBuilder.append(currentCalendar.get(Calendar.DATE) + "/" + currentCalendar.get(Calendar.MONTH) + ": ");
+            result += currentCalendar.get(Calendar.DATE) + "/" + (currentCalendar.get(Calendar.MONTH) + 1)
+                    + "/" + currentCalendar.get(Calendar.YEAR) + ": ";
             for (Person person : currentPersonList) {
-                stringBuilder.append(person.getName() + " ");
+                result += person.getName() + ", ";
             }
-            stringBuilder.append("\n");
+            result = result.substring(0, result.length() - 2);
+            result += "\n\n";
         }
-        return stringBuilder.toString().trim();
+        return result.trim();
+    }
+
+    protected HashMap<Calendar, List<Person>> getInterviewsHashMap() {
+        return interviewsHashMap;
+    }
+
+    /**
+     * Returns a new instance of the next available day in calendar format.
+     */
+    private Calendar nextAvailableday(Calendar calendar) {
+        Calendar result = (Calendar) calendar.clone();
+        result.add(Calendar.DATE, 1);
+        while ((result.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY)
+                || (result.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)
+                || (containsDate(blockOutDates, result))) {
+            result.add(Calendar.DATE, 1);
+        }
+        return result;
+    }
+
+    /**
+     * Checks if the calendarList contains the date.
+     */
+    protected static boolean containsDate(List<Calendar> calendarList, Calendar date) {
+        int year = date.get(Calendar.YEAR);
+        int month = date.get(Calendar.MONTH);
+        int day = date.get(Calendar.DATE);
+        for (Calendar calendar : calendarList) {
+            if (calendar.get(Calendar.YEAR) == year
+                    && calendar.get(Calendar.MONTH) == month
+                    && calendar.get(Calendar.DATE) == day) {
+                return true;
+            }
+        }
+        return false;
     }
 }

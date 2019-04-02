@@ -36,7 +36,7 @@ This section provides a summary of my coding, documentation and other contributi
 *** Managed release `v1.2` and `v1.3` (2 releases) on GitHub
 ** Documentation:
 *** Wrote features implemented for the User Guide: https://github.com/CS2103-AY1819S2-W14-2/main/issues/132[#132]
-*** Wrote model and features for the Developer Guide: https://github.com/CS2103-AY1819S2-W14-2/main/pull/129 [#129]
+*** Wrote model and features for the Developer Guide: https://github.com/CS2103-AY1819S2-W14-2/main/pull/129[#129]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W14-2/main/pull/39[#39]
 *** Reported bugs and provided solutions to team: https://github.com/CS2103-AY1819S2-W14-2/main/issues/103[#103], https://github.com/CS2103-AY1819S2-W14-2/main/issues/93[#93], https://github.com/CS2103-AY1819S2-W14-2/main/pull/39[#39], https://github.com/CS2103-AY1819S2-W14-2/main/issues/70[#70], https://github.com/CS2103-AY1819S2-W14-2/main/issues/89[#89]

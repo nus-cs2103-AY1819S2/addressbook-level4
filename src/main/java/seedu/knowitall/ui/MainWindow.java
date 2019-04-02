@@ -129,7 +129,6 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedCard);
         cardMainScreen = new CardMainScreen(cardListPanel, browserPanel);
         fullScreenPlaceholder.getChildren().add(folderListPanel.getRoot());
-        fullScreenPlaceholder.getChildren().add(cardMainScreen.getRoot());
     }
 
     /**

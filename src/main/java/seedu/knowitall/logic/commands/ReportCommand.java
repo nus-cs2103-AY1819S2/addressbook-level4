@@ -1,12 +1,12 @@
 package seedu.knowitall.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_COMMAND_INSIDE_REPORT;
 import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER;
 
 import seedu.knowitall.logic.CommandHistory;
 import seedu.knowitall.logic.commands.exceptions.CommandException;
 import seedu.knowitall.model.Model;
+import seedu.knowitall.model.Model.State;
 
 /**
  * Display a report for a folder identified using it's displayed index from the card folder list.
@@ -21,12 +21,8 @@ public class ReportCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.isInFolder()) {
+        if (model.getState() != State.IN_FOLDER) {
             throw new CommandException(MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
-        }
-
-        if (model.inReportDisplay()) {
-            throw new CommandException(MESSAGE_INVALID_COMMAND_INSIDE_REPORT);
         }
 
         model.enterReportDisplay();

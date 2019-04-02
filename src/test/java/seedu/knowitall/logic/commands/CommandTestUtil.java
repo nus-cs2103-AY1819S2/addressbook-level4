@@ -27,6 +27,8 @@ import seedu.knowitall.testutil.EditCardDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    public static final Index TEST_FOLDER_INDEX = Index.fromOneBased(1);
+
     public static final String VALID_QUESTION_1 = "Sample Question 1";
     public static final String VALID_QUESTION_2 = "Sample Question 2";
     public static final String VALID_ANSWER_1 = "Sample Answer 1";

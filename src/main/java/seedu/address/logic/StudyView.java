@@ -1,9 +1,5 @@
 package seedu.address.logic;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.List;
-
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import seedu.address.logic.commands.BackCommand;
@@ -13,6 +9,10 @@ import seedu.address.logic.commands.OpenDeckCommand;
 import seedu.address.logic.commands.ShowAnswerCommand;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
+
+import java.util.List;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * ViewState of the Application during a Study session.
@@ -32,6 +32,12 @@ public class StudyView implements ViewState {
         setCurrentStudyState(StudyState.QUESTION);
         this.deckShuffler = new DeckShuffler(activeDeck);
         generateCard();
+    }
+
+    public StudyView(StudyView studyView) {
+        // TODO
+        activeDeck = null;
+        listOfCards = null;
     }
 
     @Override

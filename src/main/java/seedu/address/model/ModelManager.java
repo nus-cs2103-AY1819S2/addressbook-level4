@@ -49,12 +49,25 @@ public class ModelManager implements Model {
 
         versionedTopDeck = new VersionedTopDeck(topDeck);
         this.userPrefs = new UserPrefs(userPrefs);
-        viewState = new DecksView(this, new FilteredList<>(versionedTopDeck.getDeckList()));
+        viewState = new DecksView(new FilteredList<>(versionedTopDeck.getDeckList()));
         filteredItems = ((DecksView) viewState).filteredDecks;
     }
 
     public ModelManager() {
         this(new TopDeck(), new UserPrefs());
+    }
+
+    public ModelManager(Model model) {
+        versionedTopDeck = new VersionedTopDeck(model.getTopDeck());
+        userPrefs = new UserPrefs(model.getUserPrefs());
+        ViewState viewState = getViewState();
+        if (viewState instanceof DecksView) {
+            this.viewState = new DecksView((DecksView) viewState);
+        } if (model.getViewState() instanceof CardsView) {
+            this.viewState = new CardsView((CardsView) viewState);
+        } else if (model.getViewState() instanceof StudyView) {
+            this.viewState = new StudyView((StudyView) viewState);
+        }
     }
 
     public Command parse(String commandWord, String arguments) throws ParseException {
@@ -65,7 +78,7 @@ public class ModelManager implements Model {
      * Updates the given ViewState to CardsView with the given deck.
      */
     public void changeDeck(Deck deck) {
-        viewState = new CardsView(this, deck);
+        viewState = new CardsView(deck);
 
         filteredItems = ((CardsView) viewState).filteredCards;
         setSelectedItem(null);
@@ -77,7 +90,7 @@ public class ModelManager implements Model {
 
     @Override
     public void goToDecksView() {
-        viewState = new DecksView(this, new FilteredList<>(versionedTopDeck.getDeckList()));
+        viewState = new DecksView(new FilteredList<>(versionedTopDeck.getDeckList()));
         filteredItems = ((DecksView) viewState).filteredDecks;
         setSelectedItem(null);
     }

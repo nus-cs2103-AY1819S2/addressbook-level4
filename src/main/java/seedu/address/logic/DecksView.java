@@ -36,11 +36,13 @@ public class DecksView implements ListViewState<Deck> {
 
     public final SimpleObjectProperty<Deck> selectedDeck = new SimpleObjectProperty<>();
 
-    private Model model;
-
-    public DecksView(Model model, FilteredList<Deck> deckList) {
-        this.model = model;
+    public DecksView(FilteredList<Deck> deckList) {
         filteredDecks = deckList;
+        filteredDecks.addListener(this::ensureSelectedItemIsValid);
+    }
+
+    public DecksView(DecksView decksView) {
+        filteredDecks = new FilteredList<>(decksView.getFilteredList());
         filteredDecks.addListener(this::ensureSelectedItemIsValid);
     }
 

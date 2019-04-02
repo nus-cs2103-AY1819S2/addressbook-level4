@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.logic.ListItem;
+import seedu.address.logic.ListViewState;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyTopDeck;
@@ -17,7 +19,6 @@ import seedu.address.model.UserPrefs;
 import seedu.address.storage.JsonTopDeckStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;
-import systemtests.ModelHelper;
 
 /**
  * This class is meant to override some properties of MainApp so that it will be suited for
@@ -97,8 +98,7 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getTopDeck()), new UserPrefs());
-        ModelHelper.setFilteredList(copy, model.getFilteredList());
+        Model copy = new ModelManager(model);
         return copy;
     }
 

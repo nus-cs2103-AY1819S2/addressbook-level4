@@ -35,14 +35,16 @@ public class CardsView implements ListViewState<Card> {
 
     public final FilteredList<Card> filteredCards;
     public final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
-    private final Model model;
     private final Deck activeDeck;
 
-    public CardsView(Model model, Deck deck) {
-        this.model = model;
+    public CardsView(Deck deck) {
         this.activeDeck = deck;
         filteredCards = new FilteredList<>(deck.getCards().asUnmodifiableObservableList());
         filteredCards.addListener(this::ensureSelectedItemIsValid);
+    }
+
+    public CardsView(CardsView cardsView) {
+        this(cardsView.getActiveDeck());
     }
 
     @Override

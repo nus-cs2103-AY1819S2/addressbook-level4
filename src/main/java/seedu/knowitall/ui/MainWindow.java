@@ -41,6 +41,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private CardMainScreen cardMainScreen;
     private TestSession testSession;
+    private StatusBarFooter statusBarFooter;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -116,8 +117,7 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getcardFolderFilesPath(), logic.getCardFolder());
+        statusBarFooter = new StatusBarFooter(logic.getcardFolderFilesPath(), logic.getFilteredCardFolders());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
@@ -205,6 +205,7 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedCard);
         cardMainScreen = new CardMainScreen(cardListPanel, browserPanel);
         fullScreenPlaceholder.getChildren().add(cardMainScreen.getRoot());
+        statusBarFooter.addNewCardFolderListener(logic.getcardFolderFilesPath(), logic.getCardFolder());
     }
 
     /**

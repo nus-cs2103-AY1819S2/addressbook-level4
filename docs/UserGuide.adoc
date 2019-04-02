@@ -58,6 +58,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Views a pop-up of the User Guide +
 Format: `help`
 
+// tag::addfeatures[]
 === Adding a contact : `add`
 
 Adds a contact to the address book, with 4 variants of customer types. Adds the associated property information for sellers and landlords.
@@ -87,12 +88,14 @@ Example: `add c/landlord n/James Ho p/98765432 e/jamesho@example.com r/family fr
 * *Tenant:* +
 Format: `add c/tenant n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS` +
 Example: `add c/tenant n/James Ho p/98765432 e/jamesho@example.com r/looking for 4-room apartment`
+// end::addfeatures[]
 
 === Listing all contacts : `list`
 
 Shows a list of all contacts in the address book. +
 Format: `list`
 
+// tag::sortfeatures[]
 === Displaying a sorted list of contacts by specified category : `sort` `[coming in v2.0]`
 
 Shows a list of all contacts in the address book, sorted according to a specified category. +
@@ -113,7 +116,9 @@ Format: `sort CATEGORY ORDER`
 
 Example: `sort n increasing` +
 Displays the contact list sorted by name in forward alphabetical order.
+// end::sortfeatures[]
 
+// tag::findfeatures[]
 === Finding contact(s) by keyword(s) : `find` `[coming in v2.0]`
 
 Finds contact(s) whose information contains any of the keyword(s). +
@@ -141,6 +146,7 @@ Returns `James Lee` and `John James`
 Returns any contact having names `James`, `Tan`, or `Young`
 * `find a/Woodlands c/Landlord` +
 Returns any contact with address `Woodlands` and customer type `Landlord`
+// end::findfeatures[]
 
 === Selecting a contact : `select`
 
@@ -165,6 +171,7 @@ Selects the 1st contact in the results of the `find` command.
 `select 3` +
 Selects the 3rd contact in the sorted list displayed earlier.
 
+// tag::editfeatures[]
 === Editing a contact : `edit`
 
 Edits an existing contact and/or associated property (if any) in the address book, with 4 variants of customer types.
@@ -197,6 +204,7 @@ Example: `edit 2 n/James Lee p/87654321 rp/1700 t/MRT t/Park`
 Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
 Example: `edit 2 n/James Lee p/87654321 r/`
 ** Edits the name and phone number of the 2nd contact to be `James Lee` and `87654321` respectively and clears existing remarks.
+// end::editfeatures[]
 
 === Matching a contact to a property: `match` `[coming in v2.0]`
 

@@ -15,5 +15,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_RESERVATION_DISPLAYED_INDEX =
         "The reservation index provided is invalid";
     public static final String MESSAGE_RESERVATIONS_LISTED_OVERVIEW = "%1$d reservation(s) listed!";
+    public static final String MESSAGE_INVALID_OTHER_USERS_INDICES =
+        "The payer index need not be included in the other customer indices.";
 
 }

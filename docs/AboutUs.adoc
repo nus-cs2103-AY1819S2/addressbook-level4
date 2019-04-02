@@ -14,35 +14,35 @@ We are a team undertaking CS2103T Software Engineering module in the National Un
 
 === Lee Wei Kang
 image::wklee96.png[width="150", align="left"]
-{empty} [https://github.com/Wklee96[github]]
+{empty} [https://github.com/Wklee96[github]] [<<wklee96#, portfolio>>]
 
 Role: Project Leader +
 Responsibilities: Model, system testing
 
 === Chen Caijie
 image::rbth7e5.png[width="150", align="left"]
-{empty}[https://github.com/rbth7e5[github]]
+{empty}[https://github.com/rbth7e5[github]] [<<rbth7e5#, portfolio>>]
 
 Role: Restaurant Categorisation +
 Responsibilities: Logic, git expert
 
 === Koh Wei Xin
 image::weixin-koh.png[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]]
+{empty}[http://github.com/weixin-koh[github]] [<<weixin-koh#, portfolio>>]
 
 Role: Restaurant Reviews +
 Responsibilities: UI, design
 
 === Chan Qing Zhou
 image::chanqingzhou.png[width="150", align="left"]
-{empty}[https://github.com/chanqingzhou[github]]
+{empty}[https://github.com/chanqingzhou[github]] [<<chanqingzhou#, portfolio>>]
 
 Role: Data management +
 Responsibilities: Storage, documentation
 
 === Pai Si Kai
 image::skpai27.png[width="150", align="left"]
-{empty}[https://github.com/skpai27[github]]
+{empty}[https://github.com/skpai27[github]] [<<skpai27#, portfolio>>]
 
 Role: Restaurant Reviews Categorisation +
 Responsibilities: Commons, code quality

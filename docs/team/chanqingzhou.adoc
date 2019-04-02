@@ -1,0 +1,71 @@
+= Chan Qing Zhou - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Food Diary
+
+---
+
+== Overview
+This project portfolio page serves to document my contributions to _The Food Diary_, a software engineering project undertaken as part of the National University of Singapore(NUS) School of Computing's Software Engineering module,CS2103T.
+
+The Food Diary is a *journal application* for food lovers in Singapore to record their reviews of restaurants they have visited and receive recommendations for restaurants. The user interacts with it using a Command Line Interface(CLI), and it has a Graphical User Interface(GUI) created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: I added *the ability to get restaurant recommendations based proximity to a location. *
+** What it does: allows the user to list restaurants that they haven't reviewed ranked based on how close the restaurant is to the location they provide.
+** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+** Highlights: This enhancement required the creation of many components to function. Firstly, a python script was used to collect the postal data and parse it into a json file. A new storage system was then created to parse the postal data json file. Finally, this data was then used to sort the restaurants.
+** Credits: https://docs.onemap.sg/ API is used to generate the postal data.
+
+* *Minor enhancement*: I added a name command that allows users to *personalise The Food Diary with their own name.*
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` (1 release) on GitHub
+*** Released `v1.3` jar file on GitHub
+** Enhancements to existing features:
+*** Wrote additional tests for existing features to increase coverage.
+** Documentation:
+*** Create the initial User Guide: https://github.com[#2]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#18]
+** Project conceptualisation:
+*** Conceptualised the idea for Food Diary.
+
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=introductionUG]
+
+include::../UserGuide.adoc[tag=listUnvisitedUG]
+
+include::../UserGuide.adoc[tag=nameUG]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=listUnvisitedUG]
+
+include::../DeveloperGuide.adoc[tag=useCaseDG]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

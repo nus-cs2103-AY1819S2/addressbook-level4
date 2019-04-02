@@ -1,0 +1,60 @@
+= Pai Si Kai - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: The Food Diary
+
+---
+
+== Overview
+
+The Food Diary is a desktop application that allows users to store their personal food reviews and obtain food recommendations. It is written in Java and is meant for people who prefer to work with a Command Line Interface (CLI), an example being people who type rapidly. It also gives users the benefit of having a clear and interactive Graphical User Interface (GUI) created with JavaFX.
+
+The Food Diary contains an extensive list of restaurants which can be searched up by users. Users can also add restaurants that are not in the application. Users can then add reviews specific to each restaurant and assign numerical ratings to each review. Following this, users can view restaurants they have previously reviewed (and visited) and categorise them according to ratings, cuisine, price etc.
+
+== Summary of contributions
+
+* *Major enhancement*: added the *core functionality* of *adding, editing and deleting reviews*
+** What it does: Allows users to add reviews specific to each restaurant, edit the reviews that have previously been added and finally to delete reviews that are no longer wanted in the application.
+** Justification: This feature is essential to the purpose of the application as it is the only way for users to store their personal review entries into the application. Users are also prone to mistakes when typing or a change in opinion. Hence, the ability to edit or delete previously created reviews will prove useful.
+** Highlights: Creating the 3 different commands required smooth integration with a newly created classes (Review, composed of an Entry and a Rating). Implementing this feature also required the modification of the base restaurant class.
+** Credits: Reference to existing command methods was used to ensure uniformity and compatibility of the new commands with the existing application architecture and good OOP design principles.
+
+
+* *Code contributed*: Here is a https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=skpai27[link] to my code on the Project Code Dashboard (Reposense).
+
+* *Other contributions*:
+
+** Project management:
+*** Managed release `v1.2.1` (mid v1.3) on GitHub
+** Enhancements to existing features:
+*** Created additional utility classes and methods for greater testability of code (Pull request https://github.com/CS2103-AY1819S2-W17-1/main/pull/73[#73]), from which other members of the team wrote test code.
+** Documentation:
+*** Modified and added our details and pictures into the About Us page: (Pull request https://github.com/CS2103-AY1819S2-W17-1/main/pull/3[#3])
+*** Updated our Contact Us page (same PR as above)
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W17-1/main/pull/95[#95], https://github.com/CS2103-AY1819S2-W17-1/main/pull/96[#96]
+*** The review builder class that I implemented was used by another team mate (https://github.com/CS2103-AY1819S2-W17-1/main/pull/94[1])
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=ade]
+
+include::../UserGuide.adoc[tag=reviewcommands]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+
+include::../DeveloperGuide.adoc[tag=skpai27]
+

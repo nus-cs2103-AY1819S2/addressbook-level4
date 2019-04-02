@@ -71,6 +71,8 @@ public class LogicManager implements Logic {
         return model.getFoodDiary();
     }
 
+
+
     @Override
     public ObservableList<Restaurant> getFilteredRestaurantList() {
         return model.getFilteredRestaurantList();

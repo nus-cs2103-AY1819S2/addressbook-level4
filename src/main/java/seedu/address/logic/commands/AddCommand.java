@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OPENING_HOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POSTAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEBLINK;
 
@@ -27,6 +28,7 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
+            + PREFIX_POSTAL + "POSTAL CODE"
             + "[" + PREFIX_TAG + "TAG]... "
             + PREFIX_WEBLINK + "WEBLINK "
             + PREFIX_OPENING_HOURS + "OPENING_HOURS\n"
@@ -35,9 +37,9 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "68765432 "
             + PREFIX_EMAIL + "kfc@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "fastfood "
-            + PREFIX_TAG + "friedChicken "
-            + PREFIX_WEBLINK + "kfc.com.sg "
+            + PREFIX_POSTAL + "123456 "
+            + PREFIX_TAG + "indulgences "
+            + PREFIX_WEBLINK + "www.kfc.com.sg "
             + PREFIX_OPENING_HOURS + "1000 to 2130";
 
     public static final String MESSAGE_SUCCESS = "New restaurant added: %1$s";
@@ -60,7 +62,6 @@ public class AddCommand extends Command {
         if (model.hasRestaurant(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_RESTAURANT);
         }
-
         model.addRestaurant(toAdd);
         model.commitFoodDiary();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

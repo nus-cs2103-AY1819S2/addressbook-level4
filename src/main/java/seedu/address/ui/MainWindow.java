@@ -16,6 +16,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.restaurant.Weblink;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -34,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private BrowserPanel browserPanel;
     private ReviewListPanel reviewListPanel;
     private RestaurantListPanel restaurantListPanel;
+    private RestaurantSummaryPanel restaurantSummaryPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -48,6 +50,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane restaurantListPanelPlaceholder;
+
+    @FXML
+    private StackPane restaurantSummaryPanelPlaceholder;
 
     @FXML
     private StackPane reviewListPanelPlaceholder;
@@ -120,6 +125,9 @@ public class MainWindow extends UiPart<Stage> {
 
         reviewListPanel = new ReviewListPanel(logic.selectedRestaurantProperty());
         reviewListPanelPlaceholder.getChildren().add(reviewListPanel.getRoot());
+
+        restaurantSummaryPanel = new RestaurantSummaryPanel(logic.selectedRestaurantProperty());
+        restaurantSummaryPanelPlaceholder.getChildren().add(restaurantSummaryPanel.getRoot());
 
         restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList(),
                 logic.selectedRestaurantProperty(), logic::setSelectedRestaurant);
@@ -199,11 +207,19 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isShowWeblink()) {
+                handleShowWeblink(commandResult.getWeblink());
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private void handleShowWeblink(Weblink weblink) {
+        browserPanel.loadPage(weblink.value);
     }
 }

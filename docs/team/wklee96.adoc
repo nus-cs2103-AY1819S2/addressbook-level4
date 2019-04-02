@@ -1,0 +1,58 @@
+= Lee Wei Kang - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: AddressBook - Level 4
+
+---
+
+== Overview
+
+The Food Diary (FD) is for those who *prefer to use a desktop app for storing their personal food reviews and obtain food recommendations*. More importantly, FD is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, FD can get your foodie tasks done faster than traditional GUI apps.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to visit website of restaurants*
+** What it does: allows users to visit website of restaurants inside user's list of visited restaurants and also unvisited restaurants.
+** Justification: This feature allows users to reference restaurant's website while writing a review for the restaurant.
+** Credits: Used java.net package to validate websites before allowing users to add them into restaurant class.
+
+* *Minor enhancement*: Added Weblink and OpeningHour class to Restaurant class and modified UI to display these attributes.
+
+* *Code contributed*: https://github.com/CS2103-AY1819S2-W17-1/main/pull/7[#7], https://github.com/CS2103-AY1819S2-W17-1/main/pull/17[#17], https://github.com/CS2103-AY1819S2-W17-1/main/pull/29[#29]
+* *Other contributions*:
+
+** Project management:
+*** Set-up GitHub organisation to fork Address Book 4
+*** Create a dummy GitHub account perform Continuous Integration for our project.
+*** Managed release of v1.2
+** Enhancements to existing features:
+*** Added Opening Hour class and Weblink class as new parameters for Restaurant https://github.com/CS2103-AY1819S2-W17-1/main/pull/29[#29], https://github.com/CS2103-AY1819S2-W17-1/main/pull/17[#17]
+*** AddCommand prevents users to enter invalid Weblink that may
+*** Updated sample data https://github.com/CS2103-AY1819S2-W17-1/main/pull/17[#17]
+** Documentation:
+*** Updated README https://github.com/CS2103-AY1819S2-W17-1/main/pull/7[#7]
+** Community:
+*** Actively looked through and approved PRs
+*** Raised issues in issue tracker
+** Tools:
+*** Enable auto-publishing of documentation for our project
+
+
+== Contributions to the User Guide
+
+
+|===
+|_The user guide acts as a instruction manual for new users. For my part, I have implemented the visitWeb command feature and below shows an excerpt of Food Diary's User Guide that I added, which explains the usage of visitWeb._
+|===
+
+include::../UserGuide.adoc[tag=visitweb]
+
+== Contributions to the Developer Guide
+
+|===
+|_The following shows my addition to the developer guide for visitWeb feature._
+|===
+
+include::../DeveloperGuide.adoc[tag=visitweb]

@@ -35,8 +35,8 @@ public class EditReservationCommand extends ReservationCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a reservation to the hotel management system.\n"
         + "Parameters: RESERVATION INDEX (to edit) "
-        + "[" + PREFIX_ROOM + "ROOM NAME "
-        + "[" + PREFIX_DATES + "DATES(DD/MM/YY - DD/MM/YY)] "
+        + "[" + PREFIX_ROOM + "ROOM TYPE] "
+        + "[" + PREFIX_DATES + "DATES(DD/MM/YYYY - DD/MM/YYYY)] "
         + "[" + PREFIX_PAYER + "PAYER INDEX]\n"
         + "[" + PREFIX_CUSTOMERS + "CUSTOMER INDEX(s)...] "
         + "[" + PREFIX_COMMENT + "COMMENT]\n"

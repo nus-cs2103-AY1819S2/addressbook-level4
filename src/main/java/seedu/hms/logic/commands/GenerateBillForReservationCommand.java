@@ -26,7 +26,9 @@ public class GenerateBillForReservationCommand extends BillCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Generates reservation bill for the customer identified by the index used in the displayed "
         + "customer list.\n"
-        + "Parameters: INDEX\n"
+        + "Parameters: INDEX"
+        + "[" + PREFIX_ROOM + "ROOM TYPE] "
+        + "[" + PREFIX_DATES + "DATES(DD/MM/YYYY - DD/MM/YYYY)]\n"
         + "Example: " + COMMAND_WORD + "1 "
         + "[" + PREFIX_ROOM + "SINGLE ROOM] "
         + "[" + PREFIX_DATES + "12/12/2019 - 14/12/2019]";

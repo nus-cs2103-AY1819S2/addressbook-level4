@@ -70,6 +70,9 @@ public class AssignRequestCommand extends Command implements RequestCommand {
             }
 
             Request request = lastShownRequestList.get(i.getZeroBased());
+            if (request.isCompleted()) {
+                throw new CommandException(Messages.MESSAGE_REQUEST_COMPLETED_CANNOT_ASSIGN);
+            }
             requestsToAdd.add(request);
         }
 

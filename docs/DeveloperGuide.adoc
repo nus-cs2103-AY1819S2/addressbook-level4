@@ -901,6 +901,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 
 [appendix]
+// tag::usecase[]
 == Use Cases
 
 (For all use cases below, the *System* is the `MediTabs` and the *Actor* is the `pharmacist`, unless specified otherwise)
@@ -991,7 +992,7 @@ Use case ends.
 ** 1a3. Pharmacist notes the index of the medicine listing from the search result.
 +
 Use case resume at step 2.
-
+// end::usecase[]
 
 [appendix]
 == Non Functional Requirements

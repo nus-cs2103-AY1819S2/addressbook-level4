@@ -14,38 +14,38 @@ import seedu.address.model.ModelManager;
 
 public class ClearDecksCommandSystemTest extends TopDeckSystemTest {
 
-        @Test
-        public void clear() {
-            final Model defaultModel = getModel();
+    @Test
+    public void clear() {
+        final Model defaultModel = getModel();
 
-            /* Case: clear non-empty TopDeck -> cleared */
-            assertCommandSuccess(ClearCommand.COMMAND_WORD);
+        /* Case: clear non-empty TopDeck -> cleared */
+        assertCommandSuccess(ClearCommand.COMMAND_WORD);
 
-            /* Case: undo clearing address book -> original address book restored */
-            String command = UndoCommand.COMMAND_WORD;
-            String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS + ClearCommand.COMMAND_WORD;
-            assertCommandSuccess(command, expectedResultMessage, defaultModel);
-            assertSelectedDeckUnchanged();
+        /* Case: undo clearing address book -> original address book restored */
+        String command = UndoCommand.COMMAND_WORD;
+        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS + ClearCommand.COMMAND_WORD;
+        assertCommandSuccess(command, expectedResultMessage, defaultModel);
+        assertSelectedDeckUnchanged();
 
-            /* Case: redo clearing address book -> cleared */
-            command = RedoCommand.COMMAND_WORD;
-            expectedResultMessage = RedoCommand.MESSAGE_SUCCESS + ClearCommand.COMMAND_WORD;
-            assertCommandSuccess(command, expectedResultMessage, new ModelManager());
-            assertSelectedDeckUnchanged();
+        /* Case: redo clearing address book -> cleared */
+        command = RedoCommand.COMMAND_WORD;
+        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS + ClearCommand.COMMAND_WORD;
+        assertCommandSuccess(command, expectedResultMessage, new ModelManager());
+        assertSelectedDeckUnchanged();
 
-            /* Case: filters the deck list before clearing -> entire address book cleared */
-            executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
-            showDecksWithName(KEYWORD_MATCHING_JOHN);
-            assertCommandSuccess(ClearCommand.COMMAND_WORD);
-            assertSelectedDeckUnchanged();
+        /* Case: filters the deck list before clearing -> entire address book cleared */
+        executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
+        showDecksWithName(KEYWORD_MATCHING_JOHN);
+        assertCommandSuccess(ClearCommand.COMMAND_WORD);
+        assertSelectedDeckUnchanged();
 
-            /* Case: clear empty address book -> cleared */
-            assertCommandSuccess(ClearCommand.COMMAND_WORD);
-            assertSelectedDeckUnchanged();
+        /* Case: clear empty address book -> cleared */
+        assertCommandSuccess(ClearCommand.COMMAND_WORD);
+        assertSelectedDeckUnchanged();
 
-            /* Case: mixed case command word -> rejected */
-            assertCommandFailure("ClEaR", MESSAGE_UNKNOWN_COMMAND);
-        }
+        /* Case: mixed case command word -> rejected */
+        assertCommandFailure("ClEaR", MESSAGE_UNKNOWN_COMMAND);
+    }
 
     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display

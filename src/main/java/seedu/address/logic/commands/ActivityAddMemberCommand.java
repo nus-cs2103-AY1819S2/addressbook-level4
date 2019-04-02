@@ -22,7 +22,7 @@ public class ActivityAddMemberCommand extends ActivityCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Selects the activity identified by the index number used in the displayed activity list and adds"
             + "the Person object with given matriculation number into its attendance list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX (must be a positive integer) + MATRICNUMBER\n"
             + "Example: " + COMMAND_WORD + " 1" + " A1234567H";
 
     public static final String MESSAGE_ACTIVITY_ADD_MEMBER_SUCCESS = "Successfully added to selected Activity: %1$s";

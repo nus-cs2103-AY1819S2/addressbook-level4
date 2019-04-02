@@ -1,5 +1,4 @@
 = FoodDiary Level 4 - User Guide
-:icons: font
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,6 +11,7 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w17-1/main
 
@@ -29,7 +29,10 @@ Some of the features that can look forward to:
 
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
-NOTE: testeste
+[WARNING]
+testeste
+
+
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.

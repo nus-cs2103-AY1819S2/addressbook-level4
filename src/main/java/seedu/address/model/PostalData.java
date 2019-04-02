@@ -5,17 +5,17 @@ package seedu.address.model;
  */
 public class PostalData {
 
-    private final int postal;
+    private final String postal;
     private final double x;
     private final double y;
 
-    public PostalData(int postal, double x, double y) {
+    public PostalData(String postal, double x, double y) {
         this.postal = postal;
         this.x = x;
         this.y = y;
     }
 
-    public int getPostal() {
+    public String getPostal() {
         return this.postal;
     }
 

@@ -9,10 +9,10 @@ public class PostalDataSet {
     private HashMap<Integer, PostalData> postalDataHash = new HashMap<>();
 
     public void addData(PostalData data) {
-        postalDataHash.put(data.getPostal(), data);
+        postalDataHash.put(Integer.parseInt(data.getPostal()), data);
     }
 
-    public PostalData getPostalData(int postal) {
-        return postalDataHash.get(postal);
+    public HashMap<Integer, PostalData> getPostalDataSet() {
+        return postalDataHash;
     }
 }

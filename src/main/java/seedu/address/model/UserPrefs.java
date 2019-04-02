@@ -14,8 +14,8 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private String name = "Annon";
-    private Path foodDiaryFilePath = Paths.get("data" , "fooddiary.json");
+    private String name = "anonymous";
+    private Path foodDiaryFilePath = Paths.get("data" , "foodDiary.json");
 
 
     /**

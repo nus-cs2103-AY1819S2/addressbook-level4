@@ -185,6 +185,8 @@ public class MainApp extends Application {
         return initializedPrefs;
     }
 
+
+
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting FoodDiary " + MainApp.VERSION);

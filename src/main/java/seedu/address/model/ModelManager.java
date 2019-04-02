@@ -57,7 +57,7 @@ public class ModelManager implements Model {
 
     @Override
     public Optional<PostalData> getPostalData(int postal) {
-        return Optional.ofNullable(this.postalDataSet.getPostalData(postal));
+        return Optional.ofNullable(this.postalDataSet.getPostalDataSet().get(postal));
     }
 
     //=========== UserPrefs ==================================================================================

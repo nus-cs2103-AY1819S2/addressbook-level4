@@ -56,38 +56,17 @@ public class ListUnvisitedCommand extends Command {
 
             /**
              *
-             * @param a {@code Restaurant} of the first restaurant
-             * @param b {@code Restaurant} of the second restaurant
-             * @return 1 if a is nearer to current than b 0 if equal or -1 otherwise
+             * @param firstRestaurant {@code Restaurant} of the first restaurant
+             * @param secondRestaurant {@code Restaurant} of the second restaurant
+             * @return 1 if firstRestaurant is nearer to current than secondRestaurant 0 if equal or -1 otherwise
              */
 
-            public int compare(Restaurant a, Restaurant b) {
-                int postalA = (Integer.parseInt(a.getPostal().value));
-                int postalB = (Integer.parseInt(b.getPostal().value));
+            public int compare(Restaurant firstRestaurant, Restaurant secondRestaurant) {
+                int postalA = (Integer.parseInt(firstRestaurant.getPostal().value));
+                int postalB = (Integer.parseInt(secondRestaurant.getPostal().value));
 
-                if (!distanceData.containsKey(postalA)) {
-                    Optional<PostalData> postalDataA = model.getPostalData(postalA);
-                    if (postalDataA.isPresent()) {
-                        double aX = postalDataA.get().getX();
-                        double aY = postalDataA.get().getY();
-                        double distance = (aX - x) * (aX - x) + (aY - y) * (aY - y);
-                        distanceData.put(postalA, distance);
-                    } else {
-
-                    }
-                }
-                if (!distanceData.containsKey(postalB)) {
-                    Optional<PostalData> postalDataB = model.getPostalData(postalB);
-                    if (postalDataB.isPresent()) {
-                        double bX = postalDataB.get().getX();
-                        double bY = postalDataB.get().getY();
-                        double distance = (bX - x) * (bX - x) + (bY - y) * (bY - y);
-                        distanceData.put(postalB, distance);
-                    } else {
-                        distanceData.put(postalA, Double.MAX_VALUE);
-                    }
-
-                }
+                checkHashMap(postalA);
+                checkHashMap(postalB);
 
 
                 double distA = distanceData.get(postalA);
@@ -100,6 +79,20 @@ public class ListUnvisitedCommand extends Command {
                     return -1;
                 } else {
                     return 0;
+                }
+            }
+
+            private void checkHashMap(int postal) {
+                if (!distanceData.containsKey(postal)) {
+                    Optional<PostalData> postalDataA = model.getPostalData(postal);
+                    if (postalDataA.isPresent()) {
+                        double aX = postalDataA.get().getX();
+                        double aY = postalDataA.get().getY();
+                        double distance = (aX - x) * (aX - x) + (aY - y) * (aY - y);
+                        distanceData.put(postal, distance);
+                    } else {
+                        distanceData.put(postal, Double.MAX_VALUE);
+                    }
                 }
             }
         }

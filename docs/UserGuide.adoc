@@ -88,8 +88,9 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [skill/TAG]... [pos
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `skill/` without specifying any tags after it.
+* When editing tags, the existing tags of the person will be removed(i.e adding of tags is not cumulative) except for
+existing endorsement tags.
+* You can remove all the person's tags by typing `skill/` or 'position/' without specifying any tags after it.
 ****
 
 Examples:
@@ -135,6 +136,27 @@ Returns the people, whose numbers include 91234567 or whose email includes johnd
 Returns the people, whose name contains ale and whose address contains abcd and who has (contains) C++ and Java both in the skills
 
 // end::filter[]
+
+=== Approve persons by employee name: 'endorse'
+
+Endorses an existing candidate in RecruitMe+
+Format: 'endorse INDEX [n/YOUR NAME]'
+
+****
+* Endorses the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* All ASCII characters accepted, not limited to alphanumeric
+* Error will be thrown if an employee tries to endorse a candidate more than once
+* When editing tags, the existing tags of the person will be removed (i.e adding of tags is not cumulative) except for
+existing endorsement tags.
+* NOT COMPLETED
+****
+
+Examples:
+
+* 'endorse 1 n/Steve Jobs'
+Adds a blue tag to the candidate at the '1' index with the text 'Steve Jobs'
+
 
 === Locating persons by name: `find`
 

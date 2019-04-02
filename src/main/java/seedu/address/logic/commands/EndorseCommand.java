@@ -17,14 +17,14 @@ import seedu.address.model.tag.SkillsTag;
 /**
  * Endorses a person in the recruiter platform.
  */
-public class EndorseCommand extends Command{
+public class EndorseCommand extends Command {
     public static final String COMMAND_WORD = "endorse";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": " +
-            "Endorses a candidate in the recruiting list. "
-            + "Parameters: " +
-            " endorse " + "(index) " + "n/(your name) "+
-            "EXAMPLE: endorse 2 n/Warren Buffett";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": "
+            + "Endorses a candidate in the recruiting list. "
+            + "Parameters: "
+            + " endorse " + "(index) " + "n/(your name) "
+            + "EXAMPLE: endorse 2 n/Warren Buffett";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Endorsed Person: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "You have already endorsed this person";
@@ -53,7 +53,7 @@ public class EndorseCommand extends Command{
         Person personToEdit = lastShownList.get(index.getZeroBased());
 
         Set<SkillsTag> personTags = new HashSet<>(personToEdit.getTags());
-        if(personToEdit.isTagExist(endorseName)){
+        if (personToEdit.isTagExist(endorseName)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
         personTags.add(new SkillsTag(endorseName, "endorse"));

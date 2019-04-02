@@ -84,8 +84,8 @@ public class EditCommand extends Command {
         Set<SkillsTag> previousTags = new HashSet<>(personToEdit.getTags());
         Set<SkillsTag> endorsements = new HashSet<>();
 
-        for(SkillsTag s: previousTags){
-            if(s.tagType.equals("endorse")){
+        for (SkillsTag s: previousTags) {
+            if (s.tagType.equals("endorse")) {
                 endorsements.add(s);
             }
         }

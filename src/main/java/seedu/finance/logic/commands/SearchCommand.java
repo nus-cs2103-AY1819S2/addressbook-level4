@@ -8,6 +8,7 @@ import seedu.finance.commons.core.Messages;
 import seedu.finance.logic.CommandHistory;
 import seedu.finance.model.Model;
 import seedu.finance.model.record.CategoryContainsKeywordsPredicate;
+import seedu.finance.model.record.DateContainsKeywordsPredicate;
 import seedu.finance.model.record.NameContainsKeywordsPredicate;
 import seedu.finance.model.record.Record;
 
@@ -24,12 +25,13 @@ public class SearchCommand extends Command {
             + "the specified keywords (case-insensitive) based on the selected flag"
             + "and displays them as a list with index numbers.\n"
             + "Parameters: FLAG KEYWORD [MORE_KEYWORDS]...\n"
-            + "Flags: -name search for names, -cat search based on categories\n"
+            + "Flags: -name search for names, -cat search based on categories, -date search based on dates\n"
             + "Example: " + COMMAND_WORD + " -name" + " fries chicken bus fare";
 
     public static final String INVALID_FLAG = "CommandFlag not recognised. Valid flags:\n"
             + "-name: Find all records that contains specified keywords in name\n"
             + "-cat: Find all records that has specified keywords in category.\n"
+            + "-date: Find all records of a specific date.\n"
             + "Example: " + COMMAND_WORD + " -name" + " fries chicken bus fare";
 
     private final Predicate<Record> predicate;
@@ -41,6 +43,8 @@ public class SearchCommand extends Command {
     public SearchCommand(CategoryContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
+
+    public SearchCommand(DateContainsKeywordsPredicate predicate) { this.predicate = predicate; }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {

@@ -246,7 +246,7 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the records content (`addBook`, `addReview`, ``deleteBook`, `deleteReview`, `editBook` and `clear`).
+Undoable commands: those commands that modify the records content (`addBook`, `addReview`, ``deleteBook`, `deleteReview`, `editBook`, `sortBook` and `clear`).
 ====
 
 Examples:
@@ -254,6 +254,9 @@ Examples:
 * `listBook n/Alice` +
 `deleteBook 1` +
 `undo` (reverses the `deleteBook 1` command) +
+
+* `sortBook st/rating` +
+`undo` (reverses the `sortBook st/rating` command) +
 
 * `listBook a/James` +
 `undo` +

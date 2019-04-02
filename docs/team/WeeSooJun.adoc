@@ -1,4 +1,4 @@
-= John Doe - Project Portfolio
+= Wee Soo Jun - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets

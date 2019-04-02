@@ -93,6 +93,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean isAtStudyView() {
+        return (viewState instanceof StudyView);
+    }
+
+    @Override
     public ViewState getViewState() {
         return viewState;
     }

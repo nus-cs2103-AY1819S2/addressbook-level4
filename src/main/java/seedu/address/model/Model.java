@@ -192,6 +192,11 @@ public interface Model {
     boolean isAtCardsView();
 
     /**
+     * Returns true is the current ViewState is at StudyView.
+     */
+    boolean isAtStudyView();
+
+    /**
      * Returns the current ViewState.
      */
     ViewState getViewState();

@@ -177,7 +177,7 @@ public class AddressBookParser {
             return new MovePersonCommandParser().parse(arguments);
 
         case DeleteJobCommand.COMMAND_WORD:
-        return new DeleteJobCommandParser().parse(arguments);
+            return new DeleteJobCommandParser().parse(arguments);
 
         case DeleteJobCommand.COMMAND_ALIAS:
             return new DeleteJobCommandParser().parse(arguments);

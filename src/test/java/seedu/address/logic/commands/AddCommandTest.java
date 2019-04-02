@@ -276,6 +276,11 @@ public class AddCommandTest {
         public Integer movePerson(JobName jobName, Nric nric, Integer source, Integer dest) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void deleteJob(Job job) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

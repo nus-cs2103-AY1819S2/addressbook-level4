@@ -1,5 +1,7 @@
 package seedu.address.logic;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -9,7 +11,6 @@ import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.GenerateQuestionCommand;
 import seedu.address.logic.commands.ShowAnswerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 
@@ -18,7 +19,6 @@ import seedu.address.model.deck.Deck;
  */
 public class StudyView implements ViewState {
     public final List<Card> listOfCards;
-    private final Model model;
     private final Deck activeDeck;
     private final SimpleObjectProperty<StudyState> currentStudyState = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<String> textShown = new SimpleObjectProperty<>();
@@ -26,8 +26,7 @@ public class StudyView implements ViewState {
     private Card currentCard;
     private DeckShuffler deckShuffler;
 
-    public StudyView(Model model, Deck deck) {
-        this.model = model;
+    public StudyView(Deck deck) {
         this.activeDeck = deck;
         listOfCards = deck.getCards().internalList;
         setCurrentStudyState(StudyState.QUESTION);
@@ -54,10 +53,15 @@ public class StudyView implements ViewState {
         return activeDeck;
     }
 
+    public Card getCurrentCard() {
+        return currentCard;
+    }
+
     /**
      * Sets the current card to be studied.
      */
     public void setCurrentCard(Card card) {
+        requireNonNull(card);
         currentCard = card;
     }
 
@@ -84,6 +88,7 @@ public class StudyView implements ViewState {
     }
 
     public void setCurrentStudyState(StudyState state) {
+        requireNonNull(state);
         currentStudyState.setValue(state);
     }
 
@@ -120,6 +125,7 @@ public class StudyView implements ViewState {
     }
 
     public void setUserAnswer(String answer) {
+        requireNonNull(answer);
         userAnswer.setValue(answer);
     }
 

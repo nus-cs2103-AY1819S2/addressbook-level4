@@ -88,10 +88,6 @@ image::UserGuide_ApplicationInterface.png[width="1000"]
 
 As an inventory management application, MediTabs supports basic functionalities (add, edit, delete, list). On top of these basic functions, MediTabs also boasts several features tailored to your needs. These features aim to streamline your inventory management process, thereby enhancing your user experience.
 
-=== your feature here
-
-introduce here. give you an example below.
-
 === Information Panel
 .Information panel
 image::UserGuide_InformationPanel.png[width="715"]

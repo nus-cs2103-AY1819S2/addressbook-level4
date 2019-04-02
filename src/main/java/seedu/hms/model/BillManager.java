@@ -455,7 +455,7 @@ public class BillManager implements BillModel {
      * @return hash map that returns the entire reservation bill for the customer
      */
     public HashMap<String, Pair<Double, Long>> generateHashMapForReservation(ObservableList<Reservation>
-                                                                                    reservationObservableList) {
+                                                                                 reservationObservableList) {
 
         HashMap<String, Pair<Double, Long>> reservationBill = new HashMap<>();
         reservationBill.put(roomTypeList.get(0).getName(),
@@ -477,7 +477,7 @@ public class BillManager implements BillModel {
      * @return pair that contains the total amount for single room and the number of days the single rooms reserved
      */
     private Pair<Double, Long> generateBillForReservationForSingleRoom(ObservableList<Reservation>
-                                                                              reservationObservableList) {
+                                                                           reservationObservableList) {
         String roomType = "SINGLE ROOM";
         return generateTotalBillBasedOnRoomType(reservationObservableList, roomType);
     }
@@ -489,7 +489,7 @@ public class BillManager implements BillModel {
      * @return pair that contains the total amount for double room and the number of days the double rooms reserved
      */
     private Pair<Double, Long> generateBillForReservationForDoubleRoom(ObservableList<Reservation>
-                                                                              reservationObservableList) {
+                                                                           reservationObservableList) {
         String roomType = "DOUBLE ROOM";
         return generateTotalBillBasedOnRoomType(reservationObservableList, roomType);
     }
@@ -501,7 +501,7 @@ public class BillManager implements BillModel {
      * @return pair that contains the total amount for deluxe room and the number of days the deluxe rooms reserved
      */
     private Pair<Double, Long> generateBillForReservationForDeluxeRoom(ObservableList<Reservation>
-                                                                              reservationObservableList) {
+                                                                           reservationObservableList) {
         String roomType = "DELUXE ROOM";
         return generateTotalBillBasedOnRoomType(reservationObservableList, roomType);
     }
@@ -513,7 +513,7 @@ public class BillManager implements BillModel {
      * @return pair that contains the total amount for family suite and the number of days the family suites reserved
      */
     private Pair<Double, Long> generateBillForReservationForFamilySuite(ObservableList<Reservation>
-                                                                               reservationObservableList) {
+                                                                            reservationObservableList) {
         String roomType = "FAMILY SUITE";
         return generateTotalBillBasedOnRoomType(reservationObservableList, roomType);
     }
@@ -524,7 +524,7 @@ public class BillManager implements BillModel {
      * @return a pair that contains the total amount for the room type and number of days the room type was reserved
      */
     private Pair<Double, Long> generateTotalBillBasedOnRoomType(ObservableList<Reservation>
-                                                                       reservationObservableList, String roomType) {
+                                                                    reservationObservableList, String roomType) {
         long totalDays = 0;
         double totalAmount = 0.0;
         switch (roomType) {

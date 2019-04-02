@@ -5,7 +5,6 @@ import static seedu.hms.logic.parser.CliSyntax.PREFIX_SERVICE;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_TIMING;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 import seedu.hms.commons.core.index.Index;
 import seedu.hms.logic.commands.GenerateBillForBookingCommand;

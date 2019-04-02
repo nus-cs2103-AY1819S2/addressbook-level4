@@ -5,7 +5,6 @@ import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATES;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_ROOM;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 import seedu.hms.commons.core.index.Index;
 import seedu.hms.logic.commands.GenerateBillForBookingCommand;
@@ -35,7 +34,6 @@ public class GenerateBillForReservationCommandParser implements Parser<GenerateB
     public GenerateBillForReservationCommand parse(String args, CustomerModel customerModel) throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_ROOM, PREFIX_DATES);
-
 
 
         Index index;

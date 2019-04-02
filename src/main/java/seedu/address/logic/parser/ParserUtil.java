@@ -104,13 +104,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code tag} is invalid.
      */
-    public static SkillsTag parseTag(String tag, String color) throws ParseException {
+    public static SkillsTag parseTag(String tag, String type) throws ParseException {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
         if (!SkillsTag.isValidTagName(trimmedTag)) {
             throw new ParseException(SkillsTag.MESSAGE_CONSTRAINTS);
         }
-        return new SkillsTag(trimmedTag, color);
+        return new SkillsTag(trimmedTag, type);
     }
 
     /**
@@ -149,14 +149,9 @@ public class ParserUtil {
     public static Set<SkillsTag> parseTags(Collection<String> tags, String type) throws ParseException {
         requireNonNull(tags);
         final Set<SkillsTag> tagSet = new HashSet<>();
-        final String color;
-        if (type.equals("skill")) {
-            color = "yellow";
-        } else {
-            color = "pink";
-        }
+        //final String color;
         for (String tagName : tags) {
-            tagSet.add(parseTag(tagName, color));
+            tagSet.add(parseTag(tagName, type));
         }
         return tagSet;
     }

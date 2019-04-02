@@ -84,21 +84,19 @@ public class Patient extends Person {
      * Used by copy().
      * Every field must be present and not null.
      */
-    public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
-                   DateOfBirth dateOfBirth, List<Record> records, Teeth teeth, Sex sex, DrugAllergy drugAllergy,
-                   NextOfKin kin, Description describe, int copyCount) {
-        super(name, phone, email, address, tags);
+    public Patient(Patient patientToCopy) {
+        super(patientToCopy);
         requireAllNonNull(nric, dateOfBirth, records, sex);
-        this.sex = sex;
-        this.nric = nric;
-        this.dateOfBirth = dateOfBirth;
-        this.records = records;
+        this.sex = patientToCopy.sex;
+        this.nric = patientToCopy.nric;
+        this.dateOfBirth = patientToCopy.dateOfBirth;
+        this.records = patientToCopy.records;
         this.records.sort(Comparator.comparing(Record::getRecordDate));
-        this.teeth = teeth;
-        this.drugAllergy = drugAllergy;
-        this.nextOfKin = kin;
-        this.patientDesc = describe;
-        this.copyCount = ++copyCount;
+        this.teeth = patientToCopy.teeth;
+        this.drugAllergy = patientToCopy.drugAllergy;
+        this.nextOfKin = patientToCopy.nextOfKin;
+        this.patientDesc = patientToCopy.patientDesc;
+        this.copyCount++;
         updateTags();
     }
 
@@ -221,8 +219,7 @@ public class Patient extends Person {
      * @return a new Patient instance.
      */
     public Patient copy() {
-        return new Patient(name, phone, email, address, tags, nric, getDateOfBirth(),
-                this, copyCount, sex);
+        return new Patient(this);
     }
 
     /**

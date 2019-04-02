@@ -511,3 +511,5 @@ For more details on what each command does, please refer to <<Features>>.
 |filter [n/NAME_KEYWORD] [pm/DATE_KEYWORD] [t/TAG_KEYWORD]
 |fil punggol november ongoing
 |===
+
+// end::commandsummary[]

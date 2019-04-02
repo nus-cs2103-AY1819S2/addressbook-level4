@@ -17,6 +17,7 @@ public class QuizHelpCommand extends QuizCommand {
     public static final String MESSAGE_QUIZ_USAGE = QuizAnswerCommand.MESSAGE_USAGE
         + "\n" + QuizDifficultCommand.MESSAGE_USAGE
         + "\n" + QuizHelpCommand.MESSAGE_USAGE
+        + "\n" + QuizHintCommand.MESSAGE_USAGE
         + "\n" + QuizQuitCommand.MESSAGE_USAGE
         + "\n" + QuizStatusCommand.MESSAGE_USAGE;
 

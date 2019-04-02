@@ -183,7 +183,7 @@ public class QuizTest {
         quiz.getNextCard();
 
         assertTrue(quiz.updateTotalAttemptsAndStreak(index, correctAnswer));
-        assertEquals(expected, quiz.getCurrentSession());
+        assertEquals(expected, quiz.getOriginalQuizCardList());
         assertEquals(1, quiz.getQuizTotalAttempts());
         assertEquals(1, quiz.getQuizTotalCorrectQuestions());
 
@@ -191,7 +191,7 @@ public class QuizTest {
         expectedCard1.updateTotalAttemptsAndStreak(expectedCard1.isCorrect(wrongAnswer));
         quiz.getNextCard();
         assertFalse(quiz.updateTotalAttemptsAndStreak(index, wrongAnswer));
-        assertEquals(expected, quiz.getCurrentSession());
+        assertEquals(expected, quiz.getOriginalQuizCardList());
         assertEquals(2, quiz.getQuizTotalAttempts());
         assertEquals(1, quiz.getQuizTotalCorrectQuestions());
 
@@ -200,14 +200,14 @@ public class QuizTest {
         quizReview.getNextCard();
         quizReview.updateTotalAttemptsAndStreak(index, correctAnswer);
 
-        assertEquals(expected, quizReview.getCurrentSession());
+        assertEquals(expected, quizReview.getOriginalQuizCardList());
 
         // ------- Preview -------
         Quiz quizPreview = new Quiz(validQuizCard, QuizMode.REVIEW);
         quizPreview.getNextCard();
         quizPreview.updateTotalAttemptsAndStreak(index, correctAnswer);
 
-        assertEquals(expected, quizPreview.getCurrentSession());
+        assertEquals(expected, quizPreview.getOriginalQuizCardList());
     }
 
     @Test

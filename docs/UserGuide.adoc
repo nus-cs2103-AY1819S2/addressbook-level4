@@ -71,6 +71,7 @@ The commands will go on, until either your or the enemy's fleet is completely de
 Refer to <<Features>> for details of each command.
 
 == Game Rules
+// tag::gamerules[]
 This section will describe the game rules and how to play the classic Battleship game.
 ====
 *Goal*

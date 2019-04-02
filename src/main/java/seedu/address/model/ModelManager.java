@@ -148,6 +148,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteJob(Job job) {
+        versionedAddressBook.deleteJob(job);
+        revertList();
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
     public Integer movePerson(JobName jobName, Nric nric, Integer source, Integer dest) {
         return versionedAddressBook.movePerson(jobName, nric, source, dest);
     }

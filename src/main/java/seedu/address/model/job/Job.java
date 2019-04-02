@@ -4,10 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -24,7 +27,7 @@ public class Job {
 
     // Data fields
     private ArrayList<UniquePersonList> personsHash = new ArrayList<> (NUMBER_OF_LISTS);
-    private ArrayList<ArrayList<Person>> personsList = new ArrayList<>(NUMBER_OF_LISTS);
+    private Set<Set<Nric>> personsNricList = new Set<>(NUMBER_OF_LISTS);
 
 
     /**
@@ -36,7 +39,7 @@ public class Job {
         this.name = name;
         for (int i = 0; i < 4; i++) {
             personsHash.add(new UniquePersonList());
-            personsList.add(new ArrayList<>());
+            personsNricList.add(new ArrayList<>());
         }
     }
 
@@ -61,7 +64,7 @@ public class Job {
             return false;
         }
         personsHash.get(0).add(person);
-        personsList.get(0).add(person);
+        personsNricList.get(0).add(person.getNric());
 
         return true;
     }
@@ -80,16 +83,23 @@ public class Job {
         }
 
         personsHash.get(dest).add(target);
-        personsList.get(dest).add(target);
+        personsNricList.get(dest).add(target.getNric());
         return 2;
     }
 
     /**
-     * Returns an immutable  people set, which throws {@code UnsupportedOperationException}
+     * Returns an UniquePerson list using {@code listNumber}
+     */
+    public final UniquePersonList getPeople(Integer listNumber) {
+        return personsHash.get(listNumber);
+    }
+
+    /**
+     * Returns an immutable known programming language set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public final UniquePersonList getPeople(int listNumber) {
-        return personsHash.get(listNumber);
+    public final Set<Nric> getPersonsNric(Integer listNumber) {
+        return Collections.unmodifiableSet(personsNricList.get(listNumber));
     }
 
     public final ArrayList<Name> getPeopleNames(List<Person> peopleList) {
@@ -104,7 +114,7 @@ public class Job {
      * Returns an ArrayList of Person that can be edited but does not change the list in job directly
      */
     public final ArrayList<Person> getList(int listNumber) {
-        return personsList.get(listNumber);
+        return personsNricList.get(listNumber);
     }
 
     /**
@@ -114,7 +124,7 @@ public class Job {
         if (listNumber > 3) {
             return false;
         }
-        personsList.set(listNumber, personList);
+        personsNricList.set(listNumber, personList);
 
         return true;
     }

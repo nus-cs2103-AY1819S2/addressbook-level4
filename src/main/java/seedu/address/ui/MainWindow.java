@@ -197,14 +197,6 @@ public class MainWindow extends UiPart<Stage> {
                 analytics.show(commandResult.getAnalytics());
             }
 
-            if (commandResult.isSuccessfulDisplayJob()) {
-                refreshPersonList();
-            }
-
-            if (commandResult.isList()) {
-                refreshPersonList();
-            }
-
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -212,6 +204,8 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
+            refreshPersonList();
 
             return commandResult;
         } catch (CommandException | ParseException e) {

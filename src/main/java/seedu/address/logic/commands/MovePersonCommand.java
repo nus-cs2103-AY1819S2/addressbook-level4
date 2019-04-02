@@ -34,7 +34,7 @@ public class MovePersonCommand extends Command {
             + PREFIX_NRIC + "S1234567U "
             + PREFIX_LISTNUMBER + "0 "
             + PREFIX_LISTNUMBER + "1 "
-            + "The alias \"aj\" can be used instead.\n"
+            + "The alias \"mp\" can be used instead.\n"
             + "Example: " + COMMAND_ALIAS + " "
             + PREFIX_JOBNAME + "Helper "
             + PREFIX_NRIC + "S1234567U "

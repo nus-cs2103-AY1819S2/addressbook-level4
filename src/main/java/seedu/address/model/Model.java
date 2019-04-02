@@ -98,6 +98,12 @@ public interface Model {
     void addJob(Job job);
 
     /**
+     * Deletes the given job.
+     * {@code job} must exist in the address book.
+     */
+    void deleteJob(Job job);
+
+    /**
      * Moves Person with {@code nric} in Job with {@code jobName}
      * from list {@code source} to list {@code dest}
      * {@code job} must exist in the address book.

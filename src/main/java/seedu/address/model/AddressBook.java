@@ -143,6 +143,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Deletes a job in the address book.
+     * The job must exist in the address book.
+     */
+    public void deleteJob(Job j) {
+        jobs.remove(j);
+        indicateModified();
+    }
+
+    /**
      * Returns true if a job with the same identity as {@code job} exists in the address book.
      */
     public int movePerson(JobName jobName, Nric nric, int source, int dest) {

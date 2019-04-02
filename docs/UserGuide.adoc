@@ -312,16 +312,7 @@ Format : `addAll jn/JOBNAME`
 ==== Add a specific person to Job using NRIC : `addPersonToJob`
 
 Adds person with NRIC to "All Applicants" list of a job +
-Format : `addAll jn/JOBNAME nric/NRIC`
-
-==== Displays one of the four persons list in a job : `DisplayJob`
-
-Displays LISTNUMBERth list of a Job +
-Format : `DisplayJob ln/LISTNUMBER jn/JOBNAME`
-
-****
-* Displays all four lists at once `Coming in v1.4`
-****
+Format : `addPersonToJob jn/JOBNAME nric/NRIC`
 
 ==== Displays one of the four persons list in a job : `DisplayJob`
 
@@ -334,7 +325,7 @@ Format : `DisplayJob ln/LISTNUMBER jn/JOBNAME`
 
 ==== Moves person of NRIC from one list to another in a Job: `movePerson`
 
-Moves a person of NRIC from list "from" to list "to" in a job+
+Moves a person of NRIC from list "from" to list "to" in a job +
 Format : `movePerson jn/JOBNAME nric/NRIC ln/FROM ln/TO`
 
 ****
@@ -468,3 +459,9 @@ e.g.`select 2`
 e.g. `filter r/Chinese`
 * *Display Hiring Process* : `displayProcess`
 * *Display Analytics* : `analytics`
+* *Create Job* : `createJob jn/JOBNAME`
+* *Delete Job* : 'deleteJob jn/JOBNAME'
+* *Add list of people to Job* : 'addAll jn/JOBNAME'
+* *Add specific person to Job* : 'addPersonToJob jn/JOBNAME nric/NRIC'
+* *Display selected list in Job* : 'DisplayJob ln/LISTNUMBER jn/JOBNAME'
+* *Moves person from one list in Job to another* : 'movePerson jn/JOBNAME nric/NRIC ln/FROM ln/TO'

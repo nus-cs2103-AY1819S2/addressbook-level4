@@ -262,7 +262,7 @@ Returns the list sorted according to the day.
 
 * `sort phone` +
 Returns the list sorted by phone number.
-
+// end::display[]
 
 === Filtering the list: `filter`
 Filter the current shown list which match the given keywords.
@@ -471,6 +471,9 @@ For more details on what each command does, please refer to <<Features>>.
 |*List Work List*
 |list-w
 
+|*List Client
+|list-c
+
 |*Delete Equipment*
 |delete-e
 
@@ -515,5 +518,4 @@ For more details on what each command does, please refer to <<Features>>.
 |filter [n/NAME_KEYWORD] [pm/DATE_KEYWORD] [t/TAG_KEYWORD]
 |fil punggol november ongoing
 |===
-
 // end::commandsummary[]

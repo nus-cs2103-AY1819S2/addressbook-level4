@@ -3,10 +3,16 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-[#img-ProfilePhoto]
-image:: ../images/eugeneyl.png
 
-== PROJECT: In-Credit-Ble-
+
+//[#img-ProfilePhoto]
+//image::eugeneyl.png[width="75",float = left]
+--
+This page aims to showcase my contribution to the project _In-Credit-Ble_ in tandem with the software engineering
+module (CS2103T).
+--
+
+== PROJECT: In-Credit-Ble
 
 ---
 

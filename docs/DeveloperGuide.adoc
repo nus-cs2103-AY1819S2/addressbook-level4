@@ -168,35 +168,38 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PlaceListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of various parts specified below.
+All parts inherit from the abstract `UiPart` class.
 
 *Brief overview* of each UI Component:
 
 `MainWindow`: Consists of the main menu with `File` and `Help` dropdowns and the remaining UI parts below.
 
-`MainWindow`: Webview to display UserGuide.html
+* `HelpWindow`: Webview to display UserGuide.html
 
-`CommandBox`: Directly below the main menu, CLI displayed here
+* `CommandBox`: Directly below the main menu, CLI displayed here
 
-`ResultDisplay`: Displays CLI feedback to user, (eg. `Unknown command`, `Invalid command format!`)
+* `ResultDisplay`: Displays CLI feedback to user, (eg. `Unknown command`, `Invalid command format!`)
 
-`StatusBarFooter`: At the bottom of MainWindow, reports the status of the TravelBudy application
+* `StatusBarFooter`: At the bottom of MainWindow, reports the status of the TravelBudy application
 
-`PlaceListPanel`: On the left of BrowserPanel, a VBox of PlaceListCards
+* `PlaceListPanel`: On the left of BrowserPanel, displays Places as a VBox of PlaceListCards
 
-`PlaceListCard`: Labels for the Display index and Place data fields (CountryCode, Rating etc.) in a VBox the left,
+** `PlaceListCard`: Labels for the Display index and Place data fields (CountryCode, Rating etc.) in a VBox the left,
 Labels that display Name and actual Place data (CountryCode, Rating etc) in a VBox on the right.
 
-RightParentPanel: Parent panel for both `DisplayListPanel` and `ExtendedPlacePanel`
+* RightParentPanel: Parent panel for both `DisplayListPanel` and `ExtendedPlacePanel`,
+contains helper methods for switching functionality, interacts with model and logic
 
-`DisplayListPanel`: Displays the charts and bars that are called by `generate`
+** `DisplayListPanel`: Parent panel for analytics of all Places, the `generate` command displays this panel
 
-'ExtendedPlacePanel': Display an expanded view of all Place data. Photo attachments to be included here as well in future releases (beyond v1.3).
+*** `DisplayCard`: Displays `Chart` data in a bar graph
 
-`BrowserPanel`: Opens on clicking the PlaceListCard, on the right of the PlaceListPanel. Deprecated.
+** `ExtendedPlacePanel`: Display an expanded view of all Place data. Photo attachments to be included here as well in future releases (beyond v1.4).
 
-*All CSS code are found in DarkTheme.css and Extensions.css
+* `BrowserPanel`: *_Deprecated._* Opens on clicking the PlaceListCard, on the right of the PlaceListPanel.
+
+*All CSS code can be found in `DarkTheme.css` and `Extensions.css`
 
 [[Design-Logic]]
 === Logic component

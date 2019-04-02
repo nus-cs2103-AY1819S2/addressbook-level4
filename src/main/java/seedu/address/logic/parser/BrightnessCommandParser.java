@@ -26,7 +26,7 @@ public class BrightnessCommandParser implements Parser<BrightnessCommand> {
         } else {
             args = args.trim();
             String[] parsed = args.split(" ");
-            if (parsed.length > 2) {
+            if (parsed.length > 1) {
                 throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                     BrightnessCommand.MESSAGE_USAGE));
             }

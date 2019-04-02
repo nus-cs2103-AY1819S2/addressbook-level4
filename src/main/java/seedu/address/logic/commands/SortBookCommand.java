@@ -6,7 +6,9 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
 import java.util.Map;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
@@ -18,11 +20,12 @@ public class SortBookCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": sort all books in certain order"
         + "the specified keywords (case-insensitive).\n"
-        + "Parameters: [st/TYPE]...[o/ORDER] [o1/ORDER]...\n"
+        + "Parameters: st/TYPE... [o/ORDER] [o1/ORDER] [o2/ORDER] [o3/ORDER]\n"
         + "TYPE can only be either author, name or rating, "
-        + "you can specify all three TYPEs, then it will sort in specify order\n"
-        + "ORDER can only be asc or des, sub Order o1 is corresponding first Order\n"
-        + "Example: " + COMMAND_WORD + " st/rating o/asc";
+        + "you can specify all three TYPEs at same time.\n"
+        + "ORDER can only be asc or des, sub Order o1, o2, o3 are corresponding to first Order,"
+        + " second order and third order respectively \n"
+        + "Example: " + COMMAND_WORD + " st/rating ";
 
     public static final String MESSAGE_SUCCESS = "Sorted successfully";
 
@@ -39,8 +42,12 @@ public class SortBookCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
+        if (model.getBookShelf().getBookList().size() <= 0) {
+            throw new CommandException(Messages.MESSAGE_BOOK_LIST_EMPTY);
+        }
 
         model.sortBook(types, mainOrder, subOrders);
         model.commitBookShelf();

@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/CS2103-AY1819S2-W11-4/main
+:repoURL: https://github.com/cs2103-ay1819s2-w11-4/main/tree/master
 
 By: `Team W11-4`      Since: `Jun 2019`      Licence: `MIT`
 
@@ -148,7 +148,7 @@ image::LogicClassDiagram.png[width="800"]
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete n/Alice`.
 
-.Component interactions for `deleteBook n/Alice` command
+.Component interactions for `deleteBook 1` command
 image::SDforDeleteBook.png[width="800"]
 
 The sections below give more details of each component.
@@ -186,9 +186,9 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("deleteBook n/Alice")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("deleteBook 1")` API call.
 
-.Interactions Inside the Logic Component for the `deleteBook n/Alice` Command
+.Interactions Inside the Logic Component for the `deleteBook 1` Command
 image::DeleteBookSdForLogic.png[width="800"]
 
 [[Design-Model]]
@@ -235,7 +235,61 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
+=== SortBook feature
+==== Current Implementation
+
+The sortBook mechanism is facilitated by `VersionedBookShelf`.
+It extends `BookShelf` with the sort function which will sort the `UniqueBookList`. `UniqueBookList` implemented the Book list as `ObservableList<Book>`. sortBook command sort the book list in specify order by implementing the `Comaparator<Book>`.
+
+Additionally, it uses/implements the following operations:
+
+* `VersionedBookShelf#sort()` -- It calls `UniqueBookList` sortBooks function and notifies the listeners.
+
+* `BookShelf#indicateModified()` -- Notifies listeners that the book shelf has been modified.
+
+* `UniqueBookList#sortBooks()` -- Implement the comparaotr, call `ObservableList<Book>` and pass in the comparator.
+
+* `ObservableList<Book>#sort()` -- sort the internalList is specify order.
+
+Given below is an example usage scenario and how the sortBook mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
+
+Step 2. The user executes `sortBook st/rating` command to sort all the books in the book shelf in ascending order. The command will be pass to SortBookCommand Parser to convert it to SortBook command, the parser will checks the correctness of the command. If command is in incorrect format, parser will shows correct command instruction to user, otherwise parser will call the constructor of SortBook command.
+
+Step 3. `SortBookCommand#execute` will be call, it will check whether the book list is empty before proceed to call `ModelManager#sort()`.
+
+[NOTE]
+If the book list is empty, CommandException(MESSAGE_BOOK_LIST_EMPTY) will be thrown.
+
+Step 4. If everything is correct, `VersionedBookShelf#sort()` will be call. It will executes `UniqueBookList#sortBooks` and `BookShelf#indicateModified` will be called after the list is been sorted to notify listener that display data has been modify.
+
+Step 5. `ObservableList<Book>` was implemented in `UniqueBookList` as internal list. `UniqueBookList#sortBooks` will call `ObservableList<Book>#sort` to sort the internal list by providing custom Comparator.
+
+Step 6. ` model#commitBookShelf()` will be execute to store current book list into `List<ReadOnlyBookShelf>` for support undo/redo command after the list is sorted and notify the listener.
+
+==== Design Considerations
+
+===== Aspect: Sorting algorithm implemented.
+
+* **Alternative 1 (current choice):** Sorts using library sorting method.
+** Pros: Easy to implement, easy to maintain.
+** Cons: The sorting method is too general, can have better sorting algorithm.
+
+* **Alternative 2:** Using custom sorting method.
+** Pros: more custom, may improve performance.
+** Cons: hard to maintain and easy to produce bugs.
+
+===== Aspect: Data structure to support the sort commands
+
+* **Alternative 1 (current choice):** Sorts with the complete list.
+** Pros: Easy to implement, as the list coming with sort function.
+** Cons: May have performance issues in terms of speed, as we need to sort whole list.
+
+* **Alternative 2:** Sorts with sub-list that available to user.
+** Pros: It is faster than first choice as we only need to sort partial list.
+** Cons: The sub-list is not support sort function, its hard and time comsume to manipulate sorting and put it back to sub-list.
+
 === Undo/Redo feature
 ==== Current Implementation
 
@@ -255,7 +309,7 @@ Step 1. The user launches the application for the first time. The `VersionedBook
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `deleteBook n/Alice` command to delete the book called Alice in the book list. The `deleteBook` command calls `Model#commitBookShelf()`, causing the modified state of the book list after the `deleteBook n/Alice` command executes to be saved in the `BookShelfStateList`, and the `currentStatePointer` is shifted to the newly inserted book list state.
+Step 2. The user executes `deleteBook 1` command to delete the first book in the book shelf. The `deleteBook` command calls `Model#commitBookShelf()`, causing the modified state of the book list after the `deleteBook 1` command executes to be saved in the `BookShelfStateList`, and the `currentStatePointer` is shifted to the newly inserted book list state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
@@ -335,13 +389,11 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-
-// tag::addBook[]
 === AddBook feature
 ==== Current Implementation
 
 The addBook mechanism is facilitated by `BookShelf`.
-It contains `UniqueBookList` in which all the book data are stored and duplicates are not allowed.
+It contains `UniqueBookList` in which all the book data are stored and duplicates are not allowed. Books with same book name are considered as duplicates.
 Additionally, it uses the following operations from `BookShelf`:
 
 * `model#hasBook()` -- Check if the book already exists in the book shelf.
@@ -363,7 +415,17 @@ Step 4. The book shelf now adds the book to the book list after making sure ther
 
 ==== Design Considerations
 
-===== Aspect: How addBook executes
+===== Aspect: How duplicate of book is defined
+
+* **Alternative 1 (current choice):** Books with same book name are considered as duplicates.
+** Pros: Easy to support other command such as addReview which search for the book based on its name.
+** Cons: User may encounter trouble if they read two books with same name but written by different authors.
+* **Alternative 2:** Books with multiple identical fields (eg. book name and author, book name and rating, etc) are considered same book.
+** Pros: Able to store books with same same but different in other fields.
+** Cons: Causing trouble to executing other commands like addReview as more parameters must be provided to search for a certain book.
+//end::addBook[]
+
+===== Aspect: Data structure to support the addBook command
 
 * **Alternative 1 (current choice):** Saves the entire book as one object contains different components such as author, rating, etc.
 ** Pros: Easy to implement delete and other features that change an entire book.
@@ -371,8 +433,41 @@ Step 4. The book shelf now adds the book to the book list after making sure ther
 * **Alternative 2:** Components stored as individual objects.
 ** Pros: Easier to obtain statistics regarding each component.
 ** Cons: It is hard to manage book object as we need to find a way to connect all components together.
-// end::addBook[]
 
+=== EditBook feature
+==== Current Implementation
+
+The editBook mechanism is facilitated by `BookShelf`.
+It contains `UniqueBookList` in which all the book data are stored and duplicates are not allowed. Books with same book name are considered as duplicates.
+Additionally, it uses the following operations from `BookShelf`:
+
+* `model#hasBook()` -- Check if the book already exists in the book shelf.
+* `model#setBook()` -- To set a book with field values provided.
+* `model#commitBookShelf()` -- Saves the current book shelf state for undo/redo..
+
+These operations are exposed in the `Model` interface.
+
+Given below is an example usage scenario and how the addBook mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
+
+Step 2. The user executes `editBook 1 n/Alice a/HR m/5 tag/fantasy` command to edit the first book present in the book list to be a book called Alice, written by HR, with rating of 5 and tag of fantasy in the book list. The `addBook` command calls `Model#hasBook()`, checking if the book already exists in the book shelf.
+
+[NOTE]
+If the new book name already exists, CommandException(MESSAGE_DUPLICATE_BOOK) will be thrown. It will not call `Model#commitBookShelf()`, so the book shelf state will not be saved into the `BookShelfStateList`.
+
+Step 4. The book shelf now set the fields of the first book to the new ones provided, and calls Model#commitBookShelf(), causing the modified state of the book list after the `addBook` command executes to be saved in the BookShelfStateList
+
+==== Design Considerations
+
+===== Aspect: How editBook is executed
+
+* **Alternative 1 (current choice):** Use index to figure out the book user wishes to edit.
+** Pros: Easy to select the book user wish to edit with the support of our UI.
+** Cons: A listBook command might be needed before executing editBook if the current filtered book list is empty
+* **Alternative 2:** Use exact book name to figure out the book user wishes to edit.
+** Pros: No need to first filter out a non-empty book list.
+** Cons: Causing trouble for user to type in the full name of the book.
 
 // tag::listBook[]
 === ListBook Feature
@@ -462,8 +557,6 @@ is available where the date can be passed in as a parameter, to be used in testi
 
 ===== Current Implementation
 
-The ListReview Feature is currently combined with the previous SelectPerson.
-
 Given below is an example usage and program behaviour:
 
 Step 1. The user executes `listReview 1`
@@ -537,8 +630,8 @@ the original review and add a new one. Hence. EditReview is currently not implem
 
 
 
-// end::addReview[]
 
+// end::addReview[]
 
 == Documentation
 
@@ -795,7 +888,7 @@ _{More to be added}_
 
 *MSS*
 
-1.  User requests to delete a book and all its reviews by the book's exact name
+1.  User requests to delete a book and all its reviews by the book's index in the list
 2.  Book Squirrel deletes the book
 +
 Use case ends.
@@ -824,26 +917,6 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
 [appendix]
 == Instructions for Manual Testing
 
@@ -858,7 +931,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample books and reviews. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -866,21 +939,17 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a book
 
-. Deleting a book by its name
+. Deleting a book while all books are listed
 
-.. Prerequisites: The book is inside the list. User knows the full name of the book.
-.. Test case: `deleteBook n/Alice` +
-   Expected: The book named Alice is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Prerequisites: List all book using the `listBook` command. Multiple books in the list.
+.. Test case: `deleteBook 1` +
+   Expected: First book is deleted from the list. Details of the deleted book shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `deleteBook 0` +
    Expected: No book is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `deleteBook` +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
 
 === Saving data
 

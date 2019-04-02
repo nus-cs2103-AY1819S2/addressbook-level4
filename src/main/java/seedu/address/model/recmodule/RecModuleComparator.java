@@ -13,15 +13,21 @@ public class RecModuleComparator implements Comparator<RecModule> {
     public int compare(RecModule first, RecModule second) {
         // req type satisfied by first and second must be present at time of comparison
         assert(first.getCourseReqType().isPresent() && second.getCourseReqType().isPresent());
+        // different req type -> compare priority of req type
         CourseReqType firstReqType = first.getCourseReqType().get();
         CourseReqType secondReqType = second.getCourseReqType().get();
-
-        // different req type -> compare priority of req type
         if (!firstReqType.equals(secondReqType)) {
             return firstReqType.compareTo(secondReqType);
         }
 
-        // same req type -> compare lexicographical order of code
+        // same req type -> compare module level
+        int firstLevel = first.getModuleInfoCode().getLevel();
+        int secondLevel = second.getModuleInfoCode().getLevel();
+        if (firstLevel != secondLevel) {
+            return (firstLevel - secondLevel);
+        }
+
+        // same module level -> compare lexicographically
         return first.getModuleInfoCode().toString().compareTo(second.getModuleInfoCode().toString());
     }
 }

@@ -6,9 +6,11 @@ package seedu.address.model.course;
 public enum CourseReqType {
 
     /* in decreasing order of priority */
-    CORE("Core"),
-    TE("Technical Elective / Programme Elective / Focus Area"),
-    GE("General Education"),
+    CORE("Core Requirement"),
+    TE("Technical/Programme Elective or Focus Area"),
+    IE("Industry Experience Requirement"),
+    FAC("Faculty Requirement"),
+    GE("General Education Requirement"),
     UE("Unrestricted Elective");
 
     private final String printedType;

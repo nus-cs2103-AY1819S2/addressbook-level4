@@ -185,8 +185,8 @@ public class Patient extends Person {
      * @return a new Patient instance.
      */
     public Patient copy() {
-        return new Patient(this.name, this.phone, this.email, this.address, tags, this.nric, this.getDateOfBirth(),
-                this.records, this.teeth, this.sex);
+        return new Patient(name, phone, email, address, tags, nric, getDateOfBirth(),
+                this, copyCount, sex);
     }
 
     /**

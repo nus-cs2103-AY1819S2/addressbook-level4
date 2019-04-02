@@ -138,11 +138,13 @@ Format: `delete INDEX`
 `delete 2` +
 Deletes the 2nd card in the address book.
 
+//tag::sortcommand[]
 ==== Sort flashcards by score within a folder : `sort`
 
 Displays all flashcards sorted such that the lowest <<cardscore, card scores>> are at the top temporarily.
 
 Format: `sort`
+//end::sortcommand[]
 
 ==== Search by keywords : `search`
 

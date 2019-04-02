@@ -16,15 +16,13 @@ endif::[]
 
 By: `Team W10-3`      Since: `JAN 2019`      Licence: `MIT`
 
-// tag::introduction[]
 == Introduction
 
 *Equipment Manager* is a desktop CLI (Command Line Interface) application that allows engineers to keep track on the Preventive Maintenance schedule of all Resuscitation Devices in singapore. It has a GUI (Graphic User Interface) that allows users to get further information on each equipment.
 
 Our purpose is to help engineers plan the number of equipment that they would like to carry out preventive maintenance and keep track on each equipment details such as status, location and more information.
-//end:introduction[]
 
-// tag::aboutug[]
+
 == About This User Guide
 Welcome to *Equipment Manager* User Guide! +
 
@@ -32,7 +30,7 @@ This User Guide document will equip you with all the information you need in ord
 this section will explain the key things to take note of. +
 
 If this is not a problem for you, jump to the <<Quick Start>> to get started. If you already have Equipment Manager up and running, then head over to <<Features>>. Enjoy!
-//end:aboutug[]
+
 
 === Icons Meaning
 The following section provides a quick understanding on each of the legends used throughout the user guide.
@@ -53,11 +51,10 @@ These legends alert reader on special information such as tips, notes and warnin
 | The book icon indicates that it is an additional information for advanced users.
 |===
 
-// tag::quickstart[]
+
 == Quick Start
 
 To get Equipment manager up and running, simply follow these few steps.
-//end:quickstart[]
 
 === Setting up of Equipment Manager
 
@@ -96,7 +93,6 @@ Type the command in the Command Box and press kbd:[Enter] to execute it. +
 | image:tip.png[width="40"] |Refer to <<Features>> for details of each command.
 |===
 
-// tag::features[]
 [[Features]]
 == Features
 
@@ -109,7 +105,6 @@ Type the command in the Command Box and press kbd:[Enter] to execute it. +
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-// tag::help[]
 === Viewing help : `help`
 This command opens up the User Guide in a separate window and shows all the available commands. It also teaches you how to use them effectively. +
 
@@ -119,9 +114,7 @@ Format: `help`
 You can view help by click the `Help button on the Menu Bar.
 
 If it is your first time reading this, then good job on opening the User Guide!
-//end:help[]
 
-// tag::add-e[]
 === Adding an equipment: `add-e`
 Adds an equipment to the Equipment Manager +
 Format: `add-e n/CLIENT_NAME p/CLIENT_PHONE_NUMBER pm/PM_DATE a/CLIENT_ADDRESS s/SERIAL_NUMBER [t/TAG]`
@@ -132,9 +125,7 @@ An equipment can any number of tags (including 0).
 Example:
 
 * `add n/Clementi CC p/98765432 pm/10 May 2019 a/220 Clementi Ave 4, Singapore 129880 s/A008844L t/west`
-//end:add-e[]
 
-// tag::add-w[]
 === Creating a new worklist: `add-w`
 Create a worklist in the Equipment Manager by giving the worklist an ID +
 Format: `add-w d/DATE a/ASSIGNEE i/ID`
@@ -145,9 +136,7 @@ The user can enter multiple assignees, but only one date and id.
 Example:
 
 * `add-w d/09 May 2019 a/Mei Yen i/13`
-//end:add-w[]
 
-// tag::put[]
 === Adding to work list: `put`
 Adds equipment to working list in the Equipment Manager +
 Format: `put INDEX [worklist id]`
@@ -159,9 +148,7 @@ Example:
 
 * `list-w` +
 `put 1 203`
-//end:put[]
 
-// tag::edit-e[]
 === Editing an equipment: `edit-e`
 Edits an existing equipment in the _Equipment Manager_. +
 Format: `edit INDEX [n/CLIENT_NAME] [p/CLIENT_PHONE] [pm/PM_DATE] [a/CLIENT_ADDRESS] [s/SERIAL_NUMBER] [t/TAG]…​`
@@ -179,9 +166,7 @@ Edits the client phone number and client date address of the 1st equipment to be
 
 * `edit 2 n/Hougang CC t/` +
 Edits the client name of the 2nd equipment to be Huogang CC and clears all existing tags.
-//end:edit-e[]
 
-// tag::list-e[]
 === List all equipments:  `list-e`
 Shows a list of all equipments in the Equipment Manager +
 Format: `list-e`
@@ -189,9 +174,7 @@ Format: `list-e`
 Example:
 
 * `list-e`
-//end:list-e[]
 
-// tag::list-w[]
 === View work list: `list-w`
 Shows a list of all worklists in the Equipment Manager +
 Format: `list-w`
@@ -222,9 +205,7 @@ Selects the 1st worklist in the equipment manager.
 * `find Clementi` +
 `select 1` +
 Selects the 1st equipment in the results of the find command.
-//end:list-w[]
 
-// tag::find[]
 === Locating equipment by location: `find`
 Finds equipment whose location contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -241,7 +222,6 @@ Examples:
 
 * `find Clementi` +
 Returns `Clementi Police Station` and `Clementi CC`
-//end:find[]
 
 // tag::display[]
 === Show in map: `display`
@@ -251,9 +231,7 @@ Format: `display`
 Example:
 
 * `display`
-//end:display[]
 
-// tag::sort[]
 === Sort the list: `sort`
 Sort the current shown list.
 
@@ -281,9 +259,9 @@ Returns the list sorted according to the day.
 
 * `sort phone` +
 Returns the list sorted by phone number.
-//end:sort[]
 
-// tag::filter[]
+
+
 === Filtering the list: `filter`
 Filter the current shown list which match the given keywords.
 
@@ -323,14 +301,11 @@ Returns any equipment whose tags contains urgent and west.
 
 * `filter n/jurong a/blk 123 t/urgent` +
 Returns any equipment whose names that contains jurong, address that contains blk 123, and whose tags contains urgent.
-//end:filter[]
 
-// tag::autocomplete[]
+
 === Autocomplete: kbd:[tab]
 If you have forgotten how to type a command, do not worry!  By typing in the first letter of the command in the command and pressing the kbd:[tab] key, it will display the full format of the command.
-//end:autocomplete[]
 
-// tag::delete-e[]
 === Deleting equipment: `delete-e`
 Deletes the specified equipment from the equipment list and the whole details contained under the equipment specified by INDEX
 
@@ -340,9 +315,7 @@ Example:
 
 * `list-e` +
 `delete-e 1`
-// end::delete-e[]
 
-// tag::delete-w[]
 === Deleting work list: `delete-w`
 Deletes the specified work list from the work list.
 Format: `delete-w INDEX`
@@ -351,14 +324,10 @@ Example:
 
 * `list-w` +
 `delete-w 12`
-// end::delete-w[]
 
-// tag::notify[]
 === Enabling notification: `notify`
 Notifies you when an equipment is due for preventive maintenance in 2 days. You can choose to get notifications or not.
-// end::notify[]
 
-// tag::route[]
 === Route planning: `route`
 With multiple destinations that you plan to visit for preventive maintenance, using the route command can return you with the following details: +
 ****
@@ -373,9 +342,7 @@ Examples:
 `route 120`
 
     Note to editor: add a png example of the routing of worklist id 120.
-// end::route[]
 
-// tag::history[]
 === Listing entered commands: `history`
 Lists all the commands that you have entered in reverse chronological order.
 
@@ -383,9 +350,7 @@ Lists all the commands that you have entered in reverse chronological order.
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
-// end::history[]
 
-// tag::undo[]
 === Undoing previous command: `undo`
 Restores Equipment Manager to the state before the previous undoable command was executed.
 
@@ -409,9 +374,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `clear` +
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
-// end::undo[]
 
-// tag::redo[]
 === Redoing all the previously undone command: `redo`
 Reverses the most recent `undo` command. +
 Format: `redo`
@@ -432,41 +395,29 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `undo` (reverses the `delete 1` command) +
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `clear` command) +
-// end::redo[]
 
-// tag::clear[]
 === Clearing all entries: `clear`
 If you want to clear out all the client or equipment details in Equipment Manager, you can use the clear command. For example, clear all clients or clear all equipment. +
 Format: `clear`
-// end::clear[]
 
-// tag::exit[]
 === Exit the program: `exit`
 When you are done with Equipment Manager, type exit command to exit the application. You can also click on the close button above the menu bar to exit +
 Format: `exit`
-// end::exit[]
 
-// tag::save[]
 === Saving the data
 
 Equipment Manager data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-// end::save[]
 
-// tag::encrypting[]
 === Encrypting data files `[coming in v2.0]`
 
 _{explain how the user can enable/disable data encryption}_
-// end::encryption[]
-// end::features[]
-// tag::faq[]
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Equipment Manager folder.
-// end::faq[]
 
-// tag::glossary[]
 == Glossary
 Unsure of a few technical terms? We got you covered. Refer to [underline]#<<techtable>># below.
 
@@ -488,9 +439,8 @@ Unsure of a few technical terms? We got you covered. Refer to [underline]#<<tech
 |*User Interface (UI)*
 |Allows the user to interact with the application through inputs and outputs of data.
 |===
-// end::glossary[]
 
-// tag::commandsummary[]
+
 == Command Summary
 
 This is the last section of the User Guide, but the most useful if you just want a list of commands to try.
@@ -561,4 +511,3 @@ For more details on what each command does, please refer to <<Features>>.
 |filter [n/NAME_KEYWORD] [pm/DATE_KEYWORD] [t/TAG_KEYWORD]
 |fil punggol november ongoing
 |===
-// end::commandsummary[]

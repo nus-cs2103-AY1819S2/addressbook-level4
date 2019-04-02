@@ -51,7 +51,7 @@ public class UniqueEquipmentListTest {
     }
 
     @Test
-    public void getEquipment_haveSuchEquipment_Success(){
+    public void getEquipment_haveSuchEquipment_success() {
         uniqueEquipmentList.add(TECKGHEECC);
         assertEquals(uniqueEquipmentList.getEquipment(TECKGHEECC.getSerialNumber()), TECKGHEECC);
     }

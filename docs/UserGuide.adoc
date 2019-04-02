@@ -29,11 +29,15 @@ Some of the features that can look forward to:
 
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
-+
-[WARNING]
-JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
-Windows developers are highly recommended to use JDK `9`.
+*Callout*
+[NOTE]
+This is a *note*. A warning indicates important additional information that should be read.
 
+[TIP]
+This is a *tip*. A tip indicates good to know information that would improve your user experience
+
+[WARNING]
+This is a *warning*. A warning indicates critical information that would affect the functionality of this programme.
 
 
 == Quick Start
@@ -128,11 +132,17 @@ Return all the restaurants
 Shows a list of all restaurants that hasn't been reveiwed by you, ranked based on the proximity to a given postal code. +
 Format: `list po/POSTAL_CODE`
 
+[NOTE]
+Calculation of proximity is based on postal codes. If no postal code or an invalid postal code is provided for a `Restaurant`, it will appear at the bottom of the list.
+
+
 Examples:
 
-* `listUnvisited po/267951` +
+[red]#* `listUnvisited po/267951` #+
 Return all the restaurants that has no reviews ranked based on the proximity to a given postal code
 
+[TIP]
+If you simply want to view unreviewed `Restaurant`, enter `listUnvisited po/000000`
 
 ==== 'Find'
 

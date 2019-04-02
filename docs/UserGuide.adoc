@@ -128,14 +128,14 @@ Example:
 
 === Creating a new worklist: `add-w`
 Create a worklist in the Equipment Manager by giving the worklist an ID +
-Format: `add-w /[worklist value] `
+Format: `add-w d/DATE a/ASSIGNEE i/ID`
 
 [TIP]
-The user can enter multiple field name and values.
+The user can enter multiple assignees, but only one date and id.
 
 Example:
 
-* `add-w /date 2019-02-12 /assignee Mei Yen`
+* `add-w d/09 May 2019 a/Mei Yen i/13`
 
 === Adding to work list: `put`
 Adds equipment to working list in the Equipment Manager +
@@ -176,7 +176,7 @@ Example:
 * `list-e`
 
 === View work list: `list-w`
-Shows a list of all clients in the Equipment Manager +
+Shows a list of all worklists in the Equipment Manager +
 Format: `list-w`
 
 Example:

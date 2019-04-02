@@ -249,7 +249,7 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the image (`rotate`, `crop`, `brightness`, `contrast` and `bw`).
+Undoable commands: those commands that modify the image (`rotate`, `crop`, `resize`, `brightness`, `contrast` and `bw`).
 ====
 
 Examples:

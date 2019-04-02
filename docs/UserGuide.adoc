@@ -425,6 +425,8 @@ image::ActivityAddCommand.png[width="790"]
 Adding activity to the correct position based on the time.
 // end::activityAdd[]
 
+// tag::activityAddMember[]
+
 ==== Add a member to activity `activityAddMember`
 Adds an existing member to an existing activity to indicate that they will be going for the activity.
 Format: `activityAddMember ACTIVITY_INDEX MATRIC_NO`
@@ -438,6 +440,9 @@ Examples:
 
 * `activityAddMember 1 A1234567N` +
 Adds the member with matric number `A1234567N` to the attending list for activity 1.
+// end::activityAddMember[]
+
+// tag::activityDelete[]
 
 ==== Delete an activity `activityDelete`
 Deletes an existing activity in the activity list
@@ -452,6 +457,9 @@ Examples:
 
 * `activityDelete 1` +
 Deletes the first activity in the displayed activity list
+// end::activityDelete[]
+
+// tag::activityDeleteMember[]
 
 ==== Delete a member from activity `activityDeleteMember`
 Removes an existing member who has already indicated that he/she will be attending the activity from the attending list of the activity.
@@ -466,6 +474,7 @@ Examples:
 
 * `activityDeleteMember 1 A1234567N` +
 Removes the member with matric number A1234567N from activity 1’s attending list.
+// end::activityDeleteMember[]
 
 ==== Edit an activity: `activityEdit` *up in v1.4*
 Edits an existing activity in the activity list

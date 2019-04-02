@@ -96,7 +96,7 @@ public class QuizStartCommand extends ManagementCommand {
         LessonList lessonList = mgtModel.getLessonList();
         List<Lesson> lessons = lessonList.getLessons();
         boolean lessonExist = false;
-        Lesson lesson = mgtModel.getLesson(0);
+        Lesson lesson = new Lesson("default", List.of("q", "a"), List.of());
         for (int i = 0; i < lessons.size(); i++) {
             if (lessons.get(i).getName().equals(this.session.getName())) {
                 lesson = mgtModel.getLesson(i);
@@ -121,7 +121,7 @@ public class QuizStartCommand extends ManagementCommand {
         } else if (this.session.getMode() == QuizMode.DIFFICULT) {
             List<SrsCard> srsCards = generateManager.previewDifficult();
             if (srsCards.size() == 0) {
-                throw new CommandException("There is no difficult card in this lesson");
+                throw new CommandException("There is no difficult card in this lesson.");
             } else {
                 this.session = new Session(this.session.getName(), this.session.getCount(), this.session.getMode(),
                         srsCards);
@@ -130,7 +130,7 @@ public class QuizStartCommand extends ManagementCommand {
             List<SrsCard> srsCards = generateManager.sort();
             if (srsCards.size() == 0) {
                 throw new CommandException("There is no card for review since all cards in current lesson"
-                        + "do not reach the due date.");
+                        + " do not reach the due date.");
             } else {
                 this.session = new Session(this.session.getName(), this.session.getCount(), this.session.getMode(),
                         srsCards);
@@ -138,7 +138,7 @@ public class QuizStartCommand extends ManagementCommand {
         } else if (this.session.getMode() == QuizMode.LEARN) {
             List<SrsCard> srsCards = generateManager.learn();
             if (srsCards.size() == 0) {
-                throw new CommandException("There is no more new card to learn in this lesson");
+                throw new CommandException("There is no more new card to learn in this lesson.");
             } else {
                 this.session = new Session(this.session.getName(), this.session.getCount(), this.session.getMode(),
                         srsCards);
@@ -147,7 +147,7 @@ public class QuizStartCommand extends ManagementCommand {
         if (session.getCount() > session.getSrsCards().size()) {
             session.setCount(session.getSrsCards().size());
             return new CommandResult("Not enough cards in current lesson. Set the count to the maximum"
-                    + "number for you by default.");
+                    + " number for you by default.");
         } else {
             return new CommandResult(MESSAGE_SUCCESS);
         }

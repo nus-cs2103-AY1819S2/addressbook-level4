@@ -19,7 +19,6 @@ public class Session {
     private String name;
     private QuizMode mode;
     private int cardCount;
-    private List<QuizCard> quizCards;
     private List<SrsCard> srsCards;
 
     public Session(String name, int cardCount, QuizMode mode) {
@@ -76,7 +75,7 @@ public class Session {
      */
     public List<QuizCard> generateSession() {
         SrsCard currentCard;
-        quizCards = new ArrayList<>();
+        List<QuizCard> quizCards = new ArrayList<>();
 
         for (int i = 0; i < cardCount; i++) {
             currentCard = srsCards.get(i);

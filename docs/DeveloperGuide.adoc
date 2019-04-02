@@ -523,25 +523,34 @@ one command to allocate a fixed amount to the budget
 // tag::summary[]
 === Summary
 
-The summary feature shows an overview of your previous expenditures. It displays statistics on how your spending habits are like in the different categories you have specified. It also displays the remaining budget amount for each category.
+The summary feature shows an overview of your previous expenditures in an Aster Plot chart, which works similarly to a pie chart. Each sector of the chart represents a category. The radius of each sector indicates the total budget amount allocated for a particular category, while the coloured area of the sector denotes the amount spent for that category. This allows users to easily perceive whether their spending is within their budget for each category.
 
-==== To be implemented
-The summary feature intends to use a D3.js graph to display the data. This will help contribute to the aesthetics and user-friendliness of displaying the data in the financeTracker.
+==== Implementation
+The summary feature intends to use a D3.js graph to display the data. This will help contribute to the aesthetics and user-friendliness of displaying the data in In-Credit-Ble.
+The implementation of the Summary command can be divided into two phases – preparation and execution. Given below is an explanation of how the summary mechanism behaves at each phase, although it has not been fully implemented yet.
 
-The summary command will retrieve the whole list of existing records, which will then be parsed by SummaryCommandParser. This will return the appropriate d3 graph to be shown.
+===== Preparation
+In the preparation phase, the application will parse the command. Below is the UML Sequence diagram and a step-by-step explanation of the preparation stage.
 
-Given below is an example usage scenario and how the summary mechanism behaves at each step.
+.Sequence diagram of the preparation stage in the summary mechanism
+image::SummarySequenceDiagram.png[width="800"]
 
-Step 1. The user launches the application for the first time. The financeTracker will be initialised with the existing records the user has input last time.
+1.	User first enters the command `summary`. This command is received by `FinanceTrackerParser`, which  then calls `SummaryCommandParser#parse()` to create `SummaryCommand`.
+2.	`SummaryCommand`  is then returned to `LogicManager`.
+3.	`LogicManager` then calls `SummaryCommand#execute()`, which will then trigger the process of retrieving the data to be displayed.
 
-Step 2. The user executes the summary command. Input is parsed and the records will be extracted.
+===== Execution
+In the execution phase, the program accesses the `Budget` class to retrieve the data to be displayed. It will then finally map this data to graph the Aster Plot chart and display it. Below is the UML sequence diagram and a step-by-step explanation of the execution stage.
 
-Step 3. The records are then converted to JSON, and data will be used to map the d3 graph.
+.Sequence diagram of the execution stage in the summary mechanism
+image::SummarySequenceDiagram2.png[width="800"]
 
-
-_Sequence Diagram will be done soon_
+1.	The`handleShowSummary` will be handled by `MainWindow#handleShowSummary()`, which will call `GraphPanel#execute()` and pass the data as parameters by calling `Logic#getTotalBudget()` and `Logic#getCategoryBudget()`.
+2.	`Logic#getTotalBudget()` and `Logic#getCategoryBudget()` will get their respective data by calling the method of the same name in `Model`.
+3.	Once the parameters are passed into GraphPanel#execute(), StackPane#getData()#clear() is called to clear any display elements in StackPane. D3.js is used to render the charts.
 
 ==== Design Consideration
+===== Aspect: Representation for Summary of Expenditure
 An aster plot graph will be used to display the information in the main window. Using such a graph will allow for sufficient space should users decide to add more categories in the future. Hovering over the different sectors in the aster plot graph will display the corresponding category. If possible, the colours used for the category in the aster plot graph should be the same colour palette used for the category labels.
 
 .Example of Aster Plot Graph

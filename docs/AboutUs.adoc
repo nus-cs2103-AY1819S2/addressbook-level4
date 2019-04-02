@@ -53,7 +53,7 @@ Responsibilities: Scheduling and Tracking
 === Jack Chen
 image::jackimaru96.png[width="150", align="left"]
 {empty}[http://github.com/Jackimaru96[github]]
-{empty}[https://cs2103-ay1819s2-w17-3.github.io/main/team/Jackimaru96.html[portfolio]]
+{empty}[https://cs2103-ay1819s2-w17-3.github.io/main/team/jackimaru96.html[portfolio]]
 
 Role: Developer +
 Responsibilities: Documentation

@@ -71,7 +71,7 @@ public class ResultDisplay extends UiPart<Region> {
      * Parses header
      */
     private String parseHeader(String input) {
-        if (input.charAt(0) == '\\' || input.charAt(0) != '!') {
+        if (input.length() < 1 || input.charAt(0) == '\\' || input.charAt(0) != '!') {
             return null;
         }
         return input.substring(0, 2);

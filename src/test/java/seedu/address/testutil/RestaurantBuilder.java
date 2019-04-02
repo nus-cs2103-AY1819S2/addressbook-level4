@@ -12,8 +12,10 @@ import seedu.address.model.restaurant.OpeningHours;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Weblink;
-import seedu.address.model.restaurant.categories.Category;
+import seedu.address.model.restaurant.categories.Categories;
 import seedu.address.model.restaurant.categories.Cuisine;
+import seedu.address.model.restaurant.categories.Occasion;
+import seedu.address.model.restaurant.categories.PriceRange;
 import seedu.address.model.review.Review;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -38,7 +40,7 @@ public class RestaurantBuilder {
     private Weblink weblink;
     private OpeningHours openingHours;
     private List<Review> reviews;
-    private Category categories;
+    private Categories categories;
 
     public RestaurantBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -143,8 +145,8 @@ public class RestaurantBuilder {
     /**
      * Sets the {@code Cuisine} of the {@code Restaurant} that we are building.
      */
-    public RestaurantBuilder withCategories(String cuisine) {
-        this.categories = new Category(new Cuisine(cuisine), null);
+    public RestaurantBuilder withCategories(String cuisine, String occasion, String priceRange) {
+        this.categories = new Categories(new Cuisine(cuisine), new Occasion(occasion), new PriceRange(priceRange));
         return this;
     }
 

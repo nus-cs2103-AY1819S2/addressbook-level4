@@ -1,4 +1,4 @@
-= FoodDiary Level 4 - User Guide
+= The Food Diary - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -205,55 +205,64 @@ Examples:
 `editRestaurant 2 n/MACS  ` +
 Change the name of the second restaurant in the list to MACS.
 
-=== Setting the category of a restaurant : `setCategory`
+// tag::categorization[]
+=== Setting the categories of a restaurant : `setCategories`
 
 Set the cuisine of a restaurant identified by the index number used in the listRestaurants. +
-Format: `setCategory INDEX [c/CUISINE] [o/OCCASION] [p/PRICE_RANGE]`
+Format: `setCategories INDEX [c/CUISINE] [o/OCCASION] [p/PRICE_RANGE]`
 
 ****
 * The index refers to the index number show in the displayed restaurants list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-* The price range *must* be one of the following three values: `cheap`, `normal`, `expensive`
-* Cuisine and Occasion retains case, price range does not matter. e.g. `Fast food` will be reflected as it is for
-cuisine but `expensive` or `Expensive` will both be reflected as `Expensive`
+* You need to ensure that the index entered *must be a positive integer* `1, 2, 3, ...`
+* You need to ensure that the `Price Range` entered *must* only consist of 1-5 `$` characters. e.g. `$`, `\$$$`, `$$\$$$`
+is okay but `$$\$$$$`, `cheap` or `$expensive` will be rejected.
+* You need to ensure that Cuisine and Occasion *must* only contain alphanumeric characters and spaces.
+* You do not need to worry about capitalization. Cuisine and Occasion will be autocapitalized.
+e.g. `fast food` and `premium casual` will be capitalized to
+`Fast Food` and `Premium Casual`. `fAST fOOD` will be converted into `Fast Food`.
 ****
 
 Examples:
 
 * `listRestaurants` +
-`setCategory 2 c/Fine Dining o/Wedding p/expensive` +
+`setCategory 2 c/Fine Dining o/Wedding p/\$$$$$` +
 Set the categories of the second restaurant in the list to `Find Dining` for cuisine, `Wedding` for occasion and
-`expensive` for price range.
+`\$$$$$` for price range.
 
 Note:
 
-* setCategory for `Cuisine` and `Occasion` supported as of v1.2
-* `Price range` support coming in v1.3
+* setCategory for `Cuisine`, `Occasion` and `Price Range` supported as of v1.3
 * Autocomplete feature planned for v1.4
 
-=== Filter restaurants based on category : `filter`
+=== Filter restaurants based on categories : `filter`
 
 Filters and lists the restaurants with categories matching the keywords entered. +
 Format: `filter KEYWORD [MORE_KEYWORDS]`
 
 ****
-* Filtering is case insensitive. e.g. `fast food` will match `Fast Food`
-* Order of the keywords does not matter. e.g. `fast food` will match `food fast`
-* Will search through all categories of the restaurant. e.g. `cuisine`, `pricing`, `occasion`
-* Only full words will be matched. e.g. `fas foo` will not match `fast food`
-* Restaurants matching at least one keyword will be displayed. e.g. `fast food` will return `hawker food`
+* You do not need to worry about case. Filtering is case insensitive. e.g. `fast food` will match `Fast Food`
+* You do not need to be concerned about which categories you want to filter. Filtering works across categories.
+e.g. `japanese $$$$` will match all restaurants with `Cuisine` set as `Japanese` or `Price Range` set as `\$$$$`.
+Note this also means that the more keywords you add, the more general the filter becomes.
+* You can enter keywords in any order. `$ casual` is the same as `casual $`. Both will match restaurants that has
+`Price Range` as `$` or `Occasion` as `Casual`.
+* You can filter multiple categories of the same type. e.g. `japanese western` will match both `Japanese` and `Western` cuisine
+restaurants. All `Japanese` and `Western` restaurants will be displayed.
+* You must enter words in full. e.g. `fas foo` will not match `fast food`
+* Restaurants matching at least one keyword will be displayed. e.g. `fast food` will match `hawker food`
 ****
 
 Examples:
 
 * `filter fast food` +
-Returns restaurants with cuisine or occasion matching `fast food`
-* `filter fast food gathering`
-Returns restaurants with cuisine or occasion matching fast food gathering
-
-Note:
-
-* Filter support for `Price range` coming in v1.3
+Returns restaurants with `Cuisine` or `Occasion` matching `fast` or `food`
+* `filter fast food casual`
+Returns restaurants with `Cuisine` or `Occasion` matching `fast`, `food` or `casual`
+* `filter $`
+Returns restaurants with `Price Range` matching `$`
+* `filter $ casual western`
+Return restaurants with  `Cuisine`, `Occasion` or `Price Range` matching `$`, `casual` or `western`
+// end::categorization[]
 
 === Personalising your food diary with your name: `name`
 

@@ -7,12 +7,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.model.restaurant.categories.Category;
-import seedu.address.model.restaurant.categories.Cuisine;
-import seedu.address.model.restaurant.categories.Occasion;
+import seedu.address.model.restaurant.categories.Categories;
 import seedu.address.model.review.Review;
 import seedu.address.model.tag.Tag;
 
@@ -35,8 +32,8 @@ public class Restaurant {
     private final OpeningHours openingHours;
     private final Summary summary;
 
-    // Category fields
-    private final Category categories;
+    // Categories fields
+    private final Categories categories;
 
     /**
      * Constructor for Restaurant class without Reviews and Categories
@@ -52,25 +49,7 @@ public class Restaurant {
         this.tags.addAll(tags);
         this.weblink = weblink;
         this.openingHours = openingHours;
-        this.categories = Category.empty();
-        this.summary = new Summary(reviews);
-    }
-
-    /**
-     * Constructor for Restaurant without Reviews but with Optional Cuisine field.
-     * Every field must be present and not null.
-     */
-    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                      Weblink weblink, OpeningHours openingHours, Optional<Cuisine> cuisine) {
-        requireAllNonNull(name, phone, email, address, tags, weblink, openingHours);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
-        this.weblink = weblink;
-        this.openingHours = openingHours;
-        this.categories = new Category(cuisine.isPresent() ? cuisine.get() : null, null);
+        this.categories = Categories.empty();
         this.summary = new Summary(reviews);
     }
 
@@ -78,7 +57,7 @@ public class Restaurant {
      * Create new restaurant with Categories and Reviews.
      */
     public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink,
-                      OpeningHours openingHours, Category categories, List<Review> reviews) {
+                      OpeningHours openingHours, Categories categories, List<Review> reviews) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -89,7 +68,7 @@ public class Restaurant {
         this.openingHours = openingHours;
         this.reviews.addAll(reviews);
         if (categories == null) {
-            this.categories = Category.empty();
+            this.categories = Categories.empty();
         } else {
             this.categories = categories;
         }
@@ -97,18 +76,18 @@ public class Restaurant {
     }
 
     /**
-     * Creates a new restaurant from an existing restaurant with category set.
+     * Creates a new restaurant from an existing restaurant with categories set.
      * @param restaurant the restaurant to set cuisine to
-     * @param category the cuisine to be set
+     * @param categories the cuisine to be set
      */
-    public Restaurant(Restaurant restaurant, Category category) {
-        requireAllNonNull(restaurant, category);
+    public Restaurant(Restaurant restaurant, Categories categories) {
+        requireAllNonNull(restaurant, categories);
         this.name = restaurant.name;
         this.phone = restaurant.phone;
         this.email = restaurant.email;
         this.address = restaurant.address;
         this.tags.addAll(restaurant.tags);
-        this.categories = category;
+        this.categories = categories;
         this.weblink = restaurant.weblink;
         this.openingHours = restaurant.openingHours;
         this.summary = new Summary(restaurant.getReviews());
@@ -138,15 +117,7 @@ public class Restaurant {
         return openingHours;
     }
 
-    public Optional<Cuisine> getCuisine() {
-        return categories.getCuisine();
-    }
-
-    public Optional<Occasion> getOccasion() {
-        return categories.getOccasion();
-    }
-
-    public Category getCategories() {
+    public Categories getCategories() {
         return categories;
     }
 

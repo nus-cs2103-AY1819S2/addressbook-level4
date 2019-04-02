@@ -30,13 +30,12 @@ public class UpdateCommand extends Command {
     public static final String COMMAND_WORD = "update";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Updates the medicine identified by the index number with new batch details. "
-            + "Existing values will be overwritten. Batch updated with quantity 0 will be removed.\n"
+            + ": Updates the medicine new batch details. "
             + "Parameters: "
             + "INDEX "
             + PREFIX_BATCHNUMBER + "BATCH_NUMBER "
             + "[" + PREFIX_QUANTITY + "QUANTITY] "
-            + "[" + PREFIX_EXPIRY + "EXPIRY] "
+            + "[" + PREFIX_EXPIRY + "EXPIRY]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_BATCHNUMBER + "HH-156224 "
             + PREFIX_QUANTITY + "40 "

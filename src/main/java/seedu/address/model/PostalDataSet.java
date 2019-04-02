@@ -1,14 +1,18 @@
 package seedu.address.model;
 
-import java.util.HashSet;
+import java.util.HashMap;
 
 /**
  * Represents the in-memory model of a list of postal codes.
  */
 public class PostalDataSet {
-    private HashSet<PostalData> postalDataHash = new HashSet<>();
+    private HashMap<Integer, PostalData> postalDataHash = new HashMap<>();
 
     public void addData(PostalData data) {
-        postalDataHash.add(data);
+        postalDataHash.put(Integer.parseInt(data.getPostal()), data);
+    }
+
+    public HashMap<Integer, PostalData> getPostalDataSet() {
+        return postalDataHash;
     }
 }

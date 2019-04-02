@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OPENING_HOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POSTAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEBLINK;
 
@@ -36,6 +37,7 @@ public class RestaurantUtil {
         sb.append(PREFIX_PHONE + restaurant.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + restaurant.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + restaurant.getAddress().value + " ");
+        sb.append(PREFIX_POSTAL + restaurant.getPostal().value + " ");
         restaurant.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );

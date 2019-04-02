@@ -336,7 +336,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 
-// tag::addBook[]
+//tag::addBook[]
 === AddBook feature
 ==== Current Implementation
 
@@ -371,7 +371,7 @@ Step 4. The book shelf now adds the book to the book list after making sure ther
 * **Alternative 2:** Books with multiple identical fields (eg. book name and author, book name and rating, etc) are considered same book.
 ** Pros: Able to store books with same same but different in other fields.
 ** Cons: Causing trouble to executing other commands like addReview as more parameters must be provided to search for a certain book.
-// end::addBook[]
+//end::addBook[]
 
 ===== Aspect: Data structure to support the addBook command
 
@@ -456,8 +456,6 @@ Step 6. If the book exists, the review is added to the review list of the Book S
 ==== ListReview Feature
 
 ===== Current Implementation
-
-The ListReview Feature is currently combined with the previous SelectPerson.
 
 Given below is an example usage and program behaviour:
 

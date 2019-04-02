@@ -56,6 +56,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Tags should not exceed 20 characters (space included).
 ====
 
+//tag::book[]
 === Book Commands
 
 ==== Adding a book: `addBook`
@@ -115,7 +116,8 @@ Examples:
 
 * `listBook n/Computer Security` +
 `deleteBook 1` +
-Deletes the 1st person in the results of the listBook command.
+Deletes the 1st book in the results of the listBook command.
+//end::book[]
 
 ==== Listing book entries : `listBook`
 

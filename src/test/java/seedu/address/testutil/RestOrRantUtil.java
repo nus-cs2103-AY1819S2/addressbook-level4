@@ -11,7 +11,7 @@ import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.BillCommand;
-import seedu.address.logic.commands.UpdateTableCommand;
+import seedu.address.logic.commands.EditPaxCommand;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.statistics.Bill;
@@ -38,7 +38,7 @@ public class RestOrRantUtil {
     }
 
     public static String getUpdateTableCommand(Table table) {
-        return UpdateTableCommand.COMMAND_WORD + " " + getUpdateTableDetails(table);
+        return EditPaxCommand.COMMAND_WORD + " " + getUpdateTableDetails(table);
     }
 
     /**

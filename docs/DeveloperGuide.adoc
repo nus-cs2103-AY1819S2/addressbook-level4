@@ -376,45 +376,45 @@ We decided to go ahead with this implementation as we feel that from a user's po
 
 // end::changemode[]
 
-// tag::updatetable
-=== Update Table feature
+// tag::editseats
+=== Edit Pax feature
 ==== Current Implementation
 
-The update table mechanism is facilitated by `UniqueTableList`. It stores the all tables currently in the system and ensures that there are no duplicated tables. Additionally, it implements the following operations:
+The edit pax mechanism is facilitated by `UniqueTableList`. It stores the all tables currently in the system and ensures that there are no duplicated tables. Additionally, it implements the following operations:
 
 * `UniqueTableList#contains(targetTable)` -- Checks if the target table exists within the unique list of tables.
 * `UniqueTableList#setTable(targetTable, editedTable)` -- Replaces the target table in the list with the new table with the updated `TableStatus`.
 
 These operations are exposed in the Model interface as `Model#setTable(targetTable, editedTable)` and `Model#hasTable(targetTable)`.
 
-Given below is an example usage scenario and how the update table mechanism behaves at each step.
+Given below is an example usage scenario and how the edit pax mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time. The `UniqueTableList` will be initialised to be empty.
 
-image::UpdateTableStartingStateListDiagram.png[width="800"]
+image::EditPaxStartingStateListDiagram.png[width="800"]
 
 Step 2. The user executes `addTable 4` command to add a table to the RestOrRant application. Since it is the first new table, it will be labelled table `1` and not be occupied thus having a table status of `0/4`. The `UniqueTableList` will now contain 1 table.
 
-image::UpdateTableAddTableStateListDiagram.png[width="800]
+image::EditPaxAddTableStateListDiagram.png[width="800]
 
-Step 3. The user then has 4 customers enter his/her restaurant and executes `updateTable 1 4` command to update the table labelled 1 with 4 customers. The `updateTable` command calls `Model#setTable(targeTable, editedTable)`, causing the RestOrRant to create a new table with the updated `TableStatus` and replace the current target table in the UniqueTableList. At this point, the UniqueTableList still has only 1 table the original table was replaced by the updated table. The `Storage` detects this change in the UniqueTableList and also updates itself.
+Step 3. The user then has 4 customers enter his/her restaurant and executes `editPax 1 4` command to update the table labelled 1 with 4 customers. The `editPax` command calls `Model#setTable(targeTable, editedTable)`, causing the RestOrRant to create a new table with the updated `TableStatus` and replace the current target table in the UniqueTableList. At this point, the UniqueTableList still has only 1 table the original table was replaced by the updated table. The `Storage` detects this change in the UniqueTableList and also updates itself.
 
-image::UpdateTableUpdateTableStateListDiagram.png[width="800"]
+image::EditPaxEditPaxStateListDiagram.png[width="800"]
 
-The following sequence diagram shows how the update table operation works:
+The following sequence diagram shows how the edit pax operation works:
 
-image::UpdateTableSequenceDiagram.png[width="800"]
+image::EditPaxSequenceDiagram.png[width="800"]
 
 [NOTE]
 If the table to be edited does not exist in the `UniqueTableList`, the application returns an error to the user rather than attempting to replace the non existent table.
 
 The following activity diagram summarises what happens when a user executes a new command:
 
-image::UpdateTableActivityDiagram.png[width="800"]
+image::EditPaxActivityDiagram.png[width="800"]
 
 ==== Design Considerations
 
-===== Aspect: How update table executes
+===== Aspect: How edit number of customers executes
 
 * **Alternative 1 (current choice):** Replace the entire table with an updated table.
 ** Pros: Maintains abstraction of `Table` and `TableStatus` and reduce errors from abusing the editability of `TableStatus` in `Table`.
@@ -467,7 +467,7 @@ Lastly, `BillCommand#updateOrderList` is called to empty the order list of the c
 image::BillMode.png[width="650"]
 
 
-Step 3. Once the user is in BillMode, they can change their execute any commands that are related to StatisticsMode or manually change their mode to `RestaurantMode`, `TableMode` and `MenuMode`.
+Step 3. Once the user is in BillMode, they can change their execute any commands that are related to StatisticsMode or manually change their mode to `Restaurant Mode`, `TableMode` and `MenuMode`.
 
 [NOTE]
 The command will not execute the functions stated above until it has confirmed that the user is in `TableMode` and the current table exists.
@@ -755,11 +755,11 @@ Each individual exercise in this section is component-based (i.e. you would not 
 [TIP]
 Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
 
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
+. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clearTable`, the user can also type `clear` to remove all tables when they are in Restaurant Mode.
 +
 ****
 * Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/ClearOrderCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteFromOrderCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
+** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/AddTableCommand.java[`AddTableCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/AddToOrderCommand.java[`AddToOrderCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `AddTableCommand#COMMAND_ALIAS`).
 ** link:{repoURL}/src/main/java/seedu/address/logic/parser/RestOrRantParser.java[`RestOrRantParser`] is responsible for analyzing command words.
 * Solution
 ** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/RestOrRantParser.java[`RestOrRantParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
@@ -1132,6 +1132,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
+
 === Use case: UC4 - Adding new tables
 
 *MSS*
@@ -1190,7 +1191,7 @@ Use case resumes from step 4.
 *MSS*
 
 1.  User enters the addToMenu command along with the item's code, name and price.
-2.  RestOrRant Program updates the menu to include the added menu item.
+2.  RestOrRant updates the menu to include the added menu item.
 +
 Use case ends.
 
@@ -1200,7 +1201,7 @@ Use case ends.
 * 1a. The menu already contains the item to be added.
 +
 [none]
-** 1a1. RestOrRant Program prints out "Invalid arguments, item already exists in the menu!".
+** 1a1. RestOrRant prints out "Invalid arguments, item already exists in the menu!".
 +
 Use case ends.
 
@@ -1208,7 +1209,7 @@ Use case ends.
 * 1b. The item code already exists in the menu.
 +
 [none]
-** 1b1. RestOrRant Program prints out "Invalid arguments, item code exists in the menu!".
+** 1b1. RestOrRant prints out "Invalid arguments, item code exists in the menu!".
 +
 Use case ends.
 
@@ -1216,7 +1217,7 @@ Use case ends.
 * 1c. The item code does not follow the standard alphanumeric format.
 +
 [none]
-** 1c1. RestOrRant Program prints out "Invalid code. Please use an alphanumeric code. Example: W09".
+** 1c1. RestOrRant prints out "Invalid code. Please use an alphanumeric code. Example: W09".
 +
 Use case ends.
 
@@ -1236,7 +1237,7 @@ Use case ends.
 * 1a. The arguments are invalid.
 +
 [none]
-** 1a1. RestOrRant Program prints out "Invalid arguments. All arguments should be a numerical number. Format: getStatistics [Year] [Month] [Date]".
+** 1a1. RestOrRant prints out "Invalid arguments. All arguments should be a numercial number. Format: getStatistics [Year] [Month] [Date]".
 +
 Use case ends.
 
@@ -1244,7 +1245,7 @@ Use case ends.
 * 2a. There is no data recorded, list is empty.
 +
 [none]
-** 2a1. RestOrRant Program prints out "No available data recorded."
+** 2a1. RestOrRant prints out "No available data recorded."
 +
 Use case ends.
 
@@ -1252,7 +1253,7 @@ Use case ends.
 * 2b. Not all arguments were keyed in.
 +
 [none]
-* 2b1. RestOrRant Program returns the statistical data based on the year if only 1 argument was specified; and the month if only 2 arguments were specified.
+* 2b1. RestOrRant returns the statistical data based on the year if only 1 argument was specified; and the month if only 2 arguments were specified.
 +
 Use case ends.
 

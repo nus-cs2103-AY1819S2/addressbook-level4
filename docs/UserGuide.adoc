@@ -458,11 +458,11 @@ Format: `end`
 //end::reportoperations[]
 
 === Advanced Operations
-All the above operations described above focuses on how individual users may use the app, but this section
-describes also how you can use it more effectively; creating multiple flashcards even faster and sharing it
+All the above operations described above focuses on how individual users may use the app. This section however
+describes also how you can use the app more effectively; by creating multiple flashcards even faster and sharing it
 with your friends.
 
-The following `Import` and `Export` operations describe how you can do just that.
+The following `Import` and `Export` commands describe how you can do just that.
 
 
 ==== Important to Note
@@ -477,8 +477,10 @@ image::project_root_dir.png[width ="800"]
 NOTE: The current version does not support the importing and exporting of files outside of this directory
 
 ==== Export flashcards : `export`
-Creates a csv file containing the flashcards from the specified folder, which can later be imported.
-Exported card folder will be created in the project root directory.
+Exporting flashcards is a great way to start sharing your flashcards with others.
+
+The export command creates a csv file containing the flashcards from the specified folder in your project root
+directory.
 
 
 Format: `export FOLDER_INDEX FILENAME [MORE_INDEXES]`
@@ -501,10 +503,16 @@ Then the following files `Blood.csv`, `Circulatory System.csv` and `Cardiovascul
 will be created in the project root directory.
 
 ==== Import flashcards : `import`
-Searches for a csv file in the root project directory and parses the file to generate a flashcard folder.
+Besides being able to import flashcards exported by others, the import command provies a faster way of
+creating multiple flashcards.
+
+You type your flashcards out on excel and later save it in your project root directory, allowing you
+to import it over to your application.
 
 
 NOTE: The csv file imported should follow the format below
+
+
 
 
 

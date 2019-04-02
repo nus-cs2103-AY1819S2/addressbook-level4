@@ -244,6 +244,7 @@ Deletes the 1st contact in the results of the `find` command.
 `delete 3` +
 Deletes the 3rd contact in the sorted list displayed earlier.
 
+// tag::pinunpinfeatures[]
 === Pinning a contact : `pin`
 
 Pins a contact. +
@@ -283,6 +284,7 @@ Example:
 
 * `unpin 1` +
 Unpins the 1st contact in the pinned list.
+// end::pinunpinfeatures[]
 
 // tag::archivefeatures[]
 === Archiving a contact : `archive`

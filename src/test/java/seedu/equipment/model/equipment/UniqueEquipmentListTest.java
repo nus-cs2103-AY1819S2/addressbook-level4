@@ -7,6 +7,7 @@ import static seedu.equipment.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.equipment.testutil.TypicalEquipments.ANCHORVALECC;
 import static seedu.equipment.testutil.TypicalEquipments.BOB;
+import static seedu.equipment.testutil.TypicalEquipments.TECKGHEECC;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -41,6 +42,12 @@ public class UniqueEquipmentListTest {
     public void contains_personInList_returnsTrue() {
         uniqueEquipmentList.add(ANCHORVALECC);
         assertTrue(uniqueEquipmentList.contains(ANCHORVALECC));
+    }
+
+    @Test
+    public void getEquipment_notFound() {
+        uniqueEquipmentList.getEquipment(TECKGHEECC.getSerialNumber());
+        thrown.expect(EquipmentNotFoundException.class);
     }
 
     @Test

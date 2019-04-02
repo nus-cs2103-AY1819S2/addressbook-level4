@@ -90,7 +90,7 @@ public class SortUtil {
     }
 
     /**
-     * reverses a List<Person>
+     * reverses a List of Person
      */
     public static List<Person> reversePersonList(List<Person> persons) {
         //Included for abstraction

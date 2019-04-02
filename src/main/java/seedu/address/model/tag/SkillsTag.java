@@ -27,15 +27,15 @@ public class SkillsTag {
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
         this.tagName = tagName;
         this.tagType = type;
-        if(type.equals("skill")){
+        if (type.equals("skill")) {
             //skill tag
             this.tagColor = "pink";
 
-        }else if(type.equals("pos")){
+        } else if (type.equals("pos")) {
             //position tag
             this.tagColor = "yellow";
 
-        }else{
+        } else {
             //endorsement tag
             this.tagColor = "teal";
         }

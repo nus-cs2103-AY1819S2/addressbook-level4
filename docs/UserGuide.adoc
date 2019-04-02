@@ -78,9 +78,10 @@ All commands have aliases, which can be used to execute the same command with fe
 {nbsp} +
 
 [[help,Help]]
-=== Viewing help : `help`
+=== Viewing help : `help` [coming in v1.4]
 
-Whenever you want to find out in-depth
+Whenever you want to find out in-depth explanation on how to execute a specific command, you can always refer to this
+user guide by entering the `help` command.
 
 Format: `help`
 
@@ -390,7 +391,7 @@ This command requires you to have a consultation session already active. See: <<
 
 {sp} +
 *Format:* `prescribe m/MEDICINE [m/MEDICINE] ... q/QUANTITY [q/QUANTITY]` +
-or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `prescribe m/MEDICINE q/QUANTITY [m/MEDICINE] [q/QUANTITY] ...` +
+or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `prescribe m/MEDICINE q/QUANTITY [m/MEDICINE] [q/QUANTITY] ...` +
 
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `p` +
 
@@ -444,7 +445,7 @@ and then view the consultation details by passing in the session's index. +
 
 {sp} +
 *Format:* `listconsult INDEX` +
-or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `listconsult r/NRIC` +
+or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `listconsult r/NRIC` +
 
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `lc` +
 

@@ -43,7 +43,7 @@ public class StudyView implements ViewState {
         case BackCommand.COMMAND_WORD:
             return new BackCommand();
         default:
-            if (getCurrentStudyState() == studyState.QUESTION) {
+            if (getCurrentStudyState() == StudyState.QUESTION) {
                 return new ShowAnswerCommand(commandWord + arguments);
             } else {
                 return new GenerateQuestionCommand();

@@ -1,5 +1,7 @@
 package seedu.finance.logic.parser;
 
+import seedu.finance.logic.commands.CommandFlag;
+
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
  */
@@ -13,9 +15,9 @@ public class CliSyntax {
     public static final Prefix PREFIX_DESCRIPTION = new Prefix("r/");
     public static final Prefix PREFIX_FILE = new Prefix("f/");
 
-    /* Flag definitions */
-    public static final Flag FLAG_NAME = new Flag("-name");
-    public static final Flag FLAG_CATEGORY = new Flag("-cat");
-    public static final Flag FLAG_AMOUNT = new Flag("-amount");
-    public static final Flag FLAG_DATE = new Flag("-date");
+    /* CommandFlag definitions */
+    public static final CommandFlag COMMAND_FLAG_NAME = new CommandFlag("-name");
+    public static final CommandFlag COMMAND_FLAG_CATEGORY = new CommandFlag("-cat");
+    public static final CommandFlag COMMAND_FLAG_AMOUNT = new CommandFlag("-amount");
+    public static final CommandFlag COMMAND_FLAG_DATE = new CommandFlag("-date");
 }

@@ -161,7 +161,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
         invalidationListenerManager.callListeners(this);
     }
 
-    //// util methods
+    //// comparator methods
 
     @Override
     public String toString() {

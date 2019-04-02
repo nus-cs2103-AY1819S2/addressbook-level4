@@ -17,6 +17,7 @@ endif::[]
 
 By: `Team BrainTrain`      Since: `Jan 2019`      Licence: `MIT`
 
+// tag::evan[]
 == Introduction
 
 BrainTrain is an open-source spaced repetition flashcard application which makes *memorizing easy and efficient*. Research has shown that the Spaced-Repetition System (SRS) is *much more effective* than traditional memorization techniques. With BrainTrain, you will *learn more with less time*.
@@ -24,9 +25,11 @@ BrainTrain is an open-source spaced repetition flashcard application which makes
 BrainTrain is also a *portable* and *easy-to-navigate* desktop program. It is an *offline* application which you can use anywhere, even in places with limited or no Internet availability. It can be navigated and used via *easy-to-use* commands through the Command Line Interface (CLI). The CLI is supplemented by a minimalistic Graphical User Interface (GUI) which provides *helpful but non-distracting visual aid*. Together, the CLI and GUI provides an *effective and straightforward* way for you to use BrainTrain.
 
 Start using BrainTrain today! To get started, read [<<Quick Start>>] for installation and setup instructions.
+// end::evan[]
 
 {empty} +
 
+// tag::evan[]
 == Quick Start
 To begin using BrainTrain, follow the following set of instructions: +
 
@@ -46,6 +49,7 @@ To learn more about BrainTrain commands, carry on to [<<Features>>].
 
 {empty} +
 
+// end::evan[]
 [[Features]]
 == Features
 
@@ -61,7 +65,7 @@ command as such `addCard o/Country Code c/Country c/Capital`.
 ====
 {empty} +
 
-=== Management Mode
+=== Management mode
 
 [[help]]
 ==== Viewing help: `help`
@@ -83,10 +87,10 @@ Usage rules:
 * You can optionally specify the `COUNT` parameter. `COUNT` sets the number of cards to be tested in the quiz session. If no `COUNT` is specified, by default 1 card is tested.
 * The name field is used to choose lesson.
 * You must specify `MODE`. `MODE` sets the testing mode of the quiz session. The three available modes are `LEARN`, `PREVIEW`, `REVIEW` and `DIFFICULT`.
-. PREVIEW: displays both question and answer in file order (the same order as the cards in the storage file) but you will not be tested.
-. DIFFICULT: displays cards labelled as difficult with both question and answer together but you will not be tested.
-. REVIEW: tests the words which are urgent for you to review based on the srs value, meaning the due date for you to review these words are before the current time.
-. LEARN: displays new cards with both question and answer first then you will be tested on these words.
+. `LEARN`: Displays new cards with both question and answer shown, before testing begins and only question or answer are shown.
+. `PREVIEW`: Displays both question and answer of all flashcards. You will not be tested.
+. `REVIEW`: Tests the words based on the spaced-repetition algorithm - flashcards with the earliest test date are tested first.
+. `DIFFICULT`: Displays cards you previously labelled as difficult with both question and answer shown. You will not be tested.
 
 [NOTE]
 ====
@@ -96,11 +100,11 @@ Flashcards are tested based on the link:https://en.wikipedia.org/wiki/Spaced_rep
 Examples:
 
 * `start n/country-capitals m/LEARN` +
-Starts a quiz containing the first card in the country-capitals file that is new for the user. Firstly the question and answer of this card will display and then the user will be tested on this card.
+Starts a quiz in `LEARN` mode with the 'country-capitals' lesson.
 * `start n/country-capitals-asia c/20 m/PREVIEW` +
-Starts a quiz containing 20 cards which are the first 20 cards in the country-capitals-asia file. Question and answer will display together for all of these 20 cards.
+Starts a quiz containing 20 cards in `PREVIEW` mode with the 'country-capitals-asia' lesson.
 
-
+// tag::evan[]
 [[listLessons]]
 ==== Listing all lessons: `listLessons`
 
@@ -146,11 +150,20 @@ Examples:
 
 * `deleteLesson 2` +
 Deletes the second lesson in the numbered list displayed by `listLessons`.
+// end::evan[]
+// Eugene please update this tag
+// tag::eugene[]
 
+==== Reloading all lessons: `reloadLessons`
+Reloads all lessons from the hard disk including all newly added lesson `.csv` files which were directly moved into the data folder. +
+Format: `reloadLessons`
+
+// end::eugene[]
+// tag::evan[]
 [[openLesson]]
 ==== Opening a lesson: `openLesson`
 
-Opens a lesson from the numbered lesson list so you can edit the lesson and its flash cards.+
+Opens a lesson from the numbered lesson list so you can edit the lesson and its flash cards. +
 Format: `openLesson INDEX`
 
 Usage rules:
@@ -241,25 +254,18 @@ Format: `quit`
 {empty} +
 
 // tag::quiz[]
-=== Quiz Mode
+=== Quiz mode
 
-When you <<start, `start`>> a quiz session successfully, you will enter quiz mode which allows you
-to enter the following commands.
+When you <<start, `start`>> a quiz session, you will enter quiz mode in which only the following set of quiz commands are allowed. Management commands are disabled in this mode.
 
 ==== Viewing help: `\help`
 
-Displays usage information on all Quiz Mode commands and acceptable inputs for answering cards. +
+Displays usage information on all quiz mode commands and acceptable inputs for answering cards. +
 Format: `\help`
 
-[[hint]]
-==== Viewing the current flashcard's hint: `\hint`
+==== Viewing the quiz session's status: `\status`
 
-Reveals the hint for the current flashcard. +
-Format: `\hint`
-
-==== Viewing the session status: `\status`
-
-Displays information on the current session's status such as progression. +
+Displays information on the current session's status such as lesson progress (i.e. number of flashcards left). +
 Format: `\status`
 
 ==== Answering a flashcard : `[*]`
@@ -267,18 +273,15 @@ Format: `\status`
 Any input without the escape character `\` is treated as an answer to the current flashcard. +
 Format: `[*]`
 
-* For each type of question, there are total attempts and streak.
-* The total attempts refer to how many times you have tried this question, getting it wrong is
-also considered as tried attempt.
-* The streak refers to how many times you have gotten it correctly in a row.
-* The streak will be reduced to 0 for getting it wrong twice in a row.
+* For each flashcard, total attempts and answer streak is tracked.
+* Total attempts is the number of times you have attempted this flashcard, regardless of whether you were correct or wrong.
+* The answer streak is the number of times you have answered the flashcard correctly consecutively.
 
 [NOTE]
-If you accidentally enter the wrong answer once, your streak for the question will not be
-affected.
+The streak will be reduced to 0 after you answer a flashcard wrongly twice in a row. Hence, if you accidentally enter the wrong answer once, your streak for the question will not be affected, unless you answer wrongly again.
 
 [TIP]
-If you're want to see the answer to a question, just press kbd:[ENTER] twice.
+If you do not know the answer of a flashcard and want to view it, simply press kbd:[ENTER] twice.
 
 Examples:
 
@@ -296,10 +299,32 @@ Examples:
   `Jappan` +
   This is the wrong answer, the streak is reduced to 0 while total attempts increased by 2.
 
-==== Quitting the current quiz session: `\quit`
+==== Labelling the current flashcard as difficult: `\difficult`
+Labels the current flashcard as difficult. +
+Format: `\difficult`
 
-Quits the current quiz session and switches back to Management Mode. +
+Examples:
+
+* The question is "Japan" and is asking for the capital of "Japan": +
+  `\difficult` +
+  This will label flashcard of "Japan" as difficult.
+
+* The question is "Japan" and is asking for the capital of "Japan": +
+  `\difficult` +
+  `\difficult` +
+  This will label flashcard of "Japan" as not difficult.
+
+[[hint]]
+==== Viewing the current flashcard's hint(s): `\hint`
+
+Reveals the hint(s) for the current flashcard (if any). +
+Format: `\hint`
+
+==== Quitting the quiz session: `\quit`
+
+Quits the current quiz session and switches back to `management mode`. +
 Format: `\quit`
+
 // end::quiz[]
 
 {empty} +
@@ -307,32 +332,32 @@ Format: `\quit`
 // TODO
 == Troubleshooting
 
-*Q*: Why are my card values shown as `?????` or question marks? +
+*Q*: Why are my card values shown as `?????`? +
 *A*: If your lesson contains non-ASCII characters such as:
 
 * Characters with accents: `à`
 * Non-English words : `こんにちは` `السلام عليكم` `你好`
 
-This can be fixed in Excel by going into the Save As dialog, and saving as `CSV UTF-8 (Comma delimited) (*.csv)`. For other csv file editors, you may need to look up relevant documentation on how save in UTF-8 encoding. +
+This can be fixed by opening the lesson file in your preferred spreadsheet application (e.g. Excel), and then saving it as `CSV UTF-8 (Comma delimited) (*.csv)`. +
 ****
-The default encoding setting is unable to process special characters. As a result, you will need to save it as a UTF-8 encoded csv file.
+The default encoding setting is unable to process special characters. As a result, you will need to save it as a `UTF-8` encoded `.csv` file.
 
-Note that the files have to be saved as a UTF-8 encoded csv file before the first save. +
-If the file is saved without UTF-8 encoding, the data may have already been saved as ?????, and all non-ASCII characters are lost.
+Note that the lesson files have to be saved as a `UTF-8` encoded `.csv` file before the first save. +
+If the file is saved without `UTF-8` encoding, the data may be saved as `?????`, and all non-ASCII characters will be discarded.
 ****
 
 {empty} +
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q*: How do I transfer my data to another computer? +
+*A*: Install the app in the other computer and transfer the lesson `.csv` files over to the `/data` directory.
 
 {empty} +
 
 == Command Summary
 
-=== Management Mode
+=== Management mode
 * *Viewing help*: `help`
 * *Starting quiz session*: `start n/NAME [c/COUNT] m/MODE` +
 e.g. `start n/country-capitals c/15 m/LEARN`
@@ -341,6 +366,7 @@ e.g. `start n/country-capitals c/15 m/LEARN`
 e.g. `addLesson n/Capitals of the world q/Country a/Capital c/Language o/Hint`
 * *Deleting a lesson*: `deleteLesson INDEX` +
 e.g. `deleteLesson 2`
+* *Reloading all lessons*: `reloadLessons`
 * *Opening a lesson*: `openLesson INDEX` +
 e.g. `openLesson 1`
 * *Closing a lesson*: `closeLesson`
@@ -349,18 +375,17 @@ e.g. `openLesson 1`
 e.g. `addCard c/Australia c/Canberra c/English o/Starts with C`
 * *Deleting a flashcard*: `deleteCard INDEX` +
 e.g. `deleteCard 2`
-* *Importing user profile*: `import user`
-* *Exporting user profile*: `export user`
-* *Viewing history*: `history`
-* *Quiting BrainTrain*: `quit`
+* *Listing entered commands*: `history`
+* *Quiting the program*: `quit`
 
 {empty} +
 
-=== Quiz Mode
-* *View help*: `\help`
-* *View hint*: `\hint`
-* *View status*: `\status`
-* *Enter answer*: `[*]`
-* *Quit quiz mode*: `\quit`
+=== Quiz mode
+* *Viewing help*: `\help`
+* *Viewing the quiz session's status*: `\status`
+* *Answering a flashcard*: `[*]`
+* *Labelling the current flashcard as difficult*: `\difficult`
+* *Viewing the current flashcard's hint(s)*: `\hint`
+* *Quitting the quiz session*: `\quit`
 
 {empty} +

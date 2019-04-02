@@ -217,9 +217,11 @@ image::QuizModelClassDiagram.png[width="500"]
 
 The `QuizModel`,
 
-* stores a `Quiz` object that represents the list of `QuizCard`.
-* stores the Address Book data.
-* does not depend on any of the other four components.
+* stores a `Quiz` object that represents a list of `QuizCard`.
+* stores a `Session` object that represents a list of `SrsCard`.
+* stores a `QuizUiDisplayFormatter` object that represents the information needed to display to Ui
+
+It does not depend on any of the other four components.
 
 
 [[Design-Storage]]
@@ -246,7 +248,7 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::datastorage[]
-=== Data storage seature
+=== Data storage feature
 The data storage feature manages the saving of data, such as lessons and user progress, to disk for the application. This lets the user keep their progress between usage sessions.
 
 ==== Current Implementation
@@ -368,15 +370,16 @@ answers a question:
 image::QuizAnswerCommandSequenceDiagram.png[width="800"]
 
 ==== \quit
-The `\quit` will force quit the current quiz and save the attempted question to file. Once quit,
-it will return back to the `ManagementMode`.
+The `\quit` will force quit the current quiz and save the attempted question to the location that
+the user have specified in `UserPref`, by default it will saved to `\data\user\savedata.csv`. Once
+the `\quit` command have succeeded running, it will return back to the `ManagementMode`.
 
 .Sequence diagram for quit feature
 image::QuizQuitCommandSequenceDiagram.png[width="800"]
 
 ==== \status
-The `\status` feature list the total attempts you have attempted, total number of question you
-have gotten correct in this quiz and which question you are currently on.
+The `\status` feature lists the total number of attempts you have attempted, total number of
+question you have gotten correct in this quiz and which question you are currently on.
 
 .Sequence diagram for status feature
 image::QuizStatusCommandSequenceDiagram.png[width="800"]
@@ -385,12 +388,20 @@ image::QuizStatusCommandSequenceDiagram.png[width="800"]
 
 ===== Aspect: How Quiz executes
 * **Alternative 1 (current choice):** Run quiz in a different mode
-** Pros: Answer can be anything excluding word starting with a backslash `\` (e.g. `\help`) and
-have a better UX experience without having to type additional command as answer.
-** Cons: Tedious to implement
-* **Alternative 2:** Run quiz in the same mode as the rest of the management commands
-** Pros: Easier to implement compared to alternative 1
-** Cons: Answer cannot start with those from the list of management commands (e.g. `start`)
+** Pros: Least restricted choice of answer.
+** Cons: Tedious to implement.
+
+* **Alternative 2:** Run quiz together with the rest of the commands
+** Pros: Easy to implement.
+** Cons: Restricted answer. Answer cannot start with words already listed as management commands
+(e.g. `start`)
+
+**Alternative 1** is chosen because it allows the user to have a more comprehensive choice of
+word as
+answer without restricting the possible choices. In certain question, it is possible for the
+answer to be "start". Hence by choosing alternative 1, the choice of answer is the least
+restricted. Also, by running the quiz in a different mode, it allows the user to concentrate on the quiz
+without having unrelated display as distraction.
 // end::quiz[]
 
 === Logging
@@ -429,7 +440,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 
 See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
 
-=== Converting documentation to pdf format
+=== Converting documentation to PDF format
 
 We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
@@ -1088,7 +1099,7 @@ Use case resumes at step 3.
 
 
 [appendix]
-== Non functional requirements
+== Non-functional requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 lessons without a noticeable sluggishness in performance for typical usage.
@@ -1115,14 +1126,14 @@ User’s current learning progress
 The technique of gradually delaying or accelerating the testing of content based on the user’s success.
 
 [appendix]
-== Instructions for Manual Testing
+== Instructions for manual testing
 
 Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== Launch and shutdown
 
 . Initial launch
 

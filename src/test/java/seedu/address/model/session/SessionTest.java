@@ -57,8 +57,6 @@ public class SessionTest {
         List<QuizCard> quizCards = newSession.generateSession();
         assertEquals(quizCards.get(0).getQuestion(), CARD_BELGIUM.getCore(0));
         assertEquals(quizCards.get(0).getAnswer(), CARD_BELGIUM.getCore(1));
-        assertEquals("Country", newSession.getQuestionHeader());
-        assertEquals("Capital", newSession.getAnswerHeader());
         newSession.setCount(15);
         assertEquals(15, newSession.getCount());
         newSession.setCount(1);

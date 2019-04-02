@@ -14,7 +14,7 @@ public class MemberSortCommand extends MemberCommand {
     public static final String COMMAND_WORD = "memberSort";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts all members in the members' list based on "
-            + "the specified keywords (case-insensitive).\n"
+            + "the specified attribute (case-insensitive).\n"
             + "Parameters: KEYWORD...\n"
             + "Example: " + COMMAND_WORD + " name";
 

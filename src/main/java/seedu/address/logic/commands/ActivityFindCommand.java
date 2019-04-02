@@ -20,7 +20,6 @@ import seedu.address.model.activity.Activity;
 public class ActivityFindCommand extends ActivityCommand {
     public static final String COMMAND_WORD = "activityFind";
 
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all activities whose attribute contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "The attributes that activityFind search for is specified by the prefix input by the user.\n"

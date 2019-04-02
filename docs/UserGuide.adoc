@@ -507,7 +507,7 @@ The new directory's name should not contain white spaces or "\" characters.
 
 *Example:* +
 
-`adddirec root\fever oral` + 
+`adddirec root\fever oral` +
 
 *Result:* +
 

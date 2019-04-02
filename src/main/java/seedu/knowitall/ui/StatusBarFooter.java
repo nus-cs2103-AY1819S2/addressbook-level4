@@ -5,10 +5,13 @@ import java.nio.file.Paths;
 import java.time.Clock;
 import java.util.Date;
 
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.knowitall.model.ReadOnlyCardFolder;
+import seedu.knowitall.model.VersionedCardFolder;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.
@@ -35,11 +38,19 @@ public class StatusBarFooter extends UiPart<Region> {
     @FXML
     private Label saveLocationStatus;
 
-
-    public StatusBarFooter(Path saveLocation, ReadOnlyCardFolder cardFolder) {
+    public StatusBarFooter(Path saveLocation, ObservableList<VersionedCardFolder> homeDirectory) {
         super(FXML);
-        cardFolder.addListener(observable -> updateSyncStatus());
+        homeDirectory.addListener((ListChangeListener.Change<? extends VersionedCardFolder> change) ->
+                updateSyncStatus());
         syncStatus.setText(SYNC_STATUS_INITIAL);
+        saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
+    }
+
+    /**
+     * Adds a listener to the specified card folder.
+     */
+    public void addNewCardFolderListener(Path saveLocation, ReadOnlyCardFolder currentCardFolder) {
+        currentCardFolder.addListener(observable -> updateSyncStatus());
         saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
     }
 

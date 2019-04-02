@@ -333,6 +333,31 @@ previous test sessions.
 
 // end::report[]
 
+// tag::state[]
+=== State
+==== Current Implementation
+===== Model
+Previously, Model did not have a concept of state as there was only one screen where the user could be. But
+as Know-It-All grew, there are more screens that a user can be in and more commands that can only be executed in certain
+screens. Thus there is a need to manage the state in Model.
+==== Design Considerations
+
+===== Aspect: How to manage state
+
+* **Alternative 1 (current choice):** Use enum of States
+** Pros: Fixes the states that Model can be in. By design, only one state can be true at any point in time, if state is set to type State which is a enum.
+** Cons: Need to add new states to enum.
+* **Alternative 2:** Use Strings
+** Pros: No need to define new states. Trivial to change into new state: Simply set state to "folder", or "homeDir". Easy to check as well, e.g. to Check state == "folder".
+** Cons: Becomes very unsafe as even a typo would mean entering a state that other parts of the application would not understand.
+e.g. Setting state to "Folder" instead of "folder".
+* **Alternative 2:** Use boolean flags
+** Pros: Easy to manipulate. Clear when there are only two states.
+** Cons: Becomes very messy when there are more states, since there is a need to ensure that only one boolean flag
+is true at any point in time. E.g., only one of inFolder, inHomeDir, inTest... can be true.
+
+// end::state[]
+
 === Import/Export feature
 [discrete]
 ==== Current Implementation

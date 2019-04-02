@@ -28,7 +28,7 @@ public class AddWorkListCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        WorkList expectedWorkList = new WorkListBuilder(LISTC).build();
+        //WorkList expectedWorkList = new WorkListBuilder(LISTC).build();
 
         // whitespace only preamble
         //assertParseSuccess(parser, PREAMBLE_WHITESPACE + DATE_DESC_LISTA + ASSIGNEE_DESC_LISTA,

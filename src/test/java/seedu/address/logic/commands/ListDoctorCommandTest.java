@@ -31,13 +31,12 @@ public class ListDoctorCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListPatientCommand(), model, commandHistory,
+        assertCommandSuccess(new ListDoctorCommand(), model, commandHistory,
                 ListDoctorCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-
         showDoctorAtIndex(model, INDEX_FIRST_PERSON);
         assertCommandSuccess(new ListDoctorCommand(), model, commandHistory,
                 ListDoctorCommand.MESSAGE_SUCCESS, expectedModel);

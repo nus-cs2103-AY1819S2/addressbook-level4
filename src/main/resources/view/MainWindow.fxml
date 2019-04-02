@@ -55,13 +55,6 @@
             <StackPane fx:id="patientListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <VBox fx:id="doctorList" minWidth="300" prefWidth="300" SplitPane.resizableWithParent="false">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="doctorListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
-
           <VBox fx:id="medHistList" minWidth="240" prefWidth="240" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" />

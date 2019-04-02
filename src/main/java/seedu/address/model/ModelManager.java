@@ -186,6 +186,11 @@ public class ModelManager implements Model {
         selectedDoctor.setValue(doctor);
     }
 
+    @Override
+    public void deleteDoctor(Doctor target) {
+        versionedAddressBook.removeDoctor(target);
+    }
+
     // Needed to be implemented later
 
     @Override

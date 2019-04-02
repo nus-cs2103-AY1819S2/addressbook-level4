@@ -1,66 +1,84 @@
-= Evan Tay - Project Portfolio
+= Evan Tay - Project Portfolio for BrainTrain
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:toc:
+:toclevels: 1
+:toc-title: Table of contents
+:toc-placement: manual
+:sectnums:
+:repoURL: https://github.com/CS2103-AY1819S2-W14-1/main
+:pullURL: https://github.com/CS2103-AY1819S2-W14-1/main/pull/
+:seeduURL: https://github.com/se-edu/addressbook-level4
 
-== PROJECT: BrainTrain
+== Introduction
+The purpose of this portfolio is to demonstrate my software engineering competency by showcasing my code and documentation contributions to the link:{repoURL}[BrainTrain project].
 
-This project portfolio highlights my key contributions to the https://cs2103-ay1819s2-w14-1.github.io/main/[BrainTrain] project.
+=== Overview
+The BrainTrain project was developed by a team of 5 students over seven weeks, under the National University of Singapore's link:{seeduURL}[CS2103T: Software Engineering module]. +
 
-== Overview
+CS2103T students were given the option of enhancing an link:{seeduURL}[existing addressbook application] or morphing it into another product. We chose to morph it into a https://en.wikipedia.org/wiki/Spaced_repetition[spaced-repetition] flashcard application because we wanted to further challenge ourselves and improve our software engineering skills.
 
-BrainTrain is an open-source spaced repetition flashcard application which makes *memorizing easy and efficient*. Research has shown that the Spaced-Repetition System (SRS) is *much more effective* than traditional memorization techniques. By using BrainTrain, users will be able to *learn more with less time*.
+=== What is BrainTrain
 
-BrainTrain is also a *portable* and *easy-to-navigate* desktop program. It is an *offline* application which can be used anywhere, even in places with limited or no Internet availability. It can be navigated and used via *easy-to-use* commands through the Command Line Interface (CLI). The CLI is supplemented by a minimalistic Graphical User Interface (GUI) which provides *helpful but non-distracting visual aid*. Together, the CLI and GUI provides an *effective and straightforward* way to use BrainTrain.
+BrainTrain is a flashcard application which makes *memorizing easy and efficient*. link:https://www.theguardian.com/education/2016/jan/23/spaced-repetition-a-hack-to-make-your-brain-store-information[Research] has shown that the Spaced-Repetition System (SRS) is much more effective than traditional memorization techniques. With BrainTrain, you will *learn more with less time*.
+
+Who is it for:
+
+- Learners who need to memorise content (e.g. Japanese vocabulary, human anatomy, operating system concepts)
+- Educators who want to create flashcard lessons for their students
+
+Main features of BrainTrain:
+
+- You can add, edit and delete flashcard lessons in BrainTrain's management mode.
+- You can also create lessons in your preferred spreadsheet application and import them as `.csv` files with ease.
+- You can attempt flashcard lessons in BrainTrain's quiz mode and your user-specific data (e.g. spaced-repetition information) will be saved automatically.
 
 == Summary of contributions
+My role was to design, document, and code the Card Management System. My secondary role was to manage the overall project documentation. The following is a list of my key contributions to the project.
 
-* *Major enhancement*: Implemented a Card Management System
-** What it does: Allows users to manage lessons' cards.
-*** Allows users to view all cards in a lesson
-*** Allows users to add a card to a lesson
-*** Allows users to modify an existing card in a lesson
-*** Allows users to delete a card in a lesson
-** Justification: // To do
-** Highlights: Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/34[#34], https://github.com/CS2103-AY1819S2-W14-1/main/pull/39[#39], https://github.com/CS2103-AY1819S2-W14-1/main/pull/77[#77], https://github.com/CS2103-AY1819S2-W14-1/main/pull/85[#85], https://github.com/CS2103-AY1819S2-W14-1/main/pull/107[#107]
+=== Major enhancement
+My largest contribution to the project was the implementation of the Card Management System:
 
-* *Minor enhancement*: // To do
-** // To do
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
+* What it does: The system allows the user to manage flashcard lessons.
+** Users can view, add and delete lessons using the `listLessons`, `addLesson` and `deleteLesson` commands.
+** Users can open a lesson for editing and close it to save changes using the `openLesson` and `closeLesson` commands.
+** Users can view, add and delete flashcards using the `listCards`, `addCard` and `deleteCard` commands.
+* Justification: Users need to be able to create and edit lessons in order to use the BrainTrain application for spaced-repetition flashcard learning.
+* Highlights: Pull request link:{pullURL}85[#85], link:{pullURL}107[#107] and link:{pullURL}113[#113]
+* Code contributed: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=digipie[Functional code]]
 
-* *Other contributions*:
-** Project management:
-*** // To do
-*** Closed milestone // To do
-** Enhancements to existing features:
-*** Major overhaul of `package seedu.address.logic` design and implementation (Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/85[#85])
-** Documentation:
-*** Wrote the User Guide's Introduction and Quick Start sections (Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/15[#15], https://github.com/CS2103-AY1819S2-W14-1/main/pull/85[#85])
-*** Updated User Guide with management mode commands (Pull request
-,
-https://github.com/CS2103-AY1819S2-W14-1/main/pull/20[#20], https://github.com/CS2103-AY1819S2-W14-1/main/pull/85[#85], https://github.com/CS2103-AY1819S2-W14-1/main/pull/85[#107])
-*** Updated Developer Guide with management mode implementation (Pull request // To do)
-** Community:
-*** Fix a bug in teammate's pull request (Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/33[#33])
-*** Reviewed pull requests with constructive feedback (Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/30#pullrequestreview-209863095[#30],
-https://github.com/CS2103-AY1819S2-W14-1/main/pull/36#pullrequestreview-209862756[#36], https://github.com/CS2103-AY1819S2-W14-1/main/pull/36#pullrequestreview-209862756[#36] and  https://github.com/CS2103-AY1819S2-W14-1/main/pull/37#pullrequestreview-209866595[#37])
-*** Reported bugs for other teams in the class (// To do)
-** Tools:
-*** // To do
+=== Minor enhancement
+My second largest contribution to the project was the implementation of the Graphical User Interface representation for the Card Management System:
+
+* What it does: Displays all lessons as a list and also the opened lesson's flashcards.
+* Justification: Users are able to view all lessons and the flashcards they contain easily and at a glance.
+* Code contributed: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=digipie[Functional code]]
+
+=== Other contributions
+In addition to designing and writing code, I also contributed to the project through the following means:
+
+* Documentation:
+** Wrote the User Guide's Introduction and Quick Start sections (Pull request link:{pullURL}15[#15], link:{pullURL}85[#85] and link:{pullURL}113[#113])
+** Edited the User Guide and Developer Guide for overall coherency and consistency (Pull request
+link:{pullURL}20[#20], https://github.com/CS2103-AY1819S2-link:{pullURL}85[#85] and link:{pullURL}107[#107])
+* Project management:
+** Managed product releases `v1.2.1` and `v1.3`
+** Closed milestone `v1.3`
+* Software architecture:
+** Performed major refactor of `seedu.address.logic` package structure and design to improve workflow for entire team (Pull request link:{pullURL}/85[#85])
+* Community:
+** Fixed a bug in teammate's pull request (Pull request link:{pullURL}33[#33])
+** Reviewed pull requests with constructive feedback (Pull request link:{pullURL}37[#37], link:{pullURL}108[#108] and link:{pullURL}132[#132] and link:{pullURL}133[#133])
+//** Reported bugs for other teams in the class
+//* Tools:
 
 == Contributions to the User Guide
+In addition to updating the User Guide with the newly added Card Management System commands, I also wrote the Introduction and Quick Start sections, and edited the document to ensure overall consistency. I have listed some of my key contributions to it as excerpts below:
 
-
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
-
-include::../UserGuide.adoc[tag=quiz]
+include::../UserGuide.adoc[tag=evan]
 
 == Contributions to the Developer Guide
+On top of updating the Developer Guide with the Card Management System design and implementation details, I also edited the document to ensure overall consistency. I have listed some of my key contributions to the document as excerpts below:
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
-
-include::../DeveloperGuide.adoc[tag=quiz]
+include::../DeveloperGuide.adoc[tag=evan]

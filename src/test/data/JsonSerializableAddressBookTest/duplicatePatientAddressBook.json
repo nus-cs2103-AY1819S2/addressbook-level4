@@ -11,7 +11,8 @@
     "gender": "F",
     "age": "24",
     "phone": "94351253",
-    "address": "4th street"
+    "address": "4th street",
+    "tagged": [ "friends" ]
   } ],
   "medicalHistories" : [ ],
   "appointments": [ ]

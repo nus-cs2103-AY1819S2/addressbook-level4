@@ -277,4 +277,10 @@ public interface Model {
      */
     void setSelectedDoctor(Doctor doctor);
 
+    /**
+     * Deletes the given doctor.
+     * The doctor must exist in the address book.
+     */
+    void deleteDoctor(Doctor target);
+
 }

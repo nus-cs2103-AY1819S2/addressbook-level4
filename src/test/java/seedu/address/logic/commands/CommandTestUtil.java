@@ -19,9 +19,13 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.person.Doctor;
+import seedu.address.model.person.DoctorNameContainsKeywordsPredicate;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.PatientNameContainsKeywordsPredicate;
 import seedu.address.testutil.EditPatientDescriptorBuilder;
+
+import javax.print.Doc;
 
 /**
  * Contains helper methods for testing commands.
@@ -29,7 +33,7 @@ import seedu.address.testutil.EditPatientDescriptorBuilder;
 public class CommandTestUtil {
 
     // for add-doctor testing (initial addition of add-doctor)
-    public static final String VALID_NAME_JOHN = "John Doe&";
+    public static final String VALID_NAME_JOHN = "John Doe";
     public static final String VALID_GENDER_JOHN = "M";
     public static final String VALID_AGE_JOHN = "21";
     public static final String VALID_PHONE_JOHN = "99999999";
@@ -174,6 +178,29 @@ public class CommandTestUtil {
     public static void deleteFirstPatient(Model model) {
         Patient firstPatient = model.getFilteredPatientList().get(0);
         model.deletePatient(firstPatient);
+        model.commitAddressBook();
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the doctor at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showDoctorAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredDoctorList().size());
+
+        Doctor doctor = model.getFilteredDoctorList().get(targetIndex.getZeroBased());
+        final String[] splitName = doctor.getName().fullName.split("\\s+");
+        model.updateFilteredDoctorList(new DoctorNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredDoctorList().size());
+    }
+
+    /**
+     * Deletes the first doctor in {@code model}'s filtered list from {@code model}'s address book.
+     */
+    public static void deleteFirstDoctor(Model model) {
+        Doctor firstDoctor = model.getFilteredDoctorList().get(0);
+        model.deleteDoctor(firstDoctor);
         model.commitAddressBook();
     }
 

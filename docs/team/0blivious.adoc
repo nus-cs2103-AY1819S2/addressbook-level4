@@ -1,4 +1,4 @@
-= Liu Yiwen - Project Portfolio for Book Squirrel
+= 0blivious - Project Portfolio for Book Squirrel
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -49,7 +49,64 @@ We had to update the original addressbook User Guide with instructions for the e
 we had added. The following is an excerpt from our Book Squirrel User Guide, showing additions that I have
 made for the CRUD features for book.
 
-include::../UserGuide.adoc[tag=book]
+==== Adding a book: `addBook`
+
+Adds a book to the book shelf +
+Format: `addBook n/BOOKNAME a/author m/RATING(0-10) [t/TAG]…​`
+
+Examples:
+
+* `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale`
+* `addBook n/Structure and Interpretation of Computer Programs a/Hal Abelson Jerry Sussman m/4 t/textbook`
+
+****
+* The book name is case sensitive
+* Two books with same book name are considered same book
+* Trying to add a book which is already present in the book shelf will result in duplicate book error, and the addBook command will fail
+* Book names should only contain no more than 50 characters (space included), and it should not be blank
+* Author names should only contain alphanumeric characters and spaces, and it should not be blank nor longer than 50 characters
+* Tags names should be alphanumeric and contains less than 20 characters
+* Rating should be an integer ranging from 0 to 10 inclusive
+****
+
+==== Editing book entry : `editBook`
+
+Edits an existing book entry (eg. edit the mark, author or tag). +
+Format: `editBook INDEX [n/BOOKNAME] [a/AUTHOR] [m/RATING] [t/TAG]...`
+
+****
+* Edits the book at the specified INDEX. The index refers to the index number shown in the displayed book list. The index must be a positive integer 1, 2, 3, …​
+* Edit a book with new name same as the name of other book which is already existing in book shelf is not allowed
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the book will be removed i.e adding of tags is not cumulative.
+* You can remove all the book’s tags by typing t/ without specifying any tags after it.
+****
+
+Examples:
+
+* `edit 1 n/Alice in Wonderland a/some author t/some tag` +
+Change the name, author, tag of the first book to Alice in Wonderland, some author, some tag.
+* `edit 2 t/` +
+Clear all the existing tags of the second book in the result list.
+
+==== Deleting a book : `deleteBook`
+
+Deletes the specified book from the book list. +
+Format: `deleteBook INDEX`
+
+****
+* Deletes the book of the specified `INDEX`.
+* All the reviews of the deleted book will also be deleted.
+* The index refers to the index number shown in the displayed book list.
+* The index must be a positive integer 1, 2, 3, …​
+****
+
+Examples:
+
+* `listBook n/Computer Security` +
+`deleteBook 1` +
+Deletes the 1st book in the results of the listBook command.
 
 == Contributions to the Developer Guide
 The following section shows my additions to the Book Squirrel Developer Guide for the addBook

@@ -12,7 +12,7 @@
 <BorderPane fx:id = "batchTable" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             styleClass="table-view" minWidth="400" prefWidth="400">
     <top>
-        <VBox  minWidth="400" prefWidth="400">
+        <VBox minWidth="400" prefWidth="400">
             <Label fx:id="name" alignment="TOP_LEFT" styleClass="information-panel-header" />
             <Label fx:id="company" alignment="TOP_LEFT" styleClass="label-information-panel" />
             <padding>

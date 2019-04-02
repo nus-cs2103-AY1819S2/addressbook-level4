@@ -19,7 +19,7 @@ By: `Team T12-3`      Since: `Feb 2019`      Licence: `MIT`
 // tag::introduction[]
 == Introduction
 
-Welcome to the _MediTabs User Guide_! Over here, you can find step by step instructions on setting up MediTabs and learn ways to take advantage features provided to optimise your clinic's inventory management flow. Interested? You can jump to  <<Quick Start>> to get started. Enjoy!
+Welcome to the _MediTabs User Guide_! Over here, you can find step by step instructions on setting up MediTabs and learn ways to take advantage of the features provided to optimise your clinic's inventory management flow. Interested? You can jump to <<Quick Start>> to get started. Enjoy!
 
 === What is MediTabs?
 
@@ -29,8 +29,9 @@ MediTabs supports Windows, Linux and MacOS operating systems.
 
 === Who is it for?
 
-If you are looking for a medicine stock taking application for clinics, MediTabs is the product you are looking for. Whether you are an owner of a clinic or a pharmacist in charge of your clinic's medicine inventory, you can use MediTabs to help improve your workflow. It is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, MediTabs can get your medicine stock taking done faster than traditional GUI apps.
+If you are looking for a medicine stock taking application for clinics, MediTabs is the product for you. Whether you are an owner of a clinic or a pharmacist in charge of your clinic's medicine inventory, you can use MediTabs to help improve your workflow. It is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, MediTabs can get your medicine stock taking done faster than traditional GUI apps.
 // end::introduction[]
+
 
 == Quick Start
 
@@ -51,7 +52,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`exit`* : exits the app
 
 .  Refer to <<Commands>> for details of each command.
-.  Having trouble setting up MediTabs? You can refer to the <<Frequently Asked Questions (FAQ)>> for solutions to common problems you might encounter. Do you require further assistance? If so, you can also post your queries link:{repoURL}/issues[here] and our team would do our best to assist you.
+.  Having trouble setting up MediTabs? You can refer to the <<Frequently Asked Questions (FAQ)>> for solutions to common problems you might encounter. Do you require further assistance? If so, you can also post your queries link:{repoURL}/issues[here] and our team will do our best to assist you.
 
 == Application Interface
 
@@ -74,7 +75,7 @@ image::UserGuide_ApplicationInterface.png[width="1000"]
 
 *Information Panel*
 
-* You can select a medicine from the medicine list by using the `select` command. + e.g. `select 1` selects the first medicine in the list.
+* You can select a medicine from the medicine list by using the `select` command. e.g. `select 1` selects the first medicine in the list.
 * After selecting a medicine, information about the medicine will be displayed in the information panel.
 
 *Warnings Panel*
@@ -87,9 +88,18 @@ image::UserGuide_ApplicationInterface.png[width="1000"]
 
 As an inventory management application, MediTabs supports basic functionalities (add, edit, delete, list). On top of these basic functions, MediTabs also boasts several features tailored to your needs. These features aim to streamline your inventory management process, thereby enhancing your user experience.
 
-=== your feature here
+=== Information Panel
+.Information panel
+image::UserGuide_InformationPanel.png[width="715"]
 
-introduce here. give you an example below.
+Managing medicines by batch is efficient and logical since medicines from the same batch share the same properties. However, with so many different batches of the same medicine, you need an organized way to keep track of them.
+
+The information panel provides all the details and information you need about each batch of medicine in a neat and organized manner.
+
+You can easily refer to the batch table provided in the information panel while updating and managing your inventory. Simply select a medicine using the `select` command to view all its relevant details. You may refer to <<SelectCommand>> for more details.
+
+You can also sort the table by any of its columns with the `sort` command to suit your needs and preference. You may refer to <<SortCommand>> for more details.
+
 
 === Warning Panel
 
@@ -127,8 +137,16 @@ When typing fields that include medicine name, a list of suggested medicine name
 
 [NOTE]
 ====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows to select from the generated list of suggestions.
+Press the kbd:[&uarr;] and kbd:[&darr;] arrows to select from the generated list of suggestions.
 ====
+
+==== Inventory Forecasting
+
+MediTabs will store information about your monthly stock level and predict the optimal amount of stock needed for the future. It will be possible to forecast inventory needs up to 3 months into the future with no extra effort from you as all analysis and calculations will take place with data already provided by routine use of MediTabs.
+It will also be possible to import past sales data to increase accuracy of forecasting immediately without having to wait for the application to collect data.
+
+[NOTE]
+We recommend importing or allowing MediTabs to collect data for 6 months or more for a more accurate forecast.
 
 // tag::integrationaddon[]
 ==== Integration Addon Support
@@ -166,8 +184,8 @@ Due to the nature of medical inventories, the integrity of data stored is of utm
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/Paracetamol`.
-* Items in square brackets are optional e.g `e.g n/NAME [t/TAG] can be used as n/Paracetamol t/Popular` or as `n/Paracetamol`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]…` can be used as `{nbsp}` (i.e. 0 times), t/Ordered, t/PhasingOut t/SlowMoving etc..
+* Items in square brackets are optional e.g `e.g n/NAME [t/TAG] can be used as n/Paracetamol t/fever` or as `n/Paracetamol`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]…` can be used as `{nbsp}` (i.e. 0 times), t/fever, t/painkiller t/inflammation etc..
 * Parameters can be in any order e.g. if the command specifies `n/NAME c/COMPANY_NAME`, `c/COMPANY_NAME n/NAME` is also acceptable.
 
 ====
@@ -184,7 +202,7 @@ Format: `add n/NAME c/COMPANY_NAME [t/TAG]…​`
 Examples:
 
 * `add n/Paracetamol c/3M Pharmaceuticals`
-* `add n/Ibuprofen c/Takeda Pharmaceutical Co. t/New`
+* `add n/Ibuprofen c/Takeda Pharmaceutical Co. t/fever`
 
 === Listing all medicines : `list`
 
@@ -201,18 +219,18 @@ Finds medicine whose names contain any of the given keywords and displays them i
 Format: `find KEYWORD [MORE_KEYWORDS]...`
 
 ****
-* The search is case insensitive. e.g `n/sodium` will match `Sodium`
-* The order of the keywords does not matter. e.g. `n/Sodium n/Levothyroxine` will match `Levothyroxine Sodium`
 * Only the name is searched.
-* Only full words will be matched e.g. `c/Sod` will not match `Sodium`
-* Medicines matching at least one keyword will be returned (i.e. `OR` search). e.g. `n/Sodium n/Ibuprofen` will return `Levothyroxine Sodium`, `Ibuprofen`
+* The search is case insensitive. e.g `sodium` will match `Sodium`
+* The order of the keywords does not matter. e.g. `Sodium Levothyroxine` will match `Levothyroxine Sodium`
+* Only full words will be matched e.g. `Sod` will not match `Sodium`
+* Medicines matching at least one keyword will be returned (i.e. `OR` search). e.g. `Sodium Ibuprofen` will return `Levothyroxine Sodium`, `Ibuprofen`
 ****
 
 Examples:
 
-* `find n/Sodium` +
+* `find Sodium` +
 Returns `Levothyroxine Sodium` and `Naproxen Sodium`.
-* `find n/Amoxicillin n/Gabapentin c/Johnson` +
+* `find Amoxicillin Gabapentin Johnson` +
 Returns any medicine having names `Amoxicillin` or `Gabapentin` or with company name having `Johnson`.
 
 === Editing a medicine : `edit`
@@ -257,14 +275,19 @@ Deletes the 2nd medicine in the list.
 `delete 1` +
 Deletes the 1st medicine in the results of the `find` command.
 
+// tag::select[]
+[[SelectCommand]]
 === Viewing medicine information page : `select`
 Selects a medicine and loads the information page of the medicine. +
 Format: `select INDEX`
 
+.Information page will be loaded when a medicine is selected
+image::UserGuide_InformationPanel.png[width="715"]
+
 ****
-* Loads the information page of the medicine at the specified `INDEX`.
+* Loads the information page of the medicine at the specified `INDEX` in the information panel.
 * The information page consists of a table with details of all batches of the selected medicine.
-* These details include: batch number, quantity, expiry date, time last updated.
+* These details include: batch number, quantity and expiry date.
 * The index refers to the index number shown in the displayed medicine list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
@@ -277,18 +300,44 @@ Selects the 2nd medicine in the inventory.
 * `find Gabapentin` +
 `select 1` +
 Selects the 1st medicine in the results of the `find` command.
+// end::select[]
 
+// tag::sort[]
+[[SortCommand]]
+=== Sorting the batch table : `sort`
+Sorts the batch table in the medicine information page based on the entered property and direction +
+Format: `sort p/PROPERTY d/DIRECTION`
+
+.Possible properties:
+* `batchnumber` : sorts the table by batch number (alphabetical order).
+* `expiry`: sorts the table by expiry date.
+* `quantity` : sorts table list by quantity.
+
+.Possible directions:
+* `ascending`: sorts the table in ascending order.
+* `quantity` : sorts table list in descending order.
+
+Examples:
+
+* `sort p/expiry d/descending` +
+The table is sorted starting from the batch with the furthest expiry date.
+* `sort p/quantity d/ascending` +
+The table is sorted starting from the batch with the lowest quantity.
+// end::sort[]
+
+// tag::update[]
 === Updating batch records : `update`
 
 Updates details of a batch of medicine. +
-Format: `update INDEX b/BATCH_NUMBER q/QUANTITY [e/EXPIRY_DATE]`
+Format: `update INDEX b/BATCH_NUMBER [q/QUANTITY] [e/EXPIRY_DATE]`
 
 ****
 * Updates details of a batch in the batch records of medicine at specified `INDEX`.
+* At least one of the optional fields must be provided.
 * If batch number already exists, the quantity or expiry date of the batch is updated.
-* If batch number does not exist, a new batch record is created.
+* If batch number does not exist, a new batch record is created. Both quantity and expiry date must be entered for new batches.
 * If quantity of batch is updated to `0`, it will be removed.
-* If `e/EXPIRY_DATE` is not inputted, batch must already exist in the records and existing expiry date is maintained.
+* If `q/QUANTITY` or `e/EXPIRY_DATE` is not inputted, batch must already exist in the records and existing information is maintained.
 * The total quantity and closest expiry date of the medicine will also be updated.
 * The index refers to the index number shown in the displayed medicine list.
 * The index *must be a positive integer* `1, 2, 3, ...`
@@ -302,6 +351,7 @@ Updates quantity and expiry date of batch `s9c4x9532` in batch records of the 2n
 * `find Gabapentin` +
 `update 1 b/8937v1x7 q/500` +
 Updates quantity of batch `8937v1x7` in batch records of the 1st medicine in the results of the `find` command to `500`.
+//end::update[]
 
 [[WarningPanel]]
 === Managing the warning panel : `warning`
@@ -503,17 +553,17 @@ If you encounter any problems running `jarfix.exe`, you can read the documentati
 == Commands Summary
 
 * *Add* `add n/NAME c/COMPANY_NAME [t/TAG]...` +
-e.g. `add n/Paracetamol c/3M Pharmaceuticals t/Popular`
+e.g. `add n/Paracetamol c/3M Pharmaceuticals t/fever`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [c/COMPANY_NAME] [t/TAG]...` +
-e.g. `edit 2 n/Amoxicillin c/GlaxoSmithKline t/SlowMoving'
+e.g. `edit 2 n/Amoxicillin c/GlaxoSmithKline t/antibiotic'
 * *Exit* : `exit`
 * *Export* : `export [FILE_NAME]` +
 e.g. export Records
-* *Find* : `find CRITERIA [MORE_CRITERIA]...` +
-e.g. `find n/paracetamol c/3M`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]...` +
+e.g. `find paracetamol`
 * *Help* : `help`
 * *History* : `history`
 * *Label* : `label INDEX` +
@@ -522,8 +572,10 @@ e.g. `label 1`
 * *Redo* : `redo`
 * *Select* : `select INDEX` +
 e.g.`select 2`
+* *Sort* : `sort p/PROPERTY d/DIRECTION` +
+e.g.`sort p/quantity d/ascending`
 * *Undo* : `undo`
-* *Update* : `update INDEX b/BATCH_NUMBER q/QUANTITY [e/EXPIRY_DATE]` +
+* *Update* : `update INDEX b/BATCH_NUMBER [q/QUANTITY] [e/EXPIRY_DATE]` +
 e.g.`update 2 b/A030F21 q/1000 e/25/1/2020`
 * *Warning* : `warning [e/EXPIRY_THRESHOLD] [s/LOWSTOCK_THRESHOLD]` +
 e.g. `warning e/20 s/10`

@@ -9,8 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class BatchNumber {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Batch number may contain alphanumeric characters, '-', and spaces, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Batch number may contain alphanumeric characters, '-', and"
+            + " spaces.\nIt should start with an alphanumeric character and should not be blank";
 
     /*
      * The first character of the name must not be a whitespace,

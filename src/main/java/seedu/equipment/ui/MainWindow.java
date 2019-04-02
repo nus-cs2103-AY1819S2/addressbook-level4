@@ -38,7 +38,6 @@ public class MainWindow extends UiPart<Stage> {
     private BrowserPanel browserPanel;
     private EquipmentListPanel equipmentListPanel;
     private WorkListListPanel workListListPanel;
-    private ClientListPanel clientListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -118,44 +117,17 @@ public class MainWindow extends UiPart<Stage> {
             }
         });
     }
-//    /**
-//     * Fills up all the placeholders of this window.
-//     */
-//    void fillInnerPartsWithClient() {
-//        browserPanel = new BrowserPanel(logic.selectedEquipmentProperty());
-//        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-//
-//        equipmentListPanel = new EquipmentListPanel(logic.getFilteredClient());
-//        personListPanelPlaceholder.getChildren().add(equipmentListPanel.getRoot());
-//
-//        workListListPanel = new WorkListListPanel(logic.getFilteredWorkListList(), logic.selectedWorkListProperty(),
-//                logic::setSelectedWorkList);
-//        workListPanelPlaceholder.getChildren().add(workListListPanel.getRoot());
-//
-//        resultDisplay = new ResultDisplay();
-//        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-//
-//        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getEquipmentManagerFilePath(),
-//                logic.getEquipmentManager());
-//        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-//
-//        CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
-//        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-//    }
 
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerPartsWithEquipment() {
+    void fillInnerParts() {
         browserPanel = new BrowserPanel(logic.selectedEquipmentProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         equipmentListPanel = new EquipmentListPanel(logic.getFilteredEquipment(), logic.selectedEquipmentProperty(),
                 logic::setSelectedPerson);
         personListPanelPlaceholder.getChildren().add(equipmentListPanel.getRoot());
-
-//        clientListPanel = new ClientListPanel(logic.getFilteredClient());
-//        clientListPanelPlaceholder.getChildren().add(equipmentListPanel.getRoot());
 
         workListListPanel = new WorkListListPanel(logic.getFilteredWorkListList(), logic.selectedWorkListProperty(),
                 logic::setSelectedWorkList);

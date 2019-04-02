@@ -522,6 +522,7 @@ Format: `end`
 
 //end::reportoperations[]
 
+//tag::advancedoperations[]
 === Advanced Operations
 All the above operations described above focuses on how individual users may use the app. This section however
 describes also how you can use the app more effectively; by creating multiple flashcards even faster and sharing it
@@ -596,6 +597,7 @@ Examples:
 Imports blood csv file into know-it-all. A new `Blood` cardfolder should be present in the home
 directory after execution of this command.
 
+// end::advancedoperations[]
 
 ==== Viewing help : `help`
 
@@ -648,8 +650,8 @@ this number is automatically calculated and recorded.
 |`next` | Presents the next lowest score flashcard in this current test session.
 |`end` | Quits the current test session or report display.
 |`search KEYWORDS [MORE_KEYWORDS]` | Searches for flashcards inside the current folder using keywords in flashcard questions.
-|`import FILENAME` | Imports a file with the specified name.
-|`export FOLDER_INDEX FILENAME` | Creates a json file containing the flashcards from the specified folder, which can later be imported.
+|`import FILENAME` | Imports a file with the specified name. Filename must include .csv extension
+|`export FOLDER_INDEX FILENAME [MORE_INDEXES]` | Creates a csv file containing the flashcards from the specified folder, which can later be imported.
 |`help` | Opens the User Guide in a new window.
 |`exit` | Exits the application.
 |=======================================================================

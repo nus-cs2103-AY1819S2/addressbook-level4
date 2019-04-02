@@ -314,6 +314,7 @@ For example, 2 correct attempts and 4 total attempts becomes 0.5. When instantia
 
 // end::score[]
 
+//tag::importexport[]
 === Import/Export feature
 [discrete]
 ==== Current Implementation
@@ -459,8 +460,7 @@ since 1 cardfolder = 1 csv file.
 
 ** Cons:
 *** Slightly more work needed to import multiple card folders.
-
-
+//end::importexport[]
 
 //tag::folders[]
 === Folders

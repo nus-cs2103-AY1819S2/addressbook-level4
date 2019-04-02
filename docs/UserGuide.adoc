@@ -231,7 +231,7 @@ Deletes the doctor with ID of '2' in docX.
 === Adding a medical history: `add-med-hist`
 
 Adds a medical history to the patient +
-Format: `add-med-hist p/PATIENT_NAME [pid/PATIENT_ID] d/DOCTOR_NAME [did/DOCTOR_ID] w/SHORT_WRITEUP`
+Format: `add-med-hist pid/PATIENT_ID did/DOCTOR_ID d/DATE sw/SHORT_WRITEUP`
 
 ****
 * Medical history and the attending doctor will be added under the patient of `PATIENT_NAME`.
@@ -241,36 +241,17 @@ Format: `add-med-hist p/PATIENT_NAME [pid/PATIENT_ID] d/DOCTOR_NAME [did/DOCTOR_
 
 Examples:
 
-* `add-med-hist p/John pid/1 d/Amy Lim w/Came down with a stomach flu, possibly due to eating expired food`
-* `add-med-hist p/John Doe did/3 d/Amy w/Had a fever with sorethroat. Sleeps late.`
+* `add-med-hist pid/1 did/2 d/2019-03-05 sw/Came down with a stomach flu, possibly due to eating expired food`
+* `add-med-hist pid/10 did/3 d/2018-07-09 w/Had a fever with sorethroat. Sleeps late.`
 
 === Listing all medical history of specified patient : `list-med-hist`
 
-Shows a list of all medical history of the specified patient. +
-Format: `list-med-hist PATIENT_ID`
-
-=== Editing a medical history : `edit-med-hist`
-
-Edits a specified medical history of a specified patient. +
-Format: `edit-med-hist pid/PATIENT_ID mhid/MED_HIST_ID [d/DATE_OF_VISIT] [w/SHORT_WRITEUP]`
-
-****
-* Edits the medical history of the specified `MED_HIST_ID` of the specified patient `PATIENT_ID`. The index *must be a positive integer* 1, 2, 3, ...
-* `DATE_OF_VISIT` must be in the format `DDMMYYYY`.
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-****
-
-Examples:
-
-* `edit-med-hist pid/1 mhid/2 d/10022019` +
-Edits the date of the medical history entry with ID of '2' under patient with ID of '1' to be `10022019`.
-* `edit-med-hist pid/4 mhid/1 w/Came down with a stomach flu, possibly due to eating expired canned food` +
-Edits the short write up of the medical history with ID of '1' under patient with ID of '2' to be `Came down with a stomach flu, possibly due to eating expired food`.
+Shows a list of all medical histories or a list of all medical histories of one specified patient. +
+Format: `list-med-hist` or `list-med-hist pid/PATIENT_ID`
 
 === Locating medical history : `search-med-hist`
 
-Finds medical history(ies) whose write up contain any of the given keywords. +
+Finds medical history(ies) whose write up contains any of the given keywords. +
 Format: `search-med-hist KEYWORD`
 
 ****
@@ -288,23 +269,19 @@ Returns all medical history with the write up containing the keyword `flu`
 * `search-med-hist 'stomach flu' 'sorethroat'` +
 Returns all medical history with the write up containing either 'stomach flu' or 'sorethroat' or both keywords.
 
-=== Viewing medical history of a patient: `view-med-hist`
+=== Viewing a certain medical history: `select-med-hist`
 
-View the full specified medical history of the specified patient. +
-Format: `view-med-hist n/PATIENT_NAME [pid/PATIENT_ID] mhid/MED_HIST_ID`
+View the full specified medical history with specified ID. +
+Format: `select-med-hist pid/PATIENT_ID mhid/MED_HIST_ID`
 
 ****
-* Display the full medical history of the specified `MED_HIST_ID` of the specified patient `PATIENT_ID`. The index *must be a positive integer* 1, 2, 3, ...
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* If there are common names of patients found, the system will stop the information from being added and prompt the user to insert the command with the specific ID of the patient.
+* Display the full medical history of the specified `MED_HIST_ID` of the specified patient `PATIENT_ID`. The id *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `view-med-hist n/JOHN DOE mhid/1` +
-Returns full write up of the medical history with ID of '1' of the patient with name of 'John Doe'
-* `view-med-hist n/Amy pid/2 mhid/4` +
-Returns full write up of the medical history with ID of '4' of the patient with name of 'Amy' and ID of '2'
+* `select-med-hist pid/1 mhid/1` +
+Returns full write up of the medical history with ID of '1' of the patient with ID of '1''.
 
 === Adding an appointment: `add-appt`
 

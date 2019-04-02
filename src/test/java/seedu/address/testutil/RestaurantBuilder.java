@@ -10,6 +10,7 @@ import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
 import seedu.address.model.restaurant.OpeningHours;
 import seedu.address.model.restaurant.Phone;
+import seedu.address.model.restaurant.Postal;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Weblink;
 import seedu.address.model.restaurant.categories.Categories;
@@ -29,6 +30,7 @@ public class RestaurantBuilder {
     public static final String DEFAULT_PHONE = "65355255";
     public static final String DEFAULT_EMAIL = "kfc@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_POSTAL = "123456";
     public static final String DEFAULT_WEBLINK = Weblink.NO_WEBLINK_STRING;
     public static final String DEFAULT_OPENING_HOURS = "0930 to 2130";
 
@@ -36,6 +38,7 @@ public class RestaurantBuilder {
     private Phone phone;
     private Email email;
     private Address address;
+    private Postal postal;
     private Set<Tag> tags;
     private Weblink weblink;
     private OpeningHours openingHours;
@@ -47,6 +50,7 @@ public class RestaurantBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        postal = new Postal(DEFAULT_POSTAL);
         reviews = new ArrayList<>();
         tags = new HashSet<>();
         weblink = new Weblink(DEFAULT_WEBLINK);
@@ -62,6 +66,7 @@ public class RestaurantBuilder {
         phone = restaurantToCopy.getPhone();
         email = restaurantToCopy.getEmail();
         address = restaurantToCopy.getAddress();
+        postal = restaurantToCopy.getPostal();
         reviews = restaurantToCopy.getReviews();
         tags = new HashSet<>(restaurantToCopy.getTags());
         weblink = restaurantToCopy.getWeblink();
@@ -111,6 +116,15 @@ public class RestaurantBuilder {
     }
 
     /**
+     * Sets the {@code Postal} of the {@code Restaurant} that we are building.
+     */
+    public RestaurantBuilder withPostal(String postal) {
+        this.postal = new Postal(postal);
+        return this;
+    }
+
+
+    /**
      * Sets the {@code Phone} of the {@code Restaurant} that we are building.
      */
     public RestaurantBuilder withPhone(String phone) {
@@ -154,7 +168,7 @@ public class RestaurantBuilder {
      * Builds a Restaurant
      */
     public Restaurant build() {
-        return new Restaurant(name, phone, email, address, tags, weblink, openingHours,
+        return new Restaurant(name, phone, email, address, postal, tags, weblink, openingHours,
                 categories, reviews);
     }
 }

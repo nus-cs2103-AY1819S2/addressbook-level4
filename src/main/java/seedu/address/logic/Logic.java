@@ -64,6 +64,7 @@ public interface Logic {
      */
     ReadOnlyProperty<Restaurant> selectedRestaurantProperty();
 
+
     /**
      * Sets the selected restaurant in the filtered restaurant list.
      *

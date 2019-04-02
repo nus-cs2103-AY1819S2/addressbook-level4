@@ -13,14 +13,21 @@ Recruit Me is a desktop application designed for . It is an adaptation of Addres
 
 == Summary of contributions
 
-* *Major enhancement*: added *something*
-** What it does: _{What Abby did}_.
-** Justification: _{Justification for what Abby did}_.
-** Highlights: _{Highlights of what Abby did}_.
+* *Major enhancement*: Endorse Command
+** What it does: allows any current employees with access to the platform the opportunity to personally endorse candidates of their choice
+** Justification: Tags are critical elements that shape a candidate and this color-coded system allows managers to better view these applicants and allows employees to interact with the recruiting process.
+** Highlights: 
+    - command allows an employee to add their name as a special blue tag to a candidate's profile
+    - accepts all ASCII input, not just limited to alphanumeric
+    - if a candidate edits his or her tags the employee endorsement will not be deleted
+    - command accepts all characters and is not limited to alphanumeric input
+    - works with filtering command so a manager can filter by a specific employee to see which candidate's he or she has        endorsed
 
-* *Minor enhancement*: _{To be added at a later date}_.
+* *Minor enhancement*: Diverse Tag Functionality
+    - Refactoring Tag to distinguish between their skills and positions when they add and edit their profile
+    - Present skills and position tags in different colors for recruiters to get a better view of the candidate
+    - Allow more than just alphanumeric input for the skill/position options
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 

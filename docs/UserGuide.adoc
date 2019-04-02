@@ -437,7 +437,8 @@ You can change the theme of the application with pre-set colour themes specified
 to `Blue`)
 * You can also change the theme of the application by choosing the theme under
 the menu bar.
-image::themeMenuBar.png[width="300"]
+
+image::themeMenuBar.png[]
 ====
 
 // end::theme[]

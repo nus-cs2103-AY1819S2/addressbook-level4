@@ -25,8 +25,10 @@ TopDeck helps you digitise your flash cards and keeps them organised.
 You can easily review your cards and TopDeck will track your performance.
 Improve your memory without the hassle of managing a physical pile of cards!
 
-TopDeck is optimized for those who prefer to work with a Command Line Interface (CLI)
-while still having the benefits of a Graphical User Interface (GUI).
+TopDeck has  a Command Line Interface (CLI), which means that users can
+interact with the program easily by typing commands in. It also has a Graphical User Interface (GUI),
+a visual display of the app, so that users can see the decks and cards stored.
+
 
 If this sounds like the tool you have been looking for,
 jump to <<Quick Start>> to get started. Enjoy!
@@ -77,6 +79,8 @@ This view displays the cards in a particular deck. In cards view, you can:
 === Study View [[studyview]]
 
 In this view you can study a deck of cards.
+image::study_ug_diagrams/study_1.png[width="800"]
+
 
 == Commands [[commands]]
 
@@ -268,13 +272,46 @@ image::card_ug_diagrams/find_card_3.png[width="800"]
 
 === Study View
 
-These are commands are only available in study view, after `study` command is executed.
+These are commands are only available in study view, after `study INDEX` or `study` command is executed.
 
-==== Returning to decks view: `done`
+==== Returning to decks view: `back`
 
-**Format**: `done`
+**Format**: `back`
 
 **Outcome**: Returns to decks view.
+
+==== Opening the deck in cards view: `deck`
+
+**Format**: `deck`
+
+**Outcome**: Opens the deck in cards view.
+
+==== Revealing the answer to card: `[any attempt]`
+
+**Format**: `[any attempt]`
+
+**Outcome**: Reveals the answer to card, with your attempt shown beside it.
+
+For example, you can type in `CO2` and hit kbd:[Enter]
+
+image::study_ug_diagrams/study_1.png
+
+The following image is the result of the command.
+
+image::study_ug_diagrams/study_2.png
+
+==== Displaying the next card: `[your difficulty rating]`
+
+**Format**: `[your difficulty rating]`
+
+**Outcome**: Displays another card from the deck. Stores your difficulty rating for the card.
+
+Entering a number 3 indicates that you rate the difficulty as 3.
+image::study_ug_diagrams/study_3.png
+
+Submitting this reveals the next question.
+image::study_ug_diagrams/study_4.png
+
 
 === Global commands
 

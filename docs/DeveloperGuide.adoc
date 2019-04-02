@@ -399,23 +399,64 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // tag::budgetmanagement[]
 === Budget Management
 
-This features allows the user to set a budget and allocate it to different categories. The budget will decrease when records are added.
+This group of features allows the user to set a total budget and
+allocate a portion of the total budget to different categories.
+The current spending will increase when records are added.
 
 This implementation is under `Logic`, `Model` and `UI` Component.
 
-_Sequence Diagram will be done soon_
+==== Setting a Budget
 
-==== Implemented
-* `Budget` Class has been created with `Amount` field to keep track of the budget of Financial Tracker.
-* `Set` Command implemented with logic for adding a budget only if a budget does not exist.
-* Dummy Commands for `allocate` and `increase` have been added.
+// tag::categorybudget[]
+==== Allocating a budget to category
+This feature allows user to set a category budget after the total budget is set
+
+Given below is a sequence diagram and step by step explanation of how Finance Tracker
+executes when a user sets a category budget.
+
+.Sequence diagram of user setting a category budget
+image::AllocateSequenceDiagram.png[]
+
+. User enters command `allocate $/10 c/Food`. The command is received by `FinanceBookParser`
+. FinanceTrackerParser will then create a `AllocateCommandParser` Object
+and calls `AllocateCommandParser#parse()` method
+. `AllocateCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` method to tokenize
+the user input String into arguments and prefixes in an `ArgumentMultimap` Object.
+. `AllocateCommandParser#parse()` method then calls another method within the same class
+`AllocateCommandParser#arePrefixesPresent()` to check if there are any missing prefixes.
+If there are missing prefixes, `ParseException` will be thrown
+. If no exceptions are thrown from the step 4, a new AllocateCommand object is created
+with the given arguments.
+. Control is returned to LogicManager which then calls `AllocateCommand#execute()` method.
+. `AllocateCommand#execute()` calls `ModelManager#addCategoryBudget()` method and control
+is transferred to `ModelManager` which is in the `Model` Component.
+. `ModelManager#addCategoryBudget()` then calls `FinanceTracker#addCategoryBudget()` which then
+calls `TotalBudget#setNewCategoryBudget()`
+. `TotalBudget#setNewCategoryBudget()` takes into account if there are any previous budget
+allocated to a category and if so, adds the expenses to the new budget assigned to the category
+
+===== Design consideration
+Aspect: allocating Category Budget
+
+* *Alternative 1 (current choice)*: Allocating Category Budget is done with only one command `allocate`
+** Pros: User need to only make use of one command to control the budget of the category and will
+not be confused with too many other commands
+** Cons: Requires the developer to ensure the application checks that if there is a current budget
+allocated to the same category, it should be reflected accordingly.
+
+* *Alternative 2*: Have two other commands `increaseCatBudget` and `decreaseCatBudget` to allow user
+to control the budget of the category
+** Pros: User is able to adjust the budget by increasing/decreasing the budget instead of having to use
+one command to allocate a fixed amount to the budget
+** Cons: User might be confused with too many commands and not intuitive.
+// end::categorybudget[]
+
 
 ==== To be implemented
 * Reflecting total budget and current budget on `BrowserPanel` portion of UI.
 * Implementing logic for `increase` command to allow for increasing the budget.
 * Modify `spend` and `edit` Command to deduct from total budget to get current budget.
 * Implement `reset` command to reset current budget expenditure and total budget.
-* Implement logic for `allocate` command to be able to divide budget into categories.
 * Reflecting total budget and current budget for each category when selected in UI.
 * Expand `undo` and `redo` command to be able to work on `set`, `allocate` and `increase` command.
 
@@ -462,50 +503,6 @@ image::asterPlot.png[width="400"]
 
 Initially, we were considering using a pie chart instead. However, using an aster plot graph will be more effective in showing the user what is the remaining budget amount for each category.
 //end::summary[]
-
-
-// tag::security[]
-=== Security Features
-
-The In-Credit-Ble will ensure security of user data through the implementation of user profile system.
-
-The user profile system will allow for multiple users to use In-Credit-Ble on the same machine and keeps
-the data apart from each other. Users have the option of setting a password to protect their data from being
-viewed or altered by other users.
-
-==== To be implemented
-* `password` and `user` class to be created under `Model`
-* `register` command to allow new users to register under `username`
-* `setPassword` command to allow existing users to set a password for their profile. This command
-can also be used to reset existing passwords
-* `login` command to allow users who registered to login to their profile
-
-g
-Given below is an example usage scenario and how the login system will behave at each step
-
-*Step 1:*. The user launches the application for the first time. `MainApp` class will load all xml files within the data
-folder according to the path in `UserPrefs`.
-
-*Step 2a:* User can then register using `register` with a `username` parameter. If users registered before
-they can skip this step and go to Step 2b instead.
-
-*Step 2b:* User can `login` using their `username` if they have registered before
-
-*Step 3:* Users can set password using the `setPassword` command if they do not have password.
-They can also change their password using this command.
-
-==== Design Consideration
-===== Loading different user data
-* *Alternative 1 (Proposed implementation)*: Loading user data is done during initialisation of In-Credit-Ble
-** Pros: Able to switch user profiles after In-Credit-Ble is loaded
-** Cons: External changes to files after intialisation not reflected may be overwritten
-
-* *Alternative 2:* User profile data only loaded when user logs in
-** Pros: Unnecessary data not kept in memory so memory space is not wasted
-** Cons: The `Logic` or `Model` component will have to depend on the `Storage` component as `login` command
-will require the `Storage` to load and return the user's data
-
-// end::security[]
 
 === Logging
 

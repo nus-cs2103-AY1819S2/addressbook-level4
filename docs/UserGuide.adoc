@@ -171,6 +171,8 @@ The `undo` command fails as there are no undoable commands executed previously.
 
 === Member Management Features
 
+image::MemberCommands.png[width="1000"]
+
 ==== Adding a member: `memberAdd`
 
 You can add members to ClubManager. +

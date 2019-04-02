@@ -17,9 +17,16 @@ endif::[]
 
 By: `W17-1`      Since: `Feb 2019`      Licence: `MIT`
 
-== Introduction
+== Welcome to the Food Diary
+If you would like to get started straightaway,  jump to the <<Quick Start>> to get started
 
-The Food Diary (FD) is for those who *prefer to use a desktop app for storing their personal food reviews and obtain food recommendations*. More importantly, FD is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, FD can get your foodie tasks done faster than traditional GUI apps.
+**What is the Food Diary? **
+
+The Food Diary (FD) is a desktop app for storing your personal food reviews and obtain food recommendations based on your past reviews.
+
+**Why use the Food Diary? **
+FD is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, FD can get your foodie tasks done faster than traditional GUI apps.
+FD also stores your data locally, ensuring that your privacy is protected.
 
 Some of the features that can look forward to:
 
@@ -27,9 +34,10 @@ Some of the features that can look forward to:
 * Getting an aggregate rating over all your visits
 * Finding out about new restaurants near you for your next gastronomical adventure!
 
-Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
 
 *Callout*
+Callouts are boxes with important information regarding the usage of the Food Diary. These 3 callouts are used throughout our User Guide.
 [NOTE]
 This is a *note*. A warning indicates important additional information that should be read.
 
@@ -130,7 +138,7 @@ Return all the restaurants
 ==== Listing all restaurants : `listUnvisited`
 
 Shows a list of all restaurants that hasn't been reveiwed by you, ranked based on the proximity to a given postal code. +
-Format: `list po/POSTAL_CODE`
+Format: `listUnvisited po/POSTAL_CODE`
 
 [NOTE]
 Calculation of proximity is based on postal codes. If no postal code or an invalid postal code is provided for a `Restaurant`, it will appear at the bottom of the list.

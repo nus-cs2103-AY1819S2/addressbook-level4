@@ -314,6 +314,25 @@ For example, 2 correct attempts and 4 total attempts becomes 0.5. When instantia
 
 // end::score[]
 
+// tag::report[]
+=== Report feature
+==== Current Implementation
+
+The report feature is meant to provide the user with the ability to look back and compare their folder score from
+previous test sessions.
+==== Design Considerations
+
+===== Aspect: How to display folder scores
+
+* **Alternative 1 (current choice):** Display previous folder scores in a graph
+** Pros: More visual, easier to see change in folder score.
+** Cons: More performance and memory intensive as a graph needs to be rendered. Remedy: dispaly only last ten.
+* **Alternative 2:** List the previous folder scores
+** Pros: User can see more accurate numbers
+** Cons: Hard to see change from test session to test session.
+
+// end::report[]
+
 === Import/Export feature
 [discrete]
 ==== Current Implementation

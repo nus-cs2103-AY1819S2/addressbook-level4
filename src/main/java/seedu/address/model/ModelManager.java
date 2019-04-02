@@ -175,6 +175,11 @@ public class ModelManager implements Model {
         selectedDoctor.setValue(doctor);
     }
 
+    @Override
+    public void deleteDoctor(Doctor target) {
+        versionedAddressBook.removeDoctor(target);
+    }
+
     // Needed to be implemented later
 
     @Override
@@ -242,7 +247,7 @@ public class ModelManager implements Model {
         filteredDoctors.setPredicate(predicate);
     }
 
-    //=========== Filtered Patient List Accessors =============================================================
+    //=========== Filtered Medical History List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code MedicalHistory} backed by the internal list of

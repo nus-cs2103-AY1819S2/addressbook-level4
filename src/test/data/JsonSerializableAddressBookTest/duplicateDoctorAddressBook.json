@@ -1,18 +1,16 @@
 {
-  "patients": [ {
-    "name": "Alice Pauline",
+  "doctors": [ {
+    "name": "Alisa Pauline",
     "gender": "F",
     "age": "24",
     "phone": "94351253",
-    "address": "123, Jurong West Ave 6, #08-111",
-    "tagged": [ "friends" ]
+    "specs": [ "general" ]
   }, {
-    "name": "Alice Pauline",
+    "name": "Alisa Pauline",
     "gender": "F",
     "age": "24",
     "phone": "94351253",
-    "address": "4th street",
-    "tagged": [ "friends" ]
+    "specs": [ "general" ]
   } ],
   "medicalHistories" : [ {
     "name" : "John Doe",

@@ -22,7 +22,8 @@ public class GenerateBillForBookingCommand extends BillCommand {
     public static final String COMMAND_WORD = "generatebill-booking";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Generates reservation bill for the customer identified by the identification number\nused in the displayed "
+        + ": Generates reservation bill for the customer identified by the identification number\n"
+        + "used in the displayed "
         + "customer list.\n"
         + "Parameters: IDENTIFICATION NO\n"
         + "Example: " + COMMAND_WORD + " 1";

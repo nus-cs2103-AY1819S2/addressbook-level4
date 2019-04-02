@@ -71,8 +71,14 @@ public class Booking {
         return this.otherUsers.filter(list -> list.indexOf(key) != -1).isPresent();
     }
 
+    /**
+     * Removes a customer from the other users
+     * @param key is the customer to be removed from other users.
+     */
     public void removeCustomerFromOtherUsers(Customer key) {
+        System.out.println(this.otherUsers.get());
         this.otherUsers.ifPresent(list -> list.remove(key));
+        System.out.println(this.otherUsers.get());
     }
 
     @Override

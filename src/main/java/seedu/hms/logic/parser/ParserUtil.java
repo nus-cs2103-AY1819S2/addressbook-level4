@@ -266,7 +266,7 @@ public class ParserUtil {
         for (String customerIndex : customerIndices) {
             Customer toAdd = customers.get(Integer.parseInt(customerIndex) - 1);
             if (payer.equals(toAdd)) {
-                throw new ParseException("You do not need to include the payer's index in the customer indices");
+                throw new ParseException("You do not need to include the payer's index in the other customer indices.");
             }
             result.add(customers.get(Integer.parseInt(customerIndex) - 1));
         }

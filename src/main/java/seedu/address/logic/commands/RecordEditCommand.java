@@ -4,13 +4,16 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.description.Description;
+import seedu.address.model.record.Procedure;
 import seedu.address.model.record.Record;
 
 /**
@@ -29,22 +32,22 @@ public class RecordEditCommand extends Command {
             + PREFIX_DESC + "Patient is now fine and has been discharged. ";
 
     public static final String MESSAGE_EDIT_RECORD_SUCCESS = "Record is successfully edited!";
-    public static final String MESSAGE_NOT_EDITED = "Please provide the modified description.";
+    public static final String MESSAGE_NOT_EDITED = "Please provide the modified description or procedure.";
     public static final String MESSAGE_DUPLICATE_RECORD = "This record already exists in the patient's record list.";
 
     private final Index index;
-    private final Description description;
+    private final EditRecordDescriptor editRecordDescriptor;
 
     /**
      * @param index of the record in the filtered record list to edit
-     * @param description details to edit the record with
+     * @param editRecordDescriptor details to edit the record with
      */
-    public RecordEditCommand(Index index, Description description) {
+    public RecordEditCommand(Index index, EditRecordDescriptor editRecordDescriptor) {
         requireNonNull(index);
-        requireNonNull(description);
+        requireNonNull(editRecordDescriptor);
 
         this.index = index;
-        this.description = description;
+        this.editRecordDescriptor = editRecordDescriptor;
     }
 
     @Override
@@ -57,7 +60,7 @@ public class RecordEditCommand extends Command {
         }
 
         Record recordToEdit = lastShownList.get(index.getZeroBased());
-        Record editedRecord = createEditedRecord(recordToEdit, description);
+        Record editedRecord = createEditedRecord(recordToEdit, editRecordDescriptor);
 
         if (!recordToEdit.equals(editedRecord) && model.hasRecord(editedRecord)) {
             throw new CommandException(MESSAGE_DUPLICATE_RECORD);
@@ -72,11 +75,14 @@ public class RecordEditCommand extends Command {
      * Creates and returns a {@code Record} with the details of {@code recordToEdit}
      * edited with {@code description}.
      */
-    private static Record createEditedRecord(Record recordToEdit, Description description) {
+    private static Record createEditedRecord(Record recordToEdit, EditRecordDescriptor editRecordDescriptor) {
         assert recordToEdit != null;
 
-        return new Record(recordToEdit.getDoctorName().fullName, description.value,
-                recordToEdit.getRecordDate().getRawFormat());
+        Procedure updatedProcedure = editRecordDescriptor.getProcedure().orElse(recordToEdit.getProcedure());
+        Description updatedDescription = editRecordDescriptor.getDescription().orElse(recordToEdit.getDescription());
+
+        return new Record(recordToEdit.getDoctorName().fullName, updatedDescription.toString(),
+                recordToEdit.getRecordDate().getRawFormat(), updatedProcedure.toString());
     }
 
     @Override

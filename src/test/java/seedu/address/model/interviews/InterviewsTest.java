@@ -6,7 +6,6 @@ import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Set;
 
@@ -26,16 +25,34 @@ public class InterviewsTest {
     }
 
     @Test
-    public void generateExcludeBlockOut() {
+    public void generateExcludeBlockOutOneDay() {
         Interviews interviews = new Interviews();
         List<Calendar> dates = new ArrayList<>();
-        Calendar date = new GregorianCalendar(2019, 3, 4);
-        dates.add(date);
+        Calendar date = Calendar.getInstance();
+        date.add(Calendar.DATE, 2);
         interviews.setBlockOutDates(dates);
         interviews.generate(getTypicalPersons());
         Set<Calendar> calendars = interviews.getInterviewsHashMap().keySet();
         for (Calendar calendar : calendars) {
-            assertFalse(dates.contains(calendar));
+            assertFalse(Interviews.containsDate(dates, calendar));
+        }
+    }
+
+    @Test
+    public void generateExcludeBlockOutDates() {
+        Interviews interviews = new Interviews();
+        List<Calendar> dates = new ArrayList<>();
+        Calendar date = Calendar.getInstance();
+        for (int i = 0; i < 3; i++) {
+            date.add(Calendar.DATE, 1);
+            dates.add(date);
+            date = (Calendar) date.clone();
+        }
+        interviews.setBlockOutDates(dates);
+        interviews.generate(getTypicalPersons());
+        Set<Calendar> calendars = interviews.getInterviewsHashMap().keySet();
+        for (Calendar calendar : calendars) {
+            assertFalse(Interviews.containsDate(dates, calendar));
         }
     }
 

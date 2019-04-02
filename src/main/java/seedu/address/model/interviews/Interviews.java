@@ -128,7 +128,7 @@ public class Interviews {
     /**
      * Checks if the calendarList contains the date.
      */
-    private static boolean containsDate(List<Calendar> calendarList, Calendar date) {
+    protected static boolean containsDate(List<Calendar> calendarList, Calendar date) {
         int year = date.get(Calendar.YEAR);
         int month = date.get(Calendar.MONTH);
         int day = date.get(Calendar.DATE);

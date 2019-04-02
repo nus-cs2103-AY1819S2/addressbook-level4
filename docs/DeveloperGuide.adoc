@@ -126,14 +126,15 @@ The following class plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The rest of the App consists of five components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+* <<Design-CurrentEdit,*`CurrentEdit`*>>: Holds the image that the App is currently editing in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Album,*`Album`*>>: Stores the pool of images that has been imported into the App.
 
-Each of the four components
+The first four components:
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
@@ -146,13 +147,15 @@ image::LogicClassDiagram.png[width="800"]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenarios where the user issues the commands `import C:\Users\XXX\Desktop\Pictures` and `rotate 90`.
 
-.Component interactions for `delete 1` command
-image::SDforDeletePerson.png[width="800"]
+.Component interactions for `import C:\Users\XXX\Desktop\Pictures` command
+image::SDforImportcommand.png[width="800"]
+
+.Component interactions for `rotate 90` command
+image::SDforRotatecommand.png[width="800"]
 
 The sections below give more details of each component.
-
 [[Design-Ui]]
 === UI component
 
@@ -180,16 +183,19 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `FomoFotoParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `CurrentEdit` (e.g. rotating an image).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below are the Sequence Diagrams for interactions within the `Logic` component for the `execute("import C:\User\Pictures\image.png")` and `execute("rotate 90")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+.Interactions Inside the Logic Component for the `import C:\User\Pictures\image.png` Command
+image::LogicImportSd.png[width="800"]
+
+.Interactions Inside the Logic Component for the `rotate 90` Command
+image::LogicRotateSd.png[width="800"]
 
 [[Design-Model]]
 === Model component
@@ -226,9 +232,7 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[width="800"]
-
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+image::StorageArchitectureDiagram.png[width="800"]
 
 The `assets` and `temp` folders form the storage component of FomoFoto.
 
@@ -314,11 +318,11 @@ image::OpenCommandSequenceDiagram.png[width=800]
 
 * *Alternative 1 (current choice)*: User can only open and edit one image at a time.
 ** Pros: Easy to implement. `temp` folder only stores one original image and one temporary image. Clear to users that edits are done to the only opened image.
-** Cons: Users are unable to open other images while editing.
+** Cons: User is unable to open other images while editing.
 
 * *Alternative 2* : User can open and edit multiple images.
 ** Pros: Users are able to edit multiple images simultaneously.
-** Cons: Open has to distinguish whether user is opening an image from `assets` folder or `temp` folder. Requires many duplicates with different names. This may be confusing.
+** Cons: Open has to distunguish whether user is opening an image from `assets` folder or `temp` folder. Requires many duplicates with different names. This may be confusing for the user.
 
 
 === List Files Feature
@@ -368,25 +372,32 @@ The image filters feature is facilitated by `CurrentEdit`. It uses the following
 
 The filter feature mainly consists of:
 
-* `contrastCommand`: Applies the specified contrast ratio value on the targetted image
-* `brightnessCommand`: Applies the specified brightness ratio value on the targetted image
-* `black/whiteCommand`: Transforms colored targetted image to a black and white image
+* `ContrastCommand`: Applies a contrast ratio value on the targetted image. The contrast ratio value is preset to 1.1 if a specified ratio value is not given by the user.  A value above 1 (e.g 1.3) increases the contrast of the image while a positive value below 1 (e.g 0.5) decreases the contrast of the image.
+* `BrightnessCommand`: Applies a brightness ratio value on the targetted image. The brightness ratio value is preset to 1.1 if a specified ratio value is not given by the user. A value above 1 (e.g 1.3) increases the brightness of the image while a positive value below 1 (e.g 0.5) decreases the brightness of the image.
+* `BlackWhiteCommand`: Transforms targetted image to a black and white image through a threshold value. The brightness ratio value is preset to 127 if a specified ratio value is not given by the user. Pixels on the image lighter than the threshold value becomes white and pixels darker than the threshold value becomes black.
 
 The following describes main operations and processes for each command stated above.
 
 ==== Contrast Command
 
-This command calls for an adjustment of contrast on a targetted image and adds this specific command called by the user to `Image`'s `List<EditCommands>` which saves the editing history of the targetted image.
+This command calls for an adjustment of contrast on a targetted image. After adjusting the contrast, it adds this specific command called by the user to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
 
-Given below is an example usage scenario and how the command should behave at each step.
+Given below is an example usage scenario and how the command should behave at each step. [This applies to the other image filter commands as well.]
 
-Step 1. When the users run the application and open an image to edit, a new `Image` object is created which stores the filename of the image,  history of edits [`List<EditCommand>`] and the image's metadata. This `Image` object will be set as the `currentImage` in `Model` for editing.
+Step 1. When the user runs an `open` command to edit an image, it invokes a method which creates an instance of an `Image` that stores the filepath of the image, its history of edits [`List<Command>`] and its metadata. This `Image` object is saved under the variable name `tempImage` in `currentEdit` for editing.
 
 Step 2. When the user enters the command (e.g. `contrast 0.3`), the entered command is parsed and the command will be executed.
 
-Step 3. During execution, the `execute` method in the `contrastCommand` class calls for the methods `Model#applyContrast()` and `Model#displayImage()`.
+[NOTE]
+If an invalid command is provided, a reminder of how to use the command will be given to the user and no command will be run.
 
-Step 4. Calling `Model#applyContrast()` creates a `BufferedOpFilter` object in the external library [`scrimage`] named `contrastFilter` which is applied on the image with the filepath: "src/main/resources/temp/" + `currentImage#getFileName()`
+Step 3. During execution, the `execute` method in the `contrastCommand` class invokes `currentEdit#getTempImage()` to get the `tempImage` from `currentEdit`.
+
+Step 4. Upon retrieving the `tempImage`, the `execute` method creates a `ContrastFilter` instance provided by the external libary [`scrimage`] which takes in a double-valued contrast ratio value. This `ContrastFilter` will then be applied on the image retrieved from the filepath: "src/main/resources/temp/" + `tempImage#getURL()`.
+
+Step 5. After applying the `ContrastFilter` on the targetted image, `currentEdit#updateTempImage()` is invoked to save the newly edited image and replace the previous one in the filepath: "src/main/resources/temp/" + `tempImage#getURL()`.
+
+Step 6. The `execute` method then checks if the boolean `isNewCommand` is true. If it is `true`, it indicates that the command is a new contrast command called directly from the user and not through an `undo/redo` command which triggers Step 7 in the line below. Otherwise, the command's execution ends in this step.
 
 Step 7. `isNewCommand` is set to `false` to signal that this command is not a new contrast command if it is executed again through the undo/redo function.
 `currentEdit#addCommand(this)` is invoked to add this command to the `List<Command>` in `tempImage` for the undo/redo function and `currentEdit#displayTempImage()` is used to display the edited image on the graphical user interface.
@@ -418,16 +429,6 @@ image::BlackWhiteCommandSequenceDiagram.png[width="800"]
 ==== Current Implementation
 
 This segment involves manipulating the physical image itself, such as rotating, cropping and resizing. The implementations of these features are facilitated by https://github.com/rkalla/imgscalr[`ImgScalr Library`], which is an external API Library that helps process the target image.
-
-The manipulation feature is facilitated by `CurrentEdit`. It uses the following operations:
-
-* `CurrentEdit#getTempImage` - Retrieves the temporary image `tempImage` which stores the filepath of the temporary image in `temp` folder, its history of edits [`List<Command>`] and its metadata.
-
-* `CurrenEdit#updateTempImage` - Replaces the temporary image in `temp` folder with the newly edited image and update the `tempImage` instance in the class.
-
-* `CurrentEdit#addCommand` - add this command to the edit history [`List<Command>`] in `tempImage` for the undo/redo function
-
-* `CurrenEdit#displayTempImage()` - Displays the temporary image stored in directory: "src/main/resources/temp/".
 
 This manipulation feature mainly consists of:
 
@@ -467,7 +468,7 @@ Step 7. `isNewCommand` is set to false to signal that this command is not a new 
 image::RotateCommandSequenceDiagram.png[width="800"]
 
 ==== Crop Command
-This command allows the user to crop the targetted image by specifying the coordinates of the top left hand corner of the desired image, the width of the desired image and the height of the desired image. Upon receiving the inputs, the values will be checked for their validity and will throw an error if any value is not within the specified range. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
+This command allows the user to crop the targetted image by specifying the coordinates of the top left hand corner of the desired image, the width of the desired image and the height of the desired image. Upon receiving the inputs, the values will be checked for their validity and will throw an error if the any value is not within the specified range. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
 
 Refer to the example usage scenario and design considerations in <<Rotate Command>>
 
@@ -545,19 +546,19 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1:** Saves the each transformation as a separate image.
+* *Alternative 1:* Saves the each transformation as a separate image.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2(current choice):** Save all transformation in a list and apply them when undo/redo is called. We chose this method as we do not want our application to take up too much space in the PC.
+* *Alternative 2(current choice):* Save all transformation in a list and apply them when undo/redo is called. We chose this method as we do not want our application to take up too much space in the PC.
 ** Pros: Will use less memory
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of commands. We chose this so as to preserve good Object Oriented Programming principles.
+* *Alternative 1 (current choice):* Use a list to store the history of commands. We chose this so as to preserve good Object Oriented Programming principles.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `Image`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
+* *Alternative 2:* Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
@@ -584,8 +585,6 @@ The save function is facilitated by `Album` and `CurrentEdit`. It uses the follo
 * `Album#populateAlbum()` - Updates list of images in `Album` class.
 
 * `Album#refreshAlbum()` - Updates and displays the latest images in `assets` folder on the GUI.
-
-
 
 Given below is an example usage scenario and how the `save` mechanism behaves at each step.
 

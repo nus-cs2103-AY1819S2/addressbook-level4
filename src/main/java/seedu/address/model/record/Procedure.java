@@ -1,20 +1,20 @@
 package seedu.address.model.record;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a procedure of a record.
  * Guarantees: immutable; is valid as declared in {@link #isValidProcedure(String)}
  */
 public class Procedure {
-    private static final Set<String> procedureSet = new HashSet<>(Arrays.asList("surgery", "others"));
-    public static final String MESSAGE_CONSTRAINTS = "Procedures should only contain alphanumeric characters, and it "
-        + "should not be blank";
+    public static final String[] PROCEDURE_LIST = new String[] {"Consultation", "Preventive", "Fillings", "Crown",
+        "Gum", "Extraction", "Replacement", "Braces", "Aesthetic", "Implants", "Other"};
 
     /*
      * The first character of the description must not be a whitespace,
@@ -22,8 +22,13 @@ public class Procedure {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public final String procedureType;
-    public final String typeDetails;
+    public static final String MESSAGE_CONSTRAINTS = "Procedures should divided by a -, and only contain alphanumeric"
+        + " characters, and it should not be blank";
+
+    private static final Set<String> procedureSet = new HashSet<>(Arrays.asList(PROCEDURE_LIST));
+
+    private final String procedureType;
+    private final String typeDetails;
 
     /**
      * Constructs a {@code Procedure}

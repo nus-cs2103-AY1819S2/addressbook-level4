@@ -160,10 +160,13 @@ public class Person {
         return getName().toString();
     }
 
+    /**
+     * Returns just the surname of the Persons name as a string
+     */
     public String surnamesToString() {
         String fullName = namesToString();
         int finalSpace =  fullName.lastIndexOf(" ");
-        return fullName.substring(finalSpace+1);
+        return fullName.substring(finalSpace + 1);
     }
 
     public String gpaToString() {

@@ -26,12 +26,12 @@ This project is morphed from link:https://github.com/nus-cs2103-AY1819S2/address
 ** Project management:
 *** Managed releases `v1.2` on GitHub. (link:https://github.com/CS2103-AY1819S2-W10-3/main/releases/tag/1.2[Releases v1.2])
 ** Documentation:
-*** Remove header of original project for project website: https://github.com[#48]
+*** Remove header of original project for project website: https://github.com/CS2103-AY1819S2-W10-3/main/pull/48[#48]
 ** Community:
-*** PRs reviewed: https://github.com[#39], https://github.com[#94], https://github.com[#99]
-*** Reported bugs and suggestions for teammates (examples:  https://github.com[#39])
+*** PRs reviewed: https://github.com/CS2103-AY1819S2-W10-3/main/pull/39[#39], https://github.com/CS2103-AY1819S2-W10-3/main/pull/94[#94], https://github.com/CS2103-AY1819S2-W10-3/main/pull/99[#99]
+*** Reported bugs and suggestions for teammates (examples:  https://github.com/CS2103-AY1819S2-W10-3/main/pull/39[#39])
 ** Tools:
-*** Modify the Gradle automation script to auto publish the static pages into gh-pages branch. (https://github.com[#45])
+*** Modify the Gradle automation script to auto publish the static pages into gh-pages branch. (https://github.com/CS2103-AY1819S2-W10-3/main/pull/45[#45])
 
 == Contributions to the User Guide
 
@@ -57,4 +57,4 @@ include::../DeveloperGuide.adoc[tag=display]
 
 ---
 
-_{Optionally, you may include other projects in your portfolio.}_
+

@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import seedu.address.model.Model;
+import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
 
 /**
@@ -13,6 +14,7 @@ import seedu.address.model.person.Patient;
  */
 public class ModelHelper {
     private static final Predicate<Patient> PREDICATE_MATCHING_NO_PERSONS = unused -> false;
+    private static final Predicate<Doctor> PREDICATE_MATCHING_NO_DOCTORS = unused -> false;
 
     /**
      * Updates {@code model}'s filtered list to display only {@code toDisplay}.
@@ -36,4 +38,28 @@ public class ModelHelper {
     private static Predicate<Patient> getPredicateMatching(Patient other) {
         return patient -> patient.equals(other);
     }
+
+    /**
+     * Updates {@code model}'s filtered list to display only {@code toDisplay}.
+     */
+    public static void setFilteredDoctorList(Model model, List<Doctor> toDisplay) {
+        Optional<Predicate<Doctor>> predicate =
+                toDisplay.stream().map(ModelHelper::getDoctorPredicateMatching).reduce(Predicate::or);
+        model.updateFilteredDoctorList(predicate.orElse(PREDICATE_MATCHING_NO_DOCTORS));
+    }
+
+    /**
+     * @see ModelHelper#setFilteredDoctorList(Model, List)
+     */
+    public static void setFilteredDoctorList(Model model, Doctor... toDisplay) {
+        setFilteredDoctorList(model, Arrays.asList(toDisplay));
+    }
+
+    /**
+     * Returns a predicate that evaluates to true if this {@code Doctor} equals to {@code other}.
+     */
+    private static Predicate<Doctor> getDoctorPredicateMatching(Doctor other) {
+        return doctor -> doctor.equals(other);
+    }
+
 }

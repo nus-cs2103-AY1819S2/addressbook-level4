@@ -34,20 +34,33 @@ public class CommandTestUtil {
 
     // for add-doctor testing (initial addition of add-doctor)
     public static final String VALID_NAME_JOHN = "John Doe";
+    public static final String VALID_NAME_ALVINA = "Alvina Ong";
     public static final String VALID_GENDER_JOHN = "M";
+    public static final String VALID_GENDER_ALVINA = "F";
     public static final String VALID_AGE_JOHN = "21";
-    public static final String VALID_PHONE_JOHN = "99999999";
+    public static final String VALID_AGE_ALVINA = "28";
+    public static final String VALID_PHONE_JOHN = "91612342";
+    public static final String VALID_PHONE_ALVINA = "82376447";
     public static final String VALID_SPECIALISATION_ACUPUNCTURE = "acupuncture";
     public static final String VALID_SPECIALISATION_MASSAGE = "massage";
+    public static final String VALID_SPECIALISATION_GENERAL = "general";
 
     public static final String NAME_DESC_JOHN = " " + PREFIX_NAME + VALID_NAME_JOHN;
+    public static final String NAME_DESC_ALVINA = " " + PREFIX_NAME + VALID_NAME_ALVINA;
     public static final String GENDER_DESC_JOHN = " " + PREFIX_GENDER + VALID_GENDER_JOHN;
+    public static final String GENDER_DESC_ALVINA = " " + PREFIX_GENDER + VALID_GENDER_ALVINA;
     public static final String AGE_DESC_JOHN = " " + PREFIX_AGE + VALID_AGE_JOHN;
+    public static final String AGE_DESC_ALVINA = " " + PREFIX_AGE + VALID_AGE_ALVINA;
     public static final String PHONE_DESC_JOHN = " " + PREFIX_PHONE + VALID_PHONE_JOHN;
+    public static final String PHONE_DESC_ALVINA = " " + PREFIX_PHONE + VALID_PHONE_ALVINA;
     public static final String SPECIALISATION_DESC_ACUPUNCTURE = " " + PREFIX_SPECIALISATION
             + VALID_SPECIALISATION_ACUPUNCTURE;
     public static final String SPECIALISATION_DESC_MASSAGE = " " + PREFIX_SPECIALISATION
             + VALID_SPECIALISATION_MASSAGE;
+    public static final String SPECIALISATION_DESC_GENERAL = " " + PREFIX_SPECIALISATION
+            + VALID_SPECIALISATION_GENERAL;
+    public static final String INVALID_SPECIALISATION_DESC = " " + PREFIX_SPECIALISATION + "general*";
+    // '*' not allowed in tags
     // end of add-doctor testing
 
     public static final String VALID_NAME_AMY = "Amy Bee";

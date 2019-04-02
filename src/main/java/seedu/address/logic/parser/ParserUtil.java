@@ -180,8 +180,8 @@ public class ParserUtil {
     public static Specialisation parseSpecialisation(String spec) throws ParseException {
         requireNonNull(spec);
         String trimmedSpec = spec.trim();
-        if (!Tag.isValidTagName(trimmedSpec)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        if (!Specialisation.isValidSpecialisation(trimmedSpec)) {
+            throw new ParseException(Specialisation.MESSAGE_CONSTRAINTS);
         }
         return new Specialisation(trimmedSpec);
     }

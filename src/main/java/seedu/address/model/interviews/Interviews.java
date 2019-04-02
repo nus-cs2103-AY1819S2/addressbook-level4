@@ -1,6 +1,11 @@
 package seedu.address.model.interviews;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.PriorityQueue;
 
 import seedu.address.model.interviews.exceptions.InterviewsPresentException;
 import seedu.address.model.person.Person;
@@ -120,6 +125,9 @@ public class Interviews {
         return result;
     }
 
+    /**
+     * Checks if the calendarList contains the date.
+     */
     private static boolean containsDate(List<Calendar> calendarList, Calendar date) {
         int year = date.get(Calendar.YEAR);
         int month = date.get(Calendar.MONTH);

@@ -2,9 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.interviews.Interviews.HOUR;
+import static seedu.address.model.interviews.Interviews.MILLISECOND;
 import static seedu.address.model.interviews.Interviews.MINUTE;
 import static seedu.address.model.interviews.Interviews.SECOND;
-import static seedu.address.model.interviews.Interviews.MILLISECOND;
 
 import java.util.ArrayList;
 import java.util.Calendar;

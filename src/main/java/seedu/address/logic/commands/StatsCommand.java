@@ -23,9 +23,8 @@ public class StatsCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + " : Shows statistics for the identified patient. Patient can be identified either by the index number in "
         + "the displayed person list OR by keyword.\n"
-        + "Parameters: INDEX (must be positive integer) or KEYWORD \n"
+        + "Parameters: INDEX (must be positive integer) \n"
         + "Example 1: " + COMMAND_WORD + " 3\n"
-        + "Example 2: " + COMMAND_WORD + " alice\n";
 
     public static final String MESSAGE_SUCCESS = "Statistic for patient %1$s printed!";
 

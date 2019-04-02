@@ -15,10 +15,10 @@ public class FilterCommand extends Command {
 
     public static final String COMMAND_WORD = "filter";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters all restaurants whose category matches any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters all restaurants whose categories match any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: CUISINE\n"
-            + "Example: " + COMMAND_WORD + " Fast Food";
+            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+            + "Example: " + COMMAND_WORD + " Western $$";
 
     private final CategoriesContainKeywordsPredicate predicate;
 

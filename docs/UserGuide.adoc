@@ -199,24 +199,6 @@ Returns any person whose major is `CS` and school is `NUS`
 * `search gr/3.0-4.0 1.0-2.0` +
 Returns any person whose grade is in range of 3.0-4.0 or 1.0-2.0.
 
-==== Adding tags base on personal information : `addtag`
-
-Adds tag for people by their personal information. +
-Format: `addtag TAGNAME [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [mo/MOUDLE]`
-
-****
-* Adds tag for people at the specified field.
-* The TAGNAME refers to the tag name you want to add to people.
-* Persons matching all keywords will be add tag (i.e. `AND` search).
-****
-
-Examples:
-
-* `addtag CS m/CS`
-Add CS tag for all people whose major is `CS`.
-* `addtag Assignment t/friend m/CS`
-Add `Assignment` tag for all people whose major is `CS` and have tag `friend`.
-
 ==== Deleting a person : `delete`
 
 Deletes the specified person from the address book. +

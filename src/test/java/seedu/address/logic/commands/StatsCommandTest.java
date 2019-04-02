@@ -37,18 +37,18 @@ public class StatsCommandTest {
     }
 
     @Test
-    public void execute_minusMove_success() {
+    public void execute_addMove_success() {
         PlayerStatistics p1 = new PlayerStatistics();
-        assertEquals(9, p1.addMove());
-        assertEquals(8, p1.addMove());
+        assertEquals(1, p1.addMove());
+        assertEquals(2, p1.addMove());
     }
 
     @Test
     public void execute_getMovesLeft_success() {
         PlayerStatistics p1 = new PlayerStatistics();
-        assertEquals(10, p1.getMovesMade());
+        assertEquals(0, p1.getMovesMade());
         p1.addMove();
-        assertEquals(9, p1.getMovesMade());
+        assertEquals(1, p1.getMovesMade());
     }
 
     @Test

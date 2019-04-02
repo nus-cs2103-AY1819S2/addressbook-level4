@@ -320,6 +320,7 @@ For example, 2 correct attempts and 4 total attempts becomes 0.5. When instantia
 
 The report feature is meant to provide the user with the ability to look back and compare their folder score from
 previous test sessions.
+
 ==== Design Considerations
 
 ===== Aspect: How to display folder scores
@@ -340,6 +341,7 @@ previous test sessions.
 Previously, Model did not have a concept of state as there was only one screen where the user could be. But
 as Know-It-All grew, there are more screens that a user can be in and more commands that can only be executed in certain
 screens. Thus there is a need to manage the state in Model.
+
 ==== Design Considerations
 
 ===== Aspect: How to manage state

@@ -60,7 +60,7 @@ public class StringUtil {
         requireNonNull(sentence);
         requireNonNull(word);
 
-        Float value = Float.parseFloat(word);
+        float value = Float.parseFloat(word);
 
         String preppedSentence = sentence.trim();
         checkArgument(!preppedSentence.isEmpty(), "Range parameter cannot be empty");

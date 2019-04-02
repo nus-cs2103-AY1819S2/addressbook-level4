@@ -260,7 +260,7 @@ Alternative command: `end`
 * The program will end the player's turn and automatically play the Enemy's turn.
 The player can see the enemy's attack reflected on the map and in the results box.
 ****
-
+// tag::stats[]
 === Retrieving game statistics: `stats`
 
 Prints a list of statistics related to gameplay, such as accuracy and current hits. +
@@ -269,7 +269,7 @@ Format: `stats`
 Example:
 
 * `stats`
-
+// end::stats[]
 // tag::undoredo[]
 === Undoing previous command : `undo`
 

@@ -974,7 +974,7 @@ remember it better
 |=======================================================================
 
 [appendix]
-== Use Cases
+== Use cases
 
 
 [discrete]

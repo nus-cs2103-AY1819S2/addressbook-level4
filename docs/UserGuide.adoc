@@ -32,7 +32,7 @@ Welcome to the *Know-It-All* User Guide! This document will equip you with what 
 == Quick Start
 
 .  Ensure that you have Java version `9` or later installed in your Computer.
-.  Download the latest `know-it-all.jar` here (to be coming in v2.0).
+.  Download the latest `know-it-all.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for *Know-It-All*.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -67,8 +67,12 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Commands listed in this section affect the <<flashcard, flashcards>> within a single <<folder, folder>>.
 
 [NOTE]
-The commands in this section can only be executed when the user is within a folder
+The commands in this section can only be executed when you are within a folder
 
+[NOTE]
+The commands in this section are also not valid inside a test or report session.
+
+// tag::add[]
 ==== Adding a flashcard : `add`
 
 Adds a flashcard to the current folder. Know-It-All supports 2 types of flashcards: **Single answer cards** and **MCQ** cards.
@@ -78,6 +82,8 @@ Format **(MCQ)**: `add q/QUESTION a/ANSWER [i/INCORRECT_OPTION]... [h/HINT]`
 
 ====
 * A card can have at most 1 hint (including 0)
+* If multiple hints are included in the command, only the last hint will be added to the card
+* Hints are currently restricted to alphanumerical characters and spaces only
 * A card can have any number of incorrect options to denote an MCQ card
 * A card with 0 incorrect options will automatically be denoted as a Single answer card
 ====
@@ -87,8 +93,11 @@ Examples:
 * `add q/Hello? a/World`
 * `add q/The cat ___ on the mat a/sat h/poetry`
 * `add q/What is the powerhouse of the cell? a/mitochondria i/cell wall i/nucleus h/biology`
+* `add q/The Hippocrates Oath states to Do no ___? a/harm h/4 letters h/Rhymes with farm` +
+Creates a card with `hint` "Rhymes with farm".
+// end::add[]
 
-
+// tag::edit[]
 ==== Editing a flashcard : `edit`
 
 Edits the flashcard specified by the <<index, index>> in the current folder.
@@ -109,7 +118,7 @@ Examples:
 Edits the answer of the 1st card to be 'Skin' and removes the hint associated, if any.
 * `edit 2 h/history q/Who discovered Penicillin? a/Alexander Fleming` +
 Edits the hint, question and answer of the 2nd card respectively.
-
+// end::edit[]
 
 ==== Selecting a flashcard : `select`
 
@@ -145,6 +154,12 @@ Displays all flashcards sorted such that the lowest <<cardscore, card scores>> a
 
 Format: `sort`
 
+==== Search by keywords : `search`
+
+Within a folder, searches for flashcards inside the current folder using keywords in flashcard questions.
+
+Format: `search KEYWORDS [MORE_KEYWORDS]`
+
 ==== List flashcards : `list`
 
 Display a list of the flashcards in the current folder, where only questions can be seen, answers are hidden.
@@ -154,6 +169,13 @@ Format: `list`
 ====
 * This command is implicitly invoked upon entering a folder, and can be used to reset the view after search or sort.
 ====
+
+==== Search by keywords : `search`
+
+You can search for flashcards inside the current folder using keywords in flashcard questions.
+
+Format: `search KEYWORDS [MORE_KEYWORDS]`
+
 
 // tag::undoredo[]
 ==== Undoing previous command : `undo`
@@ -236,6 +258,9 @@ Commands listed in this section affect the application and not a single folder.
 [NOTE]
 The commands in this section can only be executed when you are at the home directory, outside of any folder
 
+[NOTE]
+The commands in this section are also not valid inside a test or report session.
+
 ==== Create new folder : `addfolder`
 
 Creates a new flashcard folder with the specified name.
@@ -299,7 +324,44 @@ Enters the second folder in the folder list on the home directory.
 This feature will enable users to join multiple folders together, reducing the number of folders and grouping two topics.
 
 Format: `merge FOLDER_INDEX_1 FOLDER_INDEX_1 NEW_FOLDER_NAME`
+
+==== Import flashcards : `import`
+
+Searches for a csv file in the root project directory and parses the file to generate a flashcard folder.
+
+NOTE: The csv file imported should follow the format below
+
+
+
+Format: `import FILENAME`
+
+==== Export flashcards : `export`
+
+Creates a csv file containing the flashcards from the specified folder, which can later be imported.
+Exported card folder will be created in the project root directory.
+
+Format: `export FOLDER_INDEX FILENAME [MORE_INDEXES]`
+
 //end::folderoperations[]
+
+
+==== Import flashcards : `import`
+
+Searches for a csv file in the root project directory and parses the file to generate a flashcard folder.
+
+NOTE: The csv file imported should follow the format below
+
+
+
+Format: `import FILENAME`
+
+==== Export flashcards : `export`
+
+Creates a csv file containing the flashcards from the specified folder, which can later be imported.
+Exported card folder will be created in the project root directory.
+
+Format: `export FOLDER_INDEX FILENAME [MORE_INDEXES]`
+
 
 //tag::testoperations[]
 === Test Operations
@@ -317,6 +379,9 @@ Format: `test`
 
 [NOTE]
 This command is only considered valid when inside the folder to be tested and is not already inside a test session.
+
+[NOTE]
+This command is invalid if the current folder is empty as there will be no flashcards to test.
 
 ====
 * Only questions and hints are presented and users are required to either input an attempt or enter the command to
@@ -381,7 +446,7 @@ in response to the card question: What is the powerhouse of the cell?
 image::AnsweringMcqCard.png[width="790"]
 
 * `ans 4` +
-in response to the card displayed in Figure 4, where choosing option 4 will give the right answer.
+in response to the card displayed above, where choosing option 4 will give the right answer.
 
 [NOTE]
 This command is only considered valid if a card question is currently being
@@ -459,35 +524,11 @@ Format: `end`
 //end::reportoperations[]
 
 === Global Operations
-The commands shown in this section are applicable regardless of whether the user is inside a folder or at the home directory.
-
-==== Search by keywords : `search`
-
-At the root directory, searches for folders using keywords in folder names. Within a folder, user can search for flashcards inside the current folder using keywords in flashcard questions.
-
-Format: `search KEYWORDS [MORE_KEYWORDS]`
-
-
-==== Import flashcards : `import`
-
-Searches for a csv file in the root project directory and parses the file to generate a flashcard folder.
-
-NOTE: The csv file imported should follow the format below
-
-
-
-Format: `import FILENAME`
-
-==== Export flashcards : `export`
-
-Creates a csv file containing the flashcards from the specified folder, which can later be imported.
-Exported card folder will be created in the project root directory.
-
-Format: `export FOLDER_INDEX FILENAME [MORE_INDEXES]`
-
-
+The commands shown in this section are applicable anywhere in the application.
 
 ==== Viewing help : `help`
+
+Opens the User Guide in a new window.
 
 Format: `help`
 
@@ -535,11 +576,10 @@ this number is automatically calculated and recorded.
 |`reveal` | Immediately reveals the correct answer.
 |`next` | Presents the next lowest score flashcard in this current test session.
 |`end` | Quits the current test session or report display.
-|`search KEYWORDS [MORE_KEYWORDS]` | At the root directory, searches for folders using keywords in folder names. +
-Within a folder, user can search for flashcards inside the current folder using keywords in flashcard questions.
+|`search KEYWORDS [MORE_KEYWORDS]` | Searches for flashcards inside the current folder using keywords in flashcard questions.
 |`import FILENAME` | Imports a file with the specified name.
 |`export FOLDER_INDEX FILENAME` | Creates a json file containing the flashcards from the specified folder, which can later be imported.
-|`help` | Brings up help information.
+|`help` | Opens the User Guide in a new window.
 |`exit` | Exits the application.
 |=======================================================================
 //end::glossarycmdsummary[]

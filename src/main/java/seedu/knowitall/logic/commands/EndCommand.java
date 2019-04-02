@@ -19,18 +19,15 @@ public class EndCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        if (!model.isInTestSession() && !model.inReportDisplay()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN);
-        }
-
-        if (model.isInTestSession()) {
+        switch(model.getState()) {
+        case IN_TEST:
             model.endTestSession();
             return new CommandResult(MESSAGE_END_TEST_SESSION_SUCCESS, CommandResult.Type.END_TEST_SESSION);
-        } else {
+        case IN_REPORT:
             model.exitReportDisplay();
             return new CommandResult(MESSAGE_END_REPORT_DISPLAY_SUCCESS, CommandResult.Type.EXITED_REPORT);
+        default:
+            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN);
         }
-
     }
-
 }

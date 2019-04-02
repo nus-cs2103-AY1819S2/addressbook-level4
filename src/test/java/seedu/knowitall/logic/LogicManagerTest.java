@@ -56,6 +56,7 @@ public class LogicManagerTest {
         cardFolderStorageList.add(cardFolderStorage);
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(cardFolderStorageList, userPrefsStorage);
+        model.enterFolder(0);
         logic = new LogicManager(model, storage);
     }
 
@@ -95,6 +96,7 @@ public class LogicManagerTest {
         String addCommand = AddCommand.COMMAND_WORD + QUESTION_DESC_SAMPLE_1 + ANSWER_DESC_SAMPLE_1;
         Card expectedCard = new CardBuilder(CARD_1).withHint().build();
         ModelManager expectedModel = new ModelManager(this.getClass().getName());
+        expectedModel.enterFolder(0);
         expectedModel.addCard(expectedCard);
         expectedModel.commitActiveCardFolder();
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
@@ -140,6 +142,7 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
         Model expectedModel = new ModelManager(Collections.singletonList(model.getActiveCardFolder()),
                 new UserPrefs());
+        expectedModel.enterFolder(model.getActiveCardFolderIndex());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 

@@ -62,6 +62,13 @@ public class SystemTestSetupHelper {
     }
 
     /**
+     * Initialises the {@code CardListPanelHandle} in the {@code mainWindowHandle}.
+     */
+    public void initialiseCardListPanelHandle() {
+        mainWindowHandle.initialiseCardListPanelHandle();
+    }
+
+    /**
      * Tears down existing stages.
      */
     public void tearDownStage() {

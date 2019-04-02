@@ -28,6 +28,16 @@ public interface Model extends Observable {
     Comparator<Card> COMPARATOR_LEXICOGRAPHIC_CARDS = Comparator.comparing(Card::getQuestion);
 
     /**
+     * Represents the location the user is in.
+     */
+    enum State {
+        IN_FOLDER,
+        IN_HOMEDIR,
+        IN_TEST,
+        IN_REPORT,
+    }
+
+    /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
@@ -140,11 +150,6 @@ public interface Model extends Observable {
      */
     void exitFolderToHome();
 
-    /**
-     * Returns true if the Model is in an active {@code CardFolder}.
-     */
-    boolean isInFolder();
-
     /** Returns an unmodifiable view of the filtered card list */
     ObservableList<Card> getFilteredCards();
 
@@ -222,12 +227,6 @@ public interface Model extends Observable {
     Card getCurrentTestedCard();
 
     /**
-     * Returns true if user is in a test session
-     * false user is not.
-     */
-    boolean isInTestSession();
-
-    /**
      * End the current test session.
      */
     void endTestSession();
@@ -262,12 +261,11 @@ public interface Model extends Observable {
      */
     boolean isCardAlreadyAnswered();
 
+    State getState();
 
     void exportCardFolders(List<Integer> cardFolderExports) throws IOException, CsvManagerNotInitialized;
 
     void importCardFolders(CsvFile csvFile) throws IOException, CommandException;
-
-    boolean inReportDisplay();
 
     void enterReportDisplay();
 

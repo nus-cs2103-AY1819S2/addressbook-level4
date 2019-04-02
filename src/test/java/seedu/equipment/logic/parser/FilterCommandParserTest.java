@@ -14,7 +14,7 @@ import seedu.equipment.model.equipment.EquipmentContainsKeywordsPredicate;
 
 public class FilterCommandParserTest {
 
-    private seedu.equipment.logic.parser.FilterCommandParser parser = new FilterCommandParser();
+    private FilterCommandParser parser = new FilterCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
@@ -26,10 +26,17 @@ public class FilterCommandParserTest {
     public void parse_validArgs_returnsFilterCommand() {
         // no leading and trailing whitespaces
         FilterCommand expectedFilterCommand =
-                new FilterCommand(new EquipmentContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
-        assertParseSuccess(parser, "Alice Bob", expectedFilterCommand);
+                new FilterCommand(new EquipmentContainsKeywordsPredicate(Arrays.asList("Jurong", "Bedok"),
+                        Arrays.asList("jurong", "bedok"), Arrays.asList("30 November", "September"),
+                        Arrays.asList("987617", "9293"), Arrays.asList("west", "east"), Arrays.asList("A00", "X10")));
+        assertParseSuccess(parser,
+                " n/Jurong n/Bedok a/jurong a/bedok pm/30 November pm/September p/987617 p/9293 "
+                        + "t/west t/east s/A00 s/X10", expectedFilterCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFilterCommand);
+        assertParseSuccess(parser, " n/Jurong \n n/Bedok          "
+                + "a/jurong    \n a/bedok \n pm/30 November pm/September p/987617 p/9293 "
+                + "                t/west t/east s/A00 s/X10", expectedFilterCommand);
     }
+
 }

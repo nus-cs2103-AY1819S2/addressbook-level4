@@ -30,15 +30,15 @@ Follow the steps below to set up your computer to run FomoFoto.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 .Home Page of FomoFoto
-image::Ui.PNG[width="800"]
+image::Ui.png[width="800"]
 +
 .  And you have just started up FomoFoto on your device! You can refer to <<Features>> for details of each command. If you would like a step-by-step walk through of our application, scroll down to the next section: A Walk Through.
 
-
+// tag::AWalkThrough[]
 == A Walk Through
-Let's start on our image editing journey, shall we? In this walk through, we will be learning some simple commands to edit a sample image! Let's get started!
+Let's start on our image editing journey. In this walk through, we will be demonstrating some simple commands to edit a sample image.
 
-.  Head over to this https://twistedsifter.files.wordpress.com/2012/03/squirrel-photobomb-banff.jpg[`link`] over here to get a suggested sample image to start from. Alternatively, you can choose any image you have in your own device currently.
+.  Head over to this https://twistedsifter.files.wordpress.com/2012/03/squirrel-photobomb-banff.jpg[`link`] to get a suggested sample image to start from.
 
 .  Save the image in any desired folder you like on your device, like your Pictures folder for example. Name your image *squirrel.jpg*.
 
@@ -48,48 +48,61 @@ Let's start on our image editing journey, shall we? In this walk through, we wil
 * In Windows: Hold on to the kbd:[Shift] key and *right click* on your image file. Click the option *Copy path*.
 * In Mac: Go to terminal and navigate to your image file. Type 'pwd' to get the filepath to your image file and copy paste.
 
-.  You can now go back to the FomoFoto application. You would now want to import the image into FomoFoto. In the Command Line, type as follows:
+.  Go back to the FomoFoto application. Import the image into FomoFoto by typing as follows:
 +
 .Import Command
-image::import.JPG[width="912"]
+image::import.PNG[width="912"]
 +
-. Then, while keeping your cursor on the command line, paste the file path, by simultaneously pressing kbd:[Ctrl] and kbd:[V] keys.
-* In Windows: if you used the above method to copy the filepath, please remove the kbd:["] and kbd:["] signs on the two ends of the filepath.
+.  Paste the file path by simultaneously pressing kbd:[Ctrl] and kbd:[V] keys.
+* In Windows: Remove the kbd:["] and kbd:["] signs at the two ends of the filepath.
 
-.  Your final command should look something like this, with a different filepath:
+.  Ensure your final command looks similar to the figure below (filepath may differ):
 +
 .Import with Filepath
-image::importCommand.JPG[width="915"]
+image::importCommand.PNG[width="915"]
 +
 
-.  Then, you can press kbd:[Enter] to execute the import command. Tadah! Your image is now displayed on the FomoFoto application. Your screen should be similar to this.
+.  Press kbd:[Enter] to execute the import command. Your image should be now displayed on the Album tab on the FomoFoto application as shown in the figure below.
 +
 .Import Success
-image::importSuccess.JPG[width="917"]
+image::importSuccess.PNG[width="917"]
 +
 
-. Now let's move on to other commands, shall we? Now suppose you want to decrease the brightness of the photo slightly, maybe 0.9 of the original brightness. So, you type the following command: `brightness 0.9 squirrel.jpg`.
+.  Open the imported image in FomoFoto by typing as follows:
++
+.Open Command
+image::open.PNG[width="917"]
++
+
+.  Press kbd:[Enter] to execute the open command. Your image should be now displayed on the FomoFoto application as shown in the figure below.
++
+.Open Success
+image::openImage.PNG[width="917"]
++
+
+.  Increase the brightness of the image by typing the following command: `brightness 2.0`. This doubles the brightness of the image.
 
 +
 .Brightness Command
-image::brightnessCommand.JPG[width="915"]
+image::brightnessCommand.PNG[width="915"]
 +
 
-.  Once you press kbd:[Enter], FomoFoto will inform you that the filter has been applied successfully, like the image below:
-
+.  Press kbd:[Enter]. Your image should be brighter as shown in the figure below.
 +
 .Brightness Success
-image::brightnessSuccess.JPG[width="917"]
+image::brightnessSuccess.PNG[width="917"]
 +
 
-.  Now, you seem to prefer to just have the cute squirrel instead of the humans behind. So, it makes sense that you want to crop the humans away. You can then make use of the crop command: `crop 310 250 140 200 squirrel.jpg` to crop the humans away. After executing, your application would look something like this:
+.  Crop your photo by typing the following command: `crop 310 250 140 200 squirrel.jpg`. Press kbd:[Enter]. Your image should look similar as the figure below.
 
 +
 .Crop Success
 image::cropSuccess.PNG[width="918"]
 +
 
-.  To save, simply use the save command: `save`. Voila! You're done!
+// end::AWalkThrough[]
+
+.  Save your edits by typing command: `save`.
 
 [[Features]]
 == Features
@@ -103,6 +116,7 @@ This section describes all the commands available in FomoFoto and includes examp
 
 ====
 
+// tag::BlackWhiteCommand[]
 === Black and White Filter : `bw`
 
 Applies black and white filter on opened image based on an integer threshold value. If threshold value is not specified, the black and white filter will use a preset threshold value of 127. Pixels lighter than the threshold value will become white and pixels darker than the threshold value will become black. +
@@ -112,7 +126,9 @@ Examples:
 
 * `bw` (threshold value preset to 127)
 * `bw 130`
+// end::BlackWhiteCommand[]
 
+// tag::BrightnessCommand[]
 === Brightness: `brightness`
 
 Adjusts the brightness of the opened image based on a double-valued ratio. If the brightness ratio is not specified, a preset ratio value of 1.1 will be used. +
@@ -123,8 +139,9 @@ Examples:
 * `brightness` (brightness ratio preset to 1.1)
 * `brightness 1.9` (increases brightness)
 * `brightness 0.3` (reduces brightness)
+// end::BrightnessCommand[]
 
-
+// tag::ContrastCommand[]
 === Contrast: `contrast`
 
 Adjusts the contrast of the opened image based on a double-valued ratio. If the contrast ratio is not specified, a preset ratio value of 1.1 will be used.+
@@ -135,8 +152,9 @@ Examples:
 * `contrast` (contrast ratio preset to 1.1)
 * `contrast 1.4` (increases contrast)
 * `contrast 0.3` (reduces contrast)
+// end::ContrastCommand[]
 
-
+// tag::CropCommand[]
 === Crop an image : `crop`
 
 Crops an image based on given top left hand corner coordinates, width and height of final cropped image wanted. +
@@ -149,6 +167,8 @@ Format: `crop X_POINTCOORD Y_POINTCOORD WIDTH HEIGHT`
 Example:
 
 * `crop 2 3 500 500`
+
+// end::CropCommand[]
 
 === Exit the program : `exit`
 
@@ -177,6 +197,7 @@ Example:
 
 * `import Users/Fomo/Pictures/sample.jpg`
 
+// tag::ListAndOpen[]
 === List Files: `listfiles`
 
 Lists all files in assets folder. +
@@ -190,7 +211,9 @@ Format: `open FILENAME`
 Example:
 
 * `open sample.jpg`
+// end::ListAndOpen[]
 
+//tag ::Redo[]
 === Redo edit steps : `redo`
 
 Returns to a previously undone state. +
@@ -214,7 +237,9 @@ Examples:
 `undo` (reverses the `contrast 0.3`) +
 `redo` (runs `contrast 0.3` command again) +
 `redo` (runs `crop 2 3 500 500` command again)
+// end::Redo[]
 
+// tag::RotateCommand[]
 === Rotate an image : `rotate`
 
 Rotates the photo by a given degree provided by the user. Only 90, 180 or 270 degrees of rotation is allowed. +
@@ -223,7 +248,9 @@ Format: `rotate ANGLE`
 Example:
 
 * `rotate 90`
+// end::RotateCommand[]
 
+// tag::ResizeCommand[]
 === Resize an image : `resize`
 
 Resizes the photo to a given width and height provided by the user. +
@@ -232,7 +259,9 @@ Format: `resize WIDTH HEIGHT`
 Example:
 
 * `resize 100 200`
+// end::ResizeCommand[]
 
+// tag::UserSave[]
 === Save image : `save`
 
 Applies and saves your edits. +
@@ -241,7 +270,9 @@ Format: `save` or `save FILENAME`
 Example:
 
 * `save MyNewImage.png`
+// end::UserSave[]
 
+// tag::Undo[]
 === Undo edit steps : `undo`
 
 Goes back to the previous state of the image. +
@@ -249,7 +280,7 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the image (`rotate`, `crop`, `brightness`, `contrast` and `bw`).
+Undoable commands: those commands that modify the image (`rotate`, `crop`, `resize`, `brightness`, `contrast` and `bw`).
 ====
 
 Examples:
@@ -262,8 +293,41 @@ Examples:
 `crop 2 3 500 500` +
 `undo` (reverses the `crop 2 3 500 500` command +
 `undo` (reverses the `contrast 0.3`)
+// end::Undo[]
+
+// tag::UpcomingFeatures[]
+== Upcoming Features (in v2.0)
+
+=== Layer
+
+Format: `layer add (layer name)` -> Creates a new layer for the user to work on.
+
+Example:
+
+* `layer add BW-layer` adds a new layer with name BW-layer.
 
 
+Format: `layer select (layer name)` -> Selects the layer the user wants to work on.
+
+Example:
+
+* `layer select BW-layer` selects the BW-layer.
+
+Format: `layer delete (layer name)` -> deletes the layer with input name.
+
+Example:
+
+* `layer delete (BW-layer)` -> deletes the BW-layer
+
+This command is not undo-able and transformations on each layer do not affect other layers.
+
+
+=== Ruler
+
+Format: `ruler [ON|OFF]` -> Toggles a ruler that surrounds the canvas. This will help you in estimating the number of pixels to move when using `layer position` or resizing objects.
+
+
+// tag::CommandSummary[]
 == Command Summary
 Below is a quick summary of all the commands available in FomoFoto.
 
@@ -306,3 +370,4 @@ e.g. `resize 100 200` +
 e.g. `save MyNewImage.png` +
 
 * *Undo* `undo` +
+// end::CommandSummary[]

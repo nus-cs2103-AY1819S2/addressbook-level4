@@ -1,56 +1,74 @@
-= Addison Ho - Project Portfolio
+= Addison Ho's Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: FomoFoto
+== Project Title: FomoFoto
+=== Overview
+My team and I were tasked with enhancing a basic command line addressbook for our Software Engineering project. We decided to morph the project into a image editor. +
 
-== Overview
+FomoFoto is a robust yet simple image-editing tool. Users interact with the application through worded commands from their keyboard, and receive visual feedback from it through the displayed image on the application. +
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Unlike other heavy image editors, FomoFoto has a very gentle learning curve as it abstracts out clutter by providing the more essential features (complex editing can still be done with special commands). The features and implementations are well documented in guides for users and developers respectively.
 
-== Summary of contributions
+=== Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *overall UI/UX design and interaction*.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** What it does: As a photo editor, it is pivotal for end-users to be able to see the images they are editing. Updates to the UI/UX allows for end-users to see their updates and image data in realtime. Adds an interface in the form of `Notifier` for components to interact with each other and draw updates to the UI.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+** Justification: This feature comprise of five components, the init panel the image view, imported images panel, exif panel, and command history panel. The initpanel gives a detailed help message on application start. The image view is core to a photo editor for end-users to see the changes they making to their image. The three panels enhances to product significantly, by allowing users an intutive way to see all a) the images they have one in one look b) the exif data attached to that image and c) any command they have previously commited to the image.
+
+** Highlights: This enhancement affects all exisiting commands that redraws the UI. This is in part due to the redesign of the overall UI and interface for components attached to it. The implementation is incredibly complex due the sheer number of UI elements working in tandem. Extensive research has been placed to ensure the UI remains as intuitive as possible i.e. hidding elements/image padding and color scheme to ensure end-users have the best user experience.
+
+* *Major enhancement*: added *importing of images*.
+** What it does: Allows for end-users to import any image into FomoFoto that they wish to edit. This can be done by means of a single file or an entire directory (non-recursive).
+
+** Justification: This feature is core to the operation of FomoFoto. Without importing images, FomoFoto cannot run i.e. edit images sine there are no images in the system to modify.
+
+** Highlights: This enhancement requires many checks to ensure the image is valid and the system can handle. For example, images that are two big will be reject by JavaFX. Images that are too large in size will also trigger a out-of-memory error. Images that do not fit the MIME image format are rejected since they cannot be edited not opened by the image panel.
+
+* *Major enhancement*: added *Image Class*.
+** What it does: Breaksdown any opened image into a reusable, extensible Image object with helper fields and methods.
+
+** Justification: This feature allows for other operations to utilize any imported image more efficiently since it is hard to parse the raw image format. The creation of this feature also allows for each image to manage its own edit history therby allowing the functionality of redo and undo.
+
+** Highlights: This enhancement affects all files being imported into FomoFoto. This means any command interacting with images in the system should conform to the Image class and its fields. The fields include validation checks to ensure the fields being created are valid for an image object.
+
+* *Minor enchancement*: Added a Tab Command. The inclusion of the Tab Command allows GUI-less interaction of the information panel.
+* *Minor enchancement*: Added Album Class. The inclusion of the singleton Album Class allows for components to interact with `assets` folder with a single method call.
+* *Minor enchancement*: Added a sample image folder. The folder comprises of a large list of `valid` and `invalid` images that can be further used for code testing and feature testing.
+
+* *Code contributed*: [https://github.com/CS2103-AY1819S2-W14-2/main/commits?author=carrein[List of commits]].
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Managed releases `v1.0, v1.1, v1.2` (3 releases) on GitHub.
 
-_{you can add/remove categories in the list above}_
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34]).
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#--], https://github.com[#--]).
+
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#--].
+
+** Community:
+
+*** Core PRs reviewed: https://github.com[#75], https://github.com[#45].
+*** Core Issues raised: https://github.com[#109], https://github.com[#149], https://github.com[#78], https://github.com[#32], https://github.com[#77], https://github.com[#76], https://github.com[#43].
+
+** Tools:
+*** Integrated a third party library (Google's Guava) to the project (https://github.com[#--]).
+*** Integrated TravisCI to the team repo.
+*** Integrated Coveralls to the team repo.
+*** Added Issue temples to the team repo.
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
-
-include::../UserGuide.adoc[tag=undoredo]
-
-include::../UserGuide.adoc[tag=dataencryption]
 
 == Contributions to the Developer Guide
 
@@ -58,13 +76,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=ui]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=import]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

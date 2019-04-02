@@ -1,9 +1,12 @@
 package seedu.address.model;
 
+import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -16,6 +19,7 @@ import com.sksamuel.scrimage.nio.JpegWriter;
 import seedu.address.Notifier;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.image.Image;
+
 
 /**
  * Represents the in-memory model of the current image being edited on.
@@ -45,6 +49,7 @@ public class CurrentEditManager implements CurrentEdit {
         this.tempImage = null;
         this.originalImageName = null;
     }
+    /* @@author*/
 
     /* @@author itszp */
 
@@ -215,6 +220,13 @@ public class CurrentEditManager implements CurrentEdit {
         return tempImage.getCommand();
     }
 
+    /**
+     * Retrieves a list of all filenames in assets folder. Returns the list as String[].
+     */
+    public String[] getFileNames() {
+        File file = new File(ASSETS_FILEPATH);
+        return file.list();
+    }
     public List<Command> getSubHistoryTemp() {
         return tempImage.getSubHistory();
     }
@@ -230,6 +242,27 @@ public class CurrentEditManager implements CurrentEdit {
         this.originalImage = new Image(editFileName);
     }
 
+    /**
+     * Saves tempImage to assetsFolder as {@code name} or original name if not specified.
+     */
+    public String saveToAssets(String name) {
+        try {
+            if (name.isEmpty()) {
+                name = this.originalImageName;
+            }
+            File outputFile = new File(name);
+            File saveDirectory = new File(ASSETS_FILEPATH);
+            ImageIO.write(tempImage.getBufferedImage(), tempImage.getFileType(), outputFile);
+            FileUtils.copyFileToDirectory(outputFile, saveDirectory, false);
+            outputFile.delete();
+            tempImage.setHistory(new ArrayList<Command>());
+            tempImage.setIndex(0);
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+        overwriteOriginal(name);
+        return name;
+    }
     public String getOriginalImageName() {
         return this.originalImageName;
     }

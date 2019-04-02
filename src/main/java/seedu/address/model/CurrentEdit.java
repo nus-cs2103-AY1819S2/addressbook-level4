@@ -44,7 +44,14 @@ public interface CurrentEdit {
 
     void openImage(Image image);
 
+    void setRedoTemp();
+
+    void setUndoTemp();
+
+    Command getCommandTemp();
+
     void clearTemp();
 
     boolean tempImageExist();
 }
+/* @@author*/

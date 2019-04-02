@@ -1,9 +1,10 @@
-= HealthHub - Developer Guide
+= Health Hub - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
 :sectnums:
+:icons: font
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -45,7 +46,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Locate the `build.gradle` file and select it. Click `OK`
 . Click `Open as Project`
 . Click `OK` to accept the default settings
-. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
+. Open a console and run the command `gradlew processResources`. For Mac/Linux environments, run the command `./gradlew processResources` instead. It should finish with the [green]`BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
 . Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
@@ -136,7 +137,9 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui[UI Package]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `RequestListPanel`, `InfoPanel`, `HealthWorkerListPanel`, `StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `RequestListPanel`, `InfoPanel`, `HealthWorkerListPanel`, `StatusBarFooter`, etc.
+
+All of these, including the `MainWindow`, inherit from the `UiPart` class, which is an abstract class containing methods for handling the loading of `FXML` files.
 
 The `UI` component uses the JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -414,6 +417,33 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+
+=== Set Reminder Feature
+
+The `setreminder` command gives the user an option to set a reminder with a customised message.
+The reminder is in the form of an `AlertDialog` and is scheduled to show on the UI by a `TimerTask` at time
+`t + current time`. +
+
+The alert only pop ups when the application is running in the background.
+
+=== Autocomplete Feature for CommandBox
+The UI component, `CommandBox`, comes with a `TextField` component in AB4. For Health Hub, the `TextField` is replaced
+with an `AutoCompleteTextField` class that extends from the parent class, `TextField`.
+
+In the `AutoCompleteTextField` class, it adds an additional listener to the `textProperty()` of `TextField` class, to register for when
+a text input is being sensed and generates the suggestion box in the form of a `ContextMenu` to the user.
+
+The searching of which commands to display to the user as suggestions is by iterating the `suggestions` data structure, which is a `TreeSet`, then checking
+against the user's input if any of the suggestions starts with the user's text.
+
+==== Aspect: Data structure to store the list of commands
+<insert text>
+
+==== Aspect: Algorithm to search for commands that fit user's input
+<insert text>
+
+
+A detailed interaction diagram for the autocomplete behaviour is created previously under <insert section>.
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

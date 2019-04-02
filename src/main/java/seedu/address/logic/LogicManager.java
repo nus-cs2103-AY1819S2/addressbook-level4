@@ -2,7 +2,6 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.text.SimpleDateFormat;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -27,7 +26,6 @@ import seedu.address.storage.Storage;
 public class LogicManager implements Logic {
 
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
-    public static final SimpleDateFormat FORMATTER = new SimpleDateFormat("hh:mma");
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
@@ -54,14 +52,13 @@ public class LogicManager implements Logic {
         logger.info("-----------------[USER COMMAND][" + commandText + "]-------------------");
         requestBookModified = false;
         healthWorkerBookModified = false;
-        long timestamp = System.currentTimeMillis();
 
         CommandResult commandResult;
         try {
             Command command = addressBookParser.parseCommand(commandText);
             commandResult = command.execute(model, history);
         } finally {
-            history.add(FORMATTER.format(timestamp) + ": " + commandText);
+            history.add(commandText);
         }
 
         if (requestBookModified) {

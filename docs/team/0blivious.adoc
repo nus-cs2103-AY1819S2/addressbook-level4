@@ -112,4 +112,47 @@ Deletes the 1st book in the results of the listBook command.
 The following section shows my additions to the Book Squirrel Developer Guide for the addBook
 features.
 
-include::../DeveloperGuide.adoc[tag=addBook]
+=== AddBook feature
+==== Current Implementation
+
+The addBook mechanism is facilitated by `BookShelf`.
+It contains `UniqueBookList` in which all the book data are stored and duplicates are not allowed. Books with same book name are considered as duplicates.
+Additionally, it uses the following operations from `BookShelf`:
+
+* `model#hasBook()` -- Check if the book already exists in the book shelf.
+* `model#addBook()` -- To add the new book into book shelf.
+* `model#commitBookShelf()` -- Saves the current book shelf state for undo/redo..
+
+These operations are exposed in the `Model` interface.
+
+Given below is an example usage scenario and how the addBook mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
+
+Step 2. The user executes `addBook n/Alice a/HR m/5 tag/fantasy` command to add the book called Alice, written by HR, with rating of 5 and tag of fantasy in the book list. The `addBook` command calls `Model#hasBook()`, checking if the book already exists in the book shelf.
+
+[NOTE]
+If the book already exists, CommandException(MESSAGE_DUPLICATE_BOOK) will be thrown. It will not call `Model#commitBookShelf()`, so the book shelf state will not be saved into the `BookShelfStateList`.
+
+Step 4. The book shelf now adds the book to the book list after making sure there is no duplicates, and calls Model#commitBookShelf(), causing the modified state of the book list after the `addBook` command executes to be saved in the BookShelfStateList
+
+==== Design Considerations
+
+===== Aspect: How duplicate of book is defined
+
+* **Alternative 1 (current choice):** Books with same book name are considered as duplicates.
+** Pros: Easy to support other command such as addReview which search for the book based on its name.
+** Cons: User may encounter trouble if they read two books with same name but written by different authors.
+* **Alternative 2:** Books with multiple identical fields (eg. book name and author, book name and rating, etc) are considered same book.
+** Pros: Able to store books with same same but different in other fields.
+** Cons: Causing trouble to executing other commands like addReview as more parameters must be provided to search for a certain book.
+//end::addBook[]
+
+===== Aspect: Data structure to support the addBook command
+
+* **Alternative 1 (current choice):** Saves the entire book as one object contains different components such as author, rating, etc.
+** Pros: Easy to implement delete and other features that change an entire book.
+** Cons: May be more difficult to implement the summary feature which needs to obtain statistics of all separate components, eg. find the most popular author.
+* **Alternative 2:** Components stored as individual objects.
+** Pros: Easier to obtain statistics regarding each component.
+** Cons: It is hard to manage book object as we need to find a way to connect all components together.

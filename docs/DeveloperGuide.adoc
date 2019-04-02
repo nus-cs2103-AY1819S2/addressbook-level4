@@ -403,7 +403,7 @@ This features allows the user to set a budget and allocate it to different categ
 
 This implementation is under `Logic`, `Model` and `UI` Component.
 
-_Sequence Diagram will be done soon_
+image::SetCommandSequenceDiagram.png[width="800"]
 
 ==== Implemented
 * `Budget` Class has been created with `Amount` field to keep track of the budget of Financial Tracker.

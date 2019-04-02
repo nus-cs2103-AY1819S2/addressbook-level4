@@ -154,6 +154,8 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
      * {@code key} must exist in the hms book.
      */
     public void removeCustomer(Customer key) {
+        bookings.removeCustomer(key);
+        reservations.removeCustomer(key);
         customers.remove(key);
         indicateModified();
     }
@@ -197,6 +199,15 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
         indicateModified();
     }
 
+    /**
+     * Removes {@code booking} from this {@code HotelManagementSystem}.
+     * {@code booking} must exist in the hms book.
+     */
+    public void removeAllBookings(List<Booking> bookings) {
+        bookings.removeAll(bookings);
+        indicateModified();
+    }
+
     //// reservation-level operations
 
     /**
@@ -224,6 +235,15 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
      */
     public void removeReservation(int removeIndex) {
         reservations.remove(removeIndex);
+        indicateModified();
+    }
+
+    /**
+     * Removes {@code reservation} from this {@code HotelManagementSystem}.
+     * {@code reservation} must exist in the hms book.
+     */
+    public void removeReservation(Reservation r) {
+        reservations.remove(r);
         indicateModified();
     }
 

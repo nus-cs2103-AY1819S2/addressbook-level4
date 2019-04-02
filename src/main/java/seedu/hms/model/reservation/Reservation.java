@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.hms.model.booking.Booking;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.util.DateRange;
 
@@ -30,9 +31,7 @@ public class Reservation {
         this.otherUsers = otherUsers;
         this.comment = comment;
         this.allUsers.add(payer);
-        if (otherUsers.isPresent()) {
-            this.allUsers.addAll(otherUsers.get());
-        }
+        otherUsers.ifPresent(l -> this.allUsers.addAll(l));
     }
 
     public RoomType getRoom() {
@@ -49,6 +48,14 @@ public class Reservation {
 
     public Optional<List<Customer>> getOtherUsers() {
         return otherUsers;
+    }
+
+    public boolean isCustomerInOtherUsers(Customer key) {
+        return this.otherUsers.filter(list -> list.indexOf(key) != -1).isPresent();
+    }
+
+    public void removeCustomerFromOtherUsers(Customer key) {
+        this.otherUsers.ifPresent(list -> list.remove(key));
     }
 
     /**
@@ -69,10 +76,32 @@ public class Reservation {
 
     @Override
     public String toString() {
+        String usersToString = "";
+        for (Customer u : this.allUsers) {
+            usersToString += u.getName() + ", ";
+        }
         return "Reservation for "
             + room.getName()
             + " from " + dates
-            + " by " + payer.getName()
+            + " for " + usersToString.substring(0, usersToString.length() - 2)
+            + " paid by " + payer.getName()
             + ". Comment - " + comment.orElse("N/A");
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Booking)) {
+            return false;
+        }
+
+        Reservation ob = (Reservation) other;
+        return ob.getRoom().equals(getRoom())
+            && ob.getDates().equals(getDates())
+            && ob.getPayer().equals(getPayer())
+            && ob.getOtherUsers().equals(getOtherUsers());
     }
 }

@@ -9,7 +9,6 @@ import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_BOB;
-//import static seedu.hms.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.hms.logic.commands.CommandTestUtil.INVALID_DATE_OF_BIRTH_DESC;
 import static seedu.hms.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.hms.logic.commands.CommandTestUtil.INVALID_ID_DESC;
@@ -46,7 +45,6 @@ import org.junit.Test;
 import seedu.hms.commons.core.index.Index;
 import seedu.hms.logic.commands.EditCustomerCommand;
 import seedu.hms.logic.commands.EditCustomerCommand.EditCustomerDescriptor;
-//import seedu.hms.model.customer.Address;
 import seedu.hms.model.customer.DateOfBirth;
 import seedu.hms.model.customer.Email;
 import seedu.hms.model.customer.IdentificationNo;
@@ -54,6 +52,9 @@ import seedu.hms.model.customer.Name;
 import seedu.hms.model.customer.Phone;
 import seedu.hms.model.tag.Tag;
 import seedu.hms.testutil.EditCustomerDescriptorBuilder;
+
+//import static seedu.hms.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+//import seedu.hms.model.customer.Address;
 
 public class EditCustomerCommandParserTest {
 

@@ -11,6 +11,8 @@ import seedu.hms.logic.CommandHistory;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.model.ReservationModel;
 import seedu.hms.model.reservation.Reservation;
+import seedu.hms.model.reservation.exceptions.RoomFullException;
+import seedu.hms.model.reservation.exceptions.RoomUnavailableException;
 
 /**
  * Adds a reservation to the hms book.
@@ -20,7 +22,7 @@ public class AddReservationCommand extends ReservationCommand {
     public static final String COMMAND_ALIAS = "ar";
     public static final String COMMAND_WORD = "add-reservation";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a reservation to the hotel management system. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a reservation to the hotel management system.\n"
         + "Parameters: "
         + PREFIX_ROOM + "ROOM NAME "
         + PREFIX_DATES + "DATES(DD/MM/YY - DD/MM/YY) "
@@ -31,7 +33,8 @@ public class AddReservationCommand extends ReservationCommand {
         + PREFIX_ROOM + "SINGLE ROOM "
         + PREFIX_DATES + "05/05/19 - 07/05/19 "
         + PREFIX_PAYER + "2 "
-        + PREFIX_CUSTOMERS + "1,3 "
+        + PREFIX_CUSTOMERS + "1 "
+        + PREFIX_CUSTOMERS + "3 "
         + PREFIX_COMMENT + "Need one more pillow.\n";
 
     public static final String MESSAGE_SUCCESS = "New reservation added: %1$s";
@@ -51,7 +54,13 @@ public class AddReservationCommand extends ReservationCommand {
     @Override
     public CommandResult execute(ReservationModel model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        model.addReservation(toAdd);
+        try {
+            model.addReservation(toAdd);
+        } catch (RoomUnavailableException e) {
+            return new CommandResult(MESSAGE_ROOM_UNAVAILABLE);
+        } catch (RoomFullException e) {
+            return new CommandResult(MESSAGE_ROOM_FULL);
+        }
         model.commitHotelManagementSystem();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

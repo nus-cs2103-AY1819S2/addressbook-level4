@@ -206,7 +206,25 @@ public class ParserUtil {
         requireNonNull(timing);
         String trimmedTiming = timing.trim();
         String[] hours = trimmedTiming.split("-");
-        return new TimeRange(Integer.parseInt(hours[0].trim()), Integer.parseInt(hours[1].trim()));
+        int startHour;
+        int endHour;
+        if (hours.length != 2) {
+            throw new ParseException("You have entered an invalid timing");
+        } else {
+            try {
+                startHour = Integer.parseInt(hours[0].trim());
+                endHour = Integer.parseInt(hours[1].trim());
+            } catch (NumberFormatException e) {
+                throw new ParseException("You have entered an invalid timing");
+            }
+            if (startHour < 0 || startHour > 23 || endHour < 0 || endHour > 23) {
+                throw new ParseException("Hour does not lie in the valid range of 0 - 23");
+            }
+            if (startHour > endHour) {
+                throw new ParseException("End hour must be after start hour");
+            }
+        }
+        return new TimeRange(startHour, endHour);
     }
 
     /**
@@ -217,6 +235,9 @@ public class ParserUtil {
         requireNonNull(dates);
         String trimmedDates = dates.trim();
         String[] dateRange = trimmedDates.split("-");
+        if (dateRange.length != 2) {
+            throw new ParseException("You have entered an invalid date");
+        }
         return new DateRange(dateRange[0].trim(), dateRange[1].trim());
     }
 

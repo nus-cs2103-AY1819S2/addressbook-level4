@@ -24,7 +24,7 @@ image::dlqs.png[width="150", align="left"]
 {empty}[https://github.com/dlqs[github]] [<<donaldlee#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Scoring features
+Responsibilities: Report and Scoring features
 
 '''
 

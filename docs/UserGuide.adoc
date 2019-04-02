@@ -158,11 +158,13 @@ Format: `delete INDEX`
 `delete 2` +
 Deletes the 2nd card in the address book.
 
+//tag::sortcommand[]
 ==== Sort flashcards by score within a folder : `sort`
 
 Displays all flashcards sorted such that the lowest <<cardscore, card scores>> are at the top temporarily.
 
 Format: `sort`
+//end::sortcommand[]
 
 ==== Search by keywords : `search`
 
@@ -487,7 +489,7 @@ about a particular topic are expected to be in the same folder, the <<folderscor
 
 Displays a full-screen <<folderscore, folder score>> report for the current folder.
 The report comprises a graph showing the last 10 <<folderscore, folder scores>>,
-the latest score change, and a list of cards and their individual <<cardscore, card scores>>.
+the latest score change, and the top 3 lowest scoring cards and their individual <<cardscore, card scores>>.
 An example is shown below:
 
 .Report display

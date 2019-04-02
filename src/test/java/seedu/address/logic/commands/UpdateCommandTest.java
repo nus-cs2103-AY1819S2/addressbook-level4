@@ -270,11 +270,23 @@ public class UpdateCommandTest {
     }
 
     @Test
-    public void execute_exceedMaxQuantityUnfilteredList_success() {
+    public void execute_exceedMaxQuantityUnfilteredList_failure() {
         Batch newBatch = new BatchBuilder().withQuantity(Integer.toString(Quantity.MAX_QUANTITY)).build();
         UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder(newBatch).build();
 
         String expectedMessage = UpdateCommand.MESSAGE_MAX_QUANTITY_EXCEEDED;
+
+        // Try to add max quantity to the first medicine in the inventory.
+        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatchDetails);
+        assertCommandFailure(updateCommand, model, commandHistory, expectedMessage);
+    }
+
+    @Test
+    public void execute_expiredBatchUnfilteredList_failure() {
+        Batch newBatch = new BatchBuilder().withExpiry("1/1/2000").build();
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder(newBatch).build();
+
+        String expectedMessage = UpdateCommand.MESSAGE_EXPIRED_BATCH;
 
         // Try to add max quantity to the first medicine in the inventory.
         UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatchDetails);
@@ -445,7 +457,6 @@ public class UpdateCommandTest {
 
         Medicine updatedMedicine = new MedicineBuilder(medicineToUpdate)
                 .withAddedQuantity(BatchBuilder.DEFAULT_QUANTITY)
-                .withExpiry(BatchBuilder.DEFAULT_EXPIRY)
                 .withAddedBatch(defaultBatch)
                 .build();
 

@@ -1,9 +1,11 @@
-= CLI Battleship - User Guide
+= Battleship - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
+:toclevels: 4
 :toc-placement: preamble
 :sectnums:
+:sectnumlevels: 4
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -22,6 +24,15 @@ Ships ahoy! Battleships is a retro game for people who want to have the joy of p
 
 Battleships is optimised for people who want to use a Command Line Interface (CLI), while still retaining the benefits of a Graphical User Interface (GUI). It can guarantee many hours of fun, especially between those long and boring periods of the day. Can't wait to get started? Head over to <<Quick Start>> to fire away!
 
+[NOTE]
+====
+What is a Command Line Interface (CLI) and a Graphical User Interface (GUI)? An interface is how a user interacts with the computer. For example, you can use a mouse to click on a file to open it in Windows or MacOS. This is part of the interface for these operating systems. +
+
+A Command Line Interface (CLI) interacts with the user by accepting words that are typed in by the user. Conversely, a Graphical User Interface (GUI) interacts with the user visually. It uses icons and graphics to show the user what the program is doing.
+====
+
+Battleships, as you will see, is a hybrid application. It combines both a CLI and GUI, meaning that the user must type in commands but will see the changes caused by those commands graphically.
+
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
@@ -29,26 +40,86 @@ Battleships is optimised for people who want to use a Command Line Interface (CL
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::Ui1.png[width=800]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  Initialise the map: `init 6`.
++
+image::Ui2.png[width=800]
++
+.  Deploy your battleships:
+..  Deploy your aircraft carrier: `put n/aircraft carrier c/a1 r/h`
+..  Deploy your cruiser: `put n/cruiser c/c1 r/h`
+..  Deploy your destroyer: `put n/destroyer c/e1 r/h`
++
+image::Ui3.png[width=800]
++
+.  Start the game: `start game`
++
+image::Ui4.png[width=800]
++
+.  Shoot the enemy: `shoot a1`
+.  End your turn: `end turn`
++
+image::Ui5.png[width=800]
++
+.  Shoot the enemy: `shoot a5`
 
-* *`list`* : lists all battleships
-* **`put`**`a1` : Puts a battleship with its head at the A1 cell
-* **`play`** : Start the game
-* **`shoot`**`a1` : Attacks the enemy's A1 cell
-* *`exit`* : exits the app
+The commands will go on, until either your or the enemy's fleet is completely destroyed.
 
 Refer to <<Features>> for details of each command.
+
+== Game Rules
+// tag::gamerules[]
+This section will describe the game rules and how to play the classic Battleship game.
+====
+*Goal*
+
+Sink all your opponent's battleships before they sink yours.
+====
+====
+*Captain, deploy ships!*
+
+Depending on the chosen size of the map, as specified through the `init <map_size>` command,
+the player will be given different numbers of each ship.
+
+The ships available are:
+
+* Cruiser: size 2
+* Destroyer: size 3
+* Aircraft Carrier: size 5
+
+Here are the respective number of each ship in your fleet, depending
+on your map size.
+
+image::mapSizeFleetSize.png[width=550]
+====
+====
+*Ready, aim, fire!*
+
+The Player will always be given the first turn.
+The Player may fire shots at the enemy map through the command `shoot <a1>`.
+
+The player is allowed to continue firing until a miss.
+
+Upon a miss, the player must end their turn here, and relinquish the turn
+to the enemy through the command `end turn`. All's fair in love and war.
+====
+
+====
+*Good Game!*
+
+Whoever is first to destroy all their opponent's ship will be declared the winner.
+Had fun? You can view the game statistics with the command `stats`.
+====
+
 
 [[Features]]
 == Features
 
 ====
 *Command Format*
-
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
@@ -61,11 +132,15 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 === Viewing help : `help`
-
 Opens a help window that displays this User Guide. +
 Format: `help`
 
-=== Map : `init`
+// tag::map[]
+
+=== Preparation Phase
+This section describes the commands used in the preparation phase.
+
+==== Map : `init`
 
 Initialises both player's maps to the specified size. +
 Format: `init MAP_SIZE` +
@@ -76,6 +151,7 @@ _Figure 1_ below shows how the maps will be displayed in the UI.
 .Player and enemy maps
 image::initmapresult.png[width=750]
 
+{empty} +
 Throughout the course of the game, the cells in the map will change colour based on their status. +
 
 [NOTE]
@@ -89,12 +165,17 @@ Throughout the course of the game, the cells in the map will change colour based
 - Ship Destroyed - Ship cell that has been destroyed
 ====
 
+{empty} +
 _Figure 2_ below shows which colour is used for each status.
 
 .Cell colours
 image::maplegend.png[width=400]
+{empty} +
 
-=== Placing a ship on the map: `put`
+// end::map[]
+
+==== Ship Management:
+===== Placing a ship on the map: `put`
 
 Adds a battleship onto the player's map. The coordinates specified is the position of the battleship's head. +
 
@@ -120,14 +201,14 @@ image::putshipheadexample.png[width=750]
 
 The orientation of the battleship can be horizontal or vertical. The orientation of the battleship must be specified. It may be shortened to `h` or `v`. +
 
-=== Listing all ships : `list`
+===== Listing all ships : `list`
 
 Shows a list of all the player's battleships that are have been deployed on the map. There are four ways of using the `list` command:
 
 1. List all the battleships.
-1. List all the battleships that match a list of tags.
-1. List all the battleships of a certain type.
-1. List all the battleships of a certain type that match a list of tags.
+2. List all the battleships that match a list of tags.
+3. List all the battleships of a certain type.
+4. List all the battleships of a certain type that match a list of tags.
 
 Format:
 
@@ -165,7 +246,7 @@ We are able to list a specific battleship by the name of `destroyer` with the ta
 .The `list` command with name and tags
 image::listbytagbyname.png[width=750]
 
-=== Locating ships by name: `find`
+===== Locating ships by name: `find`
 
 Finds battleships whose names contain any of the given keywords. +
 Format: `find NAME [MORE_NAMES]`
@@ -187,7 +268,7 @@ Returns `Name: RSS Vengeance, Size: 4, Command: true, Position: d2`
 [NOTE]
 The position may not be displayed if the ship has not been placed.
 
-=== List all tags: `listTags`
+===== List all tags: `listTags`
 
 Lists all the tags that have been used to tag the battleships deployed on the map. +
 
@@ -198,7 +279,7 @@ Examples: `listTags`
 [NOTE]
 The list of tags is given in square brackets.
 
-=== Selecting a ship : `select`
+===== Selecting a ship : `select`
 
 Selects the battleship identified by the index number used in the displayed ship list. +
 Format: `select INDEX`
@@ -217,7 +298,11 @@ Selects the 2nd battleship in the inventory.
 `select 1` +
 Selects the 1st battleship in the results of the `find` command.
 
-=== Beginning the battle: `begin`
+// tag::battle[]
+=== Battle Phase
+
+==== Beginning the battle: `begin`
+>>>>>>> master
 
 Begins the battle against the computer enemy. +
 Format: `begin` +
@@ -225,36 +310,39 @@ Alternative command: `start`
 
 ****
 * After this command is entered, the program's AI will place its own ships.
+* After the AI completes its placing of ships, you can take your first turn.
 ****
 
-=== Shooting at a coordinate: `shoot`
+==== Shooting at a coordinate: `shoot`
 
 Launches an attack against given coordinate on the enemy's map. +
 Format: `shoot COORDINATES` +
-Alternative command: `attack`, `fire`, `hit`
+Alternative commands: `attack`, `fire`, `hit`
 
 Example:
 
 * `shoot A6`
 
 ****
-* The program will prevent an attack on an invalid coordinate..
-* The program will prevent an attack on a square that has already been attacked.
-* The program will prevent the user when attacking when they have already attacked. +
-After attacking, they should use `endturn` to allow the computer to make its move.
+* The program will prevent you from attacking an invalid coordinate.
+* The program will prevent you from attacking a square that you have already attacked.
+* The program will prevent the you from making another attack when you have already taken your turn.
+After attacking, you should use `endturn` to allow the computer to make its move.
 ****
 
-=== Finishing a turn: `endturn`
+==== Finishing a turn: `endturn`
 
-Ends Player turn and starts Enemy's turn. +
+Ends your turn and starts Enemy's turn. +
 Format: `endturn` +
 Alternative command: `end`
 
 ****
-* The program will end the player's turn and automatically play the Enemy's turn.
-The player can see the enemy's attack reflected on the map and in the results box.
+* The program will end your turn and automatically play the Enemy's turn.
+Youwill  see the enemy's attack reflected on the map and in the results box.
 ****
+// end::battle[]
 
+// tag::stats[]
 === Retrieving game statistics: `stats`
 
 Prints a list of statistics related to gameplay, such as accuracy and current hits. +
@@ -263,68 +351,14 @@ Format: `stats`
 Example:
 
 * `stats`
-
-// tag::undoredo[]
-=== Undoing previous command : `undo`
-
-Restores the inventory to the state before the previous _undoable_ command was executed. +
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the inventory's content (`add`, `delete`, `edit` and `clear`).
-====
-
-Examples:
-
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
-
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-
-=== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
-
-=== Clearing all entries : `clear`
-
-Clears all entries from the inventory. +
-Format: `clear`
+// end::stats[]
 
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+=== Saving the data `[coming in v2.0]`
 
 (placeholder for Statistics saving)
 
@@ -335,19 +369,20 @@ Format: `exit`
 
 == Command Summary
 
-* **Exit**: `exit`
-* **Clear**: `clear`
-* **Redo**: `redo`
-* **Undo**: `undo`
-* **Statistics**: `stats`
-* **Stats**: `stats`
-* **enemyTurn**: `enemyturn`
-* **Shoot**: `shoot COORDINATES`
-* **Play**: `play`
-* **Select**: `select INDEX`
-* **Find Tag**: `findTag TAG [MORE_TAGS]`
-* **Find**: `find NAME [MORE_NAMES]`
-* **Put**: `put c/COORDINATES r/ORIENTATION`
-* **List**: `list`
-* **Initialise maps**: `init [s/MAP_SIZE]`
-* **Help**: `help`
+[width="200%",cols="<30%,<70%,50%, 50",options="header",]
+|=======================================================================
+|Feature |Format |Purpose   | Example
+|*Attack*| `attack [coordinate]` |Attacks a selected cell on the enemy map.| `attack c1`
+|*Clear*| `clear` |Clears the command box. | `clear`
+|*End player turn*| `end turn` |Relinquish player turn to allow enemy to shoot once. | `end turn`
+|*Help*| `help` |Opens up the help guide window. | `help`
+|*Create map*| `init [integer_size]` | Initializes the map grid. | `init 8`
+|*List ships*| `list` |List all available battleships | `list`
+|*List tags*| `listTags` |List all available battleships by tags | `listTags`
+|*Put ship on map*| `put n/NAME r/ORIENTATION c/COORDINATE [optional]t/TAG` |Place your battleship on the map. | `put n/Destroyer r/vertical c/a1 t/myfleet`
+|*View statistics*| `stats` |Opens a Statistics Window. | `stats`
+|*Start game*| `start game` |Let enemy place ships on enemy grid. | `start game`
+
+
+
+

@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import java.util.stream.Collectors;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.battleship.Name;
@@ -49,8 +51,12 @@ public class ListCommand extends Command {
             return new CommandResult(builder.toString());
 
         } else if (optionalName.isPresent() && optionalTagSet.isPresent()) {
-            fleetResult.addAll(fleet.getByName(optionalName.get()));
-            fleetResult.addAll(fleet.getByTags(optionalTagSet.get()));
+            fleetResult.addAll(fleet.getDeployedFleet().stream()
+                    .filter(fleetEntry -> fleetEntry.getBattleship().getName().equals(optionalName.get()))
+                    .filter(fleetEntry -> fleetEntry.getBattleship().getTags().containsAll(optionalTagSet.get()))
+                    .collect(Collectors.toList())
+            );
+
         } else if (optionalName.isPresent()) {
             fleetResult.addAll(fleet.getByName(optionalName.get()));
         } else {

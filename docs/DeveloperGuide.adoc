@@ -224,6 +224,9 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
 
+
+// tag::battle[]
+
 [[Design-Battle]]
 === Battle component
 
@@ -240,6 +243,9 @@ The `Battle` component,
 
 As the
 
+
+// end::battle[]
+
 [[Design-Commons]]
 === Common classes
 
@@ -249,36 +255,72 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::initmap[]
+// tag::map[]
 === Map Feature
 ==== Current Implementation
-The map feature is facilitated by `MapGrid`.
-The map grid is stored as a 2D array of `Cell`.
-This 2D array is encapsulated within the `MapGrid` class.
+The map feature is facilitated by `MapGrid` and `Cell`.
+The map grid is stored internally in `MapGrid` as a 2D array of `Cell` objects.
 `MapGrid` implements the following method to initialise the map.
 
 * `MapGrid#initialise(Cell[][] map)` -- initialises the map using the given `Cell` 2D array.
 
+Below is the code snippet for the `initialise` method
+[source,java]
+----
+include::../src/main/java/seedu/address/model/MapGrid.java[lines=64..71]
+----
+`cellGrid` is the internal 2D array comprising of `Cell` objects. +
+The method `copy2dArray` copies the `map` parameter passed in to the internal `cellGrid`
+
+Below is the code snippet for the `copy2dArray` method.
+[source,java]
+----
+include::../src/main/java/seedu/address/model/MapGrid.java[lines=118..124]
+----
+
+The `copy2dArray` method creates a new `Cell` object for each of the input `Cell` objects.
+The copying is done using a constructor in `Cell` that takes in a parameter `Cell`.
+This constructor copies the private attributes of the given `Cell` parameter.
+
+{empty} +
 The following sequence diagram shows how a map is initialised:
 
 image::InitialiseMapCommandSequenceDiagram.png[width=800]
 
+{empty} +
+
 ==== Design Considerations
 ===== Aspect: How initialise map works
-* **Alternative 1 (current choice):** MapGrid will have an initialise method that takes in a 2D array of `Cell` objects. The method will deep copy the new 2D array to the `MapGrid` map grid.
-** Pros: The underlying 2D array in `MapGrid` is better protected from modification.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Have a method that returns a shallow copy of the 2D array. Initialise command will then populate the 2D array.
+* **Alternative 1 (current choice):** `MapGrid` will have an initialise method that takes in a 2D array of `Cell` objects.
+The initialise method in `MapGrid` will then do a deep copy of the passed in 2D array to initialise the internal 2D array of `Cell`.
+
+** Pros: The underlying 2D array in `MapGrid` is better protected from modification as it can only be modified through the initialise method.
+** Cons: Might have more overhead due to deep copying.
+
+* **Alternative 2:** `MapGrid` will have a getter method that returns the 2D array of `Cell`.
+`InitialiseMapCommand` will then use this method to get the internal 2D array and populate it from outside of the `MapGrid` class.
+
 ** Pros: Easy to implement.
 ** Cons: The 2D array within `MapGrid` is unprotected and open for modification.
 
+Alternative 1 was chosen as the overhead is negligible and a defensive approach to the design is preferable.
+
 ===== Aspect: Data structure to support the map
 * **Alternative 1 (current choice):** 2D array of `Cell` objects.
-** Pros: Resulting code will be simpler.
+** Pros: Resulting code is simple and readable.
 ** Cons: More changes to be done from the original AB4 codebase.
+
 * **Alternative 2:** List of lists of `Cell` objects.
 ** Pros: Easier to implement from the original AB4 codebase.
-** Cons: May have worse performance than a simpler 2D array.
+** Cons: Bad code readability and more complicated.
+
+Alternative 1 was chosen because of good code readability and it being the simpler implementation.
+Good code readability is important for new developers taking on the project.
+Simpler implementation means the likelihood of bugs being introduced is less when changes are made.
+
+// end::map[]
+
+{empty} +
 
 === Battleship Feature
 ==== Current Implementation
@@ -294,6 +336,8 @@ The number of battleship types that a user can deploy on the map depends on the 
 1. Number of destroyers = (`mapSize` + 2) / 5.
 1. Number of aircraft carriers = 1.
 
+The user can tag a battleship using a `t/[TAG]` parameter in the `put` command. Tagging battleships is optional.
+
 [NOTE]
 The head of a battleship refers to the top-most and left-most cell of the battleship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the battleship, as shown in the figure below.
 
@@ -301,6 +345,22 @@ image:BattleshipHeadExample.png[width=800]
 
 .The coordinates of the `put` command refer to the coordinates of the battleship head.
 image:BattleshipHeadExample2.png[width=800]
+
+The following operations are called when the `put` command is called.
+
+* `performChecks()` - performs boundary checks on the map grid to ensure that the battleship can be placed on the map.
+* `putShip()` - puts the battleship into the cell.
+* `getCell()` - gets the cell that is specified by the coordinates provided by the user.
+
+Here is an example of a given user scenario.
+
+Step 1. Initialise the map to a map of size 10.
+
+image:PutShipWalkThrough1.png[width=800]
+
+Step 2. Put the battleship on the map by specifying the name, coordinates, orientation, and tags.
+
+image:PutShipWalkThrough2.png[width=800]
 
 The following sequence diagram shows how a battleship is put on the map.
 
@@ -318,6 +378,30 @@ Battleships that have been deployed can also be listed. Battleships can be liste
 1. List battleships that have certain tags.
 1. List battleships of a certain type.
 1. List battleships of a certain type that have certain tags.
+
+Here is an example of a given user scenario. In this scenario, the user has deployed some battleships on a 10 by 10 map grid with various tags.
+
+Step 1. Initialise the map to a map of size 10.
+Step 2. Deploy battleships by specifying the name, coordinates, orientation, and tags. We will deploy the following battleships:
+
+* Cruiser at a4 vertical with tag `tag1`.
+* Cruiser at d4 vertical with tag `tag1`.
+* Cruiser at f7 horizontal with tag `tag2`.
+* Cruiser at h8 horizontal with tag `tag2`.
+* Destroyer at d4 horizontal with tag `tag1`.
+
+Step 3. List the battleships.
+
+image::ListExample1.png[width=800]
+
+Step 4. List the battleships by name. Use `cruiser`.
+
+image::ListExample2.png[width=800]
+
+Step 5. List the battleships by name and tags. Use `cruiser` with `tag2`.
+
+image::ListExample3.png[width=800]
+
 
 The following sequence diagram shows how deployed battleships are listed when the `list` command is entered into the command line.
 
@@ -341,6 +425,8 @@ image::ListShipSequenceDiagram.png[width=1499][height=2249]
 ** Pros: Cleaner and easier to implement.
 ** Cons: Cannot check position of `Battleship` on the map grid.
 
+
+// tag::battle[]
 === Battle Feature
 ==== Current Implementation
 The Battle feature handles the following:
@@ -385,18 +471,58 @@ The Battle feature is split between several packages:
 *** AttackCommand is now state-dependent (the state being the current attacking player) which
     can more easily lead to bugs and race conditions.
 
+
+// end::battle[]
+
 === Enemy AI Feature
 ==== Current Implementation
-<Lucy>
+The Enemy AI feature is currently implemented as an extension of the Player class,
+and serves as the opponent player since `Battleship` is a single-player game.
+The Enemy AI can automatically perform initialising actions similar to the human player.
+Mainly, the Enemy AI can randomly initialise its own mapGrid with randomly generated ships,
+which is invoked by the command `start game`.
+The Enemy AI also supports the ability for the enemy to intelligently shoot
+the player's map when the player inputs the `end turn` command.
+
+Note that the Enemy AI feature does not contain any explicit commands to be
+entered by the Player. Its methods are called by other features instead, and does its
+magic in the background.
+
+*Initialising Enemy MapGrid*
+
+The Enemy AI has the method `populateMapGrid` which is called by the method `prepEnemy()`,
+which is in turn called by the Battle Manager when the Player enters the command `start game`.
+
+`populateMapGrid()` will generate randomised battleships based on the number of battleships
+available to it for the current game, as specified in its Parent class - Player.
+The number of battleships available to the Enemy AI is congruent to the number of battleships
+available to the Player. The exact number of the different types of battleships is decided from on
+a formula that is based on the map size specified by the player in the `init` command. Once these randomised
+battleships are generated, `populateMapGrid` will proceed to call `placeAirCraftCarrier()` and `placeMultipleDestroyerAndCruiser()`.
+
+*Calculating Cell to Attack*
+
+The Enemy AI has the method `enemyShootAt()` that is invoked when the player ends their turn
+with the command `end turn`. The Enemy AI will attempt to generate a random Coordinate to attack,
+and pass this Coordinate to the `BattleManager`. The Enemy AI supports the ability to
+check that its generated coordinates are all valid, and has further algorithm that will
+increase its accuracy upon detecting a successful hit.
+
+image::enemyShoot.gif[width=500]
+
+__Note: All actions taken by the Enemy AI are seeded by a pseudo-random generator.
+Thus, its behaviour will be different for every game session.__
+
 
 ==== Design Considerations
-* **Alternative 1 (current choice):**
-** Pros:
-** Cons:
-* **Alternative 2:**
-** Pros:
-** Cons:
+* **Alternative 1 (current choice):** seed all methods with pseudo-random seed
+** Pros: each game will be a different experience
+** Cons: testing will be more difficult
+* **Alternative 2:** pre-calculate and hardcode the actions the Enemy AI performs
+** Pros: testing is made very much easier
+** Cons: games would be less dynamic since the enemy's behaviour is non-organic
 
+// tag::stats[]
 === Statistics Feature
 ==== Current Implementation
 The `stats` feature allows users to view their current gameplay information. This information will be displayed in a pop-up window and will include: Number of Attacks Made, Number of Successful Hits, Number of Misses, Number of Enemy Ships Destroyed and Accuracy of Shots made.
@@ -448,7 +574,7 @@ image::StatsCommandBox.PNG[width=400]
 * **Alternative 2:** Statistics is stored entirely within StatsCommands
 ** Pros: Easy to code and less lines of code.
 ** Cons: Does not abide by Single Responsibility Principle as the `StatsCommand` will also contain filtering and analysis of data.
-
+// tag::stats[]
 
 === Logging
 
@@ -780,6 +906,14 @@ Use case ends.
 
 [none]
 * 2a. If there are no ships deployed, inform the user.
+
+=== Use case: View statistics
+*MSS*
+
+1. User requests to display current gameplay statistics
+2. Shows all of the user's gameplay data in one location.
++
+Use case ends.
 
 === Use case: End player turn
 

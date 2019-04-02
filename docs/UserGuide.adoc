@@ -103,9 +103,10 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 It clears all the filters in the applicant pool. +
 Format: `filter clear`
 
+// tag::filter[]
 === Filtering Recruit Me: `filter`
 It filters the current applicant pool regarding the existing entities of every single person (name, phone, email, address or skills). +
-Format: `filter or/and [n/NAME/n] [p/PHONE/p] [e/EMAIL/e] [a/ADDRESS/a] [skill/ SKILL1, SKILL2, ... /skill]`
+Format: `filter or/and [n/NAME/n] [p/PHONE/p] [e/EMAIL/e] [g/GPA/g] [d/EDUCATION/d]  [skill/ SKILL1, SKILL2, ... /skill][position/ POSITION1, POSITION2, ... /position]`
 
 ****
 * The filtering is case insensitive. e.g `hans` will match `Hans`
@@ -117,11 +118,12 @@ e.g if there is someone named Alex, in the filtering conditions `n/ale/n` or `n/
 * All the people that are included in the filtering will be returned.
 * All the operations, that change the content of the address book also clears every single filter.
 * After one filtering, the filtered address book can be filtered again.
+* For every single criteria between the filtering prefixes, input check for the validity is made
 
 * Filtering is compatible with all the other commands:
-1- clear : since the persons list changes, the filtering is automatically cleared
-2- add : when filtering is active, adding is not allowed. To add someone, filtering should be cleared.
-3- sort / select / delete / edit / list / undo / redo / help / exit / history : can be used without clearing the filter
+** 1- clear : since the persons list changes, the filtering is automatically cleared
+** 2- add : when filtering is active, adding is not allowed. To add someone, filtering should be cleared.
+** 3- sort / select / delete / edit / list / undo / redo / help / exit / history : can be used without clearing the filter
 
 ****
 
@@ -131,6 +133,8 @@ Examples:
 Returns the people, whose numbers include 91234567 or whose email includes johndoe@example.com or who has (contains) at least C++ or Java in the skills
 * `filter and n/ale/n a/abcd/a skill/C++, Java/skill` +
 Returns the people, whose name contains ale and whose address contains abcd and who has (contains) C++ and Java both in the skills
+
+// end::filter[]
 
 === Locating persons by name: `find`
 

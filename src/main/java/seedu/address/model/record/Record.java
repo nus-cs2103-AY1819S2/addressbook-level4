@@ -58,7 +58,7 @@ public class Record {
         this.doctorName = new Name("NA");
         this.description = new Description("Patient is added today");
         this.recordDate = new RecordDate();
-        this.procedure = new Procedure(" ");
+        this.procedure = new Procedure("Consultation-First Visit");
     }
 
     public Name getDoctorName() {

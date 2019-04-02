@@ -55,7 +55,7 @@ My contribution to this project are include: +
 
 * *Minor enhancement*: modify the UI base on AddressBook- level 4.
 
-* *Code contributed*: https://github.com/cs2103-ay1819s2-w11-4/main/pull/78/files[Functional code] https://github.com/cs2103-ay1819s2-w11-4/main/pull/81/files[Test code] 
+* *Code contributed*: https://github.com/cs2103-ay1819s2-w11-4/main/pull/78/files[Functional code] https://github.com/cs2103-ay1819s2-w11-4/main/pull/81/files[Test code]
 
 * *Other contributions*:
 - Update Tag color for project(Pull requests , https://github.com/cs2103-ay1819s2-w11-4/main/pull/10[#10])
@@ -286,7 +286,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ==== Current Implementation
 
 The filterBook mechanism is facilitated by `VersionedBookShelf`.
-It extends `BookShelf` with the filter function which will sort the `UniqueBookList`. `UniqueBookList` implemented the Book list as `ObservableList<Book>`.FilterBook command filter the book list in specify order by looping through every book in list to see whether the book is satisfy the condition 
+It extends `BookShelf` with the filter function which will sort the `UniqueBookList`. `UniqueBookList` implemented the Book list as `ObservableList<Book>`.FilterBook command filter the book list in specify order by looping through every book in list to see whether the book is satisfy the condition.
 
 Additionally, it uses/implements the following operations:
 
@@ -324,5 +324,3 @@ Step 6. ` model#commitBookShelf()` will be execute to store current book list in
 * **Alternative 2:** Using custom sorting method like CollectionUtils.
 ** Pros: more robust if want to support more conditions.
 ** Cons: big overhead.
-
-

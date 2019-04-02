@@ -68,7 +68,7 @@ public class EditReviewCommand extends Command {
         if (selectedRestaurant.getReviews().size() == 0) {
             throw new CommandException(Messages.MESSAGE_NO_REVIEWS);
         }
-        if (selectedRestaurant.getReviews().size() > index.getOneBased()) {
+        if (selectedRestaurant.getReviews().size() < index.getOneBased()) {
             throw new CommandException(Messages.MESSAGE_INVALID_REVIEW_INDEX);
         }
 

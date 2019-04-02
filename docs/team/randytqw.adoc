@@ -53,6 +53,8 @@ include::../UserGuide.adoc[tag=Undo]
 
 include::../UserGuide.adoc[tag=Redo]
 
+include::../UserGuide.adoc[tag=UpcomingFeatures]
+
 
 == Contributions to the Developer Guide
 

@@ -11,7 +11,7 @@ import seedu.hms.model.ReservationModel;
  */
 public class ClearReservationCommand extends ReservationCommand {
 
-    public static final String COMMAND_ALIAS = "clear-r";
+    public static final String COMMAND_ALIAS = "cr";
     public static final String COMMAND_WORD = "clear-reservations";
     public static final String MESSAGE_SUCCESS = "Reservations have been cleared!";
 

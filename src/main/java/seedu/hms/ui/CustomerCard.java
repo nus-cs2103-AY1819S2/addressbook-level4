@@ -46,12 +46,14 @@ public class CustomerCard extends UiPart<Region> {
         super(FXML);
         this.customer = customer;
         id.setText(displayedIndex + ". ");
-        name.setText(customer.getName().fullName);
-        phone.setText(customer.getPhone().value);
-        dob.setText(customer.getDateOfBirth().value);
-        identificationNo.setText(customer.getIdNum().value);
-        address.setText(customer.getAddress().value);
-        email.setText(customer.getEmail().value);
+        name.setText(customer.getName().toString());
+        phone.setText("Phone: " + customer.getPhone().toString());
+        dob.setText(customer.getDateOfBirth().toString().equals("")
+            ? "Date of Birth: Not provided" : "Date of Birth: " + customer.getDateOfBirth().value);
+        identificationNo.setText("Identification no: " + customer.getIdNum().value);
+        address.setText(customer.getAddress().toString().equals("")
+            ? "Address: Not provided" : "Address: " + customer.getAddress().toString());
+        email.setText("Email: " + customer.getEmail().toString());
         customer.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 

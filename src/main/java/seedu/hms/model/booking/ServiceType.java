@@ -46,4 +46,17 @@ public enum ServiceType {
     public double getRatePerHour() {
         return ratePerHour;
     }
+
+    /**
+     * Tests whether a {@code serviceTypeString} exist.
+     * This test is case Insensitive.
+     */
+    public static boolean typeExist(String serviceTypeString) {
+        for (ServiceType serviceType : values()) {
+            if (serviceType.name.equalsIgnoreCase(serviceTypeString)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

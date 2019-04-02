@@ -11,7 +11,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.hms.commons.core.LogsCenter;
-import seedu.hms.model.booking.Booking;
+import seedu.hms.model.reservation.Reservation;
 
 /**
  * Panel containing the list of reservations.
@@ -19,36 +19,37 @@ import seedu.hms.model.booking.Booking;
  * This will be solved in v1.3
  */
 public class ReservationListPanel extends UiPart<Region> {
-    private static final String FXML = "BookingListPanel.fxml";
+    private static final String FXML = "ReservationListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ReservationListPanel.class);
 
     @FXML
-    private ListView<Booking> bookingListView;
+    private ListView<Reservation> reservationListView;
 
-    public ReservationListPanel(ObservableList<Booking> bookingList, ObservableValue<Booking> selectedBooking,
-                                Consumer<Booking> onSelectedBookingChange) {
+    public ReservationListPanel(ObservableList<Reservation> reservationList,
+                                ObservableValue<Reservation> selectedReservation,
+                                Consumer<Reservation> onSelectedReservationChange) {
         super(FXML);
-        bookingListView.setItems(bookingList);
-        bookingListView.setCellFactory(listView -> new BookingListViewCell());
-        bookingListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selection in booking list panel changed to : '" + newValue + "'");
-            onSelectedBookingChange.accept(newValue);
+        reservationListView.setItems(reservationList);
+        reservationListView.setCellFactory(listView -> new ReservationListViewCell());
+        reservationListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            logger.fine("Selection in reservation list panel changed to : '" + newValue + "'");
+            onSelectedReservationChange.accept(newValue);
         });
-        selectedBooking.addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selected booking changed to: " + newValue);
+        selectedReservation.addListener((observable, oldValue, newValue) -> {
+            logger.fine("Selected reservation changed to: " + newValue);
 
-            // Don't modify selection if we are already selecting the selected booking,
+            // Don't modify selection if we are already selecting the selected reservation,
             // otherwise we would have an infinite loop.
-            if (Objects.equals(bookingListView.getSelectionModel().getSelectedItem(), newValue)) {
+            if (Objects.equals(reservationListView.getSelectionModel().getSelectedItem(), newValue)) {
                 return;
             }
 
             if (newValue == null) {
-                bookingListView.getSelectionModel().clearSelection();
+                reservationListView.getSelectionModel().clearSelection();
             } else {
-                int index = bookingListView.getItems().indexOf(newValue);
-                bookingListView.scrollTo(index);
-                bookingListView.getSelectionModel().clearAndSelect(index);
+                int index = reservationListView.getItems().indexOf(newValue);
+                reservationListView.scrollTo(index);
+                reservationListView.getSelectionModel().clearAndSelect(index);
             }
         });
     }
@@ -56,16 +57,16 @@ public class ReservationListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Booking} using a {@code BookingCard}.
      */
-    class BookingListViewCell extends ListCell<Booking> {
+    class ReservationListViewCell extends ListCell<Reservation> {
         @Override
-        protected void updateItem(Booking booking, boolean empty) {
-            super.updateItem(booking, empty);
+        protected void updateItem(Reservation reservation, boolean empty) {
+            super.updateItem(reservation, empty);
 
-            if (empty || booking == null) {
+            if (empty || reservation == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new BookingCard(booking, getIndex() + 1).getRoot());
+                setGraphic(new ReservationCard(reservation, getIndex() + 1).getRoot());
             }
         }
     }

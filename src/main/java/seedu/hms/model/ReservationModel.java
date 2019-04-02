@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.hms.model.reservation.Reservation;
+import seedu.hms.model.reservation.RoomType;
 
 /**
  * The API of the Model component.
@@ -34,6 +35,11 @@ public interface ReservationModel extends Model {
     ObservableList<Reservation> getFilteredReservationList();
 
     /**
+     * Returns an unmodifiable view of the filtered reservation list
+     */
+    ObservableList<RoomType> getRoomTypeList();
+
+    /**
      * Updates the filter of the filtered reservation list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
@@ -51,6 +57,24 @@ public interface ReservationModel extends Model {
      * {@code reservation} must not already exist in the hms book.
      */
     void addReservation(Reservation reservation);
+
+    /**
+     * Selected roomType in the roomType list.
+     * null if no roomType is selected.
+     */
+    ReadOnlyProperty<RoomType> selectedRoomTypeProperty();
+
+
+    /**
+     * Returns the selected roomType in the roomType list.
+     * null if no roomType is selected.
+     */
+    RoomType getSelectedRoomType();
+
+    /**
+     * Sets the selected serviceType in the serviceType list.
+     */
+    void setSelectedRoomType(RoomType roomType);
 
     /**
      * Replaces the given reservation {@code target} with {@code editedReservation}.

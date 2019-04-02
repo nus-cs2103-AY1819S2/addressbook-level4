@@ -6,9 +6,9 @@ package seedu.hms.model.reservation;
 public enum RoomType {
 
     SINGLE(20, "SINGLE ROOM", 500.0),
-    DOUBLE(50, "DOUBLE ROOM", 250.0),
-    DELUXE(40, "DELUXE ROOM", 700.0),
-    SUITE(10, "FAMILY SUITE", 6000.0);
+    DOUBLE(50, "DOUBLE ROOM", 750.0),
+    DELUXE(40, "DELUXE ROOM", 1000.0),
+    SUITE(10, "FAMILY SUITE", 1500.0);
 
     private final int numberOfRooms;
     private final String name;

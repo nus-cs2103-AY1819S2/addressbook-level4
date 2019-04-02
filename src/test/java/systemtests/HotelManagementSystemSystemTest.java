@@ -1,6 +1,5 @@
 package systemtests;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -8,8 +7,6 @@ import static seedu.hms.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.hms.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.hms.ui.testutil.GuiTestAssert.assertListMatching;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -37,7 +34,6 @@ import seedu.hms.logic.commands.SelectCustomerCommand;
 import seedu.hms.model.CustomerModel;
 import seedu.hms.model.HotelManagementSystem;
 import seedu.hms.testutil.TypicalCustomers;
-import seedu.hms.ui.BrowserPanel;
 import seedu.hms.ui.CommandBox;
 
 /**
@@ -67,7 +63,6 @@ public abstract class HotelManagementSystemSystemTest {
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
-        waitUntilBrowserLoaded(getBrowserPanel());
         assertApplicationStartingStateIsCorrect();
     }
 
@@ -106,10 +101,6 @@ public abstract class HotelManagementSystemSystemTest {
         return mainWindowHandle.getMainMenu();
     }
 
-    public BrowserPanelHandle getBrowserPanel() {
-        return mainWindowHandle.getBrowserPanel();
-    }
-
     public StatusBarFooterHandle getStatusBarFooter() {
         return mainWindowHandle.getStatusBarFooter();
     }
@@ -129,8 +120,6 @@ public abstract class HotelManagementSystemSystemTest {
         clockRule.setInjectedClockToCurrentTime();
 
         mainWindowHandle.getCommandBox().run(command);
-
-        waitUntilBrowserLoaded(getBrowserPanel());
     }
 
     /**
@@ -174,7 +163,7 @@ public abstract class HotelManagementSystemSystemTest {
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
                                                      CustomerModel expectedModel) {
-        //assertEquals(expectedCommandInput, getCommandBox().getInput());
+        assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new HotelManagementSystem(expectedModel.getHotelManagementSystem()),
             testApp.readStorageHotelManagementSystem());
@@ -187,7 +176,6 @@ public abstract class HotelManagementSystemSystemTest {
      */
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
-        getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
         getCustomerListPanel().rememberSelectedCustomerCard();
@@ -200,28 +188,22 @@ public abstract class HotelManagementSystemSystemTest {
      * @see BrowserPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
-        assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        //Todo: ServiceTypeAndRoomTypePanel test
+        //assertEquals(ServiceTypeAndRoomTypePanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertFalse(getCustomerListPanel().isAnyCardSelected());
     }
 
+    //Todo: ServiceTypeAndRoomTypeListPanel
     /**
      * Asserts that the browser's url is changed to display the details of the customer in the customer list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      *
      * @see BrowserPanelHandle#isUrlChanged()
      * @see CustomerListPanelHandle#isSelectedCustomerCardChanged()
-     */
+     * */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getCustomerListPanel().navigateToCard(getCustomerListPanel().getSelectedCardIndex());
         String selectedCardName = getCustomerListPanel().getHandleToSelectedCard().getName();
-        URL expectedUrl;
-        try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll
-                (" ", "%20"));
-        } catch (MalformedURLException mue) {
-            throw new AssertionError("URL expected to be valid.", mue);
-        }
-        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getCustomerListPanel().getSelectedCardIndex());
     }
@@ -233,7 +215,6 @@ public abstract class HotelManagementSystemSystemTest {
      * @see CustomerListPanelHandle#isSelectedCustomerCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
-        assertFalse(getBrowserPanel().isUrlChanged());
         assertFalse(getCustomerListPanel().isSelectedCustomerCardChanged());
     }
 
@@ -279,7 +260,7 @@ public abstract class HotelManagementSystemSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getCustomerListPanel(), getModel().getFilteredCustomerList());
-        assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        //Todo ServiceTypeAndRoomTypePanel assert
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
             getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

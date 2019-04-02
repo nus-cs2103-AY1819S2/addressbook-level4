@@ -31,16 +31,18 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     private CustomerListPanel customerListPanel;
     private BookingListPanel bookingListPanel;
     private ReservationListPanel reservationListPanel;
     private BookingAndReservationPanel bookingAndReservationPanel;
+    private ServiceTypeListPanel serviceTypeListPanel;
+    private RoomTypeListPanel roomTypeListPanel;
+    private ServiceTypeAndRoomTypePanel serviceTypeAndRoomTypePanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
     @FXML
-    private StackPane browserPlaceholder;
+    private StackPane serviceTypeAndRoomTypePlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -118,21 +120,29 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedCustomerProperty());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
         customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList(), logic.selectedCustomerProperty(),
             logic::setSelectedCustomer);
         customerListPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
 
         bookingListPanel = new BookingListPanel(logic.getFilteredBookingList(), logic.selectedBookingProperty(),
-            logic::setSelectedBooking, logic.selectedCustomerProperty(), this::executeCommand);
+                logic::setSelectedBooking, logic.selectedCustomerProperty(), logic.selectedServiceTypeProperty(),
+                this::executeCommand);
 
-        reservationListPanel = new ReservationListPanel(logic.getFilteredBookingList(), logic.selectedBookingProperty(),
-            logic::setSelectedBooking);
+        reservationListPanel = new ReservationListPanel(logic.getFilteredReservationList(),
+                logic.selectedReservationProperty(),
+                logic::setSelectedReservation);
 
         bookingAndReservationPanel = new BookingAndReservationPanel(bookingListPanel, reservationListPanel);
         bookingAndReservationPanelPlaceholder.getChildren().add(bookingAndReservationPanel.getRoot());
+
+        serviceTypeListPanel = new ServiceTypeListPanel(logic.getServiceTypeList(), logic.selectedServiceTypeProperty(),
+                logic::setSelectedServiceType);
+
+        roomTypeListPanel = new RoomTypeListPanel(logic.getRoomTypeList(), logic.selectedRoomTypeProperty(),
+                logic::setSelectedRoomType);
+
+        serviceTypeAndRoomTypePanel = new ServiceTypeAndRoomTypePanel(serviceTypeListPanel, roomTypeListPanel);
+        serviceTypeAndRoomTypePlaceholder.getChildren().add(serviceTypeAndRoomTypePanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -200,6 +210,18 @@ public class MainWindow extends UiPart<Stage> {
 
     public ReservationListPanel getReservationListPanel() {
         return reservationListPanel;
+    }
+
+    public ServiceTypeListPanel getServiceTypeListPanel() {
+        return serviceTypeListPanel;
+    }
+
+    public RoomTypeListPanel getRoomTypeListPanel() {
+        return roomTypeListPanel;
+    }
+
+    public ServiceTypeAndRoomTypePanel getServiceTypeAndRoomTypePanel() {
+        return serviceTypeAndRoomTypePanel;
     }
 
     /**

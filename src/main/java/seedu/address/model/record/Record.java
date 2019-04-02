@@ -19,6 +19,8 @@ public class Record {
 
     private final Name doctorName;
 
+    private final Procedure procedure;
+
     private final Description description;
 
     private final RecordDate recordDate;
@@ -27,9 +29,10 @@ public class Record {
      * Used by add command.
      * @param desc the description of the record.
      */
-    public Record(Description desc) {
+    public Record(Procedure procedure, Description desc) {
         requireAllNonNull(desc);
         this.doctorName = new Name(Dentist.getDentistName());
+        this.procedure = procedure;
         this.description = desc;
         this.recordDate = new RecordDate();
     }
@@ -40,10 +43,11 @@ public class Record {
      * @param description the description of the record.
      * @param recordDate the date of the record.
      */
-    public Record(String doctorName, String description, String recordDate) {
+    public Record(String doctorName, String description, String recordDate, String procedure) {
         this.doctorName = new Name(doctorName);
         this.description = new Description(description);
         this.recordDate = new RecordDate(recordDate);
+        this.procedure = new Procedure(procedure);
     }
 
     /**
@@ -54,6 +58,7 @@ public class Record {
         this.doctorName = new Name("NA");
         this.description = new Description("Patient is added today");
         this.recordDate = new RecordDate();
+        this.procedure = new Procedure(" ");
     }
 
     public Name getDoctorName() {
@@ -66,6 +71,10 @@ public class Record {
 
     public RecordDate getRecordDate() {
         return recordDate;
+    }
+
+    public Procedure getProcedure() {
+        return procedure;
     }
 
     public String getRecord() {

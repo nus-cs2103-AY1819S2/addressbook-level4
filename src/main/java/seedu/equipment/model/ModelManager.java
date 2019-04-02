@@ -16,7 +16,6 @@ import seedu.equipment.commons.core.GuiSettings;
 import seedu.equipment.commons.core.LogsCenter;
 import seedu.equipment.commons.util.CollectionUtil;
 import seedu.equipment.model.equipment.Equipment;
-import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.equipment.exceptions.EquipmentNotFoundException;
 import seedu.equipment.model.tag.Tag;
 

@@ -7,7 +7,6 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.equipment.commons.core.GuiSettings;
 import seedu.equipment.model.equipment.Equipment;
-import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.tag.Tag;
 
 /**

@@ -12,7 +12,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.equipment.commons.core.LogsCenter;
 import seedu.equipment.model.equipment.Equipment;
-import seedu.equipment.model.equipment.Name;
 
 /**
  * Panel containing the list of equipments.

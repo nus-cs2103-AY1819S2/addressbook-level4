@@ -1,16 +1,13 @@
 package seedu.equipment.ui;
 
-import java.util.function.Consumer;
 import java.util.logging.Logger;
 
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.equipment.commons.core.LogsCenter;
 import seedu.equipment.model.equipment.Equipment;
-import seedu.equipment.model.equipment.Name;
 
 /**
  * Panel containing the list of clients.

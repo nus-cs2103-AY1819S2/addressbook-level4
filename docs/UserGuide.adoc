@@ -97,9 +97,9 @@ Managing medicines by batch is efficient and logical since medicines from the sa
 
 The information panel provides all the details and information you need about each batch of medicine in a neat and organized manner. 
 
-You can easily refer to the batch table provided in the information panel while updating and managing your inventory. Simply select a medicine using the <<SelectCommand>> to view all its relevant details.  
+You can easily refer to the batch table provided in the information panel while updating and managing your inventory. Simply select a medicine using the `select` command to view all its relevant details. You may refer to <<SelectCommand>> for more details. 
 
-You can also sort the table by any of its columns with the <<SortCommand>> to suit your needs and preference. 
+You can also sort the table by any of its columns with the `sort` command to suit your needs and preference. You may refer to <<SortCommand>> for more details.
 
 
 === Warning Panel

@@ -121,6 +121,11 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
+     * Updates the filter of the filtered person and activity list to NONE.
+     */
+    void resetLists();
+
+    /**
      * Returns true if the model has previous address book states to restore.
      */
     boolean canUndoAddressBook();
@@ -188,6 +193,11 @@ public interface Model {
     boolean hasActivity(Activity activity);
 
     /**
+     * Returns true if an activity at the same time and location as {@code activity} exists in the address book.
+     */
+    boolean hasActivityClashInLocation(Activity activity);
+
+    /**
      * Deletes the given activity.
      * The activity must exist in the address book.
      */
@@ -228,5 +238,4 @@ public interface Model {
      * Update entire activity list
      */
     void updateActivityList();
-
 }

@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Chan Ming En Minern
-image::minernchan.PNG[width="150", align="left"]
+image::minernchan.png[width="150", align="left"]
 {empty}[http://github.com/minernchan[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer (Testing) +
@@ -52,7 +52,7 @@ Responsibilities:
 '''
 
 === Melissa Khoo Wan Xuan
-image::melissakhoo.png[width="150", align="left"]
+image::melkwx.png[width="150", align="left"]
 {empty}[http://github.com/melkwx[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer (Code Quality) +

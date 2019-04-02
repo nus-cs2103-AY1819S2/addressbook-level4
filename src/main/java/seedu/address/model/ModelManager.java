@@ -152,15 +152,19 @@ public class ModelManager implements Model {
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-
         versionedAddressBook.setPerson(target, editedPerson);
     }
 
     @Override
-
     public boolean hasActivity(Activity activity) {
         requireNonNull(activity);
         return versionedAddressBook.hasActivity(activity);
+    }
+
+    @Override
+    public boolean hasActivityClashInLocation(Activity activity) {
+        requireNonNull(activity);
+        return versionedAddressBook.hasActivityClashInLocation(activity);
     }
 
     @Override
@@ -232,6 +236,12 @@ public class ModelManager implements Model {
     @Override
     public void commitAddressBook() {
         versionedAddressBook.commit();
+    }
+
+    @Override
+    public void resetLists() {
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
     }
 
     //=========== Selected person ===========================================================================

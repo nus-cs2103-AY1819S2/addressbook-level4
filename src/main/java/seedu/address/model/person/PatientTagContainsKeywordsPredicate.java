@@ -18,7 +18,7 @@ public class PatientTagContainsKeywordsPredicate implements Predicate<Patient> {
     @Override
     public boolean test(Patient patient) {
         final String tags = patient.getTags().toString()
-                .replaceAll("\\[", "").replaceAll("\\]","");
+                .replaceAll("\\[", "").replaceAll("\\]", "");
         return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(tags, keyword));
     }

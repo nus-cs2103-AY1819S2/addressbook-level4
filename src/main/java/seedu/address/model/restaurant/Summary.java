@@ -1,4 +1,4 @@
-package seedu.address.model.restaurant.summary;
+package seedu.address.model.restaurant;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 

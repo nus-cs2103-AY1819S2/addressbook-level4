@@ -22,7 +22,7 @@ By: `Team W10-3`      Since: `JAN 2019`      Licence: `MIT`
 *Equipment Manager* is a desktop CLI (Command Line Interface) application that allows engineers to keep track on the Preventive Maintenance schedule of all Resuscitation Devices in singapore. It has a GUI (Graphic User Interface) that allows users to get further information on each equipment.
 
 Our purpose is to help engineers plan the number of equipment that they would like to carry out preventive maintenance and keep track on each equipment details such as status, location and more information.
-
+// end::introduction[]
 // tag::aboutug[]
 == About This User Guide
 Welcome to *Equipment Manager* User Guide! +
@@ -51,6 +51,7 @@ These legends alert reader on special information such as tips, notes and warnin
 |image:advanced.png[width="40"]
 | The book icon indicates that it is an additional information for advanced users.
 |===
+// end::aboutug[]
 
 // tag::quickstart[]
 == Quick Start
@@ -93,6 +94,7 @@ Type the command in the Command Box and press kbd:[Enter] to execute it. +
 |===
 | image:tip.png[width="40"] |Refer to <<Features>> for details of each command.
 |===
+// end::quickstart[]
 
 [[Features]]
 == Features
@@ -260,7 +262,6 @@ Returns the list sorted according to the day.
 
 * `sort phone` +
 Returns the list sorted by phone number.
-
 
 
 === Filtering the list: `filter`
@@ -441,6 +442,7 @@ Unsure of a few technical terms? We got you covered. Refer to [underline]#<<tech
 |*User Interface (UI)*
 |Allows the user to interact with the application through inputs and outputs of data.
 |===
+// end::glossary[]
 
 // tag::commandsummary[]
 == Command Summary

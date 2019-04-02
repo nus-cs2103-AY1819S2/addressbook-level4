@@ -1,7 +1,6 @@
 package seedu.hms.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_OTHER_USERS_INDICES;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_COMMENT;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_CUSTOMERS;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_PAYER;
@@ -17,7 +16,6 @@ import seedu.hms.commons.core.index.Index;
 import seedu.hms.commons.util.CollectionUtil;
 import seedu.hms.logic.CommandHistory;
 import seedu.hms.logic.commands.exceptions.CommandException;
-import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.BookingModel;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.ServiceType;

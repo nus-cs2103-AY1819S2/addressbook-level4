@@ -3,9 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.PASSWORD_1_VALID;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PDF;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_3;
 import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
 import org.junit.After;

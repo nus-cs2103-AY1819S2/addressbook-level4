@@ -3,6 +3,8 @@
 :relfileprefix: team/
 :imagesDir: images
 :stylesDir: stylesheets
+:relfileprefix: team/
+
 
 PDF++ was developed by the https://cs2103-ay1819s2-t12-4.github.io/main/[T12-4] team. +
 {empty} +
@@ -12,7 +14,10 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Lau Wei Tang
 image::weitanglau.png[width="150", align="left"]
-{empty}[https://github.com/WeiTangLau[github]]
+
+image::github-icon.png[width=30, link=https://github.com/WeiTangLau]
+image:portfolio-icon.jpg[width=30, link="LauWeiTang.adoc"]
+
 
 Role: Developer
 
@@ -20,7 +25,9 @@ Role: Developer
 
 === Prithivi Raj
 image::ptvrajsk.png[width="150", align="left"]
-{empty}[https://github.com/ptvrajsk/[github]]
+
+image::github-icon.png[width=30, link=https://github.com/ptvrajsk]
+image:portfolio-icon.jpg[width=30, link=RajPPP.adoc]
 
 Role: Developer
 
@@ -28,7 +35,9 @@ Role: Developer
 
 === Jet Kan Yip Keng
 image::jetkan-yk.png[width="150", align="left"]
-{empty}[http://github.com/jetkan-yk[github]]
+
+image::github-icon.png[width=30, link=http://github.com/jetkan-yk]
+image:portfolio-icon.jpg[width=30, link=KanYipKengPPP.adoc]
 
 Role: Developer
 
@@ -41,4 +50,3 @@ image::lormee94.png[width="150", align="left"]
 Role: Developer
 
 '''
-

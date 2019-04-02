@@ -268,7 +268,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `clear` command) +
 
-// tag::Study[]
+// tag::study[]
 === Set current course of study: `study`
 
 To set the course of study you are currently undertaking, just simply key in the following command:
@@ -291,7 +291,7 @@ Sets the course of study to Computer Science with Focus Area Algorithms. Invokin
 
 Feeling left out as you are unable to track your course of study? Fear not! We will roll
 out more courses of study for users to track in the future iteration of GradTrak, so stay tuned!
-// end::Study[]
+// end::study[]
 
 === Sets the total expected CAP and workload limit for each semester: `setlimit`
 

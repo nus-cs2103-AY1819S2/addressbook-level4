@@ -10,7 +10,7 @@
         <padding>
             <Insets bottom="5" />
         </padding>
-        <Label styleClass="label-bright">Medical Histories</Label>
+        <Label styleClass="label-bright">Appointments</Label>
     </HBox>
-    <ListView fx:id="medHistListView" VBox.vgrow="ALWAYS" />
+    <ListView fx:id="appointmentListView" VBox.vgrow="ALWAYS" />
 </VBox>

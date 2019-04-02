@@ -216,6 +216,12 @@ public interface Model {
     ReadOnlyProperty<MedicalHistory> selectedMedHistProperty();
 
     /**
+     * Selected appointment in the filtered appointment list.
+     * null if no appointment is selected.
+     */
+    ReadOnlyProperty<Appointment> selectedAppointmentProperty();
+
+    /**
      * Returns the selected patient in the filtered patient list.
      * null if no patient is selected.
      */
@@ -228,6 +234,12 @@ public interface Model {
     MedicalHistory getSelectedMedHist();
 
     /**
+     * Returns the selected appointment in the filtered appointment list.
+     * null if no appointment is selected.
+     */
+    Appointment getSelectedAppointment();
+
+    /**
      * Sets the selected patient in the filtered patient list.
      */
     void setSelectedPatient(Patient patient);
@@ -236,6 +248,12 @@ public interface Model {
      * Sets the selected medHist in the filtered medHist list.
      */
     void setSelectedMedHist(MedicalHistory medHist);
+
+    /**
+     * Sets the selected appointment in the filtered appointment list.
+     */
+    void setSelectedAppointment(Appointment appointment);
+
 
     /**
      * Returns true if a doctor with the same identity as {@code doctor} exists in docX.

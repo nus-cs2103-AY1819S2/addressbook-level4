@@ -166,6 +166,31 @@ public class AddPatientCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public ObservableList<Appointment> getFilteredAppointmentList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Appointment> selectedAppointmentProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Appointment getSelectedAppointment() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedAppointment(Appointment appointment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         // Needed to be implemented later
         @Override
         public boolean hasMedHist(MedicalHistory medicalHistory) {

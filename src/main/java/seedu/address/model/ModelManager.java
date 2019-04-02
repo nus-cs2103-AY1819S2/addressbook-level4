@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.exceptions.MedHistNotFoundException;
 import seedu.address.model.person.Doctor;
@@ -372,7 +373,7 @@ public class ModelManager implements Model {
         }
     }
 
-    // Selected Medical History
+    //=========== Selected Medical History ===================================================================
     @Override
     public ReadOnlyProperty<MedicalHistory> selectedMedHistProperty() {
         return selectedMedHist;
@@ -421,13 +422,53 @@ public class ModelManager implements Model {
         }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof ModelManager)) {
+            return false;
+        }
+
+        // state check
+        ModelManager other = (ModelManager) obj;
+        return versionedAddressBook.equals(other.versionedAddressBook)
+                && userPrefs.equals(other.userPrefs)
+                && filteredPatients.equals(other.filteredPatients)
+                && Objects.equals(selectedPatient.get(), other.selectedPatient.get());
+    }
+
+    //=========== Selected appointment ======================================================================
+
+    @Override
+    public ReadOnlyProperty<Appointment> selectedAppointmentProperty() {
+        return selectedAppointment;
+    }
+
+    @Override
+    public Appointment getSelectedAppointment() {
+        return selectedAppointment.getValue();
+    }
+
+    @Override
+    public void setSelectedAppointment(Appointment appointment) {
+        if (appointment != null && !filteredAppointments.contains(appointment)) {
+            throw new AppointmentNotFoundException();
+        }
+        selectedAppointment.setValue(appointment);
+    }
+
     /**
      * Ensures {@code selectedAppointment} is a valid appointment in {@code filteredAppointments}.
      */
     private void ensureSelectedAppointmentIsValid(ListChangeListener.Change<? extends Appointment> change) {
         while (change.next()) {
             if (selectedAppointment.getValue() == null) {
-                // null is always a valid selected patient, so we do not need to check that it is valid anymore.
+                // null is always a valid selected appointment, so we do not need to check that it is valid anymore.
                 return;
             }
 
@@ -451,25 +492,4 @@ public class ModelManager implements Model {
             }
         }
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        // short circuit if same object
-        if (obj == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
-            return false;
-        }
-
-        // state check
-        ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPatients.equals(other.filteredPatients)
-                && Objects.equals(selectedPatient.get(), other.selectedPatient.get());
-    }
-
 }

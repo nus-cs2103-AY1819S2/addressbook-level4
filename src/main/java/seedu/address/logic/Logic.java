@@ -9,6 +9,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Patient;
 
@@ -37,6 +38,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of medical histories */
     ObservableList<MedicalHistory> getFilteredMedHistList();
+
+    /** Returns an unmodifiable view of the filtered list of medical histories */
+    ObservableList<Appointment> getFilteredAppointmentList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -76,6 +80,14 @@ public interface Logic {
     ReadOnlyProperty<MedicalHistory> selectedMedHistProperty();
 
     /**
+     * Selected appointment in the filtered appointment list.
+     * null if no patient is selected.
+     *
+     * @see seedu.address.model.Model#selectedAppointmentProperty()
+     */
+    ReadOnlyProperty<Appointment> selectedAppointmentProperty();
+
+    /**
      * Sets the selected patient in the filtered patient list.
      *
      * @see seedu.address.model.Model#setSelectedPatient(Patient)
@@ -88,4 +100,11 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedMedHist(MedicalHistory)
      */
     void setSelectedMedHist(MedicalHistory medHist);
+
+    /**
+     * Sets the selected appointment in the filtered appointment list.
+     *
+     * @see seedu.address.model.Model#setSelectedAppointment(Appointment)
+     */
+    void setSelectedAppointment(Appointment appointment);
 }

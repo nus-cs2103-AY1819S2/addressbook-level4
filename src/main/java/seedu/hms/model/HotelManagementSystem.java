@@ -20,8 +20,8 @@ import seedu.hms.model.customer.UniqueCustomerList;
 import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.ReservationList;
 import seedu.hms.model.reservation.RoomType;
-import seedu.hms.model.util.TimeRange;
 import seedu.hms.model.reservation.RoomTypeList;
+import seedu.hms.model.util.TimeRange;
 
 /**
  * Wraps all data at the hms-book level

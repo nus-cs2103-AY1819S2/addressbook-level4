@@ -62,13 +62,15 @@ The following commands can be used in any RestOrRant mode.
 
 Format: `help`
 
+// tag::changemode[]
 ==== Switching to Restaurant Mode : `restaurantMode`
 
 Changes RestOrRant to Restaurant Mode which allows the user to add tables and update the tables' statuses. +
-Format: `restaurantMode` (or `RM`)
+Format: `restaurantMode`
 
 ****
 * At start up, the application is already in Restaurant Mode.
+* RestOrRant should not already be in Restaurant Mode.
 ****
 
 Examples:
@@ -78,7 +80,7 @@ Examples:
 ==== Switching to Table Mode : `tableMode`
 
 Changes RestOrRant to Table Mode for the table given by the specified table number and displays the list of order items from that table. +
-Format: `tableMode TABLE_NUMBER` (or `TM TABLE_NUMBER`)
+Format: `tableMode TABLE_NUMBER`
 
 ****
 * The table with the specified table number must already exist in the restaurant (can be created in Restaurant Mode).
@@ -86,17 +88,27 @@ Format: `tableMode TABLE_NUMBER` (or `TM TABLE_NUMBER`)
 
 Examples:
 
-* `tableMode` 2 +
+* `tableMode 2` +
 Switches to Table Mode for table 2 and displays the list of order items from table 2.
 
 ==== Switching to Menu Mode : `menuMode`
 
 Changes RestOrRant to Menu Mode in order to add to, delete from or edit the menu items in the menu. +
-Format: `menuMode` (or `MM`)
+Format: `menuMode`
 
 ****
 * RestOrRant should not already be in Menu Mode.
 ****
+
+==== Switching to Statistics Mode : `statisticsMode`
+
+Changes RestOrRant to Statistics Mode in order to view restaurant's customer, revenue and order statistics. +
+Format: `statisticsMode`
+
+****
+* RestOrRant should not already be in Statistics Mode.
+****
+// end::changemode[]
 
 ==== Exiting the program : `exit`
 
@@ -108,7 +120,7 @@ Format: `exit`
 RestOrRant data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-
+// tag::restaurantmode[]
 === Restaurant Mode
 
 In Restaurant Mode, which is the default mode, you can perform table-related operations and view the order items across all tables.
@@ -181,7 +193,9 @@ Format: `spaceFor NUMBER_OF_CUSTOMERS`
 Examples:
 
 * `spaceFor 5`
+// end::restaurantmode[]
 
+// tag::tablemode[]
 === Table Mode
 
 In Table Mode, you can perform order-related operations for the chosen table. The application will display the list of items ordered by the table, as well as the restaurant's menu for ease of reference.
@@ -267,7 +281,9 @@ Examples:
 
 * `bill` +
 Returns the total price of the order from the current table.
+// end::tablemode[]
 
+// tag::menumode[]
 === Menu Mode
 
 In Menu Mode, you can perform menu-related operations. The application will display the current items on the menu.
@@ -316,7 +332,9 @@ Format: `clearMenu`
 Examples:
 
 * `clearMenu`
+// end::menumode[]
 
+// tag::statisticsmode[]
 === Statistics Mode
 
 In Statistics Mode, you can obtain statistics related to your restaurant, such as daily revenue and the popularity of dishes.
@@ -435,6 +453,7 @@ Returns All the statistics it has computed.
   `1. W09 Chicken Wings` +
   `2. W12 Pork Chop Rice` +
   `3. A01 Dumpling Noodles` +
+// end::statisticsmode[]
 
 == FAQ
 
@@ -504,10 +523,4 @@ Removes A02 from the menu
 |Command |Shortcut |Usage |Example
 |`revenue`|`*r*`|`revenue [d/DAY] [m/MONTH] [y/YEAR]` |`revenue d/1 m/1 y/2019` +
 Returns the revenue earned on 01 January 2019
-|`daily`|`*d*`|`daily` |`daily` +
-Changes the interface to display the statistical daily revenue
-|`monthly`|`*m*`|`monthly` |`monthly` +
-Changes the interface to display the statistical monthly revenue
-|`yearly`|`*y*`|`yearly` |`yearly` +
-Changes the interface to display the statistical yearly revenue
 |=======================================================================

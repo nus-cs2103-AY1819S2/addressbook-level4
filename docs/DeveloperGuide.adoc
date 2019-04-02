@@ -318,11 +318,11 @@ image::OpenCommandSequenceDiagram.png[width=800]
 
 * *Alternative 1 (current choice)*: User can only open and edit one image at a time.
 ** Pros: Easy to implement. `temp` folder only stores one original image and one temporary image. Clear to users that edits are done to the only opened image.
-** Cons: User is unable to open other images while editing.
+** Cons: Users are unable to open other images while editing.
 
 * *Alternative 2* : User can open and edit multiple images.
 ** Pros: Users are able to edit multiple images simultaneously.
-** Cons: Open has to distunguish whether user is opening an image from `assets` folder or `temp` folder. Requires many duplicates with different names. This may be confusing for the user.
+** Cons: Open has to distinguish whether user is opening an image from `assets` folder or `temp` folder. Requires many duplicates with different names. This may be confusing.
 
 
 === List Files Feature

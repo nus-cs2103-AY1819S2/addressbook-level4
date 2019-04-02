@@ -69,15 +69,16 @@ Within the table feature, you will find many commands implemented to create and 
  [[minorEnhancements]]
 . *Minor enhancement*: implemented the `[blue]#*RestaurantMode*#` to only accept commands for the table features only and morphed the `[blue]#*Logic*#` component to be compatible with RestOrRant's features. 
 //* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
-* *Other contributions*:
+. *Other contributions*:
 
 ** Project management:
-*** Encourage discussion during group meetings to ensure decisions considers all aspects 
+*** Encourage discussion during group meetings to ensure decisions considers all aspects
+*** Enforced standardised coding styles throughout the project 
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote tests for table features (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Wrote up the READme for the project: https://github.com[#14]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 
@@ -85,23 +86,15 @@ Within the table feature, you will find many commands implemented to create and 
 == Contributions to the User Guide
 
 |===
-|_This section shows the updates that I made to the *RestOrRant User Guide* for table features to ensure that it accurately documents the current features in the application._
+|This section shows the updates that I made to the *RestOrRant User Guide* for table features to ensure that it accurately documents the current features in the application.
 |===
 
-include::../UserGuide.adoc[tag=addTable]
-
-include::../UserGuide.adoc[tag=editPax]
-
-include::../UserGuide.adoc[tag=editSeats]
-
-include::../UserGuide.adoc[tag=clearTable]
-
-include::../UserGuide.adoc[tag=spaceFor]
+include::../UserGuide.adoc[tag=restaurantmode]
 
 == Contributions to the Developer Guide
 
 |===
-|_This section shows the updates that I made to the *RestOrRant Developer Guide* for table features to demonstrate the technical details of how they are implemented._
+|This section shows the updates that I made to the *RestOrRant Developer Guide* for table features to demonstrate the technical details of how they are implemented.
 |===
 
-include::../DeveloperGuide.adoc[tag=editPax]
+include::../DeveloperGuide.adoc[tag=editpax]

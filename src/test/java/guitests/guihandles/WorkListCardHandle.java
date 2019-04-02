@@ -80,7 +80,7 @@ public class WorkListCardHandle extends NodeHandle<Node> {
     public boolean equals(WorkList workList) {
         return getDate().equals(workList.getDate())
                 && getAssignee().equals(workList.getAssignee())
-                && getworklistid().equals(workList.getId().getId())
+                && getworklistid().equals(workList.getId().value)
                 && ImmutableMultiset.copyOf(getEquipments()).equals(ImmutableMultiset.copyOf(workList
                 .getEquipments().stream()
                 .map(equipment -> equipment.getName())

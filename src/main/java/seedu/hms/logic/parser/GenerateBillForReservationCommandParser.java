@@ -40,7 +40,8 @@ public class GenerateBillForReservationCommandParser implements Parser<GenerateB
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public GenerateBillForReservationCommand parse(String args, CustomerModel customerModel, BillModel billModel) throws ParseException {
+    public GenerateBillForReservationCommand parse(String args, CustomerModel customerModel, BillModel billModel)
+        throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_ROOM, PREFIX_DATES);
 

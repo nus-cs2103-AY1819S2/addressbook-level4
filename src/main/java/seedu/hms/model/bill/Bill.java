@@ -39,13 +39,12 @@ public class Bill {
     }
 
     public Bill(Customer customer, double amountBooking, HashMap<String, Pair<Double, Integer>> bookingBill,
-                HashMap<String, Pair<Double, Long>> reservationBill){
+                HashMap<String, Pair<Double, Long>> reservationBill) {
         this.customer = customer;
         this.amountBooking = amountBooking;
         this.bookingBill = bookingBill;
         this.reservationBill = reservationBill;
     }
-
 
 
     /**

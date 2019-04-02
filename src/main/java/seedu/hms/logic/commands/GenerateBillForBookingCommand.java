@@ -6,7 +6,6 @@ import static seedu.hms.logic.parser.CliSyntax.PREFIX_TIMING;
 
 import java.util.function.Predicate;
 
-import javafx.collections.ObservableList;
 import seedu.hms.logic.CommandHistory;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.model.BillModel;

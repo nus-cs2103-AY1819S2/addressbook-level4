@@ -34,8 +34,8 @@ public class GenerateBillForReservationCommand extends BillCommand {
         + "[" + PREFIX_DATES + "12/12/2019 - 14/12/2019]";
 
 
-    public static final String MESSAGE_GENERATE_BILL_FOR_RESERVATION_SUCCESS = "Reservation bill generated for " +
-        "customer: %1$s";
+    public static final String MESSAGE_GENERATE_BILL_FOR_RESERVATION_SUCCESS = "Reservation bill generated for "
+        + "customer: %1$s";
 
     private final Predicate<Reservation> reservationPredicate;
     private final Bill bill;

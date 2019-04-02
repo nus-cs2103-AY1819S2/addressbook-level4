@@ -11,7 +11,6 @@ import javafx.util.Pair;
 import seedu.hms.commons.core.Messages;
 import seedu.hms.commons.core.index.Index;
 import seedu.hms.logic.commands.GenerateBillForCustomerCommand;
-import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.BillManager;
 import seedu.hms.model.BillModel;
@@ -97,7 +96,7 @@ public class GenerateBillForCustomerCommandParser implements Parser<GenerateBill
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public GenerateBillForCustomerCommand parse(String args) throws ParseException{
+    public GenerateBillForCustomerCommand parse(String args) throws ParseException {
         return parse(args, new CustomerManager(), new BillManager());
     }
 

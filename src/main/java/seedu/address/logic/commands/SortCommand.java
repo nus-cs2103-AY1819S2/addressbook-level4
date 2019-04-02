@@ -5,11 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.sortmethods.SortName;
-import seedu.address.logic.commands.sortmethods.SortSurname;
-import seedu.address.logic.commands.sortmethods.SortSkills;
-import seedu.address.logic.commands.sortmethods.SortGpa;
 import seedu.address.logic.commands.sortmethods.SortEducation;
+import seedu.address.logic.commands.sortmethods.SortGpa;
+import seedu.address.logic.commands.sortmethods.SortName;
+import seedu.address.logic.commands.sortmethods.SortSkills;
+import seedu.address.logic.commands.sortmethods.SortSurname;
 import seedu.address.logic.commands.sortmethods.SortUtil;
 import seedu.address.logic.parser.SortWord;
 import seedu.address.model.Model;
@@ -47,8 +47,7 @@ public class SortCommand extends Command {
         Boolean reverse;
         if (input.contains("reverse")) {
             reverse = true;
-        }
-        else {
+        } else {
             reverse = false;
         }
         return reverse;
@@ -64,7 +63,7 @@ public class SortCommand extends Command {
         //Maybe use switch statement here?
         String input = this.method.getSortWord();
         int finalSpace =  input.lastIndexOf(" ");
-        String commandInput = input.substring(finalSpace+1);
+        String commandInput = input.substring(finalSpace + 1);
         if (commandInput.equals("name")) {
             SortName sorted = new SortName(lastShownList);
             sortedPersons = sorted.getList();

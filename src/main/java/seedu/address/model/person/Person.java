@@ -165,7 +165,7 @@ public class Person {
      */
     public String surnamesToString() {
         String fullName = namesToString();
-        int finalSpace =  fullName.lastIndexOf(" ");
+        int finalSpace = fullName.lastIndexOf(" ");
         return fullName.substring(finalSpace + 1);
     }
 

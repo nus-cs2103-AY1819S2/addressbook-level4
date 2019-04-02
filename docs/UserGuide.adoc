@@ -462,25 +462,9 @@ All the above operations described above focuses on how individual users may use
 However, Know-It-All isn't wasn't designed for individual users in mind. It was designed to be the
 application that could empower others to 'Know-It-All' as well.
 
-The following operations describe just how you can share your flashcards with other users and vice versa.
+The following `Import` and `Export` operations describe just how you can share your flashcards with other users and vice versa.
 
-
-==== Search by keywords : `search`
-
-At the root directory, searches for folders using keywords in folder names. Within a folder, user can search for flashcards inside the current folder using keywords in flashcard questions.
-
-Format: `search KEYWORDS [MORE_KEYWORDS]`
-
-
-==== Import flashcards : `import`
-
-Searches for a csv file in the root project directory and parses the file to generate a flashcard folder.
-
-NOTE: The csv file imported should follow the format below
-
-
-
-Format: `import FILENAME`
+NOTE: The import 
 
 ==== Export flashcards : `export`
 
@@ -488,6 +472,18 @@ Creates a csv file containing the flashcards from the specified folder, which ca
 Exported card folder will be created in the project root directory.
 
 Format: `export FOLDER_INDEX FILENAME [MORE_INDEXES]`
+
+
+==== Import flashcards : `import`
+Searches for a csv file in the root project directory and parses the file to generate a flashcard folder.
+
+
+NOTE: The csv file imported should follow the format below
+
+
+
+Format: `import FILENAME`
+
 
 
 

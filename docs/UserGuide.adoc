@@ -70,8 +70,49 @@ The commands will go on, until either your or the enemy's fleet is completely de
 
 Refer to <<Features>> for details of each command.
 
-== How To Play
-This section will describe how to play the classic Battleship game
+== Game Rules
+This section will describe the game rules and how to play the classic Battleship game.
+====
+*Goal*
+
+Sink all your opponent's battleships before they sink yours.
+====
+====
+*Captain, deploy ships!*
+
+Depending on the chosen size of the map, as specified through the `init <map_size>` command,
+the player will be given different numbers of each ship.
+
+The ships available are:
+
+* Cruiser: size 2
+* Destroyer: size 3
+* Aircraft Carrier: size 5
+
+Here are the respective number of each ship in your fleet, depending
+on your map size.
+
+image::mapSizeFleetSize.png[width=550]
+====
+====
+*Ready, aim, fire!*
+
+The Player will always be given the first turn.
+The Player may fire shots at the enemy map through the command `shoot <a1>`.
+
+The player is allowed to continue firing until a miss.
+
+Upon a miss, the player must end their turn here, and relinquish the turn
+to the enemy through the command `end turn`. All's fair in love and war.
+====
+
+====
+*Good Game!*
+
+Whoever is first to destroy all their opponent's ship will be declared the winner.
+Had fun? You can view the game statistics with the command `stats`.
+====
+
 
 [[Features]]
 == Features

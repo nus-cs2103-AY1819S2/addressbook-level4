@@ -1,27 +1,32 @@
 package seedu.address.ui;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.model.patient.Patient;
+import seedu.address.model.person.Person;
 import seedu.address.model.record.Procedure;
 import seedu.address.model.record.Record;
 
@@ -39,6 +44,7 @@ public class StatWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private TeethPanel teethPanel;
 
     @FXML
     private GridPane reportPlaceholder;
@@ -56,6 +62,10 @@ public class StatWindow extends UiPart<Stage> {
     private Label email;
     @FXML
     private TableView recordStatTable;
+    @FXML
+    private VBox barChartBox;
+    @FXML
+    private StackPane teethHolder;
 
 
     public StatWindow(Stage root, Logic logic) {
@@ -105,7 +115,14 @@ public class StatWindow extends UiPart<Stage> {
             Integer count = recordNumbers.get(tempProc);
             recordNumbers.put(tempProc, count + 1);
         }
+        SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+        selectedPerson.setValue(toStat);
+        ObservableValue<Person> localPatient = selectedPerson;
+        this.teethPanel = new TeethPanel(localPatient, true);
+        teethHolder.getChildren().add(teethPanel.getRoot());
+
         populateStatTable();
+        populateBarChart();
 
     }
 
@@ -113,6 +130,9 @@ public class StatWindow extends UiPart<Stage> {
         primaryStage.show();
     }
 
+    /**
+     * Populates stats table.
+     */
     private void populateStatTable() {
         ObservableList<Pair<String, Integer>> data =
             FXCollections.observableArrayList();
@@ -132,6 +152,26 @@ public class StatWindow extends UiPart<Stage> {
         recordStatTable.getItems().addAll(data);
         //recordStatTable.setMinHeight(200);
 
+    }
+
+    /**
+     * Populates the bar chart
+     */
+    private void populateBarChart() {
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        BarChart<String, Number> recordBarChart = new BarChart<String, Number>(xAxis, yAxis);
+        xAxis.setLabel("Procedure");
+        yAxis.setLabel("Count");
+
+        XYChart.Series series = new XYChart.Series();
+        series.setName("Overall Stat");
+        for (String procType: Procedure.PROCEDURE_LIST) {
+            series.getData().add(new XYChart.Data(procType, recordNumbers.get(procType)));
+        }
+        recordBarChart.getData().add(series);
+
+        barChartBox.getChildren().add(recordBarChart);
     }
 
     /**

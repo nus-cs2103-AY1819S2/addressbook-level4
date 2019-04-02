@@ -1,0 +1,192 @@
+:imagesdir: ../images
+= Projects Portfolio
+Prithivi Raj
+
+== Introduction
+
+This document provides a detailed description to my contributions to
+the several projects that I have been a part of over the years. +
+My contributions will be substantiated with relevant technical application
+and sources, if possible. +
+
+== Project: PDF++
+
+PDF++ is an application built on Java that acts as a document management system
+that provides some advanced features that improves the quality of life of its
+users. +
+The application has a working Graphical User Interface (GUI), built upon the
+JavaFX framework, that is supplemented with a Command Line Interface (CLI)
+to accept more specific requests by the User. +
+{nbsp} +
+Although not built to its final form, it boasts a large feature set such as:
+
+- Adding, Moving and Deleting Documents.
+- Assigning Custom Tags to Documents.
+- Filtering Documents by Custom Tags.
+- Assigning Deadlines to Documents that provide a Visual Response to the User.
+- Permanent Encryption and Decryption of Documents such that they require
+set passwords to open even if accessed outside the application.
+- Merging multiple documents into a single document.
+
+=== Summary of Contributions
+
+My Enhancements to the Project Consists of: +
+
+* *User Interface (UI) Transformations*
+** *What*: The UI is the main layer of PDF++ that interacts with the End-User
+of our platform.
+** *Justification*: The initial UI was insufficient in realising my vision
+for our application. Hence through the use of the `FXML` Scripting Language and
+`JavaFX` Library, I had reinvented the UI such that it would more accurately
+support the application and all the additional features we had planned to add
+to it.
+** *Highlights*: The UI is fully compatible with the additional features of
+PDF++ and would require minimal to no overhauls should any new aspects of the
+application require upgrading.
+
+* *Introduction of Deadline Feature*
+** *What*: The Deadline feature is one of the core features that we had planned
+to introduce in our application. It is a means for the target audience to
+manage their documents along with their current schedules.
+** *Justification*: Although the application was working well as a Document
+Management System, analysis of the needs and wants of our target audience
+was necessary. Following several informal discussions, a key feature that
+many took interest in was the ability to set Deadlines to documents thus
+allowing the application to assist in 'reminding' the User.
+** *Highlights* The deadline feature required drastic changes to the existing
+`storage` and `model` components as they were a key feature tied to each and
+every document managed by our application. As such there was key attention
+to the the parsing of the Deadline between components in out application. An
+example of which would be the translation of the Deadline between the `Java`
+and `Json` frameworks.
+
+==== User Guide Contributions
+
+===== User Interface
+
+The UI had to include labels that displayed the Deadlines keyed in by the User
+which had to reflect the duration to the due date by changing colours. The UI
+also needed to have a default _Welcome Screen_ that served as a central
+dashboard to the User. +
+Furthermore, the dashboard had to be replaced with a details screen when the
+User interacted with one of the Files in our application. +
+These requirements meant that the UI had to heavily communicate with the
+`logic` and `model` systems in the backend to produce the required behaviours. +
+The relevant pull requests pertaining to this feature can be
+referenced in the following _Github_ issue
+https://github.com/CS2103-AY1819S2-T12-4/main/issues/152[#152]. +
+{nbsp} +
+The scripted UI is attached below:
+
+image::Ui.png[width="500", align="center"]
+
+To illustrate to a new User, the UI also had to be broken down into digestible
+chunks that could be easily comprehended by the user. As such the following
+diagrams were also added to the Introductory paragraphs of the User Guide.
+
+image::UGAppOverview.png[width="600", align="center"]
+image::UGPdfCard.png[width="300", align="center"]
+
+The information was further colour coded to ensure the simplicity of the
+diagrammatical explanations.
+
+===== Deadline
+
+As for the Deadline, there were several aspects that had to be communicated to
+the end user namely, the usage style of the feature, additional requirements,
+definitions to the colour coded labels and so on. Hence the following excerpt
+was inserted into the User Guide. +
+The relevant pull requests pertaining to this feature can be
+referenced in the following _Github_ issue
+https://github.com/CS2103-AY1819S2-T12-4/main/issues/124[#124]. +
+
+'''
+
+=== Setting a deadline for the file : `deadline`
+
+Set or remove a deadline for the a file, specified by the index of the file
+that is next to the name of the file in the Files Section, highlighted
+in green. +
+
+A file's deadline is located under its name and has 4 colours to indicate the
+amount of time you have before it is due. +
+
+The colour Green, indicates that there is more `7` days till the deadline
+is due, as shown below. +
+
+image::UGDeadlineFar.png[width="300"]
+
+The colour Orange, indicates that you have less than `7` days till it is due.
+As shown below. +
+
+image::UGDeadlineNear.png[width="300"]
+
+The colour Red, indicates that you have reached or failed to complete the
+task by the due date, as shown below +
+
+image::UGDeadlineDue.png[width="300"]
+
+The colour Blue indicates that you have completed the set task. +
+
+image::UGDeadlineDone.png[width='300']
+
+All deadlines are also displayed in the Deadlines Section of the application
+highlighted by Red. +
+
+Format: `deadline INDEX date/DATE` [To Set a Deadline] +
+Format: `deadline INDEX done` [To Complete a Deadline] +
+Format: `deadline INDEX remove` [To remove a Deadline] +
+
+Examples:
+
+* `deadline 1 date/20-02-2019` +
+* `deadline 1 done` +
+* `deadline 1 remove` +
+
+'''
+
+==== Developer Guide Contributions
+
+===== Deadline feature
+For the deadline feature the following excerpt was inserted into the Developer
+Guide.
+
+'''
+=== Deadline Feature
+==== Current Implementation
+The deadline feature is facilitated by both `DeadlineCommand` and
+`DeadlineCommandParser`. This feature
+allows you to set or remove deadlines of the PDF file specified
+by you from PDF++.
+
+The `Deadline` feature has the following syntax: `deadline <INDEX> <ACTION>`.
+
+* `INDEX` refers to the index of the file in the list that you wish to perform
+the `action` on.
+
+* `ACTION` refers to the type of action that you wish to perform.
+There are 3 actions that you can perform
+** `date/<DATE>`
+*** `date/` refers to command immediately following after this prefix is a date
+*** `<DATE>` must be of `dd-mm-yyyy` format
+*** Example of a valid date format: 15-03-2019
+
+** `done` assigns the PDF file a `DONE` status
+
+** `remove` assigns the PDF file a `REMOVE` status
+
+[NOTE]
+After a deadline has been added to the PDF file you specified, the date will be
+colour coded according to a fixed criteria
+
+'''
+
+==== Design Considerations
+When designing the UI, there were several considerations that I had keep in
+mind. These include ensuring that the there is sufficient but not a suffocating
+amount of information presented to the User to ensure an optimal experience. +
+{nbsp} +
+As for the Deadline feature there were several considerations regarding the
+input allowances to provide the user. For instance the need to ensure that
+dates are valid, and no illegal characters are inserted such that a security
+flaw is introduced into the system.

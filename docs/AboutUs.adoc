@@ -20,7 +20,7 @@ Role: Developer
 
 === Prithivi Raj
 image::ptvrajsk.png[width="150", align="left"]
-{empty}[https://github.com/ptvrajsk/[github]]
+{empty}[https://github.com/ptvrajsk/[github]] [<<ptvrajsk_PPP#, portfolio>>]
 
 Role: Developer
 
@@ -41,4 +41,3 @@ image::lormee94.png[width="150", align="left"]
 Role: Developer
 
 '''
-

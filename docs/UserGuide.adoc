@@ -94,9 +94,9 @@ image::UserGuide_InformationPanel.png[width="715"]
 
 Managing medicines by batch is efficient and logical since medicines from the same batch share the same properties. However, with so many different batches of the same medicine, you need an organized way to keep track of them.
 
-The information panel provides all the details and information you need about each batch of medicine in a neat and organized manner. 
+The information panel provides all the details and information you need about each batch of medicine in a neat and organized manner.
 
-You can easily refer to the batch table provided in the information panel while updating and managing your inventory. Simply select a medicine using the `select` command to view all its relevant details. You may refer to <<SelectCommand>> for more details. 
+You can easily refer to the batch table provided in the information panel while updating and managing your inventory. Simply select a medicine using the `select` command to view all its relevant details. You may refer to <<SelectCommand>> for more details.
 
 You can also sort the table by any of its columns with the `sort` command to suit your needs and preference. You may refer to <<SortCommand>> for more details.
 
@@ -142,11 +142,11 @@ Press the kbd:[&uarr;] and kbd:[&darr;] arrows to select from the generated list
 
 ==== Inventory Forecasting
 
-MediTabs will store information about your monthly stock level and predict the optimal amount of stock needed for the future. It will be possible to forecast inventory needs up to 3 months into the future with no extra effort from you as all analysis and calculations will take place with data already provided by routine use of MediTabs. 
+MediTabs will store information about your monthly stock level and predict the optimal amount of stock needed for the future. It will be possible to forecast inventory needs up to 3 months into the future with no extra effort from you as all analysis and calculations will take place with data already provided by routine use of MediTabs.
 It will also be possible to import past sales data to increase accuracy of forecasting immediately without having to wait for the application to collect data.
 
 [NOTE]
-We recommend importing or allowing MediTabs to collect data for 6 months or more for a more accurate forecast.  
+We recommend importing or allowing MediTabs to collect data for 6 months or more for a more accurate forecast.
 
 // tag::integrationaddon[]
 ==== Integration Addon Support
@@ -322,7 +322,7 @@ Examples:
 * `sort p/expiry d/descending` +
 The table is sorted starting from the batch with the furthest expiry date.
 * `sort p/quantity d/ascending` +
-The table is sorted starting from the batch with the lowest quantity. 
+The table is sorted starting from the batch with the lowest quantity.
 // end::sort[]
 
 // tag::update[]

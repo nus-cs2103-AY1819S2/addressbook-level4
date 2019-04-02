@@ -58,8 +58,6 @@ class JsonAdaptedRestaurant {
         this.email = email;
         this.address = address;
         this.postal = postal;
-        this.cuisine = cuisine;
-        this.occasion = occasion;
         this.categories = categories;
         this.weblink = weblink;
         this.openingHours = openingHours;

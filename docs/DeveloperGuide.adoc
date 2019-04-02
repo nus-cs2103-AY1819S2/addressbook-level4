@@ -309,9 +309,9 @@ This section provides you with an overview of how exporting as Comma-separated v
 ==== Current Implementation
 
 The exporting as CSV file format mechanism is facilitated by `CsvWrapper`.
-It is build on top of the `Opencsv` Java CSV parser library, licensed under the `Apache 2 OSS License`, so that it integrates with our product. This is done by providing additional operations to support exporting the current medicine inventory data shown in the GUI to CSV file format.
+It is built on top of the `Opencsv` Java CSV parser library, licensed under the `Apache 2 OSS License`, so that it integrates with our product. This is done by providing additional operations to support exporting the current medicine inventory data shown in the GUI to CSV file format.
 
-There are many additonal operations added in `CsvWrapper` but we will only list the key operations which are the main drivers of the overall implementation of the feature for easier reference and understanding.
+There are many additional operations added in `CsvWrapper` but we will only list the key operations which are the main drivers of the overall implementation of the feature for easier reference and understanding.
 
 The key operations are as follows:
 
@@ -347,7 +347,7 @@ Step 6: After the empty CSV file is created, the `CsvWrapper#writeDataToCsv`, wh
 
 Step 7: The current medicine inventory data shown in the GUI is exported successfully to CSV file format.
 
-Step 8: The `ExportCommand#execute()` operations returns a `CommandResult` which shows the current list is exported to a CSV file with the input file name.
+Step 8: The `ExportCommand#execute()` operation returns a `CommandResult` which shows the current list is exported to a CSV file with the input file name.
 
 The following activity diagram summarizes what happens when a user executes the `export` command:
 
@@ -362,7 +362,7 @@ image::ExportCommandActivityDiagram.png[width="800"]
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual commands each adds an additional parameter to export as CSV file.
 ** Pros: Users can export directly through a single command (e.g. for `filter` command when the export option is enabled, export the filtered medicine inventory data immediately without having to retrieve from `Model#getFilteredMedicineList()` operation.
-** Cons: We must ensure that the implementation and integration of the exporting to CSV file of each individual commands are correct. Furthermore, users are not able preview the data before exporting.
+** Cons: We must ensure that the implementation and integration of the exporting to CSV file of each individual commands are correct. Furthermore, users are not able to preview the data before exporting.
 
 ===== Aspect: Data structure/Algorithm/Implementation to support the `export` command
 
@@ -995,7 +995,7 @@ Use case resume at step 2.
 
 . User Constraints
 .. The product caters users with a preference for typing commands over the command line. Only limited GUI interactions are available as the focus is on the command line interface.
-.. The product is meant only for single user usage. i.e, any features (e.g. profile switching) should only be limited to a single user. Using such features to support mulitple users is not recommended.
+.. The product is meant only for single user usage. i.e, any features (e.g. profile switching) should only be limited to a single user. Using such features to support multiple users is not recommended.
 
 . Data
 .. User should have read and write permissions for data stored on the local machine. i.e, expert users can edit the data file without the application.

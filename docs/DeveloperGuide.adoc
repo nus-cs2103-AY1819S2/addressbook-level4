@@ -497,6 +497,8 @@ and pass this Coordinate to the `BattleManager`. The Enemy AI supports the abili
 check that its generated coordinates are all valid, and has further algorithm that will
 increase its accuracy upon detecting a successful hit.
 
+image::enemyShoot.gif[width=500]
+
 __Note: All actions taken by the Enemy AI are seeded by a pseudo-random generator.
 Thus, its behaviour will be different for every game session.__
 

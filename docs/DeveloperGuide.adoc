@@ -117,6 +117,7 @@ When you are ready to start coding,
 1. Get some sense of the overall design by reading <<Design-Architecture>>.
 2. Take a look at <<GetStartedProgramming>>.
 
+// tag::design[]
 == Design
 
 [[Design-Architecture]]
@@ -248,7 +249,7 @@ The `Storage` component,
 === Common classes
 
 Classes used by multiple components are in the `seedu.financetracker.commons` package.
-
+// end::design[]
 == Implementation
 
 This section describes in detail the implementation of certain features in _In-Credit-Ble_.

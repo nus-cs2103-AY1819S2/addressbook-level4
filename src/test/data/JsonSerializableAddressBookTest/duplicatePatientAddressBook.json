@@ -13,11 +13,6 @@
     "phone": "94351253",
     "address": "4th street"
   } ],
-  "medicalHistories" : [ {
-    "name" : "John Doe",
-    "writeUp" : "Fever"
-  }, {
-    "name" : "Amy Doe",
-    "writeUp" : "Sneeze"
-  } ]
+  "medicalHistories" : [ ],
+  "appointments": [ ]
 }

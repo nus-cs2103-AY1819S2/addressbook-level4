@@ -32,10 +32,10 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.medicalhistory.Date;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.WriteUp;
 import seedu.address.model.person.Doctor;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.PatientNameContainsKeywordsPredicate;
 import seedu.address.testutil.DoctorBuilder;
@@ -70,10 +70,10 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_addMedHist() throws Exception {
         AddMedHistCommand command = (AddMedHistCommand) parser.parseCommand(
-                AddMedHistCommand.COMMAND_WORD + " " + "n/testName sw/testWriteUp");
+                AddMedHistCommand.COMMAND_WORD + " " + "pid/1 did/1 d/2018-05-05 sw/testWriteUp");
         assertTrue(command instanceof AddMedHistCommand);
         assertEquals(command, new AddMedHistCommand(
-                new MedicalHistory(null, null, new Name("testName"), new WriteUp("testWriteUp"))));
+                new MedicalHistory("1", "1", new Date("2018-05-05"), new WriteUp("testWriteUp"))));
     }
 
     @Test

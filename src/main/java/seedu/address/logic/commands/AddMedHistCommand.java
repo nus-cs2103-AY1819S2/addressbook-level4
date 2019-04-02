@@ -1,7 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_MEDHIST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WRITEUP;
 
 import seedu.address.logic.CommandHistory;
@@ -18,11 +20,15 @@ public class AddMedHistCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a medical history of a patient to the address book."
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
+            + PREFIX_PATIENT_ID + "PATIENT-ID "
+            + PREFIX_DOCTOR_ID + "DOCTOR-ID "
+            + PREFIX_DATE_OF_MEDHIST + "DATE "
             + PREFIX_WRITEUP + "SHORT-WRITE-UP \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_WRITEUP + "Fever";
+            + PREFIX_PATIENT_ID + "1 "
+            + PREFIX_DOCTOR_ID + "2 "
+            + PREFIX_DATE_OF_MEDHIST + "2019-03-02 "
+            + PREFIX_WRITEUP + "The patient got a fever.";
     public static final String MESSAGE_SUCCESS = "New medical history added: %1$s";
     public static final String MESSAGE_DUPLICATE_MEDHIST = "This medical history already exists in the address book";
 

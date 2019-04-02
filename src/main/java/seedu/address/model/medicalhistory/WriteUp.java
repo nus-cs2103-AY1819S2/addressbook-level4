@@ -15,7 +15,7 @@ public class WriteUp {
     public final String value;
 
     /**
-     * Constructs a {@code Phone}.
+     * Constructs a {@code WriteUp}.
      *
      * @param writeUp A valid write up.
      */

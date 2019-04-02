@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Patient;
 
 /**
@@ -38,9 +39,8 @@ class JsonSerializableAddressBook {
                                                List<JsonAdaptedMedicalHistory> medicalHistories,
                                         @JsonProperty("appointments") List<JsonAdaptedAppointment> appointments) {
         this.patients.addAll(patients);
-        //this.medicalHistories.addAll(medicalHistories);
-        //this.appointments.addAll(appointments);
-        //this.medicalHistories.addAll(medicalHistories);
+        this.medicalHistories.addAll(medicalHistories);
+        this.appointments.addAll(appointments);
     }
 
     /**
@@ -71,6 +71,14 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             addressBook.addPatient(patient);
+        }
+
+        for (JsonAdaptedMedicalHistory jsonAdaptedMedicalHistory : medicalHistories) {
+            MedicalHistory medicalHistory = jsonAdaptedMedicalHistory.toModelType();
+            if (addressBook.hasMedHist(medicalHistory)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MEDHIST);
+            }
+            addressBook.addMedHist(medicalHistory);
         }
 
         for (JsonAdaptedAppointment jsonAdaptedAppointment : appointments) {

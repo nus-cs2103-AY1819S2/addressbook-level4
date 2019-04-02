@@ -23,7 +23,13 @@ public class MedHistCard extends UiPart<Region> {
     @javafx.fxml.FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label medicalHistoryId;
+    @FXML
+    private Label patientId;
+    @FXML
+    private Label doctorId;
+    @FXML
+    private Label date;
     @FXML
     private Label id;
     @FXML
@@ -33,8 +39,11 @@ public class MedHistCard extends UiPart<Region> {
         super(FXML);
         this.medHist = medHist;
         id.setText(displayedIndex + ". ");
-        name.setText(medHist.getName().fullName);
-        writeUp.setText(medHist.getWriteUp().value);
+        medicalHistoryId.setText("ID: " + medHist.getMedHistId());
+        patientId.setText("Patient ID: " + medHist.getPatientId());
+        doctorId.setText("Doctor ID: " + medHist.getDoctorId());
+        date.setText("Date: " + medHist.getDate().value);
+        writeUp.setText("Write Up" + medHist.getWriteUp().value);
     }
 
     @Override
@@ -51,7 +60,9 @@ public class MedHistCard extends UiPart<Region> {
 
         // state check
         MedHistCard card = (MedHistCard) other;
-        return id.getText().equals(card.id.getText()) && name.equals(card.name) && writeUp.equals(card.writeUp);
+        return id.getText().equals(card.id.getText()) && medicalHistoryId.equals(card.medicalHistoryId)
+                && patientId.equals(card.patientId) && doctorId.equals(card.doctorId)
+                && date.equals(card.date) && writeUp.equals(card.writeUp);
     }
 
 }

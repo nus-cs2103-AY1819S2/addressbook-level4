@@ -12,5 +12,7 @@
   }, {
     "name" : "Amy Doe",
     "writeUp" : "Sneeze"
-  } ]
+  } ],
+  "medicalHistories" : [ ],
+  "appointments": [ ]
 }

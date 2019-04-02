@@ -82,9 +82,8 @@ public class Person {
      * Checks if a tag as a String parameter is contained in one of the tags of that person
      */
     public boolean isTagExist(String tag) {
-
         for (SkillsTag skill : tags) {
-            if (skill.tagName.toLowerCase().contains(tag)) {
+            if (skill.tagName.toLowerCase().contains(tag) || skill.tagName.contains(tag)) {
                 return true;
             }
         }

@@ -10,28 +10,43 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class SkillsTag {
 
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String VALIDATION_REGEX = "[\\p{ASCII}][\\p{ASCII} ]*";
 
     public final String tagName;
     public final String tagColor;
+    public final String tagType;
 
     /**
      * Constructs a {@code SkillsTag}.
      *
      * @param tagName A valid tag name.
+     * @param type
      */
-    public SkillsTag(String tagName, String color) {
+    public SkillsTag(String tagName, String type) {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
         this.tagName = tagName;
-        this.tagColor = color;
+        this.tagType = type;
+        if(type.equals("skill")){
+            //skill tag
+            this.tagColor = "pink";
+
+        }else if(type.equals("pos")){
+            //position tag
+            this.tagColor = "yellow";
+
+        }else{
+            //endorsement tag
+            this.tagColor = "teal";
+        }
     }
 
     public SkillsTag(String tagName) {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
         this.tagName = tagName;
-        this.tagColor = "yellow";
+        this.tagColor = null;
+        this.tagType = null;
     }
 
     /**

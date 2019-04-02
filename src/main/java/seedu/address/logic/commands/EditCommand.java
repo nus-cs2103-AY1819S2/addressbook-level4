@@ -81,7 +81,21 @@ public class EditCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        Set<SkillsTag> previousTags = new HashSet<>(personToEdit.getTags());
+        Set<SkillsTag> endorsements = new HashSet<>();
+
+        for(SkillsTag s: previousTags){
+            if(s.tagType.equals("endorse")){
+                endorsements.add(s);
+            }
+        }
+
+        Person changedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        Set<SkillsTag> editedTags = new HashSet<>(changedPerson.getTags());
+        editedTags.addAll(endorsements);
+        Person editedPerson = new Person(changedPerson.getName(), changedPerson.getPhone(), changedPerson.getEmail(),
+                changedPerson.getEducation(), changedPerson.getGpa(), changedPerson.getAddress(), editedTags);
+
 
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);

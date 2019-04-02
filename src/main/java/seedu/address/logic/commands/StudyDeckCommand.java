@@ -22,7 +22,7 @@ public class StudyDeckCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enters the session using a deck.\n"
             + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
 
-    private static final String MESSAGE_STUDY_DECK_SUCCESS = "Entered study mode";
+    public static final String MESSAGE_STUDY_DECK_SUCCESS = "Entered study mode";
 
     private Index targetIndex;
     private DecksView decksView;
@@ -41,23 +41,22 @@ public class StudyDeckCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (targetIndex != null) {
+        if (targetIndex != null) { //if OpenDeckCommand is based on target index
             List<Deck> filteredDeckList = decksView.filteredDecks;
 
             if (targetIndex.getZeroBased() >= filteredDeckList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
             }
-
-            if (filteredDeckList.get(targetIndex.getZeroBased()).isEmpty()) {
-                throw new CommandException(Messages.MESSAGE_EMPTY_DECK);
-            }
-
             targetDeck = filteredDeckList.get(targetIndex.getZeroBased());
+        }
+
+        if (targetDeck.isEmpty()) {
+            throw new CommandException(Messages.MESSAGE_EMPTY_DECK);
         }
 
         model.studyDeck(targetDeck);
 
-        return new StudyPanelCommand(String.format(MESSAGE_STUDY_DECK_SUCCESS, targetDeck.getName()));
+        return new StudyPanelCommandResult(String.format(MESSAGE_STUDY_DECK_SUCCESS, targetDeck.getName()));
     }
 
     @Override

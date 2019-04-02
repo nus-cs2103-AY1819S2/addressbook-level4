@@ -279,6 +279,11 @@ public class AddCardCommandTest {
         }
 
         @Override
+        public boolean isAtStudyView() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ViewState getViewState() {
             throw new AssertionError("This method should not be called.");
         }

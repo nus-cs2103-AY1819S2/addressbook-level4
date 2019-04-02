@@ -282,6 +282,11 @@ public class AddDeckCommandTest {
         public boolean isAtCardsView() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean isAtStudyView() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class TaskCopyCommand extends Command {
             + "Parameters: Index (Must be an integer) [Number of Copies]"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Person copied: %1$s";
+    public static final String MESSAGE_SUCCESS = "Task copied: %1$s";
 
     private final Index index;
 
@@ -56,7 +57,7 @@ public class TaskCopyCommand extends Command {
             model.addTask(copytask);
         }
 
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, copytask));
     }

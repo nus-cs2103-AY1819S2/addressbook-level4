@@ -26,5 +26,13 @@ public class CliSyntax {
 
     /* Sort-Word definitions*/
     public static final SortWord SORTWORD_SKILLS = new SortWord("skills");
-    public static final SortWord SORTWORD_ALPHABETICAL = new SortWord("alphabetical");
+    public static final SortWord SORTWORD_REVERSE_SKILLS = new SortWord("reverse skills");
+    public static final SortWord SORTWORD_NAME = new SortWord("name");
+    public static final SortWord SORTWORD_REVERSE_NAME = new SortWord("reverse name");
+    public static final SortWord SORTWORD_SURNAME = new SortWord("surname");
+    public static final SortWord SORTWORD_REVERSE_SURNAME = new SortWord("reverse surname");
+    public static final SortWord SORTWORD_GPA = new SortWord("gpa");
+    public static final SortWord SORTWORD_REVERSE_GPA = new SortWord("reverse gpa");
+    public static final SortWord SORTWORD_EDUCATION = new SortWord("education");
+    public static final SortWord SORTWORD_REVERSE_EDUCATION = new SortWord("reverse education");
 }

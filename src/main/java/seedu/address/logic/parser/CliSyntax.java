@@ -22,4 +22,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_DOCTOR_ID = new Prefix("did/");
     public static final Prefix PREFIX_DATE_OF_APPT = new Prefix("d/");
     public static final Prefix PREFIX_START_TIME = new Prefix("t/");
+
+    public static final Prefix PREFIX_DATE_OF_MEDHIST = new Prefix("d/");
 }

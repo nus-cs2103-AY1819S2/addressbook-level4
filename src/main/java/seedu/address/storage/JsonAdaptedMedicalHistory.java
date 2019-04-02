@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.medicalhistory.Date;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.WriteUp;
 import seedu.address.model.person.Name;
@@ -13,15 +14,25 @@ import seedu.address.model.person.Name;
  */
 public class JsonAdaptedMedicalHistory {
 
-    private final String name;
+    private final String medHistId;
+    private final String patientId;
+    private final String doctorId;
+    private final String date;
     private final String writeUp;
 
     /**
      * Constructs a {@code JsonAdaptedMedicalHistory} with the given medical history details.
      */
     @JsonCreator
-    public JsonAdaptedMedicalHistory(@JsonProperty("name") String name, @JsonProperty("writeUp") String writeUp) {
-        this.name = name;
+    public JsonAdaptedMedicalHistory(@JsonProperty("medHistId") String medHistId,
+                                     @JsonProperty("patientId") String patientId,
+                                     @JsonProperty("doctorId") String doctorId,
+                                     @JsonProperty("date") String date,
+                                     @JsonProperty("writeUp") String writeUp) {
+        this.medHistId = medHistId;
+        this.patientId = patientId;
+        this.doctorId = doctorId;
+        this.date = date;
         this.writeUp = writeUp;
     }
 
@@ -29,7 +40,10 @@ public class JsonAdaptedMedicalHistory {
      * Converts a given {@code MedicalHistory} into this class for Jackson use.
      */
     public JsonAdaptedMedicalHistory(MedicalHistory source) {
-        name = source.getName().fullName;
+        medHistId = source.getMedHistId();
+        patientId = source.getPatientId();
+        doctorId = source.getDoctorId();
+        date = source.getDate().value;
         writeUp = source.getWriteUp().value;
     }
 
@@ -47,9 +61,9 @@ public class JsonAdaptedMedicalHistory {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         */
-        final Name modelName = new Name(this.name);
+        final Date modelDate = new Date(this.date);
         final WriteUp modelWriteUp = new WriteUp(this.writeUp);
-        return new MedicalHistory(null, null, modelName, modelWriteUp);
+        return new MedicalHistory(patientId, doctorId, modelDate, modelWriteUp);
     }
 
 

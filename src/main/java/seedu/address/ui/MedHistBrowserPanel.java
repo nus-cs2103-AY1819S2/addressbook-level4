@@ -21,7 +21,6 @@ import seedu.address.model.medicalhistory.MedicalHistory;
 public class MedHistBrowserPanel extends UiPart<Region> {
     public static final URL DEFAULT_PAGE =
             requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
-    public static final String SEARCH_PAGE_URL = "https://se-education.org/dummy-search-page/?name=";
 
     private static final String FXML = "MedHistBrowserPanel.fxml";
 
@@ -49,7 +48,7 @@ public class MedHistBrowserPanel extends UiPart<Region> {
     }
 
     private void loadMedHistPage(MedicalHistory medHist) {
-        loadPage(SEARCH_PAGE_URL + medHist.getName().fullName);
+        loadPage(medHist.getMedHistId());
     }
 
     public void loadPage(String url) {

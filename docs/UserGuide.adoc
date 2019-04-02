@@ -29,8 +29,11 @@ Some of the features that can look forward to:
 
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
++
 [WARNING]
-testeste
+JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
+Windows developers are highly recommended to use JDK `9`.
+
 
 
 == Quick Start

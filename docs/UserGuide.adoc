@@ -302,7 +302,6 @@ Selects the 1st battleship in the results of the `find` command.
 === Battle Phase
 
 ==== Beginning the battle: `begin`
->>>>>>> master
 
 Begins the battle against the computer enemy. +
 Format: `begin` +

@@ -447,6 +447,12 @@ The Battle feature is split between several packages:
   * `BeginCommand`, `AttackCommand` and `EndTurnCommand` handle the player's interaction
     with this component.
 
+The sequence diagram of what happens when the user enters the `begin` command is as follows:
+
+
+.Sequence diagram of beginning the battle.
+image::BeginSequenceDiagram.png[width=800]
+
 ==== Design Considerations
 * **Alternative 1 (current choice):** +
   `BattleManager` is stored under `Model`. Every time `Attack`, `EndTurn` or `Begin` commands

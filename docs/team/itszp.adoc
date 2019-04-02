@@ -51,13 +51,10 @@ This section provides a summary of my coding, documentation and other contributi
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=BlackWhiteCommand]
+include::../UserGuide.adoc[tag=ListAndOpen]
 
-include::../UserGuide.adoc[tag=ContrastCommand]
+include::../UserGuide.adoc[tag=UserSave]
 
-include::../UserGuide.adoc[tag=BrightnessCommand]
-
-include::../UserGuide.adoc[tag=CommandSummary]
 
 == Contributions to the Developer Guide
 
@@ -65,11 +62,13 @@ include::../UserGuide.adoc[tag=CommandSummary]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=LogicComponentSequenceDiagrams]
+include::../DeveloperGuide.adoc[tag=DesignModel]
 
-include::../DeveloperGuide.adoc[tag=StorageComponent]
+include::../DeveloperGuide.adoc[tag=OpenAndListFiles]
 
-include::../DeveloperGuide.adoc[tag=ImageFilter]
+include::../DeveloperGuide.adoc[tag=Save]
+
+include::../DeveloperGuide.adoc[tag=UserStories]
 
 
 == PROJECT: PowerPointLabs

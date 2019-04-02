@@ -253,46 +253,57 @@ Classes used by multiple components are in the `seedu.financetracker.commons` pa
 
 This section describes in detail the implementation of certain features in _In-Credit-Ble_.
 
-=== Searching by tag feature
+// tag::search[]
+=== Search feature
 
-This feature allows the user to filter out specific expenses by entering a certain tag (eg food).
+This feature allows the user to filter out specific expenses based on keywords that correspond to the name, category
+or date.
 
 This implementation is under `Logic` and `Model` Component.
 
-_Sequence diagram to be done soon_
+.Sequence Diagram of Search Command
+image::SearchCommandSequenceDiagram.png[width="800"]
 
-==== To be implemented
+==== Current Implementation
 
-1. User enters command `findTag food`. The command is received by `FinanceTrackerParser`,
-which then creates a `FindTagCommandParser` Object and calls `FindCommandParser#parse()` method.
+1. User enters command `search -FLAG food`. The command is received by `FinanceTrackerParser`,
+which then creates a `SearchCommandParser` Object and calls `SearchCommandParser#parse()` method.
 
-2.  `FindTagCommandParser#parse()` method then calls `ParserUtil#ensureKeywordsAreValid()` method. If any
-of the keywords does not follow the correct format, `ParseException` will be thrown.
+2. Depending on the `-FLAG` that is entered by the user, `SearchCommandParser` will create different predicates that
+correspond to the `-FLAG`.
+* If `-cat` is inputted, `CategoryContainsKeywordsPredicate` will be created.
+* If `-date` is inputted, `DateContainsKeywordPredicate` will be created.
+* If `-name` is inputted, `NameContainsKeywordPredicate` will be created.
 
-3. A `FindTagCommand` Object is created and returned to the `LogicManager`.
+3. A `SearchCommand` Object with the correct predicate Object as parameter is created and returned to the
+`LogicManager`.
 
-4. `LogicManager` then calls `FindTagCommand#execute()`, which calls Mode#updateFilteredExpenseList() method
-to update a filterList based on the given predicate.
+4. `LogicManager` then calls `SearchCommand#execute()`, which calls Model#updateFilteredExpenseList() method
+to update the predicate of FilterList<Record>. FilterList now contains a new set of records which is filtered by the
+new predicate.
 
-5. Then the record list panel will show a set of records according to the keywords. A `CommandResult` is then created
+5. `SearchCommand` then calls `getFilteredRecordList` method to access the filtered records in an
+`ObservableList<Record>` in order to calculate the sum of the money that is spent in all the filtered records.
+
+6. Then the record list panel will show a set of records according to the keywords. A `CommandResult` is then created
 and returned to `Logic Manager`.
 
 ==== Design Consideration
 
 This feature can be implemented in different ways in terms of how the records are found.
 
-* *Alternative 1* : Check through all records and select those with the matched `tag`
+* *Alternative 1* : Check through all records and select those with the matched keywords based on the flag.
 
 ** Pros: Easy to implement without changing original architecture.
 ** Cons: Slow. Tend to take a long time to search through large number of records.
 
-* *Alternative 2* : Each time a new tag is created, create a new list. Each of these list will hold
-all the records of a particular tag.
+* *Alternative 2* : Each time a new category/date is called when making a record, create a new list. Each of these list
+will hold all the records that correspond to these category or dates.
 
-** Pros: Very efficient, each time the command is called, just need to retrieve the list of the wanted tag.
+** Pros: Very efficient, each time the command is called, just need to retrieve the list of the wanted field.
 ** Cons: Need to change the original architecture of storage to introduce storing of different list corresponding to
 each tag. Will take up more space if there is many different tags.
-
+// end::search[]
 
 === Sort feature
 

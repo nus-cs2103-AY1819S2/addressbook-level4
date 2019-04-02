@@ -8,6 +8,8 @@ import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -250,7 +252,42 @@ public class AddBookCommandTest {
         }
 
         @Override
-        public void sortBook(String type, String order) {
+        public void sortBook(List<String> types, String mainOrder, Map<String, String> subOrder) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getNumberOfBooks() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<String> getMostReadAuthors() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<String> getBooksByAuthor(String authorName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getHighestMark() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<String> getBooksWithHighestMark(String mark) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<String> getMostReadTags() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<String> getBooksWithTag(String tagContent) {
             throw new AssertionError("This method should not be called.");
         }
     }

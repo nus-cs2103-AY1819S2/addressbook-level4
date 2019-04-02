@@ -32,6 +32,7 @@ public class CommandTestUtil {
     public static final String VALID_BOOKNAME_CS = "Structure and Interpretation of Computer Programs";
     public static final String VALID_BOOKNAME_LIFE = "The Secret Life of Bees";
     public static final String VALID_BOOKNAME_TEST = "Test book";
+    public static final String VALID_BOOKNAME_TWILIGHT = "Twilight";
     public static final String VALID_BOOKNAME_PART_ALICE = "Alice";
     public static final String VALID_BOOKNAME_PART_CS = "Computer";
     public static final String VALID_AUTHOR_ALICE = "Lewis Carroll";
@@ -39,13 +40,15 @@ public class CommandTestUtil {
     public static final String VALID_AUTHOR_LIFE = "Sue Monk Kidd";
     public static final String VALID_AUTHOR_PART_ALICE = "Carroll";
     public static final String VALID_AUTHOR_PART_CS = "Sussman";
+    public static final String VALID_AUTHOR_TWILIGHT = "Stephenie Meyer";
     public static final String VALID_RATING_ALICE = "5";
     public static final String VALID_RATING_CS = "4";
     public static final String VALID_RATING_LIFE = "3";
+    public static final String VALID_RATING_TWILIGHT = "2";
     public static final String VALID_TAG_FANTASY = "fantasy";
     public static final String VALID_TAG_TEXTBOOK = "textbook";
     public static final String VALID_TAG_INTERESTING = "interesting";
-    public static final String VALID_REVIEWTITLE_ALICE = "Carroll has depicted a unique world I had not seen before";
+    public static final String VALID_REVIEWTITLE_ALICE = "Carroll has depicted a unique world I hadn't seen before";
     public static final String VALID_REVIEWTITLE_CS = "The book was awesome";
     public static final String VALID_REVIEWMESSAGE_ALICE = "Alice's Adventures in Wonderland by Lewis Carroll is "
             + "about Alice who falls down a rabbit hole and lands into a fantasy world that is full of weird, "
@@ -59,16 +62,19 @@ public class CommandTestUtil {
     public static final String NAME_DESC_CS = " " + PREFIX_NAME + VALID_BOOKNAME_CS;
     public static final String NAME_DESC_LIFE = " " + PREFIX_NAME + VALID_BOOKNAME_LIFE;
     public static final String NAME_DESC_TEST = " " + PREFIX_NAME + VALID_BOOKNAME_TEST;
+    public static final String NAME_DESC_TWILIGHT = " " + PREFIX_NAME + VALID_BOOKNAME_TWILIGHT;
     public static final String NAME_PART_DESC_ALICE = " " + PREFIX_NAME + VALID_BOOKNAME_PART_ALICE;
     public static final String NAME_PART_DESC_CS = " " + PREFIX_NAME + VALID_BOOKNAME_PART_CS;
     public static final String AUTHOR_DESC_ALICE = " " + PREFIX_AUTHOR + VALID_AUTHOR_ALICE;
     public static final String AUTHOR_DESC_CS = " " + PREFIX_AUTHOR + VALID_AUTHOR_CS;
     public static final String AUTHOR_DESC_LIFE = " " + PREFIX_AUTHOR + VALID_AUTHOR_LIFE;
+    public static final String AUTHOR_DESC_TWILIGHT = " " + PREFIX_AUTHOR + VALID_AUTHOR_TWILIGHT;
     public static final String AUTHOR_PART_DESC_ALICE = " " + PREFIX_AUTHOR + VALID_AUTHOR_PART_ALICE;
     public static final String AUTHOR_PART_DESC_CS = " " + PREFIX_AUTHOR + VALID_AUTHOR_PART_CS;
     public static final String RATING_DESC_ALICE = " " + PREFIX_RATING + VALID_RATING_ALICE;
     public static final String RATING_DESC_CS = " " + PREFIX_RATING + VALID_RATING_CS;
     public static final String RATING_DESC_LIFE = " " + PREFIX_RATING + VALID_RATING_LIFE;
+    public static final String RATING_DESC_TWILIGHT = " " + PREFIX_RATING + VALID_RATING_TWILIGHT;
     public static final String TAG_DESC_FANTASY = " " + PREFIX_TAG + VALID_TAG_FANTASY;
     public static final String TAG_DESC_TEXTBOOK = " " + PREFIX_TAG + VALID_TAG_TEXTBOOK;
     public static final String TAG_DESC_INTERESTING = " " + PREFIX_TAG + VALID_TAG_INTERESTING;
@@ -77,13 +83,15 @@ public class CommandTestUtil {
     public static final String REVIEWMESSAGE_DESC_ALICE = " " + PREFIX_REVIEW + VALID_REVIEWMESSAGE_ALICE;
     public static final String REVIEWMESSAGE_DESC_CS = " " + PREFIX_REVIEW + VALID_REVIEWMESSAGE_CS;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
+    public static final String TOO_LONG_STR = "This string is too long that it will not be accepted by some commands. "
+            + "For example, the book name cannot be such long.";
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + TOO_LONG_STR; // book name shouldn't be too long.
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
-    public static final String INVALID_BOOKNAME_DESC = " " + PREFIX_NAME + "The K&d"; // '&' not allowed in names
+    public static final String INVALID_BOOKNAME_DESC = " " + PREFIX_NAME + TOO_LONG_STR; // '&' not allowed in names
     public static final String INVALID_AUTHOR_DESC = " " + PREFIX_AUTHOR + "J.K"; // '.' not allowed in authors
     public static final String INVALID_RATING_DESC = " " + PREFIX_RATING + "11"; // rating should be [1,10]
-    public static final String INVALID_REVIEWTITLE_DESC = " " + PREFIX_RATING + "100%"; // '%' not allowed in reviews
+    public static final String INVALID_REVIEWTITLE_DESC = " " + PREFIX_RATING + TOO_LONG_STR; // title too long
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -97,12 +105,19 @@ public class CommandTestUtil {
     public static final String INVALID_SORT_TYPE_WITH_PREFIX = " st/type";
     public static final String ORDER_ASC_WITH_PREFIX = " o/asc";
     public static final String ORDER_DES_WITH_PREFIX = " o/des";
+    public static final String FIRST_SUBORDER_ASC_WITH_PREFIX = " o1/asc";
+    public static final String SECOND_SUBORDER_ASC_WITH_PREFIX = " o2/asc";
+    public static final String THIRD_SUBORDER_ASC_WITH_PREFIX = " o3/asc";
+    public static final String FIRST_SUBORDER_DES_WITH_PREFIX = " o1/des";
+    public static final String SECOND_SUBORDER_DES_WITH_PREFIX = " o2/des";
+    public static final String THIRD_SUBORDER_DES_WITH_PREFIX = " o3/des";
     public static final String INVALID_ORDER_WITH_PREFIX = "o/abc";
     public static final String SORT_NAME_WITHOUT_PREFIX = "name";
     public static final String SORT_AUTHOR_WITHOUT_PREFIX = "author";
     public static final String SORT_RATING_WITHOUT_PREFIX = "rating";
     public static final String ORDER_ASC_WITHOUT_PREFIX = "asc";
     public static final String ORDER_DES_WITHOUT_PREFIX = "des";
+
     public static final String EMPTY_STR = "      ";
     public static final String SORT_EXCEPTION = "The list is not sorted correctly";
 

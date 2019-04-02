@@ -25,11 +25,12 @@ public class BookNameTest {
         // null name
         Assert.assertThrows(NullPointerException.class, () -> BookName.isValidBookName(null));
 
+        String tooLongStr = "This string is too long that it will not be accepted by some attributes. "
+                + "For example, the book name cannot be such long.";
         // invalid name
         assertFalse(BookName.isValidBookName("")); // empty string
         assertFalse(BookName.isValidBookName(" ")); // spaces only
-        assertFalse(BookName.isValidBookName("^")); // only non-alphanumeric characters
-        assertFalse(BookName.isValidBookName("peter*")); // contains non-alphanumeric characters
+        assertFalse(BookName.isValidBookName(tooLongStr)); // book name too long
 
         // valid name
         assertTrue(BookName.isValidBookName("peter jack")); // alphabets only
@@ -37,5 +38,6 @@ public class BookNameTest {
         assertTrue(BookName.isValidBookName("peter the 2nd")); // alphanumeric characters
         assertTrue(BookName.isValidBookName("Capital Tan")); // with capital letters
         assertTrue(BookName.isValidBookName("David Roger Jackson Ray Jr 2nd")); // long names
+        assertTrue(BookName.isValidBookName("JoJo's Bizarre Adventure")); // contains non-alphnum character
     }
 }

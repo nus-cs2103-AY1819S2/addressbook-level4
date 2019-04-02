@@ -1,6 +1,7 @@
 = Book Squirrel - User Guide
 :site-section: UserGuide
 :toc:
+:toclevels: 4
 :toc-title:
 :toc-placement: preamble
 :sectnums:
@@ -48,13 +49,18 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/Alice in Wonderland t/fantasy` or as `n/Alice in Wonderland`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/fantasy`, `t/fantasy t/textbook` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME a/AUTHOR`, `a/AUTHOR n/NAME` is also acceptable.
+* While book names, review title and review content can contain any kinds of characters, tag and author names should only contain alpha-numeric characters.
+* Book name and author name should not exceed 50 characters (space included).
+* Review title should not exceed 70 characters (space included).
+* Review content should not exceed 350 characters (space included).
+* Tags should not exceed 20 characters (space included).
 ====
 
 === Book Commands
 
 ==== Adding a book: `addBook`
 
-Adds a book to the book list +
+Adds a book to the book shelf +
 Format: `addBook n/BOOKNAME a/author m/RATING(0-10) [t/TAG]…​`
 
 Examples:
@@ -62,6 +68,54 @@ Examples:
 * `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale`
 * `addBook n/Structure and Interpretation of Computer Programs a/Hal Abelson Jerry Sussman m/4 t/textbook`
 
+****
+* The book name is case sensitive
+* Two books with same book name are considered same book
+* Trying to add a book which is already present in the book shelf will result in duplicate book error, and the addBook command will fail
+* Book names should only contain no more than 50 characters (space included), and it should not be blank
+* Author names should only contain alphanumeric characters and spaces, and it should not be blank nor longer than 50 characters
+* Tags names should be alphanumeric and contains less than 20 characters
+* Rating should be an integer ranging from 0 to 10 inclusive
+****
+
+==== Editing book entry : `editBook`
+
+Edits an existing book entry (eg. edit the mark, author or tag). +
+Format: `editBook INDEX [n/BOOKNAME] [a/AUTHOR] [m/RATING] [t/TAG]...`
+
+****
+* Edits the book at the specified INDEX. The index refers to the index number shown in the displayed book list. The index must be a positive integer 1, 2, 3, …​
+* Edit a book with new name same as the name of other book which is already existing in book shelf is not allowed
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the book will be removed i.e adding of tags is not cumulative.
+* You can remove all the book’s tags by typing t/ without specifying any tags after it.
+****
+
+Examples:
+
+* `edit 1 n/Alice in Wonderland a/some author t/some tag` +
+Change the name, author, tag of the first book to Alice in Wonderland, some author, some tag.
+* `edit 2 t/` +
+Clear all the existing tags of the second book in the result list.
+
+==== Deleting a book : `deleteBook`
+
+Deletes the specified book from the book list. +
+Format: `deleteBook INDEX`
+
+****
+* Deletes the book of the specified `INDEX`.
+* All the reviews of the deleted book will also be deleted.
+* The index refers to the index number shown in the displayed book list.
+* The index must be a positive integer 1, 2, 3, …​
+****
+
+Examples:
+
+* `listBook n/Computer Security` +
+`deleteBook 1` +
+Deletes the 1st person in the results of the listBook command.
 
 ==== Listing book entries : `listBook`
 
@@ -85,45 +139,6 @@ Examples:
 * `listBook t/textbook m/5`
 * `listBook n/CS2104T t/textbook`
 * `listBook m/5`
-
-==== Editing book entry : `editBook`
-
-Edits an existing book entry (eg. edit the mark, author or tag). +
-Format: `editBook INDEX [n/BOOKNAME] [a/AUTHOR] [m/RATING] [t/TAG]...`
-
-****
-* Edits the book at the specified INDEX. The index refers to the index number shown in the displayed book list. The index must be a positive integer 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the book will be removed i.e adding of tags is not cumulative.
-* You can remove all the book’s tags by typing t/ without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 n/Alice in Wonderland a/some author t/some tag` +
-Change the name, author, tag of the first book to Alice in Wonderland, some author, some tag.
-* `edit 2 t/` +
-Clear all the existing tags of the second book in the result list.
-
-==== Deleting a book : `deleteBook`
-
-Deletes the specified book from the book list. +
-Format: `deleteBook INDEX`
-
-****
-* Deletes the book of the specified `INDEX`.
-* The index refers to the index number shown in the displayed book list.
-* The index must be a positive integer 1, 2, 3, …​
-* The reviews of the deleted book will also be deleted.
-****
-
-Examples:
-
-* `listBook n/Computer Security` +
-`deleteBook 1` +
-Deletes the 1st person in the results of the listBook command.
-
 
 ==== Sort books command : `sortBook`
 
@@ -156,39 +171,6 @@ Examples:
 * `addReview n/Alice in Wonderland rt/An interesting child book r/While Lewis Carroll purists will scoff at the aging of his curious young protagonist, most movie audiences will enjoy this colorful world.`
 * `addReview n/Structure and Interpretation of Computer Programs rt/Computing Bible r/A very difficult book:(`
 
-
-==== Listing book reviews of a certain book : `listReview`
-
-Lists the reviews of the book identified by the index number used in the displayed book list. +
-Format: `listReview INDEX`
-Example:
-* `listReview 1`
-
-****
-* Lists the review of the book at the specified `INDEX`.
-* The index refers to the index number shown in the displayed book list.
-* The index must be a positive integer 1, 2, 3, …​
-****
-
-
-
-==== Listing all book reviews: `listAllReviews`
-Lists all the reviews in the Book Shelf.
-Format: `listAllReviews`
-
-==== Selecting an review: `selectReview`
-Selects a review.
-
-Format: `selectReview INDEX`
-Example:
-* `selectReview 1`
-****
-* Selects the review of the specified `INDEX`.
-* The complete review will be displayed at the rightmost panel.
-* The index refers to the index number shown in the displayed review list.
-* The index must be a positive integer 1, 2, 3, …​
-****
-
 ==== Deleting a book review: `deleteReview`
 
 Deletes the review of the specified index number from the review list. +
@@ -204,13 +186,41 @@ Example:
 * The index must be a positive integer 1, 2, 3, …​
 ****
 
+==== Listing all book reviews: `listAllReviews`
+Lists all the reviews in the Book Shelf.
+Format: `listAllReviews`
+
+==== Listing book reviews of a certain book : `listReview`
+
+Lists the reviews of the book identified by the index number used in the displayed book list. +
+Format: `listReview INDEX`
+Example:
+* `listReview 1`
+
+****
+* Lists the review of the book at the specified `INDEX`.
+* The index refers to the index number shown in the displayed book list.
+* The index must be a positive integer 1, 2, 3, …​
+****
+
+==== Selecting an review: `selectReview`
+Selects a review.
+
+Format: `selectReview INDEX`
+Example:
+* `selectReview 1`
+****
+* Selects the review of the specified `INDEX`.
+* The complete review will be displayed at the rightmost panel.
+* The index refers to the index number shown in the displayed review list.
+* The index must be a positive integer 1, 2, 3, …​
+****
 
 === System Commands
 
 ==== Viewing help : `help`
 
 Format: `help`
-
 
 ==== Listing entered commands : `history`
 
@@ -268,10 +278,17 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Generate a summary of all the books read so far. +
 Format: `summary`
 
+****
+* The summary will list out how many books you've read.
+* The summary will also list out authors appear more than once in your book shelf.
+* The summary will also list out books of the highest score.
+* The summary will also list out atgs appear more than once in your book shelf.
+****
+
 Examples:
 
 * `summary`
-An example of a summary `You have read 100 books so far. Your favourite book is Alice in Wonderland. You wrote 13 reviews for it. The tag you use most commonly is “textbook.” Your favourite author is “John Doe”, you read 11 books written by him. The book that you gave the lowest rating is “Algorithms”`
+An example of a summary `You've read 9 books. You prefered books by Erika Leonard, as you've read: Fifty Shades of Grey, Fifty Shades Darker. These book receive a rating of 10 from you: To Kill a Mocking Bird. You preferred books that you labeled as fantasy(including The Hunger Games, Life of Pi).`
 
 ==== Clearing all entries : `clear`
 
@@ -298,26 +315,26 @@ There is no need to save manually.
 === Book Commands
 * *AddBook* `addBook n/BOOKNAME a/author m/RATING(0-10) [t/TAG]…` +
 e.g. `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/textbook`
-* *ListBook* : `listBook [n/NAME] [t/TAG] [m/RATING] [a/Author]` +
-e.g. `listBook t/textbook m/5`
 * *EditBook* : `edit INDEX [n/BOOKNAME] [a/AUTHOR] [m/RATING]...` +
 e.g. `edit 1 n/Alice in Wonderland a/some author`
 * *DeleteBook* : `deleteBook INDEX` +
 e.g. `deleteBook 4`
+* *ListBook* : `listBook [n/NAME] [t/TAG] [m/RATING] [a/Author]` +
+e.g. `listBook t/textbook m/5`
 * *sortBook* : `sortBook st/TYPE o/ORDER` +
 e.g. `sortBook st/AUTHOR o/ASC`
 
 === Review Commands
 * *AddReview* `addReview n/BOOKNAME r/review` +
 e.g. `addReview n/Alice in Wonderland r/While Lewis Carroll purists will scoff at the aging of his curious young protagonist, most movie audiences will enjoy this colorful world.`
-* *ListReview* : `listReview INDEX` +
-e.g. `listReview 1`
-* *ListAllReviews* : `listAllReviews +
-e.g. `listAllReviews`
-* *SelectReview* : `selectReview INDEX` +
-e.g. `selectReview 1`
 * *DeleteReview* : `deleteReview INDEX` +
 eg. `deleteReview 1`
+* *ListAllReviews* : `listAllReviews +
+e.g. `listAllReviews`
+* *ListReview* : `listReview INDEX` +
+e.g. `listReview 1`
+* *SelectReview* : `selectReview INDEX` +
+e.g. `selectReview 1`
 
 === System Commands
 * *Help* : `help`

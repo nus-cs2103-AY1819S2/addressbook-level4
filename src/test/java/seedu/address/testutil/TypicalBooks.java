@@ -70,6 +70,11 @@ public class TypicalBooks {
             .withBookName("Twilight")
             .withAuthor("Stephenie Meyer")
             .withRating("2").build();
+    public static final Book ANOTHER_ERIKA_WORK = new BookBuilder()
+            .withBookName("Fifty Shades Darker")
+            .withAuthor("Erika Leonard")
+            .withRating("1")
+            .build();
 
     // Manually added - Book's details found in {@code CommandTestUtil}
     public static final Book ALI = new BookBuilder().withBookName(VALID_BOOKNAME_ALICE).withAuthor(VALID_AUTHOR_ALICE)

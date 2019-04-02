@@ -12,13 +12,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class BookName {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Book names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Book names should only contain no more than 50 characters (space included), and it should not be blank";
 
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[\\p{Graph}][\\p{Print}]*";
+    public static final int MAX_LENGTH = 50;
 
     public final String fullName;
 
@@ -37,7 +38,7 @@ public class BookName {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidBookName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.length() <= MAX_LENGTH && test.matches(VALIDATION_REGEX);
     }
 
     @Override

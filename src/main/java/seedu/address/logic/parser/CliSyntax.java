@@ -14,4 +14,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_REVIEWTITLE = new Prefix("rt/");
     public static final Prefix PREFIX_SORTTYPE = new Prefix("st/");
     public static final Prefix PREFIX_ORDER = new Prefix("o/");
+    public static final Prefix PREFIX_FRISTORDER = new Prefix("o1/");
+    public static final Prefix PREFIX_SECONDORDER = new Prefix("o2/");
+    public static final Prefix PREFIX_THIRDORDER = new Prefix("o3/");
 }

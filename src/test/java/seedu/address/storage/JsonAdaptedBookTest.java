@@ -17,7 +17,8 @@ import seedu.address.model.book.Rating;
 import seedu.address.testutil.Assert;
 
 public class JsonAdaptedBookTest {
-    private static final String INVALID_BOOKNAME = "The K&d";
+    private static final String INVALID_BOOKNAME = "This string is too long that it will not be accepted by some "
+            + "attributes. For example, the book name cannot be such long.";
     private static final String INVALID_AUTHOR = "J.K";
     private static final String INVALID_RATING = "11";
     private static final String INVALID_TAG = "#good";

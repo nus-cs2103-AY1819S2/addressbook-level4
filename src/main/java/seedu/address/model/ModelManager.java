@@ -1,10 +1,16 @@
 package seedu.address.model;
 
+import static java.lang.Integer.parseInt;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -145,10 +151,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void sortBook(String type, String order) {
-        versionedBookShelf.sort(type, order);
+    public void sortBook(List<String> types, String mainOrder, Map<String, String> subOrder) {
+        versionedBookShelf.sort(types, mainOrder, subOrder);
     }
-
 
     //=========== Filtered Book List Accessors =============================================================
 
@@ -237,6 +242,110 @@ public class ModelManager implements Model {
             throw new BookNotFoundException();
         }
         selectedReview.setValue(review);
+    }
+
+    //=========== Summary ===========================================================================
+    @Override
+    public int getNumberOfBooks() {
+        return versionedBookShelf.getBookList().size();
+    }
+
+    @Override
+    public List<String> getMostReadAuthors() {
+        Map<String, Integer> authorCounts = new HashMap<>();
+        List<String> authorNames = new ArrayList<>();
+        List<Book> bookList = versionedBookShelf.getBookList();
+        //count books written by each author
+        for (Book book : bookList) {
+            String authorName = book.getAuthor().fullName;
+            Integer authorCount = authorCounts.get(authorName);
+            if (authorCount == null) {
+                authorCounts.put(authorName, 1);
+            } else {
+                authorCounts.put(authorName, authorCount + 1);
+            }
+        }
+
+        //return books written by authors appear more than once.
+        for (String authorName: authorCounts.keySet()) {
+            if (authorCounts.get(authorName) > 1) {
+                authorNames.add(authorName);
+            }
+        }
+
+        return authorNames;
+    }
+
+    public List<String> getBooksByAuthor(String authorName) {
+        List<String> bookNames = new ArrayList<>();
+        List<Book> booksInShelf = versionedBookShelf.getBookList();
+        for (Book book : booksInShelf) {
+            if (authorName.equalsIgnoreCase(book.getAuthor().fullName)) {
+                bookNames.add(book.getBookName().fullName);
+            }
+        }
+        return bookNames;
+    }
+
+    public String getHighestMark() {
+        int highestMark = -1;
+        List<Book> booksInShelf = versionedBookShelf.getBookList();
+        for (Book book : booksInShelf) {
+            int rating = parseInt(book.getRating().value);
+            highestMark = rating > highestMark ? rating : highestMark;
+        }
+        return highestMark == -1 ? null : Integer.toString(highestMark);
+    }
+
+    public List<String> getBooksWithHighestMark(String mark) {
+        List<String> bookNames = new ArrayList<>();
+        List<Book> booksInShelf = versionedBookShelf.getBookList();
+        for (Book book : booksInShelf) {
+            if (book.getRating().value.equals(mark)) {
+                bookNames.add(book.getBookName().fullName);
+            }
+        }
+        return bookNames;
+    }
+
+    public List<String> getMostReadTags() {
+        Map<String, Integer> tagCounts = new HashMap<>();
+        List<String> tagContents = new ArrayList<>();
+        List<Book> bookList = versionedBookShelf.getBookList();
+        //count books written by each author
+        for (Book book : bookList) {
+            Set<Tag> bookTags = book.getTags();
+            for (Tag tag: bookTags) {
+                String tagContent = tag.tagName;
+                Integer tagCount = tagCounts.get(tagContent);
+                if (tagCount == null) {
+                    tagCounts.put(tagContent, 1);
+                } else {
+                    tagCounts.put(tagContent, tagCount + 1);
+                }
+            }
+        }
+
+        //return books written by authors appear more than once.
+        for (String tagContent: tagCounts.keySet()) {
+            if (tagCounts.get(tagContent) > 1) {
+                tagContents.add(tagContent);
+            }
+        }
+
+        return tagContents;
+    }
+
+    public List<String> getBooksWithTag(String tagContent) {
+        List<String> bookNames = new ArrayList<>();
+        List<Book> booksInShelf = versionedBookShelf.getBookList();
+        for (Book book : booksInShelf) {
+            boolean containTag = book.getTags().stream().map(x -> x.tagName).anyMatch(y -> y.equals(tagContent));
+            if (containTag) {
+                bookNames.add(book.getBookName().fullName);
+            }
+        }
+        return bookNames;
     }
 
     /**

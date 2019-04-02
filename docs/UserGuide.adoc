@@ -294,11 +294,28 @@ Format: `visitWeb INDEX`
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
+Display the website of any restaurant by entering its url. +
+Format: `visitWeb URL`
+
+****
+* A URL is a valid link to a website. It should be in this format: local-part.domain and adhere to the following
+ contraints:
+1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses,
+(!#$%&'*+/=?`{|}~^.-)
+2. This is followed by a '.' and then a domain name. The domain name must:
+** be at least 2 characters long
+** start and end with alphanumeric characters
+** consist of alphanumeric characters, a period or a hyphen for the characters in between, if any.
+****
+
 Examples:
 
 * `list` +
 `visitWeb 1` +
 Displays webpage of Restaurant at index 1 of list.
+
+* `visitWeb www.jollibee.com.ph`
+Displays webpage of Jollibee
 
 === Exiting the program : `exit`
 

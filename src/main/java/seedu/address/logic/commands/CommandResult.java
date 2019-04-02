@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.restaurant.Weblink;
+
 /**
  * Represents the result of a command execution.
  */
@@ -17,13 +19,24 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** Show website on visitWeb url command **/
+    private final Weblink weblink;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, Weblink weblink) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.weblink = weblink;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} without weblink field.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+        this(feedbackToUser, showHelp, exit, null);
     }
 
     /**
@@ -31,7 +44,11 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, null);
+    }
+
+    public CommandResult(String feedbackToUser, Weblink weblink) {
+        this(feedbackToUser, false, false, weblink);
     }
 
     public String getFeedbackToUser() {
@@ -44,6 +61,14 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isShowWeblink() {
+        return weblink != null;
+    }
+
+    public Weblink getWeblink() {
+        return weblink;
     }
 
     @Override

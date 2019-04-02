@@ -73,6 +73,11 @@ public class AddReviewCommand extends Command {
 
         model.setRestaurant(restaurantReviewed, restaurantWithNewReview);
         model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
+
+        // To display the added Review
+        List<Restaurant> filteredRestaurantList = model.getFilteredRestaurantList();
+        model.setSelectedRestaurant(filteredRestaurantList.get(getTargetIndex().getZeroBased()));
+
         model.commitFoodDiary();
         return new CommandResult(String.format(MESSAGE_SUCCESS, restaurantWithNewReview.getName()));
     }

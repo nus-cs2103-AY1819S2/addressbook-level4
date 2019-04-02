@@ -36,7 +36,7 @@ public class AddCommand extends Command {
             + PREFIX_EMAIL + "kfc@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_TAG + "indulgences "
-            + PREFIX_WEBLINK + "kfc.com.sg "
+            + PREFIX_WEBLINK + "www.kfc.com.sg "
             + PREFIX_OPENING_HOURS + "1000 to 2130";
 
     public static final String MESSAGE_SUCCESS = "New restaurant added: %1$s";

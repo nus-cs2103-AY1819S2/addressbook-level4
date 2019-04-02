@@ -14,17 +14,11 @@ This page aims to showcase my contributions to the project +
 and also summary of my contributions to the User Guide and Developer Guide for the
 features I developed for the project
 
-[.float-group]
 --
-[.left]
 image::github_icon.png[65,90,float="left",link=https://github.com/]
-[.left]
 image::java.png[70,90,float="left",link=https://www.java.com/en/download/]
-[.left]
 image::junit5-logo.png[66,90,float="left" link=https://junit.org/junit5/]
-[.left]
 image::json.png[67,90, float="left" link=https://www.json.org/]
-[.left]
 image::travis.png[66,90,link=https://travis-ci.org/]
 --
 

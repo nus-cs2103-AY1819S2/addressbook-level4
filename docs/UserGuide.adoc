@@ -254,7 +254,7 @@ Format: `summary`
 * The summary will list out how many books you've read.
 * The summary will also list out authors appear more than once in your book shelf.
 * The summary will also list out books of the highest score.
-* The summary will also list out atgs appear more than once in your book shelf.
+* The summary will also list out tags appear more than once in your book shelf.
 ****
 
 Examples:

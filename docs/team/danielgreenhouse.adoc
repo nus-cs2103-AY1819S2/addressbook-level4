@@ -9,32 +9,40 @@
 
 == Overview
 
-Recruit Me is a desktop application designed for Recruitment Companies looking to store their client's data ergonomically.
-It is an adaptation of AddressBook - Level 4 which is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Recruit Me is a desktop application designed for . It is an adaptation of AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to sort persons through various means*
-** What it does: allows the user to sort the list of persons.
-** Justification: This feature allows the user to sort through the client's data. It is pivotal in transforming the AddressBook to a Recruiting platform since it provides the user with multiple tools for visually seeing their clients in a logical manner.
-** Highlights: This enhancement is fully compatible with the other commands and proves particularly useful to the user when used in conjunction with the `filter` command.
+* *Major enhancement*: added *the ability to sort persons alphabetically*
+** What it does: allows the user to sort the list of persons alphabetically based on their name.
+** Justification: This feature improves the product by taking a first step to adapting the address book to Recruit Me. It also opens the possibility of further sorting methods once the person becomes more advanced (can contain more parameters).
+** Highlights: This enhancement is fully compatible with undo and redo commands.
 
-* *Minor enhancement*:
-** changes to VersionedAddressBook and ModelManager to allow for deleting all persons at once and adding a person with the filter in place.
+* *Minor enhancement*: _{To be added at a later date}_.
 
+_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
-** Addition of sort method description in a new section (Recruit Me - User Guide/Features/Sorting Persons: sort).
-** The full utility is explained to ensure the user can get a grasp of the new tools available to them.
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
 
 include::../UserGuide.adoc
 
 
 == Contributions to the Developer Guide
 
-** The steps required for the addition of a new sort method is outlined for future developers in a new section (Recruit Me - Developer Guide/Implementation/Sort Commands).
-** Some rational for the sort command has been outlined.
-** The currently available tests have been outlined.
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
 
 include::../DeveloperGuide.adoc
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

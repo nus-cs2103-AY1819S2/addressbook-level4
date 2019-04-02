@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.InformationPanelSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.logic.commands.Command;
@@ -106,11 +105,6 @@ public class LogicManager implements Logic {
     @Override
     public GuiSettings getGuiSettings() {
         return model.getGuiSettings();
-    }
-
-    @Override
-    public ReadOnlyProperty<InformationPanelSettings> getInformationPanelSetting() {
-        return model.getInformationPanelSettings();
     }
 
     @Override

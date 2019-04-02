@@ -94,8 +94,8 @@ public class EditCommand extends Command {
         Company updatedCompany = editMedicineDescriptor.getCompany().orElse(medicineToEdit.getCompany());
         Set<Tag> updatedTags = editMedicineDescriptor.getTags().orElse(medicineToEdit.getTags());
 
-        return new Medicine(updatedName, updatedCompany, medicineToEdit.getTotalQuantity(),
-                medicineToEdit.getNextExpiry(), updatedTags, medicineToEdit.getBatches());
+        return new Medicine(updatedName, medicineToEdit.getTotalQuantity(), medicineToEdit.getNextExpiry(),
+                updatedCompany, updatedTags, medicineToEdit.getBatches());
     }
 
     @Override

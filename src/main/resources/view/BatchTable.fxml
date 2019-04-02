@@ -13,8 +13,8 @@
             styleClass="table-view" minWidth="400" prefWidth="400">
     <top>
         <VBox  minWidth="400" prefWidth="400">
-            <Label fx:id="name" alignment="TOP_LEFT" styleClass="information-panel-header" />
-            <Label fx:id="company" alignment="TOP_LEFT" styleClass="label-information-panel" />
+            <Label fx:id="name" alignment="TOP_LEFT" styleClass="information-header" />
+            <Label fx:id="company" alignment="TOP_LEFT" styleClass="information-label" />
             <padding>
                 <Insets left="15.0" top="10" />
             </padding>
@@ -22,7 +22,7 @@
     </top>
 
     <center>
-        <TableView fx:id="table" minWidth="400" prefWidth="400">
+        <TableView fx:id="tablePane" minWidth="400" prefWidth="400">
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
@@ -48,8 +48,8 @@
 
     <bottom>
         <HBox fx:id="footer" alignment="BOTTOM_CENTER" spacing="15.0" minWidth="400" prefWidth="400">
-            <Label fx:id="quantity" alignment="CENTER" styleClass="label-information-panel" />
-            <Label fx:id="expiry" alignment="CENTER" styleClass="label-information-panel" />
+            <Label fx:id="quantity" alignment="CENTER" styleClass="information-label" />
+            <Label fx:id="expiry" alignment="CENTER" styleClass="information-label" />
         </HBox>
     </bottom>
 </BorderPane>

@@ -16,32 +16,40 @@ public class Batch {
     /**
      * Constructs a {@code Batch}.
      */
-    public Batch(BatchNumber batchNumber, Quantity quantity, Expiry expiry) {
+    public Batch(BatchNumber batchNumber, Expiry expiry, Quantity quantity) {
         requireAllNonNull(batchNumber, expiry, quantity);
         this.batchNumber = batchNumber;
-        this.quantity = quantity;
         this.expiry = expiry;
+        this.quantity = quantity;
     }
 
     public BatchNumber getBatchNumber() {
         return batchNumber;
     }
 
+    public Expiry getExpiry() {
+        return expiry;
+    }
+
     public Quantity getQuantity() {
         return quantity;
     }
 
-    public Expiry getExpiry() {
-        return expiry;
+    public boolean hasExpiry() {
+        return expiry.getExpiryDate() != null;
+    }
+
+    public boolean hasNonZeroQuantity() {
+        return quantity != null && !quantity.value.equals("0");
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Batch // instanceof handles nulls
-                && batchNumber.equals(((Batch) other).batchNumber)
-                && quantity.equals(((Batch) other).quantity))
-                && expiry.equals(((Batch) other).expiry); // state check
+                || (other instanceof seedu.address.model.medicine.Batch // instanceof handles nulls
+                && batchNumber.equals(((seedu.address.model.medicine.Batch) other).batchNumber))
+                && expiry.equals(((seedu.address.model.medicine.Batch) other).expiry)
+                && quantity.equals(((seedu.address.model.medicine.Batch) other).quantity); // state check
     }
 
     @Override

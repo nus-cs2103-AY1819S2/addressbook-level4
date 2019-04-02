@@ -50,7 +50,7 @@ public class WarningCard extends UiPart<Region> {
             break;
 
         case LOW_STOCK:
-            field.setText(String.format("Qty: %s\n", medicine.getTotalQuantity().toString()));
+            field.setText(String.format("Qty: %s\n", medicine.getTotalQuantity().value));
             break;
 
         default:

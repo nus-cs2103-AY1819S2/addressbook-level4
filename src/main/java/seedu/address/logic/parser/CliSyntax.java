@@ -13,7 +13,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_BATCHNUMBER = new Prefix("b/");
     public static final Prefix PREFIX_FILE = new Prefix("f/");
-    public static final Prefix PREFIX_PROPERTY = new Prefix("p/");
-    public static final Prefix PREFIX_DIRECTION = new Prefix("d/");
 
 }

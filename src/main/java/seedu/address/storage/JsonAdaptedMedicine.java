@@ -29,9 +29,9 @@ class JsonAdaptedMedicine {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Medicine's %s field is missing!";
 
     private final String name;
-    private final String company;
     private final String totalQuantity;
     private final String nextExpiry;
+    private final String company;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final List<JsonAdaptedBatch> batches = new ArrayList<>();
 
@@ -39,14 +39,14 @@ class JsonAdaptedMedicine {
      * Constructs a {@code JsonAdaptedMedicine} with the given medicine details.
      */
     @JsonCreator
-    public JsonAdaptedMedicine(@JsonProperty("name") String name, @JsonProperty("company") String company,
-            @JsonProperty("totalQuantity") String quantity, @JsonProperty("nextExpiry") String expiry,
+    public JsonAdaptedMedicine(@JsonProperty("name") String name, @JsonProperty("totalQuantity") String quantity,
+            @JsonProperty("nextExpiry") String expiry, @JsonProperty("company") String company,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
             @JsonProperty("batches") List<JsonAdaptedBatch> batches) {
         this.name = name;
-        this.company = company;
         this.totalQuantity = quantity;
         this.nextExpiry = expiry;
+        this.company = company;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -60,9 +60,9 @@ class JsonAdaptedMedicine {
      */
     public JsonAdaptedMedicine(Medicine source) {
         name = source.getName().fullName;
-        company = source.getCompany().companyName;
-        totalQuantity = source.getTotalQuantity().toString();
+        totalQuantity = source.getTotalQuantity().value;
         nextExpiry = source.getNextExpiry().toString();
+        company = source.getCompany().companyName;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -78,6 +78,17 @@ class JsonAdaptedMedicine {
      * @throws IllegalValueException if there were any data constraints violated in the adapted medicine.
      */
     public Medicine toModelType() throws IllegalValueException {
+        final List<Tag> medicineTags = new ArrayList<>();
+        for (JsonAdaptedTag tag : tagged) {
+            medicineTags.add(tag.toModelType());
+        }
+
+        final Map<BatchNumber, Batch> medicineBatches = new HashMap<>();
+        for (JsonAdaptedBatch batch : batches) {
+            Batch modelTypeBatch = batch.toModelType();
+            medicineBatches.put(modelTypeBatch.getBatchNumber(), modelTypeBatch);
+        }
+
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -85,14 +96,6 @@ class JsonAdaptedMedicine {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelName = new Name(name);
-
-        if (company == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Company.class.getSimpleName()));
-        }
-        if (!Company.isValidCompany(company)) {
-            throw new IllegalValueException(Company.MESSAGE_CONSTRAINTS);
-        }
-        final Company modelCompany = new Company(company);
 
         if (totalQuantity == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -111,19 +114,16 @@ class JsonAdaptedMedicine {
         }
         final Expiry modelExpiry = new Expiry(nextExpiry);
 
-        final List<Tag> medicineTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            medicineTags.add(tag.toModelType());
+        if (company == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Company.class.getSimpleName()));
         }
-
-        final Map<BatchNumber, Batch> medicineBatches = new HashMap<>();
-        for (JsonAdaptedBatch batch : batches) {
-            Batch modelTypeBatch = batch.toModelType();
-            medicineBatches.put(modelTypeBatch.getBatchNumber(), modelTypeBatch);
+        if (!Company.isValidCompany(company)) {
+            throw new IllegalValueException(Company.MESSAGE_CONSTRAINTS);
         }
+        final Company modelCompany = new Company(company);
 
         final Set<Tag> modelTags = new HashSet<>(medicineTags);
 
-        return new Medicine(modelName, modelCompany, modelQuantity, modelExpiry, modelTags, medicineBatches);
+        return new Medicine(modelName, modelQuantity, modelExpiry, modelCompany, modelTags, medicineBatches);
     }
 }

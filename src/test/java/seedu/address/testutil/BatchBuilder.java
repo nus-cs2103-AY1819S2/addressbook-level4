@@ -12,7 +12,7 @@ public class BatchBuilder {
 
     public static final String DEFAULT_BATCH_NUMBER = "NDC 0777-3105-02";
     public static final String DEFAULT_QUANTITY = "500";
-    public static final String DEFAULT_EXPIRY = "12/12/2019";
+    public static final String DEFAULT_EXPIRY = "12/12/2000";
 
     private BatchNumber batchNumber;
     private Quantity quantity;
@@ -58,7 +58,7 @@ public class BatchBuilder {
     }
 
     public Batch build() {
-        return new Batch(batchNumber, quantity, expiry);
+        return new Batch(batchNumber, expiry, quantity);
     }
 
 }

@@ -31,7 +31,7 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysMedicine(Medicine expectedMedicine, MedicineCardHandle actualCard) {
         assertEquals(expectedMedicine.getName().fullName, actualCard.getName());
-        assertEquals(expectedMedicine.getTotalQuantity().toString(), actualCard.getQuantity());
+        assertEquals(expectedMedicine.getTotalQuantity().value, actualCard.getQuantity());
         assertEquals(expectedMedicine.getNextExpiry().toString(), actualCard.getExpiry());
         assertEquals(expectedMedicine.getCompany().companyName, actualCard.getCompany());
         assertEquals(expectedMedicine.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),

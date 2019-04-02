@@ -5,6 +5,10 @@
 
 == Project: Health Hub
 
+== Introduction
+
+Hello there! I am Rohan Dev, a Year 2 Computer Science undergraduate from the National University of Singapore (NUS). This portfolio documents the contributions I have made to Project HealthHub over the course of 1 semester. HealthHub has exposed me and my team to making contributions to a pre-existing code base and morphing it into a desktop application of our choice. I have picked up many relevant skills and software engineering principles en route to completing this project.
+
 == Overview
 
 Health Hub is a desktop application designed for hospital administrative staff. With many people requiring Intermediate and Long-Term Care (ILTC) services, there is a growing need
@@ -14,23 +18,25 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: Adding the *ability to view the most common health conditions* amongst patients registered on HealthHub
+** What it does: allows the administrative staff to call for the frequencies of all health conditions registered on HealthHub. It can also call the frequency of a specific health condition.
+** Justification: It is imperative for the health administrators to know which health conditions have been seeing an increasing trend, as well as take note of those which have been experiencing a decline. Upon collating such data, the administrative staff can feedback and make suggestions to the hospital to increase or decrease training in certain departments. The staff can even suggest to the government to ramp up efforts in its Work Skills Qualification certification for certain healthcare skills to be taught to new aspiring healthcare professionals.  
+** Highlights: The statistics feature needs to be able to ensure that the administrative staff can extract relevant information as fast as possible. Therefore, the TreeMap data structure was used to contain all occurrences of health conditions on HealthHub for the best overall performance for speed. Calling the statistics command will display a formatted list of all health conditions registered and its related frequencies in descending order. Calling the statistics command specific to a particular condition will likewise display the number of occurrences of that health condition. 
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: Incorporated a patient’s set of health conditions into requests for home care.
+** What it does: When adding a request for home care in HealthHub, instead of merely typing in 1 health condition per request, the administrative staff can now add in a set of all health conditions the particular patient may suffer from.
+** Justification: Health practitioners, before attempting treatment on any patient, would want to know all health conditions the particular patient might be suffering from. There have been plenty of cases in the past where the administered treatment by the health care professional on a patient had triggered other health conditions in the patient, which the healthcare professionals were completely unaware of. Therefore, instead of just adding a request for a particular treatment, administrators can add a request with multiple health conditions.
+** Highlights: When the administrator adds a request for home care on the HealthHub platform, it takes in all the patient’s particulars (name, NRIC, phone number, home address) and a set of health conditions the patient suffers from. I made use of the hashset data structure to contain the set of health conditions inside it for each patient. The set of conditions guarantees no duplicate health condition being found inside and it can also speedily access any specific health condition the administrative staff may be looking for or may be interested in for further investigation.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Setup codacy and coveralls badges for the team on GitHub:
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Wrote Conditions class based off Tag class from Address Book 4, and incorporated additional functionality for it to accept more than just 1 string input.
+*** Wrote tests for Condition class and condition-related features in Request class, including various test utility classes to assist other team members in their testing (Pull requests #105, #110)
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:

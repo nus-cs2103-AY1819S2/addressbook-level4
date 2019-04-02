@@ -546,7 +546,8 @@ Using external APIs, the users could view more detailed information about any me
 
 After each prescription, if the medicine in storage is insufficient for the prescription, a warning will appear and the prescription will not be record.
 
-After each successful prescription, the updated storage amount of affected medicine will automatically be reflected.
+After each successful prescription, the updated storage amount of affected medicine will automatically be reflected. +
+{sp} +
 
 '''
 === Appointment and Reminders
@@ -554,7 +555,8 @@ The appointment and reminder modules give you more control over your busy schedu
 and searching appointments and reminders. There is also a command to list out all free appointment timings to help you choose
 your appointment timings more wisely.
 
-You will never forget about any tasks or appointments again!
+You will never forget about any tasks or appointments again! +
+{sp} +
 
 [[addapp, Add appointment]]
 ==== Adding appointments: `addapp`
@@ -574,6 +576,10 @@ of the actual appointment (on the week of the appointment date)!
 *Format:* `addapp r/NRIC d/DATE s/START e/END c/COMMENT` +
 *Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `aa` +
 
+[NOTE]
+The format for a valid date is strictly YYYY-MM-DD (including the dashes) and a valid time is strictly HH:MM (including the colon).
+If unsure, you can refer to the example below.
+
 {sp} +
 *Example and results:*
 
@@ -582,29 +588,29 @@ of the actual appointment (on the week of the appointment date)!
 This adds an appointment allocated to the patient with NRIC S9534567B, on 23rd July 2019, from 4pm to 5pm. You can
 include any comments or notes you want to this appointment, which is 'Weekly checkup' in this case.
 
-[NOTE]
-The format for a valid date is strictly YYYY-MM-DD (including the dashes) and a valid time is strictly HH:MM (including the colon).
-
 If the addition of the appointment was successful, QuickDocs will show the details of the added appointment on the
 main display as demonstrated in the diagram below:
 
 .The main display after adding an appointment
-picture
+image::addapp success.png[width="600" align="center"]
 
 {sp} +
 
-The addition of the appointment could have failed as there is a conflict in timing with another existing appointment, or
-the appointment timing is not within office hours which is from 9am to 6pm.
-
+The addition of the appointment could have failed as there is a conflict in timing with another existing appointment.
 QuickDocs will display a message in the input feedback box notifying you of this error, as demonstrated in the diagram below.
-You should use the <<fa>> command to list all free appointment slots for your chosen dates to pick an appropriate
-timing for your appointment!
 
 .Adding an appointment that has conflicting timing with an existing appointment
-picture
+image::addapp time clash.png[width="600" align="center"]
+{sp} +
+
+
+Another reason for failing to add an appointment could be due to the appointment timing being outside of office hours
+which is from 9am to 6pm. QuickDocs will remind you of this error, as demonstrated in the diagram below:
 
 .Adding an appointment that is not within the office hours, from 9am to 6pm
-picture
+image::addapp office hours.png[width="600" align="center"]
+
+{sp} +
 
 '''
 [[listapp, List appointments]]
@@ -612,7 +618,7 @@ picture
 [[la, listapp]]
 You can list all past and future appointments that you have added using the `listapp` command. The appointments will be ordered and
 listed, with the earliest appointment at the top and the latest at the bottom. You can filter the appointments
-you want to see either by a format specifier and a date, or by an existing patient's NRIC.
+you want to see either by specifying a format and a date, or by specifying an existing patient's NRIC.
 
 {sp} +
 *Format:* `listapp f/FORMAT d/DATE` +
@@ -656,7 +662,8 @@ Lists all appointments allocated to the patient with NRIC S9123456A, if this pat
 The filtered appointments will be ordered by time and listed on the main display of QuickDocs, as demonstrated in the diagram below:
 
 .Listing appointments scheduled on the week of 23rd July 2019.
-picture
+image::listapp week.png[width="600" align="center"]
+
 {sp} +
 
 '''
@@ -681,7 +688,7 @@ Since there cannot be any overlapping appointment timings, you are able to uniqu
 just the appointment date and start time.
 
 {sp} +
-*Example and result*:
+*Example and results*:
 
 * `deleteapp d/2019-07-23 s/16:00` +
 
@@ -689,14 +696,15 @@ This command will delete the appointment created on 23rd July 2019 with a start 
 QuickDocs will display the details of the deleted appointment on the main display, as demonstrated in the diagram below:
 
 .Deleting an existing appointment in QuickDocs successfully
-picture
+image::deleteapp success.png[width="600" align="center"]
 {sp} +
 
 If the given appointment was not found, QuickDocs will display an error message on the input feedback display,
 as demonstrated in the diagram below. Use the `<<la>>` command to find existing appointments for a given date!
 
 .Deleting a non-existent appointment in QuickDocs
-picture
+image::deleteapp failure.png[width="600" align="center"]
+
 {sp} +
 
 
@@ -709,7 +717,7 @@ appointments, use `freeapp` instead to display a more intuitive list of free app
 QuickDocs does the thinking for you!
 
 The free appointment slots will be ordered and listed, with the earliest appointment at the top and the latest at the bottom.
-You can filter the free slots you want to see by a format specifier and a date.
+You can filter the free slots you want to see by specifying a format and a date.
 
 {sp} +
 *Format:* `freeapp f/FORMAT d/DATE` +
@@ -747,7 +755,8 @@ Lists all free appointment slots in the month of the given date, July 2019. +
 The free appointment slots will be ordered by time and listed on the main display of QuickDocs, as demonstrated in the diagram below:
 
 .Listing free appointment slots on the week of 23rd July 2019.
-picture
+image::freeapp success.png[width="600" align="center"]
+
 {sp} +
 
 '''
@@ -779,22 +788,26 @@ If the addition of the reminder was successful, QuickDocs will show the details 
 main display as demonstrated in the diagram below:
 
 .The main display after adding a reminder
-picture
+image::addrem success.png[width="600" align="center"]
+
 {sp} +
 
 '''
 [[listrem, List reminders]]
 ==== Listing reminders: `listrem`
-If you want to see reminders not displayed on the sidebar, you can view them using the `listrem` command.
+To view your past or future reminders on the sidebar, you can do so using the `listrem` command.
 The reminders will be ordered and listed, with the earliest reminder at the top and the latest at the bottom.
-You can filter the reminders you want to see by a format specifier and a date.
+You can filter the reminders you want to see by specifying a format and a date.
+
+[NOTE]
+On startup, QuickDocs will display the reminders for the current week on the sidebar.
 
 {sp} +
-*Format:* `listrem f/FORMAT d/DATE`
+*Format:* `listrem f/FORMAT d/DATE` +
 *Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `lr` +
 
 {sp} +
-*Example:*
+*Examples:*
 
 * `listrem` +
 
@@ -822,7 +835,8 @@ Lists all reminders in the month of the given date, July 2019. +
 The filtered reminders will be ordered by time and listed on the main display of QuickDocs, as demonstrated in the diagram below:
 
 .Listing reminders scheduled on the week of 31st July 2019.
-picture
+image::listrem week.png[width="600" align="center"]
+
 {sp} +
 
 '''
@@ -840,15 +854,7 @@ Deletion of a reminder is final!
 *Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `dr` +
 
 {sp} +
-*Example:*
-
-* `deleterem 3` +
-Deletes the third reminder listed.
-
-[NOTE]
-The index is retrieved from the last `listrem` command. See: <<listrem>>.
-
-*Example and result*:
+*Example and results:*
 
 * `deleterem 3` +
 
@@ -856,14 +862,15 @@ This command will delete the third reminder listed on the sidebar, if it exists.
 the details of the deleted reminder on the main display, as demonstrated in the diagram below:
 
 .Deleting an existing reminder in QuickDocs successfully
-picture
+image::deleterem success.png[width="600" align="center"]
+
 {sp} +
 
 If the given `INDEX` is not present in the sidebar, QuickDocs will display an error message on the input feedback display,
 as demonstrated in the diagram below.
 
 .Invalid index provided to deleterem
-picture
+image::deleterem failure.png[width="600" align="center"]
 {sp} +
 
 '''

@@ -116,9 +116,9 @@ public class SampleDataUtil {
         if (positions != null) {
             for (String pos : positions) {
                 tagSet.add(new SkillsTag(pos, "pink"));
-            } 
+            }
         }
-          
+
         if (endorsements != null) {
           for (String end: endorsements){
             tagSet.add(new SkillsTag(end, "endorse"));

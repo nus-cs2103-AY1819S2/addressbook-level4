@@ -358,7 +358,7 @@ After memorising the content of the flashcards, it is helpful to test how much i
 This command begins a test session, where the display area enters a fullscreen (see Figure 1 below).
 
 .A successful test command will display a test session page
-image::startTestSessionPage.png[width="790"]
+image::startTestSessionPage.png[width="600"]
 
 {empty} +
 Format: `test`
@@ -405,13 +405,13 @@ shows if it is correct or wrong.
 If the answer has been submitted successfully and it is wrong, you will see the following page (see Figure 2).
 
 .Wrong Answer page
-image::WrongAnswerPage.png[width="790"]
+image::WrongAnswerPage.png[width="600"]
 
 {empty} +
 If the answer has been submitted successfully and it is correct, you will see the following page (see Figure 3).
 
 .Correct Answer page
-image::CorrectAnswerPage.png[width="790"]
+image::CorrectAnswerPage.png[width="600"]
 
 {empty} +
 Format: `ans ANSWER`
@@ -436,7 +436,7 @@ in response to the card question: What is the powerhouse of the cell?
 in response to the card displayed below, where choosing option 4 will give the right answer.
 
 .Answering an MCQ card
-image::AnsweringMcqCard.png[width="790"]
+image::AnsweringMcqCard.png[width="600"]
 
 
 ==== Reveal answer to a flashcard : `reveal` `Coming in v1.4`
@@ -458,7 +458,7 @@ Presents the next lowest score flashcard in this current test session. Upon a su
  similar page below (see Figure 4).
 
 .Next card question displayed upon a successful next command
-image::NextCommandPage.png[width="790"]
+image::NextCommandPage.png[width="600"]
 
 {empty} +
 Format: `next`

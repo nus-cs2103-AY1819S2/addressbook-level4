@@ -17,6 +17,7 @@ endif::[]
 
 By: `Team T12-3`      Since: `Feb 2019`      Licence: `MIT`
 
+// tag::introduction[]
 == Introduction
 
 Welcome to the _MediTabs Developer Guide_. You can find step by step instructions on how to set up MediTabs project on your computer and modify the project to suit your needs. You can also find out more about the development process of MediTabs such as its design and implementation. Interested? You can jump to <<Setting Up>> to get started. Enjoy!
@@ -30,14 +31,18 @@ MediTabs supports Windows, Linux and MacOS operating systems.
 === Who is this guide for?
 
 Are you a developer who wants to learn how MediTabs is designed and implemented, contribute to the development of MediTabs or modify MediTabs for your needs? If so, this guide provides information that will not only help you better understand the inner workings of MediTabs but also the various classes provided which you can use when modifying MediTabs.
+// end::introduction[]
 
+// tag::settingup[]
 == Setting up
 
 Follow the step by step instructions below to set up MediTabs project with IntelliJ Integrated Development Environment (IDE).
 
 [NOTE]
 You are free to use any IDE which you are comfortable with but we *highly recommend* using IntelliJ. As we use IntelliJ in the development of MediTabs, the instructions to set up MediTabs will be catered for users of IntelliJ. You can download IntelliJ link:https://www.jetbrains.com/idea/download/[here]. If you are planning to use IntelliJ, both the community (free) and ultimate (paid) editions of IntelliJ can be used to set up MediTabs project.
+// end::settingup[]
 
+// tag::prerequisites[]
 === Prerequisites
 
 . *JDK `9` (highly recommended) or `10`*
@@ -47,6 +52,7 @@ JDK `11` and later are not recommended due to some features being removed which 
 [WARNING]
 JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
 Windows developers are highly recommended to use JDK `9`.
+// end::prerequisites[]
 
 . *IntelliJ* IDE
 +
@@ -232,10 +238,12 @@ As a more OOP model, we can store a `Tag` list in `Inventory`, which `Medicine` 
 image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
+// tag::storagecomponent[]
 === Storage component
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
+// end::storagecomponent[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -301,9 +309,9 @@ This section provides you with an overview of how exporting as Comma-separated v
 ==== Current Implementation
 
 The exporting as CSV file format mechanism is facilitated by `CsvWrapper`.
-It is build on top of the `Opencsv` Java CSV parser library, licensed under the `Apache 2 OSS License`, so that it integrates with our product. This is done by providing additional operations to support exporting the current medicine inventory data shown in the GUI to CSV file format.
+It is built on top of the `Opencsv` Java CSV parser library, licensed under the `Apache 2 OSS License`, so that it integrates with our product. This is done by providing additional operations to support exporting the current medicine inventory data shown in the GUI to CSV file format.
 
-There are many additonal operations added in `CsvWrapper` but we will only list the key operations which are the main drivers of the overall implementation of the feature for easier reference and understanding.
+There are many additional operations added in `CsvWrapper` but we will only list the key operations which are the main drivers of the overall implementation of the feature for easier reference and understanding.
 
 The key operations are as follows:
 
@@ -339,7 +347,7 @@ Step 6: After the empty CSV file is created, the `CsvWrapper#writeDataToCsv`, wh
 
 Step 7: The current medicine inventory data shown in the GUI is exported successfully to CSV file format.
 
-Step 8: The `ExportCommand#execute()` operations returns a `CommandResult` which shows the current list is exported to a CSV file with the input file name.
+Step 8: The `ExportCommand#execute()` operation returns a `CommandResult` which shows the current list is exported to a CSV file with the input file name.
 
 The following activity diagram summarizes what happens when a user executes the `export` command:
 
@@ -354,7 +362,7 @@ image::ExportCommandActivityDiagram.png[width="800"]
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual commands each adds an additional parameter to export as CSV file.
 ** Pros: Users can export directly through a single command (e.g. for `filter` command when the export option is enabled, export the filtered medicine inventory data immediately without having to retrieve from `Model#getFilteredMedicineList()` operation.
-** Cons: We must ensure that the implementation and integration of the exporting to CSV file of each individual commands are correct. Furthermore, users are not able preview the data before exporting.
+** Cons: We must ensure that the implementation and integration of the exporting to CSV file of each individual commands are correct. Furthermore, users are not able to preview the data before exporting.
 
 ===== Aspect: Data structure/Algorithm/Implementation to support the `export` command
 
@@ -481,7 +489,7 @@ Data encryption is likely to be implemented in future versions of the MediTabs i
 The exporting of a medicine label to a PDF formatted file is implemented by using Apache PDFBox.
 
 Current implementation:
-Under the build.gradle file, we have added new dependency implementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.13'. This imports the library over to the project for use.
+Under the build.gradle file, we have added new dependency implementation group: `org.apache.pdfbox`, name: `pdfbox`, version: `2.0.13`. This imports the library over to the project for use.
 
 There are many operations available added in the Apache PDFBox, the key operations that we are using would only be:
 
@@ -585,6 +593,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
+// tag::validationoffilename[]
 === Validation of File Name
 
 We are using the `seedu.address.commons.FileName` class which is created by our team for the validation of file name specified by the user. This is important for commands in MediTabs which supports the file name field.
@@ -617,8 +626,11 @@ A full list of reserved names implemented in `FileName` class which are not allo
 
 * `CON, PRN, AUX, NUL, COM0, COM1, COM2, COM3, COM4, COM5, COM6, COM7, COM8, COM9, LPT0, LPT1, LPT2, LPT3, LPT4, LPT5, LPT6, LPT7, LPT8, and LPT9`
 
+[NOTE]
+The reserved names listed above are *case insensitive*, in other words, names such as `prn` or `CoM0` are also reserved names.
+
 [WARNING]
-The specified file name *must not* be an empty string or `null`. If the specified file name is an empty string, the specified file name will be declared as invalid. If the specified file name is `null`, a `NullPointerException` will be thrown.
+The argument passed to the `fileNameToCheck` parameter of the `FileName#isValidFileName(String fileNameToCheck)` operation *must not* be an empty string or a null argument. If the argument passed is an empty string, the specified file name will be declared as invalid. If a null argument is passed, a `NullPointerException` will be thrown.
 
 ==== How to integrate it into new commands in MediTabs?
 
@@ -649,6 +661,7 @@ Examples of commands in MediTabs which uses the `FileName` class to validate the
 
 * `export [FILE_NAME]`
 * `label INDEX [f/FILE_NAME]`
+// end::validationoffilename[]
 
 [[Implementation-Configuration]]
 === Configuration
@@ -986,7 +999,7 @@ Use case resume at step 2.
 
 . User Constraints
 .. The product caters users with a preference for typing commands over the command line. Only limited GUI interactions are available as the focus is on the command line interface.
-.. The product is meant only for single user usage. i.e, any features (e.g. profile switching) should only be limited to a single user. Using such features to support mulitple users is not recommended.
+.. The product is meant only for single user usage. i.e, any features (e.g. profile switching) should only be limited to a single user. Using such features to support multiple users is not recommended.
 
 . Data
 .. User should have read and write permissions for data stored on the local machine. i.e, expert users can edit the data file without the application.

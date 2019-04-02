@@ -8,8 +8,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_REMINDER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_REMINDER;
 import static seedu.address.testutil.TypicalReminders.getTypicalRemindersQuickDocs;
 
-import java.time.LocalDate;
-
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -31,12 +29,11 @@ public class DeleteRemCommandTest {
     private QuickDocs quickDocs = getTypicalRemindersQuickDocs();
     private Model model = new ModelManager(new AddressBook(), quickDocs, new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-    private LocalDate testDate = LocalDate.parse("2019-10-23");
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        Reminder reminderToDelete = model.getFilteredReminderList(testDate).get(INDEX_FIRST_REMINDER.getZeroBased());
-        DeleteRemCommand deleteRemCommand = new DeleteRemCommand(INDEX_FIRST_REMINDER, testDate);
+        Reminder reminderToDelete = model.getFilteredReminderList().get(INDEX_FIRST_REMINDER.getZeroBased());
+        DeleteRemCommand deleteRemCommand = new DeleteRemCommand(INDEX_FIRST_REMINDER);
 
         String expectedMessage = String.format(DeleteRemCommand.MESSAGE_DELETE_REMINDER_SUCCESS, reminderToDelete);
 
@@ -49,8 +46,8 @@ public class DeleteRemCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredReminderList(testDate).size() + 1);
-        DeleteRemCommand deleteRemCommand = new DeleteRemCommand(outOfBoundIndex, testDate);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredReminderList().size() + 1);
+        DeleteRemCommand deleteRemCommand = new DeleteRemCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteRemCommand, model, commandHistory, DeleteRemCommand.MESSAGE_INVALID_REMINDER_INDEX);
     }
@@ -74,12 +71,6 @@ public class DeleteRemCommandTest {
         assertFalse(deleteFirstCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
-
-        // different date -> returns false
-        deleteFirstCommand = new DeleteRemCommand(INDEX_FIRST_REMINDER, LocalDate.parse("2019-10-23"));
-        deleteSecondCommand = new DeleteRemCommand(INDEX_FIRST_REMINDER, LocalDate.parse("2019-10-25"));
-
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
 }

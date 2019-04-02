@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static seedu.address.testutil.TypicalReminders.getTypicalRemindersQuickDocs;
 
+import java.time.LocalDate;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -16,10 +18,12 @@ public class ListRemCommandTest {
     private QuickDocs quickDocs = getTypicalRemindersQuickDocs();
     private Model model = new ModelManager(new AddressBook(), quickDocs, new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
+    private LocalDate testStart = LocalDate.parse("2019-04-04");
+    private LocalDate testEnd = LocalDate.parse("2019-04-07");
 
     @Test
     public void executeListRem() {
-        CommandResult result = new ListRemCommand().execute(model, commandHistory);
+        CommandResult result = new ListRemCommand(testStart, testEnd).execute(model, commandHistory);
         StringBuilder expected = new StringBuilder();
         expected.append(ListRemCommand.MESSAGE_SUCCESS)
                 .append(model.listRem());
@@ -29,7 +33,7 @@ public class ListRemCommandTest {
 
     @Test
     public void equals() {
-        ListRemCommand listRem = new ListRemCommand();
+        ListRemCommand listRem = new ListRemCommand(testStart, testEnd);
 
         // same object -> returns true
         Assert.assertTrue(listRem.equals(listRem));

@@ -11,10 +11,12 @@ import static seedu.address.logic.parser.ParserUtil.FORMAT_MONTH;
 import static seedu.address.logic.parser.ParserUtil.FORMAT_WEEK;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.junit.Test;
 
 import seedu.address.logic.commands.ListAppCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.patient.Nric;
 
 public class ListAppCommandParserTest {
@@ -30,8 +32,9 @@ public class ListAppCommandParserTest {
     private LocalDate date = LocalDate.parse(dateString);
 
     @Test
-    public void parse_noFieldsPresent_success() {
-        assertParseSuccess(parser, "", new ListAppCommand());
+    public void parse_noFieldsPresent_success() throws ParseException {
+        List<LocalDate> dates = ParserUtil.parseFormatDate(ParserUtil.FORMAT_WEEK, LocalDate.now());
+        assertParseSuccess(parser, "", new ListAppCommand(dates.get(0), dates.get(1)));
     }
 
     @Test

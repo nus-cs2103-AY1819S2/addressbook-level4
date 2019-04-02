@@ -124,13 +124,6 @@ public class LogicManager implements Logic {
         return model.getFilteredReminderList();
     }
 
-
-//    @Override
-//    public ObservableList<Reminder> getFilteredReminderList() {
-//        LocalDate todaysDate = LocalDate.now();
-//        return model.getFilteredReminderList(todaysDate);
-//    }
-
     @Override
     public ReadOnlyProperty<Reminder> selectedReminderProperty() {
         return model.selectedReminderProperty();

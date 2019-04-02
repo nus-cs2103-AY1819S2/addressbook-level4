@@ -109,8 +109,6 @@ public interface Model {
 
     ObservableList<Reminder> getFilteredReminderList();
 
-    ObservableList<Reminder> getFilteredReminderList(LocalDate date);
-
     ReadOnlyProperty<Reminder> selectedReminderProperty();
 
     void setSelectedReminder(Reminder reminder);

@@ -356,11 +356,6 @@ public class ModelManager implements Model {
         return filteredReminders;
     }
 
-    @Override
-    public ObservableList<Reminder> getFilteredReminderList(LocalDate date) {
-        return reminderManager.getFilteredReminderList(date);
-    }
-
     //=========== Undo/Redo =================================================================================
 
     @Override

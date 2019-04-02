@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -28,22 +27,15 @@ public class DeleteRemCommand extends Command {
     public static final String MESSAGE_INVALID_REMINDER_INDEX = "The reminder index provided is invalid";
 
     private final Index targetIndex;
-    private final LocalDate date;
 
     public DeleteRemCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
-        date = LocalDate.now();
-    }
-
-    public DeleteRemCommand(Index targetIndex, LocalDate date) {
-        this.targetIndex = targetIndex;
-        this.date = date;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Reminder> lastShownList = model.getFilteredReminderList(date);
+        List<Reminder> lastShownList = model.getFilteredReminderList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(MESSAGE_INVALID_REMINDER_INDEX);
@@ -58,7 +50,6 @@ public class DeleteRemCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteRemCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteRemCommand) other).targetIndex)
-                && date.equals(((DeleteRemCommand) other).date)); // state check
+                && targetIndex.equals(((DeleteRemCommand) other).targetIndex)); // state check
     }
 }

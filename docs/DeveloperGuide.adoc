@@ -489,7 +489,7 @@ Data encryption is likely to be implemented in future versions of the MediTabs i
 The exporting of a medicine label to a PDF formatted file is implemented by using Apache PDFBox.
 
 Current implementation:
-Under the build.gradle file, we have added new dependency implementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.13'. This imports the library over to the project for use.
+Under the build.gradle file, we have added new dependency implementation group: `org.apache.pdfbox`, name: `pdfbox`, version: `2.0.13`. This imports the library over to the project for use.
 
 There are many operations available added in the Apache PDFBox, the key operations that we are using would only be:
 
@@ -626,8 +626,11 @@ A full list of reserved names implemented in `FileName` class which are not allo
 
 * `CON, PRN, AUX, NUL, COM0, COM1, COM2, COM3, COM4, COM5, COM6, COM7, COM8, COM9, LPT0, LPT1, LPT2, LPT3, LPT4, LPT5, LPT6, LPT7, LPT8, and LPT9`
 
+[NOTE]
+The reserved names listed above are *case insensitive*, in other words, names such as `prn` or `CoM0` are also reserved names.
+
 [WARNING]
-The specified file name *must not* be an empty string or `null`. If the specified file name is an empty string, the specified file name will be declared as invalid. If the specified file name is `null`, a `NullPointerException` will be thrown.
+The argument passed to the `fileNameToCheck` parameter of the `FileName#isValidFileName(String fileNameToCheck)` operation *must not* be an empty string or a null argument. If the argument passed is an empty string, the specified file name will be declared as invalid. If a null argument is passed, a `NullPointerException` will be thrown.
 
 ==== How to integrate it into new commands in MediTabs?
 

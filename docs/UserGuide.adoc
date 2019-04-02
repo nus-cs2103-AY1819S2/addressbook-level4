@@ -119,7 +119,7 @@ You can use the `export` command to take advantage of this feature. You can lear
 
 === Coming in v2.0
 
-The team is constantly working to improve your user experience. Here are some features to look forward to in our next release.
+Our team is constantly working to improve your user experience. Here are some features to look forward to in our next release.
 
 ==== Suggested medicine names
 
@@ -152,9 +152,11 @@ An example of an integration addon which would be supported by MediTabs:
 This feature could be further expanded to support medical databases of different countries.
 // end::integrationaddon[]
 
+// tag::dataencryption[]
 ==== Encrypting data files
 
 Due to the nature of medical inventories, the integrity of data stored is of utmost importance. The next release will feature data encryption to keep your inventory safe and keep unauthorised users away. With this feature, you will be required to log in with a password to view and edit your inventory. This feature can be disabled if it is not required for your needs.
+// end::dataencryption[]
 
 [[Commands]]
 == Commands
@@ -531,6 +533,7 @@ e.g. `warning e/20 s/10`
 * *List:* This refers to the currently displayed list (possibly filtered).
 * *Inventory:* This refers to the storage containing all medicines that have been added. Display all medicines in the inventory by using the `list` command.
 * *Batch:* This refers to medicine with the same name, medical properties and manufacturing date. There may be more than one batch of medicine with the same name, but they will have different batch numbers and manufacturing dates. View all batches of a medicine by using the `select` command.
+
 // tag::filenamingconvention[]
 == Appendix A: File Naming Convention
 
@@ -561,5 +564,5 @@ Examples of correct and incorrect file names:
 You must follow the file naming convention format when specifying the file name field for any commands that support file name as a field.
 
 [CAUTION]
-The characters of the file name cannot contain any spacing or symbols, including but not limited to, `\/:*?"<>|.+[]{};!@#$%^&~`` Reserved names, indicated in Windows documentation, are also *not allowed* to be used as file names such as `COM1` and `LPT8`. You can read more about file naming conventions in Windows link:https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#naming-conventions[here].
+The characters of the file name cannot contain any spacing or symbols, including but not limited to, `\/:*?"<>|.+[]{};!@#$%^&~`` Reserved names, indicated in Windows documentation, are also *not allowed* to be used as file names such as `COM1` and `LPT8`. The reserved names are *case insensitive* for example, `com1` or `CoM1` are also reserved names. You can read more about file naming conventions in Windows link:https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#naming-conventions[here].
 // end::filenamingconvention[]

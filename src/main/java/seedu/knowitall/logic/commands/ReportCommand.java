@@ -2,7 +2,6 @@ package seedu.knowitall.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER;
-import static seedu.knowitall.model.Model.COMPARATOR_ASC_SCORE_CARDS;
 
 import seedu.knowitall.logic.CommandHistory;
 import seedu.knowitall.logic.commands.exceptions.CommandException;
@@ -27,7 +26,6 @@ public class ReportCommand extends Command {
         }
 
         model.enterReportDisplay();
-        model.sortFilteredCard(COMPARATOR_ASC_SCORE_CARDS);
         return new CommandResult(MESSAGE_SUCCESS, CommandResult.Type.ENTERED_REPORT);
     }
 }

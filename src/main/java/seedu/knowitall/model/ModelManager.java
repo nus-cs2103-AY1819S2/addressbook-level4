@@ -340,6 +340,7 @@ public class ModelManager implements Model {
     @Override
     public void enterReportDisplay() {
         state = State.IN_REPORT;
+        this.sortFilteredCard(COMPARATOR_ASC_SCORE_CARDS);
     }
 
     @Override

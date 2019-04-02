@@ -1,6 +1,5 @@
 package seedu.knowitall.logic.commands;
 
-import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_COMMAND_INSIDE_TEST_SESSION;
 import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -46,7 +45,7 @@ public class TestCommandTest {
         TestCommand testCommand = new TestCommand();
         model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         model.testCardFolder();
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_INSIDE_TEST_SESSION);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
         assertCommandFailure(testCommand, model, commandHistory, expectedMessage);
     }
 }

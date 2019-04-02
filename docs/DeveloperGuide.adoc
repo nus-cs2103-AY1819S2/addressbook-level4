@@ -415,6 +415,7 @@ Step 5. Replace the original restaurant with the new restaurant object in the mo
 ==== Design considerations
 The primary consideration was the compatibility of this new command with the existing architecture.
 Given the stable implementation of the current system of parsing commands, any new command created should fit into the existing architecture with minimal changes to other components.
+// end::skpai27[]
 
 === Visit Webpage Feature
 

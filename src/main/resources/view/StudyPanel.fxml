@@ -3,40 +3,41 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
-
 <?import javafx.scene.layout.VBox?>
-<HBox id="studyPane" fx:id="studyPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<HBox xmlns:fx="http://javafx.com/fxml/1" id="studyPane" xmlns="http://javafx.com/javafx/8.0.172-ea">
 
-  <padding>
-    <Insets bottom="20" left="20" right="20" top="20" />
-  </padding>
+    <?import javafx.scene.layout.VBox?>
+    <HBox id="studyPane" xmlns="http://javafx.com/javafx/8.0.172-ea"
+          xmlns:fx="http://javafx.com/fxml/1">
 
-  <HBox fx:id="card" maxHeight="300" minHeight="300" minWidth="600">
-      <children>
-       <Label fx:id="question" prefHeight="300.0" prefWidth="600.0" styleClass="cell_huge_label" />
-      </children></HBox>
 
-    <VBox fx:id="status">
-        <HBox>
-            <padding>
-                <Insets bottom="0" left="20" right="20" top="20" />
-            </padding>
-
+        <HBox fx:id="card" maxHeight="300" minHeight="300" minWidth="600">
             <children>
-                <Label fx:id="userAnswerLabel" styleClass="userAnswer_label" />
+                <Label fx:id="question" prefHeight="300.0" prefWidth="600.0" styleClass="cell_huge_label"/>
             </children>
         </HBox>
 
-        <HBox>
-            <padding>
-                <Insets bottom="20" left="20" right="20" top="20" />
-            </padding>
+        <VBox fx:id="status">
+            <HBox>
+                <padding>
+                    <Insets bottom="0" left="20" right="20" top="20"/>
+                </padding>
 
-            <children>
-                <Label fx:id="rateDifficulty" styleClass="userAnswer_label" />
-            </children>
-        </HBox>
+                <children>
+                    <Label fx:id="userAnswerLabel" styleClass="userAnswer_label"/>
+                </children>
+            </HBox>
 
-    </VBox>
+            <HBox>
+                <padding>
+                    <Insets bottom="20" left="20" right="20" top="20"/>
+                </padding>
 
-</HBox>
+                <children>
+                    <Label fx:id="rateDifficulty" styleClass="userAnswer_label"/>
+                </children>
+            </HBox>
+
+        </VBox>
+
+    </HBox>

@@ -13,12 +13,14 @@ import seedu.address.logic.commands.AddDeckCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteDeckCommand;
 import seedu.address.logic.commands.EditDeckCommand;
+import seedu.address.logic.commands.FindDeckCommand;
 import seedu.address.logic.commands.OpenDeckCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.StudyDeckCommand;
 import seedu.address.logic.parser.AddDeckCommandParser;
 import seedu.address.logic.parser.DeleteDeckCommandParser;
 import seedu.address.logic.parser.EditDeckCommandParser;
+import seedu.address.logic.parser.FindDeckCommandParser;
 import seedu.address.logic.parser.SelectCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -29,10 +31,11 @@ import seedu.address.model.deck.Deck;
  */
 public class DecksView implements ListViewState {
 
-    private final SimpleObjectProperty<Deck> selectedDeck = new SimpleObjectProperty<>();
-    private Model model;
-
     public final FilteredList<Deck> filteredDecks;
+
+    public final SimpleObjectProperty<Deck> selectedDeck = new SimpleObjectProperty<>();
+
+    private Model model;
 
     public DecksView(Model model, FilteredList<Deck> deckList) {
         this.model = model;
@@ -55,6 +58,8 @@ public class DecksView implements ListViewState {
                 return new DeleteDeckCommandParser(this).parse(arguments);
             case EditDeckCommand.COMMAND_WORD:
                 return new EditDeckCommandParser(this).parse(arguments);
+            case FindDeckCommand.COMMAND_WORD:
+                return new FindDeckCommandParser(this).parse(arguments);
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
@@ -70,8 +75,9 @@ public class DecksView implements ListViewState {
                 return;
             }
 
-            boolean wasSelectedItemReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedDeck.getValue());
+            boolean wasSelectedItemReplaced =
+                    change.wasReplaced() && change.getAddedSize() == change.getRemovedSize() && change
+                            .getRemoved().contains(selectedDeck.getValue());
             if (wasSelectedItemReplaced) {
                 // Update selectedDeck to its new value.
                 int index = change.getRemoved().indexOf(selectedDeck.getValue());
@@ -79,8 +85,8 @@ public class DecksView implements ListViewState {
                 continue;
             }
 
-            boolean wasSelectedItemRemoved = change.getRemoved().stream()
-                    .anyMatch(removedItem -> selectedDeck.getValue().equals(removedItem));
+            boolean wasSelectedItemRemoved = change.getRemoved().stream().anyMatch(
+                removedItem -> selectedDeck.getValue().equals(removedItem));
             if (wasSelectedItemRemoved) {
                 // Select the card that came before it in the list,
                 // or clear the selection if there is no such card.
@@ -89,6 +95,9 @@ public class DecksView implements ListViewState {
         }
     }
 
+    /**
+     * Updates the filtered list in DecksView.
+     */
     public void updateFilteredList(Predicate<Deck> predicate) {
         requireNonNull(predicate);
         filteredDecks.setPredicate(predicate);

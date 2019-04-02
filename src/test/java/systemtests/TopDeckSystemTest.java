@@ -1,8 +1,8 @@
 package systemtests;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.StatusBarFooter.TOTAL_DECKS_STATUS;
@@ -19,19 +19,25 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
-import guitests.guihandles.ListPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
+import guitests.guihandles.ListPanelHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CardsView;
+import seedu.address.logic.DecksView;
+import seedu.address.logic.ViewState;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.FindCardCommand;
+import seedu.address.logic.commands.FindDeckCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.Model;
 import seedu.address.model.TopDeck;
+import seedu.address.model.deck.Deck;
 import seedu.address.testutil.TypicalDecks;
 import seedu.address.ui.CommandBox;
 
@@ -40,12 +46,13 @@ import seedu.address.ui.CommandBox;
  * for test verification.
  */
 public abstract class TopDeckSystemTest {
+
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
 
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
-    private static final List<String> COMMAND_BOX_ERROR_STYLE =
-            Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
+    private static final List<String> COMMAND_BOX_ERROR_STYLE = Arrays
+            .asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
 
     private MainWindowHandle mainWindowHandle;
     private TestApp testApp;
@@ -122,6 +129,8 @@ public abstract class TopDeckSystemTest {
         // after each command is predictable and also different from the previous command.
         clockRule.setInjectedClockToCurrentTime();
 
+
+
         mainWindowHandle.getCommandBox().run(command);
     }
 
@@ -135,21 +144,28 @@ public abstract class TopDeckSystemTest {
 
     /**
      * Displays all decks with any parts of their names matching {@code keyword} (case-insensitive).
-     * TODO: uncomment when FindDeckCommand is implemented
      */
-    /**
-    protected void showDecksWithQuestion(String keyword) {
+
+    protected void showDecksWithName(String keyword) {
         executeCommand(FindDeckCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredList().size() < getModel().getTopDeck().getDeckList().size());
     }
-     **/
+
+    /**
+     * Displays all cards with any parts of their names matching {@code keyword} (case-insensitive).
+     */
+    protected void showCardsWithQuestion(String keyword, Deck activeDeck) {
+        executeCommand(FindCardCommand.COMMAND_WORD + " " + keyword);
+        assertTrue(getModel().getFilteredList().size() < activeDeck.getCards().internalList.size());
+    }
+
 
     /**
      * Selects the Deck at {@code index} of the displayed list.
      */
     protected void selectDeck(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getDeckListPanel().getSelectedDeckIndex());
+        assertEquals(index.getZeroBased(), getDeckListPanel().getSelectedItemIndex());
     }
 
     /**
@@ -161,16 +177,22 @@ public abstract class TopDeckSystemTest {
     }
 
     /**
-     * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
+     * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay}
+     * displays
      * {@code expectedResultMessage}, the storage contains the same deck objects as {@code expectedModel}
      * and the deck list panel displays the decks in the model correctly.
      */
-    protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
-            Model expectedModel) {
+    protected void assertApplicationDisplaysExpected(String expectedCommandInput,
+                                                     String expectedResultMessage, Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new TopDeck(expectedModel.getTopDeck()), testApp.readStorageTopDeck());
-        assertListMatching(getDeckListPanel(), expectedModel.getFilteredList());
+        ViewState state = expectedModel.getViewState();
+        if (state instanceof DecksView) {
+            assertListMatching(getDeckListPanel(), expectedModel.getFilteredList());
+        } else if (state instanceof CardsView) {
+            assertListMatching(getCardListPanel(), expectedModel.getFilteredList());
+        }
     }
 
     /**
@@ -194,17 +216,19 @@ public abstract class TopDeckSystemTest {
 
     /**
      * Asserts that only the deck at {@code expectedSelectedDeckIndex} is selected.
+     *
      * @see ListPanelHandle#isSelectedDeckDisplayChanged()
      */
     protected void assertSelectedDeckChanged(Index expectedSelectedDeckIndex) {
-        getDeckListPanel().navigateToDeck(getDeckListPanel().getSelectedDeckIndex());
+        getDeckListPanel().navigateToItem(getDeckListPanel().getSelectedItemIndex());
         String selectedDeckName = getDeckListPanel().getHandleToSelectedDeck().getName();
 
-        assertEquals(expectedSelectedDeckIndex.getZeroBased(), getDeckListPanel().getSelectedDeckIndex());
+        assertEquals(expectedSelectedDeckIndex.getZeroBased(), getDeckListPanel().getSelectedItemIndex());
     }
 
     /**
      * Asserts that the selected deck in the deck list panel remains unchanged.
+     *
      * @see ListPanelHandle#isSelectedDeckDisplayChanged()
      */
     protected void assertSelectedDeckUnchanged() {
@@ -231,7 +255,6 @@ public abstract class TopDeckSystemTest {
     protected void assertStatusBarUnchanged() {
         StatusBarFooterHandle handle = getStatusBarFooter();
         assertFalse(handle.isSaveLocationChanged());
-        assertFalse(handle.isTotalPersonsStatusChanged());
         assertFalse(handle.isSyncStatusChanged());
     }
 
@@ -246,7 +269,8 @@ public abstract class TopDeckSystemTest {
         String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertEquals(expectedSyncStatus, handle.getSyncStatus());
         assertFalse(handle.isSaveLocationChanged());
-        assertFalse(handle.isTotalPersonsStatusChanged());
+
+        assertFalse(handle.isTotalCardsStatusChanged());
     }
 
     /**
@@ -275,10 +299,10 @@ public abstract class TopDeckSystemTest {
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getDeckListPanel(), getModel().getFilteredList());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
-                getStatusBarFooter().getSaveLocation());
+                     getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
         assertEquals(String.format(TOTAL_DECKS_STATUS, getModel().getTopDeck().getDeckList().size()),
-                getStatusBarFooter().getTotalDecksStatus());
+                     getStatusBarFooter().getTotalDecksStatus());
     }
 
     /**

@@ -25,7 +25,6 @@ import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.exceptions.CardNotFoundException;
 import seedu.address.model.deck.exceptions.IllegalOperationWhileReviewingCardException;
-import seedu.address.model.deck.exceptions.IllegalOperationWhileReviewingDeckException;
 
 /**
  * Represents the in-memory model of top deck data.
@@ -35,8 +34,8 @@ public class ModelManager implements Model {
 
     private final VersionedTopDeck versionedTopDeck;
     private final UserPrefs userPrefs;
-    private FilteredList<? extends ListItem> filteredItems;
     private final SimpleObjectProperty<ListItem> selectedItem = new SimpleObjectProperty<>();
+    private FilteredList<? extends ListItem> filteredItems;
     private ViewState viewState;
 
     /**
@@ -73,7 +72,7 @@ public class ModelManager implements Model {
     }
 
     public void studyDeck(Deck deck) {
-        viewState = new StudyView(this, deck);
+        viewState = new StudyView(deck);
     }
 
     @Override
@@ -94,6 +93,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean isAtStudyView() {
+        return (viewState instanceof StudyView);
+    }
+
+    @Override
     public ViewState getViewState() {
         return viewState;
     }
@@ -102,14 +106,14 @@ public class ModelManager implements Model {
     //=========== UserPrefs ==================================================================================
 
     @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+    public ReadOnlyUserPrefs getUserPrefs() {
+        return userPrefs;
     }
 
     @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        requireNonNull(userPrefs);
+        this.userPrefs.resetData(userPrefs);
     }
 
     @Override
@@ -137,71 +141,55 @@ public class ModelManager implements Model {
     //=========== TopDeck ================================================================================
 
     @Override
-    public void setTopDeck(ReadOnlyTopDeck topDeck) {
-        versionedTopDeck.resetData(topDeck);
-    }
-
-    @Override
     public ReadOnlyTopDeck getTopDeck() {
         return versionedTopDeck;
     }
 
     @Override
-    public boolean hasCard(Card card) {
-        requireNonNull(card);
-
-        if (!(viewState instanceof CardsView)) {
-            throw new IllegalOperationWhileReviewingDeckException();
-        }
-
-        CardsView cardsView = (CardsView)viewState;
-
-        return cardsView.getActiveDeck().hasCard(card);
+    public void setTopDeck(ReadOnlyTopDeck topDeck) {
+        versionedTopDeck.resetData(topDeck);
     }
 
     @Override
-    public void deleteCard(Card target) {
-        if (!(viewState instanceof CardsView)) {
-            throw new IllegalOperationWhileReviewingDeckException();
-        }
+    public boolean hasCard(Card card, Deck deck) {
+        requireAllNonNull(card, deck);
 
-        CardsView cardsView = (CardsView)viewState;
-        versionedTopDeck.deleteCard(target, cardsView.getActiveDeck());
-
-        cardsView.filteredCards.remove(target);
-
-        setSelectedItem(cardsView.selectedCard.getValue());
+        return deck.hasCard(card);
     }
 
     @Override
-    public void addCard(Card card) {
-        requireNonNull(card);
+    public void deleteCard(Card target, Deck deck) {
+        requireAllNonNull(target, deck);
 
-        if (!(viewState instanceof CardsView)) {
-            throw new IllegalOperationWhileReviewingDeckException();
-        }
-
-        CardsView cardsView = (CardsView)viewState;
-        versionedTopDeck.addCard(card, cardsView.getActiveDeck());
+        Deck editedDeck = versionedTopDeck.deleteCard(target, deck);
+        changeDeck(editedDeck);
     }
 
     @Override
-    public void setCard(Card target, Card editedCard) {
-        requireAllNonNull(target, editedCard);
+    public void addCard(Card card, Deck deck) {
+        requireAllNonNull(card, deck);
 
-        if (!(viewState instanceof CardsView)) {
-            throw new IllegalOperationWhileReviewingDeckException();
-        }
+        Deck editedDeck = versionedTopDeck.addCard(card, deck);
+        changeDeck(editedDeck);
+    }
 
-        CardsView cardsView = (CardsView)viewState;
-        versionedTopDeck.setCard(target, editedCard, cardsView.getActiveDeck());
+    @Override
+    public void setCard(Card target, Card editedCard, Deck deck) {
+        requireAllNonNull(target, editedCard, deck);
+
+        Deck editedDeck = versionedTopDeck.setCard(target, editedCard, deck);
+        changeDeck(editedDeck);
+    }
+
+    @Override
+    public Deck getDeck(Deck target) {
+        return versionedTopDeck.getDeck(target);
     }
 
     @Override
     public void addDeck(Deck deck) {
         logger.info("Added a new deck to TopDeck.");
         versionedTopDeck.addDeck(deck);
-        commitTopDeck();
     }
 
     @Override
@@ -212,9 +200,6 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteDeck(Deck deck) {
-        if (!(viewState instanceof DecksView)) {
-            throw new IllegalOperationWhileReviewingCardException();
-        }
         logger.info("Deleted a deck.");
 
         versionedTopDeck.deleteDeck(deck);
@@ -224,11 +209,7 @@ public class ModelManager implements Model {
     public void setDeck(Deck target, Deck editedDeck) {
         requireAllNonNull(target, editedDeck);
 
-        if (!(viewState instanceof DecksView)) {
-            throw new IllegalOperationWhileReviewingDeckException();
-        }
-
-        DecksView decksView = (DecksView)viewState;
+        DecksView decksView = (DecksView) viewState;
 
         versionedTopDeck.setDecks(decksView.filteredDecks);
     }
@@ -251,7 +232,6 @@ public class ModelManager implements Model {
         return (ObservableList<ListItem>) filteredItems;
     }
 
-    // TODO: This is no longer used by actual code. Update tests
     @Override
     public void updateFilteredList(Predicate<? extends ListItem> predicate) {
         requireNonNull(predicate);
@@ -307,10 +287,10 @@ public class ModelManager implements Model {
 
         if (card instanceof Card && isAtCardsView()) {
             CardsView cardsView = (CardsView) viewState;
-            cardsView.selectedCard.set((Card)card);
-        } else if (card instanceof Deck && isAtDecksView()){
-            //TODO: Deck has to set its selection
-
+            cardsView.selectedCard.set((Card) card);
+        } else if (card instanceof Deck && isAtDecksView()) {
+            DecksView decksView = (DecksView) viewState;
+            decksView.selectedDeck.set((Deck) card);
         } else if (card != null) {
             throw new IllegalOperationWhileReviewingCardException();
         }
@@ -330,10 +310,9 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedTopDeck.equals(other.versionedTopDeck)
-                && userPrefs.equals(other.userPrefs)
-                && filteredItems.equals(other.filteredItems)
-                && Objects.equals(selectedItem.get(), other.selectedItem.get());
+        return versionedTopDeck.equals(other.versionedTopDeck) && userPrefs.equals(other.userPrefs)
+                && filteredItems.equals(other.filteredItems) && Objects
+                .equals(selectedItem.get(), other.selectedItem.get());
     }
 
 }

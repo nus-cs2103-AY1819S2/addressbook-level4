@@ -19,12 +19,11 @@ public class StudyPanel extends UiPart<Region> {
 
     private static final String FXML = "StudyPanel.fxml";
     private static final PseudoClass ANSWER = PseudoClass.getPseudoClass("answer");
+    private static final String YOUR_ANSWER_LABEL = "YOUR ANSWER\n\n";
+    private static final int NUMBER_OF_RATINGS = 5;
+    private static final int SPACE_SPANNED = 100;
 
     private final Logger logger = LogsCenter.getLogger(ListPanel.class);
-    private final String YOUR_ANSWER_LABEL = "YOUR ANSWER\n\n";
-
-    private final int NUMBER_OF_RATINGS = 5;
-    private final int SPACE_SPANNED = 100;
 
     private final String DIFFICULTY_QUESTION = createRatingQuestion(NUMBER_OF_RATINGS, SPACE_SPANNED);
 
@@ -47,8 +46,7 @@ public class StudyPanel extends UiPart<Region> {
     private Label rateDifficulty;
 
 
-    public StudyPanel(ObservableValue<String> textShown,
-                      ObservableValue<StudyView.studyState> studyState,
+    public StudyPanel(ObservableValue<String> textShown, ObservableValue<StudyView.StudyState> studyState,
                       ObservableValue<String> userAnswer) {
         super(FXML);
 
@@ -68,10 +66,10 @@ public class StudyPanel extends UiPart<Region> {
 
         studyState.addListener((observable, oldValue, newValue) -> {
             logger.info("color changed for: " + newValue);
-            card.pseudoClassStateChanged(ANSWER, studyState.getValue() == StudyView.studyState.ANSWER);
-            question.pseudoClassStateChanged(ANSWER, studyState.getValue() == StudyView.studyState.ANSWER);
-            userAnswerLabel.setVisible(studyState.getValue() == StudyView.studyState.ANSWER);
-            rateDifficulty.setVisible(studyState.getValue() == StudyView.studyState.ANSWER);
+            card.pseudoClassStateChanged(ANSWER, studyState.getValue() == StudyView.StudyState.ANSWER);
+            question.pseudoClassStateChanged(ANSWER, studyState.getValue() == StudyView.StudyState.ANSWER);
+            userAnswerLabel.setVisible(studyState.getValue() == StudyView.StudyState.ANSWER);
+            rateDifficulty.setVisible(studyState.getValue() == StudyView.StudyState.ANSWER);
             rateDifficulty.setText(DIFFICULTY_QUESTION);
         });
 
@@ -81,10 +79,15 @@ public class StudyPanel extends UiPart<Region> {
         });
     }
 
+    /**
+     * Creates a string to ask users to rate difficulty of card
+     * {@code noOfRatings} is an integer for the highest possible difficulty shown.
+     * {@code spaceSpanned} is how much space the command will take, in terms of characters.
+     */
     private String createRatingQuestion(int noOfRatings, int spaceSpanned) {
         return repeatChar(52, "-") + "\n"
                 + "How difficult was that?\n\n"
-                + createRatingString(noOfRatings, repeatChar( spaceSpanned/ noOfRatings," "))
+                + createRatingString(noOfRatings, repeatChar( spaceSpanned / noOfRatings, " "))
                 + "\n" + "Easy-peasy" + repeatChar(52, " ") + "Very tough";
     }
 

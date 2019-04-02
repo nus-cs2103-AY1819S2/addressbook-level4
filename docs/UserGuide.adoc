@@ -25,8 +25,10 @@ TopDeck helps you digitise your flash cards and keeps them organised.
 You can easily review your cards and TopDeck will track your performance.
 Improve your memory without the hassle of managing a physical pile of cards!
 
-TopDeck is optimized for those who prefer to work with a Command Line Interface (CLI)
-while still having the benefits of a Graphical User Interface (GUI).
+TopDeck has  a Command Line Interface (CLI), which means that users can
+interact with the program easily by typing commands in. It also has a Graphical User Interface (GUI),
+a visual display of the app, so that users can see the decks and cards stored.
+
 
 If this sounds like the tool you have been looking for,
 jump to <<Quick Start>> to get started. Enjoy!
@@ -61,9 +63,11 @@ By default, TopDeck starts in <<decksview,Decks View>>.
 === Decks View [[decksview]]
 
 This view displays a list of the decks in your collection.
+
+
 In decks view, you can:
 
-- Create, edit and delete decks.
+- Create, edit, delete and find decks.
 - Open a deck to view its contents. TopDeck will enter <<cardsview,cards view>>.
 - Pick a deck to study. TopDeck will enter <<studyview,study view>>.
 
@@ -77,6 +81,12 @@ This view displays the cards in a particular deck. In cards view, you can:
 === Study View [[studyview]]
 
 In this view you can study a deck of cards.
+
+- Test your knowledge of the cards in your chosen deck
+- Rate the difficulty of the cards.
+
+image::study_ug_diagrams/study_1.png[width="800"]
+
 
 == Commands [[commands]]
 
@@ -161,17 +171,90 @@ In this section, the active deck is the deck used in the `open` command.
 
 **Outcome**: Creates a new card with some front and back text and add it to the current deck.
 
+**Example**: `add q/Hello a/World`
+
+Below is an example of what the user should see upon the execution of the command:
+
+Before:
+
+image::card_ug_diagrams/add_card_1.png[width="800"]
+
+After:
+
+image::card_ug_diagrams/add_card_2.png[width="800"]
+
+==== Deleting a card in the active deck: `delete`
+
+**Format**: `delete INDEX`
+
+**Outcome**: Deletes the card at `INDEX`
+
+**Example**: `delete 2`
+
 ==== Editing a card in the active deck: `edit`
 
 **Format**: `edit INDEX q/QUESTION a/ANSWER`
 
 **Outcome**: Edits the text of the card at `INDEX`.
 
+**Example**: `edit 3 q/Hello a/World`
+
+**Auto-Complete**: Instead of typing the whole command,
+TopDeck also provides an auto-complete feature for the `edit` command.
+Users need only type `edit INDEX` and TopDeck will fill up the commandline
+for the user to edit accordingly.
+
+Below is a walk-through of the `edit` command:
+
+Suppose the user adds a new card with a typo:
+
+image::card_ug_diagrams/edit_card_1.png[width="800"]
+
+The user can then retrieve the full detail of the card by simply typing `edit 2`
+
+image::card_ug_diagrams/edit_card_2.png[width="800"]
+
+After pressing enter, the following should appear:
+
+image::card_ug_diagrams/edit_card_3.png[width="800"]
+
+The user can then edit and correct the mistake made.
+
+image::card_ug_diagrams/edit_card_4.png[width="800"]
+
+
 ==== Finding a card in the active deck by name: `find`
 
-**Format**: `find KEYWORD`
+**Format**: `find KEYWORD [KEYWORD]...`
+
+**Search for phrases**: TopDeck provides users the ability to search for
+specific question by searching for a whole phrase instead of only individual words.
+This is done by putting `"` around `KEYWORD`.
+
+[CAUTION]
+Phrases should have only alphanumeric characters and spaces.
 
 **Outcome**: Lists all cards within the current deck containing `KEYWORD` in its text.
+
+[NOTE]
+`find` will only search for full-matching words. For e.g. `Animals` will not be found if
+`animal` is used to search for it.
+
+**Example**:
+
+* `find animals`
+
+Below is the result of executing this command:
+
+image::card_ug_diagrams/find_card_2.png[width="800"]
+
+* `find "What is the largest"`
+
+Below is the result of executing this command:
+
+image::card_ug_diagrams/find_card_3.png[width="800"]
+
+
 
 ==== Listing all cards in the active deck: `list`
 
@@ -179,11 +262,6 @@ In this section, the active deck is the deck used in the `open` command.
 
 **Outcome**: Displays a list of all cards in the deck.
 
-==== Deleting a card in the active deck: `delete`
-
-**Format**: `delete INDEX`
-
-**Outcome**: Deletes the card at `INDEX`.
 
 ==== Studying the active deck: `study`
 
@@ -200,13 +278,48 @@ In this section, the active deck is the deck used in the `open` command.
 
 === Study View
 
-These are commands are only available in study view, after `study` command is executed.
+These are commands are only available in study view, after `study INDEX` or `study` command is executed.
 
-==== Returning to decks view: `done`
+==== Returning to decks view: `back`
 
-**Format**: `done`
+**Format**: `back`
 
 **Outcome**: Returns to decks view.
+
+==== Opening the deck in cards view: `deck`
+
+**Format**: `deck`
+
+**Outcome**: Opens the deck in cards view.
+
+==== Revealing the answer to card: `[any attempt]`
+
+**Format**: `[any attempt]`
+
+**Outcome**: Reveals the answer to card, with your attempt shown beside it.
+
+For example, you can type in `CO2` and hit kbd:[Enter]
+
+image::study_ug_diagrams/study_1.png[width="800"]
+
+The following image is the result of the command.
+
+image::study_ug_diagrams/study_2.png[width="800"]
+
+==== Displaying the next card: `[your difficulty rating]`
+
+**Format**: `[your difficulty rating]`
+
+**Outcome**: Displays another card from the deck. Stores your difficulty rating for the card.
+
+Entering a number 3 indicates that you rate the difficulty as 3.
+
+image::study_ug_diagrams/study_3.png[width="800"]
+
+Submitting this reveals the next question.
+
+image::study_ug_diagrams/study_4.png[width="800"]
+
 
 === Global commands
 
@@ -322,34 +435,63 @@ When studying, TopDeck will show the question, and the answer will be revealed w
 
 A convenient cheat sheet of commands
 
-[width="100%",cols="20%,<30%",options="header",]
+==== Decks View
+
+[width="100%",cols="20%,<30%"]
 |=======================================================================
-|Command | What does it do?
-|`help` | Lists all available commands and their respective formats.
-|`list` | Displays a list of all available decks. If inside a deck displays all cards in that deck.
 |`add n/NAME` | Adds a new deck.
-|`edit INDEX n/NAME` | Edits the name of the deck at INDEX.
 |`delete INDEX` | Deletes the deck at INDEX.
-|`select INDEX` | Selects the deck at INDEX.
+|`edit INDEX n/NAME` | Edits the name of the deck at INDEX.
+|`find NAME` | Finds a deck by name.
 |`open INDEX` | Navigates into the deck at INDEX. +
 Use `back` to navigate out of the deck.
-|`find NAME` | Finds a deck by name.
+|`select INDEX` | Selects the deck at INDEX.
+|`study INDEX` | Studying the deck at INDEX.
+|=======================================================================
+
+==== Cards View
+
+[width="100%",cols="20%,<30%"]
+|=======================================================================
+
 |`add q/QUESTION a/ANSWER` | Adds a new card in the current deck. +
-You must be inside a deck to perform this operation.
+|`delete INDEX` | Deletes the card at INDEX.
 |`edit INDEX [q/QUESTION]-[a/ANSWER]` | Edits the details of the card at INDEX. +
-At least one parameter must be present. +
-You must be inside a deck to perform this operation.
-|`delete INDEX` | Deletes the card at INDEX. +
-You must be inside a deck to perform this operation.
+At least one parameter must be present.
 |`find NAME` | Finding a card in the active deck by name.
 |`study` | Studying the active deck.
-|`done` | Returning to deck view after studying.
-|`export INDEX` | Exports the deck at the specified INDEX. (Default location is the same folder as TopDeck)
-|`import FILEPATH` | Imports a deck from the `json` file at the specified FILEPATH.
-|`history` | List all entered commands in reverse chronological order.
-|`undo` | Undo previous command.
-|`redo` | Redo previously undone command.
+|=======================================================================
+
+==== Study View
+
+[width="100%",cols="20%,<30%"]
+|=======================================================================
+|`back` | Returning to deck view after studying.
+|`deck` | Opens the deck in cards view.
+|=======================================================================
+
+
+==== Global Commands
+[width="100%",cols="20%,<30%"]
+|=======================================================================
 |`clear` | Clear all decks and cards.
 |`exit` | Exits the program.
+|`export INDEX` | Exports the deck at the specified INDEX. (Default location is the same folder as TopDeck)
+|`help` | Lists all available commands and their respective formats.
+|`history` | List all entered commands in reverse chronological order.
+|`import FILEPATH` | Imports a deck from the `json` file at the specified FILEPATH.
+|`list` | Displays a list of all available decks. If inside a deck displays all cards in that deck.
+|`redo` | Redo previously undone command.
+|`undo` | Undo previous command.
+|=======================================================================
 
+==== Switching Views
+
+[width="100%",cols="20%,<30%"]
+|=======================================================================
+|`back` | Cards/study view to Decks view.
+|`deck` | Study view to cards view.
+|`open DECK_INDEX` | Decks view to cards view
+|`study` | Cards view to study view.
+|`study DECK_INDEX` | Decks view to study view.
 |=======================================================================

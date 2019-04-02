@@ -172,7 +172,7 @@ Examples:
 Returns any restaurant with name containing `KFC`
 
 // tag::select[]
-=== Select a restaurant : `select`
+==== Select a restaurant : `select`
 
 Select a restaurant based on its index on the list and display information about it. +
 Format: `select INDEX`
@@ -263,7 +263,7 @@ Return restaurants with  `Cuisine`, `Occasion` or `Price Range` matching `$`, `c
 // tag::visitweb[]
 ==== Display website of selected restaurant : visitWeb
 
-==== Display the website of a restaurant identified by the index number used in the listRestaurants based on its weblink. +
+Display the website of a restaurant identified by the index number used in the listRestaurants based on its weblink. +
 Format: `visitWeb INDEX`
 
 
@@ -272,7 +272,7 @@ Format: `visitWeb INDEX`
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-==== Display the website of any restaurant by entering its url. +
+Display the website of any restaurant by entering its url. +
 Format: `visitWeb URL` +
 This allows users to visit website of any restaurant before they are entered into the list of restaurants in the `FoodDiary`.
 The purpose of this feature is so that users can reference from restaurants website when adding details of the restaurant into `FoodDiary`

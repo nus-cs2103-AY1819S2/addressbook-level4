@@ -14,7 +14,7 @@ import seedu.knowitall.model.card.Card;
 public class TestSession extends UiPart<Region> {
 
     private static final String FXML = "TestSession.fxml";
-    private static final String MESSAGE_CORRECT_ANSWER = "\"Wow you answered correctly, so smart\"";
+    private static final String MESSAGE_CORRECT_ANSWER = "\"Correct answer, good job!\"";
     private static final String MESSAGE_WRONG_ANSWER = "\"Wrong answer, better luck next time!\"";
 
     private Card cardToTest; //final?
@@ -23,6 +23,8 @@ public class TestSession extends UiPart<Region> {
     private GridPane testSessionPage;
     @FXML
     private Label testCardQuestion;
+    @FXML
+    private Label testCardHint;
     @FXML
     private Label testCardAnswer;
     @FXML
@@ -46,6 +48,11 @@ public class TestSession extends UiPart<Region> {
     public void displayCard(Card cardToTest) {
         testSessionPage.getChildren().clear();
         testCardQuestion.setText(cardToTest.getQuestion().fullQuestion);
+        testCardHint.setText("");
+        if (!cardToTest.getHints().isEmpty() && cardToTest.getHints().size() <= 1) {
+            System.out.println("got hint");
+            cardToTest.getHints().forEach(hintVal -> testCardHint.setText("Hint: " + hintVal.hintName));
+        }
         testCardOptions.setText("");
         if (cardToTest.getCardType() == Card.CardType.MCQ) {
             cardToTest.shuffleMcqOptions();
@@ -55,7 +62,7 @@ public class TestSession extends UiPart<Region> {
             }
         }
         testCardAnswer.setText("Correct answer:\n" + cardToTest.getAnswer().fullAnswer);
-        testSessionPage.getChildren().addAll(testCardQuestion, testCardOptions);
+        testSessionPage.getChildren().addAll(testCardQuestion, testCardHint, testCardOptions);
     }
 
     /**

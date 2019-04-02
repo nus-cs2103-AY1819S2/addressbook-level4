@@ -12,6 +12,7 @@ import seedu.knowitall.logic.CommandHistory;
 import seedu.knowitall.model.Model;
 import seedu.knowitall.model.ModelManager;
 import seedu.knowitall.model.UserPrefs;
+import seedu.knowitall.testutil.TypicalIndexes;
 
 public class UndoCommandTest {
 
@@ -22,9 +23,11 @@ public class UndoCommandTest {
     @Before
     public void setUp() {
         // set up of models' undo/redo history
+        model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         deleteFirstCard(model);
         deleteFirstCard(model);
 
+        expectedModel.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         deleteFirstCard(expectedModel);
         deleteFirstCard(expectedModel);
     }

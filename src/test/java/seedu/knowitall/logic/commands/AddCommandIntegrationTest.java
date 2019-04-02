@@ -13,6 +13,7 @@ import seedu.knowitall.model.ModelManager;
 import seedu.knowitall.model.UserPrefs;
 import seedu.knowitall.model.card.Card;
 import seedu.knowitall.testutil.CardBuilder;
+import seedu.knowitall.testutil.TypicalIndexes;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -25,6 +26,7 @@ public class AddCommandIntegrationTest {
     @Before
     public void setUp() {
         model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
+        model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
     }
 
     @Test
@@ -32,6 +34,7 @@ public class AddCommandIntegrationTest {
         Card validCard = new CardBuilder().build();
 
         Model expectedModel = new ModelManager(model.getCardFolders(), new UserPrefs());
+        expectedModel.enterFolder(model.getActiveCardFolderIndex());
         expectedModel.addCard(validCard);
         expectedModel.commitActiveCardFolder();
 

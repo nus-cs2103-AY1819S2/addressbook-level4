@@ -9,6 +9,7 @@ import seedu.knowitall.commons.core.index.Index;
 import seedu.knowitall.logic.CommandHistory;
 import seedu.knowitall.logic.commands.exceptions.CommandException;
 import seedu.knowitall.model.Model;
+import seedu.knowitall.model.Model.State;
 import seedu.knowitall.model.ReadOnlyCardFolder;
 
 /**
@@ -65,7 +66,7 @@ public class ChangeCommand extends Command {
     private CommandResult executeEnterFolder(Model model) throws CommandException {
         List<ReadOnlyCardFolder> cardFolderList = model.getCardFolders();
 
-        if (model.isInFolder()) {
+        if (model.getState() != State.IN_HOMEDIR) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_INSIDE_FOLDER);
         }
 
@@ -81,7 +82,7 @@ public class ChangeCommand extends Command {
      * Executes the logic to exit a folder. Model cannot already be outside folders.
      */
     private CommandResult executeExitFolder(Model model) throws CommandException {
-        if (!model.isInFolder()) {
+        if (model.getState() != State.IN_FOLDER) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
         }
         model.exitFolderToHome();

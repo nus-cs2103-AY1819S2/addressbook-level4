@@ -8,6 +8,7 @@ import seedu.knowitall.logic.CommandHistory;
 import seedu.knowitall.logic.commands.exceptions.CommandException;
 import seedu.knowitall.model.CardFolderNotFoundException;
 import seedu.knowitall.model.Model;
+import seedu.knowitall.model.Model.State;
 import seedu.knowitall.storage.csvmanager.exceptions.CsvManagerNotInitialized;
 
 
@@ -40,7 +41,7 @@ public class ExportCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         // check whether model contains the card folders desired. Catch exception thrown
 
-        if (model.isInFolder()) {
+        if (model.getState() != State.IN_HOMEDIR) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_INSIDE_FOLDER);
         }
         try {

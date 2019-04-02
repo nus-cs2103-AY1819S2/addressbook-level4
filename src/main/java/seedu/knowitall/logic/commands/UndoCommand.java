@@ -21,8 +21,7 @@ public class UndoCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        // TODO: Make Undo work outside of folder
-        if (!model.isInFolder()) {
+        if (model.getState() != Model.State.IN_FOLDER) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
         }
 

@@ -165,11 +165,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean isInTestSession() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void endTestSession() {
             throw new AssertionError("This method should not be called.");
         }
@@ -293,11 +288,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean isInFolder() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ObservableList<Card> getFilteredCards() {
             throw new AssertionError("This method should not be called.");
         }
@@ -358,6 +348,10 @@ public class AddCommandTest {
         }
 
         @Override
+        public State getState() {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
         public void addListener(InvalidationListener listener) {
             throw new AssertionError("This method should not be called.");
         }
@@ -380,15 +374,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public State getState() {
+            return State.IN_FOLDER;
+        }
+
+        @Override
         public boolean hasCard(Card card) {
             requireNonNull(card);
             return this.card.isSameCard(card);
         }
 
-        @Override
-        public boolean isInFolder() {
-            return true;
-        }
     }
 
     /**
@@ -410,13 +405,13 @@ public class AddCommandTest {
         }
 
         @Override
-        public void commitActiveCardFolder() {
-            // called by {@code AddCommand#execute()}
+        public State getState() {
+            return State.IN_FOLDER;
         }
 
         @Override
-        public boolean isInFolder() {
-            return true;
+        public void commitActiveCardFolder() {
+            // called by {@code AddCommand#execute()}
         }
     }
 

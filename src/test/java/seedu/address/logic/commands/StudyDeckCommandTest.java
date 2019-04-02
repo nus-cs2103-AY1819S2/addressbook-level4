@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.showDeckAtIndex;
 import static seedu.address.testutil.TypicalCards.getTypicalDeck;
 import static seedu.address.testutil.TypicalDecks.getTypicalTopDeck;
+import static seedu.address.testutil.TypicalIndexes.INDEX_EMPTY_DECK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DECK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_DECK;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -35,8 +36,8 @@ public class StudyDeckCommandTest {
 
     private Model modelDeck = new ModelManager(getTypicalTopDeck(), new UserPrefs());
     private Model modelCard = new ModelManager(getTypicalTopDeck(), new UserPrefs());
-    private Model expectedModelDeck = new ModelManager(TypicalCards.getTypicalTopDeck(), new UserPrefs());
-    private Model getExpectedModelCard = new ModelManager(TypicalCards.getTypicalTopDeck(), new UserPrefs());
+    private Model expectedModelDeck = new ModelManager(getTypicalTopDeck(), new UserPrefs());
+    private Model getExpectedModelCard = new ModelManager(getTypicalTopDeck(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
     //from decks view
     private DecksView decksView;
@@ -49,15 +50,12 @@ public class StudyDeckCommandTest {
 
     @Before
     public void initializeDecksView() {
-        modelDeck = new ModelManager(TypicalCards.getTypicalTopDeck(), new UserPrefs());
         assertTrue(modelDeck.isAtDecksView());
         decksView = (DecksView) modelDeck.getViewState();
     }
 
     @Before
     public void initializeCardsView() {
-        modelCard = new ModelManager(TypicalCards.getTypicalTopDeck(), new UserPrefs());
-        assertTrue(modelCard.isAtDecksView());
         modelCard.changeDeck(getTypicalDeck());
         assertTrue(modelCard.isAtCardsView());
         cardsView = (CardsView) modelCard.getViewState();
@@ -67,9 +65,7 @@ public class StudyDeckCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Index lastPersonIndex = Index.fromOneBased(decksView.getFilteredList().size());
         assertExecutionSuccessIndex(INDEX_FIRST_DECK);
-        assertExecutionSuccessIndex(lastPersonIndex);
     }
 
     @Test
@@ -77,6 +73,11 @@ public class StudyDeckCommandTest {
         Index outOfBoundsIndex = Index.fromOneBased(decksView.getFilteredList().size() + 1);
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_emptyDeck_failure() {
+        assertExecutionFailure(INDEX_EMPTY_DECK, Messages.MESSAGE_EMPTY_DECK);
     }
 
     @Test

@@ -41,17 +41,17 @@ public class StudyDeckCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (targetIndex != null) { //if OpenDeckCommand is directly based on target deck
+        if (targetIndex != null) { //if OpenDeckCommand is based on target index
             List<Deck> filteredDeckList = decksView.filteredDecks;
 
             if (targetIndex.getZeroBased() >= filteredDeckList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
             }
-
-            if (filteredDeckList.get(targetIndex.getZeroBased()).isEmpty()) {
-                throw new CommandException(Messages.MESSAGE_EMPTY_DECK);
-            }
             targetDeck = filteredDeckList.get(targetIndex.getZeroBased());
+        }
+
+        if (targetDeck.isEmpty()) {
+            throw new CommandException(Messages.MESSAGE_EMPTY_DECK);
         }
 
         model.studyDeck(targetDeck);

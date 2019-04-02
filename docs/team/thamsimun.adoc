@@ -9,22 +9,28 @@
 
 == Overview
 
-FomoFoto is a robust yet simple image-editing tool. Users interact with the application through worded commands from their keyboard, and receive visual feedback from it through the displayed image on the application.
+My team and I were tasked with enhancing a basic command line addressbook for our Software Engineering project. We decided to morph the project into a image editor. +
+
+FomoFoto is a robust yet simple image-editing tool. Users interact with the application through worded commands from their keyboard, and receive visual feedback from it through the displayed image on the application. +
+
 Unlike other heavy image editors, FomoFoto has a very gentle learning curve as it abstracts out clutter by providing the more essential features (complex editing can still be done with special commands). The features and implementations are well documented in guides for users and developers respectively.
 
 In addition, FomoFoto is well maintained with high reliability and code quality as it is covered by rigorous tests and checks.
 
 == Summary of contributions
+This section provides a summary of my coding, documentation and other contributions to FomoFoto, our team project.
 
 * *Major enhancement*: added *the ability to apply filters on images*
 
-** What it does: It parses the arguments specified by user, validate the filter commands and apply the filter on a targetted image.
-** Justification: This feature improves the product significantly because applying filters on images is one of the main feature of our image-editing product, FomoFoto.
+** What it does: It parses the arguments specified by user, validate the filter commands and apply the filter on a targetted image. Users can key in commands such as `contrast`, `brightness` and `bw` to apply the filters.
+
+** Justification: This feature improves the product significantly because applying filters on images is one of the main feature of our image-editing product, FomoFoto. Users might need to adjust the brightness and contrast of an image as the image they have might be under-exposed and is not well contrasted. The black and white filter is useful for users who like vintage images. 
+
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation was challenging as it required changes to existing commands. Furthermore, it required the gradle script to declare a compile-time dependency on an external API that provides images editing tools.footnote:[Gradle is an open-source build automation tool that is designed to be flexible enough to build almost any type of software.]
 
 ** Credits: _{The processing of images is facilitated by an external API https://github.com/sksamuel/scrimage[`scrimage`]}_
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com/CS2103-AY1819S2-W14-2/main/commits?author=thamsimun[List of commits]]
 
 * *Other contributions*:
 
@@ -48,11 +54,13 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=blackwhitecommand]
+include::../UserGuide.adoc[tag=Blackwhite Command]
 
-include::../UserGuide.adoc[tag=contrastcommand]
+include::../UserGuide.adoc[tag=Contrast Command]
 
-include::../UserGuide.adoc[tag=brightnesscommand]
+include::../UserGuide.adoc[tag=Brightness Command]
+
+include::../UserGuide.adoc[tag=Command Summary]
 
 == Contributions to the Developer Guide
 
@@ -60,9 +68,11 @@ include::../UserGuide.adoc[tag=brightnesscommand]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=logiccomponent]
+include::../DeveloperGuide.adoc[tag=Logic Component]
 
-include::../DeveloperGuide.adoc[tag=ImageFilters]
+include::../DeveloperGuide.adoc[tag=Storage Component]
+
+include::../DeveloperGuide.adoc[tag=Image Filters]
 
 
 == PROJECT: PowerPointLabs

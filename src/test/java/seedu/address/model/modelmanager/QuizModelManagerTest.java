@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.CardBuilder.DEFAULT_OPTIONAL;
 import static seedu.address.testutil.TypicalCards.CARD_BELGIUM;
 import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2;
 import static seedu.address.testutil.TypicalSession.SESSION_LEARNT_BEFORE;
@@ -52,8 +53,6 @@ public class QuizModelManagerTest {
         assertEquals(1, modelManager.getCount());
         assertEquals(QuizMode.LEARN, modelManager.getMode());
         assertEquals(List.of(new SrsCardBuilder().build()), modelManager.getQuizSrsCards());
-        assertEquals("Country", modelManager.getQuestionHeader());
-        assertEquals("Capital", modelManager.getAnswerHeader());
     }
     @Test
     public void testUpdateUser() {
@@ -120,6 +119,23 @@ public class QuizModelManagerTest {
 
         assertTrue(modelManager.toggleIsCardDifficult(0));
         assertFalse(modelManager.toggleIsCardDifficult(0));
+    }
+
+    @Test
+    public void getQuestionAndAnswerHeader() {
+        modelManager.init(quiz, SESSION_DEFAULT_2);
+        modelManager.getNextCard();
+
+        assertEquals("Country", modelManager.getQuestionHeader());
+        assertEquals("Capital", modelManager.getAnswerHeader());
+    }
+
+    @Test
+    public void getOpt() {
+        modelManager.init(quiz, SESSION_DEFAULT_2);
+        modelManager.getNextCard();
+
+        assertEquals(DEFAULT_OPTIONAL, modelManager.getOpt());
     }
 
     @Test

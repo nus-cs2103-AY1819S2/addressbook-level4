@@ -107,16 +107,20 @@ public class CsvUserStorage implements UserStorage {
      * @return card type with the constructor values
      */
     private CardSrsData parseStringIntoCard(String[] cardArray) {
-        int hashCode;
-        int numOfAttempts;
-        int streak;
-        Instant srs;
+        int hashCode = 0;
+        int numOfAttempts = 0;
+        int streak = 0;
+        Instant srs = Instant.now();
         boolean isDifficult;
 
-        hashCode = Integer.parseInt(cardArray[0]);
-        numOfAttempts = Integer.parseInt(cardArray[1]);
-        streak = Integer.parseInt(cardArray[2]);
-        srs = Instant.parse(cardArray[3]);
+        try {
+            hashCode = Integer.parseInt(cardArray[0]);
+            numOfAttempts = Integer.parseInt(cardArray[1]);
+            streak = Integer.parseInt(cardArray[2]);
+            srs = Instant.parse(cardArray[3]);
+        } catch (Exception e) {
+            logger.warning("Values are not correct" + filePath.toString());
+        }
 
         // TODO remove this check after session uses the new constructor
         if (cardArray.length == 5) {
@@ -124,7 +128,6 @@ public class CsvUserStorage implements UserStorage {
         } else {
             isDifficult = false;
         }
-
         CardSrsData card = new CardSrsData(hashCode, numOfAttempts, streak, srs, isDifficult);
 
         return card;

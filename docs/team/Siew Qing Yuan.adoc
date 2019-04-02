@@ -1,0 +1,107 @@
+= Siew Qing Yuan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: RestOrRant
+
+---
+
+== About RestOrRant
+
+RestOrRant is a command line application that is morphed from an addressbook application. This is a Software Engineering project that required us to use their code as a base and we decided to morph it into a restaurant management system. This application enables restaurant front-end operators to:
+
+* Manage the occupancy of the tables in their restaurant
+* Keep track of the orders for each table
+* Refer to the menu with ease
+* Tabulate statistics of the restaurant
+
+RestOrRant has 4 different modes: `[blue]#*RestaurantMode*#`, `[blue]#*TableMode*#`, `[blue]#*MenuMode*#` and `[blue]#*StatisticsMode*#`. These modes are meant to handle the 4 features mentioned above.
+
+The part of RestOrRant that I implemented is the tables feature which takes place in only the `[blue]#*RestaurantMode*#`. Also, I handled the API and implementation of the `[blue]#*Logic*#` component. More details about these features will be elaborated below including documentation of it in the user and developer guide.
+
+Please take note some of the symbols that will be commonly used in this document:
+
+[NOTE]
+This symbol indicates important information.
+
+`addTable` : A grey highlight (called a markup) indicates that this is a command that can be input into the command line and executed by the application.
+
+`[blue]#*Table*#` : A grey highlight with blue text represents a component, a class or an object in the architecture of the application.
+
+== Summary of contributions
+In this section, all of my contributions will be listed in detail including my code and documentations.
+
+Within the table feature, you will find many commands implemented to create and manipulate the tables. These include:
+
+* <<addTables, Adding tables to RestOrRant>>
+* <<editPax, Changing the occupancy of the table>>
+* <<editSeats, Changing the number of seats at the table>>
+* <<clearTable, Clearing all tables from RestOrRant>>
+* <<spaceFor, Searching for a table to accommodate the customers>>
+* <<minorEnhancements, Minor Enhancements>>
+
+[[addTables]]
+. *Adding Tables*: added *the ability to add tables to RestOrRant*
+** _What it does_: It adds a table to RestOrRant with the specified number of seats at the table. This table is also stored in `[blue]#*Storage*#` component and displayed on the User Interface.   
+** _Justification_: This command is a fundamental feature to allow the user to begin using RestOrRant. 
+** _Highlights_: This command allows the addition of multiple tables at once, specifying each table's number of seats individually.
+ [[editPax]]
+. *Changing the occupancy*: added *the ability to change the number of customers seated at a table
+** _What it does_: It updates the table in RestOrRant with the new occupancy of the table to reflect the current state of the physical restaurant.
+** _Justification_: This command is important in allowing the user to keep track of the exact number of customers at each table.
+** _Highlights_: The number of customers seated at the table will not be allowed to exceed the number of seats at the table.
+ [[editSeats]]
+. *Changing the number of seats*: added *the ability to edit the number of seats at a table after it has been created*
+** _What it does_: It updates the table in RestOrRant with the new number of seats.
+** _Justification_: In the event that more chairs are pulled to a table or a table as has been replaced by one of different size, this command would enable the user to update RestOrRant to match its current physical state.
+** _Highlights_: This command is allowed to be use while customers are already seated at the table but will not allow the number of seats to be less than the current number of customers seated at the table.
+ [[clearTable]]
+. *Clearing all tables*: added *the ability to delete all tables*
+** _What it does_: It removes all tables from RestOrRant.
+** _Justification_: In the event that the restaurant is being renovated or tables are re-numbered, this command would allow the user to quickly remove all tables so that they can create new tables with the correct table number and number of seats.
+** _Highlights_: This command has a safety mechanism to only be executed when the restaurant has no customers at all.
+ [[spaceFor]]
+. *Checking for space*: added *the ability to search for available tables*
+** _What it does_: It checks RestOrRant for the next available table for a given number of customers.
+** _Justification_: Often users would have to physically check the restaurant or eyeball RestOrRant for available tables. In the event that there are large numbers of tables, that would be very inefficient. Hence, this command is menat to alleviate that problem by automating that process to quickly find the best available table.
+** _Highlights_: This command searches for smallest table to fit the given number of customers with the smallest table number.
+ [[minorEnhancements]]
+. *Minor enhancement*: implemented the `[blue]#*RestaurantMode*#` to only accept commands for the table features only and morphed the `[blue]#*Logic*#` component to be compatible with RestOrRant's features. 
+//* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Other contributions*:
+
+** Project management:
+*** Encourage discussion during group meetings to ensure decisions considers all aspects 
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote tests for table features (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+
+
+== Contributions to the User Guide
+
+|===
+|_This section shows the updates that I made to the *RestOrRant User Guide* for table features to ensure that it accurately documents the current features in the application._
+|===
+
+include::../UserGuide.adoc[tag=addTable]
+
+include::../UserGuide.adoc[tag=editPax]
+
+include::../UserGuide.adoc[tag=editSeats]
+
+include::../UserGuide.adoc[tag=clearTable]
+
+include::../UserGuide.adoc[tag=spaceFor]
+
+== Contributions to the Developer Guide
+
+|===
+|_This section shows the updates that I made to the *RestOrRant Developer Guide* for table features to demonstrate the technical details of how they are implemented._
+|===
+
+include::../DeveloperGuide.adoc[tag=editPax]

@@ -51,6 +51,12 @@ public class UniqueEquipmentListTest {
     }
 
     @Test
+    public void getEquipment_haveSuchEquipment_Success(){
+        uniqueEquipmentList.add(TECKGHEECC);
+        assertEquals(uniqueEquipmentList.getEquipment(TECKGHEECC.getSerialNumber()), TECKGHEECC);
+    }
+
+    @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueEquipmentList.add(ANCHORVALECC);
         Equipment editedAlice = new EquipmentBuilder(ANCHORVALECC).withAddress(VALID_ADDRESS_BOB)

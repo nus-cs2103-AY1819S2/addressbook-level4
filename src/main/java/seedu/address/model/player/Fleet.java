@@ -270,5 +270,24 @@ public class Fleet {
             this.getBattleship().getTags().forEach(builder::append);
             return builder.toString();
         }
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof FleetEntry)) {
+                return false;
+            }
+
+            // state check
+            FleetEntry e = (FleetEntry) other;
+            return this.battleship.equals(e.getBattleship())
+                    && this.coordinates.equals(e.getCoordinates())
+                    && this.orientation.equals(e.getOrientation());
+        }
     }
 }

@@ -77,7 +77,7 @@ public class Pdf {
         return deadline;
     }
 
-    public boolean getIsEncryted() {
+    public boolean getIsEncrypted() {
         return isEncrypted;
     }
 

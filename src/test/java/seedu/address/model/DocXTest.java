@@ -25,6 +25,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
+import seedu.address.model.person.IdCounter;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.exceptions.DuplicatePatientException;
 import seedu.address.model.prescription.Prescription;
@@ -127,6 +128,7 @@ public class DocXTest {
         private final ObservableList<Doctor> doctors = FXCollections.observableArrayList();
         private final ObservableList<Prescription> prescriptions = FXCollections.observableArrayList();
         private final ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+        private final IdCounter idCounter = new IdCounter();
 
         DocXStub(Collection<Patient> patients) {
             this.patients.setAll(patients);
@@ -157,6 +159,9 @@ public class DocXTest {
         public ObservableList<Appointment> getAppointmentList() {
             return appointments;
         }
+
+        @Override
+        public IdCounter getIdCounter() { return idCounter; }
 
         @Override
         public void addListener(InvalidationListener listener) {

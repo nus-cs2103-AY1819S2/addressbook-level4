@@ -58,6 +58,7 @@ public class GenerateBillForBookingCommand extends BillCommand {
         requireNonNull(model);
 
         model.updateFilteredBookingList(bookingPredicate);
+        model.updateBill(bill);
         model.commitHotelManagementSystem();
 
 

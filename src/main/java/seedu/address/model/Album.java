@@ -70,12 +70,11 @@ public class Album {
      */
     public String generateAssets() {
         String tempPath = null;
-        try {
-            File assetsFolder = Files.createTempDir();
-            assetsFolder.deleteOnExit();
-            tempPath = assetsFolder.getAbsolutePath() + File.separator;
-        } catch (Exception e) {
-            System.out.println(e);
+        String tDir = System.getProperty("java.io.tmpdir") + "assets";
+        File assetsFolder = new File(tDir);
+        tempPath = assetsFolder.getAbsolutePath() + File.separator;
+        if (!assetsFolder.exists()) {
+            assetsFolder.mkdir();
         }
         return tempPath;
     }

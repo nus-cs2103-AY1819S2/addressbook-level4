@@ -87,7 +87,7 @@ public class StudyPanel extends UiPart<Region> {
     private static String createRatingQuestion(int noOfRatings, int spaceSpanned) {
         return repeatChar(52, "-") + "\n"
                 + "How difficult was that?\n\n"
-                + createRatingString(noOfRatings, repeatChar( spaceSpanned / noOfRatings, " "))
+                + createRatingString(noOfRatings, repeatChar(spaceSpanned / noOfRatings, " "))
                 + "\n" + "Easy-peasy" + repeatChar(52, " ") + "Very tough";
     }
 

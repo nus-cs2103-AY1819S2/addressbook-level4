@@ -18,9 +18,10 @@ import seedu.address.model.task.Task;
 /**
  * Deletes a person identified using it's displayed index from the address book.
  */
-public class DeleteCommand extends Command {
+public class PatientDeleteCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "patientdelete";
+    public static final String COMMAND_WORD2 = "pdelete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the person identified by the index number used in the displayed person list.\n"
@@ -31,7 +32,7 @@ public class DeleteCommand extends Command {
 
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex) {
+    public PatientDeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -84,7 +85,7 @@ public class DeleteCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                || (other instanceof PatientDeleteCommand // instanceof handles nulls
+                && targetIndex.equals(((PatientDeleteCommand) other).targetIndex)); // state check
     }
 }

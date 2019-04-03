@@ -10,13 +10,13 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.PatientAddCommand;
 import seedu.address.logic.commands.BackCommand;
-import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.PatientClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CopyCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.PatientCopyCommand;
+import seedu.address.logic.commands.PatientDeleteCommand;
+import seedu.address.logic.commands.PatientEditCommand;
 import seedu.address.logic.commands.ExitAnywayCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportCommand;
@@ -69,7 +69,6 @@ public class AddressBookParser {
      */
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        final boolean checkBothConditions = true;
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
@@ -79,68 +78,89 @@ public class AddressBookParser {
 
         switch (commandWord) {
         //Commands that should not run in both GoTo mode and Calendar Window
-        case AddCommand.COMMAND_WORD:
-            checkSpecialCondition(checkBothConditions);
-            return new AddCommandParser().parse(arguments);
+        case PatientAddCommand.COMMAND_WORD:
+        case PatientAddCommand.COMMAND_WORD2:
+            checkCalendarCondition();
+            notGoTo();
+            return new PatientAddCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            checkSpecialCondition(checkBothConditions);
-            return new EditCommandParser().parse(arguments);
+        case PatientEditCommand.COMMAND_WORD:
+        case PatientEditCommand.COMMAND_WORD2:
+            checkCalendarCondition();
+            notGoTo();
+            return new PatientEditCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
-            checkSpecialCondition(checkBothConditions);
+            checkCalendarCondition();
+            notGoTo();
             return new SelectCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            checkSpecialCondition(checkBothConditions);
-            return new DeleteCommandParser().parse(arguments);
+        case PatientDeleteCommand.COMMAND_WORD:
+        case PatientDeleteCommand.COMMAND_WORD2:
+            checkCalendarCondition();
+            notGoTo();
+            return new PatientDeleteCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            checkSpecialCondition(checkBothConditions);
-            return new ClearCommand();
+        case PatientClearCommand.COMMAND_WORD:
+        case PatientClearCommand.COMMAND_WORD2:
+            checkCalendarCondition();
+            notGoTo();
+            return new PatientClearCommand();
 
         case FindCommand.COMMAND_WORD:
-            checkSpecialCondition(checkBothConditions);
+            checkCalendarCondition();
+            notGoTo();
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-            checkSpecialCondition(checkBothConditions);
+            checkCalendarCondition();
+            notGoTo();
             return new ListCommand();
 
         case HistoryCommand.COMMAND_WORD:
-            checkSpecialCondition(checkBothConditions);
+            checkCalendarCondition();
+            notGoTo();
             return new HistoryCommand();
 
         case UndoCommand.COMMAND_WORD:
-            checkSpecialCondition(checkBothConditions);
+            checkCalendarCondition();
+            notGoTo();
             return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
-            checkSpecialCondition(checkBothConditions);
+            checkCalendarCondition();
+            notGoTo();
             return new RedoCommand();
 
         case StatsCommand.COMMAND_WORD:
-            checkSpecialCondition(checkBothConditions);
+            checkCalendarCondition();
+            notGoTo();
             return new StatsCommandParser().parse(arguments);
 
-        case CopyCommand.COMMAND_WORD:
-            checkSpecialCondition(checkBothConditions);
-            return new CopyCommandParser().parse(arguments);
+        case PatientCopyCommand.COMMAND_WORD: 
+        case PatientCopyCommand.COMMAND_WORD2:
+            checkCalendarCondition();
+            notGoTo();
+            return new PatientCopyCommandParser().parse(arguments);
 
         case OpenCommand.COMMAND_WORD:
-            checkSpecialCondition(checkBothConditions);
+            checkCalendarCondition();
+            notGoTo();
             return new OpenCommandParser().parse(arguments);
 
         case SaveCommand.COMMAND_WORD:
-            checkSpecialCondition(checkBothConditions);
+            checkCalendarCondition();
+            notGoTo();
             return new SaveCommandParser().parse(arguments);
 
         case ImportCommand.COMMAND_WORD:
-            checkSpecialCondition(checkBothConditions);
+            checkCalendarCondition();
+            notGoTo();
             return new ImportCommandParser().parse(arguments);
 
         case ExportCommand.COMMAND_WORD:
-            checkSpecialCondition(checkBothConditions);
+            checkCalendarCondition();
+            notGoTo();
             return new ExportCommandParser().parse(arguments);
 
         //Commands that run in both GoTo mode and Patient mode but not in Calendar Window
@@ -159,37 +179,37 @@ public class AddressBookParser {
             }
         //Commands that should ONLY run in GoTo mode but not in Calendar Window
         case GoToCommand.COMMAND_WORD:
-            checkSpecialCondition(!checkBothConditions);
+            checkCalendarCondition();
             return new GoToCommandParser().parse(arguments);
 
         case BackCommand.COMMAND_WORD:
-            checkSpecialCondition(!checkBothConditions);
-            assertGoToMode();
+            checkCalendarCondition();
+            isGoTo();
             return new BackCommand();
 
         case RecordAddCommand.COMMAND_WORD:
-            checkSpecialCondition(!checkBothConditions);
-            assertGoToMode();
+            checkCalendarCondition();
+            isGoTo();
             return new RecordAddCommandParser().parse(arguments);
 
         case RecordClearCommand.COMMAND_WORD:
-            checkSpecialCondition(!checkBothConditions);
-            assertGoToMode();
+            checkCalendarCondition();
+            isGoTo();
             return new RecordClearCommand();
 
         case RecordEditCommand.COMMAND_WORD:
-            checkSpecialCondition(!checkBothConditions);
-            assertGoToMode();
+            checkCalendarCondition();
+            isGoTo();
             return new RecordEditCommandParser().parse(arguments);
 
         case RecordDeleteCommand.COMMAND_WORD:
-            checkSpecialCondition(!checkBothConditions);
-            assertGoToMode();
+            checkCalendarCondition();
+            isGoTo();
             return new RecordDeleteCommandParser().parse(arguments);
 
         case TeethEditCommand.COMMAND_WORD:
-            checkSpecialCondition(!checkBothConditions);
-            assertGoToMode();
+            checkCalendarCondition();
+            isGoTo();
             return new TeethEditCommandParser().parse(arguments);
 
         //Commands that should run in ALL modes and popups
@@ -229,14 +249,22 @@ public class AddressBookParser {
     }
 
     /**
-     * Checks if the Main Window is currently in Goto Mode or if a command is being ran from Calendar Window.
+     * Checks if a command is being ran from Calendar Window.
      * Feedback given to user if commands are being ran in the wrong modes or areas of the GUI.
      */
-    public void checkSpecialCondition(boolean checkBothConditions) throws ParseException {
+    private void checkCalendarCondition() throws ParseException {
         if (CalendarWindow.isRunningCommand()) {
             throw new ParseException(MESSAGE_ONLY_TASK_OR_DATE_COMMANDS);
         }
-        if (MainWindow.isGoToMode() && checkBothConditions) {
+    }
+
+
+    /**
+     * For commands which can only run in Patient mode.
+     * Feedback given to user if commands are being ran in the wrong modes or areas of the GUI.
+     */
+    private void isGoTo() throws ParseException {
+        if (!MainWindow.isGoToMode()) {
             throw new ParseException(MESSAGE_ONLY_GO_TO_MODE_COMMANDS);
         }
     }
@@ -244,8 +272,8 @@ public class AddressBookParser {
     /**
      * For commands which can only run in GoTo mode.
      */
-    public void assertGoToMode() throws ParseException {
-        if (!MainWindow.isGoToMode()) {
+    private void notGoTo() throws ParseException {
+        if (MainWindow.isGoToMode()) {
             throw new ParseException(MESSAGE_ONLY_PATIENT_MODE_COMMANDS);
         }
     }

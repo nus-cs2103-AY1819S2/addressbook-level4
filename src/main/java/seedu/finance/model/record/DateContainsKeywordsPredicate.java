@@ -21,7 +21,7 @@ public class DateContainsKeywordsPredicate implements Predicate<Record> {
     @Override
     public boolean test(Record record) {
         return listOfDates.stream()
-                .anyMatch(date -> StringUtil.containsWordIgnoreCase(record.getDate().toString(), date));
+                .anyMatch(date -> record.getDate().equals(new Date(date)));
     }
 
     @Override

@@ -7,6 +7,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.equipment.commons.core.GuiSettings;
 import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.equipment.SerialNumber;
 import seedu.equipment.model.tag.Tag;
 
@@ -21,7 +22,7 @@ public interface Model {
     Predicate<WorkList> PREDICATE_SHOW_ALL_WORKLISTS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Equipment> PREDICATE_SHOW_ALL_CLIENT = unused -> true;
+    Predicate<Name> PREDICATE_SHOW_ALL_CLIENT = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -105,6 +106,12 @@ public interface Model {
     void addWorkList(WorkList workList);
 
     /**
+     * Adds the given client.
+     * {@code equipment} must not already exist in the equipment manager.
+     */
+    void addClient(Equipment equipment);
+
+    /**
      * Replaces the given equipment {@code target} with {@code editedEquipment}.
      * {@code target} must exist in the equipment book.
      * The equipment identity of {@code editedEquipment} must not be the same as another
@@ -119,7 +126,7 @@ public interface Model {
     ObservableList<WorkList> getFilteredWorkListList();
 
     /** Returns an unmodifiable view of the filtered client list */
-    ObservableList<Equipment> getFilteredClientList();
+    ObservableList<Name> getFilteredClientList();
 
     /**
      * Updates the filter of the filtered equipment list to filter by the given {@code predicate}.
@@ -131,7 +138,7 @@ public interface Model {
      * Updates the filter of the filtered client list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredClientList(Predicate<Equipment> predicate);
+    void updateFilteredClientList(Predicate<Name> predicate);
 
     /**
      * Updates the filter of the filtered WorkList list to filter by the given {@code predicate}.

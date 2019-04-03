@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.equipment.Name;
 
 /**
  * An UI component that displays information of a {@code WorkList}.
@@ -23,7 +24,7 @@ public class ClientListCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on EquipmentManager </a>
      */
 
-    public final String clientName;
+    public final Name clientName;
 
     @FXML
     private HBox cardPane;
@@ -33,11 +34,11 @@ public class ClientListCard extends UiPart<Region> {
     private Label id;
 
 
-    public ClientListCard(String clientName, int displayedIndex) {
+    public ClientListCard(Name clientName, int displayedIndex) {
         super(FXML);
         this.clientName = clientName;
         id.setText(displayedIndex + ". ");
-        name.setText(clientName);
+        name.setText(clientName.name);
     }
 
     @Override

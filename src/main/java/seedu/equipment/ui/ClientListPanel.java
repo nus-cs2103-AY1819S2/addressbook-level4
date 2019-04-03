@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.equipment.Name;
 
 /**
  * Panel containing the list of clients.
@@ -16,32 +16,21 @@ import seedu.equipment.model.equipment.Equipment;
 public class ClientListPanel extends UiPart<Region> {
     private static final String FXML = "ClientListPanel.fxml";
 
-    private ObservableList<String> uniqueNameList = FXCollections.observableArrayList();
-    private ArrayList<String> nameList = new ArrayList<>();
-
-
     @FXML
-    private ListView<String> clientListView;
+    private ListView<Name> clientListView;
 
-    public ClientListPanel(ObservableList<Equipment> equipmentList) {
+    public ClientListPanel(ObservableList<Name> nameList) {
         super(FXML);
-
-        for (int i = 0; i < equipmentList.size(); i++) {
-            if (!nameList.contains(equipmentList.get(i).getName().name)) {
-                nameList.add(equipmentList.get(i).getName().name);
-            }
-        }
-        uniqueNameList.addAll(nameList);
-        clientListView.setItems(uniqueNameList);
+        clientListView.setItems(nameList);
         clientListView.setCellFactory(listView -> new ClientListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Equipment} using a {@code ClientListCard}.
      */
-    class ClientListViewCell extends ListCell<String> {
+    class ClientListViewCell extends ListCell<Name> {
         @Override
-        protected void updateItem(String clientName, boolean empty) {
+        protected void updateItem(Name clientName, boolean empty) {
             super.updateItem(clientName, empty);
 
             if (empty || clientName == null) {

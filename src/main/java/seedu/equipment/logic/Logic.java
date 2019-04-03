@@ -41,7 +41,7 @@ public interface Logic {
     ObservableList<WorkList> getFilteredWorkListList();
 
     /** Returns an unmodifiable view of the filtered list of client */
-    ObservableList<Equipment> getFilteredClientList();
+    ObservableList<Name> getFilteredClientList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.

@@ -16,6 +16,7 @@ import seedu.equipment.commons.core.GuiSettings;
 import seedu.equipment.commons.core.LogsCenter;
 import seedu.equipment.commons.util.CollectionUtil;
 import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.equipment.SerialNumber;
 import seedu.equipment.model.equipment.exceptions.EquipmentNotFoundException;
 import seedu.equipment.model.tag.Tag;
@@ -28,7 +29,7 @@ public class ModelManager implements Model {
 
     private final VersionedEquipmentManager versionedEquipmentManager;
     private final UserPrefs userPrefs;
-    private final FilteredList<Equipment> filteredClient;
+    private final FilteredList<Name> filteredClient;
     private final FilteredList<Equipment> filteredEquipments;
     private final FilteredList<WorkList> filteredWorkList;
     private final SimpleObjectProperty<Equipment> selectedEquipment = new SimpleObjectProperty<>();
@@ -138,6 +139,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addClient(Equipment equipment) {
+        versionedEquipmentManager.addClient(equipment);
+        updateFilteredClientList(PREDICATE_SHOW_ALL_CLIENT);
+    }
+
+    @Override
     public void putEquipment(WorkListId workListId, SerialNumber serialNumber) {
         versionedEquipmentManager.putEquipment(workListId, serialNumber);
     }
@@ -200,12 +207,12 @@ public class ModelManager implements Model {
      * {@code versionedEquipmentManager}
      */
     @Override
-    public ObservableList<Equipment> getFilteredClientList() {
+    public ObservableList<Name> getFilteredClientList() {
         return filteredClient;
     }
 
     @Override
-    public void updateFilteredClientList(Predicate<Equipment> predicate) {
+    public void updateFilteredClientList(Predicate<Name> predicate) {
         requireNonNull(predicate);
         filteredClient.setPredicate(predicate);
     }

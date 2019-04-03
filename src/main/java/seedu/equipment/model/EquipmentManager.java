@@ -10,8 +10,10 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.equipment.commons.util.InvalidationListenerManager;
 import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.equipment.SerialNumber;
 import seedu.equipment.model.equipment.UniqueEquipmentList;
+import seedu.equipment.model.equipment.UniqueNameList;
 import seedu.equipment.model.tag.Tag;
 
 /**
@@ -21,6 +23,7 @@ import seedu.equipment.model.tag.Tag;
 public class EquipmentManager implements ReadOnlyEquipmentManager {
 
     private final UniqueEquipmentList equipment;
+    private final UniqueNameList name;
     private final UniqueWorkListList worklist;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
@@ -34,6 +37,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
     {
         equipment = new UniqueEquipmentList();
         worklist = new UniqueWorkListList();
+        name = new UniqueNameList();
     }
 
     public EquipmentManager() {}
@@ -90,6 +94,15 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
      */
     public void addPerson(Equipment p) {
         equipment.add(p);
+        indicateModified();
+    }
+
+    /**
+     * Adds the client to the equipment book.
+     * The equipment must not already exist in the equipment book.
+     */
+    public void addClient(Equipment p) {
+        name.add(p.getName());
         indicateModified();
     }
 
@@ -217,8 +230,8 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
     }
 
     @Override
-    public ObservableList<Equipment> getClientList() {
-        return equipment.asUnmodifiableObservableList();
+    public ObservableList<Name> getClientList() {
+        return name.getClientList();
     }
 
     @Override

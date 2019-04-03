@@ -42,7 +42,7 @@ E.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
-[[Command Format]]
+[[Command-Format]]
 ====
 *Command Format*
 
@@ -78,7 +78,7 @@ Adds a book named Structure and Interpretation of Computer Programs to the recor
 * Two books with same book name are considered same book
 * Trying to add a book which is already present in the book shelf will result in duplicate book error, and the addBook command will fail
 * If multiple valid parameters are supplied to the same field (E.g. addBook n/A n/B), the latter one will be took as the input
-* Take a look at <<Command Format>> to see the valid format for each parameter
+* Take a look at <<Command-Format>> to see the valid format for each parameter
 ****
 
 ==== Editing book entry : `editBook`

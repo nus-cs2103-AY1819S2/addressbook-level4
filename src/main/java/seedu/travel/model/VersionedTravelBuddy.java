@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.travel.model.chart.Chart;
 import seedu.travel.model.place.Place;
 
 /**
@@ -31,13 +30,16 @@ public class VersionedTravelBuddy extends TravelBuddy {
         removeStatesAfterCurrentPointer();
         travelBuddyStateList.add(new TravelBuddy(this));
         currentStatePointer++;
-        commitChart();
+        commitCharts();
         indicateModified();
     }
 
-    void commitChart() {
+    /**
+     * Saves a copy of the current {@code ChartBook} state at the end of the state list.
+     */
+    void commitCharts() {
         ObservableList<Place> placeList = travelBuddyStateList.get(travelBuddyStateList.size() - 1).getPlaceList();
-        new Chart(placeList);
+        new ChartBook(placeList);
     }
 
     private void removeStatesAfterCurrentPointer() {

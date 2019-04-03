@@ -31,6 +31,7 @@ import seedu.travel.model.ModelManager;
 import seedu.travel.model.ReadOnlyTravelBuddy;
 import seedu.travel.model.UserPrefs;
 import seedu.travel.model.place.Place;
+import seedu.travel.storage.JsonChartBookStorage;
 import seedu.travel.storage.JsonTravelBuddyStorage;
 import seedu.travel.storage.JsonUserPrefsStorage;
 import seedu.travel.storage.StorageManager;
@@ -53,7 +54,9 @@ public class LogicManagerTest {
     public void setUp() throws Exception {
         JsonTravelBuddyStorage travelBuddyStorage = new JsonTravelBuddyStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(travelBuddyStorage, userPrefsStorage);
+        JsonChartBookStorage chartBookStorage = new JsonChartBookStorage(temporaryFolder.newFile().toPath(),
+                temporaryFolder.newFile().toPath(), temporaryFolder.newFile().toPath());
+        StorageManager storage = new StorageManager(travelBuddyStorage, userPrefsStorage, chartBookStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -84,7 +87,9 @@ public class LogicManagerTest {
         JsonTravelBuddyStorage travelBuddyStorage =
                 new JsonTravelBuddyIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(travelBuddyStorage, userPrefsStorage);
+        JsonChartBookStorage chartBookStorage = new JsonChartBookStorage(temporaryFolder.newFile().toPath(),
+                temporaryFolder.newFile().toPath(), temporaryFolder.newFile().toPath());
+        StorageManager storage = new StorageManager(travelBuddyStorage, userPrefsStorage, chartBookStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command

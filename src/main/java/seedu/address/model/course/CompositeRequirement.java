@@ -77,13 +77,11 @@ public class CompositeRequirement implements CourseRequirement {
         return courseReqType;
     }
 
-    //TODO: Refine this method. Now only get name of first requirement, perhaps add name attribute
     @Override
     public String getCourseReqName() {
         return courseReqName;
     }
 
-    //TODO: Refine this method. Perhaps add desc attribute for class
     @Override
     public String getCourseReqDesc() {
         return courseReqDesc;

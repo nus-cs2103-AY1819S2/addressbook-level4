@@ -22,8 +22,7 @@ public class PrimitiveRequirementTest {
     public static final PrimitiveRequirement SAMPLE_REQUIREMENT = (PrimitiveRequirement) UNIVERSITY_LEVEL_REQUIREMENT;
     public static final Condition SAMPLE_CONDITION = ULR_CONDITION;
     public static final PrimitiveRequirement SAMPLE_REQUIREMENT_2 = (PrimitiveRequirement) COMPUTER_SCIENCE_FOUNDATION;
-    public static final PrimitiveRequirement SAMPLE_REQUIREMENT_3 =
-            (PrimitiveRequirement) IT_PROFESSIONALISM;
+    public static final PrimitiveRequirement SAMPLE_REQUIREMENT_3 = (PrimitiveRequirement) IT_PROFESSIONALISM;
     @Test
     public void constructor_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new PrimitiveRequirement(null , "some description",

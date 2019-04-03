@@ -55,7 +55,6 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1 " + NAME_DESC_1_VALID + TAG_DESC_CS2103T, MESSAGE_INVALID_FORMAT);
         assertParseFailure(parser, "1 " + NAME_DESC_1_VALID + TAG_EMPTY, MESSAGE_INVALID_FORMAT);
         assertParseFailure(parser, "1 " + NAME_DESC_1_VALID + FILE_DESC_1_PDF, MESSAGE_INVALID_FORMAT);
-
     }
 
     @Test

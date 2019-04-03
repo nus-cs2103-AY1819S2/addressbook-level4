@@ -98,7 +98,11 @@ public class PdfBuilder {
      * Sets the {@code Deadline} of the {@code Pdf} that we are building.
      */
     public PdfBuilder withDeadline(String date) {
-        this.deadline = new Deadline(date);
+        if (date.equals("NEWLY ADDED")) {
+            this.deadline = new Deadline();
+        } else {
+            this.deadline = new Deadline(date);
+        }
         return this;
     }
 

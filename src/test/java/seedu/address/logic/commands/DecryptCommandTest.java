@@ -44,7 +44,7 @@ public class DecryptCommandTest {
     private Model model = new ModelManager(getTypicalPdfBook(), new UserPrefs());
 
     @Before
-    public void before() throws CommandException {
+    public void before() {
         initialiseTest(SAMPLE_PDF_2);
     }
 

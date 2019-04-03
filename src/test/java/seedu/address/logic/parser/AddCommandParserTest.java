@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_INVALID_DATE;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_READY;
 import static seedu.address.logic.commands.CommandTestUtil.DIRECTORY_DESC_1;
 import static seedu.address.logic.commands.CommandTestUtil.DIR_1_VALID;
@@ -13,9 +15,11 @@ import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_CS2103T;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_NEW;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1_TOADD;
 
 import org.junit.Test;
 
@@ -28,7 +32,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_onlyFileFieldPresent_success() {
-        Pdf expectedPdf = new PdfBuilder(SAMPLE_PDF_1).build();
+        Pdf expectedPdf = SAMPLE_PDF_1_TOADD;
 
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + FILE_DESC_1_PDF, new AddCommand(expectedPdf));
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + FILE_DESC_2_PDF + FILE_DESC_1_PDF,
@@ -40,7 +44,7 @@ public class AddCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         assertParseFailure(parser, FILE_DESC_1_PDF + TAG_DESC_CS2103T, expectedMessage);
-        assertParseFailure(parser, FILE_DESC_2_PDF + DEADLINE_JSON_READY, expectedMessage);
+        assertParseFailure(parser, FILE_DESC_2_PDF + DEADLINE_DESC_VALID, expectedMessage);
         assertParseFailure(parser, FILE_DESC_1_PDF + NAME_DESC_1_VALID, expectedMessage);
         assertParseFailure(parser, FILE_DESC_2_PDF + DIRECTORY_DESC_1, expectedMessage);
         assertParseFailure(parser, FILE_DESC_2_PDF + TAG_DESC_CS2103T + DEADLINE_JSON_READY + NAME_DESC_1_VALID

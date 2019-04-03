@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.PdfBook;
+import seedu.address.model.pdf.Deadline;
 import seedu.address.model.pdf.Pdf;
 
 /**
@@ -178,7 +179,10 @@ public class TypicalPdfs {
             .withDirectory(sample_pdf_3_encrypted_path.toAbsolutePath().getParent().toString())
             .withEncrypted(true)
             .build();
-
+    public static final Pdf SAMPLE_PDF_1_TOADD = new PdfBuilder().withName(sample_pdf_1_path.toFile().getName())
+            .withDirectory(sample_pdf_1_path.toAbsolutePath().getParent().toString())
+            .withSize(Long.toString(sample_pdf_1_path.toFile().length()))
+            .withDeadline("NEWLY ADDED").build();
 
     //Duplicates
     public static final Pdf SAMPLE_PDF_1_DUPLICATE = new PdfBuilder()

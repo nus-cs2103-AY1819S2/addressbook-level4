@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_NEW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIRECTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_ADD;
 
 import java.nio.file.Paths;
@@ -43,13 +44,13 @@ public class CommandTestUtil {
 
     //Directory Constants
     public static final String DIR_1_VALID =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest")
+            Paths.get("src", "test", "data", "SampleFiles", "NormalFiles")
             .toAbsolutePath().toString();
     public static final String DIR_2_VALID =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest", "Duplicates")
+            Paths.get("src", "test", "data", "SampleFiles", "NormalFiles")
             .toAbsolutePath().toString();
     public static final String DIR_3_VALID =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest", "NewTestDirectory")
+            Paths.get("src", "test", "data", "SampleFiles", "NormalFiles")
             .toAbsolutePath().toString();
     public static final String DIR_INVALID_NONEXISTENT =
             Paths.get("definitelyNotARealDirectory").toAbsolutePath().toString();
@@ -64,8 +65,8 @@ public class CommandTestUtil {
     public static final String FILEPATH_3_VALID =
             Paths.get(DIR_3_VALID, NAME_3_VALID).toAbsolutePath().toString();
 
-    public static final String FILE_DESC_1_PDF = " " + PREFIX_FILE + Paths.get(DIR_1_VALID).toAbsolutePath().toString();
-    public static final String FILE_DESC_2_PDF = " " + PREFIX_FILE + Paths.get(DIR_2_VALID).toAbsolutePath().toString();
+    public static final String FILE_DESC_1_PDF = " " + PREFIX_FILE + FILEPATH_1_VALID;
+    public static final String FILE_DESC_2_PDF = " " + PREFIX_FILE + FILEPATH_2_VALID;
     public static final String FILE_DESC_PATH_INVALID = " " + PREFIX_FILE + "DefinitelyNotAFilePath"; // not valid path
 
     //Size Constants
@@ -105,6 +106,7 @@ public class CommandTestUtil {
     public static final String DEADLINE_JSON_INVALID_INVALIDDATE = DATE_INVALID_DATE + PROPERTY_SEPARATOR_PREFIX
             + DEADLINE_STATUS_COMPLETE;
 
+    public static final String DEADLINE_DESC_VALID = " " + PREFIX_DEADLINE_NEW + DATE_1_VALID;
     public static final String DEADLINE_DESC_INVALID_MISSING_STATUS = " " + PREFIX_DEADLINE_NEW + DATE_1_VALID;
     public static final String DEADLINE_DESC_INVALID_WRONG_STATUS = " " + PREFIX_DEADLINE_NEW + DATE_2_VALID
             + PROPERTY_SEPARATOR_PREFIX + DEADLINE_STATUS_INVALID;
@@ -125,6 +127,8 @@ public class CommandTestUtil {
     public static final String TAG_DESC_LECTURE = " " + PREFIX_TAG_ADD + TAG_VALID_LECTURE;
     public static final String TAG_DESC_CS2103T = " " + PREFIX_TAG_ADD + TAG_VALID_CS2103T;
     public static final String TAG_DESC_INVALID = " " + PREFIX_TAG_ADD + "moduleA*"; // '*' not allowed in tags
+
+    public static final String PASSWORD_DESC_VALID = " " + PREFIX_PASSWORD + PASSWORD_1_VALID;
 
     //Preamble Constants
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";

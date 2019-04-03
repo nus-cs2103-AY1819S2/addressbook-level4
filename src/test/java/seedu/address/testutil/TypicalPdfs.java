@@ -61,10 +61,14 @@ public class TypicalPdfs {
                     "JustEdited.pdf");
     private static final Path sample_pdf_1_encrypted_path =
             Paths.get("src", "test", "data", "SampleFiles", "EncryptedFiles",
-                    "CS2101_Product_PW_123321.pdf");
+                    "CS2103T_PDF++_UG_Intro.pdf");
     private static final Path sample_pdf_2_encrypted_path =
             Paths.get("src", "test", "data", "SampleFiles", "EncryptedFiles",
-                    "CS2103T_PDF++_UG_Intro.pdf");
+                    "CS2103T_Week9_Integration Approaches.pdf");
+    private static final Path sample_pdf_3_encrypted_path =
+            Paths.get("src", "test", "data", "SampleFiles", "EncryptedFiles",
+                    "CS2101_Product_PW_123321.pdf");
+
 
     //Duplicates - Pdfs that have the same name but in a different location
     private static final Path sample_pdf_1_duplicate_path =
@@ -163,11 +167,16 @@ public class TypicalPdfs {
     public static final Pdf SAMPLE_PDF_WITH_DEADLINE = new PdfBuilder(SAMPLE_PDF_1)
             .withDeadline(DEADLINE_JSON_COMPLETE).build();
     public static final Pdf SAMPLE_PDF_1_ENCRYPTED = new PdfBuilder(SAMPLE_PDF_1)
-            .withSize(Long.toString(sample_pdf_2_encrypted_path.toFile().length())).build();
-    public static final Pdf SAMPLE_PDF_2_ENCRYPTED = new PdfBuilder()
-            .withName(sample_pdf_1_encrypted_path.toFile().getName())
             .withSize(Long.toString(sample_pdf_1_encrypted_path.toFile().length()))
-            .withDirectory(sample_pdf_1_encrypted_path.toAbsolutePath().getParent().toString())
+            .withEncrypted(true).build();
+    public static final Pdf SAMPLE_PDF_2_ENCRYPTED = new PdfBuilder(SAMPLE_PDF_2)
+            .withSize(Long.toString(sample_pdf_2_encrypted_path.toFile().length()))
+            .withEncrypted(true).build();
+    public static final Pdf SAMPLE_PDF_3_ENCRYPTED = new PdfBuilder()
+            .withName(sample_pdf_3_encrypted_path.toFile().getName())
+            .withSize(Long.toString(sample_pdf_3_encrypted_path.toFile().length()))
+            .withDirectory(sample_pdf_3_encrypted_path.toAbsolutePath().getParent().toString())
+            .withEncrypted(true)
             .build();
 
 

@@ -5,16 +5,19 @@ import static seedu.address.logic.commands.CommandTestUtil.PASSWORD_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPdfAtIndex;
+import static seedu.address.logic.commands.DecryptCommand.MESSAGE_DECRYPT_PDF_FAILURE;
 import static seedu.address.logic.commands.EncryptCommand.MESSAGE_ENCRYPT_PDF_SUCCESS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PDF;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1_ENCRYPTED;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2_ENCRYPTED;
 import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -29,6 +32,9 @@ import seedu.address.model.PdfBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.pdf.Pdf;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 
 
 public class EncryptCommandTest {
@@ -37,6 +43,16 @@ public class EncryptCommandTest {
 
     private CommandHistory commandHistory = new CommandHistory();
     private Model model = new ModelManager(getTypicalPdfBook(), new UserPrefs());
+
+    @BeforeClass
+    public static void beforeClass() throws CommandException {
+        preAndPostProcessingTest(SAMPLE_PDF_1);
+    }
+
+    @AfterClass
+    public static void afterClass() throws CommandException {
+        preAndPostProcessingTest(SAMPLE_PDF_1);
+    }
 
     @Before
     public void before() throws CommandException {
@@ -71,7 +87,7 @@ public class EncryptCommandTest {
         String expectedMessage = String.format(MESSAGE_ENCRYPT_PDF_SUCCESS, pdfToEncrypt);
 
         Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
-        expectedModel.setPdf(model.getFilteredPdfList().get(0), pdfToEncrypt);
+        //expectedModel.setPdf(model.getFilteredPdfList().get(0), pdfToEncrypt);
 
         assertCommandSuccess(encryptCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -100,7 +116,7 @@ public class EncryptCommandTest {
     }
 
     @Test
-    public void execute_invalidPdfIndexUnfilteredList_failure() {
+    public void execute_invalidIndexIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPdfList().size() + 1);
         EncryptCommand encryptCommand = new EncryptCommand(outOfBoundIndex, PASSWORD_1_VALID);
 
@@ -147,11 +163,32 @@ public class EncryptCommandTest {
      * Decrypts {@code pdfToInitialise} if it is encrypted.
      */
     private void initialiseTest(Pdf pdfToInitialise) throws CommandException {
-        if (pdfToInitialise.getIsEncryted()) {
-            Model initialisationModel = new ModelManager(getTypicalPdfBook(), new UserPrefs());
-            CommandHistory initialisationCommandHistory = new CommandHistory();
-            DecryptCommand decryptCommand = new DecryptCommand(INDEX_FIRST_PDF, PASSWORD_1_VALID);
-            decryptCommand.execute(initialisationModel, initialisationCommandHistory);
+        try {
+            PDDocument file = PDDocument.load(new File(pdfToInitialise.getDirectory().getDirectory(),
+                    pdfToInitialise.getName().getFullName()), PASSWORD_1_VALID);
+            file.setAllSecurityToBeRemoved(true);
+            file.save(Paths.get(pdfToInitialise.getDirectory().getDirectory(),
+                    pdfToInitialise.getName().getFullName()).toFile());
+            file.close();
+        } catch (IOException ioe) {
+            throw new CommandException(String.format(MESSAGE_DECRYPT_PDF_FAILURE, pdfToInitialise.getName()));
+        }
+    }
+
+    @SuppressWarnings("Duplicates")
+    /**
+     * Set {code pdfToInitialise} to be decrypted
+     */
+    private static void preAndPostProcessingTest(Pdf pdfToInitialise) throws CommandException {
+        try {
+            PDDocument file = PDDocument.load(new File(pdfToInitialise.getDirectory().getDirectory(),
+                    pdfToInitialise.getName().getFullName()), PASSWORD_1_VALID);
+            file.setAllSecurityToBeRemoved(true);
+            file.save(Paths.get(pdfToInitialise.getDirectory().getDirectory(),
+                    pdfToInitialise.getName().getFullName()).toFile());
+            file.close();
+        } catch (IOException ioe) {
+            throw new CommandException(String.format(MESSAGE_DECRYPT_PDF_FAILURE, pdfToInitialise.getName()));
         }
     }
 }

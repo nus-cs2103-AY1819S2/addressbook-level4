@@ -336,8 +336,15 @@ public class Enemy extends Player {
 
     }
 
+    /******************************************************8
+     * Checks that the cardinal coordinate has never been hit before
+     */
     private boolean isValidCardinal(Coordinates useCoord) {
-        return allPossibleTargets.contains(useCoord) || allParityTargets.contains(useCoord);
+        if (!this.getTargetHistory().contains(useCoord)) {
+            return allPossibleTargets.contains(useCoord) || allParityTargets.contains(useCoord); //return true
+        } else {
+            return false;
+        }
     }
 
     /******************************************************8

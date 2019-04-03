@@ -11,8 +11,6 @@ import seedu.address.logic.commands.DeadlineCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.pdf.Deadline;
 
-import java.time.LocalDate;
-
 /**
  * Parses input arguments and creates a new DeleteCommand object
  */

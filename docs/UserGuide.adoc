@@ -309,13 +309,14 @@ e.g. `move 3 d/C:\User\Jeremy\Downloads`
 e.g. `tag 3 t/DijkstraGraph t/Tutorial t/CS2040`
 * *Filter* : `filter tx/KEYWORD...` +
 e.g. `filter tx/GraphsDFS`
-* *Info* : `info INDEX`
-e.g. `info 3`
-* *Deadline* : `deadline INDEX DATE` or `deadline INDEX`
+* *Deadline* : `deadline INDEX DATE` or `deadline INDEX` +
 e.g. `deadline 3 20-02-2019` , `deadline 2`
-* *Encrypt* : `encrypt INDEX password/PASSWORD`
-* *Decrypt* : `decrypt INDEX password/PASSWORD`
-* *Merge* : `merge INDEX INDEX...`
+* *Encrypt* : `encrypt INDEX password/PASSWORD` +
+e.g. `encrypt 2 password/superPASSWORD`
+* *Decrypt* : `decrypt INDEX password/PASSWORD` +
+e.g. `decrypt 2 password/superPASSWORD`
+* *Merge* : `merge INDEX INDEX...` +
+e.g `merge 1 2 1`
 * *Help* : `help`
 * *Exit* : `exit`
 

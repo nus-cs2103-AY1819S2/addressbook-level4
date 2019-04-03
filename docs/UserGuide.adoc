@@ -81,6 +81,7 @@ Format: `help`
 The help page will be shown in another window, but you can resize and move it
 around. This can be useful to refer to when using the app.
 
+// tag::crud[]
 === Adding a place: `add`
 
 The `add` command adds a place to TravelBuddy. +
@@ -140,6 +141,7 @@ Examples:
 Edits the rating and description address of the 1st place to be `3` and `No description` respectively.
 * `edit 2 n/Raffles Hotel t/` +
 Edits the name of the 2nd place to be `Raffles Hotel` and clears all existing tags.
+// end::crud[]
 
 // tag::search[]
 === Searching places by name: `search`
@@ -150,11 +152,11 @@ Shortcut: `f` +
 Format: `search KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The search is case insensitive. e.g `national` will match `National`
-* The order of the keywords does not matter. e.g. `University National of Singapore` will match `National University of Singapore`
+* The search is case insensitive. e.g `national` will match `National`.
+* The order of the keywords does not matter. e.g. `University National of Singapore` will match `National University of Singapore`.
 * Only the name is searched.
 * Only full words will be matched e.g. `Nation` will not match `National`
-* Places matching at least one keyword will be returned (i.e. `OR` search). e.g. `National Museum` will return `National Museum of Singapore`, `National University Hospital`
+* Places matching at least one keyword will be returned (i.e. `OR` search). e.g. `National Museum` will return `National Museum of Singapore`, `National University Hospital`.
 ****
 
 image::UIsearchresults.png[width="600"]
@@ -193,10 +195,10 @@ The `searcht` command helps you to search for places whose tags correspond to an
 Format: `searcht KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The search is case insensitive. e.g `Temple` will match `temple`
+* The search is case insensitive. e.g `Temple` will match `temple`.
 * Only the tags are searched.
-* Only full words will be matched e.g. `temp` will not match `temple`
-* Places tagged with at least one matching keyword will be returned (i.e. `OR` search). e.g. `temple school` will return places tagged with `temple` or `school`
+* Only full words will be matched e.g. `temp` will not match `temple`.
+* Places tagged with at least one matching keyword will be returned (i.e. `OR` search). e.g. `temple school` will return places tagged with `temple` or `school`.
 ****
 
 image::UIsearchtagsresults.png[width="600"]
@@ -240,7 +242,7 @@ Format: `searchyear KEYWORD [MORE_KEYWORDS]` OR +
 ****
 * The search year is bounded from 1900 to the current year. e.g `2016` will return places visited in the year 2016.
 * Searches outside the bounds will issue a warning.
-* The year keywords for `searchyear` can be entered as a range. e.g `2010-2017` will return all the places visited from `2010` to `2017`
+* The year keywords for `searchyear` can be entered as a range. e.g `2010-2017` will return all the places visited from `2010` to `2017`.
 * Only the year of visit is searched.
 ****
 
@@ -256,6 +258,7 @@ Returns a list of places visited in the year `2016` or `2018`
 Returns a list of places visited from `2010` to `2017`
 // end::search[]
 
+// tag::delete[]
 === Deleting a place : `delete`
 
 The `delete` command deletes the specified place from TravelBuddy. +
@@ -285,6 +288,7 @@ Deletes the 2nd place in TravelBuddy.
 * `search Raffles` +
 `delete 1` +
 Deletes the 1st place in the results of the `find` command.
+// end::delete[]
 
 === Deleting multiple places : `deletem`
 
@@ -294,11 +298,12 @@ Format: `deletem START_INDEX END_INDEX`
 
 image::deletemExample.png[width="600"]
 
-
 ****
-* Deletes multiple places from a specified range from `START_INDEX` to `END_INDEX`
+* Deletes multiple places from a specified range from `START_INDEX` to `END_INDEX`.
+* `START_INDEX` must be smaller than or equal to the last index in the list.
+* Deletem will delete up till the last entry in TravelBuddy if specified `END_INDEX` exceeds the last entry.
 * Inclusive of both places specified by `START_INDEX` and `END_INDEX`.
-* The index refers to the index number to the left of each place name, ie. "4. Jalan Kayu"
+* The index refers to the index number to the left of each place name, ie. "4. Jalan Kayu".
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 

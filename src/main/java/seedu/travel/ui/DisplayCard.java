@@ -1,19 +1,24 @@
 package seedu.travel.ui;
 
-import java.util.Map;
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import seedu.travel.model.chart.Chart;
-import seedu.travel.model.place.CountryCode;
-import seedu.travel.model.place.Rating;
+import seedu.travel.model.ChartBook;
+import seedu.travel.model.chart.CountryChart;
+import seedu.travel.model.chart.RatingChart;
+import seedu.travel.model.chart.YearChart;
 
 /**
  * An UI component that displays information of a {@code Place}.
@@ -22,7 +27,7 @@ public class DisplayCard extends UiPart<Region> {
 
     private static final String FXML = "DisplayListCard.fxml";
 
-    public final Chart chart;
+    public final ChartBook chartBook;
 
     @FXML
     private VBox cardPane;
@@ -37,37 +42,47 @@ public class DisplayCard extends UiPart<Region> {
     private LineChart yearLineChart;
 
     @SuppressWarnings("unchecked")
-    public DisplayCard(Chart chart) {
+    public DisplayCard(ChartBook chartBook) {
         super(FXML);
-        this.chart = chart;
+        requireNonNull(chartBook);
+        this.chartBook = chartBook;
 
-        Map<CountryCode, Integer> mapCountry = chart.getMapCountry();
-        createBarChart(mapCountry);
+        List<CountryChart> countryList = chartBook.getCountryList();
+        createBarChart(countryList);
 
-        Map<Rating, Double> mapRating = chart.getMapRating();
-        createPieChart(mapRating);
+        List<RatingChart> ratingList = chartBook.getRatingList();
+        createPieChart(ratingList);
 
-        Map<String, Integer> mapYear = chart.getMapYear();
-        createLineChart(mapYear);
+        List<YearChart> yearList = chartBook.getYearList();
+        createLineChart(yearList);
+
+        // disables selection for all cards
+        cardPane.addEventFilter(MouseEvent.ANY, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                mouseEvent.consume();
+            }
+        });
     }
 
     /**
      * Creates a bar chart
      */
     @SuppressWarnings("unchecked")
-    private void createBarChart(Map<CountryCode, Integer> mapCountry) {
+    private void createBarChart(List<CountryChart> countryList) {
         XYChart.Series series = new XYChart.Series();
-        Object[] countries = mapCountry.keySet().toArray();
 
-        for (int i = 0; i < mapCountry.size(); i++) {
-            String countryName = (String) countries[i];
-            series.getData().add(new XYChart.Data(countryName, mapCountry.get(countryName)));
+        for (int i = 0; i < countryList.size(); i++) {
+            CountryChart country = countryList.get(i);
+            String countryName = country.getChartCountryCode().toString();
+            series.getData().add(new XYChart.Data(countryName, country.getTotal()));
         }
 
         countryBarChart.setTitle("Number of Places Visited for Each Country");
         countryBarChart.getYAxis().setLabel("Number of Places");
         countryBarChart.getXAxis().setLabel("Country");
         countryBarChart.setLegendVisible(false);
+        countryBarChart.autosize();
         countryBarChart.getData().add(series);
         countryBarChart.setStyle("-fx-padding: 45 10 45 10;");
     }
@@ -75,13 +90,13 @@ public class DisplayCard extends UiPart<Region> {
     /**
      * Creates a pie chart
      */
-    private void createPieChart(Map<Rating, Double> mapRating) {
+    private void createPieChart(List<RatingChart> ratingList) {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-        Object[] ratings = mapRating.keySet().toArray();
 
-        for (int i = 0; i < mapRating.size(); i++) {
-            String ratingName = (String) ratings[i];
-            pieChartData.add(new PieChart.Data(ratingName + " Stars", mapRating.get(ratingName)));
+        for (int i = 0; i < ratingList.size(); i++) {
+            RatingChart rating = ratingList.get(i);
+            String ratingName = rating.getChartRating().toString();
+            pieChartData.add(new PieChart.Data(ratingName + " Stars", rating.getTotal()));
         }
 
         ratingPieChart.setTitle("Number of Places Visited for Each Rating Category");
@@ -93,13 +108,13 @@ public class DisplayCard extends UiPart<Region> {
      * Creates a line chart
      */
     @SuppressWarnings("unchecked")
-    private void createLineChart(Map<String, Integer> mapYear) {
+    private void createLineChart(List<YearChart> yearList) {
         XYChart.Series series = new XYChart.Series();
-        Object[] years = mapYear.keySet().toArray();
 
-        for (int i = 0; i < mapYear.size(); i++) {
-            String year = (String) years[i];
-            series.getData().add(new XYChart.Data(year, mapYear.get(year)));
+        for (int i = 0; i < yearList.size(); i++) {
+            YearChart year = yearList.get(i);
+            String yearName = year.getChartYear();
+            series.getData().add(new XYChart.Data(yearName, year.getTotal()));
         }
 
         yearLineChart.setTitle("Number of Places Visited for Each Year");
@@ -124,6 +139,6 @@ public class DisplayCard extends UiPart<Region> {
 
         // state check
         DisplayCard card = (DisplayCard) other;
-        return chart.equals(card.chart);
+        return chartBook.equals(card.chartBook);
     }
 }

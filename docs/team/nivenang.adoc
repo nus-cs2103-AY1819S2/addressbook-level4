@@ -9,14 +9,22 @@
 
 == Overview
 
-TravelBuddy is a desktop Travel Guide application for travel enthusiasts to record places previously visited. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+TravelBuddy is a desktop Travel Guide application for travel enthusiasts to record places previously visited.
+TravelBuddy enables travellers to record and store places that they have visited previously. With the recorded data, travellers can
+search for places according to the fields requested, analyse and provide statistics for places that they have been to so far.
+Travellers can also store their precious photos on TravelBuddy, which helps them remember and reminisce the places that wonderful places they have journeyed to.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+My role in this Software Engineering project was to design and write the code for the `search` features. The following sections showcase, in greater detail, my contributions and enhancements added to TravelBuddy,
+as well as the documentation of these enhancements in the User Guide and Developer Guide.
 
 == Summary of contributions
 
 * *Major enhancement*: added *the ability to perform search by name, rating, tags, country and year* on the places in TravelBuddy
-** What it does: allows the user to search TravelBuddy for places whose requested field matches the user input.
+** What it does: allows the user to search TravelBuddy for places whose requested field (name, rating, tags, country or year) matches the user input.
 ** Justification: TravelBuddy can get long and messy when more places are added. This feature improves TravelBuddy as it allows users to filter through the long place list to obtain what the users want.
 ** Highlights: This feature helps users search for what they need. Multiple keywords can also be included in the search to obtain a wider scope of results.
+An in-depth analysis of design alternatives in keyword matching as well as the data structure used for the search feature was done to obtain the most optimal solution. The non-functional requirements were also taken into account while weighing the options.
 
 * *Minor enhancement*:
 ** added Rating class for Place object to track ratings of each place in TravelBuddy.
@@ -28,35 +36,36 @@ TravelBuddy is a desktop Travel Guide application for travel enthusiasts to reco
 
 ** Project management:
 *** Helped to streamline issue tracking using milestone labels and assignees on Github.
+*** Added user stories to help with implementation of features.
 ** Enhancements to existing features:
-*** Updated tests and wrote additional tests from people in address book to places in TravelBuddy: https://github.com/cs2103-ay1819s2-w11-3/main/pull/50[#50]
+*** Updated tests and wrote additional tests to convert people in address book to places in TravelBuddy: https://github.com/cs2103-ay1819s2-w11-3/main/pull/50[#50]
 ** Documentation:
 *** Updated AboutUs with the responsbilities of team members: https://github.com/cs2103-ay1819s2-w11-3/main/pull/12[#12]
 *** Updated the User Guide with features I added and FAQ section: https://github.com/cs2103-ay1819s2-w11-3/main/pull/53[#53], https://github.com/cs2103-ay1819s2-w11-3/main/pull/63[#63], https://github.com/cs2103-ay1819s2-w11-3/main/pull/77[#77], https://github.com/cs2103-ay1819s2-w11-3/main/pull/85[#85]
-*** Updated the Developer with features I added: https://github.com/cs2103-ay1819s2-w11-3/main/pull/68[#68], https://github.com/cs2103-ay1819s2-w11-3/main/pull/85[#85]
+*** Updated the User Guide with a command cheatsheet: https://github.com/cs2103-ay1819s2-w11-3/main/pull/101[#101]
+*** Updated the Developer Guide with features I added and diagrams for illustration purposes: https://github.com/cs2103-ay1819s2-w11-3/main/pull/68[#68], https://github.com/cs2103-ay1819s2-w11-3/main/pull/85[#85], https://github.com/cs2103-ay1819s2-w11-3/main/pull/101[#101]
 ** Community:
 *** Review pull requests (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w11-3/main/pull/84[#84]
 *** Reported bugs and helped to fix bugs: https://github.com/cs2103-ay1819s2-w11-3/main/pull/82[#82]
 
 == Contributions to the User Guide
 
-
+We had to update the User Guide of TravelBuddy with information on the use of the enhancements that we implemented.
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below is an excerpt from the User Guide, showing the additions that I made for the search feature. They showcase my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=search]
 
 == Contributions to the Developer Guide
 
+We had to update the Developer Guide of TravelBuddy with the logic behind the implementation of the enhancements that we implemented.
+
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below is excerpt from the Developer Guide, showing the additions that I made for the search feature. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=search]
 
-== PROJECT: PowerPointLabs
 
----
 
-_{Optionally, you may include other projects in your portfolio.}_

@@ -17,7 +17,16 @@ endif::[]
 
 By: `CS2103T W11-3 Team`      Since: `Feb 2019`      Licence: `MIT`
 
+
+== Introduction
+
+Welcome to the TravelBuddy developer guide, put together by Chung Ming, Prem, Niven and Shaun.
+In this guide, you will find enough information to get your started on contributing to the TravelBuddy source code.
+<<Setting up>> provides details on how to start contributing to TravelBuddy.
+
 == Setting up
+
+This section gives a quick guide to getting started with the TravelBuddy source code on your machine.
 
 === Prerequisites
 
@@ -72,16 +81,6 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
-==== Updating documentation to match your fork
-
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
-
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
-
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
-
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
-
 ==== Setting up CI
 
 Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
@@ -104,6 +103,9 @@ When you are ready to start coding,
 2. Take a look at <<GetStartedProgramming>>.
 
 == Design
+
+This section provides a high-level overview of overall architecture of TravelBuddy,
+including the design and structure of components and their constituent classes.
 
 [[Design-Architecture]]
 === Architecture
@@ -168,35 +170,38 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PlaceListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of various parts specified below.
+All parts inherit from the abstract `UiPart` class.
 
 *Brief overview* of each UI Component:
 
 `MainWindow`: Consists of the main menu with `File` and `Help` dropdowns and the remaining UI parts below.
 
-`MainWindow`: Webview to display UserGuide.html
+* `HelpWindow`: Webview to display UserGuide.html
 
-`CommandBox`: Directly below the main menu, CLI displayed here
+* `CommandBox`: Directly below the main menu, CLI displayed here
 
-`ResultDisplay`: Displays CLI feedback to user, (eg. `Unknown command`, `Invalid command format!`)
+* `ResultDisplay`: Displays CLI feedback to user, (eg. `Unknown command`, `Invalid command format!`)
 
-`StatusBarFooter`: At the bottom of MainWindow, reports the status of the TravelBudy application
+* `StatusBarFooter`: At the bottom of MainWindow, reports the status of the TravelBudy application
 
-`PlaceListPanel`: On the left of BrowserPanel, a VBox of PlaceListCards
+* `PlaceListPanel`: On the left of BrowserPanel, displays Places as a VBox of PlaceListCards
 
-`PlaceListCard`: Labels for the Display index and Place data fields (CountryCode, Rating etc.) in a VBox the left,
+** `PlaceListCard`: Labels for the Display index and Place data fields (CountryCode, Rating etc.) in a VBox the left,
 Labels that display Name and actual Place data (CountryCode, Rating etc) in a VBox on the right.
 
-RightParentPanel: Parent panel for both `DisplayListPanel` and `ExtendedPlacePanel`
+* RightParentPanel: Parent panel for both `DisplayListPanel` and `ExtendedPlacePanel`,
+contains helper methods for switching functionality, interacts with model and logic
 
-`DisplayListPanel`: Displays the charts and bars that are called by `generate`
+** `DisplayListPanel`: Parent panel for analytics of all Places, the `generate` command displays this panel
 
-'ExtendedPlacePanel': Display an expanded view of all Place data. Photo attachments to be included here as well in future releases (beyond v1.3).
+*** `DisplayCard`: Displays `Chart` data in a bar graph
 
-`BrowserPanel`: Opens on clicking the PlaceListCard, on the right of the PlaceListPanel. Deprecated.
+** `ExtendedPlacePanel`: Display an expanded view of all Place data. Photo attachments to be included here as well in future releases (beyond v1.4).
 
-*All CSS code are found in DarkTheme.css and Extensions.css
+* `BrowserPanel`: *_Deprecated._* Opens on clicking the PlaceListCard, on the right of the PlaceListPanel.
+
+*All CSS code can be found in `DarkTheme.css` and `Extensions.css`
 
 [[Design-Logic]]
 === Logic component
@@ -208,7 +213,7 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `TravelBuddyParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a place).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -230,13 +235,13 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the place data.
 * exposes an unmodifiable `ObservableList<Place>` that can be 'observed' e.g. the UI can be bound to this list so that
 the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Place` can reference. This would allow `Address
+As a more OOP model, we can store a `Tag` list in `TravelBuddy`, which `Place` can reference. This would allow `Address
  Book` to only require one `Tag` object per unique `Tag`, instead of each `Place` needing their own `Tag` object. An
  example of how such a model may look like is given below. +
  +
@@ -253,12 +258,12 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the TravelBuddy data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.travel.commons` package.
 
 == Implementation
 
@@ -266,59 +271,64 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::undoredo[]
 === Undo/Redo feature
+
+Called by the `undo` and `redo` commands to undo and redo changes to TravelBuddy Place entries.
+Undoable commands include `add` `edit` `delete` `deletem` `clear` `generate` and 'redo'
+Redoable commands include `add` `edit` `delete` `deletem` `clear` `generate` and 'undo'
+
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedTravelBuddy`.
+It extends `TravelBuddy` with an undo/redo history, stored internally as an `travelBuddyStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedTravelBuddy#commit()` -- Saves the current TravelBuddy state in its history.
+* `VersionedTravelBuddy#undo()` -- Restores the previous TravelBuddy state from its history.
+* `VersionedTravelBuddy#redo()` -- Restores a previously undone TravelBuddy state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitTravelBuddy()`, `Model#undoTravelBuddy()` and `Model#redoTravelBuddy()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedTravelBuddy` will be initialized with the initial TravelBuddy state, and the `currentStatePointer` pointing to that single TravelBuddy state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th place in the address book. The `delete` command calls
-`Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th place in TravelBuddy. The `delete` command calls
+`Model#commitTravelBuddy()`, causing the modified state of TravelBuddy after the `delete 5` command executes to be saved in the `travelBuddyStateList`, and the `currentStatePointer` is shifted to the newly inserted TravelBuddy state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new place. The `add` command also calls `Model#commitAddressBook()
-`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new place. The `add` command also calls `Model#commitTravelBuddy()
+`, causing another modified TravelBuddy state to be saved into the `travelBuddyStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitTravelBuddy()`, so the TravelBuddy state will not be saved into the `travelBuddyStateList`.
 
 Step 4. The user now decides that adding the place was a mistake, and decides to undo that action by executing the
-`undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+`undo` command. The `undo` command will call `Model#undoTravelBuddy()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous TravelBuddy state, and restores the TravelBuddy to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial TravelBuddy state, then there are no previous TravelBuddy states to restore. The `undo` command uses `Model#canUndoTravelBuddy()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoTravelBuddy()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores TravelBuddy to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `travelBuddyStateList.size() - 1`, pointing to the latest TravelBuddy state, then there are no undone TravelBuddy states to restore. The `redo` command uses `Model#canRedoTravelBuddy()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify TravelBuddy, such as `list`, will usually not call `Model#commitTravelBuddy()`, `Model#undoTravelBuddy()` or `Model#redoTravelBuddy()`. Thus, the `travelBuddyStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitTravelBuddy()`. Since the `currentStatePointer` is not pointing at the end of the `travelBuddyStateList`, all TravelBuddy states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -330,7 +340,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire TravelBuddy.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
@@ -339,9 +349,9 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of TravelBuddy states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedTravelBuddy`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
@@ -354,7 +364,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 The following diagram shows how the search feature works:
 
 image::SearchCommandSequenceDiagram.png[width="800"]
-Figure 3.2.1.1 Sequence Diagram for `search` command
+Figure 4.2.1.1 Sequence Diagram for `search` command
 
 The control flow of the sequence diagram above is as follows:
 
@@ -387,9 +397,12 @@ The search name mechanism is facilitated by `SearchCommand`, which extends `Comm
 
 Given below is an example usage scenario and how the search mechanism behaves at each step.
 
-Step 1. The user launches the application and sees the GUI with the user's list of places.
+Step 1. The user launches the application and sees the GUI with the user's list of places as shown in the diagram below.
 
 image::UIsearch.png[width="800"]
+
+Figure 4.2.1.2 GUI with user's list of places, prior to running `search Singapore` command
+
 
 Step 2. The user executes `search Singapore` command to search for all entries in TravelBuddy with `Singapore` in its name.
 The user input will be passed into `LogicManager#execute()`, which in turn uses `TravelBuddyParser#parseCommand()`. Since the argument is `search`, `SearchCommandParser#parse(arguments)` will be called to parse the arguments to be used in `SearchCommand`.
@@ -398,9 +411,11 @@ The parsed arguments will be used as a predicate to filter out entries that sati
 [NOTE]
 The command `search` is in lower-case. Mixed-case or upper-case commands are not recognised by the application.
 
-Step 3. The filtered list is now displayed according to the requirements set by the user input.
+Step 3. The filtered list is now displayed according to the requirements set by the user input as shown in the diagram below.
 
 image::UIsearchresults.png[width="800"]
+
+Figure 4.2.1.3 Application Interface displaying the results of `search Singapore` command
 
 ===== Search Rating Feature
 The command word for search rating is `searchr` and is parsed by `TravelBuddyParser`. The arguments are then passed into `SearchRatingCommandParser`.
@@ -411,9 +426,11 @@ The search rating mechanism is facilitated by `SearchRatingCommand`, which exten
 
 Given below is an example usage scenario and how the search rating mechanism behaves at each step.
 
-Step 1. The user launches the application and sees the GUI with the user's list of places.
+Step 1. The user launches the application and sees the GUI with the user's list of places as shown in the diagram below.
 
-pimage::UIsearchrating.png[width="800"]
+image::UIsearchrating.png[width="800"]
+
+Figure 4.2.1.4 GUI with user's list of places, prior to running `searchr 4` command
 
 Step 2. The user executes `searchr 4` command to search for all entries in TravelBuddy with `4` as its rating.
 The user input will be passed into `LogicManager#execute()`, which in turn uses `TravelBuddyParser#parseCommand()`. Since
@@ -427,9 +444,11 @@ The command `searchr` is in lower-case. Mixed-case or upper-case commands are no
 [NOTE]
 The arguments for `searchr` range from 1 to 5. Non-integer values outside the range are not recognised by the application.
 
-Step 3. The filtered list is now displayed according to the requirements set by the user input.
+Step 3. The filtered list is now displayed according to the requirements set by the user input as shown in the diagram below.
 
 image::UIsearchratingresults.png[width="800"]
+
+Figure 4.2.1.5 Application Interface displaying the results of `searchr 4` command
 
 ===== Search Tags Feature
 The command word for search tags is `searcht` and is parsed by `TravelBuddyParser`. The arguments are then passed into `SearchTagsCommandParser`.
@@ -440,9 +459,11 @@ The search tags mechanism is facilitated by `SearchTagsCommand`, which extends `
 
 Given below is an example usage scenario and how the search tags mechanism behaves at each step.
 
-Step 1. The user launches the application and sees the GUI with the user's list of places.
+Step 1. The user launches the application and sees the GUI with the user's list of places as shown in the diagram below.
 
 image::UIsearchtags.png[width="800"]
+
+Figure 4.2.1.6 GUI with user's list of places, prior to running `searcht distillery` command
 
 Step 2. The user executes `searcht distillery` command to search for all entries in TravelBuddy with `distillery`
 as its tag. The user input will be passed into `LogicManager#execute()`, which in turn uses
@@ -453,9 +474,11 @@ predicate to filter out entries that satisfy the predicate to be displayed.
 [NOTE]
 The command `searcht` is in lower-case. Mixed-case or upper-case commands are not recognised by the application.
 
-Step 3. The filtered list is now displayed according to the requirements set by the user input.
+Step 3. The filtered list is now displayed according to the requirements set by the user input as shown in the diagram below.
 
 image::UIsearchtagsresults.png[width="800"]
+
+Figure 4.2.1.7 Application Interface displaying the results of `searcht distillery` command
 
 ===== Search Country Feature
 The command word for search country is `searchc` and is parsed by `TravelBuddyParser`. The arguments are then passed into `SearchCountryCommandParser`.
@@ -466,9 +489,11 @@ The search country mechanism is facilitated by `SearchCountryCommand`, which ext
 
 Given below is an example usage scenario and how the search country mechanism behaves at each step.
 
-Step 1. The user launches the application and sees the GUI with the user's list of places.
+Step 1. The user launches the application and sees the GUI with the user's list of places as shown in the diagram below.
 
 image::UIsearchcountry.png[width="800"]
+
+Figure 4.2.1.8 GUI with user's list of places, prior to running `searchc JPN` command
 
 Step 2. The user executes `searchc SGP JPN` command to search for all entries in TravelBuddy with `SGP` or `JPN`
 as its country. The `searchc` command will call `LogicManager#execute()`, which in turn uses
@@ -476,15 +501,17 @@ as its country. The `searchc` command will call `LogicManager#execute()`, which 
 will be called to parse the arguments to be used in `SearchCountryCommand`. The parsed arguments will be used as a
 predicate to filter out entries that satisfy the predicate to be displayed.
 
-image::UIsearchcountryresults.png[width="800"]
-
 [NOTE]
 The command `searchc` is in lower-case. Mixed-case or upper-case commands are not recognised by the application.
 
 [NOTE]
 The country code arguments for `searchc` must be valid 3-letter ISO-3166 country codes.
 
-Step 3. The filtered list is now displayed according to the requirements set by the user input.
+Step 3. The filtered list is now displayed according to the requirements set by the user input as shown in the diagram below.
+
+image::UIsearchcountryresults.png[width="800"]
+
+Figure 4.2.1.9 Application Interface displaying the results of `searchc JPN` command
 
 ===== Search Year Feature
 The command word for search year is `searchyear` and is parsed by `TravelBuddyParser`. The arguments are then passed into `SearchYearCommandParser`.
@@ -495,9 +522,11 @@ The search year mechanism is facilitated by `SearchYearCommand`, which extends `
 
 Given below is an example usage scenario and how the search year mechanism behaves at each step.
 
-Step 1. The user launches the application and sees the GUI with the user's list of places.
+Step 1. The user launches the application and sees the GUI with the user's list of places as shown in the diagram below.
 
 image::UIsearchyear.png[width="800"]
+
+Figure 4.2.1.10 GUI with user's list of places, prior to running `searchyear 2016` command
 
 Step 2. The user executes `searchyear 2016` command to search for all entries in TravelBuddy with `2016`
 as its year visited. The `searchyear` command will call `LogicManager#execute()`, which in turn uses
@@ -505,15 +534,17 @@ as its year visited. The `searchyear` command will call `LogicManager#execute()`
 will be called to parse the arguments to be used in `SearchYearCommand`. The parsed arguments will be used as a
 predicate to filter out entries that satisfy the predicate to be displayed.
 
-image::UIsearchyearresults.png[width="800"]
-
 [NOTE]
 The command `searchyear` is in lower-case. Mixed-case or upper-case commands are not recognised by the application.
 
 [NOTE]
 The year arguments range from 1900 to the current year. A single year, multiple years or a range of years can be passed in as arguments.
 
-Step 3. The filtered list is now displayed according to the requirements set by the user input.
+Step 3. The filtered list is now displayed according to the requirements set by the user input as shown in the diagram below.
+
+image::UIsearchyearresults.png[width="800"]
+
+Figure 4.2.1.11 Application Interface displaying the results of `searchyear 2016` command
 
 ==== Design Considerations
 
@@ -526,6 +557,9 @@ Step 3. The filtered list is now displayed according to the requirements set by 
 ** Pros: Can match partial keywords.
 ** Cons: Uses more processing power and time during checking.
 
+*Decision*: Alternative 1 of matching the entire keyword is adopted as it reduces processing time during keyword matching.
+In addition, it narrows down the search options by only returning keywords that matches the search query, which is the main objective of implementing a search feature.
+
 ===== Aspect: Data structure to support search commands
 * **Alternative 1 (current choice):** Use a list to store the user input keywords and places.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming
@@ -534,6 +568,8 @@ developers of our project.
 * **Alternative 2:** Use `HashMap` to map keywords to each place
 ** Pros: Faster searching as HashMap lookup runs in O(1) time.
 ** Cons: Requires more memory as a separate HashMap needs to be stored.
+
+*Decision*: Alternative 1 of using a list is preferred as it uses less memory compared to alternative 2. Moreover, future contributors to the project are likely to be student undergraduates, so a simple data structure would be more optimal for educational purposes.
 // end::search[]
 
 // tag::countrycode[]
@@ -617,7 +653,7 @@ The `generate` command is used to generate different charts in the application.
 
 ==== Current Implementation
 At the GUI, the user enters the `generate` command, without any parameters. The UI takes in the input and passes it
-on to `LogicManager#execute()` in the Logic. The`AddressBookParser#parseCommand()` is then called, which parses the
+on to `LogicManager#execute()` in the Logic. The`TravelBuddyParser#parseCommand()` is then called, which parses the
 command and redirects to the `GenerateCommand` class.
 
 The `GenerateCommand#execute()` in Logic calls on Model to do two things:
@@ -897,7 +933,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else
 seeing them by accident
 
-|`*` |user with many places in the address book |sort places by name |locate a place easily
+|`*` |user with many places in the TravelBuddy |sort places by name |locate a place easily
 |=======================================================================
 
 _{More to be added}_
@@ -905,7 +941,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `TravelBuddy` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete place
@@ -913,9 +949,9 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to list places
-2.  AddressBook shows a list of places
+2.  TravelBuddy shows a list of places
 3.  User requests to delete a specific place in the list
-4.  AddressBook deletes the place
+4.  TravelBuddy deletes the place
 +
 Use case ends.
 
@@ -929,7 +965,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. TravelBuddy shows an error message.
 +
 Use case resumes at step 2.
 

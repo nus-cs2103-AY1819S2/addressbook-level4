@@ -1,6 +1,7 @@
 package seedu.travel.storage;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.travel.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -46,6 +47,7 @@ public class JsonTravelBuddyStorage implements TravelBuddyStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
+    @Override
     public Optional<ReadOnlyTravelBuddy> readTravelBuddy(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
@@ -73,9 +75,9 @@ public class JsonTravelBuddyStorage implements TravelBuddyStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
+    @Override
     public void saveTravelBuddy(ReadOnlyTravelBuddy travelBuddy, Path filePath) throws IOException {
-        requireNonNull(travelBuddy);
-        requireNonNull(filePath);
+        requireAllNonNull(travelBuddy, filePath);
 
         FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(new JsonSerializableTravelBuddy(travelBuddy), filePath);

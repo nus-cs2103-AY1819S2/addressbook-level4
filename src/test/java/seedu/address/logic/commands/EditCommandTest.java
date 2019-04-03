@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
@@ -30,7 +29,7 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for EditCommand.
  */
 public class EditCommandTest {
 
@@ -150,74 +149,6 @@ public class EditCommandTest {
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
-
-    @Test
-    public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        Cell editedCell = new PersonBuilder().build();
-        Cell cellToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedCell).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
-        Model expectedModel = new ModelManager(new MapGrid(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(cellToEdit, editedCell);
-        expectedModel.commitAddressBook();
-
-        // edit -> first cell edited
-        editCommand.execute(model, commandHistory);
-
-        // undo -> reverts addressbook back to previous state and filtered cell list to show all persons
-        expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
-
-        // redo -> same first cell edited again
-        expectedModel.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
-    }
-
-    @Test
-    public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
-
-        // execution failed -> address book state not added into model
-        assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-
-        // single address book state in model -> undoCommand and redoCommand fail
-        assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
-        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
-    }
-
-    /**
-     * 1. Edits a {@code Cell} from a filtered list.
-     * 2. Undo the edit.
-     * 3. The unfiltered list should be shown now. Verify that the index of the previously edited cell in the
-     * unfiltered list is different from the index at the filtered list.
-     * 4. Redo the edit. This ensures {@code RedoCommand} edits the cell object regardless of indexing.
-     */
-    @Test
-    public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
-        Cell editedCell = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedCell).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
-        Model expectedModel = new ModelManager(new MapGrid(model.getAddressBook()), new UserPrefs());
-
-        showPersonAtIndex(model, INDEX_SECOND_PERSON);
-        Cell cellToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        expectedModel.setPerson(cellToEdit, editedCell);
-        expectedModel.commitAddressBook();
-
-        // edit -> edits second cell in unfiltered cell list / first cell in filtered cell list
-        editCommand.execute(model, commandHistory);
-
-        // undo -> reverts addressbook back to previous state and filtered cell list to show all persons
-        expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
-
-        assertNotEquals(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), cellToEdit);
-        // redo -> edits same second cell in unfiltered cell list
-        expectedModel.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test

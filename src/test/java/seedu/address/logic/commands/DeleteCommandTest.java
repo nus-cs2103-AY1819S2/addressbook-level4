@@ -21,7 +21,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.cell.Cell;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * Contains integration tests (interaction with the Model) and unit tests for
  * {@code DeleteCommand}.
  */
 public class DeleteCommandTest {
@@ -79,69 +79,6 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
-
-    @Test
-    public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        Cell cellToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deletePerson(cellToDelete);
-        expectedModel.commitAddressBook();
-
-        // delete -> first cell deleted
-        deleteCommand.execute(model, commandHistory);
-
-        // undo -> reverts addressbook back to previous state and filtered cell list to show all persons
-        expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
-
-        // redo -> same first cell deleted again
-        expectedModel.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
-    }
-
-    @Test
-    public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
-
-        // execution failed -> address book state not added into model
-        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-
-        // single address book state in model -> undoCommand and redoCommand fail
-        assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
-        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
-    }
-
-    /**
-     * 1. Deletes a {@code Cell} from a filtered list.
-     * 2. Undo the deletion.
-     * 3. The unfiltered list should be shown now. Verify that the index of the previously deleted cell in the
-     * unfiltered list is different from the index at the filtered list.
-     * 4. Redo the deletion. This ensures {@code RedoCommand} deletes the cell object regardless of indexing.
-     */
-    @Test
-    public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-
-        showPersonAtIndex(model, INDEX_SECOND_PERSON);
-        Cell cellToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        expectedModel.deletePerson(cellToDelete);
-        expectedModel.commitAddressBook();
-
-        // delete -> deletes second cell in unfiltered cell list / first cell in filtered cell list
-        deleteCommand.execute(model, commandHistory);
-
-        // undo -> reverts addressbook back to previous state and filtered cell list to show all persons
-        expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
-
-        assertNotEquals(cellToDelete, model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()));
-        // redo -> deletes same second cell in unfiltered cell list
-        expectedModel.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test

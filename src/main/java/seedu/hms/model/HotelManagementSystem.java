@@ -195,8 +195,8 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
     }
 
     /**
-     * Removes {@code booking} from this {@code HotelManagementSystem}.
-     * {@code booking} must exist in the hms book.
+     * Removes {@code bookings} from this {@code HotelManagementSystem}.
+     * All the bookings in {@code bookings} must exist in the hms book.
      */
     public void removeAllBookings(List<Booking> bookings) {
         bookings.removeAll(bookings);

@@ -14,6 +14,4 @@ public class Messages {
     public static final String MESSAGE_NO_RESTAURANT_SELECTED = "No restaurant selected";
     public static final String MESSAGE_CHANGE_WEBLINK = "%1$s is not found. Please change weblink of selected "
             + "restaurant using edit command.";
-    public static final String MESSAGE_NO_INTERNET = "Internet connection is not available."
-            + " Please check your connections.";
 }

@@ -2,8 +2,10 @@ package seedu.address.commons.util;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.UnknownHostException;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.NoInternetException;
@@ -15,6 +17,10 @@ import seedu.address.model.restaurant.Weblink;
 public class WebUtil {
     private static final String HTTPS_PREFIX = "https://";
     private static final String FILE_PREFIX = "file:/";
+    private static final String VALID_WEBSITE = "www.google.com";
+    public static final String MESSAGE_NO_INTERNET = "Internet connection is not available."
+            + " Please check your connections.";
+    private static final int TIME_OUT = 10;
 
     /**
      * Checks if a given string is a valid weblink URL, ie. HTTP response code should not be 400 and above
@@ -22,16 +28,12 @@ public class WebUtil {
      */
     public static boolean isNotValidWeblinkUrl(String urlString) throws NoInternetException {
         try {
-            urlString = prependHttps(urlString);
-            URL u = new URL(urlString);
-            HttpURLConnection huc = (HttpURLConnection) u.openConnection();
-            huc.setRequestMethod("HEAD");
-            huc.connect();
-            return huc.getResponseCode() >= 400;
-        } catch (MalformedURLException e) {
-            return !urlString.equals(Weblink.NO_WEBLINK_STRING);
+            InetAddress inetAddress = InetAddress.getByName(urlString);
+            return inetAddress.isReachable(TIME_OUT);
+        } catch (UnknownHostException e) {
+            return false;
         } catch (IOException e) {
-            throw new NoInternetException(Messages.MESSAGE_NO_INTERNET);
+            throw new NoInternetException(MESSAGE_NO_INTERNET);
         }
     }
 

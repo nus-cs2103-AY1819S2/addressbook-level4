@@ -3,14 +3,6 @@ package seedu.address.model.restaurant;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.exceptions.NoInternetException;
-
 /**
  * Represents a Restaurant's weblink in the food diary.
  * Guarantees: immutable; is valid as declared in {@link #isValidWeblinkString(String)}
@@ -72,7 +64,6 @@ public class Weblink {
                 || (other instanceof Weblink // instanceof handles nulls
                 && value.equals(((Weblink) other).value)); // state check
     }
-
 
     @Override
     public int hashCode() {

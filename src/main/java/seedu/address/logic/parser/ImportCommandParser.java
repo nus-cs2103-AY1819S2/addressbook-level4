@@ -20,7 +20,7 @@ import seedu.address.model.image.Image;
 public class ImportCommandParser implements Parser<ImportCommand> {
 
     // Directory to copy imported images to.
-    Album album = Album.getInstance();
+    private final Album album = Album.getInstance();
 
     private final File directory = new File(album.getAssetsFilepath());
     private final String assetsFilepath = album.getAssetsFilepath();

@@ -26,6 +26,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.predicate.AddressContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.EmailContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.GenderContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.GradeContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.JobsApplyContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.KnownProgLangContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.MajorContainsKeywordsPredicate;
@@ -65,14 +66,14 @@ public class SearchCommand extends Command {
         + "[" + PREFIX_JOBSAPPLY + "JOBSAPPLY KEYWORD] "
         + "Example: " + COMMAND_WORD
         + PREFIX_PHONE + "91234567 "
-        + PREFIX_EMAIL + "johndoe@example.com"
+        + PREFIX_EMAIL + "johndoe@example.com "
         + PREFIX_NRIC + "S9671597H "
         + PREFIX_GENDER + "Male "
         + PREFIX_RACE + "Indian "
         + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
         + PREFIX_SCHOOL + "NUS "
         + PREFIX_MAJOR + "Computer Science "
-        + "The alias \"sh\" can be used instead.\n"
+        + "The alias \"sh \" can be used instead.\n"
         + "Example: " + COMMAND_ALIAS
         + PREFIX_PHONE + "91234567 "
         + PREFIX_EMAIL + "johndoe@example.com "
@@ -81,7 +82,7 @@ public class SearchCommand extends Command {
         + PREFIX_RACE + "Indian "
         + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
         + PREFIX_SCHOOL + "NUS "
-        + PREFIX_MAJOR + "Computer Science"
+        + PREFIX_MAJOR + "Computer Science "
         + PREFIX_JOBSAPPLY + "Software Engineer ";
 
 
@@ -91,17 +92,17 @@ public class SearchCommand extends Command {
     /**
      * @param predicatePersonDescriptor details to predicate the person with
      */
+    @SuppressWarnings("unchecked")
     public SearchCommand(PredicatePersonDescriptor predicatePersonDescriptor) {
         requireNonNull(predicatePersonDescriptor);
         this.predicatePersonDescriptor = new PredicatePersonDescriptor(predicatePersonDescriptor);
-        Predicate<Person> predicator = (Predicate<Person>) this.predicatePersonDescriptor.toPredicate();
-        this.predicate = predicator;
+        this.predicate = (Predicate<Person>) this.predicatePersonDescriptor.toPredicate();
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredPersonList(predicate);
+        model.updateBaseFilteredPersonList(predicate);
         return new CommandResult(
             String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }
@@ -134,6 +135,7 @@ public class SearchCommand extends Command {
         private Set<String> nric;
         private Set<String> gender;
         private Set<String> race;
+        private Set<String> grade;
         private Set<String> address;
         private Set<String> school;
         private Set<String> major;
@@ -156,6 +158,7 @@ public class SearchCommand extends Command {
             setNric(toCopy.nric);
             setGender(toCopy.gender);
             setRace(toCopy.race);
+            setGrade(toCopy.grade);
             setAddress(toCopy.address);
             setSchool(toCopy.school);
             setMajor(toCopy.major);
@@ -204,6 +207,10 @@ public class SearchCommand extends Command {
             if (this.getGender().isPresent()) {
                 predicator = predicator.and(new GenderContainsKeywordsPredicate(
                     new ArrayList<>(this.getGender().get())));
+            }
+            if (this.getGrade().isPresent()) {
+                predicator = predicator.and(new GradeContainsKeywordsPredicate(
+                    new ArrayList<>(this.getGrade().get())));
             }
             if (this.getNric().isPresent()) {
                 predicator = predicator.and(new NricContainsKeywordsPredicate(
@@ -270,6 +277,14 @@ public class SearchCommand extends Command {
 
         public Optional<Set<String>> getRace() {
             return Optional.ofNullable(race);
+        }
+
+        public void setGrade(Set<String> grade) {
+            this.grade = grade;
+        }
+
+        public Optional<Set<String>> getGrade() {
+            return Optional.ofNullable(grade);
         }
 
         public void setAddress(Set<String> address) {
@@ -342,6 +357,7 @@ public class SearchCommand extends Command {
                 && getNric().equals(e.getNric())
                 && getGender().equals(e.getGender())
                 && getRace().equals(e.getRace())
+                && getGrade().equals(e.getGrade())
                 && getAddress().equals(e.getAddress())
                 && getSchool().equals(e.getSchool())
                 && getMajor().equals(e.getMajor())

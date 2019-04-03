@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -18,7 +20,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
+import seedu.address.model.job.JobName;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
@@ -29,8 +34,9 @@ public class ModelManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private FilteredList<Person> filteredPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private FilteredList<Person> variableFilteredPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -45,6 +51,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        this.variableFilteredPersons = filteredPersons;
     }
 
     public ModelManager() {
@@ -111,6 +118,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addFilteredPersonsToJob(JobName jobName) {
+        requireNonNull(jobName);
+        versionedAddressBook.addFilteredListToJob(variableFilteredPersons, jobName);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public boolean addPersonToJob(JobName job, Nric nric) {
+        requireAllNonNull(job, nric);
+
+        return versionedAddressBook.addPersonToJobByNric(nric, job);
+    }
+
+    @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
     }
@@ -118,7 +139,7 @@ public class ModelManager implements Model {
     @Override
     public void addPerson(Person person) {
         versionedAddressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateBaseFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
@@ -127,10 +148,27 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteJob(Job job) {
+        versionedAddressBook.deleteJob(job);
+        revertList();
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public Integer movePerson(JobName jobName, Nric nric, Integer source, Integer dest) {
+        return versionedAddressBook.movePerson(jobName, nric, source, dest);
+    }
+
+    @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
         versionedAddressBook.setPerson(target, editedPerson);
+    }
+
+    @Override
+    public UniquePersonList getJobList(JobName name, int listNumber) {
+        return versionedAddressBook.getJobPersonList(name, listNumber);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -141,13 +179,32 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+        return variableFilteredPersons;
+    }
+
+    @Override
+    public void updateBaseFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredPersons.setPredicate(predicate);
     }
 
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        variableFilteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void changeFilteredPersonList(UniquePersonList list) {
+        requireNonNull(list);
+
+        FilteredList<Person> tempList = new FilteredList<>(list.asUnmodifiableObservableList());
+        this.variableFilteredPersons = tempList;
+    }
+
+    @Override
+    public void revertList() {
+        this.variableFilteredPersons = filteredPersons;
     }
 
     //=========== Undo/Redo =================================================================================
@@ -252,6 +309,11 @@ public class ModelManager implements Model {
     public Analytics generateAnalytics() {
         Analytics analytics = new Analytics(getFilteredPersonList());
         return analytics;
+    }
+
+    @Override
+    public void setBlockOutDates(List<Calendar> blockOutDates) {
+        versionedAddressBook.setBlockOutDates(blockOutDates);
     }
 
     @Override

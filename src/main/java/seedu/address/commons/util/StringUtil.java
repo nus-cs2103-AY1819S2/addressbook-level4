@@ -45,6 +45,37 @@ public class StringUtil {
     }
 
     /**
+     * Returns true if the {@code word} in the range of {@code sentence}.
+     * Ignores case, but a full word match is required.
+     * <br>examples:<pre>
+     *       containsWordIgnoreCase("ABc def", "abc") == true
+     *       containsWordIgnoreCase("ABc def", "DEF") == true
+     *       containsWordIgnoreCase("ABc def", "AB") == false //not a full word match
+     *       </pre>
+     *
+     * @param sentence cannot be null
+     * @param word     cannot be null, cannot be empty, must be a single word
+     */
+    public static boolean valueInRange(String sentence, String word) {
+        requireNonNull(sentence);
+        requireNonNull(word);
+
+        float value = Float.parseFloat(word);
+
+        String preppedSentence = sentence.trim();
+        checkArgument(!preppedSentence.isEmpty(), "Range parameter cannot be empty");
+        String[] rangesInPreppedSentence = preppedSentence.split("\\s+");
+        for (String range : rangesInPreppedSentence) {
+            checkArgument(range.split("-").length == 2, "Range parameter format wrong");
+            String[] vaules = range.split("-");
+            if (value >= Float.parseFloat(vaules[0]) && value <= Float.parseFloat(vaules[1])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Returns a detailed message of the t, including the stack trace.
      */
     public static String getDetails(Throwable t) {

@@ -1,6 +1,8 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Calendar;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -9,7 +11,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
+import seedu.address.model.job.JobName;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 
 /**
  * The API of the Model component.
@@ -67,6 +72,16 @@ public interface Model {
     boolean hasJob(Job job);
 
     /**
+     * adds all persons in filtered personlist to {@code job}.
+     */
+    void addFilteredPersonsToJob(JobName jobName);
+
+    /**
+     * adds person with {@code nric} to {@code job}.
+     */
+    boolean addPersonToJob(JobName job, Nric nric);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
@@ -85,11 +100,29 @@ public interface Model {
     void addJob(Job job);
 
     /**
+     * Deletes the given job.
+     * {@code job} must exist in the address book.
+     */
+    void deleteJob(Job job);
+
+    /**
+     * Moves Person with {@code nric} in Job with {@code jobName}
+     * from list {@code source} to list {@code dest}
+     * {@code job} must exist in the address book.
+     */
+    Integer movePerson(JobName jobName, Nric nric, Integer source, Integer dest);
+
+    /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void setPerson(Person target, Person editedPerson);
+
+    /**
+     * Returns one of the UniquePersonList in the job
+     */
+    UniquePersonList getJobList(JobName name, int listNumber);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
@@ -98,7 +131,21 @@ public interface Model {
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
+    void updateBaseFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the active filtered person list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Changes the filtered person list to the given {@code list}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void changeFilteredPersonList(UniquePersonList list);
+
+    void revertList();
 
     /**
      * Returns true if the model has previous address book states to restore.
@@ -161,6 +208,11 @@ public interface Model {
      * Clears the generated interviews.
      */
     void clearInterviews();
+
+    /**
+     * Sets Block Out Dates.
+     */
+    void setBlockOutDates(List<Calendar> blockOutDates);
 
     /**
      * Generates analytics.

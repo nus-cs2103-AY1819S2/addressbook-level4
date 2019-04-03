@@ -137,9 +137,9 @@ Returns the people, whose name contains ale and whose address contains abcd and 
 
 // end::filter[]
 
-=== Approve persons by employee name: 'endorse'
+=== Approve persons by employee name: `endorse`
 
-Endorses an existing candidate in RecruitMe+
+Endorses an existing candidate in RecruitMe. +
 Format: 'endorse INDEX [n/YOUR NAME]'
 
 ****

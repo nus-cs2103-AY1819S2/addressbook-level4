@@ -1,5 +1,9 @@
 package seedu.address.storage.coursestorage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -18,7 +22,7 @@ public class JsonAdaptedPrimitiveRequirement implements JsonAdaptedCourseRequire
     private final String requirementName;
     private final String requirementDescription;
     private final String requirementType;
-    private final JsonAdaptedCondition condition;
+    private final List<JsonAdaptedCondition> conditions;
 
     /**
      * Creates a {@code JsonAdaptedPrimitiveRequirement} with Primitive Requirement details
@@ -27,11 +31,11 @@ public class JsonAdaptedPrimitiveRequirement implements JsonAdaptedCourseRequire
     public JsonAdaptedPrimitiveRequirement(@JsonProperty("requirementName") String requirementName,
                                            @JsonProperty("requirementDescription") String requirementDescription,
                                            @JsonProperty("requirementType") String requirementType,
-                                           @JsonProperty("condition") JsonAdaptedCondition condition
+                                           @JsonProperty("conditions") List<JsonAdaptedCondition> conditions
                                            ) {
         this.requirementName = requirementName;
         this.requirementDescription = requirementDescription;
-        this.condition = condition;
+        this.conditions = conditions;
         this.requirementType = requirementType;
     }
 
@@ -41,7 +45,11 @@ public class JsonAdaptedPrimitiveRequirement implements JsonAdaptedCourseRequire
     public JsonAdaptedPrimitiveRequirement(PrimitiveRequirement primitiveRequirement) {
         this.requirementName = primitiveRequirement.getCourseReqName();
         this.requirementDescription = primitiveRequirement.getCourseReqDesc();
-        this.condition = new JsonAdaptedCondition(primitiveRequirement.getCondition());
+        this.conditions = primitiveRequirement
+                .getConditions()
+                .stream()
+                .map(JsonAdaptedCondition::new)
+                .collect(Collectors.toList());
         this.requirementType = primitiveRequirement.getType().name();
     }
 
@@ -64,7 +72,7 @@ public class JsonAdaptedPrimitiveRequirement implements JsonAdaptedCourseRequire
                 String.format(MISSING_FIELD_MESSAGE_FORMAT, "requirementDescription"));
         }
 
-        if (this.condition == null) {
+        if (this.conditions == null) {
             throw new IllegalValueException(
                 String.format(MISSING_FIELD_MESSAGE_FORMAT, "condition"));
         }
@@ -74,8 +82,12 @@ public class JsonAdaptedPrimitiveRequirement implements JsonAdaptedCourseRequire
                 String.format(MISSING_FIELD_MESSAGE_FORMAT, "requirementType"));
         }
 
-        final Condition condition = this.condition.toModelType();
+        final List<Condition> modelConditions = new ArrayList<>();
+        for (JsonAdaptedCondition condition: conditions) {
+            modelConditions.add(condition.toModelType());
+        }
         return new PrimitiveRequirement(requirementName, requirementDescription,
-            condition, CourseReqType.valueOf(requirementType));
+        CourseReqType.valueOf(requirementType), modelConditions.toArray(new Condition[0]));
+
     }
 }

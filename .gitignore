@@ -20,3 +20,4 @@ src/main/resources/docs/
 out/
 src/main/resources/userinfo.json
 src/main/resources/gradtrak.json
+userinfo.json

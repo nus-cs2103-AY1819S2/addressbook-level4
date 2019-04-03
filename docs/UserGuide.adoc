@@ -42,6 +42,7 @@ E.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
+[[CommandFormat]]
 ====
 *Command Format*
 
@@ -53,6 +54,7 @@ E.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Book name and author name should not exceed 50 characters (space included).
 * Review title should not exceed 70 characters (space included).
 * Review content should not exceed 350 characters (space included).
+* Rating should be integer from 0 to 10.
 * Tags should not exceed 20 characters (space included).
 ====
 
@@ -75,10 +77,8 @@ Adds a book named Structure and Interpretation of Computer Programs to the recor
 * The book name is case sensitive
 * Two books with same book name are considered same book
 * Trying to add a book which is already present in the book shelf will result in duplicate book error, and the addBook command will fail
-* Book names should only contain no more than 50 characters (space included), and it should not be blank
-* Author names should only contain alphanumeric characters and spaces, and it should not be blank nor longer than 50 characters
-* Tags names should be alphanumeric and contains less than 20 characters
-* Rating should be an integer ranging from 0 to 10 inclusive
+* If multiple valid parameters are supplied to the same field (E.g. addBook n/A n/B), the latter one will be took as the input
+* Take a look at <<Command Format>> to see the valid format for each parameter
 ****
 
 ==== Editing book entry : `editBook`
@@ -90,9 +90,11 @@ Format: `editBook INDEX [n/BOOKNAME] [a/AUTHOR] [m/RATING] [t/TAG]...`
 * Edits the book at the specified INDEX. The index refers to the index number shown in the displayed book list. The index must be a positive integer 1, 2, 3, …​
 * Edit a book with new name same as the name of other book which is already existing in book shelf is not allowed
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the book will be removed i.e adding of tags is not cumulative.
-* You can remove all the book’s tags by typing t/ without specifying any tags after it.
+* If multiple valid parameters are supplied to the same field (E.g. addBook n/A n/B), the latter one will be took as the input
+* Take a look at <<Command Format>> to see the valid format for each parameter
+* Existing values will be updated to the input values
+* When editing tags, the existing tags of the book will be removed i.e adding of tags is not cumulative
+* You can remove all the book’s tags by typing t/ without specifying any tags after it
 ****
 
 Examples:

@@ -1,6 +1,9 @@
 package seedu.finance.logic.parser;
 
 import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_CATEGORY;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_DATE;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_NAME;
 
 import java.util.Arrays;
 
@@ -31,7 +34,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         String[] nameKeywords = Arrays.copyOfRange(argsWithFlag, 1, argsWithFlag.length);
 
         switch (argsWithFlag[0]) {
-        case "-name" :
+        case "-name":
             return new SearchCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
         case "-cat":
             return new SearchCommand(new CategoryContainsKeywordsPredicate(Arrays.asList(nameKeywords)));

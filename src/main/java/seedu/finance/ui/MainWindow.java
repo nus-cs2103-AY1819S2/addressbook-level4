@@ -157,7 +157,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Handles and udpates the budget to show on UI
+     * Handles and updates the budget to show on UI
      */
     @FXML
     public void handleChangeBudget() {
@@ -210,12 +210,25 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isChangeBudget()) {
                 handleChangeBudget();
             }
+            if (commandResult.isShowSummary()) {
+                handleShowSummary();
+            }
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    //================== Showing summary ==================//
+    /**
+     * Method to handle summary graph to show on UI
+     */
+    @FXML
+    public void handleShowSummary() { //Need to think how to link to the D3 files
+        //logger.info("Budget Info: " + logic.getBudget().getCurrentBudget());
+        //browserPanel.updateBudget(logic.getBudget());
     }
 
     //================== Changing Theme ==================//

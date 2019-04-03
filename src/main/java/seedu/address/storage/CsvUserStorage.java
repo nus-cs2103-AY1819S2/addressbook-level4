@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.time.Instant;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CsvUtil;
 import seedu.address.model.user.CardSrsData;
 import seedu.address.model.user.User;
@@ -60,7 +62,18 @@ public class CsvUserStorage implements UserStorage {
 
         User user = new User();
         for (String[] arr : data) {
-            user.addCard(parseStringIntoCard(arr));
+            try {
+                user.addCard(parseStringIntoCard(arr));
+            } catch (IllegalValueException e) {
+                //do error handling here
+                logger.warning("Values are empty" + filePath.toString());
+            } catch (NumberFormatException e) {
+                //do error handling here
+                logger.warning("Values are not correct" + filePath.toString());
+            } catch (DateTimeParseException e) {
+                //do error handling here
+                logger.warning("SrsDate is wrong" + filePath.toString());
+            }
         }
 
         return Optional.of(user);
@@ -106,31 +119,44 @@ public class CsvUserStorage implements UserStorage {
      * @param cardArray
      * @return card type with the constructor values
      */
-    private CardSrsData parseStringIntoCard(String[] cardArray) {
-        int hashCode = 0;
-        int numOfAttempts = 0;
-        int streak = 0;
-        Instant srs = Instant.now();
-        boolean isDifficult;
+    private CardSrsData parseStringIntoCard(String[] cardArray) throws IllegalValueException,
+            NumberFormatException, DateTimeParseException {
+        for(int i=0; i < cardArray.length-1; i++) {
+            if (cardArray[i].isEmpty()) {
+                //throw error for empty
+                throw new IllegalValueException("There are empty vales in the file");
+            }
+        }
 
-        try {
+        //values are non-empty, can initialize them now
+        int hashCode;
+        int numOfAttempts;
+        int streak;
+        Instant srs;
+        boolean isDifficult;
+        CardSrsData card;
+
+       try {
             hashCode = Integer.parseInt(cardArray[0]);
             numOfAttempts = Integer.parseInt(cardArray[1]);
             streak = Integer.parseInt(cardArray[2]);
             srs = Instant.parse(cardArray[3]);
-        } catch (Exception e) {
-            logger.warning("Values are not correct" + filePath.toString());
-        }
 
-        // TODO remove this check after session uses the new constructor
-        if (cardArray.length == 5) {
-            isDifficult = cardArray[4].equals("true");
-        } else {
-            isDifficult = false;
-        }
-        CardSrsData card = new CardSrsData(hashCode, numOfAttempts, streak, srs, isDifficult);
+           // TODO remove this check after session uses the new constructor
+           if (cardArray.length == 5) {
+               isDifficult = cardArray[4].equals("true");
+           } else {
+               isDifficult = false;
+           }
+           card = new CardSrsData(hashCode, numOfAttempts, streak, srs, isDifficult);
 
-        return card;
+           return card;
+       } catch (NumberFormatException e) {
+           throw e;
+       } catch(DateTimeParseException e) {
+           throw e;
+       }
+
     }
 
     @Override

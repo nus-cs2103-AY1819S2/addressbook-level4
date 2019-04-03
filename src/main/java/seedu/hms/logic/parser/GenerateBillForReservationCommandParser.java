@@ -74,7 +74,7 @@ public class GenerateBillForReservationCommandParser implements Parser<GenerateB
 
         //Search in whole day if timing is not provided
         DateRange dateRange = ParserUtil.parseDates(argMultimap.getValue(PREFIX_DATES)
-            .orElse("01/01/0000 - 31/12/9999"));
+            .orElse("01/01/0001-31/12/9999"));
         ReservationWithDatePredicate reservationWithDatePredicate = new ReservationWithDatePredicate(dateRange);
 
         //Reservation bill

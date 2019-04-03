@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static seedu.address.testutil.TypicalPatients.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPatients.getTypicalDocX;
 
 import java.nio.file.Path;
 
@@ -25,9 +25,9 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        JsonDocXStorage addressBookStorage = new JsonDocXStorage(getTempFilePath("ab"));
+        JsonDocXStorage docXStorage = new JsonDocXStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(docXStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -50,21 +50,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void DocXReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonDocXStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonDocXStorageTest} class.
          */
-        DocX original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyDocX retrieved = storageManager.readAddressBook().get();
+        DocX original = getTypicalDocX();
+        storageManager.saveDocX(original);
+        ReadOnlyDocX retrieved = storageManager.readDocX().get();
         assertEquals(original, new DocX(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getDocXFilePath() {
+        assertNotNull(storageManager.getDocXFilePath());
     }
 
 }

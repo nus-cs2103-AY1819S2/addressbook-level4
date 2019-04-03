@@ -4,26 +4,26 @@ import seedu.address.model.DocX;
 import seedu.address.model.person.Patient;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building DocX objects.
  * Example usage: <br>
- *     {@code DocX ab = new AddressBookBuilder().withPatient("John", "Doe").build();}
+ *     {@code DocX ab = new DocXBuilder().withPatient("John", "Doe").build();}
  */
-public class AddressBookBuilder {
+public class DocXBuilder {
 
     private DocX docX;
 
-    public AddressBookBuilder() {
+    public DocXBuilder() {
         docX = new DocX();
     }
 
-    public AddressBookBuilder(DocX docX) {
+    public DocXBuilder(DocX docX) {
         this.docX = docX;
     }
 
     /**
      * Adds a new {@code Patient} to the {@code DocX} that we are building.
      */
-    public AddressBookBuilder withPatient(Patient patient) {
+    public DocXBuilder withPatient(Patient patient) {
         docX.addPatient(patient);
         return this;
     }

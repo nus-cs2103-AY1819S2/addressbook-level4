@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPatientAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPatients.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPatients.getTypicalDocX;
 
 import org.junit.Test;
 
@@ -26,7 +26,7 @@ import seedu.address.model.person.Patient;
  */
 public class DeletePatientCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalDocX(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -36,9 +36,9 @@ public class DeletePatientCommandTest {
 
         String expectedMessage = String.format(DeletePatientCommand.MESSAGE_DELETE_PATIENT_SUCCESS, patientToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getDocX(), new UserPrefs());
         expectedModel.deletePatient(patientToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commitDocX();
 
         assertCommandSuccess(deletePatientCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -61,9 +61,9 @@ public class DeletePatientCommandTest {
 
         String expectedMessage = String.format(DeletePatientCommand.MESSAGE_DELETE_PATIENT_SUCCESS, patientToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getDocX(), new UserPrefs());
         expectedModel.deletePatient(patientToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commitDocX();
         showNoPatient(expectedModel);
 
         assertCommandSuccess(deletePatientCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -75,7 +75,7 @@ public class DeletePatientCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPatientList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getDocX().getPatientList().size());
 
         DeletePatientCommand deletePatientCommand = new DeletePatientCommand(outOfBoundIndex);
 
@@ -87,19 +87,19 @@ public class DeletePatientCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Patient patientToDelete = model.getFilteredPatientList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeletePatientCommand deletePatientCommand = new DeletePatientCommand(INDEX_FIRST_PERSON);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getDocX(), new UserPrefs());
         expectedModel.deletePatient(patientToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commitDocX();
 
         // delete -> first patient deleted
         deletePatientCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered patient list to show all patients
-        expectedModel.undoAddressBook();
+        // undo -> reverts DocX back to previous state and filtered patient list to show all patients
+        expectedModel.undoDocX();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first patient deleted again
-        expectedModel.redoAddressBook();
+        expectedModel.redoDocX();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -127,23 +127,23 @@ public class DeletePatientCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePatientDeleted() throws Exception {
         DeletePatientCommand deletePatientCommand = new DeletePatientCommand(INDEX_FIRST_PERSON);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getDocX(), new UserPrefs());
 
         showPatientAtIndex(model, INDEX_SECOND_PERSON);
         Patient patientToDelete = model.getFilteredPatientList().get(INDEX_FIRST_PERSON.getZeroBased());
         expectedModel.deletePatient(patientToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commitDocX();
 
         // delete -> deletes second patient in unfiltered patient list / first patient in filtered patient list
         deletePatientCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered patient list to show all patients
-        expectedModel.undoAddressBook();
+        // undo -> reverts DocX back to previous state and filtered patient list to show all patients
+        expectedModel.undoDocX();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(patientToDelete, model.getFilteredPatientList().get(INDEX_FIRST_PERSON.getZeroBased()));
         // redo -> deletes same second patient in unfiltered patient list
-        expectedModel.redoAddressBook();
+        expectedModel.redoDocX();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

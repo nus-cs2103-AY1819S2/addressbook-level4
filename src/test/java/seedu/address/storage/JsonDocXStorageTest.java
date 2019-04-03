@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalPatients.ALICE;
 import static seedu.address.testutil.TypicalPatients.HOON;
 import static seedu.address.testutil.TypicalPatients.IDA;
-import static seedu.address.testutil.TypicalPatients.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPatients.getTypicalDocX;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -30,13 +30,13 @@ public class JsonDocXStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() throws Exception {
+    public void readDocX_nullFilePath_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        readAddressBook(null);
+        readDocX(null);
     }
 
-    private java.util.Optional<ReadOnlyDocX> readAddressBook(String filePath) throws Exception {
-        return new JsonDocXStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+    private java.util.Optional<ReadOnlyDocX> readDocX(String filePath) throws Exception {
+        return new JsonDocXStorage(Paths.get(filePath)).readDocX(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -47,78 +47,78 @@ public class JsonDocXStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.json").isPresent());
+        assertFalse(readDocX("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readAddressBook("notJsonFormatDocX.json");
+        readDocX("notJsonFormatDocX.json");
 
         // IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
         // That means you should not have more than one exception test in one method
     }
 
     @Test
-    public void readAddressBook_invalidPatientAddressBook_throwDataConversionException() throws Exception {
+    public void readDocX_invalidPatientDocX_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidPatientDocX.json");
+        readDocX("invalidPatientDocX.json");
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPatientAddressBook_throwDataConversionException() throws Exception {
+    public void readDocX_invalidAndValidPatientDocX_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidAndValidPatientDocX.json");
+        readDocX("invalidAndValidPatientDocX.json");
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.json");
-        DocX original = getTypicalAddressBook();
-        JsonDocXStorage jsonAddressBookStorage = new JsonDocXStorage(filePath);
+    public void readAndSaveDocX_allInOrder_success() throws Exception {
+        Path filePath = testFolder.getRoot().toPath().resolve("TempDocX.json");
+        DocX original = getTypicalDocX();
+        JsonDocXStorage jsonDocXStorage = new JsonDocXStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyDocX readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonDocXStorage.saveDocX(original, filePath);
+        ReadOnlyDocX readBack = jsonDocXStorage.readDocX(filePath).get();
         assertEquals(original, new DocX(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addPatient(HOON);
         original.removePatient(ALICE);
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonDocXStorage.saveDocX(original, filePath);
+        readBack = jsonDocXStorage.readDocX(filePath).get();
         assertEquals(original, new DocX(readBack));
 
         // Save and read without specifying file path
         original.addPatient(IDA);
-        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
-        readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
+        jsonDocXStorage.saveDocX(original); // file path not specified
+        readBack = jsonDocXStorage.readDocX().get(); // file path not specified
         assertEquals(original, new DocX(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
+    public void saveDocX_nullDocX_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(null, "SomeFile.json");
+        saveDocX(null, "SomeFile.json");
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code DocX} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyDocX addressBook, String filePath) {
+    private void saveDocX(ReadOnlyDocX DocX, String filePath) {
         try {
             new JsonDocXStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveDocX(DocX, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
+    public void saveDocX_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(new DocX(), null);
+        saveDocX(new DocX(), null);
     }
 }

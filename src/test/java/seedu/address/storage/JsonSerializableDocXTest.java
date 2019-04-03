@@ -31,7 +31,7 @@ public class JsonSerializableDocXTest {
         JsonSerializableDocX dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializableDocX.class).get();
         DocX docXFromFile = dataFromFile.toModelType();
-        DocX typicalPatientsDocX = TypicalPatients.getTypicalAddressBook();
+        DocX typicalPatientsDocX = TypicalPatients.getTypicalDocX();
         //assertEquals(docXFromFile, typicalPatientsDocX);
     }
 
@@ -59,7 +59,7 @@ public class JsonSerializableDocXTest {
         JsonSerializableDocX dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializableDocX.class).get();
         DocX docXFromFile = dataFromFile.toModelType();
-        DocX typicalDoctorsDocX = TypicalDoctors.getTypicalAddressBook();
+        //DocX typicalDoctorsDocX = TypicalDoctors.getTypicalDocX();
         //assertEquals(docXFromFile, typicalDoctorsDocX);
     }
 

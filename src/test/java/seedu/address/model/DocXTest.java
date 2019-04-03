@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_STROKE;
 import static seedu.address.testutil.TypicalPatients.ALICE;
-import static seedu.address.testutil.TypicalPatients.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPatients.getTypicalDocX;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -50,8 +50,8 @@ public class DocXTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        DocX newData = getTypicalAddressBook();
+    public void resetData_withValidReadOnlyDocX_replacesData() {
+        DocX newData = getTypicalDocX();
         docX.resetData(newData);
         assertEquals(newData, docX);
     }
@@ -75,18 +75,18 @@ public class DocXTest {
     }
 
     @Test
-    public void hasPatient_personNotInAddressBook_returnsFalse() {
+    public void hasPatient_personNotInDocX_returnsFalse() {
         assertFalse(docX.hasPatient(ALICE));
     }
 
     @Test
-    public void hasPatient_personInAddressBook_returnsTrue() {
+    public void hasPatient_personInDocX_returnsTrue() {
         docX.addPatient(ALICE);
         assertTrue(docX.hasPatient(ALICE));
     }
 
     @Test
-    public void hasPatient_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasPatient_personWithSameIdentityFieldsInDocX_returnsTrue() {
         docX.addPatient(ALICE);
         Patient editedAlice = new PatientBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_STROKE)
                 .build();

@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showDoctorAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
-import static seedu.address.testutil.TypicalPatients.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPatients.getTypicalDocX;
 
 import org.junit.Test;
 
@@ -23,8 +23,8 @@ import seedu.address.model.UserPrefs;
  * Contains integration tests (interaction with the Model) for {@code SelectDoctorCommand}.
  */
 public class SelectDoctorCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalDocX(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalDocX(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -58,7 +58,7 @@ public class SelectDoctorCommandTest {
 
         Index outOfBoundsIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of docX list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getDoctorList().size());
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getDocX().getDoctorList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_DOCTOR_DISPLAYED_INDEX);
     }

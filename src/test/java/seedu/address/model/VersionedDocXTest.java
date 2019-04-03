@@ -14,14 +14,14 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.DocXBuilder;
 
 public class VersionedDocXTest {
 
-    private final ReadOnlyDocX addressBookWithAmy = new AddressBookBuilder().withPatient(AMY).build();
-    private final ReadOnlyDocX addressBookWithBob = new AddressBookBuilder().withPatient(BOB).build();
-    private final ReadOnlyDocX addressBookWithCarl = new AddressBookBuilder().withPatient(CARL).build();
-    private final ReadOnlyDocX emptyAddressBook = new AddressBookBuilder().build();
+    private final ReadOnlyDocX addressBookWithAmy = new DocXBuilder().withPatient(AMY).build();
+    private final ReadOnlyDocX addressBookWithBob = new DocXBuilder().withPatient(BOB).build();
+    private final ReadOnlyDocX addressBookWithCarl = new DocXBuilder().withPatient(CARL).build();
+    private final ReadOnlyDocX emptyAddressBook = new DocXBuilder().build();
 
     @Test
     public void commit_singleAddressBook_noStatesRemovedCurrentStateSaved() {

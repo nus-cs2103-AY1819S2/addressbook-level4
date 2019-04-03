@@ -43,12 +43,6 @@ public class AddDoctorCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        new AddCommand(null);
-    }
-
-    @Test
     public void execute_doctorAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingDoctorAdded modelStub = new ModelStubAcceptingDoctorAdded();
         Doctor validDoctor = new DoctorBuilder().build();
@@ -118,22 +112,22 @@ public class AddDoctorCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getDocXFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setDocXFilePath(Path DocXFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBook(ReadOnlyDocX addressBook) {
+        public void setDocX(ReadOnlyDocX DocX) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyDocX getAddressBook() {
+        public ReadOnlyDocX getDocX() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -260,27 +254,27 @@ public class AddDoctorCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public boolean canUndoDocX() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
+        public boolean canRedoDocX() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void undoDocX() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void redoDocX() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitDocX() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -378,12 +372,12 @@ public class AddDoctorCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitDocX() {
             // called by {@code AddCommand#execute()}
         }
 
         @Override
-        public ReadOnlyDocX getAddressBook() {
+        public ReadOnlyDocX getDocX() {
             return new DocX();
         }
     }

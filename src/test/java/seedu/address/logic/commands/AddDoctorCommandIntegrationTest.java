@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPatients.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPatients.getTypicalDocX;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,16 +24,16 @@ public class AddDoctorCommandIntegrationTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalDocX(), new UserPrefs());
     }
 
     @Test
     public void execute_newDoctor_success() {
         Doctor validDoctor = new DoctorBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getDocX(), new UserPrefs());
         expectedModel.addDoctor(validDoctor);
-        expectedModel.commitAddressBook();
+        expectedModel.commitDocX();
 
         assertCommandSuccess(new AddDoctorCommand(validDoctor), model, commandHistory,
                 String.format(AddDoctorCommand.MESSAGE_SUCCESS, validDoctor), expectedModel);
@@ -41,7 +41,7 @@ public class AddDoctorCommandIntegrationTest {
 
     @Test
     public void execute_duplicateDoctor_throwsCommandException() {
-        Doctor doctorInList = model.getAddressBook().getDoctorList().get(0);
+        Doctor doctorInList = model.getDocX().getDoctorList().get(0);
         assertCommandFailure(new AddDoctorCommand(doctorInList), model, commandHistory,
                 AddDoctorCommand.MESSAGE_DUPLICATE_DOCTOR);
     }

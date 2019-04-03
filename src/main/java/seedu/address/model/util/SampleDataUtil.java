@@ -73,9 +73,9 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyDocX getSampleDocX() {
-        DocX sampleAb = new DocX();
+        DocX sampleDocX = new DocX();
         for (Patient samplePatient : getSamplePatients()) {
-            sampleAb.addPatient(samplePatient);
+            sampleDocX.addPatient(samplePatient);
         }
         /*
         for (Doctor sampleDoctor : getSampleDoctors()) {
@@ -83,9 +83,9 @@ public class SampleDataUtil {
         }
         */
         for (MedicalHistory sampleMedHist : getSampleMedHists()) {
-            sampleAb.addMedHist(sampleMedHist);
+            sampleDocX.addMedHist(sampleMedHist);
         }
-        return sampleAb;
+        return sampleDocX;
     }
 
     /**

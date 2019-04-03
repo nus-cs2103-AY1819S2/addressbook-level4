@@ -117,12 +117,12 @@ public class AddPatientCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getDocXFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setDocXFilePath(Path DocXFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -132,12 +132,12 @@ public class AddPatientCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyDocX newData) {
+        public void setDocX(ReadOnlyDocX newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyDocX getAddressBook() {
+        public ReadOnlyDocX getDocX() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -273,27 +273,27 @@ public class AddPatientCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public boolean canUndoDocX() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
+        public boolean canRedoDocX() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void undoDocX() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void redoDocX() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitDocX() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -375,12 +375,12 @@ public class AddPatientCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitDocX() {
             // called by {@code AddPatientCommand#execute()}
         }
 
         @Override
-        public ReadOnlyDocX getAddressBook() {
+        public ReadOnlyDocX getDocX() {
             return new DocX();
         }
     }

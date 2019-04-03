@@ -50,9 +50,9 @@ public class LogicManagerTest {
 
     @Before
     public void setUp() throws Exception {
-        JsonDocXStorage addressBookStorage = new JsonDocXStorage(temporaryFolder.newFile().toPath());
+        JsonDocXStorage DocXStorage = new JsonDocXStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(DocXStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -80,10 +80,10 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() throws Exception {
         // Setup LogicManager with JsonDocXIoExceptionThrowingStub
-        JsonDocXStorage addressBookStorage =
+        JsonDocXStorage DocXStorage =
                 new JsonDocXIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(DocXStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -93,7 +93,7 @@ public class LogicManagerTest {
         Patient expectedPatient = new PatientBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPatient(expectedPatient);
-        expectedModel.commitAddressBook();
+        expectedModel.commitDocX();
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandBehavior(CommandException.class, addCommand, expectedMessage, expectedModel);
         assertHistoryCorrect(addCommand);
@@ -139,7 +139,7 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getDocX(), new UserPrefs());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 
@@ -188,7 +188,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyDocX addressBook, Path filePath) throws IOException {
+        public void saveDocX(ReadOnlyDocX DocX, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

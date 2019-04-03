@@ -19,7 +19,7 @@ import seedu.address.model.person.Patient;
 /**
  * An Immutable DocX that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
+@JsonRootName(value = "docx")
 class JsonSerializableDocX {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Patients list contains duplicate patient(s).";

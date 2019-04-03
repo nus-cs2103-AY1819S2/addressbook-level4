@@ -129,10 +129,6 @@ public class ParserUtilTest {
         assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
     }
 
-    @Test
-    public void parseEmail_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail((String) null));
-    }
 
     @Test
     public void parseTag_null_throwsNullPointerException() throws Exception {

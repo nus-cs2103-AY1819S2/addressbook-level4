@@ -153,7 +153,7 @@ public class CommandTestUtil {
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        DocX expectedDocX = new DocX(actualModel.getAddressBook());
+        DocX expectedDocX = new DocX(actualModel.getDocX());
         List<Patient> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPatientList());
         Patient expectedSelectedPatient = actualModel.getSelectedPatient();
 
@@ -164,7 +164,7 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedDocX, actualModel.getAddressBook());
+            assertEquals(expectedDocX, actualModel.getDocX());
             assertEquals(expectedFilteredList, actualModel.getFilteredPatientList());
             assertEquals(expectedSelectedPatient, actualModel.getSelectedPatient());
             assertEquals(expectedCommandHistory, actualCommandHistory);
@@ -191,7 +191,7 @@ public class CommandTestUtil {
     public static void deleteFirstPatient(Model model) {
         Patient firstPatient = model.getFilteredPatientList().get(0);
         model.deletePatient(firstPatient);
-        model.commitAddressBook();
+        model.commitDocX();
     }
 
     /**
@@ -214,7 +214,7 @@ public class CommandTestUtil {
     public static void deleteFirstDoctor(Model model) {
         Doctor firstDoctor = model.getFilteredDoctorList().get(0);
         model.deleteDoctor(firstDoctor);
-        model.commitAddressBook();
+        model.commitDocX();
     }
 
 }

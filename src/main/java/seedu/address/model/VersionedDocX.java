@@ -8,14 +8,14 @@ import java.util.List;
  */
 public class VersionedDocX extends DocX {
 
-    private final List<ReadOnlyDocX> addressBookStateList;
+    private final List<ReadOnlyDocX> docXStateList;
     private int currentStatePointer;
 
     public VersionedDocX(ReadOnlyDocX initialState) {
         super(initialState);
 
-        addressBookStateList = new ArrayList<>();
-        addressBookStateList.add(new DocX(initialState));
+        docXStateList = new ArrayList<>();
+        docXStateList.add(new DocX(initialState));
         currentStatePointer = 0;
     }
 
@@ -25,13 +25,13 @@ public class VersionedDocX extends DocX {
      */
     public void commit() {
         removeStatesAfterCurrentPointer();
-        addressBookStateList.add(new DocX(this));
+        docXStateList.add(new DocX(this));
         currentStatePointer++;
         indicateModified();
     }
 
     private void removeStatesAfterCurrentPointer() {
-        addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
+        docXStateList.subList(currentStatePointer + 1, docXStateList.size()).clear();
     }
 
     /**
@@ -42,7 +42,7 @@ public class VersionedDocX extends DocX {
             throw new NoUndoableStateException();
         }
         currentStatePointer--;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(docXStateList.get(currentStatePointer));
     }
 
     /**
@@ -53,7 +53,7 @@ public class VersionedDocX extends DocX {
             throw new NoRedoableStateException();
         }
         currentStatePointer++;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(docXStateList.get(currentStatePointer));
     }
 
     /**
@@ -67,7 +67,7 @@ public class VersionedDocX extends DocX {
      * Returns true if {@code redo()} has docX states to redo.
      */
     public boolean canRedo() {
-        return currentStatePointer < addressBookStateList.size() - 1;
+        return currentStatePointer < docXStateList.size() - 1;
     }
 
     @Override
@@ -82,12 +82,12 @@ public class VersionedDocX extends DocX {
             return false;
         }
 
-        VersionedDocX otherVersionedAddressBook = (VersionedDocX) other;
+        VersionedDocX otherVersioneddocX = (VersionedDocX) other;
 
         // state check
-        return super.equals(otherVersionedAddressBook)
-                && addressBookStateList.equals(otherVersionedAddressBook.addressBookStateList)
-                && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
+        return super.equals(otherVersioneddocX)
+                && docXStateList.equals(otherVersioneddocX.docXStateList)
+                && currentStatePointer == otherVersioneddocX.currentStatePointer;
     }
 
     /**
@@ -95,7 +95,7 @@ public class VersionedDocX extends DocX {
      */
     public static class NoUndoableStateException extends RuntimeException {
         private NoUndoableStateException() {
-            super("Current state pointer at start of addressBookState list, unable to undo.");
+            super("Current state pointer at start of docXState list, unable to undo.");
         }
     }
 
@@ -104,7 +104,7 @@ public class VersionedDocX extends DocX {
      */
     public static class NoRedoableStateException extends RuntimeException {
         private NoRedoableStateException() {
-            super("Current state pointer at end of addressBookState list, unable to redo.");
+            super("Current state pointer at end of docXState list, unable to redo.");
         }
     }
 }

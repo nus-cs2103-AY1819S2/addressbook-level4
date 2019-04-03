@@ -22,10 +22,10 @@ public class StudyPanel extends UiPart<Region> {
     private static final String YOUR_ANSWER_LABEL = "YOUR ANSWER\n\n";
     private static final int NUMBER_OF_RATINGS = 5;
     private static final int SPACE_SPANNED = 100;
+    private static final String DIFFICULTY_QUESTION = createRatingQuestion(NUMBER_OF_RATINGS, SPACE_SPANNED);
 
     private final Logger logger = LogsCenter.getLogger(ListPanel.class);
 
-    private final String DIFFICULTY_QUESTION = createRatingQuestion(NUMBER_OF_RATINGS, SPACE_SPANNED);
 
     @FXML
     private HBox studyPane;

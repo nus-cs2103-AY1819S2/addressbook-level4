@@ -10,11 +10,11 @@ image::docs/images/Ui.png[width="1010"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="1010"]
+image::docs/images/Ui.png[width="1010"]
 endif::[]
 
 * This is a Hotel Management System. Hotels can use this system as a one stop application for all their management work.
-* It has features to show customer details, and the respective customer's room reservations and service bookings along with it.
+* It has features to show customer details, and the respective customer's room reservations and service bookings along with it. We also generate the bill for the user.
 * This application has been made keeping in mind that the user is more comfortable with typing commands and is a fast typer. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 
 == Site Map

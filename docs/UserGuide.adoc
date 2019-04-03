@@ -39,7 +39,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list-customers`* : lists all customers
-* **`add-customer`**`n/John Doe p/98765432 e/johnd@example.com id/887 a/John street, block 123, #01-01` : adds a customer named `John Doe` to the HMS+ database.
+* **`add-customer`**`n/John Doe p/98765432 e/johnd@example.com id/G8957685R a/John street, block 123, #01-01` : adds a customer named `John Doe` to the HMS+ database.
 * **`delete-customer`**`3` : deletes the 3rd customer  shown in the current list
 * *`exit`* : exits the app
 

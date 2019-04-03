@@ -10,7 +10,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.PdfBook;
-import seedu.address.model.pdf.Deadline;
 import seedu.address.model.pdf.Pdf;
 
 /**

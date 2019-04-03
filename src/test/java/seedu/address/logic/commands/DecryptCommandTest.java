@@ -16,13 +16,13 @@ import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 import java.io.IOException;
 import java.nio.file.Paths;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
+import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
-import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.Messages;

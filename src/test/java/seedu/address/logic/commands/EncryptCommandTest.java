@@ -174,7 +174,6 @@ public class EncryptCommandTest {
         }
     }
 
-    @SuppressWarnings("Duplicates")
     /**
      * Set {code pdfToInitialise} to be decrypted
      */

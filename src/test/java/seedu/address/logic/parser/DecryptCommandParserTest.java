@@ -1,9 +1,5 @@
 package seedu.address.logic.parser;
 
-import org.junit.Test;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DecryptCommand;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.FILE_DESC_1_PDF;
@@ -14,6 +10,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
+
+import org.junit.Test;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.DecryptCommand;
 
 public class DecryptCommandParserTest {
 

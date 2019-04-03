@@ -17,11 +17,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DecryptCommand;
 
 public class DecryptCommandParserTest {
-
-    private DecryptCommandParser parser = new DecryptCommandParser();
-
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, DecryptCommand.MESSAGE_USAGE);
+    
+    private DecryptCommandParser parser = new DecryptCommandParser();
 
     @Test
     public void parse_missingParts_failure() {

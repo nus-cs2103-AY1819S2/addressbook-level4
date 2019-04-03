@@ -60,8 +60,8 @@ public class JsonDocXStorage implements DocXStorage {
     }
 
     @Override
-    public void saveDocX(ReadOnlyDocX DocX) throws IOException {
-        saveDocX(DocX, filePath);
+    public void saveDocX(ReadOnlyDocX docX) throws IOException {
+        saveDocX(docX, filePath);
     }
 
     /**
@@ -69,12 +69,12 @@ public class JsonDocXStorage implements DocXStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveDocX(ReadOnlyDocX DocX, Path filePath) throws IOException {
-        requireNonNull(DocX);
+    public void saveDocX(ReadOnlyDocX docX, Path filePath) throws IOException {
+        requireNonNull(docX);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableDocX(DocX), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableDocX(docX), filePath);
     }
 
 }

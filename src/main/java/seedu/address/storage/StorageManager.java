@@ -64,14 +64,14 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void saveDocX(ReadOnlyDocX DocX) throws IOException {
-        saveDocX(DocX, docXStorage.getDocXFilePath());
+    public void saveDocX(ReadOnlyDocX docX) throws IOException {
+        saveDocX(docX, docXStorage.getDocXFilePath());
     }
 
     @Override
-    public void saveDocX(ReadOnlyDocX DocX, Path filePath) throws IOException {
+    public void saveDocX(ReadOnlyDocX docX, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        docXStorage.saveDocX(DocX, filePath);
+        docXStorage.saveDocX(docX, filePath);
     }
 
 }

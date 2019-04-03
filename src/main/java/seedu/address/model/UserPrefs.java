@@ -14,7 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path DocXFilePath = Paths.get("data" , "docX.json");
+    private Path docXFilePath = Paths.get("data" , "docx.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -48,12 +48,12 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     }
 
     public Path getDocXFilePath() {
-        return DocXFilePath;
+        return docXFilePath;
     }
 
-    public void setDocXFilePath(Path DocXFilePath) {
-        requireNonNull(DocXFilePath);
-        this.DocXFilePath = DocXFilePath;
+    public void setDocXFilePath(Path docXFilePath) {
+        requireNonNull(docXFilePath);
+        this.docXFilePath = docXFilePath;
     }
 
     @Override
@@ -68,20 +68,21 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && DocXFilePath.equals(o.DocXFilePath);
+                && docXFilePath.equals(o.docXFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, DocXFilePath);
+        return Objects.hash(guiSettings, docXFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + DocXFilePath);
+        sb.append("\nLocal data file location : " + docXFilePath);
         return sb.toString();
     }
+
 
 }

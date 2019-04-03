@@ -33,14 +33,14 @@ public interface DocXStorage {
 
     /**
      * Saves the given {@link ReadOnlyDocX} to the storage.
-     * @param DocX cannot be null.
+     * @param docX cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveDocX(ReadOnlyDocX DocX) throws IOException;
+    void saveDocX(ReadOnlyDocX docX) throws IOException;
 
     /**
      * @see #saveDocX(ReadOnlyDocX)
      */
-    void saveDocX(ReadOnlyDocX DocX, Path filePath) throws IOException;
+    void saveDocX(ReadOnlyDocX docX, Path filePath) throws IOException;
 
 }

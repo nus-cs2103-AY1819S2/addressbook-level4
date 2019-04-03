@@ -27,6 +27,6 @@ public interface Storage extends DocXStorage, UserPrefsStorage {
     Optional<ReadOnlyDocX> readDocX() throws DataConversionException, IOException;
 
     @Override
-    void saveDocX(ReadOnlyDocX DocX) throws IOException;
+    void saveDocX(ReadOnlyDocX docX) throws IOException;
 
 }

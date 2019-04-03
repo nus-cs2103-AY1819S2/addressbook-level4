@@ -121,7 +121,7 @@ public class CsvUserStorage implements UserStorage {
      */
     private CardSrsData parseStringIntoCard(String[] cardArray) throws IllegalValueException,
             NumberFormatException, DateTimeParseException {
-        for(int i=0; i < cardArray.length-1; i++) {
+        for (int i = 0; i < cardArray.length - 1; i++) {
             if (cardArray[i].isEmpty()) {
                 //throw error for empty
                 throw new IllegalValueException("There are empty vales in the file");
@@ -136,27 +136,27 @@ public class CsvUserStorage implements UserStorage {
         boolean isDifficult;
         CardSrsData card;
 
-       try {
+        try {
             hashCode = Integer.parseInt(cardArray[0]);
             numOfAttempts = Integer.parseInt(cardArray[1]);
             streak = Integer.parseInt(cardArray[2]);
             srs = Instant.parse(cardArray[3]);
 
-           // TODO remove this check after session uses the new constructor
-           if (cardArray.length == 5) {
-               isDifficult = cardArray[4].equals("true");
-           } else {
-               isDifficult = false;
-           }
-           card = new CardSrsData(hashCode, numOfAttempts, streak, srs, isDifficult);
+            // TODO remove this check after session uses the new constructor'
+            if (cardArray.length == 5) {
+                isDifficult = cardArray[4].equals("true");
+            } else {
+                isDifficult = false;
+            }
+            card = new CardSrsData(hashCode, numOfAttempts, streak, srs, isDifficult);
 
-           return card;
-       } catch (NumberFormatException e) {
-           throw e;
-       } catch(DateTimeParseException e) {
-           throw e;
-       }
+            return card;
 
+        } catch (NumberFormatException e) {
+            throw e;
+        } catch (DateTimeParseException e) {
+            throw e;
+        }
     }
 
     @Override

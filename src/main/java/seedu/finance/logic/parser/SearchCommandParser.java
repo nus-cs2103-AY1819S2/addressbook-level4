@@ -1,9 +1,6 @@
 package seedu.finance.logic.parser;
 
 import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_CATEGORY;
-import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_DATE;
-import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_NAME;
 
 import java.util.Arrays;
 
@@ -50,6 +47,11 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         }
     }
 
+    /**
+     * Checks if given {@code String[]} of keywords contain only valid dates
+     * @param keywords arguments behind the command flag
+     * @return true if keywords contain only valid dates
+     */
     private static boolean checkKeywordsValidDate(String[] keywords) {
         for (String keyword : keywords) {
             if (!Date.isValidDate(keyword)) {

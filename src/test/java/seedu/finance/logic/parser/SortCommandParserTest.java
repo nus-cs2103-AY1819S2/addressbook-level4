@@ -4,7 +4,6 @@ import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_AMOUNT;
 import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_CATEGORY;
 import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_DATE;
 import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_NAME;
-import static seedu.finance.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseSuccess;
 

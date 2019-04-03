@@ -2,7 +2,6 @@ package seedu.finance.logic.parser.comparator;
 
 import java.util.Comparator;
 
-import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Record;
 
 /**

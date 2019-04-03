@@ -32,7 +32,7 @@ public class TagCommand extends Command {
             + PREFIX_TAG_ADD + "/" + PREFIX_TAG_REMOVE + " " + PREFIX_TAG_NAME + "[TAG]\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_TAG_ADD + " "
             + PREFIX_TAG_NAME + "CS2103T " + PREFIX_TAG_NAME + "SE\n"
-            + "Example: " + COMMAND_WORD + " 2 " + PREFIX_TAG_REMOVE + PREFIX_TAG_NAME + "School\n";
+            + "Example: " + COMMAND_WORD + " 2 " + PREFIX_TAG_REMOVE + " " + PREFIX_TAG_NAME + "School\n";
 
     private final Index index;
     private final Set<Tag> tags;

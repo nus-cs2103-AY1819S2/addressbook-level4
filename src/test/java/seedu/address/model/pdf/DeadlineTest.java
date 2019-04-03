@@ -29,7 +29,7 @@ public class DeadlineTest {
     @Test
     public void jsonConstructor() {
         // null value -> expected to throw NullPointerException
-        Assert.assertThrows(NullPointerException.class, () -> new Deadline(null));
+        Assert.assertThrows(NullPointerException.class, () -> new Deadline());
 
         // missing status -> expected to throw MissingFormatArgumentException
         Assert.assertThrows(

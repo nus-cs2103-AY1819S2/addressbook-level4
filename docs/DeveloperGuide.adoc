@@ -117,6 +117,7 @@ When you are ready to start coding,
 1. Get some sense of the overall design by reading <<Design-Architecture>>.
 2. Take a look at <<GetStartedProgramming>>.
 
+// tag::design[]
 == Design
 
 [[Design-Architecture]]
@@ -248,52 +249,66 @@ The `Storage` component,
 === Common classes
 
 Classes used by multiple components are in the `seedu.financetracker.commons` package.
-
+// end::design[]
 == Implementation
 
 This section describes in detail the implementation of certain features in _In-Credit-Ble_.
 
-=== Searching by tag feature
+// tag::search[]
+=== Search feature
 
-This feature allows the user to filter out specific expenses by entering a certain tag (eg food).
+This feature allows the user to filter out specific expenses based on keywords that correspond to the name, category
+or date.
 
 This implementation is under `Logic` and `Model` Component.
 
-_Sequence diagram to be done soon_
+.Sequence Diagram of Search Command
+image::SearchCommandSequenceDiagram.png[width="800"]
 
-==== To be implemented
+==== Current Implementation
 
-1. User enters command `findTag food`. The command is received by `FinanceTrackerParser`,
-which then creates a `FindTagCommandParser` Object and calls `FindCommandParser#parse()` method.
+1. User enters command `search -FLAG food`. The command is received by `FinanceTrackerParser`,
+which then creates a `SearchCommandParser` Object and calls `SearchCommandParser#parse()` method.
 
-2.  `FindTagCommandParser#parse()` method then calls `ParserUtil#ensureKeywordsAreValid()` method. If any
-of the keywords does not follow the correct format, `ParseException` will be thrown.
+2. Depending on the `-FLAG` that is entered by the user, `SearchCommandParser` will create different predicates that
+correspond to the `-FLAG`.
+* If `-cat` is inputted, `CategoryContainsKeywordsPredicate` will be created.
+* If `-date` is inputted, `DateContainsKeywordPredicate` will be created.
+* If `-name` is inputted, `NameContainsKeywordPredicate` will be created.
 
-3. A `FindTagCommand` Object is created and returned to the `LogicManager`.
+3. A `SearchCommand` Object with the correct predicate Object as parameter is created and returned to the
+`LogicManager`.
 
-4. `LogicManager` then calls `FindTagCommand#execute()`, which calls Mode#updateFilteredExpenseList() method
-to update a filterList based on the given predicate.
+4. `LogicManager` then calls `SearchCommand#execute()`, which calls Model#updateFilteredExpenseList() method
+to update the predicate of FilterList<Record>. FilterList now contains a new set of records which is filtered by the
+new predicate.
 
-5. Then the record list panel will show a set of records according to the keywords. A `CommandResult` is then created
+5. `SearchCommand` then calls `getFilteredRecordList` method to access the filtered records in an
+`ObservableList<Record>` in order to calculate the sum of the money that is spent in all the filtered records.
+
+6. Then the record list panel will show a set of records according to the keywords. A `CommandResult` is then created
 and returned to `Logic Manager`.
 
 ==== Design Consideration
 
 This feature can be implemented in different ways in terms of how the records are found.
 
-* *Alternative 1* : Check through all records and select those with the matched `tag`
+* *Alternative 1* : Check through all records and select those with the matched keywords based on the flag.
 
 ** Pros: Easy to implement without changing original architecture.
 ** Cons: Slow. Tend to take a long time to search through large number of records.
 
-* *Alternative 2* : Each time a new tag is created, create a new list. Each of these list will hold
-all the records of a particular tag.
+* *Alternative 2* : Each time a new category/date is called when making a record, create a new list. Each of these list
+will hold all the records that correspond to these category or dates.
 
-** Pros: Very efficient, each time the command is called, just need to retrieve the list of the wanted tag.
+** Pros: Very efficient, each time the command is called, just need to retrieve the list of the wanted field.
 ** Cons: Need to change the original architecture of storage to introduce storing of different list corresponding to
 each tag. Will take up more space if there is many different tags.
+// end::search[]
 
 
+
+// tag::sort[]
 === Sort feature
 
 By default, the list of entries is ordered according to the time the entry is entered into the application,
@@ -303,11 +318,79 @@ The sort mechanism allows users to view their expense records in a different way
 
 ==== Current Implementation
 
-*_Details of implementation will be added next time._*
+The sort command uses comparators that implement java.util.Comparator interface to provide the comparison functions.
+
+.Sort feature
+|===
+|Command |Comparator used |Effect
+
+|`sort -name` |`RecordNameComparator` |Lexicographical order
+|`sort -amount` |`RecordAmountComparator` |Descending order
+|`sort -date` |`RecordDateComparator` |Most recent to least recent
+|`sort -cat` |`RecordCategoryComparator` |Lexicographical order
+
+|===
+
+Here is the list of operations involved in the execution of command, `sort -name`.
+
+. `LogicManager#execute(_"sort -name"_)` calls `FinanceTrackerParser#parseCommand(_"sort -name"_)`.
+. `FinanceTracker#parseCommand(_"sort -name"_)` creates a new `SortCommandParser` object and calls `SortCommandParser#parse(_" -name"_)`.
+. `SortCommandParser#parse()` creates a new `RecordNameComparator()` object, _comparator_ and passes it as a parameter into the `SortCommand` constructor.
+. The `SortCommand` object, _s_, is then passed back to the `SortCommandParser`, `FinanceTrackerParser`, and finally back to the `LogicManager`.
++
+.Sequence Diagram of Sort Command I
+image::SortSequenceDiagram1.png[width="800"]
++
+. `LogicManager#execute(_"sort -name"_)` then continues to call `SortCommand#execute()`.
+. `SortCommand#execute()` calls `Model#SortFilteredRecordList(_comparator_)`.
+. `Model#SortFilteredRecordList(_comparator_)` calls `FinanceTracker#sortRecordList(_comparator_)`.
+. `FinanceTracker#sortRecordList(_comparator_)` calls `UniqueRecordList#sortList(_comparator_)`.
+. `UniqueRecordList#sortList(_comparator_)` then uses `FXCollection`’s static method `sort()`  to sort the records.
+. `SortCommand#execute()` then creates a `CommandResult` object and returns it back to the `LogicManager`.
+
+.Sequence Diagram of Sort Command II
+image::SortSequenceDiagram2.png[width="800"]
 
 ==== Design Considerations
 
 *_Design considerations will be added next time._*
+
+// end::undoredo[]
+
+// tag::reverse[]
+=== Reverse feature
+
+The reverse feature allows users to reverse the list of entries displayed on the graphic user interface.
+The sort features are implemented with a default ordering.
+The reverse command provides a convenient way for users to sort their entries in reverse order.
+
+==== Current Implementation
+
+This is how the reverse command is implemented:
+
+. `LogicManager#execute(_"reverse"_)` calls `FinanceTrackerParser#parseCommand(_"reverse"_)`.
+. `FinanceTrackerParser#parseCommand(_"reverse"_)` creates a `ReverseCommand` object, _r_.
+. _r_ is passed back to the `FinanceTrackerParser`, and then back to the `LogicManager`.
+. `LogicManager#execute(_"reverse"_)` then moves on to call `ReverseCommand#execute()`.
+. `ReverseCommand#execute()` calls `Model#reverseFilteredRecordList()`.
+. `Model#reverseFilteredRecordList()` calls `FinanceTracker#reverseRecordList()`.
+. `FinanceTracker#reverseRecordList()` calls `UniqueRecordList#reverseList()`.
+. `UniqueRecordList#reverseList()` uses `FXCollection`’s static method `reverse()` to reverse the list of records.
+. `ReverseCommand#execute()` then creates a `CommandResult` object and returns it back to the `LogicManager`.
+
+.Sequence Diagram of Reverse Command
+image::ReverseSequenceDiagram.png[width="800"]
+
+
+==== Design Considerations
+
+*_Design considerations will be added next time._*
+
+// end::reverse[]
+
+
+
+
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -399,25 +482,45 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // tag::budgetmanagement[]
 === Budget Management
 
-This features allows the user to set a budget and allocate it to different categories. The budget will decrease when records are added.
+This group of features allows the user to set a total budget and
+allocate a portion of the total budget to different categories.
+The current spending will increase when records are added.
 
-This implementation is under `Logic`, `Model` and `UI` Component.
+This implementation is under `Logic`, `Model`, `Storage` and `UI` Component.
+// tag::budget[]
+==== Setting a Budget
+This feature allows the particular user to set a budget for the FinanceTracker. The user
+may only set the budget once and increase or decrease it later.
 
-_Sequence Diagram will be done soon_
+Given below is a sequence diagram and step by step explanation of how Finance Tracker
+creates a budget when the user sets a budget.
 
-==== Implemented
-* `Budget` Class has been created with `Amount` field to keep track of the budget of Financial Tracker.
-* `Set` Command implemented with logic for adding a budget only if a budget does not exist.
-* Dummy Commands for `allocate` and `increase` have been added.
+.Sequence diagram of user setting a budget
+image::SetCommandSequenceDiagram.png[width="800"]
 
-==== To be implemented
-* Reflecting total budget and current budget on `BrowserPanel` portion of UI.
-* Implementing logic for `increase` command to allow for increasing the budget.
-* Modify `spend` and `edit` Command to deduct from total budget to get current budget.
-* Implement `reset` command to reset current budget expenditure and total budget.
-* Implement logic for `allocate` command to be able to divide budget into categories.
-* Reflecting total budget and current budget for each category when selected in UI.
-* Expand `undo` and `redo` command to be able to work on `set`, `allocate` and `increase` command.
+. The user enters a Set command (e.g. set $/120). The command is received by MainWindow and
+the method `LogicManager#execute()` is called. The argument of the command ($/120) is passed to
+`FinanceTrackerParser#parseCommand` method to handle.
+. The `FinanceTrackerParser#parseCommand` creates a `SetCommandParser` object and passes the command
+arguments into `SetCommandParser#parse()` method. The argument is checked to be in the correct format
+by `ParserUtil.parseAmount()` before `SetCommandParser#parse()` creates a `SetCommand` with the argument
+parsed into an amount passed in.
+. The `SetCommand` object is passed back to `LogicManager#execute()` and it calls the `SetCommand#execute()`
+to excute the logic to create the budget. The method creates a `Budget` object with the amount and passes
+the budget object into the `Model` by calling `ModelManager#addBudget()`.
+. `ModelManager#addBudget()` calls `FinanceTracker#addBudget()` to set the Budget of the FinanceTracker for
+the current user of the app. `FinanceTracker#addBudget()` uses the `Budget#set()` method to set the Budget of
+the app using the amount put in the inital command before returning to the `SetCommand#execute()` in the `Logic`
+of the app.
+. `SetCommand#execute()` now creates a `CommandResult` object to convey a message to be pushed to the UI and user.
+The `commandresult` object created is passed back to `LogicManager#execute()` and then back to `MainWindow#executeCommand()`.
+. `MainWindow#executeCommand()` checks whether there is a need to update the budget in the UI by calling `commandResult#isChangeBudget()`
+and getting a `true` boolean return from the method for the set command. The `#handleChangeBudget()` within `MainWindow` is called
+since `MainWindow#executeCommand()` notes that budget is changed.
+. `MainWindow#handleChangeBudget()` calls `LogicManager#getBudget()` to get the current budget of the FinanceTracker. The budget is then
+passed as argument into the `BrowserPanel#updateBudget()` method which will reflect the budget set by the command in the UI. The current budget
+will be the same as the total budget when it is set.
+
 
 ==== Design Consideration
 The logic for keeping track of budgets can be implemented in different ways for individual categories.
@@ -430,31 +533,96 @@ The logic for keeping track of budgets can be implemented in different ways for 
 ** Pros: More human readable to maintain Budget classes with names of categories.
 ** Cons: Budget classes for individual categories need to be iterated through to get totals leading to slow UI updates each time values are changed.
 
+//end::budget[]
+
+// tag::categorybudget[]
+==== Allocating a budget to category
+This feature allows user to set a category budget after the total budget is set
+
+Given below is a sequence diagram and step by step explanation of how Finance Tracker
+executes when a user sets a category budget.
+
+.Sequence diagram of user setting a category budget
+image::AllocateSequenceDiagram.png[]
+
+
+. User enters command `allocate $/10 c/Food`. The command is received by `FinanceBookParser`
+. FinanceTrackerParser will then create a `AllocateCommandParser` Object
+and calls `AllocateCommandParser#parse()` method
+. `AllocateCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` method to tokenize
+the user input String into arguments and prefixes in an `ArgumentMultimap` Object.
+. `AllocateCommandParser#parse()` method then calls another method within the same class
+`AllocateCommandParser#arePrefixesPresent()` to check if there are any missing prefixes.
+If there are missing prefixes, `ParseException` will be thrown
+. If no exceptions are thrown from the step 4, a new AllocateCommand object is created
+with the given arguments.
+. Control is returned to LogicManager which then calls `AllocateCommand#execute()` method.
+. `AllocateCommand#execute()` calls `ModelManager#addCategoryBudget()` method and control
+is transferred to `ModelManager` which is in the `Model` Component.
+. `ModelManager#addCategoryBudget()` then calls `FinanceTracker#addCategoryBudget()` which then
+calls `TotalBudget#setNewCategoryBudget()`
+. `TotalBudget#setNewCategoryBudget()` takes into account if there are any previous budget
+allocated to a category and if so, adds the expenses to the new budget assigned to the category
+
+===== Design consideration
+Aspect: allocating Category Budget
+
+* *Alternative 1 (current choice)*: Allocating Category Budget is done with only one command `allocate`
+** Pros: User need to only make use of one command to control the budget of the category and will
+not be confused with too many other commands
+** Cons: Requires the developer to ensure the application checks that if there is a current budget
+allocated to the same category, it should be reflected accordingly.
+
+* *Alternative 2*: Have two other commands `increaseCatBudget` and `decreaseCatBudget` to allow user
+to control the budget of the category
+** Pros: User is able to adjust the budget by increasing/decreasing the budget instead of having to use
+one command to allocate a fixed amount to the budget
+** Cons: User might be confused with too many commands and not intuitive.
+// end::categorybudget[]
+
+
+==== To be implemented
+* Reflecting total budget and current budget on `BrowserPanel` portion of UI.
+* Implementing logic for `increase` command to allow for increasing the budget.
+* Modify `spend` and `edit` Command to deduct from total budget to get current budget.
+* Implement `reset` command to reset current budget expenditure and total budget.
+* Reflecting total budget and current budget for each category when selected in UI.
+* Expand `undo` and `redo` command to be able to work on `set`, `allocate` and `increase` command.
+
 //end::budgetmanagement[]
 
 
 // tag::summary[]
 === Summary
 
-The summary feature shows an overview of your previous expenditures. It displays statistics on how your spending habits are like in the different categories you have specified. It also displays the remaining budget amount for each category.
+The summary feature shows an overview of your previous expenditures in an Aster Plot chart, which works similarly to a pie chart. Each sector of the chart represents a category. The radius of each sector indicates the total budget amount allocated for a particular category, while the coloured area of the sector denotes the amount spent for that category. This allows users to easily perceive whether their spending is within their budget for each category.
 
-==== To be implemented
-The summary feature intends to use a D3.js graph to display the data. This will help contribute to the aesthetics and user-friendliness of displaying the data in the financeTracker.
+==== Implementation
+The summary feature intends to use a D3.js graph to display the data. This will help contribute to the aesthetics and user-friendliness of displaying the data in In-Credit-Ble.
+The implementation of the Summary command can be divided into two phases – preparation and execution. Given below is an explanation of how the summary mechanism behaves at each phase, although it has not been fully implemented yet.
 
-The summary command will retrieve the whole list of existing records, which will then be parsed by SummaryCommandParser. This will return the appropriate d3 graph to be shown.
+===== Preparation
+In the preparation phase, the application will parse the command. Below is the UML Sequence diagram and a step-by-step explanation of the preparation stage.
 
-Given below is an example usage scenario and how the summary mechanism behaves at each step.
+.Sequence diagram of the preparation stage in the summary mechanism
+image::SummarySequenceDiagram.png[width="800"]
 
-Step 1. The user launches the application for the first time. The financeTracker will be initialised with the existing records the user has input last time.
+1.	User first enters the command `summary`. This command is received by `FinanceTrackerParser`, which  then calls `SummaryCommandParser#parse()` to create `SummaryCommand`.
+2.	`SummaryCommand`  is then returned to `LogicManager`.
+3.	`LogicManager` then calls `SummaryCommand#execute()`, which will then trigger the process of retrieving the data to be displayed.
 
-Step 2. The user executes the summary command. Input is parsed and the records will be extracted.
+===== Execution
+In the execution phase, the program accesses the `Budget` class to retrieve the data to be displayed. It will then finally map this data to graph the Aster Plot chart and display it. Below is the UML sequence diagram and a step-by-step explanation of the execution stage.
 
-Step 3. The records are then converted to JSON, and data will be used to map the d3 graph.
+.Sequence diagram of the execution stage in the summary mechanism
+image::SummarySequenceDiagram2.png[width="800"]
 
-
-_Sequence Diagram will be done soon_
+1.	The`handleShowSummary` will be handled by `MainWindow#handleShowSummary()`, which will call `GraphPanel#execute()` and pass the data as parameters by calling `Logic#getTotalBudget()` and `Logic#getCategoryBudget()`.
+2.	`Logic#getTotalBudget()` and `Logic#getCategoryBudget()` will get their respective data by calling the method of the same name in `Model`.
+3.	Once the parameters are passed into GraphPanel#execute(), StackPane#getData()#clear() is called to clear any display elements in StackPane. D3.js is used to render the charts.
 
 ==== Design Consideration
+===== Aspect: Representation for Summary of Expenditure
 An aster plot graph will be used to display the information in the main window. Using such a graph will allow for sufficient space should users decide to add more categories in the future. Hovering over the different sectors in the aster plot graph will display the corresponding category. If possible, the colours used for the category in the aster plot graph should be the same colour palette used for the category labels.
 
 .Example of Aster Plot Graph
@@ -462,50 +630,6 @@ image::asterPlot.png[width="400"]
 
 Initially, we were considering using a pie chart instead. However, using an aster plot graph will be more effective in showing the user what is the remaining budget amount for each category.
 //end::summary[]
-
-
-// tag::security[]
-=== Security Features
-
-The In-Credit-Ble will ensure security of user data through the implementation of user profile system.
-
-The user profile system will allow for multiple users to use In-Credit-Ble on the same machine and keeps
-the data apart from each other. Users have the option of setting a password to protect their data from being
-viewed or altered by other users.
-
-==== To be implemented
-* `password` and `user` class to be created under `Model`
-* `register` command to allow new users to register under `username`
-* `setPassword` command to allow existing users to set a password for their profile. This command
-can also be used to reset existing passwords
-* `login` command to allow users who registered to login to their profile
-
-g
-Given below is an example usage scenario and how the login system will behave at each step
-
-*Step 1:*. The user launches the application for the first time. `MainApp` class will load all xml files within the data
-folder according to the path in `UserPrefs`.
-
-*Step 2a:* User can then register using `register` with a `username` parameter. If users registered before
-they can skip this step and go to Step 2b instead.
-
-*Step 2b:* User can `login` using their `username` if they have registered before
-
-*Step 3:* Users can set password using the `setPassword` command if they do not have password.
-They can also change their password using this command.
-
-==== Design Consideration
-===== Loading different user data
-* *Alternative 1 (Proposed implementation)*: Loading user data is done during initialisation of In-Credit-Ble
-** Pros: Able to switch user profiles after In-Credit-Ble is loaded
-** Cons: External changes to files after intialisation not reflected may be overwritten
-
-* *Alternative 2:* User profile data only loaded when user logs in
-** Pros: Unnecessary data not kept in memory so memory space is not wasted
-** Cons: The `Logic` or `Model` component will have to depend on the `Storage` component as `login` command
-will require the `Storage` to load and return the user's data
-
-// end::security[]
 
 === Logging
 

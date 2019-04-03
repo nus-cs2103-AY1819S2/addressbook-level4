@@ -28,4 +28,11 @@ public class WebViewUtil {
     public static void waitUntilBrowserLoaded(BrowserPanelHandle browserPanelHandle) {
         new GuiRobot().waitForEvent(browserPanelHandle::isLoaded);
     }
+
+    /**
+     * If the {@code graphPanelHandle}'s {@code WebView} is loading, sleeps the thread till it is successfully loaded.
+     */
+    public static void waitUntilBrowserLoaded(GraphPanelHandle graphPanelHandle) {
+        new GuiRobot().waitForEvent(graphPanelHandle::isLoaded);
+    }
 }

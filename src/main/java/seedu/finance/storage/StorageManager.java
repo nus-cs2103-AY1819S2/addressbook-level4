@@ -17,8 +17,8 @@ import seedu.finance.model.UserPrefs;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private FinanceTrackerStorage financeTrackerStorage;
-    private UserPrefsStorage userPrefsStorage;
+    private static FinanceTrackerStorage financeTrackerStorage;
+    private static UserPrefsStorage userPrefsStorage;
 
 
     public StorageManager(FinanceTrackerStorage financeTrackerStorage, UserPrefsStorage userPrefsStorage) {
@@ -73,6 +73,10 @@ public class StorageManager implements Storage {
     public void saveFinanceTracker(ReadOnlyFinanceTracker financeTracker, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         financeTrackerStorage.saveFinanceTracker(financeTracker, filePath);
+    }
+
+    public static void setFinanceTrackerStorage(FinanceTrackerStorage newStorage) {
+        financeTrackerStorage = newStorage;
     }
 
 }

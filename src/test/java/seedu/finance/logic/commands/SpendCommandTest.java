@@ -4,6 +4,15 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.finance.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
+import static seedu.finance.testutil.TypicalRecords.APPLE;
+import static seedu.finance.testutil.TypicalRecords.BANANA;
+import static seedu.finance.testutil.TypicalRecords.CAP;
+import static seedu.finance.testutil.TypicalRecords.DONUT;
+import static seedu.finance.testutil.TypicalRecords.EARRINGS;
+import static seedu.finance.testutil.TypicalRecords.FRUITS;
+import static seedu.finance.testutil.TypicalRecords.GIFT;
+import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -19,11 +28,12 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.finance.commons.core.GuiSettings;
 import seedu.finance.logic.CommandHistory;
-import seedu.finance.logic.commands.exceptions.CommandException;
 import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.Model;
+import seedu.finance.model.ModelManager;
 import seedu.finance.model.ReadOnlyFinanceTracker;
 import seedu.finance.model.ReadOnlyUserPrefs;
+import seedu.finance.model.UserPrefs;
 import seedu.finance.model.budget.Budget;
 import seedu.finance.model.budget.CategoryBudget;
 import seedu.finance.model.exceptions.CategoryBudgetExceedTotalBudgetException;
@@ -58,14 +68,15 @@ public class SpendCommandTest {
     }
 
     @Test
-    public void execute_duplicateRecord_throwsCommandException() throws Exception {
-        Record validRecord = new RecordBuilder().build();
-        SpendCommand spendCommand = new SpendCommand(validRecord);
-        ModelStub modelStub = new ModelStubWithRecord(validRecord);
+    public void execute_duplicateRecord_addSuccessful() throws Exception {
+        Model model = new ModelManager(getTypicalFinanceTracker(), new UserPrefs());
+        Record validRecord = model.getFilteredRecordList().get(INDEX_FIRST_RECORD.getZeroBased());
+        String expectedMessage = String.format(SpendCommand.MESSAGE_SUCCESS, validRecord);
 
-        thrown.expect(CommandException.class);
-        thrown.expectMessage(SpendCommand.MESSAGE_DUPLICATE_RECORD);
-        spendCommand.execute(modelStub, commandHistory);
+        CommandResult commandResult = new SpendCommand(validRecord).execute(model, commandHistory);
+        assertEquals(expectedMessage, commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(APPLE, BANANA, CAP, DONUT, EARRINGS, FRUITS, GIFT, APPLE),
+                model.getFilteredRecordList());
     }
 
     @Test

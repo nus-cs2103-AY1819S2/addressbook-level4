@@ -11,7 +11,8 @@ public class SummaryCommand extends Command {
 
     public static final String COMMAND_WORD = "summary";
 
-    //May want to edit later if want to be able to set summary according to a specific duration
+    // KIV may have to edit accordingly once Budget class is implemented
+    //May also need to edit accordingly if want to be able to set summary according to a specific duration
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the summary of all your expenses";
 
     public static final String MESSAGE_NOT_IMPLEMENTED_YET = "Summary command not implemented yet";

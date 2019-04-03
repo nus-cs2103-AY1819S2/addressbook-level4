@@ -1,0 +1,87 @@
+:profile-caption: :computer:
+= Jeremy Loye Hean Wei - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: In-Credit-Ble (Finance Tracker)
+
+---
+
+== Overview
+
+_In-Credit-Ble_ is a desktop Finance Tracker that is tailored to help users manage their finances
+and keep track of their budget in an easy and efficient manner. It is designed for those who
+prefer to work with a Command Line Interface (CLI), especially for those who prefer to type over
+using their mouse.
+
+_In-Credit-Ble_ was developed by a team of five students from the National University of Singapore
+as part of a Software Engineering module (CS2103T).
+ We had to adapt to an existing codebase in Java and develop a functional product in a short
+ span of 13 weeks while learning new software engineering concepts. In this project portfolio,
+ I will be documenting my contributions to this project through the major and minor features implemented for _In-Credit-Ble_.
+
+== Summary of Contributions
+
+* *Major enhancement*: added `Budget`
+** *_What it does_*: Allows the user to set a Budget for the app. The user can set a budget to keep track
+of current expenditure and the amount of budget left deducting from the budget set.
+** *_Justification_*: This feature is an essential part of the utility of a FinanceTracker. Users want a FinanceTracker
+to keep track of their finances and set realistic budget targets for their expenditure.
+** Highlights of feature:
+*** This enhancement can be initially triggered using the `set` command and can be seen when editing records.
+Using the `set` command, users can set a budget for the app. Any spending records added afterwards will deduct
+automatically from the total budget. The UI will reflect each change in expenditure and reflect the appropriate
+budget left. This feature will take into account editing, adding and deleting of records.
+
+* *Minor enhancement*: Changing data files for different users through `setfile`
+** _What it does_: Allows the user or multiple users to change profiles on a single FinanceTracker without
+overriding each others' data.
+** _Justification_: It is limiting to just have one user profile when there could be multiple users of the
+same FinanceTracker app as multiple users cannot be tracked. A single user could want to maintain multiple
+FinanceTracker profiles (Record and Budget) for different purposes such as personal and business.
+** Highlights of feature:
+*** This feature is called by the `setfile` command. Using this command will cause the designated filename to
+load. If the file was not previously created, a default data set will be created.
+
+* *Code contributed*:
+link:https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=JeremyLoye[Collated Code by RepoSense]
+
+* *Notable Contributions:*
+** *_Project Management_*
+*** *Manging Issue Tracker*
+**** Managed issue trackers: https://github.com/CS2103-AY1819S2-W17-3/main/issues/10[#10],
+https://github.com/CS2103-AY1819S2-W17-3/main/issues/38[#38],
+https://github.com/CS2103-AY1819S2-W17-3/main/issues/40[#40],
+https://github.com/CS2103-AY1819S2-W17-3/main/issues/42[#42],
+https://github.com/CS2103-AY1819S2-W17-3/main/issues/44[#44],
+https://github.com/CS2103-AY1819S2-W17-3/main/issues/45[#45],
+https://github.com/CS2103-AY1819S2-W17-3/main/issues/86[#86],
+https://github.com/CS2103-AY1819S2-W17-3/main/issues/126[#126]
+
+** *_Community_*
+*** PRs Reviews:
+https://github.com/CS2103-AY1819S2-W17-3/main/pull/90[#90],
+https://github.com/CS2103-AY1819S2-W17-3/main/pull/92[#92],
+https://github.com/CS2103-AY1819S2-W17-3/main/pull/93[#93],
+https://github.com/CS2103-AY1819S2-W17-3/main/pull/104[#104],
+https://github.com/CS2103-AY1819S2-W17-3/main/pull/107[#107]
+
+== Contributions to the User Guide
+|===
+|_The next section will detail the User Guide we have updated from the original AddressBook User Guide.
+More specifically, it will detail the instructions I added for the features I have implemented.
+|===
+
+include::../UserGuide.adoc[tag=set]
+
+include::../UserGuide.adoc[tag=setfile]
+
+== Contributions to the Developer Guide
+|===
+|_The following section will include the sections of my contribution to the Developer Guide.
+The developer guide is a piece of document that showcases my ability to write technical documentation as
+well as make the code easier to read and add enhancements to._
+|===
+
+include::../DeveloperGuide.adoc[tag=budget]

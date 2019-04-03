@@ -19,60 +19,77 @@ endif::[]
 
 This document serves to document my contributions to TopDeck, the project I worked on
 as part of our introductory software engineering module in NUS.
-TopDeck is a flash card application bulit on top of the code from
+TopDeck is a flash card application built on top of the code from
 https://github.com/nus-cs2103-AY1819S1/addressbook-level4[Addressbook Level 4].
-
-
-
-One of the key features of our application is the simplicity that we would like
-to provide out user in terms of the commands and this meant that we had to implement states for
-different part of the application namely, a state for card management, decks management and
-one for studying the cards. I was in charge of implementing this states and decided to implement it
-using polymorphism.
-
 
 == Summary of Contributions
 
 This section summarises my key contributions to TopDeck:
 
-* **Major Enhancement**: Designed the API for a stateful user interface.
+* **Major Enhancement**: I added state to the user interface.
+    - What it does: A stateful interface looks and behave differently depending
+      on the state of the applicaton.
+    - Justification: Having state in the user interface enhances usability in
+      many ways. It offers a useful mental model for users by exposing features
+      only when they are relevant to what a user is currently doing. It allows
+      us to assign multiple related features to the same command word (since
+      they can be disambiguated by state), minimizing the total number of unique
+      commands words. It also leads to shorter commands in general since TopDeck
+      does not have to request information from users that may be already be
+      inferred from the current state.
+    - Highlights: AB4 could not be readily adapted to support state because it
+      was designed around assumptions that do not hold with a stateful user
+      interface in full generality. AB4 has a static user interface that assumes
+      there always exists a list of items. This assumption runs so deep that
+      first-class access to `filteredList` and `selectedItem` is provided
+      through the `Model` API. So I had to rewrite `Model`. I also had to modify
+      many subsystems (such as parsing) along the pipeline of a typical command
+      execution. As a result of my work, the rest of my team could work on their
+      features independently and easily integrate their work through the new API
+      I designed.
 
- -
-
- - Justification:
-
-
-
-**Enhancement added:** I modified the architecture of our software such that
-stateful interface is supported. I added the state management features in the application so that the
-same commands given by the user can be overloaded. For example, `add` can mean both
-adding a deck or a card depending on which state the app is currently in.
-
-Justification: A user should be able to execute simple commands easily instead of having
-to give a context to the application.
-
+* **Minor Enhancement**: I added argument completion to the edit card command
+    - What it does: The edit card command has an abbreviated form `edit INDEX`.
+      This prefills the command box with an expanded command which, if submitted
+      verbatim, leaves the card at `INDEX` unchanged.
+    - Justification: This feature is meant to be a shortcut for making small
+      edits. Suppose a user notices a typo in a question. Instead of retyping
+      the entire question, they can quickly expand all arguments to the edit
+      command and edit the question from there.
+    - Highlights: This is the only new feature in TopDeck that interacts with
+      the command box and is made possible with
+      `PrefillCommandBoxCommandResult` which extends `CommandResult` and holds
+      the string to be prefilled. In general, commands that need to interact
+      with `UI` through `MainWindow` do so by returning an appropriate subclass
+      of `CommandResult`.
 
 **Code Contributed:** Please view our github page to see the code that I have contributed.
 
 **Other contributions**:
 
 * Project management:
- - I ensured that members were on track and not falling behind.
+ - I ensured the group stayed on schedule.
 
 * Enhancements to existing features:
- - I added the autocomplete feature to reduce typing needed for the "Edit Card" command.
+ - I refactored a lot of code to support stateful user interface.
 
 * Documentation:
- - I made our documentation look better.
+ - I adapted the AB4 developer guide to fit our project.
+ - I enhanced the look of our documentation by tweaking the CSS.
+ - I polished our documentation according to the standards set by our CS2101
+   tutor.
+ - I proofread sections of the documentation that were not explicitly assigned
+   to anyone.
 
 * Community:
+ - I led the design of the user interface and user experience.
  - I reviewed pull requests and gave comments on how my peers can improve the readability of their code.
- - I contributed to discussions on how the UI should look like, and how lists should be stored internally.
- - I put up issues and enhancements to keep our team on track.
+ - I put up issues and filed bug reports to keep our team on track.
  - I gave our team a few tips on the git workflow.
 
 * Tools:
-
+- I configured the team repository on Github and integrated the suggested
+  services into our workflow (TravisCI, AppVeyor, Coveralls).
 
 == Contributions to User Guide
 

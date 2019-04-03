@@ -7,7 +7,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ImportResumesCommand;
 import seedu.address.logic.commands.AddListToJobCommand;
 import seedu.address.logic.commands.AddPersonToJobCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -24,6 +23,7 @@ import seedu.address.logic.commands.GenerateAnalyticsCommand;
 import seedu.address.logic.commands.GenerateInterviewsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ImportResumesCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MovePersonCommand;
 import seedu.address.logic.commands.RedoCommand;

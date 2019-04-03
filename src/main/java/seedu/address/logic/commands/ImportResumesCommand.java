@@ -7,6 +7,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
+import java.util.Iterator;
+import java.util.Set;
+
 /**
  * Imports resume txt files from a given directory into slavefinder().
  */
@@ -17,23 +20,27 @@ public class ImportResumesCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Resumes have been imported";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
-    Person toAdd;
+    Set<Person> toAdd;
 
-    public ImportResumesCommand(Person p) {
-        toAdd = p;
+    public ImportResumesCommand(Set<Person> people) {
+        toAdd = people;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        Iterator<Person> setIterator = toAdd.iterator();
+
+        while (setIterator.hasNext()) {
+            Person currentPerson = setIterator.next();
+            if (model.hasPerson(currentPerson)) {
+                throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            }
+            model.addPerson(currentPerson);
         }
 
-        model.addPerson(toAdd);
         model.commitAddressBook();
-
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

@@ -220,6 +220,12 @@ public class ModelManager implements Model {
         versionedAddressBook.setPatient(target, editedPatient);
     }
 
+    @Override
+    public void setDoctor(Doctor target, Doctor editedDoctor) {
+        requireAllNonNull(target, editedDoctor);
+        versionedAddressBook.setDoctor(target, editedDoctor);
+    }
+
     //=========== Filtered Patient List Accessors =============================================================
 
     /**

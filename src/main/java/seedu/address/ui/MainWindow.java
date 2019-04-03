@@ -134,34 +134,6 @@ public class MainWindow extends UiPart<Stage> {
         ListAppointmentCommand.addMainWindow(this);
         ListMedHistCommand.addMainWindow(this);
 
-        /*
-        doctorListPanel = new DoctorListPanel(logic.getFilteredDoctorList(), logic.selectedDoctorProperty(),
-                logic::setSelectedDoctor);
-        doctorListPanelPlaceholder.getChildren().add(doctorListPanel.getRoot());
-        */
-
-
-
-        doctorListPanel = new DoctorListPanel(logic.getFilteredDoctorList(), logic.selectedDoctorProperty(),
-                logic::setSelectedDoctor);
-        doctorListPanelPlaceholder.getChildren().add(doctorListPanel.getRoot());
-
-
-
-
-        doctorListPanel = new DoctorListPanel(logic.getFilteredDoctorList(), logic.selectedDoctorProperty(),
-                logic::setSelectedDoctor);
-        doctorListPanelPlaceholder.getChildren().add(doctorListPanel.getRoot());
-
-
-
-        doctorListPanel = new DoctorListPanel(logic.getFilteredDoctorList(), logic.selectedDoctorProperty(),
-                logic::setSelectedDoctor);
-        doctorListPanelPlaceholder.getChildren().add(doctorListPanel.getRoot());
-
-
-
-
         doctorListPanel = new DoctorListPanel(logic.getFilteredDoctorList(), logic.selectedDoctorProperty(),
                 logic::setSelectedDoctor);
         doctorListPanelPlaceholder.getChildren().add(doctorListPanel.getRoot());

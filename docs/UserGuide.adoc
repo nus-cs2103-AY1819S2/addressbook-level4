@@ -277,10 +277,10 @@ Deletes the 2nd booking of the booking database
 Effect: Removes all service bookings from the database. +
 Format: `{[aqua]#clear-bookings#/[aqua]#cb#}`
 
-==== Find a booked service contains payer: `findbookingcontainspayer`, `fbcp`
+==== Find a booking: `find-booking`, `fb`
 
-Effect: Displays a booking list, which is paid by the customer whose identification number is the same as the given number
-Format: `{[aqua]#findbookingcontainspayer#/[aqua]#fbcp#} [lime]#PAYER_IDENTIFICATION_NUMBER#`
+Effect: Displays a booking list based on the filters given by the user. +
+Format: `{[aqua]#find-booking#/[aqua]#fb#}  [blue]#id/# [lime]#IDENTIFICATION_NO# [black]#[# [blue]#s/# [lime]#SERVICE_NAME# [black]#]# [blue]#:/# [lime]#START_TIME-END_TIME# [black]#]#`
 
 [NOTE]
 ====
@@ -288,15 +288,38 @@ Format: `{[aqua]#findbookingcontainspayer#/[aqua]#fbcp#} [lime]#PAYER_IDENTIFICA
 ====
 
 Example:
- `fbcs 12345678` +
-Returns any booking which is paid by the customer with identification number 12345678
+
+* `fb id/A0124422` +
+Returns all bookings for customer with identification number, A0124422.
+
+* `fb id/A0124422 s/GYM` +
+Returns all gym bookings for customer with identification number, A0124422.
+
+==== Find a reservation: `find-reservation`, `fr`
+
+Effect: Displays a reservation list based on the filters given by the user. +
+Format: `{[aqua]#find-reservation#/[aqua]#fr#}  [blue]#id/# [lime]#IDENTIFICATION_NO# [black]#[# [blue]#r/# [lime]#ROOM_TYPE# [black]#]#`
+
+[NOTE]
+====
+*  The searching is done in the whole reservation list.
+====
+
+Example:
+
+* `fr id/A0124422` +
+Returns all reservations for customer with identification number, A0124422.
+
+* `fr id/A0124422 r/SINGLE ROOM` +
+Returns all single room reservations for customer with identification number, A0124422.
+
 
 === [underline]#Bill Generation commands#
 
 ==== [underline]#Generate bill for specific booking# : `generate-bill-booking`, `gb-b`
 
 Effect: Generates the bill for the specific booking of a customer +
-Format: `{[aqua]#generate-bill-booking#/[aqua]#gb-b#} [lime]#INDEX# [black]#[# [blue]#r/# [lime]#ROOM_TYPE# [black]#]# [black]#[# [blue]#d/# [lime]#START_DATE - END_DATE# [black]#]#`
+Format: `{[aqua]#generate-bill-booking#/[aqua]#gb-b#} [lime]#INDEX# [black]#[# [blue]#s/# [lime]#SERVICE_NAME# [black]#]# [black]#[# [blue]#:/# [lime]#START_TIME - END_TIME# [black]#]#`
 
 Example:
 
@@ -309,7 +332,7 @@ Returns the bill for all spa bookings for the customer at index 2
 ==== [underline]#Generate bill for specific reservation# : `generate-bill-reservation`, `gb-r`
 
 Effect: Generates the bill for the specific booking of a customer +
-Format: `{[aqua]#generate-bill-reservation#/[aqua]#gb-r#} [lime]#INDEX# [black]#[# [blue]#s/# [lime]#SERVICE_NAME# [black]#]# [black]#[# [blue]#:/# [lime]#START_TIME - END_TIME# [black]#]#`
+Format: `{[aqua]#generate-bill-reservation#/[aqua]#gb-r#} [lime]#INDEX# [black]#[# [blue]#r/# [lime]#ROOM_TYPE# [black]#]#`
 
 Example:
 

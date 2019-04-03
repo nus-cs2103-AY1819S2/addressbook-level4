@@ -327,6 +327,44 @@ The reason we use identification number(ID) instead of name or other factors is 
 ** Cons: Requiring more work and the old abstraction may break.
 // end::filteringBooking[]
 
+=== Generating Bill for Customer functionality
+==== Current Implementation
+
+The generate bill for customer function is facilitated by the interface `BillModel` which extends the interface `Model`.
+The `BillModel` constitutes the API for our bill component which is used by `Logic` component to execute the commands related to this model.
+There is also the `BillManager` which implements the `BillModel` and consists of functions required for generating the bill.
+
+Then the `GenerateBillForCustomerCommand` is implemented along with its parser `GenerateBillForCustomerCommandParser`.
+This parser class makes sure that the user has given the command in the correct format, and executes the command accordingly.
+If the user doesn't type the command correctly, the parser class `throws ParseException` and tells user to input in correct format.
+
+The command class extends `BillCommand` which uses a single model, the  `BillModel`, to execute all the commands.
+This ensure that only the `BillManager` can execute commands related to bill.
+
+There is no storage created for the bill as a result of which the bill generated is never stored.
+
+==== Design Consideration
+
+===== Aspect: How should bill generation be implemented
+
+* **Alternative 1 (current choice):** An entirely new model, `BillModel` has been implemented which helps in generating a bill.
+** Pros: The `BillModel` interface can be extended to perform other functions related to bill generation if required.
+If new features get added, the `BillModel` will help in extending them without hassle or changing already implemented functions.
+** Cons: Initially, a lot of work needs to go in implementing the model.
+* **Alternative 2:** Adding functions to the `HotelManagementSystem` class which will generate the bill.
+** Pros: Easy to implement. Takes less time and less work required.
+** Cons: Every-time a new feature is to be added, changes in the already implemented functions will also have to be done accordingly,
+creating more work.
+
+==== Aspect: Memory storage for bill
+
+* **Alternate 1 (current choice):** Bill doesn't get stored
+** Pros: No work required to be done for storing the bills.
+** Cons: If a new feature gets implemented, which requires history of bills, system will not be able to provide it.
+* **Alternative 2:**
+** Pros: If bill history is required for a new feature, system will be able to provide it.
+** Cons: Lot of work needs to be done for creating the storage of bills.
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
@@ -952,9 +990,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |hotel management staff |sort customers by amount due |see which customer owes more first
 
-|`* *` |hotel management staff |view all room reservations |know when and which rooms are occupied
+|`* *` |hotel management staff |view all room reservations |know which rooms are occupied and when
 
-|`* *` |hotel management staff |view all service bookings |know when and which rooms are occupied
+|`* *` |hotel management staff |view all service bookings |know which rooms are occupied and when
 
 |`* *` |hotel management staff |view all customers |know who all are customers in my hotel
 
@@ -1083,9 +1121,9 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Adding a customer
 
-. Adding a customer with the `addcustomer` command
+. Adding a customer with the `add-customer` command
 
-.. Test case: `addcustomer` +
+.. Test case: `add-customer` +
    Expected: No customer is added. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect commands to try: `addcustomer n/test name`, `addcustomer n/123 456`...
 .. Test case: `addcustomer ...` followed by the details of an existing customer +
@@ -1095,17 +1133,22 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Deleting a customer while all customers are listed
 
-.. Prerequisites: List all customers using the `listcustomers` command. Multiple customers in the list.
-.. Test case: `deletecustomer 1` +
+.. Prerequisites: List all customers using the `list-customers` command. Multiple customers in the list.
+.. Test case: `delete-customer 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `deletecustomer 0` +
+.. Test case: `delete-customer 0` +
    Expected: No customer is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `deletecustomer`, `deletecustomer x` (where x is larger than the list size)... +
+.. Other incorrect delete commands to try: `delete-customer`, `delete-customer x` (where x is larger than the list size)... +
    Expected: Similar to previous.
 
-=== Saving data
+=== Generating bill for a customer
 
-. Dealing with missing/corrupted data files
+. Generating bill for a customer based on index
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
+.. Prerequisites: At-least one customer in database.
+.. Test case: `gb-c` +
+   Expected: Bill is not generated. Error details shown in the status message. Status bar remains the same.
+.. Test case: `gb-c 1` +
+   Expected: Bill is generated for customer at index 1. Bill amount for reservation and booking and total amount shown in the status message. Timestamp in the status bar is updated.
+.. Other incorrect generate bill for customer commands to try: `gbc`, `g-b-c`, `gb-c x` (where x is larger than the list size).. +
+   Expected: Bill is not generated. Error details shown in the status message. Status bar remains the same.

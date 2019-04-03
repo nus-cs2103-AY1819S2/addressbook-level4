@@ -51,7 +51,8 @@ public class JsonAdaptedCardTest {
     public void toModelType_invalidTags_throwsIllegalValueException() {
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
-        JsonAdaptedCard card = new JsonAdaptedCard(VALID_QUESTION, VALID_ANSWER, invalidTags, VALID_RATING, VALID_ATTEMPTS);
+        JsonAdaptedCard card = new JsonAdaptedCard(VALID_QUESTION, VALID_ANSWER,
+                                                   invalidTags, VALID_RATING, VALID_ATTEMPTS);
         Assert.assertThrows(IllegalValueException.class, card::toModelType);
     }
 

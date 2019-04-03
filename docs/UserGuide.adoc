@@ -486,7 +486,7 @@ When studying, TopDeck will show the question, and the answer will be revealed w
 
 A convenient cheat sheet of commands
 
-==== Decks View
+=== Decks View
 
 [width="100%",cols="20%,<30%"]
 |=======================================================================
@@ -500,7 +500,7 @@ Use `back` to navigate out of the deck.
 |`study INDEX` | Studying the deck at INDEX.
 |=======================================================================
 
-==== Cards View
+=== Cards View
 
 [width="100%",cols="20%,<30%"]
 |=======================================================================
@@ -513,7 +513,7 @@ At least one parameter must be present.
 |`study` | Studying the active deck.
 |=======================================================================
 
-==== Study View
+=== Study View
 
 [width="100%",cols="20%,<30%"]
 |=======================================================================
@@ -522,7 +522,7 @@ At least one parameter must be present.
 |=======================================================================
 
 
-==== Global Commands
+=== Global Commands
 [width="100%",cols="20%,<30%"]
 |=======================================================================
 |`clear` | Clear all decks and cards.
@@ -536,7 +536,7 @@ At least one parameter must be present.
 |`undo` | Undo previous command.
 |=======================================================================
 
-==== Switching Views
+=== Switching Views
 
 [width="100%",cols="20%,<30%"]
 |=======================================================================

@@ -22,10 +22,10 @@ public class StudyPanel extends UiPart<Region> {
     private static final String YOUR_ANSWER_LABEL = "YOUR ANSWER\n\n";
     private static final int NUMBER_OF_RATINGS = 5;
     private static final int SPACE_SPANNED = 100;
+    private static final String DIFFICULTY_QUESTION = createRatingQuestion(NUMBER_OF_RATINGS, SPACE_SPANNED);
 
     private final Logger logger = LogsCenter.getLogger(ListPanel.class);
 
-    private final String DIFFICULTY_QUESTION = createRatingQuestion(NUMBER_OF_RATINGS, SPACE_SPANNED);
 
     @FXML
     private HBox studyPane;
@@ -84,19 +84,19 @@ public class StudyPanel extends UiPart<Region> {
      * {@code noOfRatings} is an integer for the highest possible difficulty shown.
      * {@code spaceSpanned} is how much space the command will take, in terms of characters.
      */
-    private String createRatingQuestion(int noOfRatings, int spaceSpanned) {
+    private static String createRatingQuestion(int noOfRatings, int spaceSpanned) {
         return repeatChar(52, "-") + "\n"
                 + "How difficult was that?\n\n"
-                + createRatingString(noOfRatings, repeatChar( spaceSpanned / noOfRatings, " "))
+                + createRatingString(noOfRatings, repeatChar(spaceSpanned / noOfRatings, " "))
                 + "\n" + "Easy-peasy" + repeatChar(52, " ") + "Very tough";
     }
 
-    private String createRatingString(int rating, String spaces) {
+    private static String createRatingString(int rating, String spaces) {
         return rating == 1 ? "1"
                 : (createRatingString(rating - 1, spaces) + spaces + rating);
     }
 
-    private String repeatChar(int num, String repeated) {
+    private static String repeatChar(int num, String repeated) {
         return num == 0 ? "" : (repeated + repeatChar(num - 1, repeated));
     }
 

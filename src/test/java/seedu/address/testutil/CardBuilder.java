@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Difficulty;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -67,6 +68,9 @@ public class CardBuilder {
         return this;
     }
 
+    /**
+     * Sets the difficulty of the card we are building
+     */
     public CardBuilder withDifficulty(int totalRating, int noOfAttempts) {
         this.noOfAttempts = noOfAttempts;
         this.totalRating = totalRating;
@@ -74,6 +78,6 @@ public class CardBuilder {
     }
 
     public Card build() {
-        return new Card(question, answer, tags);
+        return new Card(question, answer, new Difficulty(totalRating, noOfAttempts), tags);
     }
 }

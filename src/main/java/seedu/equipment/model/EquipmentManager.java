@@ -43,7 +43,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
     public EquipmentManager() {}
 
     /**
-     * Creates an EquipmentManager using the Persons in the {@code toBeCopied}
+     * Creates an EquipmentManager using the Equipment in the {@code toBeCopied}
      */
     public EquipmentManager(ReadOnlyEquipmentManager toBeCopied) {
         this();
@@ -140,6 +140,18 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
     }
 
     /**
+     * Replaces the given equipment {@code target} in the list with {@code editedEquipment}.
+     * {@code target} must exist in the equipment book.
+     * The equipment identity of {@code editedEquipment} must not be the same as another existing equipment
+     * in the equipment book.
+     */
+    public void setClient(Name target, Name editedEquipment) {
+        requireNonNull(editedEquipment);
+        name.setClient(target, editedEquipment);
+        indicateModified();
+    }
+
+    /**
      * Removes {@code key} from this {@code EquipmentManager}.
      * {@code key} must exist in the equipment book.
      */
@@ -231,7 +243,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
 
     @Override
     public ObservableList<Name> getClientList() {
-        return name.getClientList();
+        return name.asUnmodifiableObservableList();
     }
 
     @Override

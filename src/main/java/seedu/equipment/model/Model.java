@@ -119,6 +119,15 @@ public interface Model {
      */
     void setEquipment(Equipment target, Equipment editedEquipment);
 
+    /**
+     * Replaces the given equipment {@code target} with {@code editedEquipment}.
+     * {@code target} must exist in the equipment book.
+     * The equipment identity of {@code editedEquipment} must not be the same as another
+     * existing equipment in the equipment book.
+     */
+    void setClient(Name target, Name editedEquipment);
+
+
     /** Returns an unmodifiable view of the filtered equipment list */
     ObservableList<Equipment> getFilteredPersonList();
 

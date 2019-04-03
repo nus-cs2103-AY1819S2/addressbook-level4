@@ -26,6 +26,7 @@ import seedu.equipment.model.ReadOnlyUserPrefs;
 import seedu.equipment.model.WorkList;
 import seedu.equipment.model.WorkListId;
 import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.equipment.SerialNumber;
 import seedu.equipment.model.tag.Tag;
 import seedu.equipment.testutil.EquipmentBuilder;
@@ -137,13 +138,14 @@ public class AddCommandTest {
 
         @Override
         public void addEquipment(Equipment equipment) {
-
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addWorkList(WorkList workList) {
+        public void addClient(Equipment equipment) { }
 
+        @Override
+        public void addWorkList(WorkList workList) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -193,6 +195,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setClient(Name target, Name editedEquipment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteTag(Tag tag) {
             throw new AssertionError("This method should not be called.");
         }
@@ -208,7 +215,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Name> getFilteredClientList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Equipment> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredClientList(Predicate<Name> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

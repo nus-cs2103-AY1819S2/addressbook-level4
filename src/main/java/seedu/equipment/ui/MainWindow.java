@@ -206,14 +206,6 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel.loadPage(url);
     }
 
-    public EquipmentListPanel getEquipmentListPanel() {
-        return equipmentListPanel;
-    }
-
-    public WorkListListPanel getWorkListListPanel() {
-        return workListListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *

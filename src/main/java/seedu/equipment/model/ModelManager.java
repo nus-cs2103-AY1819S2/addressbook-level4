@@ -154,11 +154,19 @@ public class ModelManager implements Model {
         versionedEquipmentManager.resetData(newData);
 
     }
+
     @Override
     public void setEquipment(Equipment target, Equipment editedEquipment) {
         CollectionUtil.requireAllNonNull(target, editedEquipment);
 
         versionedEquipmentManager.setPerson(target, editedEquipment);
+    }
+
+    @Override
+    public void setClient(Name target, Name editedEquipment) {
+        CollectionUtil.requireAllNonNull(target, editedEquipment);
+
+        versionedEquipmentManager.setClient(target, editedEquipment);
     }
 
     @Override

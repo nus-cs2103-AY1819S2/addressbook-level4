@@ -55,7 +55,6 @@ public class AddCommand extends Command {
         }
 
         model.addClient(toAdd);
-        System.out.println("added client and equipment successfully");
         model.addEquipment(toAdd);
         model.commitEquipmentManager();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

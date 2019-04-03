@@ -1,15 +1,13 @@
 package seedu.equipment.model.equipment;
 
 import static java.util.Objects.requireNonNull;
-//import static CollectionUtil.requireAllNonNull;
+import static seedu.equipment.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.equipment.model.equipment.Equipment;
 import seedu.equipment.model.equipment.exceptions.DuplicateEquipmentException;
 import seedu.equipment.model.equipment.exceptions.EquipmentNotFoundException;
 
@@ -26,7 +24,8 @@ import seedu.equipment.model.equipment.exceptions.EquipmentNotFoundException;
 public class UniqueNameList implements Iterable<Name> {
 
     private final ObservableList<Name> internalList = FXCollections.observableArrayList();
-
+    private final ObservableList<Name> internalUnmodifiableList =
+            FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent name as the given argument.
@@ -47,9 +46,50 @@ public class UniqueNameList implements Iterable<Name> {
         }
     }
 
-    public ObservableList<Name> getClientList() {
-        return internalList;
+    /**
+     * Replaces the equipment {@code target} in the list with {@code editedEquipment}.
+     * {@code target} must exist in the list.
+     * The equipment identity of {@code editedEquipment} must not be the same as another existing equipment in the list.
+     */
+    public void setClient(Name target, Name editedName) {
+        requireAllNonNull(target, editedName);
+
+        int index = internalList.indexOf(target);
+
+        if (index == -1) {
+            throw new EquipmentNotFoundException();
+        }
+
+        if (!target.isSameName(editedName) && contains(editedName)) {
+            throw new DuplicateEquipmentException();
+        }
+
+        internalList.set(index, editedName);
     }
+
+
+    public void setClient(UniqueNameList replacement) {
+        requireNonNull(replacement);
+
+        internalList.setAll(replacement.internalList);
+    }
+
+    /**
+     * Replaces the contents of this list with {@code equipment}.
+     * {@code equipment} must not contain duplicate equipment.
+     */
+    public void setClient(List<Name> equipmentName) {
+        requireAllNonNull(equipmentName);
+        internalList.setAll(equipmentName);
+    }
+
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<Name> asUnmodifiableObservableList() {
+        return internalUnmodifiableList;
+    }
+
 
     @Override
     public Iterator<Name> iterator() {

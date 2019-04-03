@@ -8,6 +8,7 @@ import seedu.hms.commons.core.GuiSettings;
 import seedu.hms.logic.commands.CommandResult;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.logic.parser.exceptions.ParseException;
+import seedu.hms.model.BillModel;
 import seedu.hms.model.BookingModel;
 import seedu.hms.model.ReadOnlyHotelManagementSystem;
 import seedu.hms.model.ReservationModel;
@@ -159,4 +160,6 @@ public interface Logic {
      * @see ReservationModel#setSelectedReservation(Reservation)
      */
     void setSelectedReservation(Reservation reservation);
+
+    BillModel getBillModel();
 }

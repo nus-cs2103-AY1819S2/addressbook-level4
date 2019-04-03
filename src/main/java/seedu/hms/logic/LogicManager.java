@@ -5,9 +5,11 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.hms.commons.core.GuiSettings;
 import seedu.hms.commons.core.LogsCenter;
+import seedu.hms.logic.commands.BillCommand;
 import seedu.hms.logic.commands.BookingCommand;
 import seedu.hms.logic.commands.Command;
 import seedu.hms.logic.commands.CommandResult;
@@ -33,6 +35,10 @@ import seedu.hms.storage.Storage;
  */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
+    //booking and reservation tab index
+    private static final SimpleObjectProperty<Integer> selectedPanelOneTabIndex = new SimpleObjectProperty<>();
+    //service type and room type tab index
+    private static final SimpleObjectProperty<Integer> selectedPanelTwoTabIndex = new SimpleObjectProperty<>();
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final CustomerModel customerModel;
@@ -43,6 +49,7 @@ public class LogicManager implements Logic {
     private final CommandHistory history;
     private final HotelManagementSystemParser hotelManagementSystemParser;
     private boolean hotelManagementSystemModified;
+
 
     public LogicManager(CustomerModel customerModel, BookingModel bookingModel, ReservationModel reservationModel,
                         BillModel billModel, Storage storage) {
@@ -74,10 +81,17 @@ public class LogicManager implements Logic {
                 commandResult = command.execute(customerModel, history);
             } else if (command instanceof ReservationCommand) {
                 commandResult = command.execute(reservationModel, history);
+                setSelectedPanelOneTabIndex(1);
+                setSelectedPanelTwoTabIndex(1);
             } else if (command instanceof BookingCommand) {
                 commandResult = command.execute(bookingModel, history);
-            } else {
+                setSelectedPanelOneTabIndex(0);
+                setSelectedPanelTwoTabIndex(0);
+            } else if (command instanceof BillCommand) {
                 commandResult = command.execute(billModel, history);
+                setSelectedPanelOneTabIndex(2);
+            } else {
+                commandResult = command.execute(billModel, history); //maybe it's better to input an empty model?
             }
 
         } finally {
@@ -146,6 +160,32 @@ public class LogicManager implements Logic {
         customerModel.setGuiSettings(guiSettings);
     }
 
+    /**
+     * Selected tab index in the ServiceTypeAndRoomTypePanel.
+     * null if no index is selected.
+     * panel one is booking and reservation panel
+     */
+    public static ReadOnlyProperty<Integer> selectedPanelOneTabIndexProperty() {
+        return selectedPanelOneTabIndex;
+    }
+
+    public static void setSelectedPanelOneTabIndex(Integer selectedPanelOneTabIndexNew) {
+        selectedPanelOneTabIndex.set(selectedPanelOneTabIndexNew);
+    }
+
+    /**
+     * Selected tab index in the ServiceTypeAndRoomTypePanel.
+     * null if no index is selected.
+     * panel two is service type and room type panel
+     */
+    public static ReadOnlyProperty<Integer> selectedPanelTwoTabIndexProperty() {
+        return selectedPanelTwoTabIndex;
+    }
+
+    public static void setSelectedPanelTwoTabIndex(Integer selectedPanelTwoTabIndexNew) {
+        selectedPanelTwoTabIndex.set(selectedPanelTwoTabIndexNew);
+    }
+
     @Override
     public ReadOnlyProperty<Customer> selectedCustomerProperty() {
         return customerModel.selectedCustomerProperty();
@@ -194,5 +234,10 @@ public class LogicManager implements Logic {
     @Override
     public void setSelectedRoomType(RoomType roomType) {
         reservationModel.setSelectedRoomType(roomType);
+    }
+
+    @Override
+    public BillModel getBillModel() {
+        return this.billModel;
     }
 }

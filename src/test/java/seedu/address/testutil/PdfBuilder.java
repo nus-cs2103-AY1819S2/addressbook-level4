@@ -51,7 +51,7 @@ public class PdfBuilder {
         size = pdfToCopy.getSize();
         tags = new HashSet<>(pdfToCopy.getTags());
         deadline = pdfToCopy.getDeadline();
-        isEncrypted = pdfToCopy.getIsEncryted();
+        isEncrypted = pdfToCopy.getIsEncrypted();
     }
 
     /**

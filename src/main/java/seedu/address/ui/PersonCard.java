@@ -34,12 +34,6 @@ public class PersonCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label id;
-    //@FXML
-    //private Label phone;
-    //@FXML
-    //private Label address;
-    //@FXML
-    //private Label email;
     @FXML
     private Label deadline;
     @FXML
@@ -93,9 +87,6 @@ public class PersonCard extends UiPart<Region> {
             }
 
         }
-        //phone.setText(pdf.getPhone().value);
-        //address.setText(pdf.getAddress().value);
-        //email.setText(pdf.getEmail().value);
         pdf.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 

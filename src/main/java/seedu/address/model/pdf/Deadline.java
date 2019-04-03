@@ -4,7 +4,6 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.MissingFormatArgumentException;
 
 /**
@@ -14,38 +13,12 @@ import java.util.MissingFormatArgumentException;
 public class Deadline implements Comparable<Deadline> {
     public static final String MESSAGE_CONSTRAINTS = "Deadline can take any valid date, "
             + "and it should not be blank";
-    public static final String PROPERTY_SEPARATOR_PREFIX = "/";
+    private static final String PROPERTY_SEPARATOR_PREFIX = "/";
     private static final int PROPERTY_DATE_INDEX = 0;
-    private static final int PROPERTY_STATUS_INDEX = 1;
+    private static final int PROPERTY_IS_DONE_INDEX = 1;
 
     private final LocalDate date;
-    private final DeadlineStatus status;
-
-    /**
-     * Represents a Pdf deadline's  status in the pdf book.
-     * Guarantees: immutable;
-     */
-    private enum DeadlineStatus {
-        REMOVE("REMOVE"),
-        READY("READY"),
-        COMPLETE("COMPLETE");
-
-        private String status;
-
-        DeadlineStatus(String status) {
-            this.status = status;
-        }
-
-        public String getStatus() {
-            return this.status;
-        }
-
-        @Override
-        public String toString() {
-            return status;
-        }
-    }
-
+    private final boolean isDone;
 
     /**
      * Constructs a valid {@code Deadline}.
@@ -53,7 +26,7 @@ public class Deadline implements Comparable<Deadline> {
      */
     public Deadline() {
         this.date = LocalDate.MIN;
-        this.status = DeadlineStatus.REMOVE;
+        this.isDone = false;
     }
 
     /**
@@ -65,45 +38,26 @@ public class Deadline implements Comparable<Deadline> {
 
         if (jsonFormat.equals("")) {
             this.date = LocalDate.MIN;
-            this.status = DeadlineStatus.REMOVE;
-            return;
-        }
-
-        String stringStatus = "";
-
-        try {
-            this.date = LocalDate.parse(jsonFormat.split(PROPERTY_SEPARATOR_PREFIX)[Deadline.PROPERTY_DATE_INDEX]);
-            stringStatus = jsonFormat.split(PROPERTY_SEPARATOR_PREFIX)[Deadline.PROPERTY_STATUS_INDEX];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new MissingFormatArgumentException("Missing Parameters.");
-        }
-
-        switch(stringStatus) {
-        case "REMOVE":
-            this.status = DeadlineStatus.REMOVE;
-            break;
-        case "READY":
-            this.status = DeadlineStatus.READY;
-            break;
-        case "COMPLETE":
-            this.status = DeadlineStatus.COMPLETE;
-            break;
-        default:
-            throw new AssertionError("Unknown DeadlineStatus " + stringStatus);
+            this.isDone = false;
+        } else {
+            try {
+                this.date = LocalDate.parse(jsonFormat.split(PROPERTY_SEPARATOR_PREFIX)[PROPERTY_DATE_INDEX]);
+                this.isDone = Boolean.parseBoolean(jsonFormat.split(PROPERTY_SEPARATOR_PREFIX)[PROPERTY_IS_DONE_INDEX]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new MissingFormatArgumentException("Missing Parameters.");
+            }
         }
     }
 
     /**
      * Constructs a valid {@code Deadline}.
      *
-     * @param date - Date of deadline
-     * @param month - Month of Deadline
-     * @param year - Year of Deadline
+     * @param date - LocalDate of deadline
      * @throws DateTimeException - If Invalid input is detected (Invalid Date)
      */
-    public Deadline(int date, int month, int year) throws DateTimeException {
-        this.date = LocalDate.of(year, month, date);
-        this.status = DeadlineStatus.READY;
+    public Deadline(LocalDate date) throws DateTimeException {
+        this.date = date;
+        this.isDone = false;
     }
 
     /**
@@ -112,38 +66,24 @@ public class Deadline implements Comparable<Deadline> {
      * @param date - Date of deadline
      * @param month - Month of Deadline
      * @param year - Year of Deadline
-     * @param status - Specifying if Deadline has been met.
      * @throws DateTimeException - If invalid input is detected
      */
 
-    public Deadline(int date, int month, int year, DeadlineStatus status) throws DateTimeException {
-        if (status == DeadlineStatus.COMPLETE) {
-            if (LocalDate.of(year, month, date).equals(LocalDate.MIN)) {
-                this.date = LocalDate.MIN;
-                this.status = DeadlineStatus.COMPLETE;
-            } else {
-                this.date = LocalDate.of(year, month, date);
-                this.status = DeadlineStatus.COMPLETE;
-            }
-        } else if (status == DeadlineStatus.REMOVE) {
-            this.date = LocalDate.MIN;
-            this.status = DeadlineStatus.REMOVE;
-        } else {
-            this.date = LocalDate.of(year, month, date);
-            this.status = DeadlineStatus.READY;
-        }
+    public Deadline(int date, int month, int year) throws DateTimeException {
+        this.date = LocalDate.of(year, month, date);
+        this.isDone = false;
     }
 
     /**
      * Takes an existing deadline and parses its values while replacing its status with
      * user input.
      * @param existingDeadline - Existing Deadline whose status you want to change.
-     * @param status - Status of the deadline
+     * @param isDone - Specifying if Deadline has been met.
      */
 
-    public Deadline(Deadline existingDeadline, DeadlineStatus status) {
-        this(existingDeadline.date.getDayOfMonth(), existingDeadline.date.getMonthValue(),
-                existingDeadline.date.getYear(), status);
+    public Deadline(Deadline existingDeadline, boolean isDone) {
+        this.date = existingDeadline.getValue();
+        this.isDone = isDone;
     }
 
     /**
@@ -172,7 +112,7 @@ public class Deadline implements Comparable<Deadline> {
      */
 
     public boolean isDone() {
-        return this.status == DeadlineStatus.COMPLETE;
+        return this.isDone;
     }
 
     /**
@@ -181,7 +121,7 @@ public class Deadline implements Comparable<Deadline> {
      * @return - existence of localdate.
      */
     public boolean exists() {
-        return this.status != DeadlineStatus.REMOVE;
+        return this.date != LocalDate.MIN;
     }
 
     @Override
@@ -191,44 +131,45 @@ public class Deadline implements Comparable<Deadline> {
 
     @Override
     public String toString() {
-        return (!this.date.equals(LocalDate.MIN))
-                ? new StringBuilder().append(this.date.toString())
-                .append(Deadline.PROPERTY_SEPARATOR_PREFIX)
-                .append(this.status)
-                .toString() : "";
+        StringBuilder builder = new StringBuilder("Deadline: ");
+        if (this.exists()) {
+            builder.append(this.date);
+            if (this.isDone()) {
+                builder.append(" (Done)\n");
+            } else {
+                builder.append(" (Ongoing)\n");
+            }
+        } else {
+            builder.append("None\n");
+        }
+        return builder.toString();
     }
 
     /**
-     * Returns if a given string is a valid deadline.
+     * Json adapted toString() method
+     *
+     * @return - Json adapted Deadline.toString().
      */
-    public static boolean isValidDeadline(String test) {
-        try {
-            Deadline d = new Deadline(test);
-            d = null;
-            return true;
-        } catch (DateTimeParseException e) {
-            return false;
-        }
+    public String toJsonString() {
+        return this.exists()
+                ? this.date + Deadline.PROPERTY_SEPARATOR_PREFIX + this.isDone
+                : "";
     }
 
     public static Deadline setDone(Deadline completedDeadline) {
-        return new Deadline(completedDeadline, DeadlineStatus.COMPLETE);
+        return new Deadline(completedDeadline, true);
     }
 
     public static Deadline setRemove(Deadline deadlineToRemove) {
-        return new Deadline(deadlineToRemove, DeadlineStatus.REMOVE);
-    }
-
-    public static Deadline updateStatus(Deadline deadlineToUpdate, Deadline deadlineWithNewStatus) {
-        return new Deadline(deadlineToUpdate, deadlineWithNewStatus.status);
+        return new Deadline();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Deadline // instanceof handles nulls;
-                && date.equals(((Deadline) other).date))
-                && status.getStatus().equals(((Deadline) other).status.getStatus());
+                || other instanceof Deadline // instanceof handles nulls;
+                && date.equals(((Deadline) other).date)
+                && isDone == ((Deadline) other).isDone;
     }
 
     @Override

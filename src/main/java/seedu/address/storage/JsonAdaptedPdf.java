@@ -32,21 +32,6 @@ class JsonAdaptedPdf {
     private final String deadline;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
-    ///**
-    //* Constructs a {@code JsonAdaptedPdf} with the given pdf details.
-    //*/
-    /*@JsonCreator
-    public JsonAdaptedPdf(@JsonProperty("name") String name, @JsonProperty("directory") String directory,
-                          @JsonProperty("size") String size, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
-        this.name = name;
-        this.directory = directory;
-        this.size = size;
-        this.deadline = null;
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
-        }
-    }*/
-
     /**
      * Constructs a {@code JsonAdaptedPdf} with the given pdf details.
      */
@@ -70,7 +55,7 @@ class JsonAdaptedPdf {
         name = source.getName().getFullName();
         size = source.getSize().getValue();
         directory = source.getDirectory().getDirectory();
-        deadline = source.getDeadline().toString();
+        deadline = source.getDeadline().toJsonString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -114,11 +99,6 @@ class JsonAdaptedPdf {
             throw new IllegalValueException(Directory.MESSAGE_CONSTRAINTS);
         }
         final Directory modelDirectory = new Directory(directory);
-
-        /*if (deadline == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Deadline.class.getSimpleName()));
-        }*/
 
         try {
             final Deadline modelDeadline = new Deadline(deadline);

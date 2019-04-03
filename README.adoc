@@ -1,9 +1,11 @@
 = TravelBuddy
+
+image:https://api.codacy.com/project/badge/Grade/e435353096964870ae6b34c158e50f95[link="https://app.codacy.com/app/chung-ming/main?utm_source=github.com&utm_medium=referral&utm_content=CS2103-AY1819S2-W11-3/main&utm_campaign=Badge_Grade_Dashboard"]
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.org/cs2103-ay1819s2-w11-3/main[image:https://travis-ci.org/cs2103-ay1819s2-w11-3/main.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/chung-ming/main/branch/master[image:https://ci.appveyor.com/api/projects/status/qc6o8alt6uhm8qhp/branch/master?svg=true[Build status]]
-https://coveralls.io/github/cs2103-ay1819s2-w11-3/main?branch=master[image:https://coveralls.io/repos/github/cs2103-ay1819s2-w11-3/main/badge.svg?branch=master[Coverage Status]]
+https://travis-ci.org/CS2103-AY1819S2-W11-3/main[image:https://travis-ci.org/CS2103-AY1819S2-W11-3/main.svg?branch=master[Build Status]]
+https://ci.appveyor.com/project/chung-ming/main/branch/master[image:https://ci.appveyor.com/api/projects/status/9x6cjk8043ryc73g/branch/master?svg=true[Build status]]
+https://coveralls.io/github/CS2103-AY1819S2-W11-3/main?branch=master[image:https://coveralls.io/repos/github/CS2103-AY1819S2-W11-3/main/badge.svg?branch=master[Coverage Status]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -32,6 +34,7 @@ you can access all your vital travel information even without data connection.
 _Marco Jakob_.
 * The original source of the code was used with permission from the https://github.com/se-edu/[AddressBook-Level4
 project] created by _SE-EDU_.
-* Libraries used: https://github.com/TestFX/TestFX[TextFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
+* Libraries used: https://github.com/TestFX/TestFX[TextFX], https://github.com/FasterXML/jackson[Jackson],
+https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5], https://github.com/google/gson[Gson]
 
 == Licence : link:LICENSE[MIT]

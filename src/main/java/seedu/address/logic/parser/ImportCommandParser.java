@@ -1,10 +1,6 @@
 /* @@author Carrein */
 package seedu.address.logic.parser;
 
-//import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
-//import static seedu.address.commons.core.Config.MAX_FILE_SIZE;
-//import static seedu.address.commons.core.Config.SAMPLE_IMPORT;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,7 +23,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
     Album album = Album.getInstance();
 
     private final File directory = new File(album.getAssetsFilepath());
-    private final String ASSETS_FILEPATH = album.getAssetsFilepath();
+    private final String assetsFilepath = album.getAssetsFilepath();
 
     /**
      * Parses the given {@code String} of arguments in the context
@@ -48,27 +44,6 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         try {
             switch (validPath(args)) {
             // TODO - Pending refactor.
-//            case 2:
-//                isDirectory = true;
-//                folder = new File(SAMPLE_IMPORT);
-//                listOfFiles = folder.listFiles();
-//                for (File f : listOfFiles) {
-//                    String path = f.getAbsolutePath();
-//                    // File must be valid and not hidden and not ridiculously large.
-//                    if (validFormat(path) && !isHidden(path) && !isLarge(path)) {
-//                        Image image = new Image(path);
-//                        if (!duplicateFile(image)) {
-//                            try {
-//                                File file = new File(path);
-//                                FileUtils.copyFileToDirectory(file, directory);
-//                                System.out.println("✋ IMPORTED: " + path);
-//                            } catch (IOException e) {
-//                                System.out.println(e.toString());
-//                            }
-//                        }
-//                    }
-//                }
-//                break;
             case 1:
                 isDirectory = true;
                 folder = new File(args);
@@ -127,10 +102,6 @@ public class ImportCommandParser implements Parser<ImportCommand> {
      * @return 1 if directory, 0 if file, -1 otherwise.
      */
     public int validPath(String url) {
-        // Sample case
-//        if (url.equals("sample")) {
-//            return 2;
-//        }
         // Trim url to remove trailing whitespace
         File file = new File(url.trim());
         if (file.isDirectory()) {
@@ -149,7 +120,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
      * @return True if image file name exist, false otherwise.
      */
     public boolean duplicateFile(Image image) {
-        return (new File(ASSETS_FILEPATH + image.getName().toString()).exists()) ? true : false;
+        return (new File(assetsFilepath + image.getName().toString()).exists()) ? true : false;
     }
 
     /**

@@ -1,21 +1,13 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
-//import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
-//import static seedu.address.commons.core.Config.TEMP_FILENAME;
-//import static seedu.address.commons.core.Config.TEMP_FILEPATH;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
-
-import javax.imageio.ImageIO;
-
-import org.apache.commons.io.FileUtils;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -36,8 +28,6 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-    private static Image currentImage;
-    private String originalName;
 
     private final VersionedAddressBook versionedAddressBook;
     private final UserPrefs userPrefs;
@@ -138,14 +128,6 @@ public class ModelManager implements Model {
 
         versionedAddressBook.setPerson(target, editedPerson);
     }
-
-    /**
-     * Displays TEMP_FILE in TEMP_FILEPATH on GUI
-     */
-//    @Override
-//    public void displayTempImage() {
-//        Notifier.firePropertyChangeListener("import", null, TEMP_FILEPATH);
-//    }
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -271,68 +253,6 @@ public class ModelManager implements Model {
             }
         }
     }
-
-//    @Override
-//    public String[] getFileNames() {
-//        File file = new File(ASSETS_FILEPATH);
-//        return file.list();
-//    }
-
-//    /**
-//     * Replaces temp folder image with original asset Image
-//     */
-//    @Override
-//    public void replaceTempImage() {
-//        //set this image
-//        try {
-//            File file = new File(ASSETS_FILEPATH + currentImage.getName());
-//            File directory = new File(TEMP_FILEPATH);
-//            FileUtils.copyFileToDirectory(file, directory, false);
-//        } catch (IOException e) {
-//            System.out.println(e.toString());
-//        }
-//    }
-
-
-//    @Override
-//    public void setCurrentImage(Image image) {
-//        currentImage = image;
-//        try {
-//            File outputFile = new File(TEMP_FILENAME);
-//            File directory = new File(TEMP_FILEPATH);
-//            System.out.println("Should not be called");
-//            ImageIO.write(image.getBufferedImage(), image.getFileType(), outputFile);
-//            FileUtils.copyFileToDirectory(outputFile, directory, false);
-//            outputFile.delete();
-//        } catch (IOException e) {
-//            System.out.println(e.toString());
-//        }
-//    }
-
-    @Override
-    public void setOriginalName(String name) {
-        this.originalName = name;
-    }
-
-//    @Override
-//    public String saveToAssets(String name) {
-//        try {
-//            if (name.isEmpty()) {
-//                name = originalName;
-//            }
-//            File outputFile = new File(name);
-//            File latestImage = new File(TEMP_FILEPATH);
-//            File saveDirectory = new File(ASSETS_FILEPATH);
-//            System.out.println("Should not be called");
-//            latestImage.renameTo(outputFile);
-//            FileUtils.copyFileToDirectory(outputFile, saveDirectory, false);
-//            setCurrentImage(currentImage);
-//            outputFile.delete();
-//        } catch (IOException e) {
-//            System.out.println(e.toString());
-//        }
-//        return name;
-//    }
 
     //=========== Filtered Person List Accessors =============================================================
     /* @@author Carrein */

@@ -12,8 +12,6 @@ import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
 
-import com.google.common.io.Files;
-
 import seedu.address.Notifier;
 import seedu.address.model.image.Image;
 

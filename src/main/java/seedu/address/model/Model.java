@@ -7,7 +7,6 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.image.Image;
 import seedu.address.model.person.Person;
 
 /**
@@ -77,18 +76,11 @@ public interface Model {
     void addPerson(Person person);
 
     /**
-     * Imports a given image.
-     */
-    void displayImage(Image image);
-
-    /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void setPerson(Person target, Person editedPerson);
-
-//    void displayTempImage();
 
     /**
      * Returns an unmodifiable view of the filtered person list
@@ -101,16 +93,6 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
-
-    /**
-     * Returns true if the model has previous address book states to restore.
-     */
-    boolean canUndoAddressBook();
-
-    /**
-     * Returns true if the model has undone address book states to restore.
-     */
-    boolean canRedoAddressBook();
 
     /**
      * Restores the model's address book to its previous state.
@@ -150,36 +132,17 @@ public interface Model {
     void clearAssetFolder(File directory);
 
     /**
-     * List all file names in assets folder
-     */
-//    String[] getFileNames();
-
-
-    /**
-     * replaces image in Temp folder with original from Assets
-     */
-//    void replaceTempImage();
-
-    /**
      * Updates tempImage to Opened image
      *
      * @param image
      */
-//    void setCurrentImage(Image image);
-
-    /**
-     * Creates a copy of the original {@code name} of the opened image
-     */
-    void setOriginalName(String name);
 
     /**
      * Saves the edited image as {@code name} into assets folder)
      * To use originalName if {@code name} is empty
      */
-//    String saveToAssets(String name);
 
     //=========== Filtered Person List Accessors =============================================================
 
     void refreshAlbum();
-    void switchTab();
 }

@@ -52,7 +52,7 @@ public class AddCommandTest {
         Person validPerson = new PersonBuilder().build();
 
         CommandResult commandResult = new AddCommand(validPerson).execute(currentEdit, modelStub,
-            commandHistory);
+                commandHistory);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
@@ -175,10 +175,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void displayTempImage() {
-        }
-
-        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -234,27 +230,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public String[] getFileNames() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void replaceTempImage() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setCurrentImage(Image image) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setOriginalName(String name) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public String saveToAssets(String name) {
             throw new AssertionError("This method should not be called.");
         }
     }

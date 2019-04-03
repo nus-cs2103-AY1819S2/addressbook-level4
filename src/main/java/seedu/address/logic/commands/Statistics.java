@@ -29,7 +29,7 @@ public class Statistics {
      * @return number of condition occurences in the map
      */
     public static Integer getConditionStatistics(Condition condition) {
-        return statistics.getOrDefault(condition.toString(), 0);
+        return statistics.getOrDefault(condition.toString().toUpperCase(), 0);
     }
 
     public static void clearStatistics() {
@@ -45,8 +45,9 @@ public class Statistics {
      */
     public static void updateStatistics(Set<Condition> conditionSet) {
         for (Condition condition : conditionSet) {
-            Integer count = statistics.get(condition.toString());
-            statistics.put(condition.toString(), (count == null) ? 1 : count + 1);
+            String conditionName = condition.toString().toUpperCase();
+            Integer count = statistics.get(conditionName);
+            statistics.put(conditionName, (count == null) ? 1 : count + 1);
         }
     }
 
@@ -54,8 +55,8 @@ public class Statistics {
         return statistics.entrySet();
     }
 
-    @Override
-    public String toString() {
+
+    public static String toCommand() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Conditions and Occurences:\n");
         if (statistics.isEmpty()) {

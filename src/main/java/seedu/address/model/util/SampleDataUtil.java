@@ -24,7 +24,7 @@ public class SampleDataUtil {
     public static Pdf[] getSamplePdfs() {
         Path sampleA = Paths.get("src", "test", "data", "SampleFiles", "NormalFiles",
                 "CS2103T_PDF++_UG_Intro.pdf");
-        Path sampleB = Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
+        Path sampleB = Paths.get("src", "test", "data", "SampleFiles", "NormalFiles",
                 "CS2103T_Week9_Integration Approaches.pdf");
         return new Pdf[] {
             new Pdf(new Name(sampleA.getFileName().toString()),
@@ -40,9 +40,9 @@ public class SampleDataUtil {
 
     public static ReadOnlyPdfBook getSamplePdfBook() {
         PdfBook sampleAb = new PdfBook();
-        for (Pdf samplePdf : getSamplePdfs()) {
-            sampleAb.addPdf(samplePdf);
-        }
+//        for (Pdf samplePdf : getSamplePdfs()) {
+//            sampleAb.addPdf(samplePdf);
+//        }
         return sampleAb;
     }
 

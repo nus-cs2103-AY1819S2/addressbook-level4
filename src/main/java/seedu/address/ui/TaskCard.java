@@ -39,6 +39,8 @@ public class TaskCard extends UiPart<Region> {
     private Label startTime;
     @FXML
     private Label endTime;
+    @FXML
+    private Label linkedPatient;
 
 
     public TaskCard(Task task, int displayedIndex) {
@@ -53,6 +55,12 @@ public class TaskCard extends UiPart<Region> {
         endDate.setText("End Date:  " + task.getEndDate().toString());
         startTime.setText("Start Time: " + task.getStartTime().toString());
         endTime.setText("End Time: " + task.getEndTime().toString());
+        if (task.getLinkedPatient() != null) {
+            linkedPatient.setText("Patient involved: " + task.getLinkedPatient().getLinkedPatientName()
+                                + " ( " + task.getLinkedPatient().getLinkedPatientNric() + " )");
+        } else {
+            linkedPatient.setText("Task is not linked to a patient");
+        }
     }
 
     @Override

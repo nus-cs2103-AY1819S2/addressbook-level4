@@ -206,6 +206,7 @@ public class MainWindow extends UiPart<Stage> {
         if (statWindow.isShowing()) {
             statWindow.close();
         }
+        statWindow = new StatWindow(new Stage(), this.logic);
         statWindow.populateData();
         statWindow.show();
     }

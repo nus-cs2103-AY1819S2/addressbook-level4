@@ -259,6 +259,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.sortStoredList(patientComparator, isReverse);
     }
 
+    public void sortTasks(Comparator<Task> c) { tasks.sortByComparator(c); }
+
     /**
      * Method to sort the patients within the address book
      */

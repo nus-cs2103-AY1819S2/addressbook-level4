@@ -92,6 +92,8 @@ public class AddCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+        private Integer quizMode = 0;
+
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
@@ -209,12 +211,12 @@ public class AddCommandTest {
 
         @Override
         public Integer getQuizMode() {
-            throw new AssertionError("This method should not be called.");
+            return quizMode;
         }
 
         @Override
         public void setQuizMode(Integer quizMode) {
-            throw new AssertionError("This method should not be called.");
+            this.quizMode = quizMode;
         }
 
         @Override

@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_BACK_FACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT_FACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.address.commons.core.QuizState;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -30,6 +31,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New flashcard added: %1$s";
     public static final String MESSAGE_DUPLICATE_FLASHCARD = "This flashcard already exists in the card collection";
+    private static final String MESSAGE_IN_QUIZ = "Cannot add in quiz mode";
 
     private final Flashcard toAdd;
 
@@ -44,6 +46,10 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
+        if (model.getQuizMode() != QuizState.NOT_QUIZ_MODE) {
+            throw new CommandException(MESSAGE_IN_QUIZ);
+        }
 
         if (model.hasFlashcard(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_FLASHCARD);

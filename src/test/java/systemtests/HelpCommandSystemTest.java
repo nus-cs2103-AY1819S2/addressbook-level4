@@ -28,24 +28,8 @@ public class HelpCommandSystemTest extends CardCollectionSystemTest {
 
     @Test
     public void openHelpWindow() {
-        //use accelerator
-        getCommandBox().click();
-        getMainMenu().openHelpWindowUsingAccelerator();
-        assertHelpWindowOpen();
-
-        getResultDisplay().click();
-        getMainMenu().openHelpWindowUsingAccelerator();
-        assertHelpWindowOpen();
-
-        getFlashcardListPanel().click();
-        getMainMenu().openHelpWindowUsingAccelerator();
-        assertHelpWindowOpen();
-
-        // getMainMenu().openHelpWindowUsingAccelerator();
-        // assertHelpWindowNotOpen();
-
         //use menu button
-        getMainMenu().openHelpWindowUsingMenu();
+        getToolbar().openHelpWindow();
         assertHelpWindowOpen();
 
         //use command box
@@ -71,10 +55,10 @@ public class HelpCommandSystemTest extends CardCollectionSystemTest {
 
     @Test
     public void help_multipleCommands_onlyOneHelpWindowOpen() {
-        getMainMenu().openHelpWindowUsingMenu();
+        getToolbar().openHelpWindow();
 
         getMainWindowHandle().focus();
-        getMainMenu().openHelpWindowUsingAccelerator();
+        getToolbar().openHelpWindow();
 
         getMainWindowHandle().focus();
         executeCommand(HelpCommand.COMMAND_WORD);

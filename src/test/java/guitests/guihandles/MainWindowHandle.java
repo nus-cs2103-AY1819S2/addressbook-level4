@@ -11,7 +11,7 @@ public class MainWindowHandle extends StageHandle {
     private final ResultDisplayHandle resultDisplay;
     private final CommandBoxHandle commandBox;
     private final StatusBarFooterHandle statusBarFooter;
-    private final MainMenuHandle mainMenu;
+    private final ToolbarHandle toolbar;
     private final CardViewHandle cardViewPanel;
 
     public MainWindowHandle(Stage stage) {
@@ -22,7 +22,7 @@ public class MainWindowHandle extends StageHandle {
         resultDisplay = new ResultDisplayHandle(getChildNode(ResultDisplayHandle.RESULT_DISPLAY_ID));
         commandBox = new CommandBoxHandle(getChildNode(CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
         statusBarFooter = new StatusBarFooterHandle(getChildNode(StatusBarFooterHandle.STATUS_BAR_PLACEHOLDER));
-        mainMenu = new MainMenuHandle(getChildNode(MainMenuHandle.MENU_BAR_ID));
+        toolbar = new ToolbarHandle(getChildNode(ToolbarHandle.TOOLBAR_ID));
         cardViewPanel = new CardViewHandle(getChildNode(CardViewHandle.CARD_VIEW_ID));
     }
 
@@ -42,8 +42,8 @@ public class MainWindowHandle extends StageHandle {
         return statusBarFooter;
     }
 
-    public MainMenuHandle getMainMenu() {
-        return mainMenu;
+    public ToolbarHandle getToolbar() {
+        return toolbar;
     }
 
     public CardViewHandle getCardViewPanel() {

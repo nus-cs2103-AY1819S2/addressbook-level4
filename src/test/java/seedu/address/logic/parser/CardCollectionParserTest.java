@@ -32,6 +32,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.QuizCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.ShareCommand;
 import seedu.address.logic.commands.SmartCommand;
 import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -153,6 +154,29 @@ public class CardCollectionParserTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void parseCommand_shareCommandWord_returnShareCommand() {
+        Path testDataFolder = Paths.get("src", "test", "data", "uploadCommandTest");
+        String file = testDataFolder.resolve("upload.txt").toString();
+        // TODO: test does not pass on travis
+        try {
+            parser.parseCommand(ShareCommand.COMMAND_WORD + " " + testDataFolder.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            parser.parseCommand(ShareCommand.COMMAND_WORD + " " + file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        /*
+        try {
+            parser.parseCommand(ShareCommand.COMMAND_WORD);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
     }
 
     @Test

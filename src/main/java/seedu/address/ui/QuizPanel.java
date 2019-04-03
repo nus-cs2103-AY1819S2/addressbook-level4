@@ -18,6 +18,9 @@ public class QuizPanel extends UiPart<Region> {
     private Label cardsRemaining;
 
     @FXML
+    private Label cardsRemainingLabel;
+
+    @FXML
     private Label good;
 
     @FXML
@@ -26,12 +29,26 @@ public class QuizPanel extends UiPart<Region> {
     public QuizPanel(ObservableList<Flashcard> quizCards, ObservableValue<Integer> quizGood,
                      ObservableValue<Integer> quizBad) {
         super(FXML);
-        cardsRemaining.setText(String.valueOf(quizCards.size() + 1));
+        updateCardsRemaining(quizCards.size() + 1);
         quizCards.addListener((ListChangeListener<Flashcard>) change ->
-            cardsRemaining.setText(String.valueOf(change.getList().size() + 1)));
+            updateCardsRemaining(change.getList().size() + 1));
         good.setText(String.valueOf(quizGood.getValue()));
         bad.setText(String.valueOf(quizBad.getValue()));
         quizGood.addListener(((observableValue, oldValue, newValue) -> good.setText(String.valueOf(newValue))));
         quizBad.addListener(((observableValue, oldValue, newValue) -> bad.setText(String.valueOf(newValue))));
+    }
+
+    /**
+     * Updates the cards remaining labels for Quiz Panel UI.
+     *
+     * @param size the number of cards remaining
+     */
+    private void updateCardsRemaining(int size) {
+        cardsRemaining.setText(String.valueOf(size));
+        if (size == 1) {
+            cardsRemainingLabel.setText("card remaining");
+        } else {
+            cardsRemainingLabel.setText("cards remaining");
+        }
     }
 }

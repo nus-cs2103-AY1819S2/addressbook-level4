@@ -6,7 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT_FACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.QuizState;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.FlashcardContainsKeywordsPredicate;
 
@@ -31,6 +33,8 @@ public class FindCommand extends Command {
             + PREFIX_TAG + "Chinese "
             + PREFIX_TAG + "Spanish \n";
 
+    private static final String MESSAGE_IN_QUIZ = "Cannot find in quiz mode";
+
     private final FlashcardContainsKeywordsPredicate predicate;
 
     public FindCommand(FlashcardContainsKeywordsPredicate predicate) {
@@ -38,8 +42,11 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        if (model.getQuizMode() != QuizState.NOT_QUIZ_MODE) {
+            throw new CommandException(MESSAGE_IN_QUIZ);
+        }
         model.updateFilteredFlashcardList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_FLASHCARDS_LISTED_OVERVIEW, model.getFilteredFlashcardList().size()));

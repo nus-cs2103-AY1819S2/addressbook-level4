@@ -4,9 +4,9 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -46,9 +46,6 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane commandBoxPlaceholder;
 
     @FXML
-    private MenuItem helpMenuItem;
-
-    @FXML
     private StackPane flashcardListPanelPlaceholder;
 
     @FXML
@@ -58,7 +55,17 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
-    private MenuBar menuBar;
+    private StackPane toolbar;
+
+    @FXML
+    private ImageView closeButton;
+
+    @FXML
+    private ImageView helpButton;
+
+    @FXML
+    private ImageView minimizeButton;
+
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -78,11 +85,11 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void setupToolbar() {
-        menuBar.setOnMousePressed(mouseEvent -> {
+        toolbar.setOnMousePressed(mouseEvent -> {
             xOffset = mouseEvent.getSceneX();
             yOffset = mouseEvent.getSceneY();
         });
-        menuBar.setOnMouseDragged(mouseEvent -> {
+        toolbar.setOnMouseDragged(mouseEvent -> {
             getPrimaryStage().setX(mouseEvent.getScreenX() - xOffset);
             getPrimaryStage().setY(mouseEvent.getScreenY() - yOffset);
         });
@@ -93,7 +100,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void setAccelerators() {
-        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        // setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
 
     /**
@@ -154,6 +161,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     void setupListeners() {
         logic.quizModeProperty().addListener(((observableValue, oldValue, newValue) -> onQuizModeChanged(newValue)));
+        closeButton.setOnMouseClicked(mouseEvent -> handleExit());
+        helpButton.setOnMouseClicked(mouseEvent -> handleHelp());
+        minimizeButton.setOnMouseClicked(mouseEvent -> primaryStage.setIconified(true));
     }
 
     /**

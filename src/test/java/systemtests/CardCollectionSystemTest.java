@@ -22,10 +22,10 @@ import org.junit.ClassRule;
 import guitests.guihandles.CardViewHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.FlashcardListPanelHandle;
-import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
+import guitests.guihandles.ToolbarHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
@@ -98,8 +98,8 @@ public abstract class CardCollectionSystemTest {
         return mainWindowHandle.getFlashcardListPanel();
     }
 
-    public MainMenuHandle getMainMenu() {
-        return mainWindowHandle.getMainMenu();
+    public ToolbarHandle getToolbar() {
+        return mainWindowHandle.getToolbar();
     }
 
     public CardViewHandle getCardViewPanel() {

@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.QuizState;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
@@ -45,6 +46,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_FLASHCARD_SUCCESS = "Edited Flashcard: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_FLASHCARD = "This flashcard already exists in the card collection.";
+    private static final String MESSAGE_IN_QUIZ = "Cannot edit in quiz mode";
 
     private final Index index;
     private final EditFlashcardDescriptor editFlashcardDescriptor;
@@ -80,6 +82,9 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        if (model.getQuizMode() != QuizState.NOT_QUIZ_MODE) {
+            throw new CommandException(MESSAGE_IN_QUIZ);
+        }
         List<Flashcard> lastShownList = model.getFilteredFlashcardList();
 
         if (index.getZeroBased() >= lastShownList.size()) {

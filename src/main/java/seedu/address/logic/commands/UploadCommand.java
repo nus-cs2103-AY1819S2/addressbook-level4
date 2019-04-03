@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
+import seedu.address.commons.core.QuizState;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddCommandParser;
@@ -26,6 +27,7 @@ public class UploadCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Flashcards successfully uploaded from file: %s";
     public static final String MESSAGE_UPLOAD_ERROR = "Unable to upload flashcards from file";
+    private static final String MESSAGE_IN_QUIZ = "Cannot upload in quiz mode";
 
     private final File toAppend;
 
@@ -40,6 +42,9 @@ public class UploadCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        if (model.getQuizMode() != QuizState.NOT_QUIZ_MODE) {
+            throw new CommandException(MESSAGE_IN_QUIZ);
+        }
 
         try (BufferedReader br = new BufferedReader(new FileReader(toAppend))) {
             String flashcardToAdd;

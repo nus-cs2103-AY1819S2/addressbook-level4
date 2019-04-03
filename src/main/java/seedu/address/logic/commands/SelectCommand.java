@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.QuizState;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -24,6 +25,7 @@ public class SelectCommand extends Command {
         + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SELECT_FLASHCARD_SUCCESS = "Selected Flashcard: %1$s, %2$.2f%% success";
+    private static final String MESSAGE_IN_QUIZ = "Cannot select in quiz mode";
 
     private final Index targetIndex;
 
@@ -34,6 +36,9 @@ public class SelectCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        if (model.getQuizMode() != QuizState.NOT_QUIZ_MODE) {
+            throw new CommandException(MESSAGE_IN_QUIZ);
+        }
 
         List<Flashcard> filteredFlashcardList = model.getFilteredFlashcardList();
 

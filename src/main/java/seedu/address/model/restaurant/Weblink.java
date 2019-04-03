@@ -19,8 +19,6 @@ public class Weblink {
 
     public static final String NO_WEBLINK_STRING = "No weblink added";
     public static final String INVALID_URL_MESSAGE = "%1$s is not found. Please enter a correct weblink";
-    public static final String HTTPS_PREFIX = "https://";
-    private static final String FILE_PREFIX = "file:/";
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
     public static final String MESSAGE_CONSTRAINTS = "Weblinks should be of the format https://local-part.domain "
             + "and adhere to the following constraints:\n"
@@ -36,7 +34,9 @@ public class Weblink {
     private static final String DOMAIN_FIRST_CHARACTER_REGEX = "[^\\W_]"; // alphanumeric characters except underscore
     private static final String DOMAIN_MIDDLE_REGEX = "[a-zA-Z0-9.-]*"; // alphanumeric, period and hyphen
     private static final String DOMAIN_LAST_CHARACTER_REGEX = "[^\\W_]$";
-    public static final String VALIDATION_REGEX = "^(http:\\/\\/|https:\\/\\/|)" + LOCAL_PART_REGEX + "."
+    private static final String HTTPS_PREFIX = "https://";
+    private static final String FILE_PREFIX = "file:/";
+    public static final String VALIDATION_REGEX = "^(http://|https://|)" + LOCAL_PART_REGEX + "."
             + DOMAIN_FIRST_CHARACTER_REGEX + DOMAIN_MIDDLE_REGEX + DOMAIN_LAST_CHARACTER_REGEX;
 
     public final String value;

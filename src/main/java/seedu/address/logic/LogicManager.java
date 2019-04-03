@@ -109,11 +109,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<Cell> selectedPersonProperty() {
-        return model.selectedPersonProperty();
-    }
-
-    @Override
     public ObservableBooleanValue getHumanMapObservable() {
         return model.getHumanMapObservable();
     }

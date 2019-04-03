@@ -50,14 +50,6 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Selected cell in the filtered cell list.
-     * null if no cell is selected.
-     *
-     * @see seedu.address.model.Model#selectedPersonProperty()
-     */
-    ReadOnlyProperty<Cell> selectedPersonProperty();
-
-    /**
      * Used for the Ui to listen to and trigger changes.
      */
     ObservableBooleanValue getHumanMapObservable();

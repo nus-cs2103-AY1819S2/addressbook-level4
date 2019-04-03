@@ -19,14 +19,14 @@ By: `Team T12-2`      Since: `Feb 2019`      Licence: `MIT`
 == Introduction
 
 _Acquizition_ is a *desktop app* for easy language acquisition
-and memory retention. By using a Spaced Repetition System (SRS),
-_Acquizition_ cleverly determines which flashcards should be
-tested to maximize recollection.
+and memory retention. By analyzing your performance on recalling
+the flashcards, _Acquizition_ cleverly determines which flashcards
+should be tested to maximize recollection.
 
-Additionally, _Acquizition_ provides a user-friendly Graphical
-User Interface (GUI) to create and edit flashcards. It also
-provides a Command-Line Interface (CLI) to streamline the
-experience for more experienced users.
+Additionally, _Acquizition_ provides you with a user-friendly
+Graphical User Interface (GUI) to view your flashcards. If you can
+type quickly, you'll also enjoy the Command-Line Interface (CLI)
+that's streamlined for users like you.
 
 This user guide provides in-depth documentation on the _Acquizition_
 installation process, command format and Frequently
@@ -35,7 +35,7 @@ to get started. Enjoy!
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
+.  Ensure you have Java version `9` or later installed in your computer.
 .  Download the latest `acquizition.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your
 cards collection.
@@ -45,133 +45,230 @@ image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  Try the following to get your feet wet!
 
-* *`find`* : lists all contacts
-* **`add`**`add f/Hola b/Hello t/Spanish` : adds a flash card with `Hola` on
-the front of the card, `Hello` on the back of the card, and `Spanish` as the
-tag.
-* **`delete`**`3` : deletes the 3rd flash card shown in the current list
-* *`exit`* : exits the app
+* `add f/Kamusta b/Hello t/Tagalog` : Creates a flashcard with _Kamusta_ on the
+front and _Hello_ on the back, with the tag _Tagalog_.
+* `add f/Terima kasih b/Thank you t/BahasaIndonesia` : Creates a flashcard with
+_Terima kasih_ on the front and _Thank you_ on the back, with the tag _Bahasa
+Indonesia_.
+* `find b/Thank you` : lists all flashcards whose back face shows _Thank you_.
+* `delete 2` : deletes the second card in the collection.
+* `exit` : exits the app.
 
-.  Refer to <<Features>> for details of each command.
+.  Refer to <<Features>> and <<FeaturesQuiz>> for the detailed descriptions of
+each command.
 
 [[Features]]
-== Features
+== Features (Collection)
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in
- `add f/FRONT TEXT b/BACK TEXT`, `FRONT TEXT` and `BACK TEXT` are parameters which can be used as
- `add f/Hola b/Hello`.
-* Items in square brackets are optional e.g `f/FRONT TEXT b/BACK TEXT [t/TAG]` can be used
- as `f/Hola b/Hello t/Spanish` or as `f/Hola b/Hello`.
-* Items with `…`​ after them can be used multiple times including zero times
-e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Spanish`,
-`t/language t/Chinese` etc.
-* Parameters can be in any order e.g. if the command specifies `f/FRONT TEXT
-b/BACK TEXT`, `b/BACK TEXT f/FRONT TEXT` is also acceptable.
+* Words in `UPPER_CASE` should be substituted by you!
+    ** Example: In `add f/FRONT_TEXT b/BACK TEXT`, `FRONT_TEXT` and `BACK_TEXT`
+    should be replaced to, say, `add f/Kamusta b/Hello`.
+* Words in `[square brackets]` are optional.
+    ** Example: In `add f/FRONT_TEXT b/BACK_TEXT [i/IMAGE_PATH]`, `IMAGE_PATH`
+    is optional. You can replace it with, say, `add f/Babae b/Woman i/images/woman.png`.
+* Words with `...` after them can be specified multiple times.
+    ** Example: In `add f/FRONT_TEXT b/BACK_TEXT [t/TAG]...`, `TAG` is optional
+    and you can specify multiple tags. You can replace it with, say, `add f/Lalaki b/Man
+    t/Tagalog t/Noun`.
+* You can specify the parameters in any order; if the command specifies `f/FRONT_TEXT
+b/BACK_TEXT`, you can also type them in the order `b/BACK_TEXT f/FRONT_TEXT`.
 ====
 
 === Viewing help : `help`
 
-Format: `help`
+Shows this document!
+
+Format: `help`.
 
 === Adding a flashcard: `add`
 
-Adds a new Flashcard to a collection
+Adds a new flashcard to the collection.
 
-Format: `​add f/[FRONT TEXT] b/[BACK TEXT] [d/DIAGRAM] [t/COLLECTION TAG]​...​`
+Format: `​add f/[FRONT_TEXT] b/[BACK_TEXT] [i/IMAGE_PATH] [t/TAG]​...​`
 
 ****
-* A Flashcard can have any number of collection tags (including 0). A
-collection tag specifies which collection a specific card belongs to. For
-example “Spanish” tag to specify that the flashcard belongs to a collection of Spanish flashcards. If no tag is specified the flash card belongs to the entire collection of flashcards created (including those with tags)._
-* A Flashcard can have a single diagram on its back specified by a given
-path (optional)
+* A flashcard can optionally have a single image attached to it. You should specify this
+image through the use of the `IMAGE_PATH`, which is a relative path provided by the `image` command.
+Note that you must first import the image through the `image` command. See <<ImportImage>> for more details.
+* A flashcard can have any number of tags (including zero).
+** We highly recommend using tags if you intend to study multiple subjects. This allows
+you to filter by tag later on, so you can study only the flashcards having a certain tag.
+** Tags must be alphanumeric; in particular, they cannot contain spaces. For example,
+`t/Bahasa Indonesia` is forbidden; use `t/BahasaIndonesia` instead.
 ****
 
 Examples:
 
-* `add f/Hola b/Hello t/Spanish`
-* `add f/First Law of Thermodynamics b/Energy can neither be
-created nor destroyed d/”Documents/formula.png” t/Physics t/A-levels`
+* `add f/Kamusta b/Hello t/Tagalog`
+* `add f/さようなら b/Goodbye i/images/goodbye.jpg t/Japanese t/Greetings`
 
 === Editing a flashcard : `edit`
 
-Edits an existing Flashcard +
+Edits a flashcard already in the collection. +
 
-Format: ​`edit INDEX [f/FRONT TEXT] [b/BACK TEXT] [d/DIAGRAM] [t/COLLECTION
-TAG]...​`
+Format: ​`edit INDEX [f/FRONT_TEXT] [b/BACK_TEXT] [i/IMAGE_PATH] [t/TAG]...​`
 
 ****
-* Edits the flashcard at the specified INDEX. The index refers to the index
-number shown in the list of all flashcards command. The index must be a positive
- integer 1, 2, 3, ...​ (not 0 based)
-* When editing the a Collection Tag, the existing tags of the flashcard will
- be removed i.e. if you want to add a new collection tag you must restate all
-  previous collection tags and add the new one
-* If none of the options fields are provided the program simply displays the
- current information of the flashcard (front text, back text, diagram path
- and tags)
-* You can remove all collection tags associated with a flashcard by typing
-​t/​ without specifying any tags after it * Similarly you can remove a
-diagram associated with a flashcard by typing ​d/
-* After an edit of one or more fields, the program will display the updated
- information of the flashcard (front text, back text, diagram path and tags).
+* Edits the flashcard at the specified `INDEX`. The index refers to the index
+number shown in the list of all flashcards (1, 2, 3, ...).
+* You can leave `IMAGE_PATH` empty to remove the image associated with a
+flashcard. That is, to remove an image, specify `i/`.
+* When specifying a `TAG`, _all existing tags_ will be removed. If you want to
+add a new tag, you must restate all the previous tags and add the new one.
+** Note that the tags will not be affected if you do not specify any `TAG`.
+** Likewise, you can remove all the tags associated with a card by specifying
+`t/` with nothing afterwards.
 ****
 
 Examples:
 
-* `edit 2` +
-This will display the current information of the flashcard at index 2
-* `edit 1 f/Halo t/BahasaIndonesia` +
-Flashcard at index 1 will be edited and the updated information will be displayed
-
-=== Locating a Flashcard by keyword: `find`
-Finds and lists flashcards whose front text, back text or collection tags contain any of the given keywords. +
-
-Format: ​`find [f/KEYWORD]... [b/KEYWORD]... [t/KEYWORD]...`
-
-****
-* Finds the flashcard(s) that contain the given keyword(s) based on the specified prefix. For example,
- 'f/hello hi' will find all flashcards whose front text contains 'hello' or 'hi'
-* Multiple keywords can be specified for the front text and back text under a single 'f/' and 'b/' prefix.
- They may also be specified separately behind multiple 'f/' and 'b/' prefixes.
-* Multiple keywords can be specified for the collection tags but must appear separately behind each 't/' prefix.
- For example, 't/spanish italian' is not permitted but 't/spanish t/italian' is permitted.
-****
-
-Examples:
-
-* `find f/你好 t/language` +
-This will display flashcards that contain the given keyword in front text OR with the language tag
-* `find t/spanish t/portuguese` +
-This will display all flashcards with the spanish tag OR with the portuguese tag
+* `edit 2 f/Halo` +
+The second flashcard will be edited and the front face will be updated to _Halo_.
+* `edit 3 i/ t/` +
+The third flashcard will have its image and all its tags removed, if it had any.
 
 === Deleting a flashcard : `delete`
 
-Deletes an existing Flashcard. +
+Deletes a flashcard already in the collection. +
 
-Format: `delete INDEX`
+Format: ​`delete INDEX`
 
 ****
-* Deletes the flashcard at the specified INDEX.
-* The index refers to the index number shown in the list all flashcards command.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Deletes the flashcard at the specified `INDEX`. The index refers to the index
+number shown in the list of all flashcards (1, 2, 3, ...).
+****
+
+Example:
+
+* `delete 2` +
+The second flashcard will be deleted.
+
+=== Finding flashcards by keyword(s): `find`
+
+Finds and lists all the flashcards whose front text, back text or collection tags
+contain _any_ of the given keywords. +
+
+Format: ​`find [f/FRONT_FACE]... [b/BACK_FACE]... [t/TAG]...`
+
+****
+* You must specify at least _one_ keyword.
+* Multiple keywords can be specified for the front text, back text and tags by
+specifying multiple prefixes. For example, `find f/Kamusta f/Terima kasih` finds
+and lists _all_ the flashcards whose front face contains the word _Kamusta_ or _Terima_ or _kasih_. +
+Keywords are not case sensitive: `f/Kamusta` will match `kamusta`, `kAmUsTa` or `KAMUSTA`.
+** Multiple tags must specifically be specified with multiple prefixes. `t/Tagalog Japanese` is forbidden;
+use `t/Tagalog t/Japanese` instead.
 ****
 
 Examples:
 
-* `find` +
-`delete 2` +
-Deletes the 2nd flashcard in the list.
-* `find f/Quiz` +
-`delete 1` +
-Deletes the 1st flashcard in the results of the `find` command.
+* `find t/Chinese t/Japanese` +
+This will find and list all the flashcards that have the _Chinese_ or _Japanese_ tag.
+* `find f/Hello b/Hello` +
+This will find and list all the flashcards whose front or back text contains the word _Hello_.
 
-=== Quiz mode : `quiz`
+[[ImportImage]]
+=== Importing an image : `image`
+Adds an image into _Acquizition_'s internal directory.
+
+Format: `image FILE_PATH`
+
+****
+* This imports an image into _Acquizition_'s internal directory. The image imported must not
+have the same name as an image already in the internal directory.
+* `FILE_PATH` must be an _absolute path_ to the image.
+* This command will also report the path you must reference your image when adding or
+editing your image through the `add` or `edit` commands.
+****
+
+Example:
+
+* `image C:\Users\Robin\Desktop\girlfriend.png` +
+This will import the image `girlfriend.png` into _Acquizition_'s internal directory, and give
+you the path you must use to reference this image through the `add` or `edit` commands.
+
+=== Showing aggregate statistics : `stats`
+
+Shows aggregate statistics for all the flashcards with any of the given tags. +
+If no tag is specified, it shows aggregate statistics for all cards currently in the list.
+
+Format: `stats [t/TAG]...`
+
+****
+* You can use `find` followed by `stats` to show aggregate statistics for all the cards found
+and listed by the find command.
+****
+
+Examples:
+
+* `stats t/Chinese t/Japanese` +
+This will show aggregate statistics for all flashcards that have the _Chinese_ or _Japanese_ tag.
+* `find f/Kamusta` +
+`stats` +
+This will find and list all flashcards with _Kamusta_ in their front face then show aggregate
+statistics for all those flashcards.
+
+=== Exporting flashcards to a text file : `share`
+Creates a text file containing a collection of flashcards to be shared.
+
+Format: `share [f/FRONT_FACE]... [b/BACK_FACE]... [t/TAG]...`
+
+****
+* This creates a text file containing all the flashcards who match any of the
+front face, back face or tag keywords, in the same manner as `find`.
+* The text file created by the share command will be saved locally in the main application directory; you should share
+ this text file with your friends.
+* Once your friend has a copy of the text file, he can import the flashcards using the `import` command
+* **Images will not be shared.**
+****
+
+Example:
+
+* `share t/Chinese` +
+This will create a text file of all the flashcards that contain the _Chinese_ tag.
+
+=== Importing flashcards from a text file : `import`
+Adds flashcards to your collection from a text file.
+
+Format: `import [FILE_PATH]`
+
+****
+* This imports all the cards from a text file (produced by `share`) to your collection.
+** This does not replace your card collection; it simply adds all the cards from the text file
+one-by-one.
+** This command will also report the number of cards successfully imported.
+* If no `FILE_PATH` is specified, you will be prompted to select it through the File Explorer.
+****
+
+Examples:
+
+* `import` +
+This will prompt the File Explorer and you should select the text file containing the cards
+you want to import.
+* `import C:\Users\Luca\Desktop\cards.txt` +
+This will import the cards from `cards.txt` to your collection.
+
+=== Deleting all flashcards : `clear`
+
+Deletes all flashcards.
+
+Format: `clear`
+
+=== Exiting the program : `exit`
+Exits the program if you are not in quiz mode. +
+If you are in quiz mode, this exits quiz mode instead. See <<QuizExit>> for more details.
+
+Format: `exit`
+
+[[FeaturesQuiz]]
+== Features (Quiz)
+
+=== Entering quiz mode : `quiz`
 
 image::Ui-quiz.png[width="790"]
 
@@ -199,7 +296,7 @@ Format: `show`
 * Note that you can only use this command inside quiz mode.
 ****
 
-=== Giving quiz feedback : `good` or `bad`
+=== Giving feedback : `good` or `bad`
 
 Gives user feedback on quiz mode.
 
@@ -232,8 +329,8 @@ Suppose this is the last card to show inside quiz mode. Acquizition will record 
 
 === Smart command
 
-Sometimes, it is troublesome having to always type in alternating `show` and `good` inside quiz mode. +
-We introduce a smart command that cleverly chooses the appropriate command to run.
+It can be troublesome to always have to type `show` and `good`. +
+You can use a _smart command_ that cleverly chooses the appropriate command to run.
 
 Format: `<enter>`
 
@@ -260,121 +357,19 @@ This will show the back face of the card, then will mark the card as bad.
 `<enter>` +
 This will go through all the cards in the quiz mode and mark them all as good.
 
-=== Show progress statistics : `stats`
+[[QuizExit]]
+=== Exiting quiz mode : `exit`
+Exits quiz mode prematurely if you are in quiz mode. +
 
-Shows statistics for the cards with the given tag, or all cards if tag is not specified, including
-accuracy, number of tries, etc.
-
-Format: `stats [t/TAG]`
-
-****
-* Shows the statistics of the cards with the given tag. If no tags are given, statistics of all cards will be shown.
-****
-
-Examples:
-
-* `stats t/physics`
-
-=== Share flashcards : `share`
-Creates a text file containing a set of flashcards to be shared.
-
-Format: `share [f/KEYWORD]... [b/KEYWORD]... [t/KEYWORD]...`
-
-****
-* The flashcards to be shared are based on a set of user defined keywords and follow the format of the Find command
-* The text file created by the share command will be saved locally in the main application directory to be distributed manually from one computer to another
-* Once another user has a copy of the text file, the user can import the flashcards using the upload command
-****
-
-Examples:
-
-* `share f/你好 t/language` +
-This will create a text file of flashcards that contain the given keyword in front text OR that have the language tag
-* `share t/spanish t/portuguese` +
-This will create a text file containing flashcards with the spanish tag OR with the portuguese tag
-
-=== Upload flashcards : `upload`
-Uploads a set of flashcards from a text file
-
-Format: `upload PATH`
-
-****
-* Adds a set of flashcards from a text file specified by PATH to the existing collection of flashcards
-* The format of the file for upload should correspond to the file created by the share command
-****
-
-Examples:
-
-* `upload C:\Users\Alice\Downloads\spanishCards.txt`
-
-=== Clearing all entries : `clear`
-
-Clears all flashcards. +
-Format: `clear`
-
-=== Exiting : `exit`
-If you are in quiz mode, this will exit the quiz mode and displays the main window.
-Otherwise, it will exit the program.
-
-Exits quiz mode or program. +
 Format: `exit`
-
-Examples:
-
-* `quiz` +
-`exit` +
-This will exit the quiz mode.
-
-* `quiz` +
-`exit` +
-`exit` +
-This will exit the quiz mode, then exit the program.
-
-=== Saving the data
-
-_Acquizition_ data are saved in the hard disk automatically after any command
-that changes the data. +
-There is no need to save manually.
-
-=== Share flashcards `[coming in v2.0]`
-Share a collection of flashcards specified by tags through email
-
-
-// tag::undoredo[]
-=== Undoing previous command `[coming in v2.0]`
-
-Restores the flash card collection to the state before the previous _undoable_
-command was executed. +
-
-
-=== Redoing the previously undone command `[coming in v2.0]`
-
-Reverses the most recent `undo` command.
-// end::undoredo[]
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
+*Q*: How do I save my data? +
+*A*: Your data is saved automatically after each command; there is no need to
+explicitly save.
+
+*Q*: How do I transfer my data to another computer? +
 *A*: Install the app in the other computer and overwrite the empty data file
 it creates with the file that contains the data of your previous Aqquizition
 folder.
-
-*Q*: How do I list all of my flash cards? +
-*A*: Use command `find` to list all flash cards.
-
-== Command Summary
-
-* *Add* `​add [f/FRONT TEXT] [b/BACK TEXT] [d/DIAGRAM] [t/COLLECTION TAG]​..
-.​` +
-e.g. `add f/Hola b/Hello t/Spanish`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [f/FRONT TEXT] [b/BACK TEXT] [d/DIAGRAM] [t/COLLECTION
- TAG]...​`` +
-e.g. `edit 1 f/Halo t/BahasaIndonesia`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *History* : `history`

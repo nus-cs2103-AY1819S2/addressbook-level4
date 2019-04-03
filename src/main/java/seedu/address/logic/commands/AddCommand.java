@@ -1,3 +1,4 @@
+/*
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -12,9 +13,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
+*/
 /**
  * Adds a person to the address book.
- */
+ *//*
+
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
@@ -39,9 +42,11 @@ public class AddCommand extends Command {
 
     private final Person toAdd;
 
-    /**
+    */
+/**
      * Creates an AddCommand to add the specified {@code Person}
-     */
+     *//*
+
     public AddCommand(Person person) {
         requireNonNull(person);
         toAdd = person;
@@ -49,7 +54,8 @@ public class AddCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        /*
+        */
+/*
         requireNonNull(model);
 
         if (model.hasPerson(toAdd)) {
@@ -59,7 +65,8 @@ public class AddCommand extends Command {
         model.addPerson(toAdd);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        */
+        *//*
+
         return null;
     }
 
@@ -70,3 +77,4 @@ public class AddCommand extends Command {
                 && toAdd.equals(((AddCommand) other).toAdd));
     }
 }
+*/

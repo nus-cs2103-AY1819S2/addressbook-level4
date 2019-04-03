@@ -16,8 +16,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_JOHN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SPECIALISATION_ACUPUNCTURE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SPECIALISATION_MASSAGE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HBP;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_STROKE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -62,10 +62,10 @@ public class TypicalPatients {
     // Manually added - Patient's details found in {@code CommandTestUtil}
     public static final Patient AMY = new PatientBuilder().withName(VALID_NAME_AMY)
             .withGender(VALID_GENDER_AMY).withAge(VALID_AGE_AMY).withPhone(VALID_PHONE_AMY)
-            .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
+            .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_HBP).build();
     public static final Patient BOB = new PatientBuilder().withName(VALID_NAME_BOB)
             .withGender(VALID_GENDER_BOB).withAge(VALID_AGE_BOB).withPhone(VALID_PHONE_BOB)
-            .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_STROKE, VALID_TAG_HBP)
             .build();
 
 

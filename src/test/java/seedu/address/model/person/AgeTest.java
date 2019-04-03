@@ -28,10 +28,12 @@ public class AgeTest {
         // invalid ages
         assertFalse(Age.isValidAge("")); // empty string
         assertFalse(Age.isValidAge(" ")); // spaces only
+        assertFalse(Age.isValidAge("151"));
 
         // valid ages
+        assertTrue(Age.isValidAge("0"));
         assertTrue(Age.isValidAge("55"));
         assertTrue(Age.isValidAge("2")); // one digit
-        assertTrue(Age.isValidAge("123")); // three digits
+        assertTrue(Age.isValidAge("150")); // three digits
     }
 }

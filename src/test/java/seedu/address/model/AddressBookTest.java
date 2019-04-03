@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_STROKE;
 import static seedu.address.testutil.TypicalPatients.ALICE;
 import static seedu.address.testutil.TypicalPatients.getTypicalAddressBook;
 
@@ -59,7 +59,7 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicatePatients_throwsDuplicatePatientException() {
         // Two persons with the same identity fields
-        Patient editedAlice = new PatientBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Patient editedAlice = new PatientBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_STROKE)
                 .build();
         List<Patient> newPatients = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newPatients);
@@ -88,7 +88,7 @@ public class AddressBookTest {
     @Test
     public void hasPatient_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addPatient(ALICE);
-        Patient editedAlice = new PatientBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Patient editedAlice = new PatientBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_STROKE)
                 .build();
         assertTrue(addressBook.hasPatient(editedAlice));
     }

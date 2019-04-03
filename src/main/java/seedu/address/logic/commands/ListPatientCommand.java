@@ -7,7 +7,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
 /**
- * Lists all patients in the docX record to the user.
+ * Lists all patients in the docX to the user.
  */
 public class ListPatientCommand extends Command {
 

@@ -18,7 +18,7 @@ public class AddMedHistCommand extends Command {
 
     public static final String COMMAND_WORD = "add-med-hist";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds a medical history of a patient to the address book."
+            + ": Adds a medical history of a patient to the docX."
             + "Parameters: "
             + PREFIX_PATIENT_ID + "PATIENT-ID "
             + PREFIX_DOCTOR_ID + "DOCTOR-ID "
@@ -30,7 +30,7 @@ public class AddMedHistCommand extends Command {
             + PREFIX_DATE_OF_MEDHIST + "2019-03-02 "
             + PREFIX_WRITEUP + "The patient got a fever.";
     public static final String MESSAGE_SUCCESS = "New medical history added: %1$s";
-    public static final String MESSAGE_DUPLICATE_MEDHIST = "This medical history already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_MEDHIST = "This medical history already exists in the docX";
 
     private final MedicalHistory toAdd;
 

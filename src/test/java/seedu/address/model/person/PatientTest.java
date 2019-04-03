@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_AGE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_STROKE;
 import static seedu.address.testutil.TypicalPatients.ALICE;
 import static seedu.address.testutil.TypicalPatients.BOB;
 
@@ -48,7 +48,7 @@ public class PatientTest {
         editedAlice = new PatientBuilder(ALICE)
                 .withGender(VALID_GENDER_BOB).withAge(VALID_AGE_BOB)
                 .withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .withTags(VALID_TAG_STROKE).build();
         assertTrue(ALICE.isSamePatient(editedAlice));
 
     }
@@ -92,7 +92,7 @@ public class PatientTest {
         assertFalse(ALICE.equals(editedAlice));
 
         // different tags -> returns false
-        editedAlice = new PatientBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new PatientBuilder(ALICE).withTags(VALID_TAG_STROKE).build();
         assertFalse(ALICE.equals(editedAlice));
     }
 }

@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import java.util.Comparator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -12,15 +13,19 @@ import seedu.address.model.tag.Condition;
 public class Statistics {
 
     private static final String MESSAGE_EMPTY_STATISTICS = "Conditions and their related occurences are not available";
-    private static final String MESSAGE_SUCCESS_STATISTICS = "Conditions and Occurences displayed successfully";
 
-    private static Map<String, Integer> statistics = new TreeMap<>();
-
-    /*
-    public static Map<String, Integer> getStatistics() {
-        return statistics;
+    /**
+     * Method which aids in the sorting of the treemap in descending order --> health condition with the highest
+     * occurrences will be first whereas the health condition with the lowest occurrence will be last
+     */
+    static class DescendingOrder implements Comparator<String> {
+        @Override
+        public int compare(String o1, String o2) {
+            return o2.compareTo(o1);
+        }
     }
-    */
+
+    private static Map<String, Integer> statistics = new TreeMap<>(new DescendingOrder());
 
     /**
      * Returns the number of times the specific condition has appeared in added requests

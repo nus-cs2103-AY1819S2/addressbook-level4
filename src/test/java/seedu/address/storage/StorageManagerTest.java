@@ -2,7 +2,10 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
@@ -10,6 +13,7 @@ import java.time.Instant;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.core.GuiSettings;
@@ -17,13 +21,20 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.lesson.LessonList;
 import seedu.address.model.user.CardSrsData;
 import seedu.address.model.user.User;
+import seedu.address.testutil.TypicalLessonList;
 
 public class StorageManagerTest {
     private static final Path NO_VALID_FILES_FOLDER = Paths.get("src", "test", "data",
-        "CsvLessonsStorageTest", "noValidFiles");
+        "CsvLessonListStorageTest", "noValidFiles");
+    private static final Path READ_ONLY_TEST_FOLDER = Paths.get("src", "test", "data",
+        "StorageManagerTest", "readOnlyFile");
+    private static final Path EMPTY_TEST_FOLDER = Paths.get("src", "test", "data", "StorageManagerTest");
 
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     private StorageManager storageManager;
 
@@ -31,9 +42,9 @@ public class StorageManagerTest {
     @Before
     public void setUp() {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        CsvLessonsStorage lessonsStorage = new CsvLessonsStorage(getTempFilePath("data"));
+        CsvLessonListStorage lessonListStorage = new CsvLessonListStorage(getTempFilePath("data"));
         CsvUserStorage userStorage = new CsvUserStorage(getTempFilePath("data\\user"));
-        storageManager = new StorageManager(userPrefsStorage, lessonsStorage, userStorage);
+        storageManager = new StorageManager(userPrefsStorage, lessonListStorage, userStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -62,25 +73,25 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void lessonsReadSave() {
+    public void lessonListReadSave() {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link CsvLessonsStorage} class.
-         * More extensive testing of Lessons saving/reading is done in {@link CsvLessonsStorage} class.
+         * {@link CsvLessonListStorage} class.
+         * More extensive testing of LessonList saving/reading is done in {@link CsvLessonListStorage} class.
          */
         LessonList original = new LessonList();
-        storageManager.setLessonsFolderPath(NO_VALID_FILES_FOLDER);
-        LessonList retrieved = storageManager.readLessons().get();
+        storageManager.setLessonListFolderPath(NO_VALID_FILES_FOLDER);
+        LessonList retrieved = storageManager.readLessonList().get();
         assertEquals(original, retrieved);
-        retrieved = storageManager.readLessons(NO_VALID_FILES_FOLDER).get();
+        retrieved = storageManager.readLessonList(NO_VALID_FILES_FOLDER).get();
         assertEquals(original, retrieved);
-        assertEquals(0, storageManager.saveLessons(retrieved));
-        assertEquals(0, storageManager.saveLessons(retrieved, NO_VALID_FILES_FOLDER));
+        assertEquals(0, storageManager.saveLessonList(retrieved));
+        assertEquals(0, storageManager.saveLessonList(retrieved, NO_VALID_FILES_FOLDER));
     }
     @Test
-    public void getLessonsFolderPath() {
-        CsvLessonsStorage expected = new CsvLessonsStorage(getTempFilePath("data"));
-        assertEquals(expected.getLessonsFolderPath(), storageManager.getLessonsFolderPath());
+    public void getLessonListFolderPath() {
+        CsvLessonListStorage expected = new CsvLessonListStorage(getTempFilePath("data"));
+        assertEquals(expected.getLessonListFolderPath(), storageManager.getLessonListFolderPath());
     }
     @Test
     public void userReadSave() throws IOException {
@@ -107,5 +118,34 @@ public class StorageManagerTest {
     public void getUserFilePath() {
         CsvUserStorage expected = new CsvUserStorage(getTempFilePath("data\\user"));
         assertEquals(expected.getUserFilePath(), storageManager.getUserFilePath());
+    }
+
+    @Test
+    public void deleteLesson_validFile_successfulDelete () throws IOException {
+        storageManager.setLessonListFolderPath(EMPTY_TEST_FOLDER);
+        LessonList lessonList = new LessonList();
+        lessonList.addLesson(TypicalLessonList.LESSON_DEFAULT);
+        storageManager.saveLessonList(lessonList);
+        storageManager.deleteLesson(TypicalLessonList.LESSON_DEFAULT.getName());
+        assertEquals(0, Files.walk(EMPTY_TEST_FOLDER, 1).filter(path ->
+            path.toString().endsWith(".csv")).count());
+    }
+
+    @Test
+    public void deleteLesson_missingFile_throwsNoSuchFileException () throws IOException {
+        storageManager.setLessonListFolderPath(EMPTY_TEST_FOLDER);
+        thrown.expect(NoSuchFileException.class);
+        storageManager.deleteLesson(TypicalLessonList.LESSON_DEFAULT.getName());
+    }
+
+    @Test
+    public void deleteLesson_readOnlyFile_throwsIoException () throws IOException {
+        storageManager.setLessonListFolderPath(READ_ONLY_TEST_FOLDER);
+        Files.walk(READ_ONLY_TEST_FOLDER).forEach(path -> {
+            File f = new File(path.toString());
+            f.setReadOnly();
+        });
+        thrown.expect(IOException.class);
+        storageManager.deleteLesson(TypicalLessonList.LESSON_DEFAULT.getName());
     }
 }

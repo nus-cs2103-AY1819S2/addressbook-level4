@@ -8,37 +8,37 @@ import seedu.address.model.lesson.LessonList;
 /**
  * Represents a storage for {@link LessonList}.
  */
-public interface LessonsStorage {
+public interface LessonListStorage {
     /**
      * Returns the folder path of the data file.
      */
-    Path getLessonsFolderPath();
+    Path getLessonListFolderPath();
 
     /**
      * Sets the folder path of the data file.
      */
-    void setLessonsFolderPath(Path folderPath);
+    void setLessonListFolderPath(Path folderPath);
 
     /**
      * Returns LessonList data as a {@link LessonList}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      */
-    Optional<LessonList> readLessons();
+    Optional<LessonList> readLessonList();
 
     /**
-     * @see #getLessonsFolderPath()
+     * @see #getLessonListFolderPath()
      */
-    Optional<LessonList> readLessons(Path folderPath);
+    Optional<LessonList> readLessonList(Path folderPath);
 
     /**
      * Saves the given {@link LessonList} to the storage.
      * @param lessonList cannot be null.
      * @return Number of lessonList successfully saved.
      */
-    int saveLessons(LessonList lessonList);
+    int saveLessonList(LessonList lessonList);
 
     /**
-     * @see #saveLessons(LessonList)
+     * @see #saveLessonList(LessonList)
      */
-    int saveLessons(LessonList lessonList, Path filePath);
+    int saveLessonList(LessonList lessonList, Path filePath);
 }

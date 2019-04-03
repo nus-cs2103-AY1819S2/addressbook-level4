@@ -13,8 +13,8 @@ import static seedu.address.testutil.TypicalCards.CARD_JAPAN_CORE1;
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN_CORE2;
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN_OPT1;
 import static seedu.address.testutil.TypicalCards.CARD_MULTI;
-import static seedu.address.testutil.TypicalLessons.LESSON_DEFAULT;
-import static seedu.address.testutil.TypicalLessons.LESSON_TRUE_FALSE;
+import static seedu.address.testutil.TypicalLessonList.LESSON_DEFAULT;
+import static seedu.address.testutil.TypicalLessonList.LESSON_TRUE_FALSE;
 
 import java.util.ArrayList;
 import java.util.List;

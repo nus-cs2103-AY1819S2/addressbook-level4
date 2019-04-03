@@ -14,14 +14,14 @@ import org.junit.rules.ExpectedException;
 import seedu.address.model.card.Card;
 import seedu.address.testutil.LessonListBuilder;
 import seedu.address.testutil.TypicalCards;
-import seedu.address.testutil.TypicalLessons;
+import seedu.address.testutil.TypicalLessonList;
 
 public class LessonListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private Lesson lesson = TypicalLessons.LESSON_DEFAULT;
-    private Lesson lessonToAdd = TypicalLessons.LESSON_TRUE_FALSE;
+    private Lesson lesson = TypicalLessonList.LESSON_DEFAULT;
+    private Lesson lessonToAdd = TypicalLessonList.LESSON_TRUE_FALSE;
     private LessonList lessonList = new LessonListBuilder()
             .withLessons(List.of(lesson)).build();
     private int defaultSize = lessonList.getLessons().size();

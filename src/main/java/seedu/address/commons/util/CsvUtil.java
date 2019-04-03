@@ -45,16 +45,26 @@ public class CsvUtil {
         csvReader = new CSVReader(reader);
         values = csvReader.readAll();
 
+
+        //If file is empty and does not have UTF-8 BOM, it will be size 0
         if (values.size() == 0) {
             logger.info("Invalid/empty file: " + filePath.getFileName().toString());
             return null;
+        } else {
+            //Extra handling of first line for UTF-8 BOM.
+            String[] firstLine = values.get(0);
+            if (firstLine[0].startsWith("\uFEFF")) {
+                firstLine[0] = firstLine[0].substring(1);
+                values.set(0, firstLine);
+            }
         }
 
-        //Extra handling of first line for UTF-8 BOM.
-        String[] firstLine = values.get(0);
-        if (firstLine[0].startsWith("\uFEFF")) {
-            firstLine[0] = firstLine[0].substring(1);
-            values.set(0, firstLine);
+        //If the file is empty after removing the UTF-8 BOM, then it was empty to begin with
+        if (values.size() <= 1
+            && values.get(0).length <= 1
+            && values.get(0)[0].isEmpty()) {
+            logger.info("Invalid/empty file: " + filePath.getFileName().toString());
+            return null;
         }
         return values;
     }

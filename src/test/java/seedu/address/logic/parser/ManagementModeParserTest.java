@@ -20,6 +20,7 @@ import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.management.ListCardsCommand;
 import seedu.address.logic.commands.management.ListLessonsCommand;
 import seedu.address.logic.commands.management.OpenLessonCommand;
+import seedu.address.logic.commands.management.ReloadLessonsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 public class ManagementModeParserTest {
@@ -109,6 +110,11 @@ public class ManagementModeParserTest {
                 instanceof ListCardsCommand);
     }
 
+    @Test
+    public void parseCommand_reloadLessons() throws Exception {
+        String command = ReloadLessonsCommand.COMMAND_WORD;
+        assertTrue(parser.parse(command) instanceof ReloadLessonsCommand);
+    }
     //    @Test
     //    public void parseCommand_redoCommandWord_returnsRedoCommand() throws Exception {
     //        assertTrue(parser.parse(RedoCommand.COMMAND_WORD) instanceof RedoCommand);

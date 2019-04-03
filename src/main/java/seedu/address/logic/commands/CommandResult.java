@@ -9,6 +9,16 @@ import java.util.Objects;
  */
 public class CommandResult {
 
+    /**
+     * Enum for all possible storage request types.
+     */
+    public enum UpdateStorage {
+        NONE,
+        SAVE,
+        LOAD,
+        DELETE
+    }
+
     private final String feedbackToUser;
 
     /** Quiz UI should be shown to the user. */
@@ -17,10 +27,13 @@ public class CommandResult {
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
+    private final UpdateStorage updateStorage;
+
     /**
-     * If lesson is changed, update UI and save to disk.
+     *  Name of lesson to be deleted. This would've been done in another way for CS2103T but
+     *  sadly there isn't time to rewrite logic.
      */
-    private final boolean isLessonListChanged;
+    private final String deleteLessonName;
 
     /** The application should exit. */
     private final boolean exit;
@@ -34,7 +47,8 @@ public class CommandResult {
         this.showQuiz = false;
         this.showHelp = false;
         this.exit = false;
-        this.isLessonListChanged = false;
+        this.updateStorage = UpdateStorage.NONE;
+        this.deleteLessonName = null;
     }
 
     /**
@@ -45,15 +59,26 @@ public class CommandResult {
         this.showQuiz = showQuiz;
         this.showHelp = showHelp;
         this.exit = exit;
-        this.isLessonListChanged = false;
+        this.updateStorage = UpdateStorage.NONE;
+        this.deleteLessonName = null;
     }
 
-    public CommandResult (String feedbackToUser, boolean isLessonChanged) {
+    public CommandResult (String feedbackToUser, UpdateStorage type) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showQuiz = false;
         this.showHelp = false;
         this.exit = false;
-        this.isLessonListChanged = isLessonChanged;
+        this.updateStorage = type;
+        this.deleteLessonName = null;
+    }
+
+    public CommandResult (String feedbackToUser, String deleteLessonName) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showQuiz = false;
+        this.showHelp = false;
+        this.exit = false;
+        this.updateStorage = UpdateStorage.DELETE;
+        this.deleteLessonName = deleteLessonName;
     }
 
     public String getFeedbackToUser() {
@@ -72,11 +97,12 @@ public class CommandResult {
         return exit;
     }
 
-    /**
-     * If lesson is changed, update UI and save to disk.
-     */
-    public boolean isLessonListChanged() {
-        return isLessonListChanged;
+    public UpdateStorage getUpdateStorageType() {
+        return updateStorage;
+    }
+
+    public String getDeleteLessonName() {
+        return deleteLessonName;
     }
 
     @Override

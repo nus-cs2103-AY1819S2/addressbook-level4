@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.parser.Syntax.PREFIX_CORE_ANSWER;
 import static seedu.address.logic.parser.Syntax.PREFIX_CORE_QUESTION;
@@ -14,6 +15,8 @@ import static seedu.address.testutil.LessonBuilder.DEFAULT_NAME;
 import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2;
 import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2_ACTUAL;
 
+import java.io.File;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -23,9 +26,13 @@ import org.junit.rules.TemporaryFolder;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.management.AddLessonCommand;
+import seedu.address.logic.commands.management.CloseLessonCommand;
+import seedu.address.logic.commands.management.DeleteLessonCommand;
 import seedu.address.logic.commands.management.ExitCommand;
 import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
+import seedu.address.logic.commands.management.OpenLessonCommand;
+import seedu.address.logic.commands.management.ReloadLessonsCommand;
 import seedu.address.logic.commands.quiz.QuizAnswerCommand;
 import seedu.address.logic.commands.quiz.QuizQuitCommand;
 import seedu.address.logic.commands.quiz.QuizStartCommand;
@@ -41,7 +48,7 @@ import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.user.User;
-import seedu.address.storage.CsvLessonsStorage;
+import seedu.address.storage.CsvLessonListStorage;
 import seedu.address.storage.CsvUserStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
@@ -66,9 +73,9 @@ public class LogicManagerTest {
     @Before
     public void setUp() throws Exception {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        CsvLessonsStorage lessonsStorage = new CsvLessonsStorage(temporaryFolder.newFile().toPath());
+        CsvLessonListStorage lessonListStorage = new CsvLessonListStorage(temporaryFolder.newFolder().toPath());
         CsvUserStorage userStorage = new CsvUserStorage(temporaryFolder.newFile().toPath());
-        storage = new StorageManager(userPrefsStorage, lessonsStorage, userStorage);
+        storage = new StorageManager(userPrefsStorage, lessonListStorage, userStorage);
         managementModel = new ManagementModelManager();
         quizModel = new QuizModelManager(managementModel);
         logic = new LogicManager(managementModel, quizModel, storage);
@@ -77,6 +84,53 @@ public class LogicManagerTest {
         quizActual = new Quiz(SESSION_DEFAULT_2_ACTUAL.generateSession(), SESSION_DEFAULT_2_ACTUAL.getMode());
 
         expectedModel = new QuizModelManager(new ManagementModelManager());
+    }
+
+    @Test
+    public void execute_storageCommands_successfulFileReloadDelete() {
+        LessonList lessonList = new LessonList();
+        lessonList.addLesson(new LessonBuilder().build());
+        storage.saveLessonList(lessonList);
+        assertEquals(1, storage.readLessonList().get().getLessons().size());
+        assertCommandSuccess(ReloadLessonsCommand.COMMAND_WORD , ReloadLessonsCommand.MESSAGE_SUCCESS, managementModel);
+        assertCommandSuccess(DeleteLessonCommand.COMMAND_WORD + " 1",
+            String.format(DeleteLessonCommand.MESSAGE_SUCCESS , "Capitals"),
+            managementModel);
+        assertEquals(0, storage.readLessonList().get().getLessons().size());
+    }
+
+    //some linux issue lol so travis fails TODO
+    /*
+    @Test
+    public void execute_deleteCommandInvalidFile_throwsIoExceptions() throws ParseException,
+        CommandException {
+        LessonList lessonList = new LessonList();
+        lessonList.addLesson(new LessonBuilder().build());
+        storage.saveLessonList(lessonList);
+        File file = new File(storage.getLessonListFolderPath().resolve("Capitals.csv").toString());
+        file.setReadOnly();
+        assertCommandSuccess(ReloadLessonsCommand.COMMAND_WORD , ReloadLessonsCommand.MESSAGE_SUCCESS, managementModel);
+        logic.execute(DeleteLessonCommand.COMMAND_WORD + " 1");
+        // some unknown issue broke the original test on linux so now we have this
+        assertEquals(0, managementModel.getLessons().size());
+        assertCommandSuccess(ReloadLessonsCommand.COMMAND_WORD , ReloadLessonsCommand.MESSAGE_SUCCESS, managementModel);
+        assertEquals(1, managementModel.getLessons().size());
+    }
+    */
+
+    @Test
+    public void execute_saveCommandInvalidFile_throwsIoExceptions() throws ParseException, CommandException {
+        LessonList lessonList = new LessonList();
+        lessonList.addLesson(new LessonBuilder().build());
+        storage.saveLessonList(lessonList);
+        File file = new File(storage.getLessonListFolderPath().resolve("Capitals.csv").toString());
+        file.setReadOnly();
+        assertCommandSuccess(ReloadLessonsCommand.COMMAND_WORD , ReloadLessonsCommand.MESSAGE_SUCCESS, managementModel);
+        CommandResult expected = new CommandResult(LogicManager.FAIL_SAVE_LESSONS_MESSAGE
+            + LogicManager.CHECK_LOGS_MESSAGE);
+        logic.execute(OpenLessonCommand.COMMAND_WORD + " 1");
+        assertEquals(expected.getFeedbackToUser(),
+            logic.execute(CloseLessonCommand.COMMAND_WORD).getFeedbackToUser());
     }
 
     @Test

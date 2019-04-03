@@ -15,7 +15,7 @@ import static seedu.address.testutil.LessonBuilder.DEFAULT_CORE_HEADER_1;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_CORE_HEADER_2;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_NAME;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_OPT_HEADER_1;
-import static seedu.address.testutil.TypicalLessons.LESSON_DEFAULT;
+import static seedu.address.testutil.TypicalLessonList.LESSON_DEFAULT;
 
 import org.junit.Test;
 

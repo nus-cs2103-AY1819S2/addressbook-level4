@@ -13,7 +13,7 @@ import seedu.address.commons.core.GuiSettings;
  */
 public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
-    private Path lessonsFolderPath = Paths.get("data");
+    private Path lessonListFolderPath = Paths.get("data");
     private Path userFilePath = Paths.get("data", "user", "savedata.csv");
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -34,7 +34,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setLessonsFolderPath(newUserPrefs.getLessonsFolderPath());
+        setLessonListFolderPath(newUserPrefs.getLessonListFolderPath());
         setUserFilePath(newUserPrefs.getUserFilePath());
     }
 
@@ -47,13 +47,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getLessonsFolderPath() {
-        return lessonsFolderPath;
+    public Path getLessonListFolderPath() {
+        return lessonListFolderPath;
     }
 
-    public void setLessonsFolderPath(Path lessonsFolderPath) {
-        requireNonNull(lessonsFolderPath);
-        this.lessonsFolderPath = lessonsFolderPath;
+    public void setLessonListFolderPath(Path lessonListFolderPath) {
+        requireNonNull(lessonListFolderPath);
+        this.lessonListFolderPath = lessonListFolderPath;
     }
 
     public Path getUserFilePath() {
@@ -82,14 +82,14 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, lessonsFolderPath, userFilePath);
+        return Objects.hash(guiSettings, lessonListFolderPath, userFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + lessonsFolderPath);
+        sb.append("\nLocal data file location : " + lessonListFolderPath);
         sb.append("\nLocal user file location : " + userFilePath);
         return sb.toString();
     }

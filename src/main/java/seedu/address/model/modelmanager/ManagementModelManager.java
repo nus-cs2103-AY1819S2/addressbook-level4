@@ -22,9 +22,10 @@ import seedu.address.model.user.User;
 public class ManagementModelManager implements ManagementModel {
     private static final Logger logger = LogsCenter.getLogger(ManagementModelManager.class);
 
-    private final LessonList lessonList;
     private final UserPrefs userPrefs;
     private final User user;
+
+    private LessonList lessonList;
     /**
      * Initializes a ManagementModelManager with the given userPrefs.
      */
@@ -72,6 +73,11 @@ public class ManagementModelManager implements ManagementModel {
     @Override
     public LessonList getLessonList() {
         return lessonList;
+    }
+
+    @Override
+    public void setLessonList(LessonList lessonList) {
+        this.lessonList = lessonList;
     }
 
     @Override

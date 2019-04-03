@@ -1,6 +1,7 @@
 package seedu.address;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -24,10 +25,10 @@ import seedu.address.model.modelmanager.ManagementModelManager;
 import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.modelmanager.QuizModelManager;
 import seedu.address.model.user.User;
-import seedu.address.storage.CsvLessonsStorage;
+import seedu.address.storage.CsvLessonListStorage;
 import seedu.address.storage.CsvUserStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.LessonsStorage;
+import seedu.address.storage.LessonListStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -61,11 +62,11 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        LessonsStorage lessonsStorage = new CsvLessonsStorage(userPrefs.getLessonsFolderPath());
-        LessonList lessonList = initLessons(lessonsStorage);
+        LessonListStorage lessonListStorage = new CsvLessonListStorage(userPrefs.getLessonListFolderPath());
+        LessonList lessonList = initLessonList(lessonListStorage);
         UserStorage userStorage = new CsvUserStorage(userPrefs.getUserFilePath());
         User user = initUser(userStorage);
-        storage = new StorageManager(userPrefsStorage, lessonsStorage, userStorage);
+        storage = new StorageManager(userPrefsStorage, lessonListStorage, userStorage);
 
         initLogging(config);
 
@@ -170,12 +171,22 @@ public class MainApp extends Application {
      * or a new {@code LessonList} with no initial lessons if errors occur when
      * reading from the file.
      */
-    protected LessonList initLessons(LessonsStorage storage) {
-        Path lessonsFolderPath = storage.getLessonsFolderPath();
-        logger.info("Using lessons folder : " + lessonsFolderPath);
+    protected LessonList initLessonList(LessonListStorage storage) {
+        Path lessonListFolderPath = storage.getLessonListFolderPath();
+        logger.info("Using lessons folder: " + lessonListFolderPath);
+
+        if (!Files.exists(lessonListFolderPath)) {
+            logger.info("Lessons folder not found. Creating...");
+        }
+
+        try {
+            Files.createDirectories(lessonListFolderPath);
+        } catch (IOException e) {
+            logger.warning("Failed to create folder at: " + lessonListFolderPath);
+        }
 
         LessonList initializedLessonList = null;
-        Optional<LessonList> prefsOptional = storage.readLessons();
+        Optional<LessonList> prefsOptional = storage.readLessonList();
         initializedLessonList = prefsOptional.orElse(new LessonList());
 
         logger.info(initializedLessonList.getLessons().size() + " lessons loaded.");
@@ -189,6 +200,16 @@ public class MainApp extends Application {
     protected User initUser(UserStorage storage) {
         Path userFilePath = storage.getUserFilePath();
         logger.info("Using user data folder : " + userFilePath);
+
+        if (!Files.exists(userFilePath)) {
+            logger.info("User folder not found. Creating...");
+        }
+
+        try {
+            Files.createDirectories(userFilePath.getParent());
+        } catch (IOException e) {
+            logger.warning("Failed to create folder at: " + userFilePath);
+        }
 
         User initializedUser = null;
         Optional<User> prefsOptional = storage.readUser();

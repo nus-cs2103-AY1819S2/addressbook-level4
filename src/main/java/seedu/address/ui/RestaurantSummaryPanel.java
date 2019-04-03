@@ -7,6 +7,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
@@ -27,6 +28,8 @@ public class RestaurantSummaryPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(RestaurantSummaryPanel.class);
 
     // Panes
+    @FXML
+    private VBox titleVbox;
     @FXML
     private VBox infoVbox;
     @FXML
@@ -80,6 +83,7 @@ public class RestaurantSummaryPanel extends UiPart<Region> {
         placeholder.setStyle("-fx-font-size: 16px; -fx-text-fill: #606060");
 
         // Add placeholder into summaryPane
+        summaryPane.setTop(null);
         summaryPane.setCenter(placeholder);
     }
 
@@ -103,23 +107,25 @@ public class RestaurantSummaryPanel extends UiPart<Region> {
         phone.setText(PHONE_PLACEHOLDER + restaurant.getPhone().toString());
 
         // Check if Restaurant has Opening Hours added
-        if (restaurant.getOpeningHours().equals("No opening hours added")) {
-            openingHours.setText(OPENING_HOURS_PLACEHOLDER + restaurant.getOpeningHours().toString());
-        } else {
+        if (restaurant.getOpeningHours().toString().equals("No opening hours added")) {
             openingHours.setText(OPENING_HOURS_PLACEHOLDER + FIELD_NOT_ADDED);
+        } else {
+            openingHours.setText(OPENING_HOURS_PLACEHOLDER + restaurant.getOpeningHours().toString());
         }
 
         email.setText(EMAIL_PLACEHOLDER + restaurant.getEmail().toString());
 
         // Check if Restaurant has a Weblink
-        if (restaurant.getWeblink().equals("No weblink added")) {
-            weblink.setText(WEBLINK_PLACEHOLDER + restaurant.getWeblink().toString());
-        } else {
+        if (restaurant.getWeblink().toString().equals("No weblink added")) {
             weblink.setText(WEBLINK_PLACEHOLDER + FIELD_NOT_ADDED);
+        } else {
+            weblink.setText(WEBLINK_PLACEHOLDER + restaurant.getWeblink().toString());
         }
 
         // Add all Labels for the fields of a Summary into infoVbox and display it in summaryPane
-        infoVbox.getChildren().setAll(name, avgRating, totalVisits, address, phone, openingHours, email, weblink);
+        titleVbox.getChildren().setAll(name, avgRating, totalVisits);
+        infoVbox.getChildren().setAll(address, phone, openingHours, email, weblink);
+        summaryPane.setTop(titleVbox);
         summaryPane.setCenter(infoVbox);
     }
 

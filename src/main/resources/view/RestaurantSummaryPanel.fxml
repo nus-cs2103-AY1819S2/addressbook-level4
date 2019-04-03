@@ -8,8 +8,8 @@
 <?import javafx.scene.image.Image?>
 
 <BorderPane fx:id="summaryPane" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <center>
-      <VBox fx:id="infoVbox" prefHeight="200.0" prefWidth="100.0" alignment="CENTER" BorderPane.alignment="CENTER" >
+   <top>
+      <VBox fx:id="titleVbox" styleClass="vbox_background" prefHeight="150.0" prefWidth="100.0" alignment="CENTER" BorderPane.alignment="CENTER" >
          <Label fx:id="name" styleClass="vbox_name_label" text="\$name" />
          <Label fx:id="avgRating" styleClass="vbox_rating_label" text="\$avgRating">
             <graphic>
@@ -19,6 +19,10 @@
             </graphic>
          </Label>
          <Label fx:id="totalVisits" styleClass="vbox_visits_label" text="\$totalVisits" />
+      </VBox>
+   </top>
+   <center>
+      <VBox fx:id="infoVbox" prefHeight="200.0" prefWidth="100.0" alignment="CENTER" BorderPane.alignment="CENTER" >
          <Label fx:id="address" styleClass="vbox_label" text="\$address" />
          <Label fx:id="phone" styleClass="vbox_label" text="\$phone" />
          <Label fx:id="openingHours" styleClass="vbox_label" text="\$openingHours" />

@@ -155,6 +155,9 @@ and `DeleteCommandParser` implemented by my teammates to for a more seamless
 
 *Other contributions*:
 
+* Proposed the layout and structure of the implementation of the current
+Graphical User Interface(GUI) of HealthHub.
+
 *Project Management*:
 
 * Proposed the architecture design of the current implementation for the
@@ -175,21 +178,16 @@ documentation.
 * Contributed to the descriptions of each feature by reviewing the
 explanation of features in the User Guide, and overhauling it to be more
 informative and audience-focused.
-* Provided various notation means in the User Guide to differentiate various
-levels that different information holds, such as:
-[TIP]
-Shows useful tips for the user when using HealthHub
-[NOTE]
-Highlights additional information that the user may wish to take note of
-
+* Provided the notation and structure for my team to follow when documenting
+our changes and contributions made to HealthHub in the User Guide.
 * Provided easy navigation through the User Guide by adding links to various
 sections both at the start and at the summary.
 
 *Community*:
 
-* PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+* Reviewed PRs of fellow teammates, and gave suggestions on certain code
+snippets
 * Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-* Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 * Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 
 *Tools*:
@@ -199,18 +197,24 @@ for HealthHub.
 *  Set up auto-publishing of documentation for HealthHub for the team
 repository.
 
-_{you can add/remove categories in the list above}_
-
 == Contributions to the User Guide
 
+As my team and I morphed the original implementation of AddressBook4 to
+HealthHub, we have also extensively updated the User Guide to allow for users
+ to better understand what HealthHub aims to achieve, and how it does so.
 
-//|===
-//|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-//|===
+The following sections details my contribution to the User Guide up til
+HealthHub version release v1.4.
 
-//include::../UserGuide.adoc[tag=undoredo]
-//
-//include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tags=addHealthWorker]
+
+include::../UserGuide.adoc[tags=editHealthWorker]
+
+include::../UserGuide.adoc[tags=listHealthWorker]
+
+include::../UserGuide.adoc[tags=delHealthWorker]
+
+include::../UserGuide.adoc[tags=filterHealthWorker]
 
 == Contributions to the Developer Guide
 

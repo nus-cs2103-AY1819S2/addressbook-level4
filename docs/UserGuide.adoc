@@ -191,6 +191,8 @@ The help menu displays a list of available commands for HealthHub, their
 parameters and their functions. Should you ever forget the commands for
 HealthHub, feel free to enter the `help` command to revisit this guide.
 
+
+// tag::listHealthWorker[]
 === Showing all requests/health workers : `list`
 
 The `list` command is a simple and basic command that on entering, displays
@@ -198,9 +200,22 @@ all health workers/requests in the HealthHub GUI.
 
 Format: `list <type>`
 
-Where `<type>` refers to either `healthworker`, `h`, or `1` to display health
-workers registered in HealthHub, or `request`, `r`, `2` to display all
-registered requests.
+==== Showing all health workers
+
+Format: `list healthworker/h/1`
+
+Upon entering the command to list health workers, all currently registered
+health workers in the Health Hub system will be displayed on the list on the
+right side of the GUI.
+// end::listHealthWorker[]
+
+==== Showing all requests
+
+Format: `list request/r/2`
+
+After entering the command to list requests, you should see the list on the
+left side of the GUI being populated with all requests that are added to
+HealthHub.
 
 [TIP]
 ====
@@ -217,6 +232,7 @@ their personal particulars, and their skills in the healthcare field.
 details of the request such as the patient to tend to, the date and time of
 the request and the type of service requested.
 
+// tag::addHealthWorker[]
 === Adding requests/health workers: `add`
 
 Before you can jump right into the core feature of our application and
@@ -231,8 +247,7 @@ staff, patients and requests. +
 
 Format: `add <type> <additional_parameters>...` +
 
-*Adding a health worker*: `add healthworker/h/1 n/<worker_name> i/<NRIC> n/<phone_number>
-                          s/<specialisation>...`
+==== *Adding a health worker*: `add healthworker/h/1 n/<worker_name> i/<NRIC> n/<phone_number> s/<specialisation>...`
 
 * Command that registers a new Health Worker person to the current roster.
 * Health Workers comprises of personnel who are authorized to work in sectors in the
@@ -242,8 +257,9 @@ healthcare industry in accordance to their `specialisation`.
 are officially certified by certain medical practices
 * To view all available specialisations in the application, type `add help`
 in the command line.
+// end::addHealthWorker[]
 
-*Adding a request*: `add request/r/2 n/<patient_name> c/<condition> d/<date> t/time`
+==== *Adding a request*: `add request/r/2 n/<patient_name> c/<condition> d/<date> t/time`
 
 * Registers a new open request from `patient` of `<patient_name>` into the
 application.
@@ -260,6 +276,7 @@ Examples:
 s/ORTHOPAEDIC`
 * `add request n/Pay Shun c/Heart Attack t/14:00:00 d/05:05:2019`
 
+// tag::editHealthWorker[]
 === Editing requests/health workers : `edit`
 
 Sometimes, information on a request of health staff may be keyed in wrongly
@@ -273,24 +290,22 @@ The `edit` may come in handy when there is a need update to a request's
 status, patient's condition or a health worker's skills, based on the
 `<type>` parameter accepted. +
 
-Format: `edit <type> <index> <additional_parameters>...` +
+==== *Editing a health worker*
 
-*Editing a health worker*: `edit healthworker/h/1 <index> <additional_parameters>...`
+Format: `edit healthworker/h/1 <index> <additional_parameters>...`
 
 Edits the details of an existing health worker registered in HealthHub, at
 the `<index>` specified in the health worker list upon entering the `edit
 healthworker/h/1` command with valid inputs.
+// end::editHealthWorker[]
 
-*Editing a request*: `edit request/r/2 <index> <additional_parameters>...`
+==== *Editing a request*
+
+Format: `edit request/r/2 <index> <additional_parameters>...`
 
 Edits the details of a request registered in HealthHub, at
 the `<index>` specified in the request list upon entering the `edit
 request/r/2` command with valid inputs.
-
-Any changes made to existing fields in requests and healthworkers are
-immediately reflected in the list shown on the HealthHub GUI.
-
-{nbsp}
 
 Upon entering the `edit` command with all the necessary and valid paramters,
 the corresponding request/health worker at the specified `<index>`. The index refers to the
@@ -298,6 +313,9 @@ index number shown in the displayed person list.
 
 Existing values of the health worker or request will be updated to the valid
 input values based on the prefix specified.
+
+Any changes made to existing fields in requests and healthworkers are
+immediately reflected in the list shown on the HealthHub GUI.
 
 {nbsp}
 
@@ -331,19 +349,22 @@ worker list to be `91234567` and `John Doe` respectively. +
 Edits the patient name of the 2nd request in the request list to be `Betsy
 Crower`. +
 
+// tag::filterHealthWorker[]
 === Filtering health workers/requests: `filter`
 
-When identifying and sieving health workers to assign to an open request, or
+When identifying health workers to assign to an open request, or
 to look for a particular patient details in certain requests, it may be useful
- to filter out only items in a list that match a particular constraint.
+ to only display items in a list that match a particular constraint.
 
-Using the `filter` command, you can sieve out health workers and requests
-whose fields match the `keywords`that are specified in the `filter` command,
-allowing you to find the doctors who are experts in cardiology much quicker. +
+Using the `filter` command, you can set the GUI to display health workers and
+requests whose fields match the `keywords`that are specified in the `filter`
+command, allowing you to find the doctors who are experts in cardiology much quicker. +
 
 Format: `filter <type> <keyword> [<more_keywords>]...` +
 
-*Filter health workers*: `filter healthworker/h/1 <keyword> [<more_keywords>]`
+==== *Filter health workers*:
+
+Format: `filter healthworker/h/1 <keyword> [<more_keywords>]`
 
 Upon entering the command with valid inputs, searches the entire list of health
 workers in HealthHub, and only displays the health workers whose fields matches the parameters specified in the
@@ -354,8 +375,11 @@ workers in HealthHub, and only displays the health workers whose fields matches 
 For specialisation fields, parameters are case sensitive, and only valid
 parameters will be accepted
 ====
+// end::filterHealthWorker[]
 
-*Filter requests*: `filter request/r/2 <keyword> [<more_keywords>]`
+==== *Filter requests*:
+
+Format: `filter request/r/2 <keyword> [<more_keywords>]`
 
 After entering the command with valid inputs, searches the entire list of
 requests in HealthHub, and only displays the requests whose fields matches
@@ -394,8 +418,8 @@ specified name substring *and* the specified phone number.
 
 [TIP]
 ====
-To view the original health worker/request list, enter the `list
-healthworker` or `list request` command respectively.
+To revert the view back to the original health worker/request list, enter the
+`list healthworker` or `list request` command respectively.
 ====
 
 Examples:
@@ -410,6 +434,7 @@ Returns all requests with contacts numbers that have "9177" in it's field.
 * `filter 2 dt/30-01-2019 10:00:00` +
 Returns all requests scheduled on 30th Jan 2019, at 10 am sharp.
 
+// tag::delHealthWorker[]
 === Deleting requests/health workers : `delete`
 
 Should there be any invalid or expired request, health worker or patient in
@@ -421,12 +446,17 @@ shown using the `list` command, or the index displayed on the GUI. +
 
 Format: `delete <type> <index>` +
 
-*Delete a health worker*: `delete healthworker/h/1 <index>`
+==== *Delete a health worker*:
+
+Format: `delete healthworker/h/1 <index>`
 
 Deletes the health worker at the `<index>` position in shown in the health
 worker list.
+// end::delHealthWorker[]
 
-*Delete a request*: `delete request/r/2 <index>`
+==== *Delete a request*:
+
+Format: `delete request/r/2 <index>`
 
 Deletes the request at the `<index>` position in shown in the list of requests.
 

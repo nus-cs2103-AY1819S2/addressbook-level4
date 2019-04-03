@@ -68,11 +68,4 @@ public interface Logic {
      * Returns the enemy map grid
      */
     MapGrid getEnemyMapGrid();
-
-    /**
-     * Sets the selected cell in the filtered cell list.
-     *
-     * @see seedu.address.model.Model#setSelectedPerson(Cell)
-     */
-    void setSelectedPerson(Cell cell);
 }

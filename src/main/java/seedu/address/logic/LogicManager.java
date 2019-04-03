@@ -127,9 +127,4 @@ public class LogicManager implements Logic {
     public MapGrid getEnemyMapGrid() {
         return model.getEnemyMapGrid();
     }
-
-    @Override
-    public void setSelectedPerson(Cell cell) {
-        model.setSelectedPerson(cell);
-    }
 }

@@ -15,17 +15,17 @@ endif::[]
 
 "Where did all the money in my wallet go!"
 
-Is the above statement something that you asked yourself on a daily basis? Do you have so many micro-transactions that you lose track of all your expenditure? In-Credit-Ble is here to help you out!
+Is the above statement something that you asked yourself on a daily basis? Do you have so many micro-transactions that you lose track of all your expenditure? _In-Credit-Ble_ is here to help you out!
 
-In-Credit-Ble's key features:
+_In-Credit-Ble_'s key features:
 
 * Intuitive and easy to use user interface allowing you to add new records fast.
 * Easily record the transaction to track where all your transactions.
-* Overall view of on your financial transaction through pie chart which shows how much of your budget you have spent.
+* Overall view of on your financial transaction through aster plot chart which shows how much of your budget you have spent.
 
 Sold yet? Find out more through the <<UserGuide#, User Guide>>!
 
-In-CreditBle is an open source project that welcomes contribution from the community! If you would like to make any changes, head over to the <<DeveloperGuide#, Developer Guide>> to get started
+_In-CreditBle_ is an open source project that welcomes contribution from the community! If you would like to make any changes, head over to the <<DeveloperGuide#, Developer Guide>> to get started
 
 == Site Map
 

@@ -17,6 +17,7 @@ import seedu.equipment.model.Model;
 import seedu.equipment.model.ReadOnlyEquipmentManager;
 import seedu.equipment.model.WorkList;
 import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.equipment.Name;
 import seedu.equipment.storage.Storage;
 
 /**

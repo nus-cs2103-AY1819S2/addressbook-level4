@@ -24,32 +24,10 @@ public class ClientListPanel extends UiPart<Region> {
     @FXML
     private ListView<Equipment> clientListView;
 
-    public ClientListPanel(ObservableList<Equipment> equipmentList, ObservableValue<Equipment> selectedPerson,
-                           Consumer<Equipment> onSelectedPersonChange) {
+    public ClientListPanel(ObservableList<Equipment> equipmentList) {
         super(FXML);
         clientListView.setItems(equipmentList);
         clientListView.setCellFactory(listView -> new ClientListViewCell());
-        clientListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selection in equipment list panel changed to : '" + newValue + "'");
-            onSelectedPersonChange.accept(newValue);
-        });
-        selectedPerson.addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selected equipment changed to: " + newValue);
-
-            // Don't modify selection if we are already selecting the selected equipment,
-            // otherwise we would have an infinite loop.
-            if (Objects.equals(clientListView.getSelectionModel().getSelectedItem(), newValue)) {
-                return;
-            }
-
-            if (newValue == null) {
-                clientListView.getSelectionModel().clearSelection();
-            } else {
-                int index = clientListView.getItems().indexOf(newValue);
-                clientListView.scrollTo(index);
-                clientListView.getSelectionModel().clearAndSelect(index);
-            }
-        });
     }
 
     /**

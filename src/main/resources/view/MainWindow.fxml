@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.TitledPane?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="Address App" minWidth="1000" minHeight="800" onCloseRequest="#handleExit">
   <icons>
@@ -54,19 +55,21 @@
             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <VBox fx:id="workListList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
-            <padding>
-              <Insets top="10" right="10" bottom="350" left="10" />
-            </padding>
-            <StackPane fx:id="workListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
+          <SplitPane id="splitPane" dividerPositions="0.1" orientation="VERTICAL">
+            <VBox fx:id="workListList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+              <StackPane fx:id="workListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
 
-          <VBox fx:id="clientList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
-            <padding>
-              <Insets top="300" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="clientListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
+            <VBox fx:id="clientList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+              <StackPane fx:id="clientListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
+          </SplitPane>
 
           <StackPane fx:id="browserPlaceholder" prefWidth="340" >
             <padding>

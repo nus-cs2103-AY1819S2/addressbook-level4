@@ -20,6 +20,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<WorkList> PREDICATE_SHOW_ALL_WORKLISTS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Equipment> PREDICATE_SHOW_ALL_CLIENT = unused -> true;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */

@@ -180,6 +180,15 @@ public class Fleet {
     }
 
     /**
+     * Checks if all battleships have been deployed.
+     */
+    public boolean isAllDeployed() {
+        return this.getListOfDestroyerBattleship().size() == this.getNumDestroyer()
+                && this.getListOfCruiserBattleship().size() == this.getNumCruiser()
+                && this.getListOfAircraftCarrierBattleship().size() == this.getNumAircraftCarrier();
+    }
+
+    /**
      * Checks if all the battleships in a deployed fleet are destroyed.
      */
     public boolean isAllDestroyed() {

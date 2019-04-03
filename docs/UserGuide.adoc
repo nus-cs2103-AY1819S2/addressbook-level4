@@ -39,7 +39,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list-customers`* : lists all customers
-* **`add-customer`**`n/John Doe p/98765432 e/johnd@example.com id/887 a/John street, block 123, #01-01` : adds a customer named `John Doe` to the HMS+ database.
+* **`add-customer`**`n/John Doe p/98765432 e/johnd@example.com id/G8957685R a/John street, block 123, #01-01` : adds a customer named `John Doe` to the HMS+ database.
 * **`delete-customer`**`3` : deletes the 3rd customer  shown in the current list
 * *`exit`* : exits the app
 
@@ -277,10 +277,10 @@ Deletes the 2nd booking of the booking database
 Effect: Removes all service bookings from the database. +
 Format: `{[aqua]#clear-bookings#/[aqua]#cb#}`
 
-==== Find a booked service contains payer: `findbookingcontainspayer`, `fbcp`
+==== Find a booking: `find-booking`, `fb`
 
-Effect: Displays a booking list, which is paid by the customer whose identification number is the same as the given number
-Format: `{[aqua]#findbookingcontainspayer#/[aqua]#fbcp#} [lime]#PAYER_IDENTIFICATION_NUMBER#`
+Effect: Displays a booking list based on the filters given by the user. +
+Format: `{[aqua]#find-booking#/[aqua]#fb#}  [blue]#id/# [lime]#IDENTIFICATION_NO# [black]#[# [blue]#s/# [lime]#SERVICE_NAME# [black]#]# [blue]#:/# [lime]#START_TIME-END_TIME# [black]#]#`
 
 [NOTE]
 ====
@@ -288,22 +288,71 @@ Format: `{[aqua]#findbookingcontainspayer#/[aqua]#fbcp#} [lime]#PAYER_IDENTIFICA
 ====
 
 Example:
- `fbcs 12345678` +
-Returns any booking which is paid by the customer with identification number 12345678
 
-=== [underline]#Generate customer's bill# : `generate-bill`, `gb`   `[coming in v2.0]`
+* `fb id/A0124422` +
+Returns all bookings for customer with identification number, A0124422.
 
-Effect: Generates the bill for the customer based on his room reservations and service bookings. +
-Format: `{[aqua]#generate-bill#/[aqua]#gb#} [lime]#INDEX#`
+* `fb id/A0124422 s/GYM` +
+Returns all gym bookings for customer with identification number, A0124422.
+
+==== Find a reservation: `find-reservation`, `fr`
+
+Effect: Displays a reservation list based on the filters given by the user. +
+Format: `{[aqua]#find-reservation#/[aqua]#fr#}  [blue]#id/# [lime]#IDENTIFICATION_NO# [black]#[# [blue]#r/# [lime]#ROOM_TYPE# [black]#]#`
 
 [NOTE]
 ====
-* Generates the bill for the customer at the specified index.
+*  The searching is done in the whole reservation list.
 ====
 
-Examples:
-* `lc`, then `gb 2`
-Generates the bill for the second customer.
+Example:
+
+* `fr id/A0124422` +
+Returns all reservations for customer with identification number, A0124422.
+
+* `fr id/A0124422 r/SINGLE ROOM` +
+Returns all single room reservations for customer with identification number, A0124422.
+
+
+=== [underline]#Bill Generation commands#
+
+==== [underline]#Generate bill for specific booking# : `generate-bill-booking`, `gb-b`
+
+Effect: Generates the bill for the specific booking of a customer +
+Format: `{[aqua]#generate-bill-booking#/[aqua]#gb-b#} [lime]#INDEX# [black]#[# [blue]#s/# [lime]#SERVICE_NAME# [black]#]# [black]#[# [blue]#:/# [lime]#START_TIME - END_TIME# [black]#]#`
+
+Example:
+
+ * `gb-b 2` +
+Returns the bill for all bookings for the customer at index 2
+
+* `gb-b 2 s/SPA` +
+Returns the bill for all spa bookings for the customer at index 2
+
+==== [underline]#Generate bill for specific reservation# : `generate-bill-reservation`, `gb-r`
+
+Effect: Generates the bill for the specific booking of a customer +
+Format: `{[aqua]#generate-bill-reservation#/[aqua]#gb-r#} [lime]#INDEX# [black]#[# [blue]#r/# [lime]#ROOM_TYPE# [black]#]#`
+
+Example:
+
+ * `gb-r 2` +
+Returns the bill for all reservations for the customer at index 2
+
+* `gb-r 2 r/SINGLE ROOM` +
+Returns the bill for all single room reservations for the customer at index 2
+
+==== [underline]#Generate customer's bill# : `generate-bill-customer`, `gb-c`
+
+Effect: Generates the bill for the customer based on his total room reservations and service bookings. +
+Format: `{[aqua]#generate-bill-customer#/[aqua]#gb-c#} [lime]#INDEX#`
+
+[TIP]
+This command is a super set of all the other "generate bill" commands and can be used
+to obtain the complete breakup for a customer.
+
+Example: `gb-c 2` +
+Returns the total bill (includes all bookings and reservations) for the customer at index 2
 
 === [underline]#Listing entered commands# : `history`
 
@@ -380,11 +429,14 @@ There is no need to save manually.
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
+
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous HMS folder.
 
+// tag::prefixlist[]
 == Prefix List
 
 === Customer
@@ -509,11 +561,11 @@ _{explain how the user can enable/disable data encryption}_
    1: It shouldn't contain (/).
 
    _Example_:: [blue]#com/# Please turn AC on.
-
+// end::prefixlist[]
 
 == Command Summary
 
-* *Help* : `help` <<Viewing help : `help`>>
+* *Help* : `help`
 * *Add Customer* : `{add-customer/ac} n/NAME p/PHONE_NUMBER e/EMAIL  id/IDENTIFICATION_NO [a/ADDRESS] [dob/DATE_OF_BIRTH] [t/TAG]…`
 * *List Customers* : `{list-customers/lc}`
 * *Edit Customer* : `{edit-customer/ec} INDEX [n/NAME] [p/PHONE] [e/EMAIL] [id/IDENTIFICATIONNO] [a/ADDRESS] [t/TAG]…`

@@ -24,6 +24,7 @@ import seedu.hms.logic.commands.FindBookingCommand;
 import seedu.hms.logic.commands.FindNameCommand;
 import seedu.hms.logic.commands.FindReservationCommand;
 import seedu.hms.logic.commands.GenerateBillForBookingCommand;
+import seedu.hms.logic.commands.GenerateBillForCustomerCommand;
 import seedu.hms.logic.commands.GenerateBillForReservationCommand;
 import seedu.hms.logic.commands.HelpCommand;
 import seedu.hms.logic.commands.HistoryCommand;
@@ -32,6 +33,7 @@ import seedu.hms.logic.commands.ListCustomerCommand;
 import seedu.hms.logic.commands.ListReservationCommand;
 import seedu.hms.logic.commands.RedoCommand;
 import seedu.hms.logic.commands.SelectCustomerCommand;
+import seedu.hms.logic.commands.SwitchTabCommand;
 import seedu.hms.logic.commands.UndoCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.BillModel;
@@ -134,11 +136,19 @@ public class HotelManagementSystemParser {
 
         case GenerateBillForBookingCommand.COMMAND_WORD:
         case GenerateBillForBookingCommand.COMMAND_ALIAS:
-            return new GenerateBillForBookingCommandParser().parse(arguments);
+            return new GenerateBillForBookingCommandParser().parse(arguments, customerModel, billModel);
+
+        case GenerateBillForCustomerCommand.COMMAND_WORD:
+        case GenerateBillForCustomerCommand.COMMAND_ALIAS:
+            return new GenerateBillForCustomerCommandParser().parse(arguments, customerModel, billModel);
+
+        case SwitchTabCommand.COMMAND_WORD:
+        case SwitchTabCommand.COMMAND_ALIAS:
+            return new SwitchTabCommandParser().parse(arguments);
 
         case GenerateBillForReservationCommand.COMMAND_WORD:
         case GenerateBillForReservationCommand.COMMAND_ALIAS:
-            return new GenerateBillForReservationCommandParser().parse(arguments);
+            return new GenerateBillForReservationCommandParser().parse(arguments, customerModel, billModel);
 
         case ListCustomerCommand.COMMAND_WORD:
         case ListCustomerCommand.COMMAND_ALIAS:

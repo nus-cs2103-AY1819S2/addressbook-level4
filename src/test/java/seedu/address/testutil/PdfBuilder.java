@@ -31,6 +31,7 @@ public class PdfBuilder {
     private Size size;
     private Set<Tag> tags;
     private Deadline deadline;
+    private boolean isEncrypted;
 
     public PdfBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -38,6 +39,7 @@ public class PdfBuilder {
         size = new Size(DEFAULT_SIZE);
         tags = new HashSet<>();
         deadline = new Deadline(DEFAULT_DEADLINE);
+        isEncrypted = false;
     }
 
     /**
@@ -49,6 +51,7 @@ public class PdfBuilder {
         size = pdfToCopy.getSize();
         tags = new HashSet<>(pdfToCopy.getTags());
         deadline = pdfToCopy.getDeadline();
+        isEncrypted = pdfToCopy.getIsEncryted();
     }
 
     /**
@@ -84,16 +87,26 @@ public class PdfBuilder {
     }
 
     /**
-     * Sets the {@code Deadline} of the {@code Pdf} that we are building.
+     * Sets the {@code Size} of the {@code Pdf} that we are building.
      */
-    public PdfBuilder withDeadline(String date) {
-        this.deadline = new Deadline(date);
+    public PdfBuilder withEncrypted(boolean isEncrypted) {
+        this.isEncrypted = isEncrypted;
         return this;
     }
 
-
-    public Pdf build() {
-        return new Pdf(name, directory, size, tags, deadline);
+    /**
+     * Sets the {@code Deadline} of the {@code Pdf} that we are building.
+     */
+    public PdfBuilder withDeadline(String date) {
+        if (date.equals("NEWLY ADDED")) {
+            this.deadline = new Deadline();
+        } else {
+            this.deadline = new Deadline(date);
+        }
+        return this;
     }
 
+    public Pdf build() {
+        return new Pdf(new Pdf(name, directory, size, tags, deadline), isEncrypted);
+    }
 }

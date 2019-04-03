@@ -67,7 +67,6 @@ public class EncryptCommand extends Command {
 
         model.setPdf(pdfToEncrypt, pdfEncrypted);
         model.updateFilteredPdfList(PREDICATE_SHOW_ALL_PDFS);
-        //model.commitPdfBook();
 
         return new CommandResult(String.format(MESSAGE_ENCRYPT_PDF_SUCCESS, pdfEncrypted));
     }

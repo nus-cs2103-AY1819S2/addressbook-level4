@@ -11,7 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_VALID_LECTURE;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1_DUPLICATE;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_ENCRYPTED;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_3_ENCRYPTED;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -100,7 +100,7 @@ public class PdfTest {
         assertFalse(SAMPLE_PDF_1.getIsEncryted());
 
         //encrypted pdf -> expected true
-        assertTrue(SAMPLE_PDF_ENCRYPTED.getIsEncryted());
+        assertTrue(SAMPLE_PDF_3_ENCRYPTED.getIsEncryted());
     }
 
 }

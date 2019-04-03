@@ -31,6 +31,8 @@ public class DecryptCommandParser implements Parser<DecryptCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DecryptCommand.MESSAGE_USAGE));
         }
 
+
+
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {

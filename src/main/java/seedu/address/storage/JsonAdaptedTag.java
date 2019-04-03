@@ -20,8 +20,16 @@ class JsonAdaptedTag {
 
     @JsonCreator
     public JsonAdaptedTag(String tagName) {
-        this.tagName = tagName;
-        this.tagType = "pos";
+        String parsed = tagName.substring(2);
+        String prefix = tagName.substring(0,1);
+        this.tagName = parsed;
+        if(prefix.equals("s")){
+            this.tagType = "skill";
+        }else if(prefix.equals("p")){
+            this.tagType = "pos";
+        }else{
+            this.tagType = "endorse";
+        }
 
     }
 
@@ -47,6 +55,7 @@ class JsonAdaptedTag {
         if (!SkillsTag.isValidTagName(tagName)) {
             throw new IllegalValueException(SkillsTag.MESSAGE_CONSTRAINTS);
         }
+
         return new SkillsTag(tagName, tagType);
     }
 

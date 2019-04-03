@@ -25,19 +25,21 @@ public class SkillsTag {
     public SkillsTag(String tagName, String type) {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
-        this.tagName = tagName;
         this.tagType = type;
         if (type.equals("skill")) {
             //skill tag
             this.tagColor = "pink";
+            this.tagName = "s:" + tagName;
 
         } else if (type.equals("pos")) {
             //position tag
             this.tagColor = "yellow";
+            this.tagName = "p:" + tagName;
 
         } else {
             //endorsement tag
             this.tagColor = "teal";
+            this.tagName = "e:" + tagName;
         }
     }
 

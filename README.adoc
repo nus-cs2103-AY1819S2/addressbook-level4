@@ -3,9 +3,7 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/CS2103-AY1819S2-W17-3/main[image:https://travis-ci.org/CS2103-AY1819S2-W17-3/main.svg?branch=master[Build Status]]
 https://app.netlify.com/sites/increditble/deploys[image:https://api.netlify.com/api/v1/badges/d34bd9d2-f71e-47d5-ae0d-b4a0a68773a4/deploy-status[Netlify Status]]
-https://coveralls.io/github/CS2103-AY1819S2-W17-3/main?
-branch=master[image:https://coveralls.io/repos/github/CS2103-AY1819S2-W17-3/main/badge.svg?
-branch=master[Coverage Status]]
+https://coveralls.io/github/CS2103-AY1819S2-W17-3/main?branch=master[image:https://coveralls.io/repos/github/CS2103-AY1819S2-W17-3/main/badge.svg?branch=master[Coverage Status]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]

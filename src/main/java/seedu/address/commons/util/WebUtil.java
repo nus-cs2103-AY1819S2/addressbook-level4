@@ -36,6 +36,11 @@ public class WebUtil {
         }
     }
 
+    /**
+     * To check internet connection against a reliable weblink, ie. google
+     * @return false if fails to connect to google
+     * @throws NoInternetException
+     */
     private static boolean hasInternetConnection() throws NoInternetException {
         return !isNotValidWeblinkUrl(DUMMY_WEBLINK);
     }

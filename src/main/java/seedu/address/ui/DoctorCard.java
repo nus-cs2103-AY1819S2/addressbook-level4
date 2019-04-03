@@ -47,6 +47,7 @@ public class DoctorCard extends UiPart<Region> {
         gender.setText(doctor.getGender().value);
         age.setText(doctor.getAge().value);
         phone.setText(doctor.getPhone().value);
+
         doctor.getSpecs().forEach(spec -> specialisations.getChildren().add(new Label(spec.specialisation)));
     }
 

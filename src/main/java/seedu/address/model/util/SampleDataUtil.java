@@ -77,6 +77,11 @@ public class SampleDataUtil {
         for (Patient samplePatient : getSamplePatients()) {
             sampleAb.addPatient(samplePatient);
         }
+        /*
+        for (Doctor sampleDoctor : getSampleDoctors()) {
+            sampleAb.addDoctor(sampleDoctor);
+        }
+        */
         for (MedicalHistory sampleMedHist : getSampleMedHists()) {
             sampleAb.addMedHist(sampleMedHist);
         }

@@ -498,6 +498,12 @@ Examples:
 Assigns the health worker at the second index to the first request in the
 request list.
 
+[NOTE]
+====
+You cannot assign a healthworker to a completed request. To assign a healthworker to a request that is already completed,
+use `edit` to change the status of the request to pending first.
+====
+
 === Clearing Requests : `clr`
 
 After closing all existing requests, you also have the option of clearing all

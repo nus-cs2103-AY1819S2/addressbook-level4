@@ -1,26 +1,46 @@
-= David Livingston - Project Portfolio
+= David Livingston - Project Portfolio for HealthHub
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+
+== Overview
+I am a software developer and second year computer science student at the National University of Singapore. I am really passionate about developing technology that can make the world a better place. This portfolio page documents my contributions to one of the most meaningful projects I've worked for - HealthHub.
 
 == Project: Health Hub
 
-== Overview
+=== About the project
+HealthHub is a https://en.wikipedia.org/wiki/Command-line_interface[command-line] desktop application built by my team and I, for our Software Engineering project.
+We chose to morph it to a home-care patient management system, because of our passion in the health care industry. This enhanced application allows Hospital Administrators and senior management to create, assign and organise patient records seamlessly. HealhHub also organises staff information and manages statistics to assist in the Hospital's planning and allocation of resources.
 
-Health Hub is a desktop application designed for hospital administrative staff. With many people requiring Intermediate and Long-Term Care (ILTC) services, there is a growing need
-for health care professionals to tend to these people. Yet, the current messy system requires a lot of manual work from the admin's perspective. Health Hub aims to eradicate all of these.
+My role was to design and implement the [blue]`Request` related commands and features. This included designing the relevant encapsulation within a [blue]`Request` created by the user and creating the following commands from scratch: `add`, `edit`, `list`, `delete`, `clear`, `assign`, `complete` and `filter`. The following sections illustrate these enhancements in more detail, as well as the relevant sections that I have added to the user and developer guides in relation to these enhancements.
 
-The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Note the following symbols and formatting used in this document:
+
+`add` A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application.
+[blue]`Request` Blue text with a grey highlight indicates a component, class or object in the architecture of the application.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: Created `add`, `edit`, `delete`, `list`, `clear` commands.
+** What it does: Lays the foundation to any `Request` based functionality. Allows the user to organise the requests made by the patients seamlessly.
+** Justification: These enhancements provide necessary features to the admin so that the admin can create, edit or delete requests at any point of time.
+** Highlights: This enhancement affects the existing existing classes, like the [blue]`Healthworker` class. It required an in-depth analysis of design alternatives. The implementation was also challenging as it required changes to existing commands and classes, during the integration-testing phase.
+** Credits: Utilised the JACKSon library that serializes a [blue]`Request` object into JSON format for storage. This allows the user's state to be saved at all times.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement*: Created `assign` and `complete` request commands.
+** What it does: Allows the admin to assign Healthworkers to requests, and complete any ongoing requests.
+** Justification: These features are necessary for the product, and allows the administrator manage all patient requests by assigning the relevant healthworker with the appropriate skill sets.
+** Highlights: Creation of these features required thorough understanding of how the existing details of the [blue]`Logic` and [blue]`Model` components,
+as knowledge of how information is cached in the application's memory was essential to allow for rapid assigning. Implemented index-based assigning, which improved effeciency
+ by 30% (each `assign` request command runs in O(1) time).
+
+* *Minor enhancement*: added a filter command that allows the user to navigate through all requests stored by filtering by a specific value.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
@@ -28,21 +48,16 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 
 ** Project management:
 *** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Added reposense compatibility
+*** Added coveralls compatibility to project README
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -51,9 +66,9 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=undoredo]
-//
-//include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=undoredo]
+
+include::../UserGuide.adoc[tag=dataencryption]
 
 == Contributions to the Developer Guide
 
@@ -65,9 +80,3 @@ include::../DeveloperGuide.adoc[tag=undoredo]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

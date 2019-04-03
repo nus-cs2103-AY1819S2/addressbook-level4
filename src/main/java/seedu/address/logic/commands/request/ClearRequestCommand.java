@@ -6,6 +6,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Statistics;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.RequestBook;
@@ -29,6 +30,7 @@ public class ClearRequestCommand extends Command implements RequestCommand {
             }
         }
         model.resetData(new RequestBook());
+        Statistics.clearStatistics();
         //model.commitRequestBook();
         commitRequestBook(model);
 

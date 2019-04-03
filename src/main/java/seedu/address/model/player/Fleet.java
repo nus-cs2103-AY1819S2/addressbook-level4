@@ -84,26 +84,18 @@ public class Fleet {
     public void deployOneBattleship(Battleship battleship, Coordinates coordinates, Orientation orientation) {
         if (battleship instanceof DestroyerBattleship) {
             this.numDestroyer--;
-            this.deployedFleet.add(new FleetEntry(
-                    battleship,
-                    coordinates,
-                    orientation
-            ));
         } else if (battleship instanceof CruiserBattleship) {
             this.numCruiser--;
-            this.deployedFleet.add(new FleetEntry(
-                    battleship,
-                    coordinates,
-                    orientation
-            ));
         } else if (battleship instanceof AircraftCarrierBattleship) {
             this.numAircraftCarrier--;
-            this.deployedFleet.add(new FleetEntry(
-                    battleship,
-                    coordinates,
-                    orientation
-            ));
         }
+
+        this.deployedFleet.add(new FleetEntry(
+                battleship,
+                coordinates,
+                orientation
+        ));
+
     }
 
     /**

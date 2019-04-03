@@ -122,7 +122,7 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty QuickDocs");
         }
 
-        return new ModelManager(initialData, initialQuickDocs, userPrefs);
+        return new ModelManager(initialQuickDocs, userPrefs);
     }
 
     private void initLogging(Config config) {

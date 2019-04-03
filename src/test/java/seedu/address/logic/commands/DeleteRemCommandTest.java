@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.QuickDocs;
@@ -27,7 +26,7 @@ import seedu.address.model.reminder.Reminder;
 public class DeleteRemCommandTest {
 
     private QuickDocs quickDocs = getTypicalRemindersQuickDocs();
-    private Model model = new ModelManager(new AddressBook(), quickDocs, new UserPrefs());
+    private Model model = new ModelManager(quickDocs, new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -37,8 +36,7 @@ public class DeleteRemCommandTest {
 
         String expectedMessage = String.format(DeleteRemCommand.MESSAGE_DELETE_REMINDER_SUCCESS, reminderToDelete);
 
-        ModelManager expectedModel = new ModelManager(new AddressBook(),
-                getTypicalRemindersQuickDocs(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(getTypicalRemindersQuickDocs(), new UserPrefs());
         expectedModel.deleteReminder(reminderToDelete);
 
         assertCommandSuccess(deleteRemCommand, model, commandHistory, expectedMessage, expectedModel);

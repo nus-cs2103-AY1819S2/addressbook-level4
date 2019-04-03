@@ -31,7 +31,7 @@ public class AddAppCommandTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private QuickDocs quickDocs = getTypicalPatientQuickDocs();
-    private Model model = new ModelManager(new AddressBook(), quickDocs, new UserPrefs());
+    private Model model = new ModelManager(quickDocs, new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     private Nric nric = ALICE.getNric();

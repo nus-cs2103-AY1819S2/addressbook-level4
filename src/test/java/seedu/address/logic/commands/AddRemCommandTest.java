@@ -14,7 +14,6 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.QuickDocs;
@@ -25,7 +24,7 @@ public class AddRemCommandTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private QuickDocs quickDocs = getTypicalRemindersQuickDocs();
-    private Model model = new ModelManager(new AddressBook(), quickDocs, new UserPrefs());
+    private Model model = new ModelManager(quickDocs, new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

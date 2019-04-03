@@ -26,7 +26,7 @@ public class ListAppCommandTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private QuickDocs quickDocs = getTypicalAppointmentsQuickDocs();
-    private Model model = new ModelManager(new AddressBook(), quickDocs, new UserPrefs());
+    private Model model = new ModelManager(quickDocs, new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

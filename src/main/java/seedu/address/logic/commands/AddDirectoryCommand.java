@@ -45,7 +45,6 @@ public class AddDirectoryCommand extends Command {
         requireNonNull(model);
         try {
             model.addDirectory(name, path);
-            model.commitAddressBook();;
             return new CommandResult(String.format(MESSAGE_SUCCESS, name, fromPathToString(path)));
         } catch (Exception ex) {
             throw new CommandException(ex.getMessage());

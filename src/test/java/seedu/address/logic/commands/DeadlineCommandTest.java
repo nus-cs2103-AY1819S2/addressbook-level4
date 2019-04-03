@@ -1,5 +1,5 @@
 package seedu.address.logic.commands;
-
+/*
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_INVALID_DATE;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_INVALID_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_INVALID_MISSING_STATUS;
@@ -7,24 +7,24 @@ import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_INVALID
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_COMPLETE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1; */
 import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
-import java.time.format.DateTimeParseException;
+//import java.time.format.DateTimeParseException;
 
 import org.junit.Rule;
-import org.junit.Test;
+//import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.commons.core.index.Index;
+//import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.PdfBook;
+//import seedu.address.model.PdfBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.pdf.Deadline;
-import seedu.address.model.pdf.Pdf;
-import seedu.address.testutil.PdfBuilder;
+//import seedu.address.model.pdf.Deadline;
+//import seedu.address.model.pdf.Pdf;
+//import seedu.address.testutil.PdfBuilder;
 
 
 public class DeadlineCommandTest {

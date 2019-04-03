@@ -7,7 +7,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class IdCounter {
 
-    public int value;
+    private int value;
 
     public IdCounter() {
         value = 0;
@@ -15,6 +15,10 @@ public class IdCounter {
 
     public IdCounter(int value) {
         this.value = value;
+    }
+
+    public int getValue() {
+        return value;
     }
 
     public void setIdCounter(IdCounter replacement) {

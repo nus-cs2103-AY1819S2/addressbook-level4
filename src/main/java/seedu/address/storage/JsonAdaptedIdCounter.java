@@ -25,7 +25,7 @@ public class JsonAdaptedIdCounter {
      * Converts a given {@code IdCounter} into this class for Jackson use.
      */
     public JsonAdaptedIdCounter(IdCounter source) {
-        value = source.value;
+        value = source.getValue();
     }
 
     @JsonValue

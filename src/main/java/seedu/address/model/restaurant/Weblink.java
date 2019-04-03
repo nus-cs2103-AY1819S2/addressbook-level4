@@ -34,8 +34,6 @@ public class Weblink {
     private static final String DOMAIN_FIRST_CHARACTER_REGEX = "[^\\W_]"; // alphanumeric characters except underscore
     private static final String DOMAIN_MIDDLE_REGEX = "[a-zA-Z0-9.-]*"; // alphanumeric, period and hyphen
     private static final String DOMAIN_LAST_CHARACTER_REGEX = "[^\\W_]$";
-    private static final String HTTPS_PREFIX = "https://";
-    private static final String FILE_PREFIX = "file:/";
     public static final String VALIDATION_REGEX = "^(http://|https://|)" + LOCAL_PART_REGEX + "."
             + DOMAIN_FIRST_CHARACTER_REGEX + DOMAIN_MIDDLE_REGEX + DOMAIN_LAST_CHARACTER_REGEX;
 
@@ -59,52 +57,8 @@ public class Weblink {
         return test.matches(VALIDATION_REGEX) || test.matches(NO_WEBLINK_STRING);
     }
 
-    /**
-     * Checks if a given string is a valid weblink URL, ie. HTTP response code should not be 400 and above
-     * The only acceptable malformed Url is the default placeholder for no weblinks, NO_WEBLINK_STRING
-     */
-    public static boolean isNotValidWeblinkUrl(String urlString) throws NoInternetException {
-        try {
-            urlString = Weblink.prependHttps(urlString);
-            URL u = new URL(urlString);
-            HttpURLConnection huc = (HttpURLConnection) u.openConnection();
-            huc.setRequestMethod("HEAD");
-            huc.connect();
-            return huc.getResponseCode() >= 400;
-        } catch (MalformedURLException e) {
-            return !urlString.equals(NO_WEBLINK_STRING);
-        } catch (IOException e) {
-            throw new NoInternetException(Messages.MESSAGE_NO_INTERNET);
-        }
-    }
-
     public static Weblink makeDefaultWeblink() {
         return new Weblink(NO_WEBLINK_STRING);
-    }
-
-    /**
-     * If input url has no https:// prepended to it, return url with https:// prepended.
-     * @param url
-     * @return String that has https:// prepended to url string
-     */
-    public static String prependHttps(String url) {
-        // if Weblink is not added for user, return url
-        if (url.equals(Weblink.NO_WEBLINK_STRING)) {
-            return url;
-        }
-
-        // if url is a local path, return url
-        if (url.startsWith(Weblink.FILE_PREFIX)) {
-            return url;
-        }
-
-        // if url already starts with https prefix, return url
-        if (url.startsWith(Weblink.HTTPS_PREFIX)) {
-            return url;
-        }
-
-        // return url with https prefix prepended to it
-        return Weblink.HTTPS_PREFIX.concat(url);
     }
 
     @Override

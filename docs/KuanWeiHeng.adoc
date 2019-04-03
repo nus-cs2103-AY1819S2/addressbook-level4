@@ -15,14 +15,14 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w11-1/main/tree/master
 
-== About the Project
+== Overview
+
+This document serves to document my contributions to TopDeck, the project I worked on
+as part of our introductory software engineering module in NUS.
+TopDeck is a flash card application bulit on top of the code from
+https://github.com/nus-cs2103-AY1819S1/addressbook-level4[Addressbook Level 4].
 
 
-My team and I were tasked to with morphing a basic commandline interface addressbook for our
-so!ware engineering project. We decided to morph the application into a Flashcard management
-application called TopDeck TopDeck is a user-friendly tool that aims to help users better memorise any
-content that they desire. Users can use it to learn a language, remember a math formula or simply
-recall an answer to a question.
 
 One of the key features of our application is the simplicity that we would like
 to provide out user in terms of the commands and this meant that we had to implement states for
@@ -33,7 +33,15 @@ using polymorphism.
 
 == Summary of Contributions
 
-This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
+This section summarises my key contributions to TopDeck:
+
+* **Major Enhancement**: Designed the API for a stateful user interface.
+
+ -
+
+ - Justification:
+
+
 
 **Enhancement added:** I modified the architecture of our software such that
 stateful interface is supported. I added the state management features in the application so that the

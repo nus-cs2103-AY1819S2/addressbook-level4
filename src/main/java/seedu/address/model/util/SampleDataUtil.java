@@ -31,13 +31,13 @@ public class SampleDataUtil {
 
     public static HealthWorker[] getSampleHealthWorkers() {
         return new HealthWorker[] {
-            new HealthWorker(new Name("Alex Raider"), new Nric("T1234567J"), new Phone("98765432"),
+            new HealthWorker(new Name("Alex Tan"), new Nric("T1234567J"), new Phone("98765432"),
                         new Organization("SGH"), getSkillsFromString("PATHOLOGY")),
-            new HealthWorker(new Name("Billy Batson"), new Nric("T5857367J"), new Phone("98875432"),
+            new HealthWorker(new Name("Betty Chua"), new Nric("T5857367J"), new Phone("98875432"),
                         new Organization("SGH"), getSkillsFromString("GYNAECOLOGY")),
             new HealthWorker(new Name("Charles Anderson"), new Nric("S5856787J"), new Phone("91234432"),
                         new Organization("NUH"), getSkillsFromString("GENERAL_PRACTICE")),
-            new HealthWorker(new Name("Dawgs Galore"), new Nric("T2334567J"), new Phone("90987432"),
+            new HealthWorker(new Name("John Peterson"), new Nric("T2334567J"), new Phone("90987432"),
                         new Organization("SGH"), getSkillsFromString("UROLOGY"))
         };
     }

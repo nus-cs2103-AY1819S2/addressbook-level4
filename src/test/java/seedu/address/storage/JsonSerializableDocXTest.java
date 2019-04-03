@@ -10,7 +10,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.DocX;
-import seedu.address.testutil.TypicalDoctors;
+//import seedu.address.testutil.TypicalDoctors;
 import seedu.address.testutil.TypicalPatients;
 
 

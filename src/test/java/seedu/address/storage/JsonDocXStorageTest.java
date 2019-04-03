@@ -107,10 +107,10 @@ public class JsonDocXStorageTest {
     /**
      * Saves {@code DocX} at the specified {@code filePath}.
      */
-    private void saveDocX(ReadOnlyDocX DocX, String filePath) {
+    private void saveDocX(ReadOnlyDocX docX, String filePath) {
         try {
             new JsonDocXStorage(Paths.get(filePath))
-                    .saveDocX(DocX, addToTestDataPathIfNotNull(filePath));
+                    .saveDocX(docX, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

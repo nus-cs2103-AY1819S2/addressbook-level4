@@ -50,9 +50,9 @@ public class LogicManagerTest {
 
     @Before
     public void setUp() throws Exception {
-        JsonDocXStorage DocXStorage = new JsonDocXStorage(temporaryFolder.newFile().toPath());
+        JsonDocXStorage docXStorage = new JsonDocXStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(DocXStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(docXStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -80,10 +80,10 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() throws Exception {
         // Setup LogicManager with JsonDocXIoExceptionThrowingStub
-        JsonDocXStorage DocXStorage =
+        JsonDocXStorage docXStorage =
                 new JsonDocXIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(DocXStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(docXStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -188,7 +188,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveDocX(ReadOnlyDocX DocX, Path filePath) throws IOException {
+        public void saveDocX(ReadOnlyDocX docX, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

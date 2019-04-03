@@ -50,7 +50,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void DocXReadSave() throws Exception {
+    public void docXReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonDocXStorage} class.

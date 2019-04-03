@@ -117,12 +117,12 @@ public class AddDoctorCommandTest {
         }
 
         @Override
-        public void setDocXFilePath(Path DocXFilePath) {
+        public void setDocXFilePath(Path docXFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setDocX(ReadOnlyDocX DocX) {
+        public void setDocX(ReadOnlyDocX docX) {
             throw new AssertionError("This method should not be called.");
         }
 

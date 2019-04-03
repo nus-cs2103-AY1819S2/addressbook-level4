@@ -25,6 +25,7 @@
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
+        <Label fx:id="procedure" text="\$procedure" styleClass="cell_big_label" />
         <Label fx:id="recordDate" text="\$recordDate" styleClass="cell_big_label" />
       </HBox>
       <FlowPane fx:id="tags" />

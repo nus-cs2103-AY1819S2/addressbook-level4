@@ -49,6 +49,16 @@ public class TeethPanel extends UiPart<Region> {
         });
     }
 
+    public TeethPanel(ObservableValue<Person> givenPerson, boolean isStat) {
+        super(FXML);
+        getRoot();
+        try {
+            loadTeeth(givenPerson.getValue());
+        } catch (IOException e) {
+            logger.info(e.getMessage());
+        }
+    }
+
     /**
      * Uses patient information to load teeth image
      */
@@ -67,7 +77,7 @@ public class TeethPanel extends UiPart<Region> {
             space.getChildren().add(test);
 
         } catch (IOException e) {
-            throw new IOException("Error opening image file");
+            logger.info("Error opening image file");
         }
     }
 

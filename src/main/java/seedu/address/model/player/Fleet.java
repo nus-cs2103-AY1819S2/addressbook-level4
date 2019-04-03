@@ -29,9 +29,9 @@ public class Fleet {
     private final int numCruiser;
     private final int numDestroyer;
 
-    private int currNumDestroyer;
-    private int currNumCruiser;
-    private int currNumAircraftCarrier;
+    private int numDestroyerLeft;
+    private int numCruiserLeft;
+    private int numAircraftCarrierLeft;
 
     /**
      * Default constructor for a fleet of size 8 with placeholder ship names.
@@ -61,15 +61,15 @@ public class Fleet {
         this.numCruiser = numCruiser;
         this.numDestroyer = numDestroyer;
 
-        this.currNumDestroyer = numDestroyer;
-        this.currNumCruiser = numCruiser;
-        this.currNumAircraftCarrier = numAircraftCarrier;
+        this.numDestroyerLeft = numDestroyer;
+        this.numCruiserLeft = numCruiser;
+        this.numAircraftCarrierLeft = numAircraftCarrier;
 
         this.deployedFleet = new ArrayList<>();
     }
 
     public int getSize() {
-        return this.currNumDestroyer + this.currNumCruiser + this.currNumAircraftCarrier;
+        return this.numDestroyerLeft + this.numCruiserLeft + this.numAircraftCarrierLeft;
     }
 
     public ArrayList<FleetEntry> getDeployedFleet() {
@@ -80,9 +80,9 @@ public class Fleet {
      * Resets the fleet.
      */
     public void resetFleet(int mapSize) {
-        this.currNumDestroyer = (mapSize + 2) / 5;
-        this.currNumCruiser = mapSize - 5;
-        this.currNumAircraftCarrier = 1;
+        this.numDestroyerLeft = (mapSize + 2) / 5;
+        this.numCruiserLeft = mapSize - 5;
+        this.numAircraftCarrierLeft = 1;
         this.deployedFleet = new ArrayList<>();
     }
 
@@ -91,11 +91,11 @@ public class Fleet {
      */
     public void deployOneBattleship(Battleship battleship, Coordinates coordinates, Orientation orientation) {
         if (battleship instanceof DestroyerBattleship) {
-            this.currNumDestroyer--;
+            this.numDestroyerLeft--;
         } else if (battleship instanceof CruiserBattleship) {
-            this.currNumCruiser--;
+            this.numCruiserLeft--;
         } else if (battleship instanceof AircraftCarrierBattleship) {
-            this.currNumAircraftCarrier--;
+            this.numAircraftCarrierLeft--;
         }
 
         this.deployedFleet.add(new FleetEntry(
@@ -112,11 +112,11 @@ public class Fleet {
      */
     public boolean isEnoughBattleship(Battleship battleship, int numBattleship) {
         if (battleship instanceof DestroyerBattleship) {
-            return numBattleship <= this.getCurrNumDestroyer();
+            return numBattleship <= this.getNumDestroyerLeft();
         } else if (battleship instanceof CruiserBattleship) {
-            return numBattleship <= this.getCurrNumCruiser();
+            return numBattleship <= this.getNumCruiserLeft();
         } else if (battleship instanceof AircraftCarrierBattleship) {
-            return numBattleship <= this.getCurrNumAircraftCarrier();
+            return numBattleship <= this.getNumAircraftCarrierLeft();
         }
 
         return false;
@@ -143,16 +143,16 @@ public class Fleet {
                 .collect(Collectors.toList());
     }
 
-    public int getCurrNumDestroyer() {
-        return this.currNumDestroyer;
+    public int getNumDestroyerLeft() {
+        return this.numDestroyerLeft;
     }
 
-    public int getCurrNumCruiser() {
-        return this.currNumCruiser;
+    public int getNumCruiserLeft() {
+        return this.numCruiserLeft;
     }
 
-    public int getCurrNumAircraftCarrier() {
-        return this.currNumAircraftCarrier;
+    public int getNumAircraftCarrierLeft() {
+        return this.numAircraftCarrierLeft;
     }
 
     public int getNumDestroyer() {

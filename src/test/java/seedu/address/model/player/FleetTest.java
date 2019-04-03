@@ -92,9 +92,9 @@ public class FleetTest {
         testFleet.deployOneBattleship(new CruiserBattleship(emptySet), testCoordinates, testOrientation);
         testFleet.deployOneBattleship(new AircraftCarrierBattleship(emptySet), testCoordinates, testOrientation);
 
-        assertEquals(testFleet.getCurrNumDestroyer(), 0);
-        assertEquals(testFleet.getCurrNumCruiser(), 0);
-        assertEquals(testFleet.getCurrNumAircraftCarrier(), 0);
+        assertEquals(testFleet.getNumDestroyerLeft(), 0);
+        assertEquals(testFleet.getNumCruiserLeft(), 0);
+        assertEquals(testFleet.getNumAircraftCarrierLeft(), 0);
     }
 
     @Test
@@ -141,17 +141,17 @@ public class FleetTest {
     @Test
     public void testGetAttributes() {
         Fleet testFleet = new Fleet(1, 1, 1);
-        assertEquals(testFleet.getCurrNumDestroyer(), 1);
-        assertEquals(testFleet.getCurrNumCruiser(), 1);
-        assertEquals(testFleet.getCurrNumAircraftCarrier(), 1);
+        assertEquals(testFleet.getNumDestroyerLeft(), 1);
+        assertEquals(testFleet.getNumCruiserLeft(), 1);
+        assertEquals(testFleet.getNumAircraftCarrierLeft(), 1);
     }
 
     @Test
     public void testResetFleet() {
         Fleet testFleet = new Fleet(6);
-        assertEquals(testFleet.getCurrNumDestroyer(), 1);
-        assertEquals(testFleet.getCurrNumCruiser(), 1);
-        assertEquals(testFleet.getCurrNumAircraftCarrier(), 1);
+        assertEquals(testFleet.getNumDestroyerLeft(), 1);
+        assertEquals(testFleet.getNumCruiserLeft(), 1);
+        assertEquals(testFleet.getNumAircraftCarrierLeft(), 1);
 
         Battleship testDestroyer = new DestroyerBattleship(emptySet);
         Coordinates testCoordinates = new Coordinates("a1");
@@ -167,9 +167,9 @@ public class FleetTest {
     @Test
     public void testIsAllDeployed() {
         Fleet testFleet = new Fleet(6);
-        assertEquals(testFleet.getCurrNumDestroyer(), 1);
-        assertEquals(testFleet.getCurrNumCruiser(), 1);
-        assertEquals(testFleet.getCurrNumAircraftCarrier(), 1);
+        assertEquals(testFleet.getNumDestroyerLeft(), 1);
+        assertEquals(testFleet.getNumCruiserLeft(), 1);
+        assertEquals(testFleet.getNumAircraftCarrierLeft(), 1);
 
         Battleship testDestroyer = new DestroyerBattleship(emptySet);
         Battleship testCruiser = new CruiserBattleship(emptySet);

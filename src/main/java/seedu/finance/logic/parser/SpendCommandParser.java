@@ -4,8 +4,10 @@ import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_NAME;
 
+import java.time.LocalDate;
 import java.util.stream.Stream;
 
 import seedu.finance.logic.commands.SpendCommand;
@@ -29,17 +31,27 @@ public class SpendCommandParser implements Parser<SpendCommand> {
      */
     public SpendCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_CATEGORY);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_CATEGORY,
+                        PREFIX_DESCRIPTION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SpendCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
-        Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+        Date date;
+        if (arePrefixesPresent(argMultimap, PREFIX_DATE)) {
+            date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+        } else {
+            date = new Date(LocalDate.now());
+        }
         Description description = new Description("");
+        if (arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION)) {
+            description = new Description(argMultimap.getValue(PREFIX_DESCRIPTION).get().trim());
+        }
+
         Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
 
         Record record = new Record(name, amount, date, description, category);

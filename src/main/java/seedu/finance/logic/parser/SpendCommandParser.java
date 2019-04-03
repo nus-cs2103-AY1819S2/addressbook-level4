@@ -5,6 +5,7 @@ import static seedu.finance.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
 import java.time.LocalDate;
 import java.util.stream.Stream;
@@ -30,7 +31,8 @@ public class SpendCommandParser implements Parser<SpendCommand> {
      */
     public SpendCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_CATEGORY);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_CATEGORY,
+                        PREFIX_DESCRIPTION);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -45,7 +47,7 @@ public class SpendCommandParser implements Parser<SpendCommand> {
         } else {
             date = new Date(LocalDate.now());
         }
-        Description description = new Description("");
+        Description description = new Description(argMultimap.getValue(PREFIX_DESCRIPTION).get().trim());
         Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
 
         Record record = new Record(name, amount, date, description, category);

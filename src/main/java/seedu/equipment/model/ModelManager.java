@@ -28,6 +28,7 @@ public class ModelManager implements Model {
 
     private final VersionedEquipmentManager versionedEquipmentManager;
     private final UserPrefs userPrefs;
+    private final FilteredList<Equipment> filteredClient;
     private final FilteredList<Equipment> filteredEquipments;
     private final FilteredList<WorkList> filteredWorkList;
     private final SimpleObjectProperty<Equipment> selectedEquipment = new SimpleObjectProperty<>();
@@ -47,6 +48,7 @@ public class ModelManager implements Model {
         filteredEquipments = new FilteredList<>(versionedEquipmentManager.getPersonList());
         filteredEquipments.addListener(this::ensureSelectedPersonIsValid);
         filteredWorkList = new FilteredList<>(versionedEquipmentManager.getWorkListList());
+        filteredClient = new FilteredList<>(versionedEquipmentManager.getClientList());
         //filteredWorkList.addListener(this::ensureSelectedworkListIsValid);
     }
 
@@ -190,6 +192,22 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Equipment> predicate) {
         requireNonNull(predicate);
         filteredEquipments.setPredicate(predicate);
+    }
+
+    //=========== Filtered Client List Accessors =============================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Equipment} backed by the internal list of
+     * {@code versionedEquipmentManager}
+     */
+    @Override
+    public ObservableList<Equipment> getFilteredClientList() {
+        return filteredClient;
+    }
+
+    @Override
+    public void updateFilteredClientList(Predicate<Equipment> predicate) {
+        requireNonNull(predicate);
+        filteredClient.setPredicate(predicate);
     }
     //=========== Undo/Redo =================================================================================
 

@@ -21,4 +21,5 @@ public interface ReadOnlyEquipmentManager extends Observable {
      */
     ObservableList<WorkList> getWorkListList();
 
+    ObservableList<Equipment> getClientList();
 }

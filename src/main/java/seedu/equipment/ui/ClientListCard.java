@@ -23,7 +23,7 @@ public class ClientListCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on EquipmentManager </a>
      */
 
-    public final Equipment equipment;
+    public final String clientName;
 
     @FXML
     private HBox cardPane;
@@ -33,11 +33,11 @@ public class ClientListCard extends UiPart<Region> {
     private Label id;
 
 
-    public ClientListCard(Equipment equipment, int displayedIndex) {
+    public ClientListCard(String clientName, int displayedIndex) {
         super(FXML);
-        this.equipment = equipment;
+        this.clientName = clientName;
         id.setText(displayedIndex + ". ");
-        name.setText(equipment.getName().name);
+        name.setText(clientName);
     }
 
     @Override
@@ -55,6 +55,6 @@ public class ClientListCard extends UiPart<Region> {
         // state check
         ClientListCard card = (ClientListCard) other;
         return name.getText().equals(card.name.getText())
-                && equipment.equals(card.equipment);
+                && clientName.equals(card.clientName);
     }
 }

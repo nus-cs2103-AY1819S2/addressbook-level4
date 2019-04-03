@@ -217,6 +217,11 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
     }
 
     @Override
+    public ObservableList<Equipment> getClientList() {
+        return equipment.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof EquipmentManager // instanceof handles nulls

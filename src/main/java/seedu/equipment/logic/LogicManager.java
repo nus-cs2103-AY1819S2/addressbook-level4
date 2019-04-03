@@ -84,6 +84,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Equipment> getFilteredClientList() {
+        return model.getFilteredClientList();
+    }
+
+    @Override
     public ObservableList<String> getHistory() {
         return history.getHistory();
     }

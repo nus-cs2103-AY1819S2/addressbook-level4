@@ -1,16 +1,13 @@
 package seedu.equipment.ui;
 
-import java.util.Objects;
-import java.util.function.Consumer;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 
-import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import seedu.equipment.commons.core.LogsCenter;
 import seedu.equipment.model.equipment.Equipment;
 
 /**
@@ -18,31 +15,40 @@ import seedu.equipment.model.equipment.Equipment;
  */
 public class ClientListPanel extends UiPart<Region> {
     private static final String FXML = "ClientListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(ClientListPanel.class);
+
+    private ObservableList<String> uniqueNameList = FXCollections.observableArrayList();
+    private ArrayList<String> nameList = new ArrayList<>();
 
 
     @FXML
-    private ListView<Equipment> clientListView;
+    private ListView<String> clientListView;
 
     public ClientListPanel(ObservableList<Equipment> equipmentList) {
         super(FXML);
-        clientListView.setItems(equipmentList);
+
+        for (int i = 0; i < equipmentList.size(); i++) {
+            if (!nameList.contains(equipmentList.get(i).getName().name)) {
+                nameList.add(equipmentList.get(i).getName().name);
+            }
+        }
+        uniqueNameList.addAll(nameList);
+        clientListView.setItems(uniqueNameList);
         clientListView.setCellFactory(listView -> new ClientListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Equipment} using a {@code ClientListCard}.
      */
-    class ClientListViewCell extends ListCell<Equipment> {
+    class ClientListViewCell extends ListCell<String> {
         @Override
-        protected void updateItem(Equipment equipment, boolean empty) {
-            super.updateItem(equipment, empty);
+        protected void updateItem(String clientName, boolean empty) {
+            super.updateItem(clientName, empty);
 
-            if (empty || equipment == null) {
+            if (empty || clientName == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ClientListCard(equipment, getIndex() + 1).getRoot());
+                setGraphic(new ClientListCard(clientName, getIndex() + 1).getRoot());
             }
         }
     }

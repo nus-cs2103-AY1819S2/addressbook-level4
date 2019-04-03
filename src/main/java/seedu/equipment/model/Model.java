@@ -118,11 +118,20 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered worklist list */
     ObservableList<WorkList> getFilteredWorkListList();
 
+    /** Returns an unmodifiable view of the filtered client list */
+    ObservableList<Equipment> getFilteredClientList();
+
     /**
      * Updates the filter of the filtered equipment list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Equipment> predicate);
+
+    /**
+     * Updates the filter of the filtered client list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredClientList(Predicate<Equipment> predicate);
 
     /**
      * Updates the filter of the filtered WorkList list to filter by the given {@code predicate}.

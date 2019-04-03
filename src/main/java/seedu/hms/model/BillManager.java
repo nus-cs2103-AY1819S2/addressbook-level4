@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -16,6 +17,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.util.Pair;
 import seedu.hms.commons.core.GuiSettings;
 import seedu.hms.commons.core.LogsCenter;
+import seedu.hms.model.bill.Bill;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.reservation.Reservation;
@@ -37,6 +39,7 @@ public class BillManager implements BillModel {
     private final FilteredList<Reservation> filteredReservations;
     private final FilteredList<RoomType> roomTypeList;
     private final SimpleObjectProperty<Reservation> selectedReservation = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Bill> updatedBill = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given hotelManagementSystem and userPrefs.
@@ -59,6 +62,14 @@ public class BillManager implements BillModel {
 
     public BillManager() {
         this(new VersionedHotelManagementSystem(new HotelManagementSystem()), new UserPrefs());
+    }
+
+    public void updateBill(Bill bill) {
+        updatedBill.setValue(bill);
+    }
+
+    public ReadOnlyObjectProperty<Bill> getBill() {
+        return updatedBill;
     }
 
     //=========== UserPrefs ==================================================================================
@@ -256,7 +267,8 @@ public class BillManager implements BillModel {
             && filteredBookings.equals(other.filteredBookings)
             && Objects.equals(selectedBooking.get(), other.selectedBooking.get())
             && filteredReservations.equals(other.filteredReservations)
-            && Objects.equals(selectedReservation.get(), other.selectedReservation.get());
+            && Objects.equals(selectedReservation.get(), other.selectedReservation.get())
+                && Objects.equals(updatedBill.get(), other.updatedBill.get());
     }
 
     /**

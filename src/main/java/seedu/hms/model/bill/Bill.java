@@ -184,11 +184,25 @@ public class Bill {
         return totalAmount;
     }
 
+    /**
+     * Returns the count of reservations
+     */
+    public long getReservationCount() {
+        return getSingleRoomCount() + getDoubleRoomCount() + getDeluxeRoomCount() + getFamilySuiteCount();
+    }
+
+    /**
+     * Return the count of bookings
+     */
+    public long getBookingCount() {
+        return getGymBookingCount() + getSwimmingPoolBookingCount() + getGamesRoomBookingCount() + getSpaBookingCount();
+    }
+
 
 
     @Override
     public String toString() {
-        return " Amount to be paid " + amountReservation + amountBooking
+        return " Amount to be paid Reservation:" + amountReservation + " Booking:" + amountBooking
             + " by " + customer.getName();
     }
 }

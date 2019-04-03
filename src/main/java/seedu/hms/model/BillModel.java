@@ -3,8 +3,10 @@ package seedu.hms.model;
 import java.util.HashMap;
 import java.util.function.Predicate;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
+import seedu.hms.model.bill.Bill;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.RoomType;
@@ -20,6 +22,15 @@ public interface BillModel extends Model {
      */
     ObservableList<Booking> getFilteredBookingList();
 
+    /**
+     * Update the bill
+     */
+    void updateBill(Bill bill);
+
+    /**
+     * Get the bill
+     */
+    ReadOnlyProperty<Bill> getBill();
 
     /**
      * Updates the filter of the filtered booking list to filter by the given {@code predicate}.

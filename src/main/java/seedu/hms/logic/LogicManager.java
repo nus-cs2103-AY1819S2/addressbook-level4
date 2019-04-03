@@ -235,4 +235,9 @@ public class LogicManager implements Logic {
     public void setSelectedRoomType(RoomType roomType) {
         reservationModel.setSelectedRoomType(roomType);
     }
+
+    @Override
+    public BillModel getBillModel() {
+        return this.billModel;
+    }
 }

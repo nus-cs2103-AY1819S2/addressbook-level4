@@ -56,6 +56,9 @@ public class Statistics {
     }
 
 
+    /**
+     * Displays all conditions in a standard format
+     */
     public static String toCommand() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Conditions and Occurences:\n");

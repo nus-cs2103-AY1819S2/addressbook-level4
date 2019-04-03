@@ -11,7 +11,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Gender {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Gender should only contain 1 character, and it should only be M/F";
+            "Gender should only contain 1 character, and it should only be F/f/M/m";
     public static final String VALIDATION_REGEX = "[MFmf]";
     public final String value;
 

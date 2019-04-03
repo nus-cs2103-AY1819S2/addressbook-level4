@@ -10,9 +10,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class MatricNumber {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "MatricNumber should only contain alphanumeric characters, starting with an A or U"
+            "MatricNumber should only contain alphanumeric characters, starting with an A"
                     + " and ending with an uppercase alphabet,"
-                    + " with 7 digits in between the first and last character.";
+                    + " with 7 digits in between the first and last character.\n"
+                    + " The last letter must be a valid checksum.";
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
@@ -36,7 +37,6 @@ public class MatricNumber {
      * Returns true if both persons of the same matric number.
      */
     public boolean isSameMatricNumber(MatricNumber otherMatricNumber) {
-
         return otherMatricNumber != null
                 && otherMatricNumber.value.equalsIgnoreCase(this.value);
     }
@@ -45,7 +45,29 @@ public class MatricNumber {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidMatricNumber(String test) {
-        return test.matches(VALIDATION_REGEX);
+        if (!test.matches(VALIDATION_REGEX)) {
+            return false;
+        }
+        if (!isCheckSumValid(test)) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isCheckSumValid(String test) {
+        int sum = 0;
+        char[] checkDigit = {'Y', 'X', 'W', 'U', 'R', 'N', 'M', 'L', 'J', 'H', 'E', 'A', 'B'};
+        int endIndex = test.length() - 1;
+        for (int i = 2; i < endIndex; i++) {
+            sum += test.charAt(i) - '0';
+        }
+        int result = sum % 13;
+        if (checkDigit[result] == test.charAt(endIndex)) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     @Override

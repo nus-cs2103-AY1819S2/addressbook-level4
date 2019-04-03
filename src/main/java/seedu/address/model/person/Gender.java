@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Gender {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Gender should only contain alphabets, and it should not be blank";
+            "Gender should be male or female, and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -35,17 +35,14 @@ public class Gender {
      * Returns true if a given string is a valid gender.
      */
     public static boolean isValidGender(String test) {
-        if (test.matches(VALIDATION_REGEX)) {
-            if (test.equalsIgnoreCase("male") || test.equalsIgnoreCase("female")) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
+        if (!test.matches(VALIDATION_REGEX)) {
             return false;
         }
+        if (!test.equalsIgnoreCase("male") && !test.equalsIgnoreCase("female")) {
+            return false;
+        }
+        return true;
     }
-
     @Override
     public String toString() {
         return value;

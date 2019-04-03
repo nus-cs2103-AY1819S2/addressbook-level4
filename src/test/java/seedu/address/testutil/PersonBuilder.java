@@ -20,14 +20,14 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class PersonBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_MATRICNUMBER = "A0123456Z";
-    public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
+    public static final String DEFAULT_NAME = "John Lim";
+    public static final String DEFAULT_MATRICNUMBER = "A0132213B";
+    public static final String DEFAULT_PHONE = "82333291";
+    public static final String DEFAULT_EMAIL = "john@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final String DEFAULT_GENDER = "Female";
-    public static final String DEFAULT_YEAROFSTUDY = "Year 4";
-    public static final String DEFAULT_MAJOR = "Business Analytics";
+    public static final String DEFAULT_GENDER = "male";
+    public static final String DEFAULT_YEAROFSTUDY = "2";
+    public static final String DEFAULT_MAJOR = "Statistics";
 
     private Name name;
     private MatricNumber matricNumber;

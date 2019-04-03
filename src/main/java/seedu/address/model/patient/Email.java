@@ -41,6 +41,6 @@ public class Email {
     }
 
     public static boolean isValidEmail(String string) {
-        return string.matches(REGEX_EMAIL);
+        return Pattern.compile(REGEX_EMAIL, Pattern.CASE_INSENSITIVE).matcher(string).matches();
     }
 }

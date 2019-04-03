@@ -31,7 +31,7 @@ public class RightParentPanel extends UiPart<Region> {
     public RightParentPanel(ObservableList<Place> placeList, ObservableValue<Place> selectedPlace,
                             Consumer<Place> onSelectedPlaceChange, ReadOnlyProperty<Boolean> chartDisplayed) {
         super(FXML);
-        displayListPanel = new DisplayListPanel(placeList, onSelectedPlaceChange);
+        displayListPanel = new DisplayListPanel(placeList);
         parentPanelPlaceholder.getChildren().setAll(displayListPanel.getRoot());
 
         chartDisplayed.addListener((observable, oldValue, newValue) -> {
@@ -41,7 +41,7 @@ public class RightParentPanel extends UiPart<Region> {
             if (newValue) {
                 // pass through
                 logger.info("SimpleBooleanValue Changed ");
-                displayListPanel = new DisplayListPanel(placeList, onSelectedPlaceChange);
+                displayListPanel = new DisplayListPanel(placeList);
                 parentPanelPlaceholder.getChildren().removeAll();
                 parentPanelPlaceholder.getChildren().setAll(displayListPanel.getRoot());
             } else {

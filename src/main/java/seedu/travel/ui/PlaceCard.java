@@ -1,7 +1,9 @@
 package seedu.travel.ui;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -56,6 +58,14 @@ public class PlaceCard extends UiPart<Region> {
         address.setText(place.getAddress().value);
         description.setText(place.getDescription().value);
         initTags(place);
+
+        // disables selection for all cards
+        cardPane.addEventFilter(MouseEvent.ANY, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                mouseEvent.consume();
+            }
+        });
     }
 
     /**

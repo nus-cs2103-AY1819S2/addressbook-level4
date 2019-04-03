@@ -5,8 +5,6 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import com.google.maps.GeoApiContext;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
 import seedu.travel.commons.core.Config;
@@ -24,6 +22,8 @@ import seedu.travel.model.ReadOnlyUserPrefs;
 import seedu.travel.model.TravelBuddy;
 import seedu.travel.model.UserPrefs;
 import seedu.travel.model.util.SampleDataUtil;
+import seedu.travel.storage.ChartBookStorage;
+import seedu.travel.storage.JsonChartBookStorage;
 import seedu.travel.storage.JsonTravelBuddyStorage;
 import seedu.travel.storage.JsonUserPrefsStorage;
 import seedu.travel.storage.Storage;
@@ -38,9 +38,7 @@ import seedu.travel.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final String GOOGLE_API_KEY = "AIzaSyBHys5ywgiaHrGJHRd_aksq3DH7BpiogXc";
-    public static final GeoApiContext CONTEXT = new GeoApiContext.Builder().apiKey(GOOGLE_API_KEY).build();
-    private static final Version VERSION = new Version(1, 3, 0, true);
+    private static final Version VERSION = new Version(1, 3, 1, true);
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
@@ -60,7 +58,9 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         TravelBuddyStorage travelBuddyStorage = new JsonTravelBuddyStorage(userPrefs.getTravelBuddyFilePath());
-        storage = new StorageManager(travelBuddyStorage, userPrefsStorage);
+        ChartBookStorage chartBookStorage = new JsonChartBookStorage(userPrefs.getCountryChartFilePath(),
+                userPrefs.getRatingChartFilePath(), userPrefs.getYearChartFilePath());
+        storage = new StorageManager(travelBuddyStorage, userPrefsStorage, chartBookStorage);
 
         initLogging(config);
 

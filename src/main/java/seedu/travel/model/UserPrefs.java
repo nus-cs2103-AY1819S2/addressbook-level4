@@ -15,6 +15,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path travelBuddyFilePath = Paths.get("data" , "travelBuddy.json");
+    private Path countryChartFilePath = Paths.get("data", "countryChart.json");
+    private Path ratingChartFilePath = Paths.get("data", "ratingChart.json");
+    private Path yearChartFilePath = Paths.get("data", "yearChart.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -51,6 +54,18 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return travelBuddyFilePath;
     }
 
+    public Path getCountryChartFilePath() {
+        return countryChartFilePath;
+    }
+
+    public Path getRatingChartFilePath() {
+        return ratingChartFilePath;
+    }
+
+    public Path getYearChartFilePath() {
+        return yearChartFilePath;
+    }
+
     public void setTravelBuddyFilePath(Path travelBuddyFilePath) {
         requireNonNull(travelBuddyFilePath);
         this.travelBuddyFilePath = travelBuddyFilePath;
@@ -81,6 +96,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + travelBuddyFilePath);
+        sb.append("\nCountry chart file location: " + countryChartFilePath);
+        sb.append("\nRating chart file location: " + ratingChartFilePath);
+        sb.append("\nYear chart file location: " + yearChartFilePath);
         return sb.toString();
     }
 

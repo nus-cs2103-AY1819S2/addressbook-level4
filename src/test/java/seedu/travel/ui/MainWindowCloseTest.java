@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import seedu.travel.logic.LogicManager;
 import seedu.travel.model.ModelManager;
+import seedu.travel.storage.JsonChartBookStorage;
 import seedu.travel.storage.JsonTravelBuddyStorage;
 import seedu.travel.storage.JsonUserPrefsStorage;
 import seedu.travel.storage.StorageManager;
@@ -36,7 +37,10 @@ public class MainWindowCloseTest extends GuiUnitTest {
     public void setUp() throws Exception {
         JsonTravelBuddyStorage jsonTravelBuddyStorage = new JsonTravelBuddyStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storageManager = new StorageManager(jsonTravelBuddyStorage, jsonUserPrefsStorage);
+        JsonChartBookStorage jsonChartBookStorage = new JsonChartBookStorage(temporaryFolder.newFile().toPath(),
+                temporaryFolder.newFile().toPath(), temporaryFolder.newFile().toPath());
+        StorageManager storageManager = new StorageManager(jsonTravelBuddyStorage, jsonUserPrefsStorage,
+                jsonChartBookStorage);
         FxToolkit.setupStage(stage -> {
             this.stage = stage;
             mainWindow = new MainWindow(stage, new LogicManager(new ModelManager(), storageManager));

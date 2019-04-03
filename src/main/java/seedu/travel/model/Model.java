@@ -111,11 +111,10 @@ public interface Model {
      */
     void commitTravelBuddy();
 
-    /**
-     * Saves the current Chart state.
-     */
-    void commitChart();
 
+    /**
+     * Checks if the chart is currently displayed.
+     */
     ReadOnlyProperty<Boolean> chartDisplayedProperty();
 
     /**

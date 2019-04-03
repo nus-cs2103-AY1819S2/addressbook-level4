@@ -27,7 +27,9 @@ public class StorageManagerTest {
     public void setUp() {
         JsonTravelBuddyStorage travelBuddyStorage = new JsonTravelBuddyStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(travelBuddyStorage, userPrefsStorage);
+        JsonChartBookStorage chartBookStorage = new JsonChartBookStorage(getTempFilePath("countryChart.json"),
+                getTempFilePath("ratingChart.json"), getTempFilePath("yearChart.json"));
+        storageManager = new StorageManager(travelBuddyStorage, userPrefsStorage, chartBookStorage);
     }
 
     private Path getTempFilePath(String fileName) {

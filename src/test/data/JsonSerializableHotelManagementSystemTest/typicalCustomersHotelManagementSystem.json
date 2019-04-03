@@ -6,7 +6,7 @@
       "phone": "94351253",
       "dob": "30/12/1999",
       "email": "alice@example.com",
-      "idnum": "12312",
+      "idnum": "1231212A",
       "address": "123, Jurong West Ave 6, #08-111",
       "tagged": [
         "friends"
@@ -17,7 +17,7 @@
       "phone": "98765432",
       "dob": "30/12/2000",
       "email": "johnd@example.com",
-      "idnum": "12335",
+      "idnum": "1233512A",
       "address": "311, Clementi Ave 2, #02-25",
       "tagged": [
         "owesMoney",
@@ -29,7 +29,7 @@
       "phone": "95352563",
       "dob": "30/12/2001",
       "email": "heinz@example.com",
-      "idnum": "104535",
+      "idnum": "10453512A",
       "address": "wall street",
       "tagged": []
     },
@@ -38,7 +38,7 @@
       "phone": "87652533",
       "dob": "30/12/2002",
       "email": "cornelia@example.com",
-      "idnum": "12005",
+      "idnum": "1200512A",
       "address": "10th street",
       "tagged": [
         "friends"
@@ -49,7 +49,7 @@
       "phone": "9482224",
       "dob": "30/12/2003",
       "email": "werner@example.com",
-      "idnum": "123300",
+      "idnum": "12330012A",
       "address": "michegan ave",
       "tagged": []
     },
@@ -58,7 +58,7 @@
       "phone": "9482427",
       "dob": "30/12/2004",
       "email": "lydia@example.com",
-      "idnum": "10095",
+      "idnum": "1009512A",
       "address": "little tokyo",
       "tagged": []
     },
@@ -67,7 +67,7 @@
       "phone": "9482442",
       "dob": "30/12/2005",
       "email": "anna@example.com",
-      "idnum": "1233999",
+      "idnum": "123399912A",
       "address": "4th street",
       "tagged": []
     }

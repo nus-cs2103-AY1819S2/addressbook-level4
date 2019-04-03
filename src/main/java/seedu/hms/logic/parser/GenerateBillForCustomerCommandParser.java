@@ -1,8 +1,6 @@
 package seedu.hms.logic.parser;
 
 import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATES;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_ROOM;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,42 +10,41 @@ import javafx.collections.ObservableList;
 import javafx.util.Pair;
 import seedu.hms.commons.core.Messages;
 import seedu.hms.commons.core.index.Index;
-import seedu.hms.logic.commands.GenerateBillForReservationCommand;
+import seedu.hms.logic.commands.GenerateBillForCustomerCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.BillManager;
 import seedu.hms.model.BillModel;
 import seedu.hms.model.CustomerManager;
 import seedu.hms.model.CustomerModel;
 import seedu.hms.model.bill.Bill;
+import seedu.hms.model.booking.Booking;
+import seedu.hms.model.booking.BookingContainsPayerPredicate;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.ReservationContainsPayerPredicate;
-import seedu.hms.model.reservation.ReservationWithDatePredicate;
-import seedu.hms.model.reservation.ReservationWithTypePredicate;
-import seedu.hms.model.util.DateRange;
 
 /**
- * Parses input arguments and creates a new GenerateBillForReservationCommand object
+ * Parses input arguments and creates a new GenerateBillForCustomerCommand object
  */
-public class GenerateBillForReservationCommandParser implements Parser<GenerateBillForReservationCommand> {
+public class GenerateBillForCustomerCommandParser implements Parser<GenerateBillForCustomerCommand> {
+
+
     /**
      * Parses the given {@code String} of arguments in the context of the GenerateBillForReservationCommand
      * and returns an GenerateBillForReservationCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public GenerateBillForReservationCommand parse(String args, CustomerModel customerModel, BillModel billModel)
+    public GenerateBillForCustomerCommand parse(String args, CustomerModel customerModel, BillModel billModel)
         throws ParseException {
-        ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_ROOM, PREFIX_DATES);
-
         Index index;
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            index = ParserUtil.parseIndex(args);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                GenerateBillForReservationCommand.MESSAGE_USAGE));
+                GenerateBillForCustomerCommand.MESSAGE_USAGE),
+                pe);
         }
 
         List<Customer> lastShownList = customerModel.getFilteredCustomerList();
@@ -57,43 +54,40 @@ public class GenerateBillForReservationCommandParser implements Parser<GenerateB
 
         //Finds the selected customer
         Customer customer = lastShownList.get(index.getZeroBased());
+
+        // Customer selected
         IdentificationNo payerIdentificationNo = customer.getIdNum();
         String payerId = payerIdentificationNo.toString();
 
-        ReservationContainsPayerPredicate reservationContainsPayerPredicate =
-            new ReservationContainsPayerPredicate(payerId);
-
-
-        ReservationWithTypePredicate reservationWithTypePredicate;
-        if (argMultimap.getValue(PREFIX_ROOM).isPresent()) {
-            reservationWithTypePredicate = new ReservationWithTypePredicate(
-                ParserUtil.parseRoom(argMultimap.getValue(PREFIX_ROOM).get()).getName());
-        } else {
-            reservationWithTypePredicate = new ReservationWithTypePredicate("");
-        }
-
-        //Search in whole day if timing is not provided
-        DateRange dateRange = ParserUtil.parseDates(argMultimap.getValue(PREFIX_DATES)
-            .orElse("01/01/0001-31/12/9999"));
-        ReservationWithDatePredicate reservationWithDatePredicate = new ReservationWithDatePredicate(dateRange);
+        //Booking bill
+        BookingContainsPayerPredicate bookingContainsPayerPredicate = new BookingContainsPayerPredicate(payerId);
+        Predicate<Booking> bookingPredicate;
+        bookingPredicate = bookingContainsPayerPredicate;
+        billModel.updateFilteredBookingList(bookingPredicate);
+        ObservableList<Booking> bookingObservableList = billModel.getFilteredBookingList();
+        HashMap<String, Pair<Double, Integer>> bookingBill = billModel.generateHashMapForBooking(bookingObservableList);
 
         //Reservation bill
+        ReservationContainsPayerPredicate reservationContainsPayerPredicate =
+            new ReservationContainsPayerPredicate(payerId);
         Predicate<Reservation> reservationPredicate;
-        reservationPredicate = (reservationTested) -> reservationContainsPayerPredicate.test(reservationTested)
-            && reservationWithTypePredicate.test(reservationTested)
-            && reservationWithDatePredicate.test(reservationTested);
+        reservationPredicate = reservationContainsPayerPredicate;
         billModel.updateFilteredReservationList(reservationPredicate);
         ObservableList<Reservation> reservationObservableList = billModel.getFilteredReservationList();
         HashMap<String, Pair<Double, Long>> reservationBill =
             billModel.generateHashMapForReservation(reservationObservableList);
 
+        // total amount for booking
+        double amountBooking = billModel.generateBillForBooking(bookingObservableList);
+
         //total amount for reservation
         double amountReservation = billModel.generateBillForReservation(reservationObservableList);
 
-        Bill bill = new Bill(customer, amountReservation, new HashMap<>(), reservationBill);
-        return new GenerateBillForReservationCommand(reservationContainsPayerPredicate,
-            reservationWithTypePredicate,
-            reservationWithDatePredicate, bill);
+        Bill bill = new Bill(customer, amountReservation, amountBooking, bookingBill, reservationBill);
+
+        return new GenerateBillForCustomerCommand(bookingContainsPayerPredicate, reservationContainsPayerPredicate,
+            bill);
+
     }
 
     /**
@@ -102,8 +96,9 @@ public class GenerateBillForReservationCommandParser implements Parser<GenerateB
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public GenerateBillForReservationCommand parse(String args) throws ParseException {
+    public GenerateBillForCustomerCommand parse(String args) throws ParseException {
         return parse(args, new CustomerManager(), new BillManager());
     }
+
 
 }

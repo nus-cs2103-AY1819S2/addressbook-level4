@@ -20,18 +20,19 @@ import seedu.hms.model.reservation.ReservationWithTypePredicate;
  * Keyword matching is case insensitive.
  */
 public class FindReservationCommand extends ReservationCommand {
-
     public static final String COMMAND_ALIAS = "fr";
     public static final String COMMAND_WORD = "find-reservation";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all reservations belonging to the selected "
         + "customer\n"
         + "Parameters: CUSTOMER_IDENTIFICATION_NUMBER\n"
+        + "Parameters: INDEX"
+        + "[" + PREFIX_ROOM + "ROOM TYPE] "
+        + "[" + PREFIX_DATES + "DATES(DD/MM/YYYY - DD/MM/YYYY)]\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_IDENTIFICATION_NUMBER + "1234567"
         + "[" + PREFIX_ROOM + "SINGLE ROOM] "
         + "[" + PREFIX_DATES + "12/12/2019 - 14/12/2019]";
-
     private final Predicate<Reservation> reservationPredicate;
 
     public FindReservationCommand(ReservationContainsPayerPredicate reservationContainsPayerPredicate,

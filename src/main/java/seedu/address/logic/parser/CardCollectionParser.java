@@ -18,6 +18,7 @@ import seedu.address.logic.commands.GoodCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ImageCommand;
+import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.QuizCommand;
 import seedu.address.logic.commands.RedoCommand;
@@ -27,7 +28,6 @@ import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.commands.SmartCommand;
 import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.commands.UploadCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -88,8 +88,8 @@ public class CardCollectionParser {
         case ShareCommand.COMMAND_WORD:
             return new ShareCommandParser().parse(arguments);
 
-        case UploadCommand.COMMAND_WORD:
-            return new UploadCommandParser().parse(arguments);
+        case ImportCommand.COMMAND_WORD:
+            return new ImportCommandParser().parse(arguments);
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

@@ -1,15 +1,13 @@
-= Kyler Wong - Project Portfolio
+= Kyler Wong - Project Portfolio for TeethHub
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: TeethHub
-
 ---
 
-== Overview
+== About the Project: TeethHub
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+TeethHub is a desktop application specially designed for tech-savvy dentists, who prefers to use the command line interface, as opposed to the traditional graphical user interface. The user interacts with the application through the type via the command line interface, and graphical representations of data are provided. The program is written in Java.
 
 == Summary of contributions
 

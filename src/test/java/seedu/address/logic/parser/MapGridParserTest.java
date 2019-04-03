@@ -14,7 +14,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -39,21 +38,6 @@ public class MapGridParserTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private final AddressBookParser parser = new AddressBookParser();
-
-    @Test
-    public void parseCommand_add() throws Exception {
-        Cell cell = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(cell));
-        assertEquals(new AddCommand(cell), command);
-    }
-
-    @Test
-    public void parseCommand_addUsingAlias() throws Exception {
-        Cell cell = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(AddCommand.COMMAND_ALIAS
-                + " " + PersonUtil.getPersonDetails(cell));
-        assertEquals(new AddCommand(cell), command);
-    }
 
     @Test
     public void parseCommand_clear() throws Exception {

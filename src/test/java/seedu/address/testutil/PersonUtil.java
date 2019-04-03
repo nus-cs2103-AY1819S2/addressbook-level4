@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.tag.Tag;
@@ -17,13 +16,6 @@ import seedu.address.model.tag.Tag;
  * A utility class for Cell.
  */
 public class PersonUtil {
-
-    /**
-     * Returns an add command string for adding the {@code cell}.
-     */
-    public static String getAddCommand(Cell cell) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(cell);
-    }
 
     /**
      * Returns the part of command string for the given {@code cell}'s details.

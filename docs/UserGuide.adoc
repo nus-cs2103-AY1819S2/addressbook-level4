@@ -130,7 +130,6 @@ This will display the current information of the flashcard at index 2
 Flashcard at index 1 will be edited and the updated information will be displayed
 
 === Locating a Flashcard by keyword: `find`
-
 Finds and lists flashcards whose front text, back text or collection tags contain any of the given keywords. +
 
 Format: ​`find [f/KEYWORD]... [b/KEYWORD]... [t/KEYWORD]...`
@@ -183,11 +182,42 @@ Format: `quiz`
 ****
 * Enters quiz mode with the cards on the flashcard list panel.
 * This will start a quiz session. The flashcard list panel on the left will change to a quiz panel.
-* The quiz panel contains the number of cards remaining on the quiz, as well as the number of good and bad feedback from the user.
+* The quiz panel contains the number of cards remaining on the quiz, as well as the number of good and bad feedback received.
+* The card view panel on the right will display the quizzed cards one by one.
 ****
 
+=== User feedback : `good` or `bad`
+
+Gives user feedback on quiz mode.
+
+Format: `good` or `bad`
+
+****
+* In order to give feedback of how well you do in the quiz mode, you can type in either `good` or `bad` for each card in the quiz.
+* After you type `good` or `bad`, Acquizition will record the feedback on the card shown, as well as incrementing the number of good and bad feedback.
+* Acquizition will then proceed to show the next flashcard to be quizzed. If there are no cards left, it will exit quiz mode.
+* Note that you can only use this command inside quiz mode.
+****
+
+Examples:
+
+* `quiz` +
+`good` +
+This will increment the number of good feedback of the card shown, thus, the success rate of this card will increase. +
+Then, the next card in the quiz queue will be shown.
+* `quiz` +
+`bad` +
+This will increment the number of bad feedback of the card shown, thus, the success rate of this card will decrease. +
+Then, the next card in the quiz queue will be shown.
+* `quiz` +
+`good` +
+`...` +
+`good` +
+Suppose this is the last card to show inside quiz mode. Acquizition will record the statistics of the quiz mode and exit the quiz mode.
+
 === Show progress statistics : `stats`
-Show statistics for the cards with the given tag, or all cards if tag is not specified, including
+
+Shows statistics for the cards with the given tag, or all cards if tag is not specified, including
 accuracy, number of tries, etc.
 
 Format: `stats [t/TAG]`

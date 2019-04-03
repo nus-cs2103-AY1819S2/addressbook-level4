@@ -172,8 +172,8 @@ public class DecryptCommandTest {
      * Decrypts {@code pdfToReset} if it is encrypted.
      */
     private void resetTestFile(Pdf pdfToReset) throws CommandException {
-        System.out.println(pdfToReset.getIsEncryted());
-        if (pdfToReset.getIsEncryted()) {
+        System.out.println(pdfToReset.getIsEncrypted());
+        if (pdfToReset.getIsEncrypted()) {
             Model initialisationModel = new ModelManager(getTypicalPdfBook(), new UserPrefs());
             CommandHistory initialisationCommandHistory = new CommandHistory();
             DecryptCommand decryptCommand = new DecryptCommand(INDEX_SECOND_PDF, PASSWORD_1_VALID);

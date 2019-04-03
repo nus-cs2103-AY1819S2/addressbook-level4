@@ -18,6 +18,8 @@ import seedu.travel.model.place.Place;
  */
 public class CountryChartList implements Iterable<CountryChart> {
 
+    public static final String MESSAGE_COUNTRY_CHART_NOT_FOUND = "The country chart does not exist.";
+
     private final ObservableList<CountryChart> internalList = FXCollections.observableArrayList();
     private final ObservableList<CountryChart> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
@@ -55,7 +57,7 @@ public class CountryChartList implements Iterable<CountryChart> {
             }
         }
         if (!isRemoved) {
-            throw new CountryChartNotFoundException();
+            throw new CountryChartNotFoundException(MESSAGE_COUNTRY_CHART_NOT_FOUND);
         }
     }
 

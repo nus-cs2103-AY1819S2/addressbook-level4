@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
+    private BudgetPanel budgetPanel;
     private RecordListPanel recordListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -41,6 +42,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane browserPlaceholder;
+
+    @FXML
+    private StackPane budgetPanelPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -56,6 +60,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -117,6 +122,9 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel(logic.selectedRecordProperty(), logic.getBudget());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
+        budgetPanel = new BudgetPanel(logic.getBudget());
+        budgetPanelPlaceholder.getChildren().add(budgetPanel.getRoot());
+
         recordListPanel = new RecordListPanel(logic.getFilteredRecordList(), logic.selectedRecordProperty(),
                 logic::setSelectedRecord);
         recordListPanelPlaceholder.getChildren().add(recordListPanel.getRoot());
@@ -130,6 +138,16 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        if (theme == "Dark") {
+            budgetPanel.setDarkTheme();
+        } else {
+            budgetPanel.setLightThemes(theme);
+        }
+
+        browserPanel.updateBudget(logic.getBudget());
+        budgetPanel.update(logic.getBudget());
+
     }
 
     /**
@@ -162,6 +180,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     public void handleChangeBudget() {
         logger.info("Budget Info: " + logic.getBudget().getCurrentBudget());
+        budgetPanel.update(logic.getBudget());
         browserPanel.updateBudget(logic.getBudget());
     }
 
@@ -272,6 +291,7 @@ public class MainWindow extends UiPart<Stage> {
         this.theme = "Light";
         CommandResult r = new CommandResult("Light Theme is set");
         resultDisplay.setFeedbackToUser(r.getFeedbackToUser());
+        budgetPanel.setLightThemes("Light");
     }
 
     /**
@@ -296,6 +316,7 @@ public class MainWindow extends UiPart<Stage> {
         this.theme = "Dark";
         CommandResult r = new CommandResult("Dark Theme is set");
         resultDisplay.setFeedbackToUser(r.getFeedbackToUser());
+        budgetPanel.setDarkTheme();
     }
 
     /**
@@ -320,6 +341,7 @@ public class MainWindow extends UiPart<Stage> {
         this.theme = "Blue";
         CommandResult r = new CommandResult("Blue Theme is set");
         resultDisplay.setFeedbackToUser(r.getFeedbackToUser());
+        budgetPanel.setLightThemes("Blue");
     }
 
     /**
@@ -344,5 +366,6 @@ public class MainWindow extends UiPart<Stage> {
         this.theme = "Pink";
         CommandResult r = new CommandResult("Pink Theme is set");
         resultDisplay.setFeedbackToUser(r.getFeedbackToUser());
+        budgetPanel.setLightThemes("Pink");
     }
 }

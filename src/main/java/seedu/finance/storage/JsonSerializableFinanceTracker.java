@@ -19,7 +19,7 @@ import seedu.finance.model.record.Record;
 @JsonRootName(value = "finance")
 class JsonSerializableFinanceTracker {
 
-    public static final String MESSAGE_DUPLICATE_RECORD = "Records list contains duplicate record(s).";
+    //public static final String MESSAGE_DUPLICATE_RECORD = "Records list contains duplicate record(s).";
 
     private final List<JsonAdaptedRecord> records = new ArrayList<>();
 
@@ -54,9 +54,6 @@ class JsonSerializableFinanceTracker {
         FinanceTracker financeTracker = new FinanceTracker();
         for (JsonAdaptedRecord jsonAdaptedRecord : records) {
             Record record = jsonAdaptedRecord.toModelType();
-            if (financeTracker.hasRecord(record)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_RECORD);
-            }
             financeTracker.addRecord(record);
         }
         financeTracker.addBudget(budget.toModelType());

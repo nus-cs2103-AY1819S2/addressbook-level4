@@ -30,10 +30,12 @@ The following sections illustrates a detailed analysis of the enhancements.
 
 == Summary of contributions
 This is a summary of the coding, documentation and other helpful contributions to the team project.
+
 * *Major enhancement*
 ** Calling for bill
 ** Calling for revenue
 * *Minor enhancement*
+
 
 . *Calling for bill*: added *the ability to calculate and record the bill of a specific table.*
 ** What it does: allows the user calculate and record the total bill accumulated from the table's orders.

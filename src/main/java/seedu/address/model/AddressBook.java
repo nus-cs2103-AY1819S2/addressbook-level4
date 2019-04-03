@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 import javafx.beans.InvalidationListener;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.activity.Activity;
@@ -257,14 +258,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Get the person in the attendance from this {@code AddressBook}.
      */
     public ObservableList<Person> getAttendingFromActivity(Activity key) {
-        UniquePersonList attending = new UniquePersonList();
+        ObservableList<Person> attending = FXCollections.observableArrayList();
         List<MatricNumber> matricAttending = key.getAttendance();
         for (MatricNumber matric: matricAttending) {
             if (hasMatricNumber(matric)) {
                 attending.add(getPersonWithMatricNumber(matric));
             }
         }
-        return attending.asUnmodifiableObservableList();
+        return attending;
     }
 
     /**

@@ -257,12 +257,12 @@ public class MemberAddCommandTest {
         }
 
         @Override
-        public ObservableList<Person> getAttendingOfActivity(Activity activity) {
+        public ObservableList<Person> getAttendingOfSelectedActivity() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Person> getPersonNotInActivity(Activity activity) {
+        public ObservableList<Person> getPersonNotInSelectedActivity() {
             throw new AssertionError("This method should not be called.");
         }
 

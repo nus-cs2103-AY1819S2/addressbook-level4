@@ -111,10 +111,10 @@ public interface Logic {
     /**
      * Returns a list of person attending the activity
      */
-    ObservableList<Person> getAttendingOfActivity(Activity activity);
+    ObservableList<Person> getAttendingOfSelectedActivity();
 
     /**
      * Returns lists of Person not attending the activity
      */
-    ObservableList<Person> getPersonNotInActivity(Activity activity);
+    ObservableList<Person> getPersonNotInSelectedActivity();
 }

@@ -237,12 +237,12 @@ public interface Model {
     /**
      * Gets the lists of Person attending an activity
      */
-    ObservableList<Person> getAttendingOfActivity(Activity activity);
+    ObservableList<Person> getAttendingOfSelectedActivity();
 
     /**
      * Gets the lists of Person not attending an activity
      */
-    ObservableList<Person> getPersonNotInActivity(Activity activity);
+    ObservableList<Person> getPersonNotInSelectedActivity();
 
     /**
      * Update entire activity list

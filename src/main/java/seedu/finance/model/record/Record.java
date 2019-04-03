@@ -107,7 +107,7 @@ public class Record {
                 .append(" Description: ")
                 .append(getDescription())
                 .append(" Category: ")
-                .append(getClass());
+                .append(getCategory());
         return builder.toString();
     }
 

@@ -145,6 +145,11 @@ public class Deadline implements Comparable<Deadline> {
         return builder.toString();
     }
 
+    /**
+     * Json adapted toString() method
+     *
+     * @return - Json adapted Deadline.toString().
+     */
     public String toJsonString() {
         return this.exists()
                 ? this.date + Deadline.PROPERTY_SEPARATOR_PREFIX + this.isDone

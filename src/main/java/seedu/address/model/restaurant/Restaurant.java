@@ -95,6 +95,7 @@ public class Restaurant {
         this.weblink = restaurant.weblink;
         this.openingHours = restaurant.openingHours;
         this.postal = restaurant.postal;
+        this.reviews.addAll(restaurant.reviews);
         this.summary = new Summary(restaurant.getReviews());
     }
 

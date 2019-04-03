@@ -29,6 +29,7 @@ public class DeadlineCommandParser implements Parser<DeadlineCommand> {
 
         Index index;
         Deadline deadline = new Deadline();
+        DeadlineCommand.DeadlineAction action;
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
@@ -40,23 +41,26 @@ public class DeadlineCommandParser implements Parser<DeadlineCommand> {
         if ((argMultimap.getValue(PREFIX_DEADLINE_DONE).isPresent()
                 && argMultimap.getValue(PREFIX_DEADLINE_REMOVE).isPresent())
                 || (!argMultimap.getValue(PREFIX_DEADLINE_NEW).isPresent()
-                && !argMultimap.getValue(PREFIX_DEADLINE_REMOVE).isPresent()
-                && !argMultimap.getValue(PREFIX_DEADLINE_DONE).isPresent())) {
+                    && !argMultimap.getValue(PREFIX_DEADLINE_REMOVE).isPresent()
+                    && !argMultimap.getValue(PREFIX_DEADLINE_DONE).isPresent())
+                || (argMultimap.getValue(PREFIX_DEADLINE_NEW).isPresent()
+                    && (argMultimap.getValue(PREFIX_DEADLINE_DONE).isPresent()
+                    || argMultimap.getValue(PREFIX_DEADLINE_REMOVE).isPresent()))) {
 
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeadlineCommand.MESSAGE_USAGE));
         }
 
         if (argMultimap.getValue(PREFIX_DEADLINE_NEW).isPresent()) {
             deadline = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_DEADLINE_NEW).get());
-        }
-
-        if (argMultimap.getValue(PREFIX_DEADLINE_DONE).isPresent()) {
-            System.out.println("DONE PRESENT");
-            deadline = Deadline.setDone(deadline);
+            action = DeadlineCommand.DeadlineAction.NEW;
+        } else if (argMultimap.getValue(PREFIX_DEADLINE_DONE).isPresent()) {
+            action = DeadlineCommand.DeadlineAction.DONE;
         } else if (argMultimap.getValue(PREFIX_DEADLINE_REMOVE).isPresent()) {
-            deadline = Deadline.setRemove(deadline);
+            action = DeadlineCommand.DeadlineAction.REMOVE;
+        } else {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeadlineCommand.MESSAGE_USAGE));
         }
 
-        return new DeadlineCommand(index, deadline);
+        return new DeadlineCommand(index, deadline, action);
     }
 }

@@ -18,33 +18,67 @@ import seedu.address.model.pdf.Deadline;
 import seedu.address.model.pdf.Pdf;
 
 /**
- * Edits the deadline of an existing pdf in the address book.
+ * Edits the deadline of an existing pdf in the pdf book.
  */
 public class DeadlineCommand extends Command {
 
     public static final String COMMAND_WORD = "deadline";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a deadline to a selected pdf indicated "
-            + "by the index number used in the displayed pdf list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Edits the deadline of the selected pdf indicated "
+            + "by the index number used in the displayed pdf list.\n"
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_DEADLINE_NEW + "DEADLINE] (In dd-mm-yyyy format) [done] [remove]\n"
-            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_DEADLINE_NEW + "13-02-2020\n"
-            + "Example: " + COMMAND_WORD + " 2 " + PREFIX_DEADLINE_DONE + "\n"
-            + "Example: " + COMMAND_WORD + " 2 " + PREFIX_DEADLINE_REMOVE + "\n";
+            + "Parameters: INDEX (must be a positive integer) ACTION\n"
+            + "There are 3 types of ACTION:\n"
+            + "1. date/<DATE>\n"
+            + "      sets/replaces the existing deadline of the selected pdf\n"
+            + "      Example: " + COMMAND_WORD + " 1 " + PREFIX_DEADLINE_NEW + "13-02-2020\n"
+            + "2. done\n"
+            + "      marks the existing deadline of the selected pdf as DONE\n"
+            + "      Example: " + COMMAND_WORD + " 2 " + PREFIX_DEADLINE_DONE + "\n"
+            + "3. remove\n"
+            + "      removes the existing deadline of the selected pdf\n"
+            + "      Example: " + COMMAND_WORD + " 2 " + PREFIX_DEADLINE_REMOVE + "\n";
 
     private final Index index;
     private final Deadline deadline;
+    private final DeadlineAction action;
 
-    public DeadlineCommand(Index index, Deadline deadline) {
+    /**
+     * Represents a Pdf deadline's  status in the pdf book.
+     * Guarantees: immutable;
+     */
+    public enum DeadlineAction {
+        NEW("NEW"),
+        DONE("DONE"),
+        REMOVE("REMOVE");
+
+        private String status;
+
+        DeadlineAction(String status) {
+            this.status = status;
+        }
+
+        public String getStatus() {
+            return this.status;
+        }
+
+        @Override
+        public String toString() {
+            return status;
+        }
+    }
+
+    public DeadlineCommand(Index index, Deadline deadline, DeadlineAction action) {
         requireNonNull(index);
         requireNonNull(deadline);
+        requireNonNull(action);
 
         this.index = index;
         this.deadline = deadline;
+        this.action = action;
     }
 
-    @SuppressWarnings("Duplicates")
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
@@ -56,17 +90,14 @@ public class DeadlineCommand extends Command {
 
         Pdf oPdf = lastShownList.get(this.index.getZeroBased());
         Pdf nPdf;
+        Deadline oDeadline = oPdf.getDeadline();
 
-        if (deadline.exists()) {
-            if (deadline.isDone()) {
-                nPdf = DeadlineCommand.getPdfWithNewDeadline(oPdf,
-                        Deadline.updateStatus(oPdf.getDeadline(), this.deadline));
-            } else {
-                nPdf = DeadlineCommand.getPdfWithNewDeadline(oPdf, this.deadline);
-            }
+        if (action == DeadlineAction.NEW) {
+            nPdf = getPdfWithNewDeadline(oPdf, deadline);
+        } else if (action == DeadlineAction.DONE) {
+            nPdf = getPdfWithNewDeadline(oPdf, Deadline.setDone(oDeadline));
         } else {
-            nPdf = DeadlineCommand.getPdfWithNewDeadline(oPdf,
-                    Deadline.updateStatus(oPdf.getDeadline(), this.deadline));
+            nPdf = getPdfWithNewDeadline(oPdf, Deadline.setRemove(oDeadline));
         }
 
         model.setPdf(oPdf, nPdf);
@@ -95,6 +126,7 @@ public class DeadlineCommand extends Command {
         // state check
         DeadlineCommand e = (DeadlineCommand) other;
         return index.equals(e.index)
-                && deadline.equals(e.deadline);
+                && deadline.equals(e.deadline)
+                && action.equals(e.action);
     }
 }

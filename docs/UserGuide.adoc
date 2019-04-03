@@ -172,26 +172,25 @@ Deletes the 2nd flashcard in the list.
 `delete 1` +
 Deletes the 1st flashcard in the results of the `find` command.
 
-=== Quiz mode : ​`quiz`
+=== Quiz mode : `quiz`
 
-Enter quiz mode. A card will be shown to the user one by one randomly with distribution based
-on accuracy of each flashcard. The user then can self-verify whether he/she correctly guess the other side of the flashcard.
+Enter quiz mode. +
+A card will be shown to the user one by one randomly with distribution based on accuracy of each flashcard. +
+The user then can self-verify whether he/she correctly guess the other side of the flashcard.
 
-Format: `​quiz [t/TAG] []`
+Format: `quiz`
 
 ****
-* Enters quiz mode. If no tags are given, all cards can be shown.
+* Enters quiz mode with the cards on the flashcard list panel.
+* This will start a quiz session. The flashcard list panel on the left will change to a quiz panel.
+* The quiz panel contains the number of cards remaining on the quiz, as well as the number of good and bad feedback from the user.
 ****
 
-Examples:
-
-* `quiz t/chinese`
-
-=== Show progress statistics : `s​tats`
+=== Show progress statistics : `stats`
 Show statistics for the cards with the given tag, or all cards if tag is not specified, including
 accuracy, number of tries, etc.
 
-Format: `​stats [t/TAG]`
+Format: `stats [t/TAG]`
 
 ****
 * Shows the statistics of the cards with the given tag. If no tags are given, statistics of all cards will be shown.
@@ -204,7 +203,7 @@ Examples:
 === Share flashcards : `share`
 Creates a text file containing a set of flashcards to be shared.
 
-Format: ​`share [f/KEYWORD]... [b/KEYWORD]... [t/KEYWORD]...`
+Format: `share [f/KEYWORD]... [b/KEYWORD]... [t/KEYWORD]...`
 
 ****
 * The flashcards to be shared are based on a set of user defined keywords and follow the format of the Find command
@@ -238,10 +237,23 @@ Examples:
 Clears all flashcards. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+=== Exiting : `exit`
+If you are in quiz mode, this will exit the quiz mode and displays the main window.
+Otherwise, it will exit the program.
 
-Exits the program. +
+Exits quiz mode or program. +
 Format: `exit`
+
+Examples:
+
+* `quiz` +
+`exit` +
+This will exit the quiz mode.
+
+* `quiz` +
+`exit` +
+`exit` +
+This will exit the quiz mode, then exit the program.
 
 === Saving the data
 

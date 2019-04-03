@@ -1,8 +1,5 @@
 package seedu.address.ui;
 
-import java.awt.Desktop;
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;

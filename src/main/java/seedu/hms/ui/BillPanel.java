@@ -1,9 +1,9 @@
 package seedu.hms.ui;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import seedu.hms.model.BillModel;
 
 /**
@@ -22,42 +22,22 @@ public class BillPanel extends UiPart<Region> {
     public final BillModel billModel;
 
     @FXML
-    private ScrollPane cardPane;
+    private TextArea textArea;
     @FXML
-    private Label billHead;
-    @FXML
-    private Label serviceBookingBillHead;
-    @FXML
-    private Label roomReservationBillHead;
+    private StackPane stackPane;
 
     public BillPanel(BillModel billModel) {
         super(FXML);
         this.billModel = billModel;
-        billHead.setText("Bill");
-        serviceBookingBillHead.setText("Service Booking(s)  -------Subtotal:" + "100"
-                + "\n100 111\n 12313 131"
-                + "\n100 111\n 12313 131"
-                + "\n100 111\n 12313 131"
-                + "\n100 111\n 12313 131"
-                + "\n100 111\n 12313 131"
-                + "\n100 111\n 12313 131"
-                + "\n100 111\n 12313 131"
-                + "\n100 111\n 12313 131"
-                + "\n100 111\n 12313 131"
-                + "\n100 111\n 12313 131"
-                + "\n100 111\n 12313 131"
-                + "\n100 111\n 12313 131"
-                + "\n100 111\n 12313 131"
-                + "\n100 111\n 12313 131"
-                + "\n100 111\n 12313 131"
-                + "\n100 111\n 12313 131"
-                + "\n100 111\n 12313 131"
-                + "\n100 111\n 12313 131"
-                + "\n100 111\n 12313 131"
-                + "\n100 111\n 12313 131"
-                + "\n100 111\n 12313 131"
-                + "\n100 111\n 12313 131");
-        roomReservationBillHead.setText("Room Reservation(s)-------Subtotal:" + "100");
+        String billString = "";
+        billString += "----------Bill----------\n";
+        billString += "Service Booking(s):\n";
+        billString += "------------Sub-Total: ";
+        billString += "Room Reservation(s)\n";
+        billString += "------------------------\n";
+
+        textArea.setText(billString);
+        textArea.setEditable(false);
         //forEach(user -> allUsers.getChildren().add(new Label(user.getName().fullName + "|")));
     }
 }

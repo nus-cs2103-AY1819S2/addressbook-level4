@@ -1,34 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.ScrollPane?>
-<?import java.net.URL?>
 <?import javafx.scene.text.Text?>
-<ScrollPane xmlns:fx="http://javafx.com/fxml/1" id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8">
-    <content>
-        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
-            <children>
-            <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label fx:id="billHead" text="\$first" styleClass="cell_big_label"/>
-            </HBox>
-            <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label fx:id="serviceBookingBillHead" text="\$serviceBookingBill" styleClass="cell_middle_label"/>
-            </HBox>
-            <Label fx:id="bookings" styleClass="cell_small_label" text="\$payerName"/>
-
-            <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label fx:id="roomReservationBillHead" text="\$roomReservationBookingBill" styleClass="cell_middle_label"/>
-            </HBox>
-            <Label fx:id="reservations" styleClass="cell_small_label" text="\$comments"/>
-            </children>
-            <Text fx:id="text" styleClass="cell_small_label"/>
-        </VBox>
-    </content>
-</ScrollPane>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.StackPane?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" id="stackpane" fx:id="stackpane" xmlns="http://javafx.com/javafx/8">
+    <TextArea fx:id="textArea"/>
+</StackPane>

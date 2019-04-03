@@ -93,10 +93,9 @@
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
-.scroll-pane {
+.text-area {
     -fx-background-insets: 0;
-    -fx-padding: 0;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-control-inner-background: derive(#1d1d1d, 20%);
 }
 
 .list-cell {

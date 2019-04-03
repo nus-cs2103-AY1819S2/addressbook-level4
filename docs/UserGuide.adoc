@@ -296,6 +296,8 @@ There is no need to save manually.
 
 * *Add* `add f/PATH_TO_FILE` +
 e.g. `add f/C:\Users\Raj\Documents\Tutorial3.pdf`
+* *Rename* `rename INDEX n/NEW_NAME` +
+e.g. `rename 2 n/Resume.pdf`
 * *List* : `list`
 * *Open* : `open INDEX`
 e.g. `open 3`

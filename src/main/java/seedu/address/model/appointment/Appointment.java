@@ -2,6 +2,8 @@ package seedu.address.model.appointment;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Objects;
 
 /**
@@ -14,8 +16,8 @@ public class Appointment {
 
     private final int patientId;
     private final int doctorId;
-    private final String dateOfAppt;
-    private final String timeOfAppt;
+    private final LocalDate dateOfAppt;
+    private final LocalTime timeOfAppt;
 
     /**
      * Constructs an {@code Appointment}.
@@ -25,7 +27,7 @@ public class Appointment {
      * @param dateOfAppt A valid appointment date in the future
      * @param timeOfAppt A valid appointment time in the future
      */
-    public Appointment(int patientId, int doctorId, String dateOfAppt, String timeOfAppt) {
+    public Appointment(int patientId, int doctorId, LocalDate dateOfAppt, LocalTime timeOfAppt) {
         /**
          * Every field must be present and not null.
          */
@@ -63,11 +65,11 @@ public class Appointment {
         return doctorId;
     }
 
-    public String getDateOfAppt() {
+    public LocalDate getDateOfAppt() {
         return dateOfAppt;
     }
 
-    public String getTimeOfAppt() {
+    public LocalTime getTimeOfAppt() {
         return timeOfAppt;
     }
 

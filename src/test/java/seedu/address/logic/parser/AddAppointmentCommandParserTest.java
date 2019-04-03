@@ -4,6 +4,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddAppointmentCommand;
@@ -14,9 +17,9 @@ public class AddAppointmentCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        AddAppointmentCommand command = new AddAppointmentCommand(new Appointment(1,
-                1, "2019-06-01", "9"));
-        assertParseSuccess(parser, "add-appt pid/1 did/1 d/2019-06-01 t/9", command);
+        AddAppointmentCommand command = new AddAppointmentCommand(new Appointment(1, 1,
+                LocalDate.parse("2019-06-01"), LocalTime.parse("09:00")));
+        assertParseSuccess(parser, "add-appt pid/1 did/1 d/2019-06-01 t/09:00", command);
     }
 
     @Test

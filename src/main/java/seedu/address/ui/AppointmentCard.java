@@ -42,8 +42,8 @@ public class AppointmentCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         patientId.setText(String.valueOf(appointment.getPatientId()));
         doctorId.setText(String.valueOf(appointment.getDoctorId()));
-        date.setText(appointment.getDateOfAppt());
-        time.setText(appointment.getTimeOfAppt());
+        date.setText(appointment.getDateOfAppt().toString());
+        time.setText(appointment.getTimeOfAppt().toString());
     }
 
     @Override

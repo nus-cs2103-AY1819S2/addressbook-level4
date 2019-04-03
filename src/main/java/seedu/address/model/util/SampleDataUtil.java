@@ -1,5 +1,7 @@
 package seedu.address.model.util;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -104,9 +106,11 @@ public class SampleDataUtil {
     }
 
     public static List<Appointment> getAppointments() {
-        List<Appointment> appointments = new ArrayList<Appointment>();
-        appointments.add(new Appointment(1, 1, "2019-03-25", "9"));
-        appointments.add(new Appointment(2, 2, "2019-04-25", "10"));
+        List<Appointment> appointments = new ArrayList<>();
+        appointments.add(new Appointment(1, 1,
+                LocalDate.parse("2019-06-01"), LocalTime.parse("09:00")));
+        appointments.add(new Appointment(2, 2,
+                LocalDate.parse("2019-06-01"), LocalTime.parse("010:00")));
 
         return appointments;
     }

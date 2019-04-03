@@ -3,6 +3,9 @@ package seedu.address.model.appointment;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import org.junit.Test;
 
 import seedu.address.testutil.Assert;
@@ -36,9 +39,12 @@ public class AppointmentTest {
 
     @Test
     public void equals() {
-        Appointment appointment1 = new Appointment(1, 1, "2019-06-01", "9");
-        Appointment appointment2 = new Appointment(1, 1, "2019-06-01", "10");
-        Appointment appointment1Copy = new Appointment(1, 1, "2019-06-01", "9");
+        Appointment appointment1 = new Appointment(1, 1,
+                LocalDate.parse("2019-06-01"), LocalTime.parse("09:00"));
+        Appointment appointment2 = new Appointment(1, 1,
+                LocalDate.parse("2019-06-01"), LocalTime.parse("10:00"));
+        Appointment appointment1Copy = new Appointment(1, 1,
+                LocalDate.parse("2019-06-01"), LocalTime.parse("09:00"));
 
         assertTrue(appointment1.equals(appointment1));
         assertTrue(appointment1.equals(appointment1Copy));

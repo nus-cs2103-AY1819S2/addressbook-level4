@@ -242,8 +242,10 @@ public class MainWindow extends UiPart<Stage> {
             case APPOINTMENT_PANEL:
                 showAppointmentPanel();
                 break;
+            default:
+                break;
             }
-            
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);

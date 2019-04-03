@@ -47,11 +47,16 @@
             <StackPane fx:id="recordListPanelPlaceholder" VBox.vgrow="ALWAYS" />
           </VBox>
 
-          <StackPane fx:id="browserPlaceholder" prefWidth="340">
-            <padding>
-              <Insets bottom="10" left="10" right="10" top="10" />
-            </padding>
-          </StackPane>
+          <SplitPane id="splitPane" fx:id="rightSplitPane" dividerPositions="0.4" orientation="VERTICAL" SplitPane.resizableWithParent="true">
+            <VBox fx:id="budgetPanel" minWidth = "450" prefWidth="450" prefHeight="150">
+              <StackPane fx:id="budgetPanelPlaceholder" VBox.vgrow="NEVER"/>
+            </VBox>
+            <StackPane fx:id="browserPlaceholder" prefWidth="340">
+              <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+              </padding>
+            </StackPane>
+          </SplitPane>
         </SplitPane>
 
         <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">

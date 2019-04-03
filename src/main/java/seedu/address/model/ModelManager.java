@@ -98,16 +98,16 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setDocXFilePath(Path DocXFilePath) {
-        requireNonNull(DocXFilePath);
-        userPrefs.setDocXFilePath(DocXFilePath);
+    public void setDocXFilePath(Path docXFilePath) {
+        requireNonNull(docXFilePath);
+        userPrefs.setDocXFilePath(docXFilePath);
     }
 
     //=========== DocX ================================================================================
 
     @Override
-    public void setDocX(ReadOnlyDocX DocX) {
-        versionedDocX.resetData(DocX);
+    public void setDocX(ReadOnlyDocX docX) {
+        versionedDocX.resetData(docX);
     }
 
     @Override

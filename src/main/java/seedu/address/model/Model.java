@@ -57,12 +57,12 @@ public interface Model {
     /**
      * Sets the user prefs' DocX file path.
      */
-    void setDocXFilePath(Path DocXFilePath);
+    void setDocXFilePath(Path docXFilePath);
 
     /**
      * Replaces DocX data with the data in {@code DocX}.
      */
-    void setDocX(ReadOnlyDocX DocX);
+    void setDocX(ReadOnlyDocX docX);
 
     /** Returns the DocX */
     ReadOnlyDocX getDocX();

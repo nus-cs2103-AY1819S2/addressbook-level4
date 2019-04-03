@@ -32,7 +32,7 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final CommandHistory history;
     private final DocXParser docXParser;
-    private boolean DocXModified;
+    private boolean docXModified;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -41,13 +41,13 @@ public class LogicManager implements Logic {
         docXParser = new DocXParser();
 
         // Set DocXModified to true whenever the models' docX is modified.
-        model.getDocX().addListener(observable -> DocXModified = true);
+        model.getDocX().addListener(observable -> docXModified = true);
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        DocXModified = false;
+        docXModified = false;
 
         CommandResult commandResult;
         try {
@@ -57,7 +57,7 @@ public class LogicManager implements Logic {
             history.add(commandText);
         }
 
-        if (DocXModified) {
+        if (docXModified) {
             logger.info("docX modified, saving to file.");
             try {
                 storage.saveDocX(model.getDocX());

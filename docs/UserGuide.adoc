@@ -54,7 +54,7 @@ E.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Book name and author name should not exceed 50 characters (space included).
 * Review title should not exceed 70 characters (space included).
 * Review content should not exceed 350 characters (space included).
-* Rating should be integer from 0 to 10.
+* Rating should be integer from 0 to 10 inclusive.
 * Tags should not exceed 20 characters (space included).
 ====
 

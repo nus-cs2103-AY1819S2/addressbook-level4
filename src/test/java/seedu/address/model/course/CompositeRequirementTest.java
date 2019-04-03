@@ -16,7 +16,8 @@ import org.junit.Test;
 import seedu.address.testutil.Assert;
 
 public class CompositeRequirementTest {
-
+    public static final CompositeRequirement SAMPLE_REQUIREMENT = new CompositeRequirement(UNIVERSITY_LEVEL_REQUIREMENT,
+            COMPUTER_SCIENCE_FOUNDATION, AND, CORE);
     @Test
     public void constructor_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new CompositeRequirement(null ,
@@ -31,8 +32,6 @@ public class CompositeRequirementTest {
 
     @Test
     public void equal() {
-        CompositeRequirement SAMPLE_REQUIREMENT = new CompositeRequirement(UNIVERSITY_LEVEL_REQUIREMENT,
-            COMPUTER_SCIENCE_FOUNDATION, AND, CORE);
         //same object
         assertTrue(SAMPLE_REQUIREMENT.equals(SAMPLE_REQUIREMENT));
         //not equals null

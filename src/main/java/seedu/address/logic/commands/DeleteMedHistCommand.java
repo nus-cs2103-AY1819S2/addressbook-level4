@@ -42,7 +42,7 @@ public class DeleteMedHistCommand extends Command {
 
         MedicalHistory medHistToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteMedHist(medHistToDelete);
-        model.commitAddressBook();
+        model.commitDocX();
         return new CommandResult(String.format(MESSAGE_DELETE_MEDHIST_SUCCESS, medHistToDelete));
     }
 

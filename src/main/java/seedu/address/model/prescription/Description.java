@@ -1,7 +1,7 @@
 package seedu.address.model.prescription;
 
 /**
- * Represents description of a prescription in the address book.
+ * Represents description of a prescription in the docX.
  */
 public class Description {
 

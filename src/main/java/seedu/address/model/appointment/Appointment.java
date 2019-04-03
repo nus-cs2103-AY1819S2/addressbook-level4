@@ -11,6 +11,7 @@ public class Appointment {
 
     public static final String MESSAGE_CONSTRAINTS = "Appointments can only be made in the future";
 
+
     private final int patientId;
     private final int doctorId;
     private final String dateOfAppt;

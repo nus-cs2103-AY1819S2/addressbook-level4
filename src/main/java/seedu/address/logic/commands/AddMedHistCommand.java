@@ -51,7 +51,7 @@ public class AddMedHistCommand extends Command {
         }
 
         model.addMedHist(toAdd);
-        model.commitAddressBook();
+        model.commitDocX();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

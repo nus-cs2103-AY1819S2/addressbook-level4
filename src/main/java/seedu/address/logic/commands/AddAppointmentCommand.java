@@ -48,7 +48,7 @@ public class AddAppointmentCommand extends Command {
         }
 
         model.addAppointment(appointment);
-        model.commitAddressBook();
+        model.commitDocX();
         return new CommandResult(String.format(MESSAGE_SUCCESS, appointment));
     }
 

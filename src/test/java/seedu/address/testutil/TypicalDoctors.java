@@ -13,7 +13,7 @@ import java.util.List;
 
 //import javax.print.Doc;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.DocX;
 import seedu.address.model.person.Doctor;
 
 /**
@@ -54,8 +54,8 @@ public class TypicalDoctors {
     /**
      * Returns an {@code docX} with all the typical doctors.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static DocX getTypicalAddressBook() {
+        DocX ab = new DocX();
         for (Doctor doctor : getTypicalDoctors()) {
             ab.addDoctor(doctor);
         }

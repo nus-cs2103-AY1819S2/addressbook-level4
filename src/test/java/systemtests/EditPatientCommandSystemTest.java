@@ -51,7 +51,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PatientBuilder;
 import seedu.address.testutil.PatientUtil;
 
-public class EditPatientCommandSystemTest extends AddressBookSystemTest {
+public class EditPatientCommandSystemTest extends DocXSystemTest {
 
     @Test
     public void edit() {
@@ -88,7 +88,7 @@ public class EditPatientCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a patient with new values same as another patient's values but with different name -> edited */
-        assertTrue(getModel().getAddressBook().getPatientList().contains(BOB));
+        assertTrue(getModel().getDocX().getPatientList().contains(BOB));
         index = INDEX_SECOND_PERSON;
         assertNotEquals(getModel().getFilteredPatientList().get(index.getZeroBased()), BOB);
         command = EditPatientCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY
@@ -129,7 +129,7 @@ public class EditPatientCommandSystemTest extends AddressBookSystemTest {
          * -> rejected
          */
         showPatientsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getPatientList().size();
+        int invalidIndex = getModel().getDocX().getPatientList().size();
         assertCommandFailure(EditPatientCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
 
@@ -203,7 +203,7 @@ public class EditPatientCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: edit a patient with new values same as another patient's values -> rejected */
         executeCommand(PatientUtil.getAddPatientCommand(BOB));
-        assertTrue(getModel().getAddressBook().getPatientList().contains(BOB));
+        assertTrue(getModel().getDocX().getPatientList().contains(BOB));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredPatientList().get(index.getZeroBased()).equals(BOB));
         command = EditPatientCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
@@ -294,10 +294,10 @@ public class EditPatientCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * {@code DocXSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      *
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * @see DocXSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see DocXSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
                                       Index expectedSelectedCardIndex) {
@@ -320,9 +320,9 @@ public class EditPatientCommandSystemTest extends AddressBookSystemTest {
      * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * {@code DocXSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      *
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see DocXSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

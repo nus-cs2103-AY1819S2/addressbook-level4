@@ -59,7 +59,7 @@ public class AddPatientCommand extends Command {
         }
 
         model.addPatient(toAdd);
-        model.commitAddressBook();
+        model.commitDocX();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

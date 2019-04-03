@@ -42,7 +42,7 @@ public class AddPrescriptionCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PRESCRIPTION);
         }
         model.addPrescription(prescriptionToAdd);
-        model.commitAddressBook();
+        model.commitDocX();
         return new CommandResult(String.format(MESSAGE_SUCCESS, prescriptionToAdd));
 
     }

@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.DocX;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
 
@@ -101,10 +101,10 @@ public class TypicalPatients {
     private TypicalPatients() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical patients and doctors.
+     * Returns an {@code DocX} with all the typical patients and doctors.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static DocX getTypicalDocX() {
+        DocX ab = new DocX();
         for (Patient patient : getTypicalPatients()) {
             ab.addPatient(patient);
         }

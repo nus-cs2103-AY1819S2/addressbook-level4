@@ -23,7 +23,7 @@
 //import seedu.address.logic.commands.UndoCommand;
 //import seedu.address.model.Model;
 //
-//public class SelectDoctorCommandSystemTest extends AddressBookSystemTest {
+//public class SelectDoctorCommandSystemTest extends DocXSystemTest {
 //    @Test
 //    public void select() {
 //        /* ----------------------- Perform select operations on the shown unfiltered list ------------------------- */
@@ -115,9 +115,9 @@
 //     * 5. Selected card is at {@code expectedSelectedCardIndex} and the browser url is updated accordingly.<br>
 //     * 6. Status bar remains unchanged.<br>
 //     * Verifications 1, 3 and 4 are performed by
-//     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-//     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-//     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+//     * {@code DocXSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+//     * @see DocXSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+//     * @see DocXSystemTest#assertSelectedCardChanged(Index)
 //     */
 //    private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) {
 //        Model expectedModel = getModel();
@@ -146,8 +146,8 @@
 //     * 4. {@code Storage} and {@code DoctorListPanel} remain unchanged.<br>
 //     * 5. Browser url, selected card and status bar remain unchanged.<br>
 //     * Verifications 1, 3 and 4 are performed by
-//     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-//     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+//     * {@code DocXSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+//     * @see DocXSystemTest#assertApplicationDisplaysExpected(String, String, Model)
 //     */
 //    private void assertCommandFailure(String command, String expectedResultMessage) {
 //        Model expectedModel = getModel();

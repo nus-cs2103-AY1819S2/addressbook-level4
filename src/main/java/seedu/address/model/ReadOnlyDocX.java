@@ -10,9 +10,9 @@ import seedu.address.model.prescription.Prescription;
 
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an docX
  */
-public interface ReadOnlyAddressBook extends Observable {
+public interface ReadOnlyDocX extends Observable {
 
     /**
      * Returns an unmodifiable view of the persons list.

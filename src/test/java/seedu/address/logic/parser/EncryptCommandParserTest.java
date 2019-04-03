@@ -28,6 +28,4 @@ public class EncryptCommandParserTest {
 
         assertParseFailure(parser, "1 " + NAME_DESC_1_VALID + DEADLINE_JSON_READY, MESSAGE_INVALID_FORMAT);*/
     }
-
-    
 }

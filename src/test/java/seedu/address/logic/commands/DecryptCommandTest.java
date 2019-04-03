@@ -38,7 +38,7 @@ public class DecryptCommandTest {
     }
 
     @Test
-    public void constructor_invalidIndex_throwsNullPointerException() {
+    public void constructor_invalidIndex_throwsIndexOutOfBoundsException() {
         thrown.expect(IndexOutOfBoundsException.class);
         new DecryptCommand((Index.fromZeroBased(-1)), PASSWORD_1_VALID);
 
@@ -50,13 +50,12 @@ public class DecryptCommandTest {
      * Encrypts {@code pdfToInitialise} if it is not encrypted.
      */
     private void initialiseTest(Pdf pdfToInitialise) throws CommandException {
-        System.out.println(pdfToInitialise.getIsEncryted());
         if (!pdfToInitialise.getIsEncryted()) {
             Model initialisationModel = new ModelManager(getTypicalPdfBook(), new UserPrefs());
             CommandHistory initialisationCommandHistory = new CommandHistory();
             EncryptCommand encryptCommand = new EncryptCommand(INDEX_SECOND_PDF, PASSWORD_1_VALID);
             encryptCommand.execute(initialisationModel, initialisationCommandHistory);
-            initialisationModel.setPdf(model.getFilteredPdfList().get(0), pdfToInitialise);
+            //initialisationModel.setPdf(initialisationModel.getFilteredPdfList().get(0), pdfToInitialise);
         }
     }
 
@@ -67,7 +66,7 @@ public class DecryptCommandTest {
         if (pdfToReset.getIsEncryted()) {
             Model initialisationModel = new ModelManager(getTypicalPdfBook(), new UserPrefs());
             CommandHistory initialisationCommandHistory = new CommandHistory();
-            DecryptCommand decryptCommand = new DecryptCommand(INDEX_FIRST_PDF, PASSWORD_1_VALID);
+            DecryptCommand decryptCommand = new DecryptCommand(INDEX_SECOND_PDF, PASSWORD_1_VALID);
             decryptCommand.execute(initialisationModel, initialisationCommandHistory);
         }
     }

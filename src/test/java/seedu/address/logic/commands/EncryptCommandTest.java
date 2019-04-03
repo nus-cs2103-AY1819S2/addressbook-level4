@@ -9,7 +9,8 @@ import static seedu.address.logic.commands.EncryptCommand.MESSAGE_ENCRYPT_PDF_SU
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PDF;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_ENCRYPTED;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1_ENCRYPTED;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2_ENCRYPTED;
 import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
 import org.junit.After;
@@ -48,7 +49,7 @@ public class EncryptCommandTest {
     }
 
     @Test
-    public void constructor_invalidIndex_throwsNullPointerException() {
+    public void constructor_invalidIndex_throwsIndexOutOfBoundsException() {
         thrown.expect(IndexOutOfBoundsException.class);
         new EncryptCommand((Index.fromZeroBased(-1)), PASSWORD_1_VALID);
 
@@ -64,14 +65,13 @@ public class EncryptCommandTest {
 
     @Test
     public void execute_onlyCompulsoryFieldSpecifiedUnfilteredList_success() {
-        Pdf pdfToEncrypt = SAMPLE_PDF_ENCRYPTED;
+        Pdf pdfToEncrypt = SAMPLE_PDF_1_ENCRYPTED;
         EncryptCommand encryptCommand = new EncryptCommand(INDEX_FIRST_PDF, PASSWORD_1_VALID);
 
         String expectedMessage = String.format(MESSAGE_ENCRYPT_PDF_SUCCESS, pdfToEncrypt);
 
         Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
         expectedModel.setPdf(model.getFilteredPdfList().get(0), pdfToEncrypt);
-        expectedModel.commitPdfBook();
 
         assertCommandSuccess(encryptCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -88,14 +88,13 @@ public class EncryptCommandTest {
     public void execute_filteredList_success() {
         showPdfAtIndex(model, INDEX_FIRST_PDF);
 
-        Pdf encryptedPdf = SAMPLE_PDF_ENCRYPTED;
+        Pdf encryptedPdf = SAMPLE_PDF_1_ENCRYPTED;
         EncryptCommand encryptCommand = new EncryptCommand(INDEX_FIRST_PDF, PASSWORD_1_VALID);
 
         String expectedMessage = String.format(MESSAGE_ENCRYPT_PDF_SUCCESS, encryptedPdf);
 
         Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
         expectedModel.setPdf(model.getFilteredPdfList().get(0), encryptedPdf);
-        expectedModel.commitPdfBook();
 
         assertCommandSuccess(encryptCommand, model, commandHistory, expectedMessage, expectedModel);
     }

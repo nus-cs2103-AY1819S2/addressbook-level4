@@ -59,9 +59,12 @@ public class TypicalPdfs {
     private static final Path sample_EditedPdf_1_path =
             Paths.get("src", "test", "data", "SampleFiles", "NormalFiles",
                     "JustEdited.pdf");
-    private static final Path sample_pdf_encrypted_path =
+    private static final Path sample_pdf_1_encrypted_path =
             Paths.get("src", "test", "data", "SampleFiles", "EncryptedFiles",
                     "CS2101_Product_PW_123321.pdf");
+    private static final Path sample_pdf_2_encrypted_path =
+            Paths.get("src", "test", "data", "SampleFiles", "EncryptedFiles",
+                    "CS2103T_PDF++_UG_Intro.pdf");
 
     //Duplicates - Pdfs that have the same name but in a different location
     private static final Path sample_pdf_1_duplicate_path =
@@ -159,11 +162,14 @@ public class TypicalPdfs {
             .withSize(Long.toString(sample_invalidPdf_1_path.toFile().length())).build();
     public static final Pdf SAMPLE_PDF_WITH_DEADLINE = new PdfBuilder(SAMPLE_PDF_1)
             .withDeadline(DEADLINE_JSON_COMPLETE).build();
-    public static final Pdf SAMPLE_PDF_ENCRYPTED = new PdfBuilder()
-            .withName(sample_pdf_encrypted_path.toFile().getName())
-            .withSize(Long.toString(sample_pdf_encrypted_path.toFile().length()))
-            .withDirectory(sample_pdf_encrypted_path.toAbsolutePath().toString())
+    public static final Pdf SAMPLE_PDF_1_ENCRYPTED = new PdfBuilder(SAMPLE_PDF_1)
+            .withSize(Long.toString(sample_pdf_2_encrypted_path.toFile().length())).build();
+    public static final Pdf SAMPLE_PDF_2_ENCRYPTED = new PdfBuilder()
+            .withName(sample_pdf_1_encrypted_path.toFile().getName())
+            .withSize(Long.toString(sample_pdf_1_encrypted_path.toFile().length()))
+            .withDirectory(sample_pdf_1_encrypted_path.toAbsolutePath().getParent().toString())
             .build();
+
 
     //Duplicates
     public static final Pdf SAMPLE_PDF_1_DUPLICATE = new PdfBuilder()

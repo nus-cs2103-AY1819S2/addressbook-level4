@@ -49,6 +49,7 @@ public class MainWindow extends UiPart<Stage> {
     private TableFlowPanel tableFlowPanel;
     private MenuItemFlowPanel menuItemFlowPanel;
     private StatisticsFlowPanel statisticsFlowPanel;
+    private PopularMenuListPanel popularMenuListPanel;
     private StatusBarFooter statusBarFooter;
 
     @FXML
@@ -260,6 +261,11 @@ public class MainWindow extends UiPart<Stage> {
             break;
 
         case STATISTICS_MODE:
+
+            //TODO: Bava, please help me sort the list according to popularity please. Thank you.
+            popularMenuListPanel = new PopularMenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
+                    logic::setSelectedMenuItem);
+            listPanelPlaceholder.getChildren().add(popularMenuListPanel.getRoot());
 
             //TODO: add different cases for the monthly, yearly statistics
             statisticsFlowPanel =

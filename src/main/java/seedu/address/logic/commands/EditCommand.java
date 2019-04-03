@@ -30,17 +30,17 @@ import seedu.address.model.tag.Tag;
  */
 public class EditCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "rename";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the pdf identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Renames the  pdf identified "
             + "by the index number used in the displayed pdf list. "
-            + "Existing values will be overwritten by the input values.\n"
+            + "Existing name will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_NAME + "Tutorial3.pdf";
 
-    public static final String MESSAGE_EDIT_PDF_SUCCESS = "Edited PDF: %1$s";
+    public static final String MESSAGE_EDIT_PDF_SUCCESS = "Renamed Pdf: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PDF = "This pdf already exists in the pdf book.";
     public static final String MESSAGE_DUPLICATE_PDF_DIRECTORY = "There exists another %s with in %s.";

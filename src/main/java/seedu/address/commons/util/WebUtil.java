@@ -5,6 +5,7 @@ import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.UnknownHostException;
 
 import seedu.address.commons.core.Messages;
@@ -25,14 +26,15 @@ public class WebUtil {
      * Checks if a given string is a valid weblink URL, ie. HTTP response code should not be 400 and above
      * The only acceptable malformed Url is the default placeholder for no weblinks, NO_WEBLINK_STRING
      */
-    public static boolean isNotValidWeblinkUrl(String urlString) throws NoInternetException {
+    public static boolean isNotValidWeblinkUrl(String urlString) {
         try {
-            InetAddress inetAddress = InetAddress.getByName(urlString);
-            return inetAddress.isReachable(TIME_OUT);
-        } catch (UnknownHostException e) {
-            return true;
+            final URL url = new URL(prependHttps(urlString));
+            final URLConnection conn = url.openConnection();
+            conn.connect();
+            conn.getInputStream().close();
+            return false;
         } catch (IOException e) {
-            throw new NoInternetException(MESSAGE_NO_INTERNET);
+            return true;
         }
     }
 

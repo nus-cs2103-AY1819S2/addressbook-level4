@@ -9,6 +9,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.NoInternetException;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.commons.util.WebUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.restaurant.Address;
 import seedu.address.model.restaurant.Email;
@@ -249,7 +250,7 @@ public class ParserUtil {
      * @throws ParseException when url is invalid
      */
     private static void checkUrl(String trimmedWeblink) throws NoInternetException, ParseException {
-        if (Weblink.isNotValidWeblinkUrl(trimmedWeblink)) {
+        if (WebUtil.isNotValidWeblinkUrl(trimmedWeblink)) {
             throw new ParseException(String.format(Weblink.INVALID_URL_MESSAGE, trimmedWeblink));
         }
     }

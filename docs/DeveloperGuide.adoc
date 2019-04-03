@@ -370,12 +370,13 @@ image::UndoRedoActivityDiagram.png[width="650"]
 === Checking whether Course Requirement is fulfilled Feature
 
 ==== Current Implementation
-Users are able to check whether they have satisfied course requirements thru a function `displayreq`.
+Users are able to check whether they have satisfied course requirements through a function `displayreq`.
 Similar to the implementation of the feature related to `displaymod`, when the application is
 launched, a JSON file containing pre-existing information on courses (either default or pre-defined by users) and their respective course requirement
 will loaded as `Course` objects and `CourseRequirement` interface (`Course` contains multiple `CourseRequirement` interface implementees)
 and stored in an `CourseList` inside of `ModelManager`. While the app does not support adding or removing courses and course requirements,
 users can still define their own course or course requirements by modifying the JSON file.
+
 
 We employ the "Composite" design pattern for this class as there are desirable boolean binary operations such as
 "and", "or", that we would like to apply on two different requirements and we would want to regard the "simple" CourseRequirement,
@@ -386,61 +387,115 @@ the `PrimitiveRequirement` and `CompositeRequirement` classes.
 image::CompositeDesignPattern.png[width==800]
 
 As the name suggests,
-`CompositeRequirement` is made up of two other `CourseRequirements`, a `LogicalConnector` class (which is used to represent
-logical conjunctions and disjunctions). On the other hand, a `PrimitiveRequirement` is a standalone `CourseRequirement` implementation
+`CompositeRequirement` is made up of two other `CourseRequirements`, a `LogicalConnector` enumerations (which is used to represent
+logical binary operators such conjunctions and disjunctions). On the other hand, a `PrimitiveRequirement` is a standalone `CourseRequirement` implementation
 that contains a `Condition` class, which is really a helper class that is used to check whether a list of `ModuleInfoCode` can satisfy the `CourseRequirement`.
-The `Condition` class has several attributes to decide whether the `PrimitiveRequirement` is fulfilled, namely a list of Regular Expression,
-and an integer `minToSatisfy`, we will further elaborate the details below.
+The `Condition` class has the following attribute to decide whether the a condition of `PrimitiveRequirement` is fulfilled, namely one String, Regular Expression,
+and an integer `minToSatisfy`. We will further elaborate the details below.
 
-There currently 3 ways that information on `CourseRequirement` is revealed to the user, they are:
+There currently 3 ways that `CourseRequirement` provides information to the user:
 
-* `isFulfilled()` -- a method that accepts a list of ModuleInfoCode and returns a boolean to indicate whether the list of
-moduleInfoCode can satisfy the requirement. For `PrimitiveRequirement`, if the number of distinct `ModuleInfoCode` satisfies the list of Regular Expression pre-defined in
+* `isFulfilled()` -- a method that accepts a list of `ModuleInfoCode` and returns a `boolean` to indicate whether the list of
+`ModuleInfoCode` can satisfy the requirement.
+** For `PrimitiveRequirement`, if the number of distinct `ModuleInfoCode` satisfies the list of Regular Expression pre-defined in
 `Condition` class exceeds `minToSatisfy`, we define the `PrimitiveRequirement` to be satisfied.
-Similarly, for `CompositeRequirement`, it depends on the `LogicalConnector`; if we have "and", then both `CourseRequirement` must be satisfied
+** Similarly, for `CompositeRequirement`, it depends on the `LogicalConnector`; if we have "and", then both `CourseRequirement` must be satisfied
 in order for `CompositeRequirement` to be satisfied and likewise for "or".
 * `percentageFulfilled()` -- a method that also accepts a list of ModuleInfoCode returns a `double` value on the percentage of completion of the
-`CourseRequirement`. For `PrimitiveRequirement` this will be the proportion of distinct modules that satisfy at least one of the regular expression
-divided by `minToSatisfy`. For `CompositeRequirement`, a `LogicalConnector` of "or" wil result in the max of the two requirements.
+`CourseRequirement`.
+** For `PrimitiveRequirement` this will be the proportion of distinct modules that satisfy at least one of the regular expression
+divided by `minToSatisfy`.
+** For `CompositeRequirement`, a `LogicalConnector` of "or" wil result in the max of the two requirements whereas for "and", we take average
+of both classes to approximate the degree of completion.
 
-* `getUnfulfilled()` -- a method that accepts a list of ModuleInfoCode and returns a list of Strings that has regular expressions of the module code
-that can be used to satisfy the CourseRequirement.
+* `getUnfulfilled()` -- a method that accepts a list of `ModuleInfoCode` and returns a list of Strings that matches regular expressions (defined under Condition) of the `ModuleInfoCode`
+that can be used to satisfy the `CourseRequirement`.
 
 ==== Design Considerations
-===== Aspect: Type of CourseRequirement that can be defined
-* **Alternative 1 (current choice): Only create and combine limited types of requirements
-and check based on regex of module code**
-** Pros: Safer to implement since we are restricting scope to only checking of strings
-** Con: There could be 'corner cases' that we left out; actual NUS CourseRequirement that we cannot represent by
+===== Aspect: How condition checks whether Course Requirement is fulfilled
+* **Alternative 1 (current choice): Checking Requirement fulfilled by only using `ModuleInfoCode` of
+`ModuleTaken`**
+** Pros: Easier to implement since we are restricting scope to only checking of strings
+** Cons: There could be 'corner cases' that we left out; actual NUS Course Requirement that we cannot represent by
 merely checking the module code.
-* ** Alternative 2: Checking other attributes of the module taken**
+
+
+* ** Alternative 2: Checking Requirement fulfilled by accessing any attribute of `ModuleTaken`**
 ** Pros: Increased flexibility allows for more powerful expressions and increased usability for users side
-** Cons: More coding required; a few classes for each additional attribute we want to check.
+** Cons: More Java classes/coding required (to Separate Responsibilities and Concerns) also means that more tests
+and storage components for different classes.
+
+Alternative 1 is chosen over alternative 2 because it is much easier to implement in terms of scope.
+Another reason why we chose alternative 1 over alternative 2 is due to the lack of time.
+For most cases, alternative 1 seems to be sufficient.
+However, in the future, we might extend the Condition class to check for other attributes of `ModuleTaken`.
 //end::CourseRequirement[]
 
 //tag::recommend[]
 === Module recommendation feature
+
+The module recommendation feature displays modules which the user the recommended to take based on existing GradTrak modules
+and specific course requirements. It generates a list of module codes together with its corresponding title and requirement
+type satisfied. The entire list is displayed on the Result Panel upon entering the `rec` command.
+
 ==== Current implementation
-The module recommendation feature generates a list of `RecModule` representing the modules which the user is recommended to take,
-based on the user's passed modules and course requirements. Each `RecModule` contains a `ModuleInfoCode` and its
-corresponding `CourseReqType` satisfied. The entire list is printed on the GUI upon entering the `rec` command.
 
-Whenever the `rec` command is called, a `RecModuleManager` is created which generates a `RecModulePredicate` and
-a `RecModuleComparator` given the user's `Course` and `GradTrak`. This ensures that the recommendation list is updated
-according to any changes in `Course` and `GradTrak`.
+Each recommended module is represented by a `RecModule` which contains a unique `ModuleInfoCode`, `ModuleInfoTitle` and its corresponding
+`CourseReqType` satisfied. When `ModelManager` is initialised, `Model#getObservableRecModuleList` is called which generates an
+`ObservableList` of `RecModule` , one for each module in the entire `ModuleInfoList`. This list is wrapped in a `FilteredList`,
+which is further wrapped in a `SortedList`, both stored in `ModelManager`. At this point, all `RecModule` in the list contain an empty `CourseReqType` field.
 
-The `RecModulePredicate` is applied to a `FilteredList` of `RecModule` stored in `ModelManager`, to remove modules which
-the user is ineligible to take or does not contribute to the `CourseRequirement`.
-This `FilteredList` is wrapped in a `SortedList` which accepts the `RecModuleComparator`, sorting the list in
-decreasing priority of the `CourseReqType` satisfied by the module.
-If a module satisfies more than one `CourseReqType`, the one with the highest priority is selected.
-The order of priority is determined by the enum ordering in `CourseReqType`: Core, TE (covers TE/PE/FA), GE, UE.
-Modules with equal priority are sorted lexicographically, considering the fact that lower-level modules should usually be taken first.
+When the `rec` command is entered, the sequence of execution is as follows:
 
-Within each test by the `RecModulePredicate`, a `RecModule` is checked for the `CourseReqType`(s) it satisfies using its `ModuleInfoCode`.
-The `CourseReqType` with highest priority, which has yet to be fully completed, is then selected.
-This `CourseReqType` is set into the `RecModule` being tested.
-Subsequently, within each comparison by the `RecModuleComparator`, the `CourseReqType` satisfied by the two `RecModule` are compared.
+.  `Model#updateRecModuleList` is called, which creates a `RecModulePredicate` given the user's `Course` and `GradTrak`, and a `RecModuleComparator`.
+.  The `RecModulePredicate` is applied to the `FilteredList` of `RecModule`.
+.. It first tests if the `ModuleInfoCode` in a `RecModule` (call it `codeToTest`) is eligible to be taken,
+using an `EligibleModulePredicate` which takes in `GradTrak`. Those `RecModule` corresponding to `ModuleTaken` in `GradTrak`
+which are already passed or to be taken in a future semester (non-failed modules) are filtered out at this stage.
+.. The `codeToTest` is then passed into `Course#getCourseReqTypeOf`, which in turn calls `CourseRequirement#canFulfill` for each `CourseRequirement` listed in `Course`.
+ A list of `CourseReqType` that the `codeToTest` can satisfy is returned.
+This `courseReqTypeList` is sorted by the priority of `CourseReqType` as defined in the `enum` class: CORE, TE, IE, FAC, GE, UE.
+.. A `nonFailedCodeList` of `ModuleInfoCode` corresponding to non-failed `ModuleTaken` is retrieved from `GradTrak`.
+For each `CourseReqType` in the `courseReqTypeList` (highest priority first):
+... `Course#isCodeContributing` is called, which takes in the `CourseReqType`, `nonFailedCodeList` and `codeToTest`.
+... For each `CourseRequirement` listed in `Course` corresponding to the given `CourseReqType`, `CourseRequirement#getUnfulfilled`
+is called which takes in the `nonFailedCodeList` and returns an `unfulfilledRegexList` of RegExes not satisfied.
+... If the `codeToTest` matches any of the RegExes in the
+`unfulfilledRegexList`, `Course#isCodeContributing` returns `true` and the loop for `courseReqTypeList` terminates.
+.. The `CourseReqType` of highest priority satisfied by `codeToTest` is then set into the `RecModule`. However, if the `codeToTest` does not
+contribute to any of the `CourseRequirement` listed in `Course`, the `RecModule` is filtered out.
+. The `RecModuleComparator` is applied to the `SortedList` of `RecModule`. It sorts the list in decreasing priority of the
+`CourseReqType` satisfied by the `RecModule`. Those `RecModule` with equal priority are sorted by module level (the first numerical digit of its `ModuleInfoCode`),
+considering the fact that lower level modules are usually taken first. In the case of equal priority and module level, lexicographical sorting is used.
+. The `SortedList` of `RecModule` is retrieved from the `ModelManager`. If it is empty, the user will be notified that all course requirements have been satisfied by the current GradTrak.
+Otherwise, it will be displayed to the user in the Result Panel.
+
+If there are changes to `GradTrak` (adding, editing or deleting modules) or `Course` (changing the Focus Area), the `rec` command
+must be run again to reflect the updated recommendation list.
+
+==== Design Considerations
+===== Aspect: Sorting of recommendation list
+* **Alternative 1 (current choice): Recommendation list is sorted by a fixed order of `CourseReqType` priority as defined in the `enum` class**
+** Pros: Easy to implement and modify
+** Cons: User may have his own order of priority that differs from the default one
+
+* **Alternative 2: Recommendation list can be sorted by a custom order defined by the user**
+** Pros: User can sort the list according to his own preferences
+** Cons: Difficult to implement if several parameters for sorting is allowed; input method for the custom order is problematic
+
+===== Aspect: How `CourseReqType` for each tested module is stored
+* **Alternative 1 (current choice): `CourseReqType` is stored in `RecModule` together with `ModuleInfoCode` and `ModuleInfoTitle`**
+** Pros: More organised; any additional information the user wishes to be displayed can also be stored in `RecModule`
+** Cons: More space required for creating `RecModule` for all modules
+* **Alternative 2 (previous choice): A `HashMap` of `ModuleInfoCode` to `CourseReqType` is stored; the map is reset before each `rec` command**
+** Pros: Only need to store `ModuleInfoCode` instead of `RecModule`
+** Cons: Retrieving other information of the module for displaying in the Result Panel is slightly problematic
+
+==== Possible Improvements
+. Allow the user to display a module's information (from displaymod command) using its index in the recommendation list
+. Allow the user to add a module to GradTrak using its index in the recommendation list
+
+
 
 
 // tag::semesterlimits[]

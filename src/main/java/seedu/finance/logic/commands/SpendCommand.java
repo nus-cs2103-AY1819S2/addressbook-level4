@@ -1,7 +1,11 @@
 package seedu.finance.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.finance.logic.parser.CliSyntax.*;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.finance.logic.CommandHistory;
 import seedu.finance.logic.commands.exceptions.CommandException;

@@ -27,14 +27,13 @@
                 <Label text="Dr. "
                 ></Label>
                 <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
-                <Label fx:id="phone" styleClass="cell_small_label" text="\$phone"/>
             </HBox>
             <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label styleClass="cell_small_label" text="Gender:"></Label>
                 <Label fx:id="gender" styleClass="cell_small_label" text="\$gender" />
-                <Label styleClass="cell_small_label" text="Age:"></Label>
+                <Label styleClass="cell_small_label" text=", "></Label>
                 <Label fx:id="age" styleClass="cell_small_label" text="\$age" />
             </HBox>
+            <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
             <FlowPane fx:id="specialisations"/>
             <Label fx:id="addAppointment" styleClass="cell_small_label" text="\$addAppointment"/>
         </VBox>

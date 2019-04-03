@@ -84,5 +84,4 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return sb.toString();
     }
 
-
 }

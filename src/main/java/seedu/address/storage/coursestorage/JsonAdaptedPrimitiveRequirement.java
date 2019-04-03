@@ -87,7 +87,7 @@ public class JsonAdaptedPrimitiveRequirement implements JsonAdaptedCourseRequire
             modelConditions.add(condition.toModelType());
         }
         return new PrimitiveRequirement(requirementName, requirementDescription,
-        CourseReqType.valueOf(requirementType), conditions.toArray(new Condition[0]));
+        CourseReqType.valueOf(requirementType), modelConditions.toArray(new Condition[0]));
 
     }
 }

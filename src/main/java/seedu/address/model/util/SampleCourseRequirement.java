@@ -7,8 +7,6 @@ import static seedu.address.model.course.CourseReqType.IE;
 import static seedu.address.model.course.CourseReqType.TE;
 import static seedu.address.model.course.CourseReqType.UE;
 
-import java.util.Arrays;
-import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import seedu.address.model.course.CompositeRequirement;
@@ -94,10 +92,10 @@ public class SampleCourseRequirement {
     public static final String ALL_FOCUS_AREA = ALGORITHMS_PRIMARY + "|" + ALGORITHMS_ELECTIVE
                     + "|" + AI_PRIMARY + "|" + AI_ELECTIVE
                     + "|" + SOFTWARE_ENG_PRIMARY + "|" + SOFTWARE_ENG_ELECTIVE
-                    + "|" + COMPUTER_GRAPHICS_PRIMARY + "|" +  COMPUTER_GRAPHICS_ELECTIVE
+                    + "|" + COMPUTER_GRAPHICS_PRIMARY + "|" + COMPUTER_GRAPHICS_ELECTIVE
                     + "|" + COMPUTER_SECURITY_PRIMARY + "|" + COMPUTER_SECURITY_ELECTIVE
-                    + "|" + DATABASE_SYSTEM_PRIMARY + "|" +  DATABASE_SYSTEM_ELECTIVE
-                    + "|" + PARALLEL_PRIMARY + "|" +  PARALLEL_ELECTIVE
+                    + "|" + DATABASE_SYSTEM_PRIMARY + "|" + DATABASE_SYSTEM_ELECTIVE
+                    + "|" + PARALLEL_PRIMARY + "|" + PARALLEL_ELECTIVE
                     + "|" + NETWORK_PRIMARY + "|" + NETWORK_ELECTIVE;
     public static final String ALL_FOCUS_AREA_LEVEL_4 = "CS[4][0-9]{3}";
     public static final Condition ALGORITHMS_PASS_3_PRIMARY = new Condition(3, ALGORITHMS_PRIMARY);
@@ -124,12 +122,11 @@ public class SampleCourseRequirement {
             SE_PASS_1_LEVEL4_PRIMARY, AT_LEAST_3_MODS_LEVEL4_ABOVE, AT_LEAST_6_MODS_FROM_ALL_FOCUS_AREA);
 
     public static final String SCIENCE_REGEX = "(MA1521)|(ST2334)|(MA1101R)|"
-            +  "((MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z])";
+            + "((MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z])";
     public static final Condition SCIENCE_CONDITION = new Condition(4, SCIENCE_REGEX);
     public static final CourseRequirement SCIENCE_REQUIREMENT = new PrimitiveRequirement(
-            "Mathematics & Sciences", "Complete MA1521, MA1101R, ST2334 "
+            "Mathematics & Sciences", "Complete MA1521, MA1101R, ST2334"
             + "and one other Science module", FAC, SCIENCE_CONDITION);
-
     public static final Condition CONDITION_CS3203 = new Condition("CS3203");
     public static final Condition CONDITION_CS3216_CS3217 = new Condition(2, "CS3216|CS3217");
     public static final Condition CONDITION_CS3281_CS3282 = new Condition(2, "CS3281|CS3282");

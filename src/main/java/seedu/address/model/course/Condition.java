@@ -111,7 +111,7 @@ public class Condition {
             return false;
         }
         Condition other = (Condition) obj;
-        return this.pattern.equals(other.pattern)
+        return this.pattern.toString().equals(other.pattern.toString())
                 && this.minToSatisfy == other.minToSatisfy;
     }
 

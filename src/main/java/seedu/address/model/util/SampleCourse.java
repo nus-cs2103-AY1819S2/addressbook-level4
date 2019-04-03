@@ -11,15 +11,9 @@ import static seedu.address.model.util.SampleCourseRequirement.SCIENCE_REQUIREME
 import static seedu.address.model.util.SampleCourseRequirement.TOTAL_MODULE_COUNT;
 import static seedu.address.model.util.SampleCourseRequirement.UNIVERSITY_LEVEL_REQUIREMENT;
 
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseDescription;
 import seedu.address.model.course.CourseName;
-import seedu.address.storage.coursestorage.JsonAdaptedCourse;
-import seedu.address.storage.coursestorage.JsonCourseStorage;
 
 /**
  * Represents default implementation of Course Classes
@@ -44,7 +38,7 @@ public class SampleCourse {
             INDUSTRIAL_SYSTEM_EXPERIENCE, COMPUTER_SYSTEM_TEAM_PROJECT, IT_PROFESSIONALISM,
             SCIENCE_REQUIREMENT, TOTAL_MODULE_COUNT);
 
-    public static void main(String args[]) {
+/*    public static void main(String args[]) {
         List<JsonAdaptedCourse> courseList = new ArrayList<>();
         courseList.add(new JsonAdaptedCourse(COMPUTER_SCIENCE_ALGORITHMS));
         courseList.add(new JsonAdaptedCourse(COMPUTER_SCIENCE_AI));
@@ -55,5 +49,5 @@ public class SampleCourse {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }

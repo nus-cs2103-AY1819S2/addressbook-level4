@@ -26,8 +26,8 @@ public class JsonAdaptedCondition {
     @JsonCreator
     public JsonAdaptedCondition(@JsonProperty("minToSatisfy") String minToSatisfy,
                                 @JsonProperty("pattern") String pattern) {
-            this.minToSatisfy = minToSatisfy;
-            this.pattern = pattern;
+        this.minToSatisfy = minToSatisfy;
+        this.pattern = pattern;
     }
 
     /**

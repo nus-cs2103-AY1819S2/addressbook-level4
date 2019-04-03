@@ -253,6 +253,40 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+    /**
+     * Get the person in the attendance from this {@code AddressBook}.
+     */
+    public ObservableList<Person> getAttendingFromActivity(Activity key) {
+        UniquePersonList attending = new UniquePersonList();
+        List<MatricNumber> matricAttending = key.getAttendance();
+        for (MatricNumber matric: matricAttending) {
+            if (hasMatricNumber(matric)) {
+                attending.add(getPersonWithMatricNumber(matric));
+            }
+        }
+        return attending.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Get the list of Person not attending an activity from this {@code AddressBook}.
+     */
+    public ObservableList<Person> getPeronNotAttending(Activity key) {
+        UniquePersonList notAttending = new UniquePersonList();
+        for (Person person: persons) {
+            if (!isPersonAttending(person, key)) {
+                notAttending.add(person);
+            }
+        }
+        return notAttending.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Returns a boolean of whether a person is attending the given {@code Activity}.
+     */
+    public boolean isPersonAttending(Person person, Activity activity) {
+        return activity.isMatricAttending(person.getMatricNumber());
+    }
+
 
     //// util methods
 

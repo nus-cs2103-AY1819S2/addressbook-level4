@@ -235,6 +235,16 @@ public interface Model {
     void setSelectedActivity(Activity activity);
 
     /**
+     * Gets the lists of Person attending an activity
+     */
+    ObservableList<Person> getAttendingOfActivity(Activity activity);
+
+    /**
+     * Gets the lists of Person not attending an activity
+     */
+    ObservableList<Person> getPersonNotInActivity(Activity activity);
+
+    /**
      * Update entire activity list
      */
     void updateActivityList();

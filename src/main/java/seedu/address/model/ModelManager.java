@@ -185,6 +185,20 @@ public class ModelManager implements Model {
         versionedAddressBook.setActivity(target, editedActivity);
     }
 
+    @Override
+    public ObservableList<Person> getAttendingOfActivity(Activity activity) {
+        requireNonNull(activity);
+
+        return versionedAddressBook.getAttendingFromActivity(activity);
+    }
+
+    @Override
+    public ObservableList<Person> getPersonNotInActivity(Activity activity) {
+        requireNonNull(activity);
+
+        return versionedAddressBook.getPeronNotAttending(activity);
+    }
+
     public void sortAddressBook(Predicate<String> predicate) {
         versionedAddressBook.sortAddressBook(predicate);
     }

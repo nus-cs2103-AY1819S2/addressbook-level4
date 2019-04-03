@@ -9,8 +9,8 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1" id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx">
-    <AnchorPane opacity="0.8" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0"
-                style="-fx-background-color: white; -fx-background-radius: 30;">
+    <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0"
+                style="-fx-background-color: #dfe4ea; -fx-background-radius: 30;">
         <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
               AnchorPane.topAnchor="0.0">
             <Label fx:id="frontFace" alignment="CENTER"

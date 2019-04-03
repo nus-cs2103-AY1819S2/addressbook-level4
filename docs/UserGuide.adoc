@@ -130,7 +130,6 @@ This will display the current information of the flashcard at index 2
 Flashcard at index 1 will be edited and the updated information will be displayed
 
 === Locating a Flashcard by keyword: `find`
-
 Finds and lists flashcards whose front text, back text or collection tags contain any of the given keywords. +
 
 Format: ​`find [f/KEYWORD]... [b/KEYWORD]... [t/KEYWORD]...`
@@ -172,26 +171,101 @@ Deletes the 2nd flashcard in the list.
 `delete 1` +
 Deletes the 1st flashcard in the results of the `find` command.
 
-=== Quiz mode : ​`quiz`
+=== Quiz mode : `quiz`
 
-Enter quiz mode. A card will be shown to the user one by one randomly with distribution based
-on accuracy of each flashcard. The user then can self-verify whether he/she correctly guess the other side of the flashcard.
+image::Ui-quiz.png[width="790"]
 
-Format: `​quiz [t/TAG] []`
+Enters quiz mode. +
+A card will be shown to you one by one randomly with distribution based on accuracy of each flashcard. +
+You can then self-verify whether you accurately recall the back side of the flashcard.
+
+Format: `quiz`
 
 ****
-* Enters quiz mode. If no tags are given, all cards can be shown.
+* Enters quiz mode with the cards on the filtered flashcard list panel.
+* This will start a quiz session. The flashcard list panel on the left will change to a quiz panel.
+* The quiz panel contains the number of cards remaining on the quiz, as well as the number of good and bad feedback received.
+* The card view panel on the right will display the quizzed cards one by one, with the back face of the flashcard hidden.
+****
+
+=== Showing back face of flashcard : `show`
+
+Shows the back face of the flashcard being quizzed.
+
+Format: `show`
+
+****
+* If the back face of the flashcard is already shown, this command will do nothing.
+* Note that you can only use this command inside quiz mode.
+****
+
+=== Giving quiz feedback : `good` or `bad`
+
+Gives user feedback on quiz mode.
+
+Format: `good` or `bad`
+
+****
+* In order to give feedback of how well you do in the quiz mode, you can type in either `good` or `bad` for each card in the quiz.
+* After you type `good` or `bad`, Acquizition will record the feedback on the card shown, as well as incrementing the number of good and bad feedback.
+* Acquizition will then proceed to show the next flashcard to be quizzed. If there are no cards left, it will exit quiz mode.
+* This command is usually, but not necessarily, used after the `show` command. That is, after you look at the back face of the flashcard, you can dictate how well you recall the back face of the flashcard.
+* Note that you can only use this command inside quiz mode.
 ****
 
 Examples:
 
-* `quiz t/chinese`
+* `quiz` +
+`good` +
+This will increment the number of good feedback of the card shown, thus, the success rate of this card will increase. +
+Then, the next card in the quiz queue will be shown.
+* `quiz` +
+`show` +
+`bad` +
+This will increment the number of bad feedback of the card shown, thus, the success rate of this card will decrease. +
+Then, the next card in the quiz queue will be shown.
+* `quiz` +
+`good` +
+`...` +
+`good` +
+Suppose this is the last card to show inside quiz mode. Acquizition will record the statistics of the quiz mode and exit the quiz mode.
 
-=== Show progress statistics : `s​tats`
-Show statistics for the cards with the given tag, or all cards if tag is not specified, including
+=== Smart command
+
+Sometimes, it is troublesome having to always type in alternating `show` and `good` inside quiz mode. +
+We introduce a smart command that cleverly chooses the appropriate command to run.
+
+Format: `<enter>`
+
+****
+* To initiate a smart command, you just need to press enter.
+* If you are in quiz mode, and the back face of the quizzed card is not yet shown, smart command will execute a `show` command.
+* If you are in quiz mode, and the back face of the quizzed card has been shown, smart command will execute a `good` command.
+* This dramatically reduces your time to navigate through the quiz!
+****
+
+Examples:
+
+* `quiz` +
+`<enter>` +
+`<enter>` +
+This will first show the back face of the card, then will mark the card as good.
+* `quiz` +
+`<enter>` +
+`bad` +
+This will show the back face of the card, then will mark the card as bad.
+* `quiz` +
+`<enter>` +
+`...` +
+`<enter>` +
+This will go through all the cards in the quiz mode and mark them all as good.
+
+=== Show progress statistics : `stats`
+
+Shows statistics for the cards with the given tag, or all cards if tag is not specified, including
 accuracy, number of tries, etc.
 
-Format: `​stats [t/TAG]`
+Format: `stats [t/TAG]`
 
 ****
 * Shows the statistics of the cards with the given tag. If no tags are given, statistics of all cards will be shown.
@@ -204,7 +278,7 @@ Examples:
 === Share flashcards : `share`
 Creates a text file containing a set of flashcards to be shared.
 
-Format: ​`share [f/KEYWORD]... [b/KEYWORD]... [t/KEYWORD]...`
+Format: `share [f/KEYWORD]... [b/KEYWORD]... [t/KEYWORD]...`
 
 ****
 * The flashcards to be shared are based on a set of user defined keywords and follow the format of the Find command
@@ -238,10 +312,23 @@ Examples:
 Clears all flashcards. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+=== Exiting : `exit`
+If you are in quiz mode, this will exit the quiz mode and displays the main window.
+Otherwise, it will exit the program.
 
-Exits the program. +
+Exits quiz mode or program. +
 Format: `exit`
+
+Examples:
+
+* `quiz` +
+`exit` +
+This will exit the quiz mode.
+
+* `quiz` +
+`exit` +
+`exit` +
+This will exit the quiz mode, then exit the program.
 
 === Saving the data
 

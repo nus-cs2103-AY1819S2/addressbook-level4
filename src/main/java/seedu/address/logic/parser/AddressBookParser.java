@@ -10,7 +10,6 @@ import seedu.address.logic.commands.AttackCommand;
 import seedu.address.logic.commands.BeginCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EndTurnCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -50,9 +49,6 @@ public class AddressBookParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);

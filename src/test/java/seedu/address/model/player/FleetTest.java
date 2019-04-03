@@ -92,9 +92,9 @@ public class FleetTest {
         testFleet.deployOneBattleship(new CruiserBattleship(emptySet), testCoordinates, testOrientation);
         testFleet.deployOneBattleship(new AircraftCarrierBattleship(emptySet), testCoordinates, testOrientation);
 
-        assertEquals(testFleet.getNumDestroyer(), 0);
-        assertEquals(testFleet.getNumCruiser(), 0);
-        assertEquals(testFleet.getNumAircraftCarrier(), 0);
+        assertEquals(testFleet.getCurrNumDestroyer(), 0);
+        assertEquals(testFleet.getCurrNumCruiser(), 0);
+        assertEquals(testFleet.getCurrNumAircraftCarrier(), 0);
     }
 
     @Test
@@ -141,17 +141,17 @@ public class FleetTest {
     @Test
     public void testGetAttributes() {
         Fleet testFleet = new Fleet(1, 1, 1);
-        assertEquals(testFleet.getNumDestroyer(), 1);
-        assertEquals(testFleet.getNumCruiser(), 1);
-        assertEquals(testFleet.getNumAircraftCarrier(), 1);
+        assertEquals(testFleet.getCurrNumDestroyer(), 1);
+        assertEquals(testFleet.getCurrNumCruiser(), 1);
+        assertEquals(testFleet.getCurrNumAircraftCarrier(), 1);
     }
 
     @Test
     public void testResetFleet() {
         Fleet testFleet = new Fleet(6);
-        assertEquals(testFleet.getNumDestroyer(), 1);
-        assertEquals(testFleet.getNumCruiser(), 1);
-        assertEquals(testFleet.getNumAircraftCarrier(), 1);
+        assertEquals(testFleet.getCurrNumDestroyer(), 1);
+        assertEquals(testFleet.getCurrNumCruiser(), 1);
+        assertEquals(testFleet.getCurrNumAircraftCarrier(), 1);
 
         Battleship testDestroyer = new DestroyerBattleship(emptySet);
         Coordinates testCoordinates = new Coordinates("a1");
@@ -165,11 +165,31 @@ public class FleetTest {
     }
 
     @Test
+    public void testIsAllDeployed() {
+        Fleet testFleet = new Fleet(6);
+        assertEquals(testFleet.getCurrNumDestroyer(), 1);
+        assertEquals(testFleet.getCurrNumCruiser(), 1);
+        assertEquals(testFleet.getCurrNumAircraftCarrier(), 1);
+
+        Battleship testDestroyer = new DestroyerBattleship(emptySet);
+        Battleship testCruiser = new CruiserBattleship(emptySet);
+        Battleship testAircraftCarrier = new AircraftCarrierBattleship(emptySet);
+
+        Coordinates testCoordinates = new Coordinates("a1");
+        Orientation testOrientation = new Orientation("vertical");
+
+        testFleet.deployOneBattleship(testDestroyer, testCoordinates, testOrientation);
+        assertFalse(testFleet.isAllDeployed());
+
+        testFleet.deployOneBattleship(testCruiser, testCoordinates, testOrientation);
+        testFleet.deployOneBattleship(testAircraftCarrier, testCoordinates, testOrientation);
+
+        assertTrue(testFleet.isAllDeployed());
+    }
+
+    @Test
     public void testAllFleetDestroyed() {
         Fleet testFleet = new Fleet(6);
-        assertEquals(testFleet.getNumDestroyer(), 1);
-        assertEquals(testFleet.getNumCruiser(), 1);
-        assertEquals(testFleet.getNumAircraftCarrier(), 1);
 
         Battleship testDestroyer = new DestroyerBattleship(emptySet);
         Coordinates testCoordinates = new Coordinates("a1");

@@ -10,7 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * This class parses the rotate command.
  */
 public class RotateCommandParser implements Parser<RotateCommand> {
-    /**git
+    /**
      * Parses the Rotate Command.
      * @param args
      * @return a RotateCommand object

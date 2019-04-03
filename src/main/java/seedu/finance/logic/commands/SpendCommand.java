@@ -27,6 +27,7 @@ public class SpendCommand extends Command {
             + PREFIX_DATE + "DATE "
             + PREFIX_CATEGORY + "CATEGORY\n"
             + "Note that each record should only have one category.\n"
+            + "If date is not inputted, local date will be used.\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_AMOUNT + "123.23 "

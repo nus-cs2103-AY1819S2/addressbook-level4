@@ -15,7 +15,7 @@ import seedu.address.model.moduleinfo.ModuleInfoList;
 public class ModuleInfoManager implements ModuleInfoStorage {
 
     private static final Logger logger = LogsCenter.getLogger(ModuleInfoManager.class);
-    private static final Path moduleInfoFilePath = Paths.get("src", "main", "resources", "AllModules.json");
+    private static final Path moduleInfoFilePath = Paths.get("json", "AllModules.json");
 
     private ModuleInfoStorage moduleInfoStorage;
 
@@ -30,7 +30,7 @@ public class ModuleInfoManager implements ModuleInfoStorage {
     }
 
     @Override
-    public Optional<ModuleInfoList> readModuleInfoFile()throws DataConversionException {
+    public Optional<ModuleInfoList> readModuleInfoFile() throws DataConversionException {
         return readModuleInfoFile(moduleInfoStorage.getModuleInfoFilePath());
     }
 

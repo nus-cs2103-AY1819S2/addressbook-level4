@@ -15,7 +15,7 @@ import seedu.address.model.course.CourseList;
 public class CourseManager implements CourseStorage {
 
     private static final Logger logger = LogsCenter.getLogger(CourseManager.class);
-    private static final Path courseFilePath = Paths.get("src", "main", "resources", "course.json");
+    private static final Path courseFilePath = Paths.get("json", "course.json");
 
     private CourseStorage courseStorage;
 

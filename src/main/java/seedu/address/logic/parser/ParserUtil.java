@@ -231,6 +231,9 @@ public class ParserUtil {
     public static Weblink parseWeblink(String weblink) throws ParseException {
         requireNonNull(weblink);
         String trimmedWeblink = weblink.trim();
+        if (Weblink.isDefaultWeblink(weblink)) {
+            return new Weblink(trimmedWeblink);
+        }
         if (!Weblink.isValidWeblinkString(trimmedWeblink)) {
             throw new ParseException(Weblink.MESSAGE_CONSTRAINTS);
         }

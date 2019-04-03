@@ -22,6 +22,7 @@ public class WebUtil {
      * The only acceptable malformed Url is the default placeholder for no weblinks, NO_WEBLINK_STRING
      */
     public static boolean isNotValidWeblinkUrl(String urlString) throws NoInternetException {
+        // checks if there is internet connection
         if (!urlString.equals(DUMMY_WEBLINK) && !hasInternetConnection()) {
             throw new NoInternetException(MESSAGE_NO_INTERNET);
         }

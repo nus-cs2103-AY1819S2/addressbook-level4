@@ -46,11 +46,18 @@ public class Weblink {
      * Returns if a given string is a valid weblink.
      */
     public static boolean isValidWeblinkString(String test) {
-        return test.matches(VALIDATION_REGEX) || test.matches(NO_WEBLINK_STRING);
+        return test.matches(VALIDATION_REGEX) || isDefaultWeblink(test);
     }
 
     public static Weblink makeDefaultWeblink() {
         return new Weblink(NO_WEBLINK_STRING);
+    }
+
+    /**
+     * Returns if a given string is string for no weblink added placeholder
+     */
+    public static boolean isDefaultWeblink(String weblink) {
+        return weblink.matches(NO_WEBLINK_STRING);
     }
 
     @Override

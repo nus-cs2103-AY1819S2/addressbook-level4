@@ -12,7 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.appointment.Appointment;
-//import seedu.address.model.medicalhistory.MedicalHistory;
+import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
 
@@ -99,7 +99,7 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPatient(patient);
         }
-        /*
+
         for (JsonAdaptedMedicalHistory jsonAdaptedMedicalHistory : medicalHistories) {
             MedicalHistory medicalHistory = jsonAdaptedMedicalHistory.toModelType();
             if (addressBook.hasMedHist(medicalHistory)) {
@@ -108,15 +108,6 @@ class JsonSerializableAddressBook {
             }
             addressBook.addMedHist(medicalHistory);
         }
-
-        for (JsonAdaptedAppointment jsonAdaptedAppointment : appointments) {
-            Appointment appointment = jsonAdaptedAppointment.toModelType();
-            if (addressBook.hasAppointment(appointment)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
-            }
-            //System.out.println(appointment);
-        }
-        */
 
         return addressBook;
     }

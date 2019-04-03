@@ -84,19 +84,19 @@ public class StudyPanel extends UiPart<Region> {
      * {@code noOfRatings} is an integer for the highest possible difficulty shown.
      * {@code spaceSpanned} is how much space the command will take, in terms of characters.
      */
-    private String createRatingQuestion(int noOfRatings, int spaceSpanned) {
+    private static String createRatingQuestion(int noOfRatings, int spaceSpanned) {
         return repeatChar(52, "-") + "\n"
                 + "How difficult was that?\n\n"
                 + createRatingString(noOfRatings, repeatChar( spaceSpanned / noOfRatings, " "))
                 + "\n" + "Easy-peasy" + repeatChar(52, " ") + "Very tough";
     }
 
-    private String createRatingString(int rating, String spaces) {
+    private static String createRatingString(int rating, String spaces) {
         return rating == 1 ? "1"
                 : (createRatingString(rating - 1, spaces) + spaces + rating);
     }
 
-    private String repeatChar(int num, String repeated) {
+    private static String repeatChar(int num, String repeated) {
         return num == 0 ? "" : (repeated + repeatChar(num - 1, repeated));
     }
 

@@ -230,6 +230,10 @@ public class MainWindow extends UiPart<Stage> {
         return serviceTypeAndRoomTypePanel;
     }
 
+    public BillPanel getBillPanel() {
+        return billPanel;
+    }
+
     /**
      * Executes the command and returns the result.
      *

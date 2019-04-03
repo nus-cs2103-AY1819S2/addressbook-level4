@@ -31,38 +31,38 @@ public class BillPanel extends UiPart<Region> {
         final StringBuilder stringBuilder = new StringBuilder();
         billModel.getBill().addListener(((observable, oldValue, newValue) -> {
             stringBuilder.setLength(0);
-            stringBuilder.append("----------------------Bill----------------------\n");
+            stringBuilder.append("-----------------Bill-----------------\n");
             if (newValue.getBookingCount() > 0) {
                 stringBuilder.append("Service Booking(s) :\n");
 
                 stringBuilder.append(newValue.getGymBookingCount() <= 0
                         ? ""
-                        : "  " + ServiceType.GYM.getName()
-                        + "                      Rate per hour: " + ServiceType.GYM.getRatePerHour() + "\n"
-                        + "    Number of hour(s): " + newValue.getGymBookingCount() + "  "
-                        + "    Amount: " + newValue.getGymBill() + "\n");
+                        : String.format("%14s", "[" + ServiceType.GYM.getName() + "]")
+                        + String.format("  Rate per hour:%2.1f", ServiceType.GYM.getRatePerHour()) + "\n"
+                        + String.format("  Number of hour(s):%2d", newValue.getGymBookingCount())
+                        + String.format("  Amount:%4.1f", newValue.getGymBill()) + "\n\n");
                 stringBuilder.append(newValue.getSwimmingPoolBookingCount() <= 0
                         ? ""
-                        : "  " + ServiceType.POOL.getName()
-                        + "  Rate per hour: " + ServiceType.POOL.getRatePerHour() + "\n"
-                        + "    Number of hour(s): " + newValue.getSwimmingPoolBookingCount() + "  "
-                        + "    Amount: " + newValue.getSwimmingPoolBill() + "\n");
+                        : String.format("%14s", "[" + ServiceType.POOL.getName() + "]")
+                        + String.format("  Rate per hour:%2.1f", ServiceType.POOL.getRatePerHour()) + "\n"
+                        + String.format("  Number of hour(s):%2d", newValue.getSwimmingPoolBookingCount())
+                        + String.format("  Amount:%4.1f", newValue.getSwimmingPoolBill()) + "\n\n");
                 stringBuilder.append(newValue.getSpaBookingCount() <= 0
                         ? ""
-                        : "  " + ServiceType.SPA.getName()
-                        + "                      Rate per hour: " + ServiceType.SPA.getRatePerHour() + "\n"
-                        + "    Number of hour(s): " + newValue.getSpaBookingCount() + "  "
-                        + "    Amount: " + newValue.getSpaBill() + "\n");
+                        : String.format("%14s", "[" + ServiceType.SPA.getName() + "]")
+                        + String.format("  Rate per hour:%2.1f", ServiceType.SPA.getRatePerHour()) + "\n"
+                        + String.format("  Number of hour(s):%2d", newValue.getSpaBookingCount())
+                        + String.format("  Amount:%4.1f", newValue.getSpaBill()) + "\n\n");
                 stringBuilder.append(newValue.getGamesRoomBookingCount() <= 0
                         ? ""
-                        : "  " + ServiceType.GAMES.getName()
-                        + "                    Rate per hour: " + ServiceType.GAMES.getRatePerHour() + "\n"
-                        + "    Number of hour(s): " + newValue.getGamesRoomBookingCount() + "  "
-                        + "    Amount: " + newValue.getGamesRoomBill() + "\n");
+                        : String.format("%14s", "[" + ServiceType.GAMES.getName() + "]")
+                        + String.format("  Rate per hour:%2.1f", ServiceType.GAMES.getRatePerHour()) + "\n"
+                        + String.format("  Number of hour(s):%2d", newValue.getGamesRoomBookingCount())
+                        + String.format("  Amount:%4.1f", newValue.getGamesRoomBill()) + "\n\n");
 
-                stringBuilder.append("--------------------------------Sub-Total: "
-                        + newValue.getAmountBooking() + "\n");
-                stringBuilder.append("------------------------------------------------\n");
+                stringBuilder.append(String.format("---------------------Sub-Total: %6.1f",
+                        newValue.getAmountBooking()) + "\n");
+                stringBuilder.append("--------------------------------------\n");
             } //if count of bookings is greater than 0
 
             if (newValue.getReservationCount() > 0) {
@@ -70,35 +70,35 @@ public class BillPanel extends UiPart<Region> {
 
                 stringBuilder.append(newValue.getSingleRoomCount() <= 0
                         ? ""
-                        : "  " + RoomType.SINGLE.getName() + "  Rate per hour: "
-                        + RoomType.SINGLE.getRatePerDay() + "\n"
-                        + "    Number of day(s): " + newValue.getSingleRoomCount() + "  "
-                        + "    Amount: " + newValue.getSingleRoomBill() + "\n");
+                        : String.format("%14s", "[" + RoomType.SINGLE.getName() + "]")
+                        + String.format("  Rate per day:%5.1f", RoomType.SINGLE.getRatePerDay()) + "\n"
+                        + String.format("  Number of day(s):%2d", newValue.getSingleRoomCount())
+                        + String.format("  Amount:%5.1f", newValue.getSingleRoomBill()) + "\n\n");
                 stringBuilder.append(newValue.getDoubleRoomCount() <= 0
                         ? ""
-                        : "  " + RoomType.DOUBLE.getName() + "  Rate per hour: "
-                        + RoomType.DOUBLE.getRatePerDay() + "\n"
-                        + "    Number of day(s): " + newValue.getDoubleRoomCount() + "  "
-                        + "    Amount: " + newValue.getDoubleRoomBill() + "\n");
+                        : String.format("%14s", "[" + RoomType.DOUBLE.getName() + "]")
+                        + String.format("  Rate per day:%5.1f", RoomType.DOUBLE.getRatePerDay()) + "\n"
+                        + String.format("  Number of day(s):%2d", newValue.getDoubleRoomCount())
+                        + String.format("  Amount:%5.1f", newValue.getDoubleRoomBill()) + "\n\n");
                 stringBuilder.append(newValue.getDeluxeRoomCount() <= 0
                         ? ""
-                        : "  " + RoomType.DELUXE.getName() + "  Rate per hour: "
-                        + RoomType.DELUXE.getRatePerDay() + "\n"
-                        + "    Number of day(s): " + newValue.getDeluxeRoomCount() + "  "
-                        + "    Amount: " + newValue.getDeluxeRoomBill() + "\n");
+                        : String.format("%14s", "[" + RoomType.DELUXE.getName() + "]")
+                        + String.format("  Rate per day:%5.1f", RoomType.DELUXE.getRatePerDay()) + "\n"
+                        + String.format("  Number of day(s):%2d", newValue.getDeluxeRoomCount())
+                        + String.format("  Amount:%5.1f", newValue.getDeluxeRoomBill()) + "\n\n");
                 stringBuilder.append(newValue.getFamilySuiteCount() <= 0
                         ? ""
-                        : "  " + RoomType.SUITE.getName() + "  Rate per Day : "
-                        + RoomType.SUITE.getRatePerDay() + "\n"
-                        + "    Number of day(s): " + newValue.getFamilySuiteCount() + "  "
-                        + "    Amount: " + newValue.getFamilySuiteBill() + "\n");
+                        : String.format("%14s", "[" + RoomType.SUITE.getName() + "]")
+                        + String.format("  Rate per day:%5.1f", RoomType.SUITE.getRatePerDay()) + "\n"
+                        + String.format("  Number of day(s):%2d", newValue.getFamilySuiteCount())
+                        + String.format("  Amount:%5.1f", newValue.getFamilySuiteBill()) + "\n\n");
 
-                stringBuilder.append("--------------------------------Sub-Total: "
-                        + newValue.getAmountReservation() + "\n");
-                stringBuilder.append("------------------------------------------------\n");
+                stringBuilder.append(String.format("---------------------Sub-Total: %6.1f",
+                        newValue.getAmountReservation()) + "\n");
+                stringBuilder.append("--------------------------------------\n");
             } //if count of reservation is greater than 0
 
-            stringBuilder.append("-------------------------------------Total: " + newValue.getAmountTotal());
+            stringBuilder.append(String.format("-------------------------Total: %6.1f", newValue.getAmountTotal()));
             textArea.setText(stringBuilder.toString());
             textArea.setEditable(false);
         }));

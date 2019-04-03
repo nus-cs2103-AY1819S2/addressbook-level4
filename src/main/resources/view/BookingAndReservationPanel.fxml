@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<TabPane fx:id="tabPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" tabMinWidth="183" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+<TabPane fx:id="tabPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" tabMinWidth="99" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
     <tabs>
         <Tab text="Booking">
             <content>

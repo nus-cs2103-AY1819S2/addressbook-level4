@@ -36,7 +36,6 @@ import seedu.address.model.medicine.MedicineManager;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.PatientManager;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.record.MedicinePurchaseRecord;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.Statistics;
@@ -44,6 +43,7 @@ import seedu.address.model.record.StatisticsManager;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.reminder.ReminderManager;
 import seedu.address.model.reminder.ReminderWithinDatesPredicate;
+import seedu.address.model.reminder.exceptions.ReminderNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleAppUtil;
 import seedu.address.model.util.SamplePatientsUtil;
@@ -68,32 +68,8 @@ public class ModelManager implements Model {
     private final ReminderManager reminderManager;
     private final StatisticsManager statisticsManager;
 
-
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
-     */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
-        super();
-        requireAllNonNull(addressBook, userPrefs);
-
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
-
-        this.userPrefs = new UserPrefs(userPrefs);
-        this.medicineManager = new MedicineManager();
-        this.patientManager = new PatientManager(addressBook.getPatients());
-        this.consultationManager = new ConsultationManager();
-        this.appointmentManager = new AppointmentManager();
-        this.reminderManager = new ReminderManager();
-        this.statisticsManager = new StatisticsManager();
-
-        quickDocs = new QuickDocs();
-        filteredReminders = new FilteredList<>(reminderManager.getObservableReminderList());
-
-        iniQuickDocs();
-    }
-
-    /**
-     * Initializes a ModelManager with the given addressBook quickdocs and userPrefs.
+     * Initializes a ModelManager with the given quickdocs and userPrefs.
      */
     public ModelManager(QuickDocs quickDocs, ReadOnlyUserPrefs userPrefs) {
         super();
@@ -117,7 +93,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new QuickDocs(), new UserPrefs());
     }
 
     /**
@@ -310,7 +286,7 @@ public class ModelManager implements Model {
     @Override
     public void setSelectedReminder(Reminder reminder) {
         if (reminder != null && !reminderManager.getReminderList().contains(reminder)) {
-            throw new PersonNotFoundException();
+            throw new ReminderNotFoundException();
         }
         selectedReminder.setValue(reminder);
     }

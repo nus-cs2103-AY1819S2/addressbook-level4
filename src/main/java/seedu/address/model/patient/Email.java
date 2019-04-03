@@ -39,4 +39,8 @@ public class Email {
                 || (other instanceof Email // instanceof handles nulls
                 && email.equals(((Email) other).getEmail())); // state check
     }
+
+    public static boolean isValidEmail(String string) {
+        return string.matches(REGEX_EMAIL);
+    }
 }

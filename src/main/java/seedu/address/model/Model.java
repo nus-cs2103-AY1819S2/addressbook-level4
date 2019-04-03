@@ -21,7 +21,6 @@ import seedu.address.model.medicine.Directory;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
-import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.Statistics;
 import seedu.address.model.reminder.Reminder;
@@ -31,10 +30,6 @@ import seedu.address.model.tag.Tag;
  * The API of the Model component.
  */
 public interface Model {
-    /**
-     * {@code Predicate} that always evaluate to true
-     */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

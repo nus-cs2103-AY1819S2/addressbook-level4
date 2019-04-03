@@ -37,4 +37,8 @@ public class Address {
                 || (other instanceof Address // instanceof handles nulls
                 && address.equals(((Address) other).getAddress())); // state check
     }
+
+    public static boolean isValidAddress(String string) {
+        return string.matches(REGEX_ADDRESS);
+    }
 }

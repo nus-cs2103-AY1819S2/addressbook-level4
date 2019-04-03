@@ -12,6 +12,7 @@ import seedu.address.logic.CardsView;
 import seedu.address.logic.commands.AddCardCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Difficulty;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -53,7 +54,7 @@ public class AddCardCommandParser implements Parser<AddCardCommand> {
         String answer = argMultimap.getValue(PREFIX_ANSWER).get();
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Card card = new Card(question, answer, tagList);
+        Card card = new Card(question, answer, new Difficulty(), tagList);
 
         return new AddCardCommand(cardsView, card);
     }

@@ -76,7 +76,7 @@ public class EditCardCommand extends Command {
         String updatedAnswer = editCardDescriptor.getAnswer().orElse(cardToEdit.getAnswer());
         Set<Tag> updatedTags = editCardDescriptor.getTags().orElse(cardToEdit.getTags());
 
-        return new Card(updatedQuestion, updatedAnswer, updatedTags);
+        return new Card(updatedQuestion, updatedAnswer, cardToEdit.getDifficultyObj(), updatedTags);
     }
 
     @Override

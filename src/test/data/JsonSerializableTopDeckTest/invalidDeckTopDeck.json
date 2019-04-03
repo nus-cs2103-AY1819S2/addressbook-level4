@@ -8,7 +8,9 @@
           "answer": "Yes it is",
           "tagged": [
             "bad*tag"
-          ]
+          ],
+          "totalRating": 88,
+          "numberOfAttempts": 22
         }
       ]
     }

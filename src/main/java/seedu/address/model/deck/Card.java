@@ -22,14 +22,25 @@ public class Card implements ListItem {
 
     private final Set<Tag> tags = new HashSet<Tag>();
 
+    private final Difficulty difficulty;
+
     /**
-     * Every field must be present and not null.
+     * For when we load a card
      */
-    public Card(String question, String answer, Set<Tag> tags) {
+    public Card(String question, String answer, Difficulty difficulty, Set<Tag> tags) {
         requireNonNull(question, answer);
         this.question = question;
         this.answer = answer;
+        this.difficulty = difficulty;
         this.tags.addAll(tags);
+    }
+
+    public double getDifficulty() {
+        return difficulty.getDifficulty();
+    }
+
+    public Difficulty getDifficultyObj() {
+        return difficulty;
     }
 
     public String getAnswer() {
@@ -94,4 +105,9 @@ public class Card implements ListItem {
         getTags().forEach(builder::append);
         return builder.toString();
     }
+
+    public void addDifficulty(int rating) {
+        difficulty.addDifficulty(rating);
+    }
+
 }

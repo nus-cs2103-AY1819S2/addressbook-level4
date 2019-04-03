@@ -13,15 +13,21 @@ import seedu.address.model.util.SampleDataUtil;
 public class CardBuilder {
     public static final String DEFAULT_QUESTION = "What is the name of this app?";
     public static final String DEFAULT_ANSWER = "TopDeck";
+    public static final int DEFAULT_RATING = 57;
+    public static final int DEFAULT_NUMBER_OF_ATTEMPTS = 20;
 
     private String question;
     private String answer;
     private Set<Tag> tags;
+    private int totalRating;
+    private int noOfAttempts;
 
     public CardBuilder() {
         this.question = DEFAULT_QUESTION;
         this.answer = DEFAULT_ANSWER;
         this.tags = new HashSet<Tag>();
+        this.totalRating = DEFAULT_RATING;
+        this.noOfAttempts = DEFAULT_NUMBER_OF_ATTEMPTS;
     }
 
     /**
@@ -33,6 +39,8 @@ public class CardBuilder {
         this.question = cardToCopy.getQuestion();
         this.answer = cardToCopy.getAnswer();
         this.tags = cardToCopy.getTags();
+        this.totalRating = cardToCopy.getDifficultyObj().getTotalRating();
+        this.noOfAttempts = cardToCopy.getDifficultyObj().getNumberOfAttempts();
     }
 
     /**
@@ -56,6 +64,12 @@ public class CardBuilder {
      */
     public CardBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
+        return this;
+    }
+
+    public CardBuilder withDifficulty(int totalRating, int noOfAttempts) {
+        this.noOfAttempts = noOfAttempts;
+        this.totalRating = totalRating;
         return this;
     }
 

@@ -45,6 +45,7 @@ public class StudyView implements ViewState {
                 if (getCurrentStudyState() == StudyState.QUESTION) {
                     return new ShowAnswerCommand(commandWord + arguments);
                 } else {
+                    addRating(Integer.parseInt(commandWord));
                     return new GenerateQuestionCommand();
                 }
         }
@@ -66,9 +67,6 @@ public class StudyView implements ViewState {
         currentCard = card;
     }
 
-    //=========== Current Card
-    // ================================================================================
-
     /**
      * Generates the next card to be studied.
      */
@@ -81,8 +79,6 @@ public class StudyView implements ViewState {
         return currentStudyState;
     }
 
-    //=========== Study States
-    // ================================================================================
 
     public StudyState getCurrentStudyState() {
         return currentStudyState.getValue();
@@ -102,7 +98,6 @@ public class StudyView implements ViewState {
         textShown.setValue(text);
     }
 
-    //=========== TextShown ================================================================================
 
     /**
      * Returns the current textShown
@@ -119,7 +114,6 @@ public class StudyView implements ViewState {
         return userAnswer;
     }
 
-    //=========== User Answer ================================================================================
 
     public String getUserAnswer() {
         return userAnswer.getValue();
@@ -128,6 +122,10 @@ public class StudyView implements ViewState {
     public void setUserAnswer(String answer) {
         requireNonNull(answer);
         userAnswer.setValue(answer);
+    }
+
+    public void addRating(int rating) {
+        getCurrentCard().addDifficulty(rating);
     }
 
     /**

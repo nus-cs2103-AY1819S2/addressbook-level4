@@ -9,7 +9,9 @@
           "tagged": [
             "tag1",
             "tag2"
-          ]
+          ],
+          "totalRating": 88,
+          "numberOfAttempts": 22
         },
         {
           "question": "Duplicate question?",
@@ -17,7 +19,9 @@
           "tagged": [
             "tag1",
             "tag2"
-          ]
+          ],
+          "totalRating": 88,
+          "numberOfAttempts": 22
         }
       ]
     }

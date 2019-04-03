@@ -108,8 +108,8 @@ public class Pdf {
     }
 
     /**
-     * Returns true if the file at the given directory and name is encrypted. If the file can't be loaded
-     * means that the file is already encrypted
+     * Returns true if the file at the given {code name} and {code directory} is encrypted. If the file can't be loaded
+     * means that the file is already encrypted.
      */
     private boolean isFileEncrypted(Name name, Directory directory) {
         try (PDDocument pd = PDDocument.load(Paths.get(directory.getDirectory(), name.getFullName()).toFile())) {

@@ -32,9 +32,10 @@ public class DecryptCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PASSWORD + "NewSecuredPassword";
 
-    private static final String MESSAGE_DECRYPT_PDF_SUCCESS = "Decrypted PDF: %1$s";
-    private static final String MESSAGE_DECRYPT_PDF_FAILURE = "%1$s did not get decrypted successfully.\n"
+    public static final String MESSAGE_DECRYPT_PDF_SUCCESS = "Decrypted PDF: %1$s";
+    public static final String MESSAGE_DECRYPT_PDF_FAILURE = "%1$s did not get decrypted successfully.\n"
             + "Please check your if the file exists and the password is correct.";
+    public static final String MESSAGE_DECRYPT_PDFALREADYDECRYPTED_FAILURE = "%1$s is already decrypted.";
 
     private final Index index;
     private final String password;
@@ -78,6 +79,10 @@ public class DecryptCommand extends Command {
         try {
             PDDocument file = PDDocument.load(new File(pdfToDecrypt.getDirectory().getDirectory(),
                     pdfToDecrypt.getName().getFullName()), this.password);
+            if (!file.isEncrypted()) {
+                throw new CommandException(String.format(MESSAGE_DECRYPT_PDFALREADYDECRYPTED_FAILURE,
+                        pdfToDecrypt.getName()));
+            }
             file.setAllSecurityToBeRemoved(true);
             file.save(Paths.get(pdfToDecrypt.getDirectory().getDirectory(),
                     pdfToDecrypt.getName().getFullName()).toFile());

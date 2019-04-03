@@ -1,5 +1,10 @@
 package seedu.finance.logic.parser;
 
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_AMOUNT;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_CATEGORY;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_DATE;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_NAME;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -22,15 +27,15 @@ public class SortCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsSortCommand() {
-        assertParseSuccess(parser, "-name", new SortCommand(new RecordNameComparator()));
-        assertParseSuccess(parser, "-amount", new SortCommand(new RecordAmountComparator()));
-        assertParseSuccess(parser, "-date", new SortCommand(new RecordDateComparator()));
-        assertParseSuccess(parser, "-cat", new SortCommand(new RecordCategoryComparator()));
+        assertParseSuccess(parser, COMMAND_FLAG_NAME.getFlag(), new SortCommand(new RecordNameComparator()));
+        assertParseSuccess(parser, COMMAND_FLAG_AMOUNT.getFlag(), new SortCommand(new RecordAmountComparator()));
+        assertParseSuccess(parser, COMMAND_FLAG_DATE.getFlag(), new SortCommand(new RecordDateComparator()));
+        assertParseSuccess(parser, COMMAND_FLAG_CATEGORY.getFlag(), new SortCommand(new RecordCategoryComparator()));
     }
 
     @Test
     public void parse_multipleFlags_throwsParseException() {
-        assertParseFailure(parser, "-name -amount", SortCommand.MESSAGE_NOT_SORTED);
+        assertParseFailure(parser, COMMAND_FLAG_NAME + " " + COMMAND_FLAG_AMOUNT, SortCommand.MESSAGE_NOT_SORTED);
     }
 
     @Test

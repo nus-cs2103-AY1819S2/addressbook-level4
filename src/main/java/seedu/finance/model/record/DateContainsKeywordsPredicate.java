@@ -3,11 +3,6 @@ package seedu.finance.model.record;
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.finance.commons.util.StringUtil;
-
-
-
-
 /**
  * Tests that a {@code Record}'s {@code Category} matches any of the keywords given.
  */

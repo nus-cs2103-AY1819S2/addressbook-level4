@@ -17,7 +17,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a flashcard to the card collection. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a flashcard to the card collection. \n"
         + "Parameters: "
         + PREFIX_FRONT_FACE + "FRONTFACE "
         + PREFIX_BACK_FACE + "BACKFACE "

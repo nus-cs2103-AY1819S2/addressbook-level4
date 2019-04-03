@@ -8,8 +8,10 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BACK_FACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT_FACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.testutil.TypicalFlashcards.EAT;
 import static seedu.address.testutil.TypicalFlashcards.EMAIL;
 import static seedu.address.testutil.TypicalFlashcards.HELLO;
+import static seedu.address.testutil.TypicalFlashcards.HOLA;
 import static seedu.address.testutil.TypicalFlashcards.NEWTON;
 import static seedu.address.testutil.TypicalFlashcards.getTypicalCardCollection;
 
@@ -18,7 +20,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Set;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
@@ -80,16 +81,26 @@ public class FindCommandTest {
         assertEquals(Collections.emptyList(), model.getFilteredFlashcardList());
     }
 
-    @Ignore
     @Test
-    public void execute_multipleKeywords_multipleFlashcardsFound() throws ParseException {
+    public void execute_multipleFrontFaceKeywords_multipleFlashcardsFound() throws ParseException {
         String expectedMessage = String.format(MESSAGE_FLASHCARDS_LISTED_OVERVIEW, 3);
-        FlashcardContainsKeywordsPredicate predicate = preparePredicate(PREFIX_FRONT_FACE
+        FlashcardContainsKeywordsPredicate predicate = preparePredicate(" " + PREFIX_FRONT_FACE
                 + "Hello Newton's email");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredFlashcardList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(HELLO, NEWTON, EMAIL), model.getFilteredFlashcardList());
+    }
+
+    @Test
+    public void execute_multipleArgumentKeywords_multipleFlashcardsFound() throws ParseException {
+        String expectedMessage = String.format(MESSAGE_FLASHCARDS_LISTED_OVERVIEW, 4);
+        FlashcardContainsKeywordsPredicate predicate = preparePredicate(" " + PREFIX_FRONT_FACE
+                + "Hola " + PREFIX_BACK_FACE + "吃 idk " + PREFIX_TAG + "indonesian");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredFlashcardList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(HELLO, HOLA, EAT, NEWTON), model.getFilteredFlashcardList());
     }
 
     /**

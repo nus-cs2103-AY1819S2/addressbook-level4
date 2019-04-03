@@ -28,6 +28,7 @@ public class CommandTestUtil {
 
     public static final String VALID_FRONTFACE_GOOD = "Good";
     public static final String VALID_BACKFACE_GOOD = "Anjir";
+    public static final String VALID_FRONTFACE_DUCK = "Duck";
     public static final String VALID_FRONTFACE_HITBAG = "Hit Bag";
     public static final String VALID_BACKFACE_HITBAG = "打包";
     public static final String VALID_TAG_INDONESIAN = "indonesian";
@@ -37,6 +38,7 @@ public class CommandTestUtil {
     public static final String BACKFACE_DESC_GOOD = " " + PREFIX_BACK_FACE + VALID_BACKFACE_GOOD;
     public static final String FRONTFACE_DESC_HITBAG = " " + PREFIX_FRONT_FACE + VALID_FRONTFACE_HITBAG;
     public static final String BACKFACE_DESC_HITBAG = " " + PREFIX_BACK_FACE + VALID_BACKFACE_HITBAG;
+    public static final String FRONTFACE_DESC_DUCK = " " + PREFIX_FRONT_FACE + VALID_FRONTFACE_DUCK;
 
     public static final String TAG_DESC_INDONESIAN = " " + PREFIX_TAG + VALID_TAG_INDONESIAN;
     public static final String TAG_DESC_CHINESE = " " + PREFIX_TAG + VALID_TAG_CHINESE;
@@ -49,6 +51,7 @@ public class CommandTestUtil {
         + PREFIX_BACK_FACE
         + " "; // empty string not allowed for face
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "physics*"; // '*' not allowed in tags
+    public static final String INVALID_PREFIX_UNDEFINED = "/a";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

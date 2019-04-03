@@ -150,8 +150,6 @@ Examples:
 This will display flashcards that contain the given keyword in front text OR with the language tag
 * `find t/spanish t/portuguese` +
 This will display all flashcards with the spanish tag OR with the portuguese tag
-* `find` +
-This will display all flashcards [coming in v2.0]
 
 === Deleting a flashcard : `delete`
 
@@ -203,14 +201,32 @@ Examples:
 
 * `stats t/physics`
 
+=== Share flashcards : `share`
+Creates a text file containing a set of flashcards to be shared.
+
+Format: ​`share [f/KEYWORD]... [b/KEYWORD]... [t/KEYWORD]...`
+
+****
+* The flashcards to be shared are based on a set of user defined keywords and follow the format of the Find command
+* The text file created by the share command will be saved locally in the main application directory to be distributed manually from one computer to another
+* Once another user has a copy of the text file, the user can import the flashcards using the upload command
+****
+
+Examples:
+
+* `share f/你好 t/language` +
+This will create a text file of flashcards that contain the given keyword in front text OR that have the language tag
+* `share t/spanish t/portuguese` +
+This will create a text file containing flashcards with the spanish tag OR with the portuguese tag
+
 === Upload flashcards : `upload`
-Uploads a set of Flashcards from a text file
+Uploads a set of flashcards from a text file
 
 Format: `upload PATH`
 
 ****
-* Adds a set of Flashcards from a text file specified by PATH to the existing collection of Flashcards
-* The format of the file for upload should correspond to the file created by the share command `[coming in v2.0]`
+* Adds a set of flashcards from a text file specified by PATH to the existing collection of flashcards
+* The format of the file for upload should correspond to the file created by the share command
 ****
 
 Examples:
@@ -219,7 +235,7 @@ Examples:
 
 === Clearing all entries : `clear`
 
-Clears all flash cards. +
+Clears all flashcards. +
 Format: `clear`
 
 === Exiting the program : `exit`

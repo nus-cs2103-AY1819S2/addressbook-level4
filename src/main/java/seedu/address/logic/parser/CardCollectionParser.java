@@ -21,6 +21,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.QuizCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.ShareCommand;
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.commands.SmartCommand;
 import seedu.address.logic.commands.StatsCommand;
@@ -79,6 +80,9 @@ public class CardCollectionParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case ShareCommand.COMMAND_WORD:
+            return new ShareCommandParser().parse(arguments);
 
         case UploadCommand.COMMAND_WORD:
             return new UploadCommandParser().parse(arguments);

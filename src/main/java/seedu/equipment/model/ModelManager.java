@@ -28,7 +28,6 @@ public class ModelManager implements Model {
 
     private final VersionedEquipmentManager versionedEquipmentManager;
     private final UserPrefs userPrefs;
-    private final FilteredList<Equipment> filteredClient;
     private final FilteredList<Equipment> filteredEquipments;
     private final FilteredList<WorkList> filteredWorkList;
     private final SimpleObjectProperty<Equipment> selectedEquipment = new SimpleObjectProperty<>();
@@ -48,7 +47,6 @@ public class ModelManager implements Model {
         filteredEquipments = new FilteredList<>(versionedEquipmentManager.getPersonList());
         filteredEquipments.addListener(this::ensureSelectedPersonIsValid);
         filteredWorkList = new FilteredList<>(versionedEquipmentManager.getWorkListList());
-        filteredClient = new FilteredList<>(versionedEquipmentManager.getPersonList());
         //filteredWorkList.addListener(this::ensureSelectedworkListIsValid);
     }
 
@@ -159,22 +157,6 @@ public class ModelManager implements Model {
         CollectionUtil.requireAllNonNull(target, editedEquipment);
 
         versionedEquipmentManager.updateEquipment(target, editedEquipment);
-    }
-
-    //=========== Filtered Client List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code WorkList} backed by the internal list of
-     * {@code versionedEquipmentManager}
-     */
-    public ObservableList<Equipment> getFilteredClient() {
-        return filteredClient;
-    }
-
-    @Override
-    public void updateFilteredClient(Predicate<Equipment> predicate) {
-        requireNonNull(predicate);
-        filteredClient.setPredicate(predicate);
     }
 
     //=========== Filtered WorkList List Accessors =============================================================

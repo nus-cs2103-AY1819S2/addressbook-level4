@@ -1,7 +1,7 @@
 package seedu.equipment.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.equipment.model.Model.PREDICATE_SHOW_ALL_CLIENT;
+import static seedu.equipment.model.Model.PREDICATE_SHOW_ALL_EQUIPMENT;
 
 import seedu.equipment.logic.CommandHistory;
 import seedu.equipment.model.Model;
@@ -18,7 +18,7 @@ public class ListClientCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredClient(PREDICATE_SHOW_ALL_CLIENT);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_EQUIPMENT);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

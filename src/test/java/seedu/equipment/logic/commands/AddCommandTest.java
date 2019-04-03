@@ -223,16 +223,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<Equipment> getFilteredClient() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredClient (Predicate<Equipment> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public boolean canUndoEquipmentManager() {
 
             throw new AssertionError("This method should not be called.");

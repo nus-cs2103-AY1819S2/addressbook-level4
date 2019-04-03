@@ -20,9 +20,6 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<WorkList> PREDICATE_SHOW_ALL_WORKLISTS = unused -> true;
 
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Equipment> PREDICATE_SHOW_ALL_CLIENT = unused -> true;
-
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -118,9 +115,6 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered worklist list */
     ObservableList<WorkList> getFilteredWorkListList();
 
-    /** Returns an unmodifiable view of the filtered client list */
-    ObservableList<Equipment> getFilteredClient();
-
     /**
      * Updates the filter of the filtered equipment list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -132,12 +126,6 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredWorkListList(Predicate<WorkList> predicate);
-
-    /**
-     * Updates the filter of the filtered client to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredClient(Predicate<Equipment> predicate);
 
     /**
      * Returns true if the model has previous equipment book states to restore.

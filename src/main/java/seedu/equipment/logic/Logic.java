@@ -39,9 +39,6 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of WorkLists */
     ObservableList<WorkList> getFilteredWorkListList();
 
-    /** Returns an unmodifiable view of the filtered list of clients */
-    ObservableList<Equipment> getFilteredClient();
-
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
      * The list is ordered from the least recent command to the most recent command.

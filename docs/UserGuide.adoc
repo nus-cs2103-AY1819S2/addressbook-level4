@@ -19,16 +19,16 @@ By: `Team W9-02 (Health Hub)`      Since: `Jan 2019`      Licence: `MIT`
 
 == Introduction
 
-HealthHub connects home care patients to qualified health care professionals seamlessly.
+Health Hub connects home care patients to qualified health care professionals seamlessly.
 
-HealthHub is a desktop application which allows health administrative staff to add, manage and close requests from
+Health Hub is a desktop application which allows health administrative staff to add, manage and close requests from
 patients. These patients are people who do not require 24-hour round' the clock medical attention but perhaps some
 other health care services such as the changing of tubing. +
 
-HealthHub provides a *Graphical User Interface* for administrative staff of health organizations and hospitals to manage requests
+Health Hub provides a *Graphical User Interface* for administrative staff of health organizations and hospitals to manage requests
 from all potential home stay patients, and is also *optimized for those who prefer to work with a Command Line Interface* (CLI). +
 
-Want to jump right into using HealthHub? Head over to <<Quick Start>> to
+Want to jump right into using Health Hub? Head over to <<Quick Start>> to
 install and configure the application, and you're good to go!
 
 == Notation
@@ -62,8 +62,8 @@ using a specific feature.
 
 == Quick Start
 
-New to HealthHub? Follow our quick and easy steps below to get started on
-HealthHub in no time!
+New to Health Hub? Follow our quick and easy steps below to get started on
+Health Hub in no time!
 
 Before you start, ensure you have Java version `9` or later installed in your computer.
 
@@ -73,9 +73,10 @@ If you do not have Java 9 installed, you may download the latest version of
 the Java Runtime Environment at this link: https://www.oracle.com/technetwork/java/javase/downloads/index.html
 ====
 
-. Upon installing the application, click on HealthHub.jar file to open up
- HealthHub. You should be greeted by the following interface:
- <INSERT IMAGE HERE>
+Upon installing the application, click on the `healthhub.jar` file to open up
+ Health Hub. You should be greeted by the following interface:
+
+image::Ui_home.png[]
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
@@ -116,11 +117,11 @@ that is already registered in the system
 === v1.2 Release Notes
 
 Version 1.2 provides more utility to the application through the
-implementation of the `edit` and `delete` command that allows the user to
+implementation of the `edit` and `delete` commands that allow the user to
 modify and remove requests and health workers from the application.
 
 * `edit healthworker/h/1`: Modifies the details of an existing health staff
-registered in HealthHub.
+registered in Health Hub.
 * `edit request/r/2`: Modifies the details of existing request records in the
  application.
 
@@ -130,7 +131,7 @@ under Editing a Health Worker/Request.
 === v1.3 Release Notes
 
 With the release of version 1.3, we have set out to improve the already
-simple and easy to use HealthHub with command shortcuts, as well as `filter`
+simple and easy to use Health Hub with command shortcuts, as well as `filter`
 command to easily search for staff with the skillset you are looking for.
 
 *Shortcuts*:
@@ -145,7 +146,7 @@ specialisation.
 * `filter request/r/2`: Filters a request by the patient's name, address, or the
 date and time of the request and the status of the request
 
-Other enhancements made to HealthHub include:
+Other enhancements made to Health Hub include:
 
 * `setreminder` command: Allows the user to set and register reminders in the
  application.
@@ -160,8 +161,21 @@ v1.4 to be released
 
 === v2.0 Release Notes
 
-v2.0 to be released
+After the release of v1.4, the team have planned for future enhancements to Health Hub to improve its existing functionalities,
+by also considering different aspects such as the ethical part of handling sensititve patient information within and outside of the app.
 
+For data management, it will be upgraded to an even higher level of encryption by professional standards to ensure that sensitive
+information is handled cautiously to prevent data leaks.
+
+For account management, hospital administrative staff will have to start logging in to their accounts (accounts which are given to them when they
+first joined the department) in order to use the app. These accounts are created and managed by a higher authority personnel, to add a
+second layer of security.
+
+So far, with the releases of v1.2 to v1.4, the focus is on registering the requests into the system and assigning them. In v2.0, there will be additional details
+added to health workers such as their availability to visit the home care patients, that will add value to when the user is assigning an open request.
+
+Last but not least, it is important that we gather our users' feedback from time to time to understand their frustrations and needs with the app. As such,
+there will be a "Feedback" option in v2.0 for users to submit their feedback to the developers of Health Hub.
 
 [[Features]]
 == Features
@@ -176,30 +190,31 @@ can be used as `n/John Doe c/Claustrophobia` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `s/<specialisation>...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/<name> p/<phone_number>`, `p/<phonenumber> n/<name>` is also acceptable.
 
+
 === Viewing Help : `help`
 
 Upon first starting the application as a new user, or perhaps a returning
 user, you may open up the help menu using the `help` command.
 
 Upon entering the `help` command, the help menu renders separately from the
-HealthHub main application. Therefore, you do not have to worry about losing
-any existing work on HealthHub when you are viewing the help menu!
+Health Hub main application. Therefore, you do not have to worry about losing
+any existing work on Health Hub when you are viewing the help menu!
 
 Format: `help`
 
-The help menu displays a list of available commands for HealthHub, their
+The help menu displays a list of available commands for Health Hub, their
 parameters and their functions. Should you ever forget the commands for
-HealthHub, feel free to enter the `help` command to revisit this guide.
+Health Hub, feel free to enter the `help` command to revisit this guide.
 
 === Showing all requests/health workers : `list`
 
 The `list` command is a simple and basic command that on entering, displays
-all health workers/requests in the HealthHub GUI.
+all health workers/requests in the Health Hub GUI.
 
 Format: `list <type>`
 
 Where `<type>` refers to either `healthworker`, `h`, or `1` to display health
-workers registered in HealthHub, or `request`, `r`, `2` to display all
+workers registered in Health Hub, or `request`, `r`, `2` to display all
 registered requests.
 
 [TIP]
@@ -267,7 +282,7 @@ into the application, or you may need to update existing outdated information.
 
 To do this, you can replace the current information
 with the new one using the `edit` command to modify existing personnel
-records or request descriptions in HealthHub.
+records or request descriptions in Health Hub.
 
 The `edit` may come in handy when there is a need update to a request's
 status, patient's condition or a health worker's skills, based on the
@@ -277,18 +292,18 @@ Format: `edit <type> <index> <additional_parameters>...` +
 
 *Editing a health worker*: `edit healthworker/h/1 <index> <additional_parameters>...`
 
-Edits the details of an existing health worker registered in HealthHub, at
+Edits the details of an existing health worker registered in Health Hub, at
 the `<index>` specified in the health worker list upon entering the `edit
 healthworker/h/1` command with valid inputs.
 
 *Editing a request*: `edit request/r/2 <index> <additional_parameters>...`
 
-Edits the details of a request registered in HealthHub, at
+Edits the details of a request registered in Health Hub, at
 the `<index>` specified in the request list upon entering the `edit
 request/r/2` command with valid inputs.
 
 Any changes made to existing fields in requests and healthworkers are
-immediately reflected in the list shown on the HealthHub GUI.
+immediately reflected in the list shown on the Health Hub GUI.
 
 {nbsp}
 
@@ -346,7 +361,7 @@ Format: `filter <type> <keyword> [<more_keywords>]...` +
 *Filter health workers*: `filter healthworker/h/1 <keyword> [<more_keywords>]`
 
 Upon entering the command with valid inputs, searches the entire list of health
-workers in HealthHub, and only displays the health workers whose fields matches the parameters specified in the
+workers in Health Hub, and only displays the health workers whose fields matches the parameters specified in the
 `filter` command.
 
 [NOTE]
@@ -358,7 +373,7 @@ parameters will be accepted
 *Filter requests*: `filter request/r/2 <keyword> [<more_keywords>]`
 
 After entering the command with valid inputs, searches the entire list of
-requests in HealthHub, and only displays the requests whose fields matches
+requests in Health Hub, and only displays the requests whose fields matches
  the parameters specified in the
 `filter` command.
 
@@ -442,7 +457,7 @@ Examples:
 
 * `delete healthworker 2` +
 Deletes the 2nd health worker registered in the list of healthworkers in
-HealthHub.
+Health Hub.
 
 * `delete request 1` +
 Deletes the 1st request as shown in the list of requests on the GUI of the
@@ -468,7 +483,7 @@ proceed to assign an existing health worker in the system to handle the request,
 Format: `assign <request_index> <health_worker_index>`
 
 Where the `<request_index>` and `<health_worker_index>` are as shown in the
-respective health worker and requests lists in the HealthHub GUI.
+respective health worker and requests lists in the Health Hub GUI.
 
 *Notes*:
 
@@ -540,12 +555,6 @@ the application in chronological order, allowing you to identify the order in
 
 Format: `history` +
 
-Upon keying in the `history` command, a log of recent commands in order of
-decreasing timestamp(earliest to latest) will appear on the terminal as shown
- below:
-
-image::history_command.png[]
-
 [NOTE]
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
@@ -556,7 +565,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 With the flexibility in managing and adding, editing and deleting requests,
 existing functionality for the user to view the details of requests in
-HealthHub has also been implemented to improve the user experience.
+Health Hub has also been implemented to improve the user experience.
 
 Format: `sr <request_index>`
 
@@ -581,12 +590,11 @@ to aid you so that you do not have to cram a large amount of details in memory.
 
 Format: `setreminder t/<hh:mm:ss> m/<customised_message>` +
 
-Using the `setreminder` command, you can register a reminder message in
-HealthHub with your own customised message as well as date and time, that
-automatically alerts you by displaying the entered message 5 minutes before the
-chosen date and time.
+Using the `setreminder` command, you can set a reminder alert to go off at a certain time
+of the day, with your own message that you can customise to remind youself. The alert only shows
+for when Health Hub is running in the background process.
 
-As in the example below, a reminder has been set to go off at 6:00AM with
+In the example below, a reminder has been set to go off at 1.30PM with
 the customised message to "to call patient John Doe for his appointment".
 
 image::reminder_command.png[]
@@ -608,22 +616,49 @@ Changes to the data in the application are also saved that any command that
 modifies application parameters, making sure that minimal data is lost should
 any unforeseen circumstances happen.
 
-== FAQH
+== FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in another computer, and transfer the data files `healthworkerbook.json` and `requestbook.json`
+to the `\data` folder of the app directory.
 
 == Command Summary
 
-* <<Viewing Help : `help`>>
-* <<Showing all requests/health workers : `list`>>
-* <<Adding requests/health workers: `add`>>
-* <<Editing requests/health workers : `edit`>>
-* <<Filtering health workers/requests: `filter`>>
-* <<Deleting requests/health workers : `delete`>>
-* <<Assigning health workers to an open request : `assign`>>
-* <<Clearing Requests : `clr`>>
-* <<Closing Requests : `complete`>>
-* <<Listing previous commands : `history`>>
-* <<Viewing a request : `select`>>
-* <<Setting Reminder Alerts: `setreminder`>>
+[%header, cols=2*]
+|===
+|Command
+|Description
+
+|`help`
+|opens the user guide
+|`list`
+|lists all the requests or health workers
+|`add healthworker/h/1`
+|registers a health worker into the system
+|`add request/r/2`
+|registers a request into the system
+|`edit`
+|edits the details of a request or a health worker
+|`filter`
+|filters the list of requests or health workers by a condition
+|`delete`
+|deletes a request or a health worker
+|`assign`
+|assigns a health worker to a request
+|`clr`
+|clears all requests from the list
+|`complete`
+|closes a pending or ongoing request after it has been done
+|`history`
+|lists the previous commands entered
+|`sr`
+|selects a request and view its details on the UI
+|`setreminder`
+|sets a reminder alert to notify the user at a certain time
+|`statistics`
+|shows the occurences of the different requests by conditions
+|`undo`
+|undos the previous action
+|`redo`
+|redos everything
+|===

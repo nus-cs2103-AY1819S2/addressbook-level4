@@ -11,11 +11,7 @@ import java.util.logging.Level;
 public class Config {
 
     public static final Path DEFAULT_CONFIG_FILE = Paths.get("config.json");
-    public static final String ASSETS_FILEPATH = "src/main/resources/assets/";
-    public static final String TEMP_FILEPATH = "src/main/resources/temp/";
-    public static final String TEMP_FILENAME = "src/main/resources/temp/temp_img.png";
-    public static final String ORIGINAL_FILENAME = "src/main/resources/temp/ori_img.png";
-    public static final String SAMPLE_IMPORT = "src/test/imageTest";
+    public static final String ASSETS_FOLDER_TEMP_NAME = "assets";
     public static final int MAX_FILE_SIZE = 10000000;
 
     // Config values customizable through config file

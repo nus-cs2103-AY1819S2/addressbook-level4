@@ -1,7 +1,5 @@
 package seedu.address.model;
 
-import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -224,9 +222,10 @@ public class CurrentEditManager implements CurrentEdit {
      * Retrieves a list of all filenames in assets folder. Returns the list as String[].
      */
     public String[] getFileNames() {
-        File file = new File(ASSETS_FILEPATH);
+        File file = new File(Album.getInstance().getAssetsFilepath());
         return file.list();
     }
+
     public List<Command> getSubHistoryTemp() {
         return tempImage.getSubHistory();
     }
@@ -251,7 +250,7 @@ public class CurrentEditManager implements CurrentEdit {
                 name = this.originalImageName;
             }
             File outputFile = new File(name);
-            File saveDirectory = new File(ASSETS_FILEPATH);
+            File saveDirectory = new File(Album.getInstance().getAssetsFilepath());
             ImageIO.write(tempImage.getBufferedImage(), tempImage.getFileType(), outputFile);
             FileUtils.copyFileToDirectory(outputFile, saveDirectory, false);
             outputFile.delete();

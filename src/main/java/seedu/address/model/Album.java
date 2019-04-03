@@ -1,6 +1,8 @@
 /* @@author Carrein */
 package seedu.address.model;
 
+import static seedu.address.commons.core.Config.ASSETS_FOLDER_TEMP_NAME;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -70,7 +72,7 @@ public class Album {
      */
     public String generateAssets() {
         String tempPath = null;
-        String tDir = System.getProperty("java.io.tmpdir") + "assets";
+        String tDir = System.getProperty("java.io.tmpdir") + ASSETS_FOLDER_TEMP_NAME;
         File assetsFolder = new File(tDir);
         tempPath = assetsFolder.getAbsolutePath() + File.separator;
         if (!assetsFolder.exists()) {

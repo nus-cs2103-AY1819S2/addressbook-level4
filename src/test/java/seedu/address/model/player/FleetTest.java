@@ -14,6 +14,7 @@ import seedu.address.model.battleship.AircraftCarrierBattleship;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.CruiserBattleship;
 import seedu.address.model.battleship.DestroyerBattleship;
+import seedu.address.model.battleship.Name;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.tag.Tag;
@@ -205,5 +206,61 @@ public class FleetTest {
         }
 
         assertTrue(testFleet.isAllDestroyed());
+    }
+
+    @Test
+    public void testGetByTags() {
+        Fleet testFleet = new Fleet(6);
+        assertEquals(testFleet.getNumDestroyerLeft(), 1);
+        assertEquals(testFleet.getNumCruiserLeft(), 1);
+        assertEquals(testFleet.getNumAircraftCarrierLeft(), 1);
+
+        Tag tag1 = new Tag("tag1");
+        Tag tag2 = new Tag("tag2");
+
+        Set<Tag> tag1Set = new HashSet<>();
+        tag1Set.add(tag1);
+
+        Set<Tag> tag2Set = new HashSet<>();
+        tag2Set.add(tag2);
+
+        Battleship testDestroyer = new DestroyerBattleship(tag1Set);
+        Battleship testCruiser = new CruiserBattleship(tag1Set);
+        Battleship testAircraftCarrier = new AircraftCarrierBattleship(tag2Set);
+
+        Coordinates testCoordinates = new Coordinates("a1");
+        Orientation testOrientation = new Orientation("vertical");
+
+        testFleet.deployOneBattleship(testDestroyer, testCoordinates, testOrientation);
+        testFleet.deployOneBattleship(testCruiser, testCoordinates, testOrientation);
+        testFleet.deployOneBattleship(testAircraftCarrier, testCoordinates, testOrientation);
+
+        assertEquals(testFleet.getByTags(tag1Set).size(), 2);
+        assertEquals(testFleet.getByTags(tag2Set).size(), 1);
+        assertEquals(testFleet.getByTags(emptySet).size(), 3);
+    }
+
+    @Test
+    public void testGetByName() {
+        Fleet testFleet = new Fleet(6);
+        assertEquals(testFleet.getNumDestroyerLeft(), 1);
+        assertEquals(testFleet.getNumCruiserLeft(), 1);
+        assertEquals(testFleet.getNumAircraftCarrierLeft(), 1);
+
+        Battleship testDestroyer = new DestroyerBattleship(emptySet);
+        Battleship testCruiser = new CruiserBattleship(emptySet);
+        Battleship testAircraftCarrier = new AircraftCarrierBattleship(emptySet);
+
+        Coordinates testCoordinates = new Coordinates("a1");
+        Orientation testOrientation = new Orientation("vertical");
+
+        testFleet.deployOneBattleship(testDestroyer, testCoordinates, testOrientation);
+        testFleet.deployOneBattleship(testCruiser, testCoordinates, testOrientation);
+        testFleet.deployOneBattleship(testAircraftCarrier, testCoordinates, testOrientation);
+
+        assertEquals(testFleet.getByName(new Name("destroyer")).size(), 1);
+        assertEquals(testFleet.getByName(new Name("cruiser")).size(), 1);
+        assertEquals(testFleet.getByName(new Name("aircraft carrier")).size(), 1);
+
     }
 }

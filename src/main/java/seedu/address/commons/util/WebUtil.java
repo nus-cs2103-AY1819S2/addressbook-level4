@@ -1,14 +1,9 @@
 package seedu.address.commons.util;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.InetAddress;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.UnknownHostException;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.NoInternetException;
 import seedu.address.model.restaurant.Weblink;
 
@@ -20,13 +15,16 @@ public class WebUtil {
     private static final String FILE_PREFIX = "file:/";
     private static final String MESSAGE_NO_INTERNET = "Internet connection is not available."
             + " Please check your connections.";
-    private static final int TIME_OUT = 10;
+    private static final String DUMMY_WEBLINK = "https://www.google.com.sg";
 
     /**
      * Checks if a given string is a valid weblink URL, ie. HTTP response code should not be 400 and above
      * The only acceptable malformed Url is the default placeholder for no weblinks, NO_WEBLINK_STRING
      */
-    public static boolean isNotValidWeblinkUrl(String urlString) {
+    public static boolean isNotValidWeblinkUrl(String urlString) throws NoInternetException {
+        if (!urlString.equals(DUMMY_WEBLINK) && !hasInternetConnection()) {
+            throw new NoInternetException(MESSAGE_NO_INTERNET);
+        }
         try {
             final URL url = new URL(prependHttps(urlString));
             final URLConnection conn = url.openConnection();
@@ -36,6 +34,10 @@ public class WebUtil {
         } catch (IOException e) {
             return true;
         }
+    }
+
+    private static boolean hasInternetConnection() throws NoInternetException {
+        return !isNotValidWeblinkUrl(DUMMY_WEBLINK);
     }
 
     /**

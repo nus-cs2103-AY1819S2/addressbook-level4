@@ -228,6 +228,36 @@ Then, the next card in the quiz queue will be shown.
 `good` +
 Suppose this is the last card to show inside quiz mode. Acquizition will record the statistics of the quiz mode and exit the quiz mode.
 
+=== Smart command
+
+Sometimes, it is troublesome having to always type in alternating `show` and `good` inside quiz mode. +
+We introduce a smart command that cleverly chooses the appropriate command to run.
+
+Format: `<enter>`
+
+****
+* To initiate a smart command, you just need to press enter.
+* If you are in quiz mode, and the back face of the quizzed card is not yet shown, smart command will execute a `show` command.
+* If you are in quiz mode, and the back face of the quizzed card has been shown, smart command will execute a `good` command.
+* This dramatically reduces your time to navigate through the quiz!
+****
+
+Examples:
+
+* `quiz` +
+`<enter>` +
+`<enter>` +
+This will first show the back face of the card, then will mark the card as good.
+* `quiz` +
+`<enter>` +
+`bad` +
+This will show the back face of the card, then will mark the card as bad.
+* `quiz` +
+`<enter>` +
+`...` +
+`<enter> +
+This will go through all the cards in the quiz mode and mark them all as good.
+
 === Show progress statistics : `stats`
 
 Shows statistics for the cards with the given tag, or all cards if tag is not specified, including

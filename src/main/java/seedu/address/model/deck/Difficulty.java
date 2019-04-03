@@ -31,7 +31,7 @@ public class Difficulty {
         numberOfAttempts += 1;
     }
 
-    public int getDifficulty() {
+    public double getDifficulty() {
         return numberOfAttempts == 0 ? 0 : totalRating / numberOfAttempts;
     }
 

@@ -8,6 +8,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.BackCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -49,6 +50,11 @@ public class LogicManager implements Logic {
         try {
             Command command = topDeckParser.parseCommand(commandText, model);
             commandResult = command.execute(model, history);
+            if (command instanceof BackCommand) {
+                storage.saveTopDeck(model.getTopDeck());
+            }
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         } finally {
             history.add(commandText);
         }

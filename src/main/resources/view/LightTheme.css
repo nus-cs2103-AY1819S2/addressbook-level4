@@ -227,35 +227,35 @@
 }
 
 .data0.chart-bar {
-    -fx-bar-fill: #f9d900;;
+    -fx-bar-fill: #f9d900;
 }
 
 .data1.chart-bar {
-    -fx-bar-fill: #a9e200;;
+    -fx-bar-fill: #a9e200;
 }
 
 .data2.chart-bar {
-    -fx-bar-fill: #22bad9;;
+    -fx-bar-fill: #22bad9;
 }
 
 .data3.chart-bar {
-    -fx-bar-fill: #0181e2;;
+    -fx-bar-fill: #0181e2;
 }
 
 .data4.chart-bar {
-    -fx-bar-fill: #2f357f;;
+    -fx-bar-fill: #2f357f;
 }
 
 .data5.chart-bar {
-    -fx-bar-fill: #860061;;
+    -fx-bar-fill: #860061;
 }
 
 .data6.chart-bar {
-    -fx-bar-fill: #c62b00;;
+    -fx-bar-fill: #c62b00;
 }
 
 .data7.chart-bar {
-    -fx-bar-fill: #ff5700;;
+    -fx-bar-fill: #ff5700;
 }
 
 .default-color0.chart-pie {

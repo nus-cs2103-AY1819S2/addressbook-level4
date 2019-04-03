@@ -89,11 +89,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
-    }
-
-    @Override
     public ObservableList<String> getHistory() {
         return history.getHistory();
     }

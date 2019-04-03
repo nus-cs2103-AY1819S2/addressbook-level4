@@ -27,13 +27,6 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the MapGrid.
-     *
-     * @see seedu.address.model.Model#getAddressBook()
-     */
-    ReadOnlyAddressBook getAddressBook();
-
-    /**
      * Returns an unmodifiable view of the list of commands entered by the user.
      * The list is ordered from the least recent command to the most recent command.
      */

@@ -18,7 +18,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.Notifier;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.image.Image;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -118,11 +117,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void displayImage(Image image) {
-        Notifier.firePropertyChangeListener("import", null, image.getUrl());
-    }
-
-    @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
@@ -147,16 +141,6 @@ public class ModelManager implements Model {
     }
 
     //=========== Undo/Redo =================================================================================
-
-    @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
-    }
-
-    @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
-    }
 
     @Override
     public void undoAddressBook() {
@@ -262,10 +246,6 @@ public class ModelManager implements Model {
         Notifier.firePropertyChangeListener("refreshAlbum", null, null);
     }
 
-    @Override
-    public void switchTab() {
-        Notifier.firePropertyChangeListener("switch", null, null);
-    }
 }
 
 

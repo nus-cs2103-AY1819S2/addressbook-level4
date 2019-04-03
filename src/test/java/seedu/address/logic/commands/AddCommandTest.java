@@ -26,7 +26,6 @@ import seedu.address.model.CurrentEditManager;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.image.Image;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -100,17 +99,7 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void switchTab() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void refreshAlbum() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void displayImage(Image image) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -185,16 +174,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canRedoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void undoAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
@@ -226,11 +205,6 @@ public class AddCommandTest {
 
         @Override
         public void clearAssetFolder(File dir) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setOriginalName(String name) {
             throw new AssertionError("This method should not be called.");
         }
     }

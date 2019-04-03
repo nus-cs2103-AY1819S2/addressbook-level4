@@ -1,7 +1,6 @@
 package seedu.hms.logic.parser;
 
 import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATES;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_ROOM;
 
 import java.util.HashMap;
@@ -23,9 +22,7 @@ import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.ReservationContainsPayerPredicate;
-import seedu.hms.model.reservation.ReservationWithDatePredicate;
 import seedu.hms.model.reservation.ReservationWithTypePredicate;
-import seedu.hms.model.util.DateRange;
 
 /**
  * Parses input arguments and creates a new GenerateBillForReservationCommand object
@@ -40,7 +37,7 @@ public class GenerateBillForReservationCommandParser implements Parser<GenerateB
     public GenerateBillForReservationCommand parse(String args, CustomerModel customerModel, BillModel billModel)
         throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_ROOM, PREFIX_DATES);
+            ArgumentTokenizer.tokenize(args, PREFIX_ROOM);
 
         Index index;
         try {
@@ -73,15 +70,16 @@ public class GenerateBillForReservationCommandParser implements Parser<GenerateB
         }
 
         //Search in whole day if timing is not provided
-        DateRange dateRange = ParserUtil.parseDates(argMultimap.getValue(PREFIX_DATES)
-            .orElse("01/01/0001-31/12/9999"));
-        ReservationWithDatePredicate reservationWithDatePredicate = new ReservationWithDatePredicate(dateRange);
+        //        DateRange dateRange = ParserUtil.parseDates(argMultimap.getValue(PREFIX_DATES)
+        //            .orElse("01/01/0001-31/12/9999"));
+        //        ReservationWithDatePredicate reservationWithDatePredicate = new ReservationWith
+        // DatePredicate(dateRange);
 
         //Reservation bill
         Predicate<Reservation> reservationPredicate;
         reservationPredicate = (reservationTested) -> reservationContainsPayerPredicate.test(reservationTested)
-            && reservationWithTypePredicate.test(reservationTested)
-            && reservationWithDatePredicate.test(reservationTested);
+            && reservationWithTypePredicate.test(reservationTested);
+        //     && reservationWithDatePredicate.test(reservationTested);
         billModel.updateFilteredReservationList(reservationPredicate);
         ObservableList<Reservation> reservationObservableList = billModel.getFilteredReservationList();
         HashMap<String, Pair<Double, Long>> reservationBill =
@@ -93,7 +91,8 @@ public class GenerateBillForReservationCommandParser implements Parser<GenerateB
         Bill bill = new Bill(customer, amountReservation, new HashMap<>(), reservationBill);
         return new GenerateBillForReservationCommand(reservationContainsPayerPredicate,
             reservationWithTypePredicate,
-            reservationWithDatePredicate, bill);
+            //      reservationWithDatePredicate,
+            bill);
     }
 
     /**

@@ -25,7 +25,7 @@ public class GenerateBillForCustomerCommand extends BillCommand {
         + ": Generates total bill for the customer identified by the index number\n used in the displayed "
         + "customer list.\n"
         + "Parameters: INDEX\n"
-        + "Example: " + COMMAND_WORD + "1";
+        + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_GENERATE_BILL_SUCCESS = "%1$s";
 

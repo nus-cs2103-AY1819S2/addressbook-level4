@@ -17,8 +17,7 @@ import seedu.address.model.restaurant.Weblink;
 public class WebUtil {
     private static final String HTTPS_PREFIX = "https://";
     private static final String FILE_PREFIX = "file:/";
-    private static final String VALID_WEBSITE = "www.google.com";
-    public static final String MESSAGE_NO_INTERNET = "Internet connection is not available."
+    private static final String MESSAGE_NO_INTERNET = "Internet connection is not available."
             + " Please check your connections.";
     private static final int TIME_OUT = 10;
 
@@ -31,7 +30,7 @@ public class WebUtil {
             InetAddress inetAddress = InetAddress.getByName(urlString);
             return inetAddress.isReachable(TIME_OUT);
         } catch (UnknownHostException e) {
-            return false;
+            return true;
         } catch (IOException e) {
             throw new NoInternetException(MESSAGE_NO_INTERNET);
         }

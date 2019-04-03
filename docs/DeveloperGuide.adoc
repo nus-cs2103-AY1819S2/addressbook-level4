@@ -248,18 +248,23 @@ Some examples of features supported include <<Edit feature>> and <<Open feature>
 Currently PDF++ only supports PDF files, any other types of files will not be accepted.
 
 The Add feature has the following syntax:
+
+`add`
+
 `add f/<PATH_TO_FILE> t/<TAG>...`
 
 * `f/` refers to the command immediately following after this prefix is a file
 * `<PATH_TO_FILE>` refers to the path to the `Pdf` you wish to add
 * `<TAG>...` refers to the new `Tag` you wish to add. Leave this portion empty if you
 do not wish to tag this file.
+* Entering `add` without `<INDEX>` or  `<NEWDIRECTORY>` will open the default file
+selection GUI for the user to add the file directly.
 
 [NOTE]
 Please ensure that you have entered the full `PATH_TO_FILE`. Please refer to
 `Step-by-Step Guide -- add` below for detailed explanation.
 
-===== Step-by-Step Guide -- add
+==== Feature breakdown
 Illustrated below is a sample usage scenario that provides a clear view to the inner
 workings of the Add feature.
 
@@ -318,7 +323,7 @@ the feature will support adding multiple files.
 
 image::AddCommandActivityDiagram.png[width="600"]
 
-// tag:edit[]
+// tag::edit[]
 === Edit feature
 ==== Current Implementation
 
@@ -340,6 +345,7 @@ do not wish to tag this file.
 The index value can be referenced from the list in the main application, or from the
 result of the `Filter`, `Find` or `List` feature.
 
+==== Feature Breakdown
 Illustrated below is a sample usage scenario that provides a clear view to the inner
 workings of the Edit feature.
 
@@ -377,6 +383,7 @@ As of V1.2, the Edit Feature removes any existing `Tag` s and replaces them with
 input by the user (If any). By `V1.4` The user will be able to select tags he wishes
 to remove or add.
 
+// end::edit[]
 
 // tag::merge[]
 === Merge feature
@@ -421,15 +428,31 @@ the user's input.
 In this case, the above two files will be merged, with the _"CS2103T_PDF++_UG_Intro.pdf"_
 file appended behind the other file.
 
-Step 3: The `MergeCommand` is then executed. Successful execution
-of the command would return a *CommandResult* object and create the a new file with the merged
-content, while unsuccessful execution due to validation failure will throw a *CommandException*.
+Step 3: The `MergeCommand` is then executed. During the executon, there are several levels
+of validation that, failing which would stop the execution and throw an exception.
+Here are the different cases:
+
+[NOTE]
+In these cases, all exceptions encountered will be handled as a  *CommandException*. This design
+consideration was made to add convenience to error handling.
+
+* One or more of the indices provided are invalid i.e. the index is negative or does not reference
+any of the Pdfs listed. A *ParseException* is thrown.
+* When loading the PDDocument of the file, the file cannot be accessed for various reasons.
+** If the document cannot be found, a *FileNotFoundException* is thrown.
+** If the document is encrypted, an *InvalidPasswordException* is thrown.
+** If the document cannot be opened for any other reason, an *IOException* is thrown.
+* When any of the files to the fail to be added to the PDFMergerUtility, an *IOException* is thrown.
+* After merging the files, if any of the PDDocuments are unable to be closed, an *IOException* is thrown.
+
+Step 4: Successful execution of the command would return a *CommandResult* object and create the
+a new file with the merged content. The new name of the merged file follows the format: "merged[hashcode].pdf". This is to ensure
+unique file name. The hashcode in the name will be modified if name already exists.
+
+The following Activity Diagram is a summary of the entire execution process.
 
 image::MergeCommandActivityDiagram.png[width="600"]
 
-[NOTE]
-The new name of the merged file follows the format: "merged[hashcode].pdf". This is to ensure
-unique file name. The hashcode in the name will be modified if name already exists.
 // end::merge[]
 
 // tag::move[]
@@ -441,7 +464,6 @@ it is making an edit to the directory of the file. However, in addition to makin
 to the directory in the application storage, it also ensures that the directory changes
 are reflected in the local filesystem.
 
-[NOTE]
 The design consideration into separating move as a new command from edit factored in the
 purpose of the application; as a document manager, the term "edit" is synonymous with
 making content or characteristic changes when it is applied in the context of documents.

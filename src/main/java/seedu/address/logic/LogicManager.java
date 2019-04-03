@@ -94,11 +94,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Cell> getFilteredPersonList() {
-        return model.getFilteredPersonList();
-    }
-
-    @Override
     public ObservableList<String> getHistory() {
         return history.getHistory();
     }

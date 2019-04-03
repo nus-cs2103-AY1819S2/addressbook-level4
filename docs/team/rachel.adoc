@@ -96,6 +96,12 @@ include::../UserGuide.adoc[tag=commandsummary]
 
 include::../DeveloperGuide.adoc[tag=design]
 
+include::../DeveloperGuide.adoc[tag=equipment]
+
+include::../DeveloperGuide.adoc[tag=client]
+
+include::../DeveloperGuide.adoc[tag=uidg]
+
 == PROJECT: PowerPointLabs
 
 ---

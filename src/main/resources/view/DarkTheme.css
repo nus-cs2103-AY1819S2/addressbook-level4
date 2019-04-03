@@ -179,6 +179,7 @@
     -fx-text-fill: white;
     -fx-font-size: 25px;
     -fx-padding: 0 0 5 0;
+    -fx-wrap-text: true;
 }
 
 .vbox_rating_label.label {
@@ -189,6 +190,8 @@
     -fx-border-width: 1px;
     -fx-padding: 2 10 2 10;
     -fx-background-color: #3e7b91;
+    -fx-text-alignment: center;
+    -fx-wrap-text: true;
 }
 
 .vbox_visits_label.label {
@@ -196,13 +199,8 @@
     -fx-text-fill: white;
     -fx-font-size: 20px;
     -fx-padding: 5 0 10 0;
-}
-
-.vbox_label_header.label {
-    -fx-font-family: "Segoe UI";
-    -fx-font-weight: bold;
-    -fx-text-fill: white;
-    -fx-font-size: 17px;
+    -fx-text-alignment: center;
+    -fx-wrap-text: true;
 }
 
 .vbox_label {
@@ -210,6 +208,8 @@
     -fx-text-fill: white;
     -fx-font-size: 15px;
     -fx-padding: 0 0 5 0;
+    -fx-text-alignment: center;
+    -fx-wrap-text: true;
 }
 
 body, html {

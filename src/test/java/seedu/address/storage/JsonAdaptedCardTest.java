@@ -22,6 +22,9 @@ public class JsonAdaptedCardTest {
     private static final List<JsonAdaptedTag> VALID_TAGS = HELLO_WORLD.getTags().stream()
                                                                       .map(JsonAdaptedTag::new)
                                                                       .collect(Collectors.toList());
+    private static final int VALID_RATING = 100;
+    private static final int VALID_ATTEMPTS = 20;
+
 
     @Test
     public void toModelType_validCardDetails_returnsCard() throws Exception {
@@ -31,14 +34,14 @@ public class JsonAdaptedCardTest {
 
     @Test
     public void toModelType_nullQuestion_throwsIllegalValueException() {
-        JsonAdaptedCard card = new JsonAdaptedCard(null, VALID_ANSWER, VALID_TAGS);
+        JsonAdaptedCard card = new JsonAdaptedCard(null, VALID_ANSWER, VALID_TAGS, VALID_RATING, VALID_ATTEMPTS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, "question");
         Assert.assertThrows(IllegalValueException.class, expectedMessage, card::toModelType);
     }
 
     @Test
     public void toModelType_nullAnswer_throwsIllegalValueException() {
-        JsonAdaptedCard card = new JsonAdaptedCard(VALID_QUESTION, null, VALID_TAGS);
+        JsonAdaptedCard card = new JsonAdaptedCard(VALID_QUESTION, null, VALID_TAGS, VALID_RATING, VALID_ATTEMPTS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, "answer");
         Assert.assertThrows(IllegalValueException.class, expectedMessage, card::toModelType);
     }
@@ -48,7 +51,7 @@ public class JsonAdaptedCardTest {
     public void toModelType_invalidTags_throwsIllegalValueException() {
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
-        JsonAdaptedCard card = new JsonAdaptedCard(VALID_QUESTION, VALID_ANSWER, invalidTags);
+        JsonAdaptedCard card = new JsonAdaptedCard(VALID_QUESTION, VALID_ANSWER, invalidTags, VALID_RATING, VALID_ATTEMPTS);
         Assert.assertThrows(IllegalValueException.class, card::toModelType);
     }
 

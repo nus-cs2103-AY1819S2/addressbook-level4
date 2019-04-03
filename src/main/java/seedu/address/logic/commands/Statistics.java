@@ -1,9 +1,6 @@
 package seedu.address.logic.commands;
 
-import java.util.Comparator;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 import seedu.address.model.tag.Condition;
 
@@ -14,18 +11,7 @@ public class Statistics {
 
     private static final String MESSAGE_EMPTY_STATISTICS = "Conditions and their related occurences are not available";
 
-    /**
-     * Method which aids in the sorting of the treemap in descending order --> health condition with the highest
-     * occurrences will be first whereas the health condition with the lowest occurrence will be last
-     */
-    static class DescendingOrder implements Comparator<String> {
-        @Override
-        public int compare(String o1, String o2) {
-            return o2.compareTo(o1);
-        }
-    }
-
-    private static Map<String, Integer> statistics = new TreeMap<>(new DescendingOrder());
+    private static Map<String, Integer> statistics = new TreeMap<>(Collections.reverseOrder());
 
     /**
      * Returns the number of times the specific condition has appeared in added requests
@@ -39,6 +25,20 @@ public class Statistics {
 
     public static void clearStatistics() {
         statistics.clear();
+    }
+
+    /**
+     * Updates statistics tree map every time a new request is deleted
+     * the integer value pegged to the toBeDeleted Condition will be reduced
+     *
+     * @param conditionSet to check for.
+     */
+    public static void deleteStatistics(Set<Condition> conditionSet) {
+        for (Condition condition : conditionSet) {
+            String conditionName = condition.toString().toUpperCase();
+            Integer count = statistics.get(conditionName);
+            statistics.put(conditionName, (count == 0) ? 0 : count - 1);
+        }
     }
 
     /**

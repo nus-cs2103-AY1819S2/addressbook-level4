@@ -90,7 +90,7 @@ adds a patient named `John Doe` to the application.
 
 .  Refer to <<Features>> for a detailed explanation of each command.
 
-== ChangeLog
+== Change Log
 
 Returning user but not sure what has changed since you left?
 
@@ -159,6 +159,7 @@ command, visit <<Features>>, under Filtering Health Workers/Requests.
 
 v1.4 to be released
 
+// tag::releasenotes-2.0[]
 === v2.0 Release Notes
 
 After the release of v1.4, the team have planned for future enhancements to Health Hub to improve its existing functionalities,
@@ -176,6 +177,7 @@ added to health workers such as their availability to visit the home care patien
 
 Last but not least, it is important that we gather our users' feedback from time to time to understand their frustrations and needs with the app. As such,
 there will be a "Feedback" option in v2.0 for users to submit their feedback to the developers of Health Hub.
+// end::releasenotes-2.0[]
 
 [[Features]]
 == Features
@@ -580,6 +582,7 @@ the GUI, which automatically selects the clicked request as the displayed
 request.
 ====
 
+// tag::setreminder[]
 === Setting Reminder Alerts: `setreminder`
 
 Sometimes, it can be difficult to keep track of multiple tasks and specific
@@ -590,14 +593,15 @@ to aid you so that you do not have to cram a large amount of details in memory.
 
 Format: `setreminder t/<hh:mm:ss> m/<customised_message>` +
 
-Using the `setreminder` command, you can set a reminder alert to go off at a certain time
+Using the `setreminder` command, you can set a reminder alert to notify you at a certain time
 of the day, with your own message that you can customise to remind youself. The alert only shows
 for when Health Hub is running in the background process.
 
-In the example below, a reminder has been set to go off at 1.30PM with
+In the example below, a reminder has been set to notify the user at 1.30PM with
 the customised message to "to call patient John Doe for his appointment".
 
 image::reminder_command.png[]
+// end::setreminder[]
 
 === Exiting the program : `exit`
 
@@ -622,6 +626,7 @@ any unforeseen circumstances happen.
 *A*: Install the app in another computer, and transfer the data files `healthworkerbook.json` and `requestbook.json`
 to the `\data` folder of the app directory.
 
+// tag::summary[]
 == Command Summary
 
 [%header, cols=2*]
@@ -662,3 +667,4 @@ to the `\data` folder of the app directory.
 |`redo`
 |redos everything
 |===
+// end::summary[]

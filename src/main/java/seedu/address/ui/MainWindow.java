@@ -262,7 +262,7 @@ public class MainWindow extends UiPart<Stage> {
 
         case STATISTICS_MODE:
 
-            //TODO: Bava, please help me sort the list according to popularity please. Thank you.
+            //TODO: Bava, need to change the input list to menuItemList that is sorted according to popularity
             popularMenuListPanel = new PopularMenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
                     logic::setSelectedMenuItem);
             listPanelPlaceholder.getChildren().add(popularMenuListPanel.getRoot());

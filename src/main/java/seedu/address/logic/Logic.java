@@ -2,13 +2,14 @@ package seedu.address.logic;
 
 import java.nio.file.Path;
 
-import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
+import javafx.scene.layout.Region;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyTopDeck;
+import seedu.address.ui.UiPart;
 
 /**
  * API of the Logic component
@@ -30,11 +31,6 @@ public interface Logic {
      * @see seedu.address.model.Model#getTopDeck()
      */
     ReadOnlyTopDeck getTopDeck();
-
-    /**
-     * Sets the selected item.
-     */
-    void setSelectedItem(ListItem item);
 
     /**
      * Returns an unmodifiable view of the current filtered list. The element type depends on the view state.
@@ -62,24 +58,5 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    /**
-     * Selected item in the filtered card list.
-     * null if no item is selected.
-     */
-    ReadOnlyProperty<ListItem> selectedItemProperty();
-
-    /**
-     * Current text in the StudyView
-     */
-    ReadOnlyProperty<String> textShownProperty();
-
-    /**
-     * Current StudyState in the StudyView
-     */
-    ReadOnlyProperty<StudyView.StudyState> studyStateProperty();
-
-    /**
-     * Current userAnswer
-     */
-    ReadOnlyProperty<String> userAnswerProperty();
+    UiPart<Region> getPanel();
 }

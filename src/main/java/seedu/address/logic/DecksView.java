@@ -3,12 +3,15 @@ package seedu.address.logic;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.Objects;
 import java.util.function.Predicate;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.scene.layout.Region;
 import seedu.address.logic.commands.AddDeckCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteDeckCommand;
@@ -23,24 +26,26 @@ import seedu.address.logic.parser.EditDeckCommandParser;
 import seedu.address.logic.parser.FindDeckCommandParser;
 import seedu.address.logic.parser.SelectCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
+import seedu.address.ui.ListPanel;
+import seedu.address.ui.UiPart;
 
 /**
  * Stores the state of the Deck's view.
  */
-public class DecksView implements ListViewState {
+public class DecksView implements ListViewState<Deck> {
 
     public final FilteredList<Deck> filteredDecks;
 
     public final SimpleObjectProperty<Deck> selectedDeck = new SimpleObjectProperty<>();
 
-    private Model model;
-
-    public DecksView(Model model, FilteredList<Deck> deckList) {
-        this.model = model;
+    public DecksView(FilteredList<Deck> deckList) {
         filteredDecks = deckList;
         filteredDecks.addListener(this::ensureSelectedItemIsValid);
+    }
+
+    public DecksView(DecksView decksView) {
+        this(new FilteredList<>(decksView.getFilteredList()));
     }
 
     @Override
@@ -98,12 +103,63 @@ public class DecksView implements ListViewState {
     /**
      * Updates the filtered list in DecksView.
      */
+    @Override
     public void updateFilteredList(Predicate<Deck> predicate) {
         requireNonNull(predicate);
         filteredDecks.setPredicate(predicate);
     }
 
+    @Override
     public ObservableList<Deck> getFilteredList() {
         return filteredDecks;
+    }
+
+    /**
+     * Sets the selected Item in the filtered list.
+     */
+    @Override
+    public void setSelectedItem(Deck deck) {
+        selectedDeck.setValue(deck);
+    }
+
+    /**
+     * Returns the selected Item in the filtered list.
+     * null if no card is selected.
+     */
+    @Override
+    public Deck getSelectedItem() {
+        return selectedDeck.getValue();
+    }
+
+    @Override
+    public ReadOnlyProperty<Deck> getSelectedItemProperty() {
+        return selectedDeck;
+    }
+
+    public UiPart<Region> getPanel() {
+        return new ListPanel<>(getFilteredList(), getSelectedItemProperty(), this::setSelectedItem);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof DecksView)) {
+            return false;
+        }
+
+        // state check
+        DecksView other = (DecksView) obj;
+        return filteredDecks.equals(other.filteredDecks)
+                && Objects.equals(selectedDeck.getValue(), other.selectedDeck.getValue());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(filteredDecks, selectedDeck.getValue());
     }
 }

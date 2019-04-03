@@ -1,18 +1,21 @@
 package seedu.address.logic;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.List;
-
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import seedu.address.logic.commands.BackCommand;
+import javafx.scene.layout.Region;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.GenerateQuestionCommand;
 import seedu.address.logic.commands.OpenDeckCommand;
 import seedu.address.logic.commands.ShowAnswerCommand;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
+import seedu.address.ui.StudyPanel;
+import seedu.address.ui.UiPart;
+
+import java.util.List;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * ViewState of the Application during a Study session.
@@ -32,6 +35,12 @@ public class StudyView implements ViewState {
         setCurrentStudyState(StudyState.QUESTION);
         this.deckShuffler = new DeckShuffler(activeDeck);
         generateCard();
+    }
+
+    public StudyView(StudyView studyView) {
+        // TODO
+        activeDeck = null;
+        listOfCards = null;
     }
 
     @Override
@@ -133,4 +142,19 @@ public class StudyView implements ViewState {
      */
     public enum StudyState { QUESTION, ANSWER }
 
+    public UiPart<Region> getPanel() {
+        return new StudyPanel(textShown, currentStudyState, userAnswer);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // TODO
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        // TODO
+        return super.hashCode();
+    }
 }

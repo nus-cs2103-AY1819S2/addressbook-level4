@@ -15,6 +15,7 @@ import guitests.guihandles.ListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.layout.Region;
 import seedu.address.logic.ListItem;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.Name;
@@ -89,10 +90,10 @@ public class ListPanelTest extends GuiUnitTest {
      * Also shows the {@code Stage} that displays only {@code ListPanel}.
      */
     private void initUi(ObservableList<? extends ListItem> list) {
-        ListPanel listPanel = new ListPanel((ObservableList<ListItem>) list, selectedItem, selectedItem::set);
-        uiPartRule.setUiPart(listPanel);
+        UiPart<Region> mainPanel = new ListPanel<>((ObservableList<ListItem>) list, selectedItem, selectedItem::set);
+        uiPartRule.setUiPart(mainPanel);
 
         listPanelHandle = new ListPanelHandle(
-                getChildNode(listPanel.getRoot(), ListPanelHandle.DECK_LIST_VIEW_ID));
+                getChildNode(mainPanel.getRoot(), ListPanelHandle.DECK_LIST_VIEW_ID));
     }
 }

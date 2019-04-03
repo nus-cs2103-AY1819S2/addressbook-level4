@@ -10,19 +10,15 @@ import static seedu.address.testutil.TypicalDecks.getTypicalTopDeck;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CardsView;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.ListItem;
 import seedu.address.logic.ViewState;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -174,16 +170,6 @@ public class AddCardCommandTest {
         }
 
         @Override
-        public ObservableList<ListItem> getFilteredList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredList(Predicate<? extends ListItem> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public boolean canUndoTopDeck() {
             throw new AssertionError("This method should not be called.");
         }
@@ -205,21 +191,6 @@ public class AddCardCommandTest {
 
         @Override
         public void commitTopDeck() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyProperty<ListItem> selectedItemProperty() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ListItem getSelectedItem() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setSelectedItem(ListItem item) {
             throw new AssertionError("This method should not be called.");
         }
 

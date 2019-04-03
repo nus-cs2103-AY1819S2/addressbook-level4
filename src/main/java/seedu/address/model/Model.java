@@ -3,10 +3,7 @@ package seedu.address.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.ListItem;
 import seedu.address.logic.ViewState;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -93,18 +90,6 @@ public interface Model {
     void setCard(Card target, Card editedCard, Deck deck);
 
     /**
-     * Returns an unmodifiable view of the filtered list
-     */
-    ObservableList<ListItem> getFilteredList();
-
-    /**
-     * Updates the filter of the filtered card list to filter by the given {@code predicate}.
-     *
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredList(Predicate<? extends ListItem> predicate);
-
-    /**
      * Returns true if the model has previous TopDeck states to restore.
      */
     boolean canUndoTopDeck();
@@ -128,23 +113,6 @@ public interface Model {
      * Saves the current TopDeck state for undo/redo.
      */
     void commitTopDeck();
-
-    /**
-     * Selected item in the filtered list.
-     * null if no item is selected.
-     */
-    ReadOnlyProperty<ListItem> selectedItemProperty();
-
-    /**
-     * Returns the selected Item in the filtered list.
-     * null if no card is selected.
-     */
-    ListItem getSelectedItem();
-
-    /**
-     * Sets the selected item in the filtered list.
-     */
-    void setSelectedItem(ListItem item);
 
     /**
      * Adds a new deck in the filtered deck list.

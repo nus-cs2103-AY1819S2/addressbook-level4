@@ -34,7 +34,7 @@ public class SelectDeckCommand extends SelectCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
         }
 
-        model.setSelectedItem(filteredDeckList.get(targetIndex.getZeroBased()));
+        decksView.setSelectedItem(filteredDeckList.get(targetIndex.getZeroBased()));
         return new CommandResult(String.format(MESSAGE_SELECT_SUCCESS, targetIndex.getOneBased()));
     }
 

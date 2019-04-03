@@ -18,15 +18,15 @@ import seedu.address.model.deck.Deck;
 /**
  * Panel containing the list of cards.
  */
-public class ListPanel extends UiPart<Region> {
+public class ListPanel<T extends ListItem> extends UiPart<Region> {
     private static final String FXML = "ListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ListPanel.class);
 
     @FXML
-    private ListView<ListItem> listView;
+    private ListView<T> listView;
 
-    public ListPanel(ObservableList<ListItem> list, ObservableValue<ListItem> selectedItem,
-                     Consumer<ListItem> onSelectedItemChange) {
+    public ListPanel(ObservableList<T> list, ObservableValue<T> selectedItem,
+                     Consumer<T> onSelectedItemChange) {
         super(FXML);
 
         listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -57,17 +57,18 @@ public class ListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code ListItem}.
+     * Custom {@code ListCell} that displays the graphics of a {@code T}.
      */
-    class CardListViewCell extends ListCell<ListItem> {
+    class CardListViewCell extends ListCell<T> {
         @Override
-        protected void updateItem(ListItem item, boolean empty) {
+        protected void updateItem(T item, boolean empty) {
             super.updateItem(item, empty);
 
             if (empty || item == null) {
                 setGraphic(null);
                 setText(null);
             } else {
+                // TODO: remove instanceof
                 if (item instanceof Card) {
                     setGraphic(new CardDisplay((Card) item, getIndex() + 1).getRoot());
                 } else if (item instanceof Deck) {

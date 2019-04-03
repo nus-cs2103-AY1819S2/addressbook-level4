@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
-import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
+import javafx.scene.layout.Region;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.BackCommand;
@@ -17,6 +17,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyTopDeck;
 import seedu.address.storage.Storage;
+import seedu.address.ui.UiPart;
 
 /**
  * The main LogicManager of the app.
@@ -77,13 +78,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void setSelectedItem(ListItem item) {
-        model.setSelectedItem(item);
-    }
-
-    @Override
     public ObservableList<ListItem> getFilteredList() {
-        return model.getFilteredList();
+        return ((ListViewState) model.getViewState()).getFilteredList();
     }
 
     @Override
@@ -107,25 +103,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<ListItem> selectedItemProperty() {
-        return model.selectedItemProperty();
-    }
-
-    @Override
-    public ReadOnlyProperty<String> textShownProperty() {
-        StudyView studyView = (StudyView) model.getViewState();
-        return studyView.textShownProperty();
-    }
-
-    @Override
-    public ReadOnlyProperty<StudyView.StudyState> studyStateProperty() {
-        StudyView studyView = (StudyView) model.getViewState();
-        return studyView.studyStateProperty();
-    }
-
-    @Override
-    public ReadOnlyProperty<String> userAnswerProperty() {
-        StudyView studyView = (StudyView) model.getViewState();
-        return studyView.userAnswerProperty();
+    public UiPart<Region> getPanel() {
+        return model.getViewState().getPanel();
     }
 }

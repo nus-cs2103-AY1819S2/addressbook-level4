@@ -17,7 +17,6 @@ import seedu.address.model.UserPrefs;
 import seedu.address.storage.JsonTopDeckStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;
-import systemtests.ModelHelper;
 
 /**
  * This class is meant to override some properties of MainApp so that it will be suited for
@@ -32,9 +31,6 @@ public class TestApp extends MainApp {
             .getFilePathInSandboxFolder("pref_testing.json");
     protected Supplier<ReadOnlyTopDeck> initialDataSupplier = () -> null;
     protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
-
-    public TestApp() {
-    }
 
     public TestApp(Supplier<ReadOnlyTopDeck> initialDataSupplier, Path saveFileLocation) {
         super();
@@ -97,8 +93,7 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getTopDeck()), new UserPrefs());
-        ModelHelper.setFilteredList(copy, model.getFilteredList());
+        Model copy = new ModelManager(model);
         return copy;
     }
 

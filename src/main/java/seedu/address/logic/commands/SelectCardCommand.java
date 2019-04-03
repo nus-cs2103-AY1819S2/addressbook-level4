@@ -34,7 +34,7 @@ public class SelectCardCommand extends SelectCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
         }
 
-        model.setSelectedItem(filteredCardList.get(targetIndex.getZeroBased()));
+        cardsView.setSelectedItem(filteredCardList.get(targetIndex.getZeroBased()));
         return new CommandResult(String.format(MESSAGE_SELECT_SUCCESS, targetIndex.getOneBased()));
     }
 

@@ -1,7 +1,5 @@
 package systemtests;
 
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCardCommand;
 import seedu.address.model.Model;
@@ -177,8 +175,9 @@ public class EditDeckCommandSystemTest extends TopDeckSystemTest {
     private void assertCommandSuccess(String command, Index toEdit, Card editedCard,
                                       Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
+        // TODO
         //expectedModel.setCard(expectedModel.getFilteredList().get(toEdit.getZeroBased()), editedCard);
-        expectedModel.updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
+        //expectedModel.updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
 
         assertCommandSuccess(command, expectedModel,
                              String.format(EditCardCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard),
@@ -213,7 +212,8 @@ public class EditDeckCommandSystemTest extends TopDeckSystemTest {
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
                                       Index expectedSelectedCardIndex) {
         executeCommand(command);
-        expectedModel.updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
+        // TODO
+        // expectedModel.updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         if (expectedSelectedCardIndex != null) {

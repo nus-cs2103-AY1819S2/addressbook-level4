@@ -5,6 +5,7 @@ import static seedu.address.testutil.TestUtil.getDeck;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.DecksView;
 import seedu.address.logic.commands.DeleteCardCommand;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
@@ -116,7 +117,7 @@ public class DeleteDeckCommandSystemTest extends TopDeckSystemTest {
      * @return the removed card
      */
     private Deck removeDeck(Model model, Index index) {
-        Deck targetDeck = getDeck(model, index);
+        Deck targetDeck = getDeck((DecksView) model.getViewState(), index);
         model.deleteDeck(targetDeck);
         return targetDeck;
     }

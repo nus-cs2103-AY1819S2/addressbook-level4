@@ -1,30 +1,23 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.nio.file.Path;
-import java.util.Objects;
-import java.util.function.Predicate;
-import java.util.logging.Logger;
-
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.CardsView;
 import seedu.address.logic.DecksView;
-import seedu.address.logic.ListItem;
 import seedu.address.logic.StudyView;
 import seedu.address.logic.ViewState;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
-import seedu.address.model.deck.exceptions.CardNotFoundException;
-import seedu.address.model.deck.exceptions.IllegalOperationWhileReviewingCardException;
+
+import java.nio.file.Path;
+import java.util.Objects;
+import java.util.logging.Logger;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents the in-memory model of top deck data.
@@ -34,8 +27,6 @@ public class ModelManager implements Model {
 
     private final VersionedTopDeck versionedTopDeck;
     private final UserPrefs userPrefs;
-    private final SimpleObjectProperty<ListItem> selectedItem = new SimpleObjectProperty<>();
-    private FilteredList<? extends ListItem> filteredItems;
     private ViewState viewState;
 
     /**
@@ -49,12 +40,24 @@ public class ModelManager implements Model {
 
         versionedTopDeck = new VersionedTopDeck(topDeck);
         this.userPrefs = new UserPrefs(userPrefs);
-        viewState = new DecksView(this, new FilteredList<>(versionedTopDeck.getDeckList()));
-        filteredItems = ((DecksView) viewState).filteredDecks;
+        viewState = new DecksView(new FilteredList<>(versionedTopDeck.getDeckList()));
     }
 
     public ModelManager() {
         this(new TopDeck(), new UserPrefs());
+    }
+
+    public ModelManager(Model model) {
+        versionedTopDeck = new VersionedTopDeck(model.getTopDeck());
+        userPrefs = new UserPrefs(model.getUserPrefs());
+        ViewState viewState = model.getViewState();
+        if (viewState instanceof DecksView) {
+            this.viewState = new DecksView((DecksView) viewState);
+        } else if (viewState instanceof CardsView) {
+            this.viewState = new CardsView((CardsView) viewState);
+        } else if (viewState instanceof StudyView) {
+            this.viewState = new StudyView((StudyView) viewState);
+        }
     }
 
     public Command parse(String commandWord, String arguments) throws ParseException {
@@ -65,10 +68,7 @@ public class ModelManager implements Model {
      * Updates the given ViewState to CardsView with the given deck.
      */
     public void changeDeck(Deck deck) {
-        viewState = new CardsView(this, deck);
-
-        filteredItems = ((CardsView) viewState).filteredCards;
-        setSelectedItem(null);
+        viewState = new CardsView(deck);
     }
 
     public void studyDeck(Deck deck) {
@@ -77,9 +77,7 @@ public class ModelManager implements Model {
 
     @Override
     public void goToDecksView() {
-        viewState = new DecksView(this, new FilteredList<>(versionedTopDeck.getDeckList()));
-        filteredItems = ((DecksView) viewState).filteredDecks;
-        setSelectedItem(null);
+        viewState = new DecksView(new FilteredList<>(versionedTopDeck.getDeckList()));
     }
 
     @Override
@@ -221,23 +219,6 @@ public class ModelManager implements Model {
         versionedTopDeck.updateDeck(target, editedDeck);
     }
 
-    //=========== Filtered Card List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Item} backed by the internal list of
-     * {@code versionedTopDeck}
-     */
-    @Override
-    public ObservableList<ListItem> getFilteredList() {
-        return (ObservableList<ListItem>) filteredItems;
-    }
-
-    @Override
-    public void updateFilteredList(Predicate<? extends ListItem> predicate) {
-        requireNonNull(predicate);
-        filteredItems.setPredicate((Predicate<ListItem>) predicate);
-    }
-
     //=========== Undo/Redo =================================================================================
 
     @Override
@@ -265,37 +246,6 @@ public class ModelManager implements Model {
         versionedTopDeck.commit();
     }
 
-    //=========== Selected item ===========================================================================
-
-    @Override
-    public ReadOnlyProperty<ListItem> selectedItemProperty() {
-        return selectedItem;
-    }
-
-    @Override
-    public ListItem getSelectedItem() {
-        return selectedItem.getValue();
-    }
-
-    @Override
-    public void setSelectedItem(ListItem card) {
-        if (card != null && !filteredItems.contains(card)) {
-            throw new CardNotFoundException();
-        }
-        selectedItem.setValue(card);
-
-
-        if (card instanceof Card && isAtCardsView()) {
-            CardsView cardsView = (CardsView) viewState;
-            cardsView.selectedCard.set((Card) card);
-        } else if (card instanceof Deck && isAtDecksView()) {
-            DecksView decksView = (DecksView) viewState;
-            decksView.selectedDeck.set((Deck) card);
-        } else if (card != null) {
-            throw new IllegalOperationWhileReviewingCardException();
-        }
-    }
-
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -311,8 +261,11 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedTopDeck.equals(other.versionedTopDeck) && userPrefs.equals(other.userPrefs)
-                && filteredItems.equals(other.filteredItems) && Objects
-                .equals(selectedItem.get(), other.selectedItem.get());
+                && viewState.equals(other.viewState);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(versionedTopDeck, userPrefs, viewState);
+    }
 }

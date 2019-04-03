@@ -1,12 +1,11 @@
 package systemtests;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
 import seedu.address.logic.ListItem;
-import seedu.address.model.Model;
+import seedu.address.logic.ListViewState;
 
 /**
  * Contains helper methods to set up {@code Model} for testing.
@@ -17,17 +16,10 @@ public class ModelHelper {
     /**
      * Updates {@code model}'s filtered list to display only {@code toDisplay}.
      */
-    public static void setFilteredList(Model model, List<? extends ListItem> toDisplay) {
+    public static void setFilteredList(ListViewState<ListItem> viewState, List<ListItem> toDisplay) {
         Optional<Predicate<ListItem>> predicate = toDisplay.stream().map(ModelHelper::getPredicateMatching)
                                                            .reduce(Predicate::or);
-        model.updateFilteredList(predicate.orElse(PREDICATE_MATCHING_NO_CARDS));
-    }
-
-    /**
-     * @see ModelHelper#setFilteredList(Model, List)
-     */
-    public static void setFilteredList(Model model, ListItem... toDisplay) {
-        setFilteredList(model, Arrays.asList(toDisplay));
+        viewState.updateFilteredList(predicate.orElse(PREDICATE_MATCHING_NO_CARDS));
     }
 
     /**

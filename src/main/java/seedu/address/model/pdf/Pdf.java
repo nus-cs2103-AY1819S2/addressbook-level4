@@ -77,7 +77,7 @@ public class Pdf {
         return deadline;
     }
 
-    public boolean getIsEncryted() {
+    public boolean getIsEncrypted() {
         return isEncrypted;
     }
 
@@ -155,7 +155,17 @@ public class Pdf {
         builder.append(getName())
                 .append(getDirectory())
                 .append(getSize())
-                .append(getDeadline());
+                .append("Deadline: ");
+        if (getDeadline().exists()) {
+            builder.append(getDeadline().getValue());
+            if (getDeadline().isDone()) {
+                builder.append(" (Done)\n");
+            } else {
+                builder.append(" (Ongoing)\n");
+            }
+        } else {
+            builder.append("None\n");
+        }
         if (getTags().size() > 0) {
             builder.append("Tags: ");
             getTags().forEach(builder::append);

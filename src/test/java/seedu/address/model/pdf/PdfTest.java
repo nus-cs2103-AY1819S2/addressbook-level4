@@ -97,10 +97,10 @@ public class PdfTest {
     @Test
     public void isEncrypted() {
         // not encrypted pdf -> expected false
-        assertFalse(SAMPLE_PDF_1.getIsEncryted());
+        assertFalse(SAMPLE_PDF_1.getIsEncrypted());
 
         //encrypted pdf -> expected true
-        assertTrue(SAMPLE_PDF_ENCRYPTED.getIsEncryted());
+        assertTrue(SAMPLE_PDF_ENCRYPTED.getIsEncrypted());
     }
 
 }

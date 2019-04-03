@@ -4,7 +4,6 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.MissingFormatArgumentException;
 
 /**
@@ -14,7 +13,7 @@ import java.util.MissingFormatArgumentException;
 public class Deadline implements Comparable<Deadline> {
     public static final String MESSAGE_CONSTRAINTS = "Deadline can take any valid date, "
             + "and it should not be blank";
-    public static final String PROPERTY_SEPARATOR_PREFIX = "/";
+    private static final String PROPERTY_SEPARATOR_PREFIX = "/";
     private static final int PROPERTY_DATE_INDEX = 0;
     private static final int PROPERTY_IS_DONE_INDEX = 1;
 
@@ -132,11 +131,9 @@ public class Deadline implements Comparable<Deadline> {
 
     @Override
     public String toString() {
-        return (!this.date.equals(LocalDate.MIN))
-                ? new StringBuilder().append(this.date.toString())
-                .append(Deadline.PROPERTY_SEPARATOR_PREFIX)
-                .append(this.isDone)
-                .toString() : "";
+        return this.exists()
+                ? this.date + Deadline.PROPERTY_SEPARATOR_PREFIX + this.isDone
+                : "";
     }
 
     public static Deadline setDone(Deadline completedDeadline) {

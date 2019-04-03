@@ -148,7 +148,7 @@ public class EncryptCommandTest {
      * Decrypts {@code pdfToInitialise} if it is encrypted.
      */
     private void initialiseTest(Pdf pdfToInitialise) throws CommandException {
-        if (pdfToInitialise.getIsEncryted()) {
+        if (pdfToInitialise.getIsEncrypted()) {
             Model initialisationModel = new ModelManager(getTypicalPdfBook(), new UserPrefs());
             CommandHistory initialisationCommandHistory = new CommandHistory();
             DecryptCommand decryptCommand = new DecryptCommand(INDEX_FIRST_PDF, PASSWORD_1_VALID);

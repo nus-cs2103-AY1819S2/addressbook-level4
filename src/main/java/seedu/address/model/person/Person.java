@@ -2,6 +2,9 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.tag.Tag;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -9,15 +12,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.appointment.Appointment;
-import seedu.address.model.tag.Tag;
-
 /**
  * Represents a Person in the docX.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
-    private static int idCounter = 0;
+
+    private static int idCounter;
 
     // Identity fields
     private final int id;
@@ -34,8 +35,7 @@ public class Person {
      */
     public Person(Name name, Phone phone, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, address, tags);
-        this.id = idCounter;
-        this.idCounter += 1;
+        this.id = idCounter + 1;
         this.name = name;
         this.phone = phone;
         this.address = address;

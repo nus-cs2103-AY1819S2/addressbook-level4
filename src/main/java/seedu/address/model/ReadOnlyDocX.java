@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
+import seedu.address.model.person.IdCounter;
 import seedu.address.model.person.Patient;
 import seedu.address.model.prescription.Prescription;
 
@@ -44,4 +45,9 @@ public interface ReadOnlyDocX extends Observable {
      * This list will not contain any duplicate doctors.
      */
     ObservableList<Appointment> getAppointmentList();
+
+    /**
+     * Returns idCounter for patient and doctor
+     */
+    IdCounter getIdCounter();
 }

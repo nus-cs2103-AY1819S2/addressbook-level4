@@ -12,6 +12,7 @@ import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.UniqueMedHistList;
 import seedu.address.model.person.Doctor;
+import seedu.address.model.person.IdCounter;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.UniqueDoctorList;
 import seedu.address.model.person.UniquePatientList;
@@ -31,6 +32,7 @@ public class DocX implements ReadOnlyDocX {
     private final UniquePrescriptionList prescriptions;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
     private final UniqueAppointmentList appointments;
+    private final IdCounter idCounter;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -45,6 +47,7 @@ public class DocX implements ReadOnlyDocX {
         medHists = new UniqueMedHistList();
         prescriptions = new UniquePrescriptionList();
         appointments = new UniqueAppointmentList();
+        idCounter = new IdCounter();
     }
 
     public DocX() {
@@ -59,6 +62,15 @@ public class DocX implements ReadOnlyDocX {
     }
 
     //// list overwrite operations
+
+    /**
+     * Replaces the content of the idCounter with {@code idCounter}.
+     * {@code appointments} must not contain duplicate appointments.
+     */
+    public void setIdCounter(IdCounter idCounter) {
+        this.idCounter.setIdCounter(idCounter);
+        indicateModified();
+    }
 
     /**
      * Replaces the contents of the patient list with {@code patients}.
@@ -312,6 +324,8 @@ public class DocX implements ReadOnlyDocX {
         return prescriptions.asUnmodifiableObservableList();
     }
 
+    @Override
+    public IdCounter getIdCounter() { return idCounter; }
 
     @Override
     public boolean equals(Object other) {

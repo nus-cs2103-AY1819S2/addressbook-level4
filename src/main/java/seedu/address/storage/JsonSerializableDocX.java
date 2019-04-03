@@ -32,6 +32,7 @@ class JsonSerializableDocX {
     private final List<JsonAdaptedDoctor> doctors = new ArrayList<>();
     private final List<JsonAdaptedMedicalHistory> medicalHistories = new ArrayList<>();
     private final List<JsonAdaptedAppointment> appointments = new ArrayList<>();
+    private final JsonAdaptedIdCounter idCounter;
 
     /**
      * Constructs a {@code JsonSerializableDocX} with the given patients.
@@ -41,12 +42,14 @@ class JsonSerializableDocX {
                                 @JsonProperty("doctors") List<JsonAdaptedDoctor> doctors,
                                 @JsonProperty("medicalHistories")
                                                List<JsonAdaptedMedicalHistory> medicalHistories,
-                                @JsonProperty("appointments") List<JsonAdaptedAppointment> appointments)
+                                @JsonProperty("appointments") List<JsonAdaptedAppointment> appointments,
+                                @JsonProperty("personIdCounter") JsonAdaptedIdCounter idCounter)
             throws IllegalValueException {
         this.patients.addAll(patients);
         this.doctors.addAll(doctors);
         this.appointments.addAll(appointments);
         this.medicalHistories.addAll(medicalHistories);
+        this.idCounter = idCounter;
     }
 
     /**
@@ -65,6 +68,7 @@ class JsonSerializableDocX {
         appointments.addAll(source.getAppointmentList().stream().map(JsonAdaptedAppointment::new)
                 .collect(Collectors.toList()));
 
+        idCounter = new JsonAdaptedIdCounter(source.getIdCounter());
     }
 
     /**
@@ -108,6 +112,8 @@ class JsonSerializableDocX {
             }
             docX.addMedHist(medicalHistory);
         }
+
+        //docX.setIdCounter(idCounter.toModelType());
 
         return docX;
     }

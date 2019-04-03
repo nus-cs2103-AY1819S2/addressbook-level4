@@ -315,10 +315,10 @@ public class ParserUtil {
      * Parses a {@code String filePath} into a {@code ParsedIO}.
      * @throws ParseException if the given {@code file} is invalid.
      */
-    public static ParsedInOut parseOpenSave(String filePath) throws ParseException {
+    static ParsedInOut parseOpenSave(String filePath) throws ParseException {
         requireNonNull(filePath);
         filePath = filePath.trim();
-        String newPath = "data\\";
+        String newPath = "data/";
         File file = new File(newPath.concat(filePath));
 
         final String jsonRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(json)$";
@@ -342,7 +342,7 @@ public class ParserUtil {
     public static ParsedInOut parseImportExport(String input) throws ParseException {
         requireNonNull(input);
         input = input.trim();
-        String newPath = "data\\";
+        String newPath = "data/";
         String filepath = "";
         String fileType = "";
 

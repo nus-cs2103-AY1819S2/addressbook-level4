@@ -15,7 +15,6 @@ import seedu.address.logic.commands.AlarmCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ConsultationCommand;
 import seedu.address.logic.commands.DeleteAppCommand;
-import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeletePatientCommand;
 import seedu.address.logic.commands.DeleteRemCommand;
 import seedu.address.logic.commands.DiagnosePatientCommand;
@@ -26,13 +25,11 @@ import seedu.address.logic.commands.FreeAppCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListAppCommand;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListConsultationCommand;
 import seedu.address.logic.commands.ListPatientCommand;
 import seedu.address.logic.commands.ListRemCommand;
 import seedu.address.logic.commands.PrescriptionCommand;
 import seedu.address.logic.commands.PurchaseMedicineCommand;
-import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetConsultationFeeCommand;
 import seedu.address.logic.commands.SetPriceCommand;
 import seedu.address.logic.commands.StatisticsCommand;
@@ -65,15 +62,6 @@ public class AddressBookParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-
-        case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

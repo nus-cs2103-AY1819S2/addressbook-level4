@@ -31,7 +31,6 @@ public class SetPriceWoPathCommand extends SetPriceCommand {
                 throw new CommandException("No medicine with such name found.");
             }
             model.setPrice(medicine.get(), price);
-            model.commitAddressBook();
             return new CommandResult(String.format(MESSAGE_SUCCESS, medicineName, price.toString()));
         } catch (Exception ex) {
             throw new CommandException(ex.getMessage());

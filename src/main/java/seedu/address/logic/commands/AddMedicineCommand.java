@@ -79,7 +79,6 @@ public class AddMedicineCommand extends Command {
             if (existing) {
                 if (findMedicine.isPresent()) {
                     model.addExistingMedicineToDirectory(findMedicine.get(), path);
-                    model.commitAddressBook();
                     String feedback = String.format(MESSAGE_SUCCESS_EXISTING_MED,
                             findMedicine.get().toString(), fromPathToString(path));
                     return new CommandResult(feedback);
@@ -88,7 +87,6 @@ public class AddMedicineCommand extends Command {
                 }
             } else {
                 model.addMedicine(name, quantity.get(), path, price.get());
-                model.commitAddressBook();
                 return new CommandResult(String.format(MESSAGE_SUCCESS_NEW_MED, name,
                         quantity.get(), price.get().toString()));
             }

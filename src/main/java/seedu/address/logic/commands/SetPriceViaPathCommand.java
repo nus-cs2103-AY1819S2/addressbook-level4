@@ -39,7 +39,6 @@ public class SetPriceViaPathCommand extends SetPriceCommand {
                 throw new CommandException("Invalid path.");
             }
             model.setPrice(medicine.get(), price);
-            model.commitAddressBook();
             return new CommandResult(String.format(MESSAGE_SUCCESS, medicine.get().name, price.toString()));
         } catch (Exception ex) {
             throw new CommandException(ex.getMessage());

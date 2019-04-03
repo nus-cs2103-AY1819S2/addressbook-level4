@@ -31,7 +31,6 @@ public class PurchaseMedicineWoPathCommand extends PurchaseMedicineCommand {
         } catch (Exception ex) {
             throw new CommandException(ex.getMessage());
         }
-        model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

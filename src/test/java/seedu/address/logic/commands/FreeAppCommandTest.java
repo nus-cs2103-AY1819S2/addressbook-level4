@@ -9,7 +9,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.QuickDocs;
@@ -17,7 +16,7 @@ import seedu.address.model.UserPrefs;
 
 public class FreeAppCommandTest {
     private QuickDocs quickDocs = getTypicalAppointmentsQuickDocs();
-    private Model model = new ModelManager(new AddressBook(), quickDocs, new UserPrefs());
+    private Model model = new ModelManager(quickDocs, new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

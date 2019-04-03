@@ -22,10 +22,10 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+import seedu.address.model.patient.Address;
+import seedu.address.model.patient.Contact;
+import seedu.address.model.patient.Email;
+import seedu.address.model.patient.Name;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -72,7 +72,7 @@ public class ParserUtil {
         requireNonNull(name);
         String trimmedName = name.trim();
         if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Name.NAME_CONSTRAINTS);
         }
         return new Name(trimmedName);
     }
@@ -83,13 +83,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
-    public static Phone parsePhone(String phone) throws ParseException {
+    public static Contact parseContact(String phone) throws ParseException {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+        if (!Contact.isValidContact(trimmedPhone)) {
+            throw new ParseException(Contact.CONTACT_CONSTRAINTS);
         }
-        return new Phone(trimmedPhone);
+        return new Contact(trimmedPhone);
     }
 
     /**
@@ -102,7 +102,7 @@ public class ParserUtil {
         requireNonNull(address);
         String trimmedAddress = address.trim();
         if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Address.ADDRESS_CONSTRAINTS);
         }
         return new Address(trimmedAddress);
     }
@@ -117,7 +117,7 @@ public class ParserUtil {
         requireNonNull(email);
         String trimmedEmail = email.trim();
         if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Email.EMAIL_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
     }

@@ -1,8 +1,11 @@
 package seedu.address.storage;
 
+import static seedu.address.commons.core.Messages.MESSAGE_IMAGE_NOT_FOUND;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -12,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.flashcard.Face;
 import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.flashcard.ImagePath;
 import seedu.address.model.flashcard.Statistics;
 import seedu.address.model.tag.Tag;
 
@@ -24,6 +28,7 @@ class JsonAdaptedFlashcard {
 
     private final String frontFace;
     private final String backFace;
+    private final String imagePath;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final String statistics;
 
@@ -32,10 +37,12 @@ class JsonAdaptedFlashcard {
      */
     @JsonCreator
     public JsonAdaptedFlashcard(@JsonProperty("frontFace") String frontFace, @JsonProperty("backFace") String backFace,
+                                @JsonProperty("imagePath") String imagePath,
                                 @JsonProperty("statistics") String statistics,
                                 @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.frontFace = frontFace;
         this.backFace = backFace;
+        this.imagePath = imagePath;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -48,6 +55,11 @@ class JsonAdaptedFlashcard {
     public JsonAdaptedFlashcard(Flashcard source) {
         frontFace = source.getFrontFace().text;
         backFace = source.getBackFace().text;
+        if (source.getImagePath().hasImagePath()) {
+            imagePath = source.getImagePath().getImagePath();
+        } else {
+            imagePath = "";
+        }
         tagged.addAll(source.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList()));
@@ -73,7 +85,6 @@ class JsonAdaptedFlashcard {
         }
         final Face modelFrontFace = new Face(frontFace);
 
-
         if (backFace == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Face.class.getSimpleName()));
         }
@@ -82,18 +93,30 @@ class JsonAdaptedFlashcard {
         }
         final Face modelBackFace = new Face(backFace);
 
+        final ImagePath modelImagePath;
+        if (imagePath == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                ImagePath.class.getSimpleName()));
+        }
+        if (imagePath.isEmpty()) {
+            modelImagePath = new ImagePath(Optional.empty());
+        } else {
+            modelImagePath = new ImagePath(Optional.of(imagePath));
+            if (!modelImagePath.imageExistsAtPath()) {
+                throw new IllegalValueException(MESSAGE_IMAGE_NOT_FOUND);
+            }
+        }
+
         if (statistics == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Statistics.class.getSimpleName()));
+                Statistics.class.getSimpleName()));
         }
         if (!Statistics.isValidStatistics(statistics)) {
             throw new IllegalValueException(Statistics.MESSAGE_CONSTRAINTS);
         }
         final Statistics modelStatistics = new Statistics(statistics);
-
-
         final Set<Tag> modelTags = new HashSet<>(flashcardTags);
-        return new Flashcard(modelFrontFace, modelBackFace, modelStatistics, modelTags);
+        return new Flashcard(modelFrontFace, modelBackFace, modelImagePath, modelStatistics, modelTags);
     }
 
 }

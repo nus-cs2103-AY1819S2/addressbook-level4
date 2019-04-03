@@ -3,6 +3,7 @@
     {
       "frontFace": "Hello",
       "backFace": "Halo",
+      "imagePath": "",
       "statistics": "4 out of 7 attempts.",
       "tagged": [
         "indonesian"
@@ -11,6 +12,7 @@
     {
       "frontFace": "Hello",
       "backFace": "Halo",
+      "imagePath": "",
       "statistics": "4 out of 7 attempts.",
       "tagged": [
         "chinese"

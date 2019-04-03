@@ -2,15 +2,16 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1" id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1">
-    <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0"
-                style="-fx-background-color: #dfe4ea; -fx-background-radius: 30;">
-        <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+<StackPane xmlns:fx="http://javafx.com/fxml/1" id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx">
+    <AnchorPane opacity="0.8" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0"
+                style="-fx-background-color: white; -fx-background-radius: 30;">
+        <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
               AnchorPane.topAnchor="0.0">
             <Label fx:id="frontFace" alignment="CENTER"
                    style="-fx-text-fill: black; -fx-opacity: 1.0; -fx-font-size: 30pt;" text="\$frontText"
@@ -18,22 +19,16 @@
                 <font>
                     <Font size="30.0"/>
                 </font>
-                <HBox.margin>
-                    <Insets bottom="25.0"/>
-                </HBox.margin>
             </Label>
-        </HBox>
-        <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-              AnchorPane.topAnchor="7.0">
+            <ImageView fx:id="flashcardImage">
+
+            </ImageView>
             <Label fx:id="backFace" style="-fx-font-size: 20pt;" text="\$backText" textAlignment="CENTER">
                 <font>
                     <Font size="20.0"/>
                 </font>
-                <HBox.margin>
-                    <Insets top="100.0"/>
-                </HBox.margin>
             </Label>
-        </HBox>
+        </VBox>
         <Rectangle arcHeight="5.0" arcWidth="5.0" height="1000.0" opacity="0.02" rotate="50.0" stroke="BLACK"
                    strokeType="INSIDE" translateX="300.0" translateY="-600.0" width="1000.0"/>
     </AnchorPane>

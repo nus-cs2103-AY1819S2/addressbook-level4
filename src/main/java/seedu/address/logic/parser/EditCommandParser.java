@@ -1,9 +1,11 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_IMAGE_NOT_FOUND;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BACK_FACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT_FACE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IMAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
@@ -15,6 +17,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditFlashcardDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.flashcard.ImagePath;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -31,7 +34,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_FRONT_FACE, PREFIX_BACK_FACE, PREFIX_TAG);
+            ArgumentTokenizer.tokenize(args, PREFIX_FRONT_FACE, PREFIX_BACK_FACE, PREFIX_IMAGE, PREFIX_TAG);
 
         Index index;
 
@@ -47,6 +50,19 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         if (argMultimap.getValue(PREFIX_BACK_FACE).isPresent()) {
             editFlashcardDescriptor.setBackFace(ParserUtil.parseFace(argMultimap.getValue(PREFIX_BACK_FACE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_IMAGE).isPresent()) {
+            String imagePathString = argMultimap.getValue(PREFIX_IMAGE).get();
+            ImagePath imagePath = new ImagePath(Optional.of(imagePathString));
+            if (!imagePath.getImagePath().isEmpty() && !imagePath.imageExistsAtPath()) {
+                throw new ParseException(MESSAGE_IMAGE_NOT_FOUND);
+            } else {
+                if (imagePath.getImagePath().isEmpty()) {
+                    editFlashcardDescriptor.setImagePath(new ImagePath(Optional.empty()));
+                } else {
+                    editFlashcardDescriptor.setImagePath(imagePath);
+                }
+            }
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editFlashcardDescriptor::setTags);
 

@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_GOOD;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_HITBAG;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BACKFACE_GOOD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONTFACE_GOOD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_IMAGE_NONE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_INDONESIAN;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -58,11 +59,11 @@ public class EditCommandTest {
         Flashcard lastFlashcard = model.getFilteredFlashcardList().get(indexLastFlashcard.getZeroBased());
 
         FlashcardBuilder flashcardInList = new FlashcardBuilder(lastFlashcard);
-        Flashcard editedFlashcard = flashcardInList.withFrontFace(VALID_FRONTFACE_GOOD)
+        Flashcard editedFlashcard = flashcardInList.withFrontFace(VALID_FRONTFACE_GOOD).withImagePath(VALID_IMAGE_NONE)
             .withBackFace(VALID_BACKFACE_GOOD).withTags(VALID_TAG_INDONESIAN).build();
 
         EditCommand.EditFlashcardDescriptor descriptor = new EditFlashcardDescriptorBuilder()
-            .withFrontFace(VALID_FRONTFACE_GOOD).withBackFace(VALID_BACKFACE_GOOD)
+            .withFrontFace(VALID_FRONTFACE_GOOD).withBackFace(VALID_BACKFACE_GOOD).withImagePath(VALID_IMAGE_NONE)
             .withTags(VALID_TAG_INDONESIAN).build();
         EditCommand editCommand = new EditCommand(indexLastFlashcard, descriptor);
 

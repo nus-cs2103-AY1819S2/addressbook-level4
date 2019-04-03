@@ -17,6 +17,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.GoodCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ImageCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.QuizCommand;
 import seedu.address.logic.commands.RedoCommand;
@@ -77,6 +78,9 @@ public class CardCollectionParser {
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+
+        case ImageCommand.COMMAND_WORD:
+            return new ImageCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();

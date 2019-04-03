@@ -16,13 +16,13 @@ public class FlashcardCardViewTest extends GuiUnitTest {
     public void display() {
         // no tags
         Flashcard flashcardWithNoTags = new FlashcardBuilder().withTags().build();
-        FlashcardCardView flashcardCardView = new FlashcardCardView(flashcardWithNoTags);
+        FlashcardCardView flashcardCardView = new FlashcardCardView(flashcardWithNoTags, 0);
         uiPartRule.setUiPart(flashcardCardView);
         assertCardDisplay(flashcardCardView, flashcardWithNoTags);
 
         // with tags
         Flashcard flashcardWithTags = new FlashcardBuilder().build();
-        flashcardCardView = new FlashcardCardView(flashcardWithTags);
+        flashcardCardView = new FlashcardCardView(flashcardWithTags, 0);
         uiPartRule.setUiPart(flashcardCardView);
         assertCardDisplay(flashcardCardView, flashcardWithTags);
     }
@@ -30,10 +30,10 @@ public class FlashcardCardViewTest extends GuiUnitTest {
     @Test
     public void equals() {
         Flashcard flashcard = new FlashcardBuilder().build();
-        FlashcardCardView flashcardCardView = new FlashcardCardView(flashcard);
+        FlashcardCardView flashcardCardView = new FlashcardCardView(flashcard, 0);
 
         // same flashcard -> returns true
-        FlashcardCardView copy = new FlashcardCardView(flashcard);
+        FlashcardCardView copy = new FlashcardCardView(flashcard, 0);
 
         assertTrue(flashcardCardView.equals(copy));
 
@@ -48,7 +48,7 @@ public class FlashcardCardViewTest extends GuiUnitTest {
 
         // same flashcard, different tags -> returns true
         Flashcard flashCardNoTag = new FlashcardBuilder().withTags().build();
-        assertTrue(flashcardCardView.equals(new FlashcardCardView(flashCardNoTag)));
+        assertTrue(flashcardCardView.equals(new FlashcardCardView(flashCardNoTag, 0)));
     }
 
     /**

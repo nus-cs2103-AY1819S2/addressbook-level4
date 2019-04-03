@@ -8,6 +8,7 @@ public class CliSyntax {
     /* Prefix definitions */
     public static final Prefix PREFIX_FRONT_FACE = new Prefix("f/");
     public static final Prefix PREFIX_BACK_FACE = new Prefix("b/");
+    public static final Prefix PREFIX_IMAGE = new Prefix("i/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
 
 }

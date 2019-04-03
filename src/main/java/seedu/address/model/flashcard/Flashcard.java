@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
@@ -18,6 +19,7 @@ public class Flashcard {
     // Identity fields
     private final Face frontFace;
     private final Face backFace;
+    private final ImagePath imagePath;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
@@ -30,6 +32,19 @@ public class Flashcard {
         requireAllNonNull(frontFace, backFace, statistics, tags);
         this.frontFace = frontFace;
         this.backFace = backFace;
+        this.imagePath = new ImagePath(Optional.empty());
+        this.statistics = statistics;
+        this.tags.addAll(tags);
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Flashcard(Face frontFace, Face backFace, ImagePath imagePath, Statistics statistics, Set<Tag> tags) {
+        requireAllNonNull(frontFace, backFace, statistics, tags);
+        this.frontFace = frontFace;
+        this.backFace = backFace;
+        this.imagePath = imagePath;
         this.statistics = statistics;
         this.tags.addAll(tags);
     }
@@ -44,6 +59,10 @@ public class Flashcard {
 
     public Face getBackFace() {
         return backFace;
+    }
+
+    public ImagePath getImagePath() {
+        return imagePath;
     }
 
     /**
@@ -65,7 +84,8 @@ public class Flashcard {
 
         return otherFlashcard != null
                 && otherFlashcard.getFrontFace().equals(getFrontFace())
-                && otherFlashcard.getBackFace().equals(getBackFace());
+                && otherFlashcard.getBackFace().equals(getBackFace())
+                && otherFlashcard.getImagePath().equals(getImagePath());
     }
 
     /**
@@ -83,12 +103,13 @@ public class Flashcard {
         Flashcard flashcard = (Flashcard) o;
         return getFrontFace().equals(flashcard.getFrontFace())
                 && getBackFace().equals(flashcard.getBackFace())
+                && getImagePath().equals(flashcard.getImagePath())
                 && getTags().equals(flashcard.getTags());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getFrontFace(), getBackFace(), getTags());
+        return Objects.hash(getFrontFace(), getBackFace(), getImagePath(), getTags());
     }
 
     @Override

@@ -24,6 +24,7 @@ public class JsonAdaptedFlashcardTest {
 
     private static final String VALID_FRONTFACE = HELLO.getFrontFace().text;
     private static final String VALID_BACKFACE = HELLO.getBackFace().text;
+    private static final String VALID_IMAGE = "";
     private static final String VALID_STATISTICS = HELLO.getStatistics().toString();
     private static final List<JsonAdaptedTag> VALID_TAGS = HELLO.getTags().stream()
         .map(JsonAdaptedTag::new)
@@ -38,14 +39,15 @@ public class JsonAdaptedFlashcardTest {
     @Test
     public void toModelType_invalidFontFace_throwsIllegalValueException() {
         JsonAdaptedFlashcard flashcard =
-            new JsonAdaptedFlashcard(INVALID_FRONTFACE, VALID_BACKFACE, VALID_STATISTICS, VALID_TAGS);
+            new JsonAdaptedFlashcard(INVALID_FRONTFACE, VALID_BACKFACE, VALID_IMAGE, VALID_STATISTICS, VALID_TAGS);
         String expectedMessage = Face.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, flashcard::toModelType);
     }
 
     @Test
     public void toModelType_nullFrontFace_throwsIllegalValueException() {
-        JsonAdaptedFlashcard flashcard = new JsonAdaptedFlashcard(null, VALID_BACKFACE, VALID_STATISTICS, VALID_TAGS);
+        JsonAdaptedFlashcard flashcard = new JsonAdaptedFlashcard(null, VALID_BACKFACE, VALID_IMAGE,
+            VALID_STATISTICS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Face.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, flashcard::toModelType);
     }
@@ -53,14 +55,15 @@ public class JsonAdaptedFlashcardTest {
     @Test
     public void toModelType_invalidBackFace_throwsIllegalValueException() {
         JsonAdaptedFlashcard flashcard =
-            new JsonAdaptedFlashcard(VALID_FRONTFACE, INVALID_BACKFACE, VALID_STATISTICS, VALID_TAGS);
+            new JsonAdaptedFlashcard(VALID_FRONTFACE, INVALID_BACKFACE, VALID_IMAGE, VALID_STATISTICS, VALID_TAGS);
         String expectedMessage = Face.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, flashcard::toModelType);
     }
 
     @Test
     public void toModelType_nullBackFace_throwsIllegalValueException() {
-        JsonAdaptedFlashcard flashcard = new JsonAdaptedFlashcard(VALID_FRONTFACE, null, VALID_STATISTICS, VALID_TAGS);
+        JsonAdaptedFlashcard flashcard = new JsonAdaptedFlashcard(VALID_FRONTFACE, null, VALID_IMAGE,
+            VALID_STATISTICS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Face.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, flashcard::toModelType);
     }
@@ -68,14 +71,15 @@ public class JsonAdaptedFlashcardTest {
     @Test
     public void toModelType_invalidStatistics_throwsIllegalValueException() {
         JsonAdaptedFlashcard flashcard =
-                new JsonAdaptedFlashcard(VALID_FRONTFACE, VALID_BACKFACE, INVALID_STATISTICS, VALID_TAGS);
+                new JsonAdaptedFlashcard(VALID_FRONTFACE, VALID_BACKFACE, VALID_IMAGE, INVALID_STATISTICS, VALID_TAGS);
         String expectedMessage = Statistics.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, flashcard::toModelType);
     }
 
     @Test
     public void toModelType_nullStatistics_throwsIllegalValueException() {
-        JsonAdaptedFlashcard flashcard = new JsonAdaptedFlashcard(VALID_FRONTFACE, VALID_BACKFACE, null, VALID_TAGS);
+        JsonAdaptedFlashcard flashcard = new JsonAdaptedFlashcard(VALID_FRONTFACE, VALID_BACKFACE, VALID_IMAGE, null,
+            VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Statistics.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, flashcard::toModelType);
     }
@@ -85,7 +89,7 @@ public class JsonAdaptedFlashcardTest {
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
         JsonAdaptedFlashcard flashcard =
-            new JsonAdaptedFlashcard(VALID_FRONTFACE, VALID_BACKFACE, VALID_STATISTICS, invalidTags);
+            new JsonAdaptedFlashcard(VALID_FRONTFACE, VALID_BACKFACE, VALID_IMAGE, VALID_STATISTICS, invalidTags);
         Assert.assertThrows(IllegalValueException.class, flashcard::toModelType);
     }
 

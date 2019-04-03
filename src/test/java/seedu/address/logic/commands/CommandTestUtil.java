@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -33,6 +34,8 @@ public class CommandTestUtil {
     public static final String VALID_BACKFACE_HITBAG = "打包";
     public static final String VALID_TAG_INDONESIAN = "indonesian";
     public static final String VALID_TAG_CHINESE = "chinese";
+
+    public static final Optional<String> VALID_IMAGE_NONE = Optional.empty();
 
     public static final String FRONTFACE_DESC_GOOD = " " + PREFIX_FRONT_FACE + VALID_FRONTFACE_GOOD;
     public static final String BACKFACE_DESC_GOOD = " " + PREFIX_BACK_FACE + VALID_BACKFACE_GOOD;

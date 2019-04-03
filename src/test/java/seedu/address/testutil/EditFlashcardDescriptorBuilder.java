@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -8,6 +9,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditFlashcardDescriptor;
 import seedu.address.model.flashcard.Face;
 import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.flashcard.ImagePath;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,6 +34,7 @@ public class EditFlashcardDescriptorBuilder {
         descriptor = new EditFlashcardDescriptor();
         descriptor.setFrontFace(flashcard.getFrontFace());
         descriptor.setBackFace(flashcard.getBackFace());
+        descriptor.setImagePath(flashcard.getImagePath());
         descriptor.setTags(flashcard.getTags());
     }
 
@@ -48,6 +51,14 @@ public class EditFlashcardDescriptorBuilder {
      */
     public EditFlashcardDescriptorBuilder withBackFace(String backFace) {
         descriptor.setBackFace(new Face(backFace));
+        return this;
+    }
+
+    /**
+     * Sets the {@code BackFace} of the {@code EditFlashcardDescriptor} that we are building.
+     */
+    public EditFlashcardDescriptorBuilder withImagePath(Optional<String> imagePath) {
+        descriptor.setImagePath(new ImagePath(imagePath));
         return this;
     }
 

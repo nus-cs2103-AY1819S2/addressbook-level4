@@ -4,6 +4,7 @@
     {
       "frontFace": "Hello",
       "backFace": "Halo",
+      "imagePath": "",
       "statistics": "9 out of 10 attempts.",
       "tagged": [
         "indonesian"
@@ -12,6 +13,7 @@
     {
       "frontFace": "Hola",
       "backFace": "Haha",
+      "imagePath": "",
       "statistics": "4 out of 7 attempts.",
       "tagged": [
         "spanish"
@@ -20,6 +22,7 @@
     {
       "frontFace": "Eat",
       "backFace": "吃",
+      "imagePath": "",
       "statistics": "0 out of 0 attempts.",
       "tagged": [
         "chinese"
@@ -28,6 +31,7 @@
     {
       "frontFace": "Newton's 3rd Law",
       "backFace": "idk",
+      "imagePath": "",
       "statistics": "0 out of 10 attempts.",
       "tagged": [
         "alevel",
@@ -37,6 +41,7 @@
     {
       "frontFace": "Robin's email",
       "backFace": "robincyu96@gmail.com",
+      "imagePath": "",
       "statistics": "100 out of 100 attempts.",
       "tagged": []
     }

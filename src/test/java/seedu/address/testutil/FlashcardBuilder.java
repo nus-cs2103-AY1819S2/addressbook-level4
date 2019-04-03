@@ -1,10 +1,12 @@
 package seedu.address.testutil;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.flashcard.Face;
 import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.flashcard.ImagePath;
 import seedu.address.model.flashcard.Statistics;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -19,12 +21,14 @@ public class FlashcardBuilder {
 
     private Face frontFace;
     private Face backFace;
+    private ImagePath imagePath;
     private Set<Tag> tags;
     private Statistics statistics;
 
     public FlashcardBuilder() {
         frontFace = new Face(DEFAULT_FRONTFACE);
         backFace = new Face(DEFAULT_BACKFACE);
+        imagePath = new ImagePath();
         tags = new HashSet<>();
         statistics = new Statistics();
     }
@@ -35,6 +39,7 @@ public class FlashcardBuilder {
     public FlashcardBuilder(Flashcard flashcardToCopy) {
         frontFace = flashcardToCopy.getFrontFace();
         backFace = flashcardToCopy.getBackFace();
+        imagePath = flashcardToCopy.getImagePath();
         tags = new HashSet<>(flashcardToCopy.getTags());
         statistics = flashcardToCopy.getStatistics();
     }
@@ -57,6 +62,14 @@ public class FlashcardBuilder {
     }
 
     /**
+     * Sets the {@code imagePath} of the {@code Flashcard} that we are building.
+     */
+    public FlashcardBuilder withImagePath(Optional<String> imagePath) {
+        this.imagePath = new ImagePath(imagePath);
+        return this;
+    }
+
+    /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Flashcard} that we are building.
      */
     public FlashcardBuilder withTags(String... tags) {
@@ -73,7 +86,7 @@ public class FlashcardBuilder {
     }
 
     public Flashcard build() {
-        return new Flashcard(frontFace, backFace, statistics, tags);
+        return new Flashcard(frontFace, backFace, imagePath, statistics, tags);
     }
 
 }

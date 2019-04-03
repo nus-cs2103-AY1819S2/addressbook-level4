@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BACK_FACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT_FACE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IMAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.commons.core.QuizState;
@@ -22,6 +23,7 @@ public class AddCommand extends Command {
         + "Parameters: "
         + PREFIX_FRONT_FACE + "FRONTFACE "
         + PREFIX_BACK_FACE + "BACKFACE "
+        + "[" + PREFIX_IMAGE + "IMAGE] "
         + "[" + PREFIX_TAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_FRONT_FACE + "Hello "

@@ -16,6 +16,7 @@ public class MenuItem {
 
     // Data fields
     private final Price price;
+    private final int quantityOrdered;
     //    private final Address address;
     //    private final Set<Tag> tags = new HashSet<>();
     //  private int quantity; TODO: update qty method (get from beatrice)
@@ -23,11 +24,12 @@ public class MenuItem {
     /**
      * Every field must be present and not null.
      */
-    public MenuItem(Name name, Code code, Price price) {
+    public MenuItem(Name name, Code code, Price price, int quantityOrdered) {
         requireAllNonNull(name, code, price);
         this.name = name;
         this.code = code;
         this.price = price;
+        this.quantityOrdered = quantityOrdered;
     }
 
     public Name getName() {
@@ -42,20 +44,24 @@ public class MenuItem {
         return price;
     }
 
-    //    public Address getAddress() {
-    //        return address;
-    //    }
+    public int getQuantity() {
+        return quantityOrdered;
+    }
+
+    public String itemQuantityOrdered() {
+        return String.valueOf(quantityOrdered);
+    }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
+     * Updates the quantity of this menu item ordered.
      */
-    //    public Set<Tag> getTags() {
-    //        return Collections.unmodifiableSet(tags);
-    //    }
+    public int getNewQuantity(int quantityToAdd) {
+        int currentQuantity = this.getQuantity();
+        return currentQuantity + quantityToAdd;
+    }
 
     /**
-     * Returns true if both menu items of the same name have both identity fields that is the same.
+     * Returns true if both menu items have the same code.
      * This defines a weaker notion of equality between two menu items.
      */
     public boolean isSameMenuItem(MenuItem otherItem) {
@@ -63,7 +69,7 @@ public class MenuItem {
             return true;
         }
 
-        return otherItem != null && otherItem.getName().equals(getName()) && (otherItem.getCode().equals(getCode()));
+        return otherItem != null && (otherItem.getCode().equals(getCode()));
     }
 
     /**
@@ -88,7 +94,7 @@ public class MenuItem {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, code, price);
+        return Objects.hash(name, code, price, quantityOrdered);
     }
 
     @Override

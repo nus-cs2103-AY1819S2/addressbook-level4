@@ -11,15 +11,47 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 :warning-caption: :warning:
+:code-caption: :computer:
 :experimental:
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w09-3/main
 
-By: `Team w09-3`      Since: `Jan 2019`      Licence: `MIT`
+By: `Team W09-3`      Since: `Feb 2019`      Licence: `MIT`
 
-== Setting up
+== Introduction
+
+RestOrRant (ROR) is a restaurant management application for restaurant managers, waiters and cashiers. ROR is designed for them to perform front-end operations more conveniently and efficiently. ROR allows them to manage tables, orders, menu and statistical data using the Command Line Interface (CLI).
+
+This Developer Guide allows you as a developer to understand the implementation and design principles used in ROR. This guide serves as a reference for you to set up and further contribute to ROR’s development.
+
+This Developer Guide consists of the following sections:
+
+* <<Setting Up, Setting Up>> - Provides instructions to set up ROR in your computer
+* <<Design, Design>> - Provides an overview of the architecture and components of ROR
+* <<Implementation, Implementation>> - Provides implementation and design considerations of ROR’s core features
+* <<Documentation, Documentation>> - Provides instructions to edit and publish documentation
+* <<Testing, Testing>> - Provides methods to run and troubleshoot tests
+* <<Dev Ops, Dev Ops>> - Provides tools to help build, test and release ROR
+
+To help you follow this Developer Guide better, here is the legend of the markups used throughout this document:
+
+[width="80%",cols="^20%,80%"]
+|=======================================================================
+|`HelloWorld`|Code in the codebase
+| kbd:[ENTER] |Keyboard key
+| :information_source: |Notes that provides additional information
+| :bulb: |Tips and tricks
+| :warning: |Warnings
+| :computer: `menuMode` |Commands to input in the CLI
+|=======================================================================
+
+== Setting Up
+
+This section will guide you along the process of setting up ROR in your computer.
 
 === Prerequisites
+
+Before you proceed, there are two prerequisites you will need to fulfill:
 
 . *JDK `9`* or later
 +
@@ -33,8 +65,9 @@ Windows developers are highly recommended to use JDK `9`.
 IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
+=== Setting up ROR in your computer
 
-=== Setting up the project in your computer
+Having satisfied the prerequisites, you can now set up ROR in your computer by following the steps below:
 
 . Fork this repo, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
@@ -54,10 +87,14 @@ This will generate all resources required by the application and tests.
 
 === Verifying the setup
 
+To make sure that your ROR is properly set up:
+
 . Run the `seedu.address.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
+
+You should ensure that the following configurations are done to be compatible with ROR.
 
 ==== Configuring the coding style
 
@@ -100,23 +137,26 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 
 When you are ready to start coding,
 
-1. Get some sense of the overall design by reading <<Design-Architecture>>.
-2. Take a look at <<GetStartedProgramming>>.
+. Get some sense of the overall design by reading <<Design-Architecture>>.
+. Take a look at <<GetStartedProgramming>>.
 
 == Design
 
+Now that you have successfully set up ROR, you are advised to read this section in order to better understand the architecture and its components in ROR. Knowing the structure of ROR and the interactions between its components will allow you to better navigate and modify the code, giving you a headstart in contributing to ROR.
+
 [[Design-Architecture]]
 === Architecture
+The *_Architecture Diagram_* given below (Figure 1) explains the high-level design of the ROR App.
 
 .Architecture Diagram
 image::Architecture.png[width="600"]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
-
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+Given below is a quick overview of each component.
+
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for:
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -128,17 +168,17 @@ The following class plays an important role at the architecture level:
 
 The rest of the App consists of four components.
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Ui,*`UI`*>> : The UI of the App.
+* <<Design-Logic,*`Logic`*>> : The command executor.
+* <<Design-Model,*`Model`*>> : Holds the data of the App in-memory.
+* <<Design-Storage,*`Storage`*>> : Reads data from, and writes data to, the hard disk.
 
 Each of the four components
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component (see the class diagram given below in Figure 2) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
@@ -146,32 +186,36 @@ image::LogicClassDiagram.png[width="800"]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below (Figure 3) shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command
-image::SDforDeletePerson.png[width="800"]
+.Component interactions for :computer: `addTable 2` command
+image::SDforAddTable.png[width="800"]
 
 The sections below give more details of each component.
 
 [[Design-Ui]]
 === UI component
 
+The UI component (Figure 4) handles the User Interface of ROR.
+
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts such as `CommandBox`, `ResultDisplay`, `TableFlowPanel`, `MenuFlowPanel`, `OrdersListPanel`, `MenuListPanel` and `StatusBarFooter`. All these, including the `MainWindow`, inherit from the abstract `UiPart` class, and are not used at the same time.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
 
-The `UI` component,
+The `UI` component:
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
 === Logic component
+
+The Logic component (Figure 5) deals with the logic behind the execution of commands.
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
@@ -180,178 +224,197 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+*  `Logic` uses the `RestOrRantParser` class to parse the user command.
+*  This results in a `Command` object which is executed by the `LogicManager`.
+*  The command execution can affect the `Model` (e.g. adding a table).
+*  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+*  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+.Interactions Inside the Logic Component for the `addTable 2` Command
+image::AddTableSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
+
+The Model component keeps a model of the current state of ROR in memory.
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
-The `Model`,
+The `Model` :
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the RestOrRant data.
+* exposes an unmodifiable `ObservableList<Table>`, `ObservableList<OrderItem>`, `ObservableList<MenuItem>` and `ObservableList<DailyRevenue>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component
+
+The Storage component manages the storing and retrieving of data on local files.
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The `Storage` component:
 
 * can save `UserPref` objects in json format and read it back.
-* can save the RestOrRant data in json format and read it back.
+* can save the `Tables`, `Orders`, `Menu` and `Statistics` data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== Undo/Redo feature
+// tag::changemode[]
+=== Changing Mode feature
+
+==== Modes
+
+As ROR contains many features, users may find it complicated to handle all the features at one go with so many commands to use. Furthermore, users may be overwhelmed if all the restaurant's information were to be displayed together in one screen.
+
+As such, we have decided to implement a mode system for ROR to organise the available commands into their respective features. ROR contains 4 different modes, each displaying a different set of panels that are relevant to the mode:
+
+* Restaurant Mode - perform table-related operations across the entire restaurant
+* Table Mode - perform order-related operations for a specific table
+* Menu Mode - perform menu-related operations for the restaurant's menu
+* Statistics Mode - perform queries to retrieve the restaurant's statistics
+
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+===== Changing modes in general
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+The modes of the application are defined using a `Mode` enum and the current mode of the application is stored as a private attribute `Mode mode` in `LogicManager`. Users can switch between modes in ROR using the `{XXX}Mode` command. When the mode of the application is changed, we need to update the:
 
-These operations are exposed in the `Model` interface as `Model#updateRestOrRant()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+* `Logic` component so that the `mode` attribute in `LogicManager` reflects the new current mode, since this is used to check if a command can be executed,
+* `UI` component so that the panels display the information that is relevant to the mode.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+For all the mode-changing commands, these updates are done using a new `toMode` attribute added to the `CommandResult` object. As an example, Figure 9 below shows the sequence diagram for when a user executes the `menuMode` command:
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+.Component interactions for :computer: `menuMode` command
+image::MenuModeSequenceDiagram.png[width="800"]
 
-image::UndoRedoStartingStateListDiagram.png[width="800"]
+Upon execution of the `menuMode` command, `MenuModeCommand#generateCommandResult()` will generate a `CommandResult` whose `toMode` attribute is set to `MENU_MODE` and return it to the `LogicManager`. Now, the updates can be done for the respective components:
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#updateRestOrRant()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#updateRestOrRant()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+* `Logic` component: `LogicManager` calls `CommandResult#newModeStatus()` to retrieve the mode to be changed to and updates the current mode stored in its `mode` attribute by calling `LogicManager#changeMode()`. The `CommandResult` is passed to `MainWindow` in UI.
+* `UI` component: `MainWindow` calls `CommandResult#newModeStatus()` to retrieve the mode to be changed to and updates the display panels by calling `MainWindow#handleChangeMode()`.
 
 [NOTE]
-If a command fails its execution, it will not call `Model#updateRestOrRant()`, so the address book state will not be saved into the `addressBookStateList`.
+For commands that do not involve a change in mode, `CommandResult#newModeStatus()` will return `null` and no updates to the current mode or display will be done.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoRedoSequenceDiagram.png[width="800"]
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+===== Changing to Table Mode for a specific table
+All the mode-changing commands take no parameters except for Table Mode. When the user wants to perform order-related operations (eg. add an item to the table's order), the user will first have to switch to Table Mode by typing the `tableMode` command (or its shortcut command `TM`) followed by the table number of the table that the user wants to perform actions on.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+The `tableMode` command can be used from any mode, even in Table Mode of a different table number. If the application is already in Table Mode of the same table number, or if the table specified by the table number is unoccupied, an error message will be shown to the user.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#updateRestOrRant()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+The following sequence diagram (Figure 10) shows the relevant parts of what happens when a user executes the `tableMode 3` command:
 
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+.Component interactions for :computer: `tableMode 3` command
+image::TableModeSequenceDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#updateRestOrRant()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+The `Logic` and `UI` component interactions work in a similar way to the other mode-changing commands and the implementation is mentioned above. The only difference is the parsing of the argument `3` into a `TableNumber` object that indicates the table number of the target table to switch to. This `TableNumber` object is stored as an attribute in `TableModeCommand`.
 
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
+Let's focus on what happens to the Model component when the `TableModeCommand` is executed. It first retrieves the `Table` that corresponds to its `TableNumber` attribute. This is done by going through `Model#getRestOrRant()` to obtain the `ReadOnlyRestOrRant`, whose `getTables()` method can be called to retrieve `ReadOnlyTables` that contains the list of all the tables in the restaurant. The `Table` can then be retrieved by passing `TableNumber` into `ReadOnlyTables#getTableFromNumber()`.
 
-The following activity diagram summarizes what happens when a user executes a new command:
+The `Table` is then set as the selected table in `Model` using `Model#setSelectedTable()`. This is to keep track of the current table so that the Table Mode commands like `addToOrder` and `bill` can easily perform their operations by getting the table from `Model#getSelectedTable()`.
 
-image::UndoRedoActivityDiagram.png[width="650"]
+After which, `Model#updateFilteredOrderItemList()` is called to update the filtered list such that it only contains order items ordered by the chosen table. This will then update the item list panel in the UI to display only the order items that were ordered by the chosen table, since the UI retrieves its information from the filtered list.
+
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+[width="90%",cols="20%,40%,40%",options="header",]
+|=======================================================================
+| Aspect | Alternative 1 | Alternative 2
+| Defining of modes
+| Modes are defined using a `Mode` enum. +
+- *Pros*: Easily identify incorrect modes since the set of valid modes is restricted to the enum values. +
+- *Cons*: Need to create a new class and increases coupling between Logic and UI components.
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+We decided to choose this option as the enum is an abstraction over the possible modes. Apart from being less prone to errors,
+it also makes the code more readable as the enum values explicitly state the name of the mode (eg. `TABLE_MODE`, `MENU_MODE`) and are stored
+in `Mode` variables, making it clear that it refers to a mode and not just any string.
+| Modes can be defined with strings (eg. "TableMode") or integers. +
+- *Pros*: Easy to implement. +
+- *Cons*: May be prone to errors (eg. mistyping a string) that causes bugs in the code. +
 
-===== Aspect: Data structure to support the undo/redo commands
+| Storing of current mode
+| Mode stored in the Logic component (`LogicManager`). +
+- *Pros*: Easy to access the current mode to check whether a command is valid to execute in a particular mode. +
+- *Cons*: Slightly breaks abstraction since mode is not purely related to command execution.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+We decided to store the current mode in Logic because we note that most of the work that requires access to the current mode is done here, so providing a quick access will be more efficient.
+The Model component does not need to know what the current mode is at all, so it would be better to keep the coupling low to facilitate integration.
 
-// tag::updatetable
-=== Update Table feature
+| Mode stored in the Model component (`ModelManager`). +
+- *Pros*: Maintains abstraction as the mode is part of the current state of the application, which is maintained in Model. +
+- *Cons*: Increases coupling among the Model, Logic and UI components. +
+
+| Specifying table number for Table Mode commands
+| Table number specified once when switching to Table Mode, then retrieved from `Model#getSelectedTable()` for future commands. +
+- *Pros*: Convenient to retrieve table number without having to explicitly specify it in every command. +
+- *Cons*: Non-standardized mode-changing commands since the others do not have any parameters.
+
+We decided to go ahead with this implementation as we feel that from a user's point of view, it would be more convenient to be able to just specify the table number once and then perform a series of operations afterwards. Furthermore, having to parse the table number for every command will also do more work.
+
+| Table number specified for every command (eg. `deleteOrder 3 1`). +
+- *Pros*: All mode-changing commands are simple and similar. +
+- *Cons*: Makes the commands longer to type.
+
+|=======================================================================
+
+// end::changemode[]
+
+// tag::editpax[]
+=== Edit Pax feature
 ==== Current Implementation
 
-The update table mechanism is facilitated by `UniqueTableList`. It stores the all tables currently in the system and ensures that there are no duplicated tables. Additionally, it implements the following operations:
+The edit pax mechanism is facilitated by `UniqueTableList`. It stores the all tables currently in the system and ensures that there are no duplicated tables. Additionally, it implements the following operations:
 
 * `UniqueTableList#contains(targetTable)` -- Checks if the target table exists within the unique list of tables.
 * `UniqueTableList#setTable(targetTable, editedTable)` -- Replaces the target table in the list with the new table with the updated `TableStatus`.
 
 These operations are exposed in the Model interface as `Model#setTable(targetTable, editedTable)` and `Model#hasTable(targetTable)`.
 
-Given below is an example usage scenario and how the update table mechanism behaves at each step.
+Given below is an example usage scenario and how the edit pax mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time. The `UniqueTableList` will be initialised to be empty.
 
-image::UpdateTableStartingStateListDiagram.png[width="800"]
+image::EditPaxStartingStateListDiagram.png[width="800"]
 
 Step 2. The user executes `addTable 4` command to add a table to the RestOrRant application. Since it is the first new table, it will be labelled table `1` and not be occupied thus having a table status of `0/4`. The `UniqueTableList` will now contain 1 table.
 
-image::UpdateTableAddTableStateListDiagram.png[width="800]
+image::EditPaxAddTableStateListDiagram.png[width="800]
 
-Step 3. The user then has 4 customers enter his/her restaurant and executes `updateTable 1 4` command to update the table labelled 1 with 4 customers. The `updateTable` command calls `Model#setTable(targeTable, editedTable)`, causing the RestOrRant to create a new table with the updated `TableStatus` and replace the current target table in the UniqueTableList. At this point, the UniqueTableList still has only 1 table the original table was replaced by the updated table. The `Storage` detects this change in the UniqueTableList and also updates itself.
+Step 3. The user then has 4 customers enter his/her restaurant and executes `editPax 1 4` command to update the table labelled 1 with 4 customers. The `editPax` command calls `Model#setTable(targeTable, editedTable)`, causing the RestOrRant to create a new table with the updated `TableStatus` and replace the current target table in the UniqueTableList. At this point, the UniqueTableList still has only 1 table the original table was replaced by the updated table. The `Storage` detects this change in the UniqueTableList and also updates itself.
 
-image::UpdateTableUpdateTableStateListDiagram.png[width="800"]
+image::EditPaxEditPaxStateListDiagram.png[width="800"]
 
-The following sequence diagram shows how the update table operation works:
+The following sequence diagram shows how the edit pax operation works:
 
-image::UpdateTableSequenceDiagram.png[width="800"]
+image::EditPaxSequenceDiagram.png[width="800"]
 
 [NOTE]
 If the table to be edited does not exist in the `UniqueTableList`, the application returns an error to the user rather than attempting to replace the non existent table.
 
 The following activity diagram summarises what happens when a user executes a new command:
 
-image::UpdateTableActivityDiagram.png[width="800"]
+image::EditPaxActivityDiagram.png[width="800"]
 
 ==== Design Considerations
 
-===== Aspect: How update table executes
+===== Aspect: How edit number of customers executes
 
 * **Alternative 1 (current choice):** Replace the entire table with an updated table.
 ** Pros: Maintains abstraction of `Table` and `TableStatus` and reduce errors from abusing the editability of `TableStatus` in `Table`.
@@ -360,46 +423,7 @@ image::UpdateTableActivityDiagram.png[width="800"]
 ** Pros: Potentially more efficient as there is no need to create new object and replace items in a list.
 ** Cons: Breaks abstraction to a certain extent and allows future developers to abuse the object.
 
-// end::updatetable
-
-// tag::tablemode[]
-=== Changing to Table Mode
-
-==== Modes
-
-The modes of the application are defined using a `Mode` enum instead of declaring integer constants. This is to make the code more readable as the enum values explicitly state the name of the mode (eg. `TABLE_MODE`, `MENU_MODE`) and to easily identify incorrect modes since the set of valid modes is restricted to the enum values.
-
-The current mode of the application is stored as a private attribute `Mode mode` in `LogicManager`. It is stored in the `Logic` component rather than the `Model` component because modes are used to organise the available commands into their respective features, and the check for which a command is valid in a particular mode is done in `Logic`. With this implementation, `Model` does not need to know what the current mode is at all and this reduces coupling.
-
-==== Changing mode
-
-When the mode of the application is changed, we need to update the:
-
-* `Logic` component so that the `mode` attribute in `LogicManager` reflects the new current mode, since this is used to check if a command can be executed,
-* `UI` component so that the panels display the information that is relevant to the mode.
-
-When the user wants to perform order-related operations (eg. add an item to the table's order), the user will first have to switch to Table Mode by typing the `tableMode` command (or its shortcut command `TM`) followed by the table number of the table that the user wants to update.
-
-[NOTE]
-The `tableMode` command can be used from any mode, even in Table Mode of a different table number. If the application is already in Table Mode of the same table number, an error message will be shown to the user.
-
-The following sequence diagram shows the relevant parts of what happens when a user executes the `tableMode 3` command:
-
-image::TableModeSequenceDiagram.png[width="800"]
-
-The `LogicManager` will receive the command from the UI and parse the command to obtain the `TableModeCommand` object to be executed. The `TableModeCommand` contains a `TableNumber` attribute that indicates the table number of the target table to switch to. In this case, it will represent table number 3.
-
-The `TableModeCommand` is then executed. It first retrieves the `Table` that corresponds to its `TableNumber` attribute. This is done by going through `Model#getRestOrRant()` to obtain the `ReadOnlyRestOrRant`, whose `getTables()` method can be called to retrieve `ReadOnlyTables` that contains the list of all the tables in the restaurant. The `Table` can then be retrieved by passing `TableNumber` into `ReadOnlyTables#getTableFromNumber()`.
-
-The `Table` is then set as the selected table in `Model` using `Model#setSelectedTable()`. This is to keep track of the current table so that the Table Mode commands like `addToOrder` and `bill` can easily perform their operations by getting the table from `Model#getSelectedTable()`.
-
-After which, `Model#updateFilteredOrderItemList()` is called to update the filtered list such that it only contains order items ordered by the chosen table. This will then update the item list panel in the UI to display only the order items that were ordered by the chosen table, since the UI retrieves its information from the filtered list.
-
-`TableModeCommand` then calls `Model#updateMode()` to trigger the listener so that `LogicManager` knows that there has been a change in mode. When that is done, it generates a `CommandResult` whose `toMode` attribute is set to `TABLE_MODE` and this is returned to the `LogicManager`. Since the listener has set `modeModified` to true, `LogicManager` calls `changeMode()` to update its `mode` attribute to `TABLE_MODE`.
-
-Finally, the `CommandResult` is returned to `MainWindow` in the UI and since the `CommandResult` contains a non-null `toMode` attribute, it will call `handleChangeMode()` to update the panels on display.
-
-// end::tablemode[]
+// end::editpax[]
 
 // tag::bill[]
 === Bill feature
@@ -433,7 +457,7 @@ After the iterating through the `orderItemList`, the receipt will append the fin
 
 image::BillReceipt.png[width="300"]
 
-Now that the bill is calculated, the `BillCommand` has to store the calculated data in the `Statistics` storage. If a `DailyRevenue` with the same `Day`, `Month` and `Year` exists in the `DailyRevenueList`, the program calls `BillCommand#updateDailyRevenue()` to add the total bill to the recorded total daily revenue. On the other hand, if no matching Daily Revenue is found, the program will create a new Daily Revenue from the details o the new bill and store it in the statistics storage using `Model#addDailyRevenue`.
+Now that the bill is calculated, the `BillCommand` has to store the calculated data in the `Statistics` storage. If a `DailyRevenue` with the same `Day`, `Month` and `Year` exists in the `DailyRevenueList`, the program calls `BillCommand#updateDailyRevenue()` to add the total bill to the recorded total daily revenue. On the other hand, if no matching Daily Revenue is found, the program will create a new Daily Revenue from the details of the new bill and store it in the statistics storage using `Model#addDailyRevenue`.
 
 `BillCommand#updateStatusOfTable()` takes in the `Model` as an argument and creates a new Table with the updated `TableStatus`. This is done by calling `TableStatus#changeOccupancy(). After which, `Model#setTable()` is called to replace the current `Table` with the new `Table` that has the updated `TableStatus`.
 
@@ -443,7 +467,7 @@ Lastly, `BillCommand#updateOrderList` is called to empty the order list of the c
 image::BillMode.png[width="650"]
 
 
-Step 3. Once the user is in BillMode, they can change their execute any commands that are related to StatisticsMode or manually change their mode to `RestaurantMode`, `TableMode` and `MenuMode`.
+Step 3. Once the user is in BillMode, they can change their execute any commands that are related to StatisticsMode or manually change their mode to `Restaurant Mode`, `TableMode` and `MenuMode`.
 
 [NOTE]
 The command will not execute the functions stated above until it has confirmed that the user is in `TableMode` and the current table exists.
@@ -458,7 +482,7 @@ To add: BillActivityDiagram.png[width="650"]
 // end::bill[]
 
 // tag::addtomenu[]
-=== `AddToMenu` feature
+=== Adding To Menu feature
 ==== Current Implementation
 
 The menu items in the menu are stored as a list. Adding a new menu item to the menu is done by adding to the existing list.
@@ -499,13 +523,6 @@ The pros outweighs the cons as despite the number of variables during runtime, i
 
 
 // end::addtomenu[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -709,7 +726,7 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+A project often depends on third-party libraries. For example, RestOrRant depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
 [loweralpha]
 . Include those libraries in the repo (this bloats the repo size)
@@ -738,14 +755,14 @@ Each individual exercise in this section is component-based (i.e. you would not 
 [TIP]
 Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
 
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
+. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clearTable`, the user can also type `clear` to remove all tables when they are in Restaurant Mode.
 +
 ****
 * Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
+** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/AddTableCommand.java[`AddTableCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/AddToOrderCommand.java[`AddToOrderCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `AddTableCommand#COMMAND_ALIAS`).
+** link:{repoURL}/src/main/java/seedu/address/logic/parser/RestOrRantParser.java[`RestOrRantParser`] is responsible for analyzing command words.
 * Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
+** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/RestOrRantParser.java[`RestOrRantParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
 ** Add new tests for each of the aliases that you have added.
 ** Update the user guide to document the new aliases.
 ** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
@@ -763,11 +780,11 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 +
 ****
 * Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
+** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/RestOrRant.java[`RestOrRant`] API need to be updated.
 ** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
+**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/RestOrRant.java[`RestOrRant`] and link:{repoURL}/src/main/java/seedu/address/model/person/Table.java[`Table`] classes can be used to add tables. link:{repoURL}/src/main/java/seedu/address/model/RestOrRant.java[`RestOrRant`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
 * Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
+** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/RestOrRant.java[`RestOrRant`]. Loop through each person, and remove the `tag` from each person.
 ** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
 ** Add new tests for each of the new public methods that you have added.
 ** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
@@ -851,17 +868,17 @@ image::getting-started-ui-status-after.png[width="500"]
 [discrete]
 ==== `Storage` component
 
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
+*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the tables, menu, orders and statistics to the cloud. However, the current implementation of the application constantly saves the tables, menu, orders and statistics after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the storage.
 
 [TIP]
 Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
 
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
+. Add a new method `backupMenu(ReadOnlyMenu)`, so that the menu can be saved in a fixed temporary location.
 +
 ****
 * Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/JsonAddressBookStorage.java[`JsonAddressBookStorage`] class.
+** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/MenuStorage.java[`MenuStorage`] interface.
+** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/JsonMenuStorage.java[`JsonMenuStorage`] class.
 * Solution
 ** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
 ****
@@ -998,13 +1015,14 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage the front-end operations of a restaurant (customers, orders, menu)
+* wants to easily keep track of restaurant statistics (customers, revenue, dishes’ popularity)
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: RestOrRant manages the customers, orders, menu and restaurant statistics with a speed faster than a typical mouse/GUI driven application. This allows the user to have a clear idea of the current arrangement of the customers and status of the restaurant without the need to physically check out the space. This is especially useful for busy restaurants with unorganised front-end managing systems.
 
 [appendix]
 == User Stories
@@ -1014,9 +1032,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |waiter |view the status of the tableList |know which tableList are free/occupied and which tableList are waiting for orders/has received their orders
+|`* * *` |waiter |view the status of the tables |know which tables are free/occupied and which tables are waiting for orders/has received their orders
 
-|`* * *` |waiter |change status of tableList |update the availability of tableList
+|`* * *` |waiter |change status of tables |update the availability of tables
 
 |`* * *` |waiter |add orders to a table |know which orders to serve to each table
 
@@ -1032,10 +1050,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |chef |review the statistics of the dishes' popularity |determine how much ingredients to allocate to the popular dishes
 
-|`*` |waiter |reserve tableList |see which tableList can be provided to other subsequent customers
+|`*` |waiter |reserve tables |see which tables can be provided to other subsequent customers
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -1043,61 +1059,96 @@ _{More to be added}_
 (For all use cases below, the *System* is `RestOrRant` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Switching to Restaurant Mode
+=== Use case: UC1 - Switching to Restaurant Mode
 
 *MSS*
 
-1. User enters command to change to Restaurant Mode.
-2. RestOrRant programs changes mode and indicates the mode it has changed to.
+1. User enters command to switch to Restaurant Mode.
+2. RestOrRant displays a grid of all the tables in the restaurant with their statuses in the main panel, as well as a list of all the orders from all tables in the side panel.
 +
 User case ends.
 
 *Extensions*
 [none]
-* 2a. The program is already in Restaurant Mode.
+* 1a. RestOrRant is already in Restaurant Mode.
 +
 [none]
-** 2a1. RestOrRant Program returns an error message that it is already in Restaurant Mode.
+** 1a1. RestOrRant returns an error message saying that it is already in the mode.
 +
 Use case ends.
 
 [discrete]
-=== Use case: Switching to Menu Mode
+=== Use case: UC2 - Switching to Menu Mode
 
 *MSS*
 
-1. User enters the menuMode command to switch mode to menu mode
-2. RestOrRant Program changes the UI to show the menu in the list panel, and allows addToMenu command.
+1. User enters command to switch to Menu Mode.
+2. RestOrRant displays a grid of all the items on the restaurant menu with their code, name and price on the side panel.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 1a. The program mode is already in Menu Mode.
+* 1a. RestOrRant is already in Menu Mode.
 +
 [none]
-** 1a1. RestOrRant Program returns an message that program is already in menu mode.
+** 1a1. RestOrRant returns an error message saying that it is already in the mode.
 +
 Use case ends.
 
-
 [discrete]
-=== Use case: Adding tables to the RestOrRant Program
+=== Use case: UC3 - Switching to Table Mode
 
 *MSS*
 
-1. User enters command to add a table to the restaurant
-2. RestOrRant Program returns success message that the table is added, providing the table number and table status.
+1. User enters command to switch to Table Mode and specifies the table number of the target table.
+2. RestOrRant displays a grid of all the items on the restaurant menu with their code, name and price on the side panel.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. RestOrRant is already in Table Mode of the same table number.
++
+[none]
+** 1a1. RestOrRant returns an error message saying that it is already in the mode.
++
+Use case ends.
+
+[none]
+* 1b. The specified table number is invalid.
++
+[none]
+** 1ab. RestOrRant returns an error message saying that the table number is invalid.
++
+Use case ends.
+
+[none]
+* 1c. The table with the specified table number is unoccupied.
++
+[none]
+** 1c1. RestOrRant returns an error message saying that the table is unoccupied.
++
+Use case ends.
 
 [discrete]
 
-[discrete]
-=== Use case: Checking for available tableList
+=== Use case: UC4 - Adding new tables
 
 *MSS*
 
-1.  User enters command to list all tableList in the restaurant.
-2.  RestOrRant Program returns the status (number of customers at the table/number of seats at the table) of all tableList in the restaurant.
+1.  User enters command to add a table to the restaurant.
+2.  RestOrRant Program returns success message that the table is added, providing the table number and table status.
+
+[discrete]
+
+[discrete]
+=== Use case: UC5 - Checking for available tables
+
+*MSS*
+
+1.  User enters command to list all tables in the restaurant.
+2.  RestOrRant Program returns the status (number of customers at the table/number of seats at the table) of all tables in the restaurant.
 +
 Use case ends.
 
@@ -1107,39 +1158,40 @@ Use case ends.
 * 2a. The list is empty.
 +
 [none]
-** 2a1. RestOrRant Program returns an error message that there are no tableList in the restaurant.
+** 2a1. RestOrRant Program returns an error message that there are no tables in the restaurant.
 +
 Use case ends.
 
 [discrete]
-=== Use case: Taking an order
+=== Use case: UC6 - Taking an order
 
 *MSS*
 
-1.  User enters the table number, along with item codes and quantities of the menu items.
-2.  RestOrRant Program updates the specified table's order with the menu items and displays the new order list.
+1.  User [underline]#switches to Table Mode (UC3)#.
+2.  RestOrRant switches to Table Mode.
+3.  User enters a list of item codes and quantities of the items to be added to the table's order.
+4.  RestOrRant updates the list of order items in the side panel to include the newly added order items.
 +
 Use case ends.
 
 *Extensions*
-
 [none]
-* 1a. The item code(s) is/are invalid.
+* 3a. The item code(s) is/are invalid.
 +
 [none]
-** 1a1. RestOrRant Program displays the item codes that are invalid and remove them from the list of item codes to add to the order.
+** 3a1. RestOrRant displays the first invalid item code in the result display and stops adding new items to the order.
 +
-Use case resumes from step 2.
+Use case resumes from step 4.
 
 [discrete]
-=== Use case: Adding Items to Menu
+=== Use case: UC7 - Adding items to menu
 
 *Preconditions:* Program mode should be in Menu Mode. Item to be added cannot exist in the menu.
 
 *MSS*
 
 1.  User enters the addToMenu command along with the item's code, name and price.
-2.  RestOrRant Program updates the menu to include the added menu item.
+2.  RestOrRant updates the menu to include the added menu item.
 +
 Use case ends.
 
@@ -1149,7 +1201,7 @@ Use case ends.
 * 1a. The menu already contains the item to be added.
 +
 [none]
-** 1a1. RestOrRant Program prints out "Invalid arguments, item already exists in the menu!".
+** 1a1. RestOrRant prints out "Invalid arguments, item already exists in the menu!".
 +
 Use case ends.
 
@@ -1157,7 +1209,7 @@ Use case ends.
 * 1b. The item code already exists in the menu.
 +
 [none]
-** 1b1. RestOrRant Program prints out "Invalid arguments, item code exists in the menu!".
+** 1b1. RestOrRant prints out "Invalid arguments, item code exists in the menu!".
 +
 Use case ends.
 
@@ -1165,16 +1217,16 @@ Use case ends.
 * 1c. The item code does not follow the standard alphanumeric format.
 +
 [none]
-** 1c1. RestOrRant Program prints out "Invalid code. Please use an alphanumeric code. Example: W09".
+** 1c1. RestOrRant prints out "Invalid code. Please use an alphanumeric code. Example: W09".
 +
 Use case ends.
 
 [discrete]
-=== Use case: Check Statistics
+=== Use case: UC8 - Check statistics
 
 *MSS*
 
-1.  User enters the statistic command with specific optional arguements (year, month and date).
+1.  User enters the statistic command with specific optional arguments (year, month and date).
 2.  RestOrRant Program collates data from the stated period, calculates all the statistics and prints out the calculated data in a neat presentation for the user to refer to.
 +
 Use case ends.
@@ -1185,7 +1237,7 @@ Use case ends.
 * 1a. The arguments are invalid.
 +
 [none]
-** 1a1. RestOrRant Program prints out "Invalid arguments. All arguments should be a numercial number. Format: getStatistics [Year] [Month] [Date]".
+** 1a1. RestOrRant prints out "Invalid arguments. All arguments should be a numercial number. Format: getStatistics [Year] [Month] [Date]".
 +
 Use case ends.
 
@@ -1193,7 +1245,7 @@ Use case ends.
 * 2a. There is no data recorded, list is empty.
 +
 [none]
-** 2a1. RestOrRant Program prints out "No available data recorded."
+** 2a1. RestOrRant prints out "No available data recorded."
 +
 Use case ends.
 
@@ -1201,7 +1253,7 @@ Use case ends.
 * 2b. Not all arguments were keyed in.
 +
 [none]
-* 2b1. RestOrRant Program returns the statistical data based on the year if only 1 argument was specified; and the month if only 2 arguments were specified.
+* 2b1. RestOrRant returns the statistical data based on the year if only 1 argument was specified; and the month if only 2 arguments were specified.
 +
 Use case ends.
 
@@ -1218,7 +1270,7 @@ Use case ends.
 Windows, Linux, Unix, OS-X
 
 [[order]] Order::
-The list of menu items ordered by dining customers ata table
+The list of items ordered by dining customers at a table
 
 [[menu]] Menu::
 The list of items available to be ordered by dining customers at the restaurant
@@ -1258,9 +1310,9 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Initial launch
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Download the jar file and copy into an empty folder.
+.. Double-click the jar file. +
+   Expected: Shows the GUI without any data. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -1268,21 +1320,111 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+. Exiting the application
+
+.. Add some data into RestOrRant (eg. `addTable 4 4 2 2`).
+.. Exit RestOrRant by clicking the `File` > `Exit` button, then re-launch the app. +
+   Expected: The application closes upon exit. All data remains intact upon re-launch.
+.. Exit RestOrRant by typing the `exit` command, then re-launch the app. +
+   Expected: Similar to previous.
+.. Exit RestOrRant by clicking the Close button on the window, then re-launch the app. +
+   Expected: Similar to previous.
+
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Changing Modes
 
-. Deleting a person while all persons are listed
+. Restaurant Mode
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+.. In Restaurant Mode, switch to Restaurant Mode with `restaurantMode` or `RM`. +
+   Expected: Mode is not changed. Error message is shown in the result display.
+.. In any other mode, switch to Restaurant Mode with `restaurantMode` or `RM`. +
+   Expected: Status bar indicates "Restaurant Mode". Success message is shown in the result display. Main panel will display a grid of tables with their statuses and side panel will display a list of order items across all tables.
+
+. Menu Mode
+
+.. In Menu Mode, switch to Menu Mode with `menuMode` or `MM`. +
+   Expected: Mode is not changed. Error message is shown in the result display.
+.. In any other mode, switch to Menu Mode with `menuMode` or `MM`. +
+   Expected: Status bar indicates "Menu Mode". Success message is shown in the result display. Main panel will be empty and side panel will display a list of menu items with their code, name and price.
+
+. Table Mode
+
+.. In Restaurant Mode, create three tables and set Tables 1 and 2 to be occupied, leaving Table 3 to be unoccupied.
+.. In Table Mode for Table 1, switch to Table Mode with `tableMode 1` or `TM 1`. +
+   Expected: Mode is not changed. Error message is shown in the result display.
+.. In Table Mode for Table 2 or in any other mode, switch to Table Mode with `tableMode 1` or `TM 1`. +
+   Expected: Status bar indicates "Table Mode: Table 1". Success message is shown in the result display. Main panel will display a grid of menu items with their code, name and price and side panel will display a list of order items from Table 1.
+.. Test case for unoccupied table: In any mode, switch to Table Mode with `tableMode 3` or `TM 3`. +
+   Expected: Mode is not changed. Error message is shown in the result display.
+.. Test case for invalid table number: In any mode, switch to Table Mode with `tableMode 4` or `TM 4`. +
+   Expected: Mode is not changed. Error message is shown in the result display.
+
+. Statistics Mode
+
+.. In Statistics Mode, switch to Statistics Mode with `statisticsMode` or `SM`. +
+   Expected: Mode is not changed. Error message is shown in the result display.
+.. In any other mode, switch to Statistics Mode with `statisticsMode` or `SM`. +
+   Expected: Status bar indicates "Statistics Mode". Success message is shown in the result display. Main panel will display a grid of dates with their revenues and side panel will be empty.
+
+
+=== Tables
+
+. Adding a table
+
+.. Test case: `addTable 1` +
+   Expected: Adds a table with table status of 0/1.
+.. Test case: `addTable` +
+   Expected: No tables are added. Error message is shown in the result display. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
+
+=== Menu
+
+
+
+=== Orders
+
+. Adding an order
+
+.. Switch to Table Mode for Table 1. Tables and menu items should have been populated from the Table and Menu tests above.
+.. Test case: `addToOrder W09 2` or `add W09 2` +
+   Expected: Adds an order item "W09 Chicken Wings" with quantity of 2 to Table 1's order.
+.. Test case: `addToOrder W12 2 A05 1` or `add W12 2 A05 1` +
+   Expected: Adds order items "W12 French Fries" with quantity of 2 and "A05 Salad" with quantity of 1 to Table 1's order.
+.. Test case: `addToOrder W09 1` or `add W09 1` +
+   Expected: Updates the order item "W09 Chicken Wings" in Table 1's order with quantity of 3.
+.. Test case: `addToOrder W09` or `add W09` +
+   Expected: No order items are added. Error message is shown in the result display.
+.. Other invalid test cases: `addToOrder 3`, `addToOrder W99 1`, `addToOrder W09 0`, `addToOrder W09 1 W12`
+
+=== Statistics
+
+. Bill order
+
+.. Switch to Table Mode of the selected table. Orders should have been populated from the Order tests above.
+.. Test case: `bill` or `b` +
+   Expected: Mode change to Bill Mode where a receipt of the orders will be shown. The total bill is calculated and
+   recorded. If Bill is the first bill of the day, a new daily revenue card will appear in the default display of
+   Statistics Mode. Otherwise, it just updates the daily revenue by adding the total bill to the current revenue of the
+   current date.
+
+. Retrieve revenue of specified day, month or year
+
+.. Switch to Statistics Mode. Daily revenue should have been populated from the Bill test.
+.. Test case: `revenue` or `r` +
+   Expected: Revenue of the current date will be calculated.
+.. Test case: `revenue d/1 m/1 y/2019` or `r d/1 m/1 y/2019` +
+   Expected: Revenue of 1-Jan-2019 will be calculated.
+.. Test case: `revenue m/1 y/2019` or `r m/1 y/2019` +
+   Expected: Revenue of Jan-2019 will be calculated.
+.. Test case: `revenue y/2019` or `y/2019` +
+   Expected: Revenue of year 2019 will be calculated.
+.. Test case: `revenue d/1 y/2019` or `r d/1 y/2019` +
+   Expected: No revenue are calculated. Error message is shown in the result display.
+.. Other invalid test cases: `revenue d/1`, `revenue d/29 m/2 y/2019`
 
 === Saving data
 

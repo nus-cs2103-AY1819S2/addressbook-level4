@@ -11,7 +11,9 @@ import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.Orders;
 import seedu.address.model.statistics.Bill;
 import seedu.address.model.statistics.DailyRevenue;
+import seedu.address.model.statistics.MonthlyRevenue;
 import seedu.address.model.statistics.Statistics;
+import seedu.address.model.statistics.YearlyRevenue;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.Tables;
 
@@ -21,27 +23,27 @@ import seedu.address.model.table.Tables;
 public class TypicalRestOrRant {
     // Menu Items TODO: add quantity ordered
     public static final MenuItem CHICKEN_WINGS = new MenuItemBuilder().withName("Chicken Wings").withCode("W09")
-                                                         .withPrice("3.99").build();
+                                                         .withPrice("3.99").withQuantity("0").build();
     public static final MenuItem FRENCH_FRIES = new MenuItemBuilder().withName("French Fries").withCode("W12")
-                                                        .withPrice("2.20").build();
+                                                        .withPrice("2.20").withQuantity("1").build();
     public static final MenuItem SALAD = new MenuItemBuilder().withName("Salad").withCode("A05")
-                                                 .withPrice("5.50").build();
+                                                 .withPrice("5.50").withQuantity("2").build();
     public static final MenuItem CHEESE_NACHOS = new MenuItemBuilder().withName("Cheese Nachos").withCode("M17")
-                                                         .withPrice("7.23").build();
+                                                         .withPrice("7.23").withQuantity("3").build();
     public static final MenuItem SHRIMP_FRIED_RICE = new MenuItemBuilder().withName("Shrimp Fried Rice").withCode("C02")
-                                                             .withPrice("8.90").build();
+                                                             .withPrice("8.90").withQuantity("4").build();
     public static final MenuItem MEE_SUA = new MenuItemBuilder().withName("Mee Sua").withCode("T01")
-                                                   .withPrice("4.99").build();
+                                                   .withPrice("4.99").withQuantity("5").build();
     public static final MenuItem KIMCHI_FRIED_RICE = new MenuItemBuilder().withName("Kimchi Fried Rice").withCode("K12")
-                                                             .withPrice("5.50").build();
+                                                             .withPrice("5.50").withQuantity("6").build();
     public static final MenuItem CREPES = new MenuItemBuilder().withName("Crepes").withCode("F11")
-                                                  .withPrice("7.50").build();
+                                                  .withPrice("7.50").withQuantity("7").build();
 
     // manually added
     public static final MenuItem HONEY_MILK_TEA = new MenuItemBuilder().withName("Honey Milk Tea").withCode("D01")
-                                                          .withPrice("4.50").build();
+                                                          .withPrice("4.50").withQuantity("8").build();
     public static final MenuItem AGLIO_OLIO = new MenuItemBuilder().withName("Aglio Olio").withCode("W14")
-                                                      .withPrice("7.56").build();
+                                                      .withPrice("7.56").withQuantity("9").build();
 
     // Order Items
     public static final OrderItem TABLE1_W09 =
@@ -100,12 +102,29 @@ public class TypicalRestOrRant {
     public static final DailyRevenue DAILY_REVENUE8 = new StatisticsBuilder().withDay("8").withMonth("3")
             .withYear("2019").withTotalDailyRevenue("50").build();
 
-    public static final Bill BILL1 = new StatisticsBuilder().withTableNumber("1").withDay("1").withMonth("3")
-            .withYear("2019").withTotalBill("10").withReceipt("").buildBill();
-    public static final Bill BILL2 = new StatisticsBuilder().withTableNumber("2").withDay("2").withMonth("3")
-            .withYear("2019").withTotalBill("20").withReceipt("").buildBill();
-    public static final Bill BILL3 = new StatisticsBuilder().withTableNumber("3").withDay("3").withMonth("3")
-            .withYear("2019").withTotalBill("30").withReceipt("").buildBill();
+    // Monthly Revenue (month, year and total monthly revenue)
+    public static final MonthlyRevenue MONTHLY_REVENUE1 = new MonthlyRevenueBuilder().withMonth("1")
+            .withYear("2019").withTotalMonthlyRevenue("700").build();
+    public static final MonthlyRevenue MONTHLY_REVENUE2 = new MonthlyRevenueBuilder().withMonth("2")
+            .withYear("2019").withTotalMonthlyRevenue("600").build();
+    public static final MonthlyRevenue MONTHLY_REVENUE3 = new MonthlyRevenueBuilder().withMonth("3")
+            .withYear("2019").withTotalMonthlyRevenue("500").build();
+
+    // Yearly Revenue (year and total yearly revenue)
+    public static final YearlyRevenue YEARLY_REVENUE1 = new YearlyRevenueBuilder().withYear("2017")
+            .withTotalYearlyRevenue("700").build();
+    public static final YearlyRevenue YEARLY_REVENUE2 = new YearlyRevenueBuilder().withYear("2018")
+            .withTotalYearlyRevenue("600").build();
+    public static final YearlyRevenue YEARLY_REVENUE3 = new YearlyRevenueBuilder().withYear("2019")
+            .withTotalYearlyRevenue("500").build();
+
+    //Bill (day, month, year, totalBill and receipt)
+    public static final Bill BILL1 = new BillBuilder().withTableNumber("1").withDay("1").withMonth("3")
+            .withYear("2019").withTotalBill("10").withReceipt("").build();
+    public static final Bill BILL2 = new BillBuilder().withTableNumber("2").withDay("2").withMonth("3")
+            .withYear("2019").withTotalBill("20").withReceipt("").build();
+    public static final Bill BILL3 = new BillBuilder().withTableNumber("3").withDay("3").withMonth("3")
+            .withYear("2019").withTotalBill("30").withReceipt("").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     //    public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)

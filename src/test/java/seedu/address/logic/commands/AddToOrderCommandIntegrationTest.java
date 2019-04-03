@@ -86,6 +86,7 @@ public class AddToOrderCommandIntegrationTest {
     @Test
     public void execute_invalidItemCode_throwsCommandException() {
         model.setSelectedTable(model.getRestOrRant().getTables().getTableFromNumber(new TableNumber("3")).get());
+        model.updateFilteredOrderItemList(orderItem -> orderItem.getTableNumber().equals(new TableNumber("3")));
 
         assertCommandFailure(Mode.TABLE_MODE,
                 new AddToOrderCommand(Collections.singletonList(new Code("B99")), Collections.singletonList(5)), model,

@@ -16,23 +16,25 @@ import seedu.address.model.table.TableStatus;
 /**
  * Updates the status of the table.
  */
-public class UpdateTableCommand extends Command {
+public class EditPaxCommand extends Command {
 
-    public static final String COMMAND_WORD = "updateTable";
+    public static final String COMMAND_WORD = "editPax";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the status of the table."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the number of pax of the table."
             + "Parameters: TABLE_NUMBER NEW_OCCUPANCY\n" + "Example: " + COMMAND_WORD + " 2 0";
 
-    public static final String MESSAGE_SUCCESS = "Table status updated: \nTable%1$s: %2$s";
+    public static final String MESSAGE_SUCCESS = "Table status updated: \nTable %1$s: %2$s";
 
     public static final String MESSAGE_INVALID_TABLE_NUMBER = "Table %1$s does not exist";
+
+    public static final String MESSAGE_NO_CHANGE_IN_STATUS = "Table status of Table %1$s is already %2$s";
 
     private final String[] newTableStatus;
 
     /**
-     * Creates an UpdateTableCommand to update the status of the table specified by the table number.
+     * Creates an EditPaxCommand to update the status of the table specified by the table number.
      */
-    public UpdateTableCommand(String[] newTableStatusInString) {
+    public EditPaxCommand(String[] newTableStatusInString) {
         this.newTableStatus = newTableStatusInString;
     }
 
@@ -54,6 +56,10 @@ public class UpdateTableCommand extends Command {
             throw new CommandException(String.format(TableStatus.MESSAGE_INVALID_NUMBER_OF_CUSTOMERS,
                     updatedTableStatusInString.substring(2)));
         }
+        if (updatedTableStatus.equals(optionalTable.get().getTableStatus())) {
+            throw new CommandException(String.format(MESSAGE_NO_CHANGE_IN_STATUS, optionalTable.get().getTableNumber(),
+                    optionalTable.get().getTableStatus()));
+        }
         Table updatedTable = new Table(tableNumber, updatedTableStatus);
         model.setTable(optionalTable.get(), updatedTable);
         if (Integer.parseInt(newTableStatus[1]) == 0) {
@@ -65,8 +71,8 @@ public class UpdateTableCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this || (other instanceof UpdateTableCommand
-                && Arrays.equals(newTableStatus, ((UpdateTableCommand) other).newTableStatus));
+        return other == this || (other instanceof EditPaxCommand
+                && Arrays.equals(newTableStatus, ((EditPaxCommand) other).newTableStatus));
     }
 
     @Override

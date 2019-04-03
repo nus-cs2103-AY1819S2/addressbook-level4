@@ -53,13 +53,22 @@ public class StatisticsFlowPanel extends UiPart<Region> {
 
         if (isDaily) {
             // Creates a DailyStatisticsCard for each DailyStatisticsCard and adds to FlowPane
-            for (DailyRevenue dailyRevenue : dailyRevenueObservableList) {
+            int listSize = dailyRevenueObservableList.size();
+            int limit;
+            if (listSize <= 20) {
+                limit = 0;
+            } else {
+                limit = listSize - 20;
+            }
+            for (int i = listSize - 1; i >= limit; i--) {
+                DailyRevenue dailyRevenue = dailyRevenueObservableList.get(i);
                 statisticsFlowPane.getChildren().add(new DailyStatisticsCard(dailyRevenue).getRoot());
             }
 
             dailyRevenueObservableList.addListener((ListChangeListener<DailyRevenue>) c -> {
                 statisticsFlowPane.getChildren().clear();
-                for (DailyRevenue dailyRevenue : dailyRevenueObservableList) {
+                for (int i = listSize; i > listSize - 20; i--) {
+                    DailyRevenue dailyRevenue = dailyRevenueObservableList.get(i);
                     statisticsFlowPane.getChildren().add(new DailyStatisticsCard(dailyRevenue).getRoot());
                 }
             });

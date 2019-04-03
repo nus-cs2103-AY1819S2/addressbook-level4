@@ -13,16 +13,19 @@ import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.BillCommand;
 import seedu.address.logic.commands.ClearOrderCommand;
+import seedu.address.logic.commands.ClearTableCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteFromMenuCommand;
 import seedu.address.logic.commands.DeleteFromOrderCommand;
+import seedu.address.logic.commands.EditPaxCommand;
+import seedu.address.logic.commands.EditSeatsCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.MenuModeCommand;
 import seedu.address.logic.commands.RestaurantModeCommand;
+import seedu.address.logic.commands.RevenueCommand;
 import seedu.address.logic.commands.StatisticsModeCommand;
 import seedu.address.logic.commands.TableModeCommand;
-import seedu.address.logic.commands.UpdateTableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -56,16 +59,14 @@ public class RestOrRantParser {
 
         switch (commandWord) {
 
-        case HelpCommand.COMMAND_WORD: // Fallthrough
-        case HelpCommand.COMMAND_ALIAS:
+        case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case HistoryCommand.COMMAND_WORD: // Fallthrough
-        case HistoryCommand.COMMAND_ALIAS:
-            return new HistoryCommand();
+        // case HistoryCommand.COMMAND_WORD: // Fallthrough
+        // case HistoryCommand.COMMAND_ALIAS:
+        //    return new HistoryCommand();
 
-        case ExitCommand.COMMAND_WORD: // Fallthrough
-        case ExitCommand.COMMAND_ALIAS:
+        case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case RestaurantModeCommand.COMMAND_WORD: // Fallthrough
@@ -91,11 +92,23 @@ public class RestOrRantParser {
             }
             return new AddTableCommandParser().parse(arguments);
 
-        case UpdateTableCommand.COMMAND_WORD:
+        case EditPaxCommand.COMMAND_WORD:
             if (mode != Mode.RESTAURANT_MODE) {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }
-            return new UpdateTableCommandParser().parse(arguments);
+            return new EditPaxCommandParser().parse(arguments);
+
+        case ClearTableCommand.COMMAND_WORD:
+            if (mode != Mode.RESTAURANT_MODE) {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            return new ClearTableCommand();
+
+        case EditSeatsCommand.COMMAND_WORD:
+            if (mode != Mode.RESTAURANT_MODE) {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            return new EditSeatsCommandParser().parse(arguments);
 
         // Commands that work in Menu Mode
         case AddToMenuCommand.COMMAND_WORD:
@@ -103,6 +116,12 @@ public class RestOrRantParser {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }
             return new AddToMenuCommandParser().parse(arguments);
+
+        case DeleteFromMenuCommand.COMMAND_WORD:
+            if (mode != Mode.MENU_MODE) {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            return new DeleteFromMenuCommandParser().parse(arguments);
 
         // Commands that work in Table Mode
         case AddToOrderCommand.COMMAND_WORD:
@@ -112,7 +131,6 @@ public class RestOrRantParser {
             return new AddToOrderCommandParser().parse(arguments);
 
         case ClearOrderCommand.COMMAND_WORD: // Fallthrough
-        case ClearOrderCommand.COMMAND_ALIAS:
             if (mode != Mode.TABLE_MODE) {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }
@@ -131,6 +149,13 @@ public class RestOrRantParser {
             }
             return new BillCommand();
 
+        case RevenueCommand.COMMAND_WORD: // Fallthrough
+        case RevenueCommand.COMMAND_ALIAS:
+            if (mode != Mode.STATISTICS_MODE) {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            return new RevenueCommandParser().parse(arguments);
+
         // General alias commands that do different functions in different modes
         case "add":
             if (mode == Mode.RESTAURANT_MODE) {
@@ -139,6 +164,24 @@ public class RestOrRantParser {
                 return new AddToMenuCommandParser().parse(arguments);
             } else if (mode == Mode.TABLE_MODE) {
                 return new AddToOrderCommandParser().parse(arguments);
+            } else {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+
+        case "clear":
+            if (mode == Mode.RESTAURANT_MODE) {
+                return new ClearTableCommand();
+            } else if (mode == Mode.TABLE_MODE) {
+                return new ClearOrderCommand();
+            } else {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+
+        case "del":
+            if (mode == Mode.MENU_MODE) {
+                return new DeleteFromMenuCommandParser().parse(arguments);
+            } else if (mode == Mode.TABLE_MODE) {
+                return new DeleteFromOrderCommandParser().parse(arguments);
             } else {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }

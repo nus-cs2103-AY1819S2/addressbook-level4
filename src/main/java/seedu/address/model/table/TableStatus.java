@@ -16,7 +16,7 @@ public class TableStatus {
 
     public static final String SEATS_VALIDATION_REGEX = "\\d+";
     public static final String STATUS_VALIDATION_REGEX = "\\d+/\\d+";
-    public final String numberOfSeats;
+    private String numberOfSeats;
     private String numberOfTakenSeats;
 
     /**

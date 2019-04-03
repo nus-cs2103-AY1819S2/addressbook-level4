@@ -23,4 +23,6 @@ public interface ReadOnlyMenu extends Observable {
 
     Price getPriceFromItem(MenuItem menuItem);
 
+    void updateMenuItemQuantity(MenuItem menuItem, int newQuantity);
+
 }

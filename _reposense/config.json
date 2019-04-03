@@ -1,0 +1,25 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "Beesaycheese",
+      "displayName": "LEO...ICE",
+      "authorNames": ["Beesaycheese"]
+    },
+    {
+      "githubId": "whyjayxp",
+      "displayName": "PHU...JUN",
+      "authorNames": ["whyjayxp", "Phua Yue Jun"]
+    },
+    {
+      "githubId": "Qing-Yuan",
+      "displayName": "SIE...UAN",
+      "authorNames": ["Qing-Yuan", "Siew Qing Yuan"]
+    },
+    {
+      "githubId": "bava98",
+      "displayName": "SIV...INI",
+      "authorNames": ["bava98"]
+    }
+  ]
+}

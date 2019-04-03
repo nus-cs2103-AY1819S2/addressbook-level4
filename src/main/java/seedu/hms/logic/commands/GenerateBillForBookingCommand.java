@@ -26,10 +26,10 @@ public class GenerateBillForBookingCommand extends BillCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Generates booking bill for the customer identified by the index number\n used in the displayed "
         + "customer list.\n"
-        + "Parameters: INDEX"
+        + "Parameters: INDEX "
         + "[" + PREFIX_SERVICE + "SERVICE NAME] "
         + "[" + PREFIX_TIMING + "TIMING(HH - HH in 24 hour format)]\n "
-        + "Example: " + COMMAND_WORD + "1 "
+        + "Example: " + COMMAND_WORD + " 1 "
         + "[" + PREFIX_SERVICE + "GYM] "
         + "[" + PREFIX_TIMING + "10 - 11]";
 

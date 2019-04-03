@@ -1,16 +1,13 @@
 package seedu.hms.logic.parser;
 
 import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATES;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_ROOM;
 
 import seedu.hms.logic.commands.FindReservationCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.reservation.ReservationContainsPayerPredicate;
-import seedu.hms.model.reservation.ReservationWithDatePredicate;
 import seedu.hms.model.reservation.ReservationWithTypePredicate;
-import seedu.hms.model.util.DateRange;
 
 /**
  * Parses input arguments and creates a new FindReservationCommand object
@@ -25,7 +22,7 @@ public class FindReservationCommandParser implements Parser<FindReservationComma
     public FindReservationCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_IDENTIFICATION_NUMBER,
-                PREFIX_ROOM, PREFIX_DATES);
+                PREFIX_ROOM);
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -49,13 +46,12 @@ public class FindReservationCommandParser implements Parser<FindReservationComma
         }
 
         //search in whole day if timing is not provided
-        DateRange dateRange = ParserUtil.parseDates(argMultimap.getValue(PREFIX_DATES)
-            .orElse("01/01/0001-31/12/9999"));
-        ReservationWithDatePredicate reservationWithDatePredicate = new ReservationWithDatePredicate(dateRange);
+//        DateRange dateRange = ParserUtil.parseDates(argMultimap.getValue(PREFIX_DATES)
+//            .orElse("01/01/0001-31/12/9999"));
+//        ReservationWithDatePredicate reservationWithDatePredicate = new ReservationWithDatePredicate(dateRange);
 
         return new FindReservationCommand(reservationContainsPayerPredicate,
-            reservationWithTypePredicate,
-            reservationWithDatePredicate);
+            reservationWithTypePredicate);
     }
 
 

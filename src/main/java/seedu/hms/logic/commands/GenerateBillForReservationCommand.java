@@ -1,7 +1,6 @@
 package seedu.hms.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATES;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_ROOM;
 
 import java.util.function.Predicate;
@@ -12,7 +11,6 @@ import seedu.hms.model.BillModel;
 import seedu.hms.model.bill.Bill;
 import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.ReservationContainsPayerPredicate;
-import seedu.hms.model.reservation.ReservationWithDatePredicate;
 import seedu.hms.model.reservation.ReservationWithTypePredicate;
 
 /**
@@ -28,10 +26,10 @@ public class GenerateBillForReservationCommand extends BillCommand {
         + "customer list.\n"
         + "Parameters: INDEX "
         + "[" + PREFIX_ROOM + "ROOM TYPE] "
-        + "[" + PREFIX_DATES + "DATES(DD/MM/YYYY - DD/MM/YYYY)]\n"
-        + "Example: " + COMMAND_WORD + "1 "
-        + "[" + PREFIX_ROOM + "SINGLE ROOM] "
-        + "[" + PREFIX_DATES + "12/12/2019 - 14/12/2019]";
+        //   + "[" + PREFIX_DATES + "DATES(DD/MM/YYYY - DD/MM/YYYY)]\n"
+        + "Example: " + COMMAND_WORD + " 1 "
+        + "[" + PREFIX_ROOM + "SINGLE ROOM] ";
+    //    + "[" + PREFIX_DATES + "12/12/2019 - 14/12/2019]";
 
     public static final String MESSAGE_GENERATE_BILL_FOR_RESERVATION_SUCCESS = "Reservation bill generated for "
         + "customer: %1$s";
@@ -42,12 +40,12 @@ public class GenerateBillForReservationCommand extends BillCommand {
 
     public GenerateBillForReservationCommand(ReservationContainsPayerPredicate reservationContainsPayerPredicate,
                                              ReservationWithTypePredicate reservationWithTypePredicate,
-                                             ReservationWithDatePredicate reservationWithDatePredicate,
+                                             //       ReservationWithDatePredicate reservationWithDatePredicate,
                                              Bill bill) {
 
         this.reservationPredicate = (reservationTested) -> reservationContainsPayerPredicate.test(reservationTested)
-            && reservationWithTypePredicate.test(reservationTested)
-            && reservationWithDatePredicate.test(reservationTested);
+            && reservationWithTypePredicate.test(reservationTested);
+        //   && reservationWithDatePredicate.test(reservationTested);
         this.bill = bill;
     }
 

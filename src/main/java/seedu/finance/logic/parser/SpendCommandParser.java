@@ -47,7 +47,11 @@ public class SpendCommandParser implements Parser<SpendCommand> {
         } else {
             date = new Date(LocalDate.now());
         }
-        Description description = new Description(argMultimap.getValue(PREFIX_DESCRIPTION).get().trim());
+        Description description = new Description("");
+        if (arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION)) {
+            description = new Description(argMultimap.getValue(PREFIX_DESCRIPTION).get().trim());
+        }
+
         Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
 
         Record record = new Record(name, amount, date, description, category);

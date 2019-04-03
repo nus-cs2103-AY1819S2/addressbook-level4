@@ -8,6 +8,7 @@ import static seedu.address.model.course.CourseReqType.TE;
 import static seedu.address.model.course.CourseReqType.UE;
 
 import java.util.Arrays;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import seedu.address.model.course.CompositeRequirement;
@@ -98,114 +99,63 @@ public class SampleCourseRequirement {
                     + "|" + DATABASE_SYSTEM_PRIMARY + "|" +  DATABASE_SYSTEM_ELECTIVE
                     + "|" + PARALLEL_PRIMARY + "|" +  PARALLEL_ELECTIVE
                     + "|" + NETWORK_PRIMARY + "|" + NETWORK_ELECTIVE;
-    public static final String ALL_FOCUS_AREA_LEVEL_4 =
+    public static final String ALL_FOCUS_AREA_LEVEL_4 = "CS[4][0-9]{3}";
+    public static final Condition ALGORITHMS_PASS_3_PRIMARY = new Condition(3, ALGORITHMS_PRIMARY);
 
-    public static final Condition[] ALGORITHMS_PASS_3_PRIMARY = Stream.of(ALGORITHMS_PRIMARY)
-            .map(Condition::new).toArray(Condition[]::new);
+    public static final Condition ALGORITHMS_PASS_1_LEVEL4_PRIMARY = new Condition(ALGORITHMS_PRIMARY_LEVEL_4);
+    public static final Condition AI_PASS_3_PRIMARY = new Condition(3, AI_PRIMARY);
+    public static final Condition AI_PASS_1_LEVEL4_PRIMARY = new Condition(1, AI_PRIMARY_LEVEL_4);
+    public static final Condition SE_PASS_3_PRIMARY = new Condition(3, SOFTWARE_ENG_PRIMARY);
+    public static final Condition SE_PASS_1_LEVEL4_PRIMARY = new Condition(SOFTWARE_ENG_PRIMARY_LEVEL_4);
+    public static final Condition AT_LEAST_3_MODS_LEVEL4_ABOVE = new Condition(3, ALL_FOCUS_AREA_LEVEL_4);
+    public static final Condition AT_LEAST_6_MODS_FROM_ALL_FOCUS_AREA = new Condition(6, ALL_FOCUS_AREA);
 
-    public static final Condition[] ALGORITHMS_PASS_1_LEVEL4_PRIMARY = Stream.of(ALGORITHMS_PRIMARY_LEVEL_4)
-            .map(Condition::new).toArray(Condition[]::new);
-    public static final Condition[] AI_PASS_3_PRIMARY = Stream.of(AI_PRIMARY)
-            .map(Condition::new).toArray(Condition[]::new);
-    public static final Condition[] AI_PASS_1_LEVEL4_PRIMARY = Stream.of(AI_PRIMARY_LEVEL_4)
-            .map(Condition::new).toArray(Condition[]::new);
-    public static final Condition[] SE_PASS_3_PRIMARY = Stream.of(SOFTWARE_ENG_PRIMARY)
-            .map(Condition::new).toArray(Condition[]::new);
-    public static final Condition[] SE_PASS_1_LEVEL4_PRIMARY = Stream.of(SOFTWARE_ENG_PRIMARY_LEVEL_4)
-            .map(Condition::new).toArray(Condition[]::new);
-//    public static final Condition AT_LEAST_3_MODS_LEVEL4_ABOVE = new Condition(
-//            3, "Pass at least 3 level 4 mods from any Focus Area", ALL_FOCUS_AREA_LEVEL_4
-//    );
-//    public static final Condition AT_LEAST_6_MODS_FROM_ALL_FOCUS_AREA = new Condition(
-//            6, "Pass at least 6 mods from any Focus Area", ALL_FOCUS_AREA
-//    );
-//
-//    public static final CourseRequirement FOCUS_AREA_ALGORITHMS = new CompositeRequirement(
-//            new CompositeRequirement(new PrimitiveRequirement("Focus Area: Algorithms",
-//                    "Pass 3 Area Primary from Algorithms", ALGORITHMS_PASS_3_PRIMARY, TE
-//            ) , new PrimitiveRequirement("At least 1 from level 4 in Algorithms",
-//                    "At least 1 level 4 from Algorithms", ALGORITHMS_PASS_1_LEVEL4_PRIMARY, TE),
-//                    CompositeRequirement.LogicalConnector.AND, TE
-//            ), new CompositeRequirement(new PrimitiveRequirement("At least 3 level 4000 and above",
-//            "At least 3 level 4 from any FA",
-//            AT_LEAST_3_MODS_LEVEL4_ABOVE, TE),
-//            new PrimitiveRequirement("Complete 6 mods from any FA", "Complete 6 modules in all focus areas",
-//                    AT_LEAST_6_MODS_FROM_ALL_FOCUS_AREA, TE),
-//            CompositeRequirement.LogicalConnector.AND, TE),
-//            CompositeRequirement.LogicalConnector.AND, TE);
-//
-//    public static final CourseRequirement FOCUS_AREA_AI = new CompositeRequirement(
-//            new CompositeRequirement(new PrimitiveRequirement("Focus Area: Artificial Intelligence",
-//                    "Pass 3 Area Primary from AI", AI_PASS_3_PRIMARY, TE
-//            ) , new PrimitiveRequirement("At least 1 from level 4 in AI",
-//                    "At least 1 level 4 from AI", AI_PASS_1_LEVEL4_PRIMARY, TE),
-//                    CompositeRequirement.LogicalConnector.AND, TE
-//            ), new CompositeRequirement(new PrimitiveRequirement("At least 3 level 4000 and above",
-//            "At least 3 level 4 from any FA",
-//            AT_LEAST_3_MODS_LEVEL4_ABOVE, TE),
-//            new PrimitiveRequirement("Complete 6 mods from any FA", "Complete 6 modules in all focus areas",
-//                    AT_LEAST_6_MODS_FROM_ALL_FOCUS_AREA, TE), CompositeRequirement.LogicalConnector.AND,
-//            TE),
-//            CompositeRequirement.LogicalConnector.AND, TE);
-//
-//    public static final CourseRequirement FOCUS_AREA_SOFTWARE_ENG = new CompositeRequirement(
-//            new CompositeRequirement(new PrimitiveRequirement("Focus Area: Software Engineering",
-//                    "Pass 3 Area Primary from SE", SE_PASS_3_PRIMARY, TE
-//            ) , new PrimitiveRequirement("At least 1 from level 4 in Software Eng",
-//                    "Pass at least 1 level 4 from SE", SE_PASS_1_LEVEL4_PRIMARY, TE),
-//                    CompositeRequirement.LogicalConnector.AND, TE
-//            ),
-//            new CompositeRequirement(new PrimitiveRequirement("At least 3 level 4000 and above",
-//                    "At least 3 level 4 from any FA",
-//                    AT_LEAST_3_MODS_LEVEL4_ABOVE, TE),
-//            new PrimitiveRequirement("Complete 6 mods from any FA", "Complete 6 modules in all focus areas",
-//                    AT_LEAST_6_MODS_FROM_ALL_FOCUS_AREA, TE), CompositeRequirement.LogicalConnector.AND,
-//            TE),
-//            CompositeRequirement.LogicalConnector.AND, TE);
-//
-//    public static final String[] SCIENCE_REGEXES = { "MA1521", "ST2334", "MA1101R",
-//        "^(?!(MA1521)|(ST2334)|(MA1101R))((MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z]?)$"};
-//    public static final Condition SCIENCE_CONDITION = new Condition(
-//            "Complete MA1521, MA1101R, ST2334 and one other Science module",
-//            SCIENCE_REGEXES);
-//    public static final CourseRequirement SCIENCE_REQUIREMENT = new PrimitiveRequirement(
-//            "Mathematics & Sciences", "Complete MA1521, MA1101R, ST2334 "
-//            + "and one other Science module", SCIENCE_CONDITION, FAC);
-//
-//    public static final Condition CONDITION_CS3203 = new Condition("Complete CS3203", "CS3203");
-//    public static final Condition CONDITION_CS3216_CS3217 = new Condition("Complete CS3216 and CS3217",
-//            "CS3216", "CS3217");
-//    public static final Condition CONDITION_CS3281_CS3282 = new Condition("Complete CS3281 and CS3282",
-//            "CS3281", "CS3282");
-//    public static final CourseRequirement COMPUTER_SYSTEM_TEAM_PROJECT = new CompositeRequirement(
-//            new CompositeRequirement(
-//                    new PrimitiveRequirement("Computer Systems Team Project",
-//                            "Complete CS3203",
-//                            CONDITION_CS3203, CORE
-//                    ),
-//                    new PrimitiveRequirement("Complete CS3216 and CS3217",
-//                    "Complete CS3216 and CS3217", CONDITION_CS3216_CS3217, CORE),
-//                    CompositeRequirement.LogicalConnector.OR, CORE),
-//            new PrimitiveRequirement("Complete CS3281 and CS3282",
-//            "Complete CS3281 and CS3282", CONDITION_CS3281_CS3282, CORE),
-//            CompositeRequirement.LogicalConnector.OR, CORE);
-//
-//    public static final Condition CP3880 = new Condition("Complete CP3880", "CP3880");
-//    public static final Condition CP3200_CP3202 = new Condition("Complete CP3200, CP3202 or CP3107",
-//            "CP3200", "CP3202|CP3107");
-//    public static final Condition IS4010 = new Condition("Complete IS4010", "IS4010");
-//    public static final CourseRequirement INDUSTRIAL_SYSTEM_EXPERIENCE = new PrimitiveRequirement(
-//            "Industrial Experience Requirement",
-//            "Complete 6 month internship through ATAP", CP3880, IE)
-//            .or(new PrimitiveRequirement("Complete 2 3 - months internships",
-//                    "Complete CP3200 and CP3202", CP3200_CP3202, IE))
-//                    .or(new PrimitiveRequirement("Complete IS4010", "Complete IS4010",
-//                            IS4010, IE));
-//
-//    public static final Condition COMPLETE_40_MODULES = new Condition(40,
-//            "Complete 40 modules in total", "[A-Z]{2,3}[0-9]{4}[A-Z]?");
-//    public static final CourseRequirement TOTAL_MODULE_COUNT = new PrimitiveRequirement(
-//            "Unrestricted Electives",
-//            "At least 40 modules required to graduate",
-//            COMPLETE_40_MODULES, UE);
+    public static final CourseRequirement FOCUS_AREA_ALGORITHMS = new PrimitiveRequirement("Focus Area: Algorithms",
+            "Pass 6 modules from any Focus Area, with  at least 3 from level 4 and \n"
+            + "3 Area Primary from Algorithms with at least 1 from level 4 ", TE, ALGORITHMS_PASS_3_PRIMARY,
+            ALGORITHMS_PASS_1_LEVEL4_PRIMARY, AT_LEAST_3_MODS_LEVEL4_ABOVE, AT_LEAST_6_MODS_FROM_ALL_FOCUS_AREA);
+    public static final CourseRequirement FOCUS_AREA_AI = new PrimitiveRequirement("Focus Area: AI",
+            "Pass 6 modules from any Focus Area, with  at least 3 from level 4 and \n"
+                    + "3 Area Primary from AI with at least 1 from level 4 ", TE, AI_PASS_3_PRIMARY,
+            AI_PASS_1_LEVEL4_PRIMARY, AT_LEAST_3_MODS_LEVEL4_ABOVE, AT_LEAST_6_MODS_FROM_ALL_FOCUS_AREA);
+    public static final CourseRequirement FOCUS_AREA_SOFTWARE_ENG = new PrimitiveRequirement("Focus Area: Software Eng",
+            "Pass 6 modules from any Focus Area, with  at least 3 from level 4 and \n"
+                    + "3 Area Primary from Software Eng with at least 1 from level 4 ", TE, SE_PASS_3_PRIMARY,
+            SE_PASS_1_LEVEL4_PRIMARY, AT_LEAST_3_MODS_LEVEL4_ABOVE, AT_LEAST_6_MODS_FROM_ALL_FOCUS_AREA);
+
+    public static final String SCIENCE_REGEX = "(MA1521)|(ST2334)|(MA1101R)|"
+            +  "((MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z])";
+    public static final Condition SCIENCE_CONDITION = new Condition(4, SCIENCE_REGEX);
+    public static final CourseRequirement SCIENCE_REQUIREMENT = new PrimitiveRequirement(
+            "Mathematics & Sciences", "Complete MA1521, MA1101R, ST2334 "
+            + "and one other Science module", FAC, SCIENCE_CONDITION);
+
+    public static final Condition CONDITION_CS3203 = new Condition("CS3203");
+    public static final Condition CONDITION_CS3216_CS3217 = new Condition(2, "CS3216|CS3217");
+    public static final Condition CONDITION_CS3281_CS3282 = new Condition(2, "CS3281|CS3282");
+    public static final CourseRequirement COMPUTER_SYSTEM_TEAM_PROJECT = new CompositeRequirement(
+            new CompositeRequirement(
+                    new PrimitiveRequirement("Computer Systems Team Project",
+                            "Complete CS3203",
+                            CORE, CONDITION_CS3203),
+                    new PrimitiveRequirement("Complete CS3216 and CS3217",
+                    "Complete CS3216 and CS3217", CORE, CONDITION_CS3216_CS3217),
+                    CompositeRequirement.LogicalConnector.OR, CORE),
+            new PrimitiveRequirement("Complete CS3281 and CS3282",
+            "Complete CS3281 and CS3282", CORE, CONDITION_CS3281_CS3282),
+            CompositeRequirement.LogicalConnector.OR, CORE);
+
+    public static final Condition CP3880 = new Condition("CP3880");
+    public static final Condition CP3200 = new Condition("CP3200");
+    public static final Condition CP3202_CP3107 = new Condition("CP3202|CP3107");
+    public static final Condition IS4010 = new Condition("IS4010");
+    public static final CourseRequirement INDUSTRIAL_SYSTEM_EXPERIENCE = new PrimitiveRequirement(
+            "Industrial Experience Requirement",
+            "Complete 6 month internship through ATAP", IE, CP3880)
+            .or(new PrimitiveRequirement("Complete 2 3 - months internships",
+                    "Complete CP3200 and CP3202", IE, CP3200, CP3202_CP3107))
+            .or(new PrimitiveRequirement("Complete IS4010", "Complete IS4010", IE, IS4010));
+    public static final Condition COMPLETE_40_MODULES = new Condition(40, ".*");
+    public static final CourseRequirement TOTAL_MODULE_COUNT = new PrimitiveRequirement("Unrestricted Electives",
+            "At least 40 modules required to graduate", UE, COMPLETE_40_MODULES);
 }

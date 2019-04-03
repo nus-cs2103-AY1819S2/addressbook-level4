@@ -25,9 +25,13 @@ public class Fleet {
 
     private ArrayList<FleetEntry> deployedFleet;
 
-    private int numDestroyer;
-    private int numCruiser;
-    private int numAircraftCarrier;
+    private final int numAircraftCarrier;
+    private final int numCruiser;
+    private final int numDestroyer;
+
+    private int currNumDestroyer;
+    private int currNumCruiser;
+    private int currNumAircraftCarrier;
 
     /**
      * Default constructor for a fleet of size 8 with placeholder ship names.
@@ -53,15 +57,19 @@ public class Fleet {
             throw new IllegalArgumentException();
         }
 
-        this.numDestroyer = numDestroyer;
-        this.numCruiser = numCruiser;
         this.numAircraftCarrier = numAircraftCarrier;
+        this.numCruiser = numCruiser;
+        this.numDestroyer = numDestroyer;
+
+        this.currNumDestroyer = numDestroyer;
+        this.currNumCruiser = numCruiser;
+        this.currNumAircraftCarrier = numAircraftCarrier;
 
         this.deployedFleet = new ArrayList<>();
     }
 
     public int getSize() {
-        return this.numDestroyer + this.numCruiser + this.numAircraftCarrier;
+        return this.currNumDestroyer + this.currNumCruiser + this.currNumAircraftCarrier;
     }
 
     public ArrayList<FleetEntry> getDeployedFleet() {
@@ -72,9 +80,9 @@ public class Fleet {
      * Resets the fleet.
      */
     public void resetFleet(int mapSize) {
-        this.numDestroyer = (mapSize + 2) / 5;
-        this.numCruiser = mapSize - 5;
-        this.numAircraftCarrier = 1;
+        this.currNumDestroyer = (mapSize + 2) / 5;
+        this.currNumCruiser = mapSize - 5;
+        this.currNumAircraftCarrier = 1;
         this.deployedFleet = new ArrayList<>();
     }
 
@@ -83,11 +91,11 @@ public class Fleet {
      */
     public void deployOneBattleship(Battleship battleship, Coordinates coordinates, Orientation orientation) {
         if (battleship instanceof DestroyerBattleship) {
-            this.numDestroyer--;
+            this.currNumDestroyer--;
         } else if (battleship instanceof CruiserBattleship) {
-            this.numCruiser--;
+            this.currNumCruiser--;
         } else if (battleship instanceof AircraftCarrierBattleship) {
-            this.numAircraftCarrier--;
+            this.currNumAircraftCarrier--;
         }
 
         this.deployedFleet.add(new FleetEntry(
@@ -104,11 +112,11 @@ public class Fleet {
      */
     public boolean isEnoughBattleship(Battleship battleship, int numBattleship) {
         if (battleship instanceof DestroyerBattleship) {
-            return numBattleship <= this.getNumDestroyer();
+            return numBattleship <= this.getCurrNumDestroyer();
         } else if (battleship instanceof CruiserBattleship) {
-            return numBattleship <= this.getNumCruiser();
+            return numBattleship <= this.getCurrNumCruiser();
         } else if (battleship instanceof AircraftCarrierBattleship) {
-            return numBattleship <= this.getNumAircraftCarrier();
+            return numBattleship <= this.getCurrNumAircraftCarrier();
         }
 
         return false;
@@ -133,6 +141,18 @@ public class Fleet {
                 .stream()
                 .filter(entry -> entry.getBattleship() instanceof AircraftCarrierBattleship)
                 .collect(Collectors.toList());
+    }
+
+    public int getCurrNumDestroyer() {
+        return this.currNumDestroyer;
+    }
+
+    public int getCurrNumCruiser() {
+        return this.currNumCruiser;
+    }
+
+    public int getCurrNumAircraftCarrier() {
+        return this.currNumAircraftCarrier;
     }
 
     public int getNumDestroyer() {
@@ -175,9 +195,9 @@ public class Fleet {
      * Checks if all battleships have been deployed.
      */
     public boolean isAllDeployed() {
-        return this.getListOfDestroyerBattleship().size() == this.getNumDestroyer()
-                && this.getListOfCruiserBattleship().size() == this.getNumCruiser()
-                && this.getListOfAircraftCarrierBattleship().size() == this.getNumAircraftCarrier();
+        return this.getListOfDestroyerBattleship().size() == this.numDestroyer
+                && this.getListOfCruiserBattleship().size() == this.numCruiser
+                && this.getListOfAircraftCarrierBattleship().size() == this.numAircraftCarrier;
     }
 
     /**

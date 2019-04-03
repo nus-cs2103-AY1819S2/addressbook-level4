@@ -131,6 +131,21 @@ public class Deadline implements Comparable<Deadline> {
 
     @Override
     public String toString() {
+        StringBuilder builder = new StringBuilder("Deadline: ");
+        if (this.exists()) {
+            builder.append(this.date);
+            if (this.isDone()) {
+                builder.append(" (Done)\n");
+            } else {
+                builder.append(" (Ongoing)\n");
+            }
+        } else {
+            builder.append("None\n");
+        }
+        return builder.toString();
+    }
+
+    public String toJsonString() {
         return this.exists()
                 ? this.date + Deadline.PROPERTY_SEPARATOR_PREFIX + this.isDone
                 : "";

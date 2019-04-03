@@ -55,7 +55,7 @@ class JsonAdaptedPdf {
         name = source.getName().getFullName();
         size = source.getSize().getValue();
         directory = source.getDirectory().getDirectory();
-        deadline = source.getDeadline().toString();
+        deadline = source.getDeadline().toJsonString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));

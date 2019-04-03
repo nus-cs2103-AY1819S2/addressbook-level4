@@ -139,13 +139,13 @@ You can keep track of how much you have spent by adding an expense entry to _In-
 
 *Alias*: `add`
 
-*Format*: `spend n/NAME $/AMOUNT d/DATE c/CATEGORY`
+*Format*: `spend n/NAME $/AMOUNT d/DATE c/CATEGORY r/DESCRIPTION`
 
 ****
 *Examples*:
 
-* `spend n/cake $/5.50 d/15/03/2019 c/Food`
-* `spend n/movie $/10 d/16/03/2019 c/Entertainment`
+* `spend n/cake $/5.50 d/15/03/2019 c/Food r/Birthday celebration`
+* `spend n/movie $/10 d/16/03/2019 c/Entertainment r/Avengers: End Game`
 ****
 
 [NOTE]
@@ -535,7 +535,8 @@ _In-Credit-Ble_  aims to support multi-currency transactions in `v2.0`.
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 | Command | Command Format | Alias | Example
-| Add expense | `spend n/NAME $/AMOUNT [d/DATE] [c/CATEGORY] ...` | `add` | `spend n/movie $/10 d/16/03/2019 c/Entertainment`
+| Add expense | `spend n/NAME $/AMOUNT [d/DATE] [c/CATEGORY] ... [r/Description]` | `add` | `spend n/movie $/10
+  d/16/03/2019 c/Entertainment r/Avengers: Endgame`
 | Add a description to an entry | `description INDEX r/DESCRIPTION` | `descr` | `description 1 d/Father's birthday present`
 | Edit an entry | `edit INDEX [n/NAME] [$/AMOUNT] [d/DATE] [c/CATEGORY]` | `e` | `edit 1 n/burger c/Food`
 | Select an entry | `select INDEX` | `s`, `sel` | `select 3`

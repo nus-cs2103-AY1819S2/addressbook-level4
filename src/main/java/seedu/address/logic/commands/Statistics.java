@@ -1,8 +1,12 @@
 package seedu.address.logic.commands;
 
-import java.util.*;
 
 import seedu.address.model.tag.Condition;
+
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * Class that represents a TreeMap of conditions and their respective occurences

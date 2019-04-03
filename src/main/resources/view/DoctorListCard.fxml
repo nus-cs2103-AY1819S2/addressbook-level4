@@ -24,14 +24,16 @@
                         <Region fx:constant="USE_PREF_SIZE"/>
                     </minWidth>
                 </Label>
-                <Label text="Dr. "></Label>
+                <Label text="Dr. "
+                ></Label>
                 <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
             </HBox>
-            <Label fx:id="phone" styleClass="cell_small_label" text="\$phone"/>
             <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label fx:id="gender" styleClass="cell_small_label" text="\$gender"/>
-                <Label fx:id="age" styleClass="cell_small_label" text="\$age"/>
+                <Label fx:id="gender" styleClass="cell_small_label" text="\$gender" />
+                <Label styleClass="cell_small_label" text=", "></Label>
+                <Label fx:id="age" styleClass="cell_small_label" text="\$age" />
             </HBox>
+            <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
             <FlowPane fx:id="specialisations"/>
             <Label fx:id="addAppointment" styleClass="cell_small_label" text="\$addAppointment"/>
         </VBox>

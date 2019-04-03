@@ -13,7 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Doctor;
 
 /**
- * Adds a doctor to the address book.
+ * Adds a doctor to the DocX.
  */
 public class AddDoctorCommand extends Command {
 
@@ -35,7 +35,7 @@ public class AddDoctorCommand extends Command {
             + PREFIX_SPECIALISATION + "acupuncture";
 
     public static final String MESSAGE_SUCCESS = "New doctor added: %1$s";
-    public static final String MESSAGE_DUPLICATE_DOCTOR = "This doctor already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_DOCTOR = "This doctor already exists in the DocX";
 
     private final Doctor toAdd;
 
@@ -64,7 +64,7 @@ public class AddDoctorCommand extends Command {
         }
 
         model.addDoctor(toAdd);
-        model.commitAddressBook();
+        model.commitDocX();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 }

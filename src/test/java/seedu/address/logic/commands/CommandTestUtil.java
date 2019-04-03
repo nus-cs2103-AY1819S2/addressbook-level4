@@ -17,7 +17,7 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.DocX;
 import seedu.address.model.Model;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.DoctorNameContainsKeywordsPredicate;
@@ -69,12 +69,12 @@ public class CommandTestUtil {
     public static final String VALID_GENDER_BOB = "M";
     public static final String VALID_AGE_AMY = "7";
     public static final String VALID_AGE_BOB = "25";
-    public static final String VALID_PHONE_AMY = "11111111";
+    public static final String VALID_PHONE_AMY = "61111111";
     public static final String VALID_PHONE_BOB = "94351253";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_TAG_STROKE = "stroke";
+    public static final String VALID_TAG_HBP = "highbloodpressure";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -86,8 +86,8 @@ public class CommandTestUtil {
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_HBP;
+    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_STROKE;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_GENDER_DESC = " " + PREFIX_GENDER + "boy"; // either M or F
@@ -106,11 +106,11 @@ public class CommandTestUtil {
         DESC_AMY = new EditPatientDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withGender(VALID_GENDER_AMY).withAge(VALID_AGE_AMY)
                 .withPhone(VALID_PHONE_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
+                .withTags(VALID_TAG_HBP).build();
         DESC_BOB = new EditPatientDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withGender(VALID_GENDER_BOB).withAge(VALID_AGE_BOB)
                 .withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withTags(VALID_TAG_STROKE, VALID_TAG_HBP).build();
     }
 
     /**
@@ -153,7 +153,7 @@ public class CommandTestUtil {
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        DocX expectedDocX = new DocX(actualModel.getDocX());
         List<Patient> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPatientList());
         Patient expectedSelectedPatient = actualModel.getSelectedPatient();
 
@@ -164,7 +164,7 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, actualModel.getAddressBook());
+            assertEquals(expectedDocX, actualModel.getDocX());
             assertEquals(expectedFilteredList, actualModel.getFilteredPatientList());
             assertEquals(expectedSelectedPatient, actualModel.getSelectedPatient());
             assertEquals(expectedCommandHistory, actualCommandHistory);
@@ -191,7 +191,7 @@ public class CommandTestUtil {
     public static void deleteFirstPatient(Model model) {
         Patient firstPatient = model.getFilteredPatientList().get(0);
         model.deletePatient(firstPatient);
-        model.commitAddressBook();
+        model.commitDocX();
     }
 
     /**
@@ -214,7 +214,7 @@ public class CommandTestUtil {
     public static void deleteFirstDoctor(Model model) {
         Doctor firstDoctor = model.getFilteredDoctorList().get(0);
         model.deleteDoctor(firstDoctor);
-        model.commitAddressBook();
+        model.commitDocX();
     }
 
 }

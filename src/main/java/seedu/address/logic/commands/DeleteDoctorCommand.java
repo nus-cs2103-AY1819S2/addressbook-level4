@@ -42,7 +42,7 @@ public class DeleteDoctorCommand extends Command {
 
         Doctor doctorToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteDoctor(doctorToDelete);
-        model.commitAddressBook();
+        model.commitDocX();
         return new CommandResult(String.format(MESSAGE_DELETE_DOCTOR_SUCCESS, doctorToDelete));
     }
 

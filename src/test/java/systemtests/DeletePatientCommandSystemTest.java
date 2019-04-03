@@ -20,7 +20,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Patient;
 
-public class DeletePatientCommandSystemTest extends AddressBookSystemTest {
+public class DeletePatientCommandSystemTest extends DocXSystemTest {
 
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeletePatientCommand.MESSAGE_USAGE);
@@ -59,17 +59,17 @@ public class DeletePatientCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
-        /* Case: filtered patient list, delete index within bounds of address book and patient list -> deleted */
+        /* Case: filtered patient list, delete index within bounds of DocX and patient list -> deleted */
         showPatientsWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPatientList().size());
         assertCommandSuccess(index);
 
-        /* Case: filtered patient list, delete index within bounds of address book but out of bounds of patient list
+        /* Case: filtered patient list, delete index within bounds of DocX but out of bounds of patient list
          * -> rejected
          */
         showPatientsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getPatientList().size();
+        int invalidIndex = getModel().getDocX().getPatientList().size();
         command = DeletePatientCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
 
@@ -98,7 +98,7 @@ public class DeletePatientCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         Index outOfBoundsIndex = Index.fromOneBased(
-                getModel().getAddressBook().getPatientList().size() + 1);
+                getModel().getDocX().getPatientList().size() + 1);
         command = DeletePatientCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
         assertCommandFailure(command, MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
 
@@ -115,7 +115,7 @@ public class DeletePatientCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Removes the {@code Patient} at the specified {@code index} in {@code model}'s address book.
+     * Removes the {@code Patient} at the specified {@code index} in {@code model}'s DocX.
      *
      * @return the removed patient
      */
@@ -148,9 +148,9 @@ public class DeletePatientCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.
+     * {@code DocXSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.
      *
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see DocXSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         assertCommandSuccess(command, expectedModel, expectedResultMessage, null);
@@ -161,7 +161,7 @@ public class DeletePatientCommandSystemTest extends AddressBookSystemTest {
      * and selected card are expected to update accordingly depending on the card at {@code expectedSelectedCardIndex}.
      *
      * @see DeletePatientCommandSystemTest#assertCommandSuccess(String, Model, String)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * @see DocXSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
                                       Index expectedSelectedCardIndex) {
@@ -185,9 +185,9 @@ public class DeletePatientCommandSystemTest extends AddressBookSystemTest {
      * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * {@code DocXSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      *
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see DocXSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

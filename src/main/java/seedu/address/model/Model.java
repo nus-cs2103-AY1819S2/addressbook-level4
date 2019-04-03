@@ -50,47 +50,47 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' DocX file path.
      */
-    Path getAddressBookFilePath();
+    Path getDocXFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' DocX file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setDocXFilePath(Path docXFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces DocX data with the data in {@code DocX}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setDocX(ReadOnlyDocX docX);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the DocX */
+    ReadOnlyDocX getDocX();
 
     /**
-     * Returns true if a patient with the same identity as {@code patient} exists in the address book.
+     * Returns true if a patient with the same identity as {@code patient} exists in the DocX.
      */
     boolean hasPatient(Patient patient);
 
     /**
-     * Returns true if a medical history with the same identity as {@code patient} exists in the address book.
+     * Returns true if a medical history with the same identity as {@code patient} exists in the DocX.
      */
     boolean hasMedHist(MedicalHistory medicalHistory);
 
     /**
      * Deletes the given patient.
-     * The patient must exist in the address book.
+     * The patient must exist in the DocX.
      */
     void deletePatient(Patient target);
 
     /**
      * Deletes the given medHist.
-     * The medHist must exist in the address book.
+     * The medHist must exist in the DocX.
      */
     void deleteMedHist(MedicalHistory target);
 
     /**
-     * Returns true if a patient with the same identity as {@code patient} exists in the address book.
+     * Returns true if a patient with the same identity as {@code patient} exists in the DocX.
      */
     boolean hasAppointment(Appointment appointment);
 
@@ -102,33 +102,33 @@ public interface Model {
 
     /**
      * Adds the given patient.
-     * {@code patient} must not already exist in the address book.
+     * {@code patient} must not already exist in the DocX.
      */
     void addPatient(Patient patient);
 
     /**
      * Adds the given medical history.
-     * {@code medical history} must not already exist in the address book.
+     * {@code medical history} must not already exist in the DocX.
      */
     void addMedHist(MedicalHistory medicalHistory);
 
     /**
      * Adds the given prescription.
-     * {@code prescription} must not already exist in the address book.
+     * {@code prescription} must not already exist in the DocX.
      */
     void addPrescription(Prescription prescription);
 
     /**
-     * Returns true if a prescription with the same identity as {@code prescription} exists in the address book.
+     * Returns true if a prescription with the same identity as {@code prescription} exists in the DocX.
      */
     boolean hasPrescription(Prescription prescription);
 
 
     /**
      * Replaces the given patient {@code target} with {@code editedPatient}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the DocX.
      * The patient identity of {@code editedPatient} must not be the same
-     * as another existing patient in the address book.
+     * as another existing patient in the DocX.
      */
     void setPatient(Patient target, Patient editedPatient);
 
@@ -142,9 +142,9 @@ public interface Model {
 
     /**
      * Replaces the given medHist {@code target} with {@code editedMedHist}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the DocX.
      * The medHist identity of {@code editedMedHist} must not be the same
-     * as another existing medHist in the address book.
+     * as another existing medHist in the DocX.
      */
     void setMedHist(MedicalHistory target, MedicalHistory editedMedHist);
 
@@ -185,29 +185,29 @@ public interface Model {
     void updateFilteredAppointmentList(Predicate<Appointment> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous DocX states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoDocX();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has undone DocX states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoDocX();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Restores the model's DocX to its previous state.
      */
-    void undoAddressBook();
+    void undoDocX();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores the model's DocX to its previously undone state.
      */
-    void redoAddressBook();
+    void redoDocX();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Saves the current DocX state for undo/redo.
      */
-    void commitAddressBook();
+    void commitDocX();
 
     /**
      * Selected patient in the filtered patient list.
@@ -285,7 +285,7 @@ public interface Model {
 
     /**
      * Deletes the given doctor.
-     * The doctor must exist in the address book.
+     * The doctor must exist in the DocX.
      */
     void deleteDoctor(Doctor target);
 

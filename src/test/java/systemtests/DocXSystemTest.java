@@ -39,17 +39,17 @@ import seedu.address.logic.commands.SearchDoctorCommand;
 import seedu.address.logic.commands.SearchPatientCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SelectDoctorCommand;
-import seedu.address.model.AddressBook;
+import seedu.address.model.DocX;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalPatients;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
 /**
- * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
+ * A system test class for DocX, which provides access to handles of GUI components and helper methods
  * for test verification.
  */
-public abstract class AddressBookSystemTest {
+public abstract class DocXSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
 
@@ -84,8 +84,8 @@ public abstract class AddressBookSystemTest {
     /**
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
-    protected AddressBook getInitialData() {
-        return TypicalPatients.getTypicalAddressBook();
+    protected DocX getInitialData() {
+        return TypicalPatients.getTypicalDocX();
     }
 
     /**
@@ -147,7 +147,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showAllPatients() {
         executeCommand(ListPatientCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getPatientList().size(), getModel().getFilteredPatientList().size());
+        assertEquals(getModel().getDocX().getPatientList().size(), getModel().getFilteredPatientList().size());
     }
 
     /**
@@ -156,7 +156,7 @@ public abstract class AddressBookSystemTest {
     protected void showPatientsWithName(String keyword) {
         executeCommand(SearchPatientCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredPatientList().size()
-                < getModel().getAddressBook().getPatientList().size());
+                < getModel().getDocX().getPatientList().size());
     }
 
     /**
@@ -172,7 +172,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void deleteAllPatients() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAddressBook().getPatientList().size());
+        assertEquals(0, getModel().getDocX().getPatientList().size());
     }
 
     /**
@@ -180,7 +180,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showAllDoctors() {
         executeCommand(ListDoctorCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getDoctorList().size(), getModel().getFilteredDoctorList().size());
+        assertEquals(getModel().getDocX().getDoctorList().size(), getModel().getFilteredDoctorList().size());
     }
 
     /**
@@ -189,7 +189,7 @@ public abstract class AddressBookSystemTest {
     protected void showDoctorsWithName(String keyword) {
         executeCommand(SearchDoctorCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredDoctorList().size()
-                < getModel().getAddressBook().getDoctorList().size());
+                < getModel().getDocX().getDoctorList().size());
     }
 
     /**
@@ -205,7 +205,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void deleteAllDoctors() {
         executeCommand(DeleteDoctorCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAddressBook().getDoctorList().size());
+        assertEquals(0, getModel().getDocX().getDoctorList().size());
     }
 
     /**
@@ -217,7 +217,7 @@ public abstract class AddressBookSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
+        assertEquals(new DocX(expectedModel.getDocX()), testApp.readStorageDocX());
         assertListMatching(getPatientListPanel(), expectedModel.getFilteredPatientList());
     }
 

@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.medicalhistory.MedicalHistory;
 
 /**
- * Deletes a patient identified using it's displayed index from the address book.
+ * Deletes a patient identified using it's displayed index from the docX.
  */
 public class DeleteMedHistCommand extends Command {
 
@@ -42,7 +42,7 @@ public class DeleteMedHistCommand extends Command {
 
         MedicalHistory medHistToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteMedHist(medHistToDelete);
-        model.commitAddressBook();
+        model.commitDocX();
         return new CommandResult(String.format(MESSAGE_DELETE_MEDHIST_SUCCESS, medHistToDelete));
     }
 

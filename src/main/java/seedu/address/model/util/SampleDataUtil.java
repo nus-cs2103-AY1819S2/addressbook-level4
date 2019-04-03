@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.DocX;
+import seedu.address.model.ReadOnlyDocX;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicalhistory.Date;
 import seedu.address.model.medicalhistory.MedicalHistory;
@@ -36,10 +36,10 @@ public class SampleDataUtil {
                 getTagSet("highbloodpressure", "stroke")),
             new Patient(new Name("Charlotte Oliveiro"), new Gender("F"), new Age("101"), new Phone("93210283"),
                 new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("others")),
+                getTagSet("fever", "flu")),
             new Patient(new Name("David Li"), new Gender("M"), new Age("28"), new Phone("91031282"),
                 new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("diabetes")),
+                getTagSet("diabetes", "stroke")),
             new Patient(new Name("Irfan Ibrahim"), new Gender("M"), new Age("60"), new Phone("92492021"),
                 new Address("Blk 47 Tampines Street 20, #17-35"),
                 getTagSet("lungcancer")),
@@ -72,10 +72,10 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyDocX getSampleDocX() {
+        DocX sampleDocX = new DocX();
         for (Patient samplePatient : getSamplePatients()) {
-            sampleAb.addPatient(samplePatient);
+            sampleDocX.addPatient(samplePatient);
         }
         /*
         for (Doctor sampleDoctor : getSampleDoctors()) {
@@ -83,9 +83,9 @@ public class SampleDataUtil {
         }
         */
         for (MedicalHistory sampleMedHist : getSampleMedHists()) {
-            sampleAb.addMedHist(sampleMedHist);
+            sampleDocX.addMedHist(sampleMedHist);
         }
-        return sampleAb;
+        return sampleDocX;
     }
 
     /**

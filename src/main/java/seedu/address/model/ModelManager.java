@@ -27,12 +27,12 @@ import seedu.address.model.prescription.Prescription;
 
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the DocX data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedDocX versionedDocX;
     private final UserPrefs userPrefs;
     private final FilteredList<Patient> filteredPatients;
     private final SimpleObjectProperty<Patient> selectedPatient = new SimpleObjectProperty<>();
@@ -44,28 +44,28 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Appointment> selectedAppointment = new SimpleObjectProperty<>();
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given DocX and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyDocX docX, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(docX, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with DocX: " + docX + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedDocX = new VersionedDocX(docX);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPatients = new FilteredList<>(versionedAddressBook.getPatientList());
+        filteredPatients = new FilteredList<>(versionedDocX.getPatientList());
         filteredPatients.addListener(this::ensureSelectedPatientIsValid);
-        filteredDoctors = new FilteredList<>(versionedAddressBook.getDoctorList());
+        filteredDoctors = new FilteredList<>(versionedDocX.getDoctorList());
         filteredDoctors.addListener(this::ensureSelectedDoctorIsValid);
-        filteredMedHists = new FilteredList<>(versionedAddressBook.getMedHistList());
+        filteredMedHists = new FilteredList<>(versionedDocX.getMedHistList());
         filteredMedHists.addListener(this::ensureSelectedMedHistIsValid);
-        filteredAppointments = new FilteredList<>(versionedAddressBook.getAppointmentList());
+        filteredAppointments = new FilteredList<>(versionedDocX.getAppointmentList());
         filteredAppointments.addListener(this::ensureSelectedAppointmentIsValid);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new DocX(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -93,86 +93,86 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getDocXFilePath() {
+        return userPrefs.getDocXFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setDocXFilePath(Path docXFilePath) {
+        requireNonNull(docXFilePath);
+        userPrefs.setDocXFilePath(docXFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== DocX ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        versionedAddressBook.resetData(addressBook);
+    public void setDocX(ReadOnlyDocX docX) {
+        versionedDocX.resetData(docX);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlyDocX getDocX() {
+        return versionedDocX;
     }
 
 
     @Override
     public boolean hasPatient(Patient patient) {
         requireNonNull(patient);
-        return versionedAddressBook.hasPatient(patient);
+        return versionedDocX.hasPatient(patient);
     }
 
     @Override
     public void deletePatient(Patient target) {
-        versionedAddressBook.removePatient(target);
+        versionedDocX.removePatient(target);
     }
 
     @Override
     public void addPatient(Patient patient) {
-        versionedAddressBook.addPatient(patient);
+        versionedDocX.addPatient(patient);
         updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
     }
 
     @Override
     public boolean hasDoctor(Doctor doctor) {
         requireNonNull(doctor);
-        return versionedAddressBook.hasDoctor(doctor);
+        return versionedDocX.hasDoctor(doctor);
     }
 
     @Override
     public void addDoctor(Doctor doctor) {
-        versionedAddressBook.addDoctor(doctor);
+        versionedDocX.addDoctor(doctor);
         updateFilteredDoctorList(PREDICATE_SHOW_ALL_DOCTORS);
     }
 
     @Override
     public boolean hasPrescription(Prescription prescription) {
         requireNonNull(prescription);
-        return versionedAddressBook.hasPrescription(prescription);
+        return versionedDocX.hasPrescription(prescription);
     }
 
     @Override
     public void addPrescription(Prescription prescription) {
-        versionedAddressBook.addPrescription(prescription);
+        versionedDocX.addPrescription(prescription);
         // updateFilteredDoctorList(PREDICATE_SHOW_ALL_DOCTORS);
     }
 
     @Override
     public boolean hasAppointment(Appointment appointment) {
         requireNonNull(appointment);
-        return versionedAddressBook.hasAppointment(appointment);
+        return versionedDocX.hasAppointment(appointment);
     }
 
     @Override
     public void addAppointment(Appointment appointment) {
-        versionedAddressBook.addAppointment(appointment);
+        versionedDocX.addAppointment(appointment);
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
     }
 
 
     @Override
     public void deleteDoctor(Doctor target) {
-        versionedAddressBook.removeDoctor(target);
+        versionedDocX.removeDoctor(target);
     }
 
     public ReadOnlyProperty<Doctor> selectedDoctorProperty() {
@@ -192,45 +192,45 @@ public class ModelManager implements Model {
     @Override
     public boolean hasMedHist(MedicalHistory medicalHistory) {
         requireAllNonNull(medicalHistory);
-        return versionedAddressBook.hasMedHist(medicalHistory);
+        return versionedDocX.hasMedHist(medicalHistory);
     }
 
     @Override
     public void addMedHist(MedicalHistory medicalHistory) {
-        versionedAddressBook.addMedHist(medicalHistory);
+        versionedDocX.addMedHist(medicalHistory);
         updateFilteredMedHistList(PREDICATE_SHOW_ALL_MEDHISTS);
     }
 
     @Override
     public void deleteMedHist(MedicalHistory target) {
-        versionedAddressBook.removeMedHist(target);
+        versionedDocX.removeMedHist(target);
     }
 
     @Override
     public void setMedHist(MedicalHistory target, MedicalHistory editedMedHist) {
         requireAllNonNull(target, editedMedHist);
 
-        versionedAddressBook.setMedHist(target, editedMedHist);
+        versionedDocX.setMedHist(target, editedMedHist);
     }
 
     @Override
     public void setPatient(Patient target, Patient editedPatient) {
         requireAllNonNull(target, editedPatient);
 
-        versionedAddressBook.setPatient(target, editedPatient);
+        versionedDocX.setPatient(target, editedPatient);
     }
 
     @Override
     public void setDoctor(Doctor target, Doctor editedDoctor) {
         requireAllNonNull(target, editedDoctor);
-        versionedAddressBook.setDoctor(target, editedDoctor);
+        versionedDocX.setDoctor(target, editedDoctor);
     }
 
     //=========== Filtered Patient List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Patient} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedDocX}
      */
     @Override
     public ObservableList<Patient> getFilteredPatientList() {
@@ -247,7 +247,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Doctor} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedDocX}
      */
     @Override
     public ObservableList<Doctor> getFilteredDoctorList() {
@@ -264,7 +264,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code MedicalHistory} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedDocX}
      */
     @Override
     public ObservableList<MedicalHistory> getFilteredMedHistList() {
@@ -281,7 +281,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Appointment} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedDocX}
      */
     @Override
     public ObservableList<Appointment> getFilteredAppointmentList() {
@@ -297,28 +297,28 @@ public class ModelManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoDocX() {
+        return versionedDocX.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoDocX() {
+        return versionedDocX.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
+    public void undoDocX() {
+        versionedDocX.undo();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
+    public void redoDocX() {
+        versionedDocX.redo();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitDocX() {
+        versionedDocX.commit();
     }
 
     //=========== Selected patient ===========================================================================
@@ -463,7 +463,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedDocX.equals(other.versionedDocX)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPatients.equals(other.filteredPatients)
                 && Objects.equals(selectedPatient.get(), other.selectedPatient.get());

@@ -7,7 +7,7 @@ import seedu.address.model.person.Patient;
 
 
 /**
- * Represents a Medical History in the address book.
+ * Represents a Medical History in the docX.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class MedicalHistory {

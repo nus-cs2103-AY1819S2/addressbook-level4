@@ -29,7 +29,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Specialisation;
 
 /**
- * Edits the details of an existing doctor in the address book.
+ * Edits the details of an existing doctor in the docX.
  */
 public class EditDoctorCommand extends Command {
 
@@ -49,7 +49,7 @@ public class EditDoctorCommand extends Command {
 
     public static final String MESSAGE_EDIT_DOCTOR_SUCCESS = "Edited Doctor: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PATIENT = "This doctor already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PATIENT = "This doctor already exists in the docX.";
 
     private final Index index;
     private final EditDoctorDescriptor editDoctorDescriptor;
@@ -85,7 +85,7 @@ public class EditDoctorCommand extends Command {
 
         model.setDoctor(doctorToEdit, editedDoctor);
         model.updateFilteredDoctorList(PREDICATE_SHOW_ALL_DOCTORS);
-        model.commitAddressBook();
+        model.commitDocX();
         return new CommandResult(String.format(MESSAGE_EDIT_DOCTOR_SUCCESS, editedDoctor));
     }
 

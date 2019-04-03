@@ -6,7 +6,7 @@ import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
 
 /**
- * Represents a Prescription in the address book.
+ * Represents a Prescription in the docX.
  */
 public class Prescription {
     // Identity field

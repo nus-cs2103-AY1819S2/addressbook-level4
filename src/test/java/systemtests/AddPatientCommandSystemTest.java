@@ -51,7 +51,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PatientBuilder;
 import seedu.address.testutil.PatientUtil;
 
-public class AddPatientCommandSystemTest extends AddressBookSystemTest {
+public class AddPatientCommandSystemTest extends DocXSystemTest {
 
     @Test
     public void add() {
@@ -59,7 +59,7 @@ public class AddPatientCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a patient without tags to a non-empty address book, command with leading spaces and trailing spaces
+        /* Case: add a patient without tags to a non-empty DocX, command with leading spaces and trailing spaces
          * -> added
          */
         Patient toAdd = AMY;
@@ -79,7 +79,7 @@ public class AddPatientCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: add a patient with all fields same as another patient in the address book except name -> added */
+        /* Case: add a patient with all fields same as another patient in the DocX except name -> added */
         toAdd = new PatientBuilder(AMY).withName(VALID_NAME_BOB).build();
         command = AddPatientCommand.COMMAND_WORD + NAME_DESC_BOB
                 + GENDER_DESC_AMY + AGE_DESC_AMY + PHONE_DESC_AMY
@@ -87,14 +87,14 @@ public class AddPatientCommandSystemTest extends AddressBookSystemTest {
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a patient with all fields same as another patient in the address book except phone
+        /* Case: add a patient with all fields same as another patient in the DocX except phone
          * -> added
          */
         toAdd = new PatientBuilder(AMY).withPhone(VALID_PHONE_BOB).build();
         command = PatientUtil.getAddPatientCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add to empty address book -> added */
+        /* Case: add to empty DocX -> added */
         deleteAllPatients();
         assertCommandSuccess(ALICE);
 
@@ -211,9 +211,9 @@ public class AddPatientCommandSystemTest extends AddressBookSystemTest {
      * 5. Browser url and selected card remain unchanged.<br>
      * 6. Status bar's sync status changes.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * {@code DocXSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      *
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see DocXSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(Patient toAdd) {
         assertCommandSuccess(PatientUtil.getAddPatientCommand(toAdd), toAdd);
@@ -258,9 +258,9 @@ public class AddPatientCommandSystemTest extends AddressBookSystemTest {
      * 4. {@code Storage} and {@code PatientListPanel} remain unchanged.<br>
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * {@code DocXSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      *
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see DocXSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

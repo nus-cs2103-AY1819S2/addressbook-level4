@@ -5,14 +5,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's gender in the address book.
+ * Represents a Person's gender in the docX.
  * Guarantees: immutable; is valid as declared in {@link #isValidGender(String)}
  */
 public class Gender {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Gender should only contain 1 character, and it should only be F/f/M/m";
-    public static final String VALIDATION_REGEX = "[MFmf]";
+            "Gender should be either M or F";
+    public static final String VALIDATION_REGEX = "[MF]";
     public final String value;
 
     /**

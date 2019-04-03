@@ -20,7 +20,7 @@ public class AddPatientCommand extends Command {
 
     public static final String COMMAND_WORD = "add-patient";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a patient to the docX record. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a patient to the docX. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_GENDER + "GENDER "
@@ -35,10 +35,10 @@ public class AddPatientCommand extends Command {
             + PREFIX_PHONE + "98765432 "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_TAG + "diabetes "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_TAG + "highbloodpressure";
 
     public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PATIENT = "This patient already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_PATIENT = "This patient already exists in docX";
 
     private final Patient toAdd;
 
@@ -59,7 +59,7 @@ public class AddPatientCommand extends Command {
         }
 
         model.addPatient(toAdd);
-        model.commitAddressBook();
+        model.commitDocX();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

@@ -16,13 +16,13 @@ public class AddPrescriptionCommand extends Command {
 
     public static final String COMMAND_WORD = "add-prescription";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds a medical history of a patient to the address book."
+            + ": Adds a medical history of a patient to the docX."
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "one dose of amoxicillin and two doses of cephalexin";
     public static final String MESSAGE_SUCCESS = "New prescription added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PRESCRIPTION = "This prescription already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_PRESCRIPTION = "This prescription already exists in the docX";
 
     private final Prescription prescriptionToAdd;
 
@@ -42,7 +42,7 @@ public class AddPrescriptionCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PRESCRIPTION);
         }
         model.addPrescription(prescriptionToAdd);
-        model.commitAddressBook();
+        model.commitDocX();
         return new CommandResult(String.format(MESSAGE_SUCCESS, prescriptionToAdd));
 
     }

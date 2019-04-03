@@ -4,15 +4,16 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's phone number in the address book.
+ * Represents a Person's phone number in the docX.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
 public class Phone {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Phone numbers should only contain numbers, and it should be exaclty 8 digits long";
-    public static final String VALIDATION_REGEX = "\\d{8}"; // exactly 8 digits
+            "Phone numbers should only contain numbers starting with 9, 8, 6 or 3, "
+                    + "and it should be exaclty 8 digits long";
+    public static final String VALIDATION_REGEX = "[3689][0-9]{7}"; // exactly 8 digits
     public final String value;
 
     /**

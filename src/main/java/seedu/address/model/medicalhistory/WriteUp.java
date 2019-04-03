@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents write up of a medical history in the address book.
+ * Represents write up of a medical history in the docX.
  * Guarantees: immutable; is valid as declared in {@link #isValidWriteUp(String)}
  */
 public class WriteUp {

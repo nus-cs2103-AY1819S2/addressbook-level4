@@ -74,9 +74,9 @@ public class PatientPatientTagContainsKeywordsPredicateTest {
 
         // Keywords match gender, age, phone and address, but does not match name
         predicate = new PatientNameContainsKeywordsPredicate(
-                Arrays.asList("F", "23", "12345678", "Main", "Street"));
+                Arrays.asList("F", "23", "62345678", "Main", "Street"));
         assertFalse(predicate.test(new PatientBuilder().withName("Alice")
-                .withGender("F").withAge("23").withPhone("12345678")
+                .withGender("F").withAge("23").withPhone("62345678")
                 .withAddress("Main Street").build()));
     }
 }

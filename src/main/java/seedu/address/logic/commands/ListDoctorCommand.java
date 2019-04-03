@@ -7,7 +7,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
 /**
- * Lists all doctors in the address book to the user.
+ * Lists all doctors in the docX to the user.
  */
 public class ListDoctorCommand extends Command {
 

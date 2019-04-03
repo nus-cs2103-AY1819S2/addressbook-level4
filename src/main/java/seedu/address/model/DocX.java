@@ -20,10 +20,10 @@ import seedu.address.model.prescription.UniquePrescriptionList;
 
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the docX level
  * Duplicates are not allowed (by .isSamePatient comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class DocX implements ReadOnlyDocX {
 
     private final UniquePatientList patients;
     private final UniqueDoctorList doctors;
@@ -47,13 +47,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         appointments = new UniqueAppointmentList();
     }
 
-    public AddressBook() {
+    public DocX() {
     }
 
     /**
-     * Creates an AddressBook using the Patients in the {@code toBeCopied}
+     * Creates an DocX using the Patients in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public DocX(ReadOnlyDocX toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -97,9 +97,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code DocX} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyDocX newData) {
         requireNonNull(newData);
         setPatients(newData.getPatientList());
         setMedHists(newData.getMedHistList());
@@ -110,7 +110,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// patient-level operations
 
     /**
-     * Returns true if a patient with the same identity as {@code patient} exists in the address book.
+     * Returns true if a patient with the same identity as {@code patient} exists in the docX.
      */
     public boolean hasPatient(Patient patient) {
         requireNonNull(patient);
@@ -118,8 +118,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a patient to the address book.
-     * The patient must not already exist in the address book.
+     * Adds a patient to the docX.
+     * The patient must not already exist in the docX.
      */
     public void addPatient(Patient p) {
         patients.add(p);
@@ -127,7 +127,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Returns true if a doctor with the same identity as {@code doctor} exists in the address book.
+     * Returns true if a doctor with the same identity as {@code doctor} exists in the docX.
      */
     public boolean hasDoctor(Doctor doctor) {
         requireNonNull(doctor);
@@ -135,8 +135,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a doctor to the address book.
-     * The doctor must not already exist in the address book.
+     * Adds a doctor to the docX.
+     * The doctor must not already exist in the docX.
      */
     public void addDoctor(Doctor d) {
         doctors.add(d);
@@ -145,9 +145,9 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given patient {@code target} in the list with {@code editedPatient}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the docX.
      * The patient identity of {@code editedPatient} must not be the same
-     * as another existing patient in the address book.
+     * as another existing patient in the docX.
      */
     public void setPatient(Patient target, Patient editedPatient) {
         requireNonNull(editedPatient);
@@ -180,8 +180,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in the docX.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the docX.
      */
     public void setDoctor(Doctor target, Doctor editedDoctor) {
         requireNonNull(editedDoctor);
@@ -191,8 +191,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code DocX}.
+     * {@code key} must exist in the docX.
      */
     public void removePatient(Patient key) {
         patients.remove(key);
@@ -202,7 +202,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// medical history-level operations
 
     /**
-     * Returns true if a medical history with the same identity as {@code person} exists in the address book.
+     * Returns true if a medical history with the same identity as {@code person} exists in the docX.
      */
     public boolean hasMedHist(MedicalHistory medHist) {
         requireNonNull(medHist);
@@ -210,8 +210,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a medical history to the address book.
-     * The medical history must not already exist in the address book.
+     * Adds a medical history to the docX.
+     * The medical history must not already exist in the docX.
      */
     public void addMedHist(MedicalHistory medHist) {
         medHists.add(medHist);
@@ -220,9 +220,9 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given medical history {@code target} in the list with {@code editedMedHist}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the docX.
      * The medical history identity of {@code editedMedHist} must not be the same as another existing medical history
-     * in the address book.
+     * in the docX.
      */
     public void setMedHist(MedicalHistory target, MedicalHistory editedMedHist) {
         requireNonNull(editedMedHist);
@@ -232,8 +232,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code DocX}.
+     * {@code key} must exist in the docX.
      */
     public void removeMedHist(MedicalHistory key) {
         medHists.remove(key);
@@ -242,7 +242,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// prescription-level operations
 
     /**
-     * Returns true if a prescription with the same identity as {@code prescription} exists in the address book.
+     * Returns true if a prescription with the same identity as {@code prescription} exists in the docX.
      */
     public boolean hasPrescription(Prescription prescription) {
         requireNonNull(prescription);
@@ -250,8 +250,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a prescription to the address book.
-     * The prescription must not already exist in the address book.
+     * Adds a prescription to the docX.
+     * The prescription must not already exist in the docX.
      */
     public void addPrescription(Prescription prescription) {
         prescriptions.addPrescription(prescription);
@@ -259,8 +259,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code DocX}.
+     * {@code key} must exist in the docX.
      */
     public void removeDoctor(Doctor key) {
         doctors.remove(key);
@@ -278,7 +278,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Notifies listeners that the address book has been modified.
+     * Notifies listeners that the docX has been modified.
      */
     protected void indicateModified() {
         invalidationListenerManager.callListeners(this);
@@ -316,10 +316,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && patients.equals(((AddressBook) other).patients)
-                && doctors.equals(((AddressBook) other).doctors)
-                && medHists.equals(((AddressBook) other).medHists));
+                || (other instanceof DocX // instanceof handles nulls
+                && patients.equals(((DocX) other).patients)
+                && doctors.equals(((DocX) other).doctors)
+                && medHists.equals(((DocX) other).medHists));
     }
 
     @Override

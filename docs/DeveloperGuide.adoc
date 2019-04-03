@@ -246,9 +246,28 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.equipment.commons` package.
 
+[[Implementation-Commons]]
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+//tag::equipment[]
+=== Equipment features
+==== Overview on Equipment details
+==== Current Usage of Equipment Details
+===== Adding an equipment
+===== Editing an equipment
+===== Deleting an equipment
+===== Listing all equipments
+==== Design Considerations
+//end::equipment[]
+
+//tag::client[]
+=== Client feature
+==== Overview on Client details
+==== Current Usage of Client details
+==== Design Considerations
+//end::client[]
 
 //tag::filter[]
 === Filter feature

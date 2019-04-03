@@ -1,19 +1,20 @@
 /**
  This css file is written from scratch to convert the dark theme in AB4 to a white theme
- that is more appropriate for the context of our application, HealthHub.
+ that is more appropriate for the context of our application, Health Hub.
  Author: Hui Chun
  Date: 21-03-2019
 **/
-@import url(https://fonts.googleapis.com/css?family=Inconsolata:400,700);
+@import url('https://fonts.googleapis.com/css?family=Inconsolata:400');
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,400i');
 
 .menu-bar .label {
     -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: 'Arial';
 }
 
 /* For the command box input and result */
 #commandTextField, #resultDisplay {
-    -fx-font-family: "Inconsolata";
+    -fx-font-family: 'Inconsolata';
     -fx-font-size: 12pt;
 }
 
@@ -24,70 +25,89 @@
 }
 
 #conditions .label {
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: 'Lato';
+    -fx-font-weight: 300;
+    -fx-font-size: 10pt;
     -fx-text-fill: white;
     -fx-background-color: #3e7b91;
     -fx-padding: 2 5 2 5;
     -fx-border-radius: 4;
     -fx-background-radius: 4;
-    -fx-font-size: 10pt;
 }
 
 .cell_big_label {
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-font-size: 15px;
+    -fx-font-family: 'Lato';
+    -fx-font-weight: 400;
+    -fx-font-size: 11pt;
     -fx-text-fill: #010504;
 }
 
 .cell_small_label {
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 14px;
+    -fx-font-family: 'Lato';
+    -fx-font-weight: 300;
+    -fx-font-size: 10pt;
     -fx-text-fill: #010504;
 }
 
 .status_label {
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: 'Lato';
+    -fx-font-weight: 400;
     -fx-font-size: 12pt;
 }
 
 /* For the welcome message in infoPanel */
 .background {
-    font-family: "Comic Sans MS";
-    padding-left: 20px;
-    font-size: 13pt;
+    padding: 20px 20px 10px 20px;
+}
+
+.background h2 {
+    font-family: 'Lato';
+    font-weight: 400;
+    font-style: italic;
+    font-size: 15pt;
+    text-align: center;
 }
 
 .welcome-message {
-    font-family: "Segoe UI Light";
-    margin: 10px 5px 10px 5px;
+    font-family: 'Lato';
+    font-weight: 300;
+    font-size: 12pt;
+    margin-top: 30px;
 }
 
 span.command {
-    font-family: "Inconsolata";
+    font-family: 'Inconsolata';
     font-weight: 400;
     font-size: 12pt;
     color: #079992;
 }
 
 .request-details {
-    font-family: "Segoe UI";
+    font-family: 'Lato';
+    font-weight: 400;
     font-size: 11pt;
     padding: 10px 20px 10px 20px;
 }
 
+i {
+   margin-right: 10px;
+}
+
 /* For the pink rounded border around specialisations */
 #specialisations .label {
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: 'Lato';
+    -fx-font-weight: 300;
+    -fx-font-size: 10pt;
     -fx-text-fill: white;
     -fx-background-color: #ee5253;
     -fx-padding: 2 5 2 5;
     -fx-border-radius: 4;
     -fx-background-radius: 4;
-    -fx-font-size: 10pt;
 }
 
 .status-bar-info  {
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: 'Lato';
+    -fx-font-weight: 400;
     -fx-font-style: italic;
     -fx-font-size: 12pt;
 }
@@ -112,17 +132,18 @@ span.command {
 }
 
 .alertDialog:header *.header-panel *.label{
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 14pt;
+    -fx-font-family: 'Lato';
+    -fx-font-weight: 400;
     -fx-font-style: italic;
+    -fx-font-size: 14pt;
     -fx-fill: #292929;
 }
 
 .alertDialog > *.label.content{
-   -fx-font-family: "Segoe UI";
+   -fx-font-family: 'Lato';
+   -fx-font-weight: 300;
    -fx-font-size: 12pt;
 }
-
 
 /* removes unwanted horizontal scroll bar */
 .list-view .scroll-bar:horizontal .increment-arrow,

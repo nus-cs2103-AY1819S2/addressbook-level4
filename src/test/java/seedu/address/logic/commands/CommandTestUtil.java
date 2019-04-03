@@ -16,7 +16,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.request.EditRequestCommand;
+import seedu.address.model.CommandType;
 import seedu.address.model.Model;
+import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.request.Request;
 import seedu.address.model.tag.Specialisation;
 import seedu.address.testutil.EditHealthWorkerDescriptorBuilder;
 import seedu.address.testutil.EditRequestDescriptorBuilder;
@@ -206,13 +209,21 @@ public class CommandTestUtil {
     }
 
     /**
-     * Deletes the first person in {@code model}'s filtered list from {@code model}'s address book.
-     * TODO: reimplement with addressbook and requestbook
+     * Deletes the first healthworker in {@code model}'s filtered list from {@code model}'s healthworker book.
      */
-    //public static void deleteFirstPerson(Model model) {
-    //Person firstPerson = model.getFilteredPersonList().get(0);
-    //model.deletePerson(firstPerson);
-    //model.commitAddressBook();
-    //}
+    public static void deleteFirstHealthWorker(Model model) {
+        HealthWorker firstHealthWorker = model.getFilteredHealthWorkerList().get(0);
+        model.deleteHealthWorker(firstHealthWorker);
+        model.commit(CommandType.HEALTHWORKER_COMMAND);
+    }
+
+    /**
+     * Deletes the first request in {@code model}'s filtered list from {@code model}'s request book.
+     */
+    public static void deleteFirstRequest(Model model) {
+        Request firstRequest = model.getFilteredRequestList().get(0);
+        model.deleteRequest(firstRequest);
+        model.commit(CommandType.REQUEST_COMMAND);
+    }
 
 }

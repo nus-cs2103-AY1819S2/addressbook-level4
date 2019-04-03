@@ -17,7 +17,7 @@ import seedu.address.model.request.RequestStatus;
 /**
  * Marks a request as COMPLETED.
  */
-public class CompleteRequestCommand extends Command {
+public class CompleteRequestCommand extends Command implements RequestCommand {
 
     public static final String COMMAND_WORD = "complete";
 

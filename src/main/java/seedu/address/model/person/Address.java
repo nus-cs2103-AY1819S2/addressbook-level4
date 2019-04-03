@@ -43,12 +43,14 @@ public class Address {
      */
     public String toStreetNameOnly() {
 
-        // The address is either in the following formats:
-        // 123, ABC Road, #01-01 or
-        // 123 ABC Road, #01-01 or
-        // 123, ABC, Road, #01-01
-        String street = value.substring(0, value.indexOf("#"));
-        if (value.indexOf(",") != -1) {
+        // The address is either in one of the following formats:
+        // 123, ABC Road, #01-01 or 123 ABC Road, #01-01 or
+        // 123, ABC, Road, #01-01 or wallstreet
+        String street = value;
+        if (street.indexOf("#") != -1) {
+            street = value.substring(0, value.indexOf("#"));
+        }
+        if (street.indexOf(",") != -1) {
             street = street.replaceAll(",", "");
         }
         return street;

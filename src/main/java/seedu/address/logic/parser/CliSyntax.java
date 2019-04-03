@@ -18,7 +18,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_REQUEST = new Prefix("r/");
     public static final Prefix PREFIX_STATUS = new Prefix("st/");
 
-    /* Additional prefixes for HealthWorker and Patient class */
+    // Additional prefixes for HealthWorker
     public static final Prefix PREFIX_ORGANIZATION = new Prefix("o/");
     public static final Prefix PREFIX_SKILLS = new Prefix("s/");
 
@@ -30,5 +30,4 @@ public class CliSyntax {
     /* Prefixes for setting reminders */
     public static final Prefix PREFIX_TIME = new Prefix("t/");
     public static final Prefix PREFIX_MESSAGE = new Prefix("m/");
-
 }

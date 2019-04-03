@@ -3,9 +3,7 @@ package seedu.equipment.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-//import static seedu.equipment.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-//import static seedu.equipment.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-//import static seedu.equipment.testutil.TypicalEquipments.ANCHORVALECC;
+import static seedu.equipment.testutil.TypicalEquipments.ANCHORVALECC;
 //import static seedu.equipment.testutil.TypicalEquipments.BOB;
 
 import static seedu.equipment.testutil.TypicalWorkLists.LISTA;
@@ -44,6 +42,23 @@ public class UniqueWorkListListTest {
     public void contains_nullWorkList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueWorkListList.contains(null);
+    }
+
+    @Test
+    public void addEquipment_noSuchWorkListFound() {
+        thrown.expect(EquipmentNotFoundException.class);
+        WorkListId noSuchId = new WorkListId("999");
+        uniqueWorkListList.addEquipment(ANCHORVALECC, noSuchId);
+    }
+
+    @Test
+    public void addEquipment_workListFound_success() {
+        uniqueWorkListList.add(LISTA);
+        uniqueWorkListList.addEquipment(ANCHORVALECC, LISTA.getId());
+        UniqueWorkListList expectedUniqueWorkListList = new UniqueWorkListList();
+        expectedUniqueWorkListList.add(LISTA);
+        expectedUniqueWorkListList.addEquipment(ANCHORVALECC, LISTA.getId());
+        assertEquals(expectedUniqueWorkListList, uniqueWorkListList);
     }
 
     @Test

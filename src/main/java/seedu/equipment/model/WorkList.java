@@ -92,9 +92,6 @@ public class WorkList {
             return true;
         }
 
-        return otherWorkList.getAssignee().equals(getAssignee())
-                && otherWorkList.getDate().equals(getDate())
-                && otherWorkList.getId().equals(getId())
-                && otherWorkList.getEquipments().equals(getEquipments());
+        return otherWorkList != null && otherWorkList.getId().equals(getId());
     }
 }

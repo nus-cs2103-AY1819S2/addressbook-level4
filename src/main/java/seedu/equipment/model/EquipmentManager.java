@@ -10,6 +10,7 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.equipment.commons.util.InvalidationListenerManager;
 import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.equipment.SerialNumber;
 import seedu.equipment.model.equipment.UniqueEquipmentList;
 import seedu.equipment.model.tag.Tag;
 
@@ -99,6 +100,17 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
     public void addWorkList(WorkList w) {
         worklist.add(w);
         indicateModified();
+    }
+
+    /**
+     * Put the equipment with the serialNumber into the WorkList with workListId.
+     * The workListId and the serialNumber must exist in the Equipment Manager.
+     */
+    void putEquipment(WorkListId workListId, SerialNumber serialNumber) {
+        requireNonNull(workListId);
+        requireNonNull(serialNumber);
+        Equipment target = equipment.getEquipment(serialNumber);
+        worklist.addEquipment(target, workListId);
     }
 
     /**

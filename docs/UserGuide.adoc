@@ -173,20 +173,31 @@ Deletes the 1st flashcard in the results of the `find` command.
 
 === Quiz mode : `quiz`
 
-Enter quiz mode. +
+Enters quiz mode. +
 A card will be shown to the user one by one randomly with distribution based on accuracy of each flashcard. +
 The user then can self-verify whether he/she correctly guess the other side of the flashcard.
 
 Format: `quiz`
 
 ****
-* Enters quiz mode with the cards on the flashcard list panel.
+* Enters quiz mode with the cards on the filtered flashcard list panel.
 * This will start a quiz session. The flashcard list panel on the left will change to a quiz panel.
 * The quiz panel contains the number of cards remaining on the quiz, as well as the number of good and bad feedback received.
-* The card view panel on the right will display the quizzed cards one by one.
+* The card view panel on the right will display the quizzed cards one by one, with the back face of the flashcard hidden.
 ****
 
-=== User feedback : `good` or `bad`
+=== Showing back face of flashcard : `show`
+
+Shows the back face of the flashcard being quizzed.
+
+Format: `show`
+
+****
+* If the back face of the flashcard is already shown, this command will do nothing.
+* Note that you can only use this command inside quiz mode.
+****
+
+=== Giving quiz feedback : `good` or `bad`
 
 Gives user feedback on quiz mode.
 
@@ -196,6 +207,7 @@ Format: `good` or `bad`
 * In order to give feedback of how well you do in the quiz mode, you can type in either `good` or `bad` for each card in the quiz.
 * After you type `good` or `bad`, Acquizition will record the feedback on the card shown, as well as incrementing the number of good and bad feedback.
 * Acquizition will then proceed to show the next flashcard to be quizzed. If there are no cards left, it will exit quiz mode.
+* This command is usually, but not necessarily, used after the `show` command. That is, after you look at the back face of the flashcard, you can dictate how well you recall the back face of the flashcard.
 * Note that you can only use this command inside quiz mode.
 ****
 
@@ -206,6 +218,7 @@ Examples:
 This will increment the number of good feedback of the card shown, thus, the success rate of this card will increase. +
 Then, the next card in the quiz queue will be shown.
 * `quiz` +
+`show` +
 `bad` +
 This will increment the number of bad feedback of the card shown, thus, the success rate of this card will decrease. +
 Then, the next card in the quiz queue will be shown.

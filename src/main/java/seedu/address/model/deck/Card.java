@@ -25,17 +25,6 @@ public class Card implements ListItem {
     private final Difficulty difficulty;
 
     /**
-     * Every field must be present and not null.
-     */
-    public Card(String question, String answer, Set<Tag> tags) {
-        requireNonNull(question, answer);
-        this.question = question;
-        this.answer = answer;
-        this.tags.addAll(tags);
-        this.difficulty = new Difficulty();
-    }
-
-    /**
      * For when we load a card
      */
     public Card(String question, String answer, Difficulty difficulty, Set<Tag> tags) {
@@ -46,7 +35,7 @@ public class Card implements ListItem {
         this.tags.addAll(tags);
     }
 
-    public int getDifficulty() {
+    public double getDifficulty() {
         return difficulty.getDifficulty();
     }
 

@@ -34,6 +34,7 @@ public class ActivityAddCommand extends ActivityCommand {
     public static final String MESSAGE_DUPLICATE_ACTIVITY = "This activity already exists in Club Manager";
     public static final String MESSAGE_ACTIVITY_LOCATION_CLASH = "Another activity is scheduled"
             + " at the same time and location. Please reschedule to avoid clash.";
+    public static final String MESSAGE_DUPLICATED_PREFIXES = "Some fields have multiple inputs.";
 
 
     private final Activity toAdd;

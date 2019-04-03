@@ -10,9 +10,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
  */
 public class Date {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Date is invalid. It does not exists.";
-
+    public static final String MESSAGE_CONSTRAINTS = "Date is invalid. It does not exists.";
     /*
      * The first character of the item code must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
@@ -53,8 +51,8 @@ public class Date {
             } else if (!Year.isLeapYear(year.toString()) && Integer.parseInt(day.toString()) > 28) {
                 return isInvalid;
             }
-        } else if (Integer.parseInt(month.toString()) == 4 || Integer.parseInt(month.toString()) == 6
-                || Integer.parseInt(month.toString()) == 9 || Integer.parseInt(month.toString()) == 11
+        } else if ((Integer.parseInt(month.toString()) == 4 || Integer.parseInt(month.toString()) == 6
+                || Integer.parseInt(month.toString()) == 9 || Integer.parseInt(month.toString()) == 11)
                 && Integer.parseInt(day.toString()) > 30) {
             return isInvalid;
         }

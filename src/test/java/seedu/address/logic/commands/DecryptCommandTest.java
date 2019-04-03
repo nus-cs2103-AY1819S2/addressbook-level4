@@ -20,10 +20,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
+import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -145,10 +145,11 @@ public class DecryptCommandTest {
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
 
-    @SuppressWarnings("Duplicates")
+
     /**
      * Encrypts {@code pdfToInitialise} if it is not encrypted.
      */
+    @SuppressWarnings("Duplicates")
     private void initialiseTest(Pdf pdfToInitialise) {
         try {
             PDDocument file = PDDocument.load(Paths.get(pdfToInitialise.getDirectory().getDirectory(),
@@ -163,7 +164,7 @@ public class DecryptCommandTest {
                     pdfToInitialise.getName().getFullName()).toFile());
             file.close();
         } catch (IOException ioe) {
-
+            System.out.println();
         }
     }
 

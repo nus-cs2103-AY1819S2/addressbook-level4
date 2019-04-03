@@ -13,6 +13,10 @@ import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1_ENCRYPTED;
 import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
+
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -31,11 +35,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.PdfBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.pdf.Pdf;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Paths;
-
 
 public class EncryptCommandTest {
     @Rule

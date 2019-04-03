@@ -17,6 +17,13 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** Show a different panel to the user, depending on the command result */
+    public enum ShowPanel {
+        NO_CHANGE, MED_HIST_PANEL, APPOINTMENT_PANEL
+    }
+
+    private ShowPanel showPanel = ShowPanel.NO_CHANGE;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -34,6 +41,14 @@ public class CommandResult {
         this(feedbackToUser, false, false);
     }
 
+    /**
+     * Constructs a {@code CommandResult} that will switch panels to display in the UI
+     */
+    public CommandResult(String feedbackToUser, ShowPanel showPanel) {
+        this(feedbackToUser);
+        this.showPanel = showPanel;
+    }
+
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
@@ -44,6 +59,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public ShowPanel getShowPanel() {
+        return showPanel;
     }
 
     @Override

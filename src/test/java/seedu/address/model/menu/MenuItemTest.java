@@ -1,5 +1,6 @@
 package seedu.address.model.menu;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CODE_FRIES;
@@ -30,13 +31,16 @@ public class MenuItemTest {
         MenuItem editedSalad = new MenuItemBuilder(SALAD).withCode(VALID_CODE_FRIES).build();
         assertFalse(SALAD.isSameMenuItem(editedSalad));
 
-        // different name -> returns false
-        editedSalad = new MenuItemBuilder(SALAD).withName(VALID_NAME_FRIES).build();
-        assertFalse(SALAD.isSameMenuItem(editedSalad));
-
-        // same name, same code, different price -> returns true
-        editedSalad = new MenuItemBuilder(SALAD).withPrice(VALID_PRICE_FRIES).build();
+        // different name, same code, different price -> returns true
+        editedSalad = new MenuItemBuilder(SALAD).withName(VALID_NAME_FRIES).withPrice(VALID_PRICE_FRIES).build();
         assertTrue(SALAD.isSameMenuItem(editedSalad));
+    }
+
+    @Test
+    public void getNewQuantity() {
+        int currentQuantity = FRENCH_FRIES.getQuantity();
+        int newQuantity = 10 + currentQuantity;
+        assertEquals(FRENCH_FRIES.getNewQuantity(10), newQuantity);
     }
 
     @Test

@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox alignment="TOP_CENTER" prefHeight="416.0" prefWidth="446.0" style="-fx-background-color: #F9F8D4;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
     <HBox alignment="CENTER" prefHeight="6.0" prefWidth="445.0" spacing="5" VBox.vgrow="ALWAYS">
         <Label fx:id="receiptLabel" styleClass="receipt_big_label" text="RECEIPT" VBox.vgrow="ALWAYS">
@@ -35,4 +34,4 @@
             </padding>
         </Label>
     </HBox>
- </VBox>
+</VBox>

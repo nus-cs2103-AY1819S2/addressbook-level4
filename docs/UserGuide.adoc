@@ -173,9 +173,11 @@ Deletes the 1st flashcard in the results of the `find` command.
 
 === Quiz mode : `quiz`
 
+image::Ui-quiz.png[width="790"]
+
 Enters quiz mode. +
-A card will be shown to the user one by one randomly with distribution based on accuracy of each flashcard. +
-The user then can self-verify whether he/she correctly guess the other side of the flashcard.
+A card will be shown to you one by one randomly with distribution based on accuracy of each flashcard. +
+You can then self-verify whether you accurately recall the back side of the flashcard.
 
 Format: `quiz`
 

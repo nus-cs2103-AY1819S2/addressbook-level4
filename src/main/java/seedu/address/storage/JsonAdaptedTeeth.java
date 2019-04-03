@@ -20,7 +20,7 @@ class JsonAdaptedTeeth {
      */
     @JsonCreator
     public JsonAdaptedTeeth(String teethString) {
-        String[] sb = teethString.split(JsonAdaptedConstants.DIVIDER);
+        String[] sb = teethString.split(StorageConstants.DIVIDER);
         int[] parsedTeeth = new int[Teeth.PERMANENTTEETHCOUNT];
 
         if (sb.length == Teeth.PERMANENTTEETHCOUNT) {
@@ -53,7 +53,7 @@ class JsonAdaptedTeeth {
         sb.append(teethLayout[0]);
 
         for (int i = 1; i < teethLayout.length; i++) {
-            sb.append(JsonAdaptedConstants.DIVIDER + teethLayout[i]);
+            sb.append(StorageConstants.DIVIDER + teethLayout[i]);
         }
 
         return sb.toString();

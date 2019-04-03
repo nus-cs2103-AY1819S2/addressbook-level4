@@ -51,6 +51,7 @@ public class CalendarWindow extends UiPart<Stage> {
     private Logic logic;
 
     private TaskListPanel taskListPanel;
+    private ResultDisplay resultDisplay;
 
     private ReadOnlyAddressBook readOnlyTaskList;
     private HashMap<LocalDate, Integer> markedDates;
@@ -59,6 +60,8 @@ public class CalendarWindow extends UiPart<Stage> {
     private StackPane taskListPanelPlaceholder;
     @FXML
     private StackPane calendarPanel;
+    @FXML
+    private StackPane resultDisplayPlaceholder;
     @FXML
     private StackPane commandBoxPlaceholder;
 
@@ -83,13 +86,16 @@ public class CalendarWindow extends UiPart<Stage> {
         taskListPanelPlaceholder.getStylesheets().addAll("view/Calendar.css", "view/Extensions.css");
         taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
         VBox vb = new VBox();
         CommandBox commandBox = new CommandBox(this::executeCommand, this.logic.getHistory(), true);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         this.calendarPanel = new StackPane();
         createCalender(givenDate);
-        vb.getChildren().addAll(calendarPanel, commandBoxPlaceholder);
+        vb.getChildren().addAll(calendarPanel, resultDisplayPlaceholder, commandBoxPlaceholder);
         SplitPane sp = new SplitPane();
         sp.getItems().addAll(taskListPanelPlaceholder, vb);
 
@@ -112,11 +118,13 @@ public class CalendarWindow extends UiPart<Stage> {
             }
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             runningCommand = false;
             return commandResult;
         } catch (CommandException | ParseException e) {
+            runningCommand = false;
             logger.info("Invalid command: " + commandText);
-            logger.info(e.getMessage());
+            resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
     }

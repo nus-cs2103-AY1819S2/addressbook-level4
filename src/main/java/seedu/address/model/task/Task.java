@@ -6,6 +6,8 @@ import java.util.Objects;
 
 import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.datetime.TimeCustom;
+import seedu.address.model.patient.Nric;
+import seedu.address.model.person.Name;
 
 
 /**
@@ -21,16 +23,19 @@ public class Task {
     protected final DateCustom endDate;
     protected final TimeCustom startTime;
     protected final TimeCustom endTime;
-    protected final Priority priority;
     protected final boolean isCopy;
     protected int copyCount;
+
+    private LinkedPatient linkedPatient;
+    private Priority priority;
+
 
 
     /**
      * Every field must be present and not null.
      */
     public Task(Title title, DateCustom startDate, DateCustom endDate, TimeCustom startTime,
-                TimeCustom endTime, Priority priority) {
+                TimeCustom endTime, Priority priority, LinkedPatient linkedPatient) {
         requireAllNonNull(title, startDate, endDate, startTime, endTime, priority);
         this.title = title;
         this.startDate = startDate;
@@ -38,6 +43,7 @@ public class Task {
         this.startTime = startTime;
         this.endTime = endTime;
         this.priority = priority;
+        this.linkedPatient = linkedPatient;
         this.isCopy = false;
         this.copyCount = 0;
     }
@@ -50,10 +56,24 @@ public class Task {
         this.title = t.getTitle();
         this.startDate = t.getStartDate();
         this.endDate = t.getEndDate();
-        this.startTime = t.startTime;
-        this.endTime = t.endTime;
-        this.priority = t.priority;
+        this.startTime = t.getStartTime();
+        this.endTime = t.getEndTime();
+        this.priority = t.getPriority();
+        this.linkedPatient = t.getLinkedPatient();
         this.isCopy = true;
+        this.copyCount = 0;
+    }
+
+    public Task(Task t, boolean isClone) {
+        requireAllNonNull(t);
+        this.title = t.getTitle();
+        this.startDate = t.getStartDate();
+        this.endDate = t.getEndDate();
+        this.startTime = t.getStartTime();
+        this.endTime = t.getEndTime();
+        this.priority = t.getPriority();
+        this.linkedPatient = t.getLinkedPatient();
+        this.isCopy = false;
         this.copyCount = 0;
     }
 
@@ -80,6 +100,22 @@ public class Task {
 
     public Priority getPriority() {
         return priority;
+    }
+
+    public LinkedPatient getLinkedPatient() {
+        return linkedPatient;
+    }
+
+    public void setLinkedPatient(Name name, Nric nric) {
+        linkedPatient = new LinkedPatient(name, nric);
+    }
+
+    public void setNullLinkedPatient() {
+        linkedPatient = null;
+    }
+
+    public void setPriorityComplete() {
+        this.priority = Priority.COMPLETED;
     }
 
     /**
@@ -123,7 +159,10 @@ public class Task {
                     && otherTask.getStartDate().equals(getStartDate())
                     && otherTask.getEndDate().equals(getEndDate())
                     && otherTask.getStartTime().equals(getStartTime())
-                    && otherTask.getEndTime().equals(getEndTime());
+                    && otherTask.getEndTime().equals(getEndTime())
+                    && otherTask.getPriority().equals(getPriority())
+                    && (otherTask.getLinkedPatient() == null ? getLinkedPatient() == null
+                    : otherTask.getLinkedPatient().equals(getLinkedPatient()));
         }
     }
 
@@ -141,24 +180,31 @@ public class Task {
             return false;
         }
 
+        if (this.isCopy || ((Task) other).isCopy) {
+            return false;
+        }
+
         Task otherTask = (Task) other;
         return otherTask.getTitle().equals(getTitle())
                 && otherTask.getStartDate().equals(getStartDate())
                 && otherTask.getEndDate().equals(getEndDate())
                 && otherTask.getStartTime().equals(getStartTime())
-                && otherTask.getEndTime().equals(getEndTime());
+                && otherTask.getEndTime().equals(getEndTime())
+                && otherTask.getPriority().equals(getPriority())
+                && (otherTask.getLinkedPatient() == null ? getLinkedPatient() == null
+                : otherTask.getLinkedPatient().equals(getLinkedPatient()));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, startDate, endDate);
+        return Objects.hash(title, startDate, endDate, startTime, endTime, priority);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(" Title: ")
+        builder.append("Title: ")
                 .append(getTitle())
                 .append(" Start Date: ")
                 .append(getStartDate())
@@ -169,7 +215,9 @@ public class Task {
                 .append(" End Time: ")
                 .append(getEndTime())
                 .append(" Priority: ")
-                .append(getPriority());
+                .append(getPriority())
+                .append(" Linked Patient ")
+                .append(getLinkedPatient() == null ? "None" : getLinkedPatient());
         return builder.toString();
     }
 

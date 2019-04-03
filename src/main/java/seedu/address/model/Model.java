@@ -100,6 +100,8 @@ public interface Model {
      */
     void sortAddressBook(Comparator<Patient> patientComparator, boolean isReverse);
 
+    void sortTasks(Comparator<Task> c);
+
     /**
      * Sorts the records within address book according to the given comparator
      */

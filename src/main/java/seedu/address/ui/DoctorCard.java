@@ -38,8 +38,6 @@ public class DoctorCard extends UiPart<Region> {
     private Label phone;
     @FXML
     private FlowPane specialisations;
-    @FXML
-    private Label addAppointment;
 
     public DoctorCard(Doctor doctor, int displayedIndex) {
         super(FXML);
@@ -49,7 +47,6 @@ public class DoctorCard extends UiPart<Region> {
         gender.setText(doctor.getGender().value);
         age.setText(doctor.getAge().value);
         phone.setText(doctor.getPhone().value);
-        addAppointment.setText("addAppointment");
         doctor.getSpecs().forEach(spec -> specialisations.getChildren().add(new Label(spec.specialisation)));
     }
 

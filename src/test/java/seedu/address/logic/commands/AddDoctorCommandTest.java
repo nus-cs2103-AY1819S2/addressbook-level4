@@ -225,6 +225,11 @@ public class AddDoctorCommandTest {
         }
 
         @Override
+        public void setDoctor(Doctor target, Doctor editedDoctor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Patient> getFilteredPatientList() {
             throw new AssertionError("This method should not be called.");
         }

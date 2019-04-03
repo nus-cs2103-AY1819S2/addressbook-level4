@@ -130,9 +130,15 @@ public interface Model {
      * The patient identity of {@code editedPatient} must not be the same
      * as another existing patient in the address book.
      */
-
-
     void setPatient(Patient target, Patient editedPatient);
+
+    /**
+     * Replaces the given doctor {@code target} with {@code editedDoctor}.
+     * {@code target} must exist in docX.
+     * The doctor identity of {@code editedDoctor} must not be the same
+     * as another existing doctor in docX.
+     */
+    void setDoctor(Doctor target, Doctor editedDoctor);
 
     /**
      * Replaces the given medHist {@code target} with {@code editedMedHist}.

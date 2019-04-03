@@ -5,14 +5,17 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.travel.commons.exceptions.DataConversionException;
+import seedu.travel.model.ReadOnlyCountryChart;
+import seedu.travel.model.ReadOnlyRatingChart;
 import seedu.travel.model.ReadOnlyTravelBuddy;
 import seedu.travel.model.ReadOnlyUserPrefs;
+import seedu.travel.model.ReadOnlyYearChart;
 import seedu.travel.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends TravelBuddyStorage, UserPrefsStorage {
+public interface Storage extends TravelBuddyStorage, UserPrefsStorage, ChartBookStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -24,9 +27,26 @@ public interface Storage extends TravelBuddyStorage, UserPrefsStorage {
     Path getTravelBuddyFilePath();
 
     @Override
+    Path getCountryChartFilePath();
+
+    @Override
+    Path getRatingChartFilePath();
+
+    @Override
+    Path getYearChartFilePath();
+
+    @Override
     Optional<ReadOnlyTravelBuddy> readTravelBuddy() throws DataConversionException, IOException;
 
     @Override
     void saveTravelBuddy(ReadOnlyTravelBuddy travelBuddy) throws IOException;
 
+    @Override
+    void saveCountryChart(ReadOnlyCountryChart countryChart) throws IOException;
+
+    @Override
+    void saveRatingChart(ReadOnlyRatingChart ratingChart) throws IOException;
+
+    @Override
+    void saveYearChart(ReadOnlyYearChart yearChart) throws IOException;
 }

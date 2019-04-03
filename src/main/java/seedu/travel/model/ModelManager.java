@@ -166,11 +166,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void commitChart() {
-        versionedTravelBuddy.commitChart();
-    }
-
-    @Override
     public void setChartDisplayed(boolean chartDisplayed) {
         this.chartDisplayed.setValue(chartDisplayed);
     }

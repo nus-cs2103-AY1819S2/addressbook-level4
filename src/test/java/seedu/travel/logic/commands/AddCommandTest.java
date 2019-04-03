@@ -199,11 +199,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void commitChart() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ReadOnlyProperty<Place> selectedPlaceProperty() {
             throw new AssertionError("This method should not be called.");
         }

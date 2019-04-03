@@ -104,11 +104,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
-    }
-
-    @Override
     public GuiSettings getGuiSettings() {
         return model.getGuiSettings();
     }

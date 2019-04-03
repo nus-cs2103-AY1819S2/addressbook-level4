@@ -43,11 +43,6 @@ public interface Logic {
     ObservableList<String> getHistory();
 
     /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getAddressBookFilePath();
-
-    /**
      * Returns the user prefs' GUI settings.
      */
     GuiSettings getGuiSettings();

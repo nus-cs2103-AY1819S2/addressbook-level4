@@ -152,12 +152,6 @@ public class ModelManager implements Model {
         return mapGrid;
     }
 
-    @Override
-    public void addPerson(Cell cell) {
-        mapGrid.addPerson(cell);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
     //=========== Battleship ===============================================================================
 
     @Override

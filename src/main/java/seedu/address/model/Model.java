@@ -88,12 +88,6 @@ public interface Model {
     /** Returns the MapGrid */
     ReadOnlyAddressBook getAddressBook();
 
-    /**
-     * Adds the given cell.
-     * {@code cell} must not already exist in the address book.
-     */
-    void addPerson(Cell cell);
-
     /** Returns an unmodifiable view of the filtered cell list */
     ObservableList<Cell> getFilteredPersonList();
 

@@ -77,13 +77,7 @@ public class GenerateBillForCustomerCommandParser implements Parser<GenerateBill
         HashMap<String, Pair<Double, Long>> reservationBill =
             billModel.generateHashMapForReservation(reservationObservableList);
 
-        // total amount for booking
-        double amountBooking = billModel.generateBillForBooking(bookingObservableList);
-
-        //total amount for reservation
-        double amountReservation = billModel.generateBillForReservation(reservationObservableList);
-
-        Bill bill = new Bill(customer, amountReservation, amountBooking, bookingBill, reservationBill);
+        Bill bill = new Bill(customer, bookingBill, reservationBill);
 
         return new GenerateBillForCustomerCommand(bookingContainsPayerPredicate, reservationContainsPayerPredicate,
             bill);

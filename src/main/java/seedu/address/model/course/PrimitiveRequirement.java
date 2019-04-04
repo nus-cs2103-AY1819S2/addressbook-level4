@@ -3,6 +3,7 @@ package seedu.address.model.course;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 
@@ -13,21 +14,23 @@ public class PrimitiveRequirement implements CourseRequirement {
 
     private final String courseReqName;
     private final String courseReqDesc;
-    private final Condition condition;
+    private final List<Condition> conditions;
     private final CourseReqType courseReqType;
 
     /**
      * Constructs a {@code  PrimitiveRequirement}
      * @param courseReqName name of requirement
      * @param courseReqDesc description of requirement
-     * @param condition condition for which PrimitiveRequirement is satisfied
+     * @param conditions list of condition for which PrimitiveRequirement is satisfied
+     *                   only if all conditions are satisfied
      */
     public PrimitiveRequirement(String courseReqName, String courseReqDesc,
-                                   Condition condition, CourseReqType courseReqType) {
-        requireAllNonNull(courseReqName, courseReqDesc, condition, courseReqType);
+                                   CourseReqType courseReqType, Condition... conditions) {
+        requireAllNonNull(courseReqName, courseReqDesc, courseReqType, conditions);
+        requireAllNonNull(List.of(conditions));
         this.courseReqName = courseReqName;
         this.courseReqDesc = courseReqDesc;
-        this.condition = condition;
+        this.conditions = List.of(conditions);
         this.courseReqType = courseReqType;
     }
 
@@ -48,22 +51,27 @@ public class PrimitiveRequirement implements CourseRequirement {
 
     @Override
     public boolean isFulfilled(List<ModuleInfoCode> moduleInfoCodes) {
-        return condition.isSatisfied(moduleInfoCodes);
+        return conditions.stream().allMatch(condition -> condition.isSatisfied(moduleInfoCodes));
     }
 
     @Override
     public boolean canFulfill(ModuleInfoCode moduleInfoCode) {
-        return condition.canSatisfy(moduleInfoCode);
+        return conditions.stream().anyMatch(condition -> condition.canSatisfy(moduleInfoCode));
     }
 
     @Override
     public double getFulfilledPercentage(List<ModuleInfoCode> moduleInfoCodes) {
-        return condition.getPercentageCompleted(moduleInfoCodes);
+        return conditions.stream()
+                .mapToInt(condition -> condition.getNumCompleted(moduleInfoCodes))
+                .sum() / (double) conditions.stream().mapToInt(condition -> condition.getMinToSatisfy()).sum();
     }
 
     @Override
     public List<String> getUnfulfilled(List<ModuleInfoCode> moduleInfoCodes) {
-        return condition.getUnsatisfied(moduleInfoCodes);
+        return conditions.stream()
+                .filter(condition -> !condition.isSatisfied(moduleInfoCodes))
+                .map(condition -> condition.getPattern().toString())
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -78,8 +86,8 @@ public class PrimitiveRequirement implements CourseRequirement {
                 .OR, this.courseReqType);
     }
 
-    public Condition getCondition() {
-        return condition;
+    public List<Condition> getConditions() {
+        return conditions;
     }
 
     @Override
@@ -96,6 +104,6 @@ public class PrimitiveRequirement implements CourseRequirement {
         return this.courseReqName.equals(other.courseReqName)
                 && this.courseReqType.equals(other.courseReqType)
                 && this.courseReqDesc.equals(other.courseReqDesc)
-                && this.condition.equals(other.condition);
+                && this.conditions.equals(other.conditions);
     }
 }

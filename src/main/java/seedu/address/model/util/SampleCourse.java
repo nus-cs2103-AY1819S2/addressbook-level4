@@ -38,8 +38,7 @@ public class SampleCourse {
             INDUSTRIAL_SYSTEM_EXPERIENCE, COMPUTER_SYSTEM_TEAM_PROJECT, IT_PROFESSIONALISM,
             SCIENCE_REQUIREMENT, TOTAL_MODULE_COUNT);
 
-    /*
-    public static void main(String args[]) {
+/*    public static void main(String args[]) {
         List<JsonAdaptedCourse> courseList = new ArrayList<>();
         courseList.add(new JsonAdaptedCourse(COMPUTER_SCIENCE_ALGORITHMS));
         courseList.add(new JsonAdaptedCourse(COMPUTER_SCIENCE_AI));
@@ -50,6 +49,5 @@ public class SampleCourse {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    */
+    }*/
 }

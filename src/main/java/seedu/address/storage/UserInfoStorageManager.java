@@ -21,7 +21,7 @@ import seedu.address.model.UserInfo;
 public class UserInfoStorageManager implements UserInfoStorage {
 
     private static final Logger logger = LogsCenter.getLogger(UserInfoStorage.class);
-    private Path filePath = Paths.get("src", "main", "resources", "userinfo.json");
+    private Path filePath = Paths.get("userinfo.json");
 
     public UserInfoStorageManager(Path filePath) {
         this.filePath = filePath;

@@ -1,7 +1,5 @@
 package seedu.address.storage.coursestorage;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -15,27 +13,28 @@ import seedu.address.model.course.CourseList;
 public class CourseManager implements CourseStorage {
 
     private static final Logger logger = LogsCenter.getLogger(CourseManager.class);
-    private static final Path courseFilePath = Paths.get("json", "course.json");
+    private static final String inputStreamPath = "/course.json";
 
     private CourseStorage courseStorage;
 
     public CourseManager() {
         super();
-        this.courseStorage = new JsonCourseStorage(courseFilePath);
+        this.courseStorage = new JsonCourseStorage(inputStreamPath);
     }
 
     @Override
-    public Path getCourseFilePath() {
-        return this.courseFilePath;
+    public String getCourseInputStreamPath() {
+        return inputStreamPath;
     }
 
     @Override
-    public Optional<CourseList> readCourseFile(Path filePath) throws DataConversionException {
-        return courseStorage.readCourseFile(filePath);
+    public Optional<CourseList> readCourseFile(String inputStreamPath) throws DataConversionException {
+        logger.fine("Attempting to read data from file: " + inputStreamPath);
+        return courseStorage.readCourseFile(inputStreamPath);
     }
 
     @Override
     public Optional<CourseList> readCourseFile() throws DataConversionException {
-        return courseStorage.readCourseFile(courseStorage.getCourseFilePath());
+        return courseStorage.readCourseFile(courseStorage.getCourseInputStreamPath());
     }
 }

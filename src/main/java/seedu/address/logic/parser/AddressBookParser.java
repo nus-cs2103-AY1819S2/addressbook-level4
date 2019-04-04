@@ -217,24 +217,31 @@ public class AddressBookParser {
 
         //Commands that should run in ALL modes and popups
         case TaskAddCommand.COMMAND_WORD:
+        case TaskAddCommand.COMMAND_WORD2:
             return new TaskAddCommandParser().parse(arguments);
 
         case TaskCalendarCommand.COMMAND_WORD:
+        case TaskCalendarCommand.COMMAND_WORD2:
             return new TaskCalendarCommandParser().parse(arguments);
 
         case TaskEditCommand.COMMAND_WORD:
+        case TaskEditCommand.COMMAND_WORD2:
             return new TaskEditCommandParser().parse(arguments);
 
         case TaskSortCommand.COMMAND_WORD:
+        case TaskSortCommand.COMMAND_WORD2:
             return new TaskSortCommandParser().parse(arguments);
 
         case TaskDeleteCommand.COMMAND_WORD:
+        case TaskDeleteCommand.COMMAND_WORD2:
             return new TaskDeleteCommandParser().parse(arguments);
 
         case TaskCopyCommand.COMMAND_WORD:
+        case TaskCopyCommand.COMMAND_WORD2:
             return new TaskCopyCommandParser().parse(arguments);
 
         case TaskListCommand.COMMAND_WORD:
+        case TaskListCommand.COMMAND_WORD2:
             return new TaskListCommand();
 
         case ExitCommand.COMMAND_WORD:

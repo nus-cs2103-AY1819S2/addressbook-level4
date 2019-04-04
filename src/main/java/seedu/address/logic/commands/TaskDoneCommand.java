@@ -24,8 +24,9 @@ import seedu.address.model.task.Task;
 public class TaskDoneCommand extends Command {
 
     public static final String COMMAND_WORD = "taskdone";
+    public static final String COMMAND_WORD2 = "tdone";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " or " + COMMAND_WORD2
             + ": Sets the task to be completed. Completing a task with a patient linked to it will automatically"
             + " add a new record to the patient's record list\n"
             + "Parameters: INDEX (must be a positive integer)\n"

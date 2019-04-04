@@ -28,8 +28,10 @@ import seedu.address.model.task.Task;
 public class TaskAddCommand extends Command {
 
     public static final String COMMAND_WORD = "taskadd";
+    public static final String COMMAND_WORD2 = "tadd";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " or " + COMMAND_WORD2
+            + ": Adds a task to the address book. "
             + "Parameters: "
             + PREFIX_TITLE + "TITLE "
             + PREFIX_STARTDATE + "START DATE "

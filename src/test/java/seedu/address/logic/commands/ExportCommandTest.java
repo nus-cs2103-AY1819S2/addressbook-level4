@@ -95,6 +95,42 @@ public class ExportCommandTest {
         String expectedMessage = String.format(ExportCommand.MESSAGE_SUCCESS, fileNameWithoutFileExtension);
 
         assertCommandSuccess(exportCommand, model, commandHistory, expectedMessage, model);
+        compareActualAndExpectedData(filePath);
+    }
+
+    /**
+     * Compares actual and expected data for the exported Csv file.
+     * Note: This version did not take advantage of JUnit TemporaryFolder method
+     * and instead uses manual checking using File exists() method and File delete() method
+     * as I am still finding the best way to implement it as unlike the usual usage of TemporaryFolder method
+     * in this case, the method I am testing includes creating its own default export folder which users
+     * will be using and it also creates its own csv file when the method which is being tested is executed
+     * so I am trying to find the best way to take advantage of the Junit TemporaryFolder method
+     * without accidentally deleting any of the existing data which the user might have exported
+     * before running tests which might be crucial data though in practice usually when running tests
+     * you should not have crucial data but this is an additional safety precaution I decide to implement
+     * in case the developers do have crucial export data which they might accidentally did not back up before testing
+     * There are two alternatives I can think of to solve this issue:
+     * 1) Update CsvWrapper.java to support either a test situation (depending on how it is implemented
+     * it still can simulate real world scenario without affecting testing the main functionality) basically
+     * if the test flag is enabled it will allow use of custom export directory and custom csv file
+     * 2) I could just update CsvWrapper.java to support allowing custom export directory but that is actually
+     * planned for v2.0 and beyond as that is nice to have and not top priority as of now so in order to minimise
+     * any potential regression bugs, option 1 would be a better choice if compared to this option as option 1 hides
+     * the custom export directory option from users and only allow it to use by developers or to be more precise
+     * only use for testing purposes (abstraction and information hiding concepts)
+     * 3) Create the JUnit TemporaryFolder within the default exported directory
+     * and move the temporary created csv file to that folder within the default exported directory
+     * so that both will be deleted when each test case complete its execution (Might be possible
+     * and still researching though it might be shift to Milestone v2.0 and beyond depending on availability of time
+     * as there might be higher priority tasks)
+     * The advantage of using JUnit TemporaryFolder is it allows cleaner code without having
+     * to manually delete the temporary file manually using File delete() method as it will be deleted
+     * after each test method has executed
+     * @param filePath The actual csv file to be compared with the expected data.
+     * @throws IOException If the reading of the data from the exported Csv file encounters an exception.
+     */
+    private void compareActualAndExpectedData(File filePath) throws IOException {
         try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
             String[] expectedData;
             String[] actualData;

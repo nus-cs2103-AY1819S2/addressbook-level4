@@ -1,6 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT_DETAILED;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -38,24 +38,31 @@ public class ExportCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid file name (hyphen only)
         assertParseFailure(parser, "-",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT_DETAILED, FileName.MESSAGE_CONSTRAINTS,
+                        ExportCommand.MESSAGE_USAGE));
         // invalid file name (underscore only)
         assertParseFailure(parser, "_",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT_DETAILED, FileName.MESSAGE_CONSTRAINTS,
+                        ExportCommand.MESSAGE_USAGE));
         // invalid file name (only not supported non-alphanumeric characters)
         assertParseFailure(parser, "*",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT_DETAILED, FileName.MESSAGE_CONSTRAINTS,
+                        ExportCommand.MESSAGE_USAGE));
         // invalid file name (contains not supported non-alphanumeric characters)
         assertParseFailure(parser, "example*",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT_DETAILED, FileName.MESSAGE_CONSTRAINTS,
+                        ExportCommand.MESSAGE_USAGE));
         // invalid file name (alphabets with a space only)
         assertParseFailure(parser, "example record",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT_DETAILED, FileName.MESSAGE_CONSTRAINTS,
+                        ExportCommand.MESSAGE_USAGE));
         // invalid file name (alphabets with a file format)
         assertParseFailure(parser, "exampleRecord.csv",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT_DETAILED, FileName.MESSAGE_CONSTRAINTS,
+                        ExportCommand.MESSAGE_USAGE));
         // invalid file name (file format)
         assertParseFailure(parser, ".csv",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT_DETAILED, FileName.MESSAGE_CONSTRAINTS,
+                        ExportCommand.MESSAGE_USAGE));
     }
 }

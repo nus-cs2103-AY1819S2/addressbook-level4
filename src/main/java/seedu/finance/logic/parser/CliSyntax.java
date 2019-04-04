@@ -20,4 +20,8 @@ public class CliSyntax {
     public static final CommandFlag COMMAND_FLAG_CATEGORY = new CommandFlag("-cat");
     public static final CommandFlag COMMAND_FLAG_AMOUNT = new CommandFlag("-amount");
     public static final CommandFlag COMMAND_FLAG_DATE = new CommandFlag("-date");
+
+    public static final CommandFlag COMMAND_FLAG_ASCENDING = new CommandFlag("-asc");
+    public static final CommandFlag COMMAND_FLAG_DESCENDING = new CommandFlag("-desc");
+
 }

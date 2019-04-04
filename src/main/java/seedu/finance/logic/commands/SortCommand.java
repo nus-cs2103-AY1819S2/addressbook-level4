@@ -2,8 +2,10 @@ package seedu.finance.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_AMOUNT;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_ASCENDING;
 import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_CATEGORY;
 import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_DATE;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_DESCENDING;
 import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_NAME;
 
 import java.util.Comparator;
@@ -23,17 +25,22 @@ public class SortCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the records in the list "
             + "either by name, amount, date or category based on the selected flag.\n"
-            + "Parameters: FLAG \n"
+            + "Parameters: FLAG [ORDER]\n"
+            + "[ORDER] is optional. If not supplied, default ordering is implied.\n"
             + "Flags: \n"
-            + COMMAND_FLAG_NAME + ": Sort records by name in lexicographical order\n"
-            + COMMAND_FLAG_AMOUNT + ": Sort records by amount in descending order\n"
-            + COMMAND_FLAG_DATE + ": Sort records by date from most recent to least recent\n"
-            + COMMAND_FLAG_CATEGORY + ": Sort records by category in lexicographical order\n"
-            + "Example: " + COMMAND_WORD + " " + COMMAND_FLAG_NAME + "\n"
-            + "Tip: To sort the records in the reverse order, use the reverse command!\n";
+            + COMMAND_FLAG_NAME + ": Sort records by name (default: lexicographical order)\n"
+            + COMMAND_FLAG_AMOUNT + ": Sort records by amount (default: descending order)\n"
+            + COMMAND_FLAG_DATE + ": Sort records by date (default: descending order ie. most recent to least recent)\n"
+            + COMMAND_FLAG_CATEGORY + ": Sort records by category (default: lexicographical order)\n"
+            + "Order: \n"
+            + COMMAND_FLAG_ASCENDING + ": Ascending order\n"
+            + COMMAND_FLAG_DESCENDING + ": Descending order\n"
+            + "Example: \n"
+            + COMMAND_WORD + " " + COMMAND_FLAG_NAME + "\n"
+            + COMMAND_WORD + " " + COMMAND_FLAG_NAME + " " + COMMAND_FLAG_DESCENDING + "\n"
+            + "Tip: Use the reverse command to reverse the list!\n";
 
     public static final String MESSAGE_SUCCESS = "List is sorted.";
-    public static final String MESSAGE_NOT_SORTED = "Only one flag should be provided.";
 
     private final Comparator<Record> comparator;
 

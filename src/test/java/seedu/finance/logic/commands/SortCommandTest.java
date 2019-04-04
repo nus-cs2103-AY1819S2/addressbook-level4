@@ -18,6 +18,7 @@ import org.junit.Test;
 import seedu.finance.logic.CommandHistory;
 import seedu.finance.logic.commands.exceptions.CommandException;
 import seedu.finance.logic.parser.comparator.RecordAmountComparator;
+import seedu.finance.logic.parser.comparator.RecordCategoryComparator;
 import seedu.finance.logic.parser.comparator.RecordDateComparator;
 import seedu.finance.logic.parser.comparator.RecordNameComparator;
 import seedu.finance.model.FinanceTracker;
@@ -63,8 +64,6 @@ public class SortCommandTest {
 
     }
 
-    // TODO: Failed Test; need to update
-    /*
     @Test
     public void execute_sortByCategory_success() {
         Model expectedModel = new ModelManager(new FinanceTracker(model.getFinanceTracker()), new UserPrefs());
@@ -73,8 +72,8 @@ public class SortCommandTest {
         assertCommandSuccess(new SortCommand(new RecordCategoryComparator()), model, commandHistory,
                 SortCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertEquals(Arrays.asList(CAP, EARRINGS, FRUITS, GIFT, BANANA, DONUT, APPLE), model.getFilteredRecordList());
-    }*/
+        assertEquals(Arrays.asList(EARRINGS, CAP, BANANA, DONUT, FRUITS, GIFT, APPLE), model.getFilteredRecordList());
+    }
 
     @Test
     public void executeUndoRedo_listSortedByAmount_success() throws CommandException {
@@ -99,8 +98,4 @@ public class SortCommandTest {
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
         assertEquals(Arrays.asList(GIFT, FRUITS, CAP, EARRINGS, BANANA, APPLE, DONUT), model.getFilteredRecordList());
     }
-
-    // redo undo tests
-    // reverse
-
 }

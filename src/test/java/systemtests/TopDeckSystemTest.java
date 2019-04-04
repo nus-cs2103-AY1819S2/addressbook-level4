@@ -1,5 +1,6 @@
 package systemtests;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
@@ -25,7 +26,9 @@ import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.DecksView;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.FindDeckCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.Model;
 import seedu.address.model.TopDeck;
@@ -120,6 +123,7 @@ public abstract class TopDeckSystemTest {
         // after each command is predictable and also different from the previous command.
         clockRule.setInjectedClockToCurrentTime();
 
+
         mainWindowHandle.getCommandBox().run(command);
     }
 
@@ -135,11 +139,11 @@ public abstract class TopDeckSystemTest {
     /**
      * Displays all decks with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    /** TODO
-    protected void showDecksWithName(String keyword) {
+
+    protected void showDecksWithName(String keyword, DecksView decksView) {
         executeCommand(FindDeckCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredList().size() < getModel().getTopDeck().getDeckList().size());
-    }**/
+        assertTrue(decksView.getFilteredList().size() < getModel().getTopDeck().getDeckList().size());
+    }
 
     /**
      * Displays all cards with any parts of their names matching {@code keyword} (case-insensitive).

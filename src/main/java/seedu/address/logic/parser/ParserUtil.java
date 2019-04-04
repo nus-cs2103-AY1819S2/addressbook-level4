@@ -231,7 +231,7 @@ public class ParserUtil {
     public static Weblink parseWeblink(String weblink) throws ParseException, NoInternetException {
         requireNonNull(weblink);
         String trimmedWeblink = weblink.trim();
-        if (Weblink.isDefaultWeblink(weblink)) {
+        if (weblink.equals(Weblink.NO_WEBLINK_STRING)) {
             return new Weblink(trimmedWeblink);
         }
         if (!Weblink.isValidWeblinkString(trimmedWeblink)) {

@@ -115,10 +115,10 @@ public class RestaurantSummaryPanel extends UiPart<Region> {
         email.setText(EMAIL_PLACEHOLDER + restaurant.getEmail().toString());
 
         // Check if Restaurant has a Weblink
-        if (restaurant.getWeblink().toString().equals("No weblink added")) {
+        if (restaurant.getWeblink().isDefault()) {
             weblink.setText(WEBLINK_PLACEHOLDER + FIELD_NOT_ADDED);
         } else {
-            weblink.setText(WEBLINK_PLACEHOLDER + restaurant.getWeblink().toString());
+            weblink.setText(WEBLINK_PLACEHOLDER + restaurant.getWeblink().value);
         }
 
         // Add all Labels for the fields of a Summary into infoVbox and display it in summaryPane

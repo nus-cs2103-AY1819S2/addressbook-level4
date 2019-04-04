@@ -5,17 +5,17 @@
     "requirements" : [ {
       "type" : "PrimitiveReq",
       "requirementName" : "University Level Requirements",
-      "requirementDescription" : "Pass one module each with prefix GES, GET, GEQ, GEH, GER",
+      "requirementDescription" : "Complete 1 module each with prefix GES, GET, GEQ, GEH, GER",
       "requirementType" : "GE",
       "conditions" : [ {
         "minToSatisfy" : "1",
         "pattern" : "GEH1[0-9]{3}[A-Z]?"
       }, {
         "minToSatisfy" : "1",
-        "pattern" : "GEQ1000"
+        "pattern" : "GEQ1000[A-Z]?"
       }, {
         "minToSatisfy" : "1",
-        "pattern" : "GER1000"
+        "pattern" : "GER1000[A-Z]?"
       }, {
         "minToSatisfy" : "1",
         "pattern" : "GES1[0-9]{3}[A-Z]?"
@@ -26,7 +26,7 @@
     }, {
       "type" : "PrimitiveReq",
       "requirementName" : "Computer Science Foundation",
-      "requirementDescription" : "Pass all of CS1010/CS1101S, CS1231, CS2030, CS2040, CS2100, CS2103T, CS2105, CS2106, CS3230",
+      "requirementDescription" : "Complete all of CS1010/CS1101S, CS1231, CS2030, CS2040, CS2100, CS2103T, CS2105, CS2106, CS3230",
       "requirementType" : "CORE",
       "conditions" : [ {
         "minToSatisfy" : "1",
@@ -68,7 +68,7 @@
     }, {
       "type" : "PrimitiveReq",
       "requirementName" : "Focus Area: Algorithms",
-      "requirementDescription" : "Pass 6 modules from any Focus Area, with  at least 3 from level 4 and \n3 Area Primary from Algorithms with at least 1 from level 4 ",
+      "requirementDescription" : "Complete 6 modules from any Focus Area, with at least 3 from Level 4 and \n3 Area Primary from Algorithms with at least 1 from Level 4 ",
       "requirementType" : "BD",
       "conditions" : [ {
         "minToSatisfy" : "3",
@@ -90,7 +90,7 @@
         "first" : {
           "type" : "PrimitiveReq",
           "requirementName" : "Industrial Experience Requirement",
-          "requirementDescription" : "Complete 6 month internship through ATAP",
+          "requirementDescription" : "Complete 1 6-month Internship through ATAP",
           "requirementType" : "IE",
           "conditions" : [ {
             "minToSatisfy" : "1",
@@ -99,7 +99,7 @@
         },
         "second" : {
           "type" : "PrimitiveReq",
-          "requirementName" : "Complete 2 3 - months internships",
+          "requirementName" : "Complete 2 3-month Internships",
           "requirementDescription" : "Complete CP3200 and CP3202",
           "requirementType" : "IE",
           "conditions" : [ {
@@ -132,7 +132,7 @@
         "first" : {
           "type" : "PrimitiveReq",
           "requirementName" : "Computer Systems Team Project",
-          "requirementDescription" : "Complete CS3203",
+          "requirementDescription" : "(Complete CS3203)",
           "requirementType" : "BD",
           "conditions" : [ {
             "minToSatisfy" : "1",
@@ -167,7 +167,7 @@
     }, {
       "type" : "PrimitiveReq",
       "requirementName" : "IT Professionalism",
-      "requirementDescription" : "Pass all IS1103/X, CS2101 and ES2660",
+      "requirementDescription" : "Complete IS1103/X, CS2101 and ES2660",
       "requirementType" : "CORE",
       "conditions" : [ {
         "minToSatisfy" : "1",
@@ -197,7 +197,7 @@
     }, {
       "type" : "PrimitiveReq",
       "requirementName" : "Sciences",
-      "requirementDescription" : "Complete one Science module other than MA1521, MA1101R, ST2334",
+      "requirementDescription" : "Complete 1 Science module other than MA1521, MA1101R, ST2334",
       "requirementType" : "FAC",
       "conditions" : [ {
         "minToSatisfy" : "1",
@@ -206,7 +206,7 @@
     }, {
       "type" : "PrimitiveReq",
       "requirementName" : "Unrestricted Electives",
-      "requirementDescription" : "At least 40 modules required to graduate",
+      "requirementDescription" : "Complete at least 40 modules to graduate",
       "requirementType" : "UE",
       "conditions" : [ {
         "minToSatisfy" : "40",
@@ -219,17 +219,17 @@
     "requirements" : [ {
       "type" : "PrimitiveReq",
       "requirementName" : "University Level Requirements",
-      "requirementDescription" : "Pass one module each with prefix GES, GET, GEQ, GEH, GER",
+      "requirementDescription" : "Complete 1 module each with prefix GES, GET, GEQ, GEH, GER",
       "requirementType" : "GE",
       "conditions" : [ {
         "minToSatisfy" : "1",
         "pattern" : "GEH1[0-9]{3}[A-Z]?"
       }, {
         "minToSatisfy" : "1",
-        "pattern" : "GEQ1000"
+        "pattern" : "GEQ1000[A-Z]?"
       }, {
         "minToSatisfy" : "1",
-        "pattern" : "GER1000"
+        "pattern" : "GER1000[A-Z]?"
       }, {
         "minToSatisfy" : "1",
         "pattern" : "GES1[0-9]{3}[A-Z]?"
@@ -240,7 +240,7 @@
     }, {
       "type" : "PrimitiveReq",
       "requirementName" : "Computer Science Foundation",
-      "requirementDescription" : "Pass all of CS1010/CS1101S, CS1231, CS2030, CS2040, CS2100, CS2103T, CS2105, CS2106, CS3230",
+      "requirementDescription" : "Complete all of CS1010/CS1101S, CS1231, CS2030, CS2040, CS2100, CS2103T, CS2105, CS2106, CS3230",
       "requirementType" : "CORE",
       "conditions" : [ {
         "minToSatisfy" : "1",
@@ -281,8 +281,8 @@
       } ]
     }, {
       "type" : "PrimitiveReq",
-      "requirementName" : "Focus Area: AI",
-      "requirementDescription" : "Pass 6 modules from any Focus Area, with  at least 3 from level 4 and \n3 Area Primary from AI with at least 1 from level 4 ",
+      "requirementName" : "Focus Area: Artificial Intelligence",
+      "requirementDescription" : "Complete 6 modules from any Focus Area, with at least 3 from Level 4 and \n3 Area Primary from AI with at least 1 from Level 4 ",
       "requirementType" : "BD",
       "conditions" : [ {
         "minToSatisfy" : "3",
@@ -304,7 +304,7 @@
         "first" : {
           "type" : "PrimitiveReq",
           "requirementName" : "Industrial Experience Requirement",
-          "requirementDescription" : "Complete 6 month internship through ATAP",
+          "requirementDescription" : "Complete 1 6-month Internship through ATAP",
           "requirementType" : "IE",
           "conditions" : [ {
             "minToSatisfy" : "1",
@@ -313,7 +313,7 @@
         },
         "second" : {
           "type" : "PrimitiveReq",
-          "requirementName" : "Complete 2 3 - months internships",
+          "requirementName" : "Complete 2 3-month Internships",
           "requirementDescription" : "Complete CP3200 and CP3202",
           "requirementType" : "IE",
           "conditions" : [ {
@@ -346,7 +346,7 @@
         "first" : {
           "type" : "PrimitiveReq",
           "requirementName" : "Computer Systems Team Project",
-          "requirementDescription" : "Complete CS3203",
+          "requirementDescription" : "(Complete CS3203)",
           "requirementType" : "BD",
           "conditions" : [ {
             "minToSatisfy" : "1",
@@ -381,7 +381,7 @@
     }, {
       "type" : "PrimitiveReq",
       "requirementName" : "IT Professionalism",
-      "requirementDescription" : "Pass all IS1103/X, CS2101 and ES2660",
+      "requirementDescription" : "Complete IS1103/X, CS2101 and ES2660",
       "requirementType" : "CORE",
       "conditions" : [ {
         "minToSatisfy" : "1",
@@ -411,7 +411,7 @@
     }, {
       "type" : "PrimitiveReq",
       "requirementName" : "Sciences",
-      "requirementDescription" : "Complete one Science module other than MA1521, MA1101R, ST2334",
+      "requirementDescription" : "Complete 1 Science module other than MA1521, MA1101R, ST2334",
       "requirementType" : "FAC",
       "conditions" : [ {
         "minToSatisfy" : "1",
@@ -420,7 +420,7 @@
     }, {
       "type" : "PrimitiveReq",
       "requirementName" : "Unrestricted Electives",
-      "requirementDescription" : "At least 40 modules required to graduate",
+      "requirementDescription" : "Complete at least 40 modules to graduate",
       "requirementType" : "UE",
       "conditions" : [ {
         "minToSatisfy" : "40",
@@ -433,17 +433,17 @@
     "requirements" : [ {
       "type" : "PrimitiveReq",
       "requirementName" : "University Level Requirements",
-      "requirementDescription" : "Pass one module each with prefix GES, GET, GEQ, GEH, GER",
+      "requirementDescription" : "Complete 1 module each with prefix GES, GET, GEQ, GEH, GER",
       "requirementType" : "GE",
       "conditions" : [ {
         "minToSatisfy" : "1",
         "pattern" : "GEH1[0-9]{3}[A-Z]?"
       }, {
         "minToSatisfy" : "1",
-        "pattern" : "GEQ1000"
+        "pattern" : "GEQ1000[A-Z]?"
       }, {
         "minToSatisfy" : "1",
-        "pattern" : "GER1000"
+        "pattern" : "GER1000[A-Z]?"
       }, {
         "minToSatisfy" : "1",
         "pattern" : "GES1[0-9]{3}[A-Z]?"
@@ -454,7 +454,7 @@
     }, {
       "type" : "PrimitiveReq",
       "requirementName" : "Computer Science Foundation",
-      "requirementDescription" : "Pass all of CS1010/CS1101S, CS1231, CS2030, CS2040, CS2100, CS2103T, CS2105, CS2106, CS3230",
+      "requirementDescription" : "Complete all of CS1010/CS1101S, CS1231, CS2030, CS2040, CS2100, CS2103T, CS2105, CS2106, CS3230",
       "requirementType" : "CORE",
       "conditions" : [ {
         "minToSatisfy" : "1",
@@ -495,8 +495,8 @@
       } ]
     }, {
       "type" : "PrimitiveReq",
-      "requirementName" : "Focus Area: Software Eng",
-      "requirementDescription" : "Pass 6 modules from any Focus Area, with  at least 3 from level 4 and \n3 Area Primary from Software Eng with at least 1 from level 4 ",
+      "requirementName" : "Focus Area: Software Engineering",
+      "requirementDescription" : "Complete 6 modules from any Focus Area, with at least 3 from Level 4 and \n3 Area Primary from Software Engineering with at least 1 from Level 4 ",
       "requirementType" : "BD",
       "conditions" : [ {
         "minToSatisfy" : "3",
@@ -518,7 +518,7 @@
         "first" : {
           "type" : "PrimitiveReq",
           "requirementName" : "Industrial Experience Requirement",
-          "requirementDescription" : "Complete 6 month internship through ATAP",
+          "requirementDescription" : "Complete 1 6-month Internship through ATAP",
           "requirementType" : "IE",
           "conditions" : [ {
             "minToSatisfy" : "1",
@@ -527,7 +527,7 @@
         },
         "second" : {
           "type" : "PrimitiveReq",
-          "requirementName" : "Complete 2 3 - months internships",
+          "requirementName" : "Complete 2 3-month Internships",
           "requirementDescription" : "Complete CP3200 and CP3202",
           "requirementType" : "IE",
           "conditions" : [ {
@@ -560,7 +560,7 @@
         "first" : {
           "type" : "PrimitiveReq",
           "requirementName" : "Computer Systems Team Project",
-          "requirementDescription" : "Complete CS3203",
+          "requirementDescription" : "(Complete CS3203)",
           "requirementType" : "BD",
           "conditions" : [ {
             "minToSatisfy" : "1",
@@ -595,7 +595,7 @@
     }, {
       "type" : "PrimitiveReq",
       "requirementName" : "IT Professionalism",
-      "requirementDescription" : "Pass all IS1103/X, CS2101 and ES2660",
+      "requirementDescription" : "Complete IS1103/X, CS2101 and ES2660",
       "requirementType" : "CORE",
       "conditions" : [ {
         "minToSatisfy" : "1",
@@ -625,7 +625,7 @@
     }, {
       "type" : "PrimitiveReq",
       "requirementName" : "Sciences",
-      "requirementDescription" : "Complete one Science module other than MA1521, MA1101R, ST2334",
+      "requirementDescription" : "Complete 1 Science module other than MA1521, MA1101R, ST2334",
       "requirementType" : "FAC",
       "conditions" : [ {
         "minToSatisfy" : "1",
@@ -634,7 +634,7 @@
     }, {
       "type" : "PrimitiveReq",
       "requirementName" : "Unrestricted Electives",
-      "requirementDescription" : "At least 40 modules required to graduate",
+      "requirementDescription" : "Complete at least 40 modules to graduate",
       "requirementType" : "UE",
       "conditions" : [ {
         "minToSatisfy" : "40",

@@ -14,7 +14,7 @@ import seedu.address.model.moduleinfo.ModuleInfoCode;
  */
 public class Course {
     //TODO: Remove some of the classes such as Course Description
-    public static final String MESSAGE_REQ_COMPLETED = "All course requirements have been completed.";
+    public static final String MESSAGE_REQ_COMPLETED = "All course requirements have been completed";
 
     private final CourseName courseName;
     private final CourseDescription courseDescription;

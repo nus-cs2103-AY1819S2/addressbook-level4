@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.course.Course.MESSAGE_REQ_COMPLETED;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
@@ -20,13 +19,15 @@ public class RecCommand extends Command {
 
     public static final String MESSAGE_REC = "Recommended modules found: %d";
 
+    public static final String MESSAGE_NO_REC = "All course requirements fulfilled by your GradTrak";
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateRecModuleList();
         ObservableList<RecModule> sortedList = model.getRecModuleListSorted();
         if (sortedList.isEmpty()) {
-            return new CommandResult(MESSAGE_REQ_COMPLETED);
+            return new CommandResult(MESSAGE_NO_REC);
         }
 
         return new CommandResult(String.format(MESSAGE_REC, sortedList.size()));

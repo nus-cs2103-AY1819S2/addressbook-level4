@@ -76,14 +76,19 @@ public class TaskAddCommand extends Command {
         if (toAdd.hasTimeClash()) {
             throw new CommandException(MESSAGE_TIME_CLASH);
         }
-        if (targetIndex != null && targetIndex.getZeroBased() != 0) {
-            List<Person> lastShownList = model.getFilteredPersonList();
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(LinkedPatient.MESSAGE_CONSTRAINTS);
+        if (targetIndex != null) {
+            if (targetIndex.getZeroBased() != 0) {
+                int actualIndex = targetIndex.getZeroBased() - 1;
+                List<Person> lastShownList = model.getFilteredPersonList();
+                if (actualIndex >= lastShownList.size()) {
+                    throw new CommandException(LinkedPatient.MESSAGE_CONSTRAINTS);
+                }
+                Person targetPerson = lastShownList.get(actualIndex);
+                Patient targetPatient = (Patient) targetPerson;
+                toAdd.setLinkedPatient(targetPatient.getName(), ((Patient) targetPerson).getNric());
+            } else {
+                toAdd.setNullLinkedPatient();
             }
-            Person targetPerson = lastShownList.get(targetIndex.getZeroBased());
-            Patient targetPatient = (Patient) targetPerson;
-            toAdd.setLinkedPatient(targetPatient.getName(), ((Patient) targetPerson).getNric());
         }
         if (model.hasTask(toAdd)) {
             model.updateFilteredTaskList(task -> (task.isSameTask(toAdd)));

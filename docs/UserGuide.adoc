@@ -37,7 +37,7 @@ For the full list of commands, you can head to <<Command Summary>>
 === Interacting with QuickDocs
 
 .The user interface for QuickDocs
-image::ui_explanation.png[width="600" align="center"]
+image::ui_explanation.png[width="600"]
 
 .   This is the *command input* box , this is where you can type and execute the various commands
 QuickDocs possesses to perform clinical operations
@@ -78,7 +78,10 @@ All commands have aliases, which can be used to execute the same command with fe
 {nbsp} +
 
 [[help,Help]]
-=== Viewing help : `help`
+=== Viewing help : `help` [coming in v1.4]
+
+Whenever you want to find out in-depth explanation on how to execute a specific command, you can always refer to this
+user guide by entering the `help` command.
 
 Format: `help`
 
@@ -126,7 +129,7 @@ After entering the `addpat` command, QuickDocs will show the details of the rece
 main display as demonstrated in the diagram below:
 
 .The main display after addpat command
-image::ap_after.png[width="600" align="center"]
+image::ap_after.png[width="600"]
 
 '''
 
@@ -158,7 +161,7 @@ This changes the email and name of the patient with NRIC: S7332803I to Gary Doh 
 After the `editpat` is performed, you can view the changes made to the patient record in the main display.
 
 .Result of an edit command, on a patient's name and email
-image::ep_after.png[width="600" align="center"]
+image::ep_after.png[width="600"]
 
 {sp} +
 Since every citizen, permanent residents or foreigners in Singapore have their unique NRIC / FIN numbers, duplicate NRIC are not
@@ -169,7 +172,7 @@ will not be executed. You will also be notified of the detection of duplicated N
 in the manner shown in the following picture.
 
 .Error message shown when QuickDocs detected a duplicate NRIC in the patient records
-image::ep_conflict.png[width="600" align="center"]
+image::ep_conflict.png[width="600"]
 
 '''
 
@@ -202,7 +205,7 @@ Index can also be used to narrow down patient searches to a single record.
 If no keywords are entered, `listpat` will simply display the first 50 patients record stored.
 
 .executing the listpat command without any matching criteria
-image::lp_noargs.png[width="600" align="center"]
+image::lp_noargs.png[width="600"]
 
 {sp} +
 
@@ -212,7 +215,7 @@ Suppose you want to quickly find a patient record whose name starts with "P", yo
 with a sequence of characters to search for the specific patient record you are interested in.
 
 .Listing patients with matching name
-image::lp_name_after.png[width="600" align="center"]
+image::lp_name_after.png[width="600"]
 
 {sp} +
 
@@ -222,14 +225,14 @@ You can narrow down your patient search by providing a NRIC sequence as well. Fo
 in the figure below, you can retrieve all the patients whose NRIC starts with "S92".
 
 .Listing patients with matching NRIC
-image::lp_nric_after.png[width="600" align="center"]
+image::lp_nric_after.png[width="600"]
 
 {sp} +
 After narrowing down your search, you will be able to use the specific NRIC number of a particular patient to view the in-depth
 patient particulars.
 
 .Showing specific patient's record using the full NRIC
-image::lp_nric_specific.png[width="600" align="center"]
+image::lp_nric_specific.png[width="600"]
 
 {sp} +
 
@@ -239,7 +242,7 @@ The tags you assigned to each patient can also be used to expedite the `listpat`
 listed using the `listpat` command along with "t/diabetes" value.
 
 .Listing patients by specific tag
-image::lp_tag_after.png[width="600" align="center"]
+image::lp_tag_after.png[width="600"]
 
 {sp} +
 
@@ -251,7 +254,7 @@ a number? This is the index of the patient record, indicating the position the r
 You can make use of the index number to view specific patient records as well.
 
 .Patient search using record index
-image::lp_index.png[width="600" align="center"]
+image::lp_index.png[width="600"]
 
 '''
 
@@ -274,7 +277,7 @@ When a patient is no longer visiting your clinic (i.e. moved residency), you can
 By specifying the NRIC along with the `deletepat` command, you will delete the patient with that specific NRIC. If you have difficulty finding the specific NRIC, you can refer to the <<listpat>> command section to help you retrieve the patient's NRIC.
 
 .Deleting patient records using the specific NRIC
-image::dp_after.png[width="600" align="center"]
+image::dp_after.png[width="600"]
 
 {nbsp} +
 
@@ -317,7 +320,7 @@ Once you started a consultation session for the patient, a message will be displ
 have started for the current patient.
 
 .Starting a consultation session on QuickDocs
-image::consult_after.png[width="600" align="center"]
+image::consult_after.png[width="600"]
 
 {sp}+
 A text indicating that the consultation session have started for the particular patient will also
@@ -356,14 +359,14 @@ After entering the command, QuickDocs will show the symptoms and assessment reco
 in the following diagram.
 
 .Result of the diagnose command
-image::diagnose_after.png[width="600" align="center"]
+image::diagnose_after.png[width="600"]
 
 {sp} +
 If you made a mistake when entering the diagnosis, you can always rectify it by re-entering the `diagnose` command with the correct
 symptoms and assessment. This will replace the current erroneous diagnosis with the one you have just entered.
 
 .Editing the diagnosis
-image::diagnose_edit_after.png[width="600" align="center"]
+image::diagnose_edit_after.png[width="600"]
 
 {sp}+
 [TIP]
@@ -388,7 +391,7 @@ This command requires you to have a consultation session already active. See: <<
 
 {sp} +
 *Format:* `prescribe m/MEDICINE [m/MEDICINE] ... q/QUANTITY [q/QUANTITY]` +
-or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `prescribe m/MEDICINE q/QUANTITY [m/MEDICINE] [q/QUANTITY] ...` +
+or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `prescribe m/MEDICINE q/QUANTITY [m/MEDICINE] [q/QUANTITY] ...` +
 
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `p` +
 
@@ -407,7 +410,7 @@ or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `prescribe m/MEDICI
 After the medicine-quantity pairings are entered, the prescription to address the patient's current condition will be displayed on the main display area of QuickDocs. Changes can still be made to the prescription as long as the consultation session is still ongoing.
 
 .Prescribing medicines to tackle the patient's current conditions
-image::prescription_after.png[width="600" align="center"]
+image::prescription_after.png[width="600"]
 
 '''
 
@@ -427,7 +430,7 @@ No further changes to the diagnosis and prescription details can be made after t
 Once you entered the `endconsult` command, a message to indicate the end of the consultation session is also shown on the main display area. The label for the ongoing consultation session is also removed after the command is entered.
 
 .Results of an endconsult command
-image::endconsult.png[width="600" align="center"]
+image::endconsult.png[width="600"]
 
 '''
 
@@ -442,7 +445,7 @@ and then view the consultation details by passing in the session's index. +
 
 {sp} +
 *Format:* `listconsult INDEX` +
-or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `listconsult r/NRIC` +
+or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `listconsult r/NRIC` +
 
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `lc` +
 
@@ -457,9 +460,10 @@ the patient with the specified NRIC.
 Note that the indexes are prepended on each of the past consultation records listed.
 
 .Displaying past visits of a particular patient
-image::listconsult_after.png[width="600" align="center"]
+image::listconsult_after.png[width="600"]
 
 {sp}+
+
 * `listconsult 1` +
 
 image::listconsult_index.png[align="center" width="600"]
@@ -467,7 +471,7 @@ image::listconsult_index.png[align="center" width="600"]
 You can then call `listconsult` again with the consultation record's index to view the specific consultation session details. QuickDocs will display the time of the consultation, and also the diagnosis and prescription given to the patient.
 
 .Revisiting a specific consultation session
-image::listconsult_index.png[width="600" align="center"]
+image::listconsult_index.png[width="600"]
 
 {nbsp} +
 
@@ -507,15 +511,17 @@ The new directory's name should not contain white spaces or "\" characters.
 
 *Example:* +
 
-`adddirec root\fever oral` +
+* `adddirec root fever` followed by `adddirec root\fever oral` +
 
 *Result:* +
+
+These commands add a new directory called fever to root, and then add another new directory called oral under fever. +
+
+There will be success messages confirming every successful addition of directories. +
 
 [[adddirec_after]]
 .Result of sample add directory command
 image::adddirec_after.png[width="600"]
-
-There will be success messages confirming every successful addition of directories.
 
 - - -
 
@@ -809,7 +815,7 @@ If the addition of the appointment was successful, QuickDocs will show the detai
 main display as demonstrated in the diagram below:
 
 .The main display after adding an appointment
-image::addapp success.png[width="600" align="center"]
+image::addapp_success.PNG[width="600"]
 
 {sp} +
 
@@ -817,7 +823,7 @@ The addition of the appointment could have failed as there is a conflict in timi
 QuickDocs will display a message in the input feedback box notifying you of this error, as demonstrated in the diagram below.
 
 .Adding an appointment that has conflicting timing with an existing appointment
-image::addapp time clash.png[width="600" align="center"]
+image::addapp_time_clash.PNG[width="600"]
 {sp} +
 
 
@@ -825,7 +831,7 @@ Another reason for failing to add an appointment could be due to the appointment
 which is from 9am to 6pm. QuickDocs will remind you of this error, as demonstrated in the diagram below:
 
 .Adding an appointment that is not within the office hours, from 9am to 6pm
-image::addapp office hours.png[width="600" align="center"]
+image::addapp_office_hours.PNG[width="600"]
 
 '''
 [[listapp, List appointments]]
@@ -877,7 +883,7 @@ Lists all appointments allocated to the patient with NRIC S9123456A, if this pat
 The filtered appointments will be ordered by time and listed on the main display of QuickDocs, as demonstrated in the diagram below:
 
 .Listing appointments scheduled on the week of 23rd July 2019.
-image::listapp week.png[width="600" align="center"]
+image::listapp_week.PNG[width="600"]
 
 '''
 [[deleteapp, Delete appointment]]
@@ -909,14 +915,14 @@ This command will delete the appointment created on 23rd July 2019 with a start 
 QuickDocs will display the details of the deleted appointment on the main display, as demonstrated in the diagram below:
 
 .Deleting an existing appointment in QuickDocs successfully
-image::deleteapp success.png[width="600" align="center"]
+image::deleteapp_success.PNG[width="600"]
 {sp} +
 
 If the given appointment was not found, QuickDocs will display an error message on the input feedback display,
 as demonstrated in the diagram below. Use the `<<la>>` command to find existing appointments for a given date!
 
 .Deleting a non-existent appointment in QuickDocs
-image::deleteapp failure.png[width="600" align="center"]
+image::deleteapp_failure.PNG[width="600"]
 
 '''
 [[freeapp, List free appointment slots]]
@@ -965,7 +971,7 @@ Lists all free appointment slots in the month of the given date, July 2019. +
 The free appointment slots will be ordered by time and listed on the main display of QuickDocs, as demonstrated in the diagram below:
 
 .Listing free appointment slots on the week of 23rd July 2019.
-image::freeapp success.png[width="600" align="center"]
+image::freeapp_success.PNG[width="600"]
 
 '''
 [[addrem, Add reminder]]
@@ -996,7 +1002,7 @@ If the addition of the reminder was successful, QuickDocs will show the details 
 main display as demonstrated in the diagram below:
 
 .The main display after adding a reminder
-image::addrem success.png[width="600" align="center"]
+image::addrem_success.PNG[width="600"]
 
 '''
 [[listrem, List reminders]]
@@ -1041,7 +1047,7 @@ Lists all reminders in the month of the given date, July 2019. +
 The filtered reminders will be ordered by time and listed on the main display of QuickDocs, as demonstrated in the diagram below:
 
 .Listing reminders scheduled on the week of 31st July 2019.
-image::listrem week.png[width="600" align="center"]
+image::listrem_week.PNG[width="600"]
 
 '''
 [[deleterem, Delete reminder]]
@@ -1066,7 +1072,7 @@ This command will delete the third reminder listed on the sidebar, if it exists.
 the details of the deleted reminder on the main display, as demonstrated in the diagram below:
 
 .Deleting an existing reminder in QuickDocs successfully
-image::deleterem success.png[width="600" align="center"]
+image::deleterem_success.PNG[width="600"]
 
 {sp} +
 
@@ -1074,7 +1080,7 @@ If the given `INDEX` is not present in the sidebar, QuickDocs will display an er
 as demonstrated in the diagram below.
 
 .Invalid index provided to deleterem
-image::deleterem failure.png[width="600" align="center"]
+image::deleterem_failure.PNG[width="600"]
 
 '''
 [[ntime, Set time before a reminder for notification to appear]]
@@ -1182,7 +1188,7 @@ In the image below, the *display* area will return the statistics of the queried
 2. When there are more than one most common symptom diagnosed, QuickDocs will list them all out.
 
 .Result example for command `statistics 0119 0419`
-image::statistics_sample.png[width="600" align="center"]
+image::statistics_sample.png[width="600"]
 '''
 
 ==== Generate medical certificate: [coming in V2.0]

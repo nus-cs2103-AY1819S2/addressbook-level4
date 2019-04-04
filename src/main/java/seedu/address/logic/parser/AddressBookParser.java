@@ -191,21 +191,25 @@ public class AddressBookParser {
             return new BackCommand();
 
         case RecordAddCommand.COMMAND_WORD:
+        case RecordAddCommand.COMMAND_WORD2:
             checkCalendarCondition();
             isGoTo();
             return new RecordAddCommandParser().parse(arguments);
 
         case RecordClearCommand.COMMAND_WORD:
+        case RecordClearCommand.COMMAND_WORD2:
             checkCalendarCondition();
             isGoTo();
             return new RecordClearCommand();
 
         case RecordEditCommand.COMMAND_WORD:
+        case RecordEditCommand.COMMAND_WORD2:
             checkCalendarCondition();
             isGoTo();
             return new RecordEditCommandParser().parse(arguments);
 
         case RecordDeleteCommand.COMMAND_WORD:
+        case RecordDeleteCommand.COMMAND_WORD2:
             checkCalendarCondition();
             isGoTo();
             return new RecordDeleteCommandParser().parse(arguments);
@@ -244,11 +248,11 @@ public class AddressBookParser {
         case TaskListCommand.COMMAND_WORD2:
             return new TaskListCommand();
 
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
         case ExitAnywayCommand.COMMAND_WORD:
             return new ExitAnywayCommand();

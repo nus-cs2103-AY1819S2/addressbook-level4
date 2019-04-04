@@ -26,7 +26,6 @@ import seedu.address.model.CurrentEditManager;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.image.Image;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -52,7 +51,7 @@ public class AddCommandTest {
         Person validPerson = new PersonBuilder().build();
 
         CommandResult commandResult = new AddCommand(validPerson).execute(currentEdit, modelStub,
-            commandHistory);
+                commandHistory);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
@@ -100,17 +99,7 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void switchTab() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void refreshAlbum() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void displayImage(Image image) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -175,26 +164,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void displayTempImage() {
-        }
-
-        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canUndoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canRedoAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -230,31 +205,6 @@ public class AddCommandTest {
 
         @Override
         public void clearAssetFolder(File dir) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public String[] getFileNames() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void replaceTempImage() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setCurrentImage(Image image) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setOriginalName(String name) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public String saveToAssets(String name) {
             throw new AssertionError("This method should not be called.");
         }
     }

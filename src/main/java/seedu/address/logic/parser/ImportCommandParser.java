@@ -1,20 +1,21 @@
 /* @@author Carrein */
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
-import static seedu.address.commons.core.Config.MAX_FILE_SIZE;
-import static seedu.address.commons.core.Config.SAMPLE_IMPORT;
+import static seedu.address.commons.core.Config.SAMPLE_FOLDER;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
+import seedu.address.ResourceWalker;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Album;
 import seedu.address.model.image.Image;
 
 /**
@@ -22,8 +23,9 @@ import seedu.address.model.image.Image;
  */
 public class ImportCommandParser implements Parser<ImportCommand> {
 
-    // Directory to copy imported images to.
-    private final File directory = new File(ASSETS_FILEPATH);
+    private final Album album = Album.getInstance();
+    private final File directory = new File(album.getAssetsFilepath());
+    private final String assetsFilepath = album.getAssetsFilepath();
 
     /**
      * Parses the given {@code String} of arguments in the context
@@ -32,37 +34,23 @@ public class ImportCommandParser implements Parser<ImportCommand> {
      * @throws ParseException if the user input does not conform to the expected format.
      */
     public ImportCommand parse(String args) throws ParseException {
-
         // Boolean value to indicate if FomoFoto should print directory or file return message.
         boolean isDirectory = false;
 
         // Trim to prevent excess whitespace.
         args = args.trim();
 
-        File folder;
+        File folder = null;
         File[] listOfFiles;
+        List<File> sampleFiles;
         try {
             switch (validPath(args)) {
             // TODO - Pending refactor.
             case 2:
-                isDirectory = true;
-                folder = new File(SAMPLE_IMPORT);
-                listOfFiles = folder.listFiles();
-                for (File f : listOfFiles) {
-                    String path = f.getAbsolutePath();
-                    // File must be valid and not hidden and not ridiculously large.
-                    if (validFormat(path) && !isHidden(path) && !isLarge(path)) {
-                        Image image = new Image(path);
-                        if (!duplicateFile(image)) {
-                            try {
-                                File file = new File(path);
-                                FileUtils.copyFileToDirectory(file, directory);
-                                System.out.println("✋ IMPORTED: " + path);
-                            } catch (IOException e) {
-                                System.out.println(e.toString());
-                            }
-                        }
-                    }
+                try {
+                    ResourceWalker.walk(SAMPLE_FOLDER);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 break;
             case 1:
@@ -123,11 +111,10 @@ public class ImportCommandParser implements Parser<ImportCommand> {
      * @return 1 if directory, 0 if file, -1 otherwise.
      */
     public int validPath(String url) {
-        // Sample case
+        // Trim url to remove trailing whitespace
         if (url.equals("sample")) {
             return 2;
         }
-        // Trim url to remove trailing whitespace
         File file = new File(url.trim());
         if (file.isDirectory()) {
             return 1;
@@ -145,7 +132,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
      * @return True if image file name exist, false otherwise.
      */
     public boolean duplicateFile(Image image) {
-        return (new File(ASSETS_FILEPATH + image.getName().toString()).exists()) ? true : false;
+        return (new File(assetsFilepath + image.getName().toString()).exists()) ? true : false;
     }
 
     /**
@@ -180,7 +167,8 @@ public class ImportCommandParser implements Parser<ImportCommand> {
      */
     public boolean isLarge(String url) {
         File file = new File(url);
-        return file.length() > MAX_FILE_SIZE;
+        System.out.println(file.length());
+        return file.length() > 400000;
     }
 }
 

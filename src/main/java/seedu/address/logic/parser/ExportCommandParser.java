@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
 import static seedu.address.commons.core.Config.MAX_FILE_SIZE;
 
 import java.io.File;
@@ -19,11 +18,10 @@ import seedu.address.model.image.Image;
  */
 public class ExportCommandParser implements Parser<ExportCommand> {
 
-    // Directory to copy imported images to.
-    private final File directory = new File(ASSETS_FILEPATH);
-
     // Album to copy imported images to.
     private final Album album = Album.getInstance();
+    // Directory to copy imported images to.
+    private final File directory = new File(album.getAssetsFilepath());
 
     /**
      * Parses the given {@code String} of arguments in the context
@@ -73,7 +71,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
      * @return True if image file name exist, false otherwise.
      */
     public boolean duplicateFile(Image image) {
-        return (new File(ASSETS_FILEPATH + image.getName().toString()).exists()) ? true : false;
+        return (new File(album.getAssetsFilepath() + image.getName().toString()).exists()) ? true : false;
     }
 
     /**

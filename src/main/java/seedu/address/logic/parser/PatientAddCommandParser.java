@@ -17,7 +17,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.PatientAddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.datetime.DateOfBirth;
 import seedu.address.model.description.Description;
@@ -33,9 +33,9 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new PatientAddCommand object
  */
-public class AddCommandParser implements Parser<AddCommand> {
+public class PatientAddCommandParser implements Parser<PatientAddCommand> {
 
     public static final String NONE_PHONE = "No phone number specified";
     public static final String NONE_ADDRESS = "No address specified";
@@ -50,11 +50,11 @@ public class AddCommandParser implements Parser<AddCommand> {
     public static final String NONE_NOKA = "No next of kin address specified";
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the PatientAddCommand
+     * and returns an PatientAddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCommand parse(String args) throws ParseException {
+    public PatientAddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
                         PREFIX_NRIC, PREFIX_YEAR, PREFIX_SEX, PREFIX_DRUG_ALLERGY, PREFIX_NOKN, PREFIX_NOKR,
@@ -65,7 +65,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             || (arePrefixesPresent(argMultimap, PREFIX_NOKN) && !arePrefixesPresent(argMultimap, PREFIX_NOKR))
             || ((arePrefixesPresent(argMultimap, PREFIX_NOKR) || arePrefixesPresent(argMultimap, PREFIX_NOKA)
                 || arePrefixesPresent(argMultimap, PREFIX_NOKP)) && !arePrefixesPresent(argMultimap, PREFIX_NOKN))) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PatientAddCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
@@ -95,7 +95,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Patient patient = new Patient(name, phone, email, address, null, nric, dateOfBirth, sex, drugAllergy,
             new NextOfKin(kinName, kinPhone, new Email(NONE_EMAIL), kinAddr, null, kinRelation), description);
 
-        return new AddCommand(patient);
+        return new PatientAddCommand(patient);
     }
 
     /**

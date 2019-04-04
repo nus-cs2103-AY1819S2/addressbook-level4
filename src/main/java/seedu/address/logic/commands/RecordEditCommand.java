@@ -22,8 +22,10 @@ import seedu.address.model.record.Record;
 public class RecordEditCommand extends Command {
 
     public static final String COMMAND_WORD = "recordedit";
+    public static final String COMMAND_WORD2 = "redit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the record identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " or " + COMMAND_WORD2
+            + ": Edits the details of the record identified "
             + "by the index number used in the displayed record list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "

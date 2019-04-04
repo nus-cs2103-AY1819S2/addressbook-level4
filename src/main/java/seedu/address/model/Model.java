@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -61,6 +62,11 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     //=========== Methods for interacting with Person Object ===========================================================
+
+    /**
+     * Replaces the person list wih the data in {@code persons}.
+     */
+    void setPatientList(List<Person> persons);
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.

@@ -21,18 +21,18 @@ import seedu.address.storage.InOutAddressBookStorage;
 import seedu.address.storage.StorageManager;
 
 /**
- * Opens records from a text file.
+ * Opens data from a text file.
  */
 public class OpenCommand extends Command {
 
     public static final String COMMAND_WORD = "open";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Opens a .json file in the \"data\" folder and overwrites the current addressbook\n"
-            + "Parameters: FILENAME\n"
-            + "Example: " + COMMAND_WORD + " records1.json";
+            + ": Opens a .json file in the \"data\" folder and overwrites the current data\n"
+            + "Parameters: FILEPATH\n"
+            + "Example: " + COMMAND_WORD + " data1.json";
 
-    public static final String MESSAGE_SUCCESS = "Opened the records!";
+    public static final String MESSAGE_SUCCESS = "File opened!";
 
     private final File file;
 

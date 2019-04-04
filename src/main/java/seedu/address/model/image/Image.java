@@ -63,6 +63,27 @@ public class Image {
         System.out.println(this.toString());
     }
 
+    public Image(File file) {
+        requireAllNonNull(file);
+        try {
+            this.buffer = ImageIO.read(file);
+            this.metadata = ImageMetadataReader.readMetadata(file);
+            buffer = ImageIO.read(file);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        this.url = file.getAbsolutePath();
+        this.fileType = FilenameUtils.getExtension(file.getName());
+        this.size = new Size(String.valueOf(file.length()));
+        this.name = new Name(FilenameUtils.getBaseName(url),
+                FilenameUtils.getExtension(url), FilenameUtils.getName(url));
+        this.width = new Width(String.valueOf(buffer.getWidth()));
+        this.height = new Height(String.valueOf(buffer.getHeight()));
+        commandHistory = new ArrayList<>();
+        index = 0;
+        System.out.println(this.toString());
+    }
+
     public Height getHeight() {
         return height;
     }

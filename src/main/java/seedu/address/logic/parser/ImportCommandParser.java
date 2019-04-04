@@ -1,13 +1,17 @@
 /* @@author Carrein */
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Config.SAMPLE_FOLDER;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
+import seedu.address.ResourceWalker;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -30,18 +34,25 @@ public class ImportCommandParser implements Parser<ImportCommand> {
      * @throws ParseException if the user input does not conform to the expected format.
      */
     public ImportCommand parse(String args) throws ParseException {
-
         // Boolean value to indicate if FomoFoto should print directory or file return message.
         boolean isDirectory = false;
 
         // Trim to prevent excess whitespace.
         args = args.trim();
 
-        File folder;
+        File folder = null;
         File[] listOfFiles;
+        List<File> sampleFiles;
         try {
             switch (validPath(args)) {
             // TODO - Pending refactor.
+            case 2:
+                try {
+                    ResourceWalker.walk(SAMPLE_FOLDER);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
             case 1:
                 isDirectory = true;
                 folder = new File(args);
@@ -101,6 +112,9 @@ public class ImportCommandParser implements Parser<ImportCommand> {
      */
     public int validPath(String url) {
         // Trim url to remove trailing whitespace
+        if (url.equals("sample")) {
+            return 2;
+        }
         File file = new File(url.trim());
         if (file.isDirectory()) {
             return 1;
@@ -153,7 +167,8 @@ public class ImportCommandParser implements Parser<ImportCommand> {
      */
     public boolean isLarge(String url) {
         File file = new File(url);
-        return file.length() > 6000000;
+        System.out.println(file.length());
+        return file.length() > 400000;
     }
 }
 

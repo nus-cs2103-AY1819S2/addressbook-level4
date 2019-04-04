@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -31,7 +32,7 @@ import seedu.address.model.task.Task;
 
 import seedu.address.testutil.PersonBuilder;
 
-public class AddCommandTest {
+public class PatientAddCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -140,6 +141,11 @@ public class AddCommandTest {
 
         @Override
         public void addRecord(Record record) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPatientList(List<Person> persons) {
             throw new AssertionError("This method should not be called.");
         }
 

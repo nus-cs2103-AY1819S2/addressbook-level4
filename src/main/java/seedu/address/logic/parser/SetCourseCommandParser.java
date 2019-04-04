@@ -4,7 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import seedu.address.logic.commands.SetCourseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.course.Course;
+import seedu.address.model.course.CourseName;
 
 /**
  * Parses input arguments and creates a new SetCourseCommand object
@@ -18,8 +18,8 @@ public class SetCourseCommandParser implements Parser<SetCourseCommand> {
      */
     public SetCourseCommand parse(String args) throws ParseException {
         try {
-            Course course = Course.getCourseByName(ParserUtil.parseCourseName(args));
-            return new SetCourseCommand(course);
+            CourseName courseName = ParserUtil.parseCourseName(args);
+            return new SetCourseCommand(courseName);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetCourseCommand.MESSAGE_USAGE), pe);

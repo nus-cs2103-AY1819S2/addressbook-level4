@@ -1,9 +1,0 @@
-{
-  "persons": [ {
-    "name": "Person with invalid name field: Ha!ns Mu@ster",
-    "semester": "9482424",
-    "expectedMinGrade": "hans@example.com",
-    "expectedMaxGrade": "4th street",
-    "lectureHour" : "d"
-  } ]
-}

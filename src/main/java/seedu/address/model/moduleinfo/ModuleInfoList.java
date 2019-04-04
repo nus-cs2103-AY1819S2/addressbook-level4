@@ -9,7 +9,7 @@ import seedu.address.commons.util.InvalidationListenerManager;
 
 /**
  * Wraps all data at the Module Info List level
- * Duplicates are not allowed (by  comparison)
+ * Duplicates are not allowed (by comparison)
  */
 public class ModuleInfoList {
 
@@ -28,7 +28,7 @@ public class ModuleInfoList {
      */
     public void addModuleInfo(ModuleInfo module) {
         this.moduleInfoList.add(module);
-        System.out.println("new module added:" + module.getCodeString());
+        //System.out.println("new module added:" + module.getCodeString());
     }
 
     /**

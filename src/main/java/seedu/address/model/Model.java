@@ -1,52 +1,42 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.course.Course;
+import seedu.address.model.course.CourseName;
+import seedu.address.model.course.RequirementStatus;
 import seedu.address.model.moduleinfo.ModuleInfo;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Semester;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
+import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.Semester;
+import seedu.address.model.recmodule.RecModule;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<ModuleTaken> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
-     * Replaces course data with the data in {@code course}.
+     * Replaces course data with the data in {@code Model}.
      */
-    void setCourse(Course course);
+    void setCourse(CourseName courseName);
+
+    /**
+     * Checks whether model has course with course name {@code course}
+     */
+    boolean hasCourse(CourseName courseName);
 
     /**
      * Returns the course data.
      */
     Course getCourse();
-
-    /**
-     * Returns the user's current semester.
-     */
-    Semester getCurrentSemester();
-
-    /**
-     * Returns the user's cap up to the current semester.
-     */
-    Cap computeCumulativeCap();
-
-    /**
-     * Returns the user's expected minimum cap based on user's prediction of future results.
-     */
-    Cap computeExpectedMinimumCap();
-
-    /**
-     * Returns the user's expected maximum cap based on user's prediction of future results.
-     */
-    Cap computeExpectedMaximumCap();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -69,97 +59,120 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' GradTrak file path.
      */
-    Path getAddressBookFilePath();
+    Path getGradTrakFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' GradTrak file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setGradTrakFilePath(Path addressBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces GradTrak data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setGradTrak(ReadOnlyGradTrak addressBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the GradTrak */
+    ReadOnlyGradTrak getGradTrak();
+
+    /** Returns the current Semester */
+    Semester getCurrentSemester();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a moduleTaken with the same identity as {@code moduleTaken} exists in the GradTrak .
      */
-    boolean hasPerson(Person person);
+    boolean hasModuleTaken(ModuleTaken moduleTaken);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given moduleTaken.
+     * The moduleTaken must exist in the GradTrak .
      */
-    void deletePerson(Person target);
+    void deleteModuleTaken(ModuleTaken target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given moduleTaken.
+     * {@code moduleTaken} must not already exist in the GradTrak .
      */
-    void addPerson(Person person);
+    void addModuleTaken(ModuleTaken moduleTaken);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Replaces the given moduleTaken {@code target} with {@code editedModuleTaken}.
+     * {@code target} must exist in the GradTrak .
+     * The moduleTaken identity of {@code editedModuleTaken} must not be the same as another
+     * existing moduleTaken in the GradTrak .
      */
-    void setPerson(Person target, Person editedPerson);
-
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    void setModuleTaken(ModuleTaken target, ModuleTaken editedModuleTaken);
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Replaces the semester limit at the given index with {@code editedSemLimit}.
+     */
+    void setSemesterLimit(int index, SemLimit editedSemLimit);
+
+    /**
+     * Replaces the current semester with the given semester.
+     */
+    void setCurrentSemester(Semester semester);
+
+    /** Returns an unmodifiable view of the filtered moduleTaken list */
+    ObservableList<ModuleTaken> getFilteredModulesTakenList();
+
+    /** Returns an unmodifiable view of the SemLimit list */
+    ObservableList<SemLimit> getSemLimitList();
+
+    /**
+     * Updates the filter of the filtered moduleTaken list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredModulesTakenList(Predicate<ModuleTaken> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns the generated html string that indicates if the CAP and workload limits
+     * set by the user for every semester have been violated based the modules taken in their plan.
      */
-    boolean canUndoAddressBook();
+    String checkLimit();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has previous GradTrak states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canUndoGradTrak();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Returns true if the model has undone GradTrak states to restore.
      */
-    void undoAddressBook();
+    boolean canRedoGradTrak();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores the model's GradTrak to its previous state.
      */
-    void redoAddressBook();
+    void undoGradTrak();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Restores the model's GradTrak to its previously undone state.
      */
-    void commitAddressBook();
+    void redoGradTrak();
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Saves the current GradTrak state for undo/redo.
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    void commitGradTrak();
 
     /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
+     * Selected moduleTaken in the filtered moduleTaken list.
+     * null if no moduleTaken is selected.
      */
-    Person getSelectedPerson();
+    ReadOnlyProperty<ModuleTaken> selectedModuleTakenProperty();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Returns the selected moduleTaken in the filtered moduleTaken list.
+     * null if no moduleTaken is selected.
      */
-    void setSelectedPerson(Person person);
+    ModuleTaken getSelectedModuleTaken();
+
+    /**
+     * Sets the selected moduleTaken in the filtered moduleTaken list.
+     */
+    void setSelectedModuleTaken(ModuleTaken moduleTaken);
 
     /**
      * Returns an Observable list of all module information from storage
@@ -172,4 +185,48 @@ public interface Model {
      * @param predicate
      */
     void updateDisplayList(Predicate<ModuleInfo> predicate);
+
+    /**
+     * Updates the filtered list based on the predicate provided by user input
+     * @return Observable list of ModuleInf
+     */
+    ReadOnlyProperty<ModuleInfo> selectedModuleInfoProperty();
+
+    /**
+     * Updates the filtered list based on the predicate provided by user input
+     * @return ModuleInfo
+     */
+    ModuleInfo getSelectedModuleInfo();
+
+    /**
+     * Updates the filtered list based on the predicate provided by user input
+     * @param moduleInfo
+     */
+    void setSelectedModuleInfo(ModuleInfo moduleInfo);
+
+
+    /**
+     * Returns an unmodifiable view of the recommended module list.
+     */
+    ObservableList<RecModule> getRecModuleListSorted();
+
+    /**
+     * Updates the recommended module list.
+     */
+    void updateRecModuleList();
+
+    /**
+     * Returns an unmodifiable view of the filtered course requirement list
+     */
+    ObservableList<RequirementStatus> getRequirementStatusList();
+
+    /**
+     * Returns a copy of the user info.
+     */
+    UserInfo getUserInfo();
+
+    /**
+     * Returns an unmodifiable view of the moduleInfoCode list in GradTrak
+     */
+    ObservableList<ModuleInfoCode> getModuleInfoCodeList();
 }

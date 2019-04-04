@@ -11,13 +11,18 @@ public class ModuleInfoWorkload {
             "Module Workload has 5 fields of Integers";
     public static final String MESSAGE_NOWORKLOAD =
             "No work load information provided";
-    public static final String VALIDATION_REGEX = "\\d{1,2}-\\d{1,2}-\\d{1,2}-\\d{1,2}-\\d{1,2}";
+    public static final String VALIDATION_INTEGER_REGEX = "\\d\\.?\\d?-"
+            + "\\d\\.?\\d?-"
+            + "\\d\\.?\\d?-"
+            + "\\d\\.?\\d?-"
+            + "\\d\\.?\\d?";
+
     public final String workload;
-    public final Integer lecture;
-    public final Integer tutorial;
-    public final Integer lab;
-    public final Integer project;
-    public final Integer preperation;
+    public final double lecture;
+    public final double tutorial;
+    public final double lab;
+    public final double project;
+    public final double preparation;
 
     public ModuleInfoWorkload(String moduleInfoWorkload) {
         this.workload = moduleInfoWorkload;
@@ -26,49 +31,48 @@ public class ModuleInfoWorkload {
             this.tutorial = 0;
             this.lab = 0;
             this.project = 0;
-            this.preperation = 0;
+            this.preparation = 0;
         } else {
             String[] attribute = splitWorkload(moduleInfoWorkload);
-
-            this.lecture = Integer.valueOf(attribute[0]);
-            this.tutorial = Integer.valueOf(attribute[1]);
-            this.lab = Integer.valueOf(attribute[2]);
-            this.project = Integer.valueOf(attribute[3]);
-            this.preperation = Integer.valueOf(attribute[4]);
+            this.lecture = Double.valueOf(attribute[0]);
+            this.tutorial = Double.valueOf(attribute[1]);
+            this.lab = Double.valueOf(attribute[2]);
+            this.project = Double.valueOf(attribute[3]);
+            this.preparation = Double.valueOf(attribute[4]);
         }
 
     }
 
     public static boolean isValidModuleInfoWorkload(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_INTEGER_REGEX);
     }
 
     public String toString() {
         return workload;
     }
 
-    public int getLectureWorkload() {
+    public double getLecture() {
         return lecture;
     }
 
-    public int getTutorialWorkload() {
+    public double getTutorial() {
         return tutorial;
     }
 
-    public int getLabWorkload() {
+    public double getLab() {
         return lab;
     }
 
-    public int getProjectWorkload() {
+    public double getProject() {
         return project;
     }
 
-    public int getPreparationWorkload() {
-        return preperation;
+    public double getPreparation() {
+        return preparation;
     }
 
-    public int getTotalWorkload() {
-        return lecture + tutorial + lab + project + preperation;
+    public double getTotal() {
+        return lecture + tutorial + lab + project + preparation;
     }
 
     /**
@@ -89,11 +93,11 @@ public class ModuleInfoWorkload {
                 && tutorial == ((ModuleInfoWorkload) other).tutorial
                 && lab == ((ModuleInfoWorkload) other).lab
                 && project == ((ModuleInfoWorkload) other).project
-                && preperation == ((ModuleInfoWorkload) other).preperation); // state check
+                && preparation == ((ModuleInfoWorkload) other).preparation); // state check
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(lecture, tutorial, lab, project, preperation);
+        return Objects.hash(lecture, tutorial, lab, project, preparation);
     }
 }

@@ -1,73 +1,80 @@
 package seedu.address.model.course;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
-import seedu.address.model.moduleinfo.ModuleInfo;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
 
 /**
- * Checks whether a list of module fulfils course requirement
+ * API of CourseRequirement
  */
-public class CourseRequirement {
+public interface CourseRequirement {
 
-    protected final String description;
-    protected final Predicate<List<ModuleInfo>> isFulfilled;
-    protected final Function<List<ModuleInfo>, String> getUnfulfilled;
+    /**
+     * Returns CourseReqType of a CourseRequirement
+     * @return CourseReqType of CourseRequirement interface object
+     */
+    CourseReqType getType();
 
-    public CourseRequirement (String description,
-                              Predicate<List<ModuleInfo>> isFulfilled,
-                              Function<List<ModuleInfo>, String> getUnfulfilled) {
-        requireAllNonNull(description, isFulfilled, getUnfulfilled);
-        this.description = description;
-        this.isFulfilled = isFulfilled;
-        this.getUnfulfilled = getUnfulfilled;
-    }
+    /**
+     * Returns name of course requirement
+     * @return name of course requirement
+     */
+    String getCourseReqName();
 
     /**
      * Returns description of course requirement
+     * @return description of course requirement
      */
-    public String getDescription() {
-        return description;
-    }
+    String getCourseReqDesc();
 
     /**
-     * Returns regular expressions that are not satisfied
+     * Returns true if list in modules satisfy the course requirement
+     * @param moduleInfoCodes List of module codes to check whether modules satisfy the course requirement
+     * @return true if module codes satisfy course requirement
      */
-    public String getUnfulfilled(List<ModuleInfo> moduleInfos) {
-        return getUnfulfilled.apply(moduleInfos);
-    };
-
-    public boolean test(List<ModuleInfo> moduleInfos) {
-        return isFulfilled.test(moduleInfos);
-    };
+    boolean isFulfilled(List<ModuleInfoCode> moduleInfoCodes);
 
     /**
-     * Returns Course Requirement that has test method such that it returns true only if both
-     * this.test() and other.test() returns true. Description, and getUnfulfilled is concatenated.
-     * @param other
-     * @return Returns Course Requirement where its test method returns true only if this.test()
-     * and other.test() is true;
+     * Returns true if module can be used to satisfy course requirement
+     * @param moduleInfoCode module code to check whether can fulfil course requirement
+     * @return true if module code can be used to satisfy course requirement
      */
-    public CourseRequirement and(CourseRequirement other) {
-        return new CourseRequirement(description + "\n AND \n" + other.description,
-            isFulfilled.and(other.isFulfilled), (
-                    List<ModuleInfo> x) -> getUnfulfilled(x) + "\n AND \n" + other.getUnfulfilled(x));
-    }
+    boolean canFulfill(ModuleInfoCode moduleInfoCode);
+
+    /**
+     * Returns an estimate of the percentage (against min number of modules to satisfy, in the range of [0,1])
+     * of the degree of completion of the course requirement.
+     * @param moduleInfoCodes module codes to check degree of completion of course requirement
+     * @return a double in the range of [0, 1]
+     */
+    double getFulfilledPercentage(List<ModuleInfoCode> moduleInfoCodes);
+
+    /**
+     * Returns a formatted string of the aspects of course requirements
+     * unfulfilled by the list of module codes
+     * @param moduleInfoCodes module codes to check the aspects of course requirements unfulfilled
+     * @return a formatted string in the form
+     */
+    List<String> getUnfulfilled(List<ModuleInfoCode> moduleInfoCodes);
+
+    /**
+     * Returns a composite CourseRequirement whose boolean methods returns
+     * first.booleanMethod() && second.booleanMethod()
+     * for instance: first.And(second).canFulfill(moduleInfo)
+     * returns the same value as first.canFulfill(moduleInfo) && second.canFulfill(moduleInfo)
+     * @param other CourseRequirement to combine
+     * @return new CourseRequirement whose boolean method returns first.booleanMethod() && second.booleanMethod()
+     */
+    CourseRequirement and(CourseRequirement other);
 
 
     /**
-     * Returns Course Requirement that has test method such that it returns true only at least one of
-     * this.test() or other.test() returns true. Description, and getUnfulfilled is concatenated.
-     * @param other
-     * @return Returns Course Requirement where its test method returns true only if at least one of
-     * this.test() or other.test() is true;
+     * Returns a composite CourseRequirement whose boolean methods returns
+     * first.booleanMethod() || second.booleanMethod()
+     * for instance: first.Or(second).canFulfill(moduleInfo)
+     * is returns the same value as first.canFulfill(moduleInfo) || second.canFulfill(moduleInfo)
+     * @param other CourseRequirement to combine
+     * @return new CourseRequirement whose boolean method returns first.booleanMethod() || second.booleanMethod()
      */
-    public CourseRequirement or(CourseRequirement other) {
-        return new CourseRequirement(description + "\n OR \n" + other.description,
-            isFulfilled.or(other.isFulfilled), (
-                    List<ModuleInfo> x) -> getUnfulfilled(x) + "\n OR \n" + other.getUnfulfilled(x));
-    }
+    CourseRequirement or(CourseRequirement other);
 }

@@ -7,51 +7,53 @@ import java.util.Optional;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.person.FindModulePredicate;
-import seedu.address.model.person.Grade;
-import seedu.address.model.person.Semester;
+import seedu.address.model.moduletaken.FindModulePredicate;
+import seedu.address.model.moduletaken.Grade;
+import seedu.address.model.moduletaken.Semester;
 
 /**
- * Finds and lists module(s) in module plan matching all given module code,
- * semester, grade or finished status (case-insensitive).
+ * Finds {@code ModuleTaken} in {@code GradTrak} matching all given {@code ModuleInfoCode},
+ * {@code Semester}, {@code Grade} or finished status (case-insensitive).
  */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds module(s) based on "
-            + "module code, semester, grade or finished status (case-insensitive).\n"
-            + "Module code can be entered partially, but semester and grade must be exact.\n"
-            + "Finished status must be 'y' or 'n'."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds modules matching all given parameters.\n"
             + "Parameters: [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]\n"
-            + "Example: " + COMMAND_WORD + " s/y1s1 c/cs g/A";
+            + "Example: " + COMMAND_WORD + " s/y1s1 c/cs g/A f/y";
 
-    private final FindModulePredicate predicate;
+    private final FindModuleDescriptor descriptor;
 
-    public FindCommand(FindModulePredicate predicate) {
-        this.predicate = predicate;
+    public FindCommand(FindModuleDescriptor descriptor) {
+        this.descriptor = descriptor;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredPersonList(predicate);
+
+        FindModulePredicate predicate = new FindModulePredicate(descriptor, model.getCurrentSemester());
+        model.updateFilteredModulesTakenList(predicate);
+
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+                String.format(Messages.MESSAGE_MODULETAKEN_LISTED_OVERVIEW,
+                        model.getFilteredModulesTakenList().size()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand) other).predicate)); // state check
+                && descriptor.equals(((FindCommand) other).descriptor)); // state check
     }
 
     /**
-     * Stores the details for finding a module. Each field can be empty.
+     * Stores details for finding a {@code ModuleTaken} in {@code GradTrak}.
+     * There must be at least one filled field.
      */
     public static class FindModuleDescriptor {
-        private String code; // can be substring of exact code
+        private String subCode; // can be substring of exact code
         private Semester semester;
         private Grade grade;
         private Boolean isFinished;
@@ -62,18 +64,18 @@ public class FindCommand extends Command {
          * Copy constructor.
          */
         public FindModuleDescriptor(FindModuleDescriptor toCopy) {
-            setCode(toCopy.code);
+            setSubCode(toCopy.subCode);
             setSemester(toCopy.semester);
             setGrade(toCopy.grade);
             setFinished(toCopy.isFinished);
         }
 
-        public void setCode(String code) {
-            this.code = code.toLowerCase();
+        public void setSubCode(String subCode) {
+            this.subCode = subCode.toLowerCase();
         }
 
-        public Optional<String> getCode() {
-            return Optional.ofNullable(code);
+        public Optional<String> getSubCode() {
+            return Optional.ofNullable(subCode);
         }
 
         public void setSemester(Semester semester) {
@@ -110,7 +112,7 @@ public class FindCommand extends Command {
             }
 
             FindModuleDescriptor other = (FindModuleDescriptor) object;
-            return getCode().equals(other.getCode())
+            return getSubCode().equals(other.getSubCode())
                     && getSemester().equals(other.getSemester())
                     && getGrade().equals(other.getGrade())
                     && isFinished().equals(other.isFinished());

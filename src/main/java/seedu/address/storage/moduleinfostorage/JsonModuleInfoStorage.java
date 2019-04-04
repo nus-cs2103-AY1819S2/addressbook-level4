@@ -1,15 +1,14 @@
 package seedu.address.storage.moduleinfostorage;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.JsonUtil.readJsonFileFromInputStream;
 
-import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.moduleinfo.ModuleInfoList;
 
 /**
@@ -18,44 +17,40 @@ import seedu.address.model.moduleinfo.ModuleInfoList;
 public class JsonModuleInfoStorage implements ModuleInfoStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonModuleInfoStorage.class);
+    private String inputStreamPath;
 
-    private Path filePath;
-
-    public JsonModuleInfoStorage(Path filePath) {
-        this.filePath = filePath;
+    public JsonModuleInfoStorage(String inputStreamPath) {
+        this.inputStreamPath = inputStreamPath;
     }
 
-    public Path getModuleInfoFilePath() {
-        return filePath;
+    public String getModuleInfoInputStreamPath() {
+        return inputStreamPath;
     }
 
     @Override
     public Optional<ModuleInfoList> readModuleInfoFile() throws DataConversionException {
-        return readModuleInfoFile(filePath);
+        return readModuleInfoFile(this.inputStreamPath);
     }
 
     /**
      * Similar to {@link #readModuleInfoFile()}.
      *
-     * @param filePath location of the data. Cannot be null.
+     * @param inputStreamPath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ModuleInfoList> readModuleInfoFile(Path filePath) throws DataConversionException {
-        requireNonNull(filePath);
-
-        Optional<JsonSerializableModuleInfoList> jsonModuleInfoList = JsonUtil.readJsonFile(
-                filePath, JsonSerializableModuleInfoList.class);
-        if (!jsonModuleInfoList.isPresent()) {
+    public Optional<ModuleInfoList> readModuleInfoFile(String inputStreamPath) throws DataConversionException {
+        requireNonNull(inputStreamPath);
+        Optional<JsonSerializableModuleInfoList> moduleInfoListOptional =
+                readJsonFileFromInputStream(inputStreamPath, JsonSerializableModuleInfoList.class);
+        if (!moduleInfoListOptional.isPresent()) {
             return Optional.empty();
         }
-
         try {
-            return Optional.of(jsonModuleInfoList.get().toModelType());
+            return Optional.of(moduleInfoListOptional.get().toModelType());
         } catch (IllegalValueException e) {
-            logger.info("Illegal values found in " + filePath + ": " + e.getMessage());
+            logger.info("Illegal values found in " + inputStreamPath + ": " + e.getMessage());
             throw new DataConversionException(e);
         }
-
     }
 
 }

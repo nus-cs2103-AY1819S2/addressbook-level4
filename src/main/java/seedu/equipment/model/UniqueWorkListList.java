@@ -9,6 +9,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.equipment.model.equipment.Equipment;
 import seedu.equipment.model.equipment.exceptions.DuplicateEquipmentException;
 import seedu.equipment.model.equipment.exceptions.EquipmentNotFoundException;
 
@@ -51,6 +52,27 @@ public class UniqueWorkListList implements Iterable<WorkList> {
     }
 
     /**
+     * Put a certain Equipment into a worklist with the id given.
+     */
+    public void addEquipment(Equipment e, WorkListId id) {
+        requireNonNull(e);
+        requireNonNull(id);
+        WorkList sampleWorkList = new WorkList("01 May 2019", "SampleName", id);
+        if (!contains(sampleWorkList)) {
+            throw new EquipmentNotFoundException();
+        } else {
+            Iterator<WorkList> ir = iterator();
+            int size = internalList.size();
+            for (int i = 0; i < size; i++) {
+                WorkList thisWorkList = ir.next();
+                if (thisWorkList.isSameWorkList(sampleWorkList)) {
+                    thisWorkList.addEquipment(e);
+                }
+            }
+        }
+    }
+
+    /**
      * Removes the equivalent WorkList from the list.
      * The WorkList must exist in the list.
      */
@@ -65,7 +87,7 @@ public class UniqueWorkListList implements Iterable<WorkList> {
      * Sorts the WorkList list by WorkListId.
      */
     public void sortById() {
-        Comparator<WorkList> byId = Comparator.comparing(WorkList -> WorkList.getId().getId());
+        Comparator<WorkList> byId = Comparator.comparing(WorkList -> WorkList.getId().getIntId());
         internalList.sort(byId);
     }
 
@@ -82,7 +104,7 @@ public class UniqueWorkListList implements Iterable<WorkList> {
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<WorkList> asUnmodifiableObservableList() {
-        internalList.add(new WorkList("12 May 2019", "Mei Yen"));
+        internalList.add(new WorkList("12 May 2019", "Mei Yen", new WorkListId("1")));
         return FXCollections.unmodifiableObservableList(internalList);
     }
 

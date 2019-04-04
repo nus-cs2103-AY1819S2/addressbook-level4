@@ -16,8 +16,10 @@ import seedu.equipment.logic.commands.FilterCommand;
 import seedu.equipment.logic.commands.FindCommand;
 import seedu.equipment.logic.commands.HelpCommand;
 import seedu.equipment.logic.commands.HistoryCommand;
+import seedu.equipment.logic.commands.ListClientCommand;
 import seedu.equipment.logic.commands.ListEquipmentCommand;
 import seedu.equipment.logic.commands.ListWorkListCommand;
+import seedu.equipment.logic.commands.PutCommand;
 import seedu.equipment.logic.commands.RedoCommand;
 import seedu.equipment.logic.commands.SelectCommand;
 import seedu.equipment.logic.commands.SortCommand;
@@ -81,6 +83,9 @@ public class EquipmentManagerParser {
         case ListWorkListCommand.COMMAND_WORD:
             return new ListWorkListCommand();
 
+        case ListClientCommand.COMMAND_WORD:
+            return new ListClientCommand();
+
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
 
@@ -92,6 +97,9 @@ public class EquipmentManagerParser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
+
+        case PutCommand.COMMAND_WORD:
+            return new PutCommandParser().parse(arguments);
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();

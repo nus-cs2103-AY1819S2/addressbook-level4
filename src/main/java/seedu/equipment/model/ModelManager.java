@@ -16,6 +16,7 @@ import seedu.equipment.commons.core.GuiSettings;
 import seedu.equipment.commons.core.LogsCenter;
 import seedu.equipment.commons.util.CollectionUtil;
 import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.equipment.SerialNumber;
 import seedu.equipment.model.equipment.exceptions.EquipmentNotFoundException;
 import seedu.equipment.model.tag.Tag;
 
@@ -27,6 +28,7 @@ public class ModelManager implements Model {
 
     private final VersionedEquipmentManager versionedEquipmentManager;
     private final UserPrefs userPrefs;
+    private final FilteredList<Equipment> filteredClient;
     private final FilteredList<Equipment> filteredEquipments;
     private final FilteredList<WorkList> filteredWorkList;
     private final SimpleObjectProperty<Equipment> selectedEquipment = new SimpleObjectProperty<>();
@@ -46,6 +48,7 @@ public class ModelManager implements Model {
         filteredEquipments = new FilteredList<>(versionedEquipmentManager.getPersonList());
         filteredEquipments.addListener(this::ensureSelectedPersonIsValid);
         filteredWorkList = new FilteredList<>(versionedEquipmentManager.getWorkListList());
+        filteredClient = new FilteredList<>(versionedEquipmentManager.getPersonList());
         //filteredWorkList.addListener(this::ensureSelectedworkListIsValid);
     }
 
@@ -125,13 +128,18 @@ public class ModelManager implements Model {
     @Override
     public void addEquipment(Equipment equipment) {
         versionedEquipmentManager.addPerson(equipment);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_EQUIPMENT);
     }
 
     @Override
     public void addWorkList(WorkList workList) {
         versionedEquipmentManager.addWorkList(workList);
         updateFilteredWorkListList(PREDICATE_SHOW_ALL_WORKLISTS);
+    }
+
+    @Override
+    public void putEquipment(WorkListId workListId, SerialNumber serialNumber) {
+        versionedEquipmentManager.putEquipment(workListId, serialNumber);
     }
 
     @Override
@@ -151,6 +159,22 @@ public class ModelManager implements Model {
         CollectionUtil.requireAllNonNull(target, editedEquipment);
 
         versionedEquipmentManager.updateEquipment(target, editedEquipment);
+    }
+
+    //=========== Filtered Client List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code WorkList} backed by the internal list of
+     * {@code versionedEquipmentManager}
+     */
+    public ObservableList<Equipment> getFilteredClient() {
+        return filteredClient;
+    }
+
+    @Override
+    public void updateFilteredClient(Predicate<Equipment> predicate) {
+        requireNonNull(predicate);
+        filteredClient.setPredicate(predicate);
     }
 
     //=========== Filtered WorkList List Accessors =============================================================

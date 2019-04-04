@@ -7,7 +7,7 @@ import static seedu.equipment.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_TAG_UNUSED;
-import static seedu.equipment.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.equipment.model.Model.PREDICATE_SHOW_ALL_EQUIPMENT;
 import static seedu.equipment.testutil.TypicalEquipments.AMY;
 import static seedu.equipment.testutil.TypicalEquipments.ANCHORVALECC;
 import static seedu.equipment.testutil.TypicalEquipments.BOB;
@@ -214,7 +214,7 @@ public class ModelManagerTest {
         assertTrue(modelManager.equals(new ModelManager(equipmentManager, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_EQUIPMENT);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

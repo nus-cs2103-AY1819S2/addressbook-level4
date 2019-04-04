@@ -29,6 +29,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+    private String command;
+
     private Stage primaryStage;
     private Logic logic;
 
@@ -50,6 +52,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane clientListPanelPlaceholder;
 
     @FXML
     private StackPane workListPanelPlaceholder;
@@ -120,7 +125,7 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel(logic.selectedEquipmentProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        equipmentListPanel = new EquipmentListPanel(logic.getFilteredPersonList(), logic.selectedEquipmentProperty(),
+        equipmentListPanel = new EquipmentListPanel(logic.getFilteredEquipment(), logic.selectedEquipmentProperty(),
                 logic::setSelectedPerson);
         personListPanelPlaceholder.getChildren().add(equipmentListPanel.getRoot());
 
@@ -184,7 +189,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleDisplayMap() {
-        List<Equipment> equipmentList = logic.getFilteredPersonList();
+        List<Equipment> equipmentList = logic.getFilteredEquipment();
         String coordiantesString = "[";
         for (Equipment equipment:equipmentList) {
             double[] coordinates = equipment.getCoordiantes();
@@ -192,7 +197,7 @@ public class MainWindow extends UiPart<Stage> {
         }
         coordiantesString = coordiantesString.replaceAll(",$", "");
         coordiantesString += "]";
-        String url = BrowserPanel.MAP_PAGE_BASE_URL + "?coordinates=" + coordiantesString;
+        String url = BrowserPanel.MAP_MULTIPLE_POINT_BASE_URL + "?coordinates=" + coordiantesString;
         System.out.println("Loading page: " + url);
         browserPanel.loadPage(url);
     }
@@ -212,6 +217,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+            setCommand(commandText);
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
@@ -234,5 +240,13 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private void setCommand(String commandText) {
+        this.command = commandText;
+    }
+
+    public String getCommand() {
+        return command;
     }
 }

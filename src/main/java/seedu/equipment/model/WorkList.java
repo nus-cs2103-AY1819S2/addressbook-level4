@@ -24,12 +24,12 @@ public class WorkList {
     /**
      * Every field must be present and not null.
      */
-    public WorkList(String date, String name) {
-        CollectionUtil.requireAllNonNull(date, name);
+    public WorkList(String date, String name, WorkListId id) {
+        CollectionUtil.requireAllNonNull(date, name, id);
         this.date = date;
         this.assignee = name;
         this.equipments = new HashSet<>();
-        this.id = new WorkListId();
+        this.id = id;
     }
 
     public String getDate() {
@@ -92,6 +92,6 @@ public class WorkList {
             return true;
         }
 
-        return this.getId().getId() == otherWorkList.getId().getId();
+        return otherWorkList != null && otherWorkList.getId().equals(getId());
     }
 }

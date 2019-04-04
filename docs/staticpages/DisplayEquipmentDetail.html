@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Equipment Display</title>
+  <meta name="viewport" content="initial-scale=1.0">
+  <meta charset="utf-8">
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    #top,
+    #bottom {
+      position: fixed;
+      left: 0;
+      right: 0;
+      height: 50%;
+    }
+
+    #top {
+      top: 0;
+    }
+    #bottom {
+      bottom: 0;
+    }
+
+    #map {
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="top">
+      <table id="table-detail">
+      </table>
+  </div>
+  <div id="bottom">
+    <div id="map"></div>
+  </div>
+  <script>
+    /**
+  This function parse the url parameters and return the points as an array of objects.
+  Params: Url(String): The url to be parsed.
+  Returns: The parameters object.
+*/
+    function parseUrlParams(url) {
+      // get query string from url
+      var queryString = url.split('?')[1];
+      var points = [];
+      var tempObject = {};
+      var keyList = [];
+      if (queryString) {
+        // stuff after # is not part of query string, so get rid of it
+        queryString = queryString.split('#')[0];
+        // split our query string into its component parts
+        var arr = queryString.split('&');
+        for (var i = 0; i < arr.length; i++) {
+          // separate the keys and the values
+          var a = arr[i].split('=');
+          // set parameter name and value (use 'null' if empty)
+          var paramName = a[0];
+          var paramValue = typeof (a[1]) === 'undefined' ? null : a[1];
+          if (paramValue == null) {
+            console.error("Bad parameters. Parameter value should not be empty. Parsing failed.");
+          }
+          console.log(paramValue);
+          obj = JSON.parse(paramValue);
+          tempObject[paramName] = obj;
+          keyList.push(paramName);
+        }
+        if (!("coordinates" in tempObject)) {
+          console.error("Bad parameters. Must have coordinates. Parsing failed.");
+          return [];
+        } else {
+          console.log(tempObject);
+          console.log(keyList);
+          for (var i = 0; i < tempObject["coordinates"].length; i++) {
+            var tempPoint = {
+              "type": "Feature",
+              "geometry": {
+                "type": "Point",
+                "coordinates": tempObject["coordinates"][i]
+              },
+              "properties": {}
+            };
+            for (var j = 0; j < keyList.length; j++) {
+              if (keyList[j] != "coordinates") {
+                  tempPoint["properties"][keyList[j]] = tempObject[keyList[j]][i];
+              }
+            }
+            points.push(tempPoint);
+          }
+        }
+      }
+      return points;
+    }
+    var map;
+    function initMap() {
+      var points = parseUrlParams(decodeURI(window.location.href));
+      console.log(points)
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 1.291610266, lng: 103.8497472 },
+        zoom: 12
+      });
+      var markers = [];
+      for (var i = 0; i < points.length; i++) {
+        var marker = { lat: points[i]["geometry"]["coordinates"][1], lng: points[i]["geometry"]["coordinates"][0] };
+        markers.push(new google.maps.Marker({ position: marker, map: map }));
+      }
+      if (points.length == 1) {
+        var table = document.getElementById("table-detail");
+        {
+          var tr = document.createElement("tr");
+          var name = points[0]["properties"]["name"];
+          {
+            var td = document.createElement("td");
+            td.innerHTML = "name";
+            tr.appendChild(td);
+          }
+          {
+            var td = document.createElement("td");
+            td.innerHTML = name;
+            tr.appendChild(td);
+          }
+          table.appendChild(tr);
+        }
+
+        {
+          var tr = document.createElement("tr");
+          var serial = points[0]["properties"]["serial"];
+          {
+            var td = document.createElement("td");
+            td.innerHTML = "serial number";
+            tr.appendChild(td);
+          }
+          {
+            var td = document.createElement("td");
+            td.innerHTML = serial;
+            tr.appendChild(td);
+          }
+          table.appendChild(tr);
+        }
+
+        {
+          var tr = document.createElement("tr");
+          var address = points[0]["properties"]["address"];
+          {
+            var td = document.createElement("td");
+            td.innerHTML = "address";
+            tr.appendChild(td);
+          }
+          {
+            var td = document.createElement("td");
+            td.innerHTML = address;
+            tr.appendChild(td);
+          }
+          table.appendChild(tr);
+        }
+
+        {
+          var tr = document.createElement("tr");
+          var phone = points[0]["properties"]["phone"];
+          {
+            var td = document.createElement("td");
+            td.innerHTML = "phone";
+            tr.appendChild(td);
+          }
+          {
+            var td = document.createElement("td");
+            td.innerHTML = phone;
+            tr.appendChild(td);
+          }
+          table.appendChild(tr);
+        }
+
+        {
+          var tr = document.createElement("tr");
+          var date = points[0]["properties"]["date"];
+          {
+            var td = document.createElement("td");
+            td.innerHTML = "date";
+            tr.appendChild(td);
+          }
+          {
+            var td = document.createElement("td");
+            td.innerHTML = date;
+            tr.appendChild(td);
+          }
+          table.appendChild(tr);
+        }
+
+        {
+          var tr = document.createElement("tr");
+          var tags = points[0]["properties"]["tags"];
+          {
+            var td = document.createElement("td");
+            td.innerHTML = "tags";
+            tr.appendChild(td);
+          }
+          for (var j = 0; j < tags.length; j++) {
+            var td = document.createElement("td");
+            td.innerHTML = tags[j];
+            tr.appendChild(td);
+          }
+          table.appendChild(tr);
+        }
+      }
+    }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhN4_NQ94uS9Z0Ix6AfRgeXZN1rVahjBE&callback=initMap" async
+    defer></script>
+</body>
+
+</html>

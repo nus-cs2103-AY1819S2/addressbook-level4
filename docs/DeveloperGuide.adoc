@@ -246,9 +246,28 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.equipment.commons` package.
 
+[[Implementation-Commons]]
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+//tag::equipment[]
+=== Equipment features
+==== Overview on Equipment details
+==== Current Usage of Equipment Details
+===== Adding an equipment
+===== Editing an equipment
+===== Deleting an equipment
+===== Listing all equipments
+==== Design Considerations
+//end::equipment[]
+
+//tag::client[]
+=== Client feature
+==== Overview on Client details
+==== Current Usage of Client details
+==== Design Considerations
+//end::client[]
 
 //tag::filter[]
 === Filter feature
@@ -297,12 +316,10 @@ Step 4. `FilterCommand#execute()` is then called.
 
 Step 5. The entire equipment list is filtered by the predicate `EquipmentContainsKeywordsPredicate`.
 
-Step 6. The filtered list of wishes is returned to the GUI.
-
-Step 7. Then, `EquipmentContainsKeywordsPredicate` checks that the *Equipment Manager* has either the respective
+Step 6. Then, `EquipmentContainsKeywordsPredicate` checks that the *Equipment Manager* has either the respective
 attributes - serial number, tags, address, name, preventive maintenance date, phone.
 
-Step 8. The argument is filtered against the predicate and returned to the GUI.
+Step 7. The argument is filtered against the predicate and returned to the GUI.
 
 ==== Design Considerations
 *Implementation of `FilterCommand`*
@@ -325,12 +342,13 @@ e.g: `filter n/jurong t/west`
 ** Pros: It is more specific and more restricted.
 ** Cons: More difficult to implement
 ** Cons: Too restricted as it is only filtered by tags.
+// end::filter[]
 
 // tag::sort[]
 === Sort feature
 
 ==== Introduction
-We have implemented a `SortCommand` that allow users to sort the current shown list with any specified fields.
+We have implemented a `SortCommand` that allow users to sort the current shown list with specific fields.
 
 ==== Current Implementation
 
@@ -352,13 +370,13 @@ Output: By default, the list is sorted in alphabetical order of the client names
 
 Output: The list is sorted in alphabetical order.
 
-- Input: `sort date`
-
-Output: The list is sorted in alphabetical order.
-
 - Input: `sort phone`
 
 Output: The list is sorted in ascending order.
+
+[TIP]
+`SortCommand` only supports sorting by address and phone number.
+
 
 ==== Design Considerations
 *Implementation of `SortCommand`*
@@ -404,6 +422,74 @@ Step 5. The webpage receive the coordinates in parameter form. It will first par
 ** Pros: No unexpected behaviors, and more consistant running on different platforms.
 ** Cons: Harder to implement, less flexibility, and limit to extendsions.
 // end::display[]
+
+// tag::uiug[]
+=== User Interface (UI)
+The UI of *Equipment Manager* is a combination of JavaFx, HTML and CSS.
+This section describes our overall current implementation for UI as well as
+showing our thinking process for the UI in designs considerations section.
+
+==== Current implementation
+===== Launch the Application
+
+.On start of the Equipment Manager application
+image::applaunchUI.png[%autowidth]
+
+The figure above depicts the interface the user see when the user launches the application.
+The user should be greeted by 9 different regions:
+
+|===
+| Regions of Application | Purpose
+| [1] *Menu Bar* | Allow users to click `File` > `Exit` to exit the application and click `Help` to navigate to our User Guide page.
+| [2] *Command Box* | User enters the command in the command box. Refer to *User Guide* to learn all the available commands.
+| [3] *Message box* | The message box that shows the result after a command has been executed.
+| [4] *Status Bar* |
+| [5] *Google Map*  | Google map serves as a visual representation for where equipments are at as well as showing user the possible routes to take.
+| [6] *Equipment Result Panel* | This panel shows summarized details on equipment
+| [7] *Equipment Details Page* | This is a HTML page where it shows more detailed information on an equipment.
+| [8] *Client Result Panel* | This panel shows specifically information related to client such as the name and how many equipment the client owns.
+| [9] *Work list Result Panel* | This panels shows the work schedule of a person when the user assigns equipments whom the user want to carry out preventive maintenance work.
+|===
+
+===== Showcase Client details
+To avoid cluttering to many information in *Equipment Result Panel*,
+we decided to categorise information related to clients into *Client Result Panel*
+such as showing the name of the client and how many equipments the client owns as seen in the figure below.
+
+.Outcome of a showing client details when using `list-c` feature
+image:: clientlocationsUI.png[%autowidth]
+
+===== Showcase Equipment details and locations
+Similarly, there are many information to be shown in *Equipment Result Panel*.
+Hence, as seen in the figure below, we created a HTML page to show more information
+on equipment. This means there are some information not shown in *Equipment Result Panel* but will instead be shown in *Equipment Details Page*.
+
+.Incorporating HTML in panel to show more equipment details
+image::equipmentdetailsUI.png[%autowidth]
+
+One of our main feature of *Equipment Manager* is the ability to have a visual representation on 1 or more equipments in a *Google Map*.
+
+.Outcome of `display` feature on UI
+image::clientlocationsUI.png[%autowidth]
+
+As seen in the above figure, entering `display` command will allow a visual representation of all equipment locations in the *Equipment Manager* data storage onto *Google Map*.
+This is one of our main feature of *Equipment Manager* where we provide users to view either 1 equipment location at a time by entering `select` INDEX or simply by clicking onto the an equipment in *Equipment Result Panel*.
+
+==== Design Considerations
+===== Aspects: Information to be displayed on respective panels
+
+* Alternative 1: Showing all client, worklist, equipment resulting commands in one panel.
+|===
+| Pros | Lesser panels will have lesser clutter to user experience. UX experience will be better.
+| Cons | Harder to implement. Require to work with label that is able to change when panel has changed to serve other purposes such as from displaying equipment details to worklist details in the same panel.
+|===
+
+* Alternative 2 (Current Choice): Show client, worklist, equipment resulting commands in 3 respective panels.
+|===
+| Pros | Easier to implement. To avoid confusion on which panel is being updated, we added a header label above each panel.
+| Cons | Application looks more cluttered with more dividers for different panels.
+|===
+// end:: uiug[]
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -484,13 +570,6 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 

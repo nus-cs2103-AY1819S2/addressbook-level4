@@ -14,7 +14,7 @@ import seedu.equipment.commons.core.LogsCenter;
 import seedu.equipment.model.equipment.Equipment;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of equipments.
  */
 public class EquipmentListPanel extends UiPart<Region> {
     private static final String FXML = "EquipmentListPanel.fxml";
@@ -23,12 +23,16 @@ public class EquipmentListPanel extends UiPart<Region> {
     @FXML
     private ListView<Equipment> personListView;
 
+    @FXML
+    private ListView<Equipment> clientListView;
+
+
     public EquipmentListPanel(ObservableList<Equipment> equipmentList, ObservableValue<Equipment> selectedPerson,
                               Consumer<Equipment> onSelectedPersonChange) {
         super(FXML);
         //System.out.println(personListView.getEditingIndex());
         personListView.setItems(equipmentList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        personListView.setCellFactory(listView -> new EquipmentListViewCell());
         personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             logger.fine("Selection in equipment list panel changed to : '" + newValue + "'");
             onSelectedPersonChange.accept(newValue);
@@ -55,7 +59,7 @@ public class EquipmentListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Equipment} using a {@code EquipmentCard}.
      */
-    class PersonListViewCell extends ListCell<Equipment> {
+    class EquipmentListViewCell extends ListCell<Equipment> {
         @Override
         protected void updateItem(Equipment equipment, boolean empty) {
             super.updateItem(equipment, empty);
@@ -68,5 +72,4 @@ public class EquipmentListPanel extends UiPart<Region> {
             }
         }
     }
-
 }

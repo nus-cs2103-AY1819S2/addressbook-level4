@@ -16,13 +16,15 @@ endif::[]
 
 By: `Team W10-3`      Since: `JAN 2019`      Licence: `MIT`
 
+// tag::introduction[]
 == Introduction
 
 *Equipment Manager* is a desktop CLI (Command Line Interface) application that allows engineers to keep track on the Preventive Maintenance schedule of all Resuscitation Devices in singapore. It has a GUI (Graphic User Interface) that allows users to get further information on each equipment.
 
 Our purpose is to help engineers plan the number of equipment that they would like to carry out preventive maintenance and keep track on each equipment details such as status, location and more information.
+// end::introduction[]
 
-
+// tag::aboutug[]
 == About This User Guide
 Welcome to *Equipment Manager* User Guide! +
 
@@ -30,7 +32,6 @@ This User Guide document will equip you with all the information you need in ord
 this section will explain the key things to take note of. +
 
 If this is not a problem for you, jump to the <<Quick Start>> to get started. If you already have Equipment Manager up and running, then head over to <<Features>>. Enjoy!
-
 
 === Icons Meaning
 The following section provides a quick understanding on each of the legends used throughout the user guide.
@@ -50,8 +51,9 @@ These legends alert reader on special information such as tips, notes and warnin
 |image:advanced.png[width="40"]
 | The book icon indicates that it is an additional information for advanced users.
 |===
+// end::aboutug[]
 
-
+// tag::quickstart[]
 == Quick Start
 
 To get Equipment manager up and running, simply follow these few steps.
@@ -64,14 +66,24 @@ To get Equipment manager up and running, simply follow these few steps.
 .  Double-click the file to start the app. The _Graphical User Interface_ (GUI) should appear in a few seconds.
 
 === Graphical User Interface (GUI)
-.A total of six regions to note in our GUI
+.A total of nine regions to note in our GUI
 [[GUI]]
 image::ui_labelled.png[width="790"]
 
-The GUI for _Equipment Manager_ as shown in <<GUI>> consists of six regions:
+The GUI for _Equipment Manager_ as shown in <<GUI>> consists of nine regions:
 
-[1] Menu Bar {nbsp} {nbsp} {nbsp} [2] Result Panel {nbsp} {nbsp} {nbsp} [3] Google Map +
-[4] Message Box {nbsp} {nbsp} [5] Command Box {nbsp} {nbsp} [6] Status Bar
+|===
+| Regions of Application | Purpose
+| [1] *Menu Bar* | Allow users to click `File` > `Exit` to exit the application and click `Help` to navigate to our User Guide page.
+| [2] *Command Box* | User enters the command in the command box. Refer to *User Guide* to learn all the available commands.
+| [3] *Message box* | The message box that shows the result after a command has been executed.
+| [4] *Status Bar* |
+| [5] *Google Map*  | Google map serves as a visual representation for where equipments are at as well as showing user the possible routes to take.
+| [6] *Equipment Result Panel* | This panel shows summarized details on equipment
+| [7] *Equipment Details Page* | This is a HTML page where it shows more detailed information on an equipment.
+| [8] *Client Result Panel* | This panel shows specifically information related to client such as the name and how many equipment the client owns.
+| [9] *Work list Result Panel* | This panels shows the work schedule of a person when the user assigns equipments whom the user want to carry out preventive maintenance work.
+|===
 
 |===
 | image:exclamation.png[width="40"] |Please remember the naming convention for the different regions in GUI as they will be used to explain when explaining Equipment Manager.
@@ -92,6 +104,7 @@ Type the command in the Command Box and press kbd:[Enter] to execute it. +
 |===
 | image:tip.png[width="40"] |Refer to <<Features>> for details of each command.
 |===
+// end::quickstart[]
 
 [[Features]]
 == Features
@@ -128,14 +141,14 @@ Example:
 
 === Creating a new worklist: `add-w`
 Create a worklist in the Equipment Manager by giving the worklist an ID +
-Format: `add-w /[worklist value] `
+Format: `add-w d/DATE a/ASSIGNEE i/ID`
 
 [TIP]
-The user can enter multiple field name and values.
+The user can enter multiple assignees, but only one date and id.
 
 Example:
 
-* `add-w /date 2019-02-12 /assignee Mei Yen`
+* `add-w d/09 May 2019 a/Mei Yen i/13`
 
 === Adding to work list: `put`
 Adds equipment to working list in the Equipment Manager +
@@ -175,16 +188,28 @@ Example:
 
 * `list-e`
 
-=== View work list: `list-w`
-Shows a list of all clients in the Equipment Manager +
+=== List all work list: `list-w`
+Shows a list of all work list in the Equipment Manager +
 Format: `list-w`
 
 Example:
 
 * `list-w`
 
+=== List all clients : `list-c`
+Shows a list of all clients in the Equipment Manager +
+The client card will shows its client name and the number of equipment this client owns.
+
+Format: `list-c`
+
+Example:
+
+* `list-c`
+
+
+// tag::select[]
 === Selecting an equipment or work list: `select`
-Selects the equipment or work list identified by the index number used in the displayed equipment list or displayed work list. The address of the equipment will be shown as marker on the map. +
+Selects the equipment or work list identified by the index number used in the displayed equipment list or displayed work list. The address of the equipment will be shown as marker on the map. The details of the equipment will be shown together with the map in split window format, means top half the screen will be showing the details, and the bottom half of the screen will be showing the map. +
 Format: `select INDEX`
 
 * Selects the equipment and loads the equipment at the specified INDEX. +
@@ -204,7 +229,9 @@ Selects the 1st worklist in the equipment manager.
 * `find Clementi` +
 `select 1` +
 Selects the 1st equipment in the results of the find command.
+// end::select[]
 
+// tag::find[]
 === Locating equipment by location: `find`
 Finds equipment whose location contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -221,7 +248,9 @@ Examples:
 
 * `find Clementi` +
 Returns `Clementi Police Station` and `Clementi CC`
+// end::find[]
 
+// tag::display[]
 === Show in map: `display`
 Display entries on the list to the map. Addresses of the equipment will be taken to plot marker on map.
 Format: `display`
@@ -229,9 +258,12 @@ Format: `display`
 Example:
 
 * `display`
+// end::display[]
 
+// tag::sort[]
 === Sort the list: `sort`
 Sort the current shown list.
+
 Format: `sort [FIELD_NAME to be sorted by]`
 
 The user can sort the current shown list with any valid field.
@@ -241,26 +273,27 @@ The sort parameters are case-insensitive.
 By default, `sort` sorts the list by name in lexicographical order.
 
 [TIP]
-Equipment, client, and work list can only be sorted by address, preventive maintenance date and phone at the moment.
+Equipment, client, and work list can only be sorted by address, preventive maintenance date day and phone at the moment.
 
-Example:
+For example,
 
-* `sort`
+* `sort` +
 Returns the list sorted by name.
 
-* `sort address`
+* `sort address` +
 Returns the list sorted by address.
 
-* `sort date`
-Returns the list sorted according to date.
+* `sort date` +
+Returns the list sorted according to the day.
 
-* `sort phone`
+* `sort phone` +
 Returns the list sorted by phone number.
+// end::sort[]
 
-
-
+// tag::filter[]
 === Filtering the list: `filter`
-Filter the current shown list which match the given keywords
+Filter the current shown list which match the given keywords.
+
 Format: `filter [n/NAME_KEYWORD]...[t/TAG_KEYWORD]...[a/ADDRESS_KEYWORD]`
 
 - At least *one* keyword must be provided.
@@ -272,32 +305,32 @@ Format: `filter [n/NAME_KEYWORD]...[t/TAG_KEYWORD]...[a/ADDRESS_KEYWORD]`
 
 
 [TIP]
-* The user can filter the current shown list with any specified fields, and can filter by multiple fields.
+* The user can filter the current shown list with any specified fields, and can filter by multiple fields and keywords.
 * Equipment, client, and worklist can all be filtered, by any fields of them.
 
-Example:
+For example,
 
-* `filter n/jurong`
+* `filter n/jurong` +
 Returns any equipment whose name contains jurong.
 
-* `filter a/bedok north`
+* `filter a/bedok north` +
 Returns any equipment whose address contains bedok north.
 
-* `filter pm/20 May`
+* `filter pm/20 May` +
 Returns any equipment whose preventative maintenance date contains 20 May.
 
-* `filter s/9888`
+* `filter s/9888` +
 Returns any equipment whose phone number contains 9888.
 
-* `filter s/A200`
+* `filter s/A200` +
 Returns any equipment whose serial number contains A200.
 
-* `filter t/urgent t/west`
+* `filter t/urgent t/west` +
 Returns any equipment whose tags contains urgent and west.
 
-* `filter n/jurong a/blk 123 t/urgent`
+* `filter n/jurong a/blk 123 t/urgent` +
 Returns any equipment whose names that contains jurong, address that contains blk 123, and whose tags contains urgent.
-
+// end::filter[]
 
 === Autocomplete: kbd:[tab]
 If you have forgotten how to type a command, do not worry!  By typing in the first letter of the command in the command and pressing the kbd:[tab] key, it will display the full format of the command.
@@ -347,6 +380,7 @@ Lists all the commands that you have entered in reverse chronological order.
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+// tag::undoredo[]
 === Undoing previous command: `undo`
 Restores Equipment Manager to the state before the previous undoable command was executed.
 
@@ -391,6 +425,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `undo` (reverses the `delete 1` command) +
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `clear` command) +
+// end::undoredo[]
 
 === Clearing all entries: `clear`
 If you want to clear out all the client or equipment details in Equipment Manager, you can use the clear command. For example, clear all clients or clear all equipment. +
@@ -405,15 +440,18 @@ Format: `exit`
 Equipment Manager data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+// tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
 _{explain how the user can enable/disable data encryption}_
+// end::dataencryption[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Equipment Manager folder.
 
+// tag::glossary[]
 == Glossary
 Unsure of a few technical terms? We got you covered. Refer to [underline]#<<techtable>># below.
 
@@ -436,7 +474,9 @@ Unsure of a few technical terms? We got you covered. Refer to [underline]#<<tech
 |Allows the user to interact with the application through inputs and outputs of data.
 |===
 
+// end::glossary[]
 
+// tag::commandsummary[]
 == Command Summary
 
 This is the last section of the User Guide, but the most useful if you just want a list of commands to try.
@@ -462,6 +502,9 @@ For more details on what each command does, please refer to <<Features>>.
 
 |*List Work List*
 |list-w
+
+|*List Client
+|list-c
 
 |*Delete Equipment*
 |delete-e
@@ -507,3 +550,5 @@ For more details on what each command does, please refer to <<Features>>.
 |filter [n/NAME_KEYWORD] [pm/DATE_KEYWORD] [t/TAG_KEYWORD]
 |fil punggol november ongoing
 |===
+
+// end::commandsummary[]

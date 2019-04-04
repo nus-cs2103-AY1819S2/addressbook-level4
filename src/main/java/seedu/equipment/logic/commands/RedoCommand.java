@@ -1,7 +1,7 @@
 package seedu.equipment.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.equipment.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.equipment.model.Model.PREDICATE_SHOW_ALL_EQUIPMENT;
 
 import seedu.equipment.logic.CommandHistory;
 import seedu.equipment.logic.commands.exceptions.CommandException;
@@ -25,7 +25,7 @@ public class RedoCommand extends Command {
         }
 
         model.redoEquipmentManager();
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_EQUIPMENT);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

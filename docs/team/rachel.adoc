@@ -84,10 +84,6 @@ include::../UserGuide.adoc[tag=aboutug]
 
 include::../UserGuide.adoc[tag=quickstart]
 
-include::../UserGuide.adoc[tag=features]
-
-include::../UserGuide.adoc[tag=faq]
-
 include::../UserGuide.adoc[tag=glossary]
 
 include::../UserGuide.adoc[tag=commandsummary]
@@ -98,13 +94,13 @@ include::../UserGuide.adoc[tag=commandsummary]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=introduction]
-
 include::../DeveloperGuide.adoc[tag=design]
 
-include::../DeveloperGuide.adoc[tag=userstories]
+include::../DeveloperGuide.adoc[tag=equipment]
 
-include::../DeveloperGuide.adoc[tag=appendix]
+include::../DeveloperGuide.adoc[tag=client]
+
+include::../DeveloperGuide.adoc[tag=uidg]
 
 == PROJECT: PowerPointLabs
 

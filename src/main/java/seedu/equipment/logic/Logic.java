@@ -33,11 +33,14 @@ public interface Logic {
      */
     ReadOnlyEquipmentManager getEquipmentManager();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Equipment> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of equipment */
+    ObservableList<Equipment> getFilteredEquipment();
 
     /** Returns an unmodifiable view of the filtered list of WorkLists */
     ObservableList<WorkList> getFilteredWorkListList();
+
+    /** Returns an unmodifiable view of the filtered list of clients */
+    ObservableList<Equipment> getFilteredClient();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.

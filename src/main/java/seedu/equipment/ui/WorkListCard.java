@@ -45,7 +45,7 @@ public class WorkListCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         assignee.setText(workList.getAssignee());
         date.setText(workList.getDate());
-        worklistid.setText(String.valueOf(workList.getId().getId()));
+        worklistid.setText(String.valueOf(workList.getId().value));
         workList.getEquipments().forEach(equipment -> {
             String equipmentName = equipment.getName().name;
             equipments.getChildren().add(new Label(equipmentName));

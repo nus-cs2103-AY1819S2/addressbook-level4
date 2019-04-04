@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.equipment.model.equipment.exceptions.DuplicateEquipmentException;
 import seedu.equipment.model.equipment.exceptions.EquipmentNotFoundException;
+import seedu.equipment.model.util.SampleDataUtil;
 
 /**
  * A list of equipments that enforces uniqueness between its elements and does not allow nulls.
@@ -96,6 +97,34 @@ public class UniqueEquipmentList implements Iterable<Equipment> {
         }
 
         internalList.setAll(equipment);
+    }
+
+    /**
+     * Return the equipment which matches the serialNumber.
+     */
+    public Equipment getEquipment(SerialNumber sr) {
+        requireNonNull(sr);
+        Equipment result = null;
+        Name sampleName = new Name("Anchorvale CC");
+        Address sampleAddress = new Address("59 Anchorvale Rd, Singapore 544965");
+        Date sampleDate = new Date("22 April 2019");
+        Phone samplePhone = new Phone("64894959");
+        Equipment sampleEquipment = new Equipment(sampleName, samplePhone, sampleDate,
+                sampleAddress, sr, SampleDataUtil.getTagSet("west"));
+
+        if (!contains(sampleEquipment)) {
+            throw new EquipmentNotFoundException();
+        } else {
+            int size = internalList.size();
+            Iterator<Equipment> ir = iterator();
+            for (int i = 0; i < size; i++) {
+                Equipment thisEquip = ir.next();
+                if (thisEquip.isSameEquipment(sampleEquipment)) {
+                    result = thisEquip;
+                }
+            }
+        }
+        return result;
     }
 
     /**

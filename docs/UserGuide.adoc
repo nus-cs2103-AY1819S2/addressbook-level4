@@ -621,7 +621,7 @@ Invalid time values such as 2500 or 2388 will also be rejected as these are not 
 You should provide the priority as `high`, `med` or `low` in either upper or lowercase.
 Tasks with different priority will be marked with different colors on the task list.
 High priority will be marked [red]#red#, Medium priority be marked [orange]#orange# and
-Low priority will be marked [yellow]#yellow#.
+Low priority will be marked [yellow]*yellow*.
 
 Default value if not specified: [yellow]#Low#
 |pri/PRIORITY

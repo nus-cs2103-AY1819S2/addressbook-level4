@@ -14,6 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.description.Description;
 import seedu.address.model.patient.Patient;
+import seedu.address.model.record.Procedure;
 import seedu.address.model.record.Record;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.Task;
@@ -63,6 +64,10 @@ public class TaskDoneCommand extends Command {
                             .getLinkedPatientNric())).findFirst();
             if (found.isPresent()) {
                 Patient replacement = found.get();
+                String recordDescription = "Completed task - " + completedTask.getTitle().title + " at "
+                                            + DateTimeFormatter.ofPattern("HHmm").format(LocalDateTime.now());
+                replacement.addRecord(new Record(new Description(recordDescription)));
+                //TODO: Possibly switch Procedure and Description contents?
                 String recordDescription = "Completed task - " + completedTask.getTitle().title + " at "
                                             + DateTimeFormatter.ofPattern("HHmm").format(LocalDateTime.now());
                 replacement.addRecord(new Record(new Description(recordDescription)));

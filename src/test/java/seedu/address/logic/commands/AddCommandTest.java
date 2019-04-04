@@ -252,6 +252,11 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void sortTasks(Comparator<Task> c) {
+            throw new AssertionError("This method should not be called");
+        }
+
         public void updateFilteredTaskList(Predicate<Task> predicate) {
             throw new AssertionError("This method should not be called.");
         }

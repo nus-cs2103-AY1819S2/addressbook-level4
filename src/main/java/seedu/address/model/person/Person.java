@@ -44,16 +44,15 @@ public class Person {
         copyCount = 0;
     }
 
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                  Person personToCopy, int copyCount) {
-        requireAllNonNull(name, phone, email, address);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
-        this.copyCount = copyCount;
-        copyInfo = new CopyTag(personToCopy, "$Copy" + copyCount);
+    public Person(Person personToCopy) {
+        requireAllNonNull(personToCopy);
+        this.name = personToCopy.name;
+        this.phone = personToCopy.phone;
+        this.email = personToCopy.email;
+        this.address = personToCopy.address;
+        this.tags.addAll(personToCopy.tags);
+        this.copyCount = personToCopy.copyCount + 1;
+        copyInfo = new CopyTag(personToCopy, "$Copy" + this.copyCount);
         this.tags.add(copyInfo);
     }
 
@@ -115,7 +114,7 @@ public class Person {
             return copyInfo.getOriginalPerson().copy();
         }
         copyCount++;
-        return new Person(name, phone, email, address, tags, this, copyCount);
+        return new Person(this);
     }
 
     /**

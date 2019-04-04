@@ -19,6 +19,10 @@ public class CropCommandParser implements Parser<CropCommand> {
         try {
             args = args.trim();
             String[] parsed = args.split(" ");
+            if (parsed.length > 4) {
+                throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                        CropCommand.MESSAGE_USAGE));
+            }
             int xValue = Integer.parseInt(parsed[0]);
             int yValue = Integer.parseInt(parsed[1]);
             int width = Integer.parseInt(parsed[2]);

@@ -22,7 +22,7 @@ public class RotateCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Rotate the image according to the degree of input.\n"
-            + "Parameters: DEGREE (only 90, 180 and 270 are accepted. \n"
+            + "Parameters: DEGREE (only 90, 180 and 270 are accepted.) \n"
             + "Example: " + COMMAND_WORD + " 90";
 
     private int degree;

@@ -10,30 +10,30 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.PatientAddCommand;
 import seedu.address.logic.commands.BackCommand;
-import seedu.address.logic.commands.PatientClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.PatientCopyCommand;
-import seedu.address.logic.commands.PatientDeleteCommand;
-import seedu.address.logic.commands.PatientEditCommand;
 import seedu.address.logic.commands.ExitAnywayCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ImportCommand;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.OpenCommand;
+import seedu.address.logic.commands.PatientAddCommand;
+import seedu.address.logic.commands.PatientClearCommand;
+import seedu.address.logic.commands.PatientCopyCommand;
+import seedu.address.logic.commands.PatientDeleteCommand;
+import seedu.address.logic.commands.PatientEditCommand;
+import seedu.address.logic.commands.PatientFindCommand;
+import seedu.address.logic.commands.PatientListCommand;
+import seedu.address.logic.commands.PatientSelectCommand;
 import seedu.address.logic.commands.RecordAddCommand;
 import seedu.address.logic.commands.RecordClearCommand;
 import seedu.address.logic.commands.RecordDeleteCommand;
 import seedu.address.logic.commands.RecordEditCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SaveCommand;
-import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.TaskAddCommand;
@@ -84,16 +84,17 @@ public class AddressBookParser {
             notGoTo();
             return new PatientAddCommandParser().parse(arguments);
 
-        case PatientEditCommand.COMMAND_WORD:
-        case PatientEditCommand.COMMAND_WORD2:
+        case PatientClearCommand.COMMAND_WORD:
+        case PatientClearCommand.COMMAND_WORD2:
             checkCalendarCondition();
             notGoTo();
-            return new PatientEditCommandParser().parse(arguments);
+            return new PatientClearCommand();
 
-        case SelectCommand.COMMAND_WORD:
+        case PatientCopyCommand.COMMAND_WORD:
+        case PatientCopyCommand.COMMAND_WORD2:
             checkCalendarCondition();
             notGoTo();
-            return new SelectCommandParser().parse(arguments);
+            return new PatientCopyCommandParser().parse(arguments);
 
         case PatientDeleteCommand.COMMAND_WORD:
         case PatientDeleteCommand.COMMAND_WORD2:
@@ -101,21 +102,29 @@ public class AddressBookParser {
             notGoTo();
             return new PatientDeleteCommandParser().parse(arguments);
 
-        case PatientClearCommand.COMMAND_WORD:
-        case PatientClearCommand.COMMAND_WORD2:
+        case PatientEditCommand.COMMAND_WORD:
+        case PatientEditCommand.COMMAND_WORD2:
             checkCalendarCondition();
             notGoTo();
-            return new PatientClearCommand();
+            return new PatientEditCommandParser().parse(arguments);
 
-        case FindCommand.COMMAND_WORD:
+        case PatientFindCommand.COMMAND_WORD:
+        case PatientFindCommand.COMMAND_WORD2:
             checkCalendarCondition();
             notGoTo();
-            return new FindCommandParser().parse(arguments);
+            return new PatientFindCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
+        case PatientListCommand.COMMAND_WORD:
+        case PatientListCommand.COMMAND_WORD2:
             checkCalendarCondition();
             notGoTo();
-            return new ListCommand();
+            return new PatientListCommand();
+
+        case PatientSelectCommand.COMMAND_WORD:
+        case PatientSelectCommand.COMMAND_WORD2:
+            checkCalendarCondition();
+            notGoTo();
+            return new PatientSelectCommandParser().parse(arguments);
 
         case HistoryCommand.COMMAND_WORD:
             checkCalendarCondition();
@@ -136,12 +145,6 @@ public class AddressBookParser {
             checkCalendarCondition();
             notGoTo();
             return new StatsCommandParser().parse(arguments);
-
-        case PatientCopyCommand.COMMAND_WORD:
-        case PatientCopyCommand.COMMAND_WORD2:
-            checkCalendarCondition();
-            notGoTo();
-            return new PatientCopyCommandParser().parse(arguments);
 
         case OpenCommand.COMMAND_WORD:
             checkCalendarCondition();
@@ -188,21 +191,25 @@ public class AddressBookParser {
             return new BackCommand();
 
         case RecordAddCommand.COMMAND_WORD:
+        case RecordAddCommand.COMMAND_WORD2:
             checkCalendarCondition();
             isGoTo();
             return new RecordAddCommandParser().parse(arguments);
 
         case RecordClearCommand.COMMAND_WORD:
+        case RecordClearCommand.COMMAND_WORD2:
             checkCalendarCondition();
             isGoTo();
             return new RecordClearCommand();
 
         case RecordEditCommand.COMMAND_WORD:
+        case RecordEditCommand.COMMAND_WORD2:
             checkCalendarCondition();
             isGoTo();
             return new RecordEditCommandParser().parse(arguments);
 
         case RecordDeleteCommand.COMMAND_WORD:
+        case RecordDeleteCommand.COMMAND_WORD2:
             checkCalendarCondition();
             isGoTo();
             return new RecordDeleteCommandParser().parse(arguments);
@@ -214,31 +221,38 @@ public class AddressBookParser {
 
         //Commands that should run in ALL modes and popups
         case TaskAddCommand.COMMAND_WORD:
+        case TaskAddCommand.COMMAND_WORD2:
             return new TaskAddCommandParser().parse(arguments);
 
         case TaskCalendarCommand.COMMAND_WORD:
+        case TaskCalendarCommand.COMMAND_WORD2:
             return new TaskCalendarCommandParser().parse(arguments);
 
         case TaskEditCommand.COMMAND_WORD:
+        case TaskEditCommand.COMMAND_WORD2:
             return new TaskEditCommandParser().parse(arguments);
 
         case TaskSortCommand.COMMAND_WORD:
+        case TaskSortCommand.COMMAND_WORD2:
             return new TaskSortCommandParser().parse(arguments);
 
         case TaskDeleteCommand.COMMAND_WORD:
+        case TaskDeleteCommand.COMMAND_WORD2:
             return new TaskDeleteCommandParser().parse(arguments);
 
         case TaskCopyCommand.COMMAND_WORD:
+        case TaskCopyCommand.COMMAND_WORD2:
             return new TaskCopyCommandParser().parse(arguments);
 
         case TaskListCommand.COMMAND_WORD:
+        case TaskListCommand.COMMAND_WORD2:
             return new TaskListCommand();
-
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
         case ExitAnywayCommand.COMMAND_WORD:
             return new ExitAnywayCommand();
@@ -271,6 +285,7 @@ public class AddressBookParser {
 
     /**
      * For commands which can only run in GoTo mode.
+     * Feedback given to user if commands are being ran in the wrong modes or areas of the GUI.
      */
     private void notGoTo() throws ParseException {
         if (MainWindow.isGoToMode()) {

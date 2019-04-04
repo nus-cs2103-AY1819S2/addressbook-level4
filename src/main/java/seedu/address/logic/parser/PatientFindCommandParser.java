@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.PatientFindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.util.predicate.AddressContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.ContainsKeywordsPredicate;
@@ -40,23 +40,23 @@ import seedu.address.model.util.predicate.SexContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.TagsContainsKeywordsPredicate;
 
 /**
- * Parses input arguments and creates a new FindCommand object
+ * Parses input arguments and creates a new PatientFindCommand object
  */
-public class FindCommandParser implements Parser<FindCommand> {
+public class PatientFindCommandParser implements Parser<PatientFindCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FindCommand
-     * and returns an FindCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the PatientFindCommand
+     * and returns an PatientFindCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public FindCommand parse(String args) throws ParseException {
+    public PatientFindCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         int prefixNum = 0;
         boolean isIgnoreCase = true;
         boolean isAnd = false;
 
         if (trimmedArgs.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PatientFindCommand.MESSAGE_USAGE));
         }
 
         ArgumentMultimap argMultimap =
@@ -83,7 +83,8 @@ public class FindCommandParser implements Parser<FindCommand> {
                 break;
 
             default:
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                            PatientFindCommand.MESSAGE_USAGE));
             }
 
         }
@@ -113,7 +114,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
         multiPredicate.setPredicateList(predicateList);
 
-        return new FindCommand(multiPredicate);
+        return new PatientFindCommand(multiPredicate);
     }
 
     private static ContainsKeywordsPredicate getKeywordsPredicate(Prefix prefix, List<String> keywords,

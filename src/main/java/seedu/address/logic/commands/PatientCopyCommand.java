@@ -22,7 +22,8 @@ public class PatientCopyCommand extends Command {
     public static final String COMMAND_WORD = "patientcopy";
     public static final String COMMAND_WORD2 = "pcopy";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Have a temporary duplicate patient in the addressbook. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " or " + COMMAND_WORD2
+            + ": Create a temporary duplicate patient in the patient list."
             + "Parameters: Index (Must be an integer) [Number of Copies]"
             + "Example: " + COMMAND_WORD + " 1";
 

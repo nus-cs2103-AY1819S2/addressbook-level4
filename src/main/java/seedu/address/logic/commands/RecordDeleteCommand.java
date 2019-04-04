@@ -17,8 +17,9 @@ import seedu.address.model.record.Record;
 public class RecordDeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "recorddelete";
+    public static final String COMMAND_WORD2 = "rdelete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " or " + COMMAND_WORD2
             + ": Deletes the record identified by the index number used in the displayed record list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";

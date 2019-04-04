@@ -11,7 +11,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.PatientFindCommand;
 import seedu.address.model.util.predicate.AddressContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.ContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.DateOfBirthContainsKeywordsPredicate;
@@ -21,17 +21,17 @@ import seedu.address.model.util.predicate.NameContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.NricContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.PhoneContainsKeywordsPredicate;
 
-public class FindCommandParserTest {
+public class PatientFindCommandParserTest {
 
-    private FindCommandParser parser = new FindCommandParser();
+    private PatientFindCommandParser parser = new PatientFindCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, PatientFindCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void parse_validNameArgs_returnsFindCommand() {
+    public void parse_validNameArgs_returnsPatientFindCommand() {
         // no leading and trailing whitespaces
         MultipleContainsKeywordsPredicate tempPred = new MultipleContainsKeywordsPredicate(Collections.emptyList(),
             true, false);
@@ -39,15 +39,15 @@ public class FindCommandParserTest {
         predicateList.add(new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
         tempPred.setPredicateList(predicateList);
 
-        FindCommand expectedFindCommand = new FindCommand(tempPred);
-        assertParseSuccess(parser, " n/Alice Bob", expectedFindCommand);
+        PatientFindCommand expectedPatientFindCommand = new PatientFindCommand(tempPred);
+        assertParseSuccess(parser, " n/Alice Bob", expectedPatientFindCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " n/ \n Alice \n \t Bob  \t", expectedFindCommand);
+        assertParseSuccess(parser, " n/ \n Alice \n \t Bob  \t", expectedPatientFindCommand);
     }
 
     @Test
-    public void parse_validPhoneArgs_returnsFindCommand() {
+    public void parse_validPhoneArgs_returnsPatientFindCommand() {
         // no leading and trailing whitespaces
         MultipleContainsKeywordsPredicate tempPred = new MultipleContainsKeywordsPredicate(Collections.emptyList(),
             true, false);
@@ -55,15 +55,15 @@ public class FindCommandParserTest {
         predicateList.add(new PhoneContainsKeywordsPredicate(Arrays.asList("98765432", "88884444")));
         tempPred.setPredicateList(predicateList);
 
-        FindCommand expectedFindCommand = new FindCommand(tempPred);
-        assertParseSuccess(parser, " p/98765432 88884444", expectedFindCommand);
+        PatientFindCommand expectedPatientFindCommand = new PatientFindCommand(tempPred);
+        assertParseSuccess(parser, " p/98765432 88884444", expectedPatientFindCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " p/ \n 98765432 \n \t 88884444  \t", expectedFindCommand);
+        assertParseSuccess(parser, " p/ \n 98765432 \n \t 88884444  \t", expectedPatientFindCommand);
     }
 
     @Test
-    public void parse_validAddressArgs_returnsFindCommand() {
+    public void parse_validAddressArgs_returnsPatientFindCommand() {
         MultipleContainsKeywordsPredicate tempPred = new MultipleContainsKeywordsPredicate(Collections.emptyList(),
             true, false);
         List<ContainsKeywordsPredicate> predicateList = new ArrayList<>();
@@ -71,15 +71,15 @@ public class FindCommandParserTest {
         tempPred.setPredicateList(predicateList);
 
         // no leading and trailing whitespaces
-        FindCommand expectedFindCommand = new FindCommand(tempPred);
-        assertParseSuccess(parser, " a/street ave", expectedFindCommand);
+        PatientFindCommand expectedPatientFindCommand = new PatientFindCommand(tempPred);
+        assertParseSuccess(parser, " a/street ave", expectedPatientFindCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " a/ \n street \n \t ave  \t", expectedFindCommand);
+        assertParseSuccess(parser, " a/ \n street \n \t ave  \t", expectedPatientFindCommand);
     }
 
     @Test
-    public void parse_validEmailArgs_returnsFindCommand() {
+    public void parse_validEmailArgs_returnsPatientFindCommand() {
         MultipleContainsKeywordsPredicate tempPred = new MultipleContainsKeywordsPredicate(Collections.emptyList(),
             true, false);
         List<ContainsKeywordsPredicate> predicateList = new ArrayList<>();
@@ -87,15 +87,15 @@ public class FindCommandParserTest {
         tempPred.setPredicateList(predicateList);
 
         // no leading and trailing whitespaces
-        FindCommand expectedFindCommand = new FindCommand(tempPred);
-        assertParseSuccess(parser, " e/test@sample.com sample@test.com", expectedFindCommand);
+        PatientFindCommand expectedPatientFindCommand = new PatientFindCommand(tempPred);
+        assertParseSuccess(parser, " e/test@sample.com sample@test.com", expectedPatientFindCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " e/ \n test@sample.com \n \t sample@test.com  \t", expectedFindCommand);
+        assertParseSuccess(parser, " e/ \n test@sample.com \n \t sample@test.com  \t", expectedPatientFindCommand);
     }
 
     @Test
-    public void parse_validDateOfBirthArgs_returnsFindCommand() {
+    public void parse_validDateOfBirthArgs_returnsPatientFindCommand() {
         MultipleContainsKeywordsPredicate tempPred = new MultipleContainsKeywordsPredicate(Collections.emptyList(),
             true, false);
         List<ContainsKeywordsPredicate> predicateList = new ArrayList<>();
@@ -103,15 +103,15 @@ public class FindCommandParserTest {
         tempPred.setPredicateList(predicateList);
 
         // no leading and trailing whitespaces
-        FindCommand expectedFindCommand = new FindCommand(tempPred);
-        assertParseSuccess(parser, " dob/1990 May", expectedFindCommand);
+        PatientFindCommand expectedPatientFindCommand = new PatientFindCommand(tempPred);
+        assertParseSuccess(parser, " dob/1990 May", expectedPatientFindCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " dob/ \n 1990 \n \t May \t", expectedFindCommand);
+        assertParseSuccess(parser, " dob/ \n 1990 \n \t May \t", expectedPatientFindCommand);
     }
 
     @Test
-    public void parse_validNricArgs_returnsFindCommand() {
+    public void parse_validNricArgs_returnsPatientFindCommand() {
         MultipleContainsKeywordsPredicate tempPred = new MultipleContainsKeywordsPredicate(Collections.emptyList(),
             true, false);
         List<ContainsKeywordsPredicate> predicateList = new ArrayList<>();
@@ -119,15 +119,15 @@ public class FindCommandParserTest {
         tempPred.setPredicateList(predicateList);
 
         // no leading and trailing whitespaces
-        FindCommand expectedFindCommand = new FindCommand(tempPred);
-        assertParseSuccess(parser, " ic/S1234567H S7654321D", expectedFindCommand);
+        PatientFindCommand expectedPatientFindCommand = new PatientFindCommand(tempPred);
+        assertParseSuccess(parser, " ic/S1234567H S7654321D", expectedPatientFindCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " ic/ \n S1234567H \n \t S7654321D \t", expectedFindCommand);
+        assertParseSuccess(parser, " ic/ \n S1234567H \n \t S7654321D \t", expectedPatientFindCommand);
     }
 
     @Test
-    public void parse_multipleArgs_returnsFindCommand() {
+    public void parse_multipleArgs_returnsPatientFindCommand() {
         MultipleContainsKeywordsPredicate tempPred = new MultipleContainsKeywordsPredicate(Collections.emptyList(),
             true, false);
         List<ContainsKeywordsPredicate> predicateList = new ArrayList<>();
@@ -136,9 +136,9 @@ public class FindCommandParserTest {
         tempPred.setPredicateList(predicateList);
 
         // no leading and trailing whitespaces
-        FindCommand expectedFindCommand = new FindCommand(tempPred);
-        assertParseSuccess(parser, " n/Alice George dob/December 11", expectedFindCommand);
-        assertParseSuccess(parser, " n/ \n Alice \n \t George \n \t dob/December 11 \t", expectedFindCommand);
+        PatientFindCommand expectedPatientFindCommand = new PatientFindCommand(tempPred);
+        assertParseSuccess(parser, " n/Alice George dob/December 11", expectedPatientFindCommand);
+        assertParseSuccess(parser, " n/ \n Alice \n \t George \n \t dob/December 11 \t", expectedPatientFindCommand);
     }
     //TODO: Add in tests for the other Attribute predicates
 }

@@ -86,7 +86,9 @@ public class DateCustom implements DateBuilder, Comparable<DateCustom> {
 
     @Override
     public int compareTo(DateCustom d) {
-        if (isSameDate(d.storedDate)) { return 0; }
+        if (isSameDate(d.storedDate)) {
+            return 0;
+        }
         return dateCompare(storedDate, d.storedDate) ? -1 : 1;
     }
 

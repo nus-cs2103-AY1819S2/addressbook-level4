@@ -18,8 +18,10 @@ import seedu.address.model.task.Task;
 public class TaskCopyCommand extends Command {
 
     public static final String COMMAND_WORD = "taskcopy";
+    public static final String COMMAND_WORD2 = "tcopy";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Have a temporary duplicate task in the addressbook. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " or " + COMMAND_WORD2
+            + ": Have a temporary duplicate task in the addressbook. "
             + "Parameters: Index (Must be an integer) [Number of Copies]"
             + "Example: " + COMMAND_WORD + " 1";
 

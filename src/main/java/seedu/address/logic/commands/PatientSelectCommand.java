@@ -12,14 +12,15 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Selects a person identified using it's displayed index from the address book.
+ * Selects a patient identified using it's displayed index from the address book.
  */
-public class SelectCommand extends Command {
+public class PatientSelectCommand extends Command {
 
-    public static final String COMMAND_WORD = "select";
+    public static final String COMMAND_WORD = "patientselect";
+    public static final String COMMAND_WORD2 = "pselect";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Selects the person identified by the index number used in the displayed person list.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " or " + COMMAND_WORD2
+            + ": Selects the patient identified by the index number used in the displayed patient list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -27,7 +28,7 @@ public class SelectCommand extends Command {
 
     private final Index targetIndex;
 
-    public SelectCommand(Index targetIndex) {
+    public PatientSelectCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -49,7 +50,7 @@ public class SelectCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SelectCommand // instanceof handles nulls
-                && targetIndex.equals(((SelectCommand) other).targetIndex)); // state check
+                || (other instanceof PatientSelectCommand // instanceof handles nulls
+                && targetIndex.equals(((PatientSelectCommand) other).targetIndex)); // state check
     }
 }

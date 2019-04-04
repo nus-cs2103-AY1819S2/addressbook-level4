@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.ClassForPrinting;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.tag.Tag;
 
@@ -14,7 +15,7 @@ import seedu.address.model.tag.Tag;
  * Represents a ModuleTaken in GradTrak.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class ModuleTaken {
+public class ModuleTaken implements ClassForPrinting {
 
     private final ModuleInfoCode moduleInfoCode;
     private final Semester semester;
@@ -179,24 +180,29 @@ public class ModuleTaken {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getModuleInfoCode())
-                .append(" Semester: ")
+                .append("\n Semester: \n")
                 .append(getSemester())
-                .append(" Expected Min Grade: ")
+                .append("\n Expected Min Grade: \n")
                 .append(getExpectedMinGrade())
-                .append(" Expected Max Grade: ")
+                .append("\n Expected Max Grade: \n")
                 .append(getExpectedMaxGrade())
-                .append(" Lecture Hour: ")
+                .append("\n Lecture Hour: \n")
                 .append(getLectureHour())
-                .append(" Tutorial Hour: ")
+                .append("\n Tutorial Hour: \n")
                 .append(getTutorialHour())
-                .append(" Lab Hour: ")
+                .append("\n Lab Hour: \n")
                 .append(getLabHour())
-                .append(" Project Hour: ")
+                .append("\n Project Hour: \n")
                 .append(getProjectHour())
-                .append(" Preparation Hour: ")
+                .append("\n Preparation Hour: \n")
                 .append(getPreparationHour())
-                .append(" Tags: ");
+                .append("\n Tags: \n");
         getTags().forEach(builder::append);
         return builder.toString();
+    }
+
+    @Override
+    public String getPrintable() {
+        return this.toString();
     }
 }

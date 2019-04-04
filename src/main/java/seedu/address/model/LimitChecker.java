@@ -9,19 +9,18 @@ import seedu.address.model.moduletaken.Semester;
 /**
  * Checks the CAP and Workload limits set by the user for every semester against the modules the user plans to take.
  */
-public class LimitChecker {
+public class LimitChecker implements ClassForPrinting {
     private static final int CAP_TABLE_COL_COUNT = 4;
     private static final int WORKLOAD_TABLE_ROW_COUNT = 5;
     private static final int WORKLOAD_TABLE_COL_COUNT = 3;
 
+    private final String checkedReport;
+
     /**
      * Returns a generated html string that shows where their CAP and workload limits are violated.
      */
-    public static String checkLimit(Semester currentSemester, ObservableList<SemLimit> semLimits,
+    public LimitChecker(Semester currentSemester, ObservableList<SemLimit> semLimits,
                                     ObservableList<ModuleTaken> modulesTaken) {
-        //TODO refactor by making a limit checker class with these variables
-        currentSemester = Semester.valueOf("Y2S2"); //temp
-
         CapAverage currentCap = new CapAverage();
         CapAverage cumulativeMinCap = new CapAverage();
         CapAverage cumulativeMaxCap = new CapAverage();
@@ -99,13 +98,14 @@ public class LimitChecker {
             workloadTable[rowIndexOffSet + 4][1] = semesterSums[sem][4];
             workloadTable[rowIndexOffSet + 4][2] = semLimits.get(sem).getMaxPreparationHour().getHour();
         }
-        return generateHtmlLimits(cumulativeMinCurrentMaxCap, capTable, workloadTable);
+        this.checkedReport = generateHtmlLimits(currentSemester, cumulativeMinCurrentMaxCap, capTable, workloadTable);
     }
 
     /**
      * Puts the computed cap and workload limits together with the current module plan expectations
      * into a table for display
      *
+     * @param currentSemester the current semester set by the user
      * @param cumulativeMinCurrentMaxCap a table with the current CAP and the minimum and maximum expected CAP
      * @param capTable a table with the minimum and maximum CAP limits and the minimum and maximum expected CAP
      *                 for each semester
@@ -113,102 +113,105 @@ public class LimitChecker {
      *                      for each semester
      * @return a html string that shows where their CAP and workload limits are violated.
      */
-    private static String generateHtmlLimits(double[] cumulativeMinCurrentMaxCap,
+    private static String generateHtmlLimits(Semester currentSemester, double[] cumulativeMinCurrentMaxCap,
                                      double[][] capTable, double[][] workloadTable) {
-        String htmlLimits = "";
-        htmlLimits += "<html>\n";
 
-        htmlLimits += "<table>\n";
+        final StringBuilder htmlLimits = new StringBuilder();
 
-        htmlLimits += "<tr>\n";
-        htmlLimits += "<th>Minimum Cap</th>\n";
-        htmlLimits += "<th>Current Cap</th>\n";
-        htmlLimits += "<th>Maximum Cap</th>\n";
-        htmlLimits += "</tr>\n";
+        htmlLimits.append("<span>Current Semester: " + currentSemester.toString() + "</span><br>\n");
+        htmlLimits.append("<table border='1'>\n");
 
-        htmlLimits += "<tr>\n";
-        htmlLimits += "<td>" + cumulativeMinCurrentMaxCap[0] + "</td>\n";
-        htmlLimits += "<td>" + cumulativeMinCurrentMaxCap[1] + "</td>\n";
-        htmlLimits += "<td>" + cumulativeMinCurrentMaxCap[2] + "</td>\n";
-        htmlLimits += "</tr>\n";
+        htmlLimits.append("<tr>\n");
+        htmlLimits.append("<th>Minimum Cap</th>\n");
+        htmlLimits.append("<th>Current Cap</th>\n");
+        htmlLimits.append("<th>Maximum Cap</th>\n");
+        htmlLimits.append("</tr>\n");
 
-        htmlLimits += "</table>\n";
-        htmlLimits += "<br><br>\n";
+        htmlLimits.append("<tr>\n");
+        htmlLimits.append("<td>" + cumulativeMinCurrentMaxCap[0] + "</td>\n");
+        htmlLimits.append("<td>" + cumulativeMinCurrentMaxCap[1] + "</td>\n");
+        htmlLimits.append("<td>" + cumulativeMinCurrentMaxCap[2] + "</td>\n");
+        htmlLimits.append("</tr>\n");
 
-        htmlLimits += "<table>\n";
+        htmlLimits.append("</table>\n");
+        htmlLimits.append("<br>\n");
 
-        htmlLimits += "<tr>\n";
-        htmlLimits += "<th></th>\n";
-        htmlLimits += "<th>Minimum semester CAP limit</th>\n";
-        htmlLimits += "<th>Minimum expected semester CAP</th>\n";
-        htmlLimits += "<th>Maximum expected semester CAP</th>\n";
-        htmlLimits += "<th>Maximum semester CAP limit</th>\n";
-        htmlLimits += "</tr>\n";
+        htmlLimits.append("<table border='1'>\n");
+
+        htmlLimits.append("<tr>\n");
+        htmlLimits.append("<th></th>\n");
+        htmlLimits.append("<th>Minimum semester CAP limit</th>\n");
+        htmlLimits.append("<th>Minimum expected semester CAP</th>\n");
+        htmlLimits.append("<th>Maximum expected semester CAP</th>\n");
+        htmlLimits.append("<th>Maximum semester CAP limit</th>\n");
+        htmlLimits.append("</tr>\n");
 
         for (int sem = 0; sem < capTable.length; sem++) {
-            htmlLimits += "<tr>\n";
-            htmlLimits += "<td>" + Semester.getSemesterByZeroIndex(sem).toString() + "</td>\n";
-            htmlLimits += "<td>" + capTable[sem][0] + "</td>\n";
-            htmlLimits += "<td>" + capTable[sem][1] + "</td>\n";
-            htmlLimits += "<td>" + capTable[sem][2] + "</td>\n";
-            htmlLimits += "<td>" + capTable[sem][3] + "</td>\n";
-            htmlLimits += "</tr>\n";
+            htmlLimits.append("<tr>\n");
+            htmlLimits.append("<td>" + Semester.getSemesterByZeroIndex(sem).toString() + "</td>\n");
+            htmlLimits.append("<td>" + capTable[sem][0] + "</td>\n");
+            htmlLimits.append("<td>" + capTable[sem][1] + "</td>\n");
+            htmlLimits.append("<td>" + capTable[sem][2] + "</td>\n");
+            htmlLimits.append("<td>" + capTable[sem][3] + "</td>\n");
+            htmlLimits.append("</tr>\n");
         }
-        htmlLimits += "</table>\n";
-        htmlLimits += "<br><br>\n";
+        htmlLimits.append("</table>\n");
+        htmlLimits.append("<br>\n");
 
         for (int sem = 0; sem < WORKLOAD_TABLE_ROW_COUNT; sem++) {
             int rowIndexOffSet = sem * WORKLOAD_TABLE_ROW_COUNT;
 
-            htmlLimits += "<table>\n";
+            htmlLimits.append("<table border='1'>\n");
 
-            htmlLimits += "<tr>\n";
-            htmlLimits += "<th>" + Semester.getSemesterByZeroIndex(sem).toString() + "</th>\n";
-            htmlLimits += "<th>Minimum workload hours</th>\n";
-            htmlLimits += "<th>Current workload hours</th>\n";
-            htmlLimits += "<th>Maximum workload hours</th>\n";
-            htmlLimits += "</tr>\n";
+            htmlLimits.append("<tr>\n");
+            htmlLimits.append("<th>" + Semester.getSemesterByZeroIndex(sem).toString() + "</th>\n");
+            htmlLimits.append("<th>Minimum workload hours</th>\n");
+            htmlLimits.append("<th>Current workload hours</th>\n");
+            htmlLimits.append("<th>Maximum workload hours</th>\n");
+            htmlLimits.append("</tr>\n");
 
-            htmlLimits += "<tr>\n";
-            htmlLimits += "<td>Lecture hours</td>\n";
-            htmlLimits += "<td>" + workloadTable[rowIndexOffSet][0] + "</td>\n";
-            htmlLimits += "<td>" + workloadTable[rowIndexOffSet][1] + "</td>\n";
-            htmlLimits += "<td>" + workloadTable[rowIndexOffSet][2] + "</td>\n";
-            htmlLimits += "</tr>\n";
+            htmlLimits.append("<tr>\n");
+            htmlLimits.append("<td>Lecture hours</td>\n");
+            htmlLimits.append("<td>" + workloadTable[rowIndexOffSet][0] + "</td>\n");
+            htmlLimits.append("<td>" + workloadTable[rowIndexOffSet][1] + "</td>\n");
+            htmlLimits.append("<td>" + workloadTable[rowIndexOffSet][2] + "</td>\n");
+            htmlLimits.append("</tr>\n");
 
-            htmlLimits += "<tr>\n";
-            htmlLimits += "<td>Tutorial hours</td>\n";
-            htmlLimits += "<td>" + workloadTable[rowIndexOffSet + 1][0] + "</td>\n";
-            htmlLimits += "<td>" + workloadTable[rowIndexOffSet + 1][1] + "</td>\n";
-            htmlLimits += "<td>" + workloadTable[rowIndexOffSet + 1][2] + "</td>\n";
-            htmlLimits += "</tr>\n";
+            htmlLimits.append("<tr>\n");
+            htmlLimits.append("<td>Tutorial hours</td>\n");
+            htmlLimits.append("<td>" + workloadTable[rowIndexOffSet + 1][0] + "</td>\n");
+            htmlLimits.append("<td>" + workloadTable[rowIndexOffSet + 1][1] + "</td>\n");
+            htmlLimits.append("<td>" + workloadTable[rowIndexOffSet + 1][2] + "</td>\n");
+            htmlLimits.append("</tr>\n");
 
-            htmlLimits += "<tr>\n";
-            htmlLimits += "<td>Lab hours</td>\n";
-            htmlLimits += "<td>" + workloadTable[rowIndexOffSet + 2][0] + "</td>\n";
-            htmlLimits += "<td>" + workloadTable[rowIndexOffSet + 2][1] + "</td>\n";
-            htmlLimits += "<td>" + workloadTable[rowIndexOffSet + 2][2] + "</td>\n";
-            htmlLimits += "</tr>\n";
+            htmlLimits.append("<tr>\n");
+            htmlLimits.append("<td>Lab hours</td>\n");
+            htmlLimits.append("<td>" + workloadTable[rowIndexOffSet + 2][0] + "</td>\n");
+            htmlLimits.append("<td>" + workloadTable[rowIndexOffSet + 2][1] + "</td>\n");
+            htmlLimits.append("<td>" + workloadTable[rowIndexOffSet + 2][2] + "</td>\n");
+            htmlLimits.append("</tr>\n");
 
-            htmlLimits += "<tr>\n";
-            htmlLimits += "<td>Project hours</td>\n";
-            htmlLimits += "<td>" + workloadTable[rowIndexOffSet + 3][0] + "</td>\n";
-            htmlLimits += "<td>" + workloadTable[rowIndexOffSet + 3][1] + "</td>\n";
-            htmlLimits += "<td>" + workloadTable[rowIndexOffSet + 3][2] + "</td>\n";
-            htmlLimits += "</tr>\n";
+            htmlLimits.append("<tr>\n");
+            htmlLimits.append("<td>Project hours</td>\n");
+            htmlLimits.append("<td>" + workloadTable[rowIndexOffSet + 3][0] + "</td>\n");
+            htmlLimits.append("<td>" + workloadTable[rowIndexOffSet + 3][1] + "</td>\n");
+            htmlLimits.append("<td>" + workloadTable[rowIndexOffSet + 3][2] + "</td>\n");
+            htmlLimits.append("</tr>\n");
 
-            htmlLimits += "<tr>\n";
-            htmlLimits += "<td>Preparation hours</td>\n";
-            htmlLimits += "<td>" + workloadTable[rowIndexOffSet + 4][0] + "</td>\n";
-            htmlLimits += "<td>" + workloadTable[rowIndexOffSet + 4][1] + "</td>\n";
-            htmlLimits += "<td>" + workloadTable[rowIndexOffSet + 4][2] + "</td>\n";
-            htmlLimits += "</tr>\n";
+            htmlLimits.append("<tr>\n");
+            htmlLimits.append("<td>Preparation hours</td>\n");
+            htmlLimits.append("<td>" + workloadTable[rowIndexOffSet + 4][0] + "</td>\n");
+            htmlLimits.append("<td>" + workloadTable[rowIndexOffSet + 4][1] + "</td>\n");
+            htmlLimits.append("<td>" + workloadTable[rowIndexOffSet + 4][2] + "</td>\n");
+            htmlLimits.append("</tr>\n");
 
-            htmlLimits += "</table>\n";
-            htmlLimits += "<br><br>\n";
+            htmlLimits.append("</table>\n");
         }
+        return htmlLimits.toString();
+    }
 
-        htmlLimits += "</html>\n";
-        return htmlLimits;
+    @Override
+    public String getPrintable() {
+        return checkedReport;
     }
 }

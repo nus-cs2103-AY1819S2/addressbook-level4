@@ -19,7 +19,9 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.ClassForPrinting;
 import seedu.address.model.GradTrak;
+import seedu.address.model.LimitChecker;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyGradTrak;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -209,8 +211,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public String checkLimit() {
-            return "";
+        public LimitChecker checkLimit() {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -239,17 +241,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyProperty<ModuleTaken> selectedModuleTakenProperty() {
+        public ReadOnlyProperty<ClassForPrinting> selectedModuleTakenProperty() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ModuleTaken getSelectedModuleTaken() {
+        public ModuleTaken getSelectedClassForPrinting() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setSelectedModuleTaken(ModuleTaken moduleTaken) {
+        public void setSelectedModuleTaken(ClassForPrinting moduleTaken) {
             throw new AssertionError("This method should not be called.");
         }
 

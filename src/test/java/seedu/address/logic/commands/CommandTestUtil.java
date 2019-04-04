@@ -156,7 +156,7 @@ public class CommandTestUtil {
         // only do so by copying its components.
         GradTrak expectedAddressBook = new GradTrak(actualModel.getGradTrak());
         List<ModuleTaken> expectedFilteredList = new ArrayList<>(actualModel.getFilteredModulesTakenList());
-        ModuleTaken expectedSelectedModuleTaken = actualModel.getSelectedModuleTaken();
+        ModuleTaken expectedSelectedModuleTaken = (ModuleTaken) actualModel.getSelectedClassForPrinting();
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -167,7 +167,7 @@ public class CommandTestUtil {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedAddressBook, actualModel.getGradTrak());
             assertEquals(expectedFilteredList, actualModel.getFilteredModulesTakenList());
-            assertEquals(expectedSelectedModuleTaken, actualModel.getSelectedModuleTaken());
+            assertEquals(expectedSelectedModuleTaken, actualModel.getSelectedClassForPrinting());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }

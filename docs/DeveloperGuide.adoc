@@ -472,7 +472,7 @@ Example of a common cardfolder csv file +
 
 Blood.csv
 
-image::Blood.csv.png[width="800"]
+image::Blood.png[width="800"]
 
 
 * The first line of any file contains the headers for each card.

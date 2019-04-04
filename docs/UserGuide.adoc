@@ -568,7 +568,7 @@ to import it over to your application.
 NOTE: The csv file imported should follow the format below
 
 .Sample format for csv file
-image::Blood.csv.png[width = "800"]
+image::Blood.png[width = "800"]
 
 ====
 * The first row of the csv file should have the following headers, Question, Answer, Options, Hints.

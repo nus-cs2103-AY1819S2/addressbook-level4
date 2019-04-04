@@ -303,24 +303,32 @@ You can choose to sort the list of entries by name, amount, date or category.
 
 *Format*: `sort FLAG`
 
-****
-*Examples*:
-
-* `sort -name`: +
-Sorts the list of records by name in lexicographical order
-* `sort -amount`: +
-Sorts the list of records by amount from largest to smallest
-* `sort -date`: +
-Sorts the list of records by date with the latest at the top
-* `sort -cat`: +
-Sorts the list of records by category
-****
-
 [NOTE]
 ====
 * `FLAG` here refers to either `-name`, `-amount, `-date` or `-cat`.
 * Only one flag should be provided.
 ====
+
+****
+*Examples*:
+
+* `sort -name`: +
+By default, sorts the list of records by name in lexicographical order
+* `sort -amount`: +
+By default, sorts the list of records by amount from largest to smallest
+* `sort -date`: +
+By default, sorts the list of records by date with the latest at the top
+* `sort -cat`: +
+By default, sorts the list of records by category
+****
+
+[TIP]
+To sort the list in the reverse order, use the `reverse` command! +
+* `sort -name` +
+`reverse` +
+List will be sorted by name in reverse lexicographical order.
+
+
 // end::sort[]
 
 // tag::reverse[]

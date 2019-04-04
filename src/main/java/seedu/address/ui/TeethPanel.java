@@ -71,7 +71,7 @@ public class TeethPanel extends UiPart<Region> {
             Image fin = SwingFXUtils.toFXImage(main, null);
             ImageView test = new ImageView(fin);
             test.setPreserveRatio(true);
-            test.setFitWidth(380);
+            test.setFitHeight(550);
             space.getChildren().add(test);
 
         } catch (IOException e) {

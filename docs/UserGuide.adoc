@@ -26,7 +26,7 @@ If you are a dental practitioner who prefers to use a Command Line Interface (CL
 then TeethHub is an application for you!
 
 TeethHub works primarily through a CLI while having elements of a Graphical User Interface (GUI).
-For example, you can select patients and records by clicking on them, but you would need to type the patientedit command to patientedit them.
+For example, you can select patients and records by clicking on them, but you would need to type the edit commands to edit them.
 TeethHub allows you to keep track of your patient's particulars along with their dental records.
 An image of each patient's teeth will also be displayed according to what you input for each tooth's status(Absent, Problem, Healthy).
 In addition to that, TeethHub also allows you to keep track of your upcoming tasks, just like a calendar.
@@ -116,20 +116,15 @@ Undo the latest command.
 
 Format: `undo`
 
-* The following commands are affected by undo: patientadd patientedit patientdelete and patientclear.
-
-
 Examples:
 
 * `<<patientdelete, patientdelete>> 1` +
-`<<list, list>>` +
+`<<patientlist, patientlist>>` +
 `undo` (reverses the patientdelete 1 command)
 
-* `<<list, list>>` +
+* `<<patientlist, patientlist>>` +
 `undo` +
-The undo command fails as there are no undo-able commands executed
-previously.
-
+The undo command fails as there are no undo-able commands executed previously.
 
 * `<<patientdelete, patientdelete>> 1` +
 `<<patientclear, patientclear>>` +
@@ -180,7 +175,7 @@ You can use *open* to open another patient list that you may have transferred ov
 You can use *save* to save your current patient list to another .json, so that you can transfer them to another computer. +
 You can also use *save* to save your current patient list to a .pdf, which is nicer on the eyes.
  +
-You can use *Import* to patientadd select patients from another patient list to your current patient list. +
+You can use *Import* to add select patients from another patient list to your current patient list. +
  +
 You can use *Export* to save select patients to a .json or .pdf file.
 
@@ -282,7 +277,7 @@ Adds a patient to the patients list.
 
 Name, NRIC, and Date of Birth fields are compulsory. The rest are optional fields.
 
-Format: `patientadd PARAMETERS …`
+Format: `patientadd PARAMETERS …` or `padd PARAMETERS …`
 
 Parameters:
 
@@ -314,7 +309,7 @@ nokr/Father noka/same`
 
 Deletes the specified patient from the patients list.
 
-Format: patientdelete INDEX
+Format: `patientdelete INDEX` or `pdelete INDEX`
 
 * Deletes the patient at the specified index.
 
@@ -327,7 +322,7 @@ Examples:
 * `patientdelete 1` +
 Deletes the patient shown with index 1 from the displayed list.
 
-* `<<find, find>> John` +
+* `<<patientfind, patientfind>> John` +
 `patientdelete 2` +
 Deletes the patient shown with index 2 found using the find command.
 
@@ -335,7 +330,7 @@ Deletes the patient shown with index 2 found using the find command.
 
 Edits data from an existing patient.
 
-Format: `patientedit INDEX`
+Format: `patientedit INDEX` or `pedit INDEX`
 
 * Goes into patientedit mode for the patient at the specified index shown from
 list or find command. Must be a positive integer (e.g 1, 2 or 3).
@@ -355,7 +350,7 @@ following it.
 
 Example:
 
-* `<<list, list>>` +
+* `<<patientlist, patientlist>>` +
 `patientedit 1` +
 `p/12345` +
 `e/newemail@gmail.com` +
@@ -364,7 +359,7 @@ Edits the phone number and email of the first patient listed to become
 12345 and newemail@gmail.com respectively across 2 inputs.
 
 
-* `<<find, find>> Betsy` +
+* `<<patientfind, patientfind>> Betsy` +
 `patientedit 2` +
 `p/987654 e/mymail@gmail.com` +
 `done` +
@@ -376,7 +371,7 @@ Edits the phone number and email of the first patient listed to become
 Makes an exact patientcopy of a patient and adds them to the patient list.
 This may be useful if multiple people share similar details.
 
-Format: `patientcopy INDEX [Count]`
+Format: `patientcopy INDEX [Count]` or `pcopy INDEX [Count]`
 
 Note: If the copied entry is not modified before exiting the program,
 there will be a confirmation.
@@ -390,6 +385,34 @@ the current patient list with a patientcopy tag.
 * `patientcopy 3 4` +
 Makes 4 copies of the patient at index 3 and inserts them at the bottom of
 the current patient list with a patientcopy tag.
+
+==== patientlist
+Shows a list of all patients or medical stored in TeethHub.
+
+Format: `patientlist [dental]` or `plist [dental]`
+
+Example:
+
+* `patientlist` +
+Shows details of all patients.
+
+==== patientfind
+
+Shows patients whose data contains any of the given keywords according to a specified parameter.
+
+Format: `patientfind [dental] PREFIX/KEYWORD [MORE_KEYWORDS]`
+
+* Search is case insensitive.
+* Order of keywords does not matter.
+* Valid `Prefix` values: See <<Breakdown of attributes used within TeethHub>>
+
+Example:
+
+* `find a/Yishun` +
+Show all the people with an address containing the keyword Yishun.
+
+* `find dental cleaning` +
+Shows all the dental records with cleaning
 
 ==== patientclear
 Clears all patients, from TeethHub.
@@ -425,7 +448,7 @@ Record contains the patient's personal information, name of the dentist on duty,
 
 Note: `recordadd` requires the program to first be in `goto` mode, where a patient is specified for his or her dental information to be modified.
 
-Format: `recordadd desc/DETAILS`
+Format: `recordadd desc/DETAILS` or `radd desc/DETAILS`
 
 * The program assigns the name of the dentist stored in the dentist information
 
@@ -443,13 +466,13 @@ Example
 
 * `back` - Go back to the patient list.
 
-==== record patientdelete
+==== recorddelete
 
 Deletes a dental record of a specified patient.
 
 Note: `recorddelete` requires the program to first be in `goto` mode, where a patient is specified for his or her dental information to be modified.
 
-Format: `recorddelete INDEX`
+Format: `recorddelete INDEX` or `rdelete INDEX`
 
 * Deletes the patient’s dental record at the specified index.
 
@@ -465,13 +488,13 @@ Example:
 
 * `back` - Go back to the patient list.
 
-==== record patientedit
+==== recordedit
 
 Edits a patient’s dental record.
 
 Note: `recordedit` requires the program to first be in `goto` mode, where a patient is specified for his or her dental information to be modified.
 
-Format: `recordedit INDEX desc/DETAILS`
+Format: `recordedit INDEX desc/DETAILS` or `redit INDEX desc/DETAILS`
 
 * Edits the patient's dental record at the specified index.
 
@@ -519,13 +542,13 @@ All permanent teeth in template will all be present and healthy by default.
 
 ** The program automatically creates a new permanent teeth template for new patients added.
 
-* To patientedit a new specific tooth:
+* To edit a new specific tooth:
 
-** `<<goto, goto>> 1` - Specifies patient 1 to patientedit his or her teeth status. Enters the record patientedit mode.
+** `<<goto, goto>> 1` - Specifies patient 1 to edit his or her teeth status. Enters the record edit mode.
 
 ** `teethedit t/TEETH_LABEL s/STATUS` - Edits the status of the indicated tooth of patient.
 
-** `back` - Exits the record patientedit mode, and returns to the patient list.
+** `back` - Exits the record edit mode, and returns to the patient list.
 
 ** Valid <Teeth Label> are numbers 1 - 32 (permanent teeth).
 
@@ -540,9 +563,9 @@ health.
 ==== taskadd
 Adds a task to the application's list of tasks.
 
-Format: `taskadd PARAMETERS`
+Format: `taskadd PARAMETERS` or `tadd PARAMETERS`
 
-You can specify information that describes the task you wish to patientadd by
+You can specify information that describes the task you wish to add by
 keying in certain tags after the `taskadd` command. Do note the following:
 
 * All parameters have certain patterns that **MUST** be followed. +
@@ -612,7 +635,7 @@ Tasks with different priority will be marked with different colors on the task l
 High priority will be marked [red]#red#, Medium priority be marked [yellow]#yellow# and
 Low priority will be marked [green]#green#.
 
-As the priority is not a mandatory parameter, if you do not specify a priority when you patientadd a task,
+As the priority is not a mandatory parameter, if you do not specify a priority when you add a task,
 it will be given a defualt priority of [green]#Medium#
 |pri/PRIORITY
 |pri/high
@@ -639,7 +662,7 @@ Examples:
 ==== taskedit
 Edits a task currently stored in the application
 
-Format: `taskedit INDEX PARAMETERS`
+Format: `taskedit INDEX PARAMETERS` or `tedit INDEX PARAMETERS`
 
 * Index of a task shown in the list **MUST** be specified +
 * Index should be a positive integer (e.g. 1,2...5)
@@ -661,7 +684,7 @@ Examples:
 ==== taskdelete
 Deletes a task from the task list
 
-Format: `taskdelete 2`
+Format: `taskdelete 2` or `tdelete 2`
 
 * Index of a task shown in the list **MUST** be specified +
 * Index should be a positive integer (e.g. 1,2...5)
@@ -676,12 +699,12 @@ Example:
 ==== tasklist
 Shows a list of all the task stored in the application.
 
-Format: `tasklist`
+Format: `tasklist` or `tlist`
 
 ==== taskfind
 Searches for and displays a list of tasks according to a specified parameter
 
-Format: `taskfind PARAMETER`
+Format: `taskfind PARAMETER` or `tfind PARAMETER`
 
 You can specify any parameter that a task contains when using this command.
 No tasks will be display if none of the tasks match the search conditions.
@@ -691,44 +714,7 @@ Examples:
 * `taskfind pri/HIGH`
 * `taskfind ti/Extraction`
 
-=== Viewing and Locating Information
-The commands listed below deal with displaying and finding data for you to view.
-They do not deal with the adding or modification of any information currently already
-stored within the program.
-
-==== list
-Shows a list of all patients or medical stored in TeethHub.
-
-Format: `list [dental]`
-
-Command shows patient details by default, patientadd dental to see dental records.
-
-Example:
-
-* `list` +
-Shows details of all patients.
-
-* `list dental` +
-Shows details of patient's dental records.
-
-==== find
-
-Shows patients whose data contains any of the given keywords according to a specified parameter.
-
-Format: `find [dental] PREFIX/KEYWORD [MORE_KEYWORDS]`
-
-* patientadd “dental” to search dental records instead.
-* Search is case insensitive.
-* Order of keywords does not matter.
-* Valid `Prefix` values: See <<Breakdown of attributes used within TeethHub>>
-
-Example:
-
-* `find a/Yishun` +
-Show all the people with an address containing the keyword Yishun.
-
-* `find dental cleaning` +
-Shows all the dental records with cleaning
+=== Misc
 
 ==== sort
 Sorts the records by an input parameter in an input order.

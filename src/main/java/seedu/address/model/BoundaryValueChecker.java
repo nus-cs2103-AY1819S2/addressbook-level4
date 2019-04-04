@@ -7,6 +7,7 @@ import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
+import seedu.address.model.cell.Status;
 
 /**
  * Wraps all data at the address-book level
@@ -113,16 +114,13 @@ public class BoundaryValueChecker {
      * Checks if there is no battleship on the grids.
      */
     public boolean isBattleshipAbsent() {
-        Index rowIndex = coordinates.getRowIndex();
-        Index colIndex = coordinates.getColIndex();
+        Status status = mapGrid.getCellStatus(coordinates);
 
-        Cell cellToInspect = mapGrid.getCell(rowIndex.getZeroBased(), colIndex.getZeroBased());
-
-        if (cellToInspect.hasBattleShip()) {
-            return false;
+        if (status == Status.EMPTY) {
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     /**

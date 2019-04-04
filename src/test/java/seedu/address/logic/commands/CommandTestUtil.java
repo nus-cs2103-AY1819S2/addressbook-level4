@@ -112,6 +112,7 @@ public class CommandTestUtil {
     public static final String SECOND_SUBORDER_DES_WITH_PREFIX = " o2/des";
     public static final String THIRD_SUBORDER_DES_WITH_PREFIX = " o3/des";
     public static final String INVALID_ORDER_WITH_PREFIX = "o/abc";
+    public static final String SORT_UNKNOWN_COMMAND = " k/type";
     public static final String SORT_NAME_WITHOUT_PREFIX = "name";
     public static final String SORT_AUTHOR_WITHOUT_PREFIX = "author";
     public static final String SORT_RATING_WITHOUT_PREFIX = "rating";

@@ -420,6 +420,10 @@ identify requests or personnel, using the same prefixes as in `add`, `edit` and
 that subword. (e.g `filter 1 n/Tan` may return people with the surnames Tan or
 Tang)
 
+* Note that you can query all requests between a specific range, by specifying the the date range
+which you want to query. For example, to filter all requests between 1st Jan 2019 and 1st June 2019 (exclusive), you can run the following command:
+`filter request dt/01-01-2019 00:00:00 dt/02-06-2019 00:00:00`
+
 {nbsp}
 
 [TIP]

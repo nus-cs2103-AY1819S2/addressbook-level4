@@ -16,9 +16,11 @@ import seedu.address.logic.commands.TaskAddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.datetime.TimeCustom;
+import seedu.address.model.task.LinkedPatient;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.Title;
+import seedu.address.ui.MainWindow;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -48,11 +50,14 @@ public class TaskAddCommandParser implements Parser<TaskAddCommand> {
         Priority priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).orElse("low"));
         Index patientIndex;
         if (argMultimap.getValue(PREFIX_LINKEDPATIENT).isPresent()) {
+            if (MainWindow.isGoToMode()) {
+                throw new ParseException(LinkedPatient.MESSAGE_ADDITIONAL_CONSTRAINT
+                        + LinkedPatient.MESSAGE_CONSTRAINTS);
+            }
             patientIndex = ParserUtil.parseLinkedPatientIndex(argMultimap.getValue(PREFIX_LINKEDPATIENT).get());
         } else {
             patientIndex = null;
         }
-
 
         Task task = new Task(title, startDate, endDate, startTime, endTime, priority, null);
         return new TaskAddCommand(task, patientIndex);

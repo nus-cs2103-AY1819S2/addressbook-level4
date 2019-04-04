@@ -103,7 +103,7 @@ public class GuiTestAssert {
     private static void assertCategoryEqual(Record expectedRecord, RecordCardHandle actualCard) {
         Category expectedCategory = expectedRecord.getCategory();
         String actualCategory = actualCard.getCategory();
-        assertEquals(expectedCategory, actualCard.getCategory());
+        assertEquals(expectedCategory.toString(), actualCard.getCategory());
         assertEquals(getCategoryColorStyleFor(expectedCategory.toString()), getCategoryColorStyleFor(actualCategory));
     }
 

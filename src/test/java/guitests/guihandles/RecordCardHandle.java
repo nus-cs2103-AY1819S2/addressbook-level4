@@ -77,6 +77,6 @@ public class RecordCardHandle extends NodeHandle<Node> {
         return getName().equals(record.getName().fullName)
                 && getAmount().equals("$" + record.getAmount().toString())
                 && getDate().equals(record.getDate().toString())
-                && getCategory().equals(record.getCategory());
+                && getCategory().equals(record.getCategory().toString());
     }
 }

@@ -31,8 +31,10 @@ public class BookingListPanel extends UiPart<Region> {
     @FXML
     private ListView<Booking> bookingListView;
 
-    public BookingListPanel(ObservableList<Booking> bookingList, ObservableValue<Booking> selectedBooking,
-                            Consumer<Booking> onSelectedBookingChange, ObservableValue<Customer> selectedCustomer,
+    public BookingListPanel(ObservableList<Booking> bookingList,
+                            ObservableValue<Booking> selectedBooking,
+                            Consumer<Booking> onSelectedBookingChange,
+                            ObservableValue<Customer> selectedCustomer,
                             ObservableValue<ServiceType> selectedServiceType,
                             CommandBox.CommandExecutor commandExecutor) {
         super(FXML);

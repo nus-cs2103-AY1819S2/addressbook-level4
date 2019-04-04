@@ -2,6 +2,8 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:note-caption: :information_source:
+:warning-caption: :warning:
 
 == PROJECT: QuickDocs
 

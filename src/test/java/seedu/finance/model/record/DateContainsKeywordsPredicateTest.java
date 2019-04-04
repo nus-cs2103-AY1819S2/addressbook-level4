@@ -60,10 +60,5 @@ public class DateContainsKeywordsPredicateTest {
         // Non-matching keyword
         predicate = new DateContainsKeywordsPredicate(Arrays.asList("11/01/2001"));
         assertFalse(predicate.test(new RecordBuilder().withDate("01/01/2001").build()));
-
-        // Keywords match name, amount and category, but does not match date
-        predicate = new DateContainsKeywordsPredicate(Arrays.asList("Banana", "3"));
-        assertFalse(predicate.test(new RecordBuilder().withName("Banana").withAmount("3")
-                .withCategory("Food").build()));
     }
 }

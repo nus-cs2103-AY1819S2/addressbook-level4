@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.finance.logic.CommandHistory;
@@ -26,12 +27,15 @@ public class SpendCommand extends Command {
             + PREFIX_AMOUNT + "AMOUNT "
             + PREFIX_DATE + "DATE "
             + PREFIX_CATEGORY + "CATEGORY\n"
+            + PREFIX_DESCRIPTION + "DESCRIPTION\n"
             + "Note that each record should only have one category.\n"
+            + "If date is not inputted, local date will be used.\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_AMOUNT + "123.23 "
             + PREFIX_DATE + "12/02/2002 "
-            + PREFIX_CATEGORY + "Food ";
+            + PREFIX_CATEGORY + "Food "
+            + PREFIX_DESCRIPTION + "Lunch with friends ";
 
     public static final String MESSAGE_SUCCESS = "New record added: %1$s";
     public static final String MESSAGE_SUCCESS_EXCEED_BUDGET = "Your spending in %s "

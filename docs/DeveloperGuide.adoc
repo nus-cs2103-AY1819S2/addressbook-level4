@@ -117,6 +117,7 @@ When you are ready to start coding,
 1. Get some sense of the overall design by reading <<Design-Architecture>>.
 2. Take a look at <<GetStartedProgramming>>.
 
+// tag::design[]
 == Design
 
 [[Design-Architecture]]
@@ -248,7 +249,7 @@ The `Storage` component,
 === Common classes
 
 Classes used by multiple components are in the `seedu.financetracker.commons` package.
-
+// end::design[]
 == Implementation
 
 This section describes in detail the implementation of certain features in _In-Credit-Ble_.
@@ -305,6 +306,9 @@ will hold all the records that correspond to these category or dates.
 each tag. Will take up more space if there is many different tags.
 // end::search[]
 
+
+
+// tag::sort[]
 === Sort feature
 
 By default, the list of entries is ordered according to the time the entry is entered into the application,
@@ -314,11 +318,79 @@ The sort mechanism allows users to view their expense records in a different way
 
 ==== Current Implementation
 
-*_Details of implementation will be added next time._*
+The sort command uses comparators that implement java.util.Comparator interface to provide the comparison functions.
+
+.Sort feature
+|===
+|Command |Comparator used |Effect
+
+|`sort -name` |`RecordNameComparator` |Lexicographical order
+|`sort -amount` |`RecordAmountComparator` |Descending order
+|`sort -date` |`RecordDateComparator` |Most recent to least recent
+|`sort -cat` |`RecordCategoryComparator` |Lexicographical order
+
+|===
+
+Here is the list of operations involved in the execution of command, `sort -name`.
+
+. `LogicManager#execute(_"sort -name"_)` calls `FinanceTrackerParser#parseCommand(_"sort -name"_)`.
+. `FinanceTracker#parseCommand(_"sort -name"_)` creates a new `SortCommandParser` object and calls `SortCommandParser#parse(_" -name"_)`.
+. `SortCommandParser#parse()` creates a new `RecordNameComparator()` object, _comparator_ and passes it as a parameter into the `SortCommand` constructor.
+. The `SortCommand` object, _s_, is then passed back to the `SortCommandParser`, `FinanceTrackerParser`, and finally back to the `LogicManager`.
++
+.Sequence Diagram of Sort Command I
+image::SortSequenceDiagram1.png[width="800"]
++
+. `LogicManager#execute(_"sort -name"_)` then continues to call `SortCommand#execute()`.
+. `SortCommand#execute()` calls `Model#SortFilteredRecordList(_comparator_)`.
+. `Model#SortFilteredRecordList(_comparator_)` calls `FinanceTracker#sortRecordList(_comparator_)`.
+. `FinanceTracker#sortRecordList(_comparator_)` calls `UniqueRecordList#sortList(_comparator_)`.
+. `UniqueRecordList#sortList(_comparator_)` then uses `FXCollection`’s static method `sort()`  to sort the records.
+. `SortCommand#execute()` then creates a `CommandResult` object and returns it back to the `LogicManager`.
+
+.Sequence Diagram of Sort Command II
+image::SortSequenceDiagram2.png[width="800"]
 
 ==== Design Considerations
 
 *_Design considerations will be added next time._*
+
+// end::undoredo[]
+
+// tag::reverse[]
+=== Reverse feature
+
+The reverse feature allows users to reverse the list of entries displayed on the graphic user interface.
+The sort features are implemented with a default ordering.
+The reverse command provides a convenient way for users to sort their entries in reverse order.
+
+==== Current Implementation
+
+This is how the reverse command is implemented:
+
+. `LogicManager#execute(_"reverse"_)` calls `FinanceTrackerParser#parseCommand(_"reverse"_)`.
+. `FinanceTrackerParser#parseCommand(_"reverse"_)` creates a `ReverseCommand` object, _r_.
+. _r_ is passed back to the `FinanceTrackerParser`, and then back to the `LogicManager`.
+. `LogicManager#execute(_"reverse"_)` then moves on to call `ReverseCommand#execute()`.
+. `ReverseCommand#execute()` calls `Model#reverseFilteredRecordList()`.
+. `Model#reverseFilteredRecordList()` calls `FinanceTracker#reverseRecordList()`.
+. `FinanceTracker#reverseRecordList()` calls `UniqueRecordList#reverseList()`.
+. `UniqueRecordList#reverseList()` uses `FXCollection`’s static method `reverse()` to reverse the list of records.
+. `ReverseCommand#execute()` then creates a `CommandResult` object and returns it back to the `LogicManager`.
+
+.Sequence Diagram of Reverse Command
+image::ReverseSequenceDiagram.png[width="800"]
+
+
+==== Design Considerations
+
+*_Design considerations will be added next time._*
+
+// end::reverse[]
+
+
+
+
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -523,25 +595,34 @@ one command to allocate a fixed amount to the budget
 // tag::summary[]
 === Summary
 
-The summary feature shows an overview of your previous expenditures. It displays statistics on how your spending habits are like in the different categories you have specified. It also displays the remaining budget amount for each category.
+The summary feature shows an overview of your previous expenditures in an Aster Plot chart, which works similarly to a pie chart. Each sector of the chart represents a category. The radius of each sector indicates the total budget amount allocated for a particular category, while the coloured area of the sector denotes the amount spent for that category. This allows users to easily perceive whether their spending is within their budget for each category.
 
-==== To be implemented
-The summary feature intends to use a D3.js graph to display the data. This will help contribute to the aesthetics and user-friendliness of displaying the data in the financeTracker.
+==== Implementation
+The summary feature intends to use a D3.js graph to display the data. This will help contribute to the aesthetics and user-friendliness of displaying the data in In-Credit-Ble.
+The implementation of the Summary command can be divided into two phases – preparation and execution. Given below is an explanation of how the summary mechanism behaves at each phase, although it has not been fully implemented yet.
 
-The summary command will retrieve the whole list of existing records, which will then be parsed by SummaryCommandParser. This will return the appropriate d3 graph to be shown.
+===== Preparation
+In the preparation phase, the application will parse the command. Below is the UML Sequence diagram and a step-by-step explanation of the preparation stage.
 
-Given below is an example usage scenario and how the summary mechanism behaves at each step.
+.Sequence diagram of the preparation stage in the summary mechanism
+image::SummarySequenceDiagram.png[width="800"]
 
-Step 1. The user launches the application for the first time. The financeTracker will be initialised with the existing records the user has input last time.
+1.	User first enters the command `summary`. This command is received by `FinanceTrackerParser`, which  then calls `SummaryCommandParser#parse()` to create `SummaryCommand`.
+2.	`SummaryCommand`  is then returned to `LogicManager`.
+3.	`LogicManager` then calls `SummaryCommand#execute()`, which will then trigger the process of retrieving the data to be displayed.
 
-Step 2. The user executes the summary command. Input is parsed and the records will be extracted.
+===== Execution
+In the execution phase, the program accesses the `Budget` class to retrieve the data to be displayed. It will then finally map this data to graph the Aster Plot chart and display it. Below is the UML sequence diagram and a step-by-step explanation of the execution stage.
 
-Step 3. The records are then converted to JSON, and data will be used to map the d3 graph.
+.Sequence diagram of the execution stage in the summary mechanism
+image::SummarySequenceDiagram2.png[width="800"]
 
-
-_Sequence Diagram will be done soon_
+1.	The`handleShowSummary` will be handled by `MainWindow#handleShowSummary()`, which will call `GraphPanel#execute()` and pass the data as parameters by calling `Logic#getTotalBudget()` and `Logic#getCategoryBudget()`.
+2.	`Logic#getTotalBudget()` and `Logic#getCategoryBudget()` will get their respective data by calling the method of the same name in `Model`.
+3.	Once the parameters are passed into GraphPanel#execute(), StackPane#getData()#clear() is called to clear any display elements in StackPane. D3.js is used to render the charts.
 
 ==== Design Consideration
+===== Aspect: Representation for Summary of Expenditure
 An aster plot graph will be used to display the information in the main window. Using such a graph will allow for sufficient space should users decide to add more categories in the future. Hovering over the different sectors in the aster plot graph will display the corresponding category. If possible, the colours used for the category in the aster plot graph should be the same colour palette used for the category labels.
 
 .Example of Aster Plot Graph

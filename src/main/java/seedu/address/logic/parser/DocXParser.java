@@ -83,7 +83,7 @@ public class DocXParser {
             return new DeleteCommandParser().parse(arguments);
 
         case ListMedHistCommand.COMMAND_WORD:
-            return new ListMedHistCommand();
+            return new ListMedHistCommandParser().parse(arguments);
 
         case SearchMedHistCommand.COMMAND_WORD:
             return new SearchMedHistCommandParser().parse(arguments);

@@ -46,7 +46,7 @@ public class EditReviewCommand extends Command {
     private final EditReviewDescriptor editReviewDescriptor;
 
     /**
-     * @param index of the review of the restaurant in the filtered restaurant list to edit
+     * @param index of the restaurant in the filtered restaurant list to edit
      * @param editReviewDescriptor details to edit the restaurant with
      */
     public EditReviewCommand(Index index, EditReviewDescriptor editReviewDescriptor) {

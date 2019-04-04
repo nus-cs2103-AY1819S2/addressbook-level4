@@ -12,11 +12,9 @@ public class Messages {
     public static final String MESSAGE_CARDS_LISTED_OVERVIEW = "%1$d cards listed!";
     public static final String MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN = "This command is not valid outside a test"
             + " or report";
-
     public static final String MESSAGE_INVALID_ANSWER_COMMAND = "Answer command is valid only when a question is "
             + "displayed";
-    public static final String MESSAGE_NO_NEGATIVE_INDEX = "Negative index not allowed !";
-
+    public static final String MESSAGE_NO_NEGATIVE_INDEX = "Negative index not allowed!";
     public static final String MESSAGE_INVALID_COMMAND_ON_EMPTY_FOLDER = "This command is not valid on an empty"
             + " folder";
     public static final String MESSAGE_INVALID_NEXT_COMMAND = "Next command is valid only when this question has been"
@@ -28,4 +26,5 @@ public class Messages {
     public static final String MESSAGE_CSV_MANAGER_NOT_INITIALIZED = "Unable to carry out import and export commands";
     public static final String MESSAGE_INCORRECT_CSV_FILE_HEADER = "Incorrect Csv file headers. Check that the\n"
             + "csv file contains question,answer,options,hints header";
+    public static final String MESSAGE_EMPTY_CSV_FILE = "Empty csv file!";
 }

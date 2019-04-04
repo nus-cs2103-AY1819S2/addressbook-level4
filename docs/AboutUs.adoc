@@ -15,7 +15,7 @@ image::afterdusk.png[width="150", align="left"]
 {empty}[https://github.com/afterdusk[github]] [<<auliangjun#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Folder features
 
 '''
 
@@ -24,33 +24,33 @@ image::dlqs.png[width="150", align="left"]
 {empty}[https://github.com/dlqs[github]] [<<donaldlee#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Scoring features
+Responsibilities: Report and Scoring features
 
 '''
 
 === Kerryn Eer
 image::kerryneer.png[width="150", align="left"]
-{empty}[https://github.com/KerrynEer[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/KerrynEer[github]] [<<kerryneer#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Documentation
+Responsibilities: Test session features
 
 '''
 
 === Matthew Low Min De
 image::mmdlow.png[width="150", align="left"]
-{empty}[https://github.com/mmdlow[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/mmdlow[github]] [<<matthewlow#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Code Quality
+Responsibilities: Card features
 
 '''
 
 === Ong Yi Chong
 image::yichong96.png[width="150", align="left"]
-{empty}[https://github.com/yichong96[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/yichong96[github]] [<<ongyichong#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Integration
+Responsibilities: Advanced features
 
 '''

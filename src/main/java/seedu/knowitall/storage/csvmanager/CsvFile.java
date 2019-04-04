@@ -8,6 +8,7 @@ public class CsvFile {
 
     public static final String MESSAGE_CONSTRAINTS = "File name should not be left blank and should have"
             + ".csv format";
+    private static final String FILE_EXT_REGEX = "\\.(?=[^\\.]+$)";
 
     public final String filename;
 
@@ -28,7 +29,11 @@ public class CsvFile {
      * Returns true if file extension is of .csv format.
      */
     private static boolean isCorrectFileExtension(String filename) {
-        return filename.split("\\.(?=[^\\.]+$)")[1].equals("csv");
+        return filename.split(FILE_EXT_REGEX)[1].equals("csv");
+    }
+
+    public String getFileNameWithoutExt() {
+        return this.filename.split(FILE_EXT_REGEX)[0];
     }
 
     @Override

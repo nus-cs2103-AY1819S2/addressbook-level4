@@ -17,6 +17,9 @@ import seedu.travel.model.place.Place;
  */
 public class YearChartList implements Iterable<YearChart> {
 
+    public static final String MESSAGE_YEAR_CHART_NOT_FOUND = "The year chart does not exist.";
+
+
     private final ObservableList<YearChart> internalList = FXCollections.observableArrayList();
     private final ObservableList<YearChart> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
@@ -54,7 +57,7 @@ public class YearChartList implements Iterable<YearChart> {
             }
         }
         if (!isRemoved) {
-            throw new YearChartNotFoundException();
+            throw new YearChartNotFoundException(MESSAGE_YEAR_CHART_NOT_FOUND);
         }
     }
 

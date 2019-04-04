@@ -247,15 +247,6 @@ public class MapGrid implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code MapGrid}.
-     * {@code key} must exist in the address book.
-     */
-    public void removePerson(Cell key) {
-        persons.remove(key);
-        indicateModified();
-    }
-
-    /**
      * Put battleship on map grid.
      */
     public void putShip(Battleship battleship, Coordinates coordinates, Orientation orientation)

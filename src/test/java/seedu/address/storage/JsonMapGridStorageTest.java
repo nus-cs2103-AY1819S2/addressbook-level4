@@ -85,7 +85,6 @@ public class JsonMapGridStorageTest {
 
         // Modify data, overwrite exiting file, and read back
         original.addPerson(HOON);
-        original.removePerson(ALICE);
         jsonAddressBookStorage.saveAddressBook(original, filePath);
         readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new MapGrid(readBack));

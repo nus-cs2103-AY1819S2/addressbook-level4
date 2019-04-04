@@ -89,12 +89,6 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Deletes the given cell.
-     * The cell must exist in the address book.
-     */
-    void deletePerson(Cell target);
-
-    /**
      * Adds the given cell.
      * {@code cell} must not already exist in the address book.
      */

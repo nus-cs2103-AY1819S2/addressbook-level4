@@ -150,14 +150,4 @@ public class CommandTestUtil {
 
         assertEquals(1, model.getFilteredPersonList().size());
     }
-
-    /**
-     * Deletes the first cell in {@code model}'s filtered list from {@code model}'s address book.
-     */
-    public static void deleteFirstPerson(Model model) {
-        Cell firstCell = model.getFilteredPersonList().get(0);
-        model.deletePerson(firstCell);
-        model.commitAddressBook();
-    }
-
 }

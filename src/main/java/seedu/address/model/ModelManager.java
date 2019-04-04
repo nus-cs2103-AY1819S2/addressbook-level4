@@ -153,11 +153,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deletePerson(Cell target) {
-        versionedAddressBook.removePerson(target);
-    }
-
-    @Override
     public void addPerson(Cell cell) {
         versionedAddressBook.addPerson(cell);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

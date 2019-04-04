@@ -88,24 +88,6 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void deletePerson_personIsSelectedAndFirstPersonInFilteredPersonList_selectionCleared() {
-        modelManager.addPerson(ALICE);
-        modelManager.setSelectedPerson(ALICE);
-        modelManager.deletePerson(ALICE);
-        assertEquals(null, modelManager.getSelectedPerson());
-    }
-
-    @Test
-    public void deletePerson_personIsSelectedAndSecondPersonInFilteredPersonList_firstPersonSelected() {
-        modelManager.addPerson(ALICE);
-        modelManager.addPerson(BOB);
-        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredPersonList());
-        modelManager.setSelectedPerson(BOB);
-        modelManager.deletePerson(BOB);
-        assertEquals(ALICE, modelManager.getSelectedPerson());
-    }
-
-    @Test
     public void setPerson_personIsSelected_selectedPersonUpdated() {
         modelManager.addPerson(ALICE);
         modelManager.setSelectedPerson(ALICE);

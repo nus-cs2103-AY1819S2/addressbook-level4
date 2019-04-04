@@ -28,6 +28,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.finance.commons.core.GuiSettings;
 import seedu.finance.logic.CommandHistory;
+import seedu.finance.logic.commands.SummaryCommand.SummaryPeriod;
 import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.Model;
 import seedu.finance.model.ModelManager;
@@ -246,6 +247,24 @@ public class SpendCommandTest {
         public void setSelectedRecord(Record record) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ObservableList<Record> getRecordSummary() { throw new AssertionError("This method should not be called."); }
+
+        @Override
+        public int getPeriodAmount() { throw new AssertionError("This method should not be called."); }
+
+        @Override
+        public void updatePeriodAmount(int periodAmount) { throw new AssertionError("This method should not be called."); }
+
+        @Override
+        public SummaryPeriod getSummaryPeriod() { throw new AssertionError("This method should not be called."); }
+
+        @Override
+        public void updateSummaryPeriod(SummaryPeriod period) { throw new AssertionError("This method should not be called."); }
+
+        @Override
+        public void updateRecordSummaryPredicate(Predicate<Record> predicate) { throw new AssertionError("This method should not be called."); }
     }
 
     /**

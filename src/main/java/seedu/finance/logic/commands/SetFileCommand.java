@@ -56,9 +56,9 @@ public class SetFileCommand extends Command {
         try {
             financeTrackerOptional = newStorage.readFinanceTracker();
             if (!financeTrackerOptional.isPresent()) {
-                logger.info("Data file not found. Will load a sample FinanceTracker");
+                logger.info("Data file not found. A new empty FinanceTracker will be created with file name.");
             }
-            initialData = financeTrackerOptional.orElseGet(SampleDataUtil::getSampleFinanceTracker);
+            initialData = new FinanceTracker();
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty FinanceTracker");
             initialData = new FinanceTracker();

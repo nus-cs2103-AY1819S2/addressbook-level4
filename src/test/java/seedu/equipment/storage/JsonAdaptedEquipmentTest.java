@@ -85,7 +85,7 @@ public class JsonAdaptedEquipmentTest {
     }
 
     @Test
-    public void toModelType_nullEmail_throwsIllegalValueException() {
+    public void toModelType_nullDate_throwsIllegalValueException() {
         JsonAdaptedEquipment person = new JsonAdaptedEquipment(VALID_NAME, VALID_PHONE, null, VALID_ADDRESS,
                 VALID_SERIAL_NUMBER, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName());

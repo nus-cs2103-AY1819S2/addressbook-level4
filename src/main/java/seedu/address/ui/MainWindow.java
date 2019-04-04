@@ -48,7 +48,6 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     private PatientInfoPanel patientInfoPanel;
     private RecordListPanel recordListPanel;
     private PersonListPanel personListPanel;
@@ -58,10 +57,6 @@ public class MainWindow extends UiPart<Stage> {
     private StatWindow statWindow;
     private CalendarWindow calendarWindow;
     private TeethPanel teethPanel;
-
-
-    @FXML
-    private StackPane browserPlaceholder;
 
     @FXML
     private StackPane patientInfoPlaceholder;
@@ -155,9 +150,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        //browserPanel = new BrowserPanel(logic.selectedPersonProperty());
         patientInfoPanel = new PatientInfoPanel(logic.selectedPersonProperty(), logic.selectedRecordProperty());
-        browserPlaceholder.getChildren().add(patientInfoPanel.getRoot());
+        patientInfoPlaceholder.getChildren().add(patientInfoPanel.getRoot());
 
         teethPanel = new TeethPanel(logic.selectedPersonProperty());
         teethPanelPlaceholder.getChildren().add(teethPanel.getRoot());

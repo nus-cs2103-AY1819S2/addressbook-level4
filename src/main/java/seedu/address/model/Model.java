@@ -194,11 +194,29 @@ public interface Model {
     void deleteRecord(Record record);
 
     /**
+     * Returns true if the model has previous address book states to restore.
+     * Selected record in the filtered record list.
+     * null if no record is selected.
+     */
+    ReadOnlyProperty<Record> selectedRecordProperty();
+
+    /**
      * Replaces the given record {@code target} with {@code editedRecord}.
      * {@code target} must exist in the address book.
      * The identity of {@code editedRecord} must not be the same as another existing record in the address book.
      */
     void setRecord(Record target, Record editedRecord);
+
+    /**
+     * Returns the selected record in the filtered records list.
+     * null if no record is selected.
+     */
+    Record getSelectedRecord();
+
+    /**
+     * Sets the selected record in the filtered record list.
+     */
+    void setSelectedRecord(Record record);
 
     //=========== Tags =================================================================================
 

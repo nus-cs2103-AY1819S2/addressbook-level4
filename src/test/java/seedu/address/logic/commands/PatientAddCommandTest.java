@@ -195,6 +195,21 @@ public class PatientAddCommandTest {
         }
 
         @Override
+        public void setSelectedRecord(Record record) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Record getSelectedRecord() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Record> selectedRecordProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateTags(Patient patient) {
             throw new AssertionError("This method should not be called.");
         }

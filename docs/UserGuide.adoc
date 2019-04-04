@@ -159,14 +159,6 @@ previously.
 `redo` (reapplies the patientdelete 1 command) +
 `redo` (reapplies the patientclear command)
 
-==== patientclear
-Clears all patients, records and tasks from TeethHub.
-
-* You will be prompted to confirm.
-* Input `y` to proceed to the patientclear all records or `n` to abort.
-
-Format: `patientclear`
-
 ==== exit
 Exits the program. You won't be able to exit if copies exist.
 
@@ -398,6 +390,14 @@ the current patient list with a patientcopy tag.
 * `patientcopy 3 4` +
 Makes 4 copies of the patient at index 3 and inserts them at the bottom of
 the current patient list with a patientcopy tag.
+
+==== patientclear
+Clears all patients, from TeethHub.
+
+* You will be prompted to confirm.
+* Input `y` to proceed to the patientclear all records or `n` to abort.
+
+Format: `patientclear`
 
 === Patient Records Management
 

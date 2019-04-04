@@ -820,6 +820,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
 [appendix]
+// tag::storyusers[]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -882,8 +883,7 @@ be already be obtained from an external source
 |`*` |user with confidential patient information|log into the application with a password |prevent unauthorized access to the application when I am not around
 
 |=======================================================================
-
-_{More to be added}_
+// end::storyusers[]
 
 [appendix]
 == Use Cases

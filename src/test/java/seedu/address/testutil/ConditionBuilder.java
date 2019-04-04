@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import java.util.regex.Pattern;
+
 import seedu.address.model.course.Condition;
 
 /**
@@ -7,37 +9,24 @@ import seedu.address.model.course.Condition;
  */
 public class ConditionBuilder {
 
-    public static final String DEFAULT_CONDITION_NAME = "UNIVERSITY LEVEL REQUIREMENT";
     public static final int DEFAULT_MIN_TO_SATISFY = 5;
-    public static final String[] DEFAULT_REGEXES = {"GES[0-9]{4}[A-Z]?", "GET[0-9]{4}[A-Z]?", "GEH[0-9]{4}[A-Z]?",
-        "GER1000", "GEQ1000"};
-
-    private String conditionName;
+    public static final Pattern DEFAULT_PATTERN = Pattern.compile("(GE)(T|S|R|H|Q)1[0-9]{3}[A-Z]?");
     private int minToSatisfy;
-    private String[] regexes;
+    private Pattern pattern;
 
     public ConditionBuilder() {
-        this.conditionName = DEFAULT_CONDITION_NAME;
         this.minToSatisfy = DEFAULT_MIN_TO_SATISFY;
-        this.regexes = DEFAULT_REGEXES;
+        this.pattern = DEFAULT_PATTERN;
     }
 
     /**
      * Initializes the ModuleTakenBuilder with the data of {@code moduleTakenToCopy}.
      */
     public ConditionBuilder(Condition condition) {
-        this.conditionName = condition.getConditionName();
         this.minToSatisfy = condition.getMinToSatisfy();
-        this.regexes = condition.getRegexes().toArray(new String[0]);
+        this.pattern = condition.getPattern();
     }
 
-    /**
-     * Sets the conditionName of condition to given condition name
-     */
-    public ConditionBuilder withConditionName(String conditionName) {
-        this.conditionName = conditionName;
-        return this;
-    }
 
     /**
      * Sets the minToSatisfy of the condition to given minToSatisfy
@@ -48,15 +37,24 @@ public class ConditionBuilder {
     }
 
     /**
-     * Sets the regexes of condition to given regexes
+     * Sets the pattern of condition to given String
      */
-    public ConditionBuilder withRegexes(String... regexes) {
-        this.regexes = regexes;
+    public ConditionBuilder withPattern(String pattern) {
+        this.pattern = Pattern.compile(pattern);
+        return this;
+    }
+
+
+    /**
+     * Sets the pattern of condition to given Pattern
+     */
+    public ConditionBuilder withPattern(Pattern pattern) {
+        this.pattern = pattern;
         return this;
     }
 
     public Condition build() {
-        return new Condition(minToSatisfy, conditionName, regexes);
+        return new Condition(minToSatisfy, pattern.toString());
     }
 
 }

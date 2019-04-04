@@ -21,47 +21,38 @@ import seedu.address.model.course.CourseList;
 public class JsonCourseStorage implements CourseStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonCourseStorage.class);
+    private String inputStreamPath;
 
-    private Path filePath;
 
-    public JsonCourseStorage(Path filePath) {
-        this.filePath = filePath;
+    public JsonCourseStorage(String inputStreamPath) {
+        this.inputStreamPath = inputStreamPath;
     }
 
 
     @Override
-    public Path getCourseFilePath() {
-        return filePath;
+    public String getCourseInputStreamPath() {
+        return inputStreamPath;
     }
 
-
-    /**
-     * Similar to {@link #readCourseFile()}.
-     *
-     * @param filePath location of the data. Cannot be null.
-     * @throws DataConversionException if the file is not in the correct format.
-     */
     @Override
-    public Optional<CourseList> readCourseFile(Path filePath) throws DataConversionException {
-        requireNonNull(filePath);
-
-        Optional<JsonSerializableCourseList> jsonSerializableCourseList = JsonUtil.readJsonFile(
-                filePath, JsonSerializableCourseList.class);
+    public Optional<CourseList> readCourseFile(String inputStreamPath) throws DataConversionException {
+        requireNonNull(inputStreamPath);
+        Optional<JsonSerializableCourseList> jsonSerializableCourseList = JsonUtil.readJsonFileFromInputStream(
+                inputStreamPath, JsonSerializableCourseList.class);
         if (!jsonSerializableCourseList.isPresent()) {
             return Optional.empty();
         }
-
         try {
             return Optional.of(jsonSerializableCourseList.get().toModelType());
         } catch (IllegalValueException e) {
-            logger.info("Illegal values found in " + filePath + ": " + e.getMessage());
+            logger.info("Illegal values found in " + inputStreamPath + ": " + e.getMessage());
             throw new DataConversionException(e);
         }
     }
 
     @Override
     public Optional<CourseList> readCourseFile() throws DataConversionException {
-        return readCourseFile(filePath);
+        return readCourseFile(inputStreamPath);
     }
 
     /**

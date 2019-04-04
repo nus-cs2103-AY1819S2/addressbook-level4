@@ -34,7 +34,7 @@ image::monikernemo.png[width="150", align="left"]
 
 
 Role: Developer +
-Responsibilities: Update modules
+Responsibilities: Course, Course Requirement of GradTrak
 
 '''
 

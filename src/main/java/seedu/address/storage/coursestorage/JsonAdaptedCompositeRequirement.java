@@ -51,7 +51,7 @@ public class JsonAdaptedCompositeRequirement implements JsonAdaptedCourseRequire
         }
 
         this.logicalConnector = requirement.getLogicalConnector().toString();
-        this.courseReqType = requirement.getCourseReqType().toString();
+        this.courseReqType = requirement.getCourseReqType().name();
     }
 
     /**

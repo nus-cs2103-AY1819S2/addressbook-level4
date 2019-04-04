@@ -16,7 +16,7 @@ public class RecCommand extends Command {
     public static final String COMMAND_WORD = "rec";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":Recommends a list of modules that can be taken "
-            + "based on passed modules and course requirements.";
+            + "based on GradTrak modules and course requirements.";
 
     public static final String MESSAGE_REC = "Recommended modules found: %d";
 

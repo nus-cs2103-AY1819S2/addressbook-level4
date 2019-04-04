@@ -1,14 +1,17 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODCODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODNAME;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 import seedu.address.logic.commands.DisplaymodCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.moduleinfo.CodeContainsKeywordsPredicate;
 
-//TODO: varying arguments to be used so that searches can be more streamlined i.e. use of prefixes
 /**
  * Parses input arguments and creates a new DisplaymodCommand object
  */
@@ -20,14 +23,43 @@ public class DisplaymodCommandParser implements Parser<DisplaymodCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public DisplaymodCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DisplaymodCommand.MESSAGE_USAGE));
+        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MODCODE, PREFIX_MODNAME);
+
+        if (!arePrefixesPresent(argumentMultimap, PREFIX_MODCODE, PREFIX_MODNAME)
+                || !argumentMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DisplaymodCommand.MESSAGE_USAGE));
         }
 
-        String[] nameKeywords = trimmedArgs.split("\\s+");
+        ArrayList<String> keywordsList = new ArrayList<>();
 
-        return new DisplaymodCommand(new CodeContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        if (argumentMultimap.getValue(PREFIX_MODCODE).isPresent()) {
+            String codes = argumentMultimap.getValue(PREFIX_MODCODE).get().trim();
+            String[] codesKeyword = codes.split(",");
+
+            Stream.of(codesKeyword).forEach(code -> keywordsList.add(code));
+        }
+
+        if (argumentMultimap.getValue(PREFIX_MODNAME).isPresent()) {
+            String names = argumentMultimap.getValue(PREFIX_MODNAME).get().trim();
+            String [] tester = names.split(" ");
+            if (tester.length > 1) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        DisplaymodCommand.MESSAGE_USAGE));
+            } else {
+                keywordsList.add(names);
+            }
+        }
+
+        String[] keywords = keywordsList.toArray(new String[keywordsList.size()]);
+
+        return new DisplaymodCommand(new CodeContainsKeywordsPredicate(Arrays.asList(keywords)));
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

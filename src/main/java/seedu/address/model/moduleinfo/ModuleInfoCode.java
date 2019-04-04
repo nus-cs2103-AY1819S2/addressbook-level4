@@ -24,6 +24,15 @@ public class ModuleInfoCode {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns the level of the module represented by this {@code ModuleInfoCode}.
+     * @return The first numerical digit of this {@code ModuleInfoCode}.
+     */
+    public int getLevel() {
+        int codeNumber = Integer.parseInt(value.replaceAll("[^0-9]", ""));
+        return codeNumber / 1000;
+    }
+
     public String toString() {
         return value;
     }

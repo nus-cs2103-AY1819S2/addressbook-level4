@@ -10,6 +10,8 @@ import seedu.address.model.moduleinfo.ModuleInfoCode;
  * Represents a composite Course Requirement that is connected by logical connectors.
  */
 public class CompositeRequirement implements CourseRequirement {
+    //TODO: Refine implementation of Course Requirement to store more than 2 modules
+
     /**
      * Represents logical connectors of CompositeRequirement
      */
@@ -17,6 +19,8 @@ public class CompositeRequirement implements CourseRequirement {
         AND, OR
     }
 
+    private final String courseReqName;
+    private final String courseReqDesc;
     private final CourseRequirement first;
     private final CourseRequirement second;
     private final LogicalConnector connector;
@@ -31,6 +35,36 @@ public class CompositeRequirement implements CourseRequirement {
     public CompositeRequirement(CourseRequirement first, CourseRequirement second,
                                 LogicalConnector connector, CourseReqType courseReqType) {
         requireAllNonNull(first, second, connector, courseReqType);
+        this.courseReqName = first.getCourseReqName();
+        switch(connector) {
+        case AND:
+            this.courseReqDesc = first.getCourseReqDesc() + " "
+                + LogicalConnector.AND + " " + second.getCourseReqDesc();
+            break;
+        case OR:
+        default:
+            this.courseReqDesc = first.getCourseReqDesc() + " "
+                + LogicalConnector.OR + " " + second.getCourseReqDesc();
+        }
+        this.first = first;
+        this.second = second;
+        this.connector = connector;
+        this.courseReqType = courseReqType;
+    }
+
+    /**
+     * Private constructor for a {@code CompositeRequirement}
+     * allows to set name and courseReq desc;
+     * @param first first requirement to check
+     * @param second second requirement to check
+     * @param connector logical connector to combine (either AND or OR);
+     */
+    private CompositeRequirement(String courseReqName, String courseReqDesc,
+                                 CourseRequirement first, CourseRequirement second,
+                                 LogicalConnector connector, CourseReqType courseReqType) {
+        requireAllNonNull(first, second, connector, courseReqType);
+        this.courseReqName = courseReqName;
+        this.courseReqDesc = courseReqDesc;
         this.first = first;
         this.second = second;
         this.connector = connector;
@@ -45,18 +79,12 @@ public class CompositeRequirement implements CourseRequirement {
 
     @Override
     public String getCourseReqName() {
-        return first.getCourseReqName();
+        return courseReqName;
     }
 
     @Override
     public String getCourseReqDesc() {
-        switch(connector) {
-        case AND:
-            return "(" + first.getCourseReqDesc() + ") AND (" + second.getCourseReqDesc() + ")";
-        case OR:
-        default:
-            return "(" + first.getCourseReqDesc() + ") OR (" + second.getCourseReqDesc() + ")";
-        }
+        return courseReqDesc;
     }
 
     @Override
@@ -93,6 +121,8 @@ public class CompositeRequirement implements CourseRequirement {
                     second.getFulfilledPercentage(moduleInfoCode));
         case AND:
         default:
+            //TODO: "AND" does not reveal the true rate of completion.
+            // Perhaps use some method to get aggregate min to Satisfy
             return (first.getFulfilledPercentage(moduleInfoCode) + second.getFulfilledPercentage(moduleInfoCode)) / 2.0;
         }
     }
@@ -106,14 +136,29 @@ public class CompositeRequirement implements CourseRequirement {
 
     @Override
     public CourseRequirement and(CourseRequirement other) {
-        return new CompositeRequirement(this, other, LogicalConnector.AND, this.courseReqType);
+        switch (connector) {
+        case AND:
+            return new CompositeRequirement(courseReqName, courseReqDesc + " " + connector + " "
+                + other.getCourseReqDesc(), this, other, connector, courseReqType);
+        case OR:
+        default:
+            return new CompositeRequirement(courseReqName, "(" + courseReqDesc + ") " + connector + " "
+                    + other.getCourseReqDesc(), this, other, connector, courseReqType);
+        }
     }
 
     @Override
     public CourseRequirement or(CourseRequirement other) {
-        return new CompositeRequirement(this, other, LogicalConnector.AND, this.courseReqType);
+        switch (connector) {
+        case OR:
+            return new CompositeRequirement(courseReqName, courseReqDesc + " " + connector + " "
+                + other.getCourseReqDesc(), this, other, connector, courseReqType);
+        case AND:
+        default:
+            return new CompositeRequirement(courseReqName, "(" + courseReqDesc + ") " + connector + " "
+                + other.getCourseReqDesc(), this, other, connector, courseReqType);
+        }
     }
-
 
     public CourseRequirement getFirst() {
         return first;

@@ -26,4 +26,16 @@ public class CourseDescription {
         return courseDescription;
     }
 
+    @Override
+    public boolean equals(Object another) {
+        if (this == another) {
+            return true;
+        }
+        if (another instanceof CourseDescription) {
+            return this.courseDescription.equals(((CourseDescription) another).toString());
+        } else {
+            return false;
+        }
+    }
+
 }

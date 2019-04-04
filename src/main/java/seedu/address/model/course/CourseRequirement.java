@@ -42,7 +42,8 @@ public interface CourseRequirement {
     boolean canFulfill(ModuleInfoCode moduleInfoCode);
 
     /**
-     * Returns a percentage (in the range of [0,1]) of the degree of completion of the course requirement
+     * Returns an estimate of the percentage (against min number of modules to satisfy, in the range of [0,1])
+     * of the degree of completion of the course requirement.
      * @param moduleInfoCodes module codes to check degree of completion of course requirement
      * @return a double in the range of [0, 1]
      */

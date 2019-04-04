@@ -2,6 +2,7 @@ package seedu.equipment.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -58,6 +59,11 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
      */
     public void setEquipment(List<Equipment> equipment) {
         this.equipment.setEquipments(equipment);
+        List<Name> nameList = new ArrayList<>();
+        for (Equipment eqpt : equipment) {
+            nameList.add(eqpt.getName());
+        }
+        this.name.setClient(nameList);
         indicateModified();
     }
 
@@ -94,6 +100,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
      */
     public void addPerson(Equipment p) {
         equipment.add(p);
+        name.add(p.getName());
         indicateModified();
     }
 
@@ -136,6 +143,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
         requireNonNull(editedEquipment);
 
         equipment.setEquipment(target, editedEquipment);
+        name.setClient(target.getName(), editedEquipment.getName());
         indicateModified();
     }
 
@@ -157,6 +165,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
      */
     public void removePerson(Equipment key) {
         equipment.remove(key);
+        name.remove(key.getName());
         indicateModified();
     }
 
@@ -180,6 +189,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
         requireNonNull(editedEquipment);
 
         equipment.setEquipment(target, editedEquipment);
+        name.setClient(target.getName(), editedEquipment.getName());
     }
 
     /**

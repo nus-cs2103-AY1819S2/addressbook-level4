@@ -224,6 +224,7 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredClient.setPredicate(predicate);
     }
+
     //=========== Undo/Redo =================================================================================
 
     @Override

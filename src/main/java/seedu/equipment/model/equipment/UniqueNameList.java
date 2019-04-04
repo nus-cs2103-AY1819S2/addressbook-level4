@@ -75,6 +75,17 @@ public class UniqueNameList implements Iterable<Name> {
     }
 
     /**
+     * Removes the equivalent client name from the list.
+     * The equipment must exist in the list.
+     */
+    public void remove(Name toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new EquipmentNotFoundException();
+        }
+    }
+
+    /**
      * Replaces the contents of this list with {@code equipment}.
      * {@code equipment} must not contain duplicate equipment.
      */

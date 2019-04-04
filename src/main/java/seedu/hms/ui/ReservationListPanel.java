@@ -1,6 +1,5 @@
 package seedu.hms.ui;
 
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_ROOM;
 
 import java.util.Objects;
@@ -17,7 +16,6 @@ import seedu.hms.commons.core.LogsCenter;
 import seedu.hms.logic.commands.FindReservationCommand;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.logic.parser.exceptions.ParseException;
-import seedu.hms.model.customer.Customer;
 import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.RoomType;
 
@@ -36,7 +34,7 @@ public class ReservationListPanel extends UiPart<Region> {
     public ReservationListPanel(ObservableList<Reservation> reservationList,
                                 ObservableValue<Reservation> selectedReservation,
                                 Consumer<Reservation> onSelectedReservationChange,
-                                ObservableValue<Customer> selectedCustomer,
+                                //ObservableValue<Customer> selectedCustomer,
                                 ObservableValue<RoomType> selectedRoomType,
                                 CommandBox.CommandExecutor commandExecutor) {
         super(FXML);
@@ -63,19 +61,19 @@ public class ReservationListPanel extends UiPart<Region> {
                 reservationListView.getSelectionModel().clearAndSelect(index);
             }
         });
-        selectedCustomer.addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selected customer changed to: " + newValue);
+        //selectedCustomer.addListener((observable, oldValue, newValue) -> {
+        //    logger.fine("Selected customer changed to: " + newValue);
 
 
-            if (newValue != null) {
-                try {
-                    commandExecutor.execute(FindReservationCommand.COMMAND_WORD
-                            + " " + PREFIX_IDENTIFICATION_NUMBER + newValue.getIdNum().toString());
-                } catch (CommandException | ParseException e) {
-                    return;
-                }
-            }
-        });
+        //    if (newValue != null) {
+        //        try {
+        //            commandExecutor.execute(FindReservationCommand.COMMAND_WORD
+        //                    + " " + PREFIX_IDENTIFICATION_NUMBER + newValue.getIdNum().toString());
+        //        } catch (CommandException | ParseException e) {
+        //            return;
+        //        }
+        //    }
+        //});
         selectedRoomType.addListener((observable, oldValue, newValue) -> {
             logger.fine("Selected roomType changed to: " + newValue);
 

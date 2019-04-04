@@ -80,12 +80,6 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredPersonList().remove(0);
-    }
-
-    @Test
     public void setBattleState_nullState_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.setBattleState(null);
@@ -117,9 +111,6 @@ public class ModelManagerTest {
 
         // different types -> returns false
         assertFalse(modelManager.equals(5));
-
-        // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

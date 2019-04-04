@@ -174,22 +174,6 @@ public class ModelManager implements Model {
     public PlayerStatistics getPlayerStats() {
         return this.playerStats;
     }
-    //=========== Filtered Cell List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Cell} backed by the internal list of
-     * {@code mapGrid}
-     */
-    @Override
-    public ObservableList<Cell> getFilteredPersonList() {
-        return filteredCells;
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Cell> predicate) {
-        requireNonNull(predicate);
-        filteredCells.setPredicate(predicate);
-    }
 
     //=========== Selected cell ===========================================================================
 

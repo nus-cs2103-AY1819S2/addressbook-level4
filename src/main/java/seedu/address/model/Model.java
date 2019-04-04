@@ -88,15 +88,6 @@ public interface Model {
     /** Returns the MapGrid */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Returns an unmodifiable view of the filtered cell list */
-    ObservableList<Cell> getFilteredPersonList();
-
-    /**
-     * Updates the filter of the filtered cell list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonList(Predicate<Cell> predicate);
-
     /**
      * Returns the map size
      */

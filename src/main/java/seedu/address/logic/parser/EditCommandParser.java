@@ -71,10 +71,6 @@ public class EditCommandParser implements Parser<EditCommand> {
                     .getValue(PREFIX_OPENING_HOURS).get()));
         }
 
-        if (!editRestaurantDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
-        }
-
         if (argMultimap.getValue(PREFIX_WEBLINK).isPresent()) {
             try {
                 editRestaurantDescriptor.setWeblink(ParserUtil.parseWeblink(argMultimap
@@ -83,6 +79,11 @@ public class EditCommandParser implements Parser<EditCommand> {
                 return new EditCommand(index, editRestaurantDescriptor, Messages.MESSAGE_EDIT_NO_INTERNET);
             }
         }
+
+        if (!editRestaurantDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+        }
+
         return new EditCommand(index, editRestaurantDescriptor);
     }
 

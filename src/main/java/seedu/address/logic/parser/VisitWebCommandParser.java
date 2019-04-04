@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.NoInternetException;
 import seedu.address.logic.commands.VisitWebCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.restaurant.Weblink;
@@ -39,7 +40,12 @@ public class VisitWebCommandParser implements Parser<VisitWebCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     private VisitWebCommand parseUrl(String args) throws ParseException {
-        Weblink weblink = ParserUtil.parseWeblink(args);
+        Weblink weblink;
+        try {
+            weblink = ParserUtil.parseWeblink(args);
+        } catch (NoInternetException e) {
+            throw new ParseException(e.getMessage());
+        }
         return new VisitWebCommand(weblink);
     }
 }

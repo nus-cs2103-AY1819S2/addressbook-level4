@@ -16,7 +16,7 @@ import seedu.address.model.UserPrefs;
 /**
  * Contains integration tests (interaction with the Model) and unit tests for PatientListCommand.
  */
-public class ListCommandTest {
+public class PatientListCommandTest {
 
     private Model model;
     private Model expectedModel;

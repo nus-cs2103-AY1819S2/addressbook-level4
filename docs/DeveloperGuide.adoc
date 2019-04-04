@@ -457,6 +457,17 @@ Users can check if their expected grades and workload per semester falls within 
 A class `LimitChecker` handles the computation of CAP and total workload of the semesters and generates a table in HTML with the information computed.
 //end::semesterlimits[]
 
+// tag::semestertracking[]
+=== Current Semester Tracking
+
+==== Current Implementation
+Modules taken before the current semester must have a finalized grade such that
+
+when the user tries to shift the current semester forward, the app will check through all the modules taken before the current semester to ensure that the maximum and minimum expected grades are set to be the same.
+or else the `cursem` command will fail and be rejected with an error message
+
+//end::semestertracking[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

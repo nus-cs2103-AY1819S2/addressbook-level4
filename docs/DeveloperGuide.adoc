@@ -644,7 +644,6 @@ The reminder is in the form of an `AlertDialog` and is scheduled to show on the 
 The alert only pop ups when the application is running in the background.
 // end::setreminder[]
 
-// tag::autocomplete[]
 
 === Get Statistics Feature
 
@@ -661,6 +660,7 @@ an error message will be shown: `Conditions and their related occurrences are no
 
 image::empty_statistics.PNG[]
 
+// tag::autocomplete[]
 === Autocomplete Feature for CommandBox
 The UI component, `CommandBox`, comes with a `TextField` component in AB4. For Health Hub, the `TextField` is replaced
 with an `AutoCompleteTextField` class that extends from the parent class, `TextField`.

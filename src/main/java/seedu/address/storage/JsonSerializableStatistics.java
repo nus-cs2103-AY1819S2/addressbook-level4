@@ -69,18 +69,15 @@ class JsonSerializableStatistics {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-//    public MapGrid toModelType() throws IllegalValueException {
-//        MapGrid mapGrid = new MapGrid();
-//        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-//            Cell cell = jsonAdaptedPerson.toModelType();
-//            /**
-//             if (mapGrid.hasPerson(cell)) {
-//             throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
-//             }
-//             */
-//            mapGrid.addPerson(cell);
-//        }
-//        return mapGrid;
-//    }
+    public PlayerStatistics toModelType() throws IllegalValueException {
+        PlayerStatistics playerStats = new PlayerStatistics();
+        playerStats.setHitCount(Integer.parseInt(this.hitCount));
+        playerStats.setMissCount(Integer.parseInt(this.missCount));
+        playerStats.setMovesMade(Integer.parseInt(this.movesMade));
+        playerStats.setEnemyShipsDestroyed(Integer.parseInt(this.enemyShipsDestroyed));
+        playerStats.setAttackCount(Integer.parseInt(this.attackCount));
+        // add back into this playerStats obj
+        return playerStats;
+    }
 
 }

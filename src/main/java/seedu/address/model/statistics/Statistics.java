@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.battle.AttackResult;
 import seedu.address.storage.Storage;
 
@@ -117,6 +118,26 @@ public abstract class Statistics {
         return (double) hitCount / (double) (hitCount + missCount);
     }
 
+    public void setHitCount(int num) {
+        this.hitCount = num;
+    }
+
+    public void setMissCount(int num) {
+        this.missCount = num;
+    }
+
+    public void setMovesMade(int num) {
+        this.movesMade = num;
+    }
+
+    public void setEnemyShipsDestroyed(int num) {
+        this.enemyShipsDestroyed = num;
+    }
+
+    public void setAttackCount(int num) {
+        this.attackCount = num;
+    }
+
     /**
      * extracts the result from AttackResult string and add to stats.
      * @param res , the result of the attack made.
@@ -159,15 +180,21 @@ public abstract class Statistics {
         return dataSeries1;
     }
 
+    public Storage getStorage() {
+        return this.storage;
+    }
     // method
     public void saveToStorage(PlayerStatistics statisticsData) throws IOException {
         System.out.println("SaveStatisticsData");
         this.storage.saveStatisticsData(statisticsData);
-        //storage.saveStatistics
-        // This method will pass this PlayerStats object into Storage
-        // Then from Storage, it will deconstruct to be serializable.
-        // Then it will save to json
     }
+
+//    public PlayerStatistics readFromStorage() throws IOException, DataConversionException {
+//        System.out.println("ReadStatisticsData");
+//        try {
+//            PlayerStatistics playerStats = this.storage.readStatisticsData();
+//        }
+//    }
 
     public void setStorage(Storage storage) {
         logger.info("Set Storage Location for Statistics");

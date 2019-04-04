@@ -17,8 +17,12 @@ public interface StatisticsStorage {
 
     Path getStatisticsFilePath();
 
+
     void saveStatisticsData(PlayerStatistics statisticsData) throws IOException;
     void saveStatisticsData(PlayerStatistics statisticsData, Path filePath) throws IOException;
+
+    Optional<PlayerStatistics> readStatisticsData() throws DataConversionException, IOException;
+    Optional<PlayerStatistics> readStatisticsData(Path filePath) throws DataConversionException, IOException;
 //    /**
 //     * Returns MapGrid data as a {@link ReadOnlyAddressBook}.
 //     *   Returns {@code Optional.empty()} if storage file is not found.

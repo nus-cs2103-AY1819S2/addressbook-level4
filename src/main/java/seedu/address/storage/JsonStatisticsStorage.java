@@ -38,10 +38,10 @@ public class JsonStatisticsStorage implements StatisticsStorage {
         return filePath;
     }
 
-//    @Override
-//    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException {
-//        return readAddressBook(filePath);
-//    }
+    @Override
+    public Optional<PlayerStatistics> readStatisticsData() throws DataConversionException, IOException {
+        return readStatisticsData(filePath);
+    }
 //
 //    /**
 //     * Similar to {@link #readAddressBook()}.
@@ -49,22 +49,23 @@ public class JsonStatisticsStorage implements StatisticsStorage {
 //     * @param filePath location of the data. Cannot be null.
 //     * @throws DataConversionException if the file is not in the correct format.
 //     */
-//    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException {
-//        requireNonNull(filePath);
-//
-//        Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
-//                filePath, JsonSerializableAddressBook.class);
-//        if (!jsonAddressBook.isPresent()) {
-//            return Optional.empty();
-//        }
-//
-//        try {
-//            return Optional.of(jsonAddressBook.get().toModelType());
-//        } catch (IllegalValueException ive) {
-//            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-//            throw new DataConversionException(ive);
-//        }
-//    }
+    public Optional<PlayerStatistics> readStatisticsData(Path filePath) throws DataConversionException, IOException {
+        requireNonNull(filePath);
+
+        Optional<JsonSerializableStatistics> jsonStatisticsData = JsonUtil.readJsonFile(
+                filePath, JsonSerializableStatistics.class);
+        if (!jsonStatisticsData.isPresent()) {
+            return Optional.empty();
+        }
+
+        try {
+        System.out.println("Reading Statistics");
+            return Optional.of(jsonStatisticsData.get().toModelType());
+        } catch (IllegalValueException ive) {
+            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+            throw new DataConversionException(ive);
+        }
+    }
 
     @Override
     public void saveStatisticsData(PlayerStatistics statisticsData) throws IOException {

@@ -94,6 +94,18 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to save statistics to file: " + filePath);
         statisticsStorage.saveStatisticsData(statisticsData, filePath);
     }
+
+    @Override
+    public Optional<PlayerStatistics> readStatisticsData() throws DataConversionException, IOException {
+        return readStatisticsData(statisticsStorage.getStatisticsFilePath());
+    }
+
+    @Override
+    public Optional<PlayerStatistics> readStatisticsData(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return statisticsStorage.readStatisticsData(filePath);
+    }
+
     /**
      * Saves the ReadOnlyAddressBook locally in a fixed temporary location.
      *

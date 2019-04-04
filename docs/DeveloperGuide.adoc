@@ -220,33 +220,168 @@ This section describes some noteworthy details on how certain features are imple
 The `add`, `edit` and `delete` command have been tweaked from the original AB4
  to include addition of and `Request` and `HealthWorker`.
 
-==== Additional Implementation from v1.1
-
-* `CommandMode` Enum class was introduced in v1.1 to allow for `add`, `edit`
+`CommandMode` Enum class was introduced in v1.1 to allow for `add`, `edit`
 and `delete` different types of objects respective to the different
 `CommandMode` Enums. The various `CommandMode` enums are:
 ** `CommandMode.HEALTHWORKER`
 ** `CommandMode.REQUEST`
-** `CommandMode.PATIENT`
-** `CommandMode.OTHER`
 ** `CommandMode.INVALID`
 
-* Each of the `add`, `edit` and `delete` command is parsed through the
-`EditCommandParser`, `AddCommandParser` and `DeleteCommandParser` classes,
-where the `CommandMode` is parsed to return the appropriate type of `Command`
- class:
-** `AddCommand`
-** `EditCommand`
-** `DeleteCommand`
+Each `CommandMode` enum is matched by it's own corresponding set of keywords,
+ which are string equivalents of the enum counterparts that the user can
+ input to specify the type of object he/she wishes to add. For example:
 
-* Each of the `AddCommand` and `EditCommand` and `DeleteCommand` provides
-subclasses for each of the `Command` classes respective to
-`HealthWorker` and `Request` class which adds respective objects to
- `RequestBook` and `HealthWorkerBook` for storage, for example
-the subclasses for `AddCommand` for `Request` are as follows:
-** `AddRequestCommand`
-** `EditRequestCommand`
-** `DeleteRequestCommand`
+* The command string `add healthworker n/Dog Terr` that is entered by the
+user contains the keyword `healthworker` after the `add` command word, which
+is mapped to it's `CommandMode` equivalent in `AddCommandParser`.
+
+The `CommandMode` to keyword mappings are as follows:
+
+* `CommandMode.HEALTHWORKER` : 'healthworker', 'h', '1'
+* `CommandMode.REQUEST` : 'request', 'r', '2'
+
+These `CommandModes` provide flexbility and functionality to switch between
+ parsing of different `HealthWorker` and `Request` objects.
+
+* Each of the `add`, `edit` and `delete` command is eventually parsed through
+ the `AddCommandParser`, `EditCommandParser` and `DeleteCommandParser`
+ classes respectively, which returns an `AddCommand`, `EditCommand` and
+ `DeleteCommand` object respectively.
+
+==== Add feature
+
+The `add` command allows for users to register new `HealthWorker` and
+`Request` objects into HealtHub.
+
+The format for the `add` command is as follows:
+
+`add <keyword> <parameters>...` +
+
+When the user inputs an `add` command, the `add` command is eventually passed
+ into an `AddCommandParser` object that handles the argument fields after the
+  `add` keyword in the command.
+
+The `AddCommandParser` first checks the first keyword in the string for a valid
+`CommandMode` string equivalent. if the keyword does not contains a valid
+string representation of any `CommandMode` enum, then a `ParseException` is
+thrown by the `AddCommandParser`. This initial sequence of steps is also
+repeated in the following `EditCommandParser` and `DeleteCommandParser` objects.
+
+After checking for valid keyword, the `AddCommandParser` object checks for
+the following compulsory information, along with regular expressions checking
+ for validity of each field:
+
+*`HealthWorker` fields*:
+
+* `name` field prepended by the `n/` prefix. Valid inputs of `name` field
+will be represented and stored as a `Name` class object.
+** `name` field can only contain alphanumeric characters, and cannot be an
+empty string.
+* `phone` field prepended by the `p/` prefix. Valid inputs of `phone` field
+will be represented and stored as a `phone` class object.
+** `phone` contains only 8 numeric digits, of which the first must start with
+ a 6,8 or 9.
+* `nric` field prepended by the `i/` prefix. Valid inputs of `nric` field will
+be represented and stored as a `Nric` class object.
+** `nric` field must contains a 9 character string, starting with either a S
+or T, followed by 7 numeric digits and a alphabet letter. All letters used
+must be capitalized
+* `organization` field prepended by the `o/` prefix. Valid inputs of
+`organization` field will be represented and stored as a `Organization` class
+object.
+** The `organization` field must contain only alpha numeric characters, and
+contain at least 2 characters.
+* `specialisation` field prepended by the `s/` prefix. All valid
+`specialisation` fields will be parsed into it's respective `Specialisation`
+enum equivalent, collected and stored as a `Set<Specialisation>` in the
+`Skills` class object.
+** The values in  the `specialisation` field will be only be accepted if
+they correspond to specific mappings to an existing `Specialisation` enum that
+are registered in HealthHub. For information on the valid Specialisation
+mappings, visit <appendix for Specialisation num>
+
+`AddCommandParser` first checks for the presence of the prefixes for each of
+the compulsory fields mentioned above. If any of them are missing, or if any
+invalid fields as per the conditions mentioned above, then the
+command is invalid and a `ParseException` is thrown.
+
+If the keyword denoted maps to `CommandMode.HEALTHWORKER`, then
+`AddCommandParser` constructs a `HealthWorker` object representing the health worker that is
+just added with the respective `Name`, `Phone`, `Nric`, `Organization` and
+`Skills` objects parsed from the user input, and returns an `AddCommand`
+contain the constructed person to be added.
+
+[NOTE]
+====
+If multiple fields of the same prefix are added, the last value of the last
+field will be the one accepted for all fields except the `specialisation` field.
+====
+
+Upon a successful `add` command, the new `HealthWorker` or `Request`
+constructed from the user entered fields will be added to the end of the `UniqueHealthWorkerList`.
+
+==== Edit feature
+
+The `edit` command allows users to modify details of existing `HealthWorker`
+or `Request` objects should the information need to be updated.
+
+The format for the `edit` command is as follows:
+
+`edit <keyword> <parameter> [<parameter>]...` +
+
+Similar to the `add` command, the `edit` command arguments are first checked
+passed into the `EditCommandParser` class instance, where it evaluates for a
+valid first keyword and argument prefixes and values.
+
+The argument field after the first keyword denoting the specified
+`CommandMode` must not be empty, and must contain at least one valid prefix
+and a valid value for the respective field to be edited. THe prefixes and
+validity follows the same conditions as stated in the `add` command.
+
+[NOTE]
+=====
+Similar to the `add` command, only the last value will be accepted for fields
+ with the same prefixes.
+
+If any `specialisation` fields are entered, the current `Skills` object of
+the `HealthWorker` object being edited will be entirely replaced by a new
+`Set` of `Specialisation` that corresponds to valid `specialisation` fields
+enteed by the user.
+=====
+
+Upon a successful `edit` command, the `HealthWorker` or `Request` object that
+ has had it's fields edited will immediately reflect the changes in details on
+  the GUI.
+
+==== Delete feature
+
+Using the `delete` command, the user can remove `HealthWorker` and `Request`
+objects from the system.
+
+The format for the `delete` command is as follows:
+
+`delete <keyword> <index>` +
+
+The `delete` command takes in only two arguments after the `delete` command
+word: the `<keyword>` corresponding to the respective `CommandMode` enum, as
+well as the `<index>` of the `HealthWorker` or `Request` object to be
+deleted, as indicated in the `UniqueHealthWorkerList` or `UniqueRequestList`
+displayed in the GUI.
+
+The `<index>` entered by the user is one-based, while it is converted to it's
+ zero-based format in HealthHub during the deletion process. This ensures
+ that non-technical people who use HealthHub do not need to adjust to
+ zero-based indexing, and can continue using one-based indexing which they
+ are more familiar with.
+
+If the user enters an invalid `<index>` field, such as a negative index or an
+ index that is greater than the size of the `UniqueHealthWorkerList` or
+ `UniqueRequestList`, then a `ParseException` will be thrown, and an error
+ message will be displayed to the user.
+
+Upon successful `delete` of a valid `HealthWorker` or `Request`, the removed
+entity will be immediately reflected on the GUI, and be removed from view.
+
 
 === Select Request feature
 

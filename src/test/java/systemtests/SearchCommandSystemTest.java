@@ -166,8 +166,8 @@ public class SearchCommandSystemTest extends TravelBuddySystemTest {
      * @see TravelBuddySystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
-        String expectedResultMessage = String.format(
-                MESSAGE_PLACES_LISTED_OVERVIEW, expectedModel.getFilteredPlaceList().size());
+        String expectedResultMessage = command.trim().concat(": ").concat(String.format(
+                MESSAGE_PLACES_LISTED_OVERVIEW, expectedModel.getFilteredPlaceList().size()));
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);

@@ -18,7 +18,7 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 My role in this Software Engineering project was to design and write the code for the `search` features. The following sections showcase, in greater detail, my contributions and enhancements added to TravelBuddy,
 as well as the documentation of these enhancements in the User Guide and Developer Guide.
 
-== Summary of contributions
+== Summary of Contributions
 
 * *Major enhancement*: added *the ability to perform search by name, rating, tags, country and year* on the places in TravelBuddy
 ** What it does: allows the user to search TravelBuddy for places whose requested field (name, rating, tags, country or year) matches the user input.
@@ -38,15 +38,15 @@ An in-depth analysis of design alternatives in keyword matching as well as the d
 *** Helped to streamline issue tracking using milestone labels and assignees on Github.
 *** Added user stories to help with implementation of features.
 ** Enhancements to existing features:
-*** Updated tests and wrote additional tests to convert people in address book to places in TravelBuddy: https://github.com/cs2103-ay1819s2-w11-3/main/pull/50[#50]
+*** Updated tests and wrote additional tests to convert people in address book to places in TravelBuddy and improve coverage: https://github.com/cs2103-ay1819s2-w11-3/main/pull/50[#50], https://github.com/CS2103-AY1819S2-W11-3/main/pull/115[#115]
 ** Documentation:
 *** Updated AboutUs with the responsbilities of team members: https://github.com/cs2103-ay1819s2-w11-3/main/pull/12[#12]
 *** Updated the User Guide with features I added and FAQ section: https://github.com/cs2103-ay1819s2-w11-3/main/pull/53[#53], https://github.com/cs2103-ay1819s2-w11-3/main/pull/63[#63], https://github.com/cs2103-ay1819s2-w11-3/main/pull/77[#77], https://github.com/cs2103-ay1819s2-w11-3/main/pull/85[#85]
 *** Updated the User Guide with a command cheatsheet: https://github.com/cs2103-ay1819s2-w11-3/main/pull/101[#101]
 *** Updated the Developer Guide with features I added and diagrams for illustration purposes: https://github.com/cs2103-ay1819s2-w11-3/main/pull/68[#68], https://github.com/cs2103-ay1819s2-w11-3/main/pull/85[#85], https://github.com/cs2103-ay1819s2-w11-3/main/pull/101[#101]
 ** Community:
-*** Review pull requests (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w11-3/main/pull/84[#84]
-*** Reported bugs and helped to fix bugs: https://github.com/cs2103-ay1819s2-w11-3/main/pull/82[#82]
+*** Reviewed pull requests (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w11-3/main/pull/84[#84]
+*** Reported bugs and helped to fix bugs: https://github.com/cs2103-ay1819s2-w11-3/main/pull/82[#82], https://github.com/CS2103-AY1819S2-W11-3/main/pull/118[#118]
 
 == Contributions to the User Guide
 

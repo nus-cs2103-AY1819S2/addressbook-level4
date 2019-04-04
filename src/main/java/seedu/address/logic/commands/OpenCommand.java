@@ -50,8 +50,4 @@ public class OpenCommand extends Command {
         currentEdit.displayTempImage();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toOpen));
     }
-    @Override
-    public String toString() {
-        return COMMAND_WORD;
-    }
 }

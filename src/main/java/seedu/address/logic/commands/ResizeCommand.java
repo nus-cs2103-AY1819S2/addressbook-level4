@@ -33,6 +33,9 @@ public class ResizeCommand extends Command {
      * @param h is the height of the new image.
      */
     public ResizeCommand(int w, int h) {
+        setCommandName(COMMAND_WORD);
+        String argument = w + " : " + h;
+        setArguments(argument);
         width = w;
         height = h;
         this.isNewCommand = true;
@@ -60,10 +63,6 @@ public class ResizeCommand extends Command {
         }
 
         return new CommandResult(Messages.MESSAGE_RESIZE_SUCCESS);
-    }
-    @Override
-    public String toString() {
-        return COMMAND_WORD + " -> " + width + ": " + height;
     }
 }
 

@@ -30,7 +30,7 @@ public class InformationPanel extends UiPart<Region> implements PropertyChangeLi
 
     private final ListView<Image> imageListView = new ListView<>();
     private final ListView<String> metaListView = new ListView<>();
-    private final ListView<String> commandListView = new ListView<>();
+    private final ListView<Command> commandListView = new ListView<>();
     private final Tab albumTab = informationPanel.getTabs().get(0);
     private final Tab detailsTab = informationPanel.getTabs().get(1);
     private final Tab historyTab = informationPanel.getTabs().get(2);
@@ -58,6 +58,22 @@ public class InformationPanel extends UiPart<Region> implements PropertyChangeLi
                 setText(null);
             } else {
                 setGraphic(new ImageCard(image).getRoot());
+            }
+        }
+    }
+
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code Image} using a {@code ImageCard}.
+     */
+    class CommandListViewCell extends ListCell<Command> {
+        @Override
+        protected void updateItem(Command command, boolean empty) {
+            super.updateItem(command, empty);
+            if (empty || command == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(new CommandCard(command).getRoot());
             }
         }
     }
@@ -107,8 +123,8 @@ public class InformationPanel extends UiPart<Region> implements PropertyChangeLi
      */
     private void refreshHistory(PropertyChangeEvent event) {
         List<Command> commandList = (List<Command>) event.getNewValue();
-        List<String> commandListString = commandList.stream().map(x -> x.toString()).collect(Collectors.toList());
-        commandListView.setItems(FXCollections.observableArrayList(commandListString));
+        commandListView.setItems(FXCollections.observableArrayList(commandList));
+        commandListView.setCellFactory(listView -> new CommandListViewCell());
         historyTab.setContent(commandListView);
     }
 

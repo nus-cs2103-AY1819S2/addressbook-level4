@@ -43,9 +43,4 @@ public class ImportCommand extends Command {
         String returnString = isDirectory ? MESSAGE_DIR_SUCCESS : MESSAGE_SUCCESS;
         return new CommandResult(returnString);
     }
-
-    @Override
-    public String toString() {
-        return COMMAND_WORD;
-    }
 }

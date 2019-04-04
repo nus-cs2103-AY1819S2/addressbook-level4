@@ -44,6 +44,8 @@ public class AddCommand extends Command {
      * Creates an AddCommand to add the specified {@code Person}
      */
     public AddCommand(Person person) {
+        setCommandName(COMMAND_WORD);
+        setArguments("");
         requireNonNull(person);
         toAdd = person;
     }
@@ -67,10 +69,5 @@ public class AddCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof AddCommand // instanceof handles nulls
                 && toAdd.equals(((AddCommand) other).toAdd));
-    }
-
-    @Override
-    public String toString() {
-        return COMMAND_WORD;
     }
 }

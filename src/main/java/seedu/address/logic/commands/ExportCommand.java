@@ -57,9 +57,4 @@ public class ExportCommand extends Command {
 
         return new CommandResult(Messages.MESSAGE_EXPORT_SUCCESS);
     }
-
-    @Override
-    public String toString() {
-        return COMMAND_WORD + " -> " + path;
-    }
 }

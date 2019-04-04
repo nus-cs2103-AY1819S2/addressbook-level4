@@ -35,6 +35,8 @@ public class BlackWhiteCommand extends Command {
      * @param threshold pixels lighter than this threshold becomes white and pixels darker than it becomes black.
      */
     public BlackWhiteCommand(OptionalInt threshold) {
+        setCommandName(COMMAND_WORD);
+        setArguments(String.valueOf(threshold.getAsInt()));
         this.threshold = threshold;
         this.isNewCommand = true;
     }
@@ -65,10 +67,5 @@ public class BlackWhiteCommand extends Command {
             currentEdit.displayTempImage();
         }
         return new CommandResult(Messages.MESSAGE_BLACKWHITE_SUCCESS);
-    }
-
-    @Override
-    public String toString() {
-        return COMMAND_WORD + " -> " + threshold.getAsInt();
     }
 }

@@ -227,8 +227,4 @@ public class EditCommand extends Command {
                     && getTags().equals(e.getTags());
         }
     }
-    @Override
-    public String toString() {
-        return COMMAND_WORD;
-    }
 }

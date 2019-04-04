@@ -53,8 +53,4 @@ public class SaveCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toName));
     }
-    @Override
-    public String toString() {
-        return COMMAND_WORD;
-    }
 }

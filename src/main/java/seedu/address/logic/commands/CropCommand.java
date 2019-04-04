@@ -30,6 +30,9 @@ public class CropCommand extends Command {
     private boolean isNewCommand;
 
     public CropCommand(int x, int y, int width, int height) {
+        setCommandName(COMMAND_WORD);
+        String argument = x + " : " + y + " : " + width + " : " + height;
+        setArguments(argument);
         xCoord = x;
         yCoord = y;
         this.width = width;
@@ -62,10 +65,5 @@ public class CropCommand extends Command {
             currentEdit.displayTempImage();
         }
         return new CommandResult(Messages.MESSAGE_CROP_SUCCESS);
-    }
-
-    @Override
-    public String toString() {
-        return COMMAND_WORD + " -> " + xCoord + " : " + yCoord + " : " + width + " : " + height;
     }
 }

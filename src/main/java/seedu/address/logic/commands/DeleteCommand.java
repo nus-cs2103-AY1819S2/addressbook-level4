@@ -29,6 +29,7 @@ public class DeleteCommand extends Command {
     private final Index targetIndex;
 
     public DeleteCommand(Index targetIndex) {
+        setCommandName(COMMAND_WORD);
         this.targetIndex = targetIndex;
     }
 
@@ -53,9 +54,5 @@ public class DeleteCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
                 && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
-    }
-    @Override
-    public String toString() {
-        return COMMAND_WORD;
     }
 }

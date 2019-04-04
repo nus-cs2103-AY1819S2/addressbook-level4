@@ -24,8 +24,4 @@ public class TabCommand extends Command {
         album.switchTab();
         return new CommandResult(MESSAGE_TAB_SUCCESS);
     }
-    @Override
-    public String toString() {
-        return COMMAND_WORD;
-    }
 }

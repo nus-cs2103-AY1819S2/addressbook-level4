@@ -35,6 +35,8 @@ public class BrightnessCommand extends Command {
      * @param brightnessValue brightness value to add on image
      */
     public BrightnessCommand(OptionalDouble brightnessValue) {
+        setCommandName(COMMAND_WORD);
+        setArguments(String.valueOf(brightnessValue.getAsDouble()));
         this.brightnessValue = brightnessValue;
         this.isNewCommand = true;
     }
@@ -64,10 +66,4 @@ public class BrightnessCommand extends Command {
         }
         return new CommandResult(Messages.MESSAGE_BRIGHTNESS_SUCCESS);
     }
-
-    @Override
-    public String toString() {
-        return COMMAND_WORD + " -> " + brightnessValue.getAsDouble();
-    }
-
 }

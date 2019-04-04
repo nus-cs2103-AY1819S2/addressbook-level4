@@ -58,8 +58,4 @@ public class RedoCommand extends Command {
 
         return new CommandResult(MESSAGE_SUCCESS);
     }
-    @Override
-    public String toString() {
-        return COMMAND_WORD;
-    }
 }

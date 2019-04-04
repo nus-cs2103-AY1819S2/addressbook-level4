@@ -37,6 +37,8 @@ public class ContrastCommand extends Command {
      * @param contrastValue contrast value to put on image
      */
     public ContrastCommand(OptionalDouble contrastValue) {
+        setCommandName(COMMAND_WORD);
+        setArguments(String.valueOf(contrastValue.getAsDouble()));
         this.contrastValue = contrastValue;
         this.isNewCommand = true;
     }
@@ -67,9 +69,5 @@ public class ContrastCommand extends Command {
             currentEdit.displayTempImage();
         }
         return new CommandResult(Messages.MESSAGE_CONTRAST_SUCCESS);
-    }
-
-    public String toString() {
-        return COMMAND_WORD + contrastValue.getAsDouble();
     }
 }

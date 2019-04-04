@@ -30,9 +30,4 @@ public class HistoryCommand extends Command {
         Collections.reverse(previousCommands);
         return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", previousCommands)));
     }
-
-    @Override
-    public String toString() {
-        return COMMAND_WORD;
-    }
 }

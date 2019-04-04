@@ -20,9 +20,4 @@ public class HelpCommand extends Command {
     public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history) {
         return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
     }
-
-    @Override
-    public String toString() {
-        return COMMAND_WORD;
-    }
 }

@@ -1,6 +1,5 @@
 package seedu.hms.ui;
 
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_SERVICE;
 
 import java.util.Objects;
@@ -19,7 +18,6 @@ import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.ServiceType;
-import seedu.hms.model.customer.Customer;
 
 /**
  * Panel containing the list of bookings.
@@ -34,7 +32,7 @@ public class BookingListPanel extends UiPart<Region> {
     public BookingListPanel(ObservableList<Booking> bookingList,
                             ObservableValue<Booking> selectedBooking,
                             Consumer<Booking> onSelectedBookingChange,
-                            ObservableValue<Customer> selectedCustomer,
+                            //ObservableValue<Customer> selectedCustomer,
                             ObservableValue<ServiceType> selectedServiceType,
                             CommandBox.CommandExecutor commandExecutor) {
         super(FXML);
@@ -61,19 +59,19 @@ public class BookingListPanel extends UiPart<Region> {
                 bookingListView.getSelectionModel().clearAndSelect(index);
             }
         });
-        selectedCustomer.addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selected customer changed to: " + newValue);
+        //selectedCustomer.addListener((observable, oldValue, newValue) -> {
+        //    logger.fine("Selected customer changed to: " + newValue);
 
 
-            if (newValue != null) {
-                try {
-                    commandExecutor.execute(FindBookingCommand.COMMAND_WORD
-                            + " " + PREFIX_IDENTIFICATION_NUMBER + newValue.getIdNum().toString());
-                } catch (CommandException | ParseException e) {
-                    return;
-                }
-            }
-        });
+        //    if (newValue != null) {
+        //        try {
+        //            commandExecutor.execute(FindBookingCommand.COMMAND_WORD
+        //                    + " " + PREFIX_IDENTIFICATION_NUMBER + newValue.getIdNum().toString());
+        //        } catch (CommandException | ParseException e) {
+        //            return;
+        //        }
+        //    }
+        //});
         selectedServiceType.addListener((observable, oldValue, newValue) -> {
             logger.fine("Selected serviceType changed to: " + newValue);
 

@@ -14,8 +14,6 @@ import seedu.hms.logic.commands.BookingCommand;
 import seedu.hms.logic.commands.Command;
 import seedu.hms.logic.commands.CommandResult;
 import seedu.hms.logic.commands.CustomerCommand;
-import seedu.hms.logic.commands.FindBookingCommand;
-import seedu.hms.logic.commands.FindReservationCommand;
 import seedu.hms.logic.commands.ReservationCommand;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.logic.parser.HotelManagementSystemParser;
@@ -83,16 +81,12 @@ public class LogicManager implements Logic {
                 commandResult = command.execute(customerModel, history);
             } else if (command instanceof ReservationCommand) {
                 commandResult = command.execute(reservationModel, history);
-                if (!(command instanceof FindReservationCommand)) {
-                    setSelectedPanelOneTabIndex(1);
-                    setSelectedPanelTwoTabIndex(1);
-                }
+                setSelectedPanelOneTabIndex(1);
+                setSelectedPanelTwoTabIndex(1);
             } else if (command instanceof BookingCommand) {
                 commandResult = command.execute(bookingModel, history);
-                if (!(command instanceof FindBookingCommand)) {
-                    setSelectedPanelOneTabIndex(0);
-                    setSelectedPanelTwoTabIndex(0);
-                }
+                setSelectedPanelOneTabIndex(0);
+                setSelectedPanelTwoTabIndex(0);
             } else if (command instanceof BillCommand) {
                 commandResult = command.execute(billModel, history);
                 setSelectedPanelOneTabIndex(2);

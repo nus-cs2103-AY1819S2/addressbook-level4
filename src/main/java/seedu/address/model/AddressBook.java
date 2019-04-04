@@ -134,11 +134,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Retrieves UniquePersonList from job
+     * Retrieves a job in the addressbook
      */
-    public UniquePersonList getJobPersonList(JobName jobName, int listNumber) {
-        Job job = jobs.getJob(jobName);
-        return job.getPeople(listNumber);
+    public Job getJob(JobName jobName) {
+        return jobs.getJob(jobName);
     }
 
     /**

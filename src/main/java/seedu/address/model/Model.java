@@ -122,7 +122,12 @@ public interface Model {
     /**
      * Returns one of the UniquePersonList in the job
      */
-    UniquePersonList getJobList(JobName name, int listNumber);
+    UniquePersonList getJobList(JobName name, Integer listNumber);
+
+    /**
+     * Returns the job and makes it the active job
+     */
+    Job getJob(JobName name);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();

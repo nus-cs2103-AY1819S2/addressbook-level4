@@ -276,7 +276,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public UniquePersonList getJobList(JobName name, int listNumber) {
+        public UniquePersonList getJobList(JobName name, Integer listNumber) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -287,6 +287,11 @@ public class AddCommandTest {
 
         @Override
         public void deleteJob(Job job) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Job getJob(JobName name) {
             throw new AssertionError("This method should not be called.");
         }
     }

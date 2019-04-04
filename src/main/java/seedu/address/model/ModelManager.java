@@ -34,9 +34,15 @@ public class ModelManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final UserPrefs userPrefs;
-    private FilteredList<Person> filteredPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
-    private FilteredList<Person> variableFilteredPersons;
+    private FilteredList<Person> originalFilteredPersons;
+    private FilteredList<Person> displayedFilteredPersons;
+    private Job activeJob;
+    private FilteredList<Person> activeJobAllApplcants;
+    private FilteredList<Person> activeJobKiv;
+    private FilteredList<Person> activeJobInterview;
+    private FilteredList<Person> activeJobShortlist;
+
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -49,9 +55,9 @@ public class ModelManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        filteredPersons.addListener(this::ensureSelectedPersonIsValid);
-        this.variableFilteredPersons = filteredPersons;
+        originalFilteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        originalFilteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        displayedFilteredPersons = originalFilteredPersons;
     }
 
     public ModelManager() {
@@ -120,8 +126,7 @@ public class ModelManager implements Model {
     @Override
     public void addFilteredPersonsToJob(JobName jobName) {
         requireNonNull(jobName);
-        versionedAddressBook.addFilteredListToJob(variableFilteredPersons, jobName);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        versionedAddressBook.addFilteredListToJob(displayedFilteredPersons, jobName);
     }
 
     @Override
@@ -167,8 +172,23 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public UniquePersonList getJobList(JobName name, int listNumber) {
-        return versionedAddressBook.getJobPersonList(name, listNumber);
+    public UniquePersonList getJobList(JobName name, Integer listNumber) {
+        Job job = getJob(name);
+        return job.getList(listNumber);
+    }
+
+    @Override
+    public Job getJob(JobName name) {
+        this.activeJob = versionedAddressBook.getJob(name);
+        this.activeJobAllApplcants =
+                new FilteredList<>(activeJob.getList(0).asUnmodifiableObservableList());
+        this.activeJobKiv =
+                new FilteredList<>(activeJob.getList(1).asUnmodifiableObservableList());
+        this.activeJobInterview =
+                new FilteredList<>(activeJob.getList(2).asUnmodifiableObservableList());
+        this.activeJobShortlist =
+                new FilteredList<>(activeJob.getList(3).asUnmodifiableObservableList());
+        return activeJob;
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -179,32 +199,31 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return variableFilteredPersons;
+        return displayedFilteredPersons;
     }
 
     @Override
     public void updateBaseFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        originalFilteredPersons.setPredicate(predicate);
     }
 
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
-        variableFilteredPersons.setPredicate(predicate);
+        displayedFilteredPersons.setPredicate(predicate);
     }
 
     @Override
     public void changeFilteredPersonList(UniquePersonList list) {
         requireNonNull(list);
 
-        FilteredList<Person> tempList = new FilteredList<>(list.asUnmodifiableObservableList());
-        this.variableFilteredPersons = tempList;
+        this.displayedFilteredPersons = new FilteredList<>(list.asUnmodifiableObservableList());
     }
 
     @Override
     public void revertList() {
-        this.variableFilteredPersons = filteredPersons;
+        this.displayedFilteredPersons = originalFilteredPersons;
     }
 
     //=========== Undo/Redo =================================================================================
@@ -248,7 +267,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setSelectedPerson(Person person) {
-        if (person != null && !filteredPersons.contains(person)) {
+        if (person != null && !displayedFilteredPersons.contains(person)) {
             throw new PersonNotFoundException();
         }
         selectedPerson.setValue(person);
@@ -332,7 +351,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
+                && originalFilteredPersons.equals(other.originalFilteredPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 

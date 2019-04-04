@@ -276,7 +276,7 @@ public class CreateJobCommandTest {
         }
 
         @Override
-        public UniquePersonList getJobList(JobName name, int listNumber) {
+        public UniquePersonList getJobList(JobName name, Integer listNumber) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -289,6 +289,12 @@ public class CreateJobCommandTest {
         public void deleteJob(Job job) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Job getJob(JobName name) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**
@@ -325,6 +331,25 @@ public class CreateJobCommandTest {
         public void addJob(Job job) {
             requireNonNull(job);
             jobsAdded.add(job);
+        }
+
+        @Override
+        public void updateFilteredPersonList(Predicate<Person> predicate) {
+            requireNonNull(predicate);
+        }
+        @Override
+        public void addFilteredPersonsToJob(JobName jobName) {
+            requireNonNull(jobName);
+        }
+
+        @Override
+        public void changeFilteredPersonList(UniquePersonList list) {
+            requireNonNull(list);
+        }
+
+        @Override
+        public UniquePersonList getJobList(JobName name, Integer listNumber) {
+            return jobsAdded.get(0).getList(0);
         }
 
         @Override

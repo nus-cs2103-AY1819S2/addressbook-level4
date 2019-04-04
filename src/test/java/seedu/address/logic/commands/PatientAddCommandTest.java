@@ -31,7 +31,7 @@ import seedu.address.model.task.Task;
 
 import seedu.address.testutil.PersonBuilder;
 
-public class AddCommandTest {
+public class PatientAddCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 

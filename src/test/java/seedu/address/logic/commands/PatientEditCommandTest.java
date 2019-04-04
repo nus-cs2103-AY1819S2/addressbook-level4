@@ -31,7 +31,7 @@ import seedu.address.testutil.PersonBuilder;
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for PatientEditCommand.
  */
-public class EditCommandTest {
+public class PatientEditCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();

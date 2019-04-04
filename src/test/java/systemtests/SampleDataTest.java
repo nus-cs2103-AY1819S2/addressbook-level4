@@ -42,10 +42,4 @@ public class SampleDataTest extends GradTrakSystemTest {
             throw new AssertionError(ioe);
         }
     }
-
-    @Test
-    public void addressBook_dataFileDoesNotExist_loadSampleData() {
-        ModuleTaken[] expectedList = SampleDataUtil.getSampleModulesTaken();
-        assertListMatching(getPersonListPanel(), expectedList);
-    }
 }

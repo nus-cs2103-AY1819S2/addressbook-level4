@@ -17,12 +17,14 @@ public class DateCustom implements DateBuilder, Comparable<DateCustom> {
                                                     + "Example date: 31-04-2019";
 
     public static final String MESSAGE_CONSTRAINTS_START_DATE = "Start Date should be a valid date "
-                                                               + "and should be in the format dd-mm-yyyy\n"
-                                                               + "Example date: 31-04-2019";
+                                                               + "and should be in the format dd-mm-yyyy. "
+                                                               + "You can also use the keyword today to use the"
+                                                               + "current date\n Example date: 31-04-2019";
 
     public static final String MESSAGE_CONSTRAINTS_END_DATE = "End Date should be a valid date "
                                                                 + "and should be in the format dd-mm-yyyy\n"
-                                                                + "Example date: 31-04-2019";
+                                                                + "You can also use the keyword today to use the"
+                                                                + "current date\n Example date: 31-04-2019";
 
     private final String storedDate;
 

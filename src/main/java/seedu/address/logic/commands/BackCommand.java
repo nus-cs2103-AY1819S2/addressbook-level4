@@ -26,6 +26,7 @@ public class BackCommand extends Command {
             alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
+                model.setSelectedRecord(null);
                 return new CommandResult(MESSAGE_BACK_ACKNOWLEDGEMENT, false, false, true);
             } else {
                 return new CommandResult(Messages.MESSAGE_NOTHING_DONE);

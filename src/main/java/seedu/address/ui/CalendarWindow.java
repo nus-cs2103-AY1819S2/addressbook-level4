@@ -183,6 +183,7 @@ public class CalendarWindow extends UiPart<Stage> {
      */
     public void createCalender(LocalDate localDate) {
         this.datePicker = new DatePicker(localDate);
+        datePicker.setShowWeekNumbers(false);
         datePicker.setDayCellFactory(new Callback<>() {
             @Override
             public DateCell call(DatePicker param) {

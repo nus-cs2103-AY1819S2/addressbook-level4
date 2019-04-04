@@ -49,6 +49,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
+    private PatientInfoPanel patientInfoPanel;
     private RecordListPanel recordListPanel;
     private PersonListPanel personListPanel;
     private TaskListPanel taskListPanel;
@@ -61,6 +62,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane browserPlaceholder;
+
+    @FXML
+    private StackPane patientInfoPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -151,8 +155,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        //browserPanel = new BrowserPanel(logic.selectedPersonProperty());
+        patientInfoPanel = new PatientInfoPanel(logic.selectedPersonProperty(), logic.selectedRecordProperty());
+        browserPlaceholder.getChildren().add(patientInfoPanel.getRoot());
 
         teethPanel = new TeethPanel(logic.selectedPersonProperty());
         teethPanelPlaceholder.getChildren().add(teethPanel.getRoot());
@@ -231,6 +236,7 @@ public class MainWindow extends UiPart<Stage> {
         populateRecords();
         personListPanelPlaceholder.setVisible(false);
         recordListPanelPlaceholder.setVisible(true);
+        patientInfoPanel.loadRecordTab();
         goToMode = true;
     }
 
@@ -239,7 +245,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void populateRecords() {
         if (MainWindow.getRecordPatient() != null) {
-            recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
+            recordListPanel = new RecordListPanel(logic.getFilteredRecordList(), logic.selectedRecordProperty(),
+                    logic::setSelectedRecord);
             recordListPanelPlaceholder.getChildren().clear();
             recordListPanelPlaceholder.getChildren().add(recordListPanel.getRoot());
         }
@@ -298,6 +305,7 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.setVisible(true);
         recordListPanelPlaceholder.setVisible(false);
         MainWindow.setRecordPatient(null);
+        patientInfoPanel.closeRecordTab();
         goToMode = false;
     }
 

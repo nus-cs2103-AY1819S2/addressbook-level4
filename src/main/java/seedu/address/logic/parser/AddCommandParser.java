@@ -74,7 +74,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 weblink = Weblink.makeDefaultWeblink();
                 Restaurant restaurant = new Restaurant(name, phone, email, address, postal, tagList,
                         weblink, openingHours);
-                return new AddCommand(restaurant, Messages.MESSAGE_UNABLE_TO_CHECK_WEBLINK);
+                return new AddCommand(restaurant, Messages.MESSAGE_ADD_NO_INTERNET);
             }
         }
 

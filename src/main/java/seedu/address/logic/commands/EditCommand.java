@@ -65,17 +65,23 @@ public class EditCommand extends Command {
 
     private final Index index;
     private final EditRestaurantDescriptor editRestaurantDescriptor;
+    private String commandMessage;
 
     /**
      * @param index of the restaurant in the filtered restaurant list to edit
      * @param editRestaurantDescriptor details to edit the restaurant with
      */
     public EditCommand(Index index, EditRestaurantDescriptor editRestaurantDescriptor) {
+        this(index, editRestaurantDescriptor, MESSAGE_EDIT_RESTAURANT_SUCCESS);
+    }
+
+    public EditCommand(Index index, EditRestaurantDescriptor editRestaurantDescriptor, String commandMessage) {
         requireNonNull(index);
         requireNonNull(editRestaurantDescriptor);
 
         this.index = index;
         this.editRestaurantDescriptor = new EditRestaurantDescriptor(editRestaurantDescriptor);
+        this.commandMessage = String.join(commandMessage, MESSAGE_EDIT_RESTAURANT_SUCCESS);
     }
 
     @Override

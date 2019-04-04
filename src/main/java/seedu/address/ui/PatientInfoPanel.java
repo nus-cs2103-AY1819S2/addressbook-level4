@@ -22,3 +22,64 @@ import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 
+public class PatientInfoPanel extends UiPart<Region> {
+
+    private static final String FXML = "PatientInfoPanel.fxml";
+
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
+    @FXML
+    private ScrollPane background;
+    @FXML
+    private TabPane tabManger;
+    @FXML
+    private Tab patientParticulars;
+    @FXML
+    private Tab patientRecords;
+    @FXML
+    private VBox particularsPane;
+    @FXML
+    private VBox recordsPane;
+    @FXML
+    private Label name;
+    @FXML
+    private Label nric;
+    @FXML
+    private Label sex;
+    @FXML
+    private Label age;
+    @FXML
+    private Label dob;
+    @FXML
+    private Label phone;
+    @FXML
+    private Label email;
+    @FXML
+    private Label address;
+    @FXML
+    private Line seperator;
+    @FXML
+    private Label drugallergy;
+    @FXML
+    private Label teethtype;
+    @FXML
+    private Label description;
+    @FXML
+    private Line seperator2;
+    @FXML
+    private Label nokname;
+    @FXML
+    private Label nokrelation;
+    @FXML
+    private Label nokaddress;
+    @FXML
+    private Label nokemail;
+    @FXML
+    private Label nokphone;
+    @FXML
+    private Label recorddoctor;
+    @FXML
+    private Label recorddate;
+    @FXML
+    private Label recorddescription;
+

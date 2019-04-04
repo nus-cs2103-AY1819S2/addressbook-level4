@@ -19,6 +19,10 @@ public class ResizeCommandParser implements Parser<ResizeCommand> {
         try {
             args = args.trim();
             String[] parsed = args.split(" ");
+            if (parsed.length > 2) {
+                throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                        ResizeCommand.MESSAGE_USAGE));
+            }
             String w = parsed[0];
             String h = parsed[1];
             int width = Integer.parseInt(w);

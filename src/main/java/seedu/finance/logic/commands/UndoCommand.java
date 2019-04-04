@@ -27,6 +27,6 @@ public class UndoCommand extends Command {
 
         model.undoFinanceTracker();
         model.updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORD);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, true, false, false);
     }
 }

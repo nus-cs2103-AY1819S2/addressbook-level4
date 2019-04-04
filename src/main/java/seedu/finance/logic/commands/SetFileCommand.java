@@ -66,6 +66,7 @@ public class SetFileCommand extends Command {
 
         model.setFinanceTrackerFilePath(path);
         model.setFinanceTracker(initialData);
+        model.commitFinanceTracker();
         StorageManager.setFinanceTrackerStorage(newStorage);
         return new CommandResult(String.format(MESSAGE_SUCCESS, path), true, false, false);
     }

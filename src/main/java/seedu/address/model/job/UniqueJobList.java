@@ -67,7 +67,7 @@ public class UniqueJobList implements Iterable<Job> {
                 return internalList.get(i);
             }
         }
-        return null;
+        throw new JobNotFoundException();
     }
 
     /**

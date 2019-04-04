@@ -173,7 +173,7 @@ public class PutShipCommandTest {
             for (int i = 0; i < battleship.getLength(); i++) {
                 Coordinates cellCoords = new Coordinates(
                         COORDINATES_A1.getRowIndex().getZeroBased(),
-                        COORDINATES_A1.getColIndex().getZeroBased()+i);
+                        COORDINATES_A1.getColIndex().getZeroBased() + i);
                 Status status = model.getHumanMapGrid().getCellStatus(cellCoords);
 
                 assertTrue(status == Status.SHIP);

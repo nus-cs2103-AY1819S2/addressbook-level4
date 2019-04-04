@@ -228,7 +228,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code weblink} is invalid.
      */
-    public static Weblink parseWeblink(String weblink) throws ParseException {
+    public static Weblink parseWeblink(String weblink) throws ParseException, NoInternetException {
         requireNonNull(weblink);
         String trimmedWeblink = weblink.trim();
         if (Weblink.isDefaultWeblink(weblink)) {
@@ -238,24 +238,12 @@ public class ParserUtil {
             throw new ParseException(Weblink.MESSAGE_CONSTRAINTS);
         }
 
-        try {
-            checkUrl(trimmedWeblink);
-        } catch (NoInternetException e) {
-            throw new ParseException(e.getMessage());
-        }
-        return new Weblink(trimmedWeblink);
-    }
-
-    /**
-     * Checks if url is valid using isNotValidWeblinkUrl method from Weblink
-     * @param trimmedWeblink
-     * @throws NoInternetException when internet connection fails
-     * @throws ParseException when url is invalid
-     */
-    private static void checkUrl(String trimmedWeblink) throws NoInternetException, ParseException {
+        // Check if weblink is valid, throw NoInternetException if no internet connection is found
         if (WebUtil.isNotValidWeblinkUrl(trimmedWeblink)) {
             throw new ParseException(String.format(Weblink.INVALID_URL_MESSAGE, trimmedWeblink));
         }
+
+        return new Weblink(trimmedWeblink);
     }
 
     /**

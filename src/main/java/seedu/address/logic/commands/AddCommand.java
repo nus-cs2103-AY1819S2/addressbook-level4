@@ -44,6 +44,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New restaurant added: %1$s";
     public static final String MESSAGE_DUPLICATE_RESTAURANT = "This restaurant already exists in the food diary";
+    private String commandMessage;
 
     private final Restaurant toAdd;
 
@@ -51,8 +52,16 @@ public class AddCommand extends Command {
      * Creates an AddCommand to add the specified {@code Restaurant}
      */
     public AddCommand(Restaurant restaurant) {
+        this(restaurant, MESSAGE_SUCCESS);
+    }
+
+    /**
+     * Creates an AddCommand to add the specified {@code Restaurant}
+     */
+    public AddCommand(Restaurant restaurant, String commandMessage) {
         requireNonNull(restaurant);
         toAdd = restaurant;
+        this.commandMessage = commandMessage;
     }
 
     @Override
@@ -64,7 +73,7 @@ public class AddCommand extends Command {
         }
         model.addRestaurant(toAdd);
         model.commitFoodDiary();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(commandMessage, toAdd));
     }
 
     @Override

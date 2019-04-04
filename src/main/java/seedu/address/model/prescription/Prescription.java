@@ -53,7 +53,8 @@ public class Prescription {
         }
 
         Prescription otherPrescription = (Prescription) other;
-        return otherPrescription.getDescription().equals(this.getDescription());
+        return otherPrescription.getDescription().equals(this.getDescription())
+                && otherPrescription.getMedicine().getName().equals(this.getMedicine().getName());
     }
 
     @Override

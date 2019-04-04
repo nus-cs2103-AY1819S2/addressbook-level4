@@ -137,25 +137,31 @@ Deletes the first module on the most recently displayed list.
 
 === Display module information: `displaymod`
 
-2 options to display module information, e.g. course description, prerequisites and courses succeeding the modules.
-It is possible to search for multiple modules at the same time by typing the next module code preceded by a whitespace. +
-Format: `displaymod [MODULE_CODE]++`
+2 options to display module information either by the module code or module title.
+It is possible to search for multiple modules at the same time by typing the next module code preceded by a comma. +
+Format: `displaymod c/[Module Code],[Module Code]`
+
+It is also possible to search for modules by typing out a word found in the module title. For a more streamlined
+search, type in the specific keywords found in the title combined with a "+" symbol. +
+Format: `displaymod n/[keyword]+[keyword]`
+
+User can also use both type of searches concurrently for ease of search.
 
 1 mode for o/OPTIONS include:
 
-.  `o/info k/KEYWORDS n/[NUMBER]` *Coming in V1.3*
-* Display top n (3 if last argument is left blank, capped at 10) information most related modules based on keywords inserted.
+.  `n/KEYWORDS n/[NUMBER]` *Coming in V2.0*
+* Displays top n (3 if last argument is left blank, capped at 10) information most related modules based on keywords inserted.
 
 Examples:
 
-* `displaymod CS2103T` +
-Display all information with regards to Module: CS2103T i.e Module name, Module description etc. .
+* `displaymod c/CS2103T` +
+Displays all information with regards to Module: CS2103T i.e Module name, Module description etc. .
 
-* `displaymod CS2103T CS2101 CS1010 ACC1002X` +
-Displays all the of the 4 module information in-order with the search.
+* `displaymod c/CS2103T,CS2101,CS1010,ACC1002X` +
+Displays all of the 4 module information in-order with the search.
 
-* `displaymod o/info k/Software Engineering n/5` +
-Display top 5 modules related to Software Engineering.
+* `displaymod c/CS2103T,CS2101 n/computer+science` +
+Displays the modules CS2103T,CS2101 and all modules with the words 'computer' and 'science' in its title.
 
 // tag::Displayreq[]
 === Display Course Requirements: `displayreq`

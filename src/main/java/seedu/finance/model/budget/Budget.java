@@ -1,10 +1,10 @@
 package seedu.finance.model.budget;
 
-import javafx.collections.ObservableList;
-import seedu.finance.model.record.Record;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.finance.commons.util.AppUtil.checkArgument;
+
+import javafx.collections.ObservableList;
+import seedu.finance.model.record.Record;
 
 /**
  * Represents the Budget for the particular instance of the Finance Tracker
@@ -61,6 +61,12 @@ public class Budget {
         this.currentSpendings = totalBudget - currentBudget;
     }
 
+    /**
+     *
+     * @param totalBudget
+     * @param currentBudget
+     * @return
+     */
     public static boolean isValidBudget(double totalBudget, double currentBudget) {
         // Check for negative total budget
         if (totalBudget < 0) {

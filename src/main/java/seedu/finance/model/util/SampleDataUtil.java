@@ -2,7 +2,6 @@ package seedu.finance.model.util;
 
 import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.ReadOnlyFinanceTracker;
-import seedu.finance.model.budget.Budget;
 import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Date;

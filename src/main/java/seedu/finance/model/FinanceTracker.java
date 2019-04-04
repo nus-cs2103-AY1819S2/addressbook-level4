@@ -3,14 +3,11 @@ package seedu.finance.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
-import java.util.logging.Logger;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
-import seedu.finance.commons.core.LogsCenter;
 import seedu.finance.commons.util.InvalidationListenerManager;
 import seedu.finance.model.budget.Budget;
 import seedu.finance.model.budget.CategoryBudget;
@@ -23,7 +20,6 @@ import seedu.finance.model.record.UniqueRecordList;
  * Wraps all data at the finance-tracker level
  */
 public class FinanceTracker implements ReadOnlyFinanceTracker {
-    // private final Logger logger = LogsCenter.getLogger(getClass());
 
     private final UniqueRecordList records;
     private final TotalBudget budget;

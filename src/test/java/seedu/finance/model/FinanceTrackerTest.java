@@ -21,7 +21,6 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.finance.model.budget.Budget;
 import seedu.finance.model.budget.TotalBudget;
 import seedu.finance.model.record.Record;
 import seedu.finance.testutil.RecordBuilder;

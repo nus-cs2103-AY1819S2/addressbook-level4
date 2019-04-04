@@ -826,9 +826,6 @@ doc/Debang +
 det/new details +
 Done`
 
-* *recordcopy* : `recordcopy n/NRIC INDEX` +
-e.g. `recordcopy n/S1235467H 2`
-
 * *Redo* : `redo`
 
 * *Save* : `save FILE_PATH`` +

@@ -123,8 +123,8 @@ public class PatientDeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Deletes the person at {@code toDelete} by creating a default {@code PatientDeleteCommand} using {@code toDelete} and
-     * performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
+     * Deletes the person at {@code toDelete} by creating a default {@code PatientDeleteCommand} using {@code toDelete}
+     * and performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
      * @see PatientDeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
      */
     private void assertCommandSuccess(Index toDelete) {
@@ -132,8 +132,8 @@ public class PatientDeleteCommandSystemTest extends AddressBookSystemTest {
         Person deletedPerson = removePerson(expectedModel, toDelete);
         String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
 
-        assertCommandSuccess(
-                PatientDeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);
+        assertCommandSuccess(PatientDeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(),
+                                expectedModel, expectedResultMessage);
     }
 
     /**

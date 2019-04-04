@@ -18,7 +18,7 @@ import seedu.address.ui.StatWindow;
  * Shows statistics for the given patient
  */
 public class StatsCommand extends Command {
-    public static final String COMMAND_WORD = "stats";
+    public static final String COMMAND_WORD = "stat";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + " : Shows statistics for the identified patient. Patient can be identified either by the index number in "

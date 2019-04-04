@@ -36,6 +36,21 @@ public class UiManager implements Ui {
 
         //Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
+        /*primaryStage.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, e -> {
+            boolean confirmExit = true;
+            if (!logic.checkNoCopy()) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                        "Copies will not be saved.\nConfirm exit?", ButtonType.YES, ButtonType.NO);
+                alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+                alert.showAndWait();
+                if (alert.getResult() == ButtonType.NO) {
+                    confirmExit = false;
+                }
+            }
+            if (!confirmExit) {
+                e.consume();
+            }
+        });*/
 
         try {
             mainWindow = new MainWindow(primaryStage, logic);

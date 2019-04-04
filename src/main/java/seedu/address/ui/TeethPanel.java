@@ -49,6 +49,16 @@ public class TeethPanel extends UiPart<Region> {
         });
     }
 
+    public TeethPanel(ObservableValue<Person> givenPerson, boolean isStat) {
+        super(FXML);
+        getRoot();
+        try {
+            loadTeeth(givenPerson.getValue());
+        } catch (IOException e) {
+            logger.info(e.getMessage());
+        }
+    }
+
     /**
      * Uses patient information to load teeth image
      */

@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a time.
  * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
  */
-public class TimeCustom {
+public class TimeCustom implements Comparable<TimeCustom> {
 
     public static final String MESSAGE_CONSTRAINTS_START_TIME = "Start time should only contain exactly 4 numbers,"
                                             + " the first two not going above 24, the latter two not going above 59.\n"
@@ -55,6 +55,12 @@ public class TimeCustom {
         return other == this // short circuit if same object
             || (other instanceof TimeCustom // instanceof handles nulls
             && storedTime.equals(((TimeCustom) other).storedTime)); // state check
+    }
+
+    @Override
+    public int compareTo(TimeCustom t) {
+        if (equals(t)) { return 0; }
+        return timeCompare(storedTime, t.storedTime) ? 1 : -1;
     }
 
     @Override

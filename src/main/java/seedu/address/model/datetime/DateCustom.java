@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
  * Represents a date for tasks.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
-public class DateCustom implements DateBuilder {
+public class DateCustom implements DateBuilder, Comparable<DateCustom> {
 
     public static final String MESSAGE_CONSTRAINTS = "Date given should be a valid date "
                                                     + "and should be in the format dd-mm-yyyy\n"
@@ -86,6 +86,12 @@ public class DateCustom implements DateBuilder {
         LocalDate firstDate = LocalDate.parse(date1, DATE_FORMATTER);
         LocalDate secondDate = LocalDate.parse(date2, DATE_FORMATTER);
         return firstDate.isBefore(secondDate);
+    }
+
+    @Override
+    public int compareTo(DateCustom d) {
+        if (isSameDate(d.storedDate)) { return 0; }
+        return dateCompare(storedDate, d.storedDate) ? -1 : 1;
     }
 
     @Override

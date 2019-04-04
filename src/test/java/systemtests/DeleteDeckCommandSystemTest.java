@@ -25,7 +25,7 @@ import seedu.address.model.deck.Deck;
 public class DeleteDeckCommandSystemTest extends TopDeckSystemTest {
 
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT = String
-            .format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCardCommand.MESSAGE_USAGE);
+            .format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteDeckCommand.MESSAGE_USAGE);
 
     @Test
     public void delete() {

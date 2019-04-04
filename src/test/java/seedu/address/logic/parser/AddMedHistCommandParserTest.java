@@ -2,14 +2,13 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import java.time.LocalDate;
+
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddMedHistCommand;
-import seedu.address.model.medicalhistory.Date;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.WriteUp;
-
-import java.time.LocalDate;
 
 public class AddMedHistCommandParserTest {
     private AddMedHistCommandParser parser = new AddMedHistCommandParser();

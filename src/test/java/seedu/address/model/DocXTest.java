@@ -161,7 +161,9 @@ public class DocXTest {
         }
 
         @Override
-        public IdCounter getIdCounter() { return idCounter; }
+        public IdCounter getIdCounter() {
+            return idCounter;
+        }
 
         @Override
         public void addListener(InvalidationListener listener) {

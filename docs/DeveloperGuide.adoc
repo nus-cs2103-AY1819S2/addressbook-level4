@@ -104,6 +104,7 @@ When you are ready to start coding,
 1. Get some sense of the overall design by reading <<Design-Architecture>>.
 2. Take a look at <<GetStartedProgramming>>.
 
+// tag:architecture[]
 == Design
 
 [[Design-Architecture]]
@@ -252,6 +253,7 @@ The `Storage` component,
 === Common classes
 
 Classes used by multiple components are in the `seedu.hms.commons` package.
+// end:architecture[]
 
 == Implementation
 

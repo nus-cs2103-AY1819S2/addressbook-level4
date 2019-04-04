@@ -37,7 +37,7 @@ public class SortCommand extends Command {
             + COMMAND_FLAG_DESCENDING + ": Descending order\n"
             + "Example: \n"
             + COMMAND_WORD + " " + COMMAND_FLAG_NAME + "\n"
-            + COMMAND_WORD + " " + COMMAND_FLAG_NAME + " -desc" + "\n"
+            + COMMAND_WORD + " " + COMMAND_FLAG_NAME + " " + COMMAND_FLAG_DESCENDING + "\n"
             + "Tip: Use the reverse command to reverse the list!\n";
 
     public static final String MESSAGE_SUCCESS = "List is sorted.";

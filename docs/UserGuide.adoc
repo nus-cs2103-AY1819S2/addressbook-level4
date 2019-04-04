@@ -300,30 +300,38 @@ spent on all the results of the search will also be shown.
 
 You can choose to sort the list of entries by name, amount, date or category.
 
-*Format*: `sort FLAG`
+*Format*: `sort FLAG [ORDER]`
 
 [NOTE]
 ====
 * `FLAG` here refers to either `-name`, `-amount, `-date` or `-cat`.
 * Only one flag should be provided.
+
+* `[ORDER]` refers to either `-asc` or `-desc`.
+* `[Order]` is optional. If not supplied, default ordering is implied.
 ====
 
 ****
-*Examples*:
+*Examples (default ordering)*:
 
 * `sort -name`: +
-By default, sorts the list of records by name in lexicographical order
+Sorts the list of records by name in lexicographical order (ascending order)
 * `sort -amount`: +
-By default, sorts the list of records by amount from largest to smallest
+Sorts the list of records by amount from largest to smallest (descending order)
 * `sort -date`: +
-By default, sorts the list of records by date with the latest at the top
+Sorts the list of records by date with the latest at the top (descending order)
 * `sort -cat`: +
-By default, sorts the list of records by category
+Sorts the list of records by category in lexicographical order (ascending order)
+
+*More examples*:
+
+* `sort -name -desc`: +
+Sorts list of records by name in reverse lexicographical order.
 ****
 
 [TIP]
-To sort the list in the reverse order, use the `reverse` command! +
-* `sort -name` +
+To sort the list conveniently in the reverse order, use the `reverse` command! +
+`sort -name` +
 `reverse` +
 List will be sorted by name in reverse lexicographical order.
 

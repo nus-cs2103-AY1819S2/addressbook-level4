@@ -81,7 +81,7 @@ public class EditCommand extends Command {
 
         this.index = index;
         this.editRestaurantDescriptor = new EditRestaurantDescriptor(editRestaurantDescriptor);
-        this.commandMessage = String.join(commandMessage, MESSAGE_EDIT_RESTAURANT_SUCCESS);
+        this.commandMessage = commandMessage.concat(MESSAGE_EDIT_RESTAURANT_SUCCESS);
     }
 
     @Override
@@ -103,7 +103,7 @@ public class EditCommand extends Command {
         model.setRestaurant(restaurantToEdit, editedRestaurant);
         model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
         model.commitFoodDiary();
-        return new CommandResult(String.format(MESSAGE_EDIT_RESTAURANT_SUCCESS, editedRestaurant));
+        return new CommandResult(String.format(commandMessage, editedRestaurant));
     }
 
     /**

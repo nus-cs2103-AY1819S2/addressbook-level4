@@ -57,7 +57,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Weblink weblink;
         OpeningHours openingHours;
-
+        Restaurant restaurant;
 
         if (!arePrefixesPresent(argMultimap, PREFIX_OPENING_HOURS)) {
             openingHours = OpeningHours.makeDefaultOpening();
@@ -72,13 +72,13 @@ public class AddCommandParser implements Parser<AddCommand> {
                 weblink = ParserUtil.parseWeblink(argMultimap.getValue(PREFIX_WEBLINK).get());
             } catch (NoInternetException e){
                 weblink = Weblink.makeDefaultWeblink();
-                Restaurant restaurant = new Restaurant(name, phone, email, address, postal, tagList,
+                restaurant = new Restaurant(name, phone, email, address, postal, tagList,
                         weblink, openingHours);
                 return new AddCommand(restaurant, Messages.MESSAGE_ADD_NO_INTERNET);
             }
         }
 
-        Restaurant restaurant = new Restaurant(name, phone, email, address, postal, tagList, weblink, openingHours);
+        restaurant = new Restaurant(name, phone, email, address, postal, tagList, weblink, openingHours);
         return new AddCommand(restaurant);
     }
 

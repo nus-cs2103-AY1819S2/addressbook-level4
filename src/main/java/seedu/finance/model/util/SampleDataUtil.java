@@ -33,16 +33,11 @@ public class SampleDataUtil {
         };
     }
 
-    public static Budget getSamepleBudget() {
-        return new Budget(800, 200);
-    }
-
     public static ReadOnlyFinanceTracker getSampleFinanceTracker() {
         FinanceTracker sampleFinanceTracker = new FinanceTracker();
         for (Record sampleRecord : getSampleRecords()) {
             sampleFinanceTracker.addRecord(sampleRecord);
         }
-        sampleFinanceTracker.addBudget(getSamepleBudget());
         return sampleFinanceTracker;
     }
 

@@ -22,7 +22,7 @@ import seedu.finance.model.record.UniqueRecordList;
  * Wraps all data at the finance-tracker level
  */
 public class FinanceTracker implements ReadOnlyFinanceTracker {
-    private final Logger logger = LogsCenter.getLogger(getClass());
+    // private final Logger logger = LogsCenter.getLogger(getClass());
 
     private final UniqueRecordList records;
     private final TotalBudget budget;
@@ -70,6 +70,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
 
         setRecords(newData.getRecordList());
         addBudget(newData.getBudget());
+        indicateModified();
     }
 
     //// record-level operations
@@ -88,8 +89,6 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
     public boolean addRecord(Record r) {
         records.add(r);
         boolean budgetNotExceeded = budget.addRecord(r);
-        budget.updateBudget(this.records.asUnmodifiableObservableList());
-        logger.info("Current Budget: " + budget.getCurrentBudget());
         indicateModified();
         return budgetNotExceeded;
     }
@@ -112,7 +111,6 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
     public void removeRecord(Record key) {
         records.remove(key);
         budget.removeRecord(key);
-        budget.updateBudget(this.records.asUnmodifiableObservableList());
         indicateModified();
     }
 
@@ -131,6 +129,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
      */
     public void addBudget(Budget budget) {
         this.budget.set(budget.getTotalBudget(), budget.getCurrentBudget());
+        this.budget.updateBudget(this.records.asUnmodifiableObservableList());
         indicateModified();
     }
 

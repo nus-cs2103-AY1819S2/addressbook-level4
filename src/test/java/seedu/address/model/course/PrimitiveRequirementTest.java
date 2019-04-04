@@ -8,11 +8,11 @@ import static seedu.address.model.course.CourseReqType.GE;
 import static seedu.address.model.course.CourseReqType.UE;
 import static seedu.address.model.util.SampleCourseRequirement.COMPLETE_40_MODULES;
 import static seedu.address.model.util.SampleCourseRequirement.COMPUTER_SCIENCE_FOUNDATION;
+import static seedu.address.model.util.SampleCourseRequirement.GEH_CONDITION;
 import static seedu.address.model.util.SampleCourseRequirement.IT_PROFESSIONALISM;
-import static seedu.address.model.util.SampleCourseRequirement.ULR_CONDITION;
 import static seedu.address.model.util.SampleCourseRequirement.UNIVERSITY_LEVEL_REQUIREMENT;
 
-import static seedu.address.testutil.TypicalCondition.ULR;
+import static seedu.address.testutil.TypicalCondition.GEH;
 
 import org.junit.Test;
 
@@ -20,19 +20,19 @@ import seedu.address.testutil.Assert;
 
 public class PrimitiveRequirementTest {
     public static final PrimitiveRequirement SAMPLE_REQUIREMENT = (PrimitiveRequirement) UNIVERSITY_LEVEL_REQUIREMENT;
-    public static final Condition SAMPLE_CONDITION = ULR_CONDITION;
+    public static final Condition SAMPLE_CONDITION = GEH_CONDITION;
     public static final PrimitiveRequirement SAMPLE_REQUIREMENT_2 = (PrimitiveRequirement) COMPUTER_SCIENCE_FOUNDATION;
     public static final PrimitiveRequirement SAMPLE_REQUIREMENT_3 = (PrimitiveRequirement) IT_PROFESSIONALISM;
     @Test
     public void constructor_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new PrimitiveRequirement(null , "some description",
-                GE, ULR));
+                GE, GEH));
         Assert.assertThrows(NullPointerException.class, () -> new PrimitiveRequirement("ReqName",
-               null, GE, ULR));
+               null, GE, GEH_CONDITION));
         Assert.assertThrows(NullPointerException.class, () -> new PrimitiveRequirement("Reqname",
                "nonNullDescription", GE, null));
         Assert.assertThrows(NullPointerException.class, () -> new PrimitiveRequirement("Reqname",
-                "nonNullDescription", null, ULR));
+                "nonNullDescription", null, GEH));
     }
 
     @Test
@@ -55,10 +55,8 @@ public class PrimitiveRequirementTest {
         //different type
         assertFalse(SAMPLE_REQUIREMENT.equals(new PrimitiveRequirement(SAMPLE_REQUIREMENT.getCourseReqName(),
             SAMPLE_REQUIREMENT.getCourseReqDesc(), UE, SAMPLE_CONDITION)));
-        //everything same but different object
-        assertTrue(SAMPLE_REQUIREMENT.equals(new PrimitiveRequirement(SAMPLE_REQUIREMENT.getCourseReqName(),
-            SAMPLE_REQUIREMENT.getCourseReqDesc(), SAMPLE_REQUIREMENT.getType(), SAMPLE_CONDITION)));
     }
+
     @Test
     public void or() {
         assertEquals(SAMPLE_REQUIREMENT.or(SAMPLE_REQUIREMENT_2), SAMPLE_REQUIREMENT.or(new PrimitiveRequirement(

@@ -8,17 +8,29 @@
       "requirementDescription" : "Pass one module each with prefix GES, GET, GEQ, GEH, GER",
       "requirementType" : "GE",
       "conditions" : [ {
-        "minToSatisfy" : "5",
-        "pattern" : "(GE)(T|S|R|H|Q)1[0-9]{3}[A-Z]?"
+        "minToSatisfy" : "1",
+        "pattern" : "GEH1[0-9]{3}[A-Z]?"
+      }, {
+        "minToSatisfy" : "1",
+        "pattern" : "GEQ1000"
+      }, {
+        "minToSatisfy" : "1",
+        "pattern" : "GER1000"
+      }, {
+        "minToSatisfy" : "1",
+        "pattern" : "GES1[0-9]{3}[A-Z]?"
+      }, {
+        "minToSatisfy" : "1",
+        "pattern" : "GET1[0-9]{3}[A-Z]?"
       } ]
     }, {
       "type" : "PrimitiveReq",
       "requirementName" : "Computer Science Foundation",
-      "requirementDescription" : "Pass all of CS1101S, CS1231, CS2030, CS2040, CS2100, CS2103T, CS2105, CS2106, CS3230",
+      "requirementDescription" : "Pass all of CS1010/CS1101S, CS1231, CS2030, CS2040, CS2100, CS2103T, CS2105, CS2106, CS3230",
       "requirementType" : "CORE",
       "conditions" : [ {
         "minToSatisfy" : "1",
-        "pattern" : "CS1101S"
+        "pattern" : "(CS1010)|(CS1101S)"
       }, {
         "minToSatisfy" : "1",
         "pattern" : "CS1231"
@@ -57,7 +69,7 @@
       "type" : "PrimitiveReq",
       "requirementName" : "Focus Area: Algorithms",
       "requirementDescription" : "Pass 6 modules from any Focus Area, with  at least 3 from level 4 and \n3 Area Primary from Algorithms with at least 1 from level 4 ",
-      "requirementType" : "TE",
+      "requirementType" : "BD",
       "conditions" : [ {
         "minToSatisfy" : "3",
         "pattern" : "(CS3230)|(CS3236)|(CS4231)|(CS4232)|(CS4234)"
@@ -121,7 +133,7 @@
           "type" : "PrimitiveReq",
           "requirementName" : "Computer Systems Team Project",
           "requirementDescription" : "Complete CS3203",
-          "requirementType" : "CORE",
+          "requirementType" : "BD",
           "conditions" : [ {
             "minToSatisfy" : "1",
             "pattern" : "CS3203"
@@ -131,26 +143,26 @@
           "type" : "PrimitiveReq",
           "requirementName" : "Complete CS3216 and CS3217",
           "requirementDescription" : "Complete CS3216 and CS3217",
-          "requirementType" : "CORE",
+          "requirementType" : "BD",
           "conditions" : [ {
             "minToSatisfy" : "2",
             "pattern" : "CS3216|CS3217"
           } ]
         },
-        "courseReqType" : "CORE",
+        "courseReqType" : "BD",
         "logicalConnector" : "OR"
       },
       "second" : {
         "type" : "PrimitiveReq",
         "requirementName" : "Complete CS3281 and CS3282",
         "requirementDescription" : "Complete CS3281 and CS3282",
-        "requirementType" : "CORE",
+        "requirementType" : "BD",
         "conditions" : [ {
           "minToSatisfy" : "2",
           "pattern" : "CS3281|CS3282"
         } ]
       },
-      "courseReqType" : "CORE",
+      "courseReqType" : "BD",
       "logicalConnector" : "OR"
     }, {
       "type" : "PrimitiveReq",
@@ -169,12 +181,27 @@
       } ]
     }, {
       "type" : "PrimitiveReq",
-      "requirementName" : "Mathematics & Sciences",
-      "requirementDescription" : "Complete MA1521, MA1101R, ST2334 and one other Science module",
+      "requirementName" : "Mathematics",
+      "requirementDescription" : "Complete MA1521, MA1101R and ST2334",
+      "requirementType" : "CORE",
+      "conditions" : [ {
+        "minToSatisfy" : "1",
+        "pattern" : "MA1521"
+      }, {
+        "minToSatisfy" : "1",
+        "pattern" : "ST2334"
+      }, {
+        "minToSatisfy" : "1",
+        "pattern" : "MA1101R"
+      } ]
+    }, {
+      "type" : "PrimitiveReq",
+      "requirementName" : "Sciences",
+      "requirementDescription" : "Complete one Science module other than MA1521, MA1101R, ST2334",
       "requirementType" : "FAC",
       "conditions" : [ {
-        "minToSatisfy" : "4",
-        "pattern" : "(MA1521)|(ST2334)|(MA1101R)|((MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z])"
+        "minToSatisfy" : "1",
+        "pattern" : "^(?!(MA1521)|(ST2334)|(MA1101R))((MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z]?)$"
       } ]
     }, {
       "type" : "PrimitiveReq",
@@ -195,17 +222,29 @@
       "requirementDescription" : "Pass one module each with prefix GES, GET, GEQ, GEH, GER",
       "requirementType" : "GE",
       "conditions" : [ {
-        "minToSatisfy" : "5",
-        "pattern" : "(GE)(T|S|R|H|Q)1[0-9]{3}[A-Z]?"
+        "minToSatisfy" : "1",
+        "pattern" : "GEH1[0-9]{3}[A-Z]?"
+      }, {
+        "minToSatisfy" : "1",
+        "pattern" : "GEQ1000"
+      }, {
+        "minToSatisfy" : "1",
+        "pattern" : "GER1000"
+      }, {
+        "minToSatisfy" : "1",
+        "pattern" : "GES1[0-9]{3}[A-Z]?"
+      }, {
+        "minToSatisfy" : "1",
+        "pattern" : "GET1[0-9]{3}[A-Z]?"
       } ]
     }, {
       "type" : "PrimitiveReq",
       "requirementName" : "Computer Science Foundation",
-      "requirementDescription" : "Pass all of CS1101S, CS1231, CS2030, CS2040, CS2100, CS2103T, CS2105, CS2106, CS3230",
+      "requirementDescription" : "Pass all of CS1010/CS1101S, CS1231, CS2030, CS2040, CS2100, CS2103T, CS2105, CS2106, CS3230",
       "requirementType" : "CORE",
       "conditions" : [ {
         "minToSatisfy" : "1",
-        "pattern" : "CS1101S"
+        "pattern" : "(CS1010)|(CS1101S)"
       }, {
         "minToSatisfy" : "1",
         "pattern" : "CS1231"
@@ -244,7 +283,7 @@
       "type" : "PrimitiveReq",
       "requirementName" : "Focus Area: AI",
       "requirementDescription" : "Pass 6 modules from any Focus Area, with  at least 3 from level 4 and \n3 Area Primary from AI with at least 1 from level 4 ",
-      "requirementType" : "TE",
+      "requirementType" : "BD",
       "conditions" : [ {
         "minToSatisfy" : "3",
         "pattern" : "(CS3243)|(CS3244)|(CS4243)|(CS4244)|(CS4246)|(CS4248)"
@@ -308,7 +347,7 @@
           "type" : "PrimitiveReq",
           "requirementName" : "Computer Systems Team Project",
           "requirementDescription" : "Complete CS3203",
-          "requirementType" : "CORE",
+          "requirementType" : "BD",
           "conditions" : [ {
             "minToSatisfy" : "1",
             "pattern" : "CS3203"
@@ -318,26 +357,26 @@
           "type" : "PrimitiveReq",
           "requirementName" : "Complete CS3216 and CS3217",
           "requirementDescription" : "Complete CS3216 and CS3217",
-          "requirementType" : "CORE",
+          "requirementType" : "BD",
           "conditions" : [ {
             "minToSatisfy" : "2",
             "pattern" : "CS3216|CS3217"
           } ]
         },
-        "courseReqType" : "CORE",
+        "courseReqType" : "BD",
         "logicalConnector" : "OR"
       },
       "second" : {
         "type" : "PrimitiveReq",
         "requirementName" : "Complete CS3281 and CS3282",
         "requirementDescription" : "Complete CS3281 and CS3282",
-        "requirementType" : "CORE",
+        "requirementType" : "BD",
         "conditions" : [ {
           "minToSatisfy" : "2",
           "pattern" : "CS3281|CS3282"
         } ]
       },
-      "courseReqType" : "CORE",
+      "courseReqType" : "BD",
       "logicalConnector" : "OR"
     }, {
       "type" : "PrimitiveReq",
@@ -356,12 +395,27 @@
       } ]
     }, {
       "type" : "PrimitiveReq",
-      "requirementName" : "Mathematics & Sciences",
-      "requirementDescription" : "Complete MA1521, MA1101R, ST2334 and one other Science module",
+      "requirementName" : "Mathematics",
+      "requirementDescription" : "Complete MA1521, MA1101R and ST2334",
+      "requirementType" : "CORE",
+      "conditions" : [ {
+        "minToSatisfy" : "1",
+        "pattern" : "MA1521"
+      }, {
+        "minToSatisfy" : "1",
+        "pattern" : "ST2334"
+      }, {
+        "minToSatisfy" : "1",
+        "pattern" : "MA1101R"
+      } ]
+    }, {
+      "type" : "PrimitiveReq",
+      "requirementName" : "Sciences",
+      "requirementDescription" : "Complete one Science module other than MA1521, MA1101R, ST2334",
       "requirementType" : "FAC",
       "conditions" : [ {
-        "minToSatisfy" : "4",
-        "pattern" : "(MA1521)|(ST2334)|(MA1101R)|((MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z])"
+        "minToSatisfy" : "1",
+        "pattern" : "^(?!(MA1521)|(ST2334)|(MA1101R))((MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z]?)$"
       } ]
     }, {
       "type" : "PrimitiveReq",
@@ -382,17 +436,29 @@
       "requirementDescription" : "Pass one module each with prefix GES, GET, GEQ, GEH, GER",
       "requirementType" : "GE",
       "conditions" : [ {
-        "minToSatisfy" : "5",
-        "pattern" : "(GE)(T|S|R|H|Q)1[0-9]{3}[A-Z]?"
+        "minToSatisfy" : "1",
+        "pattern" : "GEH1[0-9]{3}[A-Z]?"
+      }, {
+        "minToSatisfy" : "1",
+        "pattern" : "GEQ1000"
+      }, {
+        "minToSatisfy" : "1",
+        "pattern" : "GER1000"
+      }, {
+        "minToSatisfy" : "1",
+        "pattern" : "GES1[0-9]{3}[A-Z]?"
+      }, {
+        "minToSatisfy" : "1",
+        "pattern" : "GET1[0-9]{3}[A-Z]?"
       } ]
     }, {
       "type" : "PrimitiveReq",
       "requirementName" : "Computer Science Foundation",
-      "requirementDescription" : "Pass all of CS1101S, CS1231, CS2030, CS2040, CS2100, CS2103T, CS2105, CS2106, CS3230",
+      "requirementDescription" : "Pass all of CS1010/CS1101S, CS1231, CS2030, CS2040, CS2100, CS2103T, CS2105, CS2106, CS3230",
       "requirementType" : "CORE",
       "conditions" : [ {
         "minToSatisfy" : "1",
-        "pattern" : "CS1101S"
+        "pattern" : "(CS1010)|(CS1101S)"
       }, {
         "minToSatisfy" : "1",
         "pattern" : "CS1231"
@@ -431,7 +497,7 @@
       "type" : "PrimitiveReq",
       "requirementName" : "Focus Area: Software Eng",
       "requirementDescription" : "Pass 6 modules from any Focus Area, with  at least 3 from level 4 and \n3 Area Primary from Software Eng with at least 1 from level 4 ",
-      "requirementType" : "TE",
+      "requirementType" : "BD",
       "conditions" : [ {
         "minToSatisfy" : "3",
         "pattern" : "(CS2103T?)|(CS3213)|(CS3219)|(CS4211)|(CS4218)|(CS4239)"
@@ -495,7 +561,7 @@
           "type" : "PrimitiveReq",
           "requirementName" : "Computer Systems Team Project",
           "requirementDescription" : "Complete CS3203",
-          "requirementType" : "CORE",
+          "requirementType" : "BD",
           "conditions" : [ {
             "minToSatisfy" : "1",
             "pattern" : "CS3203"
@@ -505,26 +571,26 @@
           "type" : "PrimitiveReq",
           "requirementName" : "Complete CS3216 and CS3217",
           "requirementDescription" : "Complete CS3216 and CS3217",
-          "requirementType" : "CORE",
+          "requirementType" : "BD",
           "conditions" : [ {
             "minToSatisfy" : "2",
             "pattern" : "CS3216|CS3217"
           } ]
         },
-        "courseReqType" : "CORE",
+        "courseReqType" : "BD",
         "logicalConnector" : "OR"
       },
       "second" : {
         "type" : "PrimitiveReq",
         "requirementName" : "Complete CS3281 and CS3282",
         "requirementDescription" : "Complete CS3281 and CS3282",
-        "requirementType" : "CORE",
+        "requirementType" : "BD",
         "conditions" : [ {
           "minToSatisfy" : "2",
           "pattern" : "CS3281|CS3282"
         } ]
       },
-      "courseReqType" : "CORE",
+      "courseReqType" : "BD",
       "logicalConnector" : "OR"
     }, {
       "type" : "PrimitiveReq",
@@ -543,12 +609,27 @@
       } ]
     }, {
       "type" : "PrimitiveReq",
-      "requirementName" : "Mathematics & Sciences",
-      "requirementDescription" : "Complete MA1521, MA1101R, ST2334 and one other Science module",
+      "requirementName" : "Mathematics",
+      "requirementDescription" : "Complete MA1521, MA1101R and ST2334",
+      "requirementType" : "CORE",
+      "conditions" : [ {
+        "minToSatisfy" : "1",
+        "pattern" : "MA1521"
+      }, {
+        "minToSatisfy" : "1",
+        "pattern" : "ST2334"
+      }, {
+        "minToSatisfy" : "1",
+        "pattern" : "MA1101R"
+      } ]
+    }, {
+      "type" : "PrimitiveReq",
+      "requirementName" : "Sciences",
+      "requirementDescription" : "Complete one Science module other than MA1521, MA1101R, ST2334",
       "requirementType" : "FAC",
       "conditions" : [ {
-        "minToSatisfy" : "4",
-        "pattern" : "(MA1521)|(ST2334)|(MA1101R)|((MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z])"
+        "minToSatisfy" : "1",
+        "pattern" : "^(?!(MA1521)|(ST2334)|(MA1101R))((MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z]?)$"
       } ]
     }, {
       "type" : "PrimitiveReq",

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Region;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -18,11 +19,12 @@ import seedu.address.model.task.Task;
 /**
  * Deletes a person identified using it's displayed index from the address book.
  */
-public class DeleteCommand extends Command {
+public class PatientDeleteCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "patientdelete";
+    public static final String COMMAND_WORD2 = "pdelete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " or " + COMMAND_WORD2
             + ": Deletes the person identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
@@ -31,7 +33,7 @@ public class DeleteCommand extends Command {
 
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex) {
+    public PatientDeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -68,6 +70,7 @@ public class DeleteCommand extends Command {
                     + "Choosing NO or closing this box will set the tasks to have no linked patient.",
                     ButtonType.YES, ButtonType.NO);
             alert.setHeaderText("Tasks linked to patient detect!");
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
             alert.showAndWait();
             for (Task task : linkedTasks) {
@@ -84,7 +87,7 @@ public class DeleteCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                || (other instanceof PatientDeleteCommand // instanceof handles nulls
+                && targetIndex.equals(((PatientDeleteCommand) other).targetIndex)); // state check
     }
 }

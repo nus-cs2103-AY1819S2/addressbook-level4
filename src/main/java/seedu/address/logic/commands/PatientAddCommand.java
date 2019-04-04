@@ -16,11 +16,13 @@ import seedu.address.model.person.Person;
 /**
  * Adds a patient to the address book.
  */
-public class AddCommand extends Command {
+public class PatientAddCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "patientadd";
+    public static final String COMMAND_WORD2 = "padd";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a patient to the dental book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " or " + COMMAND_WORD2
+            + ": Adds a patient to the dental book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_SEX + "SEX "
@@ -34,24 +36,24 @@ public class AddCommand extends Command {
             + "[ PREFIX/PARAMETER ]";
 
     public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This patient already exists in the dental book";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This patient already exists in the dental book.";
 
     private final Patient toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Patient}
+     * Creates an PatientAddCommand to add the specified {@code Patient}
      * @param patient the patient to be added.
      */
-    public AddCommand(Patient patient) {
+    public PatientAddCommand(Patient patient) {
         requireNonNull(patient);
         toAdd = patient;
     }
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an PatientAddCommand to add the specified {@code Person}
      * @param person the person to be added.
      */
-    public AddCommand(Person person) {
+    public PatientAddCommand(Person person) {
         requireNonNull(person);
         if (person instanceof Patient) {
             toAdd = (Patient) person;
@@ -76,7 +78,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof PatientAddCommand // instanceof handles nulls
+                && toAdd.equals(((PatientAddCommand) other).toAdd));
     }
 }

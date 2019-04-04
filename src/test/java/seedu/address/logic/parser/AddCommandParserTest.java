@@ -35,7 +35,7 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.PatientAddCommand;
 import seedu.address.model.datetime.DateOfBirth;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Sex;
@@ -47,7 +47,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandParserTest {
-    private AddCommandParser parser = new AddCommandParser();
+    private PatientAddCommandParser parser = new PatientAddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
@@ -56,32 +56,32 @@ public class AddCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + NRIC_DESC_BOB + DOB_DESC_BOB
                 + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + SEX_DESC_BOB,
-                new AddCommand(expectedPerson));
+                new PatientAddCommand(expectedPerson));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + NRIC_DESC_BOB + DOB_DESC_BOB
                 + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + SEX_DESC_AMY,
-                new AddCommand(expectedPerson));
+                new PatientAddCommand(expectedPerson));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + NRIC_DESC_BOB + DOB_DESC_BOB
                 + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + SEX_DESC_BOB, new AddCommand(expectedPerson));
+                + ADDRESS_DESC_BOB + SEX_DESC_BOB, new PatientAddCommand(expectedPerson));
 
         // multiple emails - last email accepted
         assertParseSuccess(parser, NAME_DESC_BOB + NRIC_DESC_BOB + DOB_DESC_BOB
                 + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + SEX_DESC_BOB, new AddCommand(expectedPerson));
+                + ADDRESS_DESC_BOB + SEX_DESC_BOB, new PatientAddCommand(expectedPerson));
 
         // multiple addresses - last address accepted
         assertParseSuccess(parser, NAME_DESC_BOB + NRIC_DESC_BOB + DOB_DESC_BOB
                 + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
-                + ADDRESS_DESC_BOB + SEX_DESC_BOB, new AddCommand(expectedPerson));
+                + ADDRESS_DESC_BOB + SEX_DESC_BOB, new PatientAddCommand(expectedPerson));
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, PatientAddCommand.MESSAGE_USAGE);
 
         // missing name prefix
         assertParseFailure(parser, VALID_NAME_BOB + NRIC_DESC_BOB + DOB_DESC_BOB + PHONE_DESC_BOB
@@ -142,6 +142,6 @@ public class AddCommandParserTest {
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + NRIC_DESC_BOB + DOB_DESC_BOB
                 + NRIC_DESC_BOB + SEX_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                + ADDRESS_DESC_BOB, String.format(MESSAGE_INVALID_COMMAND_FORMAT, PatientAddCommand.MESSAGE_USAGE));
     }
 }

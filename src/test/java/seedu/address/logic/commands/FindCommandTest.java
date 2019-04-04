@@ -44,9 +44,9 @@ import seedu.address.model.util.predicate.PhoneContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.SexContainsKeywordsPredicate;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+ * Contains integration tests (interaction with the Model) for {@code PatientFindCommand}.
  */
-public class FindCommandTest {
+public class PatientFindCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
@@ -58,14 +58,14 @@ public class FindCommandTest {
         NameContainsKeywordsPredicate secondPredicate =
                 new NameContainsKeywordsPredicate(Collections.singletonList("second"));
 
-        FindCommand findFirstCommand = new FindCommand(firstPredicate);
-        FindCommand findSecondCommand = new FindCommand(secondPredicate);
+        PatientFindCommand findFirstCommand = new PatientFindCommand(firstPredicate);
+        PatientFindCommand findSecondCommand = new PatientFindCommand(secondPredicate);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
+        PatientFindCommand findFirstCommandCopy = new PatientFindCommand(firstPredicate);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -345,7 +345,7 @@ public class FindCommandTest {
     }
 
     /**
-     * Wrapper function to test FindCommand through multiple attributes
+     * Wrapper function to test PatientFindCommand through multiple attributes
      * @param isIgnoreCase flag for case sensitivity
      * @param isAnd flag for and operation
      * @param userInput inputs to test
@@ -357,7 +357,7 @@ public class FindCommandTest {
                                           List<Person> expectedList) throws ParseException {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, expectedNum);
         ContainsKeywordsPredicate predicate = prepareMultiPredicate(isIgnoreCase, isAnd, userInput, parameter);
-        FindCommand command = new FindCommand(predicate);
+        PatientFindCommand command = new PatientFindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(expectedList, model.getFilteredPersonList());
@@ -387,7 +387,7 @@ public class FindCommandTest {
     }
 
     /**
-     * Wrapper function to test FindCommand through each attribute
+     * Wrapper function to test PatientFindCommand through each attribute
      * @param expectedNum expected number of returned Persons after predicate
      * @param userInput predicate to test
      * @param parameter attribute to test
@@ -400,7 +400,7 @@ public class FindCommandTest {
                                                  List<Person> expectedList) throws ParseException {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, expectedNum);
         ContainsKeywordsPredicate predicate = prepareNamePredicate(userInput, parameter, isIgnoreCase, isAnd);
-        FindCommand command = new FindCommand(predicate);
+        PatientFindCommand command = new PatientFindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(expectedList, model.getFilteredPersonList());

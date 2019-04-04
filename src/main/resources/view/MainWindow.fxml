@@ -57,11 +57,13 @@
                     </StackPane>
 
                         <VBox>
-                            <SplitPane id="splitPane2" fx:id="splitPane2" dividerPositions="0.4" orientation="VERTICAL" VBox.vgrow="ALWAYS">
-                        <StackPane fx:id="browserPlaceholder" prefWidth="340">
+                            <SplitPane id="splitPane2" fx:id="splitPane2" dividerPositions="0.4" orientation="VERTICAL"
+                                       minWidth="800" VBox.vgrow="ALWAYS">
+                        <StackPane fx:id="patientInfoPlaceholder" prefWidth="340">
                         </StackPane>
 
-                        <StackPane fx:id="taskList" minWidth="340" prefHeight="340" SplitPane.resizableWithParent="false">
+                        <StackPane fx:id="taskList" minWidth="340" prefHeight="340" minHeight="150"
+                                   SplitPane.resizableWithParent="false">
                             <padding>
                                 <Insets top="10" right="10" bottom="10" left="10"/>
                             </padding>

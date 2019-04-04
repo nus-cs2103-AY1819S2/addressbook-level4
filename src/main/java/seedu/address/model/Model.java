@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -61,6 +62,11 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     //=========== Methods for interacting with Person Object ===========================================================
+
+    /**
+     * Replaces the person list wih the data in {@code persons}.
+     */
+    void setPatientList(List<Person> persons);
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -187,12 +193,31 @@ public interface Model {
      */
     void deleteRecord(Record record);
 
+
+    /**
+     * Returns true if the model has previous address book states to restore.
+     * Selected record in the filtered record list.
+     * null if no record is selected.
+     */
+    ReadOnlyProperty<Record> selectedRecordProperty();
+
     /**
      * Replaces the given record {@code target} with {@code editedRecord}.
      * {@code target} must exist in the address book.
      * The identity of {@code editedRecord} must not be the same as another existing record in the address book.
      */
     void setRecord(Record target, Record editedRecord);
+
+    /**
+     * Returns the selected record in the filtered records list.
+     * null if no record is selected.
+     */
+    Record getSelectedRecord();
+
+    /**
+     * Sets the selected record in the filtered record list.
+     */
+    void setSelectedRecord(Record record);
 
     //=========== Tags =================================================================================
 

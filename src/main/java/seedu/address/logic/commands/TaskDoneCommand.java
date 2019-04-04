@@ -24,8 +24,9 @@ import seedu.address.model.task.Task;
 public class TaskDoneCommand extends Command {
 
     public static final String COMMAND_WORD = "taskdone";
+    public static final String COMMAND_WORD2 = "tdone";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " or " + COMMAND_WORD2
             + ": Sets the task to be completed. Completing a task with a patient linked to it will automatically"
             + " add a new record to the patient's record list\n"
             + "Parameters: INDEX (must be a positive integer)\n"
@@ -53,7 +54,7 @@ public class TaskDoneCommand extends Command {
         if (taskToComplete.getPriority() == Priority.COMPLETED) {
             throw new CommandException("The task is already completed. ");
         }
-        Task completedTask = new Task(taskToComplete, true);
+        Task completedTask = taskToComplete.isCopy() ? new Task(taskToComplete) : new Task(taskToComplete, true);
         completedTask.setPriorityComplete();
         model.setTask(taskToComplete, completedTask);
         if (taskToComplete.getLinkedPatient() != null) {
@@ -64,7 +65,7 @@ public class TaskDoneCommand extends Command {
                 Patient replacement = found.get();
                 //TODO: Possibly switch Procedure and Description contents?
                 replacement.addRecord(new Record(new Procedure("Other-Completed Task"),
-                    new Description(completedTask.getTitle().title)));
+                        new Description(completedTask.getTitle().title)));
                 model.setPerson(found.get(), replacement);
                 patientRecordAddedMessage = String.format("\n Added Record to Patient: %s ( %s )",
                         found.get().getName().fullName, found.get().getNric().getNric());

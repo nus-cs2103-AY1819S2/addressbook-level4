@@ -20,14 +20,16 @@ import seedu.address.model.task.Task;
 public class TaskSortCommand extends Command {
 
     public static final String COMMAND_WORD = "tasksort";
+    public static final String COMMAND_WORD2 = "tsort";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": sort tasks in place by start time,"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " or " + COMMAND_WORD2
+            + ": sort tasks in place by start time,"
             + " end time or priority. Sort ascendingly by default.\n"
             + "Parameters: sortField [sortOrder]\n"
             + "Example 1: tasksort starttime\n"
             + "Example 2: tasksort priority desc";
-    public static final String MESSAGE_SORT_TASK_SUCCESS = "Tasks sorted by %s in %s order";
-    public static final String MESSAGE_SORT_TASK_WRONG_FILED = "Supporting fields are: starttime, endtime, priority.";
+    private static final String MESSAGE_SORT_TASK_SUCCESS = "Tasks sorted by %s in %s order";
+    private static final String MESSAGE_SORT_TASK_WRONG_FILED = "Supporting fields are: starttime, endtime, priority.";
 
     private final String sortField;
     private final boolean isAscending;

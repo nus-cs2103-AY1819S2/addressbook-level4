@@ -1,6 +1,6 @@
 package seedu.address.model.util;
 
-import static seedu.address.logic.parser.AddCommandParser.NONE_EMAIL;
+import static seedu.address.logic.parser.PatientAddCommandParser.NONE_EMAIL;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;

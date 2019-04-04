@@ -105,7 +105,9 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalUnmodifiableList;
     }
 
-    public void sortByComparator(Comparator<Task> c) { FXCollections.sort(internalList, c); }
+    public void sortByComparator(Comparator<Task> c) {
+        FXCollections.sort(internalList, c);
+    }
 
     @Override
     public Iterator<Task> iterator() {

@@ -121,8 +121,8 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel(logic.selectedRecordProperty(), logic.getBudget());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        graphPanel = new GraphPanel();
-        graphPlaceholder.getChildren().add(graphPanel.getRoot());
+        //graphPanel = new GraphPanel();
+        //graphPlaceholder.getChildren().add(graphPanel.getRoot());
 
         recordListPanel = new RecordListPanel(logic.getFilteredRecordList(), logic.selectedRecordProperty(),
                 logic::setSelectedRecord);
@@ -234,8 +234,15 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleShowSummary() { //Need to think how to link to the D3 files
-        //logger.info("Budget Info: " + logic.getBudget().getCurrentBudget());
-        //browserPanel.updateBudget(logic.getBudget());
+
+        //logger.info(LogsCenter.getEventHandlingLogMessage(event));
+
+        graphPanel.setData(
+                logic.getRecordSummary(),
+                logic.getSummaryPeriod(),
+                logic.getPeriodAmount()
+        );
+
     }
 
     //================== Changing Theme ==================//

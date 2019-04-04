@@ -1,64 +1,61 @@
 package guitests.guihandles;
 
-import java.net.URL;
-
-import guitests.GuiRobot;
-import javafx.concurrent.Worker;
-import javafx.scene.Node;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
+//import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 
 /**
- * A handler for the {@code GraphPanel} of the UI.
+ * A handle to the {@code GraphPanel} in the GUI.
  */
-public class GraphPanelHandle extends NodeHandle<Node> {
+public class GraphPanelHandle extends NodeHandle<Region> {
 
-    public static final String BROWSER_ID = "#browser";
+    public static final String GRAPH_PANEL_ID = "#graphPanel";
+    public static final String CHART_AREA_ID = "#chartArea";
 
-    private boolean isWebViewLoaded = true;
+    private final StackPane chartArea;
 
-    private URL lastRememberedUrl;
+    public GraphPanelHandle(Region graphPanelHandle) {
+        super(graphPanelHandle);
 
-    public GraphPanelHandle(Node browserPanelNode) {
-        super(browserPanelNode);
-
-        WebView webView = getChildNode(BROWSER_ID);
-        WebEngine engine = webView.getEngine();
-        new GuiRobot().interact(() -> engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
-            if (newState == Worker.State.RUNNING) {
-                isWebViewLoaded = false;
-            } else if (newState == Worker.State.SUCCEEDED) {
-                isWebViewLoaded = true;
-            }
-        }));
+        chartArea = getChildNode(CHART_AREA_ID);
     }
 
     /**
-     * Returns the {@code URL} of the currently loaded page.
+     * Checks if child is a PieChart
+     * @return true if child is an instance of PieChart
      */
-    public URL getLoadedUrl() {
-        return WebViewUtil.getLoadedUrl(getChildNode(BROWSER_ID));
+    public boolean isCategoryChart() {
+        return chartArea.getChildren().get(0) instanceof PieChart;
     }
 
     /**
-     * Remembers the {@code URL} of the currently loaded page.
+     * Checks if child is Text
+     * @return true if child is an instance of Text
      */
-    public void rememberUrl() {
-        lastRememberedUrl = getLoadedUrl();
+    public boolean isNoExpenseText() {
+        return chartArea.getChildren().get(0) instanceof Text;
     }
 
+    /* //Won't be implementing bar chart
     /**
-     * Returns true if the current {@code URL} is different from the value remembered by the most recent
-     * {@code rememberUrl()} call.
-     */
-    public boolean isUrlChanged() {
-        return !lastRememberedUrl.equals(getLoadedUrl());
-    }
+     * Checks if child is a BarChart
+     * @return true if child is an instance of BarChart
+
+    public boolean isTimeChart() {
+        return chartArea.getChildren().get(0) instanceof BarChart;
+    }*/
 
     /**
-     * Returns true if the browser is done loading a page, or if this browser has yet to load any page.
+     * Checks if child is Text and checks that it matches {@code matchingText}
+     * @return true if child is an instance of Text and matches {@code matchingText}
      */
-    public boolean isLoaded() {
-        return isWebViewLoaded;
+    public boolean isMatchingText(String matchingText) {
+        if (isNoExpenseText()) {
+            Text text = (Text) chartArea.getChildren().get(0);
+            return matchingText.equals(text.getText());
+        }
+        return false;
     }
 }

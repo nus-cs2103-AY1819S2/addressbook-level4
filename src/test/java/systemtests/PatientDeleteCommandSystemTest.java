@@ -20,7 +20,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
-public class DeleteCommandSystemTest extends AddressBookSystemTest {
+public class PatientDeleteCommandSystemTest extends AddressBookSystemTest {
 
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, PatientDeleteCommand.MESSAGE_USAGE);
@@ -31,7 +31,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: delete the first person in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + PatientDeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
+        String command = "     " + PatientDeleteCommand.COMMAND_WORD + "      "
+                        + INDEX_FIRST_PERSON.getOneBased() + "       ";
         Person deletedPerson = removePerson(expectedModel, INDEX_FIRST_PERSON);
         String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
@@ -124,7 +125,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     /**
      * Deletes the person at {@code toDelete} by creating a default {@code PatientDeleteCommand} using {@code toDelete} and
      * performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
-     * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
+     * @see PatientDeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
      */
     private void assertCommandSuccess(Index toDelete) {
         Model expectedModel = getModel();
@@ -153,7 +154,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String)} except that the browser url
      * and selected card are expected to update accordingly depending on the card at {@code expectedSelectedCardIndex}.
-     * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
+     * @see PatientDeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
      * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,

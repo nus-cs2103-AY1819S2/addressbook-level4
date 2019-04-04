@@ -611,7 +611,7 @@ keying in certain tags after the `taskadd` command. Do note the following:
 
 * Some parameters are mandatory when adding a task. +
 
-* Non-mandatory tasks will be assigned a default value if not specified
+* Non-mandatory tasks will be assigned a default value if not specified.
 
 
 Table 1 shows the list of parameters along with their respective descriptions.
@@ -635,17 +635,28 @@ due to security reasons.
 |Start date*
 |The date in which the task is set to begin.
 
-You should provide the date in the format `DD-MM-YYYY` and should not be a date that is BEFORE the current date.
-Invalid dates such as 33-02-1995 or 25-13-2020 for example, will also be rejected as these are invalid date values
+You should provide the start date in the format `DD-MM-YYYY` and should not be a date that is BEFORE the current date.
+You can also use the keyword `today` as an input which will use the current date as the start date.
+
+Only *possible* dates are accepted as valid as the program follows the calendar strictly.
+For example, `31-04-2019` will be flagged as invalid as there are only 30 days in April.
+
+As of the current version, 29th of February in a leap year (29-02-2019) is not accepted as a valid input, but will be
+implemented in future versions.
+
 |sd/DD-MM-YYYY
 |sd/19-12-2019
 
-|End date*
+|End date
 |The date in which the task is set to end.
 
-You should provide the date in the format `DD-MM-YYYY`, following standard date values should not be a date
-that is BEFORE the current date OR the given START DATE.
-Invalid dates such as 33-02-1995 or 25-13-2020 for example, will also be rejected as these are invalid date values.
+You should provide the end date in the format `DD-MM-YYYY`, following standard date values. The end date should not be
+BEFORE the task's START DATE.
+You can also use the keyword `today` as an input which will use the current date as the start date.
+
+Other validity checks for the end date are the same as that of start date.
+
+Default value if not specified: Task's start date.
 |ed/DD-MM-YYYY
 |ed/19-12-2019
 
@@ -653,7 +664,9 @@ Invalid dates such as 33-02-1995 or 25-13-2020 for example, will also be rejecte
 |The specific time in which the task is set to begin.
 
 You should provide the time in the format `HHMM` (hours and minutes) and should also follow standard time values.
-Invalid time values such as 2500 or 2388 will also be rejected as these are not valid time values.
+
+Only *real* time values are accepted as valid inputs. For example, values such as `1265` or `2500` are not valid as
+these are not time values used in the current world.
 |st/HHMM
 |st/0845
 
@@ -662,41 +675,57 @@ Invalid time values such as 2500 or 2388 will also be rejected as these are not 
 
 You should provide the time in the format `HHMM` (hours and minutes) and should also follow standard time values.
 If the task's start date and end date are the same, the end time should also not be BEFORE the start time.
-Invalid time values such as 2500 or 2388 will also be rejected as these are not valid time values.
+
+Other validity checks for the end time are the same as that of the start time.
 |et/HHMM
 |et/1245
 
 |Priority
 |The priority level of the task to be performed.
 
-You should provide the priority as `high`, `med` or `low` in either upper or lowercase.
-Tasks with different priority will be marked with different colors on the task list.
-High priority will be marked [red]#red#, Medium priority be marked [yellow]#yellow# and
-Low priority will be marked [green]#green#.
+You should provide the priority as `high`, `med`, `low` or `completed` in either upper or lowercase.
+Tasks with different priority will be marked with different colored labels on the task list.
+High priority will be marked [red]#red#, Medium priority be marked [orange]#orange# and
+Low priority will be marked [yellow]#yellow#. Completed tasks will be marked with [green]#green#.
 
-As the priority is not a mandatory parameter, if you do not specify a priority when you add a task,
-it will be given a defualt priority of [green]#Medium#
+Default value if not specified: [yellow]#Low#
 |pri/PRIORITY
 |pri/high
 
-|Details
-|The details of the task to be performed. You can specify additional details about the task here.
-You can provide any alphanumeric characters and the special characters:
-`( ,@, !, ?, ., -` when giving the title for the task. Other characters not specified will not be allowed
-due to security reasons. If not specified, the task will have no additional details.
-|det/TEXT
-|det/Patient involved is Alex Yeoh, tools should be prepared 15 minutes in advance.
+|Patient
+|The patient to be linked to the task. Linking a patient to a task, enables the <<taskdone, taskdone>> command to
+ automatically add a record upon execution.
+
+The patient's index must be a valid POSITIVE integer and it can be found in the patient list next to the name.
+If you want to set a task's linked patient to none, you can give this parameter
+a value of `0` when using the <<taskedit, taskedit>> command. This parameter should not be included in task adding or
+task editing when in <<goto, goto>> mode as the patient list is not visible in that mode. +
+
+If a linked patient is <<edit, edited>> pr <<delete, deleted>>, the affected tasks will be updated accordingly.
+
+Default value if not specified: 0 (indicates that no patient is linked to the task)
+|pat/INDEX
+|pat/2
 
 |===
+
+[NOTE]
+============================================================
+Duplicate task will not be added into the program.
+
+Tasks are considered duplicates if they have the *exact*
+same TITLE, START DATE, START TIME, END TIME and
+LINKED PATIENT
+============================================================
 
 Examples:
 
 * `taskadd ti/Teeth Filling for Alex sd/14-09-2019 ed/14-09-2019 st/1200 et/1300 pri/HIGH
-   det/Tooth 12 and 14 are to be filled. Perform a quick check-up prior to procedure.` +
+   pat/1`
 
 * `taskadd ti/Regular review of all patients' records sd/10-10-2019 ed/15-10-2019 st/1200 et/0800 pri/low`
 
-* `taskadd ti/Braces removal for Bernice sd/05-05-2020 ed/05-05-2020 st/1500 et/1600`
+* `taskadd ti/Follow-up for Bernice sd/today st/1500 et/1600`
 
 ==== taskedit
 Edits a task currently stored in the application
@@ -717,8 +746,9 @@ Examples:
 
 * `taskedit 2 sd/15-09-2019 ed/15-09-2019 st/1400 et/1500`
 
-* `<<taskfind, taskfind>> pri/high` +
-  `taskedit 1 ti/Braces removal for Bernice sd/05-05-2020 ed/05-05-2020 st/1500 et/1600 pri/MED`
+* `taskedit 3 pat/0`
+
+* `taskedit 1 ti/Braces removal for Bernice sd/05-05-2020 ed/05-05-2020 st/1500 et/1600 pri/MED`
 
 ==== taskdelete
 Deletes a task from the task list
@@ -732,7 +762,7 @@ Format: `taskdelete 2` or `tdelete 2`
 Example:
 
 * `taskdelete 1`
-* `<<taskfind, taskfind>> pri/low` +
+* `<<taskcal, taskcal>> 25-12-2019` +
   `taskdelete 2`
 
 ==== tasklist
@@ -740,6 +770,28 @@ Shows a list of all the task stored in the application.
 
 Format: `tasklist` or `tlist`
 
+==== taskdone
+Sets a task to `[green]#complete#`, marking the completion of the task.
+Executing this command on a patient that has a patient linked to it will automatically add a record to the patient.
+
+Format: `taskdone INDEX`
+
+==== taskcal
+Creates a popup window with a list of tasks on the left hand side of the window and a calendar on the right hand side.
+There will also be a command box below the calendar, allowing you to execute task commands from this window as well.
+
+format: `taskcal` or `taskcal DD-MM-YYYY`
+
+You will see day cells in the calendar highlighted in color of the highest priority task for that day.
+The top pane of the calendar has clickable buttons that lets you display the dates for different months and years.
+
+You can also click on a numbered date cell which will select it and the task display panel will be updated to show tasks that have either their
+`start date` or `end date` on that date. You can also key in a specific date in the format `DD-MM-YYYY` into the
+command box `e.g. 30-03-2019` and that day will be selected.
+
+Executing the command without specifying a date will cause the current date to be selected by default.
+
+////
 ==== taskfind
 Searches for and displays a list of tasks according to a specified parameter
 
@@ -752,6 +804,83 @@ Examples:
 
 * `taskfind pri/HIGH`
 * `taskfind ti/Extraction`
+
+=== Viewing and Locating Information
+The commands listed below deal with displaying and finding data for you to view.
+They do not deal with the adding or modification of any information currently already
+stored within the program.
+
+==== list
+Shows a list of all patients or medical stored in TeethHub.
+
+Format: `list [dental]`
+
+Command shows patient details by default, add dental to see dental records.
+
+Example:
+
+* `list` +
+Shows details of all patients.
+
+* `list dental` +
+Shows details of patient's dental records.
+
+==== find
+
+Shows patients whose data contains any of the given keywords according to a specified parameter.
+
+Format: `find [dental] PREFIX/KEYWORD [MORE_KEYWORDS]`
+
+* Add “dental” to search dental records instead.
+* Search is case insensitive.
+* Order of keywords does not matter.
+* Valid `Prefix` values: See <<Breakdown of attributes used within TeethHub>>
+
+Example:
+
+* `find a/Yishun` +
+Show all the people with an address containing the keyword Yishun.
+
+* `find dental cleaning` +
+Shows all the dental records with cleaning
+
+==== sort
+Sorts the records by an input parameter in an input order.
+
+Format: `sort PARAM ORDER`
+
+* valid PARAM options: address, date of birth, email, name, nric, phone, sex
+* valid ORDER options: asce, desc
+
+Example:
+
+[cols=",,,",options="header",]
+|===
+|*ID* |*Name* |*Age* |*Last Modified*
+|0 |Alice |19 |03/07/2003
+|1 |Clara |12 |05/02/2021
+|2 |Bob |24 |11/02/2019
+
+|*ID* |*Name* |*Age* |*Last Modified*
+|1 |Clara |12 |05/02/2021
+|2 |Bob |24 |11/02/2019
+|0 |Alice |19 |03/07/2003
+|===
+
+* sort age asce
+
+[cols=",,,",options="header",]
+|===
+|*ID* |*Name* |*Age* |*Last Modified*
+|1 |Clara |12 |05/02/2021
+|0 |Alice |19 |03/07/2003
+|2 |Bob |24 |11/02/2019
+|===
+
+==== stats
+Generates a statistics report based on the specified patient's data.
+
+Format: `stats INDEX`
 
 == Cloud Functionality [Coming in v2.0]
 To increase data redundancy and reduce the risk of data being lost,
@@ -782,7 +911,9 @@ e.g. `export mnt/clinicRecords.txt 1,3-5`
 * *History* : `history`
 
 * *Import* : `import FILE_PATH INDEX_RANGE` +
-e.g. `import mnt/newData.json 1,3-5`
+e.g. `import \mnt\newData.json 1,3-5`
+
+* *List* : `list`
 
 * *Login* : `login USERNAME PASSWORD` +
 e.g `login kthSIM cavities!2`

@@ -2,9 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.BooleanProperty;
@@ -18,9 +16,6 @@ import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.Row;
 import seedu.address.model.cell.Status;
-import seedu.address.model.cell.exceptions.DuplicatePersonException;
-import seedu.address.model.cell.exceptions.PersonNotFoundException;
-import seedu.address.model.tag.Tag;
 
 /**
  * Wraps all data at the map grid level
@@ -229,14 +224,6 @@ public class MapGrid implements ReadOnlyAddressBook {
     }
 
     //// cell-level operations
-
-    /**
-     * Returns true if a cell with the same identity as {@code cell} exists in the address book.
-     */
-    public boolean hasPerson(Cell cell) {
-        requireNonNull(cell);
-        return persons.contains(cell);
-    }
 
     /**
      * Adds a cell to the address book.

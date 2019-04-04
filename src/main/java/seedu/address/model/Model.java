@@ -89,11 +89,6 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a cell with the same identity as {@code cell} exists in the address book.
-     */
-    boolean hasPerson(Cell cell);
-
-    /**
      * Deletes the given cell.
      * The cell must exist in the address book.
      */

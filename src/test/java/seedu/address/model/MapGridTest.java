@@ -76,31 +76,6 @@ public class MapGridTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        mapGrid.hasPerson(null);
-    }
-
-    @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(mapGrid.hasPerson(ALICE));
-    }
-
-    @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        mapGrid.addPerson(ALICE);
-        assertTrue(mapGrid.hasPerson(ALICE));
-    }
-
-    @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        mapGrid.addPerson(ALICE);
-        Cell editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
-                .build();
-        assertTrue(mapGrid.hasPerson(editedAlice));
-    }
-
-    @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         mapGrid.getPersonList().remove(0);

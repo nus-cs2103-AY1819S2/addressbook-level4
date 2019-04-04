@@ -153,12 +153,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Cell cell) {
-        requireNonNull(cell);
-        return versionedAddressBook.hasPerson(cell);
-    }
-
-    @Override
     public void deletePerson(Cell target) {
         versionedAddressBook.removePerson(target);
     }

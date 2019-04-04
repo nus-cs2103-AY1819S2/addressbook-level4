@@ -34,10 +34,8 @@ public class ModuleTaken implements ClassForPrinting {
         this.moduleInfoCode = moduleInfoCode;
         this.semester = semester;
         this.gradeRange = new GradeRange(expectedMinGrade, expectedMaxGrade);
-        this.workload = new Workload(new Hour("0"), new Hour("0"),
-                new Hour("0"), new Hour("0"), new Hour("0")); //TODO to be populated based on module info
+        this.workload = new Workload();
         this.tags.addAll(tags);
-
     }
 
     /**
@@ -51,7 +49,6 @@ public class ModuleTaken implements ClassForPrinting {
         this.gradeRange = new GradeRange(expectedMinGrade, expectedMaxGrade);
         this.workload = workload;
         this.tags.addAll(tags);
-
     }
 
     public ModuleInfoCode getModuleInfoCode() {

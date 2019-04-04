@@ -6,6 +6,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,10 +63,10 @@ public class DocXParserTest {
     @Test
     public void parseCommand_addAppointment() throws Exception {
         AddAppointmentCommand command = (AddAppointmentCommand) parser.parseCommand(
-                AddAppointmentCommand.COMMAND_WORD + " add-appt pid/1 did/1 d/2019-06-01 t/9");
+                AddAppointmentCommand.COMMAND_WORD + " add-appt pid/1 did/1 d/2019-06-01 t/09:00");
         assertTrue(command instanceof AddAppointmentCommand);
         assertEquals(command, new AddAppointmentCommand(new Appointment(
-                1, 1, "2019-06-01", "9")));
+                1, 1, LocalDate.parse("2019-06-01"), LocalTime.parse("09:00"))));
     }
 
     @Test

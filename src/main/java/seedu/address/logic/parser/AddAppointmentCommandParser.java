@@ -6,6 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddAppointmentCommand;
@@ -37,8 +39,8 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
         Appointment appointment = new Appointment(
                 Integer.parseInt(argMultimap.getValue(PREFIX_PATIENT_ID).get()),
                 Integer.parseInt(argMultimap.getValue(PREFIX_DOCTOR_ID).get()),
-                argMultimap.getValue(PREFIX_DATE_OF_APPT).get(),
-                argMultimap.getValue(PREFIX_START_TIME).get());
+                LocalDate.parse(argMultimap.getValue(PREFIX_DATE_OF_APPT).get()),
+                LocalTime.parse(argMultimap.getValue(PREFIX_START_TIME).get()));
 
         return new AddAppointmentCommand(appointment);
     }

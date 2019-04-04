@@ -10,13 +10,10 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ListAppointmentCommand;
-import seedu.address.logic.commands.ListMedHistCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -131,9 +128,6 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedPatient);
         patientListPanelPlaceholder.getChildren().add(patientListPanel.getRoot());
 
-        ListAppointmentCommand.addMainWindow(this);
-        ListMedHistCommand.addMainWindow(this);
-
         doctorListPanel = new DoctorListPanel(logic.getFilteredDoctorList(), logic.selectedDoctorProperty(),
                 logic::setSelectedDoctor);
         doctorListPanelPlaceholder.getChildren().add(doctorListPanel.getRoot());
@@ -238,6 +232,18 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            switch (commandResult.getShowPanel()) {
+
+            case MED_HIST_PANEL:
+                showMedHistPanel();
+                break;
+            case APPOINTMENT_PANEL:
+                showAppointmentPanel();
+                break;
+            default:
+                break;
             }
 
             return commandResult;

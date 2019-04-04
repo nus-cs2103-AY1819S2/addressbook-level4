@@ -1,5 +1,8 @@
 package seedu.address.storage;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,8 +15,8 @@ import seedu.address.model.appointment.Appointment;
 class JsonAdaptedAppointment {
     private final int patientId;
     private final int doctorId;
-    private final String dateOfAppt;
-    private final String timeOfAppt;
+    private final LocalDate dateOfAppt;
+    private final LocalTime timeOfAppt;
 
     /**
      * Constructs a {@code JsonAdaptedAppointment} with the given {@code appointment}.
@@ -21,8 +24,8 @@ class JsonAdaptedAppointment {
     @JsonCreator
     public JsonAdaptedAppointment(@JsonProperty("patientId") int patientId,
                                   @JsonProperty("doctorId") int doctorId,
-                                  @JsonProperty("dateOfAppt") String dateOfAppt,
-                                  @JsonProperty("timeOfAppt") String timeOfAppt) {
+                                  @JsonProperty("dateOfAppt") LocalDate dateOfAppt,
+                                  @JsonProperty("timeOfAppt") LocalTime timeOfAppt) {
         this.patientId = patientId;
         this.doctorId = doctorId;
         this.dateOfAppt = dateOfAppt;

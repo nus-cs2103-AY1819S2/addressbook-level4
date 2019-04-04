@@ -9,7 +9,6 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.travel.model.chart.exceptions.CountryChartNotFoundException;
-import seedu.travel.model.place.CountryCode;
 import seedu.travel.model.place.Place;
 
 /**
@@ -27,18 +26,18 @@ public class CountryChartList implements Iterable<CountryChart> {
     /**
      * Adds a country to the list.
      */
-    public void add(CountryCode toAdd) {
+    public void add(CountryChart toAdd) {
         requireNonNull(toAdd);
         boolean isAdded = false;
         for (int i = 0; i < internalList.size(); i++) {
-            if (internalList.get(i).getChartCountryCode().equals(toAdd)) {
+            if (internalList.get(i).getChartCountryCode().equals(toAdd.getChartCountryCode())) {
                 internalList.get(i).setTotal(internalList.get(i).getTotal() + 1);
                 isAdded = true;
                 break;
             }
         }
         if (!isAdded) {
-            internalList.add(new CountryChart(toAdd, 1));
+            internalList.add(toAdd);
         }
     }
 

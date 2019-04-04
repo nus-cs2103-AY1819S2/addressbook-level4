@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODCODE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MODDEPT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODNAME;
 
 import seedu.address.logic.CommandHistory;
@@ -24,13 +23,11 @@ public class DisplaymodCommand extends Command {
             + ": Finds one module Information based on given "
             + "parameters. "
             + "Parameters: "
-            + PREFIX_MODCODE + "MODULE CODE"
-            + PREFIX_MODNAME + "MODULE NAME"
-            + PREFIX_MODDEPT + "MODULE DEPARTMENT"
+            + PREFIX_MODCODE + "MODULE CODE" + " "
+            + PREFIX_MODNAME + "MODULE NAME" + " "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_MODCODE + "CS2103T"
-            + PREFIX_MODNAME + "Software Engineering"
-            + PREFIX_MODDEPT + "Computer Science";
+            + PREFIX_MODCODE + "CS2103T,CS2101" + " "
+            + PREFIX_MODNAME + "Software+Engineering";
 
     public static final String MESSAGE_SUCCESS = "Module Code : %1$s \n"
             + "Module Title : %2$s \n"

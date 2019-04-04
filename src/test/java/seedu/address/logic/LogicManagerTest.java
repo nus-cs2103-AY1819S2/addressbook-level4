@@ -23,9 +23,9 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.PatientAddCommand;
 import seedu.address.logic.commands.PatientListCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -67,7 +67,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String patientDeleteCommand = "delete 9";
+        String patientDeleteCommand = "pdelete 9";
         assertCommandException(patientDeleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         assertHistoryCorrect(patientDeleteCommand);
     }

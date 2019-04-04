@@ -76,7 +76,42 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+=== Assign Request feature
+
+The assign request feature allows an administrator to assign a request to a particular healthworker.
+
+==== Current Implementation
+
+The following sequence diagram shows the sequence flow from the `LogicManager` to the `ModelManager` when a user enters a `assign request` command:
+
+image::assignrequest.png[width=800]
+Figure 3.3.1.1 Sequence diagram to illustrate `Logic` component interactions for `assign request` command.
+
+image::assignrequest1.png[width=800]
+Figure 3.3.1.2 Sequence diagram to illustrate `Logic` and `Model` component interactions for [blue]`AssignRequestCommand`.
+
+1. When `LogicManager` receives the `execute` command, it calls the `parseCommand` method in `RequestBookParser`.
+2. `RequestBookParser` will receive `assign` as the command and instantiate `AssignRequestCommandParser` to further parse the command.
+3. If the arguments specified in the `assign` command are invalid, a `AssignCommand` will be created and returned back to the `LogicManager`.
+4. `LogicManager` will proceed to call the `execute` command of `AssignCommand`
+5. `AssignRequestCommand` will proceed to call the `getFilteredRequestList` method of `Model`.
+6. Iterate through the `requestIds`, if valid, add the `request` corresponding to that `index` to the set of `Request`.
+7. Writes the updated request to the `RequestBook` in `ModelManager`
+
+==== Design Consideration
+
+===== Aspect: Relationship between `Request` and `Healthworker`
+* Alternative 1 (current choice): The `Request` holds only some of the details of the healthworker (e.g name) assigned to it.
+** Pros: Simplification of implementation.
+** Pros: Cleaner implementation, low level of dependencies on other modules. This also makes it easier to test, and easier to maintain.
+** Cons: Makes it difficult to obtain all details of a healthworker from a `Request` object.
+
+* Alternative 2: The `Request` holds a `HealthWorker` object and the `HealthWorker` keeps track of a list of `Request`s.
+** Pros: Can quickly access details of a `HealthWorker` from a `Request`, and can quickly access the `Requests` assigned to a `HealthWorker` from the `Request`.
+** Cons: Increases complexity of code base, adding additional dependencies to the code. This makes the code base more verbose and less maintainable
+
+
+//include::../DeveloperGuide.adoc[tag=assignrequest]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
 

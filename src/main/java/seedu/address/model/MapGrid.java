@@ -146,6 +146,10 @@ public class MapGrid implements ReadOnlyAddressBook {
         return cellGrid[coord.getRowIndex().getZeroBased()][coord.getColIndex().getZeroBased()].getStatus();
     }
 
+    public String getShipNameInCell(Coordinates coord) {
+        return getCell(coord).getBattleship().get().toString();
+    }
+
     // UI operations
 
     /**

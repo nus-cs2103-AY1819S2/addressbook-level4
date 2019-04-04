@@ -3,6 +3,7 @@ package seedu.finance.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
@@ -58,7 +59,6 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
      */
     public void setRecords(List<Record> records) {
         this.records.setRecords(records);
-        budget.updateBudget(this.records.asUnmodifiableObservableList());
         indicateModified();
     }
 
@@ -69,7 +69,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
         requireNonNull(newData);
 
         setRecords(newData.getRecordList());
-        addBudget(newData.getBudget());
+        this.budget.set(newData.getBudget());
         indicateModified();
     }
 
@@ -135,7 +135,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
 
     // =============================== Category Budget =============================================================
     //@author Jackimaru96
-    public Budget getBudget() {
+    public TotalBudget getBudget() {
         return budget;
     }
 

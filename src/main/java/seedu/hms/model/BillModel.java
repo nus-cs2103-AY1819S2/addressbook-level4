@@ -9,7 +9,6 @@ import javafx.util.Pair;
 import seedu.hms.model.bill.Bill;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.reservation.Reservation;
-import seedu.hms.model.reservation.RoomType;
 
 /**
  * The API of the Model component.
@@ -54,11 +53,6 @@ public interface BillModel extends Model {
      * Returns an unmodifiable view of the filtered reservation list
      */
     ObservableList<Reservation> getFilteredReservationList();
-
-    /**
-     * Returns an unmodifiable view of the filtered reservation list
-     */
-    ObservableList<RoomType> getRoomTypeList();
 
     /**
      * Updates the filter of the filtered reservation list to filter by the given {@code predicate}.

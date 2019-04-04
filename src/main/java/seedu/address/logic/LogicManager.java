@@ -64,8 +64,9 @@ public class LogicManager implements Logic {
                 history.add(commandText);
             }
         }
-
+        // STATS STORAGE upon modified, will save into StatisticData via saveAddressBook
         if (addressBookModified) {
+            //logger.info("Detected Game End. Saving statistics...")
             logger.info("Address book modified, saving to file.");
             try {
                 storage.saveAddressBook(model.getAddressBook());

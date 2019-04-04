@@ -147,6 +147,7 @@ Returns John Cena and John Doe
 * `fn Betsy Tim John` +
 Returns any person having names Betsy, Tim, or John
 
+// tag::reservation-commands[]
 === [underline]#Room Reservation commands#
 
 ==== Reserving a room : `add-reservation`, `ar`
@@ -212,6 +213,26 @@ Deletes the 2nd entry of the reservation database
 Effect: Removes all room reservations from the database. +
 Format: `{[aqua]#clear-reservations#/[aqua]#cr#}`
 
+==== Find a reservation: `find-reservation`, `fr`
+
+Effect: Displays a reservation list based on the filters given by the user. +
+Format: `{[aqua]#find-reservation#/[aqua]#fr#}  [blue]#id/# [lime]#IDENTIFICATION_NO# [black]#[# [blue]#r/# [lime]#ROOM_TYPE# [black]#]#`
+
+[NOTE]
+====
+*  The searching is done in the whole reservation list.
+====
+
+Example:
+
+* `fr id/A0124422` +
+Returns all reservations for customer with identification number, A0124422.
+
+* `fr id/A0124422 r/SINGLE ROOM` +
+Returns all single room reservations for customer with identification number, A0124422.
+// end::reservation-commands[]
+
+// tag::booking-commands[]
 === [underline]#Service Booking commands#
 ==== Booking a service: `add-booking`,`ab`
 
@@ -295,24 +316,7 @@ Returns all bookings for customer with identification number, A0124422.
 * `fb id/A0124422 s/GYM` +
 Returns all gym bookings for customer with identification number, A0124422.
 
-==== Find a specific reservation: `find-reservation`, `fr`
-
-Effect: Displays a reservation list based on the filters given by the user. +
-Format: `{[aqua]#find-reservation#/[aqua]#fr#}  [blue]#id/# [lime]#IDENTIFICATION_NO# [black]#[# [blue]#r/# [lime]#ROOM_TYPE# [black]#]#`
-
-[NOTE]
-====
-*  The searching is done in the whole reservation list.
-====
-
-Example:
-
-* `fr id/A0124422` +
-Returns all reservations for customer with identification number, A0124422.
-
-* `fr id/A0124422 r/SINGLE ROOM` +
-Returns all single room reservations for customer with identification number, A0124422.
-
+// end::booking-commands[]
 
 === [underline]#Bill Generation commands#
 

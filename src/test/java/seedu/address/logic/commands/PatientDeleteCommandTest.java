@@ -24,7 +24,7 @@ import seedu.address.model.person.Person;
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * {@code PatientDeleteCommand}.
  */
-public class DeleteCommandTest {
+public class PatientDeleteCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
@@ -48,7 +48,8 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         PatientDeleteCommand patientDeleteCommand = new PatientDeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(patientDeleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(patientDeleteCommand, model, commandHistory,
+                                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
@@ -78,7 +79,8 @@ public class DeleteCommandTest {
 
         PatientDeleteCommand patientDeleteCommand = new PatientDeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(patientDeleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(patientDeleteCommand, model, commandHistory,
+                                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
@@ -107,7 +109,8 @@ public class DeleteCommandTest {
         PatientDeleteCommand patientDeleteCommand = new PatientDeleteCommand(outOfBoundIndex);
 
         // execution failed -> address book state not added into model
-        assertCommandFailure(patientDeleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(patientDeleteCommand, model, commandHistory,
+                                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         // single address book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);

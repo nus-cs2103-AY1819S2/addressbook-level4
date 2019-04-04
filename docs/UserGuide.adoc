@@ -308,7 +308,7 @@ You can choose to sort the list of entries by name, amount, date or category.
 * Only one flag should be provided.
 
 * `[ORDER]` refers to either `-asc` or `-desc`.
-* `[Order]` is optional. If not supplied, default ordering is implied.
+* `[ORDER]` is optional. If not supplied, default ordering is implied.
 ====
 
 ****

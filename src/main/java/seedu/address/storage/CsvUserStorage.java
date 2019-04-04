@@ -43,6 +43,7 @@ public class CsvUserStorage implements UserStorage {
 
     /**
      * Parses the given file at the path into a user
+     *
      * @param filePath is not null
      * @return the parsed user
      */
@@ -66,13 +67,13 @@ public class CsvUserStorage implements UserStorage {
                 user.addCard(parseStringIntoCard(arr));
             } catch (IllegalValueException e) {
                 //do error handling here
-                logger.warning("Values are empty" + filePath.toString());
+                logger.warning(e.getMessage() + " in " + filePath.toString());
             } catch (NumberFormatException e) {
                 //do error handling here
-                logger.warning("Values are not correct" + filePath.toString());
+                logger.warning("Values are not correct in " + filePath.toString());
             } catch (DateTimeParseException e) {
                 //do error handling here
-                logger.warning("SrsDate is wrong" + filePath.toString());
+                logger.warning("SrsDate is wrong in " + filePath.toString());
             }
         }
 
@@ -81,6 +82,7 @@ public class CsvUserStorage implements UserStorage {
 
     /**
      * Parses the current user into a file
+     *
      * @param user
      * @param filePath
      * @throws IOException
@@ -99,6 +101,7 @@ public class CsvUserStorage implements UserStorage {
 
     /**
      * Converts a card with its constructor values into a String Array ready for CSV file
+     *
      * @param card
      * @return a String array with the cardData(hashcode, numAttempts, streak, srs, isDifficult)
      */
@@ -116,6 +119,7 @@ public class CsvUserStorage implements UserStorage {
 
     /**
      * Converts a card from a String Array in the CSV file
+     *
      * @param cardArray
      * @return card type with the constructor values
      */
@@ -136,27 +140,31 @@ public class CsvUserStorage implements UserStorage {
         boolean isDifficult;
         CardSrsData card;
 
-        try {
-            hashCode = Integer.parseInt(cardArray[0]);
-            numOfAttempts = Integer.parseInt(cardArray[1]);
-            streak = Integer.parseInt(cardArray[2]);
-            srs = Instant.parse(cardArray[3]);
+        //hashCode fromm file cannot be 0 //new line here check w the rest
+        // if (Integer.parseInt(cardArray[0]) != 0) {
 
-            // TODO remove this check after session uses the new constructor'
-            if (cardArray.length == 5) {
-                isDifficult = cardArray[4].equals("true");
-            } else {
-                isDifficult = false;
-            }
-            card = new CardSrsData(hashCode, numOfAttempts, streak, srs, isDifficult);
+        hashCode = Integer.parseInt(cardArray[0]);
+        numOfAttempts = Integer.parseInt(cardArray[1]);
+        streak = Integer.parseInt(cardArray[2]);
+        srs = Instant.parse(cardArray[3]);
 
-            return card;
+        isDifficult = cardArray[4].equals("true");
 
-        } catch (NumberFormatException e) {
-            throw e;
-        } catch (DateTimeParseException e) {
-            throw e;
+        if (hashCode == 0) {
+            throw new IllegalValueException("hashCode cannot be 0");
         }
+
+        if (numOfAttempts < 0) {
+            throw new IllegalValueException("number of attempts cannot be negative");
+        }
+
+        if (streak < 0) {
+            throw new IllegalValueException("streak cannot be negative");
+        }
+
+        card = new CardSrsData(hashCode, numOfAttempts, streak, srs, isDifficult);
+
+        return card;
     }
 
     @Override

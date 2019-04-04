@@ -33,11 +33,11 @@ public class PersonListPanel extends UiPart<Region> {
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selection in person list panel changed to : '" + newValue + "'");
+            logger.fine("Selection in patient list panel changed to : '" + newValue + "'");
             onSelectedPersonChange.accept(newValue);
         });
         selectedPerson.addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selected person changed to: " + newValue);
+            logger.fine("Selected patient changed to: " + newValue);
 
             // Don't modify selection if we are already selecting the selected person,
             // otherwise we would have an infinite loop.

@@ -21,7 +21,8 @@ public class PatientAddCommand extends Command {
     public static final String COMMAND_WORD = "patientadd";
     public static final String COMMAND_WORD2 = "padd";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a patient to the dental book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " or " + COMMAND_WORD
+            + ": Adds a patient to the dental book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_SEX + "SEX "
@@ -35,7 +36,7 @@ public class PatientAddCommand extends Command {
             + "[ PREFIX/PARAMETER ]";
 
     public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This patient already exists in the dental book";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This patient already exists in the dental book.";
 
     private final Patient toAdd;
 

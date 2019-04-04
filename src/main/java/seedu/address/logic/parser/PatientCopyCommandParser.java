@@ -31,7 +31,8 @@ public class PatientCopyCommandParser implements Parser<PatientCopyCommand> {
             numOfCopies = parsedPair.getValue();
 
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PatientCopyCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                        PatientCopyCommand.MESSAGE_USAGE), pe);
         }
 
 

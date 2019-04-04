@@ -32,7 +32,8 @@ public class TaskCopyCommandParser implements Parser<TaskCopyCommand> {
             numOfCopies = parsedPair.getValue();
 
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PatientCopyCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                        PatientCopyCommand.MESSAGE_USAGE), pe);
         }
         return new TaskCopyCommand(index, numOfCopies);
     }

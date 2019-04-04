@@ -59,7 +59,9 @@ public class TimeCustom implements Comparable<TimeCustom> {
 
     @Override
     public int compareTo(TimeCustom t) {
-        if (equals(t)) { return 0; }
+        if (equals(t)) {
+            return 0;
+        }
         return timeCompare(storedTime, t.storedTime) ? 1 : -1;
     }
 

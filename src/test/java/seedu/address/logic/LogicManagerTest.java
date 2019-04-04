@@ -24,7 +24,7 @@ import org.junit.rules.TemporaryFolder;
 import seedu.address.logic.commands.PatientAddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.PatientListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -74,9 +74,9 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
-        assertHistoryCorrect(listCommand);
+        String patientListCommand = PatientListCommand.COMMAND_WORD;
+        assertCommandSuccess(patientListCommand, PatientListCommand.MESSAGE_SUCCESS, model);
+        assertHistoryCorrect(patientListCommand);
     }
 
     @Test

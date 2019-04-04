@@ -572,17 +572,23 @@ due to security reasons.
 |Start date*
 |The date in which the task is set to begin.
 
-You should provide the date in the format `DD-MM-YYYY` and should not be a date that is BEFORE the current date.
-Invalid dates such as 33-02-1995 or 25-13-2020 for example, will also be rejected as these are invalid date values
+You should provide the start date in the format `DD-MM-YYYY` and should not be a date that is BEFORE the current date.
+You can also use the keyword `today` as an input which will use the current date as the start date.
+Invalid dates such as 33-02-1995 or 25-13-2020 are examples of dates that will be rejected as invalid inputs
+for these are invalid date values (there is no 33rd day or a 13th month).
+Valid dates in the wrong format such as 05/06/2019 will also be rejected.
 |sd/DD-MM-YYYY
 |sd/19-12-2019
 
-|End date*
+|End date
 |The date in which the task is set to end.
 
-You should provide the date in the format `DD-MM-YYYY`, following standard date values should not be a date
-that is BEFORE the current date OR the given START DATE.
-Invalid dates such as 33-02-1995 or 25-13-2020 for example, will also be rejected as these are invalid date values.
+You should provide the end date in the format `DD-MM-YYYY`, following standard date values. The end date should not be
+BEFORE the task's START DATE.
+You can also use the keyword `today` as an input which will use the current date as the start date.
+Invalid dates such as 33-02-1995 or 25-13-2020 are examples of dates that will be rejected as invalid inputs
+for these are invalid date values (there is no 33rd day or a 13th month).
+Valid dates in the wrong format such as 05/06/2019 will also be rejected.
 |ed/DD-MM-YYYY
 |ed/19-12-2019
 
@@ -608,28 +614,30 @@ Invalid time values such as 2500 or 2388 will also be rejected as these are not 
 
 You should provide the priority as `high`, `med` or `low` in either upper or lowercase.
 Tasks with different priority will be marked with different colors on the task list.
-High priority will be marked [red]#red#, Medium priority be marked [yellow]#yellow# and
-Low priority will be marked [green]#green#.
+High priority will be marked [red]#red#, Medium priority be marked [orange]#orange# and
+Low priority will be marked [yellow]#yellow#.
 
 As the priority is not a mandatory parameter, if you do not specify a priority when you add a task,
-it will be given a defualt priority of [green]#Medium#
+it will be given a default priority of [yellow]#Low#
 |pri/PRIORITY
 |pri/high
 
-|Details
-|The details of the task to be performed. You can specify additional details about the task here.
-You can provide any alphanumeric characters and the special characters:
-`( ,@, !, ?, ., -` when giving the title for the task. Other characters not specified will not be allowed
-due to security reasons. If not specified, the task will have no additional details.
-|det/TEXT
-|det/Patient involved is Alex Yeoh, tools should be prepared 15 minutes in advance.
+|Patient
+|The patient to be linked to the task. Linking a patient to a task, enables the <<taskdone, taskdone>> command to
+ automatically add a record upon execution. + The patient's index can be found in the patient list
+and must be a valid POSITIVE integer. If you want to set a task's linked patient to none, you can give this parameter
+a value of `0` when using the <<taskedit, taskedit>> command. This parameter should not be included in task adding or
+task editing when in <<goto, goto>> mode as the patient list is not visible in that mode. +
+If a linked patient is <<edit, modified>> pr <<delete, deleted>>, the affected tasks will be updated accordingly.
+|pat/INDEX
+|pat/2
 
 |===
 
 Examples:
 
 * `taskadd ti/Teeth Filling for Alex sd/14-09-2019 ed/14-09-2019 st/1200 et/1300 pri/HIGH
-   det/Tooth 12 and 14 are to be filled. Perform a quick check-up prior to procedure.` +
+   pat/1`
 
 * `taskadd ti/Regular review of all patients' records sd/10-10-2019 ed/15-10-2019 st/1200 et/0800 pri/low`
 
@@ -677,6 +685,26 @@ Shows a list of all the task stored in the application.
 
 Format: `tasklist`
 
+==== taskdone
+Sets a task to `[green]#complete#`, marking the completion of the task.
+Executing this command on a patient that has a patient linked to it will automatically add a record to the patient.
+
+Format: `taskdone INDEX`
+
+==== taskcal
+Creates a popup window with a list of tasks on the left hand side of the window and a calendar on the right hand side.
+There will also be a command box below the calendar, allowing you to execute task commands from this window as well.
+
+
+You will see day cells in the calendar highlighted in color of the highest priority task for that day. You can also
+click on a specific day cell which will select it and the tasklist will be updated to show tasks that have either their
+`start date` or `end date` on that day. You can also key in a specific date in the format `DD-MM-YYYY` into the
+command box `e.g. 30-03-2019` and that day will be selected.
+
+Executing the command without specifying a date will cause the current date to be selected by default.
+
+format: `taskcal DD-MM-YYYY` or `taskcal`
+////
 ==== taskfind
 Searches for and displays a list of tasks according to a specified parameter
 
@@ -689,7 +717,7 @@ Examples:
 
 * `taskfind pri/HIGH`
 * `taskfind ti/Extraction`
-
+////
 === Viewing and Locating Information
 The commands listed below deal with displaying and finding data for you to view.
 They do not deal with the adding or modification of any information currently already

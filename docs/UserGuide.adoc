@@ -586,6 +586,7 @@ Valid dates in the wrong format such as 05/06/2019 will also be rejected.
 You should provide the end date in the format `DD-MM-YYYY`, following standard date values. The end date should not be
 BEFORE the task's START DATE.
 You can also use the keyword `today` as an input which will use the current date as the start date.
+
 Invalid dates such as 33-02-1995 or 25-13-2020 are examples of dates that will be rejected as invalid inputs
 for these are invalid date values (there is no 33rd day or a 13th month).
 Valid dates in the wrong format such as 05/06/2019 will also be rejected.
@@ -596,6 +597,7 @@ Valid dates in the wrong format such as 05/06/2019 will also be rejected.
 |The specific time in which the task is set to begin.
 
 You should provide the time in the format `HHMM` (hours and minutes) and should also follow standard time values.
+
 Invalid time values such as 2500 or 2388 will also be rejected as these are not valid time values.
 |st/HHMM
 |st/0845
@@ -605,6 +607,7 @@ Invalid time values such as 2500 or 2388 will also be rejected as these are not 
 
 You should provide the time in the format `HHMM` (hours and minutes) and should also follow standard time values.
 If the task's start date and end date are the same, the end time should also not be BEFORE the start time.
+
 Invalid time values such as 2500 or 2388 will also be rejected as these are not valid time values.
 |et/HHMM
 |et/1245
@@ -630,6 +633,7 @@ it will be given a default priority of [yellow]#Low#
 and must be a valid POSITIVE integer. If you want to set a task's linked patient to none, you can give this parameter
 a value of `0` when using the <<taskedit, taskedit>> command. This parameter should not be included in task adding or
 task editing when in <<goto, goto>> mode as the patient list is not visible in that mode. +
+
 If a linked patient is <<edit, modified>> pr <<delete, deleted>>, the affected tasks will be updated accordingly.
 |pat/INDEX
 |pat/2
@@ -643,7 +647,7 @@ Examples:
 
 * `taskadd ti/Regular review of all patients' records sd/10-10-2019 ed/15-10-2019 st/1200 et/0800 pri/low`
 
-* `taskadd ti/Braces removal for Bernice sd/05-05-2020 ed/05-05-2020 st/1500 et/1600`
+* `taskadd ti/Follow-up for Bernice sd/today st/1500 et/1600`
 
 ==== taskedit
 Edits a task currently stored in the application

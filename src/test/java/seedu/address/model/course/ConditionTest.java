@@ -32,19 +32,19 @@ public class ConditionTest {
 
     @Test
     public void equal() {
-        Condition ulr = TypicalCondition.ULR;
-        assertEquals(ulr, ulr);
+        Condition geh = TypicalCondition.GEH;
+        assertEquals(geh, geh);
         //not equals null
-        assertNotEquals(null, ulr);
+        assertNotEquals(null, geh);
         //not equals other type
-        assertNotEquals(ulr, 0);
+        assertNotEquals(geh, 0);
 
         //not equals when different min
-        Condition modifiedUlr = new ConditionBuilder().withMin(3).build();
-        assertNotEquals(modifiedUlr, ulr);
+        Condition modifiedGeh = new ConditionBuilder().withMin(3).build();
+        assertNotEquals(modifiedGeh, geh);
         //alternate constructor for Condition
-        modifiedUlr = new ConditionBuilder().withMin(1).build();
-        Condition modifiedUlr2 = new Condition(ConditionBuilder.DEFAULT_PATTERN.toString());
-        assertEquals(modifiedUlr, modifiedUlr2);
+        modifiedGeh = new ConditionBuilder().withMin(1).build();
+        Condition modifiedGeh2 = new Condition(ConditionBuilder.DEFAULT_PATTERN.toString());
+        assertEquals(modifiedGeh, modifiedGeh2);
     }
 }

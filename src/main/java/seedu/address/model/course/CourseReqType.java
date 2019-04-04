@@ -7,7 +7,7 @@ public enum CourseReqType {
 
     /* in decreasing order of priority */
     CORE("Core Requirement"),
-    TE("Technical/Programme Elective or Focus Area"),
+    BD("Breadth & Depth"),
     IE("Industry Experience Requirement"),
     FAC("Faculty Requirement"),
     GE("General Education Requirement"),

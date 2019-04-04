@@ -60,6 +60,30 @@ public class ChartBook implements ReadOnlyCountryChart, ReadOnlyRatingChart, Rea
 
     //// chart book level operations
 
+    /**
+     * Adds a country chart to the chart book.
+     */
+    public void addCountryChart(CountryChart countryChart) {
+        countries.add(countryChart);
+        indicateModified();
+    }
+
+    /**
+     * Adds a rating chart to the chart book.
+     */
+    public void addRatingChart(RatingChart ratingChart) {
+        ratings.add(ratingChart);
+        indicateModified();
+    }
+
+    /**
+     * Adds a year chart to the chart book.
+     */
+    public void addYearChart(YearChart yearChart) {
+        years.add(yearChart);
+        indicateModified();
+    }
+
     @Override
     public void addListener(InvalidationListener listener) {
         invalidationListenerManager.addListener(listener);

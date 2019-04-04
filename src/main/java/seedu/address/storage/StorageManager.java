@@ -10,6 +10,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.statistics.PlayerStatistics;
 
 /**
  * Manages storage of MapGrid data in local storage.
@@ -19,10 +20,12 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
+    private StatisticsStorage statisticsStorage;
 
-
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
+                            StatisticsStorage statisticsStorage) {
         super();
+        this.statisticsStorage = statisticsStorage;
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
@@ -53,6 +56,11 @@ public class StorageManager implements Storage {
     }
 
     @Override
+    public Path getStatisticsFilePath() {
+        return statisticsStorage.getStatisticsFilePath();
+    }
+
+    @Override
     public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
         return readAddressBook(addressBookStorage.getAddressBookFilePath());
     }
@@ -74,6 +82,18 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
+    @Override
+    public void saveStatisticsData(PlayerStatistics statisticsData) throws IOException {
+        System.out.println("Inside Storage Manager, Saving Stats Data");
+        saveStatisticsData(statisticsData, statisticsStorage.getStatisticsFilePath());
+    }
+
+
+    public void saveStatisticsData(PlayerStatistics statisticsData, Path filePath) throws IOException {
+        System.out.println("Inside Storage Manager, Saving Stats Data with FilePath");
+        logger.fine("Attempting to save statistics to file: " + filePath);
+        statisticsStorage.saveStatisticsData(statisticsData, filePath);
+    }
     /**
      * Saves the ReadOnlyAddressBook locally in a fixed temporary location.
      *

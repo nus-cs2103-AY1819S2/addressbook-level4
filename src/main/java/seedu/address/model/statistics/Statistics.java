@@ -1,9 +1,11 @@
 package seedu.address.model.statistics;
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.battle.AttackResult;
+import seedu.address.storage.Storage;
 
 /**
  * A Statistics Class tracks the key gameplay information.
@@ -16,6 +18,7 @@ public abstract class Statistics {
     protected int movesMade;
     protected int enemyShipsDestroyed;
     protected int attackCount;
+    protected Storage storage;
 
 
     /**
@@ -156,4 +159,19 @@ public abstract class Statistics {
         return dataSeries1;
     }
 
+    // method
+    public void saveToStorage(PlayerStatistics statisticsData) throws IOException {
+        System.out.println("SaveStatisticsData");
+        this.storage.saveStatisticsData(statisticsData);
+        //storage.saveStatistics
+        // This method will pass this PlayerStats object into Storage
+        // Then from Storage, it will deconstruct to be serializable.
+        // Then it will save to json
+    }
+
+    public void setStorage(Storage storage) {
+        logger.info("Set Storage Location for Statistics");
+        this.storage = storage;
+
+    }
 }

@@ -778,11 +778,11 @@ Automatically correct an improperly typed command(e.g. sirt to sort).
 
 == Frequently Asked Questions (FAQ)
 
-*Q*: How do I transfer my data to another Computer?
+*Q*: How do I transfer my data to another computer?
 
-*A*: Install TeethHub in the other computer and overwrite the empty data
-file it creates with the file that contains the data of your previous
-Address Book folder. Alternatively, upload your data to the cloud and
+*A*: Install TeethHub in computer B and copy over the TeethHub.json
+in the data folder of computer A to the data folder of computer B.
+Alternatively, upload your data to the cloud and
 download it from there.
 
 == Command Summary

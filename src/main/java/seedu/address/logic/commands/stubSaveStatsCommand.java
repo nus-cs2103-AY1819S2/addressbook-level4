@@ -80,7 +80,21 @@ public class stubSaveStatsCommand extends Command {
         catch (IOException ioe) {
             System.out.println("IO Exception");
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        // this game accuracy higher,
+        if (pastAccuracy < (this.playerStats).getAccuracy()){
+            return new CommandResult(MESSAGE_SUCCESS + ">> Your accuracy improved!" + '\n' +
+                    "Current Game : " + this.playerStats.getAccuracy() + '\n' +
+                    "Previous Game : " + pastAccuracy);
+        }
+        else if (pastAccuracy == this.playerStats.getAccuracy()) {
+            return new CommandResult(MESSAGE_SUCCESS + ">> Your accuracy is the same at " + pastAccuracy);
+        }
+        else {
+            return new CommandResult(MESSAGE_SUCCESS + ">> Your accuracy was better last round!" + '\n' +
+                     "Current Game : " + this.playerStats.getAccuracy() + '\n' +
+                     "Previous Game : " + pastAccuracy);
+        }
+
     }
 
 }

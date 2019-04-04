@@ -83,3 +83,39 @@ public class PatientInfoPanel extends UiPart<Region> {
     @FXML
     private Label recorddescription;
 
+    public PatientInfoPanel(ObservableValue<Person> selectedPerson, ObservableValue<Record> selectedRecord) {
+        super(FXML);
+        tabManger = new TabPane();
+        background.widthProperty().addListener((observable, oldValue, newValue) -> {
+            name.maxWidthProperty().bind(background.widthProperty().subtract(100));
+            seperator.endXProperty().bind(background.widthProperty());
+            seperator2.endXProperty().bind(background.widthProperty());
+            tabManger.getTabs().set(0, patientParticulars);
+        });
+        this.patientParticulars = new Tab("Patient Particulars");
+        particularsPane.setStyle("-fx-padding: 0 0 0 5");
+        recordsPane.setStyle("-fx-padding: 0 0 0 5");
+        selectedPerson.addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                loadDefaultPage();
+                return;
+            }
+            loadPersonPage(newValue);
+        });
+
+        selectedRecord.addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                return;
+            }
+            loadRecordPage(newValue);
+        });
+        loadDefaultPage();
+        tabManger.getTabs().add(patientParticulars);
+        tabManger.minWidthProperty().bind(background.widthProperty());
+        tabManger.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+        tabManger.setStyle("-fx-close-tab-animation: NONE");
+        background.setContent(tabManger);
+        background.setStyle("-fx-background-color: transparent");
+    }
+
+}

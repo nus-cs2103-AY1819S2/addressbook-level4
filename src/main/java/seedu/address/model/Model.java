@@ -98,26 +98,9 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Cell> predicate);
 
     /**
-     * Selected cell in the filtered cell list.
-     * null if no cell is selected.
-     */
-    ReadOnlyProperty<Cell> selectedPersonProperty();
-
-    /**
-     * Returns the selected cell in the filtered cell list.
-     * null if no cell is selected.
-     */
-    Cell getSelectedPerson();
-
-    /**
      * Returns the map size
      */
     int getMapSize();
-
-    /**
-     * Sets the selected cell in the filtered cell list.
-     */
-    void setSelectedPerson(Cell cell);
 
     PlayerStatistics getPlayerStats();
 

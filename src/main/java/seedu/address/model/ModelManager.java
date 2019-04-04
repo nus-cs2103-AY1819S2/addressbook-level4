@@ -193,24 +193,6 @@ public class ModelManager implements Model {
 
     //=========== Selected cell ===========================================================================
 
-    @Override
-    public ReadOnlyProperty<Cell> selectedPersonProperty() {
-        return selectedPerson;
-    }
-
-    @Override
-    public Cell getSelectedPerson() {
-        return selectedPerson.getValue();
-    }
-
-    @Override
-    public void setSelectedPerson(Cell cell) {
-        if (cell != null && !filteredCells.contains(cell)) {
-            throw new PersonNotFoundException();
-        }
-        selectedPerson.setValue(cell);
-    }
-
     /**
      * Ensures {@code selectedPerson} is a valid cell in {@code filteredCells}.
      */

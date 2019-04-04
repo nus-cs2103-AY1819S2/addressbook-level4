@@ -30,7 +30,6 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new MapGrid(), new MapGrid(modelManager.getAddressBook()));
-        assertEquals(null, modelManager.getSelectedPerson());
         assertEquals(BattleState.PRE_BATTLE, modelManager.getBattleState());
     }
 
@@ -84,12 +83,6 @@ public class ModelManagerTest {
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredPersonList().remove(0);
-    }
-
-    @Test
-    public void setSelectedPerson_personNotInFilteredPersonList_throwsPersonNotFoundException() {
-        thrown.expect(PersonNotFoundException.class);
-        modelManager.setSelectedPerson(ALICE);
     }
 
     @Test

@@ -121,7 +121,6 @@ public class CommandTestUtil {
         // only do so by copying its components.
         MapGrid expectedMapGrid = new MapGrid(actualModel.getAddressBook());
         List<Cell> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
-        Cell expectedSelectedCell = actualModel.getSelectedPerson();
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -132,7 +131,6 @@ public class CommandTestUtil {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedMapGrid, actualModel.getAddressBook());
             assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
-            assertEquals(expectedSelectedCell, actualModel.getSelectedPerson());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }

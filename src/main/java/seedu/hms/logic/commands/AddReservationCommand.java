@@ -9,6 +9,7 @@ import static seedu.hms.logic.parser.CliSyntax.PREFIX_ROOM;
 
 import seedu.hms.logic.CommandHistory;
 import seedu.hms.logic.commands.exceptions.CommandException;
+import seedu.hms.model.Model;
 import seedu.hms.model.ReservationModel;
 import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.exceptions.RoomFullException;
@@ -56,6 +57,7 @@ public class AddReservationCommand extends ReservationCommand {
         requireNonNull(model);
         try {
             model.addReservation(toAdd);
+            model.updateFilteredReservationList(Model.PREDICATE_SHOW_ALL_RESERVATIONS);
         } catch (RoomUnavailableException e) {
             return new CommandResult(MESSAGE_ROOM_UNAVAILABLE);
         } catch (RoomFullException e) {

@@ -1,5 +1,8 @@
 package seedu.hms.ui;
 
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_ROOM;
+
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
@@ -11,7 +14,12 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.hms.commons.core.LogsCenter;
+import seedu.hms.logic.commands.FindReservationCommand;
+import seedu.hms.logic.commands.exceptions.CommandException;
+import seedu.hms.logic.parser.exceptions.ParseException;
+import seedu.hms.model.customer.Customer;
 import seedu.hms.model.reservation.Reservation;
+import seedu.hms.model.reservation.RoomType;
 
 /**
  * Panel containing the list of reservations.
@@ -27,7 +35,10 @@ public class ReservationListPanel extends UiPart<Region> {
 
     public ReservationListPanel(ObservableList<Reservation> reservationList,
                                 ObservableValue<Reservation> selectedReservation,
-                                Consumer<Reservation> onSelectedReservationChange) {
+                                Consumer<Reservation> onSelectedReservationChange,
+                                ObservableValue<Customer> selectedCustomer,
+                                ObservableValue<RoomType> selectedRoomType,
+                                CommandBox.CommandExecutor commandExecutor) {
         super(FXML);
         reservationListView.setItems(reservationList);
         reservationListView.setCellFactory(listView -> new ReservationListViewCell());
@@ -50,6 +61,32 @@ public class ReservationListPanel extends UiPart<Region> {
                 int index = reservationListView.getItems().indexOf(newValue);
                 reservationListView.scrollTo(index);
                 reservationListView.getSelectionModel().clearAndSelect(index);
+            }
+        });
+        selectedCustomer.addListener((observable, oldValue, newValue) -> {
+            logger.fine("Selected customer changed to: " + newValue);
+
+
+            if (newValue != null) {
+                try {
+                    commandExecutor.execute(FindReservationCommand.COMMAND_WORD
+                            + " " + PREFIX_IDENTIFICATION_NUMBER + newValue.getIdNum().toString());
+                } catch (CommandException | ParseException e) {
+                    return;
+                }
+            }
+        });
+        selectedRoomType.addListener((observable, oldValue, newValue) -> {
+            logger.fine("Selected roomType changed to: " + newValue);
+
+
+            if (newValue != null) {
+                try {
+                    commandExecutor.execute(FindReservationCommand.COMMAND_WORD
+                            + " " + PREFIX_ROOM + newValue.getName().toString());
+                } catch (CommandException | ParseException e) {
+                    return;
+                }
             }
         });
     }

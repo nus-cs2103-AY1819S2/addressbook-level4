@@ -23,12 +23,19 @@ order depending on the mode it's in.
 ** Justification: A user can have large amounts of data stored within the program. This feature improves the product
 significantly by allow the user to view that data in the desired parameter order so that it becomes easier for the
 user to locate them.
-** Highlights: This feature reorders the stored data within the json storage file as well.
+** Highlights: This feature automatically switches the type of data (patient or record) that it sorts
+depending on the mode the program is in. This feature reorders the stored data within the json storage
+                file as well.
 
-* *Major enhancement*: added *the ability to find patients through all available parameters*
-** What it does: allows the user to
-** Justification:
-** Highlights: This feature
+* *Major enhancement*: added *the ability to find patients and records through all available parameters*
+** What it does: allows the user to find a desired patient or record based on the specified parameter(s) and keywords.
+The user can additionally choose if they want the search to be case sensitive, and if the search should find data
+containing at least one keyword or if the search should find data that contains all keywords.
+
+** Justification: A user can have large amounts of data stored within the program. This feature allows the user
+greater refinement over the parameters to find a particular desired patient.
+** Highlights: This feature automatically switches the type of data (patient or record) that it searches through
+depending on the mode the program is in.
 
 * *Major enhancement*: added *the ability to view a patient's statistics report*
 ** What it does: allows the user to

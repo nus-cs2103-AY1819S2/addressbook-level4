@@ -206,15 +206,15 @@ HealthHub, we have also extensively updated the User Guide to allow for users
 The following sections details my contribution to the User Guide up til
 HealthHub version release v1.4.
 
-include::../UserGuide.adoc[tags=addHealthWorker]
+include::../UserGuide.adoc[tag=addHealthWorker]
 
-include::../UserGuide.adoc[tags=editHealthWorker]
+include::../UserGuide.adoc[tag=editHealthWorker]
 
-include::../UserGuide.adoc[tags=listHealthWorker]
+include::../UserGuide.adoc[tag=listHealthWorker]
 
-include::../UserGuide.adoc[tags=delHealthWorker]
+include::../UserGuide.adoc[tag=delHealthWorker]
 
-include::../UserGuide.adoc[tags=filterHealthWorker]
+include::../UserGuide.adoc[tag=filterHealthWorker]
 
 == Contributions to the Developer Guide
 

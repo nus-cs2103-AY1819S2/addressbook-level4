@@ -269,7 +269,9 @@ After checking for valid keyword, the `AddCommandParser` object checks for
 the following compulsory information, along with regular expressions checking
  for validity of each field:
 
-*`HealthWorker` fields*:
+==== Adding a `HealthWorker`
+
+Format: `add healthworker/h/1 <parameters>...` +
 
 * `name` field prepended by the `n/` prefix. Valid inputs of `name` field
 will be represented and stored as a `Name` class object.
@@ -438,26 +440,109 @@ application, and the following details:
 ** `condition` - Condition of the patient that made the request.
 
 === Filter Feature
-The `filter` command allows users to filter either the current displayed
-list of `HealthWorker` and `Request` objects and replaces the current list
-shown on the UI with the respective filtered lists.
 
-****
-*Notes*:
+With the filter command, users can provide specific parameters that act as
+conditions for HealthHub to filter the `UniqueHealthWorkerList` and
+`UniqueRequestList` by. Using these parameters, HealthHub displays only the
+`HealthWorker` or `Request` whose fields contains the specified parameters.
 
-* The `<prefix>` and `<parameters>` specified in the command descriptions
+Command Format: `filter <keyword> <prefix>/<parameter> [<prefix>/<parameter>]
+...`
+
+[NOTE]
+====
+The `<prefix>` and `<parameters>` specified in the command descriptions
 below follow the same valid prefix and parameter formats as the `add`, `edit`
  and `delete` commands
-****
+====
 
-==== Filtering `HealthWorker` s
-* Format: `filter healthworker/h/1 <prefix>/<parameter> [<prefix/<parameter>]
+==== Filtering `HealthWorker`
+
+The command format for filtering `HealthWorker` is:
+
+`filter healthworker/h/1 <prefix>/<parameter> [<prefix>/<parameter>]...`
+
+The fields in `HealthWorker` that the user can filter by are:
+
+* `name` prepended by `n/` prefix
+* `organisation` prepended by the `o/` prefix
+* `specialisation` prepend by the `s/` prefix
+
+[NOTE]
+====
+If multiple `specialisation` fields are provided, HealthHub will filter the
+`UniqueHealthWorkerList` by displaying `HealthWorker` that contains both
+specified `specialisations
+====
+
+HealthHub filters the respective list of `HealthWorker` and `Request` by
+checking if the corresponding field contains the specified parameter as a
+substring. +
+For example entering the command `filter h n/John` displays a list of
+`HealthWorker` whose name equals to John, or contains John as a substring(E.g
+ Johnny, Johnson).
+
+==== Filtering `HealthWorker`
+
+The `filter` command allows users to display only `HealthWorker` or `Request`
+ whose fields matches the `<parameter>` specified in the filter command.
+
+Format: `filter healthworker/h/1 <prefix>/<parameter> [<prefix/<parameter>]
 ...`
+
 * The `filter` command checks for `HealthWorker` whose field specific to the
 `<specific>` contains or matches the `<parameter>` provided.
 * Example: `filter h n/John` changes the UI to display only `HealthWorker`
 whose name is John, or contains John (Johnny, Johnson, ...)
 
+Upon entering the `filter` command, the `filter` command word is stripped from the
+ input and the argument fields are passed into the `FilterCommandParser` class.
+The regular expressions for checking the fields for `name`, `organisation`
+and `skills` follows the same format as mentioned in `add` command. If
+invalid parameters are specified by the user, or if an invalid `keyword` was
+specified that does not correspond to any `CommandMode` enum, then
+`FilterCommandParser` throws a `ParseException` and displays an error message
+ to the user.
+
+If valid inputs are provided, `FilterCommandParser` tokenizes the argument
+string without the `keyword` using `ArgumentTokenizer` object, mapping each
+parameter to it's respective prefix in an `ArgumentMultiMap` object.
+`FilterCommandParser` then creates a `Predicate` object using the parameter
+values in `ArgumentMultiMap` for each filter condition, and composes them
+into a single `Predicate` using the `and` function in `Predicate` in
+conjuction with `stream` and `reduce` methods from Java's `Function` library.
+ The `Predicate` object composed is then passed into
+ `FilterHealthWorkerCommand`, which sets the predicate for the `HealthWorker`
+  list in the GUI to display only `HealthWorker` whose fields matches the
+  `Predicate` set.
+
+===== Design Considerations
+
+During the implementation of the `filter` command, we decide between two
+alternative implementations of managing the `Predicates` created from
+multiple criteria input by the user.
+
+The following table states the considerations for performance as well as
+future implementations and enhancements to HealthHub that were taken into
+account:
+
+<Insert Table Here>
+
+Ultimately, the decision was made to implement the `filter` command by
+composing the `Predicate` that were formed from the user inputs into a single
+ `Predicate` using a combination of Java's `Function` library methods
+ `stream` and `reduce`, as well as the `and` method used in Java's
+ `Predicate` library. +
+This is because maintain a `List` of `Predicate` in HealthHub increases the
+abstraction use in implementing any functionality that involves a `Predicate`
+ of a field, and accessing the inner `Predicate` in the list would mean
+ passing through an additional layer of abstraction and violating the Law of
+ Demeter.
+
+In addition, by returning a single `Predicate` object, ease of implementation
+ of methods in `filter` command, as well as any future or existing
+ enhancements to `filter` reduces the complexity of code as the function
+ needs only to depend on `Predicate` and not `List`.
 
 // tag::undoredo[]
 === Undo/Redo feature

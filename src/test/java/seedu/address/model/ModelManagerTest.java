@@ -38,7 +38,7 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new GradTrak(), new GradTrak(modelManager.getGradTrak()));
-        assertEquals(null, modelManager.getSelectedModuleTaken());
+        assertEquals(null, modelManager.getSelectedClassForPrinting());
     }
 
     @Test
@@ -109,7 +109,7 @@ public class ModelManagerTest {
         modelManager.addModuleTaken(CS2103T);
         modelManager.setSelectedModuleTaken(CS2103T);
         modelManager.deleteModuleTaken(CS2103T);
-        assertEquals(null, modelManager.getSelectedModuleTaken());
+        assertEquals(null, modelManager.getSelectedClassForPrinting());
     }
 
     @Test
@@ -119,7 +119,7 @@ public class ModelManagerTest {
         assertEquals(Arrays.asList(CS2103T, DEFAULT_MODULE_CS1010), modelManager.getFilteredModulesTakenList());
         modelManager.setSelectedModuleTaken(DEFAULT_MODULE_CS1010);
         modelManager.deleteModuleTaken(DEFAULT_MODULE_CS1010);
-        assertEquals(CS2103T, modelManager.getSelectedModuleTaken());
+        assertEquals(CS2103T, modelManager.getSelectedClassForPrinting());
     }
 
     @Test
@@ -129,7 +129,7 @@ public class ModelManagerTest {
         ModuleTaken updatedAlice = new ModuleTakenBuilder(CS2103T)
                 .withExpectedMinGrade(VALID_EXPECTED_MIN_GRADE_CS1010).build();
         modelManager.setModuleTaken(CS2103T, updatedAlice);
-        assertEquals(updatedAlice, modelManager.getSelectedModuleTaken());
+        assertEquals(updatedAlice, modelManager.getSelectedClassForPrinting());
     }
 
     @Test
@@ -149,7 +149,7 @@ public class ModelManagerTest {
         modelManager.addModuleTaken(CS2103T);
         assertEquals(Collections.singletonList(CS2103T), modelManager.getFilteredModulesTakenList());
         modelManager.setSelectedModuleTaken(CS2103T);
-        assertEquals(CS2103T, modelManager.getSelectedModuleTaken());
+        assertEquals(CS2103T, modelManager.getSelectedClassForPrinting());
     }
 
     @Test

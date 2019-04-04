@@ -127,10 +127,10 @@ public interface Model {
     void updateFilteredModulesTakenList(Predicate<ModuleTaken> predicate);
 
     /**
-     * Returns the generated html string that indicates if the CAP and workload limits
+     * Returns a printable LimitChecker with generated html string that indicates if the CAP and workload limits
      * set by the user for every semester have been violated based the modules taken in their plan.
      */
-    String checkLimit();
+    ClassForPrinting checkLimit();
 
     /**
      * Returns true if the model has previous GradTrak states to restore.
@@ -161,18 +161,18 @@ public interface Model {
      * Selected moduleTaken in the filtered moduleTaken list.
      * null if no moduleTaken is selected.
      */
-    ReadOnlyProperty<ModuleTaken> selectedModuleTakenProperty();
+    ReadOnlyProperty<ClassForPrinting> selectedModuleTakenProperty();
 
     /**
      * Returns the selected moduleTaken in the filtered moduleTaken list.
      * null if no moduleTaken is selected.
      */
-    ModuleTaken getSelectedModuleTaken();
+    ClassForPrinting getSelectedClassForPrinting();
 
     /**
      * Sets the selected moduleTaken in the filtered moduleTaken list.
      */
-    void setSelectedModuleTaken(ModuleTaken moduleTaken);
+    void setSelectedModuleTaken(ClassForPrinting classForPrinting);
 
     /**
      * Returns an Observable list of all module information from storage

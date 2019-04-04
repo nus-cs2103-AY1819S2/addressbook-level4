@@ -13,7 +13,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.ClassForPrinting;
 
 /**
  * The Browser Panel of the App.
@@ -31,7 +31,7 @@ public class BrowserPanel extends UiPart<Region> {
     @FXML
     private WebView browser;
 
-    public BrowserPanel(ObservableValue<ModuleTaken> selectedPerson) {
+    public BrowserPanel(ObservableValue<ClassForPrinting> selectedPerson) {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.
@@ -43,14 +43,20 @@ public class BrowserPanel extends UiPart<Region> {
                 loadDefaultPage();
                 return;
             }
-            loadPersonPage(newValue);
+            loadBrowerPanelPage(newValue);
         });
 
         loadDefaultPage();
     }
 
-    private void loadPersonPage(ModuleTaken moduleTaken) {
-        loadPage(SEARCH_PAGE_URL + moduleTaken.getModuleInfoCode().toString());
+    /**
+     * Loads a class for printing into the browser panel page.
+     * If the class for printing is a ModuleTaken, it will print the details which includes the workload information
+     * that is not shown in the person card.
+     * If the class is a LimitChecker, it will print the generated checked report.
+     */
+    private void loadBrowerPanelPage(ClassForPrinting classForPrinting) {
+        loadContent(classForPrinting.getPrintable());
     }
 
     public void loadPage(String url) {

@@ -47,7 +47,7 @@ public class ModelManager implements Model {
     private final VersionedGradTrak versionedGradTrak;
     private final UserPrefs userPrefs;
     private final FilteredList<ModuleTaken> filteredModulesTaken;
-    private final SimpleObjectProperty<ModuleTaken> selectedModuleTaken = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<ClassForPrinting> selectedModuleTaken = new SimpleObjectProperty<>();
 
     //Model Information List for Model Manager to have Module Info List and list to be printed for displaymod
     private final ObservableList<ModuleInfo> allModules;
@@ -245,11 +245,12 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Returns a generated html string that shows where their CAP and workload limits are violated.
+     * Returns a LimitChecker with the generated html string
+     * that shows where their CAP and workload limits are violated.
      */
     @Override
-    public String checkLimit() {
-        return LimitChecker.checkLimit(getCurrentSemester(), getSemLimitList(), getFilteredModulesTakenList());
+    public ClassForPrinting checkLimit() {
+        return new LimitChecker(getCurrentSemester(), getSemLimitList(), getFilteredModulesTakenList());
     }
 
     //=========== Undo/Redo =================================================================================
@@ -282,21 +283,22 @@ public class ModelManager implements Model {
     //=========== Selected moduleTaken ===========================================================================
 
     @Override
-    public ReadOnlyProperty<ModuleTaken> selectedModuleTakenProperty() {
+    public ReadOnlyProperty<ClassForPrinting> selectedModuleTakenProperty() {
         return selectedModuleTaken;
     }
 
     @Override
-    public ModuleTaken getSelectedModuleTaken() {
+    public ClassForPrinting getSelectedClassForPrinting() {
         return selectedModuleTaken.getValue();
     }
 
     @Override
-    public void setSelectedModuleTaken(ModuleTaken moduleTaken) {
-        if (moduleTaken != null && !filteredModulesTaken.contains(moduleTaken)) {
+    public void setSelectedModuleTaken(ClassForPrinting classForPrinting) {
+        if (classForPrinting != null && classForPrinting instanceof ModuleTaken
+                && !filteredModulesTaken.contains(classForPrinting)) {
             throw new ModuleTakenNotFoundException();
         }
-        selectedModuleTaken.setValue(moduleTaken);
+        selectedModuleTaken.setValue(classForPrinting);
     }
 
     //=========== Module Info List ===========================================================================
@@ -363,7 +365,7 @@ public class ModelManager implements Model {
      */
     private void ensureSelectedModuleTakenIsValid(ListChangeListener.Change<? extends ModuleTaken> change) {
         while (change.next()) {
-            if (selectedModuleTaken.getValue() == null) {
+            if (selectedModuleTaken.getValue() == null || !(selectedModuleTaken.getValue() instanceof ModuleTaken)) {
                 // null is always a valid selected moduleTaken, so we do not need to check that it is valid anymore.
                 return;
             }
@@ -380,7 +382,7 @@ public class ModelManager implements Model {
 
             boolean wasSelectedPersonRemoved = change.getRemoved().stream()
                     .anyMatch(removedPerson
-                        -> selectedModuleTaken.getValue().isSameModuleTaken(removedPerson));
+                        -> ((ModuleTaken) selectedModuleTaken.getValue()).isSameModuleTaken(removedPerson));
             if (wasSelectedPersonRemoved) {
                 // Select the moduleTaken that came before it in the list,
                 // or clear the selection if there is no such moduleTaken.

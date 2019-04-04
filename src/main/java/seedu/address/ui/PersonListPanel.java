@@ -11,6 +11,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.ClassForPrinting;
 import seedu.address.model.moduletaken.ModuleTaken;
 
 /**
@@ -23,8 +24,9 @@ public class PersonListPanel extends UiPart<Region> {
     @FXML
     private ListView<ModuleTaken> personListView;
 
-    public PersonListPanel(ObservableList<ModuleTaken> moduleTakenList, ObservableValue<ModuleTaken> selectedPerson,
-                           Consumer<ModuleTaken> onSelectedPersonChange) {
+    public PersonListPanel(ObservableList<ModuleTaken> moduleTakenList,
+                           ObservableValue<ClassForPrinting> selectedPerson,
+                           Consumer<ClassForPrinting> onSelectedPersonChange) {
         super(FXML);
         personListView.setItems(moduleTakenList);
         personListView.setCellFactory(listView -> new PersonListViewCell());

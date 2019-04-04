@@ -29,7 +29,8 @@ public class SortCommand extends Command {
             + COMMAND_FLAG_AMOUNT + ": Sort records by amount in descending order\n"
             + COMMAND_FLAG_DATE + ": Sort records by date from most recent to least recent\n"
             + COMMAND_FLAG_CATEGORY + ": Sort records by category in lexicographical order\n"
-            + "Example: " + COMMAND_WORD + " " + COMMAND_FLAG_NAME;
+            + "Example: " + COMMAND_WORD + " " + COMMAND_FLAG_NAME + "\n"
+            + "Tip: To sort the records in the reverse order, use the reverse command!\n";
 
     public static final String MESSAGE_SUCCESS = "List is sorted.";
     public static final String MESSAGE_NOT_SORTED = "Only one flag should be provided.";

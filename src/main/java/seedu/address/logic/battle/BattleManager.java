@@ -72,14 +72,17 @@ public class BattleManager implements Battle {
     @Override
     public AttackResult takeComputerTurn() {
         // AI takes its turn
-
-        Coordinates enemyAttack = enemyPlayer.enemyShootAt();
-
-        AttackResult res = performAttack(enemyPlayer, humanPlayer, enemyAttack);
-        // update the enemy with it's result
-        logger.info(String.format("+++++++BATMAN SAYS: LAST HIT ON: " + enemyAttack.toString()
+        try {
+            Coordinates enemyAttack = enemyPlayer.enemyShootAt();
+            AttackResult res = performAttack(enemyPlayer, humanPlayer, enemyAttack);
+            // update the enemy with it's result
+            enemyPlayer.receiveStatus(humanPlayer.getMapGrid().getCellStatus(enemyAttack));
+            logger.info(String.format("+++++++BATMAN SAYS: LAST HIT ON: " + enemyAttack.toString()
                 + " status: " + res.toString()));
-        return res;
+            return res;
+        } catch (Exception ex) {
+            return new AttackFailed(enemyPlayer, humanPlayer, null, ex.getMessage());
+        }
     }
 
     /**

@@ -5,7 +5,7 @@ import seedu.address.model.cell.Status;
 import seedu.address.model.player.Enemy;
 
 /**
- * Stub for the Enemy class, to aid in testing BeginCommand and EndTurnCommand.
+ * Stub for the Enemy class, to aid in testing BeginCommand and AttackCommand.
  */
 public class InterceptedEnemy extends Enemy {
     private boolean isPrepCalled;

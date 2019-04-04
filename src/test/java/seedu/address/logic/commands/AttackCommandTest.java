@@ -20,6 +20,7 @@ import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.DestroyerBattleship;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Coordinates;
+import seedu.address.model.cell.Status;
 import seedu.address.model.player.Enemy;
 import seedu.address.model.player.Player;
 import seedu.address.testutil.TypicalIndexes;
@@ -38,6 +39,7 @@ public class AttackCommandTest {
         enemy = new Enemy();
         initialisePlayerSizeTen(player);
         initialisePlayerSizeTen(enemy);
+        enemy.prepEnemy();
         model = new ModelManager(new BattleManager(player, enemy));
         model.setBattleState(BattleState.PLAYER_ATTACK);
     }
@@ -73,6 +75,9 @@ public class AttackCommandTest {
     public void execute_missAttack_missesAndUpdatesStats() throws CommandException {
         int initialMissCount = model.getPlayerStats().getMissCount();
         int initialHitCount = model.getPlayerStats().getHitCount();
+        while (enemy.getMapGrid().getCellStatus(TypicalIndexes.COORDINATES_A1) == Status.SHIP) {
+            enemy.prepEnemy();
+        }
         AttackCommand cmd = new AttackCommand(TypicalIndexes.COORDINATES_A1);
         CommandResult res = cmd.execute(model, new CommandHistory());
         assertTrue(res.getFeedbackToUser().contains("miss"));

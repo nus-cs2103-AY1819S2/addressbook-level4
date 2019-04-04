@@ -37,6 +37,11 @@ public class AttackCommand extends Command {
     }
 
     @Override
+    /**
+     * Executes an attack command on a cell.
+     * If the player hits a ship, they can take another turn. If not, then
+     * the AI takes their turn immediately, then the player takes their turn.
+     */
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         // assert canExecuteIn(model.getBattleState());
@@ -50,10 +55,23 @@ public class AttackCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE + coord);
         }
         model.getPlayerStats().addResultToStats(res);
-
         model.updateUi();
 
-        return new CommandResult(res.toString());
+        if (res.isHit()) {
+            // player takes another turn
+            return new CommandResult(res.toString());
+        } else {
+            // immediately, AI takes its turn
+            model.setBattleState(BattleState.ENEMY_ATTACK);
+            AttackResult enemyRes = model.getBattle().takeComputerTurn();
+
+            StringBuilder resultBuilder = new StringBuilder();
+            resultBuilder.append(res.toString());
+            resultBuilder.append("\n");
+            resultBuilder.append(enemyRes.toString());
+            model.setBattleState(BattleState.PLAYER_ATTACK);
+            return new CommandResult(resultBuilder.toString());
+        }
     }
 
     @Override

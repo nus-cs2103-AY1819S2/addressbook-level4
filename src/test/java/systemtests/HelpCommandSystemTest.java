@@ -11,8 +11,8 @@ import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
-import seedu.address.logic.commands.PatientDeleteCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.PatientDeleteCommand;
 import seedu.address.logic.commands.PatientSelectCommand;
 
 import seedu.address.ui.StatusBarFooter;

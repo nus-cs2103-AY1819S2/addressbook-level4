@@ -30,12 +30,14 @@ public class PatientListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new PatientListCommand(), model, commandHistory, PatientListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new PatientListCommand(), model, commandHistory,
+                                PatientListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        assertCommandSuccess(new PatientListCommand(), model, commandHistory, PatientListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new PatientListCommand(), model, commandHistory,
+                                PatientListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

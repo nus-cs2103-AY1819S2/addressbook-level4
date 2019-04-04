@@ -130,22 +130,32 @@ public class MapGrid implements ReadOnlyAddressBook {
         return this.size;
     }
 
-    // TODO: Remove getCell methods
+    // TODO: Change to private
     /**
      * Returns the cell in the given coordinates
      */
     public Cell getCell(Coordinates coordinates) {
         return cellGrid[coordinates.getRowIndex().getZeroBased()][coordinates.getColIndex().getZeroBased()];
     }
-
+    // TODO: REMOVE
     public Cell getCell(int row, int column) {
         return cellGrid[row][column];
     }
 
+    /**
+     * Returns the status of the specified {@code Cell}.
+     * @param coord specifies which {@code Cell} to get {@code Status} from.
+     * @return {@code Status} of the cell.
+     */
     public Status getCellStatus(Coordinates coord) {
-        return cellGrid[coord.getRowIndex().getZeroBased()][coord.getColIndex().getZeroBased()].getStatus();
+        return getCell(coord).getStatus();
     }
 
+    /**
+     * Returns the name of the {@code Battleship} in the specified {@code Cell}
+     * @param coord specifies which {@code Cell} to get the name of {@code Battleship} from.
+     * @return Name of the {@code Battleship} as a {@code String}.
+     */
     public String getShipNameInCell(Coordinates coord) {
         return getCell(coord).getBattleship().get().toString();
     }

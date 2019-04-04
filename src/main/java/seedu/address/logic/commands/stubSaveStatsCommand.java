@@ -30,6 +30,13 @@ public class stubSaveStatsCommand extends Command {
     private PlayerStatistics oldPlayerStats;
     private Storage storage;
 
+    public double getAccuracy(int hitCount, int missCount) {
+        if (hitCount == 0 && missCount == 0) {
+            return 0;
+        }
+        return (double) hitCount / (double) (hitCount + missCount);
+    }
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(history);
@@ -39,7 +46,6 @@ public class stubSaveStatsCommand extends Command {
         this.playerStats = model.getPlayerStats();
 
         // GET PAST STATS
-        // GETTING PAST STATS
         this.storage = this.playerStats.getStorage();
         try {
             System.out.println("Get previous data Optional");
@@ -57,11 +63,14 @@ public class stubSaveStatsCommand extends Command {
             //logger.warning("Problem while reading from the file. Past statistics data will not be used");
         }
 
-        // TESTING READING OF FILES
-        statisticsDataOptional.ifPresent(x -> System.out.println(x.getHitCount()));
-        statisticsDataOptional.ifPresent(x -> System.out.println(x.getMissCount()));
-        // print out the read obj
+        // READING OF VALUES FROM THE FILES
 
+        int pastHit = (statisticsDataOptional.get()).getHitCount();
+        int pastMiss = (statisticsDataOptional.get()).getMissCount();
+        double pastAccuracy = getAccuracy(pastHit, pastMiss);
+
+        System.out.println("Previous game accuracy: " + pastAccuracy);
+        System.out.println("Current game accuracy " + this.playerStats.getAccuracy());
 
         // throw obj into storage
         try {

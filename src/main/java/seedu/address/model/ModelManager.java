@@ -20,6 +20,7 @@ import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.record.Record;
+import seedu.address.model.record.exceptions.RecordNotFoundException;
 import seedu.address.model.task.Task;
 import seedu.address.ui.MainWindow;
 
@@ -34,6 +35,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Task> filteredTasks;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Record> selectedRecord = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Task> selectedTask = new SimpleObjectProperty<>();
 
     private FilteredList<Record> filteredRecords;
@@ -206,6 +208,25 @@ public class ModelManager implements Model {
         versionedAddressBook.setRecord(target, editedRecord);
     }
 
+
+    @Override
+    public ReadOnlyProperty<Record> selectedRecordProperty() {
+        return selectedRecord;
+    }
+
+    @Override
+    public Record getSelectedRecord() {
+        return selectedRecord.getValue();
+    }
+
+    @Override
+    public void setSelectedRecord(Record record) {
+        if (record != null && !filteredRecords.contains(record)) {
+            throw new RecordNotFoundException();
+        }
+        selectedRecord.set(record);
+    }
+
     /**
      * Update tags based on teeth data.
      *
@@ -213,7 +234,7 @@ public class ModelManager implements Model {
      */
     @Override
     public void updateTags(Patient target) {
-        Patient editedTarget = target.copy();
+        Patient editedTarget = target;
         versionedAddressBook.setPerson(target, editedTarget);
         MainWindow.setRecordPatient(editedTarget);
     }

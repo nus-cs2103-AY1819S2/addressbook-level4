@@ -68,6 +68,10 @@ public class DateCustom implements DateBuilder, Comparable<DateCustom> {
         return !dateCompare(this.toString(), LocalDate.now().format(DATE_FORMATTER));
     }
 
+    public static String getToday() {
+        return LocalDate.now().format(DATE_FORMATTER);
+    }
+
     public LocalDate getDate() {
         return LocalDate.parse(storedDate, DATE_FORMATTER);
     }

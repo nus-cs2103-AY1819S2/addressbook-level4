@@ -70,7 +70,7 @@ public class EquipmentCardHandle extends NodeHandle<Node> {
         return phoneLabel.getText();
     }
 
-    public String getEmail() {
+    public String getDate() {
         return dateLabel.getText();
     }
 
@@ -88,7 +88,7 @@ public class EquipmentCardHandle extends NodeHandle<Node> {
         return getName().equals(equipment.getName().name)
                 && getAddress().equals(equipment.getAddress().value)
                 && getPhone().equals(equipment.getPhone().value)
-                && getEmail().equals(equipment.getDate().value)
+                && getDate().equals(equipment.getDate().value)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(equipment.getTags().stream()
                         .map(tag -> tag.tagName)
                         .collect(Collectors.toList())));

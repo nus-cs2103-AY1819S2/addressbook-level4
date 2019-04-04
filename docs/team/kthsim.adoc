@@ -38,11 +38,14 @@ greater refinement over the parameters to find a particular desired patient.
 depending on the mode the program is in.
 
 * *Major enhancement*: added *the ability to view a patient's statistics report*
-** What it does: allows the user to
-** Justification:
-** Highlights: This feature
+** What it does: allows the user to view a detailed report of the select patient containing their latest teeth, all
+linked user information, as well as a breakdown of their associated records.
+** Justification: A patient might be a frequent visitor to the user's dental practice, hence the user may want a
+detailed report so that they can analyze potential trends.
+** Highlights: This feature has three different ways of record data visualization; a simple table; a bar chart, and a
+ pie chart.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: added a Next Of Kin class as an attribute for a patient.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 

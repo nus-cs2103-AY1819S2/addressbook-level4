@@ -134,7 +134,7 @@ public class MapGrid implements ReadOnlyAddressBook {
     /**
      * Returns the cell in the given coordinates
      */
-    public Cell getCell(Coordinates coordinates) {
+    private Cell getCell(Coordinates coordinates) {
         return cellGrid[coordinates.getRowIndex().getZeroBased()][coordinates.getColIndex().getZeroBased()];
     }
     // TODO: REMOVE

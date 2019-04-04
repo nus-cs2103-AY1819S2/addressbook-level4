@@ -46,10 +46,6 @@ public class RightParentPanel extends UiPart<Region> {
                 parentPanelPlaceholder.getChildren().setAll(displayListPanel.getRoot());
             } else {
                 if (selectedPlace.getValue() == null) {
-                    ExpandedPlacePanel empty = new ExpandedPlacePanel();
-                    parentPanelPlaceholder.getChildren().removeAll();
-                    parentPanelPlaceholder.getChildren().setAll(empty.getRoot());
-
                     return;
                 }
                 ExpandedPlacePanel updated = new ExpandedPlacePanel(selectedPlace.getValue());
@@ -60,9 +56,9 @@ public class RightParentPanel extends UiPart<Region> {
 
         selectedPlace.addListener((observable, oldValue, newValue) -> {
             if (selectedPlace.getValue() == null) {
-                ExpandedPlacePanel empty = new ExpandedPlacePanel();
+                displayListPanel = new DisplayListPanel(placeList);
                 parentPanelPlaceholder.getChildren().removeAll();
-                parentPanelPlaceholder.getChildren().setAll(empty.getRoot());
+                parentPanelPlaceholder.getChildren().setAll(displayListPanel.getRoot());
                 return;
             }
 

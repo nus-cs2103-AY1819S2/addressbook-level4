@@ -70,7 +70,7 @@ public class SampleDataUtil {
 
     public static MedicalHistory[] getSampleMedHists() {
         return new MedicalHistory[] {
-            new MedicalHistory("1", "2", new Date("2018-06-18"), new WriteUp("Fever"))
+            new MedicalHistory("1", "2", LocalDate.parse("2018-06-18"), new WriteUp("Fever"))
         };
     }
 

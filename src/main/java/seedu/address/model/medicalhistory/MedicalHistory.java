@@ -1,5 +1,6 @@
 package seedu.address.model.medicalhistory;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 import seedu.address.model.person.Doctor;
@@ -22,11 +23,11 @@ public class MedicalHistory {
     private String medHistId;
 
     // Data field
-    private Date date;
+    private LocalDate date;
     private WriteUp writeUp;
 
     //Constructor
-    public MedicalHistory(String patientId, String doctorId, Date date, WriteUp writeUp) {
+    public MedicalHistory(String patientId, String doctorId, LocalDate date, WriteUp writeUp) {
         // Doctor, Time, MedicalHistory Id are needed
         this.patientId = patientId;
         this.doctorId = doctorId;
@@ -55,7 +56,7 @@ public class MedicalHistory {
         return this.doctorId;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return this.date;
     }
 

@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 import seedu.address.model.DocX;
 import seedu.address.model.ReadOnlyDocX;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.medicalhistory.Date;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.WriteUp;
 import seedu.address.model.person.Address;

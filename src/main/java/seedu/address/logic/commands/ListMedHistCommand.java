@@ -47,9 +47,10 @@ public class ListMedHistCommand extends Command {
         String messageSuccess;
         if (targetPatientId.isPresent()) {
             /** {@code Predicate} that always evaluate to true */
-            Predicate<MedicalHistory> PREDICATE_SHOW_MEDHISTS_OF_PID =
-                    x -> { return x.getPatientId().equals(targetPatientId.get());};
-            model.updateFilteredMedHistList(PREDICATE_SHOW_MEDHISTS_OF_PID);
+            Predicate<MedicalHistory> predicateListMedHistIfPid =
+                x -> {
+                    return x.getPatientId().equals(targetPatientId.get()); };
+            model.updateFilteredMedHistList(predicateListMedHistIfPid);
             messageSuccess = MESSAGE_SUCCESS_PID + targetPatientId.get();
         } else {
             model.updateFilteredMedHistList(PREDICATE_SHOW_ALL_MEDHISTS);

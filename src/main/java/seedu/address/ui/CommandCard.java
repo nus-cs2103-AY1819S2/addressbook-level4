@@ -2,15 +2,10 @@
 
 package seedu.address.ui;
 
-import java.io.File;
-import java.net.MalformedURLException;
-
 import javafx.fxml.FXML;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import seedu.address.logic.commands.Command;
-import seedu.address.model.image.Image;
 
 /**
  * An UI component that displays information of a {@code Person}.

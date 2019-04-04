@@ -171,6 +171,10 @@ public class CurrentEditManager implements CurrentEdit {
         Notifier.firePropertyChangeListener("import", null, tempImage.getUrl());
     }
 
+    /**
+     * Adds an executed command into Image history.
+     * @param command Command to be added.
+     */
     public void addCommand(Command command) {
         tempImage.addHistory(command);
         updateHistory();

@@ -603,7 +603,24 @@ the customised message to "to call patient John Doe for his appointment".
 image::reminder_command.png[]
 // end::setreminder[]
 
+=== Getting health condition statistics: `statistics`
 
+It is imperative for you to know which health conditions have been seeing an increasing trend, as well as take note of
+those which have been experiencing a decline. The `statistics` command allows you to view all health conditions that
+have been registered on HealthHub, and also their respective numbers of occurrences.
+
+Format: `statistics`
+
+The following image is what you will see when you type in the statistics command.
+
+image::statistics_command.png[]
+
+As you can see, based on the requests already registered in the request panel on the left, the statistics command shows
+that the health condition Physiotherapy has showed up twice, whereas both Diabetes and AIDS have showed up once each.
+Upon collating such data, you can feedback and make suggestions to the hospital to increase or decrease training in
+certain departments. Furthermore, you can even use this data as a basis for the health sector to ramp up efforts in its
+Work Skills Qualification certification for certain healthcare skills to be taught to new aspiring healthcare
+professionals.
 
 === Exiting the program : `exit`
 

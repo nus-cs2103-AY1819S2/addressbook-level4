@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
+    private GraphPanel graphPanel;
     private RecordListPanel recordListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -41,6 +42,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane browserPlaceholder;
+
+    @FXML
+    private StackPane graphPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -116,6 +120,9 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         browserPanel = new BrowserPanel(logic.selectedRecordProperty(), logic.getBudget());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
+
+        graphPanel = new GraphPanel();
+        graphPlaceholder.getChildren().add(graphPanel.getRoot());
 
         recordListPanel = new RecordListPanel(logic.getFilteredRecordList(), logic.selectedRecordProperty(),
                 logic::setSelectedRecord);

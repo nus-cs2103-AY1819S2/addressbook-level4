@@ -272,9 +272,14 @@ public class FinanceTrackerParserTest {
         assertEquals(new SearchCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
-    //KIV: May want to add in alias as well
+    //KIV: May have to edit summary tests
     @Test
     public void parseCommand_summary() throws Exception {
+        assertTrue(parser.parseCommand(SummaryCommand.COMMAND_WORD) instanceof SummaryCommand);
+    }
+
+    @Test
+    public void parseCommand_summaryAlias() throws Exception {
         assertTrue(parser.parseCommand(SummaryCommand.COMMAND_WORD) instanceof SummaryCommand);
     }
 

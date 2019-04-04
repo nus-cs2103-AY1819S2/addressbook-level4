@@ -129,6 +129,7 @@ image::SDforDeletePerson.png[width="800"]
 
 The sections below give more details of each component.
 
+// tag::ui-header[]
 [[Design-Ui]]
 === UI component
 
@@ -147,6 +148,7 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data dynamically.
+// end::ui-header[]
 
 [[Design-Logic]]
 === Logic component
@@ -418,6 +420,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::setreminder[]
 === Set Reminder Feature
 
 The `setreminder` command gives the user an option to set a reminder with a customised message.
@@ -425,7 +428,9 @@ The reminder is in the form of an `AlertDialog` and is scheduled to show on the 
 `t + current time`. +
 
 The alert only pop ups when the application is running in the background.
+// end::setreminder[]
 
+// tag::autocomplete[]
 === Autocomplete Feature for CommandBox
 The UI component, `CommandBox`, comes with a `TextField` component in AB4. For Health Hub, the `TextField` is replaced
 with an `AutoCompleteTextField` class that extends from the parent class, `TextField`.
@@ -442,8 +447,8 @@ against the user's input if any of the suggestions starts with the user's text.
 ==== Aspect: Algorithm to search for commands that fit user's input
 <insert text>
 
-
 A detailed interaction diagram for the autocomplete behaviour is created previously under <insert section>.
+// end::autocomplete[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

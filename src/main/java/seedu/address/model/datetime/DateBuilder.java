@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatter;
  */
 public interface DateBuilder {
     String VALIDATION_REGEX = "^(((0[1-9]|[1-2][0-9]|3[0,1])-(01|03|05|07|08|10|12))|"
-            + "((0[1-9]|[1-2][0-9]|30)-(04|06|09|11))|((0[1-9]|[1-2]["
-            + "0-9])-(02)))-(\\d{4})$";
+            + "((0[1-9]|[1-2][0-9]|30)-(04|06|09|11))|((0[1-9]|1["
+            + "0-9]|2[0-8])-(02)))-(\\d{4})$";
 
     String DATE_FORMAT = "dd-MM-yyyy";
 

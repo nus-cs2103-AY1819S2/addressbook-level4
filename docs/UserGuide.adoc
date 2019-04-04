@@ -710,6 +710,7 @@ Shows details of all patients.
 * `list dental` +
 Shows details of patient's dental records.
 
+// tag::viewing information[]
 ==== find
 
 Shows patients whose data contains any of the given keywords according to a specified parameter.
@@ -784,6 +785,7 @@ Example:
 Generates a statistics report based on the specified patient's data.
 
 Format: `stat INDEX`
+// end::viewing information[]
 
 == Cloud Functionality [Coming in v2.0]
 To increase data redundancy and reduce the risk of data being lost,

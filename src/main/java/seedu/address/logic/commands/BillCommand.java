@@ -110,8 +110,7 @@ public class BillCommand extends Command {
                 throw new CommandException(MESSAGE_MENU_ITEM_NOT_PRESENT);
             }
             menuItem = opt.get();
-            //TODO: Update the quantity of the menu item for its popularity
-            //menu.updateMenuItemQuantity(menuItem, orderItem.getQuantity());
+            menu.updateMenuItemQuantity(menuItem, orderItem.getQuantity());
             receipt.append(menuItem.getCode().itemCode)
                     .append("  ")
                     .append(menuItem.getName().itemName)

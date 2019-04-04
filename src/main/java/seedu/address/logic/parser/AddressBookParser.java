@@ -137,7 +137,7 @@ public class AddressBookParser {
             notGoTo();
             return new StatsCommandParser().parse(arguments);
 
-        case PatientCopyCommand.COMMAND_WORD: 
+        case PatientCopyCommand.COMMAND_WORD:
         case PatientCopyCommand.COMMAND_WORD2:
             checkCalendarCondition();
             notGoTo();

@@ -25,7 +25,7 @@ import seedu.address.model.task.Task;
 
 
 /**
- * Adds a patient to the address book.
+ * Adds a task to the address book.
  */
 public class TaskAddCommand extends Command {
 
@@ -57,7 +57,7 @@ public class TaskAddCommand extends Command {
     private final Index targetIndex;
 
     /**
-     * Creates an AddCommand to add the specified {@code Task}
+     * Creates an TaskAddCommand to add the specified {@code Task}
      * @param task the task to be added.
      */
     public TaskAddCommand(Task task, Index index) {

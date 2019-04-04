@@ -594,7 +594,7 @@ Format: `undo`
 [NOTE]
 ====
 * The `undo` command can only be used to undo commands that modify the lists such as `add`, `delete` and `edit`.
-* For commands that affects the display such as `filter`, you can use `list` command to get back the original list.
+* For commands that affects the display such as `filter`, you can use `list` command revert back the original list.
 ====
 
 === Redoing undone commands : `redo`

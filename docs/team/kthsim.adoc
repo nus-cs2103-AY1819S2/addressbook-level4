@@ -83,7 +83,7 @@ repo
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=viewingInfo]
 
 
 == Contributions to the Developer Guide

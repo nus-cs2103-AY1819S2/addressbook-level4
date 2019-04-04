@@ -577,7 +577,7 @@ You can also use the keyword `today` as an input which will use the current date
 
 Invalid dates such as 33-02-1995 or 25-13-2020 are examples of dates that will be rejected as invalid inputs
 for these are invalid date values (there is no 33rd day or a 13th month).
-Valid dates in the wrong format such as 05/06/2019 will also be rejected.
+Invalid dates also include dates in the wrong format such as `05/06/2019`.
 |sd/DD-MM-YYYY
 |sd/19-12-2019
 
@@ -590,7 +590,7 @@ You can also use the keyword `today` as an input which will use the current date
 
 Invalid dates such as 33-02-1995 or 25-13-2020 are examples of dates that will be rejected as invalid inputs
 for these are invalid date values (there is no 33rd day or a 13th month).
-Valid dates in the wrong format such as 05/06/2019 will also be rejected.
+Invalid dates also include in the wrong format such as `05/06/2019`.
 
 Default value if not specified: Task's start date
 |ed/DD-MM-YYYY
@@ -621,7 +621,7 @@ Invalid time values such as 2500 or 2388 will also be rejected as these are not 
 You should provide the priority as `high`, `med` or `low` in either upper or lowercase.
 Tasks with different priority will be marked with different colors on the task list.
 High priority will be marked [red]#red#, Medium priority be marked [orange]#orange# and
-Low priority will be marked [yellow]*yellow*.
+Low priority will be marked [yellow]#yellow#.
 
 Default value if not specified: [yellow]#Low#
 |pri/PRIORITY
@@ -643,6 +643,15 @@ Default value if not specified: 0 (indicates that no patient is linked to the ta
 |pat/2
 
 |===
+
+[NOTE]
+============================================================
+Duplicate task will not be added into the program.
+
+Tasks are considered duplicates if they have the *exact*
+same TITLE, START DATE, START TIME, END TIME and
+LINKED PATIENT
+============================================================
 
 Examples:
 
@@ -706,6 +715,7 @@ Format: `taskdone INDEX`
 Creates a popup window with a list of tasks on the left hand side of the window and a calendar on the right hand side.
 There will also be a command box below the calendar, allowing you to execute task commands from this window as well.
 
+format: `taskcal` or `taskcal DD-MM-YYYY`
 
 You will see day cells in the calendar highlighted in color of the highest priority task for that day. You can also
 click on a specific day cell which will select it and the tasklist will be updated to show tasks that have either their
@@ -714,7 +724,6 @@ command box `e.g. 30-03-2019` and that day will be selected.
 
 Executing the command without specifying a date will cause the current date to be selected by default.
 
-format: `taskcal DD-MM-YYYY` or `taskcal`
 ////
 ==== taskfind
 Searches for and displays a list of tasks according to a specified parameter

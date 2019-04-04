@@ -23,7 +23,6 @@ import seedu.address.model.UserInfo;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
-import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.GradTrakStorage;
 import seedu.address.storage.JsonGradTrakStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -85,7 +84,7 @@ public class MainApp extends Application {
 
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample GradTrak will be used instead if {@code storage}'s GradTrak is not found,
+     * An empty GradTrak will be used instead if {@code storage}'s GradTrak is not found,
      * or an empty GradTrak will be used instead if errors occur when reading {@code storage}'s GradTrak.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs, ModuleInfoManager moduleInfoManager,
@@ -113,10 +112,10 @@ public class MainApp extends Application {
             }
             gradTrakOptional = storage.readGradTrak();
             if (!gradTrakOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample GradTrak");
+                logger.info("Data file not found. Will be starting with an empty GradTrak");
             }
 
-            initialData = gradTrakOptional.orElseGet(SampleDataUtil::getSampleGradTrak);
+            initialData = gradTrakOptional.orElseGet(GradTrak::new);
 
             //If unable to find the data file provide a blank Module Info List
             allModules = allModulesOptional.orElse(new ModuleInfoList());

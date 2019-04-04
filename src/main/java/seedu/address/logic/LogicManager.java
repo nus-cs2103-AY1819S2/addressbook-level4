@@ -13,6 +13,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.GradTrakParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ClassForPrinting;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyGradTrak;
 import seedu.address.model.course.RequirementStatus;
@@ -115,12 +116,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<ModuleTaken> selectedPersonProperty() {
+    public ReadOnlyProperty<ClassForPrinting> selectedPersonProperty() {
         return model.selectedModuleTakenProperty();
     }
 
     @Override
-    public void setSelectedPerson(ModuleTaken moduleTaken) {
+    public void setSelectedPerson(ClassForPrinting moduleTaken) {
         model.setSelectedModuleTaken(moduleTaken);
     }
 

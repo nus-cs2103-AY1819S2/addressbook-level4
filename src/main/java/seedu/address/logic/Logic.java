@@ -8,6 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ClassForPrinting;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyGradTrak;
 import seedu.address.model.course.RequirementStatus;
@@ -66,15 +67,15 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#selectedModuleTakenProperty()
      */
-    ReadOnlyProperty<ModuleTaken> selectedPersonProperty();
+    ReadOnlyProperty<ClassForPrinting> selectedPersonProperty();
 
     /**
      * Sets the selected moduleTaken in the filtered moduleTaken list.
      *
-     * @see seedu.address.model.Model#setSelectedModuleTaken(ModuleTaken)
+     * @see seedu.address.model.Model#setSelectedModuleTaken(ClassForPrinting)
      */
 
-    void setSelectedPerson(ModuleTaken moduleTaken);
+    void setSelectedPerson(ClassForPrinting moduleTaken);
 
     /**
      * Sets the selected person in the filtered person list.

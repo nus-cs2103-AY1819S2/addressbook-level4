@@ -16,6 +16,17 @@ public class Workload {
     private final Hour projectHour;
     private final Hour preparationHour;
 
+    /**
+     * For populating the Module Taken with a default workload when the information is not provided.
+     */
+    public Workload() {
+        this.lectureHour = new Hour("0");
+        this.tutorialHour = new Hour("0");
+        this.labHour = new Hour("0");
+        this.projectHour = new Hour("0");
+        this.preparationHour = new Hour("0");
+    }
+
     public Workload(Hour lectureHour, Hour tutorialHour,
                   Hour labHour, Hour projectHour,
                   Hour preparationHour) {

@@ -12,7 +12,7 @@ import seedu.address.model.moduleinfo.ModuleInfoList;
 public class ModuleInfoManager implements ModuleInfoStorage {
 
     private static final Logger logger = LogsCenter.getLogger(ModuleInfoManager.class);
-    private static final String inputStreamPath = "/AllModules.json";
+    private static final String inputStreamPath = "/json/AllModules.json";
 
     private ModuleInfoStorage moduleInfoStorage;
 

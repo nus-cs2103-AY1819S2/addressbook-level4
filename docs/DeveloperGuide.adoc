@@ -454,7 +454,7 @@ using an `EligibleModulePredicate` which takes in `GradTrak`. Those `RecModule` 
 which are already passed or to be taken in a future semester (non-failed modules) are filtered out at this stage.
 .. The `codeToTest` is then passed into `Course#getCourseReqTypeOf`, which in turn calls `CourseRequirement#canFulfill` for each `CourseRequirement` listed in `Course`.
  A list of `CourseReqType` that the `codeToTest` can satisfy is returned.
-This `courseReqTypeList` is sorted by the priority of `CourseReqType` as defined in the `enum` class: CORE, TE, IE, FAC, GE, UE.
+This `courseReqTypeList` is sorted by the priority of `CourseReqType` as defined in the `enum` class: `CORE`, `BD`, `IE`, `FAC`, `GE`, `UE`.
 .. A `nonFailedCodeList` of `ModuleInfoCode` corresponding to non-failed `ModuleTaken` is retrieved from `GradTrak`.
 For each `CourseReqType` in the `courseReqTypeList` (highest priority first):
 ... `Course#isCodeContributing` is called, which takes in the `CourseReqType`, `nonFailedCodeList` and `codeToTest`.
@@ -466,11 +466,11 @@ is called which takes in the `nonFailedCodeList` and returns an `unfulfilledRege
 contribute to any of the `CourseRequirement` listed in `Course`, the `RecModule` is filtered out.
 . The `RecModuleComparator` is applied to the `SortedList` of `RecModule`. It sorts the list in decreasing priority of the
 `CourseReqType` satisfied by the `RecModule`. Those `RecModule` with equal priority are sorted by module level (the first numerical digit of its `ModuleInfoCode`),
-considering the fact that lower level modules are usually taken first. In the case of equal priority and module level, lexicographical sorting is used.
+considering that lower level modules are usually taken first. In the case of equal priority and module level, lexicographical sorting is used.
 . The `SortedList` of `RecModule` is retrieved from the `ModelManager`. If it is empty, the user will be notified that all course requirements have been satisfied by the current GradTrak.
 Otherwise, it will be displayed to the user in the Result Panel.
 
-If there are changes to `GradTrak` (adding, editing or deleting modules) or `Course` (changing the Focus Area), the `rec` command
+If there are changes to `GradTrak` (adding, editing or deleting modules) or `Course` (changing the Course of study), the `rec` command
 must be run again to reflect the updated recommendation list.
 
 ==== Design Considerations
@@ -513,6 +513,17 @@ The `EditCommand` is used to set the grades and workload expected using an singl
 Users can check if their expected grades and workload per semester falls within their preferred limits.
 A class `LimitChecker` handles the computation of CAP and total workload of the semesters and generates a table in HTML with the information computed.
 //end::semesterlimits[]
+
+// tag::semestertracking[]
+=== Current Semester Tracking
+
+==== Current Implementation
+Modules taken before the current semester must have a finalized grade such that
+
+when the user tries to shift the current semester forward, the app will check through all the modules taken before the current semester to ensure that the maximum and minimum expected grades are set to be the same.
+or else the `cursem` command will fail and be rejected with an error message
+
+//end::semestertracking[]
 
 === Logging
 

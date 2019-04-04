@@ -13,7 +13,7 @@ import seedu.address.model.course.CourseList;
 public class CourseManager implements CourseStorage {
 
     private static final Logger logger = LogsCenter.getLogger(CourseManager.class);
-    private static final String inputStreamPath = "/course.json";
+    private static final String inputStreamPath = "/json/course.json";
 
     private CourseStorage courseStorage;
 

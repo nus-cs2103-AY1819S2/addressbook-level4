@@ -1,0 +1,14 @@
+= Xue Chenyang - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:note-caption: :information_source:
+:warning-caption: :warning:
+
+== PROJECT QuickDocs
+
+== What is QuickDocs?
+
+I am **Xue Chenyang**, a student form NUS School of Computing. QuickDocs is an one-user all in one clinic management application developed by my team consisting of 4 students. My team was assigned to transform an existing application (of around 10,000 lines of code) to a new application that has real-world applications. +
+
+My team decided to address the problem that trivial but complicated management chores independent clinics in Singapore have too limited manpower to manage QuickDocs

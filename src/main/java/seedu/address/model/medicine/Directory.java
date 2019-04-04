@@ -50,7 +50,7 @@ public class Directory {
             medicine.setThreshold(threshold.get());
         }
         listOfMedicine.add(medicine);
-        listOfMedicine.sort(Comparator.comparing((Medicine med) -> (med.name)));
+        listOfMedicine.sort(Comparator.comparing((Medicine med) -> (med.name.toLowerCase())));
     }
 
     /**
@@ -65,7 +65,7 @@ public class Directory {
             newDirectory.setThreshold(threshold.get());
         }
         listOfDirectory.add(newDirectory);
-        listOfDirectory.sort(Comparator.comparing((Directory directory) -> (directory.name)));
+        listOfDirectory.sort(Comparator.comparing((Directory directory) -> (directory.name).toLowerCase()));
         return newDirectory;
     }
 
@@ -78,6 +78,7 @@ public class Directory {
         requireNonNull(subDirectory);
         checkArgument(isValidNewDirectory(subDirectory.name), ERROR_MESSAGE_DIRECTORY_WITH_SAME_NAME_ALREADY_EXISTS);
         listOfDirectory.add(subDirectory);
+        listOfDirectory.sort(Comparator.comparing((Directory directory) -> (directory.name.toLowerCase())));
         return subDirectory;
     }
     /**
@@ -87,7 +88,7 @@ public class Directory {
      */
     private boolean isValidMedicine(Medicine med) {
         for (Medicine medicine : listOfMedicine) {
-            if (medicine.name.equals(med.name)) {
+            if (medicine.name.equalsIgnoreCase(med.name)) {
                 return false;
             }
         }
@@ -101,7 +102,7 @@ public class Directory {
      */
     private boolean isValidNewDirectory(String directoryName) {
         for (Directory directory : listOfDirectory) {
-            if (directory.name.equals(directoryName)) {
+            if (directory.name.equalsIgnoreCase(directoryName)) {
                 return false;
             }
         }
@@ -116,7 +117,7 @@ public class Directory {
      * else return Optional.empty()
      */
     public Optional<Medicine> findMedicine(String[] path, int pointer) {
-        if (!path[pointer].equals(this.name)) {
+        if (!path[pointer].equalsIgnoreCase(this.name)) {
             throw new IllegalStateException("Path not corresponding to current directory.");
         }
         if (path.length == pointer + 2) {
@@ -137,7 +138,7 @@ public class Directory {
      * else return Optional.empty()
      */
     public Optional<Directory> findDirectory(String[] path, int pointer) {
-        if (!path[pointer].equals(this.name)) {
+        if (!path[pointer].equalsIgnoreCase(this.name)) {
             throw new IllegalStateException("Path not corresponding to current directory.");
         }
         if (path.length == pointer + 1) {
@@ -154,12 +155,14 @@ public class Directory {
 
     private Optional<Medicine> searchAmongMedicine(String name) {
         Comparator<String> comparator = Comparator.naturalOrder();
-        return binarySearch(listOfMedicine, (Medicine med) -> (comparator.compare(med.name, name)));
+        return binarySearch(listOfMedicine, (Medicine med) -> (
+                comparator.compare(med.name.toLowerCase(), name.toLowerCase())));
     }
 
     private Optional<Directory> searchAmongDirectory(String name) {
         Comparator<String> comparator = Comparator.naturalOrder();
-        return binarySearch(listOfDirectory, (Directory directory) -> (comparator.compare(directory.name, name)));
+        return binarySearch(listOfDirectory, (Directory directory) -> (
+                comparator.compare(directory.name.toLowerCase(), name.toLowerCase())));
     }
 
     @Override

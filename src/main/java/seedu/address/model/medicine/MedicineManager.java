@@ -93,7 +93,8 @@ public class MedicineManager {
     public Optional<Medicine> findMedicine(String medicineName) {
         Comparator comparator = Comparator.naturalOrder();
         return binarySearch(
-                listOfMedicine, (Medicine med) -> (comparator.compare(med.name, medicineName)));
+                listOfMedicine, (Medicine med) -> (
+                        comparator.compare(med.name.toLowerCase(), medicineName.toLowerCase())));
     }
 
     public Optional<Medicine> findMedicine(String[] path) {

@@ -26,6 +26,11 @@ public class TotalBudget extends Budget {
         this.categoryBudgets = new HashSet<>();
     }
 
+    public void set(TotalBudget budget) {
+        set(budget.getTotalBudget(), budget.getCurrentBudget());
+        this.categoryBudgets = new HashSet<>(budget.getCategoryBudgets());
+    }
+
     public HashSet<CategoryBudget> getCategoryBudgets() {
         return categoryBudgets;
     }

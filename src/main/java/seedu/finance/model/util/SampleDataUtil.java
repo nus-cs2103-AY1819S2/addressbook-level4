@@ -2,7 +2,6 @@ package seedu.finance.model.util;
 
 import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.ReadOnlyFinanceTracker;
-import seedu.finance.model.budget.Budget;
 import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Date;
@@ -33,16 +32,11 @@ public class SampleDataUtil {
         };
     }
 
-    public static Budget getSamepleBudget() {
-        return new Budget(800, 200);
-    }
-
     public static ReadOnlyFinanceTracker getSampleFinanceTracker() {
         FinanceTracker sampleFinanceTracker = new FinanceTracker();
         for (Record sampleRecord : getSampleRecords()) {
             sampleFinanceTracker.addRecord(sampleRecord);
         }
-        sampleFinanceTracker.addBudget(getSamepleBudget());
         return sampleFinanceTracker;
     }
 

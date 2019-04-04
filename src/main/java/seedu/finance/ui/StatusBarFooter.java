@@ -66,4 +66,7 @@ public class StatusBarFooter extends UiPart<Region> {
         syncStatus.setText(String.format(SYNC_STATUS_UPDATED, lastUpdated));
     }
 
+    public void updateFileLocation(Path saveLocation) {
+        saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
+    }
 }

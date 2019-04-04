@@ -16,6 +16,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_SPECIALISATION = new Prefix("s/");
     public static final Prefix PREFIX_WRITEUP = new Prefix("sw/");
     public static final Prefix PREFIX_DESCRIPTION = new Prefix("d/");
+    public static final Prefix PREFIX_MEDICINE_NAME = new Prefix("mn/");
+
 
     // prefixes for Appointment
     public static final Prefix PREFIX_PATIENT_ID = new Prefix("pid/");

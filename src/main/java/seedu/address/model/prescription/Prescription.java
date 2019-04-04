@@ -12,20 +12,27 @@ public class Prescription {
     // Identity field
     private Patient patient;
     private Doctor doctor;
+    private Medicine medicine;
 
     // Data field
     private Description description;
 
     //Constructor
-    public Prescription (Patient patient, Doctor doctor, Description description) {
+    public Prescription (Patient patient, Doctor doctor, Medicine medicine, Description description) {
 
         this.patient = patient;
         this.doctor = doctor;
+        this.medicine = medicine;
         this.description = description;
+
     }
 
     public Description getDescription() {
         return this.description;
+    }
+
+    public Medicine getMedicine() {
+        return this.medicine;
     }
 
     public Doctor getDoctor() {
@@ -46,7 +53,8 @@ public class Prescription {
         }
 
         Prescription otherPrescription = (Prescription) other;
-        return otherPrescription.getDescription().equals(this.getDescription());
+        return otherPrescription.getDescription().equals(this.getDescription())
+                && otherPrescription.getMedicine().getName().equals(this.getMedicine().getName());
     }
 
     @Override
@@ -63,7 +71,8 @@ public class Prescription {
         sb.append(" Patient Name: ");
         sb.append(this.patient.getName());
         */
-
+        sb.append(" Medicine name: ");
+        sb.append(this.medicine.getName());
         sb.append(" Description: ");
         sb.append(this.description.toString());
         return sb.toString();

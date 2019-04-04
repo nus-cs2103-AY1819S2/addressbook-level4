@@ -325,7 +325,9 @@ public class DocX implements ReadOnlyDocX {
     }
 
     @Override
-    public IdCounter getIdCounter() { return idCounter; }
+    public IdCounter getIdCounter() {
+        return idCounter;
+    }
 
     @Override
     public boolean equals(Object other) {

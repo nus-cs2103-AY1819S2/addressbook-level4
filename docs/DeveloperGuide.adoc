@@ -254,7 +254,7 @@ add request n/NAME p/PHONE i/NRIC a/ADDRESS dt/DATETIME c/CONDITION.
 
 The following sequence shows the sequence when the add command is execute by the LogicManager:
 
-// TODO add sequence diagram
+image::addrequest.png[width=800]
 Figure 3.2.1.1 Sequence Diagram for `add request` command
 
 From the diagram above:

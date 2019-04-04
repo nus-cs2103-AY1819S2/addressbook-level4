@@ -79,6 +79,7 @@ public class RestaurantCard extends UiPart<Region> {
         } else {
             weblink.setText(restaurant.getWeblink().value);
         }
+
         openingHours.setText(restaurant.getOpeningHours().value);
 
         // Check if Restaurant has been visited before

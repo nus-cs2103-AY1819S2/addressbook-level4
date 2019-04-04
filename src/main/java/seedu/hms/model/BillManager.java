@@ -129,14 +129,6 @@ public class BillManager implements BillModel {
         return filteredReservations;
     }
 
-    /**
-     * Returns an unmodifiable view of the list of {@code RoomType} backed by the internal list of
-     * {@code versionedHotelManagementSystem}
-     */
-    public ObservableList<RoomType> getRoomTypeList() {
-        return roomTypeList;
-    }
-
     //=========== Filtered Booking List Accessors =============================================================
 
     /**
@@ -145,14 +137,6 @@ public class BillManager implements BillModel {
      */
     public ObservableList<Booking> getFilteredBookingList() {
         return filteredBookings;
-    }
-
-    /**
-     * Returns an unmodifiable view of the list of {@code ServiceType} backed by the internal list of
-     * {@code versionedHotelManagementSystem}
-     */
-    public ObservableList<ServiceType> getServiceTypeList() {
-        return serviceTypeList;
     }
 
     //=========== Undo/Redo =================================================================================
@@ -268,7 +252,7 @@ public class BillManager implements BillModel {
             && Objects.equals(selectedBooking.get(), other.selectedBooking.get())
             && filteredReservations.equals(other.filteredReservations)
             && Objects.equals(selectedReservation.get(), other.selectedReservation.get())
-                && Objects.equals(updatedBill.get(), other.updatedBill.get());
+            && Objects.equals(updatedBill.get(), other.updatedBill.get());
     }
 
     /**
@@ -426,6 +410,7 @@ public class BillManager implements BillModel {
                 if ((booking.getService().getName()).equals("GAMES ROOM")) {
                     TimeRange timeRange = booking.getTiming();
                     int hoursBooked = timeRange.numOfHours();
+                    totalTime = totalTime + hoursBooked;
                     double ratePerHour = serviceTypeList.get(3).getRatePerHour();
                     double amount = hoursBooked * ratePerHour;
                     totalAmount = totalAmount + amount;

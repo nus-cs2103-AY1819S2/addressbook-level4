@@ -26,7 +26,7 @@ If you are a dental practitioner who prefers to use a Command Line Interface (CL
 then TeethHub is an application for you!
 
 TeethHub works primarily through a CLI while having elements of a Graphical User Interface (GUI).
-For example, you can select patients and records by clicking on them, but you would need to type the edit command to edit them.
+For example, you can select patients and records by clicking on them, but you would need to type the patientedit command to patientedit them.
 TeethHub allows you to keep track of your patient's particulars along with their dental records.
 An image of each patient's teeth will also be displayed according to what you input for each tooth's status(Absent, Problem, Healthy).
 In addition to that, TeethHub also allows you to keep track of your upcoming tasks, just like a calendar.
@@ -46,7 +46,7 @@ Once you have it installed, you can now proceed to <<quick-start-guide>>!
 
 . Download the latest TeethHub.jar file from our https://github.com/CS2103-AY1819S2-W17-2/main[GitHub page].
 
-. Copy the file to the folder you want to use as the home folder for TeethHub (all data will be stored there).
+. patientcopy the file to the folder you want to use as the home folder for TeethHub (all data will be stored there).
 
 . Double-click the file to launch TeethHub.
 It should start in a few seconds and begin the initialization set-up.
@@ -60,8 +60,8 @@ If you need the full list of available commands and their associated details, pl
 
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in add n/NAME, NAME is
-a parameter which can be used as add n/John Doe.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in patientadd n/NAME, NAME is
+a parameter which can be used as patientadd n/John Doe.
 
 * Items in square brackets are optional.
 
@@ -116,14 +116,14 @@ Undo the latest command.
 
 Format: `undo`
 
-* The following commands are affected by undo: add edit delete and clear.
+* The following commands are affected by undo: patientadd patientedit patientdelete and patientclear.
 
 
 Examples:
 
-* `<<delete, delete>> 1` +
+* `<<patientdelete, patientdelete>> 1` +
 `<<list, list>>` +
-`undo` (reverses the delete 1 command)
+`undo` (reverses the patientdelete 1 command)
 
 * `<<list, list>>` +
 `undo` +
@@ -131,10 +131,10 @@ The undo command fails as there are no undo-able commands executed
 previously.
 
 
-* `<<delete, delete>> 1` +
-`<<clear, clear>>` +
-`undo` (reverses the clear command) +
-`undo` (reverses the delete 1 command)
+* `<<patientdelete, patientdelete>> 1` +
+`<<patientclear, patientclear>>` +
+`undo` (reverses the patientclear command) +
+`undo` (reverses the patientdelete 1 command)
 
 ==== redo
 Reverses the most recent undo command.
@@ -143,29 +143,29 @@ Format: `redo`
 
 Examples:
 
-* `<<delete, delete>> 1` +
-`<<undo, undo>>` (reverses the delete 1 command) +
-`redo` (reapplies the delete 1 command)
+* `<<patientdelete, patientdelete>> 1` +
+`<<undo, undo>>` (reverses the patientdelete 1 command) +
+`redo` (reapplies the patientdelete 1 command)
 
-* `<<delete, delete>> 1` +
+* `<<patientdelete, patientdelete>> 1` +
 `redo` +
 The redo command fails as there are no undo commands executed
 previously.
 
-* `<<delete, delete>> 1` +
-`<<clear, clear>> +
-`<<undo, undo>>` (reverses the clear command) +
-`<<undo, undo>>` (reverses the delete 1 command) +
-`redo` (reapplies the delete 1 command) +
-`redo` (reapplies the clear command)
+* `<<patientdelete, patientdelete>> 1` +
+`<<patientclear, patientclear>> +
+`<<undo, undo>>` (reverses the patientclear command) +
+`<<undo, undo>>` (reverses the patientdelete 1 command) +
+`redo` (reapplies the patientdelete 1 command) +
+`redo` (reapplies the patientclear command)
 
-==== clear
+==== patientclear
 Clears all patients, records and tasks from TeethHub.
 
 * You will be prompted to confirm.
-* Input `y` to proceed to the clear all records or `n` to abort.
+* Input `y` to proceed to the patientclear all records or `n` to abort.
 
-Format: `clear`
+Format: `patientclear`
 
 ==== exit
 Exits the program. You won't be able to exit if copies exist.
@@ -188,7 +188,7 @@ You can use *open* to open another patient list that you may have transferred ov
 You can use *save* to save your current patient list to another .json, so that you can transfer them to another computer. +
 You can also use *save* to save your current patient list to a .pdf, which is nicer on the eyes.
  +
-You can use *Import* to add select patients from another patient list to your current patient list. +
+You can use *Import* to patientadd select patients from another patient list to your current patient list. +
  +
 You can use *Export* to save select patients to a .json or .pdf file.
 
@@ -284,13 +284,13 @@ Writes all entries from the address book to data1.json. +
 
 === Patient Management
 
-==== add
+==== patientadd
 
 Adds a patient to the patients list.
 
 Name, NRIC, and Date of Birth fields are compulsory. The rest are optional fields.
 
-Format: `add PARAMETERS …`
+Format: `patientadd PARAMETERS …`
 
 Parameters:
 
@@ -314,15 +314,15 @@ Note: If a patient’s next of kin lives at the same address, use `same` to indi
 
 Examples:
 
-* `add n/John Choo p/98425871 e/jonC@example.com a/IDA street block 13
+* `patientadd n/John Choo p/98425871 e/jonC@example.com a/IDA street block 13
 #02-05 ic/S1234567H age/32 dob/26021987 nokn/Jacky Choo nokp/84875215
 nokr/Father noka/same`
 
-==== delete
+==== patientdelete
 
 Deletes the specified patient from the patients list.
 
-Format: delete INDEX
+Format: patientdelete INDEX
 
 * Deletes the patient at the specified index.
 
@@ -332,20 +332,20 @@ Format: delete INDEX
 
 Examples:
 
-* `delete 1` +
+* `patientdelete 1` +
 Deletes the patient shown with index 1 from the displayed list.
 
 * `<<find, find>> John` +
-`delete 2` +
+`patientdelete 2` +
 Deletes the patient shown with index 2 found using the find command.
 
-==== edit
+==== patientedit
 
 Edits data from an existing patient.
 
-Format: `edit INDEX`
+Format: `patientedit INDEX`
 
-* Goes into edit mode for the patient at the specified index shown from
+* Goes into patientedit mode for the patient at the specified index shown from
 list or find command. Must be a positive integer (e.g 1, 2 or 3).
 
 * Input the field followed by the new value to replace the existing data.
@@ -359,12 +359,12 @@ adding of tags is not cumulative.
 * All tags can be removed by keying in t/ without specifying any tags
 following it.
 
-* Exit the edit mode by entering done.
+* Exit the patientedit mode by entering done.
 
 Example:
 
 * `<<list, list>>` +
-`edit 1` +
+`patientedit 1` +
 `p/12345` +
 `e/newemail@gmail.com` +
 `done` +
@@ -373,31 +373,31 @@ Edits the phone number and email of the first patient listed to become
 
 
 * `<<find, find>> Betsy` +
-`edit 2` +
+`patientedit 2` +
 `p/987654 e/mymail@gmail.com` +
 `done` +
 Edits the phone number and email of the first patient listed to become
 987654 and mymail@gmail.com respectively with a single input.
 
-==== copy
+==== patientcopy
 
-Makes an exact copy of a patient and adds them to the patient list.
+Makes an exact patientcopy of a patient and adds them to the patient list.
 This may be useful if multiple people share similar details.
 
-Format: `copy INDEX [Count]`
+Format: `patientcopy INDEX [Count]`
 
 Note: If the copied entry is not modified before exiting the program,
 there will be a confirmation.
 
 Example:
 
-* `copy 3` +
-Makes a copy of the patient at index 3 and inserts it at the bottom of
-the current patient list with a copy tag.
+* `patientcopy 3` +
+Makes a patientcopy of the patient at index 3 and inserts it at the bottom of
+the current patient list with a patientcopy tag.
 
-* `copy 3 4` +
+* `patientcopy 3 4` +
 Makes 4 copies of the patient at index 3 and inserts them at the bottom of
-the current patient list with a copy tag.
+the current patient list with a patientcopy tag.
 
 === Patient Records Management
 
@@ -417,7 +417,7 @@ Format: `goto 1`
 
 * Enters all the records of the patient of interest in the `goto` mode.
 
-==== record add
+==== recordadd
 
 Adds a new dental record to the patient.
 
@@ -443,7 +443,7 @@ Example
 
 * `back` - Go back to the patient list.
 
-==== record delete
+==== record patientdelete
 
 Deletes a dental record of a specified patient.
 
@@ -461,11 +461,11 @@ Example:
 
 * `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
 
-* `recorddelete 1` - Delete the latest dental record of the specified patient
+* `recorddelete 1` - patientdelete the latest dental record of the specified patient
 
 * `back` - Go back to the patient list.
 
-==== record edit
+==== record patientedit
 
 Edits a patient’s dental record.
 
@@ -519,13 +519,13 @@ All permanent teeth in template will all be present and healthy by default.
 
 ** The program automatically creates a new permanent teeth template for new patients added.
 
-* To edit a new specific tooth:
+* To patientedit a new specific tooth:
 
-** `<<goto, goto>> 1` - Specifies patient 1 to edit his or her teeth status. Enters the record edit mode.
+** `<<goto, goto>> 1` - Specifies patient 1 to patientedit his or her teeth status. Enters the record patientedit mode.
 
 ** `teethedit t/TEETH_LABEL s/STATUS` - Edits the status of the indicated tooth of patient.
 
-** `back` - Exits the record edit mode, and returns to the patient list.
+** `back` - Exits the record patientedit mode, and returns to the patient list.
 
 ** Valid <Teeth Label> are numbers 1 - 32 (permanent teeth).
 
@@ -542,7 +542,7 @@ Adds a task to the application's list of tasks.
 
 Format: `taskadd PARAMETERS`
 
-You can specify information that describes the task you wish to add by
+You can specify information that describes the task you wish to patientadd by
 keying in certain tags after the `taskadd` command. Do note the following:
 
 * All parameters have certain patterns that **MUST** be followed. +
@@ -612,7 +612,7 @@ Tasks with different priority will be marked with different colors on the task l
 High priority will be marked [red]#red#, Medium priority be marked [yellow]#yellow# and
 Low priority will be marked [green]#green#.
 
-As the priority is not a mandatory parameter, if you do not specify a priority when you add a task,
+As the priority is not a mandatory parameter, if you do not specify a priority when you patientadd a task,
 it will be given a defualt priority of [green]#Medium#
 |pri/PRIORITY
 |pri/high
@@ -701,7 +701,7 @@ Shows a list of all patients or medical stored in TeethHub.
 
 Format: `list [dental]`
 
-Command shows patient details by default, add dental to see dental records.
+Command shows patient details by default, patientadd dental to see dental records.
 
 Example:
 
@@ -717,7 +717,7 @@ Shows patients whose data contains any of the given keywords according to a spec
 
 Format: `find [dental] PREFIX/KEYWORD [MORE_KEYWORDS]`
 
-* Add “dental” to search dental records instead.
+* patientadd “dental” to search dental records instead.
 * Search is case insensitive.
 * Order of keywords does not matter.
 * Valid `Prefix` values: See <<Breakdown of attributes used within TeethHub>>
@@ -787,21 +787,21 @@ download it from there.
 
 == Command Summary
 
-* *Add* : add PARAMETERS [t/TAG]*…​* +
-e.g. `add n/John Choo p/98425871 e/jonC@example.com a/IDA street, block
+* *patientadd* : patientadd PARAMETERS [t/TAG]*…​* +
+e.g. `patientadd n/John Choo p/98425871 e/jonC@example.com a/IDA street, block
 13, #02-05 ic/S1234567H age/32 dob/26021987 nokn/Jacky Choo
 nokp/84875215 nokr/Father noka/same`
 
-* *Clear* : `clear`
+* *patientclear* : `patientclear`
 
-* *Copy* : `copy INDEX` +
-e.g. `copy 3`
+* *patientcopy* : `patientcopy INDEX` +
+e.g. `patientcopy 3`
 
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
+* *patientdelete* : `patientdelete INDEX` +
+e.g. `patientdelete 3`
 
-* *Edit* : `edit INDEX` +
-e.g. `edit 2` +
+* *patientedit* : `patientedit INDEX` +
+e.g. `patientedit 2` +
 `p/12345` +
 `e/newemail@gmail.com` +
 `done`
@@ -829,22 +829,22 @@ e.g `login kthSIM cavities!2`
 * *Open* : `open FILE_PATH` +
 e.g. `Open mnt/sample/newData.json`
 
-* *Record Add* : `record add n/NRIC d/DATE_DDMMYYYY t/TIME_HHMM p/PROCEDURE
+* *recordadd* : `recordadd n/NRIC d/DATE_DDMMYYYY t/TIME_HHMM p/PROCEDURE
 doc/SERVING_DENTIST det/DETAILS` +
-e.g. `record add n/S1234567H d/10022019 t/1705 p/Cleaning doc/Kyler
+e.g. `recordadd n/S1234567H d/10022019 t/1705 p/Cleaning doc/Kyler
 det/Mouth was noticeably foul, might have halitosis`
 
-* *Record Delete* : `record delete n/NRIC INDEX` +
-E.g. `record delete n/S1235467H 4`
+* *Record patientdelete* : `record patientdelete n/NRIC INDEX` +
+E.g. `record patientdelete n/S1235467H 4`
 
-* *Record Edit* : `record edit n/NRIC INDEX` +
-e.g. `record edit n/S1234657H 3 +
+* *Record patientedit* : `record patientedit n/NRIC INDEX` +
+e.g. `record patientedit n/S1234657H 3 +
 doc/Debang +
 det/new details +
 Done`
 
-* *Record Copy* : `record copy n/NRIC INDEX` +
-e.g. `record copy n/S1235467H 2`
+* *Record patientcopy* : `record patientcopy n/NRIC INDEX` +
+e.g. `record patientcopy n/S1235467H 2`
 
 * *Redo* : `redo`
 
@@ -854,16 +854,16 @@ e.g. `save mnt/clinicRecords.txt`
 * *Sort* : `sort PARAM ORDER` +
 e.g. `sort name ascend` or `sort age descend`
 
-* *Task Add*:  `taskadd PARAM` +
+* *Task patientadd*:  `taskadd PARAM` +
 e.g. `taskadd ti/Regular review of all patients' records sd/10-10-2019 ed/15-10-2019 st/1200 et/0800 pri/low`
 
-* *Task Edit*: `taskedit INDEX PARAM` +
+* *Task patientedit*: `taskedit INDEX PARAM` +
 e.g. `taskedit 1 ti/Tooth extraction for Alex pri/HIGH`
 
-* *Task Delete*: `taskdelete INDEX` +
+* *Task patientdelete*: `taskdelete INDEX` +
 e.g. `taskdelete 1`
 
-* *Teeth* : `teeth add <Template>` +
-e.g. `teeth add primary`
+* *Teeth* : `teeth patientadd <Template>` +
+e.g. `teeth patientadd primary`
 
 * *Undo* : `undo`

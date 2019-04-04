@@ -44,7 +44,7 @@ public class SwitchTabCommandParser implements Parser<SwitchTabCommand> {
         if ((panelNumber == 2) && (tabNumber > 2 || tabNumber < 1)) {
             throw new ParseException(SwitchTabCommand.MESSAGE_INVALID_TAB_NUMBER);
         }
-            
+
         return new SwitchTabCommand(panelNumber, tabNumber - 1); //transfer to 0 based
     }
 }

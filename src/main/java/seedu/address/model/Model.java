@@ -94,13 +94,6 @@ public interface Model {
      */
     void addPerson(Cell cell);
 
-    /**
-     * Replaces the given cell {@code target} with {@code editedCell}.
-     * {@code target} must exist in the address book.
-     * The cell identity of {@code editedCell} must not be the same as another existing cell in the address book.
-     */
-    void setPerson(Cell target, Cell editedCell);
-
     /** Returns an unmodifiable view of the filtered cell list */
     ObservableList<Cell> getFilteredPersonList();
 

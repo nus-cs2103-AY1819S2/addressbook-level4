@@ -235,18 +235,6 @@ public class MapGrid implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given cell {@code target} in the list with {@code editedCell}.
-     * {@code target} must exist in the address book.
-     * The cell identity of {@code editedCell} must not be the same as another existing cell in the address book.
-     */
-    public void setPerson(Cell target, Cell editedCell) {
-        requireNonNull(editedCell);
-
-        persons.setPerson(target, editedCell);
-        indicateModified();
-    }
-
-    /**
      * Put battleship on map grid.
      */
     public void putShip(Battleship battleship, Coordinates coordinates, Orientation orientation)

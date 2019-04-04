@@ -3,6 +3,9 @@ package seedu.finance.model.budget;
 import javafx.collections.ObservableList;
 import seedu.finance.model.record.Record;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.finance.commons.util.AppUtil.checkArgument;
+
 /**
  * Represents the Budget for the particular instance of the Finance Tracker
  */
@@ -23,18 +26,24 @@ public class Budget {
     }
 
     public Budget(double initialBudget) {
+        checkArgument(isValidBudget(initialBudget, initialBudget));
+
         this.totalBudget = initialBudget;
         this.currentBudget = initialBudget;
         this.currentSpendings = 0;
     }
 
     public Budget(double totalBudget, double currentBudget) {
+        checkArgument(isValidBudget(totalBudget, currentBudget));
+
         this.totalBudget = totalBudget;
         this.currentBudget = currentBudget;
         this.currentSpendings = totalBudget - currentBudget;
     }
 
     public Budget(Budget budget) {
+        requireNonNull(budget);
+
         this.totalBudget = budget.getTotalBudget();
         this.currentBudget = budget.getCurrentBudget();
         this.currentSpendings = budget.getCurrentSpendings();
@@ -52,6 +61,15 @@ public class Budget {
         this.currentSpendings = totalBudget - currentBudget;
     }
 
+    public static boolean isValidBudget(double totalBudget, double currentBudget) {
+        // Check for negative total budget
+        if (totalBudget < 0) {
+            return false;
+        }
+        // check that total budget is more than current budget
+        return totalBudget >= currentBudget;
+    }
+
     /**
      * Method to update budget
      * @param records the records in Finance Tracker
@@ -64,10 +82,6 @@ public class Budget {
         currentSpendings = 0;
         records.forEach(record -> currentBudget -= Double.parseDouble(record.getAmount().toString()));
         records.forEach(record -> currentSpendings += Double.parseDouble(record.getAmount().toString()));
-
-        if (currentBudget < 0) {
-            currentBudget = 0;
-        }
     }
 
     /**

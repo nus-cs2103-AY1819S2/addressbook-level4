@@ -193,6 +193,14 @@ public interface Model {
      */
     void deleteRecord(Record record);
 
+
+    /**
+     * Returns true if the model has previous address book states to restore.
+     * Selected record in the filtered record list.
+     * null if no record is selected.
+     */
+    ReadOnlyProperty<Record> selectedRecordProperty();
+
     /**
      * Returns true if the model has previous address book states to restore.
      * Selected record in the filtered record list.

@@ -51,10 +51,15 @@ public class RedoCommand extends Command {
         Command command = currentEdit.getCommandTemp();
         command.execute(currentEdit, model, history);
         currentEdit.setRedoTemp();
+        currentEdit.updateHistory();
 
         currentEdit.displayTempImage();
 
 
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+    @Override
+    public String toString() {
+        return COMMAND_WORD;
     }
 }

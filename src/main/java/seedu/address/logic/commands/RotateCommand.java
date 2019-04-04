@@ -70,6 +70,6 @@ public class RotateCommand extends Command {
     }
     @Override
     public String toString() {
-        return "Rotate " + degree;
+        return COMMAND_WORD + " -> " + degree;
     }
 }

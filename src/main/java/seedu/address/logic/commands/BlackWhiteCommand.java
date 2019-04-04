@@ -66,4 +66,9 @@ public class BlackWhiteCommand extends Command {
         }
         return new CommandResult(Messages.MESSAGE_BLACKWHITE_SUCCESS);
     }
+
+    @Override
+    public String toString() {
+        return COMMAND_WORD + " -> " + threshold.getAsInt();
+    }
 }

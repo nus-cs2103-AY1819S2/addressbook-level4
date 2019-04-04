@@ -18,5 +18,8 @@ public class ExitCommand extends Command {
         currentEdit.clearTemp();
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
     }
-
+    @Override
+    public String toString() {
+        return COMMAND_WORD;
+    }
 }

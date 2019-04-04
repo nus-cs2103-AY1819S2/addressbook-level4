@@ -4,6 +4,7 @@ package seedu.address.ui;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
 import seedu.address.Notifier;
+import seedu.address.logic.commands.Command;
 import seedu.address.model.Album;
 import seedu.address.model.image.Image;
 
@@ -28,6 +30,7 @@ public class InformationPanel extends UiPart<Region> implements PropertyChangeLi
 
     private final ListView<Image> imageListView = new ListView<>();
     private final ListView<String> metaListView = new ListView<>();
+    private final ListView<String> commandListView = new ListView<>();
     private final Tab albumTab = informationPanel.getTabs().get(0);
     private final Tab detailsTab = informationPanel.getTabs().get(1);
     private final Tab historyTab = informationPanel.getTabs().get(2);
@@ -71,6 +74,9 @@ public class InformationPanel extends UiPart<Region> implements PropertyChangeLi
         if (event.getPropertyName().equals("refreshDetails")) {
             refreshDetails(event);
         }
+        if (event.getPropertyName().equals("refreshHistory")) {
+            refreshHistory(event);
+        }
         if (event.getPropertyName().equals("switchTab")) {
             switchTab();
         }
@@ -94,6 +100,16 @@ public class InformationPanel extends UiPart<Region> implements PropertyChangeLi
         List<String> metaList = tempImage.getMetadataList();
         metaListView.setItems(FXCollections.observableArrayList(metaList));
         detailsTab.setContent(metaListView);
+    }
+
+    /**
+     * Helper method to refresh the history pane of Information Panel.
+     */
+    private void refreshHistory(PropertyChangeEvent event) {
+        List<Command> commandList = (List<Command>) event.getNewValue();
+        List<String> commandListString = commandList.stream().map(x -> x.toString()).collect(Collectors.toList());
+        commandListView.setItems(FXCollections.observableArrayList(commandListString));
+        historyTab.setContent(commandListView);
     }
 
     /**

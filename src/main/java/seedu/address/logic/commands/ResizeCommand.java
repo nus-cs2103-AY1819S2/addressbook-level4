@@ -61,5 +61,9 @@ public class ResizeCommand extends Command {
 
         return new CommandResult(Messages.MESSAGE_RESIZE_SUCCESS);
     }
+    @Override
+    public String toString() {
+        return COMMAND_WORD + " -> " + width + ": " + height;
+    }
 }
 

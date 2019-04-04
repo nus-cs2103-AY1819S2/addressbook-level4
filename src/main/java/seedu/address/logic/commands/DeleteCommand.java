@@ -54,4 +54,8 @@ public class DeleteCommand extends Command {
                 || (other instanceof DeleteCommand // instanceof handles nulls
                 && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
     }
+    @Override
+    public String toString() {
+        return COMMAND_WORD;
+    }
 }

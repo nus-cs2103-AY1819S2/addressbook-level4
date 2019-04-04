@@ -28,4 +28,8 @@ public class ListFilesCommand extends Command {
         return new CommandResult(String.format(MESSAGE_LIST_FILES_HEADER, Arrays.toString(fileNames)
                 + "\n" + MESSAGE_SUCCESS));
     }
+    @Override
+    public String toString() {
+        return COMMAND_WORD;
+    }
 }

@@ -173,6 +173,7 @@ public class CurrentEditManager implements CurrentEdit {
 
     public void addCommand(Command command) {
         tempImage.addHistory(command);
+        updateHistory();
     }
 
     public List<Command> getTempSubHistory() {
@@ -274,6 +275,13 @@ public class CurrentEditManager implements CurrentEdit {
      */
     public void updateExif() {
         Notifier.firePropertyChangeListener("refreshDetails", null, this.tempImage);
+    }
+
+    /**
+     * Fires a notifier to update the EXIF pane of the Information Panel.
+     */
+    public void updateHistory() {
+        Notifier.firePropertyChangeListener("refreshHistory", null, tempImage.getSubHistory());
     }
 
     /**

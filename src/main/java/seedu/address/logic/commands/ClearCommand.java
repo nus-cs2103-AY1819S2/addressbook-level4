@@ -31,4 +31,9 @@ public class ClearCommand extends Command {
         model.refreshAlbum();
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public String toString() {
+        return COMMAND_WORD;
+    }
 }

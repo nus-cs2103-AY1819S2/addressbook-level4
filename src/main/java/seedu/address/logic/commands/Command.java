@@ -20,4 +20,6 @@ public abstract class Command {
      */
     public abstract CommandResult execute(CurrentEdit currentEdit,
                                           Model model, CommandHistory history) throws CommandException;
+
+    public abstract String toString();
 }

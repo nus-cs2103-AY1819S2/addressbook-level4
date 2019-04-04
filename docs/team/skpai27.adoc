@@ -34,7 +34,7 @@ The Food Diary contains an extensive list of restaurants which can be searched u
 *** Modified and added our details and pictures into the About Us page: (Pull request https://github.com/CS2103-AY1819S2-W17-1/main/pull/3[#3])
 *** Updated our Contact Us page (same PR as above)
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W17-1/main/pull/95[#95], https://github.com/CS2103-AY1819S2-W17-1/main/pull/96[#96]
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W17-1/main/pull/95[#95], https://github.com/CS2103-AY1819S2-W17-1/main/pull/96[#96], https://github.com/CS2103-AY1819S2-W17-1/main/pull/115[#115]
 *** The review builder class that I implemented was used by another team mate (https://github.com/CS2103-AY1819S2-W17-1/main/pull/94[1])
 
 
@@ -45,82 +45,8 @@ The Food Diary contains an extensive list of restaurants which can be searched u
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=ade]
+include::../UserGuide.adoc[tag=reviewcommands]
 
-=== Review Features
-
-==== Adding a review: `addReview`
-
-Adds a review to the Food Diary +
-Format: `addReview INDEX re/ENTRY rr/RATING`
-
-****
-* Adds the review to the restaurant specified by the `INDEX`. The index refers to the index number of the restaurant of the currently displayed list of restaurants.. The index *must be a positive integer* 1, 2, 3, ...
-* ENTRY is a text field that include both alphabets and numbers.
-* RATING is a number that has to be a value from 0-5 inclusive. It represents a score out of 5 that is assigned to the restaurant with the added review.
-* Both fields (ENTRY and RATING) are compulsory and must be provided. There are no default values that either will take should the field be unspecified.
-****
-
-Examples:
-
-* `addReview 2 re/Peach Pie was amazing rr/4`
-
-
-==== Editing a specified review : `editReview`
-
-Edit selected fields in a specified entry. +
-Format: `editReview INDEX [re/ENTRY] [rr/RATING]`
-
-****
-* Edits the review at the specified `INDEX`. The index refers to the index number of the review of the selected Restaurant. The index *must be a positive integer* 1, 2, 3, ...
-* A restaurant must be selected with a mouse click on the desired restaurant card (see screenshots below for an illustration)
-* At least one of the optional fields (either ENTRY or RATING) must be provided.
-* Existing values will be updated to the input values.
-****
-
-Steps to execute editReview command:
-
-* From the main screen of the application, first select a restaurant by clicking on it with the mouse.
-
-image::UG_editReview_start.png[width="790"]
-
-The above screenshot shows the case when no restaurant is selected. Upon selecting a restaurant, the reviews of the restaurant will show on the review panel, and the rightmost browser panel will show the webpage of the restaurant (if available) :
-
-image::UG_editReview_selected_restaurant.png[width="790"]
-
-* Following the above, enter the command:
-
-image::UG_editReview_selected_restaurant_entered_command.png[width="790"]
-
-* Upon successful execution of the command:
-
-image::UG_editReview_command_executed.png[width="790"]
-
-Examples:
-
-* `edit 1 rr/3` +
-Edits the rating of the 1st review to be 3.
-* `edit 2 re/Food isn't the best` +
-Edits the comment of the second review to "Food isn't the best"
-* `edit 2 re/Food isn't the best` rr/4 +
-Edits the comment of the second review to "Food isn't the best" and the rating to be 4.
-
-==== Deleting a review : `deleteReview`
-
-Deletes the review from the Food Diary. +
-Format: `deleteReview INDEX`
-
-****
-* Deletes the review at the specified `INDEX`. The index refers to the index number of the review of the selected Restaurant. The index *must be a positive integer* 1, 2, 3, ...
-* The index refers to the index number shown in the displayed reviews list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `deleteReview 2` +
-Deletes the 2nd review of the selected Restaurant in the Food Diary.
-// end::reviewcommands[]
 
 == Contributions to the Developer Guide
 
@@ -128,33 +54,5 @@ Deletes the 2nd review of the selected Restaurant in the Food Diary.
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-
-=== Adding a Review to a selected Restaurant
-
-==== Current Implementation
-The Restaurant class contains a list of reviews. Adding a Review to a restaurant would entail adding a review to this list.
-
-This command is handled by the `AddReviewCommand` class, which takes in an `Index` (indicating the index of the restaurant as displayed on the UI) as well as the `Review` object to be added.
-
-An example of the correct format of this command is `addReview 1 re/Good food! rr/4`, which indicates a user trying to add a review (of entry "Good food!" and rating "4") to the first restaurant in a list.
-
-Once this command is entered into the command line and executed, the `AddReviewCommandParser` will parse the command based on the indicated prefixes. These prefixes are pre-defined inside `Cli-Syntax`.
-The parser will return an `AddReviewCommand` object, which stores the index of the restaurant to add the review too, as well as the review to be added itself. This is returned to the `Logic Manager`, which then executes the command.
-
-The execution of this command involves:
-
-Step 1. Retrieving the last shown list from the `Model` and retrieving the restaurant indicated by the index from the last shown list.
-
-Step 2. Creating a new list of reviews that copies everything from the original restaurant's list of reviews.
-
-Step 3. Inserting the new review into the list.
-
-Step 4. Creating a new restaurant object with the new list.
-
-Step 5. Replace the original restaurant with the new restaurant object in the model.
-
-==== Design considerations
-The primary consideration was the compatibility of this new command with the existing architecture.
-Given the stable implementation of the current system of parsing commands, any new command created should fit into the existing architecture with minimal changes to other components.
-// end::skpai27[]
+include::../DeveloperGuide.adoc[tag=reviewcommandsdg]
 

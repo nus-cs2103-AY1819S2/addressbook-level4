@@ -471,7 +471,8 @@ image::SetCategoriesSequenceDiagram.png[width="650"]
 
 // end::categorisation[]
 
-// tag::skpai27[]
+// tag::reviewcommandsdg[]
+
 === Adding a Review to a selected Restaurant
 
 ==== Current Implementation
@@ -496,10 +497,15 @@ Step 4. Creating a new restaurant object with the new list.
 
 Step 5. Replace the original restaurant with the new restaurant object in the model.
 
+Refer to the sequence diagram below for an illustration of how this command is executed.
+
+image::AddReviewSd.png[width="650"]
+
 ==== Design considerations
 The primary consideration was the compatibility of this new command with the existing architecture.
 Given the stable implementation of the current system of parsing commands, any new command created should fit into the existing architecture with minimal changes to other components.
-// end::skpai27[]
+
+// end::reviewcommandsdg[]
 
 === Visit Webpage Feature
 

@@ -58,20 +58,6 @@ public class ExpandedPlacePanel extends UiPart<Region> {
         initTags(place);
     }
 
-    /*
-    public ExpandedPlacePanel() {
-        super(FXML);
-        this.place = null;
-        id.setText("");
-        name.setText("Nothing selected");
-        countryCode.setText("SGP");
-        dateVisited.setText("01/01/1970");
-        rating.setText("1");
-        address.setText("Nothing selected");
-        description.setText("Nothing selected");
-    }
-    */
-    
     /**
      * Returns the color style for {@code tagName}'s label.
      */

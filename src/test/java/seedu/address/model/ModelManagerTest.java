@@ -3,12 +3,9 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -16,8 +13,6 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.battle.state.BattleState;
-import seedu.address.model.cell.NameContainsKeywordsPredicate;
-import seedu.address.model.cell.exceptions.PersonNotFoundException;
 
 public class ModelManagerTest {
     @Rule

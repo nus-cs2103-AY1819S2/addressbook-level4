@@ -62,6 +62,53 @@ as knowledge of how information is cached in the application's memory was essent
 == Contributions to the User Guide
 
 
+=== Filtering requests: `filter request/r/2`
+
+`filter request/r/2 <keyword> [<more_keywords>]`
+
+After entering the command with valid inputs, searches the entire list of
+requests in HealthHub, and only displays the requests whose fields matches
+ the parameters specified in the
+`filter` command.
+
+{nbsp}
+
+where `<more_keywords>` represents the fields and parameters that can be used to
+identify requests or personnel, using the same prefixes as in `add`, `edit` and
+`delete` commands. Some examples of keywords are shown below.
+
+*Notes*:
+
+* The search is *case insensitive* for all fields apart from specialisation(e.g
+`hans` will match `Hans`), and the *order of the keywords* does not matter(e.g
+`Hans Bo` will match `Bo Hans`).
+
+* Search using partial words will return all results with fields containing
+that subword. (e.g `filter 1 n/Tan` may return people with the surnames Tan or
+Tang)
+
+* Note that you can query all requests between a specific range, by specifying the the date range
+which you want to query. For example, to filter all requests between 1st Jan 2019 and 1st June 2019 (exclusive), you can run the following command:
+`filter request dt/01-01-2019 00:00:00 dt/02-06-2019 00:00:00`
+
+[TIP]
+====
+To view the original request list, enter the `list
+request`.
+====
+
+Examples:
+
+* `filter h s/GENERAL_PRACTICE s/GYNAECOLOGY` +
+Returns all health workers whose field of expertise include general practice
+or gynaecology.
+* `filter request n/alice` +
+Returns all patients whose name contains "alice".
+* `filter r p/9177` +
+Returns all requests with contacts numbers that have "9177" in it's field.
+* `filter 2 dt/30-01-2019 10:00:00` +
+Returns all requests scheduled on 30th Jan 2019, at 10 am sharp.
+
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
@@ -110,8 +157,72 @@ Figure 3.3.1.2 Sequence diagram to illustrate `Logic` and `Model` component inte
 ** Pros: Can quickly access details of a `HealthWorker` from a `Request`, and can quickly access the `Requests` assigned to a `HealthWorker` from the `Request`.
 ** Cons: Increases complexity of code base, adding additional dependencies to the code. This makes the code base more verbose and less maintainable
 
+=== Add Request feature
+
+==== Current Implementation
+The `add request` command allows the `LogicManager` to create a new request and add it to the list of requests. Adding a new request requires the
+patient's name, patient's phone number, patient's address, patient's NRIC number and the patient's conditions. The format of the add request command is
+add request n/NAME p/PHONE i/NRIC a/ADDRESS dt/DATETIME c/CONDITION.
+
+The following sequence shows the sequence when the add command is execute by the LogicManager:
+
+image::addrequest.png[width=800]
+Figure 3.2.1.1 Sequence Diagram for `add request` command
+
+From the diagram above:
+
+.  `LogicManager`'s execute is called when the administrator keys in `add request` and it calls upon `parseCommand` of `HealthHubParser` to parse the command
+.  `HealthHubParser` will initialize `AddCommandParser` and invoke the method `parse` to further parse `request` command
+.  `parse` will be invoked and passed the parameters of the add command.
+.  If all the arguments of the `add` commands are valid, `AddRequestCommand` will be returned to the `LogicManager`
+.  `LogicManger` will then calls the method `execute` method of `AddRequestCommand`
+.  `AddRequestCommand` will call `addRequest` passing `Request` as an argument to `Model` and after calls `commitRequestBook` method from `Model`
+.  A `CommandResult` will be returned at the end.
+
+==== Design Consideration
+===== Aspect: Data Structure for the list of Requests
+* **Alternative 1 (Current Approach):** Using a `UniqueRequestList`
+** Pros: The comparison is not as rigid. You can create requests with similar names/phones as long as it passes a less stringent criteria.
+** Cons: You need additional overhead. You need to create an extra class and function to check.
+
+* **Alternative 2:** Using a `Set`
+** Pros: Do not need an extra function. You can use use `equals` for comparison
+** Cons: It is a strict check and as a result you will not be allowed to create requests with same phone/same name etc.
+
+===== Aspect: Data Structure of `Request`
+* **Alternative 1 (Current Approach):** All parameters in `Request` are abstracted out to have a class of its own (with the exception of the HealthWorker).
+** Pros: It adheres to the Single Responsibility Principles (SRP) and the Separation of Concerns (SoC) as each parameter checks whether it is valid
+** Cons: Many different classes are created which increases the complexity of the code
+
+* **Alternative 2:** Store all parameters of `Request` as `String`
+** Pros: Easy to implement.
+** Cons: Violates SRP as one single class will need to check if the arguments are valid.
+
+[NOTE]
+The `RequestStatus` class within the `Request` object utilises the Java `Enum` to ensure type safety in user inputs.
+
+The implementation of the `RequestStatus` class is as follows:
+
+```
+    private enum Status {
+        PENDING,
+        ONGOING,
+        COMPLETED
+    }
+
+     public RequestStatus(String status) {
+         this.requestState = Status.valueOf(status);
+     }
+
+     public RequestStatus() {
+         this(Status.PENDING.name());
+     }
+```
+
+Through this, any user String that is passed in as an argument for the `RequestStatus` field is automatically type checked,
+ensuring that there are no invalid request statuses entered.
 
 //include::../DeveloperGuide.adoc[tag=assignrequest]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+//include::../DeveloperGuide.adoc[tag=dataencryption]
 

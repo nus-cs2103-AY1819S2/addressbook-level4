@@ -286,6 +286,30 @@ From the diagram above:
 ** Pros: Easy to implement.
 ** Cons: Violates SRP as one single class will need to check if the arguments are valid.
 
+[NOTE]
+The `RequestStatus` class within the `Request` object utilises the Java `Enum` to ensure type safety in user inputs.
+
+The implementation of the `RequestStatus` class is as follows:
+
+```
+    private enum Status {
+        PENDING,
+        ONGOING,
+        COMPLETED
+    }
+
+     public RequestStatus(String status) {
+         this.requestState = Status.valueOf(status);
+     }
+
+     public RequestStatus() {
+         this(Status.PENDING.name());
+     }
+```
+
+Through this, any user String that is passed in as an argument for the `RequestStatus` field is automatically type checked,
+ensuring that there are no invalid request statuses entered.
+
 
 // tag::assignrequest[]
 === Assign Request feature
@@ -332,7 +356,7 @@ Although this can be further optimised by using other data structures like a Bal
 
 * Alternative 2: The `Request` holds a `HealthWorker` object and the `HealthWorker` keeps track of a list of `Request`s.
 ** Pros: Can quickly access details of a `HealthWorker` from a `Request`, and can quickly access the `Requests` assigned to a `HealthWorker` from the `Request`.
-** Cons: Increases complexity of code base, adding additional dependencies to the code. This makes the code base more verbose and less maintainable
+** Cons: Increases coupling by adding additional dependencies to the code. This makes the code base more difficult to maintain.
 
 // end::assignrequest[]
 === List Feature

@@ -1,4 +1,4 @@
-= CLI Battleship - Developer Guide
+= Battleship - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:

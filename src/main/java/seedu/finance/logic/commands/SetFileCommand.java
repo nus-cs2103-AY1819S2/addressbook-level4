@@ -14,7 +14,6 @@ import seedu.finance.logic.commands.exceptions.CommandException;
 import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.Model;
 import seedu.finance.model.ReadOnlyFinanceTracker;
-import seedu.finance.model.util.SampleDataUtil;
 import seedu.finance.storage.JsonFinanceTrackerStorage;
 import seedu.finance.storage.StorageManager;
 

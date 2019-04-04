@@ -791,7 +791,6 @@ command box `e.g. 30-03-2019` and that day will be selected.
 
 Executing the command without specifying a date will cause the current date to be selected by default.
 
-////
 ==== taskfind
 Searches for and displays a list of tasks according to a specified parameter
 
@@ -896,7 +895,7 @@ Example:
 |2 |Alice |M | 84521666 | 03/07/2003
 |===
 
-==== stats
+==== stat
 Generates a statistics report based on the specified patient's data.
 
 Format: `stat INDEX`

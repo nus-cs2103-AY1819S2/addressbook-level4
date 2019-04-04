@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -12,15 +13,8 @@ import seedu.address.model.tag.Condition;
 public class Statistics {
 
     private static final String MESSAGE_EMPTY_STATISTICS = "Conditions and their related occurences are not available";
-    private static final String MESSAGE_SUCCESS_STATISTICS = "Conditions and Occurences displayed successfully";
 
-    private static Map<String, Integer> statistics = new TreeMap<>();
-
-    /*
-    public static Map<String, Integer> getStatistics() {
-        return statistics;
-    }
-    */
+    private static Map<String, Integer> statistics = new TreeMap<>(Collections.reverseOrder());
 
     /**
      * Returns the number of times the specific condition has appeared in added requests
@@ -29,11 +23,25 @@ public class Statistics {
      * @return number of condition occurences in the map
      */
     public static Integer getConditionStatistics(Condition condition) {
-        return statistics.getOrDefault(condition.toString(), 0);
+        return statistics.getOrDefault(condition.toString().toUpperCase(), 0);
     }
 
     public static void clearStatistics() {
         statistics.clear();
+    }
+
+    /**
+     * Updates statistics tree map every time a new request is deleted
+     * the integer value pegged to the toBeDeleted Condition will be reduced
+     *
+     * @param conditionSet to check for.
+     */
+    public static void deleteStatistics(Set<Condition> conditionSet) {
+        for (Condition condition : conditionSet) {
+            String conditionName = condition.toString().toUpperCase();
+            Integer count = statistics.get(conditionName);
+            statistics.put(conditionName, (count == 0) ? 0 : count - 1);
+        }
     }
 
     /**
@@ -45,8 +53,9 @@ public class Statistics {
      */
     public static void updateStatistics(Set<Condition> conditionSet) {
         for (Condition condition : conditionSet) {
-            Integer count = statistics.get(condition.toString());
-            statistics.put(condition.toString(), (count == null) ? 1 : count + 1);
+            String conditionName = condition.toString().toUpperCase();
+            Integer count = statistics.get(conditionName);
+            statistics.put(conditionName, (count == null) ? 1 : count + 1);
         }
     }
 
@@ -54,8 +63,11 @@ public class Statistics {
         return statistics.entrySet();
     }
 
-    @Override
-    public String toString() {
+
+    /**
+     * Displays all conditions in a standard format
+     */
+    public static String toCommand() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Conditions and Occurences:\n");
         if (statistics.isEmpty()) {

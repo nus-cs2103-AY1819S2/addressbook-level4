@@ -129,6 +129,7 @@ image::SDforDeletePerson.png[width="800"]
 
 The sections below give more details of each component.
 
+// tag::ui-header[]
 [[Design-Ui]]
 === UI component
 
@@ -147,6 +148,7 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data dynamically.
+// end::ui-header[]
 
 [[Design-Logic]]
 === Logic component
@@ -553,6 +555,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::setreminder[]
 === Set Reminder Feature
 
 The `setreminder` command gives the user an option to set a reminder with a customised message.
@@ -560,6 +563,24 @@ The reminder is in the form of an `AlertDialog` and is scheduled to show on the 
 `t + current time`. +
 
 The alert only pop ups when the application is running in the background.
+// end::setreminder[]
+
+// tag::autocomplete[]
+
+=== Get Statistics Feature
+
+The `statistics` command gives the user the ability to view the health conditions and their respective number of
+occurrences shown in the display panel in descending order, as shown in the picture below.
+
+image::statistics_command_desc.png[]
+
+The statistics are stored in a TreeMap data structure, ensuring consistently efficient run time when computing
+statistics for each individual health condition.
+
+Since the statistics are only derived from existing requests, if there are no requests for homecare added on HealthHub,
+an error message will be shown: `Conditions and their related occurrences are not available`, as shown below
+
+image::empty_statistics.PNG[]
 
 === Autocomplete Feature for CommandBox
 The UI component, `CommandBox`, comes with a `TextField` component in AB4. For Health Hub, the `TextField` is replaced
@@ -577,8 +598,8 @@ against the user's input if any of the suggestions starts with the user's text.
 ==== Aspect: Algorithm to search for commands that fit user's input
 <insert text>
 
-
 A detailed interaction diagram for the autocomplete behaviour is created previously under <insert section>.
+// end::autocomplete[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

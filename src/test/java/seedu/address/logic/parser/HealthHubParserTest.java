@@ -43,11 +43,11 @@ import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.testutil.EditHealthWorkerDescriptorBuilder;
 import seedu.address.testutil.HealthWorkerBuilder;
 
-public class AddressBookParserTest {
+public class HealthHubParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final HealthHubParser parser = new HealthHubParser();
 
     @Test
     public void parseCommand_complete() throws Exception {

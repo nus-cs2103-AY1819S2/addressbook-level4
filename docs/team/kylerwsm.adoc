@@ -3,6 +3,8 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
+---
+
 == About the Project: TeethHub
 
 TeethHub is a desktop application specially designed for tech-savvy dentists, who prefers to use the command line interface, as opposed to the traditional graphical user interface. The user interacts with the application through the type via the command line interface, and graphical representations of data are provided. The program is written in Java.

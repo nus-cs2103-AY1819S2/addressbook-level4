@@ -591,6 +591,8 @@ the customised message to "to call patient John Doe for his appointment".
 
 image::reminder_command.png[]
 
+
+
 === Exiting the program : `exit`
 
 Once you are done using the application, you can exit the application by

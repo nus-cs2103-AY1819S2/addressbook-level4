@@ -41,7 +41,7 @@ public class CurrentEditManager implements CurrentEdit {
     public CurrentEditManager() {
         this.editFilePath = generateEdit();
         this.editFileName = editFilePath + editName;
-        this.originalFileName = editFileName + originalName;
+        this.originalFileName = editFilePath + originalName;
         this.directoryTo = new File(editFilePath);
         this.originalImage = null;
         this.tempImage = null;
@@ -255,14 +255,21 @@ public class CurrentEditManager implements CurrentEdit {
             ImageIO.write(tempImage.getBufferedImage(), tempImage.getFileType(), outputFile);
             FileUtils.copyFileToDirectory(outputFile, saveDirectory, false);
             outputFile.delete();
-            tempImage.setHistory(new ArrayList<Command>());
-            tempImage.setIndex(0);
         } catch (IOException e) {
             System.out.println(e.toString());
         }
         overwriteOriginal(name);
         return name;
     }
+
+    /**
+     * Resets tempImage history.
+     */
+    public void deleteHistory() {
+        tempImage.setHistory(new ArrayList<Command>());
+        tempImage.setIndex(0);
+    }
+
     public String getOriginalImageName() {
         return this.originalImageName;
     }
@@ -292,15 +299,6 @@ public class CurrentEditManager implements CurrentEdit {
         for (File file : dir.listFiles()) {
             file.delete();
         }
-        // Create a placeholder file so git can track the folder.
-        try {
-            File placeholder = new File(editFilePath + "README.adoc");
-            placeholder.getParentFile().mkdir();
-            placeholder.createNewFile();
-        } catch (IOException e) {
-            System.out.println(e);
-        }
-
     }
 
     /**

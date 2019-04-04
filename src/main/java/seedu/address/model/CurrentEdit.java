@@ -55,5 +55,7 @@ public interface CurrentEdit {
     boolean tempImageExist();
 
     void updateHistory();
+
+    void deleteHistory();
 }
 /* @@author*/

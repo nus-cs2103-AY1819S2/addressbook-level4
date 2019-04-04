@@ -45,7 +45,7 @@ public class InOutAddressBookStorage implements AddressBookStorage {
     private static final PDFont FONT = PDType1Font.HELVETICA;
     private static final int FONT_SIZE = 12;
     private static final int LINE_SPACING = 3;
-    private static final String TEETH_IMAGE_PATH = "src\\main\\resources\\images\\tooth.png";
+    private static final String TEETH_IMAGE_PATH = "src/main/resources/images/tooth.png";
 
     private static final Logger logger = LogsCenter.getLogger(InOutAddressBookStorage.class);
 

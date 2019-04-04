@@ -38,7 +38,7 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.PatientAddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
@@ -65,7 +65,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
          * -> added
          */
         Person toAdd = AMY;
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + SEX_DESC_AMY + " "
+        String command = "   " + PatientAddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + SEX_DESC_AMY + " "
                 + NRIC_DESC_AMY + " "
                 + DOB_DESC_AMY + " "
                 + PHONE_DESC_AMY + " " + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + " ";
@@ -85,7 +85,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* Case: add a person with all fields same as another person in the address book except nric
         and name -> added */
         toAdd = new PersonBuilder(AMY).withNric("S1111111A").withName(VALID_NAME_BOB).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + SEX_DESC_AMY + NRIC_DESC_BOB + DOB_DESC_AMY
+        command = PatientAddCommand.COMMAND_WORD + NAME_DESC_BOB + SEX_DESC_AMY + NRIC_DESC_BOB + DOB_DESC_AMY
                 + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandSuccess(command, toAdd);
 
@@ -95,7 +95,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a person with parameters in random order -> added */
         toAdd = BOB;
-        command = AddCommand.COMMAND_WORD + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB + EMAIL_DESC_BOB
+        command = PatientAddCommand.COMMAND_WORD + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB + EMAIL_DESC_BOB
                 + NRIC_DESC_BOB + DOB_DESC_BOB + SEX_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
@@ -118,85 +118,85 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a duplicate person -> rejected */
         command = PersonUtil.getAddCommand(HOON);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, PatientAddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate person except with different phone -> rejected */
         toAdd = new PersonBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, PatientAddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate person except with different email -> rejected */
         toAdd = new PersonBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, PatientAddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate person except with different address -> rejected */
         toAdd = new PersonBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, PatientAddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        command = PatientAddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, PatientAddCommand.MESSAGE_USAGE));
 
         /* Case: missing phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        command = PatientAddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, PatientAddCommand.MESSAGE_USAGE));
 
         /* Case: missing email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        command = PatientAddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, PatientAddCommand.MESSAGE_USAGE));
 
         /* Case: missing address -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        command = PatientAddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, PatientAddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
         command = "adds " + PersonUtil.getPersonDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + SEX_DESC_AMY + NRIC_DESC_AMY + DOB_DESC_AMY
+        command = PatientAddCommand.COMMAND_WORD + INVALID_NAME_DESC + SEX_DESC_AMY + NRIC_DESC_AMY + DOB_DESC_AMY
                 + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid sex -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_SEX_DESC + NRIC_DESC_AMY + DOB_DESC_AMY
+        command = PatientAddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_SEX_DESC + NRIC_DESC_AMY + DOB_DESC_AMY
                 + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Sex.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid nric -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + SEX_DESC_AMY + INVALID_NRIC_DESC + DOB_DESC_AMY
+        command = PatientAddCommand.COMMAND_WORD + NAME_DESC_AMY + SEX_DESC_AMY + INVALID_NRIC_DESC + DOB_DESC_AMY
                 + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Nric.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid dateOfBirth -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + SEX_DESC_AMY + NRIC_DESC_AMY + INVALID_DOB_DESC
+        command = PatientAddCommand.COMMAND_WORD + NAME_DESC_AMY + SEX_DESC_AMY + NRIC_DESC_AMY + INVALID_DOB_DESC
                 + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, DateOfBirth.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + SEX_DESC_AMY + NRIC_DESC_AMY + DOB_DESC_AMY
+        command = PatientAddCommand.COMMAND_WORD + NAME_DESC_AMY + SEX_DESC_AMY + NRIC_DESC_AMY + DOB_DESC_AMY
                 + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Phone.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + SEX_DESC_AMY + NRIC_DESC_AMY + DOB_DESC_AMY
+        command = PatientAddCommand.COMMAND_WORD + NAME_DESC_AMY + SEX_DESC_AMY + NRIC_DESC_AMY + DOB_DESC_AMY
                 + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Email.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + SEX_DESC_AMY + NRIC_DESC_AMY + DOB_DESC_AMY
+        command = PatientAddCommand.COMMAND_WORD + NAME_DESC_AMY + SEX_DESC_AMY + NRIC_DESC_AMY + DOB_DESC_AMY
                 + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
         assertCommandFailure(command, Address.MESSAGE_CONSTRAINTS);
 
     }
 
     /**
-     * Executes the {@code AddCommand} that adds {@code toAdd} to the model and asserts that the,<br>
+     * Executes the {@code PatientAddCommand} that adds {@code toAdd} to the model and asserts that the,<br>
      * 1. Command box displays an empty string.<br>
      * 2. Command box has the default style class.<br>
-     * 3. Result display box displays the success message of executing {@code AddCommand} with the details of
+     * 3. Result display box displays the success message of executing {@code PatientAddCommand} with the details of
      * {@code toAdd}.<br>
      * 4. {@code Storage} and {@code PersonListPanel} equal to the corresponding components in
      * the current model added with {@code toAdd}.<br>
@@ -220,7 +220,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     private void assertCommandSuccess(String command, Person toAdd) {
         Model expectedModel = getModel();
         expectedModel.addPerson(toAdd);
-        String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd.getName());
+        String expectedResultMessage = String.format(PatientAddCommand.MESSAGE_SUCCESS, toAdd.getName());
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
     }

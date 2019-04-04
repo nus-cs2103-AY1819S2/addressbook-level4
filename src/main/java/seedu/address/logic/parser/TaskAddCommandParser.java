@@ -23,13 +23,13 @@ import seedu.address.model.task.Title;
 import seedu.address.ui.MainWindow;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new PatientAddCommand object
  */
 public class TaskAddCommandParser implements Parser<TaskAddCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the PatientAddCommand
+     * and returns an PatientAddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public TaskAddCommand parse(String args) throws ParseException {

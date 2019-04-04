@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -99,6 +100,11 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     ////Person object specific methods
+    @Override
+    public void setPatientList(List<Person> persons) {
+        versionedAddressBook.setPersons(persons);
+    }
+
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
         versionedAddressBook.resetData(addressBook);

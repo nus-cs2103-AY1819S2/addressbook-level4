@@ -260,6 +260,9 @@ public class CurrentEditManager implements CurrentEdit {
         return name;
     }
 
+    /**
+     * Resets tempImage history.
+     */
     public void deleteHistory() {
         tempImage.setHistory(new ArrayList<Command>());
         tempImage.setIndex(0);

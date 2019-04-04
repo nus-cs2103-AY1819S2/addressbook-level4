@@ -46,28 +46,35 @@ detailed report so that they can analyze potential trends.
  pie chart.
 
 * *Minor enhancement*: added a Next Of Kin class as an attribute for a patient.
+* *Minor enhancement*: added a Procedure class as an attribute for a record.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Created and maintained the group project repository
+*** Managed releases `v1.1` - `v1.4` (6 releases) on GitHub
+*** Responsible for approving and merging the PR of fellow teammates
+*** Created majority of open issues and distributed responsibilities for the issues to relevant team members
+*** Created and assigned relevant tags to issues within the project
+
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated README to reflect information for TeethHub instead of AddressBook4
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests
+https://github.com[#36], https://github.com[#38])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** PRs reviewed (with non-trivial review comments)
+*** Reported bugs and suggestions for other team members https://github.com/CS2103-AY1819S2-W17-2/main/issues/58[#58]
+https://github.com/CS2103-AY1819S2-W17-2/main/issues/106[#106]
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Integrated a web page & documentation checker (Netlify) to the team repository
+*** Integrated a new Github plugin (TravisCI) to verify test cases to the team repo
+*** Integrated a new Github plugin (Coveralls) to determine the extend of test case coverage of our code to the team
+repo
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -91,8 +98,6 @@ include::../DeveloperGuide.adoc[tag=undoredo]
 include::../DeveloperGuide.adoc[tag=dataencryption]
 
 
-== PROJECT: PowerPointLabs
-
 ---
 
-_{Optionally, you may include other projects in your portfolio.}_
+

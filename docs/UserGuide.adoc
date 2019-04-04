@@ -593,7 +593,7 @@ You can also use the keyword `today` as an input which will use the current date
 
 Other validity checks for the end date are the same as that of start date.
 
-Default value if not specified: Task's start date
+Default value if not specified: Task's start date.
 |ed/DD-MM-YYYY
 |ed/19-12-2019
 
@@ -620,10 +620,10 @@ Other validity checks for the end time are the same as that of the start time.
 |Priority
 |The priority level of the task to be performed.
 
-You should provide the priority as `high`, `med` or `low` in either upper or lowercase.
-Tasks with different priority will be marked with different colors on the task list.
+You should provide the priority as `high`, `med`, `low` or `completed` in either upper or lowercase.
+Tasks with different priority will be marked with different colored labels on the task list.
 High priority will be marked [red]#red#, Medium priority be marked [orange]#orange# and
-Low priority will be marked [yellow]#yellow#.
+Low priority will be marked [yellow]#yellow#. Completed tasks will be marked with [green]#green#.
 
 Default value if not specified: [yellow]#Low#
 |pri/PRIORITY
@@ -814,10 +814,10 @@ Example:
 |2 |Bob |24 |11/02/2019
 |===
 
-==== stat
+==== stats
 Generates a statistics report based on the specified patient's data.
 
-Format: `stat INDEX`
+Format: `stats INDEX`
 
 == Cloud Functionality [Coming in v2.0]
 To increase data redundancy and reduce the risk of data being lost,

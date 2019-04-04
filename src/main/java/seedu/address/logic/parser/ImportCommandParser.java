@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
@@ -40,9 +39,8 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         // Trim to prevent excess whitespace.
         args = args.trim();
 
-        File folder = null;
+        File folder;
         File[] listOfFiles;
-        List<File> sampleFiles;
         try {
             switch (validPath(args)) {
             // TODO - Pending refactor.

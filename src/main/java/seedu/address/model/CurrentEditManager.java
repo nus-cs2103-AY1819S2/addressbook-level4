@@ -158,6 +158,7 @@ public class CurrentEditManager implements CurrentEdit {
     }
 
     /* @@author itszp */
+
     /**
      * Creates originalImage instance of {@code image} located in temp_folder.
      */
@@ -170,8 +171,13 @@ public class CurrentEditManager implements CurrentEdit {
         Notifier.firePropertyChangeListener("import", null, tempImage.getUrl());
     }
 
+    /**
+     * Adds an executed command into Image history.
+     * @param command Command to be added.
+     */
     public void addCommand(Command command) {
         tempImage.addHistory(command);
+        updateHistory();
     }
 
     public List<Command> getTempSubHistory() {
@@ -283,6 +289,13 @@ public class CurrentEditManager implements CurrentEdit {
     }
 
     /**
+     * Fires a notifier to update the EXIF pane of the Information Panel.
+     */
+    public void updateHistory() {
+        Notifier.firePropertyChangeListener("refreshHistory", null, tempImage.getSubHistory());
+    }
+
+    /**
      * Helper method to clean up temp folder on application exit.
      */
     public void clearTemp() {
@@ -290,15 +303,6 @@ public class CurrentEditManager implements CurrentEdit {
         for (File file : dir.listFiles()) {
             file.delete();
         }
-        // Create a placeholder file so git can track the folder.
-        try {
-            File placeholder = new File(editFilePath + "README.adoc");
-            placeholder.getParentFile().mkdir();
-            placeholder.createNewFile();
-        } catch (IOException e) {
-            System.out.println(e);
-        }
-
     }
 
     /**

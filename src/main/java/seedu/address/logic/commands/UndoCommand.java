@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-//import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
@@ -38,6 +37,7 @@ public class UndoCommand extends Command {
 
         current.setUndoTemp();
         current.replaceTempWithOriginal();
+        current.updateHistory();
         List<Command> tempHistory = current.getTempSubHistory();
         for (Command command :tempHistory) {
             command.execute(current, model, history);

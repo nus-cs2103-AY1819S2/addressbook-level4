@@ -8,7 +8,7 @@ public class ClearDecksCommandSystemTest extends TopDeckSystemTest {
 
     //    @Test
     //    public void clear() {
-    //        final Model defaultModel = getModel();
+    //        Model model = getModel();
     //
     //        /* Case: clear non-empty TopDeck -> cleared */
     //        assertCommandSuccess(ClearCommand.COMMAND_WORD);
@@ -37,7 +37,7 @@ public class ClearDecksCommandSystemTest extends TopDeckSystemTest {
     //
     //        /* Case: mixed case command word -> rejected */
     //        assertCommandFailure("ClEaR", MESSAGE_UNKNOWN_COMMAND);
-    //    }
+    //}
 
     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display

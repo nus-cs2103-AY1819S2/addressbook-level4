@@ -142,7 +142,7 @@ public abstract class TopDeckSystemTest {
 
     protected void showDecksWithName(String keyword, DecksView decksView) {
         executeCommand(FindDeckCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(decksView.getFilteredList().size() < getModel().getTopDeck().getDeckList().size());
+        assertTrue(decksView.getFilteredList().size() <= getModel().getTopDeck().getDeckList().size());
     }
 
     /**

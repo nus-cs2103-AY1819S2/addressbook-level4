@@ -320,6 +320,43 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+// tag::findimplement[]
+=== Find feature
+==== Current Implementation
+
+The Find mechanism is facilitated through the use of predicates in conjunction with the
+`FilteredList` within `ModelManager`
+
+image::FindCommandSequenceDiagram1.png[width="800"]
+
+The above sequence diagram gives an overview of how a `Find` Command is created. When the proper string arguments for
+ a Find Command is entered into the user interface, the arguments are passed to the Logic Manager and then the
+ AddressBook parser to determine if the input is valid. If it valid, a new `FindCommandParser` object is then created
+  and handles the remaining user input.
+
+From FindCommandParser, it creates a `MultipleContainsKeywordsPredicate` before going into a loop that creates the
+respective parameter `ContainsKeywordsPredicate` if the parameter is present within the user input. The newly created
+ `ContainsKeywordsPredicate` objects are passed back to the `FindCommandParser` and stored within a list. Once the
+ loop has finished the list is passed over to the `MultipleContainKeywordsPredicate` object before it is used in the
+ creation of a `FindCommand` object. On success, the `FindCommand` object is returned to the LogicManager as per the
+ flow in the sequence diagram.
+
+Whereas the sequence diagram below
+gives an overview of it's execution behavior.
+
+_{Placeholder for second execution sequence diagram}_
+
+==== Design Considerations
+===== Aspect: Creation of Predicates
+
+* **Alternative 1 (current choice):** Every associated parameter that is found within either a `Patient` or `Record`
+class has an associated `ContainsKeywordsPredicate` that handles the predicate testing when that parameter is
+specified to be searched.
+* **Alternative 2:** `Patient` and `Record` would each have an individual associated `ContainsKeywordsPredicate` that
+ acts as a "class of classes" that contains each respective paramater predicate class within itself.
+
+// end::findimplement
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -820,6 +857,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
 [appendix]
+// tag::storyusers[]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -877,12 +915,12 @@ be already be obtained from an external source
 
 |`* *` |user |see relevant dentistry tags on my patients' entries | have an overview of my patients' condition
 
+|`* *` |user with many persons in the address book |sort patients by desired parameter |locate a person easily
+
 |`*` |user with confidential patient information|log into the application with a password |prevent unauthorized access to the application when I am not around
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
-
-_{More to be added}_
+// end::storyusers[]
 
 [appendix]
 == Use Cases

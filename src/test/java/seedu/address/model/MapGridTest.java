@@ -5,8 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_UNUSED;
 
 import static seedu.address.testutil.SizeTenMapGrid.getSizeTenMapGrid;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -28,8 +26,6 @@ import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 public class MapGridTest {
@@ -99,7 +95,7 @@ public class MapGridTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         mapGrid.addPerson(ALICE);
-        Cell editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Cell editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
                 .build();
         assertTrue(mapGrid.hasPerson(editedAlice));
     }
@@ -127,17 +123,6 @@ public class MapGridTest {
         mapGrid.removeListener(listener);
         mapGrid.addPerson(ALICE);
         assertEquals(0, counter.get());
-    }
-
-    @Test
-    public void removeTagFromPerson_nonExistentTag_samePerson() throws Exception {
-        mapGrid.addPerson(ALICE);
-        mapGrid.removeTag(new Tag(VALID_TAG_UNUSED), ALICE);
-
-        MapGrid expectedMapGrid = new AddressBookBuilder().withPerson(ALICE).build();
-
-        assertEquals(expectedMapGrid, mapGrid);
-
     }
 
     /**

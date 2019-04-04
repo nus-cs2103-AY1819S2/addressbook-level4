@@ -269,32 +269,6 @@ public class MapGrid implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code tag} from {@code cell} in this {@code MapGrid}.
-     */
-    public void removeTag(Tag tag, Cell cell) throws DuplicatePersonException,
-            PersonNotFoundException {
-        Set<Tag> newTags = new HashSet<>(cell.getTags());
-        newTags.remove(tag);
-
-        Cell editedCell = new Cell(
-                cell.getName(),
-                cell.getPhone(),
-                cell.getEmail(),
-                cell.getAddress(),
-                newTags);
-        persons.setPerson(cell, editedCell);
-    }
-
-    /**
-     * Remove {@code tag} from app {@code cell}s in this {@code MapGrid}.
-     */
-    public void deleteTag(Tag tag) {
-        for (Cell cell : this.getPersonList()) {
-            this.removeTag(tag, cell);
-        }
-    }
-
-    /**
      * Put battleship on map grid.
      */
     public void putShip(Battleship battleship, Coordinates coordinates, Orientation orientation)

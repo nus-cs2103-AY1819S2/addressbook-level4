@@ -34,8 +34,6 @@ public class GuiTestAssert {
         assertEquals(expectedCell.getPhone().value, actualCard.getPhone());
         assertEquals(expectedCell.getEmail().value, actualCard.getEmail());
         assertEquals(expectedCell.getAddress().value, actualCard.getAddress());
-        assertEquals(expectedCell.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
-                actualCard.getTags());
     }
 
     /**

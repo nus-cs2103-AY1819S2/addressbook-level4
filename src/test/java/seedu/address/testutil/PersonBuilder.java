@@ -1,15 +1,10 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.address.model.battleship.Name;
 import seedu.address.model.cell.Address;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Email;
 import seedu.address.model.cell.Phone;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Cell objects.
@@ -25,14 +20,12 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Address address;
-    private Set<Tag> tags;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        tags = new HashSet<>();
     }
 
     /**
@@ -43,7 +36,6 @@ public class PersonBuilder {
         phone = cellToCopy.getPhone();
         email = cellToCopy.getEmail();
         address = cellToCopy.getAddress();
-        tags = new HashSet<>(cellToCopy.getTags());
     }
 
     /**
@@ -51,14 +43,6 @@ public class PersonBuilder {
      */
     public PersonBuilder withName(String name) {
         this.name = new Name(name);
-        return this;
-    }
-
-    /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Cell} that we are building.
-     */
-    public PersonBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
@@ -87,7 +71,7 @@ public class PersonBuilder {
     }
 
     public Cell build() {
-        return new Cell(name, phone, email, address, tags);
+        return new Cell(name, phone, email, address);
     }
 
 }

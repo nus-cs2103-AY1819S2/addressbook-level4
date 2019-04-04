@@ -45,7 +45,7 @@ public class UniqueCellListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         row.add(ALICE);
-        Cell editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Cell editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
                 .build();
         assertTrue(row.contains(editedAlice));
     }
@@ -95,7 +95,7 @@ public class UniqueCellListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         row.add(ALICE);
-        Cell editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Cell editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
                 .build();
         row.setPerson(ALICE, editedAlice);
         Row expectedRow = new Row();

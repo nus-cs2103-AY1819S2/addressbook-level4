@@ -320,6 +320,20 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+// tag::findimplement[]
+=== Find feature
+==== Current Implementation
+
+The Find mechanism is facilitated through the use of predicates in conjunction with the
+`FilteredList` within `ModelManager`
+
+image::FindCommandSequenceDiagram1.png[width="800"]
+
+The above sequence diagram gives an overview of how a `Find` Command is created. Whereas the sequence diagram below
+gives an overview of it's execution behavior
+
+// end::findimplement
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

@@ -38,7 +38,9 @@ public class ContrastCommand extends Command {
      */
     public ContrastCommand(OptionalDouble contrastValue) {
         setCommandName(COMMAND_WORD);
-        setArguments(String.valueOf(contrastValue.getAsDouble()));
+        if (contrastValue.isPresent()) {
+            setArguments(String.valueOf(contrastValue.getAsDouble()));
+        }
         this.contrastValue = contrastValue;
         this.isNewCommand = true;
     }

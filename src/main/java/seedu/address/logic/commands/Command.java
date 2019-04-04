@@ -10,7 +10,7 @@ import seedu.address.model.Model;
  */
 public abstract class Command {
     private String commandName = "";
-    private String arguments = "";
+    private String arguments = "None";
     /**
      * Executes the command and returns the result message.
      *

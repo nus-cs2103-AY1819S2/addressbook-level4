@@ -36,7 +36,9 @@ public class BlackWhiteCommand extends Command {
      */
     public BlackWhiteCommand(OptionalInt threshold) {
         setCommandName(COMMAND_WORD);
-        setArguments(String.valueOf(threshold.getAsInt()));
+        if (threshold.isPresent()) {
+            setArguments(String.valueOf(threshold.getAsInt()));
+        }
         this.threshold = threshold;
         this.isNewCommand = true;
     }

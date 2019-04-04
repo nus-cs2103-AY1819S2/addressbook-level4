@@ -17,6 +17,8 @@ import seedu.travel.model.place.Place;
  */
 public class RatingChartList implements Iterable<RatingChart> {
 
+    public static final String MESSAGE_RATING_CHART_NOT_FOUND = "The rating chart does not exist.";
+
     private final ObservableList<RatingChart> internalList = FXCollections.observableArrayList();
     private final ObservableList<RatingChart> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
@@ -54,7 +56,7 @@ public class RatingChartList implements Iterable<RatingChart> {
             }
         }
         if (!isRemoved) {
-            throw new RatingChartNotFoundException();
+            throw new RatingChartNotFoundException(MESSAGE_RATING_CHART_NOT_FOUND);
         }
     }
 

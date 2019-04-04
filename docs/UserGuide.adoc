@@ -248,7 +248,7 @@ image::recommend.png[width="790"]
 
 Recommends a list of modules that can be taken based on GradTrak modules and course requirements, as shown above.
 Modules with unmet prerequisites or preclusions present in GradTrak as well as modules already added (unless they have been failed) will not be recommended. +
-Recommended modules are displayed in order of requirement satisfied: Core, Programme/Technical Electives or Focus Area, Industry Experience, Faculty, General Education, Unrestricted Electives.
+Recommended modules are displayed in order of requirement satisfied: Core, Breadth & Depth, Industry Experience, Faculty, General Education, Unrestricted Electives.
 Modules with the same requirement satisfied are sorted by level. +
 Format: `rec`
 

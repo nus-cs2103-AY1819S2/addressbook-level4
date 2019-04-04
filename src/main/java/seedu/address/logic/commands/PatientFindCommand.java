@@ -16,7 +16,7 @@ public class PatientFindCommand extends Command {
     public static final String COMMAND_WORD = "patientfind";
     public static final String COMMAND_WORD2 = "pfind";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " or " + COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " or " + COMMAND_WORD2
             + ": Finds all patient whose particulars contain any of "
             + "the specified parameter's keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: prefix/KEYWORD [MORE_KEYWORDS]...\n"

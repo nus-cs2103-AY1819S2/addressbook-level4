@@ -23,7 +23,7 @@ public class PatientDeleteCommand extends Command {
     public static final String COMMAND_WORD = "patientdelete";
     public static final String COMMAND_WORD2 = "pdelete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " or " + COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " or " + COMMAND_WORD2
             + ": Deletes the person identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";

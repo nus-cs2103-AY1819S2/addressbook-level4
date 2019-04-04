@@ -21,7 +21,7 @@ public class PatientAddCommand extends Command {
     public static final String COMMAND_WORD = "patientadd";
     public static final String COMMAND_WORD2 = "padd";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " or " + COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " or " + COMMAND_WORD2
             + ": Adds a patient to the dental book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "

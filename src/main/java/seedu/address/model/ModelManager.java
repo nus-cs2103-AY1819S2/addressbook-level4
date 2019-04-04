@@ -234,7 +234,7 @@ public class ModelManager implements Model {
      */
     @Override
     public void updateTags(Patient target) {
-        Patient editedTarget = target.copy();
+        Patient editedTarget = target;
         versionedAddressBook.setPerson(target, editedTarget);
         MainWindow.setRecordPatient(editedTarget);
     }

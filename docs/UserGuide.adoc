@@ -219,8 +219,8 @@ You can use *Export* to save select patients to a .json or .pdf file.
 
 ==== open
 Opens the file in the specified file path and overwrites the current data. +
-** Note that 'open' always searches inside the data folder. +
-** You can only open .json files.
+** Note that 'open' always searches inside the data folder.** +
+** You can only open .json files.**
 
 Format: `open FILE_PATH`
 
@@ -236,10 +236,10 @@ Replaces the current data with the data in "data2.json" found in the "february" 
 ==== save
 Saves the current data to the specified file path. +
 ** Note that 'save' always saves inside the data folder. If no such file path exists,
-it will be created. Otherwise, it will overwrite the existing file. +
-** You can only save to .json and .pdf. +
-.json files allow you to open or import them. +
-.pdf files are easier for humans to read, but you cannot open or import them with TeethHub.
+it will be created. Otherwise, it will overwrite the existing file.** +
+** You can only save to .json and .pdf.** +
+.json files allow you to <<open, open>> or <<import, import>> them. +
+.pdf files are easier to read, but you cannot open or import them with TeethHub.
 
 Format: `save FILE_PATH`
 
@@ -254,8 +254,8 @@ Saves the current data to "data2.json" found in the "february" folder.
 
 ==== import
 Opens the file in the specified file path and adds the specified patients to the current data. +
-** Note that 'import' always searches inside the data folder. +
-** You can only import .json files.
+** Note that 'import' always searches inside the data folder.** +
+** You can only import .json files. **
 
 Format: `import FILE_PATH INDEX_RANGE`
 
@@ -280,10 +280,10 @@ Adds patient 1 and patient 3 to patient 5 from "data1.json" to the current data.
 ==== export
 Saves the specified patients in the current data to the specified file path. +
 ** Note that 'export' always saves inside the data folder. If no such file path exists,
-it will be created. Otherwise, it will overwrite the existing file. +
-** You can only export to .json and .pdf. +
-.json files allow you to open or import them. +
-.pdf files are easier for humans to read, but you cannot open or import them with TeethHub.
+it will be created. Otherwise, it will overwrite the existing file.** +
+** You can only export to .json and .pdf.** +
+.json files allow you to <<open, open>> or <<import, import>> them. +
+.pdf files are easier to read, but you cannot open or import them with TeethHub.
 
 Format: `export FILE_PATH INDEX_RANGE`
 

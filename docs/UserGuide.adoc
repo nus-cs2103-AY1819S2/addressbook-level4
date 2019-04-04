@@ -548,7 +548,7 @@ keying in certain tags after the `taskadd` command. Do note the following:
 
 * Some parameters are mandatory when adding a task. +
 
-* Non-mandatory tasks will be assigned a default value if not specified
+* Non-mandatory tasks will be assigned a default value if not specified.
 
 
 Table 1 shows the list of parameters along with their respective descriptions.
@@ -574,6 +574,7 @@ due to security reasons.
 
 You should provide the start date in the format `DD-MM-YYYY` and should not be a date that is BEFORE the current date.
 You can also use the keyword `today` as an input which will use the current date as the start date.
+
 Invalid dates such as 33-02-1995 or 25-13-2020 are examples of dates that will be rejected as invalid inputs
 for these are invalid date values (there is no 33rd day or a 13th month).
 Valid dates in the wrong format such as 05/06/2019 will also be rejected.
@@ -590,6 +591,8 @@ You can also use the keyword `today` as an input which will use the current date
 Invalid dates such as 33-02-1995 or 25-13-2020 are examples of dates that will be rejected as invalid inputs
 for these are invalid date values (there is no 33rd day or a 13th month).
 Valid dates in the wrong format such as 05/06/2019 will also be rejected.
+
+Default value if not specified: Task's start date
 |ed/DD-MM-YYYY
 |ed/19-12-2019
 
@@ -620,8 +623,7 @@ Tasks with different priority will be marked with different colors on the task l
 High priority will be marked [red]#red#, Medium priority be marked [orange]#orange# and
 Low priority will be marked [yellow]#yellow#.
 
-As the priority is not a mandatory parameter, if you do not specify a priority when you add a task,
-it will be given a default priority of [yellow]#Low#
+Default value if not specified: [yellow]#Low#
 |pri/PRIORITY
 |pri/high
 
@@ -635,6 +637,8 @@ a value of `0` when using the <<taskedit, taskedit>> command. This parameter sho
 task editing when in <<goto, goto>> mode as the patient list is not visible in that mode. +
 
 If a linked patient is <<edit, modified>> pr <<delete, deleted>>, the affected tasks will be updated accordingly.
+
+Default value if not specified: 0 (indicates that no patient is linked to the task)
 |pat/INDEX
 |pat/2
 

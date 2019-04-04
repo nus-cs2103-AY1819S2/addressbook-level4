@@ -31,7 +31,7 @@ public class CsvManager implements CsvCommands {
 
     private static final String COMMA_DELIMITTER = ",";
     private static final String NEW_LINE_SEPARATOR = "\n";
-    private static final String CARD_HEADERS = "Question,Answer,Options,Hints";
+    private static final String CARD_HEADERS = "Question,Answer,Hints,Options";
     private static final String DEFAULT_TEST_PATH = "/src/test/data/CsvCardFolderTest";
     private static final String DEFAULT_FILE_PATH = "./";
     private static final String TEST_FOLDER_PATH = "test";
@@ -93,8 +93,8 @@ public class CsvManager implements CsvCommands {
      */
     private Set<Option> buildOptions(String[] card) {
         Set<Option> optionSet = new HashSet<>();
-        String[] options = Arrays.copyOfRange(card, 2, card.length - 2);
-        if (options[0].equals("")) {
+        String[] options = Arrays.copyOfRange(card, 3, card.length - 2);
+        if (options.length == 0) {
             return optionSet;
         }
         Arrays.stream(options).map(Option::new).forEach(option -> optionSet.add(option));
@@ -106,7 +106,7 @@ public class CsvManager implements CsvCommands {
      */
     private Set<Hint> buildHint(String[] card) {
         Set<Hint> hintSet = new HashSet<>();
-        String hint = card[card.length - 2];
+        String hint = card[2];
         if (hint.equals("")) {
             return hintSet;
         }
@@ -184,8 +184,8 @@ public class CsvManager implements CsvCommands {
         StringBuilder stringBuilder = new StringBuilder();
         parseQuestion(card.getQuestion(), stringBuilder);
         parseAnswer(card.getAnswer(), stringBuilder);
-        parseOptions(card.getOptions(), stringBuilder);
         parseHints(card.getHints(), stringBuilder);
+        parseOptions(card.getOptions(), stringBuilder);
         return stringBuilder.toString();
     }
 

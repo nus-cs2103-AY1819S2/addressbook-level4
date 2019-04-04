@@ -154,6 +154,44 @@ previously.
 `redo` (reapplies the patientdelete 1 command) +
 `redo` (reapplies the patientclear command)
 
+==== sort
+Sorts the records by an input parameter in an input order.
+
+Format: `sort PARAM ORDER`
+
+* valid PARAM options: address, date of birth, email, name, nric, phone, sex
+* valid ORDER options: asce, desc
+
+Example:
+
+[cols=",,,",options="header",]
+|===
+|*ID* |*Name* |*Age* |*Last Modified*
+|0 |Alice |19 |03/07/2003
+|1 |Clara |12 |05/02/2021
+|2 |Bob |24 |11/02/2019
+
+|*ID* |*Name* |*Age* |*Last Modified*
+|1 |Clara |12 |05/02/2021
+|2 |Bob |24 |11/02/2019
+|0 |Alice |19 |03/07/2003
+|===
+
+* sort age asce
+
+[cols=",,,",options="header",]
+|===
+|*ID* |*Name* |*Age* |*Last Modified*
+|1 |Clara |12 |05/02/2021
+|0 |Alice |19 |03/07/2003
+|2 |Bob |24 |11/02/2019
+|===
+
+==== stat
+Generates a statistics report based on the specified patient's data.
+
+Format: `stat INDEX`
+
 ==== exit
 Exits the program. You won't be able to exit if copies exist.
 
@@ -710,46 +748,6 @@ Examples:
 
 * `taskfind pri/HIGH`
 * `taskfind ti/Extraction`
-
-=== Misc
-
-==== sort
-Sorts the records by an input parameter in an input order.
-
-Format: `sort PARAM ORDER`
-
-* valid PARAM options: address, date of birth, email, name, nric, phone, sex
-* valid ORDER options: asce, desc
-
-Example:
-
-[cols=",,,",options="header",]
-|===
-|*ID* |*Name* |*Age* |*Last Modified*
-|0 |Alice |19 |03/07/2003
-|1 |Clara |12 |05/02/2021
-|2 |Bob |24 |11/02/2019
-
-|*ID* |*Name* |*Age* |*Last Modified*
-|1 |Clara |12 |05/02/2021
-|2 |Bob |24 |11/02/2019
-|0 |Alice |19 |03/07/2003
-|===
-
-* sort age asce
-
-[cols=",,,",options="header",]
-|===
-|*ID* |*Name* |*Age* |*Last Modified*
-|1 |Clara |12 |05/02/2021
-|0 |Alice |19 |03/07/2003
-|2 |Bob |24 |11/02/2019
-|===
-
-==== stat
-Generates a statistics report based on the specified patient's data.
-
-Format: `stat INDEX`
 
 == Cloud Functionality [Coming in v2.0]
 To increase data redundancy and reduce the risk of data being lost,

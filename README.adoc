@@ -6,11 +6,11 @@ https://coveralls.io/github/CS2103-AY1819S2-W14-2/main?branch=master[image:https
 https://ci.appveyor.com/project/thamsimun/main/branch/master[image:https://ci.appveyor.com/api/projects/status/gqnt5vfqykgas3uk/branch/master?svg=true[Build status]]
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="800"]
+image::docs/images/ui.png[width="800"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::images/ui.png[width="600"]
 endif::[]
 
 FomoFoto is a Java based, command line photo editor.

@@ -34,6 +34,8 @@ public class AnalyticsWindow extends UiPart<Stage> {
     private BarChart majorChart;
     @FXML
     private BarChart pastJobsChart;
+
+
     /**
      * Creates a new AnalyticsWindow.
      *

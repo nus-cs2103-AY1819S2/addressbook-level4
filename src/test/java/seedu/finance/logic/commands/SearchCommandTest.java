@@ -59,7 +59,7 @@ public class SearchCommandTest {
     @Test
     public void execute_zeroKeywords_noRecordsFound() {
         String expectedMessage = String.format(MESSAGE_RECORDS_LISTED_OVERVIEW
-                + "\nTotal spent on searched records = $ 0.0", 0);
+                + "\nTotal spent on searched records = $ 0.00", 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredRecordList(predicate);

@@ -67,7 +67,7 @@ public class SearchCommand extends Command {
             totalSpent += recordIterator.next().getAmount().getValue();
         }
         String outputMessage = Messages.MESSAGE_RECORDS_LISTED_OVERVIEW + "\nTotal spent on searched records = $ "
-                + totalSpent;
+                + String.format("%.2f", totalSpent);
 
         return new CommandResult(
                 String.format(outputMessage, model.getFilteredRecordList().size()));

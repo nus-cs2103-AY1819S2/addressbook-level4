@@ -1167,3 +1167,14 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Bill is generated for customer at index 1. Bill amount for reservation and booking and total amount shown in the status message. Timestamp in the status bar is updated.
 .. Other incorrect generate bill for customer commands to try: `gbc`, `g-b-c`, `gb-c x` (where x is larger than the list size).. +
    Expected: Bill is not generated. Error details shown in the status message. Status bar remains the same.
+
+=== Switching tab
+
+. Switching tabs in the application.
+
+.. Test case: `st 1 2` +
+   Expected : Switches to Reservation tab in first panel and the appropriate message is displayed. Status bar remains the same.
+.. Test case: `st 1 0` +
+   Expected : No switch is made. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect switch tab commands to try: `st`, `st 1`, `st 1 2 3` ... +
+   Expected: Similar to previous.

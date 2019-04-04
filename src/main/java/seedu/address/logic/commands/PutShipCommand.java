@@ -12,8 +12,8 @@ import seedu.address.model.MapGrid;
 import seedu.address.model.Model;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
-import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
+import seedu.address.model.cell.Status;
 
 /**
  * Puts ship in an existing cell on the map.
@@ -81,11 +81,11 @@ public class PutShipCommand extends Command {
             throw new CommandException(e.getMessage());
         }
 
-        Cell cellToEdit = model.getHumanMapGrid().getCell(coordinates);
+        Status status = model.getHumanMapGrid().getCellStatus(coordinates);
         model.updateUi();
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(cellToEdit)
+        stringBuilder.append(status)
                 .append("\n\nNumber of aircraft carriers left: ")
                 .append(model.getFleet().getNumAircraftCarrierLeft())
                 .append("\nNumber of cruisers left: ")

@@ -5,9 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.battleship.Battleship;
-import seedu.address.model.cell.Cell;
+import seedu.address.model.MapGrid;
 import seedu.address.model.cell.Coordinates;
+import seedu.address.model.cell.Status;
 import seedu.address.model.player.Enemy;
 import seedu.address.model.player.Player;
 
@@ -50,12 +50,12 @@ public class BattleManager implements Battle {
     private AttackResult performAttack(Player attacker, Player target, Coordinates coord) {
         logger.info(String.format(AttackResult.ATTACK, attacker.getName(), coord, target.getName()));
         try {
-            if (target.getMapGrid().attackCell(coord)) {
+            MapGrid targetMapGrid = target.getMapGrid();
+            if (targetMapGrid.attackCell(coord)) {
                 // we hit a ship
-                Cell cell = target.getMapGrid().getCell(coord);
-                Battleship hitShip = cell.getBattleship().get();
-                if (hitShip.isDestroyed()) {
-                    return new AttackDestroyedShip(attacker, target, coord, hitShip);
+                if (targetMapGrid.getCellStatus(coord) == Status.DESTROYED) {
+                    String hitShipName = targetMapGrid.getShipNameInCell(coord);
+                    return new AttackDestroyedShip(attacker, target, coord, hitShipName);
                 } else {
                     return new AttackHit(attacker, target, coord);
                 }

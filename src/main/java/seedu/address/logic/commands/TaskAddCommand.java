@@ -86,7 +86,8 @@ public class TaskAddCommand extends Command {
             toAdd.setLinkedPatient(targetPatient.getName(), ((Patient) targetPerson).getNric());
         }
         if (model.hasTask(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_TASK);
+            model.updateFilteredTaskList(task -> (task.isSameTask(toAdd)));
+            throw new CommandException(MESSAGE_DUPLICATE_TASK + "\nDuplicate task shown.");
         }
         model.addTask(toAdd);
         model.commitAddressBook();

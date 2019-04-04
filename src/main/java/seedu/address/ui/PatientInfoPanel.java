@@ -16,6 +16,11 @@ import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 
+/**
+ *  Tab panel that contains two tabs.
+ *  One tab contains patient particular and the other contains record details.
+ *  Record details tab only shows up during GOTO mode
+ */
 public class PatientInfoPanel extends UiPart<Region> {
 
     private static final String FXML = "PatientInfoPanel.fxml";
@@ -112,11 +117,18 @@ public class PatientInfoPanel extends UiPart<Region> {
         background.setStyle("-fx-background-color: transparent");
     }
 
+    /**
+     * Loads default page until a patient is selected
+     */
     public void loadDefaultPage() {
         Label defaultPage = new Label(" No patient has been selected yet.");
         this.patientParticulars.setContent(defaultPage);
     }
 
+    /**
+     *  Populates the tab with information of a selected person
+     * @param person whose details are to be loaded
+     */
     public void loadPersonPage(Person person) {
         name.setText(person.getName().fullName);
         name.setWrapText(true);
@@ -143,17 +155,25 @@ public class PatientInfoPanel extends UiPart<Region> {
         nokemail.setText(((Patient) person).getNextOfKin().getEmail().value);
 
         patientParticulars.setContent(particularsPane);
-        tabManger.getTabs().set(0,patientParticulars);
+        tabManger.getTabs().set(0, patientParticulars);
     }
 
+    /**
+     * Populates record tab with details of a selected record
+     * @param record that is being selected
+     */
     public void loadRecordPage(Record record) {
         recorddoctor.setText(record.getDoctorName().fullName);
         recorddate.setText(record.getRecordDate().getDate());
         recorddescription.setText(record.getDescription().value);
         patientRecords.setContent(recordsPane);
-        tabManger.getTabs().set(1,patientRecords);
+        tabManger.getTabs().set(1, patientRecords);
     }
 
+    /**
+     * Loads the record tab and gives it a default label until a record is selected.
+     * Should only run when goto command is ran successfully
+     */
     public void loadRecordTab() {
         Label placeholder = new Label(" No record has been selected. ");
         patientRecords.setContent(placeholder);

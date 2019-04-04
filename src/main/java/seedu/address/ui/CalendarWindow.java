@@ -123,11 +123,11 @@ public class CalendarWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             runningCommand = false;
 
-            if(commandResult.isExit()) {
+            if (commandResult.isExit()) {
                 handleExit();
             }
 
-            if(commandResult.isShowHelp()) {
+            if (commandResult.isShowHelp()) {
                 handleHelp();
             }
             return commandResult;

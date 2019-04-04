@@ -12,7 +12,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
-public class ClearCommandSystemTest extends AddressBookSystemTest {
+public class PatientClearCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void clear() {
@@ -58,7 +58,8 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
 
     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display
-     * box displays {@code PatientClearCommand#MESSAGE_SUCCESS} and the model related components equal to an empty model.
+     * box displays {@code PatientClearCommand#MESSAGE_SUCCESS}
+     * and the model related components equal to an empty model.
      * These verifications are done by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the command box has the default style class and the status bar's sync status changes.
@@ -71,7 +72,7 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
     /**
      * Performs the same verification as {@code assertCommandSuccess(String)} except that the result box displays
      * {@code expectedResultMessage} and the model related components equal to {@code expectedModel}.
-     * @see ClearCommandSystemTest#assertCommandSuccess(String)
+     * @see PatientClearCommandSystemTest#assertCommandSuccess(String)
      */
     private void assertCommandSuccess(String command, String expectedResultMessage, Model expectedModel) {
         executeCommand(command);

@@ -27,7 +27,8 @@ public class PatientFindCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, PatientFindCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            PatientFindCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -138,7 +139,8 @@ public class PatientFindCommandParserTest {
         // no leading and trailing whitespaces
         PatientFindCommand expectedPatientFindCommand = new PatientFindCommand(tempPred);
         assertParseSuccess(parser, " n/Alice George dob/December 11", expectedPatientFindCommand);
-        assertParseSuccess(parser, " n/ \n Alice \n \t George \n \t dob/December 11 \t", expectedPatientFindCommand);
+        assertParseSuccess(parser, " n/ \n Alice \n \t George \n \t dob/December 11 \t",
+                            expectedPatientFindCommand);
     }
     //TODO: Add in tests for the other Attribute predicates
 }

@@ -21,9 +21,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.logic.commands.PatientAddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.PatientAddCommand;
 import seedu.address.logic.commands.PatientListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -67,7 +67,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String patientDeleteCommand = "delete 9";
+        String patientDeleteCommand = "pdelete 9";
         assertCommandException(patientDeleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         assertHistoryCorrect(patientDeleteCommand);
     }
@@ -89,7 +89,8 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String patientAddCommand = PatientAddCommand.COMMAND_WORD + NAME_DESC_AMY + SEX_DESC_AMY + NRIC_DESC_AMY + DOB_DESC_AMY
+        String patientAddCommand = PatientAddCommand.COMMAND_WORD + NAME_DESC_AMY
+                + SEX_DESC_AMY + NRIC_DESC_AMY + DOB_DESC_AMY
                 + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY).build();
         ModelManager expectedModel = new ModelManager();

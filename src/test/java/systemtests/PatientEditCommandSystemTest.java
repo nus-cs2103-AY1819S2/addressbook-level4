@@ -52,7 +52,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
-public class EditCommandSystemTest extends AddressBookSystemTest {
+public class PatientEditCommandSystemTest extends AddressBookSystemTest {
     private Index index;
     private String command;
 
@@ -83,16 +83,16 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a person with new values same as existing values -> edited */
-        command = PatientEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB;
+        command = PatientEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
+                + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB;
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a person with new values same as another person's values but with different name -> edited */
         assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
         index = INDEX_SECOND_PERSON;
         assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
-        command = PatientEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB;
+        command = PatientEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY
+                + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB;
         editedPerson = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedPerson);
 
@@ -100,8 +100,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          * -> edited
          */
         index = INDEX_SECOND_PERSON;
-        command = PatientEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_BOB;
+        command = PatientEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
+                + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_BOB;
         editedPerson = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
         assertCommandSuccess(command, index, editedPerson);
 
@@ -162,32 +162,32 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 PatientEditCommand.MESSAGE_NOT_EDITED);
 
         /* Case: invalid name -> rejected */
-        assertCommandFailure(PatientEditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_NAME_DESC,
-                Name.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(PatientEditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+                        + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid sex -> rejected */
-        assertCommandFailure(PatientEditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_SEX_DESC,
-                Sex.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(PatientEditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+                        + INVALID_SEX_DESC, Sex.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid nric -> rejected */
-        assertCommandFailure(PatientEditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_NRIC_DESC,
-                Nric.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(PatientEditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+                        + INVALID_NRIC_DESC, Nric.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid dob -> rejected */
-        assertCommandFailure(PatientEditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_DOB_DESC,
-                DateOfBirth.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(PatientEditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+                + INVALID_DOB_DESC, DateOfBirth.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        assertCommandFailure(PatientEditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_PHONE_DESC,
-                Phone.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(PatientEditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+                        + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        assertCommandFailure(PatientEditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_EMAIL_DESC,
-                Email.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(PatientEditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+                        + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
-        assertCommandFailure(PatientEditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_ADDRESS_DESC,
-                Address.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(PatientEditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+                        + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS);
     }
 
     @Test
@@ -196,41 +196,36 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          * This segment is edited. Patient are updated to be uniquely identified by their NRIC.
          */
         index = INDEX_FIRST_PERSON;
-        command = PatientEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY;
+        command = PatientEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY
+                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
 
         /* Case: edit a person with new values same as another person's values -> rejected */
         executeCommand(PersonUtil.getAddCommand(BOB));
         assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));
-        command = PatientEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + NRIC_DESC_BOB + DOB_DESC_BOB
-                + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB;
+        command = PatientEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + NRIC_DESC_BOB
+                + DOB_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB;
         assertCommandFailure(command, PatientEditCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a person with NRIC same as another person's values but with different tags -> rejected */
-        command = PatientEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + NRIC_DESC_BOB + DOB_DESC_BOB
-                + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB;
+        command = PatientEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + NRIC_DESC_BOB
+                + DOB_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB;
         assertCommandFailure(command, PatientEditCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a person with new values same as another person's values but with different address -> rejected */
-        command = PatientEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + NRIC_DESC_BOB + DOB_DESC_BOB
-                + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_AMY;
+        command = PatientEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + NRIC_DESC_BOB
+                + DOB_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY;
         assertCommandFailure(command, PatientEditCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a person with new values same as another person's values but with different phone -> rejected */
-        command = PatientEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + NRIC_DESC_BOB + DOB_DESC_BOB
-                + PHONE_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB;
+        command = PatientEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + NRIC_DESC_BOB
+                + DOB_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB + ADDRESS_DESC_BOB;
         assertCommandFailure(command, PatientEditCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a person with new values same as another person's values but with different email -> rejected */
-        command = PatientEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + NRIC_DESC_BOB + DOB_DESC_BOB
-                + PHONE_DESC_BOB + EMAIL_DESC_AMY
-                + ADDRESS_DESC_BOB;
+        command = PatientEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + NRIC_DESC_BOB
+                + DOB_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + ADDRESS_DESC_BOB;
         assertCommandFailure(command, PatientEditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
@@ -238,7 +233,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * Performs the same verification as {@code assertCommandSuccess(String, Index, Person, Index)} except that
      * the browser url and selected card remain unchanged.
      * @param toEdit the index of the current model's filtered list
-     * @see EditCommandSystemTest#assertCommandSuccess(String, Index, Person, Index)
+     * @see PatientEditCommandSystemTest#assertCommandSuccess(String, Index, Person, Index)
      */
     private void assertCommandSuccess(String command, Index toEdit, Person editedPerson) {
         assertCommandSuccess(command, toEdit, editedPerson, null);
@@ -250,7 +245,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 2. Asserts that the model related components are updated to reflect the person at index {@code toEdit} being
      * updated to values specified {@code editedPerson}.<br>
      * @param toEdit the index of the current model's filtered list.
-     * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
+     * @see PatientEditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
     private void assertCommandSuccess(String command, Index toEdit, Person editedPerson,
             Index expectedSelectedCardIndex) {
@@ -266,7 +261,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} except that the
      * browser url and selected card remain unchanged.
-     * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
+     * @see PatientEditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         assertCommandSuccess(command, expectedModel, expectedResultMessage, null);

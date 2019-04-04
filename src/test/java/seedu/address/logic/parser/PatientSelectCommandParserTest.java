@@ -11,7 +11,7 @@ import seedu.address.logic.commands.PatientSelectCommand;
 
 /**
  * Test scope: similar to {@code DeleteCommandParserTest}.
- * @see DeleteCommandParserTest
+ * @see PatientDeleteCommandParserTest
  */
 public class PatientSelectCommandParserTest {
 
@@ -24,6 +24,7 @@ public class PatientSelectCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, PatientSelectCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            PatientSelectCommand.MESSAGE_USAGE));
     }
 }

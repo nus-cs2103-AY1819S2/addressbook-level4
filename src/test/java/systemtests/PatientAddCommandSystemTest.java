@@ -53,7 +53,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
-public class AddCommandSystemTest extends AddressBookSystemTest {
+public class PatientAddCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void add() {
@@ -215,7 +215,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * Performs the same verification as {@code assertCommandSuccess(Person)}. Executes {@code command}
      * instead.
      *
-     * @see AddCommandSystemTest#assertCommandSuccess(Person)
+     * @see PatientAddCommandSystemTest#assertCommandSuccess(Person)
      */
     private void assertCommandSuccess(String command, Person toAdd) {
         Model expectedModel = getModel();
@@ -232,7 +232,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * 2. {@code Storage} and {@code PersonListPanel} equal to the corresponding components in
      * {@code expectedModel}.<br>
      *
-     * @see AddCommandSystemTest#assertCommandSuccess(String, Person)
+     * @see PatientAddCommandSystemTest#assertCommandSuccess(String, Person)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         executeCommand(command);

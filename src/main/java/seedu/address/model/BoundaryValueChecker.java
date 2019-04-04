@@ -5,7 +5,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
-import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.Status;
 

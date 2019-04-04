@@ -5,15 +5,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Objects;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableBooleanValue;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.battle.Battle;
@@ -23,7 +18,6 @@ import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
-import seedu.address.model.cell.exceptions.PersonNotFoundException;
 import seedu.address.model.player.Enemy;
 import seedu.address.model.player.Fleet;
 import seedu.address.model.player.Player;
@@ -37,7 +31,6 @@ public class ModelManager implements Model {
 
     private final MapGrid mapGrid;
     private final UserPrefs userPrefs;
-    private final FilteredList<Cell> filteredCells;
     private final SimpleObjectProperty<Cell> selectedPerson = new SimpleObjectProperty<>();
     private PlayerStatistics playerStats;
     private BattleManager batMan;
@@ -54,8 +47,6 @@ public class ModelManager implements Model {
 
         mapGrid = new MapGrid(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredCells = new FilteredList<>(mapGrid.getPersonList());
-        filteredCells.addListener(this::ensureSelectedPersonIsValid);
 
         // Initialize new statistics
         this.playerStats = new PlayerStatistics();
@@ -175,37 +166,6 @@ public class ModelManager implements Model {
         return this.playerStats;
     }
 
-    //=========== Selected cell ===========================================================================
-
-    /**
-     * Ensures {@code selectedPerson} is a valid cell in {@code filteredCells}.
-     */
-    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Cell> change) {
-        while (change.next()) {
-            if (selectedPerson.getValue() == null) {
-                // null is always a valid selected cell, so we do not need to check that it is valid anymore.
-                return;
-            }
-
-            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedPerson.getValue());
-            if (wasSelectedPersonReplaced) {
-                // Update selectedPerson to its new value.
-                int index = change.getRemoved().indexOf(selectedPerson.getValue());
-                selectedPerson.setValue(change.getAddedSubList().get(index));
-                continue;
-            }
-
-            boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
-            if (wasSelectedPersonRemoved) {
-                // Select the cell that came before it in the list,
-                // or clear the selection if there is no such cell.
-                selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
-            }
-        }
-    }
-
     //========== Battle manager ==========================================================================
 
     /**
@@ -264,7 +224,6 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return mapGrid.equals(other.mapGrid)
                 && userPrefs.equals(other.userPrefs)
-                && filteredCells.equals(other.filteredCells)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 

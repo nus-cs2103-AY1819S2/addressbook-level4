@@ -23,7 +23,6 @@ import seedu.address.model.person.UniquePersonList;
 public class Job {
 
     private static final int NUMBER_OF_LISTS = 4;
-    private static final String[] LIST_NAMES = {"All Applicants", "KIV", "Interview", "Shortlist"};
     // Identity fields
     private final JobName name;
 
@@ -74,6 +73,13 @@ public class Job {
         personsNricList.get(0).add(person.getNric());
 
         return true;
+    }
+
+    /**
+     * Returns one of the four UniqurePersonLists
+     */
+    public UniquePersonList getList(Integer listNumber) {
+        return personsHash.get(listNumber);
     }
 
     /**

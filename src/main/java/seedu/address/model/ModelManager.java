@@ -37,6 +37,10 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
     private FilteredList<Person> displayedFilteredPersons;
     private Job activeJob;
+    private FilteredList<Person> activeJobAllApplcants;
+    private FilteredList<Person> activeJobKiv;
+    private FilteredList<Person> activeJobInterview;
+    private FilteredList<Person> activeJobShortlist;
 
 
     /**
@@ -166,13 +170,22 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public UniquePersonList getJobList(JobName name, int listNumber) {
-        return versionedAddressBook.getJobPersonList(name, listNumber);
+    public UniquePersonList getJobList(JobName name, Integer listNumber) {
+        Job job = getJob(name);
+        return job.getList(listNumber);
     }
 
     @Override
     public Job getJob(JobName name) {
         this.activeJob = versionedAddressBook.getJob(name);
+        this.activeJobAllApplcants =
+                new FilteredList<>(activeJob.getList(0).asUnmodifiableObservableList());
+        this.activeJobKiv =
+                new FilteredList<>(activeJob.getList(1).asUnmodifiableObservableList());
+        this.activeJobInterview =
+                new FilteredList<>(activeJob.getList(2).asUnmodifiableObservableList());
+        this.activeJobShortlist =
+                new FilteredList<>(activeJob.getList(3).asUnmodifiableObservableList());
         return activeJob;
     }
 

@@ -236,7 +236,8 @@ Replaces the current data with the data in "data2.json" found in the "february" 
 ==== save
 Saves the current data to the specified file path. +
 ** Note that 'save' always saves inside the data folder. If no such file path exists,
-it will be created. Otherwise, it will overwrite the existing file.** +
+it will be created. +
+Otherwise, it will overwrite the existing file.** +
 ** You can only save to .json and .pdf.** +
 .json files allow you to <<open, open>> or <<import, import>> them. +
 .pdf files are easier to read, but you cannot open or import them with TeethHub.
@@ -280,7 +281,8 @@ Adds patient 1 and patient 3 to patient 5 from "data1.json" to the current data.
 ==== export
 Saves the specified patients in the current data to the specified file path. +
 ** Note that 'export' always saves inside the data folder. If no such file path exists,
-it will be created. Otherwise, it will overwrite the existing file.** +
+it will be created. +
+Otherwise, it will overwrite the existing file.** +
 ** You can only export to .json and .pdf.** +
 .json files allow you to <<open, open>> or <<import, import>> them. +
 .pdf files are easier to read, but you cannot open or import them with TeethHub.

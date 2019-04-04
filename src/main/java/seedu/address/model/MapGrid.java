@@ -130,16 +130,11 @@ public class MapGrid implements ReadOnlyAddressBook {
         return this.size;
     }
 
-    // TODO: Change to private
     /**
      * Returns the cell in the given coordinates
      */
     private Cell getCell(Coordinates coordinates) {
         return cellGrid[coordinates.getRowIndex().getZeroBased()][coordinates.getColIndex().getZeroBased()];
-    }
-    // TODO: REMOVE
-    public Cell getCell(int row, int column) {
-        return cellGrid[row][column];
     }
 
     /**

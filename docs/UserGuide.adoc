@@ -298,7 +298,7 @@ Deletes the 2nd booking of the booking database
 Effect: Removes all service bookings from the database. +
 Format: `{[aqua]#clear-bookings#/[aqua]#cb#}`
 
-==== Find a booking: `find-booking`, `fb`
+==== Find a specific booking: `find-booking`, `fb`
 
 Effect: Displays a booking list based on the filters given by the user. +
 Format: `{[aqua]#find-booking#/[aqua]#fb#}  [blue]#id/# [lime]#IDENTIFICATION_NO# [black]#[# [blue]#s/# [lime]#SERVICE_NAME# [black]#]# [blue]#:/# [lime]#START_TIME-END_TIME# [black]#]#`
@@ -320,7 +320,7 @@ Returns all gym bookings for customer with identification number, A0124422.
 
 === [underline]#Bill Generation commands#
 
-==== [underline]#Generate bill for specific booking# : `generate-bill-booking`, `gb-b`
+==== Generate bill for specific booking: `generate-bill-booking`, `gb-b`
 
 Effect: Generates the bill for the specific booking of a customer +
 Format: `{[aqua]#generate-bill-booking#/[aqua]#gb-b#} [lime]#INDEX# [black]#[# [blue]#s/# [lime]#SERVICE_NAME# [black]#]# [black]#[# [blue]#:/# [lime]#START_TIME - END_TIME# [black]#]#`
@@ -333,7 +333,7 @@ Returns the bill for all bookings for the customer at index 2
 * `gb-b 2 s/SPA` +
 Returns the bill for all spa bookings for the customer at index 2
 
-==== [underline]#Generate bill for specific reservation# : `generate-bill-reservation`, `gb-r`
+==== Generate bill for specific reservation: `generate-bill-reservation`, `gb-r`
 
 Effect: Generates the bill for the specific booking of a customer +
 Format: `{[aqua]#generate-bill-reservation#/[aqua]#gb-r#} [lime]#INDEX# [black]#[# [blue]#r/# [lime]#ROOM_TYPE# [black]#]#`
@@ -346,7 +346,7 @@ Returns the bill for all reservations for the customer at index 2
 * `gb-r 2 r/SINGLE ROOM` +
 Returns the bill for all single room reservations for the customer at index 2
 
-==== [underline]#Generate customer's bill# : `generate-bill-customer`, `gb-c`
+==== Generate customer's bill : `generate-bill-customer`, `gb-c`
 
 Effect: Generates the bill for the customer based on his total room reservations and service bookings. +
 Format: `{[aqua]#generate-bill-customer#/[aqua]#gb-c#} [lime]#INDEX#`
@@ -355,8 +355,29 @@ Format: `{[aqua]#generate-bill-customer#/[aqua]#gb-c#} [lime]#INDEX#`
 This command is a super set of all the other "generate bill" commands and can be used
 to obtain the complete breakup for a customer.
 
-Example: `gb-c 2` +
+Example:
+
+*  `gb-c 2` +
 Returns the total bill (includes all bookings and reservations) for the customer at index 2
+
+=== [underline]#Switch tab command# : `switch-tab`, `st`
+
+Effect: Switches the panel and the tab based on input by the user. +
+Format: `{[aqua]#switch-tab#/[aqua]#st#} [lime]#PANEL_NUMBER# [lime]#TAB_NUMBER#`
+
+[NOTE]
+
+Panel Number 1: Consists of `Booking`, `Reservation` and `Bill` tabs. +
+Panel Number 2: Consists of `Service Type` and `Room Type` tabs.
+
+Example:
+
+* `st 1 1` +
+This will switch to the booking tab in the the first panel.
+
+* `st 2 1` +
+This will switch to the service type tab in the second panel.
+
 
 === [underline]#Listing entered commands# : `history`
 
@@ -572,18 +593,23 @@ _{explain how the user can enable/disable data encryption}_
 * *Help* : `help`
 * *Add Customer* : `{add-customer/ac} n/NAME p/PHONE_NUMBER e/EMAIL  id/IDENTIFICATION_NO [a/ADDRESS] [dob/DATE_OF_BIRTH] [t/TAG]…`
 * *List Customers* : `{list-customers/lc}`
-* *Edit Customer* : `{edit-customer/ec} INDEX [n/NAME] [p/PHONE] [e/EMAIL] [id/IDENTIFICATIONNO] [a/ADDRESS] [t/TAG]…`
+* *Edit Customer* : `{edit-customer/ec} INDEX [n/NAME] [p/PHONE] [e/EMAIL] [id/IDENTIFICATION_NO] [a/ADDRESS] [t/TAG]…`
 * *Find Customer by name* : `{find-name/fn} KEYWORD [MORE_KEYWORDS]`
 * *Delete Customer* : `{delete-customer/dc} INDEX` +
 * *Reserve room* : `{add-reservation/ar} r/ROOM_TYPE d/START_DATE-END_DATE $/PAYER_INDEX [c/MORE_CUSTOMER_INDICIES…] [com/COMMENTS]`
 * *List room reservations* : `{list-reservations/lr}`
 * *Edit room reservaitons* : `{edit-reservation/er} INDEX [s/SERVICE_NAME] [:/START_TIME - END_TIME] [p/PAYER_INDEX] [c/MORE_CUSTOMER_INDICES] [com/COMMENTS]`
 * *Delete room reservation* : `{delete-reservation/dr} INDEX`
-* *Book services of hotel* : `{add-booking/ab} `{add-booking/ab} s/SERVICE_NAME# :/START_TIME-END_TIME $/PAYER_INDEX [c/MORE_CUSTOMER_INDICES] [com/COMMENTS]`
+* *Book services of hotel* : `{add-booking/ab} `{add-booking/ab} s/SERVICE_NAME :/START_TIME-END_TIME $/PAYER_INDEX [c/MORE_CUSTOMER_INDICES] [com/COMMENTS]`
 * *List services already booked* : `{list-bookings/lb}`
-* *Edit services already booked* : `{edit-booking/eb} INDEX [s/SERVICE_NAME] [:/START_TIME# - END_TIME] [p/PAYER# INDEX] [c/MORE_CUSTOMER_INDICES] [com/COMMENTS]`
-* *Delete service already booked* : `delete-booking INDEX`
-* *Generate bill* : `{generate-bill/gb} INDEX`
+* *Edit services already booked* : `{edit-booking/eb} INDEX [s/SERVICE_NAME] [:/START_TIME# - END_TIME] [p/PAYER_INDEX] [c/MORE_CUSTOMER_INDICES] [com/COMMENTS]`
+* *Delete service already booked* : `{delete-booking/db} INDEX`
+* *Finding a specific booking* : `{find-booking/fb} id/IDENTIFICATION_NO [s/SERVICE_NAME] [:/START_TIME-END_TIME]`
+* *Finding a specific reservation* : `{find-reservation/fr} id/IDENTIFICATION_NO [r/ROOM_TYPE]`
+* *Generate bill for specific booking* : `{generate-bill-booking/gb-b} INDEX [s/SERVICE_NAME] [:/START_TIME-END_TIME]`
+* *Generate bill for specific reservation* : `{generate-bill-reservation/gb-r} INDEX [r/ROOM_TYPE]`
+* *Generate bill for customer* : `{generate-bill-customer/gb-c} INDEX`
+* *Switch tab* : `{switch-tab/st} PANEL_NUMBER TAB_NUMBER
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`

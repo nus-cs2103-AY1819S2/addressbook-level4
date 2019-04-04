@@ -10,12 +10,13 @@ import seedu.address.logic.battle.AttackResult;
  */
 public abstract class Statistics {
 
-    protected static int hitCount;
-    protected static int missCount;
-    protected static int movesMade;
-    protected static int enemyShipsDestroyed;
-    protected static int attackCount;
     private static final Logger logger = LogsCenter.getLogger(Statistics.class);
+    protected int hitCount;
+    protected int missCount;
+    protected int movesMade;
+    protected int enemyShipsDestroyed;
+    protected int attackCount;
+
 
     /**
      * initialization of class will begin with default configuration.

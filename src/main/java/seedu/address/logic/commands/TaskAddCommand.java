@@ -51,7 +51,7 @@ public class TaskAddCommand extends Command {
     private final Index targetIndex;
 
     /**
-     * Creates an AddCommand to add the specified {@code Task}
+     * Creates an PatientAddCommand to add the specified {@code Task}
      * @param task the task to be added.
      */
     public TaskAddCommand(Task task, Index index) {

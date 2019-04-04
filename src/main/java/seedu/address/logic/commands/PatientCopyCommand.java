@@ -15,13 +15,14 @@ import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.Person;
 
 /**
- * Copy a temporary person to the address book.
+ * Copy a temporary patient to the address book.
  */
-public class CopyCommand extends Command {
+public class PatientCopyCommand extends Command {
 
-    public static final String COMMAND_WORD = "copy";
+    public static final String COMMAND_WORD = "patientcopy";
+    public static final String COMMAND_WORD2 = "pcopy";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Have a temporary duplicate person in the addressbook. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Have a temporary duplicate patient in the addressbook. "
             + "Parameters: Index (Must be an integer) [Number of Copies]"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -32,9 +33,9 @@ public class CopyCommand extends Command {
     private final int numOfCopies;
 
     /**
-     * Creates an CopyCommand to add the specified {@code Person}
+     * Creates an PatientCopyCommand to add the specified {@code Person}
      */
-    public CopyCommand(Index index, int numOfCopies) {
+    public PatientCopyCommand(Index index, int numOfCopies) {
         requireNonNull(index);
         this.index = index;
         this.numOfCopies = numOfCopies;
@@ -70,7 +71,7 @@ public class CopyCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CopyCommand // instanceof handles nulls
-                && index.equals(((CopyCommand) other).index));
+                || (other instanceof PatientCopyCommand // instanceof handles nulls
+                && index.equals(((PatientCopyCommand) other).index));
     }
 }

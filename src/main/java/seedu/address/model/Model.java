@@ -20,9 +20,6 @@ import seedu.address.model.statistics.PlayerStatistics;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Cell> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-
     /**
      * Update the UI
      */
@@ -77,11 +74,6 @@ public interface Model {
      * Sets the user prefs' address book file path.
      */
     void setAddressBookFilePath(Path addressBookFilePath);
-
-    /**
-     * Replaces address book data with the data in {@code addressBook}.
-     */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
 
     /** Returns the MapGrid */
     ReadOnlyAddressBook getAddressBook();

@@ -12,7 +12,6 @@ import seedu.address.model.MapGrid;
 import seedu.address.model.Model;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
-import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.Status;
 

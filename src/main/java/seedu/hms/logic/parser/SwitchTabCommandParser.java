@@ -19,33 +19,33 @@ public class SwitchTabCommandParser implements Parser<SwitchTabCommand> {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchTabCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchTabCommand.MESSAGE_USAGE));
         }
 
         String[] keywords = trimmedArgs.split("\\s+");
 
-        if (keywords.length < 2) {
+        if (keywords.length != 2) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchTabCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchTabCommand.MESSAGE_USAGE));
         }
 
-        try {
-            Integer panelNumber = Integer.parseInt(keywords[0].trim());
-            Integer tabNumber = Integer.parseInt(keywords[1].trim());
-            if (panelNumber < 1 || panelNumber > 2) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchTabCommand.MESSAGE_USAGE));
-            }
-            if (panelNumber == 1 && (panelNumber < 1 || panelNumber > 3)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchTabCommand.MESSAGE_USAGE));
-            }
-            if (panelNumber == 1 && (panelNumber < 1 || panelNumber > 2)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchTabCommand.MESSAGE_USAGE));
-            }
-            return new SwitchTabCommand(panelNumber, tabNumber - 1); //transfer to 0 based
-        } catch (Exception e) {
+        int panelNumber = Integer.parseInt(keywords[0].trim());
+        int tabNumber = Integer.parseInt(keywords[1].trim());
+
+        if (!(panelNumber >= 1 && panelNumber <= 2)) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchTabCommand.MESSAGE_USAGE));
+                SwitchTabCommand.MESSAGE_INVALID_PANEL_NUMBER);
+        }
+        if ((panelNumber == 1) && (tabNumber > 3 || tabNumber < 1)) {
+            throw new ParseException(
+                SwitchTabCommand.MESSAGE_INVALID_TAB_NUMBER);
         }
 
+        if ((panelNumber == 2) && (tabNumber > 2 || tabNumber < 1)) {
+            throw new ParseException(SwitchTabCommand.MESSAGE_INVALID_TAB_NUMBER);
+        }
+
+        return new SwitchTabCommand(panelNumber, tabNumber - 1); //transfer to 0 based
     }
 }
+

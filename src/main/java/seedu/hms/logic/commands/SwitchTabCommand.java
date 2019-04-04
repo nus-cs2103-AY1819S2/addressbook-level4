@@ -16,9 +16,11 @@ public class SwitchTabCommand extends Command {
     public static final String COMMAND_WORD = "switch-tab";
     public static final String MESSAGE_SUCCESS = "Switch success!";
     public static final String MESSAGE_FAILURE = "Switch failed!";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Switch to the type accorting to index\n"
-            + "Parameters: PANEL_INDEX TAB_INDEX\n"
-            + "Example: " + COMMAND_WORD + " 1 1";
+    public static final String MESSAGE_INVALID_TAB_NUMBER = "Invalid tab number.\n " + MESSAGE_FAILURE;
+    public static final String MESSAGE_INVALID_PANEL_NUMBER = "Invalid panel number.\n " + MESSAGE_FAILURE;
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Switch to the type according to index\n"
+        + "Parameters: PANEL_INDEX TAB_INDEX\n"
+        + "Example: " + COMMAND_WORD + " 1 1";
 
     private final Integer panelIndex;
     private final Integer tabIndex;
@@ -34,19 +36,13 @@ public class SwitchTabCommand extends Command {
 
         switch (panelIndex) {
         case 1:
-            if (tabIndex >= 0 || tabIndex <= 2) {
-                LogicManager.setSelectedPanelOneTabIndex(tabIndex);
-            } else {
-                throw new CommandException("Invalid tab index");
-            }
+            LogicManager.setSelectedPanelOneTabIndex(tabIndex);
             break;
+
         case 2:
-            if (tabIndex >= 0 || tabIndex <= 1) {
-                LogicManager.setSelectedPanelTwoTabIndex(tabIndex);
-            } else {
-                throw new CommandException("Invalid tab index");
-            }
+            LogicManager.setSelectedPanelTwoTabIndex(tabIndex);
             break;
+
         default:
             throw new CommandException("Invalid panel index");
         }

@@ -13,33 +13,20 @@ public class Bill {
     private HashMap<String, Pair<Double, Integer>> bookingBill;
     private HashMap<String, Pair<Double, Long>> reservationBill;
     private Customer customer;
-    private double amountReservation;
-    private double amountBooking;
     private double totalAmount;
 
     /**
      * Constructs a {@code Bill}.
      *
-     * @param customer          Customer details.
-     * @param amountBooking     Amount to be paid by customer for booking.
-     * @param amountReservation Amount to be paid by the customer for reservation.
+     * @param customer        Customer details.
+     * @param bookingBill     Returns the entire booking bill
+     * @param reservationBill Returns the entire reservation bill
      */
 
-    public Bill(Customer customer, double amountReservation, double amountBooking, HashMap<String, Pair<Double,
+    public Bill(Customer customer, HashMap<String, Pair<Double,
         Integer>> bookingBill, HashMap<String, Pair<Double, Long>> reservationBill) {
 
         this.customer = customer;
-        this.amountBooking = amountBooking;
-        this.amountReservation = amountReservation;
-        totalAmount = this.amountBooking + this.amountReservation;
-        this.bookingBill = bookingBill;
-        this.reservationBill = reservationBill;
-    }
-
-    public Bill(Customer customer, double amountBooking, HashMap<String, Pair<Double, Integer>> bookingBill,
-                HashMap<String, Pair<Double, Long>> reservationBill) {
-        this.customer = customer;
-        this.amountBooking = amountBooking;
         this.bookingBill = bookingBill;
         this.reservationBill = reservationBill;
     }
@@ -246,21 +233,8 @@ public class Bill {
         return getGymBookingCount() + getSwimmingPoolBookingCount() + getGamesRoomBookingCount() + getSpaBookingCount();
     }
 
-    public double getTotalAmountVariable() {
-        return totalAmount;
-    }
-
-    public double getBookingAmountVariable() {
-        return amountBooking;
-    }
-
-    public double getReservationAmountVariable() {
-        return amountReservation;
-    }
-
     @Override
     public String toString() {
-        return " Amount to be paid Reservation:" + amountReservation + " Booking:" + amountBooking
-            + " by " + customer.getName();
+        return " Amount to be paid by " + customer.getName() + ".";
     }
 }

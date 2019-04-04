@@ -30,11 +30,11 @@ public class GenerateBillForBookingCommand extends BillCommand {
         + "[" + PREFIX_SERVICE + "SERVICE NAME] "
         + "[" + PREFIX_TIMING + "TIMING(HH - HH in 24 hour format)]\n "
         + "Example: " + COMMAND_WORD + " 1 "
-        + "[" + PREFIX_SERVICE + "GYM] "
-        + "[" + PREFIX_TIMING + "10 - 11]";
+        + PREFIX_SERVICE + "GYM "
+        + PREFIX_TIMING + "10 - 11 ";
 
 
-    public static final String MESSAGE_GENERATE_BILL_SUCCESS = "Booking bill generated for customer: %1$s";
+    private static final String MESSAGE_GENERATE_BILL_SUCCESS = "Booking bill generated for customer: %1$s ";
 
     private final Predicate<Booking> bookingPredicate;
     private final Bill bill;

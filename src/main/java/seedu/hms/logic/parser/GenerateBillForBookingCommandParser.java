@@ -88,7 +88,7 @@ public class GenerateBillForBookingCommandParser implements Parser<GenerateBillF
         // total amount for booking
         double amountBooking = billModel.generateBillForBooking(bookingObservableList);
 
-        Bill bill = new Bill(customer, amountBooking, bookingBill, new HashMap<>());
+        Bill bill = new Bill(customer, bookingBill, new HashMap<>());
 
 
         return new GenerateBillForBookingCommand(bookingContainsPayerPredicate,

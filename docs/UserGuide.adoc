@@ -222,7 +222,7 @@ Examples:
 
 * `listRestaurants` +
 `setCategory 2 c/Fine Dining o/Wedding p/\$$$$$` +
-Set the categories of the second restaurant in the list to `Find Dining` for cuisine, `Wedding` for occasion and
+Set the categories of the second restaurant in the list to `Fine Dining` for cuisine, `Wedding` for occasion and
 `\$$$$$` for price range.
 
 Note:

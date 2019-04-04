@@ -118,4 +118,58 @@ public class PatientInfoPanel extends UiPart<Region> {
         background.setStyle("-fx-background-color: transparent");
     }
 
+    public void loadDefaultPage() {
+        Label defaultPage = new Label(" No patient has been selected yet.");
+        this.patientParticulars.setContent(defaultPage);
+    }
+
+    public void loadPersonPage(Person person) {
+        name.setText(person.getName().fullName);
+        name.setWrapText(true);
+        nric.setText(((Patient) person).getNric().getNric());
+        sex.setText(((Patient) person).getSex().value);
+        dob.setText(((Patient) person).getDateOfBirth().getDate());
+        age.setText(String.valueOf(((Patient) person).getDateOfBirth().getAge()));
+        phone.setText(person.getPhone().value);
+        email.setText(person.getEmail().value);
+        address.setText(person.getAddress().value);
+
+        seperator.endXProperty().bind(this.particularsPane.widthProperty());
+
+        drugallergy.setText(((Patient) person).getDrugAllergy().allergyName);
+        description.setText(((Patient) person).getPatientDesc().value);
+        teethtype.setText(((Patient) person).getTeeth().getTeethType());
+
+        seperator2.endXProperty().bind(this.particularsPane.widthProperty());
+
+        nokname.setText(((Patient) person).getNextOfKin().getName().fullName);
+        nokrelation.setText(((Patient) person).getNextOfKin().getKinRelation().relationship);
+        nokaddress.setText(((Patient) person).getNextOfKin().getAddress().value);
+        nokphone.setText(((Patient) person).getNextOfKin().getPhone().value);
+        nokemail.setText(((Patient) person).getNextOfKin().getEmail().value);
+
+        patientParticulars.setContent(particularsPane);
+        tabManger.getTabs().set(0,patientParticulars);
+    }
+
+    public void loadRecordPage(Record record) {
+        recorddoctor.setText(record.getDoctorName().fullName);
+        recorddate.setText(record.getRecordDate().getDate());
+        recorddescription.setText(record.getDescription().value);
+        patientRecords.setContent(recordsPane);
+        tabManger.getTabs().set(1,patientRecords);
+    }
+
+    public void loadRecordTab() {
+        Label placeholder = new Label(" No record has been selected. ");
+        patientRecords.setContent(placeholder);
+        tabManger.getTabs().add(patientRecords);
+        tabManger.getSelectionModel().select(patientRecords);
+    }
+
+    public void closeRecordTab() {
+        tabManger.getTabs().remove(patientRecords);
+    }
+
+
 }

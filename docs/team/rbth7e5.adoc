@@ -64,4 +64,6 @@ include::../UserGuide.adoc[tag=categorization]
 
 include::../DeveloperGuide.adoc[tag=userstories]
 
+include::../DeveloperGuide.adoc[tag=categorisation]
+
 include::../DeveloperGuide.adoc[tag=categorization]

@@ -6,6 +6,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_TASK;
 import static seedu.address.commons.core.Messages.MESSAGE_TIME_CLASH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDDATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LINKEDPATIENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTDATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
@@ -34,15 +36,19 @@ public class TaskAddCommand extends Command {
             + PREFIX_TITLE + "TITLE "
             + PREFIX_STARTDATE + "START DATE "
             + PREFIX_ENDDATE + "END DATE "
-            + PREFIX_STARTTIME + "1100 "
-            + PREFIX_ENDTIME + "1200\n"
+            + PREFIX_STARTTIME + "START TIME "
+            + PREFIX_ENDTIME + "END TIME "
+            + PREFIX_PRIORITY + "PRIORITY "
+            + PREFIX_LINKEDPATIENT + "PATIENT INDEX\n"
             + "TITLE, START DATE, END DATE, START TIME and END TIME are mandatory fields and must be provided.\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TITLE + "Teeth removal surgery "
             + PREFIX_STARTDATE + "10-11-2019 "
             + PREFIX_ENDDATE + "22-12-2019 "
             + PREFIX_STARTTIME + "1100 "
-            + PREFIX_ENDTIME + "1200";
+            + PREFIX_ENDTIME + "1200"
+            + PREFIX_PRIORITY + "MED "
+            + PREFIX_LINKEDPATIENT + "2\n";
 
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";

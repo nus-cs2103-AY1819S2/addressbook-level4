@@ -127,7 +127,7 @@ Examples:
 Displays all information with regards to Module: CS2103T i.e Module name, Module description etc. .
 
 * `displaymod c/CS2103T,CS2101,CS1010,ACC1002X` +
-Displays all the of the 4 module information in-order with the search.
+Displays all of the 4 module information in-order with the search.
 
 * `displaymod c/CS2103T,CS2101 n/computer+science` +
 Displays the modules CS2103T,CS2101 and all modules with the words 'computer' and 'science' in its title.

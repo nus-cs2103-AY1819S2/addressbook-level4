@@ -35,7 +35,7 @@ import seedu.address.model.statistics.PlayerStatistics;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedMapGrid versionedAddressBook;
+    private final MapGrid mapGrid;
     private final UserPrefs userPrefs;
     private final FilteredList<Cell> filteredCells;
     private final SimpleObjectProperty<Cell> selectedPerson = new SimpleObjectProperty<>();
@@ -46,15 +46,15 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(MapGrid addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedMapGrid(addressBook);
+        mapGrid = new MapGrid(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredCells = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredCells = new FilteredList<>(mapGrid.getPersonList());
         filteredCells.addListener(this::ensureSelectedPersonIsValid);
 
         // Initialize new statistics
@@ -144,17 +144,17 @@ public class ModelManager implements Model {
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        versionedAddressBook.resetData(addressBook);
+        mapGrid.resetData(addressBook);
     }
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+        return mapGrid;
     }
 
     @Override
     public void addPerson(Cell cell) {
-        versionedAddressBook.addPerson(cell);
+        mapGrid.addPerson(cell);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -184,7 +184,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Cell} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code mapGrid}
      */
     @Override
     public ObservableList<Cell> getFilteredPersonList() {
@@ -195,33 +195,6 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Cell> predicate) {
         requireNonNull(predicate);
         filteredCells.setPredicate(predicate);
-    }
-
-    //=========== Undo/Redo =================================================================================
-
-    @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
-    }
-
-    @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
-    }
-
-    @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
-    }
-
-    @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
-    }
-
-    @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
     }
 
     //=========== Selected cell ===========================================================================
@@ -329,7 +302,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return mapGrid.equals(other.mapGrid)
                 && userPrefs.equals(other.userPrefs)
                 && filteredCells.equals(other.filteredCells)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());

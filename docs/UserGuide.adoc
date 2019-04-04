@@ -204,16 +204,17 @@ You can also use `exit!` to forcefully exit the application
 
 === File Management
 
-When we mention data, we mean the patients list and their respective records plus the task list.
 TeethHub automatically saves all data in TeethHub.json when you close the program.
 However, you can manage them manually with `open`, `save`, `import` and `export`. +
  +
-You can use `open` to open another patient list that you may have transferred over from another computer. +
+*When we mention data, we mean the patients list and their respective records plus the task list.* +
  +
-You can use `save` to save your current patient list to another .json, so that you can transfer them to another computer. +
-You can also use `save` to save your current patient list to a .pdf, which is nicer on the eyes. +
+You can use `open` to open another .json data file that you may have transferred over from another computer. +
  +
-You can use `import` to add select patients from another patient list to your current patient list. +
+You can use `save` to save your current data to another .json, so that you can transfer them to another computer. +
+You can also use `save` to save your current data to a .pdf, which is nicer on the eyes. +
+ +
+You can use `import` to add select patients from another .json data file to your current data. +
  +
 You can use `export` to save select patients to a .json or .pdf file.
 

@@ -37,14 +37,15 @@ public class TaskAddCommandParser implements Parser<TaskAddCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_STARTDATE, PREFIX_ENDDATE,
                         PREFIX_STARTTIME, PREFIX_ENDTIME, PREFIX_PRIORITY, PREFIX_LINKEDPATIENT);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_STARTDATE, PREFIX_ENDDATE, PREFIX_STARTTIME,
+        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_STARTDATE, PREFIX_STARTTIME,
                 PREFIX_ENDTIME) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TaskAddCommand.MESSAGE_USAGE));
         }
 
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
         DateCustom startDate = ParserUtil.parseStartDate(argMultimap.getValue(PREFIX_STARTDATE).get());
-        DateCustom endDate = ParserUtil.parseEndDate(argMultimap.getValue(PREFIX_ENDDATE).get());
+        DateCustom endDate = ParserUtil.parseEndDate(argMultimap.getValue(PREFIX_ENDDATE)
+                .orElse(argMultimap.getValue(PREFIX_STARTDATE).get()));
         TimeCustom startTime = ParserUtil.parseStartTime(argMultimap.getValue(PREFIX_STARTTIME).get());
         TimeCustom endTime = ParserUtil.parseEndTime(argMultimap.getValue(PREFIX_ENDTIME).get());
         Priority priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).orElse("low"));

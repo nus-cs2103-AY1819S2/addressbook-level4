@@ -227,6 +227,9 @@ public class ParserUtil {
     public static DateCustom parseStartDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
+        if (trimmedDate.equals("today")) {
+            return new DateCustom(DateCustom.getToday());
+        }
         if (!DateCustom.isValidDate(date)) {
             throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS_START_DATE);
         }
@@ -240,6 +243,9 @@ public class ParserUtil {
     public static DateCustom parseEndDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
+        if (trimmedDate.equals("today")) {
+            return new DateCustom(DateCustom.getToday());
+        }
         if (!DateCustom.isValidDate(date)) {
             throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS_END_DATE);
         }

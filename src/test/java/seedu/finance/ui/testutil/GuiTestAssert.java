@@ -2,6 +2,7 @@ package seedu.finance.ui.testutil;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
 import java.util.List;
 
 import guitests.guihandles.RecordCardHandle;
@@ -26,6 +27,8 @@ public class GuiTestAssert {
         assertEquals(expectedCard.getDate(), actualCard.getDate());
         assertEquals(expectedCard.getName(), actualCard.getName());
         assertEquals(expectedCard.getCategory(), actualCard.getCategory());
+        String category = expectedCard.getCategory();
+        assertEquals(expectedCard.getCategoryStyleClasses(category), actualCard.getCategoryStyleClasses(category));
     }
 
     /**
@@ -37,6 +40,7 @@ public class GuiTestAssert {
         assertEquals(expectedRecord.getDate().toString(), actualCard.getDate());
         assertEquals(expectedRecord.getDescription().value, actualCard.getDescription());
         assertCategoryEqual(expectedRecord, actualCard);
+
     }
 
     /**
@@ -101,10 +105,14 @@ public class GuiTestAssert {
      * with the correct color.
      */
     private static void assertCategoryEqual(Record expectedRecord, RecordCardHandle actualCard) {
-        Category expectedCategory = expectedRecord.getCategory();
+        String expectedCategory = expectedRecord.getCategory().toString();
         String actualCategory = actualCard.getCategory();
-        assertEquals(expectedCategory.toString(), actualCard.getCategory());
+        assertEquals(expectedCategory, actualCard.getCategory());
+
         assertEquals(getCategoryColorStyleFor(expectedCategory.toString()), getCategoryColorStyleFor(actualCategory));
+
+        assertEquals(Arrays.asList(LABEL_DEFAULT_STYLE, getCategoryColorStyleFor(expectedCategory)),
+                actualCard.getCategoryStyleClasses(expectedCategory));
     }
 
     /**

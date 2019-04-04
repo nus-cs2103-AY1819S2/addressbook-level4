@@ -1,5 +1,7 @@
 package guitests.guihandles;
 
+import java.util.List;
+
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import seedu.finance.model.record.Record;
@@ -60,9 +62,9 @@ public class RecordCardHandle extends NodeHandle<Node> {
     //@@author geezlouisee-reused
     //Reused from https://github.com/se-edu/addressbook-level4/pull/798/commits/1ac2e7c5597cf328cc9c28d5d8e18db8dc1fc5a0
     //with minor modifications
-    public String getCategoryStyleClasses(String category) {
+    public List<String> getCategoryStyleClasses(String category) {
         if (categoryLabel.getText().equals(category)) {
-            return categoryLabel.getText();
+            return categoryLabel.getStyleClass();
         } else {
             throw new IllegalArgumentException("No such category.");
         }

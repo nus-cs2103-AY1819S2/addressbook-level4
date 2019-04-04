@@ -1,10 +1,11 @@
 package seedu.address.storage;
 
+import java.time.LocalDate;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.medicalhistory.Date;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.WriteUp;
 
@@ -42,7 +43,7 @@ public class JsonAdaptedMedicalHistory {
         medHistId = source.getMedHistId();
         patientId = source.getPatientId();
         doctorId = source.getDoctorId();
-        date = source.getDate().value;
+        date = source.getDate().toString();
         writeUp = source.getWriteUp().value;
     }
 
@@ -60,7 +61,7 @@ public class JsonAdaptedMedicalHistory {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         */
-        final Date modelDate = new Date(this.date);
+        final LocalDate modelDate = LocalDate.parse(date);
         final WriteUp modelWriteUp = new WriteUp(this.writeUp);
         return new MedicalHistory(patientId, doctorId, modelDate, modelWriteUp);
     }

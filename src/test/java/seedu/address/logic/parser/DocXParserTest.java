@@ -34,7 +34,6 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.medicalhistory.Date;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.WriteUp;
 import seedu.address.model.person.Doctor;
@@ -75,7 +74,7 @@ public class DocXParserTest {
                 AddMedHistCommand.COMMAND_WORD + " " + "pid/1 did/1 d/2018-05-05 sw/testWriteUp");
         assertTrue(command instanceof AddMedHistCommand);
         assertEquals(command, new AddMedHistCommand(
-                new MedicalHistory("1", "1", new Date("2018-05-05"), new WriteUp("testWriteUp"))));
+                new MedicalHistory("1", "1", LocalDate.parse("2018-05-05"), new WriteUp("testWriteUp"))));
     }
 
     @Test

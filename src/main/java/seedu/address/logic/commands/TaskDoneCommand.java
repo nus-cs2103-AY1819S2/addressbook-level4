@@ -64,15 +64,11 @@ public class TaskDoneCommand extends Command {
                             .getLinkedPatientNric())).findFirst();
             if (found.isPresent()) {
                 Patient replacement = found.get();
-                String recordDescription = "Completed task - " + completedTask.getTitle().title + " at "
-                                            + DateTimeFormatter.ofPattern("HHmm").format(LocalDateTime.now());
-                replacement.addRecord(new Record(new Description(recordDescription)));
                 //TODO: Possibly switch Procedure and Description contents?
-                String recordDescription = "Completed task - " + completedTask.getTitle().title + " at "
-                                            + DateTimeFormatter.ofPattern("HHmm").format(LocalDateTime.now());
-                replacement.addRecord(new Record(new Description(recordDescription)));
+                replacement.addRecord(new Record(new Procedure("Other-Completed Task"),
+                        new Description(completedTask.getTitle().title)));
                 model.setPerson(found.get(), replacement);
-                patientRecordAddedMessage = String.format("\nAdded Record to Patient: %s ( %s )",
+                patientRecordAddedMessage = String.format("\n Added Record to Patient: %s ( %s )",
                         found.get().getName().fullName, found.get().getNric().getNric());
             } else {
                 patientRecordAddedMessage = "\n Linked Patient not found. Record not added.";

@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.function.Predicate;
 
 import javafx.beans.value.ObservableBooleanValue;
 import seedu.address.commons.core.GuiSettings;
@@ -9,7 +8,6 @@ import seedu.address.logic.battle.Battle;
 import seedu.address.logic.battle.state.BattleState;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
-import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.player.Enemy;
 import seedu.address.model.player.Fleet;
@@ -74,9 +72,6 @@ public interface Model {
      * Sets the user prefs' address book file path.
      */
     void setAddressBookFilePath(Path addressBookFilePath);
-
-    /** Returns the MapGrid */
-    ReadOnlyAddressBook getAddressBook();
 
     /**
      * Returns the map size

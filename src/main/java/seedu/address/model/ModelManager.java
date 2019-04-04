@@ -131,13 +131,6 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return mapGrid;
-    }
-
     //=========== Battleship ===============================================================================
 
     @Override

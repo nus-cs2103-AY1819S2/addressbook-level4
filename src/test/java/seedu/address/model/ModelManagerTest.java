@@ -24,7 +24,8 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new MapGrid(), new MapGrid(modelManager.getAddressBook()));
+        assertEquals(new MapGrid(), modelManager.getHumanMapGrid());
+        assertEquals(new MapGrid(), modelManager.getEnemyMapGrid());
         assertEquals(BattleState.PRE_BATTLE, modelManager.getBattleState());
     }
 

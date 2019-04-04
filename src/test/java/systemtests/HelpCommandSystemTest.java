@@ -1,10 +1,18 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
+import org.junit.jupiter.api.Test;
+import seedu.address.logic.commands.DeleteDeckCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.SelectCommand;
+import seedu.address.ui.StatusBarFooter;
 
 /**
  * A system test class for the help window, which contains interaction with other UI components.
@@ -19,49 +27,49 @@ public class HelpCommandSystemTest extends TopDeckSystemTest {
 
     private final GuiRobot guiRobot = new GuiRobot();
 
-    //    @Test
-    //    public void openHelpWindow() {
-    //        //use accelerator
-    //        getCommandBox().click();
-    //        getMainMenu().openHelpWindowUsingAccelerator();
-    //        assertHelpWindowOpen();
-    //
-    //        getResultDisplay().click();
-    //        getMainMenu().openHelpWindowUsingAccelerator();
-    //        assertHelpWindowOpen();
-    //
-    //        getCardListPanel().click();
-    //        getMainMenu().openHelpWindowUsingAccelerator();
-    //        assertHelpWindowOpen();
-    //
-    //        getMainMenu().openHelpWindowUsingAccelerator();
-    //        assertHelpWindowNotOpen();
-    //
-    //        //use menu button
-    //        getMainMenu().openHelpWindowUsingMenu();
-    //        assertHelpWindowOpen();
-    //
-    //        //use command box
-    //        executeCommand(HelpCommand.COMMAND_WORD);
-    //        assertHelpWindowOpen();
-    //
-    //        // open help window and give it focus
-    //        executeCommand(HelpCommand.COMMAND_WORD);
-    //        getMainWindowHandle().focus();
-    //
-    //        // assert that while the help window is open the UI updates correctly for a command execution
-    //        executeCommand(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased());
-    //        assertEquals("", getCommandBox().getInput());
-    //        assertCommandBoxShowsDefaultStyle();
-    //        assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
-    //        //TODO: Fix the assertListMatching to check for decks list
-    //        //assertListMatching(getCardListPanel(), getModel().getFilteredList());
-    //
-    //        // assert that the status bar too is updated correctly while the help window is open
-    //        // note: the select command tested above does not update the status bar
-    //        executeCommand(DeleteCardCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased());
-    //        assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
-    //    }
+//    @Test
+//    public void openHelpWindow() {
+//        //use accelerator
+//        getCommandBox().click();
+//        getMainMenu().openHelpWindowUsingAccelerator();
+//        assertHelpWindowOpen();
+//
+//        getResultDisplay().click();
+//        getMainMenu().openHelpWindowUsingAccelerator();
+//        assertHelpWindowOpen();
+//
+//        getCardListPanel().click();
+//        getMainMenu().openHelpWindowUsingAccelerator();
+//        assertHelpWindowOpen();
+//
+//        getMainMenu().openHelpWindowUsingAccelerator();
+//        assertHelpWindowNotOpen();
+//
+//        //use menu button
+//        getMainMenu().openHelpWindowUsingMenu();
+//        assertHelpWindowOpen();
+//
+//        //use command box
+//        executeCommand(HelpCommand.COMMAND_WORD);
+//        assertHelpWindowOpen();
+//
+//        // open help window and give it focus
+//        executeCommand(HelpCommand.COMMAND_WORD);
+//        getMainWindowHandle().focus();
+//
+//        // assert that while the help window is open the UI updates correctly for a command execution
+//        executeCommand(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased());
+//        assertEquals("", getCommandBox().getInput());
+//        assertCommandBoxShowsDefaultStyle();
+//        assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
+//        //TODO: Fix the assertListMatching to check for decks list
+//        //assertListMatching(getCardListPanel(), getModel().getFilteredList());
+//
+//        // assert that the status bar too is updated correctly while the help window is open
+//        // note: the select command tested above does not update the status bar
+//        executeCommand(DeleteDeckCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased());
+//        assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
+//    }
 
     //    @Test
     //    public void help_multipleCommands_onlyOneHelpWindowOpen() {

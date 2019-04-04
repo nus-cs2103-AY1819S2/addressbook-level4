@@ -468,4 +468,8 @@
    -fx-background-color: transparent;
 }
 
+.white_scroll_pane > .viewport {
+    -fx-background-color: white;
+}
+
 

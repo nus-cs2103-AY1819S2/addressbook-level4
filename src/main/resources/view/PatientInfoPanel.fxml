@@ -5,7 +5,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.shape.Line?>
 
-<ScrollPane xmlns:fx="http://javafx.com/fxml/1" fx:id="background">
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1" fx:id="background" styleClass="white_scroll_pane">
         <TabPane fx:id="tabManager">
             <Tab fx:id="patientParticulars">
                 <VBox fx:id="particularsPane">

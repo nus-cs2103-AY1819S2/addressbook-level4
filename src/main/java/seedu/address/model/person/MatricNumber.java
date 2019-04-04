@@ -53,7 +53,9 @@ public class MatricNumber {
         }
         return true;
     }
-
+    /**
+     * * Returns true if a given string ends with a valid checksum letter.
+     */
     public static boolean isCheckSumValid(String test) {
         int sum = 0;
         char[] checkDigit = {'Y', 'X', 'W', 'U', 'R', 'N', 'M', 'L', 'J', 'H', 'E', 'A', 'B'};

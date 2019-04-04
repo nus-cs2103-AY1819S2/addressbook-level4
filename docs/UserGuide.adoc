@@ -171,7 +171,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 
 === Member Management Features
 
-image::MemberCommands.png[width="1000"]
+image::MemberCommands.png[width="500"]
 
 ==== Adding a member: `memberAdd`
 

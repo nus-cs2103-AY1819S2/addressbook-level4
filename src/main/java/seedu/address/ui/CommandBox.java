@@ -31,11 +31,9 @@ public class CommandBox extends UiPart<Region> {
         super(FXML);
         this.commandExecutor = commandExecutor;
         if (dateOnly) {
-            this.history = new CommandHistory().getHistory();
             commandTextField.setPromptText("Enter task commands or a date here.....");
-        } else {
-            this.history = history;
         }
+        this.history = history;
         //calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         historySnapshot = new ListElementPointer(history);

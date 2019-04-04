@@ -79,8 +79,8 @@ public class ReviewListPanelTest extends GuiUnitTest {
             BookName bookName = new BookName(i + "Alice");
             String reviewMessage = "message" + i;
 
-            Review Review = new Review(name, bookName, reviewMessage);
-            backingList.add(Review);
+            Review review = new Review(name, bookName, reviewMessage);
+            backingList.add(review);
         }
         return backingList;
     }

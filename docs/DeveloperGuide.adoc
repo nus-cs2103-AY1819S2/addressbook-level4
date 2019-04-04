@@ -105,7 +105,6 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 When you are ready to start coding,
 
 1. Get some sense of the overall design by reading <<Design-Architecture>>.
-2. Take a look at <<GetStartedProgramming>>.
 
 == Design
 
@@ -150,7 +149,7 @@ image::LogicClassDiagram.png[width="800"]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete n/Alice`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `deleteBook 1` command
 image::SDforDeleteBook.png[width="800"]
@@ -394,6 +393,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+// tag::book[]
 === AddBook feature
 ==== Current Implementation
 
@@ -428,7 +428,6 @@ Step 4. The book shelf now adds the book to the book list after making sure ther
 * **Alternative 2:** Books with multiple identical fields (eg. book name and author, book name and rating, etc) are considered same book.
 ** Pros: Able to store books with same same but different in other fields.
 ** Cons: Causing trouble to executing other commands like addReview as more parameters must be provided to search for a certain book.
-//end::addBook[]
 
 ===== Aspect: Data structure to support the addBook command
 
@@ -473,6 +472,7 @@ Step 4. The book shelf now set the fields of the first book to the new ones prov
 * **Alternative 2:** Use exact book name to figure out the book user wishes to edit.
 ** Pros: No need to first filter out a non-empty book list.
 ** Cons: Causing trouble for user to type in the full name of the book.
+// end::book[]
 
 // tag::listBook[]
 === ListBook Feature

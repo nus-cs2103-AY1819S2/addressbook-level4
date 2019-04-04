@@ -624,7 +624,9 @@ it will be given a default priority of [yellow]#Low#
 
 |Patient
 |The patient to be linked to the task. Linking a patient to a task, enables the <<taskdone, taskdone>> command to
- automatically add a record upon execution. + The patient's index can be found in the patient list
+ automatically add a record upon execution.
+
+ The patient's index can be found in the patient list
 and must be a valid POSITIVE integer. If you want to set a task's linked patient to none, you can give this parameter
 a value of `0` when using the <<taskedit, taskedit>> command. This parameter should not be included in task adding or
 task editing when in <<goto, goto>> mode as the patient list is not visible in that mode. +
@@ -662,8 +664,9 @@ Examples:
 
 * `taskedit 2 sd/15-09-2019 ed/15-09-2019 st/1400 et/1500`
 
-* `<<taskfind, taskfind>> pri/high` +
-  `taskedit 1 ti/Braces removal for Bernice sd/05-05-2020 ed/05-05-2020 st/1500 et/1600 pri/MED`
+* `taskedit 3 pat/0`
+
+* `taskedit 1 ti/Braces removal for Bernice sd/05-05-2020 ed/05-05-2020 st/1500 et/1600 pri/MED`
 
 ==== taskdelete
 Deletes a task from the task list

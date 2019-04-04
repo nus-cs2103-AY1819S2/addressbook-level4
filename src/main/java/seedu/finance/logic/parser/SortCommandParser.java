@@ -1,14 +1,15 @@
 package seedu.finance.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_AMOUNT;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_ASCENDING;
 import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_CATEGORY;
 import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_DATE;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_DESCENDING;
 import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_NAME;
 
-import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 
 import seedu.finance.logic.commands.SortCommand;
 import seedu.finance.logic.parser.comparator.RecordAmountComparator;
@@ -30,37 +31,94 @@ public class SortCommandParser implements Parser<SortCommand> {
      */
     public SortCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        int numFlags = 0;
-
         Comparator<Record> comparator = null;
 
-        String[] words = args.split("\\s");
-        List<String> list = Arrays.asList(words);
+        String[] words = args.trim().split("\\s+");
 
-        if (list.contains(COMMAND_FLAG_NAME.getFlag())) {
-            comparator = new RecordNameComparator();
-            numFlags++;
-        }
-        if (list.contains(COMMAND_FLAG_AMOUNT.getFlag())) {
-            comparator = new RecordAmountComparator();
-            numFlags++;
-        }
-        if (list.contains(COMMAND_FLAG_DATE.getFlag())) {
-            comparator = new RecordDateComparator();
-            numFlags++;
-        }
-        if (list.contains(COMMAND_FLAG_CATEGORY.getFlag())) {
-            comparator = new RecordCategoryComparator();
-            numFlags++;
+        if (words.length == 0 || !isValidCommandFlag(words[0])) {
+            // no arguments supplied or invalid command flag
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
 
-        if (comparator == null) { // no flags provided
-            throw new ParseException(SortCommand.MESSAGE_USAGE);
-        } else if (numFlags > 1) {
-            throw new ParseException(SortCommand.MESSAGE_NOT_SORTED);
+        boolean orderArgPresent = false;
+
+        // if ORDER is supplied, check whether valid
+        if (words.length != 1) {
+            orderArgPresent = true;
+            if (!isValidOrder(words[1])) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+            }
+        }
+
+        // Check which comparison function to use, flag and order supplied will be valid
+        switch (words[0]) {
+        case "-name":
+            // no order supplied, or order supplied is -asc
+            if (!orderArgPresent || words[1].equals(COMMAND_FLAG_ASCENDING.getFlag())) {
+                comparator = new RecordNameComparator();
+            } else {
+                // order supplied is -desc
+                comparator = new RecordNameComparator().reversed();
+            }
+            break;
+
+        case "-amount":
+            // no order supplied, or order supplied is -desc
+            if (!orderArgPresent || words[1].equals(COMMAND_FLAG_DESCENDING.getFlag())) {
+                comparator = new RecordAmountComparator();
+            } else {
+                // order supplied is -asc
+                comparator = new RecordAmountComparator().reversed();
+            }
+            break;
+
+        case "-date":
+            // no order supplied, or order supplied is -desc
+            if (!orderArgPresent || words[1].equals(COMMAND_FLAG_DESCENDING.getFlag())) {
+                comparator = new RecordDateComparator();
+            } else {
+                // order supplied is -asc
+                comparator = new RecordDateComparator().reversed();
+            }
+            break;
+
+        case "-cat":
+            // no order supplied, or order supplied is -asc
+            if (!orderArgPresent || words[1].equals(COMMAND_FLAG_ASCENDING.getFlag())) {
+                comparator = new RecordCategoryComparator();
+            } else {
+                // order supplied is -desc
+                comparator = new RecordCategoryComparator().reversed();
+            }
+            break;
+
+        default:
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+
         }
 
         return new SortCommand(comparator);
+
+
+    }
+
+    /**
+     * Checks if {@code String} flag is a valid one (-name, -amount, -date, -cat)
+     * @param flag first argument after sort command word
+     * @return true if flag is valid.
+     */
+    private static boolean isValidCommandFlag(String flag) {
+        return flag.equals(COMMAND_FLAG_NAME.getFlag()) || flag.equals(COMMAND_FLAG_AMOUNT.getFlag())
+                || flag.equals(COMMAND_FLAG_DATE.getFlag()) || flag.equals(COMMAND_FLAG_CATEGORY.getFlag());
+    }
+
+    /**
+     * Checks if {@code String} order is a valid one (-asc, -desc)
+     * @param order second argument after sort command word
+     * @return true if order is valid
+     */
+    private static boolean isValidOrder(String order) {
+        return order.equals(COMMAND_FLAG_ASCENDING.getFlag()) || order.equals(COMMAND_FLAG_DESCENDING.getFlag());
     }
 
 }

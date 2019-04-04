@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -139,6 +140,7 @@ public class JsonSerializableQuickDocs {
                 .stream()
                 .map((JsonAdaptedMedicine::toModelType))
                 .collect(Collectors.toList()));
+        listOfMedicine.sort(Comparator.comparing((Medicine medicine) -> (medicine.name.toLowerCase())));
         HashMap<String, Medicine> medicineHashMap = new HashMap<>();
         for (Medicine medicine : listOfMedicine) {
             String medicineName = medicine.name;

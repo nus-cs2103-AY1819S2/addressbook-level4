@@ -76,7 +76,7 @@ public class BookCardHandle extends NodeHandle<Node> {
 
         return getName().equals(book.getBookName().fullName)
             && getAuthor().equals(book.getAuthor().fullName)
-            && getRating().equals(book.getRating().value)
+            && getRating().equals("Rating:  " + book.getRating().value)
             && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(book.getTags().stream()
             .map(tag -> tag.tagName)
             .collect(Collectors.toList())));

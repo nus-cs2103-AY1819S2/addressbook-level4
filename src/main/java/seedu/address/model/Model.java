@@ -51,16 +51,6 @@ public interface Model {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getAddressBookFilePath();
-
-    /**
-     * Sets the user prefs' address book file path.
-     */
-    void setAddressBookFilePath(Path addressBookFilePath);
-
     void updateFilteredReminderList(Predicate<Reminder> predicate);
 
     ObservableList<Reminder> getFilteredReminderList();

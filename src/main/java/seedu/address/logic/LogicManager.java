@@ -1,7 +1,6 @@
 package seedu.address.logic;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -70,11 +69,6 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<String> getHistory() {
         return history.getHistory();
-    }
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
     }
 
     @Override

@@ -63,6 +63,7 @@ public class StatisticsManager {
             }
         }
     }
+
     public Statistics getStatistics(YearMonth from, YearMonth to) {
         Statistics stats = new Statistics();
         int fromIdx = getYearMonthIndex(from);

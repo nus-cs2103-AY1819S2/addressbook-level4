@@ -12,12 +12,15 @@ import seedu.address.model.consultation.Symptom;
  * Record representation of a consultation
  */
 public class ConsultationRecord extends Record {
+
     private ArrayList<Prescription> prescriptions;
     private Diagnosis diagnosis;
+
     public ConsultationRecord(ArrayList<Prescription> prescription, Diagnosis diagnosis) {
         this.prescriptions = prescription;
         this.diagnosis = diagnosis;
     }
+
     @Override
     public Statistics toStatistics(StatisticsManager statisticsManager) {
         BigDecimal consultationFee = statisticsManager.getConsultationFee();

@@ -28,12 +28,6 @@ public interface Logic {
      * The list is ordered from the least recent command to the most recent command.
      */
     ObservableList<String> getHistory();
-
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getAddressBookFilePath();
-
     /**
      * Returns the user prefs' GUI settings.
      */

@@ -42,6 +42,7 @@ public class Statistics {
         this.medicinesCount = medicinesCount;
         this.symptomsCount = symptomsCount;
     }
+
     public Statistics(Statistics stats) {
         this.noOfConsultations = stats.getNoOfConsultations();
         this.revenue = stats.getRevenue();
@@ -50,21 +51,27 @@ public class Statistics {
         this.medicinesCount = stats.getMedicinesCount();
         this.symptomsCount = stats.getSymptomsCount();
     }
+
     public int getNoOfConsultations() {
         return noOfConsultations;
     }
+
     public BigDecimal getRevenue() {
         return revenue;
     }
+
     public BigDecimal getExpenditure() {
         return expenditure;
     }
+
     public BigDecimal getProfit() {
         return profit;
     }
+
     public HashMap<String, Integer> getMedicinesCount() {
         return this.medicinesCount;
     }
+
     public HashMap<String, Integer> getSymptomsCount() {
         return this.symptomsCount;
     }
@@ -114,6 +121,7 @@ public class Statistics {
          */
         return NumberFormat.getCurrencyInstance().format(money);
     }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -137,6 +145,7 @@ public class Statistics {
                 .append("\n\n");
         return sb.toString();
     }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) {

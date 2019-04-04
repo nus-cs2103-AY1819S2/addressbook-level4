@@ -160,18 +160,6 @@ public class ModelManager implements Model {
         requireNonNull(guiSettings);
         userPrefs.setGuiSettings(guiSettings);
     }
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
-    }
-
-    @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
-    }
-
     //=========== MedicineManager ============================================================================
     @Override
     public void addMedicine(String medicineName, String[] path, BigDecimal price) {

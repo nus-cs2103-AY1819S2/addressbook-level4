@@ -32,6 +32,7 @@ import seedu.address.model.battleship.DestroyerBattleship;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
+import seedu.address.model.cell.Status;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -56,10 +57,9 @@ public class PutShipCommandTest {
         Battleship battleship = new DestroyerBattleship(emptySet);
 
         model.getHumanMapGrid().initialise(cellGrid);
-        model.getHumanMapGrid().getCell(COORDINATES_A1).putShip(battleship);
-
         Orientation orientation = new Orientation(VALID_HORIZONTAL_ORIENTATION);
 
+        model.getHumanMapGrid().putShip(battleship, COORDINATES_A1, orientation);
         PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_A1, battleship, orientation);
 
         assertCommandFailure(putShipCommand, model, commandHistory,
@@ -79,9 +79,9 @@ public class PutShipCommandTest {
         Battleship battleship = new Battleship();
 
         model.getHumanMapGrid().initialise(cellGrid);
-        model.getHumanMapGrid().getCell(COORDINATES_B1).putShip(battleship);
-
         Orientation orientation = new Orientation(VALID_VERTICAL_ORIENTATION);
+
+        model.getHumanMapGrid().putShip(battleship, COORDINATES_B1, orientation);
         PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_A1, battleship, orientation);
 
         assertCommandFailure(putShipCommand, model, commandHistory,
@@ -101,9 +101,9 @@ public class PutShipCommandTest {
         Battleship battleship = new Battleship();
 
         model.getHumanMapGrid().initialise(cellGrid);
-        model.getHumanMapGrid().getCell(COORDINATES_A2).putShip(battleship);
-
         Orientation orientation = new Orientation(VALID_HORIZONTAL_ORIENTATION);
+
+        model.getHumanMapGrid().putShip(battleship, COORDINATES_A2, orientation);
         PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_A1, battleship, orientation);
 
         assertCommandFailure(putShipCommand, model, commandHistory,
@@ -171,10 +171,12 @@ public class PutShipCommandTest {
 
             // Test length of battleship
             for (int i = 0; i < battleship.getLength(); i++) {
-                Cell cellToCheck = model.getHumanMapGrid().getCell(
+                Coordinates cellCoords = new Coordinates(
                         COORDINATES_A1.getRowIndex().getZeroBased(),
                         COORDINATES_A1.getColIndex().getZeroBased() + i);
-                assertTrue(cellToCheck.hasBattleShip());
+                Status status = model.getHumanMapGrid().getCellStatus(cellCoords);
+
+                assertTrue(status == Status.SHIP);
             }
         } catch (CommandException ce) {
             throw new AssertionError("Test should not fail.");
@@ -202,10 +204,11 @@ public class PutShipCommandTest {
 
             // Test length of battleship
             for (int i = 0; i < battleship.getLength(); i++) {
-                Cell cellToCheck = model.getHumanMapGrid().getCell(
+                Coordinates cellCoords = new Coordinates(
                         COORDINATES_A1.getRowIndex().getZeroBased() + i,
                         COORDINATES_A1.getColIndex().getZeroBased());
-                assertTrue(cellToCheck.hasBattleShip());
+                Status status = model.getHumanMapGrid().getCellStatus(cellCoords);
+                assertTrue(status == Status.SHIP);
             }
         } catch (CommandException ce) {
             throw new AssertionError("Test should not fail.");
@@ -230,7 +233,7 @@ public class PutShipCommandTest {
         PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_A1, battleship, orientation);
 
         model.getHumanMapGrid().initialise(cellGrid);
-        model.getHumanMapGrid().getCell(COORDINATES_A2).putShip(battleship);
+        model.getHumanMapGrid().putShip(battleship, COORDINATES_A2, orientation);
         model.deployBattleship(battleship, COORDINATES_A2, orientation);
 
         assertCommandFailure(putShipCommand, model, commandHistory,

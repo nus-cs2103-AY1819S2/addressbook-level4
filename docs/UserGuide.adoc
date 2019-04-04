@@ -179,7 +179,8 @@ You can also use `exit!` to forcefully exit the application
 
 === File Management
 
-TeethHub automatically saves all data in AddressBook.json when you close the program.
+When we mention data, we mean the patients list and their respective records plus the task list.
+TeethHub automatically saves all data in TeethHub.json when you close the program.
 However, you can manage them manually with Open, Save, Import and Export. +
  +
 You can use *open* to open another patient list that you may have transferred over from another computer. +
@@ -192,7 +193,7 @@ You can use *Import* to add select patients from another patient list to your cu
 You can use *Export* to save select patients to a .json or .pdf file.
 
 ==== open
-Opens the file in the specified file path and overwrites the current patients list.
+Opens the file in the specified file path and overwrites the current data.
 ** Note that 'open' always searches inside the data folder.
 ** You can only open .json files.
 
@@ -200,16 +201,16 @@ Format: `open FILE_PATH`
 
 Examples:
 
-* `open patients1.json` +
-Replaces the current patients list with the patients list in "patients1.json".
+* `open data1.json` +
+Replaces the current data with the data in "data1.json".
 
-* `open february/patients2.json` +
-Replaces the current patients list with the patients list in "patients2.json" found in the "february" folder.
+* `open february/data2.json` +
+Replaces the current data with the data in "data2.json" found in the "february" folder.
 
 
 ==== save
-Saves the current patients list to the specified filepath.
-** Note that 'save' always saves inside the data folder. If no such filepath exists,
+Saves the current data to the specified file path.
+** Note that 'save' always saves inside the data folder. If no such file path exists,
 it will be created. Otherwise, it will overwrite the existing file.
 ** You can only save to .json and .pdf. +
 .json files allow you to open or import them. +
@@ -219,15 +220,15 @@ Format: `save FILE_PATH`
 
 Examples:
 
-* `save patients1.json` +
-Saves the current patients list to "patients1.json".
+* `save data1.json` +
+Saves the current data to "data1.json".
 
-* `save february/patients2.pdf` +
-Saves the current patients list to "patients2.json" found in the "february" folder.
+* `save february/data2.pdf` +
+Saves the current data to "data2.json" found in the "february" folder.
 
 
 ==== import
-Opens the file in the specified file path and adds the specified patients to the patients list.
+Opens the file in the specified file path and adds the specified patients to the current data.
 ** Note that 'import' always searches inside the data folder.
 ** You can only import .json files.
 
@@ -235,25 +236,25 @@ Format: `import FILE_PATH INDEX_RANGE`
 
 Examples:
 
-* `import patients1.json 1` +
-Adds patient 1 from "patients1.json" to the current patients list.
+* `import data1.json 1` +
+Adds patient 1 from "data1.json" to the current data.
 
-* `import february/patients1.json 1` +
-Adds patient 1 from "patients1.json" found in the "february" folder to the current patients list.
+* `import february/data1.json 1` +
+Adds patient 1 from "data1.json" found in the "february" folder to the current data.
 
-* `import patients1.json 1,4` +
-Adds patient 1 and patient 4 from "patients1.json" to the current patients list.
+* `import data1.json 1,4` +
+Adds patient 1 and patient 4 from "data1.json" to the current data.
 
-* `import patients1.json 1-4` +
-Adds patient 1 to patient 4 from "patients1.json" to the current patients list.
+* `import data1.json 1-4` +
+Adds patient 1 to patient 4 from "data1.json" to the current data.
 
-* `import patients1.json 1,3-5` +
-Adds patient 1 and patient 3 to patient 5 from "patients1.json" to the current patients list.
+* `import data1.json 1,3-5` +
+Adds patient 1 and patient 3 to patient 5 from "data1.json" to the current data.
 
 
 ==== export
-Saves the specified patients in the current patients list to the specified filepath.
-** Note that 'export' always saves inside the data folder. If no such filepath exists,
+Saves the specified patients in the current data to the specified file path.
+** Note that 'export' always saves inside the data folder. If no such file path exists,
 it will be created. Otherwise, it will overwrite the existing file.
 ** You can only export to .json and .pdf. +
 .json files allow you to open or import them. +
@@ -263,23 +264,23 @@ Format: `export FILE_PATH INDEX_RANGE`
 
 Examples:
 
-* `export patients1.json 1` +
-Saves patient 1 from the current patients list to "patients1.json".
+* `export data1.json 1` +
+Saves patient 1 from the current data to "data1.json".
 
-* `export february/patients1.pdf 1` +
-Saves patient 1 from the current patients list to "patients1.pdf" found in the "february" folder.
+* `export february/data1.pdf 1` +
+Saves patient 1 from the current data to "data1.pdf" found in the "february" folder.
 
-* `export patients1.json 1,4` +
-Saves patient 1 and patient 4 from the current patients list to "patients1.json".
+* `export data1.json 1,4` +
+Saves patient 1 and patient 4 from the current data to "data1.json".
 
-* `export patients1.pdf 1-4` +
-Saves patient 1 to patient 4 from the current patients list to "patients1.pdf".
+* `export data1.pdf 1-4` +
+Saves patient 1 to patient 4 from the current data to "data1.pdf".
 
-* `export patients1.pdf 1,3-5` +
-Saves patient 1 and patient 3 to patient 5 from the current patients list to "patients1.pdf".
+* `export data1.pdf 1,3-5` +
+Saves patient 1 and patient 3 to patient 5 from the current data to "data1.pdf".
 
-* `export patients1.json all` +
-Writes all entries from the address book to patients1.json. +
+* `export data1.json all` +
+Writes all entries from the address book to data1.json. +
 
 === Patient Management
 

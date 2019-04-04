@@ -334,6 +334,25 @@ public class CreateJobCommandTest {
         }
 
         @Override
+        public void updateFilteredPersonList(Predicate<Person> predicate) {
+            requireNonNull(predicate);
+        }
+        @Override
+        public void addFilteredPersonsToJob(JobName jobName) {
+            requireNonNull(jobName);
+        }
+
+        @Override
+        public void changeFilteredPersonList(UniquePersonList list) {
+            requireNonNull(list);
+        }
+
+        @Override
+        public UniquePersonList getJobList(JobName name, Integer listNumber) {
+            return jobsAdded.get(0).getList(0);
+        }
+
+        @Override
         public void commitAddressBook() {
             // called by {@code AddCommand#execute()}
         }

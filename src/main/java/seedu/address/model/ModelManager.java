@@ -35,6 +35,7 @@ public class ModelManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final UserPrefs userPrefs;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private FilteredList<Person> originalFilteredPersons;
     private FilteredList<Person> displayedFilteredPersons;
     private Job activeJob;
     private FilteredList<Person> activeJobAllApplcants;
@@ -54,8 +55,9 @@ public class ModelManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        displayedFilteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        displayedFilteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        originalFilteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        originalFilteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        displayedFilteredPersons = originalFilteredPersons;
     }
 
     public ModelManager() {
@@ -203,7 +205,7 @@ public class ModelManager implements Model {
     @Override
     public void updateBaseFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
-        updateFilteredPersonList(predicate);
+        originalFilteredPersons.setPredicate(predicate);
     }
 
     @Override
@@ -221,7 +223,7 @@ public class ModelManager implements Model {
 
     @Override
     public void revertList() {
-        this.displayedFilteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        this.displayedFilteredPersons = originalFilteredPersons;
     }
 
     //=========== Undo/Redo =================================================================================
@@ -349,7 +351,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && userPrefs.equals(other.userPrefs)
-                && displayedFilteredPersons.equals(other.displayedFilteredPersons)
+                && originalFilteredPersons.equals(other.originalFilteredPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 

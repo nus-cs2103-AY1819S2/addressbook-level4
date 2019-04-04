@@ -101,10 +101,8 @@ image::mapSizeFleetSize.png[width=550]
 The Player will always be given the first turn.
 The Player may fire shots at the enemy map through the command `shoot <a1>`.
 
-The player is allowed to continue firing until a miss.
-
-Upon a miss, the player must end their turn here, and relinquish the turn
-to the enemy through the command `end turn`. All's fair in love and war.
+After the Player takes a shot, the enemy will take its shot automatically,
+passing the turn back to the Player.
 ====
 
 ====

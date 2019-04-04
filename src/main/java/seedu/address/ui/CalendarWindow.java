@@ -48,6 +48,7 @@ public class CalendarWindow extends UiPart<Stage> {
 
 
     private Stage primaryStage;
+    private HelpWindow helpWindow;
     private Logic logic;
 
     private TaskListPanel taskListPanel;
@@ -72,6 +73,7 @@ public class CalendarWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
         this.readOnlyTaskList = logic.getAddressBook();
+        helpWindow = new HelpWindow();
 
         generateMarkedDates();
         this.readOnlyTaskList.addListener((observable -> {
@@ -120,6 +122,14 @@ public class CalendarWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             runningCommand = false;
+
+            if(commandResult.isExit()) {
+                handleExit();
+            }
+
+            if(commandResult.isShowHelp()) {
+                handleHelp();
+            }
             return commandResult;
         } catch (CommandException | ParseException e) {
             runningCommand = false;
@@ -139,6 +149,16 @@ public class CalendarWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Opens the help window or focuses on it if it's already opened.
+     */
+    public void handleHelp() {
+        if (!helpWindow.isShowing()) {
+            helpWindow.show();
+        } else {
+            helpWindow.focus();
+        }
+    }
     public void show() {
         primaryStage.show();
     }

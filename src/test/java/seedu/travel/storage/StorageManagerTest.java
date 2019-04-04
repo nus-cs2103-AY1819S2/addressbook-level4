@@ -69,4 +69,19 @@ public class StorageManagerTest {
         assertNotNull(storageManager.getTravelBuddyFilePath());
     }
 
+    @Test
+    public void getCountryChartFilePath() {
+        assertNotNull(storageManager.getCountryChartFilePath());
+    }
+
+    @Test
+    public void getRatingChartFilePath() {
+        assertNotNull(storageManager.getRatingChartFilePath());
+    }
+
+    @Test
+    public void getYearChartFilePath() {
+        assertNotNull(storageManager.getYearChartFilePath());
+    }
+
 }

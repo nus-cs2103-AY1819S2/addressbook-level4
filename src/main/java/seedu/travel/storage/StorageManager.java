@@ -2,6 +2,7 @@ package seedu.travel.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -71,6 +72,39 @@ public class StorageManager implements Storage {
     @Override
     public Path getYearChartFilePath() {
         return chartBookStorage.getYearChartFilePath();
+    }
+
+    @Override
+    public List<ReadOnlyCountryChart> readCountryChart() {
+        return readCountryChart(chartBookStorage.getCountryChartFilePath());
+    }
+
+    @Override
+    public List<ReadOnlyCountryChart> readCountryChart(Path filePath) {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return chartBookStorage.readCountryChart(filePath);
+    }
+
+    @Override
+    public List<ReadOnlyRatingChart> readRatingChart() {
+        return readRatingChart(chartBookStorage.getRatingChartFilePath());
+    }
+
+    @Override
+    public List<ReadOnlyRatingChart> readRatingChart(Path filePath) {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return chartBookStorage.readRatingChart(filePath);
+    }
+
+    @Override
+    public List<ReadOnlyYearChart> readYearChart() {
+        return readYearChart(chartBookStorage.getYearChartFilePath());
+    }
+
+    @Override
+    public List<ReadOnlyYearChart> readYearChart(Path filePath) {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return chartBookStorage.readYearChart(filePath);
     }
 
     @Override

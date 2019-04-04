@@ -9,7 +9,10 @@ public class YearChart {
     private String year;
     private int total;
 
+    public YearChart() {}
+
     public YearChart(String year, int total) {
+        this();
         this.year = year;
         this.total = total;
     }

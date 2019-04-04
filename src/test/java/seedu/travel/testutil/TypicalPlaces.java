@@ -182,11 +182,11 @@ public class TypicalPlaces {
      * Returns an {@code TravelBuddy} with all the typical places.
      */
     public static TravelBuddy getTypicalTravelBuddy() {
-        TravelBuddy ab = new TravelBuddy();
+        TravelBuddy travelBuddy = new TravelBuddy();
         for (Place place : getTypicalPlaces()) {
-            ab.addPlace(place);
+            travelBuddy.addPlace(place);
         }
-        return ab;
+        return travelBuddy;
     }
 
     public static List<Place> getTypicalPlaces() {

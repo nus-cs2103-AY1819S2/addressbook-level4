@@ -11,7 +11,10 @@ public class CountryChart {
     private CountryCode countryCode;
     private int total;
 
+    public CountryChart() {}
+
     public CountryChart(CountryCode countryCode, int total) {
+        this();
         this.countryCode = countryCode;
         this.total = total;
     }

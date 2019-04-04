@@ -11,9 +11,28 @@ import seedu.travel.commons.util.StringUtil;
 public class YearContainsKeywordsPredicate implements Predicate<Place> {
 
     private final List<String> keywords;
+    private boolean isARange = false;
+
+    private int RANGE_LOWER_BOUND = 0;
+    private int RANGE_UPPER_BOUND = 1;
+    private String RANGE_DASH_SEPARATOR = "-";
 
     public YearContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
+    }
+
+    public YearContainsKeywordsPredicate(List<String> keywords, boolean isARange) {
+        this.keywords = keywords;
+        this.isARange = isARange;
+    }
+
+    public String getKeywords() {
+        if (isARange){
+            String keywordsRange = "";
+            return keywordsRange.concat(keywords.get(RANGE_LOWER_BOUND)).concat(RANGE_DASH_SEPARATOR)
+                    .concat(keywords.get(keywords.size() - RANGE_UPPER_BOUND));
+        }
+        return String.join(" ", keywords);
     }
 
     @Override

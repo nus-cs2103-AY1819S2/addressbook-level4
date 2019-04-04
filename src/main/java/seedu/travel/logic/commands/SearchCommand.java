@@ -30,8 +30,7 @@ public class SearchCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredPlaceList(predicate);
-        return new CommandResult(
-                String.format(Messages.MESSAGE_PLACES_LISTED_OVERVIEW, model.getFilteredPlaceList().size()));
+        return new CommandResult(constructFeedbackToUser(model));
     }
 
     @Override
@@ -39,5 +38,21 @@ public class SearchCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof SearchCommand // instanceof handles nulls
                 && predicate.equals(((SearchCommand) other).predicate)); // state check
+    }
+
+    /**
+     * Constructs the message to be displayed upon successful SearchCommand
+     * @param model Model component
+     * @return A string showing a successful search that will be displayed on the GUI
+     */
+    public String constructFeedbackToUser(Model model) {
+        StringBuilder feedbackToUser = new StringBuilder();
+        feedbackToUser.append(COMMAND_WORD);
+        feedbackToUser.append(" ");
+        feedbackToUser.append(predicate.getKeywords());
+        feedbackToUser.append(": ");
+        feedbackToUser.append(String.format(Messages.MESSAGE_PLACES_LISTED_OVERVIEW,
+                model.getFilteredPlaceList().size()));
+        return feedbackToUser.toString();
     }
 }

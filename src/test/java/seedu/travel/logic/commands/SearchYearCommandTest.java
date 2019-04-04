@@ -3,7 +3,6 @@ package seedu.travel.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.travel.commons.core.Messages.MESSAGE_PLACES_LISTED_OVERVIEW;
 import static seedu.travel.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.travel.testutil.TypicalPlaces.ALICE;
 import static seedu.travel.testutil.TypicalPlaces.BENSON;
@@ -17,6 +16,7 @@ import java.util.Collections;
 
 import org.junit.Test;
 
+import seedu.travel.commons.core.Messages;
 import seedu.travel.logic.CommandHistory;
 import seedu.travel.model.Model;
 import seedu.travel.model.ModelManager;
@@ -60,8 +60,8 @@ public class SearchYearCommandTest {
 
     @Test
     public void execute_zeroKeywords_noPlaceFound() {
-        String expectedMessage = String.format(MESSAGE_PLACES_LISTED_OVERVIEW, 0);
         YearContainsKeywordsPredicate predicate = preparePredicate(" ");
+        String expectedMessage = constructExpectedMessage(predicate, 0);
         SearchYearCommand command = new SearchYearCommand(predicate);
         expectedModel.updateFilteredPlaceList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -70,8 +70,8 @@ public class SearchYearCommandTest {
 
     @Test
     public void execute_multipleKeywords_multiplePlacesFound() {
-        String expectedMessage = String.format(MESSAGE_PLACES_LISTED_OVERVIEW, 5);
         YearContainsKeywordsPredicate predicate = preparePredicate("2016 2017");
+        String expectedMessage = constructExpectedMessage(predicate, 5);
         SearchYearCommand command = new SearchYearCommand(predicate);
         expectedModel.updateFilteredPlaceList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -83,5 +83,23 @@ public class SearchYearCommandTest {
      */
     private YearContainsKeywordsPredicate preparePredicate(String userInput) {
         return new YearContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    }
+
+    /**
+     * Constructs the expected message from running SearchYearCommand
+     * @param predicate the keywords used in the query
+     * @param expectedNumberOfPlaces expected number of places that will be returned
+     * @return A string that contains the expected message upon running SearchYearCommand
+     */
+    private String constructExpectedMessage(YearContainsKeywordsPredicate predicate,
+                                            int expectedNumberOfPlaces) {
+        StringBuilder expectedMessage = new StringBuilder();
+        expectedMessage.append(SearchYearCommand.COMMAND_WORD);
+        expectedMessage.append(" ");
+        expectedMessage.append(predicate.getKeywords());
+        expectedMessage.append(": ");
+        expectedMessage.append(String.format(Messages.MESSAGE_PLACES_LISTED_OVERVIEW,
+                expectedNumberOfPlaces));
+        return expectedMessage.toString();
     }
 }

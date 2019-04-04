@@ -269,7 +269,7 @@ public class PutShipCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertFalse(standardCommand.equals(new BeginCommand()));
 
         // different coordinates -> returns false
         assertFalse(standardCommand.equals(new PutShipCommand(

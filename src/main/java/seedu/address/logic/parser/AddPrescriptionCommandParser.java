@@ -27,9 +27,9 @@ public class AddPrescriptionCommandParser implements Parser<AddPrescriptionComma
      */
     public AddPrescriptionCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MEDICINE_NAME,PREFIX_DESCRIPTION);
+                ArgumentTokenizer.tokenize(args, PREFIX_MEDICINE_NAME, PREFIX_DESCRIPTION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_MEDICINE_NAME,PREFIX_DESCRIPTION)
+        if (!arePrefixesPresent(argMultimap, PREFIX_MEDICINE_NAME, PREFIX_DESCRIPTION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddPrescriptionCommand.MESSAGE_USAGE));

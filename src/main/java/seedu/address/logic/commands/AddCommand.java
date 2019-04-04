@@ -61,7 +61,10 @@ public class AddCommand extends Command {
     public AddCommand(Restaurant restaurant, String commandMessage) {
         requireNonNull(restaurant);
         this.toAdd = restaurant;
-        this.commandMessage = commandMessage.concat(MESSAGE_SUCCESS);
+        this.commandMessage = commandMessage;
+        if (!commandMessage.equals(MESSAGE_SUCCESS)) {
+            this.commandMessage = commandMessage.concat(MESSAGE_SUCCESS);
+        }
     }
 
     @Override

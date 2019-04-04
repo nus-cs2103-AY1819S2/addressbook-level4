@@ -70,7 +70,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         } else {
             try {
                 weblink = ParserUtil.parseWeblink(argMultimap.getValue(PREFIX_WEBLINK).get());
-            } catch (NoInternetException e){
+            } catch (NoInternetException e) {
                 weblink = Weblink.makeDefaultWeblink();
                 restaurant = new Restaurant(name, phone, email, address, postal, tagList,
                         weblink, openingHours);

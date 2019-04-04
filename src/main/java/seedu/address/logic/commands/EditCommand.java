@@ -81,7 +81,10 @@ public class EditCommand extends Command {
 
         this.index = index;
         this.editRestaurantDescriptor = new EditRestaurantDescriptor(editRestaurantDescriptor);
-        this.commandMessage = commandMessage.concat(MESSAGE_EDIT_RESTAURANT_SUCCESS);
+        this.commandMessage = commandMessage;
+        if (!commandMessage.equals(MESSAGE_EDIT_RESTAURANT_SUCCESS)) {
+            this.commandMessage = commandMessage.concat(MESSAGE_EDIT_RESTAURANT_SUCCESS);
+        }
     }
 
     @Override

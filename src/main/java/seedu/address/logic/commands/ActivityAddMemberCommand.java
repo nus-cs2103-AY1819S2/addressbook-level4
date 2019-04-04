@@ -10,6 +10,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.ActivityDateTime;
+import seedu.address.model.activity.ActivityDescription;
+import seedu.address.model.activity.ActivityLocation;
+import seedu.address.model.activity.ActivityName;
 import seedu.address.model.person.MatricNumber;
 
 /**
@@ -26,18 +30,28 @@ public class ActivityAddMemberCommand extends ActivityCommand {
             + "Example: " + COMMAND_WORD + " 1" + " A1234567H";
 
     public static final String MESSAGE_ACTIVITY_ADD_MEMBER_SUCCESS = "Successfully added to selected Activity: %1$s";
+    public static final String MESSAGE_DUPLICATE_ACTIVITY = "This activity already exists in the address book.";
 
     private final Index targetIndex;
     private final MatricNumber targetMatric;
 
+    /**
+     * @param targetIndex of the activity in the filtered activity list to edit
+     * @param targetMatric of the member we want to add to the activity
+     */
     public ActivityAddMemberCommand(Index targetIndex, MatricNumber targetMatric) {
+        requireNonNull(targetIndex);
+        requireNonNull(targetMatric);
         this.targetIndex = targetIndex;
         this.targetMatric = targetMatric;
     }
 
+
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
 
         List<Activity> filteredActivityList = model.getFilteredActivityList();
 
@@ -54,8 +68,24 @@ public class ActivityAddMemberCommand extends ActivityCommand {
         if (selectedActivity.hasPersonInAttendance(targetMatric)) {
             throw new CommandException(Messages.MESSAGE_ACTIVITY_ALREADY_HAS_PERSON);
         }
-        selectedActivity.addMemberToActivity(targetMatric);
+
+        ActivityName copyName = selectedActivity.getName();
+        ActivityDateTime copyDateTime = selectedActivity.getDateTime();
+        ActivityLocation copyLocation = selectedActivity.getLocation();
+        ActivityDescription copyDescription = selectedActivity.getDescription();
+        List<MatricNumber> copyAttendance = selectedActivity.getAttendance();
+
+        Activity copyActivity = new Activity(copyName, copyDateTime, copyLocation, copyDescription, copyAttendance);
+        copyActivity.addMemberToActivity(targetMatric);
+
+        if (!selectedActivity.isSameActivity(copyActivity) && model.hasActivity(copyActivity)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY);
+        }
+
+        model.setActivity(selectedActivity, copyActivity);
+        model.updateFilteredActivityList(Model.PREDICATE_SHOW_ALL_ACTIVITIES);
         model.commitAddressBook();
+
         return new CommandResult(String.format(MESSAGE_ACTIVITY_ADD_MEMBER_SUCCESS, targetIndex.getOneBased()));
     }
 
@@ -66,3 +96,4 @@ public class ActivityAddMemberCommand extends ActivityCommand {
                 && targetIndex.equals(((ActivityAddMemberCommand) other).targetIndex)); // state check
     }
 }
+

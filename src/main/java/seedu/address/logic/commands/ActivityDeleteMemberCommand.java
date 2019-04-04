@@ -10,6 +10,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.ActivityDateTime;
+import seedu.address.model.activity.ActivityDescription;
+import seedu.address.model.activity.ActivityLocation;
+import seedu.address.model.activity.ActivityName;
 import seedu.address.model.person.MatricNumber;
 
 /**
@@ -27,6 +31,7 @@ public class ActivityDeleteMemberCommand extends ActivityCommand {
 
     public static final String MESSAGE_ACTIVITY_DELETE_MEMBER_SUCCESS = "Successfully removed member from "
             + "selected Activity: %1$s";
+    public static final String MESSAGE_DUPLICATE_ACTIVITY = "This activity already exists in the address book.";
 
     private final Index targetIndex;
     private final MatricNumber targetMatric;
@@ -54,10 +59,25 @@ public class ActivityDeleteMemberCommand extends ActivityCommand {
         } else if (!selectedActivity.hasPersonInAttendance(targetMatric)) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_IN_ACTIVITY);
         }
-        selectedActivity.removeMemberFromActivity(targetMatric);
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_ACTIVITY_DELETE_MEMBER_SUCCESS, targetIndex.getOneBased()));
 
+        ActivityName copyName = selectedActivity.getName();
+        ActivityDateTime copyDateTime = selectedActivity.getDateTime();
+        ActivityLocation copyLocation = selectedActivity.getLocation();
+        ActivityDescription copyDescription = selectedActivity.getDescription();
+        List<MatricNumber> copyAttendance = selectedActivity.getAttendance();
+
+        Activity copyActivity = new Activity(copyName, copyDateTime, copyLocation, copyDescription, copyAttendance);
+        copyActivity.removeMemberFromActivity(targetMatric);
+
+        if (!selectedActivity.isSameActivity(copyActivity) && model.hasActivity(copyActivity)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY);
+        }
+
+        model.setActivity(selectedActivity, copyActivity);
+        model.updateFilteredActivityList(Model.PREDICATE_SHOW_ALL_ACTIVITIES);
+        model.commitAddressBook();
+
+        return new CommandResult(String.format(MESSAGE_ACTIVITY_DELETE_MEMBER_SUCCESS, targetIndex.getOneBased()));
     }
 
     @Override

@@ -5,7 +5,7 @@ import static seedu.finance.commons.util.AppUtil.checkArgument;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_PERIOD_AMOUNT;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,7 +15,7 @@ import seedu.finance.model.Model;
 import seedu.finance.model.record.Record;
 
 /**
- * This class consists of methods and properties related to the handling of the 'stats' command
+ * This class consists of methods and properties related to the handling of the 'summary' command
  */
 public class SummaryCommand extends Command {
 
@@ -101,7 +101,7 @@ public class SummaryCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateExpenseStatsPredicate(getStatsPredicate());
+        model.updateRecordSummaryPredicate(getSummaryPredicate());
         model.updateSummaryPeriod(period);
         model.updatePeriodAmount(periodAmount);
         logger.log(Level.INFO,
@@ -115,12 +115,12 @@ public class SummaryCommand extends Command {
      * Returns Predicate used for FilteredList based on the current {@code period} and {@code periodAmount}
      * @return Predicate with correct predicate properties
      */
-    private Predicate<Record> getStatsPredicate() {
-        LocalDateTime date;
+    private Predicate<Record> getSummaryPredicate() {
+        LocalDate date;
         if (period == SummaryPeriod.DAY) {
-            date = LocalDateTime.now().minusDays((long) periodAmount);
+            date = LocalDate.now().minusDays((long) periodAmount);
         } else {
-            date = LocalDateTime.now().minusDays((long) periodAmount);
+            date = LocalDate.now().minusDays((long) periodAmount);
         }
         return e -> e.getDate().isAfter(date);
     }

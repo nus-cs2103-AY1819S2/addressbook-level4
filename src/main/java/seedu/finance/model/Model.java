@@ -172,7 +172,7 @@ public interface Model {
      * Updates the predicate used for expense summary
      * @throws NullPointerException if {@code predicate} is null
      */
-    void updateExpenseStatsPredicate (Predicate<Record> predicate);
+    void updateRecordSummaryPredicate(Predicate<Record> predicate);
 
     /**
      * Updates summaryPeriod to the given {@code period}.
@@ -193,4 +193,11 @@ public interface Model {
      * Returns summaryNoOfDaysOrMonths.
      */
     int getPeriodAmount();
+
+    /**
+     * Returns an unmodifiable view of expenses which fulfill the statistics filter
+     *
+     * @return {@code ObservableList<Record>} of expenses which fulfill summary filter
+     */
+    ObservableList<Record> getRecordSummary();
 }

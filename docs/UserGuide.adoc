@@ -743,36 +743,41 @@ Show all the people with both a name containing Alex and a phone number containi
 ==== sort
 Sorts the records by an input parameter in an input order.
 
-Format: `sort PARAM ORDER`
+Format: `sort PARAM [ORDER]`
 
-* valid PARAM options in patient mode: address, date of birth, email, name, nric, phone, sex,
+* valid PARAM options in patient mode: address, dob, email, name, nric, phone, sex,
 drug, kinN, kinR, kinP, kinA, desc.
 * valid PARAM options in record mode: desc, date, procedure.
 * valid ORDER options: asce, desc
+** default ORDER if unspecified is ascending
 
 Example:
 
-[cols=",,,",options="header",]
+[cols=",,,,",options="header",]
 |===
-|*ID* |*Name* |*Age* |*Last Modified*
-|0 |Alice |19 |03/07/2003
-|1 |Clara |12 |05/02/2021
-|2 |Bob |24 |11/02/2019
-
-|*ID* |*Name* |*Age* |*Last Modified*
-|1 |Clara |12 |05/02/2021
-|2 |Bob |24 |11/02/2019
-|0 |Alice |19 |03/07/2003
+|*ID* |*Name* |*Sex* | *Phone* |  *Date of Birth*
+|0 |Alice |M | 84521666 | 03/07/2003
+|1 |Bob |M | 96545555 | 11/02/2019
+|2 |Clara |F | 98989898 | 05/02/2021
 |===
 
-* sort age asce
-
-[cols=",,,",options="header",]
+* sort sex
+[cols=",,,,",options="header",]
 |===
-|*ID* |*Name* |*Age* |*Last Modified*
-|1 |Clara |12 |05/02/2021
-|0 |Alice |19 |03/07/2003
-|2 |Bob |24 |11/02/2019
+|*ID* |*Name* |*Sex* | *Phone* |  *Date of Birth*
+|0 |Clara |F | 98989898 | 05/02/2021
+|1 |Alice |M | 84521666 | 03/07/2003
+|2 |Bob |M | 96545555 | 11/02/2019
+|===
+
+* sort dob desc
+
+[cols=",,,,",options="header",]
+|===
+|*ID* |*Name* |*Sex* | *Phone* |  *Date of Birth*
+|0 |Clara |F | 98989898 | 05/02/2021
+|1 |Bob |M | 96545555 | 11/02/2019
+|2 |Alice |M | 84521666 | 03/07/2003
 |===
 
 ==== stat

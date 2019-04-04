@@ -46,7 +46,7 @@ Once you have it installed, you can now proceed to <<quick-start-guide>>!
 
 . Download the latest TeethHub.jar file from our https://github.com/CS2103-AY1819S2-W17-2/main[GitHub page].
 
-. patientcopy the file to the folder you want to use as the home folder for TeethHub (all data will be stored there).
+. Copy the file to a folder you want to use as the home folder for TeethHub (all data will be stored there).
 
 . Double-click the file to launch TeethHub.
 It should start in a few seconds and begin the initialization set-up.
@@ -380,16 +380,16 @@ Example:
 
 * `patientcopy 3` +
 Makes a patientcopy of the patient at index 3 and inserts it at the bottom of
-the current patient list with a patientcopy tag.
+the current patient list with a copy tag.
 
 * `patientcopy 3 4` +
 Makes 4 copies of the patient at index 3 and inserts them at the bottom of
-the current patient list with a patientcopy tag.
+the current patient list with a copy tag.
 
 ==== patientlist
 Shows a list of all patients or medical stored in TeethHub.
 
-Format: `patientlist [dental]` or `plist [dental]`
+Format: `patientlist` or `plist`
 
 Example:
 
@@ -400,7 +400,7 @@ Shows details of all patients.
 
 Shows patients whose data contains any of the given keywords according to a specified parameter.
 
-Format: `patientfind [dental] PREFIX/KEYWORD [MORE_KEYWORDS]`
+Format: `patientfind PREFIX/KEYWORD [MORE_KEYWORDS]` or `pfind PREFIX/KEYWORD [MORE_KEYWORDS]`
 
 * Search is case insensitive.
 * Order of keywords does not matter.
@@ -410,9 +410,6 @@ Example:
 
 * `find a/Yishun` +
 Show all the people with an address containing the keyword Yishun.
-
-* `find dental cleaning` +
-Shows all the dental records with cleaning
 
 ==== patientclear
 Clears all patients, from TeethHub.
@@ -773,6 +770,24 @@ download it from there.
 
 == Command Summary
 
+* *Exit* : `exit`
+
+* *Export* : `export FILE_PATH INDEX_RANGE`` +
+e.g. `export mnt/clinicRecords.txt 1,3-5`
+
+* *Help* : `help`
+
+* *History* : `history`
+
+* *Import* : `import FILE_PATH INDEX_RANGE` +
+e.g. `import mnt/newData.json 1,3-5`
+
+* *Login* : `login USERNAME PASSWORD` +
+e.g `login kthSIM cavities!2`
+
+* *Open* : `open FILE_PATH` +
+e.g. `Open mnt/sample/newData.json`
+
 * *patientadd* : patientadd PARAMETERS [t/TAG]*…​* +
 e.g. `patientadd n/John Choo p/98425871 e/jonC@example.com a/IDA street, block
 13, #02-05 ic/S1234567H age/32 dob/26021987 nokn/Jacky Choo
@@ -792,45 +807,27 @@ e.g. `patientedit 2` +
 `e/newemail@gmail.com` +
 `done`
 
-* *Exit* : `exit`
+* *patientlist* : `list`
 
-* *Export* : `export FILE_PATH INDEX_RANGE`` +
-e.g. `export mnt/clinicRecords.txt 1,3-5`
-
-* *Find* : `find [dental] KEYWORD [MORE_KEYWORDS]` +
-e.g. `find yishun`
-
-* *Help* : `help`
-
-* *History* : `history`
-
-* *Import* : `import FILE_PATH INDEX_RANGE` +
-e.g. `import mnt/newData.json 1,3-5`
-
-* *List* : `list [dental]`
-
-* *Login* : `login USERNAME PASSWORD` +
-e.g `login kthSIM cavities!2`
-
-* *Open* : `open FILE_PATH` +
-e.g. `Open mnt/sample/newData.json`
+* *patientfind* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find n/Alex`
 
 * *recordadd* : `recordadd n/NRIC d/DATE_DDMMYYYY t/TIME_HHMM p/PROCEDURE
 doc/SERVING_DENTIST det/DETAILS` +
 e.g. `recordadd n/S1234567H d/10022019 t/1705 p/Cleaning doc/Kyler
 det/Mouth was noticeably foul, might have halitosis`
 
-* *Record patientdelete* : `record patientdelete n/NRIC INDEX` +
+* *recorddelete* : `record patientdelete n/NRIC INDEX` +
 E.g. `record patientdelete n/S1235467H 4`
 
-* *Record patientedit* : `record patientedit n/NRIC INDEX` +
+* *recordedit* : `record patientedit n/NRIC INDEX` +
 e.g. `record patientedit n/S1234657H 3 +
 doc/Debang +
 det/new details +
 Done`
 
-* *Record patientcopy* : `record patientcopy n/NRIC INDEX` +
-e.g. `record patientcopy n/S1235467H 2`
+* *recordcopy* : `recordcopy n/NRIC INDEX` +
+e.g. `recordcopy n/S1235467H 2`
 
 * *Redo* : `redo`
 

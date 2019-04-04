@@ -1,0 +1,728 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta moduleInfoCode="viewport" content="width=device-width, initial-scale=1.0"><meta moduleInfoCode="generator" content="Asciidoctor 1.5.6.1"><title>GradTrak - User Guide</title><link rel="stylesheet" href="stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="header"><h1>GradTrak - User Guide</h1></div><div id="content"><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>By: <code>Team W14-4</code>      Since: <code>Feb 2019</code>      Licence: <code>MIT</code></p>
+</div>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle"></div>
+<ul class="sectlevel1">
+<li><a href="#introduction">1. Introduction</a></li>
+<li><a href="#installation-guide">2. Installation Guide</a></li>
+<li><a href="#quick-guide">3. Quick Guide</a></li>
+<li><a href="#Features">4. Features</a>
+<ul class="sectlevel2">
+<li><a href="#add-module-code-add-code">4.1. Add module: <code>add</code></a></li>
+<li><a href="#listing-all-modules-in-module-plan-code-cklimit-code">4.2. Listing all modules in module plan: <code>cklimit</code></a></li>
+<li><a href="#clear-all-data-entered-code-clear-code">4.3. Clear all data entered: <code>clear</code></a></li>
+<li><a href="#sets-the-current-semester-code-cursem-code">4.4. Sets the current semester: <code>cursem</code></a></li>
+<li><a href="#delete-module-code-delete-code">4.5. Delete module: <code>delete</code></a></li>
+<li><a href="#display-module-information-code-displaymod-code">4.6. Display module information: <code>displaymod</code></a></li>
+<li><a href="#display-course-requirements-code-displayreq-code">4.7. Display Course Requirements: <code>displayreq</code></a></li>
+<li><a href="#edit-module-code-edit-code">4.8. Edit module: <code>edit</code></a></li>
+<li><a href="#exit-the-program-code-exit-code">4.9. Exit the program: <code>exit</code></a></li>
+<li><a href="#find-module-code-find-code">4.10. Find module: <code>find</code></a></li>
+<li><a href="#view-all-other-commands-code-help-code">4.11. View all other commands : <code>help</code></a></li>
+<li><a href="#list-entered-commands-code-history-code">4.12. List entered commands: <code>history</code></a></li>
+<li><a href="#listing-all-modules-in-module-plan-code-list-code">4.13. Listing all modules in module plan: <code>list</code></a></li>
+<li><a href="#recommend-module-code-rec-code">4.14. Recommend module: <code>rec</code></a></li>
+<li><a href="#redo-the-previously-undone-command-code-redo-code">4.15. Redo the previously undone command: <code>redo</code></a></li>
+<li><a href="#set-current-course-of-study-code-study-code">4.16. Set current course of study: <code>study</code></a></li>
+<li><a href="#sets-the-total-expected-cap-and-workload-limit-for-each-semester-code-setlimit-code">4.17. Sets the total expected CAP and workload limit for each semester: <code>setlimit</code></a></li>
+<li><a href="#undo-previous-command-code-undo-code">4.18. Undo previous command: <code>undo</code></a></li>
+<li><a href="#save-data">4.19. Save data</a></li>
+<li><a href="#encrypt-data-files-code-coming-in-v2-0-code">4.20. Encrypt data files <code>[coming in v2.0]</code></a></li>
+<li><a href="#update-module-information-code-coming-in-v2-0-code">4.21. Update module information <code>[coming in v2.0]</code></a></li>
+</ul>
+</li>
+<li><a href="#faq">5. FAQ</a></li>
+<li><a href="#command-summary">6. Command Summary</a></li>
+</ul>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introduction"><a class="link" href="#introduction">1. Introduction</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>GradTrak is an application designed for students of National University of Singapore (NUS) to easily track their graduation progress.
+The current version of the application offers graduation requirement tracking to Computer Science majors (namely the Algorithms, Artificial Intelligence and Software Engineering Focus Areas).
+Stay tuned as we will be adding other courses in the near future!</p>
+</div>
+<div class="paragraph">
+<p>Users can interact with the application by entering commands into the command box. This will benefit Computer Science majors as they can generally type quickly.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installation-guide"><a class="link" href="#installation-guide">2. Installation Guide</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Follow the instructions below to install this application.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Ensure you have Java version <code>9</code> or later installed in your computer.</p>
+</li>
+<li>
+<p>Download the latest <code>GradTrak.jar</code> <a href="https://github.com/cs2103-ay1819s2-w14-4/main/releases">here</a>.</p>
+</li>
+<li>
+<p>Copy the file to the folder you want to use as the home folder for your GradTrak.</p>
+</li>
+<li>
+<p>Double-click the file to start the app. The app window should appear within a few seconds.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="quick-guide"><a class="link" href="#quick-guide">3. Quick Guide</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Read the guide below to have a quick understanding of the usage of this app.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/annotated-ui.png" alt="annotated ui" width="790">
+</div>
+<div class="title">Figure 1. Parts of the User Interface</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Refer to <code>Fig 1</code> for parts of the User Interface (UI). Here are the brief functionalities
+of the UI annotated above:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Task Bar: You can exit the application or access the help menu (this guide) here.</p>
+</li>
+<li>
+<p>Command Box: You can enter a command here to access the features of the application</p>
+</li>
+<li>
+<p>Result Box: You receive feedback for your entered command here. If the command is unsuccessfully executed,
+the correct input format of the command will be provided.</p>
+</li>
+<li>
+<p>Result Panel: You can view the information associated with the command entered here.</p>
+</li>
+<li>
+<p>Module Panel: You can view the details of the modules that you have taken
+or are planning to take.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>To access a feature of the application, type a command in the command box and press <kbd>Enter</kbd> to execute it.
+For example, typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will open the help window.</p>
+</li>
+<li>
+<p>You might wish to set the course of study first. There are currently 3 courses available in this app: Computer Science Algorithms,
+Computer Science Artificial Intelligence, Computer Science Software Engineering.
+To set the course, enter one of the following commands:
+<code>study Computer Science Algorithms</code>, <code>study Computer Science Software Engineering</code> or <code>study Computer Science Artificial Intelligence</code>.</p>
+</li>
+<li>
+<p>Here are some commands you can try:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><code>add</code></strong><code>c/CS1010 s/Y1S1</code> : adds the module "CS1010", taken in Y1S1, into the module plan.</p>
+</li>
+<li>
+<p><strong><code>delete</code></strong><code>1</code> : deletes the first module on the most recently displayed list.</p>
+</li>
+<li>
+<p><strong><code>displayreq</code></strong>: displays information on your course requirements and the percentage completed for each requirement.</p>
+</li>
+<li>
+<p><strong><code>exit</code></strong> : exits the app</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Here we only introduced some of the more basic functions and commands of GradTrak. The following section, <a href="#Features">Section 4, &#8220;Features&#8221;</a>,
+will give you a more detailed guide/walk through for each command.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Features"><a class="link" href="#Features">4. Features</a></h2>
+<div class="sectionbody">
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Command Format</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user, e.g. in <code>add c/MODULE_CODE</code>, <code>MODULE_CODE</code> is a parameter which can be used as <code>add c/cs1010</code>.</p>
+</li>
+<li>
+<p>Items in square brackets are optional e.g <code>c/MODULE_CODE [g/GRADE_OBTAINED]</code> can be used as <code>c/CS1010 g/A</code> or as <code>c/CS1010</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="add-module-code-add-code"><a class="link" href="#add-module-code-add-code">4.1. Add module: <code>add</code></a></h3>
+<div class="paragraph">
+<p>Adds a module to GradTrak based on the given module code, semester taken and expected / obtained grade.<br>
+Format: <code>add c/MODULE_CODE s/SEMESTER [min/NEW_EXPECTED_MIN_GRADE] [max/NEW_EXPECTED_MAX_GRADE] [lec/NEW_LECTURE_HOURS] [tut/NEW_TUTORIAL_HOURS] [lab/NEW_LAB_HOURS] [proj/NEW_PROJ_HOURS] [prep/NEW_PREP_HOURS]</code><br>
+or<br>
+<code>add c/MODULE_CODE s/SEMESTER [g/NEW_EXPECTED_MIN_GRADE NEW_EXPECTED_MAX_GRADE] [lec/NEW_LECTURE_HOURS] [tut/NEW_TUTORIAL_HOURS] [lab/NEW_LAB_HOURS] [proj/NEW_PROJ_HOURS] [prep/NEW_PREP_HOURS]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Possible grade options are the standard letter grades (A_PLUS, A, A_MINUS, B_PLUS, B, B_MINUS etc.) and IC, EXE, CS, CU, W, S, U.</p>
+</li>
+<li>
+<p>You cannot add an existing module with the same semester.</p>
+</li>
+<li>
+<p>You can only add a module if you have previously added its prerequisites.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>add c/CS2103T s/Y2S2</code><br>
+Adds CS2103T, to be taken in Y2S2, to the module plan.</p>
+</li>
+<li>
+<p><code>add c/CS2103T s/Y2S2 max/B_MINUS</code><br>
+Adds CS2103T, to be taken in Y2S2 with expected max grade B-, to the module plan.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="listing-all-modules-in-module-plan-code-cklimit-code"><a class="link" href="#listing-all-modules-in-module-plan-code-cklimit-code">4.2. Listing all modules in module plan: <code>cklimit</code></a></h3>
+<div class="paragraph">
+<p>Calculates the expected total workload and expected min and max CAP of each semester and checks against the limit set by the user.<br>
+Format: <code>cklimit</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="clear-all-data-entered-code-clear-code"><a class="link" href="#clear-all-data-entered-code-clear-code">4.3. Clear all data entered: <code>clear</code></a></h3>
+<div class="paragraph">
+<p>Deletes all the added modules.<br>
+Format: <code>clear</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sets-the-current-semester-code-cursem-code"><a class="link" href="#sets-the-current-semester-code-cursem-code">4.4. Sets the current semester: <code>cursem</code></a></h3>
+<div class="paragraph">
+<p>Indicates that the previous semesters must have a single finalized grade in the expected grade range.<br>
+Format: <code>cursem</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="delete-module-code-delete-code"><a class="link" href="#delete-module-code-delete-code">4.5. Delete module: <code>delete</code></a></h3>
+<div class="paragraph">
+<p>Removes a module from GradTrak based on module code or index in the most recently displayed list.<br>
+Format: <code>delete INDEX</code><br>
+or<br>
+<code>delete c/MODULE_CODE</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Shows a message if the given module code is not found.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>delete c/CS2103T</code><br>
+Deletes CS2103T from GradTrak.</p>
+</li>
+<li>
+<p><code>delete 1</code><br>
+Deletes the first module on the most recently displayed list.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="display-module-information-code-displaymod-code"><a class="link" href="#display-module-information-code-displaymod-code">4.6. Display module information: <code>displaymod</code></a></h3>
+<div class="paragraph">
+<p>2 options to display module information, e.g. course description, prerequisites and courses succeeding the modules.
+It is possible to search for multiple modules at the same time by typing the next module code preceded by a whitespace.<br>
+Format: <code>displaymod [MODULE_CODE]++</code></p>
+</div>
+<div class="paragraph">
+<p>1 mode for o/OPTIONS include:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>o/info k/KEYWORDS n/[NUMBER]</code> <strong>Coming in V1.3</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Display top n (3 if last argument is left blank, capped at 10) information most related modules based on keywords inserted.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>displaymod CS2103T</code><br>
+Display all information with regards to Module: CS2103T i.e Module name, Module description etc. .</p>
+</li>
+<li>
+<p><code>displaymod CS2103T CS2101 CS1010 ACC1002X</code><br>
+Displays all the of the 4 module information in-order with the search.</p>
+</li>
+<li>
+<p><code>displaymod o/info k/Software Engineering n/5</code><br>
+Display top 5 modules related to Software Engineering.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="display-course-requirements-code-displayreq-code"><a class="link" href="#display-course-requirements-code-displayreq-code">4.7. Display Course Requirements: <code>displayreq</code></a></h3>
+<div class="paragraph">
+<p>One of the core functions of GradTrak is to track whether the user has fulfilled his/her degree requirement.
+As of <code>v1.3</code> of the application, GradTrak currently only has course information of 3 Computer Science major Focus Areas, namely:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Algorithms</p>
+</li>
+<li>
+<p>Artificial Intelligence</p>
+</li>
+<li>
+<p>Software Engineering</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You may refer to the guide on <code>study</code> command to understand how to set your current course of study.</p>
+</div>
+<div class="paragraph">
+<p>Using the information of the modules the user has already taken or is planning to take in the future semesters,
+this command informs the user whether they have completed a certain Graduation / Course Requirement. If a certain requirement is not completed, this command will also inform the user an approximate degree of completion of the requirement and also
+at the same time, suggest some other modules offered by NUS which they can take to fulfill the requirement.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>displayreq</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="edit-module-code-edit-code"><a class="link" href="#edit-module-code-edit-code">4.8. Edit module: <code>edit</code></a></h3>
+<div class="paragraph">
+<p>Edits the semester or grade of a module in the module plan based on module code or index in the most recently displayed list.<br>
+Format: <code>edit INDEX [s/NEW_SEMESTER] [min/NEW_EXPECTED_MIN_GRADE] [max/NEW_EXPECTED_MAX_GRADE] [lec/NEW_LECTURE_HOURS] [tut/NEW_TUTORIAL_HOURS] [lab/NEW_LAB_HOURS] [proj/NEW_PROJ_HOURS] [prep/NEW_PREP_HOURS]</code>
+or<br>
+<code>edit INDEX [s/NEW_SEMESTER] [g/NEW_EXPECTED_MIN_GRADE NEW_EXPECTED_MAX_GRADE] [lec/NEW_LECTURE_HOURS] [tut/NEW_TUTORIAL_HOURS] [lab/NEW_LAB_HOURS] [proj/NEW_PROJ_HOURS] [prep/NEW_PREP_HOURS]</code><br></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Parameters can be in any order, but the index must be entered first.</p>
+</li>
+<li>
+<p>At least one field to be edited must be given.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>edit c/CS2103T s/Y2S2</code><br>
+Changes the semester taken of CS2103T to Y2S2.</p>
+</li>
+<li>
+<p><code>edit 2 min/A_PLUS</code><br>
+Changes the expected min grade of the second module in the most recently displayed list to A+.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="exit-the-program-code-exit-code"><a class="link" href="#exit-the-program-code-exit-code">4.9. Exit the program: <code>exit</code></a></h3>
+<div class="paragraph">
+<p>Exits the program.<br>
+Format: <code>exit</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="find-module-code-find-code"><a class="link" href="#find-module-code-find-code">4.10. Find module: <code>find</code></a></h3>
+<div class="paragraph">
+<p>Finds modules in GradTrak matching all given module code, semester, grade or finished status.<br>
+Format: <code>find [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Parameters can be in any order and are case-insensitive.</p>
+</li>
+<li>
+<p>Module code can be entered partially, but semester and grade must be in the exact format.</p>
+</li>
+<li>
+<p>For modules yet to be taken, searching by grade will display those whose grade range covers that grade.</p>
+</li>
+<li>
+<p>Finished status is indicated by 'y' for finished module (i.e. semester taken is before current semester) or any other value for unfinished.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>find c/CS</code><br>
+Lists all CS modules in GradTrak.</p>
+</li>
+<li>
+<p><code>find s/Y1S2</code><br>
+Lists all modules in Y1S2 in GradTrak.</p>
+</li>
+<li>
+<p><code>find g/A f/y</code><br>
+Lists all finished modules with grade A.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="view-all-other-commands-code-help-code"><a class="link" href="#view-all-other-commands-code-help-code">4.11. View all other commands : <code>help</code></a></h3>
+<div class="paragraph">
+<p>Displays a list of all available commands.<br>
+Format: <code>help</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="list-entered-commands-code-history-code"><a class="link" href="#list-entered-commands-code-history-code">4.12. List entered commands: <code>history</code></a></h3>
+<div class="paragraph">
+<p>Lists all commands entered in reverse chronological order.<br>
+Format: <code>history</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Pressing the <kbd>&uarr;</kbd> and <kbd>&darr;</kbd> arrows will display the previous and next input respectively in the command box.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="listing-all-modules-in-module-plan-code-list-code"><a class="link" href="#listing-all-modules-in-module-plan-code-list-code">4.13. Listing all modules in module plan: <code>list</code></a></h3>
+<div class="paragraph">
+<p>Shows a list of all modules in GradTrak.<br>
+Format: <code>list</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="recommend-module-code-rec-code"><a class="link" href="#recommend-module-code-rec-code">4.14. Recommend module: <code>rec</code></a></h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/recommend.png" alt="recommend" width="790">
+</div>
+<div class="title">Figure 2. Recommendation list for Computer Science Algorithms</div>
+</div>
+<div class="paragraph">
+<p>Recommends a list of modules that can be taken based on GradTrak modules and course requirements, as shown above.
+Modules with unmet prerequisites or preclusions present in GradTrak as well as modules already added (unless they have been failed) will not be recommended.<br>
+Recommended modules are displayed in order of requirement satisfied: Core, Programme/Technical Electives or Focus Area, Industry Experience, Faculty, General Education, Unrestricted Electives.
+Modules with the same requirement satisfied are sorted by level.<br>
+Format: <code>rec</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="redo-the-previously-undone-command-code-redo-code"><a class="link" href="#redo-the-previously-undone-command-code-redo-code">4.15. Redo the previously undone command: <code>redo</code></a></h3>
+<div class="paragraph">
+<p>Reverses the most recent <code>undo</code> command.<br>
+Format: <code>redo</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>delete 1</code><br>
+<code>undo</code> (reverses the <code>delete 1</code> command)<br>
+<code>redo</code> (reapplies the <code>delete 1</code> command)<br></p>
+</li>
+<li>
+<p><code>delete 1</code><br>
+<code>redo</code><br>
+The <code>redo</code> command fails as there are no <code>undo</code> commands executed previously.</p>
+</li>
+<li>
+<p><code>delete 1</code><br>
+<code>clear</code><br>
+<code>undo</code> (reverses the <code>clear</code> command)<br>
+<code>undo</code> (reverses the <code>delete 1</code> command)<br>
+<code>redo</code> (reapplies the <code>delete 1</code> command)<br>
+<code>redo</code> (reapplies the <code>clear</code> command)<br></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="set-current-course-of-study-code-study-code"><a class="link" href="#set-current-course-of-study-code-study-code">4.16. Set current course of study: <code>study</code></a></h3>
+<div class="paragraph">
+<p>To set the course of study you are currently undertaking, just simply key in the following command:</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>study COURSE</code><br></p>
+</div>
+<div class="paragraph">
+<p>As of <code>v1.3</code>, GradTrak has the functionalities to keep track of Graduation Requirements
+from the courses mentioned below:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Computer Science Algorithms</p>
+</li>
+<li>
+<p>Computer Science Artificial Intelligence</p>
+</li>
+<li>
+<p>Computer Science Software Engineering</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>study Computer Science Algorithms</code><br>
+Sets the course of study to Computer Science with Focus Area Algorithms. Invoking <code>study</code> command again will change your course of study.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Feeling left out as you are unable to track your course of study? Fear not! We will roll
+out more courses of study in a future version of GradTrak, so stay tuned!</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sets-the-total-expected-cap-and-workload-limit-for-each-semester-code-setlimit-code"><a class="link" href="#sets-the-total-expected-cap-and-workload-limit-for-each-semester-code-setlimit-code">4.17. Sets the total expected CAP and workload limit for each semester: <code>setlimit</code></a></h3>
+<div class="paragraph">
+<p>Calculates the expected total workload and expected min and max CAP of each semester and checks against the limit set by the user.<br>
+Format: <code>setlimit s/SEMESTER [g/MIN_GRADE MAX_GRADE] [lec/MIN_LECTURE_HOURS MAX_LECTURE_HOURS] [tut/MIN_TUTORIAL_HOURS MAX_TUTORIAL_HOURS] [lab/MIN_LAB_HOURS MAX_LAB_HOURS] [proj/MIN_PROJ_HOURS MAX_PROJ_HOURS] [prep/MIN_PREP_HOURS MAX_PREP_HOURS]</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>setlimit s/Y1S1 g/2.5 5.0</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="undo-previous-command-code-undo-code"><a class="link" href="#undo-previous-command-code-undo-code">4.18. Undo previous command: <code>undo</code></a></h3>
+<div class="paragraph">
+<p>Restores GradTrak to the state before the previous <em>undoable</em> command was executed.<br>
+Format: <code>undo</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Undoable commands: those commands that modify the module plan or course (<code>set</code>, <code>add</code>, <code>edit</code>, <code>delete</code> and <code>clear</code>).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>delete 1</code><br>
+<code>displaym o/all</code><br>
+<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
+</li>
+<li>
+<p><code>displaym o/all</code><br>
+<code>history</code><br>
+<code>undo</code><br>
+The <code>undo</code> command fails as there are no undoable commands executed previously.</p>
+</li>
+<li>
+<p><code>delete 1</code><br>
+<code>clear</code><br>
+<code>undo</code> (reverses the <code>clear</code> command)<br>
+<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="save-data"><a class="link" href="#save-data">4.19. Save data</a></h3>
+<div class="paragraph">
+<p>Data are saved in the hard disk automatically after any command that changes them. There is no need to save manually.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="encrypt-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypt-data-files-code-coming-in-v2-0-code">4.20. Encrypt data files <code>[coming in v2.0]</code></a></h3>
+<div class="paragraph">
+<p>Encrypts your data files.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="update-module-information-code-coming-in-v2-0-code"><a class="link" href="#update-module-information-code-coming-in-v2-0-code">4.21. Update module information <code>[coming in v2.0]</code></a></h3>
+<div class="paragraph">
+<p>Retrieves the latest information of all modules from CORS.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="faq"><a class="link" href="#faq">5. FAQ</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
+<strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous GradTrak folder.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="command-summary"><a class="link" href="#command-summary">6. Command Summary</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Add</strong>: <code>add c/MODULE_CODE s/SEMESTER [g/MIN_GRADE_EXPECTED MAX_GRADE_EXPECTED]</code><br>
+or<br>
+<code>add c/MODULE_CODE s/SEMESTER [g/GRADE_OBTAINED]</code><br></p>
+</li>
+<li>
+<p><strong>Cklimit</strong>: <code>cklimit</code></p>
+</li>
+<li>
+<p><strong>Clear</strong>: <code>clear</code></p>
+</li>
+<li>
+<p><strong>Cursem</strong>: <code>cursem s/SEMESTER</code></p>
+</li>
+<li>
+<p><strong>Delete</strong>: <code>delete c/MODULE_CODE</code><br>
+or<br>
+<code>delete INDEX</code><br></p>
+</li>
+<li>
+<p><strong>Displaym</strong>: <code>displaym o/OPTIONS [MORE_ARGUMENTS]</code><br></p>
+</li>
+<li>
+<p><strong>Displayu</strong>: <code>displayu o/OPTIONS [MORE_ARGUMENTS]</code><br></p>
+</li>
+<li>
+<p><strong>Edit</strong>: <code>edit c/MODULE_CODE [s/NEW_SEMESTER] [g/NEW_GRADE_OBTAINED]</code><br>
+or<br>
+<code>edit INDEX [s/NEW_SEMESTER] [g/NEW_GRADE_OBTAINED]</code><br></p>
+</li>
+<li>
+<p><strong>Exit</strong>: <code>exit</code></p>
+</li>
+<li>
+<p><strong>Find</strong>: <code>find [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]</code></p>
+</li>
+<li>
+<p><strong>Help</strong>: <code>help</code></p>
+</li>
+<li>
+<p><strong>History</strong>: <code>history</code></p>
+</li>
+<li>
+<p><strong>List</strong>: <code>list</code></p>
+</li>
+<li>
+<p><strong>Recommend</strong>: <code>rec</code></p>
+</li>
+<li>
+<p><strong>Redo</strong>: <code>redo</code></p>
+</li>
+<li>
+<p><strong>Set</strong>: <code>set COURSE</code><br></p>
+</li>
+<li>
+<p><strong>Setlimit</strong>: <code>setlimit s/SEMESTER [g/MIN_GRADE MAX_GRADE] [lec/MIN_LECTURE_HOURS MAX_LECTURE_HOURS] [tut/MIN_TUTORIAL_HOURS MAX_TUTORIAL_HOURS] [lab/MIN_LAB_HOURS MAX_LAB_HOURS] [proj/MIN_PROJ_HOURS MAX_PROJ_HOURS] [prep/MIN_PREP_HOURS MAX_PREP_HOURS]</code></p>
+</li>
+<li>
+<p><strong>Undo</strong>: <code>undo</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-02-04 15:13:07 SGT</div></div></div></body></html>

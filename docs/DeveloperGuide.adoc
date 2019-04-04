@@ -877,9 +877,10 @@ be already be obtained from an external source
 
 |`* *` |user |see relevant dentistry tags on my patients' entries | have an overview of my patients' condition
 
+|`* *` |user with many persons in the address book |sort patients by desired parameter |locate a person easily
+
 |`*` |user with confidential patient information|log into the application with a password |prevent unauthorized access to the application when I am not around
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
 
 _{More to be added}_

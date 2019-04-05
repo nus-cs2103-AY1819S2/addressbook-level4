@@ -113,6 +113,12 @@
     -fx-text-fill: black;
 }
 
+.budget_title {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 30px;
+    -fx-text-fill: black;
+}
+
 .result-display {
     -fx-background-color: white;
     -fx-font-family: "Segoe UI Light";

@@ -11,7 +11,8 @@ public class DateTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Date(null));
+        String test = null;
+        Assert.assertThrows(NullPointerException.class, () -> new Date(test));
     }
 
     @Test

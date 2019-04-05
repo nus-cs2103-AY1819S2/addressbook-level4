@@ -25,6 +25,7 @@ public class Date {
      */
     public Date(String date) {
         requireNonNull(date);
+
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
 
         String[] parsedDate = date.split("/");
@@ -32,6 +33,15 @@ public class Date {
         int month = Integer.parseInt(parsedDate[1]);
         int day = Integer.parseInt(parsedDate[0]);
         this.setDate(year, month, day);
+    }
+
+    /**
+     * Constructs a (@code Date).
+     *
+     * @param date A local date object.
+     */
+    public Date(LocalDate date) {
+        this.date = date;
     }
 
     /**

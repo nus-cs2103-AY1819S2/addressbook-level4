@@ -7,16 +7,10 @@ import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_NAME;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
-
 import seedu.finance.commons.core.index.Index;
 import seedu.finance.logic.commands.EditCommand;
 import seedu.finance.logic.commands.EditCommand.EditRecordDescriptor;
 import seedu.finance.logic.parser.exceptions.ParseException;
-import seedu.finance.model.category.Category;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -61,21 +55,4 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         return new EditCommand(index, editRecordDescriptor);
     }
-
-    /**
-     * Parses {@code Collection<String> categories} into a {@code Set<Category>} if {@code categories} is non-empty.
-     * If {@code categories} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Category>} containing zero categories.
-     */
-    private Optional<Set<Category>> parseCategoriesForEdit(Collection<String> categories) throws ParseException {
-        assert categories != null;
-
-        if (categories.isEmpty()) {
-            return Optional.empty();
-        }
-        Collection<String> categorySet = categories.size() == 1
-                && categories.contains("") ? Collections.emptySet() : categories;
-        return Optional.of(ParserUtil.parseCategories(categorySet));
-    }
-
 }

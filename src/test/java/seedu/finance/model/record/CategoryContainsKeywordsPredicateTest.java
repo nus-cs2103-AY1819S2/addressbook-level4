@@ -67,7 +67,7 @@ public class CategoryContainsKeywordsPredicateTest {
         predicate = new CategoryContainsKeywordsPredicate(Arrays.asList("games"));
         assertFalse(predicate.test(new RecordBuilder().withCategory("food").build()));
 
-        // Keywords match phone, email and finance, but does not match category
+        // Keywords match amount, date, but does not match category
         predicate = new CategoryContainsKeywordsPredicate(Arrays.asList("12345", "27/08/2014"));
         assertFalse(predicate.test(new RecordBuilder().withCategory("food").withAmount("12345")
                 .withDate("27/08/2014").build()));

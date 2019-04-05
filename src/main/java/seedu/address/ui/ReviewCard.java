@@ -29,7 +29,7 @@ public class ReviewCard extends UiPart<Region> {
     public final Review review;
 
     @FXML
-    private HBox cardPaneReview;
+    private HBox cardPane;
     @FXML
     private Label id;
     @FXML

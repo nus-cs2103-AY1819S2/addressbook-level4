@@ -83,7 +83,6 @@ class JsonAdaptedRecord {
                 RecordDate.class.getSimpleName()));
         }
         if (!DateBase.isValidDate(recordDate)) {
-            System.out.println(recordDate);
             throw new IllegalValueException(DateBase.MESSAGE_CONSTRAINTS);
         }
 

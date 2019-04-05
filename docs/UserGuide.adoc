@@ -170,7 +170,7 @@ An example of an integration addon which would be supported by MediTabs:
 * Singapore's Health Science Authority (HSA) - To integrate the Singapore HSA's medical database with MediTabs which allows easy retrieval of important information such as when a medicine is requested to be recalled by the HSA.
 
 [NOTE]
-This feature could be further expanded to support medical databases of different countries.
+This feature can be improved to support medical databases of different countries.
 // end::integrationaddon[]
 
 // tag::dataencryption[]

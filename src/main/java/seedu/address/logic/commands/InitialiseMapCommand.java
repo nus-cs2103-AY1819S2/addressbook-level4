@@ -55,6 +55,9 @@ public class InitialiseMapCommand extends Command {
         model.getHumanPlayer().resetFleet(mapSize);
         model.getEnemyPlayer().resetFleet(mapSize);
 
+        model.getHumanPlayer().resetTargetHistory();
+        model.getEnemyPlayer().resetTargetHistory();
+
         model.setBattleState(BattleState.PLAYER_PUT_SHIP);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, mapSize));

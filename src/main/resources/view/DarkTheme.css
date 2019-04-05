@@ -393,3 +393,14 @@
     -fx-fill: white;
     -fx-padding:10;
 }
+
+.member-details-title {
+      -fx-font-size: 24px;
+      -fx-font-style: italic;
+      -fx-fill: white;
+}
+
+ .member-details-text {
+      -fx-font-size: 12px;
+      -fx-fill: white;
+}

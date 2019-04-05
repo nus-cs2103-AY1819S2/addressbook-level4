@@ -36,6 +36,7 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Activity> selectedActivity = new SimpleObjectProperty<>();
     private final ObservableList<Person> personAttendingActivity = FXCollections.observableArrayList();
     private final ObservableList<Person> personNotAttendingActivity = FXCollections.observableArrayList();
+    private final ObservableList<Activity> activitiesAttendedByMember = FXCollections.observableArrayList();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -277,6 +278,11 @@ public class ModelManager implements Model {
             throw new PersonNotFoundException();
         }
         selectedPerson.setValue(person);
+        if (person == null) {
+            activitiesAttendedByMember.clear();
+        } else {
+            activitiesAttendedByMember.setAll(versionedAddressBook.getActivitiesOfPerson(person));
+        }
     }
 
     /**
@@ -361,6 +367,11 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Person> getPersonNotInSelectedActivity() {
         return personNotAttendingActivity;
+    }
+
+    @Override
+    public ObservableList<Activity> getActivitiesOfPerson() {
+        return activitiesAttendedByMember;
     }
 
     /**

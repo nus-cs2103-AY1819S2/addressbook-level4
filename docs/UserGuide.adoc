@@ -565,31 +565,40 @@ than the number of requests/health workers in the current list.
 
 Examples:
 
-* `assign 1 2` +
+* `assign r/1 hw/2` +
 Assigns the health worker at the second index to the first request in the
 request list.
+* `assign hw/2 r/1` +
+                   Assigns the health worker at the second index to the first request in the
+                   request list.
+
+[TIP]
+The order in which the `r/` and `hw/` can be used interchangably, as long as they appear after the `assign` word.
 
 [NOTE]
 ====
-You cannot assign a healthworker to a completed request. To assign a healthworker to a request that is already completed,
+A healthworker cannot be assigned to a completed request. To assign a healthworker to a request that is already completed,
 use `edit` to change the status of the request to pending first.
 ====
 
 === Clearing Requests : `clr`
 
-After completing all existing requests, you also have the option of clearing all
- requests from the request list, upon
-  entering the `clr` command. Note that the clear command can only be issued if every request in the request list is completed.
+Let's say you want to quickly remove all the requests quickly. You can do so by simply
+  entering the `clr` command. Note that the clear command can only be issued if there are no ongoing requests in the request list.
 
 Format: `clr`
 
 [WARNING]
 ====
-Clearing requests would delete all records of completed requests.
+Clearing requests would delete all records of  requests.
 
 If you would like to delete just one particular request, consider using the
 `delete` command instead.
 ====
+
+[TIP]
+If you want to clear the requests but there are ongoing requests, complete the ongoing requests using the `complete` command first.
+
 
 === Closing Requests : `complete`
 
@@ -607,6 +616,8 @@ request closed.
 
 * The `request_index` *must be a positive integer* 1, 2, 3, ... and not greater
 than the number of requests in the current list.
+* Only *Ongoing* requests can be completed. To complete a pending request, edit it's status first, using the `edit request`
+command.
 
 Examples:
 

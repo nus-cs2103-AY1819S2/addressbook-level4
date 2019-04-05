@@ -589,6 +589,8 @@ _{explain how the user can enable/disable data encryption}_
 This section provides a comprehensive list of commands that ClubManager offers.
 
 === General Commands
+* *Mode* : `mode [MODE_CHOICE]` +
+e.g. `mode member`
 * *Help* : `help`
 * *History* : `history`
 * *Redo* : `redo`

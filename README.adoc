@@ -43,10 +43,12 @@ allows them to *seamlessly manage their members and activities*.
 
 == Features
 * This app comes with a laconic UI and the following features:
-** Add, delete, edit, sort and manage members' information.
-** Add, update activities and take attendance.
-** Get basic member statistics.
-** Import/Export.
+** Switch from Member Management Mode to Activity Mode.
+** Add, delete, edit, filter, find, list, select, sort and manage members' information.
+** Add, delete, filter, find, list, select, update, and manage activities.
+** Add and delete member from activity
+** Display activities attended by member.
+** Export.
 
 
 == Site Map

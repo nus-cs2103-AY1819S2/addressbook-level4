@@ -247,27 +247,6 @@ We are able to list a specific battleship by the name of `destroyer` with the ta
 .The `list` command with name and tags
 image::listbytagbyname.png[width=750]
 
-===== Locating ships by name: `find`
-
-Finds battleships whose names contain any of the given keywords. +
-Format: `find NAME [MORE_NAMES]`
-
-****
-* The search is case insensitive. e.g `hood` will match `Hood`
-* The order of the keywords does not matter. e.g. `Wales Prince` will match `Prince Of Wales`
-* Only the name is searched.
-* Only full words will be matched e.g. `Bel` will not match `Belfast`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). +
-e.g. `King York` will return `King George V`, `Duke of York`
-****
-
-Examples:
-
-* `find Vengeance` +
-Returns `Name: RSS Vengeance, Size: 4, Command: true, Position: d2`
-
-[NOTE]
-The position may not be displayed if the ship has not been placed.
 
 ===== List all tags: `listTags`
 

@@ -54,7 +54,7 @@ public class EditPaxCommand extends Command {
             updatedTableStatus = new TableStatus(updatedTableStatusInString);
         } catch (IllegalArgumentException e) {
             throw new CommandException(String.format(TableStatus.MESSAGE_INVALID_NUMBER_OF_CUSTOMERS,
-                    updatedTableStatusInString.substring(2)));
+                    updatedTableStatusInString.split("/")[1]));
         }
         if (updatedTableStatus.equals(optionalTable.get().getTableStatus())) {
             throw new CommandException(String.format(MESSAGE_NO_CHANGE_IN_STATUS, optionalTable.get().getTableNumber(),

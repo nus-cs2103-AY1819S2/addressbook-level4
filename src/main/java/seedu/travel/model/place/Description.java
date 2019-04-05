@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.travel.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Place's description in the travel book.
+ * Represents a Place's description in TravelBuddy.
  * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
  */
 public class Description {

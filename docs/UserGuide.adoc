@@ -290,16 +290,6 @@ Example:
 After attacking, you should use `endturn` to allow the computer to make its move.
 ****
 
-==== Finishing a turn: `endturn`
-
-Ends your turn and starts Enemy's turn. +
-Format: `endturn` +
-Alternative command: `end`
-
-****
-* The program will end your turn and automatically play the Enemy's turn.
-Youwill  see the enemy's attack reflected on the map and in the results box.
-****
 // end::battle[]
 
 // tag::stats[]

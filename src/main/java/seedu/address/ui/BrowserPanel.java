@@ -9,10 +9,11 @@ import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.NoInternetException;
 import seedu.address.commons.util.WebUtil;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Weblink;
@@ -20,7 +21,7 @@ import seedu.address.model.restaurant.Weblink;
 /**
  * The Browser Panel of the App.
  */
-public class BrowserPanel extends UiPart<Region> {
+public class BrowserPanel extends UiPart<Stage> {
 
     public static final URL DEFAULT_PAGE =
             requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
@@ -33,45 +34,48 @@ public class BrowserPanel extends UiPart<Region> {
     @FXML
     private WebView browser;
 
-    public BrowserPanel(ObservableValue<Restaurant> selectedRestaurant) {
-        super(FXML);
+    public BrowserPanel(Stage root) {
+        super(FXML, root);
+    }
 
-        // To prevent triggering events for typing inside the loaded Web page.
-        getRoot().setOnKeyPressed(Event::consume);
+    public BrowserPanel() {
+        this(new Stage());
+    }
 
-        // Load restaurant page when selected restaurant changes.
-        selectedRestaurant.addListener((observable, oldValue, newValue) -> {
-            if (newValue == null) {
-                loadDefaultPage();
-                return;
-            }
-            loadRestaurantPage(newValue);
-        });
-
-        loadDefaultPage();
+    public void show() {
+        logger.fine("Showing help page about the application.");
+        getRoot().show();
     }
 
     /**
-     * Loads restaurant page using weblink. If there's no weblink, load default page.
+     * Returns true if the help window is currently being shown.
      */
-    private void loadRestaurantPage(Restaurant restaurant) {
-        /*loadPage(SEARCH_PAGE_URL + restaurant.getName().fullName);*/
-        if (restaurant.getWeblink().value.equalsIgnoreCase(Weblink.NO_WEBLINK_STRING)) {
-            loadPage(SEARCH_PAGE_URL + restaurant.getName().fullName);
-        } else {
-            loadPage(restaurant.getWeblink().value);
-        }
+    public boolean isShowing() {
+        return getRoot().isShowing();
+    }
+
+    /**
+     * Hides the help window.
+     */
+    public void hide() {
+        getRoot().hide();
+    }
+
+    /**
+     * Focuses on the help window.
+     */
+    public void focus() {
+        getRoot().requestFocus();
+    }
+
+    public void loadPage(Weblink weblink) throws NoInternetException {
+        // Load restaurant page when selected restaurant changes.
+        if (WebUtil.isNotValidWeblinkUrl(weblink.value));
+        loadPage(WebUtil.prependHttps(weblink.value));
     }
 
     public void loadPage(String url) {
         Platform.runLater(() -> browser.getEngine().load(WebUtil.prependHttps(url)));
-    }
-
-    /**
-     * Loads a default HTML file with a background that matches the general theme.
-     */
-    private void loadDefaultPage() {
-        loadPage(DEFAULT_PAGE.toExternalForm());
     }
 
 }

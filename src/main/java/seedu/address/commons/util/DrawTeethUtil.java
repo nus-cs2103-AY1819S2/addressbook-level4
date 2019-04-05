@@ -2,10 +2,12 @@ package seedu.address.commons.util;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
+
+import seedu.address.MainApp;
 
 /**
  * A container for teeth specific utility functions.
@@ -21,19 +23,19 @@ public class DrawTeethUtil {
         String type;
         String basepath = System.getProperty("user.dir");
         try {
-            File imgFile = new File(basepath + "/src/main/resources/images/teeth/BaseLayer.png");
-            BufferedImage main = ImageIO.read(imgFile);
+            InputStream imageFile = MainApp.class.getClassLoader()
+                    .getResourceAsStream("images/teeth/BaseLayer.png");
+            BufferedImage main = ImageIO.read(imageFile);
             for (int i = 0; i < teeth.length; i++) {
                 if (teeth[i] > 0) {
                     if (teeth[i] == 1) {
-                        type = "P";
+                        type = "P_";
                     } else {
-                        type = "A";
+                        type = "A_";
                     }
-                    String filepath = "/src/main/resources/images/teeth/" + type + "_" + (i + 1) + ".png";
-                    String path = basepath + filepath;
-                    File imgFile2 = new File(path);
-                    BufferedImage layer = ImageIO.read(imgFile2);
+                    InputStream layerFile = MainApp.class.getClassLoader()
+                            .getResourceAsStream("images/teeth/" + type + (i + 1) + ".png");
+                    BufferedImage layer = ImageIO.read(layerFile);
                     Graphics g = main.getGraphics();
                     g.drawImage(layer, 0, 0, null);
                 }

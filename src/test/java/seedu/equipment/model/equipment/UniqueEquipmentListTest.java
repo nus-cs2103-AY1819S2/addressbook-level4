@@ -34,14 +34,31 @@ public class UniqueEquipmentListTest {
     }
 
     @Test
+    public void contains_nullSerialNumber_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        uniqueEquipmentList.containsWithSerialNumber(null);
+    }
+
+    @Test
     public void contains_personNotInList_returnsFalse() {
         assertFalse(uniqueEquipmentList.contains(ANCHORVALECC));
+    }
+
+    @Test
+    public void contains_equipmentWithSerialNumberNotInList_returnsFalse() {
+        assertFalse(uniqueEquipmentList.containsWithSerialNumber(ANCHORVALECC.getSerialNumber()));
     }
 
     @Test
     public void contains_personInList_returnsTrue() {
         uniqueEquipmentList.add(ANCHORVALECC);
         assertTrue(uniqueEquipmentList.contains(ANCHORVALECC));
+    }
+
+    @Test
+    public void contains_equipmentWithSerialNumberInList_returnsTrue() {
+        uniqueEquipmentList.add(ANCHORVALECC);
+        assertTrue(uniqueEquipmentList.containsWithSerialNumber(ANCHORVALECC.getSerialNumber()));
     }
 
     @Test

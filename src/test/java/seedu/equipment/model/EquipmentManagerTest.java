@@ -84,10 +84,20 @@ public class EquipmentManagerTest {
     }
 
     @Test
+    public void hasEquipmentWithSerialNumber_nullSerialNumber_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        equipmentManager.hasEquipmentWithSerialNumber(null);
+    }
+
+    @Test
+    public void hasEquipmentWithSerialNumber_equipmentNotInAddressBook_returnsFalse() {
+        assertFalse(equipmentManager.hasEquipmentWithSerialNumber(ANCHORVALECC.getSerialNumber()));
+    }
+
+    @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
         assertFalse(equipmentManager.hasPerson(ANCHORVALECC));
     }
-
     @Test
     public void hasWorkList_workListNotInEquipmentManager_returnsFalse() {
         assertFalse(equipmentManager.hasWorkList(LISTA));
@@ -109,6 +119,12 @@ public class EquipmentManagerTest {
     public void hasWorkList_workListInEquipmentManager_returnsTrue() {
         equipmentManager.addWorkList(LISTA);
         assertTrue(equipmentManager.hasWorkList(LISTA));
+    }
+
+    @Test
+    public void putEquipment_nullSerialNumberAndId_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        equipmentManager.putEquipment(null, null);
     }
 
     @Test

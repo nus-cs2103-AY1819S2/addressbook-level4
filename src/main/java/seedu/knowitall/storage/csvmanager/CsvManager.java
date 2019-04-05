@@ -7,10 +7,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import seedu.knowitall.commons.core.Messages;
 import seedu.knowitall.logic.commands.exceptions.CommandException;
@@ -63,9 +62,10 @@ public class CsvManager implements CsvCommands {
 
         while ((line = bufferedReader.readLine()) != null) {
 
-            // use comma as separator
-            String[] stringCard = line.split("\\,", -1);
-
+            // split double quotes by commas
+            String[] stringCard = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+            //System.out.println(a);
+            //String[] stringCard = parseCardFieldCommas(line);
             Card card = buildCard(stringCard);
             cardFolder.addCard(card);
         }
@@ -78,8 +78,16 @@ public class CsvManager implements CsvCommands {
     /**
      * helper method that build a card object from each line of the csv file imported
      */
-    private Card buildCard(String[] cardValues) {
-        // cardValues = {"question", "answer", " .. ", " ...", "hint"}
+    private Card buildCard(String[] cardValues1) {
+        // cardValues = {"question", "answer", "hint","option"}
+
+        // Allow only one option per card
+        String[] cardValues2 = Arrays.copyOfRange(cardValues1, 0, 4);
+
+        // remove double quotes from each string array
+        String[] cardValues = Stream.of(cardValues2).map(line -> line.replace("\"", ""))
+                .toArray(String[]::new);
+
         Question question = new Question(cardValues[0]);
         Answer answer = new Answer(cardValues[1]);
         Set<Option> optionSet = buildOptions(cardValues);
@@ -93,7 +101,7 @@ public class CsvManager implements CsvCommands {
      */
     private Set<Option> buildOptions(String[] card) {
         Set<Option> optionSet = new HashSet<>();
-        String[] options = Arrays.copyOfRange(card, 3, card.length - 2);
+        String[] options = Arrays.copyOfRange(card, 3, card.length - 1);
         if (options.length == 0) {
             return optionSet;
         }
@@ -113,7 +121,6 @@ public class CsvManager implements CsvCommands {
         hintSet.add(new Hint(hint));
         return hintSet;
     }
-
 
     /**
      * checks whether the headers of the imported file conforms to the specifications of the Card headers
@@ -215,10 +222,13 @@ public class CsvManager implements CsvCommands {
      */
     private void parseOptions(Set<Option> options, StringBuilder stringBuilder) {
         if (options.isEmpty()) {
-            stringBuilder.append("" + COMMA_DELIMITTER);
+            return;
         } else {
-            options.forEach(option -> stringBuilder.append(parseQuotationMarks(option.optionValue))
-                    .append(COMMA_DELIMITTER));
+            Set<String> optionString = options.stream().map(x -> x.optionValue).collect(Collectors.toSet());
+            String toJoin = String.join(",", optionString);
+            stringBuilder.append(toJoin);
+            //options.forEach(option -> stringBuilder.append(parseQuotationMarks(option.optionValue))
+            //        .append(COMMA_DELIMITTER));
         }
     }
 

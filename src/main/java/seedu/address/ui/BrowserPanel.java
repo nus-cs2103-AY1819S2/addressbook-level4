@@ -70,7 +70,8 @@ public class BrowserPanel extends UiPart<Stage> {
     }
 
     public void loadPage(String url) {
-        Platform.runLater(() -> browser.getEngine().load(WebUtil.prependHttps(url)));
+        logger.info("Loading website : " + url);
+        Platform.runLater(() -> browser.getEngine().load(url));
     }
 
 }

@@ -191,9 +191,9 @@ public class DocX implements ReadOnlyDocX {
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given doctor {@code target} in the list with {@code editedDoctor}.
      * {@code target} must exist in the docX.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the docX.
+     * The doctor identity of {@code editedDoctor} must not be the same as another existing doctor in the docX.
      */
     public void setDoctor(Doctor target, Doctor editedDoctor) {
         requireNonNull(editedDoctor);

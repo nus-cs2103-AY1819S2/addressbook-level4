@@ -17,14 +17,14 @@ import seedu.address.model.person.Doctor;
 public class DoctorCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
-    private static final String AGE_FIELD_ID = "#age";
+    private static final String YEAR_FILED_ID = "#year";
     private static final String PHONE_FIELD_ID = "#phone";
     private static final String GENDER_FIELD_ID = "#gender";
     private static final String SPECS_FIELD_ID = "#specialisations";
 
     private final Label idLabel;
     private final Label nameLabel;
-    private final Label ageLabel;
+    private final Label yearLabel;
     private final Label phoneLabel;
     private final Label genderLabel;
     private final List<Label> specsLabels;
@@ -34,12 +34,12 @@ public class DoctorCardHandle extends NodeHandle<Node> {
 
         idLabel = getChildNode(ID_FIELD_ID);
         nameLabel = getChildNode(NAME_FIELD_ID);
-        ageLabel = getChildNode(AGE_FIELD_ID);
+        yearLabel = getChildNode(YEAR_FILED_ID);
         phoneLabel = getChildNode(PHONE_FIELD_ID);
         genderLabel = getChildNode(GENDER_FIELD_ID);
 
-        Region tagsContainer = getChildNode(SPECS_FIELD_ID);
-        specsLabels = tagsContainer
+        Region specsContainer = getChildNode(SPECS_FIELD_ID);
+        specsLabels = specsContainer
                 .getChildrenUnmodifiable()
                 .stream()
                 .map(Label.class::cast)
@@ -54,8 +54,8 @@ public class DoctorCardHandle extends NodeHandle<Node> {
         return nameLabel.getText();
     }
 
-    public String getAge() {
-        return ageLabel.getText();
+    public String getYear() {
+        return yearLabel.getText();
     }
 
     public String getPhone() {
@@ -78,7 +78,7 @@ public class DoctorCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(Doctor doctor) {
         return getName().equals(doctor.getName().fullName)
-                && getAge().equals(doctor.getAge().value)
+                && getYear().equals(doctor.getYear().value)
                 && getPhone().equals(doctor.getPhone().value)
                 && getGender().equals(doctor.getGender().value)
                 && ImmutableMultiset.copyOf(getSpecialisations()).equals(ImmutableMultiset

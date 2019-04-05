@@ -16,6 +16,7 @@ import seedu.address.model.person.Age;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Year;
 import seedu.address.model.prescription.Description;
 import seedu.address.model.prescription.Medicine;
 import seedu.address.model.tag.Specialisation;
@@ -84,6 +85,21 @@ public class ParserUtil {
             throw new ParseException(Age.MESSAGE_CONSTRAINTS);
         }
         return new Age(trimmedAge);
+    }
+
+    /**
+     * Parses a {@code String year} into a {@code Year}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code year} is invalid.
+     */
+    public static Year parseYear(String year) throws ParseException {
+        requireNonNull(year);
+        String trimmedYear = year.trim();
+        if (!Year.isValidYear(trimmedYear)) {
+            throw new ParseException(Year.MESSAGE_CONSTRAINTS);
+        }
+        return new Year(trimmedYear);
     }
 
     /**

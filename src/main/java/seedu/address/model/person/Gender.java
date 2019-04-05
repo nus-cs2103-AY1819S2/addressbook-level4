@@ -11,8 +11,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Gender {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Gender should be either M or F";
-    public static final String VALIDATION_REGEX = "[MF]";
+            "Gender should be either F or M or f or m";
+    public static final String VALIDATION_REGEX = "[MFmf]";
     public final String value;
 
     /**

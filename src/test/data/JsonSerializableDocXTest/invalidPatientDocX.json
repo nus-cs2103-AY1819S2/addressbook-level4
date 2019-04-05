@@ -9,7 +9,7 @@
   "doctors": [ {
     "name": "Hans Muster",
     "gender": "Boy",
-    "age": "26",
+    "year": "10",
     "phone": "9482424"
   } ],
   "medicalHistories" : [ {

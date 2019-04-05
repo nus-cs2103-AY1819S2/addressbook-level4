@@ -50,46 +50,46 @@
     "tagged" : [ ]
   } ],
   "doctors" : [ {
-    "name" : "Alice Pauline",
-    "phone" : "98761234",
+    "name" : "Alina Ng",
+    "phone" : "92457833",
     "gender": "F",
-    "year": "32",
+    "year": "2",
     "specs" : [ "massage" ]
   }, {
-    "name" : "Benson Meier",
-    "phone" : "90123456",
+    "name" : "Belone Meier",
+    "phone" : "91023231",
     "gender": "M",
     "year": "31",
     "specs" : [ "massage", "acupuncture" ]
   }, {
-    "name" : "Carl Kurz",
-    "phone" : "95678934",
+    "name" : "Cale Kurz",
+    "phone" : "91436111",
     "gender": "F",
-    "year": "22",
+    "year": "2",
     "specs" : [ "general" ]
   }, {
-    "name" : "Daniel Meier",
+    "name" : "Damogo Meier",
     "gender": "M",
-    "year": "57",
-    "phone" : "89023456",
+    "year": "5",
+    "phone" : "88214232",
     "specs" : [ "general" ]
   }, {
-    "name" : "Elle Meyer",
+    "name" : "Elliot Meyer",
     "phone" : "94567893",
-    "gender": "F",
-    "year": "29",
+    "gender": "M",
+    "year": "9",
     "specs" : [ "acupuncture" ]
   }, {
     "name" : "Fiona Kunz",
     "gender": "F",
     "year": "43",
-    "phone" : "87654312",
+    "phone" : "82342111",
     "specs" : [ "general", "acupuncture" ]
   }, {
-    "name" : "George Best",
-    "phone" : "90345622",
+    "name" : "Geof Best",
+    "phone" : "90123119",
     "gender": "M",
-    "year": "50",
+    "year": "24",
     "specs" : [ "general" ]
   } ],
   "medicalHistories" : [ ],

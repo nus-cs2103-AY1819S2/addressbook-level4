@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -262,6 +263,12 @@ public class ModelManager implements Model {
     public void updateFilteredMedHistList(Predicate<MedicalHistory> predicate) {
         requireNonNull(predicate);
         filteredMedHists.setPredicate(predicate);
+    }
+
+    @Override
+    public void sortFilteredMedHistList(Comparator<MedicalHistory> medHistComparator) {
+        requireNonNull(medHistComparator);
+        versionedDocX.sortMedHist(medHistComparator);
     }
 
     //=========== Filtered Appointment List Accessors =============================================================

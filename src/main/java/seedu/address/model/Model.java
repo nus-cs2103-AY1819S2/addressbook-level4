@@ -36,6 +36,9 @@ public interface Model {
     /** {@code Comparator} that sort medical history by date in decending order from newest to oldest. */
     Comparator<MedicalHistory> COMPARATOR_MED_HIST_DATE_DESC = new MedHistDateDescComparator();
 
+    /** Comparater of Medical History
+     * Medical history with newer date is larger than medical history with older date.
+     */
     class MedHistDateDescComparator implements Comparator<MedicalHistory> {
         public int compare (MedicalHistory mh1, MedicalHistory mh2) {
             return mh2.getDate().compareTo(mh1.getDate());

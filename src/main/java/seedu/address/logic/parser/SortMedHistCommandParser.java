@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.address.logic.commands.SearchMedHistCommand;
 import seedu.address.logic.commands.SortMedHistCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -22,7 +21,7 @@ public class SortMedHistCommandParser implements Parser<SortMedHistCommand> {
             return new SortMedHistCommand();
         }
 
-        if (trimmedArgs.equals(SortMedHistCommand.ASCENDING)||trimmedArgs.equals(SortMedHistCommand.DESCENDING)) {
+        if (trimmedArgs.equals(SortMedHistCommand.ASCENDING) || trimmedArgs.equals(SortMedHistCommand.DESCENDING)) {
             return new SortMedHistCommand(trimmedArgs);
         }
 

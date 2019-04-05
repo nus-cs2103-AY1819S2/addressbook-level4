@@ -14,14 +14,10 @@ import seedu.address.model.tag.Tag;
  * Represents a Patient in docX record.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Patient {
-    // Identity fields
-    private final Name name;
-    private final Gender gender;
-    private final Age age;
-    private final Phone phone;
+public class Patient extends Person {
 
     // Data fields
+    private final Age age;
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
@@ -30,29 +26,15 @@ public class Patient {
      * Every field must be present and not null.
      */
     public Patient(Name name, Gender gender, Age age, Phone phone, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, gender, age, phone, address, tags);
-        this.name = name;
-        this.gender = gender;
+        super(name, phone, gender);
+        requireAllNonNull(age, address, tags);
         this.age = age;
-        this.phone = phone;
         this.address = address;
         this.tags.addAll(tags);
     }
 
-    public Name getName() {
-        return name;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
     public Age getAge() {
         return age;
-    }
-
-    public Phone getPhone() {
-        return phone;
     }
 
     public Address getAddress() {
@@ -108,7 +90,7 @@ public class Patient {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, gender, age, phone, address, tags);
+        return Objects.hash(age, address, tags);
     }
 
     @Override

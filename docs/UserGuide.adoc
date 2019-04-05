@@ -199,7 +199,6 @@ Example:
 Generates a statistics report based on the specified patient's data.
 
 Format: `stat INDEX`
-// end::viewingInfo[]
 
 ==== exit
 Exits the program. You won't be able to exit if copies exist.
@@ -814,6 +813,7 @@ Examples:
 * `taskfind pri/HIGH`
 * `taskfind ti/Extraction`
 ////
+// end::viewingInfo[]
 
 == Cloud Functionality [Coming in v2.0]
 To increase data redundancy and reduce the risk of data being lost,

@@ -26,42 +26,36 @@ The main features of *_The Food Diary_* include:
 
 == Summary of Contributions
 
-The following are the contributions I made to this project, in the form of enhancements, code contributions, project management, documentation and community.
+The following shows a summary of the contributions I made to this team project.
 
 * *Major Enhancement*: I added the ability to *generate and display aggregate restaurant data*.
-** *What it does*: Generates aggregate rating from all the reviews of a restaurant and display it in the restaurant card as well as in a summary panel for the restaurant.
-** *Justification*: This feature improves the product significantly because a user can now immediately see his/her personal ratings across all the visits they made for a restaurant.
-** *Highlights*: This enhancement required in-depth analysis of other alternatives. Additionally, it relied heavily on XML-based user interface markup language, FXML. Thus, I had to learn pick up this language from scratch to display this new `UiPart`.
+** *What it does*: Generates aggregate rating from all the reviews of a restaurant and displays it as part of the restaurant's information card as well as in its summary.
+** *Justification*: This feature improves the product significantly because a user can now immediately see his/her personal ratings across all the visits they have made for a restaurant.
+** *Highlights*: This enhancement required in-depth analysis of other alternatives before structuring its model. Additionally, it relied heavily on XML-based user interface markup language, FXML. Thus, I had to learn pick up this language from scratch to display this new `UiPart`.
 The implementation was also challenging as it involved multiple components, namely `Model`, `Logic` and `Ui`, for it to work.
 ** *Code Contributed*:
-*** Functional Code:
-https://github.com/CS2103-AY1819S2-W17-1/main/pull/103[#103]
-*** Test Code:
+*** Functional Code: https://github.com/CS2103-AY1819S2-W17-1/main/pull/103[#103]
+*** Test Code: *[TBC]*
 
 * *Minor Enhancement*: I set up the `Review` class and added the ability to display all of the reviews belonging to a restaurant.
 ** *Code Contributed*:
-*** Functional Code:
-https://github.com/CS2103-AY1819S2-W17-1/main/pull/25[#25],
-https://github.com/CS2103-AY1819S2-W17-1/main/pull/36[#36],
-https://github.com/CS2103-AY1819S2-W17-1/main/pull/74[#74],
-https://github.com/CS2103-AY1819S2-W17-1/main/pull/89[#89]
-*** Test Code:
-https://github.com/CS2103-AY1819S2-W17-1/main/pull/36[#36],
-https://github.com/CS2103-AY1819S2-W17-1/main/pull/94[#94]
+*** Functional Code: https://github.com/CS2103-AY1819S2-W17-1/main/pull/25[#25], https://github.com/CS2103-AY1819S2-W17-1/main/pull/36[#36], https://github.com/CS2103-AY1819S2-W17-1/main/pull/74[#74], https://github.com/CS2103-AY1819S2-W17-1/main/pull/89[#89]
+*** Test Code: https://github.com/CS2103-AY1819S2-W17-1/main/pull/36[#36], https://github.com/CS2103-AY1819S2-W17-1/main/pull/94[#94]
 
 * *Other Contributions*:
 
 ** *Project Management*:
-*** Recorded all of the user stories as issues. (https://github.com/CS2103-AY1819S2-W17-1/main/issues?q=is%3Aissue+author%3Aweixin-koh+label%3Atype.Story[Issues])
+*** Recorded all of our team's user stories as issues. (https://github.com/CS2103-AY1819S2-W17-1/main/issues?q=is%3Aissue+author%3Aweixin-koh+label%3Atype.Story[Issues])
+*** Consistent utilization issue tracker in recording bugs and referencing them in relevant PRs. (https://github.com/CS2103-AY1819S2-W17-1/main/pull/89[#89], https://github.com/CS2103-AY1819S2-W17-1/main/pull/94[#94], https://github.com/CS2103-AY1819S2-W17-1/main/pull/112[#112], https://github.com/CS2103-AY1819S2-W17-1/main/pull/113[#113])
 ** *Enhancements to Existing Features*:
-*** Enabled `Select` command to display not only browser for restaurant, but also the list of reviews and summary for the restaurant. (https://github.com/CS2103-AY1819S2-W17-1/main/pull/74[#74])
+*** Enabled `Select` command to display not only the website for the restaurant, but also its list of reviews and summary. (https://github.com/CS2103-AY1819S2-W17-1/main/pull/74[#74])
 *** Changed logo and title of the application to *_The Food Diary_*. (https://github.com/CS2103-AY1819S2-W17-1/main/pull/74[#74])
 ** *Documentation*:
 *** Did cosmetic tweaks to existing contents of the User Guide and Developer Guide (https://github.com/CS2103-AY1819S2-W17-1/main/pull/83[#83], https://github.com/CS2103-AY1819S2-W17-1/main/pull/77[#77])
 *** Updated pictures of the UI (https://github.com/CS2103-AY1819S2-W17-1/main/pull/6[#6], https://github.com/CS2103-AY1819S2-W17-1/main/pull/77[#77])
 ** *Community*:
-*** PRs reviewed (with non-trivial review comments) (https://github.com/CS2103-AY1819S2-W17-1/main/pull/2[#2], https://github.com/CS2103-AY1819S2-W17-1/main/pull/95[#95])
-*** Reported bugs and suggestions for other teams in the class (*TBC*)
+*** PRs reviewed (with non-trivial review comments) (https://github.com/CS2103-AY1819S2-W17-1/main/pull/95[#95], https://github.com/CS2103-AY1819S2-W17-1/main/pull/102[#102])
+*** Reported bugs and suggestions for other teams in the class *[TBC]*
 *** Always ensured that at least one teammate has reviewed and approved my PR before merging.
 ** *Tools*:
 *** Setup Reposense (https://github.com/CS2103-AY1819S2-W17-1/main/pull/83[#83])
@@ -69,16 +63,77 @@ https://github.com/CS2103-AY1819S2-W17-1/main/pull/94[#94]
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide. Since our project is a Food Diary targeted at food lovers, we have
+come up with instructions on how to use the application for users of all ages. The following is an excerpt about the `select`
+feature I enhanced, as well as the proposed features for sorting restaurants by rating and sharing reviews to Facebook._
 |===
 
 include::../UserGuide.adoc[tag=select]
+
+==== Listing restaurants by rating: `listRating` (Coming in v1.4)
+
+Listing your restaurants from favourite to least favourite, or vice versa, has never been easier. Order all of the restaurants in the Food Diary
+from highest to lowest ratings based on the aggregated ratings through all reviews you've given that restaurant. +
+Format: `listRating [ASC/DES]`
+
+****
+* When called without any other field, `listRating` command will return the list of restaurants in descending order of ratings by default.
+* When `listRating ASC` is executed, the list of restaurants returned will be in ascending order of ratings.
+* When `listRating DES` is executed, the list of restaurants returned will be in descending order of ratings.
+* `ASC` and `DES` are case-insensitive and will be acceptable commands.
+****
+
+Examples:
+
+* `listRating` or `listRating DES`
+Both will return the list of restaurants in descending order of ratings.
+* `listRating asC` or `listRating ASC` +
+Both will return the list of restaurants in ascending order of ratings.
+
+[NOTE]
+====
+Restaurants with no reviews will have no ratings, and will thus have an `N.A.` rating. Restaurants with `N.A.` rating will come before
+those with positive ratings if in ascending order, and before those with positive ratings if in descending order.
+
+_{Insert gif to show order}_
+====
+
+==== Share to Facebook: `share` (Coming in v2.0)
+
+Share your reviews to Facebook. +
+Format: `share INDEX`
+
+****
+* You have to use `select` command to select a restaurant whose review will be shared.
+* The index refers to the index number of a review shown in the selected restaurant's list of reviews.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Steps to share your review to Facebook:
+
+. Select your desired restaurant by either clicking on it using a mouse or executing the `select INDEX` command, using its index number to replace `INDEX`.
+. Enter `share INDEX` command, replacing `INDEX` with the desired review's index number to indicate the review to be shared.
+. Enter your login details when prompted by the Facebook pop-up.
+. Give write permission to The Food Diary post the review on your Facebook account. Rest assured that your account details would not be retained in The Food Diary to protect your privacy.
+. Click the `Share to Wall` button when prompted and you'll see your review on your Facebook wall!
+
+Examples:
+
+* `list` +
+`share 2`
+
+[NOTE]
+====
+You will not be able to share the review to Facebook if you do not allow The Food Diary write permission to your Facebook account.
+====
 
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+include::../DeveloperGuide.adoc[tag=selectDG]
 
 include::../DeveloperGuide.adoc[tag=sharereviews]
 

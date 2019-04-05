@@ -176,14 +176,14 @@
 
 .vbox_background {
     -fx-background-color: #3e7b91;
-    -fx-padding: 10 10 10 10;
+    -fx-padding: 30 10 30 10;
 }
 
 .vbox_name_label.label {
     -fx-font-family: "Segoe UI";
     -fx-text-fill: white;
     -fx-font-size: 25px;
-    -fx-padding-bottom: 10;
+    -fx-padding: 0 0 10 0;
     -fx-text-alignment: center;
     -fx-wrap-text: true;
 }
@@ -203,16 +203,16 @@
     -fx-font-family: "Segoe UI";
     -fx-text-fill: white;
     -fx-font-size: 20px;
-    -fx-padding-top: 5;
+    -fx-padding: 5 0 0 0;
     -fx-text-alignment: center;
     -fx-wrap-text: true;
 }
 
-.vbox_label {
+.vbox_label.label {
     -fx-font-family: "Segoe UI";
     -fx-text-fill: white;
     -fx-font-size: 15px;
-    -fx-padding-bottom: 10;
+    -fx-padding: 0 0 10 0;
     -fx-text-alignment: center;
     -fx-wrap-text: true;
 }

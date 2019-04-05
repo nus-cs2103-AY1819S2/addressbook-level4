@@ -277,7 +277,7 @@ are officially certified by certain medical practices
 in the command line.
 // end::addHealthWorker[]
 
-==== *Adding a request*: `add request/r/2 n/<patient_name> c/<condition> d/<date> t/time`
+==== *Adding a request*: `add request/r/2 n/<patient_name> c/<condition> dt/<date> i/<NRIC> p/<phone> a/<address>`
 
 * Registers a new open request from `patient` of `<patient_name>` into the
 application.
@@ -285,14 +285,13 @@ application.
 experiencing. Administrative staff can then inspect the conditions that are
 stated by the `patient` and assign the appropriate health worker to handle
 these requests in the `assign` command.
-* Format for the time is `HH:mm:ss`.
-* Format for the date is `dd-MM-yyyy`.
+* Format for the date is `dd-MM-yyyy HH:mm:ss`.
 
 Examples:
 
 * `add 1 n/Dog Terr p/92837710 i/S98817471Z s/GENERAL_PRACTICE
 s/ORTHOPAEDIC`
-* `add request n/Pay Shun c/Heart Attack t/14:00:00 d/05:05:2019`
+* `add request n/Pay Shun a/Sengkang Ave 1 c/Heart Attack i/S9123456A p/91234567 dt/05-05-2019 14:00:00`
 
 // tag::editHealthWorker[]
 === Editing requests/health workers : `edit`
@@ -402,7 +401,29 @@ Format: `filter request/r/2 <keyword> [<more_keywords>]`
 After entering the command with valid inputs, searches the entire list of
 requests in Health Hub, and only displays the requests whose fields matches
  the parameters specified in the
-`filter` command.
+`filter` command. To filter requests, the user can specify any of the following filtering criteria:
+`dt/DATE`, `n/NAME`, `p/PHONE`, `st/STATUS`, `i/NRIC`, `c/CONDITION`. Note that you can chain multiple criteria together to get a more specific
+filter result.
+
+For example, let's say you want to filter all the requests made by the patient with `NRIC` S9123456G that have been *completed*. You
+can simply enter the command: `filter request i/S9123456A st/COMPLETED`, and the request list panel to the left of the screen would update to
+show you all the requests you are looking for.
+
+Before:
+
+image::Healthhub.png[width=800]
+Figure 5.5.2.1 shows the application prior to executing the `filter request` command
+
+After:
+
+image::filterResult.png[width=800]
+
+Figure 5.5.2.2 shows the application after executing `filter request i/S9123456A st/COMPLETED`
+
+The request list panel on the left would filter to show just the requests queried by the user.
+
+[NOTE]
+If there are no such requests that match the user's query, an empty list would be show on the left panel.
 
 {nbsp}
 
@@ -543,9 +564,9 @@ use `edit` to change the status of the request to pending first.
 
 === Clearing Requests : `clr`
 
-After closing all existing requests, you also have the option of clearing all
- requests from the request list, regardless of the state of the request, upon
-  entering the `clr` command.
+After completing all existing requests, you also have the option of clearing all
+ requests from the request list, upon
+  entering the `clr` command. Note that the clear command can only be issued if every request in the request list is completed.
 
 Format: `clr`
 

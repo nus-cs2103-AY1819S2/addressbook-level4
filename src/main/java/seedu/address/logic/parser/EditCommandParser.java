@@ -16,7 +16,9 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.NoInternetException;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditRestaurantDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -62,14 +64,20 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_POSTAL).isPresent()) {
             editRestaurantDescriptor.setPostal(ParserUtil.parsePostal(argMultimap.getValue(PREFIX_POSTAL).get()));
         }
-        if (argMultimap.getValue(PREFIX_WEBLINK).isPresent()) {
-            editRestaurantDescriptor.setWeblink(ParserUtil.parseWeblink(argMultimap.getValue(PREFIX_WEBLINK).get()));
-        }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editRestaurantDescriptor::setTags);
 
         if (argMultimap.getValue(PREFIX_OPENING_HOURS).isPresent()) {
             editRestaurantDescriptor.setOpeningHours(ParserUtil.parseOpeningHours(argMultimap
                     .getValue(PREFIX_OPENING_HOURS).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_WEBLINK).isPresent()) {
+            try {
+                editRestaurantDescriptor.setWeblink(ParserUtil.parseWeblink(argMultimap
+                        .getValue(PREFIX_WEBLINK).get()));
+            } catch (NoInternetException e) {
+                return new EditCommand(index, editRestaurantDescriptor, Messages.MESSAGE_EDIT_NO_INTERNET);
+            }
         }
 
         if (!editRestaurantDescriptor.isAnyFieldEdited()) {

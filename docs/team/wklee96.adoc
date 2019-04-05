@@ -9,20 +9,28 @@
 
 == Overview
 
-The Food Diary (FD) is for those who *prefer to use a desktop app for storing their personal food reviews and obtain food recommendations*. More importantly, FD is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, FD can get your foodie tasks done faster than traditional GUI apps.
+This project portfolio page serves to document my contributions to The Food Diary, a software engineering project that was undertaken as part of the National University of Singapore (NUS) School of Computing’s Software Engineering module.
+
+The Food Diary is designed for food lovers whose wish to document their experiences at a restaurants in a fast and simple fashion.
+It serves as a journal, allowing the users to give reviews and ratings to the restaurant that they have been to.
+
+My role in this project is to implement a function that allows food lovers to visit the website of restaurants so that they
+can reference the website while writing a review.
+
 
 == Summary of contributions
 
 * *Major enhancement*: added *the ability to visit website of restaurants*
-** What it does: allows users to visit website of restaurants inside user's list of visited restaurants and also unvisited restaurants.
-** Justification: This feature allows users to reference restaurant's website while writing a review for the restaurant.
+** What it does: allows users to view website of visited and unvisited restaurants.
+** Justification:
+*** This feature allows users to reference restaurant's website while writing a review for the restaurant.
+*** Also, users can search up for restaurants website in the application so that they can fill in details such as their opening hours and price range when adding the restaurant to their list.
+** Highlights: This feature requires understanding of java.net library and also handling tricky errors that can arise when connecting to the internet to load websites.
 ** Credits: Used java.net package to validate websites before allowing users to add them into restaurant class.
 
-* *Minor enhancement*: Added Weblink and OpeningHour class to Restaurant class and modified UI to display these attributes.
+* *Minor enhancement*: Enhance add and edit function to validate weblink before adding restaurant into Food Diary.
 
-* *Code contributed*: https://github.com/CS2103-AY1819S2-W17-1/main/pull/7[#7], https://github.com/CS2103-AY1819S2-W17-1/main/pull/17[#17], https://github.com/CS2103-AY1819S2-W17-1/main/pull/29[#29]
-* *Other contributions*:
-
+* *Code contributed*: Here's a https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=wklee96&sort=displayName&since=2019-02-10&until=2019-04-04&timeframe=day&reverse=false&repoSort=true[link] to my code on the Project Code Dashboard.
 ** Project management:
 *** Set-up GitHub organisation to fork Address Book 4
 *** Create a dummy GitHub account perform Continuous Integration for our project.
@@ -34,10 +42,10 @@ The Food Diary (FD) is for those who *prefer to use a desktop app for storing th
 ** Documentation:
 *** Updated README https://github.com/CS2103-AY1819S2-W17-1/main/pull/7[#7]
 ** Community:
-*** Actively looked through and approved PRs
+*** Actively looked through and approved PRs, providing constructive comments to codes https://github.com/CS2103-AY1819S2-W17-1/main/pull/103[#103], https://github.com/CS2103-AY1819S2-W17-1/main/pull/95[#95]
 *** Raised issues in issue tracker
 ** Tools:
-*** Enable auto-publishing of documentation for our project
+*** Enabled auto-publishing of documentation for our project
 
 
 == Contributions to the User Guide

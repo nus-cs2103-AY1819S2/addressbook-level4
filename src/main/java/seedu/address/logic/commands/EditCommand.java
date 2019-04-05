@@ -65,17 +65,26 @@ public class EditCommand extends Command {
 
     private final Index index;
     private final EditRestaurantDescriptor editRestaurantDescriptor;
+    private String commandMessage;
 
     /**
      * @param index of the restaurant in the filtered restaurant list to edit
      * @param editRestaurantDescriptor details to edit the restaurant with
      */
     public EditCommand(Index index, EditRestaurantDescriptor editRestaurantDescriptor) {
+        this(index, editRestaurantDescriptor, MESSAGE_EDIT_RESTAURANT_SUCCESS);
+    }
+
+    public EditCommand(Index index, EditRestaurantDescriptor editRestaurantDescriptor, String commandMessage) {
         requireNonNull(index);
         requireNonNull(editRestaurantDescriptor);
 
         this.index = index;
         this.editRestaurantDescriptor = new EditRestaurantDescriptor(editRestaurantDescriptor);
+        this.commandMessage = commandMessage;
+        if (!commandMessage.equals(MESSAGE_EDIT_RESTAURANT_SUCCESS)) {
+            this.commandMessage = commandMessage.concat(MESSAGE_EDIT_RESTAURANT_SUCCESS);
+        }
     }
 
     @Override
@@ -97,7 +106,7 @@ public class EditCommand extends Command {
         model.setRestaurant(restaurantToEdit, editedRestaurant);
         model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
         model.commitFoodDiary();
-        return new CommandResult(String.format(MESSAGE_EDIT_RESTAURANT_SUCCESS, editedRestaurant));
+        return new CommandResult(String.format(commandMessage, editedRestaurant));
     }
 
     /**

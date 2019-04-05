@@ -537,8 +537,9 @@ Visits website entered by user.
 * This `weblink` will be passed to CommandResult which is passed to `MainWindow` in `UI` component.
 * `MainWindow` will then load the `weblink` through `BrowserPanel`.
 
-The following sequence diagram shows how the visitWeb `weblink` works:
+The following activity diagram and sequence diagram shows how the visitWeb `weblink` works:
 
+image::VisitWebUrlActivityDiagram.png[width="800"]
 image::VisitWebUrlSequenceDiagram.png[width="800"]
 
 ==== Enhancements

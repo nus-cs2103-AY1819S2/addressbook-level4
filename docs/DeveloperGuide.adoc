@@ -322,6 +322,25 @@ field will be the one accepted for all fields except the `specialisation` field.
 Upon a successful `add` command, the new `HealthWorker` or `Request`
 constructed from the user entered fields will be added to the end of the `UniqueHealthWorkerList`.
 
+===== Valid Specialisations
+
+The valid `Specialisation` values that can be entered by the user are as
+mentioned below:
+
+* GENERAL_PRACTICE
+* CARDIOLOGY
+* ENDOCRINOLOGY
+* NEUROLOGY
+* ORTHOPAEDIC
+* PAEDIATRIC
+* GYNAECOLOGY
+* UROLOGY
+* PATHOLOGY
+* HAEMATOLOGY
+* PHYSIOTHERAPY
+* OCCUPATIONAL_THERAPY
+* ANAESTHESIOLOGY
+
 ==== Edit feature
 
 The `edit` command allows users to modify details of existing `HealthWorker`
@@ -329,15 +348,18 @@ or `Request` objects should the information need to be updated.
 
 The format for the `edit` command is as follows:
 
-`edit <keyword> <parameter> [<parameter>]...` +
+`edit <keyword> <index> <parameter> [<parameter>]...` +
 
 Similar to the `add` command, the `edit` command arguments are first checked
 passed into the `EditCommandParser` class instance, where it evaluates for a
-valid first keyword and argument prefixes and values.
+valid first keyword and argument prefixes and values. Additionally, the
+`<index>` field is also checked against the existing list of `HealthWorker`
+or `Request` to ensure that the provided `<index>` is a valid `<index>` in
+the list.
 
 The argument field after the first keyword denoting the specified
 `CommandMode` must not be empty, and must contain at least one valid prefix
-and a valid value for the respective field to be edited. THe prefixes and
+and a valid value for the respective field to be edited. The prefixes and
 validity follows the same conditions as stated in the `add` command.
 
 [NOTE]
@@ -350,6 +372,33 @@ the `HealthWorker` object being edited will be entirely replaced by a new
 `Set` of `Specialisation` that corresponds to valid `specialisation` fields
 enteed by the user.
 =====
+
+===== Editing `HealthWorker`
+
+Upon parsing the argument string into `EditCommandParser`, it first checks
+that the `<index>` field provided is non-negative, and not greater than the
+size of the `UniqueHealthWorkerList`.
+
+After checking for a valid `CommandMode.HEALTHWORKER` keyword after the
+`edit` command word, `EditCommandParser` then tokenizes the argument string
+after the keyword into a `ArgumentMultiMap` object that stores the prefix to
+values mapping for each field specified. If no prefixes, or invalid prefixes
+are specified, or if invalid values for any prefix is input, then
+`EditCommandParser` throws a `ParseException`, and displays an error message
+to the terminal.
+
+If all values specified are valid and at least one field to specify is
+provided, the `EditCommandParser` parses the `ArgumentMultiMap` containing
+the values to be updated and it's respective prefixes into an
+`EditHealthWorkerDescriptor` object. `EditCommandParser` then passes the
+`EditHealthWorkerDescriptor` and the `HealthWorker` object fetched from the
+`HealthWorkerBook` using the specified valid `<index>` into a
+`EditHealthWorkerCommand` object and returned.
+
+In the `EditHealthWorkerCommand`, each `HealthWorker` related field prefix is
+checked for it's value in `EditHealthWorkerDescriptor`, and if a value
+exists, it replaces the current value of the corresponding field in the
+`HealthWorker` object. Else, the field in `HealthWorker` is unchanged.
 
 Upon a successful `edit` command, the `HealthWorker` or `Request` object that
  has had it's fields edited will immediately reflect the changes in details on

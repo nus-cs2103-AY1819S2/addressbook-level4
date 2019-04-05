@@ -37,16 +37,20 @@ Follow these steps to get _In-Credit-Ble_ up and running on your computer in no 
 .  Download the latest `In-Credit-Ble.jar` file link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your finance tracker.
 .  Double-click the file to start the app. The GUI should appear in a few seconds as shown below.
+   The In-Credit-Ble finance tracker is loaded with example expense records and budget is still not set.
+
 +
 image::startUI.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window and show the list of commands.
 .  Some example commands you can try:
 
 * *`help`* : opens the _In-Credit-Ble_ user guide
+* *`clear`* : clears the existing Finance Tracker to start with a Finance Tracker with no expense records
 * *`set`* : sets the total budget for Finance Tracker
 * *`allocate`* : allocates budget to a certain category (within the total budget)
+* *`spend`* : adds an expense record to the finance tracker
 
 
 .  Refer to <<Features>> for details of each command.
@@ -377,6 +381,8 @@ Deleted entries are not included in the summary.
 
 === Miscellaneous
 
+
+////
 // tag::setfile[]
 ==== Changing FinanceTracker data storage location: `setfile`
 Want to maintain multiple users of the FinanceTracker? You can use this command to load a finance tracker profile from another file.
@@ -394,6 +400,8 @@ File paths and extension should not be included in command.
 
 
 //end::setfile[]
+////
+
 
 // tag::help[]
 ==== Viewing help: `help`
@@ -484,10 +492,11 @@ You can change the theme of the application with pre-set colour themes specified
 [NOTE]
 ====
 * Valid themes include: `Dark`, `Light`, `Blue`, `Pink`
-* The theme name is case-insensitive (`BlUE`, `BLUE`, `blue` or `bLUE` etc. all refer
+* The theme name is case-insensitive (`BlUE`, `BLUE`, `blue` or `bLUEc` etc. all refer
 to `Blue`)
 * You can also change the theme of the application by choosing the theme under
 the menu bar.
+* You *cannot* undo/redo this command.
 
 image::themeMenuBar.png[]
 ====

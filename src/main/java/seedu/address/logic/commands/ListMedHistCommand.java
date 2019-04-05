@@ -34,7 +34,7 @@ public class ListMedHistCommand extends Command {
             + COMMAND_WORD + " " + PREFIX_PATIENT_ID + "1 " + PREFIX_DOCTOR_ID + "1 "
             + PREFIX_DATE_OF_MEDHIST + "2018-03-02";
 
-    public static final String MESSAGE_SUCCESS= "Listed all medical histories";
+    public static final String MESSAGE_SUCCESS = "Listed all medical histories";
 
     private final Optional<String> targetPatientId;
 
@@ -67,25 +67,25 @@ public class ListMedHistCommand extends Command {
         requireNonNull(model);
         String messageSuccess;
         Predicate<MedicalHistory> predicateListMedHistIsPid =
-                x -> {
-                    if (!targetPatientId.isPresent()) {
-                        return true;
-                    }
-                    return x.getPatientId().equals(targetPatientId.get()); };
+            x -> {
+                if (!targetPatientId.isPresent()) {
+                    return true;
+                }
+                return x.getPatientId().equals(targetPatientId.get()); };
 
         Predicate<MedicalHistory> predicateListMedHistIsDid =
-                x -> {
-                    if (!targetDoctorId.isPresent()) {
-                        return true;
-                    }
-                    return x.getDoctorId().equals(targetDoctorId.get()); };
+            x -> {
+                if (!targetDoctorId.isPresent()) {
+                    return true;
+                }
+                return x.getDoctorId().equals(targetDoctorId.get()); };
 
         Predicate<MedicalHistory> predicateListMedHistIsDate =
-                x -> {
-                    if (!targetDate.isPresent()) {
-                        return true;
-                    }
-                    return x.getDate().equals(targetDate.get()); };
+            x -> {
+                if (!targetDate.isPresent()) {
+                    return true;
+                }
+                return x.getDate().equals(targetDate.get()); };
 
         Predicate<MedicalHistory> specifiedPredicate = PREDICATE_SHOW_ALL_MEDHISTS
                 .and(predicateListMedHistIsPid).and(predicateListMedHistIsDid).and(predicateListMedHistIsDate);

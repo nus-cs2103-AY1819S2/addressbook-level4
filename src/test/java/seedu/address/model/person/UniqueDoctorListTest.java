@@ -8,17 +8,17 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_STROKE;
 import static seedu.address.testutil.TypicalPatients.ALICE;
 import static seedu.address.testutil.TypicalPatients.BOB;
 
-import seedu.address.model.person.exceptions.DuplicatePatientException;
-import seedu.address.model.person.exceptions.PatientNotFoundException;
-import seedu.address.testutil.PatientBuilder;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import seedu.address.model.person.exceptions.DuplicatePatientException;
+import seedu.address.model.person.exceptions.PatientNotFoundException;
+import seedu.address.testutil.PatientBuilder;
 
 public class UniqueDoctorListTest {
     @Rule

@@ -54,7 +54,7 @@
 //    public void edit() {
 //        Model model = getModel();
 //
-//        /* ----------------- Performing edit operation while an unfiltered list is being shown ---------------------- */
+//        /* ---------------- Performing edit operation while an unfiltered list is being shown --------------------- */
 //
 //        /* Case: edit all fields, command with leading spaces, trailing spaces and multiple spaces between each field
 //         * -> edited
@@ -111,7 +111,7 @@
 //        editedDoctor = new DoctorBuilder(doctorToEdit).withSpecs().build();
 //        assertCommandSuccess(command, index, editedDoctor);
 //
-//        /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
+//        /* ----------------- Performing edit operation while a filtered list is being shown ----------------------- */
 //
 //        /* Case: filtered doctor list, edit index within bounds of docX and doctor list -> edited */
 //        showDoctorsWithName(KEYWORD_MATCHING_MEIER);
@@ -130,7 +130,7 @@
 //        assertCommandFailure(EditDoctorCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_STEVEN,
 //                Messages.MESSAGE_INVALID_DOCTOR_DISPLAYED_INDEX);
 //
-//        /* --------------------- Performing edit operation while a doctor card is selected ------------------------- */
+//        /* -------------------- Performing edit operation while a doctor card is selected ------------------------ */
 //
 //        /* Case: selects first card in the doctor list, edit a doctor -> edited, card selection remains unchanged but
 //         * browser url changes
@@ -145,7 +145,7 @@
 //        // browser's url is updated to reflect the new patient's name
 //        assertCommandSuccess(command, index, ALVINA, index);
 //
-//        /* --------------------------------- Performing invalid edit operation -------------------------------------- */
+//        /* -------------------------------- Performing invalid edit operation ------------------------------------- */
 //
 //        /* Case: invalid index (0) -> rejected */
 //        assertCommandFailure(EditDoctorCommand.COMMAND_WORD + " 0" + NAME_DESC_STEVEN,
@@ -244,7 +244,8 @@
 //    }
 //
 //    /**
-//     * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} and in addition,<br>
+//     * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} and in addition,
+//         <br>
 //     * 1. Asserts that result display box displays the success message of executing {@code EditDoctorCommand}.<br>
 //     * 2. Asserts that the model related components are updated to reflect the doctor at index {@code toEdit} being
 //     * updated to values specified {@code editedDoctor}.<br>

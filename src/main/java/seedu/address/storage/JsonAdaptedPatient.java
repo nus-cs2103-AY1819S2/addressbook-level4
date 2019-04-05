@@ -21,14 +21,11 @@ import seedu.address.model.tag.Tag;
 /**
  * Jackson-friendly version of {@link Patient}.
  */
-class JsonAdaptedPatient {
+class JsonAdaptedPatient extends JsonAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Patient's %s field is missing!";
 
-    private final String name;
-    private final String gender;
     private final String age;
-    private final String phone;
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -42,10 +39,8 @@ class JsonAdaptedPatient {
                               @JsonProperty("phone") String phone,
                               @JsonProperty("address") String address,
                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
-        this.name = name;
-        this.gender = gender;
+        super(name, phone, gender);
         this.age = age;
-        this.phone = phone;
         this.address = address;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -56,10 +51,8 @@ class JsonAdaptedPatient {
      * Converts a given {@code Patient} into this class for Jackson use.
      */
     public JsonAdaptedPatient(Patient source) {
-        name = source.getName().fullName;
-        gender = source.getGender().value;
+        super(source.getName().fullName, source.getPhone().value, source.getGender().value);
         age = source.getAge().value;
-        phone = source.getPhone().value;
         address = source.getAddress().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -71,12 +64,14 @@ class JsonAdaptedPatient {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted patient.
      */
+    @Override
     public Patient toModelType() throws IllegalValueException {
         final List<Tag> patientTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             patientTags.add(tag.toModelType());
         }
 
+        String name = getName();
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -85,6 +80,7 @@ class JsonAdaptedPatient {
         }
         final Name modelName = new Name(name);
 
+        String gender = getGender();
         if (gender == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Gender.class.getSimpleName()));
@@ -94,14 +90,7 @@ class JsonAdaptedPatient {
         }
         final Gender modelGender = new Gender(gender);
 
-        if (age == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Age.class.getSimpleName()));
-        }
-        if (!Age.isValidAge(age)) {
-            throw new IllegalValueException(Age.MESSAGE_CONSTRAINTS);
-        }
-        final Age modelAge = new Age(age);
-
+        String phone = getPhone();
         if (phone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
         }
@@ -109,6 +98,14 @@ class JsonAdaptedPatient {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
         }
         final Phone modelPhone = new Phone(phone);
+
+        if (age == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Age.class.getSimpleName()));
+        }
+        if (!Age.isValidAge(age)) {
+            throw new IllegalValueException(Age.MESSAGE_CONSTRAINTS);
+        }
+        final Age modelAge = new Age(age);
 
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));

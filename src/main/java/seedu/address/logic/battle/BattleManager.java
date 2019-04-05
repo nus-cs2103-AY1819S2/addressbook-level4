@@ -81,7 +81,7 @@ public class BattleManager implements Battle {
             do {
                 Coordinates enemyAttack = enemyPlayer.enemyShootAt();
                 lastRes = performAttack(enemyPlayer, humanPlayer, enemyAttack);
-                // update the enemy with it's result
+                // update the enemy with its result
                 enemyPlayer.receiveStatus(humanPlayer.getMapGrid().getCellStatus(enemyAttack));
                 logger.info(String.format("+++++++BATMAN SAYS: LAST HIT ON: " + enemyAttack.toString()
                     + " status: " + lastRes.toString()));

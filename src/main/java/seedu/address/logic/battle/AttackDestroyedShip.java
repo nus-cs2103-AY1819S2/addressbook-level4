@@ -16,12 +16,11 @@ public class AttackDestroyedShip extends AttackResult {
 
     @Override
     public boolean isHit() {
-        return false;
+        return true;
     }
 
     @Override
-    public String toString() {
-        return String.format(ATTACK + "destroyed %s",
-            attacker.getName(), coords, target.getName(), destroyedShipName);
+    public String resultString() {
+        return String.format("destroyed %s", destroyedShipName);
     }
 }

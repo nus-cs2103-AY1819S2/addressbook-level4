@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import java.io.File;
-
 import java.util.Objects;
 
 import javafx.fxml.FXML;
@@ -38,6 +37,8 @@ public class FlashcardCardView extends UiPart<Region> {
      */
     public FlashcardCardView(Flashcard flashcard, int mode) {
         super(FXML);
+        frontFace.setWrapText(true);
+        backFace.setWrapText(true);
         this.flashcard = flashcard;
         frontFace.setText(flashcard.getFrontFace().text);
         if (mode != -1) {

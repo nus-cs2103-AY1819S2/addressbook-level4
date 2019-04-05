@@ -4,9 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PATH;
 import static seedu.address.commons.core.Messages.MESSAGE_SYSTEM_ERROR;
 
 import java.io.File;
-
 import java.util.logging.Logger;
-
 import javax.swing.JFileChooser;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileSystemView;

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1" id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx">
+<StackPane xmlns:fx="http://javafx.com/fxml/1" id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1">
     <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0"
                 style="-fx-background-color: #dfe4ea; -fx-background-radius: 30;">
         <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
@@ -31,6 +31,9 @@
         </VBox>
         <Rectangle arcHeight="5.0" arcWidth="5.0" height="1000.0" opacity="0.02" rotate="50.0" stroke="BLACK"
                    strokeType="INSIDE" translateX="300.0" translateY="-600.0" width="1000.0"/>
+        <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        </padding>
     </AnchorPane>
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>

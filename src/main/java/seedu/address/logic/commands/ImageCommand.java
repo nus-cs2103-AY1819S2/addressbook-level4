@@ -10,6 +10,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -49,11 +51,14 @@ public class ImageCommand extends Command {
         requireNonNull(model);
 
         String fileName = toImport.getName();
-        File workingDirectoryFile = new File(IMAGE_DIRECTORY.concat(fileName));
+        Path imageDirectory = Paths.get(IMAGE_DIRECTORY);
+        File workingDirectoryFile = imageDirectory.resolve(fileName).toFile();
 
         if (workingDirectoryFile.exists()) {
             throw new CommandException(MESSAGE_DUPLICATE_NAME);
         }
+
+        imageDirectory.toFile().mkdirs();
 
         //make a copy of the image
         try {

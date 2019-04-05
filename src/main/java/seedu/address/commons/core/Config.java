@@ -11,7 +11,7 @@ import java.util.logging.Level;
 public class Config {
 
     public static final Path DEFAULT_CONFIG_FILE = Paths.get("config.json");
-    public static final String IMAGE_DIRECTORY = "images/";
+    public static final String IMAGE_DIRECTORY = "images";
 
     // Config values customizable through config file.
     private Level logLevel = Level.INFO;

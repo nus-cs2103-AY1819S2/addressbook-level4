@@ -192,7 +192,6 @@ can be used as `n/John Doe c/Claustrophobia` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `s/<specialisation>...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/<name> p/<phone_number>`, `p/<phonenumber> n/<name>` is also acceptable.
 
-
 === Viewing Help : `help`
 
 Upon first starting the application as a new user, or perhaps a returning
@@ -244,16 +243,16 @@ requests for specific health services.
 
 Example:
 
-* `list healthworker/h/1` lists all health workers stored in the system,
+* `list healthworker` lists all health workers stored in the system,
 their personal particulars, and their skills in the healthcare field.
-* `list request/r/2` lists all requests stored in the system, as well as the
+* `list request` lists all requests stored in the system, as well as the
 details of the request such as the patient to tend to, the date and time of
 the request and the type of service requested.
 
 // tag::addHealthWorker[]
 === Adding requests/health workers: `add`
 
-Before you can jump right into the core feature of our application and
+Before you can jump right intWo the core feature of our application and
 streamline the process of adding requests from patients and to assign
 requests to experts in the medical field, it is essential to first ensure
 that the respective health staff and patients are registered in the system
@@ -265,19 +264,69 @@ staff, patients and requests. +
 
 Format: `add <type> <additional_parameters>...` +
 
-==== *Adding a health worker*: `add healthworker/h/1 n/<worker_name> i/<NRIC> n/<phone_number> s/<specialisation>...`
+==== *Adding a health worker*
 
-* Command that registers a new Health Worker person to the current roster.
-* Health Workers comprises of personnel who are authorized to work in sectors in the
+*Format:*
+
+* `add healthworker n/<worker_name> i/<NRIC> n/<phone_number>
+o/<organisation> s/<specialisation>...`
+
+*Shortcuts:*
+
+* `add h n/<worker_name> i/<NRIC> n/<phone_number>
+o/<organisation> s/<specialisation>...` +
+* `add 1 n/<worker_name> i/<NRIC> n/<phone_number> o/<organisation>
+s/<specialisation>...`
+
+Command that registers a new Health Worker person to the current roster.
+Health Workers comprises of personnel who are authorized to work in sectors in the
 healthcare industry in accordance to their `specialisation`.
-* Health Workers authorized for medical practice specific to their
+
+Health Workers authorized for medical practice specific to their
 `specialisation` include doctors, nurses and community health workers that
-are officially certified by certain medical practices
-* To view all available specialisations in the application, type `add help`
-in the command line.
+are officially certified by certain medical practices.
+
+The fields entered by the user following each prefix must adhere to the
+following format:
+
+* `<worker_name>`: Name must only contain alphanumeric characters and spaces
+, and cannot be empty. E.g Dog Terr
+* `<NRIC>`: NRIC must start with S, T, G or F capitalized, followed by 7
+numeric characters and a capitalized alphabetical character. E.g S1234567A
+* `<phone_number>`: Phone number must only contain 8 numeric characters, and
+ start with a 6, 8 or 9.
+* `<organisation>`: Organisation that the health worker belongs to.
+Organisation name must have at least 2 characters, and only contain
+alphanumeric characters.
+* `<specialisation>`: Specialisation in the medical field that the health
+worker possesses. The list of valid specialisations are as follows:
+
+** GENERAL_PRACTICE
+** CARDIOLOGY
+** ENDOCRINOLOGY
+** NEUROLOGY
+** ORTHOPAEDIC
+** PAEDIATRIC
+** GYNAECOLOGY
+** UROLOGY
+** PATHOLOGY
+** HAEMATOLOGY
+** PHYSIOTHERAPY
+** OCCUPATIONAL_THERAPY
+** ANAESTHESIOLOGY
+
 // end::addHealthWorker[]
 
-==== *Adding a request*: `add request/r/2 n/<NAME> p/<PHONE> i/<NRIC> a/<ADDRESS> dt/<DATE> c/<CONDITION>`
+==== *Adding a request*
+
+*Format:*
+
+* `add request n/<patient_name> c/<condition> d/<date> t/time`
+
+*Shortcuts:*
+
+* `add r n/<patient_name> c/<condition> d/<date> t/time`
+* `add 2 n/<patient_name> c/<condition> d/<date> t/time`
 
 * Registers a new open request from `patient` of `<NAME>` into the
 application.
@@ -306,7 +355,6 @@ to ensure that the date is correct prior to keying it into the system. To edit a
 
 
 
-// tag::editHealthWorker[]
 === Editing requests/health workers : `edit`
 
 Sometimes, information on a request of health staff may be keyed in wrongly
@@ -320,18 +368,34 @@ The `edit` may come in handy when there is a need update to a request's
 status, patient's condition or a health worker's skills, based on the
 `<type>` parameter accepted. +
 
+The prefixes and valid values for the `edit` command for both health worker
+and request modes follow the same format as in the `add` command.
+
 ==== *Editing a health worker*
 
-Format: `edit healthworker/h/1 <index> <additional_parameters>...`
+*Format:*
+
+* `edit healthworker <index> <additional_parameters>...`
+
+*Shortcuts:*
+
+* `edit h <index> <additional_parameters>...`
+* `edit 1 <index> <additional_parameters>...`
 
 Edits the details of an existing health worker registered in Health Hub, at
 the `<index>` specified in the health worker list upon entering the `edit
-healthworker/h/1` command with valid inputs.
-// end::editHealthWorker[]
+healthworker` command with valid inputs.
 
 ==== *Editing a request*
 
-Format: `edit request/r/2 <index> <additional_parameters>...`
+*Format:*
+
+* `edit request <index> <additional_parameters>...`
+
+*Shortcuts:*
+
+* `edit r <index> <additional_parameters>...`
+* `edit 2 <index> <additional_parameters>...`
 
 Edits the details of a request registered in Health Hub, at
 the `<index>` specified in the request list upon entering the `edit
@@ -364,10 +428,11 @@ When editing specialisations for health workers, the existing specialisations
  of the person will be removed i.e adding of specialisation is not cumulative.
 ====
 
-[TIP]
+[NOTE]
 ====
-You can remove all the person's specialisation by typing `s/` without
-specifying any parameters after it.
+Each health worker must have at least one specialisation. Entering an empty
+value for `s/` prefix would result in the original health worker's `skills`
+being kept.
 ====
 
 Examples:
@@ -394,7 +459,14 @@ Format: `filter <type> <keyword> [<more_keywords>]...` +
 
 ==== *Filter health workers*:
 
-Format: `filter healthworker/h/1 <keyword> [<more_keywords>]`
+*Format:*
+
+* `filter healthworker <keyword> [<more_keywords>]`
+
+*Shortcuts:*
+
+* `filter h <keyword> [<more_keywords>]`
+* `filter 1 <keyword> [<more_keywords>]`
 
 Upon entering the command with valid inputs, searches the entire list of health
 workers in Health Hub, and only displays the health workers whose fields matches the parameters specified in the
@@ -409,8 +481,14 @@ parameters will be accepted
 
 ==== *Filter requests*:
 
-Format: `filter request/r/2 <keyword> [<more_keywords>]`
+*Format:*
 
+* `filter request <keyword> [<more_keywords>]`
+
+*Shortcuts:*
+
+* `filter r <keyword> [<more_keywords>]`
+* `filter 2 <keyword> [<more_keywords>]`
 After entering the command with valid inputs, searches the entire list of
 requests in Health Hub, and only displays the requests whose fields matches
  the parameters specified in the
@@ -504,7 +582,14 @@ Format: `delete <type> <index>` +
 
 ==== *Delete a health worker*:
 
-Format: `delete healthworker/h/1 <index>`
+*Format:*
+
+* `delete healthworker <index>`
+
+*Shortcuts:*
+
+* `delete h <index>`
+* `delete 1 <index>`
 
 Deletes the health worker at the `<index>` position in shown in the health
 worker list.
@@ -512,7 +597,14 @@ worker list.
 
 ==== *Delete a request*:
 
-Format: `delete request/r/2 <index>`
+*Format:*
+
+* `delete request <index>`
+
+*Shortcuts:*
+
+* `delete r <index>`
+* `delete 2 <index>`
 
 Deletes the request at the `<index>` position in shown in the list of requests.
 

@@ -12,7 +12,7 @@ public class Nric {
     public static final String MESSAGE_CONSTRAINTS = "Nric should start with "
             + "an S or T, followed by 7 numeric characters and then a letter"
             + ". All letters are to be in capital casing";
-    public static final String VALIDATION_REGEX = "[ST]\\d{7}[A-Z]"; // Nric
+    public static final String VALIDATION_REGEX = "[STGF]\\d{7}[A-Z]"; // Nric
     public static final String DEFAULT_NRIC = "S1234567A";
     // should start with capital S/T, followed by 7 numeric characters and a
     // capital letter.

@@ -28,6 +28,7 @@ public class AttackCommand extends Command {
         + "SQUARE (a letter followed by a positive integer)\n"
         + "Example: attack b5";
     public static final String MESSAGE_DUPLICATE = "You have already attacked cell ";
+    public static final String MESSAGE_ANOTHER_TURN = "Take another turn.";
 
     private Coordinates coord;
 
@@ -60,17 +61,17 @@ public class AttackCommand extends Command {
 
         if (res.isHit()) {
             // player takes another turn
-            return new CommandResult(res.toString());
+            return new CommandResult(res.formatAsUserAttack() + "\n" + MESSAGE_ANOTHER_TURN);
         } else {
             // immediately, AI takes its turn
             model.setBattleState(BattleState.ENEMY_ATTACK);
             List<AttackResult> enemyResList = model.getBattle().takeComputerTurns();
 
             StringBuilder resultBuilder = new StringBuilder();
-            resultBuilder.append(res.toString());
+            resultBuilder.append(res.formatAsUserAttack());
             for (AttackResult enemyRes: enemyResList) {
                 resultBuilder.append("\n");
-                resultBuilder.append(enemyRes.toString());
+                resultBuilder.append(enemyRes.formatAsEnemyAttack());
             }
             model.setBattleState(BattleState.PLAYER_ATTACK);
             return new CommandResult(resultBuilder.toString());

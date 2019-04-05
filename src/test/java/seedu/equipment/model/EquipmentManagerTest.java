@@ -28,6 +28,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.equipment.exceptions.DuplicateEquipmentException;
 import seedu.equipment.testutil.EquipmentBuilder;
 import seedu.equipment.testutil.EquipmentManagerBuilder;
@@ -172,6 +173,7 @@ public class EquipmentManagerTest {
     private static class EquipmentManagerStub implements ReadOnlyEquipmentManager {
         private final ObservableList<Equipment> equipment = FXCollections.observableArrayList();
         private final ObservableList<WorkList> workLists = FXCollections.observableArrayList();
+        private final ObservableList<Name> name = FXCollections.observableArrayList();
 
         EquipmentManagerStub(Collection<Equipment> equipment) {
             this.equipment.setAll(equipment);
@@ -185,6 +187,11 @@ public class EquipmentManagerTest {
         @Override
         public ObservableList<WorkList> getWorkListList() {
             return workLists;
+        }
+
+        @Override
+        public ObservableList<Name> getClientList() {
+            return name;
         }
 
         @Override

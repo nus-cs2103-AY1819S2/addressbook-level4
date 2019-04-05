@@ -16,6 +16,7 @@ import seedu.equipment.commons.core.GuiSettings;
 import seedu.equipment.commons.core.LogsCenter;
 import seedu.equipment.commons.util.CollectionUtil;
 import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.equipment.SerialNumber;
 import seedu.equipment.model.equipment.exceptions.EquipmentNotFoundException;
 import seedu.equipment.model.tag.Tag;
@@ -28,7 +29,7 @@ public class ModelManager implements Model {
 
     private final VersionedEquipmentManager versionedEquipmentManager;
     private final UserPrefs userPrefs;
-    private final FilteredList<Equipment> filteredClient;
+    private final FilteredList<Name> filteredClient;
     private final FilteredList<Equipment> filteredEquipments;
     private final FilteredList<WorkList> filteredWorkList;
     private final SimpleObjectProperty<Equipment> selectedEquipment = new SimpleObjectProperty<>();
@@ -48,7 +49,7 @@ public class ModelManager implements Model {
         filteredEquipments = new FilteredList<>(versionedEquipmentManager.getPersonList());
         filteredEquipments.addListener(this::ensureSelectedPersonIsValid);
         filteredWorkList = new FilteredList<>(versionedEquipmentManager.getWorkListList());
-        filteredClient = new FilteredList<>(versionedEquipmentManager.getPersonList());
+        filteredClient = new FilteredList<>(versionedEquipmentManager.getClientList());
         //filteredWorkList.addListener(this::ensureSelectedworkListIsValid);
     }
 
@@ -110,6 +111,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasClient(Name name) {
+        requireNonNull(name);
+        return versionedEquipmentManager.hasClient(name);
+    }
+
+    @Override
     public boolean hasWorkList(WorkList workList) {
         requireNonNull(workList);
         return versionedEquipmentManager.hasWorkList(workList);
@@ -138,6 +145,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addClient(Name equipment) {
+        versionedEquipmentManager.addClient(equipment);
+        updateFilteredClientList(PREDICATE_SHOW_ALL_CLIENT);
+    }
+
+    @Override
     public void putEquipment(WorkListId workListId, SerialNumber serialNumber) {
         versionedEquipmentManager.putEquipment(workListId, serialNumber);
     }
@@ -153,6 +166,7 @@ public class ModelManager implements Model {
         versionedEquipmentManager.resetData(newData);
 
     }
+
     @Override
     public void setEquipment(Equipment target, Equipment editedEquipment) {
         CollectionUtil.requireAllNonNull(target, editedEquipment);
@@ -161,26 +175,17 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setClient(Name target, Name editedEquipment) {
+        CollectionUtil.requireAllNonNull(target, editedEquipment);
+
+        versionedEquipmentManager.setClient(target, editedEquipment);
+    }
+
+    @Override
     public void updateEquipment(Equipment target, Equipment editedEquipment) {
         CollectionUtil.requireAllNonNull(target, editedEquipment);
 
         versionedEquipmentManager.updateEquipment(target, editedEquipment);
-    }
-
-    //=========== Filtered Client List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code WorkList} backed by the internal list of
-     * {@code versionedEquipmentManager}
-     */
-    public ObservableList<Equipment> getFilteredClient() {
-        return filteredClient;
-    }
-
-    @Override
-    public void updateFilteredClient(Predicate<Equipment> predicate) {
-        requireNonNull(predicate);
-        filteredClient.setPredicate(predicate);
     }
 
     //=========== Filtered WorkList List Accessors =============================================================
@@ -215,6 +220,23 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredEquipments.setPredicate(predicate);
     }
+
+    //=========== Filtered Client List Accessors =============================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Equipment} backed by the internal list of
+     * {@code versionedEquipmentManager}
+     */
+    @Override
+    public ObservableList<Name> getFilteredClientList() {
+        return filteredClient;
+    }
+
+    @Override
+    public void updateFilteredClientList(Predicate<Name> predicate) {
+        requireNonNull(predicate);
+        filteredClient.setPredicate(predicate);
+    }
+
     //=========== Undo/Redo =================================================================================
 
     @Override

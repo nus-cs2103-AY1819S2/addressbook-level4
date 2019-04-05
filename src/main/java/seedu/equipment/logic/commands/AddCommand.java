@@ -36,6 +36,9 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_EQUIPMENT = "Duplicated equipment serial number, "
             + "this equipment already exists in the equipment manager.";
 
+    public static final String MESSAGE_DUPLICATE_CLIENT = "Duplicated client name in client details.";
+
+
     private final Equipment toAdd;
 
     /**
@@ -54,6 +57,7 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_EQUIPMENT);
         }
 
+        model.addClient(toAdd.getName());
         model.addEquipment(toAdd);
         model.commitEquipmentManager();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

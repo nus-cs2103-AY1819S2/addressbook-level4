@@ -32,6 +32,16 @@ public class Name implements Comparable<Name> {
     }
 
     /**
+     * Returns true if both worklists have the same WorkListId.
+     */
+    public boolean isSameName(Name othername) {
+        if (othername == this) {
+            return true;
+        }
+
+        return othername != null && othername.name.equals(name);
+    }
+    /**
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidName(String test) {

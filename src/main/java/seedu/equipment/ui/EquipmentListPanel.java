@@ -23,10 +23,6 @@ public class EquipmentListPanel extends UiPart<Region> {
     @FXML
     private ListView<Equipment> personListView;
 
-    @FXML
-    private ListView<Equipment> clientListView;
-
-
     public EquipmentListPanel(ObservableList<Equipment> equipmentList, ObservableValue<Equipment> selectedPerson,
                               Consumer<Equipment> onSelectedPersonChange) {
         super(FXML);

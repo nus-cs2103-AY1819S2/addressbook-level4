@@ -18,7 +18,7 @@ public class ListClientCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredClient(PREDICATE_SHOW_ALL_CLIENT);
+        model.updateFilteredClientList(PREDICATE_SHOW_ALL_CLIENT);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

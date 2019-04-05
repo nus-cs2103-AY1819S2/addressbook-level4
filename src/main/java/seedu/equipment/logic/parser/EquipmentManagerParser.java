@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.equipment.commons.core.Messages;
+import seedu.equipment.logic.commands.AddClientCommand;
 import seedu.equipment.logic.commands.AddCommand;
 import seedu.equipment.logic.commands.AddWorkListCommand;
 import seedu.equipment.logic.commands.ClearCommand;
@@ -55,6 +56,9 @@ public class EquipmentManagerParser {
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
+
+        case AddClientCommand.COMMAND_WORD:
+            return new AddClientCommandParser().parse(arguments);
 
         case AddWorkListCommand.COMMAND_WORD:
             return new AddWorkListCommandParser().parse(arguments);

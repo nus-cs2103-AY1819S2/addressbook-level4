@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
+    private ClientListPanel clientListPanel;
     private EquipmentListPanel equipmentListPanel;
     private WorkListListPanel workListListPanel;
     private ResultDisplay resultDisplay;
@@ -51,10 +52,10 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane clientListPanelPlaceholder;
 
     @FXML
-    private StackPane clientListPanelPlaceholder;
+    private StackPane personListPanelPlaceholder;
 
     @FXML
     private StackPane workListPanelPlaceholder;
@@ -133,6 +134,9 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedWorkList);
         workListPanelPlaceholder.getChildren().add(workListListPanel.getRoot());
 
+        clientListPanel = new ClientListPanel(logic.getFilteredClientList());
+        clientListPanelPlaceholder.getChildren().add(clientListPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -200,14 +204,6 @@ public class MainWindow extends UiPart<Stage> {
         String url = BrowserPanel.MAP_MULTIPLE_POINT_BASE_URL + "?coordinates=" + coordiantesString;
         System.out.println("Loading page: " + url);
         browserPanel.loadPage(url);
-    }
-
-    public EquipmentListPanel getEquipmentListPanel() {
-        return equipmentListPanel;
-    }
-
-    public WorkListListPanel getWorkListListPanel() {
-        return workListListPanel;
     }
 
     /**

@@ -17,6 +17,7 @@ import seedu.equipment.model.Model;
 import seedu.equipment.model.ReadOnlyEquipmentManager;
 import seedu.equipment.model.WorkList;
 import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.equipment.Name;
 import seedu.equipment.storage.Storage;
 
 /**
@@ -83,8 +84,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Equipment> getFilteredClient() {
-        return model.getFilteredClient();
+    public ObservableList<Name> getFilteredClientList() {
+        return model.getFilteredClientList();
     }
 
     @Override

@@ -12,6 +12,7 @@ import seedu.equipment.model.Model;
 import seedu.equipment.model.ReadOnlyEquipmentManager;
 import seedu.equipment.model.WorkList;
 import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.equipment.Name;
 
 /**
  * API of the Logic component
@@ -39,8 +40,8 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of WorkLists */
     ObservableList<WorkList> getFilteredWorkListList();
 
-    /** Returns an unmodifiable view of the filtered list of clients */
-    ObservableList<Equipment> getFilteredClient();
+    /** Returns an unmodifiable view of the filtered list of client */
+    ObservableList<Name> getFilteredClientList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.

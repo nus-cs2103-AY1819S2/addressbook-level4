@@ -2,6 +2,7 @@ package seedu.equipment.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -10,8 +11,10 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.equipment.commons.util.InvalidationListenerManager;
 import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.equipment.SerialNumber;
 import seedu.equipment.model.equipment.UniqueEquipmentList;
+import seedu.equipment.model.equipment.UniqueNameList;
 import seedu.equipment.model.tag.Tag;
 
 /**
@@ -21,6 +24,7 @@ import seedu.equipment.model.tag.Tag;
 public class EquipmentManager implements ReadOnlyEquipmentManager {
 
     private final UniqueEquipmentList equipment;
+    private final UniqueNameList name;
     private final UniqueWorkListList worklist;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
@@ -34,12 +38,13 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
     {
         equipment = new UniqueEquipmentList();
         worklist = new UniqueWorkListList();
+        name = new UniqueNameList();
     }
 
     public EquipmentManager() {}
 
     /**
-     * Creates an EquipmentManager using the Persons in the {@code toBeCopied}
+     * Creates an EquipmentManager using the Equipment in the {@code toBeCopied}
      */
     public EquipmentManager(ReadOnlyEquipmentManager toBeCopied) {
         this();
@@ -54,6 +59,11 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
      */
     public void setEquipment(List<Equipment> equipment) {
         this.equipment.setEquipments(equipment);
+        List<Name> nameList = new ArrayList<>();
+        for (Equipment eqpt : equipment) {
+            nameList.add(eqpt.getName());
+        }
+        this.name.setClient(nameList);
         indicateModified();
     }
 
@@ -77,6 +87,14 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
     }
 
     /**
+     * Returns true if a equipment with the same name as {@code equipment} exists in the equipment book.
+     */
+    public boolean hasClient(Name name) {
+        requireNonNull(name);
+        return this.name.contains(name);
+    }
+
+    /**
      * Returns true if a WorkList with the same WorkListId as {@code WorkList} exists in the Equipment Manager.
      */
     public boolean hasWorkList(WorkList worklist) {
@@ -90,6 +108,16 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
      */
     public void addPerson(Equipment p) {
         equipment.add(p);
+        name.add(p.getName());
+        indicateModified();
+    }
+
+    /**
+     * Adds the client to the equipment book.
+     * The equipment must not already exist in the equipment book.
+     */
+    public void addClient(Name p) {
+        name.add(p);
         indicateModified();
     }
 
@@ -123,6 +151,19 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
         requireNonNull(editedEquipment);
 
         equipment.setEquipment(target, editedEquipment);
+        name.setClient2(target.getName(), editedEquipment.getName());
+        indicateModified();
+    }
+
+    /**
+     * Replaces the given equipment {@code target} in the list with {@code editedEquipment}.
+     * {@code target} must exist in the equipment book.
+     * The equipment identity of {@code editedEquipment} must not be the same as another existing equipment
+     * in the equipment book.
+     */
+    public void setClient(Name target, Name editedEquipment) {
+        requireNonNull(editedEquipment);
+        name.setClient2(target, editedEquipment);
         indicateModified();
     }
 
@@ -132,6 +173,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
      */
     public void removePerson(Equipment key) {
         equipment.remove(key);
+        name.remove(key.getName());
         indicateModified();
     }
 
@@ -155,6 +197,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
         requireNonNull(editedEquipment);
 
         equipment.setEquipment(target, editedEquipment);
+        name.setClient2(target.getName(), editedEquipment.getName());
     }
 
     /**
@@ -214,6 +257,11 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
     @Override
     public ObservableList<WorkList> getWorkListList() {
         return worklist.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Name> getClientList() {
+        return name.asUnmodifiableObservableList();
     }
 
     @Override

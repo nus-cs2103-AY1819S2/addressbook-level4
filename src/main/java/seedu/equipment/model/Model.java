@@ -7,6 +7,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.equipment.commons.core.GuiSettings;
 import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.equipment.SerialNumber;
 import seedu.equipment.model.tag.Tag;
 
@@ -21,7 +22,7 @@ public interface Model {
     Predicate<WorkList> PREDICATE_SHOW_ALL_WORKLISTS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Equipment> PREDICATE_SHOW_ALL_CLIENT = unused -> true;
+    Predicate<Name> PREDICATE_SHOW_ALL_CLIENT = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -70,6 +71,11 @@ public interface Model {
     boolean hasEquipment(Equipment equipment);
 
     /**
+     * Returns true if a equipment with the same name as {@code equipment} exists in the equipment manager.
+     */
+    boolean hasClient(Name name);
+
+    /**
      * Returns true if a WorkList with the same identity as {@code workList} exists in the equipment manager.
      */
     boolean hasWorkList(WorkList workList);
@@ -105,12 +111,27 @@ public interface Model {
     void addWorkList(WorkList workList);
 
     /**
+     * Adds the given client.
+     * {@code equipment} must not already exist in the equipment manager.
+     */
+    void addClient(Name equipment);
+
+    /**
      * Replaces the given equipment {@code target} with {@code editedEquipment}.
      * {@code target} must exist in the equipment book.
      * The equipment identity of {@code editedEquipment} must not be the same as another
      * existing equipment in the equipment book.
      */
     void setEquipment(Equipment target, Equipment editedEquipment);
+
+    /**
+     * Replaces the given equipment {@code target} with {@code editedEquipment}.
+     * {@code target} must exist in the equipment book.
+     * The equipment identity of {@code editedEquipment} must not be the same as another
+     * existing equipment in the equipment book.
+     */
+    void setClient(Name target, Name editedEquipment);
+
 
     /** Returns an unmodifiable view of the filtered equipment list */
     ObservableList<Equipment> getFilteredPersonList();
@@ -119,7 +140,7 @@ public interface Model {
     ObservableList<WorkList> getFilteredWorkListList();
 
     /** Returns an unmodifiable view of the filtered client list */
-    ObservableList<Equipment> getFilteredClient();
+    ObservableList<Name> getFilteredClientList();
 
     /**
      * Updates the filter of the filtered equipment list to filter by the given {@code predicate}.
@@ -128,16 +149,16 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Equipment> predicate);
 
     /**
+     * Updates the filter of the filtered client list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredClientList(Predicate<Name> predicate);
+
+    /**
      * Updates the filter of the filtered WorkList list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredWorkListList(Predicate<WorkList> predicate);
-
-    /**
-     * Updates the filter of the filtered client to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredClient(Predicate<Equipment> predicate);
 
     /**
      * Returns true if the model has previous equipment book states to restore.

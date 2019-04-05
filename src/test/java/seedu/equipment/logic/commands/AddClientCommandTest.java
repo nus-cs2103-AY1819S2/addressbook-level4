@@ -1,11 +1,11 @@
 package seedu.equipment.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -29,8 +29,7 @@ import seedu.equipment.model.equipment.SerialNumber;
 import seedu.equipment.model.tag.Tag;
 import seedu.equipment.testutil.EquipmentBuilder;
 
-public class AddCommandTest {
-
+public class AddClientCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     @Rule
@@ -39,44 +38,38 @@ public class AddCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullClient_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        new AddClientCommand(null);
+    }
+
+
+    @Test
+    public void execute_clientAcceptedByModel_addSuccessful() throws Exception {
+        AddClientCommandTest.ModelStubAcceptingClientAdded modelStub =
+                new AddClientCommandTest.ModelStubAcceptingClientAdded();
+        Equipment validEquipment = new EquipmentBuilder().build();
+
+        Name validName = new Name(validEquipment.getName().name);
+
+        CommandResult commandResult = new AddClientCommand(validName).execute(modelStub, commandHistory);
+
+        assertEquals(String.format(AddClientCommand.MESSAGE_SUCCESS, validName),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validName), modelStub.clientAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
+    public void execute_duplicateName_throwsCommandException() throws Exception {
         Equipment validEquipment = new EquipmentBuilder().build();
-        AddCommand addCommand = new AddCommand(validEquipment);
-        ModelStub modelStub = new ModelStubWithPerson(validEquipment);
+        AddClientCommand addClientCommand = new AddClientCommand(validEquipment.getName());
+        AddClientCommandTest.ModelStubWithClient modelStub =
+                new AddClientCommandTest.ModelStubWithClient(validEquipment.getName());
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_EQUIPMENT);
-        addCommand.execute(modelStub, commandHistory);
-    }
-
-    @Test
-    public void equals() {
-        Equipment alice = new EquipmentBuilder().withName("Alice").build();
-        Equipment bob = new EquipmentBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
-
-        // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
-
-        // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
-
-        // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
-
-        // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
-
-        // different equipment -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_CLIENT);
+        addClientCommand.execute(modelStub, commandHistory);
     }
 
     /**
@@ -297,42 +290,42 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single equipment.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Equipment equipment;
+    private class ModelStubWithClient extends AddClientCommandTest.ModelStub {
+        private final Name equipment;
 
-        ModelStubWithPerson(Equipment equipment) {
+        ModelStubWithClient(Name equipment) {
             requireNonNull(equipment);
             this.equipment = equipment;
         }
 
         @Override
-        public boolean hasEquipment(Equipment equipment) {
+        public boolean hasClient(Name equipment) {
             requireNonNull(equipment);
-            return this.equipment.isSameEquipment(equipment);
+            return this.equipment.isSameName(equipment);
         }
     }
 
     /**
      * A Model stub that always accept the equipment being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Equipment> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingClientAdded extends AddClientCommandTest.ModelStub {
+        final ArrayList<Name> clientAdded = new ArrayList<>();
 
         @Override
-        public boolean hasEquipment(Equipment equipment) {
-            requireNonNull(equipment);
-            return personsAdded.stream().anyMatch(equipment::isSameEquipment);
+        public boolean hasClient(Name name) {
+            requireNonNull(name);
+            return clientAdded.stream().anyMatch(name::isSameName);
         }
 
         @Override
-        public void addEquipment(Equipment equipment) {
-            requireNonNull(equipment);
-            personsAdded.add(equipment);
+        public void addClient(Name name) {
+            requireNonNull(name);
+            clientAdded.add(name);
         }
 
         @Override
         public void commitEquipmentManager() {
-            // called by {@code AddCommand#execute()}
+            // called by {@code AddClientCommand#execute()}
         }
 
         @Override
@@ -340,5 +333,4 @@ public class AddCommandTest {
             return new EquipmentManager();
         }
     }
-
 }

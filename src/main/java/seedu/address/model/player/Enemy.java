@@ -297,7 +297,7 @@ public class Enemy extends Player {
     private void updateWatchlist(Coordinates lastCoordAttacked) {
         logger.info(String.format("++++++++BEFORE_UPDATE_WATCHLIST_STATUS_CHECK " + lastCoordAttacked.toString()
                 + " status: " + lastAttackStatus.toString()));
-        if (lastAttackStatus == Status.SHIP) { //TO-DO: FIX THE STATUS TO SHIPHIT. NOW USING SHIP CUZ IM READING OWN MAP
+        if (lastAttackStatus == Status.SHIPHIT) {
             int oldRow = lastCoordAttacked.getRowIndex().getZeroBased();
             int oldCol = lastCoordAttacked.getColIndex().getZeroBased();
             Coordinates updatedCoord;

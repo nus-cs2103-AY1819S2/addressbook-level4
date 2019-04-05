@@ -771,9 +771,9 @@ Shows a list of all the task stored in the application.
 Format: `tasklist` or `tlist`
 
 ==== tasksort
-Sort the tasks ascendingly or descendingly in some order. 
+Sort the tasks ascendingly or descendingly in some order.
 
-Format : 'tasksort priority/startime/endtime [asc/desc]' 
+Format : 'tasksort priority/startime/endtime [asc/desc]'
 
 Example:
 

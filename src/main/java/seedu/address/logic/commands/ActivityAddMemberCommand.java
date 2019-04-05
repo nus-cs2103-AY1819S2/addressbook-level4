@@ -70,15 +70,8 @@ public class ActivityAddMemberCommand extends ActivityCommand {
             throw new CommandException(Messages.MESSAGE_ACTIVITY_ALREADY_HAS_PERSON);
         }
 
-        ActivityName copyName = selectedActivity.getName();
-        ActivityDateTime copyDateTime = selectedActivity.getDateTime();
-        ActivityLocation copyLocation = selectedActivity.getLocation();
-        ActivityDescription copyDescription = selectedActivity.getDescription();
-        List<MatricNumber> copyAttendance = new ArrayList<>();
-        copyAttendance.addAll(selectedActivity.getAttendance());
+        Activity copyActivity = Activity.addMemberToActivity(selectedActivity, targetMatric);
 
-        Activity copyActivity = new Activity(copyName, copyDateTime, copyLocation, copyDescription, copyAttendance);
-        copyActivity.addMemberToActivity(targetMatric);
 
         if (!selectedActivity.isSameActivity(copyActivity) && model.hasActivity(copyActivity)) {
             throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY);

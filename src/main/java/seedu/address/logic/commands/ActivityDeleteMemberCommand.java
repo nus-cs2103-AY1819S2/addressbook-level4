@@ -60,14 +60,7 @@ public class ActivityDeleteMemberCommand extends ActivityCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_IN_ACTIVITY);
         }
 
-        ActivityName copyName = selectedActivity.getName();
-        ActivityDateTime copyDateTime = selectedActivity.getDateTime();
-        ActivityLocation copyLocation = selectedActivity.getLocation();
-        ActivityDescription copyDescription = selectedActivity.getDescription();
-        List<MatricNumber> copyAttendance = selectedActivity.getAttendance();
-
-        Activity copyActivity = new Activity(copyName, copyDateTime, copyLocation, copyDescription, copyAttendance);
-        copyActivity.removeMemberFromActivity(targetMatric);
+        Activity copyActivity = Activity.removeMemberFromActivity(selectedActivity, targetMatric);
 
         if (!selectedActivity.isSameActivity(copyActivity) && model.hasActivity(copyActivity)) {
             throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY);

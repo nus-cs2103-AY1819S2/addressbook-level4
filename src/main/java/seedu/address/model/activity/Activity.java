@@ -89,19 +89,35 @@ public class Activity implements Comparable<Activity> {
         return new ActivityStatus(dateTime.isPast());
     }
 
-    public void addMemberToActivity(MatricNumber matricNumber) {
-        attendance.add(matricNumber);
+    public static Activity addMemberToActivity(Activity toReplace, MatricNumber matricNumber) {
+        ActivityName copyName = toReplace.getName();
+        ActivityDateTime copyDateTime = toReplace.getDateTime();
+        ActivityLocation copyLocation = toReplace.getLocation();
+        ActivityDescription copyDescription = toReplace.getDescription();
+        List<MatricNumber> copyAttendance = new ArrayList<>();
+        copyAttendance.addAll(toReplace.getAttendance());
+        copyAttendance.add(matricNumber);
+
+        return new Activity(copyName, copyDateTime, copyLocation, copyDescription, copyAttendance);
     }
 
     /**
      * Removes member from attendance list
      * */
-    public void removeMemberFromActivity(MatricNumber matricNumber) throws PersonNotFoundException {
-        if (!attendance.contains(matricNumber)) {
-            throw new PersonNotFoundException();
-        } else {
-            attendance.remove(matricNumber);
-        }
+    public static Activity removeMemberFromActivity(Activity toReplace, MatricNumber matricNumber)
+            throws PersonNotFoundException {
+//        if (toReplace.getAttendance().contains(matricNumber)) {
+//            throw new PersonNotFoundException();
+//        }
+        ActivityName copyName = toReplace.getName();
+        ActivityDateTime copyDateTime = toReplace.getDateTime();
+        ActivityLocation copyLocation = toReplace.getLocation();
+        ActivityDescription copyDescription = toReplace.getDescription();
+        List<MatricNumber> copyAttendance = new ArrayList<>();
+        copyAttendance.addAll(toReplace.getAttendance());
+        copyAttendance.remove(matricNumber);
+
+        return new Activity(copyName, copyDateTime, copyLocation, copyDescription, copyAttendance);
     }
 
     public boolean hasPersonInAttendance(MatricNumber matricNumber) {

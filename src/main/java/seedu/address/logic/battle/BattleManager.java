@@ -2,6 +2,9 @@ package seedu.address.logic.battle;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -70,16 +73,25 @@ public class BattleManager implements Battle {
     }
 
     @Override
-    public AttackResult takeComputerTurn() {
+    public List<AttackResult> takeComputerTurns() {
         // AI takes its turn
-
-        Coordinates enemyAttack = enemyPlayer.enemyShootAt();
-
-        AttackResult res = performAttack(enemyPlayer, humanPlayer, enemyAttack);
-        // update the enemy with its result
-        logger.info(String.format("+++++++BATMAN SAYS: LAST HIT ON: " + enemyAttack.toString()
-                + " status: " + res.toString()));
-        return res;
+        try {
+            AttackResult lastRes;
+            List<AttackResult> resList = new ArrayList<>();
+            do {
+                Coordinates enemyAttack = enemyPlayer.enemyShootAt();
+                lastRes = performAttack(enemyPlayer, humanPlayer, enemyAttack);
+                // update the enemy with its result
+                enemyPlayer.receiveStatus(humanPlayer.getMapGrid().getCellStatus(enemyAttack));
+                logger.info(String.format("+++++++BATMAN SAYS: LAST HIT ON: " + enemyAttack.toString()
+                    + " status: " + lastRes.toString()));
+                resList.add(lastRes);
+            } while (lastRes.isHit());
+            return resList;
+        } catch (Exception ex) {
+            return Collections.singletonList(
+                new AttackFailed(enemyPlayer, humanPlayer, null, ex.getMessage()));
+        }
     }
 
     /**

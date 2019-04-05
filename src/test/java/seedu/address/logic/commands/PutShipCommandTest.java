@@ -18,10 +18,14 @@ import static seedu.address.testutil.TypicalPersons.getEmptyMapGrid;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.battle.state.BattleState;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -39,10 +43,17 @@ import seedu.address.model.tag.Tag;
  * Contains integration tests (interaction with the Model).
  */
 public class PutShipCommandTest {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     private Model model = new ModelManager(getEmptyMapGrid(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
     private final Set<Tag> emptySet = new HashSet<>();
+
+    @Before
+    public void setState() {
+        model.setBattleState(BattleState.PLAYER_PUT_SHIP);
+    }
 
     @Test
     public void execute_battleshipAlreadyPresent_failure() {
@@ -266,4 +277,12 @@ public class PutShipCommandTest {
 
     }
 
+    @Test
+    public void execute_invalidState_throwAssertionError() throws CommandException {
+        thrown.expect(AssertionError.class);
+        PutShipCommand cmd = new PutShipCommand(
+            COORDINATES_LAST_CELL, new Battleship(), new Orientation(VALID_HORIZONTAL_ORIENTATION));
+        model.setBattleState(BattleState.PLAYER_ATTACK);
+        cmd.execute(model, new CommandHistory());
+    }
 }

@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
+import seedu.address.logic.battle.state.BattleState;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.StatsCommand;
@@ -57,6 +58,7 @@ public class LogicManagerTest {
     @Test
     public void execute_validCommand_success() {
         String listCommand = ListCommand.COMMAND_WORD;
+        model.setBattleState(BattleState.PLAYER_PUT_SHIP);
         assertCommandSuccess(listCommand, "No ships put down.", model);
         //assertHistoryCorrect(listCommand); BOSTON: TO FIX
     }

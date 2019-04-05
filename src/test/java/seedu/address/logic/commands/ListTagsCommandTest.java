@@ -8,8 +8,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.battle.state.BattleState;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -23,6 +28,8 @@ import seedu.address.model.tag.Tag;
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
  */
 public class ListTagsCommandTest {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     private Model model;
 
@@ -78,4 +85,11 @@ public class ListTagsCommandTest {
         assertFalse(tags.contains(new Tag("nonExistentTag")));
     }
 
+    @Test
+    public void execute_invalidState_throwAssertionError() throws CommandException {
+        thrown.expect(AssertionError.class);
+        ListTagsCommand cmd = new ListTagsCommand();
+        model.setBattleState(BattleState.PRE_BATTLE);
+        cmd.execute(model, new CommandHistory());
+    }
 }

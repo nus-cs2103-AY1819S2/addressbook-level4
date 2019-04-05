@@ -12,7 +12,7 @@ public class CapAverage {
 
     public static final double SINGLE_CREDIT = 1;
     public static final String MESSAGE_CONSTRAINTS =
-            "Cap limit is from 1 to 5";
+            "Cap limit should from 0.00 to 5.00 to 2 decimal places";
     public static final String VALIDATION_REGEX = "(([0-4](\\.[0-9]([0-9])?)?)|(5(\\.00?)?))";
     private ArrayList<WeightedGrade> weightedGrades;
 

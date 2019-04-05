@@ -277,21 +277,30 @@ are officially certified by certain medical practices
 in the command line.
 // end::addHealthWorker[]
 
-==== *Adding a request*: `add request/r/2 n/<patient_name> c/<condition> dt/<date> i/<NRIC> p/<phone> a/<address>`
+==== *Adding a request*: `add request/r/2 n/<NAME> p/<PHONE> i/<NRIC> a/<ADDRESS> dt/<DATE> c/<CONDITION>`
 
-* Registers a new open request from `patient` of `<patient_name>` into the
+* Registers a new open request from `patient` of `<NAME>` into the
 application.
 * Each request also states the `<condition>` that the patient is
 experiencing. Administrative staff can then inspect the conditions that are
 stated by the `patient` and assign the appropriate health worker to handle
 these requests in the `assign` command.
 * Format for the date is `dd-MM-yyyy HH:mm:ss`.
+* Does not allow duplicate requests to be added.
+
+[NOTE]
+Duplicate requests are requests that have the same `Name`, `RequestDate`, `Condition` *and* `Address`.
+For example, 2 requests with differing conditions (but all other fields similar) would be considered unique.
 
 Examples:
 
-* `add 1 n/Dog Terr p/92837710 i/S98817471Z s/GENERAL_PRACTICE
-s/ORTHOPAEDIC`
 * `add request n/Pay Shun a/Sengkang Ave 1 c/Heart Attack i/S9123456A p/91234567 dt/05-05-2019 14:00:00`
+
+[TIP]
+The order of parameters does not matter - reordering each parameter would also work!
+
+[NOTE]
+
 
 // tag::editHealthWorker[]
 === Editing requests/health workers : `edit`

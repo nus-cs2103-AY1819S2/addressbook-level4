@@ -3,39 +3,51 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== About Me
-
----
-image:e0191632.png[width="100"]
+== Introduction
 
 Hello! I am Rachel Tan!
 
-I am a Year 2 Computer Science student studying in National University of Singapore. I am currently working on *Equipment Manager* application, a project for a module called CS2103T Software Engineering along with 3 other team mates, Mei Yen, Yiqun and Liu Xuan. This is my Project Portfolio where I will showcase my contributions to team in making *Equipment Manager* a successful application.
-
----
+I am a Year 2 Computer Science student in National University of Singapore.
+In this Project Portfolio, I will be sharing with you one of the projects I have embarked on for CS2103T Software Engineering module.
+I will showcase my main contributions to the team in making *Equipment manager* a successful application.
 
 == PROJECT: Equipment Manager
 
----
 
 == Overview
 
-*Equipment Manager* is a Preventive Maintenance (PM) planner application that allows users, specifically the engineers, to keep track of the PM schedule of all Resuscitation Equipment in Singapore. *Equipment Manager* is designed to allow engineers assign the equipment they are going to carry out maintenance work to their own work schedule. When they are carrying out maintenance work on multiple equipments in their work schedule, they are able to have a visual representation on the locations of all equipment. In order to carry out maintenance work efficiently, *Equipment Manager* provide engineers with an efficient route to take for visiting multiple locations, minimizing the chance that the resuscitation devices will fail and cause costly unscheduled downtime.
+*Equipment Manager* is a _Preventive Maintenance (PM)_ planner application that allows users, specifically the engineers, to keep track of the PM schedule of all Resuscitation Equipment in Singapore.
+*Equipment Manager* is designed to allow engineers assign the equipment which they are going to carry out maintenance work on, to their own work schedule.
 
-== Summary of contributions
+When they are carrying out maintenance work on multiple equipments based on their work schedule, they are able to have a visual representation on the locations of all equipment.
+In order to carry out maintenance work efficiently, *Equipment Manager* provide engineers with an efficient route to take for visiting multiple locations, minimizing the chance that the resuscitation devices will fail and cause costly unscheduled downtime.
+
+== Terminology
+Some technical terms have been used as it will better deliver the idea of *Equipment Manager* features.
+To aid you in reading this portfolio without any confusion, this section provides you with a quick summary of the technical terms being used in this portfolio.
+
+|===
+| *Technical Terms* | *Meaning*
+| _Preventive Maintenance_ | A maintenance work that is regularly performed on a piece of equipment to lessen the likelihood of it failing. It is performed while the equipment is still working so that it does not break down unexpectedly.
+| _UI_ | User Interface (Ui) allows the user to interact with the application through inputs and outputs of data.
+| _basic function_ | It is the basic features in *Equipment Manager*: add, edit, delete and list equipments.
+|===
+
+== Summary of Contributions
 This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
 
-* *Major Enhancement 1*: I added a model for client to keep track of their name, address and the equipments they own
-** What it does: allows the user know the details to the clients and the number of equipments the clients own.
-** Justification: Having the details of the client improves the overall efficiency of the maintenance work.
-*** User will head for maintenance work based on client address.
+* *Enhancement 1*: I added a `add-c` command and enhance existing basic commands to allow users to keep track on the details of clients that own the equipment.
+** What it does: This enhancement allows user to know the details of the clients such as client's name and the number of equipment the client owns.
+** Justification: Having the details of the client improves the overall efficiency of carrying our _PM_.
+*** It gives the option for user to carry out maintenance work on equipments under a specific client.
 *** Client address can be represented on google map for planning of efficient routes to take.
 *** Knowing how many equipment a client owns, allows user to be aware that there are equivalent number of equipment to carry out maintenance work at that location.
-** Highlights: This enhancement allows a visual representation of equipment location on Google Map and route planning.
+** Highlights: The `add-c` command and further enhancement on existing _CRUD_ commands are implemented to provide my team with the ability to use this attributes for other features in the project.
+*** For example, adding client details allow user to use the address for visual representation on Google Map.
 
-** Codes contributed:
+** Codes contributed: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=E0191632&sort=searchPath&since=2019-02-10&until=2019-04-05&timeframe=day&reverse=false&repoSort=true[Click here] to view my code on the CS2103T Project Code Dashboard.
 
-* *Major enhancement 2*: I enhanced the initial Person model to *Equipment model*
+* *Enhancement 2*: I enhanced the initial Person model to *Equipment model*
 ** What it does: All the `commands` carried out by user will be based on details of an Equipment. Specifically, an equipment has a serial number, a due date to carry out preventive maintenance and a sub-location where the equipment is installed.
 ** Justification: This enhancement allow users to get access to detailed information of an equipment easily and for tracking purposes in the program. Main tracking purposes include:
 *** Knowing specifically where equipment is installed. For example, in the client's level 1 reception counter, level 2 ball room and etc.
@@ -47,8 +59,6 @@ This section shows a summary of my coding, documentation, and other helpful cont
 image:tip.png[width="40"]
 `commands`
 : add-e, edit-e, filter, find, list-e
-
-* *Minor enhancement*: {in progress}
 
 * *Other contributions*:
 

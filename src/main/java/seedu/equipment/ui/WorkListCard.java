@@ -40,6 +40,7 @@ public class WorkListCard extends UiPart<Region> {
     private FlowPane equipments;
 
     public WorkListCard(WorkList workList, int displayedIndex) {
+
         super(FXML);
         this.workList = workList;
         id.setText(displayedIndex + ". ");

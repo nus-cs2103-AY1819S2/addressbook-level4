@@ -12,7 +12,7 @@ public class Rating {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Ratings should only contain numbers, and it should be in the range of 0 to 10";
-    public static final String VALIDATION_REGEX = "[0-9]|10";
+    public static final String VALIDATION_REGEX = "(0?[0-9])|10";
     public final String value;
 
     /**

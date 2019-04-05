@@ -99,9 +99,9 @@ Format: `editBook INDEX [n/BOOKNAME] [a/AUTHOR] [m/RATING] [t/TAG]...`
 
 Examples:
 
-* `edit 1 n/Alice in Wonderland a/some author t/some tag` +
+* `editBook 1 n/Alice in Wonderland a/some author t/some tag` +
 Change the name, author, tag of the first book to Alice in Wonderland, some author, some tag.
-* `edit 2 t/` +
+* `editBook 2 t/` +
 Clear all the existing tags of the second book in the result list.
 
 ==== Deleting a book : `deleteBook`

@@ -67,7 +67,7 @@ image::Ui4.png[width=800]
 image::Ui5.png[width=800]
 +
 
-The commands will go on, until either your or the enemy's fleet is completely destroyed.
+The game will go on until either party's ships are totally destroyed.
 
 Refer to <<Features>> for details of each command.
 

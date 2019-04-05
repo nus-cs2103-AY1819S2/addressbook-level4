@@ -1,11 +1,18 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MAX_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MAX_CAP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MAX_LAB_HOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MAX_LECTURE_HOUR;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MIN_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MAX_PREPARATION_HOUR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MAX_PROJECT_HOUR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MAX_TUTORIAL_HOUR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MIN_CAP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MIN_LAB_HOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MIN_LECTURE_HOUR;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MIN_PREPARATION_HOUR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MIN_PROJECT_HOUR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MIN_TUTORIAL_HOUR;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,15 +38,22 @@ public class SetSemLimitCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the "
             + "Grade and Workload limits of a semester. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_SEMESTER + "SEMESTER] "
-            + "[" + PREFIX_MIN_GRADE + "EXPECTED MIN GRADE] "
-            + "[" + PREFIX_MAX_GRADE + "EXPECTED MAX GRADE] "
+            + "Parameters: SEMESTER "
+            + "[" + PREFIX_MIN_CAP + "MIN CAP] "
+            + "[" + PREFIX_MAX_CAP + "MAX CAP] "
             + "[" + PREFIX_MIN_LECTURE_HOUR + "LECTURE HOUR] "
-            + "[" + PREFIX_MAX_LECTURE_HOUR + "TUTORIAL HOUR]...\n "
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_SEMESTER + "Y3S1 "
-            + PREFIX_MIN_GRADE + "B";
+            + "[" + PREFIX_MAX_LECTURE_HOUR + "LECTURE HOUR] "
+            + "[" + PREFIX_MIN_TUTORIAL_HOUR + "TUTORIAL HOUR] "
+            + "[" + PREFIX_MAX_TUTORIAL_HOUR + "TUTORIAL HOUR] "
+            + "[" + PREFIX_MIN_LAB_HOUR + "LAB HOUR] "
+            + "[" + PREFIX_MAX_LAB_HOUR + "LAB HOUR] "
+            + "[" + PREFIX_MIN_PROJECT_HOUR + "PROJECT HOUR] "
+            + "[" + PREFIX_MAX_PROJECT_HOUR + "PROJECT HOUR] "
+            + "[" + PREFIX_MIN_PREPARATION_HOUR + "PREPARATION HOUR] "
+            + "[" + PREFIX_MAX_PREPARATION_HOUR + "PREPARATION HOUR]...\n "
+            + "Example: " + COMMAND_WORD + " Y3S1 "
+            + PREFIX_MIN_CAP + "3.27 "
+            + PREFIX_MIN_LAB_HOUR + "2.5";
 
     public static final String MESSAGE_EDIT_LIMIT_SUCCESS = "Edited Semester: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

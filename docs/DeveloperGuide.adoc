@@ -13,39 +13,38 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/cs2103-ay1819s2-w11-3/main
+:repoURL: https://github.com/CS2103-AY1819S2-W11-3/main
 
 By: `CS2103T W11-3 Team`      Since: `Feb 2019`      Licence: `MIT`
 
 
 == Introduction
 
-Welcome to the TravelBuddy developer guide, put together by Chung Ming, Prem, Niven and Shaun.
-In this guide, you will find enough information to get your started on contributing to the TravelBuddy source code.
-<<Setting up>> provides details on how to start contributing to TravelBuddy.
+Welcome to *TravelBuddy's* Developer Guide, put together by Chung Ming, Prem, Niven and Shaun. In this guide, you will find all the relevant information to get you familiarize with TravelBuddy's design and implementation.
 
-== Setting up
+== Setting Up
 
-This section gives a quick guide to getting started with the TravelBuddy source code on your machine.
+Before we begin, here is a quick guide on how you can set up your machine to optimize the performance of TravelBuddy.
 
 === Prerequisites
 
-. *JDK `9`* or later
+There are two installations that you need to take note of. They are:
+
+* *Install JDK version `9` or later*
 +
 [WARNING]
-JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
-Windows developers are highly recommended to use JDK `9`.
+For Windows developers, JDK version `10` will fail to run tests in headless mode due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug]. Therefore, we strongly encourage all Windows developers to stick with JDK version `9`.
 
-. *IntelliJ* IDE
-+
+* *Install IntelliJ IDE*
 [NOTE]
-IntelliJ by default has Gradle and JavaFx plugins installed. +
-Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+By default, IntelliJ already has both Gradle and JavaFx plugins installed. As TravelBuddy will be making use of them, please do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 
-=== Setting up the project in your computer
+=== Setting Up the Project in Your Computer
 
-. Fork this repo, and clone the fork to your computer
+For this section, we will integrate JDK, IntelliJ and GitHub with TravelBuddy, before compiling it using Gradle. The steps are listed below:
+
+. Go to this repo, fork it first before cloning it. Fork it again to your computer.
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
 . Set up the correct JDK version for Gradle
 .. Click `Configure` > `Project Defaults` > `Project Structure`
@@ -61,14 +60,14 @@ This will generate all resources required by the application and tests.
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
 . Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
-=== Verifying the setup
+=== Verifying the Setup
 
 . Run the `seedu.travel.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
-=== Configurations to do before writing code
+=== Configurations to do Before Writing Code
 
-==== Configuring the coding style
+==== Configuring the Coding Style
 
 This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
 
@@ -81,7 +80,7 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
-==== Setting up CI
+==== Setting Up CI
 
 Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
 
@@ -156,7 +155,7 @@ image::SDforDeletePlace.png[width="800"]
 The sections below give more details of each component.
 
 [[Design-Ui]]
-=== UI component
+=== UI Component
 
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
@@ -204,7 +203,7 @@ contains helper methods for switching functionality, interacts with model and lo
 *All CSS code can be found in `DarkTheme.css` and `Extensions.css`
 
 [[Design-Logic]]
-=== Logic component
+=== Logic Component
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
@@ -225,7 +224,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-Model]]
-=== Model component
+=== Model Component
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
@@ -248,7 +247,7 @@ As a more OOP model, we can store a `Tag` list in `TravelBuddy`, which `Place` c
 image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
-=== Storage component
+=== Storage Component
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
@@ -261,7 +260,7 @@ The `Storage` component,
 * can save the TravelBuddy data in json format and read it back.
 
 [[Design-Commons]]
-=== Common classes
+=== Common Classes
 
 Classes used by multiple components are in the `seedu.travel.commons` package.
 
@@ -270,7 +269,7 @@ Classes used by multiple components are in the `seedu.travel.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== Undo/Redo feature
+=== Undo/Redo Feature
 
 Called by the `undo` and `redo` commands to undo and redo changes to TravelBuddy Place entries.
 Undoable commands include `add` `edit` `delete` `deletem` `clear` `generate` and 'redo'
@@ -717,7 +716,7 @@ you to preview the changes you have made to your `.adoc` files in real-time.
 
 See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
 
-=== Converting Documentation to PDF format
+=== Converting Documentation to PDF Format
 
 We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as
 Chrome's PDF engine preserves hyperlinks used in webpages.
@@ -843,7 +842,7 @@ Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI t
 
 To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`)
 
-=== Types of tests
+=== Types of Tests
 
 We have two types of tests:
 
@@ -983,11 +982,24 @@ _{More to be added}_
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+.A List of Terms Used in this Developer Guide
+|===
+|Terms |Definitions
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+|[[mainstream-os]] *Mainstream OS*
+|Some mainstream operating systems include Windows, Linux, Unix and OS-X.
+
+|[[private-contact-detail]] *Private contact detail*
+|A contact detail that is not meant to be shared with others.
+
+|[[jdk]] *Java Development Kit (JDK)*
+|A software development environment used for developing Java applications and applets.
+
+|[[ide]]*Integrated Development Environment (IDE)*
+|A software application that provides comprehensive facilities to computer programmers for software development.
+
+|===
+
 
 [appendix]
 == Product Survey
@@ -1030,7 +1042,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a place
+=== Deleting a Place
 
 . Deleting a place while all places are listed
 
@@ -1044,7 +1056,7 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
-=== Saving data
+=== Saving Data
 
 . Dealing with missing/corrupted data files
 

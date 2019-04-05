@@ -14,7 +14,6 @@ import seedu.finance.logic.commands.exceptions.CommandException;
 import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.Model;
 import seedu.finance.model.ReadOnlyFinanceTracker;
-import seedu.finance.model.util.SampleDataUtil;
 import seedu.finance.storage.JsonFinanceTrackerStorage;
 import seedu.finance.storage.StorageManager;
 
@@ -56,9 +55,9 @@ public class SetFileCommand extends Command {
         try {
             financeTrackerOptional = newStorage.readFinanceTracker();
             if (!financeTrackerOptional.isPresent()) {
-                logger.info("Data file not found. Will load a sample FinanceTracker");
+                logger.info("Data file not found. A new empty FinanceTracker will be created with file name.");
             }
-            initialData = financeTrackerOptional.orElseGet(SampleDataUtil::getSampleFinanceTracker);
+            initialData = new FinanceTracker();
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty FinanceTracker");
             initialData = new FinanceTracker();
@@ -66,6 +65,7 @@ public class SetFileCommand extends Command {
 
         model.setFinanceTrackerFilePath(path);
         model.setFinanceTracker(initialData);
+        model.commitFinanceTracker();
         StorageManager.setFinanceTrackerStorage(newStorage);
         return new CommandResult(String.format(MESSAGE_SUCCESS, path), true, false, false);
     }

@@ -1,6 +1,9 @@
 package seedu.finance.logic.parser;
 
 import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_CATEGORY;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_DATE;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_NAME;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -10,6 +13,7 @@ import org.junit.Test;
 
 import seedu.finance.logic.commands.SearchCommand;
 import seedu.finance.model.record.CategoryContainsKeywordsPredicate;
+import seedu.finance.model.record.Date;
 import seedu.finance.model.record.DateContainsKeywordsPredicate;
 import seedu.finance.model.record.NameContainsKeywordsPredicate;
 
@@ -27,10 +31,10 @@ public class SearchCommandParserTest {
         // no leading and trailing whitespaces
         SearchCommand expectedFindCommand =
                 new SearchCommand(new NameContainsKeywordsPredicate(Arrays.asList("Apple", "Banana")));
-        assertParseSuccess(parser, "-name Apple Banana", expectedFindCommand);
+        assertParseSuccess(parser, COMMAND_FLAG_NAME + " Apple Banana", expectedFindCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, "-name \n Apple \n \t Banana  \t", expectedFindCommand);
+        assertParseSuccess(parser, COMMAND_FLAG_NAME + " \n Apple \n \t Banana  \t", expectedFindCommand);
     }
 
     @Test
@@ -38,10 +42,10 @@ public class SearchCommandParserTest {
         // no leading and trailing whitespaces
         SearchCommand expectedFindCommand =
                 new SearchCommand(new CategoryContainsKeywordsPredicate(Arrays.asList("Food", "Drinks")));
-        assertParseSuccess(parser, "-cat Food Drinks", expectedFindCommand);
+        assertParseSuccess(parser, COMMAND_FLAG_CATEGORY + " Food Drinks", expectedFindCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, "-cat \n Food \n \t Drinks  \t", expectedFindCommand);
+        assertParseSuccess(parser, COMMAND_FLAG_CATEGORY + " \n Food \n \t Drinks  \t", expectedFindCommand);
     }
 
     @Test
@@ -49,10 +53,24 @@ public class SearchCommandParserTest {
         // no leading and trailing whitespaces
         SearchCommand expectedFindCommand =
                 new SearchCommand(new DateContainsKeywordsPredicate(Arrays.asList("10/3/2018", "2/12/2017")));
-        assertParseSuccess(parser, "-date 10/3/2018 2/12/2017", expectedFindCommand);
+        assertParseSuccess(parser, COMMAND_FLAG_DATE + " 10/3/2018 2/12/2017", expectedFindCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, "-date \n 10/3/2018 \n \t 2/12/2017  \t", expectedFindCommand);
+        assertParseSuccess(parser, COMMAND_FLAG_DATE + " \n 10/3/2018 \n \t 2/12/2017  \t", expectedFindCommand);
     }
+
+    @Test
+    public void parse_invalidDateArgs_failure() {
+        // invalid date as argument
+        assertParseFailure(parser, COMMAND_FLAG_DATE + " abc", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                Date.MESSAGE_CONSTRAINTS));
+
+        // valid date + invalid date as argument
+        assertParseFailure(parser, COMMAND_FLAG_DATE + " abc 4/4/2019", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                Date.MESSAGE_CONSTRAINTS));
+
+
+    }
+
 
 }

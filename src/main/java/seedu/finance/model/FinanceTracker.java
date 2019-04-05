@@ -5,11 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.logging.Logger;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
-import seedu.finance.commons.core.LogsCenter;
 import seedu.finance.commons.util.InvalidationListenerManager;
 import seedu.finance.model.budget.Budget;
 import seedu.finance.model.budget.CategoryBudget;
@@ -22,7 +20,6 @@ import seedu.finance.model.record.UniqueRecordList;
  * Wraps all data at the finance-tracker level
  */
 public class FinanceTracker implements ReadOnlyFinanceTracker {
-    private final Logger logger = LogsCenter.getLogger(getClass());
 
     private final UniqueRecordList records;
     private final TotalBudget budget;
@@ -58,7 +55,6 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
      */
     public void setRecords(List<Record> records) {
         this.records.setRecords(records);
-        budget.updateBudget(this.records.asUnmodifiableObservableList());
         indicateModified();
     }
 
@@ -69,7 +65,8 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
         requireNonNull(newData);
 
         setRecords(newData.getRecordList());
-        addBudget(newData.getBudget());
+        this.budget.set(newData.getBudget());
+        indicateModified();
     }
 
     //// record-level operations
@@ -88,8 +85,6 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
     public boolean addRecord(Record r) {
         records.add(r);
         boolean budgetNotExceeded = budget.addRecord(r);
-        budget.updateBudget(this.records.asUnmodifiableObservableList());
-        logger.info("Current Budget: " + budget.getCurrentBudget());
         indicateModified();
         return budgetNotExceeded;
     }
@@ -112,7 +107,6 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
     public void removeRecord(Record key) {
         records.remove(key);
         budget.removeRecord(key);
-        budget.updateBudget(this.records.asUnmodifiableObservableList());
         indicateModified();
     }
 
@@ -131,12 +125,13 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
      */
     public void addBudget(Budget budget) {
         this.budget.set(budget.getTotalBudget(), budget.getCurrentBudget());
+        this.budget.updateBudget(this.records.asUnmodifiableObservableList());
         indicateModified();
     }
 
     // =============================== Category Budget =============================================================
     //@author Jackimaru96
-    public Budget getBudget() {
+    public TotalBudget getBudget() {
         return budget;
     }
 

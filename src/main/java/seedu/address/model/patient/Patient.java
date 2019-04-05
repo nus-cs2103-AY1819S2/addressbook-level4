@@ -109,6 +109,11 @@ public class Patient extends Person {
         this.records.sort(Comparator.comparing(Record::getRecordDate));
     }
 
+    public void setRecord(Record target, Record editedRecord) {
+        int localIdx = this.records.indexOf(target);
+        this.records.set(localIdx, editedRecord);
+    }
+
     /**
      * Adds a new medical record to a patient.
      * @param record the medical record to be added.

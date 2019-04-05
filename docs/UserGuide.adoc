@@ -37,7 +37,8 @@ To begin using BrainTrain, follow the following set of instructions: +
 . Download the latest `braintrain.jar` file link:{repoURL}/releases[here].
 . Create a folder to use as the home folder for BrainTrain (e.g. `braintrain/`).
 . Move the downloaded file to the created folder.
-. You can **optionally** download a sample lesson here: link:https://github.com/CS2103-AY1819S2-W14-1/main/blob/master/src/test/data/country-capitals-asia.csv[`country-capitals-asia.csv`].
+. You can **optionally** download a sample lesson here: link:https://github.com/CS2103-AY1819S2-W14-1/main/blob/master/src/test/data/country-capitals-asia.csv[`country-capitals-asia.csv`]. +
+Put the sample lesson into a `data` sub-folder within the `braintrain` folder (i.e. `braintrain/data/`).
 . Double-click the file to run BrainTrain. The GUI will appear in a few seconds.
 +
 .BrainTrain's GUI on first run
@@ -105,6 +106,11 @@ Starts a quiz in `LEARN` mode with the 'country-capitals' lesson.
 * `start n/country-capitals-asia c/20 m/PREVIEW` +
 Starts a quiz containing 20 cards in `PREVIEW` mode with the 'country-capitals-asia' lesson.
 
+[NOTE]
+====
+After you start a quiz session with the `start` command, BrainTrain will switch to <<quizmode, `quiz
+mode`>> and you will only be allowed to enter <<quizmode, `quiz mode`>> commands.
+====
 // tag::evan[]
 [[listLessons]]
 ==== Listing all lessons: `listLessons`
@@ -257,9 +263,10 @@ Format: `quit`
 {empty} +
 
 // tag::quiz[]
+[[quizmode]]
 === Quiz mode
 
-When you <<start, `start`>> a quiz session, you will enter quiz mode in which only the following set of quiz commands are allowed. Management commands are disabled in this mode.
+When you <<start, `start`>> a quiz, you will enter quiz mode. In this mode, you will only be allowed to enter the following set of quiz commands. Management commands are disabled in this mode.
 
 ==== Viewing help: `\help`
 

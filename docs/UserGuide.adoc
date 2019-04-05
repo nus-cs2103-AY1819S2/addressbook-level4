@@ -581,25 +581,6 @@ A healthworker cannot be assigned to a completed request. To assign a healthwork
 use `edit` to change the status of the request to pending first.
 ====
 
-=== Clearing Requests : `clr`
-
-Let's say you want to quickly remove all the requests quickly. You can do so by simply
-  entering the `clr` command. Note that the clear command can only be issued if there are no ongoing requests in the request list.
-
-Format: `clr`
-
-[WARNING]
-====
-Clearing requests would delete all records of  requests.
-
-If you would like to delete just one particular request, consider using the
-`delete` command instead.
-====
-
-[TIP]
-If you want to clear the requests but there are ongoing requests, complete the ongoing requests using the `complete` command first.
-
-
 === Closing Requests : `complete`
 
 After an assigned task has been completed by the assigned health staff, who
@@ -616,13 +597,66 @@ request closed.
 
 * The `request_index` *must be a positive integer* 1, 2, 3, ... and not greater
 than the number of requests in the current list.
-* Only *Ongoing* requests can be completed. To complete a pending request, edit it's status first, using the `edit request`
-command.
 
 Examples:
 
 * `complete 1` +
 Marks the first request in the list as completed.
+
+=== Clearing Requests : `clr`
+
+Let's say you want to quickly remove all the requests quickly. You can do so by simply
+  entering the `clr` command. Note that the clear command can only be issued if there are no ongoing requests in the request list.
+
+Format: `clr`
+
+[NOTE]
+====
+`clr` command only works if there are no ongoing requests
+====
+
+[WARNING]
+====
+Clearing requests would delete all records of requests.
+
+If you would like to delete just one particular request, consider using the
+`delete` command instead.
+====
+
+[TIP]
+If you want to clear the requests but there are ongoing requests, complete the ongoing requests using the `complete` command first.
+
+
+=== Closing Requests : `complete`
+* The `request_index` *must be a positive integer* 1, 2, 3, ... and not greater
+than the number of requests in the current list.
+* Only *Ongoing* requests can be completed. To complete a pending request, edit it's status first, using the `edit request`
+command.
+
+*Examples*
+
+* `complete 1` +
+completes the first request on the request list panel. Note that this request has to have Ongoing status prior to executing this command.
+
+=== Undoing Commands : `undo`
+
+If you wanted to delete a single request but used the `clr` command by mistake, you can restore the lists to the
+state before the command was called using the `undo` command.
+
+Format: `undo`
+
+[NOTE]
+====
+* The `undo` command can only be used to undo commands that modify the lists such as `add`, `delete` and `edit`.
+* For commands that affects the display such as `filter`, you can use `list` command revert back the original list.
+====
+
+
+=== Redoing undone commands : `redo`
+
+If you wish to redo a command that you have previously undone, you can use the `redo` command.
+
+Format: `redo`
 
 === Listing previous commands : `history`
 
@@ -639,7 +673,8 @@ Format: `history` +
 
 [NOTE]
 ====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+* Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+* All commands entered will be added to the history, whether valid or invalid
 ====
 
 
@@ -764,6 +799,6 @@ to the `\data` folder of the app directory.
 |`undo`
 |undos the previous action
 |`redo`
-|redos everything
+|redos the previous undone action
 |===
 // end::summary[]

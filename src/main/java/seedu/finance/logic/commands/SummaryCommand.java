@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import seedu.finance.logic.CommandHistory;
+import seedu.finance.logic.commands.exceptions.CommandException;
 import seedu.finance.model.Model;
 import seedu.finance.model.record.Record;
 
@@ -100,15 +101,15 @@ public class SummaryCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        requireNonNull(model);
-        model.updateRecordSummaryPredicate(getSummaryPredicate());
-        model.updateSummaryPeriod(period);
-        model.updatePeriodAmount(periodAmount);
-        logger.log(Level.INFO,
-                "Showing statistics with periodAmount of " + periodAmount
-                        + " in a period of " + period);
-        //Link here to D3 graph??
-        return new CommandResult(MESSAGE_SUCCESS);
+            requireNonNull(model);
+            model.updateRecordSummaryPredicate(getSummaryPredicate());
+            model.updateSummaryPeriod(period);
+            model.updatePeriodAmount(periodAmount);
+            logger.log(Level.INFO,
+                    "Showing statistics with periodAmount of " + periodAmount
+                            + " in a period of " + period);
+            //Link here to D3 graph??
+            return new CommandResult(MESSAGE_SUCCESS);
     }
 
     /**

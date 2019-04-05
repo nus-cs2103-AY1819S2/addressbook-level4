@@ -139,7 +139,7 @@ public class FinanceTrackerParser {
 
         case SummaryCommand.COMMAND_WORD:
         case SummaryCommand.COMMAND_ALIAS:
-            return new SummaryCommand();
+            return new SummaryCommandParser().parse(arguments);
 
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);

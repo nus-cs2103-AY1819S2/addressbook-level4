@@ -58,7 +58,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     }
 
     public String getYearOfStudy() {
-        return "Year " + yearOfStudyLabel.getText();
+        return yearOfStudyLabel.getText();
     }
 
     public String getMajor() {

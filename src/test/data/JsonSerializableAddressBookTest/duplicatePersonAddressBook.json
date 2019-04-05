@@ -1,7 +1,7 @@
 {
   "persons": [ {
     "name": "Alice Pauline",
-    "matricNumber" : "A0123456B",
+    "matricNumber" : "A0123456J",
     "phone": "94351253",
     "email": "alice@example.com",
     "address": "123, Jurong West Ave 6, #08-111",
@@ -11,7 +11,7 @@
     "tagged" : [ "Running" ]
   }, {
     "name": "Alice Pauline",
-    "matricNumber" : "A0123456B",
+    "matricNumber" : "A0123456J",
     "phone": "94351253",
     "email": "alice@example.com",
     "address": "123, Jurong West Ave 6, #08-111",

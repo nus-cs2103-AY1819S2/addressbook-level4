@@ -37,6 +37,8 @@ Follow these steps to get _In-Credit-Ble_ up and running on your computer in no 
 .  Download the latest `In-Credit-Ble.jar` file link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your finance tracker.
 .  Double-click the file to start the app. The GUI should appear in a few seconds as shown below.
+   The In-Credit-Ble finance tracker is loaded with example expense records and budget is still not set.
+
 +
 image::startUI.png[width="790"]
 +
@@ -48,6 +50,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window and show
 * *`clear`* : clears the existing Finance Tracker to start with a Finance Tracker with no expense records
 * *`set`* : sets the total budget for Finance Tracker
 * *`allocate`* : allocates budget to a certain category (within the total budget)
+* *`spend`* : adds an expense record to the finance tracker
 
 
 .  Refer to <<Features>> for details of each command.

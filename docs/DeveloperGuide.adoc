@@ -568,7 +568,7 @@ allocated to a category and if so, adds the expenses to the new budget assigned 
 Aspect: allocating Category Budget
 
 * *Alternative 1 (current choice)*: Allocating Category Budget is done with only one command `allocate`
-** Pros: User need to only make use of one command to control the budget of the category and will
+** Pros: User only needs to make use of one command to control the budget of the category and will
 not be confused with too many other commands
 ** Cons: Requires the developer to ensure the application checks that if there is a current budget
 allocated to the same category, it should be reflected accordingly.

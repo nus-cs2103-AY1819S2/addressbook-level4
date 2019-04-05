@@ -15,6 +15,9 @@ I am a software developer and second year computer science student at the Nation
 == Project: Health Hub
 
 === About the project
+
+image::Healthhub.png[width=800]
+
 HealthHub is a https://en.wikipedia.org/wiki/Command-line_interface[command-line] desktop application built by my team and I, for our Software Engineering project.
 We chose to morph it to a home-care patient management system, because of our passion in the health care industry. This enhanced application allows Hospital Administrators and senior management to create, assign and organise patient records seamlessly. HealhHub also organises staff information and manages statistics to assist in the Hospital's planning and allocation of resources.
 

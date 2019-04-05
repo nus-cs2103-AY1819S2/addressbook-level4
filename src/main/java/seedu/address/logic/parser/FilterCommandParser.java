@@ -112,7 +112,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      */
     public static Predicate<Request> parseRequestPredicates(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_ADDRESS,
-                PREFIX_DATE, PREFIX_CONDITION, PREFIX_STATUS);
+                PREFIX_DATE, PREFIX_CONDITION, PREFIX_STATUS, PREFIX_NRIC);
 
         if (!anyPrefixPresent(argMultimap, PREFIX_NAME, PREFIX_NRIC, PREFIX_PHONE, PREFIX_ADDRESS, PREFIX_DATE,
                 PREFIX_CONDITION, PREFIX_STATUS) || !argMultimap.getPreamble().isEmpty()) {

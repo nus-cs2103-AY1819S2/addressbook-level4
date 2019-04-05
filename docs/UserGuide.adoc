@@ -66,7 +66,7 @@ image::UiUpdated.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`listRestaurants`* : lists all restaurants
+* *`list`* : lists all restaurants
 * **`addReview`** `n/MCDONALDS r/4 m/delicious` : adds a review to MCDONALDS with rating 4 with the comment "delicious"
 * **`delete`**`3` : deletes the 3rd restaurant shown in the index
 * *`exit`* : exits the app
@@ -105,7 +105,7 @@ Examples:
 
 ==== Editing details of a restaurant  : `edit`
 
-Edit the details of a restaurant identified by the index number used in the listRestaurants. +
+Edit the details of a restaurant identified by the index number used in the list. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [po/POSTAL] [t/TAG]... [w/WEBLINK] [o/OPENING HOURS]`
 
 ****
@@ -139,8 +139,8 @@ Deletes the second restaurant in the filtered list with the cuisine `Western`.
 
 ==== Listing all restaurants : `list`
 
-Shows a list of all restaurants in the Food Diary with an option to filter for certain property. +
-Format: `list [n/RESTAURANT_NAME] [a/ADDRESS] [c/CUISINE]`
+Shows a list of all restaurants in the Food Diary. +
+Format: `list`
 
 Examples:
 
@@ -192,7 +192,7 @@ Select a restaurant based on its index on the list and display information about
 Format: `select INDEX`
 
 ****
-* The index refers to the index number show in the displayed restaurants list.
+* The index refers to the index number shown in the displayed restaurants list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
@@ -211,11 +211,11 @@ _Figure 2. After selecting restaurant with index 3, Chilis' summary, reviews and
 // tag::categorization[]
 ==== Setting the categories of a restaurant : `setCategories`
 
-Set the cuisine of a restaurant identified by the index number used in the listRestaurants. +
+Set the cuisine of a restaurant identified by the index number used in the list. +
 Format: `setCategories INDEX [c/CUISINE] [oc/OCCASION] [pr/PRICE_RANGE]`
 
 ****
-* The index refers to the index number show in the displayed restaurants list.
+* The index refers to the index number shown in the displayed restaurants list.
 * You need to ensure that the index entered *must be a positive integer* `1, 2, 3, ...`
 * You need to ensure that the `Price Range` entered *must* only consist of 1-5 `$` characters. e.g. `$`, `\$$$`, `$$\$$$`
 is okay but `$$\$$$$`, `cheap` or `$expensive` will be rejected.
@@ -227,7 +227,7 @@ e.g. `fast food` and `premium casual` will be capitalized to
 
 Examples:
 
-* `listRestaurants` +
+* `list` +
 `setCategories 2 c/Fine Dining oc/Wedding pr/\$$$$$` +
 Sets the categories of the second restaurant in the list to `Find Dining` for cuisine, `Wedding` for occasion and
 `\$$$$$` for price range.
@@ -271,7 +271,7 @@ Returns restaurants with  `Cuisine`, `Occasion` or `Price Range` matching `$`, `
 // tag::visitweb[]
 ==== Display website of selected restaurant : `visitWeb`
 
-Display the website of a restaurant identified by the index number used in the listRestaurants based on its weblink. +
+Display the website of a restaurant identified by the index number used in the list based on its weblink. +
 Format: `visitWeb INDEX`
 
 
@@ -405,7 +405,7 @@ Examples:
 
 ==== View your profile and usage statistics : `view`
 
-Set the cuisine of a restaurant identified by the index number used in the listRestaurants. +
+Set the cuisine of a restaurant identified by the index number used in the list. +
 Format: `view`
 
 Examples:
@@ -457,7 +457,7 @@ e.g. `find KFC Chicken`
 * *select* : `select INDEX`
 e.g. `select 2`
 * *setCategories* : `setCategory INDEX [c/CUISINE] [oc/OCCASION] [pr/PRICE_RANGE]` +
-e.g. `listRestaurants` +
+e.g. `list` +
      `setCategory 2 c/Fine Dining oc/Wedding pr/$\$$$$`
 * *filter* : `filter KEYWORD [MORE_KEYWORDS]` +
 e.g. `filter fast food gathering`

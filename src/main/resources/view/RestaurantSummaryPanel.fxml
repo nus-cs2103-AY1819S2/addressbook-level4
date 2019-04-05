@@ -9,8 +9,8 @@
 
 <BorderPane fx:id="summaryPane" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <top>
-      <VBox fx:id="titleVbox" styleClass="vbox_background" prefHeight="150.0" prefWidth="100.0" alignment="CENTER" BorderPane.alignment="CENTER" >
-         <Label fx:id="name" styleClass="vbox_name_label" text="\$name" />
+      <VBox fx:id="titleVbox" styleClass="vbox_background" minHeight="150.0" prefWidth="100.0" alignment="CENTER" BorderPane.alignment="CENTER" >
+         <Label fx:id="name" styleClass="vbox_name_label" text="\$name" wrapText="true"/>
          <Label fx:id="avgRating" styleClass="vbox_rating_label" text="\$avgRating">
             <graphic>
                <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">

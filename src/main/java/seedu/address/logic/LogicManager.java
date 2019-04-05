@@ -52,9 +52,14 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         try {
             Command command = addressBookParser.parseCommand(commandText);
-            commandResult = command.execute(model, history);
-            addToStatistics(commandText);
-            validCommand = true;
+            if (command.canExecuteIn(model.getBattleState())) {
+                commandResult = command.execute(model, history);
+                addToStatistics(commandText);
+                validCommand = true;
+            } else {
+                commandResult = new CommandResult("Cannot perform command while "
+                    + model.getBattleState().getDescription().toLowerCase());
+            }
         } finally {
             if (validCommand) {
                 history.add(commandText);

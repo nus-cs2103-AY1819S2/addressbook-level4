@@ -26,7 +26,8 @@ public class BeginCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        // assert canExecuteIn(model.getBattleState());
+        assert canExecuteIn(model.getBattleState());
+
         model.setBattleState(BattleState.ENEMY_PUT_SHIP);
         model.getBattle().beginGame();
         model.setBattleState(BattleState.PLAYER_ATTACK);

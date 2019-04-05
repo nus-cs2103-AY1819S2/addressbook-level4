@@ -45,7 +45,7 @@ public class AttackCommand extends Command {
      */
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        // assert canExecuteIn(model.getBattleState());
+        assert canExecuteIn(model.getBattleState());
         Player human = model.getHumanPlayer();
         AttackResult res;
 

@@ -71,6 +71,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.interviews.setInterviews(interviews);
     }
 
+    public void setJobs(List<Job> Jobs) {
+        this.jobs.setJobs(Jobs);
+        indicateModified();
+    }
+
     public void setBlockOutDates(List<Calendar> blockOutDates) {
         this.interviews.setBlockOutDates(blockOutDates);
     }
@@ -83,6 +88,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setInterviews(newData.getInterviews());
+        setJobs(newData.getJobList());
     }
 
     //// person-level operations
@@ -225,6 +231,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
         nrics.remove(key.getNric());
         indicateModified();
+    }
+
+    public ObservableList<Job> getJobList() {
+        return jobs.asUnmodifiableObservableList();
     }
 
     /**

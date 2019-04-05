@@ -49,6 +49,16 @@ public class TeethPanel extends UiPart<Region> {
         });
     }
 
+    public TeethPanel(ObservableValue<Person> givenPerson, boolean isStat) {
+        super(FXML);
+        getRoot();
+        try {
+            loadTeeth(givenPerson.getValue());
+        } catch (IOException e) {
+            logger.info(e.getMessage());
+        }
+    }
+
     /**
      * Uses patient information to load teeth image
      */
@@ -61,9 +71,7 @@ public class TeethPanel extends UiPart<Region> {
             Image fin = SwingFXUtils.toFXImage(main, null);
             ImageView test = new ImageView(fin);
             test.setPreserveRatio(true);
-            test.setFitHeight(500);
-            test.setX(80);
-            test.setY(50);
+            test.setFitHeight(550);
             space.getChildren().add(test);
 
         } catch (IOException e) {

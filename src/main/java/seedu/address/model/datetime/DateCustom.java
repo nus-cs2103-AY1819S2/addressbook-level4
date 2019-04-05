@@ -16,13 +16,15 @@ public class DateCustom implements DateBuilder, Comparable<DateCustom> {
                                                     + "and should be in the format dd-mm-yyyy\n"
                                                     + "Example date: 31-04-2019";
 
-    public static final String MESSAGE_CONSTRAINTS_START_DATE = "Start Date should be a valid date "
-                                                               + "and should be in the format dd-mm-yyyy\n"
-                                                               + "Example date: 31-04-2019";
+    public static final String MESSAGE_CONSTRAINTS_START_DATE = " Start Date should be a valid date "
+                                                               + "and should be in the format dd-mm-yyyy. "
+                                                               + "You can also use the keyword today to use the "
+                                                               + "current date\n Example date: 31-04-2019";
 
-    public static final String MESSAGE_CONSTRAINTS_END_DATE = "End Date should be a valid date "
+    public static final String MESSAGE_CONSTRAINTS_END_DATE = " End Date should be a valid date "
                                                                 + "and should be in the format dd-mm-yyyy\n"
-                                                                + "Example date: 31-04-2019";
+                                                                + "You can also use the keyword today to use the "
+                                                                + "current date\n Example date: 31-04-2019";
 
     private final String storedDate;
 
@@ -68,6 +70,10 @@ public class DateCustom implements DateBuilder, Comparable<DateCustom> {
         return !dateCompare(this.toString(), LocalDate.now().format(DATE_FORMATTER));
     }
 
+    public static String getToday() {
+        return LocalDate.now().format(DATE_FORMATTER);
+    }
+
     public LocalDate getDate() {
         return LocalDate.parse(storedDate, DATE_FORMATTER);
     }
@@ -86,7 +92,9 @@ public class DateCustom implements DateBuilder, Comparable<DateCustom> {
 
     @Override
     public int compareTo(DateCustom d) {
-        if (isSameDate(d.storedDate)) { return 0; }
+        if (isSameDate(d.storedDate)) {
+            return 0;
+        }
         return dateCompare(storedDate, d.storedDate) ? -1 : 1;
     }
 

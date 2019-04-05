@@ -53,7 +53,7 @@
 }
 
 .table-view .column-header, .table-view .filler {
-    -fx-size: 35;
+    -fx-size: 24;
     -fx-border-width: 0 0 1 0;
     -fx-background-color: transparent;
     -fx-border-color:
@@ -65,7 +65,7 @@
 }
 
 .table-view .column-header .label {
-    -fx-font-size: 20pt;
+    -fx-font-size: 16pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-alignment: center-left;
@@ -151,6 +151,20 @@
     -fx-padding: 1 10 0 0
 }
 
+.display_title {
+    -fx-font-size: 20px;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+
+.display_header {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+
+.display_text {
+    -fx-text-fill: black;
+}
 .stack-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
 }
@@ -399,12 +413,63 @@
     -fx-background-radius: 2;
     -fx-font-size: 9;
 }
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 1;
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.tab-pane
+{
+    -fx-padding: 0 0 0 -1;
+    -fx-tab-min-width:90px;
+}
+
+.tab{
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+.tab-pane .tab
+{
+    -fx-opacity: 0.5;
+    -fx-background-color: derive(#1d1d1d, 70%);;
+
+}
+
+.tab-pane .tab:selected
+{
+    -fx-opacity: 1;
+    -fx-background-color: derive(#1d1d1d, 70%);;
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-font-family: "Hevletica";
+    -fx-font-size: 10pt;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-color: transparent;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: transparent;
+}
 
 .scroll-pane{
     -fx-background-color: derive(#1d1d1d, 30%);
 }
 .scroll-pane > .viewport {
    -fx-background-color: transparent;
+}
+
+.white_scroll_pane > .viewport {
+    -fx-background-color: white;
 }
 
 

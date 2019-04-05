@@ -14,20 +14,20 @@ import seedu.address.storage.ParsedInOut;
 import seedu.address.storage.StorageManager;
 
 /**
- * Saves records to a text file.
+ * Saves data to a text file.
  */
 public class SaveCommand extends Command {
 
     public static final String COMMAND_WORD = "save";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Saves the current patients to a .json or .pdf file in the \"data\" folder, "
-            + "overwriting if filename exists \n"
-            + "Parameters: FILENAME\n"
-            + "Example: " + COMMAND_WORD + " records1.json"
-            + "Example: " + COMMAND_WORD + " records1.pdf";
+            + ": Saves the current data to a .json or .pdf file in the \"data\" folder, "
+            + "overwriting if file path exists \n"
+            + "Parameters: FILEPATH\n"
+            + "Example: " + COMMAND_WORD + " data1.json\n"
+            + "Example: " + COMMAND_WORD + " folder/data1.pdf";
 
-    public static final String MESSAGE_SUCCESS = "Saved the records!";
+    public static final String MESSAGE_SUCCESS = "File saved!";
 
     private final ParsedInOut parsedInput;
 

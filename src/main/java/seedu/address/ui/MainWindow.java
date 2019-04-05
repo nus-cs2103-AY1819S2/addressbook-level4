@@ -219,6 +219,10 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Open browser window to display website
+     * @param weblink contains the website to be loaded
+     */
     private void handleShowWeblink(Weblink weblink) {
         browserPanel.loadPage(weblink.value);
     }

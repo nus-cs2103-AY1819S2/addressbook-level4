@@ -391,8 +391,6 @@ Restaurant Categorisation is mainly implemented using the following commands:
 All supported categories are defined in the `seedu.address.model.restaurant.categories` package, along with the `Categories`
 class that encapsulates all categories into a `Categories` object to be used in the `Restaurant` class.
 
-===== SetCategories Command
-
 The following activity diagram shows the chain of events when setting categories of a restaurant with the setCategories command:
 
 image::SetCategoriesActivityDiagram.png[width="650"]

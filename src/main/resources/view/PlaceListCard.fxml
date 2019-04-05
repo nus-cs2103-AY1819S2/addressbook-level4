@@ -19,7 +19,7 @@
     </columnConstraints>
   <Label fx:id="name" styleClass="cell_big_label" text="\$first" GridPane.columnIndex="1">
          <padding>
-            <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+            <Insets bottom="5.0" left="0.1" right="5.0" top="5.0" />
          </padding>
       </Label>
   <Label fx:id="id" styleClass="cell_big_label" textFill="WHITE" GridPane.valignment="CENTER">

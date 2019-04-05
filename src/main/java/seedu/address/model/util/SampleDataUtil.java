@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 import seedu.address.model.DocX;
 import seedu.address.model.ReadOnlyDocX;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.medicalhistory.Date;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.WriteUp;
 import seedu.address.model.person.Address;
@@ -71,7 +70,7 @@ public class SampleDataUtil {
 
     public static MedicalHistory[] getSampleMedHists() {
         return new MedicalHistory[] {
-            new MedicalHistory("1", "2", new Date("2018-06-18"), new WriteUp("Fever"))
+            new MedicalHistory("1", "2", LocalDate.parse("2018-06-18"), new WriteUp("Fever"))
         };
     }
 

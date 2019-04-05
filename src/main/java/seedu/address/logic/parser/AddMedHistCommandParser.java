@@ -6,11 +6,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WRITEUP;
 
+import java.time.LocalDate;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddMedHistCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.medicalhistory.Date;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.WriteUp;
 
@@ -37,7 +37,7 @@ public class AddMedHistCommandParser implements Parser<AddMedHistCommand> {
 
         String patientId = argMultimap.getValue(PREFIX_PATIENT_ID).get();
         String doctorId = argMultimap.getValue(PREFIX_DOCTOR_ID).get();
-        Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_MEDHIST).get());
+        LocalDate date = LocalDate.parse(argMultimap.getValue(PREFIX_DATE_OF_MEDHIST).get());
         WriteUp writeUp = ParserUtil.parseWriteUp(argMultimap.getValue(PREFIX_WRITEUP).get());
 
         MedicalHistory medicalHistory = new MedicalHistory(patientId, doctorId, date, writeUp);

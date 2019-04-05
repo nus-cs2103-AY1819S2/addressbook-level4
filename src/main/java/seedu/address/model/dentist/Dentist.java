@@ -1,13 +1,12 @@
 package seedu.address.model.dentist;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Path;
 import java.util.Optional;
 
 import javafx.scene.control.TextInputDialog;
 import seedu.address.MainApp;
+import seedu.address.commons.util.FileUtil;
 
 
 /**
@@ -48,6 +47,8 @@ public class Dentist {
      */
     public static void setDentistName(String name) {
         try {
+            File dentistFile = new File(FILEPATH);
+            FileUtil.createIfMissing(dentistFile.toPath());
             FileWriter fw = new FileWriter(FILEPATH, false);
             fw.write(name);
             fw.close();

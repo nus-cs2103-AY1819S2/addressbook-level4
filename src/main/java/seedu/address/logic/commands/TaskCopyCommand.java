@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import seedu.address.model.task.Task;
 /**
  * Copy a temporary person to the address book.
  */
-public class TaskcopyCommand extends Command {
+public class TaskCopyCommand extends Command {
 
     public static final String COMMAND_WORD = "taskcopy";
 
@@ -23,16 +23,16 @@ public class TaskcopyCommand extends Command {
             + "Parameters: Index (Must be an integer) [Number of Copies]"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Person copied: %1$s";
+    public static final String MESSAGE_SUCCESS = "Task copied: %1$s";
 
     private final Index index;
 
     private final int numOfCopies;
 
     /**
-     * Creates an TaskcopyCommand to add the specified {@code Person}
+     * Creates an TaskCopyCommand to add the specified {@code Person}
      */
-    public TaskcopyCommand(Index index, int numOfCopies) {
+    public TaskCopyCommand(Index index, int numOfCopies) {
         requireNonNull(index);
         this.index = index;
         this.numOfCopies = numOfCopies;
@@ -56,7 +56,7 @@ public class TaskcopyCommand extends Command {
             model.addTask(copytask);
         }
 
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, copytask));
     }
@@ -64,7 +64,7 @@ public class TaskcopyCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TaskcopyCommand // instanceof handles nulls
-                && index.equals(((TaskcopyCommand) other).index));
+                || (other instanceof TaskCopyCommand // instanceof handles nulls
+                && index.equals(((TaskCopyCommand) other).index));
     }
 }

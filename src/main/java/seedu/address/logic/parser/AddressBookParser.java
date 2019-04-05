@@ -1,7 +1,9 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_CANNOT_RUN_IN_GOTO;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_ONLY_GO_TO_MODE_COMMANDS;
+import static seedu.address.commons.core.Messages.MESSAGE_ONLY_PATIENT_MODE_COMMANDS;
 import static seedu.address.commons.core.Messages.MESSAGE_ONLY_TASK_OR_DATE_COMMANDS;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -26,6 +28,7 @@ import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.OpenCommand;
 import seedu.address.logic.commands.RecordAddCommand;
+import seedu.address.logic.commands.RecordClearCommand;
 import seedu.address.logic.commands.RecordDeleteCommand;
 import seedu.address.logic.commands.RecordEditCommand;
 import seedu.address.logic.commands.RedoCommand;
@@ -35,9 +38,12 @@ import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.TaskAddCommand;
 import seedu.address.logic.commands.TaskCalendarCommand;
+import seedu.address.logic.commands.TaskCopyCommand;
 import seedu.address.logic.commands.TaskDeleteCommand;
+import seedu.address.logic.commands.TaskDoneCommand;
 import seedu.address.logic.commands.TaskEditCommand;
-import seedu.address.logic.commands.TaskcopyCommand;
+import seedu.address.logic.commands.TaskListCommand;
+import seedu.address.logic.commands.TaskSortCommand;
 import seedu.address.logic.commands.TeethEditCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -117,10 +123,6 @@ public class AddressBookParser {
             checkSpecialCondition(checkBothConditions);
             return new StatsCommandParser().parse(arguments);
 
-        case SortCommand.COMMAND_WORD:
-            checkSpecialCondition(checkBothConditions);
-            return new SortCommandParser().parse(arguments);
-
         case CopyCommand.COMMAND_WORD:
             checkSpecialCondition(checkBothConditions);
             return new CopyCommandParser().parse(arguments);
@@ -141,6 +143,20 @@ public class AddressBookParser {
             checkSpecialCondition(checkBothConditions);
             return new ExportCommandParser().parse(arguments);
 
+        //Commands that run in both GoTo mode and Patient mode but not in Calendar Window
+        case SortCommand.COMMAND_WORD:
+            if (CalendarWindow.isRunningCommand()) {
+                throw new ParseException(MESSAGE_ONLY_TASK_OR_DATE_COMMANDS);
+            }
+            return new SortCommandParser().parse(arguments);
+
+        //Commands that runs ONLY in both Patient Mode OR Calendar Window
+        case TaskDoneCommand.COMMAND_WORD:
+            if (MainWindow.isGoToMode()) {
+                throw new ParseException(MESSAGE_CANNOT_RUN_IN_GOTO);
+            } else {
+                return new TaskDoneCommandParser().parse(arguments);
+            }
         //Commands that should ONLY run in GoTo mode but not in Calendar Window
         case GoToCommand.COMMAND_WORD:
             checkSpecialCondition(!checkBothConditions);
@@ -148,22 +164,32 @@ public class AddressBookParser {
 
         case BackCommand.COMMAND_WORD:
             checkSpecialCondition(!checkBothConditions);
+            assertGoToMode();
             return new BackCommand();
 
         case RecordAddCommand.COMMAND_WORD:
             checkSpecialCondition(!checkBothConditions);
+            assertGoToMode();
             return new RecordAddCommandParser().parse(arguments);
+
+        case RecordClearCommand.COMMAND_WORD:
+            checkSpecialCondition(!checkBothConditions);
+            assertGoToMode();
+            return new RecordClearCommand();
 
         case RecordEditCommand.COMMAND_WORD:
             checkSpecialCondition(!checkBothConditions);
+            assertGoToMode();
             return new RecordEditCommandParser().parse(arguments);
 
         case RecordDeleteCommand.COMMAND_WORD:
             checkSpecialCondition(!checkBothConditions);
+            assertGoToMode();
             return new RecordDeleteCommandParser().parse(arguments);
 
         case TeethEditCommand.COMMAND_WORD:
             checkSpecialCondition(!checkBothConditions);
+            assertGoToMode();
             return new TeethEditCommandParser().parse(arguments);
 
         //Commands that should run in ALL modes and popups
@@ -176,11 +202,17 @@ public class AddressBookParser {
         case TaskEditCommand.COMMAND_WORD:
             return new TaskEditCommandParser().parse(arguments);
 
+        case TaskSortCommand.COMMAND_WORD:
+            return new TaskSortCommandParser().parse(arguments);
+
         case TaskDeleteCommand.COMMAND_WORD:
             return new TaskDeleteCommandParser().parse(arguments);
 
-        case TaskcopyCommand.COMMAND_WORD:
-            return new TaskcopyCommandParser().parse(arguments);
+        case TaskCopyCommand.COMMAND_WORD:
+            return new TaskCopyCommandParser().parse(arguments);
+
+        case TaskListCommand.COMMAND_WORD:
+            return new TaskListCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -206,6 +238,15 @@ public class AddressBookParser {
         }
         if (MainWindow.isGoToMode() && checkBothConditions) {
             throw new ParseException(MESSAGE_ONLY_GO_TO_MODE_COMMANDS);
+        }
+    }
+
+    /**
+     * For commands which can only run in GoTo mode.
+     */
+    public void assertGoToMode() throws ParseException {
+        if (!MainWindow.isGoToMode()) {
+            throw new ParseException(MESSAGE_ONLY_PATIENT_MODE_COMMANDS);
         }
     }
 

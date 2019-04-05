@@ -22,19 +22,19 @@ public class PhoneContainsKeywordsPredicate extends ContainsKeywordsPredicate<Pe
     public boolean test(Person person) {
         if (!isIgnoreCase && !isAnd) {
             return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordCaseSensitive(person.getPhone().toString(), keyword));
+                .anyMatch(keyword -> StringUtil.containsStringCaseSensitive(person.getPhone().toString(), keyword));
 
         } else if (isIgnoreCase && !isAnd) {
             return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getPhone().toString(), keyword));
+                .anyMatch(keyword -> StringUtil.containsStringIgnoreCase(person.getPhone().toString(), keyword));
 
         } else if (!isIgnoreCase && isAnd) {
             return keywords.stream()
-                .allMatch(keyword -> StringUtil.containsWordCaseSensitive(person.getPhone().toString(), keyword));
+                .allMatch(keyword -> StringUtil.containsStringCaseSensitive(person.getPhone().toString(), keyword));
 
         } else {
             return keywords.stream()
-                .allMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getPhone().toString(), keyword));
+                .allMatch(keyword -> StringUtil.containsStringIgnoreCase(person.getPhone().toString(), keyword));
         }
     }
 

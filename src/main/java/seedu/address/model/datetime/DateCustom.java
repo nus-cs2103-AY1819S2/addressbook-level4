@@ -10,10 +10,19 @@ import java.time.format.DateTimeFormatter;
  * Represents a date for tasks.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
-public class DateCustom implements DateBuilder {
-    public static final String MESSAGE_CONSTRAINTS = "Date should not be before today's date, End Date should not"
-                                                   + " be before Start Date and a valid date should"
-                                                   + " be in the form of dd-mm-yyyy";
+public class DateCustom implements DateBuilder, Comparable<DateCustom> {
+
+    public static final String MESSAGE_CONSTRAINTS = "Date given should be a valid date "
+                                                    + "and should be in the format dd-mm-yyyy\n"
+                                                    + "Example date: 31-04-2019";
+
+    public static final String MESSAGE_CONSTRAINTS_START_DATE = "Start Date should be a valid date "
+                                                               + "and should be in the format dd-mm-yyyy\n"
+                                                               + "Example date: 31-04-2019";
+
+    public static final String MESSAGE_CONSTRAINTS_END_DATE = "End Date should be a valid date "
+                                                                + "and should be in the format dd-mm-yyyy\n"
+                                                                + "Example date: 31-04-2019";
 
     private final String storedDate;
 
@@ -73,6 +82,12 @@ public class DateCustom implements DateBuilder {
         LocalDate firstDate = LocalDate.parse(date1, DATE_FORMATTER);
         LocalDate secondDate = LocalDate.parse(date2, DATE_FORMATTER);
         return firstDate.isBefore(secondDate);
+    }
+
+    @Override
+    public int compareTo(DateCustom d) {
+        if (isSameDate(d.storedDate)) { return 0; }
+        return dateCompare(storedDate, d.storedDate) ? -1 : 1;
     }
 
     @Override

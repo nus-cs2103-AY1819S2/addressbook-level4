@@ -18,10 +18,10 @@ public class TaskCalendarCommand extends Command {
     public static final String COMMAND_WORD = "taskcal";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + "Displays a Calendar that highlights days with tasks\n"
-            + "Given date should be in dd-mm-yyyy format\n"
-            + "Example: " + COMMAND_WORD + " "
-            + "13-05-2019\n"
-            + "If no date is provided, the current date will be used\n";
+                                                            + "Given date should be in dd-mm-yyyy format\n"
+                                                            + "Example: " + COMMAND_WORD + " "
+                                                            + "13-05-2019\n"
+                                                            + "If no date is provided, the current date will be used\n";
 
     private static final String MESSAGE_USING_CURRENT_DATE = "No date given, using current date\n";
     private static final String MESSAGE_DISPLAY_CALENDAR_SUCCESS = "Task Calendar displayed for Date: %1$s";

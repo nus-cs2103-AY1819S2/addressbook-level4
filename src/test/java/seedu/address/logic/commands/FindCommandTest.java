@@ -30,11 +30,18 @@ import seedu.address.model.person.Person;
 import seedu.address.model.util.predicate.AddressContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.ContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.DateOfBirthContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.DescriptionContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.DrugAllergyContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.EmailContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.KinAddressContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.KinNameContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.KinPhoneContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.KinRelationContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.MultipleContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.NameContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.NricContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.PhoneContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.SexContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -98,7 +105,7 @@ public class FindCommandTest {
     @Test
     public void execute_phoneParameter() throws ParseException {
         //No user input
-        execute_parameterPredicate_test(0, " ", "name", true, false, Collections.emptyList());
+        execute_parameterPredicate_test(0, " ", "phone", true, false, Collections.emptyList());
         //Multiple keywords, or condition, multiple people found
         execute_parameterPredicate_test(3, "94351253 9482427 9482442", "phone",
             true, false, Arrays.asList(ALICE, FIONA, GEORGE));
@@ -199,6 +206,132 @@ public class FindCommandTest {
     }
 
     @Test
+    public void execute_sexParameter() throws ParseException {
+        //No user input
+        execute_parameterPredicate_test(0, " ", "sex", true, false, Collections.emptyList());
+        //Single keyword, ignore case, person found.
+        execute_parameterPredicate_test(4, "f", "sex", true, false, Arrays.asList(ALICE, CARL, ELLE, FIONA));
+        //Single keyword, case sensitive, no one found.
+        execute_parameterPredicate_test(0, "f", "sex", false, false, Collections.emptyList());
+        //Multiple keywords, ignore case, or condition, multiple people found
+        execute_parameterPredicate_test(7, "m F", "sex", true, false,
+            Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        //Multiple keywords, ignore case, and condition, no one found
+        execute_parameterPredicate_test(0, "m F", "sex", true, true, Collections.emptyList());
+        //Multiple keywords, case sensitive, or condition, people found
+        execute_parameterPredicate_test(4, "m F", "sex", false, false, Arrays.asList(ALICE, CARL, ELLE, FIONA));
+        //Multiple keywords, case sensitive, and condition, no one found
+        execute_parameterPredicate_test(0, "m F", "sex", false, true, Collections.emptyList());
+    }
+
+    @Test
+    public void execute_drugAllergyParameter() throws ParseException {
+        //No user input
+        execute_parameterPredicate_test(0, " ", "drug", true, false, Collections.emptyList());
+        //Single keyword, ignore case, person found.
+        execute_parameterPredicate_test(3, "nil", "drug", true, false, Arrays.asList(ALICE, ELLE, FIONA));
+        //Single keyword, case sensitive, no one found.
+        execute_parameterPredicate_test(0, "nil", "drug", false, false, Collections.emptyList());
+        //Multiple keywords, ignore case, or condition, multiple people found
+        execute_parameterPredicate_test(2, "panadol penicilin", "drug", true, false,
+            Arrays.asList(BENSON, DANIEL));
+        //Multiple keywords, ignore case, and condition, no one found
+        execute_parameterPredicate_test(0, "panadol penicilin", "drug", true, true, Collections.emptyList());
+        //Multiple keywords, case sensitive, or condition, people found
+        execute_parameterPredicate_test(1, "panadol Penicilin", "drug", false, false, Arrays.asList(DANIEL));
+        //Multiple keywords, case sensitive, and condition, no one found
+        execute_parameterPredicate_test(0, "panadol penicilin", "drug", false, true, Collections.emptyList());
+    }
+
+    @Test
+    public void execute_descParameter() throws ParseException {
+        //No user input
+        execute_parameterPredicate_test(0, " ", "desc", true, false, Collections.emptyList());
+        //Single keyword, ignore case, person found.
+        execute_parameterPredicate_test(1, "surgery", "desc", true, false, Arrays.asList(FIONA));
+        //Single keyword, case sensitive, no one found.
+        execute_parameterPredicate_test(0, "SuRGery", "desc", false, false, Collections.emptyList());
+        //Multiple keywords, ignore case, or condition, multiple people found
+        execute_parameterPredicate_test(2, "different surgery", "desc", true, false,
+            Arrays.asList(DANIEL, FIONA));
+        //Multiple keywords, ignore case, and condition, no one found
+        execute_parameterPredicate_test(1, "tEEth surgery", "desc", true, true, Arrays.asList(FIONA));
+        //Multiple keywords, case sensitive, or condition, people found
+        execute_parameterPredicate_test(1, "tEEth surgery", "desc", false, false, Arrays.asList(FIONA));
+        //Multiple keywords, case sensitive, and condition, no one found
+        execute_parameterPredicate_test(0, "tEEth surgery", "desc", false, true, Collections.emptyList());
+    }
+
+    @Test
+    public void execute_kinNameParameter() throws ParseException {
+        //No user input
+        execute_parameterPredicate_test(0, " ", "kinN", true, false, Collections.emptyList());
+        //Single keyword, ignore case, person found.
+        execute_parameterPredicate_test(1, "karly", "kinN", true, false, Arrays.asList(FIONA));
+        //Single keyword, case sensitive, no one found.
+        execute_parameterPredicate_test(0, "karly", "kinN", false, false, Collections.emptyList());
+        //Multiple keywords, ignore case, or condition, multiple people found
+        execute_parameterPredicate_test(3, "Meier charLie", "kinN", true, false,
+            Arrays.asList(BENSON, CARL, DANIEL));
+        //Multiple keywords, ignore case, and condition, no one found
+        execute_parameterPredicate_test(0, "Meier charLie", "kinN", true, true, Collections.emptyList());
+        //Multiple keywords, case sensitive, or condition, people found
+        execute_parameterPredicate_test(2, "Meier charLie", "kinN", false, false, Arrays.asList(BENSON, DANIEL));
+        //Multiple keywords, case sensitive, and condition, no one found
+        execute_parameterPredicate_test(0, "Meier charLie", "kinN", false, true, Collections.emptyList());
+    }
+
+    @Test
+    public void execute_kinRelationParameter() throws ParseException {
+        //No user input
+        execute_parameterPredicate_test(0, " ", "kinR", true, false, Collections.emptyList());
+        //Single keyword, ignore case, person found.
+        execute_parameterPredicate_test(1, "MOTHER", "kinR", true, false, Arrays.asList(DANIEL));
+        //Single keyword, case sensitive, no one found.
+        execute_parameterPredicate_test(0, "MOTHER", "kinR", false, false, Collections.emptyList());
+        //Multiple keywords, ignore case, or condition, multiple people found
+        execute_parameterPredicate_test(2, "Grandfather sister", "kinR", true, false,
+            Arrays.asList(BENSON, ELLE));
+        //Multiple keywords, ignore case, and condition, no one found
+        execute_parameterPredicate_test(0, "Grandfather sister", "kinR", true, true, Collections.emptyList());
+        //Multiple keywords, case sensitive, or condition, people found
+        execute_parameterPredicate_test(1, "Grandfather sister", "kinR", false, false, Arrays.asList(ELLE));
+        //Multiple keywords, case sensitive, and condition, no one found
+        execute_parameterPredicate_test(0, "Grandfather sister", "kinR", false, true, Collections.emptyList());
+    }
+
+    @Test
+    public void execute_kinPhoneParameter() throws ParseException {
+        //No user input
+        execute_parameterPredicate_test(0, " ", "kinP", true, false, Collections.emptyList());
+        //Multiple keywords, or condition, multiple people found
+        execute_parameterPredicate_test(2, "98712345 84456622", "kinP",
+            true, false, Arrays.asList(BENSON, DANIEL));
+        //Multiple keywords, and condition, multiple people found
+        execute_parameterPredicate_test(0, "98712345 84456622", "kinP",
+            true, true, Collections.emptyList());
+    }
+
+    @Test
+    public void execute_kinAddressParameter() throws ParseException {
+        //No user input
+        execute_parameterPredicate_test(0, " ", "kinA", true, false, Collections.emptyList());
+        //Single keyword, ignore case, person found.
+        execute_parameterPredicate_test(2, "ave", "kinA", true, false, Arrays.asList(ALICE, BENSON));
+        //Single keyword, case sensitive, no one found.
+        execute_parameterPredicate_test(0, "ave", "kinA", false, false, Collections.emptyList());
+        //Multiple keywords, ignore case, or condition, multiple people found
+        execute_parameterPredicate_test(2, "SQUare Ohio", "kinA", true, false,
+            Arrays.asList(CARL, ELLE));
+        //Multiple keywords, ignore case, and condition, no one found
+        execute_parameterPredicate_test(0, "SQUare Ohio", "kinA", true, true, Collections.emptyList());
+        //Multiple keywords, case sensitive, or condition, people found
+        execute_parameterPredicate_test(1, "SQUare Ohio", "kinA", false, false, Arrays.asList(ELLE));
+        //Multiple keywords, case sensitive, and condition, no one found
+        execute_parameterPredicate_test(0, "SQUare Ohio", "kinA", false, true, Collections.emptyList());
+    }
+
+    @Test
     public void execute_multiParameter_namePhone() throws ParseException {
         //different parameters, two expected people
         execute_multipleParameterPredicate_test(2, "alice 95352563", "name phone", true, false,
@@ -296,6 +429,33 @@ public class FindCommandTest {
 
         case "dob":
             return new DateOfBirthContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")),
+                isIgnoreCase, isAnd);
+
+        case "drug":
+            return new DrugAllergyContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")),
+                isIgnoreCase, isAnd);
+
+        case "sex":
+            return new SexContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")), isIgnoreCase, isAnd);
+
+        case "desc":
+            return new DescriptionContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")),
+                isIgnoreCase, isAnd);
+
+        case "kinN":
+            return new KinNameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")),
+                isIgnoreCase, isAnd);
+
+        case "kinR":
+            return new KinRelationContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")),
+                isIgnoreCase, isAnd);
+
+        case "kinP":
+            return new KinPhoneContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")),
+                isIgnoreCase, isAnd);
+
+        case "kinA":
+            return new KinAddressContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")),
                 isIgnoreCase, isAnd);
 
         default:

@@ -10,9 +10,15 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTDATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
+import java.util.List;
+
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.patient.Patient;
+import seedu.address.model.person.Person;
+import seedu.address.model.task.LinkedPatient;
 import seedu.address.model.task.Task;
 
 
@@ -42,14 +48,16 @@ public class TaskAddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 
     private final Task toAdd;
+    private final Index targetIndex;
 
     /**
      * Creates an AddCommand to add the specified {@code Task}
      * @param task the task to be added.
      */
-    public TaskAddCommand(Task task) {
+    public TaskAddCommand(Task task, Index index) {
         requireNonNull(task);
         toAdd = task;
+        targetIndex = index;
     }
 
     @Override
@@ -62,10 +70,18 @@ public class TaskAddCommand extends Command {
         if (toAdd.hasTimeClash()) {
             throw new CommandException(MESSAGE_TIME_CLASH);
         }
+        if (targetIndex != null && targetIndex.getZeroBased() != 0) {
+            List<Person> lastShownList = model.getFilteredPersonList();
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(LinkedPatient.MESSAGE_CONSTRAINTS);
+            }
+            Person targetPerson = lastShownList.get(targetIndex.getZeroBased());
+            Patient targetPatient = (Patient) targetPerson;
+            toAdd.setLinkedPatient(targetPatient.getName(), ((Patient) targetPerson).getNric());
+        }
         if (model.hasTask(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
-
         model.addTask(toAdd);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getTitle()));

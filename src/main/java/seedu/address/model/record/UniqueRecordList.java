@@ -3,6 +3,8 @@ package seedu.address.model.record;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,7 +12,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.record.exceptions.DuplicateRecordException;
 import seedu.address.model.record.exceptions.RecordNotFoundException;
-import seedu.address.model.task.exceptions.DuplicateTaskException;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
 
 /**
@@ -32,6 +33,7 @@ public class UniqueRecordList implements Iterable<Record> {
 
     /**
      * Returns true if the list contains an equivalent Record as the given argument.
+     * At the moment, duplicates are allowed, all contains() checks return false.
      */
     public boolean contains(Record toCheck) {
         requireNonNull(toCheck);
@@ -44,9 +46,6 @@ public class UniqueRecordList implements Iterable<Record> {
      */
     public void add(Record toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
-            throw new DuplicateTaskException();
-        }
         internalList.add(0, toAdd);
     }
 
@@ -95,6 +94,17 @@ public class UniqueRecordList implements Iterable<Record> {
      */
     public ObservableList<Record> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    /**
+     * Sorts the internal list according to desired comparator
+     */
+    public void sortStoredList(Comparator<Record> compRecord, boolean isReverse) {
+        if (!isReverse) {
+            Collections.sort(this.internalList, compRecord);
+        } else {
+            Collections.sort(this.internalList, Collections.reverseOrder(compRecord));
+        }
     }
 
     @Override

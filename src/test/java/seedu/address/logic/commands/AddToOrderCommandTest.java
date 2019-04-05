@@ -231,11 +231,6 @@ public class AddToOrderCommandTest {
         }
 
         @Override
-        public void updateMode() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void addOrderItem(OrderItem orderItem) {
             throw new AssertionError("This method should not be called.");
         }

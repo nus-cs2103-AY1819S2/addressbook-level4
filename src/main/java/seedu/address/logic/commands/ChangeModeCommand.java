@@ -33,8 +33,6 @@ public abstract class ChangeModeCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_MODE_CHANGE);
         }
 
-        model.updateMode();
-
         return generateCommandResult();
     }
 

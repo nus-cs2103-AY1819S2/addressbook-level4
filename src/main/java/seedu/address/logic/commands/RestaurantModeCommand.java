@@ -32,8 +32,6 @@ public class RestaurantModeCommand extends ChangeModeCommand {
         model.updateFilteredTableList(Model.PREDICATE_SHOW_ALL_TABLES);
         model.updateFilteredOrderItemList(Model.PREDICATE_SHOW_ALL_ORDER_ITEMS);
 
-        model.updateMode();
-
         return generateCommandResult();
     }
 

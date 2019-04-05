@@ -153,11 +153,6 @@ public class ModelManager implements Model {
                 restOrRant.getStatistics());
     }
 
-    @Override
-    public void updateMode() { // change mode
-        restOrRant.indicateModified();
-    }
-
     //=========== Tables =====================================================================================
 
     @Override

@@ -211,11 +211,6 @@ public class BillCommandTest {
         }
 
         @Override
-        public void updateMode() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void addOrderItem(OrderItem orderItem) {
             throw new AssertionError("This method should not be called.");
         }
@@ -696,12 +691,7 @@ public class BillCommandTest {
             requireNonNull(dailyRevenue);
             dailyRevenuesAdded.add(dailyRevenue);
         }
-
-        @Override
-        public void updateMode() {
-            // called by {@code AddCommand#execute()}
-        }
-
+        
         @Override
         public ReadOnlyRestOrRant getRestOrRant() {
             return new RestOrRant();

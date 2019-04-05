@@ -83,7 +83,6 @@ public class BillCommand extends Command {
         model.updateTables();
         model.updateStatistics();
         model.updateOrders();
-        model.updateMode();
         return new CommandResult(String.format(MESSAGE_SUCCESS, bill), false, false, Mode.BILL_MODE);
     }
 

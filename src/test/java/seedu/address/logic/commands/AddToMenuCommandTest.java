@@ -176,11 +176,6 @@ public class AddToMenuCommandTest {
         }
 
         @Override
-        public void updateMode() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public boolean hasMenuItem(MenuItem menuItem) {
             throw new AssertionError("This method should not be called.");
         }
@@ -456,12 +451,7 @@ public class AddToMenuCommandTest {
             requireNonNull(menuItem);
             menuItemsAdded.add(menuItem);
         }
-
-        @Override
-        public void updateMode() {
-            // called by {@code AddCommand#execute()}
-        }
-
+        
         @Override
         public ReadOnlyRestOrRant getRestOrRant() {
             return new RestOrRant();

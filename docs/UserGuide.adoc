@@ -172,6 +172,9 @@ sort bookList by book name in ascending order.
 sort bookList by rating of the book in descending order and if they having same rating it will sort them by book name is asc order.
 * `sortBook st/author st/rating o/des o2/asc`
 sort bookList by author in descending order and if they having same rating it will sort them by rating in des order.(o/des overwrite o2/asc)
+* `sortBook st/rating st/author st/name o1/des o3/asc`
+sort bookList by rating in descending order and since the o2 order is not specify, if same rating it will consider author as asc order.
+
 
 // tag::reviews[]
 

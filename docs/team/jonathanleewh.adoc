@@ -47,8 +47,8 @@ This section highlights my documentation, coding and other noteworthy contributi
 * *Other contributions*:
 
 ** Project management:
-*** Set up team project Github repository including setting up issue tracker, permissions, project page, milestones and labels.
-*** Managed releases `v1.1` - `v1.4` (6 releases) on GitHub
+*** Set up team project GitHub repository including setting up issue tracker, permissions, project page, milestones and labels.
+*** Managed releases `v1.1` - `v1.4` (7 releases) on GitHub
 ** Documentation:
 *** Added Introduction sections to both User Guide and Developer Guide: https://github.com/CS2103-AY1819S2-T12-3/main/pull/115[#115], https://github.com/CS2103-AY1819S2-T12-3/main/pull/140[#140]
 *** Added Frequently Asked Question (FAQ) and File Naming Convention sections to User Guide: https://github.com/CS2103-AY1819S2-T12-3/main/pull/123[#123], https://github.com/CS2103-AY1819S2-T12-3/main/pull/135[#135]
@@ -63,7 +63,7 @@ This section highlights my documentation, coding and other noteworthy contributi
 *** Reported bugs and suggestions for other teams in the class (example: https://github.com/nus-cs2103-AY1819S2/addressbook-level4/pull/6[1])
 ** Tools:
 *** Integrated third party libraries (Opencsv and Apache Commons) to the project: https://github.com/CS2103-AY1819S2-T12-3/main/pull/57[#57], https://github.com/CS2103-AY1819S2-T12-3/main/pull/122[#122]
-*** Integrated Github plugins (Travis, Appveyor, Coveralls and Netlify) to the team repository: https://github.com/CS2103-AY1819S2-T12-3/main/pull/6[#6]
+*** Integrated GitHub plugins (Travis, Appveyor, Coveralls and Netlify) to the team repository: https://github.com/CS2103-AY1819S2-T12-3/main/pull/6[#6]
 
 == Contributions to the User Guide
 

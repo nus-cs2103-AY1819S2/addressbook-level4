@@ -484,6 +484,7 @@ For example entering the command `filter h n/John` displays a list of
 `HealthWorker` whose name equals to John, or contains John as a substring(E.g
  Johnny, Johnson).
 
+// tag::filterHealthWorker[]
 ==== Filtering `HealthWorker`
 
 The `filter` command allows users to display only `HealthWorker` or `Request`
@@ -528,23 +529,53 @@ The following table states the considerations for performance as well as
 future implementations and enhancements to HealthHub that were taken into
 account:
 
-<Insert Table Here>
+// tag::filterHealthWorkerTable[]
+[width="100%",cols="1, 5, 5",options="header"]
+|=======================================================================
+Design | Using a `List` of `Predicate` | Composed `Predicate` using
+ `and` method
+
+| How it works | Each user input condition will be parsed into `Predicate`,
+which are stored in an `List`.
+*Pros*: Easier to manage each single `Predicate` as they are kept separate
+*Cons*: Need to rework existing GUI implementation for `filter` as it only
+uses a single `Predicate` Object |
+Each user input will be parsed into a `Predicate` object, and all the
+`Predicate` formed will be composed into a single `Predicate` object.
+*Pros*: Ease of existing and future implementations as functionality only
+depends on `Predicate`
+*Cons*: Unable to specify actions for each `Predicate` |
+
+Implementation| User inputs are first parsed into `Predicate` equivalents,
+and then added to an `ArrayList`. `FilterCommandParser` then takes the
+existing `UniqueHealthWorkerList`, checks for `HealthWorker` whose fields
+matches the list of `Predicate` using `allMatch` method from the `Predicate`
+library, and then returns an `ObservableList` containing those `HealthWorker`. |
+User inputs are parsed into `Predicate` equivalents, which are then composed
+into a single `Predicate` containing the logic of all the composed
+`Predicates` using the `and` method from `Predicate` library. The composed
+`Predicate` is then set as the filter condition into the existing
+`ObservableList` of `HealthWorker` in the UI component.
+
+|=======================================================================
+// end::filterHealthWorkerTable[]
 
 Ultimately, the decision was made to implement the `filter` command by
 composing the `Predicate` that were formed from the user inputs into a single
  `Predicate` using a combination of Java's `Function` library methods
  `stream` and `reduce`, as well as the `and` method used in Java's
  `Predicate` library. +
-This is because maintain a `List` of `Predicate` in HealthHub increases the
-abstraction use in implementing any functionality that involves a `Predicate`
- of a field, and accessing the inner `Predicate` in the list would mean
- passing through an additional layer of abstraction and violating the Law of
- Demeter.
+This is because maintain a `List` of `Predicate` in HealthHub requires an
+unnecessary rework of many existing components in HealthHub in order to fit
+the new implementation of using a `List`, such as replacing `Predicate` in
+methods involved with `List<Predicate>`.
 
 In addition, by returning a single `Predicate` object, ease of implementation
  of methods in `filter` command, as well as any future or existing
  enhancements to `filter` reduces the complexity of code as the function
- needs only to depend on `Predicate` and not `List`.
+ needs only to depend on `Predicate` and not `List`, hence observing the Law
+ of Demeter.
+// end::filterHealthWorker[]
 
 // tag::undoredo[]
 === Undo/Redo feature

@@ -413,18 +413,18 @@ Edits the phone number and email of the first patient listed to become
 Makes an exact patientcopy of a patient and adds them to the patient list.
 This may be useful if multiple people share similar details.
 
-Format: `patientcopy INDEX [Count]` or `pcopy INDEX [Count]`
+Format: `copy INDEX [Count]` or `copy INDEX [Count]`
 
 Note: If the copied entry is not modified before exiting the program,
 there will be a confirmation.
 
 Example:
 
-* `patientcopy 3` +
+* `copy 3` +
 Makes a patientcopy of the patient at index 3 and inserts it at the bottom of
 the current patient list with a copy tag.
 
-* `patientcopy 3 4` +
+* `copy 3 4` +
 Makes 4 copies of the patient at index 3 and inserts them at the bottom of
 the current patient list with a copy tag.
 
@@ -770,6 +770,17 @@ Shows a list of all the task stored in the application.
 
 Format: `tasklist` or `tlist`
 
+==== tasksort
+Sort the tasks ascendingly or descendingly in some order. 
+
+Format : 'tasksort priority/startime/endtime [asc/desc]' 
+
+Example:
+
+*`tasksort priority`
+
+*`tasksort starttime desc`
+
 ==== taskdone
 Sets a task to `[green]#complete#`, marking the completion of the task.
 Executing this command on a patient that has a patient linked to it will automatically add a record to the patient.
@@ -948,7 +959,7 @@ nokp/84875215 nokr/Father noka/same`
 
 * *patientclear* : `patientclear`
 
-* *patientcopy* : `patientcopy INDEX` +
+* *copy* : `patientcopy INDEX` +
 e.g. `patientcopy 3`
 
 * *patientdelete* : `patientdelete INDEX` +
@@ -995,6 +1006,9 @@ e.g. `taskedit 1 ti/Tooth extraction for Alex pri/HIGH`
 
 * *Task patientdelete*: `taskdelete INDEX` +
 e.g. `taskdelete 1`
+
+* *Tasksort `tasksort starttime/endtime/priority [asc/desc]`
+e.g. `tasksort endtime`
 
 * *Teeth* : `teeth patientadd <Template>` +
 e.g. `teeth patientadd primary`

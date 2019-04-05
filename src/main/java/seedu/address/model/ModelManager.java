@@ -255,7 +255,8 @@ public class ModelManager implements Model {
      */
     @Override
     public boolean hasRequest(Request request) {
-        return false;
+        requireNonNull(request);
+        return versionedRequestBook.hasRequest(request);
     }
 
     @Override

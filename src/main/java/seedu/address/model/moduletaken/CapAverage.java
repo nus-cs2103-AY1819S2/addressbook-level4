@@ -81,6 +81,7 @@ public class CapAverage {
      * Returns the rounded CAP to 2 decimal places.
      *
      * @param unroundedCap A raw CAP with any number of decimal places
+     * @return a rounded cap to 2 decimal places
      */
     public double roundCap(double unroundedCap) {
         DecimalFormat twoDecimalPlaces = new DecimalFormat("##.00");

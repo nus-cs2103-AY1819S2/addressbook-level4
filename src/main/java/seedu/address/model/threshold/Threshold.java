@@ -1,5 +1,7 @@
 package seedu.address.model.threshold;
 
+import seedu.address.model.medicine.Quantity;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -9,8 +11,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Threshold {
     public static final int MIN_THRESHOLD = 0;
-    public static final String MESSAGE_CONSTRAINTS = "Threshold should only contain numbers. Min threshold: "
-            + MIN_THRESHOLD;
+    public static final int MAX_THRESHOLD = Quantity.MAX_QUANTITY + 1; // value large enough as max expiry threshold
+    public static final String MESSAGE_CONSTRAINTS = "Threshold should only contain numbers. Maximum threshold: "
+            + MAX_THRESHOLD;
     public static final String VALIDATION_REGEX = "\\d+";
     public final String value;
 
@@ -30,7 +33,9 @@ public class Threshold {
      */
     public static boolean isValidThreshold(String test) {
         try {
-            return Integer.parseInt(test) >= MIN_THRESHOLD && test.matches(VALIDATION_REGEX);
+            return test.matches(VALIDATION_REGEX)
+                    && Integer.parseInt(test) >= MIN_THRESHOLD
+                    && Integer.parseInt(test) <= MAX_THRESHOLD;
         } catch (NumberFormatException e) {
             return false;
         }

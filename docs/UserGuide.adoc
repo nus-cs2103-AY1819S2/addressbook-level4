@@ -1255,7 +1255,7 @@ This is the summary of all the possible commands for QuickDocs. For detailed exp
 * *<<listmed>>* : `listmed` +
 * *<<alarm>>* : `alarm` +
 * *<<buymed>>* : `buymed` +
-* *<<setprice>>* : `setptice` +
+* *<<setprice>>* : `setprice` +
 
 *Appointment and Reminders* +
 

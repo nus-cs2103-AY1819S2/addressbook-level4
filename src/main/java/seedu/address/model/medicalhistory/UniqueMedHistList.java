@@ -3,6 +3,7 @@ package seedu.address.model.medicalhistory;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -36,6 +37,14 @@ public class UniqueMedHistList implements Iterable<MedicalHistory> {
     public boolean contains(MedicalHistory toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameMedHist);
+    }
+
+    /**
+     * Sort medical history list by date
+     */
+    public void sort(Comparator<MedicalHistory> medHistComparator) {
+        requireNonNull(medHistComparator);
+        FXCollections.sort(internalList, medHistComparator);
     }
 
     /**

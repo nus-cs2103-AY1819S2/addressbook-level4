@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -28,6 +29,21 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
+
+    /** {@code Comparator} that sort medical history by date in ascending order from oldest to newest. */
+    Comparator<MedicalHistory> COMPARATOR_MED_HIST_DATE_ASC = Comparator.comparing(MedicalHistory::getDate);
+
+    /** {@code Comparator} that sort medical history by date in decending order from newest to oldest. */
+    Comparator<MedicalHistory> COMPARATOR_MED_HIST_DATE_DESC = new MedHistDateDescComparator();
+
+    /** Comparater of Medical History
+     * Medical history with newer date is larger than medical history with older date.
+     */
+    class MedHistDateDescComparator implements Comparator<MedicalHistory> {
+        public int compare (MedicalHistory mh1, MedicalHistory mh2) {
+            return mh2.getDate().compareTo(mh1.getDate());
+        }
+    }
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -183,6 +199,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAppointmentList(Predicate<Appointment> predicate);
+
+
+    /**
+     * Sort filtered medical history list
+     */
+    void sortFilteredMedHistList(Comparator<MedicalHistory> medicalHistoryComparator);
 
     /**
      * Returns true if the model has previous DocX states to restore.

@@ -672,12 +672,12 @@ public class BillCommandTest {
                         .append("\n $")
                         .append(menuItem.getPrice().itemPrice)
                         .append("   x ")
-                        .append(orderItem.getQuantity())
+                        .append(orderItem.getQuantityOrdered())
                         .append("\n")
                         .append("Total Bill: $ ")
                         .append(bill.getTotalBill())
                         .append("\n");
-                totalBill += Float.parseFloat(menuItem.getPrice().toString()) * orderItem.getQuantity();
+                totalBill += Float.parseFloat(menuItem.getPrice().toString()) * orderItem.getQuantityOrdered();
 
             }
 

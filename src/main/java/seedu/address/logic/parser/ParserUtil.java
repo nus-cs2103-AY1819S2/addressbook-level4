@@ -8,6 +8,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.menu.Code;
 import seedu.address.model.menu.Name;
 import seedu.address.model.menu.Price;
+import seedu.address.model.order.OrderItemStatus;
 import seedu.address.model.statistics.Day;
 import seedu.address.model.statistics.Month;
 import seedu.address.model.statistics.Year;
@@ -39,12 +40,12 @@ public class ParserUtil {
      * Parses {@code quantity} into an integer and returns it. Leading and trailing whitespaces will be
      * trimmed.
      *
-     * @throws ParseException if the specified quantity is invalid (not non-zero unsigned integer).
+     * @throws ParseException if the specified quantity is invalid.
      */
     public static int parseQuantity(String quantity) throws ParseException {
         String trimmedQuantity = quantity.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedQuantity)) { // TODO: regex validation in ItemStatus
-            throw new ParseException(MESSAGE_INVALID_QUANTITY);
+        if (!OrderItemStatus.isValidQuantity(trimmedQuantity)) {
+            throw new ParseException(OrderItemStatus.MESSAGE_CONSTRAINTS);
         }
         return Integer.parseInt(trimmedQuantity);
     }

@@ -41,7 +41,7 @@ public class OrderItemCard extends UiPart<Region> {
 
         tableNumber.setText("Table " + item.getTableNumber().tableNumber);
         menuItem.setText(item.getMenuItemCode().itemCode + " " + item.getMenuItemName());
-        quantity.setText("Qty: " + item.getQuantity());
+        quantity.setText("Qty: " + item.getQuantityOrdered());
     }
 
     @Override

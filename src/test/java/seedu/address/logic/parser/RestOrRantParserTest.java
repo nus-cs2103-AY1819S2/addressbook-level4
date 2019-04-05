@@ -134,7 +134,7 @@ public class RestOrRantParserTest {
         List<Code> codes = new ArrayList<>();
         List<Integer> quantities = new ArrayList<>();
         codes.add(orderItem.getMenuItemCode());
-        quantities.add(orderItem.getQuantity());
+        quantities.add(orderItem.getQuantityOrdered());
         assertEquals(new AddToOrderCommand(codes, quantities), command);
         try {
             parser.parseCommand(Mode.RESTAURANT_MODE,

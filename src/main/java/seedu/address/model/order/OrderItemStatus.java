@@ -21,21 +21,21 @@ public class OrderItemStatus {
     public static final String MESSAGE_ALL_SERVED =
             "All %1$s portions of this order item have been served.";
 
-    // quantityToServe is strictly lesser or equal to quantityOrdered
+    // quantityUnserved is strictly lesser or equal to quantityOrdered
     private int quantityOrdered;
-    private int quantityToServe;
+    private int quantityUnserved;
 
     /**
      * Constructs an {@code OrderItemStatus} with the quantities given in integers.
      *
      * @param quantityOrdered Quantity of the item ordered by the customer.
-     * @param quantityToServe Quantity of the item that has not been served yet.
+     * @param quantityUnserved Quantity of the item that has not been served yet.
      */
-    public OrderItemStatus(int quantityOrdered, int quantityToServe) {
-        requireAllNonNull(quantityOrdered, quantityToServe);
-        checkArgument(isValidQuantities(quantityOrdered, quantityToServe), MESSAGE_CONSTRAINTS);
+    public OrderItemStatus(int quantityOrdered, int quantityUnserved) {
+        requireAllNonNull(quantityOrdered, quantityUnserved);
+        checkArgument(isValidQuantities(quantityOrdered, quantityUnserved), MESSAGE_CONSTRAINTS);
         this.quantityOrdered = quantityOrdered;
-        this.quantityToServe = quantityToServe;
+        this.quantityUnserved = quantityUnserved;
     }
 
     /**
@@ -47,20 +47,20 @@ public class OrderItemStatus {
         requireNonNull(quantityOrdered);
         checkArgument(isValidQuantity(quantityOrdered), MESSAGE_CONSTRAINTS);
         this.quantityOrdered = quantityOrdered;
-        this.quantityToServe = quantityOrdered;
+        this.quantityUnserved = quantityOrdered;
     }
 
     /**
      * Constructs an {@code OrderItemStatus} with the quantities given in strings (mainly for storage).
      *
      * @param quantityOrdered Quantity of the item ordered by the customer.
-     * @param quantityToServe Quantity of the item that has not been served yet.
+     * @param quantityUnserved Quantity of the item that has not been served yet.
      */
-    public OrderItemStatus(String quantityOrdered, String quantityToServe) {
-        requireAllNonNull(quantityOrdered, quantityToServe);
-        checkArgument(isValidQuantities(quantityOrdered, quantityToServe), MESSAGE_CONSTRAINTS);
+    public OrderItemStatus(String quantityOrdered, String quantityUnserved) {
+        requireAllNonNull(quantityOrdered, quantityUnserved);
+        checkArgument(isValidQuantities(quantityOrdered, quantityUnserved), MESSAGE_CONSTRAINTS);
         this.quantityOrdered = Integer.parseInt(quantityOrdered);
-        this.quantityToServe = Integer.parseInt(quantityToServe);
+        this.quantityUnserved = Integer.parseInt(quantityUnserved);
     }
 
     /**
@@ -68,6 +68,17 @@ public class OrderItemStatus {
      */
     public static boolean isValidQuantity(int quantity) {
         return quantity >= 0 && quantity <= 2000000000;
+    }
+
+    /**
+     * Returns true if a given string represents a valid quantity.
+     */
+    public static boolean isValidQuantity(String quantity) {
+        try {
+            return isValidQuantity(Integer.parseInt(quantity));
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
     }
 
     /**
@@ -92,33 +103,41 @@ public class OrderItemStatus {
      * Returns true if all the portions of the item have been served.
      */
     public boolean isAllServed() {
-        return quantityToServe == 0;
+        return quantityUnserved == 0;
     }
 
     /**
      * Returns a new OrderItemStatus where the quantity to serve is updated with the given {@code quantity}.
      */
     public OrderItemStatus serveQuantity(int quantity) {
-        if (isValidQuantity(quantity)) {
+        if (!isValidQuantity(quantity)) {
             throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
         }
-        if (quantity > quantityToServe) {
-            throw new IllegalArgumentException(String.format(MESSAGE_OVER_SERVING, quantity, quantityToServe));
+        if (quantity > quantityUnserved) {
+            throw new IllegalArgumentException(String.format(MESSAGE_OVER_SERVING, quantity, quantityUnserved));
         }
-        return new OrderItemStatus(quantityOrdered, quantityToServe - quantity);
+        return new OrderItemStatus(quantityOrdered, quantityUnserved - quantity);
     }
 
     /**
      * Returns a new OrderItemStatus where the quantity ordered is updated with the given {@code quantity}.
      */
     public OrderItemStatus orderQuantity(int quantity) {
-        if (isValidQuantity(quantity)) {
+        if (!isValidQuantity(quantity)) {
             throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
         }
         if (quantity > 2000000000 - quantityOrdered) {
             throw new IllegalArgumentException(String.format(MESSAGE_OVER_ORDERING, quantity));
         }
-        return new OrderItemStatus(quantityOrdered + quantity, quantityToServe + quantity);
+        return new OrderItemStatus(quantityOrdered + quantity, quantityUnserved + quantity);
+    }
+
+    public int getQuantityOrdered() {
+        return quantityOrdered;
+    }
+
+    public int getQuantityUnserved() {
+        return quantityUnserved;
     }
 
     @Override
@@ -126,11 +145,11 @@ public class OrderItemStatus {
         return this == other
                 || (other instanceof OrderItemStatus
                 && quantityOrdered == (((OrderItemStatus) other).quantityOrdered)
-                && quantityToServe == (((OrderItemStatus) other).quantityToServe));
+                && quantityUnserved == (((OrderItemStatus) other).quantityUnserved));
     }
 
     @Override
     public String toString() {
-        return String.format("Ordered: %1$s, Remaining to serve: %2$s", quantityOrdered, quantityToServe);
+        return String.format("Ordered: %1$s, Remaining to serve: %2$s", quantityOrdered, quantityUnserved);
     }
 }

@@ -32,7 +32,7 @@ public class OrdersGuiTestAssert {
         assertEquals("Table " + expectedOrderItem.getTableNumber().tableNumber, actualCard.getTableNumber());
         assertEquals(expectedOrderItem.getMenuItemCode().itemCode + " " + expectedOrderItem.getMenuItemName().itemName,
                 actualCard.getMenuItem());
-        assertEquals("Qty: " + expectedOrderItem.getQuantity(), actualCard.getQuantity());
+        assertEquals("Qty: " + expectedOrderItem.getQuantityOrdered(), actualCard.getQuantity());
     }
 
     /**

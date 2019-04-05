@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -161,10 +162,12 @@ public class InOutAddressBookStorage implements AddressBookStorage {
             PDPageContentStream[] contents = new PDPageContentStream[1];
             contents[0] = new PDPageContentStream(doc, page);
 
-            BufferedImage titleImageloader = ImageIO.read(MainApp.class.getClassLoader()
-                .getResourceAsStream(TEETH_IMAGE_PATH));
-
-            PDImageXObject titleImage = LosslessFactory.createFromImage(doc, titleImageloader);
+            InputStream loadImage = MainApp.class.getClassLoader().getResourceAsStream(TEETH_IMAGE_PATH);
+            if (loadImage == null) {
+                throw new IOException();
+            }
+            BufferedImage titleImageLoader = ImageIO.read(loadImage);
+            PDImageXObject titleImage = LosslessFactory.createFromImage(doc, titleImageLoader);
             contents[0].setFont(TITLE_FONT, TITLE_FONT_SIZE);
             ty = writeTitle(contents[0], page, titleImage, ty);
 

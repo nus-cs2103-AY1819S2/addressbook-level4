@@ -92,6 +92,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
+        sb.append("\nWarning Panel Settings : " + warningPanelSettings);
         sb.append("\nLocal data file location : " + inventoryFilePath);
         return sb.toString();
     }

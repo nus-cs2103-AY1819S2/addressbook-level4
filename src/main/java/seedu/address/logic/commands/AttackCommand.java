@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.EnumSet;
+import java.util.List;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.battle.AttackResult;
@@ -63,12 +64,14 @@ public class AttackCommand extends Command {
         } else {
             // immediately, AI takes its turn
             model.setBattleState(BattleState.ENEMY_ATTACK);
-            AttackResult enemyRes = model.getBattle().takeComputerTurn();
+            List<AttackResult> enemyResList = model.getBattle().takeComputerTurns();
 
             StringBuilder resultBuilder = new StringBuilder();
             resultBuilder.append(res.toString());
-            resultBuilder.append("\n");
-            resultBuilder.append(enemyRes.toString());
+            for (AttackResult enemyRes: enemyResList) {
+                resultBuilder.append("\n");
+                resultBuilder.append(enemyRes.toString());
+            }
             model.setBattleState(BattleState.PLAYER_ATTACK);
             return new CommandResult(resultBuilder.toString());
         }

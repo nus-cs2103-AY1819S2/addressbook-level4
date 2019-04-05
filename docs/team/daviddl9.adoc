@@ -65,14 +65,36 @@ as knowledge of how information is cached in the application's memory was essent
 == Contributions to the User Guide
 
 
-=== Filtering requests: `filter request/r/2`
+==== *Filter requests*:
 
-`filter request/r/2 <keyword> [<more_keywords>]`
+Format: `filter request/r/2 <keyword> [<more_keywords>]`
 
 After entering the command with valid inputs, searches the entire list of
-requests in HealthHub, and only displays the requests whose fields matches
+requests in Health Hub, and only displays the requests whose fields matches
  the parameters specified in the
-`filter` command.
+`filter` command. To filter requests, the user can specify any of the following filtering criteria:
+`dt/DATE`, `n/NAME`, `p/PHONE`, `st/STATUS`, `i/NRIC`, `c/CONDITION`. Note that you can chain multiple criteria together to get a more specific
+filter result.
+
+For example, let's say you want to filter all the requests made by the patient with `NRIC` S9123456G that have been *completed*. You
+can simply enter the command: `filter request i/S9123456A st/COMPLETED`, and the request list panel to the left of the screen would update to
+show you all the requests you are looking for.
+
+Before:
+
+image::Healthhub.png[width=800]
+Figure 5.5.2.1 shows the application prior to executing the `filter request` command
+
+After:
+
+image::filterResult.png[width=800]
+
+Figure 5.5.2.2 shows the application after executing `filter request i/S9123456A st/COMPLETED`
+
+The request list panel on the left would filter to show just the requests queried by the user.
+
+[NOTE]
+If there are no such requests that match the user's query, an empty list would be show on the left panel.
 
 {nbsp}
 
@@ -94,10 +116,24 @@ Tang)
 which you want to query. For example, to filter all requests between 1st Jan 2019 and 1st June 2019 (exclusive), you can run the following command:
 `filter request dt/01-01-2019 00:00:00 dt/02-06-2019 00:00:00`
 
+{nbsp}
+
 [TIP]
 ====
-To view the original request list, enter the `list
-request`.
+Multiple conditions for filtering health workers and requests can be added
+simultaneously for more expressive search.
+
+Example:
+
+`filter r n/<name> p/<phone>`
+filters the request list for requests whose patient's name contains the
+specified name substring *and* the specified phone number.
+====
+
+[TIP]
+====
+To revert the view back to the original health worker/request list, enter the
+`list healthworker` or `list request` command respectively.
 ====
 
 Examples:
@@ -111,14 +147,6 @@ Returns all patients whose name contains "alice".
 Returns all requests with contacts numbers that have "9177" in it's field.
 * `filter 2 dt/30-01-2019 10:00:00` +
 Returns all requests scheduled on 30th Jan 2019, at 10 am sharp.
-
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
-
-include::../UserGuide.adoc[tag=undoredo]
-
-include::../UserGuide.adoc[tag=dataencryption]
 
 == Contributions to the Developer Guide
 

@@ -363,7 +363,7 @@ image::ExportCommandActivityDiagram.png[width="800"]
 ** Pros: Easy to implement and users have a preview of the data before exporting.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual commands each adds an additional parameter to export as CSV file.
-** Pros: Users can export directly through a single command (e.g. for `filter` command when the export option is enabled, export the filtered medicine inventory data immediately without having to retrieve from `Model#getFilteredMedicineList()` operation.
+** Pros: Users can export directly through a single command (e.g. for `find` command when the export option is enabled, export the filtered medicine inventory data immediately without having to retrieve from `Model#getFilteredMedicineList()` operation.
 ** Cons: We must ensure that the implementation and integration of the exporting to CSV file of each individual commands are correct. Furthermore, users are not able to preview the data before exporting.
 
 ===== Aspect: Data structure/Algorithm/Implementation to support the `export` command

@@ -11,7 +11,7 @@ import seedu.address.model.moduletaken.Semester;
  */
 public class LimitChecker implements ClassForPrinting {
     private static final int CAP_TABLE_COL_COUNT = 4;
-    private static final int WORKLOAD_TABLE_ROW_COUNT = 5;
+    private static final int WORKLOAD_TABLE_ROW_COUNT = 10;
     private static final int WORKLOAD_TABLE_COL_COUNT = 3;
 
     private final String checkedReport;

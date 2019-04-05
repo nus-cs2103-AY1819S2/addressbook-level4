@@ -158,7 +158,7 @@ You can download and install integration addons created for MediTabs such as add
 Format: `install an/NAME_OF_ADDON`
 
 [NOTE]
-Only integration addons that have been verified by our team can be downloaded and installed in MediTabs. This is to ensure that the addons downloaded and installed in MediTabs are secure and have no malicious code. This is to ensure the security which MediTabs provides would not be compromise as security is an important factor due to the increasing threat with regards to cybersecurity.
+Only integration addons that have been verified by our team can be downloaded and installed in MediTabs. This is to ensure that the addons are secure and have no malicious code due to the increasing cybersecurity threat.
 
 Benefits of integration addon support are as follows:
 

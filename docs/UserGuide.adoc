@@ -328,20 +328,32 @@ worker possesses. The list of valid specialisations are as follows:
 * `add r n/<patient_name> c/<condition> d/<date> t/time`
 * `add 2 n/<patient_name> c/<condition> d/<date> t/time`
 
-* Registers a new open request from `patient` of `<patient_name>` into the
+* Registers a new open request from `patient` of `<NAME>` into the
 application.
 * Each request also states the `<condition>` that the patient is
 experiencing. Administrative staff can then inspect the conditions that are
 stated by the `patient` and assign the appropriate health worker to handle
 these requests in the `assign` command.
-* Format for the time is `HH:mm:ss`.
-* Format for the date is `dd-MM-yyyy`.
+* Format for the date is `dd-MM-yyyy HH:mm:ss`.
+* Does not allow duplicate requests to be added.
+
+[NOTE]
+Duplicate requests are requests that have the same `Name`, `RequestDate`, `Condition` *and* `Address`.
+For example, 2 requests with differing conditions (but all other fields similar) would be considered unique.
 
 Examples:
 
-* `add 1 n/Dog Terr p/92837710 i/S98817471Z s/GENERAL_PRACTICE
-s/ORTHOPAEDIC`
-* `add request n/Pay Shun c/Heart Attack t/14:00:00 d/05:05:2019`
+* `add request n/Pay Shun a/Sengkang Ave 1 c/Heart Attack i/S9123456A p/91234567 dt/05-05-2019 14:00:00`
+
+[TIP]
+The order of parameters does not matter - reordering each parameter would also work!
+
+[WARNING]
+Note that the application allows the user to create requests with *any* valid Calendar date. Hence, it is the responsibility of the user
+to ensure that the date is correct prior to keying it into the system. To edit a request with date incorrectly entered, use the
+`edit request` command.
+
+
 
 === Editing requests/health workers : `edit`
 
@@ -480,7 +492,29 @@ parameters will be accepted
 After entering the command with valid inputs, searches the entire list of
 requests in Health Hub, and only displays the requests whose fields matches
  the parameters specified in the
-`filter` command.
+`filter` command. To filter requests, the user can specify any of the following filtering criteria:
+`dt/DATE`, `n/NAME`, `p/PHONE`, `st/STATUS`, `i/NRIC`, `c/CONDITION`. Note that you can chain multiple criteria together to get a more specific
+filter result.
+
+For example, let's say you want to filter all the requests made by the patient with `NRIC` S9123456G that have been *completed*. You
+can simply enter the command: `filter request i/S9123456A st/COMPLETED`, and the request list panel to the left of the screen would update to
+show you all the requests you are looking for.
+
+Before:
+
+image::Healthhub.png[width=800]
+Figure 5.5.2.1 shows the application prior to executing the `filter request` command
+
+After:
+
+image::filterResult.png[width=800]
+
+Figure 5.5.2.2 shows the application after executing `filter request i/S9123456A st/COMPLETED`
+
+The request list panel on the left would filter to show just the requests queried by the user.
+
+[NOTE]
+If there are no such requests that match the user's query, an empty list would be show on the left panel.
 
 {nbsp}
 
@@ -497,6 +531,10 @@ identify requests or personnel, using the same prefixes as in `add`, `edit` and
 * Search using partial words will return all results with fields containing
 that subword. (e.g `filter 1 n/Tan` may return people with the surnames Tan or
 Tang)
+
+* Note that you can query all requests between a specific range, by specifying the the date range
+which you want to query. For example, to filter all requests between 1st Jan 2019 and 1st June 2019 (exclusive), you can run the following command:
+`filter request dt/01-01-2019 00:00:00 dt/02-06-2019 00:00:00`
 
 {nbsp}
 
@@ -619,30 +657,20 @@ than the number of requests/health workers in the current list.
 
 Examples:
 
-* `assign 1 2` +
+* `assign r/1 hw/2` +
 Assigns the health worker at the second index to the first request in the
 request list.
+* `assign hw/2 r/1` +
+                   Assigns the health worker at the second index to the first request in the
+                   request list.
+
+[TIP]
+The order in which the `r/` and `hw/` can be used interchangably, as long as they appear after the `assign` word.
 
 [NOTE]
 ====
-You cannot assign a healthworker to a completed request. To assign a healthworker to a request that is already completed,
+A healthworker cannot be assigned to a completed request. To assign a healthworker to a request that is already completed,
 use `edit` to change the status of the request to pending first.
-====
-
-=== Clearing Requests : `clr`
-
-After closing all existing requests, you also have the option of clearing all
- requests from the request list, regardless of the state of the request, upon
-  entering the `clr` command.
-
-Format: `clr`
-
-[WARNING]
-====
-Clearing requests would delete all records of completed requests.
-
-If you would like to delete just one particular request, consider using the
-`delete` command instead.
 ====
 
 === Closing Requests : `complete`
@@ -667,6 +695,61 @@ Examples:
 * `complete 1` +
 Marks the first request in the list as completed.
 
+=== Clearing Requests : `clr`
+
+Let's say you want to quickly remove all the requests quickly. You can do so by simply
+  entering the `clr` command. Note that the clear command can only be issued if there are no ongoing requests in the request list.
+
+Format: `clr`
+
+[NOTE]
+====
+`clr` command only works if there are no ongoing requests
+====
+
+[WARNING]
+====
+Clearing requests would delete all records of requests.
+
+If you would like to delete just one particular request, consider using the
+`delete` command instead.
+====
+
+[TIP]
+If you want to clear the requests but there are ongoing requests, complete the ongoing requests using the `complete` command first.
+
+
+=== Closing Requests : `complete`
+* The `request_index` *must be a positive integer* 1, 2, 3, ... and not greater
+than the number of requests in the current list.
+* Only *Ongoing* requests can be completed. To complete a pending request, edit it's status first, using the `edit request`
+command.
+
+*Examples*
+
+* `complete 1` +
+completes the first request on the request list panel. Note that this request has to have Ongoing status prior to executing this command.
+
+=== Undoing Commands : `undo`
+
+If you wanted to delete a single request but used the `clr` command by mistake, you can restore the lists to the
+state before the command was called using the `undo` command.
+
+Format: `undo`
+
+[NOTE]
+====
+* The `undo` command can only be used to undo commands that modify the lists such as `add`, `delete` and `edit`.
+* For commands that affects the display such as `filter`, you can use `list` command revert back the original list.
+====
+
+
+=== Redoing undone commands : `redo`
+
+If you wish to redo a command that you have previously undone, you can use the `redo` command.
+
+Format: `redo`
+
 === Listing previous commands : `history`
 
 In the case where you have been using the application for a while now, and
@@ -682,7 +765,8 @@ Format: `history` +
 
 [NOTE]
 ====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+* Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+* All commands entered will be added to the history, whether valid or invalid
 ====
 
 
@@ -807,6 +891,6 @@ to the `\data` folder of the app directory.
 |`undo`
 |undos the previous action
 |`redo`
-|redos everything
+|redos the previous undone action
 |===
 // end::summary[]

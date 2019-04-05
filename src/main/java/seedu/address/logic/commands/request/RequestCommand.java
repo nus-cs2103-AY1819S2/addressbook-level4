@@ -26,6 +26,7 @@ public interface RequestCommand {
 
     String ADD_COMMAND_EXAMPLE = PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "81234567 "
+            + PREFIX_NRIC + "S9123456A"
             + PREFIX_ADDRESS + "123, Sengkang Ave 3, #04-12, 214632 "
             + PREFIX_DATE + "01-01-2019 08:00:00 "
             + PREFIX_CONDITION + "Physiotherapy";

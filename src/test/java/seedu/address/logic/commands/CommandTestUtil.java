@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SPECIALISATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,26 +33,26 @@ import seedu.address.testutil.EditPatientDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    // for add-doctor testing (initial addition of add-doctor)
-    public static final String VALID_NAME_JOHN = "John Doe";
+    // for doctor testing
+    public static final String VALID_NAME_STEVEN = "Steven Lim";
     public static final String VALID_NAME_ALVINA = "Alvina Ong";
-    public static final String VALID_GENDER_JOHN = "M";
+    public static final String VALID_GENDER_STEVEN = "M";
     public static final String VALID_GENDER_ALVINA = "F";
-    public static final String VALID_AGE_JOHN = "21";
-    public static final String VALID_AGE_ALVINA = "28";
-    public static final String VALID_PHONE_JOHN = "91612342";
+    public static final String VALID_YEAR_STEVEN = "23";
+    public static final String VALID_YEAR_ALVINA = "21";
+    public static final String VALID_PHONE_STEVEN = "91612342";
     public static final String VALID_PHONE_ALVINA = "82376447";
     public static final String VALID_SPECIALISATION_ACUPUNCTURE = "acupuncture";
     public static final String VALID_SPECIALISATION_MASSAGE = "massage";
     public static final String VALID_SPECIALISATION_GENERAL = "general";
 
-    public static final String NAME_DESC_JOHN = " " + PREFIX_NAME + VALID_NAME_JOHN;
+    public static final String NAME_DESC_STEVEN = " " + PREFIX_NAME + VALID_NAME_STEVEN;
     public static final String NAME_DESC_ALVINA = " " + PREFIX_NAME + VALID_NAME_ALVINA;
-    public static final String GENDER_DESC_JOHN = " " + PREFIX_GENDER + VALID_GENDER_JOHN;
+    public static final String GENDER_DESC_STEVEN = " " + PREFIX_GENDER + VALID_GENDER_STEVEN;
     public static final String GENDER_DESC_ALVINA = " " + PREFIX_GENDER + VALID_GENDER_ALVINA;
-    public static final String AGE_DESC_JOHN = " " + PREFIX_AGE + VALID_AGE_JOHN;
-    public static final String AGE_DESC_ALVINA = " " + PREFIX_AGE + VALID_AGE_ALVINA;
-    public static final String PHONE_DESC_JOHN = " " + PREFIX_PHONE + VALID_PHONE_JOHN;
+    public static final String YEAR_DESC_STEVEN = " " + PREFIX_YEAR + VALID_YEAR_STEVEN;
+    public static final String YEAR_DESC_ALVINA = " " + PREFIX_YEAR + VALID_YEAR_ALVINA;
+    public static final String PHONE_DESC_STEVEN = " " + PREFIX_PHONE + VALID_PHONE_STEVEN;
     public static final String PHONE_DESC_ALVINA = " " + PREFIX_PHONE + VALID_PHONE_ALVINA;
     public static final String SPECIALISATION_DESC_ACUPUNCTURE = " " + PREFIX_SPECIALISATION
             + VALID_SPECIALISATION_ACUPUNCTURE;
@@ -155,7 +156,9 @@ public class CommandTestUtil {
         // only do so by copying its components.
         DocX expectedDocX = new DocX(actualModel.getDocX());
         List<Patient> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPatientList());
+        List<Doctor> expectedFilteredDoctorList = new ArrayList<>(actualModel.getFilteredDoctorList());
         Patient expectedSelectedPatient = actualModel.getSelectedPatient();
+        Doctor expectedSelectedDoctor = actualModel.getSelectedDoctor();
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -167,6 +170,8 @@ public class CommandTestUtil {
             assertEquals(expectedDocX, actualModel.getDocX());
             assertEquals(expectedFilteredList, actualModel.getFilteredPatientList());
             assertEquals(expectedSelectedPatient, actualModel.getSelectedPatient());
+            assertEquals(expectedFilteredDoctorList, actualModel.getFilteredDoctorList());
+            assertEquals(expectedSelectedDoctor, actualModel.getSelectedDoctor());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }

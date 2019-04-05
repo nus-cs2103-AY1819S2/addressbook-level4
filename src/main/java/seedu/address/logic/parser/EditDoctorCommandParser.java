@@ -2,11 +2,11 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SPECIALISATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -33,7 +33,7 @@ public class EditDoctorCommandParser implements Parser<EditDoctorCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(
-                        args, PREFIX_NAME, PREFIX_GENDER, PREFIX_AGE, PREFIX_PHONE, PREFIX_SPECIALISATION);
+                        args, PREFIX_NAME, PREFIX_GENDER, PREFIX_YEAR, PREFIX_PHONE, PREFIX_SPECIALISATION);
 
         Index index;
 
@@ -51,8 +51,8 @@ public class EditDoctorCommandParser implements Parser<EditDoctorCommand> {
         if (argMultimap.getValue(PREFIX_GENDER).isPresent()) {
             editDoctorDescriptor.setGender(ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get()));
         }
-        if (argMultimap.getValue(PREFIX_AGE).isPresent()) {
-            editDoctorDescriptor.setAge(ParserUtil.parseAge(argMultimap.getValue(PREFIX_AGE).get()));
+        if (argMultimap.getValue(PREFIX_YEAR).isPresent()) {
+            editDoctorDescriptor.setYear(ParserUtil.parseYear(argMultimap.getValue(PREFIX_YEAR).get()));
         }
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             editDoctorDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));

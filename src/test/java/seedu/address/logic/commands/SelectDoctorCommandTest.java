@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showDoctorAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
-import static seedu.address.testutil.TypicalPatients.getTypicalDocX;
+import static seedu.address.testutil.TypicalDoctors.getTypicalDocX_doctor;
 
 import org.junit.Test;
 
@@ -23,8 +23,8 @@ import seedu.address.model.UserPrefs;
  * Contains integration tests (interaction with the Model) for {@code SelectDoctorCommand}.
  */
 public class SelectDoctorCommandTest {
-    private Model model = new ModelManager(getTypicalDocX(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalDocX(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalDocX_doctor(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalDocX_doctor(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

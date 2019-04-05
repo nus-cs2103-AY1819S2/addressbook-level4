@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showDoctorAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPatients.getTypicalDocX;
+import static seedu.address.testutil.TypicalDoctors.getTypicalDocX_doctor;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +24,7 @@ public class ListDoctorCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalDocX(), new UserPrefs());
+        model = new ModelManager(getTypicalDocX_doctor(), new UserPrefs());
         expectedModel = new ModelManager(model.getDocX(), new UserPrefs());
     }
 

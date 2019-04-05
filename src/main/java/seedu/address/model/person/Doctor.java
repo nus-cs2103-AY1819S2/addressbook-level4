@@ -20,16 +20,16 @@ public class Doctor {
 
     // Data fields
     private final Gender gender;
-    private final Age age;
+    private final Year year;
     private final Set<Specialisation> specList = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Doctor(Name name, Phone phone, Gender gender, Age age, Set<Specialisation> specList) {
+    public Doctor(Name name, Phone phone, Gender gender, Year year, Set<Specialisation> specList) {
         this.name = name;
         this.gender = gender;
-        this.age = age;
+        this.year = year;
         this.phone = phone;
         this.specList.addAll(specList);
     }
@@ -46,8 +46,8 @@ public class Doctor {
         return this.gender;
     }
 
-    public Age getAge() {
-        return this.age;
+    public Year getYear() {
+        return this.year;
     }
 
     /**
@@ -89,7 +89,7 @@ public class Doctor {
         Doctor otherDoctor = (Doctor) other;
         return otherDoctor.getName().equals(getName())
                 && otherDoctor.getPhone().equals(getPhone())
-                && otherDoctor.getAge().equals(getAge())
+                && otherDoctor.getYear().equals(getYear())
                 && otherDoctor.getGender().equals(getGender())
                 && otherDoctor.getSpecs().equals(getSpecs());
     }
@@ -97,7 +97,7 @@ public class Doctor {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, age, gender, specList);
+        return Objects.hash(name, phone, year, gender, specList);
     }
 
     @Override
@@ -108,8 +108,8 @@ public class Doctor {
                 .append(getPhone())
                 .append(" Gender: ")
                 .append(getGender())
-                .append(" Age: ")
-                .append(getAge())
+                .append(" Years: ")
+                .append(getYear())
                 .append(" Specialisations: ");
         getSpecs().forEach(builder::append);
         return builder.toString();

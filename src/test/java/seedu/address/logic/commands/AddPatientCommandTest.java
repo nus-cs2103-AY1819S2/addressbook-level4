@@ -328,6 +328,11 @@ public class AddPatientCommandTest {
         }
 
         @Override
+        public Doctor getSelectedDoctor() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setSelectedDoctor(Doctor doctor) {
             throw new AssertionError("This method should not be called.");
         }

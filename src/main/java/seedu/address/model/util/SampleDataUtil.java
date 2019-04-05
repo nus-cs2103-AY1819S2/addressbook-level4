@@ -21,6 +21,7 @@ import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Year;
 import seedu.address.model.tag.Specialisation;
 import seedu.address.model.tag.Tag;
 
@@ -53,17 +54,17 @@ public class SampleDataUtil {
 
     public static Doctor[] getSampleDoctors() {
         return new Doctor[] {
-            new Doctor(new Name("Alex Yeoh"), new Phone("87438807"), new Gender("M"), new Age("21"),
+            new Doctor(new Name("Alex Yeoh"), new Phone("87438807"), new Gender("M"), new Year("2"),
                     getSpecSet("acupuncture")),
-            new Doctor(new Name("Bernice Yu"), new Phone("99272758"), new Gender("F"), new Age("32"),
-                    getSpecSet("acupuncture, general")),
-            new Doctor(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Gender("F"), new Age("41"),
+            new Doctor(new Name("Bernice Yu"), new Phone("99272758"), new Gender("F"), new Year("32"),
+                    getSpecSet("acupuncture", "general")),
+            new Doctor(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Gender("F"), new Year("4"),
                     getSpecSet("massage")),
-            new Doctor(new Name("David Li"), new Phone("91031282"), new Gender("M"), new Age("43"),
-                    getSpecSet("massage, acupuncture")),
-            new Doctor(new Name("Ivan Teo"), new Phone("92492021"), new Gender("M"), new Age("37"),
+            new Doctor(new Name("David Li"), new Phone("91031282"), new Gender("M"), new Year("8"),
+                    getSpecSet("massage", "acupuncture")),
+            new Doctor(new Name("Ivan Teo"), new Phone("92492021"), new Gender("M"), new Year("11"),
                     getSpecSet("acupuncture")),
-            new Doctor(new Name("Roy Balakrishnan"), new Phone("92624417"), new Gender("M"), new Age("28"),
+            new Doctor(new Name("Roy Tan"), new Phone("92624417"), new Gender("M"), new Year("5"),
                     getSpecSet("general"))
         };
     }
@@ -79,11 +80,11 @@ public class SampleDataUtil {
         for (Patient samplePatient : getSamplePatients()) {
             sampleDocX.addPatient(samplePatient);
         }
-        /*
+
         for (Doctor sampleDoctor : getSampleDoctors()) {
-            sampleAb.addDoctor(sampleDoctor);
+            sampleDocX.addDoctor(sampleDoctor);
         }
-        */
+
         for (MedicalHistory sampleMedHist : getSampleMedHists()) {
             sampleDocX.addMedHist(sampleMedHist);
         }

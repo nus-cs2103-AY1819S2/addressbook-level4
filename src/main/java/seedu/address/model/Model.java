@@ -279,6 +279,12 @@ public interface Model {
     ReadOnlyProperty<Doctor> selectedDoctorProperty();
 
     /**
+     * Returns the selected doctor in the filtered doctor list.
+     * null if no doctor is selected.
+     */
+    Doctor getSelectedDoctor();
+
+    /**
      * Sets the selected doctor in the filtered doctor list.
      */
     void setSelectedDoctor(Doctor doctor);

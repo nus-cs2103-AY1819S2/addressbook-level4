@@ -67,26 +67,26 @@ public class AddDoctorCommandTest {
 
     @Test
     public void equals() {
-        Doctor alice = new DoctorBuilder().withName("Alice").build();
-        Doctor bob = new DoctorBuilder().withName("Bob").build();
-        AddDoctorCommand addAliceCommand = new AddDoctorCommand(alice);
-        AddDoctorCommand addBobCommand = new AddDoctorCommand(bob);
+        Doctor alvina = new DoctorBuilder().withName("Alvina").build();
+        Doctor alvin = new DoctorBuilder().withName("Alvin").build();
+        AddDoctorCommand addAlvinaCommand = new AddDoctorCommand(alvina);
+        AddDoctorCommand addAlvinCommand = new AddDoctorCommand(alvin);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addAlvinaCommand.equals(addAlvinaCommand));
 
         // same values -> returns true
-        AddDoctorCommand addAliceCommandCopy = new AddDoctorCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddDoctorCommand addAlvinaCommandCopy = new AddDoctorCommand(alvina);
+        assertTrue(addAlvinaCommand.equals(addAlvinaCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addAlvinaCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addAlvinaCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addAlvinaCommand.equals(addAlvinCommand));
     }
 
     private class ModelStub implements Model {
@@ -320,6 +320,11 @@ public class AddDoctorCommandTest {
 
         @Override
         public ReadOnlyProperty<Doctor> selectedDoctorProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Doctor getSelectedDoctor() {
             throw new AssertionError("This method should not be called.");
         }
 

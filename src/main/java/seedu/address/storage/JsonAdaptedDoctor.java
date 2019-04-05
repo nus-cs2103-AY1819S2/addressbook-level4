@@ -10,11 +10,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Age;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Year;
 import seedu.address.model.tag.Specialisation;
 
 
@@ -28,7 +28,7 @@ class JsonAdaptedDoctor {
     private final String name;
     private final String phone;
     private final String gender;
-    private final String age;
+    private final String year;
     private final List<JsonAdaptedSpecialisation> specs = new ArrayList<>();
 
     /**
@@ -36,12 +36,12 @@ class JsonAdaptedDoctor {
      */
     @JsonCreator
     public JsonAdaptedDoctor(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                             @JsonProperty("email") String gender, @JsonProperty("address") String age,
+                             @JsonProperty("gender") String gender, @JsonProperty("year") String year,
                              @JsonProperty("specs") List<JsonAdaptedSpecialisation> specs) {
         this.name = name;
         this.phone = phone;
         this.gender = gender;
-        this.age = age;
+        this.year = year;
         if (specs != null) {
             this.specs.addAll(specs);
         }
@@ -54,7 +54,7 @@ class JsonAdaptedDoctor {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         gender = source.getGender().value;
-        age = source.getAge().value;
+        year = source.getYear().value;
         specs.addAll(source.getSpecs().stream()
                 .map(JsonAdaptedSpecialisation::new)
                 .collect(Collectors.toList()));
@@ -95,16 +95,16 @@ class JsonAdaptedDoctor {
         }
         final Gender modelGender = new Gender(gender);
 
-        if (age == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Age.class.getSimpleName()));
+        if (year == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Year.class.getSimpleName()));
         }
-        if (!Age.isValidAge(age)) {
-            throw new IllegalValueException(Age.MESSAGE_CONSTRAINTS);
+        if (!Year.isValidYear(year)) {
+            throw new IllegalValueException(Year.MESSAGE_CONSTRAINTS);
         }
-        final Age modelAge = new Age(age);
+        final Year modelYear = new Year(year);
 
         final Set<Specialisation> modelSpecs = new HashSet<>(doctorSpecs);
-        return new Doctor(modelName, modelPhone, modelGender, modelAge, modelSpecs);
+        return new Doctor(modelName, modelPhone, modelGender, modelYear, modelSpecs);
     }
 
 }

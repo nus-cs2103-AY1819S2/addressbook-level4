@@ -25,18 +25,18 @@ public class GuiTestDoctorAssert {
         assertEquals(expectedCard.getName(), actualCard.getName());
         assertEquals(expectedCard.getPhone(), actualCard.getPhone());
         assertEquals(expectedCard.getGender(), actualCard.getGender());
-        assertEquals(expectedCard.getAge(), actualCard.getAge());
+        assertEquals(expectedCard.getYear(), actualCard.getYear());
         assertEquals(expectedCard.getSpecialisations(), actualCard.getSpecialisations());
     }
 
     /**
-     * Asserts that {@code actualCard} displays the details of {@code expectedPerson}.
+     * Asserts that {@code actualCard} displays the details of {@code expectedDoctor}.
      */
     public static void assertCardDisplaysDoctor(Doctor expectedDoctor, DoctorCardHandle actualCard) {
         assertEquals(expectedDoctor.getName().fullName, actualCard.getName());
         assertEquals(expectedDoctor.getPhone().value, actualCard.getPhone());
         assertEquals(expectedDoctor.getGender().value, actualCard.getGender());
-        assertEquals(expectedDoctor.getAge().value, actualCard.getAge());
+        assertEquals(expectedDoctor.getYear().value, actualCard.getYear());
         assertEquals(expectedDoctor.getSpecs().stream().map(spec -> spec.specialisation).collect(Collectors.toList()),
                 actualCard.getSpecialisations());
     }

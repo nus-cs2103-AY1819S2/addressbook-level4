@@ -1,10 +1,10 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SPECIALISATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 //import java.util.Set;
 
@@ -34,7 +34,7 @@ public class DoctorUtil {
         sb.append(PREFIX_NAME + doctor.getName().fullName + " ");
         sb.append(PREFIX_PHONE + doctor.getPhone().value + " ");
         sb.append(PREFIX_GENDER + doctor.getGender().value + " ");
-        sb.append(PREFIX_AGE + doctor.getAge().value + " ");
+        sb.append(PREFIX_YEAR + doctor.getYear().value + " ");
         doctor.getSpecs().stream().forEach(
             s -> sb.append(PREFIX_SPECIALISATION + s.specialisation + " ")
         );

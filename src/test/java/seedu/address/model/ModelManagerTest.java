@@ -4,7 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_STEVEN;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DOCTORS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PATIENTS;
+import static seedu.address.testutil.TypicalDoctors.STEVEN;
+import static seedu.address.testutil.TypicalDoctors.ALVINA;
 import static seedu.address.testutil.TypicalPatients.ALICE;
 import static seedu.address.testutil.TypicalPatients.BENSON;
 import static seedu.address.testutil.TypicalPatients.BOB;
@@ -19,10 +23,14 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.person.Doctor;
+import seedu.address.model.person.DoctorNameContainsKeywordsPredicate;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.PatientNameContainsKeywordsPredicate;
+import seedu.address.model.person.exceptions.DoctorNotFoundException;
 import seedu.address.model.person.exceptions.PatientNotFoundException;
 import seedu.address.testutil.DocXBuilder;
+import seedu.address.testutil.DoctorBuilder;
 import seedu.address.testutil.PatientBuilder;
 
 public class ModelManagerTest {
@@ -150,8 +158,67 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasDoctor_doctorNotInDocX_returnsFalse() {
+        assertFalse(modelManager.hasDoctor(ALVINA));
+    }
+
+    @Test
+    public void hasDoctor_doctorInDocX_returnsTrue() {
+        modelManager.addDoctor(ALVINA);
+        assertTrue(modelManager.hasDoctor(ALVINA));
+    }
+
+    @Test
+    public void deleteDoctor_doctorIsSelectedAndFirstDoctorInFilteredDoctorList_selectionCleared() {
+        modelManager.addDoctor(ALVINA);
+        modelManager.setSelectedDoctor(ALVINA);
+        modelManager.deleteDoctor(ALVINA);
+        assertEquals(null, modelManager.getSelectedDoctor());
+    }
+
+    @Test
+    public void deleteDoctor_doctorIsSelectedAndSecondDoctorInFilteredDoctorList_firstDoctorSelected() {
+        modelManager.addDoctor(ALVINA);
+        modelManager.addDoctor(STEVEN);
+        assertEquals(Arrays.asList(ALVINA, STEVEN), modelManager.getFilteredDoctorList());
+        modelManager.setSelectedDoctor(STEVEN);
+        modelManager.deleteDoctor(STEVEN);
+        assertEquals(ALVINA, modelManager.getSelectedDoctor());
+    }
+
+    @Test
+    public void setDoctor_doctorIsSelected_selectedDoctorUpdated() {
+        modelManager.addDoctor(ALVINA);
+        modelManager.setSelectedDoctor(ALVINA);
+        Doctor updatedAlvina = new DoctorBuilder(ALVINA).withGender(VALID_GENDER_STEVEN).build();
+        modelManager.setDoctor(ALVINA, updatedAlvina);
+        assertEquals(updatedAlvina, modelManager.getSelectedDoctor());
+    }
+
+    @Test
+    public void getFilteredDoctorList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredDoctorList().remove(0);
+    }
+
+    @Test
+    public void setSelectedDoctor_doctorNotInFilteredDoctorList_throwsDoctorNotFoundException() {
+        thrown.expect(DoctorNotFoundException.class);
+        modelManager.setSelectedDoctor(ALVINA);
+    }
+
+    @Test
+    public void setSelectedDoctor_doctorInFilteredDoctorList_setsSelectedDoctor() {
+        modelManager.addDoctor(ALVINA);
+        assertEquals(Collections.singletonList(ALVINA), modelManager.getFilteredDoctorList());
+        modelManager.setSelectedDoctor(ALVINA);
+        assertEquals(ALVINA, modelManager.getSelectedDoctor());
+    }
+
+    @Test
     public void equals() {
-        DocX docX = new DocXBuilder().withPatient(ALICE).withPatient(BENSON).build();
+        DocX docX = new DocXBuilder().withPatient(ALICE).withPatient(BENSON)
+                .withDoctor(ALVINA).withDoctor(STEVEN).build();
         DocX differentDocX = new DocX();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -184,5 +251,15 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setDocXFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(docX, differentUserPrefs)));
+
+        /*
+        // different filteredList -> returns false
+        String[] keywords_doctor = ALVINA.getName().fullName.split("\\s+");
+        modelManager.updateFilteredDoctorList(new DoctorNameContainsKeywordsPredicate(Arrays.asList(keywords_doctor)));
+        assertFalse(modelManager.equals(new ModelManager(docX, userPrefs)));
+
+        // resets modelManager to initial state for upcoming tests
+        modelManager.updateFilteredDoctorList(PREDICATE_SHOW_ALL_DOCTORS);
+        */
     }
 }

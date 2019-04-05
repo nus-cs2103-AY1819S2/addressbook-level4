@@ -299,7 +299,11 @@ Examples:
 [TIP]
 The order of parameters does not matter - reordering each parameter would also work!
 
-[NOTE]
+[WARNING]
+Note that the application allows the user to create requests with *any* valid Calendar date. Hence, it is the responsibility of the user
+to ensure that the date is correct prior to keying it into the system. To edit a request with date incorrectly entered, use the
+`edit request` command.
+
 
 
 // tag::editHealthWorker[]

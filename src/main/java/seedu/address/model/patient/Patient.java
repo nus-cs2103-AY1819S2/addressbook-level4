@@ -86,7 +86,7 @@ public class Patient extends Person {
      */
     public Patient(Patient patientToCopy) {
         super(patientToCopy);
-        requireAllNonNull(nric, dateOfBirth, records, sex);
+        requireAllNonNull(patientToCopy.nric, patientToCopy.dateOfBirth, patientToCopy.records, patientToCopy.sex);
         this.sex = patientToCopy.sex;
         this.nric = patientToCopy.nric;
         this.dateOfBirth = patientToCopy.dateOfBirth;

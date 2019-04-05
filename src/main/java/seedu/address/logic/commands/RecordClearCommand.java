@@ -16,6 +16,7 @@ import seedu.address.ui.MainWindow;
 public class RecordClearCommand extends Command {
 
     public static final String COMMAND_WORD = "recordclear";
+    public static final String COMMAND_WORD2 = "rclear";
     public static final String MESSAGE_SUCCESS = "The dental record list of %1$s has been cleared!";
 
     @Override

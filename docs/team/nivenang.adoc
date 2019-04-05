@@ -30,7 +30,7 @@ An in-depth analysis of design alternatives in keyword matching as well as the d
 ** added Rating class for Place object to track ratings of each place in TravelBuddy.
 ** addded delete multiple feature to delete multiple entries in TravelBuddy with one command.
 
-* *Code contributed*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=nivenang&sort=displayName&since=2019-02-10&until=2019-03-26&timeframe=day&reverse=false&repoSort=true[RepoSense]
+* *Code contributed*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=nivenang&sort=displayName&since=2019-02-10&until=2019-04-03&timeframe=day&reverse=false&repoSort=true[RepoSense]
 
 * *Other contributions*:
 

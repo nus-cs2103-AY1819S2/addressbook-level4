@@ -33,7 +33,7 @@ public class AddCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "National University of Singapore "
             + PREFIX_COUNTRY_CODE + "SGP "
-            + PREFIX_DATE_VISITED + "10/10/2017"
+            + PREFIX_DATE_VISITED + "10/10/2017 "
             + PREFIX_RATING + "4 "
             + PREFIX_DESCRIPTION
             + "The National University of Singapore is an autonomous research university in Singapore. "

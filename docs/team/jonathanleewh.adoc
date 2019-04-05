@@ -32,6 +32,8 @@ a|WARNING: {sp}
 
 == Summary of contributions
 
+This section highlights my documentation, coding and other noteworthy contributions to my team project.
+
 * *Major enhancement*: Added *`export` command support*
 ** What it does: Allows the user to export the current medicine inventory data shown in the Graphical User Interface (GUI) to a spreadsheet file which is supported by commonly used spreadsheet applications such as Microsoft Excel.
 ** Justification: Allows the user to save the data so that it can be printed, organised or for advanced data analysis using a spreadsheet application such as Microsoft Excel. This is especially useful for the user, superior or supplier's reference.
@@ -68,8 +70,6 @@ a|WARNING: {sp}
 To showcase my ability to write documentation which targets end users, my contributions to the User Guide are shown below.
 
 ---
-
-include::../UserGuide.adoc[tag=exportingascsvfileformat]
 
 include::../UserGuide.adoc[tag=exportcommand]
 

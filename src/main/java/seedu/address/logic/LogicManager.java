@@ -19,6 +19,7 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
+import seedu.address.model.prescription.Prescription;
 import seedu.address.storage.Storage;
 
 /**
@@ -85,6 +86,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Prescription> getFilteredPrescriptionList() {
+        return model.getFilteredPrescriptionList();
+    }
+
+    @Override
     public ObservableList<Appointment> getFilteredAppointmentList() {
         return model.getFilteredAppointmentList();
     }
@@ -127,6 +133,16 @@ public class LogicManager implements Logic {
     @Override
     public void setSelectedMedHist(MedicalHistory medHist) {
         model.setSelectedMedHist(medHist);
+    }
+
+    @Override
+    public ReadOnlyProperty<Prescription> selectedPrescriptionProperty() {
+        return model.selectedPrescriptionProperty();
+    }
+
+    @Override
+    public void setSelectedPrescription(Prescription prescription) {
+        model.setSelectedPrescription(prescription);
     }
 
     @Override

@@ -19,7 +19,7 @@ public class AddMedHistCommand extends Command {
     public static final String COMMAND_WORD = "add-med-hist";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a medical history of a patient to the docX."
-            + "Parameters: "
+            + " Parameters: "
             + PREFIX_PATIENT_ID + "PATIENT-ID "
             + PREFIX_DOCTOR_ID + "DOCTOR-ID "
             + PREFIX_DATE_OF_MEDHIST + "DATE "

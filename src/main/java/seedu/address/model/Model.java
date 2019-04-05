@@ -29,6 +29,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Prescription> PREDICATE_SHOW_ALL_PRESCRIPTIONS = unused -> true;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -154,6 +157,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered medical history list */
     ObservableList<MedicalHistory> getFilteredMedHistList();
 
+    /** Returns an unmodifiable view of the filtered prescription list */
+    ObservableList<Prescription> getFilteredPrescriptionList();
+
     /** Returns an unmodifiable view of the filtered doctor list */
     ObservableList<Doctor> getFilteredDoctorList();
 
@@ -166,11 +172,17 @@ public interface Model {
      */
     void updateFilteredPatientList(Predicate<Patient> predicate);
 
-    /**
+     /**
      * Updates the filter of the filtered medical history list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredMedHistList(Predicate<MedicalHistory> predicate);
+
+    /**
+     * Updates the filter of the filtered prescription list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPrescriptionList(Predicate<Prescription> predicate);
 
     /**
      * Updates the filter of the filtered doctor list to filter by the given {@code predicate}.
@@ -222,6 +234,12 @@ public interface Model {
     ReadOnlyProperty<MedicalHistory> selectedMedHistProperty();
 
     /**
+     * Selected prescription in the filtered prescription list.
+     * null if no prescription is selected.
+     */
+    ReadOnlyProperty<Prescription> selectedPrescriptionProperty();
+
+    /**
      * Selected appointment in the filtered appointment list.
      * null if no appointment is selected.
      */
@@ -240,6 +258,12 @@ public interface Model {
     MedicalHistory getSelectedMedHist();
 
     /**
+     * Returns the selected prescription in the filtered prescription list.
+     * null if no prescription is selected.
+     */
+    Prescription getSelectedPrescription();
+
+    /**
      * Returns the selected appointment in the filtered appointment list.
      * null if no appointment is selected.
      */
@@ -254,6 +278,11 @@ public interface Model {
      * Sets the selected medHist in the filtered medHist list.
      */
     void setSelectedMedHist(MedicalHistory medHist);
+
+    /**
+     * Sets the selected prescription in the filtered prescription list.
+     */
+    void setSelectedPrescription(Prescription prescription);
 
     /**
      * Sets the selected appointment in the filtered appointment list.

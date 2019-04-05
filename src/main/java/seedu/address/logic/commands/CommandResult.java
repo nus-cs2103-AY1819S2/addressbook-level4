@@ -19,7 +19,7 @@ public class CommandResult {
 
     /** Show a different panel to the user, depending on the command result */
     public enum ShowPanel {
-        NO_CHANGE, MED_HIST_PANEL, APPOINTMENT_PANEL
+        NO_CHANGE, MED_HIST_PANEL, APPOINTMENT_PANEL, PRESC_PANEL
     }
 
     private ShowPanel showPanel = ShowPanel.NO_CHANGE;

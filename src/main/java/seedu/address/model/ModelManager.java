@@ -24,6 +24,7 @@ import seedu.address.model.person.Patient;
 import seedu.address.model.person.exceptions.DoctorNotFoundException;
 import seedu.address.model.person.exceptions.PatientNotFoundException;
 import seedu.address.model.prescription.Prescription;
+import seedu.address.model.prescription.exceptions.PrescriptionNotFoundException;
 
 
 /**
@@ -42,6 +43,8 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<MedicalHistory> selectedMedHist = new SimpleObjectProperty<>();
     private final FilteredList<Appointment> filteredAppointments;
     private final SimpleObjectProperty<Appointment> selectedAppointment = new SimpleObjectProperty<>();
+    private final FilteredList<Prescription> filteredPrescriptions;
+    private final SimpleObjectProperty<Prescription> selectedPrescription = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given DocX and userPrefs.
@@ -62,6 +65,8 @@ public class ModelManager implements Model {
         filteredMedHists.addListener(this::ensureSelectedMedHistIsValid);
         filteredAppointments = new FilteredList<>(versionedDocX.getAppointmentList());
         filteredAppointments.addListener(this::ensureSelectedAppointmentIsValid);
+        filteredPrescriptions = new FilteredList<>(versionedDocX.getPrescriptionList());
+        filteredPrescriptions.addListener(this::ensureSelectedPrescriptionIsValid);
     }
 
     public ModelManager() {
@@ -154,7 +159,7 @@ public class ModelManager implements Model {
     @Override
     public void addPrescription(Prescription prescription) {
         versionedDocX.addPrescription(prescription);
-        // updateFilteredDoctorList(PREDICATE_SHOW_ALL_DOCTORS);
+        updateFilteredPrescriptionList(PREDICATE_SHOW_ALL_PRESCRIPTIONS);
     }
 
     @Override
@@ -293,6 +298,24 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredAppointments.setPredicate(predicate);
     }
+
+    //=========== Filtered Prescription List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Prescription} backed by the internal list of
+     * {@code versionedDocX}
+     */
+    @Override
+    public ObservableList<Prescription> getFilteredPrescriptionList() {
+        return filteredPrescriptions;
+    }
+
+    @Override
+    public void updateFilteredPrescriptionList(Predicate<Prescription> predicate) {
+        requireNonNull(predicate);
+        filteredPrescriptions.setPredicate(predicate);
+    }
+
 
     //=========== Undo/Redo =================================================================================
 
@@ -445,6 +468,55 @@ public class ModelManager implements Model {
                 // Select the medical history that came before it in the list,
                 // or clear the selection if there is no such medical history.
                 selectedMedHist.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
+
+    //=========== Selected Prescription ===================================================================
+    @Override
+    public ReadOnlyProperty<Prescription> selectedPrescriptionProperty() {
+        return selectedPrescription;
+    }
+
+    @Override
+    public Prescription getSelectedPrescription() {
+        return selectedPrescription.getValue();
+    }
+
+    @Override
+    public void setSelectedPrescription(Prescription prescription) {
+        if (prescription != null && !filteredPrescriptions.contains(prescription)) {
+            throw new PrescriptionNotFoundException();
+        }
+        selectedPrescription.setValue(prescription);
+    }
+
+    /**
+     * Ensures {@code selectedMedHist} is a valid medical history in {@code filteredMedHists}.
+     */
+    private void ensureSelectedPrescriptionIsValid(ListChangeListener.Change<? extends Prescription> change) {
+        while (change.next()) {
+            if (selectedPrescription.getValue() == null) {
+                // null is always a valid selected prescription, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedPrescriptionReplaced =
+                    change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                            && change.getRemoved().contains(selectedPrescription.getValue());
+            if (wasSelectedPrescriptionReplaced) {
+                // Update selectedMedHist to its new value.
+                int index = change.getRemoved().indexOf(selectedPrescription.getValue());
+                selectedPrescription.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedPrescriptionRemoved = change.getRemoved().stream()
+                    .anyMatch(removedPrescription -> selectedPrescription.getValue().isSamePrescription(removedPrescription));
+            if (wasSelectedPrescriptionRemoved) {
+                // Select the prescription that came before it in the list,
+                // or clear the selection if there is no such prescription.
+                selectedPrescription.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }

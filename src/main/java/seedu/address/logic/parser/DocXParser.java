@@ -25,6 +25,7 @@ import seedu.address.logic.commands.ListAppointmentCommand;
 import seedu.address.logic.commands.ListDoctorCommand;
 import seedu.address.logic.commands.ListMedHistCommand;
 import seedu.address.logic.commands.ListPatientCommand;
+import seedu.address.logic.commands.ListPrescriptionCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SearchDoctorCommand;
 import seedu.address.logic.commands.SearchMedHistCommand;
@@ -141,6 +142,9 @@ public class DocXParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
+        case ListPrescriptionCommand.COMMAND_WORD:
+            return new ListPrescriptionCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

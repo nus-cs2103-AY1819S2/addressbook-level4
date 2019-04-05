@@ -248,6 +248,11 @@ public class AddPatientCommandTest {
         }
 
         @Override
+        public ObservableList<Prescription> getFilteredPrescriptionList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredDoctorList(Predicate<Doctor> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -269,6 +274,26 @@ public class AddPatientCommandTest {
 
         @Override
         public void setSelectedMedHist(MedicalHistory medHist) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPrescriptionList(Predicate<Prescription> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Prescription> selectedPrescriptionProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Prescription getSelectedPrescription() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedPrescription(Prescription medHist) {
             throw new AssertionError("This method should not be called.");
         }
 

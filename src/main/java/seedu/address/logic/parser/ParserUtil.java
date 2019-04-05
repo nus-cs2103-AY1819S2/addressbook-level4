@@ -209,7 +209,7 @@ public class ParserUtil {
     public static WriteUp parseWriteUp(String writeUp) throws ParseException {
         requireNonNull(writeUp);
         String trimmedWriteUp = writeUp.trim();
-        if (!Name.isValidName(trimmedWriteUp)) {
+        if (!WriteUp.isValidWriteUp(trimmedWriteUp)) {
             throw new ParseException(WriteUp.MESSAGE_CONSTRAINTS);
         }
         return new WriteUp(trimmedWriteUp);

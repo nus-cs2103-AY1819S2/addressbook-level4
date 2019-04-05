@@ -88,7 +88,7 @@ public class RestaurantCard extends UiPart<Region> {
         } else {
             openingHours.setText(restaurant.getOpeningHours().value);
         }
-        
+
         // Check if Restaurant has been visited before
         if (restaurant.getSummary().getTotalVisits() > 0) {
             avgRating.setText(ONE_DP.format(restaurant.getSummary().getAvgRating()));

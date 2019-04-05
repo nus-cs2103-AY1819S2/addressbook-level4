@@ -165,7 +165,7 @@ public class AddCommandTest {
         }
 
         public boolean hasClient(Name equipment) {
-            
+
             throw new AssertionError("This method should not be called.");
         }
 

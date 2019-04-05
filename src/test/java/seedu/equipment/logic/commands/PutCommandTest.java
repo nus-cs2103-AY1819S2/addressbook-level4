@@ -1,35 +1,15 @@
 package seedu.equipment.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
-import seedu.equipment.commons.core.GuiSettings;
 import seedu.equipment.logic.CommandHistory;
-import seedu.equipment.logic.commands.exceptions.CommandException;
-import seedu.equipment.model.EquipmentManager;
-import seedu.equipment.model.Model;
-import seedu.equipment.model.ReadOnlyEquipmentManager;
-import seedu.equipment.model.ReadOnlyUserPrefs;
-import seedu.equipment.model.WorkList;
 import seedu.equipment.model.WorkListId;
-import seedu.equipment.model.equipment.Equipment;
 import seedu.equipment.model.equipment.SerialNumber;
-import seedu.equipment.model.tag.Tag;
-import seedu.equipment.testutil.EquipmentBuilder;
-import seedu.equipment.testutil.WorkListBuilder;
 
 public class PutCommandTest {
 

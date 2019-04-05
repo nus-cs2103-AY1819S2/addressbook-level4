@@ -34,10 +34,18 @@ public class ListMedHistCommandParser implements Parser<ListMedHistCommand> {
 
         if (isPrefixPresent(argMultimap, PREFIX_PATIENT_ID)) {
             patientId = argMultimap.getValue(PREFIX_PATIENT_ID).get();
+            // If Id is implemented, may use parseId to detect the ParseException
+            if (!patientId.matches("[\\p{Alnum}]")) {
+                throw new ParseException("patientId should be an id of patient.\n" + ListMedHistCommand.MESSAGE_USAGE);
+            }
         }
 
         if (isPrefixPresent(argMultimap, PREFIX_DOCTOR_ID)) {
             doctorId = argMultimap.getValue(PREFIX_DOCTOR_ID).get();
+            // If Id is implemented, may use parseId to detect the ParseException
+            if (!doctorId.matches("[\\p{Alnum}]")) {
+                throw new ParseException("doctorId should be an id of patient.\n" + ListMedHistCommand.MESSAGE_USAGE);
+            }
         }
 
         if (isPrefixPresent(argMultimap, PREFIX_DATE_OF_MEDHIST)) {

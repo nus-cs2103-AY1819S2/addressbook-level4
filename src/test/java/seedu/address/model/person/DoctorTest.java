@@ -38,7 +38,8 @@ public class DoctorTest {
         assertFalse(ALVINA.isSameDoctor(null));
 
         // different age and phone -> returns false
-        Doctor editedAlvina = new DoctorBuilder(ALVINA).withYear(VALID_YEAR_STEVEN).withPhone(VALID_PHONE_STEVEN).build();
+        Doctor editedAlvina = new DoctorBuilder(ALVINA).withYear(VALID_YEAR_STEVEN)
+                .withPhone(VALID_PHONE_STEVEN).build();
         assertFalse(ALVINA.isSameDoctor(editedAlvina));
 
         // different name -> returns false

@@ -11,7 +11,7 @@ import seedu.knowitall.model.card.Card;
  */
 public interface ReadOnlyCardFolder extends Observable {
 
-    String MESSAGE_CONSTRAINTS = "Folder name can take any values, and should not be blank";
+    String MESSAGE_CONSTRAINTS = "Folder name must only contain letters and numbers, and should not be blank";
 
     /** Maximum number of scores to keep in list */
     int MAX_NUM_FOLDER_SCORES = 10;

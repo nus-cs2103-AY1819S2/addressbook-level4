@@ -261,10 +261,7 @@ The first command enters the second folder in the folder list on the <<homedirec
 Commands listed in this section affect the application and not a single folder.
 
 [NOTE]
-The commands in this section can only be executed when you are at the home directory, outside of any folder
-
-[NOTE]
-The commands in this section are also not valid inside a test or report session.
+The commands in this section can only be executed when you are at the home directory, outside of any folder. The commands in this section are also not valid inside a test or report session.
 
 ==== Create new folder : `addfolder`
 
@@ -274,7 +271,7 @@ Format: `addfolder FOLDER_NAME`
 
 ====
 * The newly created folder will not contain any cards.
-* Folder names must be unique and non-blank. Attempting to add a folder with the same name as an existing folder will result in an error.
+* Folder names must be unique, non-blank and only contain letters and numbers. Attempting to add a folder with the same name as an existing folder will result in an error.
 * Each folder and its cards are stored independently in the directory specified in `preferences.json`. By default, this is the `data/` directory.
 ====
 

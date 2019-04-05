@@ -413,18 +413,18 @@ Edits the phone number and email of the first patient listed to become
 Makes an exact patientcopy of a patient and adds them to the patient list.
 This may be useful if multiple people share similar details.
 
-Format: `copy INDEX [Count]` or `copy INDEX [Count]`
+Format: `patientcopy INDEX [Count]` or `copy INDEX [Count]`
 
 Note: If the copied entry is not modified before exiting the program,
 there will be a confirmation.
 
 Example:
 
-* `copy 3` +
+* `patientcopy 3` +
 Makes a patientcopy of the patient at index 3 and inserts it at the bottom of
 the current patient list with a copy tag.
 
-* `copy 3 4` +
+* `patientcopy 3 4` +
 Makes 4 copies of the patient at index 3 and inserts them at the bottom of
 the current patient list with a copy tag.
 
@@ -959,7 +959,7 @@ nokp/84875215 nokr/Father noka/same`
 
 * *patientclear* : `patientclear`
 
-* *copy* : `patientcopy INDEX` +
+* *patientcopy* : `patientcopy INDEX` +
 e.g. `patientcopy 3`
 
 * *patientdelete* : `patientdelete INDEX` +

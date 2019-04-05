@@ -1,11 +1,16 @@
 package seedu.travel.storage;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.travel.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.google.gson.Gson;
@@ -55,6 +60,87 @@ public class JsonChartBookStorage implements ChartBookStorage {
     }
 
     @Override
+    public List<ReadOnlyCountryChart> readCountryChart() {
+        return readCountryChart(countryChartFilePath);
+    }
+
+    /**
+     * Similar to {@link #readCountryChart()}.
+     *
+     * @param filePath location of the data. Cannot be null.
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<ReadOnlyCountryChart> readCountryChart(Path filePath) {
+        requireNonNull(filePath);
+
+        Gson gson = new Gson();
+        List<ReadOnlyCountryChart> countryList = new ArrayList<>();
+        try {
+            FileReader fileReader = new FileReader(String.valueOf(filePath));
+            countryList = gson.fromJson(fileReader, List.class);
+        } catch (FileNotFoundException fnfe) {
+            logger.warning(fnfe.getMessage());
+        }
+
+        return countryList;
+    }
+
+    @Override
+    public List<ReadOnlyRatingChart> readRatingChart() {
+        return readRatingChart(ratingChartFilePath);
+    }
+
+    /**
+     * Similar to {@link #readRatingChart()}.
+     *
+     * @param filePath location of the data. Cannot be null.
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<ReadOnlyRatingChart> readRatingChart(Path filePath) {
+        requireNonNull(filePath);
+
+        Gson gson = new Gson();
+        List<ReadOnlyRatingChart> ratingList = new ArrayList<>();
+        try {
+            FileReader fileReader = new FileReader(String.valueOf(filePath));
+            ratingList = gson.fromJson(fileReader, List.class);
+        } catch (FileNotFoundException fnfe) {
+            logger.warning(fnfe.getMessage());
+        }
+
+        return ratingList;
+    }
+
+    @Override
+    public List<ReadOnlyYearChart> readYearChart() {
+        return readYearChart(yearChartFilePath);
+    }
+
+    /**
+     * Similar to {@link #readYearChart()}.
+     *
+     * @param filePath location of the data. Cannot be null.
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<ReadOnlyYearChart> readYearChart(Path filePath) {
+        requireNonNull(filePath);
+
+        Gson gson = new Gson();
+        List<ReadOnlyYearChart> yearList = new ArrayList<>();
+        try {
+            FileReader fileReader = new FileReader(String.valueOf(filePath));
+            yearList = gson.fromJson(fileReader, List.class);
+        } catch (FileNotFoundException fnfe) {
+            logger.warning(fnfe.getMessage());
+        }
+
+        return yearList;
+    }
+
+    @Override
     public void saveCountryChart(ReadOnlyCountryChart countryChart) {
         saveCountryChart(countryChart, countryChartFilePath);
     }
@@ -73,8 +159,8 @@ public class JsonChartBookStorage implements ChartBookStorage {
             FileWriter fileWriter = new FileWriter(String.valueOf(filePath));
             gson.toJson(countryChart, fileWriter);
             fileWriter.flush();
-        } catch (IOException e) {
-            logger.warning(e.getMessage());
+        } catch (IOException ioe) {
+            logger.warning(ioe.getMessage());
         }
     }
 
@@ -97,8 +183,8 @@ public class JsonChartBookStorage implements ChartBookStorage {
             FileWriter fileWriter = new FileWriter(String.valueOf(filePath));
             gson.toJson(ratingChart, fileWriter);
             fileWriter.flush();
-        } catch (IOException e) {
-            logger.warning(e.getMessage());
+        } catch (IOException ioe) {
+            logger.warning(ioe.getMessage());
         }
     }
 
@@ -121,8 +207,8 @@ public class JsonChartBookStorage implements ChartBookStorage {
             FileWriter fileWriter = new FileWriter(String.valueOf(filePath));
             gson.toJson(yearChart, fileWriter);
             fileWriter.flush();
-        } catch (IOException e) {
-            logger.warning(e.getMessage());
+        } catch (IOException ioe) {
+            logger.warning(ioe.getMessage());
         }
     }
 

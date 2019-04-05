@@ -2,6 +2,7 @@ package seedu.travel.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 
 import seedu.travel.model.ReadOnlyCountryChart;
 import seedu.travel.model.ReadOnlyRatingChart;
@@ -25,6 +26,36 @@ public interface ChartBookStorage {
      * Returns the file path of the year data.
      */
     Path getYearChartFilePath();
+
+    /**
+     * Returns country chart data as a {@link ReadOnlyCountryChart}.
+     */
+    List<ReadOnlyCountryChart> readCountryChart();
+
+    /**
+     * @see #readCountryChart()
+     */
+    List<ReadOnlyCountryChart> readCountryChart(Path filePath);
+
+    /**
+     * Returns rating chart data as a {@link ReadOnlyRatingChart}.
+     */
+    List<ReadOnlyRatingChart> readRatingChart();
+
+    /**
+     * @see #readRatingChart()
+     */
+    List<ReadOnlyRatingChart> readRatingChart(Path filePath);
+
+    /**
+     * Returns year chart data as a {@link ReadOnlyYearChart}.
+     */
+    List<ReadOnlyYearChart> readYearChart();
+
+    /**
+     * @see #readYearChart()
+     */
+    List<ReadOnlyYearChart> readYearChart(Path filePath);
 
     /**
      * Saves the given {@link ReadOnlyCountryChart} to the storage.

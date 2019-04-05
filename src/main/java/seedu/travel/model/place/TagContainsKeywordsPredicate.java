@@ -15,6 +15,14 @@ public class TagContainsKeywordsPredicate implements Predicate<Place> {
         this.keywords = keywords;
     }
 
+    /**
+     * Gets the keywords to be used in the query and parses it into a String
+     * @return A string containing the keywords to be used in the query
+     */
+    public String getKeywords() {
+        return String.join(" ", keywords);
+    }
+
     @Override
     public boolean test(Place place) {
         return keywords.stream()

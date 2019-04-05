@@ -65,7 +65,7 @@ public class SearchYearCommandParser implements Parser<SearchYearCommand> {
             yearKeywordsArray.add(String.valueOf(index));
         }
 
-        return new SearchYearCommand(new YearContainsKeywordsPredicate(yearKeywordsArray));
+        return new SearchYearCommand(new YearContainsKeywordsPredicate(yearKeywordsArray, true));
     }
 
     /**

@@ -21,8 +21,8 @@ By: `CS2103T W11-3 Team`      Since: `Mar 2019`      Licence: `MIT`
 *TravelBuddy* is a desktop journal app for all your travel memories! Add all the places you've been,
 attach photos (coming in Version 2.0), keep a diary, create custom tags and tag different places, and search through all of your places!
 
-It's 2019, and we understand your desire for transparency, so *TravelBuddy* will also
-provide clear data visualisation and analytics in upcoming versions. *TravelBuddy* also solemnly pledges to not
+It's 2019, and we understand your desire for transparency, so *TravelBuddy*
+provides clear data visualisation and analytics. *TravelBuddy* also solemnly pledges to not
 collect or sell your data in any shape or form.
 
 *TravelBuddy* is also optimized for those who prefer to work with a *Command Line Interface* (CLI) while still having the
@@ -47,13 +47,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Some example commands you can try:
 
 
-* *`list`* : lists all places
+* *`list`*: lists all places
 * **`add`**`n/NUS Computing cc/SGP dv/10/10/2018 r/5 d/No Description a/NUS School of Computing, COM1, 13 Computing
-Drive, 117417` :
+Drive, 117417`:
 adds
  a place named `NUS Computing` to TravelBuddy.
-* **`delete`**`3` : deletes the 3rd place shown in the current list
-* *`exit`* : exits the application
+* **`delete`**`3`: deletes the 3rd place shown in the current list
+* *`exit`*: exits the application
 
 Refer to <<Features>> for details of each command.
 
@@ -67,13 +67,14 @@ Command Format
 * Some commands may have a shortcut, which you can also use to execute the command e.g. for add, its shortcut is `a`,
 so you can either type `add n/NUS Computing` or `a n/NUS Computing`.
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, NAME is a parameter which can be used as `add n/NUS Computing`.
+* Words in `UPPER_CASE` are the parameters that you have to supply, e.g. in `add n/NAME`, NAME is a parameter which can
+ be used as `add n/NUS Computing`.
 
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/NUS Computing t/faculty` or as `n/NUS Computing`.
 
 * Parameters can be in any order e.g. if the command specifies `n/NAME r/RATING`, `r/RATING n/NAME` is also acceptable.
 
-=== Viewing help : `help`
+=== Viewing help: `help`
 
 Format: `help`
 
@@ -100,9 +101,9 @@ Examples:
 117417`
 * `add n/Raffles Hotel dv/08/07/2010 t/hotel d/This place is lovely cc/SGP a/Raffles Road r/5 t/staycation`
 
-=== Listing all places : `list`
+=== Listing all places: `list`
 
-The `list` command shows a list of all places in TravelBuddy. +
+The `list` command shows a list of all the places in TravelBuddy. +
 
 Shortcut: `l` +
 Format: `list`
@@ -111,7 +112,7 @@ Calling the `list` command will return a list of all the places in TravelBuddy a
 
 image::listCommand.png[width="600"]
 
-=== Editing a place : `edit`
+=== Editing a place: `edit`
 
 You can use the `edit` command to edit an existing place in TravelBuddy. +
 
@@ -151,22 +152,32 @@ The `search` command helps you to search for places whose names contain any of t
 Shortcut: `f` +
 Format: `search KEYWORD [MORE_KEYWORDS]`
 
+Example:
+`search Singapore` +
+Executes a search for places that contain the keyword `Singapore` in its name.
+
+[UIsearchresults]
+.Search results of `search Singapore`.
+[#img-UIsearchresults]
+[caption="Figure 3.5.1: "]
+image::UIsearchresults.png[width="600"]
+
+From Figure 3.5.1, using `search Singapore` will return all places in your TravelBuddy that contain `Singapore` in its name.
+
+In this case, the following are returned as they contain `Singapore` in their names:
+
+* Universal Studios *Singapore*
+* National University of *Singapore*
+* *Singapore* Zoo
+
+Given below is a list of guidelines for the search feature.
 ****
 * The search is case insensitive. e.g `national` will match `National`.
 * The order of the keywords does not matter. e.g. `University National of Singapore` will match `National University of Singapore`.
-* Only the name is searched.
+* Only the name of the places in TravelBuddy is searched.
 * Only full words will be matched e.g. `Nation` will not match `National`
 * Places matching at least one keyword will be returned (i.e. `OR` search). e.g. `National Museum` will return `National Museum of Singapore`, `National University Hospital`.
 ****
-
-image::UIsearchresults.png[width="600"]
-
-Examples:
-
-* `search National` +
-Returns `National Museum of Singapore` and `National University Hospital`
-* `search National Temple` +
-Returns any place having names `National` or `Temple`
 
 === Searching places by ratings: `searchr`
 
@@ -174,19 +185,24 @@ The `searchr` command helps you to search for places whose ratings match the spe
 
 Format: `searchr INDEX [MORE_INDICES]`
 
-****
-* The search rating is from a range of 1 to 5. e.g `5` will return places with 5 star ratings.
-* Only the ratings are searched.
-****
+Example:
+`searchr 4` +
+Executes a search for places with a rating of `4`.
 
+[UIsearchratingresults]
+.Search results of `searchr 4`.
+[#img-UIsearchratingresults]
+[caption="Figure 3.6.1: "]
 image::UIsearchratingresults.png[width="600"]
 
-Examples:
+From Figure 3.6.1, using `searchr 4` will return all places in your TravelBuddy that have a rating of `4`.
 
-* `searchr 5` +
-Returns a list of places with rating of `5`
-* `searchr 4 5` +
-Returns a list of places with ratings of `4` or `5`
+Given below is a list of guidelines for the search rating feature.
+****
+* The search rating is from a range of 1 to 5. e.g `5` will return places with 5 star ratings.
+* Only the rating of the places in TravelBuddy is searched.
+* Multiple indices can be included in the query, i.e. `searchr 4 5` will return places with `4` or `5` star ratings.
+****
 
 === Searching places by tags: `searcht`
 
@@ -194,21 +210,26 @@ The `searcht` command helps you to search for places whose tags correspond to an
 
 Format: `searcht KEYWORD [MORE_KEYWORDS]`
 
-****
-* The search is case insensitive. e.g `Temple` will match `temple`.
-* Only the tags are searched.
-* Only full words will be matched e.g. `temp` will not match `temple`.
-* Places tagged with at least one matching keyword will be returned (i.e. `OR` search). e.g. `temple school` will return places tagged with `temple` or `school`.
-****
+Example:
+`searcht distillery` +
+Executes a search for places that are tagged with `distillery`.
 
+[UIsearchtagsresults]
+.Search results of `searcht distillery`.
+[#img-UIsearchtagsresults]
+[caption="Figure 3.7.1: "]
 image::UIsearchtagsresults.png[width="600"]
 
-Examples:
+From Figure 3.7.1, using `searcht distillery` will return all places in your TravelBuddy that are tagged with `distillery`.
 
-* `searcht temple` +
-Returns a list of places tagged with `temple`
-* `searcht temple school` +
-Returns a list of places tagged with `temple` or `school`
+Given below is a list of guidelines for the search tags feature.
+****
+* The search is case insensitive. e.g `Temple` will match `temple`.
+* Only the tags of the places in TravelBuddy are searched.
+* Only full words will be matched e.g. `temp` will not match `temple`.
+* Places tagged with at least one matching keyword will be returned (i.e. `OR` search). e.g. `temple school` will return places tagged with `temple` or `school`.
+* Multiple keywords can be included in the query, i.e. `searcht distillery temple` will return places tagged with `distillery` or `temple`.
+****
 
 === Searching places by country: `searchc`
 
@@ -216,21 +237,24 @@ The `searchc` command helps you to search for places whose country matches the s
 
 Format: `searchc KEYWORD [MORE_KEYWORDS]`
 
+Example: `searchc JPN` +
+Executes a search for places located in `JPN` (Japan).
+
+[UIsearchcountryresults]
+.Search results of `searchc JPN`.
+[#img-UIsearchcountryresults]
+[caption="Figure 3.8.1: "]
+image::UIsearchcountryresults.png[width="600"]
+
+From Figure 3.8.1, using `searchc JPN` will return all places in your TravelBuddy that are located in Japan.
+
+Given below is a list of guidelines for the search country feature.
 ****
 * The country code keywords for `searchc` must be valid 3-letter ISO-3166 country codes.
 * The search country is from a list of ISO-3166 country codes. e.g `JPN` will return places located in Japan.
-* Only the country is searched.
-
+* Only the country of the places in TravelBuddy is searched.
+* Multiple keywords can be included in the query, i.e. `searchc JPN CHN` will return places located in Japan or China.
 ****
-
-image::UIsearchcountryresults.png[width="600"]
-
-Examples:
-
-* `searchc CHN` +
-Returns a list of places located in `China`
-* `searchc JPN DEU` +
-Returns a list of places located in either `Japan` or `Germany`
 
 === Searching places by year of visit: `searchyear`
 
@@ -239,27 +263,28 @@ The `searchyear` command helps you to search for places whose year of visit matc
 Format: `searchyear KEYWORD [MORE_KEYWORDS]` OR +
 `searchyear KEYWORD-KEYWORD`
 
-****
-* The search year is bounded from 1900 to the current year. e.g `2016` will return places visited in the year 2016.
-* Searches outside the bounds will issue a warning.
-* The year keywords for `searchyear` can be entered as a range. e.g `2010-2017` will return all the places visited from `2010` to `2017`.
-* Only the year of visit is searched.
-****
+Example: `searchyear 2016` +
+Executes a search for places visited in the year `2016`.
 
+[UIsearchyearresults]
+.Search results of `searchyear 2016`.
+[#img-UIsearchyearresults]
+[caption="Figure 3.9.1: "]
 image::UIsearchyearresults.png[width="600"]
 
-Examples:
+From Figure 3.9.1, using `searchyear 2016` will return all places in your TravelBuddy you visited in the year `2016`.
 
-* `searchyear 2017` +
-Returns a list of places visited in the year `2017`
-* `searchyear 2016 2018` +
-Returns a list of places visited in the year `2016` or `2018`
-* `searchyear 2010-2017` +
-Returns a list of places visited from `2010` to `2017`
+Given below is a list of guidelines for the search country feature.
+****
+* The search year is bounded from 1900 to the current year. e.g `2016` will return places visited in the year 2016.
+* Search requests outside the bounds will issue a warning.
+* The year keywords for `searchyear` can be entered as a range. e.g `2010-2017` will return all the places visited from `2010` to `2017`.
+* Only the year of visit of the places in TravelBuddy is searched.
+****
 // end::search[]
 
 // tag::delete[]
-=== Deleting a place : `delete`
+=== Deleting a place: `delete`
 
 The `delete` command deletes the specified place from TravelBuddy. +
 
@@ -290,7 +315,7 @@ Deletes the 2nd place in TravelBuddy.
 Deletes the 1st place in the results of the `find` command.
 // end::delete[]
 
-=== Deleting multiple places : `deletem`
+=== Deleting multiple places: `deletem`
 
 The `deletem` command deletes multiple places from TravelBuddy's currently displayed list on the left. +
 
@@ -316,7 +341,7 @@ Deletes the 1st, 2nd, 3rd and 4th place in the currently displayed list on the l
 `deletem 1 3` +
 Deletes the 1st, 2nd and 3rd place in the results of the `search Singapore` command.
 
-=== Selecting a place : `select`
+=== Selecting a place: `select`
 
 The `select` command selects the place identified by the index number used in the currently displayed list on the left,
 which loads expanded details of the selected place on the right of the displayed list.
@@ -344,7 +369,7 @@ Selects the 2nd place in TravelBuddy.
 `select 1` +
 Selects the 1st place in the results of the `find` command.
 
-=== Listing previously entered commands : `history`
+=== Listing previously entered commands: `history`
 
 The `history` command lists all the commands that you have entered in reverse chronological order. +
 
@@ -361,7 +386,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 // tag::undoredo[]
-=== Undoing previous command : `undo`
+=== Undoing previous command: `undo`
 
 The `undo` command restores TravelBuddy to the state before the previous _undoable_ command was executed. +
 
@@ -376,11 +401,9 @@ Undoable commands: Commands that modify TravelBuddy's data (`add`, `delete`, `de
 Examples: +
 
 * `delete 1` +
-`list` +
 `undo` (reverses the `delete 1` command) +
 
 * `select 1` +
-`list` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
 
@@ -389,7 +412,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-=== Redoing the previously undone command : `redo`
+=== Redoing the previously undone command: `redo`
 
 The `redo` command reverses the most recent `undo` command. +
 
@@ -413,7 +436,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Clearing all entries : `clear`
+=== Clearing all entries: `clear`
 
 The `clear` command clears all place entries from TravelBuddy. +
 
@@ -424,7 +447,7 @@ The image below shows the results of running a `clear` command, which will remov
 
 image::clearCommand.png[width="600"]
 
-=== Exiting the program : `exit`
+=== Exiting the program: `exit`
 
 The `exit` command exits the program. +
 Format: `exit`

@@ -11,7 +11,10 @@ public class RatingChart {
     private Rating rating;
     private int total;
 
+    public RatingChart() {}
+
     public RatingChart(Rating rating, int total) {
+        this();
         this.rating = rating;
         this.total = total;
     }

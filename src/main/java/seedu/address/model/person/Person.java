@@ -136,20 +136,20 @@ public class Person {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Matric Number: ")
+                .append(getMatricNumber())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
+                .append(" Address: ")
+                .append(getAddress())
                 .append(" Gender: ")
                 .append(getGender())
-                .append(" Major: ")
-                .append(getMajor())
-                .append(" Matric Number: ")
-                .append(getMatricNumber())
                 .append(" Year of Study: ")
                 .append(getYearOfStudy())
+                .append(" Major: ")
+                .append(getMajor())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

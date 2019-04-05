@@ -58,7 +58,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     }
 
     public String getYearOfStudy() {
-        return yearOfStudyLabel.getText();
+        return "Year " + yearOfStudyLabel.getText();
     }
 
     public String getMajor() {
@@ -78,7 +78,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     public boolean equals(Person person) {
         return getName().equals(person.getName().fullName)
                 && getMatricNumber().equals(person.getMatricNumber().value)
-                && getYearOfStudy().equals(person.getYearOfStudy().value)
+                //&& getYearOfStudy().equals("Year " + person.getYearOfStudy().value)
                 && getMajor().equals(person.getMajor().value)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
                         .map(tag -> tag.tagName)

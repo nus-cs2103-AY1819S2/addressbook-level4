@@ -45,7 +45,7 @@ public class PersonCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         matricNumber.setText(person.getMatricNumber().value);
-        yearOfStudy.setText(person.getYearOfStudy().value);
+        yearOfStudy.setText("Year " + person.getYearOfStudy().value);
         major.setText(person.getMajor().value);
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }

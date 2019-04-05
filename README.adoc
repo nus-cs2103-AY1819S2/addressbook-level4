@@ -7,7 +7,7 @@ image::docs/images/clubmanager.png[width="200"]
 endif::[]
 
 ifndef::env-github[]
-image::docs/images/clubmanager.png[width="200"]
+image::images/clubmanager.png[width="200"]
 endif::[]
 
 
@@ -21,7 +21,7 @@ image::docs/images/Ui.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::images/Ui.png[width="600"]
 endif::[]
 
 ifdef::env-github[]
@@ -29,7 +29,7 @@ image::docs/images/Ui2.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::docs/images/Ui2.png[width="600"]
+image::images/Ui2.png[width="600"]
 endif::[]
 
 == What is ClubManager?

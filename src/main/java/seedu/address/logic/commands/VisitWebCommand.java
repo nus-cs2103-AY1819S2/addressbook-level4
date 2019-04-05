@@ -7,6 +7,7 @@ import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.NoInternetException;
+import seedu.address.commons.util.WebUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -82,7 +83,7 @@ public class VisitWebCommand extends Command {
      * @throws CommandException when url is invalid
      */
     private void checkUrl(Weblink weblink) throws NoInternetException, CommandException {
-        if (Weblink.isNotValidWeblinkUrl(weblink.value)) {
+        if (WebUtil.isNotValidWeblinkUrl(weblink.value)) {
             throw new CommandException(String.format(Messages.MESSAGE_CHANGE_WEBLINK, weblink.value));
         }
     }

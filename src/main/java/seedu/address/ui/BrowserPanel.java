@@ -13,6 +13,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.WebUtil;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Weblink;
 
@@ -63,7 +64,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     public void loadPage(String url) {
-        Platform.runLater(() -> browser.getEngine().load(Weblink.prependHttps(url)));
+        Platform.runLater(() -> browser.getEngine().load(WebUtil.prependHttps(url)));
     }
 
     /**

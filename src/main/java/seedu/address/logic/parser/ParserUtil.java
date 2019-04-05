@@ -9,6 +9,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.NoInternetException;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.commons.util.WebUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.restaurant.Address;
 import seedu.address.model.restaurant.Email;
@@ -227,31 +228,22 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code weblink} is invalid.
      */
-    public static Weblink parseWeblink(String weblink) throws ParseException {
+    public static Weblink parseWeblink(String weblink) throws ParseException, NoInternetException {
         requireNonNull(weblink);
         String trimmedWeblink = weblink.trim();
+        if (weblink.equals(Weblink.NO_WEBLINK_STRING)) {
+            return new Weblink(trimmedWeblink);
+        }
         if (!Weblink.isValidWeblinkString(trimmedWeblink)) {
             throw new ParseException(Weblink.MESSAGE_CONSTRAINTS);
         }
 
-        try {
-            checkUrl(trimmedWeblink);
-        } catch (NoInternetException e) {
-            throw new ParseException(e.getMessage());
-        }
-        return new Weblink(trimmedWeblink);
-    }
-
-    /**
-     * Checks if url is valid using isNotValidWeblinkUrl method from Weblink
-     * @param trimmedWeblink
-     * @throws NoInternetException when internet connection fails
-     * @throws ParseException when url is invalid
-     */
-    private static void checkUrl(String trimmedWeblink) throws NoInternetException, ParseException {
-        if (Weblink.isNotValidWeblinkUrl(trimmedWeblink)) {
+        // Check if weblink is valid, throw NoInternetException if no internet connection is found
+        if (WebUtil.isNotValidWeblinkUrl(trimmedWeblink)) {
             throw new ParseException(String.format(Weblink.INVALID_URL_MESSAGE, trimmedWeblink));
         }
+
+        return new Weblink(trimmedWeblink);
     }
 
     /**

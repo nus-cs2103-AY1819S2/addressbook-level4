@@ -12,9 +12,9 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/cs2103-ay1819s2-w13-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `W13-1 and Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
@@ -276,6 +276,7 @@ Format: `select-med-hist index`
 
 ****
 * Display the full medical history with the specified index.
+****
 
 Examples:
 
@@ -284,6 +285,7 @@ Returns full write up of the medical history with index 1.
 
 === Adding an appointment: `add-appt`
 
+{Validation of data input not completed yet} +
 Adds an appointment under the doctor and patient involved. +
 Format: `add-appt pid/PATIENT_ID did/DOCTOR_ID d/DATE_OF_APPT t/START_TIME`
 
@@ -291,19 +293,32 @@ Format: `add-appt pid/PATIENT_ID did/DOCTOR_ID d/DATE_OF_APPT t/START_TIME`
 * Doctors are assumed to be free from 9am to 12pm and 1pm to 5pm.
 * Appointments are in 1-hour blocks.
 * Returns invalid if the doctor is not available during the specified block.
-* `DATE_OF_APPT` must be in the format `DDMMYYYY`
+* `DATE_OF_APPT` must be in the format `YYYY-MM-DD`
 * `START_TIME` must be in the 24-hour format `HH` as timing for appointment is hourly, starting from 9am.
 ****
 
 Examples:
 
-* `add-appt pid/1 did/1 d/25032019 t/09` +
-Adds an appointment under patient with ID of '1' and doctor with ID of '1' on 25th March 2019 at 9am.
-* `add-appt pid/3 did/2 d/25042019 t/13` +
-Adds an appointment under patient with ID of '3' and doctor with ID of '2' on 25th April 2019 at 1pm.
+* `add-appt pid/1 did/1 d/2019-06-01 t/09:00` +
+Adds an appointment under patient with ID of '1' and doctor with ID of '1' on 1st June 2019 at 9am.
+* `add-appt pid/3 did/2 d/2019-06-01 t/13:00` +
+Adds an appointment under patient with ID of '3' and doctor with ID of '2' on 1st June 2019 at 1pm.
+
+=== Listing of appointments : `list-appt`
+Shows a list of all appointments in the system. +
+Format: `list-appt`
+
+****
+* Completed or cancelled appointments will not be displayed.
+****
+
+Examples:
+
+* `list-appt` +
+Lists all appointments.
 
 === Completing an appointment : `complete-appt`
-
+{Not available yet} +
 Complete the appointment when the patient and doctor finishes the appointment. +
 Format: `complete-appt INDEX`
 
@@ -322,7 +337,7 @@ Completes the appointment with ID of '1' in docX.
 Completes the appointment with ID of '3' in docX.
 
 === Cancelling an appointment : `cancel-appt`
-
+{Not available yet} +
 Cancel the appointment when the patient or doctor cannot attend the appointment. +
 Format: `cancel-appt INDEX`
 
@@ -342,7 +357,7 @@ Cancels and delete the appointment with ID of '3' in docX.
 
 
 === Listing appointments of a doctor : `list-appt`
-
+{Not available yet} +
 Shows a list of all incomplete appointments of a doctor in docX within a specified time period. +
 Format: `list-appt did/DOCTOR_ID sd/START_DATE ed/END_DATE`
 
@@ -357,7 +372,7 @@ Examples:
 Lists all appointments of the doctor with ID of '3' from 30th March 2019 to 30th April 2019.
 
 === Listing available timings of a doctor : `list-doc-time`
-
+{Not available yet} +
 Shows a list of all available blocks of timing of the specified doctor. +
 Format: `list-doc-time did/DOCTOR_ID d/DATE`
 
@@ -372,7 +387,7 @@ Examples:
 Lists all available blocks of timing of the doctor with ID of '3' on 5th March 2019.
 
 === Listing available timings of all doctors : `list-time`
-
+{Not available yet} +
 Shows a list of all available blocks of timings of all doctors on the specified date. +
 Format: `list-time DATE`
 
@@ -606,7 +621,7 @@ e.g. `view-med-hist n/JOHN DOE mhid/1`
 APPOINTMENT COMMANDS
 
 * *Add a new appointment* `add-appt pid/PATIENT_ID did/DOCTOR_ID d/DATE_OF_APPT t/START_TIME` +
-e.g. `add-appt pid/1 did/1 d/25032019 t/09`
+e.g. `add-appt pid/1 did/1 d/2019-06-01 t/09:00`
 * *Completing an appointment* : `complete-appt INDEX`
 * *Cancelling an appointment* : `cancel-appt INDEX`
 * *List upcoming appointments of a doctor* : `list-appt did/DOCTOR_ID sd/START_DATE ed/END_DATE`

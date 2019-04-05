@@ -299,7 +299,11 @@ Examples:
 [TIP]
 The order of parameters does not matter - reordering each parameter would also work!
 
-[NOTE]
+[WARNING]
+Note that the application allows the user to create requests with *any* valid Calendar date. Hence, it is the responsibility of the user
+to ensure that the date is correct prior to keying it into the system. To edit a request with date incorrectly entered, use the
+`edit request` command.
+
 
 
 // tag::editHealthWorker[]
@@ -561,13 +565,19 @@ than the number of requests/health workers in the current list.
 
 Examples:
 
-* `assign 1 2` +
+* `assign r/1 hw/2` +
 Assigns the health worker at the second index to the first request in the
 request list.
+* `assign hw/2 r/1` +
+                   Assigns the health worker at the second index to the first request in the
+                   request list.
+
+[TIP]
+The order in which the `r/` and `hw/` can be used interchangably, as long as they appear after the `assign` word.
 
 [NOTE]
 ====
-You cannot assign a healthworker to a completed request. To assign a healthworker to a request that is already completed,
+A healthworker cannot be assigned to a completed request. To assign a healthworker to a request that is already completed,
 use `edit` to change the status of the request to pending first.
 ====
 
@@ -595,9 +605,8 @@ Marks the first request in the list as completed.
 
 === Clearing Requests : `clr`
 
-After completing all existing requests, you also have the option of clearing all
- requests from the request list, upon
-  entering the `clr` command. Note that the clear command can only be issued if every request in the request list is completed.
+Let's say you want to quickly remove all the requests quickly. You can do so by simply
+  entering the `clr` command. Note that the clear command can only be issued if there are no ongoing requests in the request list.
 
 Format: `clr`
 
@@ -608,11 +617,26 @@ Format: `clr`
 
 [WARNING]
 ====
-Clearing requests would delete all records of completed requests.
+Clearing requests would delete all records of requests.
 
 If you would like to delete just one particular request, consider using the
 `delete` command instead.
 ====
+
+[TIP]
+If you want to clear the requests but there are ongoing requests, complete the ongoing requests using the `complete` command first.
+
+
+=== Closing Requests : `complete`
+* The `request_index` *must be a positive integer* 1, 2, 3, ... and not greater
+than the number of requests in the current list.
+* Only *Ongoing* requests can be completed. To complete a pending request, edit it's status first, using the `edit request`
+command.
+
+*Examples*
+
+* `complete 1` +
+completes the first request on the request list panel. Note that this request has to have Ongoing status prior to executing this command.
 
 === Undoing Commands : `undo`
 
@@ -626,6 +650,7 @@ Format: `undo`
 * The `undo` command can only be used to undo commands that modify the lists such as `add`, `delete` and `edit`.
 * For commands that affects the display such as `filter`, you can use `list` command revert back the original list.
 ====
+
 
 === Redoing undone commands : `redo`
 

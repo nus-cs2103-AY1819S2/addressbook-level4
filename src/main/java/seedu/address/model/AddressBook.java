@@ -255,6 +255,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Get the activities attended by this {@code Person}.
+     */
+    public ObservableList<Activity> getActivitiesOfPerson(Person key) {
+        UniqueActivityList attending = new UniqueActivityList();
+        for (Activity activity: activities) {
+            if (isPersonAttending(key, activity)) {
+               attending.add(activity);
+            }
+        }
+        return attending.asUnmodifiableObservableList();
+    }
+
+    /**
      * Get the person in the attendance from this {@code AddressBook}.
      */
     public ObservableList<Person> getAttendingFromActivity(Activity key) {

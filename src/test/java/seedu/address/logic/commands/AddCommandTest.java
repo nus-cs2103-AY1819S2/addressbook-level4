@@ -161,7 +161,7 @@ public class AddCommandTest {
 
         @Override
         public Semester getCurrentSemester() {
-            throw new AssertionError("This method should not be called.");
+            return Semester.Y1S1;
         }
 
         @Override

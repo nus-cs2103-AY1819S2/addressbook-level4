@@ -24,7 +24,7 @@ image::dlqs.png[width="150", align="left"]
 {empty}[https://github.com/dlqs[github]] [<<donaldlee#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Scoring features
+Responsibilities: Report and Scoring features
 
 '''
 
@@ -33,7 +33,7 @@ image::kerryneer.png[width="150", align="left"]
 {empty}[https://github.com/KerrynEer[github]] [<<kerryneer#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Test session feature
+Responsibilities: Test session features
 
 '''
 
@@ -48,9 +48,9 @@ Responsibilities: Card features
 
 === Ong Yi Chong
 image::yichong96.png[width="150", align="left"]
-{empty}[https://github.com/yichong96[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/yichong96[github]] [<<ongyichong#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Enhanced user functionality features
+Responsibilities: Advanced features
 
 '''

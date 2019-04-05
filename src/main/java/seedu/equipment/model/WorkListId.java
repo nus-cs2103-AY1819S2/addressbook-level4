@@ -14,7 +14,8 @@ public class WorkListId {
     //private int thisId;
 
     public static final String MESSAGE_CONSTRAINTS =
-            "WorkList id should only contain numbers, and it should be at least 1 digits long";
+            "WorkList id should only contain numbers, and it should be at least 1 digits long and should "
+                    + "not begin with 0";
     public static final String VALIDATION_REGEX = "[1-9]\\d{0,}";
     public final String value;
 

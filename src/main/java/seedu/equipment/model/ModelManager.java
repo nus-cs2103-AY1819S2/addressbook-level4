@@ -156,6 +156,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasEquipmentWithSerialNumber(SerialNumber serialNumber) {
+        requireNonNull(serialNumber);
+        return versionedEquipmentManager.hasEquipmentWithSerialNumber(serialNumber);
+    }
+
+    @Override
     public void resetData(ReadOnlyEquipmentManager newData) {
         versionedEquipmentManager.resetData(newData);
 

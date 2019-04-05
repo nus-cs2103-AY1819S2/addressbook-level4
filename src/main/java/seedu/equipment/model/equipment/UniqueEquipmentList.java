@@ -39,6 +39,20 @@ public class UniqueEquipmentList implements Iterable<Equipment> {
     }
 
     /**
+     * Returns true if the list contains an equipment with the serial number given.
+     */
+    public boolean containsWithSerialNumber(SerialNumber serialNumber) {
+        requireNonNull(serialNumber);
+        Name sampleName = new Name("sampleName");
+        Address sampleAddress = new Address("sampleAddress");
+        Date sampleDate = new Date("22 April 2018");
+        Phone samplePhone = new Phone("64894359");
+        Equipment sampleEquipment = new Equipment(sampleName, samplePhone, sampleDate,
+                sampleAddress, serialNumber, SampleDataUtil.getTagSet("west"));
+        return internalList.stream().anyMatch(sampleEquipment::isSameEquipment);
+    }
+
+    /**
      * Adds a equipment to the list.
      * The equipment must not already exist in the list.
      */

@@ -40,16 +40,22 @@ public class WorkListCard extends UiPart<Region> {
     private FlowPane equipments;
 
     public WorkListCard(WorkList workList, int displayedIndex) {
+
         super(FXML);
         this.workList = workList;
         id.setText(displayedIndex + ". ");
-        assignee.setText(workList.getAssignee());
-        date.setText(workList.getDate());
-        worklistid.setText(String.valueOf(workList.getId().value));
-        workList.getEquipments().forEach(equipment -> {
-            String equipmentName = equipment.getName().name;
-            equipments.getChildren().add(new Label(equipmentName));
-        });
+        assignee.setText("Assignee: " + workList.getAssignee());
+        date.setText("Date: " + workList.getDate());
+        worklistid.setText("WorkList Id: " + workList.getId().value);
+        if (workList.getEquipments().isEmpty()) {
+            equipments.getChildren().add(new Label("No equipment in this WorkList."));
+        } else {
+            equipments.getChildren().add(new Label("Equipments: "));
+            workList.getEquipments().forEach(equipment -> {
+                String equipmentSerialNumber = equipment.getSerialNumber().serialNumber + " ";
+                equipments.getChildren().add(new Label(equipmentSerialNumber));
+            });
+        }
     }
 
     @Override

@@ -58,8 +58,8 @@ public class GuiTestAssert {
      * Asserts that {@code actualCard} displays the details of {@code expectedWorkList}.
      */
     public static void assertCardDisplaysWorkList(WorkList expectedWorkList, WorkListCardHandle actualCard) {
-        assertEquals(expectedWorkList.getAssignee(), actualCard.getAssignee());
-        assertEquals(expectedWorkList.getDate(), actualCard.getDate());
+        assertEquals("Assignee: " + expectedWorkList.getAssignee(), actualCard.getAssignee());
+        assertEquals("Date: " + expectedWorkList.getDate(), actualCard.getDate());
         assertEquipmentsEqual(expectedWorkList, actualCard);
     }
 
@@ -79,7 +79,10 @@ public class GuiTestAssert {
      */
     private static void assertEquipmentsEqual(WorkList expectedWorkList, WorkListCardHandle actualCard) {
         List<String> expectedEquipments = expectedWorkList.getEquipments().stream()
-                .map(equipments -> equipments.getName().name).collect(Collectors.toList());
+                .map(equipments -> equipments.getSerialNumber().serialNumber).collect(Collectors.toList());
+        if (expectedEquipments.isEmpty()) {
+            expectedEquipments.add("No equipment in this WorkList.");
+        }
         assertEquals(expectedEquipments, actualCard.getEquipments());
     }
 

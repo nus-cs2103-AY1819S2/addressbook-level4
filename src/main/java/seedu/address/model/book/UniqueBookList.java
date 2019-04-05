@@ -116,9 +116,9 @@ public class UniqueBookList implements Iterable<Book> {
 
         Comparator<Book> bookComparator = (b1, b2) -> {
             Iterator<String> iterator = types.iterator();
-            String firstType = iterator.next().toLowerCase();
+            String firstType = iterator.next();
             List<BiFunction<Book, Book, Integer>> functions = new ArrayList<>();
-            if (firstType.equals(SortBookCommandParser.AUTHOR)) {
+            if (firstType.equalsIgnoreCase(SortBookCommandParser.AUTHOR)) {
                 functions.add(this::compareAuthor);
                 functions.add(this::compareBookName);
                 functions.add(this::compareRating);
@@ -128,7 +128,7 @@ public class UniqueBookList implements Iterable<Book> {
                     mainOrder, subOrder,
                     functions);
 
-            } else if (firstType.equals(SortBookCommandParser.BOOKNAME)) {
+            } else if (firstType.equalsIgnoreCase(SortBookCommandParser.BOOKNAME)) {
                 functions.add(this::compareBookName);
                 functions.add(this::compareAuthor);
                 functions.add(this::compareRating);
@@ -174,7 +174,7 @@ public class UniqueBookList implements Iterable<Book> {
             order = subOrders.getOrDefault(currentType, SortBookCommandParser.ASCENDING);
         }
 
-        if (order.equals(SortBookCommandParser.ASCENDING)) {
+        if (order.equalsIgnoreCase(SortBookCommandParser.ASCENDING)) {
             return compare.apply(b1, b2);
         } else {
             return compare.apply(b2, b1);
@@ -205,8 +205,8 @@ public class UniqueBookList implements Iterable<Book> {
             return result;
         }
 
-        String secondType = iterator.next().toLowerCase();
-        if (secondType.equals(sortType)) {
+        String secondType = iterator.next();
+        if (secondType.equalsIgnoreCase(sortType)) {
 
             return sortByType(b1, b2, iterator, mainOrder, secondType,
                 subOrder, functions.get(1), functions.get(2));
@@ -248,12 +248,12 @@ public class UniqueBookList implements Iterable<Book> {
 
     private int compareAuthor(Book b1, Book b2) {
 
-        return b1.getAuthor().fullName.compareTo(b2.getAuthor().fullName);
+        return b1.getAuthor().fullName.compareToIgnoreCase(b2.getAuthor().fullName);
     }
 
     private int compareBookName(Book b1, Book b2) {
 
-        return b1.getBookName().fullName.compareTo(b2.getBookName().fullName);
+        return b1.getBookName().fullName.compareToIgnoreCase(b2.getBookName().fullName);
     }
 
     /**

@@ -54,8 +54,8 @@ public class PutCommand extends Command {
         model.putEquipment(id, sr);
 
         model.commitEquipmentManager();
-        String MESSAGE_SUCCESS = MESSAGE_SUCCESS_ONE + id.value + MESSAGE_SUCCESS_TWO;
-        return new CommandResult(String.format(MESSAGE_SUCCESS, sr.serialNumber));
+        String success = MESSAGE_SUCCESS_ONE + id.value + MESSAGE_SUCCESS_TWO;
+        return new CommandResult(String.format(success, sr.serialNumber));
     }
 
     @Override

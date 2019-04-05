@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.List;
 
 import javafx.beans.InvalidationListener;
@@ -228,6 +229,13 @@ public class DocX implements ReadOnlyDocX {
     public void addMedHist(MedicalHistory medHist) {
         medHists.add(medHist);
         indicateModified();
+    }
+
+    /**
+     * Sort medical histories by date.
+     */
+    public void sortMedHist(Comparator<MedicalHistory> medHistComparator) {
+        medHists.sort(medHistComparator);
     }
 
     /**

@@ -48,7 +48,7 @@ public abstract class AttackResult {
     public abstract boolean isHit();
 
     public Status getStatus() {
-        return target.getMapGrid().getCellStatus(coords);
+        return attacker.getMapGrid().getCellStatus(coords);
     }
 
     /**

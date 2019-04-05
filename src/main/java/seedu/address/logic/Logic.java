@@ -107,4 +107,14 @@ public interface Logic {
      * Assuming mode has changed
      */
     boolean modeHasChange_isCurrModeActivity();
+
+    /**
+     * Returns a list of person attending the activity
+     */
+    ObservableList<Person> getAttendingOfSelectedActivity();
+
+    /**
+     * Returns lists of Person not attending the activity
+     */
+    ObservableList<Person> getPersonNotInSelectedActivity();
 }

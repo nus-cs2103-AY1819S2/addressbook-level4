@@ -36,7 +36,8 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
-    //private PersonListPanel personNotInActivityListPanel;
+    private ActivityDetailPanel activityDetailPanel;
+    private PersonNotAttendingListPanel personNotInActivityListPanel;
     private ActivityListPanel activityListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -123,6 +124,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         browserPanel = new BrowserPanel(logic.selectedPersonProperty());
+        activityDetailPanel = new ActivityDetailPanel(logic.selectedActivityProperty(),
+                logic.getAttendingOfSelectedActivity());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
@@ -130,7 +133,8 @@ public class MainWindow extends UiPart<Stage> {
         activityListPanel = new ActivityListPanel(logic.getFilteredActivityList(), logic.selectedActivityProperty(),
                 logic::setSelectedActivity);
         leftListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-        //rightListPanelPlaceholder.getChildren().add(activityListPanel.getRoot());
+        personNotInActivityListPanel = new PersonNotAttendingListPanel(logic.getPersonNotInSelectedActivity());
+        rightListPanelPlaceholder.getChildren().add(personNotInActivityListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -176,10 +180,12 @@ public class MainWindow extends UiPart<Stage> {
         logic.callAllListFn();
         if (isModeChangeToMember()) {
             leftListPanelPlaceholder.getChildren().set(0, personListPanel.getRoot());
+            browserPlaceholder.getChildren().set(0, browserPanel.getRoot());
             setModeLabel(AppMode.Modes.MEMBER);
         }
         if (isModeChangeToActivity()) {
             leftListPanelPlaceholder.getChildren().set(0, activityListPanel.getRoot());
+            browserPlaceholder.getChildren().set(0, activityDetailPanel.getRoot());
             setModeLabel(AppMode.Modes.ACTIVITY);
         }
     }

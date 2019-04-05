@@ -52,8 +52,30 @@ public abstract class AttackResult {
     }
 
     /**
+     * Returns a short form of the attack result, without the front portion
+     * "Player __ attacked __ __"
+     */
+    public abstract String resultString();
+
+    /**
      * Returns a String representation of the attack result.
      */
     @Override
-    public abstract String toString();
+    public String toString() {
+        return String.format(ATTACK, attacker.getName(), coords, target.getName()) + resultString();
+    }
+
+    /**
+     * Formats the string as if the user attacked.
+     */
+    public String formatAsUserAttack() {
+        return String.format("You attacked %s and ", coords) + resultString();
+    }
+
+    /**
+     * Formats the string as if the enemy attacked.
+     */
+    public String formatAsEnemyAttack() {
+        return String.format("Enemy attacked %s and ", coords) + resultString();
+    }
 }

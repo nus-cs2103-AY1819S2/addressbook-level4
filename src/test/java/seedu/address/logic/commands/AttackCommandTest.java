@@ -136,4 +136,12 @@ public class AttackCommandTest {
         CommandResult res = cmd.execute(model, new CommandHistory());
         assertTrue(res.getFeedbackToUser().contains("fail"));
     }
+
+    @Test
+    public void execute_invalidState_throwAssertionError() throws CommandException {
+        thrown.expect(AssertionError.class);
+        AttackCommand cmd = new AttackCommand(TypicalIndexes.COORDINATES_A1);
+        model.setBattleState(BattleState.PLAYER_PUT_SHIP);
+        cmd.execute(model, new CommandHistory());
+    }
 }

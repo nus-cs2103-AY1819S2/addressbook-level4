@@ -3,7 +3,6 @@ package seedu.address.logic.battle;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -75,9 +74,9 @@ public class BattleManager implements Battle {
     @Override
     public List<AttackResult> takeComputerTurns() {
         // AI takes its turn
+        List<AttackResult> resList = new ArrayList<>();
         try {
             AttackResult lastRes;
-            List<AttackResult> resList = new ArrayList<>();
             do {
                 Coordinates enemyAttack = enemyPlayer.enemyShootAt();
                 lastRes = performAttack(enemyPlayer, humanPlayer, enemyAttack);
@@ -86,11 +85,19 @@ public class BattleManager implements Battle {
                 logger.info(String.format("+++++++BATMAN SAYS: LAST HIT ON: " + enemyAttack.toString()
                     + " status: " + lastRes.toString()));
                 resList.add(lastRes);
+                enemyPlayer.getMapGrid().updateUi();
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException ex) {
+                    logger.info(ex.getMessage());
+                }
             } while (lastRes.isHit());
             return resList;
         } catch (Exception ex) {
-            return Collections.singletonList(
+            resList.add(
                 new AttackFailed(enemyPlayer, humanPlayer, null, ex.getMessage()));
+        } finally {
+            return resList;
         }
     }
 

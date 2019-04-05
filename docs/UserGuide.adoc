@@ -19,7 +19,7 @@ By: `Team W11-04`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-BookSquirrel is for those who *want to keep a record of books they've read*. More importantly, BookSquirrel is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BookSquirrel can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+BookSquirrel is for those who *want to keep a record of books they've read*. More importantly, BookSquirrel is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BookSquirrel can get your book management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -54,7 +54,7 @@ E.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Book name and author name should not exceed 50 characters (space included).
 * Review title should not exceed 70 characters (space included).
 * Review content should not exceed 350 characters (space included).
-* Rating should be integer from 0 to 10 inclusive.
+* Rating should be integer from 0 to 10 inclusive and the input should be 1 or 2 digit number.
 * Tags should not exceed 20 characters (space included).
 ====
 

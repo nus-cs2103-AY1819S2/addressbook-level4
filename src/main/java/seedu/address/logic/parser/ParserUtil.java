@@ -104,7 +104,7 @@ public class ParserUtil {
         if (!Rating.isValidRating(trimmedRating)) {
             throw new ParseException(Rating.MESSAGE_CONSTRAINTS);
         }
-        return new Rating(trimmedRating);
+        return new Rating(trimmedRating.replaceFirst("^0+(?!$)", ""));
     }
 
     /**

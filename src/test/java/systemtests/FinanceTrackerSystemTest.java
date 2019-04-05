@@ -219,7 +219,7 @@ public abstract class FinanceTrackerSystemTest {
      */
 
     protected void assertSelectedCardDeselected() {
-        assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+//        assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertFalse(getRecordListPanel().isAnyCardSelected());
     }
 
@@ -255,7 +255,7 @@ public abstract class FinanceTrackerSystemTest {
      */
 
     protected void assertSelectedCardUnchanged() {
-        assertFalse(getBrowserPanel().isUrlChanged());
+//        assertFalse(getBrowserPanel().isUrlChanged());
         assertFalse(getRecordListPanel().isSelectedRecordCardChanged());
     }
 

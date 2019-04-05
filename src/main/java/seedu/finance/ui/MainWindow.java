@@ -2,6 +2,9 @@ package seedu.finance.ui;
 
 import java.util.logging.Logger;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -9,8 +12,11 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import seedu.finance.commons.core.GuiSettings;
 import seedu.finance.commons.core.LogsCenter;
 import seedu.finance.logic.Logic;
@@ -25,6 +31,7 @@ import seedu.finance.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final double INITIALIZE_ANIMATION_TIME = 0.5;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -45,6 +52,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane graphPlaceholder;
+
+    @FXML
+    private AnchorPane graphPane;
+
+    @FXML
+    private StackPane browserPanelPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -243,6 +256,57 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getPeriodAmount()
         );
 
+        Timeline timeline = new Timeline();
+        browserPanelPlaceholder.setOpacity(0.0);
+        browserPanelPlaceholder.getChildren().clear();
+        browserPanelPlaceholder.getChildren().add(graphPane);
+        addFadeInAnimation(browserPanelPlaceholder, 0.0, timeline);
+        timeline.playFromStart();
+    }
+    /* //May want to check how to switch from summary panel and no summary panel
+    public void handleSwapBrowserPanelEvent(SwapLeftPanelEvent event) {
+        switch(event.getPanelType()) {
+            case LIST:
+                swapToList();
+                break;
+            case STATISTIC:
+                swapToStat();
+                break;
+            default:
+        }
+    }
+
+    /**
+     * Swaps the panel from statistics to list/
+
+    public void swapToList() {
+        Timeline timeline = new Timeline();
+        browserPanelPlaceholder.setOpacity(0.0);
+        browserPanelPlaceholder.getChildren().clear();
+        browserPanelPlaceholder.getChildren().add(recordListPanel.getRoot());
+        addFadeInAnimation(browserPanelPlaceholder, 0.0, timeline);
+        timeline.playFromStart();
+    }
+
+    /**
+     * Swaps the panel from list to statistics/
+
+    public void swapToStat() {
+        Timeline timeline = new Timeline();
+        browserPanelPlaceholder.setOpacity(0.0);
+        browserPanelPlaceholder.getChildren().clear();
+        browserPanelPlaceholder.getChildren().add(graphPane);
+        addFadeInAnimation(browserPanelPlaceholder, 0.0, timeline);
+        timeline.playFromStart();
+    }
+    */
+
+    public void addFadeInAnimation(Pane pane, double startTime, Timeline timeline) {
+        KeyFrame start = new KeyFrame(Duration.seconds(startTime), new KeyValue(pane.opacityProperty(),
+                0.0));
+        KeyFrame end = new KeyFrame(Duration.seconds(INITIALIZE_ANIMATION_TIME + startTime), new KeyValue(
+                pane.opacityProperty(), 1.0));
+        timeline.getKeyFrames().addAll(start, end);
     }
 
     //================== Changing Theme ==================//

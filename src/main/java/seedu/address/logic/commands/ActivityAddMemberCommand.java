@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -73,7 +74,8 @@ public class ActivityAddMemberCommand extends ActivityCommand {
         ActivityDateTime copyDateTime = selectedActivity.getDateTime();
         ActivityLocation copyLocation = selectedActivity.getLocation();
         ActivityDescription copyDescription = selectedActivity.getDescription();
-        List<MatricNumber> copyAttendance = selectedActivity.getAttendance();
+        List<MatricNumber> copyAttendance = new ArrayList<>();
+        copyAttendance.addAll(selectedActivity.getAttendance());
 
         Activity copyActivity = new Activity(copyName, copyDateTime, copyLocation, copyDescription, copyAttendance);
         copyActivity.addMemberToActivity(targetMatric);

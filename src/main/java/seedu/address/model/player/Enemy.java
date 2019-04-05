@@ -339,8 +339,13 @@ public class Enemy extends Player {
             }
             logger.info(String.format("++++++++WATCHLIST UPDATING:\n" + watchlist.toString()));
             logger.info(String.format("++++++++WATCHLIST SIZE:\n" + watchlist.size()));
-
         }
+        if (lastAttackStatus == Status.DESTROYED) {
+            cleanseWatchlist();
+            logger.info(String.format("++++++++WATCHLIST CLEANSED:\n" + watchlist.toString()));
+            logger.info(String.format("++++++++WATCHLIST SIZE:\n" + watchlist.size()));
+        }
+
 
     }
 
@@ -381,5 +386,22 @@ public class Enemy extends Player {
 
         int parity = (row % 2) + (col % 2);
         return (parity == 1);
+    }
+
+    /*************************************************************
+     *  puts everything back from the stack to the drawing bags
+     *  Idea here is that once something is destroyed,
+     *  everything on the stack should have been adj to the destroyed ship
+     */
+    private void cleanseWatchlist () {
+        while (!watchlist.empty()) {
+            Coordinates useCoord = watchlist.pop();
+            if (hasParity(useCoord.getRowIndex().getZeroBased(), useCoord.getColIndex().getZeroBased())) {
+                allParityTargets.add(useCoord);
+            }
+            allPossibleTargets.add(useCoord);
+            logger.info(String.format("++++++++RELEASE ON PAROLE COORD:\n" + useCoord.toString()));
+
+        }
     }
 }

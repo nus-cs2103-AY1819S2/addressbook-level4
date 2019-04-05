@@ -391,11 +391,11 @@ Format: `export [FILE_NAME]`
 
 ****
 * The `FILE_NAME` field is optional. You can refer to <<Appendix A: File Naming Convention>> for supported file name format if you want to specify a file name for the exported CSV file.
-* If no file name is specified, the export command uses the default file name format according to the date and time of export.
+* If no file name is specified, the `export` command uses the default file name format according to the date and time of export.
 * The specific data and time format used if no file name is specified is `dd_MMM_yyyy_HH_mm_ss` e.g. `18_Mar_2019_10_28_00`
 * The file extension for a CSV file is `.csv`
 * The exported file can be found in the default `exported` folder which can be found in the home folder used for your MediTabs application.
-* If the default `exported` folder is not found in the home folder, MediTabs will automatically create the folder when the export command is executed.
+* If the default `exported` folder is not found in the home folder, MediTabs will automatically create the folder when the `export` command is executed.
 ****
 
 Examples:

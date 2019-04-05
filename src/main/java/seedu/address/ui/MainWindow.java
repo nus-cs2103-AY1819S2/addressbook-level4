@@ -207,12 +207,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            try {
-                if (commandResult.isShowWeblink()) {
-                    handleShowWeblink(commandResult.getWeblink());
-                }
-            } catch (NoInternetException e) {
-                throw new CommandException(e.getMessage());
+            if (commandResult.isShowWeblink()) {
+                handleShowWeblink(commandResult.getWeblink());
             }
 
             return commandResult;
@@ -220,6 +216,9 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        } catch (NoInternetException e) {
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            throw new ParseException(e.getMessage());
         }
     }
 

@@ -4,10 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.net.URL;
 import java.util.logging.Logger;
-
 import javafx.application.Platform;
-import javafx.beans.value.ObservableValue;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -15,7 +12,6 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.NoInternetException;
 import seedu.address.commons.util.WebUtil;
-import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Weblink;
 
 /**
@@ -28,7 +24,6 @@ public class BrowserPanel extends UiPart<Stage> {
     public static final String SEARCH_PAGE_URL = "https://se-education.org/dummy-search-page/?name=";
 
     private static final String FXML = "BrowserPanel.fxml";
-
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML

@@ -47,7 +47,7 @@ public class WorkListCard extends UiPart<Region> {
         date.setText("Date: " + workList.getDate());
         worklistid.setText("WorkList Id: " + workList.getId().value);
         if (workList.getEquipments().isEmpty()) {
-            equipments.getChildren().add(new Label("No equipments in this WorkList."));
+            equipments.getChildren().add(new Label("No equipment in this WorkList."));
         } else {
             equipments.getChildren().add(new Label("Equipments: "));
             workList.getEquipments().forEach(equipment -> {

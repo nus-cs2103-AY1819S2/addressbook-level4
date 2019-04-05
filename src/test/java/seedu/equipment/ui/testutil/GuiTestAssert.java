@@ -79,7 +79,10 @@ public class GuiTestAssert {
      */
     private static void assertEquipmentsEqual(WorkList expectedWorkList, WorkListCardHandle actualCard) {
         List<String> expectedEquipments = expectedWorkList.getEquipments().stream()
-                .map(equipments -> equipments.getName().name).collect(Collectors.toList());
+                .map(equipments -> equipments.getSerialNumber().serialNumber).collect(Collectors.toList());
+        if (expectedEquipments.isEmpty()) {
+            expectedEquipments.add("No equipment in this WorkList.");
+        }
         assertEquals(expectedEquipments, actualCard.getEquipments());
     }
 

@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_INFO_CODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -54,6 +55,16 @@ public class AddCommand extends Command {
 
         if (model.hasModuleTaken(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+
+        if (toAdd.getExpectedMinGrade().getGradePoint()
+                > toAdd.getExpectedMaxGrade().getGradePoint()) {
+            throw new CommandException(Messages.MESSAGE_GRADES_OUT_OF_ORDER);
+        }
+
+        if (!toAdd.getExpectedMinGrade().equals(toAdd.getExpectedMaxGrade())
+                && toAdd.getSemester().getIndex() < model.getCurrentSemester().getIndex()) {
+            throw new CommandException(Messages.MESSAGE_GRADES_NOT_FINALIZED_BEFORE_SEMESTER);
         }
 
         model.addModuleTaken(toAdd);

@@ -90,6 +90,16 @@ public class EditCommand extends Command {
         ModuleTaken moduleTakenToEdit = lastShownList.get(index.getZeroBased());
         ModuleTaken editedModuleTaken = createEditedPerson(moduleTakenToEdit, editPersonDescriptor);
 
+        if (editedModuleTaken.getExpectedMinGrade().getGradePoint()
+                > editedModuleTaken.getExpectedMaxGrade().getGradePoint()) {
+            throw new CommandException(Messages.MESSAGE_GRADES_OUT_OF_ORDER);
+        }
+
+        if ((editPersonDescriptor.getExpectedMinGrade() != null || editPersonDescriptor.getExpectedMaxGrade() != null)
+                && editedModuleTaken.getSemester().getIndex() < model.getCurrentSemester().getIndex()) {
+            throw new CommandException(Messages.MESSAGE_GRADES_NOT_FINALIZED_BEFORE_SEMESTER);
+        }
+
         if (!moduleTakenToEdit.isSameModuleTaken(editedModuleTaken) && model.hasModuleTaken(editedModuleTaken)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }

@@ -43,7 +43,7 @@ public class GradTrak implements ReadOnlyGradTrak {
 
     public GradTrak() {
         for (int i = 0; i < NUM_SEMS; i++) {
-            addSemesterLimit(new SemLimit(new CapAverage(2.0), new CapAverage(5.0), new Hour("5.0"), new Hour("0.0"),
+            addSemesterLimit(new SemLimit(new CapAverage(2.0), new CapAverage(5.0), new Hour("5.0"), new Hour("9.0"),
                     new Hour("2.5"), new Hour("5.0"), new Hour("2.0"), new Hour("5.0"), new Hour("2.0"),
                     new Hour("5.0"), new Hour("6.0"), new Hour("10.0")));
         }
@@ -56,9 +56,6 @@ public class GradTrak implements ReadOnlyGradTrak {
     public GradTrak(ReadOnlyGradTrak toBeCopied) {
         this();
         resetData(toBeCopied);
-        if (toBeCopied instanceof GradTrak) {
-            currentSemester = ((GradTrak) toBeCopied).getCurrentSemester();
-        }
     }
 
     public Semester getCurrentSemester() {

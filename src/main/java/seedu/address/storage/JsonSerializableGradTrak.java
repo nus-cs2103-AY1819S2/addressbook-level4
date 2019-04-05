@@ -68,12 +68,13 @@ class JsonSerializableGradTrak {
             }
             gradTrak.addModuleTaken(moduleTaken);
         }
+        List<SemLimit> semList = new ArrayList<>();
         for (JsonAdaptedSemesterLimits jsonAdaptedSemesterLimits : semesterLimitList) {
-            SemLimit semLimit = jsonAdaptedSemesterLimits.toModelType();
-            gradTrak.addSemesterLimit(semLimit);
+            semList.add(jsonAdaptedSemesterLimits.toModelType());
         }
+        gradTrak.setSemesterLimits(semList);
         gradTrak.setCurrentSemester(Semester.getSemesterByZeroIndex(currentSemesterIndex));
-        return gradTrak;
+        return new GradTrak(gradTrak);
     }
 
 }

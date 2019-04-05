@@ -67,7 +67,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all restaurants
-* **`addReview`** `n/MCDONALDS r/4 m/delicious` : adds a review to MCDONALDS with rating 4 with the comment "delicious"
+* **`addReview`** `n/MCDONALDS rr/4 re/delicious` : adds a review to MCDONALDS with rating 4 with the comment "delicious"
 * **`delete`**`3` : deletes the 3rd restaurant shown in the index
 * *`exit`* : exits the app
 

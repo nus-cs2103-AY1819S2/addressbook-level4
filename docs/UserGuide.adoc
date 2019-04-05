@@ -323,10 +323,8 @@ Format: `exit`
 |=======================================================================
 |Feature |Format |Purpose   | Example
 |*Attack*| `attack [coordinate]` |Attacks a selected cell on the enemy map.| `attack c1`
-|*Clear*| `clear` |Clears the command box. | `clear`
-|*End player turn*| `end turn` |Relinquish player turn to allow enemy to shoot once. | `end turn`
-|*Help*| `help` |Opens up the help guide window. | `help`
-|*Create map*| `init [integer_size]` | Initializes the map grid. | `init 8`
+|*Game manual*| `help` |Opens up the help guide window. | `help`
+|*Create map of size 6-10*| `init [integer_size]` | Initializes the map grid. | `init 8`
 |*List ships*| `list` |List all available battleships | `list`
 |*List tags*| `listTags` |List all available battleships by tags | `listTags`
 |*Put ship on map*| `put n/NAME r/ORIENTATION c/COORDINATE [optional]t/TAG` |Place your battleship on the map. | `put n/Destroyer r/vertical c/a1 t/myfleet`

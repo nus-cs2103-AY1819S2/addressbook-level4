@@ -417,7 +417,7 @@ image::SampleCSVFileImage.png[width="790"]
 From the image above, you can observe that the exported CSV file only contains essential information such as the medicine batches, quantity and expiry date for each batch of medicine and which medicines are low in stock, expiring soon or have expired for easier reference.
 
 [IMPORTANT]
-You would observe that medicines without any batches are not included in the exported CSV file though they might be present in the current medicine inventory data shown in the GUI. This is by design, as our team believes that the exported CSV file should provide *useful detailed information*. Medicines without any batches would not have any useful information such as the quantity and expiry dates which are important when it comes to keeping track of your medicine inventory.
+You would observe that medicines without any batches are not included in the exported CSV file. This is by design, as our team believes that the exported CSV file should only provide *useful detailed information*. Medicines without any batches would not have any useful information such as the quantity and expiry dates which are important when it comes to keeping track of your medicine inventory.
 // end::exportcommand[]
 
 === Printing labels : `label`

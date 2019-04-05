@@ -170,6 +170,12 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasEquipmentWithSerialNumber(SerialNumber serialNumber) {
+
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasWorkList(WorkList workList) {
 
             throw new AssertionError("This method should not be called.");

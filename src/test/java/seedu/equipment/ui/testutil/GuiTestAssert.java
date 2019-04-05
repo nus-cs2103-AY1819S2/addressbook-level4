@@ -58,8 +58,8 @@ public class GuiTestAssert {
      * Asserts that {@code actualCard} displays the details of {@code expectedWorkList}.
      */
     public static void assertCardDisplaysWorkList(WorkList expectedWorkList, WorkListCardHandle actualCard) {
-        assertEquals(expectedWorkList.getAssignee(), actualCard.getAssignee());
-        assertEquals(expectedWorkList.getDate(), actualCard.getDate());
+        assertEquals("Assignee: " + expectedWorkList.getAssignee(), actualCard.getAssignee());
+        assertEquals("Date: " + expectedWorkList.getDate(), actualCard.getDate());
         assertEquipmentsEqual(expectedWorkList, actualCard);
     }
 

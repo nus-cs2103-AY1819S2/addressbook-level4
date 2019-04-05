@@ -25,7 +25,8 @@ public class PutCommand extends Command {
             + CliSyntax.PREFIX_ID + "1 "
             + CliSyntax.PREFIX_SERIALNUMBER + "A008866X ";
 
-    public static final String MESSAGE_SUCCESS = "The equipment added into the worklist: %1$s";
+    public static final String MESSAGE_SUCCESS_ONE = "The equipment added into the worklist(ID = ";
+    public static final String MESSAGE_SUCCESS_TWO = "): Serial Number: %1$s";
     public static final String MESSAGE_EQUIPMENT_NOT_FOUND = "This equipment serial number is not found.";
     public static final String MESSAGE_WORKLIST_NOT_FOUND = "This worklist id is not found.";
 
@@ -46,10 +47,15 @@ public class PutCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
+        if (!model.hasEquipmentWithSerialNumber(sr)) {
+            throw new CommandException(MESSAGE_EQUIPMENT_NOT_FOUND);
+        }
+
         model.putEquipment(id, sr);
 
         model.commitEquipmentManager();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, id, sr));
+        String MESSAGE_SUCCESS = MESSAGE_SUCCESS_ONE + id.value + MESSAGE_SUCCESS_TWO;
+        return new CommandResult(String.format(MESSAGE_SUCCESS, sr.serialNumber));
     }
 
     @Override

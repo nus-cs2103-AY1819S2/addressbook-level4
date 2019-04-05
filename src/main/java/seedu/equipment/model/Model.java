@@ -81,6 +81,11 @@ public interface Model {
     void putEquipment(WorkListId workListId, SerialNumber serialNumber);
 
     /**
+     * Returns true if a equipment with {@code serialNumber} exists in the equipment manager.
+     */
+    boolean hasEquipmentWithSerialNumber(SerialNumber serialNumber);
+
+    /**
      * Deletes the given equipment.
      * The equipment must exist in the equipment book.
      */

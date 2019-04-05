@@ -9,15 +9,24 @@
 
 == Overview
 
-*Equipment Manager* is a Preventive Maintenance (PM) planner application that allows users, specifically the engineers, to keep track of the PM schedule of all Resuscitation Equipment in Singapore. *Equipment Manager* is designed to allow engineers assign the equipment they are going to carry out maintenance work to their own work schedule. When they are carrying out maintenance work on multiple equipments in their work schedule, they are able to have a visual representation on the locations of all equipment. In order to carry out maintenance work efficiently, *Equipment Manager* provide engineers with an efficient route to take for visiting multiple locations, minimizing the chance that the resuscitation devices will fail and cause costly unscheduled downtime.
+*Equipment Manager* is a Preventive Maintenance (PM) planner application that allows users, specifically the engineers,
+ to keep track of the PM schedule of all Resuscitation Equipment in Singapore. *Equipment Manager* is designed to allow
+  engineers assign the equipment they are going to carry out maintenance work to their own work schedule. When they are
+   carrying out maintenance work on multiple equipments in their work schedule, they are able to have a visual
+    representation on the locations of all equipment. In order to carry out maintenance work efficiently, *Equipment
+     Manager* provide engineers with an efficient route to take for visiting multiple locations, minimizing the chance
+      that the resuscitation devices will fail and cause costly unscheduled downtime.
 
 == Summary of contributions
 
 * *Major enhancement*: constructed *a feature that helps users to have a collection of their equipments, named WorkList.*
 ** What it does: allows the user to create a work list, and put some equipments into a work list.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+** Justification: This feature improves the product significantly because it can help users to effectively allocate
+   equipment maintenance work to their staff.
+** Highlights: This enhancement affects the whole model and structure. It required an in-depth analysis of the
+   relationships between the WorkList and the Equipment. In addition, it also required more commands to be added into
+   this software. The implementation too was challenging as it required changes to the model and the commands.
+//** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 

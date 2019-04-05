@@ -87,7 +87,7 @@ Edits an existing book entry (eg. edit the mark, author or tag). +
 Format: `editBook INDEX [n/BOOKNAME] [a/AUTHOR] [m/RATING] [t/TAG]...`
 
 ****
-* Edits the book at the specified INDEX. The index refers to the index number shown in the displayed book list. The index must be a positive integer 1, 2, 3, …​
+* Edit the book at the specified INDEX. The index refers to the index number shown in the displayed book list. The index must be a positive integer 1, 2, 3, …​
 * Edit a book with new name same as the name of other book which is already existing in book shelf is not allowed
 * At least one of the optional fields must be provided.
 * If multiple valid parameters are supplied to the same field (E.g. addBook n/A n/B), the latter one will be took as the input
@@ -352,8 +352,8 @@ There is no need to save manually.
 === Book Commands
 * *AddBook* `addBook n/BOOKNAME a/author m/RATING(0-10) [t/TAG]…` +
 e.g. `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/textbook`
-* *EditBook* : `edit INDEX [n/BOOKNAME] [a/AUTHOR] [m/RATING]...` +
-e.g. `edit 1 n/Alice in Wonderland a/some author`
+* *EditBook* : `editBook INDEX [n/BOOKNAME] [a/AUTHOR] [m/RATING]...` +
+e.g. `editBook 1 n/Alice in Wonderland a/some author`
 * *DeleteBook* : `deleteBook INDEX` +
 e.g. `deleteBook 4`
 * *ListBook* : `listBook [n/NAME] [t/TAG] [m/RATING] [a/Author]` +

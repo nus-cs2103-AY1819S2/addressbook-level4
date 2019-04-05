@@ -29,7 +29,7 @@ To aid you in reading this portfolio without any confusion, this section provide
 |===
 | *Technical Terms* | *Meaning*
 | _Preventive Maintenance_ | A maintenance work that is regularly performed on a piece of equipment to lessen the likelihood of it failing. It is performed while the equipment is still working so that it does not break down unexpectedly.
-| _UI_ | User Interface (Ui) allows the user to interact with the application through inputs and outputs of data.
+| _UI_ | User Interface (UI) allows the user to interact with the application through inputs and outputs of data.
 | _basic function_ | It is the basic features in *Equipment Manager*: add, edit, delete and list equipments.
 |===
 
@@ -88,11 +88,9 @@ image:tip.png[width="40"]
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=introduction]
-
-include::../UserGuide.adoc[tag=aboutug]
-
 include::../UserGuide.adoc[tag=quickstart]
+
+include::../UserGuide.adoc[tag=addclient]
 
 include::../UserGuide.adoc[tag=glossary]
 

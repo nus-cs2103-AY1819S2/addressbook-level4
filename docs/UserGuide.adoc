@@ -137,6 +137,7 @@ Example:
 
 * `add n/Clementi CC p/67762517 pm/10 May 2019 a/ 220 Clementi Ave 4, Singapore 129880 s/A008844L t/west`
 
+// tag::addclient[]
 === Adding a client: `add-c`
 Adds a client to the *Equipment Manager*. The result of adding a client will be reflected on the panel labelled under *Client details*. +
 Format: `add-c n/CLIENT_NAME`
@@ -149,6 +150,7 @@ Format: `add-c n/CLIENT_NAME`
 Example:
 
 *  `add-c n/Clementi CC`
+// end::addclient[]
 
 === Creating a new worklist: `add-w`
 Create a worklist in the Equipment Manager by giving the worklist an ID +

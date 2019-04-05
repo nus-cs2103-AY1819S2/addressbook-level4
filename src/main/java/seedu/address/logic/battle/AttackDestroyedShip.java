@@ -16,7 +16,7 @@ public class AttackDestroyedShip extends AttackResult {
 
     @Override
     public boolean isHit() {
-        return false;
+        return true;
     }
 
     @Override

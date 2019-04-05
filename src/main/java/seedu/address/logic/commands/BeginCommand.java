@@ -28,7 +28,7 @@ public class BeginCommand extends Command {
         requireNonNull(model);
         // assert canExecuteIn(model.getBattleState());
         model.setBattleState(BattleState.ENEMY_PUT_SHIP);
-        model.getEnemyPlayer().prepEnemy();
+        model.getBattle().beginGame();
         model.setBattleState(BattleState.PLAYER_ATTACK);
         return new CommandResult(MESSAGE_BEGIN_SUCCESS);
     }

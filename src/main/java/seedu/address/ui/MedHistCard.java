@@ -42,7 +42,7 @@ public class MedHistCard extends UiPart<Region> {
         medicalHistoryId.setText("ID: " + medHist.getMedHistId());
         patientId.setText("Patient ID: " + medHist.getPatientId());
         doctorId.setText("Doctor ID: " + medHist.getDoctorId());
-        date.setText("Date: " + medHist.getDate().value);
+        date.setText("Date: " + medHist.getDate().toString());
         writeUp.setText("Write Up" + medHist.getWriteUp().value);
     }
 

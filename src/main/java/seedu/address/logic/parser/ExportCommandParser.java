@@ -22,7 +22,6 @@ public class ExportCommandParser implements Parser<ExportCommand> {
             exportValidation(parsedInOut.getFile());
             return new ExportCommand(parsedInOut);
         } catch (ParseException pe) {
-            System.out.println(ExportCommand.MESSAGE_USAGE);
             throw new ParseException(String.format("%s\n%s", pe.getMessage(), ExportCommand.MESSAGE_USAGE), pe);
         }
     }

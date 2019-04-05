@@ -130,7 +130,7 @@ public class DocXParser {
             return new SelectMedHistCommandParser().parse(arguments);
 
         case SortMedHistCommand.COMMAND_WORD:
-            return new SortMedHistCommand();
+            return new SortMedHistCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();

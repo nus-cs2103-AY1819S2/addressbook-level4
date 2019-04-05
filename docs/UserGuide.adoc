@@ -162,7 +162,7 @@ Only integration addons that have been verified by our team can be downloaded an
 
 Benefits of integration addon support are as follows:
 
-* Provides greater flexibility as your clinic might have different third party services which you might want to integrate with to allow for easier transition between services.
+* Provides greater flexibility as as you might choose to integrate with different third-party services which are currently used by your clinic, to allow for easier transition between services.
 * Allows you to customise MediTabs with features that your clinic requires without any unnecessary features which might not be relevant to your clinic's workflow.
 
 An example of an integration addon which would be supported by MediTabs:
@@ -410,6 +410,7 @@ If a file with the specified file name already exists in the default `exported` 
 
 A sample image of how the medicine inventory data in the exported CSV file is organised:
 
+.Sample of exported CSV file
 image::SampleCSVFileImage.png[width="790"]
 
 [NOTE]

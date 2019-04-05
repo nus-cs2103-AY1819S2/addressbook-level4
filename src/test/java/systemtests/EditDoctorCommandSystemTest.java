@@ -106,7 +106,8 @@
 //
 //        /* Case: clear specs -> cleared */
 //        index = INDEX_FIRST_PERSON;
-//        command = EditDoctorCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_SPECIALISATION.getPrefix();
+//        command = EditDoctorCommand.COMMAND_WORD + " " + index.getOneBased() + " "
+//              + PREFIX_SPECIALISATION.getPrefix();
 //        Doctor doctorToEdit = getModel().getFilteredDoctorList().get(index.getZeroBased());
 //        editedDoctor = new DoctorBuilder(doctorToEdit).withSpecs().build();
 //        assertCommandSuccess(command, index, editedDoctor);

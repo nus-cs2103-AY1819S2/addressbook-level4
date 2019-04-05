@@ -3,7 +3,7 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.logic.parser.AddCommandParser;
+import seedu.address.logic.parser.PatientAddCommandParser;
 
 /**
  * Represents a Person's phone number in the address book.
@@ -32,7 +32,7 @@ public class Phone {
      * Returns true if a given string is a valid phone number.
      */
     public static boolean isValidPhone(String test) {
-        if (!test.equals(AddCommandParser.NONE_PHONE) && !test.equals(AddCommandParser.NONE_NOKP)) {
+        if (!test.equals(PatientAddCommandParser.NONE_PHONE) && !test.equals(PatientAddCommandParser.NONE_NOKP)) {
             return test.matches(VALIDATION_REGEX);
         } else {
             return true;

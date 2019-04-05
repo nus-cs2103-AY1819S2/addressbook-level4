@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PROCEDURE;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -16,11 +17,13 @@ import seedu.address.ui.MainWindow;
 public class RecordAddCommand extends Command {
 
     public static final String COMMAND_WORD = "recordadd";
+    public static final String COMMAND_WORD2 = "radd";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new dental record to a patient. "
-            + "Parameters: "
-            + PREFIX_DESC + "Description \n"
-            + "Example: " + COMMAND_WORD + " "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " or " + COMMAND_WORD2
+            + ": Adds a new dental record to a patient. "
+            + "Parameters: " + PREFIX_PROCEDURE + "PROCEDURE "
+            + PREFIX_DESC + "DESCRIPTION \n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_PROCEDURE + "Other-Checkup "
             + PREFIX_DESC + "Patient went through all four wisdom tooth extraction today ";
 
     public static final String MESSAGE_SUCCESS = "New record added to %1$s";

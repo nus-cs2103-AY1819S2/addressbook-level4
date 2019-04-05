@@ -162,12 +162,6 @@ HealthHub version release v1.4.
 
 include::../UserGuide.adoc[tag=addHealthWorker]
 
-include::../UserGuide.adoc[tag=editHealthWorker]
-
-include::../UserGuide.adoc[tag=listHealthWorker]
-
-include::../UserGuide.adoc[tag=delHealthWorker]
-
 include::../UserGuide.adoc[tag=filterHealthWorker]
 
 == Contributions to the Developer Guide

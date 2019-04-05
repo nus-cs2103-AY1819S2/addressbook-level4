@@ -65,7 +65,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
         requireNonNull(newData);
 
         setRecords(newData.getRecordList());
-        this.budget.set(newData.getBudget());
+        this.budget.set(newData.getTotalBudget());
         indicateModified();
     }
 
@@ -131,7 +131,11 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
 
     // =============================== Category Budget =============================================================
     //@author Jackimaru96
-    public TotalBudget getBudget() {
+    public Budget getBudget() {
+        return budget;
+    }
+
+    public TotalBudget getTotalBudget() {
         return budget;
     }
 

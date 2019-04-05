@@ -1,9 +1,12 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_MEDHIST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEDHISTS;
 
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -19,43 +22,76 @@ public class ListMedHistCommand extends Command {
     public static final String COMMAND_WORD = "list-med-hist";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": List all medical histories.\n"
+            + ": List all medical histories or medical histories satisfying specified restrictions.\n"
             + COMMAND_WORD + " "
-            + PREFIX_PATIENT_ID + "PATIENT-ID "
-            + ": List all medical histories of a patient.\n"
-            + "Example: " + COMMAND_WORD + " or "
-            + COMMAND_WORD
-            + PREFIX_PATIENT_ID + "1 ";
+            + "[" + PREFIX_PATIENT_ID + "PATIENT-ID " + "] "
+            + "[" + PREFIX_DOCTOR_ID + "DOCTOR-ID " + "] "
+            + "[" + PREFIX_DATE_OF_MEDHIST + "DATE " + "]\n"
+            + "Example: " + COMMAND_WORD + "\n"
+            + COMMAND_WORD + " " + PREFIX_PATIENT_ID + "1\n"
+            + COMMAND_WORD + " " + PREFIX_DOCTOR_ID + "1\n"
+            + COMMAND_WORD + " " + PREFIX_DATE_OF_MEDHIST + "2018-03-02\n"
+            + COMMAND_WORD + " " + PREFIX_PATIENT_ID + "1 " + PREFIX_DOCTOR_ID + "1 "
+            + PREFIX_DATE_OF_MEDHIST + "2018-03-02";
 
-    public static final String MESSAGE_SUCCESS_FULL_LIST = "Listed all medical histories";
-
-    public static final String MESSAGE_SUCCESS_PID = "Listed all medical histories of patient with pid ";
+    public static final String MESSAGE_SUCCESS = "Listed all medical histories";
 
     private final Optional<String> targetPatientId;
 
-    public ListMedHistCommand() {
-        this.targetPatientId = Optional.empty();
-    }
+    private final Optional<String> targetDoctorId;
 
-    public ListMedHistCommand(String targetPatientId) {
-        this.targetPatientId = Optional.of(targetPatientId);
+    private final Optional<LocalDate> targetDate;
+
+    public ListMedHistCommand(String targetPatientId, String targetDoctorId, LocalDate targetDate) {
+        if (targetPatientId == null) {
+            this.targetPatientId = Optional.empty();
+        } else {
+            this.targetPatientId = Optional.of(targetPatientId);
+        }
+
+        if (targetDoctorId == null) {
+            this.targetDoctorId = Optional.empty();
+        } else {
+            this.targetDoctorId = Optional.of(targetDoctorId);
+        }
+
+        if (targetDate == null) {
+            this.targetDate = Optional.empty();
+        } else {
+            this.targetDate = Optional.of(targetDate);
+        }
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         String messageSuccess;
-        if (targetPatientId.isPresent()) {
-            /** {@code Predicate} that always evaluate to true */
-            Predicate<MedicalHistory> predicateListMedHistIfPid =
-                x -> {
-                    return x.getPatientId().equals(targetPatientId.get()); };
-            model.updateFilteredMedHistList(predicateListMedHistIfPid);
-            messageSuccess = MESSAGE_SUCCESS_PID + targetPatientId.get();
-        } else {
-            model.updateFilteredMedHistList(PREDICATE_SHOW_ALL_MEDHISTS);
-            messageSuccess = MESSAGE_SUCCESS_FULL_LIST;
-        }
+        Predicate<MedicalHistory> predicateListMedHistIsPid =
+            x -> {
+                if (!targetPatientId.isPresent()) {
+                    return true;
+                }
+                return x.getPatientId().equals(targetPatientId.get()); };
+
+        Predicate<MedicalHistory> predicateListMedHistIsDid =
+            x -> {
+                if (!targetDoctorId.isPresent()) {
+                    return true;
+                }
+                return x.getDoctorId().equals(targetDoctorId.get()); };
+
+        Predicate<MedicalHistory> predicateListMedHistIsDate =
+            x -> {
+                if (!targetDate.isPresent()) {
+                    return true;
+                }
+                return x.getDate().equals(targetDate.get()); };
+
+        Predicate<MedicalHistory> specifiedPredicate = PREDICATE_SHOW_ALL_MEDHISTS
+                .and(predicateListMedHistIsPid).and(predicateListMedHistIsDid).and(predicateListMedHistIsDate);
+
+        model.updateFilteredMedHistList(specifiedPredicate);
+        messageSuccess = MESSAGE_SUCCESS;
         return new CommandResult(messageSuccess, CommandResult.ShowPanel.MED_HIST_PANEL);
     }
 }

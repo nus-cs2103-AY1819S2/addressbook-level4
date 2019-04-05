@@ -29,7 +29,7 @@ public class WriteUp {
      * Returns true if a given string is a valid write up.
      */
     public static boolean isValidWriteUp(String test) {
-        return true; //return test.matches(VALIDATION_REGEX);
+        return true;
     }
 
     @Override

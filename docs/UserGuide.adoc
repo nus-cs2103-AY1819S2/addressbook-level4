@@ -219,7 +219,7 @@ Index refers to the index number shown in the list.
 ====
 // end::edit[]
 
-//// tag::select[]
+// tag::select[]
 //==== Selecting an entry: `select`
 //
 //You can select an existing entry in the records to view its details by specifying the entry's index number.
@@ -239,7 +239,7 @@ Index refers to the index number shown in the list.
 //* `INDEX` here refers to the index number shown in the displayed records.
 //* `INDEX` *must be a positive integer* 1, 2, 3, ...
 //====
-//// end::select[]
+// end::select[]
 
 // tag::delete[]
 ==== Deleting an entry: `delete`

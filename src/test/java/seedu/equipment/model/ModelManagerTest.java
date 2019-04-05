@@ -106,7 +106,7 @@ public class ModelManagerTest {
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
         modelManager.addEquipment(ANCHORVALECC);
-        modelManager.addClient(ANCHORVALECC);
+        modelManager.addClient(ANCHORVALECC.getName());
         assertTrue(modelManager.hasEquipment(ANCHORVALECC));
     }
 

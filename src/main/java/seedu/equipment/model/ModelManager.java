@@ -111,6 +111,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasClient(Name name) {
+        requireNonNull(name);
+        return versionedEquipmentManager.hasClient(name);
+    }
+
+    @Override
     public boolean hasWorkList(WorkList workList) {
         requireNonNull(workList);
         return versionedEquipmentManager.hasWorkList(workList);
@@ -139,7 +145,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addClient(Equipment equipment) {
+    public void addClient(Name equipment) {
         versionedEquipmentManager.addClient(equipment);
         updateFilteredClientList(PREDICATE_SHOW_ALL_CLIENT);
     }

@@ -149,7 +149,7 @@ public class AddWorkListCommandTest {
         }
 
         @Override
-        public void addClient(Equipment equipment) {
+        public void addClient(Name equipment) {
 
             throw new AssertionError("This method should not be called.");
         }
@@ -167,6 +167,12 @@ public class AddWorkListCommandTest {
 
         @Override
         public boolean hasWorkList(WorkList workList) {
+
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasClient(Name name) {
 
             throw new AssertionError("This method should not be called.");
         }

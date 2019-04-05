@@ -87,6 +87,14 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
     }
 
     /**
+     * Returns true if a equipment with the same name as {@code equipment} exists in the equipment book.
+     */
+    public boolean hasClient(Name name) {
+        requireNonNull(name);
+        return this.name.contains(name);
+    }
+
+    /**
      * Returns true if a WorkList with the same WorkListId as {@code WorkList} exists in the Equipment Manager.
      */
     public boolean hasWorkList(WorkList worklist) {
@@ -108,8 +116,8 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
      * Adds the client to the equipment book.
      * The equipment must not already exist in the equipment book.
      */
-    public void addClient(Equipment p) {
-        name.add(p.getName());
+    public void addClient(Name p) {
+        name.add(p);
         indicateModified();
     }
 
@@ -143,7 +151,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
         requireNonNull(editedEquipment);
 
         equipment.setEquipment(target, editedEquipment);
-        name.setClient(target.getName(), editedEquipment.getName());
+        name.setClient2(target.getName(), editedEquipment.getName());
         indicateModified();
     }
 
@@ -155,7 +163,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
      */
     public void setClient(Name target, Name editedEquipment) {
         requireNonNull(editedEquipment);
-        name.setClient(target, editedEquipment);
+        name.setClient2(target, editedEquipment);
         indicateModified();
     }
 
@@ -189,7 +197,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
         requireNonNull(editedEquipment);
 
         equipment.setEquipment(target, editedEquipment);
-        name.setClient(target.getName(), editedEquipment.getName());
+        name.setClient2(target.getName(), editedEquipment.getName());
     }
 
     /**

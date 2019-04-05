@@ -8,7 +8,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.equipment.model.equipment.exceptions.DuplicateEquipmentException;
 import seedu.equipment.model.equipment.exceptions.EquipmentNotFoundException;
 
 /**
@@ -51,7 +50,7 @@ public class UniqueNameList implements Iterable<Name> {
      * {@code target} must exist in the list.
      * The equipment identity of {@code editedEquipment} must not be the same as another existing equipment in the list.
      */
-    public void setClient(Name target, Name editedName) {
+    public void setClient2(Name target, Name editedName) {
         requireAllNonNull(target, editedName);
 
         int index = internalList.indexOf(target);
@@ -60,18 +59,10 @@ public class UniqueNameList implements Iterable<Name> {
             throw new EquipmentNotFoundException();
         }
 
-        if (!target.isSameName(editedName) && contains(editedName)) {
-            throw new DuplicateEquipmentException();
-        }
+        // I removed editing and inputting duplicated names because different equipments can ahve the same client names
+        // a client name have own multiple equipments as long as no duplicated serial numbers
 
         internalList.set(index, editedName);
-    }
-
-
-    public void setClient(UniqueNameList replacement) {
-        requireNonNull(replacement);
-
-        internalList.setAll(replacement.internalList);
     }
 
     /**
@@ -87,7 +78,7 @@ public class UniqueNameList implements Iterable<Name> {
 
     /**
      * Replaces the contents of this list with {@code equipment}.
-     * {@code equipment} must not contain duplicate equipment.
+     * {@code equipment} must not contain duplicate client.
      */
     public void setClient(List<Name> equipmentName) {
         requireAllNonNull(equipmentName);

@@ -71,6 +71,11 @@ public interface Model {
     boolean hasEquipment(Equipment equipment);
 
     /**
+     * Returns true if a equipment with the same name as {@code equipment} exists in the equipment manager.
+     */
+    boolean hasClient(Name name);
+
+    /**
      * Returns true if a WorkList with the same identity as {@code workList} exists in the equipment manager.
      */
     boolean hasWorkList(WorkList workList);
@@ -109,7 +114,7 @@ public interface Model {
      * Adds the given client.
      * {@code equipment} must not already exist in the equipment manager.
      */
-    void addClient(Equipment equipment);
+    void addClient(Name equipment);
 
     /**
      * Replaces the given equipment {@code target} with {@code editedEquipment}.

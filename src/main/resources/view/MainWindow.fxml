@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.Label?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="Address App" minWidth="1000" minHeight="800" onCloseRequest="#handleExit">
   <icons>
@@ -49,6 +49,7 @@
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
           <VBox fx:id="equipmentList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+            <Label>Equipment Details</Label>
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
@@ -57,6 +58,7 @@
 
           <SplitPane id="splitPane" dividerPositions="0.1" orientation="VERTICAL">
             <VBox fx:id="workListList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+              <Label>My Equipment Worklist</Label>
               <padding>
                 <Insets top="10" right="10" bottom="10" left="10" />
               </padding>
@@ -64,6 +66,7 @@
             </VBox>
 
             <VBox fx:id="clientList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+              <Label>Client Details</Label>
               <padding>
                 <Insets top="10" right="10" bottom="10" left="10" />
               </padding>

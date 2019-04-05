@@ -10,11 +10,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class OpeningHours {
     public static final String MESSAGE_CONSTRAINTS = "Opening hours should be of the format 'HHMM to HHMM' or '24hrs' "
             + "for example, 1000 to 2200";
+    public static final String DEFAULT_OPENING_HOURS = "No opening hours added";
+    public final String value;
     // alphanumeric and special characters
     private static final String HOURS = "(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]";
     public static final String VALIDATION_REGEX = HOURS + " to " + HOURS;
 
-    public final String value;
 
     /**
      * Constructs an {@code OpeningHours}.
@@ -31,12 +32,16 @@ public class OpeningHours {
      * Returns if a given string is a valid email.
      */
     public static boolean isValidOpeningHour(String test) {
-        return test.matches(VALIDATION_REGEX) || test.matches("No opening hours added")
+        return test.matches(VALIDATION_REGEX) || test.matches(DEFAULT_OPENING_HOURS)
                 || test.matches("24hrs");
     }
 
     public static OpeningHours makeDefaultOpening() {
-        return new OpeningHours("No opening hours added");
+        return new OpeningHours(DEFAULT_OPENING_HOURS);
+    }
+
+    public boolean isDefault() {
+        return value.equals(DEFAULT_OPENING_HOURS);
     }
 
     @Override

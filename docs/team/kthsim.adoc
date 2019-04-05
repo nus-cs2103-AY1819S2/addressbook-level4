@@ -92,7 +92,7 @@ include::../UserGuide.adoc[tag=viewingInfo]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-
+include::../DeveloperGuide.adoc[tag=findimplement]
 include::../DeveloperGuide.adoc[tag=storyusers]
 
 ---

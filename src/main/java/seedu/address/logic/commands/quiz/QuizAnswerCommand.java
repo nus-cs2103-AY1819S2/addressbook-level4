@@ -24,6 +24,10 @@ public class QuizAnswerCommand extends QuizCommand {
     public static final String MESSAGE_SUCCESS = "You have completed all the questions in this quiz.\n";
 
     private String answer;
+    private QuizModel quizModel;
+    private QuizCard card;
+    private boolean currentCardIsWrong;
+
     public QuizAnswerCommand(String answer) {
         requireNonNull(answer);
         this.answer = answer;
@@ -32,65 +36,84 @@ public class QuizAnswerCommand extends QuizCommand {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        QuizModel quizModel = requireQuizModel(model);
+        this.quizModel = requireQuizModel(model);
+        this.card = quizModel.getCurrentQuizCard();
+        this.currentCardIsWrong = false;
 
-        QuizCard card = quizModel.getCurrentQuizCard();
         StringBuilder sb = new StringBuilder();
 
-        if (card.getQuizMode() == QuizMode.PREVIEW) {
-            // don't need to update totalAttempts and streak
-            if (quizModel.hasCardLeft()) {
-                card = quizModel.getNextCard();
-
-                if (card.getQuizMode() == QuizMode.PREVIEW) {
-                    quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(quizModel.getQuestionHeader(),
-                        card.getQuestion(), quizModel.getAnswerHeader(), card.getAnswer(), QuizMode.PREVIEW));
-                    return new CommandResult("", true, false, false);
-                }
-
-                quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(quizModel.getQuestionHeader(),
-                    card.getQuestion(), quizModel.getAnswerHeader(), QuizMode.REVIEW));
-                return new CommandResult("", true, false, false);
-            }
-
-            // don't need to update card of 0 attempts
-            quizModel.end();
-
-            // set the display to blank for management mode display
-            quizModel.setDisplayFormatter(null);
-            return new CommandResult(MESSAGE_SUCCESS, true, false, false);
+        if (card.getQuizMode() != QuizMode.PREVIEW) {
+            sb.append(handleCurrentCardAnswer());
         }
 
-        boolean result = quizModel.updateTotalAttemptsAndStreak(card.getIndex(), answer);
-
-        if (result) {
-            sb.append(MESSAGE_CORRECT);
-
-            if (quizModel.hasCardLeft()) {
-                card = quizModel.getNextCard();
-                quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(quizModel.getQuestionHeader(),
-                    card.getQuestion(), quizModel.getAnswerHeader(), QuizMode.REVIEW));
-            } else {
-                quizModel.updateUserProfile(quizModel.end());
-
-                // set the display to blank for management mode display
-                quizModel.setDisplayFormatter(null);
-                sb.append(MESSAGE_SUCCESS);
-            }
-
-        } else {
-            if (!card.isWrongTwice()) {
-                sb.append(String.format(MESSAGE_WRONG_ONCE, answer));
-                quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(quizModel.getQuestionHeader(),
-                    card.getQuestion(), quizModel.getAnswerHeader(), QuizMode.REVIEW));
-            } else {
-                sb.append(String.format(MESSAGE_WRONG, answer, card.getAnswer()));
-                quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(quizModel.getQuestionHeader(),
-                    card.getQuestion(), quizModel.getAnswerHeader(), card.getAnswer(), QuizMode.PREVIEW, true));
-            }
+        if (!currentCardIsWrong) {
+            String result = handleIfCardLeft();
+            sb.append(result);
         }
 
         return new CommandResult(sb.toString(), true, false, false);
+    }
+
+    /**
+     * Handles next available card or end the quiz.
+     */
+    private String handleIfCardLeft () {
+        return quizModel.hasCardLeft() ? handleNextCard() : endQuiz();
+    }
+
+    /**
+     * Returns message dependent on wrong or correct answer
+     */
+    private String handleCurrentCardAnswer() {
+        if (!quizModel.updateTotalAttemptsAndStreak(card.getIndex(), answer)) {
+            return handleWrongAnswer();
+        }
+
+        return MESSAGE_CORRECT;
+    }
+
+    /**
+     * Returns prompt message with user answer, if user got it wrong twice
+     * returns prompt message with the correct answer.
+     */
+    private String handleWrongAnswer() {
+        this.currentCardIsWrong = true;
+
+        if (!card.isWrongTwice()) {
+            return String.format(MESSAGE_WRONG_ONCE, answer);
+        }
+
+        quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(quizModel.getQuestionHeader(),
+            card.getQuestion(), quizModel.getAnswerHeader(), card.getAnswer(), QuizMode.PREVIEW, true));
+        return String.format(MESSAGE_WRONG, answer, card.getAnswer());
+    }
+
+    /**
+     * Gets next card and process data for UI display.
+     */
+    private String handleNextCard() {
+        QuizCard card = quizModel.getNextCard();
+
+        quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(quizModel.getQuestionHeader(),
+            card.getQuestion(), quizModel.getAnswerHeader(), card.getAnswer(), card.getQuizMode()));
+
+        return "";
+    }
+
+    /**
+     * Updates user data when quiz end.
+     */
+    private String endQuiz() {
+        if (card.getQuizMode() == QuizMode.PREVIEW) {
+            // don't need to update card of 0 attempts
+            quizModel.end();
+        } else {
+            quizModel.updateUserProfile(quizModel.end());
+        }
+
+        // set the display to blank for management mode display
+        quizModel.setDisplayFormatter(null);
+        return MESSAGE_SUCCESS;
     }
 
     @Override

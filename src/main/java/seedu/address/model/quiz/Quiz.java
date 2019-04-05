@@ -261,6 +261,11 @@ public class Quiz {
 
     @Override
     public int hashCode() {
+        System.out.println("originalquizcardlist " + Objects.hash(originalQuizCardList) + "\n"
+            + "generated " + Objects.hash(generatedQuizCardList) + "\n"
+            + "mode" + Objects.hash(mode) + "\n"
+        );
+
         return Objects.hash(originalQuizCardList, generatedQuizCardList, mode,
             currentQuizCard, currentCardIndex, isQuizDone);
     }

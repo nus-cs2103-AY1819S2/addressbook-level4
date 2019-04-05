@@ -174,16 +174,14 @@ public class QuizAnswerCommandTest {
 
         // wrong
         quizAnswerCommand = new QuizAnswerCommand(wrongAns);
-        actualModel.getNextCard();
-        expectedModel.updateTotalAttemptsAndStreak(0, wrongAns);
-        card = expectedModel.getNextCard();
+        expectedModel.updateTotalAttemptsAndStreak(1, wrongAns);
 
         expectedMessage = String.format(QuizAnswerCommand.MESSAGE_WRONG_ONCE, wrongAns);
         QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
             expectedMessage, expectedModel);
 
         // wrong twice
-        expectedModel.updateTotalAttemptsAndStreak(0, wrongAns);
+        expectedModel.updateTotalAttemptsAndStreak(1, wrongAns);
         expectedMessage = String.format(QuizAnswerCommand.MESSAGE_WRONG, wrongAns, card.getAnswer());
         QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
             expectedMessage, expectedModel);
@@ -191,6 +189,8 @@ public class QuizAnswerCommandTest {
         // complete the quiz
         quizAnswerCommand = new QuizAnswerCommand("Japan");
         actualModel.getNextCard();
+        actualModel.getNextCard();
+        expectedModel.getNextCard();
         expectedModel.getNextCard();
         expectedModel.updateTotalAttemptsAndStreak(1, "Japan");
         expectedModel.end();

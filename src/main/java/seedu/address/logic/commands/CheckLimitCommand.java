@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.ClassForPrinting;
@@ -18,6 +19,7 @@ public class CheckLimitCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
+        model.updateFilteredModulesTakenList(PREDICATE_SHOW_ALL_PERSONS);
         ClassForPrinting s = model.checkLimit();
         model.setSelectedModuleTaken(s);
         model.setSelectedModuleTaken(s);

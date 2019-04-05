@@ -107,6 +107,12 @@ Examples:
 * `add f/Kamusta b/Hello t/Tagalog`
 * `add f/さようなら b/Goodbye i/images/goodbye.jpg t/Japanese t/Greetings`
 
+=== Listing all flashcards : `list`
+
+Shows a list of all flashcards in the card collection.
+
+Format: `list`
+
 === Editing a flashcard : `edit`
 
 Edits a flashcard already in the collection. +
@@ -171,6 +177,91 @@ Examples:
 This will find and list all the flashcards that have the _Chinese_ or _Japanese_ tag.
 * `find f/Hello b/Hello` +
 This will find and list all the flashcards whose front or back text contains the word _Hello_.
+
+=== Selecting a flashcard : `select`
+
+Selects the flashcard identified by the index number used in the displayed flashcard list.
+
+Format: `select INDEX`
+
+****
+* Selects a flashcard and displays it on the flashcard view on the right pane.
+* The success rate of the selected flashcard will be shown on the command result box.
+* The index refers to the index number shown in the displayed person list.
+* The index must be a positive integer `1, 2, 3, …`
+* Alternatively, you can select a card by clicking it on the flashcard list panel.
+****
+
+Examples:
+
+* `list` +
+`select 2` +
+Selects the second flashcard in the list.
+* `find t/chinese` +
+`select 1` +
+Selects the first flashcard in the filtered list with chinese tag.
+
+=== Listing entered commands : `history`
+
+Lists all the commands that you have entered in reverse chronological order.
+
+Format: `history`
+
+[NOTE]
+====
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+====
+
+=== Undoing previous command : `undo`
+
+Restores the card collection to the state before the previous undoable command was executed.
+
+Format: `undo`
+
+[NOTE]
+====
+Undoable commands: those commands that modify the card collection's content (`add`, `delete`, `edit`, `clear`, `good`, `bad`, and `import`).
+====
+
+Examples:
+
+* `delete 1` +
+`list` +
+`undo` +
+Reverses the `delete 1` command.
+* `select 1` +
+`list` +
+`quiz` +
+`exit` +
+The `undo` command fails as there are no undoable commands executed previously.
+* `delete 1` +
+`clear` +
+`undo` +
+`undo` +
+Reverses the `clear` command, then reverses the `delete 1` command.
+
+=== Redoing the previously undone command : `redo`
+
+Reverses the most recent `undo` command.
+
+Format: `redo`
+
+Examples:
+
+* `delete 1` +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+
+* `delete 1` +
+`redo` +
+The `redo` command fails as there are no `undo` commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+`redo` (reapplies the `clear` command) +
 
 [[ImportImage]]
 === Importing an image : `image`
@@ -265,6 +356,7 @@ If you are in quiz mode, this exits quiz mode instead. See <<QuizExit>> for more
 
 Format: `exit`
 
+// tag::quiz[]
 [[FeaturesQuiz]]
 == Features (Quiz)
 
@@ -327,12 +419,12 @@ Then, the next card in the quiz queue will be shown.
 `good` +
 Suppose this is the last card to show inside quiz mode. Acquizition will record the statistics of the quiz mode and exit the quiz mode.
 
-=== Smart command
+=== Smart command : kbd:[Enter]
 
 It can be troublesome to always have to type `show` and `good`. +
 You can use a _smart command_ that cleverly chooses the appropriate command to run.
 
-Format: `<enter>`
+Format: kbd:[Enter]
 
 ****
 * To initiate a smart command, you just need to press enter.
@@ -344,17 +436,17 @@ Format: `<enter>`
 Examples:
 
 * `quiz` +
-`<enter>` +
-`<enter>` +
+kbd:[Enter] +
+kbd:[Enter] +
 This will first show the back face of the card, then will mark the card as good.
 * `quiz` +
-`<enter>` +
+kbd:[Enter] +
 `bad` +
 This will show the back face of the card, then will mark the card as bad.
 * `quiz` +
-`<enter>` +
+kbd:[Enter] +
 `...` +
-`<enter>` +
+kbd:[Enter] +
 This will go through all the cards in the quiz mode and mark them all as good.
 
 [[QuizExit]]
@@ -362,6 +454,7 @@ This will go through all the cards in the quiz mode and mark them all as good.
 Exits quiz mode prematurely if you are in quiz mode. +
 
 Format: `exit`
+// end::quiz[]
 
 == FAQ
 
@@ -373,3 +466,38 @@ explicitly save.
 *A*: Install the app in the other computer and overwrite the empty data file
 it creates with the file that contains the data of your previous Aqquizition
 folder.
+
+// tag::command-summary[]
+== Command Summary
+
+=== Card collection
+* *Help* : `help`
+* *Add* `add f/[FRONT_TEXT] b/[BACK_TEXT] [i/IMAGE_PATH] [t/TAG]...` +
+e.g. `add f/さようなら b/Goodbye i/images/goodbye.jpg t/Japanese t/Greetings`
+* *List* : `list`
+* *Clear* : `clear`
+* *Delete* : `delete INDEX` +
+e.g. `delete 3`
+* *Edit* : `edit INDEX [f/FRONT_TEXT] [b/BACK_TEXT] [i/IMAGE_PATH] [t/TAG]...` +
+e.g. `edit 2 f/Halo`, `edit 3 i/ t/`
+* *Find* : `find [f/FRONT_FACE]... [b/BACK_FACE]... [t/TAG]...` +
+e.g. `find t/Chinese t/Japanese`
+* *Select* : `select INDEX` +
+e.g.`select 2`
+* *History* : `history`
+* *Undo* : `undo`
+* *Redo* : `redo`
+* *Image* : `image FILE_PATH`
+* *Stats* : `stats [t/TAG]...`
+* *Share* : `share [f/FRONT_FACE]... [b/BACK_FACE]... [t/TAG]...`
+* *Import* : `import [FILE_PATH]`
+* *Exit* : `exit`
+
+=== Quiz mode
+* *Quiz* : `quiz`
+* *Good feedback* : `good`
+* *Bad feedback* : `bad`
+* *Show* : `show`
+* *Smart command* : kbd:[Enter]
+* *Exit quiz mode* : `exit`
+// end::command-summary[]

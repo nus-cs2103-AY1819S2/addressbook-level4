@@ -9,6 +9,8 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
+import seedu.address.model.moduletaken.CapAverage;
+import seedu.address.model.moduletaken.Hour;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.moduletaken.SemesterLimitList;
@@ -19,6 +21,8 @@ import seedu.address.model.moduletaken.UniqueModuleTakenList;
  * Duplicates are not allowed (by .isSameModuleTaken comparison)
  */
 public class GradTrak implements ReadOnlyGradTrak {
+
+    private static final int NUM_SEMS = 10;
 
     private Semester currentSemester;
     private final SemesterLimitList semesterLimitList;
@@ -38,6 +42,11 @@ public class GradTrak implements ReadOnlyGradTrak {
     }
 
     public GradTrak() {
+        for (int i = 0; i < NUM_SEMS; i++) {
+            addSemesterLimit(new SemLimit(new CapAverage(2.0), new CapAverage(5.0), new Hour("5.0"), new Hour("0.0"),
+                    new Hour("2.5"), new Hour("5.0"), new Hour("2.0"), new Hour("5.0"), new Hour("2.0"),
+                    new Hour("5.0"), new Hour("6.0"), new Hour("10.0")));
+        }
         currentSemester = Semester.Y1S1; // default
     }
 

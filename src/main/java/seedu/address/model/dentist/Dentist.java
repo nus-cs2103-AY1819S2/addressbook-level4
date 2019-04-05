@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 import javafx.scene.control.TextInputDialog;
+import seedu.address.MainApp;
 
 
 /**
@@ -51,7 +52,7 @@ public class Dentist {
             fw.write(name);
             fw.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            MainApp.getLogger().info("Launched without Dentist.txt");
         }
     }
 
@@ -71,7 +72,7 @@ public class Dentist {
             fw.write("");
             fw.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            MainApp.getLogger().info("Launched without Dentist.txt");
         }
     }
 

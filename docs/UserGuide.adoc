@@ -37,20 +37,14 @@ If this is not a problem for you, jump to the <<Quick Start>> to get started. If
 The following section provides a quick understanding on each of the legends used throughout the user guide.
 These legends alert reader on special information such as tips, notes and warnings. +
 
-|===
-| Legend |Meaning
-| image:tip.png[width="40"]
-| The more information icon indicates any additional tips users can consider while using *Equipment Manager* application.
+[NOTE]
+The more information icon indicates any additional tips users can consider while using *Equipment Manager* application.
 
-| image:lightbulb.png[width="40"]
-| Lightbulb icon
+[TIP]
+lightbulb ICON
 
-|image:exclamation.png[width="40"]
-| The exclamation mark icon indicates any warnings that users can take note of while using *Equipment Manager* application.
-
-|image:advanced.png[width="40"]
-| The book icon indicates that it is an additional information for advanced users.
-|===
+[WARNING]
+The exclamation mark icon indicates any warnings that users can take note of while using *Equipment Manager* application.
 // end::aboutug[]
 
 // tag::quickstart[]
@@ -129,15 +123,34 @@ You can view help by click the `Help button on the Menu Bar.
 If it is your first time reading this, then good job on opening the User Guide!
 
 === Adding an equipment: `add-e`
-Adds an equipment to the Equipment Manager +
+Adds an equipment to the *Equipment Manager*. The result of adding an equipment will be reflected on the panel labelled under *Equipment details*.  +
 Format: `add-e n/CLIENT_NAME p/CLIENT_PHONE_NUMBER pm/PM_DATE a/CLIENT_ADDRESS s/SERIAL_NUMBER [t/TAG]`
 
+[NOTE]
+An equipment can any number of tags (including 0). +
+PM_DATE is the annual due date for maintenance work to be carried out by and it should be entered in a date format of `DD MONTH YYY`.
+
 [TIP]
-An equipment can any number of tags (including 0).
+In the panel under the *Equipment details* label, duplicated client names could be added and displayed on the panel because a client can owns multiple equipments as long as the serial numbers of equipment are different.
 
 Example:
 
-* `add n/Clementi CC p/98765432 pm/10 May 2019 a/220 Clementi Ave 4, Singapore 129880 s/A008844L t/west`
+* `add n/Clementi CC p/67762517 pm/10 May 2019 a/ 220 Clementi Ave 4, Singapore 129880 s/A008844L t/west`
+
+// tag::addclient[]
+=== Adding a client: `add-c`
+Adds a client to the *Equipment Manager*. The result of adding a client will be reflected on the panel labelled under *Client details*. +
+Format: `add-c n/CLIENT_NAME`
+
+|===
+| image:tip.png[width="40"] | Client is a person or organization that owns the equipment.
+| image:lightbulb.png[width="40"] | In the panel under *Client details* label, there should not be any duplicated client names.
+|===
+
+Example:
+
+*  `add-c n/Clementi CC`
+// end::addclient[]
 
 === Creating a new worklist: `add-w`
 Create a worklist in the Equipment Manager by giving the worklist an ID +
@@ -164,9 +177,9 @@ Example:
 
 === Editing an equipment: `edit-e`
 Edits an existing equipment in the _Equipment Manager_. +
-Format: `edit INDEX [n/CLIENT_NAME] [p/CLIENT_PHONE] [pm/PM_DATE] [a/CLIENT_ADDRESS] [s/SERIAL_NUMBER] [t/TAG]…​`
+Format: `edit INDEX n/CLIENT_NAME p/CLIENT_PHONE pm/PM_DATE a/CLIENT_ADDRESS s/SERIAL_NUMBER t/TAG…​`
 
-* Edits the equipment at the specified INDEX. The index refers to the index number shown in the displayed equipment list. The index must be a positive integer 1, 2, 3, …​
+* Edits the equipment at the specified INDEX. The index refers to the index number shown in the *Equipment details* panel. The index must be a positive integer 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the equipment will be removed i.e adding of tags is not cumulative.
@@ -174,14 +187,17 @@ Format: `edit INDEX [n/CLIENT_NAME] [p/CLIENT_PHONE] [pm/PM_DATE] [a/CLIENT_ADDR
 
 Examples:
 
-* `edit 1 p/91234567 e/ccc@gmail.com` +
-Edits the client phone number and client date address of the 1st equipment to be 91234567 and ccc@gmail.com respectively.
+* `edit 1 n/Clementi Community Center` +
+Edits the client's name of the 1st equipment to Clementi Community Center.
+
+* `edit 1 p/91234567 a/220 Clementi Ave 4` +
+Edits the client's phone number and address of the 1st equipment to be 91234567 and 220 Clementi Ave 4 respectively.
 
 * `edit 2 n/Hougang CC t/` +
 Edits the client name of the 2nd equipment to be Huogang CC and clears all existing tags.
 
 === List all equipments:  `list-e`
-Shows a list of all equipments in the Equipment Manager +
+Shows a list of all equipments in the Equipment Manager. The result will be displayed in the panel labelled under *Equipment details*. +
 Format: `list-e`
 
 Example:
@@ -195,17 +211,6 @@ Format: `list-w`
 Example:
 
 * `list-w`
-
-=== List all clients : `list-c`
-Shows a list of all clients in the Equipment Manager +
-The client card will shows its client name and the number of equipment this client owns.
-
-Format: `list-c`
-
-Example:
-
-* `list-c`
-
 
 // tag::select[]
 === Selecting an equipment or work list: `select`
@@ -460,6 +465,8 @@ Unsure of a few technical terms? We got you covered. Refer to [underline]#<<tech
 [cols="2,5", options="header"]
 |===
 | Term | Explanation
+|*Preventive Maintenance*
+|A maintenance work that is regularly performed on a piece of equipment to lessen the likelihood of it failing. It is performed while the equipment is still working so that it does not break down unexpectedly.
 
 |*Autocomplete*
 |Provides suggestions while you type into the field.
@@ -494,6 +501,9 @@ For more details on what each command does, please refer to <<Features>>.
 |*Add Equipment*
 |add-e
 
+|*Add Client*
+|add-e
+
 |*Add Work List*
 |add-w
 
@@ -502,9 +512,6 @@ For more details on what each command does, please refer to <<Features>>.
 
 |*List Work List*
 |list-w
-
-|*List Client
-|list-c
 
 |*Delete Equipment*
 |delete-e

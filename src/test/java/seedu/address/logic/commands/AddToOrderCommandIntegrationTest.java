@@ -22,6 +22,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.menu.Code;
 import seedu.address.model.order.OrderItem;
+import seedu.address.model.order.OrderItemStatus;
 import seedu.address.model.table.TableNumber;
 
 /**
@@ -90,15 +91,16 @@ public class AddToOrderCommandIntegrationTest {
 
         assertCommandFailure(Mode.TABLE_MODE,
                 new AddToOrderCommand(Collections.singletonList(new Code("B99")), Collections.singletonList(5)), model,
-                commandHistory, String.format(AddToOrderCommand.MESSAGE_INVALID_ITEM_CODE, new Code("B99")));
+                commandHistory, String.format(AddToOrderCommand.MESSAGE_FAILURE,
+                        new Code("B99"), AddToOrderCommand.MESSAGE_INVALID_ITEM_CODE));
     }
 
 
     @Test
     public void execute_existingOrderItem_success() {
         OrderItem orderItemInList = model.getRestOrRant().getOrders().getOrderItemList().get(0);
-        OrderItem orderItemToAdd = new OrderItem(orderItemInList, 5);
-        OrderItem newOrderItem = new OrderItem(orderItemInList, orderItemToAdd.getQuantity());
+        OrderItem orderItemToAdd = new OrderItem(orderItemInList, new OrderItemStatus(5));
+        OrderItem newOrderItem = new OrderItem(orderItemInList, orderItemInList.getOrderItemStatus().orderQuantity(5));
         TableNumber tableNumber = orderItemInList.getTableNumber();
 
         Model expectedModel = new ModelManager(model.getRestOrRant(), new UserPrefs());
@@ -109,8 +111,8 @@ public class AddToOrderCommandIntegrationTest {
 
         assertCommandSuccess(Mode.TABLE_MODE,
                 new AddToOrderCommand(Collections.singletonList(orderItemToAdd.getMenuItemCode()),
-                        Collections.singletonList(orderItemToAdd.getQuantity())), model, commandHistory,
-                String.format(AddToOrderCommand.MESSAGE_SUCCESS, Collections.singletonList(orderItemToAdd)),
+                        Collections.singletonList(orderItemToAdd.getQuantityOrdered())), model, commandHistory,
+                String.format(AddToOrderCommand.MESSAGE_SUCCESS, Collections.singletonList(newOrderItem)),
                 expectedModel);
     }
 

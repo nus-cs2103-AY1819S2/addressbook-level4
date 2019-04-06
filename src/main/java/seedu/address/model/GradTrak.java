@@ -49,7 +49,7 @@ public class GradTrak implements ReadOnlyGradTrak {
                     new Hour("5.0"), new Hour("6.0"), new Hour("10.0")));
         }
         setSemesterLimits(semList);
-        currentSemester = Semester.Y1S1; // default
+        setCurrentSemester(Semester.Y1S1);
     }
 
     /**

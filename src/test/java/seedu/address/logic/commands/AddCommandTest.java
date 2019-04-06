@@ -21,7 +21,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ClassForPrinting;
 import seedu.address.model.GradTrak;
-import seedu.address.model.LimitChecker;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyGradTrak;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -33,6 +32,7 @@ import seedu.address.model.course.RequirementStatus;
 
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
+import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.recmodule.RecModule;
@@ -211,7 +211,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public LimitChecker checkLimit() {
+        public ClassForPrinting checkLimit(ModuleInfoList moduleInfoList) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -277,7 +277,12 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyProperty<ModuleInfo> selectedModuleInfoProperty() {
-            throw new AssertionError("This methdo should not be called");
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public ModuleInfoList getModuleInfoList() {
+            return new ModuleInfoList();
         }
 
         public void updateRecModuleList() {

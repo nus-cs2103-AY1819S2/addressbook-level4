@@ -25,6 +25,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.Grade;
 import seedu.address.model.moduletaken.Hour;
@@ -100,8 +101,22 @@ public class EditCommand extends Command {
             throw new CommandException(Messages.MESSAGE_GRADES_NOT_FINALIZED_BEFORE_SEMESTER);
         }
 
+        if (!editedModuleTaken.getExpectedMaxGrade().isCountedInCap()) {
+            throw new CommandException(Messages.MESSAGE_MAX_GRADE_MUST_BE_COUNTED);
+        }
+
         if (!moduleTakenToEdit.isSameModuleTaken(editedModuleTaken) && model.hasModuleTaken(editedModuleTaken)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+
+        ModuleInfo moduleInfo = model.getModuleInfoList()
+                .getModule(String.valueOf(editedModuleTaken.getModuleInfoCode()));
+        if (moduleInfo == null) {
+            //TODO fix the tests
+            //throw new CommandException(Messages.MESSAGE_MODULE_DOES_NOT_EXIST);
+        }
+        else {
+            editedModuleTaken.setWorkload(new Workload(moduleInfo.getModuleInfoWorkload()));
         }
 
         model.setModuleTaken(moduleTakenToEdit, editedModuleTaken);

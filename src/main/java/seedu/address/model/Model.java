@@ -12,6 +12,7 @@ import seedu.address.model.course.CourseName;
 import seedu.address.model.course.RequirementStatus;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
+import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.recmodule.RecModule;
@@ -130,7 +131,7 @@ public interface Model {
      * Returns a printable LimitChecker with generated html string that indicates if the CAP and workload limits
      * set by the user for every semester have been violated based the modules taken in their plan.
      */
-    ClassForPrinting checkLimit();
+    ClassForPrinting checkLimit(ModuleInfoList moduleInfoList);
 
     /**
      * Returns true if the model has previous GradTrak states to restore.
@@ -191,6 +192,12 @@ public interface Model {
      * @return Observable list of ModuleInf
      */
     ReadOnlyProperty<ModuleInfo> selectedModuleInfoProperty();
+
+    /**
+     * Gets the list of module info to be searchable by module info code.
+     * @return ModuleInfoList
+     */
+    ModuleInfoList getModuleInfoList();
 
     /**
      * Updates the filtered list based on the predicate provided by user input

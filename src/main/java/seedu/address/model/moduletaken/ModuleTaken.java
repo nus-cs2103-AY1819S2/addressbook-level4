@@ -22,7 +22,7 @@ public class ModuleTaken implements ClassForPrinting {
 
     // Data fields
     private final GradeRange gradeRange;
-    private final Workload workload;
+    private Workload workload;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -49,6 +49,10 @@ public class ModuleTaken implements ClassForPrinting {
         this.gradeRange = new GradeRange(expectedMinGrade, expectedMaxGrade);
         this.workload = workload;
         this.tags.addAll(tags);
+    }
+
+    public void setWorkload(Workload workload) {
+        this.workload = workload;
     }
 
     public ModuleInfoCode getModuleInfoCode() {

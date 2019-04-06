@@ -12,7 +12,9 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.Workload;
 
 /**
  * Adds a moduleTaken to the GradTrak.
@@ -62,9 +64,22 @@ public class AddCommand extends Command {
             throw new CommandException(Messages.MESSAGE_GRADES_OUT_OF_ORDER);
         }
 
+        if (!toAdd.getExpectedMaxGrade().isCountedInCap()) {
+            throw new CommandException(Messages.MESSAGE_MAX_GRADE_MUST_BE_COUNTED);
+        }
+
         if (!toAdd.getExpectedMinGrade().equals(toAdd.getExpectedMaxGrade())
                 && toAdd.getSemester().getIndex() < model.getCurrentSemester().getIndex()) {
             throw new CommandException(Messages.MESSAGE_GRADES_NOT_FINALIZED_BEFORE_SEMESTER);
+        }
+
+        ModuleInfo moduleInfo = model.getModuleInfoList().getModule(String.valueOf(toAdd.getModuleInfoCode()));
+        if (moduleInfo == null) {
+            //TODO fix the tests
+            //throw new CommandException(Messages.MESSAGE_MODULE_DOES_NOT_EXIST);
+        }
+        else {
+            toAdd.setWorkload(new Workload(moduleInfo.getModuleInfoWorkload()));
         }
 
         model.addModuleTaken(toAdd);

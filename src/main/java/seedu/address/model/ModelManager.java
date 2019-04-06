@@ -52,6 +52,7 @@ public class ModelManager implements Model {
     //Model Information List for Model Manager to have Module Info List and list to be printed for displaymod
     private final ObservableList<ModuleInfo> allModules;
     private final FilteredList<ModuleInfo> displayList;
+    private final ModuleInfoList moduleInfoList;
     private final SimpleObjectProperty<ModuleInfo> selectedModuleInfo = new SimpleObjectProperty<>();
 
     private final ObservableList<Course> allCourses;
@@ -82,6 +83,7 @@ public class ModelManager implements Model {
         //Get an non Modifiable List of all modules and use a filtered list based on that to search for modules
         this.allModules = moduleInfoList.getObservableList();
         this.displayList = new FilteredList<>(this.allModules);
+        this.moduleInfoList = moduleInfoList;
         updateDisplayList(new CodeContainsKeywordsPredicate(null));
 
         // Initialise list of RecModule
@@ -249,8 +251,8 @@ public class ModelManager implements Model {
      * that shows where their CAP and workload limits are violated.
      */
     @Override
-    public ClassForPrinting checkLimit() {
-        return new LimitChecker(getCurrentSemester(), getSemLimitList(), getFilteredModulesTakenList());
+    public ClassForPrinting checkLimit(ModuleInfoList moduleInfoList) {
+        return new LimitChecker(getCurrentSemester(), getSemLimitList(), getFilteredModulesTakenList(), moduleInfoList);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -317,6 +319,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyProperty<ModuleInfo> selectedModuleInfoProperty() {
         return selectedModuleInfo;
+    }
+
+    @Override
+    public ModuleInfoList getModuleInfoList() {
+        return moduleInfoList;
     }
 
     @Override

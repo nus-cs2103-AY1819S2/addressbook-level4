@@ -47,8 +47,7 @@ public class ParserUtilTest {
     private static final String INVALID_COORD_1 = "  ";
     private static final String INVALID_COORD_2 = "";
     private static final String INVALID_COORD_3 = "*9";
-    private static final String INVALID_COORD_4 = "z9";
-    private static final String INVALID_COORD_5 = "a0";
+    private static final String INVALID_COORD_4 = "a0";
 
     private static final String VALID_COORD_1 = "a1";
     private static final String VALID_COORD_2 = "b3";
@@ -241,15 +240,9 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseCoordinates_outOfBounds_throwsParseException() throws Exception {
-        thrown.expect(ParseException.class);
-        ParserUtil.parseCoordinates(INVALID_COORD_4);
-    }
-
-    @Test
     public void parseCoordinates_outOfBoundsToo_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
-        ParserUtil.parseCoordinates(INVALID_COORD_5);
+        ParserUtil.parseCoordinates(INVALID_COORD_4);
     }
 
     @Test

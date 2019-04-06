@@ -27,6 +27,7 @@ public class ParserUtilTest {
     private static final String INVALID_MONTH = "13";
     private static final String INVALID_YEAR = "2103";
     private static final String INVALID_TABLE_NUMBER = "abc";
+    private static final String INVALID_QUANTITY = "a";
 
     private static final String VALID_NAME = "McSpicy Burger";
     private static final String VALID_CODE = "A11";
@@ -35,6 +36,7 @@ public class ParserUtilTest {
     private static final String VALID_MONTH = "10";
     private static final String VALID_YEAR = "2019";
     private static final String VALID_TABLE_NUMBER = "4";
+    private static final String VALID_QUANTITY = "10";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -61,6 +63,27 @@ public class ParserUtilTest {
 
         // Leading and trailing whitespaces
         assertEquals(INDEX_FIRST_ITEM, ParserUtil.parseIndex("  1  "));
+    }
+
+    @Test
+    public void parseQuantity_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseQuantity(null));
+    }
+
+    @Test
+    public void parseQuantity_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseQuantity(INVALID_QUANTITY));
+    }
+
+    @Test
+public void parseQuantity_validValueWithoutWhiteSpace_returnsQuantity() throws Exception {
+        assertEquals(10, ParserUtil.parseQuantity(VALID_QUANTITY));
+    }
+
+    @Test
+    public void parseQuantity_validValueWithWhitespace_returnsTrimmedQuantity() throws Exception {
+        String qtyWithWhitespace = WHITESPACE + VALID_QUANTITY + WHITESPACE;
+        assertEquals(10, ParserUtil.parseQuantity(qtyWithWhitespace));
     }
 
     @Test

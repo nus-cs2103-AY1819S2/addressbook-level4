@@ -107,7 +107,7 @@ public class RestOrRantUtil {
     public static String getOrderItemDetails(OrderItem orderItem) {
         StringBuilder sb = new StringBuilder();
         sb.append(orderItem.getMenuItemCode() + " ");
-        sb.append(orderItem.getQuantity());
+        sb.append(orderItem.getQuantityOrdered());
         return sb.toString();
     }
 

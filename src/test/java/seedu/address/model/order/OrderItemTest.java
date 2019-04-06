@@ -30,7 +30,7 @@ public class OrderItemTest {
         editedOrderItem = new OrderItemBuilder(TABLE1_W09).withTableNumber("2").build();
         assertFalse(TABLE1_W09.isSameOrderItem(editedOrderItem));
 
-        // same table number, item code and name, different quantity -> returns true
+        // same table number, item code and name, different status -> returns true
         editedOrderItem = new OrderItemBuilder(TABLE1_W09).withQuantity(5).build();
         assertTrue(TABLE1_W09.isSameOrderItem(editedOrderItem));
     }
@@ -65,7 +65,7 @@ public class OrderItemTest {
         editedOrderItem = new OrderItemBuilder(TABLE1_W09).withName("Chicken Wings 3pcs").build();
         assertFalse(TABLE1_W09.equals(editedOrderItem));
 
-        // different quantity -> returns false
+        // different status -> returns false
         editedOrderItem = new OrderItemBuilder(TABLE1_W09).withQuantity(5).build();
         assertFalse(TABLE1_W09.equals(editedOrderItem));
     }

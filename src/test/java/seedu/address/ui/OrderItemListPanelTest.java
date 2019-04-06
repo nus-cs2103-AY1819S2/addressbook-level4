@@ -18,6 +18,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.menu.Code;
 import seedu.address.model.menu.Name;
 import seedu.address.model.order.OrderItem;
+import seedu.address.model.order.OrderItemStatus;
 import seedu.address.model.table.TableNumber;
 
 public class OrderItemListPanelTest extends GuiUnitTest {
@@ -80,8 +81,8 @@ public class OrderItemListPanelTest extends GuiUnitTest {
             TableNumber tableNumber = new TableNumber(i + "");
             Code menuItemCode = new Code("W09");
             Name menuItemName = new Name("Chicken Wings");
-            int quantityOrdered = 3;
-            OrderItem orderItem = new OrderItem(tableNumber, menuItemCode, menuItemName, quantityOrdered);
+            OrderItemStatus itemStatus = new OrderItemStatus(3);
+            OrderItem orderItem = new OrderItem(tableNumber, menuItemCode, menuItemName, itemStatus);
             backingList.add(orderItem);
         }
         return backingList;

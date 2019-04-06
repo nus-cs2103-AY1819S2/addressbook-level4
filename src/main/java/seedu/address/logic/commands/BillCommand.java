@@ -83,7 +83,6 @@ public class BillCommand extends Command {
         model.updateTables();
         model.updateStatistics();
         model.updateOrders();
-        model.updateMode();
         return new CommandResult(String.format(MESSAGE_SUCCESS, bill), false, false, Mode.BILL_MODE);
     }
 
@@ -110,18 +109,17 @@ public class BillCommand extends Command {
                 throw new CommandException(MESSAGE_MENU_ITEM_NOT_PRESENT);
             }
             menuItem = opt.get();
-            //TODO: Update the quantity of the menu item for its popularity
-            //menu.updateMenuItemQuantity(menuItem, orderItem.getQuantity());
+            menu.updateMenuItemQuantity(menuItem, orderItem.getQuantityOrdered());
             receipt.append(menuItem.getCode().itemCode)
                     .append("  ")
                     .append(menuItem.getName().itemName)
                     .append("\n $")
                     .append(menuItem.getPrice().itemPrice)
                     .append("   x ")
-                    .append(orderItem.getQuantity())
+                    .append(orderItem.getQuantityOrdered())
                     .append("\n\n");
 
-            totalBill += Float.parseFloat(menuItem.getPrice().toString()) * orderItem.getQuantity();
+            totalBill += Float.parseFloat(menuItem.getPrice().toString()) * orderItem.getQuantityOrdered();
         }
         receipt.append("Total Bill: $ ").append(String.format("%.2f", totalBill)).append("\n");
         return new Bill(tableToBill.getTableNumber(), totalBill, receipt.toString());

@@ -33,12 +33,19 @@ public class LessonList {
     private int openedLessonIndex = -1;
 
     /**
+     * Flag for whether there is an opened lesson. Determines if there is an opened lesson which can
+     * be edited.
+     */
+    private boolean isThereOpenedLesson = false;
+
+    /**
      * Creates a new {@link LessonList} which is used to store a list of {@link Lesson} objects.
      */
     public LessonList() {
         lessons = new ArrayList<>();
     }
 
+    // General lesson commands
     /**
      * Returns the list of {@link #lessons}.
      *
@@ -99,6 +106,7 @@ public class LessonList {
         lessons.set(index, newLesson);
     }
 
+    // Opened lesson commands
     /**
      * Returns the {@link #openedLesson}. A lesson is opened by calling {@link #openLesson(int)} and
      * closed by calling {@link #closeLesson()}. If there is no lesson currently opened, this returns
@@ -111,8 +119,6 @@ public class LessonList {
     }
 
     /**
-     * Returns all {@code Card} objects in the {@link #openedLesson}.
-     *
      * @return all {@code Card} objects in the {@link #openedLesson}; null if there are none
      */
     public List<Card> getOpenedLessonCards() {
@@ -120,32 +126,33 @@ public class LessonList {
     }
 
     /**
-     * @return the list of core headers
+     * @return the list of core headers in the {@link #openedLesson}
      */
     public List<String> getOpenedLessonCoreHeaders() {
         return openedLesson.getCoreHeaders();
     }
 
     /**
-     * @return the list of optional headers
+     * @return the list of optional headers in the {@link #openedLesson}
      */
     public List<String> getOpenedLessonOptionalHeaders() {
         return openedLesson.getOptionalHeaders();
     }
 
     /**
-     * Adds a card to the opened lesson.
+     * Adds a {@link Card} to the {@link #openedLesson}.
      *
-     * @param card card to be added to the opened lesson
+     * @param card {@link Card} to be added to the {@link #openedLesson}
      */
     public void addCardToOpenedLesson(Card card) {
+        requireNonNull(openedLesson);
         openedLesson.addCard(card);
     }
 
     /**
-     * Deletes the card at the specified index from the opened lesson.
+     * Deletes the {@link Card} at the specified index from the {@link #openedLesson}.
      *
-     * @param index the index of the card to be deleted from the opened lesson
+     * @param index the index of the {@link Card} to be deleted from the {@link #openedLesson}
      */
     public void deleteCardFromOpenedLesson(int index) {
         try {
@@ -157,15 +164,16 @@ public class LessonList {
 
     /**
      * Sets {@link #openedLesson} to the lesson at the specified index.
-     * All lesson-editing-related commands will apply to this lesson.
+     * All lesson-editing commands will apply to this {@link #openedLesson}.
      *
      * @param index index of the lesson to be assigned to {@link #openedLesson}
-     * @return the name of the lesson
+     * @return the name of the lesson assigned as {@link #openedLesson}
      */
     public String openLesson(int index) {
         try {
             openedLesson = lessons.get(index);
             openedLessonIndex = index;
+            isThereOpenedLesson = true;
             return openedLesson.getName();
         } catch (IndexOutOfBoundsException e) {
             throw new IllegalArgumentException(EXCEPTION_INVALID_INDEX + index);
@@ -178,12 +186,27 @@ public class LessonList {
     public String closeLesson() {
         requireNonNull(openedLesson);
         String lessonName = openedLesson.getName();
-        setLesson(openedLessonIndex, openedLesson); // Save
+        setLesson(openedLessonIndex, openedLesson); // Save lesson to in-memory lesson list
         openedLesson = null;
         openedLessonIndex = -1;
+        isThereOpenedLesson = false;
         return lessonName;
     }
 
+    /**
+     * Updated automatically by {@link #openLesson(int)} and {@link #closeLesson()} commands.
+     *
+     * @return true if there is an opened lesson; false otherwise
+     */
+    public boolean isThereOpenedLesson() {
+        return isThereOpenedLesson;
+    }
+
+    // Other general functions
+    /**
+     * @param other the object to compare this LessonList against
+     * @return true if the given object represents a LessonList equivalent to this string, false otherwise
+     */
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -198,6 +221,12 @@ public class LessonList {
         return otherLesson.hashCode() == this.hashCode();
     }
 
+    /**
+     * Returns a hash code for this LessonList. The hash code for a LessonList object is the hash code of
+     * the {@link #lessons} in this LessonList.
+     *
+     * @return a hash code value for this object
+     */
     @Override
     public int hashCode() {
         return lessons.hashCode();

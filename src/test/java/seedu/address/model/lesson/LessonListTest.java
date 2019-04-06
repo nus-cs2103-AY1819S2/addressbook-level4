@@ -1,8 +1,10 @@
 package seedu.address.model.lesson;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -27,15 +29,14 @@ public class LessonListTest {
     private int defaultSize = lessonList.getLessons().size();
 
     @Test
-    public void getLessons_lessonsNotNull_getsLessonsList() {
+    public void getLessons_lessonListSetup_getsLessonsList() {
         assertNotNull(lessonList.getLessons());
     }
 
     @Test
-    public void getLesson_indexOutOfBounds_throwsIllegalArgumentException() {
+    public void getLesson_invalidIndex_throwsIllegalArgumentException() {
         thrown.expect(IllegalArgumentException.class);
         lessonList.getLesson(-1);
-        lessonList.getLesson(999);
     }
 
     @Test
@@ -58,6 +59,7 @@ public class LessonListTest {
     @Test
     public void setLesson_nullLesson_throwsNullPointerException() {
         lessonList.addLesson(lessonToAdd);
+
         thrown.expect(NullPointerException.class);
         lessonList.setLesson(0, null);
     }
@@ -69,8 +71,9 @@ public class LessonListTest {
     }
 
     @Test
-    public void setLesson_validData_updatesLesson() {
+    public void setLesson_validInput_isEqual() {
         assertNotEquals(lessonToAdd, lessonList.getLesson(0));
+
         lessonList.setLesson(0, lessonToAdd);
         assertEquals(lessonToAdd, lessonList.getLesson(0));
     }
@@ -79,15 +82,19 @@ public class LessonListTest {
     public void deleteLesson_invalidIndex_throwsIllegalArgumentException() {
         thrown.expect(IllegalArgumentException.class);
         lessonList.deleteLesson(-1);
-        lessonList.deleteLesson(1);
     }
 
     @Test
     public void deleteLesson_validIndex_deletesLesson() {
+        // add lesson -> lesson added and size of ArrayList updated
         lessonList.addLesson(lessonToAdd);
         assertEquals(defaultSize + 1, lessonList.getLessons().size());
+
+        // delete lesson -> lesson deleted and size of ArrayList updated
         lessonList.deleteLesson(0);
         assertEquals(defaultSize, lessonList.getLessons().size());
+
+        // attempt to access deleted lesson -> illegal argument exception thrown
         thrown.expect(IllegalArgumentException.class);
         lessonList.getLesson(defaultSize);
     }
@@ -113,30 +120,6 @@ public class LessonListTest {
     }
 
     @Test
-    public void openLesson_addCard_addSuccessful() {
-        Card card = TypicalCards.CARD_CAT;
-        lessonList.openLesson(0);
-        int size = lessonList.getOpenedLessonCards().size();
-        lessonList.addCardToOpenedLesson(card);
-        assertEquals(size + 1, lessonList.getOpenedLessonCards().size());
-    }
-
-    @Test
-    public void openLesson_deleteCard_deleteSuccessful() {
-        lessonList.openLesson(0);
-        int size = lessonList.getOpenedLessonCards().size();
-        lessonList.deleteCardFromOpenedLesson(0);
-        assertEquals(size - 1, lessonList.getOpenedLessonCards().size());
-    }
-
-    @Test
-    public void openLesson_deleteCard_deleteUnsuccessful() {
-        lessonList.openLesson(0);
-        thrown.expect(IllegalArgumentException.class);
-        lessonList.deleteCardFromOpenedLesson(500);
-    }
-
-    @Test
     public void openLesson_invalidIndex_throwsIllegalArgumentException() {
         // open non-existing lesson at invalid index -> IllegalArgumentException thrown
         thrown.expect(IllegalArgumentException.class);
@@ -144,13 +127,13 @@ public class LessonListTest {
     }
 
     @Test
-    public void noLesson_getOpenedLesson_returnNull() {
+    public void noOpenLesson_noOpenedLesson_returnNull() {
         // get openedLesson which has not been set -> return null
         Assert.assertNull(lessonList.getOpenedLesson());
     }
 
     @Test
-    public void getOpenedLesson_returnNull() {
+    public void openThenCloseLesson_noOpenedLesson_returnNull() {
         // open valid lesson at valid index -> openedLesson = Lesson at index 0
         lessonList.openLesson(0);
 
@@ -165,7 +148,31 @@ public class LessonListTest {
     }
 
     @Test
-    public void openAndDeleteLesson_returnNull() {
+    public void openLesson_isThereOpenedLesson_returnTrue() {
+        // open valid lesson at valid index -> openedLesson = Lesson at index 0
+        lessonList.openLesson(0);
+
+        // is there opened lesson -> return true
+        assertTrue(lessonList.isThereOpenedLesson());
+    }
+
+    @Test
+    public void closeLesson_isThereOpenedLesson_returnFalse() {
+        // is there opened lesson -> return false
+        assertFalse(lessonList.isThereOpenedLesson());
+
+        // open valid lesson at valid index -> openedLesson = Lesson at index 0
+        lessonList.openLesson(0);
+
+        // close lesson -> openedLesson set to null
+        lessonList.closeLesson();
+
+        // is there opened lesson -> return false
+        assertFalse(lessonList.isThereOpenedLesson());
+    }
+
+    @Test
+    public void deleteOpenedLesson_noOpenedLesson_returnNull() {
         lessonList.addLesson(lessonToAdd);
 
         // open valid lesson at valid index -> openedLesson = Lesson at index 0
@@ -179,12 +186,38 @@ public class LessonListTest {
         Assert.assertNull(lessonList.getOpenedLesson());
     }
 
+    // Card-related commands
+    @Test
+    public void openLesson_addCard_addSuccessful() {
+        Card card = TypicalCards.CARD_CAT;
+        lessonList.openLesson(0);
+        int size = lessonList.getOpenedLessonCards().size();
+        lessonList.addCardToOpenedLesson(card);
+        assertEquals(size + 1, lessonList.getOpenedLessonCards().size());
+    }
+
+    @Test
+    public void deleteCard() {
+        lessonList.openLesson(0);
+        int size = lessonList.getOpenedLessonCards().size();
+        lessonList.deleteCardFromOpenedLesson(0);
+        assertEquals(size - 1, lessonList.getOpenedLessonCards().size());
+    }
+
+    @Test
+    public void deleteCard_invalidIndex_deleteUnsuccessful() {
+        lessonList.openLesson(0);
+        thrown.expect(IllegalArgumentException.class);
+        lessonList.deleteCardFromOpenedLesson(500);
+    }
+
+    // Equality check
     @Test
     public void equals() {
         // same object -> returns true
         assertEquals(lessonList, lessonList);
 
-        // different Lessonlist -> return false
+        // same object type, different object -> return false
         LessonList diffLessonList = new LessonListBuilder().withLessons(List.of(lessonToAdd)).build();
         assertNotEquals(lessonList, diffLessonList);
 

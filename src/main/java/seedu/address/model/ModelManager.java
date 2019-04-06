@@ -46,6 +46,9 @@ public class ModelManager implements Model {
     private final FilteredList<DailyRevenue> filteredDailyRevenueList;
     private final SimpleObjectProperty<DailyRevenue> selectedDailyRevenue = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Bill> recentBill = new SimpleObjectProperty<>();
+    private boolean isDaily;
+    private boolean isMonthly;
+    private boolean isYearly;
 
     /**
      * Initializes a ModelManager with the given restOrRant and userPrefs.
@@ -66,6 +69,9 @@ public class ModelManager implements Model {
         filteredTableList.addListener(this::ensureSelectedTableIsValid);
         filteredDailyRevenueList = new FilteredList<>(this.restOrRant.getStatistics().getDailyRevenueList());
         filteredDailyRevenueList.addListener(this::ensureSelectedDailyRevenueIsValid);
+        isDaily = true;
+        isMonthly = false;
+        isYearly = false;
     }
 
     public ModelManager() {
@@ -509,6 +515,29 @@ public class ModelManager implements Model {
     @Override
     public void updateStatistics() {
         restOrRant.getStatistics().indicateModified();
+    }
+
+    @Override
+    public void setStatisticsStatus(boolean isDaily, boolean isMonthly, boolean isYearly) {
+        requireAllNonNull(isDaily, isMonthly, isYearly);
+        this.isDaily = isDaily;
+        this.isMonthly = isMonthly;
+        this.isYearly = isYearly;
+    }
+
+    @Override
+    public boolean getIsDaily() {
+        return isDaily;
+    }
+
+    @Override
+    public boolean getIsMonthly() {
+        return isMonthly;
+    }
+
+    @Override
+    public boolean getIsYearly() {
+        return isYearly;
     }
 
     //=========== Filtered Daily revenue List Accessors ==============================================================

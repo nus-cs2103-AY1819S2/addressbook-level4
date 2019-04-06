@@ -241,4 +241,24 @@ public class LogicManager implements Logic {
         model.setSelectedDailyRevenue(dailyRevenue);
     }
 
+    @Override
+    public void setStatisticsStatus(boolean isDaily, boolean isMonthly, boolean isYearly) {
+        model.setStatisticsStatus(isDaily, isMonthly, isYearly);
+    }
+
+    @Override
+    public boolean getIsDaily() {
+        return model.getIsDaily();
+    }
+
+    @Override
+    public boolean getIsMonthly() {
+        return model.getIsMonthly();
+    }
+
+    @Override
+    public boolean getIsYearly() {
+        return model.getIsYearly();
+    }
+
 }

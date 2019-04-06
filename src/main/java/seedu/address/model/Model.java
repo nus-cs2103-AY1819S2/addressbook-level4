@@ -299,6 +299,26 @@ public interface Model {
     ObservableList<DailyRevenue> getDailyRevenueList();
 
     /**
+     * Set the statistics status
+     */
+    void setStatisticsStatus(boolean isDaily, boolean isMonthly, boolean isYearly);
+
+    /**
+     * Get the daily status
+     */
+    boolean getIsDaily() ;
+
+    /**
+     * Get the monthly status
+     */
+    boolean getIsMonthly();
+
+    /**
+     * Get the yearly status
+     */
+    boolean getIsYearly();
+
+    /**
      * Recent bill.
      * null if no bill is selected.
      */

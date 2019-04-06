@@ -47,9 +47,70 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
+== User Interface Walkthrough
+
+This section is designed to guide you through how the user interface and components in Club Manager works.
+
+Here is an example of how Club Manager in member mode looks like:
+
+image::memberUiWalkthrough.png[width="100%"]
+
+Here is an example of how Club Manager in activity mode looks like:
+
+image::activityUiWalkthrough.png[width="100%"]
+
+In total, there are:
+
+* *5 General Parts:*
+
+** <<#Menu-Bar, Menu Bar>>
+
+** <<#Result-Display, Result Display>>
+
+** <<#Command-Box, Command Box>>
+
+** <<#SSB, Sync Status Bar>>
+
+** Mode Status.
+
+* *3 Member Mode-specific Parts:*
+
+** List of Members
+** Member Information Display Panel
+** List of Activities Attended By Selected Member.
+
+* *4 Activity Mode-specific Parts:*
+** List of Activities
+** Activity Information Display Panel
+** List of Members Attending Selected Activity
+** List of Members Not Attending Selected Activity.
+
+[[Menu-Bar]]
+=== Menu Bar
+The *Menu Bar* provide you quick access to functions as below.
+
+Here are the available options currently:
+
+* File: Provide access to file functions.
+
+* Exit: Exit the program.
+
+* Help: Show Club Manager tutorial.
+
+You can also press F1 to show Club Manager User Guide.
+
+[[Command-Box]]
+=== Command Box
+
+The *Command Box* is the place where you can input the commands.
+
+[[Result-Display]]
+=== Result Display
+
+The *Result Display* shows information relating to the result of the command.
+
 [[Features]]
 == Features
-
 ====
 *Command Format*
 
@@ -113,6 +174,7 @@ Format: `history`
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
+
 
 === Member Management Features
 
@@ -238,8 +300,6 @@ Returns any member having names `Betsy`, `Tim`, or `John`
 
 Shows a list of all members in ClubManager. +
 Format: `memberList`
-
-
 
 ==== Selecting a member : `memberSelect`
 
@@ -518,13 +578,6 @@ Selects the 1st activity in the results of the `find` command.
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -538,8 +591,6 @@ This section provides a comprehensive list of commands that ClubManager offers.
 e.g. `mode member`
 * *Help* : `help`
 * *History* : `history`
-* *Redo* : `redo`
-* *Undo* : `undo`
 
 === Member Management Commands
 

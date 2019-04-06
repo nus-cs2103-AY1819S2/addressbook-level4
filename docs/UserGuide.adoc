@@ -217,8 +217,8 @@ Format: `setCategories INDEX [c/CUISINE] [oc/OCCASION] [pr/PRICE_RANGE]`
 ****
 * The index refers to the index number shown in the displayed restaurants list.
 * You need to ensure that the index entered *must be a positive integer* `1, 2, 3, ...`
-* You need to ensure that the `Price Range` entered *must* only consist of 1-5 `$` characters. e.g. `$`, `\$$$`, `$$\$$$`
-is okay but `$$\$$$$`, `cheap` or `$expensive` will be rejected.
+* You need to ensure that the `Price Range` entered *must* only consist of 1-5 $ characters. e.g. $, \$$$, $$\$$$
+is okay but $$\$$$$, cheap or $expensive will be rejected.
 * You need to ensure that `Cuisine` and `Occasion` *must* only contain alphanumeric characters and spaces.
 * You do not need to worry about capitalization. `Cuisine` and `Occasion` will be autocapitalized.
 e.g. `fast food` and `premium casual` will be capitalized to

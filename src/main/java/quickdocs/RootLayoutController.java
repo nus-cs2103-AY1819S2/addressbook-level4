@@ -12,6 +12,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.ui.HelpWindow;
 import seedu.address.ui.ListElementPointer;
 import seedu.address.ui.ReminderListPanel;
 
@@ -44,6 +45,8 @@ public class RootLayoutController {
     @FXML
     private Label currentSession;
 
+    private HelpWindow helpWindow;
+
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
@@ -52,6 +55,7 @@ public class RootLayoutController {
         this.logicManager = logicManager;
         this.history = this.logicManager.getHistory();
         this.historySnapshot = new ListElementPointer(history);
+        this.helpWindow = new HelpWindow();
     }
 
     /**
@@ -82,6 +86,11 @@ public class RootLayoutController {
                     handleExit();
                 }
 
+                // handling help
+                if (result.isShowHelp()) {
+                    handleHelp();
+                }
+
                 // consultation session handling
                 indicateConsultation(result.getFeedbackToUser());
                 endConsultation(result.getFeedbackToUser());
@@ -89,7 +98,6 @@ public class RootLayoutController {
                 display.appendText(">" + userInput.getText() + "\n");
                 display.appendText(result.getFeedbackToUser());
                 display.appendText("\n");
-
 
                 // move display to the end to show result of last entered command
                 display.selectPositionCaret(display.getText().length());
@@ -218,4 +226,17 @@ public class RootLayoutController {
     public void handleExit() {
         primaryStage.close();
     }
+
+    /**
+     * Opens the help window or focuses on it if it's already opened.
+     */
+    public void handleHelp() {
+        if (!helpWindow.isShowing()) {
+            helpWindow.show();
+        } else {
+            helpWindow.focus();
+        }
+    }
+
+
 }

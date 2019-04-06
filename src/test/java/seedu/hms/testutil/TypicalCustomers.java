@@ -87,9 +87,9 @@ public class TypicalCustomers {
         new BookingBuilder().withService(ServiceType.GYM).withTiming(14, 15).withPayer(ALICE)
             .build();
 
-    private static final Booking BENSON_GAMES_WITH_CARL =
-        new BookingBuilder().withService(ServiceType.GAMES).withTiming(12, 13).withPayer(BENSON)
-            .withOtherUsers(CARL).build();
+    private static final Booking ALICE_GAMES_WITH_CARL =
+        new BookingBuilder().withService(ServiceType.GAMES).withTiming(12, 13).withPayer(ALICE)
+            .build();
 
     // Reservations
 
@@ -99,7 +99,7 @@ public class TypicalCustomers {
 
     private static final Reservation BENSON_DOUBLE_ROOM_WITH_CARL =
         new ReservationBuilder().withRoom(RoomType.DOUBLE).withDates("14/04/2010", "17/04/2010").withPayer(ALICE)
-            .withOtherUsers(CARL).build();
+            .build();
 
     private TypicalCustomers() {
     } // prevents instantiation
@@ -127,7 +127,7 @@ public class TypicalCustomers {
     }
 
     public static List<Booking> getTypicalBookings() {
-        return new ArrayList<>(Arrays.asList(ALICE_GYM, BENSON_GAMES_WITH_CARL));
+        return new ArrayList<>(Arrays.asList(ALICE_GYM, ALICE_GAMES_WITH_CARL));
     }
 
     public static List<Reservation> getTypicalReservations() {

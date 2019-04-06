@@ -162,23 +162,17 @@ Format: `displaymod c/[Module Code],[Module Code]`
 .Single module code search command format
 image::displaymod1cexamplecmd.png[width="500"]
 
-
 The search above should yield a result:
-
 
 .Single module code search result
 image::displaymod1cexampleresult.png[width="800"]
 
-
 However if users wishes to search for multiple modules at once they can follow the example given below:
-
 
 .Multiple module codes search command format
 image::displaymodMcexamplecmd.png[width="500"]
 
-
 The search above should yield a result:
-
 
 .Multiple module code search result
 image::displaymodMcexampleresult.png[width="800"]

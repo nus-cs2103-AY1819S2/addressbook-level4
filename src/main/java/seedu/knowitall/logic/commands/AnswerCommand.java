@@ -65,7 +65,7 @@ public class AnswerCommand extends Command {
         }
         model.setCardAsAnswered();
 
-        Card scoredCard = createScoredCard(cardToMark, isAttemptCorrect);
+        Card scoredCard = model.createScoredCard(cardToMark, isAttemptCorrect);
         model.setCard(cardToMark, scoredCard);
         model.updateFilteredCard(PREDICATE_SHOW_ALL_CARDS);
         model.commitActiveCardFolder();
@@ -74,25 +74,6 @@ public class AnswerCommand extends Command {
         } else {
             return new CommandResult(MESSAGE_ANSWER_SUCCESS, CommandResult.Type.ANSWER_WRONG);
         }
-    }
-
-    /**
-     *
-     * @param cardToMark {@code Card} which is being marked correct or wrong
-     * @param markCorrect Boolean representing if card should be graded correct or wrong
-     * @return Card created with new score
-     */
-    private static Card createScoredCard(Card cardToMark, boolean markCorrect) {
-        Score newScore;
-        if (markCorrect) {
-            newScore = new Score(cardToMark.getScore().correctAttempts + 1,
-                    cardToMark.getScore().totalAttempts + 1);
-        } else {
-            newScore = new Score(cardToMark.getScore().correctAttempts,
-                    cardToMark.getScore().totalAttempts + 1);
-        }
-        return new Card(cardToMark.getQuestion(), cardToMark.getAnswer(), newScore, cardToMark.getOptions(),
-                cardToMark.getHints());
     }
 
     @Override

@@ -4,11 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.menu.Code;
 import seedu.address.model.menu.Name;
 import seedu.address.model.order.OrderItem;
+import seedu.address.model.order.OrderItemStatus;
 import seedu.address.model.table.TableNumber;
 
 /**
@@ -47,8 +46,8 @@ class JsonAdaptedOrderItem {
         tableNumber = source.getTableNumber().getTableNumber();
         menuItemCode = source.getMenuItemCode().toString();
         menuItemName = source.getMenuItemName().toString();
-        quantityOrdered = String.valueOf(source.getQuantity());
-        quantityUnserved = String.valueOf(0);
+        quantityOrdered = String.valueOf(source.getQuantityOrdered());
+        quantityUnserved = String.valueOf(source.getQuantityToServe());
     }
 
     /**
@@ -83,24 +82,20 @@ class JsonAdaptedOrderItem {
         final Name modelMenuItemName = new Name(menuItemName);
 
         if (quantityOrdered == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "ordered"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "quantityOrdered"));
         }
 
         if (quantityUnserved == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "unserved"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "quantityUnserved"));
         }
 
-        final int modelQuantityOrdered;
-        // final int modelQuantityUnserved;
-
-        try {
-            modelQuantityOrdered = ParserUtil.parseQuantity(quantityOrdered);
-            // modelQuantityUnserved = ParserUtil.parseQuantity(quantityUnserved);
-        } catch (ParseException e) {
-            throw new IllegalValueException(ParserUtil.MESSAGE_INVALID_QUANTITY);
+        if (!OrderItemStatus.isValidQuantities(quantityOrdered, quantityUnserved)) {
+            throw new IllegalValueException(OrderItemStatus.MESSAGE_CONSTRAINTS);
         }
 
-        return new OrderItem(modelTableNumber, modelMenuItemCode, modelMenuItemName, modelQuantityOrdered);
+        final OrderItemStatus modelItemStatus = new OrderItemStatus(quantityOrdered, quantityUnserved);
+
+        return new OrderItem(modelTableNumber, modelMenuItemCode, modelMenuItemName, modelItemStatus);
     }
 
 }

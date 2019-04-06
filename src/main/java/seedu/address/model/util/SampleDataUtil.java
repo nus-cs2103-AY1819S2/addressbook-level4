@@ -7,6 +7,7 @@ import seedu.address.model.menu.MenuItem;
 import seedu.address.model.menu.Name;
 import seedu.address.model.menu.Price;
 import seedu.address.model.order.OrderItem;
+import seedu.address.model.order.OrderItemStatus;
 import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.Day;
 import seedu.address.model.statistics.Month;
@@ -30,9 +31,10 @@ public class SampleDataUtil {
     }
 
     public static OrderItem[] getSampleOrderItems() {
-        return new OrderItem[]{new OrderItem(new TableNumber("1"), new Code("W09"), new Name("Chicken Wings"), 3),
-            new OrderItem(new TableNumber("1"), new Code("W12"), new Name("French Fries"), 2),
-            new OrderItem(new TableNumber("2"), new Code("A05"), new Name("Salad"), 1)};
+        return new OrderItem[]{new OrderItem(new TableNumber("1"), new Code("W09"), new Name("Chicken Wings"),
+                new OrderItemStatus(3)),
+            new OrderItem(new TableNumber("1"), new Code("W12"), new Name("French Fries"), new OrderItemStatus(2)),
+            new OrderItem(new TableNumber("2"), new Code("A05"), new Name("Salad"), new OrderItemStatus(1))};
     }
 
     public static DailyRevenue[] getSampleDailyReveue() {

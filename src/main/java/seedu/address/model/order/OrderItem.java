@@ -17,29 +17,29 @@ public class OrderItem {
     private final TableNumber tableNumber;
     private final Code menuItemCode;
     private final Name menuItemName;
-    private final int quantityOrdered; // TODO: implement ItemStatus and change type, quantity part of status
+    private final OrderItemStatus itemStatus;
 
     /**
      * Every field must be present and not null.
      * TODO: create constructor with default status as unserved
      */
-    public OrderItem(TableNumber tableNumber, Code menuItemCode, Name menuItemName, int quantityOrdered) {
-        requireAllNonNull(tableNumber, menuItemCode, quantityOrdered);
+    public OrderItem(TableNumber tableNumber, Code menuItemCode, Name menuItemName, OrderItemStatus itemStatus) {
+        requireAllNonNull(tableNumber, menuItemCode, itemStatus);
         this.tableNumber = tableNumber;
         this.menuItemCode = menuItemCode;
         this.menuItemName = menuItemName;
-        this.quantityOrdered = quantityOrdered;
+        this.itemStatus = itemStatus;
     }
 
     /**
-     * Constructs a new order item with the identity of {@code itemToUpdate} but with the quantity modified.
+     * Constructs a new order item with the identity of {@code itemToUpdate} but with the status modified.
      */
-    public OrderItem(OrderItem itemToUpdate, int quantityToChange) {
-        requireAllNonNull(itemToUpdate, quantityToChange);
+    public OrderItem(OrderItem itemToUpdate, OrderItemStatus newStatus) {
+        requireAllNonNull(itemToUpdate, newStatus);
         this.tableNumber = itemToUpdate.getTableNumber();
         this.menuItemCode = itemToUpdate.getMenuItemCode();
         this.menuItemName = itemToUpdate.getMenuItemName();
-        this.quantityOrdered = itemToUpdate.getQuantity() + quantityToChange;
+        this.itemStatus = newStatus;
     }
 
     public TableNumber getTableNumber() {
@@ -54,8 +54,16 @@ public class OrderItem {
         return menuItemName;
     }
 
-    public int getQuantity() {
-        return quantityOrdered;
+    public int getQuantityOrdered() {
+        return itemStatus.getQuantityOrdered();
+    }
+
+    public int getQuantityToServe() {
+        return itemStatus.getQuantityUnserved();
+    }
+
+    public OrderItemStatus getOrderItemStatus() {
+        return itemStatus;
     }
 
     /**
@@ -73,7 +81,7 @@ public class OrderItem {
     }
 
     /**
-     * Returns true if both order items have the same table number, menu item code, menu item name and quantity ordered.
+     * Returns true if both order items have the same table number, menu item code, menu item name and item status.
      * This defines a stronger notion of equality between two order items.
      */
     @Override
@@ -87,13 +95,13 @@ public class OrderItem {
         }
 
         OrderItem otherOrderItem = (OrderItem) other;
-        return isSameOrderItem(otherOrderItem) && otherOrderItem.getQuantity() == getQuantity();
+        return isSameOrderItem(otherOrderItem) && otherOrderItem.getOrderItemStatus().equals(getOrderItemStatus());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tableNumber, menuItemCode, String.valueOf(quantityOrdered));
+        return Objects.hash(tableNumber, menuItemCode, menuItemName, itemStatus);
     }
 
     @Override
@@ -105,8 +113,8 @@ public class OrderItem {
                 .append(getMenuItemCode())
                 .append(" ")
                 .append(getMenuItemName())
-                .append(" | Qty Ordered: ")
-                .append(getQuantity());
+                .append(" | ")
+                .append(getOrderItemStatus());
         return builder.toString();
     }
 

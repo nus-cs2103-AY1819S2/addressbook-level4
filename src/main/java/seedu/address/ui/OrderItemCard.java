@@ -43,6 +43,10 @@ public class OrderItemCard extends UiPart<Region> {
         menuItem.setText(item.getMenuItemCode().itemCode + " " + item.getMenuItemName());
         quantity.setText(
                 "Quantity: [" + item.getQuantityToServe() + "/" + item.getQuantityOrdered() + " to serve]");
+
+        if (item.getOrderItemStatus().isAllServed()) {
+            cardPane.setStyle("-fx-background-color: #1d1d1d;");
+        }
     }
 
     @Override

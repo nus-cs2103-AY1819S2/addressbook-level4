@@ -1,6 +1,6 @@
 = PDF++ - Developer Guide
 :site-section: DeveloperGuide
-:toc: left
+:toc: preamble
 :toc-title:
 :toclevels: 2
 :sectnums:

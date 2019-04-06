@@ -24,12 +24,11 @@ public class RevenueCommand extends Command {
     public static final String COMMAND_ALIAS = "r";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Gets the revenue from the specified day, month or year."
-            + "Parameters: [d/DAY] [m/MONTH] [y/YEAR]\n"
-            + "Combinations not allowed:\n 1. [d/DAY] and [y/YEAR] only\n 2. [d/DAY] and [m/MONTH] only\n"
-            + "Example: " + COMMAND_WORD + " d/30 m/12 y/2019 or "
-            + COMMAND_WORD + " m/12 y/2019 or "
-            + COMMAND_WORD + " y/2019";
+            + ": Gets the revenue from the specified year, month or day."
+            + "Parameters: [y/YEAR [m/MONTH] [d/DAY]]]\n"
+            + "Example: " + COMMAND_WORD + " y/2019 or "
+            + COMMAND_WORD + "y/2019 m/12 or "
+            + COMMAND_WORD + "y/2019 m/12 d/30";
 
     public static final String MESSAGE_SUCCESS = "Revenue for ";
 
@@ -56,6 +55,7 @@ public class RevenueCommand extends Command {
         List<DailyRevenue> dailyRevenueList = model.getFilteredDailyRevenueList();
 
         if (dailyRevenue.getDay() != null && dailyRevenue.getMonth() != null && dailyRevenue.getYear() != null) {
+            //daily
             for (DailyRevenue dailyRevenueItem : dailyRevenueList) {
                 requireNonNull(dailyRevenueItem);
 
@@ -69,6 +69,7 @@ public class RevenueCommand extends Command {
 
         } else if (dailyRevenue.getDay() == null && dailyRevenue.getMonth() != null
                 && dailyRevenue.getYear() != null) {
+            //monthly
 
             Month requestedMonth = dailyRevenue.getMonth();
             Year requestedYear = dailyRevenue.getYear();
@@ -86,6 +87,7 @@ public class RevenueCommand extends Command {
 
         } else if (dailyRevenue.getDay() == null && dailyRevenue.getMonth() == null
                 && dailyRevenue.getYear() != null) {
+            //yearly
 
             for (DailyRevenue dailyRevenueItem : dailyRevenueList) {
                 requireNonNull(dailyRevenueItem);
@@ -100,6 +102,7 @@ public class RevenueCommand extends Command {
 
         } else if (dailyRevenue.getDay() == null && dailyRevenue.getMonth() == null
                 && dailyRevenue.getYear() == null) {
+            //current date
             java.util.Date currentDate = new java.util.Date();
             SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
             String dateParser = dateFormatter.format(currentDate);

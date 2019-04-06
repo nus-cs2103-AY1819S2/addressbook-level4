@@ -99,7 +99,7 @@ public class CustomerCardHandle extends NodeHandle<Node> {
             && getDateOfBirth().equals("Date of Birth: " + customer.getDateOfBirth().value)
             && getPhone().equals("Phone: " + customer.getPhone().value)
             && getEmail().equals("Email: " + customer.getEmail().value)
-            && getIdNum().equals("Identification No: "+ customer.getIdNum().value)
+            && getIdNum().equals("Identification No: " + customer.getIdNum().value)
             && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(customer.getTags().stream()
             .map(tag -> tag.tagName)
             .collect(Collectors.toList())));

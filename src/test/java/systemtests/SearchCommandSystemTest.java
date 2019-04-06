@@ -47,7 +47,7 @@ public class SearchCommandSystemTest extends FinanceTrackerSystemTest {
          * this time using its alias, find.
          * -> 2 records found
          */
-        
+
         command = SearchCommand.COMMAND_ALIAS + " " + COMMAND_FLAG_NAME + " " + KEYWORD_MATCHING_DONUT;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();

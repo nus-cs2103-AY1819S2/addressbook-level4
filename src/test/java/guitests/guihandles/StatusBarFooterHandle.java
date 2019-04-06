@@ -9,20 +9,20 @@ import javafx.scene.control.Labeled;
 public class StatusBarFooterHandle extends NodeHandle<Node> {
     public static final String STATUS_BAR_PLACEHOLDER = "#statusbarPlaceholder";
 
-    private static final String SAVE_LOCATION_STATUS_ID = "#saveLocationStatus";
+    private static final String CURRENT_STATUS_ID = "#currentStatus";
 
-    private final Labeled saveLocationNode;
+    private final Labeled currentStatusNode;
 
     public StatusBarFooterHandle(Node statusBarFooterNode) {
         super(statusBarFooterNode);
 
-        saveLocationNode = getChildNode(SAVE_LOCATION_STATUS_ID);
+        currentStatusNode = getChildNode(CURRENT_STATUS_ID);
     }
 
     /**
-     * Returns the text of the 'save location' portion of the status bar.
+     * Returns the text of the current status displayed in the status bar.
      */
-    public String getSaveLocation() {
-        return saveLocationNode.getText();
+    public String getCurrentStatus() {
+        return currentStatusNode.getText();
     }
 }

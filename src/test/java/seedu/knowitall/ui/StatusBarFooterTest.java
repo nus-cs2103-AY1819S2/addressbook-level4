@@ -36,7 +36,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
      * Asserts that the save location matches that of {@code expectedSaveLocation}.
      */
     private void assertStatusBarContent(String expectedSaveLocation) {
-        assertEquals(expectedSaveLocation, statusBarFooterHandle.getSaveLocation());
+        assertEquals(expectedSaveLocation, statusBarFooterHandle.getCurrentStatus());
         guiRobot.pauseForHuman();
     }
 

@@ -246,7 +246,7 @@ public abstract class CardFolderSystemTest {
      */
     protected void assertStatusBarIsInHomeDirectory() {
         StatusBarFooterHandle handle = getStatusBarFooter();
-        assertEquals(STATUS_IN_HOME_DIRECTORY, handle.getSaveLocation());
+        assertEquals(STATUS_IN_HOME_DIRECTORY, handle.getCurrentStatus());
     }
 
     /**
@@ -254,7 +254,7 @@ public abstract class CardFolderSystemTest {
      */
     protected void assertStatusBarIsInFolder() {
         StatusBarFooterHandle handle = getStatusBarFooter();
-        assertEquals(STATUS_IN_FOLDER, handle.getSaveLocation());
+        assertEquals(STATUS_IN_FOLDER, handle.getCurrentStatus());
     }
 
     /**
@@ -262,7 +262,7 @@ public abstract class CardFolderSystemTest {
      */
     protected void assertStatusBarIsInTestSession() {
         StatusBarFooterHandle handle = getStatusBarFooter();
-        assertEquals(STATUS_IN_TEST_SESSION, handle.getSaveLocation());
+        assertEquals(STATUS_IN_TEST_SESSION, handle.getCurrentStatus());
     }
 
     /**
@@ -270,7 +270,7 @@ public abstract class CardFolderSystemTest {
      */
     protected void assertStatusBarIsInReportDisplay() {
         StatusBarFooterHandle handle = getStatusBarFooter();
-        assertEquals(STATUS_IN_REPORT_DISPLAY, handle.getSaveLocation());
+        assertEquals(STATUS_IN_REPORT_DISPLAY, handle.getCurrentStatus());
     }
 
     /**

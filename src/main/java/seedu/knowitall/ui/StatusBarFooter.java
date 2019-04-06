@@ -17,14 +17,14 @@ public class StatusBarFooter extends UiPart<Region> {
     private static final String FXML = "StatusBarFooter.fxml";
 
     @FXML
-    private Label saveLocationStatus;
+    private Label currentStatus;
 
     /**
      * Initialise status bar to display user default status to be in home directory when user launch the app.
      */
     public StatusBarFooter() {
         super(FXML);
-        saveLocationStatus.setText(STATUS_IN_HOME_DIRECTORY);
+        currentStatus.setText(STATUS_IN_HOME_DIRECTORY);
     }
 
     /**
@@ -59,6 +59,6 @@ public class StatusBarFooter extends UiPart<Region> {
      * Updates status bar to display the specified status.
      */
     private void updateStatusBar(String status) {
-        saveLocationStatus.setText(status);
+        currentStatus.setText(status);
     }
 }

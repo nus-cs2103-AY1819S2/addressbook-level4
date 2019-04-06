@@ -25,7 +25,7 @@ public class LessonOverview extends UiPart<Region> {
     public final Lesson lesson;
 
     //@FXML
-    private HBox cardPane;
+    //private HBox cardPane;
     @FXML
     private Label name;
     @FXML

@@ -43,6 +43,7 @@ public class ParserUtil {
      * @throws ParseException if the specified quantity is invalid.
      */
     public static int parseQuantity(String quantity) throws ParseException {
+        requireNonNull(quantity);
         String trimmedQuantity = quantity.trim();
         if (!OrderItemStatus.isValidQuantity(trimmedQuantity)) {
             throw new ParseException(OrderItemStatus.MESSAGE_CONSTRAINTS);

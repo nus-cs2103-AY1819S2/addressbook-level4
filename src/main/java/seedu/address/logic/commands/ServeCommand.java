@@ -3,8 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import seedu.address.logic.CommandHistory;
@@ -14,7 +12,6 @@ import seedu.address.model.Model;
 import seedu.address.model.menu.Code;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
-import seedu.address.model.order.OrderItemStatus;
 import seedu.address.model.table.TableNumber;
 
 /**

@@ -287,72 +287,72 @@
     -fx-font-size: 11;
 }
 
-#category .teal {
+.teal {
     -fx-text-fill: white;
     -fx-background-color: teal;
 }
 
-#category .red {
+.red {
     -fx-text-fill: black;
     -fx-background-color: red;
 }
 
- #category .yellow {
+.yellow {
     -fx-background-color: yellow;
     -fx-text-fill: black;
 }
 
- #category .blue {
+.blue {
     -fx-text-fill: white;
     -fx-background-color: blue;
 }
 
- #category .orange {
+.orange {
     -fx-text-fill: black;
     -fx-background-color: orange;
 }
 
- #category .brown {
+.brown {
     -fx-text-fill: white;
     -fx-background-color: brown;
 }
 
- #category .green {
+.green {
     -fx-text-fill: black;
     -fx-background-color: green;
 }
 
- #category .pink {
+.pink {
     -fx-text-fill: black;
     -fx-background-color: pink;
 }
 
- #category .black {
+.black {
     -fx-text-fill: white;
     -fx-background-color: black;
 }
 
- #category .grey {
+.grey {
     -fx-text-fill: black;
     -fx-background-color: grey;
 }
 
- #category .purple {
+.purple {
     -fx-text-fill: white;
     -fx-background-color: purple;
 }
 
- #category .tan {
+.tan {
     -fx-text-fill: black;
     -fx-background-color: tan;
 }
 
- #category .coral {
+.coral {
     -fx-text-fill: white;
     -fx-background-color: coral;
 }
 
- #category .turquoise {
+.turquoise {
     -fx-text-fill: black;
     -fx-background-color: turquoise;
 }

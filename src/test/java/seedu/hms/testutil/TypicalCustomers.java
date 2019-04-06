@@ -42,18 +42,11 @@ public class TypicalCustomers {
     public static final Customer CARL = new CustomerBuilder().withName("Carl Kurz").withPhone("95352563")
         .withEmail("heinz@example.com").withAddress("wall street").withIdNum("10453512A").withDateOfBirth("30/12/2001")
         .build();
-    private static final Customer DANIEL =
-        new CustomerBuilder().withName("Daniel Meier").withPhone("87652533").withDateOfBirth("30/12/2002")
-            .withEmail("cornelia@example.com").withAddress("10th street").withIdNum("1200512A")
-            .withTags("friends").build();
     public static final Customer ELLE = new CustomerBuilder().withName("Elle Meyer").withPhone("9482224")
         .withDateOfBirth("30/12/2003").withEmail("werner@example.com").withAddress("michegan ave")
         .withIdNum("12330012A").build();
     public static final Customer FIONA = new CustomerBuilder().withName("Fiona Kunz").withPhone("9482427")
         .withEmail("lydia@example.com").withAddress("little tokyo").withIdNum("1009512A").withDateOfBirth("30/12/2004")
-        .build();
-    private static final Customer GEORGE = new CustomerBuilder().withName("George Best").withPhone("9482442")
-        .withEmail("anna@example.com").withAddress("4th street").withIdNum("1233912A").withDateOfBirth("30/12/2005")
         .build();
     public static final Customer VIP_CUSTOMER =
         new CustomerBuilder().withName("I am VIP").withPhone("94824425").withDateOfBirth("30/12/2006")
@@ -63,7 +56,6 @@ public class TypicalCustomers {
         new CustomerBuilder().withName("I am also VIP").withPhone("34824425").withDateOfBirth("30/12/2007")
             .withEmail("vip2@example.com").withAddress("VVIP street").withIdNum("5352A525")
             .withTags("vip").build();
-
     // Manually added
     public static final Customer HOON = new CustomerBuilder().withName("Hoon Meier").withPhone("8482424")
         .withDateOfBirth("30/12/2008").withEmail("stefan@example.com").withIdNum("A4563631Q")
@@ -71,8 +63,6 @@ public class TypicalCustomers {
     public static final Customer IDA = new CustomerBuilder().withName("Ida Mueller").withPhone("8482131")
         .withDateOfBirth("30/12/2009").withEmail("hans@example.com").withIdNum("A1113342T")
         .withAddress("chicago ave").build();
-
-
     // Manually added - Customer's details found in {@code CommandTestUtil}
     public static final Customer AMY =
         new seedu.hms.testutil.CustomerBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
@@ -83,11 +73,16 @@ public class TypicalCustomers {
             .withEmail(VALID_EMAIL_BOB).withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
             .build();
-
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    private static final Customer DANIEL =
+        new CustomerBuilder().withName("Daniel Meier").withPhone("87652533").withDateOfBirth("30/12/2002")
+            .withEmail("cornelia@example.com").withAddress("10th street").withIdNum("1200512A")
+            .withTags("friends").build();
+    private static final Customer GEORGE = new CustomerBuilder().withName("George Best").withPhone("9482442")
+        .withEmail("anna@example.com").withAddress("4th street").withIdNum("1233912A").withDateOfBirth("30/12/2005")
+        .build();
 
     // Bookings
-
     private static final Booking ALICE_GYM =
         new BookingBuilder().withService(ServiceType.GYM).withTiming(14, 15).withPayer(ALICE)
             .build();
@@ -100,7 +95,7 @@ public class TypicalCustomers {
 
     private static final Reservation ALICE_SINGLE_ROOM =
         new ReservationBuilder().withRoom(RoomType.SINGLE).withDates("14/04/2010", "17/04/2010").withPayer(ALICE)
-        .build();
+            .build();
 
     private static final Reservation BENSON_DOUBLE_ROOM_WITH_CARL =
         new ReservationBuilder().withRoom(RoomType.DOUBLE).withDates("14/04/2010", "17/04/2010").withPayer(ALICE)

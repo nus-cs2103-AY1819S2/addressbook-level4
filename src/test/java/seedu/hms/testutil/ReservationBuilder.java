@@ -129,11 +129,14 @@ public class ReservationBuilder {
         return this;
     }
 
-    private Calendar dateBuilder(String date){
+    /**
+     * Converts {@code date} of the {@code Reservation} from String type to Calendar type
+     */
+    private Calendar dateBuilder(String date) {
         Calendar dateCalendar = Calendar.getInstance();
         String[] sd = date.split("/");
         dateCalendar.set(Integer.parseInt(sd[2]), Integer.parseInt(sd[1]), Integer.parseInt(sd[0]));
-        return  dateCalendar;
+        return dateCalendar;
     }
 
     /**

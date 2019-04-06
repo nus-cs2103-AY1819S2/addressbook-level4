@@ -18,7 +18,6 @@ import seedu.knowitall.model.ModelManager;
 import seedu.knowitall.model.UserPrefs;
 import seedu.knowitall.model.card.Answer;
 import seedu.knowitall.model.card.Card;
-import seedu.knowitall.model.card.Score;
 import seedu.knowitall.testutil.TypicalIndexes;
 
 /**

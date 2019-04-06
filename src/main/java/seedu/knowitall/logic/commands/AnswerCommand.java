@@ -10,7 +10,6 @@ import seedu.knowitall.model.Model;
 import seedu.knowitall.model.Model.State;
 import seedu.knowitall.model.card.Answer;
 import seedu.knowitall.model.card.Card;
-import seedu.knowitall.model.card.Score;
 
 /**
  * Allows user to input an answer for the currently displayed card, compares it with the

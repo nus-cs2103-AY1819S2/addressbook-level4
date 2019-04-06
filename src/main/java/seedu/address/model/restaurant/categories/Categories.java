@@ -1,6 +1,5 @@
 package seedu.address.model.restaurant.categories;
 
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUISINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE_RANGE;

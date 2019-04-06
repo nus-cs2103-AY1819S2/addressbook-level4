@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
@@ -13,6 +14,9 @@ import javafx.scene.control.TextField;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.restaurant.categories.Categories;
 
+/**
+ * A custom text field component that supports autocomplete for categories.
+ */
 public class CategoriesAutoCompleteTextField extends TextField {
 
     @FXML
@@ -36,7 +40,8 @@ public class CategoriesAutoCompleteTextField extends TextField {
             List<MenuItem> menuItemsToBeAdded = convertSuggestionsToMenuItems(retrievedSuggestions);
             suggestions.getItems().clear();
             suggestions.getItems().addAll(menuItemsToBeAdded);
-            suggestions.show(CategoriesAutoCompleteTextField.this, Side.BOTTOM, current.getInputMethodRequests().getTextLocation(0).getX(), 0);
+            suggestions.show(CategoriesAutoCompleteTextField.this, Side.BOTTOM,
+                    current.getInputMethodRequests().getTextLocation(0).getX(), 0);
         } else {
             suggestions.hide();
         }

@@ -18,10 +18,10 @@ public class SortCommandParserTest {
 
     private SortCommandParser parser = new SortCommandParser();
 
-    private final String VALID_INPUT_PROPERTY_EXPIRY = " " + PREFIX_PROPERTY + "expiry";
-    private final String VALID_INPUT_DIRECTION_DESCENDING = " " + PREFIX_DIRECTION + "descending";
-    private final String VALID_INPUT_PROPERTY_BATCHNUMBER = " " + PREFIX_PROPERTY + "batchnumber";
-    private final String VALID_INPUT_DIRECTION_ASCENDING = " " + PREFIX_DIRECTION + "ascending";
+    private final String VALID_INPUT_PROPERTY_EXPIRY = " " + PREFIX_PROPERTY + "expiry ";
+    private final String VALID_INPUT_DIRECTION_DESCENDING = " " + PREFIX_DIRECTION + "descending ";
+    private final String VALID_INPUT_PROPERTY_BATCHNUMBER = " " + PREFIX_PROPERTY + "batchnumber ";
+    private final String VALID_INPUT_DIRECTION_ASCENDING = " " + PREFIX_DIRECTION + "ascending ";
     private final String INVALID_INPUT_PROPERTY = " " + PREFIX_PROPERTY + "expir";
     private final String INVALID_INPUT_DIRECTION = " " + PREFIX_DIRECTION + "down";
 

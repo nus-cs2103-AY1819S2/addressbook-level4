@@ -211,12 +211,12 @@ after a successful search:
 .What information each module contains
 image::displaymoddisplay.png[width="800"]
 
-* 1. Shows the module *code* and module *name*.
-* 2. Shows which *department* the module belongs to.
-* 3. Displays the amount of module *credits* a student can gain by reading this module.
-* 4. Displays a brief description of the modules and potentially the topics that may be covered.
-* 5. Contains the *prerequisite tree* for each module.
-* 6. Contains *workload* load information, the values are meant to be read as *Hours*.
+*1.* Shows the module *code* and module *name*. +
+*2.* Shows which *department* the module belongs to. +
+*3.* Displays the amount of module *credits* a student can gain by reading this module. +
+*4.* Displays a brief description of the modules and potentially the topics that may be covered. +
+*5.* Contains the *prerequisite tree* for each module. +
+*6.* Contains *workload* load information, the values are meant to be read as *Hours*.
 
 
 

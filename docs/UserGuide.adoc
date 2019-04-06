@@ -187,24 +187,32 @@ Format: `displaymod n/KEYWORD+[KEYWORD]`
 
 .Single module name search command format
 image::displaymod1nexamplecmd.png[width="500"]
-
+{zwsp} +
+{zwsp} +
 The search above should yield a result: +
-
+{zwsp} +
+{zwsp} +
 
 .Single module name search command result +
 image::displaymod1nexampleresult.png[width="800"]
-
+{zwsp} +
+{zwsp} +
 However if users wishes to search for multiple modules at once they can follow the example given below: +
+{zwsp} +
+{zwsp} +
 
 .Multiple module name keyword search format +
 image::displaymodMnexamplecmd.png[width="500"]
-
+{zwsp} +
+{zwsp} +
 The search above should yield a result: +
-
+{zwsp} +
+{zwsp} +
 .Multiple module name keyword search result +
 image::displaymodMnexampleresult.png[width="800"]
-
-
+{zwsp} +
+{zwsp} +
+Users can also use a combination of both form of search to find more module per search command.
 
 // tag::Displayreq[]
 === Display Course Requirements: `displayreq`

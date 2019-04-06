@@ -221,7 +221,7 @@ public class ModelManager implements Model {
     }
 
     private Predicate <Record> defaultRecordPredicate() {
-        LocalDateTime now = LocalDateTime.now().minusDays(7);
+        LocalDate now = LocalDate.now().minusDays(7);
         return e -> e.getDate().isAfter(now);
     }
 

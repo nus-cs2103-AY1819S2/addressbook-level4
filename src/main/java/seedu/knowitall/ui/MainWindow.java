@@ -227,6 +227,9 @@ public class MainWindow extends UiPart<Stage> {
         folderListPanel.refreshContent();
     }
 
+    /**
+     * Start a report display by displaying the report page to the user.
+     */
     private void handleReport() {
         reportDisplay = new ReportDisplay(logic.getCardFolder());
         Region reportRegion = (reportDisplay).getRoot();
@@ -234,6 +237,9 @@ public class MainWindow extends UiPart<Stage> {
         statusBarFooter.updateStatusBarInReportDisplay();
     }
 
+    /**
+     * Ends report display and display back card main screen.
+     */
     private void handleEndReport() {
         fullScreenPlaceholder.getChildren().remove(fullScreenPlaceholder.getChildren().size() - 1);
         statusBarFooter.updateStatusBarInFolder();

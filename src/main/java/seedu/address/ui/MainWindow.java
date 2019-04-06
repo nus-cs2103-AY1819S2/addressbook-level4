@@ -256,7 +256,7 @@ public class MainWindow extends UiPart<Stage> {
             billPanel = new BillPanel(logic.getRecentBill());
             browserPlaceholder.getChildren().add(billPanel.getRoot());
 
-            statusBarFooter.updateMode("Bill Mode");
+            statusBarFooter.updateMode("Table Mode");
             changeTheme(BILL_MODE_THEME);
             break;
 
@@ -268,10 +268,21 @@ public class MainWindow extends UiPart<Stage> {
             listPanelPlaceholder.getChildren().add(popularMenuListPanel.getRoot());
 
             //TODO: add different cases for the monthly, yearly statistics
-            statisticsFlowPanel =
-                    new StatisticsFlowPanel(logic.getFilteredDailyRevenueList(), scrollPane, true, false, false);
-            browserPlaceholder.getChildren().add(statisticsFlowPanel.getRoot());
+            if (logic.getIsYearly()) {
+                statisticsFlowPanel =
+                        new StatisticsFlowPanel(logic.getFilteredDailyRevenueList(), scrollPane, false, false, true);
+                browserPlaceholder.getChildren().add(statisticsFlowPanel.getRoot());
+            } else if (logic.getIsMonthly()) {
+                statisticsFlowPanel =
+                        new StatisticsFlowPanel(logic.getFilteredDailyRevenueList(), scrollPane, false, true, false);
+                browserPlaceholder.getChildren().add(statisticsFlowPanel.getRoot());
+            } else {
+                statisticsFlowPanel =
+                        new StatisticsFlowPanel(logic.getFilteredDailyRevenueList(), scrollPane, true, false, false);
+                browserPlaceholder.getChildren().add(statisticsFlowPanel.getRoot());
+            }
 
+            logic.setStatisticsStatus(true, false, false);
             statusBarFooter.updateMode("Statistics Mode");
             changeTheme(STATISTIC_MODE_THEME);
             break;

@@ -100,8 +100,8 @@ public class MainWindow extends UiPart<Stage> {
          * is fixed in later version of SDK.
          *
          * According to the bug report, TextInputControl (TextField, TextArea) will
-         * consume function-key events. Because CommandBox getSpecialisation a TextField, and
-         * ResultDisplay getSpecialisation a TextArea, thus some accelerators (e.g F1) will
+         * consume function-key events. Because CommandBox contains a TextField, and
+         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
          * not work when the focus is in them because the key event is consumed by
          * the TextInputControl(s).
          *

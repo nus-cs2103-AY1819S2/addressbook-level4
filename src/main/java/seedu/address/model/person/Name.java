@@ -40,7 +40,7 @@ public class Name {
     }
 
     /**
-     * Method that returns true if the full name getSpecialisation the specified substring
+     * Method that returns true if the full name contains the specified substring
      */
     public boolean contains(String substring) {
         return this.fullName.toLowerCase().contains(substring.toLowerCase());

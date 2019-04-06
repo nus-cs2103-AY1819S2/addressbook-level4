@@ -42,7 +42,7 @@ public class HealthWorker extends Person {
      * Checks if the current HealthWorker object has the specified
      * specialisation
      * @param specialisation to check for
-     * @return true if the HealthWorker object getSpecialisation the specialisation in
+     * @return true if the HealthWorker object contains the specialisation in
      * Skills, false otherwise.
      */
     public boolean hasSkill(Specialisation specialisation) {

@@ -240,7 +240,7 @@ public class ParserUtil {
     }
 
     /**
-     * Returns true if none of the prefixes getSpecialisation empty {@code Optional} values in the given
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
      */
     public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {

@@ -27,7 +27,7 @@ public class UniqueRequestList implements Iterable<Request> {
     private final ObservableList<Request> internalList = FXCollections.observableArrayList();
 
     /**
-     * Returns true if the list getSpecialisation an equivalent order as the given argument.
+     * Returns true if the list contains an equivalent order as the given argument.
      */
     public boolean contains(Request toCheck) {
         requireNonNull(toCheck);

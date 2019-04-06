@@ -10,7 +10,7 @@ import seedu.address.MainApp;
 
 /**
  * Represents a distinct part of the UI. e.g. Windows, dialogs, panels, status bars, etc.
- * It getSpecialisation a scene graph with a root node of type {@code T}.
+ * It contains a scene graph with a root node of type {@code T}.
  */
 public abstract class UiPart<T> {
 

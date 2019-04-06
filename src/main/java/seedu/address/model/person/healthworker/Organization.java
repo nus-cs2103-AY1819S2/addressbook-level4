@@ -28,7 +28,7 @@ public class Organization {
     }
 
     /**
-     * Method that returns true if organization name getSpecialisation the specified substring.
+     * Method that returns true if organization name contains the specified substring.
      */
     public boolean contains(String substring) {
         return this.orgName.toLowerCase().contains(substring.toLowerCase());

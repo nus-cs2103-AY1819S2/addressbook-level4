@@ -195,7 +195,7 @@ public class ParserUtilTest {
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil
                 .parseConditions(null));
 
-        // list getSpecialisation invalid condition
+        // list contains invalid condition
         Assert.assertThrows(ParseException.class, () -> ParserUtil
                 .parseConditions(Arrays.asList(VALID_CONDITION_1,
                         INVALID_CONDITION)));
@@ -278,7 +278,7 @@ public class ParserUtilTest {
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil
                 .parseSpecialisations(null));
 
-        // list getSpecialisation invalid specialisation
+        // list contains invalid specialisation
         Assert.assertThrows(ParseException.class, () -> ParserUtil
                 .parseSpecialisations(Arrays.asList(VALID_SPECIALISATION,
                         INVALID_SPECIALISATION)));

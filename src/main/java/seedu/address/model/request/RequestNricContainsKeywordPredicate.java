@@ -3,7 +3,7 @@ package seedu.address.model.request;
 import java.util.function.Predicate;
 
 /**
- * Tests that a {@code Request}'s {@code Nric} getSpecialisation any of the keywords given.
+ * Tests that a {@code Request}'s {@code Nric} contains any of the keywords given.
  */
 public class RequestNricContainsKeywordPredicate implements Predicate<Request> {
     private final String keyword;

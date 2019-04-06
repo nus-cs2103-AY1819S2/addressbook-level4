@@ -56,43 +56,46 @@ public class GuiTestAssert {
     private static String getCategoryColorStyleFor(String categoryName) {
         switch (categoryName.toLowerCase()) {
         case "clothing":
-        case "food":
-            return "teal";
-
-        case "transportation":
         case "family":
-        case "classmates":
         case "friend":
-            return "yellow";
-
-        case "friends":
-            return "grey";
-
-        case "dining":
-            return "pink";
-
-        case "entertainment":
-            return "tan";
-
-        case "colleagues":
-            return "black";
-
-        case "neighbours":
-            return "orange";
-
-        case "groceries":
-        case "textbooks":
-            return "turquoise";
-
-        case "shopping":
-        case "vices":
             return "purple";
 
-        case "husband":
+        case "food":
+        case "clothes":
+        case "classmates":
+            return "orange";
+
+        case "transportation":
+            return "green";
+
+        case "friends":
+            return "red";
+
+        case "dining":
             return "brown";
 
-        case "movies":
+        case "entertainment":
+        case "colleagues":
+        case "accessories":
+            return "tan";
+
+        case "neighbours":
+        case "vices":
+        case "gift":
+            return "black";
+
+        case "groceries":
+            return "coral";
+
+        case "textbooks":
+        case "husband":
             return "blue";
+
+        case "shopping":
+            return "teal";
+
+        case "movies":
+            return "grey";
 
         default:
             throw new AssertionError(categoryName + " does not have a color assigned.");
@@ -109,9 +112,9 @@ public class GuiTestAssert {
         String actualCategory = actualCard.getCategory();
         assertEquals(expectedCategory, actualCard.getCategory());
 
-        // TODO
-//        assertEquals(Arrays.asList(LABEL_DEFAULT_STYLE, getCategoryColorStyleFor(expectedCategory)),
-//                actualCard.getCategoryStyleClasses(expectedCategory));
+        assertEquals(getCategoryColorStyleFor(expectedCategory),
+                actualCard.getCategoryStyleClasses(expectedCategory).get(1));
+
     }
 
     /**

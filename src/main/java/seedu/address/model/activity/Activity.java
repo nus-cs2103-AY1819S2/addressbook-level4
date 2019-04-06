@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Objects;
 
 import seedu.address.model.person.MatricNumber;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 
 /**
@@ -89,6 +88,9 @@ public class Activity implements Comparable<Activity> {
         return new ActivityStatus(dateTime.isPast());
     }
 
+    /**
+     * Adds member to attendance list
+     * */
     public static Activity addMemberToActivity(Activity toReplace, MatricNumber matricNumber) {
         ActivityName copyName = toReplace.getName();
         ActivityDateTime copyDateTime = toReplace.getDateTime();
@@ -104,11 +106,7 @@ public class Activity implements Comparable<Activity> {
     /**
      * Removes member from attendance list
      * */
-    public static Activity removeMemberFromActivity(Activity toReplace, MatricNumber matricNumber)
-            throws PersonNotFoundException {
-//        if (toReplace.getAttendance().contains(matricNumber)) {
-//            throw new PersonNotFoundException();
-//        }
+    public static Activity removeMemberFromActivity(Activity toReplace, MatricNumber matricNumber) {
         ActivityName copyName = toReplace.getName();
         ActivityDateTime copyDateTime = toReplace.getDateTime();
         ActivityLocation copyLocation = toReplace.getLocation();

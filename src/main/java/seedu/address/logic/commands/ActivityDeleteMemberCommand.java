@@ -10,10 +10,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
-import seedu.address.model.activity.ActivityDateTime;
-import seedu.address.model.activity.ActivityDescription;
-import seedu.address.model.activity.ActivityLocation;
-import seedu.address.model.activity.ActivityName;
 import seedu.address.model.person.MatricNumber;
 
 /**

@@ -21,6 +21,11 @@ public class StatusBarFooter extends UiPart<Region> {
     public static final String SYNC_STATUS_INITIAL = "Not updated yet in this session";
     public static final String SYNC_STATUS_UPDATED = "Last Updated: %s";
 
+    public static final String STATUS_IN_HOME_DIRECTORY = "In Home Directory";
+    public static final String STATUS_IN_FOLDER = "Inside Folder";
+    public static final String STATUS_IN_TEST_SESSION = "In Test Session";
+    public static final String STATUS_IN_REPORT_DISPLAY = "In Report Display";
+
     /**
      * Used to generate time stamps.
      *

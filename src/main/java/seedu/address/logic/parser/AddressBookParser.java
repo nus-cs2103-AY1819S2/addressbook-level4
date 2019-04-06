@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.AbortConsultationCommand;
 import seedu.address.logic.commands.AddAppCommand;
 import seedu.address.logic.commands.AddDirectoryCommand;
 import seedu.address.logic.commands.AddMedicineCommand;
@@ -166,6 +167,10 @@ public class AddressBookParser {
         case DeletePatientCommand.COMMAND_WORD:
         case DeletePatientCommand.COMMAND_ALIAS:
             return new DeletePatientParser().parse(arguments);
+
+        case AbortConsultationCommand.COMMAND_WORD:
+        case AbortConsultationCommand.COMMAND_ALIAS:
+            return new AbortConsultationCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

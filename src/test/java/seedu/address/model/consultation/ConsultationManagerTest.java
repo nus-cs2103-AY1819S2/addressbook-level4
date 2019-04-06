@@ -79,7 +79,18 @@ public class ConsultationManagerTest {
         consultationManager.endConsultation();
 
         org.junit.Assert.assertTrue(consultationManager.getCurrentConsultation() == null);
+    }
 
+    @Test
+    public void abortConsultation() {
+
+        consultationManager.abortConsultation();
+        org.junit.Assert.assertTrue(consultationManager.getCurrentConsultation() == null);
+
+        Patient patient = patientManager.getPatientByNric(patient1.getNric().toString());
+        consultationManager.createConsultation(patient);
+        consultationManager.abortConsultation();
+        org.junit.Assert.assertTrue(consultationManager.getCurrentConsultation() == null);
 
     }
 

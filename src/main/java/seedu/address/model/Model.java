@@ -149,6 +149,8 @@ public interface Model {
 
     Consultation listConsultation(int index);
 
+    void abortConsultation();
+
     //===========Appointment module operations========================
     boolean hasTimeConflicts(Appointment app);
 

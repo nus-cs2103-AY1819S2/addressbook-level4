@@ -88,4 +88,8 @@ public class ConsultationManager {
     public Consultation listConsultation(int index) {
         return consultationList.get(index - 1);
     }
+
+    public void abortConsultation() {
+        currentConsultation = null;
+    }
 }

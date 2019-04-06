@@ -217,8 +217,8 @@ public class RootLayoutController {
      * @param checkConsultation
      */
     private void endConsultation(String checkConsultation) {
-        if (checkConsultation.contains("Consultation")
-                && checkConsultation.contains("ended")) {
+        if ((checkConsultation.contains("Consultation")
+                && (checkConsultation.contains("ended") || checkConsultation.contains("aborted") ))) {
             currentSession.setText("");
         }
     }

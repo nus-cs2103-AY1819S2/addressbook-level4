@@ -18,7 +18,6 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.ClassRule;
 
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CardListPanelHandle;
@@ -44,9 +43,6 @@ import seedu.knowitall.ui.CommandBox;
  * for test verification.
  */
 public abstract class CardFolderSystemTest {
-    @ClassRule
-    public static ClockRule clockRule = new ClockRule();
-
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
             Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
@@ -130,9 +126,6 @@ public abstract class CardFolderSystemTest {
      */
     protected void executeCommand(String command) {
         rememberStates();
-        // Injects a fixed clock before executing a command so that the time stamp shown in the status bar
-        // after each command is predictable and also different from the previous command.
-        clockRule.setInjectedClockToCurrentTime();
 
         mainWindowHandle.getCommandBox().run(command);
 

@@ -313,4 +313,29 @@ public class PatientManagerTest {
         patientManager.deletePatientByNric("S9123456A");
         assertTrue(patientManager.getPatientList().size() == 0);
     }
+
+    @Test
+    public void equalTest() {
+
+        assertTrue(patientManager.equals(patientManager));
+
+        assertFalse(patientManager.equals(new Object()));
+
+        PatientManager p2 = new PatientManager();
+        Name name = new Name("Peter Tan");
+        Nric nric = new Nric("S9123456A");
+        Email email = new Email("ptan@gmail.com");
+        Address address = new Address("1 Simei Road");
+        Contact contact = new Contact("91111111");
+        Gender gender = new Gender("M");
+        Dob dob = new Dob("1991-01-01");
+        ArrayList<Tag> tagList = new ArrayList<Tag>();
+        Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
+
+        p2.addPatient(patient1);
+
+        assertTrue(patientManager.equals(p2));
+
+
+    }
 }

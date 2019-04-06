@@ -21,25 +21,31 @@ public class DobTest {
         String emptyAddress = "";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Dob(emptyAddress));
 
-        String onlySymbols = "@@-##-$$$$";
+        String onlySymbols = "$$$$-@@-##";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Dob(onlySymbols));
 
         String wrongFormat = "19-09-1999";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Dob(wrongFormat));
 
-        String no31Days = "31-4-2002";
+        String futureDate = "2999-09-09";
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Dob(futureDate));
+
+        String superOld = "1890-09-09";
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Dob(superOld));
+
+        String no31Days = "2002-04-31";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Dob(no31Days));
 
-        String invalidLeapYear = "29-2-2007";
+        String invalidLeapYear = "2007-02-29";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Dob(invalidLeapYear));
 
-        String invalidFebDate = "30-2-2000";
+        String invalidFebDate = "2000-02-30";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Dob(invalidFebDate));
 
-        String invalidDay = "32-2-2000";
+        String invalidDay = "2000-2-32";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Dob(invalidDay));
 
-        String invalidMonth = "01-13-2000";
+        String invalidMonth = "2000-13-01";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Dob(invalidMonth));
 
     }

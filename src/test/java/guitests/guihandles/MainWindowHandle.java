@@ -13,6 +13,7 @@ public class MainWindowHandle extends StageHandle {
     private final StatusBarFooterHandle statusBarFooter;
     private final MainMenuHandle mainMenu;
     private final BrowserPanelHandle browserPanel;
+    private final GraphPanelHandle graphPanel;
 
     public MainWindowHandle(Stage stage) {
         super(stage);
@@ -23,6 +24,9 @@ public class MainWindowHandle extends StageHandle {
         statusBarFooter = new StatusBarFooterHandle(getChildNode(StatusBarFooterHandle.STATUS_BAR_PLACEHOLDER));
         mainMenu = new MainMenuHandle(getChildNode(MainMenuHandle.MENU_BAR_ID));
         browserPanel = new BrowserPanelHandle(getChildNode(BrowserPanelHandle.BROWSER_ID));
+        graphPanel = new GraphPanelHandle(getChildNode(GraphPanelHandle.GRAPH_PANEL_ID));
+        //postNow(new SwapLeftPanelEvent(SwapLeftPanelEvent.PanelType.STATISTIC));
+        //handleShowSummary
     }
 
     public RecordListPanelHandle getRecordListPanel() {
@@ -47,5 +51,9 @@ public class MainWindowHandle extends StageHandle {
 
     public BrowserPanelHandle getBrowserPanel() {
         return browserPanel;
+    }
+
+    public GraphPanelHandle getStatisticsPanel() {
+        return graphPanel;
     }
 }

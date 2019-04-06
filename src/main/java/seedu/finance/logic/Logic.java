@@ -1,11 +1,13 @@
 package seedu.finance.logic;
 
 import java.nio.file.Path;
+import java.util.LinkedHashMap;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.finance.commons.core.GuiSettings;
 import seedu.finance.logic.commands.CommandResult;
+import seedu.finance.logic.commands.SummaryCommand.SummaryPeriod;
 import seedu.finance.logic.commands.exceptions.CommandException;
 import seedu.finance.logic.parser.exceptions.ParseException;
 import seedu.finance.model.ReadOnlyFinanceTracker;
@@ -77,4 +79,19 @@ public interface Logic {
      * @see seedu.finance.model.Model#setSelectedRecord(Record)
      */
     void setSelectedRecord(Record record);
+
+    /**
+     * Returns a map of records with key and value pair representing data for the summary chart
+     */
+    LinkedHashMap<String, Double> getRecordSummary();
+
+    /**
+     * @return a {@code SummaryPeriod} representing the current period of summary data
+     */
+    SummaryPeriod getSummaryPeriod();
+
+    /**
+     * @return an int representing the user selected number of days or months
+     */
+    int getPeriodAmount();
 }

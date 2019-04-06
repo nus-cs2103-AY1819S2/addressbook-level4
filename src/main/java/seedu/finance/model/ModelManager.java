@@ -4,21 +4,27 @@ import static java.util.Objects.requireNonNull;
 import static seedu.finance.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.Comparator;
+//import java.util.Date;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.finance.commons.core.GuiSettings;
 import seedu.finance.commons.core.LogsCenter;
+import seedu.finance.logic.commands.SummaryCommand.SummaryPeriod;
 import seedu.finance.model.budget.Budget;
 import seedu.finance.model.budget.CategoryBudget;
 import seedu.finance.model.exceptions.CategoryBudgetExceedTotalBudgetException;
+import seedu.finance.model.record.Date;
 import seedu.finance.model.record.Record;
 import seedu.finance.model.record.exceptions.RecordNotFoundException;
 
@@ -33,6 +39,10 @@ public class ModelManager implements Model {
     private final FilteredList<Record> filteredRecords;
     private final SimpleObjectProperty<Record> selectedRecord = new SimpleObjectProperty<>();
 
+    private SummaryPeriod summaryPeriod;
+    private Predicate<Record> recordSummaryPredicate;
+    private int periodAmount;
+
     /**
      * Initializes a ModelManager with the given financeTracker and userPrefs.
      */
@@ -46,6 +56,10 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredRecords = new FilteredList<>(versionedFinanceTracker.getRecordList());
         filteredRecords.addListener(this::ensureSelectedRecordIsValid);
+
+        this.summaryPeriod = defaultSummaryPeriod();
+        this.recordSummaryPredicate = defaultRecordPredicate();
+        this.periodAmount = defaultPeriodAmount();
     }
 
     public ModelManager() {
@@ -153,6 +167,63 @@ public class ModelManager implements Model {
         versionedFinanceTracker.sortRecordList(comparator);
 
     }
+
+    //=========== Summary =================================================================================
+    /**
+     * Returns an unmodifiable view of expenses, filtered by {@code recordSummaryPredicate} and sorted by date.
+     *
+     * @return {@code ObservableList<Record>} of expenses which fulfill summary filter
+     */
+    @Override
+    public ObservableList<Record> getRecordSummary() {
+        FilteredList<Record> filteredList = new FilteredList<>(versionedFinanceTracker.getRecordList());
+        filteredList.setPredicate(recordSummaryPredicate);
+
+        SortedList<Record> sortedList = new SortedList<>(filteredList);
+        Comparator<Record> byDate = (Record a, Record b) -> (-1 * Date.compare(a.getDate(), b.getDate()));
+        sortedList.setComparator(byDate);
+
+        return FXCollections.unmodifiableObservableList(sortedList);
+    }
+
+    @Override
+    public void updateRecordSummaryPredicate (Predicate<Record> predicate) {
+        recordSummaryPredicate = predicate;
+    }
+
+    @Override
+    public void updateSummaryPeriod(SummaryPeriod period) {
+        this.summaryPeriod = period;
+    }
+
+    @Override
+    public SummaryPeriod getSummaryPeriod() {
+        return this.summaryPeriod;
+    }
+
+    @Override
+    public void updatePeriodAmount(int periodAmount) {
+        this.periodAmount = periodAmount;
+    }
+
+    @Override
+    public int getPeriodAmount() {
+        return this.periodAmount;
+    }
+
+    private SummaryPeriod defaultSummaryPeriod() {
+        return SummaryPeriod.DAY;
+    }
+
+    private int defaultPeriodAmount() {
+        return 7;
+    }
+
+    private Predicate <Record> defaultRecordPredicate() {
+        LocalDate now = LocalDate.now().minusDays(7);
+        return e -> e.getDate().isAfter(now);
+    }
+
 
     //=========== Filtered Record List Accessors =============================================================
 

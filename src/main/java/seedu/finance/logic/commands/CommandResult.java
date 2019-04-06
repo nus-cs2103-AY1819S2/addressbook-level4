@@ -26,6 +26,9 @@ public class CommandResult {
     /** The application will update category budget **/
     private boolean changeCategoryBudget;
 
+    /** The application will show the summary **/
+    private boolean showSummary;
+
     private String themeToChange;
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -46,6 +49,17 @@ public class CommandResult {
     public CommandResult(String feedbackToUser, boolean changeBudget, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.changeBudget = changeBudget;
+        this.showHelp = showHelp;
+        this.exit = exit;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     * For showing of summary
+     */
+    public CommandResult(boolean showSummary, String feedbackToUser, boolean showHelp, boolean exit) {
+        this.showSummary = showSummary;
+        this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
     }
@@ -103,6 +117,10 @@ public class CommandResult {
 
     public void changeCategoryBudget() {
         this.changeCategoryBudget = true;
+    }
+
+    public boolean isShowSummary() {
+        return showSummary;
     }
 
     @Override

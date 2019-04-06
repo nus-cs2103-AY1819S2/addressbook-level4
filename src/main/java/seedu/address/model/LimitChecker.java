@@ -1,7 +1,9 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCredits;
+import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.model.moduletaken.CapAverage;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Semester;
@@ -10,6 +12,7 @@ import seedu.address.model.moduletaken.Semester;
  * Checks the CAP and Workload limits set by the user for every semester against the modules the user plans to take.
  */
 public class LimitChecker implements ClassForPrinting {
+    private static final int DEFAULT_MODULE_CREDITS = 4;
     private static final int CAP_TABLE_COL_COUNT = 4;
     private static final int WORKLOAD_TABLE_ROW_COUNT = 10;
     private static final int WORKLOAD_TABLE_COL_COUNT = 3;
@@ -20,7 +23,7 @@ public class LimitChecker implements ClassForPrinting {
      * Returns a generated html string that shows where their CAP and workload limits are violated.
      */
     public LimitChecker(Semester currentSemester, ObservableList<SemLimit> semLimits,
-                                    ObservableList<ModuleTaken> modulesTaken) {
+                                    ObservableList<ModuleTaken> modulesTaken, ModuleInfoList moduleInfoList) {
         CapAverage currentCap = new CapAverage();
         CapAverage cumulativeMinCap = new CapAverage();
         CapAverage cumulativeMaxCap = new CapAverage();
@@ -33,20 +36,27 @@ public class LimitChecker implements ClassForPrinting {
 
         double[][] semesterSums = new double[semLimits.size()][5];
         for (int mod = 0; mod < modulesTaken.size(); mod++) {
-            //TODO get credits info from module info
-            ModuleInfoCredits modCredits = new ModuleInfoCredits(4);
+            ModuleInfoCredits modCredits = new ModuleInfoCredits(DEFAULT_MODULE_CREDITS);
+            ModuleInfo moduleInfo = moduleInfoList.getModule(String.valueOf(modulesTaken.get(mod).getModuleInfoCode()));
+            if (moduleInfo != null) {
+                modCredits = new ModuleInfoCredits(moduleInfo.getCredits());
+            }
 
-            minMaxCapAveragesPerSem[modulesTaken.get(mod).getSemester().getIndex()][0].addWeightedGrade(
-                    modulesTaken.get(mod).getExpectedMinGrade().getGradePoint(), modCredits);
-            minMaxCapAveragesPerSem[modulesTaken.get(mod).getSemester().getIndex()][1].addWeightedGrade(
-                    modulesTaken.get(mod).getExpectedMaxGrade().getGradePoint(), modCredits);
+            if (modulesTaken.get(mod).getExpectedMinGrade().isCountedInCap()) {
+                minMaxCapAveragesPerSem[modulesTaken.get(mod).getSemester().getIndex()][0].addWeightedGrade(
+                        modulesTaken.get(mod).getExpectedMinGrade().getGradePoint(), modCredits);
+                cumulativeMinCap.addWeightedGrade(
+                        modulesTaken.get(mod).getExpectedMinGrade().getGradePoint(), modCredits);
+            }
+            if (modulesTaken.get(mod).getExpectedMaxGrade().isCountedInCap()) {
+                minMaxCapAveragesPerSem[modulesTaken.get(mod).getSemester().getIndex()][1].addWeightedGrade(
+                        modulesTaken.get(mod).getExpectedMaxGrade().getGradePoint(), modCredits);
+                cumulativeMaxCap.addWeightedGrade(
+                        modulesTaken.get(mod).getExpectedMaxGrade().getGradePoint(), modCredits);
+            }
 
-            cumulativeMinCap.addWeightedGrade(
-                    modulesTaken.get(mod).getExpectedMinGrade().getGradePoint(), modCredits);
-            cumulativeMaxCap.addWeightedGrade(
-                    modulesTaken.get(mod).getExpectedMaxGrade().getGradePoint(), modCredits);
-
-            if (modulesTaken.get(mod).getSemester().getIndex() < currentSemester.getIndex()) {
+            if (modulesTaken.get(mod).isFinished(currentSemester)
+                    && modulesTaken.get(mod).getExpectedMinGrade().isCountedInCap()) {
                 currentCap.addWeightedGrade(modulesTaken.get(mod).getExpectedMinGrade().getGradePoint(), modCredits);
             }
             semesterSums[modulesTaken.get(mod).getSemester().getIndex()][0] +=
@@ -122,9 +132,9 @@ public class LimitChecker implements ClassForPrinting {
         htmlLimits.append("<table border='1'>\n");
 
         htmlLimits.append("<tr>\n");
-        htmlLimits.append("<th>Minimum Cap</th>\n");
-        htmlLimits.append("<th>Current Cap</th>\n");
-        htmlLimits.append("<th>Maximum Cap</th>\n");
+        htmlLimits.append("<th>Minimum CAP</th>\n");
+        htmlLimits.append("<th>Current CAP</th>\n");
+        htmlLimits.append("<th>Maximum CAP</th>\n");
         htmlLimits.append("</tr>\n");
 
         htmlLimits.append("<tr>\n");

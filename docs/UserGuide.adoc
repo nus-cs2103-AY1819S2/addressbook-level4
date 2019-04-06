@@ -12,7 +12,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/cs2103-ay1819s2-w11-3/main
+:repoURL: https://github.com/CS2103-AY1819S2-W11-3/main
 
 By: `CS2103T W11-3 Team`      Since: `Mar 2019`      Licence: `MIT`
 
@@ -312,7 +312,7 @@ Examples:
 Deletes the 2nd place in TravelBuddy.
 * `search Raffles` +
 `delete 1` +
-Deletes the 1st place in the results of the `find` command.
+Deletes the 1st place in the results of the `search` command.
 // end::delete[]
 
 === Deleting multiple places: `deletem`
@@ -354,7 +354,7 @@ Format: `select INDEX`
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
-The image below shows the result of using `select 2` command. The place with an index of 2 is highlighted in a blue
+The image below shows the result of using `select 3` command. The place with an index of 2 is highlighted in a red
 box and additional information is shown on the right side of the GUI.
 
 image::selectCommand.png[width="600"]
@@ -367,7 +367,7 @@ Selects the 2nd place in TravelBuddy.
 
 * `search Raffles` +
 `select 1` +
-Selects the 1st place in the results of the `find` command.
+Selects the 1st place in the results of the `search` command.
 
 === Listing previously entered commands: `history`
 
@@ -514,10 +514,10 @@ Please do check the file that contains the data of your TravelBuddy.
 * Address of place (Prefix: `a/`)
 
 *Q*: Why does the `undo` command not work? +
-*A*: The `undo` command only reverses the commands `add`, `delete`, `edit` and `clear`.
+*A*: The `undo` command only reverses the commands `add`, `delete`, `deletem`, `edit` and `clear`.
 
 *Q*: Why does the `undo` command reverse a command from multiple commands before? +
-*A*: The `undo` command reverses the last used `add`, `delete`, `edit` or `clear` command.
+*A*: The `undo` command reverses the last used `add`, `delete`, `deletem`, `edit` or `clear` command.
 
 == Shortcuts Cheatsheet
 

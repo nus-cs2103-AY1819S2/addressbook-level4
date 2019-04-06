@@ -66,6 +66,7 @@ public class ModelManager implements Model {
         filteredTableList.addListener(this::ensureSelectedTableIsValid);
         filteredDailyRevenueList = new FilteredList<>(this.restOrRant.getStatistics().getDailyRevenueList());
         filteredDailyRevenueList.addListener(this::ensureSelectedDailyRevenueIsValid);
+        updateFilteredOrderItemList(orderItem -> !orderItem.getOrderItemStatus().isAllServed());
     }
 
     public ModelManager() {
@@ -151,11 +152,6 @@ public class ModelManager implements Model {
     public void setRestOrRant(ReadOnlyRestOrRant restOrRant) {
         this.restOrRant.resetData(restOrRant.getOrders(), restOrRant.getMenu(), restOrRant.getTables(),
                 restOrRant.getStatistics());
-    }
-
-    @Override
-    public void updateMode() { // change mode
-        restOrRant.indicateModified();
     }
 
     //=========== Tables =====================================================================================

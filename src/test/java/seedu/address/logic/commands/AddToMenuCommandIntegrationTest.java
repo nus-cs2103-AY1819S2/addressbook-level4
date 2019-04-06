@@ -37,7 +37,6 @@ public class AddToMenuCommandIntegrationTest {
 
         Model expectedModel = new ModelManager(model.getRestOrRant(), new UserPrefs());
         expectedModel.addMenuItem(validMenuItem);
-        expectedModel.updateMode();
 
         assertCommandSuccess(Mode.MENU_MODE, new AddToMenuCommand(validMenuItem), model, commandHistory,
                 String.format(AddToMenuCommand.MESSAGE_SUCCESS, validMenuItem), expectedModel);

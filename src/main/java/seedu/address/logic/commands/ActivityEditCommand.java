@@ -2,9 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ACTIVITYNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADESCRIPTION;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ACTIVITIES;
 
 import java.util.List;
@@ -47,7 +47,7 @@ public class ActivityEditCommand extends ActivityCommand {
     public static final String MESSAGE_EDIT_ACTIVITY_SUCCESS = "Edited Activity: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ACTIVITY = "This activity already exists in the address book.";
-    public static final String MESSAGE_DUPLICATE_MATRICNUMBER = "This matricNumber already exists in Club Manager";
+
 
     private final Index index;
     private final EditActivityDescriptor editActivityDescriptor;
@@ -90,16 +90,23 @@ public class ActivityEditCommand extends ActivityCommand {
      * Creates and returns a {@code Activity} with the details of {@code activityToEdit}
      * edited with {@code editActivityDescriptor}.
      */
-    private static Activity createEditedActivity(Activity activityToEdit, EditActivityDescriptor editActivityDescriptor) {
+    private static Activity createEditedActivity(Activity activityToEdit,
+                                                 EditActivityDescriptor editActivityDescriptor) {
         assert activityToEdit != null;
 
-        ActivityName updatedActivityName = editActivityDescriptor.getActivityName().orElse(activityToEdit.getName());
-        ActivityLocation updatedLocation = editActivityDescriptor.getActivityLocation().orElse(activityToEdit.getLocation());
-        ActivityDateTime updatedDateTime = editActivityDescriptor.getActivityDateTime().orElse(activityToEdit.getDateTime());
-        ActivityDescription updatedDescription = editActivityDescriptor.getActivityDescription().orElse(activityToEdit.getDescription());
-        List<MatricNumber> updatedAttendance = editActivityDescriptor.getAttendance().orElse(activityToEdit.getAttendance());
+        ActivityName updatedActivityName = editActivityDescriptor.getActivityName().orElse(
+                activityToEdit.getName());
+        ActivityLocation updatedLocation = editActivityDescriptor.getActivityLocation().orElse(
+                activityToEdit.getLocation());
+        ActivityDateTime updatedDateTime = editActivityDescriptor.getActivityDateTime().orElse(
+                activityToEdit.getDateTime());
+        ActivityDescription updatedDescription = editActivityDescriptor.getActivityDescription().orElse(
+                activityToEdit.getDescription());
+        List<MatricNumber> updatedAttendance = editActivityDescriptor.getAttendance().orElse(
+                activityToEdit.getAttendance());
 
-        return new Activity(updatedActivityName, updatedDateTime, updatedLocation, updatedDescription, updatedAttendance);
+        return new Activity(updatedActivityName, updatedDateTime, updatedLocation,
+                updatedDescription, updatedAttendance);
     }
 
     @Override

@@ -2,6 +2,8 @@ package seedu.finance.ui;
 
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -291,6 +293,7 @@ public class MainWindow extends UiPart<Stage> {
         swapToSummary();
     }
 
+    @Subscribe
     //May want to check how to switch from summary panel and no summary panel
     public void handleSwapBrowserPanelEvent(SwapBrowserPanelEvent event) {
         switch(event.getPanelType()) {
@@ -307,7 +310,6 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Swaps the panel from statistics to list
      */
-
     public void swapToBrowser() {
         Timeline timeline = new Timeline();
         browserPanelPlaceholder.setOpacity(0.0);
@@ -320,9 +322,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Swaps the panel from list to statistics
      */
-
     public void swapToSummary() {
-
         Timeline timeline = new Timeline();
         browserPanelPlaceholder.setOpacity(0.0);
         browserPanelPlaceholder.getChildren().clear();

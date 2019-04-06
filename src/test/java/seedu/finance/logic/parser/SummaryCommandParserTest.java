@@ -35,7 +35,8 @@ public class SummaryCommandParserTest {
 
     @Test
     public void parseInvalidValueFailure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SummaryCommand.MESSAGE_PARAMETERS_FORMAT);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                SummaryCommand.MESSAGE_PARAMETERS_FORMAT);
         String expectedMessagePeriodAmount = String.format(
                 MESSAGE_INVALID_COMMAND_FORMAT,
                 SummaryCommand.MESSAGE_PERIOD_AMOUNT_ERROR

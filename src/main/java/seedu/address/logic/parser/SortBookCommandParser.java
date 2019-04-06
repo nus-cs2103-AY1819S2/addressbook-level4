@@ -79,19 +79,19 @@ public class SortBookCommandParser implements Parser<SortBookCommand> {
     private static Boolean isTypeAndSubOrderMatch(ArgumentMultimap argMultimap) {
 
         if (argMultimap.getValue(PREFIX_FRISTORDER).isPresent()) {
-            subOrder.put(sortTypeSet.get(FIRST), argMultimap.getValue(PREFIX_FRISTORDER).get());
+            subOrder.put(sortTypeSet.get(FIRST).toLowerCase(), argMultimap.getValue(PREFIX_FRISTORDER).get());
         }
         if (argMultimap.getValue(PREFIX_SECONDORDER).isPresent()) {
             if (sortTypeSet.size() < 2) {
                 return false;
             }
-            subOrder.put(sortTypeSet.get(SECOND), argMultimap.getValue(PREFIX_SECONDORDER).get());
+            subOrder.put(sortTypeSet.get(SECOND).toLowerCase(), argMultimap.getValue(PREFIX_SECONDORDER).get());
         }
         if (argMultimap.getValue(PREFIX_THIRDORDER).isPresent()) {
             if (sortTypeSet.size() < 3) {
                 return false;
             }
-            subOrder.put(sortTypeSet.get(THIRD), argMultimap.getValue(PREFIX_THIRDORDER).get());
+            subOrder.put(sortTypeSet.get(THIRD).toLowerCase(), argMultimap.getValue(PREFIX_THIRDORDER).get());
         }
         return true;
     }
@@ -102,17 +102,15 @@ public class SortBookCommandParser implements Parser<SortBookCommand> {
      * @return true if sort types are valid, otherwise return false
      */
     private static boolean isValidSortType(List<String> sortTypes) {
-        List<String> checkDuplicates = new ArrayList<>();
         for (String type : sortTypes) {
             if ((!type.equalsIgnoreCase(AUTHOR)
                 && !type.equalsIgnoreCase(BOOKNAME)
                 && !type.equalsIgnoreCase(RATING))
-                || checkDuplicates.contains(type)) {
+                || sortTypeSet.contains(type)) {
                 return false;
             }
-            checkDuplicates.add(type);
+            sortTypeSet.add(type.toLowerCase());
         }
-        sortTypeSet = sortTypes;
         return true;
     }
 

@@ -1,5 +1,3 @@
-// TODO: Failed Test; need to update
-/*
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
@@ -17,9 +15,13 @@ import static seedu.finance.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.finance.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.finance.model.Model.PREDICATE_SHOW_ALL_RECORD;
 import static seedu.finance.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
 import static seedu.finance.testutil.TypicalIndexes.INDEX_SECOND_RECORD;
@@ -49,14 +51,14 @@ public class EditCommandSystemTest extends FinanceTrackerSystemTest {
     public void edit() {
         Model model = getModel();
 
-        */
-/* ----------------- Performing edit operation while an unfiltered list is being shown ---------------------- *//*
+
+        /* ----------------- Performing edit operation while an unfiltered list is being shown ---------------------- */
 
 
-        */
-/* Case: edit all fields, command with leading spaces, trailing spaces and multiple spaces between each field
+
+        /* Case: edit all fields, command with leading spaces, trailing spaces and multiple spaces between each field
          * -> edited
-         *//*
+         */
 
         Index index = INDEX_FIRST_RECORD;
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
@@ -64,57 +66,81 @@ public class EditCommandSystemTest extends FinanceTrackerSystemTest {
         Record editedRecord = new RecordBuilder(BOB).withCategory(VALID_CATEGORY_HUSBAND).build();
         assertCommandSuccess(command, index, editedRecord);
 
-        */
-/* Case: undo editing the last record in the list -> last record restored *//*
+
+        /* Case: undo editing the first record in the list -> first record restored */
 
         command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        */
-/* Case: redo editing the last record in the list -> last record edited again *//*
+
+        /* Case: redo editing the first record in the list -> first record edited again */
 
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         model.setRecord(getModel().getFilteredRecordList().get(INDEX_FIRST_RECORD.getZeroBased()), editedRecord);
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        */
-/* Case: edit a record with new values same as existing values -> edited *//*
+
+        /* Case: edit a record with new values same as existing values -> edited */
 
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + AMOUNT_DESC_BOB
-                + DATE_DESC_BOB + CATEGORY_DESC_FRIEND + CATEGORY_DESC_HUSBAND;
+                + DATE_DESC_BOB + CATEGORY_DESC_HUSBAND;
         assertCommandSuccess(command, index, BOB);
 
-        */
-/* Case: edit a record with new values same as another record's values but with different name -> edited *//*
+
+        /* Case: edit a record with new values same as another record's values but with different name -> edited */
 
         assertTrue(getModel().getFinanceTracker().getRecordList().contains(BOB));
         index = INDEX_SECOND_RECORD;
         assertNotEquals(getModel().getFilteredRecordList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY
-                + AMOUNT_DESC_BOB + DATE_DESC_BOB + CATEGORY_DESC_FRIEND + CATEGORY_DESC_HUSBAND;
+                + AMOUNT_DESC_BOB + DATE_DESC_BOB + CATEGORY_DESC_HUSBAND;
         editedRecord = new RecordBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedRecord);
 
-        */
-/* Case: clear categories -> cleared *//*
 
-        */
-/*
-        index = INDEX_FIRST_RECORD;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_CATEGORY.getPrefix();
-        Record recordToEdit = getModel().getFilteredRecordList().get(index.getZeroBased());
-        editedRecord = new RecordBuilder(recordToEdit).withCategory().build();
-        assertCommandSuccess(command, index, editedRecord);*//*
+        /* Case: edit a record with new values same as another record's values -> edited */
 
-
-        */
-/* ------------------ Performing edit operation while a filtered list is being shown ------------------------ *//*
+        executeCommand(RecordUtil.getSpendCommand(BOB));
+        assertTrue(getModel().getFinanceTracker().getRecordList().contains(BOB));
+        index = INDEX_SECOND_RECORD;
+        assertFalse(getModel().getFilteredRecordList().get(index.getZeroBased()).equals(BOB));
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
+                + AMOUNT_DESC_BOB + DATE_DESC_BOB + CATEGORY_DESC_HUSBAND;
+        assertCommandSuccess(command, index, BOB);
 
 
-        */
-/* Case: filtered record list, edit index within bounds of finance tracker and record list -> edited *//*
+        /* Case: edit a record with new values same as another record's values but with different categories -> edited*/
+
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
+                + AMOUNT_DESC_BOB + DATE_DESC_BOB + CATEGORY_DESC_FRIEND;
+        editedRecord = new RecordBuilder(BOB).withCategory(VALID_CATEGORY_FRIEND).build();
+        assertCommandSuccess(command, index, editedRecord);
+
+
+        /* Case: edit a record with new values same as another record's values but with different amount -> edited */
+
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
+                + AMOUNT_DESC_AMY + DATE_DESC_BOB + CATEGORY_DESC_HUSBAND;
+        editedRecord = new RecordBuilder(BOB).withAmount(VALID_AMOUNT_AMY).build();
+        assertCommandSuccess(command, index, editedRecord);
+
+
+        /* Case: edit a record with new values same as another record's values but with different date -> edited */
+
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
+                + AMOUNT_DESC_BOB + DATE_DESC_AMY + CATEGORY_DESC_HUSBAND;
+        editedRecord = new RecordBuilder(BOB).withDate(VALID_DATE_AMY).build();
+        assertCommandSuccess(command, index, editedRecord);
+
+
+
+        /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
+
+
+
+        /* Case: filtered record list, edit index within bounds of finance tracker and record list -> edited */
 
         showRecordsWithName(KEYWORD_MATCHING_DONUT);
         index = INDEX_FIRST_RECORD;
@@ -124,24 +150,24 @@ public class EditCommandSystemTest extends FinanceTrackerSystemTest {
         editedRecord = new RecordBuilder(recordToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedRecord);
 
-        */
-/* Case: filtered record list, edit index within bounds of finance tracker but out of bounds of record list
+
+        /* Case: filtered record list, edit index within bounds of finance tracker but out of bounds of record list
          * -> rejected
-         *//*
+         */
 
         showRecordsWithName(KEYWORD_MATCHING_DONUT);
         int invalidIndex = getModel().getFinanceTracker().getRecordList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_RECORD_DISPLAYED_INDEX);
 
-        */
-/* --------------------- Performing edit operation while a record card is selected -------------------------- *//*
+
+        /* --------------------- Performing edit operation while a record card is selected -------------------------- */
 
 
-        */
-/* Case: selects first card in the record list, edit a record -> edited, card selection remains unchanged but
+
+        /* Case: selects first card in the record list, edit a record -> edited, card selection remains unchanged but
          * browser url changes
-         *//*
+         */
 
         showAllRecords();
         index = INDEX_FIRST_RECORD;
@@ -152,123 +178,97 @@ public class EditCommandSystemTest extends FinanceTrackerSystemTest {
         // browser's url is updated to reflect the new record's name
         assertCommandSuccess(command, index, AMY, index);
 
-        */
-/* --------------------------------- Performing invalid edit operation -------------------------------------- *//*
+
+        /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
 
-        */
-/* Case: invalid index (0) -> rejected *//*
+
+        /* Case: invalid index (0) -> rejected */
 
         assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_BOB,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
-        */
-/* Case: invalid index (-1) -> rejected *//*
+
+        /* Case: invalid index (-1) -> rejected */
 
         assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + NAME_DESC_BOB,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
-        */
-/* Case: invalid index (size + 1) -> rejected *//*
+
+        /* Case: invalid index (size + 1) -> rejected */
 
         invalidIndex = getModel().getFilteredRecordList().size() + 1;
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_RECORD_DISPLAYED_INDEX);
 
-        */
-/* Case: missing index -> rejected *//*
+
+        /* Case: missing index -> rejected */
 
         assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_BOB,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
-        */
-/* Case: missing all fields -> rejected *//*
+
+        /* Case: missing all fields -> rejected */
 
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased(),
                 EditCommand.MESSAGE_NOT_EDITED);
 
-        */
-/* Case: invalid name -> rejected *//*
+
+        /* Case: invalid name -> rejected */
 
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased()
                 + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS);
 
-        */
-/* Case: invalid amount -> rejected *//*
+
+        /* Case: invalid amount -> rejected */
 
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased()
                 + INVALID_AMOUNT_DESC, Amount.MESSAGE_CONSTRAINTS);
 
-        */
-/* Case: invalid date -> rejected *//*
+
+        /* Case: invalid date -> rejected */
 
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased()
                 + INVALID_DATE_DESC, Date.MESSAGE_CONSTRAINTS);
 
-        */
-/* Case: invalid category -> rejected *//*
+
+        /* Case: invalid category -> rejected */
 
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased()
                 + INVALID_CATEGORY_DESC, Category.MESSAGE_CONSTRAINTS);
 
-        */
-/* Case: edit a record with new values same as another record's values -> rejected *//*
+        /* Case: empty categories -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased() + " "
+                + PREFIX_CATEGORY.getPrefix(), Category.MESSAGE_CONSTRAINTS);
 
-        executeCommand(RecordUtil.getSpendCommand(BOB));
-        assertTrue(getModel().getFinanceTracker().getRecordList().contains(BOB));
-        index = INDEX_FIRST_RECORD;
-        assertFalse(getModel().getFilteredRecordList().get(index.getZeroBased()).equals(BOB));
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
-                + AMOUNT_DESC_BOB + DATE_DESC_BOB + CATEGORY_DESC_FRIEND + CATEGORY_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_RECORD);
-
-        */
-/* Case: edit a record with new values same as another record's values but
-                 with different categories -> rejected *//*
-
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
-                + AMOUNT_DESC_BOB + DATE_DESC_BOB + CATEGORY_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_RECORD);
-
-        */
-/* Case: edit a record with new values same as another record's values but with different amount -> rejected *//*
-
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
-                + AMOUNT_DESC_AMY + DATE_DESC_BOB + CATEGORY_DESC_FRIEND + CATEGORY_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_RECORD);
-
-        */
-/* Case: edit a record with new values same as another record's values but with different date -> rejected *//*
-
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
-                + AMOUNT_DESC_BOB + DATE_DESC_AMY + CATEGORY_DESC_FRIEND + CATEGORY_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_RECORD);
     }
 
-    */
-/**
+
+    /**
      * Performs the same verification as {@code assertCommandSuccess(String, Index, Record, Index)} except that
      * the browser url and selected card remain unchanged.
+     *
      * @param toEdit the index of the current model's filtered list
      * @see EditCommandSystemTest#assertCommandSuccess(String, Index, Record, Index)
-     *//*
+     */
 
     private void assertCommandSuccess(String command, Index toEdit, Record editedRecord) {
         assertCommandSuccess(command, toEdit, editedRecord, null);
     }
 
-    */
-/**
+
+    /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} and in addition,<br>
      * 1. Asserts that result display box displays the success message of executing {@code EditCommand}.<br>
      * 2. Asserts that the model related components are updated to reflect the record at index {@code toEdit} being
      * updated to values specified {@code editedRecord}.<br>
+     *
      * @param toEdit the index of the current model's filtered list.
      * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
-     *//*
+     */
 
     private void assertCommandSuccess(String command, Index toEdit, Record editedRecord,
-            Index expectedSelectedCardIndex) {
+                                      Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
         expectedModel.setRecord(expectedModel.getFilteredRecordList().get(toEdit.getZeroBased()), editedRecord);
         expectedModel.updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORD);
@@ -277,19 +277,20 @@ public class EditCommandSystemTest extends FinanceTrackerSystemTest {
                 String.format(EditCommand.MESSAGE_EDIT_RECORD_SUCCESS, editedRecord), expectedSelectedCardIndex);
     }
 
-    */
-/**
+
+    /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} except that the
      * browser url and selected card remain unchanged.
+     *
      * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
-     *//*
+     */
 
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         assertCommandSuccess(command, expectedModel, expectedResultMessage, null);
     }
 
-    */
-/**
+
+    /**
      * Executes {@code command} and in addition,<br>
      * 1. Asserts that the command box displays an empty string.<br>
      * 2. Asserts that the result display box displays {@code expectedResultMessage}.<br>
@@ -299,12 +300,13 @@ public class EditCommandSystemTest extends FinanceTrackerSystemTest {
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
      * {@code FinanceTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     *
      * @see FinanceTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      * @see FinanceTrackerSystemTest#assertSelectedCardChanged(Index)
-     *//*
+     */
 
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
-            Index expectedSelectedCardIndex) {
+                                      Index expectedSelectedCardIndex) {
         executeCommand(command);
         expectedModel.updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORD);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
@@ -317,8 +319,8 @@ public class EditCommandSystemTest extends FinanceTrackerSystemTest {
         assertStatusBarUnchangedExceptSyncStatus();
     }
 
-    */
-/**
+
+    /**
      * Executes {@code command} and in addition,<br>
      * 1. Asserts that the command box displays {@code command}.<br>
      * 2. Asserts that result display box displays {@code expectedResultMessage}.<br>
@@ -326,8 +328,9 @@ public class EditCommandSystemTest extends FinanceTrackerSystemTest {
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
      * {@code FinanceTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     *
      * @see FinanceTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     *//*
+     */
 
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();
@@ -339,4 +342,4 @@ public class EditCommandSystemTest extends FinanceTrackerSystemTest {
         assertStatusBarUnchanged();
     }
 }
-*/
+

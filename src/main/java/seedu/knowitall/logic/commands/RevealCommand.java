@@ -17,7 +17,7 @@ public class RevealCommand extends Command {
 
     public static final String COMMAND_WORD = "reveal";
 
-    public static final String MESSAGE_ANSWER_SUCCESS = "Answer revealed";
+    public static final String MESSAGE_REVEAL_SUCCESS = "Answer revealed";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
@@ -39,7 +39,7 @@ public class RevealCommand extends Command {
         model.updateFilteredCard(PREDICATE_SHOW_ALL_CARDS);
         model.commitActiveCardFolder();
 
-        return new CommandResult(MESSAGE_ANSWER_SUCCESS, CommandResult.Type.ANSWER_WRONG);
+        return new CommandResult(MESSAGE_REVEAL_SUCCESS, CommandResult.Type.ANSWER_WRONG);
     }
 
 }

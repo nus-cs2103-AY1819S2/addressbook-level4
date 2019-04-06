@@ -75,5 +75,9 @@
   "bookings": [
   ],
   "reservations": [
+  ],
+  "serviceTypes": [
+  ],
+  "roomTypes": [
   ]
 }

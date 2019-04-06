@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.hms.commons.exceptions.IllegalValueException;
-import seedu.hms.model.booking.ServiceType;
+import seedu.hms.model.booking.serviceType.ServiceType;
 
 /**
  * Jackson-friendly version of {@link ServiceType}.
@@ -12,16 +12,23 @@ import seedu.hms.model.booking.ServiceType;
 class JsonAdaptedServiceType {
 
     private static final String MISSING_FIELD_MESSAGE_FORMAT = "Service Type's %s field is missing!";
-    private static final String INVALID_NAME_MESSAGE_FORMAT = "Service Type %s doesn't exist!";
-
+    private final int capacity;
+    private final JsonAdaptedTimeRange timing;
     private final String name;
+    private final double ratePerHour;
 
     /**
      * Constructs a {@code JsonAdaptedCustomer} with the given customer details.
      */
     @JsonCreator
-    public JsonAdaptedServiceType(@JsonProperty("name") String name) {
+    public JsonAdaptedServiceType(@JsonProperty("name") String name,
+                                  @JsonProperty("capacity") int capacity,
+                                  @JsonProperty("timing") JsonAdaptedTimeRange timing,
+                                  @JsonProperty("ratePerHour") double ratePerHour) {
         this.name = name;
+        this.capacity = capacity;
+        this.ratePerHour = ratePerHour;
+        this.timing = timing;
     }
 
     /**
@@ -29,6 +36,9 @@ class JsonAdaptedServiceType {
      */
     public JsonAdaptedServiceType(ServiceType source) {
         name = source.getName();
+        timing = new JsonAdaptedTimeRange(source.getTiming());
+        capacity = source.getCapacity();
+        ratePerHour = source.getRatePerHour();
     }
 
     /**
@@ -41,19 +51,11 @@ class JsonAdaptedServiceType {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "name"));
         }
-
-        switch (name) {
-        case "GYM":
-            return ServiceType.GYM;
-        case "SWIMMING POOL":
-            return ServiceType.POOL;
-        case "SPA":
-            return ServiceType.SPA;
-        case "GAMES ROOM":
-            return ServiceType.GAMES;
-        default:
-            throw new IllegalValueException(String.format(INVALID_NAME_MESSAGE_FORMAT, "name"));
+        if (timing == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "timing"));
         }
+
+        return new ServiceType(capacity, timing.toModelType(), name, ratePerHour);
     }
 
 }

@@ -11,8 +11,8 @@ import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.hms.model.booking.exceptions.BookingNotFoundException;
-import seedu.hms.model.booking.exceptions.ServiceFullException;
-import seedu.hms.model.booking.exceptions.ServiceUnavailableException;
+import seedu.hms.model.booking.serviceType.exceptions.ServiceFullException;
+import seedu.hms.model.booking.serviceType.exceptions.ServiceUnavailableException;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.util.TimeRange;
 

@@ -21,8 +21,9 @@ import java.util.List;
 
 import seedu.hms.model.HotelManagementSystem;
 import seedu.hms.model.booking.Booking;
-import seedu.hms.model.booking.ServiceType;
+import seedu.hms.model.booking.serviceType.ServiceType;
 import seedu.hms.model.customer.Customer;
+import seedu.hms.model.util.TimeRange;
 
 /**
  * A utility class containing a list of {@code Customer} objects to be used in tests.
@@ -38,7 +39,7 @@ public class TypicalCustomers {
         .withEmail("johnd@example.com").withPhone("98765432").withIdNum("1233512A").withDateOfBirth("30/12/2000")
         .withTags("owesMoney", "friends").build();
     public static final Customer CARL = new CustomerBuilder().withName("Carl Kurz").withPhone("95352563")
-        .withEmail("heinz@example.com").withAddress("wall street").withIdNum("104535").withDateOfBirth("30/12/2001")
+        .withEmail("heinz@example.com").withAddress("wall street").withIdNum("10453512A").withDateOfBirth("30/12/2001")
         .build();
     public static final Customer DANIEL =
         new CustomerBuilder().withName("Daniel Meier").withPhone("87652533").withDateOfBirth("30/12/2002")
@@ -87,11 +88,11 @@ public class TypicalCustomers {
     // Bookings
 
     public static final Booking ALICE_GYM =
-        new BookingBuilder().withService(ServiceType.GYM).withTiming(14, 15).withPayer(ALICE)
+        new BookingBuilder().withService(new ServiceType(50, new TimeRange(8, 22), "Gym", 7.0)).withTiming(14, 15).withPayer(ALICE)
             .build();
 
     public static final Booking BENSON_GAMES_WITH_CARL =
-        new BookingBuilder().withService(ServiceType.GAMES).withTiming(12, 13).withPayer(BENSON)
+        new BookingBuilder().withService(new ServiceType(20, new TimeRange(10, 22), "Games Room", 5.0)).withTiming(12, 13).withPayer(BENSON)
             .withOtherUsers(CARL).build();
 
     private TypicalCustomers() {

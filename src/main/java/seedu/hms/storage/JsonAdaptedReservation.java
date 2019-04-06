@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.hms.commons.exceptions.IllegalValueException;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.reservation.Reservation;
-import seedu.hms.model.reservation.RoomType;
+import seedu.hms.model.reservation.roomType.RoomType;
 import seedu.hms.model.util.DateRange;
 
 /**

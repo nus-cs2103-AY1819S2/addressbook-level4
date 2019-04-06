@@ -76,15 +76,15 @@ public class HotelManagementSystemParser {
 
         case AddBookingCommand.COMMAND_WORD:
         case AddBookingCommand.COMMAND_ALIAS:
-            return new AddBookingCommandParser().parse(arguments, customerModel);
+            return new AddBookingCommandParser().parse(arguments, customerModel, bookingModel);
 
         case AddReservationCommand.COMMAND_WORD:
         case AddReservationCommand.COMMAND_ALIAS:
-            return new AddReservationCommandParser().parse(arguments, customerModel);
+            return new AddReservationCommandParser().parse(arguments, customerModel, reservationModel);
 
         case EditBookingCommand.COMMAND_WORD:
         case EditBookingCommand.COMMAND_ALIAS:
-            return new EditBookingCommandParser().parse(arguments, customerModel);
+            return new EditBookingCommandParser().parse(arguments, customerModel, bookingModel);
 
         case EditCustomerCommand.COMMAND_WORD:
         case EditCustomerCommand.COMMAND_ALIAS:
@@ -92,7 +92,7 @@ public class HotelManagementSystemParser {
 
         case EditReservationCommand.COMMAND_WORD:
         case EditReservationCommand.COMMAND_ALIAS:
-            return new EditReservationCommandParser().parse(arguments, customerModel);
+            return new EditReservationCommandParser().parse(arguments, customerModel, reservationModel);
 
         case SelectCustomerCommand.COMMAND_WORD:
         case SelectCustomerCommand.COMMAND_ALIAS:
@@ -128,15 +128,15 @@ public class HotelManagementSystemParser {
 
         case FindBookingCommand.COMMAND_WORD:
         case FindBookingCommand.COMMAND_ALIAS:
-            return new FindBookingCommandParser().parse(arguments);
+            return new FindBookingCommandParser().parse(arguments, bookingModel);
 
         case FindReservationCommand.COMMAND_WORD:
         case FindReservationCommand.COMMAND_ALIAS:
-            return new FindReservationCommandParser().parse(arguments);
+            return new FindReservationCommandParser().parse(arguments, reservationModel);
 
         case GenerateBillForBookingCommand.COMMAND_WORD:
         case GenerateBillForBookingCommand.COMMAND_ALIAS:
-            return new GenerateBillForBookingCommandParser().parse(arguments, customerModel, billModel);
+            return new GenerateBillForBookingCommandParser().parse(arguments, customerModel, billModel, bookingModel);
 
         case GenerateBillForCustomerCommand.COMMAND_WORD:
         case GenerateBillForCustomerCommand.COMMAND_ALIAS:
@@ -148,7 +148,8 @@ public class HotelManagementSystemParser {
 
         case GenerateBillForReservationCommand.COMMAND_WORD:
         case GenerateBillForReservationCommand.COMMAND_ALIAS:
-            return new GenerateBillForReservationCommandParser().parse(arguments, customerModel, billModel);
+            return new GenerateBillForReservationCommandParser().parse(arguments, customerModel, billModel,
+                reservationModel);
 
         case ListCustomerCommand.COMMAND_WORD:
         case ListCustomerCommand.COMMAND_ALIAS:

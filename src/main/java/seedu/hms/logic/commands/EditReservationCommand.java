@@ -20,9 +20,9 @@ import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.ReservationModel;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.reservation.Reservation;
-import seedu.hms.model.reservation.RoomType;
-import seedu.hms.model.reservation.exceptions.RoomFullException;
-import seedu.hms.model.reservation.exceptions.RoomUnavailableException;
+import seedu.hms.model.reservation.roomType.RoomType;
+import seedu.hms.model.reservation.roomType.exceptions.RoomFullException;
+import seedu.hms.model.reservation.roomType.exceptions.RoomUnavailableException;
 import seedu.hms.model.util.DateRange;
 
 /**

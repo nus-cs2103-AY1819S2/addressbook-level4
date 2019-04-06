@@ -19,9 +19,9 @@ import seedu.hms.commons.core.GuiSettings;
 import seedu.hms.commons.core.LogsCenter;
 import seedu.hms.model.bill.Bill;
 import seedu.hms.model.booking.Booking;
-import seedu.hms.model.booking.ServiceType;
+import seedu.hms.model.booking.serviceType.ServiceType;
 import seedu.hms.model.reservation.Reservation;
-import seedu.hms.model.reservation.RoomType;
+import seedu.hms.model.reservation.roomType.RoomType;
 import seedu.hms.model.util.DateRange;
 import seedu.hms.model.util.TimeRange;
 
@@ -53,10 +53,10 @@ public class BillManager implements BillModel {
         versionedHotelManagementSystem = hotelManagementSystem;
         this.userPrefs = new UserPrefs(userPrefs);
         filteredBookings = new FilteredList<>(versionedHotelManagementSystem.getBookingList());
-        serviceTypeList = new FilteredList<>(versionedHotelManagementSystem.getServiceTypeList());
+        serviceTypeList = new FilteredList<ServiceType>(versionedHotelManagementSystem.getServiceTypeList());
         filteredBookings.addListener(this::ensureSelectedBookingIsValid);
         filteredReservations = new FilteredList<>(versionedHotelManagementSystem.getReservationList());
-        roomTypeList = new FilteredList<>(versionedHotelManagementSystem.getRoomTypeList());
+        roomTypeList = new FilteredList<RoomType>(versionedHotelManagementSystem.getRoomTypeList());
         filteredReservations.addListener(this::ensureSelectedReservationIsValid);
     }
 
@@ -137,6 +137,26 @@ public class BillManager implements BillModel {
      */
     public ObservableList<Booking> getFilteredBookingList() {
         return filteredBookings;
+    }
+
+    //=========== Filtered Reservation List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Reservation} backed by the internal list of
+     * {@code versionedHotelManagementSystem}
+     */
+    public ObservableList<RoomType> getFilteredRoomTypeList() {
+        return roomTypeList;
+    }
+
+    //=========== Filtered Booking List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Booking} backed by the internal list of
+     * {@code versionedHotelManagementSystem}
+     */
+    public ObservableList<ServiceType> getServiceTypeList() {
+        return serviceTypeList;
     }
 
     //=========== Undo/Redo =================================================================================
@@ -300,59 +320,14 @@ public class BillManager implements BillModel {
      * @param bookingObservableList unmodifiable booking list
      * @return hash map that returns the entire booking bill for the customer
      */
-    public HashMap<String, Pair<Double, Integer>> generateHashMapForBooking(ObservableList<Booking>
+    public HashMap<ServiceType, Pair<Double, Integer>> generateHashMapForBooking(ObservableList<Booking>
                                                                                 bookingObservableList) {
 
-        HashMap<String, Pair<Double, Integer>> bookingBill = new HashMap<>();
-        bookingBill.put(serviceTypeList.get(0).getName(), generateBillForBookingForGym(bookingObservableList));
-        bookingBill.put(serviceTypeList.get(1).getName(), generateBillForBookingForSwimmingPool(bookingObservableList));
-        bookingBill.put(serviceTypeList.get(2).getName(), generateBillForBookingForSpa(bookingObservableList));
-        bookingBill.put(serviceTypeList.get(3).getName(), generateBillForBookingForGamesRoom(bookingObservableList));
+        HashMap<ServiceType, Pair<Double, Integer>> bookingBill = new HashMap<>();
+        for (ServiceType st: serviceTypeList) {
+            bookingBill.put(st, generateTotalBillBasedOnServiceType(bookingObservableList, st));
+        }
         return bookingBill;
-    }
-
-    /**
-     * Generates bill for all spa bookings for the specific customer
-     * * @param bookingObservableList unmodifiable booking list
-     *
-     * @return pair that contains the total amount for spa and the number of hours the spa was used
-     */
-    private Pair<Double, Integer> generateBillForBookingForSpa(ObservableList<Booking> bookingObservableList) {
-        String serviceType = "SPA";
-        return generateTotalBillBasedOnServiceType(bookingObservableList, serviceType);
-    }
-
-    /**
-     * Generates bill for all gym bookings for the specific customer
-     *
-     * @param bookingObservableList unmodifiable booking list
-     * @return pair that contains the total amount for gym and the number of hours the  gym was used
-     */
-    private Pair<Double, Integer> generateBillForBookingForGym(ObservableList<Booking> bookingObservableList) {
-        String serviceType = "GYM";
-        return generateTotalBillBasedOnServiceType(bookingObservableList, serviceType);
-    }
-
-    /**
-     * Generates bill for all swimming pool bookings for the specific customer
-     *
-     * @param bookingObservableList unmodifiable booking list
-     * @return pair that contains the total amount for swimming pool and the number of hours the swimming pool was used
-     */
-    private Pair<Double, Integer> generateBillForBookingForSwimmingPool(ObservableList<Booking> bookingObservableList) {
-        String serviceType = "SWIMMING POOL";
-        return generateTotalBillBasedOnServiceType(bookingObservableList, serviceType);
-    }
-
-    /**
-     * Generates bill for all swimming pool bookings for the specific customer
-     *
-     * @param bookingObservableList unmodifiable booking list
-     * @return pair that contains the total amount for games room and the number of times games room was used
-     */
-    private Pair<Double, Integer> generateBillForBookingForGamesRoom(ObservableList<Booking> bookingObservableList) {
-        String serviceType = "GAMES ROOM";
-        return generateTotalBillBasedOnServiceType(bookingObservableList, serviceType);
     }
 
     /**
@@ -361,66 +336,20 @@ public class BillManager implements BillModel {
      * @return a pair that contains the total amount for the service type and number of hours the service type was used
      */
     private Pair<Double, Integer> generateTotalBillBasedOnServiceType(ObservableList<Booking> bookingObservableList,
-                                                                      String serviceType) {
+                                                                      ServiceType serviceType) {
         int totalTime = 0;
         double totalAmount = 0.0;
-        switch (serviceType) {
-
-        case "GYM":
-            for (Booking booking : bookingObservableList) {
-                if ((booking.getService().getName()).equals("GYM")) {
-                    TimeRange timeRange = booking.getTiming();
-                    int hoursBooked = timeRange.numOfHours();
-                    totalTime = totalTime + hoursBooked;
-                    double ratePerHour = serviceTypeList.get(0).getRatePerHour();
-                    double amount = hoursBooked * ratePerHour;
-                    totalAmount = totalAmount + amount;
-                }
+        for (Booking booking : bookingObservableList) {
+            if ((booking.getService().equals(serviceType))) {
+                TimeRange timeRange = booking.getTiming();
+                int hoursBooked = timeRange.numOfHours();
+                totalTime = totalTime + hoursBooked;
+                double ratePerHour = booking.getService().getRatePerHour();
+                double amount = hoursBooked * ratePerHour;
+                totalAmount = totalAmount + amount;
             }
-            return new Pair<>(totalAmount, totalTime);
-
-        case "SWIMMING POOL":
-            for (Booking booking : bookingObservableList) {
-                if ((booking.getService().getName()).equals("SWIMMING POOL")) {
-                    TimeRange timeRange = booking.getTiming();
-                    int hoursBooked = timeRange.numOfHours();
-                    totalTime = totalTime + hoursBooked;
-                    double ratePerHour = serviceTypeList.get(1).getRatePerHour();
-                    double amount = hoursBooked * ratePerHour;
-                    totalAmount = totalAmount + amount;
-                }
-            }
-            return new Pair<>(totalAmount, totalTime);
-
-        case "SPA":
-            for (Booking booking : bookingObservableList) {
-                if ((booking.getService().getName()).equals("SPA")) {
-                    TimeRange timeRange = booking.getTiming();
-                    int hoursBooked = timeRange.numOfHours();
-                    totalTime = totalTime + hoursBooked;
-                    double ratePerHour = serviceTypeList.get(2).getRatePerHour();
-                    double amount = hoursBooked * ratePerHour;
-                    totalAmount = totalAmount + amount;
-                }
-            }
-            return new Pair<>(totalAmount, totalTime);
-
-        case "GAMES ROOM":
-            for (Booking booking : bookingObservableList) {
-                if ((booking.getService().getName()).equals("GAMES ROOM")) {
-                    TimeRange timeRange = booking.getTiming();
-                    int hoursBooked = timeRange.numOfHours();
-                    totalTime = totalTime + hoursBooked;
-                    double ratePerHour = serviceTypeList.get(3).getRatePerHour();
-                    double amount = hoursBooked * ratePerHour;
-                    totalAmount = totalAmount + amount;
-                }
-            }
-            return new Pair<>(totalAmount, totalTime);
-
-        default:
-            return new Pair<>(0.0, 0);
         }
+        return new Pair<>(totalAmount, totalTime);
     }
 
 
@@ -450,68 +379,14 @@ public class BillManager implements BillModel {
      * @param reservationObservableList unmodifiable reservation list
      * @return hash map that returns the entire reservation bill for the customer
      */
-    public HashMap<String, Pair<Double, Long>> generateHashMapForReservation(ObservableList<Reservation>
+    public HashMap<RoomType, Pair<Double, Long>> generateHashMapForReservation(ObservableList<Reservation>
                                                                                  reservationObservableList) {
 
-        HashMap<String, Pair<Double, Long>> reservationBill = new HashMap<>();
-        reservationBill.put(roomTypeList.get(0).getName(),
-            generateBillForReservationForSingleRoom(reservationObservableList));
-        reservationBill.put(roomTypeList.get(1).getName(),
-            generateBillForReservationForDoubleRoom(reservationObservableList));
-        reservationBill.put(roomTypeList.get(2).getName(),
-            generateBillForReservationForDeluxeRoom(reservationObservableList));
-        reservationBill.put(roomTypeList.get(3).getName(),
-            generateBillForReservationForFamilySuite(reservationObservableList));
+        HashMap<RoomType, Pair<Double, Long>> reservationBill = new HashMap<>();
+        for (RoomType rt: roomTypeList) {
+            reservationBill.put(rt, generateTotalBillBasedOnRoomType(reservationObservableList, rt));
+        }
         return reservationBill;
-    }
-
-
-    /**
-     * Generates bill for all single room reservations for the specific customer
-     *
-     * @param reservationObservableList unmodifiable reservation list
-     * @return pair that contains the total amount for single room and the number of days the single rooms reserved
-     */
-    private Pair<Double, Long> generateBillForReservationForSingleRoom(ObservableList<Reservation>
-                                                                           reservationObservableList) {
-        String roomType = "SINGLE ROOM";
-        return generateTotalBillBasedOnRoomType(reservationObservableList, roomType);
-    }
-
-    /**
-     * Generates bill for all double room reservations for the specific customer
-     *
-     * @param reservationObservableList unmodifiable reservation list
-     * @return pair that contains the total amount for double room and the number of days the double rooms reserved
-     */
-    private Pair<Double, Long> generateBillForReservationForDoubleRoom(ObservableList<Reservation>
-                                                                           reservationObservableList) {
-        String roomType = "DOUBLE ROOM";
-        return generateTotalBillBasedOnRoomType(reservationObservableList, roomType);
-    }
-
-    /**
-     * Generates bill for all single room reservations for the specific customer
-     *
-     * @param reservationObservableList unmodifiable reservation list
-     * @return pair that contains the total amount for deluxe room and the number of days the deluxe rooms reserved
-     */
-    private Pair<Double, Long> generateBillForReservationForDeluxeRoom(ObservableList<Reservation>
-                                                                           reservationObservableList) {
-        String roomType = "DELUXE ROOM";
-        return generateTotalBillBasedOnRoomType(reservationObservableList, roomType);
-    }
-
-    /**
-     * Generates bill for all single room reservations for the specific customer
-     *
-     * @param reservationObservableList unmodifiable reservation list
-     * @return pair that contains the total amount for family suite and the number of days the family suites reserved
-     */
-    private Pair<Double, Long> generateBillForReservationForFamilySuite(ObservableList<Reservation>
-                                                                            reservationObservableList) {
-        String roomType = "FAMILY SUITE";
-        return generateTotalBillBasedOnRoomType(reservationObservableList, roomType);
     }
 
     /**
@@ -520,71 +395,20 @@ public class BillManager implements BillModel {
      * @return a pair that contains the total amount for the room type and number of days the room type was reserved
      */
     private Pair<Double, Long> generateTotalBillBasedOnRoomType(ObservableList<Reservation>
-                                                                    reservationObservableList, String roomType) {
+                                                                    reservationObservableList, RoomType roomType) {
         long totalDays = 0;
         double totalAmount = 0.0;
-        switch (roomType) {
-
-        case "SINGLE ROOM":
-            for (Reservation reservation : reservationObservableList) {
-                if ((reservation.getRoom().getName()).equals("SINGLE ROOM")) {
-                    DateRange dateRange = reservation.getDates();
-                    long daysBooked = dateRange.numOfDays();
-                    totalDays = totalDays + daysBooked;
-                    double ratePerDay = roomTypeList.get(0).getRatePerDay();
-                    double amount = daysBooked * ratePerDay;
-                    totalAmount = totalAmount + amount;
-                }
+        for (Reservation reservation : reservationObservableList) {
+            if (reservation.getRoom().equals(roomType)) {
+                DateRange dateRange = reservation.getDates();
+                long daysBooked = dateRange.numOfDays();
+                totalDays = totalDays + daysBooked;
+                double ratePerDay = reservation.getRoom().getRatePerDay();
+                double amount = daysBooked * ratePerDay;
+                totalAmount = totalAmount + amount;
             }
-
-            return new Pair<>(totalAmount, totalDays);
-
-        case "DOUBLE ROOM":
-            for (Reservation reservation : reservationObservableList) {
-                if ((reservation.getRoom().getName()).equals("DOUBLE ROOM")) {
-                    DateRange dateRange = reservation.getDates();
-                    long daysBooked = dateRange.numOfDays();
-                    totalDays = totalDays + daysBooked;
-                    double ratePerDay = roomTypeList.get(1).getRatePerDay();
-                    double amount = daysBooked * ratePerDay;
-                    totalAmount = totalAmount + amount;
-                }
-            }
-
-            return new Pair<>(totalAmount, totalDays);
-
-        case "DELUXE ROOM":
-            for (Reservation reservation : reservationObservableList) {
-                if ((reservation.getRoom().getName()).equals("DELUXE ROOM")) {
-                    DateRange dateRange = reservation.getDates();
-                    long daysBooked = dateRange.numOfDays();
-                    totalDays = totalDays + daysBooked;
-                    double ratePerDay = roomTypeList.get(2).getRatePerDay();
-                    double amount = daysBooked * ratePerDay;
-                    totalAmount = totalAmount + amount;
-                }
-            }
-
-            return new Pair<>(totalAmount, totalDays);
-
-        case "FAMILY SUITE":
-            for (Reservation reservation : reservationObservableList) {
-                if ((reservation.getRoom().getName()).equals("FAMILY SUITE")) {
-                    DateRange dateRange = reservation.getDates();
-                    long daysBooked = dateRange.numOfDays();
-                    totalDays = totalDays + daysBooked;
-                    double ratePerDay = roomTypeList.get(3).getRatePerDay();
-                    double amount = daysBooked * ratePerDay;
-                    totalAmount = totalAmount + amount;
-                }
-            }
-
-            return new Pair<>(totalAmount, totalDays);
-
-        default:
-            return new Pair<>(0.0, 0L);
-
         }
+        return new Pair<>(totalAmount, totalDays);
     }
 }
 

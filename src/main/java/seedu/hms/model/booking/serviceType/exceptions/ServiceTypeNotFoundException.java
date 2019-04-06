@@ -1,4 +1,4 @@
-package seedu.hms.model.booking.exceptions;
+package seedu.hms.model.booking.serviceType.exceptions;
 
 /**
  * Signals that the operation is unable to find the specified serviceType.

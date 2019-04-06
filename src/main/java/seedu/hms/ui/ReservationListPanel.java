@@ -17,7 +17,7 @@ import seedu.hms.logic.commands.FindReservationCommand;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.reservation.Reservation;
-import seedu.hms.model.reservation.RoomType;
+import seedu.hms.model.reservation.roomType.RoomType;
 
 /**
  * Panel containing the list of reservations.

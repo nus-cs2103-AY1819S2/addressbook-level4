@@ -13,7 +13,8 @@ import seedu.hms.model.BookingModel;
 import seedu.hms.model.UserPrefs;
 import seedu.hms.model.VersionedHotelManagementSystem;
 import seedu.hms.model.booking.Booking;
-import seedu.hms.model.booking.ServiceType;
+import seedu.hms.model.booking.serviceType.ServiceType;
+import seedu.hms.model.util.TimeRange;
 import seedu.hms.testutil.BookingBuilder;
 import seedu.hms.testutil.TypicalCustomers;
 
@@ -30,7 +31,7 @@ public class AddBookingCommandIntegrationTest {
     @Test
     public void executeNewBookingSuccess() {
         Booking validBooking = new BookingBuilder()
-                .withService(ServiceType.GAMES)
+                .withService(new ServiceType(20, new TimeRange(10, 22), "Games Room", 5.0))
                 .withTiming(14, 15)
                 .withPayer(TypicalCustomers.BOB)
                 .withOtherUsers()

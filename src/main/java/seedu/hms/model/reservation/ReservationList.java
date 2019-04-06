@@ -12,7 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.reservation.exceptions.ReservationNotFoundException;
-import seedu.hms.model.reservation.exceptions.RoomFullException;
+import seedu.hms.model.reservation.roomType.exceptions.RoomFullException;
 import seedu.hms.model.util.DateRange;
 
 /**

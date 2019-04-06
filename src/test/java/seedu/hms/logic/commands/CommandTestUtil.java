@@ -26,9 +26,10 @@ import seedu.hms.model.HotelManagementSystem;
 import seedu.hms.model.Model;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.BookingContainsPayerPredicate;
-import seedu.hms.model.booking.ServiceType;
+import seedu.hms.model.booking.serviceType.ServiceType;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.NameContainsKeywordsPredicate;
+import seedu.hms.model.util.TimeRange;
 import seedu.hms.testutil.EditBookingDescriptorBuilder;
 import seedu.hms.testutil.EditCustomerDescriptorBuilder;
 
@@ -92,9 +93,10 @@ public class CommandTestUtil {
             .withPhone(VALID_PHONE_BOB).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).withEmail(VALID_EMAIL_BOB)
             .withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
-        DESC_ALICE_SPA = new EditBookingDescriptorBuilder().withService(ServiceType.SPA).withTiming(11, 12)
+        ServiceType spa = new ServiceType(30, new TimeRange(10, 20), "Spa", 10.0);
+        DESC_ALICE_SPA = new EditBookingDescriptorBuilder().withService(spa).withTiming(11, 12)
             .withPayer(ALICE).withOtherUsers().withComment("AliceSPA").build();
-        DESC_CARL_SPA = new EditBookingDescriptorBuilder().withService(ServiceType.SPA).withTiming(12, 13)
+        DESC_CARL_SPA = new EditBookingDescriptorBuilder().withService(spa).withTiming(12, 13)
             .withPayer(CARL).withOtherUsers().withComment("CarlSPA").build();
     }
 

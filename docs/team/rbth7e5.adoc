@@ -62,8 +62,6 @@ include::../UserGuide.adoc[tag=categorization]
 |_Two main sections I contributed to the Developer Guide are User Stories and Categorization as shown below. It reflects my ability to articulate how I implemented my features_
 |===
 
-include::../DeveloperGuide.adoc[tag=userstories]
-
 include::../DeveloperGuide.adoc[tag=categorisation]
 
 include::../DeveloperGuide.adoc[tag=categorization]

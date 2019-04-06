@@ -144,8 +144,11 @@ public class ReportDisplay extends UiPart<Region> {
         String question;
         for (int i = 0; i < toShow; i++) {
             Card card = cards.get(i);
-            question = "Question: " + card.getQuestion();
-            question = question.substring(0, Math.min(MAX_QUESTION_CHAR, question.length()));
+            question = card.getQuestion().fullQuestion;
+            if (question.length() > MAX_QUESTION_CHAR) {
+                question = question.substring(0, MAX_QUESTION_CHAR) + " ...";
+            }
+            question = "Question: " + question;
             result += question + " | " + "Score: " + card.getScore() + "\n";
         }
         questionsDisplay.setText(result);

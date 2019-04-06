@@ -1,11 +1,9 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ORDER_CODE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ORDER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ORDER_QUANTITY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.ORDER_DESC_2_CHICKEN;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CODE_CHICKEN;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;

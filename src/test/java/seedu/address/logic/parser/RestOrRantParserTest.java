@@ -228,7 +228,8 @@ public class RestOrRantParserTest {
             throw new AssertionError("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
             assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());
-        }try {
+        }
+        try {
             parser.parseCommand(Mode.BILL_MODE, ClearOrderCommand.COMMAND_WORD);
             throw new AssertionError("The expected ParseException was not thrown.");
         } catch (ParseException pe) {

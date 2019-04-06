@@ -91,7 +91,7 @@ public class AddToOrderCommandIntegrationTest {
 
         assertCommandFailure(Mode.TABLE_MODE,
                 new AddToOrderCommand(Collections.singletonList(new Code("B99")), Collections.singletonList(5)), model,
-                commandHistory, String.format(AddToOrderCommand.MESSAGE_FAILURE, 
+                commandHistory, String.format(AddToOrderCommand.MESSAGE_FAILURE,
                         new Code("B99"), AddToOrderCommand.MESSAGE_INVALID_ITEM_CODE));
     }
 

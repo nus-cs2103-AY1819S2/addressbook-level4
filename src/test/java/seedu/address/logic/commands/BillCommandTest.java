@@ -691,7 +691,7 @@ public class BillCommandTest {
             requireNonNull(dailyRevenue);
             dailyRevenuesAdded.add(dailyRevenue);
         }
-        
+
         @Override
         public ReadOnlyRestOrRant getRestOrRant() {
             return new RestOrRant();

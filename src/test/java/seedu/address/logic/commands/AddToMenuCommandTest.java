@@ -451,7 +451,7 @@ public class AddToMenuCommandTest {
             requireNonNull(menuItem);
             menuItemsAdded.add(menuItem);
         }
-        
+
         @Override
         public ReadOnlyRestOrRant getRestOrRant() {
             return new RestOrRant();

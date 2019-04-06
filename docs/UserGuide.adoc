@@ -318,7 +318,7 @@ Format: `sort p/PROPERTY d/DIRECTION`
 
 .Possible directions:
 * `ascending`: sorts the table in ascending order.
-* `quantity` : sorts table list in descending order.
+* `descending` : sorts table list in descending order.
 
 Examples:
 

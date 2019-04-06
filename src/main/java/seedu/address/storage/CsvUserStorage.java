@@ -42,10 +42,10 @@ public class CsvUserStorage implements UserStorage {
     }
 
     /**
-     * Parses the given file at the path into a user
+     * Parses the given file and attempts to read it. Failure to read will return null.
      *
-     * @param filePath is not null
-     * @return the parsed user
+     * @param filePath
+     * @return the parsed user or null
      */
     private Optional<User> parseFileIntoUser(Path filePath) {
         List<String[]> data;
@@ -66,14 +66,14 @@ public class CsvUserStorage implements UserStorage {
             try {
                 user.addCard(parseStringIntoCard(arr));
             } catch (IllegalValueException e) {
-                //do error handling here
                 logger.warning(e.getMessage() + " in " + filePath.toString());
+                return Optional.empty();
             } catch (NumberFormatException e) {
-                //do error handling here
                 logger.warning("Values are not correct in " + filePath.toString());
+                return Optional.empty();
             } catch (DateTimeParseException e) {
-                //do error handling here
                 logger.warning("SrsDate is wrong in " + filePath.toString());
+                return Optional.empty();
             }
         }
 
@@ -125,23 +125,23 @@ public class CsvUserStorage implements UserStorage {
      */
     private CardSrsData parseStringIntoCard(String[] cardArray) throws IllegalValueException,
             NumberFormatException, DateTimeParseException {
+
+        if (cardArray.length < 4) {
+            throw new IllegalValueException("There are empty values in the file");
+        }
+
         for (int i = 0; i < cardArray.length - 1; i++) {
             if (cardArray[i].isEmpty()) {
-                //throw error for empty
-                throw new IllegalValueException("There are empty vales in the file");
+                throw new IllegalValueException("There are empty values in the file");
             }
         }
 
-        //values are non-empty, can initialize them now
         int hashCode;
         int numOfAttempts;
         int streak;
         Instant srs;
         boolean isDifficult;
         CardSrsData card;
-
-        //hashCode fromm file cannot be 0 //new line here check w the rest
-        // if (Integer.parseInt(cardArray[0]) != 0) {
 
         hashCode = Integer.parseInt(cardArray[0]);
         numOfAttempts = Integer.parseInt(cardArray[1]);

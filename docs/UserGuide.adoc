@@ -332,23 +332,69 @@ Format: `merge FOLDER_INDEX_1 FOLDER_INDEX_1 NEW_FOLDER_NAME`
 
 //end::folderoperations[]
 
+//tag::advancedoperations[]
+
+==== Export flashcards : `export`
+Exporting flashcards is a great way to start sharing your flashcards with others.
+
+The export command creates a csv file containing the flashcards from the specified folder in your project root
+directory.
+
+
+Format: `export FOLDER_INDEX FILENAME [MORE_INDEXES]`
+
+IMPORTANT: The files used for Import and Export commands should be placed in the project root directory. +
+i.e The directory where the .jar file is located
+
+image::project_root_dir.png[width ="800"]
+
+NOTE: The current version does not support the importing and exporting of files outside of this directory
+
+====
+* You should key in indices corresponding to the folder index
+* Negative numbers are not allowed
+====
+
+Examples:
+
+* `export 1 2 3` +
+exports the first, second and third cardfolder in your home directory.
+Suppose that the first, second and third cardfolder corresponds to the card folder names : +
+`Blood` +
+`Circulatory System` +
+`Cardiovascular` +
+Then the following files `Blood.csv`, `Circulatory System.csv` and `Cardiovascular.csv`
+will be created in the project root directory.
 
 ==== Import flashcards : `import`
+Besides being able to import flashcards exported by others, the import command provies a faster way of
+creating multiple flashcards.
 
-Searches for a csv file in the root project directory and parses the file to generate a flashcard folder.
+You type your flashcards out on excel and later save it in your project root directory, allowing you
+to import it over to your application.
+
 
 NOTE: The csv file imported should follow the format below
 
+.Sample format for csv file
+image::Blood.csv.png[width = "800"]
 
+====
+* The first row of the csv file should have the following headers, Question, Answer, Options, Hints.
+* Question and Answer are mandatory fields, and should not be left blank.
+* Options can take 0 or many values.
+* Hints can take 0 or 1 values only.
+====
 
 Format: `import FILENAME`
 
-==== Export flashcards : `export`
+Examples:
 
-Creates a csv file containing the flashcards from the specified folder, which can later be imported.
-Exported card folder will be created in the project root directory.
+* `import Blood.csv` +
+Imports blood csv file into know-it-all. A new `Blood` cardfolder should be present in the home
+directory after execution of this command.
 
-Format: `export FOLDER_INDEX FILENAME [MORE_INDEXES]`
+// end::advancedoperations[]
 
 
 //tag::testoperations[]
@@ -511,82 +557,10 @@ Format: `end`
 
 //end::reportoperations[]
 
-//tag::advancedoperations[]
-=== Advanced Operations
-All the above operations described above focuses on how individual users may use the app. This section however
-describes also how you can use the app more effectively; by creating multiple flashcards even faster and sharing it
-with your friends.
 
-The following `Import` and `Export` commands describe how you can do just that.
+=== Global operations
 
-
-==== Important to Note
-IMPORTANT: The files used for Import and Export commands should be placed in the project root directory. +
-i.e The directory where the .jar file is located +
-
-
-
-.project root directory / where the jar file is located.
-image::project_root_dir.png[width ="800"]
-
-NOTE: The current version does not support the importing and exporting of files outside of this directory
-
-==== Export flashcards : `export`
-Exporting flashcards is a great way to start sharing your flashcards with others.
-
-The export command creates a csv file containing the flashcards from the specified folder in your project root
-directory.
-
-
-Format: `export FOLDER_INDEX FILENAME [MORE_INDEXES]`
-
-====
-* You should key in indices corresponding to the folder index
-* Negative numbers are not allowed
-====
-
-Examples:
-
-* `export` +
-`1 2 3` +
-exports the first, second and third cardfolder in your home directory.
-Suppose that the first, second and third cardfolder corresponds to the card folder names : +
-`Blood` +
-`Circulatory System` +
-`Cardiovascular` +
-Then the following files `Blood.csv`, `Circulatory System.csv` and `Cardiovascular.csv`
-will be created in the project root directory.
-
-==== Import flashcards : `import`
-Besides being able to import flashcards exported by others, the import command provies a faster way of
-creating multiple flashcards.
-
-You type your flashcards out on excel and later save it in your project root directory, allowing you
-to import it over to your application.
-
-
-NOTE: The csv file imported should follow the format below
-
-.Sample format for csv file
-image::Blood.csv.png[width = "800"]
-
-====
-* The first row of the csv file should have the following headers, Question, Answer, Options, Hints.
-* Question and Answer are mandatory fields, and should not be left blank.
-* Options can take 0 or many values.
-* Hints can take 0 or 1 values only.
-====
-
-Format: `import FILENAME`
-
-Examples:
-
-* `import` +
-`Blood.csv` +
-Imports blood csv file into know-it-all. A new `Blood` cardfolder should be present in the home
-directory after execution of this command.
-
-// end::advancedoperations[]
+These commands are valid from anywhere in the application.
 
 ==== Viewing help : `help`
 
@@ -634,8 +608,6 @@ this number is automatically calculated and recorded.
 |`addfolder FOLDER_NAME` | Creates a new flashcard folder with the specified name.
 |`deletefolder FOLDER_INDEX` | Removes the flashcard folder specified by index.
 |`editfolder FOLDER_INDEX NEW_FOLDER_NAME`| Renames the flashcard folder specified by index to the new name specified.
-|`import FILENAME` | Imports a file with the specified name.
-|`export FOLDER_INDEX FILENAME` | Creates a json file containing the flashcards from the specified folder, which can later be imported.
 |`test` | This command begins a test session, where the display area enters a fullscreen.
 |`ans ANSWER` | Enter answer for a flashcard.
 |`reveal` | Immediately reveals the correct answer.

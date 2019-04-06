@@ -145,7 +145,7 @@ public class EditReservationCommand extends ReservationCommand {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditReservationDescriptor(EditReservationCommand.EditReservationDescriptor toCopy)
-            throws ParseException {
+             {
             setRoomType(toCopy.roomType);
             setDates(toCopy.dates);
             setPayer(toCopy.payer);

@@ -21,6 +21,7 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.model.menu.Code;
+import seedu.address.model.order.OrderItemStatus;
 
 public class AddToOrderCommandParserTest {
     private AddToOrderCommandParser parser = new AddToOrderCommandParser();
@@ -67,7 +68,7 @@ public class AddToOrderCommandParserTest {
         assertParseFailure(parser, INVALID_ORDER_CODE_DESC, Code.MESSAGE_CONSTRAINTS);
 
         // invalid quantity
-        assertParseFailure(parser, INVALID_ORDER_QUANTITY_DESC, ParserUtil.MESSAGE_INVALID_QUANTITY);
+        assertParseFailure(parser, INVALID_ORDER_QUANTITY_DESC, OrderItemStatus.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_ORDER_DESC, Code.MESSAGE_CONSTRAINTS);

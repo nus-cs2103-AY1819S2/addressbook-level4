@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import seedu.address.model.menu.Code;
 import seedu.address.model.menu.Name;
 import seedu.address.model.order.OrderItem;
+import seedu.address.model.order.OrderItemStatus;
 import seedu.address.model.table.TableNumber;
 
 /**
@@ -18,13 +19,13 @@ public class OrderItemBuilder {
     private TableNumber tableNumber;
     private Code menuItemCode;
     private Name menuItemName;
-    private int quantityOrdered;
+    private OrderItemStatus itemStatus;
 
     public OrderItemBuilder() {
         tableNumber = new TableNumber(DEFAULT_TABLE_NUMBER);
         menuItemCode = new Code(DEFAULT_MENU_ITEM_CODE);
         menuItemName = new Name(DEFAULT_MENU_ITEM_NAME);
-        quantityOrdered = DEFAULT_QUANTITY;
+        itemStatus = new OrderItemStatus(DEFAULT_QUANTITY);
     }
 
     /**
@@ -34,7 +35,7 @@ public class OrderItemBuilder {
         tableNumber = toCopy.getTableNumber();
         menuItemCode = toCopy.getMenuItemCode();
         menuItemName = toCopy.getMenuItemName();
-        quantityOrdered = toCopy.getQuantity();
+        itemStatus = toCopy.getOrderItemStatus();
     }
 
     /**
@@ -62,15 +63,23 @@ public class OrderItemBuilder {
     }
 
     /**
-     * Sets the quantity of the {@code OrderItem} that we are building.
+     * Sets the quantity ordered of the {@code OrderItem} that we are building.
      */
     public OrderItemBuilder withQuantity(int quantityOrdered) {
-        this.quantityOrdered = quantityOrdered;
+        this.itemStatus = new OrderItemStatus(quantityOrdered);
+        return this;
+    }
+
+    /**
+     * Sets the quantity ordered and quantity to serve of the {@code OrderItem} that we are building.
+     */
+    public OrderItemBuilder withQuantity(int quantityOrdered, int quantityToServe) {
+        this.itemStatus = new OrderItemStatus(quantityOrdered, quantityToServe);
         return this;
     }
 
     public OrderItem build() {
-        return new OrderItem(tableNumber, menuItemCode, menuItemName, quantityOrdered);
+        return new OrderItem(tableNumber, menuItemCode, menuItemName, itemStatus);
     }
 
 }

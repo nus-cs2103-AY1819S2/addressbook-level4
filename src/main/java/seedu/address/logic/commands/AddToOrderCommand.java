@@ -14,6 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.menu.Code;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
+import seedu.address.model.order.OrderItemStatus;
 import seedu.address.model.table.TableNumber;
 
 /**
@@ -27,9 +28,9 @@ public class AddToOrderCommand extends Command {
             + "Parameters: ITEM_CODE QUANTITY [ITEM_CODE QUANTITY]...\n" + "Example: " + COMMAND_WORD
             + " W09 2 C18 1 C02 1";
 
-    public static final String MESSAGE_SUCCESS = "New order items added:\n%1$s";
-    public static final String MESSAGE_INVALID_ITEM_CODE = "The item code [%1$s] is invalid. "
-            + "All items after this were not added.";
+    public static final String MESSAGE_SUCCESS = "Order items added or updated:\n%1$s";
+    public static final String MESSAGE_FAILURE = "Unable to add %1$s: %2$s\nAll items after this were not added.";
+    public static final String MESSAGE_INVALID_ITEM_CODE = "The item code is invalid.";
 
     private final List<Code> itemCodes;
     private final List<Integer> itemQuantities;
@@ -50,22 +51,35 @@ public class AddToOrderCommand extends Command {
         TableNumber tableNumber = model.getSelectedTable().getTableNumber();
 
         for (int i = 0; i < itemCodes.size(); i++) {
-            Optional<MenuItem> itemOptional = model.getRestOrRant().getMenu().getItemFromCode(itemCodes.get(i));
-            if (!itemOptional.isPresent()) {
+            if (itemQuantities.get(i) == 0) {
+                continue;
+            }
+
+            Optional<MenuItem> menuItemOptional = model.getRestOrRant().getMenu().getItemFromCode(itemCodes.get(i));
+            if (!menuItemOptional.isPresent()) {
                 model.updateFilteredOrderItemList(orderItem -> orderItem.getTableNumber().equals(tableNumber));
-                throw new CommandException(String.format(MESSAGE_INVALID_ITEM_CODE, itemCodes.get(i)));
+                throw new CommandException(String.format(MESSAGE_FAILURE, itemCodes.get(i), MESSAGE_INVALID_ITEM_CODE));
             }
-            OrderItem orderItem = new OrderItem(tableNumber, itemCodes.get(i),
-                    model.getRestOrRant().getMenu().getNameFromItem(itemOptional.get()), itemQuantities.get(i));
-            if (model.hasOrderItem(orderItem)) { // add quantity to existing order item
-                OrderItem oldItem = model.getRestOrRant().getOrders().getOrderItem(tableNumber,
-                        orderItem.getMenuItemCode()).get();
-                OrderItem newItem = new OrderItem(oldItem, orderItem.getQuantity());
-                model.setOrderItem(oldItem, newItem);
-            } else {
-                model.addOrderItem(orderItem);
+            Optional<OrderItem> orderItemOptional = model.getRestOrRant().getOrders().getOrderItem(tableNumber,
+                    itemCodes.get(i));
+
+            try {
+                OrderItem orderItem;
+                if (!orderItemOptional.isPresent()) {
+                    orderItem = new OrderItem(tableNumber, itemCodes.get(i),
+                            model.getRestOrRant().getMenu().getNameFromItem(menuItemOptional.get()),
+                            new OrderItemStatus(itemQuantities.get(i)));
+                    model.addOrderItem(orderItem);
+                } else { // add quantity to existing order item
+                    OrderItem oldItem = orderItemOptional.get();
+                    orderItem = new OrderItem(oldItem, oldItem.getOrderItemStatus()
+                            .orderQuantity(itemQuantities.get(i)));
+                    model.setOrderItem(oldItem, orderItem);
+                }
+                orderItems.add(orderItem);
+            } catch (IllegalArgumentException e) { // illegal quantities
+                throw new CommandException(String.format(MESSAGE_FAILURE, itemCodes.get(i), e.getMessage()));
             }
-            orderItems.add(orderItem);
         }
 
         model.updateFilteredOrderItemList(orderItem -> orderItem.getTableNumber().equals(tableNumber));

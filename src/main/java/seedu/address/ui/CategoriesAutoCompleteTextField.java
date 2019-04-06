@@ -60,6 +60,7 @@ public class CategoriesAutoCompleteTextField extends TextField {
      * Retrieves the suggestions based on what the user has already keyed in for the category prefix.
      */
     private List<String> retrieveRelevantSuggestions(PrefixInputPair pair) {
+        requireNonNull(pair);
         return Categories.getCategoriesSuggestions(pair.getPrefix()).stream()
                 .filter(entry -> StringUtil.containsSubstringIgnoreCase(entry, pair.getInput()))
                 .collect(Collectors.toList());
@@ -70,6 +71,7 @@ public class CategoriesAutoCompleteTextField extends TextField {
      * Defines the actions on each of the menu items as well.
      */
     private List<MenuItem> convertSuggestionsToMenuItems(List<String> retrievedSuggestions) {
+        requireNonNull(retrievedSuggestions);
         return retrievedSuggestions.stream()
                 .map(result -> {
                     MenuItem resultMenuItem = new MenuItem(result);

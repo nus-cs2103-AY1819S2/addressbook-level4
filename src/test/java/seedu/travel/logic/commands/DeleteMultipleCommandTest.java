@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.travel.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.travel.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.travel.logic.commands.CommandTestUtil.showPlaceAtIndex;
+import static seedu.travel.logic.commands.DeleteMultipleCommand.MESSAGE_DELETEM_PLACE_SUCCESS;
 import static seedu.travel.testutil.TypicalIndexes.INDEX_FIFTH_PLACE;
 import static seedu.travel.testutil.TypicalIndexes.INDEX_FIRST_PLACE;
 import static seedu.travel.testutil.TypicalIndexes.INDEX_FOURTH_PLACE;
@@ -36,16 +37,16 @@ public class DeleteMultipleCommandTest {
     public void execute_validIndexUnfilteredList_success() {
         DeleteMultipleCommand deleteMultipleCommand =
                 new DeleteMultipleCommand(INDEX_FIRST_PLACE, INDEX_FOURTH_PLACE);
-        StringBuilder expectedMessage = new StringBuilder();
+        String expectedMessage = "";
         Place placeToDeleteFirst = model.getFilteredPlaceList().get(INDEX_FIRST_PLACE.getZeroBased());
         Place placeToDeleteSecond = model.getFilteredPlaceList().get(INDEX_SECOND_PLACE.getZeroBased());
         Place placeToDeleteThird = model.getFilteredPlaceList().get(INDEX_THIRD_PLACE.getZeroBased());
         Place placeToDeleteFourth = model.getFilteredPlaceList().get(INDEX_FOURTH_PLACE.getZeroBased());
 
-        expectedMessage = buildExpectedMessage(expectedMessage, placeToDeleteFirst);
-        expectedMessage = buildExpectedMessage(expectedMessage, placeToDeleteSecond);
-        expectedMessage = buildExpectedMessage(expectedMessage, placeToDeleteThird);
-        expectedMessage = buildExpectedMessage(expectedMessage, placeToDeleteFourth);
+        expectedMessage = expectedMessage.concat(String.format(MESSAGE_DELETEM_PLACE_SUCCESS, placeToDeleteFirst));
+        expectedMessage = expectedMessage.concat(String.format(MESSAGE_DELETEM_PLACE_SUCCESS, placeToDeleteSecond));
+        expectedMessage = expectedMessage.concat(String.format(MESSAGE_DELETEM_PLACE_SUCCESS, placeToDeleteThird));
+        expectedMessage = expectedMessage.concat(String.format(MESSAGE_DELETEM_PLACE_SUCCESS, placeToDeleteFourth));
 
         ModelManager expectedModel = new ModelManager(model.getTravelBuddy(), new UserPrefs());
         expectedModel.deletePlace(placeToDeleteFirst);
@@ -54,7 +55,7 @@ public class DeleteMultipleCommandTest {
         expectedModel.deletePlace(placeToDeleteFourth);
         expectedModel.commitTravelBuddy();
 
-        assertCommandSuccess(deleteMultipleCommand, model, commandHistory, expectedMessage.toString(), expectedModel);
+        assertCommandSuccess(deleteMultipleCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
@@ -75,12 +76,8 @@ public class DeleteMultipleCommandTest {
         Place placeToDelete = model.getFilteredPlaceList().get(INDEX_FIRST_PLACE.getZeroBased());
         DeleteMultipleCommand deleteMultipleCommand = new DeleteMultipleCommand(INDEX_FIRST_PLACE, INDEX_FIFTH_PLACE);
 
-        StringBuilder buildExpectedMessage = new StringBuilder();
-        buildExpectedMessage.append(DeleteMultipleCommand.MESSAGE_DELETE_PLACE_SUCCESS);
-        buildExpectedMessage.append(placeToDelete);
-        buildExpectedMessage.append("\n");
-
-        String expectedMessage = buildExpectedMessage.toString();
+        String expectedMessage = "";
+        expectedMessage = expectedMessage.concat(String.format(MESSAGE_DELETEM_PLACE_SUCCESS, placeToDelete));
 
         Model expectedModel = new ModelManager(model.getTravelBuddy(), new UserPrefs());
         expectedModel.deletePlace(placeToDelete);
@@ -210,13 +207,4 @@ public class DeleteMultipleCommandTest {
         assertTrue(model.getFilteredPlaceList().isEmpty());
     }
 
-    /**
-     * Builds the expected message used for testing purposes
-     */
-    private StringBuilder buildExpectedMessage(StringBuilder expectedMessage, Place placeToDelete) {
-        expectedMessage.append(DeleteMultipleCommand.MESSAGE_DELETE_PLACE_SUCCESS);
-        expectedMessage.append(placeToDelete);
-        expectedMessage.append("\n");
-        return expectedMessage;
-    }
 }

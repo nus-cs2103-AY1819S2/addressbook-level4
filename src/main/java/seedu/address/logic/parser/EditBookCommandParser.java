@@ -83,7 +83,7 @@ public class EditBookCommandParser implements Parser<EditBookCommand> {
      * {@code ArgumentMultimap}.
      */
     private static boolean arePrefixesUnique(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> ((argumentMultimap.getNumberOfPrefix(prefix)==1)
-                || (argumentMultimap.getNumberOfPrefix(prefix)==0)));
+        return Stream.of(prefixes).allMatch(prefix -> ((argumentMultimap.getNumberOfPrefix(prefix) == 1)
+                || (argumentMultimap.getNumberOfPrefix(prefix) == 0)));
     }
 }

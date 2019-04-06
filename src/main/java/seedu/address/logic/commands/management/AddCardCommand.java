@@ -79,6 +79,10 @@ public class AddCardCommand extends ManagementCommand {
         ManagementModel mgtModel = requireManagementModel(model);
 
         try {
+            if (!mgtModel.isThereOpenedLesson()) {
+                throw new CommandException(MESSAGE_NO_OPENED_LESSON);
+            }
+
             mgtModel.addCardToOpenedLesson(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (IllegalArgumentException e) {
@@ -86,8 +90,6 @@ public class AddCardCommand extends ManagementCommand {
                     String.format(MESSAGE_INVALID_CORE_COUNT,
                             mgtModel.getOpenedLessonCoreHeaders().size(),
                             mgtModel), e);
-        } catch (NullPointerException e) {
-            throw new CommandException(MESSAGE_NO_OPENED_LESSON, e);
         }
     }
 

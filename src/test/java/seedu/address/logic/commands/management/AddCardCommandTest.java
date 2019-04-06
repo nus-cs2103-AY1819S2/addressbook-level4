@@ -17,7 +17,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.card.Card;
-import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.ManagementModelStub;
 import seedu.address.model.modelmanager.QuizModelStub;
 import seedu.address.testutil.CardBuilder;
@@ -147,6 +146,11 @@ public class AddCardCommandTest {
         }
 
         @Override
+        public boolean isThereOpenedLesson() {
+            return true;
+        }
+
+        @Override
         public List<String> getOpenedLessonCoreHeaders() {
             return coreHeaders;
         }
@@ -173,12 +177,9 @@ public class AddCardCommandTest {
      * card given there is no open lesson.
      */
     private class MgtModelStubNoOpenLesson extends ManagementModelStub {
-        private Lesson openedLesson = null;
-
         @Override
-        public void addCardToOpenedLesson(Card card) {
-            // No open lesson available
-            openedLesson.addCard(card);
+        public boolean isThereOpenedLesson() {
+            return false;
         }
     }
 }

@@ -164,7 +164,7 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, address, requestDate, conditions);
+            return CollectionUtil.isAnyNonNull(name, nric, phone, address, requestDate, conditions);
         }
 
         public Optional<Name> getName() {

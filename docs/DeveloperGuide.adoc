@@ -270,7 +270,9 @@ After checking for valid keyword, the `AddCommandParser` object checks for
 the following compulsory information, along with regular expressions checking
  for validity of each field:
 
-*`HealthWorker` fields*:
+==== Adding a `HealthWorker`
+
+Format: `add healthworker/h/1 <parameters>...` +
 
 * `name` field prepended by the `n/` prefix. Valid inputs of `name` field
 will be represented and stored as a `Name` class object.
@@ -319,6 +321,25 @@ field will be the one accepted for all fields except the `specialisation` field.
 Upon a successful `add` command, the new `HealthWorker` or `Request`
 constructed from the user entered fields will be added to the end of the `UniqueHealthWorkerList`.
 
+===== Valid Specialisations
+
+The valid `Specialisation` values that can be entered by the user are as
+mentioned below:
+
+* GENERAL_PRACTICE
+* CARDIOLOGY
+* ENDOCRINOLOGY
+* NEUROLOGY
+* ORTHOPAEDIC
+* PAEDIATRIC
+* GYNAECOLOGY
+* UROLOGY
+* PATHOLOGY
+* HAEMATOLOGY
+* PHYSIOTHERAPY
+* OCCUPATIONAL_THERAPY
+* ANAESTHESIOLOGY
+
 ==== Edit feature
 
 The `edit` command allows users to modify details of existing `HealthWorker`
@@ -326,15 +347,18 @@ or `Request` objects should the information need to be updated.
 
 The format for the `edit` command is as follows:
 
-`edit <keyword> <parameter> [<parameter>]...` +
+`edit <keyword> <index> <parameter> [<parameter>]...` +
 
 Similar to the `add` command, the `edit` command arguments are first checked
 passed into the `EditCommandParser` class instance, where it evaluates for a
-valid first keyword and argument prefixes and values.
+valid first keyword and argument prefixes and values. Additionally, the
+`<index>` field is also checked against the existing list of `HealthWorker`
+or `Request` to ensure that the provided `<index>` is a valid `<index>` in
+the list.
 
 The argument field after the first keyword denoting the specified
 `CommandMode` must not be empty, and must contain at least one valid prefix
-and a valid value for the respective field to be edited. THe prefixes and
+and a valid value for the respective field to be edited. The prefixes and
 validity follows the same conditions as stated in the `add` command.
 
 [NOTE]
@@ -347,6 +371,33 @@ the `HealthWorker` object being edited will be entirely replaced by a new
 `Set` of `Specialisation` that corresponds to valid `specialisation` fields
 enteed by the user.
 =====
+
+===== Editing `HealthWorker`
+
+Upon parsing the argument string into `EditCommandParser`, it first checks
+that the `<index>` field provided is non-negative, and not greater than the
+size of the `UniqueHealthWorkerList`.
+
+After checking for a valid `CommandMode.HEALTHWORKER` keyword after the
+`edit` command word, `EditCommandParser` then tokenizes the argument string
+after the keyword into a `ArgumentMultiMap` object that stores the prefix to
+values mapping for each field specified. If no prefixes, or invalid prefixes
+are specified, or if invalid values for any prefix is input, then
+`EditCommandParser` throws a `ParseException`, and displays an error message
+to the terminal.
+
+If all values specified are valid and at least one field to specify is
+provided, the `EditCommandParser` parses the `ArgumentMultiMap` containing
+the values to be updated and it's respective prefixes into an
+`EditHealthWorkerDescriptor` object. `EditCommandParser` then passes the
+`EditHealthWorkerDescriptor` and the `HealthWorker` object fetched from the
+`HealthWorkerBook` using the specified valid `<index>` into a
+`EditHealthWorkerCommand` object and returned.
+
+In the `EditHealthWorkerCommand`, each `HealthWorker` related field prefix is
+checked for it's value in `EditHealthWorkerDescriptor`, and if a value
+exists, it replaces the current value of the corresponding field in the
+`HealthWorker` object. Else, the field in `HealthWorker` is unchanged.
 
 Upon a successful `edit` command, the `HealthWorker` or `Request` object that
  has had it's fields edited will immediately reflect the changes in details on
@@ -519,26 +570,140 @@ application, and the following details:
 ** `condition` - Condition of the patient that made the request.
 
 === Filter Feature
-The `filter` command allows users to filter either the current displayed
-list of `HealthWorker` and `Request` objects and replaces the current list
-shown on the UI with the respective filtered lists.
 
-****
-*Notes*:
+With the filter command, users can provide specific parameters that act as
+conditions for HealthHub to filter the `UniqueHealthWorkerList` and
+`UniqueRequestList` by. Using these parameters, HealthHub displays only the
+`HealthWorker` or `Request` whose fields contains the specified parameters.
 
-* The `<prefix>` and `<parameters>` specified in the command descriptions
+Command Format: `filter <keyword> <prefix>/<parameter> [<prefix>/<parameter>]
+...`
+
+[NOTE]
+====
+The `<prefix>` and `<parameters>` specified in the command descriptions
 below follow the same valid prefix and parameter formats as the `add`, `edit`
  and `delete` commands
-****
+====
 
-==== Filtering `HealthWorker` s
-* Format: `filter healthworker/h/1 <prefix>/<parameter> [<prefix/<parameter>]
+==== Filtering `HealthWorker`
+
+The command format for filtering `HealthWorker` is:
+
+`filter healthworker/h/1 <prefix>/<parameter> [<prefix>/<parameter>]...`
+
+The fields in `HealthWorker` that the user can filter by are:
+
+* `name` prepended by `n/` prefix
+* `organisation` prepended by the `o/` prefix
+* `specialisation` prepend by the `s/` prefix
+
+[NOTE]
+====
+If multiple `specialisation` fields are provided, HealthHub will filter the
+`UniqueHealthWorkerList` by displaying `HealthWorker` that contains both
+specified `specialisations
+====
+
+HealthHub filters the respective list of `HealthWorker` and `Request` by
+checking if the corresponding field contains the specified parameter as a
+substring. +
+For example entering the command `filter h n/John` displays a list of
+`HealthWorker` whose name equals to John, or contains John as a substring(E.g
+ Johnny, Johnson).
+
+// tag::filterHealthWorker[]
+==== Filtering `HealthWorker`
+
+The `filter` command allows users to display only `HealthWorker` or `Request`
+ whose fields matches the `<parameter>` specified in the filter command.
+
+Format: `filter healthworker/h/1 <prefix>/<parameter> [<prefix/<parameter>]
 ...`
+
 * The `filter` command checks for `HealthWorker` whose field specific to the
 `<specific>` contains or matches the `<parameter>` provided.
 * Example: `filter h n/John` changes the UI to display only `HealthWorker`
 whose name is John, or contains John (Johnny, Johnson, ...)
 
+Upon entering the `filter` command, the `filter` command word is stripped from the
+ input and the argument fields are passed into the `FilterCommandParser` class.
+The regular expressions for checking the fields for `name`, `organisation`
+and `skills` follows the same format as mentioned in `add` command. If
+invalid parameters are specified by the user, or if an invalid `keyword` was
+specified that does not correspond to any `CommandMode` enum, then
+`FilterCommandParser` throws a `ParseException` and displays an error message
+ to the user.
+
+If valid inputs are provided, `FilterCommandParser` tokenizes the argument
+string without the `keyword` using `ArgumentTokenizer` object, mapping each
+parameter to it's respective prefix in an `ArgumentMultiMap` object.
+`FilterCommandParser` then creates a `Predicate` object using the parameter
+values in `ArgumentMultiMap` for each filter condition, and composes them
+into a single `Predicate` using the `and` function in `Predicate` in
+conjuction with `stream` and `reduce` methods from Java's `Function` library.
+ The `Predicate` object composed is then passed into
+ `FilterHealthWorkerCommand`, which sets the predicate for the `HealthWorker`
+  list in the GUI to display only `HealthWorker` whose fields matches the
+  `Predicate` set.
+
+===== Design Considerations
+
+During the implementation of the `filter` command, we decide between two
+alternative implementations of managing the `Predicates` created from
+multiple criteria input by the user.
+
+The following table states the considerations for performance as well as
+future implementations and enhancements to HealthHub that were taken into
+account:
+
+// tag::filterHealthWorkerTable[]
+[width="100%",cols="1, 5, 5",options="header"]
+|=======================================================================
+Design | Using a `List` of `Predicate` | Composed `Predicate` using
+ `and` method
+
+| How it works | Each user input condition will be parsed into `Predicate`,
+which are stored in an `List`.
+*Pros*: Easier to manage each single `Predicate` as they are kept separate
+*Cons*: Need to rework existing GUI implementation for `filter` as it only
+uses a single `Predicate` Object |
+Each user input will be parsed into a `Predicate` object, and all the
+`Predicate` formed will be composed into a single `Predicate` object.
+*Pros*: Ease of existing and future implementations as functionality only
+depends on `Predicate`
+*Cons*: Unable to specify actions for each `Predicate` |
+
+Implementation| User inputs are first parsed into `Predicate` equivalents,
+and then added to an `ArrayList`. `FilterCommandParser` then takes the
+existing `UniqueHealthWorkerList`, checks for `HealthWorker` whose fields
+matches the list of `Predicate` using `allMatch` method from the `Predicate`
+library, and then returns an `ObservableList` containing those `HealthWorker`. |
+User inputs are parsed into `Predicate` equivalents, which are then composed
+into a single `Predicate` containing the logic of all the composed
+`Predicates` using the `and` method from `Predicate` library. The composed
+`Predicate` is then set as the filter condition into the existing
+`ObservableList` of `HealthWorker` in the UI component.
+
+|=======================================================================
+// end::filterHealthWorkerTable[]
+
+Ultimately, the decision was made to implement the `filter` command by
+composing the `Predicate` that were formed from the user inputs into a single
+ `Predicate` using a combination of Java's `Function` library methods
+ `stream` and `reduce`, as well as the `and` method used in Java's
+ `Predicate` library. +
+This is because maintain a `List` of `Predicate` in HealthHub requires an
+unnecessary rework of many existing components in HealthHub in order to fit
+the new implementation of using a `List`, such as replacing `Predicate` in
+methods involved with `List<Predicate>`.
+
+In addition, by returning a single `Predicate` object, ease of implementation
+ of methods in `filter` command, as well as any future or existing
+ enhancements to `filter` reduces the complexity of code as the function
+ needs only to depend on `Predicate` and not `List`, hence observing the Law
+ of Demeter.
+// end::filterHealthWorker[]
 
 // tag::undoredo[]
 === Undo/Redo feature

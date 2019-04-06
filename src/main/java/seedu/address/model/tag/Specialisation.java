@@ -1,5 +1,7 @@
 package seedu.address.model.tag;
 
+import java.util.Optional;
+
 /**
  * Class that represents a specialisation for a HealthWorker object.
  */
@@ -58,6 +60,25 @@ public enum Specialisation {
      */
     public static Specialisation parseString(String input) {
         return Specialisation.valueOf(input);
+    }
+
+    /**
+     * Returns an Optional containing the matching Specialisation to the substring if any, else an empty Optional
+     * @param input the substring to match against the Specialisation names
+     * @return Optional containing the matching Specialisation, else an empty Optional
+     */
+    public static Optional<Specialisation> getSpecialisation (String input) {
+        if (input.isEmpty()) {
+            return Optional.empty();
+        }
+
+        for (Specialisation specialisation : Specialisation.values()) {
+            if (specialisation.name().toLowerCase().contains(input.toLowerCase())) {
+                return Optional.of(specialisation);
+            }
+        }
+
+        return Optional.empty();
     }
 
     /**

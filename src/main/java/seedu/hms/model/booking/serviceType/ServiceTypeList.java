@@ -20,18 +20,6 @@ public class ServiceTypeList implements Iterable<ServiceType> {
     private final ObservableList<ServiceType> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
-
-    public ServiceTypeList() {
-        this.setServiceTypes();
-    }
-
-    public void setServiceTypes() {
-        internalList.add(new ServiceType(50, new TimeRange(8, 22), "Gym", 7.0));
-        internalList.add(new ServiceType(30, new TimeRange(10, 20), "Spa", 10.0));
-        internalList.add(new ServiceType(40, new TimeRange(12, 18), "Pool", 8.0));
-        internalList.add(new ServiceType(20, new TimeRange(10, 22), "Games Room", 5.0));
-    }
-
     /**
      * Adds a ServiceType to the list.
      */

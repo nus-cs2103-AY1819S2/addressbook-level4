@@ -54,8 +54,8 @@ public class ServiceType {
     @Override
     public String toString() {
         return "NAME: " + this.name
-            + "TIMING: " + this.timing
-            + "RATE: " + this.ratePerHour;
+            + " TIMING: " + this.timing
+            + " RATE: " + this.ratePerHour;
     }
 
     @Override

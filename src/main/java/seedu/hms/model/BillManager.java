@@ -325,6 +325,7 @@ public class BillManager implements BillModel {
 
         HashMap<ServiceType, Pair<Double, Integer>> bookingBill = new HashMap<>();
         for (ServiceType st: serviceTypeList) {
+            System.out.println(st);
             bookingBill.put(st, generateTotalBillBasedOnServiceType(bookingObservableList, st));
         }
         return bookingBill;

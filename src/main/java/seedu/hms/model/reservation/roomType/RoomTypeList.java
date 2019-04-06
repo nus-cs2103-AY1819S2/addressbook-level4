@@ -19,17 +19,6 @@ public class RoomTypeList implements Iterable<RoomType> {
     private final ObservableList<RoomType> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
-    public RoomTypeList() {
-        this.setRoomTypes();
-    }
-
-    public void setRoomTypes() {
-        internalList.add(new RoomType(50, "Single Room", 500));
-        internalList.add(new RoomType(30, "Double Room", 750));
-        internalList.add(new RoomType(40, "Deluxe Room", 800.0));
-        internalList.add(new RoomType(20, "Family Suite", 1000.0));
-    }
-
     /**
      * Adds a RoomType to the list.
      */

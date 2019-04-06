@@ -39,8 +39,6 @@ public class BillPanel extends UiPart<Region> {
                         + String.format("  Rate per hour:%2.1f", st.getRatePerHour()) + "\n"
                         + String.format("  Number of hour(s):%2d", newValue.getServiceTypeBookingCount(st))
                         + String.format("  Amount:%4.1f", newValue.getServiceTypeBill(st)) + "\n\n");
-                    System.out.println(newValue.getServiceTypeBookingCount(st));
-                    System.out.println(newValue.getServiceTypeBill(st));
                 }
                 stringBuilder.append(String.format("---------------------Sub-Total: %6.1f",
                         newValue.getAmountBooking()) + "\n");

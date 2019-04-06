@@ -269,4 +269,26 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses {@code String s} into a {@code capacity}.
+     */
+    public static int parseCapacity(String s) throws ParseException {
+        int c = Integer.parseInt(s.trim());
+        if (c <= 0) {
+            throw new ParseException("Capacity must be positive");
+        }
+        return c;
+    }
+
+    /**
+     * Parses {@code String s} into a {@code rate}.
+     */
+    public static double parseRate(String s) throws ParseException {
+        Double r = Double.parseDouble(s.trim());
+        if (r <= 0) {
+            throw new ParseException("Rate must be positive");
+        }
+        return r;
+    }
 }

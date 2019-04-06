@@ -19,7 +19,7 @@ public class RoomType {
     @Override
     public String toString() {
         return "NAME: " + this.name
-            + "RATE: " + this.ratePerDay;
+            + " RATE: " + this.ratePerDay;
     }
 
     @Override

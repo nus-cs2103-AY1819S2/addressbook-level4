@@ -80,6 +80,7 @@ will give you a more detailed guide/walk through for each command.
 * Items in square brackets are optional e.g `c/MODULE_CODE [g/GRADE_OBTAINED]` can be used as `c/CS1010 g/A` or as `c/CS1010`.
 ====
 
+[[add]]
 === Add module: `add`
 
 Adds a module to GradTrak based on the given module code, semester taken and expected / obtained grade. +
@@ -136,31 +137,57 @@ Deletes the first module on the most recently displayed list.
 
 === Display module information: `displaymod`
 
-2 options to display module information either by the module code or module title.
-It is possible to search for multiple modules at the same time by typing the next module code preceded by a comma. +
+The `displaymod` command shows all modules that is available in NUS based on the user's search. This command simply
+shows modules straight from NUS's database of modules and does not check if the user has met the prerequisites to read
+a particular module.
+
+This command will allow users to find more about a module or even compare modules so as to decide which modules to read
+in the upcoming semesters. Once decided on which module the user plans to read, they can use <<add>> command to add the
+module to their own list.
+
+[NOTE]
+===
+Searches are *case-insensitive*.
+===
+
+[WARNING]
+===
+Users must strictly adhere to syntax of the `displaymod` command in order to get optimum search results.
+===
+
+There are *2* ways to search for modules:
+
+* Search by *code*:
+All modules have module code associated with it, this makes it easier to remember modules.To search for modules based on
+code, a `c/` prefix must be added after `displaymod` command, followed by a list of modules which are separated by `,`. +
 Format: `displaymod c/[Module Code],[Module Code]`
 
-It is also possible to search for modules by typing out a word found in the module title. For a more streamlined
-search, type in the specific keywords found in the title combined with a `+` symbol.
+.Single module code search command format
+image::displaymod1cexamplecmd.png[width="500"]
+
+The search above should yield a result:
+
+.Single module code search result
+image::displaymod1cexampleresult.png[width="800"]
+
+However if users wishes to search for multiple modules at once they can follow the example given below:
+
+.Multiple module codes serach command format
+image::displaymodMcexamplecmd.png[width="500"]
+
+The search above should yield a result:
+
+.Multiple module code search result
+image::displaymodMcexampleresult.png[width="800"]
+
+* Search by *name*:
+There are cases where students may not remember or know a module's code but vaguely remember the module's name. Users
+who find themselves in such a situation ca search for modules by their names by adding a `n/` prefix after the
+`displaymod` command, followed by keyword/s that can be found in the module's name. Keywords have to be separated by `+`
+symbol.
 Format: `displaymod n/[keyword]+[keyword]`
+--> example images
 
-User can also use both type of searches concurrently for ease of search.
-
-1 mode for o/OPTIONS include:
-
-.  `n/KEYWORDS n/[NUMBER]` *Coming in V2.0*
-* Displays top n (3 if last argument is left blank, capped at 10) information most related modules based on keywords inserted.
-
-Examples:
-
-* `displaymod c/CS2103T` +
-Displays all information with regards to Module: CS2103T i.e Module name, Module description etc. .
-
-* `displaymod c/CS2103T,CS2101,CS1010,ACC1002X` +
-Displays all of the 4 module information in-order with the search.
-
-* `displaymod c/CS2103T,CS2101 n/computer+science` +
-Displays the modules CS2103T,CS2101 and all modules with the words 'computer' and 'science' in its title.
 
 // tag::Displayreq[]
 === Display Course Requirements: `displayreq`
@@ -371,7 +398,7 @@ Retrieves the latest information of all modules from CORS.
 * *Delete*: `delete c/MODULE_CODE` +
 or +
 `delete INDEX` +
-* *Displaym*: `displaym o/OPTIONS [MORE_ARGUMENTS]` +
+* *Displaymod*: `displaym o/OPTIONS [MORE_ARGUMENTS]` +
 * *Displayu*: `displayu o/OPTIONS [MORE_ARGUMENTS]` +
 * *Edit*: `edit c/MODULE_CODE [s/NEW_SEMESTER] [g/NEW_GRADE_OBTAINED]` +
 or +

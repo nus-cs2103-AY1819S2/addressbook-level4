@@ -14,7 +14,7 @@ import seedu.address.model.moduletaken.Semester;
 public class LimitChecker implements ClassForPrinting {
     private static final int DEFAULT_MODULE_CREDITS = 4;
     private static final int CAP_TABLE_COL_COUNT = 4;
-    private static final int WORKLOAD_TABLE_ROW_COUNT = 10;
+    private static final int WORKLOAD_TABLE_ROW_COUNT = 5;
     private static final int WORKLOAD_TABLE_COL_COUNT = 3;
 
     private final String checkedReport;
@@ -168,7 +168,7 @@ public class LimitChecker implements ClassForPrinting {
         htmlLimits.append("</table>\n");
         htmlLimits.append("<br>\n");
 
-        for (int sem = 0; sem < WORKLOAD_TABLE_ROW_COUNT; sem++) {
+        for (int sem = 0; sem < workloadTable.length / WORKLOAD_TABLE_ROW_COUNT; sem++) {
             int rowIndexOffSet = sem * WORKLOAD_TABLE_ROW_COUNT;
 
             htmlLimits.append("<table border='1'>\n");

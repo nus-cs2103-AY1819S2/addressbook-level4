@@ -48,6 +48,10 @@ public class EditSeatsCommand extends Command {
             throw new CommandException(String.format(INVALID_TABLE_SEATS,
                     oldTable.get().getTableStatus().getNumberOfTakenSeats()));
         }
+        if (editedTable.getTableStatus().equals(oldTable.get().getTableStatus())) {
+            throw new CommandException(String.format(EditPaxCommand.MESSAGE_NO_CHANGE_IN_STATUS,
+                    editedTable.getTableStatus()));
+        }
         model.setTable(oldTable.get(), editedTable);
         return new CommandResult(String.format(MESSAGE_SUCCESS, tableNumber, editedTable.getTableStatus()));
     }

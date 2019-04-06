@@ -38,12 +38,18 @@ public class TableCard extends UiPart<Region> {
 
         tableNumber.setText("Table " + this.table.getTableNumber());
         tableStatus.setText("Status: " + this.table.getTableStatus());
+//        if (table.getTableStatus().getNumberOfSeats().equals("0")) {
+//            tableCardPane.setStyle("-fx-background-color: #233942;");
+//        } else if (!table.isOccupied()) {
+//            tableCardPane.setStyle("-fx-border-color: #00c14f;");
+//        } else {
+//            tableCardPane.setStyle("-fx-border-color: #8e0000;");
+//        }
+
         if (table.getTableStatus().getNumberOfSeats().equals("0")) {
             tableCardPane.setStyle("-fx-background-color: #233942;");
         } else if (!table.isOccupied()) {
-            tableCardPane.setStyle("-fx-border-color: #00c14f;");
-//        } else if (table.isServed()) {
-//            tableCardPane.setStyle("-fx-border-color: blue");
+            tableCardPane.setStyle("-fx-background-color: #5f97af;");
         }
     }
 

@@ -74,13 +74,15 @@ public class AddCommand extends Command {
         }
 
         ModuleInfo moduleInfo = model.getModuleInfoList().getModule(String.valueOf(toAdd.getModuleInfoCode()));
-        if (moduleInfo == null) {
-            //TODO fix the tests
-            //throw new CommandException(Messages.MESSAGE_MODULE_DOES_NOT_EXIST);
-        }
-        else {
+        if (moduleInfo != null) {
             toAdd.setWorkload(new Workload(moduleInfo.getModuleInfoWorkload()));
         }
+        /*
+        else {
+            //TODO fix the tests
+            throw new CommandException(Messages.MESSAGE_MODULE_DOES_NOT_EXIST);
+        }
+        */
 
         model.addModuleTaken(toAdd);
         model.commitGradTrak();

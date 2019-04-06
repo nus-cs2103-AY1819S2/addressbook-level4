@@ -111,13 +111,15 @@ public class EditCommand extends Command {
 
         ModuleInfo moduleInfo = model.getModuleInfoList()
                 .getModule(String.valueOf(editedModuleTaken.getModuleInfoCode()));
-        if (moduleInfo == null) {
+        if (moduleInfo != null) {
+            editedModuleTaken.setWorkload(new Workload(moduleInfo.getModuleInfoWorkload()));
+        }
+        /*
+        else {
             //TODO fix the tests
             //throw new CommandException(Messages.MESSAGE_MODULE_DOES_NOT_EXIST);
         }
-        else {
-            editedModuleTaken.setWorkload(new Workload(moduleInfo.getModuleInfoWorkload()));
-        }
+        */
 
         model.setModuleTaken(moduleTakenToEdit, editedModuleTaken);
         model.updateFilteredModulesTakenList(PREDICATE_SHOW_ALL_PERSONS);

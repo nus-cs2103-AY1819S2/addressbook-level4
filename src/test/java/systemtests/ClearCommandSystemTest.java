@@ -60,13 +60,26 @@ public class ClearCommandSystemTest extends FinanceTrackerSystemTest {
 
         /* Case: clear empty finance tracker -> cleared */
 
+        executeCommand(UndoCommand.COMMAND_WORD); // restores the original finance tracker
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 
 
         /* Case: mixed case command word -> cleared */
 
+        executeCommand(UndoCommand.COMMAND_WORD); // restores the original finance tracker
         assertCommandSuccess("ClEaR");
+
+
+        /* Case: execute clear command with command alias: c -> cleared */
+        executeCommand(UndoCommand.COMMAND_WORD); // restores the original finance tracker
+        assertCommandSuccess(ClearCommand.COMMAND_ALIAS);
+
+
+        /* Case: execute clear command with command alias: clr -> cleared */
+        executeCommand(UndoCommand.COMMAND_WORD); // restores the original finance tracker
+        assertCommandSuccess(ClearCommand.COMMAND_ALIAS2);
+
     }
 
 

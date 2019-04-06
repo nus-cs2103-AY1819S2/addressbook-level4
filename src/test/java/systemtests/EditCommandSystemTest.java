@@ -89,6 +89,13 @@ public class EditCommandSystemTest extends FinanceTrackerSystemTest {
         assertCommandSuccess(command, index, BOB);
 
 
+        /* Case: edit a record with new values same as existing values, but using command alias e -> edited */
+
+        command = EditCommand.COMMAND_ALIAS + " " + index.getOneBased() + NAME_DESC_BOB + AMOUNT_DESC_BOB
+                + DATE_DESC_BOB + CATEGORY_DESC_HUSBAND;
+        assertCommandSuccess(command, index, BOB);
+
+
         /* Case: edit a record with new values same as another record's values but with different name -> edited */
 
         assertTrue(getModel().getFinanceTracker().getRecordList().contains(BOB));

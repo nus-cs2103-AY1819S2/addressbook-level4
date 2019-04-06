@@ -76,6 +76,23 @@ public class DeleteCommandSystemTest extends FinanceTrackerSystemTest {
         assertCommandSuccess("DelETE 1", expectedModel, expectedResultMessage);
 
 
+
+        /* Case: delete command using command alias d -> deleted */
+        executeCommand("undo"); // undo previous deletion
+        expectedModel = getModel();
+        deletedRecord = removeRecord(expectedModel, INDEX_FIRST_RECORD);
+        expectedResultMessage = String.format(MESSAGE_DELETE_RECORD_SUCCESS, deletedRecord);
+        assertCommandSuccess("d 1", expectedModel, expectedResultMessage);
+
+
+        /* Case: delete command using command alias del -> deleted */
+        executeCommand("undo"); // undo previous deletion
+        expectedModel = getModel();
+        deletedRecord = removeRecord(expectedModel, INDEX_FIRST_RECORD);
+        expectedResultMessage = String.format(MESSAGE_DELETE_RECORD_SUCCESS, deletedRecord);
+        assertCommandSuccess("del 1", expectedModel, expectedResultMessage);
+
+
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
 

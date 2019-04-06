@@ -1,9 +1,5 @@
 package seedu.address.logic.parser;
 
-import org.junit.Test;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.MergeCommand;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.FILE_DESC_1_PDF;
@@ -11,7 +7,11 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.PASSWORD_DESC_VALID;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PDF;
+
+import org.junit.Test;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.MergeCommand;
 
 public class MergeCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT = String.format(MESSAGE_INVALID_COMMAND_FORMAT,

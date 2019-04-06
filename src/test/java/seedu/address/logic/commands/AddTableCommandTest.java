@@ -179,11 +179,6 @@ public class AddTableCommandTest {
         }
 
         @Override
-        public void updateMode() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public boolean hasTable(Table table) {
             throw new AssertionError("This method should not be called.");
         }
@@ -410,6 +405,26 @@ public class AddTableCommandTest {
         }
 
         @Override
+        public void setStatisticsStatus(boolean isDaily, boolean isMonthly, boolean isYearly) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean getIsDaily() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean getIsMonthly() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean getIsYearly() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateMenu() {
             throw new AssertionError("This method should not be called.");
         }
@@ -454,11 +469,6 @@ public class AddTableCommandTest {
             nextTableNumber++;
             tablesAdded.add(new Table(tableNumber, tableStatus));
             return tableNumber;
-        }
-
-        @Override
-        public void updateMode() {
-            // called by {@code AddTableCommand#execute()}
         }
 
         @Override

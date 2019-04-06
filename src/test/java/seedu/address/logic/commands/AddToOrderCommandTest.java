@@ -114,15 +114,16 @@ public class AddToOrderCommandTest {
     public void execute_existingOrderItem_addSuccessful() throws Exception {
         List<Code> itemCodes = Collections.singletonList(new Code(VALID_CODE_CHICKEN));
         List<Integer> itemQuantities = Collections.singletonList(3);
-        OrderItem validOrderItem = new OrderItemBuilder().build();
+        OrderItem validOrderItem = new OrderItemBuilder().withQuantity(2).build();
+        OrderItem finalOrderItem = new OrderItemBuilder().withQuantity(5).build();
         ModelStubWithOrderItem modelStub = new ModelStubWithOrderItem(validOrderItem);
 
         CommandResult commandResult =
                 new AddToOrderCommand(itemCodes, itemQuantities).execute(Mode.TABLE_MODE, modelStub, commandHistory);
 
-        assertEquals(String.format(AddToOrderCommand.MESSAGE_SUCCESS, Collections.singletonList(validOrderItem)),
+        assertEquals(String.format(AddToOrderCommand.MESSAGE_SUCCESS, Collections.singletonList(finalOrderItem)),
                 commandResult.getFeedbackToUser());
-        assertEquals(new OrderItemBuilder().withQuantity(6).build(), modelStub.getOrderItem());
+        assertEquals(new OrderItemBuilder().withQuantity(5).build(), modelStub.getOrderItem());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
@@ -226,11 +227,6 @@ public class AddToOrderCommandTest {
 
         @Override
         public void setRestOrRant(ReadOnlyRestOrRant restOrRant) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateMode() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -467,6 +463,26 @@ public class AddToOrderCommandTest {
 
         @Override
         public void setRecentBill(Bill bill) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setStatisticsStatus(boolean isDaily, boolean isMonthly, boolean isYearly) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean getIsDaily() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean getIsMonthly() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean getIsYearly() {
             throw new AssertionError("This method should not be called.");
         }
 

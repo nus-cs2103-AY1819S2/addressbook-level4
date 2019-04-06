@@ -35,7 +35,6 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final CommandHistory history;
     private final RestOrRantParser restOrRantParser;
-    private boolean modeModified;
     private boolean menuModified;
     private boolean ordersModified;
     private boolean tablesModified;
@@ -49,8 +48,6 @@ public class LogicManager implements Logic {
         restOrRantParser = new RestOrRantParser();
         mode = Mode.RESTAURANT_MODE;
 
-        // Set modeModified to true whenever the models' mode is modified.
-        model.getRestOrRant().addListener(observable -> modeModified = true);
         // Set menuModified to true whenever the models' RestOrRant's menu is modified.
         model.getRestOrRant().getMenu().addListener(observable -> menuModified = true);
         // Set ordersModified to true whenever the models' RestOrRant's orders is modified.
@@ -64,7 +61,6 @@ public class LogicManager implements Logic {
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        modeModified = false;
         menuModified = false;
         ordersModified = false;
         tablesModified = false;
@@ -78,7 +74,7 @@ public class LogicManager implements Logic {
             history.add(commandText);
         }
 
-        if (modeModified) {
+        if (commandResult.newModeStatus() != null) {
             logger.info("Application mode modified, changing UI");
             changeMode(commandResult.newModeStatus());
         }

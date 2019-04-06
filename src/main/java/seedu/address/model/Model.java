@@ -98,11 +98,6 @@ public interface Model {
     void setRestOrRant(ReadOnlyRestOrRant restOrRant);
 
     /**
-     * Notifies the listeners that the RestOrRant (mode) has been modified.
-     */
-    void updateMode();
-
-    /**
      * Returns true if a table with the same identity as {@code table} exists in the RestOrRant's Tables.
      */
     boolean hasTable(Table table);

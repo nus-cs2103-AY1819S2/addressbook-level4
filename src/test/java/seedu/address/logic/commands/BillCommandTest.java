@@ -211,11 +211,6 @@ public class BillCommandTest {
         }
 
         @Override
-        public void updateMode() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void addOrderItem(OrderItem orderItem) {
             throw new AssertionError("This method should not be called.");
         }
@@ -452,6 +447,26 @@ public class BillCommandTest {
         }
 
         @Override
+        public void setStatisticsStatus(boolean isDaily, boolean isMonthly, boolean isYearly) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean getIsDaily() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean getIsMonthly() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean getIsYearly() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateStatistics() {
             throw new AssertionError("This method should not be called.");
         }
@@ -672,12 +687,12 @@ public class BillCommandTest {
                         .append("\n $")
                         .append(menuItem.getPrice().itemPrice)
                         .append("   x ")
-                        .append(orderItem.getQuantity())
+                        .append(orderItem.getQuantityOrdered())
                         .append("\n")
                         .append("Total Bill: $ ")
                         .append(bill.getTotalBill())
                         .append("\n");
-                totalBill += Float.parseFloat(menuItem.getPrice().toString()) * orderItem.getQuantity();
+                totalBill += Float.parseFloat(menuItem.getPrice().toString()) * orderItem.getQuantityOrdered();
 
             }
 
@@ -695,11 +710,6 @@ public class BillCommandTest {
         public void addDailyRevenue(DailyRevenue dailyRevenue) {
             requireNonNull(dailyRevenue);
             dailyRevenuesAdded.add(dailyRevenue);
-        }
-
-        @Override
-        public void updateMode() {
-            // called by {@code AddCommand#execute()}
         }
 
         @Override

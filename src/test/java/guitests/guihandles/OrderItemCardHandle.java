@@ -49,6 +49,7 @@ public class OrderItemCardHandle extends NodeHandle<Node> {
     public boolean equals(OrderItem orderItem) {
         return getTableNumber().equals("Table " + orderItem.getTableNumber().tableNumber) && getMenuItem().equals(
                 orderItem.getMenuItemCode().itemCode + " " + orderItem.getMenuItemName().itemName)
-                && getQuantity().equals("Qty: " + orderItem.getQuantity());
+                && getQuantity().equals("Quantity: [" + orderItem.getQuantityToServe() + "/"
+                + orderItem.getQuantityOrdered() + " to serve]");
     }
 }

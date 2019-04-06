@@ -26,6 +26,7 @@ import seedu.address.logic.commands.MenuModeCommand;
 import seedu.address.logic.commands.MonthlyCommand;
 import seedu.address.logic.commands.RestaurantModeCommand;
 import seedu.address.logic.commands.RevenueCommand;
+import seedu.address.logic.commands.ServeCommand;
 import seedu.address.logic.commands.StatisticsModeCommand;
 import seedu.address.logic.commands.TableModeCommand;
 import seedu.address.logic.commands.YearlyCommand;
@@ -133,7 +134,7 @@ public class RestOrRantParser {
             }
             return new AddToOrderCommandParser().parse(arguments);
 
-        case ClearOrderCommand.COMMAND_WORD: // Fallthrough
+        case ClearOrderCommand.COMMAND_WORD:
             if (mode != Mode.TABLE_MODE) {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }
@@ -144,6 +145,13 @@ public class RestOrRantParser {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }
             return new DeleteFromOrderCommandParser().parse(arguments);
+
+        case ServeCommand.COMMAND_WORD: // Fallthrough
+        case ServeCommand.COMMAND_ALIAS:
+            if (mode != Mode.TABLE_MODE) {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            return new ServeCommandParser().parse(arguments);
 
         case BillCommand.COMMAND_WORD: // Fallthrough
         case BillCommand.COMMAND_ALIAS:

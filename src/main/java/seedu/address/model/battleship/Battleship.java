@@ -25,6 +25,10 @@ public class Battleship {
     public static final int AIRCRAFT_CARRIER_LENGTH = 5;
     public static final int DESTROYER_LENGTH = 3;
     public static final int CRUISER_LENGTH = 2;
+    public static final String MESSAGE_CONSTRAINTS = "Name must be "
+            + AIRCRAFT_CARRIER_STRING + ", "
+            + DESTROYER_STRING + " or "
+            + CRUISER_STRING + ".";
 
     // Default fields
     protected static final int DEFAULT_LENGTH = 2;

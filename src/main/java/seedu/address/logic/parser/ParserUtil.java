@@ -87,7 +87,7 @@ public class ParserUtil {
         } else if (name.fullName.toLowerCase().equals("aircraft carrier")) {
             battleship = new AircraftCarrierBattleship(tagSet);
         } else {
-            throw new ParseException("Error");
+            throw new ParseException(Battleship.MESSAGE_CONSTRAINTS);
         }
 
         return battleship;

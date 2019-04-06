@@ -133,6 +133,9 @@ PM_DATE is the annual due date for maintenance work to be carried out by and it 
 [TIP]
 In the panel under the *Equipment details* label, duplicated client names could be added and displayed on the panel because a client can owns multiple equipments as long as the serial numbers of equipment are different.
 
+[TIP]
+Equipment that has overdue preventative maintenance dates are allowed to be added for tracking purposes.
+
 Example:
 
 * `add n/Clementi CC p/67762517 pm/10 May 2019 a/ 220 Clementi Ave 4, Singapore 129880 s/A008844L t/west`
@@ -287,10 +290,10 @@ Returns the list sorted by name.
 
 
 * `sort date` +
-Returns the list sorted according to the daTE.
+Returns the list sorted according to the preventative maintenance date of the equipment.
 
 * `sort phone` +
-Returns the list sorted by phone number.
+Returns the list sorted by phone number of the client.
 
 
 // end::sort[]

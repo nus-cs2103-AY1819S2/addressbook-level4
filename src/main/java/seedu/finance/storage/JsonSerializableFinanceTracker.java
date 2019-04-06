@@ -56,6 +56,8 @@ class JsonSerializableFinanceTracker {
             Record record = jsonAdaptedRecord.toModelType();
             financeTracker.addRecord(record);
         }
+        financeTracker.addBudget(budget.toModelType());
+
         return financeTracker;
     }
 

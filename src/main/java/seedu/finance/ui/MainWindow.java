@@ -294,13 +294,13 @@ public class MainWindow extends UiPart<Stage> {
     //May want to check how to switch from summary panel and no summary panel
     public void handleSwapBrowserPanelEvent(SwapBrowserPanelEvent event) {
         switch(event.getPanelType()) {
-            case BROWSER:
-                swapToBrowser();
-                break;
-            case SUMMARY:
-                swapToSummary();
-                break;
-            default:
+        case BROWSER:
+            swapToBrowser();
+            break;
+        case SUMMARY:
+            swapToSummary();
+            break;
+        default:
         }
     }
 

@@ -56,7 +56,7 @@ public class MainWindowHandle extends StageHandle {
         return browserPanel;
     }
 
-    public SummaryPanelHandle getStatisticsPanel() {
+    public SummaryPanelHandle getSummaryPanel() {
         return summaryPanel;
     }
 }

@@ -14,7 +14,7 @@ import javafx.scene.text.Text;
 import seedu.finance.logic.commands.SummaryCommand.SummaryPeriod;
 
 /**
- * The Graph Panel of the App.
+ * The Summary Panel of the App.
  */
 public class SummaryPanel extends UiPart<Region> {
     //Not sure about the page urls, KIV most likely have to edit again
@@ -74,7 +74,7 @@ public class SummaryPanel extends UiPart<Region> {
             }
             chartArea.getChildren().add(text);
         } else {
-            setCategoryBasedData(summaryData);
+            setSummaryData(summaryData);
         }
     }
 
@@ -83,7 +83,7 @@ public class SummaryPanel extends UiPart<Region> {
      *
      * @param summaryData a map with key and value pairs representing data for the charts.
      */
-    public void setCategoryBasedData(LinkedHashMap<String, Double> summaryData) {
+    public void setSummaryData(LinkedHashMap<String, Double> summaryData) {
         PieChart pieChart = new PieChart();
 
         Set<String> keySet = summaryData.keySet();

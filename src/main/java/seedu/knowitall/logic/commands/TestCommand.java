@@ -39,9 +39,4 @@ public class TestCommand extends Command {
         }
     }
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof TestCommand); // instanceof handles nulls
-    }
 }

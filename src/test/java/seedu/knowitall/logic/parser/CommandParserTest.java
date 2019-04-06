@@ -27,6 +27,7 @@ import seedu.knowitall.logic.commands.HelpCommand;
 import seedu.knowitall.logic.commands.HistoryCommand;
 import seedu.knowitall.logic.commands.ListCommand;
 import seedu.knowitall.logic.commands.RedoCommand;
+import seedu.knowitall.logic.commands.RevealCommand;
 import seedu.knowitall.logic.commands.SearchCommand;
 import seedu.knowitall.logic.commands.SelectCommand;
 import seedu.knowitall.logic.commands.TestCommand;
@@ -67,9 +68,8 @@ public class CommandParserTest {
 
     @Test
     public void parseCommand_test() throws Exception {
-        TestCommand command = (TestCommand) parser.parseCommand(
-                TestCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD_FOLDER.getOneBased());
-        assertEquals(new TestCommand(), command);
+        assertTrue(parser.parseCommand(TestCommand.COMMAND_WORD) instanceof TestCommand);
+        assertTrue(parser.parseCommand(TestCommand.COMMAND_WORD + " 3") instanceof TestCommand);
     }
 
     @Test
@@ -78,6 +78,12 @@ public class CommandParserTest {
         AnswerCommand command = (AnswerCommand) parser.parseCommand(
                 AnswerCommand.COMMAND_WORD + " " + attemptedAnswerInput);
         assertEquals(new AnswerCommand(new Answer(attemptedAnswerInput)), command);
+    }
+
+    @Test
+    public void parseCommand_reveal() throws Exception {
+        assertTrue(parser.parseCommand(RevealCommand.COMMAND_WORD) instanceof RevealCommand);
+        assertTrue(parser.parseCommand(RevealCommand.COMMAND_WORD + " 3") instanceof RevealCommand);
     }
 
     @Test

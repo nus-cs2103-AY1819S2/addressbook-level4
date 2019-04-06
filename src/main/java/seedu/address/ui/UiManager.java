@@ -45,10 +45,10 @@ public class UiManager implements Ui {
             mainWindow.fillInnerParts();
 
             Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-            double screenMaxX = (primaryScreenBounds.getMaxX() < 1000)?
-                    primaryScreenBounds.getMaxX() - 80 : 1000;
-            double screenMaxY = (primaryScreenBounds.getMaxY() < 1000)?
-                    primaryScreenBounds.getMaxY() - 80 : 700;
+            double screenMaxX = (primaryScreenBounds.getMaxX() < 1000)
+                    ? primaryScreenBounds.getMaxX() - 80 : 1000;
+            double screenMaxY = (primaryScreenBounds.getMaxY() < 1000)
+                    ? primaryScreenBounds.getMaxY() - 80 : 700;
 
             mainWindow.getPrimaryStage().setMinWidth(screenMaxX);
             mainWindow.getPrimaryStage().setMinHeight(screenMaxY);

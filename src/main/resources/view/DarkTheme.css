@@ -428,7 +428,7 @@
 }
 
 .member-details-title {
-      -fx-font-size: 36px;
+      -fx-font-size: 28px;
       -fx-font-style: italic;
       -fx-fill: white;
       -fx-padding:10;
@@ -436,7 +436,7 @@
 }
 
  .member-details-text {
-      -fx-font-size: 24px;
+      -fx-font-size: 14px;
       -fx-fill: white;
       -fx-padding:10;
 }

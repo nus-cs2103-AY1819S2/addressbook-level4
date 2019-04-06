@@ -55,7 +55,7 @@ public class MemberDetailPanel extends UiPart<Region> {
      * @param member The patient to be displayed.
      */
     private void loadMemberDetails(Person member) {
-        name.setText("Name: " + member.getName().toString());
+        name.setText(member.getName().toString());
         matricNumber.setText("Matric Number: " + member.getMatricNumber().toString());
         phone.setText("Phone: " + member.getPhone().toString());
         email.setText("Email: " + member.getEmail().toString());

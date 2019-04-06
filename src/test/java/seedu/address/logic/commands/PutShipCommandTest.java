@@ -13,7 +13,6 @@ import static seedu.address.testutil.TypicalIndexes.COORDINATES_B1;
 import static seedu.address.testutil.TypicalIndexes.COORDINATES_J1;
 import static seedu.address.testutil.TypicalIndexes.COORDINATES_LAST_CELL;
 import static seedu.address.testutil.TypicalIndexes.MAP_SIZE_TEN;
-import static seedu.address.testutil.TypicalPersons.getEmptyMapGrid;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -46,7 +45,7 @@ public class PutShipCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private Model model = new ModelManager(getEmptyMapGrid(), new UserPrefs());
+    private Model model = new ModelManager();
     private CommandHistory commandHistory = new CommandHistory();
     private final Set<Tag> emptySet = new HashSet<>();
 

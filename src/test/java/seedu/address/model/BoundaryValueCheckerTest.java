@@ -9,7 +9,6 @@ import static seedu.address.testutil.TypicalIndexes.COORDINATES_A2;
 import static seedu.address.testutil.TypicalIndexes.COORDINATES_B1;
 import static seedu.address.testutil.TypicalIndexes.COORDINATES_J1;
 import static seedu.address.testutil.TypicalIndexes.MAP_SIZE_TEN;
-import static seedu.address.testutil.TypicalPersons.getEmptyMapGrid;
 
 import java.util.HashSet;
 
@@ -28,7 +27,7 @@ import seedu.address.testutil.Assert;
  */
 public class BoundaryValueCheckerTest {
 
-    private Model model = new ModelManager(getEmptyMapGrid(), new UserPrefs());
+    private Model model = new ModelManager();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

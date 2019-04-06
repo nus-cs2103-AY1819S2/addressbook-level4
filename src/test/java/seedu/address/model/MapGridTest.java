@@ -6,9 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 import static seedu.address.testutil.SizeTenMapGrid.getSizeTenMapGrid;
 import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-
-import java.util.Collection;
 import java.util.Collections;
 
 import org.junit.Rule;
@@ -17,14 +14,10 @@ import org.junit.rules.ExpectedException;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
-import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
-import seedu.address.testutil.PersonBuilder;
 
 public class MapGridTest {
 
@@ -35,13 +28,13 @@ public class MapGridTest {
 
     @Test
     public void putShipTest() {
-        MapGrid sizeTenmap = getSizeTenMapGrid();
+        MapGrid sizeTenMap = getSizeTenMapGrid();
         Battleship battleship = new Battleship();
         Orientation orientation = new Orientation("vertical");
 
-        sizeTenmap.putShip(battleship, new Coordinates("a1"), orientation);
+        sizeTenMap.putShip(battleship, new Coordinates("a1"), orientation);
 
-        assertEquals(sizeTenmap.get2dArrayMapGridCopy()[0][0].getBattleship().get(), battleship);
+        assertEquals(sizeTenMap.get2dArrayMapGridCopy()[0][0].getBattleship().get(), battleship);
     }
 
     @Test
@@ -68,7 +61,7 @@ public class MapGridTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        MapGrid newData = getTypicalAddressBook();
+        MapGrid newData = new MapGrid();
         mapGrid.resetData(newData);
         assertEquals(newData, mapGrid);
     }
@@ -97,31 +90,4 @@ public class MapGridTest {
         mapGrid.addPerson(ALICE);
         assertEquals(0, counter.get());
     }
-
-    /**
-     * A stub ReadOnlyAddressBook whose cells list can violate interface constraints.
-     */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
-        private final ObservableList<Cell> cells = FXCollections.observableArrayList();
-
-        AddressBookStub(Collection<Cell> cells) {
-            this.cells.setAll(cells);
-        }
-
-        @Override
-        public ObservableList<Cell> getPersonList() {
-            return cells;
-        }
-
-        @Override
-        public void addListener(InvalidationListener listener) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void removeListener(InvalidationListener listener) {
-            throw new AssertionError("This method should not be called.");
-        }
-    }
-
 }

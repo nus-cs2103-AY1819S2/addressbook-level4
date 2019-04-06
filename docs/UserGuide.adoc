@@ -34,19 +34,23 @@ Follow these steps to get _In-Credit-Ble_ up and running on your computer in no 
 .  Ensure you have Java version `9` or later installed in your computer. You can download and install the required
    Java Development Kit
    link:https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[here]
-.  Download the latest `financetracker.jar` file link:{repoURL}/releases[here].
+.  Download the latest `In-Credit-Ble.jar` file link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your finance tracker.
 .  Double-click the file to start the app. The GUI should appear in a few seconds as shown below.
+   The In-Credit-Ble finance tracker is loaded with example expense records and budget is still not set.
+
 +
 image::startUI.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window and show the list of commands.
 .  Some example commands you can try:
 
 * *`help`* : opens the _In-Credit-Ble_ user guide
+* *`clear`* : clears the existing Finance Tracker to start with a Finance Tracker with no expense records
 * *`set`* : sets the total budget for Finance Tracker
 * *`allocate`* : allocates budget to a certain category (within the total budget)
+* *`spend`* : adds an expense record to the finance tracker
 
 
 .  Refer to <<Features>> for details of each command.
@@ -116,18 +120,18 @@ and cannot contain special characters such as `:<>;\/|?~^%$#@`
 // end::allocate[]
 
 // tag::increase[]
-==== Increasing the budget: `increase`
-
-You can increase your budget limit for the month/week by the specified amount.
-
-*Format*: `increase $/AMOUNT`
-
-****
-*Examples*:
-
-* `increase $/10.10`
-* `increase $/100`
-****
+//==== Increasing the budget: `increase`
+//
+//You can increase your budget limit for the month/week by the specified amount.
+//
+//*Format*: `increase $/AMOUNT`
+//
+//****
+//*Examples*:
+//
+//* `increase $/10.10`
+//* `increase $/100`
+//****
 // end::increase[]
 
 === Expense Entry Management
@@ -139,44 +143,47 @@ You can keep track of how much you have spent by adding an expense entry to _In-
 
 *Alias*: `add`
 
-*Format*: `spend n/NAME $/AMOUNT d/DATE c/CATEGORY`
+*Format*: `spend n/NAME $/AMOUNT [d/DATE] c/CATEGORY [r/DESCRIPTION]`
 
 ****
 *Examples*:
 
-* `spend n/cake $/5.50 d/15/03/2019 c/Food`
-* `spend n/movie $/10 d/16/03/2019 c/Entertainment`
+* `spend n/cake $/5.50 d/15/03/2019 c/Food r/Birthday celebration`
+* `spend n/movie $/10 d/16/03/2019 c/Entertainment r/Avengers: End Game`
 ****
 
 [NOTE]
 ====
 * If you provide multiple categories (e.g. `spend n/Tshirt $/10.00 d/31/03/2019 c/Food c/Clothes`),
-only the last category you provided will be taken (in the previous e.g., the command will
-add expense for `Clothes` category.
+only the last category you provided will be taken. (In the previous e.g., the command will
+add expense for `Clothes` category.)
 * Category names are case-insensitive. (e.g. `CLotHes`, `clothes` and `CLOTHES` refer to the same
 category and will be shown with the first character in uppercase and the rest of the characters
 in lowercase (in the above example, it will be shown as `Clothes`)
 * Category name supplied must be https://en.wikipedia.org/wiki/Alphanumeric[alphanumeric]
 and cannot contain special characters such as `:<>;\/|?~^%$#@`
+* If no date is inputted, current local date will be used instead.
+* Order of the different parameters does not matter.
+
 ====
 // end::spend[]
 
 // tag::description[]
 ==== Adding a description to an entry: `description`
 
-You can add a description to an existing entry in the records to remember details of the amount spent.
+You can add a description to an existing entry in the records to include details about that particular transactions.
 
 *Alias*: `descr`
 
-*Format*: `description INDEX [d/DESCRIPTION]`
+*Format*: `description INDEX [r/DESCRIPTION]`
 
 ****
 *Examples*:
 
-* `description 1 d/Father's birthday present` +
+* `description 1 r/Father's birthday present` +
 Changes the description of entry at index 1 to "Father's birthday present"
 
-* `description 1 d/` +
+* `description 1 r/` +
 Removes the description of entry at index 1
 ****
 
@@ -184,6 +191,7 @@ Removes the description of entry at index 1
 ====
 * `INDEX` here refers to the index number shown in the displayed records.
 * `INDEX` *must be a positive integer* 1, 2, 3, ...
+* `INDEX` must be within the total number of records that are displayed.
 ====
 // end::description[]
 
@@ -208,31 +216,33 @@ Index refers to the index number shown in the list.
 ====
 * `INDEX` here refers to the index number shown in the displayed records.
 * `INDEX` *must be a positive integer* 1, 2, 3, ...
+* `INDEX` must be within the total number of records that are displayed.
 * At least one of the optional fields must be provided.
+* Order of parameters inputted does not matter.
 * Existing values will be updated to the input values.
 ====
 // end::edit[]
 
 // tag::select[]
-==== Selecting an entry: `select`
-
-You can select an existing entry in the records to view its details by specifying the entry's index number.
-
-*Alias*: `s`, `sel`
-
-*Format*: `select INDEX`
-
-****
-*Example*:
-
-* `select 3`
-****
-
-[NOTE]
-====
-* `INDEX` here refers to the index number shown in the displayed records.
-* `INDEX` *must be a positive integer* 1, 2, 3, ...
-====
+//==== Selecting an entry: `select`
+//
+//You can select an existing entry in the records to view its details by specifying the entry's index number.
+//
+//*Alias*: `s`, `sel`
+//
+//*Format*: `select INDEX`
+//
+//****
+//*Example*:
+//
+//* `select 3`
+//****
+//
+//[NOTE]
+//====
+//* `INDEX` here refers to the index number shown in the displayed records.
+//* `INDEX` *must be a positive integer* 1, 2, 3, ...
+//====
 // end::select[]
 
 // tag::delete[]
@@ -255,6 +265,7 @@ Deleted entries can be recovered via the `undo` command.
 ====
 * `INDEX` here refers to the index number shown in the displayed records.
 * `INDEX` *must be a positive integer* 1, 2, 3, ...
+* `INDEX` must be within the total number of records that are displayed.
 ====
 // end::delete[]
 
@@ -264,6 +275,10 @@ Deleted entries can be recovered via the `undo` command.
 ==== Listing all entries: `list`
 
 You can see all the entries you have entered, as long as they are not deleted entries.
+
+[TIP]
+This command can be used to reset
+the list after you filter the records using the `search` command.
 
 *Alias*: `l`, `ls`
 
@@ -300,26 +315,44 @@ spent on all the results of the search will also be shown.
 
 You can choose to sort the list of entries by name, amount, date or category.
 
-*Format*: `sort FLAG`
-
-****
-*Examples*:
-
-* `sort -name`: +
-Sorts the list of records by name in lexicographical order
-* `sort -amount`: +
-Sorts the list of records by amount from largest to smallest
-* `sort -date`: +
-Sorts the list of records by date with the latest at the top
-* `sort -cat`: +
-Sorts the list of records by category
-****
+*Format*: `sort -FLAG [ORDER]`
 
 [NOTE]
 ====
 * `FLAG` here refers to either `-name`, `-amount, `-date` or `-cat`.
 * Only one flag should be provided.
+
+* `[ORDER]` refers to either `-asc` or `-desc`.
+** `-asc` for ascending order.
+** `-desc` for descending order.
+* `[ORDER]` is optional. If not supplied, default ordering is implied.
 ====
+
+****
+*Examples (default ordering)*:
+
+* `sort -name`: +
+Sorts the list of records by name in lexicographical order (ascending order)
+* `sort -amount`: +
+Sorts the list of records by amount from largest to smallest (descending order)
+* `sort -date`: +
+Sorts the list of records by date with the latest at the top (descending order)
+* `sort -cat`: +
+Sorts the list of records by category in lexicographical order (ascending order)
+
+*More examples*:
+
+* `sort -name -desc`: +
+Sorts list of records by name in reverse lexicographical order.
+****
+
+[TIP]
+To sort the list conveniently in the reverse order, use the `reverse` command! +
+`sort -name` +
+`reverse` +
+List will be sorted by name in reverse lexicographical order.
+
+
 // end::sort[]
 
 // tag::reverse[]
@@ -334,6 +367,8 @@ You can also reverse the order of the list of entries in the records.
 
 // tag::summary[]
 ==== Showing summary of records: `summary`
+[NOTE]
+This function is yet to be implemented. It will be implemented in v1.4.
 
 You can see the summary of your previous expenditures, with an aster plot graph showing how your spending habits are like in the
 different categories. It also displays the remaining budget amount for each category.
@@ -346,15 +381,27 @@ Deleted entries are not included in the summary.
 
 === Miscellaneous
 
+
+////
 // tag::setfile[]
 ==== Changing FinanceTracker data storage location: `setfile`
-Want to maintain multiple users of the FinanceTracker? You can use this command to load FinanceTracker data from another file.
-The command will create a file if it does not already exist.
+Want to maintain multiple users of the FinanceTracker? You can use this command to load a finance tracker profile from another file.
+If the file name does not exist, a new file will be created with an empty finance tracker profile.
 
 File paths and extension should not be included in command.
 
-*Format*: `setfile f/finance`
+*Format*: `setfile f/FILENAME`
+
+****
+*Examples*:
+
+* `setfile f/JohnDoe`
+****
+
+
 //end::setfile[]
+////
+
 
 // tag::help[]
 ==== Viewing help: `help`
@@ -445,10 +492,11 @@ You can change the theme of the application with pre-set colour themes specified
 [NOTE]
 ====
 * Valid themes include: `Dark`, `Light`, `Blue`, `Pink`
-* The theme name is case-insensitive (`BlUE`, `BLUE`, `blue` or `bLUE` etc. all refer
+* The theme name is case-insensitive (`BlUE`, `BLUE`, `blue` or `bLUEc` etc. all refer
 to `Blue`)
 * You can also change the theme of the application by choosing the theme under
 the menu bar.
+* You *cannot* undo/redo this command.
 
 image::themeMenuBar.png[]
 ====
@@ -526,7 +574,7 @@ _In-Credit-Ble_  aims to support multi-currency transactions in `v2.0`.
 | Command | Command Format | Alias | Example
 | Set Budget | `set $/AMOUNT` |- | `set $/500`
 | Allocate budgeting based on categories | `allocate $/AMOUNT c/CATEGORY` | `allo` | `allocate $/100 c/Shopping`
-| Increase budget | `increase $/AMOUNT` | - | `increase $/10.10`
+//| Increase budget | `increase $/AMOUNT` | - | `increase $/10.10`
 
 |=======================================================================
 
@@ -534,8 +582,9 @@ _In-Credit-Ble_  aims to support multi-currency transactions in `v2.0`.
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 | Command | Command Format | Alias | Example
-| Add expense | `spend n/NAME $/AMOUNT d/DATE [c/CATEGORY] ...` | `add` | `spend n/movie $/10 d/16/03/2019 c/Entertainment`
-| Add a description to an entry | `description INDEX d/DESCRIPTION` | `descr` | `description 1 d/Father's birthday present`
+| Add expense | `spend n/NAME $/AMOUNT [d/DATE] c/CATEGORY ... [r/Description]` | `add` | `spend n/movie $/10
+  d/16/03/2019 c/Entertainment r/Avengers: Endgame`
+| Add a description to an entry | `description INDEX r/DESCRIPTION` | `descr` | `description 1 d/Father's birthday present`
 | Edit an entry | `edit INDEX [n/NAME] [$/AMOUNT] [d/DATE] [c/CATEGORY]` | `e` | `edit 1 n/burger c/Food`
 | Select an entry | `select INDEX` | `s`, `sel` | `select 3`
 | Delete an entry | `delete INDEX` | `d`, `del` | `delete 2`
@@ -547,22 +596,25 @@ _In-Credit-Ble_  aims to support multi-currency transactions in `v2.0`.
 |=======================================================================
 | Command | Command Format | Alias | Example
 | List all entries | `list` | `l`, `ls` | -
-| Locate entry based on name, category or date |`search -FLAG KEYWORD [MORE_KEYWORDS]` | `find` | `search -cat Food`
-| Sort the entries | `sort FLAG` | - | `sort -name`
+| Locate entry based on name, category or date |`search -FLAG* KEYWORD [MORE_KEYWORDS]` | `find` | `search -cat Food`
+| Sort the entries based on name, category, date, amount | `sort -FLAG* [ORDER]**` | - | `sort -name`
 | Reverse all entries | `reverse` | `rev` | -
 | Show summary of records | `summary` | - | -
 
 |=======================================================================
+*Valid flags: `name`-> Name; `cat` -> Category; `date` -> Date; `amount` -> Amount;
+
+**Valid orders: `asc` -> ascending order; `desc` -> descending order
 
 === Miscellaneous
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 | Command | Command Format | Alias | Example
-| Set data file | `setfile` | - | `setfile f/finance`
+| Set data file | `setfile f/FILENAME` | - | `setfile f/finance`
 | Help | `help` | - | -
 | Undo previous command | `undo` | `u` | -
 | Redo previously undone command | `redo` | `r` | -
-| Change colour theme of application | `theme` | `colour` | theme light
+| Change colour theme of application | `theme COLOURTHEME` | `colour` | theme light
 | List entered commands | `history` | `h`, `hist` | -
 | Clear all entries | `clear` | `c`, `clr` | -
 | Exit the program | `exit` | `quit` | -

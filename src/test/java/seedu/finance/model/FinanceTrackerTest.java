@@ -21,7 +21,7 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.finance.model.budget.Budget;
+import seedu.finance.model.budget.TotalBudget;
 import seedu.finance.model.record.Record;
 import seedu.finance.testutil.RecordBuilder;
 
@@ -118,7 +118,7 @@ public class FinanceTrackerTest {
      */
     private static class FinanceTrackerStub implements ReadOnlyFinanceTracker {
         private final ObservableList<Record> records = FXCollections.observableArrayList();
-        private Budget budget = new Budget(123.00);
+        private TotalBudget budget = new TotalBudget(123.00);
 
         FinanceTrackerStub(Collection<Record> records) {
             this.records.setAll(records);
@@ -140,7 +140,7 @@ public class FinanceTrackerTest {
         }
 
         @Override
-        public Budget getBudget() {
+        public TotalBudget getBudget() {
             return this.budget;
         }
     }

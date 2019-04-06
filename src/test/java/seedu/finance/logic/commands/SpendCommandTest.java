@@ -249,22 +249,32 @@ public class SpendCommandTest {
         }
 
         @Override
-        public ObservableList<Record> getRecordSummary() { throw new AssertionError("This method should not be called."); }
+        public ObservableList<Record> getRecordSummary() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public int getPeriodAmount() { throw new AssertionError("This method should not be called."); }
 
         @Override
-        public void updatePeriodAmount(int periodAmount) { throw new AssertionError("This method should not be called."); }
+        public void updatePeriodAmount(int periodAmount) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
-        public SummaryPeriod getSummaryPeriod() { throw new AssertionError("This method should not be called."); }
+        public SummaryPeriod getSummaryPeriod() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
-        public void updateSummaryPeriod(SummaryPeriod period) { throw new AssertionError("This method should not be called."); }
+        public void updateSummaryPeriod(SummaryPeriod period) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
-        public void updateRecordSummaryPredicate(Predicate<Record> predicate) { throw new AssertionError("This method should not be called."); }
+        public void updateRecordSummaryPredicate(Predicate<Record> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

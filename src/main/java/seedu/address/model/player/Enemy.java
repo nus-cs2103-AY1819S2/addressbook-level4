@@ -85,13 +85,16 @@ public class Enemy extends Player {
         Coordinates newTarget;
 
         if (watchlist.isEmpty()) {
-            newTarget = drawPartityTarget();
-            logger.info(String.format("++++++++WATCHLIST EMPTY " + "enemy shoot parity: " + newTarget.toString()));
-
+            if (!allParityTargets.isEmpty()) {
+                newTarget = drawPartityTarget();
+                logger.info(String.format("++++++++WATCHLIST EMPTY " + "enemy shoot parity: " + newTarget.toString()));
+            } else {
+                newTarget = drawFromAllTargets();
+                logger.info(String.format("++++++++Partity EMPTY "));
+            }
         } else {
             newTarget = drawFromWatchList();
             logger.info(String.format("++++++++WATCHLIST STUFFED " + "enemy shoot watched: " + newTarget.toString()));
-
         }
         modeCleanup(newTarget);
 
@@ -113,6 +116,15 @@ public class Enemy extends Player {
      */
     private Coordinates drawFromWatchList() {
         return watchlist.pop();
+    }
+
+    /************************************************
+     * draws a valid Coord with from allPossibleTargets,
+     * when all Parity coordinates run out
+     */
+    private Coordinates drawFromAllTargets() {
+        java.util.Collections.shuffle(allPossibleTargets, randGen);
+        return allPossibleTargets.get(0);
     }
 
 

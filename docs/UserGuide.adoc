@@ -67,7 +67,7 @@ image::Ui4.png[width=800]
 image::Ui5.png[width=800]
 +
 
-The commands will go on, until either your or the enemy's fleet is completely destroyed.
+The game will go on until either party's ships are totally destroyed.
 
 Refer to <<Features>> for details of each command.
 
@@ -247,27 +247,6 @@ We are able to list a specific battleship by the name of `destroyer` with the ta
 .The `list` command with name and tags
 image::listbytagbyname.png[width=750]
 
-===== Locating ships by name: `find`
-
-Finds battleships whose names contain any of the given keywords. +
-Format: `find NAME [MORE_NAMES]`
-
-****
-* The search is case insensitive. e.g `hood` will match `Hood`
-* The order of the keywords does not matter. e.g. `Wales Prince` will match `Prince Of Wales`
-* Only the name is searched.
-* Only full words will be matched e.g. `Bel` will not match `Belfast`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). +
-e.g. `King York` will return `King George V`, `Duke of York`
-****
-
-Examples:
-
-* `find Vengeance` +
-Returns `Name: RSS Vengeance, Size: 4, Command: true, Position: d2`
-
-[NOTE]
-The position may not be displayed if the ship has not been placed.
 
 ===== List all tags: `listTags`
 
@@ -279,25 +258,6 @@ Examples: `listTags`
 
 [NOTE]
 The list of tags is given in square brackets.
-
-===== Selecting a ship : `select`
-
-Selects the battleship identified by the index number used in the displayed ship list. +
-Format: `select INDEX`
-
-****
-* The index refers to the index number shown in the displayed ship list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd battleship in the inventory.
-* `find Prinz Eugen` +
-`select 1` +
-Selects the 1st battleship in the results of the `find` command.
 
 // tag::battle[]
 === Battle Phase
@@ -330,16 +290,6 @@ Example:
 After attacking, you should use `endturn` to allow the computer to make its move.
 ****
 
-==== Finishing a turn: `endturn`
-
-Ends your turn and starts Enemy's turn. +
-Format: `endturn` +
-Alternative command: `end`
-
-****
-* The program will end your turn and automatically play the Enemy's turn.
-Youwill  see the enemy's attack reflected on the map and in the results box.
-****
 // end::battle[]
 
 // tag::stats[]
@@ -364,8 +314,8 @@ Format: `exit`
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q*: How are you today? +
+*A*: I'm fine and dandy thank you very much.
 
 == Command Summary
 
@@ -373,10 +323,8 @@ Format: `exit`
 |=======================================================================
 |Feature |Format |Purpose   | Example
 |*Attack*| `attack [coordinate]` |Attacks a selected cell on the enemy map.| `attack c1`
-|*Clear*| `clear` |Clears the command box. | `clear`
-|*End player turn*| `end turn` |Relinquish player turn to allow enemy to shoot once. | `end turn`
-|*Help*| `help` |Opens up the help guide window. | `help`
-|*Create map*| `init [integer_size]` | Initializes the map grid. | `init 8`
+|*Game manual*| `help` |Opens up the help guide window. | `help`
+|*Create map of size 6-10*| `init [integer_size]` | Initializes the map grid. | `init 8`
 |*List ships*| `list` |List all available battleships | `list`
 |*List tags*| `listTags` |List all available battleships by tags | `listTags`
 |*Put ship on map*| `put n/NAME r/ORIENTATION c/COORDINATE [optional]t/TAG` |Place your battleship on the map. | `put n/Destroyer r/vertical c/a1 t/myfleet`

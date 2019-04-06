@@ -33,7 +33,11 @@ public class AddTableCommandParser implements Parser<AddTableCommand> {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTableCommand.MESSAGE_USAGE));
             }
-            numberOfSeatsList.add(new TableStatus("0/" + numberOfSeatsInString[i]));
+            try {
+                numberOfSeatsList.add(new TableStatus("0/" + numberOfSeatsInString[i]));
+            } catch (IllegalArgumentException e) {
+                throw new ParseException(e.getMessage());
+            }
         }
 
         return new AddTableCommand(numberOfSeatsList);

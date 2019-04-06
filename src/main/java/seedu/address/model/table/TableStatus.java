@@ -9,7 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class TableStatus {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Table status should only contain numbers\nand the number of seats taken is less than number of seats.";
+            "Table status should only contain numbers no longer than 9 digits long"
+            + "\nand the number of seats taken is less than number of seats.";
 
     public static final String MESSAGE_INVALID_NUMBER_OF_CUSTOMERS =
             "Table unable to accommodate number of customers provided.\nNumber of seats table has is: %1$s";
@@ -44,6 +45,9 @@ public class TableStatus {
      * Returns true if a given string is a valid table status.
      */
     public static boolean isValidTableStatus(String test) {
+        if (test.length() >= 10) {
+            return false;
+        }
         String[] splitStatus = test.split("/");
         return test.matches(STATUS_VALIDATION_REGEX)
                 && Integer.parseInt(splitStatus[0]) <= Integer.parseInt(splitStatus[1]);

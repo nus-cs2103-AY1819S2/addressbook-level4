@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.management.ChangeThemeCommand.MESSAGE_SUCCESS;
 import static seedu.address.logic.parser.Syntax.PREFIX_CORE_ANSWER;
 import static seedu.address.logic.parser.Syntax.PREFIX_CORE_QUESTION;
 import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_NAME;
@@ -201,6 +201,16 @@ public class LogicManagerTest {
         quizModel.getNextCard();
 
         assertCommandSuccess("\\status", expected.getFeedbackToUser(), expectedModel);
+    }
+
+    @Test
+    public void execute_changeThemeCommand_success() {
+        ManagementModel expectedMgmtModel = new ManagementModelManager();
+        expectedMgmtModel.changeTheme();
+
+        String expected = String.format(MESSAGE_SUCCESS, "dark");
+
+        assertCommandSuccess("changeTheme", expected, expectedMgmtModel);
     }
 
     @Test

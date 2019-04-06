@@ -7,6 +7,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.management.AddCardCommand;
 import seedu.address.logic.commands.management.AddLessonCommand;
+import seedu.address.logic.commands.management.ChangeThemeCommand;
 import seedu.address.logic.commands.management.CloseLessonCommand;
 import seedu.address.logic.commands.management.DeleteCardCommand;
 import seedu.address.logic.commands.management.DeleteLessonCommand;
@@ -88,6 +89,9 @@ public class ManagementModeParser implements Parser<Command> {
 
         case ReloadLessonsCommand.COMMAND_WORD:
             return new ReloadLessonsCommand();
+
+        case ChangeThemeCommand.COMMAND_WORD:
+            return new ChangeThemeCommand();
 
         default:
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);

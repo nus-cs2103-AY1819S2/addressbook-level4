@@ -4,6 +4,7 @@ import java.util.List;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.card.Card;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.LessonList;
@@ -78,6 +79,16 @@ public interface ManagementModel extends Model {
      * @return the name of the closed {@link Lesson} object
      */
     String closeLesson();
+
+    /**
+     * Toggle theme from light to dark vice versa and returns the changed theme.
+     */
+    String changeTheme();
+
+    /**
+     * Returns current theme from {@link UserPrefs} object.
+     */
+    String getTheme();
 
     /**
      * @return the {@link LessonList} object.

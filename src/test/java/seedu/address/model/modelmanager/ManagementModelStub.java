@@ -106,6 +106,16 @@ public class ManagementModelStub implements ManagementModel {
     }
 
     @Override
+    public String changeTheme() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public String getTheme() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public LessonList getLessonList() {
         throw new AssertionError("This method should not be called.");
     }

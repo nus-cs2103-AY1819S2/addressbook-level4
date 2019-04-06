@@ -18,8 +18,7 @@ public class MainPanel extends UiPart<Region> {
     public static final String MESSAGE_QUESTION_ANSWER = "%1$s: %2$s\n%3$s: %4$s\n";
 
     private static final String FXML = "MainPanel.fxml";
-    private static final String boldStyle = "-fx-font-family: \"Segoe UI\";"
-        + "-fx-font-weight: bold;";
+    private static final String boldStyle = "-fx-font-weight: bold;";
 
     @FXML
     private TextFlow mainPanel;

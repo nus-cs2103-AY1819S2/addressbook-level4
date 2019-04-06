@@ -6,16 +6,17 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.management.ChangeThemeCommand;
 import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.logic.parser.ManagementModeParser;
 import seedu.address.logic.parser.QuizModeParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.LessonList;
 import seedu.address.model.modelmanager.ManagementModel;
@@ -30,6 +31,7 @@ public class LogicManager implements Logic {
     public static final String CHECK_LOGS_MESSAGE = "\nPlease check the logs for more information.";
     public static final String FAIL_SAVE_LESSONS_MESSAGE = "Failed to save some lessons.";
     public static final String FAIL_DELETE_LESSON_MESSAGE = "Failed to delete lesson: \"%1$s\".";
+    public static final String FAIL_SAVE_USERPREFS_MESSAGE = "Failed to save user perference.";
 
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
@@ -112,6 +114,16 @@ public class LogicManager implements Logic {
                 QuizStartCommand quizStartCommand = (QuizStartCommand) command;
                 commandResult = quizStartCommand.executeActual(quizModel, history);
             }
+
+            if (command instanceof ChangeThemeCommand) {
+                ReadOnlyUserPrefs userPrefs = managementModel.getUserPrefs();
+                try {
+                    storageManager.saveUserPrefs(userPrefs);
+                } catch (IOException e) {
+                    new CommandResult(FAIL_SAVE_USERPREFS_MESSAGE);
+                }
+            }
+
         } finally {
             history.add(commandText);
         }
@@ -147,5 +159,10 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         managementModel.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public String getTheme() {
+        return managementModel.getTheme();
     }
 }

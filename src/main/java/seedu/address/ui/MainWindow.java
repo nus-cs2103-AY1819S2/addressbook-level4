@@ -19,6 +19,7 @@ import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.UserPrefs;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -76,6 +77,7 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
+        setTheme();
 
         setAccelerators();
 
@@ -193,6 +195,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Sets stylesheet according to the current theme from {@link UserPrefs} object.
+     */
+    private void setTheme() {
+        primaryStage.getScene().getStylesheets().clear();
+        primaryStage.getScene().getStylesheets().add(logic.getTheme());
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see Logic#execute(String)
@@ -203,6 +213,7 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             LogicManager.Mode currentMode = logic.getMode();
+            setTheme();
 
             if (!currentMode.equals(mode)) {
                 this.mode = currentMode;

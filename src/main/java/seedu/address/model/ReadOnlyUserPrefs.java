@@ -15,4 +15,6 @@ public interface ReadOnlyUserPrefs {
     Path getLessonListFolderPath();
 
     Path getUserFilePath();
+
+    String getTheme();
 }

@@ -254,7 +254,9 @@ public class SpendCommandTest {
         }
 
         @Override
-        public int getPeriodAmount() { throw new AssertionError("This method should not be called."); }
+        public int getPeriodAmount() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void updatePeriodAmount(int periodAmount) {

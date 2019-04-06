@@ -46,8 +46,6 @@ public class SummaryCommandTest {
         Assert.assertThrows(NullPointerException.class, () -> new SummaryCommand(1, null));
         Assert.assertThrows(IllegalArgumentException.class, () -> new SummaryCommand(1, "asd"));
         Assert.assertThrows(IllegalArgumentException.class, () -> new SummaryCommand(0, "d"));
-        Assert.assertThrows(NullPointerException.class, () -> new SummaryCommand(1, "d"));
-        Assert.assertThrows(IllegalArgumentException.class, () -> new SummaryCommand(1, "d"));
     }
 
 }

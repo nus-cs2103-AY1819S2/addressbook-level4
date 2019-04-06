@@ -66,6 +66,7 @@ public class ModelManager implements Model {
         filteredTableList.addListener(this::ensureSelectedTableIsValid);
         filteredDailyRevenueList = new FilteredList<>(this.restOrRant.getStatistics().getDailyRevenueList());
         filteredDailyRevenueList.addListener(this::ensureSelectedDailyRevenueIsValid);
+        updateFilteredOrderItemList(orderItem -> !orderItem.getOrderItemStatus().isAllServed());
     }
 
     public ModelManager() {

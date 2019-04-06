@@ -139,7 +139,7 @@ public class ReportDisplay extends UiPart<Region> {
      * @param cards To be concatenated.
      */
     private void displayQuestions(ObservableList<Card> cards) {
-        String result = "";
+        String result = "\t\t\t\t\t\t\t\tLowest scoring questions:\n";
         int toShow = Math.min(NUM_QUESTIONS_SHOWN, cards.size());
         String question;
         for (int i = 0; i < toShow; i++) {

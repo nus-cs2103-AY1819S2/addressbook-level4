@@ -271,28 +271,28 @@ Sort the current shown list.
 
 Format: `sort [FIELD_NAME to be sorted by]`
 
-The user can sort the current shown list with any valid field.
+The user can sort the current shown list with specified field.
 
 The sort parameters are case-insensitive.
 
 By default, `sort` sorts the list by name in lexicographical order.
 
 [TIP]
-Equipment, client, and work list can only be sorted by address, preventive maintenance date day and phone at the moment.
+Equipment, client, and work list can only be sorted by preventive maintenance date of the equipment and phone number of the client.
 
 For example,
 
 * `sort` +
 Returns the list sorted by name.
 
-* `sort address` +
-Returns the list sorted by address.
 
 * `sort date` +
-Returns the list sorted according to the day.
+Returns the list sorted according to the daTE.
 
 * `sort phone` +
 Returns the list sorted by phone number.
+
+
 // end::sort[]
 
 // tag::filter[]
@@ -310,8 +310,12 @@ Format: `filter [n/NAME_KEYWORD]...[t/TAG_KEYWORD]...[a/ADDRESS_KEYWORD]`
 
 
 [TIP]
-* The user can filter the current shown list with any specified fields, and can filter by multiple fields and keywords.
-* Equipment, client, and worklist can all be filtered, by any fields of them.
+* The user can filter the list with any specified fields, and can filter by multiple fields and keywords.
+* Equipment, client, and work list can all be filtered, by any fields of them.
+
+|===
+| image:exclamation.png[width="40"] |This command only works on the overall list and not the current shown list.
+|===
 
 For example,
 
@@ -335,6 +339,7 @@ Returns any equipment whose tags contains urgent and west.
 
 * `filter n/jurong a/blk 123 t/urgent` +
 Returns any equipment whose names that contains jurong, address that contains blk 123, and whose tags contains urgent.
+
 // end::filter[]
 
 === Autocomplete: kbd:[tab]

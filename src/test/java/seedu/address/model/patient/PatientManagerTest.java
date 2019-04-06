@@ -249,9 +249,16 @@ public class PatientManagerTest {
         tagList3.add(new Tag("Highbloodpressure"));
         Patient patient3 = new Patient(name3, nric3, email, address, contact, gender, dob, tagList3);
 
+        Name name4 = new Name("Pamela Lee");
+        Nric nric4 = new Nric("S9123456D");
+        ArrayList<Tag> tagList4 = new ArrayList<Tag>();
+        tagList4.add(new Tag("Hepatitis"));
+        Patient patient4 = new Patient(name4, nric4, email, address, contact, gender, dob, tagList4);
+
         patientManager.addPatient(patient1);
         patientManager.addPatient(patient2);
         patientManager.addPatient(patient3);
+        patientManager.addPatient(patient4);
 
         StringBuilder sb = new StringBuilder();
         sb.append(1 + ") " + name
@@ -272,6 +279,9 @@ public class PatientManagerTest {
         Tag otherTag = new Tag("Highcholesterol");
         assertEquals(patientManager.findPatientsByTag(tag), sb.toString());
         assertEquals(patientManager.findPatientsByTag(otherTag), "No patient record found");
+
+        Tag singleTag = new Tag("Hepatitis");
+        assertEquals(patientManager.findPatientsByTag(singleTag), patient4.toString());
     }
 
     @Test

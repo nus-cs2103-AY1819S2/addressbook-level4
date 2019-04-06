@@ -370,6 +370,7 @@ The updated `Model`,
 * exposes an unmodifiable `ObservableList<Activity>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * Each activity can have a HashMap of `Person` Object for attendance.
 
+*to be completed*
 [discrete]
 ===== Activity Add Command
 The `activityAdd` command enables users to create a new activity with name, datetime, location. User could
@@ -1152,31 +1153,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-[discrete]
-=== Use case: Sort Activity
-
-*Main Success Scenario (MSS)*
-
-1.  User requests to sort the activity list
-2.  Club Manager sorts the activity list according to date
-3.  Club Manager shows the sorted list
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 2b. The given parameter is invalid.
-+
-[none]
-** 2b1. Club Manager shows an error message.
-+
-Use case resumes at step 1.
-
+// tag::activityAddMember[]
 [discrete]
 === Use case: Add Member to Activity
 
@@ -1213,7 +1190,9 @@ Use case resumes at step 2.
 ** 3c1. Club Manager shows an error message.
 +
 Use case ends.
+// end::activityAddMember[]
 
+// tag::activityDeleteMember[]
 [discrete]
 === Use case: Remove Member from Activity
 
@@ -1250,7 +1229,10 @@ Use case resumes at step 2.
 ** 3c1. Club Manager shows an error message.
 +
 Use case ends.
+// end::activityDeleteMember[]
 
+
+// tag::activityDelete[]
 [discrete]
 === Use case: Delete Activity
 
@@ -1275,7 +1257,7 @@ Use case ends.
 ** 3a1. Club Manager shows an error message.
 +
 Use case resumes at step 2.
-
+// end::activityDelete[]
 
 [discrete]
 === Use case: List Activity

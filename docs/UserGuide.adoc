@@ -38,9 +38,8 @@ image::Ui2.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* *`memberAdd n/James Ong an/A0123456Y p/98765432 e/jamesong@example.com yos/year1 m/mathematics`* : adds a member named
-`John Doe` to the ClubManager.
+* *`memberList`* : lists all members (only in member mode)
+* *`memberAdd n/John Doe mn/A0123456Z p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 g/Male y/2 m/Chemistry t/Swimming`* : adds a member named `John Doe` to the ClubManager.
 * *`memberDelete 3`* : deletes the 3rd member shown in the current list
 * *`exit`* : exits the app
 
@@ -96,7 +95,7 @@ Changes current management mode of ClubManager to Member
 
 ==== Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the Club Manager. +
 Format: `clear`
 
 ==== Exiting the program : `exit`
@@ -184,11 +183,11 @@ You can add members to ClubManager. +
 Only alphabets are accepted. | John Sim
 |`Matric Number`| MATRIC_NUMBER refers to the member's matriculation number.
 
-Only 9 Alphanumeric characters are accepted.| A0123456Z
+Only a valid matriculation number can be entered.| A0123456Z
 
 |`Phone Number`| PHONE_NUMBER refers to the member's phone number.
 
-Only 8 digits are accepted. | 91234567
+Only 8 digits are accepted, starting with 6, 8 or 9. | 91234567
 |`Email Address`| EMAIL_ADDRESS refers to the member's student/personal email address| johnsim@example.com
 |`Address`| ADDRESS refers to the member's home address.
 
@@ -199,10 +198,8 @@ Only "Male" or "Female" is accepted (case-insensitive)|Male
 |`Year of Study`| YEAR_OF_STUDY refers to the academic level (in years)
 in which the member is currently studying.
 
-Only Alphabets are accepted in the first input.
-
-Only Digits are accepted in the second input.| Year 1
-|`Major`| MAJOR refers to the field of discipline in which member is currently enrolled in.| Chemistry
+Only positive integers are accepted.| e.g. 1
+|`Major`| MAJOR refers to the field of discipline in which the member is currently enrolled in.| Chemistry
 |`Tags`|TAGS refers to the hobbies and interests of the member.
 
 Only Alphabets are acceptable, restricted to a single word.
@@ -212,12 +209,12 @@ A member can have any number of tags (including 0).|Swimming
 
 *Format:*
 
-* `memberAdd n/NAME mn/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL a/ yos/YEAR_OF_STUDY m/MAJOR [t/TAG]...`
+* `memberAdd n/NAME mn/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL a/ADDRESS g/GENDER yos/YEAR_OF_STUDY m/MAJOR [t/TAG]...`
 
 *Examples:*
 
-* `memberAdd n/James Ong mn/A0123456Y p/98765432 e/jamesong@example.com a/123, Jurong West Ave 6, #08-111 g/male y/year 2 m/mathematics`
-* `memberAdd n/Jane Lim mn/A0654321T p/91324756 e/janelim@example.com a/123, Sengkang Ave 6, #02-123 g/Female y/Year 3  m/physics t/Swimming`
+* `memberAdd n/James Ong mn/A0123456Y p/98765432 e/jamesong@example.com a/123, Jurong West Ave 6, #08-111 g/male y/2 m/mathematics`
+* `memberAdd n/Jane Lim mn/A0654321T p/91324756 e/janelim@example.com a/123, Sengkang Ave 6, #02-123 g/Female y/3  m/physics t/Swimming`
 
 ==== Deleting a member : `memberDelete`
 
@@ -235,20 +232,21 @@ Examples:
 * `memberList` +
 `memberDelete 2` +
 Deletes the 2nd member in ClubManager.
-* `memberFind Betsy` +
+* `memberFind name Betsy` +
 `memberDelete 1` +
 Deletes the 1st member in the results of the `find` command.
 
 ==== Editing a member : `memberEdit`
 
 Edits an existing member in ClubManager. +
-Format: `memberEdit INDEX n/NAME Mn/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL yos/YEAR_OF_STUDY m/MAJOR [t/TAG]`
+Format: `memberEdit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GENDER] [yos/YEAR_OF_STUDY] [m/MAJOR] [t/TAG]...`
 
 ****
 * Edits the member at the specified `INDEX`. The index refers to the index number shown in the displayed member list.
 The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* NOTE: Matriculation Number cannot be edited
 * You can remove all the member's tags by typing `t/` without specifying any tags after it.
 ****
 
@@ -263,15 +261,14 @@ Edits the name of the 2nd member to be `Betsy Crower` and clears all existing ta
 ==== Locating members by name: `memberFind`
 
 Finds members whose names contain any of the given keywords. +
-Format: `memberFind CONDITION KEYWORD [MORE_KEYWORDS]`
+Format: `memberFind CRITERIA KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
+* Partial or full words will be matched e.g. `Han` will match `Hans`
 * members matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-* CONDITION could be "name" or "matricnum" (case insensitive).
+* CRITERIA could be "name" or "matricnum" only (case insensitive)
 ****
 
 Examples:
@@ -280,6 +277,8 @@ Examples:
 Returns `john` and `John Doe`
 * `memberFind name Betsy Tim John` +
 Returns any member having names `Betsy`, `Tim`, or `John`
+* `memberFind matricnum A0` +
+Returns all members (matric num starts with A0)
 
 ==== Listing members : `memberList`
 
@@ -332,7 +331,7 @@ Sort the members list by a member’s attribute in ascending order
 |=======================================================================
 
 ****
-* Sorts the member at the specified sorting criteria. The attribute refers to the name, matric number, phone number, email, year of study, and major. There can only be a single attribute provided.
+* Sorts the member list according to the specified sorting criteria. The attribute refers to the name, matric number, phone number, email, year of study, and major. There can only be a single attribute provided.
 * At least one of the sorting criteria are provided.
 * Members will be sorted in ascending order based on the sorting criteria.
 * Within each of the sort criteria, the members are further sorted by name in ascending order.
@@ -589,6 +588,7 @@ _{explain how the user can enable/disable data encryption}_
 This section provides a comprehensive list of commands that ClubManager offers.
 
 === General Commands
+* *Clear* : `clear`
 * *Help* : `help`
 * *History* : `history`
 * *Redo* : `redo`
@@ -596,37 +596,36 @@ This section provides a comprehensive list of commands that ClubManager offers.
 
 === Member Management Commands
 
-* *Add member* : `memberAdd n/NAME mn/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL yos/YEAR_OF_STUDY m/MAJOR [t/TAG]...` +
-e.g. `memberAdd n/James Ong an/A0123456Y p/98765432 e/jamesong@example.com yos/year1 m/mathematics`
-* *Clear member list* : `memberClear`
+* *Add a member* : `memberAdd n/NAME mn/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL g/GENDER yos/YEAR_OF_STUDY m/MAJOR [t/TAG]...` +
+e.g. `memberAdd n/James Ong mn/A0123456Y p/98765432 e/jamesong@example.com g/male yos/1 m/mathematics`
 * *Delete a member* : `memberDelete INDEX` +
 e.g. `memberDelete 3`
 * *Edit a member* : `memberEdit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]
 [mn/MATRIC_NUMBER] [yos/YEAR_OF_STUDY] [m/MAJOR] [t/TAG]...` +
 e.g. `memberEdit 2 n/James Lee e/jameslee@example.com`
-* *Find a member* : `memberFind KEYWORD [MORE_KEYWORDS]` +
-e.g. `memberFind John`
+* *Find a member* : `memberFind CRITERIA KEYWORD [MORE_CRITERIA] [MORE_KEYWORDS]` +
+e.g. `memberFind name John`
 
 * *List all members* : `memberList`
 * *Select a member* : `memberSelect INDEX` +
 e.g.`memberSelect 2`
-* *Sort the member list* : `memberSort [name] [gender] [yearOfStudy] [major]` +
-e.g. `memberSort NAME`
+* *Sort the member list* : `memberSort [NAME] [GENDER] [YEAR_OF_STUDY] [MAJOR]` +
+e.g. `memberSort name`
 
 === Activity Management Commands
-* *Add a activity* : `activityAdd n/gACTIVITYNAME d/DATETIME l/LOCATION [de/DESCRIPTION] [ic/INCHARGEMATRIC] ...` +
+* *Add a activity* : `activityAdd n/ACTIVITY_NAME d/DATE_TIME l/LOCATION [de/DESCRIPTION] [ic/IN_CHARGE_MATRIC] ...` +
 e.g. `activityAdd n/Sentosa Outing d/16022019 1000 l/Harbour Front MRT de/Bring swim suits.`
-* *Add a member to activity* : `activityAddMember ACTIVITY_INDEX MATRIC_NO` +
+* *Add a member to activity* : `activityAddMember ACTIVITY_INDEX MATRIC_NUMBER` +
 e.g. `activityAddMember 1 A1234567N`
 * *Delete an activity* : ``activityDelete ACTIVITY_INDEX`` +
 e.g. `activityDelete 1`
-* *Delete a member from activity* : `activityDeleteMember ACTIVITY_INDEX MATRIC_NO` +
+* *Delete a member from activity* : `activityDeleteMember ACTIVITY_INDEX MATRIC_NUMBER` +
 e.g. `activityDeleteMember 1 A1234567N`
 * *Edit an activity* : `activityEdit ACTIVITY_INDEX [n/ACTIVITY_NAME] [d/DATE] [t/TAG] … ` +
 e.g. `activityEdit 1 d/13022019`
 * *Find an activity* : `activityFind [a/] [n/] [de/] [l/] KEYWORD [MORE_KEYWORDS]` +
 e.g. `activityFind n/ Workshop`
-* *Filtering activities* : `activityFilter CONDITION NUMBEROFDAYS` +
+* *Filtering activities* : `activityFilter CONDITION NUMBER_OF_DAYS` +
 e.g. `activityFilter + 30`
 * *List all the activities* : `activityList`
 * *Select an activity* : `activitySelect ACTIVITY_INDEX` +

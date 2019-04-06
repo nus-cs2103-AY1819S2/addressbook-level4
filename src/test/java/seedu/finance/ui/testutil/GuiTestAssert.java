@@ -2,13 +2,11 @@ package seedu.finance.ui.testutil;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Arrays;
 import java.util.List;
 
 import guitests.guihandles.RecordCardHandle;
 import guitests.guihandles.RecordListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
-import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Record;
 
 

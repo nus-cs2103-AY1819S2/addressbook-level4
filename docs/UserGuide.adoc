@@ -204,6 +204,21 @@ The search above should yield a result: +
 .Multiple module name keyword search result +
 image::displaymodMnexampleresult.png[width="800"]
 
+If the user has successfully managed to display a module of their choice, they will be presented with module/s containing
+several information that the user will find useful. The example below will show the information provided for each module
+after a successful search:
+
+.What information each module contains
+image::displaymoddisplay.png[width="800"]
+
+* 1. Shows the module *code* and module *name*.
+* 2. Shows which department the module belongs to.
+* 3. Displays the amount of module credits a student can gain by reading this module.
+* 4. Displays a brief description of the modules and potentially the topics that may be covered.
+* 5. Contains the prerequisite tree for each module.
+* 6. Contains workload load information, the values are meant to be read as *Hours*.
+
+
 
 // tag::Displayreq[]
 === Display Course Requirements: `displayreq`

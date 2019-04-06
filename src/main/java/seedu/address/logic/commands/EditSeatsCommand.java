@@ -43,7 +43,7 @@ public class EditSeatsCommand extends Command {
         Table editedTable;
         try {
             editedTable = new Table(tableNumber,
-                    new TableStatus(oldTable.get().getTableStatus().getNumberOfTakenSeats() + numberOfSeats));
+                    new TableStatus(oldTable.get().getTableStatus().getNumberOfTakenSeats() + "/" + numberOfSeats));
         } catch (IllegalArgumentException e) {
             throw new CommandException(String.format(INVALID_TABLE_SEATS,
                     oldTable.get().getTableStatus().getNumberOfTakenSeats()));

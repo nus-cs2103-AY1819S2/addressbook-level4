@@ -46,12 +46,14 @@ public class Dob {
             isLeapYear = true;
         }
 
-        if (!isLeapYear && month.equals("2") && Integer.valueOf(day) > 28) {
-            throw new IllegalArgumentException(LEAPYEAR_CONSTRAINT);
+        // to handle when dob 30/2
+        if (Integer.valueOf(day) > 29 && Integer.valueOf(month) == 2) {
+            throw new IllegalArgumentException(FEBURARY_CONSTRAINT);
         }
 
-        if (Integer.valueOf(month) == 2 && Integer.valueOf(day) > 28) {
-            throw new IllegalArgumentException(FEBURARY_CONSTRAINT);
+        // not a leap year but 29/2
+        if (!isLeapYear && Integer.valueOf(month) == 2 && Integer.valueOf(day) > 28) {
+            throw new IllegalArgumentException(LEAPYEAR_CONSTRAINT);
         }
 
         List<Integer> monthsWith31Days = Arrays.asList(1, 3, 5, 7, 8, 10, 12);

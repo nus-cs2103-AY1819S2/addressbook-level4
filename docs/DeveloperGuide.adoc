@@ -214,7 +214,11 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component
+Within `Storage` there are 2 types of storage components: +
+* read and write storage +
+* read only storage
 
+==== Read and write storage
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
@@ -224,6 +228,17 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the GradTrak data in json format and read it back.
+
+==== Read only storage
+.Structure of read only storage component
+image::moduleinfostorage.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage/ModuleInfoStorage.java[`ModuleInfoStorage.java`]
+
+The ModuleInfoStorage is a read-only form of storage as it is only reads the list of module information saved in a JSON
+file and coverts them into `ModuleInfo` and the stores all the `ModuleInfo` into list called `ModuleInfoList`.
+
+* can only read `ModuleInfo` objects in json format.
 
 [[Design-Commons]]
 === Common classes

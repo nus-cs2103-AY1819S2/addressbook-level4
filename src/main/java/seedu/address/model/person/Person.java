@@ -79,6 +79,27 @@ public class Person {
     }
 
     /**
+     * Returns the number of Skills a person has
+     */
+    public int getSkillsNumber() {
+        return PersonUtil.getTagTypeNumber(getTags(), "s");
+    }
+
+    /**
+     * Returns the number of Positions a person has
+     */
+    public int getPositionsNumber() {
+        return PersonUtil.getTagTypeNumber(getTags(), "p");
+    }
+
+    /**
+     * Returns the number of Endorsements a person has
+     */
+    public int getEndorsementsNumber() {
+        return PersonUtil.getTagTypeNumber(getTags(), "e");
+    }
+
+    /**
      * Checks if a tag as a String parameter is contained in one of the tags of that person
      */
     public boolean isTagExist(String tag) {

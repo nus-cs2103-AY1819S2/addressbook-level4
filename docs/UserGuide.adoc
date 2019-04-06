@@ -185,7 +185,8 @@ Sorts persons by method described by the given keywords. +
 Format: `sort [reverse] KEYWORD`
 
 Accepted KEYWORDs:
-        `name`; `surname`; `education`; `gpa`; `skills`
+        `name`; `surname`; `education`; `gpa`; `skills`; `positions`; `endorsements`; `skill number`;  +
+        `position number`;  `endorsement number`
 
 Examples:
 
@@ -207,10 +208,27 @@ _e.g. `Charlotte Green (NTU)` shall come before `Adam Smith (NUS)`._
 * The `sort gpa` command sorts the persons by increasing gpa numeric value. +
 _e.g. `Adam Smith (3.1)` shall come before `Charlotte Green (3.9)`._
 * The `sort skills` arranges each person's skills alphabetically and then arranges the people based on their skills in alphabetical order. +
-_e.g. `Adam Smith (mathematics, economics)` shall come before `Mother Theresa (faith)` +
-since `economics` comes before `faith`._
+_e.g. `Peter Parker (Python, Debugging)` shall come before `Charlotte Oliveiro (Java)` +
+since `Debugging` comes before `Java`._
+* The `sort positions` arranges each person's positions alphabetically and then arranges the people based on their positions in alphabetical order. +
+_e.g. `Charlotte Oliveiro (Project Consultant, Crime Analyst)` shall come before `Peter Parker (Databases)` +
+since `Crime Analyst` comes before `Databases`._
+* The `sort endorsements` arranges each person's endorsements alphabetically and then arranges the people based on their endorsements in alphabetical order. +
+_e.g. `Irfan Ibrahim (Warren Buffett, Jeff Bezos)` shall come before `Alex Yeoh (Mark Cuban, Steve Jobs)` +
+since `Jeff Bezos` comes before `Mark Cuban`._
+* The `sort skill number` arranges persons based on the number of skills they have from most to fewest.+
+_e.g. `Peter Parker (Python, Debugging)` shall come before `Charlotte Oliveiro (Java)` +
+since `Peter Parker` has two skills where as `Charlotte Oliveiro` only has one._
+* The `sort position number` arranges persons based on the number of positions they have from most to fewest.+
+_e.g. `Charlotte Oliveiro (Project Consultant, Crime Analyst)` shall come before `Peter Parker (Databases)` +
+since `Charlotte Oliveiro` has had two positions where as `Peter Parker` only has one._
+* The `sort endorsement number` arranges persons based on the number of endorsements they have from most to fewest. +
+_e.g. `Irfan Ibrahim (Warren Buffett, Jeff Bezos)` shall come before `Bruce Wayne (Thomas Wayne)` +
+since `Irfan Ibrahim` has two endorsements where as `Bruce Wayne` only has one._
 * The `reverse` keyword can be used in conjunction with any of the above keywords and it shall reverse the ordering. +
 _e.g. The `sort reverse surname` command shall result in `Adam Black` coming before `Ben Adams`._
+* If the sorting method has two persons with the same value _(e.g. both persons have two endorsements in the 'sort +
+endorsement number' command)_, then the previous relative ordering of the two shall be kept.
 * The `sort` command is compatible with the `filter` command. +
 If the Address Book contains ten persons, but the filter has selected just three persons, then only the three persons shall be ordered and returned with the new index numbers. +
 Additional filters can be applied within the sort.

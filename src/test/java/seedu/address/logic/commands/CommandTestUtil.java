@@ -107,9 +107,9 @@ public class CommandTestUtil {
     public static final String INVALID_ORDER_CODE_DESC = " " + "31A" + " " + VALID_QUANTITY_2;
     public static final String INVALID_ORDER_QUANTITY_DESC = " " + VALID_CODE_CHICKEN + " " + "A";
     public static final String INVALID_ORDER_DESC = " " + VALID_QUANTITY_2 + " " + VALID_CODE_CHICKEN; // order swapped
-    public static final String INVALID_DAY_DESC = " " + PREFIX_DAY + "er";
-    public static final String INVALID_MONTH_DESC = " " + PREFIX_MONTH + "e&";
-    public static final String INVALID_YEAR_DESC = " " + PREFIX_YEAR + "er23";
+    public static final String INVALID_DAY_DESC = " " + PREFIX_DAY + "32";
+    public static final String INVALID_MONTH_DESC = " " + PREFIX_MONTH + "13";
+    public static final String INVALID_YEAR_DESC = " " + PREFIX_YEAR + "1998";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

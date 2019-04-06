@@ -24,7 +24,7 @@ import seedu.address.model.cell.Cell;
 import seedu.address.testutil.Assert;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model).
  */
 public class BoundaryValueCheckerTest {
 
@@ -44,9 +44,9 @@ public class BoundaryValueCheckerTest {
         Battleship battleship = new DestroyerBattleship(new HashSet<>());
 
         model.getHumanMapGrid().initialise(cellGrid);
-        model.getHumanMapGrid().getCell(COORDINATES_A1).putShip(battleship);
 
         Orientation orientation = new Orientation(VALID_HORIZONTAL_ORIENTATION);
+        model.getHumanMapGrid().putShip(battleship, COORDINATES_A1, orientation);
 
         BoundaryValueChecker boundaryValueChecker = new BoundaryValueChecker(model.getHumanMapGrid(),
                 battleship, COORDINATES_A1, orientation);
@@ -67,9 +67,9 @@ public class BoundaryValueCheckerTest {
         Battleship battleship = new Battleship();
 
         model.getHumanMapGrid().initialise(cellGrid);
-        model.getHumanMapGrid().getCell(COORDINATES_B1).putShip(battleship);
 
         Orientation orientation = new Orientation(VALID_VERTICAL_ORIENTATION);
+        model.getHumanMapGrid().putShip(battleship, COORDINATES_B1, orientation);
 
         BoundaryValueChecker boundaryValueChecker = new BoundaryValueChecker(model.getHumanMapGrid(),
                 battleship, COORDINATES_A1, orientation);
@@ -90,9 +90,9 @@ public class BoundaryValueCheckerTest {
         Battleship battleship = new Battleship();
 
         model.getHumanMapGrid().initialise(cellGrid);
-        model.getHumanMapGrid().getCell(COORDINATES_A2).putShip(battleship);
 
         Orientation orientation = new Orientation(VALID_HORIZONTAL_ORIENTATION);
+        model.getHumanMapGrid().putShip(battleship, COORDINATES_A2, orientation);
         BoundaryValueChecker boundaryValueChecker = new BoundaryValueChecker(model.getHumanMapGrid(),
                 battleship, COORDINATES_A1, orientation);
 

@@ -37,18 +37,18 @@ public class StatsCommandTest {
     }
 
     @Test
-    public void execute_minusMove_success() {
+    public void execute_addMove_success() {
         PlayerStatistics p1 = new PlayerStatistics();
-        assertEquals(9, p1.minusMove());
-        assertEquals(8, p1.minusMove());
+        assertEquals(1, p1.addMove());
+        assertEquals(2, p1.addMove());
     }
 
     @Test
     public void execute_getMovesLeft_success() {
         PlayerStatistics p1 = new PlayerStatistics();
-        assertEquals(10, p1.getMovesLeft());
-        p1.minusMove();
-        assertEquals(9, p1.getMovesLeft());
+        assertEquals(0, p1.getMovesMade());
+        p1.addMove();
+        assertEquals(1, p1.getMovesMade());
     }
 
     @Test
@@ -103,7 +103,7 @@ public class StatsCommandTest {
         PlayerStatistics p1 = new PlayerStatistics();
         AttackResult res = new AttackDestroyedShip(new Player("Alice", 5, 2, 1),
                 new Player("Bob", 5, 2, 1), new Coordinates("a2"),
-                new Battleship(new Name("Placeholder"), 2, 2, new HashSet<>()));
+                new Battleship(new Name("Placeholder"), 2, 2, new HashSet<>()).toString());
         assertEquals("destroyed", p1.addResultToStats(res));
     }
 }

@@ -211,6 +211,7 @@ after a successful search:
 .What information each module contains
 image::displaymoddisplay.png[width="800"]
 
+What each number displays: +
 *1.* Shows the module *code* and module *name*. +
 *2.* Shows which *department* the module belongs to. +
 *3.* Displays the amount of module *credits* a student can gain by reading this module. +

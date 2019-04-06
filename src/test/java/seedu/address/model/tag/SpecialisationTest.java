@@ -1,7 +1,10 @@
 package seedu.address.model.tag;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import java.util.Optional;
 
 import org.junit.Test;
 
@@ -48,5 +51,24 @@ public class SpecialisationTest {
         //invalid specialisation
         Assert.assertThrows(IllegalArgumentException.class, () -> Specialisation
                 .parseString("not_a_specialisation"));
+    }
+
+    @Test
+    public void getSpecialisation() {
+        //null substring
+        Assert.assertThrows(NullPointerException.class, () -> Specialisation
+                .getSpecialisation(null));
+
+        // empty substring
+        assertEquals(Optional.empty(), Specialisation.getSpecialisation(""));
+
+        // full string
+        assertEquals(Specialisation.PHYSIOTHERAPY, Specialisation.getSpecialisation("PHYSIOTHERAPY").get());
+
+        // case insensitive full string
+        assertEquals(Specialisation.PHYSIOTHERAPY, Specialisation.getSpecialisation("physiotherapy").get());
+
+        // case insensitive substring
+        assertEquals(Specialisation.PHYSIOTHERAPY, Specialisation.getSpecialisation("physio").get());
     }
 }

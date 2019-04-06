@@ -145,6 +145,8 @@ public class FilterCommandParserTest {
                 .reducePredicates(predicateList)).collect(Collectors.toList()), getTypicalHealthStaff()
                 .stream().filter(FilterHealthWorkerCommand.reducePredicates(newPredicateList))
                 .collect(Collectors.toList()));
+
+        // filter
     }
 
     @Test

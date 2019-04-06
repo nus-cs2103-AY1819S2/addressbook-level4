@@ -6,23 +6,14 @@ import static seedu.address.logic.commands.CommandTestUtil.FILE_DESC_1_PDF;
 import static seedu.address.logic.commands.CommandTestUtil.PASSWORD_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.PASSWORD_DESC_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_CS2103T;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.EncryptCommand.MESSAGE_ENCRYPT_PDF_SUCCESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PDF;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
-import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.DecryptCommand;
 import seedu.address.logic.commands.EncryptCommand;
 
 

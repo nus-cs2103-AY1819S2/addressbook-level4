@@ -21,7 +21,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.card.Card;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.ManagementModelManager;
-import seedu.address.testutil.Assert;
 import seedu.address.testutil.LessonBuilder;
 
 /**

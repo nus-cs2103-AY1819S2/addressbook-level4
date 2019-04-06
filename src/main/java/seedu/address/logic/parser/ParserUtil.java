@@ -10,6 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.NoInternetException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.WebUtil;
+import seedu.address.logic.commands.SortCommand.Order;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.restaurant.Address;
 import seedu.address.model.restaurant.Email;
@@ -260,4 +261,20 @@ public class ParserUtil {
         }
         return new OpeningHours(trimmedOpeningHours);
     }
+
+    /**
+     * Parses a {@code String order} into an {@code Order} and returns it.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Order} is invalid.
+     */
+    public static Order parseOrder(String order) throws ParseException {
+        requireNonNull(order);
+        String trimmedOrder = order.trim();
+        if (!Order.isValidOrder(trimmedOrder)) {
+            throw new ParseException(Order.MESSAGE_CONSTRAINTS);
+        }
+        return new Order(trimmedOrder);
+    }
+
 }

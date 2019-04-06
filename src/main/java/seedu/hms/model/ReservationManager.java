@@ -15,7 +15,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.hms.commons.core.GuiSettings;
 import seedu.hms.commons.core.LogsCenter;
-import seedu.hms.model.booking.Booking;
 import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.RoomType;
 import seedu.hms.model.reservation.exceptions.ReservationNotFoundException;

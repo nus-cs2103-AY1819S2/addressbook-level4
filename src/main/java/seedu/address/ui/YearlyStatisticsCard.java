@@ -35,7 +35,7 @@ public class YearlyStatisticsCard extends UiPart<Region> {
         this.yearlyRevenue = yearlyRevenue;
 
         year.setText(this.yearlyRevenue.getYear().toString());
-        totalYearlyRevenue.setText("$ " + this.yearlyRevenue.getTotalYearlyRevenue());
+        totalYearlyRevenue.setText("$ " + String.format("%.2f", this.yearlyRevenue.getTotalYearlyRevenue()));
     }
 
     @Override

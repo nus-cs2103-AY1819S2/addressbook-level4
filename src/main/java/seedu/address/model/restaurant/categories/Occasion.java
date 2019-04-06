@@ -23,8 +23,8 @@ public class Occasion {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public static final List<String> SUGGESTED_OCCASIONS = new ArrayList<>(Arrays.asList("Casual", "Fine Dining",
-            "Premium Casual", "Fast Casual"));
+    public static final List<String> SUGGESTED_OCCASIONS = new ArrayList<>(Arrays.asList("Casual", "Fast Casual",
+            "Premium Casual", "Family Style", "Fine Dining"));
 
     public final String value;
 

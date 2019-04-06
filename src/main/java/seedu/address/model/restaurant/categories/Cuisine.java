@@ -23,7 +23,8 @@ public class Cuisine {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public static final List<String> SUGGESTED_CUISINES = new ArrayList<>(Arrays.asList("Thai", "Western", "Indian"));
+    public static final List<String> SUGGESTED_CUISINES = new ArrayList<>(Arrays.asList("Thai", "Western", "Indian",
+            "Chinese", "Japanese", "Italian"));
 
     public final String value;
 

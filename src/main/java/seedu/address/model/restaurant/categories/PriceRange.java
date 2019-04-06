@@ -20,7 +20,8 @@ public class PriceRange {
      */
     public static final String VALIDATION_REGEX = "(\\$){1,5}";
 
-    public static final List<String> SUGGESTED_PRICE_RANGES = new ArrayList<>(Arrays.asList("$", "$$$", "$$$$$"));
+    public static final List<String> SUGGESTED_PRICE_RANGES = new ArrayList<>(Arrays.asList("$", "$$", "$$$", "$$$$",
+            "$$$$$"));
 
     public final String value;
 

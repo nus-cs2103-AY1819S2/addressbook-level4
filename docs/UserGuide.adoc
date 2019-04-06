@@ -46,8 +46,10 @@ E.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/Alice in Wonderland t/fantasy` or as `n/Alice in Wonderland`.
+* The total length of user input should not exceed 500 characters (space included).
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addBook n/NAME`, `NAME` is a parameter which can be used as `addBook n/Book`.
+* Words in `UPPER_CASE` without brackets are the parameters that should only be supplied once e.g. in `addBook n/NAME`, `NAME` is a parameter which should only appear once in user input, `addBook n/John Doe n/Alice` is not allowed.
+* Items in square brackets are optional (can be supplied once or not at all) e.g `n/NAME [a/AUTHOR]` can be used as `n/Alice in Wonderland a/Jack` or as `n/Alice in Wonderland`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/fantasy`, `t/fantasy t/textbook` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME a/AUTHOR`, `a/AUTHOR n/NAME` is also acceptable.
 * While book names, review title and review content can contain any kinds of characters, tag and author names should only contain alpha-numeric characters.
@@ -77,7 +79,6 @@ Adds a book named Structure and Interpretation of Computer Programs to the recor
 * The book name is case sensitive
 * Two books with same book name are considered same book
 * Trying to add a book which is already present in the book shelf will result in duplicate book error, and the addBook command will fail
-* If multiple valid parameters are supplied to the same field (E.g. addBook n/A n/B), the latter one will be took as the input
 * Take a look at <<Command-Format>> to see the valid format for each parameter
 ****
 
@@ -90,7 +91,6 @@ Format: `editBook INDEX [n/BOOKNAME] [a/AUTHOR] [m/RATING] [t/TAG]...`
 * Edit the book at the specified INDEX. The index refers to the index number shown in the displayed book list. The index must be a positive integer 1, 2, 3, …​
 * Edit a book with new name same as the name of other book which is already existing in book shelf is not allowed
 * At least one of the optional fields must be provided.
-* If multiple valid parameters are supplied to the same field (E.g. addBook n/A n/B), the latter one will be took as the input
 * Take a look at <<Command Format>> to see the valid format for each parameter
 * Existing values will be updated to the input values
 * When editing tags, the existing tags of the book will be removed i.e adding of tags is not cumulative

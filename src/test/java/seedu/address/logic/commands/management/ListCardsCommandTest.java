@@ -4,7 +4,6 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_OPENED_LESSON;
-import static seedu.address.logic.commands.management.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.management.ListCardsCommand.MESSAGE_NO_CARDS;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
 
@@ -34,22 +33,24 @@ public class ListCardsCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_noOpenedLesson_returnNoLessonMsg() {
+    public void execute_noOpenedLesson_throwsCommandException() throws CommandException {
         ManagementModel modelStub = new MgtModelStubWithNoCards();
 
         // attempt to list all cards when there is no opened lesson -> error message
-        assertCommandSuccess(new ListCardsCommand(), modelStub,
-                commandHistory, MESSAGE_NO_OPENED_LESSON, modelStub);
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(MESSAGE_NO_OPENED_LESSON);
+        new ListCardsCommand().execute(modelStub, commandHistory);
     }
 
     @Test
-    public void execute_openedLessonHasNoCards_returnNoCardMsg() {
+    public void execute_openedLessonHasNoCards_throwsCommandException() throws CommandException {
         MgtModelStubWithNoCards modelStub = new MgtModelStubWithNoCards();
         modelStub.setIsThereOpenedLesson(true);
 
         // attempt to list all cards when there is no cards in opened lesson -> error message
-        assertCommandSuccess(new ListCardsCommand(), modelStub,
-                commandHistory, MESSAGE_NO_CARDS, modelStub);
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(MESSAGE_NO_CARDS);
+        new ListCardsCommand().execute(modelStub, commandHistory);
     }
 
     @Test

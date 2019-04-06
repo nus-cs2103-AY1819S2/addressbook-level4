@@ -82,7 +82,7 @@ public class ListCardsCommand extends ManagementCommand {
 
         try {
             if (!mgtModel.isThereOpenedLesson()) {
-                return new CommandResult(MESSAGE_NO_OPENED_LESSON);
+                throw new CommandException(MESSAGE_NO_OPENED_LESSON);
             }
 
             ArrayList<Card> cards = new ArrayList<>(mgtModel.getOpenedLessonCards());
@@ -90,7 +90,7 @@ public class ListCardsCommand extends ManagementCommand {
             List<String> optionalHeaders = mgtModel.getOpenedLessonOptionalHeaders();
             return new CommandResult(buildList(coreHeaders, optionalHeaders, cards));
         } catch (NullPointerException e) {
-            return new CommandResult(MESSAGE_NO_CARDS);
+            throw new CommandException(MESSAGE_NO_CARDS, e);
         }
     }
 

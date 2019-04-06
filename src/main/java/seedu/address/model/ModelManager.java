@@ -424,12 +424,12 @@ public class ModelManager implements Model {
         return this.consultationManager.listConsultation(value);
     }
 
-    public void abortConsultation() {
-        this.consultationManager.abortConsultation();
-    }
-
     public Consultation listConsultation(int index) {
         return this.consultationManager.listConsultation(index);
+    }
+
+    public void abortConsultation() {
+        this.consultationManager.abortConsultation();
     }
 
     //==========Appointment module===========================================================================

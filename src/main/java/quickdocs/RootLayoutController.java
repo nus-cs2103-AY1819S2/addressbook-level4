@@ -151,6 +151,7 @@ public class RootLayoutController {
 
 
     // history handling
+
     /**
      * Initializes the history snapshot.
      */
@@ -200,6 +201,7 @@ public class RootLayoutController {
     /**
      * First, check whether the command result is from the consultation command
      * if it is, make label display the ongoing session
+     *
      * @param checkConsultation can be any command result from the various commands
      */
     private void indicateConsultation(String checkConsultation) {
@@ -214,11 +216,12 @@ public class RootLayoutController {
     /**
      * If command result indicates that consultation has ended
      * make label disappear
+     *
      * @param checkConsultation
      */
     private void endConsultation(String checkConsultation) {
         if ((checkConsultation.contains("Consultation")
-                && (checkConsultation.contains("ended") || checkConsultation.contains("aborted") ))) {
+                && (checkConsultation.contains("ended") || checkConsultation.contains("aborted")))) {
             currentSession.setText("");
         }
     }

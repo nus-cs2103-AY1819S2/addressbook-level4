@@ -83,6 +83,16 @@ The GUI for _Equipment Manager_ as shown in <<GUI>> consists of nine regions:
 | image:exclamation.png[width="40"] |Please remember the naming convention for the different regions in GUI as they will be used to explain when explaining Equipment Manager.
 |===
 
+=== About an equipment
+|===
+| *Attributes* | *Description* | *Things to Note*
+| Name | The client's name who owns the equipment. |
+| Phone | The contact number of the client that owns the equipment. |
+| Date | The due date for which maintenance work on the equipment should be carried out by then. |
+| Address | The address of the client that owns the equipment. |
+| Serial Number | The serial number of an equipment | All equipments have unique serial number and there should not be duplicated serial number.
+|===
+
 === Entering a command
 
 Type the command in the Command Box and press kbd:[Enter] to execute it. +
@@ -90,9 +100,9 @@ Type the command in the Command Box and press kbd:[Enter] to execute it. +
 *Some basic commands you can try to get started:*
 
 * *`help`*: opens up user guide
-* *`list`*: lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3`: deletes the 3rd contact shown in the current list
+* *`list-e`*: lists all contacts
+* **`add-e`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`delete-e`**`3`: deletes the 3rd contact shown in the current list
 * *`exit`*: exits the app
 
 |===
@@ -124,18 +134,18 @@ If it is your first time reading this, then good job on opening the User Guide!
 
 === Adding an equipment: `add-e`
 Adds an equipment to the *Equipment Manager*. The result of adding an equipment will be reflected on the panel labelled under *Equipment details*.  +
-Format: `add-e n/CLIENT_NAME p/CLIENT_PHONE_NUMBER pm/PM_DATE a/CLIENT_ADDRESS s/SERIAL_NUMBER [t/TAG]`
+Format: `add-e n/NAME p/PHONE_NUMBER pm/DATE a/ADDRESS s/SERIAL_NUMBER t/TAG`
 
-[NOTE]
+[NOTE] Refer to
 An equipment can any number of tags (including 0). +
-PM_DATE is the annual due date for maintenance work to be carried out by and it should be entered in a date format of `DD MONTH YYY`.
+DATE is the annual due date for maintenance work to be carried out by and it should be entered in a date format of `DD MONTH YYY`.
 
 [TIP]
-In the panel under the *Equipment details* label, duplicated client names could be added and displayed on the panel because a client can owns multiple equipments as long as the serial numbers of equipment are different.
+In the panel under the *Equipment details* label, duplicated names could be added and displayed on the panel because the name refer to a client's name who owns multiple equipments as long as the serial numbers of equipment are different.
 
 Example:
 
-* `add n/Clementi CC p/67762517 pm/10 May 2019 a/ 220 Clementi Ave 4, Singapore 129880 s/A008844L t/west`
+* `add-e n/Clementi CC p/67762517 pm/10 May 2019 a/ 220 Clementi Ave 4, Singapore 129880 s/A008844L t/west`
 
 // tag::addclient[]
 === Adding a client: `add-c`
@@ -337,7 +347,7 @@ Returns any equipment whose tags contains urgent and west.
 Returns any equipment whose names that contains jurong, address that contains blk 123, and whose tags contains urgent.
 // end::filter[]
 
-=== Autocomplete: kbd:[tab]
+=== Autocomplete: kbd:[tab] [Coming in v2.0]
 If you have forgotten how to type a command, do not worry!  By typing in the first letter of the command in the command and pressing the kbd:[tab] key, it will display the full format of the command.
 
 === Deleting equipment: `delete-e`
@@ -359,7 +369,7 @@ Example:
 * `list-w` +
 `delete-w 12`
 
-=== Enabling notification: `notify`
+=== Enabling notification: `notify` [Coming in v2.0]
 Notifies you when an equipment is due for preventive maintenance in 2 days. You can choose to get notifications or not.
 
 === Route planning: `route`

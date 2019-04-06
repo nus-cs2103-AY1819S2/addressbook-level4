@@ -123,9 +123,8 @@ image::Architecture.png[width="600"]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
-|===
-|image:tip.png[width="40"] |The `.pptx` files used to create diagrams in this document can be found in the link:https://github.com/CS2103-AY1819S2-W10-3/main/tree/master/docs/diagrams[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
-|===
+[TIP]
+|The `.pptx` files used to create diagrams in this document can be found in the link:https://github.com/CS2103-AY1819S2-W10-3/main/tree/master/docs/diagrams[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
 `Main` has only one class called link:https://github.com/CS2103-AY1819S2-W10-3/main/tree/master/src/main/java/seedu/equipment/MainApp.java[`MainApp`]. It is responsible for,
 
@@ -162,7 +161,7 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 .Component interactions for `delete 1` command
 image::SDforDeletePerson.png[width="800"]
 
-The sections below give more details of each component.
+The sections below will give more details of each component; *UI*, *Logic*, *Model* and *Storage*.
 
 [[Design-Ui]]
 === UI component
@@ -216,13 +215,11 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the *Equipment Manager* data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Equipment>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-|===
-|image:tip.png[width="40"] |
+[TIP]
 As a more OOP model, we can store a `Tag` list in `Equipment Manager`, which `Equipment` can reference. This would allow `Equipment Manager` to only require one `Tag` object per unique `Tag`, instead of each `Equipment` needing their own `Tag` object. An example of how such a model may look like is given below. +
-|===
 
 .Class diagram of Model Component
 image::ModelClassBetterOopDiagram.png[width="800"]
@@ -252,14 +249,50 @@ Classes used by multiple components are in the `seedu.equipment.commons` package
 This section describes some noteworthy details on how certain features are implemented.
 
 //tag::equipment[]
-=== Equipment features
+=== Equipment feature
+To provide users with the best understanding on the attributes of equipments in *Equipment Manager*,
+this section will provide a brief overview on the equipment details as well as how the details of an equipment are
+used for multiple features in the design of Equipment Manager. Not forgetting sharing some design considerations to make the best choice for *Equipment Manager*.
+
 ==== Overview on Equipment details
+
+|===
+| *Attributes* | *Description* | *Things to Note*
+| Name | The client's name who owns the equipment. |
+| Phone | The contact number of the client that owns the equipment. |
+| Date | The due date for which maintenance work on the equipment should be carried out by then. |
+| Address | The address of the client that owns the equipment. |
+| Serial Number | The serial number of an equipment | All equipments have unique serial number and there should not be duplicated serial number.
+|===
+
 ==== Current Usage of Equipment Details
-===== Adding an equipment
-===== Editing an equipment
-===== Deleting an equipment
-===== Listing all equipments
+In order to allow users to keep track of the Preventive Maintenance schedule and carry out features provided by Equipment Manager, we have implemented the following commands with the usage of the attributes of an equipment as mentioned in the previous section.
+
+* Adding an equipment: `AddCommand`
+* Editing an equipment: `EditCommand`
+* Deleting an equipment `DeleteCommand`
+* Listing all equipment: `ListCommand`
+
+==== Current Implementation
+Using `AddCommand` mentioned in previous section as an example,
+the *add equipment* mechanism is facilitated by `VersionedEquipmentManager` which extends the  `Equipment Manager`.
+
+The following sequence diagram shows how the *add equipment* operation works:
+
+<Sequence diagram for add-e>
+Steps
+
 ==== Design Considerations
+===== Aspects: What attributes are important for equipment details to serve the purpose of *Equipment Manager*.
+
+* *Alternative 1 (current choice)*:
+** Pros:
+** Cons:
+
+* *Alternative 2*:
+** Pros:
+** Cons:
+
 //end::equipment[]
 
 //tag::client[]

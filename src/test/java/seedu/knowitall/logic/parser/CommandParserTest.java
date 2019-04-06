@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.knowitall.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.knowitall.testutil.TypicalIndexes.INDEX_FIRST_CARD;
-import static seedu.knowitall.testutil.TypicalIndexes.INDEX_FIRST_CARD_FOLDER;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,6 +25,7 @@ import seedu.knowitall.logic.commands.ExitCommand;
 import seedu.knowitall.logic.commands.HelpCommand;
 import seedu.knowitall.logic.commands.HistoryCommand;
 import seedu.knowitall.logic.commands.ListCommand;
+import seedu.knowitall.logic.commands.NextCommand;
 import seedu.knowitall.logic.commands.RedoCommand;
 import seedu.knowitall.logic.commands.RevealCommand;
 import seedu.knowitall.logic.commands.SearchCommand;
@@ -70,6 +70,12 @@ public class CommandParserTest {
     public void parseCommand_test() throws Exception {
         assertTrue(parser.parseCommand(TestCommand.COMMAND_WORD) instanceof TestCommand);
         assertTrue(parser.parseCommand(TestCommand.COMMAND_WORD + " 3") instanceof TestCommand);
+    }
+
+    @Test
+    public void parseCommand_next() throws Exception {
+        assertTrue(parser.parseCommand(NextCommand.COMMAND_WORD) instanceof NextCommand);
+        assertTrue(parser.parseCommand(NextCommand.COMMAND_WORD + " 3") instanceof NextCommand);
     }
 
     @Test

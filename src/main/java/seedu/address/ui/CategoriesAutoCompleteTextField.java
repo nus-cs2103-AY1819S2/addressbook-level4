@@ -29,6 +29,13 @@ public class CategoriesAutoCompleteTextField extends TextField {
     }
 
     /**
+     * Hides the autocomplete context menu.
+     */
+    public void hideAutoComplete() {
+        suggestions.hide();
+    }
+
+    /**
      * Shows the autocomplete context menu if conditions are satisfied.
      */
     private void showAutoComplete() {

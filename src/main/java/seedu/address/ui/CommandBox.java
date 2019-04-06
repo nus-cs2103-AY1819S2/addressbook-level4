@@ -51,6 +51,9 @@ public class CommandBox extends UiPart<Region> {
             keyEvent.consume();
             navigateToNextInput();
             break;
+        case BACK_SPACE:
+            keyEvent.consume();
+            commandTextField.hideAutoComplete();
         default:
             // let JavaFx handle the keypress
         }

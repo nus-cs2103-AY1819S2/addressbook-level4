@@ -85,7 +85,8 @@ public class OrderItemStatus {
      * Returns true if the given quantities are valid.
      */
     public static boolean isValidQuantities(int quantityOrdered, int quantityToServe) {
-        return isValidQuantity(quantityOrdered) && isValidQuantity(quantityToServe) && quantityOrdered >= quantityToServe;
+        return isValidQuantity(quantityOrdered) && isValidQuantity(quantityToServe)
+                && quantityOrdered >= quantityToServe;
     }
 
     /**

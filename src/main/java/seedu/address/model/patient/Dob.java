@@ -50,7 +50,7 @@ public class Dob {
             throw new IllegalArgumentException(LEAPYEAR_CONSTRAINT);
         }
 
-        if (Integer.valueOf(month) == 2 && Integer.valueOf(day) > 29) {
+        if (Integer.valueOf(month) == 2 && Integer.valueOf(day) > 28) {
             throw new IllegalArgumentException(FEBURARY_CONSTRAINT);
         }
 

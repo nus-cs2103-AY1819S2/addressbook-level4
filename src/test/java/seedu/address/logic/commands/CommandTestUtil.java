@@ -60,8 +60,6 @@ public class CommandTestUtil {
             + VALID_SPECIALISATION_MASSAGE;
     public static final String SPECIALISATION_DESC_GENERAL = " " + PREFIX_SPECIALISATION
             + VALID_SPECIALISATION_GENERAL;
-    public static final String INVALID_SPECIALISATION_DESC = " " + PREFIX_SPECIALISATION + "general*";
-    // '*' not allowed in tags
     // end of add-doctor testing
 
     public static final String VALID_NAME_AMY = "Amy Bee";
@@ -91,11 +89,14 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_STROKE;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_GENDER_DESC = " " + PREFIX_GENDER + "boy"; // either M or F
+    public static final String INVALID_GENDER_DESC = " " + PREFIX_GENDER + "boy"; // either M or F or m or f
     public static final String INVALID_AGE_DESC = " " + PREFIX_AGE + "12yo"; // 'yo' not allowed in age
+    public static final String INVALID_YEAR_DESC = " " + PREFIX_YEAR + "2years"; // only numbers, no 'years'
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_SPECIALISATION_DESC = " " + PREFIX_SPECIALISATION + "general*";
+    // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

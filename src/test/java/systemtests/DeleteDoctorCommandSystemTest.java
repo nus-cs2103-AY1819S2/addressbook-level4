@@ -69,7 +69,7 @@
 //         * -> rejected
 //         */
 //        showDoctorsWithName(KEYWORD_MATCHING_MEIER);
-//        int invalidIndex = getModel().getAddressBook().getDoctorList().size();
+//        int invalidIndex = getModel().getDocX().getDoctorList().size();
 //        command = DeleteDoctorCommand.COMMAND_WORD + " " + invalidIndex;
 //        assertCommandFailure(command, MESSAGE_INVALID_DOCTOR_DISPLAYED_INDEX);
 //
@@ -98,7 +98,7 @@
 //
 //        /* Case: invalid index (size + 1) -> rejected */
 //        Index outOfBoundsIndex = Index.fromOneBased(
-//                getModel().getAddressBook().getDoctorList().size() + 1);
+//                getModel().getDocX().getDoctorList().size() + 1);
 //        command = DeleteDoctorCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
 //        assertCommandFailure(command, MESSAGE_INVALID_DOCTOR_DISPLAYED_INDEX);
 //

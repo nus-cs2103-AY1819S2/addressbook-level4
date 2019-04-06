@@ -3,6 +3,8 @@ package seedu.knowitall.ui;
 import static org.junit.Assert.assertEquals;
 import static seedu.knowitall.ui.StatusBarFooter.STATUS_IN_FOLDER;
 import static seedu.knowitall.ui.StatusBarFooter.STATUS_IN_HOME_DIRECTORY;
+import static seedu.knowitall.ui.StatusBarFooter.STATUS_IN_REPORT_DISPLAY;
+import static seedu.knowitall.ui.StatusBarFooter.STATUS_IN_TEST_SESSION;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,6 +32,12 @@ public class StatusBarFooterTest extends GuiUnitTest {
         // new status received
         guiRobot.interact(() -> statusBarFooter.updateStatusBarInFolder());
         assertStatusBarContent(STATUS_IN_FOLDER);
+
+        guiRobot.interact(() -> statusBarFooter.updateStatusBarInTestSession());
+        assertStatusBarContent(STATUS_IN_TEST_SESSION);
+
+        guiRobot.interact(() -> statusBarFooter.updateStatusBarInReportDisplay());
+        assertStatusBarContent(STATUS_IN_REPORT_DISPLAY);
     }
 
     /**

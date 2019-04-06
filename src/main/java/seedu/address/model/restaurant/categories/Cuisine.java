@@ -3,6 +3,9 @@ package seedu.address.model.restaurant.categories;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import seedu.address.commons.util.StringUtil;
 
 /**
@@ -18,6 +21,8 @@ public class Cuisine {
      * Cuisine should consist of alphanumeric characters
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+
+    public static final List<String> SUGGESTED_CUISINES = new ArrayList<>(Arrays.asList("Thai", "Western", "Indian"));
 
     public final String value;
 

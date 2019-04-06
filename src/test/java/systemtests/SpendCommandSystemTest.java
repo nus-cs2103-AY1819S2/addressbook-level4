@@ -16,14 +16,9 @@ import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.finance.testutil.TypicalRecords.AMY;
-import static seedu.finance.testutil.TypicalRecords.APPLE;
 import static seedu.finance.testutil.TypicalRecords.BOB;
 import static seedu.finance.testutil.TypicalRecords.CAP;
-import static seedu.finance.testutil.TypicalRecords.EARRINGS;
-import static seedu.finance.testutil.TypicalRecords.FRUITS;
-import static seedu.finance.testutil.TypicalRecords.GIFT;
 import static seedu.finance.testutil.TypicalRecords.HAMBURGER;
 import static seedu.finance.testutil.TypicalRecords.IPHONE;
 import static seedu.finance.testutil.TypicalRecords.KEYWORD_MATCHING_DONUT;
@@ -36,7 +31,6 @@ import seedu.finance.logic.commands.RedoCommand;
 import seedu.finance.logic.commands.SpendCommand;
 import seedu.finance.logic.commands.UndoCommand;
 import seedu.finance.model.Model;
-import seedu.finance.model.budget.TotalBudget;
 import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Date;
@@ -254,21 +248,6 @@ public class SpendCommandSystemTest extends FinanceTrackerSystemTest {
     }
 
 
-    /**
-     * Performs the same verification as {@code assertCommandSuccess(Record)}. Executes {@code command}
-     * instead.
-     *
-     * @see SpendCommandSystemTest#assertCommandSuccessExceededBudget(Record)
-     */
-
-    private void assertCommandSuccess(String command, Record toAdd) {
-        Model expectedModel = getModel();
-        expectedModel.addRecord(toAdd);
-
-        String expectedResultMessage = String.format(SpendCommand.MESSAGE_SUCCESS, toAdd);
-
-        assertCommandSuccess(command, expectedModel, expectedResultMessage);
-    }
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(Record)}. Executes {@code command}
@@ -282,6 +261,22 @@ public class SpendCommandSystemTest extends FinanceTrackerSystemTest {
         expectedModel.addRecord(toAdd);
 
         String expectedResultMessage = String.format(SpendCommand.MESSAGE_SUCCESS_EXCEED_BUDGET, toAdd.getCategory());
+
+        assertCommandSuccess(command, expectedModel, expectedResultMessage);
+    }
+
+    /**
+     * Performs the same verification as {@code assertCommandSuccess(Record)}. Executes {@code command}
+     * instead.
+     *
+     * @see SpendCommandSystemTest#assertCommandSuccessExceededBudget(Record)
+     */
+
+    private void assertCommandSuccess(String command, Record toAdd) {
+        Model expectedModel = getModel();
+        expectedModel.addRecord(toAdd);
+
+        String expectedResultMessage = String.format(SpendCommand.MESSAGE_SUCCESS, toAdd);
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
     }

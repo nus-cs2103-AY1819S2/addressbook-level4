@@ -151,13 +151,13 @@ public class SearchCommandSystemTest extends FinanceTrackerSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-//
-//        /* Case: find amount of record in finance tracker -> 0 records found */
-//
-//        command = SearchCommand.COMMAND_WORD + " -amount " + DONUT.getAmount().toString();
-//        assertCommandSuccess(command, expectedModel);
-//        assertSelectedCardUnchanged();
 
+        /* Case: find amount of record in finance tracker -> 0 records found */
+        /*
+        command = SearchCommand.COMMAND_WORD + " -amount " + DONUT.getAmount().toString();
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+        */
 
         /* Case: find category of record but with invalid flag in finance tracker -> 0 records found */
 

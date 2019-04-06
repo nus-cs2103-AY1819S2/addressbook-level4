@@ -14,7 +14,6 @@ import guitests.guihandles.HelpWindowHandle;
 import seedu.finance.logic.commands.DeleteCommand;
 import seedu.finance.logic.commands.HelpCommand;
 import seedu.finance.logic.commands.SelectCommand;
-import seedu.finance.ui.BrowserPanel;
 import seedu.finance.ui.StatusBarFooter;
 
 

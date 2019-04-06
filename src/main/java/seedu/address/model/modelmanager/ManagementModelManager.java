@@ -87,8 +87,7 @@ public class ManagementModelManager implements ManagementModel {
 
     @Override
     public Lesson getLesson(int index) {
-        Lesson lesson = lessonList.getLesson(index);
-        return lesson;
+        return lessonList.getLesson(index);
     }
 
     /**
@@ -100,6 +99,16 @@ public class ManagementModelManager implements ManagementModel {
     @Override
     public String openLesson(int index) {
         return lessonList.openLesson(index);
+    }
+
+    @Override
+    public String closeLesson() {
+        return lessonList.closeLesson();
+    }
+
+    @Override
+    public boolean isThereOpenedLesson() {
+        return lessonList.isThereOpenedLesson();
     }
 
     /**
@@ -141,15 +150,6 @@ public class ManagementModelManager implements ManagementModel {
     @Override
     public void deleteCardFromOpenedLesson(int index) {
         lessonList.deleteCardFromOpenedLesson(index);
-    }
-
-    /**
-     * Closes the opened {@link Lesson} object.
-     * @return the name of the closed {@link Lesson} object
-     */
-    @Override
-    public String closeLesson() {
-        return lessonList.closeLesson();
     }
 
     @Override

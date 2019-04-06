@@ -1,8 +1,11 @@
 package seedu.address.model.modelmanager;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -26,6 +29,7 @@ public class ManagementModelManagerTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private ManagementModelManager modelManager = new ManagementModelManager();
+    private Lesson lesson = TypicalLessonList.LESSON_DEFAULT;
 
     private Lesson getTestLesson() {
         ArrayList<String> testFields = new ArrayList<>();
@@ -146,6 +150,7 @@ public class ManagementModelManagerTest {
         modelManager.setLessonList(test);
         assertEquals(test, modelManager.getLessonList());
     }
+
     @Test
     public void openLesson() {
         Lesson lesson = TypicalLessonList.LESSON_DEFAULT;
@@ -165,7 +170,18 @@ public class ManagementModelManagerTest {
         modelManager.openLesson(0); // Open added lesson
         assertEquals(modelManager.getOpenedLesson(), lesson);
         modelManager.closeLesson();
-        assertEquals(modelManager.getOpenedLesson(), null);
+        assertNull(modelManager.getOpenedLesson());
+    }
+
+    @Test
+    public void openLesson_validLesson_thereIsLesson() {
+        modelManager.addLesson(lesson);
+        // no opened lesson -> return false
+        assertFalse(modelManager.isThereOpenedLesson());
+
+        modelManager.openLesson(0); // Open added lesson
+        // opened lesson -> return true
+        assertTrue(modelManager.isThereOpenedLesson());
     }
 
     @Test

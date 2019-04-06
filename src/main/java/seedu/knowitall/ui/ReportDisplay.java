@@ -7,8 +7,11 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
 import seedu.knowitall.model.ReadOnlyCardFolder;
 import seedu.knowitall.model.card.Card;
 
@@ -35,7 +38,13 @@ public class ReportDisplay extends UiPart<Region> {
     private static final String CHANGE_SAME = "#BDB76B"; // dark khaki
 
     @FXML
+    private FlowPane container;
+
+    @FXML
     private GridPane reportDisplay;
+
+    @FXML
+    private ScrollPane scrollPane;
 
     @FXML
     private Label questionsDisplay;

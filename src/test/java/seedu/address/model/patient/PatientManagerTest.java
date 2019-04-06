@@ -165,6 +165,12 @@ public class PatientManagerTest {
                 + " " + dob
                 + "\n"
         );
+        sb.append(3 + ") " + name2
+                + " " + nric2
+                + " " + gender2
+                + " " + dob2
+                + "\n"
+        );
         sb.append("\n");
 
         assertEquals(patientManager.findPatientsByName("Pe"), sb.toString());

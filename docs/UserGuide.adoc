@@ -304,7 +304,7 @@ Format: `filter [n/NAME_KEYWORD]...[t/TAG_KEYWORD]...[a/ADDRESS_KEYWORD]`
 - At least *one* keyword must be provided.
 - Filtering multiple keywords of the same prefix will return equipment/client whose attribute corresponding to the prefix contain
  any one of the keywords.
-- Filtering with keywords of different prefixes will return only equipment/client that matches with all the keywords of
+- Filtering with keywords of different prefixes will return only equipment/client that matches with any of the keywords of
  the different prefixes.
 - The filter is case insensitive, e.g. jurong will match Jurong.
 
@@ -338,7 +338,7 @@ Returns any equipment whose serial number contains A200.
 Returns any equipment whose tags contains urgent and west.
 
 * `filter n/jurong a/blk 123 t/urgent` +
-Returns any equipment whose names that contains jurong, address that contains blk 123, and whose tags contains urgent.
+Returns any equipment whose names that either contains jurong, address that contains blk 123, or whose tags contains urgent.
 
 // end::filter[]
 

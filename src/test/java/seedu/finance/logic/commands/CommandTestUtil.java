@@ -27,8 +27,8 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_AMOUNT_AMY = "312.00";
-    public static final String VALID_AMOUNT_BOB = "123.23";
+    public static final String VALID_AMOUNT_AMY = "23.00";
+    public static final String VALID_AMOUNT_BOB = "12.23";
     public static final String VALID_DATE_AMY = "12/01/2005";
     public static final String VALID_DATE_BOB = "23/04/2014";
     public static final String VALID_CATEGORY_HUSBAND = "husband";

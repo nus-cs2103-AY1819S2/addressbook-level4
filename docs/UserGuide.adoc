@@ -234,8 +234,8 @@ Examples:
 
 * `find Sodium` +
 Returns `Levothyroxine Sodium` and `Naproxen Sodium`.
-* `find Amoxicillin Gabapentin Johnson` +
-Returns any medicine having names `Amoxicillin` or `Gabapentin` or with company name having `Johnson`.
+* `find Amoxicillin Gabapentin Acetaminophen` +
+Returns any medicine having names `Amoxicillin`, `Gabapentin` or `Acetaminophen`.
 
 === Editing a medicine : `edit`
 

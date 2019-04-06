@@ -51,6 +51,31 @@ public class StatusBarFooter extends UiPart<Region> {
         saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
     }
 
+    public StatusBarFooter() {
+        super(FXML);
+        saveLocationStatus.setText(STATUS_IN_HOME_DIRECTORY);
+    }
+
+    private void updateStatusBar(String status) {
+        saveLocationStatus.setText(status);
+    }
+
+    public void updateStatusBarInHomeDirectory() {
+        updateStatusBar(STATUS_IN_HOME_DIRECTORY);
+    }
+
+    public void updateStatusBarInFolder() {
+        updateStatusBar(STATUS_IN_FOLDER);
+    }
+
+    public void updateStatusBarInTestSession() {
+        updateStatusBar(STATUS_IN_TEST_SESSION);
+    }
+
+    public void updateStatusBarInReportDisplay() {
+        updateStatusBar(STATUS_IN_REPORT_DISPLAY);
+    }
+
     /**
      * Adds a listener to the specified card folder.
      */

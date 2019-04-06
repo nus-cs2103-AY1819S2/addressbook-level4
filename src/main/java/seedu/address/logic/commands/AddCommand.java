@@ -3,15 +3,17 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 
+import java.io.IOException;
+import java.nio.file.Paths;
+
 import org.apache.pdfbox.pdmodel.PDDocument;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.pdf.Pdf;
 import seedu.address.model.pdf.exceptions.DuplicatePdfException;
 
-import java.io.IOException;
-import java.nio.file.Paths;
 
 /**
  * Adds a PDF to the PDF book.
@@ -56,6 +58,9 @@ public class AddCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
+    /**
+     * Tries to load {@code toAdd}
+     */
     private void loadFile(Pdf toAdd) throws CommandException {
         try {
             PDDocument file = PDDocument.load(Paths.get(toAdd.getDirectory().getDirectory(),

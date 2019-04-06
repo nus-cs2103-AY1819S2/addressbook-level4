@@ -73,7 +73,157 @@
     }
   ],
   "bookings": [
+    {
+      "service": {
+        "name": "SWIMMING POOL"
+      },
+      "timing": {
+        "startTime": "10:00:00",
+        "endTime": "18:00:00"
+      },
+      "payer": {
+        "name": "Mark Zuckerberg",
+        "phone": "89754632",
+        "dob": "",
+        "email": "mark@thefacebook.com",
+        "idnum": "90457655",
+        "tagged": [],
+        "address": ""
+      },
+      "otherUsers": [
+        {
+          "name": "Yagami Light",
+          "phone": "97061843",
+          "dob": "28/2/1986",
+          "email": "light@deathnote.org",
+          "idnum": "G1459802R",
+          "tagged": [],
+          "address": ""
+        }
+      ],
+      "comment": ""
+    },
+    {
+      "service": {
+        "name": "SPA"
+      },
+      "timing": {
+        "startTime": "12:00:00",
+        "endTime": "14:00:00"
+      },
+      "payer": {
+        "name": "Mark Zuckerberg",
+        "phone": "89754632",
+        "dob": "",
+        "email": "mark@thefacebook.com",
+        "idnum": "90457655",
+        "tagged": [],
+        "address": ""
+      },
+      "otherUsers": [],
+      "comment": ""
+    },
+    {
+      "service": {
+        "name": "GAMES ROOM"
+      },
+      "timing": {
+        "startTime": "12:00:00",
+        "endTime": "14:00:00"
+      },
+      "payer": {
+        "name": "Mark Zuckerberg",
+        "phone": "89754632",
+        "dob": "",
+        "email": "mark@thefacebook.com",
+        "idnum": "90457655",
+        "tagged": [],
+        "address": ""
+      },
+      "otherUsers": [],
+      "comment": ""
+    },
+    {
+      "service": {
+        "name": "SPA"
+      },
+      "timing": {
+        "startTime": "12:00:00",
+        "endTime": "14:00:00"
+      },
+      "payer": {
+        "name": "Vladimar Putin",
+        "phone": "18002354",
+        "dob": "7/10/1952",
+        "email": "president@russia.org",
+        "idnum": "R0000001",
+        "tagged": [],
+        "address": "Russia"
+      },
+      "otherUsers": [],
+      "comment": ""
+    }
   ],
   "reservations": [
+    {
+      "room": {
+        "name": "SINGLE ROOM"
+      },
+      "dates": {
+        "startDate": "0019-05-10T07:38:09.791+0000",
+        "endDate": "0019-05-17T07:38:09.791+0000"
+      },
+      "payer": {
+        "name": "Osama Bin Laden",
+        "phone": "80088008",
+        "dob": "",
+        "email": "niceguy@terror.org",
+        "idnum": "CATCHME",
+        "tagged": [],
+        "address": ""
+      },
+      "otherUsers": [],
+      "comment": ""
+    },
+    {
+      "room": {
+        "name": "SINGLE ROOM"
+      },
+      "dates": {
+        "startDate": "2019-06-13T23:11:13.786+0000",
+        "endDate": "2019-06-13T23:11:13.786+0000"
+      },
+      "payer": {
+        "name": "Osama Bin Laden",
+        "phone": "80088008",
+        "dob": "",
+        "email": "niceguy@terror.org",
+        "idnum": "CATCHME",
+        "tagged": [],
+        "address": ""
+      },
+      "otherUsers": [],
+      "comment": ""
+    },
+    {
+      "room": {
+        "name": "SINGLE ROOM"
+      },
+      "dates": {
+        "startDate": "2019-06-14T04:14:13.228+0000",
+        "endDate": "2019-06-17T04:14:13.228+0000"
+      },
+      "payer": {
+        "name": "Yagami Light",
+        "phone": "97061843",
+        "dob": "28/2/1986",
+        "email": "light@deathnote.org",
+        "idnum": "G1459802R",
+        "tagged": [],
+        "address": ""
+      },
+      "otherUsers": [],
+      "comment": ""
+    }
   ]
 }

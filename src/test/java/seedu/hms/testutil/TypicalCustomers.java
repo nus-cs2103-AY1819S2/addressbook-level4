@@ -23,6 +23,8 @@ import seedu.hms.model.HotelManagementSystem;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.customer.Customer;
+import seedu.hms.model.reservation.Reservation;
+import seedu.hms.model.reservation.RoomType;
 
 /**
  * A utility class containing a list of {@code Customer} objects to be used in tests.
@@ -38,9 +40,9 @@ public class TypicalCustomers {
         .withEmail("johnd@example.com").withPhone("98765432").withIdNum("1233512A").withDateOfBirth("30/12/2000")
         .withTags("owesMoney", "friends").build();
     public static final Customer CARL = new CustomerBuilder().withName("Carl Kurz").withPhone("95352563")
-        .withEmail("heinz@example.com").withAddress("wall street").withIdNum("104535").withDateOfBirth("30/12/2001")
+        .withEmail("heinz@example.com").withAddress("wall street").withIdNum("10453512A").withDateOfBirth("30/12/2001")
         .build();
-    public static final Customer DANIEL =
+    private static final Customer DANIEL =
         new CustomerBuilder().withName("Daniel Meier").withPhone("87652533").withDateOfBirth("30/12/2002")
             .withEmail("cornelia@example.com").withAddress("10th street").withIdNum("1200512A")
             .withTags("friends").build();
@@ -50,7 +52,7 @@ public class TypicalCustomers {
     public static final Customer FIONA = new CustomerBuilder().withName("Fiona Kunz").withPhone("9482427")
         .withEmail("lydia@example.com").withAddress("little tokyo").withIdNum("1009512A").withDateOfBirth("30/12/2004")
         .build();
-    public static final Customer GEORGE = new CustomerBuilder().withName("George Best").withPhone("9482442")
+    private static final Customer GEORGE = new CustomerBuilder().withName("George Best").withPhone("9482442")
         .withEmail("anna@example.com").withAddress("4th street").withIdNum("1233912A").withDateOfBirth("30/12/2005")
         .build();
     public static final Customer VIP_CUSTOMER =
@@ -86,12 +88,22 @@ public class TypicalCustomers {
 
     // Bookings
 
-    public static final Booking ALICE_GYM =
+    private static final Booking ALICE_GYM =
         new BookingBuilder().withService(ServiceType.GYM).withTiming(14, 15).withPayer(ALICE)
             .build();
 
-    public static final Booking BENSON_GAMES_WITH_CARL =
+    private static final Booking BENSON_GAMES_WITH_CARL =
         new BookingBuilder().withService(ServiceType.GAMES).withTiming(12, 13).withPayer(BENSON)
+            .withOtherUsers(CARL).build();
+
+    // Reservations
+
+    private static final Reservation ALICE_SINGLE_ROOM =
+        new ReservationBuilder().withRoom(RoomType.SINGLE).withDates("14/04/2010", "17/04/2010").withPayer(ALICE)
+        .build();
+
+    private static final Reservation BENSON_DOUBLE_ROOM_WITH_CARL =
+        new ReservationBuilder().withRoom(RoomType.DOUBLE).withDates("14/04/2010", "17/04/2010").withPayer(ALICE)
             .withOtherUsers(CARL).build();
 
     private TypicalCustomers() {
@@ -108,6 +120,10 @@ public class TypicalCustomers {
         for (Booking booking : getTypicalBookings()) {
             ab.addBooking(booking);
         }
+        for (Reservation reservation : getTypicalReservations()) {
+            ab.addReservation(reservation);
+        }
+
         return ab;
     }
 
@@ -117,5 +133,9 @@ public class TypicalCustomers {
 
     public static List<Booking> getTypicalBookings() {
         return new ArrayList<>(Arrays.asList(ALICE_GYM, BENSON_GAMES_WITH_CARL));
+    }
+
+    public static List<Reservation> getTypicalReservations() {
+        return new ArrayList<>(Arrays.asList(ALICE_SINGLE_ROOM, BENSON_DOUBLE_ROOM_WITH_CARL));
     }
 }

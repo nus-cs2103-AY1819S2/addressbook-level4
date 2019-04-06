@@ -130,6 +130,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public Lesson getOpenedLesson() {
+        return managementModel.getOpenedLesson();
+    }
+
+    @Override
     public QuizUiDisplayFormatter getDisplayFormatter() {
         return quizModel.getDisplayFormatter();
     }

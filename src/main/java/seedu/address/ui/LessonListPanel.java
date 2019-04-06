@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.Collections;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -23,27 +24,6 @@ public class LessonListPanel extends UiPart<Region> {
         super(FXML);
         lessonListView.setItems(FXCollections.observableList(lessons));
         lessonListView.setCellFactory(listView -> new LessonListViewCell());
-        /*lessonListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selection in lesson list panel changed to : '" + newValue + "'");
-            onSelectedLessonChange.accept(newValue);
-        });
-        selectedLesson.addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selected lesson changed to: " + newValue);
-
-            // Don't modify selection if we are already selecting the selected lesson,
-            // otherwise we would have an infinite loop.
-            if (Objects.equals(lessonListView.getSelectionModel().getSelectedItem(), newValue)) {
-                return;
-            }
-
-            if (newValue == null) {
-                lessonListView.getSelectionModel().clearSelection();
-            } else {
-                int index = lessonListView.getItems().indexOf(newValue);
-                lessonListView.scrollTo(index);
-                lessonListView.getSelectionModel().clearAndSelect(index);
-            }
-        });*/
     }
 
     /**
@@ -54,6 +34,16 @@ public class LessonListPanel extends UiPart<Region> {
     public void updateLessonList(List<Lesson> lessons) {
         lessonListView.setItems(FXCollections.observableList(lessons));
         lessonListView.setCellFactory(listView -> new LessonListViewCell());
+    }
+
+    /**
+     * Updates the lesson list in GUI with a single lesson.
+     *
+     * @param lesson the list of lessons from {@code ManagementModel}
+     */
+    public void updateLessonList(Lesson lesson) {
+        lessonListView.setItems(FXCollections.observableList(Collections.singletonList(lesson)));
+        lessonListView.setCellFactory(listView -> new LessonOverviewViewCell());
     }
 
     /**
@@ -73,4 +63,21 @@ public class LessonListPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code Lesson}
+     * using a {@code LessonOverview}.
+     */
+    class LessonOverviewViewCell extends ListCell<Lesson> {
+        @Override
+        protected void updateItem(Lesson lesson, boolean empty) {
+            super.updateItem(lesson, empty);
+
+            if (empty || lesson == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(new LessonOverview(lesson).getRoot());
+            }
+        }
+    }
 }

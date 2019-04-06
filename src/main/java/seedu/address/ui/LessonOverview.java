@@ -3,15 +3,16 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.lesson.Lesson;
 
 /**
  * An UI component that displays information of a {@link Lesson}.
  */
-public class LessonCard extends UiPart<Region> {
+public class LessonOverview extends UiPart<Region> {
 
-    private static final String FXML = "LessonListCard.fxml";
+    private static final String FXML = "LessonOverview.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -24,20 +25,17 @@ public class LessonCard extends UiPart<Region> {
     public final Lesson lesson;
 
     //@FXML
-    //private HBox cardPane;
-    @FXML
-    private Label id;
+    private HBox cardPane;
     @FXML
     private Label name;
     @FXML
     private Label count;
     @FXML
-    private FlowPane headers;
+    private FlowPane bigHeaders;
 
-    public LessonCard(Lesson lesson, int displayedIndex) {
+    public LessonOverview(Lesson lesson) {
         super(FXML);
         this.lesson = lesson;
-        id.setText(displayedIndex + ". ");
         name.setText(lesson.getName());
 
         int cardCount = lesson.getCardCount();
@@ -55,18 +53,19 @@ public class LessonCard extends UiPart<Region> {
 
             if (i == questionIndex || i == answerIndex) {
                 label.getStyleClass().add("questionAnswer");
+                bigHeaders.getChildren().add(label);
             } else {
                 label.getStyleClass().add("core");
+                bigHeaders.getChildren().add(label);
             }
 
-            headers.getChildren().add(label);
             i++;
         }
 
         for (String s: lesson.getOptionalHeaders()) {
             Label label = new Label(s);
             label.getStyleClass().add("opt");
-            headers.getChildren().add(label);
+            bigHeaders.getChildren().add(label);
         }
     }
 
@@ -83,8 +82,7 @@ public class LessonCard extends UiPart<Region> {
         }
 
         // state check
-        LessonCard card = (LessonCard) other;
-        return id.getText().equals(card.id.getText())
-                && lesson.equals(card.lesson);
+        LessonOverview overview = (LessonOverview) other;
+        return lesson.equals(overview.lesson);
     }
 }

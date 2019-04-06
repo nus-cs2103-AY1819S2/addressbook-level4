@@ -4,14 +4,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
-import seedu.address.model.lesson.Lesson;
+import seedu.address.model.card.Card;
 
 /**
- * An UI component that displays information of a {@link Lesson}.
+ * An UI component that displays information of a {@link Card}.
  */
-public class LessonCard extends UiPart<Region> {
+public class FlashcardCard extends UiPart<Region> {
 
-    private static final String FXML = "LessonListCard.fxml";
+    private static final String FXML = "FlashcardCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -21,7 +21,7 @@ public class LessonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Lesson lesson;
+    public final Card card;
 
     //@FXML
     //private HBox cardPane;
@@ -30,28 +30,16 @@ public class LessonCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
-    private Label count;
-    @FXML
     private FlowPane headers;
 
-    public LessonCard(Lesson lesson, int displayedIndex) {
+    public FlashcardCard(Card card, int displayedIndex, int questionIndex, int answerIndex) {
         super(FXML);
-        this.lesson = lesson;
+        this.card = card;
         id.setText(displayedIndex + ". ");
-        name.setText(lesson.getName());
+        name.setText(card.getCore(questionIndex) + " / " + card.getCore(answerIndex));
 
-        int cardCount = lesson.getCardCount();
-        if (cardCount > 1) {
-            count.setText(cardCount + " cards");
-        } else {
-            count.setText(cardCount + " card");
-        }
-
-        int i = 0;
-        int questionIndex = lesson.getQuestionCoreIndex();
-        int answerIndex = lesson.getAnswerCoreIndex();
-        for (String s: lesson.getCoreHeaders()) {
-            Label label = new Label(s);
+        for (int i = 0; i < card.getCores().size(); i++) {
+            Label label = new Label(card.getCore(i));
 
             if (i == questionIndex || i == answerIndex) {
                 label.getStyleClass().add("questionAnswer");
@@ -60,11 +48,10 @@ public class LessonCard extends UiPart<Region> {
             }
 
             headers.getChildren().add(label);
-            i++;
         }
 
-        for (String s: lesson.getOptionalHeaders()) {
-            Label label = new Label(s);
+        for (int i = 0; i < card.getOptionals().size(); i++) {
+            Label label = new Label(card.getOptional(i));
             label.getStyleClass().add("opt");
             headers.getChildren().add(label);
         }
@@ -78,13 +65,13 @@ public class LessonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof LessonCard)) {
+        if (!(other instanceof FlashcardCard)) {
             return false;
         }
 
         // state check
-        LessonCard card = (LessonCard) other;
+        FlashcardCard card = (FlashcardCard) other;
         return id.getText().equals(card.id.getText())
-                && lesson.equals(card.lesson);
+                && this.equals(card);
     }
 }

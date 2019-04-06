@@ -77,7 +77,7 @@ public class OpenLessonCommand extends ManagementCommand {
                     targetIndex.getOneBased()), e);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, lessonName));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, lessonName, true));
     }
 
     /**

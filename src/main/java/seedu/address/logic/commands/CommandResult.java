@@ -27,6 +27,8 @@ public class CommandResult {
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
+    private final boolean showCards;
+
     private final UpdateStorage updateStorage;
 
     /**
@@ -49,6 +51,20 @@ public class CommandResult {
         this.exit = false;
         this.updateStorage = UpdateStorage.NONE;
         this.deleteLessonName = null;
+        this.showCards = false;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showCards) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showQuiz = false;
+        this.showHelp = false;
+        this.exit = false;
+        this.updateStorage = UpdateStorage.NONE;
+        this.deleteLessonName = null;
+        this.showCards = showCards;
     }
 
     /**
@@ -61,6 +77,7 @@ public class CommandResult {
         this.exit = exit;
         this.updateStorage = UpdateStorage.NONE;
         this.deleteLessonName = null;
+        this.showCards = false;
     }
 
     public CommandResult (String feedbackToUser, UpdateStorage type) {
@@ -70,6 +87,7 @@ public class CommandResult {
         this.exit = false;
         this.updateStorage = type;
         this.deleteLessonName = null;
+        this.showCards = false;
     }
 
     public CommandResult (String feedbackToUser, String deleteLessonName) {
@@ -79,6 +97,7 @@ public class CommandResult {
         this.exit = false;
         this.updateStorage = UpdateStorage.DELETE;
         this.deleteLessonName = deleteLessonName;
+        this.showCards = false;
     }
 
     public String getFeedbackToUser() {
@@ -95,6 +114,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isShowCards() {
+        return showCards;
     }
 
     public UpdateStorage getUpdateStorageType() {

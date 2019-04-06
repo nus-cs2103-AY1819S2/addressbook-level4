@@ -30,13 +30,13 @@ public class EditPaxCommandSystemTest extends RestOrRantSystemTest {
         /* Case: update a table restaurant, command with leading spaces and trailing spaces -> updated */
         Table updateTo = new TableBuilder().withTableStatus(VALID_TABLE_STATUS).build();
         String command = "   " + EditPaxCommand.COMMAND_WORD + "  " + VALID_TABLE_NUMBER + " "
-                + updateTo.getTableStatus().toString().split("/")[0];
+                + updateTo.getTableStatus().getNumberOfTakenSeats();
         assertCommandSuccess(command, new TableBuilder(TABLE1).build(), updateTo);
 
         /* Case: update a table same table status as another table in the restaurant -> updated */
         updateTo = new TableBuilder().withTableStatus(VALID_TABLE_STATUS_SAME_AS_TABLE4).build();
         command = EditPaxCommand.COMMAND_WORD + " " + VALID_TABLE_NUMBER + " "
-                + updateTo.getTableStatus().toString().split("/")[0];
+                + updateTo.getTableStatus().getNumberOfTakenSeats();
         assertCommandSuccess(command, new TableBuilder().withTableStatus("1/4").build(), updateTo);
 
         /* ----------------------------------- Perform invalid update operations ------------------------------------ */
@@ -61,7 +61,7 @@ public class EditPaxCommandSystemTest extends RestOrRantSystemTest {
         /* Case: table status larger than seats available -> rejected */
         command = EditPaxCommand.COMMAND_WORD + " " + VALID_TABLE_NUMBER + " " + INVALID_TABLE_STATUS_TOO_LARGE;
         assertCommandFailure(command, String.format(TableStatus.MESSAGE_INVALID_NUMBER_OF_CUSTOMERS,
-                TABLE1.getTableStatus().toString().split("/")[1]));
+                TABLE1.getTableStatus().getNumberOfTakenSeats()));
 
         /* Case: same table status as current table status of target table -> rejected */
         command = EditPaxCommand.COMMAND_WORD + " " + VALID_TABLE_NUMBER + " " + INVALID_TABLE_STATUS_NO_CHANGE;

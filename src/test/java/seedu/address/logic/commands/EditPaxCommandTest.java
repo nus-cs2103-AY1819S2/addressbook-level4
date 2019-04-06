@@ -54,7 +54,7 @@ public class EditPaxCommandTest {
         EditPaxCommand editPaxCommand = new EditPaxCommand(invalidTableStatusInString);
         assertCommandFailure(Mode.RESTAURANT_MODE, editPaxCommand, model, commandHistory,
                 String.format(TableStatus.MESSAGE_INVALID_NUMBER_OF_CUSTOMERS,
-                        TABLE1.getTableStatus().toString().split("/")[1]));
+                        TABLE1.getTableStatus().getNumberOfTakenSeats()));
     }
 
     @Test

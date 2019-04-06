@@ -48,7 +48,7 @@ public class EditPaxCommand extends Command {
             throw new CommandException(String.format(MESSAGE_INVALID_TABLE_NUMBER, tableNumber));
         }
         String updatedTableStatusInString =
-                newTableStatus[1] + "/" + optionalTable.get().getTableStatus().toString().substring(2);
+                newTableStatus[1] + "/" + optionalTable.get().getTableStatus().getNumberOfSeats();
         TableStatus updatedTableStatus;
         try {
             updatedTableStatus = new TableStatus(updatedTableStatusInString);

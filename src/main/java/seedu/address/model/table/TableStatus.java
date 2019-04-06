@@ -56,6 +56,20 @@ public class TableStatus {
         return test.matches(SEATS_VALIDATION_REGEX);
     }
 
+    /**
+     * Returns the number of seats at the table
+     */
+    public String getNumberOfSeats() {
+        return numberOfSeats;
+    }
+
+    /**
+     * Returns the number of customers at the table.
+     */
+    public String getNumberOfTakenSeats() {
+        return numberOfTakenSeats;
+    }
+
     @Override
     public boolean equals(Object other) {
         return this == other

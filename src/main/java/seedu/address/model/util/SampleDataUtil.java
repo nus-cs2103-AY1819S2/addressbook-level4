@@ -1,6 +1,8 @@
 package seedu.address.model.util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,6 +21,8 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code GradTrak} with sample data.
  */
 public class SampleDataUtil {
+    public static final int NUM_SEMS = 10;
+
     public static ModuleTaken[] getSampleModulesTaken() {
         return new ModuleTaken[] {
             new ModuleTaken(new ModuleInfoCode("CS2103T"), Semester.valueOf("Y1S1"), Grade.valueOf("C"),
@@ -42,39 +46,14 @@ public class SampleDataUtil {
         };
     }
 
-    public static SemLimit[] getSampleSemesterLimits() {
-        return new SemLimit[] {
-            new SemLimit(new CapAverage(2.0), new CapAverage(5.0), new Hour("5.0"), new Hour("9.0"),
+    public static List<SemLimit> getSampleSemesterLimits() {
+        List<SemLimit> semList = new ArrayList<>();
+        for (int i = 0; i < NUM_SEMS; i++) {
+            semList.add(new SemLimit(new CapAverage(2.0), new CapAverage(5.0), new Hour("5.0"), new Hour("9.0"),
                     new Hour("2.5"), new Hour("5.0"), new Hour("2.0"), new Hour("5.0"), new Hour("2.0"),
-                    new Hour("5.0"), new Hour("6.0"), new Hour("10.0")),
-            new SemLimit(new CapAverage(2.0), new CapAverage(5.0), new Hour("5.0"), new Hour("9.0"),
-                    new Hour("2.5"), new Hour("5.0"), new Hour("2.0"), new Hour("5.0"), new Hour("2.0"),
-                    new Hour("5.0"), new Hour("6.0"), new Hour("10.0")),
-            new SemLimit(new CapAverage(2.0), new CapAverage(5.0), new Hour("5.0"), new Hour("9.0"),
-                    new Hour("2.5"), new Hour("5.0"), new Hour("2.0"), new Hour("5.0"), new Hour("2.0"),
-                    new Hour("5.0"), new Hour("6.0"), new Hour("10.0")),
-            new SemLimit(new CapAverage(2.0), new CapAverage(5.0), new Hour("5.0"), new Hour("9.0"),
-                    new Hour("2.5"), new Hour("5.0"), new Hour("2.0"), new Hour("5.0"), new Hour("2.0"),
-                    new Hour("5.0"), new Hour("6.0"), new Hour("10.0")),
-            new SemLimit(new CapAverage(2.0), new CapAverage(5.0), new Hour("5.0"), new Hour("9.0"),
-                    new Hour("2.5"), new Hour("5.0"), new Hour("2.0"), new Hour("5.0"), new Hour("2.0"),
-                    new Hour("5.0"), new Hour("6.0"), new Hour("10.0")),
-            new SemLimit(new CapAverage(2.0), new CapAverage(5.0), new Hour("5.0"), new Hour("9.0"),
-                    new Hour("2.5"), new Hour("5.0"), new Hour("2.0"), new Hour("5.0"), new Hour("2.0"),
-                    new Hour("5.0"), new Hour("6.0"), new Hour("10.0")),
-            new SemLimit(new CapAverage(2.0), new CapAverage(5.0), new Hour("5.0"), new Hour("9.0"),
-                    new Hour("2.5"), new Hour("5.0"), new Hour("2.0"), new Hour("5.0"), new Hour("2.0"),
-                    new Hour("5.0"), new Hour("6.0"), new Hour("10.0")),
-            new SemLimit(new CapAverage(2.0), new CapAverage(5.0), new Hour("5.0"), new Hour("9.0"),
-                    new Hour("2.5"), new Hour("5.0"), new Hour("2.0"), new Hour("5.0"), new Hour("2.0"),
-                    new Hour("5.0"), new Hour("6.0"), new Hour("10.0")),
-            new SemLimit(new CapAverage(2.0), new CapAverage(5.0), new Hour("5.0"), new Hour("9.0"),
-                    new Hour("2.5"), new Hour("5.0"), new Hour("2.0"), new Hour("5.0"), new Hour("2.0"),
-                    new Hour("5.0"), new Hour("6.0"), new Hour("10.0")),
-            new SemLimit(new CapAverage(2.0), new CapAverage(5.0), new Hour("5.0"), new Hour("0.0"),
-                    new Hour("2.5"), new Hour("5.0"), new Hour("2.0"), new Hour("5.0"), new Hour("2.0"),
-                    new Hour("5.0"), new Hour("6.0"), new Hour("10.0"))
-        };
+                    new Hour("5.0"), new Hour("6.0"), new Hour("10.0")));
+        }
+        return semList;
     }
 
     public static ReadOnlyGradTrak getSampleGradTrak() {
@@ -82,9 +61,7 @@ public class SampleDataUtil {
         for (ModuleTaken sampleModuleTaken : getSampleModulesTaken()) {
             sampleAb.addModuleTaken(sampleModuleTaken);
         }
-        for (SemLimit semLimit : getSampleSemesterLimits()) {
-            sampleAb.addSemesterLimit(semLimit);
-        }
+        sampleAb.setSemesterLimits(getSampleSemesterLimits());
         sampleAb.setCurrentSemester(Semester.Y1S1);
         return sampleAb;
     }

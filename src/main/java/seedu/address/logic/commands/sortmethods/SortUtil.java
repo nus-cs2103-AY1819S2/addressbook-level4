@@ -6,6 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//Do the skill method here (for add all person attributes?)
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.SkillsTag;
 

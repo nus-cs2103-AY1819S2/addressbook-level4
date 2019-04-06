@@ -25,14 +25,24 @@ public class CliSyntax {
     public static final Prefix PREFIX_EDUCATION_REVERSE = new Prefix("/d");
 
     /* Sort-Word definitions*/
-    public static final SortWord SORTWORD_SKILLS = new SortWord("skills");
-    public static final SortWord SORTWORD_REVERSE_SKILLS = new SortWord("reverse skills");
-    public static final SortWord SORTWORD_NAME = new SortWord("name");
-    public static final SortWord SORTWORD_REVERSE_NAME = new SortWord("reverse name");
-    public static final SortWord SORTWORD_SURNAME = new SortWord("surname");
-    public static final SortWord SORTWORD_REVERSE_SURNAME = new SortWord("reverse surname");
-    public static final SortWord SORTWORD_GPA = new SortWord("gpa");
-    public static final SortWord SORTWORD_REVERSE_GPA = new SortWord("reverse gpa");
     public static final SortWord SORTWORD_EDUCATION = new SortWord("education");
+    public static final SortWord SORTWORD_ENDORSEMENTS = new SortWord("endorsements");
+    public static final SortWord SORTWORD_ENDORSEMENT_NUMBER = new SortWord("endorsement number");
+    public static final SortWord SORTWORD_GPA = new SortWord("gpa");
+    public static final SortWord SORTWORD_NAME = new SortWord("name");
+    public static final SortWord SORTWORD_POSITION_NUMBER = new SortWord("position number");
+    public static final SortWord SORTWORD_POSITIONS = new SortWord("positions");
     public static final SortWord SORTWORD_REVERSE_EDUCATION = new SortWord("reverse education");
+    public static final SortWord SORTWORD_REVERSE_ENDORSEMENTS = new SortWord("reverse endorsements");
+    public static final SortWord SORTWORD_REVERSE_ENDORSEMENT_NUMBER = new SortWord("reverse endorsement number");
+    public static final SortWord SORTWORD_REVERSE_GPA = new SortWord("reverse gpa");
+    public static final SortWord SORTWORD_REVERSE_NAME = new SortWord("reverse name");
+    public static final SortWord SORTWORD_REVERSE_POSITION_NUMBER = new SortWord("reverse position number");
+    public static final SortWord SORTWORD_REVERSE_POSITIONS = new SortWord("reverse positions");
+    public static final SortWord SORTWORD_REVERSE_SKILL_NUMBER = new SortWord("reverse skill number");
+    public static final SortWord SORTWORD_REVERSE_SKILLS = new SortWord("reverse skills");
+    public static final SortWord SORTWORD_REVERSE_SURNAME = new SortWord("reverse surname");
+    public static final SortWord SORTWORD_SKILL_NUMBER = new SortWord("skill number");
+    public static final SortWord SORTWORD_SKILLS = new SortWord("skills");
+    public static final SortWord SORTWORD_SURNAME = new SortWord("surname");
 }

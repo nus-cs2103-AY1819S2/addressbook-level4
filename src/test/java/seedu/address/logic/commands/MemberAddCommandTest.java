@@ -308,6 +308,11 @@ public class MemberAddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void removeMemberFromAllAttendance(MatricNumber matricNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

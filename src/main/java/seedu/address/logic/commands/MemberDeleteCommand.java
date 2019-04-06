@@ -41,6 +41,7 @@ public class MemberDeleteCommand extends MemberCommand {
         }
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.removeMemberFromAllAttendance(personToDelete.getMatricNumber());
         model.deletePerson(personToDelete);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));

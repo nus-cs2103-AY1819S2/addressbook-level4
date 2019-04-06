@@ -238,4 +238,9 @@ public interface Model {
      * Update entire activity list
      */
     void updateActivityList();
+
+    /**
+     * removes member from all activities using matriculation number
+     */
+    void removeMemberFromAllAttendance(MatricNumber matricNumber);
 }

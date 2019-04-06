@@ -5,6 +5,7 @@ import static seedu.finance.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 //import java.util.Date;
 import java.util.Objects;
@@ -220,7 +221,7 @@ public class ModelManager implements Model {
     }
 
     private Predicate <Record> defaultRecordPredicate() {
-        LocalDate now = LocalDate.now().minusDays(7);
+        LocalDateTime now = LocalDateTime.now().minusDays(7);
         return e -> e.getDate().isAfter(now);
     }
 

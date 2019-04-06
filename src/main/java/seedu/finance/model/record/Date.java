@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.finance.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -102,5 +103,10 @@ public class Date {
         LocalDate second = b.getDate();
 
         return second.compareTo(first);
+    }
+
+    //Not sure if this is correct...
+    public boolean isAfter(LocalDate date) {
+        return (this.getDate().compareTo(date) > 0);
     }
 }

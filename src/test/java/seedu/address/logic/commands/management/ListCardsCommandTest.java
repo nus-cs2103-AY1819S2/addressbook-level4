@@ -3,6 +3,7 @@ package seedu.address.logic.commands.management;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_OPENED_LESSON;
 import static seedu.address.logic.commands.management.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.management.ListCardsCommand.MESSAGE_NO_CARDS;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
@@ -33,16 +34,26 @@ public class ListCardsCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_listNoCards() {
+    public void execute_noOpenedLesson_returnNoLessonMsg() {
         ManagementModel modelStub = new MgtModelStubWithNoCards();
 
-        // attempt to list all cards when there are no cards -> return feedback that there are no cards
+        // attempt to list all cards when there is no opened lesson -> error message
+        assertCommandSuccess(new ListCardsCommand(), modelStub,
+                commandHistory, MESSAGE_NO_OPENED_LESSON, modelStub);
+    }
+
+    @Test
+    public void execute_openedLessonHasNoCards_returnNoCardMsg() {
+        MgtModelStubWithNoCards modelStub = new MgtModelStubWithNoCards();
+        modelStub.setIsThereOpenedLesson(true);
+
+        // attempt to list all cards when there is no cards in opened lesson -> error message
         assertCommandSuccess(new ListCardsCommand(), modelStub,
                 commandHistory, MESSAGE_NO_CARDS, modelStub);
     }
 
     @Test
-    public void execute_listCards() throws Exception {
+    public void execute_openedLessonHasCards_listCards() throws Exception {
         ManagementModel modelStub = new MgtModelStubWithCards();
 
         // attempt to list all cards when there are cards -> list all cards
@@ -64,8 +75,8 @@ public class ListCardsCommandTest {
 
     @Test
     public void buildEmptyList_buildSuccessful() {
-        String feedback = new ListCardsCommand().buildList(new ArrayList<String>(),
-                new ArrayList<String>(), new ArrayList<Card>());
+        String feedback = new ListCardsCommand().buildList(new ArrayList<>(),
+                new ArrayList<>(), new ArrayList<>());
         assertEquals(feedback, MESSAGE_NO_CARDS);
     }
 
@@ -88,6 +99,17 @@ public class ListCardsCommandTest {
     }
 
     private class MgtModelStubWithNoCards extends ManagementModelStub {
+        private boolean isThereOpenedLesson = false;
+
+        public void setIsThereOpenedLesson(boolean isThereOpenedLesson) {
+            this.isThereOpenedLesson = isThereOpenedLesson;
+        }
+
+        @Override
+        public boolean isThereOpenedLesson() {
+            return isThereOpenedLesson;
+        }
+
         @Override
         public List<Card> getOpenedLessonCards() {
             return null;
@@ -96,6 +118,11 @@ public class ListCardsCommandTest {
 
 
     private class MgtModelStubWithCards extends ManagementModelStub {
+        @Override
+        public boolean isThereOpenedLesson() {
+            return true;
+        }
+
         @Override
         public List<Card> getOpenedLessonCards() {
             return TypicalLessonList.LESSON_DEFAULT.getCards();

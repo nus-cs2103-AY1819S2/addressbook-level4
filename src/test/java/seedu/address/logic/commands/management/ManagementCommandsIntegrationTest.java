@@ -2,8 +2,8 @@ package seedu.address.logic.commands.management;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_OPENED_LESSON;
 import static seedu.address.logic.commands.management.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.management.ListCardsCommand.MESSAGE_NO_CARDS;
 import static seedu.address.logic.commands.management.ListLessonsCommand.MESSAGE_NO_LESSONS;
 import static seedu.address.testutil.TypicalLessonList.LESSON_DEFAULT;
 
@@ -57,7 +57,7 @@ public class ManagementCommandsIntegrationTest {
         // Step 2: listCards
         // lists cards when no lesson is opened -> list nothing
         assertCommandSuccess(new ListCardsCommand(), model,
-                commandHistory, MESSAGE_NO_CARDS, model);
+                commandHistory, MESSAGE_NO_OPENED_LESSON, model);
 
         // Step 3: addLesson
         // add valid lesson -> lesson added successfully
@@ -138,7 +138,7 @@ public class ManagementCommandsIntegrationTest {
         // Step 5: listCards
         // lists cards when no lesson is opened -> list nothing
         assertCommandSuccess(new ListCardsCommand(), model,
-                commandHistory, MESSAGE_NO_CARDS, model);
+                commandHistory, MESSAGE_NO_OPENED_LESSON, model);
 
         // Step 6: deleteLesson
         // delete valid lesson -> lesson deleted successfully

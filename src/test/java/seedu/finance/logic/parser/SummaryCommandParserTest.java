@@ -13,8 +13,8 @@ public class SummaryCommandParserTest {
 
     @Test
     public void parseAllFieldsPresentSuccess() {
-        assertParseSuccess(parser, " n/7 p/m", new SummaryCommand(7, "m"));
-        assertParseSuccess(parser, " n/6 p/d", new SummaryCommand(6, "d"));
+        assertParseSuccess(parser, " #/7 p/m", new SummaryCommand(7, "m"));
+        assertParseSuccess(parser, " #/6 p/d", new SummaryCommand(6, "d"));
     }
 
     @Test
@@ -30,7 +30,7 @@ public class SummaryCommandParserTest {
         assertParseFailure(parser, " p/m", expectedMessage);
 
         // missing period
-        assertParseFailure(parser, " n/7", expectedMessage);
+        assertParseFailure(parser, " #/7", expectedMessage);
     }
 
     @Test
@@ -43,16 +43,16 @@ public class SummaryCommandParserTest {
         );
 
         // number less than 0
-        assertParseFailure(parser, " n/0 p/m", expectedMessagePeriodAmount);
+        assertParseFailure(parser, " #/0 p/m", expectedMessagePeriodAmount);
 
         // number not an int
-        assertParseFailure(parser, " n/1.5 p/m", expectedMessagePeriodAmount);
+        assertParseFailure(parser, " #/1.5 p/m", expectedMessagePeriodAmount);
 
         // period not d or m
-        assertParseFailure(parser, " n/1 p/p", expectedMessage);
+        assertParseFailure(parser, " #/1 p/p", expectedMessage);
 
         // all params invalid
-        assertParseFailure(parser, " n/0 p/p", expectedMessage);
+        assertParseFailure(parser, " #/0 p/p", expectedMessage);
     }
 }
 

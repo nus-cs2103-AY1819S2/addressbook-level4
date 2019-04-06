@@ -96,16 +96,16 @@ public class SkillsTest {
         skillsTest.addSpecialisation(Specialisation.GYNAECOLOGY);
         skillsTest.addSpecialisation(Specialisation.ORTHOPAEDIC);
 
-        // contains one
+        // getSpecialisation one
         Skills otherSkills = new Skills();
         otherSkills.addSpecialisation(Specialisation.GYNAECOLOGY);
         assertTrue(skillsTest.containsAll(otherSkills.getSkills()));
 
-        // contains two
+        // getSpecialisation two
         otherSkills.addSpecialisation(Specialisation.NEUROLOGY);
         assertTrue(skillsTest.containsAll(otherSkills.getSkills()));
 
-        // contains three
+        // getSpecialisation three
         otherSkills.addSpecialisation(Specialisation.ORTHOPAEDIC);
         assertTrue(skillsTest.containsAll(otherSkills.getSkills()));
 

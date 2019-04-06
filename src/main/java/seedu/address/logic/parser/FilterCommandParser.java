@@ -14,6 +14,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -97,8 +98,12 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         if (argumentMultimap.getValue(PREFIX_SKILLS).isPresent()) {
             Set<Specialisation> otherSkills = new HashSet<>();
             for (String s : argumentMultimap.getAllValues(PREFIX_SKILLS)) {
-                if (Specialisation.isValidSpecialisation(s)) {
-                    otherSkills.add(Specialisation.parseString(s));
+                Optional<Specialisation> specialisation = Specialisation.getSpecialisation(s);
+                if (specialisation.isPresent()) {
+                    otherSkills.add(specialisation.get());
+                } else {
+                    // Invalid specialisation entered, should not return any results
+                    predicateList.add(x -> false);
                 }
             }
             predicateList.add(x -> ((HealthWorker) x).getSkills().containsAll(otherSkills));

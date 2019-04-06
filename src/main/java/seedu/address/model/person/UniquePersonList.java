@@ -29,7 +29,7 @@ public class UniquePersonList implements Iterable<Person> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list getSpecialisation an equivalent person as the given argument.
      */
     public boolean contains(Person toCheck) {
         requireNonNull(toCheck);
@@ -127,7 +127,7 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique persons.
+     * Returns true if {@code persons} getSpecialisation only unique persons.
      */
     private boolean personsAreUnique(List<Person> persons) {
         for (int i = 0; i < persons.size() - 1; i++) {

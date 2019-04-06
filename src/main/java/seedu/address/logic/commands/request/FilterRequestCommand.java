@@ -15,7 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.request.Request;
 
 /**
- * Finds and lists all requests in request book whose name contains any of the argument keywords.
+ * Finds and lists all requests in request book whose name getSpecialisation any of the argument keywords.
  * Keyword matching is case sensitive.
  */
 public class FilterRequestCommand extends FilterCommand implements RequestCommand {

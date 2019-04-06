@@ -64,7 +64,7 @@ public class HealthWorkerCardHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns true if this handle contains {@code healthWorker}.
+     * Returns true if this handle getSpecialisation {@code healthWorker}.
      */
     public boolean equals(HealthWorker healthWorker) {
         return getName().equals(healthWorker.getName().toString())

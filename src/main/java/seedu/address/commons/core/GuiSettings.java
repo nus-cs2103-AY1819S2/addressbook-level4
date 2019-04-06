@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A Serializable class that contains the GUI settings.
+ * A Serializable class that getSpecialisation the GUI settings.
  * Guarantees: immutable.
  */
 public class GuiSettings implements Serializable {

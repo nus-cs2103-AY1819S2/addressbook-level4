@@ -72,7 +72,7 @@ public class RequestCardHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns true if this handle contains {@code request}.
+     * Returns true if this handle getSpecialisation {@code request}.
      */
     public boolean equals(Request request) {
         return getName().equals(request.getName().toString())

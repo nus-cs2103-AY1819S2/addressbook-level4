@@ -286,8 +286,8 @@ Health Workers authorized for medical practice specific to their
 `specialisation` include doctors, nurses and community health workers that
 are officially certified by certain medical practices.
 
-The fields entered by the user following each prefix must adhere to the
-following format:
+Each of the following fields entered by the user following
+each prefix are compulsory, and must adhere to the following format:
 
 * `<worker_name>`: Name must only contain alphanumeric characters and spaces
 , and cannot be empty. E.g Dog Terr
@@ -339,7 +339,7 @@ these requests in the `assign` command.
 
 Examples:
 
-* `add 1 n/Dog Terr p/92837710 i/S98817471Z s/GENERAL_PRACTICE
+* `add 1 n/Dog Terr p/92837710 i/S98817471Z o/NUH s/GENERAL_PRACTICE
 s/ORTHOPAEDIC`
 * `add request n/Pay Shun c/Heart Attack t/14:00:00 d/05:05:2019`
 
@@ -456,14 +456,18 @@ Format: `filter <type> <keyword> [<more_keywords>]...` +
 * `filter h <keyword> [<more_keywords>]`
 * `filter 1 <keyword> [<more_keywords>]`
 
-Upon entering the command with valid inputs, searches the entire list of health
-workers in Health Hub, and only displays the health workers whose fields matches the parameters specified in the
-`filter` command.
+Upon entering the command with valid inputs, HealthHub searches the entire list
+ of health
+workers in Health Hub, and only displays the health workers whose fields
+contains the parameters specified in the
+`filter` command as a substring.
 
 [NOTE]
 ====
-For specialisation fields, parameters are case sensitive, and only valid
-parameters will be accepted
+For specialisation fields, parameter values need not follow the exact format as
+the valid specialisation values provided under the `add` command section.
+Valid parameters may include case insensitive substrings (E.g 'physio' will
+match to 'PHYSIOTHERAPY'.
 ====
 // end::filterHealthWorker[]
 
@@ -490,20 +494,23 @@ identify requests or personnel, using the same prefixes as in `add`, `edit` and
 
 *Notes*:
 
-* The search is *case insensitive* for all fields apart from specialisation(e.g
+* The search is *case insensitive* for all fields (e.g
 `hans` will match `Hans`), and the *order of the keywords* does not matter(e.g
 `Hans Bo` will match `Bo Hans`).
 
 * Search using partial words will return all results with fields containing
-that subword. (e.g `filter 1 n/Tan` may return people with the surnames Tan or
+that substring. (e.g `filter 1 n/Tan` may return people with the surnames Tan or
 Tang)
 
 {nbsp}
 
+// tag::filterExample[]
 [TIP]
 ====
 Multiple conditions for filtering health workers and requests can be added
-simultaneously for more expressive search.
+simultaneously for more expressive search. Note that if multiple parameters
+are specified, HealthHub displays healthworkers or requests that match *all*
+the criteria mentioned.
 
 Example:
 
@@ -522,7 +529,8 @@ Examples:
 
 * `filter h s/GENERAL_PRACTICE s/GYNAECOLOGY` +
 Returns all health workers whose field of expertise include general practice
-or gynaecology.
+*and* gynaecology.
+// end::filterExample[]
 * `filter request n/alice` +
 Returns all patients whose name contains "alice".
 * `filter r p/9177` +

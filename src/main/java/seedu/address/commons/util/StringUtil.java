@@ -13,7 +13,7 @@ import java.util.Arrays;
 public class StringUtil {
 
     /**
-     * Returns true if the {@code sentence} contains the {@code word}.
+     * Returns true if the {@code sentence} getSpecialisation the {@code word}.
      *   Ignores case, but a full word match is required.
      *   <br>examples:<pre>
      *       containsWordIgnoreCase("ABc def", "abc") == true
@@ -52,7 +52,7 @@ public class StringUtil {
      * Returns true if {@code s} represents a non-zero unsigned integer
      * e.g. 1, 2, 3, ..., {@code Integer.MAX_VALUE} <br>
      * Will return false for any other non-null string input
-     * e.g. empty string, "-1", "0", "+1", and " 2 " (untrimmed), "3 0" (contains whitespace), "1 a" (contains letters)
+     * e.g. empty string, "-1", "0", "+1", and " 2 " (untrimmed), "3 0" (getSpecialisation whitespace), "1 a" (getSpecialisation letters)
      * @throws NullPointerException if {@code s} is null.
      */
     public static boolean isNonZeroUnsignedInteger(String s) {

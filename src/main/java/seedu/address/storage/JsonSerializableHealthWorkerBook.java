@@ -20,7 +20,7 @@ import seedu.address.model.person.healthworker.HealthWorker;
 class JsonSerializableHealthWorkerBook {
 
     public static final String MESSAGE_DUPLICATE_HEALTHWORKER =
-            "HealthWorkers list contains duplicate healthWorker(s).";
+            "HealthWorkers list getSpecialisation duplicate healthWorker(s).";
 
 
     private final List<JsonAdaptedHealthWorker> healthWorkers = new ArrayList<>();

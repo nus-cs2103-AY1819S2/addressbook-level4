@@ -19,7 +19,7 @@ import seedu.address.model.request.Request;
 @JsonRootName(value = "requestbook")
 public class JsonSerializableRequestBook {
 
-    public static final String MESSAGE_DUPLICATE_REQUEST = "Request list contains duplicate "
+    public static final String MESSAGE_DUPLICATE_REQUEST = "Request list getSpecialisation duplicate "
         + "request(s).";
 
     private final List<JsonAdaptedRequest> requests = new ArrayList<>();

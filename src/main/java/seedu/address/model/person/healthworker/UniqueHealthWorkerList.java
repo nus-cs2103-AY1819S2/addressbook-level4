@@ -35,7 +35,7 @@ public class UniqueHealthWorkerList implements Iterable<HealthWorker> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent HealthWorker as the
+     * Returns true if the list getSpecialisation an equivalent HealthWorker as the
      * given argument.
      */
     public boolean contains(HealthWorker toCheck) {
@@ -130,7 +130,7 @@ public class UniqueHealthWorkerList implements Iterable<HealthWorker> {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique HealthWorkers.
+     * Returns true if {@code persons} getSpecialisation only unique HealthWorkers.
      */
     private boolean workersAreUnique(List<HealthWorker> workers) {
         for (int i = 0; i < workers.size() - 1; i++) {

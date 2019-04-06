@@ -237,6 +237,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         return jobs.asUnmodifiableObservableList();
     }
 
+    public UniquePersonList getUniquePersonList() {
+        return persons;
+    }
+
     /**
      * Generates interviews
      */

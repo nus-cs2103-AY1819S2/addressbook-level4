@@ -609,7 +609,7 @@ _{explain how the user can enable/disable data encryption}_
 * *Generate bill for specific booking* : `{generate-bill-booking/gb-b} INDEX [s/SERVICE_NAME] [:/START_TIME-END_TIME]`
 * *Generate bill for specific reservation* : `{generate-bill-reservation/gb-r} INDEX [r/ROOM_TYPE]`
 * *Generate bill for customer* : `{generate-bill-customer/gb-c} INDEX`
-* *Switch tab* : `{switch-tab/st} PANEL_NUMBER TAB_NUMBER
+* *Switch tab* : `{switch-tab/st} PANEL_NUMBER TAB_NUMBER`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`

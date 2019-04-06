@@ -87,7 +87,8 @@ public class GenerateBillForBookingCommandParser implements Parser<GenerateBillF
             && bookingWithinTimePredicate.test(bookingTested);
         billModel.updateFilteredBookingList(bookingPredicate);
         ObservableList<Booking> bookingObservableList = billModel.getFilteredBookingList();
-        HashMap<ServiceType, Pair<Double, Integer>> bookingBill = billModel.generateHashMapForBooking(bookingObservableList);
+        HashMap<ServiceType, Pair<Double, Integer>> bookingBill =
+            billModel.generateHashMapForBooking(bookingObservableList);
 
         // total amount for booking
         double amountBooking = billModel.generateBillForBooking(bookingObservableList);

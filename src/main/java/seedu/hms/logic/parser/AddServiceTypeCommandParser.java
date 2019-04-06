@@ -2,22 +2,14 @@ package seedu.hms.logic.parser;
 
 import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_CAPACITY;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_COMMENT;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_CUSTOMERS;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_PAYER;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_RATE;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_SERVICE;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_TIMING;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import seedu.hms.logic.commands.AddServiceTypeCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
-import seedu.hms.model.CustomerManager;
-import seedu.hms.model.CustomerModel;
 import seedu.hms.model.booking.serviceType.ServiceType;
 import seedu.hms.model.customer.Name;
 import seedu.hms.model.util.TimeRange;
@@ -49,7 +41,8 @@ public class AddServiceTypeCommandParser implements Parser<AddServiceTypeCommand
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_TIMING, PREFIX_CAPACITY, PREFIX_RATE)
             || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddServiceTypeCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                AddServiceTypeCommand.MESSAGE_USAGE));
         }
 
         Name serviceName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());

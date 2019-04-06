@@ -66,7 +66,8 @@ public interface BillModel extends Model {
     /**
      * Returns a HashMap that contains the entire booking bill for selected customer
      */
-    HashMap<ServiceType, Pair<Double, Integer>> generateHashMapForBooking(ObservableList<Booking> bookingObservableList);
+    HashMap<ServiceType, Pair<Double, Integer>> generateHashMapForBooking(
+        ObservableList<Booking> bookingObservableList);
 
     /**
      * Returns a HashMap that contains the entire reservation bill for selected customer

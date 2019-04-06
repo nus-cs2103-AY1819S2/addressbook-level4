@@ -7,7 +7,6 @@ import java.util.Iterator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.hms.model.booking.serviceType.exceptions.ServiceTypeNotFoundException;
-import seedu.hms.model.util.TimeRange;
 
 /**
  * A list of ServiceTypes
@@ -31,7 +30,8 @@ public class ServiceTypeList implements Iterable<ServiceType> {
     /**
      * Replaces the ServiceType {@code target} in the list with {@code editedServiceType}.
      * {@code target} must exist in the list.
-     * The ServiceType identity of {@code editedServiceType} must not be the same as another existing ServiceType in the list.
+     * The ServiceType identity of {@code editedServiceType} must not be the same as another existing ServiceType
+     * in the list.
      */
     public void setServiceType(int serviceTypeIndex, ServiceType editedServiceType) {
         requireNonNull(editedServiceType);

@@ -88,12 +88,12 @@ public class TypicalCustomers {
     // Bookings
 
     public static final Booking ALICE_GYM =
-        new BookingBuilder().withService(new ServiceType(50, new TimeRange(8, 22), "Gym", 7.0)).withTiming(14, 15).withPayer(ALICE)
-            .build();
+        new BookingBuilder().withService(new ServiceType(50, new TimeRange(8, 22), "Gym",
+            7.0)).withTiming(14, 15).withPayer(ALICE).build();
 
     public static final Booking BENSON_GAMES_WITH_CARL =
-        new BookingBuilder().withService(new ServiceType(20, new TimeRange(10, 22), "Games Room", 5.0)).withTiming(12, 13).withPayer(BENSON)
-            .withOtherUsers(CARL).build();
+        new BookingBuilder().withService(new ServiceType(20, new TimeRange(10, 22), "Games Room",
+            5.0)).withTiming(12, 13).withPayer(BENSON).withOtherUsers(CARL).build();
 
     private TypicalCustomers() {
     } // prevents instantiation

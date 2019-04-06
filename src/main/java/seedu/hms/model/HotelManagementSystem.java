@@ -98,6 +98,12 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
         setCustomers(newData.getCustomerList());
         setBookings(newData.getBookingList());
         setReservations(newData.getReservationList());
+        for (ServiceType st : newData.getServiceTypeList()) {
+            serviceTypes.add(st);
+        }
+        for (RoomType rt : newData.getRoomTypeList()) {
+            roomTypes.add(rt);
+        }
     }
 
     /**

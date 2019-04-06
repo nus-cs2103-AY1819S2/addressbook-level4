@@ -1,11 +1,9 @@
 package seedu.hms.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_CAPACITY;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_RATE;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_SERVICE;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_TIMING;
 
 import seedu.hms.logic.CommandHistory;

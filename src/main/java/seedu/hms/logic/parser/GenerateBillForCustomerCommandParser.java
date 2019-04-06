@@ -4,7 +4,6 @@ import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.ServiceConfigurationError;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -68,7 +67,8 @@ public class GenerateBillForCustomerCommandParser implements Parser<GenerateBill
         bookingPredicate = bookingContainsPayerPredicate;
         billModel.updateFilteredBookingList(bookingPredicate);
         ObservableList<Booking> bookingObservableList = billModel.getFilteredBookingList();
-        HashMap<ServiceType, Pair<Double, Integer>> bookingBill = billModel.generateHashMapForBooking(bookingObservableList);
+        HashMap<ServiceType, Pair<Double, Integer>> bookingBill =
+            billModel.generateHashMapForBooking(bookingObservableList);
 
         //Reservation bill
         ReservationContainsPayerPredicate reservationContainsPayerPredicate =

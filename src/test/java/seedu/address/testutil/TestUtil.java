@@ -61,4 +61,20 @@ public class TestUtil {
     public static Deck getDeck(DecksView decksView, Index index) {
         return decksView.getFilteredList().get(index.getZeroBased());
     }
+
+    /**
+     * Returns the last index of the deck in the {@code model}'s deck list.
+     */
+    public static Index getLastIndexDeck(DecksView decksView) {
+        return Index.fromOneBased(decksView.getFilteredList().size());
+    }
+
+    /**
+     * Returns the middle index of the deck in the {@code model}'s deck list.
+     */
+    public static Index getMidIndexDeck(DecksView decksView) {
+        return Index.fromOneBased(decksView.getFilteredList().size() / 2);
+    }
 }
+
+

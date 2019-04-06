@@ -1,9 +1,13 @@
 package seedu.address.logic;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import seedu.address.logic.commands.BackCommand;
 import javafx.scene.layout.Region;
+import seedu.address.logic.commands.BackCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.GenerateQuestionCommand;
 import seedu.address.logic.commands.OpenDeckCommand;
@@ -12,10 +16,6 @@ import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.ui.StudyPanel;
 import seedu.address.ui.UiPart;
-
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * ViewState of the Application during a Study session.

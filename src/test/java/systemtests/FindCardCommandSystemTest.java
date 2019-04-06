@@ -2,7 +2,7 @@ package systemtests;
 
 import seedu.address.model.Model;
 
-public class FindCommandSystemTest extends TopDeckSystemTest {
+public class FindCardCommandSystemTest extends TopDeckSystemTest {
 
     //    @Test
     //    public void find() {

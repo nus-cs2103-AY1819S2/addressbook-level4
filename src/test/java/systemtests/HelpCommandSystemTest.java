@@ -59,7 +59,7 @@ public class HelpCommandSystemTest extends TopDeckSystemTest {
     //
     //        // assert that the status bar too is updated correctly while the help window is open
     //        // note: the select command tested above does not update the status bar
-    //        executeCommand(DeleteCardCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased());
+    //        executeCommand(DeleteDeckCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased());
     //        assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     //    }
 

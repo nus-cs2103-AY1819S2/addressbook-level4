@@ -1,43 +1,54 @@
 package systemtests;
 
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DECKS;
+import static seedu.address.testutil.TypicalDecks.KEYWORD_MATCHING_JOHN;
+
+import org.junit.Test;
+
+import seedu.address.logic.DecksView;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
 public class ClearDecksCommandSystemTest extends TopDeckSystemTest {
 
-    //    @Test
-    //    public void clear() {
-    //        final Model defaultModel = getModel();
-    //
-    //        /* Case: clear non-empty TopDeck -> cleared */
-    //        assertCommandSuccess(ClearCommand.COMMAND_WORD);
-    //
-    //        /* Case: undo clearing address book -> original address book restored */
-    //        String command = UndoCommand.COMMAND_WORD;
-    //        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS + ClearCommand.COMMAND_WORD;
-    //        assertCommandSuccess(command, expectedResultMessage, defaultModel);
-    //        assertSelectedDeckUnchanged();
-    //
-    //        /* Case: redo clearing address book -> cleared */
-    //        command = RedoCommand.COMMAND_WORD;
-    //        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS + ClearCommand.COMMAND_WORD;
-    //        assertCommandSuccess(command, expectedResultMessage, new ModelManager());
-    //        assertSelectedDeckUnchanged();
-    //
-    //        /* Case: filters the deck list before clearing -> entire address book cleared */
-    //        executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
-    //        showDecksWithName(KEYWORD_MATCHING_JOHN);
-    //        assertCommandSuccess(ClearCommand.COMMAND_WORD);
-    //        assertSelectedDeckUnchanged();
-    //
-    //        /* Case: clear empty address book -> cleared */
-    //        assertCommandSuccess(ClearCommand.COMMAND_WORD);
-    //        assertSelectedDeckUnchanged();
-    //
-    //        /* Case: mixed case command word -> rejected */
-    //        assertCommandFailure("ClEaR", MESSAGE_UNKNOWN_COMMAND);
-    //    }
+    @Test
+    public void clear() {
+        Model model = getModel();
+        DecksView decksView = (DecksView) model.getViewState();
+
+        /* Case: clear non-empty TopDeck -> cleared */
+        assertCommandSuccess(ClearCommand.COMMAND_WORD);
+
+        /* Case: undo clearing address book -> original address book restored */
+        String command = UndoCommand.COMMAND_WORD;
+        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        decksView.updateFilteredList(PREDICATE_SHOW_ALL_DECKS);
+        assertCommandSuccess(command, expectedResultMessage, model);
+        assertSelectedDeckUnchanged();
+
+        /* Case: redo clearing address book -> cleared */
+        command = RedoCommand.COMMAND_WORD;
+        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, expectedResultMessage, new ModelManager());
+        assertSelectedDeckUnchanged();
+
+        /* Case: filters the deck list before clearing -> entire address book cleared */
+        executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
+        showDecksWithName(KEYWORD_MATCHING_JOHN, decksView);
+        assertCommandSuccess(ClearCommand.COMMAND_WORD);
+        assertSelectedDeckUnchanged();
+
+        /* Case: clear empty address book -> cleared */
+        assertCommandSuccess(ClearCommand.COMMAND_WORD);
+        assertSelectedDeckUnchanged();
+
+        /* Case: mixed case command word -> rejected */
+        assertCommandFailure("ClEaR", MESSAGE_UNKNOWN_COMMAND);
+    }
 
     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display
@@ -86,6 +97,6 @@ public class ClearDecksCommandSystemTest extends TopDeckSystemTest {
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
         assertSelectedDeckUnchanged();
         assertCommandBoxShowsErrorStyle();
-        assertStatusBarUnchanged();
+        //assertStatusBarUnchanged();
     }
 }

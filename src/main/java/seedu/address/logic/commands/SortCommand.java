@@ -27,7 +27,8 @@ public class SortCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts all persons in address book "
             + "according to the specified keyword and displays them as a list with index numbers.\n"
             + "Parameters: [reverse] KEYWORD \n"
-            + "Valid KEYWORD: name, surname, skills, education, gpa \n"
+            + "Valid KEYWORD: education, endorsements, endorsement number, gpa, name, positions, position number,\n"
+            + "               skills, skill number, surname \n"
             + "Example: " + COMMAND_WORD + " name \n"
             + "Example: " + COMMAND_WORD + " reverse skills ";
 
@@ -51,8 +52,8 @@ public class SortCommand extends Command {
         isReverseList = false;
         if (input.contains("reverse")) {
             isReverseList = true;
-            int finalSpace = input.lastIndexOf(" ");
-            return input.substring(finalSpace + 1);
+            int firstSpace = input.indexOf(" ");
+            return input.substring(firstSpace + 1);
         }
         return input;
     }
@@ -66,6 +67,7 @@ public class SortCommand extends Command {
         List<Person> lastShownList = model.getAddressBook().getPersonList();
         //Maybe use switch statement here?
         String commandInput = checkReverse();
+
         if (commandInput.equals("name")) {
             SortName sorted = new SortName(lastShownList);
             sortedPersons = sorted.getList();

@@ -119,8 +119,9 @@ public class ReportDisplay extends UiPart<Region> {
         graph.getData().clear();
         XYChart.Series<Integer, Double> series = new XYChart.Series<>();
         for (int x = 0; x < folderScores.size(); x = x + 1) {
-            series.getData().add(new XYChart.Data<Integer, Double>(x, folderScores.get(x)));
+            series.getData().add(new XYChart.Data<Integer, Double>(x + 1, folderScores.get(x)));
         }
+        graph.setMaxHeight(250);
         graph.getData().add(series);
     }
 

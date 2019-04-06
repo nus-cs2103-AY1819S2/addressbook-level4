@@ -60,7 +60,7 @@ public class StudyDeckCommandTest {
         getExpectedModelCard.changeDeck(getTypicalDeck());
         assertTrue(getExpectedModelCard.isAtCardsView());
     }
-
+    //TODO
     //    @Test
     //    public void execute_validIndexUnfilteredList_success() {
     //        assertExecutionSuccessIndex(INDEX_FIRST_DECK);
@@ -77,7 +77,7 @@ public class StudyDeckCommandTest {
     public void execute_emptyDeck_failure() {
         assertExecutionFailure(INDEX_EMPTY_DECK, Messages.MESSAGE_EMPTY_DECK);
     }
-
+    //TODO
     //    @Test
     //    public void execute_validIndexFilteredList_success() {
     //        showDeckAtIndex(modelDeck, INDEX_FIRST_DECK);
@@ -98,7 +98,7 @@ public class StudyDeckCommandTest {
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
     }
-
+    //TODO
     //    @Test
     //    public void execute_validDeck_success() {
     //        StudyDeckCommand studyDeckCommand = new StudyDeckCommand(getTypicalDeck());

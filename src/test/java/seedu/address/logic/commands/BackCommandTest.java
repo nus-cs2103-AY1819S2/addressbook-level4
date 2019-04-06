@@ -54,7 +54,7 @@ public class BackCommandTest {
         getExpectedModelStudy.studyDeck(getTypicalDeck());
         assertTrue(getExpectedModelStudy.isAtStudyView());
     }
-
+    //TODO
     //    @Test
     //    //    public void execute_fromStudy_success() {
     //    //        BackCommand backCommand = new BackCommand();
@@ -65,7 +65,7 @@ public class BackCommandTest {
     //    //        assertCommandSuccess(backCommand, modelStudy, commandHistory, expectedCommandResult,
     //    //                             getExpectedModelStudy);
     //    //    }
-
+    //TODO
     //    //    @Test
     //    //    public void execute_fromCard_success() {
     //    //        BackCommand backCommand = new BackCommand();

@@ -141,19 +141,16 @@ The `displaymod` command shows all modules that is available in NUS based on the
 shows modules straight from NUS's database of modules and does not check if the user has met the prerequisites to read
 a particular module.
 
-This command will allow users to find more about a module or even compare modules so as to decide which modules to read
+This command will allow users to find out more about a module or even compare modules so as to decide which modules to read
 in the upcoming semesters. Once decided on which module the user plans to read, they can use <<add>> command to add the
 module to their own list.
 
 [NOTE]
-===
 Searches are *case-insensitive*.
-===
 
 [WARNING]
-===
 Users must strictly adhere to syntax of the `displaymod` command in order to get optimum search results.
-===
+
 
 There are *2* ways to search for modules:
 
@@ -165,17 +162,23 @@ Format: `displaymod c/[Module Code],[Module Code]`
 .Single module code search command format
 image::displaymod1cexamplecmd.png[width="500"]
 
+
 The search above should yield a result:
+
 
 .Single module code search result
 image::displaymod1cexampleresult.png[width="800"]
 
+
 However if users wishes to search for multiple modules at once they can follow the example given below:
 
-.Multiple module codes serach command format
+
+.Multiple module codes search command format
 image::displaymodMcexamplecmd.png[width="500"]
 
+
 The search above should yield a result:
+
 
 .Multiple module code search result
 image::displaymodMcexampleresult.png[width="800"]
@@ -186,7 +189,30 @@ who find themselves in such a situation ca search for modules by their names by 
 `displaymod` command, followed by keyword/s that can be found in the module's name. Keywords have to be separated by `+`
 symbol.
 Format: `displaymod n/[keyword]+[keyword]`
---> example images
+
+
+.Single module name search command format
+image::displaymod1nexamplecmd.png[width="500"]
+
+
+The search above should yield a result:
+
+
+.Single module name search command result
+image::displaymod1nexampleresult.png[width="800"]
+
+However if users wishes to search for multiple modules at once they can follow the example given below:
+
+.Multiple module name keyword search format
+image::displaymodMnexamplecmd.png[width="500"]
+
+
+The search above should yield a result:
+
+
+.Multiple module name keyword search result
+image::displaymodMnexampleresult.png[width="800"]
+
 
 
 // tag::Displayreq[]

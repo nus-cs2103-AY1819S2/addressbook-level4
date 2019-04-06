@@ -326,6 +326,9 @@ public class MainWindow extends UiPart<Stage> {
     }
     */
 
+    /**
+     *
+     */
     public void addFadeInAnimation(Pane pane, double startTime, Timeline timeline) {
         KeyFrame start = new KeyFrame(Duration.seconds(startTime), new KeyValue(pane.opacityProperty(),
                 0.0));

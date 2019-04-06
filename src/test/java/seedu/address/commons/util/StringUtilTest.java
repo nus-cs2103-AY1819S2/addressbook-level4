@@ -162,7 +162,7 @@ public class StringUtilTest {
     public void testForEmptyStrings_hasEmptyString_returnsTrue() {
         ArrayList<String> strings = new ArrayList<>();
         strings.add("Hi");
-        strings.add(new String());
+        strings.add("");
         assertTrue(hasEmptyStrings(strings));
     }
 

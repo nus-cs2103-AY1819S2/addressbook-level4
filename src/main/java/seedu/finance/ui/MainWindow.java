@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import seedu.finance.commons.core.GuiSettings;
 import seedu.finance.commons.core.LogsCenter;
+import seedu.finance.commons.events.SwapBrowserPanelEvent;
 import seedu.finance.logic.Logic;
 import seedu.finance.logic.commands.CommandResult;
 import seedu.finance.logic.commands.exceptions.CommandException;
@@ -42,7 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
 
-    private GraphPanel graphPanel;
+    private SummaryPanel summaryPanel;
 
     private BudgetPanel budgetPanel;
 
@@ -56,10 +57,10 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
 
-    private StackPane graphPlaceholder;
+    private StackPane summaryPlaceholder;
 
     @FXML
-    private AnchorPane graphPane;
+    private AnchorPane summaryPane;
 
     @FXML
     private StackPane browserPanelPlaceholder;
@@ -143,9 +144,6 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel(logic.selectedRecordProperty(), logic.getBudget());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        //graphPanel = new GraphPanel();
-        //graphPlaceholder.getChildren().add(graphPanel.getRoot());
-
         budgetPanel = new BudgetPanel(logic.getBudget());
         budgetPanelPlaceholder.getChildren().add(budgetPanel.getRoot());
 
@@ -174,6 +172,11 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel.updateBudget(logic.getBudget());
         budgetPanel.update(logic.getBudget());
 
+        summaryPanel = new SummaryPanel(
+                logic.getRecordSummary(),
+                logic.getSummaryPeriod(),
+                logic.getPeriodAmount()
+        );
     }
 
     /**
@@ -275,36 +278,37 @@ public class MainWindow extends UiPart<Stage> {
 
         //logger.info(LogsCenter.getEventHandlingLogMessage(event));
 
-        graphPanel.setData(
+        summaryPanel.setData(
                 logic.getRecordSummary(),
                 logic.getSummaryPeriod(),
                 logic.getPeriodAmount()
         );
 
-        Timeline timeline = new Timeline();
-        browserPanelPlaceholder.setOpacity(0.0);
-        browserPanelPlaceholder.getChildren().clear();
-        browserPanelPlaceholder.getChildren().add(graphPane);
-        addFadeInAnimation(browserPanelPlaceholder, 0.0, timeline);
-        timeline.playFromStart();
+        summaryPane = new AnchorPane();
+        summaryPane.setTopAnchor(summaryPanel.getRoot(), 0.0);
+        summaryPane.getChildren().addAll(summaryPanel.getRoot());
+
+        swapToSummary();
     }
-    /* //May want to check how to switch from summary panel and no summary panel
-    public void handleSwapBrowserPanelEvent(SwapLeftPanelEvent event) {
+
+    //May want to check how to switch from summary panel and no summary panel
+    public void handleSwapBrowserPanelEvent(SwapBrowserPanelEvent event) {
         switch(event.getPanelType()) {
-            case LIST:
-                swapToList();
+            case BROWSER:
+                swapToBrowser();
                 break;
-            case STATISTIC:
-                swapToStat();
+            case SUMMARY:
+                swapToSummary();
                 break;
             default:
         }
     }
 
     /**
-     * Swaps the panel from statistics to list/
+     * Swaps the panel from statistics to list
+     */
 
-    public void swapToList() {
+    public void swapToBrowser() {
         Timeline timeline = new Timeline();
         browserPanelPlaceholder.setOpacity(0.0);
         browserPanelPlaceholder.getChildren().clear();
@@ -314,17 +318,18 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Swaps the panel from list to statistics/
+     * Swaps the panel from list to statistics
+     */
 
-    public void swapToStat() {
+    public void swapToSummary() {
+
         Timeline timeline = new Timeline();
         browserPanelPlaceholder.setOpacity(0.0);
         browserPanelPlaceholder.getChildren().clear();
-        browserPanelPlaceholder.getChildren().add(graphPane);
+        browserPanelPlaceholder.getChildren().add(summaryPane);
         addFadeInAnimation(browserPanelPlaceholder, 0.0, timeline);
         timeline.playFromStart();
     }
-    */
 
     /**
      *

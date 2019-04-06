@@ -9,7 +9,7 @@
     <children>
         <AnchorPane prefHeight="300.0" prefWidth="450.00" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Label fx:id="statisticHeader" text="Summary">
+                <Label fx:id="summaryHeader" text="Summary">
                <padding>
                   <Insets left="8.0" top="5.0" />
                </padding></Label>

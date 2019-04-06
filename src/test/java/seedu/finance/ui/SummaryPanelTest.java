@@ -7,42 +7,42 @@ import java.util.LinkedHashMap;
 import org.junit.Before;
 import org.junit.Test;
 
-import guitests.guihandles.GraphPanelHandle;
+import guitests.guihandles.SummaryPanelHandle;
 import seedu.finance.logic.commands.SummaryCommand.SummaryPeriod;
 
-public class GraphPanelTest extends GuiUnitTest {
-    private GraphPanelHandle graphPanelHandle;
+public class SummaryPanelTest extends GuiUnitTest {
+    private SummaryPanelHandle summaryPanelHandle;
 
     @Before
     public void setUp() throws InterruptedException {
-        GraphPanel graphPanel = new GraphPanel(
+        SummaryPanel summaryPanel = new SummaryPanel(
                 new LinkedHashMap<>(),
                 SummaryPeriod.DAY,
                 7
         );
         Thread.sleep(1000);
-        uiPartRule.setUiPart(graphPanel);
-        graphPanelHandle = new GraphPanelHandle(graphPanel.getRoot());
+        uiPartRule.setUiPart(summaryPanel);
+        summaryPanelHandle = new SummaryPanelHandle(summaryPanel.getRoot());
     }
 
     @Test
     public void noExpensesTextAppearsWhenNoExpenses() {
-        assertTrue(graphPanelHandle.isNoExpenseText());
+        assertTrue(summaryPanelHandle.isNoExpenseText());
     }
 
     @Test
     public void correctNoExpensesTextAppearsWhenNoExpenses() {
         setChartData(new LinkedHashMap<>(), SummaryPeriod.DAY, 1);
-        assertTrue(graphPanelHandle.isMatchingText("There are no recorded expenditures in the past day"));
+        assertTrue(summaryPanelHandle.isMatchingText("There are no recorded expenditures in the past day"));
 
         setChartData(new LinkedHashMap<>(), SummaryPeriod.DAY, 7);
-        assertTrue(graphPanelHandle.isMatchingText("There are no recorded expenditures in the past 7 days"));
+        assertTrue(summaryPanelHandle.isMatchingText("There are no recorded expenditures in the past 7 days"));
 
         setChartData(new LinkedHashMap<>(), SummaryPeriod.MONTH, 1);
-        assertTrue(graphPanelHandle.isMatchingText("There are no recorded expenditures in the past month"));
+        assertTrue(summaryPanelHandle.isMatchingText("There are no recorded expenditures in the past month"));
 
         setChartData(new LinkedHashMap<>(), SummaryPeriod.MONTH, 7);
-        assertTrue(graphPanelHandle.isMatchingText("There are no recorded expenditures in the past 7 months"));
+        assertTrue(summaryPanelHandle.isMatchingText("There are no recorded expenditures in the past 7 months"));
     }
 
     @Test
@@ -50,7 +50,7 @@ public class GraphPanelTest extends GuiUnitTest {
         LinkedHashMap<String, Double> mockData = new LinkedHashMap<>();
         mockData.put("Food", 6.00);
         setChartData(mockData, SummaryPeriod.DAY, 7);
-        assertTrue(graphPanelHandle.isCategoryChart());
+        assertTrue(summaryPanelHandle.isCategoryChart());
     }
 
     private void setChartData(
@@ -58,8 +58,8 @@ public class GraphPanelTest extends GuiUnitTest {
             SummaryPeriod summaryPeriod,
             int periodAmount
     ) {
-        GraphPanel graphPanel = new GraphPanel(mockData, summaryPeriod, periodAmount);
-        graphPanelHandle = new GraphPanelHandle(graphPanel.getRoot());
+        SummaryPanel summaryPanel = new SummaryPanel(mockData, summaryPeriod, periodAmount);
+        summaryPanelHandle = new SummaryPanelHandle(summaryPanel.getRoot());
     }
 
 }

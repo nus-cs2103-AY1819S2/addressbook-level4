@@ -16,24 +16,24 @@ import seedu.finance.logic.commands.SummaryCommand.SummaryPeriod;
 /**
  * The Graph Panel of the App.
  */
-public class GraphPanel extends UiPart<Region> {
+public class SummaryPanel extends UiPart<Region> {
     //Not sure about the page urls, KIV most likely have to edit again
     //Want to link to GraphPage.html which is currently under main/docs
 
-    private static final String FXML = "GraphPanel.fxml";
+    private static final String FXML = "SummaryPanel.fxml";
 
     @FXML
     private StackPane chartArea;
 
 
     /**
-     * Constructs a {@code GraphPanel} object with parameters.
+     * Constructs a {@code SummaryPanel} object with parameters.
      *
      * @param summaryData a map with key and value pairs representing data for the charts.
      * @param summaryPeriod a {@code SummaryPeriod} enum representing the summary period
      * @param periodAmount an int representing the period amount
      */
-    public GraphPanel(
+    public SummaryPanel(
             LinkedHashMap<String, Double> summaryData,
             SummaryPeriod summaryPeriod,
             int periodAmount

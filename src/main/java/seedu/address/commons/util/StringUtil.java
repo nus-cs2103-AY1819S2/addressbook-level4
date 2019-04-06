@@ -13,6 +13,15 @@ import java.util.Arrays;
 public class StringUtil {
 
     /**
+     * Returns true if {@code string} contains the substring {@code substring}
+     * Ignores case, full word match not required.
+     */
+    public static boolean containsSubstringIgnoreCase(String string, String substring) {
+        requireNonNull(string, substring);
+        return string.toLowerCase().contains(substring.toLowerCase());
+    }
+
+    /**
      * Returns true if the {@code sentence} contains the {@code word}.
      *   Ignores case, but a full word match is required.
      *   <br>examples:<pre>

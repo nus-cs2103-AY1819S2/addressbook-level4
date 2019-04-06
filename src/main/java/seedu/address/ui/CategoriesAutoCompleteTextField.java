@@ -11,6 +11,7 @@ import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.restaurant.categories.Categories;
 
@@ -41,9 +42,10 @@ public class CategoriesAutoCompleteTextField extends TextField {
     private void showAutoComplete() {
         TextField current = CategoriesAutoCompleteTextField.this;
 
-        Optional<Prefix> recentPrefixOptional = getRecentlyEnteredPrefix(getText());
-        if (recentPrefixOptional.isPresent()) {
-            List<String> retrievedSuggestions = Categories.getCategoriesSuggestions(recentPrefixOptional.get());
+        Optional<PrefixInputPair> recentPrefixInputOptional = getRecentlyEnteredPrefix(getText());
+        if (recentPrefixInputOptional.isPresent()) {
+            PrefixInputPair pair = recentPrefixInputOptional.get();
+            List<String> retrievedSuggestions = retrieveRelevantSuggestions(pair);
             List<MenuItem> menuItemsToBeAdded = convertSuggestionsToMenuItems(retrievedSuggestions);
             suggestions.getItems().clear();
             suggestions.getItems().addAll(menuItemsToBeAdded);
@@ -52,6 +54,15 @@ public class CategoriesAutoCompleteTextField extends TextField {
         } else {
             suggestions.hide();
         }
+    }
+
+    /**
+     * Retrieves the suggestions based on what the user has already keyed in for the category prefix.
+     */
+    private List<String> retrieveRelevantSuggestions(PrefixInputPair pair) {
+        return Categories.getCategoriesSuggestions(pair.getPrefix()).stream()
+                .filter(entry -> StringUtil.containsSubstringIgnoreCase(entry, pair.getInput()))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -92,7 +103,7 @@ public class CategoriesAutoCompleteTextField extends TextField {
     /**
      * Get the most recently entered prefix from the input, if any.
      */
-    private Optional<Prefix> getRecentlyEnteredPrefix(String input) {
+    private Optional<PrefixInputPair> getRecentlyEnteredPrefix(String input) {
         requireNonNull(input);
         String[] inputTokens = input.split(" ");
         if (inputTokens.length < 1) {
@@ -100,10 +111,34 @@ public class CategoriesAutoCompleteTextField extends TextField {
         } else {
             String lastWord = inputTokens[inputTokens.length - 1];
             if (lastWord.matches("[a-z]*/[A-Za-z]*")) {
-                String prefix = lastWord.split("/")[0] + "/";
-                return Optional.of(new Prefix(prefix));
+                String[] lastWordTokens = lastWord.split("/");
+                String prefix = lastWordTokens[0] + "/";
+                String prefixInput = lastWordTokens.length <= 1 ? "" : lastWordTokens[1];
+                PrefixInputPair pair = new PrefixInputPair(new Prefix(prefix), prefixInput);
+                return Optional.of(pair);
             }
             return Optional.empty();
+        }
+    }
+
+    /**
+     * Represents a prefix and input pair of the last entered argument by the user.
+     */
+    private static class PrefixInputPair {
+        private Prefix prefix;
+        private String input;
+
+        PrefixInputPair(Prefix prefix, String input) {
+            this.prefix = prefix;
+            this.input = input;
+        }
+
+        Prefix getPrefix() {
+            return prefix;
+        }
+
+        String getInput() {
+            return input;
         }
     }
 }

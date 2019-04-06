@@ -21,6 +21,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.card.Card;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.ManagementModelManager;
+import seedu.address.testutil.Assert;
 import seedu.address.testutil.LessonBuilder;
 
 /**
@@ -56,8 +57,13 @@ public class ManagementCommandsIntegrationTest {
 
         // Step 2: listCards
         // lists cards when no lesson is opened -> list nothing
-        assertCommandSuccess(new ListCardsCommand(), model,
-                commandHistory, MESSAGE_NO_OPENED_LESSON, model);
+        try {
+            new ListCardsCommand().execute(model, commandHistory);
+            // Given that there are no cards to list
+            throw new AssertionError("Command should throw CommandException");
+        } catch (CommandException e) {
+            assertEquals(e.getMessage(), MESSAGE_NO_OPENED_LESSON);
+        }
 
         // Step 3: addLesson
         // add valid lesson -> lesson added successfully
@@ -137,8 +143,13 @@ public class ManagementCommandsIntegrationTest {
 
         // Step 5: listCards
         // lists cards when no lesson is opened -> list nothing
-        assertCommandSuccess(new ListCardsCommand(), model,
-                commandHistory, MESSAGE_NO_OPENED_LESSON, model);
+        try {
+            new ListCardsCommand().execute(model, commandHistory);
+            // Given that there are no cards to list
+            throw new AssertionError("Command should throw CommandException");
+        } catch (CommandException e) {
+            assertEquals(e.getMessage(), MESSAGE_NO_OPENED_LESSON);
+        }
 
         // Step 6: deleteLesson
         // delete valid lesson -> lesson deleted successfully

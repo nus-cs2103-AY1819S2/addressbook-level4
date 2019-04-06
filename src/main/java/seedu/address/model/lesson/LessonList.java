@@ -1,6 +1,7 @@
 package seedu.address.model.lesson;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -145,7 +146,7 @@ public class LessonList {
      * @param card {@link Card} to be added to the {@link #openedLesson}
      */
     public void addCardToOpenedLesson(Card card) {
-        requireNonNull(openedLesson);
+        requireAllNonNull(openedLesson, card);
         openedLesson.addCard(card);
     }
 

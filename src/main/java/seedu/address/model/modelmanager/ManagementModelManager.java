@@ -77,6 +77,7 @@ public class ManagementModelManager implements ManagementModel {
 
     @Override
     public void setLessonList(LessonList lessonList) {
+        requireNonNull(lessonList);
         this.lessonList = lessonList;
     }
 

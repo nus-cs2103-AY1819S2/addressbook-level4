@@ -11,7 +11,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import javafx.scene.text.Text;
 import seedu.knowitall.model.ReadOnlyCardFolder;
 import seedu.knowitall.model.card.Card;
 

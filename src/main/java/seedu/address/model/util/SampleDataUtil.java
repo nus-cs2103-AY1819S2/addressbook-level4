@@ -8,7 +8,6 @@ import seedu.address.model.menu.Name;
 import seedu.address.model.menu.Price;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.OrderItemStatus;
-import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.Day;
 import seedu.address.model.statistics.Month;
 import seedu.address.model.statistics.Revenue;

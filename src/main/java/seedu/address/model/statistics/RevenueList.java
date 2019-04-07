@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.statistics.exceptions.RevenueNotFoundException;
 import seedu.address.model.statistics.exceptions.DuplicateRevenueException;
+import seedu.address.model.statistics.exceptions.RevenueNotFoundException;
 
 /**
  * A list of revenues that enforces uniqueness between its elements and does not allow nulls.

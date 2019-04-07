@@ -301,7 +301,7 @@ public interface Model {
     /**
      * Get the daily status
      */
-    boolean getIsDaily() ;
+    boolean getIsDaily();
 
     /**
      * Get the monthly status

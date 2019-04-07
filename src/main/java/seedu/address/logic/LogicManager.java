@@ -20,7 +20,6 @@ import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.statistics.Bill;
-import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.Revenue;
 import seedu.address.model.table.Table;
 import seedu.address.storage.Storage;

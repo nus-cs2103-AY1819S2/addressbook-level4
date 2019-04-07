@@ -9,8 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Day {
 
-    public static final String MESSAGE_CONSTRAINTS
-            = "Day should be a single or double double digit integer, it should not be blank and should be a valid day "
+    public static final String MESSAGE_CONSTRAINTS =
+            "Day should be a single or double double digit integer, it should not be blank and should be a valid day "
             + "(1 to 31)";
 
     /*

@@ -42,7 +42,7 @@ public class RevenueCommandParser implements Parser<RevenueCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_YEAR)
                 && (arePrefixesPresent(argMultimap, PREFIX_MONTH) || arePrefixesPresent(argMultimap, PREFIX_DAY))
-                ||(!arePrefixesPresent(argMultimap, PREFIX_MONTH)
+                || (!arePrefixesPresent(argMultimap, PREFIX_MONTH)
                 && arePrefixesPresent(argMultimap, PREFIX_YEAR, PREFIX_DAY))
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RevenueCommand.MESSAGE_USAGE));

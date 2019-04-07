@@ -13,12 +13,12 @@ public class DailyCommand extends Command {
 
     public static final String COMMAND_WORD = "daily";
     public static final String COMMAND_ALIAS = "d";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Retrieves the latest 20 daily revenue with the " +
-            "most recent day at the top."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Retrieves the latest 20 daily revenue with the "
+            + "most recent day at the top."
             + "Example: " + COMMAND_WORD + "or " + COMMAND_ALIAS;
     public static final String MESSAGE_SUCCESS = "Change view to daily.";
-    public static final String MESSAGE_INCORRECT_MODE = "Incorrect Mode, unable to execute command. Enter " +
-            "statisticsMode or SM.";
+    public static final String MESSAGE_INCORRECT_MODE = "Incorrect Mode, unable to execute command. Enter "
+            + "statisticsMode or SM.";
 
     /**
      * Creates a DailyCommand

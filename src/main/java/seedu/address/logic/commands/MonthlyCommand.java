@@ -13,12 +13,12 @@ public class MonthlyCommand extends Command {
 
     public static final String COMMAND_WORD = "monthly";
     public static final String COMMAND_ALIAS = "m";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Retrieves the latest 20 monthly revenue with the " +
-            "most recent month at the top."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Retrieves the latest 20 monthly revenue with the "
+            + "most recent month at the top."
             + "Example: " + COMMAND_WORD + "or " + COMMAND_ALIAS;
     public static final String MESSAGE_SUCCESS = "Change view to monthly.";
-    public static final String MESSAGE_INCORRECT_MODE = "Incorrect Mode, unable to execute command. Enter " +
-            "statisticsMode or SM.";
+    public static final String MESSAGE_INCORRECT_MODE = "Incorrect Mode, unable to execute command. Enter "
+            + "statisticsMode or SM.";
 
     /**
      * Creates a MonthlyCommand

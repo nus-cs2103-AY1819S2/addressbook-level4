@@ -87,7 +87,7 @@ public class StatisticsFlowPanel extends UiPart<Region> {
                                 previousDay = 28;
                             }
                         } else if (previousMonth == 4 || previousMonth == 6 || previousMonth == 9
-                                || previousMonth == 11){
+                                || previousMonth == 11) {
                             previousDay = 30;
                         } else {
                             previousDay = 31;
@@ -110,11 +110,10 @@ public class StatisticsFlowPanel extends UiPart<Region> {
                 statisticsFlowPane.getChildren().add(new DailyStatisticsCard(revenue).getRoot());
             }
 
-           dailyRevenueList.addListener((ListChangeListener<DailyRevenue>) c -> {
+            dailyRevenueList.addListener((ListChangeListener<DailyRevenue>) c -> {
                 statisticsFlowPane.getChildren().clear();
                 for (DailyRevenue revenue : dailyRevenueList) {
-                    statisticsFlowPane.getChildren().add(new DailyStatisticsCard(revenue).getRoot());
-                }
+                    statisticsFlowPane.getChildren().add(new DailyStatisticsCard(revenue).getRoot()); }
             });
 
         } else if (isMonthly) {

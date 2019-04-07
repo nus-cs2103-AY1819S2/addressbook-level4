@@ -11,8 +11,8 @@ import java.util.Calendar;
  */
 public class Year {
 
-    public static final String MESSAGE_CONSTRAINTS
-            = "Year should be in the format <four digit integer>, it should not be blank or larger than current year.\n"
+    public static final String MESSAGE_CONSTRAINTS =
+            "Year should be in the format <four digit integer>, it should not be blank or larger than current year.\n"
             + "Years before 2000s are not supported (2000 to current year).";
 
     /*

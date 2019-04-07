@@ -173,7 +173,7 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#getIsDaily()
      */
-    boolean getIsDaily() ;
+    boolean getIsDaily();
 
     /**
      * Get the monthly status

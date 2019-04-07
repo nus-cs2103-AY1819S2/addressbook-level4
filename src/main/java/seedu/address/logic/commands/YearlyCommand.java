@@ -13,12 +13,12 @@ public class YearlyCommand extends Command {
 
     public static final String COMMAND_WORD = "yearly";
     public static final String COMMAND_ALIAS = "y";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Retrieves the latest 20 yearly revenue with the " +
-            "most recent year at the top."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Retrieves the latest 20 yearly revenue with the "
+            + "most recent year at the top."
             + "Example: " + COMMAND_WORD + "or " + COMMAND_ALIAS;
     public static final String MESSAGE_SUCCESS = "Change view to yearly.";
-    public static final String MESSAGE_INCORRECT_MODE = "Incorrect Mode, unable to execute command. Enter " +
-            "statisticsMode or SM.";
+    public static final String MESSAGE_INCORRECT_MODE = "Incorrect Mode, unable to execute command. Enter "
+            + "statisticsMode or SM.";
 
     /**
      * Creates a YearlyCommand

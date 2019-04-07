@@ -39,9 +39,6 @@ public class DateOfBirth {
         if (!test.matches(VALIDATION_REGEX_2)) {
 
             LocalDate currentDate = LocalDate.now();
-            int currentDay = currentDate.getDayOfMonth();
-            int currentYear = currentDate.getYear();
-            int currentMonth = currentDate.getMonthValue();
             Pattern pattern = Pattern.compile(VALIDATION_REGEX);
             Matcher matcher = pattern.matcher(test);
 
@@ -50,55 +47,65 @@ public class DateOfBirth {
                 matcher.reset();
 
                 if (matcher.find()) {
-                    int intYear;
-                    int intDay;
-                    int intMonth;
-                    String day = matcher.group(1);
-                    String month = matcher.group(2);
-                    String year = matcher.group(3);
-                    if ((" ").equals(year)) {
-                        return new Pair<>(true, "Works");
-                    } else {
-                        intYear = Integer.parseInt(year);
-                        intDay = Integer.parseInt(day);
-                        intMonth = Integer.parseInt(month);
-                        if (intYear > currentYear && currentDay <= intDay && intMonth <= currentMonth ) {
-                            return new Pair<>(false, "Date of birth can't exceed current date.");
-                        }
-                        if (intYear > currentYear || intYear < 1 ) {
-                            return new Pair<>(false, "Year value wrong.");
-                        }
 
-                        if (("31").equals(day) && (("4").equals(month) || ("6").equals(month) || ("9").equals(month)
-                            || ("11").equals(month) || ("04").equals(month) || ("06").equals(month)
-                            || ("09").equals(month))) {
-                            return new Pair<>(false, "This month can't have 31 days."); // only 1,3,5,7,8,10,12 has
-                            // 31 days
-                        } else if (("2").equals(month) || ("02").equals(month)) {
-                            //leap year
-                            if (intYear % 4 == 0) {
-                                if (("30").equals(day) || ("31").equals(day)) {
-                                    return new Pair<>(false, "February can't have more than 29 days in leap year.");
-                                }
-                            } else {
-                                if (("29").equals(day) || ("31").equals(day) || ("30").equals(day)) {
-                                    return new Pair<>(false, "February can't have more than 28 days in a non - leap " +
-                                        "year.");
-                                }
-                            }
-                        } else {
-                            return new Pair<>(true, "Works");
-                        }
+                    return DateOfBirth.checksDob(matcher, currentDate);
+                    
+                } else {
+                    return new Pair<>(false, "Date of birth in wrong format.");
+                }
+            } else {
+                return new Pair<>(false, "Date values are wrong.");
+            }
+        } else {
+            return new Pair<>(true, "Works.");
+        }
+    }
+
+    private static Pair<Boolean, String> checksDob(Matcher matcher, LocalDate currentDate) {
+        int currentDay = currentDate.getDayOfMonth();
+        int currentYear = currentDate.getYear();
+        int currentMonth = currentDate.getMonthValue();
+        int intYear;
+        int intDay;
+        int intMonth;
+        String day = matcher.group(1);
+        String month = matcher.group(2);
+        String year = matcher.group(3);
+        if ((" ").equals(year)) {
+            return new Pair<>(true, "Works");
+        } else {
+            intYear = Integer.parseInt(year);
+            intDay = Integer.parseInt(day);
+            intMonth = Integer.parseInt(month);
+            if (intYear > currentYear && currentDay <= intDay && intMonth <= currentMonth) {
+                return new Pair<>(false, "Date of birth can't exceed current date.");
+            }
+            if (intYear > currentYear || intYear < 1) {
+                return new Pair<>(false, "Year value wrong.");
+            }
+
+            if (("31").equals(day) && (("4").equals(month) || ("6").equals(month) || ("9").equals(month)
+                || ("11").equals(month) || ("04").equals(month) || ("06").equals(month)
+                || ("09").equals(month))) {
+                return new Pair<>(false, "This month can't have 31 days."); // only 1,3,5,7,8,10,12 has
+                // 31 days
+            } else if (("2").equals(month) || ("02").equals(month)) {
+                //leap year
+                if (intYear % 4 == 0) {
+                    if (("30").equals(day) || ("31").equals(day)) {
+                        return new Pair<>(false, "February can't have more than 29 days in leap year.");
                     }
                 } else {
-                    return new Pair<>(false, "Date birth not in correct format.");
+                    if (("29").equals(day) || ("31").equals(day) || ("30").equals(day)) {
+                        return new Pair<>(false, "February can't have more than 28 days in a non - leap " +
+                            "year.");
+                    }
                 }
-
             } else {
-                return new Pair<>(false, "Date of birth input wrong.");
+                return new Pair<>(true, "Works");
             }
+            return new Pair<>(true, "Works");
         }
-        return new Pair<>(true, "Works");
     }
 
 

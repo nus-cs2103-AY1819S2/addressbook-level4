@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNull;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_OPENED_LESSON;
 import static seedu.address.logic.commands.management.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.management.ListLessonsCommand.MESSAGE_NO_LESSONS;
-import static seedu.address.testutil.TypicalLessonList.LESSON_DEFAULT;
 
 import java.util.Collections;
 import java.util.List;

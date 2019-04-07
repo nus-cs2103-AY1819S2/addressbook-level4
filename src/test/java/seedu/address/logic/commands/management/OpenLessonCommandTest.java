@@ -3,6 +3,7 @@ package seedu.address.logic.commands.management;
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_OPENED_LESSON;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
 import static seedu.address.model.lesson.LessonList.EXCEPTION_INVALID_INDEX;
 import static seedu.address.testutil.TypicalLessonList.LESSON_DEFAULT;
@@ -51,6 +52,22 @@ public class OpenLessonCommandTest {
 
         // get opened lesson which was added -> same as lesson which was added
         assertEquals(modelStub.getOpenedLesson(), LESSON_DEFAULT);
+    }
+
+    @Test
+    public void execute_alreadyHasOpenLesson_openUnsuccessful() throws Exception {
+        MgtModelStub modelStub = new MgtModelStub();
+        modelStub.addLesson(LESSON_DEFAULT); // always work
+
+        // opens a lesson which exists in model -> lesson opened successfully
+        Index toOpenIndex = Index.fromZeroBased(0);
+        new OpenLessonCommand(toOpenIndex).execute(modelStub, commandHistory);
+
+        // opens another lesson again -> lesson open unsuccessful, need to close first
+        toOpenIndex = Index.fromZeroBased(1);
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(MESSAGE_OPENED_LESSON);
+        new OpenLessonCommand(toOpenIndex).execute(modelStub, commandHistory);
     }
 
     @Test
@@ -150,6 +167,11 @@ public class OpenLessonCommandTest {
             } catch (IndexOutOfBoundsException e) {
                 throw new IllegalArgumentException(EXCEPTION_INVALID_INDEX + index);
             }
+        }
+
+        @Override
+        public boolean isThereOpenedLesson() {
+            return openedLesson != null;
         }
 
         @Override

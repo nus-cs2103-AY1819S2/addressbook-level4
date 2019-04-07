@@ -70,15 +70,15 @@ public class QuizStartCommandTest {
         SrsCard srsCard = new SrsCardBuilder().build();
         Session session = new SessionBuilder(new Session("Capitals", 1, QuizMode.DIFFICULT,
                 List.of(srsCard))).build();
-        Session session_moreCount = new SessionBuilder(new Session("Capitals", 3, QuizMode.DIFFICULT,
+        Session sessionMoreCount = new SessionBuilder(new Session("Capitals", 3, QuizMode.DIFFICULT,
                 List.of(srsCard))).build();
         CommandResult commandResult = new QuizStartCommand(session).execute(managementModel, commandHistory);
         assertEquals("Starting new quiz", commandResult.getFeedbackToUser());
         assertEquals(session.getSrsCards().get(0), srsCard);
-        CommandResult commandResult_moreCount = new QuizStartCommand(session_moreCount).execute(managementModel,
+        CommandResult commandResultMoreCount = new QuizStartCommand(sessionMoreCount).execute(managementModel,
                 commandHistory);
         assertEquals("Not enough cards in current lesson. Set the count to the maximum"
-                + " number for you by default.", commandResult_moreCount.getFeedbackToUser());
+                + " number for you by default.", commandResultMoreCount.getFeedbackToUser());
         thrown.expectMessage("There is no difficult card in this lesson.");
         CommandResult wrongCommandResult = new QuizStartCommand(session).execute(failManagementModel, commandHistory);
         assertNull(wrongCommandResult);

@@ -1,11 +1,13 @@
 package seedu.address.model.modelmanager;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.time.Instant;
-import java.util.ArrayList;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -25,15 +27,9 @@ public class ManagementModelManagerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    private Lesson lesson = TypicalLessonList.LESSON_DEFAULT;
+    private Card card = TypicalCards.CARD_CAT;
     private ManagementModelManager modelManager = new ManagementModelManager();
-
-    private Lesson getTestLesson() {
-        ArrayList<String> testFields = new ArrayList<>();
-        testFields.add("test 1");
-        testFields.add("test 2");
-
-        return new Lesson("test", 2, testFields);
-    }
 
     @Test
     public void constructor() {
@@ -71,23 +67,27 @@ public class ManagementModelManagerTest {
     }
 
     @Test
-    public void lessonsTests() {
-        /*
-         * Note: This is an integration test that verifies the ManagementModel is properly wired to the
-         * {@link LessonList} class.
-         * More extensive testing of LessonList functionality is done in {@link LessonList} class.
-         */
-        Lesson testLesson = getTestLesson();
-        assertEquals(0, modelManager.getLessons().size());
-        modelManager.addLesson(getTestLesson());
-        assertEquals(testLesson, modelManager.getLesson(0));
-        testLesson.setName("other name");
-        modelManager.setLesson(0, testLesson);
-        assertEquals(testLesson, modelManager.getLesson(0));
-        modelManager.deleteLesson(0);
-        assertEquals(0, modelManager.getLessons().size());
+    public void equals() {
+        UserPrefs userPrefs = new UserPrefs();
+        LessonList lessonList = new LessonList();
+        User user = new User();
+
+        // same values -> returns true
+        modelManager = new ManagementModelManager(userPrefs, lessonList, user);
+        ManagementModelManager modelManagerCopy = new ManagementModelManager(userPrefs, lessonList, user);
+        assertEquals(modelManager, modelManagerCopy);
+
+        // same object -> returns true
+        assertEquals(modelManager, modelManager);
+
+        // null -> returns false
+        assertNotNull(modelManager);
+
+        // different types -> returns false
+        assertNotEquals(modelManager, 5);
     }
 
+    // SRS testing
     @Test
     public void userTests() {
         /*
@@ -111,83 +111,203 @@ public class ManagementModelManagerTest {
 
     }
 
+    // Integration tests which tests {@link ManagementModel}, {@link LessonList} and {@link Lesson}.
     @Test
-    public void equals() {
-        UserPrefs userPrefs = new UserPrefs();
-        LessonList lessonList = new LessonList();
-        User user = new User();
+    public void addLesson_validLesson_modelManagerUpdated() {
+        // No lessons in modelManager by default
+        assertEquals(0, modelManager.getLessons().size());
+        assertFalse(modelManager.hasLessonWithName(lesson.getName()));
 
-        // same values -> returns true
-        modelManager = new ManagementModelManager(userPrefs, lessonList, user);
-        ManagementModelManager modelManagerCopy = new ManagementModelManager(userPrefs, lessonList, user);
-        assertEquals(modelManager, modelManagerCopy);
-
-        // same object -> returns true
-        assertEquals(modelManager, modelManager);
-
-        // null -> returns false
-        assertNotNull(modelManager);
-
-        // different types -> returns false
-        assertNotEquals(modelManager, 5);
+        modelManager.addLesson(lesson);
+        // Added lesson -> lesson is in modelManager
+        assertEquals(lesson, modelManager.getLesson(0));
+        assertEquals(1, modelManager.getLessons().size());
+        assertTrue(modelManager.hasLessonWithName(lesson.getName()));
     }
 
     @Test
-    public void getLessonList() {
-        // by default, lessonList is empty
+    public void addLesson_invalidLesson_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.addLesson(null);
+    }
+
+    @Test
+    public void deleteLesson_validIndex_modelManagerUpdated() {
+        modelManager.addLesson(lesson);
+        int size = modelManager.getLessons().size();
+
+        modelManager.deleteLesson(0);
+        assertEquals(size - 1, modelManager.getLessons().size());
+    }
+
+    @Test
+    public void deleteLesson_invalidIndex_throwsNullPointerException() {
+        thrown.expect(IllegalArgumentException.class);
+        modelManager.deleteLesson(-1);
+    }
+
+    @Test
+    public void getLessonList_noLessonAddedYet_returnEmptyLessonList() {
         assertEquals(modelManager.getLessonList(), new LessonList());
     }
 
     @Test
-    public void setLessonList() {
-        LessonList test = new LessonList();
-        test.addLesson(getTestLesson());
+    public void setLessonList_validLessonList_modelManagerUpdated() {
+        LessonList testList = new LessonList();
+        testList.addLesson(lesson);
+
+        // Empty lessonList given no lessons added yet
         assertEquals(modelManager.getLessonList(), new LessonList());
-        modelManager.setLessonList(test);
-        assertEquals(test, modelManager.getLessonList());
-    }
-    @Test
-    public void openLesson() {
-        Lesson lesson = TypicalLessonList.LESSON_DEFAULT;
-        modelManager.addLesson(lesson);
-        modelManager.openLesson(0); // Open added lesson
-        // Adding lesson to modelManager should not change the lesson
-        assertEquals(modelManager.getOpenedLesson(), lesson);
-        assertEquals(modelManager.getOpenedLessonCards(), lesson.getCards());
-        assertEquals(modelManager.getOpenedLessonCoreHeaders(), lesson.getCoreHeaders());
-        assertEquals(modelManager.getOpenedLessonOptionalHeaders(), lesson.getOptionalHeaders());
+
+        // Set lessonList to lessonList with lesson -> lessonList set
+        modelManager.setLessonList(testList);
+        assertEquals(testList, modelManager.getLessonList());
     }
 
     @Test
-    public void closeLesson() {
-        Lesson lesson = TypicalLessonList.LESSON_DEFAULT;
+    public void setLessonList_invalidLessonList_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.setLessonList(null);
+    }
+
+    @Test
+    public void setLesson_validLesson_lessonSet() {
+        modelManager.addLesson(lesson);
+        assertEquals(modelManager.getLesson(0), lesson);
+
+        Lesson newLesson = TypicalLessonList.LESSON_TRUE_FALSE;
+
+        // set new lesson at index 0 -> get lesson at index 0 returns new lesson
+        modelManager.setLesson(0, newLesson);
+        assertNotEquals(modelManager.getLesson(0), lesson);
+        assertEquals(modelManager.getLesson(0), newLesson);
+    }
+
+    @Test
+    public void setLesson_invalidLesson_throwsNullPointerException() {
+        modelManager.addLesson(lesson);
+        assertEquals(modelManager.getLesson(0), lesson);
+
+        // set invalid lesson at valid index -> throw exception
+        thrown.expect(NullPointerException.class);
+        modelManager.setLesson(0, null);
+    }
+
+    @Test
+    public void getOpenedLesson_hasOpenedLesson_returnOpenedLesson() {
         modelManager.addLesson(lesson);
         modelManager.openLesson(0); // Open added lesson
         assertEquals(modelManager.getOpenedLesson(), lesson);
+    }
+
+    @Test
+    public void getOpenedLesson_noOpenedLesson_returnNull() {
+        assertNull(modelManager.getOpenedLesson());
+    }
+
+    @Test
+    public void openThenCloseLesson_noOpenedLesson_returnNull() {
+        modelManager.addLesson(lesson);
+        modelManager.openLesson(0); // Open added lesson
+        assertEquals(modelManager.getOpenedLesson(), lesson);
+
         modelManager.closeLesson();
-        assertEquals(modelManager.getOpenedLesson(), null);
+        // openedLesson closed -> return null
+        assertNull(modelManager.getOpenedLesson());
     }
 
     @Test
-    public void addCardToOpenedLesson() {
-        Lesson lesson = TypicalLessonList.LESSON_DEFAULT;
-        Card card = TypicalCards.CARD_CAT;
+    public void openLesson_validLesson_thereIsLesson() {
+        modelManager.addLesson(lesson);
+        // no opened lesson -> return false
+        assertFalse(modelManager.isThereOpenedLesson());
 
+        modelManager.openLesson(0); // Open added lesson
+        // opened lesson -> return true
+        assertTrue(modelManager.isThereOpenedLesson());
+    }
+
+    @Test
+    public void getOpenedCards_openedLesson_returnOpenedCards() {
+        modelManager.addLesson(lesson);
+        modelManager.openLesson(0); // Open added lesson
+        // opened lesson -> return true
+        assertNotNull(modelManager.getOpenedLessonCards());
+    }
+
+    @Test
+    public void getOpenedCards_noOpenedLesson_returnNull() {
+        thrown.expect(NullPointerException.class);
+        assertNull(modelManager.getOpenedLessonCards());
+    }
+
+    @Test
+    public void getOpenedLessonCoreHeaders_openedLesson_returnHeaders() {
+        modelManager.addLesson(lesson);
+        modelManager.openLesson(0); // Open added lesson
+        // opened lesson -> return true
+        assertNotNull(modelManager.getOpenedLessonCoreHeaders());
+    }
+
+    @Test
+    public void getOpenedLessonCoreHeaders_noOpenedLesson_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        assertNull(modelManager.getOpenedLessonCoreHeaders());
+    }
+
+    @Test
+    public void getOpenedLessonOptHeaders_openedLesson_returnHeaders() {
+        modelManager.addLesson(lesson);
+        modelManager.openLesson(0); // Open added lesson
+        // opened lesson -> return true
+        assertNotNull(modelManager.getOpenedLessonOptionalHeaders());
+    }
+
+    @Test
+    public void getOpenedLessonOptHeaders_noOpenedLesson_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        assertNull(modelManager.getOpenedLessonOptionalHeaders());
+    }
+
+    @Test
+    public void addCardToOpenedLesson_validCard_lessonUpdated() {
         modelManager.addLesson(lesson);
         modelManager.openLesson(0); // Open added lesson
         int size = modelManager.getOpenedLesson().getCardCount();
+
+        // Add card to opened lesson -> opened lesson's card count + 1
         modelManager.addCardToOpenedLesson(card);
         assertEquals(size + 1, modelManager.getOpenedLesson().getCardCount());
     }
 
     @Test
-    public void deleteCardFromOpenedLesson() {
-        Lesson lesson = TypicalLessonList.LESSON_DEFAULT;
+    public void addCardToOpenedLesson_invalidCard_throwsNullPointerException() {
+        modelManager.addLesson(lesson);
+        modelManager.openLesson(0); // Open added lesson
 
+        // Add invalid card to opened lesson -> null pointer exception thrown
+        thrown.expect(NullPointerException.class);
+        modelManager.addCardToOpenedLesson(null);
+    }
+
+    @Test
+    public void deleteCardFromOpenedLesson_validIndex_lessonUpdated() {
         modelManager.addLesson(lesson);
         modelManager.openLesson(0); // Open added lesson
         int size = modelManager.getOpenedLesson().getCardCount();
+
+        // Delete card from opened lesson -> opened lesson's card count - 1
         modelManager.deleteCardFromOpenedLesson(0);
         assertEquals(size - 1, modelManager.getOpenedLesson().getCardCount());
+    }
+
+    @Test
+    public void deleteCardFromOpenedLesson_invalidIndex_throwsIllegalArgumentException() {
+        modelManager.addLesson(lesson);
+        modelManager.openLesson(0); // Open added lesson
+
+        // Delete card from opened lesson at invalid index -> illegal argument exception thrown
+        thrown.expect(IllegalArgumentException.class);
+        modelManager.deleteCardFromOpenedLesson(-1);
     }
 }

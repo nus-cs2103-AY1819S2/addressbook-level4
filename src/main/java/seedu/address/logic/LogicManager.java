@@ -68,7 +68,6 @@ public class LogicManager implements Logic {
                 command = managementModeParser.parse(commandText);
                 commandResult = command.execute(managementModel, history);
 
-                // I'm so sorry for this eyesore.
                 switch (commandResult.getUpdateStorageType()) {
                 case NONE:
                     break;
@@ -113,7 +112,9 @@ public class LogicManager implements Logic {
                 commandResult = quizStartCommand.executeActual(quizModel, history);
             }
         } finally {
-            history.add(commandText);
+            if (!commandText.isEmpty()) {
+                history.add(commandText);
+            }
         }
 
         return commandResult;
@@ -127,6 +128,11 @@ public class LogicManager implements Logic {
     @Override
     public List<Lesson> getLessons() {
         return managementModel.getLessons();
+    }
+
+    @Override
+    public Lesson getOpenedLesson() {
+        return managementModel.getOpenedLesson();
     }
 
     @Override

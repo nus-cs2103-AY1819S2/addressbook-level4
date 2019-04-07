@@ -166,7 +166,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
     public boolean isLarge(String url) {
         File file = new File(url);
         System.out.println(file.length());
-        return file.length() > 400000;
+        return file.length() > 6000000;
     }
 }
 

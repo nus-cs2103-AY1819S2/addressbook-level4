@@ -86,15 +86,7 @@ public class Date {
         return date.hashCode();
     }
 
-    //Not sure about this...
-    public boolean isAfter(LocalDate date) {
-        if (this.isAfter(date)) {
-            return true;
-        }
-        return false;
-    }
-
-    //Also have to check whether this is ok...
+    //Have to check whether this is ok...
     /**
      * Compares two {@code Date} objects based on their calendar dates.
      * Uses {@link LocalDate#compareTo} function to compare dates
@@ -110,5 +102,10 @@ public class Date {
         LocalDate second = b.getDate();
 
         return second.compareTo(first);
+    }
+
+    //Not sure if this is correct...
+    public boolean isAfter(LocalDate date) {
+        return (this.getDate().compareTo(date) > 0);
     }
 }

@@ -169,12 +169,6 @@ public interface Model {
     void setSelectedRecord(Record record);
 
     /**
-     * Updates the predicate used for expense summary
-     * @throws NullPointerException if {@code predicate} is null
-     */
-    void updateRecordSummaryPredicate(Predicate<Record> predicate);
-
-    /**
      * Updates summaryPeriod to the given {@code period}.
      */
     void updateSummaryPeriod(SummaryPeriod period);
@@ -200,4 +194,10 @@ public interface Model {
      * @return {@code ObservableList<Record>} of expenses which fulfill summary filter
      */
     ObservableList<Record> getRecordSummary();
+
+    /**
+     * Updates the predicate used for record summary
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateRecordSummaryPredicate (Predicate<Record> predicate) throws NullPointerException;
 }

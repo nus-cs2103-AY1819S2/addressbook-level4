@@ -7,17 +7,17 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 /**
- * A handle to the {@code GraphPanel} in the GUI.
+ * A handle to the {@code SummaryPanel} in the GUI.
  */
-public class GraphPanelHandle extends NodeHandle<Region> {
+public class SummaryPanelHandle extends NodeHandle<Region> {
 
-    public static final String GRAPH_PANEL_ID = "#graphPanel";
+    public static final String SUMMARY_PANEL_ID = "#summaryPanel";
     public static final String CHART_AREA_ID = "#chartArea";
 
     private final StackPane chartArea;
 
-    public GraphPanelHandle(Region graphPanelHandle) {
-        super(graphPanelHandle);
+    public SummaryPanelHandle(Region summaryPanelHandle) {
+        super(summaryPanelHandle);
 
         chartArea = getChildNode(CHART_AREA_ID);
     }

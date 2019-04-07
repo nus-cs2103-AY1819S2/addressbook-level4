@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import seedu.finance.commons.core.Config;
+import seedu.finance.commons.core.EventsCenter;
 import seedu.finance.commons.core.LogsCenter;
 import seedu.finance.commons.core.Version;
 import seedu.finance.commons.exceptions.DataConversionException;
@@ -96,6 +97,10 @@ public class MainApp extends Application {
 
     private void initLogging(Config config) {
         LogsCenter.init(config);
+    }
+
+    protected void initEventsCenter() {
+        EventsCenter.getInstance().registerHandler(this);
     }
 
     /**

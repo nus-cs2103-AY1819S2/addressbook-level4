@@ -33,7 +33,7 @@ public class LessonListPanel extends UiPart<Region> {
      */
     public void updateLessonList(List<Lesson> lessons) {
         lessonListView.setItems(FXCollections.observableList(lessons));
-        lessonListView.setCellFactory(listView -> new ListCell<>());
+        lessonListView.setCellFactory(listView -> new LessonListViewCell());
     }
 
     /**
@@ -43,7 +43,7 @@ public class LessonListPanel extends UiPart<Region> {
      */
     public void updateLessonList(Lesson lesson) {
         lessonListView.setItems(FXCollections.observableList(Collections.singletonList(lesson)));
-        lessonListView.setCellFactory(listView -> new LessonListViewCell());
+        lessonListView.setCellFactory(listView -> new LessonOverviewViewCell());
     }
 
     /**
@@ -55,7 +55,37 @@ public class LessonListPanel extends UiPart<Region> {
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Lesson} using a {@code LessonCard}..
+     * @return the size of the ListView
      */
     class LessonListViewCell extends ListCell<Lesson> {
+        @Override
+        protected void updateItem(Lesson lesson, boolean empty) {
+            super.updateItem(lesson, empty);
+
+            if (empty || lesson == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(new LessonCard(lesson, getIndex() + 1).getRoot());
+            }
+        }
+
+        public int getViewItemCount() {
+            return lessonListView.getItems().size();
+        }
+    }
+
+    class LessonOverviewViewCell extends ListCell<Lesson> {
+        @Override
+        protected void updateItem(Lesson lesson, boolean empty) {
+            super.updateItem(lesson, empty);
+
+            if (empty || lesson == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(new LessonOverview(lesson).getRoot());
+            }
+        }
     }
 }

@@ -24,15 +24,15 @@ import seedu.equipment.model.WorkList;
  */
 public class TypicalWorkLists {
 
-    public static final WorkList LISTA = new WorkListBuilder().withDate("07 June 2020").withAssignee("Rachel")
+    public static final WorkList LISTA = new WorkListBuilder().withDate("07-06-2020").withAssignee("Rachel")
             .withId("3").build();
-    public static final WorkList LISTB = new WorkListBuilder().withDate("08 July 2030").withAssignee("Yiqun")
+    public static final WorkList LISTB = new WorkListBuilder().withDate("08-07-2030").withAssignee("Yiqun")
             .withId("4").build();
     public static final WorkList LISTC = new WorkListBuilder().withDate(VALID_DATE_LISTA)
             .withAssignee(VALID_ASSIGNEE_LISTA).withId(VALID_ID_LISTA).build();
-    public static final WorkList LISTD = new WorkListBuilder().withDate("09 August 2033").withAssignee("Liu Xuan")
+    public static final WorkList LISTD = new WorkListBuilder().withDate("09-08-2033").withAssignee("Liu Xuan")
             .withId("10").build();
-    public static final WorkList LISTE = new WorkListBuilder().withDate("20 September 2022").withAssignee("Bob")
+    public static final WorkList LISTE = new WorkListBuilder().withDate("20-09-2022").withAssignee("Bob")
             .withId("11").build();
     {
         LISTA.addEquipment(ANCHORVALECC);

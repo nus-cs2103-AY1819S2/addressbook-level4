@@ -56,7 +56,7 @@ class JsonAdaptedEquipment {
     public JsonAdaptedEquipment(Equipment source) {
         name = source.getName().name;
         phone = source.getPhone().value;
-        date = source.getDate().value;
+        date = source.getDate().toString();
         address = source.getAddress().value;
         serialNumber = source.getSerialNumber().serialNumber;
         tagged.addAll(source.getTags().stream()

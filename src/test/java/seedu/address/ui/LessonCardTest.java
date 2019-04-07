@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysLesson;
 
@@ -35,27 +36,27 @@ public class LessonCardTest extends GuiUnitTest {
 
         // same lesson, same index -> returns true
         LessonCard copy = new LessonCard(lesson, 0);
-        assertTrue(lessonCard.equals(copy));
+        assertEquals(lessonCard, copy);
 
         // same object -> returns true
-        assertTrue(lessonCard.equals(lessonCard));
+        assertEquals(lessonCard, lessonCard);
 
         // null -> returns false
-        assertFalse(lessonCard.equals(null));
+        assertNotEquals(null, lessonCard);
 
         // different types -> returns false
-        assertFalse(lessonCard.equals(0));
+        assertNotEquals(0, lessonCard);
 
         // same lesson with same index but different index -> returns true
         Lesson differentLesson = new LessonBuilder().withName("differentName").build();
-        assertTrue(lessonCard.equals(new LessonCard(differentLesson, 0)));
+        assertEquals(lessonCard, new LessonCard(differentLesson, 0));
 
         // different lesson, same index -> returns true
         differentLesson = new LessonBuilder().withNoCards().build();
-        assertFalse(lessonCard.equals(new LessonCard(differentLesson, 0)));
+        assertNotEquals(lessonCard, new LessonCard(differentLesson, 0));
 
         // same lesson, different index -> returns false
-        assertFalse(lessonCard.equals(new LessonCard(lesson, 1)));
+        assertNotEquals(lessonCard, new LessonCard(lesson, 1));
     }
 
     /**

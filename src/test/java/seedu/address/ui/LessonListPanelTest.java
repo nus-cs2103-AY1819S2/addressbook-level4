@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import guitests.guihandles.LessonListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.lesson.Lesson;
@@ -81,9 +80,5 @@ public class LessonListPanelTest extends GuiUnitTest {
         LessonListPanel lessonListPanel =
                 new LessonListPanel(backingList);
         uiPartRule.setUiPart(lessonListPanel);
-
-        LessonListPanelHandle lessonListPanelHandle =
-                new LessonListPanelHandle(getChildNode(lessonListPanel.getRoot(),
-                LessonListPanelHandle.PERSON_LIST_VIEW_ID));
     }
 }

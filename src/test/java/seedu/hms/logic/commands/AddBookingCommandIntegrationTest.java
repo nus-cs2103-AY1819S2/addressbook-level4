@@ -1,6 +1,7 @@
 package seedu.hms.logic.commands;
 
 //import static seedu.hms.logic.commands.CommandTestUtil.assertBookingCommandFailure;
+
 import static seedu.hms.logic.commands.CommandTestUtil.assertBookingCommandSuccess;
 import static seedu.hms.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
 
@@ -25,24 +26,24 @@ public class AddBookingCommandIntegrationTest {
     @Before
     public void setUp() {
         model = new BookingManager(new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()),
-                new UserPrefs());
+            new UserPrefs());
     }
 
     @Test
     public void executeNewBookingSuccess() {
         Booking validBooking = new BookingBuilder()
-                .withService(new ServiceType(20, new TimeRange(10, 22), "Games Room", 5.0))
-                .withTiming(14, 15)
-                .withPayer(TypicalCustomers.BOB)
-                .withOtherUsers()
-                .withComment("CoolComment")
-                .build();
+            .withService(new ServiceType(20, new TimeRange(10, 22), "Games Room", 5.0))
+            .withTiming(14, 15)
+            .withPayer(TypicalCustomers.BOB)
+            .withOtherUsers()
+            .withComment("CoolComment")
+            .build();
         BookingModel expectedModel = new BookingManager(
-                new VersionedHotelManagementSystem(model.getHotelManagementSystem()), new UserPrefs());
+            new VersionedHotelManagementSystem(model.getHotelManagementSystem()), new UserPrefs());
         expectedModel.addBooking(validBooking);
         expectedModel.commitHotelManagementSystem();
 
         assertBookingCommandSuccess(new AddBookingCommand(validBooking), model, commandHistory,
-                String.format(AddBookingCommand.MESSAGE_SUCCESS, validBooking), expectedModel);
+            String.format(AddBookingCommand.MESSAGE_SUCCESS, validBooking), expectedModel);
     }
 }

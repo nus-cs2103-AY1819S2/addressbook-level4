@@ -123,6 +123,7 @@ public class BookingBuilder {
 
     /**
      * Build the booking.
+     *
      * @return a booking
      */
     public Booking build() {

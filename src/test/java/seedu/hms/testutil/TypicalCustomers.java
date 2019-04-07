@@ -23,9 +23,9 @@ import seedu.hms.model.HotelManagementSystem;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.serviceType.ServiceType;
 import seedu.hms.model.customer.Customer;
-import seedu.hms.model.util.TimeRange;
 import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.roomType.RoomType;
+import seedu.hms.model.util.TimeRange;
 
 /**
  * A utility class containing a list of {@code Customer} objects to be used in tests.
@@ -75,6 +75,14 @@ public class TypicalCustomers {
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
             .build();
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final Booking ALICE_GYM =
+        new BookingBuilder().withService(new ServiceType(50, new TimeRange(8, 22), "Gym",
+            7.0)).withTiming(14, 15).withPayer(ALICE).build();
+    public static final Booking BENSON_GAMES_WITH_CARL =
+        new BookingBuilder().withService(new ServiceType(20, new TimeRange(10, 22), "Games Room",
+            5.0)).withTiming(12, 13).withPayer(BENSON).withOtherUsers(CARL).build();
+
+    // Bookings
     private static final Customer DANIEL =
         new CustomerBuilder().withName("Daniel Meier").withPhone("87652533").withDateOfBirth("30/12/2002")
             .withEmail("cornelia@example.com").withAddress("10th street").withIdNum("1200512A")
@@ -82,25 +90,14 @@ public class TypicalCustomers {
     private static final Customer GEORGE = new CustomerBuilder().withName("George Best").withPhone("9482442")
         .withEmail("anna@example.com").withAddress("4th street").withIdNum("1233912A").withDateOfBirth("30/12/2005")
         .build();
-
-    // Bookings
-
-    public static final Booking ALICE_GYM =
-        new BookingBuilder().withService(new ServiceType(50, new TimeRange(8, 22), "Gym",
-            7.0)).withTiming(14, 15).withPayer(ALICE).build();
-
-    public static final Booking BENSON_GAMES_WITH_CARL =
-        new BookingBuilder().withService(new ServiceType(20, new TimeRange(10, 22), "Games Room",
-            5.0)).withTiming(12, 13).withPayer(BENSON).withOtherUsers(CARL).build();
     // Reservations
-
     private static final Reservation ALICE_SINGLE_ROOM =
-        new ReservationBuilder().withRoom(new RoomType(100, "Single Room", 500.0)).withDates("14/04/2010", "17/04/2010").withPayer(ALICE)
-            .build();
+        new ReservationBuilder().withRoom(new RoomType(100, "Single Room", 500.0))
+            .withDates("14/04/2010", "17/04/2010").withPayer(ALICE).build();
 
     private static final Reservation BENSON_DOUBLE_ROOM_WITH_CARL =
-        new ReservationBuilder().withRoom(new RoomType(75, "Double Room", 750.0)).withDates("14/04/2010", "17/04/2010").withPayer(ALICE)
-            .build();
+        new ReservationBuilder().withRoom(new RoomType(75, "Double Room", 750.0))
+            .withDates("14/04/2010", "17/04/2010").withPayer(ALICE).build();
 
     private TypicalCustomers() {
     } // prevents instantiation

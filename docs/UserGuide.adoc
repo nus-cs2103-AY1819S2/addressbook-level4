@@ -413,7 +413,7 @@ Edits the phone number and email of the first patient listed to become
 Makes an exact patientcopy of a patient and adds them to the patient list.
 This may be useful if multiple people share similar details.
 
-Format: `patientcopy INDEX [Count]` or `copy INDEX [Count]`
+Format: `patientcopy INDEX [Count]` or `pcopy INDEX [Count]`
 
 Note: If the copied entry is not modified before exiting the program,
 there will be a confirmation.

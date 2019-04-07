@@ -85,7 +85,9 @@ public class CommandResult {
         return route;
     }
 
-    public Address getRouteAddress() { return routeAddress; }
+    public Address getRouteAddress() {
+        return routeAddress;
+    }
 
     @Override
     public boolean equals(Object other) {

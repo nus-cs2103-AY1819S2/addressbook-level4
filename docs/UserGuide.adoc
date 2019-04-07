@@ -347,9 +347,8 @@ Note: If a patient’s next of kin lives at the same address, use `same` to indi
 
 Examples:
 
-* `patientadd n/John Choo p/98425871 e/jonC@example.com a/IDA street block 13
-#02-05 ic/S1234567H age/32 dob/26021987 nokn/Jacky Choo nokp/84875215
-nokr/Father noka/same`
+* `patientadd n/John Choo sex/M p/98425871 e/jonC@example.com a/IDA street block 13
+#02-05 ic/S1234567H dob/26-02-1987 nokn/Jacky Choo nokp/84875215 nokr/Father noka/same`
 
 ==== patientdelete
 

@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
@@ -45,7 +44,7 @@ public class UniqueCellListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         row.add(ALICE);
-        Cell editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Cell editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
                 .build();
         assertTrue(row.contains(editedAlice));
     }
@@ -95,7 +94,7 @@ public class UniqueCellListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         row.add(ALICE);
-        Cell editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Cell editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
                 .build();
         row.setPerson(ALICE, editedAlice);
         Row expectedRow = new Row();

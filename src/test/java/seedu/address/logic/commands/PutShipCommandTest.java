@@ -13,7 +13,6 @@ import static seedu.address.testutil.TypicalIndexes.COORDINATES_B1;
 import static seedu.address.testutil.TypicalIndexes.COORDINATES_J1;
 import static seedu.address.testutil.TypicalIndexes.COORDINATES_LAST_CELL;
 import static seedu.address.testutil.TypicalIndexes.MAP_SIZE_TEN;
-import static seedu.address.testutil.TypicalPersons.getEmptyMapGrid;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,7 +28,6 @@ import seedu.address.logic.battle.state.BattleState;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.battleship.AircraftCarrierBattleship;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.DestroyerBattleship;
@@ -46,7 +44,7 @@ public class PutShipCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private Model model = new ModelManager(getEmptyMapGrid(), new UserPrefs());
+    private Model model = new ModelManager();
     private CommandHistory commandHistory = new CommandHistory();
     private final Set<Tag> emptySet = new HashSet<>();
 
@@ -269,7 +267,7 @@ public class PutShipCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertFalse(standardCommand.equals(new BeginCommand()));
 
         // different coordinates -> returns false
         assertFalse(standardCommand.equals(new PutShipCommand(

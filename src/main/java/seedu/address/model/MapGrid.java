@@ -2,9 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.BooleanProperty;
@@ -18,9 +16,6 @@ import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.Row;
 import seedu.address.model.cell.Status;
-import seedu.address.model.cell.exceptions.DuplicatePersonException;
-import seedu.address.model.cell.exceptions.PersonNotFoundException;
-import seedu.address.model.tag.Tag;
 
 /**
  * Wraps all data at the map grid level
@@ -231,67 +226,12 @@ public class MapGrid implements ReadOnlyAddressBook {
     //// cell-level operations
 
     /**
-     * Returns true if a cell with the same identity as {@code cell} exists in the address book.
-     */
-    public boolean hasPerson(Cell cell) {
-        requireNonNull(cell);
-        return persons.contains(cell);
-    }
-
-    /**
      * Adds a cell to the address book.
      * The cell must not already exist in the address book.
      */
     public void addPerson(Cell p) {
         persons.add(p);
         indicateModified();
-    }
-
-    /**
-     * Replaces the given cell {@code target} in the list with {@code editedCell}.
-     * {@code target} must exist in the address book.
-     * The cell identity of {@code editedCell} must not be the same as another existing cell in the address book.
-     */
-    public void setPerson(Cell target, Cell editedCell) {
-        requireNonNull(editedCell);
-
-        persons.setPerson(target, editedCell);
-        indicateModified();
-    }
-
-    /**
-     * Removes {@code key} from this {@code MapGrid}.
-     * {@code key} must exist in the address book.
-     */
-    public void removePerson(Cell key) {
-        persons.remove(key);
-        indicateModified();
-    }
-
-    /**
-     * Removes {@code tag} from {@code cell} in this {@code MapGrid}.
-     */
-    public void removeTag(Tag tag, Cell cell) throws DuplicatePersonException,
-            PersonNotFoundException {
-        Set<Tag> newTags = new HashSet<>(cell.getTags());
-        newTags.remove(tag);
-
-        Cell editedCell = new Cell(
-                cell.getName(),
-                cell.getPhone(),
-                cell.getEmail(),
-                cell.getAddress(),
-                newTags);
-        persons.setPerson(cell, editedCell);
-    }
-
-    /**
-     * Remove {@code tag} from app {@code cell}s in this {@code MapGrid}.
-     */
-    public void deleteTag(Tag tag) {
-        for (Cell cell : this.getPersonList()) {
-            this.removeTag(tag, cell);
-        }
     }
 
     /**

@@ -16,7 +16,7 @@ public class AddMedHistCommandParserTest {
     @Test
     public void parse_allFieldsPresent_success() {
         AddMedHistCommand command = new AddMedHistCommand(
-                new MedicalHistory("1", "1", LocalDate.parse("2018-05-05"), new WriteUp("testWriteUp")));
+                new MedicalHistory(1, 1, LocalDate.parse("2018-05-05"), new WriteUp("testWriteUp")));
 
         assertParseSuccess(parser, " pid/1 did/1 d/2018-05-05 sw/testWriteUp", command);
     }

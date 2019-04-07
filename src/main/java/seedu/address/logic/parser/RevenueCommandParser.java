@@ -9,10 +9,10 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.RevenueCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.Date;
 import seedu.address.model.statistics.Day;
 import seedu.address.model.statistics.Month;
+import seedu.address.model.statistics.Revenue;
 import seedu.address.model.statistics.Year;
 
 /**
@@ -73,8 +73,8 @@ public class RevenueCommandParser implements Parser<RevenueCommand> {
             year = ParserUtil.parseYear(argMultimap.getValue(PREFIX_YEAR).get());
         }
 
-        DailyRevenue dailyRevenue = new DailyRevenue(day, month, year);
+        Revenue revenue = new Revenue(day, month, year);
 
-        return new RevenueCommand(dailyRevenue);
+        return new RevenueCommand(revenue);
     }
 }

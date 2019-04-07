@@ -15,6 +15,7 @@ import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.statistics.Bill;
 import seedu.address.model.statistics.DailyRevenue;
+import seedu.address.model.statistics.Revenue;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableStatus;
 
@@ -78,10 +79,10 @@ public class BillCommand extends Command {
         DailyRevenue dailyRevenue =
                 new DailyRevenue(bill.getDay(), bill.getMonth(), bill.getYear(), bill.getTotalBill());
 
-        if (model.hasDailyRevenue(dailyRevenue)) {
-            updateDailyRevenue(model, bill);
+        if (model.hasRevenue(dailyRevenue)) {
+            updateRevenue(model, bill);
         } else {
-            model.addDailyRevenue(dailyRevenue);
+            model.addRevenue(dailyRevenue);
         }
 
         updateStatusOfTable(model);
@@ -133,15 +134,15 @@ public class BillCommand extends Command {
     }
 
     /**
-     * Updates the daily revenue.
+     * Updates the revenue.
      */
-    private void updateDailyRevenue(Model model, Bill bill) {
-        ObservableList<DailyRevenue> dailyRevenuesList = model.getFilteredDailyRevenueList();
-        for (DailyRevenue dailyRevenue : dailyRevenuesList) {
+    private void updateRevenue(Model model, Bill bill) {
+        ObservableList<Revenue> dailyRevenuesList = model.getFilteredRevenueList();
+        for (Revenue dailyRevenue : dailyRevenuesList) {
             if (dailyRevenue.getYear().equals(bill.getYear())
                     && dailyRevenue.getMonth().equals(bill.getMonth())
                     && dailyRevenue.getDay().equals(bill.getDay())) {
-                dailyRevenue.addToRevenue(bill);
+                dailyRevenue.addToRevenue(bill.getTotalBill());
             }
         }
     }

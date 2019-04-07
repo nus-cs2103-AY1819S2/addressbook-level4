@@ -36,7 +36,7 @@ public class FlashcardCard extends UiPart<Region> {
         super(FXML);
         this.card = card;
         id.setText(displayedIndex + ". ");
-        name.setText(card.getCore(questionIndex) + " / " + card.getCore(answerIndex));
+        name.setText(formatName(card.getCore(questionIndex), card.getCore(answerIndex)));
 
         for (int i = 0; i < card.getCores().size(); i++) {
             Label label = new Label(card.getCore(i));
@@ -57,6 +57,10 @@ public class FlashcardCard extends UiPart<Region> {
         }
     }
 
+    public static String formatName(String question, String answer) {
+        return question + " / " + answer;
+    }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -70,8 +74,7 @@ public class FlashcardCard extends UiPart<Region> {
         }
 
         // state check
-        FlashcardCard card = (FlashcardCard) other;
-        return id.getText().equals(card.id.getText())
-                && this.equals(card);
+        FlashcardCard otherCard = (FlashcardCard) other;
+        return card.equals(otherCard.card);
     }
 }

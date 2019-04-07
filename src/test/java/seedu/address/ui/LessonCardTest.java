@@ -32,6 +32,9 @@ public class LessonCardTest extends GuiUnitTest {
         Lesson lesson = new LessonBuilder().build();
         LessonCard lessonCard = new LessonCard(lesson, 0);
 
+        // same same -> return true
+        assertEquals(lessonCard, lessonCard);
+
         // same lesson, same index -> returns true
         LessonCard copy = new LessonCard(lesson, 0);
         assertEquals(lessonCard, copy);
@@ -44,6 +47,9 @@ public class LessonCardTest extends GuiUnitTest {
 
         // different types -> returns false
         assertNotEquals(0, lessonCard);
+
+        // different types -> return false
+        assertNotEquals(lessonCard, new LessonOverview(lesson));
 
         // same lesson with same index but different index -> returns true
         Lesson differentLesson = new LessonBuilder().withName("differentName").build();

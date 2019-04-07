@@ -5,11 +5,14 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
+import guitests.guihandles.FlashcardCardHandle;
 import guitests.guihandles.LessonCardHandle;
 import guitests.guihandles.LessonOverviewHandle;
 import guitests.guihandles.ResultDisplayHandle;
 
+import seedu.address.model.card.Card;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.ui.FlashcardCard;
 import seedu.address.ui.LessonCard;
 
 /**
@@ -51,6 +54,20 @@ public class GuiTestAssert {
         List<String> headers = actualCard.getHeaders();
         List<String> headersToCompare = new ArrayList<>(expectedLesson.getCoreHeaders());
         headersToCompare.addAll(expectedLesson.getOptionalHeaders());
+        assertEquals(headers, headersToCompare);
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedCard}.
+     */
+    public static void assertCardDisplaysCard(Card expectedCard, FlashcardCardHandle actualCard) {
+        assertEquals(
+                FlashcardCard.formatName(expectedCard.getCore(0), expectedCard.getCore(1)),
+                actualCard.getName());
+
+        List<String> headers = actualCard.getHeaders();
+        List<String> headersToCompare = new ArrayList<>(expectedCard.getCores());
+        headersToCompare.addAll(expectedCard.getOptionals());
         assertEquals(headers, headersToCompare);
     }
 

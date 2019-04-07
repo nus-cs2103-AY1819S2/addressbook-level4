@@ -113,7 +113,7 @@ public class SummaryCommand extends Command {
         //Link here to D3 graph??
         EventsCenter.getInstance().post(new SwapBrowserPanelEvent(SwapBrowserPanelEvent.PanelType.SUMMARY));
         EventsCenter.getInstance().post(new ShowSummaryRequestEvent());
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(true, MESSAGE_SUCCESS, false, false);
     }
 
     /**

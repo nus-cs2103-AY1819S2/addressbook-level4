@@ -1,5 +1,6 @@
 package seedu.finance.ui;
 
+import java.sql.Time;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -34,7 +35,7 @@ import seedu.finance.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
-    private static final double INITIALIZE_ANIMATION_TIME = 0.5;
+    private static final double INITIALIZE_ANIMATION_TIME = 1;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -144,7 +145,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         browserPanel = new BrowserPanel(logic.selectedRecordProperty(), logic.getBudget());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         budgetPanel = new BudgetPanel(logic.getBudget());
         budgetPanelPlaceholder.getChildren().add(budgetPanel.getRoot());
@@ -179,6 +179,11 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getSummaryPeriod(),
                 logic.getPeriodAmount()
         );
+        Timeline timeline = new Timeline();
+        browserPlaceholder.setOpacity(0.0);
+        browserPlaceholder.getChildren().add(summaryPanel.getRoot());
+        addFadeInAnimation(browserPlaceholder, 0.0, timeline);
+        timeline.playFromStart();
     }
 
     /**
@@ -285,12 +290,27 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getSummaryPeriod(),
                 logic.getPeriodAmount()
         );
+        handleBrowserPlaceholderSwap();
+        //summaryPane = new AnchorPane();
+        //summaryPane.setTopAnchor(summaryPanel.getRoot(), 0.0);
+        //summaryPane.getChildren().addAll(summaryPanel.getRoot());
 
-        summaryPane = new AnchorPane();
-        summaryPane.setTopAnchor(summaryPanel.getRoot(), 0.0);
-        summaryPane.getChildren().addAll(summaryPanel.getRoot());
+        //swapToSummary();
+    }
 
-        swapToSummary();
+    private void handleBrowserPlaceholderSwap() {
+        Timeline timeline = new Timeline();
+        browserPlaceholder.setOpacity(0.0);
+        if (browserPlaceholder.getChildren().get(0).getId() == null) {
+            browserPlaceholder.getChildren().clear();
+            browserPlaceholder.getChildren().add(summaryPanel.getRoot());
+        } else if (browserPlaceholder.getChildren().get(0).getId().equals("summaryPanel")) {
+            browserPlaceholder.getChildren().clear();
+            browserPlaceholder.getChildren().add(browserPanel.getRoot());
+            handleChangeBudget();
+        }
+        addFadeInAnimation(browserPlaceholder, 0.0, timeline);
+        timeline.playFromStart();
     }
 
     @Subscribe
@@ -314,7 +334,7 @@ public class MainWindow extends UiPart<Stage> {
         Timeline timeline = new Timeline();
         browserPanelPlaceholder.setOpacity(0.0);
         browserPanelPlaceholder.getChildren().clear();
-        browserPanelPlaceholder.getChildren().add(recordListPanel.getRoot());
+        browserPanelPlaceholder.getChildren().add(browserPanel.getRoot());
         addFadeInAnimation(browserPanelPlaceholder, 0.0, timeline);
         timeline.playFromStart();
     }

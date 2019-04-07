@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_OPENED_LESSON;
 import static seedu.address.logic.parser.Syntax.PREFIX_CORE;
 import static seedu.address.logic.parser.Syntax.PREFIX_CORE_ANSWER;
 import static seedu.address.logic.parser.Syntax.PREFIX_CORE_QUESTION;
@@ -80,7 +81,9 @@ public class AddLessonCommand extends ManagementCommand {
         ManagementModel mgtModel = requireManagementModel(model);
         String lessonName = toAdd.getName();
 
-        if (mgtModel.hasLessonWithName(lessonName)) {
+        if (mgtModel.isThereOpenedLesson()) {
+            throw new CommandException(MESSAGE_OPENED_LESSON);
+        } else if (mgtModel.hasLessonWithName(lessonName)) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_NAME, lessonName));
         }
 

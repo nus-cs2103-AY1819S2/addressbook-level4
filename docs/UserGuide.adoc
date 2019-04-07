@@ -770,6 +770,17 @@ Shows a list of all the task stored in the application.
 
 Format: `tasklist` or `tlist`
 
+==== tasksort
+Sort the tasks ascendingly or descendingly in some order.
+
+Format : 'tasksort priority/startime/endtime [asc/desc]'
+
+Example:
+
+*`tasksort priority`
+
+*`tasksort starttime desc`
+
 ==== taskdone
 Sets a task to `[green]#complete#`, marking the completion of the task.
 Executing this command on a patient that has a patient linked to it will automatically add a record to the patient.
@@ -995,6 +1006,9 @@ e.g. `taskedit 1 ti/Tooth extraction for Alex pri/HIGH`
 
 * *Task patientdelete*: `taskdelete INDEX` +
 e.g. `taskdelete 1`
+
+* *Tasksort `tasksort starttime/endtime/priority [asc/desc]`
+e.g. `tasksort endtime`
 
 * *Teeth* : `teeth patientadd <Template>` +
 e.g. `teeth patientadd primary`

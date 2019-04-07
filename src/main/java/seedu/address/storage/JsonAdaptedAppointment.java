@@ -38,8 +38,8 @@ class JsonAdaptedAppointment {
     public JsonAdaptedAppointment(Appointment source) {
         this.patientId = source.getPatientId();
         this.doctorId = source.getDoctorId();
-        this.dateOfAppt = source.getDateOfAppt();
-        this.timeOfAppt = source.getTimeOfAppt();
+        this.dateOfAppt = source.getDate();
+        this.timeOfAppt = source.getTime();
     }
 
     /**

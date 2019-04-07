@@ -4,6 +4,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_VALID_DATE_OF_APPT;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_VALID_DOCTOR_ID;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_VALID_PATIENT_ID;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_VALID_START_TIME;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_OF_APPT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DOCTOR_ID;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PATIENT_ID;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_TIME;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.time.LocalDate;
@@ -36,7 +44,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SelectDoctorCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.FutureAppointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.WriteUp;
 import seedu.address.model.person.Doctor;
@@ -64,10 +72,12 @@ public class DocXParserTest {
     @Test
     public void parseCommand_addAppointment() throws Exception {
         AddAppointmentCommand command = (AddAppointmentCommand) parser.parseCommand(
-                AddAppointmentCommand.COMMAND_WORD + " add-appt pid/1 did/1 d/2019-06-01 t/09:00");
+                AddAppointmentCommand.COMMAND_WORD + DESC_VALID_PATIENT_ID + DESC_VALID_DOCTOR_ID
+                        + DESC_VALID_DATE_OF_APPT + DESC_VALID_START_TIME);
         assertTrue(command instanceof AddAppointmentCommand);
-        assertEquals(command, new AddAppointmentCommand(new Appointment(
-                1, 1, LocalDate.parse("2019-06-01"), LocalTime.parse("09:00"))));
+        assertEquals(command, new AddAppointmentCommand(new FutureAppointment(Integer.parseInt(VALID_PATIENT_ID),
+                Integer.parseInt(VALID_DOCTOR_ID), LocalDate.parse(VALID_DATE_OF_APPT),
+                LocalTime.parse(VALID_START_TIME))));
     }
 
     @Test

@@ -16,27 +16,29 @@ public class Appointment {
 
     private final int patientId;
     private final int doctorId;
-    private final LocalDate dateOfAppt;
-    private final LocalTime timeOfAppt;
+    private final LocalDate date;
+    private final LocalTime time;
+    private final AppointmentStatus appointmentStatus;
 
     /**
      * Constructs an {@code Appointment}.
      *
      * @param patientId A valid patientId.
      * @param doctorId A valid doctorId.
-     * @param dateOfAppt A valid appointment date in the future
-     * @param timeOfAppt A valid appointment time in the future
+     * @param date A valid appointment date
+     * @param time A valid appointment time
      */
-    public Appointment(int patientId, int doctorId, LocalDate dateOfAppt, LocalTime timeOfAppt) {
+    public Appointment(int patientId, int doctorId, LocalDate date, LocalTime time) {
         /**
          * Every field must be present and not null.
          */
-        requireAllNonNull(dateOfAppt, timeOfAppt);
+        requireAllNonNull(date, time);
         //checkArgument(isValidAppointment(appointment), MESSAGE_CONSTRAINTS);
         this.patientId = patientId;
         this.doctorId = doctorId;
-        this.dateOfAppt = dateOfAppt;
-        this.timeOfAppt = timeOfAppt;
+        this.date = date;
+        this.time = time;
+        this.appointmentStatus = AppointmentStatus.ACTIVE;
     }
 
     /**
@@ -52,8 +54,8 @@ public class Appointment {
         str += "Appointment - ";
         str += "Patient ID: " + patientId;
         str += " Doctor ID: " + doctorId;
-        str += " Date: " + dateOfAppt;
-        str += " Time: " + timeOfAppt;
+        str += " Date: " + date;
+        str += " Time: " + time;
         return str;
     }
 
@@ -65,12 +67,16 @@ public class Appointment {
         return doctorId;
     }
 
-    public LocalDate getDateOfAppt() {
-        return dateOfAppt;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public LocalTime getTimeOfAppt() {
-        return timeOfAppt;
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public AppointmentStatus getAppointmentStatus() {
+        return appointmentStatus;
     }
 
     public boolean isSameAppointment(Appointment that) {
@@ -96,11 +102,15 @@ public class Appointment {
             return false;
         }
 
-        if (!this.dateOfAppt.equals(that.dateOfAppt)) {
+        if (!this.date.equals(that.date)) {
             return false;
         }
 
-        if (!this.timeOfAppt.equals(that.timeOfAppt)) {
+        if (!this.time.equals(that.time)) {
+            return false;
+        }
+
+        if (!this.appointmentStatus.equals(that.appointmentStatus)) {
             return false;
         }
 
@@ -109,6 +119,6 @@ public class Appointment {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.dateOfAppt);
+        return Objects.hash(this.date);
     }
 }

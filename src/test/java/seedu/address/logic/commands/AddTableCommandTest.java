@@ -30,6 +30,7 @@ import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.statistics.Bill;
 import seedu.address.model.statistics.DailyRevenue;
+import seedu.address.model.statistics.Revenue;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.TableStatus;
@@ -290,52 +291,52 @@ public class AddTableCommandTest {
         }
 
         @Override
-        public boolean hasDailyRevenue(DailyRevenue dailyRevenue) {
+        public void addRevenue(Revenue revenue) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteDailyRevenue(DailyRevenue target) {
+        public void deleteRevenue(Revenue revenue) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addDailyRevenue(DailyRevenue dailyRevenue) {
+        public boolean hasRevenue(Revenue revenue) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setDailyRevenue(DailyRevenue target, DailyRevenue editedDailyRevenue) {
+        public void setRevenue(Revenue target, Revenue editedRevenue) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<DailyRevenue> getFilteredDailyRevenueList() {
+        public ObservableList<Revenue> getFilteredRevenueList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredDailyRevenueList(Predicate<DailyRevenue> predicate) {
+        public void updateFilteredRevenueList(Predicate<Revenue> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyProperty<DailyRevenue> selectedDailyRevenueProperty() {
+        public ReadOnlyProperty<Revenue> selectedRevenueProperty() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public DailyRevenue getSelectedDailyRevenue() {
+        public Revenue getSelectedRevenue() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setSelectedDailyRevenue(DailyRevenue dailyRevenue) {
+        public void setSelectedRevenue(Revenue dailyRevenue) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<DailyRevenue> getDailyRevenueList() {
+        public ObservableList<Revenue> getRevenueList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -351,6 +352,26 @@ public class AddTableCommandTest {
 
         @Override
         public void setRecentBill(Bill bill) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setStatisticsStatus(boolean isDaily, boolean isMonthly, boolean isYearly) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean getIsDaily() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean getIsMonthly() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean getIsYearly() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -401,26 +422,6 @@ public class AddTableCommandTest {
 
         @Override
         public void setSelectedMenuItem(MenuItem menuItem) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setStatisticsStatus(boolean isDaily, boolean isMonthly, boolean isYearly) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean getIsDaily() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean getIsMonthly() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean getIsYearly() {
             throw new AssertionError("This method should not be called.");
         }
 

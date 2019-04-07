@@ -1,6 +1,7 @@
 package seedu.equipment.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -164,6 +165,11 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredWorkListList(Predicate<WorkList> predicate);
+
+    /**
+     * Sorts the filtered list according to comparison function in {@code comparator}.
+     */
+    void sortFilteredEquipmentList(Comparator<Equipment> comparator);
 
     /**
      * Returns true if the model has previous equipment book states to restore.

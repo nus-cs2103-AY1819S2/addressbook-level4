@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.equipment.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.equipment.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.equipment.logic.parser.CliSyntax.NAME_SORT_PARAMETER;
 import static seedu.equipment.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -88,8 +89,9 @@ public class EquipmentManagerParserTest {
 
     @Test
     public void parseCommand_sort() throws Exception {
-        assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD) instanceof SortCommand);
-        assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD + " 3") instanceof SortCommand);
+        SortCommand command = (SortCommand) parser.parseCommand(
+                SortCommand.COMMAND_WORD + " " + NAME_SORT_PARAMETER);
+        assertEquals(new SortCommand(new NameComparator()), command);
     }
 
     @Test

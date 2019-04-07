@@ -34,8 +34,8 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
-    public static final String VALID_DATE_AMY = "22 April 2019";
-    public static final String VALID_DATE_BOB = "27 April 2019";
+    public static final String VALID_DATE_AMY = "22-04-2019";
+    public static final String VALID_DATE_BOB = "27-04-2019";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_SERIAL_NUMBER_AMY = "A019283C";
@@ -43,10 +43,10 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_TAG_UNUSED = "unused"; // do not use this tag when creating a equipment
-    public static final String VALID_DATE_LISTA = "07 June 2020";
+    public static final String VALID_DATE_LISTA = "07-06-2020";
     public static final String VALID_ASSIGNEE_LISTA = "Rachel";
     public static final String VALID_ID_LISTA = "2";
-    public static final String VALID_DATE_LISTB = "08 July 2030";
+    public static final String VALID_DATE_LISTB = "08-07-2030";
     public static final String VALID_ASSIGNEE_LISTB = "Yiqun";
     public static final String VALID_ID_LISTB = "3";
 

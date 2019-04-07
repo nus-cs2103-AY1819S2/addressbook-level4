@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -253,6 +254,11 @@ public class AddWorkListCommandTest {
 
         @Override
         public void updateFilteredWorkListList (Predicate<WorkList> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredEquipmentList(Comparator<Equipment> comparator) {
             throw new AssertionError("This method should not be called.");
         }
 

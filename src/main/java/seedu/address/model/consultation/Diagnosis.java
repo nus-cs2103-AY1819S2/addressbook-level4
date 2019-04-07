@@ -38,6 +38,7 @@ public class Diagnosis {
         sb.append("Diagnosis\n");
         sb.append("====================\n");
         sb.append("Assessment: " + assessment + "\n");
+        sb.append("Symptoms:\n");
         for (int i = 0; i < symptoms.size(); i++) {
             sb.append(i + 1 + ") " + symptoms.get(i).getSymptom() + "\n");
         }

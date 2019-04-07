@@ -20,12 +20,11 @@ public class CsvUserStorageTest {
             "noValidFile");
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "UserStorageTest");
     private static final Path HASHCODE_ZERO_FILE =
-            Paths.get("src", "test", "data", "UserStorageTest", "hashcodeZero", "hashcodeZeroTest.csv");
+            Paths.get("src", "test", "data", "UserStorageTest", "hashcodeZeroTest.csv");
     private static final Path NEGATIVE_ATTEMPTS_FILE =
-            Paths.get("src", "test", "data", "UserStorageTest", "numberOfAttemptsNegative",
-                    "numberOfAttemptsNegativeTest.csv");
+            Paths.get("src", "test", "data", "UserStorageTest", "numberOfAttemptsNegativeTest.csv");
     private static final Path NEGATIVE_STREAK_FILE =
-            Paths.get("src", "test", "data", "UserStorageTest", "streakNegative", "streakNegativeTest.csv");
+            Paths.get("src", "test", "data", "UserStorageTest", "streakNegativeTest.csv");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

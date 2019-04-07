@@ -47,6 +47,10 @@ public class InformationPanelTest extends GuiUnitTest {
         checkTable(informationPanel.getBatchTable(), InformationPanelSettings.DEFAULT_SORT_PROPERTY,
                 InformationPanelSettings.DEFAULT_SORT_DIRECTION);
 
+        // deselect medicine
+        guiRobot.interact(() -> selectedMedicine.set(null));
+        assertFalse(informationPanelHandle.isBatchTableLoaded());
+
         // Select another medicine and change settings
         guiRobot.interact(() -> selectedMedicine.set(LEVOTHYROXINE));
         assertTrue(informationPanelHandle.isBatchTableLoaded());
@@ -54,9 +58,12 @@ public class InformationPanelTest extends GuiUnitTest {
                 SortDirection.DESCENDING)));
         checkTable(informationPanel.getBatchTable(), SortProperty.EXPIRY, SortDirection.DESCENDING);
 
-        // deselect medicine
-        guiRobot.interact(() -> selectedMedicine.set(null));
-        assertFalse(informationPanelHandle.isBatchTableLoaded());
+        // Select same medicine and change settings without deselecting
+        guiRobot.interact(() -> selectedMedicine.set(LEVOTHYROXINE));
+        assertTrue(informationPanelHandle.isBatchTableLoaded());
+        guiRobot.interact(() -> informationPanelSettings.set(new InformationPanelSettings(SortProperty.QUANTITY,
+                SortDirection.DESCENDING)));
+        checkTable(informationPanel.getBatchTable(), SortProperty.EXPIRY, SortDirection.DESCENDING);
     }
 
     /**

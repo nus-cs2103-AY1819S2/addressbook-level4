@@ -82,7 +82,6 @@ Besides updating the original addressbook User Guide, Developer Guide has to be 
 features as well. The following section is an excerpt from our updated Know-It-All Developer Guide about the
 implementation details and design considerations for the test session feature.
 
-include::../DeveloperGuide.adoc[tag=testsession]
-
-include::../DeveloperGuide.adoc[tag=testsessionusecases]
+include::../DeveloperGuide.adoc[tag=testcommand]
+include::../DeveloperGuide.adoc[tag=testcommanddesign]
 

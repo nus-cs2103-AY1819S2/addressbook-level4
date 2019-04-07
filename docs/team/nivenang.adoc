@@ -5,15 +5,18 @@
 
 == PROJECT: TravelBuddy
 
----
 
 == Overview
+
+This project portfolio documents my contribution to TravelBuddy, a desktop application developed as a Software Engineering team project for CS2103T.
+The team is made up of 4 members, including myself, from the National University of Singapore.
+As part of the module objectives to prepare students for the working world, a brown-field approach was adopted where we were tasked to morph https://github.com/nus-cs2103-AY1819S2/addressbook-level4[AddressBook Level 4].
+The user interacts with it using a Command Line Interface, and it has a Graphical User Interface created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 TravelBuddy is a desktop Travel Guide application for travel enthusiasts to record places previously visited.
 TravelBuddy enables travellers to record and store places that they have visited previously. With the recorded data, travellers can
 search for places according to the fields requested, analyse and provide statistics for places that they have been to so far.
 Travellers can also store their precious photos on TravelBuddy, which helps them remember and reminisce the places that wonderful places they have journeyed to.
-The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 My role in this Software Engineering project was to design and write the code for the `search` features. The following sections showcase, in greater detail, my contributions and enhancements added to TravelBuddy,
 as well as the documentation of these enhancements in the User Guide and Developer Guide.

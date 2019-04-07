@@ -230,8 +230,9 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
      */
     public void setServiceType(int serviceTypeIndex, ServiceType editedServiceType) {
         requireNonNull(editedServiceType);
-
+        ServiceType oldServiceType = serviceTypes.asUnmodifiableObservableList().get(serviceTypeIndex);
         serviceTypes.setServiceType(serviceTypeIndex, editedServiceType);
+        bookings.setServiceType(oldServiceType, editedServiceType);
         indicateModified();
     }
 
@@ -269,8 +270,9 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
      */
     public void setRoomType(int roomTypeIndex, RoomType editedRoomType) {
         requireNonNull(editedRoomType);
-
+        RoomType oldRoomType = roomTypes.asUnmodifiableObservableList().get(roomTypeIndex);
         roomTypes.setRoomType(roomTypeIndex, editedRoomType);
+        reservations.setRoomType(oldRoomType, editedRoomType);
         indicateModified();
     }
 

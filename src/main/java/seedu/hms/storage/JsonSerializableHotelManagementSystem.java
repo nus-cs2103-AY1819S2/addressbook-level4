@@ -80,14 +80,6 @@ class JsonSerializableHotelManagementSystem {
             }
             hotelManagementSystem.addCustomer(customer);
         }
-        for (JsonAdaptedBooking jsonAdaptedBooking : bookings) {
-            Booking booking = jsonAdaptedBooking.toModelType();
-            hotelManagementSystem.addBooking(booking);
-        }
-        for (JsonAdaptedReservation jsonAdaptedReservation : reservations) {
-            Reservation reservation = jsonAdaptedReservation.toModelType();
-            hotelManagementSystem.addReservation(reservation);
-        }
         for (JsonAdaptedRoomType jsonAdaptedRoomType : roomTypes) {
             RoomType roomType = jsonAdaptedRoomType.toModelType();
             hotelManagementSystem.addRoomType(roomType);
@@ -95,6 +87,14 @@ class JsonSerializableHotelManagementSystem {
         for (JsonAdaptedServiceType jsonAdaptedServiceType : serviceTypes) {
             ServiceType serviceType = jsonAdaptedServiceType.toModelType();
             hotelManagementSystem.addServiceType(serviceType);
+        }
+        for (JsonAdaptedBooking jsonAdaptedBooking : bookings) {
+            Booking booking = jsonAdaptedBooking.toModelType(serviceTypes);
+            hotelManagementSystem.addBooking(booking);
+        }
+        for (JsonAdaptedReservation jsonAdaptedReservation : reservations) {
+            Reservation reservation = jsonAdaptedReservation.toModelType(roomTypes);
+            hotelManagementSystem.addReservation(reservation);
         }
         return hotelManagementSystem;
     }

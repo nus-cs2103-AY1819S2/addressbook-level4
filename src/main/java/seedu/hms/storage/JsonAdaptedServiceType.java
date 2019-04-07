@@ -31,6 +31,10 @@ class JsonAdaptedServiceType {
         this.timing = timing;
     }
 
+    public String getName() {
+        return name;
+    }
+
     /**
      * Converts a given {@code Customer} into this class for Jackson use.
      */
@@ -56,6 +60,14 @@ class JsonAdaptedServiceType {
         }
 
         return new ServiceType(capacity, timing.toModelType(), name, ratePerHour);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof JsonAdaptedServiceType) {
+            return name.equalsIgnoreCase(((JsonAdaptedServiceType) other).getName());
+        }
+        return false;
     }
 
 }

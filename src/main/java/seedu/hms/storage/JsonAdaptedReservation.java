@@ -64,13 +64,13 @@ class JsonAdaptedReservation {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted customer.
      */
-    public Reservation toModelType() throws IllegalValueException {
+    public Reservation toModelType(List<JsonAdaptedRoomType> roomTypes) throws IllegalValueException {
         List<Customer> others = new ArrayList<>();
         for (JsonAdaptedCustomer user : otherUsers) {
             others.add(user.toModelType());
         }
 
-        if (room == null) {
+        if (room == null || roomTypes.indexOf(room) == -1) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 RoomType.class.getSimpleName()));
         }
@@ -83,8 +83,8 @@ class JsonAdaptedReservation {
         if (payer == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "payer"));
         }
-        return new Reservation(room.toModelType(), dates.toModelType(), payer.toModelType(), Optional.of(others),
-            "".equals(comment) ? Optional.empty() : Optional.of(comment));
+        return new Reservation(roomTypes.get(roomTypes.indexOf(room)).toModelType(), dates.toModelType(),
+            payer.toModelType(), Optional.of(others), "".equals(comment) ? Optional.empty() : Optional.of(comment));
     }
 
 }

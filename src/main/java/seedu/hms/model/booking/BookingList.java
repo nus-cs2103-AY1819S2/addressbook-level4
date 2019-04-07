@@ -11,6 +11,7 @@ import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.hms.model.booking.exceptions.BookingNotFoundException;
+import seedu.hms.model.booking.serviceType.ServiceType;
 import seedu.hms.model.booking.serviceType.exceptions.ServiceFullException;
 import seedu.hms.model.booking.serviceType.exceptions.ServiceUnavailableException;
 import seedu.hms.model.customer.Customer;
@@ -76,6 +77,16 @@ public class BookingList implements Iterable<Booking> {
             }
         }
         internalList.removeAll(bookingsToRemove);
+    }
+
+    public void setServiceType(ServiceType oldServiceType, ServiceType newServiceType) {
+        for (int i = 0; i < internalList.size(); i++) {
+            Booking b = internalList.get(i);
+            if (b.getService().equals(oldServiceType)) {
+                this.setBooking(i, new Booking(newServiceType, b.getTiming(), b.getPayer(), b.getOtherUsers(),
+                    b.getComment()));
+            }
+        }
     }
 
     /**

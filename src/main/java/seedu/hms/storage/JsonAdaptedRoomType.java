@@ -52,4 +52,15 @@ class JsonAdaptedRoomType {
         return new RoomType(numberOfRooms, name, ratePerDay);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof JsonAdaptedRoomType) {
+            return name.equalsIgnoreCase(((JsonAdaptedRoomType) other).getName());
+        }
+        return false;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

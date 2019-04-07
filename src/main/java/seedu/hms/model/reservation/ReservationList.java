@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.reservation.exceptions.ReservationNotFoundException;
+import seedu.hms.model.reservation.roomType.RoomType;
 import seedu.hms.model.reservation.roomType.exceptions.RoomFullException;
 import seedu.hms.model.util.DateRange;
 
@@ -48,6 +49,16 @@ public class ReservationList implements Iterable<Reservation> {
             }
         }
         return Optional.empty();
+    }
+
+    public void setRoomType(RoomType oldRoomType, RoomType newRoomType) {
+        for (int i = 0; i < internalList.size(); i++) {
+            Reservation b = internalList.get(i);
+            if (b.getRoom().equals(oldRoomType)) {
+                this.setReservation(i, new Reservation(newRoomType, b.getDates(), b.getPayer(), b.getOtherUsers(),
+                    b.getComment()));
+            }
+        }
     }
 
     /**

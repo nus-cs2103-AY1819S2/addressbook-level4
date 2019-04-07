@@ -80,7 +80,7 @@ public class CommandResult {
         return showPanel;
     }
 
-    public ShowBrowser getShowBrowser() {return showBrowser;}
+    public ShowBrowser getShowBrowser() { return showBrowser; }
 
     @Override
     public boolean equals(Object other) {

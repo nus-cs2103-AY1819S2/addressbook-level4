@@ -73,24 +73,24 @@ public class AddCommandTest {
     public void equals() {
         Medicine paracetamol = new MedicineBuilder().withName("Paracetamol").build();
         Medicine gabapentin = new MedicineBuilder().withName("Gabapentin").build();
-        AddCommand addParactamolCommand = new AddCommand(paracetamol);
+        AddCommand addParacetamolCommand = new AddCommand(paracetamol);
         AddCommand addGabapentinCommand = new AddCommand(gabapentin);
 
         // same object -> returns true
-        assertTrue(addParactamolCommand.equals(addParactamolCommand));
+        assertTrue(addParacetamolCommand.equals(addParacetamolCommand));
 
         // same values -> returns true
         AddCommand addParacetamolCommandCopy = new AddCommand(paracetamol);
-        assertTrue(addParactamolCommand.equals(addParacetamolCommandCopy));
+        assertTrue(addParacetamolCommand.equals(addParacetamolCommandCopy));
 
         // different types -> returns false
-        assertFalse(addParactamolCommand.equals(1));
+        assertFalse(addParacetamolCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addParactamolCommand.equals(null));
+        assertFalse(addParacetamolCommand.equals(null));
 
         // different medicine -> returns false
-        assertFalse(addParactamolCommand.equals(addGabapentinCommand));
+        assertFalse(addParacetamolCommand.equals(addGabapentinCommand));
     }
 
     /**

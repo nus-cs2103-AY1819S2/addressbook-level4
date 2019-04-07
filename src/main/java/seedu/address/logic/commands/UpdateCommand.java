@@ -86,6 +86,7 @@ public class UpdateCommand extends Command {
 
         model.setMedicine(medicineToUpdate, updatedMedicine);
         model.commitInventory();
+        model.setSelectedMedicine(updatedMedicine);
         return new CommandResult(String.format(MESSAGE_SUCCESS, updatedBatch));
     }
 

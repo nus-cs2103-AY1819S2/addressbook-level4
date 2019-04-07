@@ -40,15 +40,17 @@ public class ExpiryTest {
         assertFalse(Expiry.isValidDate(" 01/01/2020")); // leading space
         assertFalse(Expiry.isValidDate("01/01/2020 ")); // trailing space
         assertFalse(Expiry.isValidDate("01/01/20a0")); // invalid year
-        assertFalse(Expiry.isValidDate("01//01/2020")); // double '-' symbol
+        assertFalse(Expiry.isValidDate("01//01/2020")); // double '/' symbol
         assertFalse(Expiry.isValidDate("01/01/01/2020")); // extra part
         assertFalse(Expiry.isValidDate("2020/01/01")); // wrong order
         assertFalse(Expiry.isValidDate("32/01/2020")); // day more than 31
         assertFalse(Expiry.isValidDate("01/13/2020")); // month more than 12
+        assertFalse(Expiry.isValidDate("29/02/2019")); // invalid date
 
         // valid expiry
         assertTrue(Expiry.isValidDate("11/11/2020"));
         assertTrue(Expiry.isValidDate("1/1/2020")); // without leading zero
+        assertTrue(Expiry.isValidDate("29/2/2020")); // leap year
 
     }
 }

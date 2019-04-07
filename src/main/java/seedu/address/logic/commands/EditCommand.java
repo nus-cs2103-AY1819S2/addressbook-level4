@@ -190,7 +190,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, postal, tags, weblink);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, postal, tags, weblink, openingHours);
         }
 
         public void setName(Name name) {
@@ -287,7 +287,8 @@ public class EditCommand extends Command {
                     && getAddress().equals(e.getAddress())
                     && getPostal().equals(e.getPostal())
                     && getTags().equals(e.getTags())
-                    && getWeblink().equals(e.getWeblink());
+                    && getWeblink().equals(e.getWeblink())
+                    && getOpeningHours().equals(e.getOpeningHours());
         }
 
     }

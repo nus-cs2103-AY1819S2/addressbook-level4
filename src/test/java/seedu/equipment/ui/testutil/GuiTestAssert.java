@@ -24,7 +24,7 @@ public class GuiTestAssert {
     public static void assertCardEquals(EquipmentCardHandle expectedCard, EquipmentCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
         assertEquals(expectedCard.getAddress(), actualCard.getAddress());
-        assertEquals(expectedCard.getEmail(), actualCard.getEmail());
+        assertEquals(expectedCard.getDate(), actualCard.getDate());
         assertEquals(expectedCard.getName(), actualCard.getName());
         assertEquals(expectedCard.getPhone(), actualCard.getPhone());
         assertEquals(expectedCard.getTags(), actualCard.getTags());
@@ -49,7 +49,7 @@ public class GuiTestAssert {
     public static void assertCardDisplaysPerson(Equipment expectedEquipment, EquipmentCardHandle actualCard) {
         assertEquals(expectedEquipment.getName().name, actualCard.getName());
         assertEquals(expectedEquipment.getPhone().value, actualCard.getPhone());
-        assertEquals(expectedEquipment.getDate().value, actualCard.getEmail());
+        assertEquals(expectedEquipment.getDate().toString(), actualCard.getDate());
         assertEquals(expectedEquipment.getAddress().value, actualCard.getAddress());
         assertTagsEqual(expectedEquipment, actualCard);
     }
@@ -58,8 +58,8 @@ public class GuiTestAssert {
      * Asserts that {@code actualCard} displays the details of {@code expectedWorkList}.
      */
     public static void assertCardDisplaysWorkList(WorkList expectedWorkList, WorkListCardHandle actualCard) {
-        assertEquals(expectedWorkList.getAssignee(), actualCard.getAssignee());
-        assertEquals(expectedWorkList.getDate(), actualCard.getDate());
+        assertEquals("Assignee: " + expectedWorkList.getAssignee(), actualCard.getAssignee());
+        assertEquals("Date: " + expectedWorkList.getDate(), actualCard.getDate());
         assertEquipmentsEqual(expectedWorkList, actualCard);
     }
 
@@ -79,7 +79,10 @@ public class GuiTestAssert {
      */
     private static void assertEquipmentsEqual(WorkList expectedWorkList, WorkListCardHandle actualCard) {
         List<String> expectedEquipments = expectedWorkList.getEquipments().stream()
-                .map(equipments -> equipments.getName().name).collect(Collectors.toList());
+                .map(equipments -> equipments.getSerialNumber().serialNumber).collect(Collectors.toList());
+        if (expectedEquipments.isEmpty()) {
+            expectedEquipments.add("No equipment in this WorkList.");
+        }
         assertEquals(expectedEquipments, actualCard.getEquipments());
     }
 

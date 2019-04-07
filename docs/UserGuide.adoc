@@ -142,6 +142,9 @@ DATE is the annual due date for maintenance work to be carried out by and it sho
 [TIP]
 In the panel under the *Equipment details* label, duplicated names could be added and displayed on the panel because the name refer to a client's name who owns multiple equipments as long as the serial numbers of equipment are different.
 
+[TIP]
+Equipment that has overdue preventative maintenance dates are allowed to be added for tracking purposes.
+
 Example:
 
 The following shows user adding 1 equipment that is own by the client called  Serangoon CC
@@ -179,7 +182,7 @@ The user can enter multiple assignees, but only one date and id.
 
 Example:
 
-* `add-w d/09 May 2019 a/Mei Yen i/13`
+* `add-w d/09-05-2019 a/Mei Yen i/13`
 
 === Adding to work list: `put`
 Adds equipment to working list in the Equipment Manager +
@@ -289,28 +292,28 @@ Sort the current shown list.
 
 Format: `sort [FIELD_NAME to be sorted by]`
 
-The user can sort the current shown list with any valid field.
+The user can sort the current shown list with specified field.
 
 The sort parameters are case-insensitive.
 
 By default, `sort` sorts the list by name in lexicographical order.
 
 [TIP]
-Equipment, client, and work list can only be sorted by address, preventive maintenance date day and phone at the moment.
+Equipment, client, and work list can only be sorted by preventive maintenance date of the equipment and phone number of the client.
 
 For example,
 
 * `sort` +
 Returns the list sorted by name.
 
-* `sort address` +
-Returns the list sorted by address.
 
 * `sort date` +
-Returns the list sorted according to the day.
+Returns the list sorted according to the preventative maintenance date of the equipment.
 
 * `sort phone` +
-Returns the list sorted by phone number.
+Returns the list sorted by phone number of the client.
+
+
 // end::sort[]
 
 // tag::filter[]
@@ -322,14 +325,18 @@ Format: `filter [n/NAME_KEYWORD]...[t/TAG_KEYWORD]...[a/ADDRESS_KEYWORD]`
 - At least *one* keyword must be provided.
 - Filtering multiple keywords of the same prefix will return equipment/client whose attribute corresponding to the prefix contain
  any one of the keywords.
-- Filtering with keywords of different prefixes will return only equipment/client that matches with all the keywords of
+- Filtering with keywords of different prefixes will return only equipment/client that matches with any of the keywords of
  the different prefixes.
 - The filter is case insensitive, e.g. jurong will match Jurong.
 
 
 [TIP]
-* The user can filter the current shown list with any specified fields, and can filter by multiple fields and keywords.
-* Equipment, client, and worklist can all be filtered, by any fields of them.
+* The user can filter the list with any specified fields, and can filter by multiple fields and keywords.
+* Equipment, client, and work list can all be filtered, by any fields of them.
+
+|===
+| image:exclamation.png[width="40"] |This command only works on the overall list and not the current shown list.
+|===
 
 For example,
 
@@ -352,7 +359,8 @@ Returns any equipment whose serial number contains A200.
 Returns any equipment whose tags contains urgent and west.
 
 * `filter n/jurong a/blk 123 t/urgent` +
-Returns any equipment whose names that contains jurong, address that contains blk 123, and whose tags contains urgent.
+Returns any equipment whose names that either contains jurong, address that contains blk 123, or whose tags contains urgent.
+
 // end::filter[]
 
 === Autocomplete: kbd:[tab] [Coming in v2.0]

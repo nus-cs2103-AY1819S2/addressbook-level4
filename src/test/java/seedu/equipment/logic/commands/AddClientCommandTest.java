@@ -6,6 +6,7 @@ import static org.junit.Assert.assertEquals;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -152,6 +153,12 @@ public class AddClientCommandTest {
         }
 
         @Override
+        public boolean hasEquipmentWithSerialNumber(SerialNumber serialNumber) {
+
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasClient(Name equipment) {
             throw new AssertionError("This method should not be called.");
         }
@@ -221,6 +228,11 @@ public class AddClientCommandTest {
 
         @Override
         public void updateFilteredWorkListList (Predicate<WorkList> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredEquipmentList(Comparator<Equipment> comparator) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -1,6 +1,7 @@
 package seedu.equipment.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -87,6 +88,11 @@ public interface Model {
     void putEquipment(WorkListId workListId, SerialNumber serialNumber);
 
     /**
+     * Returns true if a equipment with {@code serialNumber} exists in the equipment manager.
+     */
+    boolean hasEquipmentWithSerialNumber(SerialNumber serialNumber);
+
+    /**
      * Deletes the given equipment.
      * The equipment must exist in the equipment book.
      */
@@ -159,6 +165,11 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredWorkListList(Predicate<WorkList> predicate);
+
+    /**
+     * Sorts the filtered list according to comparison function in {@code comparator}.
+     */
+    void sortFilteredEquipmentList(Comparator<Equipment> comparator);
 
     /**
      * Returns true if the model has previous equipment book states to restore.

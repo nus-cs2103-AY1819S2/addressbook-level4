@@ -131,7 +131,7 @@ public class FindCommandSystemTest extends EquipmentManagerSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find date of equipment in equipment book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + AYERRAJAHCC.getDate().value;
+        command = FindCommand.COMMAND_WORD + " " + AYERRAJAHCC.getDate().toString();
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

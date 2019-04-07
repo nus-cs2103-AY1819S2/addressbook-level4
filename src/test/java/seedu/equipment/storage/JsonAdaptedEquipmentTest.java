@@ -23,7 +23,7 @@ public class JsonAdaptedEquipmentTest {
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_SERIAL_NUMBER = "A0$SD9L";
-    private static final String INVALID_DATE = "20-11-2019";
+    private static final String INVALID_DATE = "20 November 2019";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = HWIYOHCC.getName().toString();
@@ -85,7 +85,7 @@ public class JsonAdaptedEquipmentTest {
     }
 
     @Test
-    public void toModelType_nullEmail_throwsIllegalValueException() {
+    public void toModelType_nullDate_throwsIllegalValueException() {
         JsonAdaptedEquipment person = new JsonAdaptedEquipment(VALID_NAME, VALID_PHONE, null, VALID_ADDRESS,
                 VALID_SERIAL_NUMBER, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName());

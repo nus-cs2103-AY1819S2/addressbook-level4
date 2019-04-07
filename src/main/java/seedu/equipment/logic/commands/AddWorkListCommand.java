@@ -22,7 +22,7 @@ public class AddWorkListCommand extends Command {
             + CliSyntax.PREFIX_ASSIGNEE + "ASSIGNEE "
             + CliSyntax.PREFIX_ID + "ID \n"
             + "Example: " + COMMAND_WORD + " "
-            + CliSyntax.PREFIX_DATE + "12 December 2019 "
+            + CliSyntax.PREFIX_DATE + "12-12-2019 "
             + CliSyntax.PREFIX_ASSIGNEE + "Mei Yen "
             + CliSyntax.PREFIX_ID + "13 ";
 

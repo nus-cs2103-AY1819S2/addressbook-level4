@@ -3,6 +3,7 @@ package seedu.equipment.model;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -156,6 +157,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasEquipmentWithSerialNumber(SerialNumber serialNumber) {
+        requireNonNull(serialNumber);
+        return versionedEquipmentManager.hasEquipmentWithSerialNumber(serialNumber);
+    }
+
+    @Override
     public void resetData(ReadOnlyEquipmentManager newData) {
         versionedEquipmentManager.resetData(newData);
 
@@ -181,6 +188,14 @@ public class ModelManager implements Model {
 
         versionedEquipmentManager.updateEquipment(target, editedEquipment);
     }
+
+    @Override
+    public void sortFilteredEquipmentList(Comparator<Equipment> comparator) {
+        requireNonNull(comparator);
+        versionedEquipmentManager.sortEquipmentList(comparator);
+
+    }
+
 
     //=========== Filtered WorkList List Accessors =============================================================
 

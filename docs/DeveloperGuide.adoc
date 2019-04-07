@@ -362,20 +362,20 @@ Refer to the *Design Considerations* in <<Equipment feature>> as we went through
 ==== Introduction
 We have implemented a `FilterCommand` that allow users to filter the current shown list with the specified fields.
 
-The filter feature allow users to filter the current shown list with any specified fields, and also can filter by multiple fields.
+The filter feature allow users to filter the overall list with any specified fields, and also can filter by multiple fields.
 
-The `FilterCommand` is able to filter the shown list according to the user's preference at a time.
+The `FilterCommand` is able to filter the overall list according to the user's preference at a time.
 
 ==== Current Implementation
 
 The *filter* mechanism is supported by `FilterCommandParser`. It implements `Parser` that implements the following operation:
 
 - `FilterCommand#execute()`  -  Checks the arguments for empty strings and throws a ParseException if empty string is found.
-It then splits the arguments using ArgumentTokenizer#tokenize() and returns an ArgumentMultimap. Keywords of the same prefix are then grouped using ArgumentMultimap#getAllValues().
+It then splits the arguments using `ArgumentTokenizer#tokenize()` and returns an ArgumentMultimap. Keywords of the same prefix are then grouped using `ArgumentMultimap#getAllValues()`.
 
 The *filter* mechanism is also facilitated by `FilterCommand`. It extends `Command` and implements the following operation:
 
-FilterCommand#execute() — Executes the command by updating the current `FilteredPersonList` with the `EquipmentContainsKeywordPredicate`.
+`FilterCommand#execute()`  — Executes the command by updating the current `FilteredPersonList` with the `EquipmentContainsKeywordPredicate`.
 
 `EquipmentContainsKeywordsPredicate` takes in the lists of keywords for the following:
 
@@ -418,6 +418,7 @@ Supports multiple fields in the same command.
 ** Pros: User can also filter by multiple fields.
 e.g: `filter n/jurong t/west`
 ** Cons: User is required to type slightly more.
+** Cons: It only filters the overall list.
 
 * **Alternative 2:** filter by specific fields
 
@@ -453,16 +454,18 @@ Test cases:
 
 Output: By default, the list is sorted in alphabetical order of the client names.
 
-- Input: `sort address`
+- Input: `sort date`
 
-Output: The list is sorted in alphabetical order.
+Output: The list is sorted in ascending order by the the preventative maintenance date of the equipment.
 
 - Input: `sort phone`
 
-Output: The list is sorted in ascending order.
+Output: The list is sorted in ascending order by the phone numbers of the client.
+
+
 
 [TIP]
-`SortCommand` only supports sorting by address and phone number.
+`SortCommand` only supports sorting by date and phone number.
 
 
 ==== Design Considerations

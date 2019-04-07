@@ -3,6 +3,7 @@ package seedu.equipment.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -134,11 +135,18 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
      * Put the equipment with the serialNumber into the WorkList with workListId.
      * The workListId and the serialNumber must exist in the Equipment Manager.
      */
-    void putEquipment(WorkListId workListId, SerialNumber serialNumber) {
+    public void putEquipment(WorkListId workListId, SerialNumber serialNumber) {
         requireNonNull(workListId);
         requireNonNull(serialNumber);
         Equipment target = equipment.getEquipment(serialNumber);
         worklist.addEquipment(target, workListId);
+    }
+
+    /**
+     * Returns true if a WorkList with {@code serialNumber} exists in the Equipment Manager.
+     */
+    public boolean hasEquipmentWithSerialNumber(SerialNumber serialNumber) {
+        return equipment.containsWithSerialNumber(serialNumber);
     }
 
     /**
@@ -185,6 +193,10 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
         requireNonNull(key);
         worklist.remove(key);
         indicateModified();
+    }
+
+    public void sortEquipmentList(Comparator<Equipment> comparator) {
+        equipment.sortList(comparator);
     }
 
     /**

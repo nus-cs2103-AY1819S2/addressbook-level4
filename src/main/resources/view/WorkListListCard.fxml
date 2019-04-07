@@ -27,7 +27,7 @@
                 </Label>
                 <Label fx:id="worklistid" text="\$first" styleClass="cell_big_label" />
             </HBox>
-            <FlowPane fx:id="equipments" />
+            <FlowPane fx:id="equipments" prefWrapLength="360" />
             <Label fx:id="date" styleClass="cell_small_label" text="\$date" />
             <Label fx:id="assignee" styleClass="cell_small_label" text="\$assignee" />
         </VBox>

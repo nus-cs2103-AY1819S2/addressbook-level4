@@ -57,7 +57,7 @@ public class UniqueWorkListList implements Iterable<WorkList> {
     public void addEquipment(Equipment e, WorkListId id) {
         requireNonNull(e);
         requireNonNull(id);
-        WorkList sampleWorkList = new WorkList("01 May 2019", "SampleName", id);
+        WorkList sampleWorkList = new WorkList("01-05-2019", "SampleName", id);
         if (!contains(sampleWorkList)) {
             throw new EquipmentNotFoundException();
         } else {
@@ -104,7 +104,7 @@ public class UniqueWorkListList implements Iterable<WorkList> {
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<WorkList> asUnmodifiableObservableList() {
-        internalList.add(new WorkList("12 May 2019", "Mei Yen", new WorkListId("1")));
+        internalList.add(new WorkList("12-05-2019", "Mei Yen", new WorkListId("1")));
         return FXCollections.unmodifiableObservableList(internalList);
     }
 

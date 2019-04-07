@@ -3,6 +3,7 @@ package seedu.equipment.model.equipment;
 import static java.util.Objects.requireNonNull;
 import static seedu.equipment.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -36,6 +37,20 @@ public class UniqueEquipmentList implements Iterable<Equipment> {
     public boolean contains(Equipment toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameEquipment);
+    }
+
+    /**
+     * Returns true if the list contains an equipment with the serial number given.
+     */
+    public boolean containsWithSerialNumber(SerialNumber serialNumber) {
+        requireNonNull(serialNumber);
+        Name sampleName = new Name("sampleName");
+        Address sampleAddress = new Address("sampleAddress");
+        Date sampleDate = new Date("22-04-2018");
+        Phone samplePhone = new Phone("64894359");
+        Equipment sampleEquipment = new Equipment(sampleName, samplePhone, sampleDate,
+                sampleAddress, serialNumber, SampleDataUtil.getTagSet("west"));
+        return internalList.stream().anyMatch(sampleEquipment::isSameEquipment);
     }
 
     /**
@@ -107,7 +122,7 @@ public class UniqueEquipmentList implements Iterable<Equipment> {
         Equipment result = null;
         Name sampleName = new Name("Anchorvale CC");
         Address sampleAddress = new Address("59 Anchorvale Rd, Singapore 544965");
-        Date sampleDate = new Date("22 April 2019");
+        Date sampleDate = new Date("22-04-2019");
         Phone samplePhone = new Phone("64894959");
         Equipment sampleEquipment = new Equipment(sampleName, samplePhone, sampleDate,
                 sampleAddress, sr, SampleDataUtil.getTagSet("west"));
@@ -125,6 +140,20 @@ public class UniqueEquipmentList implements Iterable<Equipment> {
             }
         }
         return result;
+    }
+
+    /**
+     * Reverses the list.
+     */
+    public void reverseList() {
+        FXCollections.reverse(internalList);
+    }
+
+    /**
+     * Sorts the list according to comparator supplied
+     */
+    public void sortList(Comparator<Equipment> comparator) {
+        FXCollections.sort(internalList, comparator);
     }
 
     /**

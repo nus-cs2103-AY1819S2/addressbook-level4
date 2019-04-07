@@ -123,6 +123,7 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         browserPanel = new BrowserPanel(logic.selectedPatientProperty());
         medHistBrowserPanel = new MedHistBrowserPanel(logic.selectedMedHistProperty());
+        browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         patientListPanel = new PatientListPanel(logic.getFilteredPatientList(), logic.selectedPatientProperty(),
                 logic::setSelectedPatient);

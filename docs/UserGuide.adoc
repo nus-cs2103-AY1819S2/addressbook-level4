@@ -38,24 +38,85 @@ image::Ui2.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* *`memberAdd n/James Ong an/A0123456Y p/98765432 e/jamesong@example.com yos/year1 m/mathematics`* : adds a member named
-`John Doe` to the ClubManager.
-* *`memberDelete 3`* : deletes the 3rd member shown in the current list
+* *`memberlist`* : lists all members
+* *`memberAdd n/James Ong mn/A0123456Y p/98765432 e/jamesong@example.com a/123, Jurong West Ave 6, #08-111 g/male y/2 m/mathematics`
+* : adds a member named
+`James Ong` to the ClubManager.
+* *`memberDelete 3`* : deletes the 3rd member shown in the current member list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
+== User Interface Walkthrough
+
+This section is designed to guide you through how the user interface and components in Club Manager works.
+
+Here is an example of how Club Manager in member mode looks like:
+
+image::memberUiWalkthrough.png[width="100%"]
+
+Here is an example of how Club Manager in activity mode looks like:
+
+image::activityUiWalkthrough.png[width="100%"]
+
+In total, there are:
+
+* *5 General Parts:*
+
+** <<#Menu-Bar, Menu Bar>>
+
+** <<#Result-Display, Result Display>>
+
+** <<#Command-Box, Command Box>>
+
+** <<#SSB, Sync Status Bar>>
+
+** Mode Status.
+
+* *3 Member Mode-specific Parts:*
+
+** List of Members
+** Member Information Display Panel
+** List of Activities Attended By Selected Member.
+
+* *4 Activity Mode-specific Parts:*
+** List of Activities
+** Activity Information Display Panel
+** List of Members Attending Selected Activity
+** List of Members Not Attending Selected Activity.
+
+[[Menu-Bar]]
+=== Menu Bar
+The *Menu Bar* provide you quick access to functions as below.
+
+Here are the available options currently:
+
+* File: Provide access to file functions.
+
+* Exit: Exit the program.
+
+* Help: Show Club Manager tutorial.
+
+You can also press F1 to show Club Manager User Guide.
+
+[[Command-Box]]
+=== Command Box
+
+The *Command Box* is the place where you can input the commands.
+
+[[Result-Display]]
+=== Result Display
+
+The *Result Display* shows information relating to the result of the command.
+
 [[Features]]
 == Features
-
 ====
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/Swimming` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Swimming`, `t/Running t/Hockey` etc.
 ====
 
 === General Features
@@ -94,11 +155,6 @@ Changes current management mode of ClubManager to Activity
 * `mode member`
 Changes current management mode of ClubManager to Member
 
-==== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
 ==== Exiting the program : `exit`
 
 Exits the program. +
@@ -119,59 +175,14 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-// tag::undoredo[]
-==== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `memberDelete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-
-* `memberDelete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `memberDelete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-
-==== Undoing previous command : `undo`
-
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
-
-Examples:
-
-* `memberDelete 1` +
-`memberList` +
-`undo` (reverses the `delete 1` command) +
-
-* `memberSelect 1` +
-`memberList` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
-
-* `memberDelete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-// end::undoredo[]
 
 === Member Management Features
 
+<<<<<<< HEAD
 image::MemberCommands.png[width="500"]
+=======
+image::MemberCommands.png[width="100%"]
+>>>>>>> 57e8d1b85114564bc8248437083700c95dc41d4d
 
 ==== Adding a member: `memberAdd`
 
@@ -184,25 +195,33 @@ You can add members to ClubManager. +
 Only alphabets are accepted. | John Sim
 |`Matric Number`| MATRIC_NUMBER refers to the member's matriculation number.
 
-Only 9 Alphanumeric characters are accepted.| A0123456Z
+Matric Number is a string of 9 alphanumeric characters.
+
+For the first alphabet of the Matric Number, only the uppercase letter A or uppercase letter U will be accepted.
+This will be followed by a 7 digits. The final character is an uppercase alphabet which has tally with the alphabet generated by our checksum generator.
+
+If an error occurs, it could mean that a wrong final character of the Matric Number has been inputted.
+| A0123456Z
 
 |`Phone Number`| PHONE_NUMBER refers to the member's phone number.
 
-Only 8 digits are accepted. | 91234567
+Only 8 digits are accepted. The first digit of the phone number has to begin with 6, 8, 9.| 91234567
 |`Email Address`| EMAIL_ADDRESS refers to the member's student/personal email address| johnsim@example.com
 |`Address`| ADDRESS refers to the member's home address.
 
 Alphanumeric and Special characters are acceptable.| Jurong East Avenue 1 Block 2 #03-04
-|`Gender`| GENDER refers to the sex of the member, i.e. male or female
+|`Gender`| GENDER refers to the sex of the member.
 
 Only "Male" or "Female" is accepted (case-insensitive)|Male
 |`Year of Study`| YEAR_OF_STUDY refers to the academic level (in years)
 in which the member is currently studying.
 
-Only Alphabets are accepted in the first input.
+Only a single digit is accepted. This digit has to be between the range 1 to 6 (both inclusive)| 2
 
-Only Digits are accepted in the second input.| Year 1
-|`Major`| MAJOR refers to the field of discipline in which member is currently enrolled in.| Chemistry
+|`Major`| MAJOR refers to the field of discipline in which member is currently enrolled in.
+
+Only alphabets are accepted.| Chemistry
+
 |`Tags`|TAGS refers to the hobbies and interests of the member.
 
 Only Alphabets are acceptable, restricted to a single word.
@@ -212,12 +231,12 @@ A member can have any number of tags (including 0).|Swimming
 
 *Format:*
 
-* `memberAdd n/NAME mn/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL a/ yos/YEAR_OF_STUDY m/MAJOR [t/TAG]...`
+* `memberAdd n/NAME mn/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL a/ADDRESS g/GENDER y/YEAR_OF_STUDY m/MAJOR [t/TAG]...`
 
 *Examples:*
 
-* `memberAdd n/James Ong mn/A0123456Y p/98765432 e/jamesong@example.com a/123, Jurong West Ave 6, #08-111 g/male y/year 2 m/mathematics`
-* `memberAdd n/Jane Lim mn/A0654321T p/91324756 e/janelim@example.com a/123, Sengkang Ave 6, #02-123 g/Female y/Year 3  m/physics t/Swimming`
+* `memberAdd n/James Ong mn/A0123456J p/98765432 e/jamesong@example.com a/123, Jurong West Ave 6, #08-111 g/male y/2 m/mathematics`
+* `memberAdd n/Jane Lim mn/A0654321J p/91324756 e/janelim@example.com a/123, Sengkang Ave 6, #02-123 g/Female y/3  m/physics t/Swimming`
 
 ==== Deleting a member : `memberDelete`
 
@@ -286,15 +305,6 @@ Returns any member having names `Betsy`, `Tim`, or `John`
 Shows a list of all members in ClubManager. +
 Format: `memberList`
 
-*(below will be implemented in 1.4)*
-fimage::memberList_example_all.png[width="300"]
-
-Shows a list of members by a particular year of study in ClubManager. +
-Format: `memberList yearOfStudy year 4`
-
-Shows a list of members by a particular major
-Format: `memberList major computing`
-
 ==== Selecting a member : `memberSelect`
 
 Selects the member identified by the index number used in the displayed member list. +
@@ -310,10 +320,9 @@ Examples:
 
 * `list` +
 `memberSelect 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`memberSelect 1` +
-Selects the 1st member in the results of the `find` command.
+Selects the 2nd person in the club manager.
+
+image::memberSelectCommand.png[width="790"]
 
 //tag::membersort[]
 ==== Sort members’ list : `memberSort`
@@ -573,13 +582,6 @@ Selects the 1st activity in the results of the `find` command.
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -589,10 +591,10 @@ _{explain how the user can enable/disable data encryption}_
 This section provides a comprehensive list of commands that ClubManager offers.
 
 === General Commands
+* *Mode* : `mode [MODE_CHOICE]` +
+e.g. `mode member`
 * *Help* : `help`
 * *History* : `history`
-* *Redo* : `redo`
-* *Undo* : `undo`
 
 === Member Management Commands
 

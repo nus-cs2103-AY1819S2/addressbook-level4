@@ -18,8 +18,8 @@ public class MedicalHistory {
     private Doctor doctor = null;
 
     //Current id field, will be modified later
-    private String patientId;
-    private String doctorId;
+    private int patientId;
+    private int doctorId;
     private String medHistId;
 
     // Data field
@@ -27,13 +27,14 @@ public class MedicalHistory {
     private WriteUp writeUp;
 
     //Constructor
-    public MedicalHistory(String patientId, String doctorId, LocalDate date, WriteUp writeUp) {
+    public MedicalHistory(int patientId, int doctorId, LocalDate date, WriteUp writeUp) {
         // Doctor, Time, MedicalHistory Id are needed
         this.patientId = patientId;
         this.doctorId = doctorId;
         this.date = date;
         this.writeUp = writeUp;
         this.medHistId = patientId + "/" + doctorId + "/" + date;
+
     }
 
     public String getMedHistId() {
@@ -48,11 +49,11 @@ public class MedicalHistory {
         return this.doctor;
     }
 
-    public String getPatientId() {
+    public int getPatientId() {
         return this.patientId;
     }
 
-    public String getDoctorId() {
+    public int getDoctorId() {
         return this.doctorId;
     }
 

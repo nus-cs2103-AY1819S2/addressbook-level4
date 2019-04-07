@@ -7,11 +7,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WRITEUP;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddMedHistCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.medicalhistory.MedicalHistory;
+import seedu.address.model.medicalhistory.ValidDate;
 import seedu.address.model.medicalhistory.WriteUp;
 
 
@@ -34,10 +36,17 @@ public class AddMedHistCommandParser implements Parser<AddMedHistCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMedHistCommand.MESSAGE_USAGE));
         }
-
-        String patientId = argMultimap.getValue(PREFIX_PATIENT_ID).get();
-        String doctorId = argMultimap.getValue(PREFIX_DOCTOR_ID).get();
-        LocalDate date = LocalDate.parse(argMultimap.getValue(PREFIX_DATE_OF_MEDHIST).get());
+        int patientId;
+        int doctorId;
+        LocalDate date;
+        try {
+            patientId = Integer.parseInt(argMultimap.getValue(PREFIX_PATIENT_ID).get());
+            doctorId = Integer.parseInt(argMultimap.getValue(PREFIX_DOCTOR_ID).get());
+            date = LocalDate.parse(argMultimap.getValue(PREFIX_DATE_OF_MEDHIST).get());
+        } catch (NumberFormatException | DateTimeParseException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMedHistCommand.MESSAGE_USAGE));
+        }
+        ValidDate validDate = ParserUtil.parseValidDate(date);
         WriteUp writeUp = ParserUtil.parseWriteUp(argMultimap.getValue(PREFIX_WRITEUP).get());
 
         MedicalHistory medicalHistory = new MedicalHistory(patientId, doctorId, date, writeUp);

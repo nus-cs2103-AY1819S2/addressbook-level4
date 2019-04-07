@@ -49,7 +49,9 @@ public class Person {
         return id;
     }
 
-    public String getIdToString() { return String.valueOf(this.id); }
+    public String getIdToString() {
+        return String.valueOf(this.id);
+    }
 
     public Name getName() {
         return name;

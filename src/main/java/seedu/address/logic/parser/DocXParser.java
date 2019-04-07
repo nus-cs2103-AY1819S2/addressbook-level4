@@ -14,7 +14,6 @@ import seedu.address.logic.commands.AddPrescriptionCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteDoctorCommand;
-import seedu.address.logic.commands.DeleteMedHistCommand;
 import seedu.address.logic.commands.DeletePatientCommand;
 import seedu.address.logic.commands.EditDoctorCommand;
 import seedu.address.logic.commands.EditPatientCommand;
@@ -116,9 +115,10 @@ public class DocXParser {
 
         case AddMedHistCommand.COMMAND_WORD:
             return new AddMedHistCommandParser().parse(arguments);
-
+        /*
         case DeleteMedHistCommand.COMMAND_WORD:
             return new DeleteMedHistCommandParser().parse(arguments);
+        */
 
         case AddPrescriptionCommand.COMMAND_WORD:
             return new AddPrescriptionCommandParser().parse(arguments);

@@ -281,6 +281,14 @@ public abstract class EquipmentManagerSystemTest {
     }
 
     /**
+     * Asserts that the selected card in the equipment list panel remain unchanged.
+     * @see EquipmentListPanelHandle#isSelectedPersonCardChanged()
+     */
+    protected void assertSelectedPersonCardUnchanged() {
+        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+    }
+
+    /**
      * Asserts that the command box's shows the default style.
      */
     protected void assertCommandBoxShowsDefaultStyle() {

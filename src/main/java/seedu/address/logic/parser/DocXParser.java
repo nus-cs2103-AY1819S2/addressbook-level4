@@ -116,9 +116,10 @@ public class DocXParser {
 
         case AddMedHistCommand.COMMAND_WORD:
             return new AddMedHistCommandParser().parse(arguments);
-
+        /*
         case DeleteMedHistCommand.COMMAND_WORD:
             return new DeleteMedHistCommandParser().parse(arguments);
+        */
 
         case AddPrescriptionCommand.COMMAND_WORD:
             return new AddPrescriptionCommandParser().parse(arguments);

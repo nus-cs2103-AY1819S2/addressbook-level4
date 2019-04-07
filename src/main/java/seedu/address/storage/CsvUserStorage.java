@@ -13,7 +13,6 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CsvUtil;
 import seedu.address.model.user.CardSrsData;
 import seedu.address.model.user.User;
@@ -62,18 +61,11 @@ public class CsvUserStorage implements UserStorage {
         }
 
         User user = new User();
+
         for (String[] arr : data) {
-            try {
-                user.addCard(parseStringIntoCard(arr));
-            } catch (IllegalValueException e) {
-                logger.warning(e.getMessage() + " in " + filePath.toString());
-                return Optional.empty();
-            } catch (NumberFormatException e) {
-                logger.warning("Values are not correct in " + filePath.toString());
-                return Optional.empty();
-            } catch (DateTimeParseException e) {
-                logger.warning("SrsDate is wrong in " + filePath.toString());
-                return Optional.empty();
+            Optional<CardSrsData> card = parseStringIntoCard(arr);
+            if (card.isPresent()) {
+                user.addCard(card.get());
             }
         }
 
@@ -123,16 +115,19 @@ public class CsvUserStorage implements UserStorage {
      * @param cardArray
      * @return card type with the constructor values
      */
-    private CardSrsData parseStringIntoCard(String[] cardArray) throws IllegalValueException,
+
+    private Optional<CardSrsData> parseStringIntoCard(String[] cardArray) throws
             NumberFormatException, DateTimeParseException {
 
         if (cardArray.length < 4) {
-            throw new IllegalValueException("There are empty values in the file");
+            logger.warning("There are empty values in the file");
+            return Optional.empty();
         }
 
         for (int i = 0; i < cardArray.length - 1; i++) {
             if (cardArray[i].isEmpty()) {
-                throw new IllegalValueException("There are empty values in the file");
+                logger.warning("There are empty values in the file");
+                return Optional.empty();
             }
         }
 
@@ -143,28 +138,39 @@ public class CsvUserStorage implements UserStorage {
         boolean isDifficult;
         CardSrsData card;
 
-        hashCode = Integer.parseInt(cardArray[0]);
-        numOfAttempts = Integer.parseInt(cardArray[1]);
-        streak = Integer.parseInt(cardArray[2]);
-        srs = Instant.parse(cardArray[3]);
+        try {
+            hashCode = Integer.parseInt(cardArray[0]);
+            numOfAttempts = Integer.parseInt(cardArray[1]);
+            streak = Integer.parseInt(cardArray[2]);
+            srs = Instant.parse(cardArray[3]);
+            isDifficult = cardArray[4].equals("true");
 
-        isDifficult = cardArray[4].equals("true");
+            if (hashCode == 0) {
+                logger.warning("Hashcode cannot be 0 in " + filePath.toString());
+                return Optional.empty();
+            }
 
-        if (hashCode == 0) {
-            throw new IllegalValueException("hashCode cannot be 0");
-        }
+            if (numOfAttempts < 0) {
+                logger.warning("Number of attempts cannot be 0 in " + filePath.toString());
+                return Optional.empty();
+            }
 
-        if (numOfAttempts < 0) {
-            throw new IllegalValueException("number of attempts cannot be negative");
-        }
+            if (streak < 0) {
+                logger.warning("Streak cannot be 0 in " + filePath.toString());
+                return Optional.empty();
+            }
+        } catch (NumberFormatException e) {
+            logger.warning("Values are not correct in " + filePath.toString());
+            return Optional.empty();
 
-        if (streak < 0) {
-            throw new IllegalValueException("streak cannot be negative");
+        } catch (DateTimeParseException e) {
+            logger.warning("SrsDate is wrong in " + filePath.toString());
+            return Optional.empty();
         }
 
         card = new CardSrsData(hashCode, numOfAttempts, streak, srs, isDifficult);
 
-        return card;
+        return Optional.of(card);
     }
 
     @Override
@@ -193,7 +199,7 @@ public class CsvUserStorage implements UserStorage {
         try {
             parseUserIntoFile(users, filePath);
         } catch (IOException e) {
-            logger.warning("Failed to save user; IOException occured");
+            logger.warning("Failed to save user; IOException occurred");
         }
     }
 }

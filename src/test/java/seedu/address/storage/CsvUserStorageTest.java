@@ -63,17 +63,17 @@ public class CsvUserStorageTest {
 
     @Test
     public void readUserTest_hashcodeZero_throwsIllegalValueException() {
-        Assert.assertFalse(readUser(Paths.get("data\\user\\hashcodeZeroTest.csv")).isPresent());
+        Assert.assertTrue(readUser(Paths.get("data\\user\\hashcodeZeroTest.csv")).isPresent());
     }
 
     @Test
     public void readUserTest_numberOfAttemptsNegative_throwsIllegalValueException() {
-        Assert.assertFalse(readUser(Paths.get("data\\user\\numberOfAttemptsNegativeTest.csv")).isPresent());
+        Assert.assertTrue(readUser(Paths.get("data\\user\\numberOfAttemptsNegativeTest.csv")).isPresent());
     }
 
     @Test
     public void readUserTest_streakNegative_throwsIllegalValueException() {
-        Assert.assertFalse(readUser(Paths.get("data\\user\\streakNegativeTest.csv")).isPresent());
+        Assert.assertTrue(readUser(Paths.get("data\\user\\streakNegativeTest.csv")).isPresent());
     }
 
     @Test

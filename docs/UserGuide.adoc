@@ -100,14 +100,13 @@ Type the command in the Command Box and press kbd:[Enter] to execute it. +
 *Some basic commands you can try to get started:*
 
 * *`help`*: opens up user guide
-* *`list-e`*: lists all contacts
-* **`add-e`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete-e`**`3`: deletes the 3rd contact shown in the current list
+* *`list-e`*: lists all equipment details
+* **`add-e`**`n/Clementi CC p/98765432 d/01-05-2019 a/Pending Rd s/X14DH9283` : adds a contact named `Clementi CC` to the *Equipment Manager*.
+* **`delete-e`**`3`: deletes the 3rd equipment detail shown in the current list
 * *`exit`*: exits the app
 
-|===
-| image:tip.png[width="40"] |Refer to <<Features>> for details of each command.
-|===
+[NOTE]
+Refer to <<Features>> for details of each command.
 // end::quickstart[]
 
 [[Features]]
@@ -136,26 +135,35 @@ If it is your first time reading this, then good job on opening the User Guide!
 Adds an equipment to the *Equipment Manager*. The result of adding an equipment will be reflected on the panel labelled under *Equipment details*.  +
 Format: `add-e n/NAME p/PHONE_NUMBER pm/DATE a/ADDRESS s/SERIAL_NUMBER t/TAG`
 
-[NOTE] Refer to
+[NOTE]
 An equipment can any number of tags (including 0). +
-DATE is the annual due date for maintenance work to be carried out by and it should be entered in a date format of `DD MONTH YYY`.
+DATE is the annual due date for maintenance work to be carried out by and it should be entered in a numerical date format of `DD-MM-YYY` including the hyphens.
 
 [TIP]
 In the panel under the *Equipment details* label, duplicated names could be added and displayed on the panel because the name refer to a client's name who owns multiple equipments as long as the serial numbers of equipment are different.
 
 Example:
 
-* `add-e n/Clementi CC p/67762517 pm/10 May 2019 a/ 220 Clementi Ave 4, Singapore 129880 s/A008844L t/west`
+The following shows user adding 1 equipment that is own by the client called  Serangoon CC
+
+* `add-e n/Serangon CC p/64738499 pm/11-06-2019 a/10 Serangoon North Ave 2, Singapore 555877 s/A0293838X t/north-east`
+
+
+The following shows user adding 2 equipments that are own by the same client called  Clementi CC
+
+* `add-e n/Clementi CC p/67762517 pm/10-06-2019  a/220 Clementi Ave 4, Singapore 129880 s/A008844L t/west` +
+`add-e n/Clementi CC p/67762517 pm/10-06-2019 a/220 Clementi Ave 4, Singapore 129880 s/A007723L t/west`
 
 // tag::addclient[]
 === Adding a client: `add-c`
 Adds a client to the *Equipment Manager*. The result of adding a client will be reflected on the panel labelled under *Client details*. +
-Format: `add-c n/CLIENT_NAME`
+Format: `add-c n/NAME`
 
-|===
-| image:tip.png[width="40"] | Client is a person or organization that owns the equipment.
-| image:lightbulb.png[width="40"] | In the panel under *Client details* label, there should not be any duplicated client names.
-|===
+[NOTE]
+Client is a person or organization that owns the equipment.
+
+[TIP]
+In the panel under *Client details* label, there should not be any duplicated client names. +
 
 Example:
 
@@ -186,8 +194,8 @@ Example:
 `put 1 203`
 
 === Editing an equipment: `edit-e`
-Edits an existing equipment in the _Equipment Manager_. +
-Format: `edit INDEX n/CLIENT_NAME p/CLIENT_PHONE pm/PM_DATE a/CLIENT_ADDRESS s/SERIAL_NUMBER t/TAG…​`
+Edits an existing equipment in the *Equipment Manager*. +
+Format: `edit INDEX n/NAME p/PHONE pm/DATE a/ADDRESS s/SERIAL_NUMBER t/TAG…​`
 
 * Edits the equipment at the specified INDEX. The index refers to the index number shown in the *Equipment details* panel. The index must be a positive integer 1, 2, 3, …​
 * At least one of the optional fields must be provided.

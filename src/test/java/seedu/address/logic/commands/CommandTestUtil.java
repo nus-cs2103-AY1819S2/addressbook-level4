@@ -16,6 +16,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -72,7 +73,8 @@ public class CommandTestUtil {
     public static final String VALID_DOCTOR_ID = "2";
     public static final LocalDateTime futureDateTime = LocalDateTime.now().plusDays(1);
     public static final String VALID_DATE_OF_APPT = futureDateTime.toLocalDate().toString();
-    public static final String VALID_START_TIME = futureDateTime.toLocalTime().toString();
+    public static final String VALID_START_TIME = futureDateTime.toLocalTime()
+            .format(DateTimeFormatter.ofPattern("HH:mm"));
 
     public static final String DESC_VALID_PATIENT_ID = " " + PREFIX_PATIENT_ID + VALID_PATIENT_ID;
     public static final String DESC_VALID_DOCTOR_ID = " " + PREFIX_DOCTOR_ID + VALID_DOCTOR_ID;

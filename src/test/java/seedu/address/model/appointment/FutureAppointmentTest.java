@@ -2,8 +2,13 @@ package seedu.address.model.appointment;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_OF_APPT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DOCTOR_ID;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PATIENT_ID;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_TIME;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -18,12 +23,14 @@ public class FutureAppointmentTest {
     @Test
     public void appointmentIsInFuture() {
         LocalDateTime currentDateTime = LocalDateTime.now();
-        LocalDateTime futureDateTime = currentDateTime.plusSeconds(1);
-        FutureAppointment futureAppointment = new FutureAppointment(1, 1,
-                futureDateTime.toLocalDate(),
-                futureDateTime.toLocalTime());
-        LocalDateTime futureAppointmentDateTime = LocalDateTime.of(futureAppointment.getDate(),
-                futureAppointment.getTime());
+        LocalDateTime futureDateTime = currentDateTime.plusSeconds(100);
+        FutureAppointment futureAppointment = new FutureAppointment(
+                new AppointmentPatientId(VALID_PATIENT_ID),
+                new AppointmentDoctorId(VALID_DOCTOR_ID),
+                new AppointmentDate(futureDateTime.toLocalDate().toString()),
+                new AppointmentTime(futureDateTime.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"))));
+        LocalDateTime futureAppointmentDateTime = LocalDateTime.of(futureAppointment.getDate().date,
+                futureAppointment.getTime().time);
         boolean isInFuture = futureAppointmentDateTime.isAfter(currentDateTime);
         assertTrue(futureAppointment.isFuture());
         assertTrue(isInFuture);
@@ -34,11 +41,13 @@ public class FutureAppointmentTest {
         thrown.expect(AppointmentNotInFutureException.class);
         LocalDateTime currentDateTime = LocalDateTime.now();
         LocalDateTime pastDateTime = currentDateTime.minusSeconds(1);
-        FutureAppointment futureAppointment = new FutureAppointment(1, 1,
-                pastDateTime.toLocalDate(),
-                pastDateTime.toLocalTime());
-        LocalDateTime futureAppointmentDateTime = LocalDateTime.of(futureAppointment.getDate(),
-                futureAppointment.getTime());
+        FutureAppointment futureAppointment = new FutureAppointment(
+                new AppointmentPatientId(VALID_PATIENT_ID),
+                new AppointmentDoctorId(VALID_DOCTOR_ID),
+                new AppointmentDate(pastDateTime.toLocalDate().toString()),
+                new AppointmentTime(pastDateTime.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"))));
+        LocalDateTime futureAppointmentDateTime = LocalDateTime.of(futureAppointment.getDate().date,
+                futureAppointment.getTime().time);
         boolean isInFuture = futureAppointmentDateTime.isAfter(currentDateTime);
         assertFalse(futureAppointment.isFuture());
         assertFalse(isInFuture);
@@ -47,16 +56,23 @@ public class FutureAppointmentTest {
     @Test
     public void equals() {
         LocalDateTime currentDateTime = LocalDateTime.now();
-        LocalDateTime futureDateTime1 = currentDateTime.plusSeconds(1);
-        LocalDateTime futureDateTime2 = currentDateTime.plusDays(1).plusSeconds(1);
+        LocalDateTime futureDateTime1 = currentDateTime.plusSeconds(100);
 
-        FutureAppointment appointment1 = new FutureAppointment(1, 1,
-                futureDateTime1.toLocalDate(), futureDateTime1.toLocalTime());
-        FutureAppointment appointment2 = new FutureAppointment(1, 1,
-                futureDateTime2.toLocalDate(), futureDateTime2.toLocalTime());
-        FutureAppointment appointment1Copy = new FutureAppointment(1, 1,
-                futureDateTime1.toLocalDate(), futureDateTime1.toLocalTime());
-
+        FutureAppointment appointment1 = new FutureAppointment(
+                new AppointmentPatientId(VALID_PATIENT_ID),
+                new AppointmentDoctorId(VALID_DOCTOR_ID),
+                new AppointmentDate(VALID_DATE_OF_APPT),
+                new AppointmentTime(VALID_START_TIME));
+        FutureAppointment appointment2 = new FutureAppointment(
+                new AppointmentPatientId(VALID_PATIENT_ID),
+                new AppointmentDoctorId(VALID_DOCTOR_ID),
+                new AppointmentDate(futureDateTime1.toLocalDate().toString()),
+                new AppointmentTime(futureDateTime1.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"))));;
+        FutureAppointment appointment1Copy = new FutureAppointment(
+                new AppointmentPatientId(VALID_PATIENT_ID),
+                new AppointmentDoctorId(VALID_DOCTOR_ID),
+                new AppointmentDate(VALID_DATE_OF_APPT),
+                new AppointmentTime(VALID_START_TIME));;
         assertTrue(appointment1.equals(appointment1));
         assertTrue(appointment1.equals(appointment1Copy));
 

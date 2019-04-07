@@ -8,6 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentDate;
+import seedu.address.model.appointment.AppointmentDoctorId;
+import seedu.address.model.appointment.AppointmentPatientId;
+import seedu.address.model.appointment.AppointmentTime;
 
 /**
  * Jackson-friendly version of {@link Appointment}.
@@ -36,10 +40,10 @@ class JsonAdaptedAppointment {
      * Converts a given {@code Appointment} into this class for Jackson use.
      */
     public JsonAdaptedAppointment(Appointment source) {
-        this.patientId = source.getPatientId();
-        this.doctorId = source.getDoctorId();
-        this.dateOfAppt = source.getDate();
-        this.timeOfAppt = source.getTime();
+        this.patientId = source.getPatientId().patientId;
+        this.doctorId = source.getDoctorId().doctorId;
+        this.dateOfAppt = source.getDate().date;
+        this.timeOfAppt = source.getTime().time;
     }
 
     /**
@@ -51,7 +55,10 @@ class JsonAdaptedAppointment {
         /*if (!Tag.isValidTagName(tagName)) {
             throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
         }*/
-        return new Appointment(this.patientId, this.doctorId, this.dateOfAppt, this.timeOfAppt);
+        return new Appointment(new AppointmentPatientId(Integer.toString(patientId)),
+                new AppointmentDoctorId(Integer.toString(doctorId)),
+                new AppointmentDate(dateOfAppt.toString()),
+                new AppointmentTime(timeOfAppt.toString()));
     }
 
 }

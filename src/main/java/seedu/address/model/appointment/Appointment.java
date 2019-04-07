@@ -2,23 +2,25 @@ package seedu.address.model.appointment;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Objects;
+
+import seedu.address.model.person.Doctor;
+import seedu.address.model.person.Patient;
 
 /**
  * Represents an Appointment made by a patient.
  */
 public class Appointment {
 
-    public static final String MESSAGE_CONSTRAINTS = "Appointments can only be made in the future";
+    public static final String MESSAGE_CONSTRAINT_FUTURE = "Appointments can only be made in the future";
 
-
-    private final int patientId;
-    private final int doctorId;
-    private final LocalDate date;
-    private final LocalTime time;
+    private final AppointmentPatientId patientId;
+    private final AppointmentDoctorId doctorId;
+    private final AppointmentDate date;
+    private final AppointmentTime time;
     private final AppointmentStatus appointmentStatus;
+    private Patient patient;
+    private Doctor doctor;
 
     /**
      * Constructs an {@code Appointment}.
@@ -28,7 +30,8 @@ public class Appointment {
      * @param date A valid appointment date
      * @param time A valid appointment time
      */
-    public Appointment(int patientId, int doctorId, LocalDate date, LocalTime time) {
+    public Appointment(AppointmentPatientId patientId, AppointmentDoctorId doctorId, AppointmentDate date,
+                       AppointmentTime time) {
         /**
          * Every field must be present and not null.
          */
@@ -59,19 +62,35 @@ public class Appointment {
         return str;
     }
 
-    public int getPatientId() {
+    public AppointmentPatientId getPatientId() {
         return patientId;
     }
 
-    public int getDoctorId() {
+    public AppointmentDoctorId getDoctorId() {
         return doctorId;
     }
 
-    public LocalDate getDate() {
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
+    public AppointmentDate getDate() {
         return date;
     }
 
-    public LocalTime getTime() {
+    public AppointmentTime getTime() {
         return time;
     }
 
@@ -94,11 +113,11 @@ public class Appointment {
 
         Appointment that = (Appointment) o;
 
-        if (this.doctorId != that.doctorId) {
+        if (!this.doctorId.equals(that.doctorId)) {
             return false;
         }
 
-        if (this.patientId != that.patientId) {
+        if (!this.patientId.equals(that.patientId)) {
             return false;
         }
 
@@ -119,6 +138,6 @@ public class Appointment {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.date);
+        return Objects.hash(patientId, doctorId, date, time);
     }
 }

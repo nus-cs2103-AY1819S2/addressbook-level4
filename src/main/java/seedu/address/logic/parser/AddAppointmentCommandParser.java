@@ -6,12 +6,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddAppointmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.appointment.AppointmentDate;
+import seedu.address.model.appointment.AppointmentDoctorId;
+import seedu.address.model.appointment.AppointmentPatientId;
+import seedu.address.model.appointment.AppointmentTime;
 import seedu.address.model.appointment.FutureAppointment;
 
 /**
@@ -36,11 +38,16 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
                     AddAppointmentCommand.MESSAGE_USAGE));
         }
 
-        FutureAppointment appointment = new FutureAppointment(
-                Integer.parseInt(argMultimap.getValue(PREFIX_PATIENT_ID).get()),
-                Integer.parseInt(argMultimap.getValue(PREFIX_DOCTOR_ID).get()),
-                LocalDate.parse(argMultimap.getValue(PREFIX_DATE_OF_APPT).get()),
-                LocalTime.parse(argMultimap.getValue(PREFIX_START_TIME).get()));
+        AppointmentPatientId patientId = ParserUtil
+                .parseAppointmentPatientId(argMultimap.getValue(PREFIX_PATIENT_ID).get());
+        AppointmentDoctorId doctorId = ParserUtil
+                .parseAppointmentDoctorId(argMultimap.getValue(PREFIX_DOCTOR_ID).get());
+        AppointmentDate date = ParserUtil
+                .parseAppointmentDate(argMultimap.getValue(PREFIX_DATE_OF_APPT).get());
+        AppointmentTime time = ParserUtil
+                .parseAppointmentTime(argMultimap.getValue(PREFIX_START_TIME).get());
+
+        FutureAppointment appointment = new FutureAppointment(patientId, doctorId, date, time);
 
         return new AddAppointmentCommand(appointment);
     }

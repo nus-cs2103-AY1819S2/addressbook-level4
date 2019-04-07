@@ -83,12 +83,10 @@ image::UserGuide_ApplicationInterface.png[width="1000"]
 * The list of medicine running low on stock or expiring soon medicine will be displayed in the warning panel to notify the user.
 * Warnings will be logged in the warnings panel until action has been taken to either remove or update the medicine.
 
-// tag:featureintro[]
 [[Features]]
 == Features
 
 As an inventory management application, MediTabs supports basic functionalities (add, edit, delete, list). On top of these basic functions, MediTabs also boasts several features tailored to your needs. These features aim to streamline your inventory management process, thereby enhancing your user experience.
-// end:featureintro[]
 
 === Information Panel
 .Information panel
@@ -366,7 +364,7 @@ If the thresholds are not set, the default threshold for expiry is 10 days, and 
 Thresholds set are saved as a user preference, and will be used when the application is launched again.
 
 ****
-* Provide only one of the optional fields.
+* Provide *only one* of the optional fields available.
 * `EXPIRY_THRESHOLD` should be in days before expiry date.
 * `LOW_STOCK_THRESHOLD` should be in number of stock remaining.
 * `SHOW` is case insensitive.
@@ -375,9 +373,9 @@ Thresholds set are saved as a user preference, and will be used when the applica
 Examples:
 
 * `warning e/20` +
-Medicines with expiry dates within 10 days to expiry from today will be displayed in the warning panel.
+Medicine batches with expiry dates within 10 days to expiry from today will be displayed in the warning panel.
 * `warning q/10` +
-Medicines with quanities of less than or equal to 20 will be displayed in the warning panel.
+Medicines with a total quantity of less than or equal to 20 will be displayed in the warning panel.
 * `warning show` +
 Current thresholds used for the warning panel will be shown.
 // end::warningpanelcommand[]

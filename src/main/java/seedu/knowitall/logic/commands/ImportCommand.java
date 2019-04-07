@@ -59,13 +59,6 @@ public class ImportCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, csvFile.filename));
     }
 
-    /**
-     * Returns true if file extension is of .json format.
-     */
-    private boolean isCorrectFileExtension(String filename) {
-        return filename.split("\\.(?=[^\\.]+$)")[1].equals("csv");
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

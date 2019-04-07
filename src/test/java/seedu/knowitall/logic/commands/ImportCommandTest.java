@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -35,6 +36,8 @@ public class ImportCommandTest {
     private static final String TYPICAL_CARD_FOLDER = "Typical Cards.csv";
     private static final String TYPICAL_CARD_FOLDER_TEST = "Typical Cards test.csv";
     private static final String INVALID_FILE_NAME = "Fake Cards.csv";
+    private static final String BLOOD_CARD_FOLDER = "Blood.csv";
+    private static final String BLOOD_CARD_FOLDER_TEST = "Blood test.csv";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -43,22 +46,32 @@ public class ImportCommandTest {
     private Model model = new ModelManager(new ArrayList<ReadOnlyCardFolder>(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
+
+
     private File typicalCardsFile;
     private File typicalCardsFileTest;
+    private File bloodCardsFile;
+    private File bloodCardsTestFile;
 
 
-
-    public ImportCommandTest() throws IOException {
-        model.setTestCsvPath();
-        expectedModel.setTestCsvPath();
-        model.exitFolderToHome();
-        expectedModel.exitFolderToHome();
-    }
 
     @Before
-    public void setUp() {
-        typicalCardsFile = new File(model.getDefaultPath() + "/" + TYPICAL_CARD_FOLDER);
+    public void setUp() throws Exception {
+
+        // set test paths for model
+        model.setTestCsvPath();
+        expectedModel.setTestCsvPath();
+
+        // initialize respective files
+        String testDefaultPath = model.getDefaultPath();
+        typicalCardsFile = new File(testDefaultPath + "/" + TYPICAL_CARD_FOLDER);
+        typicalCardsFileTest = new File(testDefaultPath + "/" + TYPICAL_CARD_FOLDER_TEST);
+        bloodCardsFile = new File(testDefaultPath + "/" + BLOOD_CARD_FOLDER);
+        bloodCardsTestFile = new File(testDefaultPath + "/" + BLOOD_CARD_FOLDER_TEST);
+
+
         assert typicalCardsFile.exists();
+        assert bloodCardsFile.exists();
     }
 
     @Test
@@ -143,15 +156,23 @@ public class ImportCommandTest {
     }
 
     @Test
-    public void execute_exportCsvFile_correctFile() throws IOException, CsvManagerNotInitialized {
+    public void execute_exportCsvFile_correctFile(File actual, File expected) throws IOException, CsvManagerNotInitialized {
         expectedModel.exportCardFolders(new ArrayList<>(Arrays.asList(1)));
         // System.out.println(DEFAULT_TEST_PATH);
-        typicalCardsFileTest = new File(model.getDefaultPath() + "/" + TYPICAL_CARD_FOLDER_TEST);
         assert(typicalCardsFileTest.exists());
         byte[] f1 = Files.readAllBytes(Paths.get(typicalCardsFile.toString()));
-        byte[] f2 = Files.readAllBytes(Paths.get(new File(typicalCardsFileTest.toString())
-                .toString()));
+        byte[] f2 = Files.readAllBytes(Paths.get(typicalCardsFileTest.toString()));
+
         assertArrayEquals (f1, f2);
         typicalCardsFileTest.delete();
+    }
+
+    @Test
+    public void execute_importDuplicateCsvFile_exception() throws Exception {
+        ImportCommand importCommand = new ImportCommand(new CsvFile(TYPICAL_CARD_FOLDER));
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(ImportCommand.MESSAGE_DUPLICATE_CARD_FOLDERS);
+        importCommand.execute(expectedModel, commandHistory);
     }
 }

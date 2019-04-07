@@ -230,8 +230,7 @@ public class CsvManager implements CsvCommands {
             Set<String> optionString = options.stream().map(x -> x.optionValue).collect(Collectors.toSet());
             String toJoin = String.join(",", optionString);
             stringBuilder.append(toJoin);
-            //options.forEach(option -> stringBuilder.append(parseQuotationMarks(option.optionValue))
-            //        .append(COMMA_DELIMITTER));
+
         }
     }
 

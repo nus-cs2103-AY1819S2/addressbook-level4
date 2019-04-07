@@ -60,7 +60,7 @@ public class PersonCard extends UiPart<Region> {
      */
     private void formatTags(Person person) {
         person.getTags().forEach(tag -> {
-            Label tLabel = new Label(tag.tagName);
+            Label tLabel = new Label(tag.tagName.substring(2));
             tLabel.getStyleClass().add(tag.tagColor);
             tags.getChildren().add(tLabel);
 

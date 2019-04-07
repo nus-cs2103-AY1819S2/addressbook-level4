@@ -493,6 +493,21 @@ It takes the _current_ list displayed in the left hand GUI panel and sorts them 
 * **skills** is called by the user through the following cli input: `sort skills`. +
 It takes the _current_ list displayed in the left hand GUI panel and first orders the skill tags for each person alphabetically. The method then proceeds to sort all persons based on their skill tags, in alphabetical order.
 
+* **positions** is called by the user through the following cli input: `sort positions`. +
+It takes the _current_ list displayed in the left hand GUI panel and first orders the position tags for each person alphabetically. The method then proceeds to sort all persons based on their position tags, in alphabetical order.
+
+* **endorsements** is called by the user through the following cli input: `sort endorsements`. +
+It takes the _current_ list displayed in the left hand GUI panel and first orders the endorsements for each person alphabetically. The method then proceeds to sort all persons based on their endorsements, in alphabetical order.
+
+* **skill number** is called by the user through the following cli input: `sort skill number`. +
+It takes the _current_ list displayed in the left hand GUI panel and orders the persons based on their number of skills in descending order.
+
+* **position number** is called by the user through the following cli input: `sort position number`. +
+It takes the _current_ list displayed in the left hand GUI panel and orders the persons based on their number of positions in descending order.
+
+* **endorsement number** is called by the user through the following cli input: `sort endorsement number`. +
+It takes the _current_ list displayed in the left hand GUI panel and orders the persons based on their number of endorsements in descending order.
+
 * **reverse** can be applied before the sort keyword (e.g. `name`) through the following cli input: `sort reverse name`
 
 _(the **current** list means that if filter is on, only those filtered persons shall be sorted and the filter shall remain on)_

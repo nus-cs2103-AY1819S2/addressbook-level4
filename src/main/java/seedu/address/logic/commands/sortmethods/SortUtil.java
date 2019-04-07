@@ -6,6 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//Do the skill method here (for add all person attributes?)
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.SkillsTag;
 
@@ -49,43 +50,6 @@ public class SortUtil {
         //Sort persons by tags
         List<Person> sortedList =
                 persons.stream().sorted(Comparator.comparing(Person::tagsToString)).collect(Collectors.toList());
-        return sortedList;
-    }
-
-    /**
-     * sorts the persons by their name
-     */
-    public static List<Person> sortPersonsByNames(List<Person> persons) {
-        //Sort persons alphabetically by name
-        List<Person> sortedList =
-                persons.stream().sorted(Comparator.comparing(Person::namesToString)).collect(Collectors.toList());
-        return sortedList;
-    }
-
-    /**
-     * sorts the persons by their surname
-     */
-    public static List<Person> sortPersonsBySurnames(List<Person> persons) {
-        List<Person> sortedList =
-                persons.stream().sorted(Comparator.comparing(Person::surnamesToString)).collect(Collectors.toList());
-        return sortedList;
-    }
-
-    /**
-     * sorts the persons by their gpa
-     */
-    public static List<Person> sortPersonsByGpa(List<Person> persons) {
-        List<Person> sortedList =
-                persons.stream().sorted(Comparator.comparing(Person::gpaToString)).collect(Collectors.toList());
-        return sortedList;
-    }
-
-    /**
-     * sorts the persons by their education
-     */
-    public static List<Person> sortPersonsByEducation(List<Person> persons) {
-        List<Person> sortedList =
-                persons.stream().sorted(Comparator.comparing(Person::educationToString)).collect(Collectors.toList());
         return sortedList;
     }
 

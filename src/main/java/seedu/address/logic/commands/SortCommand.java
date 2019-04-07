@@ -10,6 +10,7 @@ import seedu.address.logic.commands.sortmethods.SortGpa;
 import seedu.address.logic.commands.sortmethods.SortName;
 import seedu.address.logic.commands.sortmethods.SortSkills;
 import seedu.address.logic.commands.sortmethods.SortSurname;
+import seedu.address.logic.commands.sortmethods.SortTagNumber;
 import seedu.address.logic.commands.sortmethods.SortUtil;
 import seedu.address.logic.parser.SortWord;
 import seedu.address.model.Model;
@@ -26,7 +27,8 @@ public class SortCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts all persons in address book "
             + "according to the specified keyword and displays them as a list with index numbers.\n"
             + "Parameters: [reverse] KEYWORD \n"
-            + "Valid KEYWORD: name, surname, skills, education, gpa \n"
+            + "Valid KEYWORD: education, endorsements, endorsement number, gpa, name, positions, position number,\n"
+            + "               skills, skill number, surname \n"
             + "Example: " + COMMAND_WORD + " name \n"
             + "Example: " + COMMAND_WORD + " reverse skills ";
 
@@ -34,23 +36,26 @@ public class SortCommand extends Command {
 
     private List<Person> sortedPersons;
 
+    private Boolean isReverseList;
+
     public SortCommand(SortWord method) {
         this.method = method;
     }
 
     /**
      * Checks if the sort should be reversed.
-     * Maybe this should be done at a lower level
+     * If it should be reversed the class wide isReverseList boolean is updated and the input is shortened
+     *   to leave just the sorting method
      */
-    private Boolean hasReverse() {
+    private String checkReverse() {
         String input = this.method.getSortWord();
-        Boolean reverse;
+        isReverseList = false;
         if (input.contains("reverse")) {
-            reverse = true;
-        } else {
-            reverse = false;
+            isReverseList = true;
+            int firstSpace = input.indexOf(" ");
+            return input.substring(firstSpace + 1);
         }
-        return reverse;
+        return input;
     }
 
     /**
@@ -61,9 +66,8 @@ public class SortCommand extends Command {
     private void processCommand(Model model) {
         List<Person> lastShownList = model.getAddressBook().getPersonList();
         //Maybe use switch statement here?
-        String input = this.method.getSortWord();
-        int finalSpace = input.lastIndexOf(" ");
-        String commandInput = input.substring(finalSpace + 1);
+        String commandInput = checkReverse();
+
         if (commandInput.equals("name")) {
             SortName sorted = new SortName(lastShownList);
             sortedPersons = sorted.getList();
@@ -73,7 +77,15 @@ public class SortCommand extends Command {
             sortedPersons = sorted.getList();
             model.deleteAllPerson();
         } else if (commandInput.equals("skills")) {
-            SortSkills sorted = new SortSkills(lastShownList);
+            SortSkills sorted = new SortSkills(lastShownList, commandInput);
+            sortedPersons = sorted.getList();
+            model.deleteAllPerson();
+        } else if (commandInput.equals("endorsements")) {
+            SortSkills sorted = new SortSkills(lastShownList, commandInput);
+            sortedPersons = sorted.getList();
+            model.deleteAllPerson();
+        } else if (commandInput.equals("positions")) {
+            SortSkills sorted = new SortSkills(lastShownList, commandInput);
             sortedPersons = sorted.getList();
             model.deleteAllPerson();
         } else if (commandInput.equals("gpa")) {
@@ -91,8 +103,12 @@ public class SortCommand extends Command {
             //Temporarily add print statement here since the education is not being printed to the GUI
             System.out.println(sortedPersons);
             model.deleteAllPerson();
+        } else if (commandInput.substring(commandInput.lastIndexOf(" ") + 1).equals("number")) {
+            SortTagNumber sorted = new SortTagNumber(lastShownList, commandInput);
+            sortedPersons = sorted.getList();
+            model.deleteAllPerson();
         }
-        if (hasReverse()) {
+        if (isReverseList) {
             sortedPersons = SortUtil.reversePersonList(sortedPersons);
         }
         for (Person newPerson : sortedPersons) {

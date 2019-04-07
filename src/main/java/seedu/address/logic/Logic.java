@@ -13,7 +13,7 @@ import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.statistics.Bill;
-import seedu.address.model.statistics.DailyRevenue;
+import seedu.address.model.statistics.Revenue;
 import seedu.address.model.table.Table;
 
 /**
@@ -53,9 +53,9 @@ public interface Logic {
     ObservableList<Table> getFilteredTableList();
 
     /**
-     * Returns an unmodifiable view of the filtered list of daily revenues
+     * Returns an unmodifiable view of the filtered list of revenues
      */
-    ObservableList<DailyRevenue> getFilteredDailyRevenueList();
+    ObservableList<Revenue> getFilteredRevenueList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -118,12 +118,12 @@ public interface Logic {
     ReadOnlyProperty<Table> selectedTableProperty();
 
     /**
-     * Selected daily revenue in the filtered daily revenue list.
-     * null if no daily revenue is selected.
+     * Selected revenue in the filtered revenue list.
+     * null if no revenue is selected.
      *
-     * @see seedu.address.model.Model#selectedDailyRevenueProperty()
+     * @see seedu.address.model.Model#selectedRevenueProperty()
      */
-    ReadOnlyProperty<DailyRevenue> selectedDailyRevenueProperty();
+    ReadOnlyProperty<Revenue> selectedRevenueProperty();
 
     /**
      * Recent bill.
@@ -155,11 +155,11 @@ public interface Logic {
     void setSelectedTable(Table table);
 
     /**
-     * Sets the selected daily revenue in the filtered daily revenue list.
+     * Sets the selected revenue in the filtered revenue list.
      *
-     * @see seedu.address.model.Model#setSelectedDailyRevenue(DailyRevenue)
+     * @see seedu.address.model.Model#setSelectedRevenue(Revenue)
      */
-    void setSelectedDailyRevenue(DailyRevenue dailyRevenue);
+    void setSelectedRevenue(Revenue revenue);
 
     /**
      * Set the statistics status
@@ -202,8 +202,6 @@ public interface Logic {
      * @see seedu.address.model.Model#getRecentBill()
      */
     Bill getRecentBill();
-
-    //    void billUpdateOrders(ObservableList<OrderItem> orderItemList);
 
     /**
      * Changes current mode of RestOrRant.

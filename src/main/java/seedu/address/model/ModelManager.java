@@ -21,9 +21,9 @@ import seedu.address.model.menu.exceptions.MenuItemNotFoundException;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.exceptions.OrderItemNotFoundException;
 import seedu.address.model.statistics.Bill;
-import seedu.address.model.statistics.DailyRevenue;
+import seedu.address.model.statistics.Revenue;
 import seedu.address.model.statistics.exceptions.BillNotFoundException;
-import seedu.address.model.statistics.exceptions.DailyRevenueNotFoundException;
+import seedu.address.model.statistics.exceptions.RevenueNotFoundException;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.TableStatus;
@@ -43,8 +43,8 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<MenuItem> selectedMenuItem = new SimpleObjectProperty<>();
     private final FilteredList<Table> filteredTableList;
     private final SimpleObjectProperty<Table> selectedTable = new SimpleObjectProperty<>();
-    private final FilteredList<DailyRevenue> filteredDailyRevenueList;
-    private final SimpleObjectProperty<DailyRevenue> selectedDailyRevenue = new SimpleObjectProperty<>();
+    private final FilteredList<Revenue> filteredRevenueList;
+    private final SimpleObjectProperty<Revenue> selectedRevenue = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Bill> recentBill = new SimpleObjectProperty<>();
     private boolean isDaily;
     private boolean isMonthly;
@@ -67,8 +67,8 @@ public class ModelManager implements Model {
         filteredMenuItems.addListener(this::ensureSelectedMenuItemIsValid);
         filteredTableList = new FilteredList<>(this.restOrRant.getTables().getTableList());
         filteredTableList.addListener(this::ensureSelectedTableIsValid);
-        filteredDailyRevenueList = new FilteredList<>(this.restOrRant.getStatistics().getDailyRevenueList());
-        filteredDailyRevenueList.addListener(this::ensureSelectedDailyRevenueIsValid);
+        filteredRevenueList = new FilteredList<>(this.restOrRant.getStatistics().getRevenueList());
+        filteredRevenueList.addListener(this::ensureSelectedRevenueIsValid);
         updateFilteredOrderItemList(orderItem -> !orderItem.getOrderItemStatus().isAllServed());
         isDaily = true;
         isMonthly = false;
@@ -481,31 +481,31 @@ public class ModelManager implements Model {
     //=========== statistics =====================================================================================
 
     @Override
-    public boolean hasDailyRevenue(DailyRevenue dailyRevenue) {
-        requireNonNull(dailyRevenue);
-        return restOrRant.getStatistics().hasDailyRevenue(dailyRevenue);
+    public boolean hasRevenue(Revenue revenue) {
+        requireNonNull(revenue);
+        return restOrRant.getStatistics().hasRevenue(revenue);
     }
 
     @Override
-    public void deleteDailyRevenue(DailyRevenue target) {
-        restOrRant.getStatistics().removeDailyRevenue(target);
+    public void deleteRevenue(Revenue target) {
+        restOrRant.getStatistics().removeRevenue(target);
     }
 
     @Override
-    public void addDailyRevenue(DailyRevenue dailyRevenue) {
-        restOrRant.getStatistics().addDailyRevenue(dailyRevenue);
-        updateFilteredDailyRevenueList(PREDICATE_SHOW_ALL_DAILY_REVENUE);
+    public void addRevenue(Revenue revenue) {
+        restOrRant.getStatistics().addRevenue(revenue);
+        updateFilteredRevenueList(PREDICATE_SHOW_ALL_REVENUE);
     }
 
     @Override
-    public ObservableList<DailyRevenue> getDailyRevenueList() {
-        return restOrRant.getStatistics().getDailyRevenueList();
+    public ObservableList<Revenue> getRevenueList() {
+        return restOrRant.getStatistics().getRevenueList();
     }
 
     @Override
-    public void setDailyRevenue(DailyRevenue target, DailyRevenue editedItem) {
+    public void setRevenue(Revenue target, Revenue editedItem) {
         requireAllNonNull(target, editedItem);
-        restOrRant.getStatistics().setDailyRevenue(target, editedItem);
+        restOrRant.getStatistics().setRevenue(target, editedItem);
     }
 
     @Override
@@ -536,69 +536,68 @@ public class ModelManager implements Model {
         return isYearly;
     }
 
-    //=========== Filtered Daily revenue List Accessors ==============================================================
+    //=========== Filtered Revenue List Accessors ==============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code DailyRevenue} backed by the internal list of {@code
-     * DailyRevenueList}
+     * Returns an unmodifiable view of the list of {@code Revenue} backed by the internal list of {@code RevenueList}
      */
     @Override
-    public ObservableList<DailyRevenue> getFilteredDailyRevenueList() {
-        return filteredDailyRevenueList;
+    public ObservableList<Revenue> getFilteredRevenueList() {
+        return filteredRevenueList;
     }
 
     @Override
-    public void updateFilteredDailyRevenueList(Predicate<DailyRevenue> predicate) {
+    public void updateFilteredRevenueList(Predicate<Revenue> predicate) {
         requireNonNull(predicate);
-        filteredDailyRevenueList.setPredicate(predicate);
+        filteredRevenueList.setPredicate(predicate);
     }
 
-    //=========== Selected daily revenue =============================================================================
+    //=========== Selected revenue =============================================================================
 
     @Override
-    public ReadOnlyProperty<DailyRevenue> selectedDailyRevenueProperty() {
-        return selectedDailyRevenue;
+    public ReadOnlyProperty<Revenue> selectedRevenueProperty() {
+        return selectedRevenue;
     }
 
     @Override
-    public DailyRevenue getSelectedDailyRevenue() {
-        return selectedDailyRevenue.getValue();
+    public Revenue getSelectedRevenue() {
+        return selectedRevenue.getValue();
     }
 
-    public void setSelectedDailyRevenue(DailyRevenue dailyRevenue) {
-        if (dailyRevenue != null && !filteredDailyRevenueList.contains(dailyRevenue)) {
-            throw new DailyRevenueNotFoundException();
+    public void setSelectedRevenue(Revenue revenue) {
+        if (revenue != null && !filteredRevenueList.contains(revenue)) {
+            throw new RevenueNotFoundException();
         }
-        selectedDailyRevenue.setValue(dailyRevenue);
+        selectedRevenue.setValue(revenue);
     }
 
     /**
-     * Ensures {@code selectedDailyRevenue} is a valid daily revenue in {@code filteredDailyRevenue}.
+     * Ensures {@code selectedRevenue} is a valid revenue in {@code filteredRevenue}.
      */
-    private void ensureSelectedDailyRevenueIsValid(ListChangeListener.Change<? extends DailyRevenue> change) {
+    private void ensureSelectedRevenueIsValid(ListChangeListener.Change<? extends Revenue> change) {
         while (change.next()) {
-            if (selectedDailyRevenue.getValue() == null) {
+            if (selectedRevenue.getValue() == null) {
                 //null is always a valid selected daily revenue, so we do not need to check that it is valid anymore
                 return;
             }
 
-            boolean wasSelectedDailyRevenueReplaced =
+            boolean wasSelectedRevenueReplaced =
                     change.wasReplaced() && change.getAddedSize() == change.getRemovedSize() && change.getRemoved()
-                            .contains(selectedDailyRevenue.getValue());
-            if (wasSelectedDailyRevenueReplaced) {
-                //Update selectedDailyRevenue to its new value.
-                int index = change.getRemoved().indexOf(selectedDailyRevenue.getValue());
-                selectedDailyRevenue.setValue(change.getAddedSubList().get(index));
+                            .contains(selectedRevenue.getValue());
+            if (wasSelectedRevenueReplaced) {
+                //Update selectedRevenue to its new value.
+                int index = change.getRemoved().indexOf(selectedRevenue.getValue());
+                selectedRevenue.setValue(change.getAddedSubList().get(index));
             }
 
-            boolean wasSelectedDailyRevenueRemoved = change.getRemoved()
+            boolean wasSelectedRevenueRemoved = change.getRemoved()
                     .stream()
-                    .anyMatch(removedDailyRevenue -> selectedDailyRevenue.getValue()
-                            .isSameDailyRevenue(removedDailyRevenue));
-            if (wasSelectedDailyRevenueRemoved) {
-                // Select the daily revenue that came before it in the list,
-                // or clear the selection if there is no such daily revenue.
-                selectedDailyRevenue.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+                    .anyMatch(removedRevenue -> selectedRevenue.getValue()
+                            .isSameRevenue(removedRevenue));
+            if (wasSelectedRevenueRemoved) {
+                // Select the revenue that came before it in the list,
+                // or clear the selection if there is no such revenue.
+                selectedRevenue.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }
@@ -641,8 +640,8 @@ public class ModelManager implements Model {
                 other.filteredOrderItems) && Objects.equals(selectedOrderItem.get(), other.selectedOrderItem.get())
                 && filteredMenuItems.equals(other.filteredMenuItems) && Objects.equals(selectedMenuItem.get(),
                 other.selectedMenuItem.get()) && filteredTableList.equals(other.filteredTableList) && Objects.equals(
-                selectedTable.get(), other.selectedTable.get()) && filteredDailyRevenueList.equals(
-                other.filteredDailyRevenueList) && Objects.equals(selectedDailyRevenue.get(),
-                other.selectedDailyRevenue.get()) && Objects.equals(recentBill.get(), other.recentBill.get());
+                selectedTable.get(), other.selectedTable.get()) && filteredRevenueList.equals(
+                other.filteredRevenueList) && Objects.equals(selectedRevenue.get(),
+                other.selectedRevenue.get()) && Objects.equals(recentBill.get(), other.recentBill.get());
     }
 }

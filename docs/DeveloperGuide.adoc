@@ -517,7 +517,13 @@ executes internally.
 image::SetCategoriesSequenceDiagram.png[width="1000"]
 
 ==== Design Considerations
+
+You can find out more about why certain areas of the feature is implemented a certain way here. Other possible
+alternatives are also considered and reasons as to why they were not chosen are also explained here.
+
 ===== Price Range Categorisation
+
+This section discusses the different ways price ranges could have been categorised.
 
 * Alternative 1: Use dollar signs to represent price (Current implementation)
 
@@ -539,6 +545,8 @@ consistent.
 
 ===== How categories are added and edited
 
+This section discusses how categories could have been handled.
+
 * Alternative 1: Use one single command to add and edit, only overriding the present categories keyed in (Current implementation)
 
 |=====================
@@ -558,6 +566,8 @@ for the user to tag the restaurants, they can just use the existing tag system. 
 users only need to remember one command, hence it is more intuitive for the user.
 
 ===== Filtering restaurants by categories
+
+This section discusses different ways filtering could have been implemented.
 
 * Alternative 1: Key in as many key words as possible, without specifying which keyword is for which category (Current implementation)
 

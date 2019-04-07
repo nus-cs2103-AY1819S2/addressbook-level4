@@ -16,14 +16,14 @@ public class SortCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE);
 
-    private SortCommandParser parser = new SortCommandParser();
+    private static final String VALID_INPUT_PROPERTY_EXPIRY = " " + PREFIX_PROPERTY + "expiry ";
+    private static final String VALID_INPUT_DIRECTION_DESCENDING = " " + PREFIX_DIRECTION + "descending ";
+    private static final String VALID_INPUT_PROPERTY_BATCHNUMBER = " " + PREFIX_PROPERTY + "batchnumber ";
+    private static final String VALID_INPUT_DIRECTION_ASCENDING = " " + PREFIX_DIRECTION + "ascending ";
+    private static final String INVALID_INPUT_PROPERTY = " " + PREFIX_PROPERTY + "expir";
+    private static final String INVALID_INPUT_DIRECTION = " " + PREFIX_DIRECTION + "down";
 
-    private final String VALID_INPUT_PROPERTY_EXPIRY = " " + PREFIX_PROPERTY + "expiry ";
-    private final String VALID_INPUT_DIRECTION_DESCENDING = " " + PREFIX_DIRECTION + "descending ";
-    private final String VALID_INPUT_PROPERTY_BATCHNUMBER = " " + PREFIX_PROPERTY + "batchnumber ";
-    private final String VALID_INPUT_DIRECTION_ASCENDING = " " + PREFIX_DIRECTION + "ascending ";
-    private final String INVALID_INPUT_PROPERTY = " " + PREFIX_PROPERTY + "expir";
-    private final String INVALID_INPUT_DIRECTION = " " + PREFIX_DIRECTION + "down";
+    private SortCommandParser parser = new SortCommandParser();
 
     @Test
     public void parse_missingParts_failure() {

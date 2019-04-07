@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalMedicines.LEVOTHYROXINE;
@@ -76,6 +77,9 @@ public class InformationPanelTest extends GuiUnitTest {
         }
     }
 
+    /**
+     * Asserts that the data is sorted according to the sortProperty and sortDirection.
+     */
     private void assertSorted(List<Batch> data, SortProperty sortProperty, SortDirection sortDirection) {
         if (sortDirection.equals(SortDirection.DESCENDING)) {
             Collections.reverse(data);
@@ -90,7 +94,12 @@ public class InformationPanelTest extends GuiUnitTest {
             sortedData.sort(Comparator.comparing(b -> b.getExpiry()));
             break;
         case QUANTITY:
+            
             sortedData.sort(Comparator.comparing(b -> b.getQuantity().getNumericValue()));
+            break;
+        default:
+            throw new IllegalArgumentException("Unknown Sort Property");
         }
+        assertEquals(data, sortedData);
     }
 }

@@ -74,7 +74,7 @@ public class BrowserPanel extends UiPart<Stage> {
      */
     public void loadPage(Weblink weblink) throws NoInternetException {
         // Load restaurant page when selected restaurant changes.
-        if (WebUtil.isNotValidWeblinkUrl(weblink.value)) {
+        if (!WebUtil.isNotValidWeblinkUrl(weblink.value)) {
             loadPage(WebUtil.prependHttps(weblink.value));
         }
     }

@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.time.Instant;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import seedu.address.model.user.User;
  */
 public class CsvUserStorage implements UserStorage {
     private static final Logger logger = LogsCenter.getLogger(CsvLessonListStorage.class);
+    private static final int MAX_SIZE = 5;
 
     private Path filePath;
 
@@ -40,9 +42,10 @@ public class CsvUserStorage implements UserStorage {
     }
 
     /**
-     * Parses the given file at the path into a user
-     * @param filePath is not null
-     * @return the parsed user
+     * Parses the given file and attempts to read it. Failure to read will return null.
+     *
+     * @param filePath
+     * @return the parsed user or null
      */
     private Optional<User> parseFileIntoUser(Path filePath) {
         List<String[]> data;
@@ -59,8 +62,12 @@ public class CsvUserStorage implements UserStorage {
         }
 
         User user = new User();
+
         for (String[] arr : data) {
-            user.addCard(parseStringIntoCard(arr));
+            Optional<CardSrsData> card = parseStringIntoCard(arr);
+            if (card.isPresent()) {
+                user.addCard(card.get());
+            }
         }
 
         return Optional.of(user);
@@ -68,6 +75,7 @@ public class CsvUserStorage implements UserStorage {
 
     /**
      * Parses the current user into a file
+     *
      * @param user
      * @param filePath
      * @throws IOException
@@ -86,6 +94,7 @@ public class CsvUserStorage implements UserStorage {
 
     /**
      * Converts a card with its constructor values into a String Array ready for CSV file
+     *
      * @param card
      * @return a String array with the cardData(hashcode, numAttempts, streak, srs, isDifficult)
      */
@@ -103,31 +112,66 @@ public class CsvUserStorage implements UserStorage {
 
     /**
      * Converts a card from a String Array in the CSV file
+     *
      * @param cardArray
      * @return card type with the constructor values
      */
-    private CardSrsData parseStringIntoCard(String[] cardArray) {
+
+    private Optional<CardSrsData> parseStringIntoCard(String[] cardArray) throws
+            NumberFormatException, DateTimeParseException {
+
+        if (cardArray.length < MAX_SIZE) {
+            logger.warning("There are empty values in the file");
+            return Optional.empty();
+        }
+
+        for (int i = 0; i < cardArray.length - 1; i++) {
+            if (cardArray[i].isEmpty()) {
+                logger.warning("There are empty values in the file");
+                return Optional.empty();
+            }
+        }
+
         int hashCode;
         int numOfAttempts;
         int streak;
         Instant srs;
         boolean isDifficult;
+        CardSrsData card;
 
-        hashCode = Integer.parseInt(cardArray[0]);
-        numOfAttempts = Integer.parseInt(cardArray[1]);
-        streak = Integer.parseInt(cardArray[2]);
-        srs = Instant.parse(cardArray[3]);
-
-        // TODO remove this check after session uses the new constructor
-        if (cardArray.length == 5) {
+        try {
+            hashCode = Integer.parseInt(cardArray[0]);
+            numOfAttempts = Integer.parseInt(cardArray[1]);
+            streak = Integer.parseInt(cardArray[2]);
+            srs = Instant.parse(cardArray[3]);
             isDifficult = cardArray[4].equals("true");
-        } else {
-            isDifficult = false;
+
+            if (hashCode == 0) {
+                logger.warning("Hashcode cannot be 0 in " + filePath.toString());
+                return Optional.empty();
+            }
+
+            if (numOfAttempts < 0) {
+                logger.warning("Number of attempts cannot be 0 in " + filePath.toString());
+                return Optional.empty();
+            }
+
+            if (streak < 0) {
+                logger.warning("Streak cannot be 0 in " + filePath.toString());
+                return Optional.empty();
+            }
+        } catch (NumberFormatException e) {
+            logger.warning("Values are not correct in " + filePath.toString());
+            return Optional.empty();
+
+        } catch (DateTimeParseException e) {
+            logger.warning("SrsDate is wrong in " + filePath.toString());
+            return Optional.empty();
         }
 
-        CardSrsData card = new CardSrsData(hashCode, numOfAttempts, streak, srs, isDifficult);
+        card = new CardSrsData(hashCode, numOfAttempts, streak, srs, isDifficult);
 
-        return card;
+        return Optional.of(card);
     }
 
     @Override
@@ -156,7 +200,7 @@ public class CsvUserStorage implements UserStorage {
         try {
             parseUserIntoFile(users, filePath);
         } catch (IOException e) {
-            logger.warning("Failed to save user; IOException occured");
+            logger.warning("Failed to save user; IOException occurred");
         }
     }
 }

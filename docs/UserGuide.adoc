@@ -404,7 +404,7 @@ After memorising the content of the flashcards, it is helpful to test how much i
 ==== Test flashcards in a folder : `test`
 
 You will enter a test session, where the display area enters a fullscreen and you will be presented flashcard questions
- one by one. (see Figure 1 below).
+ one by one. (see Figure 2 below).
 
 .A successful test command will display a test session page
 image::startTestSessionPage.png[width="400"]
@@ -453,14 +453,14 @@ To reinforce learning and provide a more engaging experience with Know-It-All, y
 currently displayed flashcard question. Know-It-All compares your attempt with the correct answer for that flashcard and
 tells you if you are right or wrong.
 
-If the answer has been submitted successfully and it is wrong, you will see the following page (see Figure 2).
-
 If the answer has been submitted successfully and it is correct, you will see the following page (see Figure 3).
 
 .Correct Answer page
 image::CorrectAnswerPage.png[width="400"]
 
 {empty} +
+
+If the answer has been submitted successfully and it is wrong, you will see the following page (see Figure 4).
 .Wrong Answer page
 image::WrongAnswerPage.png[width="400"]
 

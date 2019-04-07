@@ -5,7 +5,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Abort the current consultation
+ * Aborts the current consultation
  */
 public class AbortConsultationCommand extends Command {
 

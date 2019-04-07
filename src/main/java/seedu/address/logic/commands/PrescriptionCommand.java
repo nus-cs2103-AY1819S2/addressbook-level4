@@ -14,8 +14,9 @@ import seedu.address.model.consultation.Prescription;
 import seedu.address.model.medicine.Medicine;
 
 /**
- * This command allows the patient to administer the medicine and its quantity to the patient
- * during the consultation session
+ * Creates or replaces the current prescription record of the current consultation session.
+ * Prescription allows the user to administer the medicine and its quantity to the patient
+ * during the consultation session.
  */
 public class PrescriptionCommand extends Command {
 
@@ -51,13 +52,17 @@ public class PrescriptionCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
 
-        // check if there is a current consultation session
         if (model.checkConsultation() == false) {
             throw new CommandException(NO_ONGOING_CONSULTATION);
         }
 
         ArrayList<Prescription> prescriptions = new ArrayList<>();
 
+        /**
+         * Check whether the medicine to be administered is currently present in the inventory and
+         * if it is present, check whether there is sufficient medicine to be prescribed.
+         * Exception will be thrown to indicate that the current prescription cannot be made
+         */
         for (int i = 0; i < medicineList.size(); i++) {
 
             Optional<Medicine> foundMedicine = model.findMedicine(medicineList.get(i));
@@ -75,7 +80,6 @@ public class PrescriptionCommand extends Command {
 
         model.prescribeMedicine(prescriptions);
 
-        // model will call the addPrescription method in consultationmanager
         StringBuilder sb = new StringBuilder();
         sb.append("prescription:\n");
         sb.append("====================\n");
@@ -85,7 +89,6 @@ public class PrescriptionCommand extends Command {
         return new CommandResult(sb.toString());
     }
 
-    // for testing
     @Override
     public boolean equals(Object other) {
         return other == this || (other instanceof PrescriptionCommand // instanceof handles nulls

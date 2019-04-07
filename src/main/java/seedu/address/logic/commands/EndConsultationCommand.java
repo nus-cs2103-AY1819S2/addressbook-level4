@@ -29,6 +29,10 @@ public class EndConsultationCommand extends Command {
             throw new CommandException(NO_CONSULT_EXCEPTION);
         }
 
+        /**
+         * The current consultation session can end only when both the diagnosis and the prescription
+         * is provided
+         */
         if (currentConsultation.getDiagnosis() == null) {
             throw new CommandException(DIAGNOSIS_EXCEPTION);
         }
@@ -37,10 +41,15 @@ public class EndConsultationCommand extends Command {
             throw new CommandException(PRESCRIPTION_EXCEPTION);
         }
 
+        /**
+         * When the consultation session have ended, then the medicine that is prescribed will be
+         * removed from the inventory
+         */
         for (Prescription prescription : currentConsultation.getPrescriptions()) {
             prescription.getMedicine().subtractQuantity(prescription.getQuantity());
             model.reminderForMedicine(prescription.getMedicine());
         }
+
         ConsultationRecord record = new ConsultationRecord(currentConsultation.getPrescriptions(),
                 currentConsultation.getDiagnosis());
         model.addRecord(record, Clock.systemDefaultZone());

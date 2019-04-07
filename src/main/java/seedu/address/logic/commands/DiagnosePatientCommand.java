@@ -9,7 +9,9 @@ import seedu.address.model.Model;
 import seedu.address.model.consultation.Diagnosis;
 
 /**
- * Adds or replace diagnosis of current consultation session
+ * Creates or replace the diagnosis record of current consultation session.
+ * Diagnosis records the symptoms of the patient during the current consultation session, and
+ * also the assessment of the illness given by the doctor
  */
 public class DiagnosePatientCommand extends Command {
     public static final String COMMAND_WORD = "diagnose";

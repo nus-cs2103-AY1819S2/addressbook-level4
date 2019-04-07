@@ -9,7 +9,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showMedicineAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEDICINE;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FOURTH_MEDICINE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MEDICINE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_MEDICINE;
 import static seedu.address.testutil.TypicalMedicines.getTypicalInventory;

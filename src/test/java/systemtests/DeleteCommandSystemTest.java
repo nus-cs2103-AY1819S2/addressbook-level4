@@ -1,6 +1,5 @@
 package systemtests;
 
-import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_MEDICINE_SUCCESS;
@@ -63,10 +62,10 @@ public class DeleteCommandSystemTest extends MediTabsSystemTest {
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered medicine list, delete index within bounds of inventory and medicine list -> deleted */
-//        showMedicinesWithName(KEYWORD_MATCHING_SODIUM);
-//        Index index = INDEX_FIRST_MEDICINE;
-//        assertTrue(index.getZeroBased() < getModel().getFilteredMedicineList().size());
-//        assertCommandSuccess(index);
+        //showMedicinesWithName(KEYWORD_MATCHING_SODIUM);
+        //Index index = INDEX_FIRST_MEDICINE;
+        //assertTrue(index.getZeroBased() < getModel().getFilteredMedicineList().size()); // need to import assertTrue
+        //assertCommandSuccess(index);
 
         /* Case: filtered medicine list, delete index within bounds of inventory but out of bounds of medicine list
          * -> rejected

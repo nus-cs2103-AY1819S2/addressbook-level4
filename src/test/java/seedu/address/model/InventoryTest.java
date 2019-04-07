@@ -14,13 +14,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import javafx.collections.transformation.SortedList;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.InvalidationListener;
+import javafx.collections.transformation.SortedList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.medicine.Medicine;

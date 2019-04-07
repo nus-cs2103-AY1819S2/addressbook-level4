@@ -3,9 +3,15 @@ package seedu.travel.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import seedu.travel.MainApp;
 import seedu.travel.model.place.Place;
+
+import java.io.FileNotFoundException;
 
 /**
  * An UI component that displays information of a {@code Place}.
@@ -27,7 +33,7 @@ public class ExpandedPlacePanel extends UiPart<Region> {
     public final Place place;
 
     @FXML
-    private HBox cardPane;
+    private VBox img;
     @FXML
     private Label name;
     @FXML
@@ -56,6 +62,7 @@ public class ExpandedPlacePanel extends UiPart<Region> {
         address.setText(place.getAddress().value);
         description.setText(place.getDescription().value);
         initTags(place);
+        initImg();
     }
 
     /**
@@ -65,6 +72,15 @@ public class ExpandedPlacePanel extends UiPart<Region> {
         // Hash code of the tag name to generate a random color, so that the color remain consistent
         // between different runs of the program while still making it random enough between tags.
         return TAG_COLOR_STYLES[Math.abs(tagName.hashCode()) % TAG_COLOR_STYLES.length];
+    }
+
+    private void initImg() {
+        final ImageView selectedImage = new ImageView();
+
+        Image placeImage = new Image(MainApp.class.getResourceAsStream("/images/test-img.jpg"));
+        selectedImage.setImage(placeImage);
+        img.getChildren().addAll(selectedImage);
+
     }
 
     /**

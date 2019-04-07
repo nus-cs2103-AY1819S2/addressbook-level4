@@ -31,6 +31,8 @@ public class PatientCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
+    private Label pid;
+    @FXML
     private Label gender;
     @FXML
     private Label age;
@@ -46,6 +48,7 @@ public class PatientCard extends UiPart<Region> {
         this.patient = patient;
         id.setText(displayedIndex + ". ");
         name.setText(patient.getName().fullName);
+        pid.setText(patient.getIdToString());
         gender.setText(patient.getGender().value);
         age.setText(patient.getAge().value);
         phone.setText(patient.getPhone().value);

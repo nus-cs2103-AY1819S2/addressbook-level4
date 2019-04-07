@@ -27,6 +27,8 @@ public class DoctorCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
+    private Label did;
+    @FXML
     private Label name;
     @FXML
     private Label id;
@@ -44,6 +46,7 @@ public class DoctorCard extends UiPart<Region> {
         this.doctor = doctor;
         id.setText(displayedIndex + ". ");
         name.setText(doctor.getName().fullName);
+        did.setText(doctor.getIdToString());
         gender.setText(doctor.getGender().value);
         year.setText(doctor.getYear().value);
         phone.setText(doctor.getPhone().value);

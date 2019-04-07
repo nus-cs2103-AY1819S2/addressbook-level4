@@ -116,11 +116,13 @@ public class ManagementModelManagerTest {
     public void addLesson_validLesson_modelManagerUpdated() {
         // No lessons in modelManager by default
         assertEquals(0, modelManager.getLessons().size());
+        assertFalse(modelManager.hasLessonWithName(lesson.getName()));
 
         modelManager.addLesson(lesson);
         // Added lesson -> lesson is in modelManager
         assertEquals(lesson, modelManager.getLesson(0));
         assertEquals(1, modelManager.getLessons().size());
+        assertTrue(modelManager.hasLessonWithName(lesson.getName()));
     }
 
     @Test

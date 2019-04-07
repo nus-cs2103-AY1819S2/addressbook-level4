@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.management.AddLessonCommand.MESSAGE_DUPLICATE_NAME;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.card.Card;
 import seedu.address.testutil.LessonListBuilder;
 import seedu.address.testutil.TypicalCards;
@@ -45,9 +47,15 @@ public class LessonListTest {
     }
 
     @Test
-    public void addLesson_validLesson_addsLesson() {
+    public void addLesson_validLesson_hasLesson() {
+        // lesson not yet added -> hasLessonWithName is false
+        assertFalse(lessonList.hasLessonWithName(lessonToAdd.getName()));
+
         lessonList.addLesson(lessonToAdd);
+        // lesson added -> lessonList.size() + 1
         assertEquals(defaultSize + 1, lessonList.getLessons().size());
+        // lesson added -> hasLessonWithName is true
+        assertTrue(lessonList.hasLessonWithName(lessonToAdd.getName()));
     }
 
     @Test

@@ -103,6 +103,15 @@ public interface ManagementModel extends Model {
     boolean isThereOpenedLesson();
 
     /**
+     * Checks if there already is a lesson with the name specified in {@link LessonList}.
+     *
+     * @param name the {@link Lesson} name to look for in {@link LessonList}
+     * @return returns true if there is a {@link Lesson} in {@link LessonList} with the
+     * specified name; false otherwise
+     */
+    boolean hasLessonWithName(String name);
+
+    /**
      * @return the {@link LessonList} object.
      */
     LessonList getLessonList();

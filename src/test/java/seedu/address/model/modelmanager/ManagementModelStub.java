@@ -43,6 +43,9 @@ public class ManagementModelStub implements ManagementModel {
     }
 
     @Override
+    public boolean hasLessonWithName(String name) { throw new AssertionError(MESSAGE_ASSERT_ERROR); }
+
+    @Override
     public String openLesson(int index) {
         throw new AssertionError(MESSAGE_ASSERT_ERROR);
     }

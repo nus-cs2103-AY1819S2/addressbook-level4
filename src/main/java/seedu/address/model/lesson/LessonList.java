@@ -71,6 +71,22 @@ public class LessonList {
     }
 
     /**
+     * Checks if there already is a lesson with the name specified.
+     *
+     * @param name the lesson name to look for in LessonList
+     * @return returns true if there is a lesson in LessonList with the specified name; false otherwise
+     */
+    public boolean hasLessonWithName(String name) {
+        for (Lesson lesson : lessons) {
+            if (lesson.getName().equals(name)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Adds a {@link Lesson} object to {@link #lessons}.
      *
      * @param lesson {@link Lesson} to be added to {@link #lessons}

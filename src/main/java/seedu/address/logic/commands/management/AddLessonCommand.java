@@ -7,6 +7,8 @@ import static seedu.address.logic.parser.Syntax.PREFIX_CORE_QUESTION;
 import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_NAME;
 import static seedu.address.logic.parser.Syntax.PREFIX_OPTIONAL;
 
+import java.util.List;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -47,6 +49,10 @@ public class AddLessonCommand extends ManagementCommand {
      */
     public static final String MESSAGE_SUCCESS = "Added lesson: %1$s";
     /**
+     * Feedback message displayed to the user if there is already a lesson with the same name.
+     */
+    public static final String MESSAGE_DUPLICATE_NAME = "A lesson with the name: %1$s already exists.";
+    /**
      * The lesson to be added when {@link #execute(Model, CommandHistory)} is called.
      */
     private final Lesson toAdd;
@@ -74,6 +80,11 @@ public class AddLessonCommand extends ManagementCommand {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         ManagementModel mgtModel = requireManagementModel(model);
+        String lessonName = toAdd.getName();
+
+        if (mgtModel.hasLessonWithName(lessonName)) {
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_NAME, lessonName));
+        }
 
         mgtModel.addLesson(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), CommandResult.UpdateStorage.SAVE);

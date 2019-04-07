@@ -164,6 +164,11 @@ public class ManagementModelManager implements ManagementModel {
     }
 
     @Override
+    public boolean hasLessonWithName(String name) {
+        return lessonList.hasLessonWithName(name);
+
+    }
+    @Override
     public void deleteLesson(int index) {
         lessonList.deleteLesson(index);
     }

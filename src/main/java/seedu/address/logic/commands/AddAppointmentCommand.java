@@ -6,14 +6,21 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 
+import java.util.function.Predicate;
+
+import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.FutureAppointment;
+import seedu.address.model.person.Doctor;
+import seedu.address.model.person.Patient;
+import seedu.address.model.person.RecordContainsDoctorIdPredicate;
+import seedu.address.model.person.RecordContainsPatientIdPredicate;
 
 /**
- * Adds a new appointment to a patient.
+ * Adds a new appointment between a patient and doctor.
  */
 public class AddAppointmentCommand extends Command {
     public static final String COMMAND_WORD = "add-appt";
@@ -32,6 +39,10 @@ public class AddAppointmentCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists in docX";
+    public static final String MESSAGE_PATIENT_NOT_NOT_FOUND =
+            "Patient with the ID is not found. Please enter a valid patient ID.";
+    public static final String MESSAGE_DOCTOR_NOT_NOT_FOUND =
+            "Doctor with the ID is not found. Please enter a valid doctor ID.";
 
     private Appointment appointment;
 
@@ -45,6 +56,11 @@ public class AddAppointmentCommand extends Command {
         if (model.hasAppointment(appointment)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         }
+
+        Patient validPatient = getPatientById(model);
+        Doctor validDoctor = getDoctorById(model);
+        System.out.println(validPatient);
+        System.out.println(validDoctor);
 
         model.addAppointment(appointment);
         model.commitDocX();
@@ -66,5 +82,25 @@ public class AddAppointmentCommand extends Command {
                 && appointment.getDoctorId() == that.appointment.getDoctorId()
                 && appointment.getDate().equals(that.appointment.getDate())
                 && appointment.getTime().equals(that.appointment.getTime()));
+    }
+
+    private Patient getPatientById(Model model) throws CommandException {
+        FilteredList<Patient> patientList = new FilteredList<>(model.getDocX().getPatientList());
+        Predicate<Patient> predicate = new RecordContainsPatientIdPredicate(appointment.getPatientId());
+        patientList.setPredicate(predicate);
+        if (patientList.isEmpty()) {
+            throw new CommandException(MESSAGE_PATIENT_NOT_NOT_FOUND);
+        }
+        return patientList.get(0);
+    }
+
+    private Doctor getDoctorById(Model model) throws CommandException {
+        FilteredList<Doctor> doctorList = new FilteredList<>(model.getDocX().getDoctorList());
+        Predicate<Doctor> predicate = new RecordContainsDoctorIdPredicate(appointment.getDoctorId());
+        doctorList.setPredicate(predicate);
+        if (doctorList.isEmpty()) {
+            throw new CommandException(MESSAGE_DOCTOR_NOT_NOT_FOUND);
+        }
+        return doctorList.get(0);
     }
 }

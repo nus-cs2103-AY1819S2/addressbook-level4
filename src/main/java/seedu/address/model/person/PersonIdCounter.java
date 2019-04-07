@@ -6,7 +6,7 @@ package seedu.address.model.person;
  */
 public final class PersonIdCounter {
 
-    private static PersonIdCounter instance;
+    private static PersonIdCounter INSTANCE;
     private static int id = 0;
 
     private PersonIdCounter() {
@@ -14,11 +14,11 @@ public final class PersonIdCounter {
     }
 
     public static PersonIdCounter getInstance() {
-        if (instance == null) {
-            instance = new PersonIdCounter();
+        if (INSTANCE == null) {
+            INSTANCE = new PersonIdCounter();
         }
 
-        return instance;
+        return INSTANCE;
     }
 
     /**

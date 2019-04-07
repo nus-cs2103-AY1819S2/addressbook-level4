@@ -46,6 +46,7 @@ public class EditPatientCommand extends Command {
             + PREFIX_CONTACT + "NEW CONTACT "
             + PREFIX_GENDER + "NEW GENDER "
             + "[" + PREFIX_TAG + "NEW TAG]...\n"
+            + "Note: You only need to add the parameters for the details you want to edit.\n"
             + "Example: " + COMMAND_WORD + " S9876543A "
             + PREFIX_NAME + "John Doe "
             + PREFIX_NRIC + "S9876542C "

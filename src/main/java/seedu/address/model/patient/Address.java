@@ -12,7 +12,7 @@ public class Address {
     //        "Addresses should only contain alphanumeric characters and spaces but not blank";
 
     public static final String ADDRESS_CONSTRAINTS =
-            "Addresses should not only contain only spaces or symbols";
+            "Addresses should not be blank or only contain only spaces or symbols";
 
 
     private String address;

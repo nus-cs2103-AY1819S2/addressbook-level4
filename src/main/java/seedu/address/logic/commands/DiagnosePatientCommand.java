@@ -19,7 +19,7 @@ public class DiagnosePatientCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Record the symptoms and assessment of the patient's"
             + "current condition.\n"
             + "Parameters: "
-            + PREFIX_SYMPTOM + "symptom 1" + " ..."
+            + PREFIX_SYMPTOM + "symptom 1 " + PREFIX_SYMPTOM + "symptom 2 " + " ... "
             + PREFIX_ASSESSMENT + "assessment\n"
             + "Example: "
             + PREFIX_SYMPTOM + "runny nose "

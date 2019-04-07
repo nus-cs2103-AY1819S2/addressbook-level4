@@ -4,17 +4,17 @@ import static java.util.Objects.requireNonNull;
 
 import java.net.URL;
 import java.util.logging.Logger;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.NoInternetException;
 import seedu.address.commons.util.WebUtil;
 import seedu.address.model.restaurant.Weblink;
-
-import javafx.application.Platform;
-
 
 /**
  * The Browser Panel of the App.

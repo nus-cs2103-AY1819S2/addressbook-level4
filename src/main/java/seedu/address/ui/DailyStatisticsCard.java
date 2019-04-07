@@ -27,7 +27,7 @@ public class DailyStatisticsCard extends UiPart<Region> {
     public final DailyRevenue dailyRevenue;
 
     @FXML
-    private HBox cardPane;
+    private HBox dailyStatisticsCardPane;
     @FXML
     private Label date;
     @FXML
@@ -45,7 +45,11 @@ public class DailyStatisticsCard extends UiPart<Region> {
                 + monthsInWords.get(Integer.parseInt(this.dailyRevenue.getMonth().toString()) - 1)
                 + this.dailyRevenue.getYear().toString());
 
-        totalDailyRevenue.setText("$" + String.format("%.2f", this.dailyRevenue.getTotalDailyRevenue()));
+        totalDailyRevenue.setText("$" + String.format("%.2f", this.dailyRevenue.getTotalRevenue()));
+
+        if (dailyRevenue.getTotalRevenue() == 0) {
+            dailyStatisticsCardPane.setStyle("-fx-background-color: #1d1d1d;");
+        }
     }
 
     @Override

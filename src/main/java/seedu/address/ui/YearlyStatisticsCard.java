@@ -24,7 +24,7 @@ public class YearlyStatisticsCard extends UiPart<Region> {
     public final YearlyRevenue yearlyRevenue;
 
     @FXML
-    private HBox cardPane;
+    private HBox yearlyStatisticsCardPane;
     @FXML
     private Label year;
     @FXML
@@ -35,7 +35,11 @@ public class YearlyStatisticsCard extends UiPart<Region> {
         this.yearlyRevenue = yearlyRevenue;
 
         year.setText(this.yearlyRevenue.getYear().toString());
-        totalYearlyRevenue.setText("$ " + String.format("%.2f", this.yearlyRevenue.getTotalYearlyRevenue()));
+        totalYearlyRevenue.setText("$ " + String.format("%.2f", this.yearlyRevenue.getTotalRevenue()));
+
+        if (yearlyRevenue.getTotalRevenue() == 0) {
+            yearlyStatisticsCardPane.setStyle("-fx-background-color: #1d1d1d;");
+        }
     }
 
     @Override

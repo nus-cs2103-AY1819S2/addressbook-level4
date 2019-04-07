@@ -27,7 +27,7 @@ public class MonthlyStatisticsCard extends UiPart<Region> {
     public final MonthlyRevenue monthlyRevenue;
 
     @FXML
-    private HBox cardPane;
+    private HBox monthlyStatisticsCardPane;
     @FXML
     private Label month;
     @FXML
@@ -45,7 +45,11 @@ public class MonthlyStatisticsCard extends UiPart<Region> {
 
         month.setText(monthsInWords.get(Integer.parseInt(monthlyRevenue.getMonth().toString()) - 1));
         year.setText(this.monthlyRevenue.getYear().toString());
-        totalMonthlyRevenue.setText("$ " + String.format("%.2f", this.monthlyRevenue.getTotalMonthlyRevenue()));
+        totalMonthlyRevenue.setText("$ " + String.format("%.2f", this.monthlyRevenue.getTotalRevenue()));
+
+        if (monthlyRevenue.getTotalRevenue() == 0) {
+            monthlyStatisticsCardPane.setStyle("-fx-background-color: #1d1d1d;");
+        }
     }
 
     @Override

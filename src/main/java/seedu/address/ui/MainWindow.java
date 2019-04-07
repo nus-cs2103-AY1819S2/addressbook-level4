@@ -267,18 +267,17 @@ public class MainWindow extends UiPart<Stage> {
                     logic.selectedMenuItemProperty(), logic::setSelectedMenuItem);
             listPanelPlaceholder.getChildren().add(popularMenuListPanel.getRoot());
 
-            //TODO: add different cases for the monthly, yearly statistics
             if (logic.getIsYearly()) {
                 statisticsFlowPanel =
-                        new StatisticsFlowPanel(logic.getFilteredDailyRevenueList(), scrollPane, false, false, true);
+                        new StatisticsFlowPanel(logic.getFilteredRevenueList(), scrollPane, false, false, true);
                 browserPlaceholder.getChildren().add(statisticsFlowPanel.getRoot());
             } else if (logic.getIsMonthly()) {
                 statisticsFlowPanel =
-                        new StatisticsFlowPanel(logic.getFilteredDailyRevenueList(), scrollPane, false, true, false);
+                        new StatisticsFlowPanel(logic.getFilteredRevenueList(), scrollPane, false, true, false);
                 browserPlaceholder.getChildren().add(statisticsFlowPanel.getRoot());
             } else {
                 statisticsFlowPanel =
-                        new StatisticsFlowPanel(logic.getFilteredDailyRevenueList(), scrollPane, true, false, false);
+                        new StatisticsFlowPanel(logic.getFilteredRevenueList(), scrollPane, true, false, false);
                 browserPlaceholder.getChildren().add(statisticsFlowPanel.getRoot());
             }
 

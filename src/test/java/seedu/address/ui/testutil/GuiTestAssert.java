@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import guitests.guihandles.LessonCardHandle;
+import guitests.guihandles.LessonOverviewHandle;
 import guitests.guihandles.ResultDisplayHandle;
 
 import seedu.address.model.lesson.Lesson;
@@ -31,6 +32,19 @@ public class GuiTestAssert {
      * Asserts that {@code actualCard} displays the details of {@code expectedLesson}.
      */
     public static void assertCardDisplaysLesson(Lesson expectedLesson, LessonCardHandle actualCard) {
+        assertEquals(expectedLesson.getName(), actualCard.getName());
+        assertEquals(LessonCard.getCountString(expectedLesson.getCardCount()), actualCard.getCount());
+
+        List<String> headers = actualCard.getHeaders();
+        List<String> headersToCompare = new ArrayList<>(expectedLesson.getCoreHeaders());
+        headersToCompare.addAll(expectedLesson.getOptionalHeaders());
+        assertEquals(headers, headersToCompare);
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedLesson}.
+     */
+    public static void assertCardDisplaysLesson(Lesson expectedLesson, LessonOverviewHandle actualCard) {
         assertEquals(expectedLesson.getName(), actualCard.getName());
         assertEquals(LessonCard.getCountString(expectedLesson.getCardCount()), actualCard.getCount());
 

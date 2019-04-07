@@ -76,7 +76,7 @@ public class LessonOverview extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof LessonCard)) {
+        if (!(other instanceof LessonOverview)) {
             return false;
         }
 

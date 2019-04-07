@@ -54,6 +54,13 @@ public class Messages {
      */
     public static final String MESSAGE_NO_OPENED_LESSON = "No opened lesson found.\n"
             + "To open a lesson use " + OpenLessonCommand.COMMAND_WORD + '.';
+    /**
+     * Feedback message displayed to the user when attempting to use listLessons, addLesson,
+     * deleteLesson, openLesson and reloadLessons command while lesson is opened. Prompts user
+     * to closeLesson first.
+     */
+    public static final String MESSAGE_OPENED_LESSON = "Command not allowed while lesson is opened.\n"
+            + "Close the opened lesson first by using " + CloseLessonCommand.COMMAND_WORD + '.';
 
     private Messages() {}
 }

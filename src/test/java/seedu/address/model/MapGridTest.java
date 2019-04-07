@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import static seedu.address.testutil.SizeTenMapGrid.getSizeTenMapGrid;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+
 import java.util.Collections;
 
 import org.junit.Rule;

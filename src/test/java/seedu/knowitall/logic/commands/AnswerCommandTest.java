@@ -18,7 +18,6 @@ import seedu.knowitall.model.ModelManager;
 import seedu.knowitall.model.UserPrefs;
 import seedu.knowitall.model.card.Answer;
 import seedu.knowitall.model.card.Card;
-import seedu.knowitall.model.card.Score;
 import seedu.knowitall.testutil.TypicalIndexes;
 
 /**
@@ -67,10 +66,8 @@ public class AnswerCommandTest {
         AnswerCommand answerCommand = new AnswerCommand(testedCard.getAnswer());
 
         expectedModel.setCardAsAnswered();
-        Score newScore = new Score(testedCard.getScore().correctAttempts + 1,
-                testedCard.getScore().totalAttempts + 1);
-        expectedModel.setCard(testedCard, new Card(testedCard.getQuestion(), testedCard.getAnswer(), newScore,
-                testedCard.getOptions(), testedCard.getHints()));
+        Card scoredCard = expectedModel.createScoredCard(testedCard, true);
+        expectedModel.setCard(testedCard, scoredCard);
         expectedModel.commitActiveCardFolder();
 
         assertCommandSuccess(answerCommand, model, commandHistory, expectedCommandResult, expectedModel);
@@ -89,10 +86,8 @@ public class AnswerCommandTest {
         AnswerCommand answerCommand = new AnswerCommand(new Answer(VALID_ANSWER_2));
 
         expectedModel.setCardAsAnswered();
-        Score newScore = new Score(testedCard.getScore().correctAttempts,
-                testedCard.getScore().totalAttempts + 1);
-        expectedModel.setCard(testedCard, new Card(testedCard.getQuestion(), testedCard.getAnswer(), newScore,
-                testedCard.getOptions(), testedCard.getHints()));
+        Card scoredCard = expectedModel.createScoredCard(testedCard, false);
+        expectedModel.setCard(testedCard, scoredCard);
         expectedModel.commitActiveCardFolder();
 
         assertCommandSuccess(answerCommand, model, commandHistory, expectedCommandResult, expectedModel);

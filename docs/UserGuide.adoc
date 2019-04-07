@@ -190,7 +190,7 @@ Due to the nature of medical inventories, the integrity of data stored is of utm
 * Items in square brackets are optional e.g `e.g n/NAME [t/TAG] can be used as n/Paracetamol t/fever` or as `n/Paracetamol`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]…` can be used as `{nbsp}` (i.e. 0 times), t/fever, t/painkiller t/inflammation etc..
 * Parameters can be in any order e.g. if the command specifies `n/NAME c/COMPANY_NAME`, `c/COMPANY_NAME n/NAME` is also acceptable.
-* If only one input is required but more than one valid input is entered, only the last input will be registered e.g. `n/Paracetamol n/Ibuprofen`, only `Ibuprofen` is registered. 
+* If only one input is required but more than one valid input is entered, only the last input will be registered e.g. `n/Paracetamol n/Ibuprofen`, only `Ibuprofen` is registered.
 
 ====
 

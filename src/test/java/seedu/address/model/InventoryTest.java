@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import javafx.collections.transformation.SortedList;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -125,6 +126,11 @@ public class InventoryTest {
         @Override
         public ObservableList<Medicine> getMedicineList() {
             return medicines;
+        }
+
+        @Override
+        public ObservableList<Medicine> getSortedMedicineList(Comparator<Medicine> comparator) {
+            return new SortedList<>(medicines, comparator);
         }
 
         @Override

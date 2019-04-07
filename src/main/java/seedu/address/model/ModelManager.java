@@ -31,6 +31,7 @@ import seedu.address.model.threshold.Threshold;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static final Comparator<Medicine> comparatorLexicographical = Comparator.comparing(Medicine::getName);
 
     private final VersionedInventory versionedInventory;
     private final UserPrefs userPrefs;
@@ -41,7 +42,6 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Medicine> selectedMedicine = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<InformationPanelSettings> informationPanelSettings =
             new SimpleObjectProperty<>();
-    private final Comparator<Medicine> comparatorLexicographical = Comparator.comparing(Medicine::getName);
 
     /**
      * Initializes a ModelManager with the given inventory and userPrefs.

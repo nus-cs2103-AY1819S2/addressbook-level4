@@ -137,6 +137,7 @@ public class Inventory implements ReadOnlyInventory {
      * @param comparator
      * @return unmodifiable sorted view of the medicine list.
      */
+    @Override
     public ObservableList<Medicine> getSortedMedicineList(Comparator<Medicine> comparator) {
         return new SortedList<>(medicines.asUnmodifiableObservableList(), comparator);
     }

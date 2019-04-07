@@ -11,6 +11,7 @@ import static seedu.address.testutil.TypicalMedicines.getTypicalInventory;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.junit.Rule;
@@ -21,6 +22,7 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.exceptions.DuplicateMedicineException;
 import seedu.address.testutil.MedicineBuilder;
@@ -124,6 +126,11 @@ public class InventoryTest {
         @Override
         public ObservableList<Medicine> getMedicineList() {
             return medicines;
+        }
+
+        @Override
+        public ObservableList<Medicine> getSortedMedicineList(Comparator<Medicine> comparator) {
+            return new SortedList<>(medicines, comparator);
         }
 
         @Override

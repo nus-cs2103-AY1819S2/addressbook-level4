@@ -69,11 +69,12 @@ public class WarningCommand extends Command {
      * @return Message with current thresholds used in warning panel
      */
     private CommandResult showCurrentThresholds(Model model) {
-        Threshold expiryThreshold = model.getWarningPanelThreshold(WarningPanelPredicateType.EXPIRY);
-        Threshold lowStockThreshold = model.getWarningPanelThreshold(WarningPanelPredicateType.LOW_STOCK);
+        int expiryThresholdVal = model.getWarningPanelThreshold(WarningPanelPredicateType.EXPIRY).getNumericValue();
+        int lowStockThresholdVal = model.getWarningPanelThreshold(WarningPanelPredicateType.LOW_STOCK)
+                .getNumericValue();
         return new CommandResult(
                 String.format(Messages.MESSAGE_SHOW_CURRENT_THRESHOLDS,
-                        expiryThreshold.getNumericValue(), lowStockThreshold.getNumericValue()));
+                        expiryThresholdVal, expiryThresholdVal == 1 ? "" : "s", lowStockThresholdVal));
     }
 
     /**

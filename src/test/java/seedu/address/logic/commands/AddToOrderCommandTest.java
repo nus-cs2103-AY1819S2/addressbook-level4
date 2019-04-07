@@ -36,7 +36,6 @@ import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.statistics.Bill;
-import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.ReadOnlyStatistics;
 import seedu.address.model.statistics.Revenue;
 import seedu.address.model.table.ReadOnlyTables;

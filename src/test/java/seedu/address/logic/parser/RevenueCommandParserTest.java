@@ -21,7 +21,6 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import org.junit.Test;
 
 import seedu.address.logic.commands.RevenueCommand;
-import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.Date;
 
 import seedu.address.model.statistics.Day;

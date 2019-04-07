@@ -344,12 +344,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasRevenue_RevenueNotInRevenues_returnsFalse() {
+    public void hasRevenue_revenueNotInRevenues_returnsFalse() {
         assertFalse(modelManager.hasRevenue(DAILY_REVENUE1));
     }
 
     @Test
-    public void hasRevenue_RevenueInRevenues_returnsTrue() {
+    public void hasRevenue_revenueInRevenues_returnsTrue() {
         modelManager.addRevenue(DAILY_REVENUE1);
         assertTrue(modelManager.hasRevenue(DAILY_REVENUE1));
     }

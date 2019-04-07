@@ -7,8 +7,6 @@ import javafx.scene.layout.FlowPane;
 import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.MonthlyRevenue;
 import seedu.address.model.statistics.YearlyRevenue;
-import seedu.address.model.table.Table;
-import seedu.address.ui.DailyStatisticsCard;
 
 /**
  * A handler for the {@code StatisticsFlowPanel} of the UI.

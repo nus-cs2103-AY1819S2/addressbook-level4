@@ -45,8 +45,8 @@ public class MonthlyStatisticsCardHandle extends NodeHandle<Node> {
     public boolean equals(MonthlyRevenue monthlyRevenue) {
 
         ArrayList<String> monthsInWords = new
-                ArrayList<>(List.of("JAN ", "FEB ", "MAR ", "APR ", "MAY ", "JUN ", "JUL ", "AUG ", "SEP ", "OCT ", "NOV ",
-                "DEC "));
+                ArrayList<>(List.of("JAN ", "FEB ", "MAR ", "APR ", "MAY ", "JUN ", "JUL ", "AUG ", "SEP ", "OCT ",
+                "NOV ", "DEC "));
         StringBuilder month = new StringBuilder();
         month.append((monthsInWords.get(Integer.parseInt(monthlyRevenue.getMonth().toString()) - 1)));
         return getTotalRevenue().equals(monthlyRevenue.getTotalRevenue())

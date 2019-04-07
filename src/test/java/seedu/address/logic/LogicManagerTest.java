@@ -29,7 +29,6 @@ import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.statistics.Bill;
-import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.ReadOnlyStatistics;
 import seedu.address.model.statistics.Revenue;
 import seedu.address.model.table.ReadOnlyTables;
@@ -182,7 +181,7 @@ public class LogicManagerTest {
         //expectedModel.deleteOrderItem(expectedOrderItem);
         //expectedModel.setSelectedTable(null);
         //expectedModel.setRecentBill(expectedBill);
-       // expectedMessage = "Not all orders are served yet. Call bill only when all orders are served.";
+        //expectedMessage = "Not all orders are served yet. Call bill only when all orders are served.";
 
         //assertCommandBehavior(CommandException.class, billCommand, expectedMessage, expectedModel);
         // assertHistoryCorrect(billCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n"

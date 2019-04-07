@@ -14,8 +14,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.statistics.exceptions.RevenueNotFoundException;
 import seedu.address.model.statistics.exceptions.DuplicateRevenueException;
+import seedu.address.model.statistics.exceptions.RevenueNotFoundException;
 import seedu.address.testutil.StatisticsBuilder;
 
 public class RevenueListTest {

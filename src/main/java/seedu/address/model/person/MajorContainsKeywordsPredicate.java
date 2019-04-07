@@ -19,7 +19,7 @@ public class MajorContainsKeywordsPredicate implements Predicate<Person> {
     @Override
     public boolean test(Person person) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsIgnoreCase(person.getMajor().value, keyword));
+                .allMatch(keyword -> StringUtil.equalsWordIgnoreCase(person.getMajor().value, keyword));
     }
 
     @Override

@@ -19,7 +19,7 @@ public class YearOfStudyContainsKeywordsPredicate implements Predicate<Person> {
     @Override
     public boolean test(Person person) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsIgnoreCase(person.getYearOfStudy().value, keyword));
+                .allMatch(keyword -> StringUtil.equalsWordIgnoreCase(person.getYearOfStudy().value, keyword));
     }
 
     @Override

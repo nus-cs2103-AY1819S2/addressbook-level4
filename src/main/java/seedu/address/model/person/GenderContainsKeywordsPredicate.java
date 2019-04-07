@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import seedu.address.commons.util.StringUtil;
 
 /**
- * Tests that a {@code Person}'s {@code YearOfStudy} matches any of the keywords given.
+ * Tests that a {@code Person}'s {@code Gender} matches any of the keywords given.
  */
 
 public class GenderContainsKeywordsPredicate implements Predicate<Person> {
@@ -19,7 +19,7 @@ public class GenderContainsKeywordsPredicate implements Predicate<Person> {
     @Override
     public boolean test(Person person) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsIgnoreCase(person.getGender().value, keyword));
+                .allMatch(keyword -> StringUtil.equalsWordIgnoreCase(person.getGender().value, keyword));
     }
 
     @Override

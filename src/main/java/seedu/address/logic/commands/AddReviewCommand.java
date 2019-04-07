@@ -17,7 +17,7 @@ import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.review.Review;
 
 /**
- * Adds a restaurant to the food diary.
+ * Adds a review to a specified restaurant in the food diary.
  */
 public class AddReviewCommand extends Command {
 
@@ -41,7 +41,7 @@ public class AddReviewCommand extends Command {
     private final Review reviewToAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Restaurant}
+     * Creates an AddReviewCommand to add a {@code Review} to the specified {@code Restaurant}
      */
     public AddReviewCommand(Index targetIndex, Review review) {
         requireNonNull(review);

@@ -20,9 +20,8 @@ public class BatchContainsKeywordsPredicate implements Predicate<Medicine> {
     @Override
     public boolean test(Medicine medicine) {
         for (Batch batch: medicine.getBatches().values()) {
-            if (keywords.stream()
-                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(batch.getBatchNumber().batchNumber,
-                            keyword))){
+            if (keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(batch.getBatchNumber()
+                            .batchNumber, keyword))) {
                 return true;
             }
         }

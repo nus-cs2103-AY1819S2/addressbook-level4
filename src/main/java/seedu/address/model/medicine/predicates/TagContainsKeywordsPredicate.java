@@ -20,8 +20,7 @@ public class TagContainsKeywordsPredicate implements Predicate<Medicine> {
     @Override
     public boolean test(Medicine medicine) {
         for (Tag tag: medicine.getTags()) {
-            if (keywords.stream()
-                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(tag.tagName, keyword))){
+            if (keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(tag.tagName, keyword))) {
                 return true;
             }
         }

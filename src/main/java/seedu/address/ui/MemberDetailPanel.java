@@ -7,6 +7,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import seedu.address.model.person.Person;
 
+/**
+ * A panel class to display member's information.
+ */
 public class MemberDetailPanel extends UiPart<Region> {
     private static final String FXML = "MemberDetailPanel.fxml";
 

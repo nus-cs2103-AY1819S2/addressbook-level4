@@ -80,7 +80,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'equipmentmanager.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

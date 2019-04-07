@@ -123,9 +123,8 @@ image::Architecture.png[width="600"]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
-|===
-|image:tip.png[width="40"] |The `.pptx` files used to create diagrams in this document can be found in the link:https://github.com/CS2103-AY1819S2-W10-3/main/tree/master/docs/diagrams[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
-|===
+[TIP]
+|The `.pptx` files used to create diagrams in this document can be found in the link:https://github.com/CS2103-AY1819S2-W10-3/main/tree/master/docs/diagrams[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
 `Main` has only one class called link:https://github.com/CS2103-AY1819S2-W10-3/main/tree/master/src/main/java/seedu/equipment/MainApp.java[`MainApp`]. It is responsible for,
 
@@ -162,7 +161,7 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 .Component interactions for `delete 1` command
 image::SDforDeletePerson.png[width="800"]
 
-The sections below give more details of each component.
+The sections below will give more details of each component; *UI*, *Logic*, *Model* and *Storage*.
 
 [[Design-Ui]]
 === UI component
@@ -216,13 +215,11 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the *Equipment Manager* data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Equipment>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-|===
-|image:tip.png[width="40"] |
+[TIP]
 As a more OOP model, we can store a `Tag` list in `Equipment Manager`, which `Equipment` can reference. This would allow `Equipment Manager` to only require one `Tag` object per unique `Tag`, instead of each `Equipment` needing their own `Tag` object. An example of how such a model may look like is given below. +
-|===
 
 .Class diagram of Model Component
 image::ModelClassBetterOopDiagram.png[width="800"]
@@ -252,21 +249,111 @@ Classes used by multiple components are in the `seedu.equipment.commons` package
 This section describes some noteworthy details on how certain features are implemented.
 
 //tag::equipment[]
-=== Equipment features
+=== Equipment feature
+To provide users with the best understanding on the attributes of equipments in *Equipment Manager*,
+this section will provide a brief overview on the equipment details as well as how the details of an equipment are
+used for multiple features in the design of Equipment Manager. Not forgetting sharing some design considerations to make the best choice for *Equipment Manager*.
+
 ==== Overview on Equipment details
+
+|===
+| *Attributes* | *Description* | *Things to Note*
+| Name | The client's name who owns the equipment. |
+| Phone | The contact number of the client that owns the equipment. |
+| Date | The due date for which maintenance work on the equipment should be carried out by then. |
+| Address | The address of the client that owns the equipment. |
+| Serial Number | The serial number of an equipment | All equipments have unique serial number and there should not be duplicated serial number.
+|===
+
 ==== Current Usage of Equipment Details
-===== Adding an equipment
-===== Editing an equipment
-===== Deleting an equipment
-===== Listing all equipments
+In order to allow users to keep track of the Preventive Maintenance schedule and carry out features provided by Equipment Manager, we have implemented the following commands with the usage of the attributes of an equipment as mentioned in the previous section.
+
+*An example of how the attributes of equipment are used:*
+
+* When user execute the `AddCommand` or `EditCommand`, there are equipment details stored in *Equipment Manager*.
+* When user uses command like `DisplayCommand`, *Equipment Manager* will need to use the address details to provide visual representation of the location of client that owns the equipment.
+* When user uses command like `SelectCommand`, *Equipment Manager* will need to use all the equipment details in order to reflect more detailed information on equipment in the *Equipment Details Page*.
+
+==== Current Implementation
+Using `AddCommand` mentioned in previous section as an example,
+the *add equipment* mechanism is facilitated by `VersionedEquipmentManager` which extends the `Equipment Manager`.
+The results of this command will be displayed under *Equipment Details* panel.
+
+The following sequence diagram shows how the *add equipment* operation works:
+
+.Sequence diagram for `AddCommand`
+image::AddCommandSD.png[width="800"]
+
+Step 1
+
+
+Given below is an example usage scenario of how the adding of equipment details mechanism behaves at each step after carrying out `add-e`.
+
+Step 1. The user launches the application.
+
+Step 2. The user executes `add-e n/Pending CC d/01-05-2019 p/99887766 a/Pending Rd s/XDH1429387 t/north-west` command.
+
+Step 3. After `EquipmentManagerParser` detects `add-e` as the command word, a `AddCommandParser#parse()` is called.
+
+Step 4. `AddCommand#execute()` is then called.
+
+Step 5. The parser will parse all the attributes and add into equipment and client models respectively.
+
+Step 7. The model now contains details of equipment and client, and returns to GUI for display on *Equipment details* and *Client details* panels respectively.
+
+With that, you may refer to <<Display feature>> to see how *Equipment Manager* will then use the address details to provide visual representation of the location of client that owns the equipment.
+
 ==== Design Considerations
+===== Aspects: What attributes are important for equipment details to serve the purpose of *Equipment Manager*.
+
+* *Alternative 1 (current choice)*: Equipment details contain client details whom own the equipment and equipment unique serial number.
+** Pros: This allows users to know that each equipment has unique serial number and each client can own multiple equipments. Do not have to make major enhancement, save time on backend work.
+** Cons: Might be confusing to user if user is not clear how Equipment Manager works as it may seem like there is duplicated equipments.
+
+* *Alternative 2*: Equipment details only has serial number and create a seperate class to store store name, phone, address, as client details.
+** Pros: By reading the structure, it is clearer to user that the attributes describe equipment or client.
+** Cons: More backend work needs to be change, takes up a lot of time.
+
 //end::equipment[]
 
 //tag::client[]
 === Client feature
+This section describes features specific to client, how having client details contribute to the features in *Equipment Manager* as well as our design considerations.
+There may contain some repeated explanation when describing this sections
+because attributes of client and equipment are being shared in order to for features to be carried out in *Equipment Manager*.
+
 ==== Overview on Client details
+In Equipment Manager, there are `Name`, `Phone`, `Address` attributes stored under *Equipment details* that identify client details.
+
+* A client can 0 to numerous equipment which are identified by unique serial number but an equipment cannot be shared by multiple clients.
+** There is a `CountEquipment` method in *Equipment Manager* that counts the number of equipments that each client owns. Since *Equipment Details* panel showcases by each equipment, having a summarized details of each client, allows user to be more aware that the client might own more than 0, 1 or more than 1 equipment.
+* Each address tells user where 0 to numerous equipment, which each client owns, are located at.
+
 ==== Current Usage of Client details
+As mentioned in <<Current Usage of Equipment Details>>, the `Address` which belong to the client address, are used in features like `DisplayCommand` and `SelectCommand`.
+
+==== Current implementation
+There is `AddClientCommand` that is supported by  `AddClientCommandParser`.
+This adding of client details mechanism is facilitated by `VersionedEquipmentManager` which extends the  `Equipment Manager`.
+
+Given below is an example usage scenario of how the adding of client details mechanism behaves at each step after carrying out `add-c`.
+
+Step 1. The user launches the application.
+
+Step 2. The user executes `add-c n/Pending CC` command.
+
+Step 3. After `EquipmentManagerParser` detects `add-c` as the command word, a `AddClientCommandParser#parse()` is called.
+
+Step 4. `AddClientCommand#execute()` is then called.
+
+Step 5. The parser will parse the `Name` attributes and add into client details in the model.
+
+Step 7. The model now contains additional client name and returns to GUI for display on *Client details* panels respectively.
+
+In addition, the figure in Current Implementation of <<Equipment feature>> also explains how `AddCommand` contributes to the results shown in *Client Details* panel.
+
 ==== Design Considerations
+Refer to the *Design Considerations* in <<Equipment feature>> as we went through the same design considerations to come out with equipment and client details separation.
 //end::client[]
 
 //tag::filter[]
@@ -459,8 +546,8 @@ To avoid cluttering to many information in *Equipment Result Panel*,
 we decided to categorise information related to clients into *Client Result Panel*
 such as showing the name of the client and how many equipments the client owns as seen in the figure below.
 
-.Outcome of a showing client details when using `list-c` feature
-image:: clientlocationsUI.png[%autowidth]
+.Outcome of a showing client details when using `add-c` feature
+image:: AddClientDetailsUI.png[%autowidth]
 
 ===== Showcase Equipment details and locations
 Similarly, there are many information to be shown in *Equipment Result Panel*.

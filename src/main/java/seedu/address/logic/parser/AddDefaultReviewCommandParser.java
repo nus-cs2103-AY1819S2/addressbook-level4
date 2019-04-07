@@ -24,13 +24,20 @@ public class AddDefaultReviewCommandParser implements Parser<AddDefaultReviewCom
 
         String[] indexAndIndicator = trimmedArgs.split("\\s+");
 
+        //checks if there are NOT 2 arguments, this command must have 2 arguments only.
         if (indexAndIndicator.length != 2) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddDefaultReviewCommand.MESSAGE_USAGE));
         }
-
-        Index index = Index.fromOneBased(Integer.parseInt(indexAndIndicator[0]));
-        String defaultReviewIndicator = indexAndIndicator[1];
+        Index index;
+        String defaultReviewIndicator;
+        //checks if the 2 arguments are integers
+        if (!indexAndIndicator[0].matches("[1-9]\\d*") || !indexAndIndicator[1].matches("[1-9]\\d*")) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddDefaultReviewCommand.MESSAGE_USAGE));
+        }
+        index = Index.fromOneBased(Integer.parseInt(indexAndIndicator[0]));
+        defaultReviewIndicator = indexAndIndicator[1];
 
         return new AddDefaultReviewCommand(index, defaultReviewIndicator);
     }

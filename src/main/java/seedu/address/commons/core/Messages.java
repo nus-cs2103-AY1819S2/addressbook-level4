@@ -52,8 +52,8 @@ public class Messages {
     /**
      * Feedback message displayed to the user when attempting to close lesson when no lesson is opened.
      */
-    public static final String MESSAGE_NO_OPENED_LESSON = "No opened lesson found.\n"
-            + "To open a lesson use " + OpenLessonCommand.COMMAND_WORD + '.';
+    public static final String MESSAGE_NO_OPENED_LESSON = "Open a lesson before using this command.\n"
+            + "To open a lesson use:\n" + OpenLessonCommand.MESSAGE_USAGE;
     /**
      * Feedback message displayed to the user when attempting to use listLessons, addLesson,
      * deleteLesson, openLesson and reloadLessons command while lesson is opened. Prompts user

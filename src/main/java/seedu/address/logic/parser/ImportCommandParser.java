@@ -45,6 +45,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             switch (validPath(args)) {
             // TODO - Pending refactor.
             case 2:
+                isDirectory = true;
                 try {
                     ResourceWalker.walk(SAMPLE_FOLDER);
                 } catch (Exception e) {
@@ -74,22 +75,26 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                 break;
             case 0:
                 // File must be valid and not hidden and not ridiculously large.
-                if (validFormat(args) && !isHidden(args) && !isLarge(args)) {
-                    Image image = new Image(args);
-                    if (!duplicateFile(image)) {
-                        try {
-                            File file = new File(args);
-                            FileUtils.copyFileToDirectory(file, directory);
+                if (validFormat(args) && !isHidden(args)) {
+                    if (!isLarge(args)) {
+                        Image image = new Image(args);
+                        if (!duplicateFile(image)) {
+                            try {
+                                File file = new File(args);
+                                FileUtils.copyFileToDirectory(file, directory);
 
-                            System.out.println("✋ IMPORTED: " + args);
-                        } catch (IOException e) {
-                            System.out.println(e.toString());
+                                System.out.println("✋ IMPORTED: " + args);
+                            } catch (IOException e) {
+                                System.out.println(e.toString());
+                            }
+                        } else {
+                            throw new ParseException(Messages.MESSAGE_DUPLICATE_FILE);
                         }
                     } else {
-                        throw new ParseException(Messages.MESSAGE_DUPLICATE_FILE);
+                        throw new ParseException(Messages.MESSAGE_INVALID_SIZE);
                     }
                 } else {
-                    throw new ParseException(Messages.MESSAGE_INVALID_TYPE);
+                    throw new ParseException(Messages.MESSAGE_INVALID_FORMAT);
                 }
                 break;
             default:

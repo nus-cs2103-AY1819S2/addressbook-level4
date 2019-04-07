@@ -24,8 +24,8 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_DIR_SUCCESS =
             "Directory successfully imported (Note: Invalid file types, hidden files and duplicates are skipped).";
 
-    private final boolean isDirectory;
     private final Album album = Album.getInstance();
+    private boolean isDirectory;
 
     /**
      * Creates an ImportCommand to add the specified {@code Image}
@@ -42,5 +42,12 @@ public class ImportCommand extends Command {
         album.refreshAlbum();
         String returnString = isDirectory ? MESSAGE_DIR_SUCCESS : MESSAGE_SUCCESS;
         return new CommandResult(returnString);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ImportCommand // instanceof handles nulls
+                && isDirectory == (((ImportCommand) other).isDirectory)); // state check
     }
 }

@@ -83,7 +83,7 @@ public class Album {
      * For each image in assets folder, populate the Album with an Image object.
      */
     public void populateAlbum() {
-        clearAlbum();
+        imageList.clear();
         File folder = new File(assetsFilepath);
         for (File file : folder.listFiles()) {
             imageList.add(new Image(file.getAbsolutePath()));
@@ -95,6 +95,11 @@ public class Album {
      */
     public void clearAlbum() {
         imageList.clear();
+        try {
+            FileUtils.cleanDirectory(new File(assetsFilepath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void refreshAlbum() {

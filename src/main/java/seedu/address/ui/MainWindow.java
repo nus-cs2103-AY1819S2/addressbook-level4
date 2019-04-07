@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static seedu.address.commons.core.Messages.MESSAGE_LESSON_COMMANDS;
+
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -132,6 +134,7 @@ public class MainWindow extends UiPart<Stage> {
         mainPanelPlaceholder.getChildren().add(flashcardPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
+        resultDisplay.setFeedbackToUser(MESSAGE_LESSON_COMMANDS);
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         mainPanel = new MainPanel();
@@ -161,6 +164,7 @@ public class MainWindow extends UiPart<Stage> {
             sidePanel.setMinWidth(340);
             sidePanel.setPrefWidth(340);
             mainPanelPlaceholder.getChildren().set(0, flashcardPanel.getRoot());
+            resultDisplay.setFeedbackToUser(MESSAGE_LESSON_COMMANDS);
         } else {
             splitPane.setDividerPosition(0, 0);
             sidePanel.setMinWidth(0);

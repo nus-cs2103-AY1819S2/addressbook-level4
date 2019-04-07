@@ -1,11 +1,15 @@
 package seedu.address.commons.core;
 
-import static seedu.address.logic.commands.management.OpenLessonCommand.COMMAND_WORD;
+import seedu.address.logic.commands.management.OpenLessonCommand;
 
 /**
  * Container for user visible messages.
  */
 public class Messages {
+    /**
+     * Feedback message displayed to the user when management mode is first entered.
+     */
+    public static final String MESSAGE_LESSON_COMMANDS = "Hi";
     /**
      * Feedback message displayed to the user when the command does not match any command patterns.
      */
@@ -31,5 +35,5 @@ public class Messages {
      * Feedback message displayed to the user when attempting to close lesson when no lesson is opened.
      */
     public static final String MESSAGE_NO_OPENED_LESSON = "No opened lesson found.\n"
-            + "To open a lesson use " + COMMAND_WORD + '.';
+            + "To open a lesson use " + OpenLessonCommand.COMMAND_WORD + '.';
 }

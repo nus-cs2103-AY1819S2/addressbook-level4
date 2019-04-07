@@ -5,8 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.address.testutil.TypicalCards.CARD_DOG;
-import static seedu.address.testutil.TypicalCards.CARD_DOG_CORE1;
-import static seedu.address.testutil.TypicalCards.CARD_DOG_CORE2;
 import static seedu.address.testutil.TypicalCards.CARD_EMPTY;
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN;
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN_CORE1;
@@ -157,13 +155,13 @@ public class LessonTest {
 
     @Test
     public void addCard_validCard_cardAdded() {
-        Lesson newLesson = new LessonBuilder(LESSON_DEFAULT)
+        Lesson lesson = new LessonBuilder(LESSON_DEFAULT)
                 .withCards(new CardBuilder().build(), new CardBuilder(CARD_DOG).build())
                 .build();
-        newLesson.addCard(List.of(CARD_JAPAN_CORE1, CARD_JAPAN_CORE2, CARD_JAPAN_OPT1));
+        int count = lesson.getCardCount();
 
-        newLesson = new LessonBuilder(LESSON_TRUE_FALSE).build();
-        newLesson.addCard(List.of(CARD_DOG_CORE1, CARD_DOG_CORE2));
+        lesson.addCard(List.of(CARD_JAPAN_CORE1, CARD_JAPAN_CORE2, CARD_JAPAN_OPT1));
+        assertEquals(lesson.getCardCount(), count + 1);
     }
 
     @Test

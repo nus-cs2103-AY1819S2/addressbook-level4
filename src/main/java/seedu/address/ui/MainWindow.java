@@ -32,13 +32,14 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    //private MedHistBrowserPanel medHistBrowserPanel;
+    private MedHistBrowserPanel medHistBrowserPanel;
     private PatientListPanel patientListPanel;
     private MedHistListPanel medHistListPanel;
     private AppointmentListPanel appointmentListPanel;
     private DoctorListPanel doctorListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private CommandResult.ShowBrowser whichBrowser;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -121,7 +122,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         browserPanel = new BrowserPanel(logic.selectedPatientProperty());
-        //medHistBrowserPanel = new MedHistBrowserPanel(logic.selectedMedHistProperty());
+        medHistBrowserPanel = new MedHistBrowserPanel(logic.selectedMedHistProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         patientListPanel = new PatientListPanel(logic.getFilteredPatientList(), logic.selectedPatientProperty(),
@@ -140,6 +141,22 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Show the browser of patient
+     */
+    public void showPatientBrowser() {
+        browserPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+    }
+
+    /**
+     * Show the browser of medical history
+     */
+    public void showMedHistBrowser() {
+        browserPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().add(medHistBrowserPanel.getRoot());
     }
 
     /**
@@ -241,6 +258,18 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case APPOINTMENT_PANEL:
                 showAppointmentPanel();
+                break;
+            default:
+                break;
+            }
+
+            switch (commandResult.getShowBrowser()) {
+
+            case MED_HIST_BROWSER:
+                showMedHistBrowser();
+                break;
+            case PATIENT_BROWSER:
+                showPatientBrowser();
                 break;
             default:
                 break;

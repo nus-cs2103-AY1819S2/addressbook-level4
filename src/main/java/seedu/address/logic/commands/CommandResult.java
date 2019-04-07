@@ -22,7 +22,14 @@ public class CommandResult {
         NO_CHANGE, MED_HIST_PANEL, APPOINTMENT_PANEL
     }
 
+    /** Show a different browser panel to the user, depending on the command result */
+    public enum ShowBrowser {
+        NO_CHANGE, MED_HIST_BROWSER, PATIENT_BROWSER
+    }
+
     private ShowPanel showPanel = ShowPanel.NO_CHANGE;
+
+    private ShowBrowser showBrowser = ShowBrowser.NO_CHANGE;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -49,6 +56,14 @@ public class CommandResult {
         this.showPanel = showPanel;
     }
 
+    /**
+     * Constructs a {@code CommandResult} that will switch browser panels to display in the UI
+     */
+    public CommandResult(String feedbackToUser, ShowBrowser showBrowser) {
+        this(feedbackToUser);
+        this.showBrowser = showBrowser;
+    }
+
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
@@ -64,6 +79,8 @@ public class CommandResult {
     public ShowPanel getShowPanel() {
         return showPanel;
     }
+
+    public ShowBrowser getShowBrowser() { return showBrowser; }
 
     @Override
     public boolean equals(Object other) {

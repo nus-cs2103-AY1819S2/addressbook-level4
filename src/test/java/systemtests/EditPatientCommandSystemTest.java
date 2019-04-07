@@ -117,6 +117,7 @@ public class EditPatientCommandSystemTest extends DocXSystemTest {
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered patient list, edit index within bounds of address book and patient list -> edited */
+
         showPatientsWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPatientList().size());
@@ -128,6 +129,7 @@ public class EditPatientCommandSystemTest extends DocXSystemTest {
         /* Case: filtered patient list, edit index within bounds of address book but out of bounds of patient list
          * -> rejected
          */
+
         showPatientsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getDocX().getPatientList().size();
         assertCommandFailure(EditPatientCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
@@ -138,6 +140,7 @@ public class EditPatientCommandSystemTest extends DocXSystemTest {
         /* Case: selects first card in the patient list, edit a patient -> edited, card selection remains unchanged but
          * browser url changes
          */
+
         showAllPatients();
         index = INDEX_FIRST_PERSON;
         selectPatient(index);

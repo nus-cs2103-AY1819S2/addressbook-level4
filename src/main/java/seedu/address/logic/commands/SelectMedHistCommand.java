@@ -41,7 +41,8 @@ public class SelectMedHistCommand extends Command {
         }
 
         model.setSelectedMedHist(filteredMedHistList.get(targetIndex.getZeroBased()));
-        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
+        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()),
+                CommandResult.ShowBrowser.MED_HIST_BROWSER);
 
     }
 

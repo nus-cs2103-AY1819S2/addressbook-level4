@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.AddDefaultReviewUtil.DEFAULT_ENTRIES;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -24,12 +25,9 @@ public class AddDefaultReviewCommand extends Command {
             + "INDEX (Must be a positive integer) "
             + "(DEFAULT REVIEW NUMBER(integer from 1 - 5 inclusive)) \n"
             + "Example: " + COMMAND_WORD + " "
-            + "2 \n"
-            + "will add a review of (Rating: 2.0, Entry: Below average, try not to go again) to the specified "
-            + " restaurant.";
-
-    public static final String MESSAGE_SUCCESS = "New review added to: %1$s";
-    public static final String MESSAGE_DUPLICATE_RESTAURANT = "This restaurant already exists in the food diary";
+            + "2 2\n"
+            + "will add a review of (Rating: 2.0, Entry: Below average, try not to go again) to the restaurant"
+            + " corresponding to index 2.";
 
     private final Index targetIndex;
     private final String defaultReviewIndicator;
@@ -55,6 +53,12 @@ public class AddDefaultReviewCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
+        int defaultReviewIndicatorInt = Integer.parseInt(defaultReviewIndicator);
+
+        if (defaultReviewIndicatorInt > 5 || defaultReviewIndicatorInt < 1) {
+            throw new CommandException(Messages.MESSAGE_INVALID_DEFAULT_REVIEW_INDEX);
+        }
 
         Entry newEntry = new Entry(DEFAULT_ENTRIES.get(Integer.parseInt(defaultReviewIndicator) - 1));
         Rating newRating = new Rating(defaultReviewIndicator);

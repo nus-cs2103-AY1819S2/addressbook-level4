@@ -22,8 +22,8 @@ public class WarningCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        String lowStockInput = " "  + PREFIX_QUANTITY + Model.DEFAULT_LOW_STOCK_THRESHOLD.getNumericValue();
-        String expiryInput = " "  + PREFIX_EXPIRY + Model.DEFAULT_EXPIRY_THRESHOLD.getNumericValue();
+        String lowStockInput = " " + PREFIX_QUANTITY + Model.DEFAULT_LOW_STOCK_THRESHOLD.getNumericValue();
+        String expiryInput = " " + PREFIX_EXPIRY + Model.DEFAULT_EXPIRY_THRESHOLD.getNumericValue();
 
         // without additional whitespace
         assertParseSuccess(parser, lowStockInput,

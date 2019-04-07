@@ -18,11 +18,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.InvalidationListener;
-import javafx.collections.transformation.SortedList;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.exceptions.DuplicateMedicineException;
 import seedu.address.testutil.MedicineBuilder;

@@ -47,7 +47,7 @@ public class CsvManager implements CsvCommands {
     }
 
     @Override
-    public CardFolder readFoldersToCsv(CsvFile csvFile) throws IOException, CommandException {
+    public CardFolder readFoldersToCsv(CsvFile csvFile) throws IOException, CommandException, IllegalArgumentException {
         if (!fileExists(csvFile)) {
             throw new FileNotFoundException();
         }
@@ -81,7 +81,7 @@ public class CsvManager implements CsvCommands {
     /**
      * helper method that build a card object from each line of the csv file imported
      */
-    private Card buildCard(String[] cardValues1) {
+    private Card buildCard(String[] cardValues1) throws IllegalArgumentException {
         // cardValues = {"question", "answer", "hint","option"}
 
         // Allow only one option per card
@@ -173,7 +173,7 @@ public class CsvManager implements CsvCommands {
         return folderName;
     }
 
-    public boolean fileExists(CsvFile csvFile) throws IOException {
+    public boolean fileExists(CsvFile csvFile) {
         return new File(defaultPath + "/" + csvFile.filename).exists();
     }
 

@@ -537,7 +537,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void importCardFolders(CsvFile csvFile) throws IOException, CommandException {
+    public void importCardFolders(CsvFile csvFile) throws IOException, CommandException, IllegalArgumentException {
         String cardFolderName = csvFile.getFileNameWithoutExt();
 
         if (isCardFolderExists(cardFolderName)) {

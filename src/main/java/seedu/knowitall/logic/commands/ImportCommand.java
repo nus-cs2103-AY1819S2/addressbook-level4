@@ -30,6 +30,9 @@ public class ImportCommand extends Command {
 
     public static final String MESSAGE_DUPLICATE_CARD_FOLDERS = "Card folder already exists in model";
 
+    public static final String MESSAGE_CARD_FIELD_WRONG_SPECIFICATION = "Card fields in csv file do not follow "
+            + "flashcard " + "specification:\n";
+
     private CsvFile csvFile;
 
     public ImportCommand(CsvFile csvFile) {
@@ -50,6 +53,8 @@ public class ImportCommand extends Command {
             throw new CommandException(MESSAGE_FILE_OPS_FAILURE);
         } catch (DuplicateCardFolderException e) {
             throw new CommandException(MESSAGE_DUPLICATE_CARD_FOLDERS);
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(MESSAGE_CARD_FIELD_WRONG_SPECIFICATION + e.getMessage());
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, csvFile.filename));
     }

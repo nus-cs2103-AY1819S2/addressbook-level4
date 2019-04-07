@@ -24,6 +24,7 @@ import seedu.knowitall.model.card.Option;
 import seedu.knowitall.model.card.Question;
 import seedu.knowitall.model.card.Score;
 import seedu.knowitall.model.hint.Hint;
+import seedu.knowitall.storage.csvmanager.exceptions.IncorrectCsvHeadersException;
 
 
 /**
@@ -47,7 +48,8 @@ public class CsvManager implements CsvCommands {
     }
 
     @Override
-    public CardFolder readFoldersToCsv(CsvFile csvFile) throws IOException, CommandException, IllegalArgumentException {
+    public CardFolder readFoldersToCsv(CsvFile csvFile) throws IOException, CommandException, IllegalArgumentException,
+            IncorrectCsvHeadersException {
         if (!fileExists(csvFile)) {
             throw new FileNotFoundException();
         }
@@ -60,7 +62,7 @@ public class CsvManager implements CsvCommands {
         String header = bufferedReader.readLine();
 
         if (!checkCorrectHeaders(header)) {
-            throw new CommandException(Messages.MESSAGE_INCORRECT_CSV_FILE_HEADER);
+            throw new IncorrectCsvHeadersException(Messages.MESSAGE_INCORRECT_CSV_FILE_HEADER);
         }
 
         while ((line = bufferedReader.readLine()) != null) {

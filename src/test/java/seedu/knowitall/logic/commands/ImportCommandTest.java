@@ -94,13 +94,6 @@ public class ImportCommandTest {
     }
 
 
-    @Test
-    public void execute_importCsvFile_correctFormat() throws Exception {
-        //Model newModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
-        model.importCardFolders(new CsvFile(TYPICAL_CARD_FOLDER));
-
-        assertTrue (isSameCardFolders(model, expectedModel));
-    }
 
     /**
      * this method checks whether two models are equal. i.e have the same card folders and cards
@@ -156,7 +149,7 @@ public class ImportCommandTest {
     }
 
     @Test
-    public void execute_exportCsvFile_correctFile(File actual, File expected) throws IOException, CsvManagerNotInitialized {
+    public void execute_exportCsvFile_correctFile() throws IOException, CsvManagerNotInitialized {
         expectedModel.exportCardFolders(new ArrayList<>(Arrays.asList(1)));
         // System.out.println(DEFAULT_TEST_PATH);
         assert(typicalCardsFileTest.exists());

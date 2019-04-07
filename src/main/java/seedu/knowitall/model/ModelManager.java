@@ -33,6 +33,7 @@ import seedu.knowitall.model.card.exceptions.CardNotFoundException;
 import seedu.knowitall.storage.csvmanager.CsvFile;
 import seedu.knowitall.storage.csvmanager.CsvManager;
 import seedu.knowitall.storage.csvmanager.exceptions.CsvManagerNotInitialized;
+import seedu.knowitall.storage.csvmanager.exceptions.IncorrectCsvHeadersException;
 
 /**
  * Represents the in-memory model of the card folder data.
@@ -537,7 +538,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void importCardFolders(CsvFile csvFile) throws IOException, CommandException, IllegalArgumentException {
+    public void importCardFolders(CsvFile csvFile) throws IOException, CommandException, IllegalArgumentException,
+            IncorrectCsvHeadersException  {
         String cardFolderName = csvFile.getFileNameWithoutExt();
 
         if (isCardFolderExists(cardFolderName)) {

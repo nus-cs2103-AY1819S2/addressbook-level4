@@ -9,6 +9,7 @@ import seedu.knowitall.model.DuplicateCardFolderException;
 import seedu.knowitall.model.Model;
 import seedu.knowitall.model.Model.State;
 import seedu.knowitall.storage.csvmanager.CsvFile;
+import seedu.knowitall.storage.csvmanager.exceptions.IncorrectCsvHeadersException;
 
 
 /**
@@ -55,6 +56,8 @@ public class ImportCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_CARD_FOLDERS);
         } catch (IllegalArgumentException e) {
             throw new CommandException(MESSAGE_CARD_FIELD_WRONG_SPECIFICATION + e.getMessage());
+        } catch (IncorrectCsvHeadersException e) {
+            throw new CommandException(Messages.MESSAGE_INCORRECT_CSV_FILE_HEADER);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, csvFile.filename));
     }

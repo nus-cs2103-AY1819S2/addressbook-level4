@@ -95,6 +95,7 @@ Displays the help text for all available commands.
 
 Format: `help`
 
+////
 ==== dentist
 
 You can specify the name you want to reflect in your patients' dental record when you create them.
@@ -104,6 +105,7 @@ Format: `dentist n/YOUR_NAME`
 * If there is no dentist name specified, the program will prompt you to enter one.
 
 * This should only happen once, during the first startup of the application.
+////
 
 ==== history
 Lists all the commands that have been entered since starting the

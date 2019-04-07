@@ -87,8 +87,6 @@ public class ManagementCommandsIntegrationTest {
         commandResult = new DeleteLessonCommand(toDeleteIndex).execute(model, commandHistory);
 
         // lesson deleted successfully -> success feedback
-        assertEquals(String.format(DeleteLessonCommand.MESSAGE_SUCCESS, LESSON_DEFAULT.getName()),
-                commandResult.getFeedbackToUser());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
 
         // Step 6: listLessons
@@ -114,12 +112,9 @@ public class ManagementCommandsIntegrationTest {
         // Step 2: openLesson
         // opens valid lesson -> lesson opened successfully
         Index toOpenIndex = Index.fromZeroBased(0);
-        CommandResult commandResult =
-                new OpenLessonCommand(toOpenIndex).execute(model, commandHistory);
+        new OpenLessonCommand(toOpenIndex).execute(model, commandHistory);
 
         // lesson opened successfully -> success feedback
-        assertEquals(String.format(OpenLessonCommand.MESSAGE_SUCCESS, LESSON_DEFAULT.getName()),
-                commandResult.getFeedbackToUser());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
 
         // get opened lesson which was added -> same as lesson which was added
@@ -153,48 +148,11 @@ public class ManagementCommandsIntegrationTest {
         // Step 6: deleteLesson
         // delete valid lesson -> lesson deleted successfully
         Index toDeleteIndex = Index.fromZeroBased(0);
-        commandResult = new DeleteLessonCommand(toDeleteIndex).execute(model, commandHistory);
-
-        // lesson deleted successfully -> success feedback
-        assertEquals(String.format(DeleteLessonCommand.MESSAGE_SUCCESS, LESSON_DEFAULT.getName()),
-                commandResult.getFeedbackToUser());
-        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
-    }
-
-    /**
-     * Tests {@link AddLessonCommand}, {@link DeleteLessonCommand}, {@link OpenLessonCommand} and
-     * {@link CloseLessonCommand} with {@link ManagementModelManager}.
-     *
-     * <br><br>When an opened lesson is deleted, it is automatically closed. This test verifies that
-     * there is indeed no more opened lesson. It also checks if the close will be unsuccessful given that
-     * there is no opened lesson to close.
-     */
-    @Test
-    public void execute_addOpenDeleteClose_closeUnsuccessful() throws Exception {
-        // Step 1: addLesson
-        // add valid lesson -> lesson added successfully
-        // Tested in execute_listAddDeleteLesson_allSuccessful
-        new AddLessonCommand(validLesson).execute(model, commandHistory);
-
-        // Step 2: openLesson
-        // opens valid lesson -> lesson opened successfully
-        // Tested in execute_addOpenCloseDelete_allSuccessful
-        Index toOpenIndex = Index.fromZeroBased(0);
-        new OpenLessonCommand(toOpenIndex).execute(model, commandHistory);
-
-        // Step 3: deleteLesson
-        // delete valid lesson -> lesson deleted successfully
-        Index toDeleteIndex = Index.fromZeroBased(0);
         CommandResult commandResult = new DeleteLessonCommand(toDeleteIndex).execute(model, commandHistory);
 
         // lesson deleted successfully -> success feedback
         assertEquals(String.format(DeleteLessonCommand.MESSAGE_SUCCESS, LESSON_DEFAULT.getName()),
                 commandResult.getFeedbackToUser());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
-
-        // Step 4: closeLesson
-        // close non-existent opened lesson -> no lesson closed and command unsuccessful
-        thrown.expect(CommandException.class);
-        new CloseLessonCommand().execute(model, commandHistory);
     }
 }

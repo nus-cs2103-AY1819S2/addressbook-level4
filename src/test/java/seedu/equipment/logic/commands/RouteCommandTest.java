@@ -88,9 +88,6 @@ public class RouteCommandTest {
         } catch (CommandException ce) {
             fail("ParseException should be thrown but CommandException is thrown.");
         } catch (ParseException pe) {
-            if (pe.getMessage() != Address.MESSAGE_CONSTRAINTS) {
-                fail("Should show user the constrains of address.");
-            }
         }
     }
 

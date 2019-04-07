@@ -122,8 +122,8 @@ class JsonAdaptedCustomer {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 DateOfBirth.class.getSimpleName()));
         }
-        if (!DateOfBirth.isValidDob(dob)) {
-            throw new IllegalValueException(DateOfBirth.MESSAGE_CONSTRAINTS);
+        if (!(DateOfBirth.isValidDob(dob).getKey())) {
+            throw new IllegalValueException(DateOfBirth.isValidDob(dob).getValue());
         }
         return new DateOfBirth(dob);
     }

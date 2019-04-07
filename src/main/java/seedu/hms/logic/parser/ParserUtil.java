@@ -86,8 +86,8 @@ public class ParserUtil {
     public static DateOfBirth parseDateOfBirth(String dob) throws ParseException {
         requireNonNull(dob);
         String trimmedDob = dob.trim();
-        if (!DateOfBirth.isValidDob(trimmedDob)) {
-            throw new ParseException(DateOfBirth.MESSAGE_CONSTRAINTS);
+        if (!(DateOfBirth.isValidDob(trimmedDob).getKey())) {
+            throw new ParseException(DateOfBirth.isValidDob(trimmedDob).getValue());
         }
         return new DateOfBirth(trimmedDob);
     }

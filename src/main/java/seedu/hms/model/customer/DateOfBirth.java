@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javafx.util.Pair;
+
 /**
  * Represents a Customer's identification number in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDob(String)}
@@ -25,19 +27,21 @@ public class DateOfBirth {
      */
     public DateOfBirth(String dob) {
         requireNonNull(dob);
-        checkArgument(isValidDob(dob), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidDob(dob));
         value = dob;
     }
 
     /**
      * Returns true if a given string is a valid date of birth.
      */
-    public static boolean isValidDob(String test) {
+    public static Pair<Boolean, String> isValidDob(String test) {
 
         if (!test.matches(VALIDATION_REGEX_2)) {
 
             LocalDate currentDate = LocalDate.now();
+            int currentDay = currentDate.getDayOfMonth();
             int currentYear = currentDate.getYear();
+            int currentMonth = currentDate.getMonthValue();
             Pattern pattern = Pattern.compile(VALIDATION_REGEX);
             Matcher matcher = pattern.matcher(test);
 
@@ -47,41 +51,54 @@ public class DateOfBirth {
 
                 if (matcher.find()) {
                     int intYear;
+                    int intDay;
+                    int intMonth;
                     String day = matcher.group(1);
                     String month = matcher.group(2);
                     String year = matcher.group(3);
                     if ((" ").equals(year)) {
-                        return true;
+                        return new Pair<>(true, "Works");
                     } else {
                         intYear = Integer.parseInt(year);
-                        if (intYear >= currentYear) {
-                            return false;
+                        intDay = Integer.parseInt(day);
+                        intMonth = Integer.parseInt(month);
+                        if (intYear > currentYear && currentDay <= intDay && intMonth <= currentMonth ) {
+                            return new Pair<>(false, "Date of birth can't exceed current date.");
+                        }
+                        if (intYear > currentYear || intYear < 1 ) {
+                            return new Pair<>(false, "Year value wrong.");
                         }
 
                         if (("31").equals(day) && (("4").equals(month) || ("6").equals(month) || ("9").equals(month)
                             || ("11").equals(month) || ("04").equals(month) || ("06").equals(month)
                             || ("09").equals(month))) {
-                            return false; // only 1,3,5,7,8,10,12 has 31 days
+                            return new Pair<>(false, "This month can't have 31 days."); // only 1,3,5,7,8,10,12 has
+                            // 31 days
                         } else if (("2").equals(month) || ("02").equals(month)) {
                             //leap year
                             if (intYear % 4 == 0) {
-                                return !(("30").equals(day) || ("31").equals(day));
+                                if (("30").equals(day) || ("31").equals(day)) {
+                                    return new Pair<>(false, "February can't have more than 29 days in leap year.");
+                                }
                             } else {
-                                return !(("29").equals(day) || ("31").equals(day) || ("30").equals(day));
+                                if (("29").equals(day) || ("31").equals(day) || ("30").equals(day)) {
+                                    return new Pair<>(false, "February can't have more than 28 days in a non - leap " +
+                                        "year.");
+                                }
                             }
                         } else {
-                            return true;
+                            return new Pair<>(true, "Works");
                         }
                     }
                 } else {
-                    return false;
+                    return new Pair<>(false, "Date birth not in correct format.");
                 }
 
             } else {
-                return false;
+                return new Pair<>(false, "Date of birth input wrong.");
             }
         }
-        return true;
+        return new Pair<>(true, "Works");
     }
 
 

@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
 import seedu.address.logic.commands.ListMedHistCommand;
@@ -51,7 +50,8 @@ public class ListMedHistCommandParser implements Parser<ListMedHistCommand> {
             try {
                 id = Integer.parseInt(argumentMultimap.getValue(prefix).get());
             } catch (NumberFormatException e) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListMedHistCommand.MESSAGE_USAGE));
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        ListMedHistCommand.MESSAGE_USAGE));
             }
         }
         return id;
@@ -67,7 +67,8 @@ public class ListMedHistCommandParser implements Parser<ListMedHistCommand> {
             try {
                 date = LocalDate.parse(argumentMultimap.getValue(PREFIX_DATE_OF_MEDHIST).get());
             } catch (DateTimeParseException e) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListMedHistCommand.MESSAGE_USAGE));
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        ListMedHistCommand.MESSAGE_USAGE));
             }
         }
         return date;

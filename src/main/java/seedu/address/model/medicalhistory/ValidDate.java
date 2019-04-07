@@ -1,11 +1,9 @@
 package seedu.address.model.medicalhistory;
 
-import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.time.LocalDate;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import java.time.LocalDate;
 
 /**
  * Represents date of a medical history in the docX.

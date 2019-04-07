@@ -1,10 +1,12 @@
 package seedu.knowitall.testutil;
 
 import seedu.knowitall.model.CardFolder;
+import seedu.knowitall.model.ReadOnlyCardFolder;
 import seedu.knowitall.model.card.Card;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class SampleBloodCards {
@@ -19,7 +21,7 @@ public class SampleBloodCards {
             .withAnswer("Acute Leukaemia")
             .withScore("0/0").withHint("type of cancer").build();
 
-    public static final Card CARD_3 = new CardBuilder().withQuestion(" <something>cytosis means too _____")
+    public static final Card CARD_3 = new CardBuilder().withQuestion("<something>cytosis means too _____")
             .withAnswer("many")
             .withScore("0/0")
             .build();
@@ -42,7 +44,8 @@ public class SampleBloodCards {
             .withOptions("55")
             .build();
 
-    public static final Card CARD_7 = new CardBuilder().withQuestion("If patient has raised WBC count, raised platelet and raised Hb count, he is likely to have _____")
+    public static final Card CARD_7 = new CardBuilder().withQuestion("If patient has raised WBC count, "
+            + "raised platelet and raised Hb count, he is likely to have _____")
             .withAnswer("myeloproliferative neoplasm")
             .withScore("1/2")
             .build();
@@ -64,6 +67,10 @@ public class SampleBloodCards {
             .withAnswer("haemoglobin")
             .withScore("0/0")
             .build();
+
+    public static List<ReadOnlyCardFolder> getBloodCardFolders() {
+        return Collections.singletonList(getBloodFolder());
+    }
 
     public static final String BLOOD_FOLDER_NAME = "Blood";
 

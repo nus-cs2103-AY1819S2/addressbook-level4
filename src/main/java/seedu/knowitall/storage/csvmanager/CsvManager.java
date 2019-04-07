@@ -106,11 +106,12 @@ public class CsvManager implements CsvCommands {
      */
     private Set<Option> buildOptions(String[] card) {
         Set<Option> optionSet = new HashSet<>();
-        String[] options = Arrays.copyOfRange(card, 3, card.length - 1);
-        if (options.length == 0) {
+        String optionVal = card[3];
+        if (optionVal.equals("")) {
             return optionSet;
         }
-        Arrays.stream(options).map(Option::new).forEach(option -> optionSet.add(option));
+        Option option = new Option(optionVal);
+        optionSet.add(option);
         return optionSet;
     }
 

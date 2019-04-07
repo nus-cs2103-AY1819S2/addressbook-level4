@@ -3,6 +3,9 @@ package seedu.knowitall.logic.commands;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.knowitall.testutil.SampleBloodCards.getBloodCardFolders;
+import static seedu.knowitall.testutil.SampleBloodCards.getBloodFolder;
+import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolder;
 import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolders;
 
 import java.io.File;
@@ -44,7 +47,8 @@ public class ImportCommandTest {
 
 
     private Model model = new ModelManager(new ArrayList<ReadOnlyCardFolder>(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
+    private Model expectedModel = new ModelManager(new ArrayList<ReadOnlyCardFolder>(Arrays.asList(
+            getTypicalCardFolder(), getBloodFolder())) , new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
 
@@ -76,13 +80,18 @@ public class ImportCommandTest {
 
     @Test
     public void execute_importTypicalCards_success() throws Exception {
-        ImportCommand importCommand = new ImportCommand(new CsvFile(TYPICAL_CARD_FOLDER));
-
-        Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
-        CommandResult commandResult = importCommand.execute(model, commandHistory);
-        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, TYPICAL_CARD_FOLDER);
-        assertEquals(expectedMessage, commandResult.getFeedbackToUser());
+        importCardFolderSuccess(TYPICAL_CARD_FOLDER, getTypicalCardFolders());
+        importCardFolderSuccess(BLOOD_CARD_FOLDER, getBloodCardFolders());
         assertTrue(isSameCardFolders(model, expectedModel));
+    }
+
+    private void importCardFolderSuccess(String foldername, List<ReadOnlyCardFolder> cardFolders) throws CommandException {
+        ImportCommand importCommand = new ImportCommand(new CsvFile(foldername));
+
+
+        CommandResult commandResult = importCommand.execute(model, commandHistory);
+        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, foldername);
+        assertEquals(expectedMessage, commandResult.getFeedbackToUser());
     }
 
     @Test

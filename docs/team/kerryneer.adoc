@@ -31,15 +31,15 @@ This section shows a summary of my coding, documentation, and other helpful cont
 
 *Feature implemented*: I implemented the functionalities of a test session.
 
-* What it does: Student can begin and end a test session. While inside a test session, flashcard questions will be
-presented and student can input an answer or choose to reveal the answer before moving on to the next flashcard.
+* What it does: This allows users to  begin and end a test session. While inside a test session, flashcard questions
+will be presented and student can input an answer or choose to reveal the answer before moving on to the next flashcard.
 * Justification: This feature is the main highlight of Know-It-All, as students use flashcards to test how
 much content they have memorised. Equipped with the user friendly answer command that is missing in existing
 flashcard applications, Know-It-All provides a more engaging and interactive testing experience for the user.
 * Highlights: This feature modifies the existing UI to facilitate the addition of a new test session screen. It also
 has a heavy dependency on folder methods. Hence, this feature required an in-depth analysis of design alternatives,
 considering design patterns and principles as well as the user-friendliness of the commands.
-More detail can be found under design considerations sections of <<contributionstodevguide>>.
+More details can be found under design considerations sections of <<contributionstodevguide>>.
 Implementation and writing tests were also tedious as many checks of the current state of the test session needs to be
 done to permit only certain commands and ban others.
 

@@ -30,7 +30,7 @@ public class AddReservationCommandIntegrationTest {
     @Test
     public void executeNewReservationSuccess() {
         Reservation validReservation = new ReservationBuilder()
-            .withRoom(RoomType.SINGLE)
+            .withRoom(new RoomType(100, "Single Room", 500.0))
             .withDates("14/07/2019", "17/07/2019")
             .withPayer(TypicalCustomers.BOB)
             .withOtherUsers()

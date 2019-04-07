@@ -16,9 +16,16 @@ import org.junit.rules.TemporaryFolder;
 import seedu.address.model.user.User;
 
 public class CsvUserStorageTest {
-    private static final Path NO_VALID_FILE = Paths.get("src", "test", "data", "CsvUserStorageTest",
+    private static final Path NO_VALID_FILE = Paths.get("src", "test", "data", "UserStorageTest",
             "noValidFile");
-    private static final Path TEST_DATA_FILE = Paths.get("src", "test", "data", "CsvUserStorageTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "UserStorageTest");
+    private static final Path HASHCODE_ZERO_FILE =
+            Paths.get("src", "test", "data", "UserStorageTest", "hashcodeZero", "hashcodeZeroTest.csv");
+    private static final Path NEGATIVE_ATTEMPTS_FILE =
+            Paths.get("src", "test", "data", "UserStorageTest", "numberOfAttemptsNegative",
+                    "numberOfAttemptsNegativeTest.csv");
+    private static final Path NEGATIVE_STREAK_FILE =
+            Paths.get("src", "test", "data", "UserStorageTest", "streakNegative", "streakNegativeTest.csv");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -37,20 +44,20 @@ public class CsvUserStorageTest {
 
     @Test
     public void getUserFilePath() {
-        CsvUserStorage csvUserStorage = new CsvUserStorage(TEST_DATA_FILE);
-        assertEquals(TEST_DATA_FILE, csvUserStorage.getUserFilePath());
+        CsvUserStorage csvUserStorage = new CsvUserStorage(TEST_DATA_FOLDER);
+        assertEquals(TEST_DATA_FOLDER, csvUserStorage.getUserFilePath());
     }
 
     @Test
     public void setUserFilePath_nullFilePath_throwsNullPointerException() {
-        CsvUserStorage csvUserStorage = new CsvUserStorage(TEST_DATA_FILE);
+        CsvUserStorage csvUserStorage = new CsvUserStorage(TEST_DATA_FOLDER);
         thrown.expect(NullPointerException.class);
         csvUserStorage.setUserFilePath(null);
     }
 
     @Test
     public void setUserFilePath_validFilePath() {
-        CsvUserStorage csvUserStorage = new CsvUserStorage(TEST_DATA_FILE);
+        CsvUserStorage csvUserStorage = new CsvUserStorage(TEST_DATA_FOLDER);
         csvUserStorage.setUserFilePath(NO_VALID_FILE);
         assertEquals(NO_VALID_FILE, csvUserStorage.getUserFilePath());
     }
@@ -63,17 +70,17 @@ public class CsvUserStorageTest {
 
     @Test
     public void readUserTest_hashcodeZero_throwsIllegalValueException() {
-        Assert.assertTrue(readUser(Paths.get("data\\user\\hashcodeZeroTest.csv")).isPresent());
+        Assert.assertTrue(readUser(HASHCODE_ZERO_FILE).isPresent());
     }
 
     @Test
     public void readUserTest_numberOfAttemptsNegative_throwsIllegalValueException() {
-        Assert.assertTrue(readUser(Paths.get("data\\user\\numberOfAttemptsNegativeTest.csv")).isPresent());
+        Assert.assertTrue(readUser(NEGATIVE_ATTEMPTS_FILE).isPresent());
     }
 
     @Test
     public void readUserTest_streakNegative_throwsIllegalValueException() {
-        Assert.assertTrue(readUser(Paths.get("data\\user\\streakNegativeTest.csv")).isPresent());
+        Assert.assertTrue(readUser(NEGATIVE_STREAK_FILE).isPresent());
     }
 
     @Test

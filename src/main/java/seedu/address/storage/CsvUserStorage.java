@@ -22,6 +22,7 @@ import seedu.address.model.user.User;
  */
 public class CsvUserStorage implements UserStorage {
     private static final Logger logger = LogsCenter.getLogger(CsvLessonListStorage.class);
+    private static final int MAX_SIZE = 5;
 
     private Path filePath;
 
@@ -119,7 +120,7 @@ public class CsvUserStorage implements UserStorage {
     private Optional<CardSrsData> parseStringIntoCard(String[] cardArray) throws
             NumberFormatException, DateTimeParseException {
 
-        if (cardArray.length < 4) {
+        if (cardArray.length < MAX_SIZE) {
             logger.warning("There are empty values in the file");
             return Optional.empty();
         }

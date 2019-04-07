@@ -68,7 +68,6 @@ public class LogicManager implements Logic {
                 command = managementModeParser.parse(commandText);
                 commandResult = command.execute(managementModel, history);
 
-                // I'm so sorry for this eyesore.
                 switch (commandResult.getUpdateStorageType()) {
                 case NONE:
                     break;

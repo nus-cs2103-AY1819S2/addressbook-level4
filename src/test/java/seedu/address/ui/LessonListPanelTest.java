@@ -18,7 +18,6 @@ import seedu.address.testutil.TypicalLessonList;
 public class LessonListPanelTest extends GuiUnitTest {
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
-    private LessonListPanelHandle lessonListPanelHandle;
     private LessonListPanel lessonListPanel;
 
     @Test
@@ -83,7 +82,8 @@ public class LessonListPanelTest extends GuiUnitTest {
                 new LessonListPanel(backingList);
         uiPartRule.setUiPart(lessonListPanel);
 
-        lessonListPanelHandle = new LessonListPanelHandle(getChildNode(lessonListPanel.getRoot(),
+        LessonListPanelHandle lessonListPanelHandle =
+                new LessonListPanelHandle(getChildNode(lessonListPanel.getRoot(),
                 LessonListPanelHandle.PERSON_LIST_VIEW_ID));
     }
 }

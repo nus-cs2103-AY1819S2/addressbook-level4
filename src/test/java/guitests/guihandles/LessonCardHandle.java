@@ -63,7 +63,7 @@ public class LessonCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(Lesson lesson) {
         if (!getName().equals(lesson.getName())
-                || !(getCount() == LessonCard.getCountString(lesson.getCardCount()))) {
+                || (getCount().equals(LessonCard.getCountString(lesson.getCardCount())))) {
             return false;
         }
 

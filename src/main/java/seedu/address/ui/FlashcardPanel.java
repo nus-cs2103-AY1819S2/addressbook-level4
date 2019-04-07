@@ -49,6 +49,10 @@ public class FlashcardPanel extends UiPart<Region> {
         flashcardView.setCellFactory(listView -> new CardViewCell());
     }
 
+    public int getViewItemCount() {
+        return flashcardView.getItems().size();
+    }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Card} using a {@code FlashcardCard}..
      */

@@ -17,6 +17,7 @@ import seedu.equipment.logic.Logic;
 import seedu.equipment.logic.commands.CommandResult;
 import seedu.equipment.logic.commands.exceptions.CommandException;
 import seedu.equipment.logic.parser.exceptions.ParseException;
+import seedu.equipment.model.equipment.Address;
 import seedu.equipment.model.equipment.Equipment;
 
 /**
@@ -207,6 +208,25 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Opens the map window and display the route on it.
+     */
+    @FXML
+    public void handleRoute(Address startendAddress) {
+        List<Equipment> equipmentList = logic.getFilteredEquipment();
+        String addressString = "[";
+        for (Equipment equipment:equipmentList) {
+            Address address = equipment.getAddress();
+            addressString += "\"" + address.toString() + "\",";
+        }
+        addressString = addressString.replaceAll(",$", "");
+        addressString += "]";
+        String url = BrowserPanel.MAP_ROUTE_BASE_URL + "?address=" + addressString + "&start=\""
+                + startendAddress.toString() + "\"&end=\"" + startendAddress.toString() + "\"";
+        System.out.println("Loading page: " + url);
+        browserPanel.loadPage(url);
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see Logic#execute(String)
@@ -228,6 +248,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isDisplayMap()) {
                 handleDisplayMap();
+            }
+
+            if (commandResult.isRoute()) {
+                handleRoute(commandResult.getRouteAddress());
             }
 
             return commandResult;

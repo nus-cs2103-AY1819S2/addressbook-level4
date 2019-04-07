@@ -21,18 +21,14 @@ class JsonAdaptedServiceType {
      * Constructs a {@code JsonAdaptedCustomer} with the given customer details.
      */
     @JsonCreator
-    public JsonAdaptedServiceType(@JsonProperty("name") String name,
-                                  @JsonProperty("capacity") int capacity,
-                                  @JsonProperty("timing") JsonAdaptedTimeRange timing,
-                                  @JsonProperty("ratePerHour") double ratePerHour) {
+    public JsonAdaptedServiceType(@JsonProperty("capacity") int capacity,
+                                  @JsonProperty("name") String name,
+                                  @JsonProperty("ratePerHour") double ratePerHour,
+                                  @JsonProperty("timing") JsonAdaptedTimeRange timing) {
         this.name = name;
         this.capacity = capacity;
         this.ratePerHour = ratePerHour;
         this.timing = timing;
-    }
-
-    public String getName() {
-        return name;
     }
 
     /**
@@ -43,6 +39,10 @@ class JsonAdaptedServiceType {
         timing = new JsonAdaptedTimeRange(source.getTiming());
         capacity = source.getCapacity();
         ratePerHour = source.getRatePerHour();
+    }
+
+    public String getName() {
+        return name;
     }
 
     /**

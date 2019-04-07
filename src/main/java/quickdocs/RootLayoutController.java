@@ -96,8 +96,10 @@ public class RootLayoutController {
                 endConsultation(result.getFeedbackToUser());
 
                 display.appendText(">" + userInput.getText() + "\n");
+                display.appendText("---------------------------------------------------------------------------\n");
                 display.appendText(result.getFeedbackToUser());
                 display.appendText("\n");
+                display.appendText("---------------------------------------------------------------------------\n");
 
                 // move display to the end to show result of last entered command
                 display.selectPositionCaret(display.getText().length());

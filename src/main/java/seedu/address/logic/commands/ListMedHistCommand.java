@@ -37,13 +37,13 @@ public class ListMedHistCommand extends Command {
     public static final String MESSAGE_SUCCESS =
             "Listed all medical histories. Write up of medical histories are not be shown in the list.";
 
-    private final Optional<String> targetPatientId;
+    private final Optional<Integer> targetPatientId;
 
-    private final Optional<String> targetDoctorId;
+    private final Optional<Integer> targetDoctorId;
 
     private final Optional<LocalDate> targetDate;
 
-    public ListMedHistCommand(String targetPatientId, String targetDoctorId, LocalDate targetDate) {
+    public ListMedHistCommand(Integer targetPatientId, Integer targetDoctorId, LocalDate targetDate) {
         if (targetPatientId == null) {
             this.targetPatientId = Optional.empty();
         } else {
@@ -72,14 +72,14 @@ public class ListMedHistCommand extends Command {
                 if (!targetPatientId.isPresent()) {
                     return true;
                 }
-                return x.getPatientId().equals(targetPatientId.get()); };
+                return x.getPatientId() == targetPatientId.get(); };
 
         Predicate<MedicalHistory> predicateListMedHistIsDid =
             x -> {
                 if (!targetDoctorId.isPresent()) {
                     return true;
                 }
-                return x.getDoctorId().equals(targetDoctorId.get()); };
+                return x.getDoctorId() == targetDoctorId.get(); };
 
         Predicate<MedicalHistory> predicateListMedHistIsDate =
             x -> {

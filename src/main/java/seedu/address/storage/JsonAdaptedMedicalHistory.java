@@ -15,8 +15,8 @@ import seedu.address.model.medicalhistory.WriteUp;
 public class JsonAdaptedMedicalHistory {
 
     private final String medHistId;
-    private final String patientId;
-    private final String doctorId;
+    private final int patientId;
+    private final int doctorId;
     private final String date;
     private final String writeUp;
 
@@ -25,8 +25,8 @@ public class JsonAdaptedMedicalHistory {
      */
     @JsonCreator
     public JsonAdaptedMedicalHistory(@JsonProperty("medHistId") String medHistId,
-                                     @JsonProperty("patientId") String patientId,
-                                     @JsonProperty("doctorId") String doctorId,
+                                     @JsonProperty("patientId") int patientId,
+                                     @JsonProperty("doctorId") int doctorId,
                                      @JsonProperty("date") String date,
                                      @JsonProperty("writeUp") String writeUp) {
         this.medHistId = medHistId;
@@ -53,14 +53,6 @@ public class JsonAdaptedMedicalHistory {
      * @throws IllegalValueException if there were any data constraints violated in the adapted medical history.
      */
     public MedicalHistory toModelType() throws IllegalValueException {
-        /*
-        if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
-        }
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
-        }
-        */
         final LocalDate modelDate = LocalDate.parse(date);
         final WriteUp modelWriteUp = new WriteUp(this.writeUp);
         return new MedicalHistory(patientId, doctorId, modelDate, modelWriteUp);

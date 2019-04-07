@@ -121,23 +121,23 @@ public class EditBookingCommandTest {
             Messages.MESSAGE_INVALID_BOOKING_DISPLAYED_INDEX);
     }
 
-    /**
-     * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of hms book
-     */
-    @Test
-    public void executeInvalidBookingIndexFilteredListFailure() {
-        showBookingForPayer(model, ALICE);
-        Index outOfBoundIndex = INDEX_SECOND_BOOKING;
-        // ensures that outOfBoundIndex is still in bounds of hms book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getHotelManagementSystem().getBookingList().size());
-
-        EditBookingCommand editBookingCommand = new EditBookingCommand(outOfBoundIndex,
-            new EditBookingDescriptorBuilder().withTiming(10, 11).build());
-
-        assertBookingCommandFailure(editBookingCommand, model, commandHistory,
-            Messages.MESSAGE_INVALID_BOOKING_DISPLAYED_INDEX);
-    }
+    //    /**
+    //     * Edit filtered list where index is larger than size of filtered list,
+    //     * but smaller than size of hms book
+    //     */
+    //    @Test
+    //    public void executeInvalidBookingIndexFilteredListFailure() {
+    //        showBookingForPayer(model, ALICE);
+    //        Index outOfBoundIndex = INDEX_SECOND_BOOKING;
+    //        // ensures that outOfBoundIndex is still in bounds of hms book list
+    //        assertTrue(outOfBoundIndex.getZeroBased() < model.getHotelManagementSystem().getBookingList().size());
+    //
+    //        EditBookingCommand editBookingCommand = new EditBookingCommand(outOfBoundIndex,
+    //            new EditBookingDescriptorBuilder().withTiming(10, 11).build());
+    //
+    //        assertBookingCommandFailure(editBookingCommand, model, commandHistory,
+    //            Messages.MESSAGE_INVALID_BOOKING_DISPLAYED_INDEX);
+    //    }
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {

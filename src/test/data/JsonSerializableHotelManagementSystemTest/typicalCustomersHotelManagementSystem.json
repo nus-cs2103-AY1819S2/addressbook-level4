@@ -74,24 +74,26 @@
   ],
   "bookings": [
     {
-      "service" : {
-        "name" : "GYM"
+      "service": {
+        "name": "GYM"
       },
-      "timing" : {
-        "startTime" : "14:00:00",
-        "endTime" : "15:00:00"
+      "timing": {
+        "startTime": "14:00:00",
+        "endTime": "15:00:00"
       },
-      "payer" : {
-        "name" : "Alice Pauline",
-        "phone" : "94351253",
-        "dob" : "30/12/1999",
-        "email" : "alice@example.com",
-        "idnum" : "1231212A",
-        "tagged" : ["friends"],
-        "address" : "123, Jurong West Ave 6, #08-111"
+      "payer": {
+        "name": "Alice Pauline",
+        "phone": "94351253",
+        "dob": "30/12/1999",
+        "email": "alice@example.com",
+        "idnum": "1231212A",
+        "tagged": [
+          "friends"
+        ],
+        "address": "123, Jurong West Ave 6, #08-111"
       },
-      "otherUsers" : [],
-      "comment" : ""
+      "otherUsers": [],
+      "comment": ""
     },
     {
       "service": {
@@ -116,6 +118,10 @@
       "comment": ""
     }
   ],
-  "reservations": []
-
+  "reservations": [
+  ],
+  "serviceTypes": [
+  ],
+  "roomTypes": [
+  ]
 }

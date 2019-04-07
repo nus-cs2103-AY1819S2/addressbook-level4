@@ -22,7 +22,8 @@ import seedu.hms.model.BookingModel;
 import seedu.hms.model.UserPrefs;
 import seedu.hms.model.VersionedHotelManagementSystem;
 import seedu.hms.model.booking.Booking;
-import seedu.hms.model.booking.ServiceType;
+import seedu.hms.model.booking.serviceType.ServiceType;
+import seedu.hms.model.util.TimeRange;
 import seedu.hms.testutil.BookingBuilder;
 import seedu.hms.testutil.EditBookingDescriptorBuilder;
 
@@ -57,10 +58,11 @@ public class EditBookingCommandTest {
         Booking lastBooking = model.getFilteredBookingList().get(indexLastBooking.getZeroBased());
 
         BookingBuilder bookingInList = new BookingBuilder(lastBooking);
-        Booking editedBooking = bookingInList.withService(ServiceType.POOL).build();
+        ServiceType pool = new ServiceType(40, new TimeRange(12, 18), "Pool", 8.0);
+        Booking editedBooking = bookingInList.withService(pool).build();
 
         EditBookingCommand.EditBookingDescriptor descriptor = new EditBookingDescriptorBuilder()
-            .withService(ServiceType.POOL).build();
+            .withService(pool).build();
         EditBookingCommand editBookingCommand = new EditBookingCommand(indexLastBooking, descriptor);
 
         String expectedMessage = String.format(EditBookingCommand.MESSAGE_EDIT_BOOKING_SUCCESS, editedBooking);

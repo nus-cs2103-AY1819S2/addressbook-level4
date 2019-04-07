@@ -1,6 +1,7 @@
 package seedu.hms.logic.commands;
 
 //import static seedu.hms.logic.commands.CommandTestUtil.assertReservationCommandFailure;
+
 import static seedu.hms.logic.commands.CommandTestUtil.assertReservationCommandSuccess;
 import static seedu.hms.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
 
@@ -13,7 +14,7 @@ import seedu.hms.model.ReservationModel;
 import seedu.hms.model.UserPrefs;
 import seedu.hms.model.VersionedHotelManagementSystem;
 import seedu.hms.model.reservation.Reservation;
-import seedu.hms.model.reservation.RoomType;
+import seedu.hms.model.reservation.roomType.RoomType;
 import seedu.hms.testutil.ReservationBuilder;
 import seedu.hms.testutil.TypicalCustomers;
 
@@ -30,7 +31,7 @@ public class AddReservationCommandIntegrationTest {
     @Test
     public void executeNewReservationSuccess() {
         Reservation validReservation = new ReservationBuilder()
-            .withRoom(RoomType.SINGLE)
+            .withRoom(new RoomType(100, "Single Room", 500.0))
             .withDates("14/07/2019", "17/07/2019")
             .withPayer(TypicalCustomers.BOB)
             .withOtherUsers()

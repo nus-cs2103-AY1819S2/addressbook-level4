@@ -12,7 +12,9 @@ import java.util.Set;
 import seedu.hms.commons.core.index.Index;
 import seedu.hms.commons.util.StringUtil;
 import seedu.hms.logic.parser.exceptions.ParseException;
-import seedu.hms.model.booking.ServiceType;
+import seedu.hms.model.BookingModel;
+import seedu.hms.model.ReservationModel;
+import seedu.hms.model.booking.serviceType.ServiceType;
 import seedu.hms.model.customer.Address;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.DateOfBirth;
@@ -20,7 +22,7 @@ import seedu.hms.model.customer.Email;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.customer.Name;
 import seedu.hms.model.customer.Phone;
-import seedu.hms.model.reservation.RoomType;
+import seedu.hms.model.reservation.roomType.RoomType;
 import seedu.hms.model.tag.Tag;
 import seedu.hms.model.util.DateRange;
 import seedu.hms.model.util.TimeRange;
@@ -158,20 +160,14 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code roomName} is invalid.
      */
-    public static RoomType parseRoom(String roomName) throws ParseException {
+    public static RoomType parseRoom(String roomName, ReservationModel reservationModel) throws ParseException {
         requireNonNull(roomName);
         String trimmedRoomName = roomName.trim();
-        switch (trimmedRoomName) {
-        case "SINGLE ROOM":
-            return RoomType.SINGLE;
-        case "DOUBLE ROOM":
-            return RoomType.DOUBLE;
-        case "DELUXE ROOM":
-            return RoomType.DELUXE;
-        case "FAMILY SUITE":
-            return RoomType.SUITE;
-        default:
-            throw new ParseException(String.format("Room Type %s doesn't exist!", trimmedRoomName));
+        RoomType parsedRoomType = reservationModel.getRoomType(trimmedRoomName);
+        if (parsedRoomType == null) {
+            throw new ParseException("Room type does not exist!");
+        } else {
+            return parsedRoomType;
         }
     }
 
@@ -181,20 +177,14 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code serviceName} is invalid.
      */
-    public static ServiceType parseService(String serviceName) throws ParseException {
+    public static ServiceType parseService(String serviceName, BookingModel bookingModel) throws ParseException {
         requireNonNull(serviceName);
         String trimmedServiceName = serviceName.trim();
-        switch (trimmedServiceName) {
-        case "GYM":
-            return ServiceType.GYM;
-        case "SWIMMING POOL":
-            return ServiceType.POOL;
-        case "SPA":
-            return ServiceType.SPA;
-        case "GAMES ROOM":
-            return ServiceType.GAMES;
-        default:
-            throw new ParseException(String.format("Service Type %s doesn't exist!", trimmedServiceName));
+        ServiceType parsedServiceType = bookingModel.getServiceType(trimmedServiceName);
+        if (parsedServiceType == null) {
+            throw new ParseException("Service does not exist!");
+        } else {
+            return parsedServiceType;
         }
     }
 
@@ -278,5 +268,27 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses {@code String s} into a {@code capacity}.
+     */
+    public static int parseCapacity(String s) throws ParseException {
+        int c = Integer.parseInt(s.trim());
+        if (c <= 0) {
+            throw new ParseException("Capacity must be positive");
+        }
+        return c;
+    }
+
+    /**
+     * Parses {@code String s} into a {@code rate}.
+     */
+    public static double parseRate(String s) throws ParseException {
+        Double r = Double.parseDouble(s.trim());
+        if (r <= 0) {
+            throw new ParseException("Rate must be positive");
+        }
+        return r;
     }
 }

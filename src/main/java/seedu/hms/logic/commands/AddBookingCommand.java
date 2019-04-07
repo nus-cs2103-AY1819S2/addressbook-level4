@@ -12,8 +12,8 @@ import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.model.BookingModel;
 import seedu.hms.model.Model;
 import seedu.hms.model.booking.Booking;
-import seedu.hms.model.booking.exceptions.ServiceFullException;
-import seedu.hms.model.booking.exceptions.ServiceUnavailableException;
+import seedu.hms.model.booking.serviceType.exceptions.ServiceFullException;
+import seedu.hms.model.booking.serviceType.exceptions.ServiceUnavailableException;
 
 /**
  * Adds a booking to the hms book.

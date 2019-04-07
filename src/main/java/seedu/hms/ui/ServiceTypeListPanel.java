@@ -11,7 +11,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.hms.commons.core.LogsCenter;
-import seedu.hms.model.booking.ServiceType;
+import seedu.hms.model.booking.serviceType.ServiceType;
 
 /**
  * Panel containing the list of serviceTypes.

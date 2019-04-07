@@ -87,6 +87,17 @@ public class LessonList {
     }
 
     /**
+     * Checks if a card is already in {@link #openedLesson}.
+     *
+     * @param card the {@link Card} to look for in {@link #openedLesson}
+     * @return returns true if the {@link Card} is already in {@link #openedLesson}
+     */
+    public boolean openLessonHasCard(Card card) {
+        requireAllNonNull(openedLesson, card);
+        return openedLesson.hasCard(card);
+    }
+
+    /**
      * Adds a {@link Lesson} object to {@link #lessons}.
      *
      * @param lesson {@link Lesson} to be added to {@link #lessons}
@@ -95,6 +106,7 @@ public class LessonList {
         requireNonNull(lesson);
         lessons.add(lesson);
     }
+
 
     /**
      * Deletes a {@link Lesson} object from {@link #lessons}.

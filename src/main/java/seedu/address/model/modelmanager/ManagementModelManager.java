@@ -149,6 +149,11 @@ public class ManagementModelManager implements ManagementModel {
     }
 
     @Override
+    public boolean openLessonHasCard(Card card) {
+        return lessonList.openLessonHasCard(card);
+    }
+
+    @Override
     public void deleteCardFromOpenedLesson(int index) {
         lessonList.deleteCardFromOpenedLesson(index);
     }

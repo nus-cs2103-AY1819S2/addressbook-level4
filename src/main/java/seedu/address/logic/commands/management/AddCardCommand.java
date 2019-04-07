@@ -50,6 +50,11 @@ public class AddCardCommand extends ManagementCommand {
             "The card has an invalid number of cores.\n"
             + "It needs to have %1$d cores as specified by the lesson.";
     /**
+     * Feedback message displayed to the user if there is already a card in the lesson which is the same.
+     */
+    public static final String MESSAGE_DUPLICATE_CARD = "Duplicate card not allowed.";
+
+    /**
      * The card to be added when {@link #execute(Model, CommandHistory)} is called.
      */
     private final Card toAdd;
@@ -81,6 +86,8 @@ public class AddCardCommand extends ManagementCommand {
         try {
             if (!mgtModel.isThereOpenedLesson()) {
                 throw new CommandException(MESSAGE_NO_OPENED_LESSON);
+            } else if (mgtModel.openLessonHasCard(toAdd)) {
+                throw new CommandException(MESSAGE_DUPLICATE_CARD);
             }
 
             mgtModel.addCardToOpenedLesson(toAdd);

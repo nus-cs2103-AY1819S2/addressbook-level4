@@ -369,6 +369,22 @@ public class Lesson {
         }
     }
 
+    /**
+     * Checks if the Lesson contains the cardToCheck card
+     *
+     * @param cardToCheck the card to look for in Lesson
+     * @return returns true if cardToCheck is already in Lesson; false otherwise
+     */
+    public boolean hasCard(Card cardToCheck) {
+        for (Card card : cards) {
+            if (card.equals(cardToCheck)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void deleteCard(int index) {
         cards.remove(index);
     }

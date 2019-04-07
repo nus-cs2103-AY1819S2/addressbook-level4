@@ -43,7 +43,9 @@ public class ManagementModelStub implements ManagementModel {
     }
 
     @Override
-    public boolean hasLessonWithName(String name) { throw new AssertionError(MESSAGE_ASSERT_ERROR); }
+    public boolean hasLessonWithName(String name) {
+        throw new AssertionError(MESSAGE_ASSERT_ERROR);
+    }
 
     @Override
     public String openLesson(int index) {
@@ -72,6 +74,11 @@ public class ManagementModelStub implements ManagementModel {
 
     @Override
     public void addCardToOpenedLesson(Card card) {
+        throw new AssertionError(MESSAGE_ASSERT_ERROR);
+    }
+
+    @Override
+    public boolean openLessonHasCard(Card card) {
         throw new AssertionError(MESSAGE_ASSERT_ERROR);
     }
 

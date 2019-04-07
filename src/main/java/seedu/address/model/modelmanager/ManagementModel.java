@@ -89,6 +89,14 @@ public interface ManagementModel extends Model {
     void addCardToOpenedLesson(Card card);
 
     /**
+     * Checks if a card is already in the opened {@link Lesson} object.
+     *
+     * @param card the {@link Card} to look for in the opened {@link Lesson} object
+     * @return returns true if the {@link Card} is already in the opened {@link Lesson} object
+     */
+    boolean openLessonHasCard(Card card);
+
+    /**
      * Deletes the {@link Card} at the specified index from the opened {@link Lesson} object.
      *
      * @param index the index of the {@link Card} to be deleted from the opened {@link Lesson} object

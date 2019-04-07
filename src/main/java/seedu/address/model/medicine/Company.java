@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents the Company that the Medicine in the inventory was purchased from.
  * Guarantees: immutable; is valid as declared in {@link #isValidCompany(String)}
  */
-public class Company implements Comparable<Company>{
+public class Company implements Comparable<Company> {
 
     public static final String MESSAGE_CONSTRAINTS = "Company names can take any values, and it should not be blank";
 

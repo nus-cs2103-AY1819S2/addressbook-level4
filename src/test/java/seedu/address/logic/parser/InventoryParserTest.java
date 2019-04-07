@@ -31,7 +31,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.medicine.Medicine;
-import seedu.address.model.medicine.NameContainsKeywordsPredicate;
+import seedu.address.model.medicine.predicates.NameContainsKeywordsPredicate;
 import seedu.address.testutil.EditMedicineDescriptorBuilder;
 import seedu.address.testutil.ExportUtil;
 import seedu.address.testutil.MedicineBuilder;

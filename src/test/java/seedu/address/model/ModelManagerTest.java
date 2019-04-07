@@ -24,7 +24,7 @@ import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.MedicineExpiryThresholdPredicate;
 import seedu.address.model.medicine.MedicineLowStockThresholdPredicate;
-import seedu.address.model.medicine.NameContainsKeywordsPredicate;
+import seedu.address.model.medicine.predicates.NameContainsKeywordsPredicate;
 import seedu.address.model.medicine.Quantity;
 import seedu.address.model.medicine.exceptions.MedicineNotFoundException;
 import seedu.address.model.threshold.Threshold;

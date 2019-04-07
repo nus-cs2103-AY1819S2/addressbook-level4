@@ -379,39 +379,35 @@ Deletes the patient shown with index 2 found using the find command.
 
 Edits data from an existing patient.
 
-Format: `patientedit INDEX` or `pedit INDEX`
+Format: `patientedit INDEX [PREFIX/KEYWORDS]` or `pedit INDEX [PREFIX/KEYWORDS]`
 
-* Goes into patientedit mode for the patient at the specified index shown from
-list or find command. Must be a positive integer (e.g 1, 2 or 3).
+* Edits the patient at the specified index shown from list or find command.
+Must be a positive integer (e.g 1, 2 or 3).
 
-* Input the field followed by the new value to replace the existing data.
+* Input the prefix followed by the new value to replace the existing data.
+** The full list of possible prefixes can be found in <<Breakdown of attributes used within TeethHub>>
 
 * Multiple fields can be edited in a single input or across multiple
 inputs.
 
-* When editing tags, the existing tags of the patient will be removed i.e
-adding of tags is not cumulative.
+* Note that tags **cannot** be editted as they are automatically generated.
 
-* All tags can be removed by keying in t/ without specifying any tags
-following it.
-
-* Exit the patientedit mode by entering done.
+[NOTE]
+============================================================
+After editting a patient, `plist` is automatically executed as well!
+============================================================
 
 Example:
 
 * `<<patientlist, patientlist>>` +
-`patientedit 1` +
-`p/12345` +
-`e/newemail@gmail.com` +
-`done` +
+`patientedit 1 e/newemail@gmail.com` +
+`patientedit 1 p/12345` +
 Edits the phone number and email of the first patient listed to become
 12345 and newemail@gmail.com respectively across 2 inputs.
 
 
 * `<<patientfind, patientfind>> Betsy` +
-`patientedit 2` +
-`p/987654 e/mymail@gmail.com` +
-`done` +
+`patientedit 2 p/987654 e/mymail@gmail.com` +
 Edits the phone number and email of the first patient listed to become
 987654 and mymail@gmail.com respectively with a single input.
 

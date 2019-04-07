@@ -90,6 +90,9 @@ The `add` command adds a place to TravelBuddy. +
 Shortcut: `a` +
 Format: `add n/NAME cc/COUNTRY_CODE dv/DATE_VISITED r/RATING d/DESCRIPTION a/ADDRESS [t/TAG]...`
 
+[NOTE]
+When the same prefix is typed more than once, only the last prefix is accepted.
+
 [TIP]
 A place can have any number of tags (including 0).
 
@@ -321,7 +324,7 @@ The `deletem` command deletes multiple places from TravelBuddy's currently displ
 
 Format: `deletem START_INDEX END_INDEX`
 
-image::deletemExample.png[width="600"]
+image::deletemExample.PNG[width="600"]
 
 ****
 * Deletes multiple places from a specified range from `START_INDEX` to `END_INDEX`.

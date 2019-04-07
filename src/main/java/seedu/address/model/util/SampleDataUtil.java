@@ -11,6 +11,7 @@ import seedu.address.model.order.OrderItemStatus;
 import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.Day;
 import seedu.address.model.statistics.Month;
+import seedu.address.model.statistics.Revenue;
 import seedu.address.model.statistics.Year;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
@@ -37,8 +38,8 @@ public class SampleDataUtil {
             new OrderItem(new TableNumber("2"), new Code("A05"), new Name("Salad"), new OrderItemStatus(1))};
     }
 
-    public static DailyRevenue[] getSampleDailyReveue() {
-        return new DailyRevenue[]{new DailyRevenue(new Day("14"), new Month("6"), new Year("1997"), (float) 123.45)};
+    public static Revenue[] getSampleReveue() {
+        return new Revenue[]{new Revenue(new Day("14"), new Month("6"), new Year("1997"), (float) 123.45)};
     }
 
     public static ReadOnlyRestOrRant getSampleRestOrRant() {
@@ -52,8 +53,8 @@ public class SampleDataUtil {
         for (OrderItem sampleOrderItem : getSampleOrderItems()) {
             sampleRestOrRant.getOrders().addOrderItem(sampleOrderItem);
         }
-        for (DailyRevenue sampleDailyRevenue : getSampleDailyReveue()) {
-            sampleRestOrRant.getStatistics().addDailyRevenue(sampleDailyRevenue);
+        for (Revenue sampleRevenue : getSampleReveue()) {
+            sampleRestOrRant.getStatistics().addRevenue(sampleRevenue);
         }
         return sampleRestOrRant;
     }

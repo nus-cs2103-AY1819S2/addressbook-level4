@@ -24,7 +24,6 @@ public class DeletePatientParser implements Parser<DeletePatientCommand> {
 
         boolean prefixesPresent = arePrefixesPresent(argMultimap,
                 PREFIX_NRIC);
-        //boolean preamblePresent = argMultimap.getPreamble().isEmpty();
 
         if (!prefixesPresent) {
             throw new ParseException(INVALID_DELETE_ARGUMENT);

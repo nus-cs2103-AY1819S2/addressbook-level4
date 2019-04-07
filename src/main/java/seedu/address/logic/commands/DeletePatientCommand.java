@@ -9,7 +9,7 @@ import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 
 /**
- * Deletes a patient from the patient list
+ * Deletes a patient record from the patient list
  */
 public class DeletePatientCommand extends Command {
 

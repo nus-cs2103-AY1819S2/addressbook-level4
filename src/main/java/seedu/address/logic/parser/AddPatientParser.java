@@ -34,9 +34,12 @@ public class AddPatientParser implements Parser<AddPatientCommand> {
             + AddPatientCommand.MESSAGE_USAGE;
 
     /**
-     * Parse arguments to create an AddPatientCommand to be executed
+     * Parse the arguments entered by users to create an AddPatientCommand for the
+     * logic manager to execute
      *
-     * @throws ParseException if input is not in the right format
+     * @param args the arguments to create the patient record: name, nric and so on
+     * @return an AddPatientCommand with the patient record to be added
+     * @throws ParseException when insufficient arguments are entered or any of the arguments are invalid
      */
     @Override
     public AddPatientCommand parse(String args) throws ParseException {
@@ -73,8 +76,13 @@ public class AddPatientParser implements Parser<AddPatientCommand> {
     }
 
     /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * Returns true if the necessary arguments to create the patient records
+     * indicated by their prefixes, are supplied
      * {@code ArgumentMultimap}.
+     *
+     * @param argumentMultimap arguments that are parsed in from the user input
+     * @param prefixes         the prefixes used to separate the different arguments of a patient record
+     * @return true when all the required arguments are present
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());

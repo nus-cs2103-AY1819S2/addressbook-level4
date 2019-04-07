@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.ui.LessonCard;
 
 /**
  * Provides a handle to a lesson card in the lesson list panel.
@@ -62,7 +63,7 @@ public class LessonCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(Lesson lesson) {
         if (!getName().equals(lesson.getName())
-                || !(Integer.parseInt(getCount()) == lesson.getCardCount())) {
+                || !(getCount() == LessonCard.getCountString(lesson.getCardCount()))) {
             return false;
         }
 

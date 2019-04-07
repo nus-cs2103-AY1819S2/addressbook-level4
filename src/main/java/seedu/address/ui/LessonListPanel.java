@@ -33,7 +33,7 @@ public class LessonListPanel extends UiPart<Region> {
      */
     public void updateLessonList(List<Lesson> lessons) {
         lessonListView.setItems(FXCollections.observableList(lessons));
-        lessonListView.setCellFactory(listView -> new LessonListViewCell());
+        lessonListView.setCellFactory(listView -> new ListCell<>());
     }
 
     /**
@@ -43,41 +43,19 @@ public class LessonListPanel extends UiPart<Region> {
      */
     public void updateLessonList(Lesson lesson) {
         lessonListView.setItems(FXCollections.observableList(Collections.singletonList(lesson)));
-        lessonListView.setCellFactory(listView -> new LessonOverviewViewCell());
+        lessonListView.setCellFactory(listView -> new LessonListViewCell());
+    }
+
+    /**
+     * @return the size of the ListView
+     */
+    public int getViewItemCount() {
+        return lessonListView.getItems().size();
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Lesson} using a {@code LessonCard}..
      */
     class LessonListViewCell extends ListCell<Lesson> {
-        @Override
-        protected void updateItem(Lesson lesson, boolean empty) {
-            super.updateItem(lesson, empty);
-
-            if (empty || lesson == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new LessonCard(lesson, getIndex() + 1).getRoot());
-            }
-        }
-    }
-
-    /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Lesson}
-     * using a {@code LessonOverview}.
-     */
-    class LessonOverviewViewCell extends ListCell<Lesson> {
-        @Override
-        protected void updateItem(Lesson lesson, boolean empty) {
-            super.updateItem(lesson, empty);
-
-            if (empty || lesson == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new LessonOverview(lesson).getRoot());
-            }
-        }
     }
 }

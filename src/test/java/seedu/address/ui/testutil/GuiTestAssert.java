@@ -16,6 +16,18 @@ import seedu.address.ui.LessonCard;
  */
 public class GuiTestAssert {
     /**
+     * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
+     */
+    public static void assertCardEquals(LessonCardHandle expectedCard, LessonCardHandle actualCard) {
+        assertEquals(expectedCard.getId(), actualCard.getId());
+        assertEquals(expectedCard.getName(), actualCard.getName());
+
+        List<String> headers = expectedCard.getHeaders();
+        List<String> headersToCompare = expectedCard.getHeaders();
+        assertEquals(headers, headersToCompare);
+    }
+
+    /**
      * Asserts that {@code actualCard} displays the details of {@code expectedLesson}.
      */
     public static void assertCardDisplaysLesson(Lesson expectedLesson, LessonCardHandle actualCard) {

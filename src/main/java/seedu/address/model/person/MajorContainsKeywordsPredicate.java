@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import seedu.address.commons.util.StringUtil;
 
 /**
- * Tests that a {@code Person}'s {@code YearOfStudy} matches any of the keywords given.
+ * Tests that a {@code Person}'s {@code Major} matches any of the keywords given.
  */
 
 public class MajorContainsKeywordsPredicate implements Predicate<Person> {

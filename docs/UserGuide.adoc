@@ -214,9 +214,9 @@ _Figure 2. After selecting restaurant with index 3, Chilis' summary, reviews and
 Set the cuisine of a restaurant identified by the index number used in the list. +
 Format: `setCategories INDEX [c/CUISINE] [oc/OCCASION] [pr/PRICE_RANGE]`
 
-===== Step by step guide on how to set categories:
+*Step by step guide on how to set categories:*
 
-Step 1: List all the restaurants by typing `list`
+Step 1: List all the restaurants by typing `list`, then pressing enter.
 
 image::setcategories-stepone.png[width="800"]
 _Figure 1: After typing `list`_
@@ -274,12 +274,12 @@ Only sets the cuisine of the third restaurant to `Western`.
 suggestion and press enter. The suggestion will be filled automatically for you!
 ====
 
-==== Filter restaurants based on category : `filter`
+==== Filtering restaurants based on category : `filter`
 
 Filters and lists the restaurants with categories matching the keywords entered. +
 Format: `filter KEYWORD [MORE_KEYWORDS]`
 
-Step by step guide on how to filter:
+*Step by step guide on how to filter:*
 
 Step 1: Suppose you want to filter out all the `Western` restaurants. Type `filter western` as shown below.
 
@@ -297,7 +297,7 @@ western japanese chinese` as shown below.
 image::filter-stepthree.png[width="800"]
 _Figure 3: Type `filter western japanese chinese` into the command box_
 
-Step 4: Press enter again and now all `Western`, `Japanese` and `Chinese restaurants will be shown.
+Step 4: Press enter again and now all `Western`, `Japanese` and `Chinese` restaurants will be shown.
 
 image::filter-stepfour.png[width="800"]
 _Figure 4: Western, Japanese and Chinese restaurants are now listed_
@@ -306,7 +306,7 @@ _Figure 4: Western, Japanese and Chinese restaurants are now listed_
 ====
 * You do not need to worry about case. Filtering is case insensitive. e.g. `western` will match `Western`
 * You do not need to be concerned about which categories you want to filter. Filtering works across categories.
-e.g. `japanese $$$$` will match all restaurants with `Cuisine` set as `Japanese` or `Price Range` set as `\$$$$`.
+e.g. `japanese $` will match all restaurants with `Cuisine` set as `Japanese` or `Price Range` set as `$`.
 Note this also means that the more keywords you add, the more general the filter becomes.
 * You can enter keywords in any order. `$ casual` is the same as `casual $`. Both will match restaurants that has
 `Price Range` as `$` or `Occasion` as `Casual`.

@@ -105,7 +105,8 @@ public class EditPatientCommand extends Command {
         Address updatedAddress = editPatientDescriptor.getAddress().orElse(patientToEdit.getAddress());
         Set<Tag> updatedTags = editPatientDescriptor.getTags().orElse(patientToEdit.getTags());
 
-        return new Patient(updatedName, updatedGender, updatedAge, updatedPhone, updatedAddress, updatedTags);
+        return new Patient(patientToEdit.getId(), updatedName, updatedGender, updatedAge, updatedPhone,
+                updatedAddress, updatedTags);
     }
 
     @Override

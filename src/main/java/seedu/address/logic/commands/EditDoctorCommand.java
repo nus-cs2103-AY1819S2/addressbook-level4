@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.AddDoctorCommand.MESSAGE_DUPLICATE_DOCTOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -102,7 +101,7 @@ public class EditDoctorCommand extends Command {
         Phone updatedPhone = editDoctorDescriptor.getPhone().orElse(doctorToEdit.getPhone());
         Set<Specialisation> updatedSpecs = editDoctorDescriptor.getSpecs().orElse(doctorToEdit.getSpecs());
 
-        return new Doctor(updatedName, updatedPhone, updatedGender, updatedYear, updatedSpecs);
+        return new Doctor(doctorToEdit.getId(), updatedName, updatedPhone, updatedGender, updatedYear, updatedSpecs);
     }
 
     @Override

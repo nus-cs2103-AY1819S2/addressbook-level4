@@ -33,13 +33,14 @@ class JsonAdaptedPatient extends JsonAdaptedPerson {
      * Constructs a {@code JsonAdaptedPatient} with the given patient details.
      */
     @JsonCreator
-    public JsonAdaptedPatient(@JsonProperty("name") String name,
+    public JsonAdaptedPatient(@JsonProperty("id") String id,
+                              @JsonProperty("name") String name,
                               @JsonProperty("gender") String gender,
                               @JsonProperty("age") String age,
                               @JsonProperty("phone") String phone,
                               @JsonProperty("address") String address,
                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
-        super(name, phone, gender);
+        super(id, name, phone, gender);
         this.age = age;
         this.address = address;
         if (tagged != null) {
@@ -51,7 +52,10 @@ class JsonAdaptedPatient extends JsonAdaptedPerson {
      * Converts a given {@code Patient} into this class for Jackson use.
      */
     public JsonAdaptedPatient(Patient source) {
-        super(source.getName().fullName, source.getPhone().value, source.getGender().value);
+        super(String.valueOf(source.getId()),
+                source.getName().fullName,
+                source.getPhone().value,
+                source.getGender().value);
         age = source.getAge().value;
         address = source.getAddress().value;
         tagged.addAll(source.getTags().stream()

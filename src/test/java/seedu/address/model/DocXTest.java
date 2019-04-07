@@ -25,12 +25,11 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
-import seedu.address.model.person.IdCounter;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.PersonIdCounter;
 import seedu.address.model.person.exceptions.DuplicatePatientException;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.testutil.DoctorBuilder;
@@ -178,7 +177,7 @@ public class DocXTest {
         private final ObservableList<Doctor> doctors = FXCollections.observableArrayList();
         private final ObservableList<Prescription> prescriptions = FXCollections.observableArrayList();
         private final ObservableList<Appointment> appointments = FXCollections.observableArrayList();
-        private final IdCounter idCounter = new IdCounter();
+        private final PersonIdCounter personIdCounter = PersonIdCounter.getInstance();
 
         DocXStub(Collection<Patient> patients) {
             this.patients.setAll(patients);
@@ -211,8 +210,8 @@ public class DocXTest {
         }
 
         @Override
-        public IdCounter getIdCounter() {
-            return idCounter;
+        public PersonIdCounter getPersonIdCounter() {
+            return personIdCounter;
         }
 
         @Override

@@ -16,6 +16,7 @@ class JsonAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
+    private final String id;
     private final String name;
     private final String phone;
     private final String gender;
@@ -25,8 +26,11 @@ class JsonAdaptedPerson {
      */
 
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("gender") String gender) {
+    public JsonAdaptedPerson(@JsonProperty("id") String id,
+                             @JsonProperty("name") String name,
+                             @JsonProperty("phone") String phone,
+                             @JsonProperty("gender") String gender) {
+        this.id = id;
         this.name = name;
         this.phone = phone;
         this.gender = gender;
@@ -37,6 +41,7 @@ class JsonAdaptedPerson {
      */
 
     public JsonAdaptedPerson(Person source) {
+        id = String.valueOf(source.getId());
         name = source.getName().fullName;
         phone = source.getPhone().value;
         gender = source.getGender().value;

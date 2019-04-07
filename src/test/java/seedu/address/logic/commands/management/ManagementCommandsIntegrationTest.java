@@ -151,8 +151,6 @@ public class ManagementCommandsIntegrationTest {
         CommandResult commandResult = new DeleteLessonCommand(toDeleteIndex).execute(model, commandHistory);
 
         // lesson deleted successfully -> success feedback
-        assertEquals(String.format(DeleteLessonCommand.MESSAGE_SUCCESS, LESSON_DEFAULT.getName()),
-                commandResult.getFeedbackToUser());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 }

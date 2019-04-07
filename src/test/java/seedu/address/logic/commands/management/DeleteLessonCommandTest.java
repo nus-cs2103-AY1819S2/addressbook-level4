@@ -3,6 +3,7 @@ package seedu.address.logic.commands.management;
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_OPENED_LESSON;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
 import static seedu.address.model.lesson.LessonList.EXCEPTION_INVALID_INDEX;
 import static seedu.address.testutil.TypicalLessonList.LESSON_DEFAULT;
@@ -53,12 +54,24 @@ public class DeleteLessonCommandTest {
     }
 
     @Test
-    public void execute_lessonDeletedByModel_deleteUnsuccessful() throws Exception {
+    public void execute_lessonNotInModel_deleteUnsuccessful() throws Exception {
         MgtModelStubAcceptingAddDelete modelStub = new MgtModelStubAcceptingAddDelete();
         Index toDeleteIndex = Index.fromZeroBased(0);
 
         // delete a lesson which does not exist in model -> CommandException thrown
         thrown.expect(CommandException.class);
+        new DeleteLessonCommand(toDeleteIndex).execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_lessonHasOpenedLesson_deleteUnsuccessful() throws Exception {
+        MgtModelWithOpenedLesson modelStub = new MgtModelWithOpenedLesson();
+        modelStub.addLesson(LESSON_DEFAULT); // always work
+
+        // delete a lesson which exists in model BUT there is opened lesson -> throws command exception
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(MESSAGE_OPENED_LESSON);
+        Index toDeleteIndex = Index.fromZeroBased(0);
         new DeleteLessonCommand(toDeleteIndex).execute(modelStub, commandHistory);
     }
 
@@ -116,6 +129,47 @@ public class DeleteLessonCommandTest {
             } catch (IndexOutOfBoundsException e) {
                 throw new IllegalArgumentException(EXCEPTION_INVALID_INDEX + index);
             }
+        }
+
+        @Override
+        public boolean isThereOpenedLesson() {
+            return false;
+        }
+
+        @Override
+        public List<Lesson> getLessons() {
+            return lessons;
+        }
+
+        @Override
+        public void deleteLesson(int index) {
+            lessons.remove(index);
+        }
+    }
+
+    /**
+     * A ManagementModel stub which always reject lesson adding and deleting because lesson is open
+     */
+    private class MgtModelWithOpenedLesson extends ManagementModelStub {
+        private final ArrayList<Lesson> lessons = new ArrayList<>();
+
+        @Override
+        public void addLesson(Lesson lesson) {
+            requireNonNull(lesson);
+            lessons.add(lesson);
+        }
+
+        public Lesson getLesson(int index) {
+            try {
+                return lessons.get(index);
+            } catch (IndexOutOfBoundsException e) {
+                throw new IllegalArgumentException(EXCEPTION_INVALID_INDEX + index);
+            }
+        }
+
+        @Override
+        public boolean isThereOpenedLesson() {
+            return true;
         }
 
         @Override

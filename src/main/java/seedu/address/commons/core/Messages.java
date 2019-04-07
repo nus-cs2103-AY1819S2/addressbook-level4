@@ -1,6 +1,11 @@
 package seedu.address.commons.core;
 
+import seedu.address.logic.commands.management.AddLessonCommand;
+import seedu.address.logic.commands.management.CloseLessonCommand;
+import seedu.address.logic.commands.management.DeleteLessonCommand;
+import seedu.address.logic.commands.management.ListLessonsCommand;
 import seedu.address.logic.commands.management.OpenLessonCommand;
+import seedu.address.logic.commands.management.ReloadLessonsCommand;
 
 /**
  * Container for user visible messages.
@@ -9,7 +14,20 @@ public class Messages {
     /**
      * Feedback message displayed to the user when management mode is first entered.
      */
-    public static final String MESSAGE_LESSON_COMMANDS = "Hi";
+    public static final String MESSAGE_LESSON_COMMANDS =
+            "Lessons Overview: \nYou can now use the following commands:\n"
+                    + "1. " + ListLessonsCommand.COMMAND_WORD
+                    + ": Lists all lessons in memory.\n"
+                    + "2. " + AddLessonCommand.COMMAND_WORD
+                    + ": Adds a lesson.\n"
+                    + "3. " + DeleteLessonCommand.COMMAND_WORD
+                    + ": Deletes a lesson.\n"
+                    + "4. " + OpenLessonCommand.COMMAND_WORD
+                    + ": Opens a lesson for editing.\n"
+                    + "5. " + CloseLessonCommand.COMMAND_WORD
+                    + ": Closes the opened lesson and save changes.\n"
+                    + "6. " + ReloadLessonsCommand.COMMAND_WORD
+                    + ": Reloads all lessons from the data folder.";
     /**
      * Feedback message displayed to the user when the command does not match any command patterns.
      */

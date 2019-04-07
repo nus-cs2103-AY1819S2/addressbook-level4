@@ -167,9 +167,20 @@ public class ReservationList implements Iterable<Reservation> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-            || (other instanceof ReservationList // instanceof handles nulls
-            && internalList.equals(((ReservationList) other).internalList));
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof ReservationList)) {
+            return false;
+        }
+        ReservationList ob = (ReservationList) other;
+        boolean eq = true;
+        for (int i = 0; i < internalList.size(); i++) {
+            if (!internalList.get(i).equals(ob.internalList.get(i))) {
+                eq = false;
+            }
+        }
+        return eq;
     }
 
     @Override

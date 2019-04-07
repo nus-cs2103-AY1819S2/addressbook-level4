@@ -33,11 +33,11 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysCustomer(Customer expectedCustomer, CustomerCardHandle actualCard) {
         assertEquals(expectedCustomer.getName().fullName, actualCard.getName());
-        assertEquals(expectedCustomer.getPhone().value, actualCard.getPhone());
-        assertEquals(expectedCustomer.getDateOfBirth().value, actualCard.getDateOfBirth());
-        assertEquals(expectedCustomer.getEmail().value, actualCard.getEmail());
-        assertEquals(expectedCustomer.getIdNum().value, actualCard.getIdNum());
-        assertEquals(expectedCustomer.getAddress().value, actualCard.getAddress());
+        assertEquals("Phone: " + expectedCustomer.getPhone().value, actualCard.getPhone());
+        assertEquals("Date of Birth: " + expectedCustomer.getDateOfBirth().value, actualCard.getDateOfBirth());
+        assertEquals("Email: " + expectedCustomer.getEmail().value, actualCard.getEmail());
+        assertEquals("Identification No: " + expectedCustomer.getIdNum().value, actualCard.getIdNum());
+        assertEquals("Address: " + expectedCustomer.getAddress().value, actualCard.getAddress());
         assertEquals(expectedCustomer.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
             actualCard.getTags());
     }

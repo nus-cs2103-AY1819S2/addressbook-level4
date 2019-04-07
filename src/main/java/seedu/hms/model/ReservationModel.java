@@ -53,6 +53,12 @@ public interface ReservationModel extends Model {
     void deleteReservation(int target);
 
     /**
+     * Deletes the given reservation.
+     * The reservation must exist in the hms book.
+     */
+    void deleteReservation(Reservation r);
+
+    /**
      * Adds the given reservation.
      * {@code reservation} must not already exist in the hms book.
      */

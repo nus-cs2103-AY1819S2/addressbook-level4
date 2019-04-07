@@ -333,6 +333,7 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
         indicateModified();
     }
 
+
     @Override
     public void addListener(InvalidationListener listener) {
         invalidationListenerManager.addListener(listener);

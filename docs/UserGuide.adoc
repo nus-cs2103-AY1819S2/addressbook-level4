@@ -42,6 +42,11 @@ If you are looking for a medicine stock taking application for clinics, MediTabs
 +
 image::Ui.png[width="790"]
 +
+[NOTE]
+====
+This program requires a minimum resolution of 1000*810. Best viewed in full screen.
+====
++
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
@@ -580,8 +585,8 @@ e.g.`sort p/quantity d/ascending`
 * *Undo* : `undo`
 * *Update* : `update INDEX b/BATCH_NUMBER [q/QUANTITY] [e/EXPIRY_DATE]` +
 e.g.`update 2 b/A030F21 q/1000 e/25/1/2020`
-* *Warning* : `warning [e/EXPIRY_THRESHOLD] [s/LOWSTOCK_THRESHOLD]` +
-e.g. `warning e/20 s/10`
+* *Warning* : `warning [e/EXPIRY_THRESHOLD] [s/LOW_STOCK_THRESHOLD] [SHOW]` +
+e.g. `warning e/20`, `warning s/10`, `warning show`
 
 == Terminology
 

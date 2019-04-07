@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.net.URL;
 import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -13,6 +12,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.NoInternetException;
 import seedu.address.commons.util.WebUtil;
 import seedu.address.model.restaurant.Weblink;
+
+import javafx.application.Platform;
+
 
 /**
  * The Browser Panel of the App.
@@ -37,6 +39,9 @@ public class BrowserPanel extends UiPart<Stage> {
         this(new Stage());
     }
 
+    /**
+     * Opens browser window pop-up
+     */
     public void show() {
         logger.fine("Showing help page about the application.");
         getRoot().show();
@@ -63,12 +68,21 @@ public class BrowserPanel extends UiPart<Stage> {
         getRoot().requestFocus();
     }
 
+    /**
+     * Takes in a Weblink and validate whether it is a valid Url.
+     * @throws NoInternetException if there is no internet connection, NoInternetException is called
+     */
     public void loadPage(Weblink weblink) throws NoInternetException {
         // Load restaurant page when selected restaurant changes.
-        if (WebUtil.isNotValidWeblinkUrl(weblink.value));
-        loadPage(WebUtil.prependHttps(weblink.value));
+        if (WebUtil.isNotValidWeblinkUrl(weblink.value)) {
+            loadPage(WebUtil.prependHttps(weblink.value));
+        }
     }
 
+    /**
+     * Takes in a String url and loads url
+     * @param url String format of a valid url
+     */
     public void loadPage(String url) {
         logger.info("Loading website : " + url);
         Platform.runLater(() -> browser.getEngine().load(url));

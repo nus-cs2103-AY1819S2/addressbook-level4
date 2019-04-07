@@ -29,22 +29,22 @@ import seedu.hms.testutil.EditBookingDescriptorBuilder;
 public class EditBookingCommandTest {
 
     private BookingModel model =
-            new BookingManager(new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()),
-                    new UserPrefs());
+        new BookingManager(new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()),
+            new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Booking editedBooking = new BookingBuilder().build();
         EditBookingCommand.EditBookingDescriptor descriptor = new EditBookingDescriptorBuilder(editedBooking)
-                .build();
+            .build();
         EditBookingCommand editBookingCommand = new EditBookingCommand(INDEX_FIRST_BOOKING, descriptor);
 
         String expectedMessage = String.format(EditBookingCommand.MESSAGE_EDIT_BOOKING_SUCCESS, editedBooking);
 
         BookingModel expectedModel =
-                new BookingManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
-                        new UserPrefs());
+            new BookingManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
+                new UserPrefs());
         expectedModel.setBooking(0, editedBooking);
         expectedModel.commitHotelManagementSystem();
 
@@ -66,8 +66,8 @@ public class EditBookingCommandTest {
         String expectedMessage = String.format(EditBookingCommand.MESSAGE_EDIT_BOOKING_SUCCESS, editedBooking);
 
         BookingModel expectedModel =
-                new BookingManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
-                        new UserPrefs());
+            new BookingManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
+                new UserPrefs());
         expectedModel.setBooking(indexLastBooking.getZeroBased(), editedBooking);
         expectedModel.commitHotelManagementSystem();
 
@@ -77,14 +77,14 @@ public class EditBookingCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditBookingCommand editBookingCommand = new EditBookingCommand(INDEX_FIRST_BOOKING,
-                new EditBookingCommand.EditBookingDescriptor());
+            new EditBookingCommand.EditBookingDescriptor());
         Booking editedBooking = model.getFilteredBookingList().get(INDEX_FIRST_BOOKING.getZeroBased());
 
         String expectedMessage = String.format(EditBookingCommand.MESSAGE_EDIT_BOOKING_SUCCESS, editedBooking);
 
         BookingModel expectedModel =
-                new BookingManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
-                        new UserPrefs());
+            new BookingManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
+                new UserPrefs());
         expectedModel.commitHotelManagementSystem();
 
         assertBookingCommandSuccess(editBookingCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -97,13 +97,13 @@ public class EditBookingCommandTest {
         Booking bookingInFilteredList = model.getFilteredBookingList().get(INDEX_FIRST_BOOKING.getZeroBased());
         Booking editedBooking = new BookingBuilder(bookingInFilteredList).withTiming(10, 11).build();
         EditBookingCommand editBookingCommand = new EditBookingCommand(INDEX_FIRST_BOOKING,
-                new EditBookingDescriptorBuilder().withTiming(10, 11).build());
+            new EditBookingDescriptorBuilder().withTiming(10, 11).build());
 
         String expectedMessage = String.format(EditBookingCommand.MESSAGE_EDIT_BOOKING_SUCCESS, editedBooking);
 
         BookingModel expectedModel =
-                new BookingManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
-                        new UserPrefs());
+            new BookingManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
+                new UserPrefs());
         expectedModel.setBooking(0, editedBooking);
         expectedModel.commitHotelManagementSystem();
 
@@ -114,40 +114,40 @@ public class EditBookingCommandTest {
     public void execute_invalidBookingIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBookingList().size() + 1);
         EditBookingCommand.EditBookingDescriptor descriptor =
-                new EditBookingDescriptorBuilder().withTiming(10, 11).build();
+            new EditBookingDescriptorBuilder().withTiming(10, 11).build();
         EditBookingCommand editBookingCommand = new EditBookingCommand(outOfBoundIndex, descriptor);
 
         assertBookingCommandFailure(editBookingCommand, model, commandHistory,
-                Messages.MESSAGE_INVALID_BOOKING_DISPLAYED_INDEX);
+            Messages.MESSAGE_INVALID_BOOKING_DISPLAYED_INDEX);
     }
 
-    /**
-     * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of hms book
-     */
-    @Test
-    public void executeInvalidBookingIndexFilteredListFailure() {
-        showBookingForPayer(model, ALICE);
-        Index outOfBoundIndex = INDEX_SECOND_BOOKING;
-        // ensures that outOfBoundIndex is still in bounds of hms book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getHotelManagementSystem().getBookingList().size());
-
-        EditBookingCommand editBookingCommand = new EditBookingCommand(outOfBoundIndex,
-                new EditBookingDescriptorBuilder().withTiming(10, 11).build());
-
-        assertBookingCommandFailure(editBookingCommand, model, commandHistory,
-                Messages.MESSAGE_INVALID_BOOKING_DISPLAYED_INDEX);
-    }
+    //    /**
+    //     * Edit filtered list where index is larger than size of filtered list,
+    //     * but smaller than size of hms book
+    //     */
+    //    @Test
+    //    public void executeInvalidBookingIndexFilteredListFailure() {
+    //        showBookingForPayer(model, ALICE);
+    //        Index outOfBoundIndex = INDEX_SECOND_BOOKING;
+    //        // ensures that outOfBoundIndex is still in bounds of hms book list
+    //        assertTrue(outOfBoundIndex.getZeroBased() < model.getHotelManagementSystem().getBookingList().size());
+    //
+    //        EditBookingCommand editBookingCommand = new EditBookingCommand(outOfBoundIndex,
+    //            new EditBookingDescriptorBuilder().withTiming(10, 11).build());
+    //
+    //        assertBookingCommandFailure(editBookingCommand, model, commandHistory,
+    //            Messages.MESSAGE_INVALID_BOOKING_DISPLAYED_INDEX);
+    //    }
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Booking editedBooking = new BookingBuilder().build();
         EditBookingCommand.EditBookingDescriptor descriptor = new EditBookingDescriptorBuilder(editedBooking)
-                .build();
+            .build();
         EditBookingCommand editBookingCommand = new EditBookingCommand(INDEX_FIRST_BOOKING, descriptor);
         BookingModel expectedModel =
-                new BookingManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
-                        new UserPrefs());
+            new BookingManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
+                new UserPrefs());
         expectedModel.setBooking(INDEX_FIRST_BOOKING.getZeroBased(), editedBooking);
         expectedModel.commitHotelManagementSystem();
 
@@ -157,24 +157,24 @@ public class EditBookingCommandTest {
         // undo -> reverts hotelManagementSystem back to previous state and filtered Booking list to show all Bookings
         expectedModel.undoHotelManagementSystem();
         assertBookingCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS,
-                expectedModel);
+            expectedModel);
 
         // redo -> same first Booking edited again
         expectedModel.redoHotelManagementSystem();
         assertBookingCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS,
-                expectedModel);
+            expectedModel);
     }
 
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBookingList().size() + 1);
         EditBookingCommand.EditBookingDescriptor descriptor =
-                new EditBookingDescriptorBuilder().withTiming(10, 11).build();
+            new EditBookingDescriptorBuilder().withTiming(10, 11).build();
         EditBookingCommand editBookingCommand = new EditBookingCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> hms book state not added into model
         assertBookingCommandFailure(editBookingCommand, model, commandHistory,
-                Messages.MESSAGE_INVALID_BOOKING_DISPLAYED_INDEX);
+            Messages.MESSAGE_INVALID_BOOKING_DISPLAYED_INDEX);
 
         // single hms book state in model -> undoCommand and redoCommand fail
         assertBookingCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
@@ -191,11 +191,11 @@ public class EditBookingCommandTest {
     public void executeUndoRedoValidIndexFilteredListSameBookingEdited() throws Exception {
         Booking editedBooking = new BookingBuilder().build();
         EditBookingCommand.EditBookingDescriptor descriptor = new EditBookingDescriptorBuilder(editedBooking)
-                .build();
+            .build();
         EditBookingCommand editBookingCommand = new EditBookingCommand(INDEX_FIRST_BOOKING, descriptor);
         BookingModel expectedModel =
-                new BookingManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
-                        new UserPrefs());
+            new BookingManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
+                new UserPrefs());
 
         showBookingForPayer(model, ALICE);
         expectedModel.setBooking(INDEX_FIRST_BOOKING.getZeroBased(), editedBooking);
@@ -207,12 +207,12 @@ public class EditBookingCommandTest {
         // undo -> reverts hotelManagementSystem back to previous state and filtered Booking list to show all Bookings
         expectedModel.undoHotelManagementSystem();
         assertBookingCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS,
-                expectedModel);
+            expectedModel);
 
         // redo -> edits same second Booking in unfiltered Booking list
         expectedModel.redoHotelManagementSystem();
         assertBookingCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS,
-                expectedModel);
+            expectedModel);
     }
 
     @Test
@@ -221,7 +221,7 @@ public class EditBookingCommandTest {
 
         // same values -> returns true
         EditBookingCommand.EditBookingDescriptor copyDescriptor =
-                new EditBookingCommand.EditBookingDescriptor(DESC_ALICE_SPA);
+            new EditBookingCommand.EditBookingDescriptor(DESC_ALICE_SPA);
         EditBookingCommand commandWithSameValues = new EditBookingCommand(INDEX_FIRST_BOOKING, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 

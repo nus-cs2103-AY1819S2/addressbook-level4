@@ -10,6 +10,7 @@ import static seedu.hms.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.hms.model.Model.PREDICATE_SHOW_ALL_BOOKINGS;
+import static seedu.hms.model.Model.PREDICATE_SHOW_ALL_RESERVATIONS;
 import static seedu.hms.testutil.TypicalCustomers.ALICE;
 import static seedu.hms.testutil.TypicalCustomers.CARL;
 
@@ -24,13 +25,18 @@ import seedu.hms.model.BookingModel;
 import seedu.hms.model.CustomerModel;
 import seedu.hms.model.HotelManagementSystem;
 import seedu.hms.model.Model;
+import seedu.hms.model.ReservationModel;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.BookingContainsPayerPredicate;
 import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.NameContainsKeywordsPredicate;
+import seedu.hms.model.reservation.Reservation;
+import seedu.hms.model.reservation.ReservationContainsPayerPredicate;
+import seedu.hms.model.reservation.RoomType;
 import seedu.hms.testutil.EditBookingDescriptorBuilder;
 import seedu.hms.testutil.EditCustomerDescriptorBuilder;
+import seedu.hms.testutil.EditReservationDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -83,6 +89,8 @@ public class CommandTestUtil {
     public static final EditCustomerCommand.EditCustomerDescriptor DESC_BOB;
     public static final EditBookingCommand.EditBookingDescriptor DESC_ALICE_SPA;
     public static final EditBookingCommand.EditBookingDescriptor DESC_CARL_SPA;
+    public static final EditReservationCommand.EditReservationDescriptor DESC_ALICE_SINGLE_ROOM;
+    public static final EditReservationCommand.EditReservationDescriptor DESC_CARL_SINGLE_ROOM;
 
     static {
         DESC_AMY = new EditCustomerDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -96,6 +104,10 @@ public class CommandTestUtil {
             .withPayer(ALICE).withOtherUsers().withComment("AliceSPA").build();
         DESC_CARL_SPA = new EditBookingDescriptorBuilder().withService(ServiceType.SPA).withTiming(12, 13)
             .withPayer(CARL).withOtherUsers().withComment("CarlSPA").build();
+        DESC_ALICE_SINGLE_ROOM = new EditReservationDescriptorBuilder().withRoom(RoomType.SINGLE)
+            .withDates("08/12/2019", "10/12/2019").withPayer(ALICE).withOtherUsers().withComment("AliceSingle").build();
+        DESC_CARL_SINGLE_ROOM = new EditReservationDescriptorBuilder().withRoom(RoomType.SINGLE)
+            .withDates("08/12/2019", "10/12/2019").withPayer(CARL).withOtherUsers().withComment("CarlSingle").build();
     }
 
     /* -------------------------- CUSTOMER ----------------------- */
@@ -120,7 +132,7 @@ public class CommandTestUtil {
     }
 
     /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandHistory, CommandResult, Model)}
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandHistory, String, CustomerModel)}
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
@@ -160,6 +172,29 @@ public class CommandTestUtil {
         }
     }
 
+    /**
+     * Deletes the first customer in {@code model}'s filtered list from {@code model}'s hms book.
+     */
+    public static void deleteFirstCustomer(CustomerModel model) {
+        Customer firstCustomer = model.getFilteredCustomerList().get(0);
+        model.deleteCustomer(firstCustomer);
+        model.commitHotelManagementSystem();
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the customer at the given {@code targetIndex} in the
+     * {@code model}'s hms book.
+     */
+    public static void showCustomerAtIndex(CustomerModel model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredCustomerList().size());
+
+        Customer customer = model.getFilteredCustomerList().get(targetIndex.getZeroBased());
+        final String[] splitName = customer.getName().fullName.split("\\s+");
+        model.updateFilteredCustomerList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredCustomerList().size());
+    }
+
     /* ------------------------------------- BOOKING -------------------------------------*/
 
     /**
@@ -184,7 +219,7 @@ public class CommandTestUtil {
     }
 
     /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandHistory, CommandResult, Model)}
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandHistory, String, CustomerModel)}
      * that takes a string {@code expectedMessage}.
      */
     public static void assertBookingCommandSuccess(Command command, BookingModel actualModel,
@@ -228,20 +263,6 @@ public class CommandTestUtil {
 
 
     /**
-     * Updates {@code model}'s filtered list to show only the customer at the given {@code targetIndex} in the
-     * {@code model}'s hms book.
-     */
-    public static void showCustomerAtIndex(CustomerModel model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredCustomerList().size());
-
-        Customer customer = model.getFilteredCustomerList().get(targetIndex.getZeroBased());
-        final String[] splitName = customer.getName().fullName.split("\\s+");
-        model.updateFilteredCustomerList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
-
-        assertEquals(1, model.getFilteredCustomerList().size());
-    }
-
-    /**
      * Updates {@code model}'s filtered list to show only the booking at the given {@code targetIndex} in the
      * {@code model}'s hms book.
      */
@@ -251,13 +272,82 @@ public class CommandTestUtil {
         model.updateFilteredBookingList(new BookingContainsPayerPredicate(id));
     }
 
+
+    /* ------------------------------------- RESERVATION -------------------------------------*/
+
     /**
-     * Deletes the first customer in {@code model}'s filtered list from {@code model}'s hms book.
+     * Executes the given {@code command}, confirms that <br>
+     * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
+     * - the {@code actualModel} matches {@code expectedModel} <br>
+     * - the {@code actualCommandHistory} remains unchanged.
      */
-    public static void deleteFirstCustomer(CustomerModel model) {
-        Customer firstCustomer = model.getFilteredCustomerList().get(0);
-        model.deleteCustomer(firstCustomer);
-        model.commitHotelManagementSystem();
+    public static void assertReservationCommandSuccess(Command command, ReservationModel actualModel,
+                                                       CommandHistory actualCommandHistory,
+                                                       CommandResult expectedCommandResult,
+                                                       ReservationModel expectedModel) {
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+        try {
+            CommandResult result = command.execute(actualModel, actualCommandHistory);
+            assertEquals(expectedCommandResult, result);
+            assertEquals(expectedModel, actualModel);
+            assertEquals(expectedCommandHistory, actualCommandHistory);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandHistory, String, CustomerModel)}
+     * that takes a string {@code expectedMessage}.
+     */
+    public static void assertReservationCommandSuccess(Command command, ReservationModel actualModel,
+                                                       CommandHistory actualCommandHistory,
+                                                       String expectedMessage,
+                                                       ReservationModel expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        assertReservationCommandSuccess(command, actualModel, actualCommandHistory, expectedCommandResult,
+            expectedModel);
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - a {@code CommandException} is thrown <br>
+     * - the CommandException message matches {@code expectedMessage} <br>
+     * - the hms book, filtered customer list and selected customer in {@code actualModel} remain unchanged <br>
+     * - {@code actualCommandHistory} remains unchanged.
+     */
+    public static void assertReservationCommandFailure(Command command, ReservationModel actualModel,
+                                                       CommandHistory actualCommandHistory,
+                                                       String expectedMessage) {
+        // we are unable to defensively copy the model for comparison later, so we can
+        // only do so by copying its components.
+        HotelManagementSystem expectedHotelManagementSystem =
+            new HotelManagementSystem(actualModel.getHotelManagementSystem());
+        List<Reservation> expectedFilteredList = new ArrayList<>(actualModel.getFilteredReservationList());
+        Reservation expectedSelectedReservation = actualModel.getSelectedReservation();
+
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+
+        try {
+            command.execute(actualModel, actualCommandHistory);
+            throw new AssertionError("The expected CommandException was not thrown.");
+        } catch (CommandException e) {
+            assertEquals(expectedMessage, e.getMessage());
+            assertEquals(expectedHotelManagementSystem, actualModel.getHotelManagementSystem());
+            assertEquals(expectedFilteredList, actualModel.getFilteredReservationList());
+            assertEquals(expectedSelectedReservation, actualModel.getSelectedReservation());
+            assertEquals(expectedCommandHistory, actualCommandHistory);
+        }
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the booking at the given {@code targetIndex} in the
+     * {@code model}'s hms book.
+     */
+    public static void showReservationForPayer(ReservationModel model, Customer payer) {
+        String id = payer.getIdNum().toString();
+        model.updateFilteredReservationList(PREDICATE_SHOW_ALL_RESERVATIONS);
+        model.updateFilteredReservationList(new ReservationContainsPayerPredicate(id));
     }
 
 }

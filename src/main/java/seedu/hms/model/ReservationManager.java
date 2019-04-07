@@ -104,6 +104,10 @@ public class ReservationManager implements ReservationModel {
         versionedHotelManagementSystem.removeReservation(reservationIndex);
     }
 
+    public void deleteReservation(Reservation r) {
+        versionedHotelManagementSystem.removeReservation(r);
+    }
+
     /*
      * Adds a reservation
      */

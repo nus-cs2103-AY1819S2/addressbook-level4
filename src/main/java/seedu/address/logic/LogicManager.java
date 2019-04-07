@@ -113,7 +113,9 @@ public class LogicManager implements Logic {
                 commandResult = quizStartCommand.executeActual(quizModel, history);
             }
         } finally {
-            history.add(commandText);
+            if (!commandText.isEmpty()) {
+                history.add(commandText);
+            }
         }
 
         return commandResult;

@@ -157,7 +157,6 @@ public class StringUtilTest {
         StringUtil.getDetails(null);
     }
 
-    // Tests for hasEmptyStrings
     @Test
     public void testForEmptyStrings_hasEmptyString_returnsTrue() {
         ArrayList<String> strings = new ArrayList<>();

@@ -116,12 +116,12 @@ public class Lesson {
         List<String> optionals;
 
         cores = headers.subList(0, noOfCoreHeaders);
-        int optionalCount = headers.size() - noOfCoreHeaders;
+        int optionalStart = headers.size() - noOfCoreHeaders + 1;
 
-        if (optionalCount == 0) {
+        if (optionalStart == 0) {
             optionals = new ArrayList<>();
         } else {
-            optionals = headers.subList(optionalCount, headers.size());
+            optionals = headers.subList(optionalStart, headers.size());
         }
 
         setName(name);

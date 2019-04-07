@@ -165,7 +165,7 @@ public class AddLessonParserTest {
     @Test
     public void parse_multipleAnswersPresent_throwsIllegalArgumentException() {
         String expectedMessage = String.format(MESSAGE_INVALID_INPUT, PREFIX_CORE_ANSWER);
-        // 2 questions side by side
+        // 2 answers side by side
         assertParseFailure(
                 addLessonParser, NAME + CORE_ANSWER + CORE_ANSWER + CORE_QUESTION,
                 expectedMessage);

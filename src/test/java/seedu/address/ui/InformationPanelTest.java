@@ -94,7 +94,6 @@ public class InformationPanelTest extends GuiUnitTest {
             sortedData.sort(Comparator.comparing(b -> b.getExpiry()));
             break;
         case QUANTITY:
-            
             sortedData.sort(Comparator.comparing(b -> b.getQuantity().getNumericValue()));
             break;
         default:

@@ -455,7 +455,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 === Restaurant Categorisation
 
 Restaurants can be classified using categories. Each restaurant can have each of the optional categories defined.
-Currently, 3 different types of categories are implemented in v1.3: `Cuisine`, `Occasion` and `Price Range`.
+Currently, 3 different types of categories are implemented in v1.4: `Cuisine`, `Occasion` and `Price Range`.
 
 ==== Current Implementation
 
@@ -467,10 +467,10 @@ Restaurant Categorisation is mainly implemented using the following commands:
 All supported categories are defined in the `seedu.address.model.restaurant.categories` package, along with the `Categories`
 class that encapsulates all categories into a `Categories` object to be used in the `Restaurant` class.
 
-Figure 1 below shows the chain of events when setting categories of a restaurant with the setCategories command:
+_Figure 1_ below shows the chain of events when setting categories of a restaurant with the setCategories command:
 
 image::SetCategoriesActivityDiagram.png[width="800"]
-Figure 1: setCategories Activity Diagram
+_Figure 1: setCategories Activity Diagram_
 
 The following elaborates in detail on how the setCategories mechanism behaves at each step:
 
@@ -511,10 +511,11 @@ The feature is evolved as follows:
 * Add new CategoriesAutoCompleteTextField class that extends TextField to implement autocomplete suggestions
 * Add default suggestions to `Cuisine`, `Occasion`, `Price Range`.
 
-You can refer to the following sequence diagram to get a better understanding of how a typical valid setCategories command
+You can refer to _Figure 2_ below to get a better understanding of how a typical valid setCategories command
 executes internally.
 
 image::SetCategoriesSequenceDiagram.png[width="1000"]
+_Figure 2: setCategories Sequence Diagram_
 
 ==== Design Considerations
 

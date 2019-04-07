@@ -57,7 +57,7 @@ public class EquipmentCard extends UiPart<Region> {
         phone.setText(equipment.getPhone().value);
         address.setText(equipment.getAddress().value);
         serialNumber.setText(equipment.getSerialNumber().serialNumber);
-        date.setText(equipment.getDate().value);
+        date.setText(equipment.getDate().toString());
         equipment.getTags().forEach(tag -> {
             String tagName = tag.tagName;
             tags.getChildren().add(new Label(tagName));

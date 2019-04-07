@@ -34,7 +34,7 @@ public class AddWorkListCommandParser implements Parser<AddWorkListCommand> {
         String assignee = ParserUtil.parseAssignee(argMultimap.getValue(CliSyntax.PREFIX_ASSIGNEE).get());
         WorkListId id = ParserUtil.parseWorkListId(argMultimap.getValue(CliSyntax.PREFIX_ID).get());
 
-        WorkList workList = new WorkList(date.value, assignee, id);
+        WorkList workList = new WorkList(date.toString(), assignee, id);
 
         return new AddWorkListCommand(workList);
     }

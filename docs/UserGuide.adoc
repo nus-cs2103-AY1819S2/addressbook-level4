@@ -138,7 +138,7 @@ Equipment that has overdue preventative maintenance dates are allowed to be adde
 
 Example:
 
-* `add n/Clementi CC p/67762517 pm/10 May 2019 a/ 220 Clementi Ave 4, Singapore 129880 s/A008844L t/west`
+* `add n/Clementi CC p/67762517 pm/10-05-2019 a/ 220 Clementi Ave 4, Singapore 129880 s/A008844L t/west`
 
 // tag::addclient[]
 === Adding a client: `add-c`
@@ -164,7 +164,7 @@ The user can enter multiple assignees, but only one date and id.
 
 Example:
 
-* `add-w d/09 May 2019 a/Mei Yen i/13`
+* `add-w d/09-05-2019 a/Mei Yen i/13`
 
 === Adding to work list: `put`
 Adds equipment to working list in the Equipment Manager +

@@ -99,7 +99,6 @@ public class FilterCommandTest {
                 Arrays.asList(), Arrays.asList(), Arrays.asList(), Arrays.asList(), Arrays.asList());
         FilterCommand command = new FilterCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
-        System.out.println(expectedModel.getFilteredPersonList());
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         List<Equipment> expectedList = Arrays.asList(ANCHORVALECC, HWIYOHCC, AYERRAJAHCC, BUKITGCC, JURONGREENCC);
         assertEquals(expectedList,

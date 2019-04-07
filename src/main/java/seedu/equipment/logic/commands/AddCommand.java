@@ -26,7 +26,7 @@ public class AddCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_NAME + "John Doe "
             + CliSyntax.PREFIX_PHONE + "98765432 "
-            + CliSyntax.PREFIX_PM + "22 April 2019 "
+            + CliSyntax.PREFIX_PM + "22-04-2019 "
             + CliSyntax.PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + CliSyntax.PREFIX_SERIALNUMBER + "A008866X "
             + CliSyntax.PREFIX_TAG + "west "

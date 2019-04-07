@@ -23,7 +23,7 @@ public class JsonAdaptedEquipmentTest {
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_SERIAL_NUMBER = "A0$SD9L";
-    private static final String INVALID_DATE = "20-11-2019";
+    private static final String INVALID_DATE = "20 November 2019";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = HWIYOHCC.getName().toString();

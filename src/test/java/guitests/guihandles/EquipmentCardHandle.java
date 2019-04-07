@@ -88,7 +88,7 @@ public class EquipmentCardHandle extends NodeHandle<Node> {
         return getName().equals(equipment.getName().name)
                 && getAddress().equals(equipment.getAddress().value)
                 && getPhone().equals(equipment.getPhone().value)
-                && getDate().equals(equipment.getDate().value)
+                && getDate().equals(equipment.getDate().toString())
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(equipment.getTags().stream()
                         .map(tag -> tag.tagName)
                         .collect(Collectors.toList())));

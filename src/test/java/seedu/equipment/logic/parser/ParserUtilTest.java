@@ -39,7 +39,7 @@ public class ParserUtilTest {
     private static final String VALID_SERIAL_NUMBER = "A008866L";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
-    private static final String VALID_DATE = "01 May 2019";
+    private static final String VALID_DATE = "01-05-2019";
     private static final String VALID_ASSIGNEE = "Mei Yen";
 
     private static final String WHITESPACE = " \t\r\n";

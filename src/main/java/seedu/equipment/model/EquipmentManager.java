@@ -3,6 +3,7 @@ package seedu.equipment.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -192,6 +193,10 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
         requireNonNull(key);
         worklist.remove(key);
         indicateModified();
+    }
+
+    public void sortEquipmentList(Comparator<Equipment> comparator) {
+        equipment.sortList(comparator);
     }
 
     /**

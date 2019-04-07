@@ -348,12 +348,12 @@ public class Lesson {
 
         List<String> cores = fields.subList(0, coreHeaders.size());
 
-        int optionalCount = fields.size() - coreHeaders.size();
+        int optionalStart = fields.size() - coreHeaders.size() + 1;
 
-        if (optionalCount == 0) {
+        if (optionalStart == 0) {
             addCard(new Card(cores));
         } else {
-            List<String> optionals = fields.subList(optionalCount, fields.size());
+            List<String> optionals = fields.subList(optionalStart, fields.size());
             addCard(new Card(cores, optionals));
         }
     }

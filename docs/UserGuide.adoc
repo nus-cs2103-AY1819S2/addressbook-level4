@@ -133,7 +133,7 @@ Examples:
 
 * `delete 1` +
 Deletes the first restaurant in the Food Diary.
-* `filter c/Western` +
+* `filter Western` +
 `delete 2` +
 Deletes the second restaurant in the filtered list with the cuisine `Western`.
 
@@ -214,7 +214,37 @@ _Figure 2. After selecting restaurant with index 3, Chilis' summary, reviews and
 Set the cuisine of a restaurant identified by the index number used in the list. +
 Format: `setCategories INDEX [c/CUISINE] [oc/OCCASION] [pr/PRICE_RANGE]`
 
-****
+===== Step by step guide on how to set categories:
+
+Step 1: List all the restaurants by typing `list`
+
+image::setcategories-stepone.png[width="800"]
+_Figure 1: After typing `list`_
+
+Step 2: Choose a restaurant you want to set categories to. Let us choose Astons for this example. Take note that Astons
+is identified by *INDEX 1*. Start typing `setCategories 1 c/` as follows:
+
+image::setcategories-steptwo.png[width="800"]
+_Figure 2: Notice suggestions for cuisines will pop up. Use arrow keys to select the desired suggestion and press enter,
+or you can also choose to continue typing something not in the suggestions._
+
+Step 3: Continue keying in the occasion prefix after you finished keying in the cuisine. The occasion prefix is oc/.
+
+image::setcategories-stepthree.png[width="800"]
+_Figure 3: Once again, you can pick the occasion you see in the suggestions or continue typing._
+
+Step 4: Key in the price range next.
+
+image::setcategories-stepfour.png[width="800"]
+_Figure 4: Pick a price range from the list or just type, whichever is faster for you._
+
+Step 5: Press enter and the categories will be set! Else, you might have made a typo somewhere.
+
+image::setcategories-stepfive.png[width="800]
+_Figure 5: Success!_
+
+[NOTE]
+====
 * The index refers to the index number shown in the displayed restaurants list.
 * You need to ensure that the index entered *must be a positive integer* `1, 2, 3, ...`
 * You need to ensure that the `Price Range` entered *must* only consist of 1-5 $ characters. e.g. $, \$$$, $$\$$$
@@ -223,19 +253,25 @@ is okay but $$\$$$$, cheap or $expensive will be rejected.
 * You do not need to worry about capitalization. `Cuisine` and `Occasion` will be autocapitalized.
 e.g. `fast food` and `premium casual` will be capitalized to
 `Fast Food` and `Premium Casual`. `fAST fOOD` will be converted into `Fast Food`.
-****
-
-Examples:
-
-* `list` +
-`setCategories 2 c/Fine Dining oc/Wedding pr/\$$$$$` +
-Sets the categories of the second restaurant in the list to `Fine Dining` for cuisine, `Wedding` for occasion and
-`\$$$$$` for price range.
-
-[NOTE]
+* You do not need to be concerned about the order of categories keyed in. e.g. Entering `Price Range` before `Cuisine` will
+work as well.
+* You do not need to set categories one by one or set all three at once. You have complete freedom to set categories
+whether it is one at a time, two at a time or three at a time.
 ====
-* setCategories for `Cuisine`, `Occasion` and `Price Range` supported as of v1.3
-* Autocomplete feature planned for v1.4
+
+Other examples you can try:
+
+* `setCategories 2 oc/Premium Casual pr/\$$$$$` +
+Sets the categories of the second restaurant in the list to `Premium Casual` for occasion and
+`\$$$$$` for price range.
+* `setCategories 3 c/Western` +
+Only sets the cuisine of the third restaurant to `Western`.
+
+[TIP]
+====
+* You can make use of the autocomplete suggestions to type faster!
+* When a category's prefix (`c/`, `oc/` or `pr/`) is keyed in, suggestions will appear. Use arrow keys to select the desired
+suggestion and press enter. The suggestion will be filled automatically for you!
 ====
 
 ==== Filter restaurants based on category : `filter`
@@ -243,8 +279,32 @@ Sets the categories of the second restaurant in the list to `Fine Dining` for cu
 Filters and lists the restaurants with categories matching the keywords entered. +
 Format: `filter KEYWORD [MORE_KEYWORDS]`
 
-****
-* You do not need to worry about case. Filtering is case insensitive. e.g. `fast food` will match `Fast Food`
+Step by step guide on how to filter:
+
+Step 1: Suppose you want to filter out all the `Western` restaurants. Type `filter western` as shown below.
+
+image::filter-stepone.png[width="800"]
+_Figure 1: Type `filter western` into the command box_
+
+Step 2: Press enter and you should see all the western restaurants.
+
+image::filter-steptwo.png[width="800"]
+_Figure 2: Western restaurants are listed_
+
+Step 3: Suppose now you want to filter out all `Western`, `Japanese`, as well as `Chinese` restaurants. Type `filter
+western japanese chinese` as shown below.
+
+image::filter-stepthree.png[width="800"]
+_Figure 3: Type `filter western japanese chinese` into the command box_
+
+Step 4: Press enter again and now all `Western`, `Japanese` and `Chinese restaurants will be shown.
+
+image::filter-stepfour.png[width="800"]
+_Figure 4: Western, Japanese and Chinese restaurants are now listed_
+
+[NOTE]
+====
+* You do not need to worry about case. Filtering is case insensitive. e.g. `western` will match `Western`
 * You do not need to be concerned about which categories you want to filter. Filtering works across categories.
 e.g. `japanese $$$$` will match all restaurants with `Cuisine` set as `Japanese` or `Price Range` set as `\$$$$`.
 Note this also means that the more keywords you add, the more general the filter becomes.
@@ -252,20 +312,20 @@ Note this also means that the more keywords you add, the more general the filter
 `Price Range` as `$` or `Occasion` as `Casual`.
 * You can filter multiple categories of the same type. e.g. `japanese western` will match both `Japanese` and `Western` cuisine
 restaurants. All `Japanese` and `Western` restaurants will be displayed.
-* You must enter words in full. e.g. `fas foo` will not match `fast food`
+* You must enter words in full. e.g. `west` will not match `western`
 * Restaurants matching at least one keyword will be displayed. e.g. `fast food` will match `hawker food`
-****
+====
 
-Examples:
+Some examples you can try:
 
-* `filter fast food` +
-Returns restaurants with `Cuisine` or `Occasion` matching `fast` or `food`
-* `filter fast food casual`
-Returns restaurants with `Cuisine` or `Occasion` matching `fast`, `food` or `casual`
+* `filter fine dining` +
+Returns restaurants with any category matching `fine` or `dining`.
+* `filter fine dining casual`
+Returns restaurants with any category matching `fine`, `dining` or `casual`.
 * `filter $`
-Returns restaurants with `Price Range` matching `$`
+Returns restaurants with any category matching `$`. In this case will most likely match `Price Range`.
 * `filter $ casual western`
-Returns restaurants with  `Cuisine`, `Occasion` or `Price Range` matching `$`, `casual` or `western`
+Returns restaurants with any category matching `$`, `casual` or `western`.
 // end::categorization[]
 
 // tag::visitweb[]

@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.equipment.model.equipment.Address;
+
 /**
  * Represents the result of a command execution.
  */
@@ -19,6 +21,12 @@ public class CommandResult {
 
     /** The application should show map on right hand side with equipment locations. */
     private final boolean displayMap;
+
+    /** The application should show map on right hand side with route to equipments. */
+    private final boolean route;
+
+    /** The address send back to UI to display route. */
+    private final Address routeAddress;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -40,10 +48,21 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean displayMap) {
+        this(feedbackToUser, showHelp, exit, displayMap, false, null);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
+     * and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean displayMap,
+                         boolean route, Address routeAddress) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.displayMap = displayMap;
+        this.route = route;
+        this.routeAddress = routeAddress;
     }
 
     public String getFeedbackToUser() {
@@ -62,6 +81,12 @@ public class CommandResult {
         return displayMap;
     }
 
+    public boolean isRoute() {
+        return route;
+    }
+
+    public Address getRouteAddress() { return routeAddress; }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -77,12 +102,14 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
-                && displayMap == otherCommandResult.displayMap;
+                && displayMap == otherCommandResult.displayMap
+                && route == otherCommandResult.route
+                && ((routeAddress == null && otherCommandResult.routeAddress == null)
+                    || (routeAddress != null && routeAddress.equals(otherCommandResult.routeAddress)));
     }
 
-    @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, displayMap);
+        return Objects.hash(feedbackToUser, showHelp, exit, displayMap, route, routeAddress);
     }
 
 }

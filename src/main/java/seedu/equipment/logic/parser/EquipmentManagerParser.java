@@ -22,6 +22,7 @@ import seedu.equipment.logic.commands.ListEquipmentCommand;
 import seedu.equipment.logic.commands.ListWorkListCommand;
 import seedu.equipment.logic.commands.PutCommand;
 import seedu.equipment.logic.commands.RedoCommand;
+import seedu.equipment.logic.commands.RouteCommand;
 import seedu.equipment.logic.commands.SelectCommand;
 import seedu.equipment.logic.commands.SortCommand;
 import seedu.equipment.logic.commands.UndoCommand;
@@ -113,6 +114,9 @@ public class EquipmentManagerParser {
 
         case DisplayCommand.COMMAND_WORD:
             return new DisplayCommand();
+
+        case RouteCommand.COMMAND_WORD:
+            return new RouteCommandParser().parse(arguments);
 
         default:
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);

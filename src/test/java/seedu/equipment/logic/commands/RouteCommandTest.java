@@ -88,6 +88,9 @@ public class RouteCommandTest {
         } catch (CommandException ce) {
             fail("ParseException should be thrown but CommandException is thrown.");
         } catch (ParseException pe) {
+            if (pe.getMessage() == null) {
+                fail("Should display some error message.");
+            }
         }
     }
 

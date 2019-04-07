@@ -503,7 +503,7 @@ This action can only be done in Menu Mode. If not in Menu Mode currently , users
 
 Given below is an example usage scenario and how the `addToMenu` mechanism behaves at each step.
 
-Step 1. The user executes the `addToMenu` command by typing the name, code and price of the menu item (e.g.: `addToMenu n/French Fries c/W12 p/2.50`).
+Step 1. The user executes the `addToMenu` command by typing the name, code and price of the menu item (e.g.: :computer: `addToMenu n/French Fries c/W12 p/2.50`).
 
 Step 2. After ensuring that all parameters is valid and that the new menu item is unique, the change is reflected in the User Interface, where the list panel displays the newly added menu item. A success message is also displayed to the users at the result display box.
 

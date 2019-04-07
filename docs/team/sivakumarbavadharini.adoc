@@ -1,0 +1,60 @@
+= Sivakumar Bavadharini - Project Portfolio for RestOrRant
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: RestOrRant
+
+---
+
+== About the project
+
+My team and I were given a basic command line interface addressbook program and were tasked to enhance or morph it for our Software Engineering module project. We decided to morph it into a restaurant management system called _RestOrRant_. With _RestOrRant_, the restaurant's front-end operations can be streamlined via automation to maximise efficiency for waiters and cashiers. _RestOrRant_ allows restaurant managers to manage tables (availabilities and lists of orders), orders (whether they have been served and calculation of the bill), menu (updates to the menu) and statistics (daily, monthly and yearly revenue).
+
+My role was to implement the menu feature end-to-end (across `UI`, `Model`, `Logic` and `Storage` components). The following sections elaborate on my enhancements as well as the relevant updates to the User Guide and Developer Guide to reflect these enhancements.
+
+== Summary of contributions
+
+This section contains a summary of my contributions to the code, documentation, and other minor enhancements made to _RestOrRant_.
+
+* *Major enhancement*: I added the ability to add menu items to and delete menu items from the menu.
+** What it does:
+*** `addToMenu`: The `addToMenu` command allows the user to add a menu item to the menu. The menu item must be specified with an item code, name and price using labels such as `*c/*` for code, `*n/*` for name and `*p/*` for price. For example, `addToMenu c/W09 n/Chicken Wings p/3.20` would add the item Chicken wings with code W09 and price 3.20 to the menu.
+*** `deleteFromMenu`: The `deleteFromMenu` command allows the user to delete a menu item from the menu, but here the menu item is only identified by its code. For example, `deleteFromMenu W09` would delete the menu item with the code W09 from the menu.
+** Justification: These commands in the menu feature would allow restaurant managers to edit the menu according to the ingredients they have available each day. The menu is also stored internally, and thus there would be no need to re-enter all the menu items but instead only add or remove a few menu items each day.
+** Highlights: This enhancement works well with existing as well as future commands. The format of labelling for the `addToMenu` command was used for ease of distinguishing the name, code and price of the menu items. With the labels, users need not follow the format of keying in name, code then price and the command would work fine. However, the labelling approach was not needed for the `deleteFromMenu` command as the code is the only input needed.
+** Credits: The addressbook given to us had originally used the labelling format for adding people to the addressbook, which is where I got my inspiration from for the `addToMenu` command.
+
+* *Minor enhancement*: I added the ability to store the quantity ordered for each menu item in the menu, and update the
+quantity ordered every time the bill is called, (implementation of `updateMenuItemQuantity` method).
+** What it does: When a menu item is added for the first time, the quantity is automatically set to zero. It then
+updates from zero every time the orders are confirmed (i.e. when the bill is called).
+** Justification: This enhancement is to aid the future implementation of finding the most popular item in the menu, by
+retrieving the menu item with the largest number of quantity ordered.
+** Highlights: This enhancement works well with existing as well as future commands, and would help in future
+implementation of finding out whether an item is sold out as well.
+
+*Other contributions:*
+
+* Project Management:
+** There were a total of 2 releases, from version 1.2.1 to 1.3 and I managed both releases on GitHub.
+** I was also in charge of scheduling and tracking, and managed the tracking of issues and milestones on GitHub.
+* Documentation:
+** Updated the User Guide and Developer Guide to reflect the commands related to the menu feature.
+* Community:
+** Offered suggestions on improvements to other teams' documentation in the class.
+
+== Contributions to the User Guide
+
+We had to make changes to the original addressbook User Guide with the instructions relevant to _RestOrRant_. The
+following is an excerpt from our *RestOrRant User Guide* to show the updates that I have made for the menu features.
+
+include::../UserGuide.adoc[tag=menumode]
+
+== Contributions to the Developer Guide
+
+We also had to make changes to the original addressbook Developer Guide as our implementation had major changes in the
+UI, logic, model and storage components. The following is an excerpt from our *RestOrRant Developer Guide* to show the
+updates that I have made for the menu features as well as the storage component.
+
+include::../DeveloperGuide.adoc[tag=addtomenu]

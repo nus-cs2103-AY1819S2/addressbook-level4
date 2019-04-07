@@ -2,6 +2,7 @@ package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_OPENED_LESSON;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -34,7 +35,16 @@ public class OpenLessonCommand extends ManagementCommand {
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */
-    public static final String MESSAGE_SUCCESS = "Opened lesson: %1$s";
+    public static final String MESSAGE_SUCCESS =
+            "Lesson View: %1$s\nYou can now use the following commands:\n"
+                    + "1. " + ListCardsCommand.COMMAND_WORD
+                    + ": Lists all cards in the opened lesson.\n"
+                    + "2. " + AddCardCommand.COMMAND_WORD
+                    + ": Adds a card to the opened lesson.\n"
+                    + "3. " + DeleteCardCommand.COMMAND_WORD
+                    + ": Deletes the card at the specified INDEX of the card list.\n"
+                    + "4. " + CloseLessonCommand.COMMAND_WORD
+                    + ": Closes this lesson and saves all changes.";
     /**
      * The index of the lesson to be opened when {@link #execute(Model, CommandHistory)}
      * is called.
@@ -71,13 +81,17 @@ public class OpenLessonCommand extends ManagementCommand {
         String lessonName;
 
         try {
+            if (mgtModel.isThereOpenedLesson()) {
+                throw new CommandException(MESSAGE_OPENED_LESSON);
+            }
+
             lessonName = mgtModel.openLesson(toOpenIndex);
         } catch (IllegalArgumentException e) {
             throw new CommandException(String.format(MESSAGE_INVALID_INDEX,
                     targetIndex.getOneBased()), e);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, lessonName));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, lessonName, true));
     }
 
     /**

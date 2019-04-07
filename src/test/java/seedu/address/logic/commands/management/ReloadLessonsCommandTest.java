@@ -2,12 +2,15 @@ package seedu.address.logic.commands.management;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_OPENED_LESSON;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.modelmanager.ManagementModelStub;
 
 /**
  * Unit tests for the {@link ReloadLessonsCommand}.
@@ -21,13 +24,26 @@ public class ReloadLessonsCommandTest {
      * implemented in LogicManager.
      */
     @Test
-    public void execute_lessonClosedByModel_closeSuccessful() {
+    public void execute_lessonClosedByModel_closeSuccessful() throws CommandException {
+        MgtModelStub modelStub = new MgtModelStub();
         CommandResult expected = new CommandResult(ReloadLessonsCommand.MESSAGE_SUCCESS,
             CommandResult.UpdateStorage.LOAD);
         ReloadLessonsCommand command = new ReloadLessonsCommand();
 
-        assertEquals(expected, command.execute(null, null));
+        assertEquals(expected, command.execute(modelStub, null));
     }
+
+    @Test
+    public void execute_modelWithOpenedLesson_closeUnsuccessful() throws CommandException {
+        MgtModelStubWithOpenedLesson modelStub = new MgtModelStubWithOpenedLesson();
+
+        // attempt to reload lessons but there is an opened lesson ->
+        // ask user to close opened lesson first
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(MESSAGE_OPENED_LESSON);
+        new ReloadLessonsCommand().execute(modelStub, null);
+    }
+
 
     @Test
     public void equals() {
@@ -45,5 +61,25 @@ public class ReloadLessonsCommandTest {
 
         // null -> returns false
         assertNotEquals(reloadLessonsCommand, null);
+    }
+
+    /**
+     * A ManagementModel stub which always accept reload lessons.
+     */
+    private class MgtModelStub extends ManagementModelStub {
+        @Override
+        public boolean isThereOpenedLesson() {
+            return false;
+        }
+    }
+
+    /**
+     * A ManagementModel stub which always rejects reload lessons.
+     */
+    private class MgtModelStubWithOpenedLesson extends ManagementModelStub {
+        @Override
+        public boolean isThereOpenedLesson() {
+            return true;
+        }
     }
 }

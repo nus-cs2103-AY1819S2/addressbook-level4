@@ -4,8 +4,10 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.commons.util.StringUtil.hasEmptyStrings;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import org.junit.Rule;
@@ -155,5 +157,19 @@ public class StringUtilTest {
         StringUtil.getDetails(null);
     }
 
+    @Test
+    public void testForEmptyStrings_hasEmptyString_returnsTrue() {
+        ArrayList<String> strings = new ArrayList<>();
+        strings.add("Hi");
+        strings.add("");
+        assertTrue(hasEmptyStrings(strings));
+    }
 
+    @Test
+    public void testForEmptyStrings_hasNoEmptyString_returnsFalse() {
+        ArrayList<String> strings = new ArrayList<>();
+        strings.add("Hi");
+        strings.add("Bye");
+        assertFalse(hasEmptyStrings(strings));
+    }
 }

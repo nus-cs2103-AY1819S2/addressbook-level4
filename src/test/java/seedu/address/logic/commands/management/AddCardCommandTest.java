@@ -2,6 +2,7 @@ package seedu.address.logic.commands.management;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static seedu.address.logic.commands.management.AddCardCommand.MESSAGE_DUPLICATE_CARD;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
 import static seedu.address.model.lesson.Lesson.EXCEPTION_CORE_SIZE_MISMATCH;
 
@@ -17,7 +18,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.card.Card;
-import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.ManagementModelStub;
 import seedu.address.model.modelmanager.QuizModelStub;
 import seedu.address.testutil.CardBuilder;
@@ -57,6 +57,25 @@ public class AddCardCommandTest {
         // card added successfully -> card in cards
         assertEquals(Collections.singletonList(validCard), modelStub.cards);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
+    public void execute_addDuplicateCards_throwsCommandException() throws CommandException {
+        MgtModelStubAcceptingAdd modelStub = new MgtModelStubAcceptingAdd();
+        Card validCard = new CardBuilder().build();
+
+        // add valid card -> card added successfully
+        CommandResult commandResult =
+                new AddCardCommand(validCard).execute(modelStub, commandHistory);
+
+        // card added successfully -> success feedback
+        assertEquals(String.format(AddCardCommand.MESSAGE_SUCCESS, validCard),
+                commandResult.getFeedbackToUser());
+
+        // add valid card again -> throws command exception
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(MESSAGE_DUPLICATE_CARD);
+        new AddCardCommand(validCard).execute(modelStub, commandHistory);
     }
 
     @Test
@@ -147,6 +166,11 @@ public class AddCardCommandTest {
         }
 
         @Override
+        public boolean isThereOpenedLesson() {
+            return true;
+        }
+
+        @Override
         public List<String> getOpenedLessonCoreHeaders() {
             return coreHeaders;
         }
@@ -166,6 +190,17 @@ public class AddCardCommandTest {
 
             cards.add(card);
         }
+
+        @Override
+        public boolean openLessonHasCard(Card cardToCheck) {
+            for (Card card : cards) {
+                if (card.equals(cardToCheck)) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 
     /**
@@ -173,12 +208,9 @@ public class AddCardCommandTest {
      * card given there is no open lesson.
      */
     private class MgtModelStubNoOpenLesson extends ManagementModelStub {
-        private Lesson openedLesson = null;
-
         @Override
-        public void addCardToOpenedLesson(Card card) {
-            // No open lesson available
-            openedLesson.addCard(card);
+        public boolean isThereOpenedLesson() {
+            return false;
         }
     }
 }

@@ -3,7 +3,10 @@ package seedu.address.logic.commands.management;
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_OPENED_LESSON;
+import static seedu.address.logic.commands.management.AddLessonCommand.MESSAGE_DUPLICATE_NAME;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
+import static seedu.address.model.lesson.LessonList.EXCEPTION_INVALID_INDEX;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -58,6 +61,45 @@ public class AddLessonCommandTest {
     }
 
     @Test
+    public void execute_validLessonButHaveOpenedLesson_addUnsuccessful() throws Exception {
+        MgtModelStubAcceptingAdd modelStub = new MgtModelStubAcceptingAdd();
+        Lesson validLesson = new LessonBuilder().build();
+
+        // add valid lesson -> lesson added successfully
+        CommandResult commandResult =
+                new AddLessonCommand(validLesson).execute(modelStub, commandHistory);
+        // lesson added successfully -> success feedback
+        assertEquals(String.format(AddLessonCommand.MESSAGE_SUCCESS, validLesson),
+                commandResult.getFeedbackToUser());
+
+        // open added lesson
+        modelStub.openLesson(0);
+
+        // attempt to add valid lesson but there is an opened lesson ->
+        // ask user to close opened lesson first
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(MESSAGE_OPENED_LESSON);
+        new AddLessonCommand(validLesson).execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_duplicateLessonName_throwsCommandException() throws Exception {
+        MgtModelStubAcceptingAdd modelStub = new MgtModelStubAcceptingAdd();
+        Lesson validLesson = new LessonBuilder().build();
+
+        // add valid lesson -> lesson added successfully
+        CommandResult commandResult = new AddLessonCommand(validLesson).execute(modelStub, commandHistory);
+        // lesson added successfully -> success feedback
+        assertEquals(String.format(AddLessonCommand.MESSAGE_SUCCESS, validLesson),
+                commandResult.getFeedbackToUser());
+
+        // add valid lesson with the same name -> command exception thrown
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(String.format(MESSAGE_DUPLICATE_NAME, validLesson.getName()));
+        new AddLessonCommand(validLesson).execute(modelStub, commandHistory);
+    }
+
+    @Test
     public void execute_incorrectModel_throwsCommandException() throws Exception {
         QuizModelStub modelStub = new QuizModelStub();
         Lesson validLesson = new LessonBuilder().build();
@@ -99,6 +141,37 @@ public class AddLessonCommandTest {
      */
     private class MgtModelStubAcceptingAdd extends ManagementModelStub {
         private final ArrayList<Lesson> lessons = new ArrayList<>();
+        /**
+         * The {@link Lesson} object currently in focus. All lesson-editing-related commands will apply
+         * to this lesson.
+         */
+        private Lesson openedLesson = null; // The lesson currently being edited
+
+        @Override
+        public boolean hasLessonWithName(String name) {
+            for (Lesson lesson : lessons) {
+                if (lesson.getName().equals(name)) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        @Override
+        public String openLesson(int index) {
+            try {
+                openedLesson = lessons.get(index);
+                return openedLesson.getName();
+            } catch (IndexOutOfBoundsException e) {
+                throw new IllegalArgumentException(EXCEPTION_INVALID_INDEX + index);
+            }
+        }
+
+        @Override
+        public boolean isThereOpenedLesson() {
+            return openedLesson != null;
+        }
 
         @Override
         public void addLesson(Lesson lesson) {

@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.util.Comparator;
+
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import seedu.address.model.medicine.Medicine;

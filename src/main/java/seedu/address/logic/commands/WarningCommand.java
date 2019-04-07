@@ -70,7 +70,8 @@ public class WarningCommand extends Command {
      */
     private CommandResult showCurrentThresholds(Model model) {
         int expiryThresholdVal = model.getWarningPanelThreshold(WarningPanelPredicateType.EXPIRY).getNumericValue();
-        int lowStockThresholdVal = model.getWarningPanelThreshold(WarningPanelPredicateType.LOW_STOCK).getNumericValue();
+        int lowStockThresholdVal = model.getWarningPanelThreshold(WarningPanelPredicateType.LOW_STOCK)
+                .getNumericValue();
         return new CommandResult(
                 String.format(Messages.MESSAGE_SHOW_CURRENT_THRESHOLDS,
                         expiryThresholdVal, expiryThresholdVal == 1 ? "" : "s", lowStockThresholdVal));

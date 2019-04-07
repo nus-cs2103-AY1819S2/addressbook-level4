@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddAppointmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.FutureAppointment;
 
 /**
  * Parses input arguments and creates a new AddAppointmentCommand object
@@ -36,7 +36,7 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
                     AddAppointmentCommand.MESSAGE_USAGE));
         }
 
-        Appointment appointment = new Appointment(
+        FutureAppointment appointment = new FutureAppointment(
                 Integer.parseInt(argMultimap.getValue(PREFIX_PATIENT_ID).get()),
                 Integer.parseInt(argMultimap.getValue(PREFIX_DOCTOR_ID).get()),
                 LocalDate.parse(argMultimap.getValue(PREFIX_DATE_OF_APPT).get()),

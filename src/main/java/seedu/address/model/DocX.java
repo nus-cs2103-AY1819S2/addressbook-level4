@@ -13,8 +13,8 @@ import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.UniqueMedHistList;
 import seedu.address.model.person.Doctor;
-import seedu.address.model.person.IdCounter;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.PersonIdCounter;
 import seedu.address.model.person.UniqueDoctorList;
 import seedu.address.model.person.UniquePatientList;
 import seedu.address.model.prescription.Prescription;
@@ -33,7 +33,7 @@ public class DocX implements ReadOnlyDocX {
     private final UniquePrescriptionList prescriptions;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
     private final UniqueAppointmentList appointments;
-    private final IdCounter idCounter;
+    private final PersonIdCounter personIdCounter;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -48,7 +48,7 @@ public class DocX implements ReadOnlyDocX {
         medHists = new UniqueMedHistList();
         prescriptions = new UniquePrescriptionList();
         appointments = new UniqueAppointmentList();
-        idCounter = new IdCounter();
+        personIdCounter = PersonIdCounter.getInstance();
     }
 
     public DocX() {
@@ -68,8 +68,8 @@ public class DocX implements ReadOnlyDocX {
      * Replaces the content of the idCounter with {@code idCounter}.
      * {@code appointments} must not contain duplicate appointments.
      */
-    public void setIdCounter(IdCounter idCounter) {
-        this.idCounter.setIdCounter(idCounter);
+    public void setPersonIdCounter(PersonIdCounter idCounter) {
+        this.personIdCounter.setCurrentMaxId(idCounter.getCurrentMaxId());
         indicateModified();
     }
 
@@ -333,8 +333,8 @@ public class DocX implements ReadOnlyDocX {
     }
 
     @Override
-    public IdCounter getIdCounter() {
-        return idCounter;
+    public PersonIdCounter getPersonIdCounter() {
+        return personIdCounter;
     }
 
     @Override

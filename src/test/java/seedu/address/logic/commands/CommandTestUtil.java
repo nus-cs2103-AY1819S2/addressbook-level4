@@ -4,13 +4,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_APPT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SPECIALISATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -61,6 +66,19 @@ public class CommandTestUtil {
     public static final String SPECIALISATION_DESC_GENERAL = " " + PREFIX_SPECIALISATION
             + VALID_SPECIALISATION_GENERAL;
     // end of add-doctor testing
+
+    // for testing appointment
+    public static final String VALID_PATIENT_ID = "1";
+    public static final String VALID_DOCTOR_ID = "2";
+    public static final LocalDateTime futureDateTime = LocalDateTime.now().plusDays(1);
+    public static final String VALID_DATE_OF_APPT = futureDateTime.toLocalDate().toString();
+    public static final String VALID_START_TIME = futureDateTime.toLocalTime().toString();
+
+    public static final String DESC_VALID_PATIENT_ID = " " + PREFIX_PATIENT_ID + VALID_PATIENT_ID;
+    public static final String DESC_VALID_DOCTOR_ID = " " + PREFIX_DOCTOR_ID + VALID_DOCTOR_ID;
+    public static final String DESC_VALID_DATE_OF_APPT = " " + PREFIX_DATE_OF_APPT + VALID_DATE_OF_APPT;
+    public static final String DESC_VALID_START_TIME = " " + PREFIX_START_TIME + VALID_START_TIME;
+    // end of testing appointment
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";

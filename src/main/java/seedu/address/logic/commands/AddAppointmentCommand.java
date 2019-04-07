@@ -6,12 +6,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 
-import java.util.Objects;
-
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.FutureAppointment;
 
 /**
  * Adds a new appointment to a patient.
@@ -29,14 +28,14 @@ public class AddAppointmentCommand extends Command {
             + PREFIX_PATIENT_ID + "1 "
             + PREFIX_DOCTOR_ID + "1 "
             + PREFIX_DATE_OF_APPT + "2019-06-01 "
-            + PREFIX_START_TIME + "9 ";
+            + PREFIX_START_TIME + "09:00 ";
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists in docX";
 
     private Appointment appointment;
 
-    public AddAppointmentCommand(Appointment appointment) {
+    public AddAppointmentCommand(FutureAppointment appointment) {
         this.appointment = appointment;
     }
 
@@ -64,6 +63,8 @@ public class AddAppointmentCommand extends Command {
 
         AddAppointmentCommand that = (AddAppointmentCommand) o;
         return (appointment.getPatientId() == that.appointment.getPatientId()
-                && Objects.equals(appointment.getTimeOfAppt(), that.appointment.getTimeOfAppt()));
+                && appointment.getDoctorId() == that.appointment.getDoctorId()
+                && appointment.getDate().equals(that.appointment.getDate())
+                && appointment.getTime().equals(that.appointment.getTime()));
     }
 }

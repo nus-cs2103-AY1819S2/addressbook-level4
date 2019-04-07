@@ -32,10 +32,13 @@ class JsonAdaptedDoctor extends JsonAdaptedPerson {
      * Constructs a {@code JsonAdaptedDoctor} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedDoctor(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                             @JsonProperty("gender") String gender, @JsonProperty("year") String year,
+    public JsonAdaptedDoctor(@JsonProperty("id") String id,
+                             @JsonProperty("name") String name,
+                             @JsonProperty("phone") String phone,
+                             @JsonProperty("gender") String gender,
+                             @JsonProperty("year") String year,
                              @JsonProperty("specs") List<JsonAdaptedSpecialisation> specs) {
-        super(name, phone, gender);
+        super(id, name, phone, gender);
         this.year = year;
         if (specs != null) {
             this.specs.addAll(specs);
@@ -46,7 +49,8 @@ class JsonAdaptedDoctor extends JsonAdaptedPerson {
      * Converts a given {@code Doctor} into this class for Jackson use.
      */
     public JsonAdaptedDoctor(Doctor source) {
-        super(source.getName().fullName, source.getPhone().value, source.getGender().value);
+        super(String.valueOf(source.getId()), source.getName().fullName, source.getPhone().value,
+                source.getGender().value);
         year = source.getYear().value;
         specs.addAll(source.getSpecs().stream()
                 .map(JsonAdaptedSpecialisation::new)

@@ -33,6 +33,17 @@ public class Patient extends Person {
         this.tags.addAll(tags);
     }
 
+    /**
+     * This is an existing patient and does not need to generate a new ID.
+     */
+    public Patient(int id, Name name, Gender gender, Age age, Phone phone, Address address, Set<Tag> tags) {
+        super(id, name, phone, gender);
+        requireAllNonNull(name, phone, gender);
+        this.age = age;
+        this.address = address;
+        this.tags.addAll(tags);
+    }
+
     public Age getAge() {
         return age;
     }

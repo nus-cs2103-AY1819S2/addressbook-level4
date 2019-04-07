@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -23,6 +25,16 @@ public class Doctor extends Person {
      */
     public Doctor(Name name, Phone phone, Gender gender, Year year, Set<Specialisation> specList) {
         super(name, phone, gender);
+        this.year = year;
+        this.specList.addAll(specList);
+    }
+
+    /**
+     * This is an existing doctor and does not need to generate a new ID.
+     */
+    public Doctor(int id, Name name, Phone phone, Gender gender, Year year, Set<Specialisation> specList) {
+        super(id, name, phone, gender);
+        requireAllNonNull(name, phone, gender);
         this.year = year;
         this.specList.addAll(specList);
     }

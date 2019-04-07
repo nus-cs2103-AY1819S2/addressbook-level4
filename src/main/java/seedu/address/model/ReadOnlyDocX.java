@@ -5,8 +5,8 @@ import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
-import seedu.address.model.person.IdCounter;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.PersonIdCounter;
 import seedu.address.model.prescription.Prescription;
 
 
@@ -47,7 +47,7 @@ public interface ReadOnlyDocX extends Observable {
     ObservableList<Appointment> getAppointmentList();
 
     /**
-     * Returns idCounter for patient and doctor
+     * Returns PersonIdCounter for patient and doctor
      */
-    IdCounter getIdCounter();
+    PersonIdCounter getPersonIdCounter();
 }

@@ -9,6 +9,8 @@ import org.junit.Test;
 
 import seedu.equipment.logic.CommandHistory;
 import seedu.equipment.logic.commands.exceptions.CommandException;
+import seedu.equipment.logic.parser.RouteCommandParser;
+import seedu.equipment.logic.parser.exceptions.ParseException;
 import seedu.equipment.model.Model;
 import seedu.equipment.model.ModelManager;
 import seedu.equipment.model.UserPrefs;
@@ -75,6 +77,33 @@ public class RouteCommandTest {
             if (ce.getMessage() != RouteCommand.MESSAGE_TOO_MANY_EQUIPMENTS_TO_ROUTE) {
                 fail("Should display too many equipments message to user.");
             }
+        }
+    }
+
+    @Test
+    public void execute_routeCommandParserExecuteInvalidAddressExceptions() {
+        try {
+            CommandResult result = new RouteCommandParser().parse("").execute(model, commandHistory);
+            fail("Routing with invalid starting address should raise exception.");
+        } catch (CommandException ce) {
+            fail("ParseException should be thrown but CommandException is thrown.");
+        } catch (ParseException pe) {
+            if (pe.getMessage() != Address.MESSAGE_CONSTRAINTS) {
+                fail("Should show user the constrains of address.");
+            }
+        }
+    }
+
+    @Test
+    public void execute_routeCommandEqualsTest() {
+        try {
+            RouteCommand command1 = new RouteCommandParser().parse("ABC");
+            RouteCommand command2 = new RouteCommandParser().parse("ABC");
+            if (!command1.equals(command2)) {
+                fail("Route commands with same address should be equal.");
+            }
+        } catch (ParseException pe) {
+            fail("No ParseException should be thrown.");
         }
     }
 }

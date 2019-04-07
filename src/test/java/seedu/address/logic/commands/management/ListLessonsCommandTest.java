@@ -54,8 +54,6 @@ public class ListLessonsCommandTest {
     @Test
     public void execute_listLessonsWhenHasOpenedLesson_listUnsuccessful() throws CommandException {
         MgtModelStubWithOpenedLesson modelStub = new MgtModelStubWithOpenedLesson();
-        ListLessonsCommand listLessonsCommand = new ListLessonsCommand();
-        String expectedOutput = listLessonsCommand.buildList(TypicalLessonList.getTypicalLessonList());
 
         // attempt to list all lessons when in Lesson View mode (opened lesson) -> exception thrown
         thrown.expect(CommandException.class);

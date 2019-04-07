@@ -24,9 +24,7 @@ public class Messages {
                     + ": Deletes a lesson.\n"
                     + "4. " + OpenLessonCommand.COMMAND_WORD
                     + ": Opens a lesson for editing.\n"
-                    + "5. " + CloseLessonCommand.COMMAND_WORD
-                    + ": Closes the opened lesson and save changes.\n"
-                    + "6. " + ReloadLessonsCommand.COMMAND_WORD
+                    + "5. " + ReloadLessonsCommand.COMMAND_WORD
                     + ": Reloads all lessons from the data folder.";
     /**
      * Feedback message displayed to the user when the command does not match any command patterns.

@@ -133,6 +133,11 @@ public class CsvWrapper {
      * @throws CommandException if there are errors creating the export directory.
      */
     private void createIfExportDirectoryMissing() throws CommandException {
+        if (Files.isDirectory(DEFAULT_EXPORT_FOLDER_PATH) == false && Files.exists(DEFAULT_EXPORT_FOLDER_PATH)) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + "an \"" + DEFAULT_EXPORT_FOLDER_NAME + "\" file without"
+                    + " any file extension already exists and it is not a directory. "
+                    + "Please remove it in order for the \"exported\" directory to be created.");
+        }
         if (Files.isDirectory(DEFAULT_EXPORT_FOLDER_PATH) == false) {
             try {
                 Files.createDirectory(DEFAULT_EXPORT_FOLDER_PATH);

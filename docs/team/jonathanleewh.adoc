@@ -35,10 +35,10 @@ a|WARNING: {sp}
 * *Major enhancement*: Added *`export` command support*
 ** What it does: Allows the user to export the current medicine inventory data shown in the Graphical User Interface (GUI) to a spreadsheet file which is supported by commonly used spreadsheet applications such as Microsoft Excel.
 ** Justification: Allows the user to save the data so that it can be printed, organised or for advanced data analysis using a spreadsheet application such as Microsoft Excel. This is especially useful for the user, superior or supplier's reference.
-** Highlights: This enhancement requires an indepth understanding of how each major components work and the methods available as it involves retrieving of data from the GUI and parsing the retrieved data. Despite using the Opencsv library, the implementation was still challenging as it required using methods from different components, parsing and organising the data so as that the exported file contains only the essential information for easier reference.
+** Highlights: This enhancement requires an indepth understanding of how each major components work and the methods available as it involves retrieving of data from the GUI and parsing the retrieved data. Despite using the Opencsv library, the implementation was still challenging as it required using methods from different components, parsing and organising the data such that the exported file contains only the essential information for easier reference.
 ** Credits: link:http://opencsv.sourceforge.net/team.html[Opencsv Team]
 
-* *Minor enhancement*: As there are currently no third party libraries available which validates file name such that it adheres to the file naming conventions of the major operating systems (OS), I have created a `FileName` class which implements this feature to complement the `export` feature and is also used by the 'label' feature. It requires an indepth knowledge on the different file naming conventions of the various OS and also numerous testing as I discovered that some file name conventions were not documented and not allowed to be used as file names.
+* *Minor enhancement*: As there are currently no third party libraries available which validates file name such that it adheres to the file naming conventions of the major operating systems (OS), I have created a `FileName` class which implements this feature to complement the `export` feature and is also used by the `label` feature. It requires an indepth knowledge on the different file naming conventions of the various OS and also numerous testing as I discovered that some file name conventions were not documented and not allowed to be used as file names.
 
 * *Code contributed*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=jonathanleewh[Project Code Dashboard]
 
@@ -48,11 +48,11 @@ a|WARNING: {sp}
 *** Set up team project Github repository including setting up issue tracker, permissions, project page, milestones and labels.
 *** Managed releases `v1.1` - `v1.4` (6 releases) on GitHub
 ** Documentation:
-*** Added Introduction section to both User Guide and Developer Guide: https://github.com/CS2103-AY1819S2-T12-3/main/pull/115[#115], https://github.com/CS2103-AY1819S2-T12-3/main/pull/140[#140]
+*** Added Introduction sections to both User Guide and Developer Guide: https://github.com/CS2103-AY1819S2-T12-3/main/pull/115[#115], https://github.com/CS2103-AY1819S2-T12-3/main/pull/140[#140]
 *** Added Frequently Asked Question (FAQ) and File Naming Convention sections to User Guide: https://github.com/CS2103-AY1819S2-T12-3/main/pull/123[#123], https://github.com/CS2103-AY1819S2-T12-3/main/pull/135[#135]
 *** Added Validation of File Name section to Developer Guide which includes code snippet for reference on how to take advantage of the `FileName` class provided: https://github.com/CS2103-AY1819S2-T12-3/main/pull/140[#140]
 *** Update stylesheet to PDF printing friendly format: https://github.com/CS2103-AY1819S2-T12-3/main/pull/150[#150]
-*** Updated User Guide's Quick Start section and Developer Guide's Setting Up section to only allow Java version `9` and JDK `9` including providing references to the reason for the change: https://github.com/CS2103-AY1819S2-T12-3/main/pull/117[#117], https://github.com/CS2103-AY1819S2-T12-3/main/pull/123[#123]
+*** Updated User Guide's Quick Start section and Developer Guide's Setting Up section to only allow Java version `9` and JDK `9` including references to the reason for the change: https://github.com/CS2103-AY1819S2-T12-3/main/pull/117[#117], https://github.com/CS2103-AY1819S2-T12-3/main/pull/123[#123]
 *** Updated User Guide Quick Start section with an additional step on how users can seek assistance: https://github.com/CS2103-AY1819S2-T12-3/main/pull/115[#115]
 *** Updated Storage component class diagram of Developer Guide to match our project: https://github.com/CS2103-AY1819S2-T12-3/main/pull/79[#79]
 ** Community:

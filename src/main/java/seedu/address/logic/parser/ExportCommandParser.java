@@ -1,6 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT_DETAILED;
 
 import seedu.address.commons.util.FileName;
 import seedu.address.logic.commands.ExportCommand;
@@ -22,7 +22,8 @@ public class ExportCommandParser implements Parser<ExportCommand> {
             return new ExportCommand(fileName);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT_DETAILED, pe.getMessage(),
+                            ExportCommand.MESSAGE_USAGE), pe);
         }
     }
 }

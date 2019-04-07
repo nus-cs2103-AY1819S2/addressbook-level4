@@ -26,6 +26,7 @@ import seedu.address.model.statistics.Date;
 
 import seedu.address.model.statistics.Day;
 import seedu.address.model.statistics.Month;
+import seedu.address.model.statistics.Revenue;
 import seedu.address.model.statistics.Year;
 import seedu.address.testutil.StatisticsBuilder;
 
@@ -34,7 +35,7 @@ public class RevenueCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        DailyRevenue expectedRevenue = new StatisticsBuilder().withYear("2019").withMonth("3").withDay("1").build();
+        Revenue expectedRevenue = new StatisticsBuilder().withYear("2019").withMonth("3").withDay("1").build();
         System.out.println(expectedRevenue.toString());
 
         // whitespace only preamble

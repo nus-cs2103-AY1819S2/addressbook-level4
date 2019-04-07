@@ -16,6 +16,7 @@ import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.statistics.Bill;
 import seedu.address.model.statistics.DailyRevenue;
+import seedu.address.model.statistics.Revenue;
 import seedu.address.model.table.Table;
 
 /**
@@ -139,14 +140,14 @@ public class RestOrRantUtil {
     //TODO: Check if this method is relevant. Delete if it is not
     //Can I leave this here until I execute my totalRevenue command?
     /**
-     * Return the part of command string for the given {@code dailyRevenue}'s details.
+     * Return the part of command string for the given {@code revenue}'s details.
      */
-    public static String getDailyRevenueDetails(DailyRevenue dailyRevenue) {
+    public static String getRevenueDetails(Revenue revenue) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_DAY + dailyRevenue.getDay().toString() + " ");
-        sb.append(PREFIX_MONTH + dailyRevenue.getMonth().toString() + " ");
-        sb.append(PREFIX_YEAR + dailyRevenue.getYear().toString() + " ");
-        sb.append("Total Revenue: $" + dailyRevenue.getTotalDailyRevenue());
+        sb.append(PREFIX_DAY + revenue.getDay().toString() + " ");
+        sb.append(PREFIX_MONTH + revenue.getMonth().toString() + " ");
+        sb.append(PREFIX_YEAR + revenue.getYear().toString() + " ");
+        sb.append("Total Revenue: $" + revenue.getTotalRevenue());
         return sb.toString();
     }
 

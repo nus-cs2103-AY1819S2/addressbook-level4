@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 import seedu.address.model.Model;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
-import seedu.address.model.statistics.DailyRevenue;
+import seedu.address.model.statistics.Revenue;
 import seedu.address.model.table.Table;
 
 /**
@@ -18,7 +18,7 @@ public class ModelHelper {
     private static final Predicate<OrderItem> PREDICATE_MATCHING_NO_ORDER_ITEMS = unused -> false;
     private static final Predicate<MenuItem> PREDICATE_MATCHING_NO_MENU_ITEMS = unused -> false;
     private static final Predicate<Table> PREDICATE_MATCHING_NO_TABLES = unused -> false;
-    private static final Predicate<DailyRevenue> PREDICATE_MATCHING_NO_DAILY_REVENUE = unused -> false;
+    private static final Predicate<Revenue> PREDICATE_MATCHING_NO_REVENUE = unused -> false;
 
     /**
      * Updates {@code model}'s order item filtered list to display only {@code toDisplay}.
@@ -90,25 +90,25 @@ public class ModelHelper {
     }
 
     /**
-     * Updates {@code model}'s daily revenue filtered list to display only {@code toDisplay}.
+     * Updates {@code model}'s revenue filtered list to display only {@code toDisplay}.
      */
-    public static void setDailyRevenueFilteredList(Model model, List<DailyRevenue> toDisplay) {
-        Optional<Predicate<DailyRevenue>> predicate =
-                toDisplay.stream().map(ModelHelper::getDailyRevenuePredicateMatching).reduce(Predicate::or);
-        model.updateFilteredDailyRevenueList(predicate.orElse(PREDICATE_MATCHING_NO_DAILY_REVENUE));
+    public static void setRevenueFilteredList(Model model, List<Revenue> toDisplay) {
+        Optional<Predicate<Revenue>> predicate =
+                toDisplay.stream().map(ModelHelper::getRevenuePredicateMatching).reduce(Predicate::or);
+        model.updateFilteredRevenueList(predicate.orElse(PREDICATE_MATCHING_NO_REVENUE));
     }
 
     /**
-     * @see ModelHelper#setDailyRevenueFilteredList(Model, List)
+     * @see ModelHelper#setRevenueFilteredList(Model, List)
      */
-    public static void setDailyRevenueFilteredList(Model model, DailyRevenue... toDisplay) {
-        setDailyRevenueFilteredList(model, Arrays.asList(toDisplay));
+    public static void setRevenueFilteredList(Model model, Revenue... toDisplay) {
+        setRevenueFilteredList(model, Arrays.asList(toDisplay));
     }
 
     /**
-     * Returns a predicate that evaluates to true if this {@code DailyRevenue} equals to {@code other}.
+     * Returns a predicate that evaluates to true if this {@code Revenue} equals to {@code other}.
      */
-    private static Predicate<DailyRevenue> getDailyRevenuePredicateMatching(DailyRevenue other) {
+    private static Predicate<Revenue> getRevenuePredicateMatching(Revenue other) {
         return item -> item.equals(other);
     }
 

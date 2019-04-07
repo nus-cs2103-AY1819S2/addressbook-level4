@@ -117,7 +117,8 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-        statusBarFooter = new StatusBarFooter(logic.getcardFolderFilesPath(), logic.getFilteredCardFolders());
+
+        statusBarFooter = new StatusBarFooter();
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
@@ -178,6 +179,7 @@ public class MainWindow extends UiPart<Stage> {
         testSession = new TestSession(card);
         Region testSessionRegion = (testSession).getRoot();
         fullScreenPlaceholder.getChildren().add(testSessionRegion);
+        statusBarFooter.updateStatusBarInTestSession();
     }
 
     /**
@@ -195,6 +197,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void handleEndTestSession() {
         fullScreenPlaceholder.getChildren().remove(fullScreenPlaceholder.getChildren().size() - 1);
+        statusBarFooter.updateStatusBarInFolder();
     }
 
     /**
@@ -205,7 +208,7 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedCard);
         cardMainScreen = new CardMainScreen(cardListPanel, browserPanel);
         fullScreenPlaceholder.getChildren().add(cardMainScreen.getRoot());
-        statusBarFooter.addNewCardFolderListener(logic.getcardFolderFilesPath(), logic.getCardFolder());
+        statusBarFooter.updateStatusBarInFolder();
     }
 
     /**
@@ -214,6 +217,7 @@ public class MainWindow extends UiPart<Stage> {
     private void handleExitFolder() {
         fullScreenPlaceholder.getChildren().remove(fullScreenPlaceholder.getChildren().size() - 1);
         folderListPanel.refreshContent();
+        statusBarFooter.updateStatusBarInHomeDirectory();
     }
 
     /**
@@ -223,14 +227,22 @@ public class MainWindow extends UiPart<Stage> {
         folderListPanel.refreshContent();
     }
 
+    /**
+     * Start a report display by displaying the report page to the user.
+     */
     private void handleReport() {
         reportDisplay = new ReportDisplay(logic.getCardFolder());
         Region reportRegion = (reportDisplay).getRoot();
         fullScreenPlaceholder.getChildren().add(reportRegion);
+        statusBarFooter.updateStatusBarInReportDisplay();
     }
 
+    /**
+     * Ends report display and display back card main screen.
+     */
     private void handleEndReport() {
         fullScreenPlaceholder.getChildren().remove(fullScreenPlaceholder.getChildren().size() - 1);
+        statusBarFooter.updateStatusBarInFolder();
     }
 
 

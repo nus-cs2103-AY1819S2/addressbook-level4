@@ -69,7 +69,7 @@ public class TestSession extends UiPart<Region> {
      * Updates the UI to show the answer for a correctly answered card.
      */
     public void handleCorrectAnswer() {
-        testSessionPage.setStyle("-fx-background-color: #47AB6C;");
+        testSessionPage.setStyle("-fx-background-color: #90EE90;");
         testMessage.setText(MESSAGE_CORRECT_ANSWER);
         testSessionPage.getChildren().addAll(testCardAnswer, testMessage);
     }
@@ -78,7 +78,7 @@ public class TestSession extends UiPart<Region> {
      * Updates the UI to show the answer for a wrongly answered card.
      */
     public void handleWrongAnswer() {
-        testSessionPage.setStyle("-fx-background-color: #ED553B;");
+        testSessionPage.setStyle("-fx-background-color: #ef6262;");
         testMessage.setText(MESSAGE_WRONG_ANSWER);
         testSessionPage.getChildren().addAll(testCardAnswer, testMessage);
     }

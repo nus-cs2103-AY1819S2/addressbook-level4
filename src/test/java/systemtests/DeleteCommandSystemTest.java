@@ -169,7 +169,7 @@ public class DeleteCommandSystemTest extends CardFolderSystemTest {
         }
 
         assertCommandBoxShowsDefaultStyle();
-        assertStatusBarUnchangedExceptSyncStatus();
+        assertStatusBarIsInFolder();
     }
 
     /**
@@ -189,6 +189,6 @@ public class DeleteCommandSystemTest extends CardFolderSystemTest {
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
         assertCommandBoxShowsErrorStyle();
-        assertStatusBarUnchanged();
+        assertStatusBarIsInFolder();
     }
 }

@@ -236,7 +236,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
      * 2. Asserts that the result display box displays {@code expectedResultMessage}.<br>
      * 3. Asserts that the browser url and selected card update accordingly depending on the card at
      * {@code expectedSelectedCardIndex}.<br>
-     * 4. Asserts that the status bar's sync status changes.<br>
+     * 4. Asserts that the status bar still indicates the user is in folder correctly.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
      * {@code CardFolderSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
@@ -255,7 +255,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         } else {
             assertSelectedCardUnchanged();
         }
-        assertStatusBarUnchangedExceptSyncStatus();
+        assertStatusBarIsInFolder();
     }
 
     /**
@@ -276,6 +276,6 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
         assertCommandBoxShowsErrorStyle();
-        assertStatusBarUnchanged();
+        assertStatusBarIsInFolder();
     }
 }

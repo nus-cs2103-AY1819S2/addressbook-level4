@@ -163,7 +163,7 @@ public class SearchCommandSystemTest extends CardFolderSystemTest {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
-        assertStatusBarUnchanged();
+        assertStatusBarIsInFolder();
     }
 
     /**
@@ -182,6 +182,6 @@ public class SearchCommandSystemTest extends CardFolderSystemTest {
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
         assertCommandBoxShowsErrorStyle();
-        assertStatusBarUnchanged();
+        assertStatusBarIsInFolder();
     }
 }

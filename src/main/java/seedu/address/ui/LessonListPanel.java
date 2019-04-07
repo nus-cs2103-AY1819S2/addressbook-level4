@@ -75,6 +75,12 @@ public class LessonListPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code Lesson}
+     * using a {@code LessonOverview}..
+     *
+     * @return the size of the ListView
+     */
     class LessonOverviewViewCell extends ListCell<Lesson> {
         @Override
         protected void updateItem(Lesson lesson, boolean empty) {

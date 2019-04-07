@@ -9,9 +9,9 @@ import seedu.address.model.lesson.Lesson;
 /**
  * An UI component that displays information of a {@link Lesson}.
  */
-public class LessonCard extends UiPart<Region> {
+public class LessonOverview extends UiPart<Region> {
 
-    private static final String FXML = "LessonListCard.fxml";
+    private static final String FXML = "LessonOverview.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -26,22 +26,23 @@ public class LessonCard extends UiPart<Region> {
     //@FXML
     //private HBox cardPane;
     @FXML
-    private Label id;
-    @FXML
     private Label name;
     @FXML
     private Label count;
     @FXML
-    private FlowPane headers;
+    private FlowPane bigHeaders;
 
-    public LessonCard(Lesson lesson, int displayedIndex) {
+    public LessonOverview(Lesson lesson) {
         super(FXML);
         this.lesson = lesson;
-        id.setText(displayedIndex + ". ");
         name.setText(lesson.getName());
 
         int cardCount = lesson.getCardCount();
-        count.setText(getCountString(cardCount));
+        if (cardCount > 1) {
+            count.setText(cardCount + " cards");
+        } else {
+            count.setText(cardCount + " card");
+        }
 
         int i = 0;
         int questionIndex = lesson.getQuestionCoreIndex();
@@ -51,26 +52,19 @@ public class LessonCard extends UiPart<Region> {
 
             if (i == questionIndex || i == answerIndex) {
                 label.getStyleClass().add("questionAnswer");
+                bigHeaders.getChildren().add(label);
             } else {
                 label.getStyleClass().add("core");
+                bigHeaders.getChildren().add(label);
             }
 
-            headers.getChildren().add(label);
             i++;
         }
 
         for (String s: lesson.getOptionalHeaders()) {
             Label label = new Label(s);
             label.getStyleClass().add("opt");
-            headers.getChildren().add(label);
-        }
-    }
-
-    public static String getCountString(int count) {
-        if (count > 1) {
-            return count + " cards";
-        } else {
-            return count + " card";
+            bigHeaders.getChildren().add(label);
         }
     }
 
@@ -82,13 +76,12 @@ public class LessonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof LessonCard)) {
+        if (!(other instanceof LessonOverview)) {
             return false;
         }
 
         // state check
-        LessonCard card = (LessonCard) other;
-        return id.getText().equals(card.id.getText())
-                && lesson.equals(card.lesson);
+        LessonOverview overview = (LessonOverview) other;
+        return lesson.equals(overview.lesson);
     }
 }

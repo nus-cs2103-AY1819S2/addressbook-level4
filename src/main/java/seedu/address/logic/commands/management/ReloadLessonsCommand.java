@@ -1,7 +1,11 @@
 package seedu.address.logic.commands.management;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_OPENED_LESSON;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.Model;
 
@@ -35,7 +39,14 @@ public class ReloadLessonsCommand extends ManagementCommand {
      * @return feedback message of the operation result for display
      */
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
+        ManagementModel mgtModel = requireManagementModel(model);
+
+        if (mgtModel.isThereOpenedLesson()) {
+            throw new CommandException(MESSAGE_OPENED_LESSON);
+        }
+
         return new CommandResult(MESSAGE_SUCCESS, CommandResult.UpdateStorage.LOAD);
     }
 

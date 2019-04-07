@@ -89,6 +89,7 @@ public class ManagementModelManager implements ManagementModel {
 
     @Override
     public void setLessonList(LessonList lessonList) {
+        requireNonNull(lessonList);
         this.lessonList = lessonList;
     }
 
@@ -99,8 +100,7 @@ public class ManagementModelManager implements ManagementModel {
 
     @Override
     public Lesson getLesson(int index) {
-        Lesson lesson = lessonList.getLesson(index);
-        return lesson;
+        return lessonList.getLesson(index);
     }
 
     /**
@@ -112,6 +112,16 @@ public class ManagementModelManager implements ManagementModel {
     @Override
     public String openLesson(int index) {
         return lessonList.openLesson(index);
+    }
+
+    @Override
+    public String closeLesson() {
+        return lessonList.closeLesson();
+    }
+
+    @Override
+    public boolean isThereOpenedLesson() {
+        return lessonList.isThereOpenedLesson();
     }
 
     /**
@@ -151,17 +161,13 @@ public class ManagementModelManager implements ManagementModel {
     }
 
     @Override
-    public void deleteCardFromOpenedLesson(int index) {
-        lessonList.deleteCardFromOpenedLesson(index);
+    public boolean openLessonHasCard(Card card) {
+        return lessonList.openLessonHasCard(card);
     }
 
-    /**
-     * Closes the opened {@link Lesson} object.
-     * @return the name of the closed {@link Lesson} object
-     */
     @Override
-    public String closeLesson() {
-        return lessonList.closeLesson();
+    public void deleteCardFromOpenedLesson(int index) {
+        lessonList.deleteCardFromOpenedLesson(index);
     }
 
     @Override
@@ -174,6 +180,11 @@ public class ManagementModelManager implements ManagementModel {
         lessonList.setLesson(index, updatedLesson);
     }
 
+    @Override
+    public boolean hasLessonWithName(String name) {
+        return lessonList.hasLessonWithName(name);
+
+    }
     @Override
     public void deleteLesson(int index) {
         lessonList.deleteLesson(index);

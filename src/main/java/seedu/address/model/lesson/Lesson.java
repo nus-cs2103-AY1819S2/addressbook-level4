@@ -116,12 +116,12 @@ public class Lesson {
         List<String> optionals;
 
         cores = headers.subList(0, noOfCoreHeaders);
-        int optionalCount = headers.size() - noOfCoreHeaders;
+        int optionalStart = headers.size() - noOfCoreHeaders + 1;
 
-        if (optionalCount == 0) {
+        if (optionalStart == 0) {
             optionals = new ArrayList<>();
         } else {
-            optionals = headers.subList(optionalCount, headers.size());
+            optionals = headers.subList(optionalStart, headers.size());
         }
 
         setName(name);
@@ -348,12 +348,12 @@ public class Lesson {
 
         List<String> cores = fields.subList(0, coreHeaders.size());
 
-        int optionalCount = fields.size() - coreHeaders.size();
+        int optionalStart = fields.size() - coreHeaders.size() + 1;
 
-        if (optionalCount == 0) {
+        if (optionalStart == 0) {
             addCard(new Card(cores));
         } else {
-            List<String> optionals = fields.subList(optionalCount, fields.size());
+            List<String> optionals = fields.subList(optionalStart, fields.size());
             addCard(new Card(cores, optionals));
         }
     }
@@ -367,6 +367,22 @@ public class Lesson {
         for (Card card: cards) {
             addCard(card);
         }
+    }
+
+    /**
+     * Checks if the Lesson contains the cardToCheck card
+     *
+     * @param cardToCheck the card to look for in Lesson
+     * @return returns true if cardToCheck is already in Lesson; false otherwise
+     */
+    public boolean hasCard(Card cardToCheck) {
+        for (Card card : cards) {
+            if (card.equals(cardToCheck)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void deleteCard(int index) {

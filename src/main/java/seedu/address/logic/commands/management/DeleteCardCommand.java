@@ -2,6 +2,7 @@ package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_OPENED_LESSON;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -67,6 +68,10 @@ public class DeleteCardCommand extends ManagementCommand {
         int toDeleteIndex = targetIndex.getZeroBased();
 
         try {
+            if (!mgtModel.isThereOpenedLesson()) {
+                throw new CommandException(MESSAGE_NO_OPENED_LESSON);
+            }
+
             mgtModel.deleteCardFromOpenedLesson(toDeleteIndex);
             return new CommandResult(MESSAGE_SUCCESS);
         } catch (IllegalArgumentException e) {

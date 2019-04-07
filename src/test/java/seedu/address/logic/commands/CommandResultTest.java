@@ -36,6 +36,15 @@ public class CommandResultTest {
     }
 
     @Test
+    public void constructResultToShowCards_validParameters_correctFlags() {
+        CommandResult commandResult = new CommandResult("feedback", true);
+        assertFalse(commandResult.isShowQuiz());
+        assertFalse(commandResult.isShowHelp());
+        assertFalse(commandResult.isShowQuiz());
+        assertTrue(commandResult.isShowCards());
+    }
+
+    @Test
     public void hashcode() {
         CommandResult commandResult = new CommandResult("feedback");
 

@@ -34,6 +34,8 @@ public interface Logic {
      */
     List<Lesson> getLessons();
 
+    Lesson getOpenedLesson();
+
     /**
      * Returns the Quiz Display formatter for QuizDisplayResult
      */

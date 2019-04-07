@@ -5,8 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.address.testutil.TypicalCards.CARD_DOG;
-import static seedu.address.testutil.TypicalCards.CARD_DOG_CORE1;
-import static seedu.address.testutil.TypicalCards.CARD_DOG_CORE2;
 import static seedu.address.testutil.TypicalCards.CARD_EMPTY;
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN;
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN_CORE1;
@@ -21,6 +19,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import seedu.address.model.card.Card;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.CardBuilder;
 import seedu.address.testutil.LessonBuilder;
@@ -146,21 +145,36 @@ public class LessonTest {
     }
 
     @Test
-    public void addCards() {
-        Lesson newLesson = new LessonBuilder(LESSON_DEFAULT)
-                .withCards(new CardBuilder().build(), new CardBuilder(CARD_DOG).build())
-                .build();
-
+    public void addCard_invalidCard_throwsIllegalArgumentException() {
         Assert.assertThrows(IllegalArgumentException.class, () ->
                 LESSON_DEFAULT.addCard(CARD_MULTI));
 
         Assert.assertThrows(IllegalArgumentException.class, () ->
                 LESSON_DEFAULT.addCard(CARD_EMPTY));
+    }
 
-        newLesson.addCard(List.of(CARD_JAPAN_CORE1, CARD_JAPAN_CORE2, CARD_JAPAN_OPT1));
+    @Test
+    public void addCard_validCard_cardAdded() {
+        Lesson lesson = new LessonBuilder(LESSON_DEFAULT)
+                .withCards(new CardBuilder().build(), new CardBuilder(CARD_DOG).build())
+                .build();
+        int count = lesson.getCardCount();
 
-        newLesson = new LessonBuilder(LESSON_TRUE_FALSE).build();
-        newLesson.addCard(List.of(CARD_DOG_CORE1, CARD_DOG_CORE2));
+        lesson.addCard(List.of(CARD_JAPAN_CORE1, CARD_JAPAN_CORE2, CARD_JAPAN_OPT1));
+        assertEquals(lesson.getCardCount(), count + 1);
+    }
+
+    @Test
+    public void addCard_validCard_hasCard() {
+        Lesson lesson = new LessonBuilder(LESSON_DEFAULT).withNoCards().build();
+        Card card = new CardBuilder(CARD_JAPAN).build();
+
+        // no card added yet -> return false
+        assertFalse(lesson.hasCard(card));
+
+        lesson.addCard(card);
+        // card added -> return true
+        assertTrue(lesson.hasCard(card));
     }
 
 

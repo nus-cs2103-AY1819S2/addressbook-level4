@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static seedu.address.commons.core.Messages.MESSAGE_LESSON_COMMANDS;
+
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -39,7 +41,8 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private MainPanel mainPanel;
     private HelpWindow helpWindow;
-    //private LessonListPanel lessonListPanel;
+    private LessonListPanel lessonListPanel;
+    private FlashcardPanel flashcardPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -53,8 +56,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private VBox sidePanel;
 
-    //@FXML
-    //private StackPane lessonListPanelPlaceholder;
+    @FXML
+    private StackPane lessonListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -126,14 +129,17 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        /*lessonListPanel = new LessonListPanel(logic.getLessons());
-        lessonListPanelPlaceholder.getChildren().add(lessonListPanel.getRoot());*/
+        lessonListPanel = new LessonListPanel(logic.getLessons());
+        lessonListPanelPlaceholder.getChildren().add(lessonListPanel.getRoot());
+
+        flashcardPanel = new FlashcardPanel();
+        mainPanelPlaceholder.getChildren().add(flashcardPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
+        resultDisplay.setFeedbackToUser(MESSAGE_LESSON_COMMANDS);
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         mainPanel = new MainPanel();
-        mainPanelPlaceholder.getChildren().add(mainPanel.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -159,10 +165,13 @@ public class MainWindow extends UiPart<Stage> {
             splitPane.setDividerPosition(0, 0.1);
             sidePanel.setMinWidth(340);
             sidePanel.setPrefWidth(340);
+            mainPanelPlaceholder.getChildren().set(0, flashcardPanel.getRoot());
+            resultDisplay.setFeedbackToUser(MESSAGE_LESSON_COMMANDS);
         } else {
             splitPane.setDividerPosition(0, 0);
             sidePanel.setMinWidth(0);
             sidePanel.setPrefWidth(0);
+            mainPanelPlaceholder.getChildren().set(0, mainPanel.getRoot());
         }
     }
 
@@ -232,9 +241,13 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            /*if (commandResult.isUpdateStorage()) {
+            if (logic.getOpenedLesson() != null) {
+                flashcardPanel.updateCardList(logic.getOpenedLesson());
+                lessonListPanel.updateLessonList(logic.getOpenedLesson());
+            } else {
+                flashcardPanel.hideCardList();
                 lessonListPanel.updateLessonList(logic.getLessons());
-            }*/
+            }
 
             return commandResult;
         } catch (CommandException | ParseException e) {

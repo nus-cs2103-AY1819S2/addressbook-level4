@@ -43,6 +43,7 @@ public class InformationPanel extends UiPart<Region> {
         settings.addListener((observable, oldSettings, newSettings) -> {
             sortProperty = newSettings.getSortProperty();
             sortDirection = newSettings.getSortDirection();
+            logger.fine("Batch table sorted by SortProperty: " + sortProperty + " SortDirection: " + sortDirection);
             emptyInformationPanel();
             showSelectedInformation(selectedMedicine.getValue());
         });

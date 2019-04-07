@@ -14,12 +14,8 @@ import java.time.format.ResolverStyle;
  */
 public class Expiry implements Comparable<Expiry> {
 
-    public static final String MESSAGE_CONSTRAINTS = "Expiry date should be of the format dd/mm/yyyy.\n"
-            + "The day, month and year should only contain numbers.\n" + "Day should not be more than 31. "
-            + "Month should not be more than 12. Year should begin with 20.";
-    public static final String VALIDATION_REGEX = "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((20)\\d\\d)";
-
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu");
+    public static final String MESSAGE_CONSTRAINTS = "Expiry date should be of the format dd/mm/yyyy "
+            + "and should be a valid date.\n";
 
     private final LocalDate expiryDate;
 
@@ -30,8 +26,8 @@ public class Expiry implements Comparable<Expiry> {
      */
     public Expiry(String expiry) {
         requireNonNull(expiry);
-        checkArgument(isValidDate(expiry), MESSAGE_CONSTRAINTS);
 
+        checkArgument(isValidDate(expiry), MESSAGE_CONSTRAINTS);
         if (expiry.equals("-")) {
             this.expiryDate = null;
         } else {
@@ -43,25 +39,20 @@ public class Expiry implements Comparable<Expiry> {
      * Returns if a given string is a valid expiry.
      * */
     public static boolean isValidDate(String test) {
-
         if (test.equals("-")) {
             return true;
         }
 
-        if (test.matches(VALIDATION_REGEX)) {
-            // check if date input is a real, valid date
-            try {
-                LocalDate.parse(test, formatter.withResolverStyle(ResolverStyle.STRICT));
-            } catch (DateTimeParseException e) {
-                return false;
-            }
-            return true;
+        try {
+            parseRawDate(test);
+        } catch (DateTimeParseException e) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     private static LocalDate parseRawDate(String expiry) {
-        return LocalDate.parse(expiry, formatter);
+        return LocalDate.parse(expiry, DateTimeFormatter.ofPattern("d/M/uuuu").withResolverStyle(ResolverStyle.STRICT));
     }
 
     public LocalDate getExpiryDate() {
@@ -90,7 +81,7 @@ public class Expiry implements Comparable<Expiry> {
         if (this.expiryDate == null) {
             return "-";
         } else {
-            return expiryDate.format(formatter);
+            return expiryDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         }
     }
 

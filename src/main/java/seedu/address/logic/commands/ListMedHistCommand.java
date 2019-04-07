@@ -34,7 +34,8 @@ public class ListMedHistCommand extends Command {
             + COMMAND_WORD + " " + PREFIX_PATIENT_ID + "1 " + PREFIX_DOCTOR_ID + "1 "
             + PREFIX_DATE_OF_MEDHIST + "2018-03-02";
 
-    public static final String MESSAGE_SUCCESS = "Listed all medical histories";
+    public static final String MESSAGE_SUCCESS =
+            "Listed all medical histories. Write up of medical histories are not be shown in the list.";
 
     private final Optional<String> targetPatientId;
 

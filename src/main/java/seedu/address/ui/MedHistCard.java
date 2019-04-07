@@ -32,8 +32,6 @@ public class MedHistCard extends UiPart<Region> {
     private Label date;
     @FXML
     private Label id;
-    @FXML
-    private Label writeUp;
 
     public MedHistCard(MedicalHistory medHist, int displayedIndex) {
         super(FXML);
@@ -43,7 +41,7 @@ public class MedHistCard extends UiPart<Region> {
         patientId.setText("Patient ID: " + medHist.getPatientId());
         doctorId.setText("Doctor ID: " + medHist.getDoctorId());
         date.setText("Date: " + medHist.getDate().toString());
-        writeUp.setText("Write Up" + medHist.getWriteUp().value);
+        //writeUp.setText("Write Up" + medHist.getWriteUp().value);
     }
 
     @Override
@@ -62,7 +60,7 @@ public class MedHistCard extends UiPart<Region> {
         MedHistCard card = (MedHistCard) other;
         return id.getText().equals(card.id.getText()) && medicalHistoryId.equals(card.medicalHistoryId)
                 && patientId.equals(card.patientId) && doctorId.equals(card.doctorId)
-                && date.equals(card.date) && writeUp.equals(card.writeUp);
+                && date.equals(card.date);
     }
 
 }

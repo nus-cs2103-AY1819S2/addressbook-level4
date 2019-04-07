@@ -1,16 +1,21 @@
 package seedu.finance.ui;
 
-import java.util.logging.Logger;
+import java.util.LinkedHashMap;
+import java.util.Set;
 
-import com.google.common.eventbus.Subscribe;
+import javafx.beans.binding.Bindings;
 
-import javafx.application.Platform;
-import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.geometry.Side;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
-import javafx.scene.web.WebView;
-import seedu.finance.commons.core.LogsCenter;
-import seedu.finance.commons.events.ShowGraphRequestEvent;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
+import seedu.finance.logic.commands.SummaryCommand.SummaryPeriod;
 
 /**
  * The Graph Panel of the App.
@@ -18,48 +23,89 @@ import seedu.finance.commons.events.ShowGraphRequestEvent;
 public class GraphPanel extends UiPart<Region> {
     //Not sure about the page urls, KIV most likely have to edit again
     //Want to link to GraphPage.html which is currently under main/docs
-    public static final String DEFAULT_PAGE = "https://geezlouisee.github.io/web/index.html?";
-    public static final String SEARCH_PAGE_URL =
-            "https://geezlouisee.github.io/web/index.html?";
 
-    private static final String FXML = "BrowserPanel.fxml";
-
-    private final Logger logger = LogsCenter.getLogger(getClass());
+    private static final String FXML = "GraphPanel.fxml";
 
     @FXML
-    private WebView browser;
+    private StackPane chartArea;
 
-    public GraphPanel() {
+
+    /**
+     * Constructs a {@code GraphPanel} object with parameters.
+     *
+     * @param summaryData a map with key and value pairs representing data for the charts.
+     * @param summaryPeriod a {@code SummaryPeriod} enum representing the summary period
+     * @param periodAmount an int representing the period amount
+     */
+    public GraphPanel(
+            LinkedHashMap<String, Double> summaryData,
+            SummaryPeriod summaryPeriod,
+            int periodAmount
+    ) {
         super(FXML);
-
-        // To prevent triggering events for typing inside the loaded Web page.
-        getRoot().setOnKeyPressed(Event::consume);
-
-        loadDefaultPage();
+        setData(summaryData, summaryPeriod, periodAmount);
     }
 
     /**
-     * Loads graph using attendance data from event object.
+     * Populates {@code chartArea} according to the parameters.
+     * If {@code summaryData} is empty, {@code chartArea} will be a message
+     * saying that there are no expenditures.
+     *
+     * @param summaryData a map with key and value pairs representing data for the charts.
+     * @param summaryPeriod a {@code SummaryPeriod} enum representing the summary period
+     * @param periodAmount an int representing the period amount
      */
-    private void loadGraph(ShowGraphRequestEvent event) {
-        String url = SEARCH_PAGE_URL;
-        loadPage(url);
-    }
-
-    public void loadPage(String url) {
-        Platform.runLater(() -> browser.getEngine().load(url));
+    public void setData(
+            LinkedHashMap<String, Double> summaryData,
+            SummaryPeriod summaryPeriod,
+            int periodAmount
+    ) {
+        chartArea.getChildren().clear();
+        if (summaryData.size() == 0) {
+            Text text = new Text();
+            if (summaryPeriod == SummaryPeriod.DAY) {
+                if (periodAmount == 1) {
+                    text.setText("There are no recorded expenditures in the past day");
+                } else {
+                    text.setText("There are no recorded expenditures in the past " + periodAmount + " days");
+                }
+            } else {
+                if (periodAmount == 1) {
+                    text.setText("There are no recorded expenditures in the past month");
+                } else {
+                    text.setText("There are no recorded expenditures in the past " + periodAmount + " months");
+                }
+            }
+            chartArea.getChildren().add(text);
+        } else {
+            setCategoryBasedData(summaryData);
+        }
     }
 
     /**
-     * Loads a default HTML file with a background that matches the general theme.
+     * Populates {@code chartArea} according to the parameters. {@code chartArea} will be a pie chart.
+     *
+     * @param summaryData a map with key and value pairs representing data for the charts.
      */
-    private void loadDefaultPage() {
-        loadPage(DEFAULT_PAGE);
+    public void setCategoryBasedData(LinkedHashMap<String, Double> summaryData) {
+        PieChart pieChart = new PieChart();
+
+        Set<String> keySet = summaryData.keySet();
+        for (String s : keySet) {
+            pieChart.getData().add(new PieChart.Data(s, summaryData.get(s)));
+        }
+
+        pieChart.getData().forEach(data ->
+                data.nameProperty().bind(
+                        Bindings.concat(
+                                data.getName(), " - $", String.format("%.2f", data.getPieValue())
+                        )
+                )
+        );
+
+        pieChart.setLegendSide(Side.BOTTOM);
+
+        chartArea.getChildren().add(pieChart);
     }
 
-    @Subscribe
-    private void showGraphRequestEvent(ShowGraphRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadGraph(event);
-    }
 }

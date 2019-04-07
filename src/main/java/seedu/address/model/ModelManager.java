@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -40,6 +41,7 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Medicine> selectedMedicine = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<InformationPanelSettings> informationPanelSettings =
             new SimpleObjectProperty<>();
+    private final Comparator<Medicine> comparatorLexicographical = Comparator.comparing(Medicine::getName);
 
     /**
      * Initializes a ModelManager with the given inventory and userPrefs.
@@ -53,12 +55,12 @@ public class ModelManager implements Model {
         versionedInventory = new VersionedInventory(inventory);
         this.userPrefs = new UserPrefs(userPrefs);
 
-        filteredMedicines = new FilteredList<>(versionedInventory.getMedicineList());
+        filteredMedicines = new FilteredList<>(versionedInventory.getSortedMedicineList(comparatorLexicographical));
         filteredMedicines.addListener(this::ensureSelectedMedicineIsValid);
 
         warningPanelPredicateAccessor = new WarningPanelPredicateAccessor();
-        medicinesExpiring = new FilteredList<>(versionedInventory.getMedicineList());
-        medicinesLowStock = new FilteredList<>(versionedInventory.getMedicineList());
+        medicinesExpiring = new FilteredList<>(versionedInventory.getSortedMedicineList(comparatorLexicographical));
+        medicinesLowStock = new FilteredList<>(versionedInventory.getSortedMedicineList(comparatorLexicographical));
         configureWarningPanelLists();
     }
 

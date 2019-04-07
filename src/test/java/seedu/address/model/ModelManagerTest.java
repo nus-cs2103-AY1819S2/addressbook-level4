@@ -135,10 +135,10 @@ public class ModelManagerTest {
     public void deleteMedicine_medicineIsSelectedAndSecondMedicineInFilteredMedicineList_firstMedicineSelected() {
         modelManager.addMedicine(PARACETAMOL);
         modelManager.addMedicine(GABAPENTIN);
-        assertEquals(Arrays.asList(PARACETAMOL, GABAPENTIN), modelManager.getFilteredMedicineList());
-        modelManager.setSelectedMedicine(GABAPENTIN);
-        modelManager.deleteMedicine(GABAPENTIN);
-        assertEquals(PARACETAMOL, modelManager.getSelectedMedicine());
+        assertEquals(Arrays.asList(GABAPENTIN, PARACETAMOL), modelManager.getFilteredMedicineList());
+        modelManager.setSelectedMedicine(PARACETAMOL);
+        modelManager.deleteMedicine(PARACETAMOL);
+        assertEquals(GABAPENTIN, modelManager.getSelectedMedicine());
     }
 
     @Test

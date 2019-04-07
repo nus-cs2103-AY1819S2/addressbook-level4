@@ -11,6 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showMedicineAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEDICINE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FOURTH_MEDICINE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MEDICINE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_MEDICINE;
 import static seedu.address.testutil.TypicalMedicines.getTypicalInventory;
 
 import java.util.Comparator;
@@ -137,7 +138,7 @@ public class UpdateCommandTest {
 
     @Test
     public void execute_updateExistingBatchUnfilteredListNoQuantity_success() {
-        Index index = INDEX_FIRST_MEDICINE;
+        Index index = INDEX_SECOND_MEDICINE;
         Medicine medicineToUpdate = model.getFilteredMedicineList().get(index.getZeroBased());
 
         // Get an existing batch from medicineToUpdate
@@ -201,7 +202,7 @@ public class UpdateCommandTest {
 
     @Test
     public void execute_removeBatchUnfilteredListOneOtherBatch_success() {
-        Index index = INDEX_FOURTH_MEDICINE;
+        Index index = INDEX_THIRD_MEDICINE;
         Medicine medicineToUpdate = model.getFilteredMedicineList().get(index.getZeroBased());
 
         Map<BatchNumber, Batch> batches = new HashMap<>(medicineToUpdate.getBatches());
@@ -276,8 +277,8 @@ public class UpdateCommandTest {
 
         String expectedMessage = UpdateCommand.MESSAGE_MAX_QUANTITY_EXCEEDED;
 
-        // Try to add max quantity to the first medicine in the inventory.
-        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatchDetails);
+        // Try to exceed max quantity to the second medicine in the inventory.
+        UpdateCommand updateCommand = new UpdateCommand(INDEX_SECOND_MEDICINE, newBatchDetails);
         assertCommandFailure(updateCommand, model, commandHistory, expectedMessage);
     }
 
@@ -378,7 +379,7 @@ public class UpdateCommandTest {
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredListRemoveBatch_success() throws Exception {
-        Index index = INDEX_FIRST_MEDICINE;
+        Index index = INDEX_SECOND_MEDICINE;
         Medicine medicineToUpdate = model.getFilteredMedicineList().get(index.getZeroBased());
 
         Map<BatchNumber, Batch> batches = new HashMap<>(medicineToUpdate.getBatches());
@@ -412,14 +413,14 @@ public class UpdateCommandTest {
         expectedModel.setMedicine(medicineToUpdate, updatedMedicine);
         expectedModel.commitInventory();
 
-        // update -> first medicine updated
+        // update -> second medicine updated
         updateCommand.execute(model, commandHistory);
 
         // undo -> reverts Inventory back to previous state and filtered medicine list to show all medicines
         expectedModel.undoInventory();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // redo -> same first medicine updated again
+        // redo -> same second medicine updated again
         expectedModel.redoInventory();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }

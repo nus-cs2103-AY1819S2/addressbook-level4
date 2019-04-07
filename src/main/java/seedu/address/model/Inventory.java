@@ -2,10 +2,12 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.List;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.UniqueMedicineList;
@@ -128,6 +130,15 @@ public class Inventory implements ReadOnlyInventory {
     @Override
     public ObservableList<Medicine> getMedicineList() {
         return medicines.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Sorts medicine list according to given comparator.
+     * @param comparator
+     * @return unmodifiable sorted view of the medicine list.
+     */
+    public ObservableList<Medicine> getSortedMedicineList(Comparator<Medicine> comparator) {
+        return new SortedList<>(medicines.asUnmodifiableObservableList(), comparator);
     }
 
     @Override

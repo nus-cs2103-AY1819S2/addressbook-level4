@@ -27,7 +27,7 @@ public class Coordinates {
             + "The column number must be between [1-10] inclusive.\n";
 
     // alphanumeric and special characters
-    private static final String ROW_PART_REGEX = "^([a-j]){1}";
+    private static final String ROW_PART_REGEX = "^([a-z]){1}";
     private static final String COL_PART_REGEX = "(10|[1-9])$";
 
     private static final String VALIDATION_REGEX = ROW_PART_REGEX + COL_PART_REGEX;

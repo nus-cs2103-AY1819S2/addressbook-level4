@@ -32,8 +32,6 @@ public class BoundaryValueChecker {
         this.battleship = battleship;
         this.coordinates = coordinates;
         this.orientation = orientation;
-
-
     }
 
     /**
@@ -69,8 +67,8 @@ public class BoundaryValueChecker {
         Index rowIndex = coordinates.getRowIndex();
         Index colIndex = coordinates.getColIndex();
 
-        if ((rowIndex.getZeroBased() > mapGrid.getMapSize())
-                || colIndex.getZeroBased() > mapGrid.getMapSize()) {
+        if ((rowIndex.getZeroBased() >= mapGrid.getMapSize())
+                || colIndex.getZeroBased() >= mapGrid.getMapSize()) {
             return false;
         }
 

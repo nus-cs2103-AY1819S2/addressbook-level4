@@ -8,6 +8,7 @@ import static seedu.knowitall.testutil.SampleBloodCards.getBloodFolder;
 import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolder;
 import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolders;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,7 +16,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -157,16 +157,37 @@ public class ImportCommandTest {
         return true;
     }
 
+
+
     @Test
     public void execute_exportCsvFile_correctFile() throws IOException, CsvManagerNotInitialized {
+        expectedModel.exportCardFolders(new ArrayList<>(Arrays.asList(1, 2)));
+        isSameFileContent(typicalCardsFile, typicalCardsFileTest);
+        isSameFileContent(bloodCardsFile, bloodCardsTestFile);
+    }
+
+    private void isSameFileContent(File actualFile, File testFile) throws IOException, CsvManagerNotInitialized {
         expectedModel.exportCardFolders(new ArrayList<>(Arrays.asList(1)));
         // System.out.println(DEFAULT_TEST_PATH);
-        assert(typicalCardsFileTest.exists());
-        byte[] f1 = Files.readAllBytes(Paths.get(typicalCardsFile.toString()));
-        byte[] f2 = Files.readAllBytes(Paths.get(typicalCardsFileTest.toString()));
+        assert(actualFile.exists());
+        byte[] rawByteF1 = Files.readAllBytes(Paths.get(actualFile.toString()));
+        byte[] rawByteF2 = Files.readAllBytes(Paths.get(testFile.toString()));
 
-        assertArrayEquals (f1, f2);
-        typicalCardsFileTest.delete();
+        // remove cr from file if any
+        byte[] processedF1 = removeCarriageReturn(rawByteF1);
+        byte[] processedF2 = removeCarriageReturn(rawByteF2);
+        assertArrayEquals (processedF1, processedF2);
+        testFile.delete();
+    }
+
+    private byte[] removeCarriageReturn(byte[] file) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        for (Byte b : file) {
+            if (b != 13) {
+                byteArrayOutputStream.write(b);
+            }
+        }
+        return byteArrayOutputStream.toByteArray();
     }
 
     @Test

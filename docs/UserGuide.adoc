@@ -383,6 +383,7 @@ You can also specify a report period.
 ====
 * If a period is not specified, then the summary will show a default report period of the last 7 days.
 * Deleted entries are not included in the summary.
+* You may also type `summary` in the command box to exit the summary view mode or update the pie chart statistics
 ====
 
 ****

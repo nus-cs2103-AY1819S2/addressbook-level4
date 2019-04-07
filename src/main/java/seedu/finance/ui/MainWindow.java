@@ -1,9 +1,6 @@
 package seedu.finance.ui;
 
-import java.sql.Time;
 import java.util.logging.Logger;
-
-import com.google.common.eventbus.Subscribe;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -22,7 +19,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import seedu.finance.commons.core.GuiSettings;
 import seedu.finance.commons.core.LogsCenter;
-import seedu.finance.commons.events.SwapBrowserPanelEvent;
 import seedu.finance.logic.Logic;
 import seedu.finance.logic.commands.CommandResult;
 import seedu.finance.logic.commands.exceptions.CommandException;

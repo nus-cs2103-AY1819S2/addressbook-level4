@@ -12,7 +12,7 @@ import seedu.address.model.moduletaken.Semester;
  * Checks the CAP and Workload limits set by the user for every semester against the modules the user plans to take.
  */
 public class LimitChecker implements ClassForPrinting {
-    private static final int DEFAULT_MODULE_CREDITS = 4;
+    private static final double DEFAULT_MODULE_CREDITS = 4;
     private static final int CAP_TABLE_COL_COUNT = 4;
     private static final int WORKLOAD_TABLE_ROW_COUNT = 5;
     private static final int WORKLOAD_TABLE_COL_COUNT = 3;
@@ -21,6 +21,11 @@ public class LimitChecker implements ClassForPrinting {
 
     /**
      * Returns a generated html string that shows where their CAP and workload limits are violated.
+     *
+     * @param currentSemester the current semester when running the limit checker.
+     * @param semLimits the current semester limits of the user when running the limit checker.
+     * @param modulesTaken the current modules taken of the user when running the limit checker.
+     * @param moduleInfoList the full list of ModuleInfo for checking the modules credits of each module
      */
     public LimitChecker(Semester currentSemester, ObservableList<SemLimit> semLimits,
                                     ObservableList<ModuleTaken> modulesTaken, ModuleInfoList moduleInfoList) {
@@ -132,9 +137,9 @@ public class LimitChecker implements ClassForPrinting {
         htmlLimits.append("<table border='1'>\n");
 
         htmlLimits.append("<tr>\n");
-        htmlLimits.append("<th>Minimum CAP</th>\n");
-        htmlLimits.append("<th>Current CAP</th>\n");
-        htmlLimits.append("<th>Maximum CAP</th>\n");
+        htmlLimits.append("<th>Minimum CAP for graduation</th>\n");
+        htmlLimits.append("<th>CAP as of current semester</th>\n");
+        htmlLimits.append("<th>Maximum CAP for graduation</th>\n");
         htmlLimits.append("</tr>\n");
 
         htmlLimits.append("<tr>\n");

@@ -1,7 +1,7 @@
 package seedu.address.model.moduletaken;
 
 /**
- * Represents expected grade range of a module taken
+ * Represents expected hour range for a SemLimit
  */
 public class HourRange {
     private Hour min;

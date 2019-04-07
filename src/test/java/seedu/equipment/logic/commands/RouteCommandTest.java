@@ -65,7 +65,7 @@ public class RouteCommandTest {
             Address testAddress = new Address("School of computing, NUS, Singapore");
             for (int i = 0; i < 16; i++) {
                 Equipment newEquipment = new EquipmentBuilder().withName("PGPR" + i).withPhone("8482131")
-                        .withDate("10 May 2019").withAddress("PGPR, NUS, SINGAPORE")
+                        .withDate("10-05-2019").withAddress("PGPR, NUS, SINGAPORE")
                         .withSerialNumber(String.valueOf(i)).build();
                 model.addEquipment(newEquipment);
             }

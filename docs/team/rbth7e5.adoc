@@ -45,9 +45,7 @@ and how I helped manage the project.
 ** Description of the feature: This enhancement allows food lovers to filter out restaurants based on categories.
 ** Why the feature is important: This enhancement helps food lovers locate and refer back to specific restaurants with specific categories set.
 
-* *Code contributed*:
-
-[https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=rbth7e5]
+* *Code contributed*: The code I contributed can be viewed at the link here: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=rbth7e5[Code Contributed]
 
 * *Other contributions*:
 
@@ -69,7 +67,8 @@ and how I helped manage the project.
 == Contributions to the User Guide
 
 |===
-|_The following describes the contributions I made to the User Guide. The following is an excerpt from the User Guide. More specifically, it shows my ability to document the Restaurant Categorization feature for end users._
+|_The following describes the contributions I made to the User Guide. The following is an excerpt from the User Guide.
+More specifically, it shows my ability to document the Restaurant Categorization feature for end users._
 |===
 
 include::../UserGuide.adoc[tag=categorization]
@@ -77,7 +76,8 @@ include::../UserGuide.adoc[tag=categorization]
 == Contributions to the Developer Guide
 
 |===
-|_Two main sections I contributed to the Developer Guide are User Stories and Categorization as shown below. It reflects my ability to articulate how I implemented my features_
+|_For the Developer Guide, I documented how Categorization is implemented as shown below.
+It reflects my ability to articulate how I implemented my features_
 |===
 
 include::../DeveloperGuide.adoc[tag=categorisation]

@@ -211,38 +211,38 @@ _Figure 2. After selecting restaurant with index 3, Chilis' summary, reviews and
 // tag::categorization[]
 ==== Setting the categories of a restaurant : `setCategories`
 
-Set the cuisine of a restaurant identified by the index number used in the list. +
+Sets the cuisine of a restaurant identified by the index number used in the list. +
 Format: `setCategories INDEX [c/CUISINE] [oc/OCCASION] [pr/PRICE_RANGE]`
 
 *Step by step guide on how to set categories:*
 
-Step 1: List all the restaurants by typing `list`, then pressing enter, as shown below.
+Step 1: List all the restaurants by typing `list`, then pressing enter, as shown _below_.
 
-image::setcategories-stepone.png[width="800"]
+image::setcategories-stepone.png[]
 _Figure 1: After typing `list`_
 
 Step 2: Choose a restaurant you want to set categories to. Let us choose Astons for this example. Take note that Astons
-is identified by *INDEX 1*. Start typing `setCategories 1 c/` as follows:
+is identified by *INDEX 1*. Start typing `setCategories 1 c/` as _follows_:
 
-image::setcategories-steptwo.png[width="800"]
+image::setcategories-steptwo.png[]
 _Figure 2: Notice suggestions for cuisines will pop up. Use arrow keys to select the desired suggestion and press enter,
 or you can also choose to continue typing something not in the suggestions._
 
 Step 3: Continue keying in the occasion prefix after you finished keying in the cuisine. The occasion prefix is oc/.
-Follow Figure 3 shown below.
+Follow Figure 3 shown _below_.
 
-image::setcategories-stepthree.png[width="800"]
+image::setcategories-stepthree.png[]
 _Figure 3: Once again, you can pick the occasion you see in the suggestions or continue typing._
 
-Step 4: Key in the price range next, as demonstrated by Figure 4 below.
+Step 4: Key in the price range next, as demonstrated by _Figure 4 below_.
 
-image::setcategories-stepfour.png[width="800"]
+image::setcategories-stepfour.png[]
 _Figure 4: Pick a price range from the list or just type, whichever is faster for you._
 
 Step 5: Press enter and the categories will be set! Else, you might have made a typo somewhere. You should see the
-following status message shown in the Figure below.
+following status message shown in the _Figure below_.
 
-image::setcategories-stepfive.png[width="800]
+image::setcategories-stepfive.png[]
 _Figure 5: Success!_
 
 [NOTE]
@@ -283,27 +283,14 @@ Format: `filter KEYWORD [MORE_KEYWORDS]`
 
 *Step by step guide on how to filter:*
 
-Step 1: Suppose you want to filter out all the `Western` restaurants. Type `filter western` as shown below.
+Step 1: Suppose you want to filter out all the `Western` restaurants. Type `filter western`.
 
-image::filter-stepone.png[width="800"]
-_Figure 1: Type `filter western` into the command box_
-
-Step 2: Press enter and you should see all the western restaurants. Refer to Figure 2 for a visual representation.
-
-image::filter-steptwo.png[width="800"]
-_Figure 2: Western restaurants are listed_
+Step 2: Press enter and you should see all the western restaurants.
 
 Step 3: Suppose now you want to filter out all `Western`, `Japanese`, as well as `Chinese` restaurants. Type `filter
-western japanese chinese` as shown below.
+western japanese chinese` into the command box.
 
-image::filter-stepthree.png[width="800"]
-_Figure 3: Type `filter western japanese chinese` into the command box_
-
-Step 4: Press enter again and now all `Western`, `Japanese` and `Chinese` restaurants will be shown. See Figure 4
-below for example.
-
-image::filter-stepfour.png[width="800"]
-_Figure 4: Western, Japanese and Chinese restaurants are now listed_
+Step 4: Press enter again and now all `Western`, `Japanese` and `Chinese` restaurants will be shown.
 
 [NOTE]
 ====
@@ -321,12 +308,8 @@ restaurants. All `Japanese` and `Western` restaurants will be displayed.
 
 Some examples you can try:
 
-* `filter fine dining` +
-Returns restaurants with any category matching `fine` or `dining`.
 * `filter fine dining casual`
 Returns restaurants with any category matching `fine`, `dining` or `casual`.
-* `filter $`
-Returns restaurants with any category matching `$`. In this case will most likely match `Price Range`.
 * `filter $ casual western`
 Returns restaurants with any category matching `$`, `casual` or `western`.
 // end::categorization[]

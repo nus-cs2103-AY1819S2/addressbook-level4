@@ -487,30 +487,6 @@ from `Model` via `Model#getFilteredRestaurantList()`. A new restaurant is set up
 The categories of the target restaurant is merged by calling `Categories#merge()` and the result is passed to the new restaurant.
 The new restaurant is then updated into the Food Diary via `Model#commitFoodDiary()`.
 
-The feature is evolved as follows:
-
-1. Categorisation only by Cuisine
-* Add Cuisine class
-* Implement SetCuisine command that extends Command
-* Implement parser for SetCuisine command
-* Support filtering restaurants by cuisine
-
-2. Categorisation by Occasion
-* Add new Categories class to encapsulate different category types
-* Add Occasion class. Model `Occasion` and `Cuisine` by composition inside `Categories`.
-* Change SetCuisine command to SetCategories command that extends Command
-* Add support for Occasion in filter command
-* Add new merge method to ensure setting one category only does not override the other
-
-3. Categorisation by Price Range
-* Add new PriceRange class, composed inside `Categories`
-* Add new match method to abstract out matching responsibilities of each Category type to `Categories` class
-* Add new setLabels method to allow UI to set Label of each category without being aware of its existence
-
-4. Autocomplete suggestions for setCategories
-* Add new CategoriesAutoCompleteTextField class that extends TextField to implement autocomplete suggestions
-* Add default suggestions to `Cuisine`, `Occasion`, `Price Range`.
-
 You can refer to _Figure 2_ below to get a better understanding of how a typical valid setCategories command
 executes internally.
 

@@ -1,28 +1,32 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+
+import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.medicine.NameContainsKeywordsPredicate;
+import seedu.address.model.medicine.Medicine;
 
 /**
- * Finds and lists all medicines in inventory whose name contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Finds and lists all medicines in inventory whose data contains any of the argument keywords.
+ * The field to search depends on the prefix entered. Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all medicines whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " Paracetamol Amoxicillin Ibuprofen";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all medicines whose data contain any of the "
+            + "specified keywords (case-insensitive). Select a field to search by entering the appropriate prefix.\n"
+            + "Name: 'n/', Company: 'c/', Tags: 't/', Batch: 'b/'\n"
+            + "Parameters: [n/] [c/] [t/] [b/] KEYWORD [MORE_KEYWORDS]...\n"
+            + "Example: " + COMMAND_WORD + PREFIX_NAME + " Paracetamol Amoxicillin Ibuprofen";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final Predicate<Medicine> predicate;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
+    public FindCommand(Predicate<Medicine> predicate) {
         this.predicate = predicate;
     }
 

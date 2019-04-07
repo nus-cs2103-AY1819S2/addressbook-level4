@@ -590,7 +590,7 @@ All permanent teeth in template will all be present and healthy by default.
 
 ** `<<goto, goto>> 1` - Specifies patient 1 to edit his or her teeth status. Enters the record edit mode.
 
-** `teethedit t/TEETH_LABEL s/STATUS` - Edits the status of the indicated tooth of patient.
+** `teethedit TEETH_LABEL s/STATUS` - Edits the status of the indicated tooth of patient.
 
 ** `back` - Exits the record edit mode, and returns to the patient list.
 

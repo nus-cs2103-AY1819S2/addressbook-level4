@@ -469,7 +469,7 @@ class that encapsulates all categories into a `Categories` object to be used in 
 
 Figure 1 below shows the chain of events when setting categories of a restaurant with the setCategories command:
 
-image::SetCategoriesActivityDiagram.png[width="650"]
+image::SetCategoriesActivityDiagram.png[width="800"]
 Figure 1: setCategories Activity Diagram
 
 The following elaborates in detail on how the setCategories mechanism behaves at each step:
@@ -514,7 +514,7 @@ The feature is evolved as follows:
 You can refer to the following sequence diagram to get a better understanding of how a typical valid setCategories command
 executes internally.
 
-image::SetCategoriesSequenceDiagram.png[width="650"]
+image::SetCategoriesSequenceDiagram.png[width="1000"]
 
 ==== Design Considerations
 ===== Price Range Categorisation

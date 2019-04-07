@@ -1,51 +1,24 @@
 package seedu.knowitall.ui;
 
 import static org.junit.Assert.assertEquals;
-//import static seedu.knowitall.testutil.TypicalCards.ALICE;
-//import static seedu.knowitall.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
-//import static seedu.knowitall.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.knowitall.ui.StatusBarFooter.STATUS_IN_FOLDER;
+import static seedu.knowitall.ui.StatusBarFooter.STATUS_IN_HOME_DIRECTORY;
+import static seedu.knowitall.ui.StatusBarFooter.STATUS_IN_REPORT_DISPLAY;
+import static seedu.knowitall.ui.StatusBarFooter.STATUS_IN_TEST_SESSION;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.Clock;
-import java.time.Instant;
-import java.time.ZoneId;
-//import java.util.Date;
-
-import org.junit.AfterClass;
-//import org.junit.Before;
-import org.junit.BeforeClass;
-//import org.junit.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import guitests.guihandles.StatusBarFooterHandle;
-//import seedu.knowitall.model.CardFolder;
 
 public class StatusBarFooterTest extends GuiUnitTest {
 
-    private static final Path STUB_SAVE_LOCATION = Paths.get("Stub");
-    private static final Path RELATIVE_PATH = Paths.get(".");
-
-    private static final Clock originalClock = StatusBarFooter.getClock();
-    private static final Clock injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
-
     private StatusBarFooterHandle statusBarFooterHandle;
-    //private final CardFolder cardFolder = new CardFolder(this.getClass().getName());
+    private StatusBarFooter statusBarFooter;
 
-    @BeforeClass
-    public static void setUpBeforeClass() {
-        // inject fixed clock
-        StatusBarFooter.setClock(injectedClock);
-    }
-
-    @AfterClass
-    public static void tearDownAfterClass() {
-        // restore original clock
-        StatusBarFooter.setClock(originalClock);
-    }
-    /*
     @Before
     public void setUp() {
-        StatusBarFooter statusBarFooter = new StatusBarFooter(STUB_SAVE_LOCATION, cardFolder);
+        statusBarFooter = new StatusBarFooter();
         uiPartRule.setUiPart(statusBarFooter);
 
         statusBarFooterHandle = new StatusBarFooterHandle(statusBarFooter.getRoot());
@@ -54,22 +27,24 @@ public class StatusBarFooterTest extends GuiUnitTest {
     @Test
     public void display() {
         // initial state
-        assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(), SYNC_STATUS_INITIAL);
+        assertStatusBarContent(STATUS_IN_HOME_DIRECTORY);
 
-        // after card folder is updated
-        guiRobot.interact(() -> cardFolder.addCard(ALICE));
-        assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
-     String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));
+        // new status received
+        guiRobot.interact(() -> statusBarFooter.updateStatusBarInFolder());
+        assertStatusBarContent(STATUS_IN_FOLDER);
+
+        guiRobot.interact(() -> statusBarFooter.updateStatusBarInTestSession());
+        assertStatusBarContent(STATUS_IN_TEST_SESSION);
+
+        guiRobot.interact(() -> statusBarFooter.updateStatusBarInReportDisplay());
+        assertStatusBarContent(STATUS_IN_REPORT_DISPLAY);
     }
-     */
 
     /**
-     * Asserts that the save location matches that of {@code expectedSaveLocation}, and the
-     * sync status matches that of {@code expectedSyncStatus}.
+     * Asserts that the save location matches that of {@code expectedSaveLocation}.
      */
-    private void assertStatusBarContent(String expectedSaveLocation, String expectedSyncStatus) {
-        assertEquals(expectedSaveLocation, statusBarFooterHandle.getSaveLocation());
-        assertEquals(expectedSyncStatus, statusBarFooterHandle.getSyncStatus());
+    private void assertStatusBarContent(String expectedSaveLocation) {
+        assertEquals(expectedSaveLocation, statusBarFooterHandle.getCurrentStatus());
         guiRobot.pauseForHuman();
     }
 

@@ -3,8 +3,12 @@
     background-color: #383838; /* Used in the default.html file */
 }
 
+.background-card {
+    -fx-background-color: #c9af98;
+}
+
 .background-test {
-    -fx-background-color: #0894A1;
+    -fx-background-color: #54d3c2;
 }
 
 .label {
@@ -134,7 +138,7 @@
 }
 
 .list-cell:filled:selected {
-    -fx-background-color: #424d5f;
+    -fx-background-color: #5F9EA0;
 }
 
 .list-cell:filled:selected #cardThumbnailPane #folderThumbnailPane {

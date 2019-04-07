@@ -15,7 +15,6 @@ import seedu.knowitall.logic.commands.DeleteCommand;
 import seedu.knowitall.logic.commands.HelpCommand;
 import seedu.knowitall.logic.commands.SelectCommand;
 import seedu.knowitall.ui.BrowserPanel;
-import seedu.knowitall.ui.StatusBarFooter;
 
 /**
  * A system test class for the help window, which contains interaction with other UI components.
@@ -67,10 +66,8 @@ public class HelpCommandSystemTest extends CardFolderSystemTest {
         assertNotEquals(BrowserPanel.DEFAULT_CARD_PAGE, getBrowserPanel().getCurrentQuestion());
         assertListMatching(getCardListPanel(), getModel().getFilteredCards());
 
-        // assert that the status bar too is updated correctly while the help window is open
         // note: the select command tested above does not update the status bar
         executeCommand(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased());
-        assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 
     @Test

@@ -261,7 +261,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         UniqueActivityList attending = new UniqueActivityList();
         for (Activity activity: activities) {
             if (isPersonAttending(key, activity)) {
-               attending.add(activity);
+                attending.add(activity);
             }
         }
         return attending.asUnmodifiableObservableList();

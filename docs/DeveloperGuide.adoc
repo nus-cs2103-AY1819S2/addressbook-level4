@@ -540,9 +540,9 @@ This section discusses the different ways price ranges could have been categoris
 | Cons | Lacks proper structure, not very intuitive to the viewer if the user keys in something that does not make sense
 |=========
 
-Alternative 1 was chosen because it is better user experience to just type in a few characters instead of having to think
-of what to type every time the user wants to set a price range. It also ensures that all restaurants' price ranges are visually
-consistent.
+Alternative 1 was chosen because it offers a better user experience to just type in a few characters instead of having the
+user think of what to type every time the user wants to set a price range. It also ensures that all restaurants'
+price ranges are visually consistent.
 
 ===== How categories are added and edited
 

@@ -34,7 +34,7 @@ import seedu.hms.model.customer.NameContainsKeywordsPredicate;
 import seedu.hms.model.util.TimeRange;
 import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.ReservationContainsPayerPredicate;
-import seedu.hms.model.reservation.RoomType;
+import seedu.hms.model.reservation.roomType.RoomType;
 import seedu.hms.testutil.EditBookingDescriptorBuilder;
 import seedu.hms.testutil.EditCustomerDescriptorBuilder;
 import seedu.hms.testutil.EditReservationDescriptorBuilder;
@@ -106,9 +106,10 @@ public class CommandTestUtil {
             .withPayer(ALICE).withOtherUsers().withComment("AliceSPA").build();
         DESC_CARL_SPA = new EditBookingDescriptorBuilder().withService(spa).withTiming(12, 13)
             .withPayer(CARL).withOtherUsers().withComment("CarlSPA").build();
-        DESC_ALICE_SINGLE_ROOM = new EditReservationDescriptorBuilder().withRoom(RoomType.SINGLE)
+        RoomType singleRoom = new RoomType(100, "Single Room", 500.0);
+        DESC_ALICE_SINGLE_ROOM = new EditReservationDescriptorBuilder().withRoom(singleRoom)
             .withDates("08/12/2019", "10/12/2019").withPayer(ALICE).withOtherUsers().withComment("AliceSingle").build();
-        DESC_CARL_SINGLE_ROOM = new EditReservationDescriptorBuilder().withRoom(RoomType.SINGLE)
+        DESC_CARL_SINGLE_ROOM = new EditReservationDescriptorBuilder().withRoom(singleRoom)
             .withDates("08/12/2019", "10/12/2019").withPayer(CARL).withOtherUsers().withComment("CarlSingle").build();
     }
 

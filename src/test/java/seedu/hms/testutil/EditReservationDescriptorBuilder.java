@@ -9,7 +9,7 @@ import seedu.hms.logic.commands.EditReservationCommand;
 import seedu.hms.logic.commands.EditReservationCommand.EditReservationDescriptor;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.reservation.Reservation;
-import seedu.hms.model.reservation.RoomType;
+import seedu.hms.model.reservation.roomType.RoomType;
 import seedu.hms.model.util.DateRange;
 
 /**

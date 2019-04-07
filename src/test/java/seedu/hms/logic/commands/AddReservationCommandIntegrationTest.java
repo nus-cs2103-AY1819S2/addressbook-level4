@@ -13,7 +13,7 @@ import seedu.hms.model.ReservationModel;
 import seedu.hms.model.UserPrefs;
 import seedu.hms.model.VersionedHotelManagementSystem;
 import seedu.hms.model.reservation.Reservation;
-import seedu.hms.model.reservation.RoomType;
+import seedu.hms.model.reservation.roomType.RoomType;
 import seedu.hms.testutil.ReservationBuilder;
 import seedu.hms.testutil.TypicalCustomers;
 

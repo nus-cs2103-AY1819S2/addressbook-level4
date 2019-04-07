@@ -25,7 +25,7 @@ import seedu.hms.model.booking.serviceType.ServiceType;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.util.TimeRange;
 import seedu.hms.model.reservation.Reservation;
-import seedu.hms.model.reservation.RoomType;
+import seedu.hms.model.reservation.roomType.RoomType;
 
 /**
  * A utility class containing a list of {@code Customer} objects to be used in tests.
@@ -128,7 +128,7 @@ public class TypicalCustomers {
     }
 
     public static List<Booking> getTypicalBookings() {
-        return new ArrayList<>(Arrays.asList(ALICE_GYM, ALICE_GAMES_WITH_CARL));
+        return new ArrayList<>(Arrays.asList(ALICE_GYM, BENSON_GAMES_WITH_CARL));
     }
 
     public static List<Reservation> getTypicalReservations() {

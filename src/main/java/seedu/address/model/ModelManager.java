@@ -31,7 +31,7 @@ import seedu.address.model.threshold.Threshold;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-    private static final Comparator<Medicine> comparatorLexicographical = Comparator.comparing(Medicine::getName);
+    private static final Comparator<Medicine> comparator = Comparator.naturalOrder();
 
     private final VersionedInventory versionedInventory;
     private final UserPrefs userPrefs;
@@ -55,12 +55,12 @@ public class ModelManager implements Model {
         versionedInventory = new VersionedInventory(inventory);
         this.userPrefs = new UserPrefs(userPrefs);
 
-        filteredMedicines = new FilteredList<>(versionedInventory.getSortedMedicineList(comparatorLexicographical));
+        filteredMedicines = new FilteredList<>(versionedInventory.getSortedMedicineList(comparator));
         filteredMedicines.addListener(this::ensureSelectedMedicineIsValid);
 
         warningPanelPredicateAccessor = new WarningPanelPredicateAccessor();
-        medicinesExpiring = new FilteredList<>(versionedInventory.getSortedMedicineList(comparatorLexicographical));
-        medicinesLowStock = new FilteredList<>(versionedInventory.getSortedMedicineList(comparatorLexicographical));
+        medicinesExpiring = new FilteredList<>(versionedInventory.getSortedMedicineList(comparator));
+        medicinesLowStock = new FilteredList<>(versionedInventory.getSortedMedicineList(comparator));
         configureWarningPanelLists();
     }
 

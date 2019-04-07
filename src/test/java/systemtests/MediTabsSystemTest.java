@@ -51,7 +51,7 @@ public abstract class MediTabsSystemTest {
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
             Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
-    private static final Comparator<Medicine> comparatorLexicographical = Comparator.comparing(Medicine::getName);
+    private static final Comparator<Medicine> comparator = Comparator.naturalOrder();
 
     private MainWindowHandle mainWindowHandle;
     private TestApp testApp;
@@ -137,7 +137,7 @@ public abstract class MediTabsSystemTest {
      */
     protected void showAllMedicines() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getInventory().getSortedMedicineList(comparatorLexicographical).size(),
+        assertEquals(getModel().getInventory().getSortedMedicineList(comparator).size(),
                 getModel().getFilteredMedicineList().size());
     }
 
@@ -147,7 +147,7 @@ public abstract class MediTabsSystemTest {
     protected void showMedicinesWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredMedicineList().size()
-                < getModel().getInventory().getSortedMedicineList(comparatorLexicographical).size());
+                < getModel().getInventory().getSortedMedicineList(comparator).size());
     }
 
     /**
@@ -163,7 +163,7 @@ public abstract class MediTabsSystemTest {
      */
     protected void deleteAllMedicines() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getInventory().getSortedMedicineList(comparatorLexicographical).size());
+        assertEquals(0, getModel().getInventory().getSortedMedicineList(comparator).size());
     }
 
     /**

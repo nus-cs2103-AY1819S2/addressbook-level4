@@ -1,6 +1,6 @@
 package seedu.address.model.recmodule;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
 
@@ -18,7 +18,7 @@ public class RecModule {
     private CourseReqType courseReqType;
 
     public RecModule(ModuleInfoCode code, ModuleInfoTitle title) {
-        requireAllNonNull(code, title);
+        requireNonNull(code);
         this.moduleInfoCode = code;
         this.moduleInfoTitle = title;
     }
@@ -27,8 +27,8 @@ public class RecModule {
         return moduleInfoCode;
     }
 
-    public ModuleInfoTitle getModuleInfoTitle() {
-        return moduleInfoTitle;
+    public Optional<ModuleInfoTitle> getModuleInfoTitle() {
+        return Optional.ofNullable(moduleInfoTitle);
     }
 
     public Optional<CourseReqType> getCourseReqType() {
@@ -50,7 +50,6 @@ public class RecModule {
 
         RecModule other = (RecModule) object;
         return moduleInfoCode.equals(other.moduleInfoCode)
-                && moduleInfoTitle.equals(other.moduleInfoTitle)
                 && getCourseReqType().equals(other.getCourseReqType());
     }
 }

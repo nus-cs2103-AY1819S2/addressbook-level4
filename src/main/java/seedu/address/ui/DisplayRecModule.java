@@ -32,12 +32,15 @@ public class DisplayRecModule extends UiPart<Region> {
         super(FXML);
         requireNonNull(recModule);
         this.recModule = recModule;
-        assert(recModule.getCourseReqType().isPresent());
 
         index.setText(id + ". ");
         moduleInfoCode.setText(recModule.getModuleInfoCode().toString());
-        moduleInfoTitle.setText(recModule.getModuleInfoTitle().toString());
-        courseReqType.setText(recModule.getCourseReqType().get().toString());
+        if (recModule.getModuleInfoTitle().isPresent()) {
+            moduleInfoTitle.setText(recModule.getModuleInfoTitle().get().toString());
+        }
+        if (recModule.getCourseReqType().isPresent()) {
+            courseReqType.setText(recModule.getCourseReqType().get().toString());
+        }
     }
 
     @Override

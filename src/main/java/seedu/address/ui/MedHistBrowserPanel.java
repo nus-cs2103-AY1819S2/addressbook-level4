@@ -1,26 +1,24 @@
 package seedu.address.ui;
 
-import static java.util.Objects.requireNonNull;
-
-import java.net.URL;
 import java.util.logging.Logger;
 
-import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
-import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.medicalhistory.MedicalHistory;
 
 /**
  * The Medical History Browser Panel of the App.
  */
+
 public class MedHistBrowserPanel extends UiPart<Region> {
-    public static final URL DEFAULT_PAGE =
-            requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
+
+    public static final String DEFAULT_MED_HIST_PAGE = "";
 
     private static final String FXML = "MedHistBrowserPanel.fxml";
 
@@ -28,6 +26,22 @@ public class MedHistBrowserPanel extends UiPart<Region> {
 
     @FXML
     private WebView browser;
+    @FXML
+    private GridPane medHistPage;
+    @FXML
+    private Label medHistId;
+    @FXML
+    private Label patientId;
+    @FXML
+    private Label patientName;
+    @FXML
+    private Label doctorId;
+    @FXML
+    private Label doctorName;
+    @FXML
+    private Label date;
+    @FXML
+    private Label writeUp;
 
     public MedHistBrowserPanel(ObservableValue<MedicalHistory> selectedMedHist) {
         super(FXML);
@@ -35,30 +49,50 @@ public class MedHistBrowserPanel extends UiPart<Region> {
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
-        // Load patient page when selected patient changes.
+        // Load card page when selected card changes.
         selectedMedHist.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
-                loadDefaultPage();
+                loadDefaultMedHist();
                 return;
             }
             loadMedHistPage(newValue);
         });
 
-        loadDefaultPage();
-    }
-
-    private void loadMedHistPage(MedicalHistory medHist) {
-        loadPage(medHist.getMedHistId());
-    }
-
-    public void loadPage(String url) {
-        Platform.runLater(() -> browser.getEngine().load(url));
+        loadDefaultMedHist();
     }
 
     /**
-     * Loads a default HTML file with a background that matches the general theme.
+     * Load the current selected {@code MedicalHistory} into the browser panel with all medical history info.
+     * @param medHist selected to be displayed.
      */
-    private void loadDefaultPage() {
-        loadPage(DEFAULT_PAGE.toExternalForm());
+    private void loadMedHistPage(MedicalHistory medHist) {
+        medHistPage.getChildren().clear();
+
+        medHistId.setText("Medical History ID: " + medHist.getMedHistId());
+        patientId.setText("Patient ID: " + medHist.getPatientId());
+        patientName.setText("Patient Name: ");
+        doctorId.setText("Doctor ID: " + medHist.getDoctorId());
+        doctorName.setText("Doctor Name: ");
+        date.setText("Date: " + medHist.getDate().toString());
+        writeUp.setText("Short Write Up from Doctor: " + medHist.getWriteUp().toString());
+
+        medHistPage.getChildren().addAll(medHistId, patientId, patientName, doctorId, doctorName, date, writeUp);
     }
+
+    /**
+     * Loads a default blank medical history with a background that matches the general theme.
+     */
+    private void loadDefaultMedHist() {
+        medHistPage.getChildren().clear();
+
+        medHistId.setText("");
+        patientId.setText("");
+        patientName.setText("");
+        doctorId.setText("");
+        doctorName.setText("");
+        date.setText("");
+        writeUp.setText("");
+        medHistPage.getChildren().addAll(medHistId, patientId, patientName, doctorId, doctorName, date, writeUp);
+    }
+
 }

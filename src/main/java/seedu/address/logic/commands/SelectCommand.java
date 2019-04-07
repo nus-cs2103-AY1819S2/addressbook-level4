@@ -42,7 +42,8 @@ public class SelectCommand extends Command {
         }
 
         model.setSelectedPatient(filteredPatientList.get(targetIndex.getZeroBased()));
-        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
+        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()),
+                CommandResult.ShowBrowser.PATIENT_BROWSER);
 
     }
 

@@ -20,19 +20,18 @@ public class DeleteMultipleCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes multiple places identified by the start and end index number in the last place listing.\n"
+            + "Start index must be smaller than or equal to the end index.\n"
             + "Parameters: START_INDEX END_INDEX\n"
             + "Example: " + COMMAND_WORD + " 1" + " 5";
 
-    public static final String MESSAGE_DELETE_PLACE_SUCCESS = "Deleted Place: ";
+    public static final String MESSAGE_DELETEM_PLACE_SUCCESS = "Deleted Place: %1$s\n";
 
     private Index targetStartIndex;
     private Index targetEndIndex;
-    private StringBuilder deletedPlacesList;
 
     public DeleteMultipleCommand(Index startIndex, Index endIndex) {
         this.targetStartIndex = startIndex;
         this.targetEndIndex = endIndex;
-        this.deletedPlacesList = new StringBuilder();
     }
 
     @Override
@@ -50,20 +49,15 @@ public class DeleteMultipleCommand extends Command {
 
         int numOfPlacesToDelete = targetEndIndex.getOneBased() - targetStartIndex.getZeroBased();
         int startIndex = targetStartIndex.getZeroBased();
+        String deletedPlacesList = "";
 
         for (int i = 0; i < numOfPlacesToDelete; i++) {
             Place placeToDelete = lastShownList.get(startIndex);
             model.deletePlace(placeToDelete);
-            buildDeletedPlacesList(placeToDelete);
+            deletedPlacesList = deletedPlacesList.concat(String.format(MESSAGE_DELETEM_PLACE_SUCCESS, placeToDelete));
         }
         model.commitTravelBuddy();
-        return new CommandResult(deletedPlacesList.toString());
-    }
-
-    private void buildDeletedPlacesList(Place target) {
-        this.deletedPlacesList.append(MESSAGE_DELETE_PLACE_SUCCESS);
-        this.deletedPlacesList.append(target);
-        this.deletedPlacesList.append("\n");
+        return new CommandResult(deletedPlacesList);
     }
 
     @Override

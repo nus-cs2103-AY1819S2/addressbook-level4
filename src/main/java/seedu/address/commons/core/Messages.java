@@ -59,8 +59,9 @@ public class Messages {
      * deleteLesson, openLesson and reloadLessons command while lesson is opened. Prompts user
      * to closeLesson first.
      */
-    public static final String MESSAGE_OPENED_LESSON = "Command not allowed while lesson is opened.\n"
-            + "Close the opened lesson first by using " + CloseLessonCommand.COMMAND_WORD + '.';
+    public static final String MESSAGE_OPENED_LESSON =
+            "Close the opened lesson before using this command.\n"
+            + "To close the opened use:\n" + CloseLessonCommand.MESSAGE_USAGE;
 
     private Messages() {}
 }

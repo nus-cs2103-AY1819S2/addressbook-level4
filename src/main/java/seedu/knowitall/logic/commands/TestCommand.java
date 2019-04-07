@@ -17,11 +17,6 @@ public class TestCommand extends Command {
 
     public static final String COMMAND_WORD = "test";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Enters a test session using the current card folder.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
-
     public static final String MESSAGE_ENTER_TEST_FOLDER_SUCCESS = "In Test Session";
 
     @Override
@@ -44,9 +39,4 @@ public class TestCommand extends Command {
         }
     }
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof TestCommand); // instanceof handles nulls
-    }
 }

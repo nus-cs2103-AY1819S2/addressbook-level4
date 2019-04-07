@@ -245,6 +245,14 @@ public interface Model extends Observable {
     boolean markAttemptedAnswer(Answer attemptedAnswer);
 
     /**
+     *
+     * @param cardToMark {@code Card} which is being marked correct or wrong
+     * @param markCorrect Boolean representing if card should be graded correct or wrong
+     * @return Card created with new score
+     */
+    Card createScoredCard(Card cardToMark, boolean markCorrect);
+
+    /**
      * Returns true if the index provided matches the answerIndex of the currently tested card,
      * false otherwise.
      */

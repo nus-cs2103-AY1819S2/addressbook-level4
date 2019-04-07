@@ -29,6 +29,7 @@ import seedu.knowitall.commons.util.InvalidationListenerManager;
 import seedu.knowitall.logic.commands.exceptions.CommandException;
 import seedu.knowitall.model.card.Answer;
 import seedu.knowitall.model.card.Card;
+import seedu.knowitall.model.card.Score;
 import seedu.knowitall.model.card.exceptions.CardNotFoundException;
 import seedu.knowitall.storage.csvmanager.CsvFile;
 import seedu.knowitall.storage.csvmanager.CsvManager;
@@ -413,6 +414,20 @@ public class ModelManager implements Model {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Card createScoredCard(Card cardToMark, boolean markCorrect) {
+        Score newScore;
+        if (markCorrect) {
+            newScore = new Score(cardToMark.getScore().correctAttempts + 1,
+                    cardToMark.getScore().totalAttempts + 1);
+        } else {
+            newScore = new Score(cardToMark.getScore().correctAttempts,
+                    cardToMark.getScore().totalAttempts + 1);
+        }
+        return new Card(cardToMark.getQuestion(), cardToMark.getAnswer(), newScore, cardToMark.getOptions(),
+                cardToMark.getHints());
     }
 
     @Override

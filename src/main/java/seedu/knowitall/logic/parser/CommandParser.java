@@ -26,6 +26,7 @@ import seedu.knowitall.logic.commands.ListCommand;
 import seedu.knowitall.logic.commands.NextCommand;
 import seedu.knowitall.logic.commands.RedoCommand;
 import seedu.knowitall.logic.commands.ReportCommand;
+import seedu.knowitall.logic.commands.RevealCommand;
 import seedu.knowitall.logic.commands.SearchCommand;
 import seedu.knowitall.logic.commands.SelectCommand;
 import seedu.knowitall.logic.commands.SortCommand;
@@ -93,6 +94,9 @@ public class CommandParser {
 
         case AnswerCommand.COMMAND_WORD:
             return new AnswerCommandParser().parse(arguments);
+
+        case RevealCommand.COMMAND_WORD:
+            return new RevealCommand();
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();

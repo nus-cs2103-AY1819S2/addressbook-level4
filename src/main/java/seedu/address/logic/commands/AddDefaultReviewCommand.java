@@ -23,7 +23,7 @@ public class AddDefaultReviewCommand extends Command {
             + "food diary.\n"
             + "Parameters: "
             + "INDEX (Must be a positive integer) "
-            + "(DEFAULT REVIEW NUMBER(integer from 1 - 5 inclusive)) \n"
+            + "DEFAULT_REVIEW_NUMBER(integer from 1 - 5 inclusive)\n"
             + "Example: " + COMMAND_WORD + " "
             + "2 2\n"
             + "will add a review of (Rating: 2.0, Entry: Below average, try not to go again) to the restaurant"
@@ -74,7 +74,7 @@ public class AddDefaultReviewCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof AddDefaultReviewCommand // instanceof handles nulls
                 && defaultReviewIndicator.equals(((AddDefaultReviewCommand) other).getDefaultReviewIndicator())
-                && targetIndex.equals(((AddReviewCommand) other).getTargetIndex()));
+                && targetIndex.equals(((AddDefaultReviewCommand) other).getTargetIndex()));
     }
 
     @Override

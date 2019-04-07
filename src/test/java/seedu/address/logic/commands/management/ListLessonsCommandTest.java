@@ -2,6 +2,7 @@ package seedu.address.logic.commands.management;
 
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_OPENED_LESSON;
 import static seedu.address.logic.commands.management.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.management.ListLessonsCommand.MESSAGE_NO_LESSONS;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
@@ -31,7 +32,7 @@ public class ListLessonsCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_listNoLessons() {
+    public void execute_listNoLessons_listSuccessful() {
         ManagementModel modelStub = new MgtModelStubWithNoLessons();
 
         // attempt to list all lessons when there are no lessons -> return feedback that there are no lessons
@@ -40,7 +41,7 @@ public class ListLessonsCommandTest {
     }
 
     @Test
-    public void execute_listLessons() {
+    public void execute_listLessons_listSuccessful() {
         ManagementModel modelStub = new MgtModelStubWithLessons();
         ListLessonsCommand listLessonsCommand = new ListLessonsCommand();
         String expectedOutput = listLessonsCommand.buildList(TypicalLessonList.getTypicalLessonList());
@@ -48,6 +49,18 @@ public class ListLessonsCommandTest {
         // attempt to list all lessons when there are lessons -> list all lessons
         assertCommandSuccess(new ListLessonsCommand(), modelStub, commandHistory,
                 expectedOutput, modelStub);
+    }
+
+    @Test
+    public void execute_listLessonsWhenHasOpenedLesson_listUnsuccessful() throws CommandException {
+        MgtModelStubWithOpenedLesson modelStub = new MgtModelStubWithOpenedLesson();
+        ListLessonsCommand listLessonsCommand = new ListLessonsCommand();
+        String expectedOutput = listLessonsCommand.buildList(TypicalLessonList.getTypicalLessonList());
+
+        // attempt to list all lessons when in Lesson View mode (opened lesson) -> exception thrown
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(MESSAGE_OPENED_LESSON);
+        new ListLessonsCommand().execute(modelStub, commandHistory);
     }
 
     @Test
@@ -82,6 +95,11 @@ public class ListLessonsCommandTest {
 
     private class MgtModelStubWithNoLessons extends ManagementModelStub {
         @Override
+        public boolean isThereOpenedLesson() {
+            return false;
+        }
+
+        @Override
         public List<Lesson> getLessons() {
             return new ArrayList<>();
         }
@@ -89,6 +107,23 @@ public class ListLessonsCommandTest {
 
 
     private class MgtModelStubWithLessons extends ManagementModelStub {
+        @Override
+        public boolean isThereOpenedLesson() {
+            return false;
+        }
+
+        @Override
+        public List<Lesson> getLessons() {
+            return TypicalLessonList.getTypicalLessonList();
+        }
+    }
+
+    private class MgtModelStubWithOpenedLesson extends ManagementModelStub {
+        @Override
+        public boolean isThereOpenedLesson() {
+            return true;
+        }
+
         @Override
         public List<Lesson> getLessons() {
             return TypicalLessonList.getTypicalLessonList();

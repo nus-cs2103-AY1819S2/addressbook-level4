@@ -15,7 +15,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_START_TIME;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,6 +43,10 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SelectDoctorCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.appointment.AppointmentDate;
+import seedu.address.model.appointment.AppointmentDoctorId;
+import seedu.address.model.appointment.AppointmentPatientId;
+import seedu.address.model.appointment.AppointmentTime;
 import seedu.address.model.appointment.FutureAppointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.WriteUp;
@@ -74,10 +77,14 @@ public class DocXParserTest {
         AddAppointmentCommand command = (AddAppointmentCommand) parser.parseCommand(
                 AddAppointmentCommand.COMMAND_WORD + DESC_VALID_PATIENT_ID + DESC_VALID_DOCTOR_ID
                         + DESC_VALID_DATE_OF_APPT + DESC_VALID_START_TIME);
+        System.out.println(DESC_VALID_DATE_OF_APPT);
+        System.out.println(DESC_VALID_START_TIME);
         assertTrue(command instanceof AddAppointmentCommand);
-        assertEquals(command, new AddAppointmentCommand(new FutureAppointment(Integer.parseInt(VALID_PATIENT_ID),
-                Integer.parseInt(VALID_DOCTOR_ID), LocalDate.parse(VALID_DATE_OF_APPT),
-                LocalTime.parse(VALID_START_TIME))));
+        assertEquals(command, new AddAppointmentCommand(new FutureAppointment(
+                new AppointmentPatientId(VALID_PATIENT_ID),
+                new AppointmentDoctorId(VALID_DOCTOR_ID),
+                new AppointmentDate(VALID_DATE_OF_APPT),
+                new AppointmentTime(VALID_START_TIME))));
     }
 
     @Test

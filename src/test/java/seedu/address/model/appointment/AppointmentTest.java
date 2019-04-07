@@ -2,9 +2,10 @@ package seedu.address.model.appointment;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_OF_APPT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DOCTOR_ID;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PATIENT_ID;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_TIME;
 
 import org.junit.Test;
 
@@ -13,8 +14,8 @@ import seedu.address.testutil.Assert;
 public class AppointmentTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Appointment(1,
-                1, null, null));
+        Assert.assertThrows(NullPointerException.class, () -> new Appointment( null,
+                null, null, null));
     }
 
     /*@Test
@@ -38,12 +39,21 @@ public class AppointmentTest {
 
     @Test
     public void equals() {
-        Appointment appointment1 = new Appointment(1, 1,
-                LocalDate.parse("2019-06-01"), LocalTime.parse("09:00"));
-        Appointment appointment2 = new Appointment(1, 1,
-                LocalDate.parse("2019-06-01"), LocalTime.parse("10:00"));
-        Appointment appointment1Copy = new Appointment(1, 1,
-                LocalDate.parse("2019-06-01"), LocalTime.parse("09:00"));
+        Appointment appointment1 = new Appointment(
+                new AppointmentPatientId(VALID_PATIENT_ID),
+                new AppointmentDoctorId(VALID_DOCTOR_ID),
+                new AppointmentDate(VALID_DATE_OF_APPT),
+                new AppointmentTime(VALID_START_TIME));
+        Appointment appointment2 = new Appointment(
+                new AppointmentPatientId(VALID_PATIENT_ID),
+                new AppointmentDoctorId(VALID_DOCTOR_ID),
+                new AppointmentDate(VALID_DATE_OF_APPT),
+                new AppointmentTime("10:00"));
+        Appointment appointment1Copy = new Appointment(
+                new AppointmentPatientId(VALID_PATIENT_ID),
+                new AppointmentDoctorId(VALID_DOCTOR_ID),
+                new AppointmentDate(VALID_DATE_OF_APPT),
+                new AppointmentTime(VALID_START_TIME));
 
         assertTrue(appointment1.equals(appointment1));
         assertTrue(appointment1.equals(appointment1Copy));

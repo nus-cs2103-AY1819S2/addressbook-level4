@@ -1,7 +1,6 @@
 package seedu.address.model.util;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,6 +10,11 @@ import java.util.stream.Collectors;
 import seedu.address.model.DocX;
 import seedu.address.model.ReadOnlyDocX;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentDate;
+import seedu.address.model.appointment.AppointmentDoctorId;
+import seedu.address.model.appointment.AppointmentPatientId;
+import seedu.address.model.appointment.AppointmentTime;
+import seedu.address.model.appointment.FutureAppointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.WriteUp;
 import seedu.address.model.person.Address;
@@ -107,10 +111,12 @@ public class SampleDataUtil {
 
     public static List<Appointment> getAppointments() {
         List<Appointment> appointments = new ArrayList<>();
-        appointments.add(new Appointment(1, 1,
-                LocalDate.parse("2019-06-01"), LocalTime.parse("09:00")));
-        appointments.add(new Appointment(2, 2,
-                LocalDate.parse("2019-06-01"), LocalTime.parse("010:00")));
+        FutureAppointment appointment1 = new FutureAppointment(new AppointmentPatientId("1"),
+                new AppointmentDoctorId("2"), new AppointmentDate("2016-06-01"), new AppointmentTime("09:00"));
+        FutureAppointment appointment2 = new FutureAppointment(new AppointmentPatientId("1"),
+                new AppointmentDoctorId("3"), new AppointmentDate("2016-06-01"), new AppointmentTime("10:00"));
+        appointments.add(appointment1);
+        appointments.add(appointment2);
 
         return appointments;
     }

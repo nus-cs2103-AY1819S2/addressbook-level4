@@ -1,8 +1,6 @@
 package seedu.address.model.appointment;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import seedu.address.model.appointment.exceptions.AppointmentNotInFutureException;
 
@@ -19,7 +17,8 @@ public class FutureAppointment extends Appointment {
      * @param date A valid appointment date in the future
      * @param time A valid appointment time in the future
      */
-    public FutureAppointment(int patientId, int doctorId, LocalDate date, LocalTime time) {
+    public FutureAppointment(AppointmentPatientId patientId, AppointmentDoctorId doctorId,
+                             AppointmentDate date, AppointmentTime time) {
         super(patientId, doctorId, date, time);
         if (!isFuture()) {
             throw new AppointmentNotInFutureException();
@@ -33,7 +32,7 @@ public class FutureAppointment extends Appointment {
      */
     public boolean isFuture() {
         LocalDateTime currentDateTime = LocalDateTime.now();
-        LocalDateTime appointmentDateTime = LocalDateTime.of(super.getDate(), super.getTime());
+        LocalDateTime appointmentDateTime = LocalDateTime.of(super.getDate().date, super.getTime().time);
 
         final boolean future = appointmentDateTime.isAfter(currentDateTime);
         return future;

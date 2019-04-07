@@ -10,6 +10,10 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.appointment.AppointmentDate;
+import seedu.address.model.appointment.AppointmentDoctorId;
+import seedu.address.model.appointment.AppointmentPatientId;
+import seedu.address.model.appointment.AppointmentTime;
 import seedu.address.model.medicalhistory.ValidDate;
 import seedu.address.model.medicalhistory.WriteUp;
 import seedu.address.model.person.Address;
@@ -214,6 +218,66 @@ public class ParserUtil {
             throw new ParseException(WriteUp.MESSAGE_CONSTRAINTS);
         }
         return new WriteUp(trimmedWriteUp);
+    }
+
+    /**
+     * Parses a {@code String patientId} into a {@code AppointmentPatientId}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code patientId} is invalid.
+     */
+    public static AppointmentPatientId parseAppointmentPatientId(String patientId) throws ParseException {
+        requireNonNull(patientId);
+        String trimmedPatientId = patientId.trim();
+        if (!AppointmentPatientId.isValidAppointmentPatientId(trimmedPatientId)) {
+            throw new ParseException(AppointmentPatientId.MESSAGE_CONSTRAINTS);
+        }
+        return new AppointmentPatientId(patientId);
+    }
+
+    /**
+     * Parses a {@code String doctorId} into a {@code AppointmentDoctorId}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code doctorId} is invalid.
+     */
+    public static AppointmentDoctorId parseAppointmentDoctorId(String doctorId) throws ParseException {
+        requireNonNull(doctorId);
+        String trimmedDoctorId = doctorId.trim();
+        if (!AppointmentDoctorId.isValidAppointmentDoctorId(trimmedDoctorId)) {
+            throw new ParseException(AppointmentDoctorId.MESSAGE_CONSTRAINTS);
+        }
+        return new AppointmentDoctorId(doctorId);
+    }
+
+    /**
+     * Parses a {@code String date} into a {@code AppointmentDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static AppointmentDate parseAppointmentDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!AppointmentDate.isValidAppointmentDate(trimmedDate)) {
+            throw new ParseException(AppointmentDate.MESSAGE_CONSTRAINTS);
+        }
+        return new AppointmentDate(date);
+    }
+
+    /**
+     * Parses a {@code String time} into a {@code AppointmentTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code time} is invalid.
+     */
+    public static AppointmentTime parseAppointmentTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        if (!AppointmentTime.isValidAppointmentTime(trimmedTime)) {
+            throw new ParseException(AppointmentTime.MESSAGE_CONSTRAINTS);
+        }
+        return new AppointmentTime(time);
     }
 
     /**

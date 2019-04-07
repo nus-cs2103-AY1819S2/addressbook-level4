@@ -57,10 +57,8 @@ public class AddAppointmentCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         }
 
-        Patient validPatient = getPatientById(model);
-        Doctor validDoctor = getDoctorById(model);
-        System.out.println(validPatient);
-        System.out.println(validDoctor);
+        getPatientById(model);
+        getDoctorById(model);
 
         model.addAppointment(appointment);
         model.commitDocX();
@@ -78,29 +76,28 @@ public class AddAppointmentCommand extends Command {
         }
 
         AddAppointmentCommand that = (AddAppointmentCommand) o;
-        return (appointment.getPatientId() == that.appointment.getPatientId()
-                && appointment.getDoctorId() == that.appointment.getDoctorId()
-                && appointment.getDate().equals(that.appointment.getDate())
-                && appointment.getTime().equals(that.appointment.getTime()));
+        return appointment.equals(that.appointment);
     }
 
     private Patient getPatientById(Model model) throws CommandException {
         FilteredList<Patient> patientList = new FilteredList<>(model.getDocX().getPatientList());
-        Predicate<Patient> predicate = new RecordContainsPatientIdPredicate(appointment.getPatientId());
+        Predicate<Patient> predicate = new RecordContainsPatientIdPredicate(appointment.getPatientId().patientId);
         patientList.setPredicate(predicate);
         if (patientList.isEmpty()) {
             throw new CommandException(MESSAGE_PATIENT_NOT_NOT_FOUND);
         }
+        this.appointment.setPatient(patientList.get(0));
         return patientList.get(0);
     }
 
     private Doctor getDoctorById(Model model) throws CommandException {
         FilteredList<Doctor> doctorList = new FilteredList<>(model.getDocX().getDoctorList());
-        Predicate<Doctor> predicate = new RecordContainsDoctorIdPredicate(appointment.getDoctorId());
+        Predicate<Doctor> predicate = new RecordContainsDoctorIdPredicate(appointment.getDoctorId().doctorId);
         doctorList.setPredicate(predicate);
         if (doctorList.isEmpty()) {
             throw new CommandException(MESSAGE_DOCTOR_NOT_NOT_FOUND);
         }
+        this.appointment.setDoctor(doctorList.get(0));
         return doctorList.get(0);
     }
 }

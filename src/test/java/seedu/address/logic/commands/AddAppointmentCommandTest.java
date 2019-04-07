@@ -2,16 +2,23 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_OF_APPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DOCTOR_ID;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PATIENT_ID;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_TIME;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.model.appointment.AppointmentDate;
+import seedu.address.model.appointment.AppointmentDoctorId;
+import seedu.address.model.appointment.AppointmentPatientId;
+import seedu.address.model.appointment.AppointmentTime;
 import seedu.address.model.appointment.FutureAppointment;
 
 
@@ -27,16 +34,18 @@ public class AddAppointmentCommandTest {
     @Test
     public void equals() {
         LocalDateTime currentDateTime = LocalDateTime.now();
-        LocalDateTime futureDateTime = currentDateTime.plusSeconds(1);
-        FutureAppointment futureAppointment1 = new FutureAppointment(Integer.parseInt(VALID_PATIENT_ID),
-                Integer.parseInt(VALID_DOCTOR_ID),
-                futureDateTime.toLocalDate(),
-                futureDateTime.toLocalTime());
+        LocalDateTime futureDateTime = currentDateTime.plusSeconds(100);
+        FutureAppointment futureAppointment1 = new FutureAppointment(
+                new AppointmentPatientId(VALID_PATIENT_ID),
+                new AppointmentDoctorId(VALID_DOCTOR_ID),
+                new AppointmentDate(VALID_DATE_OF_APPT),
+                new AppointmentTime(VALID_START_TIME));;
 
-        FutureAppointment futureAppointment2 = new FutureAppointment(Integer.parseInt(VALID_PATIENT_ID),
-                Integer.parseInt(VALID_DOCTOR_ID),
-                futureDateTime.plusDays(1).toLocalDate(),
-                futureDateTime.plusDays(1).toLocalTime());
+        FutureAppointment futureAppointment2 = new FutureAppointment(
+                new AppointmentPatientId(VALID_PATIENT_ID),
+                new AppointmentDoctorId(VALID_DOCTOR_ID),
+                new AppointmentDate(VALID_DATE_OF_APPT),
+                new AppointmentTime(futureDateTime.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"))));
 
         AddAppointmentCommand command1 = new AddAppointmentCommand(futureAppointment1);
         AddAppointmentCommand command2 = new AddAppointmentCommand(futureAppointment2);

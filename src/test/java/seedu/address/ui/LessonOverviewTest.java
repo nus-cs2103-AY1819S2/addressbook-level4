@@ -18,13 +18,13 @@ public class LessonOverviewTest extends GuiUnitTest {
         Lesson lessonWithNotOptionals = new LessonBuilder().withNoOptionalHeaders().build();
         LessonOverview lessonOverview = new LessonOverview(lessonWithNotOptionals);
         uiPartRule.setUiPart(lessonOverview);
-        assertCardDisplay(lessonOverview, lessonWithNotOptionals, 1);
+        assertCardDisplay(lessonOverview, lessonWithNotOptionals);
 
         // with tags
         Lesson lessonWithOptionals = new LessonBuilder().build();
         lessonOverview = new LessonOverview(lessonWithOptionals);
         uiPartRule.setUiPart(lessonOverview);
-        assertCardDisplay(lessonOverview, lessonWithOptionals, 2);
+        assertCardDisplay(lessonOverview, lessonWithOptionals);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class LessonOverviewTest extends GuiUnitTest {
      * Asserts that {@code lessonOverview} displays the details of {@code expectedLesson} correctly and matches
      * {@code expectedId}.
      */
-    private void assertCardDisplay(LessonOverview lessonOverview, Lesson expectedLesson, int expectedId) {
+    private void assertCardDisplay(LessonOverview lessonOverview, Lesson expectedLesson) {
         guiRobot.pauseForHuman();
 
         LessonOverviewHandle lessonOverviewHandle = new LessonOverviewHandle(lessonOverview.getRoot());

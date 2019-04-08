@@ -46,21 +46,21 @@ public class MainWindowCloseTest extends GuiUnitTest {
         FxToolkit.showStage();
     }
 
-//    @Test
-//    public void close_menuBarExitButton_allWindowsClosed() {
-//        mainWindowHandle.clickOnMenuExitButton();
-//        // The application will exit when all windows are closed.
-//        assertEquals(Collections.emptyList(), guiRobot.listWindows());
-//    }
-//
-//    @Test
-//    public void close_externalRequest_exitAppRequestEventPosted() {
-//        mainWindowHandle.clickOnMenuHelpButton();
-//        assertTrue(HelpWindowHandle.isWindowPresent());
-//        mainWindowHandle.closeMainWindowExternally();
-//        // The application will exit when all windows are closed.
-//        assertEquals(Collections.emptyList(), guiRobot.listWindows());
-//    }
+    @Test
+    public void close_menuBarExitButton_allWindowsClosed() {
+        mainWindowHandle.clickOnMenuExitButton();
+        // The application will exit when all windows are closed.
+        assertEquals(Collections.emptyList(), guiRobot.listWindows());
+    }
+
+    @Test
+    public void close_externalRequest_exitAppRequestEventPosted() {
+        mainWindowHandle.clickOnMenuHelpButton();
+        assertTrue(HelpWindowHandle.isWindowPresent());
+        mainWindowHandle.closeMainWindowExternally();
+        // The application will exit when all windows are closed.
+        assertEquals(Collections.emptyList(), guiRobot.listWindows());
+    }
 
     /**
      * A handle for an empty {@code MainWindow}. The components in {@code MainWindow} are not initialized.

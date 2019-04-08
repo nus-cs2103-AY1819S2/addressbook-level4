@@ -139,10 +139,10 @@ public class AddCommandParserTest {
                 + EDUCATION_DESC_BOB + GPA_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Address.MESSAGE_CONSTRAINTS);
 
-//        // invalid tag - ! the tag value validation is changed, it takes ASCII characters now, so the test is not needed
-//        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-//                + EDUCATION_DESC_BOB + GPA_DESC_BOB
-//                + INVALID_TAG_DESC + VALID_TAG_FRIEND, SkillsTag.MESSAGE_CONSTRAINTS);
+        // invalid tag - ! the tag value validation is changed, it takes ASCII characters now, so the test is not needed
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + EDUCATION_DESC_BOB + GPA_DESC_BOB
+                + INVALID_TAG_DESC + VALID_TAG_FRIEND, SkillsTag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
@@ -150,7 +150,7 @@ public class AddCommandParserTest {
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + EDUCATION_DESC_BOB + GPA_DESC_BOB  + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+                + EDUCATION_DESC_BOB + GPA_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }

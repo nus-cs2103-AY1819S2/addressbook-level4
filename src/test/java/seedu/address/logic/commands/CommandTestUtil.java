@@ -116,6 +116,8 @@ public class CommandTestUtil {
     public static final String ACTIVITY_DESCRIPTION_DESC_OUTING = " " + PREFIX_ADESCRIPTION
             + VALID_ACTIVITY_DESCRIPTION_OUTING;
 
+    public static final String INVALID_ACTIVITY_NAME_DESC = " " + PREFIX_ACTIVITYNAME + "HTML@";
+    public static final String INVALID_ACTIVITY_DATETIME_DESC = " " + PREFIX_DATETIME + "20022019";
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -142,6 +144,7 @@ public class CommandTestUtil {
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
             assertEquals(expectedCommandResult, result);
+            assertEquals(expectedModel, actualModel);
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
         } catch (CommandException | InvalidCommandModeException e) {

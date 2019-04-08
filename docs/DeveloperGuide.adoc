@@ -667,21 +667,21 @@ Once the two sets of data are obtained, a new Chart object is created. The Chart
 ===== Aspect: How chart generation executes
 * *Alternative 1 (current choice)* +
 abcdef
-** *Pros:* 
+** *Pros:*
 :: abcdef
-** *Cons:* 
+** *Cons:*
 :: abcdef
 ** *Example:*
 :: abcdef
 * *Alternative 2* +
 abcdef
-** *Pros:* 
+** *Pros:*
 :: abcdef
-** *Cons:* 
+** *Cons:*
 :: abcdef
-** *Example:* 
+** *Example:*
 :: abcdef
-* *Decision:* 
+* *Decision:*
 :: abcdef
 
 For future implementation, the task is to use JavaFX's charting library to create a chart that can be displayed

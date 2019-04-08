@@ -113,6 +113,36 @@ public class Person {
     }
 
     /**
+     * Checks if the string parameter is contained in one of the skills of the person
+     */
+    public boolean isSkillExist(String tag) {
+        for (SkillsTag skill : tags) {
+            if(skill.toString().charAt(1) == 's') {
+                if (skill.toString().substring(3, skill.toString().length() - 1).trim().toLowerCase()
+                        .contains(tag.trim().toLowerCase())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the string parameter is contained in one of the positions of the person
+     */
+    public boolean isPositionExist(String tag) {
+        for (SkillsTag pos : tags) {
+            if(pos.toString().charAt(1) == 'p') {
+                if (pos.toString().substring(3, pos.toString().length() - 1).trim().toLowerCase()
+                        .contains(tag.trim().toLowerCase())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */

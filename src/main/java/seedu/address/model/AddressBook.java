@@ -166,7 +166,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Makes the filtering process according to and command
      */
     public void filterAnd(String name, String phone, String email, String address, String[] skillList,
-                          String[] posList, String gpa, String education) {
+                          String[] posList, String endorseCount, String gpa, String education) {
 
         isFilterExist = true;
         List<Person> listToRemove = new ArrayList();
@@ -193,7 +193,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
             if (skillList != null) {
                 for (String skill : skillList) {
-                    if (!person.isTagExist(skill)) {
+                    if (!person.isSkillExist(skill)) {
                         ifExcluded = true;
                         break;
                     }
@@ -202,11 +202,15 @@ public class AddressBook implements ReadOnlyAddressBook {
 
             if (posList != null) {
                 for (String pos : posList) {
-                    if (!person.isTagExist(pos)) {
+                    if (!person.isPositionExist(pos)) {
                         ifExcluded = true;
                         break;
                     }
                 }
+            }
+
+            if(endorseCount != null && Integer.parseInt(endorseCount) > person.getEndorsementsNumber()) {
+                ifExcluded = true;
             }
 
             if (education != null && !person.getEducation().toString().toLowerCase().contains(education)) {
@@ -230,7 +234,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Makes the filtering process according to or command
      */
     public void filterOr(String name, String phone, String email, String address, String[] skillList,
-                         String[] posList, String gpa, String education) {
+                         String[] posList, String endorseCount, String gpa, String education) {
 
         isFilterExist = true;
         List<Person> listToRemove = new ArrayList();
@@ -257,7 +261,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
             if (skillList != null) {
                 for (String skill : skillList) {
-                    if (person.isTagExist(skill)) {
+                    if (person.isSkillExist(skill)) {
                         ifIncluded = true;
                         break;
                     }
@@ -266,11 +270,15 @@ public class AddressBook implements ReadOnlyAddressBook {
 
             if (posList != null) {
                 for (String pos : posList) {
-                    if (person.isTagExist(pos)) {
+                    if (person.isPositionExist(pos)) {
                         ifIncluded = true;
                         break;
                     }
                 }
+            }
+
+            if(endorseCount != null && Integer.parseInt(endorseCount) <= person.getEndorsementsNumber()) {
+                ifIncluded = true;
             }
 
             if (education != null && person.getEducation().toString().toLowerCase().contains(education)) {
@@ -306,6 +314,28 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         isFilterExist = false;
+    }
+
+    /**
+     * Reverses the filter if a filtering is available
+     */
+    public void reverseFilter() {
+
+        if (isFilterExist) {
+
+            List<Person> listToRemove = new ArrayList();
+
+            for (Person person : allPersonsStorage) {
+                if (!persons.contains(person)) {
+                    persons.add(person);
+                } else {
+                    listToRemove.add(person);
+                }
+            }
+
+            persons.removeAll(listToRemove);
+            indicateModified();
+        }
     }
 
     /**

@@ -221,7 +221,7 @@ The `QuickDocs`,
 
 * is the ultimate unit storing all sub-models and data for this application.
 * is the class in charge of interacting with the storage component responsible for converting application data to files for storage.
-* see <<Design-Storage>> for detailed explanation of the role of `QuickDocs` in Storage component.
+* see <<Design-Storage, Storage Component>> for detailed explanation of the role of `QuickDocs` in Storage component.
 
 The following sections illustrate the design of managers of each sub-module.
 
@@ -232,9 +232,43 @@ The figure below illustrates the implementation of the inventory system for medi
 
 [[MedicineManager_diagram]]
 .Structure of the MedicineManager
-image::MedicineManager_diagram.png[width="500"]
+image::MedicineManager_diagram.png[width="800"]
 
-In medicine module, information about a medicine is encapsulated into the `Medicine` class.
+In medicine module, information about a medicine is encapsulated into the `Medicine` class. +
+
+`Directory` is a container for medicines, and sub-directories as well. +
+
+The `MedicineManager` keeps a list of reference of all unique medicines in the storage, so that no two medicine in the storage could share the same name to avoid confusion. +
+
+[NOTE]
+All occurrences of medicines with the same name across different directories point to the same medicine in the list of unique medicine in MedicineManager.
+
+[[Design-Model-PatientManager]]
+==== Model for Patient Management
+
+The figure below illustrates how is a patient represented and how are patients are stored in QuickDocs.
+
+[[PatientManager_diagram]]
+.Structure of PatientManager
+image::PatientManager_diagram.png[width='800']
+
+A patient in QuickDocs consists of an address, name, NRIC, Contact, Email, Date of Birth, Gender and any number of tags. +
+
+[NOTE]
+Specially, no two patients in QuickDocs can share the same NRIC number. In other words, the patients in QuickDocs are easily identified with their unique NRIC numbers.
+
+The `PatientManager` keeps a list of patients by chronological order of addition. PatientManager supports searching patients by NRIC, name and tags.
+
+[[Design-Model-ConsultationManager]]
+==== Model for ConsultationManager
+
+The figure below illustrates how consultations with patients are recorded and organized in QuickDocs.
+
+[[ConsultationManager_diagram]]
+.Structure of ConsultationManager
+image::ConsultationManager_diagram.png[width='800]
+
+
 
 [[Design-Storage]]
 === Storage component

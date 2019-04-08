@@ -24,7 +24,7 @@ public class BlackWhiteCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Apply the black and white filter on the image with threshold given.\n"
         + "If threshold is not given, default threshold value is 127.\n"
-        + "[THRESHOLD VALUE (int)] "
+        + "Parameters: [THRESHOLD VALUE (int)] "
         + "Example: " + COMMAND_WORD
         + "Example2: " + COMMAND_WORD + "130";
     private OptionalInt threshold;

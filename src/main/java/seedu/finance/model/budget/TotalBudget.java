@@ -7,9 +7,12 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+import javafx.collections.ObservableList;
 import seedu.finance.model.category.Category;
 import seedu.finance.model.exceptions.CategoryBudgetExceedTotalBudgetException;
+import seedu.finance.model.exceptions.SpendingInCategoryBudgetExceededException;
 import seedu.finance.model.record.Record;
+import seedu.finance.model.record.UniqueRecordList;
 
 /**
  * Represents the TotalBudget of the FinanceTracker
@@ -42,18 +45,30 @@ public class TotalBudget extends Budget {
      * @param budget a CategoryBudget to be added to the list of CategoryBudgets
      * @throws CategoryBudgetExceedTotalBudgetException if adding the categoryBudget will cause
      *         total sum of CategoryBudgets to exceed the total budget of Finance Tracker
+     * @throws SpendingInCategoryBudgetExceededException if the user tries to allocate a budget that is less
+     *          than the current spending in the category
      */
-    public void setNewCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException {
-        double sumOfCategoryBudgets = this.categoryBudgets.stream()
-                .mapToDouble(categoryBudget -> categoryBudget.getTotalBudget()).sum();
+    public void setNewCategoryBudget(CategoryBudget budget, UniqueRecordList records) throws
+            CategoryBudgetExceedTotalBudgetException,
+            SpendingInCategoryBudgetExceededException {
+        Category categoryOfBudget = budget.getCategory();
+        // Checks if the sum of all categoryBudgets exceed totalBudget
+        double sumOfCategoryBudgets = 0.00;
+        for (CategoryBudget cb: this.categoryBudgets) {
+            if (!cb.getCategory().equals(categoryOfBudget)) {
+                sumOfCategoryBudgets += cb.getTotalBudget();
+            }
+        }
+
         Double newTotalCategoryBudget = sumOfCategoryBudgets + budget.getTotalBudget();
 
         if (newTotalCategoryBudget > this.getTotalBudget()) {
             throw new CategoryBudgetExceedTotalBudgetException(budget, this);
         }
 
-
         CategoryBudget catBudgetToAdd = budget;
+        // Checks to see if user previous allocated budget
+        // under this category
         if (categoryBudgets.contains(budget)) {
             CategoryBudget cBudget;
             Iterator<CategoryBudget> it = categoryBudgets.iterator();
@@ -64,12 +79,20 @@ public class TotalBudget extends Budget {
                     catBudgetToAdd.currentBudget = catBudgetToAdd.totalBudget - catBudgetToAdd.currentSpendings;
                 }
             }
-            categoryBudgets.remove(budget);
-            categoryBudgets.add(catBudgetToAdd);
-            return;
+        }
+        ObservableList<Record> recordList = records.asUnmodifiableObservableList();
+        for (Record r: recordList) {
+            if (r.getCategory().equals(categoryOfBudget)) {
+                catBudgetToAdd.currentSpendings += r.getAmount().getValue();
+            }
         }
 
-        categoryBudgets.add(budget);
+        if (catBudgetToAdd.currentSpendings > catBudgetToAdd.totalBudget) {
+            throw new SpendingInCategoryBudgetExceededException(catBudgetToAdd);
+        }
+
+        this.categoryBudgets.remove(catBudgetToAdd);
+        this.categoryBudgets.add(catBudgetToAdd);
     }
 
     @Override

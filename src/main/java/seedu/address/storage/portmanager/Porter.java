@@ -1,4 +1,15 @@
 package seedu.address.storage.portmanager;
 
-public class Porter {
+import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.exceptions.DeckImportException;
+
+/**
+ * The API of PortManager
+ */
+
+public interface Porter {
+
+    String exportDeck(Deck deck);
+
+    Deck importDeck(String stringPath) throws DeckImportException;
 }

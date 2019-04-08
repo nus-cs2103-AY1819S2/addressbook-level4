@@ -98,10 +98,13 @@ public class ParserUtil {
      */
     public static Coordinates parseCoordinates(String coordinate) throws ParseException {
         requireNonNull(coordinate);
+
         String trimmedCoordinate = coordinate.trim();
-        if (!Coordinates.isValidCoordinates(trimmedCoordinate)) {
+        if (!Coordinates.isValidCoordinates(trimmedCoordinate)
+            || !StringUtil.isNonZeroUnsignedInteger(trimmedCoordinate.substring(1))) {
             throw new ParseException(Coordinates.MESSAGE_CONSTRAINTS);
         }
+
         return new Coordinates(trimmedCoordinate);
     }
 

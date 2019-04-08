@@ -150,7 +150,7 @@ class EditRequestCommandTest {
             new UserPrefs());
         expectedModel.commitRequestBook();
 
-         assertCommandSuccess(editRequestCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(editRequestCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
 

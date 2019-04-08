@@ -1,11 +1,13 @@
 package seedu.address.logic.commands.request;
 
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
 import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
 import org.junit.Test;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -27,7 +29,7 @@ public class ClearRequestCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyOrderBook_success() {
+    public void execute_nonEmptyOrderBook_throwsException() {
         Model model = new ModelManager(getTypicalHealthWorkerBook(),
             getTypicalRequestBook(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalHealthWorkerBook(),
@@ -35,8 +37,8 @@ public class ClearRequestCommandTest {
         expectedModel.resetData(new RequestBook());
         expectedModel.commitRequestBook();
 
-        assertCommandSuccess(new ClearRequestCommand(), model, commandHistory,
-            ClearRequestCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandFailure(new ClearRequestCommand(), model, commandHistory,
+            Messages.MESSAGE_REQUEST_ONGOING_CANNOT_CLEAR);
     }
 
 }

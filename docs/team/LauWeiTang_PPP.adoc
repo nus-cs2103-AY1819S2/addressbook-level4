@@ -2,6 +2,7 @@
 Lau Wei Tang;
 National University of Singapore
 :doctype: book
+:stylesDir: ../stylesheets
 // Settings:
 ifdef::backend-pdf[]
 :title-logo-image: image:../images/github-icon.png[width=45, link=https://github.com/WeiTangLau, top="70%"]

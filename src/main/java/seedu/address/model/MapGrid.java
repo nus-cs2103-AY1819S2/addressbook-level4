@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import java.util.Arrays;
+
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableBooleanValue;
@@ -21,6 +23,12 @@ public class MapGrid {
     public MapGrid() {
         this.size = 0;
         cellGrid = new Cell[0][0];
+    }
+
+    public MapGrid(MapGrid mapGrid) {
+        size = mapGrid.size;
+        cellGrid = new Cell[mapGrid.getMapSize()][mapGrid.getMapSize()];
+        copy2dArray(cellGrid, mapGrid.cellGrid);
     }
 
     // 2D map grid operations
@@ -211,7 +219,7 @@ public class MapGrid {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof MapGrid // instanceof handles nulls
-                && cellGrid.equals(((MapGrid) other).cellGrid));
+                && Arrays.deepEquals(cellGrid, ((MapGrid) other).cellGrid));
     }
 
     @Override

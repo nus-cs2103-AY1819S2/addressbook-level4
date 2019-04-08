@@ -3,6 +3,7 @@ package seedu.address.model;
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import seedu.address.model.interviews.Interviews;
+import seedu.address.model.job.Job;
 import seedu.address.model.person.Person;
 
 /**
@@ -16,4 +17,5 @@ public interface ReadOnlyAddressBook extends Observable {
      */
     ObservableList<Person> getPersonList();
     Interviews getInterviews();
+    ObservableList<Job> getJobList();
 }

@@ -27,7 +27,7 @@ public class Job {
     private final JobName name;
 
     // Data fields
-    private ArrayList<UniquePersonList> personsHash = new ArrayList<> (NUMBER_OF_LISTS);
+    private ArrayList<UniquePersonList> personsList = new ArrayList<> (NUMBER_OF_LISTS);
     private ArrayList<Set<Nric>> personsNricList = new ArrayList<>(NUMBER_OF_LISTS);
 
 
@@ -39,9 +39,17 @@ public class Job {
 
         this.name = name;
         for (int i = 0; i < 4; i++) {
-            personsHash.add(new UniquePersonList());
+            personsList.add(new UniquePersonList());
             personsNricList.add(new HashSet<>());
         }
+    }
+
+    public Job(JobName name, ArrayList<UniquePersonList> personList, ArrayList<Set<Nric>> nricList) {
+        requireAllNonNull(name, personList, nricList);
+
+        this.name = name;
+        this.personsList = personList;
+        this.personsNricList = nricList;
     }
 
     public JobName getName() {
@@ -54,7 +62,7 @@ public class Job {
      */
     public void addFilteredList(FilteredList<Person> filteredPersons) {
         for (int i = 0; i < filteredPersons.size(); i++) {
-            if (personsHash.get(0).contains(filteredPersons.get(i))) {
+            if (personsList.get(0).contains(filteredPersons.get(i))) {
                 continue;
             }
             add(filteredPersons.get(i));
@@ -66,10 +74,10 @@ public class Job {
      * Goes to the first list
      */
     public boolean add(Person person) {
-        if (personsHash.get(0).contains(person)) {
+        if (personsList.get(0).contains(person)) {
             return false;
         }
-        personsHash.get(0).add(person);
+        personsList.get(0).add(person);
         personsNricList.get(0).add(person.getNric());
 
         return true;
@@ -79,7 +87,7 @@ public class Job {
      * Returns one of the four UniqurePersonLists
      */
     public UniquePersonList getList(Integer listNumber) {
-        return personsHash.get(listNumber);
+        return personsList.get(listNumber);
     }
 
     /**
@@ -87,15 +95,15 @@ public class Job {
      */
     public int move(Person target, Integer source, Integer dest) {
 
-        if (!(personsHash.get(source).contains(target))) {
+        if (!(personsList.get(source).contains(target))) {
             return 0;
         }
 
-        if (personsHash.get(dest).contains(target)) {
+        if (personsList.get(dest).contains(target)) {
             return 1;
         }
 
-        personsHash.get(dest).add(target);
+        personsList.get(dest).add(target);
         personsNricList.get(dest).add(target.getNric());
         return 2;
     }
@@ -104,7 +112,7 @@ public class Job {
      * Returns an UniquePerson list using {@code listNumber}
      */
     public final UniquePersonList getPeople(Integer listNumber) {
-        return personsHash.get(listNumber);
+        return personsList.get(listNumber);
     }
 
     /**

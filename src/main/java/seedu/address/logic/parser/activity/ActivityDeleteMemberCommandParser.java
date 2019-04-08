@@ -21,14 +21,12 @@ public class ActivityDeleteMemberCommandParser implements Parser<ActivityDeleteM
      */
     public ActivityDeleteMemberCommand parse(String args) throws ParseException {
         String[] splitArgs = args.trim().split("\\s+");
-
-        try {
-            Index index = ParserUtil.parseIndex(splitArgs[0]);
-            MatricNumber matricNumber = ParserUtil.parseMatricNumber(splitArgs[1]);
-            return new ActivityDeleteMemberCommand(index, matricNumber);
-        } catch (ParseException pe) {
+        if (splitArgs.length != 2) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ActivityDeleteMemberCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ActivityDeleteMemberCommand.MESSAGE_USAGE));
         }
+        Index index = ParserUtil.parseIndex(splitArgs[0]);
+        MatricNumber matricNumber = ParserUtil.parseMatricNumber(splitArgs[1]);
+        return new ActivityDeleteMemberCommand(index, matricNumber);
     }
 }

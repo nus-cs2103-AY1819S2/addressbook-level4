@@ -28,8 +28,8 @@ public class TableStatus {
     public TableStatus(String tableStatus) {
         requireNonNull(tableStatus);
         checkArgument(isValidTableStatus(tableStatus), MESSAGE_CONSTRAINTS);
-        this.numberOfSeats = tableStatus.substring(2);
-        this.numberOfTakenSeats = tableStatus.substring(0, 1);
+        this.numberOfSeats = tableStatus.split("/")[1];
+        this.numberOfTakenSeats = tableStatus.split("/")[0];
     }
 
     /**
@@ -45,7 +45,7 @@ public class TableStatus {
      * Returns true if a given string is a valid table status.
      */
     public static boolean isValidTableStatus(String test) {
-        if (test.length() >= 10) {
+        if (test.length() >= 12) {
             return false;
         }
         String[] splitStatus = test.split("/");
@@ -57,7 +57,7 @@ public class TableStatus {
      * Returns true if a given string is a valid number of seats.
      */
     public static boolean isValidNumberOfSeats(String test) {
-        return test.matches(SEATS_VALIDATION_REGEX);
+        return test.length() < 10 && test.matches(SEATS_VALIDATION_REGEX);
     }
 
     /**

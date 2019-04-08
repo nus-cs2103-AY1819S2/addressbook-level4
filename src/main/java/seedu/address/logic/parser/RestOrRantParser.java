@@ -25,6 +25,7 @@ import seedu.address.logic.commands.MenuModeCommand;
 import seedu.address.logic.commands.RestaurantModeCommand;
 import seedu.address.logic.commands.RevenueCommand;
 import seedu.address.logic.commands.ServeCommand;
+import seedu.address.logic.commands.SpaceForCommand;
 import seedu.address.logic.commands.StatisticsModeCommand;
 import seedu.address.logic.commands.TableModeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -110,6 +111,12 @@ public class RestOrRantParser {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }
             return new EditSeatsCommandParser().parse(arguments);
+
+        case SpaceForCommand.COMMAND_WORD:
+            if (mode != Mode.RESTAURANT_MODE) {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            return new SpaceForCommandParser().parse(arguments);
 
         // Commands that work in Menu Mode
         case AddToMenuCommand.COMMAND_WORD:

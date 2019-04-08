@@ -59,6 +59,9 @@ public class DateOfBirth {
         }
     }
 
+    /**
+     * Returns a pair that contains whether the given string is valid date of birth or not
+     */
     private static Pair<Boolean, String> checksDob(Matcher matcher, LocalDate currentDate) {
         int currentDay = currentDate.getDayOfMonth();
         int currentYear = currentDate.getYear();

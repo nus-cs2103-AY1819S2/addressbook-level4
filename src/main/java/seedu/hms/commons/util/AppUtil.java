@@ -46,8 +46,8 @@ public class AppUtil {
     public static void checkArgument(Pair<Boolean, String> booleanIntegerPair) {
         String errorMessage;
         if (!(booleanIntegerPair.getKey())) {
-                throw new IllegalArgumentException(booleanIntegerPair.getValue());
-            }
+            throw new IllegalArgumentException(booleanIntegerPair.getValue());
+        }
 
     }
 }

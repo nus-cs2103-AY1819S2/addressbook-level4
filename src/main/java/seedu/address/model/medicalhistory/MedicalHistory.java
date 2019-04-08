@@ -6,6 +6,8 @@ import java.util.Objects;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
 
+import javax.print.Doc;
+
 
 /**
  * Represents a Medical History in the docX.
@@ -53,8 +55,16 @@ public class MedicalHistory {
         return this.patientId;
     }
 
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
     public int getDoctorId() {
         return this.doctorId;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 
     public LocalDate getDate() {
@@ -66,9 +76,8 @@ public class MedicalHistory {
     }
 
     /**
-     * Returns true if both persons of the same name
-     * have at least one other identity field (phone number) that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both medical histories of the same id
+     * This defines a weaker notion of equality between two medical histories.
      */
     public boolean isSameMedHist(MedicalHistory otherMedHist) {
         if (otherMedHist == this) {
@@ -94,7 +103,10 @@ public class MedicalHistory {
         }
 
         MedicalHistory otherMedHist = (MedicalHistory) other;
-        return otherMedHist.getMedHistId().equals(getMedHistId());
+        return  (otherMedHist.getPatientId() == getPatientId())
+                && (otherMedHist.getDoctorId() == getDoctorId())
+                && otherMedHist.getDate().equals(getDate())
+                && otherMedHist.getWriteUp().equals(getWriteUp());
     }
 
     @Override

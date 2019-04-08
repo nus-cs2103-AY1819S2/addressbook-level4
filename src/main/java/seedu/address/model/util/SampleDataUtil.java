@@ -73,9 +73,7 @@ public class SampleDataUtil {
     }
 
     public static MedicalHistory[] getSampleMedHists() {
-        return new MedicalHistory[] {
-            new MedicalHistory(1, 2, LocalDate.parse("2018-06-18"), new WriteUp("Fever"))
-        };
+        return null;
     }
 
     public static ReadOnlyDocX getSampleDocX() {
@@ -87,10 +85,11 @@ public class SampleDataUtil {
         for (Doctor sampleDoctor : getSampleDoctors()) {
             sampleDocX.addDoctor(sampleDoctor);
         }
-
+        /*
         for (MedicalHistory sampleMedHist : getSampleMedHists()) {
             sampleDocX.addMedHist(sampleMedHist);
         }
+        */
         return sampleDocX;
     }
 

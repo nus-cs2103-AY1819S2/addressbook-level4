@@ -145,10 +145,10 @@ e.g if there is someone named Alex, in the filtering conditions `n/ale/n` or `n/
 
 Examples:
 
-* ` filter or phone<91234567>phone email<johndoemail@example.com>email skill<C++, Java>skill end<2>end ` +
-Returns the people, whose numbers include 91234567 or whose email includes johndoe@example.com or who has (contains) at least C++ or Java in the skills or has at least 2 endorsements.
-* ` filter and name<ale>name addr<abcd>addr gpa<3.1>gpa skill<C++, Java>skill ` +
-Returns the people, whose name contains ale and whose address contains abcd and who has (contains) C++ and Java both in the skills and has a GPA higher than or equal to 3.1
+* filter or phone<91234567>phone email<johndoemail@example.com>email skill<C++, Java>skill end<2>end
+** Returns the people, whose numbers include 91234567 or whose email includes johndoe@example.com or who has (contains) at least C++ or Java in the skills or has at least 2 endorsements.
+* filter and name<ale>name addr<abcd>addr gpa<3.1>gpa skill<C++, Java>skill
+** Returns the people, whose name contains ale and whose address contains abcd and who has (contains) C++ and Java both in the skills and has a GPA higher than or equal to 3.1
 
 // end::filter[]
 

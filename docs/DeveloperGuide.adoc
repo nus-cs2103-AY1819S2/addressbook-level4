@@ -458,6 +458,63 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::labelcommand[]
+=== Medicine Label using Label Command
+
+Users can use the command to output medicines information to a specific folder. Information will be in Portable Document Format (PDF) files.
+
+Current implementation:
+Under the build.gradle file, we have added new dependency implementation group: `org.apache.pdfbox`, name: `pdfbox`, version: `2.0.13`. This imports the library over to the project for use.
+
+There are many operations available added in the Apache PDFBox, the key operations that we are using would only be:
+
+* `PDDocument()` - For creating a new blank PDF file for the medicine details to be exported to.
+* `PDPage()` - Creates a new PDPage instance for embedding.
+* `PDPageContentStream(PDDocument, PDPage)` - Provides the ability to write a page content stream.
+
+The following sequence diagram shows how the label operation works:
+
+image::LabelUML.png[width="800"]
+Fig 4.4.1
+
+==== Usage scenario example
+===== Below shows how the label command behaves in each step:
+
+.  The user launches the application for the first time. An empty InformationPanel is displayed. (Fig 4.5.2 )
+
+.  The user executes the `label 2` to output the label of the 2nd medicine indexed in the inventory. Since no file name is included in the argument, the default filename 'to_print' is used instead. `LabelCommand#execute()` is called.
+
+.  The user can find the file `to_print` under the main folder. (Fig 4.5.3)
+
+
+image::label2_taken.png[width="790"]
+Fig 4.4.1.1
+
+image::mainPDF.png[width="790"]
+Fig 4.4.1.2 (PDF folder highlighted)
+
+===== Label command with filename specified
+
+.  The user executes `label 1 f/file_to_print` to output the label of the 1st medicine indexed in the inventory. The `LabelCommandParser` class will be able to tokenize and read the desired file name. Then, `LabelCommand#execute()` is called.
+
+.  The user can find a new file `file_to_print` under the same main folder.
+
+[NOTE]
+If the user would execute another `label 1`, the original `to_print` file will be replaced with the information of the 1st medicine indexed in the inventory. Users are warned in the User Guide to be caution about overwriting files.
+
+==== Design Consideration
+
+===== Aspect: How label executes
+
+* **Alternative 1 (current choice):** Creates a new `PDFDocument` every time a medicine it to be labeled.
+** Pros: Easy to implement.
+** Cons: Uses more of the user computer memory space as it creates the temporary file.
+* **Alternative 2:** Find the existing PDF file and edit.
+** Pros: Will use less memory.
+** Cons: We have to read the existing file which requires more time to execute.
+
+// end::labelcommand[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
@@ -484,50 +541,6 @@ Data encryption is likely to be implemented in future versions of the MediTabs i
 ** Cons: Need to implement packing/unpacking of encrypted data and plaintext during startup/shutdown.
 
 // end::dataencryption[]
-
-// tag::labelcommand[]
-=== Exporting Medicine Label
-
-The exporting of a medicine label to a PDF formatted file is implemented by using Apache PDFBox.
-
-Current implementation:
-Under the build.gradle file, we have added new dependency implementation group: `org.apache.pdfbox`, name: `pdfbox`, version: `2.0.13`. This imports the library over to the project for use.
-
-There are many operations available added in the Apache PDFBox, the key operations that we are using would only be:
-
-`PDDocument()` - For creating a new blank PDF file for the medicine details to be exported to.
-`PDPage()` - Creates a new PDPage instance for embedding.
-`PDPageContentStream(PDDocument , PDPage)` - Provides the ability to write a page content stream.
-
-image::UMLLabelDiagram.png[width="800"]
-
-Given below is an example usage scenario and how the label command behaves in each step:
-
-Step 1. The user launches the application for the first time. An empty InformationPanel is displayed.
-
-Step 2. The user executes the `label 2` to output the label of the 2nd medicine indexed in the inventory. Since no file name is included in the argument, the default filename 'to_print' is used instead. Then, `LabelCommand#execute()` is called.
-
-Step 3. The user can find the file `to_print` under the main folder.
-
-Step 4. The user executes `label 1 f/file_to_print` to output the label of the 1st medicine indexed in the inventory. The `LabelCommandParser` class will be able to tokenize and read the desired file name. Then, `LabelCommand#execute()` is called.
-
-Step 5. The user can find a new file `file_to_print` under the same main folder.
-
-[NOTE]
-If the user would execute another `label 1`, the original `to_print` file will be replaced with the information of the 1st medicine indexed in the inventory. Users are warned in the User Guide to be caution about overwriting files.
-
-==== Design Consideration
-
-===== Aspect: How label executes
-
-* **Alternative 1 (current choice):** Creates a new `PDFDocument` every time a medicine it to be labeled.
-** Pros: Easy to implement.
-** Cons: Uses more of the user computer memory space as it creates the temporary file.
-* **Alternative 2:** Find the existing PDF file and edit.
-** Pros: Will use less memory.
-** Cons: We have to read the existing file which requires more time to execute.
-
-// end::labelcommand[]
 
 // tag::warningpanel[]
 === Warning Panel

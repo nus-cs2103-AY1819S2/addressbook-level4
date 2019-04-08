@@ -86,4 +86,26 @@ public class Date {
         return date.hashCode();
     }
 
+    //Have to check whether this is ok...
+    /**
+     * Compares two {@code Date} objects based on their calendar dates.
+     * Uses {@link LocalDate#compareTo} function to compare dates
+     *
+     * @param a - First Date to compare
+     * @param b - Second Date to compare
+     * @return  if b is after a, returns a negative number
+     *          if b is before a, returns a positive number
+     *          and returns 0 if they are equal
+     */
+    public static int compare(Date a, Date b) {
+        LocalDate first = a.getDate();
+        LocalDate second = b.getDate();
+
+        return second.compareTo(first);
+    }
+
+    //Not sure if this is correct...
+    public boolean isAfter(LocalDate date) {
+        return (this.getDate().compareTo(date) > 0);
+    }
 }

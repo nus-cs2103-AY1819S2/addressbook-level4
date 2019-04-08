@@ -14,6 +14,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_DATE = new Prefix("d/");
     public static final Prefix PREFIX_DESCRIPTION = new Prefix("r/");
     public static final Prefix PREFIX_FILE = new Prefix("f/");
+    public static final Prefix PREFIX_PERIOD = new Prefix("p/");
+    public static final Prefix PREFIX_PERIOD_AMOUNT = new Prefix("#/");
 
     /* CommandFlag definitions */
     public static final CommandFlag COMMAND_FLAG_NAME = new CommandFlag("-name");

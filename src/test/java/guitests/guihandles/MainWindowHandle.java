@@ -1,6 +1,9 @@
 package guitests.guihandles;
 
+import static seedu.finance.testutil.EventsUtil.postNow;
+
 import javafx.stage.Stage;
+import seedu.finance.commons.events.SwapBrowserPanelEvent;
 
 /**
  * Provides a handle for {@code MainWindow}.
@@ -13,6 +16,7 @@ public class MainWindowHandle extends StageHandle {
     private final StatusBarFooterHandle statusBarFooter;
     private final MainMenuHandle mainMenu;
     private final BrowserPanelHandle browserPanel;
+    private final SummaryPanelHandle summaryPanel;
 
     public MainWindowHandle(Stage stage) {
         super(stage);
@@ -23,6 +27,9 @@ public class MainWindowHandle extends StageHandle {
         statusBarFooter = new StatusBarFooterHandle(getChildNode(StatusBarFooterHandle.STATUS_BAR_PLACEHOLDER));
         mainMenu = new MainMenuHandle(getChildNode(MainMenuHandle.MENU_BAR_ID));
         browserPanel = new BrowserPanelHandle(getChildNode(BrowserPanelHandle.BROWSER_ID));
+        summaryPanel = new SummaryPanelHandle(getChildNode(SummaryPanelHandle.SUMMARY_PANEL_ID));
+        postNow(new SwapBrowserPanelEvent(SwapBrowserPanelEvent.PanelType.SUMMARY));
+        //handleShowSummary
     }
 
     public RecordListPanelHandle getRecordListPanel() {
@@ -47,5 +54,9 @@ public class MainWindowHandle extends StageHandle {
 
     public BrowserPanelHandle getBrowserPanel() {
         return browserPanel;
+    }
+
+    public SummaryPanelHandle getSummaryPanel() {
+        return summaryPanel;
     }
 }

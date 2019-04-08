@@ -90,7 +90,7 @@ public class MainApp extends Application {
             initialData = new MapGrid();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(new MapGrid(), userPrefs);
     }
 
     private void initLogging(Config config) {

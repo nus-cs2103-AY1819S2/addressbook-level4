@@ -1,6 +1,5 @@
 package seedu.address.logic;
 
-import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.beans.value.ObservableBooleanValue;
@@ -29,7 +28,6 @@ public class LogicManager implements Logic {
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
     private final PlayerStatistics statistics;
-    private boolean addressBookModified;
 
     public LogicManager(Model model, Storage storage) {
 
@@ -38,16 +36,11 @@ public class LogicManager implements Logic {
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
         this.statistics = new PlayerStatistics();
-
-
-        // Set addressBookModified to true whenever the models' address book is modified.
-        model.getAddressBook().addListener(observable -> addressBookModified = true);
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        addressBookModified = false;
         boolean validCommand = false;
         CommandResult commandResult;
         try {
@@ -63,15 +56,6 @@ public class LogicManager implements Logic {
         } finally {
             if (validCommand) {
                 history.add(commandText);
-            }
-        }
-
-        if (addressBookModified) {
-            logger.info("Address book modified, saving to file.");
-            try {
-                storage.saveAddressBook(model.getAddressBook());
-            } catch (IOException ioe) {
-                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
         }
 

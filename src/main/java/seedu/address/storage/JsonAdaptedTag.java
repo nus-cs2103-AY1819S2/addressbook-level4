@@ -23,9 +23,9 @@ class JsonAdaptedTag {
         String parsed = tagName.substring(2);
         String prefix = tagName.substring(0, 1);
         this.tagName = parsed;
-        if (prefix.equals("s")){
+        if (prefix.equals("s")) {
             this.tagType = "skill";
-        } else if (prefix.equals("p")){
+        } else if (prefix.equals("p")) {
             this.tagType = "pos";
         } else {
             this.tagType = "endorse";

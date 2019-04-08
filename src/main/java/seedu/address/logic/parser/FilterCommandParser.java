@@ -2,22 +2,22 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EDUCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EDUCATION_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GPA;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GPA_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_POS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_POS_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_ADDRESS_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_EDUCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_EDUCATION_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_EMAIL_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_GPA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_GPA_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_NAME_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_PHONE_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_POS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_POS_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_SKILL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_SKILL_REVERSE;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -25,10 +25,8 @@ import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Education;
-import seedu.address.model.person.Email;
 import seedu.address.model.person.Gpa;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 import seedu.address.model.tag.SkillsTag;
 
 /**
@@ -60,15 +58,18 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         return args;
     }
 
+    /**
+     * Checks if the input for phone is correct or not
+     */
     private boolean phoneInputControl(String arg) {
 
         arg = arg.trim();
-        if(arg.length() < 1) {
+        if (arg.length() < 1) {
             return false;
         }
 
-        for(int i = 0; i < arg.length(); i++) {
-            if(arg.charAt(i) < '0' || arg.charAt(i) > '9') {
+        for (int i = 0; i < arg.length(); i++) {
+            if (arg.charAt(i) < '0' || arg.charAt(i) > '9') {
                 return false;
             }
         }
@@ -95,64 +96,64 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         String[] criterion = new String[totalNumberOfInfo];
         int totalNumOfCriterion = 0;
 
-        if (args.contains(PREFIX_NAME.toString()) && args.contains(PREFIX_NAME_REVERSE.toString())
-                && args.indexOf(PREFIX_NAME.toString()) < args.indexOf(PREFIX_NAME_REVERSE.toString())) {
+        if (args.contains(PREFIX_FILTER_NAME.toString()) && args.contains(PREFIX_FILTER_NAME_REVERSE.toString())
+                && args.indexOf(PREFIX_FILTER_NAME.toString()) < args.indexOf(PREFIX_FILTER_NAME_REVERSE.toString())) {
             criterion[0] = "available";
             totalNumOfCriterion++;
         } else {
             criterion[0] = null;
         }
 
-        if (args.contains(PREFIX_PHONE.toString()) && args.contains(PREFIX_PHONE_REVERSE.toString())
-                && args.indexOf(PREFIX_PHONE.toString()) < args.indexOf(PREFIX_PHONE_REVERSE.toString())) {
+        if (args.contains(PREFIX_FILTER_PHONE.toString()) && args.contains(PREFIX_FILTER_PHONE_REVERSE.toString())
+                && args.indexOf(PREFIX_FILTER_PHONE.toString()) < args.indexOf(PREFIX_FILTER_PHONE_REVERSE.toString())) {
             criterion[1] = "available";
             totalNumOfCriterion++;
         } else {
             criterion[1] = null;
         }
 
-        if (args.contains(PREFIX_EMAIL.toString()) && args.contains(PREFIX_EMAIL_REVERSE.toString())
-                && args.indexOf(PREFIX_EMAIL.toString()) < args.indexOf(PREFIX_EMAIL_REVERSE.toString())) {
+        if (args.contains(PREFIX_FILTER_EMAIL.toString()) && args.contains(PREFIX_FILTER_EMAIL_REVERSE.toString())
+                && args.indexOf(PREFIX_FILTER_EMAIL.toString()) < args.indexOf(PREFIX_FILTER_EMAIL_REVERSE.toString())) {
             criterion[2] = "available";
             totalNumOfCriterion++;
         } else {
             criterion[2] = null;
         }
 
-        if (args.contains(PREFIX_ADDRESS.toString()) && args.contains(PREFIX_ADDRESS_REVERSE.toString())
-                && args.indexOf(PREFIX_ADDRESS.toString()) < args.indexOf(PREFIX_ADDRESS_REVERSE.toString())) {
+        if (args.contains(PREFIX_FILTER_ADDRESS.toString()) && args.contains(PREFIX_FILTER_ADDRESS_REVERSE.toString())
+                && args.indexOf(PREFIX_FILTER_ADDRESS.toString()) < args.indexOf(PREFIX_FILTER_ADDRESS_REVERSE.toString())) {
             criterion[3] = "available";
             totalNumOfCriterion++;
         } else {
             criterion[3] = null;
         }
 
-        if (args.contains(PREFIX_SKILL.toString()) && args.contains(PREFIX_SKILL_REVERSE.toString())
-                && args.indexOf(PREFIX_SKILL.toString()) < args.indexOf(PREFIX_SKILL_REVERSE.toString())) {
+        if (args.contains(PREFIX_FILTER_SKILL.toString()) && args.contains(PREFIX_FILTER_SKILL_REVERSE.toString())
+                && args.indexOf(PREFIX_FILTER_SKILL.toString()) < args.indexOf(PREFIX_FILTER_SKILL_REVERSE.toString())) {
             criterion[4] = "available";
             totalNumOfCriterion++;
         } else {
             criterion[4] = null;
         }
 
-        if (args.contains(PREFIX_POS.toString()) && args.contains(PREFIX_POS_REVERSE.toString())
-                && args.indexOf(PREFIX_POS.toString()) < args.indexOf(PREFIX_POS_REVERSE.toString())) {
+        if (args.contains(PREFIX_FILTER_POS.toString()) && args.contains(PREFIX_FILTER_POS_REVERSE.toString())
+                && args.indexOf(PREFIX_FILTER_POS.toString()) < args.indexOf(PREFIX_FILTER_POS_REVERSE.toString())) {
             criterion[5] = "available";
             totalNumOfCriterion++;
         } else {
             criterion[5] = null;
         }
 
-        if (args.contains(PREFIX_GPA.toString()) && args.contains(PREFIX_GPA_REVERSE.toString())
-                && args.indexOf(PREFIX_GPA.toString()) < args.indexOf(PREFIX_GPA_REVERSE.toString())) {
+        if (args.contains(PREFIX_FILTER_GPA.toString()) && args.contains(PREFIX_FILTER_GPA_REVERSE.toString())
+                && args.indexOf(PREFIX_FILTER_GPA.toString()) < args.indexOf(PREFIX_FILTER_GPA_REVERSE.toString())) {
             criterion[6] = "available";
             totalNumOfCriterion++;
         } else {
             criterion[6] = null;
         }
 
-        if (args.contains(PREFIX_EDUCATION.toString()) && args.contains(PREFIX_EDUCATION_REVERSE.toString())
-                && args.indexOf(PREFIX_EDUCATION.toString()) < args.indexOf(PREFIX_EDUCATION_REVERSE.toString())) {
+        if (args.contains(PREFIX_FILTER_EDUCATION.toString()) && args.contains(PREFIX_FILTER_EDUCATION_REVERSE.toString())
+                && args.indexOf(PREFIX_FILTER_EDUCATION.toString()) < args.indexOf(PREFIX_FILTER_EDUCATION_REVERSE.toString())) {
             criterion[7] = "available";
             totalNumOfCriterion++;
         } else {
@@ -164,7 +165,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         } else {
 
             if (criterion[0] != null) {
-                criterion[0] = infoBetweenPrefixes(args, PREFIX_NAME.toString(), PREFIX_NAME_REVERSE.toString(),
+                criterion[0] = infoBetweenPrefixes(args, PREFIX_FILTER_NAME.toString(), PREFIX_FILTER_NAME_REVERSE.toString(),
                         typeOfProcess, false);
                 if (!Name.isValidName(criterion[0])) {
                     inputParameterInCorrectForm = false;
@@ -173,7 +174,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             }
 
             if (criterion[1] != null) {
-                criterion[1] = infoBetweenPrefixes(args, PREFIX_PHONE.toString(), PREFIX_PHONE_REVERSE.toString(),
+                criterion[1] = infoBetweenPrefixes(args, PREFIX_FILTER_PHONE.toString(), PREFIX_FILTER_PHONE_REVERSE.toString(),
                         typeOfProcess, false);
                 if (!phoneInputControl(criterion[1])) {
                     inputParameterInCorrectForm = false;
@@ -182,12 +183,12 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             }
 
             if (criterion[2] != null) {
-                criterion[2] = infoBetweenPrefixes(args, PREFIX_EMAIL.toString(), PREFIX_EMAIL_REVERSE.toString(),
+                criterion[2] = infoBetweenPrefixes(args, PREFIX_FILTER_EMAIL.toString(), PREFIX_FILTER_EMAIL_REVERSE.toString(),
                         typeOfProcess, false);
             }
 
             if (criterion[3] != null) {
-                criterion[3] = infoBetweenPrefixes(args, PREFIX_ADDRESS.toString(), PREFIX_ADDRESS_REVERSE.toString(),
+                criterion[3] = infoBetweenPrefixes(args, PREFIX_FILTER_ADDRESS.toString(), PREFIX_FILTER_ADDRESS_REVERSE.toString(),
                         typeOfProcess, false);
                 if (!Address.isValidAddress(criterion[3])) {
                     inputParameterInCorrectForm = false;
@@ -196,7 +197,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             }
 
             if (criterion[4] != null) {
-                criterion[4] = infoBetweenPrefixes(args, PREFIX_SKILL.toString(), PREFIX_SKILL_REVERSE.toString(),
+                criterion[4] = infoBetweenPrefixes(args, PREFIX_FILTER_SKILL.toString(), PREFIX_FILTER_SKILL_REVERSE.toString(),
                         typeOfProcess, false);
                 for (String tag : criterion[4].split(",")) {
                     tag.trim();
@@ -208,7 +209,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             }
 
             if (criterion[5] != null) {
-                criterion[5] = infoBetweenPrefixes(args, PREFIX_POS.toString(), PREFIX_POS_REVERSE.toString(),
+                criterion[5] = infoBetweenPrefixes(args, PREFIX_FILTER_POS.toString(), PREFIX_FILTER_POS_REVERSE.toString(),
                         typeOfProcess, false);
                 for (String tag : criterion[5].split(",")) {
                     tag = tag.trim();
@@ -221,7 +222,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             }
 
             if (criterion[6] != null) {
-                criterion[6] = infoBetweenPrefixes(args, PREFIX_GPA.toString(), PREFIX_GPA_REVERSE.toString(),
+                criterion[6] = infoBetweenPrefixes(args, PREFIX_FILTER_GPA.toString(), PREFIX_FILTER_GPA_REVERSE.toString(),
                         typeOfProcess, true);
                 if (!Gpa.isValidGpa(criterion[6])) {
                     inputParameterInCorrectForm = false;
@@ -229,8 +230,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                 }
             }
             if (criterion[7] != null) {
-                criterion[7] = infoBetweenPrefixes(args, PREFIX_EDUCATION.toString(),
-                        PREFIX_EDUCATION_REVERSE.toString(), typeOfProcess, false);
+                criterion[7] = infoBetweenPrefixes(args, PREFIX_FILTER_EDUCATION.toString(),
+                        PREFIX_FILTER_EDUCATION_REVERSE.toString(), typeOfProcess, false);
                 if (!Education.isValidEducation(criterion[7])) {
                     inputParameterInCorrectForm = false;
                     typeOfProcess.set(-1);

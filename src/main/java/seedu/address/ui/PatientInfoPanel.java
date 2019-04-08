@@ -3,26 +3,18 @@ package seedu.address.ui;
 import static java.util.Objects.requireNonNull;
 
 import java.net.URL;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Patient;
-import seedu.address.model.person.RecordContainsPatientIdPredicate;
 
 /**
  * The Browser Panel of the App.
@@ -79,6 +71,7 @@ public class PatientInfoPanel extends UiPart<Region> {
 
     /**
      * Load the current selected {@code Patient} into the browser panel with all patient info.
+     *
      * @param patient selected to be displayed.
      */
     private void loadPatientPage(Patient patient) {

@@ -255,26 +255,25 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             switch (commandResult.getShowPanel()) {
-
-                case MED_HIST_PANEL:
-                    showMedHistPanel();
-                    break;
-                case APPOINTMENT_PANEL:
-                    showAppointmentPanel();
-                    break;
-                default:
-                    break;
+            case MED_HIST_PANEL:
+                showMedHistPanel();
+                break;
+            case APPOINTMENT_PANEL:
+                showAppointmentPanel();
+                break;
+            default:
+                break;
             }
 
             switch (commandResult.getShowBrowser()) {
-                case MED_HIST_BROWSER:
-                    showMedHistBrowser();
-                    break;
-                case PATIENT_BROWSER:
-                    showPatientBrowser();
-                    break;
-                default:
-                    break;
+            case MED_HIST_BROWSER:
+                showMedHistBrowser();
+                break;
+            case PATIENT_BROWSER:
+                showPatientBrowser();
+                break;
+            default:
+                break;
             }
 
             return commandResult;

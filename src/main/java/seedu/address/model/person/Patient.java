@@ -55,7 +55,9 @@ public class Patient extends Person {
         return address;
     }
 
-    public AppointmentStatus getAppointmentStatus() { return appointmentStatus; }
+    public AppointmentStatus getAppointmentStatus() {
+        return appointmentStatus;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}

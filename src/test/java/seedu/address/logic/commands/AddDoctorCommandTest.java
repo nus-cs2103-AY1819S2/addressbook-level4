@@ -28,6 +28,7 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.PersonId;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.testutil.DoctorBuilder;
 
@@ -98,6 +99,16 @@ public class AddDoctorCommandTest {
 
         @Override
         public void sortFilteredMedHistList(Comparator<MedicalHistory> medHistComparator) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Patient getPatientById(PersonId patientId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Doctor getDoctorById(PersonId doctorId) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -74,7 +74,7 @@ public class AddAppointmentCommand extends Command {
     }
 
     private void getPatientById(Model model) throws CommandException {
-        Patient patientWithId= model.getPatientById(appointment.getPatientId());
+        Patient patientWithId = model.getPatientById(appointment.getPatientId());
         if (patientWithId == null) {
             throw new CommandException(MESSAGE_PATIENT_NOT_NOT_FOUND);
         }

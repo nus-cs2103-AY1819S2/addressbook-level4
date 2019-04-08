@@ -39,7 +39,7 @@ public class UniquePatientList implements Iterable<Patient> {
     public Patient findPatientById(PersonId idToCheck) {
         requireNonNull(idToCheck);
         Predicate<Patient> predicate = new RecordContainsPatientIdPredicate(idToCheck);
-        FilteredList<Patient> patientWithId= internalList.filtered(predicate);
+        FilteredList<Patient> patientWithId = internalList.filtered(predicate);
         return patientWithId.get(0);
     }
 

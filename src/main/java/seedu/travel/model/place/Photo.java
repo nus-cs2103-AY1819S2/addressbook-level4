@@ -19,7 +19,7 @@ public class Photo {
     public static final String MESSAGE_CONSTRAINTS = "File path must be an absolute file path, and point to a photo." +
             "Ensure that folder names and filenames are without spaces, eg. " +
             " C:\\Users\\<your-username>\\Pictures\\your-travel-photo.jpg";
-    private final String filepath;
+    private String filepath;
 
     /**
      * Constructs a {@code photoFilepath}.
@@ -37,6 +37,10 @@ public class Photo {
      */
     public String getFilePath() {
         return this.filepath;
+    }
+
+    public void setPhotoFilepath(String filepath) {
+        this.filepath = filepath;
     }
 
     /**

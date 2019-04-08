@@ -2,13 +2,7 @@ package seedu.travel.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.travel.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.travel.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.travel.logic.parser.CliSyntax.PREFIX_COUNTRY_CODE;
-import static seedu.travel.logic.parser.CliSyntax.PREFIX_DATE_VISITED;
-import static seedu.travel.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.travel.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.travel.logic.parser.CliSyntax.PREFIX_RATING;
-import static seedu.travel.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.travel.logic.parser.CliSyntax.*;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -34,7 +28,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COUNTRY_CODE,
-            PREFIX_DATE_VISITED, PREFIX_RATING, PREFIX_DESCRIPTION, PREFIX_ADDRESS, PREFIX_TAG);
+            PREFIX_DATE_VISITED, PREFIX_RATING, PREFIX_DESCRIPTION, PREFIX_ADDRESS, PREFIX_PHOTO, PREFIX_TAG);
 
         Index index;
 
@@ -65,6 +59,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPlaceDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        }
+        if (argMultimap.getValue(PREFIX_PHOTO).isPresent()) {
+            editPlaceDescriptor.setPhoto(ParserUtil.parsePhoto(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPlaceDescriptor::setTags);
 

@@ -9,8 +9,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import seedu.travel.MainApp;
+import seedu.travel.model.place.Photo;
 import seedu.travel.model.place.Place;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 /**
@@ -62,7 +64,7 @@ public class ExpandedPlacePanel extends UiPart<Region> {
         address.setText(place.getAddress().value);
         description.setText(place.getDescription().value);
         initTags(place);
-        initImg();
+        initImg(place.getPhoto());
     }
 
     /**
@@ -74,13 +76,23 @@ public class ExpandedPlacePanel extends UiPart<Region> {
         return TAG_COLOR_STYLES[Math.abs(tagName.hashCode()) % TAG_COLOR_STYLES.length];
     }
 
-    private void initImg() {
+    private void initImg(Photo photo) {
         final ImageView selectedImage = new ImageView();
+        Image placeImage;
 
-        Image placeImage = new Image(MainApp.class.getResourceAsStream("/images/test-img.jpg"));
-        selectedImage.setImage(placeImage);
-        img.getChildren().addAll(selectedImage);
+        try {
+            if (photo == null) {
+                placeImage = new Image(MainApp.class.getResourceAsStream("/images/test-img.jpg"));
+            } else {
+                FileInputStream inputStream = new FileInputStream(photo.getFilePath());
+                placeImage = new Image(inputStream);
+            }
+            selectedImage.setImage(placeImage);
+            img.getChildren().addAll(selectedImage);
 
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

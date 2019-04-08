@@ -1,13 +1,7 @@
 package seedu.travel.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.travel.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.travel.logic.parser.CliSyntax.PREFIX_COUNTRY_CODE;
-import static seedu.travel.logic.parser.CliSyntax.PREFIX_DATE_VISITED;
-import static seedu.travel.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.travel.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.travel.logic.parser.CliSyntax.PREFIX_RATING;
-import static seedu.travel.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.travel.logic.parser.CliSyntax.*;
 import static seedu.travel.model.Model.PREDICATE_SHOW_ALL_PLACES;
 
 import java.util.Collections;
@@ -22,13 +16,7 @@ import seedu.travel.commons.util.CollectionUtil;
 import seedu.travel.logic.CommandHistory;
 import seedu.travel.logic.commands.exceptions.CommandException;
 import seedu.travel.model.Model;
-import seedu.travel.model.place.Address;
-import seedu.travel.model.place.CountryCode;
-import seedu.travel.model.place.DateVisited;
-import seedu.travel.model.place.Description;
-import seedu.travel.model.place.Name;
-import seedu.travel.model.place.Place;
-import seedu.travel.model.place.Rating;
+import seedu.travel.model.place.*;
 import seedu.travel.model.tag.Tag;
 
 /**
@@ -48,6 +36,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_RATING + "RATING] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_PHOTO + "PHOTO FILEPATH] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_COUNTRY_CODE + "SGP "
@@ -109,10 +98,11 @@ public class EditCommand extends Command {
         Rating updatedRating = editPlaceDescriptor.getRating().orElse(placeToEdit.getRating());
         Description updatedDescription = editPlaceDescriptor.getDescription().orElse(placeToEdit.getDescription());
         Address updatedAddress = editPlaceDescriptor.getAddress().orElse(placeToEdit.getAddress());
+        Photo updatedPhotoFilepath = editPlaceDescriptor.getPhoto().orElse(placeToEdit.getPhoto());
         Set<Tag> updatedTags = editPlaceDescriptor.getTags().orElse(placeToEdit.getTags());
 
         return new Place(updatedName, updatedCountryCode, updatedDateVisited, updatedRating, updatedDescription,
-            updatedAddress, updatedTags);
+            updatedAddress, updatedPhotoFilepath, updatedTags);
     }
 
     @Override
@@ -144,6 +134,7 @@ public class EditCommand extends Command {
         private Rating rating;
         private Description description;
         private Address address;
+        private Photo photo;
         private Set<Tag> tags;
 
         public EditPlaceDescriptor() {}
@@ -159,6 +150,7 @@ public class EditCommand extends Command {
             setRating(toCopy.rating);
             setDescription(toCopy.description);
             setAddress(toCopy.address);
+            setPhoto(toCopy.photo);
             setTags(toCopy.tags);
         }
 
@@ -217,6 +209,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(address);
         }
 
+        public void setPhoto(Photo photo) {
+            this.photo = photo;
+        }
+
+        public Optional<Photo> getPhoto() {
+            return Optional.ofNullable(photo);
+        }
+
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
@@ -255,6 +255,7 @@ public class EditCommand extends Command {
                     && getRating().equals(e.getRating())
                     && getDescription().equals(e.getDescription())
                     && getAddress().equals(e.getAddress())
+                    && getPhoto().equals(e.getPhoto())
                     && getTags().equals(e.getTags());
         }
     }

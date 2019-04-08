@@ -43,6 +43,22 @@ public class Place {
         this.tags.addAll(tags);
     }
 
+    /**
+     * Overloaded constructor for use with SampleDataUtil, does not require Photo field.
+     */
+    public Place(Name name, CountryCode countryCode, DateVisited dateVisited, Rating rating, Description description,
+                 Address address, Set<Tag> tags) {
+        requireAllNonNull(name, countryCode, dateVisited, rating, description, address, tags);
+        this.name = name;
+        this.countryCode = countryCode;
+        this.dateVisited = dateVisited;
+        this.rating = rating;
+        this.description = description;
+        this.address = address;
+        this.photo = null;
+        this.tags.addAll(tags);
+    }
+
     public Name getName() {
         return name;
     }

@@ -21,6 +21,7 @@ import seedu.address.logic.commands.EditPaxCommand;
 import seedu.address.logic.commands.EditSeatsCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.MenuModeCommand;
 import seedu.address.logic.commands.RestaurantModeCommand;
 import seedu.address.logic.commands.RevenueCommand;
@@ -64,9 +65,9 @@ public class RestOrRantParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        // case HistoryCommand.COMMAND_WORD: // Fallthrough
-        // case HistoryCommand.COMMAND_ALIAS:
-        //    return new HistoryCommand();
+        case HistoryCommand.COMMAND_WORD: // Fallthrough
+        case HistoryCommand.COMMAND_ALIAS:
+            return new HistoryCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

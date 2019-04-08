@@ -17,7 +17,11 @@ public class TabCommand extends Command {
 
     public static final String MESSAGE_TAB_SUCCESS = "Tab switched.";
 
-    private final Album album = Album.getInstance();
+    private final Album album;
+
+    public TabCommand() {
+        album = Album.getInstance();
+    }
 
     @Override
     public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history) {

@@ -620,7 +620,7 @@ Given below is a list of preconditions that must be met for the `generate` comma
 * The `generate` command always triggers the display of all three charts.
 * The charts always update themselves in real-time. +
 _Example:_ When a place is added via the `add` command, the charts are automatically updated so that no `generate` command is necessary.
-* As seen in <<generateCommand6Figure>>, the chart will not display anything when the list is empty. 
+* As seen in <<generateCommand6Figure>>, the chart will not display anything when the list is empty.
 
 ****
 *Examples:* ::

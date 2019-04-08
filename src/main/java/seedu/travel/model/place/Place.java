@@ -24,20 +24,22 @@ public class Place {
 
     // Data fields
     private final Address address;
+    private final Photo photo;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
     public Place(Name name, CountryCode countryCode, DateVisited dateVisited, Rating rating, Description description,
-        Address address, Set<Tag> tags) {
-        requireAllNonNull(name, countryCode, dateVisited, rating, description, address, tags);
+        Address address, Photo photo, Set<Tag> tags) {
+        requireAllNonNull(name, countryCode, dateVisited, rating, description, address, photo, tags);
         this.name = name;
         this.countryCode = countryCode;
         this.dateVisited = dateVisited;
         this.rating = rating;
         this.description = description;
         this.address = address;
+        this.photo = photo;
         this.tags.addAll(tags);
     }
 
@@ -64,6 +66,8 @@ public class Place {
     public Address getAddress() {
         return address;
     }
+
+    public Photo getPhoto() { return photo; }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -106,13 +110,14 @@ public class Place {
                 && otherPlace.getRating().equals(getRating())
                 && otherPlace.getDescription().equals(getDescription())
                 && otherPlace.getAddress().equals(getAddress())
+                && otherPlace.getPhoto().equals(getPhoto())
                 && otherPlace.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, countryCode, dateVisited, rating, description, address, tags);
+        return Objects.hash(name, countryCode, dateVisited, rating, description, address, photo, tags);
     }
 
     @Override
@@ -129,6 +134,8 @@ public class Place {
                 .append(getDescription())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Photo: ")
+                .append(getPhoto())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

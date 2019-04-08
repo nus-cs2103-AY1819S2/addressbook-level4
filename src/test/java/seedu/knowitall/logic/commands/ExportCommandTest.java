@@ -57,7 +57,7 @@ public class ExportCommandTest {
     /**
      * Deletes files exported after testing.
      */
-    public void deleteExportFile() {
+    private void deleteExportFile() {
         File[] files = new File[] {new File(model.getDefaultPath() + "/" + "Typical Cards.csv"),
             new File(model.getDefaultPath() + "/" + "Blood.csv")};
         for (File file : files) {

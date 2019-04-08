@@ -6,6 +6,8 @@ import java.util.function.Predicate;
 
 /**
  * Tests that a {@code Request}'s {@code Date} matches any of the keywords given.
+ *
+ * @@author daviddl9
  */
 public class RequestDateSinglePredicate implements Predicate<Request> {
     private final Date keyword;

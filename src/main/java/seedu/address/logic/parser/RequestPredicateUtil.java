@@ -24,6 +24,8 @@ import seedu.address.model.request.RequestStatusContainsKeywordPredicate;
 
 /**
  * Util to parse Request's predicate
+ *
+ * @@author daviddl9
  */
 public class RequestPredicateUtil {
     public static final String MESSAGE_EMPTY_KEYWORD = "%1$s cannot be empty";

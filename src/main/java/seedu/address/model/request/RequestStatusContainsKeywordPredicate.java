@@ -5,6 +5,8 @@ import java.util.function.Predicate;
 
 /**
  * Tests that a {@code Request}'s {@code RequestStatus} matches the keywords given.
+ *
+ * @@author daviddl9
  */
 public class RequestStatusContainsKeywordPredicate implements Predicate<Request> {
     private final List<RequestStatus> keywords;

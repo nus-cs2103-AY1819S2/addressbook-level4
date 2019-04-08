@@ -21,6 +21,8 @@ import seedu.address.model.request.exceptions.RequestNotFoundException;
  * Supports a minimal set of list operations.
  *
  * @see Request#isSameRequest(Request)
+ *
+ * @@author daviddl9
  */
 public class UniqueRequestList implements Iterable<Request> {
 

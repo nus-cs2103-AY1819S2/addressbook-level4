@@ -5,6 +5,8 @@ import java.util.function.Predicate;
 
 /**
  * Tests that a {@code Request}'s {@code Date} is within the 2 dates given.
+ *
+ * @@author daviddl9
  */
 public class RequestDateRangePredicate implements Predicate<Request> {
     private final Date lowerDateBoundary;

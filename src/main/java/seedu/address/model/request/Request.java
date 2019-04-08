@@ -15,6 +15,8 @@ import seedu.address.model.tag.Condition;
 
 /**
  * Represents a request made by a patient in the request book.
+ *
+ * @@author daviddl9
  */
 public class Request {
 

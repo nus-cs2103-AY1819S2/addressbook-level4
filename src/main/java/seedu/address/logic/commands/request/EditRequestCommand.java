@@ -28,6 +28,8 @@ import seedu.address.model.tag.Condition;
 
 /**
  * Edits an order in the request book.
+ *
+ * @@author daviddl9
  */
 public class EditRequestCommand extends EditCommand implements RequestCommand {
 

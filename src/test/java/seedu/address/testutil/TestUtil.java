@@ -20,14 +20,20 @@ public class TestUtil {
      * Creates the sandbox folder if it doesn't exist.
      */
     public static Path getFilePathInSandboxFolder(String fileName) {
-        Path newPath = SANDBOX_FOLDER.resolve(fileName);
         try {
-            if (!Files.exists(newPath)) {
-                Files.createDirectories(newPath);
-            }
+            Files.createDirectories(SANDBOX_FOLDER);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return newPath;
+        return SANDBOX_FOLDER.resolve(fileName);
+    }
+
+    public static Path getAndCreateFilePathInSandBoxFolder(String fileName) {
+        try {
+            Files.createDirectories(SANDBOX_FOLDER.resolve(fileName));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return SANDBOX_FOLDER.resolve(fileName);
     }
 }

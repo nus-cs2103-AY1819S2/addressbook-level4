@@ -29,8 +29,8 @@ import seedu.address.testutil.TestUtil;
  */
 public class TestApp extends MainApp {
 
-    public static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("data");
-    public static final Path SAVE_USER_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("data/user");
+    public static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getAndCreateFilePathInSandBoxFolder("data");
+    public static final Path SAVE_USER_LOCATION_FOR_TESTING = TestUtil.getAndCreateFilePathInSandBoxFolder("data/user");
 
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
             TestUtil.getFilePathInSandboxFolder("pref_testing.json");

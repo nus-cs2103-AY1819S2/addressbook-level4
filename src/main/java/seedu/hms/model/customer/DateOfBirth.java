@@ -2,6 +2,7 @@ package seedu.hms.model.customer;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.hms.commons.util.AppUtil.checkArgument;
+import static seedu.hms.commons.util.AppUtil.checkArgument2;
 
 import java.time.LocalDate;
 import java.util.regex.Matcher;
@@ -27,7 +28,7 @@ public class DateOfBirth {
      */
     public DateOfBirth(String dob) {
         requireNonNull(dob);
-        checkArgument(isValidDob(dob));
+        checkArgument2(isValidDob(dob));
         value = dob;
     }
 

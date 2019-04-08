@@ -71,9 +71,9 @@ public class CommandTestUtil {
     // for testing appointment
     public static final String VALID_PATIENT_ID = "1";
     public static final String VALID_DOCTOR_ID = "2";
-    public static final LocalDateTime futureDateTime = LocalDateTime.now().plusDays(1);
-    public static final String VALID_DATE_OF_APPT = futureDateTime.toLocalDate().toString();
-    public static final String VALID_START_TIME = futureDateTime.toLocalTime()
+    public static final LocalDateTime FUTURE_DATETIME = LocalDateTime.now().plusDays(1);
+    public static final String VALID_DATE_OF_APPT = FUTURE_DATETIME.toLocalDate().toString();
+    public static final String VALID_START_TIME = FUTURE_DATETIME.toLocalTime()
             .format(DateTimeFormatter.ofPattern("HH:mm"));
 
     public static final String DESC_VALID_PATIENT_ID = " " + PREFIX_PATIENT_ID + VALID_PATIENT_ID;

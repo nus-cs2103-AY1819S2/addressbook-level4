@@ -145,15 +145,16 @@ Format: `search-advanced [keyword] ["quoted keyword"]...`
 ****
 * The search is case insensitive. e.g `ALeX` will match `Alex`
 * The order of the keywords does not matter. e.g. `stroke cancer` will match `cancer stroke`
-* With unquoted keyword, partial words will be matched e.g. `Alex` will match `Alexander`
-* With quoted keyword, full words will be matched e.g. `high` will not match `highbloodpressure`
-* All the keywords must match a patient's info to be true.
-* Patients matching at least one keyword will be returned e.g. `diabetic` will return all patients with `diabetic` as one of their tags
+* With unquoted keyword, partial words will be matched +
+e.g. `Alex` will match `Alexander`
+* With quoted keyword, only full word will be matched +
+e.g. `"high"` will not match `highbloodpressure`
+* All the keywords must match a patient's full info to be true.
 ****
 
 Examples:
 
-* `search-tag diabetic` +
+* `search-advanced blood "Doe"` +
 Returns `John Doe` who has a `diabetic` and `stoke` tag
 
 === Deleting an existing patient : `delete-patient`

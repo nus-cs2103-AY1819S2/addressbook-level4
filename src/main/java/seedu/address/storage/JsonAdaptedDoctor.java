@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.PersonId;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Year;
 import seedu.address.model.tag.Specialisation;
@@ -64,6 +65,17 @@ class JsonAdaptedDoctor extends JsonAdaptedPerson {
      */
     @Override
     public Doctor toModelType() throws IllegalValueException {
+        String id = getId();
+        if (id == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    PersonId.class.getSimpleName()));
+        }
+        if (!PersonId.isValidPersonId(id)) {
+            throw new IllegalValueException(PersonId.MESSAGE_CONSTRAINTS);
+        }
+
+        final PersonId modelId = new PersonId(id);
+
         final List<Specialisation> doctorSpecs = new ArrayList<>();
         for (JsonAdaptedSpecialisation spec : specs) {
             doctorSpecs.add(spec.toModelType());
@@ -106,7 +118,7 @@ class JsonAdaptedDoctor extends JsonAdaptedPerson {
 
         final Set<Specialisation> modelSpecs = new HashSet<>(doctorSpecs);
 
-        return new Doctor(modelName, modelPhone, modelGender, modelYear, modelSpecs);
+        return new Doctor(modelId, modelName, modelPhone, modelGender, modelYear, modelSpecs);
     }
 
 }

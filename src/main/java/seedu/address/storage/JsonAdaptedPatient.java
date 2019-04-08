@@ -15,6 +15,7 @@ import seedu.address.model.person.Age;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.PersonId;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -70,6 +71,17 @@ class JsonAdaptedPatient extends JsonAdaptedPerson {
      */
     @Override
     public Patient toModelType() throws IllegalValueException {
+        String id = getId();
+        if (id == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    PersonId.class.getSimpleName()));
+        }
+        if (!PersonId.isValidPersonId(id)) {
+            throw new IllegalValueException(PersonId.MESSAGE_CONSTRAINTS);
+        }
+
+        final PersonId modelId = new PersonId(id);
+
         final List<Tag> patientTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             patientTags.add(tag.toModelType());
@@ -120,7 +132,8 @@ class JsonAdaptedPatient extends JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(patientTags);
-        return new Patient(modelName, modelGender, modelAge, modelPhone, modelAddress, modelTags);
+        return new Patient(modelId, modelName, modelGender, modelAge, modelPhone,
+                modelAddress, modelTags);
     }
 
 }

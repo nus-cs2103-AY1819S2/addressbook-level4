@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import seedu.address.logic.commands.SearchPatientPidCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.PersonId;
 import seedu.address.model.person.RecordContainsPatientIdPredicate;
 
 /**
@@ -23,7 +24,7 @@ public class SearchPatientPidCommandParser implements Parser<SearchPatientPidCom
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchPatientPidCommand.MESSAGE_USAGE));
         }
 
-        return new SearchPatientPidCommand(new RecordContainsPatientIdPredicate(Integer.parseInt(trimmedArgs)));
+        return new SearchPatientPidCommand(new RecordContainsPatientIdPredicate(new PersonId(trimmedArgs)));
     }
 
 }

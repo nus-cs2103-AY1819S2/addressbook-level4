@@ -15,6 +15,7 @@ import seedu.address.model.appointment.AppointmentDoctorId;
 import seedu.address.model.appointment.AppointmentPatientId;
 import seedu.address.model.appointment.AppointmentTime;
 import seedu.address.model.appointment.FutureAppointment;
+import seedu.address.model.appointment.exceptions.AppointmentNotInFutureException;
 
 /**
  * Parses input arguments and creates a new AddAppointmentCommand object
@@ -47,7 +48,12 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
         AppointmentTime time = ParserUtil
                 .parseAppointmentTime(argMultimap.getValue(PREFIX_START_TIME).get());
 
-        FutureAppointment appointment = new FutureAppointment(patientId, doctorId, date, time);
+        FutureAppointment appointment;
+        try {
+            appointment = new FutureAppointment(patientId, doctorId, date, time);
+        } catch (AppointmentNotInFutureException e) {
+            throw new ParseException(FutureAppointment.MESSAGE_CONSTRAINT_FUTURE);
+        }
 
         return new AddAppointmentCommand(appointment);
     }

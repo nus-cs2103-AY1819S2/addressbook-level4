@@ -12,8 +12,6 @@ import seedu.address.model.person.Patient;
  */
 public class Appointment {
 
-    public static final String MESSAGE_CONSTRAINT_FUTURE = "Appointments can only be made in the future";
-
     private final AppointmentPatientId patientId;
     private final AppointmentDoctorId doctorId;
     private final AppointmentDate date;

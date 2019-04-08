@@ -44,6 +44,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.Organization;
+import seedu.address.model.request.RequestStatus;
 import seedu.address.model.tag.Specialisation;
 import seedu.address.testutil.EditHealthWorkerDescriptorBuilder;
 import seedu.address.testutil.EditRequestDescriptorBuilder;
@@ -59,6 +60,7 @@ public class EditCommandParserTest {
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditHealthWorkerCommand.MESSAGE_USAGE);
     private static final String INVALID_REQUEST_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditRequestCommand.MESSAGE_USAGE);
+    private static final String INVALID_STATUS_DESC = " st/hello";
 
     private EditCommandParser parser = new EditCommandParser();
 
@@ -157,6 +159,8 @@ public class EditCommandParserTest {
         assertParseFailure(parser, MODE_REQUEST + "1" + INVALID_NRIC_DESC, Nric.MESSAGE_CONSTRAINTS);
         // invalid address
         assertParseFailure(parser, MODE_REQUEST + "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS);
+        // invalid status
+        assertParseFailure(parser, MODE_REQUEST + "1" + INVALID_STATUS_DESC, RequestStatus.MESSAGE_STATUS_CONSTRAINTS);
 
         // invalid phone followed by valid name
         assertParseFailure(parser, MODE_REQUEST + "1" + INVALID_PHONE_DESC + NAME_DESC_ANDY,

@@ -327,6 +327,24 @@ Format: `edit healthworker/h/1 <index> <additional_parameters>...`
 Edits the details of an existing health worker registered in Health Hub, at
 the `<index>` specified in the health worker list upon entering the `edit
 healthworker/h/1` command with valid inputs.
+
+
+[NOTE]
+====
+When editing specialisations for health workers, the existing specialisations
+ of the person will be removed i.e adding of specialisation is not cumulative.
+====
+
+[TIP]
+====
+You can remove all the person's specialisation by typing `s/` without
+specifying any parameters after it.
+====
+
+* `edit healthworker 1 p/91234567 n/John Doe` +
+Edits the phone number and name of the 1st health worker shown in the health
+worker list to be `91234567` and `John Doe` respectively. +
+
 // end::editHealthWorker[]
 
 ==== *Editing a request*
@@ -335,7 +353,7 @@ Format: `edit request/r/2 <index> <additional_parameters>...`
 
 Edits the details of a request registered in Health Hub, at
 the `<index>` specified in the request list upon entering the `edit
-request/r/2` command with valid inputs.
+request` command with valid inputs.
 
 Upon entering the `edit` command with all the necessary and valid paramters,
 the corresponding request/health worker at the specified `<index>`. The index refers to the
@@ -358,25 +376,17 @@ and not greater than the number of requests/health workers/patients in the curre
 patients, each field can only have a single value and multiple edit values
 for other fields will only cause the last one to be accepted.
 
-[NOTE]
-====
-When editing specialisations for health workers, the existing specialisations
- of the person will be removed i.e adding of specialisation is not cumulative.
-====
+* Note that the healthworker cannot be edited using this command. To unassign an existing healthworker, `edit` the status to `PENDING`.
+To change the healthworker assigned, use the `assign` command instead.
 
-[TIP]
-====
-You can remove all the person's specialisation by typing `s/` without
-specifying any parameters after it.
-====
+
 
 Examples:
 
-* `edit healthworker 1 p/91234567 n/John Doe` +
-Edits the phone number and name of the 1st health worker shown in the health
-worker list to be `91234567` and `John Doe` respectively. +
 * `edit request 2 n/Betsy Crower` +
-Edits the patient name of the 2nd request in the request list to be `Betsy
+* `edit r 2 n/Betsy Crower` +
+* `edit 2 2 n/Betsy Crower` +
+All the 3 commands above edits the patient name of the 2nd request in the request list to be `Betsy
 Crower`. +
 
 // tag::filterHealthWorker[]

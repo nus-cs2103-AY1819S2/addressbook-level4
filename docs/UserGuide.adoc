@@ -432,7 +432,7 @@ the bottom of the list.
 Example:
 
 * `activityAdd n/Sentosa Outing d/16/02/2019 1000 l/Harbour Front MRT de/Bring swim suits.`
-* `activityAdd n/HTML workshop d/1402019 l/ICube Auditorium ic/A0123456Z`
+* `activityAdd n/HTML workshop d/14/02/2019 l/ICube Auditorium ic/A0123456Z`
 
 image::ActivityAddCommand.png[width="790"]
 Adding activity to the correct position based on the time.
@@ -633,7 +633,7 @@ e.g. `activityDelete 1`
 e.g. `activityDeleteMember 1 A1234567N`
 * *Edit an activity* : `activityEdit ACTIVITY_INDEX [n/ACTIVITY_NAME] [d/DATE] [t/TAG] … ` +
 e.g. `activityEdit 1 d/13022019`
-* *Find an activity* :`activityFind [PREFIX] KEYWORD [MORE_KEYWORDS] [NEXT_PREFIX KEYWORD] [MORE_KEYWORDS]` +
+* *Find an activity* : `activityFind [PREFIX] KEYWORD [MORE_KEYWORDS] [NEXT_PREFIX KEYWORD] [MORE_KEYWORDS]` +
 e.g. `activityFind n/ Workshop`
 * *Filtering activities* : `activityFilter CONDITION NUMBER_OF_DAYS` +
 e.g. `activityFilter + 30`

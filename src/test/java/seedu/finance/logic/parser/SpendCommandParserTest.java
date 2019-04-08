@@ -114,7 +114,7 @@ public class SpendCommandParserTest {
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + AMOUNT_DESC_BOB + INVALID_AMOUNT_DESC
-                + DATE_DESC_BOB, Name.MESSAGE_CONSTRAINTS);
+                + DATE_DESC_BOB + CATEGORY_DESC_HUSBAND, Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB

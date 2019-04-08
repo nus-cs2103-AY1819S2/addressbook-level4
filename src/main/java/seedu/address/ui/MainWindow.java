@@ -220,6 +220,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isSwapList()) {
                 personListPanelPlaceholder.getChildren().get(0).toFront();
                 swapListTitle();
+                logic.setSelectedPerson(null);
             }
 
             return commandResult;

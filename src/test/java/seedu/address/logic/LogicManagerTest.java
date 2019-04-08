@@ -17,7 +17,7 @@ import static seedu.address.logic.commands.CommandTestUtil.PASTJOB_DESC_PROFESSO
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.RACE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.SCHOOL_DESC_AMY;
-import static seedu.address.testutil.TypicalPersons.AMY;
+import static seedu.address.testutil.TypicalObjects.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;

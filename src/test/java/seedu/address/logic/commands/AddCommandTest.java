@@ -18,6 +18,7 @@ import org.junit.rules.ExpectedException;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -292,6 +293,11 @@ public class AddCommandTest {
 
         @Override
         public Job getJob(JobName name) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Job> getFilteredJobList() {
             throw new AssertionError("This method should not be called.");
         }
     }

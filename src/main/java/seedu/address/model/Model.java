@@ -152,6 +152,8 @@ public interface Model {
 
     void revertList();
 
+    ObservableList<Job> getFilteredJobList();
+
     /**
      * Returns true if the model has previous address book states to restore.
      */

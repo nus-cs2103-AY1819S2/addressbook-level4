@@ -91,6 +91,9 @@ class JsonAdaptedJob {
         UniquePersonList firstPList = new UniquePersonList();
         for (int i = 0; i < firstList.size(); i++) {
             Person tempPerson = Ab.getPerson(firstList.get(i));
+            if(tempPerson == null) {
+                continue;
+            }
             firstPList.add(tempPerson);
         }
 
@@ -101,6 +104,9 @@ class JsonAdaptedJob {
         UniquePersonList secondPList = new UniquePersonList();
         for (int i = 0; i < secondList.size(); i++) {
             Person tempPerson = Ab.getPerson(secondList.get(i));
+            if(tempPerson == null) {
+                continue;
+            }
             secondPList.add(tempPerson);
         }
 
@@ -111,6 +117,9 @@ class JsonAdaptedJob {
         UniquePersonList thirdPList = new UniquePersonList();
         for (int i = 0; i < thirdList.size(); i++) {
             Person tempPerson = Ab.getPerson(thirdList.get(i));
+            if(tempPerson == null) {
+                continue;
+            }
             thirdPList.add(tempPerson);
         }
 
@@ -121,6 +130,9 @@ class JsonAdaptedJob {
         UniquePersonList fourthPList = new UniquePersonList();
         for (int i = 0; i < fourthList.size(); i++) {
             Person tempPerson = Ab.getPerson(fourthList.get(i));
+            if(tempPerson == null) {
+                continue;
+            }
             fourthPList.add(tempPerson);
         }
 

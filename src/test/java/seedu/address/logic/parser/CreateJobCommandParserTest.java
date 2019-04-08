@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_JOB_NAME_TEACHER;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalJobs.TEACHER;
+import static seedu.address.testutil.TypicalObjects.TEACHER;
 
 import org.junit.Test;
 

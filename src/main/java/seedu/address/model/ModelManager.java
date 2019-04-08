@@ -407,6 +407,18 @@ public class ModelManager implements Model {
     }
 
 
+    //=========== Member-Activity Interaction==================================================================
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    @Override
+    public void removeMemberFromAllAttendance(MatricNumber matricNumber) {
+        requireNonNull(matricNumber);
+        versionedAddressBook.removeMemberFromAllAttendance(matricNumber);
+    }
+
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

@@ -2,7 +2,6 @@ package seedu.address.testutil;
 
 import seedu.address.model.battleship.Name;
 import seedu.address.model.cell.Address;
-import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Email;
 import seedu.address.model.cell.Phone;
 
@@ -30,14 +29,14 @@ public class PersonBuilder {
 
     /**
      * Initializes the PersonBuilder with the data of {@code cellToCopy}.
-     */
+
     public PersonBuilder(Cell cellToCopy) {
         name = cellToCopy.getName();
         phone = cellToCopy.getPhone();
         email = cellToCopy.getEmail();
         address = cellToCopy.getAddress();
     }
-
+*/
     /**
      * Sets the {@code Name} of the {@code Cell} that we are building.
      */
@@ -69,9 +68,9 @@ public class PersonBuilder {
         this.email = new Email(email);
         return this;
     }
-
+    /**
     public Cell build() {
         return new Cell(name, phone, email, address);
     }
-
+*/
 }

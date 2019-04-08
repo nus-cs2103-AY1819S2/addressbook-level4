@@ -12,6 +12,8 @@ import seedu.address.model.request.Request;
 
 /**
  * Creates a new request to the request book.
+ *
+ * @@author daviddl9
  */
 public class AddRequestCommand extends AddCommand implements RequestCommand {
 

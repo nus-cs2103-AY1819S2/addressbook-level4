@@ -10,6 +10,8 @@ import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class containing {@code Request} objects to be used in tests.
+ *
+ * @@author daviddl9
  */
 public class TypicalRequests {
 

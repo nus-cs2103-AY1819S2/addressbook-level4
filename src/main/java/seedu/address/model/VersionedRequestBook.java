@@ -5,6 +5,8 @@ import java.util.List;
 
 /**
  * {@code RequestBook} that keeps track of its own history.
+ *
+ * @@author daviddl9
  */
 public class VersionedRequestBook extends RequestBook implements VersionedBook {
 

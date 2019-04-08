@@ -4,6 +4,8 @@ import java.util.function.Predicate;
 
 /**
  * Tests that a {@code Request}'s {@code Address} matches any of the keywords given.
+ *
+ * @@author daviddl9
  */
 public class RequestAddressContainsKeywordPredicate implements Predicate<Request> {
     private final String keyword;

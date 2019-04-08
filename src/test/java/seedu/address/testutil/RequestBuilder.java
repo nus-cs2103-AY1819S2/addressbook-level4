@@ -19,6 +19,8 @@ import seedu.address.model.tag.Condition;
 
 /**
  * A utility class to help with building Request objects.
+ *
+ * @@author daviddl9
  */
 public class RequestBuilder {
     public static final String DEFAULT_ID = null;

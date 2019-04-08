@@ -12,6 +12,8 @@ import seedu.address.model.Model;
 
 /**
  * Interface that represents a command involving a request
+ *
+ * @@author daviddl9
  */
 public interface RequestCommand {
 

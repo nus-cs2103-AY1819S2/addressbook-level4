@@ -8,6 +8,8 @@ import seedu.address.model.request.Request;
  * Example usage: <br>
  *     {@code RequestBook rb = new RequestBookBuilder().withRequest(TypicalRequests.ALICE_REQUEST)
  *     .build();}
+ *
+ * @@author daviddl9
  */
 public class RequestBookBuilder {
 

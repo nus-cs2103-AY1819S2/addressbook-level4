@@ -6,6 +6,8 @@ import java.util.function.Predicate;
 
 /**
  * Tests that a {@code Request}'s {@code Date} matches any of the keywords given.
+ *
+ * @@author daviddl9
  */
 public class RequestDatePredicate implements Predicate<Request> {
     public static final int VALID_SEARCH_DATE_RANGE_SIZE = 2;

@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.finance.commons.core.GuiSettings;
+import seedu.finance.logic.commands.SummaryCommand.SummaryPeriod;
 import seedu.finance.model.budget.Budget;
 import seedu.finance.model.budget.CategoryBudget;
 import seedu.finance.model.exceptions.CategoryBudgetExceedTotalBudgetException;
@@ -16,7 +17,9 @@ import seedu.finance.model.record.Record;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Record> PREDICATE_SHOW_ALL_RECORD = unused -> true;
 
     /**
@@ -54,7 +57,9 @@ public interface Model {
      */
     void setFinanceTracker(ReadOnlyFinanceTracker financeTracker);
 
-    /** Returns the FinanceTracker */
+    /**
+     * Returns the FinanceTracker
+     */
     ReadOnlyFinanceTracker getFinanceTracker();
 
     /**
@@ -89,10 +94,8 @@ public interface Model {
      */
     void addBudget(Budget budget);
 
-
     /**
      * Sets the given amount to the category budget
-     *
      */
     public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException;
 
@@ -106,14 +109,19 @@ public interface Model {
      */
     void sortFilteredRecordList(Comparator<Record> comparator);
 
-    /** Returns the amount value of {@code budget} in a ObjectProperty wrapper */
+    /**
+     * Returns the amount value of {@code budget} in a ObjectProperty wrapper
+     */
     Budget getBudget();
 
-    /** Returns an unmodifiable view of the filtered record list */
+    /**
+     * Returns an unmodifiable view of the filtered record list
+     */
     ObservableList<Record> getFilteredRecordList();
 
     /**
      * Updates the filter of the filtered record list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredRecordList(Predicate<Record> predicate);
@@ -159,4 +167,37 @@ public interface Model {
      * Sets the selected record in the filtered record list.
      */
     void setSelectedRecord(Record record);
+
+    /**
+     * Updates summaryPeriod to the given {@code period}.
+     */
+    void updateSummaryPeriod(SummaryPeriod period);
+
+    /**
+     * Returns summaryPeriod.
+     */
+    SummaryPeriod getSummaryPeriod();
+
+    /**
+     * Updates summaryNoOfDays to the given {@code periodAmount}.
+     */
+    void updatePeriodAmount(int periodAmount);
+
+    /**
+     * Returns summaryNoOfDaysOrMonths.
+     */
+    int getPeriodAmount();
+
+    /**
+     * Returns an unmodifiable view of expenses which fulfill the statistics filter
+     *
+     * @return {@code ObservableList<Record>} of expenses which fulfill summary filter
+     */
+    ObservableList<Record> getRecordSummary();
+
+    /**
+     * Updates the predicate used for record summary
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateRecordSummaryPredicate (Predicate<Record> predicate) throws NullPointerException;
 }

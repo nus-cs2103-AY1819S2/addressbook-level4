@@ -7,7 +7,6 @@ import java.util.List;
 import guitests.guihandles.RecordCardHandle;
 import guitests.guihandles.RecordListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
-import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Record;
 
 
@@ -26,6 +25,8 @@ public class GuiTestAssert {
         assertEquals(expectedCard.getDate(), actualCard.getDate());
         assertEquals(expectedCard.getName(), actualCard.getName());
         assertEquals(expectedCard.getCategory(), actualCard.getCategory());
+        String category = expectedCard.getCategory();
+        assertEquals(expectedCard.getCategoryStyleClasses(category), actualCard.getCategoryStyleClasses(category));
     }
 
     /**
@@ -37,6 +38,7 @@ public class GuiTestAssert {
         assertEquals(expectedRecord.getDate().toString(), actualCard.getDate());
         assertEquals(expectedRecord.getDescription().value, actualCard.getDescription());
         assertCategoryEqual(expectedRecord, actualCard);
+
     }
 
     /**
@@ -52,43 +54,46 @@ public class GuiTestAssert {
     private static String getCategoryColorStyleFor(String categoryName) {
         switch (categoryName.toLowerCase()) {
         case "clothing":
-        case "food":
-            return "teal";
-
-        case "transportation":
         case "family":
-        case "classmates":
         case "friend":
-            return "yellow";
-
-        case "friends":
-            return "grey";
-
-        case "dining":
-            return "pink";
-
-        case "entertainment":
-            return "tan";
-
-        case "colleagues":
-            return "black";
-
-        case "neighbours":
-            return "orange";
-
-        case "groceries":
-        case "textbooks":
-            return "turquoise";
-
-        case "shopping":
-        case "vices":
             return "purple";
 
-        case "husband":
+        case "food":
+        case "clothes":
+        case "classmates":
+            return "orange";
+
+        case "transportation":
+            return "green";
+
+        case "friends":
+            return "red";
+
+        case "dining":
             return "brown";
 
-        case "movies":
+        case "entertainment":
+        case "colleagues":
+        case "accessories":
+            return "tan";
+
+        case "neighbours":
+        case "vices":
+        case "gift":
+            return "black";
+
+        case "groceries":
+            return "coral";
+
+        case "textbooks":
+        case "husband":
             return "blue";
+
+        case "shopping":
+            return "teal";
+
+        case "movies":
+            return "grey";
 
         default:
             throw new AssertionError(categoryName + " does not have a color assigned.");
@@ -101,10 +106,13 @@ public class GuiTestAssert {
      * with the correct color.
      */
     private static void assertCategoryEqual(Record expectedRecord, RecordCardHandle actualCard) {
-        Category expectedCategory = expectedRecord.getCategory();
+        String expectedCategory = expectedRecord.getCategory().toString();
         String actualCategory = actualCard.getCategory();
         assertEquals(expectedCategory, actualCard.getCategory());
-        assertEquals(getCategoryColorStyleFor(expectedCategory.toString()), getCategoryColorStyleFor(actualCategory));
+
+        assertEquals(getCategoryColorStyleFor(expectedCategory),
+                actualCard.getCategoryStyleClasses(expectedCategory).get(1));
+
     }
 
     /**

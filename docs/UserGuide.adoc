@@ -367,15 +367,39 @@ You can also reverse the order of the list of entries in the records.
 
 // tag::summary[]
 ==== Showing summary of records: `summary`
+You can see the summary of your previous expenditures represented as a pie chart, with
+each sector representing a category. Each sector is labelled with name and total expenditure for the category,
+allowing you to have an overview of how your spending habit is like.
+
+You can also specify a report period.
+//with an aster plot graph showing how your spending habits are like in the
+//different categories. It also displays the remaining budget amount for each category.
+
+*Alias*: `overview`
+
+*Format*: `summary` or `summary #/PERIOD_AMOUNT p/PERIOD`
+
 [NOTE]
-This function is yet to be implemented. It will be implemented in v1.4.
+====
+* If a period is not specified, then the summary will show a default report period of the last 7 days.
+* Deleted entries are not included in the summary.
+* You may also type `summary` in the command box to exit the summary view mode or update the pie chart statistics
+====
 
-You can see the summary of your previous expenditures, with an aster plot graph showing how your spending habits are like in the
-different categories. It also displays the remaining budget amount for each category.
+****
+*Examples*:
 
-Deleted entries are not included in the summary.
+* `summary`: +
+Shows summary of expenses in the past 7 days
+* `summary #/3 p/d`: +
+Shows summary of expenses in the past 3 days
+* `summary #/7 p/m`: +
+Shows summary of expenses in the past 7 months
+****
 
-*Format*: `summary`
+[NOTE]
+The implementation of this feature is still ongoing. It will be completed by v1.4.
+
 // end::summary[]
 
 

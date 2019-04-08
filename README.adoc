@@ -6,7 +6,7 @@ https://app.netlify.com/sites/increditble/deploys[image:https://api.netlify.com/
 https://coveralls.io/github/CS2103-AY1819S2-W17-3/main?branch=master[image:https://coveralls.io/repos/github/CS2103-AY1819S2-W17-3/main/badge.svg?branch=master[Coverage Status]]
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600"] +
+image::docs/images/Ui.png[width="600"]
 
 image::docs/images/Ui_2.png[width="600"]
 endif::[]

@@ -47,9 +47,11 @@ public class HelpCommandSystemTest extends FoodDiarySystemTest {
         getMainMenu().openHelpWindowUsingAccelerator();
         assertHelpWindowOpen();
 
+        /* Remove browserpanel clicking
         getBrowserPanel().click();
         getMainMenu().openHelpWindowUsingAccelerator();
         assertHelpWindowNotOpen();
+        */
 
         //use menu button
         getMainMenu().openHelpWindowUsingMenu();

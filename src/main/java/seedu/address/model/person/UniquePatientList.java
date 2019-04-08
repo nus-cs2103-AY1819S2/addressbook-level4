@@ -6,9 +6,11 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.model.person.exceptions.DuplicatePatientException;
 import seedu.address.model.person.exceptions.PatientNotFoundException;
 
@@ -29,6 +31,16 @@ public class UniquePatientList implements Iterable<Patient> {
     public boolean contains(Patient toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSamePatient);
+    }
+
+    /**
+     * Returns Patient with given PersonId.
+     */
+    public Patient findPatientById(PersonId idToCheck) {
+        requireNonNull(idToCheck);
+        Predicate<Patient> predicate = new RecordContainsPatientIdPredicate(idToCheck);
+        FilteredList<Patient> patientWithId= internalList.filtered(predicate);
+        return patientWithId.get(0);
     }
 
     /**

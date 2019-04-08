@@ -11,6 +11,7 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.PersonId;
 import seedu.address.model.prescription.Prescription;
 
 
@@ -90,6 +91,16 @@ public interface Model {
 
     /** Returns the DocX */
     ReadOnlyDocX getDocX();
+
+    /**
+     * Return object Patient with given id
+     */
+    Patient getPatientById(PersonId patientId);
+
+    /**
+     * Return object Doctor with given id
+     */
+    Doctor getDoctorById(PersonId doctorId);
 
     /**
      * Returns true if a patient with the same identity as {@code patient} exists in the DocX.

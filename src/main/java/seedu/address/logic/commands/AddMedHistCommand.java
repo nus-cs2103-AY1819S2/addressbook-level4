@@ -78,26 +78,20 @@ public class AddMedHistCommand extends Command {
                 && toAdd.equals(((AddMedHistCommand) other).toAdd));
     }
 
-    private Patient getPatientById(Model model) throws CommandException {
-        FilteredList<Patient> patientList = new FilteredList<>(model.getDocX().getPatientList());
-        Predicate<Patient> predicate = new RecordContainsPatientIdPredicate(toAdd.getPatientId());
-        patientList.setPredicate(predicate);
-        if (patientList.isEmpty()) {
+    private void getPatientById(Model model) throws CommandException {
+        Patient patientWithId= model.getPatientById(toAdd.getPatientId());
+        if (patientWithId == null) {
             throw new CommandException(MESSAGE_PATIENT_NOT_FOUND);
         }
-        this.toAdd.setPatient(patientList.get(0));
-        return patientList.get(0);
+        this.toAdd.setPatient(patientWithId);
     }
 
-    private Doctor getDoctorById(Model model) throws CommandException {
-        FilteredList<Doctor> doctorList = new FilteredList<>(model.getDocX().getDoctorList());
-        Predicate<Doctor> predicate = new RecordContainsDoctorIdPredicate(toAdd.getDoctorId());
-        doctorList.setPredicate(predicate);
-        if (doctorList.isEmpty()) {
+    private void getDoctorById(Model model) throws CommandException {
+        Doctor doctorWithId = model.getDoctorById(toAdd.getDoctorId());
+        if (doctorWithId == null) {
             throw new CommandException(MESSAGE_DOCTOR_NOT_FOUND);
         }
-        this.toAdd.setDoctor(doctorList.get(0));
-        return doctorList.get(0);
+        this.toAdd.setDoctor(doctorWithId);
     }
 
 }

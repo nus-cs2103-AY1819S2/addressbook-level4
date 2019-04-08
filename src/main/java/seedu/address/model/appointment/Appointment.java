@@ -21,7 +21,7 @@ public class Appointment {
     private Doctor doctor;
 
     /**
-     * Constructs an {@code Appointment}.
+     * Constructs a new {@code Appointment}. New appointments default to ACTIVE status.
      *
      * @param patientId A valid patientId.
      * @param doctorId A valid doctorId.
@@ -30,16 +30,31 @@ public class Appointment {
      */
     public Appointment(AppointmentPatientId patientId, AppointmentDoctorId doctorId, AppointmentDate date,
                        AppointmentTime time) {
+
+        this(patientId, doctorId, date, time, AppointmentStatus.ACTIVE);
+        //checkArgument(isValidAppointment(appointment), MESSAGE_CONSTRAINTS);
+    }
+
+    /**
+     * Constructs an {@code Appointment}.
+     *
+     * @param patientId A valid patientId.
+     * @param doctorId A valid doctorId.
+     * @param date A valid appointment date
+     * @param time A valid appointment time
+     */
+    public Appointment(AppointmentPatientId patientId, AppointmentDoctorId doctorId, AppointmentDate date,
+                       AppointmentTime time, AppointmentStatus appointmentStatus) {
         /**
          * Every field must be present and not null.
          */
-        requireAllNonNull(date, time);
+        requireAllNonNull(patientId, doctorId, date, time, appointmentStatus);
         //checkArgument(isValidAppointment(appointment), MESSAGE_CONSTRAINTS);
         this.patientId = patientId;
         this.doctorId = doctorId;
         this.date = date;
         this.time = time;
-        this.appointmentStatus = AppointmentStatus.ACTIVE;
+        this.appointmentStatus = appointmentStatus;
     }
 
     /**
@@ -102,10 +117,13 @@ public class Appointment {
 
     @Override
     public boolean equals(Object o) {
+        System.out.println("test0: " + this.getClass() + " " + o.getClass());
+        System.out.println("test: " + this.toString() + " " + o.toString());
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        // subclasses of this class are equal to the superclass
+        if (o == null || !(o instanceof Appointment)) {
             return false;
         }
 

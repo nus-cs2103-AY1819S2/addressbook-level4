@@ -128,8 +128,7 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
                 logic::setSelectedPerson);
         archiveListPanel = new ArchiveListPanel(logic.getFilteredArchivedPersonList());
-        personListPanelPlaceholder.getChildren().add(archiveListPanel.getRoot());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        personListPanelPlaceholder.getChildren().addAll(archiveListPanel.getRoot(), personListPanel.getRoot());
         displayedList.setText(MAIN_LIST_DISPLAYED);
 
         pinListPanel = new PinListPanel(logic.getFilteredPinList(), logic.selectedPersonProperty(),

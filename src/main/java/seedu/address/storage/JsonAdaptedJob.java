@@ -12,9 +12,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.job.Job;
 import seedu.address.model.job.JobName;
+import seedu.address.model.person.JobsApply;
+import seedu.address.model.person.KnownProgLang;
 import seedu.address.model.person.Nric;
+import seedu.address.model.person.PastJob;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Job}.
@@ -78,7 +82,7 @@ class JsonAdaptedJob {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
-    public Job toModelType(UniquePersonList Ab) throws IllegalValueException {
+    public Job toModelType(UniquePersonList AB) throws IllegalValueException {
         final List<Nric> firstList = new ArrayList<>();
         final List<Nric> secondList = new ArrayList<>();
         final List<Nric> thirdList = new ArrayList<>();
@@ -90,7 +94,7 @@ class JsonAdaptedJob {
         Set<Nric> firstNricSet = new HashSet<>(firstList);
         UniquePersonList firstPList = new UniquePersonList();
         for (int i = 0; i < firstList.size(); i++) {
-            Person tempPerson = Ab.getPerson(firstList.get(i));
+            Person tempPerson = AB.getPerson(firstList.get(i));
             firstPList.add(tempPerson);
         }
 
@@ -100,7 +104,7 @@ class JsonAdaptedJob {
         Set<Nric> secondNricSet = new HashSet<>(secondList);
         UniquePersonList secondPList = new UniquePersonList();
         for (int i = 0; i < secondList.size(); i++) {
-            Person tempPerson = Ab.getPerson(secondList.get(i));
+            Person tempPerson = AB.getPerson(secondList.get(i));
             secondPList.add(tempPerson);
         }
 
@@ -110,7 +114,7 @@ class JsonAdaptedJob {
         Set<Nric> thirdNricSet = new HashSet<>(thirdList);
         UniquePersonList thirdPList = new UniquePersonList();
         for (int i = 0; i < thirdList.size(); i++) {
-            Person tempPerson = Ab.getPerson(thirdList.get(i));
+            Person tempPerson = AB.getPerson(thirdList.get(i));
             thirdPList.add(tempPerson);
         }
 
@@ -120,7 +124,7 @@ class JsonAdaptedJob {
         Set<Nric> fourthNricSet = new HashSet<>(fourthList);
         UniquePersonList fourthPList = new UniquePersonList();
         for (int i = 0; i < fourthList.size(); i++) {
-            Person tempPerson = Ab.getPerson(fourthList.get(i));
+            Person tempPerson = AB.getPerson(fourthList.get(i));
             fourthPList.add(tempPerson);
         }
 

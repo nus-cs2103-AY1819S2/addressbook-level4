@@ -7,9 +7,8 @@ import seedu.address.model.patient.Patient;
 import seedu.address.model.tag.Tag;
 
 /**
- * Logic will execute this command to display either
- * a specific patient's record or a list of patients
- * with the similar names, nric or tags
+ * Returns either a specific patient's record or a list
+ * of patients with similar names, nric or tags
  */
 public class ListPatientCommand extends Command {
 
@@ -46,7 +45,7 @@ public class ListPatientCommand extends Command {
 
     public ListPatientCommand(int index) {
         // for user entry, index is always 1 indexed.
-        // since patientmanager uses 0 indexing, 1 indexing is handled here
+        // since patientmanager uses 0 indexing, index are adjusted here
         this.index = index - 1;
         constructedBy = 1;
     }
@@ -76,6 +75,7 @@ public class ListPatientCommand extends Command {
             throw new CommandException(NO_PATIENTS);
         }
 
+        // searches patient records via indexing
         if (constructedBy == 1) {
 
             if (!model.checkValidIndex(index)) {
@@ -86,6 +86,7 @@ public class ListPatientCommand extends Command {
             return constructResult(patient.toString());
         }
 
+        // handles patient record search by name sequences
         if (constructedBy == 2) {
             String result = model.findPatientsByName(name);
             if (result.equals("No patient record found")) {
@@ -94,6 +95,7 @@ public class ListPatientCommand extends Command {
             return constructResult(result);
         }
 
+        // handles patient record search by NRIC sequences
         if (constructedBy == 3) {
             String result = model.findPatientsByNric(nric);
             if (result.equals("No patient record found")) {
@@ -102,6 +104,7 @@ public class ListPatientCommand extends Command {
             return constructResult(result);
         }
 
+        // find patient records with the given tag
         if (constructedBy == 4) {
             String result = model.findPatientsByTag(tag);
             if (result.equals("No patient record found")) {
@@ -111,6 +114,7 @@ public class ListPatientCommand extends Command {
             return constructResult(result);
         }
 
+        // list as many patient records if no parameters are provided
         String result = model.listFiftyPatients();
         return constructResult(result);
     }

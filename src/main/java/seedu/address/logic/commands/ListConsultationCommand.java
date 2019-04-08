@@ -9,7 +9,9 @@ import seedu.address.model.Model;
 import seedu.address.model.consultation.Consultation;
 
 /**
- * List previous consultation sessions of a single patient
+ * List previous consultation sessions of a single patient if the NRIC of the patient
+ * is supplied. If the index is supplied instead, then display the details of the
+ * specific consultation session
  */
 public class ListConsultationCommand extends Command {
 
@@ -58,7 +60,7 @@ public class ListConsultationCommand extends Command {
     }
 
     /**
-     * List past consultation records of a patient in text form
+     * List all the past consultation records of a single patient
      */
     public String listingConsultations(ArrayList<Consultation> consultations) {
         StringBuilder sb = new StringBuilder();

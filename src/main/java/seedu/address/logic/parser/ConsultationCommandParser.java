@@ -22,14 +22,12 @@ public class ConsultationCommandParser implements Parser<ConsultationCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NRIC);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NRIC)) {
-            //throw new ParseException("Some details are left out, please retype the command");
             throw new ParseException(INVALID_CONSULTATION_ARGUMENTS);
         }
 
         return new ConsultationCommand(argMultimap.getValue(PREFIX_NRIC).get());
     }
 
-    // parsing methods
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }

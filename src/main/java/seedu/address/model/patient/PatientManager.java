@@ -7,6 +7,7 @@ import seedu.address.model.tag.Tag;
 
 /**
  * Handle all operations involving the models of patient module
+ * including adding, editing, listing and deleting of patient records
  */
 public class PatientManager {
 
@@ -16,14 +17,15 @@ public class PatientManager {
         this.patientList = new ArrayList<Patient>();
     }
 
-    public PatientManager(ArrayList<Patient> patients) {
-        this.patientList = patients;
-    }
 
     //==========Patient addition methods=================================================
 
     /**
-     * Checks whether current patient to add have an conflict Nric entry
+     * Returns true if patient record to be added have a conflicting NRIC with
+     * another existing patient record.
+     *
+     * @param patient the record to be added
+     * @return boolean value of the NRIC check
      */
     public boolean isDuplicatePatient(Patient patient) {
         for (int i = 0; i < patientList.size(); i++) {
@@ -49,8 +51,11 @@ public class PatientManager {
     }
 
     /**
-     * Check if index entered to edit patient exceeds the bounds of the
-     * list of patients
+     * Returns true if index entered by user can be used to retrieve patient records from
+     * the patientList.
+     * If the index is out of patientList's bounds or is negative, returns false.
+     *
+     * @param index index entered by user to view patient record
      */
     public boolean checkValidIndex(int index) {
         if (index >= patientList.size()) {
@@ -69,7 +74,13 @@ public class PatientManager {
     }
 
     /**
-     * Check for patient records with same nric as the newly edited patient
+     * Returns true if the edited patient will have the same NRIC as another
+     * patient record.
+     *
+     * @param index         index of the patient record to be edited, used to prevent checking the NRIC of
+     *                      the current edited patient record
+     * @param editedPatient patient record that is currently being edited
+     * @return true if NRIC of the selected patient can be edited without causing a conflict
      */
     public boolean checkDuplicatePatientAfterEdit(int index, Patient editedPatient) {
         for (int i = 0; i < patientList.size(); i++) {
@@ -92,25 +103,39 @@ public class PatientManager {
     // listing methods
 
     /**
-     * find all patients stored in patientlist that fulfills search criteria
+     * Returns the patient record details whose name matches the search sequence the user have
+     * entered. If there are more than 1 patient whose name matches the search sequence, then
+     * return the patients' index, name and nric so that the user can filter down the search
+     * even more
+     *
+     * @param searchSequence full name or part of a name to narrow down searching of patient records
+     * @return either the full patient record of a single patient, or a list of patients
      */
     public String findPatientsByName(String searchSequence) {
+
+        // the foundPatients are used to store all
+        // the patient records whose name contains the searchSequence.
         ArrayList<Patient> foundPatients = new ArrayList<>();
+
+        // store the index of the patient records that are found
         ArrayList<Integer> foundPatientsIndexes = new ArrayList<>();
         for (int i = 0; i < patientList.size(); i++) {
             Patient patient = patientList.get(i);
 
-            if (patient.getName().toString().toLowerCase()
-                    .matches("^" + searchSequence.toLowerCase() + ".*")) {
+            if (patient.getName().toString().toLowerCase().contains(searchSequence.toLowerCase())) {
                 foundPatients.add(patient);
                 foundPatientsIndexes.add(i + 1);
             }
+
         }
 
         if (foundPatients.size() == 0) {
             return "No patient record found";
         }
 
+        // if there are more than 1 patients, then list all the patients
+        // whose name matches the searchSequence for the user to narrow down
+        // the search even more
         if (foundPatients.size() > 1) {
             return formatMultiplePatients(foundPatients, foundPatientsIndexes);
         }
@@ -120,7 +145,12 @@ public class PatientManager {
     }
 
     /**
-     * find all patients stored in patientlist that fulfills search criteria
+     * Returns the details of a single patient record whose NRIC matches the searchSequence
+     * or a list of patients along with their indexes, name and NRIC if their NRIC matches
+     * the searchSequence
+     *
+     * @param searchSequence A part or the full NRIC sequence
+     * @return either the full patient record of a single patient, or a list of patients
      */
     public String findPatientsByNric(String searchSequence) {
         ArrayList<Patient> foundPatients = new ArrayList<>();
@@ -148,7 +178,8 @@ public class PatientManager {
     }
 
     /**
-     * for default list, try to list up to 50 patients
+     * Returns the first fifty patient's index, nric and name
+     * when a patient search have no parameters
      */
     public String listFiftyPatients() {
         ArrayList<Patient> foundPatients = new ArrayList<>();
@@ -188,7 +219,11 @@ public class PatientManager {
     }
 
     /**
-     * find all patients stored in patientlist that have the same tag defined by the user
+     * Returns a list of patients that have the same tag defined by the user
+     *
+     * @param tag to filter patient records with
+     * @return either a list of patients with the specified tag, or a single patient record
+     * if it is the only one that have the specified tag
      */
     public String findPatientsByTag(Tag tag) {
         ArrayList<Patient> foundPatients = new ArrayList<>();
@@ -213,7 +248,6 @@ public class PatientManager {
         return foundPatients.get(0).toString();
     }
 
-    // for consultation
     public Patient getPatientByNric(String nric) {
         for (int i = 0; i < patientList.size(); i++) {
             if (patientList.get(i).getNric().toString().equals(nric)) {
@@ -243,6 +277,7 @@ public class PatientManager {
 
     /**
      * Remove patient with nric specified
+     *
      * @param nric of the patient to be deleted
      */
     public void deletePatientByNric(String nric) {
@@ -252,5 +287,23 @@ public class PatientManager {
                 break;
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof PatientManager)) {
+            return false;
+        }
+
+        // state check
+        PatientManager other = (PatientManager) obj;
+        return this.patientList.equals(other.patientList);
+
     }
 }

@@ -85,7 +85,7 @@ public class PatientEditedFields {
     }
 
     /**
-     * Checks if PatientEditedFields is empty
+     * Checks if PatientEditedFields is empty, meaning no changes
      */
     public boolean checkEmpty() {
         return name == null && nric == null && email == null && address == null
@@ -107,8 +107,11 @@ public class PatientEditedFields {
     }
 
     /**
-     * Only check the non null fields, and see if they are the same for two
-     * PatientEditedFields
+     * Checks if two PatientEditedFields are the same using non null fields
+     *
+     * @param other Another patientEditedFields object to test similarity
+     * @return boolean value to indicate whether the two PatientEditedFields are the same based on
+     * non null values
      */
     public boolean checkNonNullFields(PatientEditedFields other) {
 

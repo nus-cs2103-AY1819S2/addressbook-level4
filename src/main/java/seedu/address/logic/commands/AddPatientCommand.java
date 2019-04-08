@@ -30,6 +30,7 @@ public class AddPatientCommand extends Command {
             + PREFIX_CONTACT + "CONTACT "
             + PREFIX_GENDER + "GENDER "
             + "[" + PREFIX_TAG + "TAG]...\n"
+            + "Note: You can enter the parameters in any order as long as the essential parameters are captured.\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_NRIC + "S9876543A "

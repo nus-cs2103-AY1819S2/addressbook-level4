@@ -17,6 +17,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.logic.commands.AbortConsultationCommand;
 import seedu.address.logic.commands.AddAppCommand;
 import seedu.address.logic.commands.AddMedicineCommand;
 import seedu.address.logic.commands.AddPatientCommand;
@@ -264,6 +265,12 @@ public class AddressBookParserTest {
         String userInput = "listconsult r/S1234567A";
         ListConsultationCommand command = new ListConsultationCommand("S1234567A");
         assertEquals(command, parser.parseCommand(userInput));
+    }
+
+    @Test
+    public void abort_consultatiton() throws Exception {
+        String userInput = "abort";
+        org.junit.Assert.assertTrue(parser.parseCommand(userInput) instanceof AbortConsultationCommand);
     }
 
     @Test

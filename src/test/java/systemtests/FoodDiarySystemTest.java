@@ -1,6 +1,5 @@
 package systemtests;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -68,7 +67,7 @@ public abstract class FoodDiarySystemTest {
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
-        waitUntilBrowserLoaded(getBrowserPanel());
+        //waitUntilBrowserLoaded(getBrowserPanel());
         assertApplicationStartingStateIsCorrect();
     }
 
@@ -111,9 +110,10 @@ public abstract class FoodDiarySystemTest {
         return mainWindowHandle.getMainMenu();
     }
 
+    /*
     public BrowserPanelHandle getBrowserPanel() {
         return mainWindowHandle.getBrowserPanel();
-    }
+    }*/
 
     public StatusBarFooterHandle getStatusBarFooter() {
         return mainWindowHandle.getStatusBarFooter();
@@ -135,7 +135,7 @@ public abstract class FoodDiarySystemTest {
 
         mainWindowHandle.getCommandBox().run(command);
 
-        waitUntilBrowserLoaded(getBrowserPanel());
+        //waitUntilBrowserLoaded(getBrowserPanel());
     }
 
     /**
@@ -191,7 +191,7 @@ public abstract class FoodDiarySystemTest {
      */
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
-        getBrowserPanel().rememberUrl();
+        //getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
         getRestaurantListPanel().rememberSelectedRestaurantCard();
@@ -203,7 +203,7 @@ public abstract class FoodDiarySystemTest {
      * @see BrowserPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
-        assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        //assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertFalse(getRestaurantListPanel().isAnyCardSelected());
     }
 
@@ -223,7 +223,7 @@ public abstract class FoodDiarySystemTest {
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }
-        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
+        //assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getRestaurantListPanel().getSelectedCardIndex());
     }
@@ -234,7 +234,7 @@ public abstract class FoodDiarySystemTest {
      * @see RestaurantListPanelHandle#isSelectedRestaurantCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
-        assertFalse(getBrowserPanel().isUrlChanged());
+        //assertFalse(getBrowserPanel().isUrlChanged());
         assertFalse(getRestaurantListPanel().isSelectedRestaurantCardChanged());
     }
 
@@ -280,7 +280,7 @@ public abstract class FoodDiarySystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getRestaurantListPanel(), getModel().getFilteredRestaurantList());
-        assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        //assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

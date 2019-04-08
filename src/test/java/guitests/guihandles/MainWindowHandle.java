@@ -45,7 +45,7 @@ public class MainWindowHandle extends StageHandle {
     public MainMenuHandle getMainMenu() {
         return mainMenu;
     }
-    
+
     public ReviewListPanelHandle getReviewListPanel() {
         return reviewListPanel;
     }

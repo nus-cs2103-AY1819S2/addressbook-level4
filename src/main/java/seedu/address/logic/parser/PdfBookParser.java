@@ -23,11 +23,11 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MergeCommand;
 import seedu.address.logic.commands.MoveCommand;
 import seedu.address.logic.commands.OpenCommand;
-import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.TagCommand;
-import seedu.address.logic.commands.UndoCommand;
+//import seedu.address.logic.commands.UndoCommand;
+//import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -105,9 +105,6 @@ public class PdfBookParser {
         case OpenCommand.COMMAND_WORD:
             return new OpenCommandParser().parse(arguments);
 
-        case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
-
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
 
@@ -116,9 +113,13 @@ public class PdfBookParser {
 
         case TagCommand.COMMAND_WORD:
             return new TagCommandParser().parse(arguments);
-
+        /*
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
+         */
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -41,6 +41,7 @@ public class VersionedPdfBook extends PdfBook {
         if (!canUndo()) {
             throw new NoUndoableStateException();
         }
+
         currentStatePointer--;
         resetData(pdfBookStateList.get(currentStatePointer));
     }

@@ -44,7 +44,7 @@ public class MapGridTest {
         sizeTenmap.putShip(battleship, new Coordinates("a1"), orientation);
         assertTrue(sizeTenmap.attackCell(new Coordinates("a1")));
     }
-    
+
     @Test
     public void equals() {
         MapGrid firstMapGrid = getSizeTenMapGrid();

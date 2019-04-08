@@ -39,6 +39,7 @@ public class TopDeck implements ReadOnlyTopDeck {
     */
     {
         decks = new UniqueDeckList();
+        portManager = new PortManager();
     }
 
     public TopDeck() {

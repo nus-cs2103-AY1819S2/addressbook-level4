@@ -221,13 +221,20 @@ Format: `list`
 * The details of the medicine shown in the list include: name, company, total quantity, closest expiry date and tags.
 ****
 
+// tag::find[]
 === Locating medicines : `find`
 
-Finds medicine whose names contain any of the given keywords and displays them in the list. +
-Format: `find KEYWORD [MORE_KEYWORDS]...`
+Finds medicine whose data contain any of the given keywords and displays them in the list. +
+Format: `find PREFIX KEYWORD [MORE_KEYWORDS]...`
+
+.Possible prefixes:
+* `n/` : name of medicine is searched.
+* `c/`: company name of medicine is searched.
+* `t/` : tags of medicine are searched.
+* `b/` : batch number of batches of medicine are searched.
 
 ****
-* Only the name is searched.
+* Only the field indicated by the entered prefix will be searched.
 * The search is case insensitive. e.g `sodium` will match `Sodium`
 * The order of the keywords does not matter. e.g. `Sodium Levothyroxine` will match `Levothyroxine Sodium`
 * Only full words will be matched e.g. `Sod` will not match `Sodium`
@@ -236,10 +243,15 @@ Format: `find KEYWORD [MORE_KEYWORDS]...`
 
 Examples:
 
-* `find Sodium` +
+* `find n/ Sodium` +
 Returns `Levothyroxine Sodium` and `Naproxen Sodium`.
-* `find Amoxicillin Gabapentin Acetaminophen` +
-Returns any medicine having names `Amoxicillin`, `Gabapentin` or `Acetaminophen`.
+* `find c/ 3M Johnson Pharmaceutical` +
+Returns any medicine from companies with names containing `3M`, `Johnson` or `Pharmaceutical` such as `3M Pharmaceuticals`.
+* `find t/ fever` +
+Returns any medicine with tag `fever`.
+* `find b/ NDC` +
+Returns any medicine with batches with batch number containing `NDC` such as `NDC 0777-3105-02`.
+// end::find[]
 
 === Editing a medicine : `edit`
 
@@ -259,7 +271,7 @@ Examples:
 * `list` +
 `edit 2 n/Prednisone c/Johnson & Johnson` +
 Edits the name of the 2nd medicine in the list to be `Prednisone` and company to be `Johnson & Johnson`.
-* `find Prednisone` +
+* `find n/ Prednisone` +
 `edit 1 t/` +
 Remove tags from the 1st medicine in the results of the `find` command.
 
@@ -279,7 +291,7 @@ Examples:
 * `list` +
 `delete 2` +
 Deletes the 2nd medicine in the list.
-* `find Gabapentin` +
+* `find n/ Gabapentin` +
 `delete 1` +
 Deletes the 1st medicine in the results of the `find` command.
 
@@ -305,7 +317,7 @@ Examples:
 * `list` +
 `select 2` +
 Selects the 2nd medicine in the inventory.
-* `find Gabapentin` +
+* `find n/ Gabapentin` +
 `select 1` +
 Selects the 1st medicine in the results of the `find` command.
 // end::select[]
@@ -356,7 +368,7 @@ Examples:
 * `list` +
 `update 2 b/s9c4x9532 q/1000 e/11/2/2020` +
 Updates quantity and expiry date of batch `s9c4x9532` in batch records of the 2nd medicine in the list to `1000` and `11/2/2020`.
-* `find Gabapentin` +
+* `find n/ Gabapentin` +
 `update 1 b/8937v1x7 q/500` +
 Updates quantity of batch `8937v1x7` in batch records of the 1st medicine in the results of the `find` command to `500`.
 //end::update[]
@@ -455,7 +467,7 @@ image::label2_taken.png[width="790"]
 +
 image::label2.png[width="790"]
 +
-* `find Simvastatin` +
+* `find n/ Simvastatin` +
 `label 1 f/Simvastatin` +
 Similar to the example above, the 1st medicine information will be output to a file name `Simvastatin`.
 +
@@ -573,8 +585,8 @@ e.g. `edit 2 n/Amoxicillin c/GlaxoSmithKline t/antibiotic'
 * *Exit* : `exit`
 * *Export* : `export [FILE_NAME]` +
 e.g. export Records
-* *Find* : `find KEYWORD [MORE_KEYWORDS]...` +
-e.g. `find paracetamol`
+* *Find* : `find PREFIX KEYWORD [MORE_KEYWORDS]...` +
+e.g. `find n/ paracetamol`
 * *Help* : `help`
 * *History* : `history`
 * *Label* : `label INDEX` +

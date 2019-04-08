@@ -1,11 +1,11 @@
 package systemtests;
 
+import static junit.framework.TestCase.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_MEDICINE_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMedicine;
-import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEDICINE;
 import static seedu.address.testutil.TypicalMedicines.KEYWORD_MATCHING_SODIUM;
 
@@ -25,7 +25,7 @@ public class DeleteCommandSystemTest extends MediTabsSystemTest {
 
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
-    private static final Comparator<Medicine> comparatorLexicographical = Comparator.comparing(Medicine::getName);
+    private static final Comparator<Medicine> comparator = Comparator.naturalOrder();
 
     @Test
     public void delete() {
@@ -55,23 +55,19 @@ public class DeleteCommandSystemTest extends MediTabsSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
-        /* Case: delete the middle medicine in the list -> deleted */
-        Index middleMedicineIndex = getMidIndex(getModel());
-        assertCommandSuccess(middleMedicineIndex);
-
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered medicine list, delete index within bounds of inventory and medicine list -> deleted */
-        //showMedicinesWithName(KEYWORD_MATCHING_SODIUM);
-        //Index index = INDEX_FIRST_MEDICINE;
-        //assertTrue(index.getZeroBased() < getModel().getFilteredMedicineList().size()); // need to import assertTrue
-        //assertCommandSuccess(index);
+        showMedicinesWithName(KEYWORD_MATCHING_SODIUM);
+        Index index = INDEX_FIRST_MEDICINE;
+        assertTrue(index.getZeroBased() < getModel().getFilteredMedicineList().size());
+        assertCommandSuccess(index);
 
         /* Case: filtered medicine list, delete index within bounds of inventory but out of bounds of medicine list
          * -> rejected
          */
         showMedicinesWithName(KEYWORD_MATCHING_SODIUM);
-        int invalidIndex = getModel().getInventory().getSortedMedicineList(comparatorLexicographical).size();
+        int invalidIndex = getModel().getInventory().getSortedMedicineList(comparator).size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
 
@@ -100,7 +96,7 @@ public class DeleteCommandSystemTest extends MediTabsSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         Index outOfBoundsIndex = Index.fromOneBased(
-                getModel().getInventory().getSortedMedicineList(comparatorLexicographical).size() + 1);
+                getModel().getInventory().getSortedMedicineList(comparator).size() + 1);
         command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
         assertCommandFailure(command, MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
 

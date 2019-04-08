@@ -123,12 +123,6 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
-==== Getting started with coding
-
-When you are ready to start coding,
-
-1. Get some sense of the overall design by reading <<Design-Architecture>>.
-
 == Design
 
 [[Design-Architecture]]
@@ -267,20 +261,21 @@ This section provides you with some description of how certain key features of o
 === Information Panel
 ==== Current Implementation
 
-The information panel is mainly driven by `InformationPanel` which extends `UiPart` with an added mechanism to interact with the currently selected medicine.
+The information panel is mainly driven by `InformationPanel` which extends `UiPart` with an added mechanism to interact with the currently selected medicine and information panel settings.
 It implements the following operations:
 
-* `InformationPanel#showSelectedInformation(Medicine medicine)` -- Creates and displays a `BatchTable` that contains information of the selected medicine and its batches.
+* `InformationPanel#showSelectedInformation(Medicine medicine)` -- Creates and displays a `BatchTable` that contains information of the selected medicine and its batches. Values in the `BatchTable` are sorted according to `SortProperty` and `SortDirection` specified in the `InformationPanelSettings`.
 * `InformationPanel#emptyInformationPanel()` -- Deletes the `BatchTable` being displayed (if any) to show an empty pane.
 
-These operations are hidden and are only triggered when the value of the selected medicine changes.
-The `InformationPanel` is initialized with the selected medicine as an `ObservableValue`, and a `ChangeListener` is added to it.
-`ChangeListener#changed(ObservableValue<? extends T> observable, T oldValue, T newValue)` is called whenever the value of the selected medicine changes.
-Given below is a diagram showing the execution of `InformationPanel` when a change occurs:
+These operations are hidden and are only triggered when the value of the selected medicine or information panel settings changes.
+The `InformationPanel` is initialized with the selected medicine and information panel settings as `ObservableValue<Medicine>` and ObservableValue<InformationPanelSettings` objects with`ChangeListener` objects are added to them.
+`ChangeListener#changed(ObservableValue<? extends T> observable, T oldValue, T newValue)` is called whenever the values in either of the `ObservableValue` objects changes.
+
+Given below is a diagram showing the execution of `InformationPanel` when a change to the selected medicine occurs:
 
 image::InformationPanelSequenceDiagram.png[width="800"]
 
-Given below is an example usage scenario and how the information panel behaves at each step.
+Given below is an example usage scenario and how the information panel behaves at each step when the selected medicine changes.
 
 Step 1. The user launches the application for the first time. An empty `InformationPanel` is displayed.
 
@@ -291,16 +286,22 @@ An `update` command will also cause `ChangeListener#changed(ObservableValue<? ex
 
 Step 3. The user executes `find n/Paracetamol ...`. The `find` command deselects the selected medicine and the new value is null. Only `InformationPanel#emptyInformationPanel()` is called.
 
+Given below is another example usage scenario and how the information panel behaves with the `sort` command.
+
+Step 1. The user launches the application for the first time. The `InformationPanel` is initialized with `InformationPanelSettings` stored in `UserPrefs`.
+
+Step 2. The user executes `sort p/quantity d/ascending` command to sort all batch tables by quantity in ascending order. The `sort` command calls `Model#setInformationPanelSettings(InformationPanelSettings informationPanelSettings))` which changes the value of the `InformationPanelSettings` in `Model`. `InformationPanel#Display(Medicine medicine)` is called because of the changed value.
+
 ==== Design Considerations
 
-===== Aspect: How the batch table executes
+===== Aspect: How the information panel executes
 
-* **Alternative 1 (current choice):** Creates a new `BatchTable` every time a new medicine is selected.
+* **Alternative 1 (current choice):** Creates a new `BatchTable` to be displayed every time a new medicine is selected.
 ** Pros: Information can be taken from `Model` component during initialization so no extra memory is needed to store table information.
 ** Cons: May have performance issues in terms of time needed to retrieve the information and build the table, especially if number of batches becomes huge.
 * **Alternative 2:** Save created `BatchTables` as a field in `Medicine`.
 ** Pros: Save time needed for creating the `BatchTable` for faster response time.
-** Cons: More memory needed to store `BatchTable`.
+** Cons: More memory needed to store `BatchTable`. Complicated implementation.
 // end::informationpanel[]
 
 // tag::exportcommand[]

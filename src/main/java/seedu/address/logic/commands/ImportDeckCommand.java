@@ -7,6 +7,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.exceptions.DeckImportException;
+import seedu.address.model.deck.exceptions.DuplicateDeckException;
 
 /**
  * Imports a deck identified using it's displayed index from TopDeck.

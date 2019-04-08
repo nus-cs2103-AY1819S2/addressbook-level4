@@ -267,6 +267,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
+    /**
      * Get the person in the attendance from this {@code AddressBook}.
      */
     public ObservableList<Person> getAttendingFromActivity(Activity key) {

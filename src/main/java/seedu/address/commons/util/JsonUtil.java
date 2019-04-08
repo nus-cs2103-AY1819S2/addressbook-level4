@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -148,6 +149,33 @@ public class JsonUtil {
         public Class<Level> handledType() {
             return Level.class;
         }
+    }
+
+    /**
+     * Returns the json data in the file as an object of the specified type.
+     *
+     * @param file Points to a valid json file containing data that match the {@code classToConvert}.
+     * Cannot be null.
+     * @param classToConvert The class corresponding to the json data.
+     * Cannot be null.
+     * @throws FileNotFoundException Thrown if the file is missing.
+     * @throws JAXBException Thrown if the file is empty or does not have the correct format.
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T getDataFromFile(Path file, Class<T> classToConvert)
+            throws FileNotFoundException, JAXBException {
+
+        requireNonNull(file);
+        requireNonNull(classToConvert);
+
+        if (!FileUtil.isFileExists(file)) {
+            throw new FileNotFoundException("File not found : " + file.toAbsolutePath());
+        }
+
+        JAXBContext context = JAXBContext.newInstance(classToConvert);
+        Unmarshaller um = context.createUnmarshaller();
+
+        return ((T) um.unmarshal(file.toFile()));
     }
 
     /**

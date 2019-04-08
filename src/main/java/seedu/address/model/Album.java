@@ -22,7 +22,7 @@ import seedu.address.model.image.Image;
  */
 public class Album {
     // Represents a singleton copy of the Album.
-    private static Album instance = new Album();
+    private static Album instance;
     // Represents the Storage path of assets folder for all raw images.
     private final String assetsFilepath;
     // Represents an ArrayList of image available in assets folder.
@@ -32,7 +32,7 @@ public class Album {
      * Constructor for Album.
      * Checks if asset folder exists, creates it if it does not and populates the Album.
      */
-    public Album() {
+    private Album() {
         assetsFilepath = generateAssets();
         populateAlbum();
     }
@@ -43,6 +43,9 @@ public class Album {
      * @return Returns the singleton Album instance.
      */
     public static Album getInstance() {
+        if (instance == null) {
+            instance = new Album();
+        }
         return instance;
     }
 

@@ -31,8 +31,8 @@ public class InformationPanel extends UiPart<Region> {
         informationPanelSettings = settings.getValue();
 
         // Load medicine information page when selected medicine changes.
-        selectedMedicine.addListener(
-                (observable, oldSelectMedicine, newSelectedMedicine) -> display(newSelectedMedicine));
+        selectedMedicine.addListener((observable, oldSelectMedicine, newSelectedMedicine) ->
+            display(newSelectedMedicine));
 
         settings.addListener((observable, oldSettings, newSettings) -> {
             logger.fine("Batch table sorted by " + newSettings);
@@ -47,6 +47,9 @@ public class InformationPanel extends UiPart<Region> {
         showSelectedInformation(medicine);
     }
 
+    /**
+     * Empties the information panel by deleting its children.
+     */
     private void emptyInformationPanel() {
         if (informationPanel.getChildren() == null) {
             return;
@@ -57,6 +60,9 @@ public class InformationPanel extends UiPart<Region> {
         batchTable = null;
     }
 
+    /**
+     * Creates a {@code BatchTable} with details from {@code medicine} to be displayed on the information panel.
+     */
     private void showSelectedInformation(Medicine medicine) {
         if (medicine == null) {
             return;

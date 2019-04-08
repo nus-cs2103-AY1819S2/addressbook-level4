@@ -24,7 +24,9 @@ public class CommandHistory {
      */
     public void add(String userInput) {
         requireNonNull(userInput);
-        userInputHistory.add(userInput);
+        if (!userInput.contains("encrypt") && !userInput.contains("decrypt")) {
+            userInputHistory.add(userInput);
+        }
     }
 
     /**

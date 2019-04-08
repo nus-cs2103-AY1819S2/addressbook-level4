@@ -12,7 +12,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Gender {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Gender should be either F or M or f or m";
+            "Gender should be either F or M or f or m. Auto-converts to uppercase for readability";
     public static final String VALIDATION_REGEX = "[MFmf]";
     public final String value;
 

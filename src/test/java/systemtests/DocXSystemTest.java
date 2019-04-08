@@ -37,12 +37,12 @@ import seedu.address.logic.commands.ListDoctorCommand;
 import seedu.address.logic.commands.ListPatientCommand;
 import seedu.address.logic.commands.SearchDoctorCommand;
 import seedu.address.logic.commands.SearchPatientCommand;
-import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SelectPatientCommand;
 import seedu.address.logic.commands.SelectDoctorCommand;
 import seedu.address.model.DocX;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalPatients;
-import seedu.address.ui.BrowserPanel;
+import seedu.address.ui.PatientInfoPanel;
 import seedu.address.ui.CommandBox;
 
 /**
@@ -163,7 +163,7 @@ public abstract class DocXSystemTest {
      * Selects the patient at {@code index} of the displayed list.
      */
     protected void selectPatient(Index index) {
-        executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
+        executeCommand(SelectPatientCommand.COMMAND_WORD + " " + index.getOneBased());
         assertEquals(index.getZeroBased(), getPatientListPanel().getSelectedCardIndex());
     }
 
@@ -239,7 +239,7 @@ public abstract class DocXSystemTest {
      * @see BrowserPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
-        assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        assertEquals(PatientInfoPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertFalse(getPatientListPanel().isAnyCardSelected());
     }
 
@@ -254,7 +254,7 @@ public abstract class DocXSystemTest {
         String selectedCardName = getPatientListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
         try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
+            expectedUrl = new URL(PatientInfoPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }
@@ -315,7 +315,7 @@ public abstract class DocXSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getPatientListPanel(), getModel().getFilteredPatientList());
-        assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        assertEquals(PatientInfoPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

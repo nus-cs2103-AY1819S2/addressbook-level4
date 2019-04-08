@@ -5,21 +5,32 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_MEDICINES_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BATCHNUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalMedicines.ACETAMINOPHEN;
+import static seedu.address.testutil.TypicalMedicines.IBUPROFEN;
 import static seedu.address.testutil.TypicalMedicines.LISINOPRIL;
 import static seedu.address.testutil.TypicalMedicines.PREDNISONE;
 import static seedu.address.testutil.TypicalMedicines.getTypicalInventory;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.function.Predicate;
 
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.predicates.BatchContainsKeywordsPredicate;
+import seedu.address.model.medicine.predicates.CompanyContainsKeywordsPredicate;
 import seedu.address.model.medicine.predicates.NameContainsKeywordsPredicate;
+import seedu.address.model.medicine.predicates.TagContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -28,6 +39,89 @@ public class FindCommandTest {
     private Model model = new ModelManager(getTypicalInventory(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalInventory(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
+
+    @Test
+    public void execute_NameContainsKeywordsPredicate_medicineFound() {
+        String expectedMessage = String.format(MESSAGE_MEDICINES_LISTED_OVERVIEW, 1);
+        Predicate<Medicine> predicate = preparePredicate(PREFIX_NAME, "Acetaminophen");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredMedicineList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ACETAMINOPHEN), model.getFilteredMedicineList());
+    }
+
+    @Test
+    public void execute_CompanyContainsKeywordsPredicate_medicineFound() {
+        String expectedMessage = String.format(MESSAGE_MEDICINES_LISTED_OVERVIEW, 1);
+        Predicate<Medicine> predicate = preparePredicate(PREFIX_COMPANY, "Takeda");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredMedicineList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(LISINOPRIL), model.getFilteredMedicineList());
+    }
+
+    @Test
+    public void execute_TagContainsKeywordsPredicate_medicineFound() {
+        String expectedMessage = String.format(MESSAGE_MEDICINES_LISTED_OVERVIEW, 1);
+        Predicate<Medicine> predicate = preparePredicate(PREFIX_TAG, "inflammation");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredMedicineList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(IBUPROFEN), model.getFilteredMedicineList());
+    }
+
+    @Test
+    public void execute_BatchContainsKeywordsPredicate_medicineFound() {
+        String expectedMessage = String.format(MESSAGE_MEDICINES_LISTED_OVERVIEW, 1);
+        Predicate<Medicine> predicate = preparePredicate(PREFIX_BATCHNUMBER, "A030F21");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredMedicineList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(PREDNISONE), model.getFilteredMedicineList());
+    }
+
+    @Test
+    public void execute_multipleKeywords_multipleMedicinesFound() {
+        String expectedMessage = String.format(MESSAGE_MEDICINES_LISTED_OVERVIEW, 3);
+        Predicate<Medicine> predicate = preparePredicate(PREFIX_NAME, "Acetaminophen Lisinopril Prednisone");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredMedicineList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ACETAMINOPHEN, LISINOPRIL, PREDNISONE), model.getFilteredMedicineList());
+    }
+
+    @Test
+    public void execute_nonPresentKeywords_noMedicinesFound() {
+        String expectedMessage = String.format(MESSAGE_MEDICINES_LISTED_OVERVIEW, 0);
+        Predicate<Medicine> predicate = preparePredicate(PREFIX_COMPANY, "one two three");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredMedicineList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(), model.getFilteredMedicineList());
+    }
+
+    /**
+     * Parses {@code userInput} into a {@code Predicate<Medicine>}.
+     */
+    private Predicate<Medicine> preparePredicate(Prefix prefix, String userInput) {
+        String[] keywords = userInput.split("\\s+");
+        if (prefix == PREFIX_NAME) {
+            return new NameContainsKeywordsPredicate(Arrays.asList(keywords));
+        }
+
+        if (prefix == PREFIX_COMPANY) {
+            return new CompanyContainsKeywordsPredicate(Arrays.asList(keywords));
+        }
+
+        if (prefix == PREFIX_TAG) {
+            return new TagContainsKeywordsPredicate(Arrays.asList(keywords));
+        }
+
+        if (prefix == PREFIX_BATCHNUMBER) {
+            return new BatchContainsKeywordsPredicate(Arrays.asList(keywords));
+        }
+        return null;
+    }
 
     @Test
     public void equals() {
@@ -54,32 +148,5 @@ public class FindCommandTest {
 
         // different medicine -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
-    }
-
-    @Test
-    public void execute_zeroKeywords_noMedicineFound() {
-        String expectedMessage = String.format(MESSAGE_MEDICINES_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
-        FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredMedicineList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredMedicineList());
-    }
-
-    @Test
-    public void execute_multipleKeywords_multipleMedicinesFound() {
-        String expectedMessage = String.format(MESSAGE_MEDICINES_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Acetaminophen Lisinopril Prednisone");
-        FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredMedicineList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ACETAMINOPHEN, LISINOPRIL, PREDNISONE), model.getFilteredMedicineList());
-    }
-
-    /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
-     */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

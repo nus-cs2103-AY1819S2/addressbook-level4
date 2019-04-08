@@ -31,6 +31,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    private BrowserPanel browserPanel;
     private PatientInfoPanel patientInfoPanel;
     private MedHistBrowserPanel medHistBrowserPanel;
     private PatientListPanel patientListPanel;
@@ -89,6 +90,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -121,9 +123,10 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        browserPanel = new BrowserPanel(logic.selectedPatientProperty());
         patientInfoPanel = new PatientInfoPanel(logic.selectedPatientProperty());
         medHistBrowserPanel = new MedHistBrowserPanel(logic.selectedMedHistProperty());
-        browserPlaceholder.getChildren().add(patientInfoPanel.getRoot());
+        browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         patientListPanel = new PatientListPanel(logic.getFilteredPatientList(), logic.selectedPatientProperty(),
                 logic::setSelectedPatient);
@@ -144,7 +147,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Show the browser of patient
+     * Show the full patient info
      */
     public void showPatientBrowser() {
         browserPlaceholder.getChildren().clear();
@@ -253,26 +256,25 @@ public class MainWindow extends UiPart<Stage> {
 
             switch (commandResult.getShowPanel()) {
 
-            case MED_HIST_PANEL:
-                showMedHistPanel();
-                break;
-            case APPOINTMENT_PANEL:
-                showAppointmentPanel();
-                break;
-            default:
-                break;
+                case MED_HIST_PANEL:
+                    showMedHistPanel();
+                    break;
+                case APPOINTMENT_PANEL:
+                    showAppointmentPanel();
+                    break;
+                default:
+                    break;
             }
 
             switch (commandResult.getShowBrowser()) {
-
-            case MED_HIST_BROWSER:
-                showMedHistBrowser();
-                break;
-            case PATIENT_BROWSER:
-                showPatientBrowser();
-                break;
-            default:
-                break;
+                case MED_HIST_BROWSER:
+                    showMedHistBrowser();
+                    break;
+                case PATIENT_BROWSER:
+                    showPatientBrowser();
+                    break;
+                default:
+                    break;
             }
 
             return commandResult;

@@ -42,6 +42,7 @@ import seedu.address.logic.commands.SelectDoctorCommand;
 import seedu.address.model.DocX;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalPatients;
+import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.PatientInfoPanel;
 import seedu.address.ui.CommandBox;
 
@@ -253,12 +254,6 @@ public abstract class DocXSystemTest {
         getPatientListPanel().navigateToCard(getPatientListPanel().getSelectedCardIndex());
         String selectedCardName = getPatientListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
-        try {
-            expectedUrl = new URL(PatientInfoPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
-        } catch (MalformedURLException mue) {
-            throw new AssertionError("URL expected to be valid.", mue);
-        }
-        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getPatientListPanel().getSelectedCardIndex());
     }

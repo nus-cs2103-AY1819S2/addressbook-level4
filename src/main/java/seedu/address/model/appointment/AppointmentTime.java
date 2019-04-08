@@ -37,11 +37,34 @@ public class AppointmentTime {
     public static boolean isValidAppointmentTime(String test) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         try {
-            LocalTime.parse(test, formatter);
+            LocalTime time = LocalTime.parse(test, formatter);
+            if (time.getMinute() != 0) {
+                return false;
+            }
+            if (!isOfficeHours(time)) {
+                return false;
+            }
             return true;
+
         } catch (DateTimeParseException e) {
             return false;
         }
+    }
+
+    /**
+     * Returns true if the time is between the valid office hours
+     */
+    private static boolean isOfficeHours(LocalTime time) {
+        LocalTime period1Start = LocalTime.parse("08:59");
+        LocalTime period1End = LocalTime.parse("11:01");
+
+        LocalTime period2Start = LocalTime.parse("12:59");
+        LocalTime period2End = LocalTime.parse("17:01");
+
+        final boolean withinPeriod1 = time.isAfter(period1Start) && time.isBefore(period1End);
+        final boolean withinPeriod2 = time.isAfter(period2Start) && time.isBefore(period2End);
+
+        return withinPeriod1 || withinPeriod2;
     }
 
     @Override

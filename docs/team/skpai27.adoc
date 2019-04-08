@@ -34,7 +34,7 @@ The Food Diary contains an extensive list of restaurants which can be searched u
 *** Modified and added our details and pictures into the About Us page: (Pull request https://github.com/CS2103-AY1819S2-W17-1/main/pull/3[#3])
 *** Updated our Contact Us page (same PR as above)
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W17-1/main/pull/95[#95], https://github.com/CS2103-AY1819S2-W17-1/main/pull/96[#96]
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W17-1/main/pull/95[#95], https://github.com/CS2103-AY1819S2-W17-1/main/pull/96[#96], https://github.com/CS2103-AY1819S2-W17-1/main/pull/115[#115]
 *** The review builder class that I implemented was used by another team mate (https://github.com/CS2103-AY1819S2-W17-1/main/pull/94[1])
 
 
@@ -45,9 +45,8 @@ The Food Diary contains an extensive list of restaurants which can be searched u
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=ade]
-
 include::../UserGuide.adoc[tag=reviewcommands]
+
 
 == Contributions to the Developer Guide
 
@@ -55,6 +54,5 @@ include::../UserGuide.adoc[tag=reviewcommands]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-
-include::../DeveloperGuide.adoc[tag=skpai27]
+include::../DeveloperGuide.adoc[tag=reviewcommandsdg]
 

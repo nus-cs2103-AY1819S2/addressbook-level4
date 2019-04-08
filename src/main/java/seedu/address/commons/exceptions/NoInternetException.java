@@ -10,12 +10,4 @@ public class NoInternetException extends Exception {
     public NoInternetException(String message) {
         super(message);
     }
-
-    /**
-     * @param message should contain relevant information on the failed constraint(s)
-     * @param cause of the main exception
-     */
-    public NoInternetException(String message, Throwable cause) {
-        super(message, cause);
-    }
 }

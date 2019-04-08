@@ -1,6 +1,7 @@
 = The Food Diary - User Guide
 :site-section: UserGuide
 :toc:
+:toclevels: 4
 :toc-title:
 :toc-placement: preamble
 :sectnums:
@@ -16,8 +17,8 @@ endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w17-1/main
 
 By: `W17-1`      Since: `Feb 2019`      Licence: `MIT`
-// tag::introductionUG[]
 
+// tag::introductionUG[]
 == Welcome to the Food Diary
 
 If you would like to get use the Food Diary straightaway, jump to the <<Quick Start>> to get started
@@ -65,8 +66,8 @@ image::UiUpdated.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`listRestaurants`* : lists all restaurants
-* **`addReview`** `n/MCDONALDS r/4 m/delicious` : adds a review to MCDONALDS with rating 4 with the comment "delicious"
+* *`list`* : lists all restaurants
+* **`addReview`** `n/MCDONALDS rr/4 re/delicious` : adds a review to MCDONALDS with rating 4 with the comment "delicious"
 * **`delete`**`3` : deletes the 3rd restaurant shown in the index
 * *`exit`* : exits the app
 
@@ -79,22 +80,33 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/RESTAURANT_NAME`, `RESTAURANT_NAME` is a parameter which can be used as `add n/Burger King`.
-* Items in square brackets are optional.
+* Items in square brackets are optional. e.g. in `add n/RESTAURANT_NAME
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/RESTAURANT_NAME r/STAR_RATING`, `r/STAR_RATING n/RESTAURANT_NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/RESTAURANT_NAME r/RATING`, `r/RATING n/RESTAURANT_NAME` is also acceptable.
 ====
 
-=== Restaurant Commands
+=== Restaurant Features
 
 ==== Adding a restaurant: `add`
 
 Add a restaurant that is not found in the current list of restaurants. +
-Format: `add n/RESTAURANT_NAME a/ADDRESS c/CUISINE`
+Format: `add n/NAME p/PHONE e/EMAIL a/ADDRESS po/POSTAL CODE [t/TAG]... [w/WEBLINK] [o/OPENING_HOURS]`
+
+****
+* A restaurant can have any number of tags (including 0)
+* A restaurant can have a weblink or none
+* A restaurant can have one opening hours or none
+****
+
+Examples:
+
+* `add n/Astons p/66123024 e/astons@dummy.com a/Blk 30 Geylang Street 29, #06-40 po/267951 w/astons.com.sg`
+* `add n/Bangkok Jam p/65272758 e/bangkokjam@example.com a/Blk 30 Lorong 3 Serangoon Gardens, #07-18 po/018956 t/Spicy`
 
 ==== Editing details of a restaurant  : `edit`
 
-Edit the details of a restaurant identified by the index number used in the listRestaurants. +
-Format: `edit INDEX [n/RESTAURANT_NAME] [a/ADDRESS] [c/CUISINE]`
+Edit the details of a restaurant identified by the index number used in the list. +
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [po/POSTAL] [t/TAG]... [w/WEBLINK] [o/OPENING HOURS]`
 
 ****
 * The index refers to the index number shown in the displayed restaurants list.
@@ -103,9 +115,8 @@ Format: `edit INDEX [n/RESTAURANT_NAME] [a/ADDRESS] [c/CUISINE]`
 
 Examples:
 
-* `listRestaurants` +
-`editRestaurant 2 n/MACS  ` +
-Change the name of the second restaurant in the list to MACS.
+* `edit 2 n/MACS` +
+Changes the name of the second restaurant in the list to `MACS`.
 
 ==== Deleting a restaurant: `delete`
 
@@ -121,64 +132,67 @@ Format: `delete INDEX`
 Examples:
 
 * `delete 1` +
-Deletes the 1st restaurant in the Food Diary.
+Deletes the first restaurant in the Food Diary.
+* `filter Western` +
+`delete 2` +
+Deletes the second restaurant in the filtered list with the cuisine `Western`.
 
 ==== Listing all restaurants : `list`
 
-Shows a list of all restaurants in the Food Diary with an option to filter for certain property. +
-Format: `list [n/RESTAURANT_NAME] [a/ADDRESS] [c/CUISINE]`
+Shows a list of all restaurants in the Food Diary. +
+Format: `list`
 
 Examples:
 
 * `list` +
-Return all the restaurants
+Returns a list of all the restaurants in the Food Diary.
 
-Examples:
-
-* `list` +
-Return all the restaurants
 
 // tag::listUnvisitedUG[]
 ==== Listing all restaurants that you haven't visited : `listUnvisited`
 
-Shows a list of all restaurants that hasn't been reveiwed by you, ranked based on the proximity to a given postal code. +
+Shows a list of all restaurants that hasn't been reviewed by you, ranked based on the proximity to a given postal code. +
 Format: `listUnvisited po/POSTAL_CODE`
 
 [NOTE]
+====
 Calculation of proximity is based on postal codes. If no postal code or an invalid postal code is provided for a restaurant, it will appear at the bottom of the list.
-
+====
 
 Examples:
 
-* **`listUnvisited`**`po/267951` +
-Return all the restaurants that has no reviews ranked based on the proximity to a given postal code
+* `listUnvisited po/267951` +
+Returns all the restaurants that has no reviews ranked based on the proximity to a given postal code
 
 [TIP]
+====
 If you simply want to view unreviewed restaurants, enter `listUnvisited po/000000`
+====
 // end::listUnvisitedUG[]
 
-==== Searching Restaurants by name: `find`
+==== Searching restaurants by name: `find`
 
 Find restaurants with names containing any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORD]`
+Format: `find KEYWORD [MORE_KEYWORDS]`
 
 [NOTE]
+====
 Only full words will be matched e.g. `Mac` would not return `MacDonald's`
-
+====
 
 Examples:
 
-* **`find KFC`** +
-Returns any restaurant with name containing `KFC`
+* `find KFC` +
+Returns any restaurant with name containing `KFC`.
 
 // tag::select[]
-==== Select a restaurant : `select`
+==== Selecting a restaurant : `select`
 
 Select a restaurant based on its index on the list and display information about it. +
 Format: `select INDEX`
 
 ****
-* The index refers to the index number show in the displayed restaurants list.
+* The index refers to the index number shown in the displayed restaurants list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
@@ -188,82 +202,122 @@ Examples:
 Selects the restaurant in the displayed restaurants list with index 3 and displays its summary, reviews and website.
 
 image::selectbefore.png[width="800"]
-Figure 1. Before selecting any restaurant
+_Figure 1. Before selecting any restaurant_
 
 image::selectafter.png[width="800"]
-Figure 2. After selecting restaurant with index 3, Chilis' summary, reviews and website are displayed in the second, third and fourth panels (from left to right) respectively.
-
-Note:
-
-* Placeholder for Restaurant Summary panel after changes to the Food Diary has been made will be coming in v1.4
-* Details of the restaurant in the Restaurant Summary beyond a certain length will be cut off. This will be dealt with in v1.4.
-
+_Figure 2. After selecting restaurant with index 3, Chilis' summary, reviews and website are displayed in the second, third and fourth panels (from left to right) respectively_
 // end::select[]
 
 // tag::categorization[]
 ==== Setting the categories of a restaurant : `setCategories`
 
+Sets the cuisine of a restaurant identified by the index number used in the list. +
+Format: `setCategories INDEX [c/CUISINE] [oc/OCCASION] [pr/PRICE_RANGE]`
 
-Set the cuisine of a restaurant identified by the index number used in the listRestaurants. +
-Format: `setCategories INDEX [c/CUISINE] [o/OCCASION] [p/PRICE_RANGE]`
+*Step by step guide on how to set categories:*
 
-****
-* The index refers to the index number show in the displayed restaurants list.
+Step 1: List all the restaurants by typing `list`, then pressing enter, as shown _below_.
+
+image::setcategories-stepone.png[]
+_Figure 1: After typing `list`_
+
+Step 2: Choose a restaurant you want to set categories to. Let us choose Astons for this example. Take note that Astons
+is identified by *INDEX 1*. Start typing `setCategories 1 c/` as _follows_:
+
+image::setcategories-steptwo.png[]
+_Figure 2: Notice suggestions for cuisines will pop up. Use arrow keys to select the desired suggestion and press enter,
+or you can also choose to continue typing something not in the suggestions._
+
+Step 3: Continue keying in the occasion prefix after you finished keying in the cuisine. The occasion prefix is oc/.
+Follow Figure 3 shown _below_.
+
+image::setcategories-stepthree.png[]
+_Figure 3: Once again, you can pick the occasion you see in the suggestions or continue typing._
+
+Step 4: Key in the price range next, as demonstrated by _Figure 4 below_.
+
+image::setcategories-stepfour.png[]
+_Figure 4: Pick a price range from the list or just type, whichever is faster for you._
+
+Step 5: Press enter and the categories will be set! Else, you might have made a typo somewhere. You should see the
+following status message shown in the _Figure below_.
+
+image::setcategories-stepfive.png[]
+_Figure 5: Success!_
+
+[NOTE]
+====
+* The index refers to the index number shown in the displayed restaurants list.
 * You need to ensure that the index entered *must be a positive integer* `1, 2, 3, ...`
-* You need to ensure that the `Price Range` entered *must* only consist of 1-5 `$` characters. e.g. `$`, `\$$$`, `$$\$$$`
-is okay but `$$\$$$$`, `cheap` or `$expensive` will be rejected.
-* You need to ensure that Cuisine and Occasion *must* only contain alphanumeric characters and spaces.
-* You do not need to worry about capitalization. Cuisine and Occasion will be autocapitalized.
+* You need to ensure that the `Price Range` entered *must* only consist of 1-5 $ characters. e.g. $, \$$$, $$\$$$
+is okay but $$\$$$$, cheap or $expensive will be rejected.
+* You need to ensure that `Cuisine` and `Occasion` *must* only contain alphanumeric characters and spaces.
+* You do not need to worry about capitalization. `Cuisine` and `Occasion` will be autocapitalized.
 e.g. `fast food` and `premium casual` will be capitalized to
 `Fast Food` and `Premium Casual`. `fAST fOOD` will be converted into `Fast Food`.
-****
+* You do not need to be concerned about the order of categories keyed in. e.g. Entering `Price Range` before `Cuisine` will
+work as well.
+* You do not need to set categories one by one or set all three at once. You have complete freedom to set categories
+whether it is one at a time, two at a time or three at a time.
+====
 
-Examples:
+Other examples you can try:
 
-* `listRestaurants` +
-`setCategory 2 c/Fine Dining o/Wedding p/\$$$$$` +
-Set the categories of the second restaurant in the list to `Find Dining` for cuisine, `Wedding` for occasion and
+* `setCategories 2 oc/Premium Casual pr/\$$$$$` +
+Sets the categories of the second restaurant in the list to `Premium Casual` for occasion and
 `\$$$$$` for price range.
+* `setCategories 3 c/Western` +
+Only sets the cuisine of the third restaurant to `Western`.
 
-Note:
+[TIP]
+====
+* You can make use of the autocomplete suggestions to type faster!
+* When a category's prefix (`c/`, `oc/` or `pr/`) is keyed in, suggestions will appear. Use arrow keys to select the desired
+suggestion and press enter. The suggestion will be filled automatically for you!
+====
 
-* setCategory for `Cuisine`, `Occasion` and `Price Range` supported as of v1.3
-* Autocomplete feature planned for v1.4
-
-==== Filter restaurants based on category : `filter`
+==== Filtering restaurants based on category : `filter`
 
 Filters and lists the restaurants with categories matching the keywords entered. +
 Format: `filter KEYWORD [MORE_KEYWORDS]`
 
-****
-* You do not need to worry about case. Filtering is case insensitive. e.g. `fast food` will match `Fast Food`
+*Step by step guide on how to filter:*
+
+Step 1: Suppose you want to filter out all the `Western` restaurants. Type `filter western`.
+
+Step 2: Press enter and you should see all the western restaurants.
+
+Step 3: Suppose now you want to filter out all `Western`, `Japanese`, as well as `Chinese` restaurants. Type `filter
+western japanese chinese` into the command box.
+
+Step 4: Press enter again and now all `Western`, `Japanese` and `Chinese` restaurants will be shown.
+
+[NOTE]
+====
+* You do not need to worry about case. Filtering is case insensitive. e.g. `western` will match `Western`
 * You do not need to be concerned about which categories you want to filter. Filtering works across categories.
-e.g. `japanese $$$$` will match all restaurants with `Cuisine` set as `Japanese` or `Price Range` set as `\$$$$`.
+e.g. `japanese $` will match all restaurants with `Cuisine` set as `Japanese` or `Price Range` set as `$`.
 Note this also means that the more keywords you add, the more general the filter becomes.
 * You can enter keywords in any order. `$ casual` is the same as `casual $`. Both will match restaurants that has
 `Price Range` as `$` or `Occasion` as `Casual`.
 * You can filter multiple categories of the same type. e.g. `japanese western` will match both `Japanese` and `Western` cuisine
 restaurants. All `Japanese` and `Western` restaurants will be displayed.
-* You must enter words in full. e.g. `fas foo` will not match `fast food`
+* You must enter words in full. e.g. `west` will not match `western`
 * Restaurants matching at least one keyword will be displayed. e.g. `fast food` will match `hawker food`
-****
+====
 
-Examples:
+Some examples you can try:
 
-* `filter fast food` +
-Returns restaurants with `Cuisine` or `Occasion` matching `fast` or `food`
-* `filter fast food casual`
-Returns restaurants with `Cuisine` or `Occasion` matching `fast`, `food` or `casual`
-* `filter $`
-Returns restaurants with `Price Range` matching `$`
+* `filter fine dining casual`
+Returns restaurants with any category matching `fine`, `dining` or `casual`.
 * `filter $ casual western`
-Return restaurants with  `Cuisine`, `Occasion` or `Price Range` matching `$`, `casual` or `western`
+Returns restaurants with any category matching `$`, `casual` or `western`.
 // end::categorization[]
 
 // tag::visitweb[]
-==== Display website of selected restaurant : visitWeb
+==== Display website of selected restaurant : `visitWeb`
 
-Display the website of a restaurant identified by the index number used in the listRestaurants based on its weblink. +
+Display the website of a restaurant identified by the index number used in the list based on its weblink. +
 Format: `visitWeb INDEX`
 
 
@@ -277,25 +331,27 @@ Format: `visitWeb URL` +
 This allows users to visit website of any restaurant before they are entered into the list of restaurants in the `FoodDiary`.
 The purpose of this feature is so that users can reference from restaurants website when adding details of the restaurant into `FoodDiary`
 
-****
-* A URL is a valid link to a website. It should be in this format: local-part.domain and adhere to the following
+[NOTE]
+====
+A URL is a valid link to a website. It should be in this format: local-part.domain and adhere to the following
  contraints:
-1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses,
+
+. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses,
 (!#$%&'*+/=?`{|}~^.-)
-2. This is followed by a '.' and then a domain name. The domain name must:
-** be at least 2 characters long
-** start and end with alphanumeric characters
-** consist of alphanumeric characters, a period or a hyphen for the characters in between, if any.
-****
+. This is followed by a '.' and then a domain name. The domain name must:
+.. be at least 2 characters long
+.. start and end with alphanumeric characters
+.. consist of alphanumeric characters, a period or a hyphen for the characters in between, if any.
+====
 
 Examples:
 
-* list +
-visitWeb 1 +
-Displays webpage of Restaurant at index 1 of list.
+* `list` +
+`visitWeb 1` +
+Displays webpage of the restaurant at index 1 of list.
 
-* visitWeb www.jollibee.com.ph
-Displays webpage of Jollibee
+* `visitWeb www.jollibee.com.ph` +
+Displays webpage of Jollibee.
 // end::visitweb[]
 
 // tag::reviewcommands[]
@@ -308,9 +364,9 @@ Format: `addReview INDEX re/ENTRY rr/RATING`
 
 ****
 * Adds the review to the restaurant specified by the `INDEX`. The index refers to the index number of the restaurant of the currently displayed list of restaurants.. The index *must be a positive integer* 1, 2, 3, ...
-* ENTRY is a text field that include both alphabets and numbers.
-* RATING is a number that has to be a value from 0-5 inclusive. It represents a score out of 5 that is assigned to the restaurant with the added review.
-* Both fields (ENTRY and RATING) are compulsory and must be provided. There are no default values that either will take should the field be unspecified.
+* `ENTRY` is a text field that include both alphabets and numbers.
+* `RATING` is a number that has to be a value from 0-5 inclusive. It represents a score out of 5 that is assigned to the restaurant with the added review.
+* Both fields (`ENTRY` and `RATING`) are compulsory and must be provided. There are no default values that either will take should the field be unspecified.
 ****
 
 Examples:
@@ -326,36 +382,38 @@ Format: `editReview INDEX [re/ENTRY] [rr/RATING]`
 ****
 * Edits the review at the specified `INDEX`. The index refers to the index number of the review of the selected Restaurant. The index *must be a positive integer* 1, 2, 3, ...
 * A restaurant must be selected with a mouse click on the desired restaurant card (see screenshots below for an illustration)
-* At least one of the optional fields (either ENTRY or RATING) must be provided.
+* At least one of the optional fields (either `ENTRY` or `RATING`) must be provided.
 * Existing values will be updated to the input values.
 ****
 
-Steps to execute editReview command:
+Steps to execute `editReview` command:
 
-* From the main screen of the application, first select a restaurant by clicking on it with the mouse.
+* From the main screen of the application, first select a restaurant by clicking on it with the mouse or using the `select INDEX` command.
 
 image::UG_editReview_start.png[width="790"]
-
-The above screenshot shows the case when no restaurant is selected. Upon selecting a restaurant, the reviews of the restaurant will show on the review panel, and the rightmost browser panel will show the webpage of the restaurant (if available) :
+_Figure 3. The above screenshot shows the case when no restaurant is selected_
 
 image::UG_editReview_selected_restaurant.png[width="790"]
+_Figure 4. Upon selecting a restaurant, the reviews of the restaurant will show on the review panel, and the rightmost browser panel will show the webpage of the restaurant (if available)_
 
 * Following the above, enter the command:
 
 image::UG_editReview_selected_restaurant_entered_command.png[width="790"]
+_Figure 5. Enter the command in the command box as shown near the top of the application_
 
 * Upon successful execution of the command:
 
 image::UG_editReview_command_executed.png[width="790"]
+_Figure 6. The above screenshot shows the end-product of the successful execution of `editReview` command_
 
 Examples:
 
 * `edit 1 rr/3` +
-Edits the rating of the 1st review to be 3.
+Edits the rating of the 1st review to be `3`.
 * `edit 2 re/Food isn't the best` +
-Edits the comment of the second review to "Food isn't the best"
+Edits the comment of the second review to `Food isn't the best`
 * `edit 2 re/Food isn't the best` rr/4 +
-Edits the comment of the second review to "Food isn't the best" and the rating to be 4.
+Edits the comment of the second review to `Food isn't the best` and the rating to be `4`.
 
 ==== Deleting a review : `deleteReview`
 
@@ -371,7 +429,7 @@ Format: `deleteReview INDEX`
 Examples:
 
 * `deleteReview 2` +
-Deletes the 2nd review of the selected Restaurant in the Food Diary.
+Deletes the 2nd review of the selected restaurant in the Food Diary.
 // end::reviewcommands[]
 
 === General Features
@@ -379,11 +437,12 @@ Deletes the 2nd review of the selected Restaurant in the Food Diary.
 ==== Viewing help : `help`
 
 Format: `help`
+
 // tag::nameUG[]
 ==== Personalising your food diary with your name: `name`
 
 Personalise your foodDiary with your name +
-Format: `name n/YourName`
+Format: `name n/YOUR_NAME`
 
 Examples:
 
@@ -392,7 +451,7 @@ Examples:
 
 ==== View your profile and usage statistics : `view`
 
-Set the cuisine of a restaurant identified by the index number used in the listRestaurants. +
+Set the cuisine of a restaurant identified by the index number used in the list. +
 Format: `view`
 
 Examples:
@@ -403,6 +462,7 @@ Examples:
 * Example of profile statistics is shown below:
 
 image:viewCommand.png[width="790"]
+_Figure 7. Your profile statistics will be reflected in the result command box as pointed out in the picture above_
 
 // end::nameUG[]
 
@@ -411,9 +471,9 @@ image:viewCommand.png[width="790"]
 Exits the program. +
 Format: `exit`
 
-===== Saving the data
+==== Saving the data
 
-Food diary data are saved in the hard disk automatically after any command that changes the data. +
+The Food Diary data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 
@@ -427,40 +487,42 @@ There is no need to save manually.
 
 == Command Summary
 
-`Restaurant` Class
+`Restaurant` Commands
 
-* *add* : `add n/RESTAURANT_NAME a/ADDRESS c/CUISINE` +
-e.g. `add n/Nana Thai food a/561 Clementi Road c/Thai`
-* *edit* : `edit INDEX [n/RESTAURANT_NAME] [a/ADDRESS] [c/CUISINE]` +
-e.g. `listRestaurants` +
-     `editRestaurant 2 n/MACS`
+* *add* : `add n/NAME p/PHONE e/EMAIL a/ADDRESS po/POSTAL_CODE [t/TAG]... [w/WEBLINK] [o/OPENING_HOURS]` +
+e.g. `add n/Astons p/66123024 e/astons@dummy.com a/Blk 30 Geylang Street 29, #06-40 po/267951 w/astons.com.sg`
+* *edit* : `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [po/POSTAL_CODE] [t/TAG]... [w/WEBLINK] [o/OPENING HOURS]` +
+e.g. `edit 2 n/MACS`
 * *delete* : `delete INDEX` +
 e.g. `delete 1`
-* *list* : `list [n/RESTAURANT_NAME] [a/ADDRESS] [c/CUISINE]` +
-e.g. `list n/MacDonalds`
-* *listUnvisited* : `listUnvisited` +
-e.g. `listUnvisited`
-* *setCategory* : `setCategory INDEX [c/CUISINE] [o/OCCASION] [p/PRICE_RANGE]` +
-e.g. `listRestaurants` +
-     `setCategory 2 c/Fine Dining o/Wedding p/expensive`
+* *list* : `list`
+* *listUnvisited* : `listUnvisited po/POSTAL_CODE` +
+e.g. `listUnvisited po/267951`
+* *find* : `find KEYWORD [MORE_KEYWORDS]`
+e.g. `find KFC Chicken`
+* *select* : `select INDEX`
+e.g. `select 2`
+* *setCategories* : `setCategory INDEX [c/CUISINE] [oc/OCCASION] [pr/PRICE_RANGE]` +
+e.g. `list` +
+     `setCategory 2 c/Fine Dining oc/Wedding pr/$\$$$$`
 * *filter* : `filter KEYWORD [MORE_KEYWORDS]` +
 e.g. `filter fast food gathering`
 * *visitWeb* : `visitWeb INDEX` +
 e.g. `list` +
      `visitWeb 1`
 
-`Review` Class
+`Review` Commands
 
 * *addReview* : `addReview INDEX re/ENTRY rr/RATING` +
 e.g. `addReview 2 re/Peach Pie was amazing rr/4`
-* *editReview* : `edit INDEX [r/STAR_RATING] [m/COMMENT]` +
-e.g. `edit 2 rr/Food isn’t the best`
-* *deleteReview* : `deleteReview INDEX_RESTAURANT INDEX_REVIEW` +
-e.g. `delete 3 1`
+* *editReview* : `edit INDEX [re/ENTRY] [rr/RATING]` +
+e.g. `edit 2 re/Food isn’t the best`
+* *deleteReview* : `deleteReview INDEX` +
+e.g. `delete 3`
 
-`FoodDiary` Class
+`FoodDiary` Commands
 
-* *name* : `name n/YourName` +
+* *name* : `name n/YOUR_NAME` +
 e.g. `name n/JackTheSheep`
 * *view* : `view` +
 e.g. `view`

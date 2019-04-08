@@ -73,7 +73,13 @@ public class RestaurantCard extends UiPart<Region> {
             categoriesPane.setManaged(false);
         }
 
-        weblink.setText(restaurant.getWeblink().value);
+        if (restaurant.getWeblink().isDefault()) {
+            weblink.setVisible(false);
+            weblink.setManaged(false);
+        } else {
+            weblink.setText(restaurant.getWeblink().value);
+        }
+
         openingHours.setText(restaurant.getOpeningHours().value);
 
         // Check if Restaurant has been visited before

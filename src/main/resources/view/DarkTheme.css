@@ -112,13 +112,15 @@
     -fx-background-color: #515658;
 }
 
-.list-cell:filled:selected {
-    -fx-background-color: #424d5f;
-}
 
 .list-cell:filled:selected #cardPane {
+    -fx-background-color: #424d5f;
     -fx-border-color: #3e7b91;
     -fx-border-width: 1;
+}
+
+.list-cell:filled:selected #cardPaneReview {
+    -fx-background-color: transparent;
 }
 
 .list-cell .label {
@@ -174,11 +176,18 @@
     text-align: center;
 }
 
+.vbox_background {
+    -fx-background-color: #3e7b91;
+    -fx-padding: 30 10 30 10;
+}
+
 .vbox_name_label.label {
     -fx-font-family: "Segoe UI";
     -fx-text-fill: white;
     -fx-font-size: 25px;
-    -fx-padding: 0 0 5 0;
+    -fx-padding: 0 0 10 0;
+    -fx-text-alignment: center;
+    -fx-wrap-text: true;
 }
 
 .vbox_rating_label.label {
@@ -188,28 +197,26 @@
     -fx-border-color: white;
     -fx-border-width: 1px;
     -fx-padding: 2 10 2 10;
-    -fx-background-color: #3e7b91;
+    -fx-text-alignment: center;
+    -fx-wrap-text: true;
 }
 
 .vbox_visits_label.label {
     -fx-font-family: "Segoe UI";
     -fx-text-fill: white;
     -fx-font-size: 20px;
-    -fx-padding: 5 0 10 0;
+    -fx-padding: 5 0 0 0;
+    -fx-text-alignment: center;
+    -fx-wrap-text: true;
 }
 
-.vbox_label_header.label {
-    -fx-font-family: "Segoe UI";
-    -fx-font-weight: bold;
-    -fx-text-fill: white;
-    -fx-font-size: 17px;
-}
-
-.vbox_label {
+.vbox_label.label {
     -fx-font-family: "Segoe UI";
     -fx-text-fill: white;
     -fx-font-size: 15px;
-    -fx-padding: 0 0 5 0;
+    -fx-padding: 0 0 10 0;
+    -fx-text-alignment: center;
+    -fx-wrap-text: true;
 }
 
 body, html {

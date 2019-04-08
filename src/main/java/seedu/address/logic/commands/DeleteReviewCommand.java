@@ -32,7 +32,7 @@ public class DeleteReviewCommand extends Command {
     private final Index index;
 
     /**
-     * @param index of the review of the restaurant in the filtered restaurant list to delete
+     * @param index of the restaurant in the filtered restaurant list to edit
      */
     public DeleteReviewCommand(Index index) {
         requireNonNull(index);

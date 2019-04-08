@@ -13,6 +13,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_WEBLINK;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.exceptions.NoInternetException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.restaurant.Address;
@@ -55,12 +57,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Weblink weblink;
         OpeningHours openingHours;
-
-        if (!arePrefixesPresent(argMultimap, PREFIX_WEBLINK)) {
-            weblink = Weblink.makeDefaultWeblink();
-        } else {
-            weblink = ParserUtil.parseWeblink(argMultimap.getValue(PREFIX_WEBLINK).get());
-        }
+        Restaurant restaurant;
 
         if (!arePrefixesPresent(argMultimap, PREFIX_OPENING_HOURS)) {
             openingHours = OpeningHours.makeDefaultOpening();
@@ -68,7 +65,20 @@ public class AddCommandParser implements Parser<AddCommand> {
             openingHours = ParserUtil.parseOpeningHours(argMultimap.getValue(PREFIX_OPENING_HOURS).get());
         }
 
-        Restaurant restaurant = new Restaurant(name, phone, email, address, postal, tagList, weblink, openingHours);
+        if (!arePrefixesPresent(argMultimap, PREFIX_WEBLINK)) {
+            weblink = Weblink.makeDefaultWeblink();
+        } else {
+            try {
+                weblink = ParserUtil.parseWeblink(argMultimap.getValue(PREFIX_WEBLINK).get());
+            } catch (NoInternetException e) {
+                weblink = Weblink.makeDefaultWeblink();
+                restaurant = new Restaurant(name, phone, email, address, postal, tagList,
+                        weblink, openingHours);
+                return new AddCommand(restaurant, Messages.MESSAGE_ADD_NO_INTERNET);
+            }
+        }
+
+        restaurant = new Restaurant(name, phone, email, address, postal, tagList, weblink, openingHours);
         return new AddCommand(restaurant);
     }
 

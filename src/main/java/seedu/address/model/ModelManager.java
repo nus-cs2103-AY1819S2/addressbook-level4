@@ -221,6 +221,14 @@ public class ModelManager implements Model {
         versionedTopDeck.updateDeck(target, editedDeck);
     }
 
+    @Override
+    public Deck importDeck (String filepath) {
+        logger.info("Imported a deck from json file.");
+        Deck imported = versionedTopDeck.importDeck(filepath);
+        addDeck(imported);
+        return imported;
+    }
+
     //=========== Undo/Redo =================================================================================
 
     @Override

@@ -1,7 +1,9 @@
 package seedu.address.model.cell;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -30,6 +32,15 @@ public class CellTest {
 
         battleShipCell.receiveAttack();
         assertEquals(battleShipCell.getStatus(), Status.DESTROYED);
+    }
+
+    @Test
+    public void hasBattleship() {
+        Cell cell = new Cell();
+        assertFalse(cell.hasBattleShip());
+
+        cell.putShip(new Battleship());
+        assertTrue(cell.hasBattleShip());
     }
 
     @Test

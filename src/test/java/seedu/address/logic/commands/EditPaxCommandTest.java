@@ -32,7 +32,7 @@ public class EditPaxCommandTest {
         String[] tableStatusInString = new String[]{"1", "0"};
         Table editedTable = new TableBuilder(TABLE1).withTableStatus("0/4").build();
         EditPaxCommand editPaxCommand = new EditPaxCommand(tableStatusInString);
-        ModelManager expectedModel = new ModelManager(getTypicalRestOrRant(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalRestOrRant(), new UserPrefs());
         expectedModel.setTable(TABLE1, editedTable);
         expectedModel.clearOrderItemsFrom(TABLE1.getTableNumber());
         assertCommandSuccess(Mode.RESTAURANT_MODE, editPaxCommand, model, commandHistory,
@@ -84,12 +84,12 @@ public class EditPaxCommandTest {
         // different types -> returns false
         assertFalse(standardCommand.equals(new ClearCommand()));
 
-        // different number of taken seats -> returns false
+        // different table number -> returns false
         tableStatusInString = new String[]{"0", "4"};
         editedEditPaxCommand = new EditPaxCommand(tableStatusInString);
         assertFalse(standardCommand.equals(editedEditPaxCommand));
 
-        // different number of seats -> returns false
+        // different number of taken seats -> returns false
         tableStatusInString = new String[]{"1", "5"};
         editedEditPaxCommand = new EditPaxCommand(tableStatusInString);
         assertFalse(standardCommand.equals(editedEditPaxCommand));

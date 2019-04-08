@@ -134,12 +134,29 @@ public class CreateJobCommandTest {
         public void addPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
-
+        public void setSelectedSelected(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
         @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
-
+        @Override
+        public ObservableList<Person> getJobsList(int listNumber){
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public void setSelectedAll(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public void setSelectedKiv(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public void setSelectedInterviewed(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
         @Override
         public void updateJobAllApplicantsFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");

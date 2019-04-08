@@ -60,7 +60,7 @@ public class ModelManager implements Model {
         originalFilteredPersons.addListener(this::ensureSelectedPersonIsValid);
         displayedFilteredPersons = originalFilteredPersons;
         UniquePersonList fakeList = new UniquePersonList();
-        activeJobAllApplcants = new FilteredList<>(fakeList.asUnmodifiableObservableList());
+        activeJobAllApplicants = new FilteredList<>(fakeList.asUnmodifiableObservableList());
         activeJobKiv = new FilteredList<>(fakeList.asUnmodifiableObservableList());
         activeJobShortlist = new FilteredList<>(fakeList.asUnmodifiableObservableList());
         activeJobInterview = new FilteredList<>(fakeList.asUnmodifiableObservableList());
@@ -186,7 +186,7 @@ public class ModelManager implements Model {
 
     public ObservableList<Person> getJobsList(int listNumber) {
         if (listNumber == 0) {
-            return activeJobAllApplcants;
+            return activeJobAllApplicants;
         }
         else if (listNumber == 1) {
             return activeJobKiv;
@@ -322,7 +322,7 @@ public class ModelManager implements Model {
     }
 
     public void setSelectedAll(Person person) {
-        if (person != null && !activeJobAllApplcants.contains(person)) {
+        if (person != null && !activeJobAllApplicants.contains(person)) {
             throw new PersonNotFoundException();
         }
         selectedPerson.setValue(person);

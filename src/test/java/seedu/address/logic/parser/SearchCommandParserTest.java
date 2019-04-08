@@ -29,6 +29,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_RACE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SCHOOL_AMY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.model.job.JobListName.APPLICANT_NAME;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -63,9 +64,9 @@ public class SearchCommandParserTest {
         descriptorAmy.setNric(new HashSet<>(Arrays.asList(VALID_NRIC_AMY.split("\\s+"))));
         SearchCommand expectedSearchCommand = new SearchCommand(JobListName.APPLICANT, descriptorAmy);
 
-        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + NRIC_DESC_AMY
-            + GENDER_DESC_AMY + RACE_DESC_AMY + ADDRESS_DESC_AMY + MAJOR_DESC_AMY + GRADE_DESC_AMY
-            + SCHOOL_DESC_AMY, expectedSearchCommand);
+        assertParseSuccess(parser, APPLICANT_NAME + NAME_DESC_AMY + PHONE_DESC_AMY
+            + EMAIL_DESC_AMY + NRIC_DESC_AMY + GENDER_DESC_AMY + RACE_DESC_AMY + ADDRESS_DESC_AMY
+            + MAJOR_DESC_AMY + GRADE_DESC_AMY + SCHOOL_DESC_AMY, expectedSearchCommand);
 
         // test List fields
         SearchCommand.PredicatePersonDescriptor descriptorOtherFields = new SearchCommand.PredicatePersonDescriptor();
@@ -75,7 +76,7 @@ public class SearchCommandParserTest {
         descriptorOtherFields.setKnownProgLangs(
             new HashSet<>(Arrays.asList(VALID_KNOWNPROGLANG_JAVA.split("\\s+"))));
         expectedSearchCommand = new SearchCommand(JobListName.APPLICANT, descriptorOtherFields);
-        assertParseSuccess(parser, PASTJOB_DESC_PROFESSOR
+        assertParseSuccess(parser, APPLICANT_NAME + PASTJOB_DESC_PROFESSOR
             + JOBSAPPLY_DESC_ENGINEER + KNOWNPROGLANG_DESC_JAVA, expectedSearchCommand);
 
     }

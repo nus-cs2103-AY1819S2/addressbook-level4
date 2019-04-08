@@ -12,6 +12,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.medicalhistory.MedicalHistory;
+import seedu.address.model.medicalhistory.ValidDate;
 import seedu.address.model.medicalhistory.WriteUp;
 
 /**
@@ -82,7 +83,7 @@ public class EditMedHistCommand extends Command {
         WriteUp updatedWriteUp = editMedHistDescriptor.getWriteUp();
 
         return new MedicalHistory(medHistToEdit.getPatientId(), medHistToEdit.getDoctorId(),
-                medHistToEdit.getDate(), updatedWriteUp);
+                new ValidDate(medHistToEdit.getDate()), updatedWriteUp);
     }
 
     @Override

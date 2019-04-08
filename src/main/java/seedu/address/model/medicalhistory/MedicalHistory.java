@@ -23,11 +23,11 @@ public class MedicalHistory {
     private String medHistId;
 
     // Data field
-    private LocalDate date;
+    private ValidDate date;
     private WriteUp writeUp;
 
     //Constructor
-    public MedicalHistory(int patientId, int doctorId, LocalDate date, WriteUp writeUp) {
+    public MedicalHistory(int patientId, int doctorId, ValidDate date, WriteUp writeUp) {
         this.patientId = patientId;
         this.doctorId = doctorId;
         this.date = date;
@@ -65,7 +65,7 @@ public class MedicalHistory {
     }
 
     public LocalDate getDate() {
-        return this.date;
+        return this.date.value;
     }
 
     public WriteUp getWriteUp() {

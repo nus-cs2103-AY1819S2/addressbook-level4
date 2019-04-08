@@ -14,6 +14,7 @@ import seedu.address.logic.commands.AddMedHistCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.ValidDate;
+import seedu.address.model.medicalhistory.ValidId;
 import seedu.address.model.medicalhistory.WriteUp;
 
 
@@ -46,10 +47,11 @@ public class AddMedHistCommandParser implements Parser<AddMedHistCommand> {
         } catch (NumberFormatException | DateTimeParseException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMedHistCommand.MESSAGE_USAGE));
         }
+        
         ValidDate validDate = ParserUtil.parseValidDate(date);
         WriteUp writeUp = ParserUtil.parseWriteUp(argMultimap.getValue(PREFIX_WRITEUP).get());
 
-        MedicalHistory medicalHistory = new MedicalHistory(patientId, doctorId, date, writeUp);
+        MedicalHistory medicalHistory = new MedicalHistory(patientId, doctorId, validDate, writeUp);
 
         return new AddMedHistCommand(medicalHistory);
     }

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.medicalhistory.MedicalHistory;
+import seedu.address.model.medicalhistory.ValidDate;
 import seedu.address.model.medicalhistory.WriteUp;
 
 /**
@@ -53,7 +54,7 @@ public class JsonAdaptedMedicalHistory {
      * @throws IllegalValueException if there were any data constraints violated in the adapted medical history.
      */
     public MedicalHistory toModelType() throws IllegalValueException {
-        final LocalDate modelDate = LocalDate.parse(date);
+        final ValidDate modelDate = new ValidDate(LocalDate.parse(date));
         final WriteUp modelWriteUp = new WriteUp(this.writeUp);
         return new MedicalHistory(patientId, doctorId, modelDate, modelWriteUp);
     }

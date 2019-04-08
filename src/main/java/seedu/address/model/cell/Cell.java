@@ -116,6 +116,7 @@ public class Cell {
         Cell otherCell = (Cell) other;
         return
                 otherCell.coordinates.equals(coordinates)
+                && otherCell.isHit == isHit
                 && otherCell.battleship.isPresent() == battleship.isPresent()
                 && (!otherCell.battleship.isPresent() || otherCell.battleship.get().equals(battleship.get()));
     }

@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 import seedu.address.model.analytics.Analytics;
+import seedu.address.model.job.Job;
+import seedu.address.model.job.JobName;
 
 /**
  * Represents the result of a command execution.
@@ -16,6 +18,8 @@ public class CommandResult {
     /** Analytics information should be shown to user*/
 
     private Analytics analytics;
+
+    private JobName job;
 
     private String interviews;
 
@@ -51,6 +55,14 @@ public class CommandResult {
 
     }
 
+    public CommandResult(String feedbackToUser, JobName results) {
+        this(feedbackToUser, false, false);
+        if (isSuccessfulDisplayJob()) {
+            job = results;
+        }
+
+    }
+
     public CommandResult(String feedbackToUser, String results) {
         this(feedbackToUser, false, false);
         if (isSuccessfulInterviews()) {
@@ -78,10 +90,14 @@ public class CommandResult {
         return feedbackToUser.equals("Interviews shown");
     }
 
+    public boolean isSuccessfulDisplayJob() { return feedbackToUser.equals("Displaying job");}
+
     //remember to handle null later
     public Analytics getAnalytics() {
         return analytics;
     }
+
+    public JobName getJob() {return job;}
 
     public String getInterviews() {
         return interviews;

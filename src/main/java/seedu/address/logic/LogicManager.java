@@ -15,6 +15,8 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.job.Job;
+import seedu.address.model.job.JobName;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -76,6 +78,10 @@ public class LogicManager implements Logic {
         return model.getFilteredPersonList();
     }
 
+    public ObservableList<Person> getJobsList(int k) {
+        return model.getJobsList(k);
+    }
+
     @Override
     public ObservableList<String> getHistory() {
         return history.getHistory();
@@ -105,4 +111,25 @@ public class LogicManager implements Logic {
     public void setSelectedPerson(Person person) {
         model.setSelectedPerson(person);
     }
+
+    @Override
+    public void setSelectedAll(Person person) {
+        model.setSelectedAll(person);
+    }
+
+    @Override
+    public void setSelectedKiv(Person person) {
+        model.setSelectedKiv(person);
+    }
+
+    @Override
+    public void setSelectedInterviewed(Person person) {
+        model.setSelectedInterviewed(person);
+    }
+
+    @Override
+    public void setSelectedSelected(Person person) {
+        model.setSelectedSelected(person);
+    }
+
 }

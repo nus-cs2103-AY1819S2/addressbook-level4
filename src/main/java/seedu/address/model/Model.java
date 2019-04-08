@@ -132,6 +132,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
+    /** Returns an unmodifiable view of the filtered job list */
+    ObservableList<Person> getJobsList(int listNum);
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -193,6 +196,14 @@ public interface Model {
      * Sets the selected person in the filtered person list.
      */
     void setSelectedPerson(Person person);
+
+    void setSelectedAll(Person person);
+
+    void setSelectedKiv(Person person);
+
+    void setSelectedInterviewed(Person person);
+
+    void setSelectedSelected(Person person);
 
     /**
      * Generates an interview list.

@@ -50,10 +50,10 @@ public class DisplayJobCommand extends Command {
             throw new CommandException(MESSAGE_MISSING_JOB);
         }
 
-        model.changeFilteredPersonList(model.getJobList(toAdd, 0));
+        model.getJob(toAdd);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), toAdd);
     }
 
     @Override

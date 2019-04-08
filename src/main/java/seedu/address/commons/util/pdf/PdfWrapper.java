@@ -2,7 +2,7 @@ package seedu.address.commons.util.pdf;
 
 import static java.util.Objects.requireNonNull;
 
-import java.awt.*;
+import java.awt.Color;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

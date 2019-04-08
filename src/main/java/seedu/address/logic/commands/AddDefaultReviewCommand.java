@@ -1,15 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.AddDefaultReviewUtil.DEFAULT_ENTRIES;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.review.Entry;
-import seedu.address.model.review.Rating;
 import seedu.address.model.review.Review;
 
 /**
@@ -29,21 +25,23 @@ public class AddDefaultReviewCommand extends Command {
             + "will add a review of (Rating: 2.0, Entry: Below average, try not to go again) to the restaurant"
             + " corresponding to index 2.";
 
+    public static final String MESSAGE_SUCCESS = "New review added to: %1$s";
+
     private final Index targetIndex;
-    private final String defaultReviewIndicator;
+    private final Review defaultReviewToAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code Restaurant}
      */
-    public AddDefaultReviewCommand(Index targetIndex, String defaultReviewIndicator) {
-        requireNonNull(defaultReviewIndicator);
+    public AddDefaultReviewCommand(Index targetIndex, Review defaultReviewToAdd) {
+        requireNonNull(defaultReviewToAdd);
         requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
-        this.defaultReviewIndicator = defaultReviewIndicator;
+        this.defaultReviewToAdd = defaultReviewToAdd;
     }
 
-    public String getDefaultReviewIndicator() {
-        return defaultReviewIndicator;
+    public Review getDefaultReviewToAdd() {
+        return defaultReviewToAdd;
     }
 
     public Index getTargetIndex() {
@@ -54,17 +52,7 @@ public class AddDefaultReviewCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        int defaultReviewIndicatorInt = Integer.parseInt(defaultReviewIndicator);
-
-        if (defaultReviewIndicatorInt > 5 || defaultReviewIndicatorInt < 1) {
-            throw new CommandException(Messages.MESSAGE_INVALID_DEFAULT_REVIEW_INDEX);
-        }
-
-        Entry newEntry = new Entry(DEFAULT_ENTRIES.get(Integer.parseInt(defaultReviewIndicator) - 1));
-        Rating newRating = new Rating(defaultReviewIndicator);
-        Review reviewToAdd = new Review(newEntry, newRating);
-
-        CommandResult result = new AddReviewCommand(targetIndex, reviewToAdd).execute(model, history);
+        CommandResult result = new AddReviewCommand(targetIndex, defaultReviewToAdd).execute(model, history);
 
         return result;
     }
@@ -73,12 +61,12 @@ public class AddDefaultReviewCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddDefaultReviewCommand // instanceof handles nulls
-                && defaultReviewIndicator.equals(((AddDefaultReviewCommand) other).getDefaultReviewIndicator())
+                && defaultReviewToAdd.equals(((AddDefaultReviewCommand) other).getDefaultReviewToAdd())
                 && targetIndex.equals(((AddDefaultReviewCommand) other).getTargetIndex()));
     }
 
     @Override
     public String toString() {
-        return this.getTargetIndex().getOneBased() + " " + this.getDefaultReviewIndicator();
+        return this.getTargetIndex().getOneBased() + " " + this.getDefaultReviewToAdd();
     }
 }

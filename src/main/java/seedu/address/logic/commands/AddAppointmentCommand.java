@@ -6,17 +6,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 
-import java.util.function.Predicate;
-
-import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.FutureAppointment;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
-import seedu.address.model.person.RecordContainsDoctorIdPredicate;
-import seedu.address.model.person.RecordContainsPatientIdPredicate;
 
 /**
  * Adds a new appointment between a patient and doctor.
@@ -78,25 +73,19 @@ public class AddAppointmentCommand extends Command {
         return appointment.equals(that.appointment);
     }
 
-    private Patient getPatientById(Model model) throws CommandException {
-        FilteredList<Patient> patientList = new FilteredList<>(model.getDocX().getPatientList());
-        Predicate<Patient> predicate = new RecordContainsPatientIdPredicate(appointment.getPatientId().patientId);
-        patientList.setPredicate(predicate);
-        if (patientList.isEmpty()) {
+    private void getPatientById(Model model) throws CommandException {
+        Patient patientWithId = model.getPatientById(appointment.getPatientId());
+        if (patientWithId == null) {
             throw new CommandException(MESSAGE_PATIENT_NOT_NOT_FOUND);
         }
-        this.appointment.setPatient(patientList.get(0));
-        return patientList.get(0);
+        this.appointment.setPatient(patientWithId);
     }
 
-    private Doctor getDoctorById(Model model) throws CommandException {
-        FilteredList<Doctor> doctorList = new FilteredList<>(model.getDocX().getDoctorList());
-        Predicate<Doctor> predicate = new RecordContainsDoctorIdPredicate(appointment.getDoctorId().doctorId);
-        doctorList.setPredicate(predicate);
-        if (doctorList.isEmpty()) {
+    private void getDoctorById(Model model) throws CommandException {
+        Doctor doctorWithId = model.getDoctorById(appointment.getDoctorId());
+        if (doctorWithId == null) {
             throw new CommandException(MESSAGE_DOCTOR_NOT_NOT_FOUND);
         }
-        this.appointment.setDoctor(doctorList.get(0));
-        return doctorList.get(0);
+        this.appointment.setDoctor(doctorWithId);
     }
 }

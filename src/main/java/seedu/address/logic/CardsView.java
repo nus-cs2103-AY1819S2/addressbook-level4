@@ -14,6 +14,8 @@ import javafx.collections.transformation.FilteredList;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.AddCardCommand;
 import seedu.address.logic.commands.BackCommand;
+import seedu.address.logic.commands.ClearCardCommand;
+import seedu.address.logic.commands.ClearDeckCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCardCommand;
 import seedu.address.logic.commands.EditCardCommand;
@@ -55,6 +57,8 @@ public class CardsView implements ListViewState<Card> {
         switch (commandWord) {
             case AddCardCommand.COMMAND_WORD:
                 return new AddCardCommandParser(this).parse(arguments);
+            case ClearCardCommand.COMMAND_WORD:
+                return new ClearCardCommand(this);
             case DeleteCardCommand.COMMAND_WORD:
                 return new DeleteCardCommandParser(this).parse(arguments);
             case EditCardCommand.COMMAND_WORD:

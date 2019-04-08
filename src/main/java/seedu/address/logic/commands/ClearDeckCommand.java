@@ -9,7 +9,7 @@ import seedu.address.model.TopDeck;
 /**
  * Clears the address book.
  */
-public class ClearCommand extends Command {
+public class ClearDeckCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "TopDeck has been cleared!";

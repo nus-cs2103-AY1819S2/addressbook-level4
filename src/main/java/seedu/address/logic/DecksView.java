@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.AddDeckCommand;
+import seedu.address.logic.commands.ClearDeckCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteDeckCommand;
 import seedu.address.logic.commands.EditDeckCommand;
@@ -53,6 +54,8 @@ public class DecksView implements ListViewState<Deck> {
         switch (commandWord) {
             case AddDeckCommand.COMMAND_WORD:
                 return new AddDeckCommandParser(this).parse(arguments);
+            case ClearDeckCommand.COMMAND_WORD:
+                return new ClearDeckCommand();
             case SelectCommand.COMMAND_WORD:
                 return new SelectCommandParser(this).parse(arguments);
             case OpenDeckCommand.COMMAND_WORD:

@@ -27,7 +27,7 @@ import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.DecksView;
-import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ClearDeckCommand;
 import seedu.address.logic.commands.FindDeckCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.Model;
@@ -167,7 +167,7 @@ public abstract class TopDeckSystemTest {
      * Deletes all Decks.
      */
     protected void deleteAllDecks() {
-        executeCommand(ClearCommand.COMMAND_WORD);
+        executeCommand(ClearDeckCommand.COMMAND_WORD);
         assertEquals(0, getModel().getTopDeck().getDeckList().size());
     }
 

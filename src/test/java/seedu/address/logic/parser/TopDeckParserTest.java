@@ -71,9 +71,9 @@ public class TopDeckParserTest {
 
     //    @Test
     //    public void parseCommand_clear() throws Exception {
-    //        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD, model) instanceof ClearCommand);
-    //        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3", model) instanceof
-    //        ClearCommand);
+    //        assertTrue(parser.parseCommand(ClearDeckCommand.COMMAND_WORD, model) instanceof ClearDeckCommand);
+    //        assertTrue(parser.parseCommand(ClearDeckCommand.COMMAND_WORD + " 3", model) instanceof
+    //        ClearDeckCommand);
     //    }
 
     @Test

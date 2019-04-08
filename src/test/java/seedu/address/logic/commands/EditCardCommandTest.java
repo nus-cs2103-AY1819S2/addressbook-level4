@@ -301,7 +301,7 @@ public class EditCardCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertFalse(standardCommand.equals(new ClearDeckCommand()));
 
         // different index -> returns false
         assertFalse(standardCommand.equals(new EditCardCommand(cardsView, INDEX_SECOND_CARD, DESC_HELLO)));

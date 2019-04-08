@@ -31,7 +31,7 @@ public class CreateJobCommand extends Command {
             + "Example: " + COMMAND_ALIAS + " "
             + PREFIX_JOBNAME + "Search Engineer ";
 
-    public static final String MESSAGE_SUCCESS = "New job added: %1$s. Displaying applicant list for the job";
+    public static final String MESSAGE_SUCCESS = "New job added";
     public static final String MESSAGE_DUPLICATE_JOB = "This Job already exists in the list";
 
     private final Job toAdd;
@@ -56,9 +56,9 @@ public class CreateJobCommand extends Command {
         ArrayList<String> jobNameCollection = new ArrayList<>();
         jobNameCollection.add(toAdd.getName().toString());
         Predicate<Person> predicator = new JobsApplyContainsKeywordsPredicate(jobNameCollection);
-        model.updateFilteredPersonList(predicator);
+        //model.updateFilteredPersonList(predicator);
         model.addFilteredPersonsToJob(toAdd.getName());
-        model.changeFilteredPersonList(model.getJobList(toAdd.getName(), 0));
+        //model.changeFilteredPersonList(model.getJobList(toAdd.getName(), 0));
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

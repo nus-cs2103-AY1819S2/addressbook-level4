@@ -42,6 +42,7 @@ public class ModelManager implements Model {
     private FilteredList<Person> activeJobKiv;
     private FilteredList<Person> activeJobInterview;
     private FilteredList<Person> activeJobShortlist;
+    private FilteredList<Job> allJobsList;
 
 
     /**
@@ -58,6 +59,12 @@ public class ModelManager implements Model {
         originalFilteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         originalFilteredPersons.addListener(this::ensureSelectedPersonIsValid);
         displayedFilteredPersons = originalFilteredPersons;
+        UniquePersonList fakeList = new UniquePersonList();
+        activeJobAllApplcants = new FilteredList<>(fakeList.asUnmodifiableObservableList());
+        activeJobKiv = new FilteredList<>(fakeList.asUnmodifiableObservableList());
+        activeJobShortlist = new FilteredList<>(fakeList.asUnmodifiableObservableList());
+        activeJobInterview = new FilteredList<>(fakeList.asUnmodifiableObservableList());
+        allJobsList = new FilteredList<>(versionedAddressBook.getAllJobList());
     }
 
     public ModelManager() {
@@ -177,6 +184,23 @@ public class ModelManager implements Model {
         return job.getList(listNumber);
     }
 
+    public ObservableList<Person> getJobsList(int listNumber) {
+        if (listNumber == 0) {
+            return activeJobAllApplcants;
+        }
+        else if (listNumber == 1) {
+            return activeJobKiv;
+        }
+
+        else if (listNumber == 2) {
+            return activeJobInterview;
+        }
+
+        else {
+            return activeJobShortlist;
+        }
+    }
+
     @Override
     public Job getJob(JobName name) {
         this.activeJob = versionedAddressBook.getJob(name);
@@ -292,6 +316,34 @@ public class ModelManager implements Model {
     @Override
     public void setSelectedPerson(Person person) {
         if (person != null && !displayedFilteredPersons.contains(person)) {
+            throw new PersonNotFoundException();
+        }
+        selectedPerson.setValue(person);
+    }
+
+    public void setSelectedAll(Person person) {
+        if (person != null && !activeJobAllApplcants.contains(person)) {
+            throw new PersonNotFoundException();
+        }
+        selectedPerson.setValue(person);
+    }
+
+    public void setSelectedKiv(Person person) {
+        if (person != null && !activeJobKiv.contains(person)) {
+            throw new PersonNotFoundException();
+        }
+        selectedPerson.setValue(person);
+    }
+
+    public void setSelectedInterviewed(Person person) {
+        if (person != null && !activeJobInterview.contains(person)) {
+            throw new PersonNotFoundException();
+        }
+        selectedPerson.setValue(person);
+    }
+
+    public void setSelectedSelected(Person person) {
+        if (person != null && !activeJobShortlist.contains(person)) {
             throw new PersonNotFoundException();
         }
         selectedPerson.setValue(person);

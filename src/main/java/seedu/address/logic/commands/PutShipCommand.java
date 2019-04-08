@@ -92,8 +92,12 @@ public class PutShipCommand extends Command {
         Status status = model.getHumanMapGrid().getCellStatus(coordinates);
         model.updateUi();
 
+        String battleshipStatus = String.format("%s at %s in %s orientation",
+                battleship.getName(),
+                coordinates,
+                orientation);
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(status)
+        stringBuilder.append(battleshipStatus)
                 .append("\n\nNumber of aircraft carriers left: ")
                 .append(model.getFleet().getNumAircraftCarrierLeft())
                 .append("\nNumber of cruisers left: ")

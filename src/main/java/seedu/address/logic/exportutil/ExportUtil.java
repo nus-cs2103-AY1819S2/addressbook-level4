@@ -47,7 +47,7 @@ public class ExportUtil {
             writer.close();
         } catch (IOException e) {
             System.out.println("File already Exists");
-            exportDataToFile(fileIdentifier,extension,data);
+            exportDataToFile(fileIdentifier, extension, data);
         }
     }
 
@@ -68,7 +68,7 @@ public class ExportUtil {
             String yearOfStudy = person.getYearOfStudy().toString();
             String major = person.getMajor().toString();
             Set<Tag> tagSet = person.getTags();
-            ArrayList<String> tagList =  new ArrayList<String>();
+            ArrayList<String> tagList = new ArrayList<String>();
             if (!tagSet.isEmpty()) {
                 for (Tag t : tagSet) {
                     tagList.add(t.toString());
@@ -106,7 +106,7 @@ public class ExportUtil {
             htmlString = htmlString.replace("$email", email);
             htmlString = htmlString.replace("$address", address);
 
-            exportDataToFile(fileIdentifier,"html",htmlString);
+            exportDataToFile(fileIdentifier, "html", htmlString);
 
         } catch (IOException e) {
             System.out.println("Cannot read format file");

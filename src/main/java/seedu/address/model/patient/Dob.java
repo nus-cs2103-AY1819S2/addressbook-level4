@@ -2,6 +2,7 @@ package seedu.address.model.patient;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -14,6 +15,8 @@ public class Dob {
     public static final String FEBURARY_CONSTRAINT = "Feburary only have 28 or 29 days";
     public static final String LEAPYEAR_CONSTRAINT = "Only leap years have 29 Feb";
     public static final String THIRTYFIRST_CONSTRAINT = "The month entered does not have a 31st day";
+    public static final String FUTURE_YEAR = "The entered date of birth is in the future and is invalid";
+    public static final String MINIMUM_YEAR = "The entered year is over 100 years ago and is invalid";
 
     private LocalDate dob;
 
@@ -30,16 +33,27 @@ public class Dob {
         String month = splittedDob[1];
         String day = splittedDob[2];
         int year = Integer.valueOf(splittedDob[0]);
+
+        if (year > Calendar.getInstance().get(Calendar.YEAR)) {
+            throw new IllegalArgumentException(FUTURE_YEAR);
+        }
+
+        if (year < 1900) {
+            throw new IllegalArgumentException(MINIMUM_YEAR);
+        }
+
         if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
             isLeapYear = true;
         }
 
-        if (!isLeapYear && month.equals("2") && Integer.valueOf(day) > 28) {
-            throw new IllegalArgumentException(LEAPYEAR_CONSTRAINT);
+        // to handle when dob 30/2
+        if (Integer.valueOf(day) > 29 && Integer.valueOf(month) == 2) {
+            throw new IllegalArgumentException(FEBURARY_CONSTRAINT);
         }
 
-        if (Integer.valueOf(month) == 2 && Integer.valueOf(day) > 29) {
-            throw new IllegalArgumentException(FEBURARY_CONSTRAINT);
+        // not a leap year but 29/2
+        if (!isLeapYear && Integer.valueOf(month) == 2 && Integer.valueOf(day) > 28) {
+            throw new IllegalArgumentException(LEAPYEAR_CONSTRAINT);
         }
 
         List<Integer> monthsWith31Days = Arrays.asList(1, 3, 5, 7, 8, 10, 12);

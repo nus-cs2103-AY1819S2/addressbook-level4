@@ -8,7 +8,7 @@ import seedu.address.model.Model;
 import seedu.address.model.patient.Patient;
 
 /**
- * Creates a consultation session for the current patient
+ * Starts a consultation session for the specified patient
  */
 public class ConsultationCommand extends Command {
 
@@ -21,7 +21,6 @@ public class ConsultationCommand extends Command {
             + "Example: " + COMMAND_WORD + " " + PREFIX_NRIC + "S9237162A\n";
 
     // current consultations can only be created by nric searches
-    // will explore into other consultation creation (i.e. name, index) in future builds
     private String nric;
 
     public ConsultationCommand(String nric) {

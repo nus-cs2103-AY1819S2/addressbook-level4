@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import seedu.address.model.patient.Patient;
 
 /**
- * Handle all model operations concerning with consultations
+ * Handle all model operations involving the steps in consultation
  */
 public class ConsultationManager {
 
@@ -16,7 +16,6 @@ public class ConsultationManager {
         this.consultationList = new ArrayList<Consultation>();
     }
 
-    // add diagnosis methods
 
     /**
      * Check if there is an ongoing consultation session
@@ -26,14 +25,20 @@ public class ConsultationManager {
     }
 
     /**
-     * For reading in consultation records from json file
+     * Adds a consultation record into the consultationList
+     * This method is primarily used in the reading of consultation records from json storage
      */
     public void addConsultation(Consultation consultation) {
         this.consultationList.add(consultation);
     }
 
     /**
-     * Create a consultation session with the patient indicated
+     * Starts a consultation session with the specified patient.
+     * QuickDocs only permit one ongoing consultation session at any one time.
+     *
+     * @param patient patient record to start the consultation session with
+     * @throws IllegalArgumentException when the user attempt to start another session when there is an
+     * ongoing consultation session
      */
     public void createConsultation(Patient patient) {
         if (currentConsultation != null) {
@@ -59,7 +64,8 @@ public class ConsultationManager {
     }
 
     /**
-     * End the current consultation and store it into the list
+     * Stores current consultation record into consultationList and ends the current
+     * session
      */
     public void endConsultation() {
         currentConsultation.setIndex(consultationList.size());
@@ -68,7 +74,7 @@ public class ConsultationManager {
     }
 
     /**
-     * List consultation by name or nric
+     * List past consultation records belonging to a single patient
      */
     public ArrayList<Consultation> listConsultation(String value) {
 
@@ -82,10 +88,11 @@ public class ConsultationManager {
         return consultationsFound;
     }
 
-    /**
-     * return consultation session based on index
-     */
     public Consultation listConsultation(int index) {
         return consultationList.get(index - 1);
+    }
+
+    public void abortConsultation() {
+        currentConsultation = null;
     }
 }

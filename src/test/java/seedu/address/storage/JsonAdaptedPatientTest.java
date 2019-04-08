@@ -24,7 +24,8 @@ public class JsonAdaptedPatientTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_NRIC = "S1234567X";
     private static final String INVALID_EMAIL = "Rachel@gmail";
-    private static final String INVALID_ADDRESS = "4 @dmiralty R0ad";
+    //private static final String INVALID_ADDRESS = "4 @dmiralty R0ad";
+    private static final String INVALID_ADDRESS = "@@@@@";
     private static final String INVALID_CONTACT = "888899999";
     private static final String INVALID_GENDER = "N";
     private static final String INVALID_DOB = "31-02-1999";

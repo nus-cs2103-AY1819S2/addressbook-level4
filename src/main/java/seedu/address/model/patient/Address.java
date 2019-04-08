@@ -5,10 +5,15 @@ package seedu.address.model.patient;
  */
 public class Address {
     //public static final String REGEX_ADDRESS = "[\\p{Alnum}][\\p{Alnum} ]*";
-    //public static final String REGEX_ADDRESS = "[^\\s].*";
-    public static final String REGEX_ADDRESS = "^[-0-9a-zA-Z \\-#,\\s][-0-9a-zA-Z \\-#, \\s ]+$";
+    public static final String REGEX_ADDRESS = "[^\\s\\W].*";
+    //public static final String REGEX_ADDRESS = "^[-0-9a-zA-Z \\-#,\\s][-0-9a-zA-Z \\-#, \\s ]+$";
+
+    //public static final String ADDRESS_CONSTRAINTS =
+    //        "Addresses should only contain alphanumeric characters and spaces but not blank";
+
     public static final String ADDRESS_CONSTRAINTS =
-            "Addresses should only contain alphanumeric characters and spaces but not blank";
+            "Addresses should not be blank or only contain only spaces or symbols";
+
 
     private String address;
 

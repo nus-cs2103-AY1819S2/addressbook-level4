@@ -44,13 +44,8 @@ public class EditPatientParser implements Parser<EditPatientCommand> {
             throw new ParseException(INVALID_EDIT_ARGUMENTS);
         }
 
-        //if (!argMultimap.getPreamble().trim().matches("\\d+")) {
-        //    throw new ParseException("Index should be numeric");
-        //}
-
         Nric nric = new Nric(argMultimap.getPreamble());
 
-        //int index = Integer.valueOf(argMultimap.getPreamble());
         PatientEditedFields editedFields = createEditedFields(argMultimap);
 
         if (editedFields.checkEmpty()) {
@@ -60,10 +55,14 @@ public class EditPatientParser implements Parser<EditPatientCommand> {
         return new EditPatientCommand(nric, editedFields);
     }
 
+
     /**
-     * Create a PatientEditedFields object with arguments supplied in by user
+     * Create a PatientEditedFields object, using the arguments supplied in by the user.
+     * The PatientEditedFields will only contain the values that are to be changed on the
+     * original patient object
      *
-     * @return patientEditedFields object consisting of the valid changes user intend to make
+     * @param argMultimap all the arguments supplied in by the user during the edit patient parsing
+     * @return A PatientEditedFields of the details to be edited on the current patient object
      */
     public static PatientEditedFields createEditedFields(ArgumentMultimap argMultimap) {
 

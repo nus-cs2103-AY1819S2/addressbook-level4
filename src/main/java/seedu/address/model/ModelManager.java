@@ -424,6 +424,10 @@ public class ModelManager implements Model {
         return this.consultationManager.listConsultation(index);
     }
 
+    public void abortConsultation() {
+        this.consultationManager.abortConsultation();
+    }
+
     //==========Appointment module===========================================================================
     public boolean hasTimeConflicts(Appointment app) {
         return appointmentManager.hasTimeConflicts(app);

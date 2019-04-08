@@ -60,6 +60,22 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         return args;
     }
 
+    private boolean phoneInputControl(String arg) {
+
+        arg = arg.trim();
+        if(arg.length() < 1) {
+            return false;
+        }
+
+        for(int i = 0; i < arg.length(); i++) {
+            if(arg.charAt(i) < '0' || arg.charAt(i) > '9') {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     /** Divides every filter criteria into Strings. The information order in the
      *  returned array is as follows:
      *  1- Name
@@ -159,7 +175,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             if (criterion[1] != null) {
                 criterion[1] = infoBetweenPrefixes(args, PREFIX_PHONE.toString(), PREFIX_PHONE_REVERSE.toString(),
                         typeOfProcess, false);
-                if (!Phone.isValidPhone(criterion[1])) {
+                if (!phoneInputControl(criterion[1])) {
                     inputParameterInCorrectForm = false;
                     typeOfProcess.set(-1);
                 }
@@ -168,10 +184,6 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             if (criterion[2] != null) {
                 criterion[2] = infoBetweenPrefixes(args, PREFIX_EMAIL.toString(), PREFIX_EMAIL_REVERSE.toString(),
                         typeOfProcess, false);
-                if (!Email.isValidEmail(criterion[2])) {
-                    inputParameterInCorrectForm = false;
-                    typeOfProcess.set(-1);
-                }
             }
 
             if (criterion[3] != null) {

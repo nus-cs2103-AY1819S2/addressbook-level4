@@ -16,8 +16,8 @@ public class SortEducation {
 
     public SortEducation(List<Person> lastShownList) {
         this.newList =
-                lastShownList.stream().sorted(Comparator.comparing(Person::educationToString)).
-                        collect(Collectors.toList());;
+                lastShownList.stream().sorted(Comparator.comparing(Person::educationToString))
+                        .collect(Collectors.toList());;
     }
 
     public List<Person> getList() {

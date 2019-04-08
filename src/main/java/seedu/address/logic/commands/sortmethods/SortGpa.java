@@ -16,8 +16,8 @@ public class SortGpa {
 
     public SortGpa(List<Person> lastShownList) {
         this.newList =
-                lastShownList.stream().sorted(Comparator.comparing(Person::gpaToString)).
-                        collect(Collectors.toList());
+                lastShownList.stream().sorted(Comparator.comparing(Person::gpaToString))
+                        .collect(Collectors.toList());
     }
 
     public List<Person> getList() {

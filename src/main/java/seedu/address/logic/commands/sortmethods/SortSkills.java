@@ -22,7 +22,7 @@ public class SortSkills {
     private List<Person> newList;
 
     public SortSkills(List<Person> lastShownList, String type) {
-        String prefix = type.substring(0,1);
+        String prefix = type.substring(0, 1);
         //Modify each Person to organise tags alphabetically
         List<Person> personsWithCorrectTagOrder = orderPersonsTags(lastShownList, prefix);
         //Sort Persons alphabetically by tags

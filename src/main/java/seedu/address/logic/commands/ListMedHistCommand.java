@@ -72,14 +72,14 @@ public class ListMedHistCommand extends Command {
                 if (!targetPatientId.isPresent()) {
                     return true;
                 }
-                return x.getPatientId() == targetPatientId.get(); };
+                return x.getPatientId().personId == targetPatientId.get(); };
 
         Predicate<MedicalHistory> predicateListMedHistIsDid =
             x -> {
                 if (!targetDoctorId.isPresent()) {
                     return true;
                 }
-                return x.getDoctorId() == targetDoctorId.get(); };
+                return x.getDoctorId().personId == targetDoctorId.get(); };
 
         Predicate<MedicalHistory> predicateListMedHistIsDate =
             x -> {

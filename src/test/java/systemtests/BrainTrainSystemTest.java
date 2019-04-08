@@ -18,9 +18,11 @@ import guitests.guihandles.MainPanelHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import seedu.address.TestApp;
+import seedu.address.model.lesson.LessonList;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.Model;
 import seedu.address.model.modelmanager.QuizModel;
+import seedu.address.model.util.SampleDataUtil;
 import seedu.address.ui.CommandBox;
 
 /**
@@ -44,7 +46,7 @@ public abstract class BrainTrainSystemTest {
     @Before
     public void setUp() {
         setupHelper = new SystemTestSetupHelper();
-        testApp = setupHelper.setupApplication(getDataFileLocation(), getUserDataFileLocation());
+        testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation(), getUserDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
         assertApplicationStartingStateIsCorrect();
@@ -53,6 +55,13 @@ public abstract class BrainTrainSystemTest {
     @After
     public void tearDown() {
         setupHelper.tearDownStage();
+    }
+
+    /**
+     * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
+     */
+    protected LessonList getInitialData() {
+        return SampleDataUtil.getSampleBrainTrain();
     }
 
     /**

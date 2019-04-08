@@ -3,6 +3,7 @@ package seedu.address;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -16,6 +17,7 @@ import seedu.address.model.modelmanager.ManagementModelManager;
 import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.modelmanager.QuizModelManager;
 import seedu.address.model.user.User;
+import seedu.address.storage.CsvLessonListStorage;
 import seedu.address.storage.LessonListStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.UserStorage;
@@ -32,6 +34,7 @@ public class TestApp extends MainApp {
 
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
             TestUtil.getFilePathInSandboxFolder("pref_testing.json");
+    protected Supplier<LessonList> initialDataSupplier = () -> null;
     protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
     protected Path saveUserFileLocation = SAVE_USER_LOCATION_FOR_TESTING;
     protected ManagementModel testManagementModel;
@@ -39,10 +42,17 @@ public class TestApp extends MainApp {
     public TestApp() {
     }
 
-    public TestApp(Path saveFileLocation, Path saveUserFileLocation) {
+    public TestApp(Supplier<LessonList> initialDataSupplier, Path saveFileLocation, Path saveUserFileLocation) {
         super();
+        this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;
         this.saveUserFileLocation = saveUserFileLocation;
+
+        // If some initial local data has been provided, write those to the file
+        if (initialDataSupplier.get() != null) {
+            CsvLessonListStorage csvLessonListStorage = new CsvLessonListStorage(saveFileLocation);
+            csvLessonListStorage.saveLessonList(initialDataSupplier.get());
+        }
     }
 
     @Override

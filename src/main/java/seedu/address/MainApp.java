@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
@@ -25,6 +24,7 @@ import seedu.address.model.modelmanager.ManagementModelManager;
 import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.modelmanager.QuizModelManager;
 import seedu.address.model.user.User;
+import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.CsvLessonListStorage;
 import seedu.address.storage.CsvUserStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -187,7 +187,7 @@ public class MainApp extends Application {
 
         LessonList initializedLessonList = null;
         Optional<LessonList> prefsOptional = storage.readLessonList();
-        initializedLessonList = prefsOptional.orElse(new LessonList());
+        initializedLessonList = prefsOptional.orElse(SampleDataUtil.getSampleBrainTrain());
 
         logger.info(initializedLessonList.getLessons().size() + " lessons loaded.");
         return initializedLessonList;

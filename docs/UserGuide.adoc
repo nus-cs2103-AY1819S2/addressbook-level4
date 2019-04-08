@@ -41,9 +41,6 @@ The *NOTE* symbol is used to alert you of some things you should take note of.
 
 [TIP]
 The *TIP* symbol is used to alert you of some useful tips.
-
-[WARNING]
-The *WARNING* symbol is used to warn you of something.
 // end::additionalInfo[]
 
 == Quick Start
@@ -91,7 +88,7 @@ Below are other example commands you may try:
 
 The following covers the standard format to be used for all the commands in TravelBuddy and the syntax that follows:
 
-[WARNING]
+[NOTE]
 The code in this section is merely for illustrative purposes. It is kept brief to highlight the formatting standards for all the commands and not the actual commands themselves. Do not copy and paste the commands in this section.
 
 * _Some commands may have a shortcut, which you can use to execute the command._ +
@@ -498,7 +495,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 [NOTE]
 ====
-Undoable commands: Commands that modify TravelBuddy's data (`add`, `delete`, `deletem`, `edit` and `clear`).
+Undoable commands: Commands that modify TravelBuddy's data (`add`, `delete`, `deletem`, `edit` , `generate` and `clear`).
 ====
 
 ****

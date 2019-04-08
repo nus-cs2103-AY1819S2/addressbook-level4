@@ -14,7 +14,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PATIENT_ID;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_START_TIME;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -95,7 +94,8 @@ public class DocXParserTest {
                 AddMedHistCommand.COMMAND_WORD + " " + "pid/1 did/1 d/2018-05-05 sw/testWriteUp");
         assertTrue(command instanceof AddMedHistCommand);
         assertEquals(command, new AddMedHistCommand(
-                new MedicalHistory(new PersonId("1"), new PersonId("1"), new ValidDate("2018-05-05"), new WriteUp("testWriteUp"))));
+                new MedicalHistory(new PersonId("1"), new PersonId("1"),
+                        new ValidDate("2018-05-05"), new WriteUp("testWriteUp"))));
     }
 
     @Test

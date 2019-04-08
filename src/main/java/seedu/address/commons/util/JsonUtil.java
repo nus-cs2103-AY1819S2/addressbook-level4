@@ -2,12 +2,17 @@ package seedu.address.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -145,4 +150,28 @@ public class JsonUtil {
         }
     }
 
+    /**
+     * Saves the data in the file in json format.
+     *
+     * @param file Points to a valid json file containing data that match the {@code classToConvert}.
+     * Cannot be null.
+     * @throws FileNotFoundException Thrown if the file is missing.
+     * @throws JAXBException Thrown if there is an error during converting the data
+     * into json and writing to the file.
+     */
+    public static <T> void saveDataToFile(Path file, T data) throws FileNotFoundException, JAXBException {
+
+        requireNonNull(file);
+        requireNonNull(data);
+
+        if (!Files.exists(file)) {
+            throw new FileNotFoundException("File not found : " + file.toAbsolutePath());
+        }
+
+        JAXBContext context = JAXBContext.newInstance(data.getClass());
+        Marshaller m = context.createMarshaller();
+        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+        m.marshal(data, file.toFile());
+    }
 }

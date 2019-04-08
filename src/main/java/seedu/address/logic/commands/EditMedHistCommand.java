@@ -60,6 +60,8 @@ public class EditMedHistCommand extends Command {
 
         MedicalHistory medHistToEdit = lastShownList.get(index.getZeroBased());
         MedicalHistory editedMedHist = createEditedMedHist(medHistToEdit, editMedHistDescriptor);
+        editedMedHist.setPatient(medHistToEdit.getPatient());
+        editedMedHist.setDoctor(medHistToEdit.getDoctor());
 
         if (!medHistToEdit.isSameMedHist(editedMedHist) && model.hasMedHist(editedMedHist)) {
             throw new CommandException(MESSAGE_DUPLICATE_MEDHIST);

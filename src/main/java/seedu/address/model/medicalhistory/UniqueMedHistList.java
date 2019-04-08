@@ -9,9 +9,10 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.model.medicalhistory.exceptions.DuplicateMedHistException;
 import seedu.address.model.medicalhistory.exceptions.MedHistNotFoundException;
-
+import seedu.address.model.person.PersonId;
 
 
 /**
@@ -78,6 +79,24 @@ public class UniqueMedHistList implements Iterable<MedicalHistory> {
         }
 
         internalList.set(index, editedMedHist);
+    }
+
+    public void setPatientToNull(PersonId deleted) {
+        requireAllNonNull(deleted);
+        FilteredList<MedicalHistory> setToNull = internalList.filtered(x -> x.getPatientId().equals(deleted));
+        int size = setToNull.size();
+        for (int index = 0; index < size; index++) {
+            setToNull.get(index).setPatient(null);
+        }
+    }
+
+    public void setDoctorToNull(PersonId deleted) {
+        requireAllNonNull(deleted);
+        FilteredList<MedicalHistory> setToNull = internalList.filtered(x -> x.getDoctorId().equals(deleted));
+        int size = setToNull.size();
+        for (int index = 0; index < size; index++) {
+            setToNull.get(index).setDoctor(null);
+        }
     }
 
     /**

@@ -14,6 +14,7 @@ import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.UniqueMedHistList;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonIdCounter;
 import seedu.address.model.person.UniqueDoctorList;
 import seedu.address.model.person.UniquePatientList;
@@ -123,6 +124,22 @@ public class DocX implements ReadOnlyDocX {
     //// patient-level operations
 
     /**
+     * Return object Patient with given id
+     */
+    public Patient getPatientById(PersonId patientId) {
+        requireNonNull(patientId);
+        return patients.findPatientById(patientId);
+    }
+
+    /**
+     * Return object Doctor with given id
+     */
+    Doctor getDoctorById(PersonId doctorId) {
+        requireNonNull(doctorId);
+        return doctors.findDoctorById(doctorId);
+    }
+
+    /**
      * Returns true if a patient with the same identity as {@code patient} exists in the docX.
      */
     public boolean hasPatient(Patient patient) {
@@ -209,10 +226,26 @@ public class DocX implements ReadOnlyDocX {
      */
     public void removePatient(Patient key) {
         patients.remove(key);
+        updateMedHistWhenPatientDeleted(key.getId());
         indicateModified();
     }
 
     //// medical history-level operations
+    /**
+     * Set Patient in medical history to null if the patient is deleted
+     */
+    public void updateMedHistWhenPatientDeleted(PersonId patientId) {
+        requireNonNull(patientId);
+        medHists.setPatientToNull(patientId);
+    }
+
+    /**
+     * Set Doctor in medical history to null if the patient is deleted
+     */
+    public void updateMedHistWhenDoctorDeleted(PersonId doctorId) {
+        requireNonNull(doctorId);
+        medHists.setDoctorToNull(doctorId);
+    }
 
     /**
      * Returns true if a medical history with the same identity as {@code person} exists in the docX.
@@ -228,6 +261,10 @@ public class DocX implements ReadOnlyDocX {
      */
     public void addMedHist(MedicalHistory medHist) {
         medHists.add(medHist);
+        Patient patientWithId = getPatientById(medHist.getPatientId());
+        medHist.setPatient(patientWithId);
+        Doctor doctorWithId = getDoctorById(medHist.getDoctorId());
+        medHist.setDoctor(doctorWithId);
         indicateModified();
     }
 
@@ -284,6 +321,7 @@ public class DocX implements ReadOnlyDocX {
      */
     public void removeDoctor(Doctor key) {
         doctors.remove(key);
+        updateMedHistWhenDoctorDeleted(key.getId());
         indicateModified();
     }
 
@@ -336,6 +374,8 @@ public class DocX implements ReadOnlyDocX {
     public PersonIdCounter getPersonIdCounter() {
         return personIdCounter;
     }
+
+
 
     @Override
     public boolean equals(Object other) {

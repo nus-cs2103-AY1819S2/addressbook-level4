@@ -70,9 +70,9 @@ public class MedHistBrowserPanel extends UiPart<Region> {
 
         medHistId.setText("Medical History ID: " + medHist.getMedHistId());
         patientId.setText("Patient ID: " + medHist.getPatientId());
-        patientName.setText("Patient Name: " + medHist.getPatient().getName());
+        patientName.setText("Patient Name: " /*+ medHist.getPatient().getName()*/);
         doctorId.setText("Doctor ID: " + medHist.getDoctorId());
-        doctorName.setText("Doctor Name: " + medHist.getDoctor().getName());
+        doctorName.setText("Doctor Name: " /*+ medHist.getDoctor().getName()*/);
         date.setText("Date: " + medHist.getDate().toString());
         writeUp.setText("Short Write Up from Doctor: " + medHist.getWriteUp().toString());
 

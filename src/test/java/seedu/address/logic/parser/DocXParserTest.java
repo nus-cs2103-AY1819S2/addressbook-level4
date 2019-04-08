@@ -54,6 +54,7 @@ import seedu.address.model.medicalhistory.WriteUp;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.PatientNameContainsKeywordsPredicate;
+import seedu.address.model.person.PersonId;
 import seedu.address.testutil.DoctorBuilder;
 import seedu.address.testutil.DoctorUtil;
 import seedu.address.testutil.EditPatientDescriptorBuilder;
@@ -94,7 +95,7 @@ public class DocXParserTest {
                 AddMedHistCommand.COMMAND_WORD + " " + "pid/1 did/1 d/2018-05-05 sw/testWriteUp");
         assertTrue(command instanceof AddMedHistCommand);
         assertEquals(command, new AddMedHistCommand(
-                new MedicalHistory(1, 1, new ValidDate(LocalDate.parse("2018-05-05")), new WriteUp("testWriteUp"))));
+                new MedicalHistory(new PersonId("1"), new PersonId("1"), new ValidDate("2018-05-05"), new WriteUp("testWriteUp"))));
     }
 
     @Test

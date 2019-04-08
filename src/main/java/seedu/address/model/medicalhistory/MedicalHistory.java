@@ -1,6 +1,5 @@
 package seedu.address.model.medicalhistory;
 
-import java.time.LocalDate;
 import java.util.Objects;
 
 import seedu.address.model.person.Doctor;
@@ -102,8 +101,8 @@ public class MedicalHistory {
 
         MedicalHistory otherMedHist = (MedicalHistory) other;
 
-        return (otherMedHist.getPatientId() == getPatientId())
-                && (otherMedHist.getDoctorId() == getDoctorId())
+        return (otherMedHist.getPatientId().equals(getPatientId()))
+                && (otherMedHist.getDoctorId().equals(getDoctorId()))
                 && otherMedHist.getDate().equals(getDate())
                 && otherMedHist.getWriteUp().equals(getWriteUp());
     }

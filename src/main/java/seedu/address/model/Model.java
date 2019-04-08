@@ -44,7 +44,6 @@ public interface Model {
             return mh1.getDate().date.compareTo(mh2.getDate().date);
         }
     }
-    
     /** Comparater of Medical History
      * Medical history with newer date is larger than medical history with older date.
      */

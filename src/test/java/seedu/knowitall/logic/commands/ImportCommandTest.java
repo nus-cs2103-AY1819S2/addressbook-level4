@@ -173,7 +173,6 @@ public class ImportCommandTest {
      * Checks if two file contents are equal. Removes line endings for Unix files before comparison
      */
     private void isSameFileContent(File actualFile, File testFile) throws IOException, CsvManagerNotInitialized {
-        expectedModel.exportCardFolders(new ArrayList<>(Arrays.asList(1)));
         // System.out.println(DEFAULT_IMPORT_TEST_PATH);
         assert(actualFile.exists());
         byte[] rawByteF1 = Files.readAllBytes(Paths.get(actualFile.toString()));

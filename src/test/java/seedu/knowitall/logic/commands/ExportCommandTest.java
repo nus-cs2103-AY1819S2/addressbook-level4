@@ -10,17 +10,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.After;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import org.junit.runners.model.MultipleFailureException;
 import seedu.knowitall.logic.CommandHistory;
 import seedu.knowitall.logic.commands.exceptions.CommandException;
-import seedu.knowitall.model.CardFolderNotFoundException;
 import seedu.knowitall.model.Model;
 import seedu.knowitall.model.ModelManager;
 import seedu.knowitall.model.UserPrefs;
@@ -59,13 +55,12 @@ public class ExportCommandTest {
     }
 
     /**
-     * 
+     * Deletes files exported after testing.
      */
     public void deleteExportFile() {
         File[] files = new File[] {new File(model.getDefaultPath() + "/" + "Typical Cards.csv"),
-                new File(model.getDefaultPath() + "/" + "Blood.csv")};
+            new File(model.getDefaultPath() + "/" + "Blood.csv")};
         for (File file : files) {
-            assert file.canRead();
             if (file.exists()) {
                 boolean isDeleted = file.delete();
                 assert (isDeleted);

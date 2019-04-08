@@ -831,6 +831,11 @@ you will be able to synchronise your data with a cloud account.
 
 Automatically correct an improperly typed command(e.g. sirt to sort).
 
+== Patient Teeth per record [Coming in v1.5]
+
+Currently, TeethHub stores and displays the latest teeth image of each patient.
+In v1.5, TeethHub would be able to store and display a teeth image for each record.
+
 == Frequently Asked Questions (FAQ)
 
 *Q*: How do I transfer my data to another Computer?

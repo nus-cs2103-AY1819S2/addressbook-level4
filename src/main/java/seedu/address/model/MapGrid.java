@@ -104,6 +104,30 @@ public class MapGrid {
         return this.size;
     }
 
+    // UI operations
+
+    /**
+     * Used to Update the UI.
+     * A listener will be added to this observable value in the UI.
+     * Once this value changes the UI will be updated.
+     */
+    public ObservableBooleanValue getObservableValue() {
+        return uiUpdateSwitch;
+    }
+
+    /**
+     * Change the ObservableValue to trigger the UI change
+     */
+    public void updateUi() {
+        if (uiUpdateSwitch.getValue() == false) {
+            uiUpdateSwitch.setValue(true);
+        } else {
+            uiUpdateSwitch.setValue(false);
+        }
+    }
+
+    //// cell-level operations
+
     /**
      * Returns the cell in the given coordinates
      */
@@ -129,43 +153,6 @@ public class MapGrid {
         return getCell(coord).getBattleship().get().toString();
     }
 
-    // UI operations
-
-    /**
-     * Used to Update the UI.
-     * A listener will be added to this observable value in the UI.
-     * Once this value changes the UI will be updated.
-     */
-    public ObservableBooleanValue getObservableValue() {
-        return uiUpdateSwitch;
-    }
-
-    /**
-     * Change the ObservableValue to trigger the UI change
-     */
-    public void updateUi() {
-        if (uiUpdateSwitch.getValue() == false) {
-            uiUpdateSwitch.setValue(true);
-        } else {
-            uiUpdateSwitch.setValue(false);
-        }
-    }
-
-    // Cell operations
-    /**
-     * Put battleship in the given coordinates
-
-    public void putShip(Coordinates coordinates, Battleship battleship) throws ArrayIndexOutOfBoundsException {
-        if (coordinates.getColIndex().getOneBased() > getMapSize()) {
-            throw new ArrayIndexOutOfBoundsException("Coordinates are outside of the map");
-        }
-
-        cellGrid[coordinates.getRowIndex().getZeroBased()][coordinates.getColIndex().getZeroBased()]
-            .putShip(battleship);
-        updateUi();
-    }
-     */
-
     /**
      * Attack a specified cell. Returns true if a ship was hit otherwise false.
      */
@@ -181,10 +168,6 @@ public class MapGrid {
         updateUi();
         return isSuccessfulHit;
     }
-
-    //// list overwrite operations
-
-    //// cell-level operations
 
     /**
      * Put battleship on map grid.

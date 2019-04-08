@@ -7,6 +7,7 @@ import static seedu.address.model.course.CourseReqType.GE;
 import static seedu.address.model.course.CourseReqType.IE;
 import static seedu.address.model.course.CourseReqType.UE;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.model.course.CompositeRequirement;
@@ -182,4 +183,10 @@ public class SampleCourseRequirement {
     public static final CourseRequirement TOTAL_MODULE_COUNT =
             new PrimitiveRequirement("Unrestricted Electives",
             "Complete at least 40 modules to graduate", UE, COMPLETE_40_MODULES);
+
+    public static List<CourseRequirement> getTypicalRequirements() {
+        return List.of(UNIVERSITY_LEVEL_REQUIREMENT, COMPUTER_SCIENCE_FOUNDATION, FOCUS_AREA_ALGORITHMS,
+                INDUSTRIAL_SYSTEM_EXPERIENCE, COMPUTER_SYSTEM_TEAM_PROJECT, IT_PROFESSIONALISM,
+                MATH_REQUIREMENT, SCIENCE_REQUIREMENT, TOTAL_MODULE_COUNT);
+    }
 }

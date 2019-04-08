@@ -48,18 +48,6 @@ public class RequirementStatus {
         return percentageFulfilled;
     }
 
-    public List<ModuleInfoCode> getModuleInfoCodeList() {
-        return allModules.stream()
-                .map(moduleInfo -> moduleInfo.getModuleInfoCode())
-                .filter(moduleInfoCode -> unsatisfiedRegex.stream()
-                .anyMatch(regex -> moduleInfoCode.toString().matches(regex)))
-                .collect(Collectors.toList());
-    }
-
-    public List<ModuleInfoCode> getTruncatedCodeList(int truncatedSize) {
-        return getModuleInfoCodeList().subList(0, truncatedSize);
-    }
-
     public boolean isFulfilled() {
         return isFulfilled;
     }

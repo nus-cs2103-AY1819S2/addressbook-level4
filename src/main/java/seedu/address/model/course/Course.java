@@ -92,7 +92,8 @@ public class Course {
             return false;
         }
         Course other = (Course) obj;
-        //TODO: Will implement this properly in the future
-        return this.courseName.equals(other.courseName);
+        return this.courseName.equals(other.courseName)
+                && this.courseDescription.equals(other.courseDescription)
+                && this.courseRequirements.equals(other.courseRequirements);
     }
 }

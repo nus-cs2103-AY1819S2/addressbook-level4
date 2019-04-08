@@ -19,6 +19,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.course.CourseName;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.Grade;
 import seedu.address.model.moduletaken.Semester;
@@ -218,5 +219,23 @@ public class ParserUtilTest {
     @Test public void booleanToFinishedStatus_returnsCorrectString() {
         assertEquals(ParserUtil.booleanToFinishedStatus(true), FINISHED_STATUS_TRUE);
         assertEquals(ParserUtil.booleanToFinishedStatus(false), "n");
+    }
+
+    @Test
+    public void parseCourseName_validCourseName_returnsExpectedCourseName() throws Exception {
+        assertEquals(ParserUtil.parseCourseName("Computer Science Algorithms"),
+                new CourseName("Computer Science Algorithms"));
+    }
+
+    @Test
+    public void parseCourseName_invalidCourseName_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseCourseName("InvalidCourseName*");
+    }
+
+    @Test
+    public void parseCourseName_null_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        ParserUtil.parseCourseName(null);
     }
 }

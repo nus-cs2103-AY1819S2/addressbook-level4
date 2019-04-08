@@ -175,7 +175,7 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+image::LogicClassDiagram2.png[width="800"]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -232,6 +232,48 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+// tag::modes_of_operation[]
+=== Operation mode control feature
+==== Current Implementation
+
+ClubManager is designed to manage members and activities and allow the user to link members to the activities.
+To syncronize the user interface to show appropriate information when users are doing different operation and to minimize confusion the following feature has been added.
+With the implementation of modes of operations which only allows commands to be executed in their respective modes.
+
+For example when ClubManager is in Member Mode, only member commands can be called (for example memberAdd, memberEdit etc.)
+
+image::appInMemberMode.png[width="800"]
+
+Calling an activity command will result in an error.
+
+image::appInMemberModeCallingActivityCmd.png[width="800"]
+
+General commands can be called in any mode (for example help and exit)
+
+Currently the app has 2 modes of operation, namely member mode and activity mode.
+
+==== Design of operation mode control
+Each Command extends a CommandType, currently MemberCommand, ActivityCommand and GeneralCommand
+
+For each CommandType, there is an ArrayList of modes in where this category of command can operate in.
+When the Command is created, it instatiates the operation modes. And when the execute function of the Command is called, the app would allow the execution of the command if the current app mode can be found within the the allowed mode list of the command.
+If the mode does not match, it will throw an exception preventing the execution and prompting the user to change the app mode (by using the mode command) before calling such a function.
+
+A coloured label on the top right corner also indicates the mode of operation at any time to let the user easily track which mode the app is operating in.
+
+image::ModeMemberLabel.png[width="400"]
+
+image::ModeActivityLabel.png[width="400"]
+
+==== Design Consideration to aid future expansion of app
+
+* The design approach of the mode of operation control allows easy expansion of the app to manage more categories if required.
+* The feature is designed with easy reuse in mind by allowing the checking of mode to be done dynamically.
+* Since the modes which the command can operate in is stored as an ArrayList, future implementation of more modes of operation, can be added to the list. The current function to check the allowed mode will still be valid.
+* The design also allows the type of command to operate in and not be restricted to either a single mode or all modes but also any combination of modes.
+
+// end::modes_of_operation[]
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -329,19 +371,30 @@ If the user input does not match, then an error message will be prompted to the 
 //end::membersort[]
 
 // tag::memberexport[]
-
 === MemberExport
 
 ==== Current Implementation
 image::MemberExportCommand_LogicComponentSequenceDiagram.png[width="800"]
 * The `memberExport` command extends from command and retrieves the Person object from the Model based on the specified index
 
-* Then it uses export utilities to create the file and write the Person's information to it
+* The `exportPerson` command is called with the Person object being pass into the function as a parameter. The function will get the formatting as defined in resources/exportutil personInfo.html
+
+* The formatted string in html mark up is then passed to the `exportDataToFile` function which then creates the file and writes to it.
 
 * If the index specified in invalid, an error message will be displayed
 
+* Currently the exported file is in html format. The formatted document is responsive to the screen size giving 2 options.
+
+* For large screens (diagram below)
+
+image::MemberExportExample.png[width="1000"]
+
+* For smaller mobile screens (diagram below)
+
+image::MemberExportExampleMobile.png[width="800"]
+
 ==== Future Implementation
-* For future implementation, the `memberExport` command will export the members details in a formatted html page
+* For future implementation, the `memberExport` would be able to take in an additional parameter for the selection of export format.
 // end::memberexport[]
 
 

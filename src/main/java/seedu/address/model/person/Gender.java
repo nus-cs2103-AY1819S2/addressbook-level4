@@ -1,6 +1,7 @@
 /* @@author wayneswq */
 package seedu.address.model.person;
 
+import static com.google.common.base.Ascii.toUpperCase;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -23,6 +24,7 @@ public class Gender {
     public Gender(String gender) {
         requireNonNull(gender);
         checkArgument(isValidGender(gender), MESSAGE_CONSTRAINTS);
+        toUpperCase(gender);
         value = gender;
     }
 

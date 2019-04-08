@@ -1,4 +1,5 @@
 = Choong Wey Yeh - Project Portfolio
+
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -39,121 +40,80 @@ supplement existing description.
 
 == Contributions
 
-*Major Enhancements*:
+=== Summary of Contributions
 
-* Implemented the logical structure for representing a person working in the
-medical profession through the `HealthWorker` class.
-** Before health staff can be assigned to `Request` in HealthHub, there needs
- to be a way for a person working in the medical profession to be represented
-  in the system. Through my contribution in form of creation of the
-  `HealthWorker` logic structure, this allows users to create a
-  representation of medical workers in HealthHub
-** When designing and implementing the `HealthWorker` class, one of the
-considerations I had was to only maintain information necessary to the user such
- as the medical specialisations that the worker has, in order to reduce
- cluttering of information and keep the application simple and easy to use.
- With that in mind, the necessary
+Over the course of the development phase, I was tasked with the development
+of `HealthWorker` related features in HealthHub, such as the basic Create,
+Read, Update and Delete(CRUD) functionality. The enhancements and features
+that I have contributed to HealthHub are:
 
-* Reworked the `CommandParser` classes in HealthHub to facilitate the parsing
+* Creation of the `HealthWorker` representation model for describing a
+people working in the medical profession, in HealthHub.
+* `add`, `edit` and `delete` commands for registering `HealthWorker` into
+HealthHub.
+* Designing and implementing the architecture for `CommandParser` to
+provide flexibility for the development of other commands, as well as
+streamline the performance of user input parsing.
+* `filter` command for `HealthWorker` objects, utilizing a combination of
+optimized data structures and methods from Java's `Predicate` and `Function`
+library.
+
+
+=== Major Enhancements
+
+* I reworked the `CommandParser` classes in HealthHub to facilitate the parsing
  of inputs for commands involving both `HealthWorker` and `Request` objects.
-** Introduced the `CommandMode` class that differentiated the new design of
-`CommandParser` from the original by allowing the same `CommandParser` class to
-parse commands involving multiple different classes such as both
-`HealthWorker` and `Request` classes, giving it more expressive power than
-it's original implementation
-** My contribution through the modification of the existing `CommandParser`
-architecture paved the way for other team members to utilize the new reworked
-`CommandParser` class for their individual contributions to HealthHub.
-
-* Implemented the `add` command to facilitate the registering of a new health
- staff through adding the represented `HealthWorker` class to HealthHub.
-** For users to assign health staff to existing requests, the user needs to make
- sure that the `HealthWorker` representation of the worker is already
- registered in the HealthHub system for tracking and management
-** With this command, users can now register a new health staff into the
-system by creating a representation of his/her details in HealthHub
-
-* Implemented the `edit` command to facilitate the registering of a new health
- staff through modifying an existing `HealthWorker` object in HealthHub.
-** The ability to modify details of an existing `HealthWorker` allows the
-user to update any outdated or incorrect information stored in HealthHub that
- may hinder the streamlining of handling requests by users.
-
-* Implemented the `delete` command to facilitate the registering of a new health
- staff through removing the selected `HealthWorker` object to HealthHub.
-** The roster of health staff in a medical organization may change over time.
- By adding the `delete` command, users now have the ability to remove medical
-  staff that are no longer employed or available to handle requests.
+** The original implementation of `CommandParser` class in AddressBook4 only
+facilitated the adding of a `Person` class object into the system. As
+HealthHub stored multiple different types of objects such as `HealthWorker`
+and `Request`, I had to rework the existing implementation of `CommandParser`
+ in AddressBook4 to cater to the needs of our application.
+** I created the `CommandMode` class for use in the new release for
+`CommandParser` class, and overhauled the implementation to use `CommandMode`
+ to identify the specific type of object being handled, as well as to place
+ restrictions on unvalidated user inputs during commands. My contribution to
+ HealthHub via the `CommandParser` class paved the way for other teammates to
+ use the new revised `CommandParser` class for the development of their features
+  as well.
 
 * Added the functionality to filter `HealthWorker` objects in the HealthHub
 system using various fields.
-** Through my implementation of the ability to filter the existing list of
-`HealthWorker` in HealthHub, users are able to reduce their search for the
+** In some of the user stories prior to the development of HealthHub, many
+potential users greatly favored the capability to be able to search for
+specific types of requests or medical workers, thus speeding up their search.
+** To facilitate the ease of finding and assigning `HealthWorker` in HealthHub,
+I implemented the ability to filter the existing list of
+`HealthWorker`. As a result, Users are able to reduce their search for the
 most appropriate health staff for assignment to requests to a shorter list
 based on filter conditions they input.
 ** A significant difficulty that was faced when implementing this feature, is
  the ability to combine multiple conditions of user inputs. The following
  considerations and possible solutions for this problem are as follows:
 
-[width="100%",cols="50%, 50%",options="header"]
-|=======================================================================
-|List of `Predicate` |Composing using `and`
-| Using this method, all the conditions collected by the user through input
-are parsed into `Predicate` equivalents.
+include::../DeveloperGuide.adoc[tag=filterHealthWorkerTable]
 
- An `ArrayList` is then maintained that keeps all the parsed `Predicates`.
- During the filter process, the system uses the maintained list of
- `Predicate` to check for items that match the entire list of conditions
+Weighing both the pros and cons of both design considerations, I decided to
+ go with composing multiple `Predicates` into a single `Predicate` by using
+ the functional programming paradigm through Java's `Predicate` and
+ `Function` libraries. This is because doing so increases the ease of
+ implementation for future enhancements to HealthHub with the increased
+ flexibility, and also future implementations are less tightly coupled as
+ they only need to depend on `Predicate` and not `List`.
 
- *Pros*:
+{nbsp}
 
- Easy to manage all the conditions, as they are kept separate in a list and
- individual `Predicate` are easily managed.
-
- *Cons*:
-
- Limited expressiveness in implementing functions that use the `List` of
- `Predicate` due to the additional layer of abstraction provided by `List`.
- Even if a single condition is supplied, it must be wrapped in a `List` for
- standardization.
-
- | Similar to using a List of `Predicate`, all user input conditions are
- first parsed into it's `Predicate` equivalents.
-
- After this step, all the `Predicate` are composed into a single `Predicate`
- using the provided `and` method in the `Predicate` library in Java.
-
- *Pros*:
-
- Higher expressive power. The end result of the `and` function produces a
- `Predicate` which can be easily passed to function calls.
-
- *Cons*:
-
- No way to track individual conditions for additional granularity.
-
- I decided to go with this option as the expressive power of using the `and`
- function to compose multiple `Predicate` into a single one allows for other
- team members to use my implementation without having to understand any
- additional logic used if a `List` of `Predicate` were used instead, and also
-  allows for future implementations to be more flexible in using just a
-  `Predicate` rather than having to account for multiple `Predicate`.
-
-|=======================================================================
-
-
-* Added the functionality to display all `HealthWorker` objects in the
-HealthHub system through the GUI. This provides functionality for the user to
- return from looking at a list of filtered `HealthWorker` to the original
- list of `HealthWorker`
+=== Other Contributions
 
 *Minor Enhancements*:
 
 * Adjusted the implementation for `FilterCommandParser`, `ListCommandParser`
 and `DeleteCommandParser` implemented by my teammates to for a more seamless
  integration of the `filter`, `list` and `delete` commands into HealthHub.
+* Wrote incremental integration tests for existing features in HealthHub, as
+well as features implemented by my teammates to ensure that the logic and
+model components in HealthHub are integrated together smoothly without hiccups.
 
-*Other contributions*:
+*Design*:
 
 * Proposed the layout and structure of the implementation of the current
 Graphical User Interface(GUI) of HealthHub.
@@ -164,12 +124,6 @@ Graphical User Interface(GUI) of HealthHub.
 command logic side of HealthHub.
 * Delegated features and roles to various team members for their
 contributions to HealthHub.
-
-*Enhancements to existing features*:
-
-* Wrote incremental integration tests for existing features in HealthHub, as
-well as features implemented by my teammates to ensure that the logic and
-model components in HealthHub are integrated together smoothly without hiccups.
 
 *Documentation*:
 
@@ -206,15 +160,9 @@ HealthHub, we have also extensively updated the User Guide to allow for users
 The following sections details my contribution to the User Guide up til
 HealthHub version release v1.4.
 
-include::../UserGuide.adoc[tags=addHealthWorker]
+include::../UserGuide.adoc[tag=addHealthWorker]
 
-include::../UserGuide.adoc[tags=editHealthWorker]
-
-include::../UserGuide.adoc[tags=listHealthWorker]
-
-include::../UserGuide.adoc[tags=delHealthWorker]
-
-include::../UserGuide.adoc[tags=filterHealthWorker]
+include::../UserGuide.adoc[tag=filterHealthWorker]
 
 == Contributions to the Developer Guide
 

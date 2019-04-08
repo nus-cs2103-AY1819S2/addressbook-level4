@@ -15,7 +15,7 @@
 //import seedu.address.logic.commands.HelpCommand;
 //
 ///**
-// * A system test class for the help window, which contains interaction with other UI components.
+// * A system test class for the help window, which getSpecialisation interaction with other UI components.
 // */
 //public class HelpCommandSystemTest extends AddressBookSystemTest {
 //    private static final String ERROR_MESSAGE = "ATTENTION!!!! : On some computers, this test may fail when run on "

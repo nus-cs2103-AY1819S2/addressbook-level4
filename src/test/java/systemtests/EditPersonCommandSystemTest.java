@@ -68,7 +68,7 @@
 //        assertCommandSuccess(command, index, BOB);
 //
 //        /* Case: edit a person with new values same as another person's values but with different name -> edited */
-//        assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
+//        assertTrue(getModel().getAddressBook().getPersonList().getSpecialisation(BOB));
 //        index = INDEX_SECOND;
 //        assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
 //        command = EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + index.getOneBased() + NAME_DESC_AMY
@@ -171,7 +171,7 @@
 //
 //        /* Case: edit a person with new values same as another person's values -> rejected */
 ////        executeCommand(PersonUtil.getAddCommand(BOB));
-//        assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
+//        assertTrue(getModel().getAddressBook().getPersonList().getSpecialisation(BOB));
 //        index = INDEX_FIRST;
 //        assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));
 //        command = EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + index.getOneBased() + NAME_DESC_BOB

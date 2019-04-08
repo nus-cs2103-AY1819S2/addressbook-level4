@@ -86,7 +86,7 @@ public class Patient extends Person {
      */
     public Patient(Patient patientToCopy) {
         super(patientToCopy);
-        requireAllNonNull(patientToCopy.nric, patientToCopy.dateOfBirth, patientToCopy.records, patientToCopy.sex);
+        requireAllNonNull(patientToCopy);
         this.sex = patientToCopy.sex;
         this.nric = patientToCopy.nric;
         this.dateOfBirth = patientToCopy.dateOfBirth;
@@ -107,6 +107,11 @@ public class Patient extends Person {
     public void addRecord(Record record) {
         this.records.add(0, record);
         this.records.sort(Comparator.comparing(Record::getRecordDate));
+    }
+
+    public void setRecord(Record target, Record editedRecord) {
+        int localIdx = this.records.indexOf(target);
+        this.records.set(localIdx, editedRecord);
     }
 
     /**

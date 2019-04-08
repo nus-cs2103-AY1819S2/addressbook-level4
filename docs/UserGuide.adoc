@@ -95,6 +95,7 @@ Displays the help text for all available commands.
 
 Format: `help`
 
+////
 ==== dentist
 
 You can specify the name you want to reflect in your patients' dental record when you create them.
@@ -104,6 +105,7 @@ Format: `dentist n/YOUR_NAME`
 * If there is no dentist name specified, the program will prompt you to enter one.
 
 * This should only happen once, during the first startup of the application.
+////
 
 ==== history
 Lists all the commands that have been entered since starting the
@@ -351,9 +353,8 @@ Note: If a patient’s next of kin lives at the same address, use `same` to indi
 
 Examples:
 
-* `patientadd n/John Choo p/98425871 e/jonC@example.com a/IDA street block 13
-#02-05 ic/S1234567H age/32 dob/26021987 nokn/Jacky Choo nokp/84875215
-nokr/Father noka/same`
+* `patientadd n/John Choo sex/M p/98425871 e/jonC@example.com a/IDA street block 13
+#02-05 ic/S1234567H dob/26-02-1987 nokn/Jacky Choo nokp/84875215 nokr/Father noka/same`
 
 ==== patientdelete
 
@@ -380,39 +381,35 @@ Deletes the patient shown with index 2 found using the find command.
 
 Edits data from an existing patient.
 
-Format: `patientedit INDEX` or `pedit INDEX`
+Format: `patientedit INDEX [PREFIX/KEYWORDS]` or `pedit INDEX [PREFIX/KEYWORDS]`
 
-* Goes into patientedit mode for the patient at the specified index shown from
-list or find command. Must be a positive integer (e.g 1, 2 or 3).
+* Edits the patient at the specified index shown from list or find command.
+Must be a positive integer (e.g 1, 2 or 3).
 
-* Input the field followed by the new value to replace the existing data.
+* Input the prefix followed by the new value to replace the existing data.
+** The full list of possible prefixes can be found in <<Breakdown of attributes used within TeethHub>>
 
 * Multiple fields can be edited in a single input or across multiple
 inputs.
 
-* When editing tags, the existing tags of the patient will be removed i.e
-adding of tags is not cumulative.
+* Note that tags **cannot** be editted as they are automatically generated.
 
-* All tags can be removed by keying in t/ without specifying any tags
-following it.
-
-* Exit the patientedit mode by entering done.
+[NOTE]
+============================================================
+After editting a patient, `plist` is automatically executed as well!
+============================================================
 
 Example:
 
 * `<<patientlist, patientlist>>` +
-`patientedit 1` +
-`p/12345` +
-`e/newemail@gmail.com` +
-`done` +
+`patientedit 1 e/newemail@gmail.com` +
+`patientedit 1 p/12345` +
 Edits the phone number and email of the first patient listed to become
 12345 and newemail@gmail.com respectively across 2 inputs.
 
 
 * `<<patientfind, patientfind>> Betsy` +
-`patientedit 2` +
-`p/987654 e/mymail@gmail.com` +
-`done` +
+`patientedit 2 p/987654 e/mymail@gmail.com` +
 Edits the phone number and email of the first patient listed to become
 987654 and mymail@gmail.com respectively with a single input.
 
@@ -593,7 +590,7 @@ All permanent teeth in template will all be present and healthy by default.
 
 ** `<<goto, goto>> 1` - Specifies patient 1 to edit his or her teeth status. Enters the record edit mode.
 
-** `teethedit t/TEETH_LABEL s/STATUS` - Edits the status of the indicated tooth of patient.
+** `teethedit TEETH_LABEL s/STATUS` - Edits the status of the indicated tooth of patient.
 
 ** `back` - Exits the record edit mode, and returns to the patient list.
 
@@ -778,6 +775,17 @@ Shows a list of all the task stored in the application.
 
 Format: `tasklist` or `tlist`
 
+==== tasksort
+Sort the tasks ascendingly or descendingly in some order.
+
+Format : 'tasksort priority/startime/endtime [asc/desc]'
+
+Example:
+
+*`tasksort priority`
+
+*`tasksort starttime desc`
+
 ==== taskdone
 Sets a task to `[green]#complete#`, marking the completion of the task.
 Executing this command on a patient that has a patient linked to it will automatically add a record to the patient.
@@ -908,6 +916,9 @@ e.g. `taskedit 1 ti/Tooth extraction for Alex pri/HIGH`
 
 * *Task patientdelete*: `taskdelete INDEX` +
 e.g. `taskdelete 1`
+
+* *Tasksort `tasksort starttime/endtime/priority [asc/desc]`
+e.g. `tasksort endtime`
 
 * *Teeth* : `teeth patientadd <Template>` +
 e.g. `teeth patientadd primary`

@@ -1,5 +1,6 @@
 package seedu.address.model.util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -57,13 +58,27 @@ public class SampleDataUtil {
     public static Activity[] getSampleActivities() {
         return new Activity[] {
             new Activity(new ActivityName("CS2103 Help Session"), new ActivityDateTime("10/02/2019 1400"),
-                new ActivityLocation("Com1 02-06"), new ActivityDescription("Bring Laptop")),
+                new ActivityLocation("Com1 02-06"), new ActivityDescription("Bring Laptop"),
+                new ArrayList<>(Arrays.asList(new MatricNumber("A0111111M"), new MatricNumber("A0555555R")))),
             new Activity(new ActivityName("Club Annual Meeting"), new ActivityDateTime("11/02/2019 1600"),
-                new ActivityLocation("Computer Club Room"), new ActivityDescription("Summary of past year activities")),
+                new ActivityLocation("Computer Club Room"), new ActivityDescription("Summary of past year activities"),
+                new ArrayList<>(Arrays.asList(new MatricNumber("A0222222B"), new MatricNumber("A0333333N"),
+                        new MatricNumber("A0555555R")))),
             new Activity(new ActivityName("Avenger Movie Viewing"), new ActivityDateTime("10/05/2019 2000"),
-                new ActivityLocation("Cathay cinema"), new ActivityDescription("12 dollar per pax")),
+                new ActivityLocation("Cathay cinema"), new ActivityDescription("12 dollar per pax"),
+                new ArrayList<>(Arrays.asList(new MatricNumber("A0111111M"), new MatricNumber("A0222222B"),
+                        new MatricNumber("A0555555R"), new MatricNumber("A0444444A"), new MatricNumber("A0777777U")))),
             new Activity(new ActivityName("Summer Hackerthon"), new ActivityDateTime("06/06/2019 0900"),
-                new ActivityLocation("Icube Auditorium"), new ActivityDescription())
+                new ActivityLocation("Icube Auditorium"), new ActivityDescription()),
+            new Activity(new ActivityName("CS2103 Final Exam"), new ActivityDateTime("30/04/2019 1300"),
+                    new ActivityLocation("MPSH5"), new ActivityDescription()),
+            new Activity(new ActivityName("Lightroom Workshop"), new ActivityDateTime("03/03/2019 1500"),
+                    new ActivityLocation("Central Library"),
+                    new ActivityDescription("Learn new photo editing techniques")),
+            new Activity(new ActivityName("Quadrantid Meteor Shower"), new ActivityDateTime("03/01/2019 2300"),
+                    new ActivityLocation("Multi-purpose filed"), new ActivityDescription("Telescope will be provided"),
+                    new ArrayList<>(Arrays.asList(new MatricNumber("A0777777U"), new MatricNumber("A0333333N"),
+                            new MatricNumber("A0555555R"), new MatricNumber("A0444444A"))))
         };
     }
 

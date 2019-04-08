@@ -17,6 +17,7 @@ import seedu.travel.model.place.Place;
 public class DeleteMultipleCommand extends Command {
 
     public static final String COMMAND_WORD = "deletem";
+    public static final String COMMAND_ALIAS = "dm";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes multiple places identified by the start and end index number in the last place listing.\n"

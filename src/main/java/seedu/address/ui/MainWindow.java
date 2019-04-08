@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -24,6 +25,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String MAIN_LIST_DISPLAYED = "Your Contacts";
+    private static final String ARCHIVE_LIST_DISPLAYED = "Archived Contacts";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -52,6 +55,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane pinListPanelPlaceholder;
+
+    @FXML
+    private Label displayedList;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -124,6 +130,7 @@ public class MainWindow extends UiPart<Stage> {
         archiveListPanel = new ArchiveListPanel(logic.getFilteredArchivedPersonList());
         personListPanelPlaceholder.getChildren().add(archiveListPanel.getRoot());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        displayedList.setText(MAIN_LIST_DISPLAYED);
 
         pinListPanel = new PinListPanel(logic.getFilteredPinList(), logic.selectedPersonProperty(),
                 logic::setSelectedPerson);
@@ -213,6 +220,7 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isSwapList()) {
                 personListPanelPlaceholder.getChildren().get(0).toFront();
+                swapListTitle();
             }
 
             return commandResult;
@@ -220,6 +228,17 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     * Swaps the title of the displayed list.
+     */
+    private void swapListTitle() {
+        if (displayedList.getText().equals(MAIN_LIST_DISPLAYED)) {
+            displayedList.setText(ARCHIVE_LIST_DISPLAYED);
+        } else {
+            displayedList.setText(MAIN_LIST_DISPLAYED);
         }
     }
 }

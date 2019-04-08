@@ -10,6 +10,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RENTALPRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLINGPRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.model.person.Person.CUSTOMER_TYPE_BUYER;
+import static seedu.address.model.person.Person.CUSTOMER_TYPE_SELLER;
+import static seedu.address.model.person.Person.CUSTOMER_TYPE_LANDLORD;
+import static seedu.address.model.person.Person.CUSTOMER_TYPE_TENANT;
 
 
 import java.util.Set;
@@ -44,12 +48,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CUSTOMER, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
                         PREFIX_REMARK, PREFIX_ADDRESS, PREFIX_SELLINGPRICE, PREFIX_RENTALPRICE, PREFIX_TAG);
-
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_CUSTOMER, PREFIX_EMAIL, PREFIX_PHONE, PREFIX_REMARK)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
-
         String customer = argMultimap.getValue(PREFIX_CUSTOMER).get();
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
@@ -58,32 +60,50 @@ public class AddCommandParser implements Parser<AddCommand> {
         Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get());
 
         switch (customer) {
-            case "buyer":
+            case CUSTOMER_TYPE_BUYER:
+                if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()
+                        || argMultimap.getValue(PREFIX_RENTALPRICE).isPresent()
+                        || argMultimap.getValue(PREFIX_SELLINGPRICE).isPresent()
+                        || argMultimap.getValue(PREFIX_TAG).isPresent()) {
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            AddCommand.MESSAGE_USAGE_BUYER));
+                }
                 Buyer buyer = new Buyer(name, phone, email, remark);
                 return new AddCommand(buyer);
-            case "seller":
+            case CUSTOMER_TYPE_SELLER:
                 if (argMultimap.getValue(PREFIX_SELLINGPRICE).isPresent()
-                        && argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+                        && argMultimap.getValue(PREFIX_ADDRESS).isPresent()
+                        && !argMultimap.getValue(PREFIX_RENTALPRICE).isPresent()) {
                     Price sellingPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_SELLINGPRICE).get());
                     Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
                     Seller seller = new Seller(name, phone, email, remark, new Property(Property.PROPERTY_TYPE_RENT,
                             address, sellingPrice, tagList));
                     return new AddCommand(seller);
                 } else {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            AddCommand.MESSAGE_USAGE_SELLER));
                 }
-            case "landlord":
+            case CUSTOMER_TYPE_LANDLORD:
                 if (argMultimap.getValue(PREFIX_RENTALPRICE).isPresent()
-                        && argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+                        && argMultimap.getValue(PREFIX_ADDRESS).isPresent()
+                        && !argMultimap.getValue(PREFIX_SELLINGPRICE).isPresent()) {
                     Price rentalPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_RENTALPRICE).get());
                     Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
                     Landlord landlord = new Landlord(name, phone, email, remark,
                             new Property(Property.PROPERTY_TYPE_RENT, address, rentalPrice, tagList));
                     return new AddCommand(landlord);
                 } else {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            AddCommand.MESSAGE_USAGE_LANDLORD));
                 }
-            case "tenant":
+            case CUSTOMER_TYPE_TENANT:
+                if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()
+                        || argMultimap.getValue(PREFIX_RENTALPRICE).isPresent()
+                        || argMultimap.getValue(PREFIX_SELLINGPRICE).isPresent()
+                        || argMultimap.getValue(PREFIX_TAG).isPresent()) {
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            AddCommand.MESSAGE_USAGE_TENANT));
+                }
                 Tenant tenant = new Tenant(name, phone, email, remark);
                 return new AddCommand(tenant);
             default:

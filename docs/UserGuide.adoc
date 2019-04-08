@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`c/seller n/James Ho p/98765432 e/jamesho@example.com a/123, Clementi Rd, S123456` : adds a contact named `James Ho` and the associated property information to the address book.
+* **`add`**`c/seller n/James Ho p/98765432 e/jamesho@example.com r/urgent need to sell a/123, Clementi Rd, S123456` sp/500000: adds a seller named `James Ho` and the associated property information to the address book.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -58,6 +58,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Views a pop-up of the User Guide +
 Format: `help`
 
+// tag::addfeatures[]
 === Adding a contact : `add`
 
 Adds a contact to the address book, with 4 variants of customer types. Adds the associated property information for sellers and landlords.
@@ -77,7 +78,7 @@ Format: `add c/seller n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS a/ADDRESS sp/SELLI
 Example: `add c/seller n/James Ho p/98765432 e/jamesho@example.com r/need to sell by April 2018 a/123, Clementi Rd, S123456 sp/500000 t/MRT t/newlyRenovated`
 
 * *Buyer:* +
-Format: `add c/buyer n/NAME p/PHONE_NUMBER e/EMAIL r/REMARK` +
+Format: `add c/buyer n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS` +
 Example: `add c/buyer n/James Ho p/98765432 e/jamesho@example.com r/looking for 3-room apartment`
 
 * *Landlord:* +
@@ -87,12 +88,14 @@ Example: `add c/landlord n/James Ho p/98765432 e/jamesho@example.com r/family fr
 * *Tenant:* +
 Format: `add c/tenant n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS` +
 Example: `add c/tenant n/James Ho p/98765432 e/jamesho@example.com r/looking for 4-room apartment`
+// end::addfeatures[]
 
 === Listing all contacts : `list`
 
 Shows a list of all contacts in the address book. +
 Format: `list`
 
+// tag::sortfeatures[]
 === Displaying a sorted list of contacts by specified category : `sort` `[coming in v2.0]`
 
 Shows a list of all contacts in the address book, sorted according to a specified category. +
@@ -113,7 +116,9 @@ Format: `sort CATEGORY ORDER`
 
 Example: `sort n increasing` +
 Displays the contact list sorted by name in forward alphabetical order.
+// end::sortfeatures[]
 
+// tag::findfeatures[]
 === Finding contact(s) by keyword(s) : `find` `[coming in v2.0]`
 
 Finds contact(s) whose information contains any of the keyword(s). +
@@ -141,6 +146,7 @@ Returns `James Lee` and `John James`
 Returns any contact having names `James`, `Tan`, or `Young`
 * `find a/Woodlands c/Landlord` +
 Returns any contact with address `Woodlands` and customer type `Landlord`
+// end::findfeatures[]
 
 === Selecting a contact : `select`
 
@@ -165,6 +171,7 @@ Selects the 1st contact in the results of the `find` command.
 `select 3` +
 Selects the 3rd contact in the sorted list displayed earlier.
 
+// tag::editfeatures[]
 === Editing a contact : `edit`
 
 Edits an existing contact and/or associated property (if any) in the address book, with 4 variants of customer types.
@@ -197,6 +204,7 @@ Example: `edit 2 n/James Lee p/87654321 rp/1700 t/MRT t/Park`
 Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
 Example: `edit 2 n/James Lee p/87654321 r/`
 ** Edits the name and phone number of the 2nd contact to be `James Lee` and `87654321` respectively and clears existing remarks.
+// end::editfeatures[]
 
 === Matching a contact to a property: `match` `[coming in v2.0]`
 
@@ -236,6 +244,7 @@ Deletes the 1st contact in the results of the `find` command.
 `delete 3` +
 Deletes the 3rd contact in the sorted list displayed earlier.
 
+// tag::pinunpinfeatures[]
 === Pinning a contact : `pin`
 
 Pins a contact. +
@@ -275,6 +284,7 @@ Example:
 
 * `unpin 1` +
 Unpins the 1st contact in the pinned list.
+// end::pinunpinfeatures[]
 
 // tag::archivefeatures[]
 === Archiving a contact : `archive`

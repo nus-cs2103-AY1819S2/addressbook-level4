@@ -44,33 +44,38 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters for buyer and tenant: INDEX (must be a positive integer) "
+    public static final String MESSAGE_USAGE_BUYER = "Parameters for buyer: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] " + "[" + PREFIX_PHONE + "PHONE] " + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_REMARK + "REMARK] \n"
-            + "Example for buyer and tenant: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 " + PREFIX_EMAIL + "johndoe@example.com"
-            + PREFIX_REMARK + "updated phone and email\n"
-            + "Parameters for seller: INDEX (must be a positive integer) "
+            + "Example for buyer: " + COMMAND_WORD + " 1 " + PREFIX_PHONE + "91234567 " + PREFIX_EMAIL
+            + "johndoe@example.com" + PREFIX_REMARK + "updated phone and email\n";
+
+    public static final String MESSAGE_USAGE_SELLER = "Parameters for seller: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] " + "[" + PREFIX_PHONE + "PHONE] " + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_REMARK + "REMARK] " + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_SELLINGPRICE + "SELLING_PRICE] " + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example for seller: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 " + PREFIX_EMAIL + "johndoe@example.com"
-            + PREFIX_ADDRESS + "Block 323 Clementi Road #11-12 "
-            + PREFIX_REMARK + "updated phone, email and address for property\n"
-            + "Parameters for landlord: INDEX (must be a positive integer) "
+            + "Example for seller: " + COMMAND_WORD + " 1 " + PREFIX_PHONE + "91234567 " + PREFIX_EMAIL
+            + "johndoe@example.com" + PREFIX_ADDRESS + "Block 323 Clementi Road #11-12 "
+            + PREFIX_REMARK + "updated phone, email and address for property\n";
+
+    public static final String MESSAGE_USAGE_LANDLORD = "Parameters for landlord: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] " + "[" + PREFIX_PHONE + "PHONE] " + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_REMARK + "REMARK] " + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_RENTALPRICE + "RENTAL_PRICE] " + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example for landlord: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 " + PREFIX_EMAIL + "johndoe@example.com"
-            + PREFIX_ADDRESS + "Block 323 Clementi Road #11-12 "
+            + "Example for landlord: " + COMMAND_WORD + " 1 " + PREFIX_PHONE + "91234567 " + PREFIX_EMAIL
+            + "johndoe@example.com" + PREFIX_ADDRESS + "Block 323 Clementi Road #11-12 "
             + PREFIX_REMARK + "updated phone, email and address for property\n";
 
+    public static final String MESSAGE_USAGE_TENANT = "Parameters for tenant: INDEX (must be a positive integer) "
+            + "[" + PREFIX_NAME + "NAME] " + "[" + PREFIX_PHONE + "PHONE] " + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_REMARK + "REMARK] \n"
+            + "Example for tenant: " + COMMAND_WORD + " 1 " + PREFIX_PHONE + "91234567 " + PREFIX_EMAIL
+            + "johndoe@example.com" + PREFIX_REMARK + "updated phone and email\n";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
+            + "by the index number used in the displayed person list. "
+            + "Existing values will be overwritten by the input values.\n"
+            + MESSAGE_USAGE_BUYER + MESSAGE_USAGE_SELLER + MESSAGE_USAGE_LANDLORD + MESSAGE_USAGE_TENANT;
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -102,8 +107,8 @@ public class EditCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+        //personToEdit.isSamePerson(editedPerson) ||
+        if (model.hasEditedPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 

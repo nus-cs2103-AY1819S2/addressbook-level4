@@ -35,6 +35,30 @@ public class Landlord extends Person {
         return property;
     }
 
+    /**
+     * Returns true if both landlords have the same identity and data fields.
+     * This defines a stronger notion of equality between two landlords.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Landlord)) {
+            return false;
+        }
+
+        Landlord otherLandlord = (Landlord) other;
+        return otherLandlord.getName().equals(getName())
+                && otherLandlord.getPhone().equals(getPhone())
+                && otherLandlord.getEmail().equals(getEmail())
+                && otherLandlord.getRemark().equals(getRemark())
+                && otherLandlord.getAddress().equals(getAddress())
+                && otherLandlord.getRentalPrice().equals(getRentalPrice())
+                && otherLandlord.getTags().equals(getTags());
+    }
+
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();

@@ -35,6 +35,30 @@ public class Seller extends Person {
         return property;
     }
 
+    /**
+     * Returns true if both sellers have the same identity and data fields.
+     * This defines a stronger notion of equality between two sellers.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Seller)) {
+            return false;
+        }
+
+        Seller otherSeller = (Seller) other;
+        return otherSeller.getName().equals(getName())
+                && otherSeller.getPhone().equals(getPhone())
+                && otherSeller.getEmail().equals(getEmail())
+                && otherSeller.getAddress().equals(getAddress())
+                && otherSeller.getSellingPrice().equals(getSellingPrice())
+                && otherSeller.getRemark().equals(getRemark())
+                && otherSeller.getTags().equals(getTags());
+    }
+
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();

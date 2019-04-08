@@ -87,6 +87,14 @@
     -fx-background-color: derive(#1a5276, 20%);
 }
 
+.list_title_label {
+    -fx-font-size: 15pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-padding: 1px;
+    -fx-pref-height: 10px;
+}
+
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;

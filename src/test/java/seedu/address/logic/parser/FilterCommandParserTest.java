@@ -52,18 +52,20 @@ public class FilterCommandParserTest {
     public void parse_invalidPrefixPair_failure() {
 
         // only beginning prefix is used
-        assertParseFailure(parser, AND_TYPE + MISSING_END_PREFIX_FILTER_ADDRESS, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, AND_TYPE + MISSING_END_PREFIX_FILTER_ADDRESS,
+                FilterCommandParser.MESSAGE_INPUT_NOT_IN_TRUE_FORM);
 
         // only ending prefix is used
-        assertParseFailure(parser, OR_TYPE + MISSING_BEGIN_PREFIX_FILTER_EMAIL, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, OR_TYPE + MISSING_BEGIN_PREFIX_FILTER_EMAIL,
+                FilterCommandParser.MESSAGE_INPUT_NOT_IN_TRUE_FORM);
 
         // false beginning and ending prefix couples are used
         assertParseFailure(parser, AND_TYPE + MISSING_END_PREFIX_FILTER_EDUCATION + PREFIX_FILTER_GPA_REVERSE,
-                MESSAGE_INVALID_FORMAT);
+                FilterCommandParser.MESSAGE_INPUT_NOT_IN_TRUE_FORM);
 
         // non-existing prefix is used
         assertParseFailure(parser, OR_TYPE + NON_EXISTING_PREFIX + "someText"
-                + NON_EXISTING_PREFIX_FILTER_REVERSE, MESSAGE_INVALID_FORMAT);
+                + NON_EXISTING_PREFIX_FILTER_REVERSE, FilterCommandParser.MESSAGE_INPUT_NOT_IN_TRUE_FORM);
     }
 
     // TODO: More test cases will be added

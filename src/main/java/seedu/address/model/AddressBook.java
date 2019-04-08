@@ -209,7 +209,7 @@ public class AddressBook implements ReadOnlyAddressBook {
                 }
             }
 
-            if(endorseCount != null && Integer.parseInt(endorseCount) > person.getEndorsementsNumber()) {
+            if (endorseCount != null && Integer.parseInt(endorseCount) > person.getEndorsementsNumber()) {
                 ifExcluded = true;
             }
 
@@ -277,7 +277,7 @@ public class AddressBook implements ReadOnlyAddressBook {
                 }
             }
 
-            if(endorseCount != null && Integer.parseInt(endorseCount) <= person.getEndorsementsNumber()) {
+            if (endorseCount != null && Integer.parseInt(endorseCount) <= person.getEndorsementsNumber()) {
                 ifIncluded = true;
             }
 

@@ -26,8 +26,8 @@ public class FilterCommand extends Command {
     public static final String MESSAGE_FILTER_REVERSE_SUCCESS = "The filtering is reversed.";
     public static final String MESSAGE_NOT_FILTERED = "Filtering is not successful!";
     public static final String MESSAGE_NO_FILTER_TO_CLEAR = "There is no filter to clear.";
-    public static final String MESSAGE_USAGE
-            = COMMAND_WORD + " or/and " + "prefix1<text>prefix1 [prefix2<text>prefix2] "
+    public static final String MESSAGE_USAGE =
+            COMMAND_WORD + " or/and " + "prefix1<text>prefix1 [prefix2<text>prefix2] "
             + "--- OR --- " + COMMAND_WORD + " clear/reverse \n"
             + "Examples: \n"
             + COMMAND_WORD + " or  " + PREFIX_FILTER_PHONE + "91234567" + PREFIX_FILTER_PHONE_REVERSE + " "

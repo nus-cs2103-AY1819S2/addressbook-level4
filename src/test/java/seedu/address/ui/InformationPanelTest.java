@@ -30,6 +30,7 @@ public class InformationPanelTest extends GuiUnitTest {
 
     @Before
     public void setUp() {
+        informationPanelSettings.setValue(new InformationPanelSettings());
         guiRobot.interact(() -> informationPanel = new InformationPanel(selectedMedicine, informationPanelSettings));
         uiPartRule.setUiPart(informationPanel);
 

@@ -62,6 +62,8 @@ public class ModelManager implements Model {
         medicinesExpiring = new FilteredList<>(versionedInventory.getSortedMedicineList(comparator));
         medicinesLowStock = new FilteredList<>(versionedInventory.getSortedMedicineList(comparator));
         configureWarningPanelLists();
+
+        informationPanelSettings.setValue(userPrefs.getInformationPanelSettings());
     }
 
     public ModelManager() {
@@ -106,6 +108,7 @@ public class ModelManager implements Model {
     @Override
     public void setInformationPanelSettings(InformationPanelSettings informationPanelSettings) {
         requireNonNull(informationPanelSettings);
+        userPrefs.setInformationPanelSettings(informationPanelSettings);
         this.informationPanelSettings.setValue(informationPanelSettings);
     }
 

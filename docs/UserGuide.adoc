@@ -747,7 +747,7 @@ The price you set will be used in your prescriptions.
 [TIP]
 Similar to buymed command, you can either provide the full path to your interested medicine or the name of it only.
 
-*Format:* `setprice [PATH_OF_MEDICNE] [PRICE]` +
+*Format:* `setprice [PATH_OF_MEDICINE] [PRICE]` +
 
 or `setprice [NAME_OF_MEDICINE] [PRICE]`
 
@@ -1255,7 +1255,7 @@ This is the summary of all the possible commands for QuickDocs. For detailed exp
 * *<<listmed>>* : `listmed` +
 * *<<alarm>>* : `alarm` +
 * *<<buymed>>* : `buymed` +
-* *<<setprice>>* : `setptice` +
+* *<<setprice>>* : `setprice` +
 
 *Appointment and Reminders* +
 

@@ -119,12 +119,11 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withMatricNumber(VALID_MATRICNUMBER_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withGender(VALID_GENDER_AMY).withYearOfStudy(VALID_YEAROFSTUDY_AMY)
                 .withMajor(VALID_MAJOR_AMY).withTags(VALID_TAG_SWIMMING).build();
 
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).withMatricNumber(VALID_MATRICNUMBER_BOB)
+        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withGender(VALID_GENDER_BOB).withYearOfStudy(VALID_YEAROFSTUDY_BOB).withMajor(VALID_MAJOR_BOB)
                 .withTags(VALID_TAG_RUNNING, VALID_TAG_SWIMMING).build();

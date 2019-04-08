@@ -47,9 +47,7 @@ public class DateOfBirth {
                 matcher.reset();
 
                 if (matcher.find()) {
-
                     return DateOfBirth.checksDob(matcher, currentDate);
-                    
                 } else {
                     return new Pair<>(false, "Date of birth in wrong format.");
                 }

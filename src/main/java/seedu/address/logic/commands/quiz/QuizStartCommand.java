@@ -106,7 +106,7 @@ public class QuizStartCommand extends ManagementCommand {
         boolean lessonExist = false;
         Lesson lesson = new Lesson("default", List.of("q", "a"), List.of());
         for (int i = 0; i < lessons.size(); i++) {
-            if (lessons.get(i).getName().toUpperCase().equals(this.session.getName().toUpperCase())) {
+            if (lessons.get(i).getName().equalsIgnoreCase(this.session.getName().toUpperCase())) {
                 lesson = mgtModel.getLesson(i);
                 lessonExist = true;
                 break;

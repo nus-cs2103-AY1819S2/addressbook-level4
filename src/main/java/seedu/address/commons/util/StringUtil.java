@@ -40,6 +40,33 @@ public class StringUtil {
     }
 
     /**
+     * Returns true if the {@code sentence} equals the {@code word}.
+     * Ignores case, but a full word match is required.
+     * <br>examples:<pre>
+     *       equalsWordIgnoreCase("ABc def", "abc") == false
+     *       equalsWordIgnoreCase("ABc def", "DEF") == false
+     *       equalsWordIgnoreCase("ABc def", "ABc def") == true
+     *       </pre>
+     *
+     * @param sentence cannot be null
+     * @param word     cannot be null, cannot be empty, must be a single word
+     */
+    public static boolean equalsWordIgnoreCase(String sentence, String word) {
+        requireNonNull(sentence);
+        requireNonNull(word);
+
+        String preppedWord = word.trim();
+        checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
+        checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
+
+        String preppedSentence = sentence;
+        String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
+
+        return Arrays.stream(wordsInPreppedSentence)
+                .allMatch(preppedWord::equalsIgnoreCase);
+    }
+
+    /**
      * Returns true if the {@code sentence} contains the {@code word}.
      * Ignores case, a full word match is not required.
      * <br>examples:<pre>

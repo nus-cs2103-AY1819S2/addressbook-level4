@@ -3,9 +3,11 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
@@ -41,6 +43,16 @@ public class UiManager implements Ui {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
+
+            Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+            double screenMaxX = (primaryScreenBounds.getMaxX() < 1000)
+                    ? primaryScreenBounds.getMaxX() - 80 : 1000;
+            double screenMaxY = (primaryScreenBounds.getMaxY() < 1000)
+                    ? primaryScreenBounds.getMaxY() - 80 : 700;
+
+            mainWindow.getPrimaryStage().setMinWidth(screenMaxX);
+            mainWindow.getPrimaryStage().setMinHeight(screenMaxY);
+            mainWindow.getPrimaryStage().setMaximized(true);
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));

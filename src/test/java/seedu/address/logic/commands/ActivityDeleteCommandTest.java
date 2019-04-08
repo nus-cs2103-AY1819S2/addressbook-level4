@@ -4,8 +4,8 @@ import static org.junit.Assert.assertFalse;
 //import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-//import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-//import static seedu.address.logic.commands.CommandTestUtil.showActivityAtIndex;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.showActivityAtIndex;
 import static seedu.address.testutil.TypicalActivities.getTypicalAddressBookWithActivities;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ACTIVITY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ACTIVITY;
@@ -18,7 +18,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-//import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.Activity;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -29,7 +29,6 @@ public class ActivityDeleteCommandTest {
     private Model model = new ModelManager(getTypicalAddressBookWithActivities(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
-    /**
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Activity activityToDelete = model.getFilteredActivityList().get(INDEX_FIRST_ACTIVITY.getZeroBased());
@@ -43,7 +42,7 @@ public class ActivityDeleteCommandTest {
 
         assertCommandSuccess(activityDeleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
-    */
+
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredActivityList().size() + 1);
@@ -52,7 +51,7 @@ public class ActivityDeleteCommandTest {
         assertCommandFailure(activityDeleteCommand, model, commandHistory,
                 Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
     }
-    /**
+
     @Test
     public void execute_validIndexFilteredList_success() {
         showActivityAtIndex(model, INDEX_FIRST_ACTIVITY);
@@ -103,7 +102,7 @@ public class ActivityDeleteCommandTest {
         expectedModel.redoAddressBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
-    */
+
 
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
@@ -126,7 +125,7 @@ public class ActivityDeleteCommandTest {
      * unfiltered list is different from the index at the filtered list.
      * 4. Redo the deletion. This ensures {@code RedoCommand} deletes the activity object regardless of indexing.
      */
-    /**
+
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameActivityDeleted() throws Exception {
         ActivityDeleteCommand activityDeleteCommand = new ActivityDeleteCommand(INDEX_FIRST_ACTIVITY);
@@ -140,16 +139,8 @@ public class ActivityDeleteCommandTest {
         // delete -> deletes second activity in unfiltered activity list / first activity in filtered activity list
         activityDeleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered activity list to show all activities
-        expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
-
-        assertNotEquals(activityToDelete, model.getFilteredActivityList().get(INDEX_FIRST_ACTIVITY.getZeroBased()));
-        // redo -> deletes same second activity in unfiltered activity list
-        expectedModel.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
-    */
+
     @Test
     public void equals() {
         ActivityDeleteCommand deleteFirstCommand = new ActivityDeleteCommand(INDEX_FIRST_ACTIVITY);

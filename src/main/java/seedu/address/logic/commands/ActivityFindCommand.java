@@ -3,15 +3,12 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ACTIVITYNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ALL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
-
-import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.ActivityContainsKeywordsPredicate;
 
 /**
  * Finds and lists all activities in address book whose name contains any of the argument keywords.
@@ -23,16 +20,15 @@ public class ActivityFindCommand extends ActivityCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all activities whose attribute contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "The attributes that activityFind search for is specified by the prefix input by the user.\n"
-            + "Parameters: PREFIX KEYWORD [MORE_KEYWORDS]...\n"
-            + "The provided PREFIX includes " + PREFIX_ALL + " (all attributes), "
-            + PREFIX_ACTIVITYNAME + " (ActivityName), " + PREFIX_ADESCRIPTION + " (ActivityDescription) and "
-            + PREFIX_LOCATION + " (ActivityLocation)." + "\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_ALL + " cohesion dance outing";
-    public static final String MESSAGE_MULTIPLE_PREFIXES = "Only one prefix at a time is allowed.";
+            + "Parameters: [PREFIX] KEYWORD [MORE_KEYWORDS] [NEXT_PREFIX] [KEYWORDS] ...\n"
+            + "The provided PREFIX includes " + PREFIX_ACTIVITYNAME + " (ActivityName), "
+            + PREFIX_ADESCRIPTION + " (ActivityDescription) and " + PREFIX_LOCATION + " (ActivityLocation)." + "\n"
+            + "If no prefix is provided, all the attributes mentioned above will be searched. \n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_ACTIVITYNAME + " cohesion dance outing";
 
-    private final Predicate<Activity> predicate;
+    private final ActivityContainsKeywordsPredicate predicate;
 
-    public ActivityFindCommand(Predicate<Activity> predicate) {
+    public ActivityFindCommand(ActivityContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 

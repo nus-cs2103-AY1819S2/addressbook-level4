@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 import javafx.beans.InvalidationListener;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.activity.Activity;
@@ -265,6 +266,54 @@ public class AddressBook implements ReadOnlyAddressBook {
             }
         }
     }
+
+    /**
+     * Get the activities attended by this {@code Person}.
+     */
+    public ObservableList<Activity> getActivitiesOfPerson(Person key) {
+        UniqueActivityList attending = new UniqueActivityList();
+        for (Activity activity: activities) {
+            if (isPersonAttending(key, activity)) {
+                attending.add(activity);
+            }
+        }
+        return attending.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Get the person in the attendance from this {@code AddressBook}.
+     */
+    public ObservableList<Person> getAttendingFromActivity(Activity key) {
+        ObservableList<Person> attending = FXCollections.observableArrayList();
+        List<MatricNumber> matricAttending = key.getAttendance();
+        for (MatricNumber matric: matricAttending) {
+            if (hasMatricNumber(matric)) {
+                attending.add(getPersonWithMatricNumber(matric));
+            }
+        }
+        return attending;
+    }
+
+    /**
+     * Get the list of Person not attending an activity from this {@code AddressBook}.
+     */
+    public ObservableList<Person> getPeronNotAttending(Activity key) {
+        UniquePersonList notAttending = new UniquePersonList();
+        for (Person person: persons) {
+            if (!isPersonAttending(person, key)) {
+                notAttending.add(person);
+            }
+        }
+        return notAttending.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Returns a boolean of whether a person is attending the given {@code Activity}.
+     */
+    public boolean isPersonAttending(Person person, Activity activity) {
+        return activity.isMatricAttending(person.getMatricNumber());
+    }
+
 
     //// util methods
 

@@ -43,6 +43,12 @@ public class ActivityAddCommandParser implements Parser<ActivityAddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ActivityAddCommand.MESSAGE_USAGE));
         }
 
+        if (areDuplicatedPrefixesPresent(argMultimap, PREFIX_ACTIVITYNAME, PREFIX_DATETIME, PREFIX_LOCATION,
+                PREFIX_ADESCRIPTION)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ActivityAddCommand.MESSAGE_DUPLICATED_PREFIXES));
+        }
+
         ActivityName name = ParserUtil.parseActivityName(argMultimap.getValue(PREFIX_ACTIVITYNAME).get());
         ActivityDateTime datetime = ParserUtil.parseActivityDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
         ActivityLocation location = ParserUtil.parseActivityLocation(argMultimap.getValue(PREFIX_LOCATION).get());
@@ -67,5 +73,14 @@ public class ActivityAddCommandParser implements Parser<ActivityAddCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
+
+
+    /**
+     * Returns true if there are duplicated prefixes  in the given {@code ArgumentMultimap}.
+     */
+    private static boolean areDuplicatedPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getAllValues(prefix).size() > 1);
+    }
+
 
 }

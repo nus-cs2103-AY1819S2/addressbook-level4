@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -33,6 +34,9 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
     private final FilteredList<Activity> filteredActivities;
     private final SimpleObjectProperty<Activity> selectedActivity = new SimpleObjectProperty<>();
+    private final ObservableList<Person> personAttendingActivity = FXCollections.observableArrayList();
+    private final ObservableList<Person> personNotAttendingActivity = FXCollections.observableArrayList();
+    private final ObservableList<Activity> activitiesAttendedByMember = FXCollections.observableArrayList();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -49,6 +53,7 @@ public class ModelManager implements Model {
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
         filteredActivities = new FilteredList<>(versionedAddressBook.getActivityList());
         filteredActivities.addListener(this::ensureSelectedActivityIsValid);
+
     }
 
     public ModelManager() {
@@ -241,7 +246,9 @@ public class ModelManager implements Model {
     @Override
     public void resetLists() {
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        setSelectedPerson(null);
         updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
+        setSelectedActivity(null);
     }
 
     //=========== Selected person ===========================================================================
@@ -271,6 +278,11 @@ public class ModelManager implements Model {
             throw new PersonNotFoundException();
         }
         selectedPerson.setValue(person);
+        if (person == null) {
+            activitiesAttendedByMember.clear();
+        } else {
+            activitiesAttendedByMember.setAll(versionedAddressBook.getActivitiesOfPerson(person));
+        }
     }
 
     /**
@@ -338,6 +350,28 @@ public class ModelManager implements Model {
             throw new ActivityNotFoundException();
         }
         selectedActivity.setValue(activity);
+        if (activity == null) {
+            personNotAttendingActivity.clear();
+            personAttendingActivity.clear();
+        } else {
+            personAttendingActivity.setAll(versionedAddressBook.getAttendingFromActivity(activity));
+            personNotAttendingActivity.setAll(versionedAddressBook.getPeronNotAttending(activity));
+        }
+    }
+
+    @Override
+    public ObservableList<Person> getAttendingOfSelectedActivity() {
+        return personAttendingActivity;
+    }
+
+    @Override
+    public ObservableList<Person> getPersonNotInSelectedActivity() {
+        return personNotAttendingActivity;
+    }
+
+    @Override
+    public ObservableList<Activity> getActivitiesOfPerson() {
+        return activitiesAttendedByMember;
     }
 
     /**
@@ -357,6 +391,7 @@ public class ModelManager implements Model {
                 // Update selectedActivity to its new value.
                 int index = change.getRemoved().indexOf(selectedActivity.getValue());
                 selectedActivity.setValue(change.getAddedSubList().get(index));
+                logger.fine(personAttendingActivity.stream().toString());
                 continue;
             }
 
@@ -366,6 +401,7 @@ public class ModelManager implements Model {
                 // Select the activity that came before it in the list,
                 // or clear the selection if there is no such activity.
                 selectedActivity.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+
             }
         }
     }
@@ -375,10 +411,12 @@ public class ModelManager implements Model {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
+    @Override
     public void removeMemberFromAllAttendance(MatricNumber matricNumber) {
         requireNonNull(matricNumber);
         versionedAddressBook.removeMemberFromAllAttendance(matricNumber);
     }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -397,7 +435,9 @@ public class ModelManager implements Model {
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
-                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
+                && filteredActivities.equals(other.filteredActivities)
+                && Objects.equals(selectedPerson.get(), other.selectedPerson.get())
+                && Objects.equals(selectedActivity.get(), other.selectedActivity.get());
     }
 
 }

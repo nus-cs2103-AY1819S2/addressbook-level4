@@ -32,8 +32,8 @@ public class AddMedHistCommand extends Command {
             + PREFIX_DATE_OF_MEDHIST + "DATE "
             + PREFIX_WRITEUP + "SHORT-WRITE-UP \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_PATIENT_ID + "an pid from the patient list "
-            + PREFIX_DOCTOR_ID + "an did from the doctor list "
+            + PREFIX_PATIENT_ID + "1 "
+            + PREFIX_DOCTOR_ID + "7 "
             + PREFIX_DATE_OF_MEDHIST + "2019-03-02 "
             + PREFIX_WRITEUP + "The patient got a fever.";
     public static final String MESSAGE_SUCCESS = "New medical history added: %1$s";

@@ -189,6 +189,10 @@ public class MainApp extends Application {
         Optional<LessonList> prefsOptional = storage.readLessonList();
         initializedLessonList = prefsOptional.orElse(SampleDataUtil.getSampleBrainTrain());
 
+        if (initializedLessonList.getLessons().size() == 0) {
+            initializedLessonList = SampleDataUtil.getSampleBrainTrain();
+        }
+
         logger.info(initializedLessonList.getLessons().size() + " lessons loaded.");
         return initializedLessonList;
     }

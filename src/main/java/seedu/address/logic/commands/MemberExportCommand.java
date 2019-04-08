@@ -43,7 +43,7 @@ public class MemberExportCommand extends MemberCommand {
         }
 
         Person exportPerson = model.generateExportedPerson(filteredPersonList.get(targetIndex.getZeroBased()));
-        ExportUtil.exportPersonToFile(exportPerson);
+        ExportUtil.exportPerson(exportPerson);
 
 
         return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));

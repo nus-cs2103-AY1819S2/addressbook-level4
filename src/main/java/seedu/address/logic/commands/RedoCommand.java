@@ -51,6 +51,7 @@ public class RedoCommand extends Command {
         Command command = currentEdit.getCommandTemp();
         command.execute(currentEdit, model, history);
         currentEdit.setRedoTemp();
+        currentEdit.updateHistory();
 
         currentEdit.displayTempImage();
 

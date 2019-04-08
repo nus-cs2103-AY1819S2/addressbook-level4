@@ -62,13 +62,13 @@ _{to add/remove categories in the list above once our coding is completed}_
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
-include::../UserGuide.adoc[tag= A Walk Through]
+include::../UserGuide.adoc[tag= AWalkThrough]
 
-include::../UserGuide.adoc[tag=Rotate Command]
+include::../UserGuide.adoc[tag=CropCommand]
 
-include::../UserGuide.adoc[tag= Crop Command]
+include::../UserGuide.adoc[tag=ResizeCommand]
 
-include::../UserGuide.adoc[tag= Resize Command]
+include::../UserGuide.adoc[tag=RotateCommand]
 
 == Contributions to the Developer Guide
 
@@ -76,13 +76,11 @@ include::../UserGuide.adoc[tag= Resize Command]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag= Architecture]
+include::../DeveloperGuide.adoc[tag=Architecture]
 
-include::../DeveloperGuide.adoc[tag=Image Manipulation]
+include::../DeveloperGuide.adoc[tag=ImageManipulation]
 
 
 == PROJECT: PowerPointLabs
 
 ---
-
-_{Optionally, you may include other projects in your portfolio.}_

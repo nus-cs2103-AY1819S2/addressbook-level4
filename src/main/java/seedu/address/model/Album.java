@@ -1,6 +1,8 @@
 /* @@author Carrein */
 package seedu.address.model;
 
+import static seedu.address.commons.core.Config.ASSETS_FOLDER_TEMP_NAME;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class Album {
     // Represents a singleton copy of the Album.
     private static Album instance = null;
     // Represents the Storage path of assets folder for all raw images.
-    private final String assetsFilepath = "src/main/resources/assets/";
+    private final String assetsFilepath;
     // Represents an ArrayList of image available in assets folder.
     private List<Image> imageList = new ArrayList<>();
 
@@ -31,7 +33,7 @@ public class Album {
      * Checks if asset folder exists, creates it if it does not and populates the Album.
      */
     public Album() {
-        assetExist();
+        assetsFilepath = generateAssets();
         populateAlbum();
     }
 
@@ -56,15 +58,25 @@ public class Album {
         return imageList;
     }
 
+    public String getAssetsFilepath() {
+        return assetsFilepath;
+    }
+
     /**
-     * Checks if an asset folder exists on Album construction.
-     * Creates a new asset folder if one does not exist.
+     * Generates a temp assets folder in the system to store imported images.
+     * Temp assets folder is deleted on termination of the program by means of shutdown hook.
+     *
+     * @return Absolute path to generated temp folder.
      */
-    public void assetExist() {
-        File assetFolder = new File(assetsFilepath);
-        if (!assetFolder.exists()) {
-            assetFolder.mkdir();
+    public String generateAssets() {
+        String tempPath = null;
+        String tDir = System.getProperty("java.io.tmpdir") + ASSETS_FOLDER_TEMP_NAME;
+        File assetsFolder = new File(tDir);
+        tempPath = assetsFolder.getAbsolutePath() + File.separator;
+        if (!assetsFolder.exists()) {
+            assetsFolder.mkdir();
         }
+        return tempPath;
     }
 
     /**
@@ -104,6 +116,7 @@ public class Album {
      */
     public boolean checkFileExist(String args) {
         File file = new File(assetsFilepath + args);
+        System.out.println(file.getAbsolutePath());
         return (file.isFile());
     }
 

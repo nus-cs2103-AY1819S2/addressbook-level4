@@ -34,7 +34,7 @@ image::Ui.png[width="800"]
 +
 .  And you have just started up FomoFoto on your device! You can refer to <<Features>> for details of each command. If you would like a step-by-step walk through of our application, scroll down to the next section: A Walk Through.
 
-
+// tag::AWalkThrough[]
 == A Walk Through
 Let's start on our image editing journey. In this walk through, we will be demonstrating some simple commands to edit a sample image.
 
@@ -100,6 +100,8 @@ image::brightnessSuccess.PNG[width="917"]
 image::cropSuccess.PNG[width="918"]
 +
 
+// end::AWalkThrough[]
+
 .  Save your edits by typing command: `save`.
 
 [[Features]]
@@ -152,6 +154,7 @@ Examples:
 * `contrast 0.3` (reduces contrast)
 // end::ContrastCommand[]
 
+// tag::CropCommand[]
 === Crop an image : `crop`
 
 Crops an image based on given top left hand corner coordinates, width and height of final cropped image wanted. +
@@ -164,6 +167,8 @@ Format: `crop X_POINTCOORD Y_POINTCOORD WIDTH HEIGHT`
 Example:
 
 * `crop 2 3 500 500`
+
+// end::CropCommand[]
 
 === Exit the program : `exit`
 
@@ -192,6 +197,7 @@ Example:
 
 * `import Users/Fomo/Pictures/sample.jpg`
 
+// tag::ListAndOpen[]
 === List Files: `listfiles`
 
 Lists all files in assets folder. +
@@ -205,7 +211,9 @@ Format: `open FILENAME`
 Example:
 
 * `open sample.jpg`
+// end::ListAndOpen[]
 
+//tag ::Redo[]
 === Redo edit steps : `redo`
 
 Returns to a previously undone state. +
@@ -229,7 +237,9 @@ Examples:
 `undo` (reverses the `contrast 0.3`) +
 `redo` (runs `contrast 0.3` command again) +
 `redo` (runs `crop 2 3 500 500` command again)
+// end::Redo[]
 
+// tag::RotateCommand[]
 === Rotate an image : `rotate`
 
 Rotates the photo by a given degree provided by the user. Only 90, 180 or 270 degrees of rotation is allowed. +
@@ -238,7 +248,9 @@ Format: `rotate ANGLE`
 Example:
 
 * `rotate 90`
+// end::RotateCommand[]
 
+// tag::ResizeCommand[]
 === Resize an image : `resize`
 
 Resizes the photo to a given width and height provided by the user. +
@@ -247,7 +259,9 @@ Format: `resize WIDTH HEIGHT`
 Example:
 
 * `resize 100 200`
+// end::ResizeCommand[]
 
+// tag::UserSave[]
 === Save image : `save`
 
 Applies and saves your edits. +
@@ -256,7 +270,9 @@ Format: `save` or `save FILENAME`
 Example:
 
 * `save MyNewImage.png`
+// end::UserSave[]
 
+// tag::Undo[]
 === Undo edit steps : `undo`
 
 Goes back to the previous state of the image. +
@@ -277,7 +293,9 @@ Examples:
 `crop 2 3 500 500` +
 `undo` (reverses the `crop 2 3 500 500` command +
 `undo` (reverses the `contrast 0.3`)
+// end::Undo[]
 
+// tag::UpcomingFeatures[]
 == Upcoming Features (in v2.0)
 
 === Layer

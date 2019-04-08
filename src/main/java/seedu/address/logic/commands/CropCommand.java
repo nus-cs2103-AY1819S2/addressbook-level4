@@ -20,9 +20,8 @@ public class CropCommand extends Command {
     public static final String COMMAND_WORD = "crop";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Crop the image according to the coordinates given.\n"
+            + ": Crop the image according to the coordinates given. All values to be integer/whole numbers only.\n"
             + "Parameters: X-COORDINATE Y-COORDINATE WIDTH HEIGHT \n"
-            + "All values to be integer/whole numbers only. \n"
             + "Example: " + COMMAND_WORD + " 0 0 200 200";
     private int xCoord;
     private int yCoord;
@@ -31,6 +30,9 @@ public class CropCommand extends Command {
     private boolean isNewCommand;
 
     public CropCommand(int x, int y, int width, int height) {
+        setCommandName(COMMAND_WORD);
+        String argument = x + " : " + y + " : " + width + " : " + height;
+        setArguments(argument);
         xCoord = x;
         yCoord = y;
         this.width = width;

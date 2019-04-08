@@ -29,6 +29,7 @@ public class DeleteCommand extends Command {
     private final Index targetIndex;
 
     public DeleteCommand(Index targetIndex) {
+        setCommandName(COMMAND_WORD);
         this.targetIndex = targetIndex;
     }
 

@@ -15,13 +15,13 @@ public class TabCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Switches between tabs in the information panel.";
 
-    public static final String MESSAGE_SUCCESS = "Tab switched.";
+    public static final String MESSAGE_TAB_SUCCESS = "Tab switched.";
 
     private final Album album = Album.getInstance();
 
     @Override
     public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history) {
         album.switchTab();
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_TAB_SUCCESS);
     }
 }

@@ -83,14 +83,11 @@ dependencies {
     compile group: 'com.sksamuel.scrimage', name: 'scrimage-core_2.12', version: '3.0.0-alpha4'
     // https://mvnrepository.com/artifact/com.sksamuel.scrimage/scrimage-filters
     compile group: 'com.sksamuel.scrimage', name: 'scrimage-filters_2.12', version: '3.0.0-alpha4'
-
-
-
+    compile 'com.google.guava:guava:27.1-jre'
 }
 
 shadowJar {
     archiveName = 'addressbook.jar'
-
     destinationDir = file("${buildDir}/jar/")
 }
 

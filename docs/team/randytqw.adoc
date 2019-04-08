@@ -1,0 +1,68 @@
+= Tan Qun Wei Randy - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: FomoFoto
+
+---
+
+== Overview
+
+My team and I were tasked with enhancing a basic command line addressbook for our Software Engineering project. We decided to morph the project into a image editor. +
+
+FomoFoto is a robust yet simple image-editing tool. Users interact with the application through worded commands from their keyboard, and receive visual feedback from it through the displayed image on the application. +
+
+Unlike other heavy image editors, FomoFoto has a very gentle learning curve as it abstracts out clutter by providing the more essential features (complex editing can still be done with special commands). The features and implementations are well documented in guides for users and developers respectively.
+
+In addition, FomoFoto is well maintained with high reliability and code quality as it is covered by rigorous tests and checks.
+
+== Summary of contributions
+This section provides a summary of my coding, documentation and other contributions to FomoFoto, our team project.
+
+* *Major enhancement*: added *the ability to undo/redo transformations on an image*
+
+** What it does: allows the user to undo previous transformations one at a time. Preceding undone transformations can be reversed by using the redo command.
+
+** Justification: This feature improves the product significantly because a user can make mistakes by applying incorrect transformations and the app should provide a convenient way to rectify them.
+
+** Highlights: Transformation history is stored as a list of commands so it takes up minimal space on the user's PC.
+
+* *Code contributed*: [https://github.com/CS2103-AY1819S2-W14-2/main/commits?author=randytqw[List of commits]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed release `v1.3` (1 release) on GitHub
+** Documentation:
+*** Wrote detailed documentation on undo/redo command in developer guide https://github.com/CS2103-AY1819S2-W14-2/main/pull/138[#138]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W14-2/main/pull/141[#141]
+
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=Undo]
+
+include::../UserGuide.adoc[tag=Redo]
+
+include::../UserGuide.adoc[tag=UpcomingFeatures]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+
+== PROJECT: PowerPointLabs

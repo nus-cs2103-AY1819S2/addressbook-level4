@@ -20,13 +20,18 @@ public class RotateCommandParser implements Parser<RotateCommand> {
         try {
             args = args.trim();
             String[] parsed = args.split(" ");
+            if (parsed.length > 1) {
+                throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                        RotateCommand.MESSAGE_USAGE));
+            }
             String deg = parsed[0];
             int degree = Integer.parseInt(deg);
             return new RotateCommand(degree);
         } catch (NumberFormatException e) {
             throw new ParseException(Messages.MESSAGE_ROTATE_DEGREE_ERROR);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ParseException(RotateCommand.MESSAGE_USAGE);
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    RotateCommand.MESSAGE_USAGE));
         }
     }
 }

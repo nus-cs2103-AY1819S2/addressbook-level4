@@ -32,7 +32,7 @@ public class Doctor extends Person {
     /**
      * This is an existing doctor and does not need to generate a new ID.
      */
-    public Doctor(int id, Name name, Phone phone, Gender gender, Year year, Set<Specialisation> specList) {
+    public Doctor(PersonId id, Name name, Phone phone, Gender gender, Year year, Set<Specialisation> specList) {
         super(id, name, phone, gender);
         requireAllNonNull(name, phone, gender);
         this.year = year;

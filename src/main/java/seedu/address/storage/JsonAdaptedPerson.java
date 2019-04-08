@@ -7,6 +7,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonId;
 import seedu.address.model.person.Phone;
 
 /**
@@ -54,7 +55,14 @@ class JsonAdaptedPerson {
      */
 
     public Person toModelType() throws IllegalValueException {
-
+        if (id == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    PersonId.class.getSimpleName()));
+        }
+        if (!PersonId.isValidPersonId(id)) {
+            throw new IllegalValueException(PersonId.MESSAGE_CONSTRAINTS);
+        }
+        final PersonId modelId = new PersonId(id);
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -79,7 +87,11 @@ class JsonAdaptedPerson {
         }
         final Gender modelGender = new Gender(gender);
 
-        return new Person(modelName, modelPhone, modelGender);
+        return new Person(modelId, modelName, modelPhone, modelGender);
+    }
+
+    protected String getId() {
+        return id;
     }
 
     protected String getName() {

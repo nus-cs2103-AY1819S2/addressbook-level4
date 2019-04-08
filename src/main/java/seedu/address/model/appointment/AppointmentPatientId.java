@@ -3,15 +3,17 @@ package seedu.address.model.appointment;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import seedu.address.model.person.PersonId;
+
 /**
  * Represents an appointment's patient ID.
  * Guarantees: immutable; is valid as declared in {@link #isValidAppointmentPatientId(String)}
  */
-public class AppointmentPatientId {
+public class AppointmentPatientId extends PersonId {
     public static final String MESSAGE_CONSTRAINTS =
             "Patient ID must a positive number.";
 
-    public final int patientId;
+    public final PersonId patientId;
 
     /**
      * Constructs a {@code AppointmentPatientId}.
@@ -19,29 +21,17 @@ public class AppointmentPatientId {
      * @param patientId a valid patient ID.
      */
     public AppointmentPatientId(String patientId) {
+        super(patientId);
         requireNonNull(patientId);
         checkArgument(isValidAppointmentPatientId(patientId), MESSAGE_CONSTRAINTS);
-        this.patientId = Integer.parseInt(patientId);
+        this.patientId = new PersonId(patientId);
     }
 
     /**
      * Returns true if a given string is a valid appointment patient ID.
      */
     public static boolean isValidAppointmentPatientId(String test) {
-        int positiveNumber;
-        try {
-            positiveNumber = Integer.parseInt(test);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-
-        if (positiveNumber > 0) {
-
-            return true;
-
-        } else {
-            return false;
-        }
+        return PersonId.isValidPersonId(test);
     }
 
     @Override
@@ -53,12 +43,12 @@ public class AppointmentPatientId {
 
     @Override
     public int hashCode() {
-        return Integer.hashCode(patientId);
+        return patientId.hashCode();
     }
 
 
     @Override
     public String toString() {
-        return Integer.toString(patientId);
+        return patientId.toString();
     }
 }

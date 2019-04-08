@@ -84,7 +84,7 @@ class JsonSerializableDocX {
             if (docX.hasAppointment(appointment)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
             }
-            //System.out.println(appointment);
+
             docX.addAppointment(appointment);
         }
 

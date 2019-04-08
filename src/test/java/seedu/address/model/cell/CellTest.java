@@ -1,6 +1,7 @@
 package seedu.address.model.cell;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -46,5 +47,11 @@ public class CellTest {
 
     @Test
     public void equals() {
+        Cell firstCell = new Cell(new Coordinates(0, 0));
+        Cell secondCell = new Cell(new Coordinates(0, 0));
+        Cell diffCoordCell = new Cell(new Coordinates(0, 1));
+
+        assertEquals(firstCell, secondCell);
+        assertNotEquals(firstCell, diffCoordCell);
     }
 }

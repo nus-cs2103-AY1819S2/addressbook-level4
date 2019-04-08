@@ -27,6 +27,7 @@ public class ActivityDeleteMemberCommand extends ActivityCommand {
 
     public static final String MESSAGE_ACTIVITY_DELETE_MEMBER_SUCCESS = "Successfully removed member from "
             + "selected Activity: %1$s";
+    public static final String MESSAGE_DUPLICATE_ACTIVITY = "This activity already exists in the address book.";
 
     private final Index targetIndex;
     private final MatricNumber targetMatric;
@@ -54,10 +55,18 @@ public class ActivityDeleteMemberCommand extends ActivityCommand {
         } else if (!selectedActivity.hasPersonInAttendance(targetMatric)) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_IN_ACTIVITY);
         }
-        selectedActivity.removeMemberFromActivity(targetMatric);
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_ACTIVITY_DELETE_MEMBER_SUCCESS, targetIndex.getOneBased()));
 
+        Activity copyActivity = Activity.removeMemberFromActivity(selectedActivity, targetMatric);
+
+        if (!selectedActivity.isSameActivity(copyActivity) && model.hasActivity(copyActivity)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY);
+        }
+
+        model.setActivity(selectedActivity, copyActivity);
+        model.updateFilteredActivityList(Model.PREDICATE_SHOW_ALL_ACTIVITIES);
+        model.commitAddressBook();
+
+        return new CommandResult(String.format(MESSAGE_ACTIVITY_DELETE_MEMBER_SUCCESS, targetIndex.getOneBased()));
     }
 
     @Override

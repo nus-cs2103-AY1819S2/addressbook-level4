@@ -255,6 +255,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Removes {@code matricNumber} from all existing attendance lists in the activity list.
+     * {@code matricNumber} must exist in the address book.
+     */
+    public void removeMemberFromAllAttendance(MatricNumber matricNumber) {
+        for (Activity activity : activities) {
+            if (activity.hasPersonInAttendance(matricNumber)) {
+                Activity copyActivity = Activity.removeMemberFromActivity(activity, matricNumber);
+                setActivity(activity, copyActivity);
+            }
+        }
+    }
+
+    /**
      * Get the person in the attendance from this {@code AddressBook}.
      */
     public ObservableList<Person> getAttendingFromActivity(Activity key) {

@@ -615,7 +615,7 @@ Visits website entered by user.
 
 The following activity diagram and sequence diagram shows how the visitWeb `weblink` works:
 
-image::VisitWebUrlActivityDiagram.png[width="800"]
+image::VisitWebUrlActivityDiagram.png[width="400"]
 image::VisitWebUrlSequenceDiagram.png[width="800"]
 
 ==== Enhancements

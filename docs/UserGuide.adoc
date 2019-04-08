@@ -64,19 +64,25 @@ Format: `help`
 === Adding a person: `add`
 
 Adds a candidate to Recruit Me +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [skill/TAG]... [position/TAG]...`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL  d/EDUCATION g/GPA a/ADDRESS [skill/TAG]... [position/TAG]...`
 
 [TIP]
-A candidate can have any number of skill tags (including 0)
+* Name can have any character from English alphabet and also it can have `space`
+* Phone Number has to be in 8 digits
+* Email should be in the format of `[ANY NUMBER OF ASCII CHARACTERS MORE THAN 0]@[EXTENSION1].[EXTENSION2]`
+* Education can take character from English alphabet and also it can have `space`
+* GPA can take any float value between 0.0 and 4.0
+* A candidate can have any number of skill/position tags (including 0)
+
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe skill/statistics e/betsycrowe@example.com a/Newgate Prison p/1234567 skill/Java position/UIDeveloper`
+* `add n/John Doe p/98765432 e/johnd@example.com d/NUS g/3.4 a/John street, block 123, #01-01`
+* `add n/Betsy Crowe skill/statistics e/betsycrowe@example.com d/NTU g/2.4 a/Newgate Prison p/1234567 skill/Java position/UIDeveloper`
 
 === Listing all persons : `list`
 
-Shows a list of all candidates in Recruit Me. +
+Shows a list of all candidates in Recruit Me. If there is a filtering available, it lists all the persons that passes all the filtering conditions. +
 Format: `list`
 
 === Editing a person : `edit`
@@ -100,22 +106,32 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 n/Betsy Crower skill/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
+// tag::filter[]
 === Clearing the filter in Recruit Me: `filter clear`
 It clears all the filters in the applicant pool. +
 Format: `filter clear`
 
-// tag::filter[]
+=== Reversing the filter in Recruit Me: `filter reverse`
+It reverses all the filtering conditions and show the eliminated ones. +
+Format: `filter reverse`
+
 === Filtering Recruit Me: `filter`
 It filters the current applicant pool regarding the existing entities of every single person (name, phone, email, address or skills). +
-Format: `filter or/and [n/NAME/n] [p/PHONE/p] [e/EMAIL/e] [g/GPA/g] [d/EDUCATION/d]  [skill/ SKILL1, SKILL2, ... /skill][position/ POSITION1, POSITION2, ... /position]`
+Format: `filter or/and [name<NAME>name] [phone<PHONE>phone] [email<EMAIL>email] [gpa<GPA>gpa] [edu<EDUCATION>edu] [addr<ADDRESS>addr] [skill<SKILL1, SKILL2, ... >skill][pos<POSITION1, POSITION2, ... >pos] [end<ENDORSEMENT>end]`
+
+[TIP]
+* for every field, using `< or >` can cause false results. Please do not use them in filtering criterion texts.
+* all the fields are optional but at least one field should be used
+* for `GPA`, it prints the persons who have higher or equal amount of GPA from the given input
+* for `ENDORSEMENT`, a positive integer value is wanted, it prints the persons who have that much or higher amount of endorsements.
+* 'OR' Usage: According to the conditions written, if at least one of them passes with the regarding person in the applicant pool, the person is included in the filtered version.
+* 'AND' Usage: According to the conditions written, if every single one of them passes with the regarding person in the applicant pool, the person is included in the filtered version.
 
 ****
 * The filtering is case insensitive. e.g `hans` will match `Hans`
 * If more than one skills are added to the filter, they should be separated by ','
 * Filtering does not check if the written condition passes totally. It only checks, if the written condition is contained in the person properties.
 e.g if there is someone named Alex, in the filtering conditions `n/ale/n` or `n/le/n` or `n/lex/n`, Alex will be included.
-* 'OR' Usage: According to the conditions written, if at least one of them passes with the regarding person in the applicant pool, the person is included in the filtered version.
-* 'AND' Usage: According to the conditions written, if every single one of them passes with the regarding person in the applicant pool, the person is included in the filtered version.
 * All the people that are included in the filtering will be returned.
 * All the operations, that change the content of the address book also clears every single filter.
 * After one filtering, the filtered address book can be filtered again.
@@ -123,17 +139,17 @@ e.g if there is someone named Alex, in the filtering conditions `n/ale/n` or `n/
 
 * Filtering is compatible with all the other commands:
 ** 1- clear : since the persons list changes, the filtering is automatically cleared
-** 2- add : when filtering is active, adding is not allowed. To add someone, filtering should be cleared.
+** 2- add : when filtering is active, adding a person also clears the filter along the addition. But addition takes place.
 ** 3- sort / select / delete / edit / list / undo / redo / help / exit / history : can be used without clearing the filter
 
 ****
 
 Examples:
 
-* `filter or p/91234567/p e/johndoe@example.com/e skill/C++, Java/skill` +
-Returns the people, whose numbers include 91234567 or whose email includes johndoe@example.com or who has (contains) at least C++ or Java in the skills
-* `filter and n/ale/n a/abcd/a skill/C++, Java/skill` +
-Returns the people, whose name contains ale and whose address contains abcd and who has (contains) C++ and Java both in the skills
+* `filter or phone<91234567>phone email<johndoemail@example.com>e skill<C++, Java>skill end<2>end` +
+Returns the people, whose numbers include 91234567 or whose email includes johndoe@example.com or who has (contains) at least C++ or Java in the skills or has at least 2 endorsements.
+* `filter and name<ale>name addr<abcd>addr gpa<3.1>gpa skill<C++, Java>skill` +
+Returns the people, whose name contains ale and whose address contains abcd and who has (contains) C++ and Java both in the skills and has a GPA higher than or equal to 3.1
 
 // end::filter[]
 

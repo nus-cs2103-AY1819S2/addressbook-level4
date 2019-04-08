@@ -165,6 +165,7 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredRestaurantListAndSort(Predicate<Restaurant> predicate, Comparator<Restaurant> sortBy) {
         requireNonNull(predicate);
+        System.out.println("hello");
         filteredRestaurants.setPredicate(predicate);
         sortedRestaurants.setComparator(sortBy);
     }

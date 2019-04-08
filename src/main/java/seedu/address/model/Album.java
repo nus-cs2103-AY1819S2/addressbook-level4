@@ -106,7 +106,7 @@ public class Album {
         try {
             imageList.clear();
             FileUtils.cleanDirectory(new File(assetsFilepath));
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

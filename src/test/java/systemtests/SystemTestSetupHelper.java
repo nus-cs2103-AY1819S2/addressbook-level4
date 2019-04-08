@@ -7,8 +7,8 @@ import java.util.function.Supplier;
 import org.testfx.api.FxToolkit;
 
 import javafx.stage.Stage;
-import seedu.address.TestApp;
-import seedu.address.model.QuickDocs;
+import quickdocs.TestApp;
+import quickdocs.model.QuickDocs;
 
 /**
  * Contains helper methods that system tests require.

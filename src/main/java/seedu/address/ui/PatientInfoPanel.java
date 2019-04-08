@@ -122,6 +122,7 @@ public class PatientInfoPanel extends UiPart<Region> {
      */
     public void loadDefaultPage() {
         Label defaultPage = new Label(" No patient has been selected yet.");
+        defaultPage.setStyle("-fx-text-fill: white");
         this.patientParticulars.setContent(defaultPage);
     }
 
@@ -176,6 +177,7 @@ public class PatientInfoPanel extends UiPart<Region> {
      */
     public void loadRecordTab() {
         Label placeholder = new Label(" No record has been selected. ");
+        placeholder.setStyle("-fx-text-fill: white");
         patientRecords.setContent(placeholder);
         tabManger.getTabs().add(patientRecords);
         tabManger.getSelectionModel().select(patientRecords);

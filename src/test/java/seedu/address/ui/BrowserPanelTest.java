@@ -30,8 +30,8 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a restaurant
         FxToolkit.showStage();
-        guiRobot.interact(() -> browserPanel.loadPage("https://www.google.com.sg"));
-        URL expectedRestaurantUrl = new URL("https://www.google.com.sg/");
+        guiRobot.interact(() -> browserPanel.loadPage("https://www.kfc.com.sg"));
+        URL expectedRestaurantUrl = new URL("https://www.kfc.com.sg/");
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedRestaurantUrl, browserPanelHandle.getLoadedUrl());

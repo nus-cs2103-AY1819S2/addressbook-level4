@@ -321,15 +321,19 @@ Display the website of a restaurant identified by the index number used in the l
 Format: `visitWeb INDEX`
 
 
-****
+[NOTE]
+====
 * The index refers to the index number shown in the displayed restaurants list.
 * The index *must be a positive integer* 1, 2, 3, ...
-****
+====
 
 Display the website of any restaurant by entering its url. +
 Format: `visitWeb URL` +
+
 This allows users to visit website of any restaurant before they are entered into the list of restaurants in the `FoodDiary`.
 The purpose of this feature is so that users can reference from restaurants website when adding details of the restaurant into `FoodDiary`
+
+Website is displayed on a browser window which shows upon visitWeb command.
 
 [NOTE]
 ====

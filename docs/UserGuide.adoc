@@ -32,7 +32,7 @@ Only Java 9 is supported. +
 .  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::UI.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -66,14 +66,14 @@ Format: `help`
 Adds a candidate to Recruit Me +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL  d/EDUCATION g/GPA a/ADDRESS [skill/TAG]... [position/TAG]...`
 
-[TIP]
-Name can have any character from English alphabet and also it can have `space`
-Phone Number has to be in 8 digits
-Email should be in the format of `[ANY NUMBER OF ASCII CHARACTERS MORE THAN 0]@[EXTENSION1].[EXTENSION2]`
-Education can take character from English alphabet and also it can have `space`
-GPA can take any float value between 0.0 and 4.0
-A candidate can have any number of skill/position tags (including 0)
-
+****
+* Name can have any character from English alphabet and also it can have `space`
+* Phone Number has to be in 8 digits
+* Email should be in the format of `[ANY NUMBER OF ASCII CHARACTERS MORE THAN 0]@[EXTENSION1].[EXTENSION2]`
+* Education can take character from English alphabet and also it can have `space`
+* GPA can take any float value between 0.0 and 4.0
+* A candidate can have any number of skill/position tags (including 0)
+****
 
 Examples:
 
@@ -120,14 +120,13 @@ It filters the current applicant pool regarding the existing entities of every s
 Format: `filter or/and [name<NAME>name] [phone<PHONE>phone] [email<EMAIL>email] [gpa<GPA>gpa] [edu<EDUCATION>edu] [addr<ADDRESS>addr] [skill<SKILL1, SKILL2, ... >skill][pos<POSITION1, POSITION2, ... >pos] [end<ENDORSEMENT>end]`
 
 [TIP]
-for every field, using `< or >` can cause false results. Please do not use them in filtering criterion texts.
-all the fields are optional but at least one field should be used
-for `GPA`, it prints the persons who have higher or equal amount of GPA from the given input
-for `ENDORSEMENT`, a positive integer value is wanted, it prints the persons who have that much or higher amount of endorsements.
-'OR' Usage: According to the conditions written, if at least one of them passes with the regarding person in the applicant pool, the person is included in the filtered version.
-'AND' Usage: According to the conditions written, if every single one of them passes with the regarding person in the applicant pool, the person is included in the filtered version.
+for every field, using `< or >` can cause false results. Please do not use them in filtering criterion texts. All the fields are optional but at least one field should be used
 
 ****
+* For `GPA`, it prints the persons who have higher or equal amount of GPA from the given input
+* For `ENDORSEMENT`, a positive integer value is wanted, it prints the persons who have that much or higher amount of endorsements.
+* 'OR' Usage: According to the conditions written, if at least one of them passes with the regarding person in the applicant pool, the person is included in the filtered version.
+* 'AND' Usage: According to the conditions written, if every single one of them passes with the regarding person in the applicant pool, the person is included in the filtered version.
 * The filtering is case insensitive. e.g `hans` will match `Hans`
 * If more than one skills are added to the filter, they should be separated by ','
 * Filtering does not check if the written condition passes totally. It only checks, if the written condition is contained in the person properties.
@@ -146,9 +145,9 @@ e.g if there is someone named Alex, in the filtering conditions `n/ale/n` or `n/
 
 Examples:
 
-* `filter or phone<91234567>phone email<johndoemail@example.com>email skill<C++, Java>skill end<2>end` +
+* ` filter or phone<91234567>phone email<johndoemail@example.com>email skill<C++, Java>skill end<2>end ` +
 Returns the people, whose numbers include 91234567 or whose email includes johndoe@example.com or who has (contains) at least C++ or Java in the skills or has at least 2 endorsements.
-* `filter and name<ale>name addr<abcd>addr gpa<3.1>gpa skill<C++, Java>skill` +
+* ` filter and name<ale>name addr<abcd>addr gpa<3.1>gpa skill<C++, Java>skill ` +
 Returns the people, whose name contains ale and whose address contains abcd and who has (contains) C++ and Java both in the skills and has a GPA higher than or equal to 3.1
 
 // end::filter[]

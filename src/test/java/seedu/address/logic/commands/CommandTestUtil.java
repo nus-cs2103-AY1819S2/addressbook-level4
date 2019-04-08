@@ -71,7 +71,7 @@ public class CommandTestUtil {
     // for testing appointment
     public static final String VALID_PATIENT_ID = "1";
     public static final String VALID_DOCTOR_ID = "2";
-    public static final LocalDateTime futureDateTime = LocalDateTime.now().plusDays(1);
+    private static final LocalDateTime futureDateTime = LocalDateTime.now().plusDays(1);
     public static final String VALID_DATE_OF_APPT = futureDateTime.toLocalDate().toString();
     public static final String VALID_START_TIME = futureDateTime.toLocalTime()
             .format(DateTimeFormatter.ofPattern("HH:mm"));
@@ -142,7 +142,7 @@ public class CommandTestUtil {
      * - the {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            CommandResult expectedCommandResult, Model expectedModel) {
+                                            CommandResult expectedCommandResult, Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
@@ -159,7 +159,7 @@ public class CommandTestUtil {
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage, Model expectedModel) {
+                                            String expectedMessage, Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, actualCommandHistory, expectedCommandResult, expectedModel);
     }
@@ -172,7 +172,7 @@ public class CommandTestUtil {
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage) {
+                                            String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         DocX expectedDocX = new DocX(actualModel.getDocX());

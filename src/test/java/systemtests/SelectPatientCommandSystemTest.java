@@ -109,6 +109,7 @@ public class SelectPatientCommandSystemTest extends DocXSystemTest {
      * 6. Status bar remains unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code DocXSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     *
      * @see DocXSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      * @see DocXSystemTest#assertSelectedCardChanged(Index)
      */
@@ -140,6 +141,7 @@ public class SelectPatientCommandSystemTest extends DocXSystemTest {
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code DocXSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     *
      * @see DocXSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {

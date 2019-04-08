@@ -19,7 +19,9 @@ public class PatientInfoPanelTest extends GuiUnitTest {
         browserPanelHandle = new BrowserPanelHandle(patientInfoPanel.getRoot());
     }
 
-/*    @Test
+
+    /*
+    @Test
     public void display() throws Exception {
         // default web page
         assertEquals(PatientInfoPanel.DEFAULT_PAGE, browserPanelHandle.getLoadedUrl());
@@ -31,5 +33,6 @@ public class PatientInfoPanelTest extends GuiUnitTest {
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedPatientUrl, browserPanelHandle.getLoadedUrl());
-    }*/
+    }
+    */
 }

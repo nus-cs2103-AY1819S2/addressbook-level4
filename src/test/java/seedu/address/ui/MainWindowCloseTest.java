@@ -80,7 +80,8 @@
 //        }
 //
 //        /**
-//         * Closes the {@code MainWindow} through an external request {@code MainWindow} (e.g pressing the 'X' button on
+//         * Closes the {@code MainWindow} through an external request {@code MainWindow}
+//         * (e.g pressing the 'X' button on
 //         * the {@code MainWindow} or closing the app through the taskbar).
 //         */
 //        private void closeMainWindowExternally() {

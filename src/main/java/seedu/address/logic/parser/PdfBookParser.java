@@ -105,9 +105,6 @@ public class PdfBookParser {
         case OpenCommand.COMMAND_WORD:
             return new OpenCommandParser().parse(arguments);
 
-        case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
-
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
 
@@ -116,9 +113,13 @@ public class PdfBookParser {
 
         case TagCommand.COMMAND_WORD:
             return new TagCommandParser().parse(arguments);
-
+        /*
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
+         */
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

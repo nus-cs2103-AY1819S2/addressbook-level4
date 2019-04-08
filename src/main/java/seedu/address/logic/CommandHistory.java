@@ -34,6 +34,13 @@ public class CommandHistory {
         return unmodifiableUserInputHistory;
     }
 
+    /**
+     * Returns the last command entered {@code userInputHistory}.
+     */
+    public String getLastCommand() {
+        return unmodifiableUserInputHistory.get(unmodifiableUserInputHistory.size());
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

@@ -11,7 +11,7 @@ public class CsvFile {
 
     public static final String MESSAGE_CONSTRAINTS = "File name should not be left blank and should have"
             + ".csv format";
-    private static final String FILE_EXT_REGEX = "\\.(?=[^\\.]+$)";
+    private static final String FILE_EXT_REGEX = "\\.(?=[^.]+$)";
 
     public final String filename;
 

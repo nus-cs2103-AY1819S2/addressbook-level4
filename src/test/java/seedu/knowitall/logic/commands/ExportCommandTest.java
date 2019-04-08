@@ -1,7 +1,8 @@
 package seedu.knowitall.logic.commands;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolders;
+import static seedu.knowitall.testutil.SampleBloodCards.getBloodFolder;
+import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolder;
 
 import java.io.File;
 
@@ -22,30 +23,27 @@ import seedu.knowitall.logic.commands.exceptions.CommandException;
 import seedu.knowitall.model.Model;
 import seedu.knowitall.model.ModelManager;
 import seedu.knowitall.model.UserPrefs;
-
+import seedu.knowitall.storage.csvmanager.CsvManager;
 
 
 public class ExportCommandTest {
 
     @Rule
-    public TemporaryFolder tmpFolder = new TemporaryFolder();
-
-    @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private Model model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
+    private Model model = new ModelManager(Arrays.asList(getTypicalCardFolder(), getBloodFolder()),
+            new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Before
     public void setUp() {
-        model.exitFolderToHome();
+        model.setTestCsvPath();
     }
 
 
 
     @Test
     public void execute_exportSingleValidCardFolderIndex_success() throws Exception {
-        System.out.println(tmpFolder.getRoot());
         List<Integer> myList = new ArrayList<>(Arrays.asList(1));
         ExportCommand exportCommand = new ExportCommand(myList);
 
@@ -57,7 +55,7 @@ public class ExportCommandTest {
 
     @After
     public void deleteExportFile() {
-        File file = new File("./Typical Cards.csv");
+        File file = new File(CsvManager.DEFAULT_TEST_PATH + "/" + "Typical Cards.csv");
         if (file.exists()) {
             boolean isDeleted = file.delete();
             assert (isDeleted);

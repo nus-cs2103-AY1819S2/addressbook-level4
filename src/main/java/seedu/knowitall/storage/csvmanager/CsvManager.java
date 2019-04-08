@@ -32,14 +32,17 @@ import seedu.knowitall.storage.csvmanager.exceptions.IncorrectCsvHeadersExceptio
  */
 public class CsvManager implements CsvCommands {
 
+    public static final String DEFAULT_TEST_PATH = "/src/test/data/CsvCardFolderTest";
+    public static final String DEFAULT_FILE_PATH = "./";
+
     private static final String COMMA_DELIMITTER = ",";
     private static final String NEW_LINE_SEPARATOR = "\n";
     private static final String CARD_HEADERS = "Question,Answer,Hints,Options";
-    private static final String DEFAULT_TEST_PATH = "/src/test/data/CsvCardFolderTest";
-    private static final String DEFAULT_FILE_PATH = "./";
     private static final String TEST_FOLDER_PATH = "test";
+
     private String defaultPath;
     private boolean setTestDefaultPath = false;
+
 
 
 
@@ -67,10 +70,10 @@ public class CsvManager implements CsvCommands {
 
         while ((line = bufferedReader.readLine()) != null) {
 
-            // split double quotes by commas
+            // split quotes within card field by commas
             String[] stringCard = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-            //System.out.println(a);
-            //String[] stringCard = parseCardFieldCommas(line);
+
+
             Card card = buildCard(stringCard);
             cardFolder.addCard(card);
         }
@@ -81,24 +84,24 @@ public class CsvManager implements CsvCommands {
     }
 
     /**
-     * helper method that build a card object from each line of the csv file imported
+     * Builds a card object from each line of the csv file imported. Throws IllegalArgumentException in the event that
+     * lines in csv file do not follow {@code Card} field specifications.
      */
-    private Card buildCard(String[] cardValues1) throws IllegalArgumentException {
+    private Card buildCard(String[] rawStringCard) throws IllegalArgumentException {
         // cardValues = {"question", "answer", "hint","option"}
 
         // Allow only one option per card
-        String[] cardValues2 = Arrays.copyOfRange(cardValues1, 0, 4);
+        String[] stringCard = Arrays.copyOfRange(rawStringCard, 0, 4);
 
         // remove double quotes from each string array
-        String[] cardValues = Stream.of(cardValues2).map(line -> line.replace("\"", ""))
+        String[] cardValues = Stream.of(stringCard).map(line -> line.replace("\"", ""))
                 .toArray(String[]::new);
 
         Question question = new Question(cardValues[0]);
         Answer answer = new Answer(cardValues[1]);
         Set<Option> optionSet = buildOptions(cardValues);
         Set<Hint> hintSet = buildHint(cardValues);
-        Card card = new Card(question, answer, new Score(0, 0), optionSet, hintSet);
-        return card;
+        return new Card(question, answer, new Score(0, 0), optionSet, hintSet);
     }
 
     /**
@@ -116,7 +119,7 @@ public class CsvManager implements CsvCommands {
     }
 
     /**
-     * reconstructs a set of hints from each line of the csv file to import
+     * reconstructs a set of hints from each line of the csv file to import.
      */
     private Set<Hint> buildHint(String[] card) {
         Set<Hint> hintSet = new HashSet<>();
@@ -129,7 +132,8 @@ public class CsvManager implements CsvCommands {
     }
 
     /**
-     * checks whether the headers of the imported file conforms to the specifications of the Card headers
+     * checks whether the headers of the imported file conforms to the specifications of the csv file header. Throws
+     * Command Exception if file is empty or headers do not follow specifications.
      */
     private boolean checkCorrectHeaders(String header) throws CommandException {
         if (header == null) {
@@ -176,11 +180,11 @@ public class CsvManager implements CsvCommands {
         return folderName;
     }
 
-    public boolean fileExists(CsvFile csvFile) {
+    private boolean fileExists(CsvFile csvFile) {
         return new File(defaultPath + "/" + csvFile.filename).exists();
     }
 
-    public static String getDefaultFilePath() throws IOException {
+    private static String getDefaultFilePath() throws IOException {
         return new File(DEFAULT_FILE_PATH).getCanonicalPath();
     }
 
@@ -203,7 +207,7 @@ public class CsvManager implements CsvCommands {
     }
 
     /**
-     * Method ensures the correct parsing of commas within card field names
+     * Parses quotation marks to card field strings if comma value is present within field.
      */
     private String parseQuotationMarks(String cardField) {
         if (cardField.contains(",")) {
@@ -224,7 +228,7 @@ public class CsvManager implements CsvCommands {
     }
 
     /**
-     * helper method that parses each {@code Set<Option>} of the card attribute into a string
+     * Parses each {@code Set<Option>} of the card attribute into a string
      */
     private void parseOptions(Set<Option> options, StringBuilder stringBuilder) {
         if (options.isEmpty()) {
@@ -238,7 +242,7 @@ public class CsvManager implements CsvCommands {
     }
 
     /**
-     * helper method that parses each {@code Set<Hint>} of the card attribute into a string
+     * Parses each {@code Set<Hint>} of the card attribute into a string
      */
     private void parseHints(Set<Hint> hintSet, StringBuilder stringBuilder) {
         if (hintSet.isEmpty()) {

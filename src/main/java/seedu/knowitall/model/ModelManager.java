@@ -554,7 +554,7 @@ public class ModelManager implements Model {
 
     @Override
     public void importCardFolders(CsvFile csvFile) throws IOException, CommandException, IllegalArgumentException,
-            IncorrectCsvHeadersException  {
+            IncorrectCsvHeadersException {
         String cardFolderName = csvFile.getFileNameWithoutExt();
 
         if (isCardFolderExists(cardFolderName)) {
@@ -564,6 +564,7 @@ public class ModelManager implements Model {
         CardFolder cardFolder = csvManager.readFoldersToCsv(csvFile);
         addFolder(cardFolder);
     }
+
     /**
      * checks whether cardfolder already exists in the model when importing file
      */
@@ -577,7 +578,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setTestCsvPath() throws IOException {
+    public void setTestCsvPath() {
         csvManager.setTestDefaultPath();
     }
 

@@ -13,7 +13,7 @@ import seedu.knowitall.storage.csvmanager.exceptions.IncorrectCsvHeadersExceptio
 
 
 /**
- * Imports a .json file containing card folders data into the application
+ * Imports a .csv file containing card folders data into the application
  */
 public class ImportCommand extends Command {
 

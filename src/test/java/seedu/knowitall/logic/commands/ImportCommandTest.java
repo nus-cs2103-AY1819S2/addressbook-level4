@@ -3,10 +3,8 @@ package seedu.knowitall.logic.commands;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.knowitall.testutil.SampleBloodCards.getBloodCardFolders;
 import static seedu.knowitall.testutil.SampleBloodCards.getBloodFolder;
 import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolder;
-import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolders;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -80,12 +78,16 @@ public class ImportCommandTest {
 
     @Test
     public void execute_importTypicalCards_success() throws Exception {
-        importCardFolderSuccess(TYPICAL_CARD_FOLDER, getTypicalCardFolders());
-        importCardFolderSuccess(BLOOD_CARD_FOLDER, getBloodCardFolders());
+        importCardFolderSuccess(TYPICAL_CARD_FOLDER);
+        importCardFolderSuccess(BLOOD_CARD_FOLDER);
         assertTrue(isSameCardFolders(model, expectedModel));
     }
 
-    private void importCardFolderSuccess(String foldername, List<ReadOnlyCardFolder> cardFolders) throws CommandException {
+    /**
+     * Test import command success message and add flashcards to model
+     */
+    private void importCardFolderSuccess(String foldername)
+            throws CommandException {
         ImportCommand importCommand = new ImportCommand(new CsvFile(foldername));
 
 
@@ -166,6 +168,9 @@ public class ImportCommandTest {
         isSameFileContent(bloodCardsFile, bloodCardsTestFile);
     }
 
+    /**
+     * Checks if two file contents are equal. Removes line endings for Unix files before comparison
+     */
     private void isSameFileContent(File actualFile, File testFile) throws IOException, CsvManagerNotInitialized {
         expectedModel.exportCardFolders(new ArrayList<>(Arrays.asList(1)));
         // System.out.println(DEFAULT_TEST_PATH);
@@ -180,6 +185,9 @@ public class ImportCommandTest {
         testFile.delete();
     }
 
+    /**
+     * Remove unix line ending from imported file
+     */
     private byte[] removeCarriageReturn(byte[] file) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         for (Byte b : file) {

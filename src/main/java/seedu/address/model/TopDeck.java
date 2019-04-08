@@ -223,6 +223,19 @@ public class TopDeck implements ReadOnlyTopDeck {
         return targetDeck;
     }
 
+    /**
+     * Attempts to export {@deck}
+     * Returns the exported file location as a string.
+     */
+    public String exportDeck(Deck deck) {
+        try {
+            return portManager.exportDeck(deck);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
     //// util methods
 
     @Override

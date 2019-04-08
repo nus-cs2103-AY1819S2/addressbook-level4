@@ -69,23 +69,33 @@ public class Album {
      * @return Absolute path to generated temp folder.
      */
     public String generateAssets() {
-        String tDir = System.getProperty("java.io.tmpdir") + ASSETS_FOLDER_TEMP_NAME;
-        File assetsFolder = new File(tDir);
-        String tempPath = assetsFolder.getAbsolutePath() + File.separator;
-        if (!assetsFolder.exists()) {
-            assetsFolder.mkdir();
+        String tempPath = "";
+        try {
+            String tDir = System.getProperty("java.io.tmpdir") + ASSETS_FOLDER_TEMP_NAME;
+            File assetsFolder = new File(tDir);
+            tempPath = assetsFolder.getAbsolutePath() + File.separator;
+            if (!assetsFolder.exists()) {
+                assetsFolder.mkdir();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            return tempPath;
         }
-        return tempPath;
     }
 
     /**
      * For each image in assets folder, populate the Album with an Image object.
      */
     public void populateAlbum() {
-        imageList.clear();
-        File folder = new File(assetsFilepath);
-        for (File file : folder.listFiles()) {
-            imageList.add(new Image(file.getAbsolutePath()));
+        try {
+            imageList.clear();
+            File folder = new File(assetsFilepath);
+            for (File file : folder.listFiles()) {
+                imageList.add(new Image(file.getAbsolutePath()));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

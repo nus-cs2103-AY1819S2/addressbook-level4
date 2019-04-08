@@ -175,4 +175,6 @@ public interface Model {
     ViewState getViewState();
 
     Deck importDeck (String filepath) throws DeckImportException, DuplicateDeckException;
+
+    String exportDeck(Deck deck);
 }

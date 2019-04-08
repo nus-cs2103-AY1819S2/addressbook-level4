@@ -229,6 +229,12 @@ public class ModelManager implements Model {
         return imported;
     }
 
+    @Override
+    public String exportDeck(Deck deck) {
+        logger.info("Exported a deck.");
+        return versionedTopDeck.exportDeck(deck);
+    }
+
     //=========== Undo/Redo =================================================================================
 
     @Override

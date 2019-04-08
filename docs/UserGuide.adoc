@@ -122,6 +122,7 @@ The *Result Display* shows information relating to the result of the command.
 
 === General Features
 
+//tag::mode[]
 ==== Get / Set the mode of ClubManager: `mode`
 
 ClubManager operates in 2 modes. This function allows user to check the mode and change the mode +
@@ -155,6 +156,8 @@ Returns current management mode of ClubManager
 Changes current management mode of ClubManager to Activity
 * `mode member`
 Changes current management mode of ClubManager to Member
+
+//end::mode[]
 
 ==== Clearing all entries : `clear`
 

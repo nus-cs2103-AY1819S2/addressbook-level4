@@ -8,14 +8,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
-import java.util.Set;
 
+import javafx.collections.ObservableList;
 import seedu.address.MainApp;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 
 /**
  * File handling utility functions for exporting data
@@ -57,31 +56,125 @@ public class ExportUtil {
      * Formats and export person to file
      */
     public static void exportPerson (Person person) {
-        try {
-            String name = person.getName().toString();
-            String fileIdentifier = name.replaceAll("[^a-zA-Z0-9]", "");;
-            String matricNumber = person.getMatricNumber().toString();
-            String phone = person.getPhone().toString();
-            String email = person.getEmail().toString();
-            String address = person.getAddress().toString();
-            String gender = person.getGender().toString();
-            String yearOfStudy = person.getYearOfStudy().toString();
-            String major = person.getMajor().toString();
-            Set<Tag> tagSet = person.getTags();
-            ArrayList<String> tagList = new ArrayList<String>();
-            if (!tagSet.isEmpty()) {
-                for (Tag t : tagSet) {
-                    tagList.add(t.toString());
-                }
+        String name = person.getName().toString();
+        String fileIdentifier = name.replaceAll("[^a-zA-Z0-9]", "");;
+        String matricNumber = person.getMatricNumber().toString();
+        String phone = person.getPhone().toString();
+        String email = person.getEmail().toString();
+        String address = person.getAddress().toString();
+        String gender = person.getGender().toString();
+        String yearOfStudy = person.getYearOfStudy().toString();
+        String major = person.getMajor().toString();
+
+        /*Set<Tag> tagSet = person.getTags();
+        ArrayList<String> tagList = new ArrayList<String>();
+        if (!tagSet.isEmpty()) {
+            for (Tag t : tagSet) {
+                tagList.add(t.toString());
             }
+        }*/
 
-            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            Date date = new Date();
-            String now = dateFormat.format(date);
-            String title = name + " - " + now;
+        String now = generateFileDateTime();
+        String title = name + " - " + now;
 
+        String respath = "/exportutil/personInfo.html";
+        String htmlString = readFormatFromHtmlFile(respath);
 
-            String respath = "/exportutil/personInfo.html";
+        htmlString = htmlString.replace("$title", title);
+        htmlString = htmlString.replace("$name", name);
+        htmlString = htmlString.replace("$matricNumber", matricNumber);
+        htmlString = htmlString.replace("$gender", gender);
+        htmlString = htmlString.replace("$yearOfStudy", yearOfStudy);
+        htmlString = htmlString.replace("$major", major);
+        htmlString = htmlString.replace("$phone", phone);
+        htmlString = htmlString.replace("$email", email);
+        htmlString = htmlString.replace("$address", address);
+
+        exportDataToFile(fileIdentifier, "html", htmlString);
+
+    }
+
+    /**
+     * Formats and export activity to file
+     */
+    public static void exportActivity (Activity activity, ObservableList<Person> personObservableList) {
+        String name = activity.getName().toString();
+        String fileIdentifier = name.replaceAll("[^a-zA-Z0-9]", "");;
+
+        String description = activity.getDescription().toString();
+        String dateTime = activity.getDateTime().toString();
+        String location = activity.getLocation().toString();
+        String status = activity.getCurrentStatus().toString();
+
+        String now = generateFileDateTime();
+        String title = name + " - " + now;
+
+        String respath = "/exportutil/activityInfo.html";
+        String htmlString = readFormatFromHtmlFile(respath);
+
+        htmlString = htmlString.replace("$title", title);
+        htmlString = htmlString.replace("$name", name);
+        htmlString = htmlString.replace("$description", description);
+        htmlString = htmlString.replace("$location", location);
+        htmlString = htmlString.replace("$dateTime", dateTime);
+        htmlString = htmlString.replace("$status", status);
+
+        String attendanceListHtml = "";
+        String ls = System.getProperty("line.separator");
+
+        //build attendance list html
+        StringBuilder attendanceListHtmlBuilder = new StringBuilder();
+
+        if (!personObservableList.isEmpty()) {
+            attendanceListHtmlBuilder.append("<h4>Members Attending :</h4>" + ls);
+            attendanceListHtmlBuilder.append("<table>" + ls + "<tbody>" + ls);
+
+            attendanceListHtmlBuilder.append("<tr>" + ls);
+            attendanceListHtmlBuilder.append("<th class='tblhead'>Name</th>" + ls);
+            attendanceListHtmlBuilder.append("<th class='tblhead'>Matric No.</th>" + ls);
+            attendanceListHtmlBuilder.append("<th class='tblhead'>Attended</th>" + ls);
+            attendanceListHtmlBuilder.append("</tr>" + ls);
+
+            for (Person p : personObservableList) {
+                attendanceListHtmlBuilder.append("<tr>" + ls);
+
+                attendanceListHtmlBuilder.append("<td class='listName'>" + ls);
+                attendanceListHtmlBuilder.append(p.getName().toString());
+                attendanceListHtmlBuilder.append("</td>" + ls);
+                attendanceListHtmlBuilder.append("<td class='listMatric'>" + ls);
+                attendanceListHtmlBuilder.append(p.getMatricNumber().toString());
+                attendanceListHtmlBuilder.append("</td>" + ls);
+                attendanceListHtmlBuilder.append("<td class='listAttendBox'>" + ls);
+                attendanceListHtmlBuilder.append("&nbsp;");
+                attendanceListHtmlBuilder.append("</td>" + ls);
+
+                attendanceListHtmlBuilder.append("</tr>" + ls);
+            }
+            attendanceListHtmlBuilder.append("</tbody>" + ls + "</table>" + ls);
+        }
+
+        attendanceListHtml = attendanceListHtmlBuilder.toString();
+
+        htmlString = htmlString.replace("$attendanceListHtml", attendanceListHtml);
+
+        exportDataToFile(fileIdentifier, "html", htmlString);
+
+    }
+
+    /**
+     * Creates datetime part of the filename
+     */
+    private static String generateFileDateTime() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
+    /**
+     * Build format into string from resource format file
+     */
+    private static String readFormatFromHtmlFile(String respath) {
+        try {
             InputStream resourceFormat = MainApp.class.getResourceAsStream(respath);
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(resourceFormat, "UTF-8"));
@@ -94,24 +187,11 @@ public class ExportUtil {
             }
             reader.close();
 
-            String htmlString = stringBuilder.toString();
-
-            htmlString = htmlString.replace("$title", title);
-            htmlString = htmlString.replace("$name", name);
-            htmlString = htmlString.replace("$matricNumber", matricNumber);
-            htmlString = htmlString.replace("$gender", gender);
-            htmlString = htmlString.replace("$yearOfStudy", yearOfStudy);
-            htmlString = htmlString.replace("$major", major);
-            htmlString = htmlString.replace("$phone", phone);
-            htmlString = htmlString.replace("$email", email);
-            htmlString = htmlString.replace("$address", address);
-
-            exportDataToFile(fileIdentifier, "html", htmlString);
-
+            return stringBuilder.toString();
         } catch (IOException e) {
-            System.out.println("Cannot read format file");
+            System.out.println("Cannot read from format file: " + respath);
         }
-
+        return "No format file found" + System.getProperty("line.separator");
     }
 
     /**

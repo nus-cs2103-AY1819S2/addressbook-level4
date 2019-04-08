@@ -7,13 +7,13 @@ import seedu.address.logic.commands.MemberExportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new SelectCommand object
+ * Parses input arguments and creates a new MemberExportCommand object
  */
 public class MemberExportCommandParser implements Parser<MemberExportCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the SelectCommand
-     * and returns an SelectCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the MemberExportCommand
+     * and returns an MemberExportCommand object for execution.
      * @throws seedu.address.logic.parser.exceptions.ParseException
      * if the user input does not conform the expected format
      */

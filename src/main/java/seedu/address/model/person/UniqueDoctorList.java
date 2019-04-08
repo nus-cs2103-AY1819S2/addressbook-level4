@@ -48,6 +48,9 @@ public class UniqueDoctorList implements Iterable<Doctor> {
         requireNonNull(idToCheck);
         Predicate<Doctor> predicate = new RecordContainsDoctorIdPredicate(idToCheck);
         FilteredList<Doctor> doctorWithId = internalList.filtered(predicate);
+        if (doctorWithId.isEmpty()) {
+            return null;
+        }
         return doctorWithId.get(0);
     }
 

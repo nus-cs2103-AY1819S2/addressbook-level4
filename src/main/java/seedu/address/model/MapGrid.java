@@ -1,55 +1,27 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.List;
-
-import javafx.beans.InvalidationListener;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableBooleanValue;
-import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
-import seedu.address.model.cell.Row;
 import seedu.address.model.cell.Status;
 
 /**
  * Wraps all data at the map grid level
  */
-public class MapGrid implements ReadOnlyAddressBook {
+public class MapGrid {
 
     private Cell[][] cellGrid;
     private int size;
-    private final Row persons;
     private BooleanProperty uiUpdateSwitch = new SimpleBooleanProperty();
-    private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
-
-    /*
-     * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
-    {
-        persons = new Row();
-    }
 
     public MapGrid() {
         this.size = 0;
         cellGrid = new Cell[0][0];
-    }
-
-    /**
-     * Creates an MapGrid using the Persons in the {@code toBeCopied}
-     */
-    public MapGrid(ReadOnlyAddressBook toBeCopied) {
-        this();
-        resetData(toBeCopied);
     }
 
     // 2D map grid operations
@@ -205,34 +177,7 @@ public class MapGrid implements ReadOnlyAddressBook {
 
     //// list overwrite operations
 
-    /**
-     * Replaces the contents of the cell list with {@code cells}.
-     * {@code cells} must not contain duplicate cells.
-     */
-    public void setPersons(List<Cell> cells) {
-        this.persons.setPersons(cells);
-        indicateModified();
-    }
-
-    /**
-     * Resets the existing data of this {@code MapGrid} with {@code newData}.
-     */
-    public void resetData(ReadOnlyAddressBook newData) {
-        requireNonNull(newData);
-
-        setPersons(newData.getPersonList());
-    }
-
     //// cell-level operations
-
-    /**
-     * Adds a cell to the address book.
-     * The cell must not already exist in the address book.
-     */
-    public void addPerson(Cell p) {
-        persons.add(p);
-        indicateModified();
-    }
 
     /**
      * Put battleship on map grid.
@@ -261,45 +206,17 @@ public class MapGrid implements ReadOnlyAddressBook {
         }
     }
 
-    @Override
-    public void addListener(InvalidationListener listener) {
-        invalidationListenerManager.addListener(listener);
-    }
-
-    @Override
-    public void removeListener(InvalidationListener listener) {
-        invalidationListenerManager.removeListener(listener);
-    }
-
-    /**
-     * Notifies listeners that the address book has been modified.
-     */
-    protected void indicateModified() {
-        invalidationListenerManager.callListeners(this);
-    }
-
     //// util methods
-
-    @Override
-    public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
-        // TODO: refine later
-    }
-
-    @Override
-    public ObservableList<Cell> getPersonList() {
-        return persons.asUnmodifiableObservableList();
-    }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof MapGrid // instanceof handles nulls
-                && persons.equals(((MapGrid) other).persons));
+                && cellGrid.equals(((MapGrid) other).cellGrid));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return cellGrid.hashCode();
     }
 }

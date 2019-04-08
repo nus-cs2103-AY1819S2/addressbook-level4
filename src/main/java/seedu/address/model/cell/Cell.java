@@ -24,9 +24,9 @@ public class Cell {
         this.battleship = Optional.empty();
         this.coordinates = coordinates;
     }
+
     /**
-     * Constructor for cell that requires no arguments
-     * To prepare with refactoring Cell to a cell
+     * Constructor for cell that requires no arguments. Used for testing
      */
     public Cell() {
         this.battleship = Optional.empty();

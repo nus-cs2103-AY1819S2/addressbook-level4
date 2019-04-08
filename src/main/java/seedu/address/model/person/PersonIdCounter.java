@@ -1,3 +1,4 @@
+/* @@author wayneswq */
 package seedu.address.model.person;
 
 /**

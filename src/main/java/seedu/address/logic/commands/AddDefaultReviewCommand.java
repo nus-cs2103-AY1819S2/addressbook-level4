@@ -61,7 +61,10 @@ public class AddDefaultReviewCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddDefaultReviewCommand // instanceof handles nulls
-                && defaultReviewToAdd.equals(((AddDefaultReviewCommand) other).getDefaultReviewToAdd())
+                && defaultReviewToAdd.getEntry().equals(((AddDefaultReviewCommand) other).getDefaultReviewToAdd()
+                .getEntry())
+                && defaultReviewToAdd.getRating().equals(((AddDefaultReviewCommand) other).getDefaultReviewToAdd()
+                .getRating())
                 && targetIndex.equals(((AddDefaultReviewCommand) other).getTargetIndex()));
     }
 

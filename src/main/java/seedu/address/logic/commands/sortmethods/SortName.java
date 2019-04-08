@@ -16,8 +16,8 @@ public class SortName {
 
     public SortName(List<Person> lastShownList) {
         this.newList =
-                lastShownList.stream().sorted(Comparator.comparing(Person::namesToString)).
-                        collect(Collectors.toList());
+                lastShownList.stream().sorted(Comparator.comparing(Person::namesToString))
+                        .collect(Collectors.toList());
     }
 
     public List<Person> getList() {

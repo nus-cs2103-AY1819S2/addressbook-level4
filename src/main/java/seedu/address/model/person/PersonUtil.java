@@ -1,8 +1,8 @@
 package seedu.address.model.person;
 
-import seedu.address.model.tag.SkillsTag;
-
 import java.util.Set;
+
+import seedu.address.model.tag.SkillsTag;
 
 /**
  * Space for general methods relating to the Person class

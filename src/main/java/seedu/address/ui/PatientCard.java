@@ -42,6 +42,8 @@ public class PatientCard extends UiPart<Region> {
     private Label address;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label appointmentStatus;
 
     public PatientCard(Patient patient, int displayedIndex) {
         super(FXML);
@@ -55,6 +57,29 @@ public class PatientCard extends UiPart<Region> {
         address.setText(patient.getAddress().value);
 
         patient.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        String appointmentStatusString = patient.getAppointmentStatus().toString();
+        appointmentStatus.setText(appointmentStatusString);
+
+        /*
+        // does not work for now
+        switch (appointmentStatusString) {
+            case "CANCELLED": // red light
+                this.appointmentStatus.setTextFill(Color.web("#F22613"));
+                break;
+            case "ACTIVE": // yellow light
+                this.appointmentStatus.setTextFill(Color.web("#F7CA18"));
+                break;
+            case "COMPLETED": // green light
+                this.appointmentStatus.setTextFill(Color.web("#00E640"));
+                break;
+            case "MISSED": // brown light
+                this.appointmentStatus.setTextFill(Color.web("#A52A2A"));
+                break;
+            default:
+                break;
+        }
+        */
     }
 
     @Override

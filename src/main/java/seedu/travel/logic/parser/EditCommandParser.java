@@ -61,7 +61,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPlaceDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
         if (argMultimap.getValue(PREFIX_PHOTO).isPresent()) {
-            editPlaceDescriptor.setPhoto(ParserUtil.parsePhoto(argMultimap.getValue(PREFIX_ADDRESS).get()));
+            editPlaceDescriptor.setPhoto(ParserUtil.parsePhoto(argMultimap.getValue(PREFIX_PHOTO).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPlaceDescriptor::setTags);
 

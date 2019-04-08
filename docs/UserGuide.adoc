@@ -38,23 +38,85 @@ image::Ui2.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`memberList`* : lists all members (only in member mode)
-* *`memberAdd n/John Doe mn/A0123456Z p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 g/Male y/2 m/Chemistry t/Swimming`* : adds a member named `John Doe` to the ClubManager.
-* *`memberDelete 3`* : deletes the 3rd member shown in the current list
+* *`memberlist`* : lists all members (only in member mode)
+* *`memberAdd n/James Ong mn/A0123456Y p/98765432 e/jamesong@example.com a/123, Jurong West Ave 6, #08-111 g/male y/2 m/mathematics`
+* : adds a member named
+`James Ong` to the ClubManager.
+* *`memberDelete 3`* : deletes the 3rd member shown in the current member list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
+== User Interface Walkthrough
+
+This section is designed to guide you through how the user interface and components in Club Manager works.
+
+Here is an example of how Club Manager in member mode looks like:
+
+image::memberUiWalkthrough.png[width="100%"]
+
+Here is an example of how Club Manager in activity mode looks like:
+
+image::activityUiWalkthrough.png[width="100%"]
+
+In total, there are:
+
+* *5 General Parts:*
+
+** <<#Menu-Bar, Menu Bar>>
+
+** <<#Result-Display, Result Display>>
+
+** <<#Command-Box, Command Box>>
+
+** <<#SSB, Sync Status Bar>>
+
+** Mode Status.
+
+* *3 Member Mode-specific Parts:*
+
+** List of Members
+** Member Information Display Panel
+** List of Activities Attended By Selected Member.
+
+* *4 Activity Mode-specific Parts:*
+** List of Activities
+** Activity Information Display Panel
+** List of Members Attending Selected Activity
+** List of Members Not Attending Selected Activity.
+
+[[Menu-Bar]]
+=== Menu Bar
+The *Menu Bar* provide you quick access to functions as below.
+
+Here are the available options currently:
+
+* File: Provide access to file functions.
+
+* Exit: Exit the program.
+
+* Help: Show Club Manager tutorial.
+
+You can also press F1 to show Club Manager User Guide.
+
+[[Command-Box]]
+=== Command Box
+
+The *Command Box* is the place where you can input the commands.
+
+[[Result-Display]]
+=== Result Display
+
+The *Result Display* shows information relating to the result of the command.
+
 [[Features]]
 == Features
-
 ====
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/Swimming` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Swimming`, `t/Running t/Hockey` etc.
 ====
 
 === General Features
@@ -118,59 +180,10 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-// tag::undoredo[]
-==== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `memberDelete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-
-* `memberDelete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `memberDelete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-
-==== Undoing previous command : `undo`
-
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
-
-Examples:
-
-* `memberDelete 1` +
-`memberList` +
-`undo` (reverses the `delete 1` command) +
-
-* `memberSelect 1` +
-`memberList` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
-
-* `memberDelete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-// end::undoredo[]
 
 === Member Management Features
 
-image::MemberCommands.png[width="1000"]
+image::memberCommands.png[width="100%"]
 
 ==== Adding a member: `memberAdd`
 
@@ -183,23 +196,33 @@ You can add members to ClubManager. +
 Only alphabets are accepted. | John Sim
 |`Matric Number`| MATRIC_NUMBER refers to the member's matriculation number.
 
-Only a valid matriculation number can be entered.| A0123456Z
+Matric Number is a string of 9 alphanumeric characters.
+
+For the first alphabet of the Matric Number, only the uppercase letter A or uppercase letter U will be accepted.
+This will be followed by a 7 digits. The final character is an uppercase alphabet which has tally with the alphabet generated by our checksum generator.
+
+If an error occurs, it could mean that a wrong final character of the Matric Number has been inputted.
+| A0123456Z
 
 |`Phone Number`| PHONE_NUMBER refers to the member's phone number.
 
-Only 8 digits are accepted, starting with 6, 8 or 9. | 91234567
+Only 8 digits are accepted. The first digit of the phone number has to begin with 6, 8, 9.| 91234567
 |`Email Address`| EMAIL_ADDRESS refers to the member's student/personal email address| johnsim@example.com
 |`Address`| ADDRESS refers to the member's home address.
 
 Alphanumeric and Special characters are acceptable.| Jurong East Avenue 1 Block 2 #03-04
-|`Gender`| GENDER refers to the sex of the member, i.e. male or female
+|`Gender`| GENDER refers to the sex of the member.
 
 Only "Male" or "Female" is accepted (case-insensitive)|Male
 |`Year of Study`| YEAR_OF_STUDY refers to the academic level (in years)
 in which the member is currently studying.
 
-Only positive integers are accepted.| e.g. 1
-|`Major`| MAJOR refers to the field of discipline in which the member is currently enrolled in.| Chemistry
+Only a single digit is accepted. This digit has to be between the range 1 to 6 (both inclusive)| 2
+
+|`Major`| MAJOR refers to the field of discipline in which member is currently enrolled in.
+
+Only alphabets are accepted.| Chemistry
+
 |`Tags`|TAGS refers to the hobbies and interests of the member.
 
 Only Alphabets are acceptable, restricted to a single word.
@@ -208,13 +231,12 @@ A member can have any number of tags (including 0).|Swimming
 |=======================================================================
 
 *Format:*
-
-* `memberAdd n/NAME mn/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL a/ADDRESS g/GENDER yos/YEAR_OF_STUDY m/MAJOR [t/TAG]...`
+* `memberAdd n/NAME mn/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL a/ADDRESS g/GENDER y/YEAR_OF_STUDY m/MAJOR [t/TAG]...`
 
 *Examples:*
 
-* `memberAdd n/James Ong mn/A0123456Y p/98765432 e/jamesong@example.com a/123, Jurong West Ave 6, #08-111 g/male y/2 m/mathematics`
-* `memberAdd n/Jane Lim mn/A0654321T p/91324756 e/janelim@example.com a/123, Sengkang Ave 6, #02-123 g/Female y/3  m/physics t/Swimming`
+* `memberAdd n/James Ong mn/A0123456J p/98765432 e/jamesong@example.com a/123, Jurong West Ave 6, #08-111 g/male y/2 m/mathematics`
+* `memberAdd n/Jane Lim mn/A0654321J p/91324756 e/janelim@example.com a/123, Sengkang Ave 6, #02-123 g/Female y/3  m/physics t/Swimming`
 
 ==== Deleting a member : `memberDelete`
 
@@ -285,15 +307,6 @@ Returns all members (matric num starts with A0)
 Shows a list of all members in ClubManager. +
 Format: `memberList`
 
-*(below will be implemented in 1.4)*
-fimage::memberList_example_all.png[width="300"]
-
-Shows a list of members by a particular year of study in ClubManager. +
-Format: `memberList yearOfStudy year 4`
-
-Shows a list of members by a particular major
-Format: `memberList major computing`
-
 ==== Selecting a member : `memberSelect`
 
 Selects the member identified by the index number used in the displayed member list. +
@@ -309,10 +322,9 @@ Examples:
 
 * `list` +
 `memberSelect 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`memberSelect 1` +
-Selects the 1st member in the results of the `find` command.
+Selects the 2nd person in the club manager.
+
+image::memberSelectCommand.png[width="790"]
 
 //tag::membersort[]
 ==== Sort members’ list : `memberSort`
@@ -393,7 +405,7 @@ Adds a new activity to the activity list +
 [width="100%",cols="30%,<50%, <50%",options="header",]
 |=======================================================================
 |Information of Activity| Definition | Example
-|`ActivityName`| ACTIVITYNAME refers to the name of the activity.
+|`ActivityName`| ACTIVITY_NAME refers to the name of the activity.
 
  Only alphabets are accepted. | Sentosa Outing
 |`ActivityDateTime`| DATETIME refers to the date and time of the activity
@@ -405,7 +417,7 @@ to day of month, month and year respectively. HH refers to the hour in 24 hour f
 |`ActivityDescription`| DESCRIPTION refers to the detailed description of the activity
 |Meeting at MRT before leaving together.
 |=======================================================================
-Format: `activityAdd n/ACTIVITYNAME d/DATETIME l/LOCATION [de/DESCRIPTION] ...`
+Format: `activityAdd n/ACTIVITY_NAME d/DATETIME l/LOCATION [de/DESCRIPTION] ...`
 
 ****
 * Inputing description is optional. If no description is found, the default description
@@ -413,11 +425,12 @@ will be "More details to be added."
 * The added activity will be displayed at the sorted position according to its time. +
 The ongoing activities will be display on top while the completed activity will be at
 the bottom of the list.
+* Activities with the same time and location cannot be added.
 ****
 
 Example:
 
-* `activityAdd n/Sentosa Outing d/16022019 1000 l/Harbour Front MRT de/Bring swim suits.`
+* `activityAdd n/Sentosa Outing d/16/02/2019 1000 l/Harbour Front MRT de/Bring swim suits.`
 * `activityAdd n/HTML workshop d/1402019 l/ICube Auditorium ic/A0123456Z`
 
 image::ActivityAddCommand.png[width="790"]
@@ -475,7 +488,7 @@ Examples:
 Removes the member with matric number A1234567N from activity 1’s attending list.
 // end::activityDeleteMember[]
 
-==== Edit an activity: `activityEdit` *up in v1.4*
+==== Edit an activity: `activityEdit`
 Edits an existing activity in the activity list
 Format: `activityEdit ACTIVITY_INDEX [n/ACTIVITY_NAME] [d/DATE] [t/TAG] … `
 
@@ -514,17 +527,20 @@ Format: `activityFilter CONDITION NUMBEROFDAYS`
 
 Finds all activities whose attribute contain any of the specified keywords
 (case-insensitive) and displays them as a list with index numbers. +
-Format: `activityFind [a/] [n/] [de/] [l/] KEYWORD [MORE_KEYWORDS]`
+Format: `activityFind [PREFIX] KEYWORD [MORE_KEYWORDS] [NEXT_PREFIX KEYWORD] [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `workshop` will match `Workshop`
 * The order of the keywords does not matter. e.g. `Talk Seminar` will match `Seminar Talk`
-* The search parameter is determined by the prefix. `a/` is to search all descriptive fields (ActivityName,
-ActivityLocation, ActivityDescription); `n/` searches for match in ActivityName; `l/` searches for match in
+* The search parameter is determined by the prefixes.  `n/` searches for match in ActivityName; `l/` searches for match in
 ActivityLocation; `de/` searches for matches in ActivityDescription.
-* There can be one and only one prefix.
+* If no prefix is provided, the activities with any fields matching the keywords would be returned.
 * Only full words will be matched e.g. `CS` will not match `CSS`
-* Activities matching at least one keyword will be returned (i.e. `OR` search). e.g. `HTML workshop` will return `HTML camp`, `CSS workshop`
+* For a specific prefix, activities matching at least one keyword will be returned (i.e. `OR` search within the prefix).
+e.g. `HTML workshop` will return `HTML camp`, `CSS workshop`
+* If more than one prefixes are entered, only activities matching all the prefixes' conditions will be returned
+(i.e. `AND` search between prefixes). e.g. `n/Sentosa Dance l/Icube MRT` will only return activities with name that contains
+`Sentosa` or `Dance` and location that contains `Icube` or `MRT`.
 ****
 
 Examples:
@@ -572,13 +588,6 @@ Selects the 1st activity in the results of the `find` command.
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -589,10 +598,10 @@ This section provides a comprehensive list of commands that ClubManager offers.
 
 === General Commands
 * *Clear* : `clear`
+* *Mode* : `mode [MODE_CHOICE]` +
+e.g. `mode member`
 * *Help* : `help`
 * *History* : `history`
-* *Redo* : `redo`
-* *Undo* : `undo`
 
 === Member Management Commands
 
@@ -613,9 +622,9 @@ e.g.`memberSelect 2`
 e.g. `memberSort name`
 
 === Activity Management Commands
-* *Add a activity* : `activityAdd n/ACTIVITY_NAME d/DATE_TIME l/LOCATION [de/DESCRIPTION] [ic/IN_CHARGE_MATRIC] ...` +
-e.g. `activityAdd n/Sentosa Outing d/16022019 1000 l/Harbour Front MRT de/Bring swim suits.`
-* *Add a member to activity* : `activityAddMember ACTIVITY_INDEX MATRIC_NUMBER` +
+* *Add a activity* : `activityAdd n/gACTIVITY_NAME d/DATETIME l/LOCATION [de/DESCRIPTION] ...` +
+e.g. `activityAdd n/Sentosa Outing d/16/02/2019 1000 l/Harbour Front MRT de/Bring swim suits.`
+* *Add a member to activity* : `activityAddMember ACTIVITY_INDEX MATRIC_NO` +
 e.g. `activityAddMember 1 A1234567N`
 * *Delete an activity* : ``activityDelete ACTIVITY_INDEX`` +
 e.g. `activityDelete 1`
@@ -623,7 +632,7 @@ e.g. `activityDelete 1`
 e.g. `activityDeleteMember 1 A1234567N`
 * *Edit an activity* : `activityEdit ACTIVITY_INDEX [n/ACTIVITY_NAME] [d/DATE] [t/TAG] … ` +
 e.g. `activityEdit 1 d/13022019`
-* *Find an activity* : `activityFind [a/] [n/] [de/] [l/] KEYWORD [MORE_KEYWORDS]` +
+* *Find an activity* :`activityFind [PREFIX] KEYWORD [MORE_KEYWORDS] [NEXT_PREFIX KEYWORD] [MORE_KEYWORDS]` +
 e.g. `activityFind n/ Workshop`
 * *Filtering activities* : `activityFilter CONDITION NUMBER_OF_DAYS` +
 e.g. `activityFilter + 30`

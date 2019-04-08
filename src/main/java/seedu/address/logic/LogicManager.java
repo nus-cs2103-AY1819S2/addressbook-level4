@@ -146,7 +146,21 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public boolean modeHasChange_isCurrModeActivity() {
-        return model.addressBookModeIsActivity();
+    public boolean modeHasChange_isCurrModeActivity() { return model.addressBookModeIsActivity(); }
+
+    @Override
+    public ObservableList<Person> getAttendingOfSelectedActivity() {
+        return model.getAttendingOfSelectedActivity();
+    }
+
+    @Override
+    public ObservableList<Person> getPersonNotInSelectedActivity() {
+        return model.getPersonNotInSelectedActivity();
+    }
+
+
+    @Override
+    public ObservableList<Activity> getActivitiesOfPerson() {
+        return model.getActivitiesOfPerson();
     }
 }

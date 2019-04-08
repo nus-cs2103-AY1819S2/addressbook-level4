@@ -39,8 +39,8 @@ Battleship, as you will see, is a hybrid application. It combines both a CLI and
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `battleship.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for the game.
+.  Download the latest `addressbook.jar` link:https://github.com/CS2103-AY1819S2-W14-3/main/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui1.png[width=800]
@@ -247,11 +247,9 @@ We are able to list a specific battleship by the name of `destroyer` with the ta
 .The `list` command with name and tags
 image::listbytagbyname.png[width=750]
 
-
 ===== List all tags: `listTags`
 
 Lists all the tags that have been used to tag the battleships deployed on the map. +
-
 
 Format: `listTags` +
 Examples: `listTags`

@@ -29,6 +29,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_FILTER_SKILL_REVERSE = new Prefix(">skill");
     public static final Prefix PREFIX_FILTER_POS = new Prefix("position<");
     public static final Prefix PREFIX_FILTER_POS_REVERSE = new Prefix(">position");
+    public static final Prefix PREFIX_FILTER_ENDORSEMENT = new Prefix("end<");
+    public static final Prefix PREFIX_FILTER_ENDORSEMENT_REVERSE = new Prefix(">end");
     public static final Prefix PREFIX_FILTER_GPA = new Prefix("g<");
     public static final Prefix PREFIX_FILTER_GPA_REVERSE = new Prefix(">g");
     public static final Prefix PREFIX_FILTER_EDUCATION = new Prefix("d<");

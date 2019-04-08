@@ -28,6 +28,7 @@ import seedu.knowitall.model.ReadOnlyCardFolder;
 import seedu.knowitall.model.UserPrefs;
 import seedu.knowitall.model.card.Card;
 import seedu.knowitall.storage.csvmanager.CsvFile;
+import seedu.knowitall.storage.csvmanager.CsvUtils;
 import seedu.knowitall.storage.csvmanager.exceptions.CsvManagerNotInitialized;
 
 
@@ -61,8 +62,8 @@ public class ImportCommandTest {
     public void setUp() throws Exception {
 
         // set test paths for model
-        model.setTestCsvPath();
-        expectedModel.setTestCsvPath();
+        model.setTestCsvPath(CsvUtils.DEFAULT_IMPORT_TEST_PATH);
+        expectedModel.setTestCsvPath(CsvUtils.DEFAULT_IMPORT_TEST_PATH);
 
         // initialize respective files
         String testDefaultPath = model.getDefaultPath();
@@ -173,7 +174,7 @@ public class ImportCommandTest {
      */
     private void isSameFileContent(File actualFile, File testFile) throws IOException, CsvManagerNotInitialized {
         expectedModel.exportCardFolders(new ArrayList<>(Arrays.asList(1)));
-        // System.out.println(DEFAULT_TEST_PATH);
+        // System.out.println(DEFAULT_IMPORT_TEST_PATH);
         assert(actualFile.exists());
         byte[] rawByteF1 = Files.readAllBytes(Paths.get(actualFile.toString()));
         byte[] rawByteF2 = Files.readAllBytes(Paths.get(testFile.toString()));
@@ -182,7 +183,7 @@ public class ImportCommandTest {
         byte[] processedF1 = removeCarriageReturn(rawByteF1);
         byte[] processedF2 = removeCarriageReturn(rawByteF2);
         assertArrayEquals (processedF1, processedF2);
-        testFile.delete();
+        assert (testFile.delete());
     }
 
     /**

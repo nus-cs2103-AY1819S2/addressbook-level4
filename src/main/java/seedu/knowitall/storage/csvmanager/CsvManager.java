@@ -32,8 +32,6 @@ import seedu.knowitall.storage.csvmanager.exceptions.IncorrectCsvHeadersExceptio
  */
 public class CsvManager implements CsvCommands {
 
-    public static final String DEFAULT_TEST_PATH = "/src/test/data/CsvCardFolderTest";
-    public static final String DEFAULT_FILE_PATH = "./";
 
     private static final String COMMA_DELIMITTER = ",";
     private static final String NEW_LINE_SEPARATOR = "\n";
@@ -41,7 +39,7 @@ public class CsvManager implements CsvCommands {
     private static final String TEST_FOLDER_PATH = "test";
 
     private String defaultPath;
-    private boolean setTestDefaultPath = false;
+    private boolean isImportTest = false;
 
 
 
@@ -174,7 +172,7 @@ public class CsvManager implements CsvCommands {
 
     private String getFolderName(ReadOnlyCardFolder folder) {
         String folderName = folder.getFolderName();
-        if (setTestDefaultPath) {
+        if (isImportTest) {
             return folder + " " + TEST_FOLDER_PATH;
         }
         return folderName;
@@ -185,16 +183,19 @@ public class CsvManager implements CsvCommands {
     }
 
     private static String getDefaultFilePath() throws IOException {
-        return new File(DEFAULT_FILE_PATH).getCanonicalPath();
+        return new File(CsvUtils.DEFAULT_FILE_PATH).getCanonicalPath();
     }
 
     public String getDefaultPath() {
         return defaultPath;
     }
 
-    public void setTestDefaultPath() {
-        defaultPath = defaultPath + DEFAULT_TEST_PATH;
-        setTestDefaultPath = true;
+    public void setTestDefaultPath(String testPath) {
+        defaultPath = defaultPath + testPath;
+
+        if (testPath.equals(CsvUtils.DEFAULT_IMPORT_TEST_PATH)) {
+            isImportTest = true;
+        }
     }
 
     private String getCardString(Card card) {

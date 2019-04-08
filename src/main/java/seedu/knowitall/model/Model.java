@@ -280,7 +280,7 @@ public interface Model extends Observable {
 
     void exitReportDisplay();
 
-    void setTestCsvPath();
+    void setTestCsvPath(String path);
 
     String getDefaultPath();
 

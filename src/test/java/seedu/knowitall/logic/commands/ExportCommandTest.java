@@ -16,14 +16,15 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.junit.rules.TemporaryFolder;
 
+import org.junit.runners.model.MultipleFailureException;
 import seedu.knowitall.logic.CommandHistory;
 import seedu.knowitall.logic.commands.exceptions.CommandException;
+import seedu.knowitall.model.CardFolderNotFoundException;
 import seedu.knowitall.model.Model;
 import seedu.knowitall.model.ModelManager;
 import seedu.knowitall.model.UserPrefs;
-import seedu.knowitall.storage.csvmanager.CsvManager;
+import seedu.knowitall.storage.csvmanager.CsvUtils;
 
 
 public class ExportCommandTest {
@@ -37,28 +38,38 @@ public class ExportCommandTest {
 
     @Before
     public void setUp() {
-        model.setTestCsvPath();
+        model.setTestCsvPath(CsvUtils.DEFAULT_EXPORT_TEST_PATH);
     }
 
 
-
     @Test
-    public void execute_exportSingleValidCardFolderIndex_success() throws Exception {
-        List<Integer> myList = new ArrayList<>(Arrays.asList(1));
-        ExportCommand exportCommand = new ExportCommand(myList);
+    public void execute_exportSingleMultipleFolderIndex_success() throws Exception {
+        List<Integer> singleList = new ArrayList<>(Arrays.asList(1));
+        List<Integer> multipleList = new ArrayList<>(Arrays.asList(1, 2));
+        execute_exportValidCardFolderIndexes_success(singleList);
+        execute_exportValidCardFolderIndexes_success(multipleList);
+        deleteExportFile();
+    }
 
 
+    private void execute_exportValidCardFolderIndexes_success(List<Integer> folderIndexes) throws Exception {
+        ExportCommand exportCommand = new ExportCommand(folderIndexes);
         CommandResult commandResult = exportCommand.execute(model, commandHistory);
         assertEquals(ExportCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
     }
 
-
-    @After
+    /**
+     * 
+     */
     public void deleteExportFile() {
-        File file = new File(CsvManager.DEFAULT_TEST_PATH + "/" + "Typical Cards.csv");
-        if (file.exists()) {
-            boolean isDeleted = file.delete();
-            assert (isDeleted);
+        File[] files = new File[] {new File(model.getDefaultPath() + "/" + "Typical Cards.csv"),
+                new File(model.getDefaultPath() + "/" + "Blood.csv")};
+        for (File file : files) {
+            assert file.canRead();
+            if (file.exists()) {
+                boolean isDeleted = file.delete();
+                assert (isDeleted);
+            }
         }
     }
 
@@ -67,15 +78,9 @@ public class ExportCommandTest {
     public void execute_exportSingleInvalidCardFolderIndex_failure() throws Exception {
         List<Integer> myList = new ArrayList<>(Arrays.asList(1, 3));
         ExportCommand exportCommand = new ExportCommand(myList);
-
         thrown.expect(CommandException.class);
         thrown.expectMessage(ExportCommand.MESSAGE_MISSING_CARD_FOLDERS);
         CommandResult commandResult = exportCommand.execute(model, commandHistory);
-    }
-
-    @Test
-    public void execute_exportMultipleValidCardFolderIndex_success() {
-
     }
 
 }

@@ -578,8 +578,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setTestCsvPath() {
-        csvManager.setTestDefaultPath();
+    public void setTestCsvPath(String path) {
+        csvManager.setTestDefaultPath(path);
     }
 
     @Override

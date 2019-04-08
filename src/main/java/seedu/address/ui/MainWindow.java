@@ -1,13 +1,17 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -16,6 +20,9 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.job.Job;
+import seedu.address.model.job.JobName;
+import seedu.address.model.person.Person;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -23,7 +30,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    private static final String FXML = "MainWindow.fxml";
+    private static final String FXML = "jobDisplayWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -31,13 +38,12 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private PersonListPanel allApplicantsListPanel;
+    private PersonListPanel kivListPanel;
+    private PersonListPanel interviewedListPanel;
+    private PersonListPanel selectedListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-
-    @FXML
-    private StackPane browserPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -46,13 +52,25 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane allApplicantsPlaceholder;
+
+    @FXML
+    private StackPane kivPlaceholder;
+
+    @FXML
+    private StackPane interviewedPlaceholder;
+
+    @FXML
+    private StackPane selectedPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private FlowPane allFilter;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -111,12 +129,13 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        ArrayList<String> testFilter = new ArrayList<>();
+        String test = "testing";
+        testFilter.add(test);
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
-                logic::setSelectedPerson);
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        testFilter.forEach(tag -> allFilter.getChildren().add(new Label(tag)));
+
+        refreshJobPersonList();
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -129,12 +148,24 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Refreshes the personListPanel
+     * Refreshes the jobPersonListPanel
      */
-    void refreshPersonList() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
-                logic::setSelectedPerson);
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    void refreshJobPersonList() {
+        allApplicantsListPanel = new PersonListPanel(logic.getJobsList(0), logic.selectedPersonProperty(),
+                logic::setSelectedAll);
+        allApplicantsPlaceholder.getChildren().add(allApplicantsListPanel.getRoot());
+
+        kivListPanel = new PersonListPanel(logic.getJobsList(1), logic.selectedPersonProperty(),
+                logic::setSelectedKiv);
+        kivPlaceholder.getChildren().add(kivListPanel.getRoot());
+
+        interviewedListPanel = new PersonListPanel(logic.getJobsList(2), logic.selectedPersonProperty(),
+                logic::setSelectedInterviewed);
+        interviewedPlaceholder.getChildren().add(interviewedListPanel.getRoot());
+
+        selectedListPanel = new PersonListPanel(logic.getJobsList(3), logic.selectedPersonProperty(),
+                logic::setSelectedSelected);
+        selectedPlaceholder.getChildren().add(selectedListPanel.getRoot());
     }
 
     /**
@@ -177,10 +208,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *
@@ -197,6 +224,10 @@ public class MainWindow extends UiPart<Stage> {
                 analytics.show(commandResult.getAnalytics());
             }
 
+            if (commandResult.isSuccessfulDisplayJob()) {
+                refreshJobPersonList();
+            }
+
             if (commandResult.isSuccessfulInterviews()) {
                 InterviewsWindow interviews = new InterviewsWindow();
                 interviews.show(commandResult.getInterviews());
@@ -209,8 +240,6 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
-
-            refreshPersonList();
 
             return commandResult;
         } catch (CommandException | ParseException e) {

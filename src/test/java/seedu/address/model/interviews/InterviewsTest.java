@@ -2,7 +2,7 @@ package seedu.address.model.interviews;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
+import static seedu.address.testutil.TypicalObject.getTypicalPersons;
 
 import java.util.ArrayList;
 import java.util.Calendar;

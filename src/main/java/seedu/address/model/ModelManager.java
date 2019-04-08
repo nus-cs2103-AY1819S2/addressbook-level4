@@ -35,7 +35,9 @@ public class ModelManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final UserPrefs userPrefs;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
-    private FilteredList<Person> originalFilteredPersons;
+    private final SimpleObjectProperty<Job> selectedJob = new SimpleObjectProperty<>();
+    private final FilteredList<Person> originalFilteredPersons;
+    private final FilteredList<Job> filteredJobs;
     private FilteredList<Person> displayedFilteredPersons;
     private Job activeJob;
     private FilteredList<Person> activeJobAllApplcants;
@@ -57,6 +59,8 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         originalFilteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         originalFilteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredJobs = new FilteredList<>(versionedAddressBook.getJobList());
+        filteredJobs.addListener(this::ensureSelectedJobIsValid);
         displayedFilteredPersons = originalFilteredPersons;
     }
 
@@ -274,7 +278,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}.
+     * Ensures {@code selectedPerson} is a valid person in {@code originalFilteredPersons}.
      */
     private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Person> change) {
         while (change.next()) {
@@ -298,6 +302,35 @@ public class ModelManager implements Model {
                 // Select the person that came before it in the list,
                 // or clear the selection if there is no such person.
                 selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
+
+    /**
+     * Ensures {@code selectedJob} is a valid job in {@code filteredJobs}.
+     */
+    private void ensureSelectedJobIsValid(ListChangeListener.Change<? extends Job> change) {
+        while (change.next()) {
+            if (selectedJob.getValue() == null) {
+                // null is always a valid selected job, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedJobReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedJob.getValue());
+            if (wasSelectedJobReplaced) {
+                // Update selectedPerson to its new value.
+                int index = change.getRemoved().indexOf(selectedJob.getValue());
+                selectedJob.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedJobRemoved = change.getRemoved().stream()
+                    .anyMatch(removedJob -> selectedJob.getValue().isSameJob(removedJob));
+            if (wasSelectedJobRemoved) {
+                // Select the person that came before it in the list,
+                // or clear the selection if there is no such person.
+                selectedJob.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }

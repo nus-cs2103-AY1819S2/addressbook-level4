@@ -4,11 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_JOB_NAME_TEACHER;
-import static seedu.address.testutil.TypicalJobs.ENGINEER;
-import static seedu.address.testutil.TypicalJobs.PASTOR;
-import static seedu.address.testutil.TypicalJobs.PROFESSOR;
-import static seedu.address.testutil.TypicalJobs.TEACHER;
-import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalObject.ALICE;
+import static seedu.address.testutil.TypicalObject.ENGINEER;
+import static seedu.address.testutil.TypicalObject.PASTOR;
+import static seedu.address.testutil.TypicalObject.PROFESSOR;
+import static seedu.address.testutil.TypicalObject.TEACHER;
 
 import java.util.HashSet;
 

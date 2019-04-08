@@ -16,9 +16,9 @@ import seedu.address.model.pdf.Pdf;
 /**
  * An UI component that displays information of a {@code Pdf}.
  */
-public class PersonCard extends UiPart<Region> {
+public class PdfCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "PdfListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -43,7 +43,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private ImageView lock;
 
-    public PersonCard(Pdf pdf, int displayedIndex) {
+    public PdfCard(Pdf pdf, int displayedIndex) {
         super(FXML);
         this.pdf = pdf;
         id.setText(displayedIndex + ". ");
@@ -104,12 +104,12 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof PdfCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        PdfCard card = (PdfCard) other;
         return id.getText().equals(card.id.getText())
                 && pdf.equals(card.pdf);
     }

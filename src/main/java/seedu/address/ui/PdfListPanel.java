@@ -16,15 +16,15 @@ import seedu.address.model.pdf.Pdf;
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class PdfListPanel extends UiPart<Region> {
+    private static final String FXML = "PdfListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(PdfListPanel.class);
 
     @FXML
     private ListView<Pdf> personListView;
 
-    public PersonListPanel(ObservableList<Pdf> pdfList, ObservableValue<Pdf> selectedPerson,
-                           Consumer<Pdf> onSelectedPersonChange) {
+    public PdfListPanel(ObservableList<Pdf> pdfList, ObservableValue<Pdf> selectedPerson,
+                        Consumer<Pdf> onSelectedPersonChange) {
         super(FXML);
         personListView.setItems(pdfList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
@@ -52,7 +52,7 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Pdf} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Pdf} using a {@code PdfCard}.
      */
     class PersonListViewCell extends ListCell<Pdf> {
         @Override
@@ -63,7 +63,7 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(pdf, getIndex() + 1).getRoot());
+                setGraphic(new PdfCard(pdf, getIndex() + 1).getRoot());
             }
         }
     }

@@ -58,7 +58,7 @@ public class PdfListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Verifies that creating and deleting large number of persons in {@code PersonListPanel} requires lesser than
+     * Verifies that creating and deleting large number of persons in {@code PdfListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
@@ -73,7 +73,7 @@ public class PdfListPanelTest extends GuiUnitTest {
 
     /**
      * Returns a list of persons containing {@code personCount} persons that is used to populate the
-     * {@code PersonListPanel}.
+     * {@code PdfListPanel}.
      */
     private ObservableList<Pdf> createBackingList(int personCount) {
         ObservableList<Pdf> backingList = FXCollections.observableArrayList();
@@ -88,15 +88,15 @@ public class PdfListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Initializes {@code personListPanelHandle} with a {@code PersonListPanel} backed by {@code backingList}.
-     * Also shows the {@code Stage} that displays only {@code PersonListPanel}.
+     * Initializes {@code personListPanelHandle} with a {@code PdfListPanel} backed by {@code backingList}.
+     * Also shows the {@code Stage} that displays only {@code PdfListPanel}.
      */
     private void initUi(ObservableList<Pdf> backingList) {
-        PersonListPanel personListPanel =
-                new PersonListPanel(backingList, selectedPerson, selectedPerson::set);
-        uiPartRule.setUiPart(personListPanel);
+        PdfListPanel pdfListPanel =
+                new PdfListPanel(backingList, selectedPerson, selectedPerson::set);
+        uiPartRule.setUiPart(pdfListPanel);
 
-        personListPanelHandle = new PersonListPanelHandle(getChildNode(personListPanel.getRoot(),
+        personListPanelHandle = new PersonListPanelHandle(getChildNode(pdfListPanel.getRoot(),
                 PersonListPanelHandle.PERSON_LIST_VIEW_ID));
     }
 }

@@ -95,6 +95,7 @@ Displays the help text for all available commands.
 
 Format: `help`
 
+////
 ==== dentist
 
 You can specify the name you want to reflect in your patients' dental record when you create them.
@@ -104,6 +105,7 @@ Format: `dentist n/YOUR_NAME`
 * If there is no dentist name specified, the program will prompt you to enter one.
 
 * This should only happen once, during the first startup of the application.
+////
 
 ==== history
 Lists all the commands that have been entered since starting the
@@ -154,37 +156,45 @@ previously.
 `redo` (reapplies the patientdelete 1 command) +
 `redo` (reapplies the patientclear command)
 
+
 ==== sort
 Sorts the records by an input parameter in an input order.
 
-Format: `sort PARAM ORDER`
+Format: `sort PARAM [ORDER]`
 
-* valid PARAM options: address, date of birth, email, name, nric, phone, sex
+* valid PARAM options in patient mode: address, dob, email, name, nric, phone, sex,
+drug, kinN, kinR, kinP, kinA, desc.
+* valid PARAM options in record mode: desc, date, procedure.
 * valid ORDER options: asce, desc
+** default ORDER if unspecified is ascending
 
 Example:
 
-[cols=",,,",options="header",]
+[cols=",,,,",options="header",]
 |===
-|*ID* |*Name* |*Age* |*Last Modified*
-|0 |Alice |19 |03/07/2003
-|1 |Clara |12 |05/02/2021
-|2 |Bob |24 |11/02/2019
-
-|*ID* |*Name* |*Age* |*Last Modified*
-|1 |Clara |12 |05/02/2021
-|2 |Bob |24 |11/02/2019
-|0 |Alice |19 |03/07/2003
+|*ID* |*Name* |*Sex* | *Phone* |  *Date of Birth*
+|0 |Alice |M | 84521666 | 03/07/2003
+|1 |Bob |M | 96545555 | 11/02/2019
+|2 |Clara |F | 98989898 | 05/02/2021
 |===
 
-* sort age asce
-
-[cols=",,,",options="header",]
+* sort sex
+[cols=",,,,",options="header",]
 |===
-|*ID* |*Name* |*Age* |*Last Modified*
-|1 |Clara |12 |05/02/2021
-|0 |Alice |19 |03/07/2003
-|2 |Bob |24 |11/02/2019
+|*ID* |*Name* |*Sex* | *Phone* |  *Date of Birth*
+|0 |Clara |F | 98989898 | 05/02/2021
+|1 |Alice |M | 84521666 | 03/07/2003
+|2 |Bob |M | 96545555 | 11/02/2019
+|===
+
+* sort dob desc
+
+[cols=",,,,",options="header",]
+|===
+|*ID* |*Name* |*Sex* | *Phone* |  *Date of Birth*
+|0 |Clara |F | 98989898 | 05/02/2021
+|1 |Bob |M | 96545555 | 11/02/2019
+|2 |Alice |M | 84521666 | 03/07/2003
 |===
 
 ==== stat
@@ -343,9 +353,8 @@ Note: If a patient’s next of kin lives at the same address, use `same` to indi
 
 Examples:
 
-* `patientadd n/John Choo p/98425871 e/jonC@example.com a/IDA street block 13
-#02-05 ic/S1234567H age/32 dob/26021987 nokn/Jacky Choo nokp/84875215
-nokr/Father noka/same`
+* `patientadd n/John Choo sex/M p/98425871 e/jonC@example.com a/IDA street block 13
+#02-05 ic/S1234567H dob/26-02-1987 nokn/Jacky Choo nokp/84875215 nokr/Father noka/same`
 
 ==== patientdelete
 
@@ -372,39 +381,35 @@ Deletes the patient shown with index 2 found using the find command.
 
 Edits data from an existing patient.
 
-Format: `patientedit INDEX` or `pedit INDEX`
+Format: `patientedit INDEX [PREFIX/KEYWORDS]` or `pedit INDEX [PREFIX/KEYWORDS]`
 
-* Goes into patientedit mode for the patient at the specified index shown from
-list or find command. Must be a positive integer (e.g 1, 2 or 3).
+* Edits the patient at the specified index shown from list or find command.
+Must be a positive integer (e.g 1, 2 or 3).
 
-* Input the field followed by the new value to replace the existing data.
+* Input the prefix followed by the new value to replace the existing data.
+** The full list of possible prefixes can be found in <<Breakdown of attributes used within TeethHub>>
 
 * Multiple fields can be edited in a single input or across multiple
 inputs.
 
-* When editing tags, the existing tags of the patient will be removed i.e
-adding of tags is not cumulative.
+* Note that tags **cannot** be editted as they are automatically generated.
 
-* All tags can be removed by keying in t/ without specifying any tags
-following it.
-
-* Exit the patientedit mode by entering done.
+[NOTE]
+============================================================
+After editting a patient, `plist` is automatically executed as well!
+============================================================
 
 Example:
 
 * `<<patientlist, patientlist>>` +
-`patientedit 1` +
-`p/12345` +
-`e/newemail@gmail.com` +
-`done` +
+`patientedit 1 e/newemail@gmail.com` +
+`patientedit 1 p/12345` +
 Edits the phone number and email of the first patient listed to become
 12345 and newemail@gmail.com respectively across 2 inputs.
 
 
 * `<<patientfind, patientfind>> Betsy` +
-`patientedit 2` +
-`p/987654 e/mymail@gmail.com` +
-`done` +
+`patientedit 2 p/987654 e/mymail@gmail.com` +
 Edits the phone number and email of the first patient listed to become
 987654 and mymail@gmail.com respectively with a single input.
 
@@ -585,7 +590,7 @@ All permanent teeth in template will all be present and healthy by default.
 
 ** `<<goto, goto>> 1` - Specifies patient 1 to edit his or her teeth status. Enters the record edit mode.
 
-** `teethedit t/TEETH_LABEL s/STATUS` - Edits the status of the indicated tooth of patient.
+** `teethedit TEETH_LABEL s/STATUS` - Edits the status of the indicated tooth of patient.
 
 ** `back` - Exits the record edit mode, and returns to the patient list.
 
@@ -816,101 +821,6 @@ Examples:
 * `taskfind pri/HIGH`
 * `taskfind ti/Extraction`
 ////
-=== Viewing and Locating Information
-The commands listed below deal with displaying and finding data for you to view.
-They do not deal with the adding or modification of any information currently already
-stored within the program.
-
-==== list
-Shows a list of all patients or medical stored in TeethHub.
-
-Format: `list [dental]`
-
-Command shows patient details by default, add dental to see dental records.
-
-Example:
-
-* `list` +
-Shows details of all patients.
-
-* `list dental` +
-Shows details of patient's dental records.
-
-// tag::viewingInfo[]
-==== find
-
-Shows patients whose data contains any of the given keywords according to a specified parameter.
-
-Format: `find [CASE_SENSITIVITY] [AND OPERATOR] PREFIX/KEYWORD [MORE PREFIX/KEYWORD]`
-
-* Case sensitivity can be toggled by specifying "CS" before the keywords,
- default behavior ignores case sensitivity
-* AND Operator can be toggled by specifying "AND" before the keywords,
-default behaviour is OR.
-* Order of Prefix/keywords does not matter.
-* Valid `Prefix` values: See <<Breakdown of attributes used within TeethHub>>
-
-Example:
-
-* `find a/Yishun` +
-Show all the people with an address containing the keyword Yishun.
-
-* `find a/Yishun e/yahoo.com` +
-Show all the people with an address containing either the keyword Yishun
-or have an email address containing yahoo.com .
-
-* `find CS sex/M da/PANadol` +
-Shows all the people with either a sex listed as M or have their drug allergy listed as PANadol
-in the exact given letter case.
-
-* `find AND CS n/Alex p/9475` +
-Show all the people with both a name containing Alex and a phone number containing 9475.
-
-
-==== sort
-Sorts the records by an input parameter in an input order.
-
-Format: `sort PARAM [ORDER]`
-
-* valid PARAM options in patient mode: address, dob, email, name, nric, phone, sex,
-drug, kinN, kinR, kinP, kinA, desc.
-* valid PARAM options in record mode: desc, date, procedure.
-* valid ORDER options: asce, desc
-** default ORDER if unspecified is ascending
-
-Example:
-
-[cols=",,,,",options="header",]
-|===
-|*ID* |*Name* |*Sex* | *Phone* |  *Date of Birth*
-|0 |Alice |M | 84521666 | 03/07/2003
-|1 |Bob |M | 96545555 | 11/02/2019
-|2 |Clara |F | 98989898 | 05/02/2021
-|===
-
-* sort sex
-[cols=",,,,",options="header",]
-|===
-|*ID* |*Name* |*Sex* | *Phone* |  *Date of Birth*
-|0 |Clara |F | 98989898 | 05/02/2021
-|1 |Alice |M | 84521666 | 03/07/2003
-|2 |Bob |M | 96545555 | 11/02/2019
-|===
-
-* sort dob desc
-
-[cols=",,,,",options="header",]
-|===
-|*ID* |*Name* |*Sex* | *Phone* |  *Date of Birth*
-|0 |Clara |F | 98989898 | 05/02/2021
-|1 |Bob |M | 96545555 | 11/02/2019
-|2 |Alice |M | 84521666 | 03/07/2003
-|===
-
-==== stat
-Generates a statistics report based on the specified patient's data.
-
-Format: `stat INDEX`
 // end::viewingInfo[]
 
 == Cloud Functionality [Coming in v2.0]

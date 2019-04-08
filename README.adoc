@@ -7,11 +7,12 @@ https://coveralls.io/github/CS2103-AY1819S2-W17-3/main?branch=master[image:https
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
+image::docs/images/Ui_2.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
 image::images/Ui.png[width="600"]
-image::images/UI_2.png[width="600"]
+image::images/Ui_2.png[width="600"]
 endif::[]
 
 "Where did all the money in my wallet go!"

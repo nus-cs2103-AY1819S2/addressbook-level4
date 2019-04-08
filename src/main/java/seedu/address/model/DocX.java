@@ -14,6 +14,7 @@ import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.UniqueMedHistList;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonIdCounter;
 import seedu.address.model.person.UniqueDoctorList;
 import seedu.address.model.person.UniquePatientList;
@@ -121,6 +122,22 @@ public class DocX implements ReadOnlyDocX {
     }
 
     //// patient-level operations
+
+    /**
+     * Return object Patient with given id
+     */
+    public Patient getPatientById(PersonId patientId) {
+        requireNonNull(patientId);
+        return patients.findPatientById(patientId);
+    }
+
+    /**
+     * Return object Doctor with given id
+     */
+    Doctor getDoctorById(PersonId doctorId) {
+        requireNonNull(doctorId);
+        return doctors.findDoctorById(doctorId);
+    }
 
     /**
      * Returns true if a patient with the same identity as {@code patient} exists in the docX.
@@ -336,6 +353,8 @@ public class DocX implements ReadOnlyDocX {
     public PersonIdCounter getPersonIdCounter() {
         return personIdCounter;
     }
+
+
 
     @Override
     public boolean equals(Object other) {

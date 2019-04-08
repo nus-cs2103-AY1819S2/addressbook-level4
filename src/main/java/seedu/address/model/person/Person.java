@@ -15,7 +15,7 @@ import seedu.address.model.appointment.Appointment;
 public class Person {
 
     // Identity fields
-    private final int id;
+    private final PersonId id;
     private final Name name;
     private final Phone phone;
 
@@ -37,7 +37,7 @@ public class Person {
     /**
      * This is an existing person and does not need to generate a new ID.
      */
-    public Person(int id, Name name, Phone phone, Gender gender) {
+    public Person(PersonId id, Name name, Phone phone, Gender gender) {
         requireAllNonNull(name, phone, gender);
         this.id = id;
         this.name = name;
@@ -45,7 +45,7 @@ public class Person {
         this.gender = gender;
     }
 
-    public int getId() {
+    public PersonId getId() {
         return id;
     }
 

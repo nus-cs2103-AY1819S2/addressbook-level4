@@ -11,6 +11,7 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.PersonId;
 import seedu.address.model.prescription.Prescription;
 
 
@@ -31,17 +32,25 @@ public interface Model {
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
 
     /** {@code Comparator} that sort medical history by date in ascending order from oldest to newest. */
-    Comparator<MedicalHistory> COMPARATOR_MED_HIST_DATE_ASC = Comparator.comparing(MedicalHistory::getDate);
+    Comparator<MedicalHistory> COMPARATOR_MED_HIST_DATE_ASC = new MedHistDateAscComparator();
 
     /** {@code Comparator} that sort medical history by date in decending order from newest to oldest. */
     Comparator<MedicalHistory> COMPARATOR_MED_HIST_DATE_DESC = new MedHistDateDescComparator();
 
     /** Comparater of Medical History
+     * Medical history with older date is larger than medical history with newer date.
+     */
+    class MedHistDateAscComparator implements Comparator<MedicalHistory> {
+        public int compare (MedicalHistory mh1, MedicalHistory mh2) {
+            return mh1.getDate().date.compareTo(mh2.getDate().date);
+        }
+    }
+    /** Comparater of Medical History
      * Medical history with newer date is larger than medical history with older date.
      */
     class MedHistDateDescComparator implements Comparator<MedicalHistory> {
         public int compare (MedicalHistory mh1, MedicalHistory mh2) {
-            return mh2.getDate().compareTo(mh1.getDate());
+            return mh2.getDate().date.compareTo(mh1.getDate().date);
         }
     }
 
@@ -82,6 +91,16 @@ public interface Model {
 
     /** Returns the DocX */
     ReadOnlyDocX getDocX();
+
+    /**
+     * Return object Patient with given id
+     */
+    Patient getPatientById(PersonId patientId);
+
+    /**
+     * Return object Doctor with given id
+     */
+    Doctor getDoctorById(PersonId doctorId);
 
     /**
      * Returns true if a patient with the same identity as {@code patient} exists in the DocX.

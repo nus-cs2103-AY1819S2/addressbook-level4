@@ -1,6 +1,5 @@
 package seedu.address.model.util;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +15,6 @@ import seedu.address.model.appointment.AppointmentPatientId;
 import seedu.address.model.appointment.AppointmentTime;
 import seedu.address.model.appointment.FutureAppointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
-import seedu.address.model.medicalhistory.WriteUp;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Age;
 import seedu.address.model.person.Doctor;
@@ -73,9 +71,7 @@ public class SampleDataUtil {
     }
 
     public static MedicalHistory[] getSampleMedHists() {
-        return new MedicalHistory[] {
-            new MedicalHistory(1, 2, LocalDate.parse("2018-06-18"), new WriteUp("Fever"))
-        };
+        return null;
     }
 
     public static ReadOnlyDocX getSampleDocX() {
@@ -87,10 +83,11 @@ public class SampleDataUtil {
         for (Doctor sampleDoctor : getSampleDoctors()) {
             sampleDocX.addDoctor(sampleDoctor);
         }
-
+        /*
         for (MedicalHistory sampleMedHist : getSampleMedHists()) {
             sampleDocX.addMedHist(sampleMedHist);
         }
+        */
         return sampleDocX;
     }
 

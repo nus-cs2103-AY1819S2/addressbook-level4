@@ -84,7 +84,7 @@ class JsonSerializableDocX {
             if (docX.hasAppointment(appointment)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
             }
-            //System.out.println(appointment);
+
             docX.addAppointment(appointment);
         }
 
@@ -113,7 +113,7 @@ class JsonSerializableDocX {
             docX.addMedHist(medicalHistory);
         }
 
-        //docX.setIdCounter(idCounter.toModelType());
+        docX.setPersonIdCounter(personIdCounter.toModelType());
 
         return docX;
     }

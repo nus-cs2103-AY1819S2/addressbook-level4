@@ -62,6 +62,7 @@ public class PatientCard extends UiPart<Region> {
         String appointmentStatusString = patient.getAppointmentStatus().toString();
         appointmentStatus.setText(appointmentStatusString);
 
+        /*
         // does not work for now
         switch (appointmentStatusString) {
             case "CANCELLED": // red light
@@ -79,6 +80,7 @@ public class PatientCard extends UiPart<Region> {
             default:
                 break;
         }
+        */
     }
 
     @Override

@@ -3,20 +3,26 @@ package seedu.address.ui;
 import static java.util.Objects.requireNonNull;
 
 import java.net.URL;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.RecordContainsPatientIdPredicate;
 
 /**
  * The Browser Panel of the App.
@@ -37,16 +43,21 @@ public class PatientInfoPanel extends UiPart<Region> {
     @FXML
     private GridPane patientPage;
     @FXML
-    private Label patientName;
+    private Label pid;
     @FXML
-    private Label patientId;
-
+    private Label name;
     @FXML
-    private Label doctorName;
+    private Label gender;
     @FXML
-    private Label date;
+    private Label age;
     @FXML
-    private Label writeUp;
+    private Label phone;
+    @FXML
+    private Label number;
+    @FXML
+    private Label address;
+    @FXML
+    private Label tags;
 
     public PatientInfoPanel(ObservableValue<Patient> selectedPatient) {
         super(FXML);
@@ -73,15 +84,17 @@ public class PatientInfoPanel extends UiPart<Region> {
     private void loadPatientPage(Patient patient) {
         patientPage.getChildren().clear();
 
-        patientId.setText("Patient ID: " + patient.getIdToString());
-        patientName.setText("Patient Name: " + patient.getName());
+        pid.setText("Pid: " + patient.getIdToString());
+        name.setText("Name: " + patient.getName().fullName);
+        gender.setText("Gender: " + patient.getGender().value);
+        age.setText("Age: " + patient.getAge().value);
+        phone.setText("Phone: " + patient.getPhone().value);
+        address.setText("Address: " + patient.getAddress().value);
 
-        doctorId.setText("Doctor ID: " + medHist.getDoctorId());
-        doctorName.setText("Doctor Name: ");
-        date.setText("Date: " + medHist.getDate().toString());
-        writeUp.setText("Short Write Up from Doctor: " + medHist.getWriteUp().toString());
+        String tagsName = patient.getTags().toString().replaceAll("^\\[|\\]$", "");
+        tags.setText("Tags: " + tagsName);
 
-        patientPage.getChildren().addAll(medHistId, patientId, patientName, doctorId, doctorName, date, writeUp);
+        patientPage.getChildren().addAll(pid, name, gender, age, phone, address, tags);
     }
 
 
@@ -89,16 +102,7 @@ public class PatientInfoPanel extends UiPart<Region> {
      * Loads a default blank medical history with a background that matches the general theme.
      */
     private void loadDefaultPage() {
-        medHistPage.getChildren().clear();
-
-        medHistId.setText("");
-        patientId.setText("");
-        patientName.setText("");
-        doctorId.setText("");
-        doctorName.setText("");
-        date.setText("");
-        writeUp.setText("");
-        medHistPage.getChildren().addAll(medHistId, patientId, patientName, doctorId, doctorName, date, writeUp);
+        patientPage.getChildren().clear();
     }
 
 }

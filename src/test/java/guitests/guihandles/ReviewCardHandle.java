@@ -1,5 +1,6 @@
 package guitests.guihandles;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
 import javafx.scene.Node;
@@ -15,7 +16,7 @@ public class ReviewCardHandle extends NodeHandle<Node> {
     private static final String RATING_FIELD_ID = "#rating";
     private static final String ENTRY_FIELD_ID = "#entry";
     private static final SimpleDateFormat TIMESTAMP = new SimpleDateFormat("EEE, d MMM yyyy, h.mm aa");
-    private static final String ONE_DP = "%.1f";
+    private static final DecimalFormat ONE_DP = new DecimalFormat("0.0");
 
     private final Label idLabel;
     private final Label timestampLabel;
@@ -52,7 +53,7 @@ public class ReviewCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(Review review) {
         return getTimestamp().equals(TIMESTAMP.format(review.getTimeStamp()))
-                && getRating().equals(String.format(ONE_DP, review.getRating().toFloat()) + " / 5.0")
+                && getRating().equals(ONE_DP.format(review.getRating().toFloat()) + " / 5.0")
                 && getEntry().equals(review.getEntry().toString());
     }
 }

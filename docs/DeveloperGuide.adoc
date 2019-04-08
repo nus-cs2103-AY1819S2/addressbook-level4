@@ -455,7 +455,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 === Restaurant Categorisation
 
 Restaurants can be classified using categories. Each restaurant can have each of the optional categories defined.
-Currently, 3 different types of categories are implemented in v1.3: `Cuisine`, `Occasion` and `Price Range`.
+Currently, 3 different types of categories are implemented in v1.4: `Cuisine`, `Occasion` and `Price Range`.
 
 ==== Current Implementation
 
@@ -467,37 +467,40 @@ Restaurant Categorisation is mainly implemented using the following commands:
 All supported categories are defined in the `seedu.address.model.restaurant.categories` package, along with the `Categories`
 class that encapsulates all categories into a `Categories` object to be used in the `Restaurant` class.
 
-The following activity diagram shows the chain of events when setting categories of a restaurant with the setCategories command:
+_Figure 1_ below shows the chain of events when setting categories of a restaurant with the setCategories command:
 
-image::SetCategoriesActivityDiagram.png[width="650"]
+image::SetCategoriesActivityDiagram.png[width="800"]
+_Figure 1: setCategories Activity Diagram_
 
-The feature is evolved as follows:
+The following elaborates in detail on how the setCategories mechanism behaves at each step:
 
-1. Categorisation only by Cuisine
-* Add Cuisine class
-* Implement SetCuisine command that extends Command
-* Implement parser for SetCuisine command
-* Support filtering restaurants by cuisine
+Step 1: User starts keying in the command into the command box. Once prefixes for either `Cuisine`, `Occasion` or `Price Range`
+is detected, suggestions for that Category type is retrieved by `CategoriesAutoCompleteTextField` and populated in the appearing
+context menu.
 
-2. Categorisation by Occasion
-* Add new Categories class to encapsulate different category types
-* Add Occasion class. Model `Occasion` and `Cuisine` by composition inside `Categories`.
-* Change SetCuisine command to SetCategories command that extends Command
-* Add support for Occasion in filter command
-* Add new merge method to ensure setting one category only does not override the other
+Step 2: User finishes typing and submits command for execution. The keyed in text is sent to the `Food Diary Parser` to be parsed
+into a `SetCategoriesCommand` object. The `SetCategoriesCommand` object contains the categories parsed from the text encapsulated
+in a `Categories` object as well as the target `Index`.
 
-3. Categorisation by Price Range
-* Add new PriceRange class, composed inside `Categories`
-* Add new match method to abstract out matching responsibilities of each Category type to `Categories` class
-* Add new setLabels method to allow UI to set Label of each category without being aware of its existence
+Step 3: The `SetCategoriesCommand` is executed by calling `SetCategoriesCommand#execute()`. The target restaurant is retrieved
+from `Model` via `Model#getFilteredRestaurantList()`. A new restaurant is set up and the target restaurants fields are copied over.
+The categories of the target restaurant is merged by calling `Categories#merge()` and the result is passed to the new restaurant.
+The new restaurant is then updated into the Food Diary via `Model#commitFoodDiary()`.
 
-You can refer to the following sequence diagram to get a better understanding of how a typical valid setCategories command
+You can refer to _Figure 2_ below to get a better understanding of how a typical valid setCategories command
 executes internally.
 
-image::SetCategoriesSequenceDiagram.png[width="650"]
+image::SetCategoriesSequenceDiagram.png[width="1000"]
+_Figure 2: setCategories Sequence Diagram_
 
 ==== Design Considerations
+
+You can find out more about why certain areas of the feature is implemented a certain way here. Other possible
+alternatives are also considered and reasons as to why they were not chosen are also explained here.
+
 ===== Price Range Categorisation
+
+This section discusses the different ways price ranges could have been categorised.
 
 * Alternative 1: Use dollar signs to represent price (Current implementation)
 
@@ -513,7 +516,13 @@ image::SetCategoriesSequenceDiagram.png[width="650"]
 | Cons | Lacks proper structure, not very intuitive to the viewer if the user keys in something that does not make sense
 |=========
 
+Alternative 1 was chosen because it offers a better user experience to just type in a few characters instead of having the
+user think of what to type every time the user wants to set a price range. It also ensures that all restaurants'
+price ranges are visually consistent.
+
 ===== How categories are added and edited
+
+This section discusses how categories could have been handled.
 
 * Alternative 1: Use one single command to add and edit, only overriding the present categories keyed in (Current implementation)
 
@@ -529,7 +538,13 @@ image::SetCategoriesSequenceDiagram.png[width="650"]
 | Cons | User needs to remember which restaurants do not have categories added yet, else add or edit commands might fail.
 |=====================
 
+Alternative 1 was chosen because there are not much categories a restaurant can have. Furthermore, if there ever arise a need
+for the user to tag the restaurants, they can just use the existing tag system. By having one command to set any category,
+users only need to remember one command, hence it is more intuitive for the user.
+
 ===== Filtering restaurants by categories
+
+This section discusses different ways filtering could have been implemented.
 
 * Alternative 1: Key in as many key words as possible, without specifying which keyword is for which category (Current implementation)
 
@@ -544,6 +559,10 @@ image::SetCategoriesSequenceDiagram.png[width="650"]
 | Pros | Users can find specific restaurants matching each category type
 | Cons | Troublesome for user to type the commands since they now need to indicate which category should match which keyword
 |=====================
+
+Alternative 1 was chosen because it gives users complete freedom to key in whatever keywords they want without worrying about
+which keyword should match which category. The application automatically searches through all the categories to match the keywords
+for the user, which is more user friendly.
 
 // end::categorisation[]
 

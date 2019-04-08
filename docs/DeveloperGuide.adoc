@@ -704,17 +704,17 @@ image::ChangeCommandSequenceDiagram.png[width="600"]
 //end::folders[]
 
 
-//tag::testsession[]
+//tag::testcommand[]
 === Test Session feature
 
 ==== Overall Current Implementation
 This big feature mainly involves `UI`, `Logic` and `Model` components.
 
-There are 4 main variables in `ModelManager` introduced to keep track of the current state in a test
+There are 3 main variables in `ModelManager` introduced to keep track of the current state of the user in a test
 session.
 
 * `currentTestedCardFolder`
-** The current card folder (stored as an `ObservableList` of cards) that the user is running a test session on.
+** The current card folder that the user is running a test session on (stored as an `ObservableList` of cards) .
 ** Set to null if user is not inside a test session
 
 * `currentTestedCard`
@@ -724,11 +724,6 @@ session.
 ** Related methods:
 *** `ModelManager#setCurrentTestedCard(Card card)` - set `currentTestedCard` to the card specified.
 *** `ModelManager#getCurrentTestedCard()` - returns the `currentTestedCard`.
-
-* `inTestSession`
-** A boolean variable to indicate if user is running a test session.
-** Related methods:
-*** `ModelManager#isInTestSession()` - returns true if user is in a test session and false otherwise.
 
 * `cardAlreadyAnswered`
 ** A boolean variable to indicate if the user has already execute a valid answer command for the current card.
@@ -742,21 +737,22 @@ otherwise.
 
 ===== Aspect: Usage of an extra card variable to keep track of the current card in test session
 
-* **Alternative 1 (current choice)**: Introduction of another variable, `currentTestedCard`, to store the card.
+* **Alternative 1 (current choice)**: Introduce another variable, `currentTestedCard`, to store the card to display
+in the test session.
 ** Pros: More reader friendly. Save time from accessing the list to get card at that index.
 ** Cons: Extra space used.
 
 * **Alternative 2**: No introduction of `currentTestedCard` as using the `currentTestedCardIndex` suffices. Every time a
-card is needed, can reference it using `currentTestedCardFolder.getIndex(currentTestedCardIndex)`.
-** Pros: No need to store an extra variable, use less space.
-** Cons: Not so reader friendly. Need to keep accessing the list at that index. Potentially lead to
+card is needed, can simply reference it using `currentTestedCardFolder.getIndex(currentTestedCardIndex)`.
+** Pros: No need to store an extra variable so this method uses less space.
+** Cons: Not so reader friendly. Need to keep accessing the list using the index which can potentially lead to
 possible violation of the Law of Demeter where an object should only interact with objects that are closely related to it.
 
 Evaluation of the 2 alternatives:
-We went with alternative 1 since not a large amount of memory is taken up with just an extra variable. As there will
+We went with alternative 1 since not a large amount of memory is taken up with just 1 extra card stored. As there will
 be a number of references to the `currentTestedCard`, it will be better to store them somewhere. Abiding by the Law
 of Demeter, `currentTestedCard` object will not be interacting with `currentTestedCardFolder`,  limiting its
-knowledge of that object.
+knowledge of that object which is encouraged according to the Principle of Least Knowledge.
 
 
 ==== Test / End Command
@@ -788,21 +784,22 @@ To illustrate how the `UI`, `Model` and `Logic` components interact, below is a 
 the test command.
 <<testcommandsequencediagram>> is a sequence diagram that summarises `Model` and `Logic` interactions, namely steps 1 to 7.
 
-Step 1. User is inside a folder and wants to begin a test session on the current folder by executing the command
+**Step 1**. User is inside a folder and wants to begin a test session on the current folder by executing the command
 `test`.
 
-Step 2. As with every command, the command parser reads the input and generates the relevant `Command` object, in
+**Step 2**. As with every command, the command parser reads the input and generates the relevant `Command` object, in
 this case a `TestCommand`. The object is returned to the `LogicManager`.
 
-Step 3. The `LogicManager` executes the `TestCommand`, storing the result and then transferring control to the
-Model component, with `ModelManager#isInFolder()` and `ModelManager#isInTestSession()` to check that user is inside a
-folder and is not already in a test session. (This is omitted from <<testcommandsequencediagram>> for simplicity.)
+**Step 3**. The `LogicManager` executes the `TestCommand`, storing the result and then transferring control to the
+Model component, with `Model#getState()` to check that user is inside a folder and is not already in a test session.
+(This is omitted from <<testcommandsequencediagram>> for simplicity.)
 
 [NOTE]
-If the user is not inside a folder or is already in a test session, this `test` command would be rendered
-invalid. Step 4 would not proceed and an error message is displayed.
+If the user is not inside a folder, this `test` command would be rendered invalid. Step 4 would not proceed and an
+error message is displayed.
 
-Step 4. After both checks have passed, `ModelManager#testCardFolder()` method is invoked, which does the following:
+**Step 4**. After checking user is in a folder, `ModelManager#testCardFolder()` method is invoked, which
+does the following:
 
 1. `currentTestedCardFolder` is set to the current folder the user is in, by invoking `getCardList()` from the active
 `VersionedCardFolder` in `folders`.
@@ -810,68 +807,62 @@ Step 4. After both checks have passed, `ModelManager#testCardFolder()` method is
 If this folder is empty such that there is no card to present to the user, an `EmptyCardFolderException` is thrown,
 to be caught in `TestCommand`, which then throws a `CommandException` to display an error message.
 
-2. The cards in this folder is sorted in ascending scores by invoking `sortFilteredCard(comparator)`, so that
+2. The cards in this folder are sorted in ascending scores by invoking `sortFilteredCard(comparator)`, so that
 lowest score cards will be presented first to the user in a test session.
 3. `ModelManager#setCurrentTestedCard(currentTestedCardIndex)` is then invoked to set `currentTestedCard` to the first
 card in the folder as `currentTestedCardIndex` is set to 0.
-4. `inTestSession` is set to true.
+4. `state` in `Model` is set to `IN_TEST` to specify that user is in a test session from now onwards.
 5. No change to `cardAlreadyAnswered` as it is by default false.
 
-Step 5. For `TestCommand` to obtain the first card to present in the test session, `ModelManager#getCurrentTestedCard` is
+**Step 5**. For `TestCommand` to obtain the first card to present in the test session, `ModelManager#getCurrentTestedCard` is
 invoked and the `Card`, `c`, is returned.
 
-Step 6. With control now transferred back to the logic unit, `TestCommand` creates a `CommandResult` object, `r` with the type `START_TEST_SESSION`, and
+**Step 6**. With control now transferred back to the logic unit, `TestCommand` creates a `CommandResult` object, `r` with the type `START_TEST_SESSION`, and
 set `testSessionCard` in `CommandResult` to `c` obtained in Step 5.
 
-Step 7. `r` is returned to `LogicManager` which then terminates and returns `r` to the calling method.
+**Step 7**. `r` is returned to `LogicManager` which then terminates and returns `r` to the caller method.
+
+**Step 8**. The caller method here is in `MainWindow`. Control is now transferred to the UI component.
+
+**Step 9**. `MainWindow` sees that `CommandResult` object `r` has the type `START_TEST_SESSION`. It invokes
+`MainWindow#handleStartTestSession(currentTestedCard)` to display the `currentTestedCard` question and hints to the
+user.
 
 [[testcommandsequencediagram]]
 .Component interactions for a `test` command
 image::TestCommandSequenceDiagram.png[width="800"]
 
-{empty} +
-
-Step 8. The caller method here is `MainWindow`. Control is now transferred to the UI component.
-
-Step 9. `MainWindow` sees that `CommandResult` object `r` has the type `START_TEST_SESSION`. It invokes
-`MainWindow#handleStartTestSession(currentTestedCard)` to display the `currentTestedCard` question and hints to the
-user.
-
-////
-insert sequence diagram for UI for test command?
-////
+//end::testcommand[]
 
 [[exampleusageofendcommand]]
 [discrete]
 ====== Example Usage of end command
 
-Step 1. User is currently in a test session and executes the command `end`.
+**Step 1**. User is currently in a test session and executes the command `end`.
 
-Step 2. An `EndCommand` object is created and `LogicManager` executes the `EndCommand`, storing the result and then
-transferring control to the Model component, with `ModelManager#isInTestSession()` to
-check that user is indeed in a test session.
+**Step 2**. An `EndCommand` object is created and `LogicManager` executes the `EndCommand`, storing the result and then
+transferring control to the Model component, with `Model#getState()` to check that user is indeed in a test session.
 
 [NOTE]
 If the user is not in a test session, Step 3 would not proceed.
 
-Step 3. `ModelManager#endTestSession()` method is invoked, which does the following:
+**Step 3**. `ModelManager#endTestSession()` method is invoked, which does the following:
 
 1. `currentTestedCardFolder` is set to null.
 2. `ModelManager#setCurrentTestedCard(null)` is invoked to set `currentTestedCard` to null.
-3. `inTestSession` is set to false.
+3. `state` in `Model` is set to `IN_FOLDER` to specify that user is back in the folder.
 4. `ModelManager#setCardAsNotAnswered()` is invoked.
 
-Step 4. As control is now transferred back to the logic unit, `EndCommand` creates a `CommandResult` object, `r` with
+**Step 4**. As control is now transferred back to the logic unit, `EndCommand` creates a `CommandResult` object, `r` with
 the type `END_TEST_SESSION`.
 
-Step 5. `r` is returned to `LogicManager` which then terminates and returns `r` to the calling method, MainWindow.
-Control is now transferred to the UI component.
+**Step 5**. `r` is returned to `LogicManager` which then terminates and returns `r` to the caller in `MainWindow`. Control is now transferred to the UI component.
 
-Step 6. `MainWindow` sees that `CommandResult` object `r` has the type `END_TEST_SESSION`. It invokes
+**Step 6**. `MainWindow` sees that `CommandResult` object `r` has the type `END_TEST_SESSION`. It invokes
 `MainWindow#handleEndTestSession()` to delete the current `testSession` page, presenting `cardMainScreen` page at the
 back (the screen the user was seeing before entering the test session) to the user.
 
-
+//tag::testcommanddesign[]
 ===== Design Considerations
 ====== Aspect: Way to execute a test/end command
 
@@ -892,6 +883,7 @@ Evaluation of the two alternatives:
 Overall, alternative 1 is a better choice following the Single Level of Abstraction Principle(SLAP) where a function should not mix different levels of abstractions. We can then better achieve higher cohesion and lower coupling.
 Also, user being able to see the questions before the test session is not a big issue since the answer will not be shown unless user selects the card.
 
+//end::testcommanddesign[]
 
 ==== Answer Command
 ===== Current Implementation
@@ -909,10 +901,10 @@ Comparison is not case-sensitive
 
 [discrete]
 ====== Logic
-To facilitate the update of score after marking the card, we introduce the following method in `AnswerCommand`.
+To facilitate the update of score after marking the card, we introduce the following method in `ModelManager`.
 
-* `AnswerCommand#createScoredCard(Card cardToMark, boolean markCorrect)` - creates a new card with the updated
-score.
+* `ModelManager#AnswerCommand#createScoredCard(Card cardToMark, boolean markCorrect)` - creates a new card with the
+updated score.
 
 [discrete]
 ====== UI
@@ -932,11 +924,12 @@ To illustrate how the components interact, below is a walkthrough of a typical u
 <<answercommandsequencediagram>> is a sequence diagram that summarises `Model` and `Logic` interactions, namely steps 1
 to 8.
 
-Step 1. User is in a test session and wants to answer the question on the card currently presented by executing a `ans
+**Step 1**. User is in a test session and wants to answer the question on the card currently presented by executing a
+`ans
  four`.
 
-Step 2. An `AnswerCommand` object is created and `LogicManager` executes the `AnswerCommand`, storing the result and
-then transferring control to the Model component, with `ModelManager#isInTestSession()` and
+**Step 2**. An `AnswerCommand` object is created and `LogicManager` executes the `AnswerCommand`, storing the result and
+then transferring control to the Model component, with `Model#getState()` and
 `ModelManager#isCardAlreadyAnswered()` to check that user is indeed in a test session and has not attempted an answer
  already. (This is omitted from <<answercommandsequencediagram>> for simplicity.)
 
@@ -944,42 +937,32 @@ then transferring control to the Model component, with `ModelManager#isInTestSes
 If the user is not in a test session or already attempted an answer for the current card, this `ans` command would be
 rendered invalid. Step 3 would not proceed and an error message is displayed.
 
-Step 3. After both checks have passed, `ModelManager#setCardAsAnswered()` is invoked.
+**Step 3**. After both checks have passed, `ModelManager#setCardAsAnswered()` is invoked.
 
-Step 4. ModelManager now marks the attempted answer by invoking `ModelManager#markAttemptedAnswer(attemptedAnswer)`.
+**Step 4**. `ModelManager` now marks the attempted answer by invoking `ModelManager#markAttemptedAnswer(attemptedAnswer)`.
 
-Step 5. After knowing the result of the attempt, the `Logic` unit creates a new card exactly the same as the current
-card but with the updated score and replaced the current one by invoking `AnswerCommand#createScoredCard(Card
-cardToMark, boolean markCorrect)` followed by `model#setCard(cardToMark, scoredCard)`.
+**Step 5**. Given the result of the attempt, a new card exactly the same as the current
+card but with the updated score is created and replaces the current one by invoking `ModelManager#createScoredCard(Card
+cardToMark, boolean markCorrect)` followed by `Model#setCard(cardToMark, scoredCard)`.
 
-Step 6. To complete the update in the change in score, model#updateFilteredCard(PREDICATE_SHOW_ALL_CARDS) and
-model#commitActiveCardFolder() are invoked.
+**Step 6**. To complete the update in the change in score, `Model#updateFilteredCard(PREDICATE_SHOW_ALL_CARDS)` and
+`Model#commitActiveCardFolder()` are invoked.
 
-////
-    To elaborate further?
-////
-
-Step 7. `AnswerCommand` now creates a `CommandResult` object, `r` with either type `ANSWER_CORRECT` or `ANSWER_WRONG`
+**Step 7**. `AnswerCommand` now creates a `CommandResult` object, `r` with either type `ANSWER_CORRECT` or `ANSWER_WRONG`
  depending on the outcome of the attempt.
 
-Step 8. `r` is returned to `LogicManager` which then terminates and returns `r` to the calling method.
+**Step 8**. `r` is returned to `LogicManager` which then terminates and returns `r` to the caller.
 
-[[answercommandsequencediagram]]
-.Component interactions for a answer command
-image::AnswerCommandSequenceDiagram.png[width="800"]
+**Step 9**. The caller method is in `MainWindow`. Control is now transferred to the UI component.
 
-{empty} +
-
-Step 9. The caller method here is `MainWindow`. Control is now transferred to the UI component.
-
-Step 10. If `MainWindow` sees that `CommandResult` object `r` has the type `ANSWER_CORRECT`, it invokes
+**Step 10**. If `MainWindow` sees that `CommandResult` object `r` has the type `ANSWER_CORRECT`, it invokes
 `MainWindow#handleCorrectAnswer()` to display the correct attempt `TestSession` page to the user.
 If `MainWindow` sees that `CommandResult` object `r` has the type `ANSWER_WRONG`, it invokes
 `MainWindow#handleWrongAnswer()` to display the wrong attempt `TestSession` page to the user.
 
-////
-    insert sequence diagram for UI for answer command?
-////
+[[answercommandsequencediagram]]
+.Component interactions for a answer command
+image::AnswerCommandSequenceDiagram.png[width="800"]
 
 ==== Next Command
 ===== Current Implementation
@@ -1005,10 +988,10 @@ the next command.
 <<nextcommandsequencediagram>> is a sequence diagram that summarises `Model` and `Logic` interactions, namely steps 1
 to 6.
 
-Step 1. User is in a test session and wants to move on to the next card by executing a `next`.
+**Step 1**. User is in a test session and wants to move on to the next card by executing a `next`.
 
-Step 2. A `NextCommand` object is created and `LogicManager` executes the `NextCommand`, storing the result and
-then transferring control to the Model component, with `ModelManager#isInTestSession()` and
+**Step 2**. A `NextCommand` object is created and `LogicManager` executes the `NextCommand`, storing the result and
+then transferring control to the Model component, with `Model#getState()` and
 `ModelManager#isCardAlreadyAnswered()` to check that user is indeed in a test session and has attempted an
 answer already. (This is omitted from <<nextcommandsequencediagram>> for simplicity.)
 
@@ -1016,7 +999,7 @@ answer already. (This is omitted from <<nextcommandsequencediagram>> for simplic
 If the user is not in a test session or has not attempted an answer for the current card, this `next` command would be
 rendered invalid. Step 3 would not proceed and an error message is displayed.
 
-Step 3. After both checks have passed, `ModelManager#testNextCard()` method is invoked, which does the following:
+**Step 3**. After both checks have passed, `ModelManager#testNextCard()` method is invoked, which does the following:
 
 1. `currentTestedCardIndex` incremented by 1.
 2. `currentTestedCardIndex` is then checked if it equals to the size of `currentTestedCardFolder`.
@@ -1030,7 +1013,7 @@ This means `currentTestedCardIndex` is valid and will be used to get the next ca
 (cardToTest)`. `ModelManager#setCardAsNotAnswered` is then invoked to reset the value of `cardAlreadyAnswered`. This
 method returns true.
 
-Step 4. From the result of `ModelManager#testNextCard()` method earlier:
+**Step 4**. From the result of `ModelManager#testNextCard()` method earlier:
 
 * Case 1: Method returns false. +
 A `next` command will be equivalent to an `end` command. `ModelManager#endTestSession()` is invoked. Step 5 does not
@@ -1040,14 +1023,14 @@ proceed. Instead, step 3 and onwards of the <<exampleusageofendcommand>> takes o
 For `NextCommand` to obtain the next card to present in the test session, `ModelManager#getCurrentTestedCard` is
 invoked and the `Card`, `c`, is returned.
 
-Step 5. With control now transferred back to the logic unit, `NextCommand` creates a `CommandResult` object, `r` with
+**Step 5**. With control now transferred back to the logic unit, `NextCommand` creates a `CommandResult` object, `r` with
 the type `SHOW_NEXT_CARD`, and set `testSessionCard` in `CommandResult` to `c`.
 
-Step 6. `r` is returned to `LogicManager` which then terminates and returns `r` to the calling method.
+**Step 6**. `r` is returned to `LogicManager` which then terminates and returns `r` to the caller method.
 
-Step 7. The caller method here is `MainWindow`. Control is now transferred to the UI component.
+**Step 7**. The caller method here is in `MainWindow`. Control is now transferred to the UI component.
 
-Step 8. `MainWindow` sees that `CommandResult` object `r` has the type `SHOW_NEXT_CARD`. It invokes
+**Step 8**. `MainWindow` sees that `CommandResult` object `r` has the type `SHOW_NEXT_CARD`. It invokes
 `MainWindow#handleNextCardTestSession(currentTestedCard)` to display this new `currentTestedCard` question and hints
 to the user.
 
@@ -1069,7 +1052,7 @@ image::NextCommandSequenceDiagram.png[width="800"]
 Evaluation of the two alternatives:
 With our target audience in mind, alternative 1 is the more user friendly and intuitive way to handle this scenario.
 
-//end::testsession[]
+
 
 // tag::undoredo[]
 === Undo/Redo feature

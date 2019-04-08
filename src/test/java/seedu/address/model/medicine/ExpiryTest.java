@@ -21,7 +21,7 @@ public class ExpiryTest {
     }
 
     @Test
-    public void compareTo(){
+    public void compareTo() {
         Expiry expiry = new Expiry("12/12/2020");
 
         // Later than expiry

@@ -11,6 +11,7 @@ import seedu.address.logic.commands.ActivityAddMemberCommand;
 import seedu.address.logic.commands.ActivityDeleteCommand;
 import seedu.address.logic.commands.ActivityDeleteMemberCommand;
 import seedu.address.logic.commands.ActivityEditCommand;
+import seedu.address.logic.commands.ActivityExportCommand;
 import seedu.address.logic.commands.ActivityFilterCommand;
 import seedu.address.logic.commands.ActivityFindCommand;
 import seedu.address.logic.commands.ActivityListCommand;
@@ -37,6 +38,7 @@ import seedu.address.logic.parser.activity.ActivityAddMemberCommandParser;
 import seedu.address.logic.parser.activity.ActivityDeleteCommandParser;
 import seedu.address.logic.parser.activity.ActivityDeleteMemberCommandParser;
 import seedu.address.logic.parser.activity.ActivityEditCommandParser;
+import seedu.address.logic.parser.activity.ActivityExportCommandParser;
 import seedu.address.logic.parser.activity.ActivityFilterCommandParser;
 import seedu.address.logic.parser.activity.ActivityFindCommandParser;
 import seedu.address.logic.parser.activity.ActivitySelectCommandParser;
@@ -122,6 +124,9 @@ public class AddressBookParser {
 
         case ActivitySelectCommand.COMMAND_WORD:
             return new ActivitySelectCommandParser().parse(arguments);
+
+        case ActivityExportCommand.COMMAND_WORD:
+            return new ActivityExportCommandParser().parse(arguments);
 
         case ActivityDeleteCommand.COMMAND_WORD:
             return new ActivityDeleteCommandParser().parse(arguments);

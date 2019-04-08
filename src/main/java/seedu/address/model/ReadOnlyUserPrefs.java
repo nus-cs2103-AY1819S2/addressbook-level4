@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.nio.file.Path;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.InformationPanelSettings;
 import seedu.address.commons.core.WarningPanelSettings;
 
 /**
@@ -15,5 +16,7 @@ public interface ReadOnlyUserPrefs {
     Path getInventoryFilePath();
 
     WarningPanelSettings getWarningPanelSettings();
+
+    InformationPanelSettings getInformationPanelSettings();
 
 }

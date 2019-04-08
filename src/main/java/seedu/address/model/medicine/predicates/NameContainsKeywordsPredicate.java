@@ -1,9 +1,10 @@
-package seedu.address.model.medicine;
+package seedu.address.model.medicine.predicates;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.medicine.Medicine;
 
 /**
  * Tests that a {@code Medicine}'s {@code Name} matches any of the keywords given.

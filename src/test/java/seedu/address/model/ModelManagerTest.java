@@ -24,9 +24,9 @@ import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.MedicineExpiryThresholdPredicate;
 import seedu.address.model.medicine.MedicineLowStockThresholdPredicate;
-import seedu.address.model.medicine.NameContainsKeywordsPredicate;
 import seedu.address.model.medicine.Quantity;
 import seedu.address.model.medicine.exceptions.MedicineNotFoundException;
+import seedu.address.model.medicine.predicates.NameContainsKeywordsPredicate;
 import seedu.address.model.threshold.Threshold;
 import seedu.address.testutil.InventoryBuilder;
 import seedu.address.testutil.MedicineBuilder;
@@ -135,10 +135,10 @@ public class ModelManagerTest {
     public void deleteMedicine_medicineIsSelectedAndSecondMedicineInFilteredMedicineList_firstMedicineSelected() {
         modelManager.addMedicine(PARACETAMOL);
         modelManager.addMedicine(GABAPENTIN);
-        assertEquals(Arrays.asList(PARACETAMOL, GABAPENTIN), modelManager.getFilteredMedicineList());
-        modelManager.setSelectedMedicine(GABAPENTIN);
-        modelManager.deleteMedicine(GABAPENTIN);
-        assertEquals(PARACETAMOL, modelManager.getSelectedMedicine());
+        assertEquals(Arrays.asList(GABAPENTIN, PARACETAMOL), modelManager.getFilteredMedicineList());
+        modelManager.setSelectedMedicine(PARACETAMOL);
+        modelManager.deleteMedicine(PARACETAMOL);
+        assertEquals(GABAPENTIN, modelManager.getSelectedMedicine());
     }
 
     @Test

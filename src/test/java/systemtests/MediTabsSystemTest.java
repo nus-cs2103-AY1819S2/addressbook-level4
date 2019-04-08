@@ -3,6 +3,7 @@ package systemtests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
@@ -11,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +36,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.Inventory;
 import seedu.address.model.Model;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.testutil.TypicalMedicines;
 import seedu.address.ui.BatchTable;
 import seedu.address.ui.CommandBox;
@@ -49,6 +52,7 @@ public abstract class MediTabsSystemTest {
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
             Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
+    private static final Comparator<Medicine> comparator = Comparator.naturalOrder();
 
     private MainWindowHandle mainWindowHandle;
     private TestApp testApp;
@@ -134,15 +138,17 @@ public abstract class MediTabsSystemTest {
      */
     protected void showAllMedicines() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getInventory().getMedicineList().size(), getModel().getFilteredMedicineList().size());
+        assertEquals(getModel().getInventory().getSortedMedicineList(comparator).size(),
+                getModel().getFilteredMedicineList().size());
     }
 
     /**
      * Displays all medicines with any parts of their names matching {@code keyword} (case-insensitive).
      */
     protected void showMedicinesWithName(String keyword) {
-        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredMedicineList().size() < getModel().getInventory().getMedicineList().size());
+        executeCommand(FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " " + keyword);
+        assertTrue(getModel().getFilteredMedicineList().size()
+                < getModel().getInventory().getSortedMedicineList(comparator).size());
     }
 
     /**
@@ -158,7 +164,7 @@ public abstract class MediTabsSystemTest {
      */
     protected void deleteAllMedicines() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getInventory().getMedicineList().size());
+        assertEquals(0, getModel().getInventory().getSortedMedicineList(comparator).size());
     }
 
     /**

@@ -24,8 +24,10 @@ public class SortCommand extends Command {
             + PREFIX_PROPERTY + "PROPERTY "
             + PREFIX_DIRECTION + "DIRECTION\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_PROPERTY + "Paracetamol "
-            + PREFIX_DIRECTION + "Novartis ";
+            + PREFIX_PROPERTY + "batchnumber "
+            + PREFIX_DIRECTION + "descending\n"
+            + "Possible properties: batchnumber, quantity, expiry\n"
+            + "Possible directions: ascending, descending";
 
     public static final String MESSAGE_SUCCESS = "Batch table sorted with %s.";
 

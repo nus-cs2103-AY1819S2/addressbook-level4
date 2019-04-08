@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -30,6 +31,7 @@ import seedu.address.model.threshold.Threshold;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static final Comparator<Medicine> comparator = Comparator.naturalOrder();
 
     private final VersionedInventory versionedInventory;
     private final UserPrefs userPrefs;
@@ -53,13 +55,15 @@ public class ModelManager implements Model {
         versionedInventory = new VersionedInventory(inventory);
         this.userPrefs = new UserPrefs(userPrefs);
 
-        filteredMedicines = new FilteredList<>(versionedInventory.getMedicineList());
+        filteredMedicines = new FilteredList<>(versionedInventory.getSortedMedicineList(comparator));
         filteredMedicines.addListener(this::ensureSelectedMedicineIsValid);
 
         warningPanelPredicateAccessor = new WarningPanelPredicateAccessor();
-        medicinesExpiring = new FilteredList<>(versionedInventory.getMedicineList());
-        medicinesLowStock = new FilteredList<>(versionedInventory.getMedicineList());
+        medicinesExpiring = new FilteredList<>(versionedInventory.getSortedMedicineList(comparator));
+        medicinesLowStock = new FilteredList<>(versionedInventory.getSortedMedicineList(comparator));
         configureWarningPanelLists();
+
+        informationPanelSettings.setValue(userPrefs.getInformationPanelSettings());
     }
 
     public ModelManager() {
@@ -104,6 +108,7 @@ public class ModelManager implements Model {
     @Override
     public void setInformationPanelSettings(InformationPanelSettings informationPanelSettings) {
         requireNonNull(informationPanelSettings);
+        userPrefs.setInformationPanelSettings(informationPanelSettings);
         this.informationPanelSettings.setValue(informationPanelSettings);
     }
 

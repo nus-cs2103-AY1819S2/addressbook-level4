@@ -21,8 +21,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.medicine.NameContainsKeywordsPredicate;
 import seedu.address.model.medicine.Quantity;
+import seedu.address.model.medicine.predicates.NameContainsKeywordsPredicate;
 import seedu.address.model.threshold.Threshold;
 import seedu.address.testutil.Assert;
 
@@ -84,7 +84,9 @@ public class WarningCommandTest {
     @Test
     public void execute_show_defaultThresholds() {
         String expectedMessage = String.format(MESSAGE_SHOW_CURRENT_THRESHOLDS,
-                Model.DEFAULT_EXPIRY_THRESHOLD.getNumericValue(), Model.DEFAULT_LOW_STOCK_THRESHOLD.getNumericValue());
+                Model.DEFAULT_EXPIRY_THRESHOLD.getNumericValue(),
+                Model.DEFAULT_EXPIRY_THRESHOLD.getNumericValue() == 1 ? "" : "s",
+                Model.DEFAULT_LOW_STOCK_THRESHOLD.getNumericValue());
         WarningCommand command = new WarningCommand(true);
 
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -97,7 +99,8 @@ public class WarningCommandTest {
     @Test
     public void execute_changeExpiryThreshold_zeroExpiringMedicine() {
         String expectedMessage = String.format(MESSAGE_SHOW_CURRENT_THRESHOLDS,
-                0, Model.DEFAULT_LOW_STOCK_THRESHOLD.getNumericValue());
+                0, "s", Model.DEFAULT_LOW_STOCK_THRESHOLD.getNumericValue());
+
         Threshold threshold = new Threshold("0");
         WarningCommand command = new WarningCommand(WarningPanelPredicateType.EXPIRY, threshold);
         expectedModel.changeWarningPanelListThreshold(WarningPanelPredicateType.EXPIRY, threshold);
@@ -109,7 +112,8 @@ public class WarningCommandTest {
     @Test
     public void execute_changeExpiryThreshold_multipleExpiringMedicines() {
         String expectedMessage = String.format(MESSAGE_SHOW_CURRENT_THRESHOLDS,
-                180, Model.DEFAULT_LOW_STOCK_THRESHOLD.getNumericValue());
+                180, "s", Model.DEFAULT_LOW_STOCK_THRESHOLD.getNumericValue());
+
         Threshold threshold = new Threshold("180");
         WarningCommand command = new WarningCommand(WarningPanelPredicateType.EXPIRY, threshold);
         expectedModel.changeWarningPanelListThreshold(WarningPanelPredicateType.EXPIRY, threshold);
@@ -122,7 +126,10 @@ public class WarningCommandTest {
     @Test
     public void execute_changeLowStockThreshold_zeroLowStockMedicines() {
         String expectedMessage = String.format(MESSAGE_SHOW_CURRENT_THRESHOLDS,
-                Model.DEFAULT_EXPIRY_THRESHOLD.getNumericValue(), Quantity.MAX_QUANTITY + 1);
+                Model.DEFAULT_EXPIRY_THRESHOLD.getNumericValue(),
+                Model.DEFAULT_EXPIRY_THRESHOLD.getNumericValue() == 1 ? "" : "s",
+                Quantity.MAX_QUANTITY + 1);
+
         Threshold threshold = new Threshold(Integer.toString(Quantity.MAX_QUANTITY + 1));
         WarningCommand command = new WarningCommand(WarningPanelPredicateType.LOW_STOCK, threshold);
         expectedModel.changeWarningPanelListThreshold(WarningPanelPredicateType.LOW_STOCK, threshold);
@@ -134,7 +141,9 @@ public class WarningCommandTest {
     @Test
     public void execute_changeLowStockThreshold_multipleLowStockMedicines() {
         String expectedMessage = String.format(MESSAGE_SHOW_CURRENT_THRESHOLDS,
-                Model.DEFAULT_EXPIRY_THRESHOLD.getNumericValue(), 0);
+                Model.DEFAULT_EXPIRY_THRESHOLD.getNumericValue(),
+                Model.DEFAULT_EXPIRY_THRESHOLD.getNumericValue() == 1 ? "" : "s", 0);
+
         Threshold threshold = new Threshold("0");
         WarningCommand command = new WarningCommand(WarningPanelPredicateType.LOW_STOCK, threshold);
         expectedModel.changeWarningPanelListThreshold(WarningPanelPredicateType.LOW_STOCK, threshold);

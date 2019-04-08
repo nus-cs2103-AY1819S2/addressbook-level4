@@ -42,6 +42,11 @@ If you are looking for a medicine stock taking application for clinics, MediTabs
 +
 image::Ui.png[width="790"]
 +
+[NOTE]
+====
+This program requires a minimum resolution of 1000*810. Best viewed in full screen.
+====
++
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
@@ -72,6 +77,7 @@ image::UserGuide_ApplicationInterface.png[width="1000"]
 
 * Medicine list provides a list view of the inventory.
 * The list may contain all medicine in the inventory, or a filtered view if the `find` command was executed.
+* The list is sorted lexicographically by medicine name, insensitive to casing.
 
 *Information Panel*
 
@@ -83,12 +89,10 @@ image::UserGuide_ApplicationInterface.png[width="1000"]
 * The list of medicine running low on stock or expiring soon medicine will be displayed in the warning panel to notify the user.
 * Warnings will be logged in the warnings panel until action has been taken to either remove or update the medicine.
 
-// tag:featureintro[]
 [[Features]]
 == Features
 
 As an inventory management application, MediTabs supports basic functionalities (add, edit, delete, list). On top of these basic functions, MediTabs also boasts several features tailored to your needs. These features aim to streamline your inventory management process, thereby enhancing your user experience.
-// end:featureintro[]
 
 === Information Panel
 .Information panel
@@ -106,13 +110,13 @@ You can also sort the table by any of its columns with the `sort` command to sui
 === Warning Panel
 
 .Warning panel
-image::UserGuide_WarningPanel.png[width="190", float="right"]
+image::UserGuide_WarningPanel.png[width="180", float="right"]
 
 A standard clinical inventory holds around a hundred types of medicine. This makes sieving out medicines which are expiring, expired or running low in stock extremely cumbersome and time consuming. Thus, to streamline this aspect of inventory management, the warning panel was included as one of the features in our first product release.
 
-The warning panel provides an overview of the most pressing issues that have to be taken care of. With a quick glance, you will be able to identify expiring or expired batches of medicine, and medicines running low in stock.
+The warning panel provides an overview of pressing issues that have to be taken care of. With a quick glance, you will be able to identify expiring or expired batches of medicine, and medicines running low in stock.
 
-On top of that, the panel features flexible thresholds to determine what is expiring and what is low in stock. These thresholds can be changed according your own preferences and needs with a simple command.
+On top of that, the panel features flexible thresholds to determine what is expiring and what is low in stock. These thresholds can be changed according your own needs and preferences with a simple command.
 
 You can learn about related commands related in <<WarningPanel>>.
 // end::warningpanelfeature[]
@@ -158,11 +162,11 @@ You can download and install integration addons created for MediTabs such as add
 Format: `install an/NAME_OF_ADDON`
 
 [NOTE]
-Only integration addons that have been verified by our team can be downloaded and installed in MediTabs. This is to ensure that the addons downloaded and installed in MediTabs are secure and have no malicious code. This is to ensure the security which MediTabs provides would not be compromise as security is an important factor due to the increasing threat with regards to cybersecurity.
+Only integration addons that have been verified by our team can be downloaded and installed in MediTabs. This is to ensure that the addons are secure and have no malicious code due to the increasing cybersecurity threat.
 
 Benefits of integration addon support are as follows:
 
-* Provides greater flexibility as your clinic might have different third party services which you might want to integrate with to allow for easier transition between services.
+* Provides greater flexibility as as you might choose to integrate with different third-party services which are currently used by your clinic, to allow for easier transition between services.
 * Allows you to customise MediTabs with features that your clinic requires without any unnecessary features which might not be relevant to your clinic's workflow.
 
 An example of an integration addon which would be supported by MediTabs:
@@ -170,7 +174,7 @@ An example of an integration addon which would be supported by MediTabs:
 * Singapore's Health Science Authority (HSA) - To integrate the Singapore HSA's medical database with MediTabs which allows easy retrieval of important information such as when a medicine is requested to be recalled by the HSA.
 
 [NOTE]
-This feature could be further expanded to support medical databases of different countries.
+This feature can be improved to support medical databases of different countries.
 // end::integrationaddon[]
 
 // tag::dataencryption[]
@@ -190,6 +194,7 @@ Due to the nature of medical inventories, the integrity of data stored is of utm
 * Items in square brackets are optional e.g `e.g n/NAME [t/TAG] can be used as n/Paracetamol t/fever` or as `n/Paracetamol`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]…` can be used as `{nbsp}` (i.e. 0 times), t/fever, t/painkiller t/inflammation etc..
 * Parameters can be in any order e.g. if the command specifies `n/NAME c/COMPANY_NAME`, `c/COMPANY_NAME n/NAME` is also acceptable.
+* If only one input is required but more than one valid input is entered, only the last input will be registered e.g. `n/Paracetamol n/Ibuprofen`, only `Ibuprofen` is registered.
 
 ====
 
@@ -216,13 +221,20 @@ Format: `list`
 * The details of the medicine shown in the list include: name, company, total quantity, closest expiry date and tags.
 ****
 
+// tag::find[]
 === Locating medicines : `find`
 
-Finds medicine whose names contain any of the given keywords and displays them in the list. +
-Format: `find KEYWORD [MORE_KEYWORDS]...`
+Finds medicine whose data contain any of the given keywords and displays them in the list. +
+Format: `find PREFIX KEYWORD [MORE_KEYWORDS]...`
+
+.Possible prefixes:
+* `n/` : name of medicine is searched.
+* `c/`: company name of medicine is searched.
+* `t/` : tags of medicine are searched.
+* `b/` : batch number of batches of medicine are searched.
 
 ****
-* Only the name is searched.
+* Only the field indicated by the entered prefix will be searched.
 * The search is case insensitive. e.g `sodium` will match `Sodium`
 * The order of the keywords does not matter. e.g. `Sodium Levothyroxine` will match `Levothyroxine Sodium`
 * Only full words will be matched e.g. `Sod` will not match `Sodium`
@@ -231,10 +243,15 @@ Format: `find KEYWORD [MORE_KEYWORDS]...`
 
 Examples:
 
-* `find Sodium` +
+* `find n/ Sodium` +
 Returns `Levothyroxine Sodium` and `Naproxen Sodium`.
-* `find Amoxicillin Gabapentin Johnson` +
-Returns any medicine having names `Amoxicillin` or `Gabapentin` or with company name having `Johnson`.
+* `find c/ 3M Johnson Pharmaceutical` +
+Returns any medicine from companies with names containing `3M`, `Johnson` or `Pharmaceutical` such as `3M Pharmaceuticals`.
+* `find t/ fever` +
+Returns any medicine with tag `fever`.
+* `find b/ NDC` +
+Returns any medicine with batches with batch number containing `NDC` such as `NDC 0777-3105-02`.
+// end::find[]
 
 === Editing a medicine : `edit`
 
@@ -254,7 +271,7 @@ Examples:
 * `list` +
 `edit 2 n/Prednisone c/Johnson & Johnson` +
 Edits the name of the 2nd medicine in the list to be `Prednisone` and company to be `Johnson & Johnson`.
-* `find Prednisone` +
+* `find n/ Prednisone` +
 `edit 1 t/` +
 Remove tags from the 1st medicine in the results of the `find` command.
 
@@ -274,7 +291,7 @@ Examples:
 * `list` +
 `delete 2` +
 Deletes the 2nd medicine in the list.
-* `find Gabapentin` +
+* `find n/ Gabapentin` +
 `delete 1` +
 Deletes the 1st medicine in the results of the `find` command.
 
@@ -300,7 +317,7 @@ Examples:
 * `list` +
 `select 2` +
 Selects the 2nd medicine in the inventory.
-* `find Gabapentin` +
+* `find n/ Gabapentin` +
 `select 1` +
 Selects the 1st medicine in the results of the `find` command.
 // end::select[]
@@ -318,7 +335,7 @@ Format: `sort p/PROPERTY d/DIRECTION`
 
 .Possible directions:
 * `ascending`: sorts the table in ascending order.
-* `quantity` : sorts table list in descending order.
+* `descending` : sorts table list in descending order.
 
 Examples:
 
@@ -351,7 +368,7 @@ Examples:
 * `list` +
 `update 2 b/s9c4x9532 q/1000 e/11/2/2020` +
 Updates quantity and expiry date of batch `s9c4x9532` in batch records of the 2nd medicine in the list to `1000` and `11/2/2020`.
-* `find Gabapentin` +
+* `find n/ Gabapentin` +
 `update 1 b/8937v1x7 q/500` +
 Updates quantity of batch `8937v1x7` in batch records of the 1st medicine in the results of the `find` command to `500`.
 //end::update[]
@@ -366,7 +383,7 @@ If the thresholds are not set, the default threshold for expiry is 10 days, and 
 Thresholds set are saved as a user preference, and will be used when the application is launched again.
 
 ****
-* Provide only one of the optional fields.
+* Provide *only one* of the optional fields available.
 * `EXPIRY_THRESHOLD` should be in days before expiry date.
 * `LOW_STOCK_THRESHOLD` should be in number of stock remaining.
 * `SHOW` is case insensitive.
@@ -375,9 +392,9 @@ Thresholds set are saved as a user preference, and will be used when the applica
 Examples:
 
 * `warning e/20` +
-Medicines with expiry dates within 10 days to expiry from today will be displayed in the warning panel.
+Medicine batches with expiry dates within 10 days to expiry from today will be displayed in the warning panel.
 * `warning q/10` +
-Medicines with quanities of less than or equal to 20 will be displayed in the warning panel.
+Medicines with a total quantity of less than or equal to 20 will be displayed in the warning panel.
 * `warning show` +
 Current thresholds used for the warning panel will be shown.
 // end::warningpanelcommand[]
@@ -391,11 +408,11 @@ Format: `export [FILE_NAME]`
 
 ****
 * The `FILE_NAME` field is optional. You can refer to <<Appendix A: File Naming Convention>> for supported file name format if you want to specify a file name for the exported CSV file.
-* If no file name is specified, the export command uses the default file name format according to the date and time of export.
+* If no file name is specified, the `export` command uses the default file name format according to the date and time of export.
 * The specific data and time format used if no file name is specified is `dd_MMM_yyyy_HH_mm_ss` e.g. `18_Mar_2019_10_28_00`
 * The file extension for a CSV file is `.csv`
 * The exported file can be found in the default `exported` folder which can be found in the home folder used for your MediTabs application.
-* If the default `exported` folder is not found in the home folder, MediTabs will automatically create the folder when the export command is executed.
+* If the default `exported` folder is not found in the home folder, MediTabs will automatically create the folder when the `export` command is executed.
 ****
 
 Examples:
@@ -410,13 +427,14 @@ If a file with the specified file name already exists in the default `exported` 
 
 A sample image of how the medicine inventory data in the exported CSV file is organised:
 
+.Sample of exported CSV file
 image::SampleCSVFileImage.png[width="790"]
 
 [NOTE]
-From the image above, you can observe that different batches of the same medicine have their own row in the CSV file. This provides more detailed information on the quantity and expiry date for each batch of the same medicine as different batches of the same medicine can have different expiry dates and quantity. Furthermore, the CSV file also includes information such as which medicines are low in stock, expiring soon or have expired for easier reference.
+From the image above, you can observe that the exported CSV file only contains essential information such as the medicine batches, quantity and expiry date for each batch of medicine and which medicines are low in stock, expiring soon or have expired for easier reference.
 
 [IMPORTANT]
-You would observe that medicines without any batches are not included in the exported CSV file though they might be present in the current medicine inventory data shown in the GUI. This is by design, as our team believes that the exported CSV file should provide *useful detailed information*. Medicines without any batches would not have any useful information such as the quantity and expiry dates which are important when it comes to keeping track of your medicine inventory.
+You would observe that medicines without any batches are not included in the exported CSV file. This is by design, as our team believes that the exported CSV file should only provide *useful detailed information*. Medicines without any batches would not have any useful information such as the quantity and expiry dates which are important when it comes to keeping track of your medicine inventory.
 // end::exportcommand[]
 
 // tag::labelcommand[]
@@ -460,10 +478,14 @@ Fig 5.12.1 Software interface
 +
 image::label2.png[width="790"]
 +
+<<<<<<< HEAD
 Fig 5.12.2 Medicine information
 +
 .  If you want to name the output file, follow the steps below:
 * `find Simvastatin` +
+=======
+* `find n/ Simvastatin` +
+>>>>>>> 0295e013ab3545dff1d5a738defb24f163f7dea8
 `label 1 f/Simvastatin` +
 Similar to the example above, the 1st medicine information will be output to a file name `Simvastatin`. (Fig 5.12.3)
 +
@@ -587,8 +609,8 @@ e.g. `edit 2 n/Amoxicillin c/GlaxoSmithKline t/antibiotic'
 * *Exit* : `exit`
 * *Export* : `export [FILE_NAME]` +
 e.g. export Records
-* *Find* : `find KEYWORD [MORE_KEYWORDS]...` +
-e.g. `find paracetamol`
+* *Find* : `find PREFIX KEYWORD [MORE_KEYWORDS]...` +
+e.g. `find n/ paracetamol`
 * *Help* : `help`
 * *History* : `history`
 * *Label* : `label INDEX` +
@@ -602,8 +624,8 @@ e.g.`sort p/quantity d/ascending`
 * *Undo* : `undo`
 * *Update* : `update INDEX b/BATCH_NUMBER [q/QUANTITY] [e/EXPIRY_DATE]` +
 e.g.`update 2 b/A030F21 q/1000 e/25/1/2020`
-* *Warning* : `warning [e/EXPIRY_THRESHOLD] [s/LOWSTOCK_THRESHOLD]` +
-e.g. `warning e/20 s/10`
+* *Warning* : `warning [e/EXPIRY_THRESHOLD] [s/LOW_STOCK_THRESHOLD] [SHOW]` +
+e.g. `warning e/20`, `warning s/10`, `warning show`
 
 == Terminology
 

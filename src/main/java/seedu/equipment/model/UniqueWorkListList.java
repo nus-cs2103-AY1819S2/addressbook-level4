@@ -73,6 +73,27 @@ public class UniqueWorkListList implements Iterable<WorkList> {
     }
 
     /**
+     * Remove a certain Equipment from a worklist with the id given.
+     */
+    public void removeEquipment(Equipment e, WorkListId id) {
+        requireNonNull(e);
+        requireNonNull(id);
+        WorkList sampleWorkList = new WorkList("01-05-2019", "SampleName", id);
+        if (!contains(sampleWorkList)) {
+            throw new EquipmentNotFoundException();
+        } else {
+            Iterator<WorkList> ir = iterator();
+            int size = internalList.size();
+            for (int i = 0; i < size; i++) {
+                WorkList thisWorkList = ir.next();
+                if (thisWorkList.isSameWorkList(sampleWorkList)) {
+                    thisWorkList.deleteEquipment(e);
+                }
+            }
+        }
+    }
+
+    /**
      * Removes the equivalent WorkList from the list.
      * The WorkList must exist in the list.
      */

@@ -103,11 +103,13 @@ public class AddCommandTest {
 
         @Override
         public void setGuiSettings(GuiSettings guiSettings) {
+
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void resetData(ReadOnlyEquipmentManager newData) {
+
             throw new AssertionError("This method should not be called.");
         }
 
@@ -119,6 +121,7 @@ public class AddCommandTest {
 
         @Override
         public void setEquipmentManagerFilePath(Path addressBookFilePath) {
+
             throw new AssertionError("This method should not be called.");
         }
 
@@ -139,11 +142,19 @@ public class AddCommandTest {
 
         @Override
         public void putEquipment(WorkListId id, SerialNumber sr) {
+
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeEquipment(WorkListId id, SerialNumber sr) {
+
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void setEquipmentManager(ReadOnlyEquipmentManager newData) {
+
             throw new AssertionError("This method should not be called.");
         }
 

@@ -88,6 +88,12 @@ public interface Model {
     void putEquipment(WorkListId workListId, SerialNumber serialNumber);
 
     /**
+     * Remove the equipment with the serialNumber from the worklist with workListId.
+     * The workListId and the serialNumber must exist.
+     */
+    void removeEquipment(WorkListId workListId, SerialNumber serialNumber);
+
+    /**
      * Returns true if a equipment with {@code serialNumber} exists in the equipment manager.
      */
     boolean hasEquipmentWithSerialNumber(SerialNumber serialNumber);

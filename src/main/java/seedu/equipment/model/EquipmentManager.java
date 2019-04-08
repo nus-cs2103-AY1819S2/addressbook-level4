@@ -143,6 +143,17 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
     }
 
     /**
+     * Remove the equipment with the serialNumber from the WorkList with workListId.
+     * The workListId and the serialNumber must exist in the Equipment Manager.
+     */
+    public void removeEquipment(WorkListId workListId, SerialNumber serialNumber) {
+        requireNonNull(workListId);
+        requireNonNull(serialNumber);
+        Equipment target = equipment.getEquipment(serialNumber);
+        worklist.removeEquipment(target, workListId);
+    }
+
+    /**
      * Returns true if a WorkList with {@code serialNumber} exists in the Equipment Manager.
      */
     public boolean hasEquipmentWithSerialNumber(SerialNumber serialNumber) {

@@ -62,6 +62,22 @@ public class UniqueWorkListListTest {
     }
 
     @Test
+    public void removeEquipment_noSuchWorkListFound() {
+        thrown.expect(EquipmentNotFoundException.class);
+        WorkListId noSuchId = new WorkListId("999");
+        uniqueWorkListList.removeEquipment(ANCHORVALECC, noSuchId);
+    }
+
+    @Test
+    public void removeEquipment_workListFound_success() {
+        uniqueWorkListList.add(LISTA);
+        uniqueWorkListList.removeEquipment(ANCHORVALECC, LISTA.getId());
+        UniqueWorkListList expectedUniqueWorkListList = new UniqueWorkListList();
+        expectedUniqueWorkListList.add(LISTA);
+        assertEquals(expectedUniqueWorkListList, uniqueWorkListList);
+    }
+
+    @Test
     public void contains_workListNotInList_returnsFalse() {
         assertFalse(uniqueWorkListList.contains(LISTA));
     }

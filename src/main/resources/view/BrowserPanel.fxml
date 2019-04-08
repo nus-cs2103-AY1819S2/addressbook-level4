@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:id="browser" xmlns:fx="http://javafx.com/fxml/1">
   <VBox alignment="CENTER" minHeight="150">
     <padding>
       <Insets top="5" right="5" bottom="5" left="15" />

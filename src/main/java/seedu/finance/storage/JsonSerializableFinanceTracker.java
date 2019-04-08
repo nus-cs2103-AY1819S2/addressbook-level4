@@ -24,6 +24,8 @@ class JsonSerializableFinanceTracker {
     private final List<JsonAdaptedRecord> records = new ArrayList<>();
 
     private final JsonAdaptedBudget budget;
+    /*private final HashSet<JsonAdaptedCategoryBudget> categoryBudget = new HashSet<>();*/
+
 
     /**
      * Constructs a {@code JsonSerializableFinanceTracker} with the given records.
@@ -43,6 +45,14 @@ class JsonSerializableFinanceTracker {
     public JsonSerializableFinanceTracker(ReadOnlyFinanceTracker source) {
         records.addAll(source.getRecordList().stream().map(JsonAdaptedRecord::new).collect(Collectors.toList()));
         budget = new JsonAdaptedBudget(source.getBudget());
+        /*categoryBudget.addAll(source.getCategoryBudget().stream()
+                .map(JsonAdaptedCategoryBudget::new).collect(Collectors.toSet()));*/
+
+        /*categoryBudget = new HashSet<>();
+        for (CategoryBudget cb: source.getCategoryBudget()) {
+            categoryBudget.add(new JsonAdaptedCategoryBudget(cb));
+        }*/
+
     }
 
     /**
@@ -57,6 +67,18 @@ class JsonSerializableFinanceTracker {
             financeTracker.addRecord(record);
         }
         financeTracker.addBudget(budget.toModelType());
+        /*for (JsonAdaptedCategoryBudget jsonAdaptedCatBudget: categoryBudget) {
+            CategoryBudget catBudget = jsonAdaptedCatBudget.toModelType();
+            try {
+                financeTracker.addCategoryBudget(catBudget);
+            }
+            catch (CategoryBudgetExceedTotalBudgetException e) {
+                 return financeTracker;
+            }
+            catch (SpendingInCategoryBudgetExceededException f) {
+                return financeTracker;
+            }
+        }*/
 
         return financeTracker;
     }

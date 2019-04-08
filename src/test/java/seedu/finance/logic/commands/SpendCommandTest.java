@@ -18,6 +18,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -155,6 +156,11 @@ public class SpendCommandTest {
 
         @Override
         public Budget getBudget() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public HashSet<CategoryBudget> getCatBudget() {
             throw new AssertionError("This method should not be called.");
         }
 

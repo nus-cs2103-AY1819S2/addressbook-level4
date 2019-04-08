@@ -41,6 +41,14 @@ public class Budget {
         this.currentSpendings = totalBudget - currentBudget;
     }
 
+    public Budget(double totalBudget, double currentSpending, double currentBudget) {
+        checkArgument(isValidBudget(totalBudget, currentBudget));
+
+        this.totalBudget = totalBudget;
+        this.currentBudget = currentBudget;
+        this.currentSpendings = currentSpending;
+    }
+
     public Budget(Budget budget) {
         requireNonNull(budget);
 

@@ -22,7 +22,7 @@ import seedu.address.model.image.Image;
  */
 public class Album {
     // Represents a singleton copy of the Album.
-    private static Album instance = null;
+    private static Album instance = new Album();
     // Represents the Storage path of assets folder for all raw images.
     private final String assetsFilepath;
     // Represents an ArrayList of image available in assets folder.
@@ -43,9 +43,6 @@ public class Album {
      * @return Returns the singleton Album instance.
      */
     public static Album getInstance() {
-        if (instance == null) {
-            instance = new Album();
-        }
         return instance;
     }
 
@@ -69,10 +66,9 @@ public class Album {
      * @return Absolute path to generated temp folder.
      */
     public String generateAssets() {
-        String tempPath = null;
         String tDir = System.getProperty("java.io.tmpdir") + ASSETS_FOLDER_TEMP_NAME;
         File assetsFolder = new File(tDir);
-        tempPath = assetsFolder.getAbsolutePath() + File.separator;
+        String tempPath = assetsFolder.getAbsolutePath() + File.separator;
         if (!assetsFolder.exists()) {
             assetsFolder.mkdir();
         }

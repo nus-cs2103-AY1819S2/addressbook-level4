@@ -6,11 +6,17 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
 import javafx.geometry.Side;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
@@ -18,6 +24,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import seedu.travel.model.ChartBook;
 import seedu.travel.model.chart.CountryChart;
 import seedu.travel.model.chart.RatingChart;
@@ -74,19 +81,60 @@ public class DisplayCard extends UiPart<Region> {
 
         XYChart.Series series = new XYChart.Series();
 
-        for (int i = 0; i < tempCountryList.size(); i++) {
-            CountryChart country = tempCountryList.get(i);
-            String countryName = country.getChartCountryCode().toString();
-            series.getData().add(new XYChart.Data(countryName, country.getTotal()));
-        }
-
         countryBarChart.setTitle("Number of Places Visited for Each Country");
         countryBarChart.getYAxis().setLabel("Number of Places");
         countryBarChart.getXAxis().setLabel("Country");
         countryBarChart.setLegendVisible(false);
+        countryBarChart.getYAxis().setTickLabelsVisible(false);
         countryBarChart.autosize();
         countryBarChart.getData().add(series);
         countryBarChart.setStyle("-fx-padding: 10 10 30 10;");
+
+        for (int i = 0; i < tempCountryList.size(); i++) {
+            CountryChart country = tempCountryList.get(i);
+            String countryName = country.getChartCountryCode().toString();
+            XYChart.Data<String, Number> data = new XYChart.Data<>(countryName, country.getTotal());
+
+            data.nodeProperty().addListener(new ChangeListener<Node>() {
+                @Override
+                public void changed(ObservableValue<? extends Node> observable, Node oldValue, Node newValue) {
+                    if (newValue != null) {
+                        // adds a label to the top of each bar
+                        displayLabelForData(data);
+                    }
+                }
+            });
+
+            series.getData().add(data);
+        }
+    }
+
+    /**
+     * Adds a label to the top of each bar
+     */
+    private void displayLabelForData(XYChart.Data<String, Number> data) {
+        final Node node = data.getNode();
+        final Text dataText = new Text(data.getYValue() + "");
+
+        // adds a text label to the parent of each bar node
+        node.parentProperty().addListener(new ChangeListener<Parent>() {
+            @Override
+            public void changed(ObservableValue<? extends Parent> observable, Parent oldValue, Parent newValue) {
+                Group parentGroup = (Group) newValue;
+                parentGroup.getChildren().add(dataText);
+            }
+        });
+
+        // dynamically positions the text label based on the bar and text's bounds each time the bar is resized.
+        node.boundsInParentProperty().addListener(new ChangeListener<Bounds>() {
+            @Override
+            public void changed(ObservableValue<? extends Bounds> observable, Bounds oldValue, Bounds newValue) {
+                dataText.setLayoutX(
+                        Math.round(newValue.getMinX() + newValue.getWidth() / 2 - dataText.prefWidth(-1) / 2));
+                dataText.setLayoutY(
+                        Math.round(newValue.getMinY() - dataText.prefHeight(-1) * 0.5));
+            }
+        });
     }
 
     /**

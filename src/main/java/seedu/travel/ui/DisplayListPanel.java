@@ -35,7 +35,7 @@ public class DisplayListPanel extends UiPart<Region> {
         placeList.addListener(new ListChangeListener<Place>() {
             @Override
             public void onChanged(Change<? extends Place> c) {
-                System.out.println("placeList changes detected");
+                logger.info("Chart detected changes to the place list");
                 ObservableList<ChartBook> chartBooks = FXCollections.observableArrayList();
                 chartBooks.add(new ChartBook(placeList));
                 displayListView.setItems(chartBooks);

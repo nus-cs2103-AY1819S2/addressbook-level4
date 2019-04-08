@@ -39,7 +39,7 @@ image::Ui2.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`memberlist`* : lists all members (only in member mode)
+* *`memberList`* : lists all members (only in member mode)
 * *`memberAdd n/James Ong mn/A0123456Y p/98765432 e/jamesong@example.com a/123, Jurong West Ave 6, #08-111 g/male y/2 m/mathematics`
 * : adds a member named
 `James Ong` to the ClubManager.
@@ -371,6 +371,7 @@ image::MemberSortCommand_sortby_yearofstudy.png[width="790"]
 
 //end::membersort[]
 
+//tag::memberexport[]
 ==== Exporting details of a member : `memberExport`
 
 Export the details of the member identified by the index number used in the displayed member list. +
@@ -384,20 +385,23 @@ Format: `memberExport INDEX`
 
 Examples:
 
-* `memberlist` +
+* `memberList` +
 `memberExport 2` +
 Export the details of the 2nd person in the address book.
 * `memberFind name Betsy` +
 `memberExport 1` +
 Export the details of the 1st member in the results of the `find` command.
 
+image::MemberExportExample.png[width="1000"]
+
 [NOTE]
 ====
 The exported file will be stored in the same directory where ClubManager is installed in.
 
 File name with the following format:
-YYYYMMDD_HHMMSS_xxxxx_NameOfPerson.txt
+NameOfPerson_xxxxx_exportedOnDDMMYYYY_HHMMSS.html
 ====
+//end::memberexport[]
 
 === Activity Management Features
 //tag::activityAdd[]
@@ -584,6 +588,38 @@ Selects the 2nd person in the displayed activity list.
 Selects the 1st activity in the results of the `find` command.
 //end::activityFilter[]
 
+//tag::activityexport[]
+==== Exporting details of an activity : `activityExport`
+
+Export the details of the activity identified by the index number used in the displayed activity list. +
+Format: `activityExport INDEX`
+
+****
+* Exports the details of activity at the specified `INDEX`.
+* The index refers to the index number shown in the displayed activity list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `activityList` +
+`activityExport 2` +
+Export the details of the 2nd activity in the address book.
+* `memberFind name Swimming Class` +
+`activityExport 1` +
+Export the details of the 1st activity in the results of the `find` command.
+
+image::ActivityExportExample.png[width="1000"]
+
+[NOTE]
+====
+The exported file will be stored in the same directory where ClubManager is installed in.
+
+File name with the following format:
+NameOfActivity_xxxxx_exportedOnDDMMYYYY_HHMMSS.html
+====
+//end::activityexport[]
+
 === Saving the data
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
@@ -621,6 +657,8 @@ e.g. `memberFind name John`
 e.g.`memberSelect 2`
 * *Sort the member list* : `memberSort [NAME] [GENDER] [YEAR_OF_STUDY] [MAJOR]` +
 e.g. `memberSort name`
+* *Export a member* : `memberExport INDEX` +
+e.g.`memberExport 2`
 
 === Activity Management Commands
 * *Add a activity* : `activityAdd n/gACTIVITY_NAME d/DATETIME l/LOCATION [de/DESCRIPTION] ...` +
@@ -640,6 +678,8 @@ e.g. `activityFilter + 30`
 * *List all the activities* : `activityList`
 * *Select an activity* : `activitySelect ACTIVITY_INDEX` +
 e.g. `activitySelect 2`
+* *Exports an activity* : `activityExport ACTIVITY_INDEX` +
+e.g. `activityExport 1`
 
 
 

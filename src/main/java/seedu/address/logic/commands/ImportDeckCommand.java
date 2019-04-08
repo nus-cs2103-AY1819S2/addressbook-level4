@@ -23,7 +23,7 @@ public class ImportDeckCommand extends Command {
             + "Example: " + COMMAND_WORD + " default.json";
 
     public static final String MESSAGE_IMPORT_DECK_SUCCESS = "Successfully Imported Deck: %1$s";
-    public static final String DEFAULT_FILEPATH = "default.xml";
+    public static final String DEFAULT_FILEPATH = "default.json";
 
     public static final String AUTOCOMPLETE_TEXT = COMMAND_WORD + " " + DEFAULT_FILEPATH;
 

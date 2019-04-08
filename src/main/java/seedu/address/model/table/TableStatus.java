@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class TableStatus {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Table status should only contain numbers no longer than 9 digits long"
+            "Table status should only contain whole numbers no longer than 9 digits long"
             + "\nand the number of seats taken is less than number of seats.";
 
     public static final String MESSAGE_INVALID_NUMBER_OF_CUSTOMERS =

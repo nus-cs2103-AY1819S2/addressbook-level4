@@ -7,6 +7,7 @@ import java.util.List;
 
 import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.TableStatus;
 
 /**
@@ -30,8 +31,7 @@ public class AddTableCommandParser implements Parser<AddTableCommand> {
         List<TableStatus> numberOfSeatsList = new ArrayList<>();
         for (int i = 0; i < numberOfSeatsInString.length; i++) {
             if (!TableStatus.isValidNumberOfSeats(numberOfSeatsInString[i])) {
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTableCommand.MESSAGE_USAGE));
+                throw new ParseException(TableStatus.MESSAGE_CONSTRAINTS);
             }
             try {
                 numberOfSeatsList.add(new TableStatus("0/" + numberOfSeatsInString[i]));

@@ -8,16 +8,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
-import java.util.Set;
 
 import javafx.collections.ObservableList;
 import seedu.address.MainApp;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 
 /**
  * File handling utility functions for exporting data
@@ -68,13 +65,14 @@ public class ExportUtil {
         String gender = person.getGender().toString();
         String yearOfStudy = person.getYearOfStudy().toString();
         String major = person.getMajor().toString();
-        Set<Tag> tagSet = person.getTags();
+
+        /*Set<Tag> tagSet = person.getTags();
         ArrayList<String> tagList = new ArrayList<String>();
         if (!tagSet.isEmpty()) {
             for (Tag t : tagSet) {
                 tagList.add(t.toString());
             }
-        }
+        }*/
 
         String now = generateFileDateTime();
         String title = name + " - " + now;
@@ -117,6 +115,7 @@ public class ExportUtil {
         htmlString = htmlString.replace("$title", title);
         htmlString = htmlString.replace("$name", name);
         htmlString = htmlString.replace("$description", description);
+        htmlString = htmlString.replace("$location", location);
         htmlString = htmlString.replace("$dateTime", dateTime);
         htmlString = htmlString.replace("$status", status);
 
@@ -128,7 +127,7 @@ public class ExportUtil {
 
         if (!personObservableList.isEmpty()) {
             attendanceListHtmlBuilder.append("<h4>Members Attending :</h4>" + ls);
-            attendanceListHtmlBuilder.append("<table>" + ls + "<tbody>" +ls);
+            attendanceListHtmlBuilder.append("<table>" + ls + "<tbody>" + ls);
 
             attendanceListHtmlBuilder.append("<tr>" + ls);
             attendanceListHtmlBuilder.append("<th class='tblhead'>Name</th>" + ls);
@@ -155,12 +154,6 @@ public class ExportUtil {
         }
 
         attendanceListHtml = attendanceListHtmlBuilder.toString();
-
-//        if (!tagSet.isEmpty()) {
-//            for (Tag t : tagSet) {
-//                tagList.add(t.toString());
-//            }
-//        }
 
         htmlString = htmlString.replace("$attendanceListHtml", attendanceListHtml);
 

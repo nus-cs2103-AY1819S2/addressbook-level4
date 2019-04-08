@@ -9,6 +9,8 @@ import seedu.address.model.appointment.exceptions.AppointmentNotInFutureExceptio
  */
 public class FutureAppointment extends Appointment {
 
+    public static final String MESSAGE_CONSTRAINT_FUTURE = "Appointments can only be made in the future";
+
     /**
      * Constructs a {@code FutureAppointment}.
      *

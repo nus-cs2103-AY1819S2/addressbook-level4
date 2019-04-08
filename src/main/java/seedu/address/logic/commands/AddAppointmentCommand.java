@@ -12,7 +12,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.FutureAppointment;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
@@ -44,7 +43,7 @@ public class AddAppointmentCommand extends Command {
     public static final String MESSAGE_DOCTOR_NOT_NOT_FOUND =
             "Doctor with the ID is not found. Please enter a valid doctor ID.";
 
-    private Appointment appointment;
+    private FutureAppointment appointment;
 
     public AddAppointmentCommand(FutureAppointment appointment) {
         this.appointment = appointment;
@@ -56,7 +55,7 @@ public class AddAppointmentCommand extends Command {
         if (model.hasAppointment(appointment)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         }
-
+        
         getPatientById(model);
         getDoctorById(model);
 

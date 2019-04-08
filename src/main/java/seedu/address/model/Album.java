@@ -103,8 +103,8 @@ public class Album {
      * Resets the Album to empty.
      */
     public void clearAlbum() {
-        imageList.clear();
         try {
+            imageList.clear();
             FileUtils.cleanDirectory(new File(assetsFilepath));
         } catch (IOException e) {
             e.printStackTrace();

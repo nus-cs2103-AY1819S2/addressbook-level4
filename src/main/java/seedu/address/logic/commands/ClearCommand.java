@@ -26,7 +26,7 @@ public class ClearCommand extends Command {
         model.setAddressBook(new AddressBook());
         model.commitAddressBook();
         File dir = new File(album.getAssetsFilepath());
-        model.clearAssetFolder(dir);
+        album.clearAlbum();
         album.populateAlbum();
         model.refreshAlbum();
         return new CommandResult(MESSAGE_SUCCESS);

@@ -20,11 +20,11 @@ public class SpaceForCommandParser implements Parser<SpaceForCommand> {
         if (trimmedArgs.isEmpty() || splitArgs.length > 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SpaceForCommand.MESSAGE_USAGE));
         }
+        if (!TableStatus.isValidNumberOfSeats(trimmedArgs) || trimmedArgs.equals("0")) {
+            throw new ParseException(SpaceForCommand.MESSAGE_CONSTRAINT);
+        }
         if (trimmedArgs.length() > 9) {
             throw new ParseException(MESSAGE_TOO_MANY_CUSTOMERS);
-        }
-        if (!TableStatus.isValidNumberOfSeats(trimmedArgs)) {
-            throw new ParseException(SpaceForCommand.MESSAGE_CONSTRAINT);
         }
 
         return new SpaceForCommand(Integer.parseInt(trimmedArgs));

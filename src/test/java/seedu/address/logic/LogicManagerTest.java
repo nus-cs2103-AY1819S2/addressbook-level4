@@ -160,7 +160,7 @@ public class LogicManagerTest {
         logic = new LogicManager(managementModel, quizModel, storage);
 
         assertCommandSuccess(QuizStartCommand.COMMAND_WORD + " n/Capitals c/2 m/PREVIEW",
-                "", expectedMgmtMgr);
+                "Starting new quiz", expectedMgmtMgr);
     }
 
     @Test

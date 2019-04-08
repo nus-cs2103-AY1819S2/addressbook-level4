@@ -173,6 +173,13 @@ public class Activity implements Comparable<Activity> {
         return new Activity(name, dateTime, location, description, attendance);
     }
 
+    /**
+     * Returns whether a Person represented by the {@code Matric} is Attending the activity
+     */
+    public boolean isMatricAttending(MatricNumber matric) {
+        return attendance.contains(matric);
+    }
+
 
     /**
      * Returns true if both persons have the same identity and data fields.

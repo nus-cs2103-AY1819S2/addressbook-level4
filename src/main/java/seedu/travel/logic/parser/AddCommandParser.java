@@ -45,10 +45,15 @@ public class AddCommandParser implements Parser<AddCommand> {
         Rating rating = ParserUtil.parseRating(argMultimap.getValue(PREFIX_RATING).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Photo photo = ParserUtil.parsePhoto(argMultimap.getValue(PREFIX_PHOTO).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Place place = new Place(name, countryCode, dateVisited, rating, description, address, photo, tagList);
+        Place place;
+        if(argMultimap.getValue(PREFIX_PHOTO).isPresent()) {
+            Photo photo = ParserUtil.parsePhoto(argMultimap.getValue(PREFIX_PHOTO).get());
+            place = new Place(name, countryCode, dateVisited, rating, description, address, photo, tagList);
+        } else {
+            place = new Place(name, countryCode, dateVisited, rating, description, address, tagList);
+        }
 
         return new AddCommand(place);
     }

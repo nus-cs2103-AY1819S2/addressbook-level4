@@ -63,7 +63,13 @@ class JsonAdaptedPlace {
         rating = source.getRating().value;
         description = source.getDescription().value;
         address = source.getAddress().value;
-        photo = source.getPhoto().getFilePath();
+
+        if(source.getPhoto() == null) {
+            photo = null;
+        } else {
+            photo = source.getPhoto().getFilePath();
+        }
+
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));

@@ -32,27 +32,28 @@ public class Person {
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+        requireAllNonNull(name);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.tags.addAll(tags);
+        if (tags != null) {
+            this.tags.addAll(tags);
+        }
         copyInfo = null;
         copyCount = 0;
     }
 
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                  Person personToCopy, int copyCount) {
-        requireAllNonNull(name, phone, email, address, tags);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
-        this.tags.add(new Tag("Copy"));
-        this.copyCount = copyCount;
-        copyInfo = new CopyTag(personToCopy, "$Copy" + copyCount);
+    public Person(Person personToCopy) {
+        requireAllNonNull(personToCopy);
+        this.name = personToCopy.name;
+        this.phone = personToCopy.phone;
+        this.email = personToCopy.email;
+        this.address = personToCopy.address;
+        this.tags.addAll(personToCopy.tags);
+        this.copyCount = personToCopy.copyCount + 1;
+        copyInfo = new CopyTag(personToCopy, "$Copy" + this.copyCount);
+        this.tags.add(copyInfo);
     }
 
     public Name getName() {
@@ -113,7 +114,7 @@ public class Person {
             return copyInfo.getOriginalPerson().copy();
         }
         copyCount++;
-        return new Person(name, phone, email, address, tags, this, copyCount);
+        return new Person(this);
     }
 
     /**

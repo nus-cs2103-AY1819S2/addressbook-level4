@@ -1,8 +1,9 @@
-= OurTeeth - User Guide
+= TeethHub - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 4
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -12,299 +13,562 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S2-W17-2/main
 
 By: `Team W17-2`      Since: `Feb 2019`      Licence: `MIT`
 
-Last Updated: 2/12/2019 21:35:35
+Last Updated: 2/19/2019 15:35:35
 
 == Introduction
 
-OurTeeth is for dental practitioners who want to manage patient records
-through a desktop or mobile app. The application works primarily through
-a Command Line Interface (CLI) while having elements of a Graphical User
-Interface (GUI) for greater visualization of data. The application
-provides a platform for dentists to keep track of their patients’
-personal particulars along with their dental records. Conditions of each
-patients’ teeth (e.g decaying, removed or filled) are also stored for
-ease of reference when providing treatments or follow-ups. As the
-application uses CLI, users who prefer using command line interface will
-be able to comfortably navigate through the many features the offered by
-the application.
+Welcome to TeethHub!
+If you are a dental practitioner who prefers to use a Command Line Interface (CLI),
+then TeethHub is an application for you!
 
-Interested in trying OurTeeth out? Check section 2 [Prerequisites] to
-see what programs you need to have installed in order for OurTeeth to
-work properly. Once that’s settled, or you’re confident in your computer
-set-up, jump to section 3 [Quick Start] to begin!
+TeethHub works primarily through a CLI while having elements of a Graphical User Interface (GUI).
+For example, you can select patients and records by clicking on them, but you would need to type the edit commands to edit them.
+TeethHub allows you to keep track of your patient's particulars along with their dental records.
+An image of each patient's teeth will also be displayed according to what you input for each tooth's status(Absent, Problem, Healthy).
+In addition to that, TeethHub also allows you to keep track of your upcoming tasks, just like a calendar.
+
+Interested in trying TeethHub out? Check out <<prerequisites>> to see what programs you need in order for TeethHub to work properly.
+If you’re confident in your computer set-up, jump to <<quick-start-guide>> to begin!
 
 ==  Prerequisites
 
-Before downloading and installing OurTeeth, please check that you have
-the following programs installed:
+Before downloading and installing TeethHub, you will need the following programs installed:
 
-* Java version *9* or later
-* The secret to the universe and more…
+* Java Runtime Environment version *9* or later.
 
-
-Once you have ensured everything is in order, kindly proceed to the
-section 3 [Quick Start Guide].
+Once you have it installed, you can now proceed to <<quick-start-guide>>!
 
 == Quick Start Guide
 
+. Download the latest TeethHub.jar file from our https://github.com/CS2103-AY1819S2-W17-2/main[GitHub page].
 
-. Download the latest ourteeth.jar file from our GitHub page
+. Copy the file to a folder you want to use as the home folder for TeethHub (all data will be stored there).
 
-. Copy the file to the folder you want to use as the home folder for the
-application (all data will be stored there)
+. Double-click the file to launch TeethHub.
+It should start in a few seconds and begin the initialization set-up.
 
-. Double-click the file to launch the application.The application’s GUI
-should start in a few seconds and begin the initialization set-up. (for
-users who have already finished the set-up phase, please go to step 6)
-
-. The application will prompt the user to input details of the
-clinic/hospital/place of practice such as the name and address of the
-location. (e.g ABC Hospital, 11 Baker Street, Singapore 308433)
-
-. User will then have to create a user account to begin using the
-application.
-
-. Simply login to your account and begin using the application
+. You can now start adding patients and tasks!
 
 
-For the full list of available commands and their associated details,
-please look at section 4 [Commands]
+If you need the full list of available commands and their associated details, please proceed to <<quick-start-guide>>!
 
 == Commands and Features
 
-=== Login
+*Command Format*
 
-Logs into a specific user’s account to access records
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in patientadd n/NAME, NAME is
+a parameter which can be used as patientadd n/John Doe.
 
-Format: `login USERNAME PASSWORD`
+* Items in square brackets are optional.
 
-=== Help
+* Parameters can be in any order e.g. if the command specifies `n/NAME ic/NRIC dob/DATE_OF_BIRTH`,
+`dob/DATE_OF_BIRTH n/NAME ic/NRIC ` is also acceptable.
 
-Displays the help text for the usage of all available commands.
+=== Breakdown of attributes used within TeethHub
+[cols=",,,", options="header",]
+|===
+4+^|List of valid prefixes
+
+4+^|Unique Prefixes
+2+| *Patient* 2+| *Record*
+|Prefix | Attribute | Prefix | Attribute
+|a/ | Address 2.7+|
+|dob/ | Date of Birth
+|e/ | Email
+|ic/ | Nric
+|n/ | Name
+|p/ | Phone
+|sex/ | Sex
+4+^|Common Prefixes
+
+|===
+
+=== General Commands
+
+==== help
+
+Displays the help text for all available commands.
 
 Format: `help`
 
-=== Adding a person: add
+////
+==== dentist
 
-Adds a person to the application’s personnel data records
+You can specify the name you want to reflect in your patients' dental record when you create them.
 
-Format: `add PARAMETERS [t/TAG] …`
+Format: `dentist n/YOUR_NAME`
+
+* If there is no dentist name specified, the program will prompt you to enter one.
+
+* This should only happen once, during the first startup of the application.
+////
+
+==== history
+Lists all the commands that have been entered since starting the
+application in reverse chronological order.
+
+Format: `history`
+
+==== undo
+Undo the latest command.
+
+Format: `undo`
+
+Examples:
+
+* `<<patientdelete, patientdelete>> 1` +
+`<<patientlist, patientlist>>` +
+`undo` (reverses the patientdelete 1 command)
+
+* `<<patientlist, patientlist>>` +
+`undo` +
+The undo command fails as there are no undo-able commands executed previously.
+
+* `<<patientdelete, patientdelete>> 1` +
+`<<patientclear, patientclear>>` +
+`undo` (reverses the patientclear command) +
+`undo` (reverses the patientdelete 1 command)
+
+==== redo
+Reverses the most recent undo command.
+
+Format: `redo`
+
+Examples:
+
+* `<<patientdelete, patientdelete>> 1` +
+`<<undo, undo>>` (reverses the patientdelete 1 command) +
+`redo` (reapplies the patientdelete 1 command)
+
+* `<<patientdelete, patientdelete>> 1` +
+`redo` +
+The redo command fails as there are no undo commands executed
+previously.
+
+* `<<patientdelete, patientdelete>> 1` +
+`<<patientclear, patientclear>>` +
+`<<undo, undo>>` (reverses the patientclear command) +
+`<<undo, undo>>` (reverses the patientdelete 1 command) +
+`redo` (reapplies the patientdelete 1 command) +
+`redo` (reapplies the patientclear command)
+
+
+==== sort
+Sorts the records by an input parameter in an input order.
+
+Format: `sort PARAM [ORDER]`
+
+* valid PARAM options in patient mode: address, dob, email, name, nric, phone, sex,
+drug, kinN, kinR, kinP, kinA, desc.
+* valid PARAM options in record mode: desc, date, procedure.
+* valid ORDER options: asce, desc
+** default ORDER if unspecified is ascending
+
+Example:
+
+[cols=",,,,",options="header",]
+|===
+|*ID* |*Name* |*Sex* | *Phone* |  *Date of Birth*
+|0 |Alice |M | 84521666 | 03/07/2003
+|1 |Bob |M | 96545555 | 11/02/2019
+|2 |Clara |F | 98989898 | 05/02/2021
+|===
+
+* sort sex
+[cols=",,,,",options="header",]
+|===
+|*ID* |*Name* |*Sex* | *Phone* |  *Date of Birth*
+|0 |Clara |F | 98989898 | 05/02/2021
+|1 |Alice |M | 84521666 | 03/07/2003
+|2 |Bob |M | 96545555 | 11/02/2019
+|===
+
+* sort dob desc
+
+[cols=",,,,",options="header",]
+|===
+|*ID* |*Name* |*Sex* | *Phone* |  *Date of Birth*
+|0 |Clara |F | 98989898 | 05/02/2021
+|1 |Bob |M | 96545555 | 11/02/2019
+|2 |Alice |M | 84521666 | 03/07/2003
+|===
+
+==== stat
+Generates a statistics report based on the specified patient's data.
+
+Format: `stat INDEX`
+
+==== exit
+Exits the program. You won't be able to exit if copies exist.
+
+Format: `exit`
+
+[NOTE]
+============================================================
+You can also use `exit!` to forcefully exit the application
+============================================================
+
+=== File Management
+
+TeethHub automatically saves all data in TeethHub.json when you close the program.
+However, you can manage them manually with `open`, `save`, `import` and `export`. +
+ +
+*When we mention "data", we mean the patients list and their respective records plus the task list.* +
+*.json files hold data that TeethHub can read. Use this to "save" or "load" your progress.* +
+*.pdf files hold data that are easier for people to read. Use this if you are printing out a physical copy.* +
+ +
+You can use `open` to open another .json file that you may have transferred over from another computer. +
+ +
+You can use `save` to save specific patients to a .json or .pdf file. +
+ +
+You can use `import` to add specific patients from another .json file to your current data. +
+ +
+You can use `export` to save specific patients to a .json or .pdf file.
+
+==== open
+Opens the file in the specified file path and overwrites the current data. +
+** Note that 'open' always searches inside the data folder.** +
+** You can only open .json files.**
+
+Format: `open FILE_PATH`
+
+Examples:
+
+* `open data1.json` +
+Replaces the current data with the data in "data1.json".
+
+* `open february/data2.json` +
+Replaces the current data with the data in "data2.json" found in the "february" folder.
+
+
+==== save
+Saves the current data to the specified file path. +
+** Note that 'save' always saves inside the data folder. If no such file path exists,
+it will be created. +
+Otherwise, it will overwrite the existing file.** +
+** You can only save to .json and .pdf.** +
+.json files allow you to <<open, open>> or <<import, import>> them. +
+.pdf files are easier to read, but you cannot open or import them with TeethHub.
+
+Format: `save FILE_PATH`
+
+Examples:
+
+* `save data1.json` +
+Saves the current data to "data1.json".
+
+* `save february/data2.pdf` +
+Saves the current data to "data2.json" found in the "february" folder.
+
+
+==== import
+Opens the file in the specified file path and adds the specified patients to the current data. +
+** Note that 'import' always searches inside the data folder.** +
+** You can only import .json files. **
+
+Format: `import FILE_PATH INDEX_RANGE`
+
+Examples:
+
+* `import data1.json 1` +
+Adds patient 1 from "data1.json" to the current data.
+
+* `import february/data1.json 1` +
+Adds patient 1 from "data1.json" found in the "february" folder to the current data.
+
+* `import data1.json 1,4` +
+Adds patient 1 and patient 4 from "data1.json" to the current data.
+
+* `import data1.json 1-4` +
+Adds patient 1 to patient 4 from "data1.json" to the current data.
+
+* `import data1.json 1,3-5` +
+Adds patient 1 and patient 3 to patient 5 from "data1.json" to the current data.
+
+
+==== export
+Saves the specified patients in the current data to the specified file path. +
+** Note that 'export' always saves inside the data folder. If no such file path exists,
+it will be created. +
+Otherwise, it will overwrite the existing file.** +
+** You can only export to .json and .pdf.** +
+.json files allow you to <<open, open>> or <<import, import>> them. +
+.pdf files are easier to read, but you cannot open or import them with TeethHub.
+
+Format: `export FILE_PATH INDEX_RANGE`
+
+Examples:
+
+* `export data1.json 1` +
+Saves patient 1 from the current data to "data1.json".
+
+* `export february/data1.pdf 1` +
+Saves patient 1 from the current data to "data1.pdf" found in the "february" folder.
+
+* `export data1.json 1,4` +
+Saves patient 1 and patient 4 from the current data to "data1.json".
+
+* `export data1.pdf 1-4` +
+Saves patient 1 to patient 4 from the current data to "data1.pdf".
+
+* `export data1.pdf 1,3-5` +
+Saves patient 1 and patient 3 to patient 5 from the current data to "data1.pdf".
+
+* `export data1.json all` +
+Writes all entries from the address book to data1.json. +
+
+=== Patient Management
+
+==== patientadd
+
+Adds a patient to the patients list.
+
+Name, NRIC, and Date of Birth fields are compulsory. The rest are optional fields.
+
+Format: `patientadd PARAMETERS …` or `padd PARAMETERS …`
 
 Parameters:
 
-[cols=",,,",options=""]
+[cols=",",options=""]
 |===
-|n/NAME |s/SEX |p/PHONE_NUMBER |e/EMAIL
-|a/ADDRESS |ic/NRIC |age/AGE |dob/DATE_OF_BIRTH_DDMMYYYY
-
-|da/DRUG_ALLERGY |nokn/NEXT_OF_KIN_NAME |nokp/NEXT_OF_KIN_PHONE_NUMBER
-|nokr/NEXT_OF_KIN_RELATION
-
-|noka/NEXT_OF_KIN_ADDRESS | | |
+|n/NAME |n/Keith Choo Shen Hao
+|s/SEX |s/Male
+|p/PHONE_NUMBER |p/98765432
+|e/EMAIL |e/KeithCSH@debang.com
+|a/ADDRESS |a/1 Pulau Tekong Besar 508449
+|ic/NRIC |ic/S1234567Z
+|dob/DATE_OF_BIRTH_DD-MM-YYYY |dob/28-06-1994
+|da/DRUG_ALLERGY |da/Insulin
+|nokn/NEXT_OF_KIN_NAME |nokn/Choo Debang
+|nokp/NEXT_OF_KIN_PHONE_NUMBER |nokp/97654321
+|nokr/NEXT_OF_KIN_RELATION |nokr/Brother
+|noka/NEXT_OF_KIN_ADDRESS |noka/21 Lower Kent Ridge Rd 119077
 |===
 
-
-A person can have any number of tags.
-
-Note: If a person’s next of kin lives at the same address, use `same` to
-indicate
+Note: If a patient’s next of kin lives at the same address, use `same` to indicate that.
 
 Examples:
 
+* `patientadd n/John Choo sex/M p/98425871 e/jonC@example.com a/IDA street block 13
+#02-05 ic/S1234567H dob/26-02-1987 nokn/Jacky Choo nokp/84875215 nokr/Father noka/same`
 
-* `add n/John Choo p/98425871 e/jonC@example.com a/IDA street, block 13,
-#02-05 ic/S1234567H age/32 dob/26021987 nokn/Jacky Choo nokp/84875215
-nokr/Father noka/same`
+==== patientdelete
 
+Deletes the specified patient from the patients list.
 
-=== Deleting a person: delete
+Format: `patientdelete INDEX` or `pdelete INDEX`
 
+* Deletes the patient at the specified index.
 
-Deletes the specified person from the personnel data records.
+* The index refers to the index number shown in the displayed patient list.
 
-Format: delete INDEX
-
-
-* Deletes the person at the specified index
-
-* The index refers to the index number shown in the displayed person list.
-
-* The given index must be a positive integer (e.g 1, 2 or 3…)
-
+* The given index must be a positive integer (e.g 1, 2 or 3…).
 
 Examples:
 
-* `list +
-delete 1` +
-Deletes the 1st person from the displayed list
+* `patientdelete 1` +
+Deletes the patient shown with index 1 from the displayed list.
 
-* `view John +
-delete 1` +
-Deletes the 2nd person found using the view command
+* `<<patientfind, patientfind>> John` +
+`patientdelete 2` +
+Deletes the patient shown with index 2 found using the find command.
 
+==== patientedit
 
-=== Editing a person’s data: edit
+Edits data from an existing patient.
 
+Format: `patientedit INDEX [PREFIX/KEYWORDS]` or `pedit INDEX [PREFIX/KEYWORDS]`
 
-Edits data from an existing person
+* Edits the patient at the specified index shown from list or find command.
+Must be a positive integer (e.g 1, 2 or 3).
 
-Format: `edit INDEX`
-
-
-* Goes into edit mode for the person at the specified index shown from
-list or view command. Must be a positive integer (e.g 1, 2 or 3)
-
-* Input the field followed by the new value to replace the existing data
+* Input the prefix followed by the new value to replace the existing data.
+** The full list of possible prefixes can be found in <<Breakdown of attributes used within TeethHub>>
 
 * Multiple fields can be edited in a single input or across multiple
-inputs
+inputs.
 
-* When editing tags, the existing tags of the person will be removed i.e
-adding of tags is not cumulative
+* Note that tags **cannot** be editted as they are automatically generated.
 
-* All tags can be removed by keying in t/ without specifying any tags
-following it
-
-* Exit the edit mode by entering done
+[NOTE]
+============================================================
+After editting a patient, `plist` is automatically executed as well!
+============================================================
 
 Example:
 
-* `list +
-edit 1 +
-p/12345 +
-e/newemail@gmail.com +
-done` +
-Edits the phone number and email of the first person listed to become
-12345 and newemail@gmail.com respectively across 2 inputs
+* `<<patientlist, patientlist>>` +
+`patientedit 1 e/newemail@gmail.com` +
+`patientedit 1 p/12345` +
+Edits the phone number and email of the first patient listed to become
+12345 and newemail@gmail.com respectively across 2 inputs.
 
 
-* `view Betsy +
-edit 2 +
-p/987654 e/mymaill@gmail.com +
-done` +
-Edits the phone number and email of the first person listed to become
-987654 and mymaill@gmail.com respectively with a single input
+* `<<patientfind, patientfind>> Betsy` +
+`patientedit 2 p/987654 e/mymail@gmail.com` +
+Edits the phone number and email of the first patient listed to become
+987654 and mymail@gmail.com respectively with a single input.
 
+==== patientcopy
 
-=== Copying a person’s data: copy
+Makes an exact patientcopy of a patient and adds them to the patient list.
+This may be useful if multiple people share similar details.
 
-Makes an exact copy of a person’s data and adds it to the personnel data
-records. This is implemented in the case that multiple people share
-similar details.
-
-Format: `copy INDEX`
+Format: `patientcopy INDEX [Count]` or `pcopy INDEX [Count]`
 
 Note: If the copied entry is not modified before exiting the program,
-there will be a notification.
+there will be a confirmation.
 
 Example:
 
+* `patientcopy 3` +
+Makes a patientcopy of the patient at index 3 and inserts it at the bottom of
+the current patient list with a copy tag.
 
-* `copy 3` +
-Makes a copy of the person at index 3 and inserts it at the bottom of
-the current personnel records with a copy tag.
+* `patientcopy 3 4` +
+Makes 4 copies of the patient at index 3 and inserts them at the bottom of
+the current patient list with a copy tag.
 
-=== Record: Access a person’s dental records
-==== record add
+==== patientlist
+Shows a list of all patients or medical stored in TeethHub.
 
-Adds a new dental record to the program’s medical dental records
+Format: `patientlist` or `plist`
 
-Format: `record add n/NRIC d/DATE_DDMMYYYY t/TIME_HHMM p/PROCEDURE
-doc/SERVING_DENTIST det/DETAILS`
+Example:
 
-Example
-*  `record add n/S1234567H d/10022019 t/1705 p/Cleaning doc/Kyler det/Mouth
-was noticeably smelly, might have halitosis`
+* `patientlist` +
+Shows details of all patients.
 
-==== record delete
+==== patientfind
 
-Format: `record delete n/NRIC INDEX`
+Shows patients whose data contains any of the given keywords according to a specified parameter.
 
-* Deletes the person’s dental record at the specified index
+Format: `patientfind PREFIX/KEYWORD [MORE_KEYWORDS]` or `pfind PREFIX/KEYWORD [MORE_KEYWORDS]`
 
-* The index refers to the index number shown in the displayed dental
-record list.
+* Search is case insensitive.
+* Order of keywords does not matter.
+* Valid `Prefix` values: See <<Breakdown of attributes used within TeethHub>>
+
+Example:
+
+* `find a/Yishun` +
+Show all the people with an address containing the keyword Yishun.
+
+==== patientclear
+Clears all patients, from TeethHub.
+
+* You will be prompted to confirm.
+* Input `y` to proceed to the patientclear all records or `n` to abort.
+
+Format: `patientclear`
+
+=== Patient Records Management
+
+==== goto
+
+Specifies a patient of interest, in order to modify his or her dental records and information.
+
+When the `goto` mode is active, the patient list is replaced by a dental records list. The dental records list displays all dental records of the patient of interest.
+
+To go back to the patient list, use the command `back`.
+
+Format: `goto 1`
+
+* Specifies the patient of interest to be the patient at index 1.
 
 * The given index must be a positive integer (e.g 1, 2 or 3…)
 
-Examples:
+* Enters all the records of the patient of interest in the `goto` mode.
 
-* `view dental Jon` +
-`record delete n/NRIC 1` +
-Deletes the 1st record from the displayed list
+==== recordadd
 
+Adds a new dental record to the patient.
 
-==== record edit
-Edits a person’s dental record.
+Record contains the patient's personal information, name of the dentist on duty, the date of the record, and the description of the dental treatment the patient has went through during that session.
 
-Format: `record edit n/NRIC INDEX`
+Note: `recordadd` requires the program to first be in `goto` mode, where a patient is specified for his or her dental information to be modified.
 
+Format: `recordadd desc/DETAILS` or `radd desc/DETAILS`
 
-* Goes into record edit mode for the specified person at the specified
-index shown from list or view command. Must be a positive integer (e.g
-1, 2 or 3)
+* The program assigns the name of the dentist stored in the dentist information
 
-* Input the field followed by the new value to replace the existing data
+* The program assigns the date of record as the date the record is created.
 
-* Multiple fields can be edited in a single input or across multiple
-inputs
+* When records of a patient is accessed, the stored records are sorted from newest to oldest.
 
-* When editing tags, the existing tags of the person will be removed i.e
-adding of tags is not cumulative
+* New dental records will appear on the top of the list upon entry.
 
-* All tags can be removed by keying in t/ without specifying any tags
-following it
+Example
 
-* Exit the edit mode by entering done
+* `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
 
-Example:
+* `recordadd desc/Mouth was noticeably smelly, might have halitosis` - Adds a new dental record.
 
-* `view dental n/Jon +
-record edit n/S1234567H 1 +
-doc/Debang +
-det/new details +
-done` +
-Edits the first dental record under the patient Jon and replaces the old
-doctor and detail fields with the new Debang and new details data.
+* `back` - Go back to the patient list.
 
-==== record copy
-Makes an exact copy of a person’s dental record
+==== recorddelete
 
-Format: `record copy n/NRIC INDEX`
+Deletes a dental record of a specified patient.
+
+Note: `recorddelete` requires the program to first be in `goto` mode, where a patient is specified for his or her dental information to be modified.
+
+Format: `recorddelete INDEX` or `rdelete INDEX`
+
+* Deletes the patient’s dental record at the specified index.
+
+* The index refers to the index number shown in the displayed dental record list.
+
+* The given index must be a positive integer (e.g 1, 2 or 3…)
 
 Example:
 
+* `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
 
-* `record copy n/S1234567H 2` +
-Makes a copy of the person’s dental record at index 2 and inserts it at
-the bottom of the current dental records with a copy tag
+* `recorddelete 1` - patientdelete the latest dental record of the specified patient
 
+* `back` - Go back to the patient list.
 
-=== Teeth
+==== recordedit
+
+Edits a patient’s dental record.
+
+Note: `recordedit` requires the program to first be in `goto` mode, where a patient is specified for his or her dental information to be modified.
+
+Format: `recordedit INDEX desc/DETAILS` or `redit INDEX desc/DETAILS`
+
+* Edits the patient's dental record at the specified index.
+
+* The index refers to the index number shown in the displayed dental record list.
+
+* The given index must be a positive integer (e.g 1, 2 or 3…)
+
+* The new description stated in the command will replace the old description in the specified dental record.
+
+Example:
+
+* `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
+
+* `recordedit 1 desc/corrected description` - Modifies the description of the first dental record of the specified patient.
+
+* `back` - Go back to the patient list.
+
+=== Teeth Management
 
 ==== Brief Description
 
-
-The OurTeeth application complies with the most popular standard of the
-three the Dental Numbering Systems utilised in the dentistry field - The
-Universal Numbering System.
-
+TeethHub complies with the most popular standard of the three the Dental Numbering Systems utilised in Dentistry - The Universal Numbering System.
 
 ==== The Universal Numbering System
 
 ifdef::env-github[]
-image::image1.png[width="200"]
+image::BaseLayer.png[width="200"]
 endif::[]
 
-ifndef::env-github[]
-image::image1.png[width="200"]
-endif::[]
-
-The uppercase letters A through T are used for primary teeth and the
+The upper-case letters A through T are used for primary teeth and the
 numbers 1 - 32 are used for permanent teeth. The tooth designated "1" is
 the maxillary right third molar ("wisdom tooth") and the count continues
 along the upper teeth to the left side. Then the count begins at the
@@ -312,309 +576,351 @@ mandibular left third molar, designated number 17, and continues along
 the bottom teeth to the right side. Each tooth has a unique number or
 letter, allowing for easier use on keyboards.
 
-
 ==== Creating and Editing Teeth Layout
-There are two templates provided by the application: primary and
-permanent.
 
-All primary or permanent teeth in template will all be present and
-healthy by default.
+There is one template provided by TeethHub: permanent teeth.
 
+All permanent teeth in template will all be present and healthy by default.
 
 * To create a new teeth layout for patient:
 
-** `teeth add n/NRIC <Template>`
-
-** Note that if a teeth layout already exist, a warning will be thrown to
-confirm the user’s overwriting intention
+** The program automatically creates a new permanent teeth template for new patients added.
 
 * To edit a new specific tooth:
 
-** `teeth edit n/NRIC t/TEETH_LABEL s/STATUS -d/DESCRIPTION`
+** `<<goto, goto>> 1` - Specifies patient 1 to edit his or her teeth status. Enters the record edit mode.
 
-** Valid <Teeth Label> are letters A through T (case-insensitive, for
-primary teeth), and numbers 1 - 32 (for permanent teeth)
+** `teethedit TEETH_LABEL s/STATUS` - Edits the status of the indicated tooth of patient.
 
-** Note that if a teeth layout does not exist, a new layout will be created
-based on the teeth label group used, before the edit is applied on the
-newly created teeth layout.
+** `back` - Exits the record edit mode, and returns to the patient list.
+
+** Valid <Teeth Label> are numbers 1 - 32 (permanent teeth).
 
 ** <Status> reflects overall health of the indicated tooth, and valid
-<Status> are “healthy”, “absent”, “treatment” and “review”
+<Status> are "healthy", "problem" and "absent".
 
-** <Description> is an optional field to present dentists with a feature to
-indicate personalised note describing more detail on the patient’s teeth
+** <Description> is an optional field that allows you to
+write a note describing more detail on the patient’s teeth
 health.
 
-=== Importing records: `import`
+=== Task Management
+==== taskadd
+Adds a task to the application's list of tasks.
 
-Reads all entries from a specified text file and overwrites the address book. +
-Format: `import FILENAME`
+Format: `taskadd PARAMETERS` or `tadd PARAMETERS`
+
+You can specify information that describes the task you wish to add by
+keying in certain tags after the `taskadd` command. Do note the following:
+
+* All parameters have certain patterns that **MUST** be followed. +
+
+* Some parameters are mandatory when adding a task. +
+
+* Non-mandatory tasks will be assigned a default value if not specified.
+
+
+Table 1 shows the list of parameters along with their respective descriptions.
+Mandatory parameters are marked with an asterisk `*` in the attribute section of the table.
+
+
+
+.Task parameters
+|===
+|Attribute |Description |Tag |Example
+
+|Title*
+|General description for the task to be added.
+
+You can provide any alphanumeric characters and the special characters:
+`( ,@, !, ?, ., -` when giving the title for the task. Other characters not specified will not be allowed
+due to security reasons.
+|ti/TEXT
+|ti/Tooth Extraction
+
+|Start date*
+|The date in which the task is set to begin.
+
+You should provide the start date in the format `DD-MM-YYYY` and should not be a date that is BEFORE the current date.
+You can also use the keyword `today` as an input which will use the current date as the start date.
+
+Only *possible* dates are accepted as valid as the program follows the calendar strictly.
+For example, `31-04-2019` will be flagged as invalid as there are only 30 days in April.
+
+As of the current version, 29th of February in a leap year (29-02-2019) is not accepted as a valid input, but will be
+implemented in future versions.
+
+|sd/DD-MM-YYYY
+|sd/19-12-2019
+
+|End date
+|The date in which the task is set to end.
+
+You should provide the end date in the format `DD-MM-YYYY`, following standard date values. The end date should not be
+BEFORE the task's START DATE.
+You can also use the keyword `today` as an input which will use the current date as the start date.
+
+Other validity checks for the end date are the same as that of start date.
+
+Default value if not specified: Task's start date.
+|ed/DD-MM-YYYY
+|ed/19-12-2019
+
+|Start time*
+|The specific time in which the task is set to begin.
+
+You should provide the time in the format `HHMM` (hours and minutes) and should also follow standard time values.
+
+Only *real* time values are accepted as valid inputs. For example, values such as `1265` or `2500` are not valid as
+these are not time values used in the current world.
+|st/HHMM
+|st/0845
+
+|End time*
+|The specific time in which the task is set to end.
+
+You should provide the time in the format `HHMM` (hours and minutes) and should also follow standard time values.
+If the task's start date and end date are the same, the end time should also not be BEFORE the start time.
+
+Other validity checks for the end time are the same as that of the start time.
+|et/HHMM
+|et/1245
+
+|Priority
+|The priority level of the task to be performed.
+
+You should provide the priority as `high`, `med`, `low` or `completed` in either upper or lowercase.
+Tasks with different priority will be marked with different colored labels on the task list.
+High priority will be marked [red]#red#, Medium priority be marked [orange]#orange# and
+Low priority will be marked [yellow]#yellow#. Completed tasks will be marked with [green]#green#.
+
+Default value if not specified: [yellow]#Low#
+|pri/PRIORITY
+|pri/high
+
+|Patient
+|The patient to be linked to the task. Linking a patient to a task, enables the <<taskdone, taskdone>> command to
+ automatically add a record upon execution.
+
+The patient's index must be a valid POSITIVE integer and it can be found in the patient list next to the name.
+If you want to set a task's linked patient to none, you can give this parameter
+a value of `0` when using the <<taskedit, taskedit>> command. This parameter should not be included in task adding or
+task editing when in <<goto, goto>> mode as the patient list is not visible in that mode. +
+
+If a linked patient is <<edit, edited>> pr <<delete, deleted>>, the affected tasks will be updated accordingly.
+
+Default value if not specified: 0 (indicates that no patient is linked to the task)
+|pat/INDEX
+|pat/2
+
+|===
+
+[NOTE]
+============================================================
+Duplicate task will not be added into the program.
+
+Tasks are considered duplicates if they have the *exact*
+same TITLE, START DATE, START TIME, END TIME and
+LINKED PATIENT
+============================================================
 
 Examples:
 
-* `import records1.json` +
-Reads all entries from a records1.json and overwrites the address book. +
+* `taskadd ti/Teeth Filling for Alex sd/14-09-2019 ed/14-09-2019 st/1200 et/1300 pri/HIGH
+   pat/1`
 
-=== Exporting records: `export`
+* `taskadd ti/Regular review of all patients' records sd/10-10-2019 ed/15-10-2019 st/1200 et/0800 pri/low`
 
-Writes all entries from the address book to a specified text file. +
-If no file exists, a new one will be created.
-Format: `export FILENAME`
+* `taskadd ti/Follow-up for Bernice sd/today st/1500 et/1600`
+
+==== taskedit
+Edits a task currently stored in the application
+
+Format: `taskedit INDEX PARAMETERS` or `tedit INDEX PARAMETERS`
+
+* Index of a task shown in the list **MUST** be specified +
+* Index should be a positive integer (e.g. 1,2...5)
+* Index of the tasks will be shown next to task's title in the task list
+* Input tag of the field to modify followed by the new value to replace the old value
+* Multiple fields can be provided in a single command and they will all be edited.
+* Refer to *Table 1* in <<taskadd, taskadd>> to see the fields that can be modified
+  along with their format and restrictions
 
 Examples:
 
-* `Export records2.json` +
-Writes all entries from the address book to records2.json. +
+* `taskedit 1 ti/Tooth Extraction for Alex`
 
-=== List
-Shows a list of all personnel or medical stored in the application
+* `taskedit 2 sd/15-09-2019 ed/15-09-2019 st/1400 et/1500`
 
-Format: `list [dental]`
+* `taskedit 3 pat/0`
 
-Command shows personnel details by default, add dental to see dental
-records.
+* `taskedit 1 ti/Braces removal for Bernice sd/05-05-2020 ed/05-05-2020 st/1500 et/1600 pri/MED`
+
+==== taskdelete
+Deletes a task from the task list
+
+Format: `taskdelete 2` or `tdelete 2`
+
+* Index of a task shown in the list **MUST** be specified +
+* Index should be a positive integer (e.g. 1,2...5)
+* Index of the tasks will be shown next to task's title in the task list
 
 Example:
 
-* `list` +
-Shows details of all patients
+* `taskdelete 1`
+* `<<taskcal, taskcal>> 25-12-2019` +
+  `taskdelete 2`
 
+==== tasklist
+Shows a list of all the task stored in the application.
 
-* `list dental` +
-Shows details of patients’ dental records
+Format: `tasklist` or `tlist`
 
+==== tasksort
+Sort the tasks ascendingly or descendingly in some order.
 
-=== Find
-Shows persons whose data contain any of the given keywords.
-
-Format: `find [dental] KEYWORD [MORE_KEYWORDS]`
-
-* Add “dental” to search dental records instead
-* Search is case insensitive
-* Order of keywords does not matter
+Format : 'tasksort priority/startime/endtime [asc/desc]'
 
 Example:
 
+*`tasksort priority`
 
-* `find Yishun` +
-Show all the people that live in Yishun
+*`tasksort starttime desc`
 
+==== taskdone
+Sets a task to `[green]#complete#`, marking the completion of the task.
+Executing this command on a patient that has a patient linked to it will automatically add a record to the patient.
 
-* `find dental cleaning` +
-Shows all the dental records with cleaning
+Format: `taskdone INDEX`
 
+==== taskcal
+Creates a popup window with a list of tasks on the left hand side of the window and a calendar on the right hand side.
+There will also be a command box below the calendar, allowing you to execute task commands from this window as well.
 
-=== Sort
-Sorts the records by an input parameter in an input order.
+format: `taskcal` or `taskcal DD-MM-YYYY`
 
-Format: `sort PARAM ORDER`
+You will see day cells in the calendar highlighted in color of the highest priority task for that day.
+The top pane of the calendar has clickable buttons that lets you display the dates for different months and years.
 
-Example:
+You can also click on a numbered date cell which will select it and the task display panel will be updated to show tasks that have either their
+`start date` or `end date` on that date. You can also key in a specific date in the format `DD-MM-YYYY` into the
+command box `e.g. 30-03-2019` and that day will be selected.
 
-[cols=",,,",options="header",]
-|===
-|*ID* |*Name* |*Age* |*Last Modified*
-|0 |Alice |19 |03/07/2003
-|1 |Clara |12 |05/02/2021
-|2 |Bob |24 |11/02/2019
-|===
+Executing the command without specifying a date will cause the current date to be selected by default.
 
-* sort name descend
+////
+==== taskfind
+Searches for and displays a list of tasks according to a specified parameter
 
-[cols=",,,",options="header",]
-|===
-|*ID* |*Name* |*Age* |*Last Modified*
-|1 |Clara |12 |05/02/2021
-|2 |Bob |24 |11/02/2019
-|0 |Alice |19 |03/07/2003
-|===
+Format: `taskfind PARAMETER` or `tfind PARAMETER`
 
-
-* sort age ascend
-
-[cols=",,,",options="header",]
-|===
-|*ID* |*Name* |*Age* |*Last Modified*
-|1 |Clara |12 |05/02/2021
-|0 |Alice |19 |03/07/2003
-|2 |Bob |24 |11/02/2019
-|===
-
-=== History
-Lists all the commands that have been entered since starting the
-application in reverse chronological order
-
-Format: `history`
-
-
-=== Undo
-Restores data to the state before the previous undoable command was
-executed.
-
-Format: `undo`
-
-* The following commands are affected by undo: add edit delete and clear
-
+You can specify any parameter that a task contains when using this command.
+No tasks will be display if none of the tasks match the search conditions.
 
 Examples:
 
-* `delete 1 +
-list +
-undo` (reverses the delete 1 command)
-
-* `select 1 +
-list +
-undo` +
-The undo command fails as there are no undoable commands executed
-previously.
-
-
-* `delete 1 +
-clear +
-undo` (reverses the clear command) +
-`undo` (reverses the delete 1 command)
-
-=== Redo
-Reverses the most recent undo command
-
-Format: `redo`
-
-Examples:
-
-* `delete 1 +
-undo` (reverses the delete 1 command) +
-`redo` (reapplies the delete 1 command)
-
-* `delete 1 +
-redo` +
-The redo command fails as there are no undo commands executed
-previously.
-
-* `delete 1 +
-clear +
-undo` (reverses the clear command) +
-`undo` (reverses the delete 1 command) +
-`redo` (reapplies the delete 1 command) +
-`redo` (reapplies the clear command)
-
-=== Clear
-Clears all personnel data and records from the application
-
-* Will prompt the user to confirm
-* Input `y` to proceed to the clear all records or `n` to abort
-
-Format: `clear`
-
-=== Exit
-Exits the program
-
-Format: `exit`
-
-
-=== Appointments [Coming in v2.0]
-Schedule patient appointments.
-
-
-=== Cloud [Coming in v2.0]
-Synchronises the data stored with the cloud database
-
+* `taskfind pri/HIGH`
+* `taskfind ti/Extraction`
+////
+// end::viewingInfo[]
 
 == Cloud Functionality [Coming in v2.0]
-To increase data redundancy and reduce the risk of data being lost, we
-will allow users to synchronise their data with a cloud account. From
-there, should the worst happen and the user’s local data be lost, it can
-be downloaded from the cloud.
-
+To increase data redundancy and reduce the risk of data being lost,
+you will be able to synchronise your data with a cloud account.
 
 == Spell-Checker Functionality [Coming in v2.0]
 
-
-Upon keying in an improperly typed command it will automatically correct
-it (e.g. sirt to sort) and run the program.
-
+Automatically correct an improperly typed command(e.g. sirt to sort).
 
 == Frequently Asked Questions (FAQ)
 
 *Q*: How do I transfer my data to another Computer?
 
-*A*: Install the app in the other computer and overwrite the empty data
+*A*: Install TeethHub in the other computer and overwrite the empty data
 file it creates with the file that contains the data of your previous
 Address Book folder. Alternatively, upload your data to the cloud and
 download it from there.
 
-*Q*: How can I be sure my patient’s records are secure?
-
-*A*: The application’s login feature ensures only that particular user
-will be able to access his or her own patients. Records of other users
-will be encrypted and unviewable unless one logs in.
-
 == Command Summary
-
-* *Add* : add PARAMETERS [t/TAG]*…​* +
-e.g. `add n/John Choo p/98425871 e/jonC@example.com a/IDA street, block
-13, #02-05 ic/S1234567H age/32 dob/26021987 nokn/Jacky Choo
-nokp/84875215 nokr/Father noka/same`
-
-* *Clear* : `clear`
-
-* *Copy* : `copy INDEX` +
-e.g. `copy 3`
-
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-
-* *Edit* : `edit INDEX` +
-e.g. `edit 2 +
-p/12345 +
-e/newemail@gmail.com +
-done`
 
 * *Exit* : `exit`
 
-* *Export* : `export FILE_PATH FILE_NAME` +
-e.g. `export /mnt/ext_drive/ clinicRecords.txt`
-
-* *Find* : `find [dental] KEYWORD [MORE_KEYWORDS]` +
-e.g. `find yishun`
-
-* *List* : `list [dental]`
-
-* *Login* : `login USERNAME PASSWORD` +
-e.g `login kthSIM cavities!2`
+* *Export* : `export FILE_PATH INDEX_RANGE`` +
+e.g. `export mnt/clinicRecords.txt 1,3-5`
 
 * *Help* : `help`
 
 * *History* : `history`
 
-* *Import* : `import FILE_PATH [append]` +
-e.g. `import /mnt/sample/newData`
+* *Import* : `import FILE_PATH INDEX_RANGE` +
+e.g. `import \mnt\newData.json 1,3-5`
 
+* *List* : `list`
 
-* *Record Add* : `record add n/NRIC d/DATE_DDMMYYYY t/TIME_HHMM p/PROCEDURE
+* *Login* : `login USERNAME PASSWORD` +
+e.g `login kthSIM cavities!2`
+
+* *Open* : `open FILE_PATH` +
+e.g. `Open mnt/sample/newData.json`
+
+* *patientadd* : patientadd PARAMETERS [t/TAG]*…​* +
+e.g. `patientadd n/John Choo p/98425871 e/jonC@example.com a/IDA street, block
+13, #02-05 ic/S1234567H age/32 dob/26021987 nokn/Jacky Choo
+nokp/84875215 nokr/Father noka/same`
+
+* *patientclear* : `patientclear`
+
+* *patientcopy* : `patientcopy INDEX` +
+e.g. `patientcopy 3`
+
+* *patientdelete* : `patientdelete INDEX` +
+e.g. `patientdelete 3`
+
+* *patientedit* : `patientedit INDEX` +
+e.g. `patientedit 2` +
+`p/12345` +
+`e/newemail@gmail.com` +
+`done`
+
+* *patientlist* : `list`
+
+* *patientfind* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find n/Alex`
+
+* *recordadd* : `recordadd n/NRIC d/DATE_DDMMYYYY t/TIME_HHMM p/PROCEDURE
 doc/SERVING_DENTIST det/DETAILS` +
-e.g. `record add n/S1234567H d/10022019 t/1705 p/Cleaning doc/Kyler
+e.g. `recordadd n/S1234567H d/10022019 t/1705 p/Cleaning doc/Kyler
 det/Mouth was noticeably foul, might have halitosis`
 
+* *recorddelete* : `record patientdelete n/NRIC INDEX` +
+E.g. `record patientdelete n/S1235467H 4`
 
-* *Record Delete* : `record delete n/NRIC INDEX` +
-E.g. `record delete n/S1235467H 4`
-
-* *Record Edit* : `record edit n/NRIC INDEX` +
-E.g. `record edit n/S1234657H 3 +
+* *recordedit* : `record patientedit n/NRIC INDEX` +
+e.g. `record patientedit n/S1234657H 3 +
 doc/Debang +
 det/new details +
 Done`
 
-* *Record Copy* : `record copy n/NRIC INDEX` +
-E.g. `record copy n/S1235467H 2`
-
 * *Redo* : `redo`
 
-* *Sort* : `sort PARAM ORDER` +
-E.g. `sort name ascend` or `sort age descend`
+* *Save* : `save FILE_PATH`` +
+e.g. `save mnt/clinicRecords.txt`
 
-* *Teeth* : `teeth add <Template>` +
-E.g. `teeth add primary`
+* *Sort* : `sort PARAM ORDER` +
+e.g. `sort name ascend` or `sort age descend`
+
+* *Task patientadd*:  `taskadd PARAM` +
+e.g. `taskadd ti/Regular review of all patients' records sd/10-10-2019 ed/15-10-2019 st/1200 et/0800 pri/low`
+
+* *Task patientedit*: `taskedit INDEX PARAM` +
+e.g. `taskedit 1 ti/Tooth extraction for Alex pri/HIGH`
+
+* *Task patientdelete*: `taskdelete INDEX` +
+e.g. `taskdelete 1`
+
+* *Tasksort `tasksort starttime/endtime/priority [asc/desc]`
+e.g. `tasksort endtime`
+
+* *Teeth* : `teeth patientadd <Template>` +
+e.g. `teeth patientadd primary`
 
 * *Undo* : `undo`

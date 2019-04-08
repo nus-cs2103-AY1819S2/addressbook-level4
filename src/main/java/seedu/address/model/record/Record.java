@@ -1,14 +1,14 @@
 package seedu.address.model.record;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.storage.StorageConstants.DIVIDER;
 
 import java.util.Objects;
 
-import seedu.address.model.datetime.DateCustom;
-import seedu.address.model.datetime.TimeCustom;
+import seedu.address.model.datetime.RecordDate;
+import seedu.address.model.dentist.Dentist;
 import seedu.address.model.description.Description;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 
 
 /**
@@ -17,41 +17,48 @@ import seedu.address.model.person.Person;
  */
 public class Record {
 
-    // Identity field
-    private final Person person;
-
-    // Data field
-    private final Procedure procedure;
-    private final DateCustom date;
-    private final TimeCustom time;
     private final Name doctorName;
+
+    private final Procedure procedure;
+
     private final Description description;
 
-    public Record(Person person, Procedure procedure, DateCustom date, TimeCustom time, Name docName,
-                  Description desc) {
-        requireAllNonNull(person, procedure, date, time, docName, desc);
-        this.person = person;
+    private final RecordDate recordDate;
+
+    /**
+     * Used by add command.
+     * @param desc the description of the record.
+     */
+    public Record(Procedure procedure, Description desc) {
+        requireAllNonNull(desc);
+        this.doctorName = new Name(Dentist.getDentistName());
         this.procedure = procedure;
-        this.date = date;
-        this.time = time;
-        this.doctorName = docName;
         this.description = desc;
+        this.recordDate = new RecordDate();
     }
 
-    public Person getPerson() {
-        return person;
+    /**
+     * Used by JSON.
+     * @param doctorName the name of the doctor.
+     * @param description the description of the record.
+     * @param recordDate the date of the record.
+     */
+    public Record(String doctorName, String description, String recordDate, String procedure) {
+        this.doctorName = new Name(doctorName);
+        this.description = new Description(description);
+        this.recordDate = new RecordDate(recordDate);
+        this.procedure = new Procedure(procedure);
     }
 
-    public Procedure getProcedure() {
-        return procedure;
-    }
-
-    public DateCustom getDate() {
-        return date;
-    }
-
-    public TimeCustom getTime() {
-        return time;
+    /**
+     * Used by patient class when creating a new patient.
+     * Creates a "patient added today" record.
+     */
+    public Record() {
+        this.doctorName = new Name("NA");
+        this.description = new Description("Patient is added today");
+        this.recordDate = new RecordDate();
+        this.procedure = new Procedure("Consultation-First Visit");
     }
 
     public Name getDoctorName() {
@@ -60,6 +67,28 @@ public class Record {
 
     public Description getDescription() {
         return description;
+    }
+
+    public RecordDate getRecordDate() {
+        return recordDate;
+    }
+
+    public Procedure getProcedure() {
+        return procedure;
+    }
+
+    public String getRecord() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Procedure: ")
+                .append(getProcedure())
+                .append("Doctor: ")
+                .append(getDoctorName())
+                .append(", Description: ")
+                .append(getDescription())
+                .append(", on ")
+                .append(getRecordDate());
+
+        return builder.toString();
     }
 
     @Override
@@ -72,34 +101,25 @@ public class Record {
 
         Record otherRecord = (Record) other;
 
-        return otherRecord.getPerson().equals(getPerson())
-                && otherRecord.getProcedure().equals(getProcedure())
-                && otherRecord.getDate().equals(getDate())
-                && otherRecord.getTime().equals(getTime())
-                && otherRecord.getDoctorName().equals(getDoctorName())
-                && otherRecord.getDescription().equals(getDescription());
+        return otherRecord.getDoctorName().equals(getDoctorName())
+                && otherRecord.getDescription().equals(getDescription())
+                && otherRecord.getRecordDate().equals(getRecordDate());
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(person.getName())
-                .append(" Procedure: ")
-                .append(getProcedure())
-                .append(" DateCustom: ")
-                .append(getDate())
-                .append(" TimeCustom: ")
-                .append(getTime())
-                .append(" Doctor: ")
-                .append(getDoctorName())
-                .append(" Description: ")
-                .append(getDescription());
+        builder.append(getDoctorName())
+                .append(DIVIDER)
+                .append(getDescription())
+                .append(DIVIDER)
+                .append(getRecordDate());
 
         return builder.toString();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(person, procedure, date, time, doctorName, description);
+        return Objects.hash(doctorName, description, recordDate);
     }
 }

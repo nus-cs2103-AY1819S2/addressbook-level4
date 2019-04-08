@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Line?>
+
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1" fx:id="background" styleClass="white_scroll_pane">
+        <TabPane fx:id="tabManager">
+            <Tab fx:id="patientParticulars">
+                <VBox fx:id="particularsPane">
+                    <VBox>
+                        <Label id="personalInformation" text="Personal Information" styleClass="display_title"/>
+                        <HBox>
+                            <padding>
+                                <Insets top="10" right="0" bottom="0" left="0" />
+                            </padding>
+                            <Label id="nameHeader" text="Name: " styleClass="display_header"/>
+                            <Label fx:id="name" text="\$name" styleClass="display_text"/>
+                        </HBox>
+
+                        <!--- FIRST LINE OF PERSONAL PARTICULARS -->
+                        <HBox>
+                            <padding>
+                                <Insets top="5" right="0" bottom="0" left="0" />
+                            </padding>
+                            <Label id="nricHeader" text="NRIC: " styleClass="display_header"/>
+                            <Label fx:id="nric" text="\$nric" styleClass="display_text">
+                                <padding>
+                                    <Insets top="0" right="15" bottom="0" left="0" />
+                                </padding>
+                            </Label>
+                            <Label id="dobHeader" text="D.O.B: " styleClass="display_header"/>
+                            <Label fx:id="dob" text="\$dob" styleClass="display_text">
+                                <padding>
+                                    <Insets top="0" right="15" bottom="0" left="0" />
+                                </padding>
+                            </Label>
+                            <Label id="ageHeader" text="Age: " styleClass="display_header"/>
+                            <Label fx:id="age" text="\$age" styleClass="display_text">
+                                <padding>
+                                    <Insets top="0" right="15" bottom="0" left="0" />
+                                </padding>
+                            </Label>
+                            <Label id="sexHeader" text="Sex: " styleClass="display_header"/>
+                            <Label fx:id="sex" text="\$sex" styleClass="display_text">
+                                <padding>
+                                    <Insets top="0" right="15" bottom="0" left="0" />
+                                </padding>
+                            </Label>
+                        </HBox>
+
+                        <!--- SECOND LINE OF PERSONAL PARTICULARS -->
+                        <HBox>
+                            <padding>
+                                <Insets top="5" right="0" bottom="0" left="0" />
+                            </padding>
+                            <Label id="addressHeader" text="Address: " styleClass="display_header"/>
+                            <Label fx:id="address" text="\$address" styleClass="display_text"/>
+                        </HBox>
+
+                        <!--- THIRD LINE OF PERSONAL PARTICULARS -->
+                        <HBox>
+                            <padding>
+                                <Insets top="5" right="0" bottom="10" left="0" />
+                            </padding>
+                            <Label id="phoneHeader" text="Phone number: " styleClass="display_header"/>
+                            <Label fx:id="phone" text="\$phone" styleClass="display_text">
+                                <padding>
+                                    <Insets top="0" right="15" bottom="0" left="0" />
+                                </padding>
+                            </Label>
+                            <Label id="emailHeader" text="Email: " styleClass="display_header"/>
+                            <Label fx:id="email" text="\$email" styleClass="display_text">
+                                <padding>
+                                    <Insets top="0" right="15" bottom="0" left="0" />
+                                </padding>
+                            </Label>
+                        </HBox>
+
+                        <Line fx:id="seperator" fill="black" stroke="white" strokeWidth="2"/>
+
+                        <Label id="medicalInformation" text="Medical Information" styleClass="display_title">
+                            <padding>
+                                <Insets top="5" right="0" bottom="10" left="0" />
+                            </padding>
+                        </Label>
+                        <HBox>
+                            <padding>
+                                <Insets top="0" right="0" bottom="5" left="0" />
+                            </padding>
+                            <Label id="drugAllergyHeader" text="Drug Allergy: " styleClass="display_header"/>
+                            <Label fx:id="drugallergy" text="\$drugallergy" styleClass="display_text">
+                                <padding>
+                                    <Insets top="0" right="15" bottom="0" left="0" />
+                                </padding>
+                            </Label>
+                            <Label id="teethTypeHeader" text="Teeth Type: " styleClass="display_header"/>
+                            <Label fx:id="teethtype" text="\$teethtype" styleClass="display_text">
+                                <padding>
+                                    <Insets top="0" right="15" bottom="0" left="0" />
+                                </padding>
+                            </Label>
+                        </HBox>
+                        <HBox>
+                            <padding>
+                                <Insets top="0" right="0" bottom="10" left="0" />
+                            </padding>
+                            <Label id="descriptionHeader" text="Other description: " styleClass="display_header"/>
+                            <Label fx:id="description" text="\$description" styleClass="display_text">
+                                <padding>
+                                    <Insets top="0" right="15" bottom="0" left="0" />
+                                </padding>
+                            </Label>
+                        </HBox>
+
+                        <Line fx:id="seperator2" fill="black" stroke="white" strokeWidth="2"/>
+
+                        <Label id="nokInformation" text="Next-of-Kin Information" styleClass="display_title">
+                            <padding>
+                                <Insets top="5" right="0" bottom="10" left="0" />
+                            </padding>
+                        </Label>
+                        <HBox>
+                            <padding>
+                                <Insets top="0" right="0" bottom="5" left="0" />
+                            </padding>
+                            <Label id="nokNameHeader" text="Name: " styleClass="display_header"/>
+                            <Label fx:id="nokname" text="\$nokname" styleClass="display_text">
+                                <padding>
+                                    <Insets top="0" right="15" bottom="0" left="0" />
+                                </padding>
+                            </Label>
+                            <Label id="nokRelationHeader" text="Relationship : " styleClass="display_header"/>
+                            <Label fx:id="nokrelation" text="\$nokrelation" styleClass="display_text">
+                                <padding>
+                                    <Insets top="0" right="15" bottom="0" left="0" />
+                                </padding>
+                            </Label>
+                        </HBox>
+                        <HBox>
+                            <padding>
+                                <Insets top="0" right="0" bottom="5" left="0" />
+                            </padding>
+                            <Label id="nokAddressHeader" text="Address: " styleClass="display_header"/>
+                            <Label fx:id="nokaddress" text="\$nokaddress" styleClass="display_text">
+                                <padding>
+                                    <Insets top="0" right="15" bottom="0" left="0" />
+                                </padding>
+                            </Label>
+                        </HBox>
+
+                        <HBox>
+                            <Label id="nokPhoneHeader" text="Phone number: " styleClass="display_header"/>
+                            <Label fx:id="nokphone" text="\$nokphone" styleClass="display_text">
+                                <padding>
+                                    <Insets top="0" right="15" bottom="0" left="0" />
+                                </padding>
+                            </Label>
+                            <Label id="nokEmailHeader" text="Email: " styleClass="display_header"/>
+                            <Label fx:id="nokemail" text="\$noemail" styleClass="display_text">
+                                <padding>
+                                    <Insets top="0" right="15" bottom="0" left="0" />
+                                </padding>
+                            </Label>
+                        </HBox>
+
+                    </VBox>
+                </VBox>
+            </Tab>
+
+            <Tab fx:id="patientRecords" text="Records">
+                <VBox fx:id="recordsPane">
+                    <VBox>
+                        <Label id="recordInformation" text="Record Information" styleClass="display_title"/>
+                        <HBox>
+                        <padding>
+                            <Insets top="10" right="0" bottom="0" left="0" />
+                        </padding>
+                        <Label id="recordDoctorHeader" text="Added by: " styleClass="display_header"/>
+                        <Label fx:id="recorddoctor" text="\$recorddoctor" styleClass="display_text"/>
+                        </HBox>
+                        <HBox>
+                            <padding>
+                                <Insets top="5" right="0" bottom="0" left="0" />
+                            </padding>
+                            <Label id="recordDateHeader" text="Record added on: " styleClass="display_header"/>
+                            <Label fx:id="recorddate" text="\$recorddate" styleClass="display_text"/>
+                        </HBox>
+                        <HBox>
+                            <padding>
+                                <Insets top="5" right="0" bottom="0" left="0" />
+                            </padding>
+                            <Label id="recordDescriptionHeader" text="Description: " styleClass="display_header"/>
+                            <Label fx:id="recorddescription" text="\$recorddescription" styleClass="display_text"/>
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </Tab>
+        </TabPane>
+</ScrollPane>
+
+

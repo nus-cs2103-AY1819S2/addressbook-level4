@@ -3,18 +3,30 @@ package seedu.address.model.datetime;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
- * Represents a date.
+ * Represents a date for tasks.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
-public class DateCustom {
-    public static final String MESSAGE_CONSTRAINTS = "DateCustom should only contain exactly 8 numbers";
+public class DateCustom implements DateBuilder, Comparable<DateCustom> {
 
-    public static final String VALIDATION_REGEX = "^((([0-2][0-9]|3[0,1])(01|03|05|07|08|10|12))|"
-        + "(([0-2][0-9]|30)(04|06|09|11))|"
-        + "(([0-1][0-9]|2[0-9])(02)))(\\d{4})$";
+    public static final String MESSAGE_CONSTRAINTS = "Date given should be a valid date "
+                                                    + "and should be in the format dd-mm-yyyy\n"
+                                                    + "Example date: 31-03-2019";
 
-    public final String storedDate;
+    public static final String MESSAGE_CONSTRAINTS_START_DATE = " Start Date should be a valid date "
+                                                               + "and should be in the format dd-mm-yyyy. "
+                                                               + "You can also use the keyword today to use the "
+                                                               + "current date\n Example date: 31-03-2019";
+
+    public static final String MESSAGE_CONSTRAINTS_END_DATE = " End Date should be a valid date "
+                                                                + "and should be in the format dd-mm-yyyy\n"
+                                                                + "You can also use the keyword today to use the "
+                                                                + "current date\n Example date: 31-03-2019";
+
+    private final String storedDate;
 
     /**
      * Constructs a {@code DateCustom}
@@ -27,13 +39,68 @@ public class DateCustom {
         storedDate = date;
     }
 
+
+    public static String getFormat() {
+        return DATE_FORMAT;
+    }
+
     public static boolean isValidDate(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     *  Returns false if the given date is before the current date
+     * @param test the date to be tested
+     */
+    public static boolean isDateBeforeToday(String test) {
+        String currentDateString = LocalDate.now().format(DateTimeFormatter.ofPattern(getFormat()));
+        return dateCompare(test, currentDateString);
+    }
+
+    /**
+     * Returns true if the two dates are the same
+     * @param date
+     */
+    public boolean isSameDate(String date) {
+        LocalDate firstDate = LocalDate.parse(storedDate, DATE_FORMATTER);
+        LocalDate secondDate = LocalDate.parse(date, DATE_FORMATTER);
+        return (firstDate.compareTo(secondDate) == 0);
+    }
+    public boolean isToday() {
+        return !dateCompare(this.toString(), LocalDate.now().format(DATE_FORMATTER));
+    }
+
+    public static String getToday() {
+        return LocalDate.now().format(DATE_FORMATTER);
+    }
+
+    public LocalDate getDate() {
+        return LocalDate.parse(storedDate, DATE_FORMATTER);
+    }
+
+    /**
+     *  Returns true if the first date given is before the second date given
+     * @param date1 the first date to compare with the second date
+     * @param date2 the second date
+     * @return true if first date is before, false otherwise.
+     */
+    public static boolean dateCompare(String date1, String date2) {
+        LocalDate firstDate = LocalDate.parse(date1, DATE_FORMATTER);
+        LocalDate secondDate = LocalDate.parse(date2, DATE_FORMATTER);
+        return firstDate.isBefore(secondDate);
+    }
+
+    @Override
+    public int compareTo(DateCustom d) {
+        if (isSameDate(d.storedDate)) {
+            return 0;
+        }
+        return dateCompare(storedDate, d.storedDate) ? -1 : 1;
+    }
+
     @Override
     public String toString() {
-        return super.toString();
+        return storedDate;
     }
 
     @Override

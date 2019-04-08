@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * An model for overall storage of medicine
@@ -57,7 +58,7 @@ public class MedicineManager {
         }
         Optional<Directory> directory = root.findDirectory(path, 0);
         if (!directory.isPresent()) {
-            throw new IllegalArgumentException("Invalid path");
+            throw new IllegalArgumentException(ERROR_MESSAGE_NO_DIRECTORY_FOUND);
         }
         Medicine medicine = new Medicine(medicineName, quantity);
         medicine.setPrice(price);
@@ -77,7 +78,7 @@ public class MedicineManager {
     public Directory addDirectory(String directoryName, String[] path) {
         Optional<Directory> directory = root.findDirectory(path, 0);
         if (!directory.isPresent()) {
-            throw new IllegalArgumentException("Invalid path");
+            throw new IllegalArgumentException(ERROR_MESSAGE_NO_DIRECTORY_FOUND);
         }
         Directory newDirectory = directory.get().addDirectory(directoryName);
         return newDirectory;
@@ -165,5 +166,41 @@ public class MedicineManager {
             throw new IllegalArgumentException(ERROR_MESSAGE_NO_DIRECTORY_FOUND);
         }
         directory.get().addMedicine(medicine);
+    }
+
+    private Directory getDirectoryForSuggestions(String rawPath) {
+        if (!rawPath.contains("\\")) {
+            throw new IllegalArgumentException("Not in path format.");
+        }
+        rawPath = rawPath.trim();
+        rawPath = rawPath.substring(0, rawPath.lastIndexOf("\\"));
+        String[] path = rawPath.split("\\\\");
+        Optional<Directory> foundDirectory = findDirectory(path);
+        if (!foundDirectory.isPresent()) {
+            throw new IllegalArgumentException(ERROR_MESSAGE_NO_DIRECTORY_FOUND);
+        }
+        return foundDirectory.get();
+    }
+
+    public ArrayList<String> getDirectorySuggestions(String rawPath) {
+        Directory foundDirectory = getDirectoryForSuggestions(rawPath);
+        ArrayList<String> suggestions = new ArrayList<>();
+        suggestions.addAll(foundDirectory.getListOfDirectory().stream()
+                .map((Directory directory) -> (directory.name))
+                .map((String string) -> (string.substring(0, 1).toUpperCase() + string.substring(1)))
+                .collect(Collectors.toList()));
+        suggestions.sort(Comparator.comparing((String::toLowerCase)));
+        return suggestions;
+    }
+
+    public ArrayList<String> getMedicineSuggestions(String rawPath) {
+        Directory foundDirectory = getDirectoryForSuggestions(rawPath);
+        ArrayList<String> suggestions = new ArrayList<>();
+        suggestions.addAll(foundDirectory.getListOfMedicine().stream()
+                .map((Medicine medicine) -> (medicine.name))
+                .map((String string) -> (string.substring(0, 1).toLowerCase() + string.substring(1)))
+                .collect(Collectors.toList()));
+        suggestions.sort(Comparator.comparing((String::toLowerCase)));
+        return suggestions;
     }
 }

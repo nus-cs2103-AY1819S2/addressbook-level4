@@ -59,10 +59,8 @@ public class DirectoryTest {
     }
 
     @Test
-    public void findMedicine_nonMatchingDirectoryName_throwsIllegalStateException() {
-        Assert.assertThrows(
-                IllegalStateException.class, () ->
-                        typicalDirectory.findMedicine(new String[] {"testt", duplicateMedicineName}, 0));
+    public void findMedicine_nonMatchingDirectoryName_returnsOptionalEmpty() {
+        assertFalse(typicalDirectory.findMedicine(new String[] {"tss", duplicateMedicineName}, 0).isPresent());
     }
 
     @Test
@@ -71,10 +69,8 @@ public class DirectoryTest {
     }
 
     @Test
-    public void findDirectory_nonMatchingDirectoryName_throwsIllegalStateException() {
-        Assert.assertThrows(
-                IllegalStateException.class, () ->
-                        typicalDirectory.findDirectory(new String[] {"testt", duplicateDirectoryName}, 0));
+    public void findDirectory_nonMatchingDirectoryName_returnsOptionalEmpty() {
+        assertFalse(typicalDirectory.findDirectory(new String[] {"ttest", duplicateMedicineName}, 0).isPresent());
     }
 
     @Test

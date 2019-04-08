@@ -1,6 +1,12 @@
 package quickdocs;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.AddressBookParser.BASIC_COMMAND_FORMAT;
+
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.regex.Matcher;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -11,7 +17,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.AddDirectoryCommand;
+import seedu.address.logic.commands.AddMedicineCommand;
+import seedu.address.logic.commands.AlarmCommand;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.PurchaseMedicineCommand;
+import seedu.address.logic.commands.SetPriceCommand;
+import seedu.address.logic.commands.ViewStorageCommand;
 import seedu.address.ui.ListElementPointer;
 import seedu.address.ui.ReminderListPanel;
 
@@ -21,6 +33,10 @@ import seedu.address.ui.ReminderListPanel;
 public class RootLayoutController {
 
     private static int currentInputPointer = 0;
+    private boolean suggestionOn = false;
+    private boolean isMedicineAllowed = false;
+    private ArrayList<String> suggestions;
+    private ArrayList<String> medicineSuggestions;
     private Logic logicManager;
     private ReminderListPanel reminderListPanel;
     private List<String> history;
@@ -61,17 +77,7 @@ public class RootLayoutController {
      */
     @FXML
     public void enterInput(KeyEvent event) {
-
-        switch (event.getCode()) {
-        case UP:
-            event.consume();
-            navigateToPreviousInput();
-            break;
-        case DOWN:
-            event.consume();
-            navigateToNextInput();
-            break;
-        case ENTER:
+        if (event.getCode().equals(KeyCode.ENTER)) {
             try {
                 inputFeedback.setText("");
                 CommandResult result = logicManager.execute(userInput.getText());
@@ -103,10 +109,137 @@ public class RootLayoutController {
             } catch (Exception e) {
                 inputFeedback.setText(e.getMessage());
             }
+            return;
+        }
+        String input = userInput.getText();
+        suggestionOn = isDirectoryFormat(userInput.getText());
+        switch (event.getCode()) {
+        case PAGE_UP:
+            event.consume();
+            if (!suggestionOn) {
+                break;
+            }
+            suggestions = getDirectorySuggestions(userInput.getText());
+            if (isMedicineAllowed) {
+                suggestions.addAll(getMedicineSuggestions(userInput.getText()));
+                suggestions.sort(Comparator.comparing(String::toLowerCase));
+            }
+            int pointer = getIndex(userInput.getText(), suggestions);
+            if (pointer > 0) {
+                if (pointer % 2 == 0) {
+                    userInput.setText(processPath(userInput.getText(), suggestions.get(pointer / 2 - 1)));
+                } else {
+                    userInput.setText(processPath(userInput.getText(), suggestions.get(pointer / 2)));
+                }
+            }
+            userInput.positionCaret(userInput.getText().length());
+            break;
+        case PAGE_DOWN:
+            event.consume();
+            if (!suggestionOn) {
+                break;
+            }
+            suggestions = getDirectorySuggestions(userInput.getText());
+            if (isMedicineAllowed) {
+                suggestions.addAll(getMedicineSuggestions(userInput.getText()));
+                suggestions.sort(Comparator.comparing(String::toLowerCase));
+            }
+            pointer = getIndex(userInput.getText(), suggestions);
+            if (pointer < 2 * (suggestions.size() - 1)) {
+                if (pointer % 2 == 0) {
+                    userInput.setText(processPath(userInput.getText(), suggestions.get(pointer / 2 + 1)));
+                } else {
+                    userInput.setText(processPath(userInput.getText(), suggestions.get((pointer + 1) / 2)));
+                }
+            }
+            userInput.positionCaret(userInput.getText().length());
+            break;
+        case UP:
+            event.consume();
+            navigateToPreviousInput();
+            break;
+        case DOWN:
+            event.consume();
+            navigateToNextInput();
             break;
         default:
             break;
         }
+    }
+
+    /**
+     * To judge whether suggestion mode should be turned on.
+     * @param rawArgs The user input
+     * @return whether suggestion mode should be turned on
+     */
+    private boolean isDirectoryFormat(String rawArgs) {
+        isMedicineAllowed = false;
+        Matcher matcher = BASIC_COMMAND_FORMAT.matcher(rawArgs);
+        if (!matcher.matches()) {
+            return false;
+        }
+        String commandWord = matcher.group("commandWord").trim();
+        String arguments = matcher.group("arguments").trim();
+        if (!arguments.contains("\\") || arguments.contains(" ")) {
+            return false;
+        }
+        switch (commandWord) {
+        case PurchaseMedicineCommand.COMMAND_WORD:
+        case SetPriceCommand.COMMAND_WORD:
+        case AlarmCommand.COMMAND_WORD:
+        case ViewStorageCommand.COMMAND_WORD:
+            isMedicineAllowed = true;
+            return true;
+        case AddMedicineCommand.COMMAND_WORD:
+        case AddDirectoryCommand.COMMAND_WORD:
+            return true;
+        default:
+            return false;
+        }
+    }
+
+    private ArrayList<String> getDirectorySuggestions(String rawPath) {
+        Matcher matcher = BASIC_COMMAND_FORMAT.matcher(rawPath);
+        if (!matcher.matches()) {
+            throw new IllegalArgumentException(MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+        return logicManager.getDirectorySuggestions(matcher.group("arguments"));
+    }
+
+    private ArrayList<String> getMedicineSuggestions(String rawPath) {
+        Matcher matcher = BASIC_COMMAND_FORMAT.matcher(rawPath);
+        if (!matcher.matches()) {
+            throw new IllegalArgumentException(MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+        return logicManager.getMedicineSuggestions(matcher.group("arguments"));
+    }
+
+    private int getIndex(String input, ArrayList<String> suggestions) {
+        String currentName = input.substring(input.lastIndexOf("\\") + 1).trim();
+        if (currentName.equals("")) {
+            return -1;
+        }
+        int current = -1;
+        Comparator<String> comparator = Comparator.comparing(String::toLowerCase);
+        while (true) {
+            if (current == (suggestions.size() - 1) * 2 + 1) {
+                break;
+            }
+            if (comparator.compare(suggestions.get((current + 1) / 2), currentName) > 0) {
+                break;
+            }
+            if (comparator.compare(suggestions.get((current + 1) / 2), currentName) == 0) {
+                current++;
+                break;
+            }
+            current += 2;
+        }
+        return current;
+    }
+
+    private String processPath(String input, String idealName) {
+        String remain = input.substring(0, input.lastIndexOf("\\") + 1);
+        return remain + idealName;
     }
 
     /**

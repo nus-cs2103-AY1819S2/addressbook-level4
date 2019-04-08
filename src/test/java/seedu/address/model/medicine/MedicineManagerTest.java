@@ -29,9 +29,9 @@ public class MedicineManagerTest {
     }
 
     @Test
-    public void addMedicine_wrongPath_throwsIllegalStateException() {
+    public void addMedicine_wrongPath_throwsIllegalArgumentException() {
         Assert.assertThrows(
-                IllegalStateException.class, ()
+                IllegalArgumentException.class, ()
                 -> typicalMedicineManager.addMedicine(medicineNames[0], new String[]{"RRR"}, BigDecimal.valueOf(22)));
     }
 

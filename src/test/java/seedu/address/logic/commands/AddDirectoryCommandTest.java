@@ -9,6 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.medicine.Directory;
+import seedu.address.model.medicine.MedicineManager;
 
 public class AddDirectoryCommandTest {
 
@@ -45,7 +46,7 @@ public class AddDirectoryCommandTest {
                             .execute(model, commandHistory);
             Assert.fail();
         } catch (CommandException ex) {
-            Assert.assertEquals("Path not corresponding to current directory." , ex.getMessage());
+            Assert.assertEquals(MedicineManager.ERROR_MESSAGE_NO_DIRECTORY_FOUND , ex.getMessage());
         } catch (Exception ex) {
             Assert.fail();
         }
@@ -59,7 +60,7 @@ public class AddDirectoryCommandTest {
                         .execute(model, commandHistory);
             Assert.fail();
         } catch (CommandException ex) {
-            Assert.assertEquals("Invalid path", ex.getMessage());
+            Assert.assertEquals(MedicineManager.ERROR_MESSAGE_NO_DIRECTORY_FOUND, ex.getMessage());
         } catch (Exception ex) {
             Assert.fail();
         }

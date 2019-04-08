@@ -203,23 +203,38 @@ image::StatisticsCommandSdForLogic.png[width="800"]
 [[Design-Model]]
 === Model component
 
+The figure below describes the architecture of the model component of this application.
+
+[[Model_diagram]]
 .Structure of the Model Component
-image::Model.png[width="800"]
+image::Model_diagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores all data used in QuickDocs.
-* consists of managers from sub-modules.
+* consists of a QuickDocs object which contains all the data, and lists of managers of sub-modules retrieved from the QuickDocs object.
 * does not depend on any of the other three components.
+
+The `QuickDocs`,
+
+* is the ultimate unit storing all sub-models and data for this application.
+* is the class in charge of interacting with the storage component responsible for converting application data to files for storage.
+* see <<Design-Storage>> for detailed explanation of the role of `QuickDocs` in Storage component.
+
+The following sections illustrate the design of managers of each sub-module.
 
 [[Design-Model-MedicineManager]]
 ==== Model for Medicine module
 
+The figure below illustrates the implementation of the inventory system for medicine.
+
+[[MedicineManager_diagram]]
 .Structure of the MedicineManager
-image::MedicineManager.png[width="500"]
+image::MedicineManager_diagram.png[width="500"]
+
+In medicine module, information about a medicine is encapsulated into the `Medicine` class.
 
 [[Design-Storage]]
 === Storage component

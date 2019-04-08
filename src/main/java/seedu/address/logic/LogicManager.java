@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -94,5 +95,15 @@ public class LogicManager implements Logic {
     @Override
     public void setSelectedReminder(Reminder reminder) {
         model.setSelectedReminder(reminder);
+    }
+
+    @Override
+    public ArrayList<String> getDirectorySuggestions (String rawPath) {
+        return model.getDirectorySuggestions(rawPath);
+    }
+
+    @Override
+    public ArrayList<String> getMedicineSuggestions (String rawPath) {
+        return model.getMedicineSuggestions(rawPath);
     }
 }

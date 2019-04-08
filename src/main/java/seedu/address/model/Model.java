@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import java.math.BigDecimal;
-import java.nio.file.Path;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -88,6 +87,10 @@ public interface Model {
     void addExistingMedicineToDirectory(Medicine medicine, String[] path);
 
     void setPrice(Medicine medicine, BigDecimal price);
+
+    ArrayList<String> getDirectorySuggestions(String path);
+
+    ArrayList<String> getMedicineSuggestions(String path);
     //===========Patient module operations============================
     boolean duplicatePatient(Patient patient);
 

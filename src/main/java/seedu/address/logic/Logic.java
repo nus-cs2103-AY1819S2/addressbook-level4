@@ -1,7 +1,5 @@
 package seedu.address.logic;
 
-import java.nio.file.Path;
-
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -9,6 +7,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.reminder.Reminder;
+
+import java.util.ArrayList;
 
 /**
  * API of the Logic component
@@ -44,4 +44,7 @@ public interface Logic {
 
     void setSelectedReminder(Reminder reminder);
 
+    ArrayList<String> getDirectorySuggestions(String path);
+
+    ArrayList<String> getMedicineSuggestions(String path);
 }

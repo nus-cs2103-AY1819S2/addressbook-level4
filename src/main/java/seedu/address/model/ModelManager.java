@@ -8,7 +8,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.math.BigDecimal;
-import java.nio.file.Path;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -243,6 +242,15 @@ public class ModelManager implements Model {
         quickDocs.indicateModification(true);
     }
 
+    @Override
+    public ArrayList<String> getDirectorySuggestions(String path) {
+        return medicineManager.getDirectorySuggestions(path);
+    }
+
+    @Override
+    public ArrayList<String> getMedicineSuggestions(String path) {
+        return medicineManager.getMedicineSuggestions(path);
+    }
     //=========== Filtered Reminder List Accessors ===========================================================
 
     @Override

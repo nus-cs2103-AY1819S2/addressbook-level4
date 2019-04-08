@@ -1,7 +1,6 @@
 package seedu.hms.model.customer;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.hms.commons.util.AppUtil.checkArgument;
 import static seedu.hms.commons.util.AppUtil.checkArgument2;
 
 import java.time.LocalDate;
@@ -99,8 +98,8 @@ public class DateOfBirth {
                     }
                 } else {
                     if (("29").equals(day) || ("31").equals(day) || ("30").equals(day)) {
-                        return new Pair<>(false, "February can't have more than 28 days in a non - leap " +
-                            "year.");
+                        return new Pair<>(false, "February can't have more than 28 days in a non - leap "
+                            + "year.");
                     }
                 }
             } else {

@@ -34,7 +34,7 @@ public class AttackCommandTest {
     private Model model;
 
     @Before
-    public void prepareModel() {
+    public void setUp() {
         player = new Player();
         enemy = new InterceptedEnemy();
         initialisePlayerSizeTen(player);
@@ -46,7 +46,7 @@ public class AttackCommandTest {
 
     @Test
     public void execute_duplicateAttack_fail() throws CommandException {
-        /**
+        /*
          * Expected behaviour: <br>
          * <ul>
          *     <li>The attack fails immediately.</li>
@@ -65,6 +65,14 @@ public class AttackCommandTest {
 
     @Test
     public void execute_attackHits_hitsUpdatesStats() throws CommandException {
+        /*
+         * Expected behaviour: <br>
+         * <ul>
+         *     <li>The attack hits the ship and decreases its life.</li>
+         *     <li>The enemy is not called to attack.</li>
+         *     <li>Statistics are updated.</li>
+         * </ul>
+         */
         Battleship ship = new DestroyerBattleship(Collections.emptySet());
         int initialLife = ship.getLife();
         enemy.getMapGrid().putShip(ship, TypicalIndexes.COORDINATES_A1, new Orientation("v"));
@@ -88,6 +96,13 @@ public class AttackCommandTest {
 
     @Test
     public void execute_missAttack_missesAndUpdatesStats() throws CommandException {
+        /*
+         * Expected behaviour: <br>
+         * <ul>
+         *     <li>The attack misses.</li>
+         *     <li>The enemy is called to attack.</li>
+         * </ul>
+         */
         int initialMissCount = model.getPlayerStats().getMissCount();
         int initialHitCount = model.getPlayerStats().getHitCount();
 
@@ -106,6 +121,14 @@ public class AttackCommandTest {
 
     @Test
     public void execute_attackDestroysShip_destroysAndUpdatesStats() throws CommandException {
+        /*
+         * Expected behaviour: <br>
+         * <ul>
+         *     <li>The attack hits the ship and decreases its life to 0.</li>
+         *     <li>The enemy is not called to attack.</li>
+         *     <li>Statistics are updated.</li>
+         * </ul>
+         */
         Battleship ship = new DestroyerBattleship(Collections.emptySet());
         enemy.getMapGrid().putShip(ship, TypicalIndexes.COORDINATES_A1, new Orientation("v"));
 
@@ -130,6 +153,13 @@ public class AttackCommandTest {
 
     @Test
     public void execute_outOfBounds_fail() throws CommandException {
+        /*
+         * Expected behaviour: <br>
+         * <ul>
+         *     <li>The attack fails to hit anything..</li>
+         *     <li>The enemy may or may not be called to attack.</li>
+         * </ul>
+         */
         Coordinates invalid = TypicalIndexes.INVALID_COORDINATE;
 
         AttackCommand cmd = new AttackCommand(invalid);
@@ -139,6 +169,12 @@ public class AttackCommandTest {
 
     @Test
     public void execute_invalidState_throwAssertionError() throws CommandException {
+        /*
+         * Expected behaviour: <br>
+         * <ul>
+         *     <li>The command fails immediately with an AssertionError.</li>
+         * </ul>
+         */
         thrown.expect(AssertionError.class);
         AttackCommand cmd = new AttackCommand(TypicalIndexes.COORDINATES_A1);
         model.setBattleState(BattleState.PLAYER_PUT_SHIP);

@@ -23,7 +23,7 @@ public class MemberFilterCommand extends MemberCommand {
             + " filter criteria. "
             + "Parameters:  CRITERIA KEYWORD [MORE KEYWORDS]\n"
 
-            + "Example: " + COMMAND_WORD + "yearofstudy" + " 2";
+            + "Example: " + COMMAND_WORD + " yearofstudy" + " 2";
 
     public final FilterCriteriaContainsKeywordPredicate criteria;
     public final YearOfStudyContainsKeywordsPredicate yearOfStudyPredicate;

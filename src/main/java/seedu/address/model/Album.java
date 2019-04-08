@@ -69,7 +69,7 @@ public class Album {
      * @return Absolute path to generated temp folder.
      */
     public String generateAssets() {
-        String tempPath = "";
+        String tempPath = null;
         try {
             String tDir = System.getProperty("java.io.tmpdir") + ASSETS_FOLDER_TEMP_NAME;
             File assetsFolder = new File(tDir);

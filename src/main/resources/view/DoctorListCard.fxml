@@ -38,7 +38,6 @@
             </HBox>
             <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
             <FlowPane fx:id="specialisations"/>
-            <Label fx:id="addAppointment" styleClass="cell_small_label" text="\$addAppointment"/>
         </VBox>
     </GridPane>
 </HBox>

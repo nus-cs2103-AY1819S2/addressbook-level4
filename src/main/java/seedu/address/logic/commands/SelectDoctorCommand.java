@@ -9,7 +9,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.VersionedDocX;
 import seedu.address.model.person.Doctor;
+import seedu.address.model.person.PersonId;
+
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 
 /**
@@ -27,14 +31,20 @@ public class SelectDoctorCommand extends Command {
     public static final String MESSAGE_SELECT_DOCTOR_SUCCESS = "Selected Doctor: %1$s";
 
     private final Index targetIndex;
+//    private final int id;
 
-    public SelectDoctorCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    public SelectDoctorCommand(/*int id, */Index index) {
+//        this.id = id;
+        targetIndex = index;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
+//        List<Doctor> docList = model.getDoctorList();
+//
+//        Doctor docToShow = docList.get(id);
 
         List<Doctor> filteredDoctorList = model.getFilteredDoctorList();
 
@@ -43,14 +53,15 @@ public class SelectDoctorCommand extends Command {
         }
 
         model.setSelectedDoctor(filteredDoctorList.get(targetIndex.getZeroBased()));
-        return new CommandResult(String.format(MESSAGE_SELECT_DOCTOR_SUCCESS, targetIndex.getOneBased()));
+        return new CommandResult(String.format(MESSAGE_SELECT_DOCTOR_SUCCESS, targetIndex.getOneBased())
+                , CommandResult.ShowBrowser.DOCTOR_BROWSER);
 
     }
-
+/*
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof SelectDoctorCommand // instanceof handles nulls
                 && targetIndex.equals(((SelectDoctorCommand) other).targetIndex)); // state check
-    }
+    }*/
 }

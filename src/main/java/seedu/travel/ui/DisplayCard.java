@@ -2,12 +2,15 @@ package seedu.travel.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.geometry.Side;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
@@ -57,12 +60,7 @@ public class DisplayCard extends UiPart<Region> {
         createLineChart(yearList);
 
         // disables selection for all cards
-        cardPane.addEventFilter(MouseEvent.ANY, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                mouseEvent.consume();
-            }
-        });
+        cardPane.addEventFilter(MouseEvent.ANY, Event::consume);
     }
 
     /**
@@ -70,10 +68,14 @@ public class DisplayCard extends UiPart<Region> {
      */
     @SuppressWarnings("unchecked")
     private void createBarChart(List<CountryChart> countryList) {
+        List<CountryChart> tempCountryList = new ArrayList<>(countryList);
+
+        tempCountryList.sort(Comparator.comparingInt(CountryChart::getTotal).reversed());
+
         XYChart.Series series = new XYChart.Series();
 
-        for (int i = 0; i < countryList.size(); i++) {
-            CountryChart country = countryList.get(i);
+        for (int i = 0; i < tempCountryList.size(); i++) {
+            CountryChart country = tempCountryList.get(i);
             String countryName = country.getChartCountryCode().toString();
             series.getData().add(new XYChart.Data(countryName, country.getTotal()));
         }
@@ -84,24 +86,36 @@ public class DisplayCard extends UiPart<Region> {
         countryBarChart.setLegendVisible(false);
         countryBarChart.autosize();
         countryBarChart.getData().add(series);
-        countryBarChart.setStyle("-fx-padding: 45 10 45 10;");
+        countryBarChart.setStyle("-fx-padding: 10 10 30 10;");
     }
 
     /**
      * Creates a pie chart
      */
     private void createPieChart(List<RatingChart> ratingList) {
+        List<RatingChart> tempRatingList = new ArrayList<>(ratingList);
+
+        tempRatingList.sort(Comparator.comparing(o -> o.getChartRating().toString()));
+
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
-        for (int i = 0; i < ratingList.size(); i++) {
-            RatingChart rating = ratingList.get(i);
+        for (int i = 0; i < tempRatingList.size(); i++) {
+            RatingChart rating = tempRatingList.get(i);
             String ratingName = rating.getChartRating().toString();
-            pieChartData.add(new PieChart.Data(ratingName + " Stars", rating.getTotal()));
+            if (i == 0) {
+                pieChartData.add(new PieChart.Data(ratingName + " Star", rating.getTotal()));
+            } else {
+                pieChartData.add(new PieChart.Data(ratingName + " Stars", rating.getTotal()));
+            }
         }
 
         ratingPieChart.setTitle("Number of Places Visited for Each Rating Category");
+        ratingPieChart.setStyle("-fx-padding: 30 10 30 30;");
+        ratingPieChart.setLegendSide(Side.LEFT);
+        ratingPieChart.setClockwise(true);
+        ratingPieChart.setLabelsVisible(true);
+        ratingPieChart.setStartAngle(90);
         ratingPieChart.setData(pieChartData);
-        ratingPieChart.setStyle("-fx-padding: 45 0 45 0;");
     }
 
     /**
@@ -109,12 +123,26 @@ public class DisplayCard extends UiPart<Region> {
      */
     @SuppressWarnings("unchecked")
     private void createLineChart(List<YearChart> yearList) {
+        List<YearChart> tempYearList = new ArrayList<>(yearList);
+
+        tempYearList.sort(Comparator.comparing(YearChart::getChartYear));
+
         XYChart.Series series = new XYChart.Series();
 
-        for (int i = 0; i < yearList.size(); i++) {
-            YearChart year = yearList.get(i);
+        int startYear = Integer.parseInt(tempYearList.get(0).getChartYear());
+
+        int i = 0;
+        while (i < tempYearList.size()) {
+            YearChart year = tempYearList.get(i);
             String yearName = year.getChartYear();
-            series.getData().add(new XYChart.Data(yearName, year.getTotal()));
+            if (Integer.parseInt(yearName) == startYear) {
+                series.getData().add(new XYChart.Data(yearName, year.getTotal()));
+                startYear++;
+                i++;
+            } else {
+                series.getData().add(new XYChart.Data(String.valueOf(startYear), 0));
+                startYear++;
+            }
         }
 
         yearLineChart.setTitle("Number of Places Visited for Each Year");
@@ -122,7 +150,7 @@ public class DisplayCard extends UiPart<Region> {
         yearLineChart.getXAxis().setLabel("Year");
         yearLineChart.setLegendVisible(false);
         yearLineChart.getData().add(series);
-        yearLineChart.setStyle("-fx-padding: 45 10 45 10;");
+        yearLineChart.setStyle("-fx-padding: 30 10 30 10;");
     }
 
     @Override

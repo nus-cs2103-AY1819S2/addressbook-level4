@@ -52,7 +52,13 @@ public class GuiTestAssert {
      */
     private static String getTagColorStyleFor(String tagName) {
         switch (tagName) {
+        case "island":
+        case "nature":
+        case "themePark":
+            return "red";
+
         case "shoppingMall":
+        case "hotel":
             return "teal";
 
         case "zoo":
@@ -61,24 +67,32 @@ public class GuiTestAssert {
             return "orange";
 
         case "amusementPark":
+        case "historic":
         case "animals":
             return "brown";
 
         case "temple":
         case "mrt":
+        case "luxury":
             return "grey";
 
         case "placeOfInterest":
         case "recreation":
+        case "culture":
+        case "landmark":
             return "green";
 
         case "airport":
+        case "art":
             return "salmon";
 
         case "school":
+        case "museum":
             return "black";
 
         case "eastWestLine":
+        case "hiking":
+        case "shopping":
             return "yellow";
 
         default:

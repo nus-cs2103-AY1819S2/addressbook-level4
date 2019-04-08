@@ -15,6 +15,7 @@ public class GenerateCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generates a chart based "
             + "on Country and Rating.\n"
             + "Example: " + COMMAND_WORD;
+    public static final String MESSAGE_SUCCESS_EMPTY = "List is empty, unable to generate any charts.";
     public static final String MESSAGE_SUCCESS = "Chart has been successfully generated!";
     public static final String MESSAGE_FAILURE = "Unable to generate any charts!";
 
@@ -23,6 +24,13 @@ public class GenerateCommand extends Command {
         requireNonNull(model);
         model.setChartDisplayed(true);
         model.commitTravelBuddy();
-        return new CommandResult(MESSAGE_SUCCESS);
+
+        if (model.getFilteredPlaceList().isEmpty()) {
+            return new CommandResult(MESSAGE_SUCCESS_EMPTY);
+        } else if (!model.getFilteredPlaceList().isEmpty()) {
+            return new CommandResult(MESSAGE_SUCCESS);
+        } else {
+            return new CommandResult(MESSAGE_FAILURE);
+        }
     }
 }

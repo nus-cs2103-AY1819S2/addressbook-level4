@@ -14,6 +14,7 @@ import seedu.travel.model.place.TagContainsKeywordsPredicate;
 public class SearchTagsCommand extends Command {
 
     public static final String COMMAND_WORD = "searcht";
+    public static final String COMMAND_ALIAS = "st";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all places whose tags contain "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"

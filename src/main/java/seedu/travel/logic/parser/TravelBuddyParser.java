@@ -71,6 +71,7 @@ public class TravelBuddyParser {
             return new DeleteCommandParser().parse(arguments);
 
         case DeleteMultipleCommand.COMMAND_WORD:
+        case DeleteMultipleCommand.COMMAND_ALIAS:
             return new DeleteMultipleCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
@@ -82,15 +83,19 @@ public class TravelBuddyParser {
             return new SearchCommandParser().parse(arguments);
 
         case SearchRatingCommand.COMMAND_WORD:
+        case SearchRatingCommand.COMMAND_ALIAS:
             return new SearchRatingCommandParser().parse(arguments);
 
         case SearchTagsCommand.COMMAND_WORD:
+        case SearchTagsCommand.COMMAND_ALIAS:
             return new SearchTagsCommandParser().parse(arguments);
 
         case SearchCountryCommand.COMMAND_WORD:
+        case SearchCountryCommand.COMMAND_ALIAS:
             return new SearchCountryCommandParser().parse(arguments);
 
         case SearchYearCommand.COMMAND_WORD:
+        case SearchYearCommand.COMMAND_ALIAS:
             return new SearchYearCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
@@ -106,9 +111,11 @@ public class TravelBuddyParser {
             return new GenerateCommand();
 
         case ExitCommand.COMMAND_WORD:
+        case ExitCommand.COMMAND_ALIAS:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
+        case HelpCommand.COMMAND_ALIAS:
             return new HelpCommand();
 
         case UndoCommand.COMMAND_WORD:

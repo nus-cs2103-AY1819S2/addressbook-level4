@@ -21,7 +21,7 @@ public class GenerateCommandTest {
         expectedModel.commitTravelBuddy();
 
         assertCommandSuccess(new GenerateCommand(), model, commandHistory,
-                GenerateCommand.MESSAGE_SUCCESS, expectedModel);
+                GenerateCommand.MESSAGE_SUCCESS_EMPTY, expectedModel);
     }
 
     @Test

@@ -12,7 +12,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_INTERVIEWSCORES
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INTERVIEWSCORES_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_JOBSAPPLY_ENGINEER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_JOBSAPPLY_TRADER;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_JOB_NAME_TEACHER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_KNOWNPROGLANG_PYTHON;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MAJOR_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MAJOR_BOB;
@@ -35,14 +34,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.job.Job;
 import seedu.address.model.person.Person;
 
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
  */
-public class TypicalObject {
+public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline").withRace("Others")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com").withNric("S9345678K")
@@ -106,21 +104,7 @@ public class TypicalObject {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    public static final Job ENGINEER = new JobBuilder().withName("Engineer").build();
-
-    public static final Job PROFESSOR = new JobBuilder().withName("Professor").build();
-
-    // Manually added
-    public static final Job SOLDIER = new JobBuilder().withName("Soldier").build();
-
-    public static final Job PASTOR = new JobBuilder().withName("Pastor").build();
-
-    // Manually added - Person's details found in {@code CommandTestUtil}
-    public static final Job TEACHER = new JobBuilder().withName(VALID_JOB_NAME_TEACHER).build();
-
-    public static final String KEYWORD_MATCHING_PILOT = "Pilot"; // A keyword that matches PILOT
-
-    private TypicalObject() {
+    private TypicalPersons() {
     } // prevents instantiation
 
     /**
@@ -131,18 +115,10 @@ public class TypicalObject {
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }
-        for (Job job : getTypicalJobs()) {
-            ab.addJob(job);
-        }
         return ab;
     }
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
-
-    public static List<Job> getTypicalJobs() {
-        return new ArrayList<>(Arrays.asList(TEACHER, PROFESSOR, SOLDIER, PASTOR, ENGINEER));
-    }
-
 }

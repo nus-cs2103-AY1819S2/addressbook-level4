@@ -55,13 +55,13 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_SCHOOL_BOB;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBSAPPLY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalObject.ALICE;
-import static seedu.address.testutil.TypicalObject.AMY;
-import static seedu.address.testutil.TypicalObject.BOB;
-import static seedu.address.testutil.TypicalObject.CARL;
-import static seedu.address.testutil.TypicalObject.HOON;
-import static seedu.address.testutil.TypicalObject.IDA;
-import static seedu.address.testutil.TypicalObject.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.AMY;
+import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.HOON;
+import static seedu.address.testutil.TypicalPersons.IDA;
+import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 

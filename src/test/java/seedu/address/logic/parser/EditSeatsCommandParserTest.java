@@ -10,6 +10,8 @@ import static seedu.address.testutil.TypicalRestOrRant.TABLE2;
 import org.junit.Test;
 
 import seedu.address.logic.commands.EditSeatsCommand;
+import seedu.address.model.table.TableNumber;
+import seedu.address.model.table.TableStatus;
 
 public class EditSeatsCommandParserTest {
 
@@ -34,16 +36,13 @@ public class EditSeatsCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid table number
-        assertParseFailure(parser, "a 0",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditSeatsCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "a 0", TableNumber.MESSAGE_CONSTRAINTS);
 
         // invalid table status
-        assertParseFailure(parser, "1 @",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditSeatsCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "1 @", TableStatus.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + "2 7",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditSeatsCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + "2 7", TableNumber.MESSAGE_CONSTRAINTS);
     }
 
     @Test

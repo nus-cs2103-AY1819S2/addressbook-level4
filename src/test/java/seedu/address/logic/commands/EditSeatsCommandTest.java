@@ -16,6 +16,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
+import seedu.address.model.table.TableStatus;
 import seedu.address.testutil.TableBuilder;
 
 /**
@@ -57,7 +58,7 @@ public class EditSeatsCommandTest {
         EditSeatsCommand editSeatsCommand =
                 new EditSeatsCommand(TABLE2.getTableNumber(), INVALID_NUMBER_OF_SEATS_LESS_THAN_CUSTOMERS);
         assertCommandFailure(Mode.RESTAURANT_MODE, editSeatsCommand, model, commandHistory,
-                String.format(EditSeatsCommand.INVALID_TABLE_SEATS, "4"));
+                TableStatus.MESSAGE_CONSTRAINTS);
     }
 
     @Test

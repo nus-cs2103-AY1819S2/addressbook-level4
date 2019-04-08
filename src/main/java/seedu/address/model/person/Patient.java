@@ -98,6 +98,27 @@ public class Patient extends Person {
                 && otherPatient.getTags().equals(getTags());
     }
 
+    public String toAdvancedSearchString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(" ")
+                .append(getGender())
+                .append(" ")
+                .append(getAge())
+                .append(" ")
+                .append(getPhone())
+                .append(" ")
+                .append(getAddress())
+                .append(" ");
+        for (Tag tag : getTags()) {
+            String tagName = tag.toString().replaceAll("^\\[|\\]$", "");
+            builder.append(tagName);
+            builder.append(" ");
+        }
+
+        return builder.toString().trim();
+    }
+
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own

@@ -6,6 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 /**
  * Helper functions for handling strings.
@@ -36,6 +37,44 @@ public class StringUtil {
 
         return Arrays.stream(wordsInPreppedSentence)
                 .anyMatch(preppedWord::equalsIgnoreCase);
+    }
+
+    /**
+     * Returns true if the {@code sentence} contains the {@code word}.
+     *   Ignores cas
+     *   <br>examples:<pre>
+     *       differs rom above:
+     *       containsWordIgnoreCase("ABc def", "AB") == true //not a full word match
+     *       </pre>
+     * @param sentence cannot be null
+     * @param word cannot be null, cannot be empty, can be multiple words
+     */
+    public static boolean containsAnySubwordIgnoreCase(String sentence, String word) {
+        requireNonNull(sentence);
+        requireNonNull(word);
+
+        String preppedWord = word.trim();
+        checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
+
+        String[] preppedWords = preppedWord.split("\\s+");
+
+        String preppedSentence = sentence;
+        String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
+
+        boolean allMatched = true;
+
+        for (String check : preppedWords) {
+            // if word is quoted "word"
+            if (check.startsWith("\"") && check.endsWith("\"")) {
+                check = check.replaceAll("^\"+|\"+$", "");
+                allMatched = Arrays.stream(wordsInPreppedSentence).anyMatch(check::equalsIgnoreCase);
+            }
+            // if normal word
+            else {
+                allMatched = Pattern.compile(Pattern.quote(check), Pattern.CASE_INSENSITIVE).matcher(sentence).find();
+            }
+        }
+        return allMatched;
     }
 
     /**

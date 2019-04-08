@@ -25,6 +25,7 @@ import seedu.address.logic.commands.ListDoctorCommand;
 import seedu.address.logic.commands.ListMedHistCommand;
 import seedu.address.logic.commands.ListPatientCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SearchAdvancedPatientCommand;
 import seedu.address.logic.commands.SearchDoctorCommand;
 import seedu.address.logic.commands.SearchDoctorDidCommand;
 import seedu.address.logic.commands.SearchMedHistCommand;
@@ -54,8 +55,8 @@ public class DocXParser {
      *
      * @param userInput full user input string
      * @return the command based on the user input
-     * @throws ParseException if the user inp
-     * ut does not conform the expected format
+     * @throws ParseException if the user input
+     * does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -84,6 +85,9 @@ public class DocXParser {
 
         case SearchPatientTagCommand.COMMAND_WORD:
             return new SearchPatientTagCommandParser().parse(arguments);
+
+        case SearchAdvancedPatientCommand.COMMAND_WORD:
+            return new SearchAdvancedPatientCommandParser().parse(arguments);
 
         case DeletePatientCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);

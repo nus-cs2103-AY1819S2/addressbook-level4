@@ -5,11 +5,13 @@ import java.time.format.DateTimeFormatter;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 import seedu.address.model.pdf.Pdf;
+
 
 /**
  * An UI component that displays information of a {@code Pdf}.
@@ -38,13 +40,17 @@ public class PersonCard extends UiPart<Region> {
     private Label deadline;
     @FXML
     private FlowPane tags;
+    @FXML
+    private ImageView lock;
 
     public PersonCard(Pdf pdf, int displayedIndex) {
         super(FXML);
         this.pdf = pdf;
         id.setText(displayedIndex + ". ");
         name.setText(pdf.getName().getFullName());
-
+        if (!pdf.getIsEncrypted()) {
+            lock.setVisible(false);
+        }
         if (pdf.getDeadline().exists()) {
             deadline.setPadding(new Insets(4, 0, 0, 0));
 

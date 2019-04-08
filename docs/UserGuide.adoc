@@ -115,6 +115,21 @@ Returns `john` and `John Doe`
 * `search-patient Betsy Tim John` +
 Returns any patient having names `Betsy`, `Tim`, or `John`
 
+=== Search patient by pid: `search-pid`
+
+Search and return patient(s) whose pid contain any of the given keywords. +
+Format: `search-patient [pid1] [pid2]...`
+
+****
+* Only the pid is searched.
+* Only full pid will be matched e.g. `12` will not match `120`
+****
+
+Examples:
+
+* `search-pid 12 1` +
+Returns `John Doe` and `Tom Darl` who has pid of `1` and `12` respectively.
+
 === Search patient by tags: `search-tag`
 
 Search and return patient(s) whose tags contain any of the given keywords. +
@@ -133,6 +148,23 @@ Examples:
 
 * `search-tag diabetic` +
 Returns `John Doe` who has both `diabetic` and `stoke` tags
+
+=== Search patient by appt status: `search-appt-status`
+
+Search and return patient(s) whose appointment status matches the specified keyword. +
+Format: `search-patient [STATUS]`
+
+****
+* Only the appointment status is searched.
+* Only one status can be searched and it must be one of the following:
+ACTIVE, ONGOING, COMPLETED, MISSED
+* Status search are not case-senstitive
+****
+
+Examples:
+
+* `search-appt-status ACTIVE` +
+Returns `John Doe` and `Tom Darl` who has appointment status `ACTIVE`.
 
 === Advanced search patient by any info: `search-advanced`
 

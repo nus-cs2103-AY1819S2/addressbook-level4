@@ -14,7 +14,7 @@ import seedu.address.model.person.PatientApptStatusContainsKeywordsPredicate;
  */
 public class SearchPatientWithApptStatusCommand extends Command {
 
-    public static final String COMMAND_WORD = "search-patient-apptstatus";
+    public static final String COMMAND_WORD = "search-appt-status";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches all patients whose appointment status "
             + "is one of the following: ACTIVE, CANCELLED, COMPLETED or MISSED (case-insensitive)\n"

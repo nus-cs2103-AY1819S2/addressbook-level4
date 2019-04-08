@@ -620,7 +620,7 @@ command immediately after the previous `delete` command to undo the deletion.
 
 === Assigning health workers to an open request : `assign`
 
-After registering a new request using the `add request/r/2` command, you may
+After registering a new request using the `add request` command, you may
 proceed to assign an existing health worker in the system to handle the request,
  allocating medical resources to it and closing the request using the simple
  `assign` command +
@@ -639,14 +639,16 @@ than the number of requests/health workers in the current list.
 
 Examples:
 
-* `assign 1 2` +
+* `assign r/1 hw/2` +
 Assigns the health worker at the second index to the first request in the
 request list.
 
 [NOTE]
 ====
-You cannot assign a healthworker to a completed request. To assign a healthworker to a request that is already completed,
-use `edit` to change the status of the request to pending first.
+* You cannot assign a healthworker to a completed request. To assign a healthworker to a request that is already completed,
+use `edit` to change the status of the request to pending first. +
+* You can reorder the parameters of the request and the healthworker. For example, executing `assign r/1 hw/2` has the same as
+executing `assign hw/2 r/1`
 ====
 
 === Clearing Requests : `clr`

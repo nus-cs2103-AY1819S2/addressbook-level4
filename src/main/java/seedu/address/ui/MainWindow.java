@@ -129,13 +129,13 @@ public class MainWindow extends UiPart<Stage> {
         activityDetailPanel = new ActivityDetailPanel(logic.selectedActivityProperty(),
                 logic.getAttendingOfSelectedActivity());
         browserPlaceholder.getChildren().add(memberDetailPanel.getRoot());
-      
+
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
                 logic::setSelectedPerson);
         activityListPanel = new ActivityListPanel(logic.getFilteredActivityList(), logic.selectedActivityProperty(),
                 logic::setSelectedActivity);
         leftListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-      
+
         personNotInActivityListPanel = new PersonNotAttendingListPanel(logic.getPersonNotInSelectedActivity());
         activitiesAttendedByMemberPanel = new ActivitiesAttendedByMemberPanel(logic.getActivitiesOfPerson());
         rightListPanelPlaceholder.getChildren().add(activitiesAttendedByMemberPanel.getRoot());

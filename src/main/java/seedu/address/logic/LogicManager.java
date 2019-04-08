@@ -158,15 +158,6 @@ public class LogicManager implements Logic {
         return model.getPersonNotInSelectedActivity();
     }
 
-    @Override
-    public ObservableList<Person> getAttendingOfSelectedActivity() {
-        return model.getAttendingOfSelectedActivity();
-    }
-
-    @Override
-    public ObservableList<Person> getPersonNotInSelectedActivity() {
-        return model.getPersonNotInSelectedActivity();
-    }
 
     @Override
     public ObservableList<Activity> getActivitiesOfPerson() {

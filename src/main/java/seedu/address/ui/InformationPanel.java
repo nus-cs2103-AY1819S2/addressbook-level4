@@ -7,8 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.commons.core.InformationPanelSettings;
-import seedu.address.commons.core.InformationPanelSettings.SortDirection;
-import seedu.address.commons.core.InformationPanelSettings.SortProperty;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.medicine.Medicine;
 
@@ -21,8 +19,7 @@ public class InformationPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private BatchTable batchTable;
-    private SortProperty sortProperty = InformationPanelSettings.DEFAULT_SORT_PROPERTY;
-    private SortDirection sortDirection = InformationPanelSettings.DEFAULT_SORT_DIRECTION;
+    private InformationPanelSettings informationPanelSettings;
 
     @FXML
     private StackPane informationPanel;
@@ -31,37 +28,43 @@ public class InformationPanel extends UiPart<Region> {
             ObservableValue<InformationPanelSettings> settings) {
         super(FXML);
 
+        informationPanelSettings = settings.getValue();
+
         // Load medicine information page when selected medicine changes.
-        selectedMedicine.addListener((observable, oldSelectMedicine, newSelectedMedicine) -> {
-            emptyInformationPanel();
-            if (newSelectedMedicine != null) {
-                logger.fine("Information panel displaying details of " + newSelectedMedicine);
-                showSelectedInformation(newSelectedMedicine);
-            }
-        });
+        selectedMedicine.addListener(
+                (observable, oldSelectMedicine, newSelectedMedicine) -> display(newSelectedMedicine));
 
         settings.addListener((observable, oldSettings, newSettings) -> {
-            sortProperty = newSettings.getSortProperty();
-            sortDirection = newSettings.getSortDirection();
-            logger.fine("Batch table sorted by SortProperty: " + sortProperty + " SortDirection: " + sortDirection);
-            emptyInformationPanel();
-            showSelectedInformation(selectedMedicine.getValue());
+            logger.fine("Batch table sorted by " + newSettings);
+
+            informationPanelSettings = newSettings;
+            display(selectedMedicine.getValue());
         });
+    }
+
+    private void display(Medicine medicine) {
+        emptyInformationPanel();
+        showSelectedInformation(medicine);
+    }
+
+    private void emptyInformationPanel() {
+        if (informationPanel.getChildren() == null) {
+            return;
+        }
+
+        logger.fine("Information panel emptied");
+        informationPanel.getChildren().clear();
+        batchTable = null;
     }
 
     private void showSelectedInformation(Medicine medicine) {
-        batchTable = new BatchTable(medicine, sortProperty, sortDirection);
-        informationPanel.getChildren().add(batchTable.getRoot());
-    }
-
-    /**
-     * Empties the information panel by removing all children.
-     */
-    private void emptyInformationPanel() {
-        if (informationPanel.getChildren() != null) {
-            informationPanel.getChildren().clear();
-            batchTable = null;
+        if (medicine == null) {
+            return;
         }
+
+        logger.fine("Information panel displaying details of " + medicine);
+        batchTable = new BatchTable(medicine, informationPanelSettings);
+        informationPanel.getChildren().add(batchTable.getRoot());
     }
 
     public BatchTable getBatchTable() {

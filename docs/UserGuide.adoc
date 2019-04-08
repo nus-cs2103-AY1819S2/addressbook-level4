@@ -419,44 +419,64 @@ From the image above, you can observe that different batches of the same medicin
 You would observe that medicines without any batches are not included in the exported CSV file though they might be present in the current medicine inventory data shown in the GUI. This is by design, as our team believes that the exported CSV file should provide *useful detailed information*. Medicines without any batches would not have any useful information such as the quantity and expiry dates which are important when it comes to keeping track of your medicine inventory.
 // end::exportcommand[]
 
+// tag::labelcommand[]
 === Printing labels : `label`
 
-You can label any specific medicine information in the inventory using the Portable Document Format (PDF). +
-Open the PDF file under the PDF folder to view and print your selected medicine +
-Label will include name of medicine and standard label template. +
+- You can label any specific medicine information in the inventory through the Portable Document Format (PDF). +
+Open the PDF file under the PDF folder to view and print your selected medicine. +
+- Label will include name of medicine and standard label template. +
 This includes the company that manufactured it, expiry date and the tags that was set with it. +
-Format: `label INDEX [f/FILE_NAME]`
+- Your format for using the command should follow: `label INDEX [f/FILE_NAME]`
 
 ****
 * Outputs the label for the medicine at the specified INDEX.
 * If no file name is specified, the default file name is `to_print`.
 * The index refers to the index number shown in the displayed medicine list.
 * The index must be a positive integer 1, 2, 3, …
-* All files output can be found under the PDF folder.
+
 ****
+
+All PDF files can be found under the PDF folder
+
+image::mainPDF.png[width="790"]
+
 
 Examples:
 
-* `list` +
+.  Open up the software interface. (Fig 5.12.1)
+
+.  Using the keyboard, enter the commands followed by hitting the enter key for each command.
+* `list` followed by +
 `label 2` +
 This will allow you to select the 2nd medicine in the inventory and output the information to a default file named `to_print`.
 +
 image::label2_taken.png[width="790"]
 +
+Fig 5.12.1 Software interface
++
 - A confirmation message will be shown to indicate to you that it have been successfully labeled.
 +
-* You can open the file in the PDF folder with your preferred PDF reader to print the medicine information.
+.  You can open the file in the PDF folder with your preferred PDF reader to print the medicine information. (Fig 5.12.2)
 +
 image::label2.png[width="790"]
 +
+Fig 5.12.2 Medicine information
++
+.  If you want to name the output file, follow the steps below:
 * `find Simvastatin` +
 `label 1 f/Simvastatin` +
-Similar to the example above, the 1st medicine information will be output to a file name `Simvastatin`.
+Similar to the example above, the 1st medicine information will be output to a file name `Simvastatin`. (Fig 5.12.3)
 +
 image::label1.png[width="790"]
 +
+Fig 5.12.3 Simvastatin medicine information
++
 [WARNING]
-The `label` command will overwrite the `to_print` file every time it is used without specifying a file name. Hence, do print the required file first before using the `label` command again. This extends to all other existing file names.
+The `label` command will overwrite the `to_print` file when filename is not specified. Do print the required file first before using the `label` command again.
+
+- Please follow Appendix A for naming conventions.
+
+// end::labelcommand[]
 
 === Listing entered commands : `history`
 

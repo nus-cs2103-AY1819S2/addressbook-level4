@@ -86,20 +86,21 @@
                     </SplitPane>
                 </HBox>
 
-                <HBox HBox.hgrow="ALWAYS" fx:id="chartsBox" minHeight="100" maxHeight="300" alignment="CENTER">
+                <HBox HBox.hgrow="ALWAYS" fx:id="chartsBox" minHeight="100" maxHeight="300"
+                      alignment="CENTER">
                     <padding>
                         <Insets top="20" right="10" bottom="5" left="10" />
                     </padding>
-                    <SplitPane>
+                    <SplitPane maxWidth="800">
                         <padding>
                             <Insets top="5" right="10" bottom="5" left="10" />
                         </padding>
 
                         <VBox styleClass="pane-with-border" fx:id="barChartBox" />
 
-                        <HBox styleClass="pane-with-border">
-                            <Label text="Pie Chart Placeholder" styleClass="cell_big_label" />
-                        </HBox>
+                        <VBox styleClass="pane-with-border" fx:id="pieChartBox">
+                            <!-- <Label text="Pie Chart Placeholder" styleClass="cell_big_label" /> -->
+                        </VBox>
                     </SplitPane>
                 </HBox>
             </VBox>

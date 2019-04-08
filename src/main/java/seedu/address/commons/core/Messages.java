@@ -33,6 +33,7 @@ public class Messages {
     public static final String MESSAGE_RESIZE_VALUE_ERROR = "Values keyed in are not positive integers. "
             + "E.g: resize 200 200";
     public static final String MESSAGE_EXPORT_SUCCESS = "Image successfully exported.";
+    public static final String MESSAGE_ADDPRESET_SUCCESS = "Preset is successfully saved.";
 
 
 }

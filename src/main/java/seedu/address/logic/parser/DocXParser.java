@@ -16,6 +16,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteDoctorCommand;
 import seedu.address.logic.commands.DeletePatientCommand;
 import seedu.address.logic.commands.EditDoctorCommand;
+import seedu.address.logic.commands.EditMedHistCommand;
 import seedu.address.logic.commands.EditPatientCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -99,12 +100,6 @@ public class DocXParser {
         case SearchDoctorDidCommand.COMMAND_WORD:
             return new SearchDoctorDidCommandParser().parse(arguments);
 
-        case ListMedHistCommand.COMMAND_WORD:
-            return new ListMedHistCommandParser().parse(arguments);
-
-        case SearchMedHistCommand.COMMAND_WORD:
-            return new SearchMedHistCommandParser().parse(arguments);
-
         case AddDoctorCommand.COMMAND_WORD:
             return new AddDoctorCommandParser().parse(arguments);
 
@@ -135,12 +130,17 @@ public class DocXParser {
         case DeleteMedHistCommand.COMMAND_WORD:
             return new DeleteMedHistCommandParser().parse(arguments);
         */
+        case ListMedHistCommand.COMMAND_WORD:
+            return new ListMedHistCommandParser().parse(arguments);
 
-        case AddPrescriptionCommand.COMMAND_WORD:
-            return new AddPrescriptionCommandParser().parse(arguments);
+        case EditMedHistCommand.COMMAND_WORD:
+            return new EditMedHistCommandParser().parse(arguments);
 
         case SelectPatientCommand.COMMAND_WORD:
             return new SelectPatientCommandParser().parse(arguments);
+
+        case SearchMedHistCommand.COMMAND_WORD:
+            return new SearchMedHistCommandParser().parse(arguments);
 
         case SelectMedHistCommand.COMMAND_WORD:
             return new SelectMedHistCommandParser().parse(arguments);
@@ -148,6 +148,9 @@ public class DocXParser {
         case SortMedHistCommand.COMMAND_WORD:
             return new SortMedHistCommandParser().parse(arguments);
 
+        case AddPrescriptionCommand.COMMAND_WORD:
+            return new AddPrescriptionCommandParser().parse(arguments);
+            
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 

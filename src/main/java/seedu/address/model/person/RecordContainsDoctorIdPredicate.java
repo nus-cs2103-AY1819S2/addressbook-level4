@@ -8,22 +8,22 @@ import java.util.function.Predicate;
  * Tests that a {@code Doctor}'s {@code id} matches the given id.
  */
 public class RecordContainsDoctorIdPredicate implements Predicate<Doctor> {
-    private final int id;
+    private final PersonId id;
 
-    public RecordContainsDoctorIdPredicate(int id) {
+    public RecordContainsDoctorIdPredicate(PersonId id) {
         this.id = id;
     }
 
     @Override
     public boolean test(Doctor doctor) {
-        return doctor.getId() == id;
+        return doctor.getId().equals(id);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof RecordContainsDoctorIdPredicate // instanceof handles nulls
-                && id == (((RecordContainsDoctorIdPredicate) other).id)); // state check
+                && this.id.equals(((RecordContainsDoctorIdPredicate) other).id)); // state check
     }
 
 }

@@ -38,7 +38,7 @@ public class Patient extends Person {
     /**
      * This is an existing patient and does not need to generate a new ID.
      */
-    public Patient(int id, Name name, Gender gender, Age age, Phone phone, Address address, Set<Tag> tags) {
+    public Patient(PersonId id, Name name, Gender gender, Age age, Phone phone, Address address, Set<Tag> tags) {
         super(id, name, phone, gender);
         requireAllNonNull(name, phone, gender);
         this.age = age;

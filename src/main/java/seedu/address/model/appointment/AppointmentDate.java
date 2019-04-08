@@ -13,7 +13,7 @@ import java.time.format.DateTimeParseException;
  */
 public class AppointmentDate {
     public static final String MESSAGE_CONSTRAINTS =
-            "Appointment date should be in the format YYYY-MM-DD";
+            "Appointment date should be in the format YYYY-MM-DD and be a valid date on the calendar.";
 
     public final LocalDate date;
 
@@ -35,6 +35,7 @@ public class AppointmentDate {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             LocalDate.parse(test, formatter);
+            LocalDate.parse(test);
             return true;
         } catch (DateTimeParseException e) {
             return false;

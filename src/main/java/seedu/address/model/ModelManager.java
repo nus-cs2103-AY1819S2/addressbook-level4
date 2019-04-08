@@ -22,6 +22,7 @@ import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.exceptions.MedHistNotFoundException;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.PersonId;
 import seedu.address.model.person.exceptions.DoctorNotFoundException;
 import seedu.address.model.person.exceptions.PatientNotFoundException;
 import seedu.address.model.prescription.Prescription;
@@ -114,6 +115,18 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyDocX getDocX() {
         return versionedDocX;
+    }
+
+    @Override
+    public Patient getPatientById(PersonId patientId) {
+        requireNonNull(patientId);
+        return versionedDocX.getPatientById(patientId);
+    }
+
+    @Override
+    public Doctor getDoctorById(PersonId doctorId) {
+        requireNonNull(doctorId);
+        return versionedDocX.getDoctorById(doctorId);
     }
 
 

@@ -25,9 +25,9 @@ public final class PersonIdCounter {
     /**
      * Creates a new unique ID when called.
      */
-    public int generateNewId() {
+    public PersonId generateNewId() {
         id += 1;
-        return id;
+        return new PersonId(String.valueOf(id));
     }
 
     public void setCurrentMaxId(int id) {

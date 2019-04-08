@@ -64,13 +64,11 @@ public class StringUtil {
         boolean allMatched = true;
 
         for (String check : preppedWords) {
-            // if word is quoted "word"
+            // if word is quoted "keyword"
             if (check.startsWith("\"") && check.endsWith("\"")) {
                 check = check.replaceAll("^\"+|\"+$", "");
                 allMatched = Arrays.stream(wordsInPreppedSentence).anyMatch(check::equalsIgnoreCase);
-            }
-            // if normal word
-            else {
+            } else {
                 allMatched = Pattern.compile(Pattern.quote(check), Pattern.CASE_INSENSITIVE).matcher(sentence).find();
             }
         }

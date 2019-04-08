@@ -98,6 +98,10 @@ public class Patient extends Person {
                 && otherPatient.getTags().equals(getTags());
     }
 
+    /**
+     * Returns a string of the full details of the patient, excluding pid information
+     * This is to facilitate search-advanced command
+     */
     public String toAdvancedSearchString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())

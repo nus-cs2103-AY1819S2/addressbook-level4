@@ -10,7 +10,7 @@ import seedu.address.commons.util.StringUtil;
 /**
  * Tests that a {@code Patient}'s {@code Name} matches any of the keywords given.
  */
-public class AdvancedPatientSearchPredicate implements Predicate<Patient>{
+public class AdvancedPatientSearchPredicate implements Predicate<Patient> {
     private final List<String> keywords;
 
     public AdvancedPatientSearchPredicate(List<String> keywords) {

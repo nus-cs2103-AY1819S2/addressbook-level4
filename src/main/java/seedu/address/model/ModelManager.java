@@ -38,7 +38,7 @@ public class ModelManager implements Model {
     private FilteredList<Person> originalFilteredPersons;
     private FilteredList<Person> displayedFilteredPersons;
     private Job activeJob;
-    private FilteredList<Person> activeJobAllApplcants;
+    private FilteredList<Person> activeJobAllApplicants;
     private FilteredList<Person> activeJobKiv;
     private FilteredList<Person> activeJobInterview;
     private FilteredList<Person> activeJobShortlist;
@@ -180,7 +180,7 @@ public class ModelManager implements Model {
     @Override
     public Job getJob(JobName name) {
         this.activeJob = versionedAddressBook.getJob(name);
-        this.activeJobAllApplcants =
+        this.activeJobAllApplicants =
                 new FilteredList<>(activeJob.getList(0).asUnmodifiableObservableList());
         this.activeJobKiv =
                 new FilteredList<>(activeJob.getList(1).asUnmodifiableObservableList());
@@ -206,6 +206,30 @@ public class ModelManager implements Model {
     public void updateBaseFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         originalFilteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateJobAllApplicantsFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        activeJobAllApplicants.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateJobKivFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        activeJobKiv.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateJobInterviewFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        activeJobInterview.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateJobShortlistFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        activeJobShortlist.setPredicate(predicate);
     }
 
     @Override

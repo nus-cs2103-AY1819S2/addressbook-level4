@@ -5,6 +5,14 @@ import static seedu.address.model.interviews.Interviews.HOUR;
 import static seedu.address.model.interviews.Interviews.MILLISECOND;
 import static seedu.address.model.interviews.Interviews.MINUTE;
 import static seedu.address.model.interviews.Interviews.SECOND;
+import static seedu.address.model.job.JobListName.APPLICANT_NAME;
+import static seedu.address.model.job.JobListName.APPLICANT_PREFIX;
+import static seedu.address.model.job.JobListName.INTERVIEW_NAME;
+import static seedu.address.model.job.JobListName.INTERVIEW_PREFIX;
+import static seedu.address.model.job.JobListName.KIV_NAME;
+import static seedu.address.model.job.JobListName.KIV_PREFIX;
+import static seedu.address.model.job.JobListName.SHORTLIST_NAME;
+import static seedu.address.model.job.JobListName.SHORTLIST_PREFIX;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,6 +25,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.job.JobListName;
 import seedu.address.model.job.JobName;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -57,6 +66,33 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses a {@code String value} into a {@code JobListName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code value} is invalid.
+     */
+    public static JobListName parseJobListName(String value) throws ParseException {
+        requireNonNull(value);
+        String trimmedName = value.trim().toLowerCase();
+        if (!JobListName.isValidJobListName(trimmedName)) {
+            throw new ParseException(JobListName.MESSAGE_CONSTRAINTS);
+        }
+        if (value.equals(APPLICANT_NAME) || value.equals(APPLICANT_PREFIX)) {
+            return JobListName.APPLICANT;
+        }
+        if (value.equals(KIV_NAME) || value.equals(KIV_PREFIX)) {
+            return JobListName.KIV;
+        }
+        if (value.equals(INTERVIEW_NAME) || value.equals(INTERVIEW_PREFIX)) {
+            return JobListName.INTERVIEW;
+        }
+        else {
+            return JobListName.SHORTLIST;
+        }
+
     }
 
     /**

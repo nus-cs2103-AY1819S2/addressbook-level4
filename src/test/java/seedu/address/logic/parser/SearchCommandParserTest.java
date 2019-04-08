@@ -36,6 +36,7 @@ import java.util.HashSet;
 import org.junit.Test;
 
 import seedu.address.logic.commands.SearchCommand;
+import seedu.address.model.job.JobListName;
 
 public class SearchCommandParserTest {
 
@@ -60,20 +61,20 @@ public class SearchCommandParserTest {
         descriptorAmy.setGender(new HashSet<>(Arrays.asList(VALID_GENDER_AMY.split("\\s+"))));
         descriptorAmy.setGrade(new HashSet<>(Arrays.asList(VALID_GRADE_AMY.split("\\s+"))));
         descriptorAmy.setNric(new HashSet<>(Arrays.asList(VALID_NRIC_AMY.split("\\s+"))));
-        SearchCommand expectedSearchCommand = new SearchCommand(descriptorAmy);
+        SearchCommand expectedSearchCommand = new SearchCommand(JobListName.APPLICANT, descriptorAmy);
 
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + NRIC_DESC_AMY
             + GENDER_DESC_AMY + RACE_DESC_AMY + ADDRESS_DESC_AMY + MAJOR_DESC_AMY + GRADE_DESC_AMY
             + SCHOOL_DESC_AMY, expectedSearchCommand);
 
-        // test other fields
+        // test List fields
         SearchCommand.PredicatePersonDescriptor descriptorOtherFields = new SearchCommand.PredicatePersonDescriptor();
         descriptorOtherFields.setPastJobs(new HashSet<>(Arrays.asList(VALID_PASTJOB_PROFESSSOR.split("\\s+"))));
         descriptorOtherFields.setJobsApply(new HashSet<>(
             Arrays.asList(VALID_JOBSAPPLY_ENGINEER.split("\\s+"))));
         descriptorOtherFields.setKnownProgLangs(
             new HashSet<>(Arrays.asList(VALID_KNOWNPROGLANG_JAVA.split("\\s+"))));
-        expectedSearchCommand = new SearchCommand(descriptorOtherFields);
+        expectedSearchCommand = new SearchCommand(JobListName.APPLICANT, descriptorOtherFields);
         assertParseSuccess(parser, PASTJOB_DESC_PROFESSOR
             + JOBSAPPLY_DESC_ENGINEER + KNOWNPROGLANG_DESC_JAVA, expectedSearchCommand);
 

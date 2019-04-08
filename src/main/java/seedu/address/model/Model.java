@@ -139,6 +139,29 @@ public interface Model {
     void updateBaseFilteredPersonList(Predicate<Person> predicate);
 
     /**
+     * Updates the filter of the JobAllApplcants filtered person list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateJobAllApplicantsFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the JobKiv filtered person list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateJobKivFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the JobInterview filtered person list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateJobInterviewFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the JobShortlist filtered person list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateJobShortlistFilteredPersonList(Predicate<Person> predicate);
+    /**
      * Updates the filter of the active filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */

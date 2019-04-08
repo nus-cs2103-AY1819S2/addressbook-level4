@@ -267,6 +267,11 @@ public class MemberAddCommandTest {
         }
 
         @Override
+        public ObservableList<Activity> getActivitiesOfPerson() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean canUndoAddressBook() {
 
             throw new AssertionError("This method should not be called.");
@@ -315,6 +320,11 @@ public class MemberAddCommandTest {
 
         @Override
         public Person generateExportedPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeMemberFromAllAttendance(MatricNumber matricNumber) {
             throw new AssertionError("This method should not be called.");
         }
 

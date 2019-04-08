@@ -2,74 +2,74 @@
   "comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "persons" : [ {
     "name" : "Alice Pauline",
-    "matricNumber" : "A0123123Z",
+    "matricNumber" : "A0123123B",
     "phone" : "94351253",
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
     "gender" : "Female",
-    "yearOfStudy" : "Year 4",
+    "yearOfStudy" : "4",
     "major" : "Business Analytics",
-    "tagged" : [ "running" ]
+    "tagged" : [ "Running" ]
   }, {
     "name" : "Benson Meier",
     "matricNumber" : "A0222222B",
     "phone" : "98765432",
-    "email" : "johnd@example.com",
+    "email" : "benson@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
     "gender" : "male",
-    "yearOfStudy" : "year 1",
-    "major" : "computing",
-    "tagged" : [ "swimming", "running" ]
+    "yearOfStudy" : "2",
+    "major" : "Information Systems",
+    "tagged" : [ "Swimming", "Running" ]
   }, {
     "name" : "Carl Kurz",
-    "matricNumber" : "A0333333C",
+    "matricNumber" : "A0333333N",
     "phone" : "95352563",
-    "email" : "heinz@example.com",
+    "email" : "carl@example.com",
     "address" : "wall street",
     "gender" : "male",
-    "yearOfStudy" : "year 1",
-    "major" : "computing",
-    "tagged" : [ "swimming", "running" ]
+    "yearOfStudy" : "1",
+    "major" : "Computer Engineering",
+    "tagged" : [ "Swimming", "Running" ]
   }, {
     "name" : "Daniel Meier",
-    "matricNumber" : "A0444444D",
+    "matricNumber" : "A0444444A",
     "phone" : "87652533",
-    "email" : "cornelia@example.com",
+    "email" : "daniel@example.com",
     "address" : "10th street",
     "gender" : "male",
-    "yearOfStudy" : "year 1",
-    "major" : "computing",
-    "tagged" : [ "hockey" ]
+    "yearOfStudy" : "4",
+    "major" : "Computer Science",
+    "tagged" : [ "Hockey" ]
   }, {
     "name" : "Elle Meyer",
-    "matricNumber" : "A0555555E",
-    "phone" : "9482224",
-    "email" : "werner@example.com",
+    "matricNumber" : "A0555555R",
+    "phone" : "94822241",
+    "email" : "elle@example.com",
     "address" : "michegan ave",
     "gender" : "Female",
-    "yearOfStudy" : "year 1",
-    "major" : "computing",
-    "tagged" : [ "hockey" ]
+    "yearOfStudy" : "1",
+    "major" : "Life Science",
+    "tagged" : [ "Hockey" ]
   }, {
     "name" : "Fiona Kunz",
-    "matricNumber" : "A0777777R",
+    "matricNumber" : "A0777777U",
     "phone" : "94812427",
-    "email" : "lydia@example.com",
+    "email" : "fiona@example.com",
     "address" : "little tokyo",
     "gender" : "female",
-    "yearOfStudy" : "year 1",
-    "major" : "computing",
-    "tagged" : [ "hockey" ]
+    "yearOfStudy" : "5",
+    "major" : "Medicine",
+    "tagged" : [ "Floorball" ]
   }, {
     "name" : "George Best",
-    "matricNumber" : "A0888888R",
+    "matricNumber" : "A0888888H",
     "phone" : "94182442",
-    "email" : "anna@example.com",
+    "email" : "george@example.com",
     "address" : "4th street",
     "gender" : "Male",
-    "yearOfStudy" : "year 1",
-    "major" : "computing",
-    "tagged" : [ "hockey" ]
+    "yearOfStudy" : "3",
+    "major" : "Biomedical Engineering",
+    "tagged" : [ "Hockey" ]
   } ],
   "activities" : []
 }

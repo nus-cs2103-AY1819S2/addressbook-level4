@@ -36,6 +36,7 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Activity> selectedActivity = new SimpleObjectProperty<>();
     private final ObservableList<Person> personAttendingActivity = FXCollections.observableArrayList();
     private final ObservableList<Person> personNotAttendingActivity = FXCollections.observableArrayList();
+    private final ObservableList<Activity> activitiesAttendedByMember = FXCollections.observableArrayList();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -277,6 +278,11 @@ public class ModelManager implements Model {
             throw new PersonNotFoundException();
         }
         selectedPerson.setValue(person);
+        if (person == null) {
+            activitiesAttendedByMember.clear();
+        } else {
+            activitiesAttendedByMember.setAll(versionedAddressBook.getActivitiesOfPerson(person));
+        }
     }
 
     /**
@@ -363,6 +369,11 @@ public class ModelManager implements Model {
         return personNotAttendingActivity;
     }
 
+    @Override
+    public ObservableList<Activity> getActivitiesOfPerson() {
+        return activitiesAttendedByMember;
+    }
+
     /**
      * Ensures {@code selectedActivity} is a valid activity in {@code filteredActivities}.
      */
@@ -400,6 +411,7 @@ public class ModelManager implements Model {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
+    @Override
     public void removeMemberFromAllAttendance(MatricNumber matricNumber) {
         requireNonNull(matricNumber);
         versionedAddressBook.removeMemberFromAllAttendance(matricNumber);

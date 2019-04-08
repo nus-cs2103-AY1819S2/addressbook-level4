@@ -34,11 +34,13 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    //private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private ActivityDetailPanel activityDetailPanel;
     private PersonNotAttendingListPanel personNotInActivityListPanel;
+    private ActivitiesAttendedByMemberPanel activitiesAttendedByMemberPanel;
     private ActivityListPanel activityListPanel;
+    private MemberDetailPanel memberDetailPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -123,18 +125,20 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
+        memberDetailPanel = new MemberDetailPanel(logic.selectedPersonProperty());
         activityDetailPanel = new ActivityDetailPanel(logic.selectedActivityProperty(),
                 logic.getAttendingOfSelectedActivity());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        browserPlaceholder.getChildren().add(memberDetailPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
                 logic::setSelectedPerson);
         activityListPanel = new ActivityListPanel(logic.getFilteredActivityList(), logic.selectedActivityProperty(),
                 logic::setSelectedActivity);
         leftListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
         personNotInActivityListPanel = new PersonNotAttendingListPanel(logic.getPersonNotInSelectedActivity());
-        rightListPanelPlaceholder.getChildren().add(personNotInActivityListPanel.getRoot());
+        activitiesAttendedByMemberPanel = new ActivitiesAttendedByMemberPanel(logic.getActivitiesOfPerson());
+        rightListPanelPlaceholder.getChildren().add(activitiesAttendedByMemberPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -180,12 +184,14 @@ public class MainWindow extends UiPart<Stage> {
         logic.callAllListFn();
         if (isModeChangeToMember()) {
             leftListPanelPlaceholder.getChildren().set(0, personListPanel.getRoot());
-            browserPlaceholder.getChildren().set(0, browserPanel.getRoot());
+            browserPlaceholder.getChildren().set(0, memberDetailPanel.getRoot());
+            rightListPanelPlaceholder.getChildren().set(0, activitiesAttendedByMemberPanel.getRoot());
             setModeLabel(AppMode.Modes.MEMBER);
         }
         if (isModeChangeToActivity()) {
             leftListPanelPlaceholder.getChildren().set(0, activityListPanel.getRoot());
             browserPlaceholder.getChildren().set(0, activityDetailPanel.getRoot());
+            rightListPanelPlaceholder.getChildren().set(0, personNotInActivityListPanel.getRoot());
             setModeLabel(AppMode.Modes.ACTIVITY);
         }
     }

@@ -178,7 +178,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 === Member Management Features
 
-image::MemberCommands.png[width="100%"]
+image::memberCommands.png[width="100%"]
 
 ==== Adding a member: `memberAdd`
 

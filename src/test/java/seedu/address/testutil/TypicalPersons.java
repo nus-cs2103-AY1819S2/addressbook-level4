@@ -32,95 +32,96 @@ import seedu.address.model.person.Person;
 public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
-            .withMatricNumber("A0123123Z")
+            .withMatricNumber("A0123123B")
             .withPhone("94351253")
             .withEmail("alice@example.com")
             .withAddress("123, Jurong West Ave 6, #08-111")
             .withGender("Female")
-            .withYearOfStudy("Year 4")
+            .withYearOfStudy("4")
             .withMajor("Business Analytics")
-            .withTags("running").build();
+            .withTags("Running").build();
 
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withMatricNumber("A0222222B")
             .withPhone("98765432")
-            .withEmail("johnd@example.com")
+            .withEmail("benson@example.com")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withGender("male")
-            .withYearOfStudy("year 1")
-            .withMajor("computing")
-            .withTags("swimming", "running").build();
+            .withYearOfStudy("2")
+            .withMajor("Information Systems")
+            .withTags("Swimming", "Running").build();
 
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz")
-            .withMatricNumber("A0333333C")
+            .withMatricNumber("A0333333N")
             .withPhone("95352563")
-            .withEmail("heinz@example.com")
+            .withEmail("carl@example.com")
             .withAddress("wall street")
             .withGender("male")
-            .withYearOfStudy("year 1")
-            .withMajor("computing")
-            .withTags("swimming", "running").build();
+            .withYearOfStudy("1")
+            .withMajor("Computer Engineering")
+            .withTags("Swimming", "Running").build();
 
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier")
-            .withMatricNumber("A0444444D")
+            .withMatricNumber("A0444444A")
             .withPhone("87652533")
-            .withEmail("cornelia@example.com")
+            .withEmail("daniel@example.com")
             .withAddress("10th street")
             .withGender("male")
-            .withYearOfStudy("year 1")
-            .withMajor("computing")
-            .withTags("hockey").build();
+            .withYearOfStudy("4")
+            .withMajor("Computer Science")
+            .withTags("Hockey").build();
 
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer")
-            .withMatricNumber("A0555555E")
-            .withPhone("9482224")
-            .withEmail("werner@example.com")
+            .withMatricNumber("A0555555R")
+            .withPhone("94822241")
+            .withEmail("elle@example.com")
             .withAddress("michegan ave")
             .withGender("Female")
-            .withYearOfStudy("year 1")
-            .withMajor("computing")
-            .withTags("hockey").build();
+            .withYearOfStudy("1")
+            .withMajor("Life Science")
+            .withTags("Hockey").build();
 
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz")
-            .withMatricNumber("A0777777R")
+            .withMatricNumber("A0777777U")
             .withPhone("94812427")
-            .withEmail("lydia@example.com")
+            .withEmail("fiona@example.com")
             .withAddress("little tokyo")
             .withGender("female")
-            .withYearOfStudy("year 1")
-            .withMajor("computing")
-            .withTags("hockey").build();
+            .withYearOfStudy("5")
+            .withMajor("Medicine")
+            .withTags("Floorball").build();
 
     public static final Person GEORGE = new PersonBuilder().withName("George Best")
-            .withMatricNumber("A0888888R")
+            .withMatricNumber("A0888888H")
             .withPhone("94182442")
-            .withEmail("anna@example.com")
+            .withEmail("george@example.com")
             .withAddress("4th street")
             .withGender("Male")
-            .withYearOfStudy("year 1")
-            .withMajor("computing")
-            .withTags("hockey").build();
+            .withYearOfStudy("3")
+            .withMajor("Biomedical Engineering")
+            .withTags("Hockey").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier")
-            .withMatricNumber("A0999999P")
-            .withPhone("8482424")
-            .withEmail("stefan@example.com")
+            .withMatricNumber("A0999999W")
+            .withPhone("84824241")
+            .withEmail("hoon@example.com")
             .withAddress("little india")
             .withGender("Female")
-            .withYearOfStudy("year 1")
-            .withMajor("computing")
-            .withTags("hockey").build();
+            .withYearOfStudy("1")
+            .withMajor("Economics")
+            .withTags("Soccer").build();
 
     public static final Person IDA = new PersonBuilder().withName("Ida Mueller")
-            .withMatricNumber("A0321654S")
-            .withPhone("8482131")
-            .withEmail("hans@example.com")
+            .withMatricNumber("A0321654J")
+            .withPhone("84821311")
+            .withEmail("ida@example.com")
             .withAddress("chicago ave")
             .withGender("female")
-            .withYearOfStudy("year 1")
-            .withMajor("computing")
-            .withTags("hockey").build();
+            .withYearOfStudy("4")
+            .withMajor("Business")
+            .withTags("Basketball").build();
+
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY)

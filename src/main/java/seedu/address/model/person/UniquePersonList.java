@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.util.Pair;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -26,9 +27,15 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  */
 public class UniquePersonList implements Iterable<Person> {
 
+    private static final String SORT_BY_NAME = "name";
+    private static final String SORT_BY_GENDER = "gender";
+    private static final String SORT_BY_MAJOR = "major";
+    private static final String SORT_BY_YEAR_OF_STUDY = "yearofstudy";
+
     private final ObservableList<Person> internalList = FXCollections.observableArrayList();
     private final ObservableList<Person> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
@@ -108,44 +115,48 @@ public class UniquePersonList implements Iterable<Person> {
      * Sorts the Member's list based on a given predicate.
      */
     public void sortList(Predicate<String> predicate) {
+        requireNonNull(predicate);
+
         FXCollections.sort(internalList, new Comparator <Person> () {
             @Override
             public int compare(Person o1, Person o2) {
                 String sortCriteria = predicate.toString().toLowerCase();
-                String first = "";
-                String second = "";
-                switch (sortCriteria) {
-                    case "name":
-                        first = o1.getName().fullName;
-                        second = o2.getName().fullName;
-                        break;
-
-                    case "gender":
-                        first = o1.getGender().value;
-                        second = o2.getGender().value;
-                        break;
-
-                    case "major":
-                        first = o1.getMajor().value;
-                        second = o2.getMajor().value;
-                        break;
-
-                    case "yearofstudy":
-                        first = o1.getYearOfStudy().value;
-                        second = o2.getYearOfStudy().value;
-                        break;
-                    default:
+                Pair<String, String> test = getCriteria(sortCriteria, o1, o2);
+                int result = 1;
+                if (test == null) {
+                    result = test.getKey().compareTo(test.getValue());
                 }
-
-                int result = first.compareTo(second);
                 if (result != 0) {
                     return result;
-                } else {
-                    return o1.getName().fullName.compareTo(o2.getName().fullName);
                 }
+                return o1.getName().fullName.compareTo(o2.getName().fullName);
             }
         });
     }
+
+    /**
+     * [Add your comments]
+     * @param sortCriteria
+     * @param o1
+     * @param o2
+     * @return
+     */
+    public Pair<String, String> getCriteria(String sortCriteria, Person o1, Person o2) {
+        switch (sortCriteria) {
+        case SORT_BY_NAME:
+            return new Pair<>(o1.getName().fullName, o2.getName().fullName);
+        case SORT_BY_GENDER:
+            return new Pair<>(o1.getGender().value, o2.getGender().value);
+        case SORT_BY_MAJOR:
+            return new Pair<>(o1.getMajor().value, o2.getMajor().value);
+        case SORT_BY_YEAR_OF_STUDY:
+            return new Pair<>(o1.getYearOfStudy().value, o2.getYearOfStudy().value);
+        default:
+            break;
+        }
+        return null;
+    }
+
 
     /**
      * Replaces the contents of this list with {@code persons}.

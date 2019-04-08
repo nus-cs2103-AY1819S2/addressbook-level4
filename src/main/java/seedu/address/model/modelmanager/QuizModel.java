@@ -8,6 +8,7 @@ import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
 import seedu.address.model.srscard.SrsCard;
+import seedu.address.model.user.User;
 
 /**
  * The API of the QuizModel component.
@@ -124,4 +125,9 @@ public interface QuizModel extends Model {
      * Returns formatter {@code QuizUiDisplayFormatter} in this {@code Quiz}.
      */
     QuizUiDisplayFormatter getDisplayFormatter();
+
+    /**
+     * Returns user {@link User} from {@link ManagementModel}.
+     */
+    User getManagementModelUser();
 }

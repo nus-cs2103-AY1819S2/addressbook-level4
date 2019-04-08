@@ -8,6 +8,7 @@ import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
 import seedu.address.model.srscard.SrsCard;
+import seedu.address.model.user.User;
 
 /**
  * A default model stub that have all of the methods failing.
@@ -149,6 +150,11 @@ public class QuizModelStub implements QuizModel {
 
     @Override
     public QuizUiDisplayFormatter getDisplayFormatter() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public User getManagementModelUser() {
         throw new AssertionError("This method should not be called.");
     }
 }

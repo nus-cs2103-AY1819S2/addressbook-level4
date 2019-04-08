@@ -13,6 +13,7 @@ import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
 import seedu.address.model.srscard.SrsCard;
 import seedu.address.model.user.CardSrsData;
+import seedu.address.model.user.User;
 
 /**
  * Represents the in-memory management of quiz data
@@ -164,6 +165,12 @@ public class QuizModelManager implements QuizModel {
     public QuizUiDisplayFormatter getDisplayFormatter() {
         return formatter;
     }
+
+    @Override
+    public User getManagementModelUser() {
+        return managementModel.getUser();
+    }
+
     // TODO include session and mgmt model as well
     @Override
     public boolean equals(Object obj) {

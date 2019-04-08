@@ -21,6 +21,31 @@ public class ExpiryTest {
     }
 
     @Test
+    public void compareTo() {
+        Expiry expiry = new Expiry("12/12/2020");
+
+        // Later than expiry
+        if (expiry.compareTo(new Expiry("13/12/2020")) >= 0) {
+            throw new AssertionError("Wrong comparison result");
+        }
+
+        // Same date as expiry
+        if (expiry.compareTo(new Expiry("12/12/2020")) != 0) {
+            throw new AssertionError("Wrong comparison result");
+        }
+
+        // Earlier than expiry
+        if (expiry.compareTo(new Expiry("11/12/2020")) <= 0) {
+            throw new AssertionError("Wrong comparison result");
+        }
+
+        // null expiry
+        if (expiry.compareTo(new Expiry("-")) <= 0) {
+            throw new AssertionError("Wrong comparison result");
+        }
+    }
+
+    @Test
     public void isValidDate() {
         // null expiry
         Assert.assertThrows(NullPointerException.class, () -> Expiry.isValidDate(null));

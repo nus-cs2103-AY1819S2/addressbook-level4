@@ -1,8 +1,14 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_MEDICINES_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BATCHNUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalMedicines.ACETAMINOPHEN;
 import static seedu.address.testutil.TypicalMedicines.IBUPROFEN;
 import static seedu.address.testutil.TypicalMedicines.KEYWORD_MATCHING_SODIUM;
@@ -20,6 +26,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
+import seedu.address.model.medicine.Batch;
 import seedu.address.model.tag.Tag;
 
 public class FindCommandSystemTest extends MediTabsSystemTest {
@@ -29,7 +36,7 @@ public class FindCommandSystemTest extends MediTabsSystemTest {
         /* Case: find multiple medicines in inventory, command with leading spaces and trailing spaces
          * -> 2 medicines found
          */
-        String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SODIUM + "   ";
+        String command = "   " + FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " " + KEYWORD_MATCHING_SODIUM + "   ";
         Model expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, NAPROXEN, LEVOTHYROXINE); // Naproxen Sodium and Levothyroxine Sodium
         assertCommandSuccess(command, expectedModel);
@@ -38,36 +45,36 @@ public class FindCommandSystemTest extends MediTabsSystemTest {
         /* Case: repeat previous find command where medicine list is displaying the medicines we are finding
          * -> 2 medicines found
          */
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SODIUM;
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + KEYWORD_MATCHING_SODIUM;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find medicine where medicine list is not displaying the medicine we are finding -> 1 medicine found */
-        command = FindCommand.COMMAND_WORD + " Acetaminophen";
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " Acetaminophen";
         ModelHelper.setFilteredList(expectedModel, ACETAMINOPHEN);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple medicines in inventory, 2 keywords -> 2 medicines found */
-        command = FindCommand.COMMAND_WORD + " Ibuprofen Levothyroxine";
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " Ibuprofen Levothyroxine";
         ModelHelper.setFilteredList(expectedModel, IBUPROFEN, LEVOTHYROXINE);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple medicines in inventory, 2 keywords in reversed order -> 2 medicines found */
-        command = FindCommand.COMMAND_WORD + " Levothyroxine Ibuprofen";
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " Levothyroxine Ibuprofen";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple medicines in inventory, 2 keywords with 1 repeat -> 2 medicines found */
-        command = FindCommand.COMMAND_WORD + " Levothyroxine Ibuprofen Levothyroxine";
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " Levothyroxine Ibuprofen Levothyroxine";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple medicines in inventory, 2 matching keywords and 1 non-matching keyword
          * -> 2 medicines found
          */
-        command = FindCommand.COMMAND_WORD + " Levothyroxine Ibuprofen NonMatchingKeyWord";
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " Levothyroxine Ibuprofen NonMatchingKeyWord";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -84,53 +91,56 @@ public class FindCommandSystemTest extends MediTabsSystemTest {
         /* Case: find same medicines in inventory after deleting 1 of them -> 1 medicine found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
         assertFalse(getModel().getInventory().getMedicineList().contains(IBUPROFEN));
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SODIUM;
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " " + KEYWORD_MATCHING_SODIUM;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, LEVOTHYROXINE);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find medicine in inventory, keyword is same as name but of different case -> 1 medicine found */
-        command = FindCommand.COMMAND_WORD + " SoDiUm";
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " SoDiUm";
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find company of medicine in inventory -> 1 medicines found */
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_COMPANY + " " + LEVOTHYROXINE.getCompany().companyName;
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find tag of medicine in inventory -> 1 medicines found */
+        List<Tag> tags = new ArrayList<>(LEVOTHYROXINE.getTags());
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_TAG + " " + tags.get(0).tagName;
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find batch of medicine in inventory -> 1 medicines found */
+        List<Batch> batches = new ArrayList<>(LEVOTHYROXINE.getBatches().values());
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_BATCHNUMBER + " "
+                + batches.get(0).getBatchNumber().batchNumber;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find medicine in inventory, keyword is substring of name -> 0 medicines found */
-        command = FindCommand.COMMAND_WORD + " Sodi";
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " Sodi";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find medicine in inventory, name is substring of keyword -> 0 medicines found */
-        command = FindCommand.COMMAND_WORD + " Sodiums";
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " Sodiums";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find medicine not in inventory -> 0 medicines found */
-        command = FindCommand.COMMAND_WORD + " Augmentin";
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " Augmentin";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find quantity of medicine in inventory -> 0 medicines found */
-        command = FindCommand.COMMAND_WORD + " " + LEVOTHYROXINE.getTotalQuantity().toString();
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
-        /* Case: find company of medicine in inventory -> 0 medicines found */
-        command = FindCommand.COMMAND_WORD + " " + LEVOTHYROXINE.getCompany().companyName;
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
-        /* Case: find expiry date of medicine in inventory -> 0 medicines found */
-        command = FindCommand.COMMAND_WORD + " " + LEVOTHYROXINE.getNextExpiry().toString();
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
-        /* Case: find tags of medicine in inventory -> 0 medicines found */
-        List<Tag> tags = new ArrayList<>(LEVOTHYROXINE.getTags());
-        command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
-        assertCommandSuccess(command, expectedModel);
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_QUANTITY + " " + LEVOTHYROXINE.getTotalQuantity().toString();
+        expectedResultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
+        assertCommandFailure(command, expectedResultMessage);
         assertSelectedCardUnchanged();
 
         /* Case: find while a medicine is selected -> selected card deselected */
@@ -138,21 +148,21 @@ public class FindCommandSystemTest extends MediTabsSystemTest {
         selectMedicine(Index.fromOneBased(1));
         assertFalse(getMedicineListPanel().getHandleToSelectedCard().getName()
                 .equals(LEVOTHYROXINE.getName().fullName));
-        command = FindCommand.COMMAND_WORD + " Levothyroxine";
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " Levothyroxine";
         ModelHelper.setFilteredList(expectedModel, LEVOTHYROXINE);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
         /* Case: find medicine in empty inventory -> 0 medicines found */
         deleteAllMedicines();
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SODIUM;
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " " + KEYWORD_MATCHING_SODIUM;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, LEVOTHYROXINE);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: mixed case command word -> rejected */
-        command = "FiNd Sodium";
+        command = "FiNd n/Sodium";
         assertCommandFailure(command, MESSAGE_UNKNOWN_COMMAND);
     }
 

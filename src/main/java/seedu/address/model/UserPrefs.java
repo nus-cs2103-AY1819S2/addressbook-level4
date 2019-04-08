@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.InformationPanelSettings;
 import seedu.address.commons.core.WarningPanelSettings;
 
 /**
@@ -16,6 +17,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private WarningPanelSettings warningPanelSettings = new WarningPanelSettings();
+    private InformationPanelSettings informationPanelSettings = new InformationPanelSettings();
     private Path inventoryFilePath = Paths.get("data" , "MediTabs.json");
 
     /**
@@ -39,6 +41,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setGuiSettings(newUserPrefs.getGuiSettings());
         setInventoryFilePath(newUserPrefs.getInventoryFilePath());
         setWarningPanelSettings(newUserPrefs.getWarningPanelSettings());
+        setInformationPanelSettings(newUserPrefs.getInformationPanelSettings());
     }
 
     public GuiSettings getGuiSettings() {
@@ -57,6 +60,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setWarningPanelSettings(WarningPanelSettings warningPanelSettings) {
         requireNonNull(warningPanelSettings);
         this.warningPanelSettings = warningPanelSettings;
+    }
+
+    public InformationPanelSettings getInformationPanelSettings() {
+        return informationPanelSettings;
+    }
+
+    public void setInformationPanelSettings(InformationPanelSettings informationPanelSettings) {
+        requireNonNull(informationPanelSettings);
+        this.informationPanelSettings = informationPanelSettings;
     }
 
     public Path getInventoryFilePath() {
@@ -93,6 +105,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nWarning Panel Settings : " + warningPanelSettings);
+        sb.append("\nInformation Panel Settings : " + informationPanelSettings);
         sb.append("\nLocal data file location : " + inventoryFilePath);
         return sb.toString();
     }

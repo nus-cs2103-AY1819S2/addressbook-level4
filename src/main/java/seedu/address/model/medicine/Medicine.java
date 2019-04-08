@@ -19,7 +19,7 @@ import seedu.address.model.tag.Tag;
  * Represents a Medicine in the inventory.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Medicine {
+public class Medicine implements Comparable<Medicine> {
 
     // Identity fields
     private final Name name;
@@ -80,6 +80,14 @@ public class Medicine {
     public FilteredList<Batch> getFilteredBatch(Predicate<Batch> predicate) {
         ObservableList<Batch> batches = FXCollections.observableArrayList(getBatches().values());
         return batches.filtered(predicate);
+    }
+
+    @Override
+    public int compareTo(Medicine other) {
+        if (getName().compareTo(other.getName()) == 0) {
+            return getCompany().compareTo(other.getCompany());
+        }
+        return getName().compareTo(other.getName());
     }
 
     /**

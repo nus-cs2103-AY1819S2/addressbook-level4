@@ -3,11 +3,13 @@ package seedu.address.model.medicine;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.model.medicine.exceptions.DuplicateMedicineException;
 import seedu.address.model.medicine.exceptions.MedicineNotFoundException;
 
@@ -26,6 +28,8 @@ import seedu.address.model.medicine.exceptions.MedicineNotFoundException;
 public class UniqueMedicineList implements Iterable<Medicine> {
 
     private final ObservableList<Medicine> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Medicine> internalListSorted = new SortedList<>(internalList,
+            Comparator.naturalOrder());
     private final ObservableList<Medicine> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
@@ -107,19 +111,19 @@ public class UniqueMedicineList implements Iterable<Medicine> {
 
     @Override
     public Iterator<Medicine> iterator() {
-        return internalList.iterator();
+        return internalListSorted.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueMedicineList // instanceof handles nulls
-                        && internalList.equals(((UniqueMedicineList) other).internalList));
+                        && internalListSorted.equals(((UniqueMedicineList) other).internalListSorted));
     }
 
     @Override
     public int hashCode() {
-        return internalList.hashCode();
+        return internalListSorted.hashCode();
     }
 
     /**

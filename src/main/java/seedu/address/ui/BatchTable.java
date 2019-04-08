@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
+import seedu.address.commons.core.InformationPanelSettings;
 import seedu.address.commons.core.InformationPanelSettings.SortDirection;
 import seedu.address.commons.core.InformationPanelSettings.SortProperty;
 import seedu.address.model.medicine.Batch;
@@ -52,12 +53,12 @@ public class BatchTable extends UiPart<Region> {
     @FXML
     private TableColumn<Batch, Expiry> expiryColumn;
 
-    public BatchTable(Medicine selectedMedicine, SortProperty sortProperty, SortDirection sortDirection) {
+    public BatchTable(Medicine selectedMedicine, InformationPanelSettings informationPanelSettings) {
         super(FXML);
 
         setDescriptionTexts(selectedMedicine);
         populateTable(selectedMedicine);
-        sortTable(sortProperty, sortDirection);
+        sortTable(informationPanelSettings);
     }
 
     private void setDescriptionTexts(Medicine selectedMedicine) {
@@ -78,10 +79,13 @@ public class BatchTable extends UiPart<Region> {
     /**
      * Sorts the table depending on the input sortProperty and sortDirection.
      */
-    public void sortTable(SortProperty sortProperty, SortDirection sortDirection) {
+    public void sortTable(InformationPanelSettings informationPanelSettings) {
         table.getSortOrder().clear();
-        TableColumn<Batch, ?> column;
 
+        SortProperty sortProperty = informationPanelSettings.getSortProperty();
+        SortDirection sortDirection = informationPanelSettings.getSortDirection();
+
+        TableColumn<Batch, ?> column;
         if (sortProperty.equals(SortProperty.BATCHNUMBER)) {
             column = numberColumn;
         } else if (sortProperty.equals(SortProperty.QUANTITY)) {
@@ -89,7 +93,7 @@ public class BatchTable extends UiPart<Region> {
         } else if (sortProperty.equals(SortProperty.EXPIRY)) {
             column = expiryColumn;
         } else {
-            return;
+            throw new IllegalArgumentException("Unknown Sort Property.");
         }
 
         if (sortDirection.equals(SortDirection.ASCENDING)) {
@@ -118,10 +122,6 @@ public class BatchTable extends UiPart<Region> {
     }
 
     public List<Batch> getTableData() {
-        List<Batch> data = new ArrayList<>();
-        for (Batch batch : table.getItems()) {
-            data.add(batch);
-        }
-        return data;
+        return new ArrayList<>(table.getItems());
     }
 }

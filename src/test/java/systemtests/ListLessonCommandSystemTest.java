@@ -1,5 +1,7 @@
 package systemtests;
 
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
 import org.junit.Test;
 
 import seedu.address.logic.commands.management.ListLessonsCommand;
@@ -9,10 +11,16 @@ import seedu.address.model.modelmanager.Model;
 public class ListLessonCommandSystemTest extends BrainTrainSystemTest {
     @Test
     public void list() {
+        /* Case: invalid command
+         * -> fails, invalid command
+         */
+        String command = "someinvalidcommand";
+        assertCommandFailure(command, MESSAGE_UNKNOWN_COMMAND);
+
         /* Case: list all lessons in braintrain
          * -> 1 lesson found
          */
-        String command = ListLessonsCommand.COMMAND_WORD;
+        command = ListLessonsCommand.COMMAND_WORD;
         Model expectedModel = getManagementModel();
         assertCommandSuccess(command, expectedModel);
     }

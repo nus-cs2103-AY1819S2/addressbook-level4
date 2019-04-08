@@ -1,5 +1,6 @@
 package systemtests;
 
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.management.OpenLessonCommand.MESSAGE_SUCCESS;
 
 import org.junit.Test;
@@ -11,7 +12,16 @@ import seedu.address.model.modelmanager.Model;
 public class OpenLessonCommandSystemTest extends BrainTrainSystemTest {
     @Test
     public void open() {
-        String command = OpenLessonCommand.COMMAND_WORD + " 1";
+        /* Case: invalid command
+         * -> fails, invalid command
+         */
+        String command = "someinvalidcommand";
+        assertCommandFailure(command, MESSAGE_UNKNOWN_COMMAND);
+
+        /* Case: opens lesson at index 1
+         * -> opens lesson
+         */
+        command = OpenLessonCommand.COMMAND_WORD + " 1";
         ManagementModel expectedModel = getManagementModel();
         assertCommandSuccess(command, expectedModel);
 

@@ -162,11 +162,11 @@ You can download and install integration addons created for MediTabs such as add
 Format: `install an/NAME_OF_ADDON`
 
 [NOTE]
-Only integration addons that have been verified by our team can be downloaded and installed in MediTabs. This is to ensure that the addons downloaded and installed in MediTabs are secure and have no malicious code. This is to ensure the security which MediTabs provides would not be compromise as security is an important factor due to the increasing threat with regards to cybersecurity.
+Only integration addons that have been verified by our team can be downloaded and installed in MediTabs. This is to ensure that the addons are secure and have no malicious code due to the increasing cybersecurity threat.
 
 Benefits of integration addon support are as follows:
 
-* Provides greater flexibility as your clinic might have different third party services which you might want to integrate with to allow for easier transition between services.
+* Provides greater flexibility as as you might choose to integrate with different third-party services which are currently used by your clinic, to allow for easier transition between services.
 * Allows you to customise MediTabs with features that your clinic requires without any unnecessary features which might not be relevant to your clinic's workflow.
 
 An example of an integration addon which would be supported by MediTabs:
@@ -174,7 +174,7 @@ An example of an integration addon which would be supported by MediTabs:
 * Singapore's Health Science Authority (HSA) - To integrate the Singapore HSA's medical database with MediTabs which allows easy retrieval of important information such as when a medicine is requested to be recalled by the HSA.
 
 [NOTE]
-This feature could be further expanded to support medical databases of different countries.
+This feature can be improved to support medical databases of different countries.
 // end::integrationaddon[]
 
 // tag::dataencryption[]
@@ -408,11 +408,11 @@ Format: `export [FILE_NAME]`
 
 ****
 * The `FILE_NAME` field is optional. You can refer to <<Appendix A: File Naming Convention>> for supported file name format if you want to specify a file name for the exported CSV file.
-* If no file name is specified, the export command uses the default file name format according to the date and time of export.
+* If no file name is specified, the `export` command uses the default file name format according to the date and time of export.
 * The specific data and time format used if no file name is specified is `dd_MMM_yyyy_HH_mm_ss` e.g. `18_Mar_2019_10_28_00`
 * The file extension for a CSV file is `.csv`
 * The exported file can be found in the default `exported` folder which can be found in the home folder used for your MediTabs application.
-* If the default `exported` folder is not found in the home folder, MediTabs will automatically create the folder when the export command is executed.
+* If the default `exported` folder is not found in the home folder, MediTabs will automatically create the folder when the `export` command is executed.
 ****
 
 Examples:
@@ -427,13 +427,14 @@ If a file with the specified file name already exists in the default `exported` 
 
 A sample image of how the medicine inventory data in the exported CSV file is organised:
 
+.Sample of exported CSV file
 image::SampleCSVFileImage.png[width="790"]
 
 [NOTE]
-From the image above, you can observe that different batches of the same medicine have their own row in the CSV file. This provides more detailed information on the quantity and expiry date for each batch of the same medicine as different batches of the same medicine can have different expiry dates and quantity. Furthermore, the CSV file also includes information such as which medicines are low in stock, expiring soon or have expired for easier reference.
+From the image above, you can observe that the exported CSV file only contains essential information such as the medicine batches, quantity and expiry date for each batch of medicine and which medicines are low in stock, expiring soon or have expired for easier reference.
 
 [IMPORTANT]
-You would observe that medicines without any batches are not included in the exported CSV file though they might be present in the current medicine inventory data shown in the GUI. This is by design, as our team believes that the exported CSV file should provide *useful detailed information*. Medicines without any batches would not have any useful information such as the quantity and expiry dates which are important when it comes to keeping track of your medicine inventory.
+You would observe that medicines without any batches are not included in the exported CSV file. This is by design, as our team believes that the exported CSV file should only provide *useful detailed information*. Medicines without any batches would not have any useful information such as the quantity and expiry dates which are important when it comes to keeping track of your medicine inventory.
 // end::exportcommand[]
 
 === Printing labels : `label`

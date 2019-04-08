@@ -1,6 +1,5 @@
 package seedu.address.model.util;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +15,6 @@ import seedu.address.model.appointment.AppointmentPatientId;
 import seedu.address.model.appointment.AppointmentTime;
 import seedu.address.model.appointment.FutureAppointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
-import seedu.address.model.medicalhistory.WriteUp;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Age;
 import seedu.address.model.person.Doctor;

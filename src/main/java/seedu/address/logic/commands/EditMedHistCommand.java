@@ -26,8 +26,8 @@ public class EditMedHistCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_WRITEUP + "EDITED-SHORT-WRITE-UP \n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_WRITEUP + "The patient has a fever in the morning " +
-            "and come to me for the second time today because of higher fever ";
+            + PREFIX_WRITEUP + "The patient has a fever in the morning "
+            + "and come to me for the second time today because of higher fever ";
 
     public static final String MESSAGE_EDIT_MEDHIST_SUCCESS = "Edited Write Up of Medical History: %1$s";
     public static final String MESSAGE_NOT_EDITED = "WriteUp to edit must be provided.";

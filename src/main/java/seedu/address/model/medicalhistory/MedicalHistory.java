@@ -6,8 +6,6 @@ import java.util.Objects;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
 
-import javax.print.Doc;
-
 
 /**
  * Represents a Medical History in the docX.
@@ -30,7 +28,6 @@ public class MedicalHistory {
 
     //Constructor
     public MedicalHistory(int patientId, int doctorId, LocalDate date, WriteUp writeUp) {
-        // Doctor, Time, MedicalHistory Id are needed
         this.patientId = patientId;
         this.doctorId = doctorId;
         this.date = date;
@@ -103,7 +100,8 @@ public class MedicalHistory {
         }
 
         MedicalHistory otherMedHist = (MedicalHistory) other;
-        return  (otherMedHist.getPatientId() == getPatientId())
+
+        return (otherMedHist.getPatientId() == getPatientId())
                 && (otherMedHist.getDoctorId() == getDoctorId())
                 && otherMedHist.getDate().equals(getDate())
                 && otherMedHist.getWriteUp().equals(getWriteUp());

@@ -6,7 +6,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WRITEUP;
 
+import java.util.function.Predicate;
+
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -15,8 +18,6 @@ import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.RecordContainsDoctorIdPredicate;
 import seedu.address.model.person.RecordContainsPatientIdPredicate;
-
-import java.util.function.Predicate;
 
 /**
  * Adds a medical history.

@@ -20,6 +20,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Age;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.PersonId;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Year;
 import seedu.address.model.prescription.Description;
@@ -60,6 +61,36 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String personId} into a {@code personId}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code personId} is invalid.
+     */
+    public static PersonId parsePersonId(String personId) throws ParseException {
+        requireNonNull(personId);
+        String trimmedPersonId = personId.trim();
+        if (!PersonId.isValidPersonId(trimmedPersonId)) {
+            throw new ParseException(PersonId.MESSAGE_CONSTRAINTS);
+        }
+        return new PersonId(trimmedPersonId);
+    }
+
+    /**
+     * Parses a {@code String validDate} into a {@code validDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code validDate} is invalid.
+     */
+    public static ValidDate parseValidDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedValidDate = date.trim();
+        if (!ValidDate.isValidDate(trimmedValidDate)) {
+            throw new ParseException(ValidDate.MESSAGE_CONSTRAINTS);
+        }
+        return new ValidDate(trimmedValidDate);
     }
 
     /**
@@ -278,20 +309,6 @@ public class ParserUtil {
             throw new ParseException(AppointmentTime.MESSAGE_CONSTRAINTS);
         }
         return new AppointmentTime(time);
-    }
-
-    /**
-     * Parses a {@code LocalDate date} into a {@code date}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code date} is invalid.
-     */
-    public static ValidDate parseValidDate(LocalDate date) throws ParseException {
-        requireNonNull(date);
-        if (!ValidDate.isValidDate(date)) {
-            throw new ParseException(ValidDate.MESSAGE_CONSTRAINTS);
-        }
-        return new ValidDate(date);
     }
 
     /**

@@ -24,6 +24,10 @@ public class PersonId {
         this.personId = Integer.parseInt(personId);
     }
 
+    public PersonId(int personId) {
+        this.personId = personId;
+    }
+
     /**
      * Returns true if a given string is a valid person ID.
      */

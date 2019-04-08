@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.PersonId;
 
 
 /**
@@ -18,8 +19,8 @@ public class MedicalHistory {
     private Doctor doctor = null;
 
     //Current id field, will be modified later
-    private int patientId;
-    private int doctorId;
+    private PersonId patientId;
+    private PersonId doctorId;
     private String medHistId;
 
     // Data field
@@ -27,7 +28,7 @@ public class MedicalHistory {
     private WriteUp writeUp;
 
     //Constructor
-    public MedicalHistory(int patientId, int doctorId, ValidDate date, WriteUp writeUp) {
+    public MedicalHistory(PersonId patientId, PersonId doctorId, ValidDate date, WriteUp writeUp) {
         this.patientId = patientId;
         this.doctorId = doctorId;
         this.date = date;
@@ -48,7 +49,7 @@ public class MedicalHistory {
         return this.doctor;
     }
 
-    public int getPatientId() {
+    public PersonId getPatientId() {
         return this.patientId;
     }
 
@@ -56,7 +57,7 @@ public class MedicalHistory {
         this.patient = patient;
     }
 
-    public int getDoctorId() {
+    public PersonId getDoctorId() {
         return this.doctorId;
     }
 
@@ -64,8 +65,8 @@ public class MedicalHistory {
         this.doctor = doctor;
     }
 
-    public LocalDate getDate() {
-        return this.date.value;
+    public ValidDate getDate() {
+        return this.date;
     }
 
     public WriteUp getWriteUp() {

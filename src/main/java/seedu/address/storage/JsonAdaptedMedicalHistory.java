@@ -9,6 +9,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.ValidDate;
 import seedu.address.model.medicalhistory.WriteUp;
+import seedu.address.model.person.PersonId;
 
 /**
  * Jackson-friendly version of {@link MedicalHistory}.
@@ -42,8 +43,8 @@ public class JsonAdaptedMedicalHistory {
      */
     public JsonAdaptedMedicalHistory(MedicalHistory source) {
         medHistId = source.getMedHistId();
-        patientId = source.getPatientId();
-        doctorId = source.getDoctorId();
+        patientId = source.getPatientId().personId;
+        doctorId = source.getDoctorId().personId;
         date = source.getDate().toString();
         writeUp = source.getWriteUp().value;
     }
@@ -54,7 +55,9 @@ public class JsonAdaptedMedicalHistory {
      * @throws IllegalValueException if there were any data constraints violated in the adapted medical history.
      */
     public MedicalHistory toModelType() throws IllegalValueException {
-        final ValidDate modelDate = new ValidDate(LocalDate.parse(date));
+        final PersonId patientId = new PersonId(this.patientId);
+        final PersonId doctorId = new PersonId(this.doctorId);
+        final ValidDate modelDate = new ValidDate(date);
         final WriteUp modelWriteUp = new WriteUp(this.writeUp);
         return new MedicalHistory(patientId, doctorId, modelDate, modelWriteUp);
     }

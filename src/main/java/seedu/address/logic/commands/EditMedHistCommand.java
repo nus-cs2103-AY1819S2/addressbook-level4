@@ -83,7 +83,7 @@ public class EditMedHistCommand extends Command {
         WriteUp updatedWriteUp = editMedHistDescriptor.getWriteUp();
 
         return new MedicalHistory(medHistToEdit.getPatientId(), medHistToEdit.getDoctorId(),
-                new ValidDate(medHistToEdit.getDate()), updatedWriteUp);
+                medHistToEdit.getDate(), updatedWriteUp);
     }
 
     @Override

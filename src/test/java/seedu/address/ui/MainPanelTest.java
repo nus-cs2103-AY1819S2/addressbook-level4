@@ -20,7 +20,7 @@ public class MainPanelTest extends GuiUnitTest {
         uiPartRule.setUiPart(mainPanel);
 
         mainPanelHandle = new MainPanelHandle(getChildNode(mainPanel.getRoot(),
-            MainPanelHandle.RESULT_DISPLAY_ID));
+            MainPanelHandle.MAIN_PANEL_ID));
     }
 
     @Test

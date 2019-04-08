@@ -132,14 +132,15 @@ public class MainWindow extends UiPart<Stage> {
         lessonListPanel = new LessonListPanel(logic.getLessons());
         lessonListPanelPlaceholder.getChildren().add(lessonListPanel.getRoot());
 
+        mainPanel = new MainPanel();
+        mainPanelPlaceholder.getChildren().add(mainPanel.getRoot());
+
         flashcardPanel = new FlashcardPanel();
         mainPanelPlaceholder.getChildren().add(flashcardPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplay.setFeedbackToUser(MESSAGE_LESSON_COMMANDS);
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        mainPanel = new MainPanel();
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -165,13 +166,15 @@ public class MainWindow extends UiPart<Stage> {
             splitPane.setDividerPosition(0, 0.1);
             sidePanel.setMinWidth(340);
             sidePanel.setPrefWidth(340);
-            mainPanelPlaceholder.getChildren().set(0, flashcardPanel.getRoot());
+            mainPanelPlaceholder.getChildren().clear();
+            mainPanelPlaceholder.getChildren().add(flashcardPanel.getRoot());
             resultDisplay.setFeedbackToUser(MESSAGE_LESSON_COMMANDS);
         } else {
             splitPane.setDividerPosition(0, 0);
             sidePanel.setMinWidth(0);
             sidePanel.setPrefWidth(0);
-            mainPanelPlaceholder.getChildren().set(0, mainPanel.getRoot());
+            mainPanelPlaceholder.getChildren().clear();
+            mainPanelPlaceholder.getChildren().add(mainPanel.getRoot());
         }
     }
 

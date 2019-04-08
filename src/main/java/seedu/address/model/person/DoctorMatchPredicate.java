@@ -2,14 +2,11 @@
 
 package seedu.address.model.person;
 
-import seedu.address.commons.util.StringUtil;
-import seedu.address.model.appointment.Appointment;
+import java.util.function.Predicate;
+
 import seedu.address.model.appointment.AppointmentDate;
 import seedu.address.model.appointment.AppointmentTime;
 import seedu.address.model.tag.Specialisation;
-
-import java.util.List;
-import java.util.function.Predicate;
 
 /**
  * Tests that a {@code Doctor}'s {@code Name} matches any of the keywords given.
@@ -32,10 +29,10 @@ public class DoctorMatchPredicate implements Predicate<DoctorMatch> {
      */
     @Override
     public boolean test(DoctorMatch appt) {
-        boolean date_test = appt.getDate().equals(date);
-        boolean time_test = appt.getTime().equals(time);
+        boolean dateTest = appt.getDate().equals(date);
+        boolean timeTest = appt.getTime().equals(time);
 
-        return (date_test && time_test);
+        return (dateTest && timeTest);
     }
 
     @Override

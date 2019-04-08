@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -9,8 +11,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Doctor;
-
-import java.util.logging.Logger;
 
 /**
  * The Doctor Browser Panel of the App.

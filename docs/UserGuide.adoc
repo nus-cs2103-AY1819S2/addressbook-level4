@@ -461,6 +461,7 @@ image::CorrectAnswerPage.png[width="400"]
 {empty} +
 
 If the answer has been submitted successfully and it is wrong, you will see the following page (see Figure 4).
+
 .Wrong Answer page
 image::WrongAnswerPage.png[width="400"]
 

@@ -59,7 +59,9 @@ public class SelectPatientCommandSystemTest extends DocXSystemTest {
          */
         showPatientsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getDocX().getPatientList().size();
-        assertCommandFailure(SelectPatientCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
+        assertCommandFailure(
+                SelectPatientCommand.COMMAND_WORD + " " +
+                        invalidIndex, MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
 
         /* Case: filtered patient list, select index within bounds of DocX and patient list -> selected */
         Index validIndex = Index.fromOneBased(1);
@@ -79,7 +81,9 @@ public class SelectPatientCommandSystemTest extends DocXSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredPatientList().size() + 1;
-        assertCommandFailure(SelectPatientCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
+        assertCommandFailure(
+                SelectPatientCommand.COMMAND_WORD + " " +
+                        invalidIndex, MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
 
         /* Case: invalid arguments (alphabets) -> rejected */
         assertCommandFailure(SelectPatientCommand.COMMAND_WORD + " abc",

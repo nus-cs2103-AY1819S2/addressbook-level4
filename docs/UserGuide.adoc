@@ -67,7 +67,7 @@ Format: `add-patient n/NAME g/GENDER a/AGE p/PHONE_NUMBER adr/ADDRESS t/TAG`
 Examples:
 
 * `add-patient n/John Doe g/Male a/21 p/98765432 adr/Utown College 2`
-* `add-patient n/Betsy Crowe g/Female p/1234567 a/32 adr/RVRC House 12 t/diabetic`
+* `add-patient n/Betsy Crowe g/Female p/8234567 a/32 adr/RVRC House 12 t/diabetic`
 
 === Listing all patients : `list-patient`
 
@@ -89,8 +89,8 @@ Examples:
 
 * `edit-patient 1 p/91234567` +
 Edits the phone number of the patient with ID of '1' to be `91234567`.
-* `edit-patient 2 n/Betsy Crower p/45678901` +
-Edits the name and phone number of the patient with ID of '2' to be `Betsy Crower` and '45678901' respectively.
+* `edit-patient 2 n/Betsy Crower p/95678901` +
+Edits the name and phone number of the patient with ID of '2' to be `Betsy Crower` and '95678901' respectively.
 
 === Locating patient by name: `search-patient`
 
@@ -99,10 +99,13 @@ Format: `search-patient [NAME]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The order of the keywords does not matter +
+e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Only full words will be matched +
+e.g. `Han` will not match `Hans`
+* Patients matching at least one keyword will be returned +
+e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
@@ -112,32 +115,55 @@ Returns `john` and `John Doe`
 * `search-patient Betsy Tim John` +
 Returns any patient having names `Betsy`, `Tim`, or `John`
 
-=== Locating patient by name: `search-tag`
+=== Locating patients by their tags: `search-tag`
 
 Search and return patient(s) whose tags contain any of the given keywords. +
-Format: `search-patient [tagName]`
+Format: `search-patient [tagName1] [tagName2]...`
 
 ****
 * The search is case insensitive. e.g `HighBloodPressure` will match `highbloodpressure`
 * The order of the keywords does not matter. e.g. `stroke cancer` will match `cancer stroke`
 * Only the tagName is searched.
 * Only full words will be matched e.g. `high` will not match `highbloodpressure`
-* Patients matching at least one keyword will be returned (i.e. `OR` search). e.g. `diabetic` will return Patients with `diabetic` as one of their tags
+* Patients matching at least one keyword will be returned +
+e.g. `diabetic` will return all patients with `diabetic` as one of their tags
 ****
 
 Examples:
 
 * `search-tag diabetic` +
-Returns `John Doe` who has a `diabetic` tag
+Returns `John Doe` who has both `diabetic` and `stoke` tags
+
+=== Locating patients by any info: `search-advanced`
+
+Search and return patient(s) whose info contain any of the given keywords,
+even if the keyword is only a substring of one of the patient's info +
+Use a quoted keyword to search when one of the patient's info
+must match exactly the keyword
+Format: `search-advanced [keyword] ["quoted keyword"]...`
+
+****
+* The search is case insensitive. e.g `ALeX` will match `Alex`
+* The order of the keywords does not matter. e.g. `stroke cancer` will match `cancer stroke`
+* With unquoted keyword, partial words will be matched e.g. `Alex` will match `Alexander`
+* With quoted keyword, full words will be matched e.g. `high` will not match `highbloodpressure`
+* All the keywords must match a patient's info to be true.
+* Patients matching at least one keyword will be returned e.g. `diabetic` will return all patients with `diabetic` as one of their tags
+****
+
+Examples:
+
+* `search-tag diabetic` +
+Returns `John Doe` who has a `diabetic` and `stoke` tag
 
 === Deleting an existing patient : `delete-patient`
 
 Deletes the specified patient from docX. +
-Format: `delete-patient INDEX`
+Format: `delete-patient [INDEX]`
 
 ****
 * Deletes the patient of the specified `INDEX` in docX.
-* The index refers to the identification number (ID) of the patient.
+* The index refers to the current list ID of the patient.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -145,9 +171,9 @@ Examples:
 
 * `list-patient` +
 `delete-patient 3` +
-Deletes the patient with ID of '3' in the docX.
+Deletes the patient with current list ID of '3' in the docX.
 * `delete-patient 2` +
-Deletes the patient with ID of '2' in the docX.
+Deletes the patient with current list ID of '2' in the docX.
 
 
 === Adding a doctor: `add-doctor`

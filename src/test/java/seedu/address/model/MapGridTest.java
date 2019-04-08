@@ -14,6 +14,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Coordinates;
+import seedu.address.model.cell.Status;
 
 public class MapGridTest {
 
@@ -43,7 +44,7 @@ public class MapGridTest {
         sizeTenmap.putShip(battleship, new Coordinates("a1"), orientation);
         assertTrue(sizeTenmap.attackCell(new Coordinates("a1")));
     }
-
+    
     @Test
     public void equals() {
         MapGrid firstMapGrid = getSizeTenMapGrid();
@@ -53,5 +54,31 @@ public class MapGridTest {
 
         sameMapGrid.putShip(new Battleship(), new Coordinates(0, 0), new Orientation("vertical"));
         assertNotEquals(firstMapGrid, sameMapGrid);
+    }
+
+    @Test
+    public void getPlayerMapView() {
+        MapGrid mapGrid = getSizeTenMapGrid();
+        Coordinates a1 = new Coordinates("a1");
+        mapGrid.putShip(new Battleship(), a1, new Orientation("vertical"));
+
+        Status[][] playerMapView = mapGrid.getPlayerMapView();
+        assertEquals(playerMapView[0][0], mapGrid.getCellStatus(a1));
+    }
+
+    @Test
+    public void getEnemyMapView() {
+        MapGrid mapGrid = getSizeTenMapGrid();
+        Coordinates a1 = new Coordinates("a1");
+        mapGrid.putShip(new Battleship(), a1, new Orientation("vertical"));
+
+        // Status hidden
+        Status[][] enemyMapView = mapGrid.getEnemyMapView();
+        assertEquals(enemyMapView[0][0], Status.HIDDEN);
+
+        // Cell attacked
+        mapGrid.attackCell(a1);
+        enemyMapView = mapGrid.getEnemyMapView();
+        assertEquals(enemyMapView[0][0], Status.SHIPHIT);
     }
 }

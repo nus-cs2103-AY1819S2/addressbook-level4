@@ -46,8 +46,8 @@ public class MainPanel extends UiPart<Region> {
                     formatter.getQuestion(), formatter.getAnswerHeader(), formatter.getAnswer()));
 
                 if (!formatter.isWrongTwice()) {
-                    Text text = new Text("Press Enter to go to the next question");
-                    mainPanel.getChildren().addAll(questionAnswer, text);
+                    Text text1 = new Text("\nPress Enter to go to the next question");
+                    mainPanel.getChildren().addAll(questionAnswer, text1);
                     break;
                 }
 
@@ -59,6 +59,7 @@ public class MainPanel extends UiPart<Region> {
                     formatter.getQuestion()));
                 mainPanel.getChildren().add(questionAnswer);
                 setAnswerPrompt();
+                setTotalCorrect();
                 break;
             default:
                 break;
@@ -70,7 +71,7 @@ public class MainPanel extends UiPart<Region> {
     }
 
     private void setAnswerPrompt() {
-        Text text1 = new Text("Type the ");
+        Text text1 = new Text("\nType the ");
         Text answer = new Text(formatter.getAnswerHeader() + " ");
         Text text2 = new Text("for the ");
         Text question = new Text(formatter.getQuestionHeader() + " ");
@@ -78,5 +79,9 @@ public class MainPanel extends UiPart<Region> {
         answer.setStyle(boldStyle);
         List<Text> texts = Arrays.asList(text1, answer, text2, question, text3);
         mainPanel.getChildren().addAll(texts);
+    }
+    private void setTotalCorrect() {
+        Text text1 = new Text("\n\nCurrent total correct questions: " + formatter.getTotalCorrect());
+        mainPanel.getChildren().add(text1);
     }
 }

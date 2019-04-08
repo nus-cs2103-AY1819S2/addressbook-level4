@@ -231,8 +231,8 @@ public class LogicManagerTest {
 
         expectedModel.getNextCard();
         expectedModel.getNextCard();
-        expectedModel.setDisplayFormatter(new QuizUiDisplayFormatter("question", "Hungary", "answer", "Budapest",
-            QuizMode.PREVIEW));
+        expectedModel.setDisplayFormatter(new QuizUiDisplayFormatter("question", "Hungary",
+                "answer", "Budapest", QuizMode.PREVIEW));
 
         quizModel.getNextCard();
 

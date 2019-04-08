@@ -75,10 +75,11 @@ public class QuizStartCommand extends ManagementCommand {
         if (card.getQuizMode() == QuizMode.PREVIEW) {
             model.setDisplayFormatter(new QuizUiDisplayFormatter(
                     model.getQuestionHeader(), card.getQuestion(), model.getAnswerHeader(), card.getAnswer(),
-                    QuizMode.PREVIEW));
+                    0, QuizMode.PREVIEW));
         } else {
             model.setDisplayFormatter(new QuizUiDisplayFormatter(
-                    model.getQuestionHeader(), card.getQuestion(), model.getAnswerHeader(), QuizMode.REVIEW));
+                    model.getQuestionHeader(), card.getQuestion(), model.getAnswerHeader(), 0,
+                    QuizMode.REVIEW));
         }
         return new CommandResult(sb.toString(), true, false, false);
     }

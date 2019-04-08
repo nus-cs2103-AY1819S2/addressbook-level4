@@ -77,6 +77,8 @@ Examples:
 Shows a list of all persons in the address book. +
 Format: `list`
 
+* `Useful after using search/find/displayJob which shows a subset of the list.`
+
 ==== Editing a person : `edit`
 
 Edits an existing person in the address book. +

@@ -41,7 +41,7 @@ public class FindCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_NameContainsKeywordsPredicate_medicineFound() {
+    public void execute_nameContainsKeywordsPredicate_medicineFound() {
         String expectedMessage = String.format(MESSAGE_MEDICINES_LISTED_OVERVIEW, 1);
         Predicate<Medicine> predicate = preparePredicate(PREFIX_NAME, "Acetaminophen");
         FindCommand command = new FindCommand(predicate);
@@ -51,7 +51,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_CompanyContainsKeywordsPredicate_medicineFound() {
+    public void execute_companyContainsKeywordsPredicate_medicineFound() {
         String expectedMessage = String.format(MESSAGE_MEDICINES_LISTED_OVERVIEW, 1);
         Predicate<Medicine> predicate = preparePredicate(PREFIX_COMPANY, "Takeda");
         FindCommand command = new FindCommand(predicate);
@@ -61,7 +61,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_TagContainsKeywordsPredicate_medicineFound() {
+    public void execute_tagContainsKeywordsPredicate_medicineFound() {
         String expectedMessage = String.format(MESSAGE_MEDICINES_LISTED_OVERVIEW, 1);
         Predicate<Medicine> predicate = preparePredicate(PREFIX_TAG, "inflammation");
         FindCommand command = new FindCommand(predicate);
@@ -71,7 +71,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_BatchContainsKeywordsPredicate_medicineFound() {
+    public void execute_batchContainsKeywordsPredicate_medicineFound() {
         String expectedMessage = String.format(MESSAGE_MEDICINES_LISTED_OVERVIEW, 1);
         Predicate<Medicine> predicate = preparePredicate(PREFIX_BATCHNUMBER, "A030F21");
         FindCommand command = new FindCommand(predicate);

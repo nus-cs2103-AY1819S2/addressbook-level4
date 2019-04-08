@@ -62,7 +62,7 @@ public class CommandTestUtil {
     public static final String INVALID_QUANTITY_DESC = " " + PREFIX_QUANTITY + "911a"; // 'a' not allowed in quantities
     public static final String INVALID_EXPIRY_DESC = " " + PREFIX_EXPIRY + "1211/2020"; // missing '/' symbol
     public static final String INVALID_COMPANY_DESC = " " + PREFIX_COMPANY; // empty string not allowed for company name
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "fever*"; // '*' not allowed in tags
     public static final String INVALID_BATCHNUMBER_DESC = " " + PREFIX_BATCHNUMBER + "!4815%&"; // '!' not allowed
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";

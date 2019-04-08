@@ -99,7 +99,7 @@ public class AddCommandSystemTest extends MediTabsSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MEDICINE);
 
         /* Case: add a duplicate medicine except with different tags -> rejected */
-        command = MedicineUtil.getAddCommand(AMOXICILLIN) + " " + PREFIX_TAG.getPrefix() + "fever";
+        command = MedicineUtil.getAddCommand(AMOXICILLIN) + " " + PREFIX_TAG.getPrefix() + "inflammation";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MEDICINE);
 
         /* Case: missing name -> rejected */

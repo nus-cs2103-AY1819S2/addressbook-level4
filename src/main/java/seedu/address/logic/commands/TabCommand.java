@@ -21,7 +21,7 @@ public class TabCommand extends Command {
 
     @Override
     public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history) {
-        album.getInstance().switchTab();
+        album.switchTab();
         return new CommandResult(MESSAGE_TAB_SUCCESS);
     }
 }

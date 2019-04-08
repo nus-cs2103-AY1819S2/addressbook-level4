@@ -62,24 +62,24 @@ public class SearchCommandTest {
         assertFalse(firstCommand.equals(findCommand));
     }
 
-//    @Test
-//    @SuppressWarnings("unchecked")
-//    public void execute_zeroKeywords_noPersonFound() {
-//        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-//        SearchCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
-//        SearchCommand command = new SearchCommand(JobListName.APPLICANT, descriptor);
-//        Predicate<Person> predicator = (Predicate<Person>) descriptor.toPredicate();
-//        expectedModel.updateJobAllApplicantsFilteredPersonList(predicator);
-//        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-//        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
-//    }
+    //    @Test
+    //    @SuppressWarnings("unchecked")
+    //    public void execute_zeroKeywords_noPersonFound() {
+    //        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+    //        SearchCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
+    //        SearchCommand command = new SearchCommand(JobListName.APPLICANT, descriptor);
+    //        Predicate<Person> predicator = (Predicate<Person>) descriptor.toPredicate();
+    //        expectedModel.updateJobAllApplicantsFilteredPersonList(predicator);
+    //        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+    //        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+    //    }
 
     @Test
     @SuppressWarnings("unchecked")
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
-        SearchCommand.PredicatePersonDescriptor descriptor
-            = preparePredicatePersonDescriptor("Kurz Elle Kunz");
+        SearchCommand.PredicatePersonDescriptor descriptor =
+            preparePredicatePersonDescriptor("Kurz Elle Kunz");
         SearchCommand command = new SearchCommand(JobListName.APPLICANT, descriptor);
         Predicate<Person> predicator = (Predicate<Person>) descriptor.toPredicate();
         expectedModel.updateBaseFilteredPersonList(predicator);

@@ -92,7 +92,7 @@ public class SearchCommand extends Command {
     private final JobListName listName;
 
     /**
-     * @param listName which job list to predicate the person with
+     * @param listName                  which job list to predicate the person with
      * @param predicatePersonDescriptor details to predicate the person with
      */
     @SuppressWarnings("unchecked")
@@ -110,12 +110,16 @@ public class SearchCommand extends Command {
         switch (listName) {
         case APPLICANT:
             model.updateJobAllApplicantsFilteredPersonList(predicate);
+            break;
         case KIV:
             model.updateJobKivFilteredPersonList(predicate);
+            break;
         case INTERVIEW:
             model.updateJobInterviewFilteredPersonList(predicate);
+            break;
         case SHORTLIST:
             model.updateJobShortlistFilteredPersonList(predicate);
+            break;
         default:
             model.updateBaseFilteredPersonList(predicate);
         }

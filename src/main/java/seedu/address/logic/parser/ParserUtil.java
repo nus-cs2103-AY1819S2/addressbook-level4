@@ -11,8 +11,6 @@ import static seedu.address.model.job.JobListName.INTERVIEW_NAME;
 import static seedu.address.model.job.JobListName.INTERVIEW_PREFIX;
 import static seedu.address.model.job.JobListName.KIV_NAME;
 import static seedu.address.model.job.JobListName.KIV_PREFIX;
-import static seedu.address.model.job.JobListName.SHORTLIST_NAME;
-import static seedu.address.model.job.JobListName.SHORTLIST_PREFIX;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,7 +49,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_MAX_INTERVIEWS_A_DAY =
-            "Maximum number of interviews a day is not a non-zero unsigned integer.";
+        "Maximum number of interviews a day is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_DATE = "Not a valid date.";
 
     /**
@@ -88,8 +86,7 @@ public class ParserUtil {
         }
         if (value.equals(INTERVIEW_NAME) || value.equals(INTERVIEW_PREFIX)) {
             return JobListName.INTERVIEW;
-        }
-        else {
+        } else {
             return JobListName.SHORTLIST;
         }
 
@@ -410,7 +407,7 @@ public class ParserUtil {
         List<Calendar> result = new ArrayList<>();
         String trimmedBlockOutDates = blockOutDates.trim();
         String[] stringArray = trimmedBlockOutDates.split(",");
-        for (String date: stringArray) {
+        for (String date : stringArray) {
 
             int day = Integer.parseInt(date.substring(0, 2));
             int month = Integer.parseInt(date.substring(3, 5));

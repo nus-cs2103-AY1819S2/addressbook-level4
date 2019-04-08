@@ -3,7 +3,6 @@ package seedu.address.ui;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -20,9 +19,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.job.Job;
-import seedu.address.model.job.JobName;
-import seedu.address.model.person.Person;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -97,6 +93,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -152,19 +149,19 @@ public class MainWindow extends UiPart<Stage> {
      */
     void refreshJobPersonList() {
         allApplicantsListPanel = new PersonListPanel(logic.getJobsList(0), logic.selectedPersonProperty(),
-                logic::setSelectedAll);
+            logic::setSelectedAll);
         allApplicantsPlaceholder.getChildren().add(allApplicantsListPanel.getRoot());
 
         kivListPanel = new PersonListPanel(logic.getJobsList(1), logic.selectedPersonProperty(),
-                logic::setSelectedKiv);
+            logic::setSelectedKiv);
         kivPlaceholder.getChildren().add(kivListPanel.getRoot());
 
         interviewedListPanel = new PersonListPanel(logic.getJobsList(2), logic.selectedPersonProperty(),
-                logic::setSelectedInterviewed);
+            logic::setSelectedInterviewed);
         interviewedPlaceholder.getChildren().add(interviewedListPanel.getRoot());
 
         selectedListPanel = new PersonListPanel(logic.getJobsList(3), logic.selectedPersonProperty(),
-                logic::setSelectedSelected);
+            logic::setSelectedSelected);
         selectedPlaceholder.getChildren().add(selectedListPanel.getRoot());
     }
 
@@ -202,7 +199,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Font?>
+
+
+<Label fx:id="name" prefHeight="99.0" prefWidth="255.0" styleClass="cell_big_label" text="\\$first" textFill="#faf9f9" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <font>
+      <Font name="System Bold" size="57.0" />
+   </font>
+</Label>

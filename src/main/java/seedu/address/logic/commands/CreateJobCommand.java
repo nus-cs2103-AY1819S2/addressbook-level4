@@ -3,10 +3,15 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBNAME;
 
+import java.util.ArrayList;
+import java.util.function.Predicate;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.job.Job;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.predicate.JobsApplyContainsKeywordsPredicate;
 
 
 /**
@@ -26,7 +31,7 @@ public class CreateJobCommand extends Command {
             + "Example: " + COMMAND_ALIAS + " "
             + PREFIX_JOBNAME + "Search Engineer ";
 
-    public static final String MESSAGE_SUCCESS = "New job added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New job added";
     public static final String MESSAGE_DUPLICATE_JOB = "This Job already exists in the list";
 
     private final Job toAdd;
@@ -48,6 +53,12 @@ public class CreateJobCommand extends Command {
         }
 
         model.addJob(toAdd);
+        ArrayList<String> jobNameCollection = new ArrayList<>();
+        jobNameCollection.add(toAdd.getName().toString());
+        Predicate<Person> predicator = new JobsApplyContainsKeywordsPredicate(jobNameCollection);
+        //model.updateFilteredPersonList(predicator);
+        model.addFilteredPersonsToJob(toAdd.getName());
+        //model.changeFilteredPersonList(model.getJobList(toAdd.getName(), 0));
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

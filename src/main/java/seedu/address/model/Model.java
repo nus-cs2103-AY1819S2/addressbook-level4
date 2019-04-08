@@ -122,10 +122,18 @@ public interface Model {
     /**
      * Returns one of the UniquePersonList in the job
      */
-    UniquePersonList getJobList(JobName name, int listNumber);
+    UniquePersonList getJobList(JobName name, Integer listNumber);
+
+    /**
+     * Returns the job and makes it the active job
+     */
+    Job getJob(JobName name);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered job list */
+    ObservableList<Person> getJobsList(int listNum);
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -188,6 +196,14 @@ public interface Model {
      * Sets the selected person in the filtered person list.
      */
     void setSelectedPerson(Person person);
+
+    void setSelectedAll(Person person);
+
+    void setSelectedKiv(Person person);
+
+    void setSelectedInterviewed(Person person);
+
+    void setSelectedSelected(Person person);
 
     /**
      * Generates an interview list.

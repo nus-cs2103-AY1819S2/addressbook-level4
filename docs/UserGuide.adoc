@@ -268,16 +268,54 @@ Format : `readAll`
 * If the new added people is a person already in our storage, slaveFinder will crawl the data from resume and change his/her data as EDIT command.
 ****
 
-==== Create a Job Hiring Process: `createjob` `Coming in v1.4`
+==== Create a Job Hiring Process: `createjob`
 
-Create a Job hiring process with three person lists: "Applied", "Interview", "To be sent to boss". +
-Format : `createjob JOBNAME`
+Create a Job hiring process with four person lists: "All Applicants", "KIV", "Interview", "Shortlist". +
+Format : `createJob jn/JOBNAME`
 
 ****
 * JOBNAME indicate the job name. For examle: `IOS-Developer`.
-* All people in the storage who want to apply this job will automatically be added in "Applied" list.
-* All people in "Applied" list will show on the display list after this command.
-* A label with JOBNAME will show on the display board to indicate the current Job Hiring Process.
+* All people in the storage who want to apply this job will automatically be added in "Applied" list. `Coming in v1.4`
+* All people in "Applied" list will show on the display list after this command. `Coming in v1.4`
+* A label with JOBNAME will show on the display board to indicate the current Job Hiring Process. `Coming in v1.4`
+****
+
+==== Delete the Job Hiring Process : `deletejob`
+
+Delete a Job Hiring Process and all its information +
+Format : `deleteJob jn/JOBNAME`
+
+==== Add all shown persons to a job : `addAll`
+
+Adds all currently shown people to the "All Applicants" list of a job +
+Format : `addAll jn/JOBNAME`
+
+****
+* Search function can be used to filter those who applied for the job before using this command
+****
+
+==== Add a specific person to Job using NRIC : `addPersonToJob`
+
+Adds person with NRIC to "All Applicants" list of a job +
+Format : `addPersonToJob jn/JOBNAME nric/NRIC`
+
+==== Displays one of the four persons list in a job : `DisplayJob`
+
+Displays LISTNUMBERth list of a Job +
+Format : `DisplayJob ln/LISTNUMBER jn/JOBNAME`
+
+****
+* Displays all four lists at once `Coming in v1.4`
+****
+
+==== Moves person of NRIC from one list to another in a Job: `movePerson`
+
+Moves a person of NRIC from list "from" to list "to" in a job +
+Format : `movePerson jn/JOBNAME nric/NRIC ln/FROM ln/TO`
+
+****
+* FROM and TO must be 0 to 3 as there are only 4 lists
+* Move a selected few people at a time `Coming in v1.4`
 ****
 
 ==== Switch a Job Hiring Process: `switchjob` `Coming in v1.4`
@@ -386,10 +424,6 @@ Generate `report.txt` to show 3 categories of applicants for a specific role:
 "Applied", "Interview", "To be sent to boss". in a Job Hiring Process. +
 Format : `report JOBNAME`
 
-==== Delete the Job Hiring Process : `deletejob` `Coming in v1.4`
-
-Delete a Job Hiring Process and all its information +
-Format : `deletejob JOBNAME`
 
 
 == FAQ
@@ -428,3 +462,9 @@ e.g.`select 2`
 e.g. `filter r/Chinese`
 * *Display Hiring Process* : `displayProcess`
 * *Display Analytics* : `analytics`
+* *Create Job* : `createJob jn/JOBNAME`
+* *Delete Job* : `deleteJob jn/JOBNAME`
+* *Add list of people to Job* : `addAll jn/JOBNAME`
+* *Add specific person to Job* : `addPersonToJob jn/JOBNAME nric/NRIC`
+* *Display selected list in Job* : `DisplayJob ln/LISTNUMBER jn/JOBNAME`
+* *Moves person from one list in Job to another* : `movePerson jn/JOBNAME nric/NRIC ln/FROM ln/TO`

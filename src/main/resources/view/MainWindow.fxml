@@ -60,18 +60,18 @@
             <StackPane fx:id="leftListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <StackPane fx:id="browserPlaceholder" minWidth="240" prefWidth="340" >
+          <StackPane fx:id="browserPlaceholder" minWidth="300" prefWidth="340">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
           </StackPane>
 
-          <!--<VBox fx:id="personList2" minWidth="230" maxWidth="320" prefWidth="320" SplitPane.resizableWithParent="false">-->
-            <!--<padding>-->
-              <!--<Insets top="10" right="10" bottom="10" left="10" />-->
-            <!--</padding>-->
-            <!--<StackPane fx:id="rightListPanelPlaceholder" VBox.vgrow="ALWAYS"/>-->
-          <!--</VBox>-->
+          <VBox fx:id="personList2" minWidth="230" maxWidth="320" prefWidth="320" SplitPane.resizableWithParent="false">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <StackPane fx:id="rightListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          </VBox>
         </SplitPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />

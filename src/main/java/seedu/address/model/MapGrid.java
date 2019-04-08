@@ -3,7 +3,6 @@ package seedu.address.model;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableBooleanValue;
-import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Cell;

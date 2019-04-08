@@ -478,14 +478,10 @@ Fig 5.12.1 Software interface
 +
 image::label2.png[width="790"]
 +
-<<<<<<< HEAD
 Fig 5.12.2 Medicine information
 +
 .  If you want to name the output file, follow the steps below:
-* `find Simvastatin` +
-=======
 * `find n/ Simvastatin` +
->>>>>>> 0295e013ab3545dff1d5a738defb24f163f7dea8
 `label 1 f/Simvastatin` +
 Similar to the example above, the 1st medicine information will be output to a file name `Simvastatin`. (Fig 5.12.3)
 +

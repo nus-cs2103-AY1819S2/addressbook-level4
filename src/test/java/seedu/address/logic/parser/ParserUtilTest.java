@@ -165,11 +165,11 @@ public class ParserUtilTest {
         ParserUtil.parseTag(null, null);
     }
 
-//    @Test
-//    public void parseTag_invalidValue_throwsParseException() throws Exception {
-//        thrown.expect(ParseException.class);
-//        ParserUtil.parseTag(INVALID_TAG, INVALID_COLOR);
-//    }
+    @Test
+    public void parseTag_invalidValue_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseTag(INVALID_TAG, INVALID_COLOR);
+    }
 
     @Test
     public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
@@ -190,11 +190,11 @@ public class ParserUtilTest {
         ParserUtil.parseTags(null, null);
     }
 
-//    @Test
-//    public void parseTags_collectionWithInvalidTags_throwsParseException() throws Exception {
-//        thrown.expect(ParseException.class);
-//        ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, INVALID_TAG), VALID_TYPE);
-//    }
+    @Test
+    public void parseTags_collectionWithInvalidTags_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, INVALID_TAG), VALID_TYPE);
+    }
 
     @Test
     public void parseTags_emptyCollection_returnsEmptySet() throws Exception {

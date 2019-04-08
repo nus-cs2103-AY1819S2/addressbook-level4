@@ -9,47 +9,47 @@ import org.junit.Test;
 public class FilterCommandIntegrationTest {
 
     @Test
-    public void execute_sorting_after_filtering_once() {
+    public void execute_sortingAfterFilteringOnce() {
         // TODO: a test case will be written
     }
 
     @Test
-    public void execute_sorting_after_filtering_twice() {
+    public void execute_sortingAfterFilteringTwice() {
         // TODO: a test case will be written
     }
 
     @Test
-    public void execute_undo_and_redo_after_filtering_once() {
+    public void execute_undoAndRedoAfterFilteringOnce() {
         // TODO: a test case will be written
     }
 
     @Test
-    public void execute_undo_and_redo_after_filtering_twice() {
+    public void execute_undoAndRedoAfterFilteringTwice() {
         // TODO: a test case will be written
     }
 
     @Test
-    public void execute_undo_after_filtering_cleared() {
+    public void execute_undoAfterFilteringCleared() {
         // TODO: a test case will be written
     }
 
     @Test
-    public void execute_delete_after_filtering_once() {
+    public void execute_deleteAfterFilteringOnce() {
         // TODO: a test case will be written
     }
 
     @Test
-    public void execute_delete_after_filtering_twice() {
+    public void execute_deleteAfterFilteringTwice() {
         // TODO: a test case will be written
     }
 
     @Test
-    public void execute_add_after_filtering_once() {
+    public void execute_AddAfterFilteringOnce() {
         // TODO: a test case will be written
     }
 
     @Test
-    public void execute_add_after_filtering_twice() {
+    public void execute_AddAfterFilteringTwice() {
         // TODO: a test case will be written
     }
 
@@ -70,7 +70,7 @@ public class FilterCommandIntegrationTest {
      * 13- filter clear
      */
     @Test
-    public void execute_all_together() {
+    public void execute_AllTogether() {
         // TODO: a test case will be written
     }
 

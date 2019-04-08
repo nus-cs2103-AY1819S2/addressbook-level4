@@ -69,10 +69,23 @@ public class MedHistBrowserPanel extends UiPart<Region> {
         medHistPage.getChildren().clear();
 
         medHistId.setText("Medical History ID: " + medHist.getMedHistId());
-        patientId.setText("Patient ID: " + medHist.getPatientId());
-        patientName.setText("Patient Name: " + medHist.getPatient().getName());
-        doctorId.setText("Doctor ID: " + medHist.getDoctorId());
-        doctorName.setText("Doctor Name: " + medHist.getDoctor().getName());
+
+        if (medHist.getPatient() == null) {
+            patientId.setText("Patient ID: Patient Deleted");
+            patientName.setText("Patient Name: Patient Deleted");
+        } else {
+            patientId.setText("Patient ID: " + medHist.getPatientId());
+            patientName.setText("Patient Name: " + medHist.getPatient().getName());
+        }
+
+        if (medHist.getDoctor() == null) {
+            doctorId.setText("Doctor ID: Doctor Deleted");
+            doctorName.setText("Doctor Name: Doctor Deleted");
+        } else {
+            doctorId.setText("Doctor ID: " + medHist.getDoctorId());
+            doctorName.setText("Doctor Name: " + medHist.getDoctor().getName());
+        }
+
         date.setText("Date: " + medHist.getDate().toString());
         writeUp.setText("Short Write Up from Doctor: " + medHist.getWriteUp().toString());
 

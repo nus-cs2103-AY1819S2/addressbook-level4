@@ -139,6 +139,7 @@ public class ModelManager implements Model {
     @Override
     public void deletePatient(Patient target) {
         versionedDocX.removePatient(target);
+        updateFilteredMedHistList(PREDICATE_SHOW_ALL_MEDHISTS);
     }
 
     @Override
@@ -162,6 +163,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteDoctor(Doctor target) {
         versionedDocX.removeDoctor(target);
+        updateFilteredMedHistList(PREDICATE_SHOW_ALL_MEDHISTS);
     }
 
     @Override

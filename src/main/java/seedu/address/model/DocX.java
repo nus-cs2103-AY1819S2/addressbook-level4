@@ -226,10 +226,26 @@ public class DocX implements ReadOnlyDocX {
      */
     public void removePatient(Patient key) {
         patients.remove(key);
+        updateMedHistWhenPatientDeleted(key.getId());
         indicateModified();
     }
 
     //// medical history-level operations
+    /**
+     * Set Patient in medical history to null if the patient is deleted
+     */
+    public void updateMedHistWhenPatientDeleted(PersonId patientId) {
+        requireNonNull(patientId);
+        medHists.setPatientToNull(patientId);
+    }
+
+    /**
+     * Set Doctor in medical history to null if the patient is deleted
+     */
+    public void updateMedHistWhenDoctorDeleted(PersonId doctorId) {
+        requireNonNull(doctorId);
+        medHists.setDoctorToNull(doctorId);
+    }
 
     /**
      * Returns true if a medical history with the same identity as {@code person} exists in the docX.
@@ -245,6 +261,10 @@ public class DocX implements ReadOnlyDocX {
      */
     public void addMedHist(MedicalHistory medHist) {
         medHists.add(medHist);
+        Patient patientWithId = getPatientById(medHist.getPatientId());
+        medHist.setPatient(patientWithId);
+        Doctor doctorWithId = getDoctorById(medHist.getDoctorId());
+        medHist.setDoctor(doctorWithId);
         indicateModified();
     }
 
@@ -301,6 +321,7 @@ public class DocX implements ReadOnlyDocX {
      */
     public void removeDoctor(Doctor key) {
         doctors.remove(key);
+        updateMedHistWhenDoctorDeleted(key.getId());
         indicateModified();
     }
 

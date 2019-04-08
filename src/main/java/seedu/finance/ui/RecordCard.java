@@ -2,10 +2,8 @@ package seedu.finance.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Record;
 
 /**
@@ -41,7 +39,7 @@ public class RecordCard extends UiPart<Region> {
     @FXML
     private Label description;
     @FXML
-    private FlowPane categories;
+    private Label category;
 
     public RecordCard(Record record, int displayedIndex) {
         super(FXML);
@@ -51,7 +49,8 @@ public class RecordCard extends UiPart<Region> {
         amount.setText("$" + record.getAmount().toString());
         date.setText(record.getDate().toString());
         description.setText(record.getDescription().value);
-        initCategories(record);
+        category.setText(record.getCategory().toString());
+        category.getStyleClass().add(getCategoryColorStyleFor(record.getCategory().toString()));
     }
 
     //@@author geezlouisee-reused
@@ -64,19 +63,6 @@ public class RecordCard extends UiPart<Region> {
         //Using the hash code of the category name to generate a random color, so color remains consistent
         //between different runs of the program while still making it random enough between Categories
         return CATEGORY_COLOR_STYLES[Math.abs(categoryName.hashCode()) % CATEGORY_COLOR_STYLES.length];
-    }
-
-    /**
-     * Creates the category labels for {@code record}.
-     * @param record
-     */
-    private void initCategories(Record record) {
-        Category category = record.getCategory();
-        Label categoryLabel = new Label(category.categoryName);
-
-        categoryLabel.getStyleClass().add(getCategoryColorStyleFor(category.categoryName));
-
-        categories.getChildren().add(categoryLabel);
     }
     //@@author
 

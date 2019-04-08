@@ -17,51 +17,51 @@ public class PdfCardTest extends GuiUnitTest {
     public void display() {
         // no tags
         Pdf pdfWithNoTags = new PdfBuilder().withTags(new String[0]).build();
-        PersonCard personCard = new PersonCard(pdfWithNoTags, 1);
-        uiPartRule.setUiPart(personCard);
-        assertCardDisplay(personCard, pdfWithNoTags, 1);
+        PdfCard pdfCard = new PdfCard(pdfWithNoTags, 1);
+        uiPartRule.setUiPart(pdfCard);
+        assertCardDisplay(pdfCard, pdfWithNoTags, 1);
 
         // with tags
         Pdf pdfWithTags = new PdfBuilder().build();
-        personCard = new PersonCard(pdfWithTags, 2);
-        uiPartRule.setUiPart(personCard);
-        assertCardDisplay(personCard, pdfWithTags, 2);
+        pdfCard = new PdfCard(pdfWithTags, 2);
+        uiPartRule.setUiPart(pdfCard);
+        assertCardDisplay(pdfCard, pdfWithTags, 2);
     }
 
     @Test
     public void equals() {
         Pdf pdf = new PdfBuilder().build();
-        PersonCard personCard = new PersonCard(pdf, 0);
+        PdfCard pdfCard = new PdfCard(pdf, 0);
 
         // same pdf, same index -> returns true
-        PersonCard copy = new PersonCard(pdf, 0);
-        assertTrue(personCard.equals(copy));
+        PdfCard copy = new PdfCard(pdf, 0);
+        assertTrue(pdfCard.equals(copy));
 
         // same object -> returns true
-        assertTrue(personCard.equals(personCard));
+        assertTrue(pdfCard.equals(pdfCard));
 
         // null -> returns false
-        assertFalse(personCard.equals(null));
+        assertFalse(pdfCard.equals(null));
 
         // different types -> returns false
-        assertFalse(personCard.equals(0));
+        assertFalse(pdfCard.equals(0));
 
         // different pdf, same index -> returns false
         Pdf differentPdf = new PdfBuilder().withName("differentName").build();
-        assertFalse(personCard.equals(new PersonCard(differentPdf, 0)));
+        assertFalse(pdfCard.equals(new PdfCard(differentPdf, 0)));
 
         // same pdf, different index -> returns false
-        assertFalse(personCard.equals(new PersonCard(pdf, 1)));
+        assertFalse(pdfCard.equals(new PdfCard(pdf, 1)));
     }
 
     /**
-     * Asserts that {@code personCard} displays the details of {@code expectedPdf} correctly and matches
+     * Asserts that {@code pdfCard} displays the details of {@code expectedPdf} correctly and matches
      * {@code expectedId}.
      */
-    private void assertCardDisplay(PersonCard personCard, Pdf expectedPdf, int expectedId) {
+    private void assertCardDisplay(PdfCard pdfCard, Pdf expectedPdf, int expectedId) {
         guiRobot.pauseForHuman();
 
-        PersonCardHandle personCardHandle = new PersonCardHandle(personCard.getRoot());
+        PersonCardHandle personCardHandle = new PersonCardHandle(pdfCard.getRoot());
 
         // verify id is displayed correctly
         assertEquals(Integer.toString(expectedId) + ". ", personCardHandle.getId());

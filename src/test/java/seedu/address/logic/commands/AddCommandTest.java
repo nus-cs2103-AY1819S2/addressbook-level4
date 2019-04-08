@@ -139,13 +139,18 @@ public class AddCommandTest {
 
         @Override
         public void filterAnd(String name, String phone, String email, String address, String[] skillList,
-                              String[] posList, String gpa, String education) {
+                              String[] posList, String endorseCount, String gpa, String education) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void filterOr(String name, String phone, String email, String address, String[] skillList,
-                              String[] posList, String gpa, String education) {
+                              String[] posList, String endorseCount, String gpa, String education) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void reverseFilter() {
             throw new AssertionError("This method should not be called.");
         }
 

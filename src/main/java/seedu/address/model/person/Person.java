@@ -117,7 +117,7 @@ public class Person {
      */
     public boolean isSkillExist(String tag) {
         for (SkillsTag skill : tags) {
-            if(skill.toString().charAt(1) == 's') {
+            if (skill.toString().charAt(1) == 's') {
                 if (skill.toString().substring(3, skill.toString().length() - 1).trim().toLowerCase()
                         .contains(tag.trim().toLowerCase())) {
                     return true;
@@ -132,7 +132,7 @@ public class Person {
      */
     public boolean isPositionExist(String tag) {
         for (SkillsTag pos : tags) {
-            if(pos.toString().charAt(1) == 'p') {
+            if (pos.toString().charAt(1) == 'p') {
                 if (pos.toString().substring(3, pos.toString().length() - 1).trim().toLowerCase()
                         .contains(tag.trim().toLowerCase())) {
                     return true;

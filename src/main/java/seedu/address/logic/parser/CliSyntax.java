@@ -16,25 +16,25 @@ public class CliSyntax {
     public static final Prefix PREFIX_EDUCATION = new Prefix("d/");
 
     /* Prefix for Filtering definitions */
-    public static final Prefix PREFIX_FILTER_NAME = new Prefix("n<");
-    public static final Prefix PREFIX_FILTER_NAME_REVERSE = new Prefix(">n");
-    public static final Prefix PREFIX_FILTER_PHONE = new Prefix("p<");
-    public static final Prefix PREFIX_FILTER_PHONE_REVERSE = new Prefix(">p");
-    public static final Prefix PREFIX_FILTER_EMAIL = new Prefix("e<");
-    public static final Prefix PREFIX_FILTER_EMAIL_REVERSE = new Prefix(">e");
-    public static final Prefix PREFIX_FILTER_ADDRESS = new Prefix("a<");
-    public static final Prefix PREFIX_FILTER_ADDRESS_REVERSE = new Prefix(">a");
+    public static final Prefix PREFIX_FILTER_NAME = new Prefix("name<");
+    public static final Prefix PREFIX_FILTER_NAME_REVERSE = new Prefix(">name");
+    public static final Prefix PREFIX_FILTER_PHONE = new Prefix("phone<");
+    public static final Prefix PREFIX_FILTER_PHONE_REVERSE = new Prefix(">phone");
+    public static final Prefix PREFIX_FILTER_EMAIL = new Prefix("email<");
+    public static final Prefix PREFIX_FILTER_EMAIL_REVERSE = new Prefix(">email");
+    public static final Prefix PREFIX_FILTER_ADDRESS = new Prefix("addr<");
+    public static final Prefix PREFIX_FILTER_ADDRESS_REVERSE = new Prefix(">addr");
 
     public static final Prefix PREFIX_FILTER_SKILL = new Prefix("skill<");
     public static final Prefix PREFIX_FILTER_SKILL_REVERSE = new Prefix(">skill");
-    public static final Prefix PREFIX_FILTER_POS = new Prefix("position<");
-    public static final Prefix PREFIX_FILTER_POS_REVERSE = new Prefix(">position");
+    public static final Prefix PREFIX_FILTER_POS = new Prefix("pos<");
+    public static final Prefix PREFIX_FILTER_POS_REVERSE = new Prefix(">pos");
     public static final Prefix PREFIX_FILTER_ENDORSEMENT = new Prefix("end<");
     public static final Prefix PREFIX_FILTER_ENDORSEMENT_REVERSE = new Prefix(">end");
-    public static final Prefix PREFIX_FILTER_GPA = new Prefix("g<");
-    public static final Prefix PREFIX_FILTER_GPA_REVERSE = new Prefix(">g");
-    public static final Prefix PREFIX_FILTER_EDUCATION = new Prefix("d<");
-    public static final Prefix PREFIX_FILTER_EDUCATION_REVERSE = new Prefix(">d");
+    public static final Prefix PREFIX_FILTER_GPA = new Prefix("gpa<");
+    public static final Prefix PREFIX_FILTER_GPA_REVERSE = new Prefix(">gpa");
+    public static final Prefix PREFIX_FILTER_EDUCATION = new Prefix("edu<");
+    public static final Prefix PREFIX_FILTER_EDUCATION_REVERSE = new Prefix(">edu");
 
 
     /* Sort-Word definitions*/

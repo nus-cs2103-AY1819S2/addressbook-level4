@@ -113,7 +113,7 @@ class JsonSerializableDocX {
             docX.addMedHist(medicalHistory);
         }
 
-        //docX.setIdCounter(idCounter.toModelType());
+        docX.setPersonIdCounter(personIdCounter.toModelType());
 
         return docX;
     }

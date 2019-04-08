@@ -38,7 +38,7 @@ public class AppointmentDoctorId extends PersonId {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AppointmentDoctorId // instanceof handles nulls
-                && this.doctorId == ((AppointmentDoctorId) other).doctorId); // state check
+                && this.doctorId.equals(((AppointmentDoctorId) other).doctorId)); // state check
     }
 
     @Override

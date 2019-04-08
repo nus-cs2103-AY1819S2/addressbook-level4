@@ -55,7 +55,7 @@ public class AddAppointmentCommand extends Command {
         if (model.hasAppointment(appointment)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         }
-        
+
         getPatientById(model);
         getDoctorById(model);
 

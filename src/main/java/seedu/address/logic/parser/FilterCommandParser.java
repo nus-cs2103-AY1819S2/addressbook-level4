@@ -36,7 +36,8 @@ import seedu.address.model.tag.SkillsTag;
  */
 public class FilterCommandParser implements Parser<FilterCommand> {
 
-    public static String MESSAGE_INPUT_NOT_IN_TRUE_FORM = "The filtering parameters entered is not correct accepted form!";
+    public static final String MESSAGE_INPUT_NOT_IN_TRUE_FORM = "The filtering parameters entered "
+            + "is not correct accepted form!";
 
     private final int totalNumberOfInfo = 9;
     private boolean inputParameterInCorrectForm = true;
@@ -103,10 +104,10 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         String[] criterion = new String[totalNumberOfInfo];
         int totalNumOfCriterion = 0;
 
-        if((args.contains(PREFIX_FILTER_NAME.toString())
+        if ((args.contains(PREFIX_FILTER_NAME.toString())
                 && !args.contains(PREFIX_FILTER_NAME_REVERSE.toString()))
                 || (!args.contains(PREFIX_FILTER_NAME.toString())
-                && args.contains(PREFIX_FILTER_NAME_REVERSE.toString()))){
+                && args.contains(PREFIX_FILTER_NAME_REVERSE.toString()))) {
             inputParameterInCorrectForm = false;
         } else if (args.contains(PREFIX_FILTER_NAME.toString()) && args.contains(PREFIX_FILTER_NAME_REVERSE.toString())
                 && args.indexOf(PREFIX_FILTER_NAME.toString())
@@ -117,7 +118,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             criterion[0] = null;
         }
 
-        if((args.contains(PREFIX_FILTER_PHONE.toString())
+        if ((args.contains(PREFIX_FILTER_PHONE.toString())
                 && !args.contains(PREFIX_FILTER_PHONE_REVERSE.toString()))
                 || (!args.contains(PREFIX_FILTER_PHONE.toString())
                 && args.contains(PREFIX_FILTER_PHONE_REVERSE.toString()))) {
@@ -132,7 +133,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             criterion[1] = null;
         }
 
-        if((args.contains(PREFIX_FILTER_EMAIL.toString())
+        if ((args.contains(PREFIX_FILTER_EMAIL.toString())
                 && !args.contains(PREFIX_FILTER_EMAIL_REVERSE.toString()))
                 || (!args.contains(PREFIX_FILTER_EMAIL.toString())
                 && args.contains(PREFIX_FILTER_EMAIL_REVERSE.toString()))) {
@@ -147,7 +148,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             criterion[2] = null;
         }
 
-        if((args.contains(PREFIX_FILTER_ADDRESS.toString())
+        if ((args.contains(PREFIX_FILTER_ADDRESS.toString())
                 && !args.contains(PREFIX_FILTER_ADDRESS_REVERSE.toString()))
                 || (!args.contains(PREFIX_FILTER_ADDRESS.toString())
                 && args.contains(PREFIX_FILTER_ADDRESS_REVERSE.toString()))) {
@@ -162,7 +163,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             criterion[3] = null;
         }
 
-        if((args.contains(PREFIX_FILTER_SKILL.toString())
+        if ((args.contains(PREFIX_FILTER_SKILL.toString())
                 && !args.contains(PREFIX_FILTER_SKILL_REVERSE.toString()))
                 || (!args.contains(PREFIX_FILTER_SKILL.toString())
                 && args.contains(PREFIX_FILTER_SKILL_REVERSE.toString()))) {
@@ -177,7 +178,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             criterion[4] = null;
         }
 
-        if((args.contains(PREFIX_FILTER_POS.toString())
+        if ((args.contains(PREFIX_FILTER_POS.toString())
                 && !args.contains(PREFIX_FILTER_POS_REVERSE.toString()))
                 || (!args.contains(PREFIX_FILTER_POS.toString())
                 && args.contains(PREFIX_FILTER_POS_REVERSE.toString()))) {
@@ -191,7 +192,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             criterion[5] = null;
         }
 
-        if((args.contains(PREFIX_FILTER_GPA.toString())
+        if ((args.contains(PREFIX_FILTER_GPA.toString())
                 && !args.contains(PREFIX_FILTER_GPA_REVERSE.toString()))
                 || (!args.contains(PREFIX_FILTER_GPA.toString())
                 && args.contains(PREFIX_FILTER_GPA_REVERSE.toString()))) {
@@ -205,7 +206,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             criterion[6] = null;
         }
 
-        if((args.contains(PREFIX_FILTER_EDUCATION.toString())
+        if ((args.contains(PREFIX_FILTER_EDUCATION.toString())
                 && !args.contains(PREFIX_FILTER_EDUCATION_REVERSE.toString()))
                 || (!args.contains(PREFIX_FILTER_EDUCATION.toString())
                 && args.contains(PREFIX_FILTER_EDUCATION_REVERSE.toString()))) {
@@ -220,7 +221,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             criterion[7] = null;
         }
 
-        if((args.contains(PREFIX_FILTER_ENDORSEMENT.toString())
+        if ((args.contains(PREFIX_FILTER_ENDORSEMENT.toString())
                 && !args.contains(PREFIX_FILTER_ENDORSEMENT_REVERSE.toString()))
                 || (!args.contains(PREFIX_FILTER_ENDORSEMENT.toString())
                 && args.contains(PREFIX_FILTER_ENDORSEMENT_REVERSE.toString()))) {

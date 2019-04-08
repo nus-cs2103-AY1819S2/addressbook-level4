@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COORDINATES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORIENTATION;
 
+import java.text.NumberFormat;
 import java.util.EnumSet;
 
 import seedu.address.logic.CommandHistory;
@@ -84,6 +85,8 @@ public class PutShipCommand extends Command {
             mapGrid.putShip(battleship, coordinates, orientation);
             model.deployBattleship(battleship, coordinates, orientation);
         } catch (ArrayIndexOutOfBoundsException aiobe) {
+            throw new CommandException(MESSAGE_OUT_OF_BOUNDS);
+        } catch (NumberFormatException nfe) {
             throw new CommandException(MESSAGE_OUT_OF_BOUNDS);
         } catch (Exception e) {
             throw new CommandException(e.getMessage());

@@ -61,9 +61,6 @@ public class AddressBookParser {
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
-        case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
-
         case DeleteCommand.COMMAND_WORD:
         case DeleteCommand.COMMAND_ALIAS:
             return new DeleteCommandParser().parse(arguments);
@@ -94,9 +91,6 @@ public class AddressBookParser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
-
-        case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
 
         case InitialiseMapCommand.COMMAND_WORD:
         case InitialiseMapCommand.COMMAND_ALIAS:

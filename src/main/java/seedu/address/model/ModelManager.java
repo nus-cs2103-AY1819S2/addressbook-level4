@@ -190,8 +190,6 @@ public class ModelManager implements Model {
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
     }
 
-    // Needed to be implemented later
-
     @Override
     public boolean hasMedHist(MedicalHistory medicalHistory) {
         requireAllNonNull(medicalHistory);
@@ -214,6 +212,13 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedMedHist);
 
         versionedDocX.setMedHist(target, editedMedHist);
+    }
+
+    @Override
+    public void setAppointment(Appointment target, Appointment changedAppointment) {
+        requireAllNonNull(target, changedAppointment);
+
+        versionedDocX.setAppointment(target, changedAppointment);
     }
 
     @Override

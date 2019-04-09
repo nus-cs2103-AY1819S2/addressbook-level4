@@ -2,6 +2,7 @@ package seedu.address.model.appointment;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import seedu.address.model.person.Doctor;
@@ -36,7 +37,7 @@ public class Appointment {
     }
 
     /**
-     * Constructs an {@code Appointment}.
+     * Constructs an {@code Appointment} with a stated status.
      *
      * @param patientId A valid patientId.
      * @param doctorId A valid doctorId.
@@ -115,10 +116,21 @@ public class Appointment {
         return this.equals(that);
     }
 
+    /**
+     * Checks if an appointment is in the past compared to system time.
+     *
+     * @return true if the appointment is in the past.
+     */
+    public boolean isPast() {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        LocalDateTime appointmentDateTime = LocalDateTime.of(date.date, time.time);
+
+        final boolean past = appointmentDateTime.isBefore(currentDateTime);
+        return past;
+    }
+
     @Override
     public boolean equals(Object o) {
-        System.out.println("test0: " + this.getClass() + " " + o.getClass());
-        System.out.println("test: " + this.toString() + " " + o.toString());
         if (this == o) {
             return true;
         }
@@ -142,6 +154,12 @@ public class Appointment {
         }
 
         if (!this.time.equals(that.time)) {
+            return false;
+        }
+
+        // Cancelled appointments can have duplicates
+        if (this.getAppointmentStatus().equals(AppointmentStatus.CANCELLED)
+                || that.appointmentStatus.equals(AppointmentStatus.CANCELLED)) {
             return false;
         }
 

@@ -16,7 +16,7 @@ public class AppointmentTime {
             "Appointment time should be in the 24 hour format HH:mm"
                     + " and only in exact 1 hour increments." + "\n"
                     + "Doctors are only free between 09:00 to 11:00 and 13:00 to 17:00." + "\n"
-                    + "Examples include 09:00, 10:00, 12:00, 15:00";
+                    + "Examples include 09:00, 10:00, 13:00, 15:00";
 
     public final LocalTime time;
 

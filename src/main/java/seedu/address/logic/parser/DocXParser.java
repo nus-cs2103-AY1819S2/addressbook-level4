@@ -26,6 +26,7 @@ import seedu.address.logic.commands.ListAppointmentCommand;
 import seedu.address.logic.commands.ListDoctorCommand;
 import seedu.address.logic.commands.ListMedHistCommand;
 import seedu.address.logic.commands.ListPatientCommand;
+import seedu.address.logic.commands.MarkAppointmentCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SearchAdvancedPatientCommand;
 import seedu.address.logic.commands.SearchDoctorCommand;
@@ -111,6 +112,9 @@ public class DocXParser {
         case ListAppointmentCommand.COMMAND_WORD:
             return new ListAppointmentCommandParser().parse(arguments);
 
+        case MarkAppointmentCommand.COMMAND_WORD:
+            return new MarkAppointmentCommandParser().parse(arguments);
+
         case ListDoctorCommand.COMMAND_WORD:
             return new ListDoctorCommand();
 
@@ -134,10 +138,7 @@ public class DocXParser {
 
         case AddMedHistCommand.COMMAND_WORD:
             return new AddMedHistCommandParser().parse(arguments);
-        /*
-        case DeleteMedHistCommand.COMMAND_WORD:
-            return new DeleteMedHistCommandParser().parse(arguments);
-        */
+
         case ListMedHistCommand.COMMAND_WORD:
             return new ListMedHistCommandParser().parse(arguments);
 

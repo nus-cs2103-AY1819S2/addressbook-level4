@@ -47,7 +47,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing MapGrid ]===========================");
+        logger.info("=============================[ Initializing Battleship ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -172,7 +172,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Battleship ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

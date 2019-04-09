@@ -283,17 +283,21 @@ Format: `undo`
 Undoable commands: those commands that modify the image (`rotate`, `crop`, `resize`, `brightness`, `contrast` and `bw`).
 ====
 
-Examples:
+// tag::Tab[]
+=== Cycle between tabs : `tab`
 
-* `rotate 180` +
-`brightness 1.9` +
-`undo` (reverses the `brightness 1.9` command) +
+Cycle between available tabs in the side *Information Panel*.
 
-* `contrast 0.3` +
-`crop 2 3 500 500` +
-`undo` (reverses the `crop 2 3 500 500` command +
-`undo` (reverses the `contrast 0.3`)
-// end::Undo[]
+The three available tabs are listed below:
+
+. *Album Images*
+- Displays all images currently opened in the `assets` folder and available for editing.
+. *EXIF Profile*
+- Displays all ancillary tags attached to the currently opened
+image such as metadata information like *Date and Time* and *Copyright information*.
+. *Command History*
+- Display all *Image Transformation* and *Image Filters* applied to the currently opened image.
+// end::Tab[]
 
 // tag::UpcomingFeatures[]
 == Upcoming Features (in v2.0)

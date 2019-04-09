@@ -11,7 +11,7 @@ import seedu.address.model.lesson.LessonList;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    public static Card[] getSampleCards() {
+    private static Card[] getSampleCards() {
         return new Card[] {
             new Card(Arrays.asList("Belgium", "Brussels"), Collections.singletonList("B")),
             new Card(Arrays.asList("Japan", "Tokyo"), Collections.singletonList("T")),

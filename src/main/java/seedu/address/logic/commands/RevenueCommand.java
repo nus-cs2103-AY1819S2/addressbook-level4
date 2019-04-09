@@ -10,13 +10,13 @@ import java.util.List;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Mode;
 import seedu.address.model.Model;
-import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.Day;
 import seedu.address.model.statistics.Month;
+import seedu.address.model.statistics.Revenue;
 import seedu.address.model.statistics.Year;
 
 /**
- * Gets revenue from the Daily revenue list.
+ * Gets revenue from the Revenue list.
  */
 public class RevenueCommand extends Command {
 
@@ -24,27 +24,26 @@ public class RevenueCommand extends Command {
     public static final String COMMAND_ALIAS = "r";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Gets the revenue from the specified day, month or year."
-            + "Parameters: [d/DAY] [m/MONTH] [y/YEAR]\n"
-            + "Combinations not allowed:\n 1. [d/DAY] and [y/YEAR] only\n 2. [d/DAY] and [m/MONTH] only\n"
-            + "Example: " + COMMAND_WORD + " d/30 m/12 y/2019 or "
-            + COMMAND_WORD + " m/12 y/2019 or "
-            + COMMAND_WORD + " y/2019";
+            + ": Gets the revenue from the specified year, month or day."
+            + "Parameters: [y/YEAR [m/MONTH] [d/DAY]]]\n"
+            + "Example: " + COMMAND_WORD + " y/2019 or "
+            + COMMAND_WORD + "y/2019 m/12 or "
+            + COMMAND_WORD + "y/2019 m/12 d/30";
 
     public static final String MESSAGE_SUCCESS = "Revenue for ";
 
     public static final String MESSAGE_REVENUE = "\n$ %.2f";
 
-    private final DailyRevenue dailyRevenue;
+    private final Revenue revenue;
 
     private final ArrayList<String> monthsInWords = new
             ArrayList<>(List.of("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"));
     /**
      * Creates an RevenueCommand to get revenue specified by the day, month or year.
      */
-    public RevenueCommand(DailyRevenue dailyRevenue) {
-        requireAllNonNull(dailyRevenue);
-        this.dailyRevenue = dailyRevenue;
+    public RevenueCommand(Revenue revenue) {
+        requireAllNonNull(revenue);
+        this.revenue = revenue;
     }
 
     @Override
@@ -53,53 +52,57 @@ public class RevenueCommand extends Command {
         float revenue = 0;
         StringBuilder sbFinalOutput = new StringBuilder(MESSAGE_SUCCESS);
 
-        List<DailyRevenue> dailyRevenueList = model.getFilteredDailyRevenueList();
+        List<Revenue> revenueList = model.getFilteredRevenueList();
 
-        if (dailyRevenue.getDay() != null && dailyRevenue.getMonth() != null && dailyRevenue.getYear() != null) {
-            for (DailyRevenue dailyRevenueItem : dailyRevenueList) {
-                requireNonNull(dailyRevenueItem);
+        if (this.revenue.getDay() != null && this.revenue.getMonth() != null && this.revenue.getYear() != null) {
+            //daily
+            for (Revenue revenueItem : revenueList) {
+                requireNonNull(revenueItem);
 
-                if (dailyRevenue.isSameDailyRevenue(dailyRevenueItem)) {
-                    revenue += dailyRevenueItem.getTotalDailyRevenue();
+                if (this.revenue.isSameRevenue(revenueItem)) {
+                    revenue += revenueItem.getTotalRevenue();
                 }
             }
-            sbFinalOutput.append(dailyRevenue.getDay()).append(" ")
-                    .append(monthsInWords.get(Integer.parseInt(dailyRevenue.getMonth().toString()) - 1)).append(" ")
-                    .append(dailyRevenue.getYear());
+            sbFinalOutput.append(this.revenue.getDay()).append(" ")
+                    .append(monthsInWords.get(Integer.parseInt(this.revenue.getMonth().toString()) - 1)).append(" ")
+                    .append(this.revenue.getYear());
 
-        } else if (dailyRevenue.getDay() == null && dailyRevenue.getMonth() != null
-                && dailyRevenue.getYear() != null) {
+        } else if (this.revenue.getDay() == null && this.revenue.getMonth() != null
+                && this.revenue.getYear() != null) {
+            //monthly
 
-            Month requestedMonth = dailyRevenue.getMonth();
-            Year requestedYear = dailyRevenue.getYear();
-            for (DailyRevenue dailyRevenueItem : dailyRevenueList) {
-                requireNonNull(dailyRevenueItem);
-                Month month = dailyRevenueItem.getMonth();
-                Year year = dailyRevenueItem.getYear();
+            Month requestedMonth = this.revenue.getMonth();
+            Year requestedYear = this.revenue.getYear();
+            for (Revenue revenueItem : revenueList) {
+                requireNonNull(revenueItem);
+                Month month = revenueItem.getMonth();
+                Year year = revenueItem.getYear();
 
                 if (requestedMonth.equals(month) && requestedYear.equals(year)) {
-                    revenue += dailyRevenueItem.getTotalDailyRevenue();
+                    revenue += revenueItem.getTotalRevenue();
                 }
             }
             sbFinalOutput.append(monthsInWords.get(Integer.parseInt(requestedMonth.toString()) - 1)).append(" ")
-                    .append(dailyRevenue.getYear());
+                    .append(this.revenue.getYear());
 
-        } else if (dailyRevenue.getDay() == null && dailyRevenue.getMonth() == null
-                && dailyRevenue.getYear() != null) {
+        } else if (this.revenue.getDay() == null && this.revenue.getMonth() == null
+                && this.revenue.getYear() != null) {
+            //yearly
 
-            for (DailyRevenue dailyRevenueItem : dailyRevenueList) {
-                requireNonNull(dailyRevenueItem);
-                Year requestedYear = dailyRevenue.getYear();
-                Year year = dailyRevenueItem.getYear();
+            for (Revenue revenueItem : revenueList) {
+                requireNonNull(revenueItem);
+                Year requestedYear = this.revenue.getYear();
+                Year year = revenueItem.getYear();
 
                 if (requestedYear.equals(year)) {
-                    revenue += dailyRevenueItem.getTotalDailyRevenue();
+                    revenue += revenueItem.getTotalRevenue();
                 }
             }
-            sbFinalOutput.append("Year ").append(dailyRevenue.getYear());
+            sbFinalOutput.append("Year ").append(this.revenue.getYear());
 
-        } else if (dailyRevenue.getDay() == null && dailyRevenue.getMonth() == null
-                && dailyRevenue.getYear() == null) {
+        } else if (this.revenue.getDay() == null && this.revenue.getMonth() == null
+                && this.revenue.getYear() == null) {
+            //current date
             java.util.Date currentDate = new java.util.Date();
             SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
             String dateParser = dateFormatter.format(currentDate);
@@ -107,14 +110,14 @@ public class RevenueCommand extends Command {
             Month requestedMonth = new Month(dateParser.substring(3, 5));
             Year requestedYear = new Year(dateParser.substring(6, 10));
 
-            for (DailyRevenue dailyRevenueItem : dailyRevenueList) {
-                requireNonNull(dailyRevenueItem);
-                Day day = dailyRevenueItem.getDay();
-                Month month = dailyRevenueItem.getMonth();
-                Year year = dailyRevenueItem.getYear();
+            for (Revenue revenueItem : revenueList) {
+                requireNonNull(revenueItem);
+                Day day = revenueItem.getDay();
+                Month month = revenueItem.getMonth();
+                Year year = revenueItem.getYear();
 
                 if (requestedDay.equals(day) && requestedMonth.equals(month) && requestedYear.equals(year)) {
-                    revenue += dailyRevenueItem.getTotalDailyRevenue();
+                    revenue += revenueItem.getTotalRevenue();
                 }
             }
             sbFinalOutput.append(requestedDay.toString()).append(" ")
@@ -129,6 +132,6 @@ public class RevenueCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof RevenueCommand
-                && dailyRevenue.equals(((RevenueCommand) other).dailyRevenue));
+                && revenue.equals(((RevenueCommand) other).revenue));
     }
 }

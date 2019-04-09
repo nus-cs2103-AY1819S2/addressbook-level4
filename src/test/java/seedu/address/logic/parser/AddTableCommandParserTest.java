@@ -43,15 +43,12 @@ public class AddTableCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid number of seats
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                AddTableCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "a", TableStatus.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, "a " + "@", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                AddTableCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "a " + "@", TableStatus.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + "4", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                AddTableCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + "4", TableStatus.MESSAGE_CONSTRAINTS);
     }
 }

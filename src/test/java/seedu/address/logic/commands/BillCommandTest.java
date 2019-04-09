@@ -31,6 +31,7 @@ import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.statistics.Bill;
 import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.ReadOnlyStatistics;
+import seedu.address.model.statistics.Revenue;
 import seedu.address.model.table.ReadOnlyTables;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
@@ -63,7 +64,7 @@ public class BillCommandTest {
                 new BillCommandTest.ModelStubAcceptingDailyRevenueAdded();
 
         DailyRevenue validDailyRevenue = new StatisticsBuilder().withDay("2").withMonth("3").withYear("2019")
-                .withTotalDailyRevenue("300.50").build();
+                .withTotalRevenue("300.50").build();
         Bill validBill = new StatisticsBuilder().withTableNumber("1").withDay("2").withMonth("3").withYear("2019")
                 .withTotalBill("20.50").buildBill();
 
@@ -78,7 +79,7 @@ public class BillCommandTest {
         assertEquals(String.format(BillCommand.MESSAGE_SUCCESS, validBill),
                 commandResult.getFeedbackToUser());
 
-        assertEquals(Arrays.asList(validDailyRevenue), modelStub.dailyRevenuesAdded);
+        assertEquals(Arrays.asList(validDailyRevenue), modelStub.revenuesAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
@@ -89,7 +90,7 @@ public class BillCommandTest {
                 new BillCommandTest.ModelStubAcceptingDailyRevenueAdded();
 
         DailyRevenue validDailyRevenue = new StatisticsBuilder().withDay("2").withMonth("3").withYear("2019")
-                .withTotalDailyRevenue("300.50").build();
+                .withTotalRevenue("300.50").build();
         Bill validBill = new StatisticsBuilder().withTableNumber("1").withDay("2").withMonth("3").withYear("2019")
                 .withTotalBill("20.50").buildBill();
 
@@ -104,7 +105,7 @@ public class BillCommandTest {
         assertEquals(String.format(BillCommand.MESSAGE_SUCCESS, validBill),
                 commandResult.getFeedbackToUser());
 
-        assertEquals(Arrays.asList(validDailyRevenue), modelStub.dailyRevenuesAdded);
+        assertEquals(Arrays.asList(validDailyRevenue), modelStub.revenuesAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
@@ -266,16 +267,6 @@ public class BillCommandTest {
         }
 
         @Override
-        public boolean hasDailyRevenue(DailyRevenue dailyRevenue) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteDailyRevenue(DailyRevenue target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void addTable(Table table) {
             throw new AssertionError("This method should not be called.");
         }
@@ -392,42 +383,52 @@ public class BillCommandTest {
         }
 
         @Override
-        public void addDailyRevenue(DailyRevenue dailyRevenue) {
+        public void addRevenue(Revenue revenue) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setDailyRevenue(DailyRevenue target, DailyRevenue editedDailyRevenue) {
+        public void deleteRevenue(Revenue revenue) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<DailyRevenue> getFilteredDailyRevenueList() {
+        public boolean hasRevenue(Revenue revenue) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredDailyRevenueList(Predicate<DailyRevenue> predicate) {
+        public void setRevenue(Revenue target, Revenue editedRevenue) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyProperty<DailyRevenue> selectedDailyRevenueProperty() {
+        public ObservableList<Revenue> getFilteredRevenueList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public DailyRevenue getSelectedDailyRevenue() {
+        public void updateFilteredRevenueList(Predicate<Revenue> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setSelectedDailyRevenue(DailyRevenue dailyRevenue) {
+        public ReadOnlyProperty<Revenue> selectedRevenueProperty() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<DailyRevenue> getDailyRevenueList() {
+        public Revenue getSelectedRevenue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedRevenue(Revenue dailyRevenue) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Revenue> getRevenueList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -636,19 +637,19 @@ public class BillCommandTest {
      * A Model stub that always accept the daily revenue being added.
      */
     private class ModelStubAcceptingDailyRevenueAdded extends BillCommandTest.ModelStub {
-        final ArrayList<DailyRevenue> dailyRevenuesAdded = new ArrayList<>();
+        final ArrayList<Revenue> revenuesAdded = new ArrayList<>();
 
         /**
-         * Updates the total daily revenue list when a bill is calculated.
+         * Updates the total revenue list when a bill is calculated.
          */
-        public void updateDailyRevenueList(Bill bill) {
+        public void updateRevenueList(Bill bill) {
             DailyRevenue dailyRevenue =
                     new DailyRevenue(bill.getDay(), bill.getMonth(), bill.getYear(), bill.getTotalBill());
-            if (hasDailyRevenue(dailyRevenue)) {
-                setDailyRevenue(dailyRevenue, new DailyRevenue(bill.getDay(), bill.getMonth(), bill.getYear(),
-                        dailyRevenue.getTotalDailyRevenue() + bill.getTotalBill()));
+            if (hasRevenue(dailyRevenue)) {
+                setRevenue(dailyRevenue, new DailyRevenue(bill.getDay(), bill.getMonth(), bill.getYear(),
+                        dailyRevenue.getTotalRevenue() + bill.getTotalBill()));
             } else {
-                addDailyRevenue(dailyRevenue);
+                addRevenue(dailyRevenue);
             }
         }
 
@@ -681,15 +682,15 @@ public class BillCommandTest {
         }
 
         @Override
-        public boolean hasDailyRevenue(DailyRevenue dailyRevenue) {
+        public boolean hasRevenue(Revenue dailyRevenue) {
             requireNonNull(dailyRevenue);
-            return dailyRevenuesAdded.stream().anyMatch(dailyRevenue::isSameDailyRevenue);
+            return revenuesAdded.stream().anyMatch(dailyRevenue::isSameRevenue);
         }
 
         @Override
-        public void addDailyRevenue(DailyRevenue dailyRevenue) {
-            requireNonNull(dailyRevenue);
-            dailyRevenuesAdded.add(dailyRevenue);
+        public void addRevenue(Revenue revenue) {
+            requireNonNull(revenue);
+            revenuesAdded.add(revenue);
         }
 
         @Override

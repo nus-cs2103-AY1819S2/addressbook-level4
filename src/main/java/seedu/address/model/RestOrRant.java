@@ -71,7 +71,7 @@ public class RestOrRant implements ReadOnlyRestOrRant {
         orders.setOrderItems(newOrders.getOrderItemList());
         menu.setMenuItems(newMenu.getMenuItemList());
         tables.setTables(newTables.getTableList());
-        statistics.setDailyRevenues(newStatistics.getDailyRevenueList());
+        statistics.setRevenues(newStatistics.getRevenueList());
     }
 
     @Override
@@ -98,7 +98,7 @@ public class RestOrRant implements ReadOnlyRestOrRant {
         return orders.getOrderItemList().size() + " order items"
                 + "\n" + menu.getMenuItemList().size() + " menu items"
                 + "\n" + tables.getTableList().size() + "tables"
-                + "\n" + statistics.getDailyRevenueList().size() + " daily revenues recorded";
+                + "\n" + statistics.getRevenueList().size() + " revenues recorded";
     }
 
     @Override

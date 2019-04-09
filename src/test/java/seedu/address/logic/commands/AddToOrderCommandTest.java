@@ -467,26 +467,6 @@ public class AddToOrderCommandTest {
         }
 
         @Override
-        public void setStatisticsStatus(boolean isDaily, boolean isMonthly, boolean isYearly) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean getIsDaily() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean getIsMonthly() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean getIsYearly() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void updateStatistics() {
             throw new AssertionError("This method should not be called.");
         }

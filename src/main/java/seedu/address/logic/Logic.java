@@ -162,34 +162,6 @@ public interface Logic {
     void setSelectedRevenue(Revenue revenue);
 
     /**
-     * Set the statistics status
-     *
-     * @see seedu.address.model.Model#setStatisticsStatus(boolean, boolean, boolean)
-     */
-    void setStatisticsStatus(boolean isDaily, boolean isMonthly, boolean isYearly);
-
-    /**
-     * Get the daily status
-     *
-     * @see seedu.address.model.Model#getIsDaily()
-     */
-    boolean getIsDaily();
-
-    /**
-     * Get the monthly status
-     *
-     * @see seedu.address.model.Model#getIsMonthly()
-     */
-    boolean getIsMonthly();
-
-    /**
-     * Get the yearly status
-     *
-     * @see seedu.address.model.Model#getIsYearly()
-     */
-    boolean getIsYearly();
-
-    /**
      * Sets the selected bill to be the recent bill.
      *
      * @see seedu.address.model.Model#setRecentBill(Bill)

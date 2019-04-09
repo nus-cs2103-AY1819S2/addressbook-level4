@@ -28,7 +28,7 @@ public class MonthlyCommand extends Command {
     public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
         requireAllNonNull(mode, model, history);
 
-        model.setStatisticsStatus(false, true, false);
-        return new CommandResult(String.format(MESSAGE_SUCCESS), false, false, Mode.STATISTICS_MODE);
+        return new CommandResult(String.format(MESSAGE_SUCCESS), false, false, Mode.STATISTICS_MODE, false, true,
+                false);
     }
 }

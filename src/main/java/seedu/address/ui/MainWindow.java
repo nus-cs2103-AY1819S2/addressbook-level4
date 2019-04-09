@@ -201,7 +201,7 @@ public class MainWindow extends UiPart<Stage> {
      * Changes application mode.
      */
     @FXML
-    private void handleChangeMode(Mode mode) {
+    private void handleChangeMode(Mode mode, boolean isDaily, boolean isMonthly, boolean isYearly) {
         requireNonNull(mode);
         browserPlaceholder.getChildren().clear();
         listPanelPlaceholder.getChildren().clear();
@@ -267,11 +267,11 @@ public class MainWindow extends UiPart<Stage> {
                     logic.selectedMenuItemProperty(), logic::setSelectedMenuItem);
             listPanelPlaceholder.getChildren().add(popularMenuListPanel.getRoot());
 
-            if (logic.getIsYearly()) {
+            if (isYearly) {
                 statisticsFlowPanel =
                         new StatisticsFlowPanel(logic.getFilteredRevenueList(), scrollPane, false, false, true);
                 browserPlaceholder.getChildren().add(statisticsFlowPanel.getRoot());
-            } else if (logic.getIsMonthly()) {
+            } else if (isMonthly) {
                 statisticsFlowPanel =
                         new StatisticsFlowPanel(logic.getFilteredRevenueList(), scrollPane, false, true, false);
                 browserPlaceholder.getChildren().add(statisticsFlowPanel.getRoot());
@@ -281,7 +281,6 @@ public class MainWindow extends UiPart<Stage> {
                 browserPlaceholder.getChildren().add(statisticsFlowPanel.getRoot());
             }
 
-            logic.setStatisticsStatus(true, false, false);
             statusBarFooter.updateMode("Statistics Mode");
             changeTheme(STATISTIC_MODE_THEME);
             break;
@@ -302,9 +301,12 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             Mode newMode = commandResult.newModeStatus();
+            boolean isDaily = commandResult.isDaily();
+            boolean isMonthly = commandResult.isMonthly();
+            boolean isYearly = commandResult.isYearly();
 
             if (newMode != null) {
-                handleChangeMode(newMode);
+                handleChangeMode(newMode, isDaily, isMonthly, isYearly);
             }
 
             if (commandResult.isShowHelp()) {

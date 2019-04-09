@@ -28,7 +28,7 @@ public class YearlyCommand extends Command {
     public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
         requireAllNonNull(mode, model, history);
 
-        model.setStatisticsStatus(false, false, true);
-        return new CommandResult(String.format(MESSAGE_SUCCESS), false, false, Mode.STATISTICS_MODE);
+        return new CommandResult(String.format(MESSAGE_SUCCESS), false, false, Mode.STATISTICS_MODE, false,
+                false, true);
     }
 }

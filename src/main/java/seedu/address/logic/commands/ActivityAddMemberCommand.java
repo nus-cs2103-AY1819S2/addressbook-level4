@@ -21,7 +21,7 @@ public class ActivityAddMemberCommand extends ActivityCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Selects the activity identified by the index number used in the displayed activity list and adds"
-            + "the Person object with given matriculation number into its attendance list.\n"
+            + " the Person object with given matriculation number into its attendance list.\n"
             + "Parameters: INDEX (must be a positive integer) + MATRICNUMBER\n"
             + "Example: " + COMMAND_WORD + " 1" + " A1234567H";
 
@@ -48,18 +48,18 @@ public class ActivityAddMemberCommand extends ActivityCommand {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-
         List<Activity> filteredActivityList = model.getFilteredActivityList();
 
         if (targetIndex.getZeroBased() >= filteredActivityList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
 
-        model.setSelectedActivity(filteredActivityList.get(targetIndex.getZeroBased()));
-        Activity selectedActivity = model.getSelectedActivity();
-        if (!model.hasMatricNumber(targetMatric)) {
+        if (!model.hasMatricNumber(this.targetMatric)) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_MATRIC_NUMBER);
         }
+
+        model.setSelectedActivity(filteredActivityList.get(targetIndex.getZeroBased()));
+        Activity selectedActivity = model.getSelectedActivity();
 
         if (selectedActivity.hasPersonInAttendance(targetMatric)) {
             throw new CommandException(Messages.MESSAGE_ACTIVITY_ALREADY_HAS_PERSON);

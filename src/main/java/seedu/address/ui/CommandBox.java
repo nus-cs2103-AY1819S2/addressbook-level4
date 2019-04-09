@@ -4,7 +4,6 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.CommandResult;
@@ -24,7 +23,7 @@ public class CommandBox extends UiPart<Region> {
     private ListElementPointer historySnapshot;
 
     @FXML
-    private TextField commandTextField;
+    private CategoriesAutoCompleteTextField commandTextField;
 
     public CommandBox(CommandExecutor commandExecutor, List<String> history) {
         super(FXML);
@@ -51,6 +50,10 @@ public class CommandBox extends UiPart<Region> {
         case DOWN:
             keyEvent.consume();
             navigateToNextInput();
+            break;
+        case BACK_SPACE:
+            keyEvent.consume();
+            commandTextField.hideAutoComplete();
             break;
         default:
             // let JavaFx handle the keypress

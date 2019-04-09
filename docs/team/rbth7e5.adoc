@@ -9,27 +9,43 @@
 
 == Overview
 
-This portfolio showcases my contributions for a software engineering team project for our software engineering module. In a period of 6 weeks, we were tasked to implement a command line interface (CLI) based application targeted at a specific group of users.
+This portfolio showcases my contributions for a software engineering team project for our software engineering module.
+In a period of 6 weeks, we were tasked to implement a command line interface (CLI) based application targeted at a
+specific group of users.
 
-Our project, The Food Diary, is a fast and reliable food journal meant for nostalgic food lovers looking to document their food adventures. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLo.
+Our project, The Food Diary, is a fast and reliable food journal meant for nostalgic food lovers looking to document
+their food adventures. The Food Diary is especially useful to food lovers who can type fast and hence prefers using CLI
+over a Graphical User Interface (GUI). Our project is written in Java and uses the JavaFX UI framework to display
+content onto the screen.
 
-My role was to implement the categorisation of restaurants as well as manage the git workflow of members. The following sections illustrate these enhancements in more detail, as well as the relevant sections I have added to the user and developer guides in relation to these enhancements.
+The main features of The Food Diary are:
+
+* Getting personalised recommendations based on restaurants you have visited
+* Documenting your food adventures and reviews in one single location so that you can easily refer back to it later
+* Organising the restaurants you have visited with categories so that you can easily filter them later
+
+My role was to implement the categorisation of restaurants as well as manage the git workflow of members.
+The following sections illustrate these enhancements in more detail, as well as the relevant sections I have added
+to the user and developer guides in relation to these enhancements.
 
 == Summary of contributions
 
-* *Major enhancement*: added *Restaurant Categorisation*
-** What it does: This enhancement allows the users to set specific categories such as Cuisine, Occasion and Price Range to restaurants.
-** Justification: This enhancement allows The Food Diary to achieve one of its highlights: to allow food lovers to categorise restaurants so that they can better organise their food diary.
-** Highlights:
+The following describes the contributions I made to the project. More specifically, it documents both the code enhancements
+and how I helped manage the project.
+
+* *Major enhancement*: I implemented *Restaurant Categorisation* for the Food Diary
+** Description of the feature: This enhancement allows the users to set specific categories such as Cuisine, Occasion and Price Range to restaurants.
+** Why is the feature important: This enhancement allows The Food Diary to achieve one of its highlights: to allow food lovers to categorise restaurants so that they can better organise their food diary.
+** Highlights of the feature:
 *** Categories added are auto-capitalized for better user experience.
 *** One command that covers adding and editing categories.
 *** Autocomplete support for categories keyed in before for better user experience.
 
-* *Minor enhancement*: filter command to display specific restaurants
-** What it does: This enhancement allows food lovers to filter out restaurants based on categories.
-** Justification: This enhancement helps food lovers locate and refer back to specific restaurants with specific categories set.
+* *Minor enhancement*: I added a filter command to display specific restaurants based on its categories
+** Description of the feature: This enhancement allows food lovers to filter out restaurants based on categories.
+** Why the feature is important: This enhancement helps food lovers locate and refer back to specific restaurants with specific categories set.
 
-* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=rbth7e5]
+* *Code contributed*: The code I contributed can be viewed at the link here: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=rbth7e5[Code Contributed]
 
 * *Other contributions*:
 
@@ -51,7 +67,8 @@ My role was to implement the categorisation of restaurants as well as manage the
 == Contributions to the User Guide
 
 |===
-|_The following describes the contributions I made to the User Guide. The following is an excerpt from the User Guide. More specifically, it shows my ability to document the Restaurant Categorization feature for end users._
+|_The following describes the contributions I made to the User Guide. The following is an excerpt from the User Guide.
+More specifically, it shows my ability to document the Restaurant Categorization feature for end users._
 |===
 
 include::../UserGuide.adoc[tag=categorization]
@@ -59,11 +76,8 @@ include::../UserGuide.adoc[tag=categorization]
 == Contributions to the Developer Guide
 
 |===
-|_Two main sections I contributed to the Developer Guide are User Stories and Categorization as shown below. It reflects my ability to articulate how I implemented my features_
+|_For the Developer Guide, I documented how Categorization is implemented as shown below.
+It reflects my ability to articulate how I implemented my features_
 |===
 
-include::../DeveloperGuide.adoc[tag=userstories]
-
 include::../DeveloperGuide.adoc[tag=categorisation]
-
-include::../DeveloperGuide.adoc[tag=categorization]

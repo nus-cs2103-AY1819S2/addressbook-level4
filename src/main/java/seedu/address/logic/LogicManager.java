@@ -169,7 +169,19 @@ public class LogicManager implements Logic {
 
     @Override
     public void setSelectedPerson(Person person) {
+        model.setSelectedPinPerson(null);
         model.setSelectedPerson(person);
+    }
+
+    @Override
+    public ReadOnlyProperty<Person> selectedPinPersonProperty() {
+        return model.selectedPinPersonProperty();
+    }
+
+    @Override
+    public void setSelectedPinPerson(Person person) {
+        model.setSelectedPerson(null);
+        model.setSelectedPinPerson(person);
     }
 
     @Override

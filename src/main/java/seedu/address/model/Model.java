@@ -237,6 +237,23 @@ public interface Model {
     void setSelectedPerson(Person person);
 
     /**
+     * Selected person in the filtered pin list.
+     * null if no person is selected.
+     */
+    ReadOnlyProperty<Person> selectedPinPersonProperty();
+
+    /**
+     * Returns the selected person in the filtered pin list.
+     * null if no person is selected.
+     */
+    Person getSelectedPinPerson();
+
+    /**
+     * Sets the selected person in the filtered pin list.
+     */
+    void setSelectedPinPerson(Person person);
+
+    /**
      * Selected archived person in the filtered archived person list.
      * null if no archived person is selected.
      */

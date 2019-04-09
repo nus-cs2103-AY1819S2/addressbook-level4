@@ -61,13 +61,13 @@ public class SampleDataUtil {
     public static Person[] getSamplePinnedPersons() {
         return new Person[] {
             new Person(new Name("Philip Fu"), new Phone("83070005"), new Email("philipfu@example.com"),
-                new Address("Blk 344 Clementi Ave 5, #03-03"),
+                new Address("262 Pasir Panjang Road, #03-03"),
                 getTagSet("neighbours")),
             new Person(new Name("Irwin King"), new Phone("83070006"), new Email("irwinking@example.com"),
-                new Address("Blk 345 Clementi Ave 5, #04-04"),
+                new Address("G S Building, #04-04"),
                 getTagSet("partners", "friends")),
             new Person(new Name("Jimmy Lee"), new Phone("83070007"), new Email("jimmylee@example.com"),
-                new Address("Blk 346 Clementi Ave 5, #05-05"),
+                new Address("Block 21 HDB Balam, #05-05"),
                 getTagSet("family")),
         };
     }

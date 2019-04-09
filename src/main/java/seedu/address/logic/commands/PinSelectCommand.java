@@ -12,22 +12,22 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Selects a person identified using it's displayed index from the address book.
+ * Selects a person identified using it's displayed index from the pin book.
  */
-public class SelectCommand extends Command {
+public class PinSelectCommand extends Command {
 
-    public static final String COMMAND_WORD = "select";
+    public static final String COMMAND_WORD = "pinselect";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Selects the person identified by the index number used in the displayed person list.\n"
+            + ": Selects the pinned person identified by the index number used in the displayed pin list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Person: %1$s";
+    public static final String MESSAGE_SELECT_PIN_PERSON_SUCCESS = "Selected Pin Person: %1$s";
 
     private final Index targetIndex;
 
-    public SelectCommand(Index targetIndex) {
+    public PinSelectCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -35,21 +35,20 @@ public class SelectCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<Person> filteredPersonList = model.getFilteredPersonList();
+        List<Person> pinnedPersonList = model.getFilteredPinnedPersonList();
 
-        if (targetIndex.getZeroBased() >= filteredPersonList.size()) {
+        if (targetIndex.getZeroBased() >= pinnedPersonList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        model.setSelectedPerson(filteredPersonList.get(targetIndex.getZeroBased()));
-        model.setSelectedPinPerson(null);
-        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
-
+        model.setSelectedPinPerson(pinnedPersonList.get(targetIndex.getZeroBased()));
+        model.setSelectedPerson(null);
+        return new CommandResult(String.format(MESSAGE_SELECT_PIN_PERSON_SUCCESS, targetIndex.getOneBased()));
     }
 
     @Override
     public boolean requiresMainList() {
-        return true;
+        return false;
     }
 
     @Override
@@ -60,7 +59,8 @@ public class SelectCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SelectCommand // instanceof handles nulls
-                && targetIndex.equals(((SelectCommand) other).targetIndex)); // state check
+                || (other instanceof PinSelectCommand // instanceof handles nulls
+                && targetIndex.equals(((PinSelectCommand) other).targetIndex)); // state check
     }
+
 }

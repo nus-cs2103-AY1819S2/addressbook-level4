@@ -428,6 +428,14 @@ public class ModelManager implements Model {
         this.consultationManager.abortConsultation();
     }
 
+    /**
+     * Executes subtraction of medicine quantity according to prescription; checks medicine quantities for reminders;
+     * @param prescription the prescription to execute
+     */
+    public void executePrescription(Prescription prescription) {
+        prescription.getMedicine().subtractQuantity(prescription.getQuantity());
+        reminderForMedicine(prescription.getMedicine());
+    }
     //==========Appointment module===========================================================================
     public boolean hasTimeConflicts(Appointment app) {
         return appointmentManager.hasTimeConflicts(app);

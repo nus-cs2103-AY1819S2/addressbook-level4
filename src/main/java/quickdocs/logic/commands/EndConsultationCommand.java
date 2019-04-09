@@ -3,12 +3,12 @@ package quickdocs.logic.commands;
 import java.time.Clock;
 
 import quickdocs.logic.CommandHistory;
-import quickdocs.model.consultation.Consultation;
-import quickdocs.model.consultation.Prescription;
-import quickdocs.model.record.ConsultationRecord;
 import quickdocs.logic.commands.exceptions.CommandException;
 import quickdocs.model.Model;
+import quickdocs.model.consultation.Consultation;
+import quickdocs.model.consultation.Prescription;
 import quickdocs.model.patient.Nric;
+import quickdocs.model.record.ConsultationRecord;
 
 /**
  * End the current consultation session and store the details
@@ -47,8 +47,9 @@ public class EndConsultationCommand extends Command {
          * removed from the inventory
          */
         for (Prescription prescription : currentConsultation.getPrescriptions()) {
-            prescription.getMedicine().subtractQuantity(prescription.getQuantity());
-            model.reminderForMedicine(prescription.getMedicine());
+            model.executePrescription(prescription);
+            //prescription.getMedicine().subtractQuantity(prescription.getQuantity());
+            //model.reminderForMedicine(prescription.getMedicine());
         }
 
         ConsultationRecord record = new ConsultationRecord(currentConsultation.getPrescriptions(),

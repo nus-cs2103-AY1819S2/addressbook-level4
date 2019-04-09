@@ -228,6 +228,8 @@ The following sections illustrate the design of managers of each sub-module.
 [[Design-Model-MedicineManager]]
 ==== Model for Medicine module
 
+QuickDocs supports customized organization of medicine inventory. +
+
 The figure below illustrates the implementation of the inventory system for medicine.
 
 [[MedicineManager_diagram]]
@@ -242,6 +244,8 @@ The `MedicineManager` keeps a list of reference of all unique medicines in the s
 
 [NOTE]
 All occurrences of medicines with the same name across different directories point to the same medicine in the list of unique medicine in MedicineManager.
+
+As the directory-medicine structure resembles the tree data structure, it is possible to support tree-like operations, such as setting the same threshold for the "subtree" of a directory.
 
 [[Design-Model-PatientManager]]
 ==== Model for Patient Management
@@ -285,7 +289,49 @@ The figure below illustrates how such records are organized in QuickDocs, and ho
 .Structure of StatisticsManager
 image::StatisticsManager_diagram.png[width='800']
 
+Monetary transactions in the clinics are categorized to two forms, i.e purchasing of medicine and revenue from consulting patients. +
 
+Both forms have corresponding classes to record such transactions. Every successful execution of purchase medicine command and every successful consultation will create its corresponding record. +
+
+`MonthStatistics` holds records of purchases of medicines and consultations happened in a particular month. +
+
+The overall `StatisticsManager` has a list of MonthStatistics arranged in chronological order.
+
+[[Design-Model-AppointmentManager]]
+==== Model for AppointmentManager
+
+The Appointment module manages time slots for appointment requests from the patients. +
+
+The figure below illustrates how AppointmentManager is organized. +
+
+[[AppointmentManager_diagram]]
+.Structure of AppointmentManager
+image::AppointmentManager_diagram.png[width='800]
+
+A `Slot` is used to represent a time block during clinic's opening hour available for appointments. +
+
+`Appointment` extends slot and each appointment is assigned exactly one patient. +
+
+`AppointmentManager` holds a list of appointments which can then be operated on upon user commands.
+
+[[Design-Model-ReminderManager]]
+==== Model for ReminderManager
+
+QuickDocs supports reminding our users about upcoming appointments and warns users about medicines that is low in stock. +
+
+QuickDocs also supports customized reminders that could be set up by the users themselves. +
+
+The figure below illustrates how reminder module is implemented.
+
+[[ReminderManager_diagram]]
+.Structure of ReminderManager
+image::ReminderManager_diagram.png[width='800']
+
+`Reminder` extends from slot, and has a starting date and end date. Users are free to customize reminders' title and comments for user-initiated reminders. +
+
+`ReminderManager` keeps a list of reminders sorted by the date of reminder. Reminders that expires, i.e passed the end date, will automatically be hidden from the panel list of reminders shown to the user. +
+
+Upon every subtraction or addition of medicine quantity in the inventory, the `ModelManager` calls the `ReminderManager` to check the sufficiency of medicine against the set threshold and update the reminder panel accordingly, so that the reminders for medicines in low stock is managed automatically upon every change in medicine quantity.
 
 [[Design-Storage]]
 === Storage component

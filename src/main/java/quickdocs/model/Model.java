@@ -144,6 +144,7 @@ public interface Model {
 
     void abortConsultation();
 
+    void executePrescription(Prescription prescription);
     //===========Appointment module operations========================
     boolean hasTimeConflicts(Appointment app);
 

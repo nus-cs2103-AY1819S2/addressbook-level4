@@ -16,7 +16,7 @@ import seedu.address.model.image.Image;
  * This command allows users to save a preset of commands.
  */
 public class SavePresetCommand extends Command {
-    public static final String COMMAND_WORD = "savePreset";
+    public static final String COMMAND_WORD = "savepreset";
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Saves a preset list of image editing commands used on your currently editing image.\n"
         + "Name of the preset list should not contain any spaces.\n"
@@ -42,18 +42,18 @@ public class SavePresetCommand extends Command {
         }
         List<Command> commandList = currentEdit.getTempSubHistory();
         for (Command command: commandList) {
-            if (!(command instanceof AddPresetCommand)) {
+            if (!(command instanceof SetPresetCommand)) {
                 presetList.add(command);
             }
         }
         System.out.print(presetList);
         if (presetList.size() < 1) {
-            throw new CommandException(Messages.MESSAGE_ADDPRESET_FAIL_EMPTY);
+            throw new CommandException(Messages.MESSAGE_SAVEPRESET_FAIL_EMPTY);
         }
         TransformationSet transformationSet = TransformationSet.getInstance();
         boolean duplicate = transformationSet.isPresent(presetName);
         if (duplicate) {
-            throw new CommandException(Messages.MESSAGE_ADDPRESET_FAIL_DUPLICATE);
+            throw new CommandException(Messages.MESSAGE_SAVEPRESET_FAIL_DUPLICATE);
         }
         transformationSet.addTransformation(presetName, presetList);
         StringBuilder toPrint = new StringBuilder();
@@ -62,7 +62,7 @@ public class SavePresetCommand extends Command {
             toPrint.append("[" + command.toString() + "]");
         }
 
-        return new CommandResult(Messages.MESSAGE_ADDPRESET_SUCCESS + ": \n" + toPrint.toString());
+        return new CommandResult(Messages.MESSAGE_SAVEPRESET_SUCCESS + ": \n" + toPrint.toString());
     }
 }
 /* @@author */

@@ -65,18 +65,18 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This moduleTaken already exists in the address book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditModuleTakenDescriptor editPersonDescriptor;
 
     /**
      * @param index of the moduleTaken in the filtered moduleTaken list to edit
      * @param editPersonDescriptor details to edit the moduleTaken with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditModuleTakenDescriptor editPersonDescriptor) {
         requireNonNull(index);
         requireNonNull(editPersonDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editPersonDescriptor = new EditModuleTakenDescriptor(editPersonDescriptor);
     }
 
     @Override
@@ -132,7 +132,7 @@ public class EditCommand extends Command {
      * edited with {@code editPersonDescriptor}.
      */
     private static ModuleTaken createEditedPerson(ModuleTaken moduleTakenToEdit,
-                                                  EditPersonDescriptor editPersonDescriptor) {
+                                                  EditModuleTakenDescriptor editPersonDescriptor) {
         assert moduleTakenToEdit != null;
 
         ModuleInfoCode updatedName = editPersonDescriptor.getModuleInfoCode()
@@ -182,7 +182,7 @@ public class EditCommand extends Command {
      * Stores the details to edit the moduleTaken with. Each non-empty field value will replace the
      * corresponding field value of the moduleTaken.
      */
-    public static class EditPersonDescriptor {
+    public static class EditModuleTakenDescriptor {
         private ModuleInfoCode moduleInfoCode;
         private Semester semester;
         private Grade expectedMinGrade;
@@ -194,13 +194,13 @@ public class EditCommand extends Command {
         private Hour preparationHour;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditModuleTakenDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditModuleTakenDescriptor(EditModuleTakenDescriptor toCopy) {
             setModuleInfoCode(toCopy.moduleInfoCode);
             setSemester(toCopy.semester);
             setExpectedMinGrade(toCopy.expectedMinGrade);
@@ -317,12 +317,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditModuleTakenDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditModuleTakenDescriptor e = (EditModuleTakenDescriptor) other;
 
             return getModuleInfoCode().equals(e.getModuleInfoCode())
                     && getSemester().equals(e.getSemester())

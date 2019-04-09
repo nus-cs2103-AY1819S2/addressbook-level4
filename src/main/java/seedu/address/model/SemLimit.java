@@ -8,7 +8,7 @@ import seedu.address.model.moduletaken.CapAverage;
 import seedu.address.model.moduletaken.Hour;
 
 /**
- * Represents a SemLimit in the address book.
+ * Represents a SemLimit in GradTrak.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class SemLimit {

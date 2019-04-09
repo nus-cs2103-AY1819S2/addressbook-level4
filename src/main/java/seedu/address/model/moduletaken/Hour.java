@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Workload's hour number in the address book.
+ * Represents the number of workload hours in a module taken.
  * Guarantees: immutable; is valid as declared in {@link #isValidHour(String)}
  */
 public class Hour {
@@ -34,6 +34,9 @@ public class Hour {
 
     /**
      * Returns if this number of hours is no more than another number of hours.
+     *
+     * @param limit the limit of another Hour to compare to
+     * @return a boolean indicating if it is within the limit of the other Hour
      */
     public boolean isWithin(Hour limit) {
         return this.hour <= limit.getHour();

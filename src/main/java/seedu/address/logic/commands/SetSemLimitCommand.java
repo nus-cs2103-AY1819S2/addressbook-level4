@@ -143,7 +143,7 @@ public class SetSemLimitCommand extends Command {
 
         // state check
         SetSemLimitCommand e = (SetSemLimitCommand) other;
-        return index == e.index
+        return index.equals(e.index)
                 && editSemLimitDescriptor.equals(e.editSemLimitDescriptor);
     }
 
@@ -189,7 +189,9 @@ public class SetSemLimitCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(minCap, maxCap, minLectureHour, maxLectureHour);
+            return CollectionUtil.isAnyNonNull(minCap, maxCap, minLectureHour, maxLectureHour,
+                    minTutorialHour, maxTutorialHour, minLabHour, maxLabHour, minProjectHour, maxProjectHour,
+                    minPreparationHour, maxPreparationHour);
         }
 
         public void setMinCap(CapAverage minCap) {

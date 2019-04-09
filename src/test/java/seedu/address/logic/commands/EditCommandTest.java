@@ -20,7 +20,7 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditCommand.EditModuleTakenDescriptor;
 import seedu.address.model.GradTrak;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -29,7 +29,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.model.moduletaken.ModuleTaken;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditModuleTakenDescriptorBuilder;
 import seedu.address.testutil.ModuleTakenBuilder;
 
 /**
@@ -44,7 +44,7 @@ public class EditCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         ModuleTaken editedModuleTaken = new ModuleTakenBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedModuleTaken).build();
+        EditModuleTakenDescriptor descriptor = new EditModuleTakenDescriptorBuilder(editedModuleTaken).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedModuleTaken);
@@ -67,7 +67,8 @@ public class EditCommandTest {
                 .withSemester(VALID_SEMESTER_CS1010)
                 .withTags(VALID_TAG_HUSBAND).build();
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_MODULE_INFO_CODE_CS1010)
+        EditModuleTakenDescriptor descriptor = new EditModuleTakenDescriptorBuilder()
+                .withName(VALID_MODULE_INFO_CODE_CS1010)
                 .withSemester(VALID_SEMESTER_CS1010).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
@@ -83,7 +84,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditModuleTakenDescriptor());
         ModuleTaken editedModuleTaken = model.getFilteredModulesTakenList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedModuleTaken);
@@ -104,7 +105,7 @@ public class EditCommandTest {
         ModuleTaken editedModuleTaken = new ModuleTakenBuilder(moduleTakenInFilteredList)
                 .withModuleInfoCode(VALID_MODULE_INFO_CODE_CS1010).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder().withName(VALID_MODULE_INFO_CODE_CS1010).build());
+                new EditModuleTakenDescriptorBuilder().withName(VALID_MODULE_INFO_CODE_CS1010).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedModuleTaken);
 
@@ -119,7 +120,7 @@ public class EditCommandTest {
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
         ModuleTaken firstModuleTaken = model.getFilteredModulesTakenList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstModuleTaken).build();
+        EditModuleTakenDescriptor descriptor = new EditModuleTakenDescriptorBuilder(firstModuleTaken).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_PERSON);
@@ -133,7 +134,7 @@ public class EditCommandTest {
         ModuleTaken moduleTakenInList = model.getGradTrak().getModulesTakenList()
                 .get(INDEX_SECOND_PERSON.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder(moduleTakenInList).build());
+                new EditModuleTakenDescriptorBuilder(moduleTakenInList).build());
 
         assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
@@ -141,7 +142,7 @@ public class EditCommandTest {
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredModulesTakenList().size() + 1);
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+        EditModuleTakenDescriptor descriptor = new EditModuleTakenDescriptorBuilder()
                 .withName(VALID_MODULE_INFO_CODE_CS1010).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
@@ -160,7 +161,7 @@ public class EditCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getGradTrak().getModulesTakenList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditPersonDescriptorBuilder().withName(VALID_MODULE_INFO_CODE_CS1010).build());
+                new EditModuleTakenDescriptorBuilder().withName(VALID_MODULE_INFO_CODE_CS1010).build());
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_MODULETAKEN_DISPLAYED_INDEX);
     }
@@ -169,7 +170,7 @@ public class EditCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         ModuleTaken editedModuleTaken = new ModuleTakenBuilder().build();
         ModuleTaken moduleTakenToEdit = model.getFilteredModulesTakenList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedModuleTaken).build();
+        EditModuleTakenDescriptor descriptor = new EditModuleTakenDescriptorBuilder(editedModuleTaken).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new GradTrak(model.getGradTrak()), new UserPrefs(),
                                                new ModuleInfoList(), new CourseList(), new UserInfo());
@@ -191,7 +192,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredModulesTakenList().size() + 1);
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+        EditModuleTakenDescriptor descriptor = new EditModuleTakenDescriptorBuilder()
                 .withName(VALID_MODULE_INFO_CODE_CS1010).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
@@ -213,7 +214,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
         ModuleTaken editedModuleTaken = new ModuleTakenBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedModuleTaken).build();
+        EditModuleTakenDescriptor descriptor = new EditModuleTakenDescriptorBuilder(editedModuleTaken).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new GradTrak(model.getGradTrak()), new UserPrefs(),
                                                new ModuleInfoList(), new CourseList(), new UserInfo());
@@ -242,7 +243,7 @@ public class EditCommandTest {
         final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_CS2103T);
 
         // same values -> returns true
-        EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_CS2103T);
+        EditModuleTakenDescriptor copyDescriptor = new EditModuleTakenDescriptor(DESC_CS2103T);
         EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 

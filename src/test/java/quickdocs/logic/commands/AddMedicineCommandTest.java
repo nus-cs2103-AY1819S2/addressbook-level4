@@ -81,7 +81,7 @@ public class AddMedicineCommandTest {
                             Optional.empty(), Optional.empty()).execute(modelManager, history);
             Assert.fail();
         } catch (CommandException ex) {
-            Assert.assertEquals(String.format(AddMedicineCommand.ERRORMESSAGE_NOEXISTINGMEDFOUND, medicineName),
+            Assert.assertEquals(String.format(MedicineManager.ERROR_MESSAGE_NO_EXISTING_MED_FOUND, medicineName),
                     ex.getMessage());
         }
     }

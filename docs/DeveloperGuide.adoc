@@ -755,11 +755,21 @@ From the initial empty state of the storage, the users could arrange their stora
 
 Given below is an example of organizing medicine from an initial empty QuickDocs.
 
+Step 1: Initially, the storage only consists of an empty directory called root. +
 
+The list of unique medicine in `MedicineManager` is empty.
 
 [[medicineModule_example1]]
 image::medicineModule_example1.png[width='800']
 
+Step 2: Via `adddirec root Internal`, a new directory called "Internal" is added under root. +
+
+The list of unique medicine is still empty.
+
+[[medicineModule_example2]]
+image::medicineModule_example2.png[width='800']
+
+Step 3: Via a few more `adddirec` commands, the figure below is an illustration of a typical inventory's framework.
 
 4. The user could view detailed information about a directory or medicine through "viewMed" command.
 

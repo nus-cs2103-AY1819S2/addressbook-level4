@@ -146,6 +146,9 @@ public class AddressBookParser {
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommand();
 
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
+
         //Commands that runs ONLY in both Patient Mode OR Calendar Window
         case TaskDoneCommand.COMMAND_WORD:
             return new TaskDoneCommandParser().parse(arguments);

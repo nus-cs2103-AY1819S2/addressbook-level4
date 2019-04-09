@@ -32,6 +32,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredArchivedPersons;
     private final FilteredList<Person> filteredPinnedPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Person> selectedArchivedPerson = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -53,7 +54,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
         filteredArchivedPersons = new FilteredList<>(versionedArchiveBook.getPersonList());
-        filteredArchivedPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredArchivedPersons.addListener(this::ensureSelectedArchivedPersonIsValid);
         filteredPinnedPersons = new FilteredList<>(versionedPinBook.getPersonList());
         filteredPinnedPersons.addListener(this::ensureSelectedPersonIsValid);
     }
@@ -360,6 +361,56 @@ public class ModelManager implements Model {
                 // Select the person that came before it in the list,
                 // or clear the selection if there is no such person.
                 selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
+
+    //=========== Selected archived person ===========================================================================
+
+    @Override
+    public ReadOnlyProperty<Person> selectedArchivedPersonProperty() {
+        return selectedArchivedPerson;
+    }
+
+    @Override
+    public Person getSelectedArchivedPerson() {
+        return selectedArchivedPerson.getValue();
+    }
+
+    @Override
+    public void setSelectedArchivedPerson(Person person) {
+        if (person != null && !filteredArchivedPersons.contains(person)) {
+            throw new PersonNotFoundException();
+        }
+        selectedArchivedPerson.setValue(person);
+    }
+
+    /**
+     * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}.
+     */
+    private void ensureSelectedArchivedPersonIsValid(ListChangeListener.Change<? extends Person> change) {
+        while (change.next()) {
+            if (selectedArchivedPerson.getValue() == null) {
+                // null is always a valid selected person, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedArchivedPerson.getValue());
+            if (wasSelectedPersonReplaced) {
+                // Update selectedPerson to its new value.
+                int index = change.getRemoved().indexOf(selectedArchivedPerson.getValue());
+                selectedArchivedPerson.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedPersonRemoved = change.getRemoved().stream()
+                    .anyMatch(removedPerson -> selectedArchivedPerson.getValue().isSamePerson(removedPerson));
+            if (wasSelectedPersonRemoved) {
+                // Select the person that came before it in the list,
+                // or clear the selection if there is no such person.
+                selectedArchivedPerson.setValue(change.getFrom() > 0
+                        ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }

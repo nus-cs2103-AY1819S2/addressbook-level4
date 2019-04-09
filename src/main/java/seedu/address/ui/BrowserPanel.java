@@ -25,56 +25,83 @@ public class BrowserPanel extends UiPart<Region> {
     public static final URL DEFAULT_PAGE =
             requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
     public static final String SEARCH_PAGE_URL = "https://www.google.com/maps/search/?api=1&query=";
+    public static final String TEST_URL = "https://www.google.com/maps/";
 
     private static final String FXML = "BrowserPanel.fxml";
-    private static final String NO_CONNECTION = "No Internet connection! Restart app if connection is established";
+    private static final String NO_CONNECTION = "No Internet connection! Establish connection to display map";
     private static final String NO_CONTACT_SELECTED = "No contact selected";
     private static final String NO_ADDRESS_AVAILABLE = "No map location to display!";
-
-    private static boolean isInternetAvailable;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
     private WebView browser;
+
     @FXML
     private Label browserLabel;
 
-    public BrowserPanel(ObservableValue<Person> selectedPerson) {
+    public BrowserPanel(ObservableValue<Person> selectedPerson, ObservableValue<Person> selectedArchivedPerson) {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
-        // Test for internet connectivity
-        try {
-            URL url = new URL("https://www.google.com/maps/");
-            URLConnection connection = url.openConnection();
-            connection.connect();
-            isInternetAvailable = true;
-        } catch (Exception e) {
-            isInternetAvailable = false;
-        }
-
         browserLabel.setText(NO_CONTACT_SELECTED);
 
-        // Load person page when selected person changes.
+        // Load page when selected person changes.
         selectedPerson.addListener((observable, oldValue, newValue) -> {
-            if (newValue == null) {
-                browserLabel.setText(NO_CONTACT_SELECTED);
-                loadDefaultPage();
-                return;
-            } else if (newValue.getAddress().value == null) {
-                browserLabel.setText(NO_ADDRESS_AVAILABLE);
-                loadDefaultPage();
-                return;
-            } else if (!isInternetAvailable) {
+            // Test for internet connectivity
+            try {
+                URL url = new URL(TEST_URL);
+                URLConnection connection = url.openConnection();
+                connection.connect();
+
+                if (newValue == null) {
+                    browserLabel.setText(NO_CONTACT_SELECTED);
+                    loadDefaultPage();
+                    return;
+                } else if (newValue.getAddress().value == null) {
+                    browserLabel.setText(NO_ADDRESS_AVAILABLE);
+                    loadDefaultPage();
+                    return;
+                }
+
+                browserLabel.setText(newValue.getName().fullName + "'s Map Location:");
+                loadMapsPage(newValue);
+
+            } catch (Exception e) {
                 browserLabel.setText(NO_CONNECTION);
                 loadDefaultPage();
                 return;
             }
-            browserLabel.setText(newValue.getName().fullName + "'s Map Location:");
-            loadMapsPage(newValue);
+        });
+
+        // Load page when selected archived person changes.
+        selectedArchivedPerson.addListener((observable, oldValue, newValue) -> {
+            // Test for internet connectivity
+            try {
+                URL url = new URL(TEST_URL);
+                URLConnection connection = url.openConnection();
+                connection.connect();
+
+                if (newValue == null) {
+                    browserLabel.setText(NO_CONTACT_SELECTED);
+                    loadDefaultPage();
+                    return;
+                } else if (newValue.getAddress().value == null) {
+                    browserLabel.setText(NO_ADDRESS_AVAILABLE);
+                    loadDefaultPage();
+                    return;
+                }
+
+                browserLabel.setText(newValue.getName().fullName + "'s Map Location:");
+                loadMapsPage(newValue);
+
+            } catch (Exception e) {
+                browserLabel.setText(NO_CONNECTION);
+                loadDefaultPage();
+                return;
+            }
         });
 
         loadDefaultPage();

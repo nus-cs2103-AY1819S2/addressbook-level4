@@ -186,11 +186,11 @@ public class MainWindow extends UiPart<Stage> {
         String[] cmdArray = commandText.split(" ");
         String command = cmdArray[0];
 
-        Optional<Node> newPanel = commandPanelHandler.getCommandPanel(command);
-        if (newPanel.isPresent()) {
+        if (!browserPlaceholder.getChildren().isEmpty()) {
             browserPlaceholder.getChildren().remove(0);
-            browserPlaceholder.getChildren().add(0, newPanel.get());
         }
+        commandPanelHandler.getCommandPanel(command).ifPresent(panel ->
+                browserPlaceholder.getChildren().add(0, panel));
     }
 
     /**

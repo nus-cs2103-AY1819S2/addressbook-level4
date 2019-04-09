@@ -1,0 +1,74 @@
+= Gong Changda - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: docX
+
+---
+
+== Overview
+
+docX is a desktop clinic management application designed for receptionists in clinic. It has a GUI but most of user interactions happen using a CLI(Command Line Interface).
+
+== Summary of contributions
+
+* *Major feature*: added *Prescription* and added *adding, listing, editing and searching of Prescription*
+** *Prescription*: Prescription class is linked with Patient, Doctor and Medicine class. The implementation of Prescription allows the receptionist to record all prescriptions that a patient has, to modify them if necessary and to search for them as needed.
+** *Add Prescription Command*:
+*** Records patient's prescription issued by doctors. 
+*** Added prescription contains information about the patient who received it, the doctor who issued it, the medicine involved in that prescription as well as a short description of it.
+** *List Prescription Command*:
+*** Shows list of all prescriptions recorded in docX
+*** Shows filtered prescription related to a particular patient with the specified id.
+** *Edit Prescription Command*:
+*** Allows users to edit the description of prescription.
+*** Receptionists can change the prescription if information specified in the description is wrong.
+** *Search Prescription Command*:
+*** Allows users to find all prescriptions with the description related to specified keywords.
+
+
+* *Justification of Major Feature*: This feature improves the product significantly prescriptions are important in the sense that it can reflect the patients' health condition and all kinds of diseases they have had before. Keeping records for prescriptions will greatly facilitate doctors in knowing more about the patients' health condition history.
+* *Highlights of Major Feature*: Recorded prescriptions contain information about doctors, patients as well as medicine. These four classes are thus very much correlated. Combining them together and making it compatible is not a small challenge. 
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Submitted documents in milestone
+** Enhancements to existing features:
+*** Updated the GUI to show prescriptions
+** Documentation:
+*** Update User Guide and Developer Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+*** Reported bugs and suggestions for other teams in the class
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=undoredo]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

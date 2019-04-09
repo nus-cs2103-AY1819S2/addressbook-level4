@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -15,10 +16,12 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.reminder.Reminder;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of reminders.
  */
 public class ReminderListPanel extends UiPart<Region> {
     private static final String FXML = "ReminderListPanel.fxml";
+    private static final String APPOINTMENT_BACKGROUND = "derive(lightskyblue, 50%)";
+    private static final String MEDICINE_BACKGROUND = "derive(firebrick, 90%)";
     private final Logger logger = LogsCenter.getLogger(ReminderListPanel.class);
 
     @FXML
@@ -36,7 +39,7 @@ public class ReminderListPanel extends UiPart<Region> {
         selectedReminder.addListener((observable, oldValue, newValue) -> {
             logger.fine("Selected reminder changed to: " + newValue);
 
-            // Don't modify selection if we are already selecting the selected person,
+            // Don't modify selection if we are already selecting the selected reminder,
             // otherwise we would have an infinite loop.
             if (Objects.equals(reminderListView.getSelectionModel().getSelectedItem(), newValue)) {
                 return;
@@ -65,8 +68,25 @@ public class ReminderListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 setGraphic(new ReminderCard(reminder, getIndex() + 1).getRoot());
+                String title = reminder.getTitle();
+                LocalTime end = reminder.getEnd();
+                String comment = reminder.getComment();
+
+                // Check if the reminder is for an appointment
+                if (title.startsWith("Appointment with ")
+                        && end != null
+                        && !comment.isEmpty()) {
+                    setStyle("-fx-control-inner-background: " + APPOINTMENT_BACKGROUND + ";");
+                }
+
+                // Check if the reminder is for stocking up a medicine
+                if (title.startsWith("Quantity of ")
+                        && title.endsWith(" is low.")
+                        && end == null
+                        && !comment.isEmpty()) {
+                    setStyle("-fx-control-inner-background: " + MEDICINE_BACKGROUND + ";");
+                }
             }
         }
     }
-
 }

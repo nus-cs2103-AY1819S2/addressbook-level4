@@ -44,12 +44,12 @@ import seedu.address.model.person.predicate.SchoolContainsKeywordsPredicate;
  * Searches and lists all persons in address book whose information contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class SearchCommand extends Command {
+public class FilterCommand extends Command {
 
-    public static final String COMMAND_WORD = "search";
-    public static final String COMMAND_ALIAS = "sh";
+    public static final String COMMAND_WORD = "filter";
+    public static final String COMMAND_ALIAS = "f";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Search all persons whose informations contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filter all persons whose informations contain any of "
         + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
         + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
         + "[" + PREFIX_NAME + "NAME KEYWORD] "
@@ -96,7 +96,7 @@ public class SearchCommand extends Command {
      * @param predicatePersonDescriptor details to predicate the person with
      */
     @SuppressWarnings("unchecked")
-    public SearchCommand(JobListName listName, PredicatePersonDescriptor predicatePersonDescriptor) {
+    public FilterCommand(JobListName listName, PredicatePersonDescriptor predicatePersonDescriptor) {
         requireNonNull(listName);
         requireNonNull(predicatePersonDescriptor);
         this.predicatePersonDescriptor = new PredicatePersonDescriptor(predicatePersonDescriptor);
@@ -135,12 +135,12 @@ public class SearchCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof SearchCommand)) {
+        if (!(other instanceof FilterCommand)) {
             return false;
         }
 
         // state check
-        SearchCommand e = (SearchCommand) other;
+        FilterCommand e = (FilterCommand) other;
         return predicatePersonDescriptor.equals(e.predicatePersonDescriptor);
     }
 

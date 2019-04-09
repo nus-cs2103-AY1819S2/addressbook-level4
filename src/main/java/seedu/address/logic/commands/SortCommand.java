@@ -31,7 +31,7 @@ public class SortCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sorts all restaurants in ascending or descending order of its aggregate ratings.\n"
             + "The list of restaurants will be sorted in descending order of aggregate ratings by default, "
-            + "unless its order (ASC/DES) is specified.\n"
+            + "unless its order (ASC/DES) is specified. You can limit the number of ratings by specifying the limit.\n"
             + "The specified keywords for order are 'ASC' or 'DES' (case-insensitive) and represent the order "
             + "that the restaurants will be listed in.\n"
             + "Parameters: [or/ASC] or [or/DES] and [l/LIMIT]\n"

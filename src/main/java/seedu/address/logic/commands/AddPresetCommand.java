@@ -1,3 +1,4 @@
+/* @@author thamsimun */
 package seedu.address.logic.commands;
 
 import java.util.List;
@@ -61,5 +62,5 @@ public class AddPresetCommand extends Command {
 
         return new CommandResult(Messages.MESSAGE_PRESET_SUCCESS);
     }
-
 }
+/* @@author*/

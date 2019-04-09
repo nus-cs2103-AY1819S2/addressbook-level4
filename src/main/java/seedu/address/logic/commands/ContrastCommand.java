@@ -81,3 +81,4 @@ public class ContrastCommand extends Command {
         return "contrast";
     }
 }
+/* @@author */

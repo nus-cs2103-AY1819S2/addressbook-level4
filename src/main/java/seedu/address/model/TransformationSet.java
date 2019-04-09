@@ -1,3 +1,4 @@
+/* @@author thamsimun */
 package seedu.address.model;
 
 import java.util.HashMap;
@@ -49,3 +50,4 @@ public class TransformationSet {
     }
 
 }
+/* @@author*/

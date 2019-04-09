@@ -79,3 +79,4 @@ public class BrightnessCommand extends Command {
         return "brightness";
     }
 }
+/* @@author */

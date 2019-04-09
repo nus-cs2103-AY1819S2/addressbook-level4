@@ -1,3 +1,4 @@
+/* @@author thamsimun */
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
@@ -30,3 +31,4 @@ public class AddPresetCommandParser implements Parser<AddPresetCommand> {
         return new AddPresetCommand(parsed[0]);
     }
 }
+/* @@author */

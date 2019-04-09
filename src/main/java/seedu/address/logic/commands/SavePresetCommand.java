@@ -1,3 +1,4 @@
+/* @@author thamsimun */
 package seedu.address.logic.commands;
 
 import java.util.ArrayList;
@@ -63,5 +64,5 @@ public class SavePresetCommand extends Command {
 
         return new CommandResult(Messages.MESSAGE_ADDPRESET_SUCCESS + ": \n" + toPrint.toString());
     }
-
 }
+/* @@author */

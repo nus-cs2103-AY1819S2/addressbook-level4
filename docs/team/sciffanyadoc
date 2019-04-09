@@ -4,8 +4,8 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:imagesDir: images
-:stylesDir: stylesheets
+:imagesDir: ../images
+:stylesDir: ../stylesheets
 :xrefstyle: full
 ifdef::env-github[]
 :tip-caption: :bulb:

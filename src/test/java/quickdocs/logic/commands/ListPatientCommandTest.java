@@ -160,7 +160,8 @@ public class ListPatientCommandTest {
 
     @Test
     public void noPatientWithGivenNric() {
-        ListPatientCommand listPatientCommand = new ListPatientCommand("S88", true);
+
+        ListPatientCommand listPatientCommand = new ListPatientCommand("S88", false);
         quickdocs.testutil.Assert.assertThrows(CommandException.class, () ->
                 listPatientCommand.execute(modelManager, history));
     }
@@ -288,8 +289,6 @@ public class ListPatientCommandTest {
         } catch (CommandException ce) {
             Assert.fail();
         }
-
-
 
 
     }

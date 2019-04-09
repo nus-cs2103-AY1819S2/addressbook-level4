@@ -17,6 +17,36 @@ endif::[]
 
 By: `W09-4`      Since: `Jan 2019`      Licence: `MIT`
 
+== Introduction
+
+=== What is QuickDocs
+
+QuickDocs is an all in one solution where doctors can have greater control in facilitating patient consultations, organizing appointments,
+and monitoring financial and inventory records in private clinics.
+
+=== Purpose
+
+The developer guide covers the software architecture, design decisions and implementation details of the features in QuickDocs.
+
+=== Audience
+
+This document aims to provide guidance for both software developers and software testers working on QuickDocs.
+
+=== How to use the Developer Guide
+
+Here are the notations used in the document:
+
+[TIP]
+This is a tip. Useful information pertaining to the features will be written here.
+[NOTE]
+This is a note. Additional information that further explains a feature will be written here. +
+
+#filepath# Specific file or filepaths are formatted using a highlight. Example #logic\LogicManager#
+
+`command` or `method` Code methods or user input to QuickDocs are formatted with a grey background. Example: `help`, `getCurrentConsultation()`
+
+=== Developer Guide Organization
+
 == Setting up
 
 === Prerequisites
@@ -354,10 +384,95 @@ Classes used by multiple components are in the `quickdocs.commons` package.
 
 == Implementation
 
-This section describes some noteworthy details on how certain features are implemented.
+This section describes the details on how certain features are implemented.
 
-=== Consultation feature
-==== Current Implementation
+=== Patient management module
+
+The patient management module consists of these commands:
+
+1. adding a patient record `addpat`
+2. editing a patient record `editpat`
+3. deleting a patient record `deletepat`
+4. listing a patient record (by name, nric, tags or index) `listpat`
+
+The operations involved in the patient management modules involve the use of the #model\Patient\PatientManager.java#
+class. The #PatientManager# maintains a list of patient records, which are loaded from the #quickdocs.json# file through the
+<<Design-Storage, storage>> component.
+
+==== Adding a patient
+
+Patient records consist of #Name#, #NRIC#, #Email#, #Address#, #Contact#, #Gender#, #Dob# (Date of Birth) and #tagList# fields. The `addpat` command
+require users to enter the value of these fields prepended by prefixes. The prefixes are used to separate the parameters and assign the
+values to these fields.
+
+image::dg-consultation/patientcreation.png[width="800"]
+
+[NOTE]
+tagList can contain multiple or no tags at all.
+
+==== Editing a patient
+
+To edit a patient, a #PatientEditedFields# is first created. It consist of all the fields of a #Patient# object but all its values
+are null initially. This means that only when the user enter a value for a specific field will it be assigned to the #PatientEditedFields#.
+
+A temporary #Patient# object is then created with the values of the existing patient record to be edited. The #PatientEditedFields# will then
+be checked against this temporary patient object and replace the fields which are non-null.
+
+image::dg-consultation/patientediting.png[width="800"]
+
+An additional check for NRIC will be done on the list of patient records to ensure that the editing of NRIC does not cause a conflict
+with existing Patient records. When this additional check is passed, the temporary patient object will replace the existing patient record
+designated for editing.
+
+==== Deleting patient records
+
+Each patient have a unique NRIC value. This is how QuickDocs differentiate between the different patient
+records in the patient list in the #PatientManager# class.
+
+To delete a patient record, the `deletepat` and a nric is specified. The patient list will be iterated and the record whose
+NRIC matches the specified value will be removed.
+
+==== Listing patient records
+
+Since the patient records are stored in a list, their position in the list (index) can be used to view the details of a specific patient record.
+
+The user can narrow down their patient record searches using the names, nric and tags assigned to each patient, and this results in a sublist
+of patient records, with their index reflected to be shown on the main display of QuickDocs. The specific session can then be viewed by calling `listpat` along
+with the index.
+
+Internally, a #ListCommand# can
+be created using four different constructors and each of them have a `constructedBy` field. The constructedBy field will indicate
+whether the search is done by indexing, or filtering by name, nric or tags.
+
+1. If indexing is used, `getPatientAtIndex()` is called during the execution of the List command to simply retrieve the record
+in the patient list, at the position specified.
+
+2. If name is used, `findPatientsByName()` will be called, and patient records whose names containing the sequence that the user entered will be retrieved.
+
+3. If the nric is used, `findPatientsByNric()` is called and all patient records whose NRIC starts with the sequence supplied will be retrieved.
+
+4. If tag is used, `findPatientsByTag` is called, retrieving all patient records tied with the tag specified.
+
+Lastly, if `listpat` is called without any search parameters, QuickDocs will simply list the first 50 patients in the patient list.
+
+
+=== Consultation management module
+
+The consultation module consists of:
+
+1. *The consultation process*
+2. Listing of past patient consultation records
+
+The *consultation process* is the main feature for both the patient and consultation modules. It leverages on the actions made
+and forming the bulk of the processes in both modules.
+
+The listing of past patient consultation records is similar to the listing of patient records explained earlier, the only difference
+being it can only be filtered down by NRIC and viewed using indexing.
+
+As such we will only look at how the consultation processes is implemented in this document. The mechanisms behind the feature,
+the design and decision making for its implementation will be covered in this section.
+
+==== Current Implementation for the consultation process
 
 The consultation process comprises of four stages:
 
@@ -366,9 +481,9 @@ The consultation process comprises of four stages:
 3. entering the medicine to be prescribed
 4. ending the consultation
 
-The consultation process is facilitated by the ConsultationManager class.
-The consultationManager class holds the current consultation session and a list of past
-consultation records for all the patients.
+The consultation process is facilitated by the #ConsultationManager.java# class.
+The ConsultationManager class holds the current consultation session and a list of past
+consultation records for every patients.
 
 Methods in the ConsultationManager comprises of:
 
@@ -478,9 +593,13 @@ Prior to the current implementation, a few options for the overall consultation 
 | Consultation is now restricted to just one class
 
 The consultation creation will truly be one-shot
-| Input will be verbose
+|
 
-Harder to navigate to the erroneous part to make changes
+Input will be verbose, easy for the doctor to make mistakes
+
+Harder to spot and navigate to the erroneous part to make changes
+
+No room for the doctor to make changes as the consultation could have ended with erroneous information recorded
 // row 2
 |*Iterative consultation creation*
 |Doctor enter `consult`.
@@ -489,23 +608,75 @@ Doctor get prompted to enter symptoms and assessment.
 
 Doctor get prompted to enter prescription.
 
-Doctor ends consultation
+Consultation is ended once prescription is recorded
 | Less likely to enter erroneous data as consultation is now broken down to different stages
 
 | Implementation will not be one-shot
 
-Doctor is unable to perform other related actions (such as listing past records) while conducting the current consultation
-// row 3
-|*Separate edit commands for diagnosis and prescriptions*
-| Separate commands to edit diagnosis and prescription details
-|
-| Not feasible because both classes feature a list of symptoms and medicine respectively.
+Implementation is very inflexible, doctor can only diagnose and prescribe during the session, while other related actions
+(such as listing past records) can only be done after the consultation
 
-Unable to differentiate between editing an existing value and adding a new value
+// row 3
+| *Separate commands for start, diagnose, prescribe and end*
+
+*(Alternative selected and implemented)*
+|
+Doctors begin and end session with `consult` and `endconsult`.
+
+Prescriptions and diagnosis can be added or replaced using the `diagnose` and `prescribe` commands before the session ends.
+| The editing involve the replacement of the current diagnosis or prescription entry, commands can be reused to perform both
+add and edit operations.
+
+Editing remain one shot and fast as users can make use of the command history to make changes to a previously entered command to
+make changes.
+
+Flexibility in recording consultation details, instead of having to go through the start, diagnose, prescribe, end order
+strictly.
+
+Room for other commands to be executed while a session is ongoing.
+
+|
+Potentially more commands will be called when compared to the other options.
+
+diagnosis and prescription commands entered could be verbose and it will be hard to make changes.
+
+| *Fragment diagnosis and prescription commands even more*
+| Same as the third alternative, but there are commands specific to the adding of symptoms in diagnosis, adding of medicine in prescription.
+
+Separate commands for editing the symptoms added or medicine prescribed
+|
+Shorter commands to add symptoms or prescribe medicine. Less mistakes will be made.
+
+Doctors only need to edit specific entries instead of retyping or navigating to previously entered command and make changes.
+
+|
+Way more commands to be entered by users.
+
+Even more commands and methods to be written, there will be a higher possibility of bugs arising from the increase in
+code volume.
 
 |===
 
+Since QuickDocs aim to provide a single interface for doctors to perform clinical operations more efficiently, the consultation
+process will require one shot commands to fulfill the efficiency requirement of the overall product.
+
+However, it is possible for doctors to make mistakes with the one-shot commands, especially when there are so many parameters involved
+in a single command. We also noticed that there could be interleaving operations between the modules, such as viewing past consultation records or
+checking medicine inventory in the midst of the consultation. This is why both flexibility of cross module commands and error recovery is also
+also taken into account when selecting the implementation method.
+
+Although the selected option require more and lengthier commands to be entered to complete a single session, it does not limit the doctor to just consultation-related
+commands. Doctors are free to perform other operations while the consultation is ongoing (except starting another consultation). It is also convenient for
+the doctor to make changes to his erroneous commands.
+
+Implementing the consultation session in this way will guarantee the flexibility and efficiency that
+QuickDocs aim to deliver for doctors in neighbourhood clinics.
+
+
+=== Listing free appointment slots
+
 === Free appointment slots feature
+
 ==== Current Implementation
 Before deciding on an appointment timing, you can execute the `freeapp` command to list out all the timings available for
 a new appointment booking.
@@ -1065,30 +1236,39 @@ Here are the steps to create a new release.
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
-|=======================================================================
+
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |doctor |allocate appointments for patients |Prevent clashes in schedules
 
 |`* * *` |doctor |view patient’s contact details |Call and follow up on them
 
+|`* * *` |doctor |record patient particulars | register new walk-in patients to start a consultation session
+
 |`* * *` |doctor |record and view patients past medical records |diagnose them better for current and subsequent consultations
 
-|`* * *` |doctor |lock the application |Prevent unauthorised accesses to the application
+|`* * *` |doctor |view the available time slots quickly | reserve an appointment slot for my patients requiring long term care.
 
-|`* * *` |doctor |view monthly statistics about patients, finances and inventory|have better control over my clinical operations
+|`* * *` |doctor |view monthly statistics about patients, finances and inventory|make better decisions on how to run my clinic
 
-|`* * *`|forgetful or busy doctor |get reminders of when I am expecting patients|prepare to diagnose them
+|`* * *` |forgetful or busy doctor |get reminders of when I am expecting patients|prepare to diagnose them
 
-|`* *` |forgetful doctor |keep track of my medical license duration |renew it on time
+|`* *` |busy doctor | get reminders whe my medicine is running low | refill my medicine and prevent shortages during prescriptions
 
 |`* *` |doctor |view my patients’ appointment details |send reminders to them
 
-|`* *` |doctor |export patient diagnosis and details |facilitate external providers’ medical care
-
 |`* *` |doctor handling patients with chronic illnesses|view detailed information about medicine in my storage|give out prescription that tackles the patients’ symptoms better
 
+|`* *` |doctor |encrypt the patient and medical data |Protect sensitive information like medical history from getting stolen
+
+|`* *`|doctor|find out the most common symptom diagnosed|prepare enough medicine to deal with seasonal illnesses
+
+|`*` |doctor |export patient diagnosis and details |facilitate external providers’ medical care
+
+|`*` |doctor |lock the application |Prevent unauthorised accesses to the application
+
+|`*` |forgetful doctor |keep track of my medical license duration |renew it on time
+
 |`*` |newly trained doctor | search for details of a medical condition |explain to my patients better
-|=======================================================================
 
 
 [appendix]

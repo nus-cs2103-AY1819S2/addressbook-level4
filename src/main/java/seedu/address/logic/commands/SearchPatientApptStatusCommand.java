@@ -12,23 +12,22 @@ import seedu.address.model.person.PatientApptStatusContainsKeywordsPredicate;
  * Searches and lists all patients in docX record whose appointment status contains any of the 4 keywords.
  * Keyword matching is case insensitive.
  */
-public class SearchPatientWithApptStatusCommand extends Command {
+public class SearchPatientApptStatusCommand extends Command {
 
     public static final String COMMAND_WORD = "search-appt-status";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches all patients whose appointment status "
-            + "is one of the following: ACTIVE, CANCELLED, COMPLETED or MISSED (case-insensitive)\n"
+            + "is one of the following: ACTIVE, CANCELLED, COMPLETED or MISSED (not case-sensitive)\n"
             + "Parameters: [KEYWORD]\n"
-            + "Example: " + COMMAND_WORD + " missed";
+            + "Example: " + COMMAND_WORD + " MISSED";
 
-    public static final String MESSAGE_ONLY_ONE_STATUS = COMMAND_WORD + ":\n"
+    public static final String MESSAGE_INVALID_STATUS = COMMAND_WORD + ":\n"
             + "Please use only one of the following: ACTIVE, CANCELLED, COMPLETED or MISSED (case-insensitive)\n"
-            + "Parameters: [KEYWORD]\n"
-            + "Example: " + COMMAND_WORD + " missed";
+            + "Parameters: [KEYWORD]\n";
 
     private final PatientApptStatusContainsKeywordsPredicate predicate;
 
-    public SearchPatientWithApptStatusCommand(PatientApptStatusContainsKeywordsPredicate predicate) {
+    public SearchPatientApptStatusCommand(PatientApptStatusContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
@@ -44,7 +43,7 @@ public class SearchPatientWithApptStatusCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SearchPatientWithApptStatusCommand // instanceof handles nulls
-                && predicate.equals(((SearchPatientWithApptStatusCommand) other).predicate)); // state check
+                || (other instanceof SearchPatientApptStatusCommand // instanceof handles nulls
+                && predicate.equals(((SearchPatientApptStatusCommand) other).predicate)); // state check
     }
 }

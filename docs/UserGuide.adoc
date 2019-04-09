@@ -60,15 +60,20 @@ Format: `help`
 === Adding a patient: `add-patient`
 
 Adds a patient to docX +
-Format: `add-patient n/NAME g/GENDER a/AGE p/PHONE_NUMBER adr/ADDRESS t/TAG`
+Format: `add-patient [n/NAME] [g/GENDER] [a/AGE] [p/PHONE_NUMBER] [adr/ADDRESS] [t/TAG]`
 
-// [TIP]
-// A patient can have any number of tags (including 0)
+****
+* A patient can have any number of tags (including 0) +
+* If there are multiple entries for each parameters input, the last input will be stored
+****
 
 Examples:
 
-* `add-patient n/John Doe g/Male a/21 p/98765432 adr/Utown College 2`
-* `add-patient n/Betsy Crowe g/Female p/8234567 a/32 adr/RVRC House 12 t/diabetic`
+* `add-patient n/John Doe g/M a/21 p/98765432 adr/Utown College 2`
+* `add-patient n/Betsy Crowe g/F p/8234567 a/32 adr/RVRC House 12 t/diabetic`
+
+[TIP]
+For constraints of name, gender, age, phone, address and tags, please refer to the section below.
 
 === Listing all patients : `list-patient`
 
@@ -78,10 +83,11 @@ Format: `list-patient`
 === Editing a patient : `edit-patient`
 
 Edits an existing patient in docX. +
-Format: `edit-patient INDEX [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS]`
+Format: `edit-patient [INDEX] [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS]`
 
 ****
-* Edits the patient at the specified `INDEX`. The index refers to the identification number (ID) of the patient. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the patient at the specified `INDEX`. +
+ The index refers to the current list index of the patient. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****
@@ -114,7 +120,7 @@ Examples:
 * `search-patient John` +
 Returns `john` and `John Doe`
 * `search-patient Betsy Tim John` +
-Returns any patient having names `Betsy`, `Tim`, or `John`
+Returns any patient having names containing `Betsy`, `Tim`, or `John`
 
 === Search patient by pid: `search-pid`
 
@@ -148,7 +154,9 @@ e.g. `diabetic` will return all patients with `diabetic` as one of their tags
 Examples:
 
 * `search-tag diabetic` +
-Returns `John Doe` who has both `diabetic` and `stoke` tags
+Returns `John Doe` who has both `diabetic` and `stroke` tags
+* `search-tag diabetic stroke` +
+Returns `Tim Muller` who has only `diabetic` tag
 
 === Search patient by appt status: `search-appt-status`
 
@@ -165,7 +173,7 @@ ACTIVE, ONGOING, COMPLETED, MISSED
 Examples:
 
 * `search-appt-status ACTIVE` +
-Returns `John Doe` and `Tom Darl` who has appointment status `ACTIVE`.
+Returns `John Doe` and `Tom Darl` who has appointment status of `ACTIVE`.
 
 === Advanced search patient by any info: `search-advanced`
 
@@ -173,17 +181,21 @@ Search and return patient(s) whose info contain any of the given keywords,
 even if the keyword is only a substring of one of the patient's info +
 Use a quoted keyword to search when one of the patient's info
 must match exactly the keyword
-Format: `search-advanced [keyword] ["quoted keyword"]...`
+Format: `search-advanced [keyword] ["quoted_keyword"]...`
 
 ****
 * The search is case insensitive. e.g `ALeX` will match `Alex`
 * The order of the keywords does not matter. e.g. `stroke cancer` will match `cancer stroke`
-* With unquoted keyword, partial words will be matched +
-e.g. `Alex` will match `Alexander`
-* With quoted keyword, only full word will be matched +
-e.g. `"high"` will not match `highbloodpressure`
-* All the keywords must match a patient's full info to be true.
+* With "unquoted_keyword", partial words will be matched +
+e.g. `blood` will match `highbloodpressure`
+* With quoted keyword, only the full word will be matched +
+e.g. `"blood"` will not match `highbloodpressure`
+* "quoted_keyword" must be one word and contains no spaces
+* All the keywords input must be present in a patient's info to be true.
 ****
+
+[TIP]
+A patient's info does not include his pid and appointment status
 
 Examples:
 
@@ -394,6 +406,7 @@ Format: `list-med-hist [pid/PATIENT_ID] [did/DOCTOR_ID] [d/DATE]`
 * Date must be a valid date in calender and must be a past day or today.
 * If there is no medical history satisfying all specified constraints, an empty list will be shown.
 * Write up of medical history will not be shown in the list. Can view all details of one medical history by "select-med-hist" command.
+* If medical histories in the list have deleted patient or deleted doctor, patient or doctor field will show "Patient Deleted" or "Doctor Deleted".
 
 
 ****
@@ -409,6 +422,7 @@ Edit the write up of medical history with specified index. +
 Format: `edit-med-hist INDEX sw/EDITED_WRITEUP`
 
 ****
+* Execute "list-med-hist" first to check the index of the medical history you want to edit before execute "edit-med-hist" command.
 * Can only edit write up of medical history. Patient id, doctor id and date are immutable.
 
 
@@ -692,56 +706,6 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-// tag::undoredo[]
-=== Undoing previous command : `undo`
-
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
-
-Examples:
-
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
-
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-
-=== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
-
 === Clearing all entries : `clear`
 
 Clears all entries from docX. +
@@ -772,17 +736,15 @@ _{explain how the user can enable/disable data encryption}_
 
 PATIENT COMMANDS
 
-* *Add a new patient* `add-patient n/NAME g/GENDER a/AGE p/PHONE_NUMBER` +
-e.g. `add-patient n/Betsy Crowe g/Female p/1234567 a/32`
+* *Add a new patient* `add-patient [n/NAME] [g/GENDER] [a/AGE] [p/PHONE_NUMBER] [adr/ADDRESS] [t/TAG]` +
 * *List existing patients* : `list-patient`
-* *Delete patient* : `delete-patient INDEX` +
+* *Delete an existing patient* : `delete-patient [INDEX]` +
 e.g. `delete-patient 3`
-* *Edit an existing patient* : `edit-patient INDEX [n/NAME] [g/GENDER] [a/AGE] [p/PHONE]` +
-e.g. `edit-patient 2 n/Betsy Crower p/45678901`
-* *Locating a patient* : `search-patient NAME [PHONE_NUMBER]` +
-e.g. `search-patient John`
-* *Delete an existing patient* : `delete-patient INDEX` +
-eg. `delete-patient 2`
+* *Edit an existing patient* : `edit-patient [INDEX] [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS] [t/TAG]` +
+* *Searching a patient by name* : `search-patient [NAME]` +
+* *Searching a patient by tags* : `search-tag [TAG]` +
+* *Searching a patient by pid* : `search-pid [pid]` +
+* *Searching a patient (advanced)* : `search-advanced [KEYWORD] ["QUOTED_KEYWORD"]` +
 
 DOCTOR COMMANDS
 
@@ -804,15 +766,18 @@ eg. `delete-doctor 2`
 
 MEDICAL HISTORY COMMANDS
 
-* *Add a new medical history* `add-med-hist p/PATIENT_NAME [pid/PATIENT_ID] d/DOCTOR_NAME [did/DOCTOR_ID] w/SHORT_WRITEUP` +
-e.g. `add-med-hist p/John Doe did/3 d/Amy w/Had a fever with sorethroat. Sleeps late.`
-* *List medical histories of a patient* : `list-med-hist PATIENT_ID`
-* *Edit an existing medical history of a patient* : `edit-med-hist pid/PATIENT_ID mhid/MED_HIST_ID [d/DATE_OF_VISIT] [w/SHORT_WRITEUP]` +
-e.g. `edit-med-hist pid/1 mhid/2 d/10022019`
-* *Locating a medical history* : `search-med-hist KEYWORD` +
-e.g. `search-med-hist 'flu'`
-* *View a medical history* : `view-med-hist n/PATIENT_NAME [pid/PATIENT_ID] mhid/MED_HIST_ID` +
-e.g. `view-med-hist n/JOHN DOE mhid/1`
+* *Add a new medical history* `add-med-hist pid/PATIENT_ID did/DOCTOR_ID d/DATE sw/SHORT_WRITEUP` +
+e.g. `add-med-hist pid/1 did/7 d/2019-03-03 sw/Had a fever with sorethroat. Sleeps late.`
+* *List medical histories : `list-med-hist [pid/PATIENT_ID] [did/DOCTOR_ID] [d/DATE]` +
+e.g. `list-med-hist d/2019-03-03`
+* *Edit write up of an existing medical history* : `edit-med-hist INDEX sw/EDITED_WRITEUP` +
+e.g. `edit-med-hist 1 sw/The patient came this morning with high fever. In the afternoon, he came with higher fever.`
+* *Sort medical histories by date : `sort-med-hist [ASC/DESC]`+
+e.g. `sort-med-hist DESC`
+* *Search a medical history* : `search-med-hist KEYWORD` +
+e.g. `search-med-hist fever`
+* *Select a medical history* : `select-med-hist INDEX ` +
+e.g. `select-med-hist 1`
 
 APPOINTMENT COMMANDS
 

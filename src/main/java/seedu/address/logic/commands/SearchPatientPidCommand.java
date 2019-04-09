@@ -20,6 +20,9 @@ public class SearchPatientPidCommand extends Command {
             + "Parameters: [PID]\n"
             + "Example: " + COMMAND_WORD + " 7";
 
+    public static final String MESSAGE_MORE_THAN_ONE_PID = COMMAND_WORD + ": Please input only one pid\n"
+            + "Parameters: [PID]\n";
+
     private final RecordContainsPatientIdPredicate predicate;
 
     public SearchPatientPidCommand(RecordContainsPatientIdPredicate predicate) {

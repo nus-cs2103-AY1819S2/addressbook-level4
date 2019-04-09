@@ -35,23 +35,23 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Patient[] getSamplePatients() {
         return new Patient[] {
-            new Patient(new Name("Alex Yeoh"), new Gender("M"), new Age("25"), new Phone("87438807"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("foodpoisoning")),
-            new Patient(new Name("Bernice Yu"), new Gender("F"), new Age("7"), new Phone("99272758"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
+            new Patient(new Name("Tan Ah Ming"), new Gender("M"), new Age("29"), new Phone("87438807"),
+                new Address("Blk 30 Geylang Street 29 #06-40"),
+                getTagSet("foodpoisoning", "headache")),
+            new Patient(new Name("Bernice Yu Ye Sim"), new Gender("F"), new Age("23"), new Phone("99272758"),
+                new Address("Blk 30 Lorong 3 Serangoon Gardens #07-18"),
                 getTagSet("highbloodpressure", "stroke")),
-            new Patient(new Name("Charlotte Oliveiro"), new Gender("F"), new Age("101"), new Phone("93210283"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("fever", "flu")),
-            new Patient(new Name("David Li"), new Gender("M"), new Age("28"), new Phone("91031282"),
-                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
+            new Patient(new Name("David Li"), new Gender("M"), new Age("53"), new Phone("91031282"),
+                new Address("Blk 436 Serangoon Gardens Street 26 #16-43"),
                 getTagSet("diabetes", "stroke")),
+            new Patient(new Name("Charlie Oldman"), new Gender("M"), new Age("101"), new Phone("93210283"),
+                    new Address("Blk 11 Ang Mo Kio Street 74 #11-04"),
+                    getTagSet()),
             new Patient(new Name("Irfan Ibrahim"), new Gender("M"), new Age("60"), new Phone("92492021"),
-                new Address("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("lungcancer")),
-            new Patient(new Name("Roy Balakrishnan"), new Gender("M"), new Age("110"), new Phone("92624417"),
-                new Address("Blk 45 Aljunied Street 85, #11-31"),
+                new Address("Blk 47 Tampines Street 20 #17-35"),
+                getTagSet("lungcancer", "fever")),
+            new Patient(new Name("Roy Balakrishnan"), new Gender("M"), new Age("6"), new Phone("92624417"),
+                new Address("Blk 45 Aljunied Street 85 #11-31"),
                 getTagSet("flu"))
         };
     }

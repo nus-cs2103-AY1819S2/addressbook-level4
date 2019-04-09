@@ -17,6 +17,7 @@ public class SearchPatientTagCommandParser implements Parser<SearchPatientTagCom
     /**
      * Parses the given {@code String} of arguments in the context of the FindPatientCommand
      * and returns an FindPatientCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public SearchPatientTagCommand parse(String args) throws ParseException {

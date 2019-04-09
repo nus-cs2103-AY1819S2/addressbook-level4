@@ -14,39 +14,42 @@ import seedu.address.model.deck.Name;
  */
 public class TypicalCards {
     public static final Card ADDITION = new CardBuilder().withQuestion("Solve 1 + 1.").withAnswer("2")
-                                                         .withTags("Math").withDifficulty(1, 1).build();
+        .withTags("Math").withDifficulty(0, 0)
+        .build();
 
     public static final Card SUBTRACTION = new CardBuilder().withQuestion("What is 10 - 10?").withAnswer("0")
-                                                            .withTags("Math").withDifficulty(1, 1).build();
+        .withTags("Math")
+        .withDifficulty(0, 0).build();
 
     public static final Card MULTIPLICATION = new CardBuilder().withQuestion("What is 8 * 8?")
-                                                               .withAnswer("64").withDifficulty(1, 1)
-                                                               .withTags("Math").build();
+        .withAnswer("64")
+        .withDifficulty(0, 0)
+        .withTags("Math").build();
 
     public static final Card DIVISION = new CardBuilder().withQuestion("Evaluate 1024 / 2.").withAnswer("512")
-                                                         .withTags("Math").withDifficulty(1, 1).build();
+        .withTags("Math").withDifficulty(0, 0).build();
 
     public static final Card HELLO_WORLD = new CardBuilder().withQuestion("Hello?").withAnswer("World")
-                                                            .withTags("Simple", "CS").withDifficulty(1, 1)
-                                                            .build();
+        .withTags("Simple", "CS").withDifficulty(0, 0)
+        .build();
 
     public static final Card NO_TAG = new CardBuilder().withQuestion("Are there any tag?").withAnswer("No")
-                                                       .withDifficulty(1, 1).build();
+        .withDifficulty(0, 0).build();
 
     public static final Card UNIQUE = new CardBuilder().withQuestion("Is this card unique?")
-                                                       .withAnswer("Yes it is.").withDifficulty(1, 1).build();
+        .withAnswer("Yes it is.").withDifficulty(0, 0).build();
 
     public static final Card LAYER = new CardBuilder().withQuestion("Which layer is HTTP at?")
-                                                      .withAnswer("Application").withTags("CS2105")
-                                                      .withDifficulty(1, 1).build();
+        .withAnswer("Application").withTags("CS2105")
+        .withDifficulty(0, 0).build();
 
     public static final Card TRANSPORT = new CardBuilder().withQuestion("What transport does HTTP use?")
-                                                          .withAnswer("TCP").withTags("CS2105")
-                                                          .withDifficulty(1, 1).build();
+        .withAnswer("TCP").withTags("CS2105")
+        .withDifficulty(0, 0).build();
 
     public static final Card OK_STATUS = new CardBuilder()
-            .withQuestion("What is the status code for OK in HTTP?").withAnswer("200").withTags("CS2105")
-            .withDifficulty(1, 1).build();
+        .withQuestion("What is the status code for OK in HTTP?").withAnswer("200").withTags("CS2105")
+        .withDifficulty(0, 0).build();
 
     public static final String KEYWORD_MATCHING_HTTP = "HTTP";
 

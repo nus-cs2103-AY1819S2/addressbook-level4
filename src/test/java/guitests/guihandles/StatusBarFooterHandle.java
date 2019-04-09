@@ -97,7 +97,7 @@ public class StatusBarFooterHandle extends NodeHandle<Node> {
      * recent {@code rememberTotalPersonsStatus()} call.
      */
     public boolean isTotalCardsStatusChanged() {
-        return !lastRememberedTotalCardsStatus.equals(getTotalDecksStatus());
+        return !lastRememberedTotalCardsStatus.equals(getTotalCardsStatus());
     }
 
     /**

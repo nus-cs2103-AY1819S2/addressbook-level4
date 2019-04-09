@@ -21,6 +21,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.deck.Card;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
@@ -106,7 +107,9 @@ public class SelectCardCommandTest {
      */
     private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = new SelectCardCommand(cardsView, index);
-        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_SUCCESS, index.getOneBased());
+
+        Card selectedCard = cardsView.filteredCards.get(index.getZeroBased());
+        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_SUCCESS, selectedCard.toString());
         CardsView cardsView = (CardsView) expectedModel.getViewState();
         cardsView.setSelectedItem(cardsView.getFilteredList().get(index.getZeroBased()));
 

@@ -58,7 +58,7 @@ public class EditCardCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Card editedCard = new CardBuilder().build();
+        Card editedCard = new CardBuilder().withDifficulty(0, 0).build();
         EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard).build();
         EditCardCommand editCommand = new EditCardCommand(cardsView, INDEX_FIRST_CARD, descriptor);
 
@@ -301,7 +301,7 @@ public class EditCardCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertFalse(standardCommand.equals(new ClearDeckCommand()));
 
         // different index -> returns false
         assertFalse(standardCommand.equals(new EditCardCommand(cardsView, INDEX_SECOND_CARD, DESC_HELLO)));

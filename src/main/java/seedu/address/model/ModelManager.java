@@ -182,6 +182,14 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setDeck(Deck target, Deck editedDeck) {
+        requireAllNonNull(target, editedDeck);
+
+        versionedTopDeck.updateDeck(target, editedDeck);
+        changeDeck(editedDeck);
+    }
+
+    @Override
     public Deck getDeck(Deck target) {
         return versionedTopDeck.getDeck(target);
     }
@@ -203,15 +211,6 @@ public class ModelManager implements Model {
         logger.info("Deleted a deck.");
 
         versionedTopDeck.deleteDeck(deck);
-    }
-
-    @Override
-    public void setDeck(Deck target, Deck editedDeck) {
-        requireAllNonNull(target, editedDeck);
-
-        DecksView decksView = (DecksView) viewState;
-
-        versionedTopDeck.setDecks(decksView.filteredDecks);
     }
 
     @Override

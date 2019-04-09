@@ -11,7 +11,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.TopDeck;
 import seedu.address.model.UserPrefs;
 
-public class ClearCommandTest {
+public class ClearDeckCommandTest {
 
     private CommandHistory commandHistory = new CommandHistory();
 
@@ -21,7 +21,7 @@ public class ClearCommandTest {
         Model expectedModel = new ModelManager();
         expectedModel.commitTopDeck();
 
-        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS,
+        assertCommandSuccess(new ClearDeckCommand(), model, commandHistory, ClearDeckCommand.MESSAGE_SUCCESS,
                              expectedModel);
     }
 
@@ -32,7 +32,7 @@ public class ClearCommandTest {
         expectedModel.setTopDeck(new TopDeck());
         expectedModel.commitTopDeck();
 
-        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS,
+        assertCommandSuccess(new ClearDeckCommand(), model, commandHistory, ClearDeckCommand.MESSAGE_SUCCESS,
                              expectedModel);
     }
 

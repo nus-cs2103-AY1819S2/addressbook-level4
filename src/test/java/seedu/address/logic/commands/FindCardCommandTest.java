@@ -92,7 +92,7 @@ public class FindCardCommandTest {
     @Test
     public void execute_sentence_foundSpecificCard() {
         String expectedMessage = String.format(MESSAGE_CARDS_LISTED_OVERVIEW, 1);
-        String questionString = LAYER.getQuestion().replace("?", "");
+        String questionString = LAYER.getQuestion();
         QuestionContainsKeywordsPredicate predicate = prepareStringPredicate(questionString);
         FindCardCommand command = new FindCardCommand(cardsView, predicate);
         expectedCardsView.updateFilteredList(predicate);

@@ -253,7 +253,7 @@ public class EditDeckCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertFalse(standardCommand.equals(new ClearDeckCommand()));
 
         // different index -> returns false
         assertFalse(standardCommand.equals(new EditDeckCommand(decksView, INDEX_SECOND_DECK, DESC_A)));

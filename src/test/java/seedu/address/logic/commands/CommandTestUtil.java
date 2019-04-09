@@ -214,7 +214,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < cardsView.getFilteredList().size());
 
         Card card = cardsView.getFilteredList().get(targetIndex.getZeroBased());
-        final String question = card.getQuestion().replace("?", "").replace(".", "");
+        final String question = card.getQuestion();
         cardsView.updateFilteredList(new QuestionContainsKeywordsPredicate(Arrays.asList(question)));
 
         //Gets all the question that starts with what

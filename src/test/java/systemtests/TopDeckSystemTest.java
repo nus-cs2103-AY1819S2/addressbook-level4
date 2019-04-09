@@ -26,12 +26,15 @@ import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CardsView;
 import seedu.address.logic.DecksView;
-import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ClearDeckCommand;
+import seedu.address.logic.commands.FindCardCommand;
 import seedu.address.logic.commands.FindDeckCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.Model;
 import seedu.address.model.TopDeck;
+import seedu.address.model.deck.Deck;
 import seedu.address.testutil.TypicalDecks;
 import seedu.address.ui.CommandBox;
 
@@ -148,11 +151,14 @@ public abstract class TopDeckSystemTest {
     /**
      * Displays all cards with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    /** TODO
-    protected void showCardsWithQuestion(String keyword, Deck activeDeck) {
+    protected void showCardsWithQuestion(String keyword, CardsView cardsView) {
         executeCommand(FindCardCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredList().size() < activeDeck.getCards().internalList.size());
-    }**/
+
+        Deck activeDeck = cardsView.getActiveDeck();
+
+        assertTrue(cardsView.getFilteredList().size()
+            <= activeDeck.getCards().size());
+    }
 
 
     /**
@@ -167,7 +173,7 @@ public abstract class TopDeckSystemTest {
      * Deletes all Decks.
      */
     protected void deleteAllDecks() {
-        executeCommand(ClearCommand.COMMAND_WORD);
+        executeCommand(ClearDeckCommand.COMMAND_WORD);
         assertEquals(0, getModel().getTopDeck().getDeckList().size());
     }
 

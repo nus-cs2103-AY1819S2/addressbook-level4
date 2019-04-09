@@ -11,6 +11,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_ADDITION
 import static seedu.address.logic.commands.CommandTestUtil.updateCardsView;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalCards.ADDITION;
+import static seedu.address.testutil.TypicalCards.HELLO_WORLD;
+import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_HTTP;
 import static seedu.address.testutil.TypicalCards.NO_TAG;
 import static seedu.address.testutil.TypicalCards.SUBTRACTION;
 import static seedu.address.testutil.TypicalDecks.DECK_A;
@@ -91,13 +93,13 @@ public class AddCardCommandSystemTest extends TopDeckSystemTest {
         /* -------------------------- Perform add operation on the shown filtered list ----------------------------- */
 
         /* Case: filters the card list before adding -> added */
-        /**TODO
-        showCardsWithQuestion(KEYWORD_MATCHING_HTTP, cardsView.getActiveDeck());
+
+        showCardsWithQuestion(KEYWORD_MATCHING_HTTP, cardsView);
         toAdd = HELLO_WORLD;
         model.addCard(toAdd, cardsView.getActiveDeck());
 
-        cardsView = assertCommandSuccess(toAdd, model, cardsView);
-         **/
+        assertCommandSuccess(toAdd, model, cardsView);
+
 
         /* ----------------------------------- Perform invalid add operations -------------------------------------- */
 
@@ -167,7 +169,7 @@ public class AddCardCommandSystemTest extends TopDeckSystemTest {
         updateCardsView(model);
         cardsView = (CardsView) model.getViewState();
 
-        String expectedResultMessage = String.format(AddCardCommand.MESSAGE_SUCCESS, toAdd);
+        String expectedResultMessage = String.format(AddCardCommand.MESSAGE_SUCCESS, toAdd.toString());
         assertCommandSuccess(command, model, expectedResultMessage);
 
         return cardsView;
@@ -185,7 +187,7 @@ public class AddCardCommandSystemTest extends TopDeckSystemTest {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
-        //assertStatusBarChangedExceptSaveLocation();
+        assertStatusBarChangedExceptSaveLocation();
     }
 
     /**
@@ -203,6 +205,6 @@ public class AddCardCommandSystemTest extends TopDeckSystemTest {
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
         assertCommandBoxShowsErrorStyle();
-        //assertStatusBarUnchanged();
+        assertStatusBarUnchanged();
     }
 }

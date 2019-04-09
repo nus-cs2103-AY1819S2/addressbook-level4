@@ -7,7 +7,7 @@ import static seedu.address.testutil.TypicalDecks.KEYWORD_MATCHING_JOHN;
 import org.junit.Test;
 
 import seedu.address.logic.DecksView;
-import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ClearDeckCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
@@ -21,7 +21,7 @@ public class ClearDecksCommandSystemTest extends TopDeckSystemTest {
         DecksView decksView = (DecksView) model.getViewState();
 
         /* Case: clear non-empty TopDeck -> cleared */
-        assertCommandSuccess(ClearCommand.COMMAND_WORD);
+        assertCommandSuccess(ClearDeckCommand.COMMAND_WORD);
 
         /* Case: undo clearing address book -> original address book restored */
         String command = UndoCommand.COMMAND_WORD;
@@ -39,11 +39,11 @@ public class ClearDecksCommandSystemTest extends TopDeckSystemTest {
         /* Case: filters the deck list before clearing -> entire address book cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
         showDecksWithName(KEYWORD_MATCHING_JOHN, decksView);
-        assertCommandSuccess(ClearCommand.COMMAND_WORD);
+        assertCommandSuccess(ClearDeckCommand.COMMAND_WORD);
         assertSelectedDeckUnchanged();
 
         /* Case: clear empty address book -> cleared */
-        assertCommandSuccess(ClearCommand.COMMAND_WORD);
+        assertCommandSuccess(ClearDeckCommand.COMMAND_WORD);
         assertSelectedDeckUnchanged();
 
         /* Case: mixed case command word -> rejected */
@@ -52,7 +52,7 @@ public class ClearDecksCommandSystemTest extends TopDeckSystemTest {
 
     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display
-     * box displays {@code ClearCommand#MESSAGE_SUCCESS} and the model related components equal to an empty
+     * box displays {@code ClearDeckCommand#MESSAGE_SUCCESS} and the model related components equal to an empty
      * model.
      * These verifications are done by
      * {@code TopDeckSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
@@ -62,7 +62,7 @@ public class ClearDecksCommandSystemTest extends TopDeckSystemTest {
      * @see TopDeckSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command) {
-        assertCommandSuccess(command, ClearCommand.MESSAGE_SUCCESS, new ModelManager());
+        assertCommandSuccess(command, ClearDeckCommand.MESSAGE_SUCCESS, new ModelManager());
     }
 
     /**

@@ -1,5 +1,6 @@
 package systemtests;
 
+import static seedu.finance.testutil.TypicalRecords.AMY;
 import static seedu.finance.testutil.TypicalRecords.KEYWORD_MATCHING_DONUT;
 
 import org.junit.Test;
@@ -8,7 +9,13 @@ import seedu.finance.commons.core.index.Index;
 import seedu.finance.logic.commands.RedoCommand;
 import seedu.finance.logic.commands.ReverseCommand;
 import seedu.finance.logic.commands.UndoCommand;
+import seedu.finance.logic.parser.comparator.RecordAmountComparator;
+import seedu.finance.logic.parser.comparator.RecordCategoryComparator;
+import seedu.finance.logic.parser.comparator.RecordDateComparator;
+import seedu.finance.logic.parser.comparator.RecordNameComparator;
 import seedu.finance.model.Model;
+import seedu.finance.model.record.Record;
+import seedu.finance.testutil.RecordUtil;
 
 public class ReverseCommandSystemTest extends FinanceTrackerSystemTest {
 
@@ -66,7 +73,54 @@ public class ReverseCommandSystemTest extends FinanceTrackerSystemTest {
         expectedModel.reverseFilteredRecordList();
         assertCommandSuccess(command, expectedResultMessage, expectedModel);
 
-        
+
+        /* Case: Add a record then reverse list -> reversed */
+        expectedModel.addRecord(AMY);
+        command = RecordUtil.getSpendCommand(AMY);
+        executeCommand(command);
+        expectedModel.reverseFilteredRecordList();
+        assertCommandSuccess(ReverseCommand.COMMAND_WORD, ReverseCommand.MESSAGE_SUCCESS, expectedModel);
+
+
+        /* Case: delete a record then reverse list -> reversed */
+        executeCommand("delete 1");
+        Record targetedRecord = expectedModel.getFilteredRecordList().get(0);
+        expectedModel.deleteRecord(targetedRecord);
+        expectedModel.reverseFilteredRecordList();
+        assertCommandSuccess(ReverseCommand.COMMAND_WORD, ReverseCommand.MESSAGE_SUCCESS, expectedModel);
+
+
+        /* Case: sorts the records by name (default ordering) then reverse list -> reversed */
+        executeCommand("sort -name");
+        expectedModel.sortFilteredRecordList(new RecordNameComparator());
+        expectedModel.reverseFilteredRecordList();
+        assertCommandSuccess(ReverseCommand.COMMAND_WORD, ReverseCommand.MESSAGE_SUCCESS, expectedModel);
+
+
+        /* Case: sorts the records by amount then reverse list -> reversed */
+        executeCommand("sort -amount");
+        expectedModel.sortFilteredRecordList(new RecordAmountComparator());
+        expectedModel.reverseFilteredRecordList();
+        assertCommandSuccess(ReverseCommand.COMMAND_WORD, ReverseCommand.MESSAGE_SUCCESS, expectedModel);
+
+
+        /* Case: sorts the records by date then reverse list -> reversed */
+        executeCommand("sort -date");
+        expectedModel.sortFilteredRecordList(new RecordDateComparator());
+        expectedModel.reverseFilteredRecordList();
+        assertCommandSuccess(ReverseCommand.COMMAND_WORD, ReverseCommand.MESSAGE_SUCCESS, expectedModel);
+
+
+        /* Case: sorts the records by category then reverse list -> reversed */
+        executeCommand("sort -cat");
+        expectedModel.sortFilteredRecordList(new RecordCategoryComparator());
+        expectedModel.reverseFilteredRecordList();
+        assertCommandSuccess(ReverseCommand.COMMAND_WORD, ReverseCommand.MESSAGE_SUCCESS, expectedModel);
+
+
+        /* Case: Clears the finance tracker then reverse list -> show list is empty message */
+
+
 
     }
 

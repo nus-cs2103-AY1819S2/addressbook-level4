@@ -49,7 +49,7 @@ public class Image {
             this.metadata = ImageMetadataReader.readMetadata(file);
             buffer = ImageIO.read(file);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
         this.url = url;
         this.fileType = FilenameUtils.getExtension(url);
@@ -70,7 +70,7 @@ public class Image {
             this.metadata = ImageMetadataReader.readMetadata(file);
             buffer = ImageIO.read(file);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
         this.url = file.getAbsolutePath();
         this.fileType = FilenameUtils.getExtension(file.getName());

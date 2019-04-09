@@ -84,8 +84,8 @@ public class CropCommandTest {
     }
     @After
     public void clearAlbum() {
-        Album album = Album.getInstance();
-        album.clearAlbum();
-        currentEdit.clearTemp();
+        //Album album = Album.getInstance();
+        //album.clearAlbum();
+        //currentEdit.clearTemp();
     }
 }

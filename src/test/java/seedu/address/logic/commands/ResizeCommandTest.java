@@ -55,8 +55,8 @@ public class ResizeCommandTest {
     }
     @After
     public void clearAlbum() {
-        Album album = Album.getInstance();
-        album.clearAlbum();
-        currentEdit.clearTemp();
+        //Album album = Album.getInstance();
+        //album.clearAlbum();
+        //currentEdit.clearTemp();
     }
 }

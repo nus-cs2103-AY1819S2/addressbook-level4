@@ -94,6 +94,10 @@ public class SampleDataUtil {
             sampleDocX.addMedHist(sampleMedHist);
         }
 
+        for (Appointment sampleAppointment : getAppointments()) {
+            sampleDocX.addAppointment(sampleAppointment);
+        }
+
         return sampleDocX;
     }
 
@@ -114,12 +118,21 @@ public class SampleDataUtil {
 
     public static List<Appointment> getAppointments() {
         List<Appointment> appointments = new ArrayList<>();
-        FutureAppointment appointment1 = new FutureAppointment(new AppointmentPatientId("1"),
-                new AppointmentDoctorId("2"), new AppointmentDate("2016-06-01"), new AppointmentTime("09:00"));
-        FutureAppointment appointment2 = new FutureAppointment(new AppointmentPatientId("1"),
-                new AppointmentDoctorId("3"), new AppointmentDate("2016-06-01"), new AppointmentTime("10:00"));
+        Appointment appointment1 = new FutureAppointment(new AppointmentPatientId("1"),
+                new AppointmentDoctorId("7"), new AppointmentDate("2019-06-01"), new AppointmentTime("09:00"));
+        Appointment appointment2 = new FutureAppointment(new AppointmentPatientId("2"),
+                new AppointmentDoctorId("8"), new AppointmentDate("2019-06-01"), new AppointmentTime("10:00"));
+
+
+        Appointment appointment3 = new Appointment(new AppointmentPatientId("1"),
+                new AppointmentDoctorId("7"), new AppointmentDate("2019-02-01"), new AppointmentTime("09:00"));
+        Appointment appointment4 = new Appointment(new AppointmentPatientId("2"),
+                new AppointmentDoctorId("8"), new AppointmentDate("2019-02-01"), new AppointmentTime("10:00"));
+
         appointments.add(appointment1);
         appointments.add(appointment2);
+        appointments.add(appointment3);
+        appointments.add(appointment4);
 
         return appointments;
     }

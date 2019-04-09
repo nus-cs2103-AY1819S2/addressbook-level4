@@ -2,12 +2,16 @@ package systemtests;
 
 import static org.junit.Assert.assertFalse;
 import static seedu.finance.commons.core.Messages.MESSAGE_RECORDS_LISTED_OVERVIEW;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_CATEGORY;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_DATE;
 import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_NAME;
 import static seedu.finance.testutil.TypicalRecords.BANANA;
 import static seedu.finance.testutil.TypicalRecords.CAP;
 import static seedu.finance.testutil.TypicalRecords.DONUT;
+import static seedu.finance.testutil.TypicalRecords.FRUITS;
 import static seedu.finance.testutil.TypicalRecords.KEYWORD_MATCHING_DONUT;
 
+import javafx.collections.ObservableList;
 import org.junit.Test;
 
 import seedu.finance.commons.core.index.Index;
@@ -17,11 +21,14 @@ import seedu.finance.logic.commands.SearchCommand;
 import seedu.finance.logic.commands.UndoCommand;
 import seedu.finance.model.Model;
 import seedu.finance.model.category.Category;
+import seedu.finance.model.record.Record;
+
+import java.util.Iterator;
 
 public class SearchCommandSystemTest extends FinanceTrackerSystemTest {
 
     @Test
-    public void find() {
+    public void search() {
 
         /* Case: find multiple records in finance tracker, command with leading spaces and trailing spaces
          * -> 2 records found
@@ -92,7 +99,6 @@ public class SearchCommandSystemTest extends FinanceTrackerSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-
         /* Case: undo previous find command -> rejected */
 
         command = UndoCommand.COMMAND_WORD;
@@ -152,17 +158,54 @@ public class SearchCommandSystemTest extends FinanceTrackerSystemTest {
         assertSelectedCardUnchanged();
 
 
-        /* Case: find amount of record in finance tracker -> 0 records found */
-        /*
+        /* Case: find records with a incorrect flag*/
+
         command = SearchCommand.COMMAND_WORD + " -amount " + DONUT.getAmount().toString();
-        assertCommandSuccess(command, expectedModel);
+        expectedResultMessage = "Invalid command format! \n" + SearchCommand.INVALID_FLAG;
+        assertCommandFailure(command, expectedResultMessage);
         assertSelectedCardUnchanged();
-        */
+
 
         /* Case: find category of record but with invalid flag in finance tracker -> 0 records found */
 
         Category category = DONUT.getCategory();
         command = SearchCommand.COMMAND_WORD + " " + COMMAND_FLAG_NAME + " " + category.categoryName;
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: Find records in finance tracker using the category flag.
+         * -> 3 records found
+         */
+
+        command = SearchCommand.COMMAND_WORD + " " + COMMAND_FLAG_CATEGORY + " " + "Food";
+        ModelHelper.setFilteredList(expectedModel, BANANA, DONUT, FRUITS); // Banana Donut, Chocolate Donut and Fruits
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: Find records in finance tracker using the category flag using a category that was not used.
+         * -> 0 records found
+         */
+
+        command = SearchCommand.COMMAND_WORD + " " + COMMAND_FLAG_CATEGORY + " " + "NonMatchingCategory";
+        ModelHelper.setFilteredList(expectedModel);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: Find records in finance tracker using the date flag.
+         * -> 1 records found
+         */
+
+        command = SearchCommand.COMMAND_WORD + " " + COMMAND_FLAG_DATE + " " + "12/05/2017";
+        ModelHelper.setFilteredList(expectedModel, CAP);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: Find records in finance tracker using the date flag using a date that does not match.
+         * -> 0 records found
+         */
+
+        command = SearchCommand.COMMAND_WORD + " " + COMMAND_FLAG_DATE + " " + "01/01/1996";
+        ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -204,11 +247,19 @@ public class SearchCommandSystemTest extends FinanceTrackerSystemTest {
      */
 
     private void assertCommandSuccess(String command, Model expectedModel) {
+        ObservableList<Record> filteredRecord = expectedModel.getFilteredRecordList();
+        Double totalSpent = Double.valueOf(0);
+        Iterator<Record> recordIterator = filteredRecord.iterator();
+        while (recordIterator.hasNext()) {
+            totalSpent += recordIterator.next().getAmount().getValue();
+        }
+
         String expectedResultMessage = String.format(
-                MESSAGE_RECORDS_LISTED_OVERVIEW, expectedModel.getFilteredRecordList().size());
+                MESSAGE_RECORDS_LISTED_OVERVIEW + "\nTotal spent on searched records = $ "
+                        + String.format("%.2f", totalSpent), expectedModel.getFilteredRecordList().size());
 
         executeCommand(command);
-        //assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
+        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         assertStatusBarUnchanged();
     }
@@ -234,4 +285,5 @@ public class SearchCommandSystemTest extends FinanceTrackerSystemTest {
         assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
     }
+
 }

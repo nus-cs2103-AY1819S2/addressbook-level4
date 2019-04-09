@@ -29,6 +29,11 @@ public class AttackCommand extends Command {
         + "Example: attack b5";
     public static final String MESSAGE_DUPLICATE = "You have already attacked cell ";
     public static final String MESSAGE_ANOTHER_TURN = "Take another turn.";
+    public static final String MESSAGE_TRY_AGAIN = "Please select another cell to attack.";
+    public static final String MESSAGE_PLAYER_WIN = "You won. Congratulations!\n"
+        + "Start another game with 'init', or enter 'exit' to quit.";
+    public static final String MESSAGE_PLAYER_LOSE = "You lost... maybe you'll do better next time!\n"
+        + "Start another game with 'init', or enter 'exit' to quit.";
 
     private Coordinates coord;
 
@@ -38,12 +43,12 @@ public class AttackCommand extends Command {
         setPermissibleStates(EnumSet.of(BattleState.PLAYER_ATTACK));
     }
 
-    @Override
     /**
      * Executes an attack command on a cell.
      * If the player hits a ship, they can take another turn. If not, then
-     * the AI takes their turn immediately, then the player takes their turn.
+     * the AI takes their turn(s) immediately, then the player takes their turn.
      */
+    @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         assert canExecuteIn(model.getBattleState());
@@ -59,9 +64,17 @@ public class AttackCommand extends Command {
         model.getPlayerStats().addResultToStats(res);
         model.updateUi();
 
-        if (res.isHit()) {
-            // player takes another turn
-            return new CommandResult(res.formatAsUserAttack() + "\n" + MESSAGE_ANOTHER_TURN);
+        if (!res.isSuccessful()) {
+            // the player didn't hit a cell successfully
+            return new CommandResult(res.formatAsUserAttack() + "\n" + MESSAGE_TRY_AGAIN);
+        } else if (res.isHit()) {
+            if (res.isWin()) {
+                // Player wins!
+                model.setBattleState(BattleState.PLAYER_WIN);
+                return new CommandResult(MESSAGE_PLAYER_WIN);
+            } else {
+                return new CommandResult(res.formatAsUserAttack() + "\n" + MESSAGE_ANOTHER_TURN);
+            }
         } else {
             // immediately, AI takes its turn
             model.setBattleState(BattleState.ENEMY_ATTACK);
@@ -73,7 +86,14 @@ public class AttackCommand extends Command {
                 resultBuilder.append("\n");
                 resultBuilder.append(enemyRes.formatAsEnemyAttack());
             }
-            model.setBattleState(BattleState.PLAYER_ATTACK);
+            if (enemyResList.get(enemyResList.size() - 1).isWin()) {
+                // Oh no... the enemy won
+                model.setBattleState(BattleState.ENEMY_WIN);
+                resultBuilder.append("\n");
+                resultBuilder.append(MESSAGE_PLAYER_LOSE);
+            } else {
+                model.setBattleState(BattleState.PLAYER_ATTACK);
+            }
             return new CommandResult(resultBuilder.toString());
         }
     }

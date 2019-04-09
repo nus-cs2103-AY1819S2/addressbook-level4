@@ -4,23 +4,23 @@ import seedu.address.model.cell.Coordinates;
 import seedu.address.model.player.Player;
 
 /**
- * Represents the result of an attack that hit and destroyed a ship.
+ * Represents the result of an attack that defeated an enemy.
  */
-public class AttackDestroyedShip extends AttackResult {
+public class AttackDefeatedEnemy extends AttackResult {
     private String destroyedShipName;
 
-    public AttackDestroyedShip(Player attacker, Player target, Coordinates cell, String destroyedShipName) {
+    public AttackDefeatedEnemy(Player attacker, Player target, Coordinates cell, String destroyedShipName) {
         super(attacker, target, cell);
         this.destroyedShipName = destroyedShipName;
 
         succeeds = true;
         hitsShip = true;
         destroysShip = true;
-        winsGame = false;
+        winsGame = true;
     }
 
     @Override
     public String resultString() {
-        return String.format("destroyed %s", destroyedShipName);
+        return String.format("destroyed %s and won the game", destroyedShipName);
     }
 }

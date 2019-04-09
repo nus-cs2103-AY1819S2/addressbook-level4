@@ -25,7 +25,7 @@ public class BattleManagerTest {
 
     private Player player;
     private InterceptedEnemy enemy;
-    private Battle batMan;
+    private BattleManager batMan;
 
     @Before
     public void prepareModel() {
@@ -33,89 +33,223 @@ public class BattleManagerTest {
         enemy = new InterceptedEnemy();
         initialisePlayerSizeTen(player);
         initialisePlayerSizeTen(enemy);
-        enemy.prepEnemy();
         batMan = new BattleManager(player, enemy);
+        batMan.setDelay(0);
     }
 
+    /**
+     * Set up the following scenario:
+     *     Player has one ship at a1 vertical with 1 HP
+     * @param p The player to set up
+     * @return the ship that is about to be destroyed
+     */
+    private Battleship setUpAlmostDefeat(Player p) {
+        Battleship ship1 = new DestroyerBattleship(Collections.emptySet());
+        do {
+            ship1.reduceLife();
+        } while (ship1.getLife() != 1);
+        Orientation vertical = new Orientation("v");
+        p.getFleet().deployOneBattleship(ship1, TypicalIndexes.COORDINATES_A1, vertical);
+        p.getMapGrid().putShip(ship1, TypicalIndexes.COORDINATES_A1, vertical);
+
+        return ship1;
+    }
+
+    /**
+     * Set up the following scenario:
+     *     Player has one ship at a1 vertical with full HP
+     * @param p The player to set up
+     * @return The ship that was placed.
+     */
+    private Battleship setUpSingleShip(Player p) {
+        Battleship ship = new DestroyerBattleship(Collections.emptySet());
+        Orientation vertical = new Orientation("v");
+        p.getFleet().deployOneBattleship(ship, TypicalIndexes.COORDINATES_A1, vertical);
+        p.getMapGrid().putShip(ship, TypicalIndexes.COORDINATES_A1, vertical);
+
+        return ship;
+    }
+
+    /**
+     * Set up the following scenario:
+     *     Player has one ship at a1 vertical with 1 HP
+     *     Player has one ship at j1 horizontal with full HP
+     * @param p The player to set up
+     * @return the ship that is about to be destroyed
+     */
+    private Battleship setUpAlmostDestroy(Player p) {
+        Battleship ship1 = new DestroyerBattleship(Collections.emptySet());
+        do {
+            ship1.reduceLife();
+        } while (ship1.getLife() != 1);
+        Orientation vertical = new Orientation("v");
+        p.getFleet().deployOneBattleship(ship1, TypicalIndexes.COORDINATES_A1, vertical);
+        p.getMapGrid().putShip(ship1, TypicalIndexes.COORDINATES_A1, vertical);
+
+        Battleship ship2 = new DestroyerBattleship(Collections.emptySet());
+        Orientation horizontal = new Orientation("h");
+        p.getFleet().deployOneBattleship(ship2, TypicalIndexes.COORDINATES_J1, horizontal);
+        p.getMapGrid().putShip(ship2, TypicalIndexes.COORDINATES_J1, horizontal);
+
+        return ship1;
+    }
+
+    /**
+     * Expected result:
+     *     beginGame() calls the prepEnemy() method of Enemy.
+     */
     @Test
     public void beginGame_callsPrepEnemy_success() {
         batMan.beginGame();
         assertTrue(enemy.isPrepCalled());
     }
 
+    /**
+     * Setup:
+     *     Enemy has one ship vertically, on a1
+     *     Human attacks A1
+     * Expected result:
+     *     Human attack hits ship at A1
+     *     Ship HP decreases
+     *     a Hit AttackResult is returned
+     */
     @Test
     public void humanPerformAttack_hit_hits() {
-        /**
-         * Expected result:
-         * Human attack hits ship at A1
-         * Ship HP decreases
-         * a Hit AttackResult is returned
-         */
-        Battleship ship = new DestroyerBattleship(Collections.emptySet());
+        Battleship ship = setUpSingleShip(enemy);
         int initialLife = ship.getLife();
-        enemy.getMapGrid().putShip(ship, TypicalIndexes.COORDINATES_A1, new Orientation("v"));
 
         AttackResult res = batMan.humanPerformAttack(TypicalIndexes.COORDINATES_A1);
         assertTrue(ship.getLife() < initialLife);
         assertTrue(res.isHit());
     }
 
+    /**
+     * Setup:
+     *     Enemy has one ship vertically, on a1, with 1HP remaining
+     *     Enemy has another ship somewhere
+     *     Human attacks A1
+     * Expected result:
+     *     Human attack hits ship at A1
+     *     Ship HP decreases
+     *     a Hit AttackResult is returned
+     */
     @Test
-    public void humanPerformAttack_miss_misses() {
-        /**
-         * Expected result:
-         * Human attack misses at J10
-         * A non-Hit AttackResult is returned
-         */
+    public void humanPerformAttack_destroyShip_destroys() {
+        Battleship ship1 = setUpAlmostDestroy(enemy);
 
-        AttackResult res = batMan.humanPerformAttack(TypicalIndexes.COORDINATES_LAST_CELL);
-        assertFalse(res.isHit());
+        AttackResult res = batMan.humanPerformAttack(TypicalIndexes.COORDINATES_A1);
+        assertTrue(ship1.isDestroyed());
+        assertTrue(res.isDestroy());
     }
 
+    /**
+     * Setup:
+     *     Enemy has one ship vertically, on a1, with 1HP remaining
+     *     Human attacks A1
+     * Expected result:
+     *     Human attack hits ship at A1
+     *     Ship HP decreases
+     *     a Hit AttackResult is returned
+     */
+    @Test
+    public void humanPerformAttack_destroyLastShip_wins() {
+        Battleship ship1 = setUpAlmostDefeat(enemy);
+
+        AttackResult res = batMan.humanPerformAttack(TypicalIndexes.COORDINATES_A1);
+        assertTrue(ship1.isDestroyed());
+        assertTrue(res instanceof AttackDefeatedEnemy);
+    }
+    /**
+     * Setup:
+     *     No ships placed
+     *     Human attacks on J10
+     * Expected result:
+     *     Human attack misses at J10
+     *     A non-Hit AttackResult is returned
+     */
+    @Test
+    public void humanPerformAttack_miss_misses() {
+        AttackResult res = batMan.humanPerformAttack(TypicalIndexes.COORDINATES_LAST_CELL);
+        assertTrue(res instanceof AttackMissed);
+    }
+
+    /**
+     * Setup:
+     *     No ships placed
+     *     Enemy begins attacking horizontally from a1
+     * Expected result:
+     *     Enemy attack misses at A1
+     *     A singleton list containing a non-Hit AttackResult is returned
+     */
     @Test
     public void takeComputerTurn_miss_takesOneTurn() {
-        /**
-         * Expected result:
-         * Enemy attack misses at A1
-         * A singleton list containing a non-Hit AttackResult is returned
-         */
+        enemy.prepEnemy();
+
         List<AttackResult> res = batMan.takeComputerTurns();
         assertTrue(res.size() == 1);
         assertFalse(res.get(0).isHit());
     }
 
+    /**
+     * Setup:
+     *     One ship vertically, on a1
+     *     Enemy begins attacking horizontally from a1
+     * Expected result:
+     *     Enemy attack hits at A1 and misses at A2
+     *     A singleton list containing a non-Hit AttackResult is returned
+     */
     @Test
     public void takeComputerTurn_oneHit_takesTwoTurns() {
-        /**
-         * Expected result:
-         * Enemy attack hits at A1 and misses at A2
-         * A singleton list containing a non-Hit AttackResult is returned
-         */
-        Battleship ship = new DestroyerBattleship(Collections.emptySet());
-        player.getMapGrid().putShip(ship, TypicalIndexes.COORDINATES_A1, new Orientation("v"));
+        enemy.prepEnemy();
+
+        setUpSingleShip(player);
 
         List<AttackResult> res = batMan.takeComputerTurns();
         assertTrue(res.size() == 2);
-        assertTrue(res.get(0).isHit());
-        assertFalse(res.get(1).isHit());
+        assertTrue(res.get(0) instanceof AttackHit);
+        assertTrue(res.get(1) instanceof AttackMissed);
     }
 
+    /**
+     * Setup:
+     *     One ship on a1 vertical, with 1 HP left
+     *     One ship on j1 horizontal, full HP
+     *     Enemy begins attacking horizontally from a1
+     * Expected result:
+     *     Enemy attack hits a1, destroys the entire ship, then hits a2 for a miss
+     *     A doubleton list containing a AttackDestroyedShip and an AttackMissed is returned
+     *     Enemy does not win the game
+     */
     @Test
-    public void takeComputerTurn_destroysShip_takesNplusoneTurns() {
-        /**
-         * Expected result:
-         * Enemy attack hits horizontally, destroys the entire ship, then hits the next cell for a miss
-         * A singleton list containing a non-Hit AttackResult is returned
-         */
-        Battleship ship = new DestroyerBattleship(Collections.emptySet());
-        int initialLife = ship.getLife();
-        player.getMapGrid().putShip(ship, TypicalIndexes.COORDINATES_A1, new Orientation("h"));
+    public void takeComputerTurn_destroysShip_returnsDestroyResult() {
+        enemy.prepEnemy();
+
+        Battleship ship1 = setUpAlmostDestroy(player);
 
         List<AttackResult> res = batMan.takeComputerTurns();
-        assertTrue(res.size() == initialLife + 1);
-        for (int i = 0; i < initialLife; i++) {
-            assertTrue(res.get(i).isHit());
-        }
-        assertFalse(res.get(initialLife).isHit());
+        assertTrue(ship1.isDestroyed());
+        assertTrue(res.size() == 2);
+        assertTrue(res.get(0) instanceof AttackDestroyedShip);
+        assertTrue(res.get(1) instanceof AttackMissed);
+    }
+
+    /**
+     * Setup:
+     *     One ship horizontally on a1 with 1HP
+     *     Enemy begins attacking horizontally from a1
+     * Expected result:
+     *     Enemy attack hits horizontally, destroys the entire ship, then hits the next cell for a miss
+     *     A singleton list containing a non-Hit AttackResult is returned
+     *     Enemy does not win the game
+     */
+    @Test
+    public void takeComputerTurn_winsGame_returnsWinResult() {
+        enemy.prepEnemy();
+
+        Battleship ship1 = setUpAlmostDefeat(player);
+
+        List<AttackResult> res = batMan.takeComputerTurns();
+        assertTrue(res.size() == 1);
+        assertTrue(res.get(0) instanceof AttackDefeatedEnemy);
     }
 }

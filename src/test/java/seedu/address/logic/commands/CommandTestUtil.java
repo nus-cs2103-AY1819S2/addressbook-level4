@@ -75,7 +75,6 @@ public class CommandTestUtil {
     public static final String VALID_DATE_OF_APPT = FUTURE_DATE_TIME.toLocalDate().toString();
     public static final String VALID_START_TIME = FUTURE_DATE_TIME.toLocalTime()
             .format(DateTimeFormatter.ofPattern("HH:mm"));
-
     public static final String DESC_VALID_PATIENT_ID = " " + PREFIX_PATIENT_ID + VALID_PATIENT_ID;
     public static final String DESC_VALID_DOCTOR_ID = " " + PREFIX_DOCTOR_ID + VALID_DOCTOR_ID;
     public static final String DESC_VALID_DATE_OF_APPT = " " + PREFIX_DATE_OF_APPT + VALID_DATE_OF_APPT;

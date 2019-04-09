@@ -1,35 +1,37 @@
+/** author: @siyingpoof **/
 package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
 import java.util.Objects;
 
 import seedu.address.model.appointment.AppointmentDate;
 import seedu.address.model.appointment.AppointmentTime;
-import seedu.address.model.tag.Specialisation;
 
 /**
- * Represents a DoctorMatch in the docX. Just an object to store the relevant information needed for match-doctor cmd.
+ * Represents a DoctorsMatch in the docX.
+ * Just an object to store the relevant information needed for match-doctor cmd.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class DoctorMatch {
+public class DoctorsMatch {
 
-    private final Specialisation spec;
+    private final List<Doctor> specMatchedDoctors;
     private final AppointmentDate date;
     private final AppointmentTime time;
 
     /**
      * Every field must be present and not null.
      */
-    public DoctorMatch(Specialisation spec, AppointmentDate date, AppointmentTime time) {
-        requireAllNonNull(spec, date, time);
-        this.spec = spec;
+    public DoctorsMatch(List<Doctor> specMatchedDoctors, AppointmentDate date, AppointmentTime time) {
+        requireAllNonNull(specMatchedDoctors, date, time);
+        this.specMatchedDoctors = specMatchedDoctors;
         this.date = date;
         this.time = time;
     }
 
-    public Specialisation getSpec() {
-        return spec;
+    public List<Doctor> getDoctors() {
+        return specMatchedDoctors;
     }
 
     public AppointmentDate getDate() {
@@ -43,13 +45,13 @@ public class DoctorMatch {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(spec, date, time);
+        return Objects.hash(specMatchedDoctors, date, time);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getSpec())
+        builder.append(getDoctors())
                 .append(" Date: ")
                 .append(getDate())
                 .append(" Time: ")

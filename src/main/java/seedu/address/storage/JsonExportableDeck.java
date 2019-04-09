@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.deck.Card;
@@ -15,7 +16,7 @@ import seedu.address.model.deck.Name;
 /**
  * Exportable version of deck.
  */
-
+@JsonRootName(value = "deck")
 public class JsonExportableDeck {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Deck's %s field is missing!";

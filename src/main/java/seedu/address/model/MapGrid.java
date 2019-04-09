@@ -1,55 +1,34 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
+import java.util.Arrays;
 
-import java.util.List;
-
-import javafx.beans.InvalidationListener;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableBooleanValue;
-import javafx.collections.ObservableList;
-import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
-import seedu.address.model.cell.Row;
 import seedu.address.model.cell.Status;
 
 /**
  * Wraps all data at the map grid level
  */
-public class MapGrid implements ReadOnlyAddressBook {
+public class MapGrid {
 
     private Cell[][] cellGrid;
     private int size;
-    private final Row persons;
     private BooleanProperty uiUpdateSwitch = new SimpleBooleanProperty();
-    private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
-
-    /*
-     * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
-    {
-        persons = new Row();
-    }
 
     public MapGrid() {
         this.size = 0;
         cellGrid = new Cell[0][0];
     }
 
-    /**
-     * Creates an MapGrid using the Persons in the {@code toBeCopied}
-     */
-    public MapGrid(ReadOnlyAddressBook toBeCopied) {
-        this();
-        resetData(toBeCopied);
+    public MapGrid(MapGrid mapGrid) {
+        size = mapGrid.size;
+        cellGrid = new Cell[mapGrid.getMapSize()][mapGrid.getMapSize()];
+        copy2dArray(cellGrid, mapGrid.cellGrid);
     }
 
     // 2D map grid operations
@@ -125,6 +104,30 @@ public class MapGrid implements ReadOnlyAddressBook {
         return this.size;
     }
 
+    // UI operations
+
+    /**
+     * Used to Update the UI.
+     * A listener will be added to this observable value in the UI.
+     * Once this value changes the UI will be updated.
+     */
+    public ObservableBooleanValue getObservableValue() {
+        return uiUpdateSwitch;
+    }
+
+    /**
+     * Change the ObservableValue to trigger the UI change
+     */
+    public void updateUi() {
+        if (uiUpdateSwitch.getValue() == false) {
+            uiUpdateSwitch.setValue(true);
+        } else {
+            uiUpdateSwitch.setValue(false);
+        }
+    }
+
+    //// cell-level operations
+
     /**
      * Returns the cell in the given coordinates
      */
@@ -150,43 +153,6 @@ public class MapGrid implements ReadOnlyAddressBook {
         return getCell(coord).getBattleship().get().toString();
     }
 
-    // UI operations
-
-    /**
-     * Used to Update the UI.
-     * A listener will be added to this observable value in the UI.
-     * Once this value changes the UI will be updated.
-     */
-    public ObservableBooleanValue getObservableValue() {
-        return uiUpdateSwitch;
-    }
-
-    /**
-     * Change the ObservableValue to trigger the UI change
-     */
-    public void updateUi() {
-        if (uiUpdateSwitch.getValue() == false) {
-            uiUpdateSwitch.setValue(true);
-        } else {
-            uiUpdateSwitch.setValue(false);
-        }
-    }
-
-    // Cell operations
-    /**
-     * Put battleship in the given coordinates
-
-    public void putShip(Coordinates coordinates, Battleship battleship) throws ArrayIndexOutOfBoundsException {
-        if (coordinates.getColIndex().getOneBased() > getMapSize()) {
-            throw new ArrayIndexOutOfBoundsException("Coordinates are outside of the map");
-        }
-
-        cellGrid[coordinates.getRowIndex().getZeroBased()][coordinates.getColIndex().getZeroBased()]
-            .putShip(battleship);
-        updateUi();
-    }
-     */
-
     /**
      * Attack a specified cell. Returns true if a ship was hit otherwise false.
      */
@@ -201,37 +167,6 @@ public class MapGrid implements ReadOnlyAddressBook {
 
         updateUi();
         return isSuccessfulHit;
-    }
-
-    //// list overwrite operations
-
-    /**
-     * Replaces the contents of the cell list with {@code cells}.
-     * {@code cells} must not contain duplicate cells.
-     */
-    public void setPersons(List<Cell> cells) {
-        this.persons.setPersons(cells);
-        indicateModified();
-    }
-
-    /**
-     * Resets the existing data of this {@code MapGrid} with {@code newData}.
-     */
-    public void resetData(ReadOnlyAddressBook newData) {
-        requireNonNull(newData);
-
-        setPersons(newData.getPersonList());
-    }
-
-    //// cell-level operations
-
-    /**
-     * Adds a cell to the address book.
-     * The cell must not already exist in the address book.
-     */
-    public void addPerson(Cell p) {
-        persons.add(p);
-        indicateModified();
     }
 
     /**
@@ -261,45 +196,17 @@ public class MapGrid implements ReadOnlyAddressBook {
         }
     }
 
-    @Override
-    public void addListener(InvalidationListener listener) {
-        invalidationListenerManager.addListener(listener);
-    }
-
-    @Override
-    public void removeListener(InvalidationListener listener) {
-        invalidationListenerManager.removeListener(listener);
-    }
-
-    /**
-     * Notifies listeners that the address book has been modified.
-     */
-    protected void indicateModified() {
-        invalidationListenerManager.callListeners(this);
-    }
-
     //// util methods
-
-    @Override
-    public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
-        // TODO: refine later
-    }
-
-    @Override
-    public ObservableList<Cell> getPersonList() {
-        return persons.asUnmodifiableObservableList();
-    }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof MapGrid // instanceof handles nulls
-                && persons.equals(((MapGrid) other).persons));
+                && Arrays.deepEquals(cellGrid, ((MapGrid) other).cellGrid));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return cellGrid.hashCode();
     }
 }

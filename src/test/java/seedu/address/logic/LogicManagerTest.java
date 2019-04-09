@@ -232,7 +232,7 @@ public class LogicManagerTest {
         expectedModel.getNextCard();
         expectedModel.getNextCard();
         expectedModel.setDisplayFormatter(new QuizUiDisplayFormatter("question", "Hungary",
-                "answer", "Budapest", QuizMode.PREVIEW));
+                "answer", "Budapest", 0, QuizMode.PREVIEW));
 
         quizModel.getNextCard();
 
@@ -268,7 +268,7 @@ public class LogicManagerTest {
         expectedModel.getNextCard();
         expectedModel.getNextCard();
         expectedModel.setDisplayFormatter(new QuizUiDisplayFormatter("Country",
-                "Japan", "Capital", "Tokyo", QuizMode.PREVIEW));
+                "Japan", "Capital", "Tokyo", 0, QuizMode.PREVIEW));
 
         quizModel.getNextCard();
 

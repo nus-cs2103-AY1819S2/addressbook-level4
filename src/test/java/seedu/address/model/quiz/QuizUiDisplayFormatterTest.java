@@ -12,23 +12,26 @@ public class QuizUiDisplayFormatterTest {
     private static final String QUESTION = "some question";
     private static final String ANSWER_HEADER = "Answer";
     private static final String ANSWER = "some answer";
+    private static final int CORRECT_QUESTIONS = 0;
     private static final QuizMode MODE = QuizMode.LEARN;
 
     private static final QuizUiDisplayFormatter formatter = new QuizUiDisplayFormatter(QUESTION_HEADER, QUESTION,
-        ANSWER_HEADER, ANSWER, MODE);
+        ANSWER_HEADER, ANSWER, CORRECT_QUESTIONS, MODE);
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void fullConstructor_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new QuizUiDisplayFormatter(null, null, null, null, null);
+        new QuizUiDisplayFormatter(null, null, null, null,
+                0, null);
     }
 
     @Test
     public void withoutAnswerConstructor_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new QuizUiDisplayFormatter(null, null, null, null);
+        new QuizUiDisplayFormatter(null, null, null, 0,
+                null);
     }
 
     @Test
@@ -55,13 +58,17 @@ public class QuizUiDisplayFormatterTest {
     public void getMode() {
         assertEquals(MODE, formatter.getMode());
     }
+    @Test
+    public void getTotalCorrect() {
+        assertEquals(CORRECT_QUESTIONS, formatter.getTotalCorrect());
+    }
 
     @Test
     public void equals() {
         final QuizUiDisplayFormatter anotherFormatter = new QuizUiDisplayFormatter(QUESTION_HEADER, QUESTION,
-            ANSWER_HEADER, ANSWER, MODE);
+            ANSWER_HEADER, ANSWER, 0, MODE);
         final QuizUiDisplayFormatter formatterWithoutAnswer = new QuizUiDisplayFormatter(QUESTION_HEADER, QUESTION,
-            ANSWER_HEADER, MODE);
+            ANSWER_HEADER, 0, MODE);
 
         // same object
         assertEquals(formatter, formatter);
@@ -82,9 +89,9 @@ public class QuizUiDisplayFormatterTest {
     @Test
     public void hashcode() {
         final QuizUiDisplayFormatter anotherFormatter = new QuizUiDisplayFormatter(QUESTION_HEADER, QUESTION,
-            ANSWER_HEADER, ANSWER, MODE);
+            ANSWER_HEADER, ANSWER, 0, MODE);
         final QuizUiDisplayFormatter formatterWithoutAnswer = new QuizUiDisplayFormatter(QUESTION_HEADER, QUESTION,
-            ANSWER_HEADER, MODE);
+            ANSWER_HEADER, 0, MODE);
 
         // same value
         assertEquals(formatter.hashCode(), anotherFormatter.hashCode());

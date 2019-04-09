@@ -191,7 +191,7 @@ public class QuizModelManagerTest {
     @Test
     public void getDisplayFormatter() {
         QuizUiDisplayFormatter formatter = new QuizUiDisplayFormatter("Question", "some question",
-            "Answer", "some answer", QuizMode.LEARN);
+            "Answer", "some answer", 0, QuizMode.LEARN);
 
         modelManager.setDisplayFormatter(formatter);
         assertEquals(formatter, modelManager.getDisplayFormatter());

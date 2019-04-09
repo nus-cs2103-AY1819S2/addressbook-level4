@@ -31,16 +31,16 @@ public class MainPanelTest extends GuiUnitTest {
 
         // both question and answer
         QuizUiDisplayFormatter formatter = new QuizUiDisplayFormatter("Question", "some question",
-            "Answer", "some answer", QuizMode.PREVIEW);
+            "Answer", "some answer", 0, QuizMode.PREVIEW);
 
         guiRobot.interact(() -> mainPanel.setFeedbackToUser(formatter));
         guiRobot.pauseForHuman();
-        assertEquals("Question: some question\nAnswer: some answer\n\nPress Enter to go to the next question",
-                mainPanelHandle.getText());
+        assertEquals("Question: some question\nAnswer: some answer\n\nPress Enter to go to the next question"
+                + "\n\nCurrent total correct questions: 0", mainPanelHandle.getText());
 
         // only question
         QuizUiDisplayFormatter formatterReview = new QuizUiDisplayFormatter(
-            "Question", "some question", "Answer", QuizMode.REVIEW);
+            "Question", "some question", "Answer", 0, QuizMode.REVIEW);
 
         guiRobot.interact(() -> mainPanel.setFeedbackToUser(formatterReview));
         guiRobot.pauseForHuman();
@@ -49,13 +49,14 @@ public class MainPanelTest extends GuiUnitTest {
 
         // wrong twice in a row
         QuizUiDisplayFormatter formatterWrongTwice = new QuizUiDisplayFormatter(
-            "Question", "some question", "Answer", "some answer", QuizMode.PREVIEW, true);
+            "Question", "some question", "Answer", "some answer",
+                0, QuizMode.PREVIEW, true);
 
         guiRobot.interact(() -> mainPanel.setFeedbackToUser(formatterWrongTwice));
         guiRobot.pauseForHuman();
         assertEquals("Question: some question\nAnswer: some answer\n"
-                + "\nType the Answer for the Question above and press Enter",
-            mainPanelHandle.getText());
+                + "\nType the Answer for the Question above and press Enter"
+                + "\n\nCurrent total correct questions: 0", mainPanelHandle.getText());
 
         // switch back to management mode, so become blank
         guiRobot.interact(() -> mainPanel.setFeedbackToUser(null));

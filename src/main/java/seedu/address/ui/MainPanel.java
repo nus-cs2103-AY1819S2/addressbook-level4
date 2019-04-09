@@ -48,11 +48,13 @@ public class MainPanel extends UiPart<Region> {
                 if (!formatter.isWrongTwice()) {
                     Text text1 = new Text("\nPress Enter to go to the next question");
                     mainPanel.getChildren().addAll(questionAnswer, text1);
+                    setTotalCorrect();
                     break;
                 }
 
                 mainPanel.getChildren().add(questionAnswer);
                 setAnswerPrompt();
+                setTotalCorrect();
                 break;
             case REVIEW:
                 questionAnswer.setText(String.format(MESSAGE_QUESTION, formatter.getQuestionHeader(),

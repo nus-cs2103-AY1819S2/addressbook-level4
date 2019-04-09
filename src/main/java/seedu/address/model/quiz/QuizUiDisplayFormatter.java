@@ -11,21 +11,11 @@ public class QuizUiDisplayFormatter {
     private String questionHeader;
     private String question;
     private String answerHeader;
+
     private String answer;
     private int totalCorrect;
     private QuizMode mode;
     private boolean isWrongTwice;
-
-    public QuizUiDisplayFormatter(String questionHeader, String question, String answerHeader, String answer,
-                                       QuizMode mode) {
-        requireAllNonNull(questionHeader, question, answerHeader, answer);
-        this.questionHeader = questionHeader;
-        this.question = question;
-        this.answerHeader = answerHeader;
-        this.answer = answer;
-        this.mode = mode;
-    }
-
     public QuizUiDisplayFormatter(String questionHeader, String question, String answerHeader, String answer,
                                   int totalCorrect, QuizMode mode) {
         requireAllNonNull(questionHeader, question, answerHeader, answer);
@@ -36,18 +26,6 @@ public class QuizUiDisplayFormatter {
         this.totalCorrect = totalCorrect;
         this.mode = mode;
     }
-
-    public QuizUiDisplayFormatter(String questionHeader, String question, String answerHeader, String answer,
-                                  QuizMode mode, boolean isWrongTwice) {
-        requireAllNonNull(questionHeader, question, answerHeader, answer);
-        this.questionHeader = questionHeader;
-        this.question = question;
-        this.answerHeader = answerHeader;
-        this.answer = answer;
-        this.mode = mode;
-        this.isWrongTwice = isWrongTwice;
-    }
-
     public QuizUiDisplayFormatter(String questionHeader, String question, String answerHeader, String answer,
                                   int totalCorrect, QuizMode mode, boolean isWrongTwice) {
         requireAllNonNull(questionHeader, question, answerHeader, answer);
@@ -60,14 +38,6 @@ public class QuizUiDisplayFormatter {
         this.isWrongTwice = isWrongTwice;
     }
 
-    public QuizUiDisplayFormatter(String questionHeader, String question, String answerHeader,
-                                  QuizMode mode) {
-        requireAllNonNull(questionHeader, question, answerHeader);
-        this.questionHeader = questionHeader;
-        this.question = question;
-        this.answerHeader = answerHeader;
-        this.mode = mode;
-    }
     public QuizUiDisplayFormatter(String questionHeader, String question, String answerHeader, int totalCorrect,
                                   QuizMode mode) {
         requireAllNonNull(questionHeader, question, answerHeader);

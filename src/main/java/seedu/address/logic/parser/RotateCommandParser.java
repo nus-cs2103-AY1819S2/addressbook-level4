@@ -1,7 +1,6 @@
 /* @@author kayheen */
 package seedu.address.logic.parser;
 
-import javafx.scene.transform.Rotate;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.RotateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;

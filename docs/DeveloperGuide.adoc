@@ -355,7 +355,7 @@ image::SortSequenceDiagram2.png[width="800"]
 
 *_Design considerations will be added next time._*
 
-// end::undoredo[]
+// end::sort[]
 
 // tag::reverse[]
 === Reverse feature

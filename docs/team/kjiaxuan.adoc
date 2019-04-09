@@ -63,5 +63,18 @@ The implementation was also challenging as it required changes to existing comma
 === Other contributions
 
 == Contributions to the User Guide
+|===
+|_These are additions I made to the In-Credit-Ble User Guide for the `reverse` and `sort` features._
+|===
+
+include::../UserGuide.adoc[tag=sort]
+
+include::../UserGuide.adoc[reverse]
 
 == Contributions to the Developer Guide
+|===
+|_These are additions I made to the In-Credit-Ble Developer Guide for the `reverse` and `sort` features._
+|===
+
+include::../DeveloperGuide.adoc[tag=sort]
+include::../DeveloperGuide.adoc[tag=reverse]

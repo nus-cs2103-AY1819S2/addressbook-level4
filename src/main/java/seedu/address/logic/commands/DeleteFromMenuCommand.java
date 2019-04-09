@@ -25,8 +25,8 @@ public class DeleteFromMenuCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Menu item deleted:\n%1$s";
     public static final String MESSAGE_INVALID_ITEM_CODE = "The item code [%1$s] is invalid";
-    public static final String MESSAGE_RESTAURANT_OCCUPIED =
-            "The restaurant is not empty. Require restaurant to be empty to execute this command";
+    public static final String INVALID_RESTAURANT_STATE =
+            "The restaurant is still occupied. Deletion of menu items not allowed.";
 
     private final Code itemCode;
 
@@ -48,7 +48,7 @@ public class DeleteFromMenuCommand extends Command {
         }
 
         if (!model.getRestOrRant().getTables().isRestaurantEmpty()) {
-            throw new CommandException(MESSAGE_RESTAURANT_OCCUPIED);
+            throw new CommandException(INVALID_RESTAURANT_STATE);
         }
 
         model.deleteMenuItem(itemToDelete.get());

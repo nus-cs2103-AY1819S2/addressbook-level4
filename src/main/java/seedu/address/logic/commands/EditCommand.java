@@ -11,7 +11,8 @@ public class EditCommand extends Command {
         + "Editing a task: taskedit or tedit\n";
     private static final String GOTO_USAGE = "Did you mean:\n"
         + "Editing a record: recordedit or redit\n"
-        + "Editing a task: taskedit or tedit\n";
+        + "Editing a task: taskedit or tedit\n"
+        + "Editing teeth: teethedit";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {

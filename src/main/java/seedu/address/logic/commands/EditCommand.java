@@ -87,6 +87,7 @@ public class EditCommand extends Command {
         model.commitAddressBook();
         model.commitArchiveBook();
         model.commitPinBook();
+        model.setSelectedPinPerson(null);
         model.setSelectedPerson(editedPerson);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }

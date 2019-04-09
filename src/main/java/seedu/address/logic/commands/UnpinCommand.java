@@ -48,6 +48,8 @@ public class UnpinCommand extends Command {
             model.commitAddressBook();
             model.commitArchiveBook();
             model.commitPinBook();
+            model.setSelectedPinPerson(null);
+            model.setSelectedPerson(personToUnpin);
         } else {
             return new CommandResult(String.format(MESSAGE_PERSON_NOT_IN_PIN_LIST, personToUnpin));
         }

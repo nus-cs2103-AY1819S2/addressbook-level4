@@ -445,7 +445,7 @@ image::dg-consultation/consultationSD1.png[width="800"]
 
 finally, saving the consultation record into QuickDocs:
 
-image::dg-consultation/endConsultSD.png[width="800"]
+image::dg-consultation/endconsultSD.png[width="800"]
 
 
 ==== Design considerations

@@ -4,7 +4,6 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.ViewState;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -178,4 +177,5 @@ public interface Model {
     Deck importDeck (String filepath) throws DeckImportException, DuplicateDeckException;
 
     String exportDeck(Deck deck);
+
 }

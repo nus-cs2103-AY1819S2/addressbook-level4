@@ -155,8 +155,11 @@ public class AppointmentManager {
     private List<Slot> getFreeSlots(LocalDate start, LocalDate end) {
         List<Slot> freeSlots = new ArrayList<>();
         List<Appointment> toSearch = getAppointments(start, end);
-        // no free slots for given range
+        // all slots are free
         if (toSearch.isEmpty()) {
+            for (LocalDate date = start; date.compareTo(end) <= 0; date = date.plusDays(1)) {
+                freeSlots.add(new Slot(date, OPENING_HOUR, CLOSING_HOUR));
+            }
             return freeSlots;
         }
 

@@ -22,6 +22,13 @@ public class ReverseCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
+    public void execute_emptyList_showEmptyListMessage(){
+        Model expectedModel = new ModelManager();
+        assertCommandSuccess(new ReverseCommand(), expectedModel, commandHistory, ReverseCommand.MESSAGE_EMPTY_LIST,
+                expectedModel);
+    }
+
+    @Test
     public void execute_unfilteredList_success() {
         Model expectedModel = new ModelManager(new FinanceTracker(model.getFinanceTracker()), new UserPrefs());
         expectedModel.reverseFilteredRecordList();

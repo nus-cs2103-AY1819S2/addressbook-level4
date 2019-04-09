@@ -34,6 +34,13 @@ public class SortCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
+    public void execute_emptyList_showEmptyListMessage(){
+        Model expectedModel = new ModelManager();
+        assertCommandSuccess(new SortCommand(new RecordNameComparator()), expectedModel, commandHistory,
+                SortCommand.MESSAGE_EMPTY_LIST, expectedModel);
+    }
+
+    @Test
     public void execute_sortByName_success() {
         Model expectedModel = new ModelManager(new FinanceTracker(model.getFinanceTracker()), new UserPrefs());
         expectedModel.sortFilteredRecordList(new RecordNameComparator());

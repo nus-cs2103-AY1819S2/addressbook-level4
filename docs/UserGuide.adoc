@@ -273,7 +273,7 @@ Format: `find [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]`
 ****
 * Parameters can be in any order and are case-insensitive.
 * Module code can be entered partially, but semester and grade must be in the exact format.
-* For modules yet to be taken, searching by grade will display those whose grade range covers that grade.
+* For unfinished modules, searching by grade will display those whose grade range covers that grade.
 * Finished status is indicated by 'y' for finished module (i.e. semester taken is before current semester) or any other value for unfinished.
 ****
 
@@ -281,10 +281,21 @@ Examples:
 
 * `find c/CS` +
 Lists all CS modules in GradTrak.
+
+.Finding CS modules
+image::find(c).png[width="790"]
+
 * `find s/Y1S2` +
 Lists all modules in Y1S2 in GradTrak.
+
+.Finding modules in Y1S2
+image::find(s).png[width="790"]
+
 * `find g/A f/y` +
 Lists all finished modules with grade A.
+
+.Finding finished modules with grade A (current semester: Y1S2)
+image::find(g,f).png[width="790"]
 
 === View all other commands : `help`
 

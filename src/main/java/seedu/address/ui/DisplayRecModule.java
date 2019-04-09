@@ -35,9 +35,7 @@ public class DisplayRecModule extends UiPart<Region> {
 
         index.setText(id + ". ");
         moduleInfoCode.setText(recModule.getModuleInfoCode().toString());
-        if (recModule.getModuleInfoTitle().isPresent()) {
-            moduleInfoTitle.setText(recModule.getModuleInfoTitle().get().toString());
-        }
+        moduleInfoTitle.setText(recModule.getModuleInfoTitle().toString());
         if (recModule.getCourseReqType().isPresent()) {
             courseReqType.setText(recModule.getCourseReqType().get().toString());
         }

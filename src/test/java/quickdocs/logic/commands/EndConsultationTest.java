@@ -7,12 +7,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import quickdocs.logic.CommandHistory;
+import quickdocs.logic.commands.exceptions.CommandException;
+import quickdocs.model.ModelManager;
 import quickdocs.model.consultation.Assessment;
 import quickdocs.model.consultation.Diagnosis;
 import quickdocs.model.consultation.Prescription;
 import quickdocs.model.consultation.Symptom;
-import quickdocs.logic.commands.exceptions.CommandException;
-import quickdocs.model.ModelManager;
 import quickdocs.model.medicine.Medicine;
 import quickdocs.model.patient.Address;
 import quickdocs.model.patient.Contact;

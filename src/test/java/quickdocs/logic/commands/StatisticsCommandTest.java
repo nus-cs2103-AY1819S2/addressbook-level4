@@ -13,10 +13,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import quickdocs.logic.CommandHistory;
-import quickdocs.model.record.ConsultationRecord;
-import quickdocs.model.record.MedicinePurchaseRecord;
-import quickdocs.model.record.Record;
-import quickdocs.model.record.Statistics;
 import quickdocs.logic.commands.exceptions.CommandException;
 import quickdocs.model.ModelManager;
 import quickdocs.model.consultation.Assessment;
@@ -24,6 +20,10 @@ import quickdocs.model.consultation.Diagnosis;
 import quickdocs.model.consultation.Prescription;
 import quickdocs.model.consultation.Symptom;
 import quickdocs.model.medicine.Medicine;
+import quickdocs.model.record.ConsultationRecord;
+import quickdocs.model.record.MedicinePurchaseRecord;
+import quickdocs.model.record.Record;
+import quickdocs.model.record.Statistics;
 
 class StatisticsCommandTest {
 

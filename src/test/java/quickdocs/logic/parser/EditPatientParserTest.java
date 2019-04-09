@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import quickdocs.logic.commands.EditPatientCommand;
 import quickdocs.logic.parser.exceptions.ParseException;
-import quickdocs.model.patient.PatientEditedFields;
 import quickdocs.model.patient.Address;
 import quickdocs.model.patient.Contact;
 import quickdocs.model.patient.Dob;
@@ -17,6 +16,7 @@ import quickdocs.model.patient.Email;
 import quickdocs.model.patient.Gender;
 import quickdocs.model.patient.Name;
 import quickdocs.model.patient.Nric;
+import quickdocs.model.patient.PatientEditedFields;
 import quickdocs.model.tag.Tag;
 import quickdocs.testutil.Assert;
 

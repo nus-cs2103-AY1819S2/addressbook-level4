@@ -1,7 +1,5 @@
 package quickdocs.logic.commands;
 
-import static quickdocs.logic.commands.CommandTestUtil.assertCommandSuccess;
-
 import org.junit.Test;
 
 import quickdocs.logic.CommandHistory;

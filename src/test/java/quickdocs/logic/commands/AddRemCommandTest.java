@@ -13,10 +13,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import quickdocs.logic.CommandHistory;
-import quickdocs.model.QuickDocs;
 import quickdocs.logic.commands.exceptions.CommandException;
 import quickdocs.model.Model;
 import quickdocs.model.ModelManager;
+import quickdocs.model.QuickDocs;
 import quickdocs.model.UserPrefs;
 
 public class AddRemCommandTest {

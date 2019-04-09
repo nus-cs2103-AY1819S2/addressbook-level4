@@ -769,7 +769,10 @@ The list of unique medicine is still empty.
 [[medicineModule_example2]]
 image::medicineModule_example2.png[width='800']
 
-Step 3: Via a few more `adddirec` commands, the figure below is an illustration of a typical inventory's framework.
+Step 3: Via a few more `adddirec` commands, the figure below is an illustration of a sample inventory's framework.
+
+[[medicineModule_example3.png]]
+image::medicineModule_example3.png[width='800']
 
 4. The user could view detailed information about a directory or medicine through "viewMed" command.
 

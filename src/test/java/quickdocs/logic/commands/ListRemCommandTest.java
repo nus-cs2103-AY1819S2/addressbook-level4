@@ -15,11 +15,11 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import quickdocs.logic.CommandHistory;
-import quickdocs.model.QuickDocs;
-import quickdocs.model.reminder.ReminderWithinDatesPredicate;
 import quickdocs.model.Model;
 import quickdocs.model.ModelManager;
+import quickdocs.model.QuickDocs;
 import quickdocs.model.UserPrefs;
+import quickdocs.model.reminder.ReminderWithinDatesPredicate;
 
 public class ListRemCommandTest {
     private QuickDocs quickDocs = getTypicalRemindersQuickDocs();

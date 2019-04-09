@@ -16,8 +16,8 @@ import guitests.guihandles.StageHandle;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import quickdocs.logic.LogicManager;
-import quickdocs.storage.JsonQuickDocsStorage;
 import quickdocs.model.ModelManager;
+import quickdocs.storage.JsonQuickDocsStorage;
 import quickdocs.storage.JsonUserPrefsStorage;
 import quickdocs.storage.StorageManager;
 

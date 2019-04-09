@@ -8,15 +8,15 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import quickdocs.logic.commands.AddPatientCommand;
 import quickdocs.model.patient.Address;
 import quickdocs.model.patient.Contact;
 import quickdocs.model.patient.Dob;
+import quickdocs.model.patient.Email;
 import quickdocs.model.patient.Gender;
 import quickdocs.model.patient.Name;
 import quickdocs.model.patient.Nric;
 import quickdocs.model.patient.Patient;
-import quickdocs.logic.commands.AddPatientCommand;
-import quickdocs.model.patient.Email;
 import quickdocs.model.tag.Tag;
 
 public class AddPatientParserTest {

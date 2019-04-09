@@ -5,8 +5,8 @@ import static quickdocs.logic.parser.CommandParserTestUtil.assertParseFailure;
 import org.junit.Assert;
 import org.junit.Test;
 
-import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.logic.commands.ListConsultationCommand;
+import quickdocs.logic.parser.exceptions.ParseException;
 
 
 public class ListConsultationParserTest {

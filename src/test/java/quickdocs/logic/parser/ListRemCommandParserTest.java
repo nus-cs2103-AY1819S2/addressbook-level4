@@ -9,8 +9,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.logic.commands.ListRemCommand;
+import quickdocs.logic.parser.exceptions.ParseException;
 
 public class ListRemCommandParserTest {
     private ListRemCommandParser parser = new ListRemCommandParser();

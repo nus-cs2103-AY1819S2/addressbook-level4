@@ -11,10 +11,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import quickdocs.model.QuickDocs;
-import quickdocs.testutil.TypicalPatients;
 import quickdocs.commons.exceptions.IllegalValueException;
 import quickdocs.commons.util.JsonUtil;
+import quickdocs.model.QuickDocs;
+import quickdocs.testutil.TypicalPatients;
 
 public class JsonSerializableQuickDocsTest {
 

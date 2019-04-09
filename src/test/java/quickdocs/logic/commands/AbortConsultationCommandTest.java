@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import quickdocs.logic.CommandHistory;
+import quickdocs.logic.commands.exceptions.CommandException;
+import quickdocs.model.ModelManager;
 import quickdocs.model.patient.Address;
 import quickdocs.model.patient.Contact;
 import quickdocs.model.patient.Dob;
@@ -14,10 +16,8 @@ import quickdocs.model.patient.Gender;
 import quickdocs.model.patient.Name;
 import quickdocs.model.patient.Nric;
 import quickdocs.model.patient.Patient;
-import quickdocs.testutil.Assert;
-import quickdocs.logic.commands.exceptions.CommandException;
-import quickdocs.model.ModelManager;
 import quickdocs.model.tag.Tag;
+import quickdocs.testutil.Assert;
 
 public class AbortConsultationCommandTest {
 

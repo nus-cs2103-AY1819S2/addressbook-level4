@@ -3,10 +3,10 @@ package quickdocs.logic.commands;
 import static org.junit.Assert.assertEquals;
 
 import quickdocs.logic.CommandHistory;
-import quickdocs.logic.parser.CliSyntax;
-import quickdocs.model.QuickDocs;
 import quickdocs.logic.commands.exceptions.CommandException;
+import quickdocs.logic.parser.CliSyntax;
 import quickdocs.model.Model;
+import quickdocs.model.QuickDocs;
 
 /**
  * Contains helper methods for testing commands.

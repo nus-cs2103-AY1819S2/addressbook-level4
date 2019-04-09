@@ -10,11 +10,11 @@ import static quickdocs.testutil.TypicalReminders.getTypicalRemindersQuickDocs;
 
 import org.junit.Test;
 
-import quickdocs.logic.CommandHistory;
-import quickdocs.model.QuickDocs;
 import quickdocs.commons.core.index.Index;
+import quickdocs.logic.CommandHistory;
 import quickdocs.model.Model;
 import quickdocs.model.ModelManager;
+import quickdocs.model.QuickDocs;
 import quickdocs.model.UserPrefs;
 import quickdocs.model.reminder.Reminder;
 

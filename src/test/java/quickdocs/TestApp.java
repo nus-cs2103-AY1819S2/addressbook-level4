@@ -6,15 +6,15 @@ import java.util.function.Supplier;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import quickdocs.model.QuickDocs;
-import quickdocs.storage.JsonQuickDocsStorage;
-import quickdocs.testutil.TestUtil;
 import quickdocs.commons.core.Config;
 import quickdocs.commons.core.GuiSettings;
 import quickdocs.model.Model;
 import quickdocs.model.ModelManager;
+import quickdocs.model.QuickDocs;
 import quickdocs.model.UserPrefs;
+import quickdocs.storage.JsonQuickDocsStorage;
 import quickdocs.storage.UserPrefsStorage;
+import quickdocs.testutil.TestUtil;
 
 /**
  * This class is meant to override some properties of MainApp so that it will be suited for

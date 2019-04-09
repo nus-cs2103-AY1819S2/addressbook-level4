@@ -15,12 +15,12 @@ import quickdocs.logic.commands.AlarmCommand;
 import quickdocs.logic.commands.CommandResult;
 import quickdocs.logic.commands.DeleteRemCommand;
 import quickdocs.logic.commands.HistoryCommand;
-import quickdocs.logic.parser.exceptions.ParseException;
-import quickdocs.storage.JsonQuickDocsStorage;
 import quickdocs.logic.commands.exceptions.CommandException;
+import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.model.Model;
 import quickdocs.model.ModelManager;
 import quickdocs.model.UserPrefs;
+import quickdocs.storage.JsonQuickDocsStorage;
 import quickdocs.storage.JsonUserPrefsStorage;
 import quickdocs.storage.StorageManager;
 

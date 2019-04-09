@@ -6,10 +6,10 @@ import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import quickdocs.logic.commands.SetPriceWoPathCommand;
-import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.logic.commands.SetPriceCommand;
 import quickdocs.logic.commands.SetPriceViaPathCommand;
+import quickdocs.logic.commands.SetPriceWoPathCommand;
+import quickdocs.logic.parser.exceptions.ParseException;
 
 /**
  * A parser to parse user input to SetPriceCommand

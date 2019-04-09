@@ -2,8 +2,8 @@ package quickdocs.logic.parser;
 
 import java.util.stream.Stream;
 
-import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.logic.commands.DeletePatientCommand;
+import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.model.patient.Nric;
 
 /**

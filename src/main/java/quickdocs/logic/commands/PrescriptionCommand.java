@@ -5,10 +5,10 @@ import java.util.Arrays;
 import java.util.Optional;
 
 import quickdocs.logic.CommandHistory;
-import quickdocs.logic.parser.PrescriptionCommandParser;
-import quickdocs.model.consultation.Prescription;
 import quickdocs.logic.commands.exceptions.CommandException;
+import quickdocs.logic.parser.PrescriptionCommandParser;
 import quickdocs.model.Model;
+import quickdocs.model.consultation.Prescription;
 import quickdocs.model.medicine.Medicine;
 
 /**

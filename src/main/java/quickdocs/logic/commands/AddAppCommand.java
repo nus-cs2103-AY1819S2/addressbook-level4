@@ -7,11 +7,11 @@ import java.time.LocalTime;
 import java.util.Optional;
 
 import quickdocs.logic.CommandHistory;
+import quickdocs.logic.commands.exceptions.CommandException;
 import quickdocs.logic.parser.AddAppCommandParser;
+import quickdocs.model.Model;
 import quickdocs.model.appointment.Appointment;
 import quickdocs.model.appointment.AppointmentManager;
-import quickdocs.logic.commands.exceptions.CommandException;
-import quickdocs.model.Model;
 import quickdocs.model.patient.Nric;
 import quickdocs.model.patient.Patient;
 

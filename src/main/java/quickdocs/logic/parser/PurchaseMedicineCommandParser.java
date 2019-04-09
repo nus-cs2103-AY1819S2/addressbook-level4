@@ -6,10 +6,10 @@ import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import quickdocs.logic.commands.PurchaseMedicineCommand;
 import quickdocs.logic.commands.PurchaseMedicineViaPathCommand;
 import quickdocs.logic.commands.PurchaseMedicineWoPathCommand;
 import quickdocs.logic.parser.exceptions.ParseException;
-import quickdocs.logic.commands.PurchaseMedicineCommand;
 
 /**
  * Parse input arguments and returns a PurchaseMedicineCommand if input is in correct format

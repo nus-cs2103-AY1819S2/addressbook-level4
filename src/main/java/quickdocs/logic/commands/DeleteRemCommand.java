@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import quickdocs.logic.CommandHistory;
 import quickdocs.commons.core.index.Index;
+import quickdocs.logic.CommandHistory;
 import quickdocs.logic.commands.exceptions.CommandException;
 import quickdocs.model.Model;
 import quickdocs.model.reminder.Reminder;

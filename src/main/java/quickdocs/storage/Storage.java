@@ -3,8 +3,8 @@ package quickdocs.storage;
 import java.io.IOException;
 import java.util.Optional;
 
-import quickdocs.model.QuickDocs;
 import quickdocs.commons.exceptions.DataConversionException;
+import quickdocs.model.QuickDocs;
 import quickdocs.model.ReadOnlyUserPrefs;
 import quickdocs.model.UserPrefs;
 

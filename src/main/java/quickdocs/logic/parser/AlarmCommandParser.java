@@ -5,8 +5,8 @@ import static quickdocs.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.logic.commands.AlarmCommand;
+import quickdocs.logic.parser.exceptions.ParseException;
 
 /**
  * A parser to parse user input to AlarmCommand

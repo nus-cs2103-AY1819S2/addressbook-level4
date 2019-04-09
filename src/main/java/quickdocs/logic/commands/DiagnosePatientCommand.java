@@ -1,10 +1,10 @@
 package quickdocs.logic.commands;
 
 import quickdocs.logic.CommandHistory;
-import quickdocs.logic.parser.DiagnosePatientCommandParser;
-import quickdocs.model.consultation.Diagnosis;
 import quickdocs.logic.commands.exceptions.CommandException;
+import quickdocs.logic.parser.DiagnosePatientCommandParser;
 import quickdocs.model.Model;
+import quickdocs.model.consultation.Diagnosis;
 
 /**
  * Creates or replace the diagnosis record of current consultation session.

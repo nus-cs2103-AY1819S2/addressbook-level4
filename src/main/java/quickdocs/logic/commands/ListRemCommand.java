@@ -7,8 +7,8 @@ import static quickdocs.logic.parser.ListAppCommandParser.PREFIX_FORMAT;
 import java.time.LocalDate;
 
 import quickdocs.logic.CommandHistory;
-import quickdocs.model.reminder.ReminderWithinDatesPredicate;
 import quickdocs.model.Model;
+import quickdocs.model.reminder.ReminderWithinDatesPredicate;
 
 /**
  * Lists filtered reminders on the sidebar to the user.

@@ -6,9 +6,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.stream.Stream;
 
+import quickdocs.logic.commands.AddRemCommand;
 import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.model.reminder.Reminder;
-import quickdocs.logic.commands.AddRemCommand;
 
 /**
  * Parses input arguments and creates a new AddRemCommand object

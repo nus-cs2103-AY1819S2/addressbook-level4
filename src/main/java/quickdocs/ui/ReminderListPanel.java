@@ -12,8 +12,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import quickdocs.model.reminder.Reminder;
 import quickdocs.commons.core.LogsCenter;
+import quickdocs.model.reminder.Reminder;
 
 /**
  * Panel containing the list of reminders.

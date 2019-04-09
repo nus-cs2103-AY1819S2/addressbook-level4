@@ -7,8 +7,8 @@ import java.time.LocalTime;
 import java.util.Optional;
 
 import quickdocs.logic.CommandHistory;
-import quickdocs.logic.parser.DeleteAppCommandParser;
 import quickdocs.logic.commands.exceptions.CommandException;
+import quickdocs.logic.parser.DeleteAppCommandParser;
 import quickdocs.model.Model;
 import quickdocs.model.appointment.Appointment;
 

@@ -11,18 +11,14 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import quickdocs.logic.Logic;
-import quickdocs.logic.LogicManager;
-import quickdocs.storage.QuickDocsStorage;
-import quickdocs.ui.Ui;
-import quickdocs.ui.UiManager;
-import quickdocs.ui.RootLayoutController;
 import quickdocs.commons.core.Config;
 import quickdocs.commons.core.LogsCenter;
 import quickdocs.commons.core.Version;
 import quickdocs.commons.exceptions.DataConversionException;
 import quickdocs.commons.util.ConfigUtil;
 import quickdocs.commons.util.StringUtil;
+import quickdocs.logic.Logic;
+import quickdocs.logic.LogicManager;
 import quickdocs.model.Model;
 import quickdocs.model.ModelManager;
 import quickdocs.model.QuickDocs;
@@ -30,9 +26,13 @@ import quickdocs.model.ReadOnlyUserPrefs;
 import quickdocs.model.UserPrefs;
 import quickdocs.storage.JsonQuickDocsStorage;
 import quickdocs.storage.JsonUserPrefsStorage;
+import quickdocs.storage.QuickDocsStorage;
 import quickdocs.storage.Storage;
 import quickdocs.storage.StorageManager;
 import quickdocs.storage.UserPrefsStorage;
+import quickdocs.ui.RootLayoutController;
+import quickdocs.ui.Ui;
+import quickdocs.ui.UiManager;
 
 /**
  *

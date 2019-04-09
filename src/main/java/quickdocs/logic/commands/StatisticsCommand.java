@@ -5,9 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.time.YearMonth;
 
 import quickdocs.logic.CommandHistory;
-import quickdocs.model.record.Statistics;
 import quickdocs.logic.commands.exceptions.CommandException;
 import quickdocs.model.Model;
+import quickdocs.model.record.Statistics;
 
 /**
  * Gets the Statistics of the  clinic.

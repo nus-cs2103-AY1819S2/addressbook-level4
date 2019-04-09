@@ -10,12 +10,12 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import quickdocs.logic.Logic;
-import quickdocs.logic.commands.CommandResult;
-import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.commons.core.GuiSettings;
 import quickdocs.commons.core.LogsCenter;
+import quickdocs.logic.Logic;
+import quickdocs.logic.commands.CommandResult;
 import quickdocs.logic.commands.exceptions.CommandException;
+import quickdocs.logic.parser.exceptions.ParseException;
 
 /**
  * The Main Window. Provides the basic application layout containing

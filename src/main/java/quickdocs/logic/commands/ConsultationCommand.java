@@ -1,8 +1,8 @@
 package quickdocs.logic.commands;
 
 import quickdocs.logic.CommandHistory;
-import quickdocs.logic.parser.ConsultationCommandParser;
 import quickdocs.logic.commands.exceptions.CommandException;
+import quickdocs.logic.parser.ConsultationCommandParser;
 import quickdocs.model.Model;
 import quickdocs.model.patient.Patient;
 

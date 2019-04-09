@@ -4,8 +4,8 @@ import static quickdocs.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.math.BigDecimal;
 
-import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.logic.commands.SetConsultationFeeCommand;
+import quickdocs.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input argument and returns a SetConsultationFeeCommand

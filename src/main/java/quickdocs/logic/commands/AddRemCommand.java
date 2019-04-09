@@ -3,10 +3,10 @@ package quickdocs.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import quickdocs.logic.CommandHistory;
-import quickdocs.logic.parser.AddRemCommandParser;
-import quickdocs.model.reminder.Reminder;
 import quickdocs.logic.commands.exceptions.CommandException;
+import quickdocs.logic.parser.AddRemCommandParser;
 import quickdocs.model.Model;
+import quickdocs.model.reminder.Reminder;
 
 /**
  * Adds a reminder to quickdocs.

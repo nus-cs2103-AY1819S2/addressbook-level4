@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Stream;
 
+import quickdocs.logic.commands.DiagnosePatientCommand;
 import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.model.consultation.Assessment;
 import quickdocs.model.consultation.Diagnosis;
 import quickdocs.model.consultation.Symptom;
-import quickdocs.logic.commands.DiagnosePatientCommand;
 
 /**
  * Parse symptoms and assessment added by user to create a diagnosis for the patient

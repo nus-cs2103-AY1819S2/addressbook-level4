@@ -1,14 +1,15 @@
 package quickdocs.logic;
 
+import java.util.ArrayList;
+
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
-import quickdocs.logic.commands.CommandResult;
-import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.commons.core.GuiSettings;
+import quickdocs.logic.commands.CommandResult;
 import quickdocs.logic.commands.exceptions.CommandException;
+import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.model.reminder.Reminder;
 
-import java.util.ArrayList;
 
 /**
  * API of the Logic component

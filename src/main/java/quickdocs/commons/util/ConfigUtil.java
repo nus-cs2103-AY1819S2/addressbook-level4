@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import quickdocs.commons.exceptions.DataConversionException;
 import quickdocs.commons.core.Config;
+import quickdocs.commons.exceptions.DataConversionException;
 
 /**
  * A class for accessing the Config File.

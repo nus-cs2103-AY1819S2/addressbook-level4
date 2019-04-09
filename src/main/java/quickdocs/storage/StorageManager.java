@@ -5,9 +5,9 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import quickdocs.model.QuickDocs;
 import quickdocs.commons.core.LogsCenter;
 import quickdocs.commons.exceptions.DataConversionException;
+import quickdocs.model.QuickDocs;
 import quickdocs.model.ReadOnlyUserPrefs;
 import quickdocs.model.UserPrefs;
 

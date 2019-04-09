@@ -4,8 +4,8 @@ import static quickdocs.logic.commands.ConsultationCommand.MESSAGE_USAGE;
 
 import java.util.stream.Stream;
 
-import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.logic.commands.ConsultationCommand;
+import quickdocs.logic.parser.exceptions.ParseException;
 
 /**
  * Parses the arguments to search for a patient to start consultation

@@ -3,8 +3,8 @@ package quickdocs.logic.parser;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.logic.commands.EditPatientCommand;
+import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.model.patient.Address;
 import quickdocs.model.patient.Contact;
 import quickdocs.model.patient.Dob;

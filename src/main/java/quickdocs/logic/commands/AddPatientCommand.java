@@ -10,9 +10,9 @@ import static quickdocs.logic.parser.AddPatientParser.PREFIX_NRIC;
 import static quickdocs.logic.parser.AddPatientParser.PREFIX_TAG;
 
 import quickdocs.logic.CommandHistory;
-import quickdocs.model.patient.Patient;
 import quickdocs.logic.commands.exceptions.CommandException;
 import quickdocs.model.Model;
+import quickdocs.model.patient.Patient;
 
 /**
  * Command to add a patient record into QuickDocs

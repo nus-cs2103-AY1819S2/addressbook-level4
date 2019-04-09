@@ -9,8 +9,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import quickdocs.logic.Logic;
 import quickdocs.logic.commands.CommandResult;
-import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.logic.commands.exceptions.CommandException;
+import quickdocs.logic.parser.exceptions.ParseException;
 
 /**
  * The UI component that is responsible for receiving user command inputs.

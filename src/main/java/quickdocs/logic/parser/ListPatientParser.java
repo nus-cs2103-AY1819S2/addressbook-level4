@@ -1,7 +1,7 @@
 package quickdocs.logic.parser;
 
-import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.logic.commands.ListPatientCommand;
+import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.model.tag.Tag;
 
 /**

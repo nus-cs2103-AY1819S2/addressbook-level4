@@ -6,8 +6,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Stream;
 
-import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.logic.commands.ListRemCommand;
+import quickdocs.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new ListAppCommand object

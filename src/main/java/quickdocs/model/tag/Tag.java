@@ -1,9 +1,8 @@
 package quickdocs.model.tag;
 
-import quickdocs.commons.util.AppUtil;
-
 import static java.util.Objects.requireNonNull;
-import static quickdocs.commons.util.AppUtil.checkArgument;
+
+import quickdocs.commons.util.AppUtil;
 
 /**
  * Represents a Tag in the address book.

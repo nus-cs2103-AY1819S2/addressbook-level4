@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.logic.commands.PrescriptionCommand;
+import quickdocs.logic.parser.exceptions.ParseException;
 
 /**
  * parse arguments from user entered command to prescribe a list of medicine

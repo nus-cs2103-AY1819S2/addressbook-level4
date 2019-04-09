@@ -19,9 +19,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.commons.core.index.Index;
 import quickdocs.commons.util.StringUtil;
+import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.model.patient.Address;
 import quickdocs.model.patient.Contact;
 import quickdocs.model.patient.Email;

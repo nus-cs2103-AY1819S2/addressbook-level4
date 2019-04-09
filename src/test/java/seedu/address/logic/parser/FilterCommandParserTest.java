@@ -246,7 +246,7 @@ public class FilterCommandParserTest {
 
         String userInputPos = OR_TYPE + VALID_POS;
         String[] criterionPos = {null, null, null, null, null, "Manager, Engineer".trim().toLowerCase(),
-                null, null, null};
+            null, null, null};
         FilterCommand expectedPosCommand = new FilterCommand(criterionPos, 1);
         assertParseSuccess(parser, userInputPos, expectedPosCommand);
 
@@ -299,7 +299,7 @@ public class FilterCommandParserTest {
 
         String userInputPos = OR_TYPE + VALID_POS + " " + VALID_POS2;
         String[] criterionPos = {null, null, null, null, null, "Manager, Engineer".trim().toLowerCase(),
-                null, null, null};
+            null, null, null};
         FilterCommand expectedPosCommand = new FilterCommand(criterionPos, 1);
         assertParseSuccess(parser, userInputPos, expectedPosCommand);
 

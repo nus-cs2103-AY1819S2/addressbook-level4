@@ -56,11 +56,11 @@ public class ImportCommandParserTest {
         assertParseSuccess(parser, samplePath, new ImportCommand(true));
     }
 
-//    @Test
-//    public void parse_validDir_success() {
-//        String dirPath = "src/main/resources/imageTest/valid/";
-//        assertParseSuccess(parser, dirPath, new ImportCommand(true));
-//    }
+    //    @Test
+    //    public void parse_validDir_success() {
+    //        String dirPath = "src/main/resources/imageTest/valid/";
+    //        assertParseSuccess(parser, dirPath, new ImportCommand(true));
+    //    }
 
     @Test
     public void parse_invalidDir_success() {

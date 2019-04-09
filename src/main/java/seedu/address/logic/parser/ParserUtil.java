@@ -239,9 +239,7 @@ public class ParserUtil {
         }
 
         // Check if weblink is valid, throw NoInternetException if no internet connection is found
-        if (WebUtil.isNotValidWeblinkUrl(trimmedWeblink)) {
-            throw new ParseException(String.format(Weblink.INVALID_URL_MESSAGE, trimmedWeblink));
-        }
+        trimmedWeblink = WebUtil.validateAndAppend(trimmedWeblink);
 
         return new Weblink(trimmedWeblink);
     }

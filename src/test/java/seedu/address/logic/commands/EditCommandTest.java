@@ -67,7 +67,8 @@ public class EditCommandTest {
                 .withSemester(VALID_SEMESTER_CS1010)
                 .withTags(VALID_TAG_HUSBAND).build();
 
-        EditModuleTakenDescriptor descriptor = new EditModuleTakenDescriptorBuilder().withName(VALID_MODULE_INFO_CODE_CS1010)
+        EditModuleTakenDescriptor descriptor = new EditModuleTakenDescriptorBuilder()
+                .withName(VALID_MODULE_INFO_CODE_CS1010)
                 .withSemester(VALID_SEMESTER_CS1010).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 

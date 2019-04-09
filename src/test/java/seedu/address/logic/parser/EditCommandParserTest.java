@@ -117,7 +117,8 @@ public class EditCommandParserTest {
                 + EXPECTED_MIN_GRADE_DESC_CS2103T + EXPECTED_MAX_GRADE_DESC_CS2103T
                 + NAME_DESC_CS2103T + TAG_DESC_FRIEND;
 
-        EditCommand.EditModuleTakenDescriptor descriptor = new EditModuleTakenDescriptorBuilder().withName(VALID_MODULE_INFO_CODE_CS2103T)
+        EditCommand.EditModuleTakenDescriptor descriptor = new EditModuleTakenDescriptorBuilder()
+                .withName(VALID_MODULE_INFO_CODE_CS2103T)
                 .withSemester(VALID_SEMESTER_CS1010)
                 .withExpectedMinGrade(VALID_EXPECTED_MIN_GRADE_CS2103T)
                 .withExpectedMaxGrade(VALID_EXPECTED_MAX_GRADE_CS2103T)
@@ -132,7 +133,8 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + SEMESTER_DESC_CS1010 + EXPECTED_MIN_GRADE_DESC_CS2103T;
 
-        EditModuleTakenDescriptor descriptor = new EditModuleTakenDescriptorBuilder().withSemester(VALID_SEMESTER_CS1010)
+        EditModuleTakenDescriptor descriptor = new EditModuleTakenDescriptorBuilder()
+                .withSemester(VALID_SEMESTER_CS1010)
                 .withExpectedMinGrade(VALID_EXPECTED_MIN_GRADE_CS2103T).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 

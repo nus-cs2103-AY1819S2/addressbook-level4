@@ -16,6 +16,11 @@
     -fx-vgap: 10;
 }
 
+.label-card {
+    -fx-wrap-text: true;
+    -fx-opacity: 1;
+}
+
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -28,6 +33,35 @@
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: white;
     -fx-opacity: 1;
+}
+
+#cardQuestion.label-card {
+    -fx-font-size: 18pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+}
+
+#hint.label-card {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-style: italic;
+    -fx-text-fill: white;
+}
+
+#answer.label-card {
+    -fx-font-size: 24pt;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
+#options.label-card {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semilight";
+}
+
+#score.label-card {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: white;
 }
 
 .label-dark {

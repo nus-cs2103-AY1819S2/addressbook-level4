@@ -1,17 +1,17 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.person.DoctorNameContainsKeywordsPredicate;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Searches and lists all doctors in docX record whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class SearchDoctorCommand extends Command {
+public class SearchDoctorNameCommand extends Command {
 
     public static final String COMMAND_WORD = "search-doctor";
 
@@ -22,7 +22,7 @@ public class SearchDoctorCommand extends Command {
 
     private final DoctorNameContainsKeywordsPredicate predicate;
 
-    public SearchDoctorCommand(DoctorNameContainsKeywordsPredicate predicate) {
+    public SearchDoctorNameCommand(DoctorNameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
@@ -37,7 +37,7 @@ public class SearchDoctorCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SearchDoctorCommand // instanceof handles nulls
-                && predicate.equals(((SearchDoctorCommand) other).predicate)); // state check
+                || (other instanceof SearchDoctorNameCommand // instanceof handles nulls
+                && predicate.equals(((SearchDoctorNameCommand) other).predicate)); // state check
     }
 }

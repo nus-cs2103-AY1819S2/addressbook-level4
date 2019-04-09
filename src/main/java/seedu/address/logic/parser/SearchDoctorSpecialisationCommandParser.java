@@ -14,8 +14,8 @@ import seedu.address.model.person.DoctorSpecialisationContainsKeywordsPredicate;
 public class SearchDoctorSpecialisationCommandParser implements Parser<SearchDoctorSpecialisationCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the SearchDoctorCommand
-     * and returns an SearchDoctorCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the SearchDoctorNameCommand
+     * and returns an SearchDoctorNameCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public SearchDoctorSpecialisationCommand parse(String args) throws ParseException {

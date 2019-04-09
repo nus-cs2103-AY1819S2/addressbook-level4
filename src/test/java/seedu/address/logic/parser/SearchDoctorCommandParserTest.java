@@ -8,7 +8,6 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.SearchDoctorCommand;
 import seedu.address.model.person.DoctorNameContainsKeywordsPredicate;
 
 public class SearchDoctorCommandParserTest {

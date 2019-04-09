@@ -287,22 +287,40 @@ Edits the specialisations of the doctor with ID of '2' to be `acupuncture` and '
 === Locating doctor by name: `search-doctor`
 
 Finds doctor(s) whose names contain any of the given keywords. +
-Format: `search-doctor NAME [PHONE_NUMBER]` or `search-doctor SPECIALISATION`
+Format: `search-doctor KEYWORD` or
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Doctors matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-* Each specialisation is to be quoted in quotation marks.
 ****
 
 Examples:
 
 * `search-doctor John` +
 Returns `john` and `John Doe`
-* `search-doctor 'general practitioner' 'acupuncture'` +
-Returns any doctor having either 'general practitioner' or 'acupuncture' or both.
+* `search-doctor Alvin` +
+Returns `Alvin` and `Alvin Tan`
+
+=== Locating doctor by name: `search-doctor`
+
+Finds doctor(s) whose specialisations contain any of the given keywords. +
+Format: `search-spec KEYWORD`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Doctors matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `search-spec general` +
+Returns any doctor(s) having `general` as one of their specialisation.
+* `search-spec general acupuncture` +
+Returns any doctor(s) having either `general` or `acupuncture` or both.
 
 === Deleting an existing doctor : `delete-doctor`
 
@@ -330,7 +348,7 @@ Format: `match-doctor s/SPECIALISATION d/DESIRED_DATE_OF_APPT t/DESIRED_START_TI
 
 ****
 * Search can only be done with 1 specialisation.
-* `DESIRED_DATE_OF_APPT` is in the format `yyyy-mm-dd`.
+* `DESIRED_DATE_OF_APPT` is in the format `YYYY-MM-DD`.
 * `DESIRED_START_TIME_OF_APPT` is in the 24-hour format as `HH:mm`.
 ****
 

@@ -432,7 +432,7 @@ the bottom of the list.
 Example:
 
 * `activityAdd n/Sentosa Outing d/16/02/2019 1000 l/Harbour Front MRT de/Bring swim suits.`
-* `activityAdd n/HTML workshop d/14/02/2019 l/ICube Auditorium ic/A0123456Z`
+* `activityAdd n/HTML workshop d/14/02/2019 l/ICube Auditorium
 
 image::ActivityAddCommand.png[width="790"]
 Adding activity to the correct position based on the time.

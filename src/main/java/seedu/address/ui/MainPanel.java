@@ -44,7 +44,7 @@ public class MainPanel extends UiPart<Region> {
                     quizCard.getQuestion(), quizCard.getAnswerHeader(), quizCard.getAnswer()));
 
                 if (!quizCard.isWrongTwice()) {
-                    Text text = new Text("Press Enter to go to the next question");
+                    Text text = new Text("\nPress Enter to go to the next question");
                     mainPanel.getChildren().addAll(questionAnswer, text);
                     break;
                 }
@@ -68,7 +68,7 @@ public class MainPanel extends UiPart<Region> {
     }
 
     private void setAnswerPrompt() {
-        Text text1 = new Text("Type the ");
+        Text text1 = new Text("\nType the ");
         Text answer = new Text(quizCard.getAnswerHeader() + " ");
         Text text2 = new Text("for the " + quizCard.getQuestionHeader() + " above and press Enter");
         answer.setStyle(boldStyle);

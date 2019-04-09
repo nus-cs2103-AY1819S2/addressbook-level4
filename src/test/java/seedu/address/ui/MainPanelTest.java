@@ -39,14 +39,14 @@ public class MainPanelTest extends GuiUnitTest {
         guiRobot.interact(() -> mainPanel.setFeedbackToUser(
             quizCard.generateOrderedQuizCardWithIndex(0, QuizMode.PREVIEW), totalCorrectAndTotalAttempts));
         guiRobot.pauseForHuman();
-        assertEquals("Question: some question\nAnswer: some answer\nPress Enter to go to the next question",
+        assertEquals("Question: some question\nAnswer: some answer\n\nPress Enter to go to the next question",
             mainPanelHandle.getText());
 
         // only question
         guiRobot.interact(() -> mainPanel.setFeedbackToUser(
             quizCard.generateOrderedQuizCardWithIndex(0, QuizMode.REVIEW), totalCorrectAndTotalAttempts));
         guiRobot.pauseForHuman();
-        assertEquals("Question: some question\nType the Answer for the Question above and press Enter",
+        assertEquals("Question: some question\n\nType the Answer for the Question above and press Enter",
             mainPanelHandle.getText());
 
         // wrong twice in a row
@@ -57,7 +57,7 @@ public class MainPanelTest extends GuiUnitTest {
         guiRobot.interact(() -> mainPanel.setFeedbackToUser(wrongTwiceCard, totalCorrectAndTotalAttempts));
         guiRobot.pauseForHuman();
         assertEquals("Question: some question\nAnswer: some answer\n"
-                + "Type the Answer for the Question above and press Enter",
+                + "\nType the Answer for the Question above and press Enter",
             mainPanelHandle.getText());
 
         // switch back to management mode, so become blank

@@ -56,12 +56,21 @@ public class BattleManager implements Battle {
             if (targetMapGrid.attackCell(coord)) {
                 // we hit a ship
                 if (targetMapGrid.getCellStatus(coord) == Status.DESTROYED) {
+                    // we destroyed a ship
                     String hitShipName = targetMapGrid.getShipNameInCell(coord);
-                    return new AttackDestroyedShip(attacker, target, coord, hitShipName);
+                    if (target.getFleet().isAllDestroyed()) {
+                        // all enemy ships destroyed - win!
+                        return new AttackDefeatedEnemy(attacker, target, coord, hitShipName);
+                    } else {
+                        // one enemy ship destroyed
+                        return new AttackDestroyedShip(attacker, target, coord, hitShipName);
+                    }
                 } else {
+                    // we hit but did not destroy a ship
                     return new AttackHit(attacker, target, coord);
                 }
             } else {
+                // we didn't hit anything
                 return new AttackMissed(attacker, target, coord);
             }
         } catch (IndexOutOfBoundsException ioobe) {

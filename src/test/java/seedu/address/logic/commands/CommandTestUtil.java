@@ -71,11 +71,10 @@ public class CommandTestUtil {
     // for testing appointment
     public static final String VALID_PATIENT_ID = "1";
     public static final String VALID_DOCTOR_ID = "2";
-    public static final LocalDateTime FUTURE_DATETIME = LocalDateTime.now().plusDays(1);
-    public static final String VALID_DATE_OF_APPT = FUTURE_DATETIME.toLocalDate().toString();
-    public static final String VALID_START_TIME = FUTURE_DATETIME.toLocalTime()
+    public static final LocalDateTime FUTURE_DATE_TIME = LocalDateTime.now().plusDays(1);
+    public static final String VALID_DATE_OF_APPT = FUTURE_DATE_TIME.toLocalDate().toString();
+    public static final String VALID_START_TIME = FUTURE_DATE_TIME.toLocalTime()
             .format(DateTimeFormatter.ofPattern("HH:mm"));
-
     public static final String DESC_VALID_PATIENT_ID = " " + PREFIX_PATIENT_ID + VALID_PATIENT_ID;
     public static final String DESC_VALID_DOCTOR_ID = " " + PREFIX_DOCTOR_ID + VALID_DOCTOR_ID;
     public static final String DESC_VALID_DATE_OF_APPT = " " + PREFIX_DATE_OF_APPT + VALID_DATE_OF_APPT;

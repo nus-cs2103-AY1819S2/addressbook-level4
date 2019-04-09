@@ -31,6 +31,7 @@ public class PatientInfoPanelTest extends GuiUnitTest {
         URL expectedPatientUrl =
                 new URL(PatientInfoPanel.SEARCH_PAGE_URL + ALICE.getName().fullName.replaceAll(" ", "%20"));
 
+
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedPatientUrl, browserPanelHandle.getLoadedUrl());
     }

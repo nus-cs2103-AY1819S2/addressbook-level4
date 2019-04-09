@@ -10,6 +10,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_INVALID_PATH = "Invalid file path given.";
+    public static final String MESSAGE_UNABLE_TO_READ_FILE = "Unable to read file.";
     public static final String MESSAGE_INVALID_FORMAT = "File is not a valid type or is hidden.";
     public static final String MESSAGE_INVALID_SIZE = "File is too large to be opened.";
     public static final String MESSAGE_DUPLICATE_FILE = "Duplicate file name exists in assets folder. "

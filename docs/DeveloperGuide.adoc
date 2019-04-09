@@ -995,9 +995,9 @@ Use case resumes at step 2.
 
 *MSS*
 
-1. User requests to list persons
-2. slaveFinder() shows a list of persons
-3. User requests to view analytics for list of persons
+1. User requests to display lists of person from job lists
+2. slaveFinder() shows lists of persons
+3. User requests to view analytics for specific list of persons
 4. slaveFinder() shows analytics results
 +
 Use case ends.

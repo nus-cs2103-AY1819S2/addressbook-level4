@@ -1,5 +1,7 @@
 package seedu.knowitall.ui;
 
+import static seedu.knowitall.model.Model.MIN_FRACTION_ANSWERED_TO_COUNT;
+
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -70,7 +72,7 @@ public class ReportDisplay extends UiPart<Region> {
         displayTitle(cardFolder.getFolderName());
         displayGraph(cardFolder.getFolderScores());
         displayQuestions(cardFolder.getCardList());
-        displayTagLine("Last " + cardFolder.getFolderScores().size() + " scores, latest on the right");
+        displayTagLine(cardFolder.getFolderScores().size());
 
         reportDisplay.getChildren().clear();
         reportDisplay.getChildren().add(folderName);
@@ -157,8 +159,10 @@ public class ReportDisplay extends UiPart<Region> {
         folderName.setText("Report for " + name);
     }
 
-    private void displayTagLine(String string) {
-        tagLine.setText(string);
+    private void displayTagLine(int size) {
+        String tagline = "Last " + size + " scores, latest on the right.";
+        tagline += "\nMinimum " + size/MIN_FRACTION_ANSWERED_TO_COUNT + " question(s) attempt recorded";
+        tagLine.setText(tagline);
     }
 }
 

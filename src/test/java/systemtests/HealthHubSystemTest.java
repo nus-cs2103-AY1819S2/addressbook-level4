@@ -46,10 +46,10 @@ import seedu.address.ui.AutoCompleteTextField;
 import seedu.address.ui.InfoPanel;
 
 /**
- * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
- * for test verification.
+ * A system test class for HealthWorkerBook and RequestBook, which provides access to handles of GUI components and
+ * helper methods for test verification.
  */
-public abstract class AddressBookSystemTest {
+public abstract class HealthHubSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
 

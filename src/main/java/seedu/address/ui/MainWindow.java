@@ -132,15 +132,15 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         displayedList.setText(MAIN_LIST_DISPLAYED);
 
-        pinListPanel = new PinListPanel(logic.getFilteredPinList(), logic.selectedPersonProperty(),
-                logic::setSelectedPerson);
+        pinListPanel = new PinListPanel(logic.getFilteredPinList(), logic.selectedPinPersonProperty(),
+                logic::setSelectedPinPerson);
         pinListPanelPlaceholder.getChildren().add(pinListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(),
-                logic.getArchiveBookFilePath(), logic.getAddressBook());
+                logic.getArchiveBookFilePath(), logic.getPinBookFilePath(), logic.getAddressBook());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());

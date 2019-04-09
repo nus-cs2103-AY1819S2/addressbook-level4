@@ -104,6 +104,21 @@ public interface Logic {
     void setSelectedPerson(Person person);
 
     /**
+     * Selected pin person in the filtered pin list.
+     * null if no person is selected.
+     *
+     * @see seedu.address.model.Model#selectedPinPersonProperty()
+     */
+    ReadOnlyProperty<Person> selectedPinPersonProperty();
+
+    /**
+     * Sets the selected person in the filtered pin list.
+     *
+     * @see seedu.address.model.Model#setSelectedPinPerson(Person)
+     */
+    void setSelectedPinPerson(Person person);
+
+    /**
      * Checks if the valid list is shown, else throws INVALID_LIST_SHOWN CommandException.
      */
     void checkListShown(Command command) throws CommandException;

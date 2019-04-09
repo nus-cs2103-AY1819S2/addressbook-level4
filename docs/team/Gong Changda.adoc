@@ -24,7 +24,7 @@ docX is a desktop clinic management application designed for receptionists in cl
 ** *Edit Prescription Command*:
 *** Allows users to edit the description of prescription.
 *** Receptionists can change the prescription if information specified in the description is wrong.
-** *Search Prescriptoin Command*:
+** *Search Prescription Command*:
 *** Allows users to find all prescriptions with the description related to specified keywords.
 
 

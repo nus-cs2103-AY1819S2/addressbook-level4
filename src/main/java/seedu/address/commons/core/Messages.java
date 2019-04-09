@@ -33,9 +33,16 @@ public class Messages {
     public static final String MESSAGE_RESIZE_VALUE_ERROR = "Values keyed in are not positive integers. "
             + "E.g: resize 200 200";
     public static final String MESSAGE_EXPORT_SUCCESS = "Image successfully exported.";
+    public static final String MESSAGE_ADDPRESET_SUCCESS = "Preset is successfully saved:";
+    public static final String MESSAGE_ADDPRESET_FAIL_DUPLICATE = "Duplicate preset name is found."
+        + "Please use another preset name.";
+    public static final String MESSAGE_ADDPRESET_FAIL_EMPTY = "List of command in this preset is empty.";
+    public static final String MESSAGE_PRESET_FAIL_NOTFOUND = "Preset is not found.";
+    public static final String MESSAGE_PRESET_SUCCESS = "Preset is successfully applied.";
     public static final String MESSAGE_INVALID_SAVE_TYPE = "Invalid save file type."
             + "\nNames must end with either of the following: %1$s";
     public static final String MESSAGE_INVALID_SAVE_NAME = "Unable to save. Save file name cannot be empty.";
+
 
 
 }

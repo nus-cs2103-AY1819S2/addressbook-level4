@@ -341,10 +341,9 @@ respective parameter `ContainsKeywordsPredicate` if the parameter is present wit
  creation of a `FindCommand` object. On success, the `FindCommand` object is returned to the LogicManager as per the
  flow in the sequence diagram.
 
-Whereas the sequence diagram below
-gives an overview of it's execution behavior.
-
-_{Placeholder for second execution sequence diagram}_
+On execution of the Find Command, `updateFilteredPersonList` is called with the predicate stored within the program
+itself. It subsequently calls `setPredicate(predicatte)` and updates the displayed person list to only show patients
+that matches the given predicate.
 
 ==== Design Considerations
 ===== Aspect: Creation of Predicates
@@ -354,6 +353,30 @@ class has an associated `ContainsKeywordsPredicate` that handles the predicate t
 specified to be searched.
 * **Alternative 2:** `Patient` and `Record` would each have an individual associated `ContainsKeywordsPredicate` that
  acts as a "class of classes" that contains each respective paramater predicate class within itself.
+
+=== Sort feature
+==== Current Implementation
+The `Sort` mechanism is facilitated through the use of Comparators in conjunction with the Unique Lists for both
+record and patient depending on the programm's mode when the command is called.
+
+image::SortCommandSequenceDiagram.png[width="800"]
+
+Upon parsing the arguments, `SortCommandParser` then checks which mode TeethHub currently is in. If it's in record /
+goTo mode, it creates a `RecordComparator` and returns a `SortRecordCommand`. Otherwise, a `PatientComparator` is called
+instead and returns a `SortPatientCommand` instead.
+
+When the comparator is retrieved,  SortCommandParser then calls `orderChecker` from itself to determine the
+`isReverse` boolean. Finally, the respective parameters are used to create the neccessary `SortCommand` and returns
+it to `AddressBookParser` and then `LogicManager`.
+
+On execution, there are two behaviours can occur depending on whether the `SortCommand` is a `SortPatientCommand` or
+`SortRecordCommand`.  Should it be an instance of `SortRecordCommand`, `sortRecordsBook(c,isReverse)` is called from
+ModelManager, which in turns called `sortRecords(c, isReverse)` from `VersionedAddressBook` and finally calls
+`sortStoredList (c, isReverse)` from `UniqueRecordList`. This sorts the records currently stored according to the
+parsed comparator and hence changes the order records are displayed to the user.
+
+Should it be a `SortPatientCommand` instead, the same logic flow occurs except it that calls the respective patient
+methods and classes instead.
 
 // end::findimplement[]
 

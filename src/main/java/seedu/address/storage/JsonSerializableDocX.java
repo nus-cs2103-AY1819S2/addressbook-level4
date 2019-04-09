@@ -79,13 +79,14 @@ class JsonSerializableDocX {
     public DocX toModelType() throws IllegalValueException {
         DocX docX = new DocX();
 
-        for (JsonAdaptedAppointment jsonAdaptedAppointment : appointments) {
-            Appointment appointment = jsonAdaptedAppointment.toModelType();
-            if (docX.hasAppointment(appointment)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
-            }
+        // note: order is important. Patient and Doctor MUST be loaded before others.
 
-            docX.addAppointment(appointment);
+        for (JsonAdaptedPatient jsonAdaptedPatient : patients) {
+            Patient patient = jsonAdaptedPatient.toModelType();
+            if (docX.hasPatient(patient)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+            }
+            docX.addPatient(patient);
         }
 
         for (JsonAdaptedDoctor jsonAdaptedDoctor : doctors) {
@@ -96,12 +97,13 @@ class JsonSerializableDocX {
             docX.addDoctor(doctor);
         }
 
-        for (JsonAdaptedPatient jsonAdaptedPatient : patients) {
-            Patient patient = jsonAdaptedPatient.toModelType();
-            if (docX.hasPatient(patient)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+        for (JsonAdaptedAppointment jsonAdaptedAppointment : appointments) {
+            Appointment appointment = jsonAdaptedAppointment.toModelType();
+            if (docX.hasAppointment(appointment)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
             }
-            docX.addPatient(patient);
+
+            docX.addAppointment(appointment);
         }
 
         for (JsonAdaptedMedicalHistory jsonAdaptedMedicalHistory : medicalHistories) {

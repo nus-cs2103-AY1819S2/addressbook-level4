@@ -28,9 +28,15 @@ public class AppointmentCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label status;
+    @FXML
     private Label patientId;
     @FXML
+    private Label patientName;
+    @FXML
     private Label doctorId;
+    @FXML
+    private Label doctorName;
     @FXML
     private Label date;
     @FXML
@@ -40,8 +46,11 @@ public class AppointmentCard extends UiPart<Region> {
         super(FXML);
         this.appointment = appointment;
         id.setText(displayedIndex + ". ");
+        status.setText(appointment.getAppointmentStatus().name());
         patientId.setText(String.valueOf(appointment.getPatientId()));
+        patientName.setText(appointment.getPatient().getName().fullName);
         doctorId.setText(String.valueOf(appointment.getDoctorId()));
+        doctorName.setText(appointment.getDoctor().getName().fullName);
         date.setText(appointment.getDate().toString());
         time.setText(appointment.getTime().toString());
     }

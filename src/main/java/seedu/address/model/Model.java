@@ -183,6 +183,13 @@ public interface Model {
      */
     void setMedHist(MedicalHistory target, MedicalHistory editedMedHist);
 
+    /**
+     * Replaces the given appointment {@code target} with {@code changedAppointment}.
+     * {@code target} must exist in the DocX.
+     * The new appointment must not be the same as another existing appointment in DocX.
+     */
+    void setAppointment(Appointment target, Appointment changedAppointment);
+
     /** Returns an unmodifiable view of the filtered patient list */
     ObservableList<Patient> getFilteredPatientList();
 

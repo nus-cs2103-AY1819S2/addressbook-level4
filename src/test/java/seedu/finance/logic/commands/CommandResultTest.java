@@ -11,10 +11,14 @@ public class CommandResultTest {
     @Test
     public void equals() {
         CommandResult commandResult = new CommandResult("feedback");
-
+        CommandResult commandResultWithTheme = new CommandResult("feedback", false, false, true, "theme");
+        CommandResult commandResultWithSummary = new CommandResult(true, "feedback", false, false);
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback")));
         assertTrue(commandResult.equals(new CommandResult("feedback", false, false)));
+        assertTrue(commandResultWithTheme.equals(
+                new CommandResult("feedback", false, false, true, "theme")));
+        assertTrue(commandResultWithSummary.equals(new CommandResult("feedback", false, false)));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));

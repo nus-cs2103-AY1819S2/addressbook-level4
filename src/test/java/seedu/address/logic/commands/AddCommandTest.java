@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -98,10 +97,6 @@ public class AddCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
-        @Override
-        public void refreshAlbum() {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -203,10 +198,6 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public void clearAssetFolder(File dir) {
-            throw new AssertionError("This method should not be called.");
-        }
     }
 
     /**

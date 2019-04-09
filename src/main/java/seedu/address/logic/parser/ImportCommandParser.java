@@ -1,6 +1,7 @@
 /* @@author Carrein */
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Config.MAX_FILE_SIZE;
 import static seedu.address.commons.core.Config.SAMPLE_FOLDER;
 
 import java.io.File;
@@ -24,7 +25,6 @@ public class ImportCommandParser implements Parser<ImportCommand> {
 
     private final Album album = Album.getInstance();
     private final File directory = new File(album.getAssetsFilepath());
-    private final String assetsFilepath = album.getAssetsFilepath();
 
     /**
      * Parses the given {@code String} of arguments in the context
@@ -45,6 +45,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             switch (validPath(args)) {
             // TODO - Pending refactor.
             case 2:
+                isDirectory = true;
                 try {
                     ResourceWalker.walk(SAMPLE_FOLDER);
                 } catch (Exception e) {
@@ -63,6 +64,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                         if (!duplicateFile(image)) {
                             try {
                                 File file = new File(path);
+                                album.addToImageList(path);
                                 FileUtils.copyFileToDirectory(file, directory);
                                 System.out.println("✋ IMPORTED: " + path);
                             } catch (IOException e) {
@@ -74,22 +76,26 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                 break;
             case 0:
                 // File must be valid and not hidden and not ridiculously large.
-                if (validFormat(args) && !isHidden(args) && !isLarge(args)) {
-                    Image image = new Image(args);
-                    if (!duplicateFile(image)) {
-                        try {
-                            File file = new File(args);
-                            FileUtils.copyFileToDirectory(file, directory);
-
-                            System.out.println("✋ IMPORTED: " + args);
-                        } catch (IOException e) {
-                            System.out.println(e.toString());
+                if (validFormat(args) && !isHidden(args)) {
+                    if (!isLarge(args)) {
+                        Image image = new Image(args);
+                        if (!duplicateFile(image)) {
+                            try {
+                                File file = new File(args);
+                                FileUtils.copyFileToDirectory(file, directory);
+                                album.addToImageList(args);
+                                System.out.println("✋ IMPORTED: " + args);
+                            } catch (IOException e) {
+                                System.out.println(e.toString());
+                            }
+                        } else {
+                            throw new ParseException(Messages.MESSAGE_DUPLICATE_FILE);
                         }
                     } else {
-                        throw new ParseException(Messages.MESSAGE_DUPLICATE_FILE);
+                        throw new ParseException(Messages.MESSAGE_INVALID_SIZE);
                     }
                 } else {
-                    throw new ParseException(Messages.MESSAGE_INVALID_TYPE);
+                    throw new ParseException(Messages.MESSAGE_INVALID_FORMAT);
                 }
                 break;
             default:
@@ -99,6 +105,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         } catch (IOException e) {
             System.out.println(e.toString());
         }
+        album.refreshAlbum();
         return new ImportCommand(isDirectory);
     }
 
@@ -130,7 +137,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
      * @return True if image file name exist, false otherwise.
      */
     public boolean duplicateFile(Image image) {
-        return (new File(assetsFilepath + image.getName().toString()).exists()) ? true : false;
+        return album.imageExist(image.getName().fullName);
     }
 
     /**
@@ -166,7 +173,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
     public boolean isLarge(String url) {
         File file = new File(url);
         System.out.println(file.length());
-        return file.length() > 400000;
+        return file.length() > MAX_FILE_SIZE;
     }
 }
 

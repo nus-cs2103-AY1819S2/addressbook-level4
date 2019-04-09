@@ -234,10 +234,10 @@ Classes used by multiple components are in the `seedu.knowitall.commons` package
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::[cards]
+// tag::cards[]
 === Cards
 ==== Current Implementation
-The `Card` is one of the core aspects of the application. Cards are the result of morphing of the `Person` class from the original AddressBook model. The implementation incorporates the `Logic` and `Model` components.
+The `Card` is one of the core aspects of the application. Cards are the result of morphing the `Person` class from the original AddressBook model. This implementation incorporates the `Model` and `Logic` components.
 
 [discrete]
 ==== Model
@@ -249,13 +249,21 @@ To allow users to manage Cards, the following methods are available via the `Mod
 * `ModelManager#hasCard(Card card)` - Checks if a card is already present in the currently active folder
 
 [discrete]
+==== Logic
+As with all other commands, the `LogicManager#execute(String commandText)` method of the `Logic` component parses the user's input, say a command to add a new card, and executes the corresponding `Command`.
+
+[discrete]
 ==== Example Usage
+
+The following steps detail the underlying logic executed when a user does a card-related operation, say an add card operation.
 
 1. User is in the `Organs` folder and wants to add a new card, with question 'What is the largest organ?' and answer 'Skin'. This is done by typing `add q/What is the largest organ? a/Skin`.
 +
 image:CardImplementationAddExample.png[width="800"]
 
-    * Upon execution, the `AddCommand` checks if the card to be added is already present in the current folder. If so, an exception is thrown.
+2. The command parser reads the string input (as entered by the user) and returns the corresponding `Command`, an `AddCommand` object in this instance.
+
+3. Upon execution, the `AddCommand` checks if the card to be added is already present in the current folder. If so, an exception is thrown.
 
 2. The `AddCommand` then calls the `ModelManager#addCard(Card card)` method.
 
@@ -275,7 +283,7 @@ image:AddCommandSequenceDiagram.png[width="800"]
 ** Pros: Simple to implement, easy to convert the card type between MCQ and Single-answer, requires the least amount of implementation changes to `Card`.
 ** Cons: Single-answer cards still have to maintain an empty `Option` set.
 * **Alternative 2:** Maintain 2 separate subclasses of `Card`, one for Single-answer and another for MCQ.
-** Pros: More correct implementation.
+** Pros: More object-oriented implementation.
 ** Cons: Harder to implement.
 
 // end::cards[]
@@ -1361,39 +1369,77 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 *MSS*
 
-1. Student begins a test session
-2. System presents the question on the lowest-performing flashcard first
-3. Student inputs his/her answer
-4. System indicates whether student’s answer is correct or wrong and shows the answer of the flashcard
-5. Student navigates to next flashcard
-6. Repeat steps 2-4 until all the flashcards in the folder are tested
+1. Student begins a test session.
+2. System presents the question on the lowest-performing flashcard first.
+3. Student inputs his/her answer.
+4. System indicates whether student’s answer is correct or wrong and shows the answer of the flashcard.
+5. Student navigates to next flashcard.
+6. Repeat steps 2-4 until all the flashcards in the folder are tested.
 +
 Use case ends
 
 *Extensions*
 
 [none]
-* 3a. Student doesn’t know the answer and wants to see the answer without attempting
+* 3a. Student doesn't know the answer and wants to see the answer without attempting.
 [none]
-** 3a1. Student uses the reveal command
-** 3a2. Answer is displayed to the student
+** 3a1. Student uses the reveal command.
+** 3a2. Answer is displayed to the student.
 
 //end::testsessionusecases[]
 
+//tag::cardusecases[]
 [discrete]
 === UC02 Add flashcards
 
 *MSS*
 
-1. Student enters a folder that he wants to add a flashcard to
-2. Student inputs question and answer to be stored as flashcard
-3. System stores the details as a flashcard under the current folder
+1. Student navigates to a folder that he wants to add a flashcard to.
+2. Student inputs question and answer to be stored as flashcard.
+3. System stores the details as a flashcard under the current folder.
 +
 Use case ends
 
+*Extensions*
+
+[none]
+* 2a. Student only inputs a question but no answer.
+[none]
+** 2a1. System displays an error message informing the user that the command format is invalid.
++
+Use case resumes from step 2.
+
+[discrete]
+=== UC03 Edit flashcard question
+
+*MSS*
+
+1. Student navigates to the folder that contains the flashcard to be edited.
+2. Student indicates the card to be edited, as well as the new question.
+3. System stores the updated details for the edited card.
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 2a. Student enters a blank as the desired question.
+[none]
+** 2a1. System displays an error message informing the user that the question cannot be a blank.
++
+Use case resumes from step 2.
+
+[none]
+* 2b. Student enters a card index that does not exist.
+[none]
+** 2b1. System displays an error message prompting the user to choose a valid card index.
++
+Use case resumes from step 2.
+//end::cardusecases[]
+
 //tag::folderusecases[]
 [discrete]
-=== UC03 Add folder
+=== UC04 Add folder
 
 *Guarantees*
 
@@ -1401,9 +1447,9 @@ Use case ends
 
 *MSS*
 
-1. Student navigates to home directory
-2. Student inputs the name of the folder he wants to create
-3. System creates a folder of the desired name and shows it on the home directory
+1. Student navigates to home directory.
+2. Student inputs the name of the folder he wants to create.
+3. System creates a folder of the desired name and shows it on the home directory.
 +
 Use case ends
 
@@ -1417,17 +1463,17 @@ Use case ends
 Use case resumes from step 2.
 
 [discrete]
-=== UC04 Edit folder name
+=== UC05 Edit folder name
 
 *Guarantees*
 
-* A particular folder as selected by the student is renamed to the desired name
+* A particular folder as selected by the student is renamed to the desired name.
 
 *MSS*
 
-1. Student navigates to home directory
+1. Student navigates to home directory.
 2. Student indicates the folder he wants to rename, as well as the new name.
-3. System renames the folder to the new name and shows it on the home directory
+3. System renames the folder to the new name and shows it on the home directory.
 +
 Use case ends
 
@@ -1455,7 +1501,7 @@ Use case resumes from step 2.
 Use case resumes from step 2.
 
 [discrete]
-=== UC05 Navigating into folders
+=== UC06 Navigating into folders
 
 *MSS*
 
@@ -1520,7 +1566,8 @@ sub-folders.
 
 [[testsession]] **Test Session**: A session where all flashcards in a folder are queued to have their
 questions displayed. The user is required to key in an answer for each question.
-// end::gloassary[]
+
+// end::glossary[]
 
 [appendix]
 == Instructions for Manual Testing

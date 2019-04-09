@@ -9,7 +9,8 @@ import seedu.address.model.Model;
  * Represents a command with hidden internal logic and the ability to be executed.
  */
 public abstract class Command {
-
+    private String commandName = "";
+    private String arguments = "None";
     /**
      * Executes the command and returns the result message.
      *
@@ -20,4 +21,20 @@ public abstract class Command {
      */
     public abstract CommandResult execute(CurrentEdit currentEdit,
                                           Model model, CommandHistory history) throws CommandException;
+
+    public void setArguments(String arguments) {
+        this.arguments = arguments;
+    }
+
+    public void setCommandName(String commandName) {
+        this.commandName = commandName;
+    }
+
+    public String getCommandName() {
+        return commandName;
+    }
+
+    public String getArguments() {
+        return arguments;
+    }
 }

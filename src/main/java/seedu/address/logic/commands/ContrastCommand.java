@@ -22,11 +22,11 @@ public class ContrastCommand extends Command {
     public static final String COMMAND_WORD = "contrast";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Adjust the contrast of the image according to ratio value given.\n"
-        + "If ratio is not given, default contrast ratio will be 1.1\n"
-        + "Parameters: [CONTRAST RATIO (double)] "
-        + "Example: " + COMMAND_WORD
-        + "Example2: " + COMMAND_WORD + "1.3";
+            + ": Adjust the contrast of the image according to ratio value given.\n"
+            + "If ratio is not given, default contrast ratio will be 1.1\n"
+            + "Parameters: [CONTRAST RATIO (double)] "
+            + "Example: " + COMMAND_WORD
+            + "Example2: " + COMMAND_WORD + "1.3";
 
     private OptionalDouble contrastValue;
     private boolean isNewCommand;
@@ -37,13 +37,17 @@ public class ContrastCommand extends Command {
      * @param contrastValue contrast value to put on image
      */
     public ContrastCommand(OptionalDouble contrastValue) {
+        setCommandName(COMMAND_WORD);
+        if (contrastValue.isPresent()) {
+            setArguments(String.valueOf(contrastValue.getAsDouble()));
+        }
         this.contrastValue = contrastValue;
         this.isNewCommand = true;
     }
 
     @Override
     public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history)
-        throws CommandException {
+            throws CommandException {
         seedu.address.model.image.Image initialImage = currentEdit.getTempImage();
 
         if (initialImage == null) {
@@ -52,12 +56,12 @@ public class ContrastCommand extends Command {
 
         if (this.contrastValue.isPresent()) {
             BufferedOpFilter contrastFilter =
-                new ContrastFilter(this.contrastValue.getAsDouble());
+                    new ContrastFilter(this.contrastValue.getAsDouble());
             Image outputImage = Image.fromFile(new File(initialImage.getUrl())).filter(contrastFilter);
             currentEdit.updateTempImage(outputImage);
         } else {
             BufferedOpFilter contrastFilter =
-                new ContrastFilter(1.1);
+                    new ContrastFilter(1.1);
             Image outputImage = Image.fromFile(new File(initialImage.getUrl())).filter(contrastFilter);
             currentEdit.updateTempImage(outputImage);
         }

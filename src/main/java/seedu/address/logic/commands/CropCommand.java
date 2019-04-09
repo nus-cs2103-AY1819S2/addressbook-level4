@@ -30,6 +30,9 @@ public class CropCommand extends Command {
     private boolean isNewCommand;
 
     public CropCommand(int x, int y, int width, int height) {
+        setCommandName(COMMAND_WORD);
+        String argument = x + " : " + y + " : " + width + " : " + height;
+        setArguments(argument);
         xCoord = x;
         yCoord = y;
         this.width = width;

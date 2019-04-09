@@ -34,6 +34,8 @@ public class RotateCommand extends Command {
      * @param value is the degree of rotation.
      */
     public RotateCommand(int value) {
+        setCommandName(COMMAND_WORD);
+        setArguments(String.valueOf(value));
         this.isNewCommand = true;
         this.degree = value;
     }
@@ -67,9 +69,5 @@ public class RotateCommand extends Command {
 
         return new CommandResult(Messages.MESSAGE_ROTATE_SUCCESS);
 
-    }
-    @Override
-    public String toString() {
-        return "Rotate " + degree;
     }
 }

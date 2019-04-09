@@ -30,7 +30,12 @@ Note the following symbols and formatting used in this document:
 
 == Summary of contributions
 
-* *Major enhancement*: Created `add`, `edit`, `delete`, `list`, `clear` commands.
+* *Major enhancement*: Created the `Request` class to encapsulate a request.
+** What it odes: Encapsulates the necessary information to be stored in a patient request.
+** Justification: Laid the foundation to the entire project. All components of our project (UI, Storage, Logic and Model) required the creation of a `Request` class for further development of core functionality.
+** Highlights: This enhancement affecting all existing classes, requiring some overhaul of the existing code base and thorough interaction of the differing components.
+
+* *Major enhancement*: Created `add`, `edit`, `delete`, `list` and `clear` commands for the `Request` class.
 ** What it does: Lays the foundation to any `Request` based functionality. Allows the user to organise the requests made by the patients seamlessly.
 ** Justification: These enhancements provide necessary features to the admin so that the admin can create, edit or delete requests at any point of time.
 ** Highlights: This enhancement affects the existing existing classes, like the [blue]`Healthworker` class. It required an in-depth analysis of design alternatives. The implementation was also challenging as it required changes to existing commands and classes, during the integration-testing phase.
@@ -72,11 +77,11 @@ Shortcut(s): +
 1. `filter r <keyword> [<more_keywords>]` +
 2. `filter 2 <keyword> [<more_keywords>]`
 
-After entering the command with valid inputs, searches the entire list of
-requests in Health Hub, and only displays the requests whose fields matches
- the parameters specified in the
-`filter` command. To filter requests, the user can specify any of the following filtering criteria:
-`dt/DATE`, `n/NAME`, `p/PHONE`, `st/STATUS`, `i/NRIC`, `c/CONDITION`. Note that you can chain multiple criteria together to get a more specific
+where `[<more_keywords]` refer to the fields you would like to search for.
+
+After entering the command with valid inputs, you will the entire list of requests whose fields match
+ the parameters specified in the command. To filter requests, you can specify any of the following filtering criteria:
+`dt/DATE`, `n/NAME`, `p/PHONE`, `st/STATUS`, `i/NRIC`, `c/CONDITION`. Note that you can also chain multiple criteria together to get a more specific
 filter result.
 
 For example, let's say you want to filter all the requests made by the patient with `NRIC` S9123456G that have been *completed*. You
@@ -100,10 +105,6 @@ The request list panel on the left would filter to show just the requests querie
 If there are no such requests that match the user's query, an empty list would be show on the left panel.
 
 {nbsp}
-
-where `<more_keywords>` represents the fields and parameters that can be used to
-identify requests or personnel, using the same prefixes as in `add`, `edit` and
-`delete` commands. Some examples of keywords are shown below.
 
 *Notes*:
 

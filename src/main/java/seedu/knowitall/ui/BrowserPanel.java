@@ -66,7 +66,7 @@ public class BrowserPanel extends UiPart<Region> {
 
         cardQuestion.setText(card.getQuestion().fullQuestion);
         answer.setText(card.getAnswer().fullAnswer);
-        score.setText("Score: " + card.getScore().toString());
+        score.setText("Score: " + (int)(100*card.getScore().getAsDouble()) + "%");
         // Set empty string for hint and options by default
         hint.setText("");
         if (!card.getHints().isEmpty()) {

@@ -15,6 +15,7 @@ import seedu.travel.model.place.CountryCode;
 import seedu.travel.model.place.DateVisited;
 import seedu.travel.model.place.Description;
 import seedu.travel.model.place.Name;
+import seedu.travel.model.place.Photo;
 import seedu.travel.model.place.Place;
 import seedu.travel.model.place.Rating;
 import seedu.travel.model.tag.Tag;
@@ -25,6 +26,8 @@ import seedu.travel.model.tag.Tag;
 class JsonAdaptedPlace {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Place's %s field is missing!";
+    public static final String EMPTY_PHOTO_PATH = "pBSgcMnA";
+
 
     private final String name;
     private final String countryCode;
@@ -32,6 +35,7 @@ class JsonAdaptedPlace {
     private final String rating;
     private final String description;
     private final String address;
+    private final String photo;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -44,6 +48,7 @@ class JsonAdaptedPlace {
                             @JsonProperty("rating") String rating,
                             @JsonProperty("description") String description,
                             @JsonProperty("address") String address,
+                            @JsonProperty("photo") String photo,
                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.countryCode = countryCode;
@@ -51,6 +56,7 @@ class JsonAdaptedPlace {
         this.rating = rating;
         this.description = description;
         this.address = address;
+        this.photo = photo;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -66,6 +72,13 @@ class JsonAdaptedPlace {
         rating = source.getRating().value;
         description = source.getDescription().value;
         address = source.getAddress().value;
+
+        if (source.getPhoto().getFilePath().equals(EMPTY_PHOTO_PATH)) {
+            photo = EMPTY_PHOTO_PATH;
+        } else {
+            photo = source.getPhoto().getFilePath();
+        }
+
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -136,9 +149,25 @@ class JsonAdaptedPlace {
         }
         final Address modelAddress = new Address(address);
 
+        if (photo == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Photo.class.getSimpleName()));
+        }
+
+        final Photo modelPhoto;
+
+        if (photo.equals(EMPTY_PHOTO_PATH)) {
+            modelPhoto = new Photo(EMPTY_PHOTO_PATH);
+        } else {
+            if (!Photo.isValidPhotoFilepath(photo)) {
+                throw new IllegalValueException(Photo.MESSAGE_CONSTRAINTS);
+            } else {
+                modelPhoto = new Photo(photo);
+            }
+        }
+
         final Set<Tag> modelTags = new HashSet<>(placeTags);
         return new Place(modelName, modelCountryCode, modelDateVisited, modelPhone, modelDescription, modelAddress,
-            modelTags);
+            modelPhoto, modelTags);
     }
 
 }

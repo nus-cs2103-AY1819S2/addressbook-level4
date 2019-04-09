@@ -6,6 +6,7 @@ import static seedu.travel.logic.parser.CliSyntax.PREFIX_COUNTRY_CODE;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_DATE_VISITED;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_PHOTO;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -19,6 +20,7 @@ import seedu.travel.model.place.CountryCode;
 import seedu.travel.model.place.DateVisited;
 import seedu.travel.model.place.Description;
 import seedu.travel.model.place.Name;
+import seedu.travel.model.place.Photo;
 import seedu.travel.model.place.Place;
 import seedu.travel.model.place.Rating;
 import seedu.travel.model.tag.Tag;
@@ -35,8 +37,9 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COUNTRY_CODE,
-            PREFIX_DATE_VISITED, PREFIX_RATING, PREFIX_DESCRIPTION, PREFIX_ADDRESS, PREFIX_TAG);
+            PREFIX_DATE_VISITED, PREFIX_RATING, PREFIX_DESCRIPTION, PREFIX_ADDRESS, PREFIX_PHOTO, PREFIX_TAG);
 
+        // Mandatory fields in "add" command
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COUNTRY_CODE, PREFIX_DATE_VISITED, PREFIX_ADDRESS,
             PREFIX_RATING, PREFIX_DESCRIPTION)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -51,7 +54,13 @@ public class AddCommandParser implements Parser<AddCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Place place = new Place(name, countryCode, dateVisited, rating, description, address, tagList);
+        Place place;
+        if (argMultimap.getValue(PREFIX_PHOTO).isPresent()) {
+            Photo photo = ParserUtil.parsePhoto(argMultimap.getValue(PREFIX_PHOTO).get());
+            place = new Place(name, countryCode, dateVisited, rating, description, address, photo, tagList);
+        } else {
+            place = new Place(name, countryCode, dateVisited, rating, description, address, tagList);
+        }
 
         return new AddCommand(place);
     }

@@ -5,6 +5,7 @@ import static seedu.equipment.logic.commands.CommandTestUtil.SERIAL_NUMBER_DESC_
 
 import org.junit.Test;
 
+import seedu.equipment.logic.commands.PutCommand;
 import seedu.equipment.logic.commands.RemoveCommand;
 import seedu.equipment.model.Model;
 import seedu.equipment.model.WorkList;
@@ -21,8 +22,16 @@ public class RemoveCommandSystemTest extends EquipmentManagerSystemTest {
         /* Case: remove an equipment from a worklist in the equipment manager.
          */
 
-        Equipment removeEquipment = model.getFilteredPersonList().get(0);
         WorkList removeWorkList = model.getFilteredWorkListList().get(0);
+        Equipment removeEquipment = model.getFilteredPersonList().get(0);
+
+        String putCommand = " " + PutCommand.COMMAND_WORD
+                + " i/" + removeWorkList.getId().value
+                + " s/" + removeEquipment.getSerialNumber().serialNumber
+                + " ";
+
+        executeCommand(putCommand);
+
         String command = " " + RemoveCommand.COMMAND_WORD
                 + " i/" + removeWorkList.getId().value
                 + " s/" + removeEquipment.getSerialNumber().serialNumber
@@ -39,12 +48,20 @@ public class RemoveCommandSystemTest extends EquipmentManagerSystemTest {
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
-        /* Case: the equipment is not found -> rejected */
+        /* Case: the equipment is not found in equipment manager -> rejected */
         command = " " + RemoveCommand.COMMAND_WORD
                 + " i/" + removeWorkList.getId().value
                 + " " + SERIAL_NUMBER_DESC_BOB
                 + " ";
         assertCommandFailure(command, RemoveCommand.MESSAGE_EQUIPMENT_NOT_FOUND);
+
+        /* Case: the equipment is not found in the work list -> rejected */
+        Equipment notInWorkList = model.getFilteredPersonList().get(1);
+        command = " " + RemoveCommand.COMMAND_WORD
+                + " i/" + removeWorkList.getId().value
+                + " s/" + notInWorkList.getSerialNumber().serialNumber
+                + " ";
+        assertCommandFailure(command, RemoveCommand.MESSAGE_EQUIPMENT_NOT_IN_WORKLIST);
 
         /* Case: the worklist is not found -> rejected */
         command = " " + RemoveCommand.COMMAND_WORD

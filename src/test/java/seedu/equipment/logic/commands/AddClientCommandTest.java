@@ -167,6 +167,12 @@ public class AddClientCommandTest {
         }
 
         @Override
+        public boolean hasEquipmentInWorkList(WorkListId workListId, SerialNumber serialNumber) {
+
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasClient(Name equipment) {
             throw new AssertionError("This method should not be called.");
         }

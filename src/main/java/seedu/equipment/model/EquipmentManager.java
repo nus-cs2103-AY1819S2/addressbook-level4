@@ -154,10 +154,17 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
     }
 
     /**
-     * Returns true if a WorkList with {@code serialNumber} exists in the Equipment Manager.
+     * Returns true if an equipment with {@code serialNumber} exists in the Equipment Manager.
      */
     public boolean hasEquipmentWithSerialNumber(SerialNumber serialNumber) {
         return equipment.containsWithSerialNumber(serialNumber);
+    }
+
+    /**
+     * Returns true if an equipment with {@code serialNumber} exists in the work list with {@code workListId}.
+     */
+    public boolean hasEquipmentInWorkList(WorkListId workListId, SerialNumber serialNumber) {
+        return worklist.hasEquipmentInWorkList(workListId, serialNumber);
     }
 
     /**

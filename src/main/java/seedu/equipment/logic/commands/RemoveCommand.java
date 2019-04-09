@@ -30,6 +30,7 @@ public class RemoveCommand extends Command {
     public static final String MESSAGE_SUCCESS_TWO = "): Serial Number: %1$s";
     public static final String MESSAGE_EQUIPMENT_NOT_FOUND = "This equipment serial number is not found.";
     public static final String MESSAGE_WORKLIST_NOT_FOUND = "This worklist id is not found.";
+    public static final String MESSAGE_EQUIPMENT_NOT_IN_WORKLIST = "The equipment is not in the worklist.";
 
     private final WorkListId id;
     private final SerialNumber sr;
@@ -55,6 +56,10 @@ public class RemoveCommand extends Command {
         WorkList sampleWorkList = new WorkList("09-09-2018", "sampleName", id);
         if (!model.hasWorkList(sampleWorkList)) {
             throw new CommandException(MESSAGE_WORKLIST_NOT_FOUND);
+        }
+
+        if (!model.hasEquipmentInWorkList(id, sr)) {
+            throw new CommandException(MESSAGE_EQUIPMENT_NOT_IN_WORKLIST);
         }
 
         model.removeEquipment(id, sr);

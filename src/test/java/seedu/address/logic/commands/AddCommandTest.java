@@ -319,7 +319,7 @@ public class AddCommandTest {
         public ReadOnlyProperty<Person> selectedPinPersonProperty() {
             throw new AssertionError("This method should not be called.");
         }
-      
+
         @Override
         public ReadOnlyProperty<Person> selectedArchivedPersonProperty() {
             throw new AssertionError("This method should not be called.");

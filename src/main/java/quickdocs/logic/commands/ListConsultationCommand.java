@@ -2,7 +2,6 @@ package quickdocs.logic.commands;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Objects;
 
 import quickdocs.logic.CommandHistory;
 import quickdocs.logic.commands.exceptions.CommandException;

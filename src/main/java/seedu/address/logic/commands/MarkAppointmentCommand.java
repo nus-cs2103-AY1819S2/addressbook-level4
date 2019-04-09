@@ -12,6 +12,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentStatus;
+import seedu.address.model.person.Patient;
 
 /**
  * Change the status of an Appointment.
@@ -38,7 +39,7 @@ public class MarkAppointmentCommand extends Command {
     private final ChangedAppointmentDescriptor changedAppointmentDescriptor;
 
     /**
-     * @param index of the appointment in the filtered appointment list
+     * @param index                        of the appointment in the filtered appointment list
      * @param changedAppointmentDescriptor details of the changed status
      */
     public MarkAppointmentCommand(Index index, ChangedAppointmentDescriptor changedAppointmentDescriptor) {
@@ -61,6 +62,8 @@ public class MarkAppointmentCommand extends Command {
         Appointment appointmentToChange = lastShownList.get(index.getZeroBased());
         Appointment changedAppointment = createChangedAppointment(appointmentToChange, changedAppointmentDescriptor);
 
+        Patient patientStatusToChange = appointmentToChange.getPatient();
+
         if (!appointmentToChange.isSameAppointment(changedAppointment) && model.hasAppointment(changedAppointment)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPT);
         }
@@ -75,6 +78,9 @@ public class MarkAppointmentCommand extends Command {
             throw new CommandException(AppointmentStatus.MESSAGE_CONSTRAINT_PAST);
         }
 
+        Patient changedPatient =
+                patientStatusToChange.changeAppointmentStatus(changedAppointment.getAppointmentStatus());
+        model.setPatient(patientStatusToChange, changedPatient);
         model.setAppointment(appointmentToChange, changedAppointment);
         model.commitDocX();
         return new CommandResult(String.format(MESSAGE_MARK_APPT_SUCCESS, changedAppointment));
@@ -85,7 +91,7 @@ public class MarkAppointmentCommand extends Command {
      * changed with {@code changedAppointmentDescriptor}.
      */
     private static Appointment createChangedAppointment(Appointment appointmentToChange,
-                                                           ChangedAppointmentDescriptor changedAppointmentDescriptor) {
+                                                        ChangedAppointmentDescriptor changedAppointmentDescriptor) {
         assert appointmentToChange != null;
 
         AppointmentStatus newStatus = changedAppointmentDescriptor.getStatus();
@@ -164,4 +170,5 @@ public class MarkAppointmentCommand extends Command {
             return getStatus().equals(e.getStatus());
         }
     }
+
 }

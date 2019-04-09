@@ -14,14 +14,14 @@ import seedu.address.model.person.AdvancedPatientSearchPredicate;
  */
 public class SearchAdvancedPatientCommand extends Command {
 
-    public static final String COMMAND_WORD = "search-advanced";
+    public static final String COMMAND_WORD = "search-p-advanced";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches all patients whose full details contain "
             + "any of the specified keywords, even if the keyword is only a substring of the details.\n"
             + "Advanced feature: Use double quoted keyword to search only for the full keyword.\n"
             + "Parameters: [KEYWORD] [\"QUOTED KEYWORD\"]...\n"
             + "Example: " + COMMAND_WORD + " 9321 \"flu\"\n"
-            + "pid is not searched";
+            + "pid and appt status are not searched";
 
     private final AdvancedPatientSearchPredicate predicate;
 

@@ -1,3 +1,4 @@
+/* @@author wayneswq */
 package seedu.address.storage;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.appointment.AppointmentStatus;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Age;
 import seedu.address.model.person.Gender;
@@ -28,6 +30,7 @@ class JsonAdaptedPatient extends JsonAdaptedPerson {
 
     private final String age;
     private final String address;
+    private final String appointmentStatus;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -40,13 +43,15 @@ class JsonAdaptedPatient extends JsonAdaptedPerson {
                               @JsonProperty("age") String age,
                               @JsonProperty("phone") String phone,
                               @JsonProperty("address") String address,
-                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                              @JsonProperty("appointmentStatus") String appointmentStatus) {
         super(id, name, phone, gender);
         this.age = age;
         this.address = address;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
+        this.appointmentStatus = appointmentStatus;
     }
 
     /**
@@ -62,6 +67,7 @@ class JsonAdaptedPatient extends JsonAdaptedPerson {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        appointmentStatus = source.getAppointmentStatus().toString();
     }
 
     /**
@@ -71,21 +77,16 @@ class JsonAdaptedPatient extends JsonAdaptedPerson {
      */
     @Override
     public Patient toModelType() throws IllegalValueException {
-        String id = getId();
-        if (id == null) {
+
+        String pid = getId();
+        if (pid == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     PersonId.class.getSimpleName()));
         }
-        if (!PersonId.isValidPersonId(id)) {
+        if (!PersonId.isValidPersonId(pid)) {
             throw new IllegalValueException(PersonId.MESSAGE_CONSTRAINTS);
         }
-
-        final PersonId modelId = new PersonId(id);
-
-        final List<Tag> patientTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            patientTags.add(tag.toModelType());
-        }
+        final PersonId modelPid = new PersonId(pid);
 
         String name = getName();
         if (name == null) {
@@ -131,9 +132,23 @@ class JsonAdaptedPatient extends JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
+        final List<Tag> patientTags = new ArrayList<>();
+        for (JsonAdaptedTag tag : tagged) {
+            patientTags.add(tag.toModelType());
+        }
         final Set<Tag> modelTags = new HashSet<>(patientTags);
-        return new Patient(modelId, modelName, modelGender, modelAge, modelPhone,
-                modelAddress, modelTags);
+
+        if (appointmentStatus == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, AppointmentStatus.class.getSimpleName()));
+        }
+        if (!AppointmentStatus.isValidAppointmentStatus(appointmentStatus)) {
+            throw new IllegalValueException(AppointmentStatus.MESSAGE_CONSTRAINTS);
+        }
+        final AppointmentStatus modelStatus = AppointmentStatus.valueOf(appointmentStatus);
+
+        return new Patient(modelPid, modelName, modelGender, modelAge, modelPhone,
+                modelAddress, modelTags, modelStatus);
     }
 
 }

@@ -10,6 +10,7 @@ import seedu.equipment.logic.commands.AddWorkListCommand;
 import seedu.equipment.logic.commands.ClearCommand;
 import seedu.equipment.logic.commands.Command;
 import seedu.equipment.logic.commands.DeleteCommand;
+import seedu.equipment.logic.commands.DeleteWorkListCommand;
 import seedu.equipment.logic.commands.DisplayCommand;
 import seedu.equipment.logic.commands.EditCommand;
 import seedu.equipment.logic.commands.ExitCommand;
@@ -73,6 +74,9 @@ public class EquipmentManagerParser {
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+
+        case DeleteWorkListCommand.COMMAND_WORD:
+            return new DeleteWorkListCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();

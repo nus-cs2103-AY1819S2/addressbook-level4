@@ -180,21 +180,34 @@ Format: `add-w d/DATE a/ASSIGNEE i/ID`
 [TIP]
 The user can enter multiple assignees, but only one date and id.
 
+[NOTE]
+ID number beginning with 0 is not valid, for example, 002 should be 2.
+
 Example:
 
 * `add-w d/09-05-2019 a/Mei Yen i/13`
 
-=== Adding to work list: `put`
-Adds equipment to working list in the Equipment Manager +
-Format: `put INDEX [worklist id]`
+=== Putting an equipment into a work list: `put`
+Adds an equipment into a working list in the Equipment Manager +
+Format: `put i/WorkListID s/EquipmentSerialNumber`
 
-[TIP]
-The user can enter multiple field name and values.
+[NOTE]
+Please make sure that the respective Equipment and WorkList exist in the equipment manager.
 
 Example:
 
-* `list-w` +
-`put 1 203`
+* `put i/1 s/A008866X`
+
+=== Removing an equipment from a work list: `remove`
+Removes an equipment from a working list in the Equipment Manager +
+Format: `remove i/WorkListID s/EquipmentSerialNumber`
+
+[NOTE]
+Please make sure that the respective Equipment and WorkList exist in the equipment manager.
+
+Example:
+
+* `remove i/1 s/A008866X`
 
 === Editing an equipment: `edit-e`
 Edits an existing equipment in the *Equipment Manager*. +

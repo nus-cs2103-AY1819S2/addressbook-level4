@@ -2,11 +2,13 @@ package seedu.equipment.model;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import seedu.equipment.commons.util.CollectionUtil;
 
 import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.equipment.SerialNumber;
 
 /**
  * Representing a WorkList containing the equipments users want to work on.
@@ -46,6 +48,18 @@ public class WorkList {
 
     public Set<Equipment> getEquipments() {
         return Collections.unmodifiableSet(equipments);
+    }
+
+    public boolean hasEquipment(SerialNumber serialNumber) {
+        Iterator<Equipment> ir = equipments.iterator();
+        int size = equipments.size();
+        for (int i = 0; i < size; i ++) {
+            Equipment thisEquipment = ir.next();
+            if (thisEquipment.getSerialNumber().serialNumber.equals(serialNumber.serialNumber)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     //Add an equipment to the work list.

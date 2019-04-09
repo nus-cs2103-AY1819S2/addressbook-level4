@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 
 import seedu.equipment.commons.core.index.Index;
 import seedu.equipment.model.Model;
+import seedu.equipment.model.WorkList;
 import seedu.equipment.model.equipment.Equipment;
 
 /**
@@ -51,5 +52,12 @@ public class TestUtil {
      */
     public static Equipment getPerson(Model model, Index index) {
         return model.getFilteredPersonList().get(index.getZeroBased());
+    }
+
+    /**
+     * Returns the work list in the {@code model}'s WorkList list at {@code index}.
+     */
+    public static WorkList getWorkList(Model model, Index index) {
+        return model.getFilteredWorkListList().get(index.getZeroBased());
     }
 }

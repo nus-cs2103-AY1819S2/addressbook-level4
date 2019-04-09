@@ -94,9 +94,14 @@ public interface Model {
     void removeEquipment(WorkListId workListId, SerialNumber serialNumber);
 
     /**
-     * Returns true if a equipment with {@code serialNumber} exists in the equipment manager.
+     * @return true if a equipment with {@code serialNumber} exists in the equipment manager.
      */
     boolean hasEquipmentWithSerialNumber(SerialNumber serialNumber);
+
+    /**
+     * @return true if the equipment with {@code serialNumber} exists in the WorkList with {@code workListId}
+     */
+    boolean hasEquipmentInWorkList(WorkListId workListId, SerialNumber serialNumber);
 
     /**
      * Deletes the given equipment.

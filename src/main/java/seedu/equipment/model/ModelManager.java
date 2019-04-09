@@ -170,6 +170,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasEquipmentInWorkList(WorkListId workListId, SerialNumber serialNumber) {
+        requireNonNull(workListId);
+        requireNonNull(serialNumber);
+        return versionedEquipmentManager.hasEquipmentInWorkList(workListId, serialNumber);
+    }
+
+    @Override
     public void resetData(ReadOnlyEquipmentManager newData) {
         versionedEquipmentManager.resetData(newData);
 

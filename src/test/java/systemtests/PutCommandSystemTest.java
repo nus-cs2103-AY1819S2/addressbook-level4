@@ -21,7 +21,7 @@ public class PutCommandSystemTest extends EquipmentManagerSystemTest {
         /* Case: put an equipment into a worklist in the equipment manager.
          */
 
-        Equipment putEquipment = model.getFilteredPersonList().get(0);
+        Equipment putEquipment = model.getFilteredPersonList().get(2);
         WorkList putWorkList = model.getFilteredWorkListList().get(0);
         String command = " " + PutCommand.COMMAND_WORD
                 + " i/" + putWorkList.getId().value
@@ -52,7 +52,6 @@ public class PutCommandSystemTest extends EquipmentManagerSystemTest {
                 + " s/" + putEquipment.getSerialNumber().serialNumber
                 + " ";
         assertCommandFailure(command, PutCommand.MESSAGE_WORKLIST_NOT_FOUND);
-
     }
 
     /**

@@ -9,6 +9,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.equipment.SerialNumber;
 import seedu.equipment.model.equipment.exceptions.DuplicateEquipmentException;
 import seedu.equipment.model.equipment.exceptions.EquipmentNotFoundException;
 import seedu.equipment.model.equipment.exceptions.WorkListNotFoundException;
@@ -91,6 +92,24 @@ public class UniqueWorkListList implements Iterable<WorkList> {
                 }
             }
         }
+    }
+
+    public boolean hasEquipmentInWorkList(WorkListId workListId, SerialNumber serialNumber) {
+        requireNonNull(workListId);
+        WorkList sampleWorkList = new WorkList("01-05-2019", "SampleName", workListId);
+        if (!contains(sampleWorkList)) {
+            throw new WorkListNotFoundException();
+        } else {
+            Iterator<WorkList> ir = iterator();
+            int size = internalList.size();
+            for (int i = 0; i < size; i++) {
+                WorkList thisWorkList = ir.next();
+                if (thisWorkList.isSameWorkList(sampleWorkList)) {
+                    return thisWorkList.hasEquipment(serialNumber);
+                }
+            }
+        }
+        return false;
     }
 
     /**

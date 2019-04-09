@@ -274,7 +274,7 @@ public class AddressBookParser {
      */
     private void isGoTo() throws ParseException {
         if (!MainWindow.isGoToMode()) {
-            throw new ParseException(MESSAGE_ONLY_GO_TO_MODE_COMMANDS);
+            throw new ParseException(MESSAGE_ONLY_PATIENT_MODE_COMMANDS);
         }
     }
 
@@ -284,7 +284,7 @@ public class AddressBookParser {
      */
     private void notGoTo() throws ParseException {
         if (MainWindow.isGoToMode()) {
-            throw new ParseException(MESSAGE_ONLY_PATIENT_MODE_COMMANDS);
+            throw new ParseException(MESSAGE_ONLY_GO_TO_MODE_COMMANDS);
         }
     }
 

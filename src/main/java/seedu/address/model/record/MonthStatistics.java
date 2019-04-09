@@ -33,4 +33,15 @@ public class MonthStatistics {
     public YearMonth getYearMonth() {
         return this.yearMonth;
     }
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof MonthStatistics)) {
+            return false;
+        }
+        return this.yearMonth.equals(((MonthStatistics) other).getYearMonth())
+                && this.stats.equals(((MonthStatistics) other).getStatistics());
+    }
 }

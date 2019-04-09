@@ -18,6 +18,7 @@ import seedu.knowitall.commons.core.index.Index;
 import seedu.knowitall.commons.exceptions.IllegalValueException;
 import seedu.knowitall.commons.util.StringUtil;
 import seedu.knowitall.logic.commands.EditFolderCommand;
+import seedu.knowitall.logic.commands.ImportCommand;
 import seedu.knowitall.logic.parser.exceptions.ParseException;
 import seedu.knowitall.model.ReadOnlyCardFolder;
 import seedu.knowitall.model.card.Answer;
@@ -199,7 +200,7 @@ public class ParserUtil {
         requireNonNull(filename);
         if (!CsvFile.isValidFileName(filename)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                    CsvFile.MESSAGE_CONSTRAINTS));
+                    ImportCommand.MESSAGE_USAGE));
         }
         return new CsvFile(filename);
     }

@@ -1,69 +1,87 @@
-= Kerryn Eer - Project Portfolio
+= Kerryn Eer - Project Portfolio for Know-It-All
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+ifdef::env-github[]
+:note-caption: :information_source:
+endif::[]
 
-== PROJECT: Know-It-All
+== About the project
 
----
+I worked in a team of 5 for a software engineering project to morph a basic command line interface addressbook into a
+flashcard management application called Know-It-All. Know-It-All is designed to help medical students store, organise
+and share their learning material, integrated with a test session feature and scoring system to allow for a more efficient rote learning process.
 
-== Overview
+My role was to design and implement the test session feature. The following sections illustrate this major feature in more detail.
 
-Know-It-All is a flashcard application that helps users store and organise their learning material. With an easy to
-use interface and a storage solution that supports content sharing, Know-It-All is designed to help students perform rote learning more efficiently. From cramming in between lessons to focused study, the in-built test session boosts the effectiveness of repetition and recall for memorisation. Know-It-All targets medicine students as their studies involve a considerable amount of memory work, and deals with content that is suitable for the bite-sized flashcard format. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Note the following icons and formatting used in this document:
+
+NOTE: This symbol indicates important information related to this section.
+
+`test`: A grey highlight (called a mark-up) indicates that this is a command to be executed or a component, class
+or object in the architecture of the application.
+
+====
+Information in a box like this represents additional useful information related to this section.
+====
+
 
 == Summary of contributions
+This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
 
-* *Major enhancement*: added *test session feature*
-** What it does: allows the user to begin and end a test session where user will be presented flashcards questions in
- the folder and user can then input their answer or choose to reveal the answer before moving on to the next
- flashcard.
-** Justification: This feature is the main highlight of Know-It-All, as users use flashcards to test how
+*Feature implemented*: I implemented the functionalities of a test session.
+
+* What it does: This allows users to  begin and end a test session. While inside a test session, flashcard questions
+will be presented and student can input an answer or choose to reveal the answer before moving on to the next flashcard.
+* Justification: This feature is the main highlight of Know-It-All, as students use flashcards to test how
 much content they have memorised. Equipped with the user friendly answer command that is missing in existing
 flashcard applications, Know-It-All provides a more engaging and interactive testing experience for the user.
-** Highlights: This enhancement modifies the existing UI to facilitate the addition of a new test
-session page. It also has a heavy dependency on folder methods. Hence, this feature required an in-depth analysis of
-design alternatives. Implementation and writing tests were tedious as many checks of the current state of the app
-needs to be done to permit only certain commands and ban others.
+* Highlights: This feature modifies the existing UI to facilitate the addition of a new test session screen. It also
+has a heavy dependency on folder methods. Hence, this feature required an in-depth analysis of design alternatives,
+considering design patterns and principles as well as the user-friendliness of the commands.
+More details can be found under design considerations sections of <<contributionstodevguide>>.
+Implementation and writing tests were also tedious as many checks of the current state of the test session needs to be
+done to permit only certain commands and ban others.
 
-* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=kerryneer[Collated code]]
-* *Other contributions*:
+*Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=kerryneer[Collated code]]
 
-** Enhancements to existing features:
-*** Wrote additional tests for existing features to increase coverage from __% to __% (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/74[#74])
+*Other contributions*:
 
-** Documentation:
-*** Updated user guide by adding QuickStart section, new features, remove unnecessary features and modify existing
-commands for milestone v1.2 (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/60[#60], https://github.com/cs2103-ay1819s2-w10-4/main/pull/59[#59], https://github.com/cs2103-ay1819s2-w10-4/main/pull/80[#80],
-https://github.com/cs2103-ay1819s2-w10-4/main/pull/106[#106])
-*** Update developer guide from an addressbook to a flashcard context (Configurations to do before writing code,
-Product scope and Non-Functional Requirements etc), update its class diagrams and sequence diagrams, and added
+* Enhancements to features:
+** Wrote additional tests for new features to increase coverage from 79% to 81% (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/74[#74])
+
+* Documentation:
+** User guide: I updated the QuickStart section, added new features, remove previous addressbook features and modify
+existing commands (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/60[#60], https://github.com/cs2103-ay1819s2-w10-4/main/pull/59[#59], https://github.com/cs2103-ay1819s2-w10-4/main/pull/80[#80],
+https://github.com/cs2103-ay1819s2-w10-4/main/pull/106[#106], https://github.com/cs2103-ay1819s2-w10-4/main/pull/127[#127])
+** Developer guide: I updated relevant sections related to addressbook to our Know-It-All flashcard context
+like Product scope and Non-Functional Requirements, some of its class diagrams and sequence diagrams, and added
 implementation for test session (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/80[#80],
 https://github.com/cs2103-ay1819s2-w10-4/main/pull/106[#106])
-*** Update About Us page (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/6[#6])
+** About Us page: I collated and updated profiles for all members of the team. (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/6[#6],
+https://github.com/cs2103-ay1819s2-w10-4/main/pull/127[#127])
 
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w10-4/main/pull/65[#65],
-https://github.com/cs2103-ay1819s2-w10-4/main/pull/46[#46]
-
+* Community:
+** PRs reviewed (with non-trivial review comment):
+https://github.com/cs2103-ay1819s2-w10-4/main/pull/65[#65] (suggested another method of implementation),
+https://github.com/cs2103-ay1819s2-w10-4/main/pull/46[#46] (explained why travis CI was failing)
+** Conducted manual testing, reported bugs and offered suggestions for our team: https://github.com/cs2103-ay1819s2-w10-4/main/issues/117[#117], https://github.com/cs2103-ay1819s2-w10-4/main/issues/119[#119],
+https://github.com/cs2103-ay1819s2-w10-4/main/issues/120[#120], https://github.com/cs2103-ay1819s2-w10-4/main/issues/121[#121], https://github.com/cs2103-ay1819s2-w10-4/main/issues/123[#123], https://github.com/cs2103-ay1819s2-w10-4/main/issues/124[#124],
+https://github.com/cs2103-ay1819s2-w10-4/main/issues/125[#125]
 
 == Contributions to the User Guide
-
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+We had to update the original addressbook User Guide with instructions for Know-It-All enhancements that we
+had added. The following is an excerpt from our updated Know-It-All User Guide, showing additions that I have made for
+the test session feature.
 
 include::../UserGuide.adoc[tag=testoperations]
 
-include::../UserGuide.adoc[tag=quickstart]
-
+[[contributionstodevguide]]
 == Contributions to the Developer Guide
+Besides updating the original addressbook User Guide, Developer Guide has to be updated to Know-It-All context and
+features as well. The following section is an excerpt from our updated Know-It-All Developer Guide about the
+implementation details and design considerations for the test session feature.
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
-
-include::../DeveloperGuide.adoc[tag=testsession]
-
-include::../DeveloperGuide.adoc[tag=testsessionusecases]
+include::../DeveloperGuide.adoc[tag=testcommand]
+include::../DeveloperGuide.adoc[tag=testcommanddesign]
 

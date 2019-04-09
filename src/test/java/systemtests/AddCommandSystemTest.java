@@ -41,7 +41,6 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
     @Test
     public void add() {
         Model model = getModel();
-
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
         /* Case: add a card without hints to a non-empty card folder, command with leading spaces and trailing spaces
@@ -184,7 +183,7 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
         assertCommandBoxShowsDefaultStyle();
-        assertStatusBarUnchangedExceptSyncStatus();
+        assertStatusBarIsInFolder();
     }
 
     /**
@@ -205,6 +204,6 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
         assertCommandBoxShowsErrorStyle();
-        assertStatusBarUnchanged();
+        assertStatusBarIsInFolder();
     }
 }

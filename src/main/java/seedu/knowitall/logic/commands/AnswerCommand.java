@@ -7,9 +7,9 @@ import seedu.knowitall.commons.core.Messages;
 import seedu.knowitall.logic.CommandHistory;
 import seedu.knowitall.logic.commands.exceptions.CommandException;
 import seedu.knowitall.model.Model;
+import seedu.knowitall.model.Model.State;
 import seedu.knowitall.model.card.Answer;
 import seedu.knowitall.model.card.Card;
-import seedu.knowitall.model.card.Score;
 
 /**
  * Allows user to input an answer for the currently displayed card, compares it with the
@@ -38,7 +38,7 @@ public class AnswerCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.isInTestSession()) {
+        if (model.getState() != State.IN_TEST) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN);
         }
         if (model.isCardAlreadyAnswered()) {
@@ -64,7 +64,7 @@ public class AnswerCommand extends Command {
         }
         model.setCardAsAnswered();
 
-        Card scoredCard = createScoredCard(cardToMark, isAttemptCorrect);
+        Card scoredCard = model.createScoredCard(cardToMark, isAttemptCorrect);
         model.setCard(cardToMark, scoredCard);
         model.updateFilteredCard(PREDICATE_SHOW_ALL_CARDS);
         model.commitActiveCardFolder();
@@ -73,25 +73,6 @@ public class AnswerCommand extends Command {
         } else {
             return new CommandResult(MESSAGE_ANSWER_SUCCESS, CommandResult.Type.ANSWER_WRONG);
         }
-    }
-
-    /**
-     *
-     * @param cardToMark {@code Card} which is being marked correct or wrong
-     * @param markCorrect Boolean representing if card should be graded correct or wrong
-     * @return Card created with new score
-     */
-    private static Card createScoredCard(Card cardToMark, boolean markCorrect) {
-        Score newScore;
-        if (markCorrect) {
-            newScore = new Score(cardToMark.getScore().correctAttempts + 1,
-                    cardToMark.getScore().totalAttempts + 1);
-        } else {
-            newScore = new Score(cardToMark.getScore().correctAttempts,
-                    cardToMark.getScore().totalAttempts + 1);
-        }
-        return new Card(cardToMark.getQuestion(), cardToMark.getAnswer(), newScore, cardToMark.getOptions(),
-                cardToMark.getHints());
     }
 
     @Override

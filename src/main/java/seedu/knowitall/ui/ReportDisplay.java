@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import seedu.knowitall.model.ReadOnlyCardFolder;
@@ -21,6 +23,10 @@ public class ReportDisplay extends UiPart<Region> {
 
     private static final String MESSAGE_SCORE_CHANGE_PREFIX = "Your latest score has changed by ";
 
+    private static final int NUM_QUESTIONS_SHOWN = 3;
+    private static final int MAX_QUESTION_CHAR = 60;
+
+
     // Pixel values used for manipulating string offset (see below)
     private static final int PIXELS_PER_CHARACTER = 6;
     private static final int CHARACTER_OFFSET = 2;
@@ -31,7 +37,13 @@ public class ReportDisplay extends UiPart<Region> {
     private static final String CHANGE_SAME = "#BDB76B"; // dark khaki
 
     @FXML
+    private FlowPane container;
+
+    @FXML
     private GridPane reportDisplay;
+
+    @FXML
+    private ScrollPane scrollPane;
 
     @FXML
     private Label questionsDisplay;
@@ -115,8 +127,9 @@ public class ReportDisplay extends UiPart<Region> {
         graph.getData().clear();
         XYChart.Series<Integer, Double> series = new XYChart.Series<>();
         for (int x = 0; x < folderScores.size(); x = x + 1) {
-            series.getData().add(new XYChart.Data<Integer, Double>(x, folderScores.get(x)));
+            series.getData().add(new XYChart.Data<Integer, Double>(x + 1, folderScores.get(x)));
         }
+        graph.setMaxHeight(250);
         graph.getData().add(series);
     }
 
@@ -125,11 +138,17 @@ public class ReportDisplay extends UiPart<Region> {
      * @param cards To be concatenated.
      */
     private void displayQuestions(ObservableList<Card> cards) {
-        String result = "";
-        for (Card card: cards) {
-            result += "Question: " + card.getQuestion() + " | ";
-            result += "Score: " + card.getScore();
-            result += "\n";
+        String result = "\t\t\t\t\t\t\t\tLowest scoring questions:\n";
+        int toShow = Math.min(NUM_QUESTIONS_SHOWN, cards.size());
+        String question;
+        for (int i = 0; i < toShow; i++) {
+            Card card = cards.get(i);
+            question = card.getQuestion().fullQuestion;
+            if (question.length() > MAX_QUESTION_CHAR) {
+                question = question.substring(0, MAX_QUESTION_CHAR) + " ...";
+            }
+            question = "Question: " + question;
+            result += question + " | " + "Score: " + card.getScore() + "\n";
         }
         questionsDisplay.setText(result);
     }

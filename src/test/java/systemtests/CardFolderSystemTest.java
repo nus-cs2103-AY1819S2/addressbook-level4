@@ -4,20 +4,20 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.knowitall.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
-import static seedu.knowitall.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.knowitall.logic.commands.CommandTestUtil.TEST_FOLDER_INDEX;
+import static seedu.knowitall.ui.StatusBarFooter.STATUS_IN_FOLDER;
+import static seedu.knowitall.ui.StatusBarFooter.STATUS_IN_HOME_DIRECTORY;
+import static seedu.knowitall.ui.StatusBarFooter.STATUS_IN_REPORT_DISPLAY;
+import static seedu.knowitall.ui.StatusBarFooter.STATUS_IN_TEST_SESSION;
 import static seedu.knowitall.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.ClassRule;
 
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CardListPanelHandle;
@@ -28,6 +28,7 @@ import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.knowitall.TestApp;
 import seedu.knowitall.commons.core.index.Index;
+import seedu.knowitall.logic.commands.ChangeCommand;
 import seedu.knowitall.logic.commands.ClearCommand;
 import seedu.knowitall.logic.commands.ListCommand;
 import seedu.knowitall.logic.commands.SearchCommand;
@@ -42,9 +43,6 @@ import seedu.knowitall.ui.CommandBox;
  * for test verification.
  */
 public abstract class CardFolderSystemTest {
-    @ClassRule
-    public static ClockRule clockRule = new ClockRule();
-
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
             Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
@@ -64,8 +62,15 @@ public abstract class CardFolderSystemTest {
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
+        String command = ChangeCommand.COMMAND_WORD + " " + TEST_FOLDER_INDEX.getOneBased();
+        String resultDisplayString = String.format(ChangeCommand.MESSAGE_ENTER_FOLDER_SUCCESS,
+                TEST_FOLDER_INDEX.getOneBased());
+
+        mainWindowHandle.getCommandBox().run(command);
+        setupHelper.initialiseCardListPanelHandle();
+
         waitUntilBrowserLoaded(getBrowserPanel());
-        assertApplicationStartingStateIsCorrect();
+        assertApplicationStartingStateIsCorrect(resultDisplayString);
     }
 
     @After
@@ -121,9 +126,6 @@ public abstract class CardFolderSystemTest {
      */
     protected void executeCommand(String command) {
         rememberStates();
-        // Injects a fixed clock before executing a command so that the time stamp shown in the status bar
-        // after each command is predictable and also different from the previous command.
-        clockRule.setInjectedClockToCurrentTime();
 
         mainWindowHandle.getCommandBox().run(command);
 
@@ -180,10 +182,7 @@ public abstract class CardFolderSystemTest {
      * their current state.
      */
     private void rememberStates() {
-        StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
         getBrowserPanel().rememberQuestion();
-        statusBarFooterHandle.rememberSaveLocation();
-        statusBarFooterHandle.rememberSyncStatus();
         getCardListPanel().rememberSelectedCardCard();
     }
 
@@ -236,37 +235,47 @@ public abstract class CardFolderSystemTest {
     }
 
     /**
-     * Asserts that the entire status bar remains the same.
+     * Asserts that the status bar indicates that user is in home directory.
      */
-    protected void assertStatusBarUnchanged() {
+    protected void assertStatusBarIsInHomeDirectory() {
         StatusBarFooterHandle handle = getStatusBarFooter();
-        assertFalse(handle.isSaveLocationChanged());
-        assertFalse(handle.isSyncStatusChanged());
+        assertEquals(STATUS_IN_HOME_DIRECTORY, handle.getCurrentStatus());
     }
 
     /**
-     * Asserts that only the sync status in the status bar was changed to the timing of
-     * {@code ClockRule#getInjectedClock()}, while the save location remains the same.
+     * Asserts that the status bar indicates that user is inside a folder.
      */
-    protected void assertStatusBarUnchangedExceptSyncStatus() {
+    protected void assertStatusBarIsInFolder() {
         StatusBarFooterHandle handle = getStatusBarFooter();
-        String timestamp = new Date(clockRule.getInjectedClock().millis()).toString();
-        String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
-        assertEquals(expectedSyncStatus, handle.getSyncStatus());
-        assertFalse(handle.isSaveLocationChanged());
+        assertEquals(STATUS_IN_FOLDER, handle.getCurrentStatus());
+    }
+
+    /**
+     * Asserts that the status bar indicates that user is in a test session.
+     */
+    protected void assertStatusBarIsInTestSession() {
+        StatusBarFooterHandle handle = getStatusBarFooter();
+        assertEquals(STATUS_IN_TEST_SESSION, handle.getCurrentStatus());
+    }
+
+    /**
+     * Asserts that the status bar indicates that user is in a report display.
+     */
+    protected void assertStatusBarIsInReportDisplay() {
+        StatusBarFooterHandle handle = getStatusBarFooter();
+        assertEquals(STATUS_IN_REPORT_DISPLAY, handle.getCurrentStatus());
     }
 
     /**
      * Asserts that the starting state of the application is correct.
+     * @param resultDisplayString is the string that result display should show.
      */
-    private void assertApplicationStartingStateIsCorrect() {
+    private void assertApplicationStartingStateIsCorrect(String resultDisplayString) {
         assertEquals("", getCommandBox().getInput());
-        assertEquals("", getResultDisplay().getText());
+        assertEquals(resultDisplayString, getResultDisplay().getText());
         assertListMatching(getCardListPanel(), getModel().getFilteredCards());
         assertEquals("", getBrowserPanel().getCurrentQuestion());
-        assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
-                getStatusBarFooter().getSaveLocation());
-        assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
+        assertStatusBarIsInFolder();
     }
 
     /**

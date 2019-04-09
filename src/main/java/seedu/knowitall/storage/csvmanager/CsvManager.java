@@ -64,7 +64,7 @@ public class CsvManager implements CsvCommands {
         while ((line = bufferedReader.readLine()) != null) {
 
             // use comma as separator
-            String[] stringCard = line.split(COMMA_DELIMITTER);
+            String[] stringCard = line.split("\\,", -1);
 
             Card card = buildCard(stringCard);
             cardFolder.addCard(card);
@@ -93,8 +93,8 @@ public class CsvManager implements CsvCommands {
      */
     private Set<Option> buildOptions(String[] card) {
         Set<Option> optionSet = new HashSet<>();
-        String[] options = Arrays.copyOfRange(card, 2, card.length - 1);
-        if (options[0].equals(" ")) {
+        String[] options = Arrays.copyOfRange(card, 2, card.length - 2);
+        if (options[0].equals("")) {
             return optionSet;
         }
         Arrays.stream(options).map(Option::new).forEach(option -> optionSet.add(option));
@@ -106,8 +106,8 @@ public class CsvManager implements CsvCommands {
      */
     private Set<Hint> buildHint(String[] card) {
         Set<Hint> hintSet = new HashSet<>();
-        String hint = card[card.length - 1];
-        if (hint.equals(" ")) {
+        String hint = card[card.length - 2];
+        if (hint.equals("")) {
             return hintSet;
         }
         hintSet.add(new Hint(hint));
@@ -118,7 +118,11 @@ public class CsvManager implements CsvCommands {
     /**
      * checks whether the headers of the imported file conforms to the specifications of the Card headers
      */
-    private boolean checkCorrectHeaders(String header) {
+    private boolean checkCorrectHeaders(String header) throws CommandException {
+        if (header == null) {
+            throw new CommandException(Messages.MESSAGE_EMPTY_CSV_FILE);
+        }
+
         String[] cardHeaders = CARD_HEADERS.split(",");
         String[] fileHeaders = header.split(",");
 
@@ -185,12 +189,25 @@ public class CsvManager implements CsvCommands {
         return stringBuilder.toString();
     }
 
+    /**
+     * Method ensures the correct parsing of commas within card field names
+     */
+    private String parseQuotationMarks(String cardField) {
+        if (cardField.contains(",")) {
+            return "\"" + cardField + "\"";
+        } else {
+            return cardField;
+        }
+    }
+
     private void parseQuestion(Question question, StringBuilder stringBuilder) {
-        stringBuilder.append(question + COMMA_DELIMITTER);
+        String questionString = parseQuotationMarks(question.toString());
+        stringBuilder.append(questionString + COMMA_DELIMITTER);
     }
 
     private void parseAnswer(Answer answer, StringBuilder stringBuilder) {
-        stringBuilder.append(answer + COMMA_DELIMITTER);
+        String answerString = parseQuotationMarks(answer.toString());
+        stringBuilder.append(answerString + COMMA_DELIMITTER);
     }
 
     /**
@@ -198,9 +215,9 @@ public class CsvManager implements CsvCommands {
      */
     private void parseOptions(Set<Option> options, StringBuilder stringBuilder) {
         if (options.isEmpty()) {
-            stringBuilder.append(" " + COMMA_DELIMITTER);
+            stringBuilder.append("" + COMMA_DELIMITTER);
         } else {
-            options.forEach(option -> stringBuilder.append(option.optionValue)
+            options.forEach(option -> stringBuilder.append(parseQuotationMarks(option.optionValue))
                     .append(COMMA_DELIMITTER));
         }
     }
@@ -210,9 +227,9 @@ public class CsvManager implements CsvCommands {
      */
     private void parseHints(Set<Hint> hintSet, StringBuilder stringBuilder) {
         if (hintSet.isEmpty()) {
-            stringBuilder.append(" " + COMMA_DELIMITTER);
+            stringBuilder.append("" + COMMA_DELIMITTER);
         } else {
-            hintSet.forEach(hint -> stringBuilder.append(hint.hintName)
+            hintSet.forEach(hint -> stringBuilder.append(parseQuotationMarks(hint.hintName))
                     .append(COMMA_DELIMITTER));
         }
     }

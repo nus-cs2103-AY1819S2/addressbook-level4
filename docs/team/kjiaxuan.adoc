@@ -80,13 +80,11 @@ https://github.com/CS2103-AY1819S2-W17-3/main/pull/71[#71])
 https://github.com/CS2103-AY1819S2-W17-3/main/pull/106[#106],
 https://github.com/CS2103-AY1819S2-W17-3/main/pull/110[#110])
 
-
 * Community:
 ** PRs reviewed: https://github.com/CS2103-AY1819S2-W17-3/main/pull/63[#63],
 https://github.com/CS2103-AY1819S2-W17-3/main/pull/64[#64],
 https://github.com/CS2103-AY1819S2-W17-3/main/pull/99[#99],
 https://github.com/CS2103-AY1819S2-W17-3/main/pull/121[#121]
-** Reported bugs and suggestions for other teams:
 
 
 

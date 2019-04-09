@@ -509,11 +509,11 @@ Shortcut(s): +
 1. `filter r <keyword> [<more_keywords>]` +
 2. `filter 2 <keyword> [<more_keywords>]`
 
-After entering the command with valid inputs, searches the entire list of
-requests in Health Hub, and only displays the requests whose fields matches
- the parameters specified in the
-`filter` command. To filter requests, the user can specify any of the following filtering criteria:
-`dt/DATE`, `n/NAME`, `p/PHONE`, `st/STATUS`, `i/NRIC`, `c/CONDITION`. Note that you can chain multiple criteria together to get a more specific
+where `[<more_keywords]` refer to the fields you would like to search for.
+
+After entering the command with valid inputs, you will the entire list of requests whose fields match
+ the parameters specified in the command. To filter requests, you can specify any of the following filtering criteria:
+`dt/DATE`, `n/NAME`, `p/PHONE`, `st/STATUS`, `i/NRIC`, `c/CONDITION`. Note that you can also chain multiple criteria together to get a more specific
 filter result.
 
 For example, let's say you want to filter all the requests made by the patient with `NRIC` S9123456G that have been *completed*. You
@@ -537,10 +537,6 @@ The request list panel on the left would filter to show just the requests querie
 If there are no such requests that match the user's query, an empty list would be show on the left panel.
 
 {nbsp}
-
-where `<more_keywords>` represents the fields and parameters that can be used to
-identify requests or personnel, using the same prefixes as in `add`, `edit` and
-`delete` commands. Some examples of keywords are shown below.
 
 *Notes*:
 
@@ -579,21 +575,6 @@ Returns all patients whose name contains "alice".
 Returns all requests with contacts numbers that have "9177" in it's field.
 * `filter 2 dt/30-01-2019 10:00:00` +
 Returns all requests scheduled on 30th Jan 2019, at 10 am sharp.
-
-=== Filtering requests within a specific date range
-Let's say you've grown to have an overwhelming number of requests, because you've been doing so successfully! Suppose you now would like to
-look back and take a look at the requests that you had over a specific date range. You can do so using the following command:
-
-Format: `filter request dt/start dt/end` +
-Shortcut(s): +
-1. `filter r dt/start dt/end` +
-2. `filter 2 dt/start dt/end`
-
-*Examples:*
-
-* `filter r dt/01-01-2019 00:00:00 dt/01-06-2019` 00:00:00 +
-filters the requests between 1st Jan 2019 (inclusive) and 1st June 2019 (exclusive).
-
 
 // tag::delHealthWorker[]
 === Deleting requests/health workers : `delete`

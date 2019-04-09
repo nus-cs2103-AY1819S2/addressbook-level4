@@ -36,6 +36,7 @@ import seedu.address.model.Model;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.NameContainsKeywordsPredicate;
 import seedu.address.testutil.EditModuleTakenDescriptorBuilder;
+import seedu.address.testutil.EditSemLimitDescriptorBuilder;
 import seedu.address.testutil.FindModuleDescriptorBuilder;
 
 /**
@@ -57,7 +58,7 @@ public class CommandTestUtil {
     public static final String VALID_LECTURE_HOUR_CS2103T = "0";
     public static final String VALID_LECTURE_HOUR_CS1010 = "0";
     public static final String VALID_MIN_CAP = "2.53";
-    public static final String VALID_MAX_CAP = "5";
+    public static final String VALID_MAX_CAP = "4";
     public static final String VALID_MIN_LECTURE_HOUR = "2.5";
     public static final String VALID_MAX_LECTURE_HOUR = "5";
     public static final String VALID_MIN_TUTORIAL_HOUR = "2";
@@ -68,6 +69,18 @@ public class CommandTestUtil {
     public static final String VALID_MAX_PROJECT_HOUR = "5";
     public static final String VALID_MIN_PREPARATION_HOUR = "1";
     public static final String VALID_MAX_PREPARATION_HOUR = "5";
+    public static final String VALID_MIN_CAP_EDITED_SEMLIMIT = "3.53";
+    public static final String VALID_MAX_CAP_EDITED_SEMLIMIT = "5";
+    public static final String VALID_MIN_LECTURE_HOUR_EDITED_SEMLIMIT = "3.5";
+    public static final String VALID_MAX_LECTURE_HOUR_EDITED_SEMLIMIT = "6";
+    public static final String VALID_MIN_TUTORIAL_HOUR_EDITED_SEMLIMIT = "3";
+    public static final String VALID_MAX_TUTORIAL_HOUR_EDITED_SEMLIMIT = "4.5";
+    public static final String VALID_MIN_LAB_HOUR_EDITED_SEMLIMIT = "3";
+    public static final String VALID_MAX_LAB_HOUR_EDITED_SEMLIMIT = "4";
+    public static final String VALID_MIN_PROJECT_HOUR_EDITED_SEMLIMIT = "6.0";
+    public static final String VALID_MAX_PROJECT_HOUR_EDITED_SEMLIMIT = "6";
+    public static final String VALID_MIN_PREPARATION_HOUR_EDITED_SEMLIMIT = "5";
+    public static final String VALID_MAX_PREPARATION_HOUR_EDITED_SEMLIMIT = "6";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
@@ -155,6 +168,9 @@ public class CommandTestUtil {
     public static final EditCommand.EditModuleTakenDescriptor DESC_CS2103T;
     public static final EditCommand.EditModuleTakenDescriptor DESC_CS1010;
 
+    public static final SetSemLimitCommand.EditSemLimitDescriptor DESC_Y1S1;
+    public static final SetSemLimitCommand.EditSemLimitDescriptor DESC_Y2S2;
+
     public static final FindCommand.FindModuleDescriptor FIND_CS2103T;
     public static final FindCommand.FindModuleDescriptor FIND_CS1010;
 
@@ -171,6 +187,35 @@ public class CommandTestUtil {
                 .withExpectedMaxGrade(VALID_EXPECTED_MAX_GRADE_CS1010)
                 .withLectureHour(VALID_LECTURE_HOUR_CS1010)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+
+        DESC_Y1S1 = new EditSemLimitDescriptorBuilder()
+                .withMinCap(VALID_MIN_CAP)
+                .withMaxCap(VALID_MAX_CAP)
+                .withMinLectureHour(VALID_MIN_LECTURE_HOUR)
+                .withMaxLectureHour(VALID_MAX_LECTURE_HOUR)
+                .withMinTutorialHour(VALID_MIN_TUTORIAL_HOUR)
+                .withMaxTutorialHour(VALID_MAX_TUTORIAL_HOUR)
+                .withMinLabHour(VALID_MIN_LAB_HOUR)
+                .withMaxLabHour(VALID_MAX_LAB_HOUR)
+                .withMinProjectHour(VALID_MIN_PROJECT_HOUR)
+                .withMaxProjectHour(VALID_MAX_PROJECT_HOUR)
+                .withMinPreparationHour(VALID_MIN_PREPARATION_HOUR)
+                .withMaxPreparationHour(VALID_MAX_PREPARATION_HOUR)
+                .build();
+        DESC_Y2S2 = new EditSemLimitDescriptorBuilder()
+                .withMinCap(VALID_MIN_CAP_EDITED_SEMLIMIT)
+                .withMaxCap(VALID_MAX_CAP_EDITED_SEMLIMIT)
+                .withMinLectureHour(VALID_MIN_LECTURE_HOUR_EDITED_SEMLIMIT)
+                .withMaxLectureHour(VALID_MAX_LECTURE_HOUR_EDITED_SEMLIMIT)
+                .withMinTutorialHour(VALID_MIN_TUTORIAL_HOUR_EDITED_SEMLIMIT)
+                .withMaxTutorialHour(VALID_MAX_TUTORIAL_HOUR_EDITED_SEMLIMIT)
+                .withMinLabHour(VALID_MIN_LAB_HOUR_EDITED_SEMLIMIT)
+                .withMaxLabHour(VALID_MAX_LAB_HOUR_EDITED_SEMLIMIT)
+                .withMinProjectHour(VALID_MIN_PROJECT_HOUR_EDITED_SEMLIMIT)
+                .withMaxProjectHour(VALID_MAX_PROJECT_HOUR_EDITED_SEMLIMIT)
+                .withMinPreparationHour(VALID_MIN_PREPARATION_HOUR_EDITED_SEMLIMIT)
+                .withMaxPreparationHour(VALID_MAX_PREPARATION_HOUR_EDITED_SEMLIMIT)
+                .build();
 
         FIND_CS2103T = new FindModuleDescriptorBuilder().withCode(VALID_MODULE_INFO_CODE_CS2103T)
                 .withSemester(VALID_SEMESTER_CS2103T)

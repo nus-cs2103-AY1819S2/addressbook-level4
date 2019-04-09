@@ -55,7 +55,7 @@ E.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * While book names, review title and review content can contain any kinds of characters, tag and author names should only contain alpha-numeric characters.
 * Book name and author name should not exceed 50 characters (space included).
 * Review title should not exceed 50 characters (space included).
-* Review content should not exceed 350 characters (space included).
+* Review content should not exceed 400 characters (space included).
 * Rating should be integer from 0 to 10 inclusive and the input should be 1 or 2 digit number.
 * Tags should not exceed 20 characters (space included).
 ====

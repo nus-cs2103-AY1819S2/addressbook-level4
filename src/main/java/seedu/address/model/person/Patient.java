@@ -55,6 +55,10 @@ public class Patient extends Person {
         return address;
     }
 
+    /**
+     * Returns the same patient with the changed appointment status
+     * This is to facilitate mark-appt command
+     */
     public Patient changeAppointmentStatus(AppointmentStatus status) {
         this.appointmentStatus = status;
         return this;

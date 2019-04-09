@@ -55,7 +55,7 @@ public class JsonStatisticsStorage implements StatisticsStorage {
         }
 
         try {
-            System.out.println("Reading Statistics");
+            //ystem.out.println("Reading Statistics");
             return Optional.of(jsonStatisticsData.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());

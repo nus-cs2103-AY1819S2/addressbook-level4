@@ -84,7 +84,7 @@ public class StorageManager implements Storage {
 
     @Override
     public void saveStatisticsData(PlayerStatistics statisticsData) throws IOException {
-        System.out.println("Inside Storage Manager, Saving Stats Data");
+        //System.out.println("Inside Storage Manager, Saving Stats Data");
         saveStatisticsData(statisticsData, statisticsStorage.getStatisticsFilePath());
     }
 

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.battle.AttackDestroyedShip;
@@ -18,7 +19,7 @@ import seedu.address.model.statistics.PlayerStatistics;
 
 /**
  * The StatsCommandTest will test the methods of the statistics class.
- * Contains integration tests (interaction with Model, Player and Battleship commands)
+ * Contains integration tests (interaction with Model, Player, Storage and Battleship commands)
  */
 public class StatsCommandTest {
 
@@ -105,5 +106,32 @@ public class StatsCommandTest {
                 new Player("Bob", 5, 2, 1), new Coordinates("a2"),
                 new Battleship(new Name("Placeholder"), 2, 2, new HashSet<>()));
         assertEquals("destroyed", p1.addResultToStats(res));
+    }
+
+    // STORAGE COMPONENT FOR STATS //
+    // Setup
+    @Before
+    public void setUpStats(){
+        //        AppParameters appParameters = AppParameters.parse(getParameters());
+        //        config = initConfig(appParameters.getConfigPath());
+        //        UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
+        //
+        //        UserPrefs userPrefs = initPrefs(userPrefsStorage);
+        //
+        //        AddressBookStorage addressBookStorage =
+        //        new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
+        //        StatisticsStorage statisticsStorage = new JsonStatisticsStorage(userPrefs.getStatisticsFilePath());
+        //        Storage storageTest = new StorageManager(map,user,stats);
+    }
+
+    // take in statsData void
+    @Test
+    public void execute_saveToStorage_success(){
+        // WRITE TESTS
+    }
+
+    @Test
+    public void execute_setStorage_success(){
+        // WRITE TESTS
     }
 }

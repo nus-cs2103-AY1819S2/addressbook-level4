@@ -46,18 +46,18 @@ public class SaveCommand extends Command {
         // GET PAST STATS
         this.storage = this.playerStats.getStorage();
         try {
-            System.out.println("Get previous data Optional");
+            //System.out.println("Get previous data Optional");
             statisticsDataOptional = (this.storage).readStatisticsData();
-            System.out.println("Successfuly get optional obj");
+            //System.out.println("Successfully get optional obj");
             if (!statisticsDataOptional.isPresent()) {
-                System.out.println("No past statistics data found.");
+                //System.out.println("No past statistics data found.");
                 //logger.info("No past statistics data found.");
             }
         } catch (DataConversionException e) {
-            System.out.println("Data file not in the correct format. Past statistics data will not be used");
+            //System.out.println("Data file not in the correct format. Past statistics data will not be used");
             //logger.warning("Data file not in the correct format. Past statistics data will not be used");
         } catch (IOException e) {
-            System.out.println("Problem while reading from the file. Past statistics data will not be used");
+            //System.out.println("Problem while reading from the file. Past statistics data will not be used");
             //logger.warning("Problem while reading from the file. Past statistics data will not be used");
         }
 
@@ -67,15 +67,16 @@ public class SaveCommand extends Command {
         int pastMiss = (statisticsDataOptional.get()).getMissCount();
         double pastAccuracy = getAccuracy(pastHit, pastMiss);
 
-        System.out.println("Previous game accuracy: " + pastAccuracy);
-        System.out.println("Current game accuracy " + this.playerStats.getAccuracy());
+        //System.out.println("Previous game accuracy: " + pastAccuracy);
+        //System.out.println("Current game accuracy " + this.playerStats.getAccuracy());
 
         // throw obj into storage
         try {
             this.playerStats.saveToStorage(this.playerStats);
-            System.out.println("saveToStorage");
+            //System.out.println("saveToStorage");
         } catch (IOException ioe) {
-            System.out.println("IO Exception");
+            // Change to Logger
+            //System.out.println("IO Exception");
         }
         // this game accuracy higher,
         if (pastAccuracy < (this.playerStats).getAccuracy()) {

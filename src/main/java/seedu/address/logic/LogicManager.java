@@ -133,6 +133,12 @@ public class LogicManager implements Logic {
         return model.getFilteredMenuItemList();
     }
 
+    @Override
+    public ObservableList<MenuItem> getFilteredSortedMenuItemList() {
+        return model.getFilteredSortedMenuItemList();
+    }
+
+    @Override
     public ObservableList<OrderItem> getFilteredOrderItemList() {
         return model.getFilteredOrderItemList();
     }

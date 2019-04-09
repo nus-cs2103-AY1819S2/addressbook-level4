@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.TypicalAppointments.getTypicalAppointmentsQuickDocs;
 import static seedu.address.testutil.TypicalPatients.getTypicalPatientQuickDocs;
 import static seedu.address.testutil.TypicalReminders.getTypicalRemindersQuickDocs;
-import static seedu.address.testutil.TypicalStatistics.getTypicalStatisticsQuickDocs;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

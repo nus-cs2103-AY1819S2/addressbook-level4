@@ -102,6 +102,8 @@ public class BookListPanelHandle extends NodeHandle<ListView<Book>> {
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public BookCardHandle getBookCardHandle(int index) {
+        Book toEqual = getBook((index));
+
         return getAllCardNodes().stream()
             .map(BookCardHandle::new)
             .filter(handle -> handle.equals(getBook(index)))

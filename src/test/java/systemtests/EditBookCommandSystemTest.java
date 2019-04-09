@@ -116,22 +116,6 @@ public class EditBookCommandSystemTest extends BookShelfSystemTest {
         assertCommandFailure(EditBookCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_CS,
                 Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
 
-        /* --------------------- Performing edit operation while a book card is selected -------------------------- */
-
-        /* Case: selects first card in the book list, edit a book -> edited, card selection remains unchanged but
-         * browser url changes
-         */
-        /*
-        showAllBooks();
-        index = INDEX_FIRST_BOOK;
-        selectBook(index);
-        command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased()
-        + NAME_DESC_TWILIGHT + AUTHOR_DESC_TWILIGHT + RATING_DESC_TWILIGHT + " t/";
-        // this can be misleading: card selection actually remains unchanged but the
-        // browser's url is updated to reflect the new book's name
-        assertCommandSuccess(command, index, TWILIGHT, index);
-        */
-
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
         /* Case: invalid index (0) -> rejected */

@@ -214,9 +214,9 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component
-Within `Storage` there are 2 types of storage components: +
-* read and write storage +
-* read only storage
+Within the `Storage` component there are *2* types of storage classes: +
+1. read and write storage +
+2. read only storage
 
 ==== Read and write storage
 .Structure of the Storage Component

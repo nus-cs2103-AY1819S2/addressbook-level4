@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -100,4 +101,5 @@ public class ListConsultationCommand extends Command {
                 && (getIndex() == ((ListConsultationCommand) other).getIndex())
                 || getNric().equals(((ListConsultationCommand) other).getNric()));
     }
+
 }

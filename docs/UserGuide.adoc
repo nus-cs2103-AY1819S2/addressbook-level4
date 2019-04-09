@@ -404,7 +404,7 @@ This command requires you to have a consultation session already active. See: <<
 The medicine to be prescribed must be present in the inventory and its quantity must be sufficient for
 the assignment during the presciption stage. +
 Check out the <<addmed>> section for information on adding medicine to the inventory,
-and<<listmed>> section on the steps to check a medicine's amount.
+and <<listmed>> section on the steps to check a medicine's amount.
 
 {sp} +
 *Format:* `prescribe m/MEDICINE [m/MEDICINE] ... q/QUANTITY [q/QUANTITY]` +

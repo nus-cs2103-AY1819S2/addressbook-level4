@@ -12,10 +12,10 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Sim Jia Zhi
 image::simjiazhi.png[width="150", align="left"]
-{empty}[https://github.com/simjiazhi[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/simjiazhi[github]] [<<simjiazhi.adoc#, portfolio>>]
 
 Role: Team Lead and deliverables +
-Responsibilities: Patient and consultation management module
+Responsibilities: Patient and consultation management module, UI design
 
 '''
 
@@ -24,7 +24,7 @@ image::bentwj.png[width="150", align="left"]
 {empty}[http://github.com/bentwj[github]] [<<johndoe#, portfolio>>]
 
 Role: Code Quality and Documentation +
-Responsibilities: Administration and statistics module
+Responsibilities: Administration and statistics module, Logic implementation
 
 '''
 
@@ -33,7 +33,7 @@ image::ongaaron96.png[width="150", align="left"]
 {empty}[http://github.com/ongaaron96[github]] [<<johndoe#, portfolio>>]
 
 Role: Testing and Integration +
-Responsibilities: Appointment and reminder management module
+Responsibilities: Appointment and reminder management module, Storage Management
 
 '''
 
@@ -42,7 +42,7 @@ image::xue-chenyang.png[width="150", align="left"]
 {empty}[http://github.com/Xue-Chenyang[github]] [<<johndoe#, portfolio>>]
 
 Role: Scheduling and Tracking +
-Responsibilities: Medical inventory management module
+Responsibilities: Medical inventory management module, Model Management
 
 '''
 

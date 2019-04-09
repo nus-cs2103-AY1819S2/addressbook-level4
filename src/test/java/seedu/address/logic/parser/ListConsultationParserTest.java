@@ -25,6 +25,15 @@ public class ListConsultationParserTest {
         userInput = " r/S1234567A";
         try {
             Assert.assertTrue(parser.parse(userInput).equals(new ListConsultationCommand("S1234567A")));
+
+            // get NRIC was short circuited by index checking, so NRIC test will be separated out
+            ListConsultationCommand command1 = parser.parse(userInput);
+            ListConsultationCommand command2 = new ListConsultationCommand("S1234567A");
+            Assert.assertTrue(command1.getNric().equals(command2.getNric()));
+
+            ListConsultationCommand command3 = new ListConsultationCommand("S1234567B");
+            Assert.assertFalse(command1.getNric().equals(command3.getNric()));
+
         } catch (ParseException pe) {
             Assert.fail();
         }

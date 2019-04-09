@@ -118,11 +118,11 @@ public class MedicalHistory {
         final StringBuilder builder = new StringBuilder();
         builder.append(" Medical History ID: ")
                 .append(getMedHistId())
-                .append("Patient ID: ")
+                .append(" Patient ID: ")
                 .append(getPatientId())
-                .append("Doctor ID: ")
+                .append(" Doctor ID: ")
                 .append(getDoctorId())
-                .append("Date: ")
+                .append(" Date: ")
                 .append(getDate())
                 .append(" WriteUp: ")
                 .append(getWriteUp());

@@ -36,7 +36,7 @@ import seedu.address.model.ReadOnlyAddressBook;
  */
 public class InOutAddressBookStorage implements AddressBookStorage {
 
-    private static final String TITLE = "OurTeeth";
+    private static final String TITLE = "TeethHub";
     private static final PDFont TITLE_FONT = PDType1Font.HELVETICA_BOLD;
     private static final int TITLE_FONT_SIZE = 20;
     private static final int TOP_DOWN_MARGIN = 35;

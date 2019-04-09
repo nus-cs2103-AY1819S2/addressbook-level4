@@ -27,20 +27,20 @@ import seedu.address.model.person.predicate.NameContainsKeywordsPredicate;
 
 
 /**
- * Contains integration tests (interaction with the Model) for {@code SearchCommand}.
+ * Contains integration tests (interaction with the Model) for {@code FilterCommand}.
  */
-public class SearchCommandTest {
+public class FilterCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void equals() {
-        SearchCommand.PredicatePersonDescriptor firstDescriptor = preparePredicatePersonDescriptor("first");
-        SearchCommand firstCommand = new SearchCommand(JobListName.APPLICANT, firstDescriptor);
-        SearchCommand.PredicatePersonDescriptor secondDescriptor =
+        FilterCommand.PredicatePersonDescriptor firstDescriptor = preparePredicatePersonDescriptor("first");
+        FilterCommand firstCommand = new FilterCommand(JobListName.APPLICANT, firstDescriptor);
+        FilterCommand.PredicatePersonDescriptor secondDescriptor =
             preparePredicatePersonDescriptor("second");
-        SearchCommand secondCommand = new SearchCommand(JobListName.APPLICANT, secondDescriptor);
+        FilterCommand secondCommand = new FilterCommand(JobListName.APPLICANT, secondDescriptor);
         NameContainsKeywordsPredicate findPredicate =
             new NameContainsKeywordsPredicate(Collections.singletonList("first"));
         FindCommand findCommand = new FindCommand(findPredicate);
@@ -49,7 +49,7 @@ public class SearchCommandTest {
         assertTrue(firstCommand.equals(firstCommand));
 
         // same values -> returns true
-        SearchCommand firstCommandCopy = new SearchCommand(JobListName.APPLICANT, firstDescriptor);
+        FilterCommand firstCommandCopy = new FilterCommand(JobListName.APPLICANT, firstDescriptor);
         assertTrue(firstCommand.equals(firstCommandCopy));
 
         // different types -> returns false
@@ -66,8 +66,8 @@ public class SearchCommandTest {
     //    @SuppressWarnings("unchecked")
     //    public void execute_zeroKeywords_noPersonFound() {
     //        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-    //        SearchCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
-    //        SearchCommand command = new SearchCommand(JobListName.APPLICANT, descriptor);
+    //        FilterCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
+    //        FilterCommand command = new FilterCommand(JobListName.APPLICANT, descriptor);
     //        Predicate<Person> predicator = (Predicate<Person>) descriptor.toPredicate();
     //        expectedModel.updateJobAllApplicantsFilteredPersonList(predicator);
     //        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -78,9 +78,9 @@ public class SearchCommandTest {
     @SuppressWarnings("unchecked")
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
-        SearchCommand.PredicatePersonDescriptor descriptor =
+        FilterCommand.PredicatePersonDescriptor descriptor =
             preparePredicatePersonDescriptor("Kurz Elle Kunz");
-        SearchCommand command = new SearchCommand(JobListName.APPLICANT, descriptor);
+        FilterCommand command = new FilterCommand(JobListName.APPLICANT, descriptor);
         Predicate<Person> predicator = (Predicate<Person>) descriptor.toPredicate();
         expectedModel.updateBaseFilteredPersonList(predicator);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -90,8 +90,8 @@ public class SearchCommandTest {
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
-    private SearchCommand.PredicatePersonDescriptor preparePredicatePersonDescriptor(String userInput) {
-        SearchCommand.PredicatePersonDescriptor descriptor = new SearchCommand.PredicatePersonDescriptor();
+    private FilterCommand.PredicatePersonDescriptor preparePredicatePersonDescriptor(String userInput) {
+        FilterCommand.PredicatePersonDescriptor descriptor = new FilterCommand.PredicatePersonDescriptor();
         descriptor.setName(new HashSet<>(Arrays.asList(userInput.split("\\s+"))));
         return descriptor;
     }

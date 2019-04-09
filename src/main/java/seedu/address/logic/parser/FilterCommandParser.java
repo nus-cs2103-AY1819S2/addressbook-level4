@@ -20,23 +20,23 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import seedu.address.logic.commands.SearchCommand;
-import seedu.address.logic.commands.SearchCommand.PredicatePersonDescriptor;
+import seedu.address.logic.commands.FilterCommand;
+import seedu.address.logic.commands.FilterCommand.PredicatePersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.job.JobListName;
 
 /**
- * Parses input arguments and creates a new SearchCommand object
+ * Parses input arguments and creates a new FilterCommand object
  */
-public class SearchCommandParser implements Parser<SearchCommand> {
+public class FilterCommandParser implements Parser<FilterCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the SearchCommand
-     * and returns an SearchCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the FilterCommand
+     * and returns an FilterCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public SearchCommand parse(String args) throws ParseException {
+    public FilterCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_RACE, PREFIX_ADDRESS,
@@ -47,13 +47,13 @@ public class SearchCommandParser implements Parser<SearchCommand> {
             listName = ParserUtil.parseJobListName(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                SearchCommand.MESSAGE_USAGE), pe);
+                FilterCommand.MESSAGE_USAGE), pe);
         }
 
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
         }
 
         PredicatePersonDescriptor predicatePersonDescriptor = new PredicatePersonDescriptor();
@@ -110,7 +110,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
                 Arrays.asList(argMultimap.getValue(PREFIX_KNOWNPROGLANG).get().split("\\s+")))));
         }
 
-        return new SearchCommand(listName, predicatePersonDescriptor);
+        return new FilterCommand(listName, predicatePersonDescriptor);
     }
 
 

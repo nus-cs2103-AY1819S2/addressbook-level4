@@ -40,13 +40,41 @@ public class BrowserPanel extends UiPart<Region> {
     @FXML
     private Label browserLabel;
 
-    public BrowserPanel(ObservableValue<Person> selectedPerson, ObservableValue<Person> selectedArchivedPerson) {
+    public BrowserPanel(ObservableValue<Person> selectedPerson, ObservableValue<Person> selectedArchivedPerson,
+                        ObservableValue<Person> selectedPinPerson) {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
         browserLabel.setText(NO_CONTACT_SELECTED);
+
+        // Load page when selected pin person changes.
+        selectedPinPerson.addListener((observable, oldValue, newValue) -> {
+            // Test for internet connectivity
+            try {
+                URL url = new URL(TEST_URL);
+                URLConnection connection = url.openConnection();
+                connection.connect();
+
+                if (newValue == null) {
+                    browserLabel.setText(NO_CONTACT_SELECTED);
+                    loadDefaultPage();
+                    return;
+                } else if (newValue.getAddress().value == null) {
+                    browserLabel.setText(NO_ADDRESS_AVAILABLE);
+                    loadDefaultPage();
+                    return;
+                }
+
+                browserLabel.setText(newValue.getName().fullName + "'s Map Location:");
+                loadMapsPage(newValue);
+
+            } catch (Exception e) {
+                browserLabel.setText(NO_CONNECTION);
+                loadDefaultPage();
+            }
+        });
 
         // Load page when selected person changes.
         selectedPerson.addListener((observable, oldValue, newValue) -> {
@@ -72,7 +100,6 @@ public class BrowserPanel extends UiPart<Region> {
             } catch (Exception e) {
                 browserLabel.setText(NO_CONNECTION);
                 loadDefaultPage();
-                return;
             }
         });
 
@@ -100,7 +127,6 @@ public class BrowserPanel extends UiPart<Region> {
             } catch (Exception e) {
                 browserLabel.setText(NO_CONNECTION);
                 loadDefaultPage();
-                return;
             }
         });
 

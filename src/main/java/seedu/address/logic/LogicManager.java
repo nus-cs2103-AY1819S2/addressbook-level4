@@ -180,7 +180,7 @@ public class LogicManager implements Logic {
 
     @Override
     public void setSelectedPinPerson(Person person) {
-        model.setSelectedPerson(null);
+        removeSelectedNonPinnedPerson();
         model.setSelectedPinPerson(person);
     }
 
@@ -191,7 +191,14 @@ public class LogicManager implements Logic {
 
     @Override
     public void setSelectedArchivedPerson(Person person) {
+        model.setSelectedPinPerson(null);
         model.setSelectedArchivedPerson(person);
+    }
+
+    @Override
+    public void removeSelectedNonPinnedPerson() {
+        model.setSelectedPerson(null);
+        model.setSelectedArchivedPerson(null);
     }
 
     @Override

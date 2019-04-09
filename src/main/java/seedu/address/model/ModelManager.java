@@ -446,18 +446,19 @@ public class ModelManager implements Model {
                 return;
             }
 
-            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+            boolean wasSelectedArchivedPersonReplaced = change.wasReplaced()
+                    && change.getAddedSize() == change.getRemovedSize()
                     && change.getRemoved().contains(selectedArchivedPerson.getValue());
-            if (wasSelectedPersonReplaced) {
+            if (wasSelectedArchivedPersonReplaced) {
                 // Update selectedPerson to its new value.
                 int index = change.getRemoved().indexOf(selectedArchivedPerson.getValue());
                 selectedArchivedPerson.setValue(change.getAddedSubList().get(index));
                 continue;
             }
 
-            boolean wasSelectedPersonRemoved = change.getRemoved().stream()
+            boolean wasSelectedArchivedPersonRemoved = change.getRemoved().stream()
                     .anyMatch(removedPerson -> selectedArchivedPerson.getValue().isSamePerson(removedPerson));
-            if (wasSelectedPersonRemoved) {
+            if (wasSelectedArchivedPersonRemoved) {
                 // Select the person that came before it in the list,
                 // or clear the selection if there is no such person.
                 selectedArchivedPerson.setValue(change.getFrom() > 0
@@ -488,7 +489,8 @@ public class ModelManager implements Model {
                 && filteredArchivedPersons.equals(other.filteredArchivedPersons)
                 && filteredPinnedPersons.equals(other.filteredPinnedPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get())
-                && Objects.equals(selectedPinPerson.get(), other.selectedPinPerson.get());
+                && Objects.equals(selectedPinPerson.get(), other.selectedPinPerson.get())
+                && Objects.equals(selectedArchivedPerson.get(), other.selectedArchivedPerson.get());
     }
 
 }

@@ -399,7 +399,6 @@ image::ActivityFilterCommandSequenceDiagram.png[width="800"]
 [discrete]
 ==== Activity Find Command
 
-
 [source,java]
 ----
 public boolean test(Activity activity) {

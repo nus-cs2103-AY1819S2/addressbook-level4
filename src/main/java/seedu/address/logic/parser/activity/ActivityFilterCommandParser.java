@@ -40,6 +40,11 @@ public class ActivityFilterCommandParser implements Parser<ActivityFilterCommand
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ActivityFilterCommand.MESSAGE_INCORECT_DAYS));
         }
 
+        if (days <= 0) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ActivityFilterCommand.MESSAGE_INCORECT_DAYS));
+        }
+
         switch(cond) {
         case CONDITION_POSITIVE:
             return new ActivityFilterCommand(new ActivityDateTimeAfterPredicate(days));

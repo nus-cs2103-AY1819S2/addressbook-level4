@@ -444,7 +444,7 @@ Each recommended module is represented by a `RecModule` which contains a unique 
 `CourseReqType` satisfied, as shown in the diagram below.
 
 .`RecModule` class diagram
-image::RecModuleClassDiagram.png[width="400"]
+image::RecModuleClassDiagram.png[width="500"]
 
 
 When `ModelManager` is initialised, `Model#getObservableRecModuleList` is called which generates an

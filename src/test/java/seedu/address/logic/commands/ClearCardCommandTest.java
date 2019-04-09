@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DECK_A;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.assertUpdateCommandSuccess;
 import static seedu.address.testutil.TypicalCards.getTypicalDeck;
 import static seedu.address.testutil.TypicalCards.getTypicalTopDeck;

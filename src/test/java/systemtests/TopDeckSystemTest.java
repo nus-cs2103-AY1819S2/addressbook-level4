@@ -3,7 +3,6 @@ package systemtests;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.logic.commands.CommandTestUtil.updateCardsView;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.StatusBarFooter.TOTAL_DECKS_STATUS;
@@ -157,8 +156,8 @@ public abstract class TopDeckSystemTest {
 
         Deck activeDeck = cardsView.getActiveDeck();
 
-        assertTrue(cardsView.getFilteredList().size() <=
-            activeDeck.getCards().size());
+        assertTrue(cardsView.getFilteredList().size()
+            <= activeDeck.getCards().size());
     }
 
 

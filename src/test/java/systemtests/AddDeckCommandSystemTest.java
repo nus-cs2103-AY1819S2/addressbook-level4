@@ -1,6 +1,5 @@
 package systemtests;
 
-import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DECK_NAME_ARGS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DECK_NAME_A_ARGS;
@@ -18,7 +17,6 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.DecksView;
 import seedu.address.logic.commands.AddDeckCommand;
-
 import seedu.address.logic.commands.OpenDeckCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;

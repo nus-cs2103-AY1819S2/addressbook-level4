@@ -157,16 +157,6 @@ public class Appointment {
             return false;
         }
 
-        // Cancelled appointments can have duplicates
-        if (this.getAppointmentStatus().equals(AppointmentStatus.CANCELLED)
-                || that.appointmentStatus.equals(AppointmentStatus.CANCELLED)) {
-            return false;
-        }
-
-        if (!this.appointmentStatus.equals(that.appointmentStatus)) {
-            return false;
-        }
-
         return true;
     }
 

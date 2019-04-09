@@ -15,7 +15,8 @@ public class Messages {
     public static final String MESSAGE_DECK_NOT_EDITED =
             "Index of Deck to edit and Name to edit to must be" + " provided.";
     public static final String MESSAGE_DUPLICATE_DECK = "A deck with this name already exists";
-
+    public static final String MESSAGE_FILEPATH_INVALID = "File at %1$s not found";
+    public static final String MESSAGE_IMPORTED_DECK_INVALID = "Target deck contains invalid data";
     public static final String MESSAGE_EMPTY_DECK = "Deck is empty. Unable to go into study mode";
 
     public static final String MESSAGE_INVALID_DECK_OPERATION =

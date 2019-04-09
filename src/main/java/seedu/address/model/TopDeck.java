@@ -13,9 +13,11 @@ import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.UniqueDeckList;
 import seedu.address.model.deck.exceptions.CardNotFoundException;
+import seedu.address.model.deck.exceptions.DeckImportException;
 import seedu.address.model.deck.exceptions.DeckNotFoundException;
 import seedu.address.model.deck.exceptions.DuplicateCardException;
 import seedu.address.model.deck.exceptions.DuplicateDeckException;
+import seedu.address.storage.portmanager.PortManager;
 
 /**
  * Wraps all data at the TopDeck level
@@ -25,6 +27,8 @@ public class TopDeck implements ReadOnlyTopDeck {
     private final UniqueDeckList decks;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
+    // Manager to handle imports/exports
+    private PortManager portManager;
     /*
     * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid
     * duplication
@@ -35,6 +39,7 @@ public class TopDeck implements ReadOnlyTopDeck {
     */
     {
         decks = new UniqueDeckList();
+        portManager = new PortManager();
     }
 
     public TopDeck() {
@@ -204,6 +209,32 @@ public class TopDeck implements ReadOnlyTopDeck {
     public void updateDeck(Deck target, Deck editedDeck) {
         requireNonNull(editedDeck);
         decks.setDeck(target, editedDeck);
+    }
+
+    /**
+     * Attempts to import a deck at the specified file location.
+     * If there is an existing duplicate deck, throw DuplicateDeckException.
+     * If there was a problem with the import action, throw DeckImportException
+     */
+    public Deck importDeck(String filepath) throws DuplicateDeckException, DeckImportException {
+        Deck targetDeck = portManager.importDeck(filepath);
+        if (decks.contains(targetDeck)) {
+            throw new DuplicateDeckException();
+        }
+        return targetDeck;
+    }
+
+    /**
+     * Attempts to export {@deck}
+     * Returns the exported file location as a string.
+     */
+    public String exportDeck(Deck deck) {
+        try {
+            return portManager.exportDeck(deck);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     //// util methods

@@ -170,6 +170,59 @@ image::deck_ug_diagrams/open_deck.png[width="800"]
 
 image::deck_ug_diagrams/study_deck.png[width="800"]
 
+==== Import a deck: `import`
+
+To import a deck from the `json` file at the specified FILEPATH. +
+Format: `import FILEPATH`
+
+****
+* You must include the filename of the target file in `FILEPATH`.
+* This operation is only available in Decks View.
+* The default base directory is the directory that the TopDeck.jar file is in.
+****
+
+**Example**:
+Say you want to import a deck called "Economics" and you have the Economics.json file in the
+same folder as TopDeck.jar.
+
+image::deck_ug_diagrams/import_deck_1.png[width="350"]
+
+* Simply  enter `import Economics` and TopDeck will import the deck "Economics".
+
+Before:
+
+image::deck_ug_diagrams/import_deck_2.png[width="800"]
+
+After:
+
+image::deck_ug_diagrams/import_deck_3.png[width="800"]
+
+==== Export a deck: `export`
+
+To create a `json` file of the deck at INDEX. +
+Format: `export INDEX`
+
+****
+* INDEX must be a positive integer from 1 onwards and is based on the currently displayed list.
+* This operation is only available in Decks View.
+* The json file will be created in the same directory as the TopDeck.jar file.
+****
+
+Example:
+
+* 1. First, display all the decks in TopDeck using `list`. +
+
+image::deck_ug_diagrams/list_deck_2.png[width="800"]
+
+* 2. Say you want to export "History" (the 3rd deck), simply enter the command: `export 3`. You should see the
+following message:
+
+image::deck_ug_diagrams/export_deck_1.png[width="800"]
+
+"Economics.json" will be created in the same directory as the TopDeck.jar file. +
+
+image::deck_ug_diagrams/export_deck_2.png[width="350"]
+
 == Contributions to Developer Guide
 
 === Deck operations

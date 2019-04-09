@@ -1,0 +1,16 @@
+{
+  "name" : "SAMPLE EXPORT DECK",
+  "cards" : [ {
+    "question" : "1 + 1",
+    "answer" : "2",
+    "totalRating" : 0,
+    "numberOfAttempts" : 0,
+    "tags" : [ ]
+  }, {
+    "question" : "What is the nnswer to the Ultimate Question of Life, the Universe, and Everything?",
+    "answer" : "42",
+    "totalRating" : 0,
+    "numberOfAttempts" : 0,
+    "tags" : [ "DeepThought" ]
+  } ]
+}

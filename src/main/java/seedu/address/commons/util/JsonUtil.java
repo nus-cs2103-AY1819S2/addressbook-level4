@@ -2,6 +2,7 @@ package seedu.address.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -145,4 +146,47 @@ public class JsonUtil {
         }
     }
 
+    /**
+     * Returns the json data in the file as an object of the specified type.
+     *
+     * @param file Points to a valid json file containing data that match the {@code classToConvert}.
+     * Cannot be null.
+     * @param classToConvert The class corresponding to the json data.
+     * Cannot be null.
+     * @throws FileNotFoundException Thrown if the file is missing.
+     * @throws DataConversionException Thrown if the file is empty or does not have the correct format.
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> Optional <T> getDataFromFile(Path file, Class<T> classToConvert) throws FileNotFoundException,
+            DataConversionException {
+
+        requireNonNull(file);
+        requireNonNull(classToConvert);
+
+        if (!FileUtil.isFileExists(file)) {
+            throw new FileNotFoundException("File not found : " + file.toAbsolutePath());
+        }
+
+        return readJsonFile(file, classToConvert);
+    }
+
+    /**
+     * Saves the data in the file in json format.
+     *
+     * @param file Points to a valid json file containing data that match the {@code classToConvert}.
+     * Cannot be null.
+     * @throws FileNotFoundException Thrown if the file is missing.
+     * @throws IOException Thrown if there is an error during converting the data
+     * into json and writing to the file.
+     */
+    public static <T> void saveDataToFile(Path file, T data) throws FileNotFoundException, IOException {
+
+        requireNonNull(file);
+        requireNonNull(data);
+
+        if (!Files.exists(file)) {
+            throw new FileNotFoundException("File not found : " + file.toAbsolutePath());
+        }
+        saveJsonFile(data, file);
+    }
 }

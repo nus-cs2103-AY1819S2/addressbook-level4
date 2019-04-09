@@ -9,6 +9,8 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.exceptions.DeckImportException;
+import seedu.address.model.deck.exceptions.DuplicateDeckException;
 
 /**
  * The API of the Model component.
@@ -130,6 +132,9 @@ public interface Model {
      */
     void deleteDeck(Deck target);
 
+    /**
+     * Returns true if a deck with the same identity as {@code deck} exists in TopDeck.
+     */
     boolean hasDeck(Deck deck);
 
     void updateDeck(Deck target, Deck editedDeck);
@@ -168,4 +173,9 @@ public interface Model {
      * Returns the current ViewState.
      */
     ViewState getViewState();
+
+    Deck importDeck (String filepath) throws DeckImportException, DuplicateDeckException;
+
+    String exportDeck(Deck deck);
+
 }

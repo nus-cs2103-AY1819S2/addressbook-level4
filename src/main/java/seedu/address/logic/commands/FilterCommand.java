@@ -87,7 +87,7 @@ public class FilterCommand extends Command {
         + PREFIX_JOBSAPPLY + "Software Engineer ";
 
 
-    private final Predicate<Person> predicate;
+    private final PredicateManager predicate;
     private final PredicatePersonDescriptor predicatePersonDescriptor;
     private final JobListName listName;
     private final String commandName;
@@ -103,7 +103,7 @@ public class FilterCommand extends Command {
         requireNonNull(listName);
         requireNonNull(predicatePersonDescriptor);
         this.predicatePersonDescriptor = new PredicatePersonDescriptor(predicatePersonDescriptor);
-        this.predicate = (Predicate<Person>) this.predicatePersonDescriptor.toPredicate();
+        this.predicate = (PredicateManager) this.predicatePersonDescriptor.toPredicate();
         this.listName = listName;
         this.commandName = commandName;
     }
@@ -114,15 +114,19 @@ public class FilterCommand extends Command {
         switch (listName) {
         case APPLICANT:
             model.updateJobAllApplicantsFilteredPersonList(predicate);
+            model.addPredicateJobAllApplicants(predicate);
             break;
         case KIV:
             model.updateJobKivFilteredPersonList(predicate);
+            model.addPredicateJobKiv(predicate);
             break;
         case INTERVIEW:
             model.updateJobInterviewFilteredPersonList(predicate);
+            model.addPredicateJobInterview(predicate);
             break;
         case SHORTLIST:
             model.updateJobShortlistFilteredPersonList(predicate);
+            model.addPredicateJobShortlist(predicate);
             break;
         default:
             model.updateBaseFilteredPersonList(predicate);

@@ -86,10 +86,10 @@ public class Job {
     }
 
     /**
-     * Returns four PredicateLists
+     * Returns one of the four UniqurePredicateLists
      */
-    public ArrayList<UniquePredicateList> getPredicateList() {
-        return predicateList;
+    public UniquePredicateList getPredicateList(Integer listNumber) {
+        return predicateList.get(listNumber);
     }
 
     /**

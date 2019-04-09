@@ -5,9 +5,9 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RESTAURANT;
 import static seedu.address.testutil.TypicalRestaurants.getTypicalFoodDiary;
 
-import org.junit.Test;
-
 import java.util.List;
+
+import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.FoodDiary;
@@ -19,7 +19,6 @@ import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.review.Review;
 import seedu.address.testutil.RestaurantBuilder;
 import seedu.address.testutil.ReviewBuilder;
-
 
 public class AddDefaultReviewCommandTest {
 

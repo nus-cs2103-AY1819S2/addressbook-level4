@@ -24,6 +24,7 @@ import seedu.finance.commons.core.LogsCenter;
 import seedu.finance.logic.commands.SummaryCommand.SummaryPeriod;
 import seedu.finance.model.budget.Budget;
 import seedu.finance.model.budget.CategoryBudget;
+import seedu.finance.model.budget.TotalBudget;
 import seedu.finance.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.finance.model.exceptions.SpendingInCategoryBudgetExceededException;
 import seedu.finance.model.record.Date;
@@ -160,7 +161,7 @@ public class ModelManager implements Model {
     }
 
     public HashSet<CategoryBudget> getCatBudget() {
-        return this.versionedFinanceTracker.getBudget().getCategoryBudgets();
+        return this.versionedFinanceTracker.getCategoryBudget();
     }
 
     @Override
@@ -238,7 +239,7 @@ public class ModelManager implements Model {
      * Returns the amount value of {@code budget} in an ObjectProperty wrapper
      */
     @Override
-    public Budget getBudget() {
+    public TotalBudget getBudget() {
         return versionedFinanceTracker.getBudget();
     }
 

@@ -24,14 +24,24 @@ public class TotalBudget extends Budget {
         super();
         this.categoryBudgets = new HashSet<>();
     }
+
     public TotalBudget(Double budget) {
         super(budget);
+        this.categoryBudgets = new HashSet<>();
+    }
+
+    public TotalBudget(Double totalBudget, double currentBudget) {
+        super(totalBudget, currentBudget);
         this.categoryBudgets = new HashSet<>();
     }
 
     public void set(TotalBudget budget) {
         set(budget.getTotalBudget(), budget.getCurrentBudget());
         this.categoryBudgets = new HashSet<>(budget.getCategoryBudgets());
+    }
+
+    public void setCategoryBudgets(HashSet<CategoryBudget> categoryBudgets) {
+        this.categoryBudgets = categoryBudgets;
     }
 
     public HashSet<CategoryBudget> getCategoryBudgets() {

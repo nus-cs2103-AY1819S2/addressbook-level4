@@ -12,6 +12,7 @@ import seedu.finance.logic.commands.exceptions.CommandException;
 import seedu.finance.logic.parser.exceptions.ParseException;
 import seedu.finance.model.ReadOnlyFinanceTracker;
 import seedu.finance.model.budget.Budget;
+import seedu.finance.model.budget.TotalBudget;
 import seedu.finance.model.record.Record;
 
 /**
@@ -32,7 +33,7 @@ public interface Logic {
      *
      * @see seedu.finance.model.Model#getBudget()
      */
-    Budget getBudget();
+    TotalBudget getBudget();
 
     /**
      * Returns the FinanceTracker.

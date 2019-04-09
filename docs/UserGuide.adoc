@@ -516,7 +516,7 @@ You can change the theme of the application with pre-set colour themes specified
 [NOTE]
 ====
 * Valid themes include: `Dark`, `Light`, `Blue`, `Pink`
-* The theme name is case-insensitive (`BlUE`, `BLUE`, `blue` or `bLUEc` etc. all refer
+* The theme name is case-insensitive (`BlUE`, `BLUE`, `blue` or `bLUE` etc. all refer
 to `Blue`)
 * You can also change the theme of the application by choosing the theme under
 the menu bar.

@@ -1,6 +1,5 @@
 package systemtests;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -8,8 +7,6 @@ import static seedu.finance.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.finance.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.finance.ui.testutil.GuiTestAssert.assertListMatching;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -37,7 +34,6 @@ import seedu.finance.logic.commands.SelectCommand;
 import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.Model;
 import seedu.finance.testutil.TypicalRecords;
-import seedu.finance.ui.BrowserPanel;
 import seedu.finance.ui.CommandBox;
 
 
@@ -69,7 +65,7 @@ public abstract class FinanceTrackerSystemTest {
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
-        waitUntilBrowserLoaded(getBrowserPanel());
+        //waitUntilBrowserLoaded(getBrowserPanel());
         assertApplicationStartingStateIsCorrect();
     }
 
@@ -138,7 +134,7 @@ public abstract class FinanceTrackerSystemTest {
 
         mainWindowHandle.getCommandBox().run(command);
 
-        waitUntilBrowserLoaded(getBrowserPanel());
+        //waitUntilBrowserLoaded(getBrowserPanel());
     }
 
 
@@ -215,7 +211,6 @@ public abstract class FinanceTrackerSystemTest {
      * Asserts that the previously selected card is now deselected and the browser's url is now displaying the
      * default page.
      *
-     * @see BrowserPanelHandle#isUrlChanged()
      */
 
     protected void assertSelectedCardDeselected() {
@@ -235,12 +230,7 @@ public abstract class FinanceTrackerSystemTest {
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getRecordListPanel().navigateToCard(getRecordListPanel().getSelectedCardIndex());
         String selectedCardName = getRecordListPanel().getHandleToSelectedCard().getName();
-        URL expectedUrl;
-        try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
-        } catch (MalformedURLException mue) {
-            throw new AssertionError("URL expected to be valid.", mue);
-        }
+
         //assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getRecordListPanel().getSelectedCardIndex());
@@ -250,7 +240,6 @@ public abstract class FinanceTrackerSystemTest {
     /**
      * Asserts that the browser's url and the selected card in the record list panel remain unchanged.
      *
-     * @see BrowserPanelHandle#isUrlChanged()
      * @see RecordListPanelHandle#isSelectedRecordCardChanged()
      */
 

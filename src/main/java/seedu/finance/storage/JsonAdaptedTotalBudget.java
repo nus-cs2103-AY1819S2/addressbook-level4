@@ -5,34 +5,52 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.finance.commons.exceptions.IllegalValueException;
 import seedu.finance.model.budget.Budget;
+import seedu.finance.model.budget.CategoryBudget;
+import seedu.finance.model.budget.TotalBudget;
 import seedu.finance.model.record.Amount;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
- * Jackson-friendly version of {@link Budget}.
+ * Jackson-friendly version of {@link TotalBudget}.
  */
-public class JsonAdaptedBudget {
+public class JsonAdaptedTotalBudget {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Budget's %s field is missing!";
 
     private final String totalBudget;
 
     private final String currentBudget;
 
+    private final List<JsonAdaptedCategoryBudget> categoryBudgets = new ArrayList<>();
+
     /**
      * Constructs a {@code JsonAdaptedBudget} with the given record details.
      */
     @JsonCreator
-    public JsonAdaptedBudget(@JsonProperty("totalBudget") String totalBudget,
-                             @JsonProperty("currentBudget") String currentBudget) {
+    public JsonAdaptedTotalBudget(@JsonProperty("totalBudget") String totalBudget,
+                             @JsonProperty("currentBudget") String currentBudget,
+                             @JsonProperty("categoryBudgets") List<JsonAdaptedCategoryBudget> categoryBudgets) {
         this.totalBudget = totalBudget;
         this.currentBudget = currentBudget;
+        this.categoryBudgets.addAll(categoryBudgets);
     }
 
     /**
      * Converts a given {@code Budget} into this class for Jackson use.
      */
-    public JsonAdaptedBudget(Budget source) {
+    public JsonAdaptedTotalBudget(TotalBudget source) {
         currentBudget = Double.toString(source.getCurrentBudget());
         totalBudget = Double.toString(source.getTotalBudget());
+        this.categoryBudgets.addAll(
+                source.getCategoryBudgets()
+                .stream()
+                .map(JsonAdaptedCategoryBudget::new)
+                .collect(Collectors.toList())
+        );
     }
 
     /**
@@ -40,14 +58,21 @@ public class JsonAdaptedBudget {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted record.
      */
-    public Budget toModelType() throws IllegalValueException {
+    public TotalBudget toModelType() throws IllegalValueException {
         if (currentBudget == null || totalBudget == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
         }
         try {
             Double currBudget = Double.parseDouble(currentBudget);
             Double totBudget = Double.parseDouble(totalBudget);
-            return new Budget(totBudget, currBudget);
+            TotalBudget totalBudget = new TotalBudget(totBudget, currBudget);
+            Iterator<JsonAdaptedCategoryBudget> itr = categoryBudgets.listIterator();
+            HashSet<CategoryBudget> catBudgets = new HashSet<>();
+            while (itr.hasNext()) {
+                catBudgets.add(itr.next().toModelType());
+            }
+            totalBudget.setCategoryBudgets(catBudgets);
+            return totalBudget;
         } catch (NumberFormatException nfe) {
             throw new IllegalValueException(String.format(Amount.MESSAGE_CONSTRAINTS));
         }

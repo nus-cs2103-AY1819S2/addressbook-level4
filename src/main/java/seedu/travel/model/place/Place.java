@@ -15,6 +15,8 @@ import seedu.travel.model.tag.Tag;
  */
 public class Place {
 
+    public static final String EMPTY_PHOTO_PATH = "pBSgcMnA"; // used when users do not specify a photo filepath
+
     // Identity fields
     private final Name name;
     private final CountryCode countryCode;
@@ -46,7 +48,7 @@ public class Place {
     /**
      * Overloaded constructor for use with SampleDataUtil, does not require Photo field.
      */
-    public Place(Name name, CountryCode countryCode, DateVisited dateVisited, Rating rating, Description description,
+    public Place (Name name, CountryCode countryCode, DateVisited dateVisited, Rating rating, Description description,
                  Address address, Set<Tag> tags) {
         requireAllNonNull(name, countryCode, dateVisited, rating, description, address, tags);
         this.name = name;
@@ -55,7 +57,7 @@ public class Place {
         this.rating = rating;
         this.description = description;
         this.address = address;
-        this.photo = null;
+        this.photo = new Photo(EMPTY_PHOTO_PATH);
         this.tags.addAll(tags);
     }
 
@@ -83,7 +85,9 @@ public class Place {
         return address;
     }
 
-    public Photo getPhoto() { return photo; }
+    public Photo getPhoto() {
+        return photo;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}

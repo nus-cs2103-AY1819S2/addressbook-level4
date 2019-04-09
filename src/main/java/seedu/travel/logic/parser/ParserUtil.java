@@ -9,7 +9,13 @@ import java.util.Set;
 import seedu.travel.commons.core.index.Index;
 import seedu.travel.commons.util.StringUtil;
 import seedu.travel.logic.parser.exceptions.ParseException;
-import seedu.travel.model.place.*;
+import seedu.travel.model.place.Address;
+import seedu.travel.model.place.CountryCode;
+import seedu.travel.model.place.DateVisited;
+import seedu.travel.model.place.Description;
+import seedu.travel.model.place.Name;
+import seedu.travel.model.place.Photo;
+import seedu.travel.model.place.Rating;
 import seedu.travel.model.tag.Tag;
 
 /**
@@ -18,6 +24,7 @@ import seedu.travel.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String EMPTY_PHOTO_PATH = "pBSgcMnA";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -135,7 +142,12 @@ public class ParserUtil {
         requireNonNull(filepath);
         String trimmedFilepath = filepath.trim();
         if (!Photo.isValidPhotoFilepath(filepath)) {
-            throw new ParseException(Photo.MESSAGE_CONSTRAINTS);
+
+            if (filepath.equals(EMPTY_PHOTO_PATH)) {
+                return new Photo(EMPTY_PHOTO_PATH);
+            } else {
+                throw new ParseException(Photo.MESSAGE_CONSTRAINTS);
+            }
         }
         return new Photo(trimmedFilepath);
     }

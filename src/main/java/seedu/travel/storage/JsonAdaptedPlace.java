@@ -10,7 +10,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.travel.commons.exceptions.IllegalValueException;
-import seedu.travel.model.place.*;
+import seedu.travel.model.place.Address;
+import seedu.travel.model.place.CountryCode;
+import seedu.travel.model.place.DateVisited;
+import seedu.travel.model.place.Description;
+import seedu.travel.model.place.Name;
+import seedu.travel.model.place.Photo;
+import seedu.travel.model.place.Place;
+import seedu.travel.model.place.Rating;
 import seedu.travel.model.tag.Tag;
 
 /**
@@ -19,6 +26,8 @@ import seedu.travel.model.tag.Tag;
 class JsonAdaptedPlace {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Place's %s field is missing!";
+    public static final String EMPTY_PHOTO_PATH = "pBSgcMnA";
+
 
     private final String name;
     private final String countryCode;
@@ -64,8 +73,8 @@ class JsonAdaptedPlace {
         description = source.getDescription().value;
         address = source.getAddress().value;
 
-        if(source.getPhoto() == null) {
-            photo = null;
+        if (source.getPhoto().getFilePath().equals(EMPTY_PHOTO_PATH)) {
+            photo = EMPTY_PHOTO_PATH;
         } else {
             photo = source.getPhoto().getFilePath();
         }
@@ -143,10 +152,18 @@ class JsonAdaptedPlace {
         if (photo == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Photo.class.getSimpleName()));
         }
-        if (!Photo.isValidPhotoFilepath(photo)) {
-            throw new IllegalValueException(Photo.MESSAGE_CONSTRAINTS);
+
+        final Photo modelPhoto;
+
+        if (photo.equals(EMPTY_PHOTO_PATH)) {
+            modelPhoto = new Photo(EMPTY_PHOTO_PATH);
+        } else {
+            if (!Photo.isValidPhotoFilepath(photo)) {
+                throw new IllegalValueException(Photo.MESSAGE_CONSTRAINTS);
+            } else {
+                modelPhoto = new Photo(photo);
+            }
         }
-        final Photo modelPhoto = new Photo(photo);
 
         final Set<Tag> modelTags = new HashSet<>(placeTags);
         return new Place(modelName, modelCountryCode, modelDateVisited, modelPhone, modelDescription, modelAddress,

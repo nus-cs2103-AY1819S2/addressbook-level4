@@ -1,14 +1,13 @@
 package seedu.travel.model.place;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
+import static java.util.Objects.requireNonNull;
+import static seedu.travel.commons.util.AppUtil.checkArgument;
+
+import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Locale;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.travel.commons.util.AppUtil.checkArgument;
+import javax.imageio.ImageIO;
 
 /**
  * Represents a Place's country code in TravelBuddy.
@@ -16,9 +15,10 @@ import static seedu.travel.commons.util.AppUtil.checkArgument;
  */
 public class Photo {
 
-    public static final String MESSAGE_CONSTRAINTS = "File path must be an absolute file path, and point to a photo." +
-            "Ensure that folder names and filenames are without spaces, eg. " +
-            " C:\\Users\\<your-username>\\Pictures\\your-travel-photo.jpg";
+    public static final String MESSAGE_CONSTRAINTS = "File path must be an absolute file path, and point to a photo."
+            + "Ensure that folder names and filenames are without spaces, eg. "
+            + " C:\\Users\\<your-username>\\Pictures\\your-travel-photo.jpg";
+    public static final String EMPTY_PHOTO_PATH = "pBSgcMnA";
     private String filepath;
 
     /**
@@ -28,8 +28,13 @@ public class Photo {
      */
     public Photo(String photoFilepath) {
         requireNonNull(photoFilepath);
-        checkArgument(isValidPhotoFilepath(photoFilepath), MESSAGE_CONSTRAINTS);
-        this.filepath = photoFilepath;
+
+        if (photoFilepath.equals(EMPTY_PHOTO_PATH)) {
+            this.filepath = photoFilepath;
+        } else {
+            checkArgument(isValidPhotoFilepath(photoFilepath), MESSAGE_CONSTRAINTS);
+            this.filepath = photoFilepath;
+        }
     }
 
     /**
@@ -53,7 +58,7 @@ public class Photo {
             FileInputStream testStream = new FileInputStream(testPhoto);
 
             if (image == null) {
-                System.out.println("The file "+testPhoto+" could not be opened, it is not an image");
+                System.out.println("The file " + testPhoto + " could not be opened, it is not an image");
                 return false;
             }
 

@@ -1,7 +1,14 @@
 package seedu.travel.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.travel.logic.parser.CliSyntax.*;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_COUNTRY_CODE;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_DATE_VISITED;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_PHOTO;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_RATING;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.travel.model.Model.PREDICATE_SHOW_ALL_PLACES;
 
 import java.util.Collections;
@@ -16,7 +23,14 @@ import seedu.travel.commons.util.CollectionUtil;
 import seedu.travel.logic.CommandHistory;
 import seedu.travel.logic.commands.exceptions.CommandException;
 import seedu.travel.model.Model;
-import seedu.travel.model.place.*;
+import seedu.travel.model.place.Address;
+import seedu.travel.model.place.CountryCode;
+import seedu.travel.model.place.DateVisited;
+import seedu.travel.model.place.Description;
+import seedu.travel.model.place.Name;
+import seedu.travel.model.place.Photo;
+import seedu.travel.model.place.Place;
+import seedu.travel.model.place.Rating;
 import seedu.travel.model.tag.Tag;
 
 /**
@@ -158,7 +172,8 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, countryCode, dateVisited, rating, description, address, photo, tags);
+            return CollectionUtil.isAnyNonNull(name, countryCode, dateVisited, rating, description, address, photo,
+                    tags);
         }
 
         public void setName(Name name) {

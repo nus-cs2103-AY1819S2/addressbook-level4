@@ -6,8 +6,8 @@ import static seedu.travel.logic.parser.CliSyntax.PREFIX_COUNTRY_CODE;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_DATE_VISITED;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.travel.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_PHOTO;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -15,7 +15,14 @@ import java.util.stream.Stream;
 
 import seedu.travel.logic.commands.AddCommand;
 import seedu.travel.logic.parser.exceptions.ParseException;
-import seedu.travel.model.place.*;
+import seedu.travel.model.place.Address;
+import seedu.travel.model.place.CountryCode;
+import seedu.travel.model.place.DateVisited;
+import seedu.travel.model.place.Description;
+import seedu.travel.model.place.Name;
+import seedu.travel.model.place.Photo;
+import seedu.travel.model.place.Place;
+import seedu.travel.model.place.Rating;
 import seedu.travel.model.tag.Tag;
 
 /**
@@ -48,7 +55,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Place place;
-        if(argMultimap.getValue(PREFIX_PHOTO).isPresent()) {
+        if (argMultimap.getValue(PREFIX_PHOTO).isPresent()) {
             Photo photo = ParserUtil.parsePhoto(argMultimap.getValue(PREFIX_PHOTO).get());
             place = new Place(name, countryCode, dateVisited, rating, description, address, photo, tagList);
         } else {

@@ -11,7 +11,13 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 
 import seedu.travel.commons.exceptions.IllegalValueException;
-import seedu.travel.model.place.*;
+import seedu.travel.model.place.Address;
+import seedu.travel.model.place.CountryCode;
+import seedu.travel.model.place.DateVisited;
+import seedu.travel.model.place.Description;
+import seedu.travel.model.place.Name;
+import seedu.travel.model.place.Photo;
+import seedu.travel.model.place.Rating;
 import seedu.travel.testutil.Assert;
 
 public class JsonAdaptedPlaceTest {
@@ -21,7 +27,6 @@ public class JsonAdaptedPlaceTest {
     private static final String INVALID_RATING = "65";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_DESCRIPTION = " Invalid description"; // must begin with alphabet
-    private static final String INVALID_PHOTO = " ";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = BENSON.getName().toString();
@@ -30,7 +35,8 @@ public class JsonAdaptedPlaceTest {
     private static final String VALID_RATING = BENSON.getRating().toString();
     private static final String VALID_DESCRIPTION = BENSON.getDescription().toString();
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
-    private static final String VALID_PHOTO = "C:\\Users\\Shaun\\Pictures\\Wallpapers\\Waterfalls_in_Nature_of_Luxembourg_4k.jpg";
+    private static final String VALID_PHOTO = "C:\\Users\\Shaun\\Pictures\\Wallpapers\\"
+            + "Waterfalls_in_Nature_of_Luxembourg_4k.jpg";
     private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
@@ -145,7 +151,7 @@ public class JsonAdaptedPlaceTest {
     public void toModelType_nullPhoto_throwsIllegalValueException() {
         JsonAdaptedPlace place = new JsonAdaptedPlace(VALID_NAME, VALID_COUNTRY_CODE, VALID_DATE_VISITED,
                 VALID_RATING, VALID_DESCRIPTION, VALID_ADDRESS, null, VALID_TAGS);
-        String expectedMessage = CountryCode.MESSAGE_CONSTRAINTS;
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Photo.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, place::toModelType);
     }
 

@@ -2,7 +2,14 @@ package seedu.travel.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.travel.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.travel.logic.parser.CliSyntax.*;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_COUNTRY_CODE;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_DATE_VISITED;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_PHOTO;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_RATING;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
 import java.util.Collections;

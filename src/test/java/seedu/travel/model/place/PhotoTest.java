@@ -1,9 +1,10 @@
 package seedu.travel.model.place;
 
-import org.junit.Test;
-import seedu.travel.testutil.Assert;
-
 import static org.junit.Assert.assertFalse;
+
+import org.junit.Test;
+
+import seedu.travel.testutil.Assert;
 
 public class PhotoTest {
 
@@ -26,8 +27,6 @@ public class PhotoTest {
         // invalid filepath
         assertFalse(Photo.isValidPhotoFilepath("")); // empty string
         assertFalse(Photo.isValidPhotoFilepath(" ")); // spaces only
-        assertFalse(Photo.isValidPhotoFilepath("  ")); // spaces only
-        assertFalse(Photo.isValidPhotoFilepath("C:\\Users\\Shaun\\Documents\\SourceTree Repos" +
-                "\\addressbook-level4\\docs\\images\\TravelBuddy-icon.png")); // filepath with whitespace
+        assertFalse(Photo.isValidPhotoFilepath("*)$W#")); // not a filepath
     }
 }

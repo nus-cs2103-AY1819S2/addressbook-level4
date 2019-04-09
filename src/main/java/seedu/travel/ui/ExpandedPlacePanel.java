@@ -1,24 +1,24 @@
 package seedu.travel.ui;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Region;
 import seedu.travel.MainApp;
 import seedu.travel.model.place.Photo;
 import seedu.travel.model.place.Place;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 /**
  * An UI component that displays information of a {@code Place}.
  */
 public class ExpandedPlacePanel extends UiPart<Region> {
 
+    public static final String EMPTY_PHOTO_PATH = "pBSgcMnA";
     private static final String FXML = "ExpandedPlacePanel.fxml";
     private static final String[] TAG_COLOR_STYLES =
         { "teal", "red", "yellow", "blue", "orange", "brown", "green", "salmon", "black", "grey" };
@@ -82,7 +82,7 @@ public class ExpandedPlacePanel extends UiPart<Region> {
         Image placeImage;
 
         try {
-            if (photo == null) {
+            if (photo.equals(new Photo(EMPTY_PHOTO_PATH))) {
                 placeImage = new Image(MainApp.class.getResourceAsStream("/images/test-img.jpg"));
             } else {
                 FileInputStream inputStream = new FileInputStream(photo.getFilePath());

@@ -4,14 +4,14 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.ui.MainWindow;
 
-public class AddCommand extends Command {
-    public static final String COMMAND_WORD = "add";
+public class EditCommand extends Command {
+    public static final String COMMAND_WORD = "edit";
     private static final String MAIN_USAGE = "Did you mean:\n"
-        + "Adding a patient: patientadd or padd\n"
-        + "Adding a task: taskadd or tadd\n";
+        + "Editing a patient: patientedit or pedit\n"
+        + "Editing a task: taskedit or tedit\n";
     private static final String GOTO_USAGE = "Did you mean:\n"
-        + "Adding a record: recordadd or radd\n"
-        + "Adding a task: taskadd or tadd\n";
+        + "Editing a record: recordedit or redit\n"
+        + "Editing a task: taskedit or tedit\n";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {

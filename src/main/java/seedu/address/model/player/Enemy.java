@@ -171,6 +171,7 @@ public class Enemy extends Player {
         // public Battleship(Name name, int length, int life, Set<Tag> tags) {
         //should have no error, since it is the first ship placed, and all map sizes have a max of 1 aircraft carrier
         //AircraftCarrierBattleship x = new AircraftCarrierBattleship(currentBattleshipName);
+        this.getFleet().deployOneBattleship(currentBattleship, currentBattleshipHead, useOrientation);
         this.getMapGrid().putShip(currentBattleship, currentBattleshipHead, useOrientation);
         markAsOccupied(currentBattleshipHead, 5, useOrientation);
         logger.info(String.format("++++++++POPULATED aircraft carrier at " + currentBattleshipHead.toString()
@@ -195,6 +196,7 @@ public class Enemy extends Player {
                 BoundaryValueChecker boundaryValueChecker = new BoundaryValueChecker(this.getMapGrid(), useShip,
                         useCoord, useOrientation);
                 boundaryValueChecker.performChecks();
+                this.getFleet().deployOneBattleship(useShip, useCoord, useOrientation);
                 this.getMapGrid().putShip(useShip, useCoord, useOrientation);
                 preppedShips.remove(0);
                 markAsOccupied(useCoord, shipSize, useOrientation);

@@ -29,12 +29,32 @@ public class SearchCommandSystemTest extends FinanceTrackerSystemTest {
 
     @Test
     public void search() {
+        /* Case: search without a flag
+         * -> rejected
+         */
+        /* Case: find records with a incorrect flag*/
+
+        String command = SearchCommand.COMMAND_WORD + " " + DONUT.getName();
+        String expectedResultMessage = "Invalid command format! \n" + SearchCommand.NO_FLAG;
+        assertCommandFailure(command, expectedResultMessage);
+        assertSelectedCardUnchanged();
+
+        /* Case: search with 2 valid flag
+         * -> rejected
+         */
+        /* Case: find records with a incorrect flag*/
+
+        command = SearchCommand.COMMAND_WORD + " -cat -name " + DONUT.getName();
+        expectedResultMessage = "Invalid command format! \n" + SearchCommand.ONE_FLAG_ONLY;
+        assertCommandFailure(command, expectedResultMessage);
+        assertSelectedCardUnchanged();
+
 
         /* Case: find multiple records in finance tracker, command with leading spaces and trailing spaces
          * -> 2 records found
          */
 
-        String command = "   " + SearchCommand.COMMAND_WORD + " " + COMMAND_FLAG_NAME + " "
+        command = "   " + SearchCommand.COMMAND_WORD + " " + COMMAND_FLAG_NAME + " "
                 + KEYWORD_MATCHING_DONUT + "   ";
         Model expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, BANANA, DONUT); // Banana Donut and Chocolate Donut
@@ -102,7 +122,7 @@ public class SearchCommandSystemTest extends FinanceTrackerSystemTest {
         /* Case: undo previous find command -> rejected */
 
         command = UndoCommand.COMMAND_WORD;
-        String expectedResultMessage = UndoCommand.MESSAGE_FAILURE;
+        expectedResultMessage = UndoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
 

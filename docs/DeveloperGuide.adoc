@@ -239,17 +239,38 @@ This section describes some noteworthy details on how certain features are imple
 ==== Current Implementation
 The 'listUnvisited' feature accepts the user's current postal code and displays restaurants without reviews nearest to the user's postal code.
 
-This mechanism is facilitated by `PostalDataSet` which
-contains a `HashMap<Integer,PostalData>` of every postal code represented by an `Integer` mapped to a `PostalData` containing the x and y-coordinate of the given postal code.
+The implementation of this feature can be broken down into 3 main components.
 
-`PostalDataSet` is constructed by `JsonPostalDataStorage` which processes the `data.json` file into `PostalDataSet`.
-[WARNING]
-If `data.json` is in the incorrect format, `PostalDataSet` will be empty.
+1)Storage Component
 
-`PostalData` is exposed through the `Model` interface as `Model#checkPostalData(int postal)` which returns the `Optional<PostalData>` of a given postal code.
+2)Model Component
 
-`listUnvisitedCommand` contains a inner `SortDistance` class which implements the `Comparator` class. `SortDistance` contains the `PostalData` of the postal code provided by the user and
-a `HashMap<Integer, Double>` which maps the `Restaurant` postal code represented by the `Integer` to the distance from the user provided postal code represented as a `Double`.
+3)Logic Component
+
+These implementations and scope of these components will be discussed below.
+
+*[.underline]#1.Storage Component#*
+
+The storage component function is to serialise the JSON data file `PostalData.json`
+into `JsonSerializablePostalData` which contains a `List` of `JsonAdaptedPostalData` which contains the x and y-coordinates of every postal code in Singapore as of 13/03/2019.
+This is exposed through the `StorageManager#getPostalData()` class.
+[Note]
+In order to update the PostalData.json, you can run the script found at ....
+
+*[.underline]#2.Model Component#*
+
+The Model component function is to allow other components to get the PostalData of a specific postal code.
+This is done through the `PostalDataSet` which is obtained from the `StorageManager`. `PostalDataSet` contains a `HashMap` of `Integer` representing the postal code mapped to `PostalData`.
+This is exposed through the `Model#getPostalData(int postal)` which returns of a `Optional<PostalData>` of the postal code provided.
+
+*[.underline]#3.Logic Component#*
+The logic component consists of two key sub-components, the `Command` component and the `Comparator` component.
+The `Command` component parses the user input into a postal code and creates a new `SortDistanceComparator<Restaurant>` class with the postal code inputted as the parameters.
+This `SortDistanceComparator` is then passed to the `Model` class to sort the `SortedList` which encapsulates the `FilteredList`.
+
+The `SortDistanceComparator<Restaurant>` class sorts the `Restaurant` based on the distance to the user inputted postal code.
+It does this by first querying the `PostalData` of the postal code of the `Restaurant` from `Model` then calculating the distance from the user inputted postal code.
+The result is then stored within the `Comparator` class.
 [NOTE]
 If a `Restaurant` postal code is invalid or not in `PostalDataSet`, the distance will be set to `Double.MAX_VALUE`.
 
@@ -257,9 +278,9 @@ If a `Restaurant` postal code is invalid or not in `PostalDataSet`, the distance
 
 
 
-Given below is an example usage scenario and how the `listUnvisited` and 'PostalDataSet' behaves at each step.
+Given below is an example usage scenario and how 3 components behaves at each step.
 
-Step 1. The user launches the application for the first time. The `PostalDataSet` will be initialised with data from `data.json` through the `Storage` interface.
+Step 1. The user launches the application for the first time. The `PostalDataSet` will be initialised with data from `PostalData.json` through the `Storage` component.
 
 Step 2. The user calls `listUnvisited po/267951`. A new `SortBy` will be created containing the `PostalData` of '267951'. This command will then call the method `Model#filterAndSort(Predicate PREDICATE_SHOW_UNVISITED_RESTAURANTS, Comparator sortBy).`
 [NOTE]
@@ -455,7 +476,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 === Restaurant Categorisation
 
 Restaurants can be classified using categories. Each restaurant can have each of the optional categories defined.
-Currently, 3 different types of categories are implemented in v1.3: `Cuisine`, `Occasion` and `Price Range`.
+Currently, 3 different types of categories are implemented in v1.4: `Cuisine`, `Occasion` and `Price Range`.
 
 ==== Current Implementation
 
@@ -467,37 +488,40 @@ Restaurant Categorisation is mainly implemented using the following commands:
 All supported categories are defined in the `seedu.address.model.restaurant.categories` package, along with the `Categories`
 class that encapsulates all categories into a `Categories` object to be used in the `Restaurant` class.
 
-The following activity diagram shows the chain of events when setting categories of a restaurant with the setCategories command:
+_Figure 1_ below shows the chain of events when setting categories of a restaurant with the setCategories command:
 
-image::SetCategoriesActivityDiagram.png[width="650"]
+image::SetCategoriesActivityDiagram.png[width="800"]
+_Figure 1: setCategories Activity Diagram_
 
-The feature is evolved as follows:
+The following elaborates in detail on how the setCategories mechanism behaves at each step:
 
-1. Categorisation only by Cuisine
-* Add Cuisine class
-* Implement SetCuisine command that extends Command
-* Implement parser for SetCuisine command
-* Support filtering restaurants by cuisine
+Step 1: User starts keying in the command into the command box. Once prefixes for either `Cuisine`, `Occasion` or `Price Range`
+is detected, suggestions for that Category type is retrieved by `CategoriesAutoCompleteTextField` and populated in the appearing
+context menu.
 
-2. Categorisation by Occasion
-* Add new Categories class to encapsulate different category types
-* Add Occasion class. Model `Occasion` and `Cuisine` by composition inside `Categories`.
-* Change SetCuisine command to SetCategories command that extends Command
-* Add support for Occasion in filter command
-* Add new merge method to ensure setting one category only does not override the other
+Step 2: User finishes typing and submits command for execution. The keyed in text is sent to the `Food Diary Parser` to be parsed
+into a `SetCategoriesCommand` object. The `SetCategoriesCommand` object contains the categories parsed from the text encapsulated
+in a `Categories` object as well as the target `Index`.
 
-3. Categorisation by Price Range
-* Add new PriceRange class, composed inside `Categories`
-* Add new match method to abstract out matching responsibilities of each Category type to `Categories` class
-* Add new setLabels method to allow UI to set Label of each category without being aware of its existence
+Step 3: The `SetCategoriesCommand` is executed by calling `SetCategoriesCommand#execute()`. The target restaurant is retrieved
+from `Model` via `Model#getFilteredRestaurantList()`. A new restaurant is set up and the target restaurants fields are copied over.
+The categories of the target restaurant is merged by calling `Categories#merge()` and the result is passed to the new restaurant.
+The new restaurant is then updated into the Food Diary via `Model#commitFoodDiary()`.
 
-You can refer to the following sequence diagram to get a better understanding of how a typical valid setCategories command
+You can refer to _Figure 2_ below to get a better understanding of how a typical valid setCategories command
 executes internally.
 
-image::SetCategoriesSequenceDiagram.png[width="650"]
+image::SetCategoriesSequenceDiagram.png[width="1000"]
+_Figure 2: setCategories Sequence Diagram_
 
 ==== Design Considerations
+
+You can find out more about why certain areas of the feature is implemented a certain way here. Other possible
+alternatives are also considered and reasons as to why they were not chosen are also explained here.
+
 ===== Price Range Categorisation
+
+This section discusses the different ways price ranges could have been categorised.
 
 * Alternative 1: Use dollar signs to represent price (Current implementation)
 
@@ -513,7 +537,13 @@ image::SetCategoriesSequenceDiagram.png[width="650"]
 | Cons | Lacks proper structure, not very intuitive to the viewer if the user keys in something that does not make sense
 |=========
 
+Alternative 1 was chosen because it offers a better user experience to just type in a few characters instead of having the
+user think of what to type every time the user wants to set a price range. It also ensures that all restaurants'
+price ranges are visually consistent.
+
 ===== How categories are added and edited
+
+This section discusses how categories could have been handled.
 
 * Alternative 1: Use one single command to add and edit, only overriding the present categories keyed in (Current implementation)
 
@@ -529,7 +559,13 @@ image::SetCategoriesSequenceDiagram.png[width="650"]
 | Cons | User needs to remember which restaurants do not have categories added yet, else add or edit commands might fail.
 |=====================
 
+Alternative 1 was chosen because there are not much categories a restaurant can have. Furthermore, if there ever arise a need
+for the user to tag the restaurants, they can just use the existing tag system. By having one command to set any category,
+users only need to remember one command, hence it is more intuitive for the user.
+
 ===== Filtering restaurants by categories
+
+This section discusses different ways filtering could have been implemented.
 
 * Alternative 1: Key in as many key words as possible, without specifying which keyword is for which category (Current implementation)
 
@@ -544,6 +580,10 @@ image::SetCategoriesSequenceDiagram.png[width="650"]
 | Pros | Users can find specific restaurants matching each category type
 | Cons | Troublesome for user to type the commands since they now need to indicate which category should match which keyword
 |=====================
+
+Alternative 1 was chosen because it gives users complete freedom to key in whatever keywords they want without worrying about
+which keyword should match which category. The application automatically searches through all the categories to match the keywords
+for the user, which is more user friendly.
 
 // end::categorisation[]
 
@@ -602,6 +642,7 @@ Visits website of `Restaurant` selected by user.
 The following sequence diagram shows how the visitWeb `index` works:
 
 image::VisitWebSequenceDiagram.png[width="800"]
+_Figure 1.1 Sequence diagram of visitWeb `INDEX` command_
 
 ==== visitWeb `weblink`
 Visits website entered by user.
@@ -613,15 +654,36 @@ Visits website entered by user.
 * This `weblink` will be passed to CommandResult which is passed to `MainWindow` in `UI` component.
 * `MainWindow` will then load the `weblink` through `BrowserPanel`.
 
-The following activity diagram and sequence diagram shows how the visitWeb `weblink` works:
+The following sequence diagram shows how the visitWeb `weblink` works:
 
-image::VisitWebUrlActivityDiagram.png[width="800"]
 image::VisitWebUrlSequenceDiagram.png[width="800"]
+_Figure 2.2 Sequence diagram of visitWeb `weblink` command_
+
+
+To illustrate the level of checks done in visiting web further, the command is broken down into the following steps.
+
+Step 1. FoodLover enters visitWeb `weblink` command.
+
+Step 2. FoodDiary checks if internet connection is present. If not, throw `NoInternetException` and show error message.
+
+Step 3. FoodDiary validates the weblink entered. If weblink does not exist, or it is not in the correct Url format, throw `ParseException` and show error message.
+
+Step 4. Display website on browser window.
+
+The following activity diagram shows the steps of visitWeb command:
+
+image::VisitWebUrlActivityDiagram.png[width="400"]
+_Figure 2.1 Activity diagram of visitWeb `weblink` command_
 
 ==== Enhancements
 * Before loading the website, the `weblink` will be validated by checking it's HTTP response code.
 * If response code is above 400, it suggests that the `weblink` is not found and that there is an error requesting the website if response code is above 500
-* If there is no internet connection, throws an `NoInternetException` that prints an error message to inform user that there is no internet connection.
+* Also, a `NoInternetException` is thrown if internet is absent. This is done by pinging to a Google as a reliable web server. If application fails to get a response,
+we can say that there is high chance that internet connection is poor and hence `NoInternetException` is thrown.
+
+==== Design considerations
+* To reduce coupling of `Weblink` to `AddCommandParser`, `EditCommandParsers` in `Logic`, and also `BrowserPanel` in `UI` component, a `WebUtil` class is implemented under Util of Commons component.
+This `WebUtil` comprises of functions such as prepending https to weblinks without it and also validates the weblink.
 // end::visitweb[]
 
 // tag::dataencryption[]

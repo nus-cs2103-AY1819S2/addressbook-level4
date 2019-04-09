@@ -68,8 +68,8 @@ public class VisitWebCommand extends Command {
                 return new CommandResult(e.getMessage());
             }
 
-            model.setSelectedRestaurant(filteredRestaurantList.get(targetIndex.getZeroBased()));
-            return new CommandResult(String.format(MESSAGE_VISIT_RESTAURANT_SUCCESS, targetIndex.getOneBased()));
+            return new CommandResult(String.format(MESSAGE_VISIT_RESTAURANT_SUCCESS, targetIndex.getOneBased()),
+                    weblink);
         } else {
             // if params of visitWeb command is a Weblink, pass weblink to CommandResult
             return new CommandResult(String.format(MESSAGE_VISIT_WEBLINK, weblink.value), weblink);

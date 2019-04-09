@@ -12,6 +12,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.NoInternetException;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -76,6 +77,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        browserPanel = new BrowserPanel();
     }
 
     public Stage getPrimaryStage() {
@@ -120,9 +122,6 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedRestaurantProperty());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
         reviewListPanel = new ReviewListPanel(logic.selectedRestaurantProperty());
         reviewListPanelPlaceholder.getChildren().add(reviewListPanel.getRoot());
 
@@ -137,7 +136,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getFoodDiaryFilePath(),
-                logic.getFoodDiary(), logic.getName());
+                logic.getFoodDiary());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
@@ -182,6 +181,7 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+        browserPanel.hide();
     }
 
     public RestaurantListPanel getRestaurantListPanel() {
@@ -216,10 +216,22 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        } catch (NoInternetException e) {
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            throw new ParseException(e.getMessage());
         }
     }
 
-    private void handleShowWeblink(Weblink weblink) {
-        browserPanel.loadPage(weblink.value);
+    /**
+     * Open browser window to display website
+     * @param weblink contains the website to be loaded
+     */
+    private void handleShowWeblink(Weblink weblink) throws NoInternetException {
+        browserPanel.loadPage(weblink);
+        if (browserPanel.isShowing()) {
+            browserPanel.focus();
+        } else {
+            browserPanel.show();
+        }
     }
 }

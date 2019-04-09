@@ -39,6 +39,8 @@ public class RestaurantCard extends UiPart<Region> {
     @FXML
     private Label address;
     @FXML
+    private Label postal;
+    @FXML
     private Label email;
     @FXML
     private FlowPane tags;
@@ -64,6 +66,7 @@ public class RestaurantCard extends UiPart<Region> {
         name.setText(restaurant.getName().fullName);
         phone.setText(restaurant.getPhone().value);
         address.setText(restaurant.getAddress().value);
+        postal.setText("S" + restaurant.getPostal().value);
         email.setText(restaurant.getEmail().value);
         restaurant.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
 
@@ -73,6 +76,7 @@ public class RestaurantCard extends UiPart<Region> {
             categoriesPane.setManaged(false);
         }
 
+        // if restaurant weblink is not added, it should not appear on restaurant card
         if (restaurant.getWeblink().isDefault()) {
             weblink.setVisible(false);
             weblink.setManaged(false);
@@ -80,7 +84,13 @@ public class RestaurantCard extends UiPart<Region> {
             weblink.setText(restaurant.getWeblink().value);
         }
 
-        openingHours.setText(restaurant.getOpeningHours().value);
+        // if restaurant opening hours is not added, it should not appear on restaurant card
+        if (restaurant.getOpeningHours().isDefault()) {
+            openingHours.setVisible(false);
+            openingHours.setManaged(false);
+        } else {
+            openingHours.setText(restaurant.getOpeningHours().value);
+        }
 
         // Check if Restaurant has been visited before
         if (restaurant.getSummary().getTotalVisits() > 0) {

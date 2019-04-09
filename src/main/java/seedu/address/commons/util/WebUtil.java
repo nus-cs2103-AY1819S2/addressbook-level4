@@ -12,7 +12,6 @@ import seedu.address.model.restaurant.Weblink;
  */
 public class WebUtil {
     private static final String HTTPS_PREFIX = "https://";
-    private static final String FILE_PREFIX = "file:/";
     private static final String MESSAGE_NO_INTERNET = "Internet connection is not available."
             + " Please check your connections.";
     private static final String DUMMY_WEBLINK = "https://www.google.com.sg";
@@ -54,11 +53,6 @@ public class WebUtil {
     public static String prependHttps(String url) {
         // if Weblink is not added for user, return url
         if (url.equals(Weblink.NO_WEBLINK_STRING)) {
-            return url;
-        }
-
-        // if url is a local path, return url
-        if (url.startsWith(FILE_PREFIX)) {
             return url;
         }
 

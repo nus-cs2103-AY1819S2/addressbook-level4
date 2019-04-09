@@ -3,6 +3,10 @@ package seedu.address.model.restaurant.categories;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Represents a Restaurant's price range in the food diary.
  * Guarantees: immutable; is valid as declared in {@link #isValidPriceRange(String)}
@@ -15,6 +19,9 @@ public class PriceRange {
      * PriceRange should consist of '$' characters, up to a maximum of 5 characters
      */
     public static final String VALIDATION_REGEX = "(\\$){1,5}";
+
+    public static final List<String> SUGGESTED_PRICE_RANGES = new ArrayList<>(Arrays.asList("$", "$$", "$$$", "$$$$",
+            "$$$$$"));
 
     public final String value;
 

@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import javax.imageio.ImageIO;
+
 import org.apache.commons.io.FileUtils;
 
 import seedu.address.ResourceWalker;
@@ -59,7 +61,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                 for (File f : listOfFiles) {
                     String path = f.getAbsolutePath();
                     // File must be valid and not hidden and not ridiculously large.
-                    if (validFormat(path) && !isHidden(path) && !isLarge(path)) {
+                    if (validFormat(path) && !isHidden(path) && !isLarge(path) && validImage(path)) {
                         Image image = new Image(path);
                         if (!duplicateFile(image)) {
                             try {
@@ -76,26 +78,30 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                 break;
             case 0:
                 // File must be valid and not hidden and not ridiculously large.
-                if (validFormat(args) && !isHidden(args)) {
-                    if (!isLarge(args)) {
-                        Image image = new Image(args);
-                        if (!duplicateFile(image)) {
-                            try {
-                                File file = new File(args);
-                                FileUtils.copyFileToDirectory(file, directory);
-                                album.addToImageList(args);
-                                System.out.println("✋ IMPORTED: " + args);
-                            } catch (IOException e) {
-                                System.out.println(e.toString());
+                if (validImage(args)) {
+                    if (validFormat(args) && !isHidden(args)) {
+                        if (!isLarge(args)) {
+                            Image image = new Image(args);
+                            if (!duplicateFile(image)) {
+                                try {
+                                    File file = new File(args);
+                                    FileUtils.copyFileToDirectory(file, directory);
+                                    album.addToImageList(args);
+                                    System.out.println("✋ IMPORTED: " + args);
+                                } catch (IOException e) {
+                                    System.out.println(e.toString());
+                                }
+                            } else {
+                                throw new ParseException(Messages.MESSAGE_DUPLICATE_FILE);
                             }
                         } else {
-                            throw new ParseException(Messages.MESSAGE_DUPLICATE_FILE);
+                            throw new ParseException(Messages.MESSAGE_INVALID_SIZE);
                         }
                     } else {
-                        throw new ParseException(Messages.MESSAGE_INVALID_SIZE);
+                        throw new ParseException(Messages.MESSAGE_INVALID_FORMAT);
                     }
                 } else {
-                    throw new ParseException(Messages.MESSAGE_INVALID_FORMAT);
+                    throw new ParseException(Messages.MESSAGE_UNABLE_TO_READ_FILE);
                 }
                 break;
             default:
@@ -103,7 +109,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             }
 
         } catch (IOException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
         album.refreshAlbum();
         return new ImportCommand(isDirectory);
@@ -145,6 +151,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
      *
      * @param url Path to a file or directory.
      * @return True if path is valid, false otherwise.
+     * @throws IOException Throws exception if content cannot be probed.
      */
     public boolean validFormat(String url) throws IOException {
         String mime = Files.probeContentType(Paths.get(url));
@@ -174,6 +181,21 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         File file = new File(url);
         System.out.println(file.length());
         return file.length() > MAX_FILE_SIZE;
+    }
+
+    /**
+     * Checks is url given is a valid Image file.
+     *
+     * @param url Path to file or directory
+     * @return True if file is a valid image, false otherwise.
+     * @throws IOException Throws exception if file cannot be opened.
+     */
+    public boolean validImage(String url) throws IOException {
+        File file = new File(url);
+        if (ImageIO.read(file) == null) {
+            return false;
+        }
+        return true;
     }
 }
 

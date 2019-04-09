@@ -13,7 +13,7 @@ public class Config {
     public static final Path DEFAULT_CONFIG_FILE = Paths.get("config.json");
     public static final String ASSETS_FOLDER_TEMP_NAME = "fomofoto.assets";
     public static final String SAMPLE_FOLDER = "/imageTest/valid";
-    public static final int MAX_FILE_SIZE = 100000000;
+    public static final int MAX_FILE_SIZE = 10000000;
 
     // Config values customizable through config file
     private Level logLevel = Level.INFO;

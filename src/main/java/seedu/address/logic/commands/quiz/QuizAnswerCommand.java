@@ -41,6 +41,10 @@ public class QuizAnswerCommand extends QuizCommand {
 
         StringBuilder sb = new StringBuilder();
 
+        if (card.isWrongTwice()) {
+            sb.append(handleCurrentCardAnswer());
+        }
+
         if (card.getQuizMode() != QuizMode.PREVIEW) {
             sb.append(handleCurrentCardAnswer());
         }

@@ -26,13 +26,13 @@ public class RightParentPanel extends UiPart<Region> {
     @FXML
     private VBox parentPanelPlaceholder;
 
-    private DisplayListPanel displayListPanel;
+    private ChartListPanel chartListPanel;
 
     public RightParentPanel(ObservableList<Place> placeList, ObservableValue<Place> selectedPlace,
                             Consumer<Place> onSelectedPlaceChange, ReadOnlyProperty<Boolean> chartDisplayed) {
         super(FXML);
-        displayListPanel = new DisplayListPanel(placeList);
-        parentPanelPlaceholder.getChildren().setAll(displayListPanel.getRoot());
+        chartListPanel = new ChartListPanel(placeList);
+        parentPanelPlaceholder.getChildren().setAll(chartListPanel.getRoot());
 
         chartDisplayed.addListener((observable, oldValue, newValue) -> {
             // display the chart
@@ -41,9 +41,9 @@ public class RightParentPanel extends UiPart<Region> {
             if (newValue) {
                 // pass through
                 logger.info("SimpleBooleanValue Changed ");
-                displayListPanel = new DisplayListPanel(placeList);
+                chartListPanel = new ChartListPanel(placeList);
                 parentPanelPlaceholder.getChildren().removeAll();
-                parentPanelPlaceholder.getChildren().setAll(displayListPanel.getRoot());
+                parentPanelPlaceholder.getChildren().setAll(chartListPanel.getRoot());
             } else {
                 if (selectedPlace.getValue() == null) {
                     return;
@@ -56,9 +56,9 @@ public class RightParentPanel extends UiPart<Region> {
 
         selectedPlace.addListener((observable, oldValue, newValue) -> {
             if (selectedPlace.getValue() == null) {
-                displayListPanel = new DisplayListPanel(placeList);
+                chartListPanel = new ChartListPanel(placeList);
                 parentPanelPlaceholder.getChildren().removeAll();
-                parentPanelPlaceholder.getChildren().setAll(displayListPanel.getRoot());
+                parentPanelPlaceholder.getChildren().setAll(chartListPanel.getRoot());
                 return;
             }
 

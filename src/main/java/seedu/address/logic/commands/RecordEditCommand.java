@@ -33,9 +33,9 @@ public class RecordEditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DESC + "Patient is now fine and has been discharged. ";
 
-    public static final String MESSAGE_EDIT_RECORD_SUCCESS = "Record is successfully edited!";
     public static final String MESSAGE_NOT_EDITED = "Please provide the modified description or procedure.";
-    public static final String MESSAGE_DUPLICATE_RECORD = "This record already exists in the patient's record list.";
+    private static final String MESSAGE_EDIT_RECORD_SUCCESS = "Record is successfully edited!";
+    private static final String MESSAGE_DUPLICATE_RECORD = "This record already exists in the patient's record list.";
 
     private final Index index;
     private final EditRecordDescriptor editRecordDescriptor;

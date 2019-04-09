@@ -40,9 +40,9 @@ public class SpaceForCommand extends Command {
 
         for (Table table : model.getRestOrRant().getTables().getTableList()) {
             int numberOfSeats = Integer.parseInt(table.getTableStatus().getNumberOfSeats());
-            if (!table.isOccupied() && numberOfSeats >= size &&  numberOfSeats < smallestSize) {
+            if (!table.isOccupied() && numberOfSeats >= size && numberOfSeats < smallestSize) {
                 bestFitTable = table;
-                smallestSize = Integer.parseInt(table.getTableStatus().getNumberOfSeats());
+                smallestSize = numberOfSeats;
             }
             if (smallestSize == size) {
                 break;

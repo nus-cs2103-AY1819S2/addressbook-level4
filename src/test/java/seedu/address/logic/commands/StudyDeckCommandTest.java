@@ -132,7 +132,6 @@ public class StudyDeckCommandTest {
         expectedModelDeck.studyDeck(decksView.getFilteredList().get(index.getZeroBased()));
         assertCommandSuccess(studyDeckCommand, modelDeck, commandHistory, expectedCommandResult,
                              expectedModelDeck);
-
     }
 
     /**

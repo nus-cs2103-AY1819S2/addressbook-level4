@@ -92,10 +92,10 @@ Format **(MCQ)**: `add q/QUESTION a/ANSWER [i/INCORRECT_OPTION]... [h/HINT]`
 
 ====
 * A card can have at most 1 hint (including 0)
-* If multiple hints are included in the command, only the last hint will be added to the card
-* Hints are currently restricted to alphanumerical characters and spaces only
-* A card can have any number of incorrect options to denote an MCQ card
-* A card with 0 incorrect options will automatically be denoted as a Single answer card
+* If multiple hints are included in the command, only the last hint will be added to the card.
+* The question, answer, incorrect option, and hint fields can take any character.
+* A card can have any number of incorrect options to denote an MCQ card.
+* A card with 0 incorrect options will automatically be denoted as a Single answer card.
 ====
 
 Examples:

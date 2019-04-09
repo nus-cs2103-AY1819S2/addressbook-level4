@@ -190,6 +190,11 @@ public class AddPatientCommandTest {
         }
 
         @Override
+        public void setAppointment(Appointment appointment, Appointment appointment2) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Appointment> getFilteredAppointmentList() {
             throw new AssertionError("This method should not be called.");
         }

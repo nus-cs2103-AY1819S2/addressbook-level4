@@ -43,24 +43,24 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
     }
 
     /**
-     * Replaces the appointment {@code target} in the list with {@code editedAppointment}.
+     * Replaces the appointment {@code target} in the list with {@code changedAppointment}.
      * {@code target} must exist in the list.
-     * The appointment details of {@code editedAppointment} must not be
+     * The appointment details of {@code changedAppointment} must not be
      * the same as another existing appointment in the list.
      */
-    public void setAppointment(Appointment target, Appointment editedAppointment) {
-        requireAllNonNull(target, editedAppointment);
+    public void setAppointment(Appointment target, Appointment changedAppointment) {
+        requireAllNonNull(target, changedAppointment);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new AppointmentNotFoundException();
         }
 
-        if (!target.isSameAppointment(editedAppointment) && contains(editedAppointment)) {
+        if (!target.isSameAppointment(changedAppointment) && contains(changedAppointment)) {
             throw new DuplicateAppointmentException();
         }
 
-        internalList.set(index, editedAppointment);
+        internalList.set(index, changedAppointment);
     }
 
     public void setAppointments(UniqueAppointmentList replacement) {

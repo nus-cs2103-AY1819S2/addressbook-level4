@@ -435,6 +435,7 @@ by date and time, with the earliest on the left, as shown in the diagram below.
 .Select appointments on start date
 image::dg-freeapp/freeapp3.png[width="800"]
 
+{sp} +
 [NOTE]
 Since the appointments are already sorted, we do not need to search through the whole appointment list to
 find appointments present on the `start` date. We can simply go through the list from the beginning
@@ -454,9 +455,10 @@ In this `freeapp` context, these slots created represents a time period without 
 .Create slots to fill in empty time slots
 image::dg-freeapp/freeapp4.png[width="800"]
 
+{sp} +
 [NOTE]
 Slots will only be created for timings during office hours (09:00 to 18:00). This is to prevent any possible
-inconvenience caused if you accidentally decide on a timing outside of office hours.
+inconvenience caused if the user accidentally decides on a timing outside of office hours.
 (Even though there is an office hour constraint when you eventually create the appointment.)
 
 {sp} +
@@ -480,7 +482,7 @@ all existing appointments using `listapp` and then figuring out what timings are
 `end` dates directly, to make the command more user friendly. The user does not have to be bothered with the exact
 range of dates to search, and can simply specify a rough date and be provided with information for the neighbouring
 dates if the `FORMAT` given is `week` or `month`. Moreover, if the user wants to list all free slots for the whole
-month, they do not have to check which is the last date of the month in order to specify the end date.
+month, they do not have to check what the last date of the month is in order to specify the end date.
 
 ==== Alternatives Considered
 Listed below are the methods considered to implement the `freeapp` command.
@@ -515,13 +517,13 @@ We decided to implement the second method, as it is more straightforward. Here a
 to generate a list of free slots, either when QuickDocs is launched or when the user requests a search range outside
 of the pre-determined list.
 . The first implementation additionally requires more effort to maintain this permanent list whenever the
-list of appointments is modified, which might not be straightforward to implement.
+list of appointments is modified, which is not straightforward to implement. For example we need a method to merge
+two free slots when an appointment is deleted, and a method to split a free slot into two when an appointment is added.
 . The benefit of a permanent list of free slots is the quicker execution time of `freeapp`, which will typically
-only be called a small number of times (around 10) a day, when booking an appointment slot with a patient. The total
-time saved on executing `freeapp` is therefore negligible.
+only be called a small number of times (around 10) a day, when the user books an appointment slot with his/her patient.
+The total time saved on executing `freeapp` a small number of times is therefore negligible.
 . QuickDocs already has plenty of data to be stored, such as appointments, consultations and medicine records.
 The minimal benefits that a permanent list of free slots provide does not justify its additional storage cost.
-
 
 === Record & Statistics feature ===
 ==== Current implementation ====

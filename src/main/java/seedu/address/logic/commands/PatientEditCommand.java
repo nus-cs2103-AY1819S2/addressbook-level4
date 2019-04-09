@@ -292,7 +292,7 @@ public class PatientEditCommand extends Command {
             this.drugAllergy = drugAllergy;
         }
 
-        Optional<DrugAllergy> getDrugAllergy() {
+        public Optional<DrugAllergy> getDrugAllergy() {
             return Optional.ofNullable(drugAllergy);
         }
 
@@ -309,7 +309,7 @@ public class PatientEditCommand extends Command {
             this.nextOfKinName = nextOfKinName;
         }
 
-        Optional<Name> getNextOfKinName() {
+        public Optional<Name> getNextOfKinName() {
             return Optional.ofNullable(nextOfKinName);
         }
 
@@ -317,7 +317,7 @@ public class PatientEditCommand extends Command {
             this.nextOfKinRelation = nextOfKinRel;
         }
 
-        Optional<NextOfKinRelation> getNextOfKinRelation() {
+        public Optional<NextOfKinRelation> getNextOfKinRelation() {
             return Optional.ofNullable(nextOfKinRelation);
         }
 
@@ -325,7 +325,7 @@ public class PatientEditCommand extends Command {
             this.nextOfKinPhone = nextOfKinPhone;
         }
 
-        Optional<Phone> getNextOfKinPhone() {
+        public Optional<Phone> getNextOfKinPhone() {
             return Optional.ofNullable(nextOfKinPhone);
         }
 
@@ -333,7 +333,7 @@ public class PatientEditCommand extends Command {
             this.nextOfKinAddress = nextOfKinAddress;
         }
 
-        Optional<Address> getNextOfKinAddress() {
+        public Optional<Address> getNextOfKinAddress() {
             return Optional.ofNullable(nextOfKinAddress);
         }
 
@@ -341,7 +341,7 @@ public class PatientEditCommand extends Command {
             isSameAddr = true;
         }
 
-        boolean getSameAddr() {
+        public boolean getSameAddr() {
             return isSameAddr;
         }
 

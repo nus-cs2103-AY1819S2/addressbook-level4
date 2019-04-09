@@ -24,11 +24,11 @@ public abstract class SortCommand<T> extends Command {
 
     public static final String MESSAGE_SUCCESS = "List has been sorted by %1$s!";
 
+    protected final Comparator<T> attrCompare;
+    protected final String paraType;
     protected final boolean isReverse;
-    final Comparator<T> attrCompare;
-    final String paraType;
 
-    SortCommand(Comparator<T> chosenCompare, String paraType, boolean sortOrder) {
+    public SortCommand(Comparator<T> chosenCompare, String paraType, boolean sortOrder) {
         requireNonNull(chosenCompare);
         this.attrCompare = chosenCompare;
         this.paraType = paraType;

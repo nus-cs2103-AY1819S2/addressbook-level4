@@ -365,3 +365,25 @@
     -fx-wrap-text: true;
 }
 
+#monthlyStatisticsCardPane {
+    -fx-background-color: #3c6648;
+    -fx-border-color: #1d1d1d;
+    -fx-scale-shape: false;
+}
+
+#monthlyStatisticsCard .label {
+    -fx-text-fill: white;
+    -fx-wrap-text: true;
+}
+
+#yearlyStatisticsCardPane {
+    -fx-background-color: #3c6648;
+    -fx-border-color: #1d1d1d;
+    -fx-scale-shape: false;
+}
+
+#yearlyStatisticsCard .label {
+    -fx-text-fill: white;
+    -fx-wrap-text: true;
+}
+

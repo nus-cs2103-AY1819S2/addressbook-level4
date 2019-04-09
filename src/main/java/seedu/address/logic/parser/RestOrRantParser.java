@@ -15,6 +15,7 @@ import seedu.address.logic.commands.BillCommand;
 import seedu.address.logic.commands.ClearOrderCommand;
 import seedu.address.logic.commands.ClearTableCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DailyCommand;
 import seedu.address.logic.commands.DeleteFromMenuCommand;
 import seedu.address.logic.commands.DeleteFromOrderCommand;
 import seedu.address.logic.commands.EditPaxCommand;
@@ -23,12 +24,14 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.MenuModeCommand;
+import seedu.address.logic.commands.MonthlyCommand;
 import seedu.address.logic.commands.RestaurantModeCommand;
 import seedu.address.logic.commands.RevenueCommand;
 import seedu.address.logic.commands.ServeCommand;
 import seedu.address.logic.commands.SpaceForCommand;
 import seedu.address.logic.commands.StatisticsModeCommand;
 import seedu.address.logic.commands.TableModeCommand;
+import seedu.address.logic.commands.YearlyCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -171,6 +174,27 @@ public class RestOrRantParser {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }
             return new RevenueCommandParser().parse(arguments);
+
+        case DailyCommand.COMMAND_WORD: // Fallthrough
+        case DailyCommand.COMMAND_ALIAS:
+            if (mode != Mode.STATISTICS_MODE) {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            return new DailyCommand();
+
+        case MonthlyCommand.COMMAND_WORD: // Fallthrough
+        case MonthlyCommand.COMMAND_ALIAS:
+            if (mode != Mode.STATISTICS_MODE) {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            return new MonthlyCommand();
+
+        case YearlyCommand.COMMAND_WORD: // Fallthrough
+        case YearlyCommand.COMMAND_ALIAS:
+            if (mode != Mode.STATISTICS_MODE) {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            return new YearlyCommand();
 
         // General alias commands that do different functions in different modes
         case "add":

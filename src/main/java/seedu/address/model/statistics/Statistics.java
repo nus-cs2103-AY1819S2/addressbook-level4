@@ -13,7 +13,7 @@ import seedu.address.commons.util.InvalidationListenerManager;
  */
 public class Statistics implements ReadOnlyStatistics {
 
-    private final DailyRevenueList dailyRevenueList;
+    private final RevenueList revenueList;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -24,7 +24,7 @@ public class Statistics implements ReadOnlyStatistics {
      *   among constructors.
      */
     {
-        dailyRevenueList = new DailyRevenueList();
+        revenueList = new RevenueList();
     }
 
     /**
@@ -44,10 +44,10 @@ public class Statistics implements ReadOnlyStatistics {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the daily revenue list with {@code dailyRevenueList}.
+     * Replaces the contents of the revenue list with {@code revenueList}.
      */
-    public void setDailyRevenues(List<DailyRevenue> dailyRevenueList) {
-        this.dailyRevenueList.setDailyRevenueList(dailyRevenueList);
+    public void setRevenues(List<Revenue> revenueList) {
+        this.revenueList.setRevenueList(revenueList);
         indicateModified();
     }
 
@@ -57,48 +57,47 @@ public class Statistics implements ReadOnlyStatistics {
     public void resetData(ReadOnlyStatistics newData) {
         requireNonNull(newData);
 
-        setDailyRevenues(newData.getDailyRevenueList());
+        setRevenues(newData.getRevenueList());
     }
 
     //// order item-level operations
 
     /**
-     * Returns true if a daily revenue with the same identity as {@code daily Revenue} exists in the RestOrRant
+     * Returns true if a revenue with the same identity as {@code Revenue} exists in the RestOrRant
      * Statistics.
      */
-    public boolean hasDailyRevenue(DailyRevenue dailyRevenue) {
-        requireNonNull(dailyRevenue);
-        return dailyRevenueList.contains(dailyRevenue);
+    public boolean hasRevenue(Revenue revenue) {
+        requireNonNull(revenue);
+        return revenueList.contains(revenue);
     }
 
     /**
-     * Adds an daily revenue to the RestOrRant's statistics.
-     * The daily revenue must not already exist in the Statistics.
+     * Adds an revenue to the RestOrRant's statistics.
+     * The revenue must not already exist in the Statistics.
      */
-    public void addDailyRevenue(DailyRevenue dailyRevenue) {
-        dailyRevenueList.add(dailyRevenue);
+    public void addRevenue(Revenue revenue) {
+        revenueList.add(revenue);
         indicateModified();
     }
 
     /**
-     * Replaces the given daily revenue {@code target} in the list with {@code editedDailyRevenue}.
+     * Replaces the given revenue {@code target} in the list with {@code editedRevenue}.
      * {@code target} must exist in the RestOrRant's statistics.
-     * The daily revenue identity of {@code editedODailyRevenue} must not be the same as another existing daily revenue
-     * in Statistics.
+     * The revenue identity of {@code editedRevenue} must not be the same as another existing revenue in Statistics.
      */
-    public void setDailyRevenue(DailyRevenue target, DailyRevenue editedDailyRevenue) {
-        requireNonNull(editedDailyRevenue);
+    public void setRevenue(Revenue target, Revenue editedRevenue) {
+        requireNonNull(editedRevenue);
 
-        dailyRevenueList.setDailyRevenue(target, editedDailyRevenue);
+        revenueList.setRevenue(target, editedRevenue);
         indicateModified();
     }
 
     /**
-     * Removes {@code dailyRevenue} from this RestOrRant's {@code DailyRevenueList}.
+     * Removes {@code revenue} from this RestOrRant's {@code RevenueList}.
      * {@code dailyRevenue} must exist in the Statistics.
      */
-    public void removeDailyRevenue(DailyRevenue dailyRevenue) {
-        dailyRevenueList.remove(dailyRevenue);
+    public void removeRevenue(Revenue revenue) {
+        revenueList.remove(revenue);
         indicateModified();
     }
 
@@ -123,24 +122,23 @@ public class Statistics implements ReadOnlyStatistics {
 
     @Override
     public String toString() {
-        return dailyRevenueList.asUnmodifiableObservableList().size() + " daily revenue";
-        // TODO: refine later
+        return revenueList.asUnmodifiableObservableList().size() + " revenue";
     }
 
     @Override
-    public ObservableList<DailyRevenue> getDailyRevenueList() {
-        return dailyRevenueList.asUnmodifiableObservableList();
+    public ObservableList<Revenue> getRevenueList() {
+        return revenueList.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Statistics // instanceof handles nulls
-                && dailyRevenueList.equals(((Statistics) other).dailyRevenueList));
+                && revenueList.equals(((Statistics) other).revenueList));
     }
 
     @Override
     public int hashCode() {
-        return dailyRevenueList.hashCode();
+        return revenueList.hashCode();
     }
 }

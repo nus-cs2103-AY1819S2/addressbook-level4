@@ -22,10 +22,10 @@ import seedu.address.model.menu.Code;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
 
-import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.Day;
 import seedu.address.model.statistics.Month;
 
+import seedu.address.model.statistics.Revenue;
 import seedu.address.model.statistics.Year;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
@@ -34,34 +34,6 @@ import seedu.address.model.table.TableNumber;
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
-
-    //    public static final String VALID_NAME_AMY = "Amy Bee";
-    //    public static final String VALID_NAME_BOB = "Bob Choo";
-    //    public static final String VALID_PHONE_AMY = "11111111";
-    //    public static final String VALID_PHONE_BOB = "22222222";
-    //    public static final String VALID_EMAIL_AMY = "amy@example.com";
-    //    public static final String VALID_EMAIL_BOB = "bob@example.com";
-    //    public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
-    //    public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
-    //    public static final String VALID_TAG_HUSBAND = "husband";
-    //    public static final String VALID_TAG_FRIEND = "friend";
-    //
-    //    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    //    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    //    public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
-    //    public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
-    //    public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
-    //    public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
-    //    public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
-    //    public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
-    //    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    //    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
-    //
-    //    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    //    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
-    //    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    //    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addr
-    //    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String VALID_NAME_CHICKEN = "Chicken Wings";
     public static final String VALID_NAME_FRIES = "French Fries";
@@ -107,9 +79,9 @@ public class CommandTestUtil {
     public static final String INVALID_ORDER_CODE_DESC = " " + "31A" + " " + VALID_QUANTITY_2;
     public static final String INVALID_ORDER_QUANTITY_DESC = " " + VALID_CODE_CHICKEN + " " + "A";
     public static final String INVALID_ORDER_DESC = " " + VALID_QUANTITY_2 + " " + VALID_CODE_CHICKEN; // order swapped
-    public static final String INVALID_DAY_DESC = " " + PREFIX_DAY + "er";
-    public static final String INVALID_MONTH_DESC = " " + PREFIX_MONTH + "e&";
-    public static final String INVALID_YEAR_DESC = " " + PREFIX_YEAR + "er23";
+    public static final String INVALID_DAY_DESC = " " + PREFIX_DAY + "32";
+    public static final String INVALID_MONTH_DESC = " " + PREFIX_MONTH + "13";
+    public static final String INVALID_YEAR_DESC = " " + PREFIX_YEAR + "1998";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -148,27 +120,25 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the RestOrRant, filtered order item list, filtered menu item list, filtered dailyRevenue list, filtered
+     * - the RestOrRant, filtered order item list, filtered menu item list, filtered revenue list, filtered
      * - table list <br>
-     * - and selected order item, selected menu item, selected dailyRevenue, selected table <br>
+     * - and selected order item, selected menu item, selected revenue, selected table <br>
      * - in {@code actualModel} remain unchanged {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Mode mode, Command command, Model actualModel,
             CommandHistory actualCommandHistory, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        //        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonsList());
-        //        Person expectedSelectedPerson = actualModel.getSelectedPerson();
         RestOrRant expectedRestOrRant = new RestOrRant(actualModel.getRestOrRant());
         List<OrderItem> expectedFilteredOrderItemList = new ArrayList<>(actualModel.getFilteredOrderItemList());
         List<MenuItem> expectedFilteredMenuItemList = new ArrayList<>(actualModel.getFilteredMenuItemList());
-        List<DailyRevenue> expectedFilteredDailyRevenueList =
-                new ArrayList<>(actualModel.getFilteredDailyRevenueList());
+        List<Revenue> expectedFilteredRevenueList =
+                new ArrayList<>(actualModel.getFilteredRevenueList());
         List<Table> expectedFilteredTableList = new ArrayList<>(actualModel.getFilteredTableList());
         OrderItem expectedSelectedOrderItem = actualModel.getSelectedOrderItem();
         MenuItem expectedSelectedMenuItem = actualModel.getSelectedMenuItem();
         Table expectedSelectedTable = actualModel.getSelectedTable();
-        DailyRevenue expectedSelectedDailyRevenue = actualModel.getSelectedDailyRevenue();
+        Revenue expectedSelectedRevenue = actualModel.getSelectedRevenue();
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -178,17 +148,15 @@ public class CommandTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedRestOrRant, actualModel.getRestOrRant());
-            //            assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
-            //            assertEquals(expectedSelectedPerson, actualModel.getSelectedPerson());
             assertEquals(expectedFilteredOrderItemList, actualModel.getFilteredOrderItemList());
             assertEquals(expectedFilteredMenuItemList, actualModel.getFilteredMenuItemList());
             assertEquals(expectedFilteredTableList, actualModel.getFilteredTableList());
-            assertEquals(expectedFilteredDailyRevenueList, actualModel.getFilteredDailyRevenueList());
+            assertEquals(expectedFilteredRevenueList, actualModel.getFilteredRevenueList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
             assertEquals(expectedSelectedOrderItem, actualModel.getSelectedOrderItem());
             assertEquals(expectedSelectedMenuItem, actualModel.getSelectedMenuItem());
             assertEquals(expectedSelectedTable, actualModel.getSelectedTable());
-            assertEquals(expectedSelectedDailyRevenue, actualModel.getSelectedDailyRevenue());
+            assertEquals(expectedSelectedRevenue, actualModel.getSelectedRevenue());
         }
     }
 
@@ -252,19 +220,19 @@ public class CommandTestUtil {
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the dailyRevenue at the given {@code targetIndex} in the
+     * Updates {@code model}'s filtered list to show only the revenue at the given {@code targetIndex} in the
      * {@code model}'s restaurant.
      */
-    public static void showDailyRevenueAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredDailyRevenueList().size());
+    public static void showRevenueAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredRevenueList().size());
 
-        DailyRevenue dailyRevenue = model.getFilteredDailyRevenueList().get(targetIndex.getZeroBased());
-        final Day day = dailyRevenue.getDay();
-        final Month month = dailyRevenue.getMonth();
-        final Year year = dailyRevenue.getYear();
-        model.updateFilteredDailyRevenueList(item -> day.equals(item.getDay()) && month.equals(item.getMonth())
+        Revenue revenue = model.getFilteredRevenueList().get(targetIndex.getZeroBased());
+        final Day day = revenue.getDay();
+        final Month month = revenue.getMonth();
+        final Year year = revenue.getYear();
+        model.updateFilteredRevenueList(item -> day.equals(item.getDay()) && month.equals(item.getMonth())
                 && year.equals(item.getYear()));
-        assertEquals(1, model.getFilteredDailyRevenueList().size());
+        assertEquals(1, model.getFilteredRevenueList().size());
     }
 
     //    /**
@@ -301,10 +269,10 @@ public class CommandTestUtil {
     }
 
     /**
-     * Deletes the first dailyRevenue in {@code model}'s filtered list from {@code model}'s restaurant.
+     * Deletes the first revenue in {@code model}'s filtered list from {@code model}'s restaurant.
      */
-    public static void deleteFirstDailyRevenue(Model model) {
-        DailyRevenue firstDailyRevenue = model.getFilteredDailyRevenueList().get(0);
-        model.deleteDailyRevenue(firstDailyRevenue);
+    public static void deleteFirstRevenue(Model model) {
+        Revenue firstRevenue = model.getFilteredRevenueList().get(0);
+        model.deleteRevenue(firstRevenue);
     }
 }

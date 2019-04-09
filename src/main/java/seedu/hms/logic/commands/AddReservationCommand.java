@@ -12,8 +12,8 @@ import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.model.Model;
 import seedu.hms.model.ReservationModel;
 import seedu.hms.model.reservation.Reservation;
-import seedu.hms.model.reservation.exceptions.RoomFullException;
-import seedu.hms.model.reservation.exceptions.RoomUnavailableException;
+import seedu.hms.model.reservation.roomType.exceptions.RoomFullException;
+import seedu.hms.model.reservation.roomType.exceptions.RoomUnavailableException;
 
 /**
  * Adds a reservation to the hms book.

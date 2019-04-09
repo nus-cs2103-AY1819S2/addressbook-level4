@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.hms.model.reservation.Reservation;
-import seedu.hms.model.reservation.RoomType;
+import seedu.hms.model.reservation.roomType.RoomType;
 
 /**
  * The API of the Model component.
@@ -35,7 +35,7 @@ public interface ReservationModel extends Model {
     ObservableList<Reservation> getFilteredReservationList();
 
     /**
-     * Returns an unmodifiable view of the filtered reservation list
+     * Returns an unmodifiable view of the roomType list
      */
     ObservableList<RoomType> getRoomTypeList();
 
@@ -65,6 +65,34 @@ public interface ReservationModel extends Model {
     void addReservation(Reservation reservation);
 
     /**
+     * Deletes the given booking.
+     * The booking must exist in the hms book.
+     */
+    void deleteRoomType(int target);
+
+    /**
+     * Deletes the given booking.
+     * The booking must exist in the hms book.
+     */
+    void deleteRoomType(RoomType st);
+
+    /**
+     * Adds the given booking.
+     * {@code booking} must not already exist in the hms book.
+     */
+    void addRoomType(RoomType roomType);
+
+    /**
+     * Replaces the given booking {@code target} with {@code editedBooking}.
+     * {@code target} must exist in the hms book.
+     * The booking identity of {@code editedBooking} must not be the same as another existing booking in the hms
+     * book.
+     */
+    void setRoomType(int target, RoomType editedRoomType);
+
+    RoomType getRoomType(String roomName);
+
+    /**
      * Selected roomType in the roomType list.
      * null if no roomType is selected.
      */
@@ -78,7 +106,7 @@ public interface ReservationModel extends Model {
     RoomType getSelectedRoomType();
 
     /**
-     * Sets the selected serviceType in the serviceType list.
+     * Sets the selected roomType in the roomType list.
      */
     void setSelectedRoomType(RoomType roomType);
 

@@ -1,6 +1,7 @@
 package seedu.hms.logic.commands;
 
 //import static seedu.hms.logic.commands.CommandTestUtil.assertBookingCommandFailure;
+
 import static seedu.hms.logic.commands.CommandTestUtil.assertBookingCommandSuccess;
 import static seedu.hms.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
 
@@ -13,7 +14,8 @@ import seedu.hms.model.BookingModel;
 import seedu.hms.model.UserPrefs;
 import seedu.hms.model.VersionedHotelManagementSystem;
 import seedu.hms.model.booking.Booking;
-import seedu.hms.model.booking.ServiceType;
+import seedu.hms.model.booking.serviceType.ServiceType;
+import seedu.hms.model.util.TimeRange;
 import seedu.hms.testutil.BookingBuilder;
 import seedu.hms.testutil.TypicalCustomers;
 
@@ -24,24 +26,24 @@ public class AddBookingCommandIntegrationTest {
     @Before
     public void setUp() {
         model = new BookingManager(new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()),
-                new UserPrefs());
+            new UserPrefs());
     }
 
     @Test
     public void executeNewBookingSuccess() {
         Booking validBooking = new BookingBuilder()
-                .withService(ServiceType.GAMES)
-                .withTiming(14, 15)
-                .withPayer(TypicalCustomers.BOB)
-                .withOtherUsers()
-                .withComment("CoolComment")
-                .build();
+            .withService(new ServiceType(20, new TimeRange(10, 22), "Games Room", 5.0))
+            .withTiming(14, 15)
+            .withPayer(TypicalCustomers.BOB)
+            .withOtherUsers()
+            .withComment("CoolComment")
+            .build();
         BookingModel expectedModel = new BookingManager(
-                new VersionedHotelManagementSystem(model.getHotelManagementSystem()), new UserPrefs());
+            new VersionedHotelManagementSystem(model.getHotelManagementSystem()), new UserPrefs());
         expectedModel.addBooking(validBooking);
         expectedModel.commitHotelManagementSystem();
 
         assertBookingCommandSuccess(new AddBookingCommand(validBooking), model, commandHistory,
-                String.format(AddBookingCommand.MESSAGE_SUCCESS, validBooking), expectedModel);
+            String.format(AddBookingCommand.MESSAGE_SUCCESS, validBooking), expectedModel);
     }
 }

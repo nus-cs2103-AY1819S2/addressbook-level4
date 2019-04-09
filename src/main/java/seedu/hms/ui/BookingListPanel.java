@@ -17,7 +17,7 @@ import seedu.hms.logic.commands.FindBookingCommand;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.booking.Booking;
-import seedu.hms.model.booking.ServiceType;
+import seedu.hms.model.booking.serviceType.ServiceType;
 
 /**
  * Panel containing the list of bookings.

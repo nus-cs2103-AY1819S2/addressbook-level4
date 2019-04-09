@@ -17,12 +17,15 @@ import seedu.hms.model.BillManager;
 import seedu.hms.model.BillModel;
 import seedu.hms.model.CustomerManager;
 import seedu.hms.model.CustomerModel;
+import seedu.hms.model.ReservationManager;
+import seedu.hms.model.ReservationModel;
 import seedu.hms.model.bill.Bill;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.ReservationContainsPayerPredicate;
 import seedu.hms.model.reservation.ReservationWithTypePredicate;
+import seedu.hms.model.reservation.roomType.RoomType;
 
 /**
  * Parses input arguments and creates a new GenerateBillForReservationCommand object
@@ -34,7 +37,8 @@ public class GenerateBillForReservationCommandParser implements Parser<GenerateB
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public GenerateBillForReservationCommand parse(String args, CustomerModel customerModel, BillModel billModel)
+    public GenerateBillForReservationCommand parse(String args, CustomerModel customerModel, BillModel billModel,
+                                                   ReservationModel reservationModel)
         throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_ROOM);
@@ -64,7 +68,7 @@ public class GenerateBillForReservationCommandParser implements Parser<GenerateB
         ReservationWithTypePredicate reservationWithTypePredicate;
         if (argMultimap.getValue(PREFIX_ROOM).isPresent()) {
             reservationWithTypePredicate = new ReservationWithTypePredicate(
-                ParserUtil.parseRoom(argMultimap.getValue(PREFIX_ROOM).get()).getName());
+                ParserUtil.parseRoom(argMultimap.getValue(PREFIX_ROOM).get(), reservationModel).getName());
         } else {
             reservationWithTypePredicate = new ReservationWithTypePredicate("");
         }
@@ -82,7 +86,7 @@ public class GenerateBillForReservationCommandParser implements Parser<GenerateB
         //     && reservationWithDatePredicate.test(reservationTested);
         billModel.updateFilteredReservationList(reservationPredicate);
         ObservableList<Reservation> reservationObservableList = billModel.getFilteredReservationList();
-        HashMap<String, Pair<Double, Long>> reservationBill =
+        HashMap<RoomType, Pair<Double, Long>> reservationBill =
             billModel.generateHashMapForReservation(reservationObservableList);
 
         Bill bill = new Bill(customer, new HashMap<>(), reservationBill);
@@ -99,7 +103,7 @@ public class GenerateBillForReservationCommandParser implements Parser<GenerateB
      * @throws ParseException if the user input does not conform the expected format
      */
     public GenerateBillForReservationCommand parse(String args) throws ParseException {
-        return parse(args, new CustomerManager(), new BillManager());
+        return parse(args, new CustomerManager(), new BillManager(), new ReservationManager());
     }
 
 }

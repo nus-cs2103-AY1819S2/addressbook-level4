@@ -122,7 +122,7 @@ public class TestApp extends MainApp {
      * Returns the file path of the storage file for health worker book.
      */
     public Path getStorageSaveLocationHealthWorkerBook() {
-      return storage.getHealthWorkerBookFilePath();
+        return storage.getHealthWorkerBookFilePath();
     }
 
     /**

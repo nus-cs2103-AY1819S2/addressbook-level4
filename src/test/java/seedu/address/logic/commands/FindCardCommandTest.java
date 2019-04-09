@@ -16,7 +16,7 @@ import java.util.Collections;
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.address.logic.CardsView;
+import seedu.address.model.CardsView;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;

@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DECKS;
 
-import seedu.address.logic.CardsView;
+import seedu.address.model.CardsView;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.DecksView;
-import seedu.address.logic.ViewState;
+import seedu.address.model.DecksView;
+import seedu.address.model.ViewState;
 import seedu.address.model.Model;
 
 /**

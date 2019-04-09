@@ -17,9 +17,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.CardsView;
+import seedu.address.model.CardsView;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.ViewState;
+import seedu.address.model.ViewState;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;

@@ -6,6 +6,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.OpenDeckCommand;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.DecksView;
 
 /**
  * Parser creates a new OpenDeckCommand Object.
@@ -14,7 +15,7 @@ public class OpenDeckCommandParser {
 
     private DecksView decksView;
 
-    OpenDeckCommandParser(DecksView decksView) {
+    public OpenDeckCommandParser(DecksView decksView) {
         this.decksView = decksView;
     }
 

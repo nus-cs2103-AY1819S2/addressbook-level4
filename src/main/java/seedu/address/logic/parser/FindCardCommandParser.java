@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.CardsView;
+import seedu.address.model.CardsView;
 import seedu.address.logic.commands.FindCardCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.QuestionContainsKeywordsPredicate;

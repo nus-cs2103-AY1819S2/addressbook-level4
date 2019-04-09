@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.DecksView;
+import seedu.address.model.DecksView;
 
 import seedu.address.logic.commands.DeleteCardCommand;
 import seedu.address.logic.commands.DeleteDeckCommand;

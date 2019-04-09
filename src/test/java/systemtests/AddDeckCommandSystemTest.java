@@ -15,7 +15,7 @@ import static seedu.address.testutil.TypicalDecks.KEYWORD_MATCHING_JOHN;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.logic.DecksView;
+import seedu.address.model.DecksView;
 import seedu.address.logic.commands.AddDeckCommand;
 import seedu.address.logic.commands.OpenDeckCommand;
 import seedu.address.logic.commands.RedoCommand;

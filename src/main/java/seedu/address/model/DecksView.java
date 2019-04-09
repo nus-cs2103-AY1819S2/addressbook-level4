@@ -1,4 +1,4 @@
-package seedu.address.logic;
+package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -11,6 +11,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.layout.Region;
+import seedu.address.logic.OpenDeckCommandParser;
+import seedu.address.logic.StudyDeckCommandParser;
 import seedu.address.logic.commands.AddDeckCommand;
 import seedu.address.logic.commands.ClearDeckCommand;
 import seedu.address.logic.commands.Command;

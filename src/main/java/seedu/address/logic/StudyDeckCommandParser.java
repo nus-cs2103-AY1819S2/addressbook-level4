@@ -7,6 +7,7 @@ import seedu.address.logic.commands.OpenDeckCommand;
 import seedu.address.logic.commands.StudyDeckCommand;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.DecksView;
 
 /**
  * Parser creates a StudyDeckCommand Object.
@@ -15,7 +16,7 @@ public class StudyDeckCommandParser {
 
     private DecksView decksView;
 
-    StudyDeckCommandParser(DecksView decksView) {
+    public StudyDeckCommandParser(DecksView decksView) {
         this.decksView = decksView;
     }
 

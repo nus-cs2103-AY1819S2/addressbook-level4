@@ -1,9 +1,10 @@
-package seedu.address.logic;
+package seedu.address.model;
 
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
+import seedu.address.logic.ListItem;
 
 /**
  * An interface that represents a ViewState that shows a list UI.

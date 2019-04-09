@@ -3,9 +3,9 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.CardsView;
-import seedu.address.logic.DecksView;
-import seedu.address.logic.ViewState;
+import seedu.address.model.CardsView;
+import seedu.address.model.DecksView;
+import seedu.address.model.ViewState;
 import seedu.address.logic.commands.SelectCardCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SelectDeckCommand;

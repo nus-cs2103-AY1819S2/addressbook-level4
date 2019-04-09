@@ -5,9 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_MEDHIST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-
 import seedu.address.logic.commands.ListMedHistCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.medicalhistory.ValidDate;

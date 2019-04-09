@@ -84,7 +84,7 @@ public class ListMedHistCommand extends Command {
             if (patientWithId == null) {
                 throw new CommandException(MESSAGE_PATIENT_NOT_FOUND);
             }
-            predicateListMedHistIsPid  = x -> x.getPatientId().equals(targetPatientId.get());
+            predicateListMedHistIsPid = x -> x.getPatientId().equals(targetPatientId.get());
 
         } else {
             predicateListMedHistIsPid = x -> true;
@@ -95,10 +95,10 @@ public class ListMedHistCommand extends Command {
             if (doctorWithId == null) {
                 throw new CommandException(MESSAGE_DOCTOR_NOT_FOUND);
             }
-            predicateListMedHistIsDid  = x -> x.getDoctorId().equals(targetDoctorId.get());
+            predicateListMedHistIsDid = x -> x.getDoctorId().equals(targetDoctorId.get());
 
         } else {
-            predicateListMedHistIsDid  = x -> true;
+            predicateListMedHistIsDid = x -> true;
         }
 
         if (targetDate.isPresent()) {

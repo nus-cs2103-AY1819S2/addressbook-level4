@@ -22,6 +22,7 @@ public class ReminderListPanel extends UiPart<Region> {
     private static final String FXML = "ReminderListPanel.fxml";
     private static final String APPOINTMENT_BACKGROUND = "derive(lightskyblue, 50%)";
     private static final String MEDICINE_BACKGROUND = "derive(firebrick, 90%)";
+    private static final String OTHER_BACKGROUND = "derive(beige, 50%)";
     private final Logger logger = LogsCenter.getLogger(ReminderListPanel.class);
 
     @FXML
@@ -77,14 +78,13 @@ public class ReminderListPanel extends UiPart<Region> {
                         && end != null
                         && !comment.isEmpty()) {
                     setStyle("-fx-control-inner-background: " + APPOINTMENT_BACKGROUND + ";");
-                }
-
-                // Check if the reminder is for stocking up a medicine
-                if (title.startsWith("Quantity of ")
+                } else if (title.startsWith("Quantity of ")
                         && title.endsWith(" is low.")
                         && end == null
                         && !comment.isEmpty()) {
                     setStyle("-fx-control-inner-background: " + MEDICINE_BACKGROUND + ";");
+                } else {
+                    setStyle("-fx-control-inner-background: " + OTHER_BACKGROUND + ";");
                 }
             }
         }

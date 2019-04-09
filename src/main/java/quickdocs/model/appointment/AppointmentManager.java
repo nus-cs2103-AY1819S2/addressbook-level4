@@ -158,6 +158,7 @@ public class AppointmentManager {
                         .append(") ")
                         .append(app.toString())
                         .append("\n");
+                i++;
             }
         }
         return sb.toString();

@@ -36,6 +36,7 @@ public class Patient extends Person {
     }
 
     /**
+     * For id counter.
      * This is an existing patient and does not need to generate a new ID.
      */
     public Patient(PersonId id, Name name, Gender gender, Age age, Phone phone, Address address, Set<Tag> tags) {
@@ -45,6 +46,20 @@ public class Patient extends Person {
         this.address = address;
         this.tags.addAll(tags);
         this.appointmentStatus = AppointmentStatus.ACTIVE;
+    }
+
+    /**
+     * For mark-appt command.
+     * This is an existing patient and does not need to generate a new ID.
+     */
+    public Patient(PersonId id, Name name, Gender gender, Age age, Phone phone, Address address, Set<Tag> tags,
+                   AppointmentStatus appointmentStatus) {
+        super(id, name, phone, gender);
+        requireAllNonNull(name, phone, gender);
+        this.age = age;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.appointmentStatus = appointmentStatus;
     }
 
     public Age getAge() {

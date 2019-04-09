@@ -65,7 +65,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete-patient 9";
+        String deleteCommand = "delete-p 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
         assertHistoryCorrect(deleteCommand);
     }

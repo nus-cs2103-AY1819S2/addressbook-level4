@@ -79,7 +79,7 @@
 //
 //        /* Case: find same persons in address book after deleting 1 of them -> 1 person found */
 //        //executeCommand(DeletePersonCommand.COMMAND_WORD + " 1");
-//        //assertFalse(getModel().getAddressBook().getPersonList().contains(BENSON));
+//        //assertFalse(getModel().getAddressBook().getPersonList().getSpecialisation(BENSON));
 //        //command = FilterHealthWorkerCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
 //        //expectedModel = getModel();
 //        //ModelHelper.setFilteredList(expectedModel, DANIEL);

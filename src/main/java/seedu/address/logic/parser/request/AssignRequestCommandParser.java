@@ -16,6 +16,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new AssignRequestCommand object
+ *
+ * @@author daviddl9
  */
 public class AssignRequestCommandParser implements Parser<AssignRequestCommand> {
     @Override

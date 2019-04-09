@@ -192,7 +192,6 @@ can be used as `n/John Doe c/Claustrophobia` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `s/<specialisation>...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/<name> p/<phone_number>`, `p/<phonenumber> n/<name>` is also acceptable.
 
-
 === Viewing Help : `help`
 
 Upon first starting the application as a new user, or perhaps a returning
@@ -208,6 +207,8 @@ The help menu displays a list of available commands for Health Hub, their
 parameters and their functions. Should you ever forget the commands for
 Health Hub, feel free to enter the `help` command to revisit this guide.
 
+
+// tag::listHealthWorker[]
 === Showing all requests/health workers : `list`
 
 The `list` command is a simple and basic command that on entering, displays
@@ -215,9 +216,23 @@ all health workers/requests in the Health Hub GUI.
 
 Format: `list <type>`
 
-Where `<type>` refers to either `healthworker`, `h`, or `1` to display health
-workers registered in Health Hub, or `request`, `r`, `2` to display all
-registered requests.
+
+==== Showing all health workers
+
+Format: `list healthworker/h/1`
+
+Upon entering the command to list health workers, all currently registered
+health workers in the Health Hub system will be displayed on the list on the
+right side of the GUI.
+// end::listHealthWorker[]
+
+==== Showing all requests
+
+Format: `list request/r/2`
+
+After entering the command to list requests, you should see the list on the
+left side of the GUI being populated with all requests that are added to
+HealthHub.
 
 [TIP]
 ====
@@ -228,15 +243,16 @@ requests for specific health services.
 
 Example:
 
-* `list healthworker/h/1` lists all health workers stored in the system,
+* `list healthworker` lists all health workers stored in the system,
 their personal particulars, and their skills in the healthcare field.
-* `list request/r/2` lists all requests stored in the system, as well as the
+* `list request` lists all requests stored in the system, as well as the
 details of the request such as the patient to tend to, the date and time of
 the request and the type of service requested.
 
+// tag::addHealthWorker[]
 === Adding requests/health workers: `add`
 
-Before you can jump right into the core feature of our application and
+Before you can jump right intWo the core feature of our application and
 streamline the process of adding requests from patients and to assign
 requests to experts in the medical field, it is essential to first ensure
 that the respective health staff and patients are registered in the system
@@ -248,19 +264,69 @@ staff, patients and requests. +
 
 Format: `add <type> <additional_parameters>...` +
 
-*Adding a health worker*: `add healthworker/h/1 n/<worker_name> i/<NRIC> n/<phone_number>
-                          s/<specialisation>...`
+==== *Adding a health worker*
 
-* Command that registers a new Health Worker person to the current roster.
-* Health Workers comprises of personnel who are authorized to work in sectors in the
+*Format:*
+
+* `add healthworker n/<worker_name> i/<NRIC> n/<phone_number>
+o/<organisation> s/<specialisation>...`
+
+*Shortcuts:*
+
+* `add h n/<worker_name> i/<NRIC> n/<phone_number>
+o/<organisation> s/<specialisation>...` +
+* `add 1 n/<worker_name> i/<NRIC> n/<phone_number> o/<organisation>
+s/<specialisation>...`
+
+Command that registers a new Health Worker person to the current roster.
+Health Workers comprises of personnel who are authorized to work in sectors in the
 healthcare industry in accordance to their `specialisation`.
-* Health Workers authorized for medical practice specific to their
-`specialisation` include doctors, nurses and community health workers that
-are officially certified by certain medical practices
-* To view all available specialisations in the application, type `add help`
-in the command line.
 
-*Adding a request*: `add request/r/2 n/<patient_name> c/<condition> d/<date> t/time`
+Health Workers authorized for medical practice specific to their
+`specialisation` include doctors, nurses and community health workers that
+are officially certified by certain medical practices.
+
+Each of the following fields entered by the user following
+each prefix are compulsory, and must adhere to the following format:
+
+* `<worker_name>`: Name must only contain alphanumeric characters and spaces
+, and cannot be empty. E.g Dog Terr
+* `<NRIC>`: NRIC must start with S, T, G or F capitalized, followed by 7
+numeric characters and a capitalized alphabetical character. E.g S1234567A
+* `<phone_number>`: Phone number must only contain 8 numeric characters, and
+ start with a 6, 8 or 9.
+* `<organisation>`: Organisation that the health worker belongs to.
+Organisation name must have at least 2 characters, and only contain
+alphanumeric characters.
+* `<specialisation>`: Specialisation in the medical field that the health
+worker possesses. The list of valid specialisations are as follows:
+
+** GENERAL_PRACTICE
+** CARDIOLOGY
+** ENDOCRINOLOGY
+** NEUROLOGY
+** ORTHOPAEDIC
+** PAEDIATRIC
+** GYNAECOLOGY
+** UROLOGY
+** PATHOLOGY
+** HAEMATOLOGY
+** PHYSIOTHERAPY
+** OCCUPATIONAL_THERAPY
+** ANAESTHESIOLOGY
+
+// end::addHealthWorker[]
+
+==== *Adding a request*
+
+*Format:*
+
+* `add request n/<patient_name> c/<condition> d/<date> t/time`
+
+*Shortcuts:*
+
+* `add r n/<patient_name> c/<condition> d/<date> t/time`
+* `add 2 n/<patient_name> c/<condition> d/<date> t/time`
 
 * Registers a new open request from `patient` of `<patient_name>` into the
 application.
@@ -273,7 +339,7 @@ these requests in the `assign` command.
 
 Examples:
 
-* `add 1 n/Dog Terr p/92837710 i/S98817471Z s/GENERAL_PRACTICE
+* `add 1 n/Dog Terr p/92837710 i/S98817471Z o/NUH s/GENERAL_PRACTICE
 s/ORTHOPAEDIC`
 * `add request n/Pay Shun c/Heart Attack t/14:00:00 d/05:05:2019`
 
@@ -290,24 +356,59 @@ The `edit` may come in handy when there is a need update to a request's
 status, patient's condition or a health worker's skills, based on the
 `<type>` parameter accepted. +
 
-Format: `edit <type> <index> <additional_parameters>...` +
+The prefixes and valid values for the `edit` command for both health worker
+and request modes follow the same format as in the `add` command.
 
-*Editing a health worker*: `edit healthworker/h/1 <index> <additional_parameters>...`
+==== *Editing a health worker*
+
+*Format:*
+
+* `edit healthworker <index> <additional_parameters>...`
+
+*Shortcuts:*
+
+* `edit h <index> <additional_parameters>...`
+* `edit 1 <index> <additional_parameters>...`
 
 Edits the details of an existing health worker registered in Health Hub, at
-the `<index>` specified in the health worker list upon entering the `edit
-healthworker/h/1` command with valid inputs.
+the `<index>` specified in the health worker list upon entering the `edit healthworker/h/1` command with valid inputs.
 
-*Editing a request*: `edit request/r/2 <index> <additional_parameters>...`
+[NOTE]
+====
+* When editing specialisations for health workers, the existing specialisations
+ of the person will be removed i.e adding of specialisation is not cumulative. +
+* Each health worker must have at least one specialisation. Entering an empty
+   value for `s/` prefix would result in the original health worker's `skills`
+   being kept.
+====
+
+[TIP]
+====
+You can remove all the person's specialisation by typing `s/` without
+specifying any parameters after it.
+====
+
+* `edit healthworker 1 p/91234567 n/John Doe` +
+Edits the phone number and name of the 1st health worker shown in the health
+worker list to be `91234567` and `John Doe` respectively. +
+
+// end::editHealthWorker[]
+healthworker` command with valid inputs.
+
+==== *Editing a request*
+
+*Format:*
+
+* `edit request <index> <additional_parameters>...`
+
+*Shortcuts:*
+
+* `edit r <index> <additional_parameters>...`
+* `edit 2 <index> <additional_parameters>...`
 
 Edits the details of a request registered in Health Hub, at
 the `<index>` specified in the request list upon entering the `edit
-request/r/2` command with valid inputs.
-
-Any changes made to existing fields in requests and healthworkers are
-immediately reflected in the list shown on the Health Hub GUI.
-
-{nbsp}
+request` command with valid inputs.
 
 Upon entering the `edit` command with all the necessary and valid paramters,
 the corresponding request/health worker at the specified `<index>`. The index refers to the
@@ -315,6 +416,9 @@ index number shown in the displayed person list.
 
 Existing values of the health worker or request will be updated to the valid
 input values based on the prefix specified.
+
+Any changes made to existing fields in requests and healthworkers are
+immediately reflected in the list shown on the HealthHub GUI.
 
 {nbsp}
 
@@ -327,53 +431,68 @@ and not greater than the number of requests/health workers/patients in the curre
 patients, each field can only have a single value and multiple edit values
 for other fields will only cause the last one to be accepted.
 
-[NOTE]
-====
-When editing specialisations for health workers, the existing specialisations
- of the person will be removed i.e adding of specialisation is not cumulative.
-====
+* Note that the healthworker cannot be edited using this command. To unassign an existing healthworker, `edit` the status to `PENDING`.
+To change the healthworker assigned, use the `assign` command instead.
 
-[TIP]
-====
-You can remove all the person's specialisation by typing `s/` without
-specifying any parameters after it.
-====
+
 
 Examples:
 
-* `edit healthworker 1 p/91234567 n/John Doe` +
-Edits the phone number and name of the 1st health worker shown in the health
-worker list to be `91234567` and `John Doe` respectively. +
 * `edit request 2 n/Betsy Crower` +
-Edits the patient name of the 2nd request in the request list to be `Betsy
+* `edit r 2 n/Betsy Crower` +
+* `edit 2 2 n/Betsy Crower` +
+All the 3 commands above edits the patient name of the 2nd request in the request list to be `Betsy
 Crower`. +
 
+// tag::filterHealthWorker[]
 === Filtering health workers/requests: `filter`
 
-When identifying and sieving health workers to assign to an open request, or
+When identifying health workers to assign to an open request, or
 to look for a particular patient details in certain requests, it may be useful
- to filter out only items in a list that match a particular constraint.
+ to only display items in a list that match a particular constraint.
 
-Using the `filter` command, you can sieve out health workers and requests
-whose fields match the `keywords`that are specified in the `filter` command,
-allowing you to find the doctors who are experts in cardiology much quicker. +
+Using the `filter` command, you can set the GUI to display health workers and
+requests whose fields match the `keywords`that are specified in the `filter`
+command, allowing you to find the doctors who are experts in cardiology much quicker. +
 
 Format: `filter <type> <keyword> [<more_keywords>]...` +
 
-*Filter health workers*: `filter healthworker/h/1 <keyword> [<more_keywords>]`
+==== *Filter health workers*:
 
-Upon entering the command with valid inputs, searches the entire list of health
-workers in Health Hub, and only displays the health workers whose fields matches the parameters specified in the
-`filter` command.
+*Format:*
+
+* `filter healthworker <keyword> [<more_keywords>]`
+
+*Shortcuts:*
+
+* `filter h <keyword> [<more_keywords>]`
+* `filter 1 <keyword> [<more_keywords>]`
+
+Upon entering the command with valid inputs, HealthHub searches the entire list
+ of health
+workers in Health Hub, and only displays the health workers whose fields
+contains the parameters specified in the
+`filter` command as a substring.
 
 [NOTE]
 ====
-For specialisation fields, parameters are case sensitive, and only valid
-parameters will be accepted
+For specialisation fields, parameter values need not follow the exact format as
+the valid specialisation values provided under the `add` command section.
+Valid parameters may include case insensitive substrings (E.g 'physio' will
+match to 'PHYSIOTHERAPY'.
 ====
+// end::filterHealthWorker[]
 
-*Filter requests*: `filter request/r/2 <keyword> [<more_keywords>]`
+==== *Filter requests*:
 
+*Format:*
+
+* `filter request <keyword> [<more_keywords>]`
+
+*Shortcuts:*
+
+* `filter r <keyword> [<more_keywords>]`
+* `filter 2 <keyword> [<more_keywords>]`
 After entering the command with valid inputs, searches the entire list of
 requests in Health Hub, and only displays the requests whose fields matches
  the parameters specified in the
@@ -387,20 +506,23 @@ identify requests or personnel, using the same prefixes as in `add`, `edit` and
 
 *Notes*:
 
-* The search is *case insensitive* for all fields apart from specialisation(e.g
+* The search is *case insensitive* for all fields (e.g
 `hans` will match `Hans`), and the *order of the keywords* does not matter(e.g
 `Hans Bo` will match `Bo Hans`).
 
 * Search using partial words will return all results with fields containing
-that subword. (e.g `filter 1 n/Tan` may return people with the surnames Tan or
+that substring. (e.g `filter 1 n/Tan` may return people with the surnames Tan or
 Tang)
 
 {nbsp}
 
+// tag::filterExample[]
 [TIP]
 ====
 Multiple conditions for filtering health workers and requests can be added
-simultaneously for more expressive search.
+simultaneously for more expressive search. Note that if multiple parameters
+are specified, HealthHub displays healthworkers or requests that match *all*
+the criteria mentioned.
 
 Example:
 
@@ -411,15 +533,16 @@ specified name substring *and* the specified phone number.
 
 [TIP]
 ====
-To view the original health worker/request list, enter the `list
-healthworker` or `list request` command respectively.
+To revert the view back to the original health worker/request list, enter the
+`list healthworker` or `list request` command respectively.
 ====
 
 Examples:
 
 * `filter h s/GENERAL_PRACTICE s/GYNAECOLOGY` +
 Returns all health workers whose field of expertise include general practice
-or gynaecology.
+*and* gynaecology.
+// end::filterExample[]
 * `filter request n/alice` +
 Returns all patients whose name contains "alice".
 * `filter r p/9177` +
@@ -427,6 +550,7 @@ Returns all requests with contacts numbers that have "9177" in it's field.
 * `filter 2 dt/30-01-2019 10:00:00` +
 Returns all requests scheduled on 30th Jan 2019, at 10 am sharp.
 
+// tag::delHealthWorker[]
 === Deleting requests/health workers : `delete`
 
 Should there be any invalid or expired request, health worker or patient in
@@ -438,12 +562,31 @@ shown using the `list` command, or the index displayed on the GUI. +
 
 Format: `delete <type> <index>` +
 
-*Delete a health worker*: `delete healthworker/h/1 <index>`
+==== *Delete a health worker*:
+
+*Format:*
+
+* `delete healthworker <index>`
+
+*Shortcuts:*
+
+* `delete h <index>`
+* `delete 1 <index>`
 
 Deletes the health worker at the `<index>` position in shown in the health
 worker list.
+// end::delHealthWorker[]
 
-*Delete a request*: `delete request/r/2 <index>`
+==== *Delete a request*:
+
+*Format:*
+
+* `delete request <index>`
+
+*Shortcuts:*
+
+* `delete r <index>`
+* `delete 2 <index>`
 
 Deletes the request at the `<index>` position in shown in the list of requests.
 
@@ -477,7 +620,7 @@ command immediately after the previous `delete` command to undo the deletion.
 
 === Assigning health workers to an open request : `assign`
 
-After registering a new request using the `add request/r/2` command, you may
+After registering a new request using the `add request` command, you may
 proceed to assign an existing health worker in the system to handle the request,
  allocating medical resources to it and closing the request using the simple
  `assign` command +
@@ -496,14 +639,16 @@ than the number of requests/health workers in the current list.
 
 Examples:
 
-* `assign 1 2` +
+* `assign r/1 hw/2` +
 Assigns the health worker at the second index to the first request in the
 request list.
 
 [NOTE]
 ====
-You cannot assign a healthworker to a completed request. To assign a healthworker to a request that is already completed,
-use `edit` to change the status of the request to pending first.
+* You cannot assign a healthworker to a completed request. To assign a healthworker to a request that is already completed,
+use `edit` to change the status of the request to pending first. +
+* You can reorder the parameters of the request and the healthworker. For example, executing `assign r/1 hw/2` has the same as
+executing `assign hw/2 r/1`
 ====
 
 === Clearing Requests : `clr`

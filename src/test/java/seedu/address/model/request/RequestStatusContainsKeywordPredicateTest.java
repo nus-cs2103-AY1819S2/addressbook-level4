@@ -11,6 +11,9 @@ import org.junit.Test;
 
 import seedu.address.testutil.RequestBuilder;
 
+/**
+ * @@author daviddl9
+ */
 public class RequestStatusContainsKeywordPredicateTest {
     @Test
     public void equals() {

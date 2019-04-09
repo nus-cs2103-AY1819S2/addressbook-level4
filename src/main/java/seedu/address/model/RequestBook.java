@@ -13,6 +13,8 @@ import seedu.address.model.request.UniqueRequestList;
 /**
  * Wraps all data at the request-book level
  * Duplicates are not allowed (by .isSameRequest comparison)
+ *
+ * @@author daviddl9
  */
 public class RequestBook implements ReadOnlyRequestBook {
 

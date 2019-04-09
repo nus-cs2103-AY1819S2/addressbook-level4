@@ -13,7 +13,9 @@ import seedu.address.model.RequestBook;
 import seedu.address.model.request.Request;
 
 /**
- * Clears the address book.
+ * Clears the request book.
+ *
+ * @@author daviddl9
  */
 public class ClearRequestCommand extends Command implements RequestCommand {
 

@@ -12,6 +12,8 @@ import seedu.address.model.request.RequestDate;
 
 /**
  * Parses of date keywords and returns a valid date list
+ *
+ * @@author daviddl9
  */
 public class RequestDatePredicateUtil {
     private static final int VALID_DATE_LIST_SIZE = 2;

@@ -9,6 +9,8 @@ import seedu.address.model.ReadOnlyRequestBook;
 
 /**
  * Represents a storage for {@link seedu.address.model.RequestBook}.
+ *
+ * @@author daviddl9
  */
 public interface RequestBookStorage {
 

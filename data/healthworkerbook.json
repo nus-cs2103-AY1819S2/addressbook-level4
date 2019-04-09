@@ -1,11 +1,5 @@
 {
   "healthWorkers" : [ {
-    "name" : "Paniel Meier",
-    "phone" : "87652133",
-    "nric" : "S8412942G",
-    "organization" : "NUH",
-    "skills" : "GENERAL_PRACTICE "
-  }, {
     "name" : "Ella Meyer",
     "phone" : "94824524",
     "nric" : "S9112942G",
@@ -23,5 +17,11 @@
     "nric" : "S8812942G",
     "organization" : "NUH",
     "skills" : "GENERAL_PRACTICE "
+  }, {
+    "name" : "Judy Hopps",
+    "phone" : "98765432",
+    "nric" : "S8974421C",
+    "organization" : "SGH",
+    "skills" : "GENERAL_PRACTICE ORTHOPAEDIC "
   } ]
 }

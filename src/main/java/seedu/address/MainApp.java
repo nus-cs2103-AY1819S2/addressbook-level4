@@ -32,7 +32,7 @@ import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
 /**
- * The main entry point to the app  lication.
+ * The main entry point to the application.
  */
 public class MainApp extends Application {
 

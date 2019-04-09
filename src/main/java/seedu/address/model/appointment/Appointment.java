@@ -85,22 +85,18 @@ public class Appointment {
     }
 
     public Patient getPatient() {
-        requireAllNonNull(patient);
         return patient;
     }
 
     public void setPatient(Patient patient) {
-        requireAllNonNull(patient);
         this.patient = patient;
     }
 
     public Doctor getDoctor() {
-        requireAllNonNull(doctor);
         return doctor;
     }
 
     public void setDoctor(Doctor doctor) {
-        requireAllNonNull(doctor);
         this.doctor = doctor;
     }
 

@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package quickdocs.testutil;
 
 import java.math.BigDecimal;
 import java.time.YearMonth;
@@ -6,17 +6,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.QuickDocs;
-import seedu.address.model.consultation.Assessment;
-import seedu.address.model.consultation.Diagnosis;
-import seedu.address.model.consultation.Prescription;
-import seedu.address.model.consultation.Symptom;
-import seedu.address.model.medicine.Medicine;
-import seedu.address.model.record.ConsultationRecord;
-import seedu.address.model.record.MedicinePurchaseRecord;
-import seedu.address.model.record.MonthStatistics;
-import seedu.address.model.record.Record;
-import seedu.address.model.record.StatisticsManager;
+import quickdocs.model.QuickDocs;
+import quickdocs.model.consultation.Assessment;
+import quickdocs.model.consultation.Diagnosis;
+import quickdocs.model.consultation.Prescription;
+import quickdocs.model.consultation.Symptom;
+import quickdocs.model.medicine.Medicine;
+import quickdocs.model.record.ConsultationRecord;
+import quickdocs.model.record.MedicinePurchaseRecord;
+import quickdocs.model.record.MonthStatistics;
+import quickdocs.model.record.Record;
+import quickdocs.model.record.StatisticsManager;
 
 /**
  * A utility class containing sample {@code MonthStatistics} objects to be used in tests

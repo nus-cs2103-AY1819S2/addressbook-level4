@@ -394,7 +394,6 @@ public class ModelManager implements Model {
     public ObservableList<MenuItem> getFilteredSortedMenuItemList() {
         FilteredList<MenuItem> filteredSortedMenuItems =
                 new FilteredList<>(this.restOrRant.getMenu().getMenuItemList());
-        filteredSortedMenuItems.setAll(filteredMenuItems);
         return filteredSortedMenuItems.sorted((MenuItem o1, MenuItem o2) -> (o2.getQuantity() - o1.getQuantity()));
     }
 

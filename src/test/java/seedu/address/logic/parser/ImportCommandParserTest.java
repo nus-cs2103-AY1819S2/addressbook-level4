@@ -120,6 +120,12 @@ public class ImportCommandParserTest {
         assertParseFailure(parser, emptyPath, Messages.MESSAGE_INVALID_SIZE);
     }
 
+    @Test
+    public void parse_invalidMagicNumber_failure() {
+        String emptyPath = "src/main/resources/imageTest/invalid/invalidMagicNumberPDFtoPNG.png";
+        assertParseFailure(parser, emptyPath, Messages.MESSAGE_UNABLE_TO_READ_FILE);
+    }
+
     @Ignore
     @Test
     public void parse_invalidDuplicate_failure() {

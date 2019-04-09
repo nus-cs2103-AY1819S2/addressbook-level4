@@ -78,8 +78,8 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                 break;
             case 0:
                 // File must be valid and not hidden and not ridiculously large.
-                if (validImage(args)) {
-                    if (validFormat(args) && !isHidden(args)) {
+                if (validFormat(args) && !isHidden(args)) {
+                    if (validImage(args)) {
                         if (!isLarge(args)) {
                             Image image = new Image(args);
                             if (!duplicateFile(image)) {
@@ -98,10 +98,10 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                             throw new ParseException(Messages.MESSAGE_INVALID_SIZE);
                         }
                     } else {
-                        throw new ParseException(Messages.MESSAGE_INVALID_FORMAT);
+                        throw new ParseException(Messages.MESSAGE_UNABLE_TO_READ_FILE);
                     }
                 } else {
-                    throw new ParseException(Messages.MESSAGE_UNABLE_TO_READ_FILE);
+                    throw new ParseException(Messages.MESSAGE_INVALID_FORMAT);
                 }
                 break;
             default:

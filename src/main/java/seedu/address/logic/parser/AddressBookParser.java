@@ -22,11 +22,11 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListTagsCommand;
 import seedu.address.logic.commands.PutShipCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SaveCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.UndoCommand;
 
-import seedu.address.logic.commands.stubSaveStatsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -85,8 +85,8 @@ public class AddressBookParser {
         case StatsCommand.COMMAND_WORD:
             return new StatsCommand();
 
-        case stubSaveStatsCommand.COMMAND_WORD:
-            return new stubSaveStatsCommand();
+        case SaveCommand.COMMAND_WORD:
+            return new SaveCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

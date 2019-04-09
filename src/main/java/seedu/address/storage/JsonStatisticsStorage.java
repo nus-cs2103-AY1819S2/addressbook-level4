@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -13,7 +12,6 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.statistics.PlayerStatistics;
 
 /**
@@ -27,11 +25,8 @@ public class JsonStatisticsStorage implements StatisticsStorage {
 
     private Path filePath;
 
-    private Path backupFilePath;
-
     public JsonStatisticsStorage(Path filePath) {
         this.filePath = filePath;
-        this.backupFilePath = Paths.get(".backup", DEFAULT_BACKUP_PATH);
     }
 
     public Path getStatisticsFilePath() {
@@ -42,13 +37,14 @@ public class JsonStatisticsStorage implements StatisticsStorage {
     public Optional<PlayerStatistics> readStatisticsData() throws DataConversionException, IOException {
         return readStatisticsData(filePath);
     }
-//
-//    /**
-//     * Similar to {@link #readAddressBook()}.
-//     *
-//     * @param filePath location of the data. Cannot be null.
-//     * @throws DataConversionException if the file is not in the correct format.
-//     */
+
+    /**
+     * retrives the statistics data values frm json file at specified filepath.
+     * @param filePath
+     * @return
+     * @throws DataConversionException
+     * @throws IOException
+     */
     public Optional<PlayerStatistics> readStatisticsData(Path filePath) throws DataConversionException, IOException {
         requireNonNull(filePath);
 
@@ -59,7 +55,7 @@ public class JsonStatisticsStorage implements StatisticsStorage {
         }
 
         try {
-        System.out.println("Reading Statistics");
+            System.out.println("Reading Statistics");
             return Optional.of(jsonStatisticsData.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
@@ -77,7 +73,7 @@ public class JsonStatisticsStorage implements StatisticsStorage {
      * @param filePath location of the data. Cannot be null.
      */
     public void saveStatisticsData(PlayerStatistics statisticsData, Path filePath) throws IOException {
-        System.out.println("Inside JsonStatisticsStorage saveStatisticsData");
+        //System.out.println("Inside JsonStatisticsStorage saveStatisticsData");
         requireNonNull(statisticsData);
         requireNonNull(filePath);
 
@@ -94,18 +90,6 @@ public class JsonStatisticsStorage implements StatisticsStorage {
         JsonUtil.saveJsonFile(new JsonSerializableStatistics(hitCount, missCount, movesMade,
                                         enemyShipsDestroyed, attacksMade), filePath);
 
-        System.out.println("Saving to JsonFile in JsonStatisticsStorage");
+        //System.out.println("Saving to JsonFile in JsonStatisticsStorage");
     }
-
-    /**
-     * Saves the ReadOnlyAddressBook locally in a fixed temporary location.
-     *
-     * @param addressBook cannot be null.
-     * @throws IOException if there was any problem writing to the file.
-     */
-//    @Override
-//    public void backupAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-//        saveAddressBook(addressBook, backupFilePath);
-//    }
-
 }

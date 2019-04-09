@@ -88,9 +88,14 @@ public class StorageManager implements Storage {
         saveStatisticsData(statisticsData, statisticsStorage.getStatisticsFilePath());
     }
 
-
+    /**
+     * Takes the statisticsData and store its JSON into specified filePath.
+     * @param statisticsData
+     * @param filePath
+     * @throws IOException
+     */
     public void saveStatisticsData(PlayerStatistics statisticsData, Path filePath) throws IOException {
-        System.out.println("Inside Storage Manager, Saving Stats Data with FilePath");
+        //System.out.println("Inside Storage Manager, Saving Stats Data with FilePath");
         logger.fine("Attempting to save statistics to file: " + filePath);
         statisticsStorage.saveStatisticsData(statisticsData, filePath);
     }

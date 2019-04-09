@@ -2,10 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.logging.Logger;
-
-import seedu.address.commons.core.LogsCenter;
 import java.io.IOException;
+
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
@@ -13,7 +11,7 @@ import seedu.address.logic.CommandHistory;
 
 import seedu.address.model.Model;
 import seedu.address.model.statistics.PlayerStatistics;
-import seedu.address.model.util.SampleDataUtil;
+
 import seedu.address.storage.Storage;
 
 
@@ -21,7 +19,7 @@ import seedu.address.storage.Storage;
  * Lists all the commands entered by user from the start of app launch.
  *
  */
-public class stubSaveStatsCommand extends Command {
+public class SaveCommand extends Command {
 
     public static final String COMMAND_WORD = "save";
     public static final String MESSAGE_SUCCESS = "Statistics Data Saved";
@@ -76,23 +74,21 @@ public class stubSaveStatsCommand extends Command {
         try {
             this.playerStats.saveToStorage(this.playerStats);
             System.out.println("saveToStorage");
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             System.out.println("IO Exception");
         }
         // this game accuracy higher,
-        if (pastAccuracy < (this.playerStats).getAccuracy()){
-            return new CommandResult(MESSAGE_SUCCESS + ">> Your accuracy improved!" + '\n' +
-                    "Current Game : " + this.playerStats.getAccuracy() + '\n' +
-                    "Previous Game : " + pastAccuracy);
-        }
-        else if (pastAccuracy == this.playerStats.getAccuracy()) {
+        if (pastAccuracy < (this.playerStats).getAccuracy()) {
+            return new CommandResult(MESSAGE_SUCCESS + ">> Your accuracy improved!" + '\n'
+            + "Current Game : " + this.playerStats.getAccuracy() + '\n'
+            + "Previous Game : " + pastAccuracy);
+        } else if (pastAccuracy == this.playerStats.getAccuracy()) {
             return new CommandResult(MESSAGE_SUCCESS + ">> Your accuracy is the same at " + pastAccuracy);
-        }
-        else {
-            return new CommandResult(MESSAGE_SUCCESS + ">> Your accuracy was better last round!" + '\n' +
-                     "Current Game : " + this.playerStats.getAccuracy() + '\n' +
-                     "Previous Game : " + pastAccuracy);
+        } else {
+            return new CommandResult(MESSAGE_SUCCESS + ">> Your accuracy was better last round!" + '\n'
+            + "Current Game : " + this.playerStats.getAccuracy()
+            + '\n'
+            + "Previous Game : " + pastAccuracy);
         }
 
     }

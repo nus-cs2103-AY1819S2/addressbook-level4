@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.battle.AttackResult;
 import seedu.address.storage.Storage;
 
@@ -183,18 +182,16 @@ public abstract class Statistics {
     public Storage getStorage() {
         return this.storage;
     }
-    // method
+
+    /**
+     * This will store the statisticsData into Storage component
+     * @param statisticsData
+     * @throws IOException
+     */
     public void saveToStorage(PlayerStatistics statisticsData) throws IOException {
-        System.out.println("SaveStatisticsData");
+        //System.out.println("SaveStatisticsData");
         this.storage.saveStatisticsData(statisticsData);
     }
-
-//    public PlayerStatistics readFromStorage() throws IOException, DataConversionException {
-//        System.out.println("ReadStatisticsData");
-//        try {
-//            PlayerStatistics playerStats = this.storage.readStatisticsData();
-//        }
-//    }
 
     public void setStorage(Storage storage) {
         logger.info("Set Storage Location for Statistics");

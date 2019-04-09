@@ -16,12 +16,14 @@ import seedu.address.model.person.Person;
 public class BrowserPanelTest extends GuiUnitTest {
     private SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
     private SimpleObjectProperty<Person> selectedArchivedPerson = new SimpleObjectProperty<>();
+    private SimpleObjectProperty<Person> selectedPinPerson = new SimpleObjectProperty<>();
     private BrowserPanel browserPanel;
     private BrowserPanelHandle browserPanelHandle;
 
     @Before
     public void setUp() {
-        guiRobot.interact(() -> browserPanel = new BrowserPanel(selectedPerson, selectedArchivedPerson));
+        guiRobot.interact(() -> browserPanel = new BrowserPanel(selectedPerson, selectedArchivedPerson,
+                selectedPinPerson));
         uiPartRule.setUiPart(browserPanel);
 
         browserPanelHandle = new BrowserPanelHandle(browserPanel.getRoot());

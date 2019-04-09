@@ -41,6 +41,7 @@ public class ArchiveSelectCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+        model.setSelectedPinPerson(null);
         model.setSelectedArchivedPerson(filteredArchivedPersonList.get(targetIndex.getZeroBased()));
         return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()),
                 false, false, true);

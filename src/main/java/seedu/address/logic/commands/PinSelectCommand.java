@@ -23,7 +23,8 @@ public class PinSelectCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_PIN_PERSON_SUCCESS = "Selected Pin Person: %1$s";
+    public static final String MESSAGE_SELECT_PIN_PERSON_SUCCESS = "Selected Pin Person: %1$s\n"
+            + "Displaying main person list!";
 
     private final Index targetIndex;
 
@@ -41,8 +42,9 @@ public class PinSelectCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        model.setSelectedPinPerson(pinnedPersonList.get(targetIndex.getZeroBased()));
         model.setSelectedPerson(null);
+        model.setSelectedArchivedPerson(null);
+        model.setSelectedPinPerson(pinnedPersonList.get(targetIndex.getZeroBased()));
         return new CommandResult(String.format(MESSAGE_SELECT_PIN_PERSON_SUCCESS, targetIndex.getOneBased()));
     }
 

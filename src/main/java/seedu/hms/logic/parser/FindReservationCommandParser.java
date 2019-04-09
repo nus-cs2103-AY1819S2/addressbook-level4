@@ -6,6 +6,8 @@ import static seedu.hms.logic.parser.CliSyntax.PREFIX_ROOM;
 
 import seedu.hms.logic.commands.FindReservationCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
+import seedu.hms.model.ReservationManager;
+import seedu.hms.model.ReservationModel;
 import seedu.hms.model.reservation.ReservationContainsPayerPredicate;
 import seedu.hms.model.reservation.ReservationWithTypePredicate;
 
@@ -19,7 +21,7 @@ public class FindReservationCommandParser implements Parser<FindReservationComma
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public FindReservationCommand parse(String args) throws ParseException {
+    public FindReservationCommand parse(String args, ReservationModel reservationModel) throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_IDENTIFICATION_NUMBER,
                 PREFIX_ROOM);
@@ -40,7 +42,7 @@ public class FindReservationCommandParser implements Parser<FindReservationComma
         ReservationWithTypePredicate reservationWithTypePredicate;
         if (argMultimap.getValue(PREFIX_ROOM).isPresent()) {
             reservationWithTypePredicate = new ReservationWithTypePredicate(
-                ParserUtil.parseRoom(argMultimap.getValue(PREFIX_ROOM).get()).getName());
+                ParserUtil.parseRoom(argMultimap.getValue(PREFIX_ROOM).get(), reservationModel).getName());
         } else {
             reservationWithTypePredicate = new ReservationWithTypePredicate("");
         }
@@ -55,5 +57,9 @@ public class FindReservationCommandParser implements Parser<FindReservationComma
             reservationWithTypePredicate);
     }
 
+    @Override
+    public FindReservationCommand parse(String args) throws ParseException {
+        return parse(args, new ReservationManager());
+    }
 
 }

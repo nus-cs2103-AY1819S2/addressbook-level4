@@ -5,11 +5,15 @@
       "phone": "9482424",
       "email": "invalid@email!3e",
       "idnum": "123345",
-      "hms": "4th street"
+      "address": "4th street"
     }
   ],
   "bookings": [
   ],
   "reservations": [
+  ],
+  "serviceTypes": [
+  ],
+  "roomTypes": [
   ]
 }

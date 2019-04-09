@@ -9,6 +9,7 @@ import java.util.Set;
 
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.customer.Customer;
+import seedu.hms.model.reservation.roomType.RoomType;
 import seedu.hms.model.util.DateRange;
 
 /**

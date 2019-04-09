@@ -28,12 +28,13 @@ import seedu.hms.model.Model;
 import seedu.hms.model.ReservationModel;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.BookingContainsPayerPredicate;
-import seedu.hms.model.booking.ServiceType;
+import seedu.hms.model.booking.serviceType.ServiceType;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.NameContainsKeywordsPredicate;
 import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.ReservationContainsPayerPredicate;
-import seedu.hms.model.reservation.RoomType;
+import seedu.hms.model.reservation.roomType.RoomType;
+import seedu.hms.model.util.TimeRange;
 import seedu.hms.testutil.EditBookingDescriptorBuilder;
 import seedu.hms.testutil.EditCustomerDescriptorBuilder;
 import seedu.hms.testutil.EditReservationDescriptorBuilder;
@@ -100,13 +101,15 @@ public class CommandTestUtil {
             .withPhone(VALID_PHONE_BOB).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).withEmail(VALID_EMAIL_BOB)
             .withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
-        DESC_ALICE_SPA = new EditBookingDescriptorBuilder().withService(ServiceType.SPA).withTiming(11, 12)
+        ServiceType spa = new ServiceType(30, new TimeRange(10, 20), "Spa", 10.0);
+        DESC_ALICE_SPA = new EditBookingDescriptorBuilder().withService(spa).withTiming(11, 12)
             .withPayer(ALICE).withOtherUsers().withComment("AliceSPA").build();
-        DESC_CARL_SPA = new EditBookingDescriptorBuilder().withService(ServiceType.SPA).withTiming(12, 13)
+        DESC_CARL_SPA = new EditBookingDescriptorBuilder().withService(spa).withTiming(12, 13)
             .withPayer(CARL).withOtherUsers().withComment("CarlSPA").build();
-        DESC_ALICE_SINGLE_ROOM = new EditReservationDescriptorBuilder().withRoom(RoomType.SINGLE)
+        RoomType singleRoom = new RoomType(100, "Single Room", 500.0);
+        DESC_ALICE_SINGLE_ROOM = new EditReservationDescriptorBuilder().withRoom(singleRoom)
             .withDates("08/12/2019", "10/12/2019").withPayer(ALICE).withOtherUsers().withComment("AliceSingle").build();
-        DESC_CARL_SINGLE_ROOM = new EditReservationDescriptorBuilder().withRoom(RoomType.SINGLE)
+        DESC_CARL_SINGLE_ROOM = new EditReservationDescriptorBuilder().withRoom(singleRoom)
             .withDates("08/12/2019", "10/12/2019").withPayer(CARL).withOtherUsers().withComment("CarlSingle").build();
     }
 

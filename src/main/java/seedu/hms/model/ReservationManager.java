@@ -16,14 +16,15 @@ import javafx.collections.transformation.FilteredList;
 import seedu.hms.commons.core.GuiSettings;
 import seedu.hms.commons.core.LogsCenter;
 import seedu.hms.model.reservation.Reservation;
-import seedu.hms.model.reservation.RoomType;
 import seedu.hms.model.reservation.exceptions.ReservationNotFoundException;
-import seedu.hms.model.reservation.exceptions.RoomTypeNotFoundException;
+import seedu.hms.model.reservation.roomType.RoomType;
+import seedu.hms.model.reservation.roomType.exceptions.RoomTypeNotFoundException;
 
 /**
  * Represents the in-memory model of the hms book data.
  */
 public class ReservationManager implements ReservationModel {
+
     private static final Logger logger = LogsCenter.getLogger(ReservationManager.class);
 
     private final VersionedHotelManagementSystem versionedHotelManagementSystem;
@@ -45,7 +46,7 @@ public class ReservationManager implements ReservationModel {
         versionedHotelManagementSystem = hotelManagementSystem;
         this.userPrefs = new UserPrefs(userPrefs);
         filteredReservations = new FilteredList<>(versionedHotelManagementSystem.getReservationList());
-        roomTypeList = new FilteredList<>(versionedHotelManagementSystem.getRoomTypeList());
+        roomTypeList = new FilteredList<RoomType>(versionedHotelManagementSystem.getRoomTypeList());
         filteredReservations.addListener(this::ensureSelectedReservationIsValid);
     }
 
@@ -125,6 +126,38 @@ public class ReservationManager implements ReservationModel {
     public void setClearReservation(ReadOnlyHotelManagementSystem hotelManagementSystem) {
         versionedHotelManagementSystem.resetDataReservation(hotelManagementSystem);
     }
+
+    public void deleteRoomType(int roomTypeIndex) {
+        versionedHotelManagementSystem.removeRoomType(roomTypeIndex);
+    }
+
+    public void deleteRoomType(RoomType b) {
+        versionedHotelManagementSystem.removeRoomType(b);
+    }
+
+    /*
+     * Adds a roomType
+     */
+    public void addRoomType(RoomType roomType) {
+        versionedHotelManagementSystem.addRoomType(roomType);
+    }
+
+    public void setRoomType(int roomTypeIndex, RoomType editedRoomType) {
+        requireNonNull(editedRoomType);
+
+        versionedHotelManagementSystem.setRoomType(roomTypeIndex, editedRoomType);
+    }
+
+    public RoomType getRoomType(String serviceName) {
+        requireNonNull(serviceName);
+        for (RoomType st: roomTypeList) {
+            if (st.getName().equalsIgnoreCase(serviceName)) {
+                return st;
+            }
+        }
+        return null;
+    }
+
 
     //=========== Filtered Reservation List Accessors =============================================================
 
@@ -218,7 +251,7 @@ public class ReservationManager implements ReservationModel {
         }
     }
 
-    //=========== Selected ServiceType ===========================================================================
+    //=========== Selected RoomType ===========================================================================
 
     public ReadOnlyProperty<RoomType> selectedRoomTypeProperty() {
         return selectedRoomType;

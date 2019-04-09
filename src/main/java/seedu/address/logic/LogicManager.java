@@ -45,7 +45,8 @@ public class LogicManager implements Logic {
 
         // Set addressBookModified to true whenever the models' address book is modified.
         this.statistics.setStorage(storage);
-        model.getAddressBook().addListener(observable -> addressBookModified = true);
+        // to remove
+        //model.getAddressBook().addListener(observable -> addressBookModified = true);
     }
 
     @Override
@@ -65,15 +66,15 @@ public class LogicManager implements Logic {
             }
         }
         // STATS STORAGE upon modified, will save into StatisticData via saveAddressBook
-        if (addressBookModified) {
-            //logger.info("Detected Game End. Saving statistics...")
-            logger.info("Address book modified, saving to file.");
-            try {
-                storage.saveAddressBook(model.getAddressBook());
-            } catch (IOException ioe) {
-                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-            }
-        }
+        //        if (addressBookModified) {
+        //            //logger.info("Detected Game End. Saving statistics...")
+        //            logger.info("Address book modified, saving to file.");
+        //            try {
+        //                storage.saveAddressBook(model.getAddressBook());
+        //            } catch (IOException ioe) {
+        //                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        //            }
+        //        }
 
         return commandResult;
     }

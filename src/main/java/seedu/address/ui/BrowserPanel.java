@@ -68,7 +68,7 @@ public class BrowserPanel extends UiPart<Stage> {
      */
     public void loadPage(Weblink weblink) {
         // Load restaurant page when selected restaurant changes.
-        loadPage(WebUtil.prependHttps(weblink.value));
+        loadPage(weblink.value);
     }
 
     /**

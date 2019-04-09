@@ -21,9 +21,14 @@ public class WebUtil {
             + " Please check your connections.";
     private static final String DUMMY_WEBLINK = "https://www.google.com.sg";
 
-    public static boolean isUrlValid(String urlString) {
+    public static boolean isUrlValid(String urlString) throws NoInternetException {
+        // checks if there is internet connection
+        if (!urlString.equals(DUMMY_WEBLINK) && !hasInternetConnection()) {
+            throw new NoInternetException(MESSAGE_NO_INTERNET);
+        }
+
         try {
-            final URL url = new URL(prependHttps(urlString));
+            final URL url = new URL(urlString);
             final URLConnection conn = url.openConnection();
             conn.connect();
             conn.getInputStream().close();
@@ -32,7 +37,7 @@ public class WebUtil {
             return false;
         }
     }
-    
+
     /**
      * To check internet connection against a reliable weblink, ie. google
      * @return false if fails to connect to google
@@ -73,10 +78,6 @@ public class WebUtil {
     }
 
     public static String validateAndAppend(String urlString) throws NoInternetException, ParseException {
-        // checks if there is internet connection
-        if (!urlString.equals(DUMMY_WEBLINK) && !hasInternetConnection()) {
-            throw new NoInternetException(MESSAGE_NO_INTERNET);
-        }
 
         boolean invalidUrl;
         String trimmedWeblink = urlString;

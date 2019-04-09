@@ -12,6 +12,7 @@ import seedu.address.model.Model;
 public class MemberListCommand extends MemberCommand {
 
     public static final String COMMAND_WORD = "memberList";
+    public static final String COMMAND_ALIAS = "mList";
 
     public static final String MESSAGE_SUCCESS = "Listed all persons";
 

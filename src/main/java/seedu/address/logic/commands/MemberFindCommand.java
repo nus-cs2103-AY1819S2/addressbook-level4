@@ -18,6 +18,7 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 public class MemberFindCommand extends MemberCommand {
 
     public static final String COMMAND_WORD = "memberFind";
+    public static final String COMMAND_ALIAS = "mFind";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all members whose specified criteria "
             + "contain any of the specified keyword (case-insensitive) and displays them as a list with index "

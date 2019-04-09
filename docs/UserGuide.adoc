@@ -189,7 +189,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 image::memberCommands.png[width="100%"]
 
-==== Adding a member: `memberAdd`
+==== Adding a member: `memberAdd` or `mAdd`
 
 You can add members to ClubManager. +
 [width="100%",cols="30%,<50%, <50%",options="header",]
@@ -242,7 +242,7 @@ A member can have any number of tags (including 0).|Swimming
 * `memberAdd n/James Ong mn/A0123456J p/98765432 e/jamesong@example.com a/123, Jurong West Ave 6, #08-111 g/male y/2 m/mathematics`
 * `memberAdd n/Jane Lim mn/A0654321J p/91324756 e/janelim@example.com a/123, Sengkang Ave 6, #02-123 g/Female y/3  m/physics t/Swimming`
 
-==== Deleting a member : `memberDelete`
+==== Deleting a member : `memberDelete` or `mDelete`
 
 Deletes the specified member from ClubManager. +
 Format: `memberDelete INDEX`
@@ -262,7 +262,7 @@ Deletes the 2nd member in ClubManager.
 `memberDelete 1` +
 Deletes the 1st member in the results of the `find` command.
 
-==== Editing a member : `memberEdit`
+==== Editing a member : `memberEdit` or `mEdit`
 
 Edits an existing member in ClubManager. +
 Format: `memberEdit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GENDER] [yos/YEAR_OF_STUDY] [m/MAJOR] [t/TAG]...`
@@ -284,7 +284,7 @@ Edits the phone number and email address of the 1st member to be `91234567` and 
 * `memberEdit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd member to be `Betsy Crower` and clears all existing tags.
 
-==== Locating members by name: `memberFind`
+==== Locating members by name: `memberFind` or `mFind`
 
 Finds members whose names contain any of the given keywords. +
 Format: `memberFind CRITERIA KEYWORD [MORE_KEYWORDS]`
@@ -306,7 +306,7 @@ Returns any member having names `Betsy`, `Tim`, or `John`
 * `memberFind matricnum A0` +
 Returns all members (matric num starts with A0)
 
-==== Listing members : `memberList`
+==== Listing members : `memberList` or mList`
 
 Shows a list of all members in ClubManager. +
 Format: `memberList`
@@ -331,7 +331,7 @@ Selects the 2nd person in the club manager.
 image::memberSelectCommand.png[width="790"]
 
 //tag::membersort[]
-==== Sort members’ list : `memberSort`
+==== Sort members’ list : `memberSort` or `mSort`
 
 Sort the members list by a member’s attribute in ascending order
 
@@ -375,7 +375,7 @@ image::MemberSortCommand_sortby_yearofstudy.png[width="790"]
 //end::membersort[]
 
 //tag::memberexport[]
-==== Exporting details of a member : `memberExport`
+==== Exporting details of a member : `memberExport` or `mExport`
 
 Export the details of the member identified by the index number used in the displayed member list. +
 Format: `memberExport INDEX`
@@ -408,7 +408,7 @@ NameOfPerson_xxxxx_exportedOnDDMMYYYY_HHMMSS.html
 
 === Activity Management Features
 //tag::activityAdd[]
-==== Adding an activity : `activityAdd`
+==== Adding an activity : `activityAdd` or `aAdd`
 Adds a new activity to the activity list +
 [width="100%",cols="30%,<50%, <50%",options="header",]
 |=======================================================================
@@ -447,7 +447,7 @@ Adding activity to the correct position based on the time.
 
 // tag::activityAddMember[]
 
-==== Add a member to activity `activityAddMember`
+==== Add a member to activity `activityAddMember` or `aAddM`
 Adds an existing member to an existing activity to indicate that they will be going for the activity.
 Format: `activityAddMember ACTIVITY_INDEX MATRIC_NO`
 
@@ -464,7 +464,7 @@ Adds the member with matric number `A1234567N` to the attending list for activit
 
 // tag::activityDelete[]
 
-==== Delete an activity `activityDelete`
+==== Delete an activity `activityDelete` or `aDelete`
 Deletes an existing activity in the activity list
 Format: `activityDelete ACTIVITY_INDEX`
 
@@ -481,7 +481,7 @@ Deletes the first activity in the displayed activity list
 
 // tag::activityDeleteMember[]
 
-==== Delete a member from activity `activityDeleteMember`
+==== Delete a member from activity `activityDeleteMember` or `aDeleteM`
 Removes an existing member who has already indicated that he/she will be attending the activity from the attending list of the activity.
 Format: `activityDeleteMember ACTIVITY_INDEX MATRIC_NO`
 
@@ -496,7 +496,7 @@ Examples:
 Removes the member with matric number A1234567N from activity 1’s attending list.
 // end::activityDeleteMember[]
 
-==== Edit an activity: `activityEdit`
+==== Edit an activity: `activityEdit` or `aEdit`
 Edits an existing activity in the activity list
 Format: `activityEdit ACTIVITY_INDEX [n/ACTIVITY_NAME] [d/DATE] [t/TAG] … `
 
@@ -518,7 +518,7 @@ Clears all existing tags of the second activity.
 
 //tag::activityFilter[]
 
-==== Filtering activities by date: `activityFilter`
+==== Filtering activities by date: `activityFilter` or `aFilter`
 
 Filters the activities that is the given number of days away from today (inclusive)
 and displays them as a list with index numbers.
@@ -531,7 +531,7 @@ Format: `activityFilter CONDITION NUMBEROFDAYS`
 ****
 
 
-==== Finding activities by criteria: `activityFind`
+==== Finding activities by criteria: `activityFind` or `aFind`
 
 Finds all activities whose attribute contain any of the specified keywords
 (case-insensitive) and displays them as a list with index numbers. +
@@ -558,7 +558,7 @@ Returns activities with location `University Hall` and `Eusoff Hall`
 * `activityFind n/ HTML CSS Javascript` +
 Returns any activity having names `HTML`, `CSS`, or `Javascript`
 
-==== Listing all activities : `activityList`
+==== Listing all activities : `activityList` or `aList`
 
 Shows a list of all activities in the activity list. +
 Format: `activityList`
@@ -570,7 +570,7 @@ If the status of some activities have changed from `ONGOING` to `COMPLETED`, the
 
 image::ActivityListCommand.png[width="790"]
 
-==== Selecting an activity : `activitySelect`
+==== Selecting an activity : `activitySelect` or `aSelect`
 
 Selects the activity identified by the index number used in the displayed activity list. +
 Format: `activitySelect ACTIVITY_INDEX`
@@ -592,7 +592,7 @@ Selects the 1st activity in the results of the `find` command.
 //end::activityFilter[]
 
 //tag::activityexport[]
-==== Exporting details of an activity : `activityExport`
+==== Exporting details of an activity : `activityExport` or `aExport`
 
 Export the details of the activity identified by the index number used in the displayed activity list. +
 Format: `activityExport INDEX`
@@ -684,5 +684,27 @@ e.g. `activitySelect 2`
 * *Exports an activity* : `activityExport ACTIVITY_INDEX` +
 e.g. `activityExport 1`
 
+=== Command Alias
 
+Alias for command keywords can be used in place of full text commands.
 
+* Member Functions
+** `memberAdd` or `mAdd`
+** `memberDelete` or 'mDelete'
+** `memberEdit` or `mEdit`
+** `memberFind` or `mFind`
+** `memberList` or `mList`
+** `memberSelect` or `mSelect`
+** `memberSort` or `mSort`
+** `memberExport` or `mExport`
+* Activity Functions
+** `activityAdd` or `aAdd`
+** `activityAddMember` or `aAddM`
+** `activityDelete` or `aDelete`
+** `activityDeleteMember` or `aDeleteM`
+** `activityEdit` or `aEdit`
+** `activityFind` or `aFind`
+** `activityFilter` or `aFilter`
+** `activityList` or `aList`
+** `activitySelect` or `aSelect`
+** `activityExport` or `aExport`

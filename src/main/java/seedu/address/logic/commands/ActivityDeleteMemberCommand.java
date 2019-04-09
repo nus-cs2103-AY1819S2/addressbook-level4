@@ -18,6 +18,7 @@ import seedu.address.model.person.MatricNumber;
 public class ActivityDeleteMemberCommand extends ActivityCommand {
 
     public static final String COMMAND_WORD = "activityDeleteMember";
+    public static final String COMMAND_ALIAS = "aDeleteM";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Selects the activity identified by the index number used in the displayed activity list and removes"

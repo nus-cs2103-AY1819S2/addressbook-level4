@@ -16,6 +16,7 @@ import seedu.address.model.activity.Activity;
  */
 public class ActivityDeleteCommand extends ActivityCommand {
     public static final String COMMAND_WORD = "activityDelete";
+    public static final String COMMAND_ALIAS = "aDelete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the activity identified by the index number used in the displayed activity list.\n"

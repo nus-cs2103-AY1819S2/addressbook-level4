@@ -38,6 +38,7 @@ o-to application for CCA leaders who are looking for a software that allows them
 
 * *Minor enhancement*:
 ** Rename member list function.
+** Implement command alias for expert users.
 
 * *Code contributed*: [https://github.com/CS2103-AY1819S2-W13-2/main/commits?author=A0143487X-Kevin[Functional code]] [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=A0143487X-Kevin&sort=displayName&since=2019-02-10&until=2019-04-8&timeframe=day&reverse=false&repoSort=true[RepoSense]]
 

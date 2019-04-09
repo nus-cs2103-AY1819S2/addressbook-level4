@@ -17,6 +17,7 @@ import seedu.address.model.activity.Activity;
 public class ActivityAddCommand extends ActivityCommand {
 
     public static final String COMMAND_WORD = "activityAdd";
+    public static final String COMMAND_ALIAS = "aAdd";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an activity to the address book. "
             + "Parameters: "

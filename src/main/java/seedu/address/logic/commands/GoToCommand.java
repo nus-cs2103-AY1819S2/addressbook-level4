@@ -26,7 +26,7 @@ public class GoToCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_EXPAND_PERSON_SUCCESS = "Displaying dental records of patient %1$s";
+    private static final String MESSAGE_EXPAND_PERSON_SUCCESS = "Displaying Records of patient %1$s";
 
     private final Index targetIndex;
 

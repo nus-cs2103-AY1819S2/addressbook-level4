@@ -50,7 +50,7 @@ public class TaskEditCommand extends Command {
             + PREFIX_TITLE + "Follow up process for John Doe "
             + PREFIX_ENDDATE + "25-12-2020";
 
-    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
+    private static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
     private final Index index;

@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -23,6 +24,9 @@ public class ReviewListPanel extends UiPart<Region> {
     @FXML
     private ListView<Review> reviewListView;
 
+    @FXML
+    private Label title;
+
     public ReviewListPanel(ObservableList<Review> reviewList, ObservableValue<Review> selectedReview,
                            Consumer<Review> onSelectedReviewChange) {
         super(FXML);
@@ -32,6 +36,7 @@ public class ReviewListPanel extends UiPart<Region> {
             logger.fine("Selection in review list panel changed to : '" + newValue + "'");
             onSelectedReviewChange.accept(newValue);
         });
+        title.setText("Review List");
         selectedReview.addListener((observable, oldValue, newValue) -> {
             logger.fine("Selected review changed to: " + newValue);
 

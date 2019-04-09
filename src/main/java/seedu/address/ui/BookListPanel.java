@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -23,6 +24,9 @@ public class BookListPanel extends UiPart<Region> {
     @FXML
     private ListView<Book> bookListView;
 
+    @FXML
+    private Label title;
+
     public BookListPanel(ObservableList<Book> bookList, ObservableValue<Book> selectedbook,
                            Consumer<Book> onSelectedbookChange) {
         super(FXML);
@@ -32,6 +36,7 @@ public class BookListPanel extends UiPart<Region> {
             logger.fine("Selection in book list panel changed to : '" + newValue + "'");
             onSelectedbookChange.accept(newValue);
         });
+        title.setText("Book List");
         selectedbook.addListener((observable, oldValue, newValue) -> {
             logger.fine("Selected book changed to: " + newValue);
 

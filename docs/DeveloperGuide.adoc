@@ -757,6 +757,10 @@ Given below is an example of organizing medicine from an initial empty QuickDocs
 
 
 
+[[medicineModule_example1]]
+image::medicineModule_example1.png[width='800']
+
+
 4. The user could view detailed information about a directory or medicine through "viewMed" command.
 
 5. The user could set the alarm level for medicines via the "setAlarm", such that when the stored amount of the medicine falls lower than the alarm level, a reminder will be thrown.

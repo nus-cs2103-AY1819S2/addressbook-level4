@@ -26,9 +26,12 @@ public class PrescriptionCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds prescribed medicine and its quantities for current patient.\n"
             + "Parameters: "
-            + PrescriptionCommandParser.PREFIX_MEDICINE + "MEDICINE 1 " + PrescriptionCommandParser.PREFIX_MEDICINE + "MEDICINE 2 " + " ... "
-            + PrescriptionCommandParser.PREFIX_QUANTITY + "QUANTITY FOR MEDICINE 1 " + PrescriptionCommandParser.PREFIX_QUANTITY + "QUANTITY FOR MEDICINE 2 " + " ... \n"
-            + "OR: " + PrescriptionCommandParser.PREFIX_MEDICINE + "MEDICINE 1 " + PrescriptionCommandParser.PREFIX_QUANTITY + "QUANTITY FOR MEDICINE 1" + " ... \n"
+            + PrescriptionCommandParser.PREFIX_MEDICINE + "MEDICINE 1 " + PrescriptionCommandParser.PREFIX_MEDICINE
+            + "MEDICINE 2 " + " ... "
+            + PrescriptionCommandParser.PREFIX_QUANTITY + "QUANTITY FOR MEDICINE 1 "
+            + PrescriptionCommandParser.PREFIX_QUANTITY + "QUANTITY FOR MEDICINE 2 " + " ... \n"
+            + "OR: " + PrescriptionCommandParser.PREFIX_MEDICINE + "MEDICINE 1 "
+            + PrescriptionCommandParser.PREFIX_QUANTITY + "QUANTITY FOR MEDICINE 1" + " ... \n"
             + "Example: "
             + COMMAND_WORD + " m/Ibuprofen q/1 m/Afrin Spray q/2\n";
 

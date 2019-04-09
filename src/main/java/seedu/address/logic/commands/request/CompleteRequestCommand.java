@@ -60,7 +60,7 @@ public class CompleteRequestCommand extends Command implements RequestCommand {
         model.updateFilteredRequestList(Model.PREDICATE_SHOW_ALL_REQUESTS);
         commitRequestBook(model);
 
-        return new CommandResult(String.format(MESSAGE_COMPLETED_REQUEST_SUCCESS, requestToBeCompleted));
+        return new CommandResult(String.format(MESSAGE_COMPLETED_REQUEST_SUCCESS, completedRequest));
     }
 
     @Override

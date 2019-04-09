@@ -62,8 +62,8 @@ public class DeleteWorkListCommandSystemTest extends EquipmentManagerSystemTest 
                 + " abc", MESSAGE_INVALID_DELETE_WORKLIST_COMMAND_FORMAT);
 
         /* Case: invalid arguments (extra argument) -> rejected */
-        assertCommandFailure(DeleteWorkListCommand.COMMAND_WORD + " 1 abc"
-                , MESSAGE_INVALID_DELETE_WORKLIST_COMMAND_FORMAT);
+        assertCommandFailure(DeleteWorkListCommand.COMMAND_WORD + " 1 abc",
+                MESSAGE_INVALID_DELETE_WORKLIST_COMMAND_FORMAT);
 
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("DelETE-W 1", MESSAGE_UNKNOWN_COMMAND);

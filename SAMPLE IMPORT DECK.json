@@ -1,0 +1,64 @@
+{
+  "name" : "SAMPLE IMPORT DECK",
+  "cards" : [ {
+    "question" : "Solve 1 + 1.",
+    "answer" : "2",
+    "totalRating" : 0,
+    "numberOfAttempts" : 0,
+    "tags" : [ "Math" ]
+  }, {
+    "question" : "What is 10 - 10?",
+    "answer" : "0",
+    "totalRating" : 0,
+    "numberOfAttempts" : 0,
+    "tags" : [ "Math" ]
+  }, {
+    "question" : "What is 8 * 8?",
+    "answer" : "64",
+    "totalRating" : 0,
+    "numberOfAttempts" : 0,
+    "tags" : [ "Math" ]
+  }, {
+    "question" : "Evaluate 1024 / 2.",
+    "answer" : "512",
+    "totalRating" : 0,
+    "numberOfAttempts" : 0,
+    "tags" : [ "Math" ]
+  }, {
+    "question" : "Hello?",
+    "answer" : "World",
+    "totalRating" : 0,
+    "numberOfAttempts" : 0,
+    "tags" : [ "CS", "Simple" ]
+  }, {
+    "question" : "Are there any tag?",
+    "answer" : "No",
+    "totalRating" : 0,
+    "numberOfAttempts" : 0,
+    "tags" : [ ]
+  }, {
+    "question" : "Is this card unique?",
+    "answer" : "Yes it is.",
+    "totalRating" : 0,
+    "numberOfAttempts" : 0,
+    "tags" : [ ]
+  }, {
+    "question" : "Which later is HTTP at?",
+    "answer" : "Application",
+    "totalRating" : 0,
+    "numberOfAttempts" : 0,
+    "tags" : [ "CS2105" ]
+  }, {
+    "question" : "What transport does HTTP use?",
+    "answer" : "TCP",
+    "totalRating" : 0,
+    "numberOfAttempts" : 0,
+    "tags" : [ "CS2105" ]
+  }, {
+    "question" : "What is the status code for OK in HTTP?",
+    "answer" : "200",
+    "totalRating" : 0,
+    "numberOfAttempts" : 0,
+    "tags" : [ "CS2105" ]
+  } ]
+}

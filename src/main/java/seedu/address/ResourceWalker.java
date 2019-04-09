@@ -19,12 +19,16 @@ import java.util.Collections;
 
 import org.apache.commons.io.IOUtils;
 
+import seedu.address.model.Album;
+
 /**
  * ResourceWalker is a helper class to read external resources into a runtime JAR project.
  * In FomoFoto, this class is only called once to import VALID images into the assets folder during runtime.
  * ResourceWalker DOES NOT CHECK FOR INVALID FILE - DO NOT PLACE NON-IMAGE FILE INTO resources/imageTest/valid.
  */
 public class ResourceWalker {
+    private static final Album album = Album.getInstance();
+
     /**
      * Given a path to a directory copy its content to a temp folder by
      * traversing all entries in the directory and performing generateTemp().
@@ -59,10 +63,10 @@ public class ResourceWalker {
             InputStream in = Files.newInputStream(path);
             String tDir = System.getProperty("java.io.tmpdir") + ASSETS_FOLDER_TEMP_NAME;
             tempFile = new File(tDir + File.separator + path.getFileName());
-            System.out.println(tempFile.getAbsolutePath());
             try (FileOutputStream out = new FileOutputStream(tempFile)) {
                 IOUtils.copy(in, out);
             }
+            album.addToImageList(tempFile.getAbsolutePath());
         } catch (Exception e) {
             e.printStackTrace();
         }

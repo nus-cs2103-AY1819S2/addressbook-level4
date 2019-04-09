@@ -78,4 +78,7 @@ public class CropCommand extends Command {
         return this.xCoord == temp.xCoord && this.yCoord == temp.yCoord && this.width == temp.width
                 && this.height == temp.height;
     }
+    public String toString() {
+        return "crop " + xCoord + " " + yCoord + " " + width + " " + height;
+    }
 }

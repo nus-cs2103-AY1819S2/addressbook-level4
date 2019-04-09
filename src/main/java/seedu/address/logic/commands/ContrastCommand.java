@@ -24,8 +24,8 @@ public class ContrastCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adjust the contrast of the image according to ratio value given.\n"
             + "If ratio is not given, default contrast ratio will be 1.1\n"
-            + "Parameters: [CONTRAST RATIO (double)] "
-            + "Example: " + COMMAND_WORD
+            + "Parameters: [CONTRAST RATIO (double)] \n"
+            + "Example: " + COMMAND_WORD + "\n"
             + "Example2: " + COMMAND_WORD + "1.3";
 
     private OptionalDouble contrastValue;
@@ -72,4 +72,13 @@ public class ContrastCommand extends Command {
         }
         return new CommandResult(Messages.MESSAGE_CONTRAST_SUCCESS);
     }
+
+    @Override
+    public String toString() {
+        if (contrastValue.isPresent()) {
+            return "contrast " + contrastValue.getAsDouble();
+        }
+        return "contrast";
+    }
 }
+/* @@author */

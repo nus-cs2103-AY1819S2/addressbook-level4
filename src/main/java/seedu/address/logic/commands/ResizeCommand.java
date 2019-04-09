@@ -74,5 +74,10 @@ public class ResizeCommand extends Command {
         ResizeCommand temp = (ResizeCommand) other;
         return this.width == temp.width && this.height == temp.height;
     }
+
+    @Override
+    public String toString() {
+        return "resize " + width + " " + height;
+    }
 }
 

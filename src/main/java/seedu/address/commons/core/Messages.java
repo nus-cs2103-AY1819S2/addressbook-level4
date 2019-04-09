@@ -9,8 +9,10 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
-    public static final String MESSAGE_INVALID_PATH = "Invalid path given.";
-    public static final String MESSAGE_INVALID_TYPE = "File is not a valid type or is hidden.";
+    public static final String MESSAGE_INVALID_PATH = "Invalid file path given.";
+    public static final String MESSAGE_UNABLE_TO_READ_FILE = "Unable to read file.";
+    public static final String MESSAGE_INVALID_FORMAT = "File is not a valid type or is hidden.";
+    public static final String MESSAGE_INVALID_SIZE = "File is too large to be opened.";
     public static final String MESSAGE_DUPLICATE_FILE = "Duplicate file name exists in assets folder. "
             + "Try using another name.";
     public static final String MESSAGE_FILE_NOT_FOUND = "File does not exist. "
@@ -33,6 +35,16 @@ public class Messages {
     public static final String MESSAGE_RESIZE_VALUE_ERROR = "Values keyed in are not positive integers. "
             + "\n%1$s";
     public static final String MESSAGE_EXPORT_SUCCESS = "Image successfully exported.";
+    public static final String MESSAGE_SAVEPRESET_SUCCESS = "Preset is successfully saved:";
+    public static final String MESSAGE_SAVEPRESET_FAIL_DUPLICATE = "Duplicate preset name is found."
+        + " Please use another preset name.";
+    public static final String MESSAGE_SAVEPRESET_FAIL_EMPTY = "List of command in this preset is empty.";
+    public static final String MESSAGE_SETPRESET_FAIL_NOTFOUND = "Preset is not found.";
+    public static final String MESSAGE_SETPRESET_SUCCESS = "Preset is successfully applied.";
+    public static final String MESSAGE_INVALID_SAVE_TYPE = "Invalid save file type."
+            + "\nNames must end with either of the following: %1$s";
+    public static final String MESSAGE_INVALID_SAVE_NAME = "Unable to save. Save file name cannot be empty.";
+
 
 
 }

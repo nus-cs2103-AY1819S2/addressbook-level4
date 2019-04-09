@@ -48,8 +48,8 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected CurrentEdit currentEdit;
-    protected Album album;
     protected Config config;
+    protected Album album;
 
     @Override
     public void init() throws Exception {
@@ -69,6 +69,8 @@ public class MainApp extends Application {
         currentEdit = new CurrentEditManager();
         logic = new LogicManager(model, storage, currentEdit);
         ui = new UiManager(logic);
+        album = Album.getInstance();
+        album.populateAlbum();
     }
 
     /**

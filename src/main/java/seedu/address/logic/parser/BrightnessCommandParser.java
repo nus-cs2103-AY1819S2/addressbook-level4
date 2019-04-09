@@ -51,3 +51,4 @@ public class BrightnessCommandParser implements Parser<BrightnessCommand> {
         return new BrightnessCommand(brightnessValue);
     }
 }
+/* @@author*/

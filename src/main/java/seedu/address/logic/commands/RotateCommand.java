@@ -77,4 +77,7 @@ public class RotateCommand extends Command {
                 || (other instanceof RotateCommand // instanceof handles nulls
                 && (this.degree == ((RotateCommand) other).degree));
     }
+    public String toString() {
+        return "rotate " + degree;
+    }
 }

@@ -49,7 +49,7 @@ public class SaveCommand extends Command {
         currentEdit.overwriteOriginal(toName);
         currentEdit.deleteHistory();
         album.populateAlbum();
-        model.refreshAlbum();
+        album.refreshAlbum();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toName));
     }

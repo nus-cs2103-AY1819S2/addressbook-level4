@@ -25,7 +25,7 @@ public class BrightnessCommand extends Command {
             + ": Adjust the brightness of the image according to ratio value given.\n"
             + "If ratio is not given, default brightness ratio will be 1.1\n"
             + "Parameters: [BRIGHTNESS RATIO (double)] "
-            + "Example: " + COMMAND_WORD
+            + "Example: " + COMMAND_WORD + "\n"
             + "Example2: " + COMMAND_WORD + "0.9";
     private OptionalDouble brightnessValue;
     private boolean isNewCommand;
@@ -70,4 +70,13 @@ public class BrightnessCommand extends Command {
         }
         return new CommandResult(Messages.MESSAGE_BRIGHTNESS_SUCCESS);
     }
+
+    @Override
+    public String toString() {
+        if (brightnessValue.isPresent()) {
+            return "brightness " + brightnessValue.getAsDouble();
+        }
+        return "brightness";
+    }
 }
+/* @@author */

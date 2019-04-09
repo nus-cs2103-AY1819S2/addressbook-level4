@@ -225,7 +225,7 @@ image::MedicineManager.png[width="500"]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[width="800"]
+image::StorageClassDiagram.PNG[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -393,63 +393,137 @@ Unable to differentiate between editing an existing value and adding a new value
 
 |===
 
-=== Listing free appointment slots
+=== Free appointment slots feature
 ==== Current Implementation
-The user enters the `appfree` command to list out all the timings available for a new appointment booking. This mechanism is facilitated
-by `AppointmentManager` which stores all created `Appointments` in an `ArrayList`. It has the method `listFreeSlots()` which is the
-main method that implements `appfree`.
+Before deciding on an appointment timing, you can execute the `freeapp` command to list out all the timings available for
+a new appointment booking.
 
-Given below is the steps taken when `listFreeApp()` is called.
+The `freeapp` command takes in two parameters: +
 
-Step 1. `listFreeApp()` takes in two arguments, `LocalDate` `start` and `end`, representing the range of dates to search for
-free appointment slots.
+. `FORMAT`: can be `day`, `week`, or `month` +
+. `DATE`: a valid date
 
-Step 2. The list of appointments is searched through from the start until the first appointment is found that has a date and start time
-within the given search range.
+This command can be roughly translated to: +
+_"Search for free appointment slots on the `FORMAT` (day/month/week) of `DATE`."_
 
+These two parameters will be parsed into two dates, `LocalDate start` and `LocalDate end`, representing the start
+and end dates of the search range for free appointment slots.
+
+This search is facilitated by the `AppointmentManager` class which stores all created `Appointments` in an `ArrayList`.
+`AppointmentManager` contains the method `listFreeSlots()` which firstly calls `getFreeSlots()`.
+`getFreeSlots()` is the main method that implements the logic behind `freeapp`.
+
+Given below are the steps taken when `listFreeSlots()` is called.
+
+Step 1. The method `listFreeSlots()` takes in the two arguments, `start` and `end`, which have been mentioned previously.
+Firstly, `listFreeSlots()` calls `getFreeSlots()`, providing it with the same two arguments, to retrieve the
+free slots before it can parse the free slots into a `String`.
+
+.Given search range from start to end date
+image::dg-freeapp/freeapp1.png[width="800"]
+
+{sp} +
+Step 2. In `getFreeSlots()`, we first retrieve the existing appointments that are within this given search range.
+
+.Retrieve appointments in the search range
+image::dg-freeapp/freeapp2.png[width="800"]
+
+{sp} +
+Step 3. Next, we look at all the appointments that are present on the `start` date. These appointments are sorted
+by date and time, with the earliest on the left, as shown in the diagram below.
+
+.Select appointments on start date
+image::dg-freeapp/freeapp3.png[width="800"]
+
+{sp} +
 [NOTE]
-The list of appointments are already sorted in increasing order of date and start time. Whenever an appointment is added to the list, it
-is placed in its correct position. This is done to prevent the high cost of sorting the appointments whenever we need to search through them.
+Since the appointments are already sorted, we do not need to search through the whole appointment list to
+find appointments present on the `start` date. We can simply go through the list from the beginning
+until we reach an appointment date that is not equals to `start`.
 
-Step 3. A `Slot` is created for each empty 'gap' in the list of appointments, within the given search range. It has three attributes,
-`LocalDate` `date` and `LocalTime` `start` and `end`, representing a period of time on a given date where no appointments have been created.
-These slots will then be added into a list of `slots`.
+{sp} +
+Step 4. We fill in each empty 'gap' between any two appointments by creating a `Slot` object.
 
+Each `Slot` object represents a single time period on a single date. It has three attributes: +
+
+* `LocalDate date` - the date of this time slot.
+* `LocalTime start` - the start time of this time slot.
+* `LocalTime end` - the end time of this time slot.
+
+In this `freeapp` context, these slots created represents a time period without any scheduled appointments.
+
+.Create slots to fill in empty time slots
+image::dg-freeapp/freeapp4.png[width="800"]
+
+{sp} +
 [NOTE]
-Slots will only be created for timings during office hours (08:00 to 18:00). This is to prevent any inconvenience caused when the user
-accidentally decides on an invalid timing, as there will be an office hour constraint when he/she eventually creates the appointment.
+Slots will only be created for timings during office hours (09:00 to 18:00). This is to prevent any possible
+inconvenience caused if the user accidentally decides on a timing outside of office hours.
+(Even though there is an office hour constraint when you eventually create the appointment.)
 
-Step 4. The list of slots will then be printed onto the results display, with each row representing one day.
+{sp} +
+Step 5. We repeat Steps 3 and 4, replacing the `start` date with the remaining dates until the `end` date.
+All slots created will be added into a list of free slots, `freeSlots`. We return `freeSlots` to the caller function,
+`listFreeSlots()`, to generate a `String` that represents all the free slots to be printed on the main display of QuickDocs.
+
+.All empty time slots filled
+image::dg-freeapp/freeapp5.png[width="800"]
+
+{sp} +
 
 ==== Design Considerations
+Listed below are some of the considerations we took when designing the `freeapp` command.
 
-1. This feature is implemented for the convenience of the user in choosing a valid appointment slot with his/her patient. They can decide
-on an appointment slot based on all the empty slots shown, rather than listing out all created appointments and figuring out what slots are
-available from there.
+1. This feature was implemented for the convenience of the user in choosing a valid appointment slot with his/her patient.
+It is more intuitive to decide on an appointment slot based on all the empty slots shown, rather than listing out
+all existing appointments using `listapp` and then figuring out what timings are available from there.
 
-2. Searching for empty slots only when the command is given allows the user the flexibility in specifying the given search range that
-he/she desires, rather than only providing a fixed period (e.g. next three months) of empty slots.
+2. We require the user to specify the search range by listing the `FORMAT` and `DATE` instead of the the `start` and
+`end` dates directly, to make the command more user friendly. The user does not have to be bothered with the exact
+range of dates to search, and can simply specify a rough date and be provided with information for the neighbouring
+dates if the `FORMAT` given is `week` or `month`. Moreover, if the user wants to list all free slots for the whole
+month, they do not have to check what the last date of the month is in order to specify the end date.
 
 ==== Alternatives Considered
+Listed below are the methods considered to implement the `freeapp` command.
+
 [cols="1,2a,1, 1", options="header"]
 |===
 |Alternative |Description |Pros | Cons
 // row 1
-|*Consistent list of free slots*
-|Maintain a list of free slots for a given range (e.g. next three months) instead of creating a new list for every time `appfree` is called.
-|Quicker to search for free slots as the list is already created.
-|More work done to maintain the list as it has to be modified whenever an appointment is created or deleted.
+|*Maintain a permanent list of free slots*
+|Maintain a list of free slots for a pre-determined range (e.g. next three months) instead of creating a new list
+every time `appfree` is called.
+|It will be quicker to search for free slots as the list is already created. We simply need to filter the list
+with the given search range and print out the resulting filtered slots.
+|Tedious work needs to be done to maintain this permanent list of free slots, as it has to be modified whenever an
+appointment is added or deleted.
 
-If search range is not within the range of the maintained list of free slots, the list will still have to be created from scratch.
+Also, if the given search range is not within the range of this consistent list of free slots,
+this list will still have to be created from scratch, defeating the purpose of maintaining this permanent list.
 // row 2
-|*Using Appointment Class instead of Slot Class*
-|We can use the existing `Appointment` Class to represent a period of time, as it has the required attributes, `date`, `start` time and `end` time.
-|We do not need to create a new `Slot` Class just to implement `appfree` feature as we can just reuse the existing `Appointment` Class.
-|`Appointment` also has compulsory `patient` and `comment` attributes which we would need to fill them with dummy values to represent a `Slot`.
-
-Violates Single Responsibility Principle and Separation of Concerns as `Appointment` can now represent either an appointment or an empty slot.
-
+|*Generate free slots only when required* (Chosen implementation)
+|We will only generate a list of free slots when the `freeapp` command is called. This list will be a one-time use
+only and will not be stored in QuickDocs Storage.
+|The user is given the flexibility to specify the range of dates to list the free slots, as this list is generated
+on the spot, and is not limited to the dates of a pre-determined list.
+|Since the generated list of free slots is not stored, extra work will be done in generating the same free slots
+when the next `freeapp` is called, that has a range of dates which overlaps the previous `freeapp` dates.
 |===
+
+We decided to implement the second method, as it is more straightforward. Here are the reasons why: +
+
+. The first implementation is actually just an extension of the chosen implementation as it still requires a way
+to generate a list of free slots, either when QuickDocs is launched or when the user requests a search range outside
+of the pre-determined list.
+. The first implementation additionally requires more effort to maintain this permanent list whenever the
+list of appointments is modified, which is not straightforward to implement. For example we need a method to merge
+two free slots when an appointment is deleted, and a method to split a free slot into two when an appointment is added.
+. The benefit of a permanent list of free slots is the quicker execution time of `freeapp`, which will typically
+only be called a small number of times (around 10) a day, when the user books an appointment slot with his/her patient.
+The total time saved on executing `freeapp` a small number of times is therefore negligible.
+. QuickDocs already has plenty of data to be stored, such as appointments, consultations and medicine records.
+The minimal benefits that a permanent list of free slots provide does not justify its additional storage cost.
 
 === Record & Statistics feature ===
 ==== Current implementation ====

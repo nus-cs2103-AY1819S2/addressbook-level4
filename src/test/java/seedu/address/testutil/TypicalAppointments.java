@@ -48,8 +48,8 @@ public class TypicalAppointments {
     public static final Appointment APP_E = new Appointment(
             EVE,
             LocalDate.parse("2019-10-26"),
-            LocalTime.parse("15:00"),
-            LocalTime.parse("16:00"),
+            LocalTime.parse("09:00"),
+            LocalTime.parse("18:00"),
             "Monthly Checkup"
     );
 

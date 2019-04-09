@@ -129,8 +129,14 @@ public class AppointmentManager {
     public String listAppointments(LocalDate start, LocalDate end) {
         StringBuilder sb = new StringBuilder();
         List<Appointment> toList = getAppointments(start, end);
+        int i = 1;
+
         for (Appointment app : toList) {
-            sb.append(app.toString()).append("\n");
+            sb.append(i)
+                    .append(") ")
+                    .append(app.toString())
+                    .append("\n");
+            i++;
         }
         return sb.toString();
     }
@@ -143,10 +149,15 @@ public class AppointmentManager {
     public String listAppointments(Patient patient) {
         StringBuilder sb = new StringBuilder();
         Patient p;
+        int i = 1;
+
         for (Appointment app : appointments) {
             p = app.getPatient();
             if (p.equals(patient)) {
-                sb.append(app.toString() + "\n");
+                sb.append(i)
+                        .append(") ")
+                        .append(app.toString())
+                        .append("\n");
             }
         }
         return sb.toString();
@@ -155,8 +166,11 @@ public class AppointmentManager {
     private List<Slot> getFreeSlots(LocalDate start, LocalDate end) {
         List<Slot> freeSlots = new ArrayList<>();
         List<Appointment> toSearch = getAppointments(start, end);
-        // no free slots for given range
+        // all slots are free
         if (toSearch.isEmpty()) {
+            for (LocalDate date = start; date.compareTo(end) <= 0; date = date.plusDays(1)) {
+                freeSlots.add(new Slot(date, OPENING_HOUR, CLOSING_HOUR));
+            }
             return freeSlots;
         }
 

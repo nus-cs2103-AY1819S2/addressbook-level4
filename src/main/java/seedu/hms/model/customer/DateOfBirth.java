@@ -15,7 +15,7 @@ import javafx.util.Pair;
  */
 public class DateOfBirth {
     public static final String MESSAGE_CONSTRAINTS = "Date of Birth should be of the format - dd/mm/yyyy and should "
-        + "not exceed the previous year. ";
+        + "not exceed the current year. ";
     public static final String VALIDATION_REGEX = "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/([0-9]{4})";
     public static final String VALIDATION_REGEX_2 = "(^$)";
     public final String value;
@@ -52,7 +52,7 @@ public class DateOfBirth {
                     return new Pair<>(false, "Date of birth in wrong format.");
                 }
             } else {
-                return new Pair<>(false, "Date values are wrong.");
+                return new Pair<>(false, MESSAGE_CONSTRAINTS);
             }
         } else {
             return new Pair<>(true, "Works.");

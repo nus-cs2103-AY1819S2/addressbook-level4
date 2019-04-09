@@ -81,8 +81,10 @@ Below are other example commands you may try:
 +
 . For a complete summary of each command, refer to <<Cheatsheet>>
 
+// tag::features[]
 [[Features]]
 == Features
+// end::features[]
 
 === Standardizing command formats
 
@@ -144,6 +146,7 @@ Adds Raffles Hotel to the list of places you have visited into TravelBuddy.
 
 <<addFigure>> below shows the outcome of a specific `add` command
 [[addFigure]]
+
 [reftext="Figure 4.3.1"]
 [caption="Figure 4.3.1: "]
 .Adding a place to TravelBuddy
@@ -196,6 +199,7 @@ Edits the name of the 2nd place to be `Raffles Hotel` and clears all existing ta
 ****
 
 <<editFigureBefore>> below shows the list of places before the `edit` command was used.
+
 [[editFigureBefore]]
 [reftext="Figure 4.5.1"]
 [caption="Figure 4.5.1: "]
@@ -204,6 +208,7 @@ image::editCommandBefore.png[width="600"]
 
 <<editFigureAfter>> below shows the list of places after the `edit` command was used.
 [[editFigureAfter]]
+
 [reftext="Figure 4.5.2"]
 [caption="Figure 4.5.2: "]
 .After the `edit` command was used
@@ -238,12 +243,10 @@ In this case, the following are returned as they contain `Singapore` in their na
 * *Singapore* Zoo
 ****
 
-[UIsearchresults]
-.Search results of `search Singapore`
-[#img-UIsearchresults]
 [[searchFigure]]
 [reftext="Figure 4.6.1"]
 [caption="Figure 4.6.1: "]
+.Search results of `search Singapore`
 image::UIsearchresults.png[width="600"]
 
 === Searching places by ratings: `searchr`
@@ -266,12 +269,10 @@ Executes a search for places with a rating of `4`. +
 From <<searchRatingFigure>>, using `searchr 4` will return all places in your TravelBuddy that have a rating of `4`.
 ****
 
-[UIsearchratingresults]
-.Search results of `searchr 4`
-[#img-UIsearchratingresults]
 [[searchRatingFigure]]
 [reftext="Figure 4.7.1"]
 [caption="Figure 4.7.1: "]
+.Search results of `searchr 4`
 image::UIsearchratingresults.png[width="600"]
 
 === Searching places by tags: `searcht`
@@ -296,12 +297,10 @@ Executes a search for places that are tagged with `distillery`. +
 From <<searchTagFigure>>, using `searcht distillery` will return all places in your TravelBuddy that are tagged with `distillery`.
 ****
 
-[UIsearchtagsresults]
-.Search results of `searcht distillery`
-[#img-UIsearchtagsresults]
 [[searchTagFigure]]
 [reftext="Figure 4.8.1"]
 [caption="Figure 4.8.1: "]
+.Search results of `searcht distillery`
 image::UIsearchtagsresults.png[width="600"]
 
 === Searching places by country: `searchc`
@@ -325,12 +324,10 @@ Executes a search for places located in `JPN` (Japan). +
 From <<searchCountryFigure>>, using `searchc JPN` will return all places in your TravelBuddy that are located in Japan.
 ****
 
-[UIsearchcountryresults]
-.Search results of `searchc JPN`
-[#img-UIsearchcountryresults]
 [[searchCountryFigure]]
 [reftext="Figure 4.9.1"]
 [caption="Figure 4.9.1: "]
+.Search results of `searchc JPN`
 image::UIsearchcountryresults.png[width="600"]
 
 === Searching places by year of visit: `searchyear`
@@ -355,12 +352,10 @@ Executes a search for places visited in the year `2016`. +
 From <<searchYearFigure>>, using `searchyear 2016` will return all places in your TravelBuddy you visited in the year `2016`.
 ****
 
-[UIsearchyearresults]
-.Search results of `searchyear 2016`
-[#img-UIsearchyearresults]
 [[searchYearFigure]]
 [reftext="Figure 4.10.1"]
 [caption="Figure 4.10.1: "]
+.Search results of `searchyear 2016`
 image::UIsearchyearresults.png[width="600"]
 // end::search[]
 
@@ -580,7 +575,7 @@ Reapplies the `clear` command +
 // end::undoredo[]
 
 // tag::generate[]
-=== Generating charts
+=== Generating charts: `generate`
 ****
 *Description:* ::
 The `generate` command generates charts based on the list of places in TravelBuddy.
@@ -609,8 +604,7 @@ image::chart2.png[width="600"]
 .The Number of Places Visited for Each Year
 image::chart3.png[width="600"]
 
-*Shortcut:* ::
-`g`
+*Shortcut:* :: `g`
 
 *Format:* :: `generate`
 
@@ -620,7 +614,8 @@ Given below is a list of preconditions that must be met for the `generate` comma
 * The `generate` command always triggers the display of all three charts.
 * The charts always update themselves in real-time. +
 _Example:_ When a place is added via the `add` command, the charts are automatically updated so that no `generate` command is necessary.
-* As seen in <<generateCommand6Figure>>, the chart will not display anything when the list is empty.
+* If the list is empty (<<generateCommand5Figure>>), the `generate` command will not display any charts (<<generateCommand6Figure>>).
+* You can type in any parameters after the `generate` command, TravelBuddy will simply ignore them.
 
 ****
 *Examples:* ::
@@ -771,7 +766,10 @@ Please do check the file that contains the data of your TravelBuddy.
 *Q*: Why does the `undo` command reverse a command from multiple commands before? +
 *A*: The `undo` command reverses the last used `add`, `delete`, `deletem`, `edit` or `clear` command.
 
+// tag::cheatsheet[]
 == Cheatsheet
+// end::cheatsheet[]
+
 // tag::commandGlossaryAndShortcuts[]
 === Command glossary and shortcuts
 

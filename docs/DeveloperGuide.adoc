@@ -6,6 +6,7 @@
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:sourceDir: ../src/main/java
 :xrefstyle: full
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -54,10 +55,10 @@ For this section, we will integrate JDK, IntelliJ and GitHub with TravelBuddy, b
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/src/main/java/seedu/travel/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/travel/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the Setup
 
@@ -108,15 +109,18 @@ including the design and structure of components and their constituent classes.
 [[Design-Architecture]]
 === Architecture
 
+[[ArchitectureDiagram]]
+[reftext="Figure 3.1.1"]
+[caption="Figure 3.1.1: "]
 .Architecture Diagram
 image::Architecture.png[width="600"]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+<<ArchitectureDiagram>> above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/travel/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -138,16 +142,22 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component, as seen in the class diagram in <<LogicClassDiagram>>, defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
+[[LogicClassDiagram]]
+[reftext="Figure 3.1.2"]
+[caption="Figure 3.1.2: "]
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The sequence diagram, as seen in <<SeqDiagramDforDeletePlace>>, below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
+[[SeqDiagramDforDeletePlace]]
+[reftext="Figure 3.1.3"]
+[caption="Figure 3.1.3: "]
 .Component interactions for `delete 1` command
 image::SDforDeletePlace.png[width="800"]
 
@@ -156,12 +166,15 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI Component
 
+[[UiClassDiagram]]
+[reftext="Figure 3.2.1"]
+[caption="Figure 3.2.1: "]
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-The `UI` component uses JavaFx UI framework. The *layout* of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component, as seen in <<UiClassDiagram>>, uses JavaFx UI framework. The *layout* of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/travel/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The 'UI' component *controllers* are found in the `src/main/java/seedu/address/ui` folder. Each class corresponds to a specific `.fxml` file.
+The 'UI' component *controllers* are found in the `src/main/java/seedu/travel/ui` folder. Each class corresponds to a specific `.fxml` file.
 
 The `UI` component,
 
@@ -205,11 +218,13 @@ contains helper methods for switching functionality, interacts with model and lo
 === Logic Component
 
 [[fig-LogicClassDiagram]]
+[reftext="Figure 3.3.1"]
+[caption="Figure 3.3.1: "]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/travel/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `TravelBuddyParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -217,18 +232,24 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given in <<DeletePersonSdForLogic>> below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
+[[DeletePersonSdForLogic]]
+[reftext="Figure 3.3.2"]
+[caption="Figure 3.3.2: "]
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model Component
 
+[[ModelClassDiagram]]
+[reftext="Figure 3.4.1"]
+[caption="Figure 3.4.1: "]
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/travel/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -239,8 +260,7 @@ the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `TravelBuddy`, which `Place` can reference. This would allow `Address
- Book` to only require one `Tag` object per unique `Tag`, instead of each `Place` needing their own `Tag` object. An
+As a more OOP model, we can store a `Tag` list in `TravelBuddy`, which `Place` can reference. This would allow `TravelBuddy` to only require one `Tag` object per unique `Tag`, instead of each `Place` needing their own `Tag` object. An
  example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
@@ -248,10 +268,13 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 [[Design-Storage]]
 === Storage Component
 
+[[StorageClassDiagram]]
+[reftext="Figure 3.5.1"]
+[caption="Figure 3.5.1: "]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/travel/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -271,8 +294,7 @@ This section describes some noteworthy details on how certain features are imple
 === Undo/Redo Feature
 
 Called by the `undo` and `redo` commands to undo and redo changes to TravelBuddy Place entries.
-Undoable commands include `add` `edit` `delete` `deletem` `clear` `generate` and 'redo'
-Redoable commands include `add` `edit` `delete` `deletem` `clear` `generate` and 'undo'
+Undoable commands include `add`, `edit`, `delete`, `deletem`, `clear`, `generate` and `redo`. Redoable commands include `add`, `edit`, `delete`, `deletem`, `clear`, `generate` and `undo`.
 
 ==== Current Implementation
 
@@ -648,49 +670,140 @@ The command `add` is in lower-case. Mixed-case or upper-case commands are not re
 // tag::generate[]
 === Chart Feature
 
+The Chart feature displays to users three different charts in TravelBuddy. They are:
+
+* The Number of Places Visited by Rating Category
+* The Number of Places Visited by Year
+* The Number of Places Visited by Country
+
+The Chart feature is activated in TravelBuddy by default when the application launches. Alternatively, the `generate` command is also used to generate the charts. The `generate` command does not require any parameters.
+
+[TIP]
+Instead of typing `generate`, you can simply type the shortcut `g`.
+
 ==== Current Implementation
 
-At the GUI, the user enters the `generate` command, without any parameters. The UI takes in the input and passes it
-on to `LogicManager#execute()` in the Logic. The`TravelBuddyParser#parseCommand()` is then called, which parses the
-command and redirects to the `GenerateCommand` class.
+*Logic:* :: The `generate` mechanism is executed by `GenerateCommand`, which extends from `Command`. A code snippet is shown below:
 
-The `GenerateCommand#execute()` in Logic calls on Model to do two things:
-.  It stores the different country code found in TravelBuddy as keys, and stores the number of times each country
-code appears in TravelBuddy as values.
-.  A similar approach is done, except country code is now replaced with rating found in TravelBuddy as keys, and the
-number of times each rating appears as values.
+// [source,java]
+// ----
+// include::{sourceDir}/seedu/travel/logic/commands/GenerateCommand.java[tags=execute,indent=5]
+// ----
 
-Once the two sets of data are obtained, a new Chart object is created. The Chart object displays the data to the user.
+:: The operations implemented are:
+* `GenerateCommand#setChartDisplayed(chartDisplayed)` - Signals to the UI to display the charts.
+* `GenerateCommand#commitTravelBuddy()` - Saves the current TravelBuddy state from its history.
+* `GenerateCommand#getFilteredPlaceList()` - Verifies if the list is empty.
+
+:: These operations are exposed in the `Model` interface as `Model#setChartDisplayed(chartDisplayed)`, `Model#commitTravelBuddy()` and `Model#getFilteredPlaceList()`.
+
+*Model:* :: The chart generation mechanism is facilitated by `VersionedTravelBuddy`, which extends from `TravelBuddy`, as seen in the Model Class Diagram in <<ModelClassDiagram>>. 
+
+[[chartOopDiagramFigure]]
+[reftext="Figure 4.4.3"]
+[caption="Figure 4.4.3: "]
+.OOP Diagram
+image::Chart_ModelClassBetterOopDiagram.png[width="600"]
+
+:: For this section on Charts, the focus is on the class diagram as seen in <<chartOopDiagramFigure>>. The step-by-step explanation of the class diagram can be found below:
+. The `ModelManager` is a container for a `VersionedTravelBuddy` object.
+. VersionedTravelBuddy consists of a `UniquePlaceList` object.
+. `UniquePlaceList` is a container for one or more `ChartBook` objects and for one or more `Place` object.
+. `ChartBook` consists of a `CountryChartList` object, a `RatingChartList` object and a `YearChartList` object.
+. `countryChartList` is a container for one or more `CountryChart` objects. Similarly, `ratingChartList` is a container for one or more `RatingChart` objects and `yearChartList` is a container for one or more `YearChart` objects.
+. `CountryChart` consists of a `CountryCode` object and a `Total` object. Similarly, `RatingChart` consists of a `Rating` object and a `Total` object and `YearChart` consists of a `Year` object and a `Total` object.
+
+
+
+*Storage:* :: It is stored internally 
+
+*UI:* :: 
+
+[[chartSeqDiagramFigure]]
+[reftext="Figure 4.4.1"]
+[caption="Figure 4.4.1: "]
+.Sequence Diagram for the `generate` command
+image::GenerateCommandSeqDiagram.png[width="600"]
+
+<<chartSeqDiagramFigure>> is a sequence diagram which illustrates the interaction between various classes when the `generate` command is entered. The step-by-step explanation of the sequence diagram are:
+
+*Step 1:* :: The user enters the command `generate` without any parameters.
+*Step 2:* :: The command is processed by the Logic component, which will then call `LogicManager#execute()`.
+*Step 3:* :: The `GenerateCommand#execute()` method s invoked.
+*Step 4:* :: The `Model#setChartDisplayed()` method is invoked with the argument `true`. The `Model#commitTravelBuddy()` method is also invoked.
+*Step 5:* :: The `TravelBuddy#commitTravelBuddy()` method is invoked by `Model`.
+*Step 6:* :: The `ChartBook#commitChart()` method is invoked by `TravelBuddy`.
+*Step 7:* :: A result object is returned.
+
+==== Generate Command
+
+*Preconditions:* ::
+Given below is a list of preconditions that must be met for the `generate` command to work:
+* By default, the charts are automatically generated each time TravelBuddy loads.
+* The `generate` command always triggers the display of all three charts.
+* The charts always update themselves in real-time. +
+_Example:_ When a place is added via the `add` command, the charts are automatically updated so that no `generate` command is necessary.
+* The chart will not display anything when the list is empty.
+* You can type in any parameters after the `generate` command, TravelBuddy will simply ignore them.
+
+*Example:* ::
+Given below is an example usage scenario and what the user will see in the GUI.
+
+:: *Step 1:* By default, the charts are displayed when TravelBuddy launches. To navigate away from the charts, type in `select 1`, as seen in <<generateCommand1Figure>>. +
+*Outcome:* The first place in the place list will be selected and displayed on the right-hand side of the panel, as shown in <<generateCommand2Figure>>.
+
+[[generateCommand1]]
+[reftext="Figure 4.4.4"]
+[caption="Figure 4.4.4: "]
+.The user types in `select 1`
+image::generateCommand1.png[width="600"]
+
+:: *Step 2:* Type in `generate` to generate the charts, as seen in <<generateCommand2Figure>>. +
+*Outcome:* The charts will be displayed on the right-hand side of the panel, as shown in <<generateCommand3Figure>>.
+
+[[generateCommand2]]
+[reftext="Figure 4.4.5"]
+[caption="Figure 4.4.5: "]
+.The user types in `generate`
+image::generateCommand2.png[width="600"]
+
+[[generateCommand3]]
+[reftext="Figure 4.4.6"]
+[caption="Figure 4.4.6: "]
+.The charts are generated
+image::generateCommand3.png[width="600"]
 
 ==== Design Considerations
 
-===== Aspect: How chart generation executes
-* *Alternative 1 (current choice)* +
-abcdef
-** *Pros:*
-:: abcdef
-** *Cons:*
-:: abcdef
-** *Example:*
-:: abcdef
-* *Alternative 2* +
-abcdef
-** *Pros:*
-:: abcdef
-** *Cons:*
-:: abcdef
-** *Example:*
-:: abcdef
-* *Decision:*
-:: abcdef
+===== Aspect: How Chart Generation Executes
 
-For future implementation, the task is to use JavaFX's charting library to create a chart that can be displayed
-to the user, as seen in the figure below.
+*Alternative 1 (current choice):* :: Charts are updated in real-time.
+*Pros:* :: Ease-of-use. Users do not need to type an additional `generate` command after changes are made to the Place list.
+:: Accurate. The chart reflects the latest changes regardless of whether the user types the `generate` command.
 
-image::Ui.png[width="800"]
+*Cons:* :: Computationally more intensive, especially when the Place list is huge, as all three charts need to be regenerated every time a change is detected.
 
-Furthermore, the `generate` command will have user input to specify if they want to generate either a chart by
-country or a chart by rating.
+*Example:* :: <<generateCommand7Figure>> shows the state of the bar charts before the command `edit 1 cc/USA` was executed, while <<generateCommand8Figure>> shows the state of the bar chart, with USA included, after the `edit` command was executed.
+
+*Alternative 2:* :: Charts are updated only when the `generate` command is used.
+*Pros:* :: Computationally less intensive, as the charts are only generated when required.
+
+*Cons:* :: Less user-friendly. Users will need to type the `generate` command for the charts to reflect the changes made to the Place list.
+:: Less accurate. The chart does not reflect the latest changes until the user types the `generate` command.
+
+*Decision:* :: Alternative 1, which is to update the charts in real-time, was adopted as it promotes ease-of-use, so users are not required to type in an additional `generate` command whenever changes are made to the Place list. Moreover, Alternative 1 is the more accurate option of the two, as the chart reflects the latest changes even if the user forgets to type the `generate` command.
+
+[[generateCommand7Figure]]
+[reftext="Figure 4.4.7"]
+[caption="Figure 4.4.7: "]
+.Before the `edit` command was executed
+image::generateCommand7.png[width="600"]
+
+[[generateCommand8Figure]]
+[reftext="Figure 4.4.8"]
+[caption="Figure 4.4.8: "]
+.After the `edit` command was executed
+image::generateCommand8.png[width="600"]
 
 // end::generate[]
 === Logging
@@ -907,7 +1020,7 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/src/main/java/seedu/travel/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.

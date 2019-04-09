@@ -77,7 +77,6 @@ public class ReminderListPanel extends UiPart<Region> {
                 if (title.startsWith("Appointment with ")
                         && end != null
                         && !comment.isEmpty()) {
-                    System.out.println(title);
                     setStyle("-fx-control-inner-background: " + APPOINTMENT_BACKGROUND + ";");
                 } else if (title.startsWith("Quantity of ")
                         && title.endsWith(" is low.")

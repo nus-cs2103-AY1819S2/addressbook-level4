@@ -808,7 +808,7 @@ image::GenerateCommandSeqDiagram.png[width="600"]
 * `saveRatingChart(filePath)` - Saves the ratings data into a JSON file.
 * `saveYearChart(filePath)` - Saves the years data into a JSON file.
 
-:: A code snippet for `saveCountryChart(filePath)` is shown below. A third-party library called 
+:: A code snippet for `saveCountryChart(filePath)` is shown below. A third-party library called Gson was used to convert Java Objects into JSON and back. The Gson API can be found https://www.javadoc.io/doc/com.google.code.gson/gson/2.8.5[here].
 
 [source,java]
 ----
@@ -1149,57 +1149,57 @@ The priority of <<user-stories, user stories>> are divided into three categories
 [width="100%", cols="8%,8%,<30%,<50%", options="header"]
 .User Stories
 |=======================================================================
-|Priority 
-|As a ... 
-|I want to ... 
+|Priority
+|As a ...
+|I want to ...
 |So that ...
 
-|`* * *` 
-|user 
+|`* * *`
+|user
 |search places by their names
 |I can quickly retrieve information about that place
 
-|`* * *` 
-|user 
+|`* * *`
+|user
 |keep track of all the places I have visited
 |I can easily search for them in the future
 
-|`* * *` 
-|user 
+|`* * *`
+|user
 |rate the places I have visited
 |I know which places I want to revisit
 
-|`* * *` 
-|user 
+|`* * *`
+|user
 |be able to search for places by ratings
 |I can recommend the highly-rated places to others and avoid the lowly-rated ones
 
-|`* * *` 
-|user 
+|`* * *`
+|user
 |be able to search for places by countries
 |I can plan for future trips
 
-|`* * *` 
+|`* * *`
 |user
 |search places by their tag(s)
 |I can quickly compile a list of places with related tags
 
-|`* *` 
+|`* *`
 |user
 |know the countries and continents that I have not visited
 |I may visit them in future
 
-|`* *` 
+|`* *`
 |user
 |see a graphical representation of the places I have visited
 |I can plan which country to visit next
 
-|`* *` 
+|`* *`
 |user
 |to know the number of times I have revisited a place
 |I know which places are popular for me
 
-|`* *` 
+|`* *`
 |user
 |search for the places I have visited by years
 |I am able to see which places I have visited in by year
@@ -1209,7 +1209,7 @@ The priority of <<user-stories, user stories>> are divided into three categories
 |have a map view indicating all of the places I have visited
 |I can quickly find out the places by countries I have visited in a user-friendly way
 
-|`*` 
+|`*`
 |user
 |I want to get the locations of highly-rated places in my vicinity
 |find a place to visit
@@ -1351,7 +1351,7 @@ _{More to be added}_
 [width="100%", cols="20%,<80%", options="header"]
 .A List of Terms Used in this Developer Guide
 |=======================================================================
-|Terms 
+|Terms
 |Definitions
 
 |[[activity-diagram]]

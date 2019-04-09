@@ -17,9 +17,10 @@ public class SortMedHistCommand extends Command {
             + ": sort medical histories by default descending order (from latest to oldest)\n"
             + COMMAND_WORD
             + " [ORDER]"
-            + ": sort medical histories by ascending(ASC) and descending(DESC) order"
+            + ": sort medical histories by ascending(ASC) and descending(DESC) order\n"
             + "Example: sort-med-hist\n"
-            + "         sort-med-hist ASC  sort-med-hist DESC";
+            + "         sort-med-hist ASC\n"
+            + "         sort-med-hist DESC";
 
     public static final String MESSAGE_SUCCESS = "All listed medical histories sorted.\n"
             + "If you don't see the list, please execute list-med-hist [pid/PATIENT_ID]";

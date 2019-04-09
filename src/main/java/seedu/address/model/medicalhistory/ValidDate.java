@@ -13,7 +13,7 @@ import java.time.format.DateTimeParseException;
 public class ValidDate {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "A medical history must happen in the past. Date must be a existing past date or today.";
+            "Date must be a valid past date or today existing in the calendar. The format must be YYYY-MM-DD";
     public final LocalDate date;
 
     /**

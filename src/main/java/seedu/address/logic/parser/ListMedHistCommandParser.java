@@ -75,7 +75,7 @@ public class ListMedHistCommandParser implements Parser<ListMedHistCommand> {
     private static ValidDate presentDateOrNull(ArgumentMultimap argumentMultimap) throws ParseException {
         ValidDate date = null;
         if (isPrefixPresent(argumentMultimap, PREFIX_DATE_OF_MEDHIST)) {
-            ParserUtil.parseValidDate(argumentMultimap.getValue(PREFIX_DATE_OF_MEDHIST).get());
+            date = ParserUtil.parseValidDate(argumentMultimap.getValue(PREFIX_DATE_OF_MEDHIST).get());
         }
         return date;
     }

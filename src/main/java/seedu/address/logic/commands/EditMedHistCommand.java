@@ -68,7 +68,7 @@ public class EditMedHistCommand extends Command {
         }
 
         model.setMedHist(medHistToEdit, editedMedHist);
-        model.updateFilteredMedHistList(PREDICATE_SHOW_ALL_MEDHISTS);
+        //model.updateFilteredMedHistList(PREDICATE_SHOW_ALL_MEDHISTS);
         model.commitDocX();
         return new CommandResult(String.format(MESSAGE_EDIT_MEDHIST_SUCCESS, editedMedHist));
     }

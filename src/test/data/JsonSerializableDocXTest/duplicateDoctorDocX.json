@@ -1,16 +1,18 @@
 {
   "patients": [ ],
   "doctors": [ {
+    "id" : 1,
     "name": "Alisa Pauline",
     "phone": "94351253",
     "gender": "F",
-    "age": "24",
+    "year": "15",
     "specs": [ "general" ]
   }, {
+    "id" : 2,
     "name": "Alisa Pauline",
     "phone": "94351253",
     "gender": "F",
-    "age": "24",
+    "year": "24",
     "specs": [ "general" ]
   } ],
   "medicalHistories" : [ {
@@ -20,5 +22,6 @@
     "name" : "Amy Doe",
     "writeUp" : "Sneeze"
   } ],
-  "appointments": [ ]
+  "appointments": [ ],
+  "personIdCounter" : 0
 }

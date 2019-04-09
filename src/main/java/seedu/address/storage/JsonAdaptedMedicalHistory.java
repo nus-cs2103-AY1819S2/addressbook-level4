@@ -1,13 +1,13 @@
 package seedu.address.storage;
 
-import java.time.LocalDate;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.medicalhistory.MedicalHistory;
+import seedu.address.model.medicalhistory.ValidDate;
 import seedu.address.model.medicalhistory.WriteUp;
+import seedu.address.model.person.PersonId;
 
 /**
  * Jackson-friendly version of {@link MedicalHistory}.
@@ -15,8 +15,8 @@ import seedu.address.model.medicalhistory.WriteUp;
 public class JsonAdaptedMedicalHistory {
 
     private final String medHistId;
-    private final String patientId;
-    private final String doctorId;
+    private final int patientId;
+    private final int doctorId;
     private final String date;
     private final String writeUp;
 
@@ -25,8 +25,8 @@ public class JsonAdaptedMedicalHistory {
      */
     @JsonCreator
     public JsonAdaptedMedicalHistory(@JsonProperty("medHistId") String medHistId,
-                                     @JsonProperty("patientId") String patientId,
-                                     @JsonProperty("doctorId") String doctorId,
+                                     @JsonProperty("patientId") int patientId,
+                                     @JsonProperty("doctorId") int doctorId,
                                      @JsonProperty("date") String date,
                                      @JsonProperty("writeUp") String writeUp) {
         this.medHistId = medHistId;
@@ -41,8 +41,8 @@ public class JsonAdaptedMedicalHistory {
      */
     public JsonAdaptedMedicalHistory(MedicalHistory source) {
         medHistId = source.getMedHistId();
-        patientId = source.getPatientId();
-        doctorId = source.getDoctorId();
+        patientId = source.getPatientId().personId;
+        doctorId = source.getDoctorId().personId;
         date = source.getDate().toString();
         writeUp = source.getWriteUp().value;
     }
@@ -53,15 +53,9 @@ public class JsonAdaptedMedicalHistory {
      * @throws IllegalValueException if there were any data constraints violated in the adapted medical history.
      */
     public MedicalHistory toModelType() throws IllegalValueException {
-        /*
-        if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
-        }
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
-        }
-        */
-        final LocalDate modelDate = LocalDate.parse(date);
+        final PersonId patientId = new PersonId(this.patientId);
+        final PersonId doctorId = new PersonId(this.doctorId);
+        final ValidDate modelDate = new ValidDate(date);
         final WriteUp modelWriteUp = new WriteUp(this.writeUp);
         return new MedicalHistory(patientId, doctorId, modelDate, modelWriteUp);
     }

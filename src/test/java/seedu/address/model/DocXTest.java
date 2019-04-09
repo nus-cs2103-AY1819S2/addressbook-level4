@@ -4,7 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_STEVEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SPECIALISATION_GENERAL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_STROKE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_YEAR_STEVEN;
+import static seedu.address.testutil.TypicalDoctors.ALVINA;
 import static seedu.address.testutil.TypicalPatients.ALICE;
 import static seedu.address.testutil.TypicalPatients.getTypicalDocX;
 
@@ -21,14 +25,14 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
-import seedu.address.model.person.IdCounter;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.PersonIdCounter;
 import seedu.address.model.person.exceptions.DuplicatePatientException;
 import seedu.address.model.prescription.Prescription;
+import seedu.address.testutil.DoctorBuilder;
 import seedu.address.testutil.PatientBuilder;
 
 
@@ -42,6 +46,7 @@ public class DocXTest {
     @Test
     public void constructor() {
         assertEquals(Collections.emptyList(), docX.getPatientList());
+        assertEquals(Collections.emptyList(), docX.getDoctorList());
     }
 
     @Test
@@ -99,6 +104,50 @@ public class DocXTest {
         thrown.expect(UnsupportedOperationException.class);
         docX.getPatientList().remove(0);
     }
+    /*
+    @Test
+    public void resetData_withDuplicateDoctors_throwsDuplicateDoctorException() {
+        // Two doctors with the same identity fields
+        Doctor editedAlvina = new DoctorBuilder(ALVINA).withGender(VALID_GENDER_ALVIN)
+                .withSpecs(VALID_SPECIALISATION_GENERAL)
+                .build();
+        List<Doctor> newDoctors = Arrays.asList(ALVINA, editedAlvina);
+        DocXStub newData = new DocXStub(newDoctors);
+
+        thrown.expect(DuplicatePatientException.class);
+        docX.resetData(newData);
+    }
+    */
+    @Test
+    public void hasDoctor_nullDoctor_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        docX.hasDoctor(null);
+    }
+
+    @Test
+    public void hasDoctor_personNotInDocX_returnsFalse() {
+        assertFalse(docX.hasDoctor(ALVINA));
+    }
+
+    @Test
+    public void hasDoctor_personInDocX_returnsTrue() {
+        docX.addDoctor(ALVINA);
+        assertTrue(docX.hasDoctor(ALVINA));
+    }
+
+    @Test
+    public void hasDoctor_personWithSameIdentityFieldsInDocX_returnsTrue() {
+        docX.addDoctor(ALVINA);
+        Doctor editedAlvina = new DoctorBuilder(ALVINA).withGender(VALID_GENDER_STEVEN).withYear(VALID_YEAR_STEVEN)
+                .withSpecs(VALID_SPECIALISATION_GENERAL).build();
+        assertTrue(docX.hasDoctor(editedAlvina));
+    }
+
+    @Test
+    public void getDoctorList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        docX.getDoctorList().remove(0);
+    }
 
     @Test
     public void addListener_withInvalidationListener_listenerAdded() {
@@ -128,7 +177,7 @@ public class DocXTest {
         private final ObservableList<Doctor> doctors = FXCollections.observableArrayList();
         private final ObservableList<Prescription> prescriptions = FXCollections.observableArrayList();
         private final ObservableList<Appointment> appointments = FXCollections.observableArrayList();
-        private final IdCounter idCounter = new IdCounter();
+        private final PersonIdCounter personIdCounter = PersonIdCounter.getInstance();
 
         DocXStub(Collection<Patient> patients) {
             this.patients.setAll(patients);
@@ -161,8 +210,8 @@ public class DocXTest {
         }
 
         @Override
-        public IdCounter getIdCounter() {
-            return idCounter;
+        public PersonIdCounter getPersonIdCounter() {
+            return personIdCounter;
         }
 
         @Override

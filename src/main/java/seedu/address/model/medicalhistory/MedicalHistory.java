@@ -1,10 +1,10 @@
 package seedu.address.model.medicalhistory;
 
-import java.time.LocalDate;
 import java.util.Objects;
 
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.PersonId;
 
 
 /**
@@ -18,22 +18,22 @@ public class MedicalHistory {
     private Doctor doctor = null;
 
     //Current id field, will be modified later
-    private String patientId;
-    private String doctorId;
+    private PersonId patientId;
+    private PersonId doctorId;
     private String medHistId;
 
     // Data field
-    private LocalDate date;
+    private ValidDate date;
     private WriteUp writeUp;
 
     //Constructor
-    public MedicalHistory(String patientId, String doctorId, LocalDate date, WriteUp writeUp) {
-        // Doctor, Time, MedicalHistory Id are needed
+    public MedicalHistory(PersonId patientId, PersonId doctorId, ValidDate date, WriteUp writeUp) {
         this.patientId = patientId;
         this.doctorId = doctorId;
         this.date = date;
         this.writeUp = writeUp;
         this.medHistId = patientId + "/" + doctorId + "/" + date;
+
     }
 
     public String getMedHistId() {
@@ -48,15 +48,23 @@ public class MedicalHistory {
         return this.doctor;
     }
 
-    public String getPatientId() {
+    public PersonId getPatientId() {
         return this.patientId;
     }
 
-    public String getDoctorId() {
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public PersonId getDoctorId() {
         return this.doctorId;
     }
 
-    public LocalDate getDate() {
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
+    public ValidDate getDate() {
         return this.date;
     }
 
@@ -65,9 +73,8 @@ public class MedicalHistory {
     }
 
     /**
-     * Returns true if both persons of the same name
-     * have at least one other identity field (phone number) that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both medical histories of the same id
+     * This defines a weaker notion of equality between two medical histories.
      */
     public boolean isSameMedHist(MedicalHistory otherMedHist) {
         if (otherMedHist == this) {
@@ -93,7 +100,11 @@ public class MedicalHistory {
         }
 
         MedicalHistory otherMedHist = (MedicalHistory) other;
-        return otherMedHist.getMedHistId().equals(getMedHistId());
+
+        return (otherMedHist.getPatientId().equals(getPatientId()))
+                && (otherMedHist.getDoctorId().equals(getDoctorId()))
+                && otherMedHist.getDate().equals(getDate())
+                && otherMedHist.getWriteUp().equals(getWriteUp());
     }
 
     @Override

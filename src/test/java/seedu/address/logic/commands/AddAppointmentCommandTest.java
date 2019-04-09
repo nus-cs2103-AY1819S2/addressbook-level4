@@ -2,16 +2,24 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_OF_APPT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DOCTOR_ID;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PATIENT_ID;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_TIME;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentDate;
+import seedu.address.model.appointment.AppointmentDoctorId;
+import seedu.address.model.appointment.AppointmentPatientId;
+import seedu.address.model.appointment.AppointmentTime;
+import seedu.address.model.appointment.FutureAppointment;
 
 
 public class AddAppointmentCommandTest {
@@ -25,17 +33,29 @@ public class AddAppointmentCommandTest {
 
     @Test
     public void equals() {
-        AddAppointmentCommand command1 = new AddAppointmentCommand(new Appointment(1, 1,
-                LocalDate.parse("2019-06-01"), LocalTime.parse("09:00")));
-        AddAppointmentCommand command2 = new AddAppointmentCommand(new Appointment(1, 1,
-                LocalDate.parse("2019-06-01"), LocalTime.parse("10:00")));
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        LocalDateTime futureDateTime = currentDateTime.plusDays(1).withHour(10).withMinute(0);
+        System.out.println(VALID_START_TIME);
+        FutureAppointment futureAppointment1 = new FutureAppointment(
+                new AppointmentPatientId(VALID_PATIENT_ID),
+                new AppointmentDoctorId(VALID_DOCTOR_ID),
+                new AppointmentDate(VALID_DATE_OF_APPT),
+                new AppointmentTime(VALID_START_TIME));;
+
+        FutureAppointment futureAppointment2 = new FutureAppointment(
+                new AppointmentPatientId(VALID_PATIENT_ID),
+                new AppointmentDoctorId(VALID_DOCTOR_ID),
+                new AppointmentDate(VALID_DATE_OF_APPT),
+                new AppointmentTime(futureDateTime.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"))));
+
+        AddAppointmentCommand command1 = new AddAppointmentCommand(futureAppointment1);
+        AddAppointmentCommand command2 = new AddAppointmentCommand(futureAppointment2);
 
         // same object -> returns true
         assertTrue(command1.equals(command1));
 
         // same values -> returns true
-        AddAppointmentCommand command1Copy = new AddAppointmentCommand(new Appointment(1, 1,
-                LocalDate.parse("2019-06-01"), LocalTime.parse("09:00")));
+        AddAppointmentCommand command1Copy = new AddAppointmentCommand(futureAppointment1);
         assertTrue(command1.equals(command1Copy));
 
         // different types -> returns false

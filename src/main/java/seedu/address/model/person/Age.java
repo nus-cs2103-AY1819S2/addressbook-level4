@@ -11,8 +11,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Age {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Age should only contain numbers, and it should between 0-150";
-    public static final String VALIDATION_REGEX = "([0-9]|[1-8][0-9]|9[0-9]|1[0-4][0-9]|150)"; // 1   -150
+            "Age should only contain integers with no trailing zeroes, and it should between 0-150";
+    public static final String VALIDATION_REGEX = "([0-9]|[1-8][0-9]|9[0-9]|1[0-4][0-9]|150)"; // 0-150
     public final String value;
 
     /**

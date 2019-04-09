@@ -4,10 +4,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_VALID_DATE_OF_APPT;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_VALID_DOCTOR_ID;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_VALID_PATIENT_ID;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_VALID_START_TIME;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_OF_APPT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DOCTOR_ID;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PATIENT_ID;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_TIME;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,24 +27,33 @@ import seedu.address.logic.commands.AddDoctorCommand;
 import seedu.address.logic.commands.AddMedHistCommand;
 import seedu.address.logic.commands.AddPatientCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.DeleteDoctorCommand;
 import seedu.address.logic.commands.DeletePatientCommand;
 import seedu.address.logic.commands.EditPatientCommand;
 import seedu.address.logic.commands.EditPatientCommand.EditPatientDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ListDoctorCommand;
 import seedu.address.logic.commands.ListPatientCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SearchPatientCommand;
-import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SelectDoctorCommand;
+import seedu.address.logic.commands.SelectPatientCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentDate;
+import seedu.address.model.appointment.AppointmentDoctorId;
+import seedu.address.model.appointment.AppointmentPatientId;
+import seedu.address.model.appointment.AppointmentTime;
+import seedu.address.model.appointment.FutureAppointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
+import seedu.address.model.medicalhistory.ValidDate;
 import seedu.address.model.medicalhistory.WriteUp;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.PatientNameContainsKeywordsPredicate;
+import seedu.address.model.person.PersonId;
 import seedu.address.testutil.DoctorBuilder;
 import seedu.address.testutil.DoctorUtil;
 import seedu.address.testutil.EditPatientDescriptorBuilder;
@@ -52,7 +67,6 @@ public class DocXParserTest {
     private final DocXParser parser = new DocXParser();
 
     @Test
-
     public void parseCommand_addDoctor() throws Exception {
         Doctor doctor = new DoctorBuilder().build();
         AddDoctorCommand command = (AddDoctorCommand) parser.parseCommand(DoctorUtil.getAddDoctorCommand(doctor));
@@ -62,10 +76,16 @@ public class DocXParserTest {
     @Test
     public void parseCommand_addAppointment() throws Exception {
         AddAppointmentCommand command = (AddAppointmentCommand) parser.parseCommand(
-                AddAppointmentCommand.COMMAND_WORD + " add-appt pid/1 did/1 d/2019-06-01 t/09:00");
+                AddAppointmentCommand.COMMAND_WORD + DESC_VALID_PATIENT_ID + DESC_VALID_DOCTOR_ID
+                        + DESC_VALID_DATE_OF_APPT + DESC_VALID_START_TIME);
+        System.out.println(DESC_VALID_DATE_OF_APPT);
+        System.out.println(DESC_VALID_START_TIME);
         assertTrue(command instanceof AddAppointmentCommand);
-        assertEquals(command, new AddAppointmentCommand(new Appointment(
-                1, 1, LocalDate.parse("2019-06-01"), LocalTime.parse("09:00"))));
+        assertEquals(command, new AddAppointmentCommand(new FutureAppointment(
+                new AppointmentPatientId(VALID_PATIENT_ID),
+                new AppointmentDoctorId(VALID_DOCTOR_ID),
+                new AppointmentDate(VALID_DATE_OF_APPT),
+                new AppointmentTime(VALID_START_TIME))));
     }
 
     @Test
@@ -74,7 +94,8 @@ public class DocXParserTest {
                 AddMedHistCommand.COMMAND_WORD + " " + "pid/1 did/1 d/2018-05-05 sw/testWriteUp");
         assertTrue(command instanceof AddMedHistCommand);
         assertEquals(command, new AddMedHistCommand(
-                new MedicalHistory("1", "1", LocalDate.parse("2018-05-05"), new WriteUp("testWriteUp"))));
+                new MedicalHistory(new PersonId("1"), new PersonId("1"),
+                        new ValidDate("2018-05-05"), new WriteUp("testWriteUp"))));
     }
 
     @Test
@@ -95,6 +116,13 @@ public class DocXParserTest {
         DeletePatientCommand command = (DeletePatientCommand) parser.parseCommand(
                 DeletePatientCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new DeletePatientCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
+    public void parseCommand_deleteDoctor() throws Exception {
+        DeleteDoctorCommand command = (DeleteDoctorCommand) parser.parseCommand(
+                DeleteDoctorCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new DeleteDoctorCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test
@@ -146,10 +174,23 @@ public class DocXParserTest {
     }
 
     @Test
+    public void parseCommand_listDoctor() throws Exception {
+        assertTrue(parser.parseCommand(ListDoctorCommand.COMMAND_WORD) instanceof ListDoctorCommand);
+        assertTrue(parser.parseCommand(ListDoctorCommand.COMMAND_WORD + " 3") instanceof ListDoctorCommand);
+    }
+
+    @Test
     public void parseCommand_select() throws Exception {
-        SelectCommand command = (SelectCommand) parser.parseCommand(
-                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
+        SelectPatientCommand command = (SelectPatientCommand) parser.parseCommand(
+                SelectPatientCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new SelectPatientCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
+    public void parseCommand_selectDoctor() throws Exception {
+        SelectDoctorCommand command = (SelectDoctorCommand) parser.parseCommand(
+                SelectDoctorCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new SelectDoctorCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test

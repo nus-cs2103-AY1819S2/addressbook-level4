@@ -14,8 +14,8 @@ import seedu.address.model.person.PatientNameContainsKeywordsPredicate;
 public class SearchPatientCommandParser implements Parser<SearchPatientCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FindPatientCommand
-     * and returns an FindPatientCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the SearchPatientCommand
+     * and returns an SearchPatientCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public SearchPatientCommand parse(String args) throws ParseException {

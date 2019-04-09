@@ -10,7 +10,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.DocX;
-//import seedu.address.testutil.TypicalDoctors;
+import seedu.address.testutil.TypicalDoctors;
 import seedu.address.testutil.TypicalPatients;
 
 
@@ -59,7 +59,7 @@ public class JsonSerializableDocXTest {
         JsonSerializableDocX dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializableDocX.class).get();
         DocX docXFromFile = dataFromFile.toModelType();
-        //DocX typicalDoctorsDocX = TypicalDoctors.getTypicalDocX();
+        DocX typicalDoctorsDocX = TypicalDoctors.getTypicalDocX_doctor();
         //assertEquals(docXFromFile, typicalDoctorsDocX);
     }
 

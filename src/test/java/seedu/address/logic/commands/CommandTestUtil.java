@@ -4,12 +4,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_APPT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SPECIALISATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,26 +39,26 @@ import seedu.address.testutil.EditPatientDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    // for add-doctor testing (initial addition of add-doctor)
-    public static final String VALID_NAME_JOHN = "John Doe";
+    // for doctor testing
+    public static final String VALID_NAME_STEVEN = "Steven Lim";
     public static final String VALID_NAME_ALVINA = "Alvina Ong";
-    public static final String VALID_GENDER_JOHN = "M";
+    public static final String VALID_GENDER_STEVEN = "M";
     public static final String VALID_GENDER_ALVINA = "F";
-    public static final String VALID_AGE_JOHN = "21";
-    public static final String VALID_AGE_ALVINA = "28";
-    public static final String VALID_PHONE_JOHN = "91612342";
+    public static final String VALID_YEAR_STEVEN = "23";
+    public static final String VALID_YEAR_ALVINA = "21";
+    public static final String VALID_PHONE_STEVEN = "91612342";
     public static final String VALID_PHONE_ALVINA = "82376447";
     public static final String VALID_SPECIALISATION_ACUPUNCTURE = "acupuncture";
     public static final String VALID_SPECIALISATION_MASSAGE = "massage";
     public static final String VALID_SPECIALISATION_GENERAL = "general";
 
-    public static final String NAME_DESC_JOHN = " " + PREFIX_NAME + VALID_NAME_JOHN;
+    public static final String NAME_DESC_STEVEN = " " + PREFIX_NAME + VALID_NAME_STEVEN;
     public static final String NAME_DESC_ALVINA = " " + PREFIX_NAME + VALID_NAME_ALVINA;
-    public static final String GENDER_DESC_JOHN = " " + PREFIX_GENDER + VALID_GENDER_JOHN;
+    public static final String GENDER_DESC_STEVEN = " " + PREFIX_GENDER + VALID_GENDER_STEVEN;
     public static final String GENDER_DESC_ALVINA = " " + PREFIX_GENDER + VALID_GENDER_ALVINA;
-    public static final String AGE_DESC_JOHN = " " + PREFIX_AGE + VALID_AGE_JOHN;
-    public static final String AGE_DESC_ALVINA = " " + PREFIX_AGE + VALID_AGE_ALVINA;
-    public static final String PHONE_DESC_JOHN = " " + PREFIX_PHONE + VALID_PHONE_JOHN;
+    public static final String YEAR_DESC_STEVEN = " " + PREFIX_YEAR + VALID_YEAR_STEVEN;
+    public static final String YEAR_DESC_ALVINA = " " + PREFIX_YEAR + VALID_YEAR_ALVINA;
+    public static final String PHONE_DESC_STEVEN = " " + PREFIX_PHONE + VALID_PHONE_STEVEN;
     public static final String PHONE_DESC_ALVINA = " " + PREFIX_PHONE + VALID_PHONE_ALVINA;
     public static final String SPECIALISATION_DESC_ACUPUNCTURE = " " + PREFIX_SPECIALISATION
             + VALID_SPECIALISATION_ACUPUNCTURE;
@@ -59,9 +66,20 @@ public class CommandTestUtil {
             + VALID_SPECIALISATION_MASSAGE;
     public static final String SPECIALISATION_DESC_GENERAL = " " + PREFIX_SPECIALISATION
             + VALID_SPECIALISATION_GENERAL;
-    public static final String INVALID_SPECIALISATION_DESC = " " + PREFIX_SPECIALISATION + "general*";
-    // '*' not allowed in tags
     // end of add-doctor testing
+
+    // for testing appointment
+    public static final String VALID_PATIENT_ID = "1";
+    public static final String VALID_DOCTOR_ID = "2";
+    public static final LocalDateTime FUTURE_DATE_TIME = LocalDateTime.now().withHour(9).withMinute(0).plusDays(1);
+    public static final String VALID_DATE_OF_APPT = FUTURE_DATE_TIME.toLocalDate().toString();
+    public static final String VALID_START_TIME = FUTURE_DATE_TIME.toLocalTime()
+            .format(DateTimeFormatter.ofPattern("HH:mm"));
+    public static final String DESC_VALID_PATIENT_ID = " " + PREFIX_PATIENT_ID + VALID_PATIENT_ID;
+    public static final String DESC_VALID_DOCTOR_ID = " " + PREFIX_DOCTOR_ID + VALID_DOCTOR_ID;
+    public static final String DESC_VALID_DATE_OF_APPT = " " + PREFIX_DATE_OF_APPT + VALID_DATE_OF_APPT;
+    public static final String DESC_VALID_START_TIME = " " + PREFIX_START_TIME + VALID_START_TIME;
+    // end of testing appointment
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
@@ -90,11 +108,14 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_STROKE;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_GENDER_DESC = " " + PREFIX_GENDER + "boy"; // either M or F
+    public static final String INVALID_GENDER_DESC = " " + PREFIX_GENDER + "boy"; // either M or F or m or f
     public static final String INVALID_AGE_DESC = " " + PREFIX_AGE + "12yo"; // 'yo' not allowed in age
+    public static final String INVALID_YEAR_DESC = " " + PREFIX_YEAR + "2years"; // only numbers, no 'years'
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_SPECIALISATION_DESC = " " + PREFIX_SPECIALISATION + "general*";
+    // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -120,7 +141,7 @@ public class CommandTestUtil {
      * - the {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            CommandResult expectedCommandResult, Model expectedModel) {
+                                            CommandResult expectedCommandResult, Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
@@ -137,7 +158,7 @@ public class CommandTestUtil {
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage, Model expectedModel) {
+                                            String expectedMessage, Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, actualCommandHistory, expectedCommandResult, expectedModel);
     }
@@ -150,12 +171,14 @@ public class CommandTestUtil {
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage) {
+                                            String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         DocX expectedDocX = new DocX(actualModel.getDocX());
         List<Patient> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPatientList());
+        List<Doctor> expectedFilteredDoctorList = new ArrayList<>(actualModel.getFilteredDoctorList());
         Patient expectedSelectedPatient = actualModel.getSelectedPatient();
+        Doctor expectedSelectedDoctor = actualModel.getSelectedDoctor();
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -167,6 +190,8 @@ public class CommandTestUtil {
             assertEquals(expectedDocX, actualModel.getDocX());
             assertEquals(expectedFilteredList, actualModel.getFilteredPatientList());
             assertEquals(expectedSelectedPatient, actualModel.getSelectedPatient());
+            assertEquals(expectedFilteredDoctorList, actualModel.getFilteredDoctorList());
+            assertEquals(expectedSelectedDoctor, actualModel.getSelectedDoctor());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }

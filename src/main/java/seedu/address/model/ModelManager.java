@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -21,6 +22,7 @@ import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.exceptions.MedHistNotFoundException;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.PersonId;
 import seedu.address.model.person.exceptions.DoctorNotFoundException;
 import seedu.address.model.person.exceptions.PatientNotFoundException;
 import seedu.address.model.prescription.Prescription;
@@ -120,6 +122,18 @@ public class ModelManager implements Model {
         return versionedDocX;
     }
 
+    @Override
+    public Patient getPatientById(PersonId patientId) {
+        requireNonNull(patientId);
+        return versionedDocX.getPatientById(patientId);
+    }
+
+    @Override
+    public Doctor getDoctorById(PersonId doctorId) {
+        requireNonNull(doctorId);
+        return versionedDocX.getDoctorById(doctorId);
+    }
+
 
     @Override
     public boolean hasPatient(Patient patient) {
@@ -130,6 +144,7 @@ public class ModelManager implements Model {
     @Override
     public void deletePatient(Patient target) {
         versionedDocX.removePatient(target);
+        updateFilteredMedHistList(PREDICATE_SHOW_ALL_MEDHISTS);
     }
 
     @Override
@@ -148,6 +163,12 @@ public class ModelManager implements Model {
     public void addDoctor(Doctor doctor) {
         versionedDocX.addDoctor(doctor);
         updateFilteredDoctorList(PREDICATE_SHOW_ALL_DOCTORS);
+    }
+
+    @Override
+    public void deleteDoctor(Doctor target) {
+        versionedDocX.removeDoctor(target);
+        updateFilteredMedHistList(PREDICATE_SHOW_ALL_MEDHISTS);
     }
 
     @Override
@@ -174,26 +195,6 @@ public class ModelManager implements Model {
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
     }
 
-
-    @Override
-    public void deleteDoctor(Doctor target) {
-        versionedDocX.removeDoctor(target);
-    }
-
-    public ReadOnlyProperty<Doctor> selectedDoctorProperty() {
-        return selectedDoctor;
-    }
-
-    @Override
-    public void setSelectedDoctor(Doctor doctor) {
-        if (doctor != null && !filteredDoctors.contains(doctor)) {
-            throw new DoctorNotFoundException();
-        }
-        selectedDoctor.setValue(doctor);
-    }
-
-    // Needed to be implemented later
-
     @Override
     public boolean hasMedHist(MedicalHistory medicalHistory) {
         requireAllNonNull(medicalHistory);
@@ -216,6 +217,13 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedMedHist);
 
         versionedDocX.setMedHist(target, editedMedHist);
+    }
+
+    @Override
+    public void setAppointment(Appointment target, Appointment changedAppointment) {
+        requireAllNonNull(target, changedAppointment);
+
+        versionedDocX.setAppointment(target, changedAppointment);
     }
 
     @Override
@@ -280,6 +288,12 @@ public class ModelManager implements Model {
     public void updateFilteredMedHistList(Predicate<MedicalHistory> predicate) {
         requireNonNull(predicate);
         filteredMedHists.setPredicate(predicate);
+    }
+
+    @Override
+    public void sortFilteredMedHistList(Comparator<MedicalHistory> medHistComparator) {
+        requireNonNull(medHistComparator);
+        versionedDocX.sortMedHist(medHistComparator);
     }
 
     //=========== Filtered Appointment List Accessors =============================================================
@@ -392,6 +406,27 @@ public class ModelManager implements Model {
                 selectedPatient.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
+    }
+
+    //=========== Selected doctor ===========================================================================
+
+    @Override
+    public ReadOnlyProperty<Doctor> selectedDoctorProperty() {
+        return selectedDoctor;
+    }
+
+    @Override
+    public Doctor getSelectedDoctor() {
+        return selectedDoctor.getValue();
+    }
+
+
+    @Override
+    public void setSelectedDoctor(Doctor doctor) {
+        if (doctor != null && !filteredDoctors.contains(doctor)) {
+            throw new DoctorNotFoundException();
+        }
+        selectedDoctor.setValue(doctor);
     }
 
     /**

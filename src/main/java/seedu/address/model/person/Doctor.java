@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -12,42 +14,33 @@ import seedu.address.model.tag.Specialisation;
  * Represents a Doctor in docX.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Doctor {
-
-    // Identity fields
-    private final Name name;
-    private final Phone phone;
+public class Doctor extends Person {
 
     // Data fields
-    private final Gender gender;
-    private final Age age;
+    private final Year year;
     private final Set<Specialisation> specList = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Doctor(Name name, Phone phone, Gender gender, Age age, Set<Specialisation> specList) {
-        this.name = name;
-        this.gender = gender;
-        this.age = age;
-        this.phone = phone;
+    public Doctor(Name name, Phone phone, Gender gender, Year year, Set<Specialisation> specList) {
+        super(name, phone, gender);
+        this.year = year;
         this.specList.addAll(specList);
     }
 
-    public Name getName() {
-        return this.name;
+    /**
+     * This is an existing doctor and does not need to generate a new ID.
+     */
+    public Doctor(PersonId id, Name name, Phone phone, Gender gender, Year year, Set<Specialisation> specList) {
+        super(id, name, phone, gender);
+        requireAllNonNull(name, phone, gender);
+        this.year = year;
+        this.specList.addAll(specList);
     }
 
-    public Phone getPhone() {
-        return this.phone;
-    }
-
-    public Gender getGender() {
-        return this.gender;
-    }
-
-    public Age getAge() {
-        return this.age;
+    public Year getYear() {
+        return this.year;
     }
 
     /**
@@ -89,7 +82,7 @@ public class Doctor {
         Doctor otherDoctor = (Doctor) other;
         return otherDoctor.getName().equals(getName())
                 && otherDoctor.getPhone().equals(getPhone())
-                && otherDoctor.getAge().equals(getAge())
+                && otherDoctor.getYear().equals(getYear())
                 && otherDoctor.getGender().equals(getGender())
                 && otherDoctor.getSpecs().equals(getSpecs());
     }
@@ -97,7 +90,7 @@ public class Doctor {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, age, gender, specList);
+        return Objects.hash(year, specList);
     }
 
     @Override
@@ -108,8 +101,8 @@ public class Doctor {
                 .append(getPhone())
                 .append(" Gender: ")
                 .append(getGender())
-                .append(" Age: ")
-                .append(getAge())
+                .append(" Years: ")
+                .append(getYear())
                 .append(" Specialisations: ");
         getSpecs().forEach(builder::append);
         return builder.toString();

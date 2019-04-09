@@ -8,55 +8,55 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.appointment.AppointmentStatus;
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Patient in docX record.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Patient {
-    // Identity fields
-    private final Name name;
-    private final Gender gender;
-    private final Age age;
-    private final Phone phone;
+public class Patient extends Person {
 
     // Data fields
+    private final Age age;
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-
+    private final AppointmentStatus appointmentStatus;
 
     /**
      * Every field must be present and not null.
      */
     public Patient(Name name, Gender gender, Age age, Phone phone, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, gender, age, phone, address, tags);
-        this.name = name;
-        this.gender = gender;
+        super(name, phone, gender);
+        requireAllNonNull(age, address, tags);
         this.age = age;
-        this.phone = phone;
         this.address = address;
         this.tags.addAll(tags);
+        this.appointmentStatus = AppointmentStatus.ACTIVE;
     }
 
-    public Name getName() {
-        return name;
-    }
-
-    public Gender getGender() {
-        return gender;
+    /**
+     * This is an existing patient and does not need to generate a new ID.
+     */
+    public Patient(PersonId id, Name name, Gender gender, Age age, Phone phone, Address address, Set<Tag> tags) {
+        super(id, name, phone, gender);
+        requireAllNonNull(name, phone, gender);
+        this.age = age;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.appointmentStatus = AppointmentStatus.ACTIVE;
     }
 
     public Age getAge() {
         return age;
     }
 
-    public Phone getPhone() {
-        return phone;
-    }
-
     public Address getAddress() {
         return address;
+    }
+
+    public AppointmentStatus getAppointmentStatus() {
+        return appointmentStatus;
     }
 
     /**
@@ -105,10 +105,35 @@ public class Patient {
                 && otherPatient.getTags().equals(getTags());
     }
 
+    /**
+     * Returns a string of the full details of the patient, excluding pid information
+     * This is to facilitate search-advanced command
+     */
+    public String toAdvancedSearchString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(" ")
+                .append(getGender())
+                .append(" ")
+                .append(getAge())
+                .append(" ")
+                .append(getPhone())
+                .append(" ")
+                .append(getAddress())
+                .append(" ");
+        for (Tag tag : getTags()) {
+            String tagName = tag.toString().replaceAll("^\\[|\\]$", "");
+            builder.append(tagName);
+            builder.append(" ");
+        }
+
+        return builder.toString().trim();
+    }
+
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, gender, age, phone, address, tags);
+        return Objects.hash(age, address, tags);
     }
 
     @Override
@@ -123,6 +148,8 @@ public class Patient {
                 .append(getPhone())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Appointment Status: ")
+                .append(getAppointmentStatus())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

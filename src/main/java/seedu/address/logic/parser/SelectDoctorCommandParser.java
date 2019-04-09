@@ -7,7 +7,7 @@ import seedu.address.logic.commands.SelectDoctorCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new SelectCommand object
+ * Parses input arguments and creates a new SelectPatientCommand object
  */
 public class SelectDoctorCommandParser implements Parser<SelectDoctorCommand> {
 

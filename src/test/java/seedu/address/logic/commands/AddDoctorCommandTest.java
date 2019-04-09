@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -27,10 +28,10 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.PersonId;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.testutil.DoctorBuilder;
 
-//import javax.print.Doc;
 
 
 public class AddDoctorCommandTest {
@@ -67,32 +68,47 @@ public class AddDoctorCommandTest {
 
     @Test
     public void equals() {
-        Doctor alice = new DoctorBuilder().withName("Alice").build();
-        Doctor bob = new DoctorBuilder().withName("Bob").build();
-        AddDoctorCommand addAliceCommand = new AddDoctorCommand(alice);
-        AddDoctorCommand addBobCommand = new AddDoctorCommand(bob);
+        Doctor alvina = new DoctorBuilder().withName("Alvina").build();
+        Doctor alvin = new DoctorBuilder().withName("Alvin").build();
+        AddDoctorCommand addAlvinaCommand = new AddDoctorCommand(alvina);
+        AddDoctorCommand addAlvinCommand = new AddDoctorCommand(alvin);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addAlvinaCommand.equals(addAlvinaCommand));
 
         // same values -> returns true
-        AddDoctorCommand addAliceCommandCopy = new AddDoctorCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddDoctorCommand addAlvinaCommandCopy = new AddDoctorCommand(alvina);
+        assertTrue(addAlvinaCommand.equals(addAlvinaCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addAlvinaCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addAlvinaCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addAlvinaCommand.equals(addAlvinCommand));
     }
 
     private class ModelStub implements Model {
 
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredMedHistList(Comparator<MedicalHistory> medHistComparator) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Patient getPatientById(PersonId patientId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Doctor getDoctorById(PersonId doctorId) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -154,6 +170,11 @@ public class AddDoctorCommandTest {
 
         @Override
         public void addAppointment(Appointment appointment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAppointment(Appointment appointment, Appointment appointment2) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -345,6 +366,11 @@ public class AddDoctorCommandTest {
 
         @Override
         public ReadOnlyProperty<Doctor> selectedDoctorProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Doctor getSelectedDoctor() {
             throw new AssertionError("This method should not be called.");
         }
 

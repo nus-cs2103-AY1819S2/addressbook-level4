@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Set;
 
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.person.Age;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Year;
 import seedu.address.model.tag.Specialisation;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -19,15 +19,15 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class DoctorBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
+    public static final String DEFAULT_NAME = "Alvina Ong";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_GENDER = "F";
-    public static final String DEFAULT_AGE = "23";
+    public static final String DEFAULT_YEAR = "21";
 
     private Name name;
     private Phone phone;
     private Gender gender;
-    private Age age;
+    private Year year;
     private Set<Specialisation> specialisations;
     private List<Appointment> appointments;
 
@@ -35,7 +35,7 @@ public class DoctorBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         gender = new Gender(DEFAULT_GENDER);
-        age = new Age(DEFAULT_AGE);
+        year = new Year(DEFAULT_YEAR);
         specialisations = new HashSet<>();
         specialisations.add(new Specialisation("acupuncture"));
         appointments = new ArrayList<>();
@@ -47,7 +47,7 @@ public class DoctorBuilder {
     public DoctorBuilder(Doctor doctorToCopy) {
         name = doctorToCopy.getName();
         gender = doctorToCopy.getGender();
-        age = doctorToCopy.getAge();
+        year = doctorToCopy.getYear();
         phone = doctorToCopy.getPhone();
         specialisations = new HashSet<>(doctorToCopy.getSpecs());
     }
@@ -70,10 +70,10 @@ public class DoctorBuilder {
     }
 
     /**
-     * Sets the {@code Age} of the {@code Doctor} that we are building.
+     * Sets the {@code Year of experience} of the {@code Doctor} that we are building.
      */
-    public DoctorBuilder withAge(String age) {
-        this.age = new Age(age);
+    public DoctorBuilder withYear(String year) {
+        this.year = new Year(year);
         return this;
     }
 
@@ -103,7 +103,7 @@ public class DoctorBuilder {
 
 
     public Doctor build() {
-        return new Doctor(name, phone, gender, age, specialisations);
+        return new Doctor(name, phone, gender, year, specialisations);
     }
 
 }

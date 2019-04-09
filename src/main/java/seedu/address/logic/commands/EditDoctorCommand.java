@@ -1,12 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.AddDoctorCommand.MESSAGE_DUPLICATE_DOCTOR;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SPECIALISATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DOCTORS;
 
 import java.util.Collections;
@@ -21,11 +20,11 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Age;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Year;
 import seedu.address.model.tag.Specialisation;
 
 /**
@@ -41,7 +40,7 @@ public class EditDoctorCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_GENDER + "GENDER] "
-            + "[" + PREFIX_AGE + "AGE] "
+            + "[" + PREFIX_YEAR + "YEAR] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_SPECIALISATION + "SPECIALISATION]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -49,7 +48,7 @@ public class EditDoctorCommand extends Command {
 
     public static final String MESSAGE_EDIT_DOCTOR_SUCCESS = "Edited Doctor: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PATIENT = "This doctor already exists in the docX.";
+    public static final String MESSAGE_DUPLICATE_DOCTOR = "This doctor already exists in the docX.";
 
     private final Index index;
     private final EditDoctorDescriptor editDoctorDescriptor;
@@ -98,11 +97,11 @@ public class EditDoctorCommand extends Command {
 
         Name updatedName = editDoctorDescriptor.getName().orElse(doctorToEdit.getName());
         Gender updatedGender = editDoctorDescriptor.getGender().orElse(doctorToEdit.getGender());
-        Age updatedAge = editDoctorDescriptor.getAge().orElse(doctorToEdit.getAge());
+        Year updatedYear = editDoctorDescriptor.getYear().orElse(doctorToEdit.getYear());
         Phone updatedPhone = editDoctorDescriptor.getPhone().orElse(doctorToEdit.getPhone());
         Set<Specialisation> updatedSpecs = editDoctorDescriptor.getSpecs().orElse(doctorToEdit.getSpecs());
 
-        return new Doctor(updatedName, updatedPhone, updatedGender, updatedAge, updatedSpecs);
+        return new Doctor(doctorToEdit.getId(), updatedName, updatedPhone, updatedGender, updatedYear, updatedSpecs);
     }
 
     @Override
@@ -130,7 +129,7 @@ public class EditDoctorCommand extends Command {
     public static class EditDoctorDescriptor {
         private Name name;
         private Gender gender;
-        private Age age;
+        private Year year;
         private Phone phone;
 
         private Set<Specialisation> specs;
@@ -145,7 +144,7 @@ public class EditDoctorCommand extends Command {
         public EditDoctorDescriptor(EditDoctorDescriptor toCopy) {
             setName(toCopy.name);
             setGender(toCopy.gender);
-            setAge(toCopy.age);
+            setYear(toCopy.year);
             setPhone(toCopy.phone);
             setSpecs(toCopy.specs);
         }
@@ -154,7 +153,7 @@ public class EditDoctorCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, gender, age, phone, specs);
+            return CollectionUtil.isAnyNonNull(name, gender, year, phone, specs);
         }
 
         public void setName(Name name) {
@@ -173,12 +172,12 @@ public class EditDoctorCommand extends Command {
             return Optional.ofNullable(gender);
         }
 
-        public void setAge(Age age) {
-            this.age = age;
+        public void setYear(Year year) {
+            this.year = year;
         }
 
-        public Optional<Age> getAge() {
-            return Optional.ofNullable(age);
+        public Optional<Year> getYear() {
+            return Optional.ofNullable(year);
         }
 
         public void setPhone(Phone phone) {
@@ -223,7 +222,7 @@ public class EditDoctorCommand extends Command {
 
             return getName().equals(e.getName())
                     && getGender().equals(e.getGender())
-                    && getAge().equals(e.getAge())
+                    && getYear().equals(e.getYear())
                     && getPhone().equals(e.getPhone())
                     && getSpecs().equals(e.getSpecs());
         }

@@ -27,13 +27,15 @@ public class DoctorCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
+    private Label did;
+    @FXML
     private Label name;
     @FXML
     private Label id;
     @FXML
     private Label gender;
     @FXML
-    private Label age;
+    private Label year;
     @FXML
     private Label phone;
     @FXML
@@ -44,8 +46,9 @@ public class DoctorCard extends UiPart<Region> {
         this.doctor = doctor;
         id.setText(displayedIndex + ". ");
         name.setText(doctor.getName().fullName);
+        did.setText(doctor.getIdToString());
         gender.setText(doctor.getGender().value);
-        age.setText(doctor.getAge().value);
+        year.setText(doctor.getYear().value);
         phone.setText(doctor.getPhone().value);
 
         doctor.getSpecs().forEach(spec -> specialisations.getChildren().add(new Label(spec.specialisation)));

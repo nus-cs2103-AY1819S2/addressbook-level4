@@ -2,41 +2,60 @@ package seedu.address.model.appointment;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.Objects;
+
+import seedu.address.model.person.Doctor;
+import seedu.address.model.person.Patient;
 
 /**
  * Represents an Appointment made by a patient.
  */
 public class Appointment {
 
-    public static final String MESSAGE_CONSTRAINTS = "Appointments can only be made in the future";
-
-
-    private final int patientId;
-    private final int doctorId;
-    private final LocalDate dateOfAppt;
-    private final LocalTime timeOfAppt;
+    private final AppointmentPatientId patientId;
+    private final AppointmentDoctorId doctorId;
+    private final AppointmentDate date;
+    private final AppointmentTime time;
+    private final AppointmentStatus appointmentStatus;
+    private Patient patient;
+    private Doctor doctor;
 
     /**
-     * Constructs an {@code Appointment}.
+     * Constructs a new {@code Appointment}. New appointments default to ACTIVE status.
      *
      * @param patientId A valid patientId.
      * @param doctorId A valid doctorId.
-     * @param dateOfAppt A valid appointment date in the future
-     * @param timeOfAppt A valid appointment time in the future
+     * @param date A valid appointment date
+     * @param time A valid appointment time
      */
-    public Appointment(int patientId, int doctorId, LocalDate dateOfAppt, LocalTime timeOfAppt) {
+    public Appointment(AppointmentPatientId patientId, AppointmentDoctorId doctorId, AppointmentDate date,
+                       AppointmentTime time) {
+
+        this(patientId, doctorId, date, time, AppointmentStatus.ACTIVE);
+        //checkArgument(isValidAppointment(appointment), MESSAGE_CONSTRAINTS);
+    }
+
+    /**
+     * Constructs an {@code Appointment} with a stated status.
+     *
+     * @param patientId A valid patientId.
+     * @param doctorId A valid doctorId.
+     * @param date A valid appointment date
+     * @param time A valid appointment time
+     */
+    public Appointment(AppointmentPatientId patientId, AppointmentDoctorId doctorId, AppointmentDate date,
+                       AppointmentTime time, AppointmentStatus appointmentStatus) {
         /**
          * Every field must be present and not null.
          */
-        requireAllNonNull(dateOfAppt, timeOfAppt);
+        requireAllNonNull(patientId, doctorId, date, time, appointmentStatus);
         //checkArgument(isValidAppointment(appointment), MESSAGE_CONSTRAINTS);
         this.patientId = patientId;
         this.doctorId = doctorId;
-        this.dateOfAppt = dateOfAppt;
-        this.timeOfAppt = timeOfAppt;
+        this.date = date;
+        this.time = time;
+        this.appointmentStatus = appointmentStatus;
     }
 
     /**
@@ -52,29 +71,62 @@ public class Appointment {
         str += "Appointment - ";
         str += "Patient ID: " + patientId;
         str += " Doctor ID: " + doctorId;
-        str += " Date: " + dateOfAppt;
-        str += " Time: " + timeOfAppt;
+        str += " Date: " + date;
+        str += " Time: " + time;
         return str;
     }
 
-    public int getPatientId() {
+    public AppointmentPatientId getPatientId() {
         return patientId;
     }
 
-    public int getDoctorId() {
+    public AppointmentDoctorId getDoctorId() {
         return doctorId;
     }
 
-    public LocalDate getDateOfAppt() {
-        return dateOfAppt;
+    public Patient getPatient() {
+        return patient;
     }
 
-    public LocalTime getTimeOfAppt() {
-        return timeOfAppt;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
+    public AppointmentDate getDate() {
+        return date;
+    }
+
+    public AppointmentTime getTime() {
+        return time;
+    }
+
+    public AppointmentStatus getAppointmentStatus() {
+        return appointmentStatus;
     }
 
     public boolean isSameAppointment(Appointment that) {
         return this.equals(that);
+    }
+
+    /**
+     * Checks if an appointment is in the past compared to system time.
+     *
+     * @return true if the appointment is in the past.
+     */
+    public boolean isPast() {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        LocalDateTime appointmentDateTime = LocalDateTime.of(date.date, time.time);
+
+        final boolean past = appointmentDateTime.isBefore(currentDateTime);
+        return past;
     }
 
     @Override
@@ -82,25 +134,36 @@ public class Appointment {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        // subclasses of this class are equal to the superclass
+        if (o == null || !(o instanceof Appointment)) {
             return false;
         }
 
         Appointment that = (Appointment) o;
 
-        if (this.doctorId != that.doctorId) {
+        if (!this.doctorId.equals(that.doctorId)) {
             return false;
         }
 
-        if (this.patientId != that.patientId) {
+        if (!this.patientId.equals(that.patientId)) {
             return false;
         }
 
-        if (!this.dateOfAppt.equals(that.dateOfAppt)) {
+        if (!this.date.equals(that.date)) {
             return false;
         }
 
-        if (!this.timeOfAppt.equals(that.timeOfAppt)) {
+        if (!this.time.equals(that.time)) {
+            return false;
+        }
+
+        // Cancelled appointments can have duplicates
+        if (this.getAppointmentStatus().equals(AppointmentStatus.CANCELLED)
+                || that.appointmentStatus.equals(AppointmentStatus.CANCELLED)) {
+            return false;
+        }
+
+        if (!this.appointmentStatus.equals(that.appointmentStatus)) {
             return false;
         }
 
@@ -109,6 +172,6 @@ public class Appointment {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.dateOfAppt);
+        return Objects.hash(patientId, doctorId, date, time);
     }
 }

@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.List;
 
 import javafx.beans.InvalidationListener;
@@ -12,8 +13,9 @@ import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.UniqueMedHistList;
 import seedu.address.model.person.Doctor;
-import seedu.address.model.person.IdCounter;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.PersonId;
+import seedu.address.model.person.PersonIdCounter;
 import seedu.address.model.person.UniqueDoctorList;
 import seedu.address.model.person.UniquePatientList;
 import seedu.address.model.prescription.Prescription;
@@ -32,7 +34,7 @@ public class DocX implements ReadOnlyDocX {
     private final UniquePrescriptionList prescriptions;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
     private final UniqueAppointmentList appointments;
-    private final IdCounter idCounter;
+    private final PersonIdCounter personIdCounter;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -47,7 +49,7 @@ public class DocX implements ReadOnlyDocX {
         medHists = new UniqueMedHistList();
         prescriptions = new UniquePrescriptionList();
         appointments = new UniqueAppointmentList();
-        idCounter = new IdCounter();
+        personIdCounter = PersonIdCounter.getInstance();
     }
 
     public DocX() {
@@ -67,8 +69,8 @@ public class DocX implements ReadOnlyDocX {
      * Replaces the content of the idCounter with {@code idCounter}.
      * {@code appointments} must not contain duplicate appointments.
      */
-    public void setIdCounter(IdCounter idCounter) {
-        this.idCounter.setIdCounter(idCounter);
+    public void setPersonIdCounter(PersonIdCounter idCounter) {
+        this.personIdCounter.setCurrentMaxId(idCounter.getCurrentMaxId());
         indicateModified();
     }
 
@@ -120,6 +122,22 @@ public class DocX implements ReadOnlyDocX {
     }
 
     //// patient-level operations
+
+    /**
+     * Return object Patient with given id
+     */
+    public Patient getPatientById(PersonId patientId) {
+        requireNonNull(patientId);
+        return patients.findPatientById(patientId);
+    }
+
+    /**
+     * Return object Doctor with given id
+     */
+    Doctor getDoctorById(PersonId doctorId) {
+        requireNonNull(doctorId);
+        return doctors.findDoctorById(doctorId);
+    }
 
     /**
      * Returns true if a patient with the same identity as {@code patient} exists in the docX.
@@ -181,7 +199,21 @@ public class DocX implements ReadOnlyDocX {
      * The appointment must not already exist.
      */
     public void addAppointment(Appointment appointment) {
+        appointment.setPatient(getPatientById(appointment.getPatientId()));
+        appointment.setDoctor(getDoctorById(appointment.getDoctorId()));
         appointments.add(appointment);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the given appointment {@code target} in the list with {@code changedAppointment}.
+     * {@code target} must exist in docX.
+     * The new appointment must not be a duplicate of an existing appointment in docX.
+     */
+    public void setAppointment(Appointment target, Appointment changedAppointment) {
+        requireNonNull(changedAppointment);
+
+        appointments.setAppointment(target, changedAppointment);
         indicateModified();
     }
 
@@ -191,9 +223,9 @@ public class DocX implements ReadOnlyDocX {
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given doctor {@code target} in the list with {@code editedDoctor}.
      * {@code target} must exist in the docX.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the docX.
+     * The doctor identity of {@code editedDoctor} must not be the same as another existing doctor in the docX.
      */
     public void setDoctor(Doctor target, Doctor editedDoctor) {
         requireNonNull(editedDoctor);
@@ -208,10 +240,26 @@ public class DocX implements ReadOnlyDocX {
      */
     public void removePatient(Patient key) {
         patients.remove(key);
+        updateMedHistWhenPatientDeleted(key.getId());
         indicateModified();
     }
 
     //// medical history-level operations
+    /**
+     * Set Patient in medical history to null if the patient is deleted
+     */
+    public void updateMedHistWhenPatientDeleted(PersonId patientId) {
+        requireNonNull(patientId);
+        medHists.setPatientToNull(patientId);
+    }
+
+    /**
+     * Set Doctor in medical history to null if the patient is deleted
+     */
+    public void updateMedHistWhenDoctorDeleted(PersonId doctorId) {
+        requireNonNull(doctorId);
+        medHists.setDoctorToNull(doctorId);
+    }
 
     /**
      * Returns true if a medical history with the same identity as {@code person} exists in the docX.
@@ -227,7 +275,18 @@ public class DocX implements ReadOnlyDocX {
      */
     public void addMedHist(MedicalHistory medHist) {
         medHists.add(medHist);
+        Patient patientWithId = getPatientById(medHist.getPatientId());
+        medHist.setPatient(patientWithId);
+        Doctor doctorWithId = getDoctorById(medHist.getDoctorId());
+        medHist.setDoctor(doctorWithId);
         indicateModified();
+    }
+
+    /**
+     * Sort medical histories by date.
+     */
+    public void sortMedHist(Comparator<MedicalHistory> medHistComparator) {
+        medHists.sort(medHistComparator);
     }
 
     /**
@@ -276,6 +335,7 @@ public class DocX implements ReadOnlyDocX {
      */
     public void removeDoctor(Doctor key) {
         doctors.remove(key);
+        updateMedHistWhenDoctorDeleted(key.getId());
         indicateModified();
     }
 
@@ -325,9 +385,11 @@ public class DocX implements ReadOnlyDocX {
     }
 
     @Override
-    public IdCounter getIdCounter() {
-        return idCounter;
+    public PersonIdCounter getPersonIdCounter() {
+        return personIdCounter;
     }
+
+
 
     @Override
     public boolean equals(Object other) {

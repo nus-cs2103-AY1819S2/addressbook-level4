@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -10,6 +11,7 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.PersonId;
 import seedu.address.model.prescription.Prescription;
 
 
@@ -29,8 +31,28 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
 
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Prescription> PREDICATE_SHOW_ALL_PRESCRIPTIONS = unused -> true;
+    /** {@code Comparator} that sort medical history by date in ascending order from oldest to newest. */
+    Comparator<MedicalHistory> COMPARATOR_MED_HIST_DATE_ASC = new MedHistDateAscComparator();
+
+    /** {@code Comparator} that sort medical history by date in decending order from newest to oldest. */
+    Comparator<MedicalHistory> COMPARATOR_MED_HIST_DATE_DESC = new MedHistDateDescComparator();
+
+    /** Comparater of Medical History
+     * Medical history with older date is larger than medical history with newer date.
+     */
+    class MedHistDateAscComparator implements Comparator<MedicalHistory> {
+        public int compare (MedicalHistory mh1, MedicalHistory mh2) {
+            return mh1.getDate().date.compareTo(mh2.getDate().date);
+        }
+    }
+    /** Comparater of Medical History
+     * Medical history with newer date is larger than medical history with older date.
+     */
+    class MedHistDateDescComparator implements Comparator<MedicalHistory> {
+        public int compare (MedicalHistory mh1, MedicalHistory mh2) {
+            return mh2.getDate().date.compareTo(mh1.getDate().date);
+        }
+    }
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -69,6 +91,16 @@ public interface Model {
 
     /** Returns the DocX */
     ReadOnlyDocX getDocX();
+
+    /**
+     * Return object Patient with given id
+     */
+    Patient getPatientById(PersonId patientId);
+
+    /**
+     * Return object Doctor with given id
+     */
+    Doctor getDoctorById(PersonId doctorId);
 
     /**
      * Returns true if a patient with the same identity as {@code patient} exists in the DocX.
@@ -151,14 +183,18 @@ public interface Model {
      */
     void setMedHist(MedicalHistory target, MedicalHistory editedMedHist);
 
+    /**
+     * Replaces the given appointment {@code target} with {@code changedAppointment}.
+     * {@code target} must exist in the DocX.
+     * The new appointment must not be the same as another existing appointment in DocX.
+     */
+    void setAppointment(Appointment target, Appointment changedAppointment);
+
     /** Returns an unmodifiable view of the filtered patient list */
     ObservableList<Patient> getFilteredPatientList();
 
     /** Returns an unmodifiable view of the filtered medical history list */
     ObservableList<MedicalHistory> getFilteredMedHistList();
-
-    /** Returns an unmodifiable view of the filtered prescription list */
-    ObservableList<Prescription> getFilteredPrescriptionList();
 
     /** Returns an unmodifiable view of the filtered doctor list */
     ObservableList<Doctor> getFilteredDoctorList();
@@ -172,17 +208,11 @@ public interface Model {
      */
     void updateFilteredPatientList(Predicate<Patient> predicate);
 
-     /**
+    /**
      * Updates the filter of the filtered medical history list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredMedHistList(Predicate<MedicalHistory> predicate);
-
-    /**
-     * Updates the filter of the filtered prescription list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPrescriptionList(Predicate<Prescription> predicate);
 
     /**
      * Updates the filter of the filtered doctor list to filter by the given {@code predicate}.
@@ -195,6 +225,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAppointmentList(Predicate<Appointment> predicate);
+
+
+    /**
+     * Sort filtered medical history list
+     */
+    void sortFilteredMedHistList(Comparator<MedicalHistory> medicalHistoryComparator);
 
     /**
      * Returns true if the model has previous DocX states to restore.
@@ -234,12 +270,6 @@ public interface Model {
     ReadOnlyProperty<MedicalHistory> selectedMedHistProperty();
 
     /**
-     * Selected prescription in the filtered prescription list.
-     * null if no prescription is selected.
-     */
-    ReadOnlyProperty<Prescription> selectedPrescriptionProperty();
-
-    /**
      * Selected appointment in the filtered appointment list.
      * null if no appointment is selected.
      */
@@ -258,12 +288,6 @@ public interface Model {
     MedicalHistory getSelectedMedHist();
 
     /**
-     * Returns the selected prescription in the filtered prescription list.
-     * null if no prescription is selected.
-     */
-    Prescription getSelectedPrescription();
-
-    /**
      * Returns the selected appointment in the filtered appointment list.
      * null if no appointment is selected.
      */
@@ -278,11 +302,6 @@ public interface Model {
      * Sets the selected medHist in the filtered medHist list.
      */
     void setSelectedMedHist(MedicalHistory medHist);
-
-    /**
-     * Sets the selected prescription in the filtered prescription list.
-     */
-    void setSelectedPrescription(Prescription prescription);
 
     /**
      * Sets the selected appointment in the filtered appointment list.
@@ -306,6 +325,12 @@ public interface Model {
      * null if no doctor is selected.
      */
     ReadOnlyProperty<Doctor> selectedDoctorProperty();
+
+    /**
+     * Returns the selected doctor in the filtered doctor list.
+     * null if no doctor is selected.
+     */
+    Doctor getSelectedDoctor();
 
     /**
      * Sets the selected doctor in the filtered doctor list.

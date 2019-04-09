@@ -15,7 +15,6 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
-import seedu.address.model.prescription.Prescription;
 
 /**
  * An Immutable DocX that is serializable to JSON format.
@@ -28,15 +27,12 @@ class JsonSerializableDocX {
     public static final String MESSAGE_DUPLICATE_MEDHIST =
             "Medical history list contains duplicate medical history(s).";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "Appointment list contains duplicate appointments.";
-    public static final String MESSAGE_DUPLICATE_PRESCRIPTION = "Prescription list contains duplicate prescriptions.";
-
 
     private final List<JsonAdaptedPatient> patients = new ArrayList<>();
     private final List<JsonAdaptedDoctor> doctors = new ArrayList<>();
     private final List<JsonAdaptedMedicalHistory> medicalHistories = new ArrayList<>();
-    private final List<JsonAdaptedPrescription> prescriptions = new ArrayList<>();
     private final List<JsonAdaptedAppointment> appointments = new ArrayList<>();
-    private final JsonAdaptedIdCounter idCounter;
+    private final JsonAdaptedPersonIdCounter personIdCounter;
 
     /**
      * Constructs a {@code JsonSerializableDocX} with the given patients.
@@ -46,16 +42,14 @@ class JsonSerializableDocX {
                                 @JsonProperty("doctors") List<JsonAdaptedDoctor> doctors,
                                 @JsonProperty("medicalHistories")
                                                List<JsonAdaptedMedicalHistory> medicalHistories,
-                                @JsonProperty("prescriptions") List<JsonAdaptedPrescription> prescriptions,
                                 @JsonProperty("appointments") List<JsonAdaptedAppointment> appointments,
-                                @JsonProperty("personIdCounter") JsonAdaptedIdCounter idCounter)
+                                @JsonProperty("personIdCounter") JsonAdaptedPersonIdCounter personIdCounter)
             throws IllegalValueException {
         this.patients.addAll(patients);
         this.doctors.addAll(doctors);
         this.appointments.addAll(appointments);
         this.medicalHistories.addAll(medicalHistories);
-        this.prescriptions.addAll(prescriptions);
-        this.idCounter = idCounter;
+        this.personIdCounter = personIdCounter;
     }
 
     /**
@@ -70,13 +64,11 @@ class JsonSerializableDocX {
 
         medicalHistories.addAll(source.getMedHistList().stream().map(JsonAdaptedMedicalHistory::new)
                 .collect(Collectors.toList()));
-        prescriptions.addAll(source.getPrescriptionList().stream().map(JsonAdaptedPrescription::new)
-                .collect(Collectors.toList()));
 
         appointments.addAll(source.getAppointmentList().stream().map(JsonAdaptedAppointment::new)
                 .collect(Collectors.toList()));
 
-        idCounter = new JsonAdaptedIdCounter(source.getIdCounter());
+        personIdCounter = new JsonAdaptedPersonIdCounter(source.getPersonIdCounter().getCurrentMaxId());
     }
 
     /**
@@ -87,13 +79,14 @@ class JsonSerializableDocX {
     public DocX toModelType() throws IllegalValueException {
         DocX docX = new DocX();
 
-        for (JsonAdaptedAppointment jsonAdaptedAppointment : appointments) {
-            Appointment appointment = jsonAdaptedAppointment.toModelType();
-            if (docX.hasAppointment(appointment)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
+        // note: order is important. Patient and Doctor MUST be loaded before others.
+
+        for (JsonAdaptedPatient jsonAdaptedPatient : patients) {
+            Patient patient = jsonAdaptedPatient.toModelType();
+            if (docX.hasPatient(patient)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            //System.out.println(appointment);
-            docX.addAppointment(appointment);
+            docX.addPatient(patient);
         }
 
         for (JsonAdaptedDoctor jsonAdaptedDoctor : doctors) {
@@ -104,12 +97,13 @@ class JsonSerializableDocX {
             docX.addDoctor(doctor);
         }
 
-        for (JsonAdaptedPatient jsonAdaptedPatient : patients) {
-            Patient patient = jsonAdaptedPatient.toModelType();
-            if (docX.hasPatient(patient)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+        for (JsonAdaptedAppointment jsonAdaptedAppointment : appointments) {
+            Appointment appointment = jsonAdaptedAppointment.toModelType();
+            if (docX.hasAppointment(appointment)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
             }
-            docX.addPatient(patient);
+
+            docX.addAppointment(appointment);
         }
 
         for (JsonAdaptedMedicalHistory jsonAdaptedMedicalHistory : medicalHistories) {
@@ -121,16 +115,7 @@ class JsonSerializableDocX {
             docX.addMedHist(medicalHistory);
         }
 
-        for (JsonAdaptedPrescription jsonAdaptedPrescription : prescriptions) {
-            Prescription prescription = jsonAdaptedPrescription.toModelType();
-            if (docX.hasPrescription(prescription)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PRESCRIPTION);
-
-            }
-            docX.addPrescription(prescription);
-        }
-
-        //docX.setIdCounter(idCounter.toModelType());
+        docX.setPersonIdCounter(personIdCounter.toModelType());
 
         return docX;
     }

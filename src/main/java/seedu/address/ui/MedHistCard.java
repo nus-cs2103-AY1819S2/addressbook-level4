@@ -32,18 +32,23 @@ public class MedHistCard extends UiPart<Region> {
     private Label date;
     @FXML
     private Label id;
-    @FXML
-    private Label writeUp;
 
     public MedHistCard(MedicalHistory medHist, int displayedIndex) {
         super(FXML);
         this.medHist = medHist;
         id.setText(displayedIndex + ". ");
         medicalHistoryId.setText("ID: " + medHist.getMedHistId());
-        patientId.setText("Patient ID: " + medHist.getPatientId());
-        doctorId.setText("Doctor ID: " + medHist.getDoctorId());
+        if (medHist.getPatient() == null) {
+            patientId.setText("Patient ID: Patient Deleted");
+        } else {
+            patientId.setText("Patient ID: " + medHist.getPatientId());
+        }
+        if (medHist.getDoctor() == null) {
+            doctorId.setText("Doctor ID: Doctor Deleted");
+        } else {
+            doctorId.setText("Doctor ID: " + medHist.getDoctorId());
+        }
         date.setText("Date: " + medHist.getDate().toString());
-        writeUp.setText("Write Up" + medHist.getWriteUp().value);
     }
 
     @Override
@@ -62,7 +67,7 @@ public class MedHistCard extends UiPart<Region> {
         MedHistCard card = (MedHistCard) other;
         return id.getText().equals(card.id.getText()) && medicalHistoryId.equals(card.medicalHistoryId)
                 && patientId.equals(card.patientId) && doctorId.equals(card.doctorId)
-                && date.equals(card.date) && writeUp.equals(card.writeUp);
+                && date.equals(card.date);
     }
 
 }

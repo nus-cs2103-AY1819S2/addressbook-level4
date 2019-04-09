@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -27,6 +28,7 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.PersonId;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.testutil.PatientBuilder;
 
@@ -102,6 +104,22 @@ public class AddPatientCommandTest {
         }
 
         @Override
+        public void sortFilteredMedHistList(Comparator<MedicalHistory> medHistComparator) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Patient getPatientById(PersonId patientId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Doctor getDoctorById(PersonId doctorId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
         public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
@@ -168,6 +186,11 @@ public class AddPatientCommandTest {
 
         @Override
         public void addAppointment (Appointment appointment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAppointment(Appointment appointment, Appointment appointment2) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -349,6 +372,11 @@ public class AddPatientCommandTest {
 
         @Override
         public ReadOnlyProperty<Doctor> selectedDoctorProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Doctor getSelectedDoctor() {
             throw new AssertionError("This method should not be called.");
         }
 

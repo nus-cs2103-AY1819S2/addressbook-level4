@@ -32,7 +32,9 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    //private MedHistBrowserPanel medHistBrowserPanel;
+    private PatientInfoPanel patientInfoPanel;
+    private MedHistBrowserPanel medHistBrowserPanel;
+    private DoctorBrowserPanel doctorBrowserPanel;
     private PatientListPanel patientListPanel;
     private MedHistListPanel medHistListPanel;
     private AppointmentListPanel appointmentListPanel;
@@ -40,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private DoctorListPanel doctorListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private CommandResult.ShowBrowser whichBrowser;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -89,6 +92,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -122,7 +126,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         browserPanel = new BrowserPanel(logic.selectedPatientProperty());
-        //medHistBrowserPanel = new MedHistBrowserPanel(logic.selectedMedHistProperty());
+        patientInfoPanel = new PatientInfoPanel(logic.selectedPatientProperty());
+        medHistBrowserPanel = new MedHistBrowserPanel(logic.selectedMedHistProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         patientListPanel = new PatientListPanel(logic.getFilteredPatientList(), logic.selectedPatientProperty(),
@@ -132,6 +137,7 @@ public class MainWindow extends UiPart<Stage> {
         doctorListPanel = new DoctorListPanel(logic.getFilteredDoctorList(), logic.selectedDoctorProperty(),
                 logic::setSelectedDoctor);
         doctorListPanelPlaceholder.getChildren().add(doctorListPanel.getRoot());
+        doctorBrowserPanel = new DoctorBrowserPanel(logic.selectedDoctorProperty());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -141,6 +147,30 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Show the full patient info
+     */
+    public void showPatientBrowser() {
+        browserPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().add(patientInfoPanel.getRoot());
+    }
+
+    /**
+     * Show the browser of doctor
+     */
+    public void showDoctorBrowser() {
+        browserPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().add(doctorBrowserPanel.getRoot());
+    }
+
+    /**
+     * Show the browser of medical history
+     */
+    public void showMedHistBrowser() {
+        browserPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().add(medHistBrowserPanel.getRoot());
     }
 
     /**
@@ -250,7 +280,6 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             switch (commandResult.getShowPanel()) {
-
             case MED_HIST_PANEL:
                 showMedHistPanel();
                 break;
@@ -261,6 +290,20 @@ public class MainWindow extends UiPart<Stage> {
                 showPrescriptionPanel();
                 break;
 
+            default:
+                break;
+            }
+
+            switch (commandResult.getShowBrowser()) {
+            case MED_HIST_BROWSER:
+                showMedHistBrowser();
+                break;
+            case PATIENT_BROWSER:
+                showPatientBrowser();
+                break;
+            case DOCTOR_BROWSER:
+                showDoctorBrowser();
+                break;
             default:
                 break;
             }

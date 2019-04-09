@@ -14,6 +14,7 @@ import seedu.travel.model.place.RatingContainsKeywordsPredicate;
 public class SearchRatingCommand extends Command {
 
     public static final String COMMAND_WORD = "searchr";
+    public static final String COMMAND_ALIAS = "sr";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all places whose ratings contain "
             + "the specified ratings and displays them as a list with index numbers.\n"
             + "Parameters: RATING [MORE_RATINGS]...\n"

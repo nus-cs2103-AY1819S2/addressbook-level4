@@ -32,6 +32,8 @@ public class AttackCommand extends Command {
     public static final String MESSAGE_TRY_AGAIN = "Please select another cell to attack.";
     public static final String MESSAGE_PLAYER_WIN = "You won. Congratulations!\n"
         + "Start another game with 'init', or enter 'exit' to quit.";
+    public static final String MESSAGE_PLAYER_LOSE = "You lost... maybe you'll do better next time!\n"
+        + "Start another game with 'init', or enter 'exit' to quit.";
 
     private Coordinates coord;
 
@@ -84,7 +86,14 @@ public class AttackCommand extends Command {
                 resultBuilder.append("\n");
                 resultBuilder.append(enemyRes.formatAsEnemyAttack());
             }
-            model.setBattleState(BattleState.PLAYER_ATTACK);
+            if (enemyResList.get(enemyResList.size() - 1).isWin()) {
+                // Oh no... the enemy won
+                model.setBattleState(BattleState.ENEMY_WIN);
+                resultBuilder.append("\n");
+                resultBuilder.append(MESSAGE_PLAYER_LOSE);
+            } else {
+                model.setBattleState(BattleState.PLAYER_ATTACK);
+            }
             return new CommandResult(resultBuilder.toString());
         }
     }

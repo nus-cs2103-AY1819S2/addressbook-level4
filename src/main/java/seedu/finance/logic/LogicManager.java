@@ -17,7 +17,6 @@ import seedu.finance.logic.parser.FinanceTrackerParser;
 import seedu.finance.logic.parser.exceptions.ParseException;
 import seedu.finance.model.Model;
 import seedu.finance.model.ReadOnlyFinanceTracker;
-import seedu.finance.model.budget.Budget;
 import seedu.finance.model.budget.TotalBudget;
 import seedu.finance.model.record.Record;
 import seedu.finance.storage.Storage;

@@ -21,6 +21,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.Organization;
+import seedu.address.model.request.RequestStatus;
 import seedu.address.model.tag.Condition;
 import seedu.address.model.tag.Skills;
 import seedu.address.model.tag.Specialisation;
@@ -35,6 +36,7 @@ public class ParserUtilTest {
     private static final String INVALID_ORGANIZATION = "h@xx0r";
     private static final String INVALID_NRIC = "A12345678";
     private static final String INVALID_SPECIALISATION = "physio";
+    private static final String INVALID_STATUS = "hello";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "98765432";
@@ -46,6 +48,7 @@ public class ParserUtilTest {
     private static final String VALID_NRIC = "S1234567A";
     private static final String VALID_SPECIALISATION = "PHYSIOTHERAPY";
     private static final String VALID_SPECIALISATION_2 = "NEUROLOGY";
+    private static final String VALID_STATUS = "PENDING";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -187,6 +190,19 @@ public class ParserUtilTest {
         // condition with whitespace trimmed -> returned true
         assertEquals(expectedCondition, ParserUtil.parseCondition(
                 WHITESPACE + VALID_CONDITION_1 + WHITESPACE));
+    }
+
+    @Test
+    public void parseStatus() throws ParseException {
+        // null condition set
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseRequestStatus(null));
+
+        // contains invalid status
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseRequestStatus(INVALID_STATUS));
+
+        RequestStatus expected = new RequestStatus("PENDING");
+        assertEquals(expected, ParserUtil.parseRequestStatus(VALID_STATUS));
+
     }
 
     @Test

@@ -94,6 +94,9 @@ public class UniqueWorkListList implements Iterable<WorkList> {
         }
     }
 
+    /**
+     * @return true if the equipment with {@code serialNumber} exist in the work list with {@code workListId}
+     */
     public boolean hasEquipmentInWorkList(WorkListId workListId, SerialNumber serialNumber) {
         requireNonNull(workListId);
         WorkList sampleWorkList = new WorkList("01-05-2019", "SampleName", workListId);

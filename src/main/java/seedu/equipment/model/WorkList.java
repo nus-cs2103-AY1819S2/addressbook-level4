@@ -50,10 +50,13 @@ public class WorkList {
         return Collections.unmodifiableSet(equipments);
     }
 
+    /**
+     * @return true if the equipment with {@code serialNumber} exist in the work list.
+     */
     public boolean hasEquipment(SerialNumber serialNumber) {
         Iterator<Equipment> ir = equipments.iterator();
         int size = equipments.size();
-        for (int i = 0; i < size; i ++) {
+        for (int i = 0; i < size; i++) {
             Equipment thisEquipment = ir.next();
             if (thisEquipment.getSerialNumber().serialNumber.equals(serialNumber.serialNumber)) {
                 return true;

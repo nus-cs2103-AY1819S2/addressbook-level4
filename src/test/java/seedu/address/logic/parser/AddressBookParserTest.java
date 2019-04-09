@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -10,22 +11,12 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.ClearCommand;
-<<<<<<< HEAD
-=======
 import seedu.address.logic.commands.CropCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
->>>>>>> upstream/master
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.RedoCommand;
-<<<<<<< HEAD
-=======
 import seedu.address.logic.commands.ResizeCommand;
 import seedu.address.logic.commands.RotateCommand;
-import seedu.address.logic.commands.SelectCommand;
->>>>>>> upstream/master
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 

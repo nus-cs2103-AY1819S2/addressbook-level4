@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -16,9 +17,6 @@ import seedu.address.model.restaurant.Restaurant;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Restaurant> PREDICATE_SHOW_ALL_RESTAURANTS = unused -> true;
-
-    Predicate<Restaurant> PREDICATE_SHOW_VISITED_RESTAURANTS = (r) ->
-            r.getReviews().size() > 0;
 
     Predicate<Restaurant> PREDICATE_SHOW_UNVISITED_RESTAURANTS = (r) ->
             r.getReviews().size() == 0;
@@ -49,12 +47,16 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     *
      * Returns the name of the user
      */
     String getName();
 
     void setName(String name);
+
+    /**
+     * Returns the sorted list of unique Average Ratings of all Restaurants.
+     */
+    ArrayList<Float> getUniqueRatings();
 
     /**
      * Returns the user prefs' food diary file path.
@@ -98,6 +100,11 @@ public interface Model {
      * in the food diary.
      */
     void setRestaurant(Restaurant target, Restaurant editedRestaurant);
+
+    /**
+     * Sorts the list of Restaurants in {@code versionedFoodDiary} using the given comparator
+     */
+    void sortRestaurantList(Comparator<Restaurant> sortBy);
 
     /** Returns an unmodifiable view of the filtered restaurant list */
     ObservableList<Restaurant> getFilteredRestaurantList();

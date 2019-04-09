@@ -10,6 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.NoInternetException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.WebUtil;
+import seedu.address.logic.commands.SortCommand.Limit;
 import seedu.address.logic.commands.SortCommand.Order;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.restaurant.Address;
@@ -275,6 +276,21 @@ public class ParserUtil {
             throw new ParseException(Order.MESSAGE_CONSTRAINTS);
         }
         return new Order(trimmedOrder);
+    }
+
+    /**
+     * Parses a {@code String limit} into an {@code Limit} and returns it.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Order} is invalid.
+     */
+    public static Limit parseLimit(String limit) throws ParseException {
+        requireNonNull(limit);
+        String trimmedLimit = limit.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedLimit)) {
+            throw new ParseException(Limit.MESSAGE_CONSTRAINTS);
+        }
+        return new Limit(trimmedLimit);
     }
 
 }

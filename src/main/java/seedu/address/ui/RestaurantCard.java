@@ -56,6 +56,8 @@ public class RestaurantCard extends UiPart<Region> {
     private Label weblink;
     @FXML
     private Label openingHours;
+    @FXML
+    private Label postal;
 
     public RestaurantCard(Restaurant restaurant, int displayedIndex) {
         super(FXML);
@@ -64,6 +66,7 @@ public class RestaurantCard extends UiPart<Region> {
         name.setText(restaurant.getName().fullName);
         phone.setText(restaurant.getPhone().value);
         address.setText(restaurant.getAddress().value);
+        postal.setText(restaurant.getPostal().value);
         email.setText(restaurant.getEmail().value);
         restaurant.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
 

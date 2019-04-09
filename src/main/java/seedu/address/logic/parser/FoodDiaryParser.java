@@ -98,7 +98,6 @@ public class FoodDiaryParser {
         case ViewCommand.COMMAND_WORD:
             return new ViewCommand();
 
-
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
 

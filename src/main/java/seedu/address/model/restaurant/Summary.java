@@ -2,6 +2,7 @@ package seedu.address.model.restaurant;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.text.DecimalFormat;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -13,10 +14,11 @@ import seedu.address.model.review.Review;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Summary {
+    private static final DecimalFormat ONE_DP = new DecimalFormat("#.#");
 
     // Data fields
-    private final Float avgRating;
-    private final Integer totalVisits;
+    private Float avgRating;
+    private Integer totalVisits;
 
     /**
      * Every field must be present and not null.
@@ -63,7 +65,7 @@ public class Summary {
     }
 
     public Float getAvgRating() {
-        return this.avgRating;
+        return Float.valueOf(ONE_DP.format(this.avgRating));
     }
 
     /**

@@ -1,8 +1,13 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LIMIT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDER;
+
+import java.util.Optional;
 
 import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.commands.SortCommand.Limit;
 import seedu.address.logic.commands.SortCommand.Order;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -16,18 +21,39 @@ public class SortCommandParser implements Parser<SortCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public SortCommand parse(String args) throws ParseException {
-        try {
-            // Check if any String is present
-            if (args.isEmpty()) {
-                return new SortCommand(new Order("DES"));
+        // Check if any Order or Limit is present
+        if (!args.isEmpty()) {
+            ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_LIMIT, PREFIX_ORDER);
+
+            Limit limit;
+            Order order;
+
+            // Check for presence of Order
+            if (argMultimap.getValue(PREFIX_ORDER).isPresent()) {
+                order = ParserUtil.parseOrder(argMultimap.getValue(PREFIX_ORDER).get());
+            } else {
+                order = null;
             }
 
-            // Check that there is a valid Order
-            Order order = ParserUtil.parseOrder(args);
-            return new SortCommand(order);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), pe);
+            // Check for presence of Limit
+            if (argMultimap.getValue(PREFIX_LIMIT).isPresent()) {
+                limit = ParserUtil.parseLimit(argMultimap.getValue(PREFIX_LIMIT).get());
+            } else {
+                limit = null;
+            }
+
+            // Ensure validity of values parsed
+            if (order == null && limit == null) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+            } else if (order == null) {
+                // Default descending sort of restaurants triggered
+                order = new Order("DES");
+            }
+
+            return new SortCommand(order, Optional.ofNullable(limit));
+        } else {
+            // Return default Sort
+            return new SortCommand(new Order("DES"), Optional.empty());
         }
     }
 }

@@ -21,7 +21,7 @@ public class Patient extends Person {
     private final Age age;
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-    private final AppointmentStatus appointmentStatus;
+    private AppointmentStatus appointmentStatus;
 
     /**
      * Every field must be present and not null.
@@ -53,6 +53,11 @@ public class Patient extends Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Patient changeAppointmentStatus(AppointmentStatus status) {
+        this.appointmentStatus = status;
+        return this;
     }
 
     public AppointmentStatus getAppointmentStatus() {

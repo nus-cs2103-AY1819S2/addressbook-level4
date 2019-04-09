@@ -266,7 +266,24 @@ The figure below illustrates how consultations with patients are recorded and or
 
 [[ConsultationManager_diagram]]
 .Structure of ConsultationManager
-image::ConsultationManager_diagram.png[width='800]
+image::ConsultationManager_diagram.png[width='800']
+
+A `Consultation` in QuickDocs is defined to one patient and it consists of an optional `Diagnosis` and a list of `Prescription` of medicine. +
+
+A diagnosis is then consisting of an assessment, the final conclusion of patient's illness, and a list of symptoms. +
+
+Past consultations are kept as a list in `ConsultationManager`, and the manager supports listing consultations of the same patient by his/her NRIC.
+
+[[Design-Model-RecordManager]]
+==== Model for StatisticsManager
+
+Every monetary transaction happened in the clinic, such as prescriptions to patients, is recorded by QuickDocs, and statistics report could be generated upon user requests. +
+
+The figure below illustrates how such records are organized in QuickDocs, and how the statistics reports are generated. +
+
+[[StatisticsManager_diagram]]
+.Structure of StatisticsManager
+image::StatisticsManager_diagram.png[width='800']
 
 
 

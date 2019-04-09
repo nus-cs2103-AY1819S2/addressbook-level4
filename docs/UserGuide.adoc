@@ -267,7 +267,7 @@ image::deck_ug_diagrams/export_deck_2.png[width="350"]
 
 ==== Selecting a deck: `select`
 
-Currently select does not do much. However, we will be adding more features
+Currently select does not do much. However, we will be adding more functionality
 for select in v2.0. Refer to <<Upcoming Features>> for more details.
 
 

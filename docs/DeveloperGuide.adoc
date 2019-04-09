@@ -766,7 +766,7 @@ Instead of typing `generate`, you can simply type the shortcut `g`.
 
 :: These operations are exposed in the `Model` interface as `Model#setChartDisplayed(chartDisplayed)`, `Model#commitTravelBuddy()` and `Model#getFilteredPlaceList()`.
 
-*Model:* :: The chart generation mechanism is facilitated by `VersionedTravelBuddy`, which extends from `TravelBuddy`, as seen in the Model Class Diagram in <<ModelClassDiagram>>. 
+*Model:* :: The chart generation mechanism is facilitated by `VersionedTravelBuddy`, which extends from `TravelBuddy`, as seen in the Model Class Diagram in <<ModelClassDiagram>>.
 
 [[chartOopDiagramFigure]]
 [reftext="Figure 4.4.3"]
@@ -784,9 +784,9 @@ image::Chart_ModelClassBetterOopDiagram.png[width="600"]
 
 
 
-*Storage:* :: It is stored internally 
+*Storage:* :: It is stored internally
 
-*UI:* :: 
+*UI:* ::
 
 [[chartSeqDiagramFigure]]
 [reftext="Figure 4.4.1"]

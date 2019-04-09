@@ -90,6 +90,8 @@ public class CommandTestUtil {
     // Country Code
     public static final String INVALID_FORMAT_DATE_VISITED_DESC = " " + PREFIX_DATE_VISITED + "20*12/1992"; // '*' not
     // allowed in Date Visited
+    public static final String INVALID_DATE_VISITED_DOES_NOT_EXIST_DESC = " " + PREFIX_DATE_VISITED + "31/02/2018";
+    // february does not have day 31
     public static final String INVALID_FUTURE_DATE_VISITED_DESC = " " + PREFIX_DATE_VISITED + "20/12/2091"; // Future
     // date is not allowed in Date Visited
     public static final String INVALID_RATING_DESC = " " + PREFIX_RATING + "4a"; // 'a' not allowed in ratings

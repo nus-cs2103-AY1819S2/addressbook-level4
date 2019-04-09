@@ -16,9 +16,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.hms.commons.core.GuiSettings;
 import seedu.hms.commons.core.LogsCenter;
 import seedu.hms.model.booking.Booking;
-import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.booking.exceptions.BookingNotFoundException;
-import seedu.hms.model.booking.exceptions.ServiceTypeNotFoundException;
+import seedu.hms.model.booking.serviceType.ServiceType;
+import seedu.hms.model.booking.serviceType.exceptions.ServiceTypeNotFoundException;
 
 /**
  * Represents the in-memory model of the hms book data.
@@ -126,7 +126,38 @@ public class BookingManager implements BookingModel {
         versionedHotelManagementSystem.resetDataBooking(hotelManagementSystem);
     }
 
-    //=========== Filtered Booking List Accessors =============================================================
+    public void deleteServiceType(int serviceTypeIndex) {
+        versionedHotelManagementSystem.removeServiceType(serviceTypeIndex);
+    }
+
+    public void deleteServiceType(ServiceType b) {
+        versionedHotelManagementSystem.removeServiceType(b);
+    }
+
+    /*
+     * Adds a serviceType
+     */
+    public void addServiceType(ServiceType serviceType) {
+        versionedHotelManagementSystem.addServiceType(serviceType);
+    }
+
+    public void setServiceType(int serviceTypeIndex, ServiceType editedServiceType) {
+        requireNonNull(editedServiceType);
+
+        versionedHotelManagementSystem.setServiceType(serviceTypeIndex, editedServiceType);
+    }
+
+    public ServiceType getServiceType(String serviceName) {
+        requireNonNull(serviceName);
+        for (ServiceType st: serviceTypeList) {
+            if (st.getName().equalsIgnoreCase(serviceName)) {
+                return st;
+            }
+        }
+        return null;
+    }
+
+    //=========== Filtered ServiceType List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Booking} backed by the internal list of

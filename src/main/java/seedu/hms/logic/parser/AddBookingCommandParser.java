@@ -13,10 +13,12 @@ import java.util.stream.Stream;
 
 import seedu.hms.logic.commands.AddBookingCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
+import seedu.hms.model.BookingManager;
+import seedu.hms.model.BookingModel;
 import seedu.hms.model.CustomerManager;
 import seedu.hms.model.CustomerModel;
 import seedu.hms.model.booking.Booking;
-import seedu.hms.model.booking.ServiceType;
+import seedu.hms.model.booking.serviceType.ServiceType;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.util.TimeRange;
 
@@ -39,7 +41,7 @@ public class AddBookingCommandParser implements Parser<AddBookingCommand> {
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddBookingCommand parse(String args, CustomerModel customerModel)
+    public AddBookingCommand parse(String args, CustomerModel customerModel, BookingModel bookingModel)
         throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_SERVICE, PREFIX_TIMING, PREFIX_PAYER, PREFIX_CUSTOMERS,
@@ -50,7 +52,7 @@ public class AddBookingCommandParser implements Parser<AddBookingCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddBookingCommand.MESSAGE_USAGE));
         }
 
-        ServiceType serviceType = ParserUtil.parseService(argMultimap.getValue(PREFIX_SERVICE).get());
+        ServiceType serviceType = ParserUtil.parseService(argMultimap.getValue(PREFIX_SERVICE).get(), bookingModel);
         TimeRange timing = ParserUtil.parseTiming(argMultimap.getValue(PREFIX_TIMING).get());
         Customer payer = ParserUtil.parseCustomer(argMultimap.getValue(PREFIX_PAYER).get(),
             customerModel.getFilteredCustomerList());
@@ -70,7 +72,7 @@ public class AddBookingCommandParser implements Parser<AddBookingCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddBookingCommand parse(String args) throws ParseException {
-        return parse(args, new CustomerManager());
+        return parse(args, new CustomerManager(), new BookingManager());
     }
 
 }

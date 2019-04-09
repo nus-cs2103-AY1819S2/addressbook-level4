@@ -1,4 +1,4 @@
-package seedu.hms.model.booking.exceptions;
+package seedu.hms.model.booking.serviceType.exceptions;
 
 import seedu.hms.model.util.TimeRange;
 

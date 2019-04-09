@@ -33,7 +33,7 @@ import seedu.travel.model.chart.YearChart;
 /**
  * An UI component that displays information of a {@code Place}.
  */
-public class DisplayCard extends UiPart<Region> {
+public class ChartCard extends UiPart<Region> {
 
     private static final String FXML = "DisplayListCard.fxml";
 
@@ -52,7 +52,7 @@ public class DisplayCard extends UiPart<Region> {
     private LineChart yearLineChart;
 
     @SuppressWarnings("unchecked")
-    public DisplayCard(ChartBook chartBook) {
+    public ChartCard(ChartBook chartBook) {
         super(FXML);
         requireNonNull(chartBook);
         this.chartBook = chartBook;
@@ -209,12 +209,12 @@ public class DisplayCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DisplayCard)) {
+        if (!(other instanceof ChartCard)) {
             return false;
         }
 
         // state check
-        DisplayCard card = (DisplayCard) other;
+        ChartCard card = (ChartCard) other;
         return chartBook.equals(card.chartBook);
     }
 }

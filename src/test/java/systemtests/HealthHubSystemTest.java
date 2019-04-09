@@ -1,6 +1,6 @@
 package systemtests;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
+import static guitests.guihandles.WebViewUtil.waitUntilInfoPanelLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 //import static org.junit.Assert.assertTrue;
@@ -11,8 +11,7 @@ import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.testutil.GuiTestAssert.assertHealthWorkerListMatching;
 import static seedu.address.ui.testutil.GuiTestAssert.assertRequestListMatching;
 
-//import java.nio.file.Path;
-
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -38,7 +37,11 @@ import seedu.address.commons.core.index.Index;
 //import seedu.address.logic.commands.FilterHealthWorkerCommand;
 //import seedu.address.logic.commands.ListHealthWorkerCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.model.HealthWorkerBook;
 import seedu.address.model.Model;
+import seedu.address.model.RequestBook;
+import seedu.address.testutil.TypicalHealthWorkers;
+import seedu.address.testutil.TypicalRequests;
 import seedu.address.ui.AutoCompleteTextField;
 import seedu.address.ui.InfoPanel;
 
@@ -66,10 +69,11 @@ public abstract class AddressBookSystemTest {
     @Before
     public void setUp() {
         setupHelper = new SystemTestSetupHelper();
-        //testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
+        testApp = setupHelper.setupApplication(this::getInitialHealthWorkerData, getHealthWorkerDataFileLocation(),
+                this::getInitialRequestData, getRequestDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
-        waitUntilBrowserLoaded(getInfoPanel());
+        waitUntilInfoPanelLoaded(getInfoPanel());
         assertApplicationStartingStateIsCorrect();
     }
 
@@ -79,18 +83,32 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
+     * Returns the health worker book data to be loaded into the file {@link #getHealthWorkerDataFileLocation()}
      */
-    //protected AddressBook getInitialData() {
-    //return TypicalPersons.getTypicalAddressBook();
-    //}
+    protected HealthWorkerBook getInitialHealthWorkerData() {
+        return TypicalHealthWorkers.getTypicalHealthWorkerBook();
+    }
 
     /**
-     * Returns the directory of the data file.
+     * Returns the request book data to be loaded into the file {@link #getRequestDataFileLocation()}
      */
-    //protected Path getDataFileLocation() {
-    //return TestApp.SAVE_LOCATION_FOR_TESTING;
-    //}
+    protected RequestBook getInitialRequestData() {
+        return TypicalRequests.getTypicalRequestBook();
+    }
+
+    /**
+     * Returns the directory of the health worker data file.
+     */
+    protected Path getHealthWorkerDataFileLocation() {
+        return TestApp.SAVE_LOCATION_FOR_TESTING_HEALTHWORKERBOOK;
+    }
+
+    /**
+     * Returns the directory of the health worker data file.
+     */
+    protected Path getRequestDataFileLocation() {
+        return TestApp.SAVE_LOCATION_FOR_TESTING_REQUESTBOOK;
+    }
 
     public MainMenuHandle getMainMenu() {
         return mainWindowHandle.getMainMenu();
@@ -103,6 +121,8 @@ public abstract class AddressBookSystemTest {
     public CommandBoxHandle getCommandBox() {
         return mainWindowHandle.getCommandBox();
     }
+
+    public ResultDisplayHandle getResultDisplay() { return mainWindowHandle.getResultDisplay(); }
 
     public RequestListPanelHandle getRequestListPanel() {
         return mainWindowHandle.getRequestListPanel();
@@ -120,10 +140,6 @@ public abstract class AddressBookSystemTest {
         return mainWindowHandle.getStatusBarFooter();
     }
 
-    public ResultDisplayHandle getResultDisplay() {
-        return mainWindowHandle.getResultDisplay();
-    }
-
     /**
      * Executes {@code command} in the application's {@code CommandBox}.
      * Method returns after UI components have been updated.
@@ -136,7 +152,7 @@ public abstract class AddressBookSystemTest {
 
         mainWindowHandle.getCommandBox().run(command);
 
-        waitUntilBrowserLoaded(getInfoPanel());
+        waitUntilInfoPanelLoaded(getInfoPanel());
     }
 
     /**
@@ -272,10 +288,8 @@ public abstract class AddressBookSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertRequestListMatching(getRequestListPanel(), getModel().getFilteredRequestList());
-        assertHealthWorkerListMatching(getHealthWorkerListPanel(), getModel().getFilteredHealthWorkerList());
         assertEquals(InfoPanel.DEFAULT_PAGE, getInfoPanel().getLoadedUrl());
-        //assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
-        //      getStatusBarFooter().getSaveLocation());
+        assertHealthWorkerListMatching(getHealthWorkerListPanel(), getModel().getFilteredHealthWorkerList());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 

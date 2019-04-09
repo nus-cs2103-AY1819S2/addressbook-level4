@@ -151,11 +151,11 @@ image::deck_ug_diagrams/delete_deck_2.png[width="800"]
 
 ==== Editing the name of a deck: `edit`
 
-**Format**: `edit INDEX NEW_DECK_NAME`
+**Format**: `edit INDEX n/NEW_DECK_NAME`
 
 **Outcome**: Changes the name of the deck at `INDEX` to `NEW_DECK_NAME`.
 
-**Example**: `edit 2 Addition`
+**Example**: `edit 2 n/Addition`
 
 Before:
 
@@ -599,5 +599,5 @@ At least one parameter must be present.
 == Upcoming Features
 
 Selecting a deck in Decks View using the `select` command will produce a report of your performance
-on that deck.
+for that deck.
 

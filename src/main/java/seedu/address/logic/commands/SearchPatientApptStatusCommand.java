@@ -18,7 +18,7 @@ public class SearchPatientApptStatusCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches all patients whose appointment status "
             + "is one of the following: ACTIVE, CANCELLED, COMPLETED or MISSED (not case-sensitive)\n"
-            + "Parameters: [KEYWORD]\n"
+            + "Parameters: [STATUS]\n"
             + "Example: " + COMMAND_WORD + " MISSED";
 
     public static final String MESSAGE_INVALID_STATUS = COMMAND_WORD + ":\n"

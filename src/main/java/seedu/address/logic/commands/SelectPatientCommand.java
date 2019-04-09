@@ -19,8 +19,8 @@ public class SelectPatientCommand extends Command {
     public static final String COMMAND_WORD = "select-patient";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Selects the patient identified by the index number used in the displayed patient list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + ": Selects the patient identified by the list index used in the displayed patient list.\n"
+            + "Parameters: [INDEX] (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Patient: %1$s";

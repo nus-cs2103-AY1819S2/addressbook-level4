@@ -39,9 +39,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_MIN_PROJECT_HOU
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MIN_TUTORIAL_HOUR;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_SEMEMTER;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_SEMEMTER;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_SEMEMTER;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_SEMESTER;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_SEMESTER;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_SEMESTER;
 
 import org.junit.Test;
 
@@ -119,7 +119,7 @@ public class SetLimitCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Semester targetIndex = INDEX_SECOND_SEMEMTER;
+        Semester targetIndex = INDEX_SECOND_SEMESTER;
         String userInput = targetIndex.name() + MIN_CAP_DESC + MAX_CAP_DESC + MIN_LECTURE_HOUR_DESC
                 + MAX_LECTURE_HOUR_DESC + MIN_TUTORIAL_HOUR_DESC + MAX_TUTORIAL_HOUR_DESC + MIN_LAB_HOUR_DESC
                 + MAX_LAB_HOUR_DESC + MIN_PROJECT_HOUR_DESC + MAX_PROJECT_HOUR_DESC + MIN_PREPARATION_HOUR_DESC
@@ -147,7 +147,7 @@ public class SetLimitCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Semester targetIndex = INDEX_FIRST_SEMEMTER;
+        Semester targetIndex = INDEX_FIRST_SEMESTER;
         String userInput = targetIndex.name() + MAX_CAP_DESC + MIN_LECTURE_HOUR_DESC;
 
         SetSemLimitCommand.EditSemLimitDescriptor descriptor = new EditSemLimitDescriptorBuilder()
@@ -162,7 +162,7 @@ public class SetLimitCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // min project hour
-        Semester targetIndex = INDEX_THIRD_SEMEMTER;
+        Semester targetIndex = INDEX_THIRD_SEMESTER;
         String userInput = targetIndex.name() + MIN_PROJECT_HOUR_DESC;
         SetSemLimitCommand.EditSemLimitDescriptor descriptor = new EditSemLimitDescriptorBuilder()
                 .withMinProjectHour(VALID_MIN_PROJECT_HOUR)
@@ -209,7 +209,7 @@ public class SetLimitCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Semester targetIndex = INDEX_FIRST_SEMEMTER;
+        Semester targetIndex = INDEX_FIRST_SEMESTER;
         String userInput = targetIndex.name() + MIN_CAP_DESC
                 + MAX_LECTURE_HOUR_DESC + MIN_LECTURE_HOUR_DESC
                 + MIN_LAB_HOUR_DESC + MAX_LAB_HOUR_DESC + MAX_LECTURE_HOUR_DESC
@@ -234,7 +234,7 @@ public class SetLimitCommandParserTest {
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
-        Semester targetIndex = INDEX_FIRST_SEMEMTER;
+        Semester targetIndex = INDEX_FIRST_SEMESTER;
         String userInput = targetIndex.name() + INVALID_MIN_CAP_DESC + MIN_CAP_DESC;
         SetSemLimitCommand.EditSemLimitDescriptor descriptor = new EditSemLimitDescriptorBuilder()
                 .withMinCap(VALID_MIN_CAP)

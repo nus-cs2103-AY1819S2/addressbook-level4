@@ -271,6 +271,7 @@ public class ModelManager implements Model {
         return versionedFoodDiary.equals(other.versionedFoodDiary)
                 && userPrefs.equals(other.userPrefs)
                 && filteredRestaurants.equals(other.filteredRestaurants)
+                && sortedRestaurants.equals(other.sortedRestaurants)
                 && Objects.equals(selectedRestaurant.get(), other.selectedRestaurant.get());
     }
 

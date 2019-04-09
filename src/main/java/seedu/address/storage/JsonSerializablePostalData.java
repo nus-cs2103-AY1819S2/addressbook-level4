@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import seedu.address.model.PostalDataSet;
 @JsonRootName(value = "postaldata")
 class JsonSerializablePostalData {
 
-    private final HashSet<JsonAdaptedPostalData> postalData = new HashSet<>();
+    private final List<JsonAdaptedPostalData> postalData = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializablePostalData} with the given postalData.

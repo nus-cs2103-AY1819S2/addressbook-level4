@@ -203,23 +203,135 @@ image::StatisticsCommandSdForLogic.png[width="800"]
 [[Design-Model]]
 === Model component
 
+The figure below describes the architecture of the model component of this application.
+
+[[Model_diagram]]
 .Structure of the Model Component
-image::Model.png[width="800"]
+image::Model_diagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores all data used in QuickDocs.
-* consists of managers from sub-modules.
+* consists of a QuickDocs object which contains all the data, and lists of managers of sub-modules retrieved from the QuickDocs object.
 * does not depend on any of the other three components.
+
+The `QuickDocs`,
+
+* is the ultimate unit storing all sub-models and data for this application.
+* is the class in charge of interacting with the storage component responsible for converting application data to files for storage.
+* see <<Design-Storage, Storage Component>> for detailed explanation of the role of `QuickDocs` in Storage component.
+
+The following sections illustrate the design of managers of each sub-module.
 
 [[Design-Model-MedicineManager]]
 ==== Model for Medicine module
 
+QuickDocs supports customized organization of medicine inventory. +
+
+The figure below illustrates the implementation of the inventory system for medicine.
+
+[[MedicineManager_diagram]]
 .Structure of the MedicineManager
-image::MedicineManager.png[width="500"]
+image::MedicineManager_diagram.png[width="800"]
+
+In medicine module, information about a medicine is encapsulated into the `Medicine` class. +
+
+`Directory` is a container for medicines, and sub-directories as well. +
+
+The `MedicineManager` keeps a list of reference of all unique medicines in the storage, so that no two medicine in the storage could share the same name to avoid confusion. +
+
+[NOTE]
+All occurrences of medicines with the same name across different directories point to the same medicine in the list of unique medicine in MedicineManager.
+
+As the directory-medicine structure resembles the tree data structure, it is possible to support tree-like operations, such as setting the same threshold for the "subtree" of a directory.
+
+[[Design-Model-PatientManager]]
+==== Model for Patient Management
+
+The figure below illustrates how is a patient represented and how are patients are stored in QuickDocs.
+
+[[PatientManager_diagram]]
+.Structure of PatientManager
+image::PatientManager_diagram.png[width='800']
+
+A patient in QuickDocs consists of an address, name, NRIC, Contact, Email, Date of Birth, Gender and any number of tags. +
+
+[NOTE]
+Specially, no two patients in QuickDocs can share the same NRIC number. In other words, the patients in QuickDocs are easily identified with their unique NRIC numbers.
+
+The `PatientManager` keeps a list of patients by chronological order of addition. PatientManager supports searching patients by NRIC, name and tags.
+
+[[Design-Model-ConsultationManager]]
+==== Model for ConsultationManager
+
+The figure below illustrates how consultations with patients are recorded and organized in QuickDocs.
+
+[[ConsultationManager_diagram]]
+.Structure of ConsultationManager
+image::ConsultationManager_diagram.png[width='800']
+
+A `Consultation` in QuickDocs is defined to one patient and it consists of an optional `Diagnosis` and a list of `Prescription` of medicine. +
+
+A diagnosis is then consisting of an assessment, the final conclusion of patient's illness, and a list of symptoms. +
+
+Past consultations are kept as a list in `ConsultationManager`, and the manager supports listing consultations of the same patient by his/her NRIC.
+
+[[Design-Model-RecordManager]]
+==== Model for StatisticsManager
+
+Every monetary transaction happened in the clinic, such as prescriptions to patients, is recorded by QuickDocs, and statistics report could be generated upon user requests. +
+
+The figure below illustrates how such records are organized in QuickDocs, and how the statistics reports are generated. +
+
+[[StatisticsManager_diagram]]
+.Structure of StatisticsManager
+image::StatisticsManager_diagram.png[width='800']
+
+Monetary transactions in the clinics are categorized to two forms, i.e purchasing of medicine and revenue from consulting patients. +
+
+Both forms have corresponding classes to record such transactions. Every successful execution of purchase medicine command and every successful consultation will create its corresponding record. +
+
+`MonthStatistics` holds records of purchases of medicines and consultations happened in a particular month. +
+
+The overall `StatisticsManager` has a list of MonthStatistics arranged in chronological order.
+
+[[Design-Model-AppointmentManager]]
+==== Model for AppointmentManager
+
+The Appointment module manages time slots for appointment requests from the patients. +
+
+The figure below illustrates how AppointmentManager is organized. +
+
+[[AppointmentManager_diagram]]
+.Structure of AppointmentManager
+image::AppointmentManager_diagram.png[width='800]
+
+A `Slot` is used to represent a time block during clinic's opening hour available for appointments. +
+
+`Appointment` extends slot and each appointment is assigned exactly one patient. +
+
+`AppointmentManager` holds a list of appointments which can then be operated on upon user commands.
+
+[[Design-Model-ReminderManager]]
+==== Model for ReminderManager
+
+QuickDocs supports reminding our users about upcoming appointments and warns users about medicines that is low in stock. +
+
+QuickDocs also supports customized reminders that could be set up by the users themselves. +
+
+The figure below illustrates how reminder module is implemented.
+
+[[ReminderManager_diagram]]
+.Structure of ReminderManager
+image::ReminderManager_diagram.png[width='800']
+
+`Reminder` extends from slot, and has a starting date and end date. Users are free to customize reminders' title and comments for user-initiated reminders. +
+
+`ReminderManager` keeps a list of reminders sorted by the date of reminder. Reminders that expires, i.e passed the end date, will automatically be hidden from the panel list of reminders shown to the user. +
+
+Upon every subtraction or addition of medicine quantity in the inventory, the `ModelManager` calls the `ReminderManager` to check the sufficiency of medicine against the set threshold and update the reminder panel accordingly, so that the reminders for medicines in low stock is managed automatically upon every change in medicine quantity.
 
 [[Design-Storage]]
 === Storage component
@@ -238,7 +350,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `quickdocs.commons` package.
 
 == Implementation
 
@@ -333,7 +445,7 @@ image::dg-consultation/consultationSD1.png[width="800"]
 
 finally, saving the consultation record into QuickDocs:
 
-image::dg-consultation/endConsultSD.png[width="800"]
+image::dg-consultation/endconsultSD.png[width="800"]
 
 
 ==== Design considerations
@@ -611,28 +723,79 @@ MonthRecord object of a specific MMYY by indexing.
 needed when simply querying for a single topic. However, the current implementation was decided as the Statistics
 class currently holds all the information for all the topics.
 
-=== Storage of Medicine
+=== Storing medicines in inventory
 ==== Current implementation
 
 The current implementation takes a similar form as the Windows file browser. The user is free to determine for himself/herself how he/she wants the medicines to be arranged.
 
+*Code:* {repoURL}/src/main/java/quickdocs/model/medicine/MedicineManager.java[MedicineManager.java]
+
+To organize the inventory, the following methods in `MedicineManager` are used: +
+
+* `addDirectory(new directory's name, path of parent directory)` -- Adds a new directory with the given name to the parent directory corresponding to the path.
+* `addMedicine(name, quantity, path of parent directory, price)` -- Adds a new Medicine with given name, quantity and price to the parent directory corresponding to the path given.
+* `addExistingMedicineToDirectory(medicine, path of parent directory)` -- Assuming the medicine already exists, add a reference of this medicine under the directory corresponding to the path.
+
+[NOTE]
+The current implementation does not allow multiple medicines with the same to exist simultaneously. However, one medicine could be placed in multiple directories.
+
 From the initial empty state of the storage, the users could arrange their storage in these following ways:
 
-1. The initial empty storage consists of an empty directory named as "root".
+1. The initial empty storage consists of an empty directory named as "root". The user can then add directories and medicines into the storage.
 
-2. The user could add a new directory via "addDirec" command by specifying the directory he/she wants to add into and the name of new directory.
+2. The `MedicineManager` keeps a list of sorted unique medicine in the inventory.
 
-3. The current implementation does not allow multiple medicines with the same to exist simultaneously. However, one medicine could be placed in multiple directories.
+3. The user could add a new directory via `adddirec` command by specifying the path of the directory he/she wants to add into and the name of new directory.
 
 4. The user could add new/existing medicine to a specific directory via the "addMed" command.
 
-* 1. If there already exists a medicine with the same name in the storage, and the initial quantity is not specified in the command arguments, the existing medicine will be placed in the directory specified.
+* 1. If there already exists a medicine with the same name in the storage, and the quantity and price is not specified in the command arguments, the existing medicine will be placed in the directory specified.
 
 * 2. Otherwise, a new medicine with the specified name, quantity and price will be created and added to the specified directory.
 
-5. The user could view detailed information about a directory or medicine through "viewMed" command.
+Given below is an example of organizing medicine from an initial empty QuickDocs.
 
-6. The user could set the alarm level for medicines via the "setAlarm", such that when the stored amount of the medicine falls lower than the alarm level, a reminder will be thrown.
+Step 1: Initially, the storage only consists of an empty directory called root. +
+
+The list of unique medicine in `MedicineManager` is empty.
+
+[[medicineModule_example1]]
+image::medicineModule_example1.png[width='800']
+
+Step 2: Via `adddirec root Internal`, a new directory called "Internal" is added under root. +
+
+The list of unique medicine is still empty.
+
+[[medicineModule_example2]]
+image::medicineModule_example2.png[width='800']
+
+Step 3: Via a few more `adddirec` commands, the figure below is an illustration of a sample inventory's framework. +
+
+The list of unique medicine is still empty.
+
+[[medicineModule_example3.png]]
+image::medicineModule_example3.png[width='800']
+
+Step 4: Now the user can add new medicines into the storage via `addmed root\Internal\General paracetamol p/40 q/50`. +
+
+[[medicineModule_example4]]
+image::medicineModule_example4.png[width='800']
+
+The list of unique medicine is also updated.
+
+[[listOfMedicine_example1]]
+image::listOfMedicine_example1.png[width='800']
+
+Step 5: Via a few more `addmed` commands, some more new medicines are added to the inventory. The following figure shows the result after that
+
+[[medicineModule_example5]]
+image::medicineModule_example5.png[width='800']
+
+The list of unique medicine is also updated.
+
+4. The user could view detailed information about a directory or medicine through "viewMed" command.
+
+5. The user could set the alarm level for medicines via the "setAlarm", such that when the stored amount of the medicine falls lower than the alarm level, a reminder will be thrown.
 
 * 1. If the path in the command argument corresponds to a medicine, the medicine will have the alarm level specified.
 
@@ -640,7 +803,14 @@ From the initial empty state of the storage, the users could arrange their stora
 
 * 3. If the path neither points to a directory nor medicine, an error message will be displayed to the user.
 
-7. Additionally, a list of all medicine stored in the storage is also kept to enable fast search and manipulation of medicine by its name only.
+6. Additionally, a list of all medicine stored in the storage is also kept to enable fast search and manipulation of medicine by its name only.
+
+
+
+[NOTE]
+Both directories and medicines' names are case-insensitive. So two medicines named `Paracetamol` and `paracetamol` cannot coexist in the inventory.
+
+
 
 ==== Design consideration
 
@@ -837,9 +1007,9 @@ We have two types of tests:
 ..  _Unit tests_ targeting the lowest level methods/classes. +
 e.g. `seedu.address.model.PersonTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `LogicManagerTest`
 
 
 === Troubleshooting Testing

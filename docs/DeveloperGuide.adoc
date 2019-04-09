@@ -739,6 +739,9 @@ To organize the inventory, the following methods in `MedicineManager` are used: 
 [NOTE]
 The current implementation does not allow multiple medicines with the same to exist simultaneously. However, one medicine could be placed in multiple directories.
 
+[NOTE]
+Both directories and medicines' names are case-insensitive.
+
 From the initial empty state of the storage, the users could arrange their storage in these following ways:
 
 1. The initial empty storage consists of an empty directory named as "root". The user can then add directories and medicines into the storage.
@@ -752,6 +755,8 @@ From the initial empty state of the storage, the users could arrange their stora
 * 1. If there already exists a medicine with the same name in the storage, and the quantity and price is not specified in the command arguments, the existing medicine will be placed in the directory specified.
 
 * 2. Otherwise, a new medicine with the specified name, quantity and price will be created and added to the specified directory.
+
+{nbsp} +
 
 Given below is an example of organizing medicine from an initial empty QuickDocs.
 
@@ -793,22 +798,65 @@ image::medicineModule_example5.png[width='800']
 
 The list of unique medicine is also updated.
 
-4. The user could view detailed information about a directory or medicine through "viewMed" command.
+[[listOfMedicine_example2]]
+image::listOfMedicine_example2.png[width='800']
 
-5. The user could set the alarm level for medicines via the "setAlarm", such that when the stored amount of the medicine falls lower than the alarm level, a reminder will be thrown.
+Step 6: Now, the user found out that aspirin can also be used to treat high blood pressure and decides to put it under "Cardiology" as well. +
 
-* 1. If the path in the command argument corresponds to a medicine, the medicine will have the alarm level specified.
+Via the `addmed root\Internal\Cardiology aspirin`, a reference to the existing aspirin medicine will be placed under the "Cardiology" directory. +
 
-* 2. If the path in the command argument corresponds to a directory, every medicine under it and its sub-directories will have the alarm level specified. All medicines added under this directory will have the same alarm level.
+The figure below shows the result of this command.
 
-* 3. If the path neither points to a directory nor medicine, an error message will be displayed to the user.
+[[medicineModule_example6]]
+image::medicineModule_example6.png[width='800']
 
-6. Additionally, a list of all medicine stored in the storage is also kept to enable fast search and manipulation of medicine by its name only.
+However, the list of unique medicine is not changed, as now new medicine is added.
 
+[[listOfMedicine_example3]]
+image:listOfMedicine_example2.png[width='800']
 
+{nbsp} +
 
-[NOTE]
-Both directories and medicines' names are case-insensitive. So two medicines named `Paracetamol` and `paracetamol` cannot coexist in the inventory.
+When typing the directory path in the command box in the ui, QuickDocs supports intelligent suggestions about the next field. +
+
+After the user entered at least one `\` character to indicate he is inputting a path, the suggestion mode will be turned on. +
+
+The user could press Page Up / Page Down bottom to iterate to the previous or the next valid name of sub-directory or medicine in alphabetical order, given that the path given before the previous `\` character is valid.
+
+Using the above sample inventory as an example: +
+
+[[medicineModule_example7]]
+image::medicineModule_example7.png[width='800']
+
+* When the user types in `addmed root\`, the suggestion mode is turned on. +
+
+* The user may not want to type in the full name of the directories, so when he types in `addmed root\in`, he could then press Page Down to iterate to the next valid name in alphabetical order, which is "Internal". +
+
+* The command box is then automatically filled with `addmed root\Internal` +
+
+* Similarly, if the user decides to traverse to the previous valid name, he could do so by press Page Up. And the command box will automatically be filled with `addmed root\External`. +
+
+The figure below illustrates how this feature is implemented to make user's life more convenient. +
+
+//TODO sequence diagram for auto completion
+
+{sp} +
+
+QuickDocs also supports setting alarm level for medicines. Every time a medicine's storage falls below the designated level, a reminder is thrown. +
+
+To convenient the users, QuickDocs allow not only threshold setting for individual medicines, but also threshold setting for directories. +
+
+Taking the above sample inventory as an example: +
+
+[[medicineModule_example7]]
+image::medicineModule_example7.png[width='800']
+
+Setting a threshold for a directory is effectively the same as setting the threshold for every medicine in the "subtree" of that directory. This is down by a tree-like traversal. +
+
+For example, `alarm root\Internal 400` command sets the alarm level of all medicine in the subtree of "Internal" directory to 400. +
+
+[[medicineModule_example8]]
+image::medicineModule_example8.png[width='800]
 
 
 

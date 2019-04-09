@@ -39,6 +39,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     public static final String MESSAGE_INPUT_NOT_IN_TRUE_FORM = "The filtering parameters entered "
             + "is not correct accepted form!";
 
+    public static final String EMAIL_VALIDATION_REGEX = "[\\p{ASCII}][\\p{ASCII} ]*";
     private final int totalNumberOfInfo = 9;
     private boolean inputParameterInCorrectForm = true;
 
@@ -82,6 +83,13 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         }
 
         return true;
+    }
+
+    /**
+     * Checks if the input for any input that needs at least 1 ASCII character
+     */
+    public static boolean isValidAsciiInput(String test) {
+        return test.matches(EMAIL_VALIDATION_REGEX);
     }
 
     /** Divides every filter criteria into Strings. The information order in the
@@ -243,7 +251,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             if (criterion[0] != null) {
                 criterion[0] = infoBetweenPrefixes(args, PREFIX_FILTER_NAME.toString(),
                         PREFIX_FILTER_NAME_REVERSE.toString(), typeOfProcess, false);
-                if (!Name.isValidName(criterion[0])) {
+                if (criterion[0] == null || !Name.isValidName(criterion[0])) {
                     inputParameterInCorrectForm = false;
                     typeOfProcess.set(-1);
                 }
@@ -252,7 +260,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             if (criterion[1] != null) {
                 criterion[1] = infoBetweenPrefixes(args, PREFIX_FILTER_PHONE.toString(),
                         PREFIX_FILTER_PHONE_REVERSE.toString(), typeOfProcess, false);
-                if (!numberInputControl(criterion[1])) {
+                if (criterion[1] == null || !numberInputControl(criterion[1])) {
                     inputParameterInCorrectForm = false;
                     typeOfProcess.set(-1);
                 }
@@ -261,12 +269,16 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             if (criterion[2] != null) {
                 criterion[2] = infoBetweenPrefixes(args, PREFIX_FILTER_EMAIL.toString(),
                         PREFIX_FILTER_EMAIL_REVERSE.toString(), typeOfProcess, false);
+                if (criterion[2] == null || !isValidAsciiInput(criterion[2])) {
+                    inputParameterInCorrectForm = false;
+                    typeOfProcess.set(-1);
+                }
             }
 
             if (criterion[3] != null) {
                 criterion[3] = infoBetweenPrefixes(args, PREFIX_FILTER_ADDRESS.toString(),
                         PREFIX_FILTER_ADDRESS_REVERSE.toString(), typeOfProcess, false);
-                if (!Address.isValidAddress(criterion[3])) {
+                if (criterion[3] == null || !Address.isValidAddress(criterion[3])) {
                     inputParameterInCorrectForm = false;
                     typeOfProcess.set(-1);
                 }
@@ -275,31 +287,41 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             if (criterion[4] != null) {
                 criterion[4] = infoBetweenPrefixes(args, PREFIX_FILTER_SKILL.toString(),
                         PREFIX_FILTER_SKILL_REVERSE.toString(), typeOfProcess, false);
-                for (String tag : criterion[4].split(",")) {
-                    tag.trim();
-                    if (!SkillsTag.isValidTagName(tag)) {
-                        inputParameterInCorrectForm = false;
-                        typeOfProcess.set(-1);
+                if (criterion[4] != null) {
+                    for (String tag : criterion[4].split(",")) {
+                        tag.trim();
+                        if (!SkillsTag.isValidTagName(tag)) {
+                            inputParameterInCorrectForm = false;
+                            typeOfProcess.set(-1);
+                        }
                     }
+                } else {
+                    inputParameterInCorrectForm = false;
+                    typeOfProcess.set(-1);
                 }
             }
 
             if (criterion[5] != null) {
                 criterion[5] = infoBetweenPrefixes(args, PREFIX_FILTER_POS.toString(),
                         PREFIX_FILTER_POS_REVERSE.toString(), typeOfProcess, false);
-                for (String tag : criterion[5].split(",")) {
-                    tag = tag.trim();
-                    if (!SkillsTag.isValidTagName(tag)) {
-                        inputParameterInCorrectForm = false;
-                        typeOfProcess.set(-1);
+                if (criterion[5] != null) {
+                    for (String tag : criterion[5].split(",")) {
+                        tag = tag.trim();
+                        if (!SkillsTag.isValidTagName(tag)) {
+                            inputParameterInCorrectForm = false;
+                            typeOfProcess.set(-1);
+                        }
                     }
+                } else {
+                    inputParameterInCorrectForm = false;
+                    typeOfProcess.set(-1);
                 }
             }
 
             if (criterion[6] != null) {
                 criterion[6] = infoBetweenPrefixes(args, PREFIX_FILTER_GPA.toString(),
                         PREFIX_FILTER_GPA_REVERSE.toString(), typeOfProcess, true);
-                if (!Gpa.isValidGpa(criterion[6])) {
+                if (criterion[6] == null || !Gpa.isValidGpa(criterion[6])) {
                     inputParameterInCorrectForm = false;
                     typeOfProcess.set(-1);
                 }
@@ -307,7 +329,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             if (criterion[7] != null) {
                 criterion[7] = infoBetweenPrefixes(args, PREFIX_FILTER_EDUCATION.toString(),
                         PREFIX_FILTER_EDUCATION_REVERSE.toString(), typeOfProcess, false);
-                if (!Education.isValidEducation(criterion[7])) {
+                if (criterion[7] == null || !Education.isValidEducation(criterion[7])) {
                     inputParameterInCorrectForm = false;
                     typeOfProcess.set(-1);
                 }
@@ -316,7 +338,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             if (criterion[8] != null) {
                 criterion[8] = infoBetweenPrefixes(args, PREFIX_FILTER_ENDORSEMENT.toString(),
                         PREFIX_FILTER_ENDORSEMENT_REVERSE.toString(), typeOfProcess, false);
-                if (!numberInputControl(criterion[8])) {
+                if (criterion[8] == null || !numberInputControl(criterion[8])) {
                     inputParameterInCorrectForm = false;
                     typeOfProcess.set(-1);
                 }
@@ -327,7 +349,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     }
 
     /**
-     * Since filter form is like prefix/text/prefix, this function returns the text between given prefixes.
+     * Since filter form is like prefix + text + prefix, this function returns the text between given prefixes.
      */
     private String infoBetweenPrefixes(String args, String prefixBegin, String prefixEnd,
                                        AtomicInteger typeOfProcess, boolean isInputGpa) {
@@ -387,13 +409,13 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             }
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
         } else if (typeOfProcess.get() == 1) {
-            return new FilterCommand(args, criterion, 1);
+            return new FilterCommand(criterion, 1);
         } else if (typeOfProcess.get() == 2) {
-            return new FilterCommand(args, criterion, 2);
+            return new FilterCommand(criterion, 2);
         } else if (typeOfProcess.get() == 3) {
-            return new FilterCommand(args, criterion, 3);
+            return new FilterCommand(criterion, 3);
         } else {
-            return new FilterCommand(args, criterion, 0);
+            return new FilterCommand(criterion, 0);
         }
     }
 }

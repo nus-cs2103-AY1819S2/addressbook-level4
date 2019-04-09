@@ -27,6 +27,26 @@ public class SearchCommandParserTest {
     }
 
     @Test
+    public void parse_noFlags_throwsParseException() {
+        assertParseFailure(parser, "hello there", String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.NO_FLAG));
+    }
+
+    @Test
+    public void parse_moreThanOneFlag_throwsParseException() {
+        //both are invalid flags
+        assertParseFailure(parser, "-invalidFlag -anotherFlag food apple",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.ONE_FLAG_ONLY));
+
+        //valid flag and invalid flag
+        assertParseFailure(parser, "-cat -anotherFlag food apple",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.ONE_FLAG_ONLY));
+
+        //both are valid flags
+        assertParseFailure(parser, "-cat -name food apple",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.ONE_FLAG_ONLY));
+    }
+
+    @Test
     public void parse_validNameArgs_returnsSearchCommand() {
         // no leading and trailing whitespaces
         SearchCommand expectedFindCommand =

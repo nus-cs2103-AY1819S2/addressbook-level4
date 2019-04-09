@@ -82,6 +82,8 @@ public class EndConsultationTest {
 
     @Test
     public void endConsultation() {
+        EndConsultationCommand noConcommand = new EndConsultationCommand();
+        Assert.assertThrows(CommandException.class, () -> noConcommand.execute(modelManager, history));
 
         modelManager.createConsultation(modelManager.getPatientByNric(patient1.getNric().toString()));
         EndConsultationCommand command = new EndConsultationCommand();

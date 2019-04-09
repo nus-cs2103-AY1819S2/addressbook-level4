@@ -37,6 +37,7 @@ public class JsonSerializableQuickDocs {
     public static final String MESSGAE_DUPLICATE_MEDICINE = "Medicine list contains medicines with same name.";
     public static final String MESSAGE_NONEXISTING_MEDICINE =
             "A Directory contains a medicine not found in the list of medicines.";
+    public static final String MESSAGE_INVALID_CONSULTATION_FEE = "Consultation Fee is not a non-negative number.";
 
     private final List<JsonAdaptedPatient> patientList = new ArrayList<>();
     private final List<JsonAdaptedConsultation> consultationList = new ArrayList<>();
@@ -158,6 +159,9 @@ public class JsonSerializableQuickDocs {
         for (JsonAdaptedMonthStatistics jsonAdaptedMonthStatistics : monthStatisticsList) {
             MonthStatistics monthStatistics = jsonAdaptedMonthStatistics.toModelType();
             statisticsManager.addMonthStatistics(monthStatistics);
+        }
+        if (this.consultationFee.compareTo(BigDecimal.ZERO) == -1) {
+            throw new IllegalValueException(MESSAGE_INVALID_CONSULTATION_FEE);
         }
         statisticsManager.setConsultationFee(this.consultationFee);
 

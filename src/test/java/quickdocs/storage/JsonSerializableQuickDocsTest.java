@@ -36,6 +36,10 @@ public class JsonSerializableQuickDocsTest {
     private static final Path INVALID_REMINDER_FILE = TEST_DATA_FOLDER.resolve("invalidReminderQuickDocs.json");
     private static final Path DUPLICATE_REMINDER_FILE = TEST_DATA_FOLDER.resolve("duplicateReminderQuickDocs.json");
 
+    //statistics
+    private static final Path TYPICAL_STATISTICS_FILE = TEST_DATA_FOLDER.resolve("typicalStatisticsQuickDocs.json");
+    private static final Path INVALID_STATISTICS_FILE = TEST_DATA_FOLDER.resolve("invalidStatisticsQuickDocs.json");
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -116,4 +120,22 @@ public class JsonSerializableQuickDocsTest {
         thrown.expectMessage(JsonSerializableQuickDocs.MESSAGE_DUPLICATE_REMINDER);
         dataFromFile.toModelType();
     }
+    /*
+    @Test
+    public void toModelType_typicalStatisticsFile_success() throws Exception {
+        JsonSerializableQuickDocs dataFromFile = JsonUtil.readJsonFile(TYPICAL_STATISTICS_FILE,
+                JsonSerializableQuickDocs.class).get();
+        QuickDocs quickDocsFromFile = dataFromFile.toModelType();
+        QuickDocs typicalStatisticsQuickDocs = getTypicalStatisticsQuickDocs();
+        assertEquals(quickDocsFromFile, typicalStatisticsQuickDocs);
+    }
+
+    @Test
+    public void toModelType_invalidStatisticsFile_throwsIllegalArgumentException() throws Exception {
+        JsonSerializableQuickDocs dataFromFile = JsonUtil.readJsonFile(INVALID_STATISTICS_FILE,
+                JsonSerializableQuickDocs.class).get();
+        thrown.expect(IllegalArgumentException.class);
+        dataFromFile.toModelType();
+    }
+    */
 }

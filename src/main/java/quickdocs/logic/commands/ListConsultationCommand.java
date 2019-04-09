@@ -100,4 +100,5 @@ public class ListConsultationCommand extends Command {
                 && (getIndex() == ((ListConsultationCommand) other).getIndex())
                 || getNric().equals(((ListConsultationCommand) other).getNric()));
     }
+
 }

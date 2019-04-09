@@ -223,7 +223,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setTestCsvPath() throws IOException {
+        public void setTestCsvPath(String path) {
             throw new AssertionError("This method should not be called.");
         }
 

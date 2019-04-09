@@ -62,6 +62,7 @@ public class ModelManager implements Model {
     private int currentTestedCardIndex;
     private boolean cardAlreadyAnswered = false;
     private int numAnsweredCorrectly = 0;
+    private int numAnsweredTotal = 0;
 
     // Export related
     private CsvManager csvManager;
@@ -367,6 +368,7 @@ public class ModelManager implements Model {
         setCurrentTestedCard(cardToTest);
         state = State.IN_TEST;
         numAnsweredCorrectly = 0;
+        numAnsweredTotal = 0;
     }
 
     @Override
@@ -384,12 +386,16 @@ public class ModelManager implements Model {
 
     @Override
     public void endTestSession() {
-        getActiveVersionedCardFolder()
-                .addFolderScore((double) numAnsweredCorrectly / getActiveCardFolder().getCardList().size());
+        int minimumNumberAnswered = getActiveCardFolder().getCardList().size()/MIN_FRACTION_ANSWERED_TO_COUNT;
+        if (numAnsweredTotal >= minimumNumberAnswered) {
+            getActiveVersionedCardFolder()
+                    .addFolderScore((double) numAnsweredCorrectly / numAnsweredTotal);
+        }
         getActiveVersionedCardFolder().commit();
         state = State.IN_FOLDER;
         setCardAsNotAnswered();
         numAnsweredCorrectly = 0;
+        numAnsweredTotal = 0;
         setCurrentTestedCard(null);
         currentTestedCardFolder = null;
     }
@@ -399,7 +405,7 @@ public class ModelManager implements Model {
         Answer correctAnswer = currentTestedCard.getValue().getAnswer();
         String correctAnswerInCapitals = correctAnswer.toString().toUpperCase();
         String attemptedAnswerInCapitals = attemptedAnswer.toString().toUpperCase();
-
+        numAnsweredTotal++;
         if (correctAnswerInCapitals.equals(attemptedAnswerInCapitals)) {
             numAnsweredCorrectly++;
             return true;
@@ -409,6 +415,7 @@ public class ModelManager implements Model {
 
     @Override
     public boolean markAttemptedMcqAnswer(int answerIndex) {
+        numAnsweredTotal++;
         if (answerIndex == currentTestedCard.getValue().getAnswerIndex()) {
             numAnsweredCorrectly++;
             return true;

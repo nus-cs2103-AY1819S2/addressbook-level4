@@ -28,6 +28,12 @@ public interface Model extends Observable {
     Comparator<Card> COMPARATOR_LEXICOGRAPHIC_CARDS = Comparator.comparing(Card::getQuestion);
 
     /**
+     * Minimum fraction of number of cards, i.e. if n, then floor(number of cards/n) cards need to be attempted for
+     * the test score to be committed.
+     */
+    int MIN_FRACTION_ANSWERED_TO_COUNT = 4;
+
+    /**
      * Represents the location the user is in.
      */
     enum State {

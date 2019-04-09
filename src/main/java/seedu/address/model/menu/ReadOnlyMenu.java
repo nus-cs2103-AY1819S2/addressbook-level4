@@ -1,5 +1,6 @@
 package seedu.address.model.menu;
 
+import java.util.List;
 import java.util.Optional;
 
 import javafx.beans.Observable;
@@ -24,5 +25,7 @@ public interface ReadOnlyMenu extends Observable {
     Price getPriceFromItem(MenuItem menuItem);
 
     void updateMenuItemQuantity(MenuItem menuItem, int newQuantity);
+
+    void setMenuItems(List<MenuItem> menuItems);
 
 }

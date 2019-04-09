@@ -33,6 +33,9 @@ public class Messages {
     public static final String MESSAGE_RESIZE_VALUE_ERROR = "Values keyed in are not positive integers. "
             + "E.g: resize 200 200";
     public static final String MESSAGE_EXPORT_SUCCESS = "Image successfully exported.";
+    public static final String MESSAGE_INVALID_SAVE_TYPE = "Invalid save file type."
+            + "\nNames must end with either of the following: %1$s";
+    public static final String MESSAGE_INVALID_SAVE_NAME = "Unable to save. Save file name cannot be empty.";
 
 
 }

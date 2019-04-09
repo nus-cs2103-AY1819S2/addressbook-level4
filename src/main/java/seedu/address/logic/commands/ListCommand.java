@@ -4,6 +4,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.ui.MainWindow;
 
+/**
+ * Returns suggestions for the user when "list" is entered.
+ */
 public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
     private static final String MAIN_USAGE = "Did you mean:\n"

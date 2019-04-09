@@ -4,6 +4,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.ui.MainWindow;
 
+/**
+ * Returns suggestions for the user when "copy" is entered.
+ */
 public class CopyCommand extends Command {
     public static final String COMMAND_WORD = "copy";
     private static final String MAIN_USAGE = "Did you mean:\n"

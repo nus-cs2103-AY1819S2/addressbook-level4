@@ -4,6 +4,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.ui.MainWindow;
 
+/**
+ * Returns suggestions for the user when "edit" is entered.
+ */
 public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
     private static final String MAIN_USAGE = "Did you mean:\n"

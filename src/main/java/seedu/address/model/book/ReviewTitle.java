@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class ReviewTitle {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Review Titles should only contain no more than 70 characters (space included), and it should not be blank";
+            "Review Titles should only contain no more than 50 characters (space included), and it should not be blank";
 
     /*
      * The first character of the review title must not be a whitespace,

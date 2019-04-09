@@ -166,7 +166,7 @@ public class QuizAnswerCommandTest {
         expectedModel.updateTotalAttemptsAndStreak(0, correctAns);
         QuizCard card = expectedModel.getNextCard();
         expectedModel.setDisplayFormatter(new QuizUiDisplayFormatter("question", card.getQuestion(),
-            "answer", QuizMode.REVIEW));
+            "answer", 0, QuizMode.REVIEW));
 
         String expectedMessage = MESSAGE_CORRECT;
         QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,

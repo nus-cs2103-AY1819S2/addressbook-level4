@@ -160,7 +160,7 @@ public class LogicManagerTest {
         logic = new LogicManager(managementModel, quizModel, storage);
 
         assertCommandSuccess(QuizStartCommand.COMMAND_WORD + " n/Capitals c/2 m/PREVIEW",
-                "", expectedMgmtMgr);
+                "Starting new quiz", expectedMgmtMgr);
     }
 
     @Test
@@ -231,8 +231,8 @@ public class LogicManagerTest {
 
         expectedModel.getNextCard();
         expectedModel.getNextCard();
-        expectedModel.setDisplayFormatter(new QuizUiDisplayFormatter("question", "Hungary", "answer", "Budapest",
-            QuizMode.PREVIEW));
+        expectedModel.setDisplayFormatter(new QuizUiDisplayFormatter("question", "Hungary",
+                "answer", "Budapest", 0, QuizMode.PREVIEW));
 
         quizModel.getNextCard();
 
@@ -268,7 +268,7 @@ public class LogicManagerTest {
         expectedModel.getNextCard();
         expectedModel.getNextCard();
         expectedModel.setDisplayFormatter(new QuizUiDisplayFormatter("Country",
-                "Japan", "Capital", "Tokyo", QuizMode.PREVIEW));
+                "Japan", "Capital", "Tokyo", 0, QuizMode.PREVIEW));
 
         quizModel.getNextCard();
 

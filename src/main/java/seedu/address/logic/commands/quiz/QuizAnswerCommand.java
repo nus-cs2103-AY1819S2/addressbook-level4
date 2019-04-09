@@ -44,12 +44,14 @@ public class QuizAnswerCommand extends QuizCommand {
 
                 if (card.getQuizMode() == QuizMode.PREVIEW) {
                     quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(quizModel.getQuestionHeader(),
-                        card.getQuestion(), quizModel.getAnswerHeader(), card.getAnswer(), QuizMode.PREVIEW));
+                        card.getQuestion(), quizModel.getAnswerHeader(), card.getAnswer(),
+                            quizModel.getQuizTotalCorrectQuestions(), QuizMode.PREVIEW));
                     return new CommandResult("", true, false, false);
                 }
 
                 quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(quizModel.getQuestionHeader(),
-                    card.getQuestion(), quizModel.getAnswerHeader(), QuizMode.REVIEW));
+                    card.getQuestion(), quizModel.getAnswerHeader(), quizModel.getQuizTotalCorrectQuestions(),
+                        QuizMode.REVIEW));
                 return new CommandResult("", true, false, false);
             }
 
@@ -69,7 +71,8 @@ public class QuizAnswerCommand extends QuizCommand {
             if (quizModel.hasCardLeft()) {
                 card = quizModel.getNextCard();
                 quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(quizModel.getQuestionHeader(),
-                    card.getQuestion(), quizModel.getAnswerHeader(), QuizMode.REVIEW));
+                    card.getQuestion(), quizModel.getAnswerHeader(), quizModel.getQuizTotalCorrectQuestions(),
+                        QuizMode.REVIEW));
             } else {
                 quizModel.updateUserProfile(quizModel.end());
 
@@ -82,11 +85,13 @@ public class QuizAnswerCommand extends QuizCommand {
             if (!card.isWrongTwice()) {
                 sb.append(String.format(MESSAGE_WRONG_ONCE, answer));
                 quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(quizModel.getQuestionHeader(),
-                    card.getQuestion(), quizModel.getAnswerHeader(), QuizMode.REVIEW));
+                    card.getQuestion(), quizModel.getAnswerHeader(), quizModel.getQuizTotalCorrectQuestions(),
+                        QuizMode.REVIEW));
             } else {
                 sb.append(String.format(MESSAGE_WRONG, answer, card.getAnswer()));
                 quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(quizModel.getQuestionHeader(),
-                    card.getQuestion(), quizModel.getAnswerHeader(), card.getAnswer(), QuizMode.PREVIEW, true));
+                    card.getQuestion(), quizModel.getAnswerHeader(), card.getAnswer(),
+                        quizModel.getQuizTotalCorrectQuestions(), QuizMode.PREVIEW, true));
             }
         }
 

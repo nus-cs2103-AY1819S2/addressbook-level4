@@ -46,11 +46,19 @@ public class ParserUtilTest {
 
         ParserUtil parserUtil = new ParserUtil();
         String expectedName = parserUtil.parseName(name);
-        assertEquals(expectedName, name);
+        assertEquals(expectedName, name.toUpperCase());
         int expectedCount = parserUtil.parseCount(count);
         assertEquals(expectedCount, 1);
         String trimmedCount = wrongCount.trim();
-        thrown.expectMessage("Count of number should be an integer.");
+        thrown.expectMessage("Count of number should be a valid integer less than MAX_INTEGER.");
+        parserUtil.parseCount(trimmedCount);
+    }
+    @Test
+    public void parserLargeCount() throws ParseException {
+        final String count = "129084913749871398471936571369587198347981";
+        ParserUtil parserUtil = new ParserUtil();
+        String trimmedCount = count.trim();
+        thrown.expectMessage("Count of number should be a valid integer less than MAX_INTEGER.");
         parserUtil.parseCount(trimmedCount);
     }
     @Test

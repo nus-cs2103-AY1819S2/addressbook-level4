@@ -77,8 +77,7 @@ public class QuizStartCommandTest {
         assertEquals(session.getSrsCards().get(0), srsCard);
         CommandResult commandResultMoreCount = new QuizStartCommand(sessionMoreCount).execute(managementModel,
                 commandHistory);
-        assertEquals("Not enough cards in current lesson. Set the count to the maximum"
-                + " number for you by default.", commandResultMoreCount.getFeedbackToUser());
+        assertEquals("Starting new quiz", commandResultMoreCount.getFeedbackToUser());
         thrown.expectMessage("There is no difficult card in this lesson.");
         CommandResult wrongCommandResult = new QuizStartCommand(session).execute(failManagementModel, commandHistory);
         assertNull(wrongCommandResult);

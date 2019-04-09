@@ -16,7 +16,7 @@ I am a software developer and second year computer science student at the Nation
 
 === About the project
 
-image::Healthhub.png[width=800]
+image::HealthHub.png[width=800]
 
 HealthHub is a https://en.wikipedia.org/wiki/Command-line_interface[command-line] desktop application built by my team and I, for our Software Engineering project.
 We chose to morph it to a home-care patient management system, because of our passion in the health care industry. This enhanced application allows Hospital Administrators and senior management to create, assign and organise patient records seamlessly. HealhHub also organises staff information and manages statistics to assist in the Hospital's planning and allocation of resources.
@@ -64,10 +64,13 @@ as knowledge of how information is cached in the application's memory was essent
 
 == Contributions to the User Guide
 
-
 ==== *Filter requests*:
 
-Format: `filter request/r/2 <keyword> [<more_keywords>]`
+Format: `filter request <keyword> [<more_keywords>]`
+
+Shortcut(s): +
+1. `filter r <keyword> [<more_keywords>]` +
+2. `filter 2 <keyword> [<more_keywords>]`
 
 After entering the command with valid inputs, searches the entire list of
 requests in Health Hub, and only displays the requests whose fields matches
@@ -82,14 +85,14 @@ show you all the requests you are looking for.
 
 Before:
 
-image::Healthhub.png[width=800]
-Figure 5.5.2.1 shows the application prior to executing the `filter request` command
+image::before.png[width=800]
+Figure 5.5.2.1 shows the request list prior to executing the `filter request` command
 
 After:
 
-image::filterResult.png[width=800]
+image::after.png[width=800]
 
-Figure 5.5.2.2 shows the application after executing `filter request i/S9123456A st/COMPLETED`
+Figure 5.5.2.2 shows the request list after executing `filter request i/S9123456A st/COMPLETED`
 
 The request list panel on the left would filter to show just the requests queried by the user.
 
@@ -109,18 +112,14 @@ identify requests or personnel, using the same prefixes as in `add`, `edit` and
 `Hans Bo` will match `Bo Hans`).
 
 * Search using partial words will return all results with fields containing
-that subword. (e.g `filter 1 n/Tan` may return people with the surnames Tan or
+that subword. (e.g `filter request n/Tan` may return people with the surnames Tan or
 Tang)
-
-* Note that you can query all requests between a specific range, by specifying the the date range
-which you want to query. For example, to filter all requests between 1st Jan 2019 and 1st June 2019 (exclusive), you can run the following command:
-`filter request dt/01-01-2019 00:00:00 dt/02-06-2019 00:00:00`
 
 {nbsp}
 
 [TIP]
 ====
-Multiple conditions for filtering health workers and requests can be added
+Multiple conditions for filtering requests can be added
 simultaneously for more expressive search.
 
 Example:
@@ -132,21 +131,32 @@ specified name substring *and* the specified phone number.
 
 [TIP]
 ====
-To revert the view back to the original health worker/request list, enter the
-`list healthworker` or `list request` command respectively.
+To revert the view back to the original request list, enter the `list request` command.
 ====
 
 Examples:
 
-* `filter h s/GENERAL_PRACTICE s/GYNAECOLOGY` +
-Returns all health workers whose field of expertise include general practice
-or gynaecology.
 * `filter request n/alice` +
 Returns all patients whose name contains "alice".
 * `filter r p/9177` +
 Returns all requests with contacts numbers that have "9177" in it's field.
 * `filter 2 dt/30-01-2019 10:00:00` +
 Returns all requests scheduled on 30th Jan 2019, at 10 am sharp.
+
+=== Filtering requests within a specific date range
+Let's say you've grown to have an overwhelming number of requests, because you've been doing so successfully! Suppose you now would like to
+look back and take a look at the requests that you had over a specific date range. You can do so using the following command:
+
+Format: `filter request dt/start dt/end` +
+Shortcut(s): +
+1. `filter r dt/start dt/end` +
+2. `filter 2 dt/start dt/end`
+
+*Examples:*
+
+* `filter r dt/01-01-2019 00:00:00 dt/01-06-2019` 00:00:00 +
+filters the requests between 1st Jan 2019 (inclusive) and 1st June 2019 (exclusive).
+
 
 == Contributions to the Developer Guide
 

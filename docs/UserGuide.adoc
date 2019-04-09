@@ -314,6 +314,7 @@ Archived contacts *cannot* be displayed in a sorted list or be pinned.
 ====
 
 ****
+* Main contact list must be displayed prior to archiving.
 * Archives the contact at the specified `INDEX`.
 * The index refers to the index number shown in the displayed contact list.
 * The index *must be a positive integer* 1, 2, 3, ...
@@ -336,6 +337,24 @@ Archives the 3rd contact in the sorted list displayed earlier.
 Lists all the contacts in the archive. +
 Format: `archivelist`
 
+=== Selecting an archived contact : `archiveselect`
+
+Selects the archived contact identified by the index number used in the displayed archive list. +
+Format: `archiveselect INDEX`
+
+****
+* Archive list must be displayed prior to this.
+* Selects the contact at the specified `INDEX` and displays all the contact and property information, as well as the address location of the associated property on the Google Maps window panel.
+* The index refers to the index number shown in the displayed contact list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `archivelist` +
+`select 2` +
+Selects the 2nd contact in the archive book.
+
 === Finding archived contact(s) : `archivefind` `[coming in v2.0]`
 
 Searches the archive and finds contact(s) whose information contains any of the keyword(s). +
@@ -357,6 +376,7 @@ Moves the specified contact from the archive back into the normal address book. 
 Format: `unarchive INDEX`
 
 ****
+* Archive list must be displayed prior to unarchiving.
 * Unarchives the contact at the specified `INDEX`.
 * The index refers to the index number shown in the displayed *archived* contact list.
 * The index *must be a positive integer* 1, 2, 3, ...

@@ -43,6 +43,10 @@ public interface Logic {
     ObservableList<MenuItem> getFilteredMenuItemList();
 
     /**
+     * Returns an unmodifiable view of the filtered list of menu items sorted by quantity ordered (decreasing)
+     */
+    ObservableList<MenuItem> getFilteredSortedMenuItemList();
+    /**
      * Returns an unmodifiable view of the filtered list of order items
      */
     ObservableList<OrderItem> getFilteredOrderItemList();

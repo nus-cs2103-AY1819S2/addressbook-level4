@@ -373,6 +373,12 @@ public class ModelManager implements Model {
         restOrRant.getMenu().indicateModified();
     }
 
+    @Override
+    public void setMenuItems(List<MenuItem> menuItems) {
+        requireNonNull(menuItems);
+        restOrRant.getMenu().setMenuItems(menuItems);
+    }
+
     //=========== Filtered MenuItem List Accessors =============================================================
 
     /**
@@ -382,6 +388,14 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<MenuItem> getFilteredMenuItemList() {
         return filteredMenuItems;
+    }
+
+    @Override
+    public ObservableList<MenuItem> getFilteredSortedMenuItemList() {
+        FilteredList<MenuItem> filteredSortedMenuItems =
+                new FilteredList<>(this.restOrRant.getMenu().getMenuItemList());
+        filteredSortedMenuItems.setAll(filteredMenuItems);
+        return filteredSortedMenuItems.sorted((MenuItem o1, MenuItem o2) -> (o2.getQuantity() - o1.getQuantity()));
     }
 
     @Override

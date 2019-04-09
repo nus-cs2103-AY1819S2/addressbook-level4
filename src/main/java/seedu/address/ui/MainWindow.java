@@ -238,8 +238,6 @@ public class MainWindow extends UiPart<Stage> {
 
         case MENU_MODE:
             // TODO: change to browser panel to app logo
-            // tableFlowPanel = new TableFlowPanel(logic.getFilteredTableList(), scrollPane);
-            // browserPlaceholder.getChildren().add(tableFlowPanel.getRoot());
 
             menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
                     logic::setSelectedMenuItem);
@@ -261,9 +259,7 @@ public class MainWindow extends UiPart<Stage> {
             break;
 
         case STATISTICS_MODE:
-
-            //TODO: Bava, need to change the input list to menuItemList that is sorted according to popularity
-            popularMenuListPanel = new PopularMenuListPanel(logic.getFilteredMenuItemList(),
+            popularMenuListPanel = new PopularMenuListPanel(logic.getFilteredSortedMenuItemList(),
                     logic.selectedMenuItemProperty(), logic::setSelectedMenuItem);
             listPanelPlaceholder.getChildren().add(popularMenuListPanel.getRoot());
 

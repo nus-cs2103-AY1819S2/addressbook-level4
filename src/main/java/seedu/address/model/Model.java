@@ -349,6 +349,16 @@ public interface Model {
     ObservableList<MenuItem> getFilteredMenuItemList();
 
     /**
+     * Returns an unmodifiable view of the filtered menu item list sorted by quantity ordered (decreasing)
+     */
+    ObservableList<MenuItem> getFilteredSortedMenuItemList();
+
+    /**
+     * Replaces all menu items with {@code menuItems}.
+     */
+    void setMenuItems(List<MenuItem> menuItems);
+
+    /**
      * Updates the filter of the filtered menu item list to filter by the given {@code predicate}
      *
      * @throws NullPointerException if {@code predicate} is null.

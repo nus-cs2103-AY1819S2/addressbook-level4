@@ -24,7 +24,7 @@ import seedu.finance.storage.StorageManager;
  */
 public class SetFileCommand extends Command {
 
-    public static final String COMMAND_WORD = "setFile";
+    public static final String COMMAND_WORD = "setfile";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets the file path to store data. "
             + "Parameters: "
@@ -32,6 +32,9 @@ public class SetFileCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FILE + "finance";
     public static final String MESSAGE_SUCCESS = "File Set: %1$s";
+
+    public static final String MESSAGE_CONSTRAINTS
+            = "Filename should not contain special characters, '\\' character, or be blank.";
 
     private static final Logger logger = LogsCenter.getLogger(JsonFinanceTrackerStorage.class);
 

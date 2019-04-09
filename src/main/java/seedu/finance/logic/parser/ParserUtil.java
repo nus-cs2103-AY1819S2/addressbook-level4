@@ -7,10 +7,12 @@ import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import seedu.finance.commons.core.index.Index;
 import seedu.finance.commons.util.StringUtil;
+import seedu.finance.logic.commands.SetFileCommand;
 import seedu.finance.logic.parser.exceptions.ParseException;
 import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;
@@ -91,10 +93,13 @@ public class ParserUtil {
     public static Path parseFile(String filename) throws ParseException {
         requireNonNull(filename);
         String trimmedFilename = filename.trim();
-        if (trimmedFilename.indexOf('/') != -1) {
-            throw new ParseException("Filename should not contain '\\' character.");
+
+        Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
+        if (special.matcher(trimmedFilename).find() || trimmedFilename.indexOf('\\') != -1
+                || trimmedFilename.equals("")) {
+            throw new ParseException(SetFileCommand.MESSAGE_CONSTRAINTS);
         }
-        return Paths.get(trimmedFilename);
+        return Paths.get("data\\" + trimmedFilename + ".json");
     }
 
     /**

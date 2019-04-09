@@ -78,7 +78,7 @@ public class Budget {
      */
     public static boolean isValidBudget(double totalBudget, double currentBudget) {
         // Check that total budget is non-zero
-        if (totalBudget <= 0) {
+        if (totalBudget < 0) {
             return false;
         }
         // check that total budget is more than current budget

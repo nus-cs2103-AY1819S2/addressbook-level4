@@ -25,6 +25,7 @@ public class DateVisitedTest {
     public void isValidDateVisited() {
         // null date visited
         Assert.assertThrows(NullPointerException.class, () -> DateVisited.isValidDateVisited(null));
+        Assert.assertThrows(NullPointerException.class, () -> DateVisited.doesDateExist(null));
         Assert.assertThrows(NullPointerException.class, () -> DateVisited.isCorrectDateFormat(null));
 
         // incorrect date visited format
@@ -37,17 +38,34 @@ public class DateVisitedTest {
         assertFalse(DateVisited.isCorrectDateFormat("10-10-2000")); // not correct format date
         assertFalse(DateVisited.isCorrectDateFormat("10/17/2000")); // not correct format date
         assertFalse(DateVisited.isCorrectDateFormat("99/08/2000")); // not correct format date
-        assertFalse(DateVisited.isCorrectDateFormat("10/10/0000")); // not correct format date
+
+
+        // date that does not exist
+        assertFalse(DateVisited.doesDateExist("29/02/2017")); // Not a leap year
+        assertFalse(DateVisited.doesDateExist("30/02/2018")); // Not a leap year
+        assertFalse(DateVisited.doesDateExist("31/02/2019")); // Not a leap year
+        assertFalse(DateVisited.doesDateExist("30/02/2016")); // Leap year
+        assertFalse(DateVisited.doesDateExist("31/02/2016")); // Leap year
+        assertFalse(DateVisited.doesDateExist("31/04/2018"));
+        assertFalse(DateVisited.doesDateExist("31/06/2018"));
+        assertFalse(DateVisited.doesDateExist("31/09/2018"));
+        assertFalse(DateVisited.doesDateExist("31/11/2018"));
 
         // invalid future date visited added
         assertFalse(DateVisited.isValidDateVisited("")); // empty string
         assertFalse(DateVisited.isValidDateVisited(" ")); // spaces only
         assertFalse(DateVisited.isValidDateVisited("  ")); // spaces only
         assertFalse(DateVisited.isValidDateVisited("10/10/2999")); // future date
+        assertFalse(DateVisited.isValidDateVisited("10/10/2050")); // future date
 
         // correct date visited format
         assertTrue(DateVisited.isCorrectDateFormat("10/10/2001"));
         assertTrue(DateVisited.isCorrectDateFormat("01/01/2015"));
+
+        // date that exists
+        assertTrue(DateVisited.doesDateExist("29/02/2016")); // Leap year
+        assertTrue(DateVisited.doesDateExist("28/02/2018"));
+        assertTrue(DateVisited.doesDateExist("31/12/2018"));
 
         // valid date visited
         assertTrue(DateVisited.isValidDateVisited("10/10/2009"));

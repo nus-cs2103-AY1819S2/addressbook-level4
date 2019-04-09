@@ -93,6 +93,9 @@ Format: `add n/NAME cc/COUNTRY_CODE dv/DATE_VISITED r/RATING d/DESCRIPTION a/ADD
 [NOTE]
 When the same prefix is typed more than once, only the last prefix is accepted.
 
+[NOTE]
+See the full list of three-letter ISO-3166 Country Codes, here link:CountryCodes.html[CountryCodes]
+
 [TIP]
 A place can have any number of tags (including 0).
 
@@ -103,6 +106,9 @@ Examples:
 * `add n/NUS Computing cc/SGP dv/10/10/2018 r/5 d/No description a/NUS School of Computing, COM1, 13 Computing Drive,
 117417`
 * `add n/Raffles Hotel dv/08/07/2010 t/hotel d/This place is lovely cc/SGP a/Raffles Road r/5 t/staycation`
+
+
+
 
 === Listing all places: `list`
 

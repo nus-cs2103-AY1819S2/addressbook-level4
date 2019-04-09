@@ -79,6 +79,9 @@ public class ParserUtil {
         if (!DateVisited.isCorrectDateFormat(trimmedDateVisited)) {
             throw new ParseException(DateVisited.MESSAGE_INCORRECT_FORMAT);
         }
+        if (!DateVisited.doesDateExist(trimmedDateVisited)) {
+            throw new ParseException(DateVisited.MESSAGE_DATE_DOES_NOT_EXIST);
+        }
         if (!DateVisited.isValidDateVisited(trimmedDateVisited)) {
             throw new ParseException(DateVisited.MESSAGE_FUTURE_DATE_ADDED);
         }

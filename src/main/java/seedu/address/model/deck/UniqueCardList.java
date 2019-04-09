@@ -31,6 +31,13 @@ public class UniqueCardList implements Iterable<Card> {
             .unmodifiableObservableList(internalList);
 
     /**
+     * Returns the size of the list of cards
+     */
+    public int size() {
+        return internalList.size();
+    }
+
+    /**
      * Returns true if the list contains an equivalent card as the given argument.
      */
     public boolean contains(Card toCheck) {

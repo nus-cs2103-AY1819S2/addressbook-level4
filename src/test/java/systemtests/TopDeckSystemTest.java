@@ -3,6 +3,7 @@ package systemtests;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static seedu.address.logic.commands.CommandTestUtil.updateCardsView;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.StatusBarFooter.TOTAL_DECKS_STATUS;
@@ -26,12 +27,15 @@ import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CardsView;
 import seedu.address.logic.DecksView;
 import seedu.address.logic.commands.ClearDeckCommand;
+import seedu.address.logic.commands.FindCardCommand;
 import seedu.address.logic.commands.FindDeckCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.Model;
 import seedu.address.model.TopDeck;
+import seedu.address.model.deck.Deck;
 import seedu.address.testutil.TypicalDecks;
 import seedu.address.ui.CommandBox;
 
@@ -148,11 +152,14 @@ public abstract class TopDeckSystemTest {
     /**
      * Displays all cards with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    /** TODO
-    protected void showCardsWithQuestion(String keyword, Deck activeDeck) {
+    protected void showCardsWithQuestion(String keyword, CardsView cardsView) {
         executeCommand(FindCardCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredList().size() < activeDeck.getCards().internalList.size());
-    }**/
+
+        Deck activeDeck = cardsView.getActiveDeck();
+
+        assertTrue(cardsView.getFilteredList().size() <=
+            activeDeck.getCards().size());
+    }
 
 
     /**

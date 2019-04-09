@@ -73,7 +73,7 @@ public class StatusBarFooter extends UiPart<Region> {
     }
 
     /**
-     * Updates card count in the status bar to the actual count.
+     * Updates deck count in the status bar to the actual count.
      */
     private void updateTotalDecksStatus(ReadOnlyTopDeck topDeck) {
         int decksCount = topDeck.getDeckList().size();

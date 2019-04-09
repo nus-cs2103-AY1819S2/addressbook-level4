@@ -1,5 +1,6 @@
 package systemtests;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DECK_NAME_ARGS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DECK_NAME_A_ARGS;
@@ -18,6 +19,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.DecksView;
 import seedu.address.logic.commands.AddDeckCommand;
 
+import seedu.address.logic.commands.OpenDeckCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
@@ -32,6 +34,7 @@ public class AddDeckCommandSystemTest extends TopDeckSystemTest {
     public void addDeck() {
         Model model = getModel();
         DecksView decksView = (DecksView) model.getViewState();
+
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
         /* Case: add a deck to TopDeck, command with leading spaces and trailing spaces
@@ -45,6 +48,10 @@ public class AddDeckCommandSystemTest extends TopDeckSystemTest {
         String command = "   " + AddDeckCommand.COMMAND_WORD + "  " + PREFIX_NAME + VALID_NAME_DECK_A;
         String expectedResultMessage = String.format(AddDeckCommand.MESSAGE_SUCCESS, toAdd);
         assertCommandSuccess(command, model, expectedResultMessage);
+
+        model.changeDeck(DECK_A);
+        command = "open 3";
+        assertCommandSuccess(command, model, OpenDeckCommand.MESSAGE_OPEN_DECK_SUCCESS);
 
         /* Case: undo adding DECK_A to the list -> Deck_A deleted */
         command = UndoCommand.COMMAND_WORD;

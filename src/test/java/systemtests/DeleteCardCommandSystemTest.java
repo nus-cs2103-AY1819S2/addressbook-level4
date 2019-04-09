@@ -1,5 +1,6 @@
 package systemtests;
 
+import static junit.framework.TestCase.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_SUBTRACTION;
@@ -7,10 +8,12 @@ import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_SUBTRAC
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.updateCardsView;
 import static seedu.address.logic.commands.DeleteCardCommand.MESSAGE_DELETE_CARD_SUCCESS;
+import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_HTTP;
 import static seedu.address.testutil.TypicalCards.LAYER;
 import static seedu.address.testutil.TypicalCards.SUBTRACTION;
 import static seedu.address.testutil.TypicalCards.TRANSPORT;
 import static seedu.address.testutil.TypicalDecks.DECK_A;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 
 import org.junit.Test;
 
@@ -99,25 +102,21 @@ public class DeleteCardCommandSystemTest extends TopDeckSystemTest {
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered card list, delete index within bounds of top deck and card list -> deleted */
-        /**TODO
-        showCardsWithQuestion(KEYWORD_MATCHING_HTTP, cardsView.getActiveDeck());
+        showCardsWithQuestion(KEYWORD_MATCHING_HTTP, cardsView);
         Index index = INDEX_FIRST_CARD;
-        assertTrue(index.getZeroBased() < model.getFilteredList().size());
+        assertTrue(index.getZeroBased() < cardsView.getFilteredList().size());
         target = LAYER;
 
         command = "   " + DeleteCardCommand.COMMAND_WORD + " " + 1 + "   ";
 
         cardsView = assertCommandSuccess(command, target, model, cardsView);
-         **/
 
         /* Case: filtered card list, delete index within bounds of address book but out of bounds of card list
         -> rejected */
-        /**TODO
-        showCardsWithQuestion(KEYWORD_MATCHING_HTTP, cardsView.getActiveDeck());
+        showCardsWithQuestion(KEYWORD_MATCHING_HTTP, cardsView);
         int invalidIndex = cardsView.getActiveDeck().getCards().internalList.size() + 1;
         command = DeleteCardCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, model, MESSAGE_INVALID_DISPLAYED_INDEX);
-         **/
 
         /* --------------------------------- Performing invalid delete operation ----------------------------------- */
 

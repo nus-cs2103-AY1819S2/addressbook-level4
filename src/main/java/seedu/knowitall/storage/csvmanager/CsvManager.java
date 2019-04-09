@@ -49,7 +49,7 @@ public class CsvManager implements CsvCommands {
     }
 
     @Override
-    public CardFolder readFoldersToCsv(CsvFile csvFile) throws IOException, CommandException, IllegalArgumentException,
+    public CardFolder readFoldersFromCsv (CsvFile csvFile) throws IOException, CommandException, IllegalArgumentException,
             IncorrectCsvHeadersException {
         if (!fileExists(csvFile)) {
             throw new FileNotFoundException();

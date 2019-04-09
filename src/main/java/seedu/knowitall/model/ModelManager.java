@@ -561,7 +561,7 @@ public class ModelManager implements Model {
             throw new DuplicateCardFolderException();
         }
 
-        CardFolder cardFolder = csvManager.readFoldersToCsv(csvFile);
+        CardFolder cardFolder = csvManager.readFoldersFromCsv(csvFile);
         addFolder(cardFolder);
     }
 

@@ -14,7 +14,7 @@ import seedu.knowitall.storage.csvmanager.exceptions.IncorrectCsvHeadersExceptio
  */
 interface CsvCommands {
 
-    CardFolder readFoldersToCsv(CsvFile csvFile) throws IOException, CommandException,
+    CardFolder readFoldersFromCsv(CsvFile csvFile) throws IOException, CommandException,
             IncorrectCsvHeadersException;
 
     void writeFoldersToCsv(List<ReadOnlyCardFolder> cardFolders) throws IOException;

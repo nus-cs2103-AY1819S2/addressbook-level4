@@ -64,6 +64,7 @@ public class StringUtil {
         boolean allMatched = true;
 
         for (String check : preppedWords) {
+
             // if word is quoted "keyword"
             if (check.startsWith("\"") && check.endsWith("\"")) {
                 check = check.replaceAll("^\"+|\"+$", "");
@@ -76,7 +77,7 @@ public class StringUtil {
     }
 
     /**
-     * Returns a detailed message of the t, including the stack trace.
+     * Returns a detailed message of the error, including the stack trace.
      */
     public static String getDetails(Throwable t) {
         requireNonNull(t);

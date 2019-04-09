@@ -9,7 +9,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.RecordContainsDoctorIdPredicate;
 
 /**
- * Searches for a doctor in the docX record whose pid matches the input pid.
+ * Searches for a doctor in the docX record whose did matches the input did.
  */
 public class SearchDoctorDidCommand extends Command {
 
@@ -19,6 +19,9 @@ public class SearchDoctorDidCommand extends Command {
             + "did input and displays him/her\n"
             + "Parameters: [DID]\n"
             + "Example: " + COMMAND_WORD + " 1";
+
+    public static final String MESSAGE_MORE_THAN_ONE_DID = COMMAND_WORD + ": Please input only one did\n"
+            + "Parameters: [DID]\n";
 
     private final RecordContainsDoctorIdPredicate predicate;
 

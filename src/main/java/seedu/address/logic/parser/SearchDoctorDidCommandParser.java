@@ -25,6 +25,15 @@ public class SearchDoctorDidCommandParser implements Parser<SearchDoctorDidComma
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchDoctorDidCommand.MESSAGE_USAGE));
         }
 
+        String[] did = trimmedArgs.split("\\s+");
+
+        // more than one did
+        if (did.length > 1) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            SearchDoctorDidCommand.MESSAGE_MORE_THAN_ONE_DID));
+        }
+
         return new SearchDoctorDidCommand(new RecordContainsDoctorIdPredicate(new PersonId(trimmedArgs)));
     }
 

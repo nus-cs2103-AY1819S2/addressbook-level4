@@ -34,7 +34,8 @@ public class AddAppointmentCommandTest {
     @Test
     public void equals() {
         LocalDateTime currentDateTime = LocalDateTime.now();
-        LocalDateTime futureDateTime = currentDateTime.plusSeconds(100);
+        LocalDateTime futureDateTime = currentDateTime.plusDays(1).withHour(10).withMinute(0);
+        System.out.println(VALID_START_TIME);
         FutureAppointment futureAppointment1 = new FutureAppointment(
                 new AppointmentPatientId(VALID_PATIENT_ID),
                 new AppointmentDoctorId(VALID_DOCTOR_ID),

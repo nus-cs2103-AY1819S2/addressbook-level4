@@ -23,7 +23,7 @@ public class FutureAppointmentTest {
     @Test
     public void appointmentIsInFuture() {
         LocalDateTime currentDateTime = LocalDateTime.now();
-        LocalDateTime futureDateTime = currentDateTime.plusSeconds(100);
+        LocalDateTime futureDateTime = currentDateTime.plusDays(1).withHour(9).withMinute(0);
         FutureAppointment futureAppointment = new FutureAppointment(
                 new AppointmentPatientId(VALID_PATIENT_ID),
                 new AppointmentDoctorId(VALID_DOCTOR_ID),
@@ -40,7 +40,7 @@ public class FutureAppointmentTest {
     public void appointmentIsInPast_throwsAppointmentNotInFutureException() {
         thrown.expect(AppointmentNotInFutureException.class);
         LocalDateTime currentDateTime = LocalDateTime.now();
-        LocalDateTime pastDateTime = currentDateTime.minusSeconds(1);
+        LocalDateTime pastDateTime = currentDateTime.minusDays(1).withHour(9).withMinute(0);
         FutureAppointment futureAppointment = new FutureAppointment(
                 new AppointmentPatientId(VALID_PATIENT_ID),
                 new AppointmentDoctorId(VALID_DOCTOR_ID),
@@ -56,7 +56,7 @@ public class FutureAppointmentTest {
     @Test
     public void equals() {
         LocalDateTime currentDateTime = LocalDateTime.now();
-        LocalDateTime futureDateTime1 = currentDateTime.plusSeconds(100);
+        LocalDateTime futureDateTime1 = currentDateTime.plusDays(1).withHour(10).withMinute(0);
 
         FutureAppointment appointment1 = new FutureAppointment(
                 new AppointmentPatientId(VALID_PATIENT_ID),

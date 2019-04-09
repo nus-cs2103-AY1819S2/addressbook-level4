@@ -18,16 +18,15 @@
             </padding>
             <HBox spacing="5" alignment="CENTER_LEFT">
                 <Label fx:id="id" styleClass="cell_big_label">
-                    <minWid
-                            h>
+                    <minWidth>
                         <!-- Ensures that the label text is never truncated -->
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
 
-
             </HBox>
-            <L
+            <Label fx:id="patientId" styleClass="cell_small_label" text="\$patientId" />
+            <Label fx:id="doctorId" styleClass="cell_small_label" text="\$doctorId" />
             <Label fx:id="medicineName" styleClass="cell_small_label" text="\$medicineName" />
             <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
 

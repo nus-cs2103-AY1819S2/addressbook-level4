@@ -22,7 +22,7 @@ public class SelectMedHistCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Medical History: %1$s";
+    public static final String MESSAGE_SELECT_MEDHIST_SUCCESS = "Selected Medical History: %1$s";
 
     private final Index targetIndex;
 
@@ -41,7 +41,7 @@ public class SelectMedHistCommand extends Command {
         }
 
         model.setSelectedMedHist(filteredMedHistList.get(targetIndex.getZeroBased()));
-        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()),
+        return new CommandResult(String.format(MESSAGE_SELECT_MEDHIST_SUCCESS, targetIndex.getOneBased()),
                 CommandResult.ShowBrowser.MED_HIST_BROWSER);
 
     }

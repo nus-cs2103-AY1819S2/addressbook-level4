@@ -36,6 +36,16 @@ public class AddBookCommandParser implements Parser<AddBookCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddBookCommand.MESSAGE_USAGE));
         }
 
+        if (!isPrefixUnique(argMultimap, PREFIX_NAME)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddBookCommand.MESSAGE_BOOKNAME_CONFLICT));
+        }
+
+        if (!isPrefixUnique(argMultimap, PREFIX_RATING)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddBookCommand.MESSAGE_RATING_CONFLICT));
+        }
+
         BookName name = ParserUtil.parseBookName(argMultimap.getValue(PREFIX_NAME).get());
         Author author = ParserUtil.parseAuthor(argMultimap.getValue(PREFIX_AUTHOR).get());
         Rating rating = ParserUtil.parseRating(argMultimap.getValue(PREFIX_RATING).get());
@@ -54,4 +64,10 @@ public class AddBookCommandParser implements Parser<AddBookCommand> {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
+    /**
+     * Returns true if the given prefix is unique in the argument multi map/
+     */
+    private static boolean isPrefixUnique(ArgumentMultimap argumentMultimap, Prefix prefix) {
+        return argumentMultimap.getValue(prefix).isPresent() && (argumentMultimap.getAllValues(prefix).size() == 1);
+    }
 }

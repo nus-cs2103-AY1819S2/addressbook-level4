@@ -16,6 +16,7 @@ import org.junit.rules.ExpectedException;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
+import javafx.css.CssParser;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -312,6 +313,21 @@ public class AddCommandTest {
 
         @Override
         public void setSelectedPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Person> selectedPinPersonProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Person getSelectedPinPerson() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedPinPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
     }

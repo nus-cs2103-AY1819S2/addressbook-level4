@@ -37,6 +37,7 @@ public class Image {
     private Metadata metadata;
     private List<Command> commandHistory;
     private int index;
+    private boolean hasWaterMark;
 
     /**
      * Every field must be present and not null.
@@ -60,6 +61,7 @@ public class Image {
         this.height = new Height(String.valueOf(buffer.getHeight()));
         commandHistory = new ArrayList<>();
         index = 0;
+        this.hasWaterMark = false;
         System.out.println(this.toString());
     }
 
@@ -81,6 +83,7 @@ public class Image {
         this.height = new Height(String.valueOf(buffer.getHeight()));
         commandHistory = new ArrayList<>();
         index = 0;
+        this.hasWaterMark = false;
         System.out.println(this.toString());
     }
 
@@ -110,6 +113,14 @@ public class Image {
 
     public Size getSize() {
         return size;
+    }
+
+    public boolean hasWaterMark() {
+        return hasWaterMark;
+    }
+
+    public void addWaterMark(boolean x) {
+        hasWaterMark = x;
     }
 
     public List<Command> getCommandHistory() {

@@ -94,7 +94,7 @@ public class AddressBookParser {
             return new ClearCommand();
 
         case MemberFindCommand.COMMAND_WORD:
-            case MemberFindCommand.COMMAND_ALIAS:
+        case MemberFindCommand.COMMAND_ALIAS:
             return new MemberFindCommandParser().parse(arguments);
 
         case MemberSortCommand.COMMAND_WORD:

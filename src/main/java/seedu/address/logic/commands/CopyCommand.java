@@ -7,10 +7,10 @@ import seedu.address.ui.MainWindow;
 public class CopyCommand extends Command {
     public static final String COMMAND_WORD = "copy";
     private static final String MAIN_USAGE = "Did you mean:\n"
-        + "Copying a patient: patientcopy or pcopy\n"
-        + "Copying a task: taskcopy or tcopy\n";
+        + "Copying a patient: \"patientcopy\" or \"pcopy\"\n"
+        + "Copying a task: \"taskcopy\" or \"tcopy\"\n";
     private static final String GOTO_USAGE = "Did you mean:\n"
-        + "Copying a task: taskcopy or tcopy\n";
+        + "Copying a task: \"taskcopy\" or \"tcopy\"\n";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {

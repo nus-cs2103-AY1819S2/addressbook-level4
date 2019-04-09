@@ -155,6 +155,9 @@ public class AddressBookParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommand();
 
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
+
         //Commands that runs ONLY in both Patient Mode OR Calendar Window
         case TaskDoneCommand.COMMAND_WORD:
             return new TaskDoneCommandParser().parse(arguments);

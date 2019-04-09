@@ -20,7 +20,7 @@ public class ActivityFilterCommand extends ActivityCommand {
             + "Filter conditions: + is to filter future activities and - is to filter activities.\n"
             + "Parameters: CONDITION NUMBEROFDAYS \n"
             + "Example: " + COMMAND_WORD + " + 100";
-    public static final String MESSAGE_INCORECT_DAYS = "The NUMBEROFDAYS input must be integers.";
+    public static final String MESSAGE_INCORECT_DAYS = "The NUMBEROFDAYS input must be positive integers.";
     public static final String MESSAGE_NO_CONDITION = "Filter condition must be specified by + or -";
 
     public final ActivityDateTimePredicate predicate;

@@ -525,11 +525,17 @@ and displays them as a list with index numbers.
 Format: `activityFilter CONDITION NUMBEROFDAYS`
 
 ****
-* The filter condition must be specified. `+` is to filter future activities and `-` is to filter activities.
+* The filter condition must be specified. `+` is to filter future activities and `-` is to filter past activities.
 * `NUMBEROFDAYS` refers to the range of days from the current date.
 * `NUMBEROFDAYS` *must be a postive integer* `1 2 3`
 ****
 
+Examples:
+
+* `activityFilter + 7` +
+Returns future activities scheduled in the next 7 days (including today)
+* `activityFilter - 30` +
+Returns past activities from the last 30 days (inclusive).
 
 ==== Finding activities by criteria: `activityFind` or `aFind`
 

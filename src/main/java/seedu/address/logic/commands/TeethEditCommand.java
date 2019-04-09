@@ -31,7 +31,7 @@ public class TeethEditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_STATUS + "0";
 
-    private static final String MESSAGE_EDIT_TOOTH_SUCCESS = "Tooth status is updated!";
+    public static final String MESSAGE_EDIT_TOOTH_SUCCESS = "Tooth status is updated!";
     public static final String MESSAGE_NOT_EDITED = "Please provide the new tooth status";
 
     private final int status;

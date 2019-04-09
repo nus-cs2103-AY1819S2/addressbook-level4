@@ -57,7 +57,8 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("remark") String remark,
             @JsonProperty("address") String address, @JsonProperty("customer") String customer,
-            @JsonProperty("sellingPrice") String sellingPrice, @JsonProperty("rentalPrice") String rentalPrice) {
+            @JsonProperty("sellingPrice") String sellingPrice, @JsonProperty("rentalPrice") String rentalPrice,
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -66,6 +67,9 @@ class JsonAdaptedPerson {
         this.address = address;
         this.sellingPrice = sellingPrice;
         this.rentalPrice = rentalPrice;
+        if (tagged != null) {
+            this.tagged.addAll(tagged);
+        }
     }
 
     /**

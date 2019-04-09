@@ -24,8 +24,8 @@ import seedu.address.model.util.SampleDataUtil;
 public class PersonBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
+    public static final String DEFAULT_PHONE = "96428463";
+    public static final String DEFAULT_EMAIL = "alicepauline@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_REMARK = "this is a default person";
     public static final String DEFAULT_SELLINGPRICE = "500000";
@@ -153,11 +153,13 @@ public class PersonBuilder {
     }
 
     public Seller buildSeller() {
-        return new Seller(name, phone, email, remark, new Property("selling", address, sellingPrice, tags));
+        return new Seller(name, phone, email, remark,
+                new Property(Property.PROPERTY_TYPE_SELL, address, sellingPrice, tags));
     }
 
     public Landlord buildLandlord() {
-        return new Landlord(name, phone, email, remark, new Property("rental", address, rentalPrice, tags));
+        return new Landlord(name, phone, email, remark,
+                new Property(Property.PROPERTY_TYPE_RENT, address, rentalPrice, tags));
     }
     public Tenant buildTenant() {
         return new Tenant(name, phone, email, remark);

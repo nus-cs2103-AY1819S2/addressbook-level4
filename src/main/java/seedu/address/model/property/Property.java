@@ -48,4 +48,16 @@ public class Property {
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(" Address: ")
+                .append(getAddress())
+                .append(" Price: ")
+                .append(getRentalPrice())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
+    }
 }

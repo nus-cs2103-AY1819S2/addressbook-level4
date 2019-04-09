@@ -39,7 +39,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
-    private FlowPane address;
+    private Label address;
     @FXML
     private Label email;
     @FXML
@@ -47,9 +47,9 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
-    private FlowPane sellingPrice;
+    private Label sellingPrice;
     @FXML
-    private FlowPane rentalPrice;
+    private Label rentalPrice;
 
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
@@ -59,6 +59,9 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         remark.setText(person.getRemark().value);
         email.setText(person.getEmail().value);
+        address.setManaged(false);
+        sellingPrice.setManaged(false);
+        rentalPrice.setManaged(false);
     }
 
     public PersonCard(Buyer buyer, int displayedIndex) {
@@ -70,6 +73,9 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(buyer.getPhone().value);
         remark.setText(buyer.getRemark().value);
         email.setText(buyer.getEmail().value);
+        address.setManaged(false);
+        sellingPrice.setManaged(false);
+        rentalPrice.setManaged(false);
     }
 
     public PersonCard(Tenant tenant, int displayedIndex) {
@@ -81,6 +87,9 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(tenant.getPhone().value);
         remark.setText(tenant.getRemark().value);
         email.setText(tenant.getEmail().value);
+        address.setManaged(false);
+        sellingPrice.setManaged(false);
+        rentalPrice.setManaged(false);
     }
 
     public PersonCard(Seller seller, int displayedIndex) {
@@ -92,9 +101,10 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(seller.getPhone().value);
         remark.setText(seller.getRemark().value);
         email.setText(seller.getEmail().value);
-        address.getChildren().add(new Label(seller.getAddress().value));
-        sellingPrice.getChildren().add(new Label("Selling Price: $" + seller.getSellingPrice().toString()));
+        address.setText(seller.getAddress().value);
+        sellingPrice.setText("Selling Price: $" + seller.getSellingPrice().toString());
         seller.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        rentalPrice.setManaged(false);
     }
 
     public PersonCard(Landlord landlord, int displayedIndex) {
@@ -106,9 +116,10 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(landlord.getPhone().value);
         remark.setText(landlord.getRemark().value);
         email.setText(landlord.getEmail().value);
-        address.getChildren().add(new Label(landlord.getAddress().value));
-        rentalPrice.getChildren().add(new Label("Rental Price: $" + landlord.getRentalPrice().toString()));
+        address.setText(landlord.getAddress().value);
+        rentalPrice.setText("Rental Price: $" + landlord.getRentalPrice().toString());
         landlord.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        sellingPrice.setManaged(false);
     }
 
     @Override

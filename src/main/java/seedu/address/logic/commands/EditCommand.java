@@ -107,8 +107,8 @@ public class EditCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-        //personToEdit.isSamePerson(editedPerson) ||
-        if (model.hasEditedPerson(editedPerson)) {
+
+        if (!personToEdit.isSamePerson(editedPerson) && model.hasEditedPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
@@ -311,12 +311,21 @@ public class EditCommand extends Command {
                 return false;
             }
 
+
+
+
             // state check
+
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail());
+                    && getEmail().equals(e.getEmail())
+                    && getRemark().equals(e.getRemark())
+                    && getAddress().equals(e.getAddress())
+                    && getRentalPrice().equals(e.getRentalPrice())
+                    && getSellingPrice().equals(e.getSellingPrice())
+                    && getTags().equals(e.getTags());
         }
     }
 }

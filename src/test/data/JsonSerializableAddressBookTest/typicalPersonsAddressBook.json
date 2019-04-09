@@ -4,43 +4,71 @@
     "name" : "Alice Pauline",
     "phone" : "94351253",
     "email" : "alice@example.com",
+    "remark" : "Alice is a seller",
     "address" : "123, Jurong West Ave 6, #08-111",
-    "tagged" : [ "friends" ]
+    "customer" : "seller",
+    "sellingPrice" : "540000",
+    "rentalPrice" : null,
+    "tagged" : [ "mrt" ]
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
     "email" : "johnd@example.com",
+    "remark" : "Benson is a landlord",
     "address" : "311, Clementi Ave 2, #02-25",
-    "tagged" : [ "owesMoney", "friends" ]
+    "customer" : "landlord",
+    "sellingPrice" : null,
+    "rentalPrice" : "2300",
+    "tagged" : [ "3room", "mrt" ]
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",
     "email" : "heinz@example.com",
-    "address" : "wall street",
+    "remark" : "Carl is a buyer",
+    "address" : null,
+    "customer" : "buyer",
+    "sellingPrice" : null,
+    "rentalPrice" : null,
     "tagged" : [ ]
   }, {
     "name" : "Daniel Meier",
     "phone" : "87652533",
     "email" : "cornelia@example.com",
-    "address" : "10th street",
-    "tagged" : [ "friends" ]
-  }, {
-    "name" : "Elle Meyer",
-    "phone" : "9482224",
-    "email" : "werner@example.com",
-    "address" : "michegan ave",
+    "remark" : "Daniel is a Tenant",
+    "address" : null,
+    "customer" : "tenant",
+    "sellingPrice" : null,
+    "rentalPrice" : null,
     "tagged" : [ ]
+  }, {	
+	"name" : "Elle Meyer",
+    "phone" : "94822244",
+    "email" : "werner@example.com",
+    "remark" : "Elle is  a seller",
+    "address" : "michigan ave",
+    "customer" : "seller",
+    "sellingPrice" : "890000",
+    "rentalPrice" : null,
+    "tagged" : [ "mrt" ]
   }, {
     "name" : "Fiona Kunz",
-    "phone" : "9482427",
-    "email" : "lydia@example.com",
+    "phone" : "94824277",
+    "email" : "lydia@example.comm",
+    "remark" : "Fiona is a landlord",
     "address" : "little tokyo",
-    "tagged" : [ ]
+    "customer" : "landlord",
+    "sellingPrice" : null,
+    "rentalPrice" : "3500",
+    "tagged" : [ "mrt" ]
   }, {
     "name" : "George Best",
-    "phone" : "9482442",
+    "phone" : "94824422",
     "email" : "anna@example.com",
-    "address" : "4th street",
+    "remark" : "George is a buyer",
+    "address" : null,
+    "customer" : "buyer",
+    "sellingPrice" : null,
+    "rentalPrice" : null,
     "tagged" : [ ]
   } ]
 }

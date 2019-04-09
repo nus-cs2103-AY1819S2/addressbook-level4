@@ -54,9 +54,7 @@ public class Seller extends Person {
                 && otherSeller.getPhone().equals(getPhone())
                 && otherSeller.getEmail().equals(getEmail())
                 && otherSeller.getAddress().equals(getAddress())
-                && otherSeller.getSellingPrice().equals(getSellingPrice())
-                && otherSeller.getRemark().equals(getRemark())
-                && otherSeller.getTags().equals(getTags());
+                && otherSeller.getRemark().equals(getRemark());
     }
 
     @Override

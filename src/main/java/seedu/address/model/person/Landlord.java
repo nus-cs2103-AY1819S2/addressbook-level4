@@ -54,9 +54,7 @@ public class Landlord extends Person {
                 && otherLandlord.getPhone().equals(getPhone())
                 && otherLandlord.getEmail().equals(getEmail())
                 && otherLandlord.getRemark().equals(getRemark())
-                && otherLandlord.getAddress().equals(getAddress())
-                && otherLandlord.getRentalPrice().equals(getRentalPrice())
-                && otherLandlord.getTags().equals(getTags());
+                && otherLandlord.getAddress().equals(getAddress());
     }
 
     @Override

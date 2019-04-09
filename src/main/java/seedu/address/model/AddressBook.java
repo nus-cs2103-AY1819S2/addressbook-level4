@@ -75,7 +75,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasEditedPerson(Person editedPerson) {
         requireNonNull(editedPerson);
-        return persons.contains(editedPerson);
+        return persons.fuzzyContains(editedPerson);
     }
 
 

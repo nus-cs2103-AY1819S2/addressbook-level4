@@ -179,6 +179,13 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Sets the display for quiz mode.
+     */
+    private void handleQuiz() {
+        mainPanel.setFeedbackToUser(logic.getCurrentQuizCard(), logic.getTotalCorrectAndTotalAttempts());
+    }
+
+    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
@@ -233,7 +240,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowQuiz()) {
-                mainPanel.setFeedbackToUser(logic.getDisplayFormatter());
+                handleQuiz();
             }
 
             if (commandResult.isShowHelp()) {

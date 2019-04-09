@@ -8,6 +8,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.management.ChangeThemeCommand.MESSAGE_SUCCESS;
 import static seedu.address.logic.commands.management.HistoryCommand.MESSAGE_NO_HISTORY;
+import static seedu.address.logic.commands.quiz.QuizAnswerCommand.MESSAGE_CORRECT;
 import static seedu.address.logic.parser.Syntax.PREFIX_CORE_ANSWER;
 import static seedu.address.logic.parser.Syntax.PREFIX_CORE_QUESTION;
 import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_NAME;
@@ -47,8 +48,6 @@ import seedu.address.model.modelmanager.ManagementModelManager;
 import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.modelmanager.QuizModelManager;
 import seedu.address.model.quiz.Quiz;
-import seedu.address.model.quiz.QuizMode;
-import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.user.User;
 import seedu.address.storage.CsvLessonListStorage;
 import seedu.address.storage.CsvUserStorage;
@@ -241,8 +240,6 @@ public class LogicManagerTest {
 
         expectedModel.getNextCard();
         expectedModel.getNextCard();
-        expectedModel.setDisplayFormatter(new QuizUiDisplayFormatter("question", "Hungary", "answer", "Budapest",
-            QuizMode.PREVIEW));
 
         quizModel.getNextCard();
 
@@ -271,20 +268,40 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getDisplayFormatter() {
+    public void getCurrentQuizCard() {
         expectedModel.init(quizExpected, SESSION_DEFAULT_2);
         quizModel.init(quizActual, SESSION_DEFAULT_2_ACTUAL);
 
         expectedModel.getNextCard();
         expectedModel.getNextCard();
-        expectedModel.setDisplayFormatter(new QuizUiDisplayFormatter("Country",
-                "Japan", "Capital", "Tokyo", QuizMode.PREVIEW));
 
         quizModel.getNextCard();
 
         assertCommandSuccess("", "", expectedModel);
-        assertEquals(expectedModel.getDisplayFormatter(), logic.getDisplayFormatter());
+        assertEquals(expectedModel.getCurrentQuizCard(), logic.getCurrentQuizCard());
     }
+
+    @Test
+    public void getTotalCorrectAndTotalAttempts() {
+        expectedModel.init(quizExpected, SESSION_DEFAULT_2);
+        quizModel.init(quizActual, SESSION_DEFAULT_2_ACTUAL);
+
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.updateTotalAttemptsAndStreak(0, "Brussels");
+        expectedModel.getNextCard();
+        String expectedResult =
+            expectedModel.getQuizTotalCorrectQuestions() + " out of " + expectedModel.getQuizTotalAttempts();
+
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+
+        assertCommandSuccess("Brussels", MESSAGE_CORRECT, expectedModel);
+        assertEquals(expectedResult, logic.getTotalCorrectAndTotalAttempts());
+    }
+
     @Test
     public void getHistory() {
         CommandHistory empty = new CommandHistory();

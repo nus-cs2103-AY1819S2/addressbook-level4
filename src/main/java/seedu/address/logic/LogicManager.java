@@ -21,7 +21,7 @@ import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.LessonList;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.QuizModel;
-import seedu.address.model.quiz.QuizUiDisplayFormatter;
+import seedu.address.model.quiz.QuizCard;
 import seedu.address.storage.Storage;
 
 /**
@@ -148,8 +148,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public QuizUiDisplayFormatter getDisplayFormatter() {
-        return quizModel.getDisplayFormatter();
+    public QuizCard getCurrentQuizCard() {
+        return quizModel.getCurrentQuizCard();
+    }
+
+    @Override
+    public String getTotalCorrectAndTotalAttempts() {
+        return quizModel.getQuizTotalCorrectQuestions() + " out of " + quizModel.getQuizTotalAttempts();
     }
 
     @Override

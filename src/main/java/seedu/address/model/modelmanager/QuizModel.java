@@ -5,7 +5,6 @@ import java.util.List;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
-import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
 import seedu.address.model.srscard.SrsCard;
 import seedu.address.model.user.User;
@@ -86,16 +85,6 @@ public interface QuizModel extends Model {
     boolean toggleIsCardDifficult(int index);
 
     /**
-     * Returns the question header of a {@code QuizCard}
-     */
-    String getQuestionHeader();
-
-    /**
-     * Returns the answer header of a {@code QuizCard}
-     */
-    String getAnswerHeader();
-
-    /**
      * Returns list of optional of the original {@code QuizCard} with index != -1.
      */
     List<String> getOpt();
@@ -115,16 +104,6 @@ public interface QuizModel extends Model {
      * @param quizInformation from quiz.
      */
     void updateUserProfile(List<List<Integer>> quizInformation);
-
-    /**
-     * Sets formatter {@code QuizUiDisplayFormatter} in this {@code Quiz}.
-     */
-    void setDisplayFormatter(QuizUiDisplayFormatter formatter);
-
-    /**
-     * Returns formatter {@code QuizUiDisplayFormatter} in this {@code Quiz}.
-     */
-    QuizUiDisplayFormatter getDisplayFormatter();
 
     /**
      * Returns user {@link User} from {@link ManagementModel}.

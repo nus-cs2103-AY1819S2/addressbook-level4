@@ -9,7 +9,6 @@ import seedu.address.model.modelmanager.Model;
 import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
-import seedu.address.model.quiz.QuizUiDisplayFormatter;
 
 /**
  * Processes user answer
@@ -83,19 +82,14 @@ public class QuizAnswerCommand extends QuizCommand {
             return String.format(MESSAGE_WRONG_ONCE, answer);
         }
 
-        quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(quizModel.getQuestionHeader(),
-            card.getQuestion(), quizModel.getAnswerHeader(), card.getAnswer(), QuizMode.PREVIEW, true));
         return String.format(MESSAGE_WRONG, answer, card.getAnswer());
     }
 
     /**
-     * Gets next card and process data for UI display.
+     * Gets next card and returns nothing to be displayed in command result box.
      */
     private String handleNextCard() {
-        QuizCard card = quizModel.getNextCard();
-
-        quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(quizModel.getQuestionHeader(),
-            card.getQuestion(), quizModel.getAnswerHeader(), card.getAnswer(), card.getQuizMode()));
+        quizModel.getNextCard();
 
         return "";
     }
@@ -111,8 +105,6 @@ public class QuizAnswerCommand extends QuizCommand {
             quizModel.updateUserProfile(quizModel.end());
         }
 
-        // set the display to blank for management mode display
-        quizModel.setDisplayFormatter(null);
         return MESSAGE_SUCCESS;
     }
 

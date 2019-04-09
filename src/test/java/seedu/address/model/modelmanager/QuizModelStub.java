@@ -5,7 +5,6 @@ import java.util.List;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
-import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
 import seedu.address.model.srscard.SrsCard;
 import seedu.address.model.user.User;
@@ -140,16 +139,6 @@ public class QuizModelStub implements QuizModel {
 
     @Override
     public void updateUserProfile(List<List<Integer>> quizInformation) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void setDisplayFormatter(QuizUiDisplayFormatter formatter) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public QuizUiDisplayFormatter getDisplayFormatter() {
         throw new AssertionError("This method should not be called.");
     }
 

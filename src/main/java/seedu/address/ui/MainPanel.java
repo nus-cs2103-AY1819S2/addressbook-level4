@@ -7,8 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
-import seedu.address.model.quiz.QuizUiDisplayFormatter;
 
 /**
  * A ui for the status bar that is displayed at the header of the application.
@@ -23,28 +23,27 @@ public class MainPanel extends UiPart<Region> {
     @FXML
     private TextFlow mainPanel;
 
-    private QuizUiDisplayFormatter formatter;
+    private QuizCard quizCard;
 
     public MainPanel() {
         super(FXML);
     }
 
-    public void setFeedbackToUser(QuizUiDisplayFormatter formatter) {
+    public void setFeedbackToUser(QuizCard quizCard, String totalCorrectAndTotalAttempts) {
         mainPanel.getChildren().clear();
 
-        if (formatter != null) {
-            // contains only question
-            this.formatter = formatter;
+        if (quizCard != null) {
+            this.quizCard = quizCard;
 
-            QuizMode mode = formatter.getMode();
+            QuizMode mode = quizCard.getQuizMode();
             Text questionAnswer = new Text();
 
             switch (mode) {
             case PREVIEW:
-                questionAnswer.setText(String.format(MESSAGE_QUESTION_ANSWER, formatter.getQuestionHeader(),
-                    formatter.getQuestion(), formatter.getAnswerHeader(), formatter.getAnswer()));
+                questionAnswer.setText(String.format(MESSAGE_QUESTION_ANSWER, quizCard.getQuestionHeader(),
+                    quizCard.getQuestion(), quizCard.getAnswerHeader(), quizCard.getAnswer()));
 
-                if (!formatter.isWrongTwice()) {
+                if (!quizCard.isWrongTwice()) {
                     Text text = new Text("Press Enter to go to the next question");
                     mainPanel.getChildren().addAll(questionAnswer, text);
                     break;
@@ -54,8 +53,8 @@ public class MainPanel extends UiPart<Region> {
                 setAnswerPrompt();
                 break;
             case REVIEW:
-                questionAnswer.setText(String.format(MESSAGE_QUESTION, formatter.getQuestionHeader(),
-                    formatter.getQuestion()));
+                questionAnswer.setText(String.format(MESSAGE_QUESTION, quizCard.getQuestionHeader(),
+                    quizCard.getQuestion()));
                 mainPanel.getChildren().add(questionAnswer);
                 setAnswerPrompt();
                 break;
@@ -70,12 +69,10 @@ public class MainPanel extends UiPart<Region> {
 
     private void setAnswerPrompt() {
         Text text1 = new Text("Type the ");
-        Text answer = new Text(formatter.getAnswerHeader() + " ");
-        Text text2 = new Text("for the ");
-        Text question = new Text(formatter.getQuestionHeader() + " ");
-        Text text3 = new Text("above and press Enter");
+        Text answer = new Text(quizCard.getAnswerHeader() + " ");
+        Text text2 = new Text("for the " + quizCard.getQuestionHeader() + " above and press Enter");
         answer.setStyle(boldStyle);
-        List<Text> texts = Arrays.asList(text1, answer, text2, question, text3);
+        List<Text> texts = Arrays.asList(text1, answer, text2);
         mainPanel.getChildren().addAll(texts);
     }
 }

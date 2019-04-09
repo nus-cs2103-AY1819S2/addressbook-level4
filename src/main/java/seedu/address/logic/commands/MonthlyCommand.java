@@ -17,8 +17,6 @@ public class MonthlyCommand extends Command {
             + "most recent month at the top."
             + "Example: " + COMMAND_WORD + "or " + COMMAND_ALIAS;
     public static final String MESSAGE_SUCCESS = "Change view to monthly.";
-    public static final String MESSAGE_INCORRECT_MODE = "Incorrect Mode, unable to execute command. Enter "
-            + "statisticsMode or SM.";
 
     /**
      * Creates a MonthlyCommand
@@ -29,10 +27,6 @@ public class MonthlyCommand extends Command {
     @Override
     public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
         requireAllNonNull(mode, model, history);
-
-        if (!mode.equals(Mode.STATISTICS_MODE)) {
-            throw new CommandException(MESSAGE_INCORRECT_MODE);
-        }
 
         model.setStatisticsStatus(false, true, false);
         return new CommandResult(String.format(MESSAGE_SUCCESS), false, false, Mode.STATISTICS_MODE);

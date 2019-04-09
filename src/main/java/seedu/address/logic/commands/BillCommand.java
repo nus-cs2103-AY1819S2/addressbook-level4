@@ -31,10 +31,8 @@ public class BillCommand extends Command {
     public static final String MESSAGE_SUCCESS = "%1$s";
     public static final String MESSAGE_TABLE_DOES_NOT_EXIST = "This table does not exist.";
     public static final String MESSAGE_MENU_ITEM_NOT_PRESENT = "MenuItem is not received.";
-    public static final String MESSAGE_ORDER_ITEM_NOT_SEVRED = "Not all orders are served yet. Call bill only when "
+    public static final String MESSAGE_ORDER_ITEM_NOT_SERVED = "Not all orders are served yet. Call bill only when "
             + "all orders are served.";
-    public static final String MESSAGE_INCORRECT_MODE = "Incorrect Mode, unable to execute command. Enter tableMode."
-            + "[TABLE_NUMBER]";
 
     private Bill bill;
     private Table tableToBill;
@@ -58,10 +56,6 @@ public class BillCommand extends Command {
     public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
         requireAllNonNull(mode, model, history);
 
-        if (!mode.equals(Mode.TABLE_MODE)) {
-            throw new CommandException(MESSAGE_INCORRECT_MODE);
-        }
-
         tableToBill = model.getSelectedTable();
         if (!model.hasTable(tableToBill)) {
             throw new CommandException(MESSAGE_TABLE_DOES_NOT_EXIST);
@@ -69,7 +63,7 @@ public class BillCommand extends Command {
 
         for (OrderItem orderItem : model.getFilteredOrderItemList()) {
             if (!orderItem.getOrderItemStatus().isAllServed()) {
-                throw new CommandException(MESSAGE_ORDER_ITEM_NOT_SEVRED);
+                throw new CommandException(MESSAGE_ORDER_ITEM_NOT_SERVED);
             }
         }
 

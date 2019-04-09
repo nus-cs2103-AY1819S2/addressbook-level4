@@ -238,7 +238,7 @@ public interface Model {
     void updateOrders();
 
     /**
-     * Returns true if arevenue with the same identity as {@code revenue} exists in the statistics.
+     * Returns true if a revenue with the same identity as {@code revenue} exists in the statistics.
      */
     boolean hasRevenue(Revenue revenue);
 

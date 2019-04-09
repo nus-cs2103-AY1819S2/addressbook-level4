@@ -508,10 +508,10 @@ The assign request feature allows an administrator to assign a request to a part
 
 The following sequence diagram shows the sequence flow from the `LogicManager` to the `ModelManager` when a user enters a `assign request` command:
 
-image::assignreq.png[width=800]
+image::slide1.png[width=800]
 Figure 3.3.1.1 Sequence diagram to illustrate `Logic` component interactions for `assign request` command.
 
-image::assignreq1.png[width=800]
+image::slide2.png[width=800]
 Figure 3.3.1.2 Sequence diagram to illustrate `Logic` and `Model` component interactions for [blue]`AssignRequestCommand`.
 
 1. When `LogicManager` receives the `execute` command, it calls the `parseCommand` method in `HealthHubParser`.

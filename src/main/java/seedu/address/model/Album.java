@@ -113,7 +113,7 @@ public class Album {
      * Check if file exists in assets folder.
      * Returns true if file name exists
      *
-     * @param args string of file name.
+     * @param args String of file name.
      */
     public boolean checkFileExist(String args) {
         File file = new File(assetsFilepath + args);

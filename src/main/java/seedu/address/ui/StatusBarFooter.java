@@ -38,11 +38,10 @@ public class StatusBarFooter extends UiPart<Region> {
     @FXML
     private Label profileName;
 
-    public StatusBarFooter(Path saveLocation, ReadOnlyFoodDiary foodDiary, String name) {
+    public StatusBarFooter(Path saveLocation, ReadOnlyFoodDiary foodDiary) {
         super(FXML);
         foodDiary.addListener(observable -> updateSyncStatus());
         syncStatus.setText(SYNC_STATUS_INITIAL);
-        profileName.setText(PROFILE + name);
         saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
     }
 
@@ -70,8 +69,5 @@ public class StatusBarFooter extends UiPart<Region> {
         syncStatus.setText(String.format(SYNC_STATUS_UPDATED, lastUpdated));
     }
 
-    private void updateName(String name) {
-        profileName.setText(name);
-    }
 
 }

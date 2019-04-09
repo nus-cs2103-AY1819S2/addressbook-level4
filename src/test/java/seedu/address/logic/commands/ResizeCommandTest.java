@@ -14,7 +14,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.parser.ImportCommandParser;
 import seedu.address.logic.parser.OpenCommandParser;
 import seedu.address.logic.parser.ResizeCommandParser;
-import seedu.address.model.Album;
+//import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.CurrentEditManager;
 import seedu.address.model.Model;

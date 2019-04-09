@@ -37,9 +37,9 @@ public class ActivityEditCommand extends ActivityCommand {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_ACTIVITYNAME + "NAME] "
-            + "[" + PREFIX_DATETIME + "MATRICNUMBER] "
-            + "[" + PREFIX_LOCATION + "PHONE] "
-            + "[" + PREFIX_ADESCRIPTION + "EMAIL]... \n "
+            + "[" + PREFIX_DATETIME + "DATETIME] "
+            + "[" + PREFIX_LOCATION + "LOCATION] "
+            + "[" + PREFIX_ADESCRIPTION + "DESCRIPTION]... \n "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_ACTIVITYNAME + "Final Exam "
             + PREFIX_DATETIME + "30/04/2019 1700";

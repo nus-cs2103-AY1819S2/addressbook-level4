@@ -421,16 +421,67 @@ The updated `Model`,
 * stores the Address Book data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * exposes an unmodifiable `ObservableList<Activity>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* Each activity can have a HashMap of `Person` Object for attendance.
+* Each activity can have a `List` of `MatricNumber` Object for attendance.
 
-*to be completed*
 [discrete]
 ===== Activity Add Command
 The `activityAdd` command enables users to create a new activity with name, datetime, location. User could
 also provide additional description.
 
+When user enters the command `activityAdd` in `Command Box`, the following sequence of events would occur:
+
+Step 1. An `ActivityAddCommandParser` would be generated based on user's inputs. +
+The presence of required prefixes and whether any prefixes are duplicated would be checked. +
+Inputs would be checked in respective parser utils. +
+If all checks pass, an `ActivityAddCommand` would be generated with the specified `Activity`.
+
+Step 2. `ActivityAddCommand` would be executed and it would attempt to add the new `Activity` to `Model`. +
+Whether the `Activity` can be added to `Model` would be checked in this step.
+
+.Sequence of Checks for Adding Activity
+image::ActivityAddChecks.png[width="600" height="300"]
+
+
 [discrete]
-===== Activity List Command
+===== Activity Filter Command
+The `activityFilter` command enables users to filter activities based on the time
+
+.Activity Filter Command Sequence Diagram
+image::ActivityFilterCommandSequenceDiagram.png[width="800"]
+
+[discrete]
+==== Activity Find Command
+
+
+[source,java]
+----
+public boolean test(Activity activity) {
+    // all attribute fields are searched.
+    if (keywords.containsKey(PREFIX_ALL)) {
+        return keywords.get(PREFIX_ALL).stream()
+            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getName().fullActivityName, keyword)
+                || StringUtil.containsWordIgnoreCase(activity.getDescription().value, keyword)
+                || StringUtil.containsWordIgnoreCase(activity.getLocation().value, keyword));
+    }
+
+     // OR search for a single boolean
+   boolean isNameMatched = keywords.get(PREFIX_ACTIVITYNAME) == null
+       || keywords.get(PREFIX_ACTIVITYNAME).stream()
+           .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getName().fullActivityName, keyword));
+
+   boolean isDescriptionMatched = keywords.get(PREFIX_ADESCRIPTION) == null
+       || keywords.get(PREFIX_ADESCRIPTION).stream()
+           .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getDescription().value, keyword));
+
+   boolean isLocationMatched = keywords.get(PREFIX_LOCATION) == null
+       || keywords.get(PREFIX_LOCATION).stream()
+           .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getLocation().value, keyword));
+
+   // AND search between prefixes
+        return isNameMatched && isDescriptionMatched && isLocationMatched;
+}
+----
+
 
 ==== Design Considerations
 This section describes the pros and cons of the current implementation of the activity list

@@ -150,7 +150,7 @@ public class ReportDisplay extends UiPart<Region> {
                 question = question.substring(0, MAX_QUESTION_CHAR) + " ...";
             }
             question = "Question: " + question;
-            result += question + " | " + "Score: " + (int)(100*card.getScore().getAsDouble()) + "%\n";
+            result += question + " | " + "Score: " + (int) (100 * card.getScore().getAsDouble()) + "%\n";
         }
         questionsDisplay.setText(result);
     }
@@ -161,7 +161,7 @@ public class ReportDisplay extends UiPart<Region> {
 
     private void displayTagLine(int size) {
         String tagline = "Last " + size + " scores, latest on the right.";
-        tagline += "\nMinimum " + size/MIN_FRACTION_ANSWERED_TO_COUNT + " question(s) attempt recorded";
+        tagline += "\nMinimum " + size / MIN_FRACTION_ANSWERED_TO_COUNT + " question(s) attempt recorded";
         tagLine.setText(tagline);
     }
 }

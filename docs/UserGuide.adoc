@@ -383,7 +383,7 @@ NOTE: The csv file imported should follow the format described below
 Question, Answer, Options, Hints.
 * Question and Answer are mandatory fields, and should not be left blank.
 * Hints can take 0 or 1 values only.
-* For MCQ cards, The csv file only accepts one incorrect answer for each flashcard.
+* For MCQ cards, The csv file only accepts one incorrect option for each flashcard.
 ====
 
 .Sample format for csv file

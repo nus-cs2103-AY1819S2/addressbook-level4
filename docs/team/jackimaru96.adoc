@@ -9,10 +9,13 @@
 --
 image::jackimaru96_pp.png[120,120,float="left",link=https://github.com/Jackimaru96]
 --
-This page aims to showcase my contributions to the project +
-*In-Credit-Ble* under module _CS2103T_. It consists of an overview of the project
-and also summary of my contributions to the User Guide and Developer Guide for the
-features I developed for the project
+This page aims to showcase my contributions to the project
+*In-Credit-Ble* under module _CS2103T_. I will be giving you an introduction to *In-Credit-Ble*,
+followed by summarising my contributions. Lastly, I will be showing you the relevant sections of User Guide and
+Development Guide that I documented.  I hope that after reading through this page, you will have a better
+understanding of my contributions to this project. +
+
+This project was developed with the following utilities:
 
 --
 image::github_icon.png[65,90,float="left",link=https://github.com/]
@@ -21,9 +24,6 @@ image::junit5-logo.png[66,90,float="left" link=https://junit.org/junit5/]
 image::json.png[67,90, float="left" link=https://www.json.org/]
 image::travis.png[66,90,link=https://travis-ci.org/]
 --
-
-
-
 
 ====
 
@@ -38,15 +38,28 @@ and keep track of their budget in an easy and efficient manner. It is designed f
 prefer to work with a Command Line Interface (CLI), especially for those who prefer to type over
 using their mouse.
 
-_In-Credit-Ble_ was developed by a team of five students from the National University of Singapore
+_In-Credit-Ble_ was developed by my team and I (a total of 5 students) from the National University of Singapore
 as part of a Software Engineering module (CS2103T). As part of the module requirement,
  we had to adapt to an existing codebase in Java and develop a functional product in a short
- span of 13 weeks while learning new software engineering concepts. We have opted for the option
- of morphing the existing application into another (from an Address Book to a Finance Tracker).
- In this project portfolio, I will be documenting my contributions to this project through the major
+ span of 13 weeks while learning new software engineering concepts. We have chosen to
+ morph the existing application into another (from an Address Book to a Finance Tracker).
+ In the following sections, I will be documenting my contributions to this project through the major
  and minor features implemented for _In-Credit-Ble_.
 
 == Summary of Contributions
+|===
+|This section will give you a brief overview of my contributions to the project such as the features that I implemented
+as well as the other notable contributions in terms of _Project Management_ and participating in forums.
+This section will be split into *Major Enhancement*, *Minor Enhancements* and *Notable Contributions* sub-sections.
+|===
+
+[TIP]
+====
+* It would help you greatly to head on to our
+link:https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide]
+and link:https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/UserGuide.adoc[User Guide]
+to find out more about our application before reading on about my contributions to the project.
+====
 
 * *Major enhancement*: added `CategoryBudget`
 ** *_What it does_*: Allows user to set a budget for categories so as to keep track
@@ -56,19 +69,21 @@ of the Finance Tracker.
 ** *_Justification_*: This feature improves the product significantly and enhances user
 ability to manage their expenses according to categories. For a finance tracker, it is important
 as this will allow the user to categorise their spending to know which area he/she should
-start spending less and which category they are able to increase their spending.
-** Highlights of feature:
+start spending less and which category they are able to increase their spending. It also requires
+integration of the `Logic`, `Model` and `UI` components of the project.
+
+* Highlights of feature:
 *** This enhancement can be triggered using the `allocate` command. Each of the category
 budget is stored in the `TotalBudget` class which is implemented in the `Model` component.
 *** Each category budget will be displayed on the UI to show the user the current spending
 for that category over the total budget allocated for it.
 
-* *Minor enhancement*: Changing theme of application
-** _What it does_: Allows user to change the colour theme of the application to pre-set themes
+** *Minor enhancement*: Changing theme of application
+* _What it does_: Allows user to change the colour theme of the application to pre-set themes
 such as `Dark`, `Light`, `Blue`, `Pink`.
-** _Justification_: This feature allows the user to have minor customisation of their In-Credit-Ble
+* _Justification_: This feature allows the user to have minor customisation of their In-Credit-Ble
 Finance Tracker Application
-** Highlights of feature:
+* Highlights of feature:
 *** This feature can be triggered using the `theme` command. Triggering this command will result in
 the `UI` component changing its stylesheet to fit the pre-set themes indicated by the user.
 
@@ -111,7 +126,10 @@ https://github.com/nus-cs2103-AY1819S2/forum/issues/59[59]
 |The next section will include my contribution to the User Guide. It will showcase my ability
 in documenting a reader-friendly User Guide that is aimed at the end-users of _In-Credit-Ble_.
 It is important to be able to write a user-friendly guide that will allow the users to quickly grasp
-how to use our application.
+how to use our application. +
+
+To view the full User Guide, click
+link:https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/UserGuide.adoc[here].
 |===
 
 include::../UserGuide.adoc[tag=quickstart]
@@ -125,7 +143,10 @@ include::../UserGuide.adoc[tag=theme]
 |The following section will include the sections of my contribution to the Developer Guide.
 It showcases my ability to write technical documentation and the technical depth of my code contributions.
 This is important as in real-world software engineering projects, we are expected to work in team and being able to
-document Developer Guide well will allow colleagues or other developers to understand what we have coded better.
+document Developer Guide well will allow colleagues or other developers to understand what we have coded better. +
+
+To view the full Developer Guide, click
+link:https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/DeveloperGuide.adoc[here].
 |===
 
 include::../DeveloperGuide.adoc[tag=categorybudget]

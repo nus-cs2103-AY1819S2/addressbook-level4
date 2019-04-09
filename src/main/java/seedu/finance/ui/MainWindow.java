@@ -210,6 +210,11 @@ public class MainWindow extends UiPart<Stage> {
         logger.info("Budget Info: " + logic.getBudget().getCurrentBudget());
         budgetPanel.update(logic.getBudget());
         browserPanel.updateBudget(logic.getBudget());
+        summaryPanel.setData(
+                logic.getRecordSummary(),
+                logic.getSummaryPeriod(),
+                logic.getPeriodAmount()
+        );
     }
 
     void show() {
@@ -275,12 +280,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     public void handleShowSummary() { //Need to think how to link to the D3 files
 
-        summaryPanel.setData(
-                logic.getRecordSummary(),
-                logic.getSummaryPeriod(),
-                logic.getPeriodAmount()
-        );
-
+        handleChangeBudget();
         handleBrowserPlaceholderSwap();
     }
 
@@ -290,7 +290,7 @@ public class MainWindow extends UiPart<Stage> {
     private void handleBrowserPlaceholderSwap() {
         Timeline timeline = new Timeline();
         browserPlaceholder.setOpacity(0.0);
-        if (browserPlaceholder.getChildren().get(0).getId() == null) {
+        if (browserPlaceholder.getChildren().get(0).getId().equals("browser")) {
             browserPlaceholder.getChildren().clear();
             browserPlaceholder.getChildren().add(summaryPanel.getRoot());
         } else if (browserPlaceholder.getChildren().get(0).getId().equals("summaryPanel")) {

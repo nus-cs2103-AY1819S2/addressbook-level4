@@ -10,6 +10,7 @@ import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import seedu.finance.logic.commands.SummaryCommand.SummaryPeriod;
 
@@ -68,10 +69,13 @@ public class SummaryPanel extends UiPart<Region> {
             } else {
                 if (periodAmount == 1) {
                     text.setText("There are no recorded expenditures in the past month");
+
                 } else {
                     text.setText("There are no recorded expenditures in the past " + periodAmount + " months");
                 }
             }
+            text.setStyle("-fx-font-size: 18;");
+            text.setFill(Color.BLACK);
             chartArea.getChildren().add(text);
         } else {
             setSummaryData(summaryData);

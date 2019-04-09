@@ -10,6 +10,7 @@ import seedu.finance.logic.commands.exceptions.CommandException;
 import seedu.finance.model.Model;
 import seedu.finance.model.budget.CategoryBudget;
 import seedu.finance.model.exceptions.CategoryBudgetExceedTotalBudgetException;
+import seedu.finance.model.exceptions.SpendingInCategoryBudgetExceededException;
 
 /**
  * Allocates a certain amount to a category
@@ -28,8 +29,6 @@ public class AllocateCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "%s category budget set to $%.2f";
 
-    public static final String BUDGET_EXCEEDED_MESSAGE = "This category budget will exceed the total budget!";
-
     private CategoryBudget categoryBudget;
 
     public AllocateCommand(CategoryBudget catBudget) {
@@ -43,13 +42,14 @@ public class AllocateCommand extends Command {
             requireNonNull(model);
             model.addCategoryBudget(categoryBudget);
             model.commitFinanceTracker();
-            CommandResult cr = new CommandResult(String.format(MESSAGE_SUCCESS,
-                    categoryBudget.getCategory(), categoryBudget.getTotalBudget()));
-            // Trigger UI event:
-            cr.changeCategoryBudget();
-            return cr;
+            return new CommandResult(String.format(MESSAGE_SUCCESS,
+                    categoryBudget.getCategory(), categoryBudget.getTotalBudget()),
+                    true, false, false);
+
         } catch (CategoryBudgetExceedTotalBudgetException e) {
-            throw new CommandException(BUDGET_EXCEEDED_MESSAGE);
+            throw new CommandException(e.getMessage());
+        } catch (SpendingInCategoryBudgetExceededException f) {
+            throw new CommandException(f.getMessage());
         }
     }
 

@@ -10,11 +10,13 @@ import seedu.finance.model.budget.CategoryBudget;
  */
 public class CategoryBudgetExceedTotalBudgetException extends Exception {
     public CategoryBudgetExceedTotalBudgetException(CategoryBudget categoryBudget, Budget totalBudget) {
-        super(String.format("The category budget (%.2f) will exceed the total budget of Finance Tracker (%.2f)",
-                categoryBudget.getTotalBudget(), totalBudget.getTotalBudget()));
+        super(String.format("Allocating the category budget $%.2f in %s "
+                        + "will exceed the total budget of Finance Tracker $%.2f",
+                categoryBudget.getTotalBudget(), categoryBudget.getCategory().toString(),
+                totalBudget.getTotalBudget()));
     }
 
     public CategoryBudgetExceedTotalBudgetException(CategoryBudget categoryBudget) {
-        super(String.format("The category budget (%.2f) will exceed total budget of Finance Tracker"));
+        super(String.format("The category budget $(%.2f) will exceed total budget of Finance Tracker"));
     }
 }

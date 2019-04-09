@@ -48,7 +48,7 @@
           </VBox>
 
           <SplitPane id="splitPane" fx:id="rightSplitPane" dividerPositions="0.4" orientation="VERTICAL" SplitPane.resizableWithParent="true">
-            <VBox fx:id="budgetPanel" minWidth="450" prefHeight="150" prefWidth="450">
+            <VBox fx:id="budgetPanel" minWidth="450" minHeight="150" prefHeight="150" prefWidth="450">
               <StackPane fx:id="budgetPanelPlaceholder" VBox.vgrow="NEVER" />
                      <opaqueInsets>
                         <Insets />

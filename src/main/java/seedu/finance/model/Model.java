@@ -2,6 +2,7 @@ package seedu.finance.model;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -11,6 +12,7 @@ import seedu.finance.logic.commands.SummaryCommand.SummaryPeriod;
 import seedu.finance.model.budget.Budget;
 import seedu.finance.model.budget.CategoryBudget;
 import seedu.finance.model.exceptions.CategoryBudgetExceedTotalBudgetException;
+import seedu.finance.model.exceptions.SpendingInCategoryBudgetExceededException;
 import seedu.finance.model.record.Record;
 
 /**
@@ -97,8 +99,13 @@ public interface Model {
     /**
      * Sets the given amount to the category budget
      */
-    public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException;
+    public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException,
+            SpendingInCategoryBudgetExceededException;
 
+    /**
+     * Returns the hashset of category budgets
+     */
+    public HashSet<CategoryBudget> getCatBudget();
     /**
      * Returns an unmodifiable view of the filtered record list in reverse order.
      */

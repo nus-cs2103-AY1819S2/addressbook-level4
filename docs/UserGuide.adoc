@@ -522,12 +522,12 @@ show you all the requests you are looking for.
 
 Before:
 
-image::before.png[width=800]
+image::assignrequestbefore.png[width=800]
 Figure 5.5.2.1 shows the request list prior to executing the `filter request` command
 
 After:
 
-image::after.png[width=800]
+image::assignrequestafter.png[width=800]
 
 Figure 5.5.2.2 shows the request list after executing `filter request i/S9123456A st/COMPLETED`
 

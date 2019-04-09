@@ -12,6 +12,7 @@ import seedu.address.logic.commands.AddPrescriptionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.PersonId;
 import seedu.address.model.prescription.Description;
 import seedu.address.model.prescription.Medicine;
 import seedu.address.model.prescription.Prescription;
@@ -37,13 +38,12 @@ public class AddPrescriptionCommandParser implements Parser<AddPrescriptionComma
                     AddPrescriptionCommand.MESSAGE_USAGE));
         }
 
-        String patientId = argMultimap.getValue(PREFIX_PATIENT_ID).get();
-        String doctorId = argMultimap.getValue(PREFIX_DOCTOR_ID).get();
+        PersonId patientId = ParserUtil.parsePersonId(argMultimap.getValue(PREFIX_PATIENT_ID).get());
+        PersonId doctorId = ParserUtil.parsePersonId(argMultimap.getValue(PREFIX_DOCTOR_ID).get());
         Medicine medicine = ParserUtil.parseMedicineName(argMultimap.getValue(PREFIX_MEDICINE_NAME).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
-        Patient patient = null;
-        Doctor doctor = null;
-        Prescription prescription = new Prescription(patient, doctor, patientId, doctorId, medicine, description);
+
+        Prescription prescription = new Prescription(patientId, doctorId, medicine, description);
 
         return new AddPrescriptionCommand(prescription);
     }

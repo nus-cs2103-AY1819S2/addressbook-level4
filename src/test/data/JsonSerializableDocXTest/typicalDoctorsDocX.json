@@ -93,5 +93,6 @@
     "specs" : [ "general" ]
   } ],
   "medicalHistories" : [ ],
-  "appointments": [ ]
+  "appointments": [ ],
+  "prescriptions": [ ]
 }

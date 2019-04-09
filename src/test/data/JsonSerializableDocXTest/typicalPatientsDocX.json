@@ -108,5 +108,7 @@
   } ],
   "medicalHistories" : [ ],
   "appointments": [ ],
+  "prescriptions": [ ],
+  
   "personIdCounter": 0
 }

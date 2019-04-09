@@ -31,6 +31,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Prescription> PREDICATE_SHOW_ALL_PRESCRIPTIONS = unused -> true;
+
     /** {@code Comparator} that sort medical history by date in ascending order from oldest to newest. */
     Comparator<MedicalHistory> COMPARATOR_MED_HIST_DATE_ASC = new MedHistDateAscComparator();
 
@@ -190,6 +193,14 @@ public interface Model {
      */
     void setAppointment(Appointment target, Appointment changedAppointment);
 
+    /**
+     * Replaces the given Prescription {@code target} with {@code editedPrescription}.
+     * {@code target} must exist in the DocX.
+     * The prescription identity of {@code editedPrescription} must not be the same
+     * as another existing prescription in the DocX.
+     */
+    void setPrescription(Prescription target, Prescription editedPrescription);
+
     /** Returns an unmodifiable view of the filtered patient list */
     ObservableList<Patient> getFilteredPatientList();
 
@@ -231,6 +242,16 @@ public interface Model {
      * Sort filtered medical history list
      */
     void sortFilteredMedHistList(Comparator<MedicalHistory> medicalHistoryComparator);
+
+    /** Returns an unmodifiable view of the filtered prescription list */
+    ObservableList<Prescription> getFilteredPrescriptionList();
+
+    /**
+     * Updates the filter of the filtered prescription list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPrescriptionList(Predicate<Prescription> predicate);
+
 
     /**
      * Returns true if the model has previous DocX states to restore.
@@ -279,6 +300,13 @@ public interface Model {
      * Returns the selected patient in the filtered patient list.
      * null if no patient is selected.
      */
+
+    /**
+     * Selected prescription in the filtered medHist list.
+     * null if no medHist is selected.
+     */
+    ReadOnlyProperty<Prescription> selectedPrescriptionProperty();
+
     Patient getSelectedPatient();
 
     /**
@@ -292,6 +320,12 @@ public interface Model {
      * null if no appointment is selected.
      */
     Appointment getSelectedAppointment();
+
+    /**
+     * Returns the selected prescription in the filtered prescription list.
+     * null if no prescription is selected.
+     */
+    Prescription getSelectedPrescription();
 
     /**
      * Sets the selected patient in the filtered patient list.
@@ -308,6 +342,10 @@ public interface Model {
      */
     void setSelectedAppointment(Appointment appointment);
 
+    /**
+     * Sets the selected prescription in the filtered prescription list.
+     */
+    void setSelectedPrescription(Prescription prescription);
 
     /**
      * Returns true if a doctor with the same identity as {@code doctor} exists in docX.

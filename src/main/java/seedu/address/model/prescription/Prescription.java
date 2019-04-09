@@ -4,6 +4,8 @@ import java.util.Objects;
 
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonId;
 
 /**
  * Represents a Prescription in the docX.
@@ -15,17 +17,17 @@ public class Prescription {
     private Medicine medicine;
 
     // Id field
-    private String patientId;
-    private String doctorId;
+    private PersonId patientId;
+    private PersonId doctorId;
 
     // Data field
     private Description description;
 
     //Constructor
-    public Prescription (Patient patient, Doctor doctor, String patientId, String doctorId, Medicine medicine, Description description) {
+    public Prescription (PersonId patientId, PersonId doctorId, Medicine medicine, Description description) {
 
-        this.patient = patient;
-        this.doctor = doctor;
+        //this.patient = patient;
+        //this.doctor = doctor;
         this.patientId = patientId;
         this.doctorId = doctorId;
         this.medicine = medicine;
@@ -41,16 +43,26 @@ public class Prescription {
         return this.medicine;
     }
 
-    public String getPatientId() {
+    public PersonId getPatientId() {
         return this.patientId;
     }
-    public String getDoctorId() {
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public PersonId getDoctorId() {
         return this.doctorId;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 
     public Doctor getDoctor() {
         return this.doctor;
     }
+
     public Patient getPatient() {
         return this.patient;
     }
@@ -66,14 +78,13 @@ public class Prescription {
         }
 
         Prescription otherPrescription = (Prescription) other;
-        return otherPrescription.getPatientId().equals(this.getDoctorId())
+        return otherPrescription.getPatientId().equals(this.getPatientId())
                 && otherPrescription.getDoctorId().equals(this.getDoctorId())
                 && otherPrescription.getDescription().equals(this.getDescription())
                 && otherPrescription.getMedicine().getName().equals(this.getMedicine().getName());
     }
     /**
-     * Returns true if both prescriptions have the same medicine
-     * This defines a weaker notion of equality between two prescriptions.
+     * Returns true if both prescriptions have the same medicine, patientId, doctorId and description
      */
     public boolean isSamePrescription(Prescription other) {
         if (other == this) {
@@ -81,7 +92,10 @@ public class Prescription {
         }
 
         return other != null
-                && other.getMedicine().getName().equals(other.getMedicine().getName());
+                && other.getMedicine().getName().equals(this.getMedicine().getName())
+                && other.getDoctorId().equals(this.getDoctorId())
+                && other.getPatientId().equals(this.getPatientId())
+                && other.getDescription().equals(this.getDescription());
     }
 
     @Override

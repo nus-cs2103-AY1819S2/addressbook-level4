@@ -14,10 +14,12 @@ import seedu.address.logic.commands.AddPrescriptionCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteDoctorCommand;
-import seedu.address.logic.commands.DeleteMedHistCommand;
 import seedu.address.logic.commands.DeletePatientCommand;
+import seedu.address.logic.commands.DoctorMatchCommand;
 import seedu.address.logic.commands.EditDoctorCommand;
+import seedu.address.logic.commands.EditMedHistCommand;
 import seedu.address.logic.commands.EditPatientCommand;
+import seedu.address.logic.commands.EditPrescriptionCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
@@ -26,13 +28,21 @@ import seedu.address.logic.commands.ListDoctorCommand;
 import seedu.address.logic.commands.ListMedHistCommand;
 import seedu.address.logic.commands.ListPatientCommand;
 import seedu.address.logic.commands.ListPrescriptionCommand;
+import seedu.address.logic.commands.MarkAppointmentCommand;
 import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SearchDoctorCommand;
+import seedu.address.logic.commands.SearchAdvancedPatientCommand;
+import seedu.address.logic.commands.SearchDoctorDidCommand;
+//import seedu.address.logic.commands.SearchDoctorNameCommand;
+import seedu.address.logic.commands.SearchDoctorSpecialisationCommand;
 import seedu.address.logic.commands.SearchMedHistCommand;
+import seedu.address.logic.commands.SearchPatientApptStatusCommand;
 import seedu.address.logic.commands.SearchPatientCommand;
+import seedu.address.logic.commands.SearchPatientPidCommand;
 import seedu.address.logic.commands.SearchPatientTagCommand;
-import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SelectDoctorCommand;
 import seedu.address.logic.commands.SelectMedHistCommand;
+import seedu.address.logic.commands.SelectPatientCommand;
+import seedu.address.logic.commands.SortMedHistCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -52,8 +62,8 @@ public class DocXParser {
      *
      * @param userInput full user input string
      * @return the command based on the user input
-     * @throws ParseException if the user inp
-     * ut does not conform the expected format
+     * @throws ParseException if the user input
+     *                        does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -65,93 +75,124 @@ public class DocXParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddPatientCommand.COMMAND_WORD:
-            return new AddPatientCommandParser().parse(arguments);
+            case AddPatientCommand.COMMAND_WORD:
+                return new AddPatientCommandParser().parse(arguments);
 
-        case ListPatientCommand.COMMAND_WORD:
-            return new ListPatientCommand();
+            case ListPatientCommand.COMMAND_WORD:
+                return new ListPatientCommand();
 
-        case EditPatientCommand.COMMAND_WORD:
-            return new EditPatientCommandParser().parse(arguments);
+            case EditPatientCommand.COMMAND_WORD:
+                return new EditPatientCommandParser().parse(arguments);
 
-        case SearchPatientCommand.COMMAND_WORD:
-            return new SearchPatientCommandParser().parse(arguments);
+            case SearchPatientCommand.COMMAND_WORD:
+                return new SearchPatientCommandParser().parse(arguments);
 
-        case SearchPatientTagCommand.COMMAND_WORD:
-            return new SearchPatientTagCommandParser().parse(arguments);
+            case SearchPatientPidCommand.COMMAND_WORD:
+                return new SearchPatientPidCommandParser().parse(arguments);
 
-        case DeletePatientCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            case SearchPatientTagCommand.COMMAND_WORD:
+                return new SearchPatientTagCommandParser().parse(arguments);
 
-        case ListMedHistCommand.COMMAND_WORD:
-            return new ListMedHistCommandParser().parse(arguments);
+            case SearchPatientApptStatusCommand.COMMAND_WORD:
+                return new SearchPatientApptStatusCommandParser().parse(arguments);
 
-        case SearchMedHistCommand.COMMAND_WORD:
-            return new SearchMedHistCommandParser().parse(arguments);
+            case SearchAdvancedPatientCommand.COMMAND_WORD:
+                return new SearchAdvancedPatientCommandParser().parse(arguments);
 
-        case AddDoctorCommand.COMMAND_WORD:
-            return new AddDoctorCommandParser().parse(arguments);
+            case DeletePatientCommand.COMMAND_WORD:
+                return new DeleteCommandParser().parse(arguments);
 
-        case AddAppointmentCommand.COMMAND_WORD:
-            return new AddAppointmentCommandParser().parse(arguments);
+            case SearchDoctorDidCommand.COMMAND_WORD:
+                return new SearchDoctorDidCommandParser().parse(arguments);
 
-        case ListAppointmentCommand.COMMAND_WORD:
-            return new ListAppointmentCommandParser().parse(arguments);
+            case AddDoctorCommand.COMMAND_WORD:
+                return new AddDoctorCommandParser().parse(arguments);
 
-        case ListDoctorCommand.COMMAND_WORD:
-            return new ListDoctorCommand();
+            case AddAppointmentCommand.COMMAND_WORD:
+                return new AddAppointmentCommandParser().parse(arguments);
 
-        case EditDoctorCommand.COMMAND_WORD:
-            return new EditDoctorCommandParser().parse(arguments);
+            case ListAppointmentCommand.COMMAND_WORD:
+                return new ListAppointmentCommandParser().parse(arguments);
 
-        case DeleteDoctorCommand.COMMAND_WORD:
-            return new DeleteDoctorCommandParser().parse(arguments);
+            case MarkAppointmentCommand.COMMAND_WORD:
+                return new MarkAppointmentCommandParser().parse(arguments);
 
-        case SearchDoctorCommand.COMMAND_WORD:
-            return new SearchDoctorCommandParser().parse(arguments);
+            case ListDoctorCommand.COMMAND_WORD:
+                return new ListDoctorCommand();
 
-        case AddMedHistCommand.COMMAND_WORD:
-            return new AddMedHistCommandParser().parse(arguments);
+            case EditDoctorCommand.COMMAND_WORD:
+                return new EditDoctorCommandParser().parse(arguments);
 
-        case DeleteMedHistCommand.COMMAND_WORD:
-            return new DeleteMedHistCommandParser().parse(arguments);
+            case DeleteDoctorCommand.COMMAND_WORD:
+                return new DeleteDoctorCommandParser().parse(arguments);
 
-        case AddPrescriptionCommand.COMMAND_WORD:
-            return new AddPrescriptionCommandParser().parse(arguments);
+            //case SearchDoctorNameCommand.COMMAND_WORD:
+                //return new SearchDoctorNameCommandParser().parse(arguments);
 
-        case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
+            case SelectDoctorCommand.COMMAND_WORD:
+                return new SelectDoctorCommandParser().parse(arguments);
 
-        case SelectMedHistCommand.COMMAND_WORD:
-            return new SelectMedHistCommandParser().parse(arguments);
+            case SearchDoctorSpecialisationCommand.COMMAND_WORD:
+                return new SearchDoctorSpecialisationCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+            case DoctorMatchCommand.COMMAND_WORD:
+                return (new DoctorMatchCommandParser().parse(arguments));
 
-        case HistoryCommand.COMMAND_WORD:
-            return new HistoryCommand();
+            case AddMedHistCommand.COMMAND_WORD:
+                return new AddMedHistCommandParser().parse(arguments);
 
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
+            case ListMedHistCommand.COMMAND_WORD:
+                return new ListMedHistCommandParser().parse(arguments);
 
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+            case EditMedHistCommand.COMMAND_WORD:
+                return new EditMedHistCommandParser().parse(arguments);
 
-        case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
+            case SelectPatientCommand.COMMAND_WORD:
+                return new SelectPatientCommandParser().parse(arguments);
 
-        case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
+            case SearchMedHistCommand.COMMAND_WORD:
+                return new SearchMedHistCommandParser().parse(arguments);
 
-        case ListPrescriptionCommand.COMMAND_WORD:
-            return new ListPrescriptionCommand();
+            case SelectMedHistCommand.COMMAND_WORD:
+                return new SelectMedHistCommandParser().parse(arguments);
 
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            case SortMedHistCommand.COMMAND_WORD:
+                return new SortMedHistCommandParser().parse(arguments);
+
+            case AddPrescriptionCommand.COMMAND_WORD:
+                return new AddPrescriptionCommandParser().parse(arguments);
+
+            case ListPrescriptionCommand.COMMAND_WORD:
+                return new ListPrescriptionCommand();
+
+            case EditPrescriptionCommand.COMMAND_WORD:
+                return new EditPrescriptionCommandParser().parse(arguments);
+
+            case ClearCommand.COMMAND_WORD:
+                return new ClearCommand();
+
+            case HistoryCommand.COMMAND_WORD:
+                return new HistoryCommand();
+
+            case ExitCommand.COMMAND_WORD:
+                return new ExitCommand();
+
+            case HelpCommand.COMMAND_WORD:
+                return new HelpCommand();
+
+            case UndoCommand.COMMAND_WORD:
+                return new UndoCommand();
+
+            case RedoCommand.COMMAND_WORD:
+                return new RedoCommand();
+
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 
 }
+
 
 
 

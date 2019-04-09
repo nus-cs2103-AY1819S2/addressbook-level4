@@ -239,6 +239,13 @@ public class ModelManager implements Model {
         versionedDocX.setDoctor(target, editedDoctor);
     }
 
+    @Override
+    public void setPrescription(Prescription target, Prescription editedPrescription) {
+        requireAllNonNull(target, editedPrescription);
+
+        versionedDocX.setPrescription(target, editedPrescription);
+    }
+
     //=========== Filtered Patient List Accessors =============================================================
 
     /**

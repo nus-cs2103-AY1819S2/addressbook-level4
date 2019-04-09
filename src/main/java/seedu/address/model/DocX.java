@@ -330,6 +330,19 @@ public class DocX implements ReadOnlyDocX {
     }
 
     /**
+     * Replaces the given medical history {@code target} in the list with {@code editedMedHist}.
+     * {@code target} must exist in the docX.
+     * The medical history identity of {@code editedMedHist} must not be the same as another existing medical history
+     * in the docX.
+     */
+    public void setPrescription(Prescription target, Prescription editedPrescription) {
+        requireNonNull(editedPrescription);
+
+        prescriptions.setPrescription(target, editedPrescription);
+        indicateModified();
+    }
+
+    /**
      * Removes {@code key} from this {@code DocX}.
      * {@code key} must exist in the docX.
      */

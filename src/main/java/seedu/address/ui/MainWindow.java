@@ -1,11 +1,9 @@
 package seedu.address.ui;
 
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -186,11 +184,11 @@ public class MainWindow extends UiPart<Stage> {
         String[] cmdArray = commandText.split(" ");
         String command = cmdArray[0];
 
-        Optional<Node> newPanel = commandPanelHandler.getCommandPanel(command);
-        if (newPanel.isPresent()) {
+        if (!browserPlaceholder.getChildren().isEmpty()) {
             browserPlaceholder.getChildren().remove(0);
-            browserPlaceholder.getChildren().add(0, newPanel.get());
         }
+        commandPanelHandler.getCommandPanel(command).ifPresent(panel ->
+                browserPlaceholder.getChildren().add(0, panel));
     }
 
     /**

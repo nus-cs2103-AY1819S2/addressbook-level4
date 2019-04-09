@@ -50,7 +50,6 @@ public class RecModule {
 
         RecModule other = (RecModule) object;
         return moduleInfoCode.equals(other.moduleInfoCode)
-                && moduleInfoTitle.equals(other.moduleInfoTitle)
                 && getCourseReqType().equals(other.getCourseReqType());
     }
 }

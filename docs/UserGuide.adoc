@@ -54,8 +54,8 @@ E.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME a/AUTHOR`, `a/AUTHOR n/NAME` is also acceptable.
 * While book names, review title and review content can contain any kinds of characters, tag and author names should only contain alpha-numeric characters.
 * Book name and author name should not exceed 50 characters (space included).
-* Review title should not exceed 70 characters (space included).
-* Review content should not exceed 350 characters (space included).
+* Review title should not exceed 50 characters (space included).
+* Review content should not exceed 400 characters (space included).
 * Rating should be integer from 0 to 10 inclusive and the input should be 1 or 2 digit number.
 * Tags should not exceed 20 characters (space included).
 ====
@@ -172,6 +172,9 @@ sort bookList by book name in ascending order.
 sort bookList by rating of the book in descending order and if they having same rating it will sort them by book name is asc order.
 * `sortBook st/author st/rating o/des o2/asc`
 sort bookList by author in descending order and if they having same rating it will sort them by rating in des order.(o/des overwrite o2/asc)
+* `sortBook st/rating st/author st/name o1/des o3/asc`
+sort bookList by rating in descending order and since the o2 order is not specify, if same rating it will consider author as asc order.
+
 
 // tag::reviews[]
 

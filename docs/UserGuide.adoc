@@ -278,20 +278,27 @@ Format: `\help`
 Displays information on the current session's status such as lesson progress (i.e. number of flashcards left). +
 Format: `\status`
 
-==== Answering a flashcard : `[*]`
+==== Answering a flashcard : `[ANSWER]`
 
-Any input without the escape character `\` is treated as an answer to the current flashcard. +
-Format: `[*]`
+An input without the `\` prefix will be treated as an answer to the current flashcard. +
+Format: `[ANSWER]...`
 
-* For each flashcard, total attempts and answer streak is tracked.
-* Total attempts is the number of times you have attempted this flashcard, regardless of whether you were correct or wrong.
+Usage rules:
+
+* You can answer with one or more words (e.g. "Tokyo" or "Aland Islands").
+
+What a flashcard contains:
+
+* For each flashcard, total attempts and answer streak are tracked.
+* Total attempts refers to the number of times you have attempted this flashcard, regardless of
+whether you were answered it correctly.
 * The answer streak is the number of times you have answered the flashcard correctly consecutively.
 
 [NOTE]
 The streak will be reduced to 0 after you answer a flashcard wrongly twice in a row. Hence, if you accidentally enter the wrong answer once, your streak for the question will not be affected, unless you answer wrongly again.
 
 [TIP]
-If you do not know the answer of a flashcard and want to view it, simply press kbd:[ENTER] twice.
+You can press kbd:[ENTER] twice without entering any other input to reveal the answer.
 
 Examples:
 

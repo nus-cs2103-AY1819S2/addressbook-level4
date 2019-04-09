@@ -2,6 +2,8 @@ package seedu.address.logic.commands.management;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_OPENED_LESSON;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
 import static seedu.address.model.lesson.LessonList.EXCEPTION_INVALID_INDEX;
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN;
@@ -37,7 +39,7 @@ public class DeleteCardCommandTest {
     private Index toDeleteIndex2 = Index.fromZeroBased(1);
 
     @Test
-    public void execute_cardDeletedByModel_deleteSuccessful() throws Exception {
+    public void execute_openedLessonAndValidCard_deleteSuccessful() throws Exception {
         MgtModelStubAcceptingAddDelete modelStub = new MgtModelStubAcceptingAddDelete();
         modelStub.addCardToOpenedLesson(CARD_JAPAN); // always work
 
@@ -52,12 +54,36 @@ public class DeleteCardCommandTest {
     }
 
     @Test
-    public void execute_cardDeletedByModel_deleteUnsuccessful() throws Exception {
+    public void execute_noOpenedLesson_throwsCommandException() throws CommandException {
+        MgtModelStubWithNoOpenedLesson modelStub = new MgtModelStubWithNoOpenedLesson();
+        Index toDeleteIndex = Index.fromZeroBased(0);
+
+        // delete a card which does not exist in model -> CommandException thrown
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(MESSAGE_NO_OPENED_LESSON);
+        new DeleteCardCommand(toDeleteIndex).execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_noCardAtIndex_throwsCommandException() throws CommandException {
         MgtModelStubAcceptingAddDelete modelStub = new MgtModelStubAcceptingAddDelete();
         Index toDeleteIndex = Index.fromZeroBased(0);
 
         // delete a card which does not exist in model -> CommandException thrown
         thrown.expect(CommandException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_INDEX,
+                toDeleteIndex.getOneBased()));
+        new DeleteCardCommand(toDeleteIndex).execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_invalidIndex_throwsCommandException() throws CommandException {
+        MgtModelStubAcceptingAddDelete modelStub = new MgtModelStubAcceptingAddDelete();
+        Index toDeleteIndex = Index.fromZeroBased(1000);
+
+        // delete a card which does not exist in model -> CommandException thrown
+        thrown.expectMessage(String.format(MESSAGE_INVALID_INDEX,
+                toDeleteIndex.getOneBased()));
         new DeleteCardCommand(toDeleteIndex).execute(modelStub, commandHistory);
     }
 
@@ -97,11 +123,25 @@ public class DeleteCardCommandTest {
     }
 
     /**
-     * A ManagementModel stub which always accept the card being added and can always delete a card if
-     * it exists.
+     * A ManagementModel stub which always reject card add and delete because no lesson is opened.
+     */
+    private class MgtModelStubWithNoOpenedLesson extends ManagementModelStub {
+        @Override
+        public boolean isThereOpenedLesson() {
+            return false;
+        }
+    }
+
+    /**
+     * A ManagementModel stub which always accept card add and delete given that a lesson is opened.
      */
     private class MgtModelStubAcceptingAddDelete extends ManagementModelStub {
         private final ArrayList<Card> cards = new ArrayList<>();
+
+        @Override
+        public boolean isThereOpenedLesson() {
+            return true;
+        }
 
         /**
          * Gets the {@code Card} objects from the opened {@link Lesson} object.

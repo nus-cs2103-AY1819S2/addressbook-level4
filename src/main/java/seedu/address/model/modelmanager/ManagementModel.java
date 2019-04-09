@@ -4,6 +4,7 @@ import java.util.List;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.card.Card;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.LessonList;
@@ -49,6 +50,12 @@ public interface ManagementModel extends Model {
     String openLesson(int index);
 
     /**
+     * Closes the opened {@link Lesson} object.
+     * @return the name of the closed {@link Lesson} object
+     */
+    String closeLesson();
+
+    /**
      * Returns the opened lesson. A lesson is opened by calling {@link #openLesson(int)} and
      * closed by calling {@link #closeLesson()}. If there is no lesson currently opened,
      * this returns null.
@@ -65,19 +72,63 @@ public interface ManagementModel extends Model {
      */
     List<Card> getOpenedLessonCards();
 
+    /**
+     * @return the list of core headers in the opened {@link Lesson} object
+     */
     List<String> getOpenedLessonCoreHeaders();
 
+    /**
+     * @return the list of optional headers in the opened {@link Lesson} object
+     */
     List<String> getOpenedLessonOptionalHeaders();
 
+    /**
+     * Adds a {@link Card} to the opened {@link Lesson} object.
+     *
+     * @param card {@link Card} to be added to the opened {@link Lesson} object
+     */
     void addCardToOpenedLesson(Card card);
 
+    /**
+     * Checks if a card is already in the opened {@link Lesson} object.
+     *
+     * @param card the {@link Card} to look for in the opened {@link Lesson} object
+     * @return returns true if the {@link Card} is already in the opened {@link Lesson} object
+     */
+    boolean openLessonHasCard(Card card);
+
+    /**
+     * Deletes the {@link Card} at the specified index from the opened {@link Lesson} object.
+     *
+     * @param index the index of the {@link Card} to be deleted from the opened {@link Lesson} object
+     */
     void deleteCardFromOpenedLesson(int index);
 
     /**
-     * Closes the opened {@link Lesson} object.
-     * @return the name of the closed {@link Lesson} object
+     * Updated automatically by {@link #openLesson(int)} and {@link #closeLesson()} commands.
+     *
+     * @return true if there is an opened lesson; false otherwise
      */
-    String closeLesson();
+    boolean isThereOpenedLesson();
+
+    /**
+     * Checks if there already is a lesson with the name specified in {@link LessonList}.
+     *
+     * @param name the {@link Lesson} name to look for in {@link LessonList}
+     * @return returns true if there is a {@link Lesson} in {@link LessonList} with the
+     * specified name; false otherwise
+     */
+    boolean hasLessonWithName(String name);
+
+    /**
+     * Toggles theme from light to dark scheme or vice versa, and returns the new theme.
+     */
+    String changeTheme();
+
+    /**
+     * Returns current theme from {@link UserPrefs} object.
+     */
+    String getTheme();
 
     /**
      * @return the {@link LessonList} object.

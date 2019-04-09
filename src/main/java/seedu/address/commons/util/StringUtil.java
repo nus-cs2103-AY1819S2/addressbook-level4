@@ -6,6 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Helper functions for handling strings.
@@ -64,5 +65,20 @@ public class StringUtil {
         } catch (NumberFormatException nfe) {
             return false;
         }
+    }
+
+    /**
+     * Checks if a {@code List} of {@code String} has empty strings.
+     * @param strings the {@code List} of {@code String} to check
+     * @return true if there is one or more empty strings; false if all are non-empty
+     */
+    public static boolean hasEmptyStrings(List<String> strings) {
+        for (String s: strings) {
+            if (s.isEmpty()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

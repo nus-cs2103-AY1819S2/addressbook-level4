@@ -41,22 +41,36 @@ public class LessonCard extends UiPart<Region> {
         name.setText(lesson.getName());
 
         int cardCount = lesson.getCardCount();
-        if (cardCount > 1) {
-            count.setText(cardCount + " cards");
-        } else {
-            count.setText(cardCount + " card");
-        }
+        count.setText(getCountString(cardCount));
 
+        int i = 0;
+        int questionIndex = lesson.getQuestionCoreIndex();
+        int answerIndex = lesson.getAnswerCoreIndex();
         for (String s: lesson.getCoreHeaders()) {
             Label label = new Label(s);
-            label.getStyleClass().add("core");
+
+            if (i == questionIndex || i == answerIndex) {
+                label.getStyleClass().add("questionAnswer");
+            } else {
+                label.getStyleClass().add("core");
+            }
+
             headers.getChildren().add(label);
+            i++;
         }
 
         for (String s: lesson.getOptionalHeaders()) {
             Label label = new Label(s);
             label.getStyleClass().add("opt");
             headers.getChildren().add(label);
+        }
+    }
+
+    public static String getCountString(int count) {
+        if (count > 1) {
+            return count + " cards";
+        } else {
+            return count + " card";
         }
     }
 

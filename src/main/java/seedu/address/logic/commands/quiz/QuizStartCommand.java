@@ -11,19 +11,15 @@ import java.util.List;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-
 import seedu.address.logic.commands.management.ManagementCommand;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.LessonList;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.Model;
-
 import seedu.address.model.modelmanager.QuizModel;
-
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
-import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
 import seedu.address.model.session.SrsCardsManager;
 import seedu.address.model.srscard.SrsCard;
@@ -44,6 +40,8 @@ public class QuizStartCommand extends ManagementCommand {
             + PREFIX_START_COUNT + "15 "
             + PREFIX_START_MODE + "LEARN";
     public static final String MESSAGE_SUCCESS = "Starting new quiz";
+    public static final String MESSAGE_COUNT = "Not enough cards in current lesson.\n Set the count to the maximum"
+            + " number for you by default.";
     private Session session;
 
     public QuizStartCommand(Session session) {
@@ -59,21 +57,19 @@ public class QuizStartCommand extends ManagementCommand {
      * Executes the command.
      */
     public CommandResult executeActual(QuizModel model, CommandHistory history) {
+        StringBuilder sb = new StringBuilder();
+        if (session.getCount() > session.getSrsCards().size()) {
+            session.setCount(session.getSrsCards().size());
+            sb.append(MESSAGE_COUNT);
+        } else {
+            sb.append(MESSAGE_SUCCESS);
+        }
         List<QuizCard> quizCards = session.generateSession();
         Quiz quiz = new Quiz(quizCards, session.getMode());
         model.init(quiz, session);
-        QuizCard card = model.getNextCard();
+        model.getNextCard();
 
-        if (card.getQuizMode() == QuizMode.PREVIEW) {
-            model.setDisplayFormatter(new QuizUiDisplayFormatter(
-                    model.getQuestionHeader(), card.getQuestion(), model.getAnswerHeader(), card.getAnswer(),
-                    QuizMode.PREVIEW));
-        } else {
-            model.setDisplayFormatter(new QuizUiDisplayFormatter(
-                    model.getQuestionHeader(), card.getQuestion(), model.getAnswerHeader(), QuizMode.REVIEW));
-        }
-
-        return new CommandResult("", true, false, false);
+        return new CommandResult(sb.toString(), true, false, false);
     }
 
     /**
@@ -98,7 +94,7 @@ public class QuizStartCommand extends ManagementCommand {
         boolean lessonExist = false;
         Lesson lesson = new Lesson("default", List.of("q", "a"), List.of());
         for (int i = 0; i < lessons.size(); i++) {
-            if (lessons.get(i).getName().equals(this.session.getName())) {
+            if (lessons.get(i).getName().equalsIgnoreCase(this.session.getName().toUpperCase())) {
                 lesson = mgtModel.getLesson(i);
                 lessonExist = true;
                 break;
@@ -144,12 +140,6 @@ public class QuizStartCommand extends ManagementCommand {
                         srsCards);
             }
         }
-        if (session.getCount() > session.getSrsCards().size()) {
-            session.setCount(session.getSrsCards().size());
-            return new CommandResult("Not enough cards in current lesson. Set the count to the maximum"
-                    + " number for you by default.");
-        } else {
-            return new CommandResult(MESSAGE_SUCCESS);
-        }
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }

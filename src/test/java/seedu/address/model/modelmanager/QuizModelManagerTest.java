@@ -21,7 +21,6 @@ import org.junit.rules.ExpectedException;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
-import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.SrsCardBuilder;
 
@@ -36,8 +35,7 @@ public class QuizModelManagerTest {
     @Before
     public void setUp() {
         List<QuizCard> generatedCards = SESSION_DEFAULT_2.generateSession();
-        firstCard = new QuizCard(0, generatedCards.get(0).getQuestion(), generatedCards.get(0).getAnswer(),
-            QuizMode.PREVIEW);
+        firstCard = generatedCards.get(0).generateOrderedQuizCardWithIndex(0, QuizMode.PREVIEW);
         quiz = new Quiz(generatedCards, SESSION_DEFAULT_2.getMode());
     }
 
@@ -122,15 +120,6 @@ public class QuizModelManagerTest {
     }
 
     @Test
-    public void getQuestionAndAnswerHeader() {
-        modelManager.init(quiz, SESSION_DEFAULT_2);
-        modelManager.getNextCard();
-
-        assertEquals("Country", modelManager.getQuestionHeader());
-        assertEquals("Capital", modelManager.getAnswerHeader());
-    }
-
-    @Test
     public void getOpt() {
         modelManager.init(quiz, SESSION_DEFAULT_2);
         modelManager.getNextCard();
@@ -186,15 +175,6 @@ public class QuizModelManagerTest {
         assertEquals(expected, modelManager.end());
         assertEquals(4, modelManager.getQuizTotalAttempts());
         assertEquals(4, modelManager.getQuizTotalCorrectQuestions());
-    }
-
-    @Test
-    public void getDisplayFormatter() {
-        QuizUiDisplayFormatter formatter = new QuizUiDisplayFormatter("Question", "some question",
-            "Answer", "some answer", QuizMode.LEARN);
-
-        modelManager.setDisplayFormatter(formatter);
-        assertEquals(formatter, modelManager.getDisplayFormatter());
     }
 
     @Test

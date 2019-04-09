@@ -33,7 +33,7 @@ public class ParserUtil {
      */
     public static String parseName(String name) {
         requireNonNull(name);
-        String trimmedName = name.trim();
+        String trimmedName = name.trim().toUpperCase();
         return trimmedName;
     }
     /**
@@ -46,9 +46,13 @@ public class ParserUtil {
         String trimmedCount = count.trim();
         boolean numeric = trimmedCount.matches("\\d+");
         if (numeric) {
-            return Integer.parseInt(trimmedCount);
+            try {
+                return Integer.parseInt(trimmedCount);
+            } catch (NumberFormatException e) {
+                throw new ParseException("Count of number should be a valid integer less than MAX_INTEGER.");
+            }
         } else {
-            throw new ParseException("Count of number should be an integer.");
+            throw new ParseException("Count of number should be a valid integer less than MAX_INTEGER.");
         }
     }
     /**

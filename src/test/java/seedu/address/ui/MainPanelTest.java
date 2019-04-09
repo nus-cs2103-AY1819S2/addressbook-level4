@@ -2,12 +2,14 @@ package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import guitests.guihandles.MainPanelHandle;
+import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
-import seedu.address.model.quiz.QuizUiDisplayFormatter;
 
 public class MainPanelTest extends GuiUnitTest {
 
@@ -20,7 +22,7 @@ public class MainPanelTest extends GuiUnitTest {
         uiPartRule.setUiPart(mainPanel);
 
         mainPanelHandle = new MainPanelHandle(getChildNode(mainPanel.getRoot(),
-            MainPanelHandle.RESULT_DISPLAY_ID));
+            MainPanelHandle.MAIN_PANEL_ID));
     }
 
     @Test
@@ -30,35 +32,36 @@ public class MainPanelTest extends GuiUnitTest {
         assertEquals("", mainPanelHandle.getText());
 
         // both question and answer
-        QuizUiDisplayFormatter formatter = new QuizUiDisplayFormatter("Question", "some question",
-            "Answer", "some answer", QuizMode.PREVIEW);
+        QuizCard quizCard = new QuizCard("some question", "some answer", Arrays.asList("Q", "A"),
+            "Question", "Answer");
+        String totalCorrectAndTotalAttempts = "0 out of 4";
 
-        guiRobot.interact(() -> mainPanel.setFeedbackToUser(formatter));
+        guiRobot.interact(() -> mainPanel.setFeedbackToUser(
+            quizCard.generateOrderedQuizCardWithIndex(0, QuizMode.PREVIEW), totalCorrectAndTotalAttempts));
         guiRobot.pauseForHuman();
-        assertEquals("Question: some question\nAnswer: some answer\nPress Enter to go to the next question",
-            mainPanelHandle.getText());
+        assertEquals("Question: some question\nAnswer: some answer\n\nPress Enter to go to the next question"
+            + "\n\nCurrent total correct questions: " + totalCorrectAndTotalAttempts, mainPanelHandle.getText());
 
         // only question
-        QuizUiDisplayFormatter formatterReview = new QuizUiDisplayFormatter(
-            "Question", "some question", "Answer", QuizMode.REVIEW);
-
-        guiRobot.interact(() -> mainPanel.setFeedbackToUser(formatterReview));
+        guiRobot.interact(() -> mainPanel.setFeedbackToUser(
+            quizCard.generateOrderedQuizCardWithIndex(0, QuizMode.REVIEW), totalCorrectAndTotalAttempts));
         guiRobot.pauseForHuman();
-        assertEquals("Question: some question\nType the Answer for the Question above and press Enter",
-            mainPanelHandle.getText());
+        assertEquals("Question: some question\n\nType the Answer for the Question above and press Enter"
+            + "\n\nCurrent total correct questions: " + totalCorrectAndTotalAttempts, mainPanelHandle.getText());
 
         // wrong twice in a row
-        QuizUiDisplayFormatter formatterWrongTwice = new QuizUiDisplayFormatter(
-            "Question", "some question", "Answer", "some answer", QuizMode.PREVIEW, true);
+        QuizCard wrongTwiceCard = quizCard.generateOrderedQuizCardWithIndex(0, QuizMode.REVIEW);
+        wrongTwiceCard.isCorrect("wrong");
+        wrongTwiceCard.isCorrect("wrong");
 
-        guiRobot.interact(() -> mainPanel.setFeedbackToUser(formatterWrongTwice));
+        guiRobot.interact(() -> mainPanel.setFeedbackToUser(wrongTwiceCard, totalCorrectAndTotalAttempts));
         guiRobot.pauseForHuman();
         assertEquals("Question: some question\nAnswer: some answer\n"
-                + "Type the Answer for the Question above and press Enter",
-            mainPanelHandle.getText());
+            + "\nType the Answer for the Question above and press Enter"
+            + "\n\nCurrent total correct questions: " + totalCorrectAndTotalAttempts, mainPanelHandle.getText());
 
         // switch back to management mode, so become blank
-        guiRobot.interact(() -> mainPanel.setFeedbackToUser(null));
+        guiRobot.interact(() -> mainPanel.setFeedbackToUser(null, totalCorrectAndTotalAttempts));
         guiRobot.pauseForHuman();
         assertEquals("", mainPanelHandle.getText());
     }

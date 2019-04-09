@@ -9,10 +9,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
-import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
 import seedu.address.model.srscard.SrsCard;
 import seedu.address.model.user.CardSrsData;
+import seedu.address.model.user.User;
 
 /**
  * Represents the in-memory management of quiz data
@@ -23,7 +23,6 @@ public class QuizModelManager implements QuizModel {
     private ManagementModel managementModel;
     private Quiz quiz;
     private Session session;
-    private QuizUiDisplayFormatter formatter;
 
     /**
      * Initialises QuizModelManager with ManagementModel
@@ -126,16 +125,6 @@ public class QuizModelManager implements QuizModel {
     }
 
     @Override
-    public String getQuestionHeader() {
-        return quiz.getQuestionHeader();
-    }
-
-    @Override
-    public String getAnswerHeader() {
-        return quiz.getAnswerHeader();
-    }
-
-    @Override
     public List<String> getOpt() {
         return quiz.getOpt();
     }
@@ -156,14 +145,10 @@ public class QuizModelManager implements QuizModel {
     }
 
     @Override
-    public void setDisplayFormatter(QuizUiDisplayFormatter formatter) {
-        this.formatter = formatter;
+    public User getManagementModelUser() {
+        return managementModel.getUser();
     }
 
-    @Override
-    public QuizUiDisplayFormatter getDisplayFormatter() {
-        return formatter;
-    }
     // TODO include session and mgmt model as well
     @Override
     public boolean equals(Object obj) {

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_OPENED_LESSON;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +76,10 @@ public class ListLessonsCommand extends ManagementCommand {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         ManagementModel mgtModel = requireManagementModel(model);
+
+        if (mgtModel.isThereOpenedLesson()) {
+            throw new CommandException(MESSAGE_OPENED_LESSON);
+        }
 
         ArrayList<Lesson> lessons = new ArrayList<>(mgtModel.getLessons());
 

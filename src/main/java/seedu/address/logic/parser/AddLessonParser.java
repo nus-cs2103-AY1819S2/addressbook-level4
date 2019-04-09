@@ -1,6 +1,9 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_INPUT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INPUT;
+import static seedu.address.commons.util.StringUtil.hasEmptyStrings;
 import static seedu.address.logic.parser.Syntax.PREFIX_CORE;
 import static seedu.address.logic.parser.Syntax.PREFIX_CORE_ANSWER;
 import static seedu.address.logic.parser.Syntax.PREFIX_CORE_QUESTION;
@@ -18,6 +21,20 @@ import seedu.address.model.lesson.Lesson;
  * Parses input arguments and creates a new {@link AddLessonCommand} object.
  */
 public class AddLessonParser implements Parser<AddLessonCommand> {
+    /**
+     * Checks if the supplied prefixes only have 1 supplied value each.
+     *
+     * @param argMultimap the multimap to check
+     * @param prefixes the prefixes in the multimap to check
+     * @throws ParseException if specified prefixes does not have exactly one value supplied
+     */
+    private void requireOnlyOneValue(ArgumentMultimap argMultimap, Prefix ... prefixes) throws ParseException {
+        for (Prefix prefix : prefixes) {
+            if (!argMultimap.hasExactlyOneValue(prefix)) {
+                throw new ParseException(String.format(MESSAGE_INVALID_INPUT, prefix));
+            }
+        }
+    }
 
     /**
      * Parses the given {@code String} of arguments in the context of the {@link AddLessonCommand}
@@ -31,18 +48,33 @@ public class AddLessonParser implements Parser<AddLessonCommand> {
 
         if (!arePrefixesPresent(
                 argMultimap, PREFIX_LESSON_NAME, PREFIX_CORE_QUESTION, PREFIX_CORE_ANSWER)
-                || !argMultimap.getPreamble().isEmpty()
-                || argMultimap.getAllValues(PREFIX_CORE_QUESTION).size() != 1
-                || argMultimap.getAllValues(PREFIX_CORE_ANSWER).size() != 1) {
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddLessonCommand.MESSAGE_USAGE));
         }
 
+        // Name, question and answer can only be specified once
+        requireOnlyOneValue(argMultimap, PREFIX_LESSON_NAME, PREFIX_CORE_QUESTION, PREFIX_CORE_ANSWER);
+
         String name = argMultimap.getValue(PREFIX_LESSON_NAME).get();
-        ArrayList<String> coreHeaders = new ArrayList<>(argMultimap.getAllValues(PREFIX_CORE_QUESTION));
-        coreHeaders.addAll(argMultimap.getAllValues(PREFIX_CORE_ANSWER));
+
+        ArrayList<String> coreHeaders = new ArrayList<>();
+        coreHeaders.add(argMultimap.getValue(PREFIX_CORE_QUESTION).get());
+        coreHeaders.add(argMultimap.getValue(PREFIX_CORE_ANSWER).get());
         coreHeaders.addAll(argMultimap.getAllValues(PREFIX_CORE));
+
         ArrayList<String> optHeaders = new ArrayList<>(argMultimap.getAllValues(PREFIX_OPTIONAL));
+
+        // Name cannot be empty, strings in coreHeaders cannot be empty
+        // and if optionalHeaders isn't empty, strings it mustn't be empty
+        if (name.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_EMPTY_INPUT, PREFIX_LESSON_NAME));
+        } else if (hasEmptyStrings(coreHeaders)) {
+            throw new ParseException(String.format(MESSAGE_EMPTY_INPUT, PREFIX_CORE));
+        } else if (hasEmptyStrings(optHeaders)) {
+            throw new ParseException(String.format(MESSAGE_EMPTY_INPUT, PREFIX_OPTIONAL));
+        }
+
         Lesson lesson = new Lesson(name, coreHeaders, optHeaders);
         return new AddLessonCommand(lesson);
     }

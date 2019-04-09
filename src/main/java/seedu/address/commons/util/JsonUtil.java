@@ -133,11 +133,6 @@ public class JsonUtil {
         private Level getLoggingLevel(String loggingLevelString) {
             return Level.parse(loggingLevelString);
         }
-
-        @Override
-        public Class<Level> handledType() {
-            return Level.class;
-        }
     }
 
 }

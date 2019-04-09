@@ -10,6 +10,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ArchiveClearCommand;
 import seedu.address.logic.commands.ArchiveCommand;
 import seedu.address.logic.commands.ArchiveListCommand;
+import seedu.address.logic.commands.ArchiveSelectCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -83,6 +84,9 @@ public class AddressBookParser {
 
         case ArchiveListCommand.COMMAND_WORD:
             return new ArchiveListCommand();
+
+        case ArchiveSelectCommand.COMMAND_WORD:
+            return new ArchiveSelectCommandParser().parse(arguments);
 
         case ArchiveClearCommand.COMMAND_WORD:
             return new ArchiveClearCommand();

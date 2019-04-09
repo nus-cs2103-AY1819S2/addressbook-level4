@@ -122,14 +122,14 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
+        browserPanel = new BrowserPanel(logic.selectedPersonProperty(), logic.selectedArchivedPersonProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
                 logic::setSelectedPerson);
-        archiveListPanel = new ArchiveListPanel(logic.getFilteredArchivedPersonList());
-        personListPanelPlaceholder.getChildren().add(archiveListPanel.getRoot());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        archiveListPanel = new ArchiveListPanel(logic.getFilteredArchivedPersonList(),
+                logic.selectedArchivedPersonProperty(), logic::setSelectedArchivedPerson);
+        personListPanelPlaceholder.getChildren().addAll(archiveListPanel.getRoot(), personListPanel.getRoot());
         displayedList.setText(MAIN_LIST_DISPLAYED);
 
         pinListPanel = new PinListPanel(logic.getFilteredPinList(), logic.selectedPersonProperty(),
@@ -221,6 +221,8 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isSwapList()) {
                 personListPanelPlaceholder.getChildren().get(0).toFront();
                 swapListTitle();
+                logic.setSelectedPerson(null);
+                logic.setSelectedArchivedPerson(null);
             }
 
             return commandResult;

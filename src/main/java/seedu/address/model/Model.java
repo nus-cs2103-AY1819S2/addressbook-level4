@@ -232,7 +232,24 @@ public interface Model {
     Person getSelectedPerson();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Sets the selected archived person in the filtered archived person list.
      */
     void setSelectedPerson(Person person);
+
+    /**
+     * Selected archived person in the filtered archived person list.
+     * null if no archived person is selected.
+     */
+    ReadOnlyProperty<Person> selectedArchivedPersonProperty();
+
+    /**
+     * Returns the selected archived person in the filtered archived person list.
+     * null if no archived person is selected.
+     */
+    Person getSelectedArchivedPerson();
+
+    /**
+     * Sets the selected archived person in the filtered archived person list.
+     */
+    void setSelectedArchivedPerson(Person person);
 }

@@ -18,7 +18,11 @@ By: `Team CS2103-AY1819S2-W16-2`      Since: `Mar 2019`      Licence: `MIT`
 
 == Introduction
 
-*The Real App* is an enhanced address book designed primarily for *real estate agents* who need to store large amount of customer contacts as well as property information. More importantly, this product is optimized for those who prefer to use a desktop app for managing contacts, and *prefer to work with a Command Line Interface (CLI)*, while still having the benefits of a Graphical User Interface (GUI). If you can type fast, this product can help you manage all your contact and property information quickly and securely. Interested? Jump to <<Quick Start>> to get started. Enjoy!
+*The Real App* is an enhanced address book designed primarily for *real estate agents* who need to store large amount of customer contacts as well as property information. You can *store* contact details for each of your specialised named contacts, as well as essential information for the associated property. You can *pin* important contacts and even *archive* them when you no longer need them. *Select* your contact to display the location of the associated property on Google Maps(TM), so you know exactly where it is!
+
+With these and many other features, this product is optimized for those who prefer to use a desktop app for managing contacts, and *prefer to work with a Command Line Interface (CLI)*, while still having the benefits of a Graphical User Interface (GUI). If you can type fast, this product can help you manage all your contact and property information quickly and securely.
+
+Interested? Jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -31,12 +35,18 @@ image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  An example workflow with some commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`c/seller n/James Ho p/98765432 e/jamesho@example.com r/urgent need to sell a/123, Clementi Rd, S123456` sp/500000: adds a seller named `James Ho` and the associated property information to the address book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+.. **`add`**`c/seller n/James Ho p/98765432 e/jamesho@example.com r/urgent need to sell a/Blk 345 Clementi Ave 5, #04-04, S120345` sp/500000: adds a seller named `James Ho` and the associated property information to the address book.
+.. **`delete`**`3` : deletes the 3rd contact shown in the current main contact list
+.. **`pin`**`1` : pins the 1st contact shown in the current main contact list
+.. **`archive`**`2` : archives the 2nd contact shown in the current main contact list
+.. *`archivelist`* : lists all archived contacts
+.. *`list`* : lists all contacts in main contact list
+.. **`select`**`1` : selects the 1st contact shown in the current main contact list
+.. *`clear`*: clears the entire main contact list
+.. *`undo`* : undoes the previous `clear` command
+.. *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 .  Refer to <<Summary>> for a summary of all commands.
@@ -75,7 +85,7 @@ A *property* can have any number of `TAG` (including 0).
 
 * *Seller:* +
 Format: `add c/seller n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS a/ADDRESS sp/SELLING_PRICE_OF_PROPERTY [t/TAG]...` +
-Example: `add c/seller n/James Ho p/98765432 e/jamesho@example.com r/need to sell by April 2018 a/123, Clementi Rd, S123456 sp/500000 t/MRT t/newlyRenovated`
+Example: `add c/seller n/James Ho p/98765432 e/jamesho@example.com r/need to sell by April 2018 a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/MRT t/newlyRenovated`
 
 * *Buyer:* +
 Format: `add c/buyer n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS` +
@@ -83,7 +93,7 @@ Example: `add c/buyer n/James Ho p/98765432 e/jamesho@example.com r/looking for 
 
 * *Landlord:* +
 Format: `add c/landlord n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS a/ADDRESS rp/RENTAL_PRICE_OF_PROPERTY [t/TAG]...` +
-Example: `add c/landlord n/James Ho p/98765432 e/jamesho@example.com r/family friend  a/123, Clementi Rd, S123456 rp/1500 t/MRT t/newlyRenovated`
+Example: `add c/landlord n/James Ho p/98765432 e/jamesho@example.com r/family friend  a/Blk 345 Clementi Ave 5, #04-04, S120345 rp/1500 t/MRT t/newlyRenovated`
 
 * *Tenant:* +
 Format: `add c/tenant n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS` +
@@ -92,8 +102,13 @@ Example: `add c/tenant n/James Ho p/98765432 e/jamesho@example.com r/looking for
 
 === Listing all contacts : `list`
 
-Shows a list of all contacts in the address book. +
+Shows a list of all contacts in the address book, in their added chronological order. +
 Format: `list`
+
+[TIP]
+====
+`KEYWORD` List: `c/CUSTOMER_TYPE`, `n/NAME`, `p/PHONE_NUMBER`, `e/EMAIL`, `a/ADDRESS`, `rp/RENTAL_PRICE_OF_PROPERTY`, `sp/SELLING_PRICE_OF_PROPERTY`, `t/TAG`
+====
 
 // tag::sortfeatures[]
 === Displaying a sorted list of contacts by specified category : `sort` `[coming in v2.0]`
@@ -299,6 +314,7 @@ Archived contacts *cannot* be displayed in a sorted list or be pinned.
 ====
 
 ****
+* Main contact list must be displayed prior to archiving.
 * Archives the contact at the specified `INDEX`.
 * The index refers to the index number shown in the displayed contact list.
 * The index *must be a positive integer* 1, 2, 3, ...
@@ -321,6 +337,24 @@ Archives the 3rd contact in the sorted list displayed earlier.
 Lists all the contacts in the archive. +
 Format: `archivelist`
 
+=== Selecting an archived contact : `archiveselect`
+
+Selects the archived contact identified by the index number used in the displayed archive list. +
+Format: `archiveselect INDEX`
+
+****
+* Archive list must be displayed prior to this.
+* Selects the contact at the specified `INDEX` and displays all the contact and property information, as well as the address location of the associated property on the Google Maps window panel.
+* The index refers to the index number shown in the displayed contact list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `archivelist` +
+`select 2` +
+Selects the 2nd contact in the archive book.
+
 === Finding archived contact(s) : `archivefind` `[coming in v2.0]`
 
 Searches the archive and finds contact(s) whose information contains any of the keyword(s). +
@@ -342,6 +376,7 @@ Moves the specified contact from the archive back into the normal address book. 
 Format: `unarchive INDEX`
 
 ****
+* Archive list must be displayed prior to unarchiving.
 * Unarchives the contact at the specified `INDEX`.
 * The index refers to the index number shown in the displayed *archived* contact list.
 * The index *must be a positive integer* 1, 2, 3, ...
@@ -424,7 +459,7 @@ Address book contact list must be displayed prior to clearing. +
 Format: `clear`
 
 // tag::archiveclear[]
-=== Clearing all entries : `archiveclear`
+=== Clearing all entries in archive: `archiveclear`
 
 Clears all entries from the archive book. +
 Archived contact list must be displayed prior to clearing. +
@@ -469,13 +504,13 @@ User can set a password, which will be required when logging into the app.
 [none]
 ** Seller: +
 *** `add c/seller n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS a/ADDRESS sp/SELLING_PRICE_OF_PROPERTY [t/TAG]...` +
-*** e.g. `add c/seller n/James Ho p/98765432 e/jamesho@example.com r/need to sell by April 2018 a/123, Clementi Rd, S123456 sp/500000 t/MRT t/newlyRenovated`
+*** e.g. `add c/seller n/James Ho p/98765432 e/jamesho@example.com r/need to sell by April 2018 a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/MRT t/newlyRenovated`
 ** Buyer: +
 *** `add c/buyer n/NAME p/PHONE_NUMBER e/EMAIL r/REMARK` +
 *** e.g. `add c/buyer n/James Ho p/98765432 e/jamesho@example.com r/looking for 3-room apartment`
 ** Landlord: +
 *** `add c/landlord n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS a/ADDRESS rp/RENTAL_PRICE_OF_PROPERTY [t/TAG]...` +
-*** e.g. `add c/landlord n/James Ho p/98765432 e/jamesho@example.com r/family friend  a/123, Clementi Rd, S123456 rp/1500 t/MRT t/newlyRenovated`
+*** e.g. `add c/landlord n/James Ho p/98765432 e/jamesho@example.com r/family friend  a/Blk 345 Clementi Ave 5, #04-04, S120345 rp/1500 t/MRT t/newlyRenovated`
 ** Tenant: +
 *** `add c/tenant n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS` +
 *** e.g. `add c/tenant n/James Ho p/98765432 e/jamesho@example.com r/looking for 4-room apartment`

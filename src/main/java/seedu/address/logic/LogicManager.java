@@ -173,6 +173,16 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyProperty<Person> selectedArchivedPersonProperty() {
+        return model.selectedArchivedPersonProperty();
+    }
+
+    @Override
+    public void setSelectedArchivedPerson(Person person) {
+        model.setSelectedArchivedPerson(person);
+    }
+
+    @Override
     public void checkListShown(Command command) throws CommandException {
         if ((command.requiresMainList()) && archiveShown) {
             throw new CommandException(INVALID_LIST_SHOWN_MAIN);

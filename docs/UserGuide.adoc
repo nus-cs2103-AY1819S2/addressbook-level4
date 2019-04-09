@@ -314,12 +314,13 @@ Adds a medical history +
 Format: `add-med-hist pid/PATIENT_ID did/DOCTOR_ID d/DATE sw/SHORT_WRITEUP`
 
 ****
+* To veiw the list of medical histories, Execute "list-med-hist" first.
 * Medical history with attending patient, attending doctor, date and write up form doctor will be added to docX.
-* Patient id(pid) and doctor id(did) must be existing id in patient and doctor list.
-* Date or visit must be a valid date in calender and must be a past or today. Cannot be a day in the future.
-* On the same day, only one medical history can be maintained between a doctor and a patient. If the patient see one doctor more than one times on the same day, can edit the write up of the medical history.
+* PATIENT_ID and DOCTOR_ID must be existing id in patient and doctor list.
+* Date of visit must be a valid date in calender and must be a past day or today. Cannot be a day in the future.
+* Two medical histories with the same PATIENT_ID, DOCTOR_ID and DATE are not allowed. On the same day, only one medical history can be maintained between a doctor and a patient. If the patient see one doctor more than one times on the same day, can edit the write up of the medical history.
 * However, a patient can have multiple medical histories with different doctors on the same day.
-* Write up is doctor's description about the medical record. Write up can be edited by edit-med-hist.
+* Write up is doctor's description about the medical record. Write up can be edited by "edit-med-hist" command.
 
 
 ****
@@ -327,36 +328,86 @@ Format: `add-med-hist pid/PATIENT_ID did/DOCTOR_ID d/DATE sw/SHORT_WRITEUP`
 Examples:
 
 * `add-med-hist pid/1 did/7 d/2019-03-05 sw/Came down with a stomach flu, possibly due to eating expired food`
-* `add-med-hist pid/3 did/8 d/2018-07-09 w/Had a fever with sorethroat. Sleeps late.`
+* `add-med-hist pid/3 did/8 d/2018-07-09 sw/Had a fever with sore throat. Sleeps late.`
 
-=== Listing all medical histories or medical histories with specified constraint(s): `list-med-hist`
+=== Listing medical histories: `list-med-hist`
 
-Shows a list of all medical histories or a list of all medical histories of one specified patient. +
-Format: `list-med-hist [pid/PATIENT_ID] [did/DOCTOR_ID] []`
+Show a list of all medical histories or medical histories with specified constraint(s). +
+Format: `list-med-hist [pid/PATIENT_ID] [did/DOCTOR_ID] [d/DATE]`
 
-=== Locating medical history : `search-med-hist`
+****
+* PATIENT_ID and DOCTOR_ID must be existing id in patient and doctor list.
+* Date must be a valid date in calender and must be a past day or today.
+* If there is no medical history satisfying all specified constraints, an empty list will be shown.
+* Write up of medical history will not be shown in the list. Can view all details of one medical history by "select-med-hist" command.
+
+
+****
+
+Examples:
+
+* 'list-med-hist': show all medical histories in docX
+* 'list-med-hist pid/1': show all medical histories of patient with id 1. If patient with id 1 is already deleted or not in docX, an error will be shown.
+
+=== Editing write up of medical history: `edit-med-hist`
+
+Edit the write up of medical history with specified index. +
+Format: `edit-med-hist INDEX sw/EDITED_WRITEUP`
+
+****
+* Can only edit write up of medical history. Patient id, doctor id and date are immutable.
+
+
+****
+
+Examples:
+
+* `edit-med-hist 1 sw/The patient came to me this morning, having a fever. This afternoon he came again because of higher fever.`
+
+=== Sorting medical history by date: `sort-med-hist`
+
+Sort medical history by date in ascending order or descending order. +
+Format: `sort-med-hist [ASC/DESC]`
+
+****
+* If "ASC" or "DESC" is not specified in the command, the default order will be descending order(DESC). Medical histories will be listed from newest date to oldest date.
+* If "DESC" is specified, the order will be descending order. Medical histories will be listed from newest date to oldest date.
+* If "ASC" is specified, the order will be ascending order. Medical histories will be listed from oldest date or newest date.
+
+
+****
+
+Examples:
+
+* `sort-med-hist` +
+Medical histories will be listed from newest date to oldest date
+* `sort-med-hist ASC` +
+Medical histories will be listed from oldest date or newest date.
+
+=== Searching medical history : `search-med-hist`
 
 Finds medical history(ies) whose write up contains any of the given keywords. +
 Format: `search-med-hist KEYWORD`
 
 ****
+* To view the result of searching command is not shown, "list-med-hist" command must be executed before searching command.
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Write ups of the medical history matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-* Each keyword is to be quoted in quotation marks.
+* Each keyword should not be in quotation mark. There should be one space between two keywords.
 ****
 
 Examples:
 
-* `search-med-hist 'flu'` +
-Returns all medical history with the write up containing the keyword `flu`
-* `search-med-hist 'stomach flu' 'sorethroat'` +
-Returns all medical history with the write up containing either 'stomach flu' or 'sorethroat' or both keywords.
+* `search-med-hist fever` +
+Returns all medical history with the write up containing the keyword `fever`
+* `search-med-hist fever sorethroat` +
+Returns all medical history with the write up containing either 'fever' or 'sorethroat' or both keywords.
 
 === Viewing a certain medical history: `select-med-hist`
 
-View the full specified medical history with specified ID. +
+View the full specified medical history with index in displayed list. +
 Format: `select-med-hist index`
 
 ****
@@ -366,7 +417,7 @@ Format: `select-med-hist index`
 Examples:
 
 * `select-med-hist 1` +
-Returns full write up of the medical history with index 1.
+Returns full write up of the medical history with index 1 in medical history list.
 
 === Adding an appointment: `add-appt`
 

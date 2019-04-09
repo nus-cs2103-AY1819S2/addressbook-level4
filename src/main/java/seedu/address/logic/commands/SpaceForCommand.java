@@ -39,6 +39,9 @@ public class SpaceForCommand extends Command {
                 bestFitTable = table;
                 smallestSize = Integer.parseInt(table.getTableStatus().getNumberOfSeats());
             }
+            if (smallestSize == size) {
+                break;
+            }
         }
         
         if (bestFitTable == null) {

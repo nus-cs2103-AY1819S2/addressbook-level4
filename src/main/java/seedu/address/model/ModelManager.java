@@ -395,7 +395,8 @@ public class ModelManager implements Model {
                 return;
             }
 
-            boolean wasSelectedPinPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+            boolean wasSelectedPinPersonReplaced = change.wasReplaced()
+                    && change.getAddedSize() == change.getRemovedSize()
                     && change.getRemoved().contains(selectedPinPerson.getValue());
             if (wasSelectedPinPersonReplaced) {
                 // Update selectedPerson to its new value.
@@ -436,7 +437,7 @@ public class ModelManager implements Model {
                 && filteredArchivedPersons.equals(other.filteredArchivedPersons)
                 && filteredPinnedPersons.equals(other.filteredPinnedPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get())
-                && Objects.equals(selectedPinPerson.get(),other.selectedPinPerson.get());
+                && Objects.equals(selectedPinPerson.get(), other.selectedPinPerson.get());
     }
 
 }

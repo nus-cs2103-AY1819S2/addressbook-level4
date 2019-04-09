@@ -47,7 +47,7 @@ public class StatusBarFooter extends UiPart<Region> {
         syncStatus.setText(SYNC_STATUS_INITIAL);
         saveLocationStatus.setText("AddressBook: " + Paths.get(".").resolve(abSaveLocation).toString());
         archiveSaveLocationStatus.setText("ArchiveBook: " + Paths.get(".").resolve(arbSaveLocation).toString());
-        pinSaveLocationStatus.setText("PinBook: "+Paths.get(".").resolve(pbSaveLocation).toString());
+        pinSaveLocationStatus.setText("PinBook: " + Paths.get(".").resolve(pbSaveLocation).toString());
     }
 
     /**

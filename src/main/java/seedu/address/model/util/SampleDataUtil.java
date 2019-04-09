@@ -58,17 +58,17 @@ public class SampleDataUtil {
 
     public static Doctor[] getSampleDoctors() {
         return new Doctor[] {
-            new Doctor(new Name("Alex Yeoh"), new Phone("87438807"), new Gender("M"), new Year("2"),
+            new Doctor(new Name("Alvin Tong"), new Phone("82352312"), new Gender("M"), new Year("2"),
                     getSpecSet("acupuncture")),
-            new Doctor(new Name("Bernice Yu"), new Phone("99272758"), new Gender("F"), new Year("32"),
+            new Doctor(new Name("Barney Ong"), new Phone("90534873"), new Gender("F"), new Year("22"),
                     getSpecSet("acupuncture", "general")),
-            new Doctor(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Gender("F"), new Year("4"),
+            new Doctor(new Name("Cinderella Tan"), new Phone("90153481"), new Gender("F"), new Year("4"),
                     getSpecSet("massage")),
-            new Doctor(new Name("David Li"), new Phone("91031282"), new Gender("M"), new Year("8"),
+            new Doctor(new Name("Dominic Gong"), new Phone("92343211"), new Gender("M"), new Year("8"),
                     getSpecSet("massage", "acupuncture")),
-            new Doctor(new Name("Ivan Teo"), new Phone("92492021"), new Gender("M"), new Year("11"),
+            new Doctor(new Name("Ibe Tok"), new Phone("92492021"), new Gender("M"), new Year("11"),
                     getSpecSet("acupuncture")),
-            new Doctor(new Name("Roy Tan"), new Phone("92624417"), new Gender("M"), new Year("5"),
+            new Doctor(new Name("Gabriel Teo"), new Phone("92624417"), new Gender("M"), new Year("5"),
                     getSpecSet("general"))
         };
     }

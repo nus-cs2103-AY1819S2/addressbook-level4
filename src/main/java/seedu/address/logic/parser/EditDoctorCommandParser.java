@@ -8,16 +8,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SPECIALISATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditDoctorCommand;
 import seedu.address.logic.commands.EditDoctorCommand.EditDoctorDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.tag.Specialisation;
 
 /**
  * Parses input arguments and creates a new EditDoctorCommand object
@@ -57,28 +51,16 @@ public class EditDoctorCommandParser implements Parser<EditDoctorCommand> {
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             editDoctorDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
         }
-        parseSpecsForEdit(argMultimap.getAllValues(PREFIX_SPECIALISATION)).ifPresent(editDoctorDescriptor::setSpecs);
+        if (argMultimap.getValue(PREFIX_SPECIALISATION).isPresent()) {
+            editDoctorDescriptor.setSpecs(ParserUtil
+                    .parseSpecialisations(argMultimap.getAllValues(PREFIX_SPECIALISATION)));
+        }
 
         if (!editDoctorDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditDoctorCommand.MESSAGE_NOT_EDITED);
         }
 
         return new EditDoctorCommand(index, editDoctorDescriptor);
-    }
-
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Specialisation>} if {@code specs} is non-empty.
-     * If {@code specs} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Specialisation>} containing zero specs.
-     */
-    private Optional<Set<Specialisation>> parseSpecsForEdit(Collection<String> specs) throws ParseException {
-        assert specs != null;
-
-        if (specs.isEmpty()) {
-            return Optional.empty();
-        }
-        Collection<String> specSet = specs.size() == 1 && specs.contains("") ? Collections.emptySet() : specs;
-        return Optional.of(ParserUtil.parseSpecialisations(specSet));
     }
 
 }

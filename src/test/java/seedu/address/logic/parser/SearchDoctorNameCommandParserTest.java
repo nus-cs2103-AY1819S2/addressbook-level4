@@ -8,28 +8,28 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.SearchDoctorCommand;
+import seedu.address.logic.commands.SearchDoctorNameCommand;
 import seedu.address.model.person.DoctorNameContainsKeywordsPredicate;
 
-public class SearchDoctorCommandParserTest {
+public class SearchDoctorNameCommandParserTest {
 
-    private SearchDoctorCommandParser parser = new SearchDoctorCommandParser();
+    private SearchDoctorNameCommandParser parser = new SearchDoctorNameCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchDoctorCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchDoctorNameCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
-        SearchDoctorCommand expectedSearchDoctorCommand =
-                new SearchDoctorCommand(new DoctorNameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
-        assertParseSuccess(parser, "Alice Bob", expectedSearchDoctorCommand);
+        SearchDoctorNameCommand searchDoctorNameCommand =
+                new SearchDoctorNameCommand(new DoctorNameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
+        assertParseSuccess(parser, "Alice Bob", searchDoctorNameCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedSearchDoctorCommand);
+        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", searchDoctorNameCommand);
     }
 
 }

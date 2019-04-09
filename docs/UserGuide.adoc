@@ -242,10 +242,11 @@ Deletes the patient with current list ID of '3' in the docX.
 * `delete-patient 2` +
 Deletes the patient with current list ID of '2' in the docX.
 
+tag::doctorcommands[]
 === Adding a doctor: `add-doctor`
 
 Adds a doctor to docX +
-Format: `add-doctor n/NAME g/GENDER a/AGE p/PHONE_NUMBER s/SPECIALISATION`
+Format: `add-doctor n/NAME g/GENDER y/YEAR_OF_EXPERIENCE p/PHONE_NUMBER s/SPECIALISATION`
 
 ****
 * A doctor must have at least 1 specialisation.
@@ -253,53 +254,86 @@ Format: `add-doctor n/NAME g/GENDER a/AGE p/PHONE_NUMBER s/SPECIALISATION`
 
 Examples:
 
-* `add-doctor n/John Doe g/Male a/21 p/98765432 s/`acupuncture' 'general'`
-* `add-doctor n/Betsy Crowe g/Female p/1234567 a/32 s/'general'`
+* `add-doctor n/John Doe g/M y/5 p/98765432 s/acupuncture s/general`
+* `add-doctor n/Betsy Crowe g/f p/1234567 y/22 s/general`
 
 === Listing all doctors : `list-doctor`
 
 Shows a list of all doctors in docX. +
 Format: `list-doctor`
 
+=== Selecting a doctor : `select-doctor`
+
+Selects an existing doctor in docX to display all the information about this doctor in the browser panel. +
+Format: `select-doctor INDEX`
+
+****
+* Selects the doctor at the specified `INDEX`. The index refers to the relative ID of the doctor. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `select-doctor 1` +
+Selects the doctor with ID of '1'.
+* `select-doctor 5` +
+Selects the doctor with ID of '5'.
+
 === Editing a doctor : `edit-doctor`
 
 Edits an existing doctor in docX. +
-Format: `edit-doctor INDEX [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [s/SPECIALISATION]`
+Format: `edit-doctor INDEX [n/NAME] [g/GENDER] [y/YEAR_OF_EXPERIENCE] [p/PHONE] [s/SPECIALISATION]`
 
 ****
-* Edits the doctor at the specified `INDEX`. The index refers to the identification number (ID) of the doctor. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the doctor at the specified `INDEX`. The index refers to the relative ID of the doctor. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing specialisation, the existing specialisations of the doctor will be removed i.e adding of specialisation(s) is not cumulative.
-* You can remove all the doctor's specialisations by typing `s/` without specifying any specialisation after it.
 ****
 
 Examples:
 
 * `edit-doctor 1 p/91234567` +
 Edits the phone number of the doctor with ID of '1' to be `91234567`.
-* `edit-doctor 2 n/Betsy Crower p/45678901` +
-Edits the name and phone number of the doctor with ID of '2' to be `Betsy Crower` and '45678901' respectively.
+* `edit-doctor 2 s/acupuncture s/general` +
+Edits the specialisations of the doctor with ID of '2' to be `acupuncture` and 'general'.
 
 === Locating doctor by name: `search-doctor`
 
 Finds doctor(s) whose names contain any of the given keywords. +
-Format: `search-doctor NAME [PHONE_NUMBER]` or `search-doctor SPECIALISATION`
+Format: `search-doctor KEYWORD` or
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Doctors matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-* Each specialisation is to be quoted in quotation marks.
 ****
 
 Examples:
 
 * `search-doctor John` +
 Returns `john` and `John Doe`
-* `search-doctor 'general practitioner' 'acupuncture'` +
-Returns any doctor having either 'general practitioner' or 'acupuncture' or both.
+* `search-doctor Alvin` +
+Returns `Alvin` and `Alvin Tan`
+
+=== Locating doctor by specialisation: `search-spec`
+
+Finds doctor(s) whose specialisation(s) contain any of the given keywords. +
+Format: `search-spec KEYWORD`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Doctors matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `search-spec general` +
+Returns any doctor(s) having `general` as one of their specialisation.
+* `search-spec general acupuncture` +
+Returns any doctor(s) having either `general` or `acupuncture` or both.
 
 === Deleting an existing doctor : `delete-doctor`
 
@@ -308,7 +342,7 @@ Format: `delete-doctor INDEX`
 
 ****
 * Deletes the doctor of the specified `INDEX`.
-* The index refers to the identification number (ID) of the doctor.
+* The index refers to the relative ID of the doctor.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -319,6 +353,26 @@ Examples:
 Deletes the doctor with ID of '1' in docX.
 * `delete-doctor 2` +
 Deletes the doctor with ID of '2' in docX.
+
+=== Finding a doctor for appointment : `match-doctor`
+
+Lists the doctors whose specialisations match and are free for an appointment at the stated date and time. +
+Format: `match-doctor s/SPECIALISATION d/DESIRED_DATE_OF_APPT t/DESIRED_START_TIME_OF_APPT`
+
+****
+* Search can only be done with 1 specialisation.
+* `DESIRED_DATE_OF_APPT` is in the format `YYYY-MM-DD`.
+* `DESIRED_START_TIME_OF_APPT` is in the 24-hour format as `HH:mm`.
+****
+
+Examples:
+
+* `match-doctor s/acupuncture d/2019-06-02 t/10:00` +
+Lists the doctors who has the specialisation of `acupuncture` and is free on 2nd June 2019 at 10am.
+* `match-doctor s/general d/2019-10-04 t/15:00` +
+Lists the doctors who has the specialisation of `general` and is free on 4th October 2019 at 3pm.
+
+end::doctorcommands[]
 
 === Adding a medical history: `add-med-hist`
 
@@ -694,15 +748,19 @@ e.g. `delete-patient 3`
 
 DOCTOR COMMANDS
 
-* *Add a new doctor* `add-doctor n/NAME g/GENDER a/AGE p/PHONE_NUMBER s/SPECIALISATION` +
-e.g. `add-doctor n/John Doe g/Male a/21 p/98765432 s/`acupuncture' 'general'`
+* *Add a new doctor* `add-doctor n/NAME g/GENDER y/YEAR_OF_SPECIALISATION p/PHONE_NUMBER s/SPECIALISATION` +
+e.g. `add-doctor n/Aaron Doe g/Male y/3 p/98765432 s/`acupuncture' 'general'`
 * *List existing doctors* : `list-doctor`
-* *Delete doctor* : `delete-doctor INDEX` +
-e.g. `delete-doctor 3`
+* *Select a doctor* : `select-doctor INDEX` +
+e.g. `select-doctor 3`
 * *Edit an existing doctor* : `edit-doctor INDEX [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [s/SPECIALISATION]` +
 e.g. `edit-doctor 2 n/Betsy Crower p/45678901`
-* *Locating a doctor* : `search-patient NAME [PHONE_NUMBER]` +
-e.g. `search-doctor 'general practitioner' 'acupuncture'`
+* *Locating a doctor by name* : `search-doctor KEYWORD` +
+e.g. `search-doctor john`
+* *Locating a doctor by specialisation* : `search-spec KEYWORD` +
+e.g. `search-spec acupuncture`
+* *Finding a doctor for an appointment* : `match-doctor s/SPECIALISATION d/DESIRED_DATE_OF_APPT t/DESIRED_TIME_OF_APPT` +
+e.g. `match-doctor s/acupuncture d/2019-06-02 t/09:00`
 * *Delete an existing doctor* : `delete-doctor INDEX` +
 eg. `delete-doctor 2`
 

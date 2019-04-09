@@ -66,7 +66,7 @@ public class CropCommandTest {
             int wrongX = currWidth + 5;
             int wrongY = currHeight + 10;
             // test if x-coordinate wrong.
-            CropCommand command2 = parser.parse(" " + wrongX + " 0 200 100" );
+            CropCommand command2 = parser.parse(" " + wrongX + " 0 200 100");
             // test if y-coordinate wrong.
             CropCommand command3 = parser.parse(" 0 " + wrongY + " 200 200");
             String expectedMessage = "Invalid crop bounds, bounds for the inputs as follows:\n"

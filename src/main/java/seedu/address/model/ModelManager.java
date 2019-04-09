@@ -395,7 +395,7 @@ public class ModelManager implements Model {
                 // null is always a valid selected person, so we do not need to check that it is valid anymore.
                 return;
             }
-          
+
             boolean wasSelectedPinPersonReplaced = change.wasReplaced()
                 && change.getAddedSize() == change.getRemovedSize()
                 && change.getRemoved().contains(selectedPinPerson.getValue());
@@ -445,7 +445,7 @@ public class ModelManager implements Model {
                 // null is always a valid selected person, so we do not need to check that it is valid anymore.
                 return;
             }
-          
+
             boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
                     && change.getRemoved().contains(selectedArchivedPerson.getValue());
             if (wasSelectedPersonReplaced) {

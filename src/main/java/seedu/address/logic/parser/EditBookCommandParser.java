@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditBookCommand;
@@ -37,6 +38,10 @@ public class EditBookCommandParser implements Parser<EditBookCommand> {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditBookCommand.MESSAGE_USAGE), pe);
+        }
+
+        if (!arePrefixesUnique(argMultimap, PREFIX_NAME, PREFIX_AUTHOR, PREFIX_RATING)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditBookCommand.MESSAGE_USAGE));
         }
 
         EditBookCommand.EditBookDescriptor editBookDescriptor = new EditBookCommand.EditBookDescriptor();
@@ -71,5 +76,14 @@ public class EditBookCommandParser implements Parser<EditBookCommand> {
         }
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
         return Optional.of(ParserUtil.parseTags(tagSet));
+    }
+
+    /**
+     * Returns true if none of the prefixes appear more than once in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesUnique(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> ((argumentMultimap.getNumberOfPrefix(prefix) == 1)
+                || (argumentMultimap.getNumberOfPrefix(prefix) == 0)));
     }
 }

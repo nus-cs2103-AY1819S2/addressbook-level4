@@ -16,7 +16,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_CS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_ALICE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_CS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FANTASY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_TEXTBOOK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -85,7 +84,7 @@ public class EditBookCommandParserTest {
 
         // valid author followed by invalid author. The test case for invalid author followed by valid author
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + AUTHOR_DESC_CS + INVALID_AUTHOR_DESC, Author.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + AUTHOR_DESC_CS + INVALID_AUTHOR_DESC, MESSAGE_INVALID_FORMAT);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Book} being edited,
         // parsing it together with a valid tag results in error
@@ -153,34 +152,25 @@ public class EditBookCommandParserTest {
     }
 
     @Test
-    public void parse_multipleRepeatedFields_acceptsLast() {
+    public void parse_multipleRepeatedFields_failure() {
         Index targetIndex = INDEX_FIRST_BOOK;
         String userInput = targetIndex.getOneBased() + AUTHOR_DESC_ALICE + RATING_DESC_ALICE
                 + TAG_DESC_FANTASY + AUTHOR_DESC_ALICE + RATING_DESC_ALICE + TAG_DESC_FANTASY
                 + AUTHOR_DESC_CS + RATING_DESC_CS + TAG_DESC_TEXTBOOK;
 
-        EditBookDescriptor descriptor = new EditBookDescriptorBuilder().withAuthor(VALID_AUTHOR_CS)
-                .withRating(VALID_RATING_CS).withTags(VALID_TAG_FANTASY, VALID_TAG_TEXTBOOK)
-                .build();
-        EditBookCommand expectedCommand = new EditBookCommand(targetIndex, descriptor);
-
-        assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseFailure(parser, userInput, MESSAGE_INVALID_FORMAT);
     }
 
     @Test
-    public void parse_invalidValueFollowedByValidValue_success() {
+    public void parse_invalidValueFollowedByValidValue_failure() {
         Index targetIndex = INDEX_FIRST_BOOK;
         // no other valid values specified
         String userInput = targetIndex.getOneBased() + INVALID_AUTHOR_DESC + AUTHOR_DESC_CS;
-        EditBookDescriptor descriptor = new EditBookDescriptorBuilder().withAuthor(VALID_AUTHOR_CS).build();
-        EditBookCommand expectedCommand = new EditBookCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseFailure(parser, userInput, MESSAGE_INVALID_FORMAT);
 
         // other valid values specified
         userInput = targetIndex.getOneBased() + RATING_DESC_CS + INVALID_AUTHOR_DESC + AUTHOR_DESC_CS;
-        descriptor = new EditBookDescriptorBuilder().withAuthor(VALID_AUTHOR_CS).withRating(VALID_RATING_CS).build();
-        expectedCommand = new EditBookCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseFailure(parser, userInput, MESSAGE_INVALID_FORMAT);
     }
 
     @Test

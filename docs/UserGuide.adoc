@@ -19,19 +19,19 @@ By: `Team W11-04`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-BookSquirrel is for those who *want to keep record of books they've read*. More importantly, BookSquirrel is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BookSquirrel can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+BookSquirrel is for those who *want to keep a record of books they've read*. More importantly, BookSquirrel is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BookSquirrel can get your book management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `bookSquirrel.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Book Shelf.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Copy the file to the folder you want to use as the home folder for your application.
+.  Double-click the file to start the app. The main window should appear in a few seconds, as shown in the screenshot below.
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+E.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * **`addBook`**`n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale` : adds a book named `Alice in Wonderland` to the record.
@@ -42,17 +42,21 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
+[[Command-Format]]
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/Alice in Wonderland t/fantasy` or as `n/Alice in Wonderland`.
+* The total length of user input should not exceed 500 characters (space included).
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addBook n/NAME`, `NAME` is a parameter which can be used as `addBook n/Book`.
+* Words in `UPPER_CASE` without brackets are the parameters that should only be supplied once e.g. in `addBook n/NAME`, `NAME` is a parameter which should only appear once in user input, `addBook n/John Doe n/Alice` is not allowed.
+* Items in square brackets are optional (can be supplied once or not at all) e.g `n/NAME [a/AUTHOR]` can be used as `n/Alice in Wonderland a/Jack` or as `n/Alice in Wonderland`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/fantasy`, `t/fantasy t/textbook` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME a/AUTHOR`, `a/AUTHOR n/NAME` is also acceptable.
 * While book names, review title and review content can contain any kinds of characters, tag and author names should only contain alpha-numeric characters.
 * Book name and author name should not exceed 50 characters (space included).
 * Review title should not exceed 70 characters (space included).
 * Review content should not exceed 350 characters (space included).
+* Rating should be integer from 0 to 10 inclusive and the input should be 1 or 2 digit number.
 * Tags should not exceed 20 characters (space included).
 ====
 
@@ -66,17 +70,16 @@ Format: `addBook n/BOOKNAME a/author m/RATING(0-10) [t/TAG]…​`
 
 Examples:
 
-* `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale`
-* `addBook n/Structure and Interpretation of Computer Programs a/Hal Abelson Jerry Sussman m/4 t/textbook`
+* `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale` +
+Adds a book named Alice in Wonderland to the record. The book is written by Lewis Carroll, rated 5 stars, and labeled with tags ‘fantasy’ and ‘fairy tale’.
+* `addBook n/Structure and Interpretation of Computer Programs a/Hal Abelson Jerry Sussman m/4 t/textbook` +
+Adds a book named Structure and Interpretation of Computer Programs to the record. The book is written by Hal Abelson Jerry Sussman, rated 4 stars, and labeled with tag ‘textbook’.
 
 ****
 * The book name is case sensitive
 * Two books with same book name are considered same book
 * Trying to add a book which is already present in the book shelf will result in duplicate book error, and the addBook command will fail
-* Book names should only contain no more than 50 characters (space included), and it should not be blank
-* Author names should only contain alphanumeric characters and spaces, and it should not be blank nor longer than 50 characters
-* Tags names should be alphanumeric and contains less than 20 characters
-* Rating should be an integer ranging from 0 to 10 inclusive
+* Take a look at <<Command-Format>> to see the valid format for each parameter
 ****
 
 ==== Editing book entry : `editBook`
@@ -85,19 +88,20 @@ Edits an existing book entry (eg. edit the mark, author or tag). +
 Format: `editBook INDEX [n/BOOKNAME] [a/AUTHOR] [m/RATING] [t/TAG]...`
 
 ****
-* Edits the book at the specified INDEX. The index refers to the index number shown in the displayed book list. The index must be a positive integer 1, 2, 3, …​
+* Edit the book at the specified INDEX. The index refers to the index number shown in the displayed book list. The index must be a positive integer 1, 2, 3, …​
 * Edit a book with new name same as the name of other book which is already existing in book shelf is not allowed
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the book will be removed i.e adding of tags is not cumulative.
-* You can remove all the book’s tags by typing t/ without specifying any tags after it.
+* Take a look at <<Command Format>> to see the valid format for each parameter
+* Existing values will be updated to the input values
+* When editing tags, the existing tags of the book will be removed i.e adding of tags is not cumulative
+* You can remove all the book’s tags by typing t/ without specifying any tags after it
 ****
 
 Examples:
 
-* `edit 1 n/Alice in Wonderland a/some author t/some tag` +
+* `editBook 1 n/Alice in Wonderland a/some author t/some tag` +
 Change the name, author, tag of the first book to Alice in Wonderland, some author, some tag.
-* `edit 2 t/` +
+* `editBook 2 t/` +
 Clear all the existing tags of the second book in the result list.
 
 ==== Deleting a book : `deleteBook`
@@ -119,6 +123,7 @@ Examples:
 Deletes the 1st book in the results of the listBook command.
 // end::book[]
 
+// tag::list[]
 ==== Listing book entries : `listBook`
 
 Shows a list of all book entries, with the specified TAG and RATING. +
@@ -128,7 +133,7 @@ Format: `listBook [n/BOOKNAME] [a/AUTHOR] [t/TAG] [m/RATING]`
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Alice Wonderland` will match `Wonderland Alice`
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Only books match all the search criteria will be returned
+* Only books match at least one criteria of each each kind will be returned. For example, if two book name keywords and two tag keywords are provided, book that matches at least one name keyword and at least one tag keyword will be displayed. Books only has name key word found but no tah key words matching will not be selected.
 * If no search criteria given, the command will give the complete list of the books
 * For book name searching, books matching at least one keyword will be returned. e.g. `Alice` will return `Alice in Wonderland`, `the Westminster Alice`
 * For author name searching, books whose author name matching at least one keyword will be returned. e.g. `James` will return books whose author name is `Henry James`
@@ -141,6 +146,8 @@ Examples:
 * `listBook t/textbook m/5`
 * `listBook n/CS2104T t/textbook`
 * `listBook m/5`
+
+// end::list[]
 
 ==== Sort books command : `sortBook`
 
@@ -165,6 +172,9 @@ sort bookList by book name in ascending order.
 sort bookList by rating of the book in descending order and if they having same rating it will sort them by book name is asc order.
 * `sortBook st/author st/rating o/des o2/asc`
 sort bookList by author in descending order and if they having same rating it will sort them by rating in des order.(o/des overwrite o2/asc)
+* `sortBook st/rating st/author st/name o1/des o3/asc`
+sort bookList by rating in descending order and since the o2 order is not specify, if same rating it will consider author as asc order.
+
 
 // tag::reviews[]
 
@@ -242,6 +252,7 @@ Example:
 
 ==== Viewing help : `help`
 
+Offer a guide of all possible commands. +
 Format: `help`
 
 ==== Listing entered commands : `history`
@@ -298,7 +309,9 @@ Examples:
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
 
-==== Give a summary of all the books read : `summary`
+// tag::summary[]
+
+==== Providing statistics of all the books read : `summary`
 
 Generate a summary of all the books read so far. +
 Format: `summary`
@@ -314,6 +327,8 @@ Examples:
 
 * `summary`
 An example of a summary `You've read 9 books. You prefered books by Erika Leonard, as you've read: Fifty Shades of Grey, Fifty Shades Darker. These book receive a rating of 10 from you: To Kill a Mocking Bird. You preferred books that you labeled as fantasy(including The Hunger Games, Life of Pi).`
+
+// end::summary[]
 
 ==== Clearing all entries : `clear`
 
@@ -340,8 +355,8 @@ There is no need to save manually.
 === Book Commands
 * *AddBook* `addBook n/BOOKNAME a/author m/RATING(0-10) [t/TAG]…` +
 e.g. `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/textbook`
-* *EditBook* : `edit INDEX [n/BOOKNAME] [a/AUTHOR] [m/RATING]...` +
-e.g. `edit 1 n/Alice in Wonderland a/some author`
+* *EditBook* : `editBook INDEX [n/BOOKNAME] [a/AUTHOR] [m/RATING]...` +
+e.g. `editBook 1 n/Alice in Wonderland a/some author`
 * *DeleteBook* : `deleteBook INDEX` +
 e.g. `deleteBook 4`
 * *ListBook* : `listBook [n/NAME] [t/TAG] [m/RATING] [a/Author]` +

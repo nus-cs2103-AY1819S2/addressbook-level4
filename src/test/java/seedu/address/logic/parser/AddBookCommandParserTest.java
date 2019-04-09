@@ -48,18 +48,6 @@ public class AddBookCommandParserTest {
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_CS + AUTHOR_DESC_CS
                 + RATING_DESC_CS + TAG_DESC_TEXTBOOK, new AddBookCommand(expectedBook));
 
-        // multiple book names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_ALICE + NAME_DESC_CS + AUTHOR_DESC_CS + RATING_DESC_CS
-                + TAG_DESC_TEXTBOOK, new AddBookCommand(expectedBook));
-
-        // multiple author - last author accepted
-        assertParseSuccess(parser, NAME_DESC_CS + AUTHOR_DESC_ALICE + AUTHOR_DESC_CS + RATING_DESC_CS
-                + TAG_DESC_TEXTBOOK, new AddBookCommand(expectedBook));
-
-        // multiple ratings - last rating accepted
-        assertParseSuccess(parser, NAME_DESC_CS + AUTHOR_DESC_CS + RATING_DESC_ALICE + RATING_DESC_CS
-                + TAG_DESC_TEXTBOOK, new AddBookCommand(expectedBook));
-
         // multiple tags - all accepted
         Book expectedBookMultipleTags = new BookBuilder(CS).withTags(VALID_TAG_TEXTBOOK, VALID_TAG_INTERESTING)
                 .build();
@@ -73,6 +61,24 @@ public class AddBookCommandParserTest {
         Book expectedBook = new BookBuilder(ALI).withTags().build();
         assertParseSuccess(parser, NAME_DESC_ALICE + AUTHOR_DESC_ALICE + RATING_DESC_ALICE,
                 new AddBookCommand(expectedBook));
+    }
+
+    @Test
+    public void parse_multipleFieldsPresent_failure() {
+        Book expectedBook = new BookBuilder(CS).withTags(VALID_TAG_TEXTBOOK).build();
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddBookCommand.MESSAGE_USAGE);
+
+        // multiple book names
+        assertParseFailure(parser, NAME_DESC_ALICE + NAME_DESC_CS + AUTHOR_DESC_CS + RATING_DESC_CS
+                + TAG_DESC_TEXTBOOK, expectedMessage);
+
+        // multiple author
+        assertParseFailure(parser, NAME_DESC_CS + AUTHOR_DESC_ALICE + AUTHOR_DESC_CS + RATING_DESC_CS
+                + TAG_DESC_TEXTBOOK, expectedMessage);
+
+        // multiple ratings
+        assertParseFailure(parser, NAME_DESC_CS + AUTHOR_DESC_CS + RATING_DESC_ALICE + RATING_DESC_CS
+                + TAG_DESC_TEXTBOOK, expectedMessage);
     }
 
     @Test

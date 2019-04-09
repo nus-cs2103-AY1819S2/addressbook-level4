@@ -52,7 +52,7 @@ public class GuiTestAssert {
 
         assertEquals(expectedBook.getBookName().fullName, actualCard.getName());
         assertEquals(expectedBook.getAuthor().fullName, actualCard.getAuthor());
-        assertEquals(expectedBook.getRating().value, actualCard.getRating());
+        assertEquals("Rating:  " + expectedBook.getRating().value, actualCard.getRating());
         assertTagsEqual(expectedBook, actualCard);
     }
 

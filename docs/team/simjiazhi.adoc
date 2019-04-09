@@ -2,6 +2,8 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:note-caption: :information_source:
+:warning-caption: :warning:
 
 My name is Jia Zhi and I am an undergraduate from National University of Singapore, School of Computing (SOC). These are some of
 the software development projects i am involved in during my tenure in SOC.

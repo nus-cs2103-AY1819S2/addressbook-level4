@@ -1203,27 +1203,28 @@ In order for the calculated statistics pertaining to consultation finances to be
 entered your clinic's consultation fee beforehand. See: <<setconsultfee>>. +
 
 {empty} +
-*Format:* `statistics FROM_MONTHYEAR [TO_MONTHYEAR]` +
+*Format:* `statistics FROM_MMYYYY [TO_MMYYYY]` +
 
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `stats` +
 
 [NOTE]
-If `TO_MONTHYEAR` is not specified, it will be defaulted to be equal to `FROM_MONTHYEAR`. +
+If `TO_MMYYYY` is not specified, it will be defaulted to be equal to `FROM_MMYYYY`. +
 [NOTE]
 When there is a tie between the most commonly prescribed medicine, or most commonly diagnosed symptoms, all of them
 will be listed. +
 
 *Examples and Results:*
 
-* `statistics 0119` +
+* `statistics 012019` +
 View the statistics for January 2019. +
-* `stats 0119 0419` +
+* `stats 012019 042019` +
 View the statistics from January 2019 to April 2019. +
 In the image below, the *display* area will return the statistics of the queried range of months. +
-1. The result will show the range of months that were queried, followed by the 6 items mentioned earlier in order.
-2. When there are more than one most common symptom diagnosed, QuickDocs will list them all out.
 
-.Result example for command `statistics 0119 0419`
+. The result will show the range of months that were queried, followed by the 6 items mentioned earlier in order.
+. When there are more than one most common symptom diagnosed, QuickDocs will list them all out.
+
+.Result example for command `statistics 012019 042019`
 image::statistics_sample.png[width="600"]
 '''
 

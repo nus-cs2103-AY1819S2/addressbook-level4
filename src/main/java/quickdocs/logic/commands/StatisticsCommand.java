@@ -19,8 +19,8 @@ public class StatisticsCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": displays the statistics from the given date range.\n"
             + "Dates cannot be before Jan 2019, and the second date must be after the first date, upto current month."
-            + "Parameters: MMYY [MMYY]\n"
-            + "Example: " + COMMAND_WORD + " 0119";
+            + "Parameters: MMYYYY [MMYYYY]\n"
+            + "Example: " + COMMAND_WORD + " 012019";
 
     private final YearMonth fromYearMonth;
     private final YearMonth toYearMonth;

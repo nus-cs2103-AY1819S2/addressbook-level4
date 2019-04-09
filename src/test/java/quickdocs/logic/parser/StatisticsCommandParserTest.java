@@ -14,17 +14,35 @@ class StatisticsCommandParserTest {
 
     private StatisticsCommandParser parser = new StatisticsCommandParser();
     private YearMonth from = YearMonth.of(2019, 1);
-    private YearMonth to = YearMonth.of(2019, 1);
+    private YearMonth to = YearMonth.of(2019, 2);
 
     @Test
-    public void parse_validArgs_returnsStatisticsCommand() {
-        assertParseSuccess(parser, "0119",
+    public void parse_validFromArgs_returnsStatisticsCommand() {
+        assertParseSuccess(parser, "012019",
+                new StatisticsCommand(from, from));
+    }
+
+    @Test
+    public void parse_validFromToArgs_returnsStatisticsCommand() {
+        assertParseSuccess(parser, "012019 022019",
                 new StatisticsCommand(from, to));
     }
 
     @Test
     public void parse_emptyArgs_throwsParseException() {
         assertParseFailure(parser, "",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatisticsCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidFromArgs_throwsParseException() {
+        assertParseFailure(parser, "122018",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatisticsCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidFromToArgs_throwsParseException() {
+        assertParseFailure(parser, "022019 012019",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatisticsCommand.MESSAGE_USAGE));
     }
 }

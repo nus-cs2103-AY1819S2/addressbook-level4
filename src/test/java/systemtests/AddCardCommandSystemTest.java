@@ -169,7 +169,7 @@ public class AddCardCommandSystemTest extends TopDeckSystemTest {
         updateCardsView(model);
         cardsView = (CardsView) model.getViewState();
 
-        String expectedResultMessage = String.format(AddCardCommand.MESSAGE_SUCCESS, toAdd);
+        String expectedResultMessage = String.format(AddCardCommand.MESSAGE_SUCCESS, toAdd.toString());
         assertCommandSuccess(command, model, expectedResultMessage);
 
         return cardsView;

@@ -105,6 +105,25 @@ Examples:
 * `add q/What is the powerhouse of the cell? a/mitochondria i/cell wall i/nucleus h/biology`
 * `add q/The Hippocrates Oath states to Do no ___? a/harm h/4 letters h/Rhymes with farm` +
 Creates a card with `hint` "Rhymes with farm".
+
+**Adding Fill-In-The-Blanks style card** `Coming in v2.0`
+
+Allows the user to add a card with blanks for multiple answers to be given during a test session. Questions for such cards would include underscores "_", each signifying a blank to be filled with an answer.
+
+Format: ``add q/QUESTION_WITH_BLANKS a/ANSWER_1/ANSWER_2/ANSWER_3...`
+
+Example:
+
+`add q/The quick brown _ jumps over the lazy _. a/fox/dog`
+
+**Adding images to cards** `Coming in v2.0`
+
+Allows the user to add images to cards to supplement the text content of the card.
+
+Format: `add q/QUESTION a/ANSWER [img/IMAGE_FILE_PATH]...`
+
+Example:
+`add q/Hello? a/World img/diagram.jpg`
 // end::add[]
 
 // tag::edit[]

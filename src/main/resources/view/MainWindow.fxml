@@ -50,32 +50,36 @@
         </StackPane>
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-               <GridPane id="listPane" fx:id="listPane" SplitPane.resizableWithParent="false">
-                 <Label fx:id="pinTitle" styleClass="list_title_label" GridPane.halignment="CENTER" text=" Contacts">
-                   <graphic>
-                     <ImageView fitWidth="20" preserveRatio="true">
-                       <image>
-                         <Image url="@/images/pin-icon.png"/>
-                       </image>
-                     </ImageView>
-                   </graphic>
-                 </Label>
-                 <VBox fx:id="pinList" minHeight="105" maxHeight="150" minWidth="340" prefWidth="340"
-                       GridPane.rowIndex="1">
-                   <padding>
-                     <Insets top="5" right="10" bottom="5" left="10" />
-                   </padding>
-                   <StackPane fx:id="pinListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                 </VBox>
-                 <Label fx:id="displayedList" styleClass="list_title_label" GridPane.halignment="CENTER"
-                        GridPane.rowIndex="2"/>
-                 <VBox fx:id="personList" minWidth="340" prefWidth="340" GridPane.vgrow="ALWAYS" GridPane.rowIndex="3">
-                  <padding>
-                    <Insets top="5" right="10" bottom="10" left="10" />
-                  </padding>
-                  <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                </VBox>
-               </GridPane>
+          <SplitPane id="listPanel" fx:id="listPanel" orientation="VERTICAL" dividerPositions="0.3"
+                     SplitPane.resizableWithParent="false">
+            <GridPane id="pinListPane" fx:id="pinListPane" prefHeight="150" SplitPane.resizableWithParent="false">
+              <Label fx:id="pinTitle" styleClass="list_title_label" GridPane.halignment="CENTER" text=" Contacts">
+                <graphic>
+                  <ImageView fitWidth="20" preserveRatio="true">
+                    <image>
+                      <Image url="@/images/pin-icon.png"/>
+                    </image>
+                  </ImageView>
+                </graphic>
+              </Label>
+              <VBox fx:id="pinList" minWidth="340" prefWidth="340" GridPane.vgrow="ALWAYS"
+                    GridPane.rowIndex="1">
+                <padding>
+                  <Insets top="5" right="10" bottom="10" left="10" />
+                </padding>
+                <StackPane fx:id="pinListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+              </VBox>
+            </GridPane>
+            <GridPane id="listPane" fx:id="listPane" SplitPane.resizableWithParent="false">
+              <Label fx:id="displayedList" styleClass="list_title_label" GridPane.halignment="CENTER"/>
+              <VBox fx:id="personList" minWidth="340" prefWidth="340" GridPane.vgrow="ALWAYS" GridPane.rowIndex="1">
+                <padding>
+                  <Insets top="5" right="10" bottom="10" left="10" />
+                </padding>
+                <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+              </VBox>
+            </GridPane>
+          </SplitPane>
 
           <StackPane fx:id="browserPlaceholder" prefWidth="340" >
             <padding>

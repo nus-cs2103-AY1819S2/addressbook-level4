@@ -14,8 +14,13 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is an Address Book application intended for Real Estate Agents.
-* It is a desktop-based application with a GUI, but most of the user interactions happen using a CLI (Command Line Interface).
+Are you a *Real Estate Agent* with a huge amount of different kinds of clients that you have to manage? Are you in need of a new desktop-based app with contact management functions just to simplify your life a bit? Are you fairly comfortable with interacting with a CLI (Command Line Interface)?
+
+Then you've come to the right place!
+
+*The Real App* is a desktop-based contact management application meant just for you! It comes with a GUI, but most of the user interactions happen using a CLI.
+
+Interested? Click on the <<UserGuide#, User Guide>> to find out more!
 
 == Site Map
 

@@ -314,7 +314,7 @@ Adds a medical history +
 Format: `add-med-hist pid/PATIENT_ID did/DOCTOR_ID d/DATE sw/SHORT_WRITEUP`
 
 ****
-* To veiw the list of medical histories, Execute "list-med-hist" first.
+* To veiw the list of medical histories, execute "list-med-hist" first.
 * Medical history with attending patient, attending doctor, date and write up form doctor will be added to docX.
 * PATIENT_ID and DOCTOR_ID must be existing id in patient and doctor list.
 * Date of visit must be a valid date in calender and must be a past day or today. Cannot be a day in the future.
@@ -370,6 +370,8 @@ Sort medical history by date in ascending order or descending order. +
 Format: `sort-med-hist [ASC/DESC]`
 
 ****
+* To view the sorted list, execute "list-med-hist" command.
+* When new medical history is added to docX, it will be added to the end of list. You can sort again to make the list in order.
 * If "ASC" or "DESC" is not specified in the command, the default order will be descending order(DESC). Medical histories will be listed from newest date to oldest date.
 * If "DESC" is specified, the order will be descending order. Medical histories will be listed from newest date to oldest date.
 * If "ASC" is specified, the order will be ascending order. Medical histories will be listed from oldest date or newest date.

@@ -15,22 +15,20 @@ public class GenerateCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generates a chart based "
             + "on Country and Rating.\n"
             + "Example: " + COMMAND_WORD;
-    public static final String MESSAGE_SUCCESS_EMPTY = "List is empty, unable to generate any charts.";
+    public static final String MESSAGE_EMPTY = "List is empty, unable to generate any charts.";
     public static final String MESSAGE_SUCCESS = "Chart has been successfully generated!";
-    public static final String MESSAGE_FAILURE = "Unable to generate any charts!";
 
     @Override
+    // tag::execute[]
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.setChartDisplayed(true);
         model.commitTravelBuddy();
-
         if (model.getFilteredPlaceList().isEmpty()) {
-            return new CommandResult(MESSAGE_SUCCESS_EMPTY);
-        } else if (!model.getFilteredPlaceList().isEmpty()) {
-            return new CommandResult(MESSAGE_SUCCESS);
+            return new CommandResult(MESSAGE_EMPTY);
         } else {
-            return new CommandResult(MESSAGE_FAILURE);
+            return new CommandResult(MESSAGE_SUCCESS);
         }
     }
+    // end::execute[]
 }

@@ -14,7 +14,7 @@ import seedu.travel.model.ChartBook;
 import seedu.travel.model.place.Place;
 
 /**
- * Panel containing the list of places.
+ * Panel containing the list of charts.
  */
 public class ChartListPanel extends UiPart<Region> {
     private static final String FXML = "ChartListPanel.fxml";

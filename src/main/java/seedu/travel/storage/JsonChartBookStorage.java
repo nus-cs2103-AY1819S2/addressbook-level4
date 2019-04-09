@@ -151,6 +151,7 @@ public class JsonChartBookStorage implements ChartBookStorage {
      * @param filePath location of the data. Cannot be null.
      */
     @Override
+    // tag::saveCountryChart[]
     public void saveCountryChart(ReadOnlyCountryChart countryChart, Path filePath) {
         requireAllNonNull(countryChart, filePath);
 
@@ -163,6 +164,7 @@ public class JsonChartBookStorage implements ChartBookStorage {
             logger.warning(ioe.getMessage());
         }
     }
+    // end::saveCountryChart[]
 
     @Override
     public void saveRatingChart(ReadOnlyRatingChart ratingChart) {

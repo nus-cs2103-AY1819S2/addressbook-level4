@@ -453,7 +453,7 @@ Given below is a list of preconditions that must be met for the `select` command
 * The index refers to the index number to the left of each place name, ie. "4. Jalan Kayu"
 * The index *must be a positive integer* `1, 2, 3, ...`
 
-The image below shows the result of using `select 3` command. The place with an index of 2 is highlighted in a red
+<<selectFigure>> shows the result of using `select 3` command. The place with an index of 2 is highlighted in a red
 box and additional information is shown on the right side of the GUI.
 
 [[selectFigure]]
@@ -485,7 +485,7 @@ Selects the 1st place in the results of the `search` command.
 
 *Format:* :: `history`
 
-The image below shows the result of running the `history` command.
+<<historyFigure>> shows the result of running the `history` command.
 
 [[historyFigure]]
 [reftext="Figure 4.14.1"]
@@ -572,7 +572,7 @@ Reapplies the `clear` command +
 
 // tag::generate[]
 === Generating charts: `generate`
-****
+
 *Description:* ::
 The `generate` command generates charts based on the list of places in TravelBuddy.
 
@@ -580,7 +580,6 @@ The `generate` command generates charts based on the list of places in TravelBud
 * The number of places visited for each country, as seen in <<chart1Figure>>
 * The number of places visited for each rating category, as seen in <<chart2Figure>>
 * The number of places visited for each year, as seen in <<chart3Figure>>
-****
 
 [[chart1Figure]]
 [reftext="Figure 4.17.1"]

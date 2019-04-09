@@ -78,7 +78,7 @@ All commands have aliases, which can be used to execute the same command with fe
 {nbsp} +
 
 [[help,Help]]
-=== Viewing help : `help` [coming in v1.4]
+=== Viewing help : `help`
 
 Whenever you want to find out in-depth explanation on how to execute a specific command, you can always refer to this
 user guide by entering the `help` command.
@@ -304,6 +304,11 @@ consultation session on QuickDocs.
 Consultation is started after the NRIC of the patient is provided, you can revisit the <<listpat>> section to help identify the NRIC
 of specific patients +
 
+[NOTE]
+QuickDocs only permit one ongoing consultation session at any given time. The
+<<diagnose>> and <<prescribe>> steps must be completed before a consultation can end. Otherwise
+you can always use the <<abort>> command to exit an ongoing session.
+
 {sp} +
 *Format:* `consult r/NRIC` +
 
@@ -326,6 +331,12 @@ image::consult_after.png[width="600"]
 A text indicating that the consultation session have started for the particular patient will also
 appear at the bottom right corner of QuickDocs, so that you will be aware that a current consultation session is ongoing even after
 subsequent commands.
+
+{sp}+
+[NOTE]
+While a consultation session is ongoing, It does not mean that you are limited to just entering the consultation commands. You can still enter command that are beyond the consultation module (i.e.
+ listing patients, checking the medicine inventory, etc).
+
 
 '''
 
@@ -389,6 +400,12 @@ A minimum of one medicine and one quantity is required to record a prescription 
 [NOTE]
 This command requires you to have a consultation session already active. See: <<consult>>.
 
+[NOTE]
+The medicine to be prescribed must be present in the inventory and its quantity must be sufficient for
+the assignment during the presciption stage. +
+Check out the <<addmed>> section for information on adding medicine to the inventory,
+and<<listmed>> section on the steps to check a medicine's amount.
+
 {sp} +
 *Format:* `prescribe m/MEDICINE [m/MEDICINE] ... q/QUANTITY [q/QUANTITY]` +
 or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `prescribe m/MEDICINE q/QUANTITY [m/MEDICINE] [q/QUANTITY] ...` +
@@ -422,7 +439,6 @@ No further changes to the diagnosis and prescription details can be made after t
 
 {sp} +
 *Format:* `endconsult` +
-
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `ec`
 
 {sp} +
@@ -431,6 +447,26 @@ Once you entered the `endconsult` command, a message to indicate the end of the 
 
 .Results of an endconsult command
 image::endconsult.png[width="600"]
+
+'''
+
+[[abort, Abort consultation]]
+==== Aborting a consultation session: `abort`
+
+If you started a consultation session by mistake, or the patient does not seemed to require a consultation,
+you can always abort the consultation session without providing the diagnosis and prescription details.
+
+{sp} +
+*Format:* `abort` +
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `ab`
+
+{sp} +
+*Result:*
+When you enter the `abort` command, a message is also shown on the main display area to indicate that the current session is aborted.
+The label for the ongoing consultation session is also removed.
+
+.Results of an abort command
+image::abortconsult.png[width="600"]
 
 '''
 
@@ -511,15 +547,17 @@ The new directory's name should not contain white spaces or "\" characters.
 
 *Example:* +
 
-`adddirec root\fever oral` +
+* `adddirec root fever` followed by `adddirec root\fever oral` +
 
 *Result:* +
+
+These commands add a new directory called fever to root, and then add another new directory called oral under fever. +
+
+There will be success messages confirming every successful addition of directories. +
 
 [[adddirec_after]]
 .Result of sample add directory command
 image::adddirec_after.png[width="600"]
-
-There will be success messages confirming every successful addition of directories.
 
 - - -
 
@@ -745,7 +783,7 @@ The price you set will be used in your prescriptions.
 [TIP]
 Similar to buymed command, you can either provide the full path to your interested medicine or the name of it only.
 
-*Format:* `setprice [PATH_OF_MEDICNE] [PRICE]` +
+*Format:* `setprice [PATH_OF_MEDICINE] [PRICE]` +
 
 or `setprice [NAME_OF_MEDICINE] [PRICE]`
 
@@ -1244,6 +1282,7 @@ This is the summary of all the possible commands for QuickDocs. For detailed exp
 * *<<diagnose>>* : `diagnose` +
 * *<<prescribe>>* : `prescribe` +
 * *<<endconsult>>* : `endconsult` +
+* *<<abort>>* : `abort` +
 * *<<listconsult>>* : `listconsult` +
 
 *Medicine Management* +
@@ -1253,7 +1292,7 @@ This is the summary of all the possible commands for QuickDocs. For detailed exp
 * *<<listmed>>* : `listmed` +
 * *<<alarm>>* : `alarm` +
 * *<<buymed>>* : `buymed` +
-* *<<setprice>>* : `setptice` +
+* *<<setprice>>* : `setprice` +
 
 *Appointment and Reminders* +
 

@@ -12,6 +12,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.ui.HelpWindow;
 import seedu.address.ui.ListElementPointer;
 import seedu.address.ui.ReminderListPanel;
 
@@ -44,6 +45,8 @@ public class RootLayoutController {
     @FXML
     private Label currentSession;
 
+    private HelpWindow helpWindow;
+
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
@@ -52,6 +55,7 @@ public class RootLayoutController {
         this.logicManager = logicManager;
         this.history = this.logicManager.getHistory();
         this.historySnapshot = new ListElementPointer(history);
+        this.helpWindow = new HelpWindow();
     }
 
     /**
@@ -82,14 +86,20 @@ public class RootLayoutController {
                     handleExit();
                 }
 
+                // handling help
+                if (result.isShowHelp()) {
+                    handleHelp();
+                }
+
                 // consultation session handling
                 indicateConsultation(result.getFeedbackToUser());
                 endConsultation(result.getFeedbackToUser());
 
                 display.appendText(">" + userInput.getText() + "\n");
+                display.appendText("---------------------------------------------------------------------------\n");
                 display.appendText(result.getFeedbackToUser());
                 display.appendText("\n");
-
+                display.appendText("---------------------------------------------------------------------------\n");
 
                 // move display to the end to show result of last entered command
                 display.selectPositionCaret(display.getText().length());
@@ -143,6 +153,7 @@ public class RootLayoutController {
 
 
     // history handling
+
     /**
      * Initializes the history snapshot.
      */
@@ -192,6 +203,7 @@ public class RootLayoutController {
     /**
      * First, check whether the command result is from the consultation command
      * if it is, make label display the ongoing session
+     *
      * @param checkConsultation can be any command result from the various commands
      */
     private void indicateConsultation(String checkConsultation) {
@@ -206,11 +218,12 @@ public class RootLayoutController {
     /**
      * If command result indicates that consultation has ended
      * make label disappear
+     *
      * @param checkConsultation
      */
     private void endConsultation(String checkConsultation) {
-        if (checkConsultation.contains("Consultation")
-                && checkConsultation.contains("ended")) {
+        if ((checkConsultation.contains("Consultation")
+                && (checkConsultation.contains("ended") || checkConsultation.contains("aborted")))) {
             currentSession.setText("");
         }
     }
@@ -218,4 +231,17 @@ public class RootLayoutController {
     public void handleExit() {
         primaryStage.close();
     }
+
+    /**
+     * Opens the help window or focuses on it if it's already opened.
+     */
+    public void handleHelp() {
+        if (!helpWindow.isShowing()) {
+            helpWindow.show();
+        } else {
+            helpWindow.focus();
+        }
+    }
+
+
 }

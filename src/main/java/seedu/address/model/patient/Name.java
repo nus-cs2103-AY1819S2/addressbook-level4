@@ -37,5 +37,7 @@ public class Name {
                 && name.equals(((Name) other).getName())); // state check
     }
 
-
+    public static boolean isValidName(String string) {
+        return string.matches(REGEX_NAME);
+    }
 }

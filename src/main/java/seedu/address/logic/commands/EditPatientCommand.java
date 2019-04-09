@@ -26,8 +26,7 @@ import seedu.address.model.patient.PatientEditedFields;
 import seedu.address.model.tag.Tag;
 
 /**
- * Logic will execute this command to edit a patient's fields
- * based on what is entered by user
+ * Edits a current patient record's details
  */
 public class EditPatientCommand extends Command {
 
@@ -47,6 +46,7 @@ public class EditPatientCommand extends Command {
             + PREFIX_CONTACT + "NEW CONTACT "
             + PREFIX_GENDER + "NEW GENDER "
             + "[" + PREFIX_TAG + "NEW TAG]...\n"
+            + "Note: You only need to add the parameters for the details you want to edit.\n"
             + "Example: " + COMMAND_WORD + " S9876543A "
             + PREFIX_NAME + "John Doe "
             + PREFIX_NRIC + "S9876542C "
@@ -57,6 +57,8 @@ public class EditPatientCommand extends Command {
             + PREFIX_TAG + "highbloodpressure\n";
 
     private Nric toEdit;
+
+    // edited fields will only capture the details to be edited
     private PatientEditedFields editedFields;
 
     public EditPatientCommand(Nric toEdit, PatientEditedFields editedFields) {
@@ -70,10 +72,6 @@ public class EditPatientCommand extends Command {
             throw new CommandException(NO_PATIENTS);
         }
 
-        //if (!model.checkValidIndex(index)) {
-        //    throw new CommandException("Invalid index for editing");
-        //}
-
         int index = model.getIndexByNric(toEdit);
         if (index == -1) {
             throw new CommandException(String.format(NO_PATIENT_FOUND, toEdit.toString()));
@@ -82,6 +80,7 @@ public class EditPatientCommand extends Command {
         Patient patient = model.getPatientAtIndex(index);
         Patient editedPatient = createEditedPatient(patient, editedFields);
 
+        // check if edited patient will have a conflicting nric with another patient record
         if (model.checkDuplicatePatientAfterEdit(index, editedPatient)) {
             throw new CommandException(CONFLICTING_NRIC);
         }

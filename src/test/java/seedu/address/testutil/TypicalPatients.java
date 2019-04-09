@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
 import seedu.address.model.QuickDocs;
 import seedu.address.model.patient.Address;
 import seedu.address.model.patient.Contact;
@@ -77,17 +76,6 @@ public class TypicalPatients {
             new Dob("1985-02-02"),
             new ArrayList<Tag>(Arrays.asList(new Tag("Gout")))
     );
-
-    /**
-     * Returns an {@code AddressBook} with all the typical persons.
-     */
-    public static AddressBook getTypicalPatientAddressBook() {
-        AddressBook ab = new AddressBook();
-        for (Patient patient : getTypicalPatients()) {
-            ab.addPatient(patient);
-        }
-        return ab;
-    }
 
     /**
      * Returns an {@code QuickDocs} with all the typical persons.

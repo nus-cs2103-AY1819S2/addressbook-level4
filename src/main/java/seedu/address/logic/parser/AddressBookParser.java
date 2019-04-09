@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.AbortConsultationCommand;
 import seedu.address.logic.commands.AddAppCommand;
 import seedu.address.logic.commands.AddDirectoryCommand;
 import seedu.address.logic.commands.AddMedicineCommand;
@@ -15,7 +16,6 @@ import seedu.address.logic.commands.AlarmCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ConsultationCommand;
 import seedu.address.logic.commands.DeleteAppCommand;
-import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeletePatientCommand;
 import seedu.address.logic.commands.DeleteRemCommand;
 import seedu.address.logic.commands.DiagnosePatientCommand;
@@ -26,13 +26,11 @@ import seedu.address.logic.commands.FreeAppCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListAppCommand;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListConsultationCommand;
 import seedu.address.logic.commands.ListPatientCommand;
 import seedu.address.logic.commands.ListRemCommand;
 import seedu.address.logic.commands.PrescriptionCommand;
 import seedu.address.logic.commands.PurchaseMedicineCommand;
-import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetConsultationFeeCommand;
 import seedu.address.logic.commands.SetPriceCommand;
 import seedu.address.logic.commands.StatisticsCommand;
@@ -65,15 +63,6 @@ public class AddressBookParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-
-        case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
@@ -178,6 +167,10 @@ public class AddressBookParser {
         case DeletePatientCommand.COMMAND_WORD:
         case DeletePatientCommand.COMMAND_ALIAS:
             return new DeletePatientParser().parse(arguments);
+
+        case AbortConsultationCommand.COMMAND_WORD:
+        case AbortConsultationCommand.COMMAND_ALIAS:
+            return new AbortConsultationCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

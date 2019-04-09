@@ -21,7 +21,6 @@ import seedu.address.model.medicine.Directory;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
-import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.Statistics;
 import seedu.address.model.reminder.Reminder;
@@ -31,10 +30,6 @@ import seedu.address.model.tag.Tag;
  * The API of the Model component.
  */
 public interface Model {
-    /**
-     * {@code Predicate} that always evaluate to true
-     */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -66,45 +61,6 @@ public interface Model {
      */
     void setAddressBookFilePath(Path addressBookFilePath);
 
-    /**
-     * Replaces address book data with the data in {@code addressBook}.
-     */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
-
-    /**
-     * Returns the AddressBook
-     */
-    ReadOnlyAddressBook getAddressBook();
-
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-    boolean hasPerson(Person person);
-
-    /**
-     * Deletes the given person.
-     * The person must exist in the address book.
-     */
-    void deletePerson(Person target);
-
-    /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
-     */
-    void addPerson(Person person);
-
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    void setPerson(Person target, Person editedPerson);
-
-    /**
-     * Returns an unmodifiable view of the filtered person list
-     */
-    ObservableList<Person> getFilteredPersonList();
-
     void updateFilteredReminderList(Predicate<Reminder> predicate);
 
     ObservableList<Reminder> getFilteredReminderList();
@@ -112,41 +68,6 @@ public interface Model {
     ReadOnlyProperty<Reminder> selectedReminderProperty();
 
     void setSelectedReminder(Reminder reminder);
-
-
-    /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     *
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonList(Predicate<Person> predicate);
-
-    /**
-     * Saves the current address book state for undo/redo.
-     */
-    void commitAddressBook();
-
-    /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
-     */
-    ReadOnlyProperty<Person> selectedPersonProperty();
-
-    /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
-     */
-    Person getSelectedPerson();
-
-    /**
-     * Sets the selected person in the filtered person list.
-     */
-    void setSelectedPerson(Person person);
-
-    /**
-     * Removes the given {@code tag} from all {@code Person}s.
-     */
-    void deleteTag(Tag tag);
 
     //===========Quickdocs methods=====================================
     void initQuickDocsSampleData();
@@ -227,6 +148,8 @@ public interface Model {
     ArrayList<Consultation> listConsultation(String value);
 
     Consultation listConsultation(int index);
+
+    void abortConsultation();
 
     //===========Appointment module operations========================
     boolean hasTimeConflicts(Appointment app);

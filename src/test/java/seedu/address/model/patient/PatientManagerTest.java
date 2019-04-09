@@ -165,6 +165,12 @@ public class PatientManagerTest {
                 + " " + dob
                 + "\n"
         );
+        sb.append(3 + ") " + name2
+                + " " + nric2
+                + " " + gender2
+                + " " + dob2
+                + "\n"
+        );
         sb.append("\n");
 
         assertEquals(patientManager.findPatientsByName("Pe"), sb.toString());
@@ -249,9 +255,16 @@ public class PatientManagerTest {
         tagList3.add(new Tag("Highbloodpressure"));
         Patient patient3 = new Patient(name3, nric3, email, address, contact, gender, dob, tagList3);
 
+        Name name4 = new Name("Pamela Lee");
+        Nric nric4 = new Nric("S9123456D");
+        ArrayList<Tag> tagList4 = new ArrayList<Tag>();
+        tagList4.add(new Tag("Hepatitis"));
+        Patient patient4 = new Patient(name4, nric4, email, address, contact, gender, dob, tagList4);
+
         patientManager.addPatient(patient1);
         patientManager.addPatient(patient2);
         patientManager.addPatient(patient3);
+        patientManager.addPatient(patient4);
 
         StringBuilder sb = new StringBuilder();
         sb.append(1 + ") " + name
@@ -272,6 +285,9 @@ public class PatientManagerTest {
         Tag otherTag = new Tag("Highcholesterol");
         assertEquals(patientManager.findPatientsByTag(tag), sb.toString());
         assertEquals(patientManager.findPatientsByTag(otherTag), "No patient record found");
+
+        Tag singleTag = new Tag("Hepatitis");
+        assertEquals(patientManager.findPatientsByTag(singleTag), patient4.toString());
     }
 
     @Test
@@ -296,5 +312,30 @@ public class PatientManagerTest {
         // patient deleted
         patientManager.deletePatientByNric("S9123456A");
         assertTrue(patientManager.getPatientList().size() == 0);
+    }
+
+    @Test
+    public void equalTest() {
+
+        assertTrue(patientManager.equals(patientManager));
+
+        assertFalse(patientManager.equals(new Object()));
+
+        PatientManager p2 = new PatientManager();
+        Name name = new Name("Peter Tan");
+        Nric nric = new Nric("S9123456A");
+        Email email = new Email("ptan@gmail.com");
+        Address address = new Address("1 Simei Road");
+        Contact contact = new Contact("91111111");
+        Gender gender = new Gender("M");
+        Dob dob = new Dob("1991-01-01");
+        ArrayList<Tag> tagList = new ArrayList<Tag>();
+        Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
+
+        p2.addPatient(patient1);
+
+        assertTrue(patientManager.equals(p2));
+
+
     }
 }

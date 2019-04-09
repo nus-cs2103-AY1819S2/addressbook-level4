@@ -35,4 +35,8 @@ public class Contact {
                 || (other instanceof Contact // instanceof handles nulls
                 && contact.equals(((Contact) other).getContact())); // state check
     }
+
+    public static boolean isValidContact(String string) {
+        return string.matches(REGEX_CONTACT);
+    }
 }

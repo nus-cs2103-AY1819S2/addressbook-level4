@@ -16,7 +16,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.QuickDocs;
@@ -25,7 +24,7 @@ import seedu.address.model.reminder.ReminderWithinDatesPredicate;
 
 public class ListRemCommandTest {
     private QuickDocs quickDocs = getTypicalRemindersQuickDocs();
-    private Model model = new ModelManager(new AddressBook(), quickDocs, new UserPrefs());
+    private Model model = new ModelManager(quickDocs, new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
     private LocalDate testStart = LocalDate.parse("2019-10-24");
     private LocalDate testEnd = LocalDate.parse("2019-10-26");
@@ -38,7 +37,7 @@ public class ListRemCommandTest {
         ListRemCommand command = new ListRemCommand(testStart, testEnd);
 
         ReminderWithinDatesPredicate predicate = new ReminderWithinDatesPredicate(testStart, testEnd);
-        Model expectedModel = new ModelManager(new AddressBook(), getTypicalRemindersQuickDocs(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalRemindersQuickDocs(), new UserPrefs());
         expectedModel.updateFilteredReminderList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredReminderList());
@@ -50,7 +49,7 @@ public class ListRemCommandTest {
         ListRemCommand command = new ListRemCommand(testStart, testEnd);
 
         ReminderWithinDatesPredicate predicate = new ReminderWithinDatesPredicate(testStart, testEnd);
-        Model expectedModel = new ModelManager(new AddressBook(), getTypicalRemindersQuickDocs(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalRemindersQuickDocs(), new UserPrefs());
         expectedModel.updateFilteredReminderList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(REM_B, REM_C, REM_D), model.getFilteredReminderList());

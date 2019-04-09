@@ -381,7 +381,7 @@ Format: `editReview INDEX [re/ENTRY] [rr/RATING]`
 
 ****
 * Edits the review at the specified `INDEX`. The index refers to the index number of the review of the selected Restaurant. The index *must be a positive integer* 1, 2, 3, ...
-* A restaurant must be selected with a mouse click on the desired restaurant card (see screenshots below for an illustration)
+* A restaurant must be selected via the select command or with a mouse click on the desired restaurant card (see screenshots below for an illustration)
 * At least one of the optional fields (either `ENTRY` or `RATING`) must be provided.
 * Existing values will be updated to the input values.
 ****
@@ -408,11 +408,11 @@ _Figure 6. The above screenshot shows the end-product of the successful executio
 
 Examples:
 
-* `edit 1 rr/3` +
+* `editReview 1 rr/3` +
 Edits the rating of the 1st review to be `3`.
-* `edit 2 re/Food isn't the best` +
+* `editReview 2 re/Food isn't the best` +
 Edits the comment of the second review to `Food isn't the best`
-* `edit 2 re/Food isn't the best` rr/4 +
+* `editReview 2 re/Food isn't the best rr/4` +
 Edits the comment of the second review to `Food isn't the best` and the rating to be `4`.
 
 ==== Deleting a review : `deleteReview`
@@ -422,14 +422,55 @@ Format: `deleteReview INDEX`
 
 ****
 * Deletes the review at the specified `INDEX`. The index refers to the index number of the review of the selected Restaurant. The index *must be a positive integer* 1, 2, 3, ...
+* A restaurant must be selected via the select command or with a mouse click on the desired restaurant card (similar to the above screenshots).
 * The index refers to the index number shown in the displayed reviews list.
-* The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
 * `deleteReview 2` +
 Deletes the 2nd review of the selected restaurant in the Food Diary.
+
+==== Adding a default review : `addR`
+
+The Food Diary has built in default reviews. You can use this command to quickly add a review with minimal typing involved. The command and syntax to add default reviews is much shorter and simpler than the normal `addReview` command.
+
+These default reviews are representative of the rating scale from 1 - 5. There is a default review entry associated with each default review rating. They are as follows:
+
+* Default review of rating 1: "Very poor, never ever go again."
+* Default review of rating 2: "Below average, try not to go again."
+* Default review of rating 3: "Average, normal."
+* Default review of rating 4: "Good, would go again."
+* Default review of rating 5: "Excellent, must go again."
+
+Format: `addR NUMBER`
+
+****
+* Adds a default review to the selected restaurant according to the NUMBER specified, i.e. if NUMBER is 3, the default review of rating 3 and entry "Average, normal" would be added to the selected restaurant.
+* A restaurant must be selected via the select command or with a mouse click on the desired restaurant card (similar to the above screenshots in the `editComamnd`).
+* NUMBER must take a value of either 1, 2, 3, 4 or 5.
+****
+
+Examples:
+
+* `addR 4` adds a review of rating 4 and entry "Good, would go again." to the selected restaurant.
+
+==== Edit default review entry (Coming in v2.0)
+
+Edits the default review entry according to the specified index. This allows you to customize your default review entries.
+
+Format: `editR NUMBER re/NEW_ENTRY`
+
+****
+* Edits the default reviews of the Food Diary according to the `NUMBER` specified, i.e. if `NUMBER` is 3, the default review corresponding to the rating of 3 would be edited.
+* `NUMBER` must take a value of either 1, 2, 3, 4 or 5.
+* `ENTRY` is a text field that include both alphabets and numbers.
+****
+
+Examples:
+
+* `editR 4 re/Not too shabby at all` changes the default review corresponding to rating 4 to "Not too shabby at all".
+
 // end::reviewcommands[]
 
 === General Features

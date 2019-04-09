@@ -1,7 +1,6 @@
 package seedu.equipment.model;
 
 import static java.util.Objects.requireNonNull;
-//import static CollectionUtil.requireAllNonNull;
 
 import java.util.Comparator;
 import java.util.Iterator;
@@ -12,6 +11,7 @@ import javafx.collections.ObservableList;
 import seedu.equipment.model.equipment.Equipment;
 import seedu.equipment.model.equipment.exceptions.DuplicateEquipmentException;
 import seedu.equipment.model.equipment.exceptions.EquipmentNotFoundException;
+import seedu.equipment.model.equipment.exceptions.WorkListNotFoundException;
 
 /**
  * A list of worklists that enforces uniqueness between its elements and does not allow nulls.
@@ -59,7 +59,7 @@ public class UniqueWorkListList implements Iterable<WorkList> {
         requireNonNull(id);
         WorkList sampleWorkList = new WorkList("01-05-2019", "SampleName", id);
         if (!contains(sampleWorkList)) {
-            throw new EquipmentNotFoundException();
+            throw new WorkListNotFoundException();
         } else {
             Iterator<WorkList> ir = iterator();
             int size = internalList.size();
@@ -80,7 +80,7 @@ public class UniqueWorkListList implements Iterable<WorkList> {
         requireNonNull(id);
         WorkList sampleWorkList = new WorkList("01-05-2019", "SampleName", id);
         if (!contains(sampleWorkList)) {
-            throw new EquipmentNotFoundException();
+            throw new WorkListNotFoundException();
         } else {
             Iterator<WorkList> ir = iterator();
             int size = internalList.size();

@@ -6,6 +6,7 @@ import seedu.equipment.logic.CommandHistory;
 import seedu.equipment.logic.commands.exceptions.CommandException;
 import seedu.equipment.logic.parser.CliSyntax;
 import seedu.equipment.model.Model;
+import seedu.equipment.model.WorkList;
 import seedu.equipment.model.WorkListId;
 import seedu.equipment.model.equipment.SerialNumber;
 
@@ -49,6 +50,11 @@ public class PutCommand extends Command {
 
         if (!model.hasEquipmentWithSerialNumber(sr)) {
             throw new CommandException(MESSAGE_EQUIPMENT_NOT_FOUND);
+        }
+
+        WorkList sampleWorkList = new WorkList("09-09-2019", "sampleName", id);
+        if (!model.hasWorkList(sampleWorkList)) {
+            throw new CommandException(MESSAGE_WORKLIST_NOT_FOUND);
         }
 
         model.putEquipment(id, sr);

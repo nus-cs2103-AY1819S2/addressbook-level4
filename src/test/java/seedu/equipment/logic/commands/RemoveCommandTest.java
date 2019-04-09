@@ -7,18 +7,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.equipment.logic.CommandHistory;
 import seedu.equipment.model.WorkListId;
 import seedu.equipment.model.equipment.SerialNumber;
 
 public class RemoveCommandTest {
 
-    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
-    private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void constructor_nullWorkListIdNullSerialNumber_throwsNullPointerException() {

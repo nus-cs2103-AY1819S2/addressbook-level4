@@ -5,7 +5,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import seedu.travel.MainApp;
@@ -35,7 +34,7 @@ public class ExpandedPlacePanel extends UiPart<Region> {
     public final Place place;
 
     @FXML
-    private VBox img;
+    private ImageView img;
     @FXML
     private Label name;
     @FXML
@@ -76,8 +75,10 @@ public class ExpandedPlacePanel extends UiPart<Region> {
         return TAG_COLOR_STYLES[Math.abs(tagName.hashCode()) % TAG_COLOR_STYLES.length];
     }
 
+    /**
+     * Initialised and loads the image into ImageViewer for {@code place}.
+     */
     private void initImg(Photo photo) {
-        final ImageView selectedImage = new ImageView();
         Image placeImage;
 
         try {
@@ -87,8 +88,9 @@ public class ExpandedPlacePanel extends UiPart<Region> {
                 FileInputStream inputStream = new FileInputStream(photo.getFilePath());
                 placeImage = new Image(inputStream);
             }
-            selectedImage.setImage(placeImage);
-            img.getChildren().addAll(selectedImage);
+            img.setImage(placeImage);
+            img.setFitWidth(800);
+            img.setPreserveRatio(true);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

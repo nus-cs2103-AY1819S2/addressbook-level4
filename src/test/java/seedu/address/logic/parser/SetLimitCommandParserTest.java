@@ -47,6 +47,7 @@ import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.SetSemLimitCommand;
+import seedu.address.model.moduletaken.CapAverage;
 import seedu.address.model.moduletaken.Hour;
 import seedu.address.model.moduletaken.Semester;
 import seedu.address.testutil.EditSemLimitDescriptorBuilder;
@@ -93,8 +94,8 @@ public class SetLimitCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "Y1S1" + INVALID_MIN_CAP_DESC, Hour.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "Y1S1" + INVALID_MAX_CAP_DESC, Hour.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "Y1S1" + INVALID_MIN_CAP_DESC, CapAverage.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "Y1S1" + INVALID_MAX_CAP_DESC, CapAverage.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, "Y1S1" + INVALID_MIN_LECTURE_HOUR_DESC, Hour.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, "Y1S1" + INVALID_MAX_LECTURE_HOUR_DESC, Hour.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, "Y1S1" + INVALID_MIN_TUTORIAL_HOUR_DESC, Hour.MESSAGE_CONSTRAINTS);

@@ -25,7 +25,7 @@ public class FreeAppCommand extends Command {
             + PREFIX_FORMAT + "day "
             + PREFIX_DATE + "2019-10-23";
     public static final String MESSAGE_SUCCESS = "Listed all free appointment slots from %1$s to %2$s\n";
-    public static final String MESSAGE_ALL_FREE = "All appointment slots are free from %1$s to %2$s\n";
+    public static final String MESSAGE_NO_FREE_SLOTS = "There are no free appointment slots from %1$s to %2$s\n";
 
     private final LocalDate start;
     private final LocalDate end;
@@ -46,7 +46,7 @@ public class FreeAppCommand extends Command {
 
         String result = model.freeApp(start, end);
         if (result.isEmpty()) {
-            return new CommandResult(String.format(MESSAGE_ALL_FREE, start, end) + result, false, false);
+            return new CommandResult(String.format(MESSAGE_NO_FREE_SLOTS, start, end) + result, false, false);
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, start, end) + result, false, false);

@@ -7,10 +7,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import quickdocs.logic.Logic;
 import quickdocs.MainApp;
 import quickdocs.commons.core.LogsCenter;
 import quickdocs.commons.util.StringUtil;
+import quickdocs.logic.Logic;
 
 /**
  * The manager of the UI component.

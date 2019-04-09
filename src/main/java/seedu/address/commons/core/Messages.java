@@ -16,16 +16,17 @@ public class Messages {
     public static final String MESSAGE_TIME_CLASH = "The tasks start time should not be before its end time if"
                                                  + " its' start date is the same as its end date.";
     public static final String MESSAGE_INVALID_FILE_TYPE = "Invalid file type!";
-    public static final String MESSAGE_ONLY_GO_TO_MODE_COMMANDS = "This command can only be used in Patient mode. "
-                                                                + "To return to Patient mode, use the back command";
+    public static final String MESSAGE_ONLY_GO_TO_MODE_COMMANDS = "This command can only be used in Patients mode. "
+                                                                + "To return to Patients mode, use the back command";
     public static final String MESSAGE_ONLY_PATIENT_MODE_COMMANDS = "This command can only be used in Records mode. "
                                                                 + "To go to the Records mode, use the GoTo command";
     public static final String MESSAGE_ONLY_TASK_OR_DATE_COMMANDS = "This command cannot be ran here. Only task related"
                                                                 + " commands and dates should be used here.";
-    public static final String MESSAGE_IN_GO_TO_MODE = "Please exit the Records mode using the back command first";
-    public static final String MESSAGE_IN_PATIENT_MODE = "Patient list is already shown";
+    public static final String MESSAGE_IN_GO_TO_MODE = "Already in Records mode, "
+                                                        + "please exit the Records mode using the back command first.";
+    public static final String MESSAGE_IN_PATIENT_MODE = "Already in Patients Mode";
     public static final String MESSAGE_NOTHING_DONE = "Cancelled, nothing has been done";
     public static final String MESSAGE_CALENDAR_SHOWN = "Task Calendar is already displayed";
-    public static final String MESSAGE_CANNOT_RUN_IN_GOTO = "This command cannot be used in this mode as the patient"
+    public static final String MESSAGE_CANNOT_RUN_IN_GOTO = "This command cannot be used in this mode as the Patients"
                                         + " list needs to be seen. Use the back command to return to the right mode.";
 }

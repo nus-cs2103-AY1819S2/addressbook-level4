@@ -140,17 +140,20 @@ public class AddressBookParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommand();
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommand();
-
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommand();
-
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
         case CopyCommand.COMMAND_WORD:
             return new CopyCommand();
+
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommand();
+
+        case EditCommand.COMMAND_WORD:
+            return new EditCommand();
+
+        case FindCommand.COMMAND_WORD:
+            return new FindCommand();
 
         //Commands that runs ONLY in both Patient Mode OR Calendar Window
         case TaskDoneCommand.COMMAND_WORD:

@@ -8,6 +8,7 @@ import java.time.LocalTime;
 
 import org.junit.Assert;
 import org.junit.Test;
+
 import quickdocs.testutil.TypicalPatients;
 
 public class AppointmentTest {

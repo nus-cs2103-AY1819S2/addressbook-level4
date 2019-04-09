@@ -16,6 +16,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import quickdocs.logic.commands.AbortConsultationCommand;
 import quickdocs.logic.commands.AddAppCommand;
 import quickdocs.logic.commands.AddMedicineCommand;
 import quickdocs.logic.commands.AddPatientCommand;
@@ -49,9 +50,8 @@ import quickdocs.model.patient.Nric;
 import quickdocs.model.patient.Patient;
 import quickdocs.model.patient.PatientEditedFields;
 import quickdocs.model.reminder.Reminder;
-import quickdocs.testutil.TypicalIndexes;
-import quickdocs.logic.commands.AbortConsultationCommand;
 import quickdocs.model.tag.Tag;
+import quickdocs.testutil.TypicalIndexes;
 
 public class QuickDocsParserTest {
     @Rule

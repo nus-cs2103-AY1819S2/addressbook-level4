@@ -769,10 +769,18 @@ The list of unique medicine is still empty.
 [[medicineModule_example2]]
 image::medicineModule_example2.png[width='800']
 
-Step 3: Via a few more `adddirec` commands, the figure below is an illustration of a sample inventory's framework.
+Step 3: Via a few more `adddirec` commands, the figure below is an illustration of a sample inventory's framework. +
+
+The list of unique medicine is still empty.
 
 [[medicineModule_example3.png]]
 image::medicineModule_example3.png[width='800']
+
+Step 4: Now the user can add new medicines into the storage via `addmed root\Internal\General paracetamol p/40 q/50`. +
+
+The list of unique medicine is also updated.
+
+
 
 4. The user could view detailed information about a directory or medicine through "viewMed" command.
 

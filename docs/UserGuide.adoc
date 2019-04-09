@@ -27,7 +27,8 @@ slaveFinder() is for those who *prefer to use a desktop app for managing contact
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::DisplayJob.png[width="790"]
+image::displayAll.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -65,7 +66,6 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS g/GENDER r/RACE m/MAJOR s/S
 [TIP]
 * A person can have any number of tags (including 0)
 * A person can have any number of past jobs (including 0)
-* A person can only have "CS", "ME", "MATH", "ECON", "Computer Science" as their majors (case sensitive)
 
 Examples:
 
@@ -74,7 +74,7 @@ Examples:
 
 ==== Listing all persons : `list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all job openings and applicants in the slave system. +
 Format: `list`
 
 * `Useful after using search/find/displayJob which shows a subset of the list.`
@@ -329,10 +329,16 @@ Format: `deletefilter FILTERNAME1 FILTERNAME2...`
 * Display board always display people base on all undeleted filters.
 ****
 
-==== Display Analytics : `analytics` `Coming in v1.4`
+==== Display Analytics : `analytics` 
 
-Display the analytics of applicants on a new window
-Format : `analytics`
+Display the analytics of applicants for desired job list (applicant, kiv, interview, shortlist, all applicants)
+Format : `analytics LISTNAME` or  `analytics`
+
+****
+* LISTNAME indicate which Job list this command will used.
+* LISTNAME can are the names of job lists such as "applicant", "kiv", "interview", "shortlist".
+* If no LISTNAME is entered, the analytis of all applicants in the slave system will be shown.
+****
 
 ==== Select people into "Interview" List: `selectInterview` `Coming in v1.4`
 
@@ -432,7 +438,7 @@ e.g.`select 2`
 [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...` +
 e.g. `filter r/Chinese`
 * *Display Hiring Process* : `displayProcess`
-* *Display Analytics* : `analytics`
+* *Display Analytics* : `analytics LISTNAME` or `analytics`
 * *Create Job* : `createJob jn/JOBNAME`
 * *Delete Job* : `deleteJob jn/JOBNAME`
 * *Add list of people to Job* : `addAll jn/JOBNAME`

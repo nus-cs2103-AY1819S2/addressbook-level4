@@ -17,5 +17,11 @@
     "nric" : "S8812942G",
     "organization" : "NUH",
     "skills" : "GENERAL_PRACTICE "
+  }, {
+    "name" : "Judy Hopps",
+    "phone" : "98765432",
+    "nric" : "S8974421C",
+    "organization" : "SGH",
+    "skills" : "GENERAL_PRACTICE ORTHOPAEDIC "
   } ]
 }

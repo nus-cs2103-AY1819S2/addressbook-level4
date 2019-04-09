@@ -9,7 +9,51 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.*;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.BackCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CopyCommand;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.ExitAnywayCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.ExportCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.GoToCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ImportCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.OpenCommand;
+import seedu.address.logic.commands.PatientAddCommand;
+import seedu.address.logic.commands.PatientClearCommand;
+import seedu.address.logic.commands.PatientCopyCommand;
+import seedu.address.logic.commands.PatientDeleteCommand;
+import seedu.address.logic.commands.PatientEditCommand;
+import seedu.address.logic.commands.PatientFindCommand;
+import seedu.address.logic.commands.PatientListCommand;
+import seedu.address.logic.commands.PatientSelectCommand;
+import seedu.address.logic.commands.RecordAddCommand;
+import seedu.address.logic.commands.RecordClearCommand;
+import seedu.address.logic.commands.RecordDeleteCommand;
+import seedu.address.logic.commands.RecordEditCommand;
+import seedu.address.logic.commands.RecordSelectCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SaveCommand;
+import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.commands.StatsCommand;
+import seedu.address.logic.commands.TaskAddCommand;
+import seedu.address.logic.commands.TaskCalendarCommand;
+import seedu.address.logic.commands.TaskCopyCommand;
+import seedu.address.logic.commands.TaskDeleteCommand;
+import seedu.address.logic.commands.TaskDoneCommand;
+import seedu.address.logic.commands.TaskEditCommand;
+import seedu.address.logic.commands.TaskListCommand;
+import seedu.address.logic.commands.TaskSortCommand;
+import seedu.address.logic.commands.TeethEditCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.CalendarWindow;
 import seedu.address.ui.MainWindow;
@@ -197,6 +241,12 @@ public class AddressBookParser {
             checkCalendarCondition();
             isGoTo();
             return new RecordDeleteCommandParser().parse(arguments);
+
+        case RecordSelectCommand.COMMAND_WORD:
+        case RecordSelectCommand.COMMAND_WORD2:
+            checkCalendarCondition();
+            isGoTo();
+            return new RecordSelectCommandParser().parse(arguments);
 
         case TeethEditCommand.COMMAND_WORD:
             checkCalendarCondition();

@@ -55,9 +55,9 @@ docX is a desktop clinic management application designed for receptionists in cl
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+//include::../UserGuide.adoc[tag=undoredo]
 
-include::../UserGuide.adoc[tag=dataencryption]
+//include::../UserGuide.adoc[tag=dataencryption]
 
 == Contributions to the Developer Guide
 
@@ -67,7 +67,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 
 //include::../DeveloperGuide.adoc[tag=]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+//include::../DeveloperGuide.adoc[tag=dataencryption]
 
 
 == PROJECT: PowerPointLabs

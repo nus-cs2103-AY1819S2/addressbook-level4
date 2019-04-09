@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddPresetCommand;
+import seedu.address.logic.commands.SetPresetCommand;
 import seedu.address.logic.commands.BlackWhiteCommand;
 import seedu.address.logic.commands.BrightnessCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -137,8 +137,8 @@ public class AddressBookParser {
 
         case SavePresetCommand.COMMAND_WORD:
             return new SavePresetCommandParser().parse(arguments);
-        case AddPresetCommand.COMMAND_WORD:
-            return new AddPresetCommandParser().parse(arguments);
+        case SetPresetCommand.COMMAND_WORD:
+            return new SetPresetCommandParser().parse(arguments);
         default: throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }

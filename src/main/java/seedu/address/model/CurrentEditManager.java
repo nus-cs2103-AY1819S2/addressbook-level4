@@ -40,6 +40,7 @@ public class CurrentEditManager implements CurrentEdit {
     /* @@author thamsimun */
     public CurrentEditManager() {
         this.editFilePath = generateEdit();
+        System.out.println(editFilePath);
         this.editFileName = editFilePath + editName;
         this.originalFileName = editFilePath + originalName;
         this.directoryTo = new File(editFilePath);

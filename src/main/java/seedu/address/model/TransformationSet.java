@@ -5,13 +5,24 @@ import java.util.List;
 
 import seedu.address.logic.commands.Command;
 
+/**
+ * Represents a TransformationSet of preset commands.
+ * TransformationSet manages the preset commands for users to use.
+ * Uses singleton pattern to ensure only a single instance of TransformationSet is used the whole runtime of
+ * the application.
+ */
 public class TransformationSet {
 
-    //List of transformation created by users.
-    HashMap<String, List<Command>> transformationMap;
 
     // Represents a singleton copy of the TransformationSet.
     private static TransformationSet instance = null;
+
+    //List of transformation created by users.
+    private HashMap<String, List<Command>> transformationMap;
+
+    private TransformationSet() {
+        this.transformationMap = new HashMap<>();
+    }
 
     /**
      * Gets the current instance of TransformationSet.
@@ -25,16 +36,12 @@ public class TransformationSet {
         return instance;
     }
 
-    private TransformationSet() {
-        this.transformationMap = new HashMap<>();
-    }
-
     public List<Command> findTransformation(String presetName) {
         return transformationMap.get(presetName);
     }
 
-    public void checkDuplicate(String presetName) {
-
+    public boolean isPresent(String presetName) {
+        return transformationMap.containsKey(presetName);
     }
 
     public void addTransformation(String presetName, List<Command> list) {

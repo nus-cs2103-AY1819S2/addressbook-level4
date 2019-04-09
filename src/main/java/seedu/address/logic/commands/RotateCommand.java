@@ -70,4 +70,9 @@ public class RotateCommand extends Command {
         return new CommandResult(Messages.MESSAGE_ROTATE_SUCCESS);
 
     }
+
+    @Override
+    public String toString() {
+        return "rotate " + degree;
+    }
 }

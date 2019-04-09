@@ -25,7 +25,7 @@ public class BlackWhiteCommand extends Command {
         + ": Apply the black and white filter on the image with threshold given.\n"
         + "If threshold is not given, default threshold value is 127.\n"
         + "Parameters: [THRESHOLD VALUE (int)] "
-        + "Example: " + COMMAND_WORD
+        + "Example: " + COMMAND_WORD + "\n"
         + "Example2: " + COMMAND_WORD + "130";
     private OptionalInt threshold;
     private boolean isNewCommand;
@@ -69,5 +69,13 @@ public class BlackWhiteCommand extends Command {
             currentEdit.displayTempImage();
         }
         return new CommandResult(Messages.MESSAGE_BLACKWHITE_SUCCESS);
+    }
+
+    @Override
+    public String toString() {
+        if (threshold.isPresent()) {
+            return "bw " + threshold.getAsInt();
+        }
+        return "bw";
     }
 }

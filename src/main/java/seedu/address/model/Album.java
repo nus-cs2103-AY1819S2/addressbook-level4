@@ -79,6 +79,7 @@ public class Album {
         return tempPath;
     }
 
+
     /**
      * For each image in assets folder, populate the Album with an Image object.
      */

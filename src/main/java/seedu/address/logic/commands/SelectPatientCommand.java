@@ -14,9 +14,9 @@ import seedu.address.model.person.Patient;
 /**
  * Selects a patient identified using it's displayed index from the docX record.
  */
-public class SelectCommand extends Command {
+public class SelectPatientCommand extends Command {
 
-    public static final String COMMAND_WORD = "select";
+    public static final String COMMAND_WORD = "select-patient";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Selects the patient identified by the index number used in the displayed patient list.\n"
@@ -27,7 +27,7 @@ public class SelectCommand extends Command {
 
     private final Index targetIndex;
 
-    public SelectCommand(Index targetIndex) {
+    public SelectPatientCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -50,7 +50,7 @@ public class SelectCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SelectCommand // instanceof handles nulls
-                && targetIndex.equals(((SelectCommand) other).targetIndex)); // state check
+                || (other instanceof SelectPatientCommand // instanceof handles nulls
+                && targetIndex.equals(((SelectPatientCommand) other).targetIndex)); // state check
     }
 }

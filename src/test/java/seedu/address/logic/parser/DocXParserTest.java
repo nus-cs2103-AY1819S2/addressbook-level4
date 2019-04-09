@@ -38,8 +38,8 @@ import seedu.address.logic.commands.ListDoctorCommand;
 import seedu.address.logic.commands.ListPatientCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SearchPatientCommand;
-import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SelectDoctorCommand;
+import seedu.address.logic.commands.SelectPatientCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.AppointmentDate;
@@ -181,9 +181,9 @@ public class DocXParserTest {
 
     @Test
     public void parseCommand_select() throws Exception {
-        SelectCommand command = (SelectCommand) parser.parseCommand(
-                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
+        SelectPatientCommand command = (SelectPatientCommand) parser.parseCommand(
+                SelectPatientCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new SelectPatientCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test

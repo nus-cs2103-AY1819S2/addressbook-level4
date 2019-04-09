@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WRITEUP;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEDHISTS;
+//import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEDHISTS;
 
 import java.util.List;
 
@@ -68,7 +68,7 @@ public class EditMedHistCommand extends Command {
         }
 
         model.setMedHist(medHistToEdit, editedMedHist);
-        model.updateFilteredMedHistList(PREDICATE_SHOW_ALL_MEDHISTS);
+        //model.updateFilteredMedHistList(PREDICATE_SHOW_ALL_MEDHISTS);
         model.commitDocX();
         return new CommandResult(String.format(MESSAGE_EDIT_MEDHIST_SUCCESS, editedMedHist));
     }

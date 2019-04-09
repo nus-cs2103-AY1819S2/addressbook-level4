@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.appointment.AppointmentStatus;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -20,7 +21,7 @@ public class Patient extends Person {
     private final Age age;
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-
+    private final AppointmentStatus appointmentStatus;
 
     /**
      * Every field must be present and not null.
@@ -31,6 +32,7 @@ public class Patient extends Person {
         this.age = age;
         this.address = address;
         this.tags.addAll(tags);
+        this.appointmentStatus = AppointmentStatus.ACTIVE;
     }
 
     /**
@@ -42,6 +44,7 @@ public class Patient extends Person {
         this.age = age;
         this.address = address;
         this.tags.addAll(tags);
+        this.appointmentStatus = AppointmentStatus.ACTIVE;
     }
 
     public Age getAge() {
@@ -50,6 +53,10 @@ public class Patient extends Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public AppointmentStatus getAppointmentStatus() {
+        return appointmentStatus;
     }
 
     /**
@@ -98,6 +105,31 @@ public class Patient extends Person {
                 && otherPatient.getTags().equals(getTags());
     }
 
+    /**
+     * Returns a string of the full details of the patient, excluding pid information
+     * This is to facilitate search-advanced command
+     */
+    public String toAdvancedSearchString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(" ")
+                .append(getGender())
+                .append(" ")
+                .append(getAge())
+                .append(" ")
+                .append(getPhone())
+                .append(" ")
+                .append(getAddress())
+                .append(" ");
+        for (Tag tag : getTags()) {
+            String tagName = tag.toString().replaceAll("^\\[|\\]$", "");
+            builder.append(tagName);
+            builder.append(" ");
+        }
+
+        return builder.toString().trim();
+    }
+
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
@@ -116,6 +148,8 @@ public class Patient extends Person {
                 .append(getPhone())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Appointment Status: ")
+                .append(getAppointmentStatus())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

@@ -35,9 +35,13 @@ public class MedHistBrowserPanel extends UiPart<Region> {
     @FXML
     private Label patientName;
     @FXML
+    private Label patientPhone;
+    @FXML
     private Label doctorId;
     @FXML
     private Label doctorName;
+    @FXML
+    private Label doctorPhone;
     @FXML
     private Label date;
     @FXML
@@ -73,23 +77,28 @@ public class MedHistBrowserPanel extends UiPart<Region> {
         if (medHist.getPatient() == null) {
             patientId.setText("Patient ID: Patient Deleted");
             patientName.setText("Patient Name: Patient Deleted");
+            patientPhone.setText("Patient Phone: Patient Deleted");
         } else {
             patientId.setText("Patient ID: " + medHist.getPatientId());
             patientName.setText("Patient Name: " + medHist.getPatient().getName());
+            patientPhone.setText("Patient Phone: " + medHist.getPatient().getPhone());
         }
 
         if (medHist.getDoctor() == null) {
             doctorId.setText("Doctor ID: Doctor Deleted");
             doctorName.setText("Doctor Name: Doctor Deleted");
+            doctorPhone.setText("Doctor Phone: Doctor Deleted");
         } else {
             doctorId.setText("Doctor ID: " + medHist.getDoctorId());
             doctorName.setText("Doctor Name: " + medHist.getDoctor().getName());
+            doctorPhone.setText("Doctor Phone: " + medHist.getDoctor().getPhone());
         }
 
         date.setText("Date: " + medHist.getDate().toString());
         writeUp.setText("Short Write Up from Doctor: " + medHist.getWriteUp().toString());
 
-        medHistPage.getChildren().addAll(medHistId, patientId, patientName, doctorId, doctorName, date, writeUp);
+        medHistPage.getChildren().addAll(medHistId, patientId, patientName, patientPhone,
+                doctorId, doctorName, doctorPhone, date, writeUp);
     }
 
     /**
@@ -101,11 +110,14 @@ public class MedHistBrowserPanel extends UiPart<Region> {
         medHistId.setText("");
         patientId.setText("");
         patientName.setText("");
+        patientPhone.setText("");
         doctorId.setText("");
         doctorName.setText("");
+        doctorPhone.setText("");
         date.setText("");
         writeUp.setText("");
-        medHistPage.getChildren().addAll(medHistId, patientId, patientName, doctorId, doctorName, date, writeUp);
+        medHistPage.getChildren().addAll(medHistId, patientId, patientName, patientPhone,
+                doctorId, doctorName, doctorPhone, date, writeUp);
     }
 
 }

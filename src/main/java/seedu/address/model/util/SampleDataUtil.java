@@ -15,12 +15,15 @@ import seedu.address.model.appointment.AppointmentPatientId;
 import seedu.address.model.appointment.AppointmentTime;
 import seedu.address.model.appointment.FutureAppointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
+import seedu.address.model.medicalhistory.ValidDate;
+import seedu.address.model.medicalhistory.WriteUp;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Age;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.PersonId;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Year;
 import seedu.address.model.tag.Specialisation;
@@ -71,7 +74,10 @@ public class SampleDataUtil {
     }
 
     public static MedicalHistory[] getSampleMedHists() {
-        return null;
+        return new MedicalHistory[] {
+            new MedicalHistory(new PersonId("1"), new PersonId("7"),
+                    new ValidDate("2019-03-03"), new WriteUp("The patient has a high fever."))
+        };
     }
 
     public static ReadOnlyDocX getSampleDocX() {
@@ -83,11 +89,11 @@ public class SampleDataUtil {
         for (Doctor sampleDoctor : getSampleDoctors()) {
             sampleDocX.addDoctor(sampleDoctor);
         }
-        /*
+
         for (MedicalHistory sampleMedHist : getSampleMedHists()) {
             sampleDocX.addMedHist(sampleMedHist);
         }
-        */
+
         return sampleDocX;
     }
 

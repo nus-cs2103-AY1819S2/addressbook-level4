@@ -23,7 +23,7 @@ docX is for those who *prefer to use a desktop app for managing contacts*. More 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `docX.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your docX.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -33,9 +33,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add-patient`**`n/John Doe p/98765432 a/22 g/M adr/Utown College ` : adds a patient named `John Doe` to docX.
+* **`add-patient`**` n/John Doe p/98765432 a/22 g/M adr/Utown College  : adds a patient named `John Doe` to docX.
 * **`delete-doctor`**`3` : deletes the 3rd doctor shown in the current list
+* **`list-med-hist`* : lists all medical histories
+* **`add-med-hist`**` pid/2 did/8 d/2018-12-09 sw/The patient had a cough. I told him to have a good rest : adds a medical history of patient with specified id(pid) and doctor with specified id(did).
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -67,7 +68,7 @@ Format: `add-patient n/NAME g/GENDER a/AGE p/PHONE_NUMBER adr/ADDRESS t/TAG`
 Examples:
 
 * `add-patient n/John Doe g/Male a/21 p/98765432 adr/Utown College 2`
-* `add-patient n/Betsy Crowe g/Female p/1234567 a/32 adr/RVRC House 12 t/diabetic`
+* `add-patient n/Betsy Crowe g/Female p/8234567 a/32 adr/RVRC House 12 t/diabetic`
 
 === Listing all patients : `list-patient`
 
@@ -89,20 +90,23 @@ Examples:
 
 * `edit-patient 1 p/91234567` +
 Edits the phone number of the patient with ID of '1' to be `91234567`.
-* `edit-patient 2 n/Betsy Crower p/45678901` +
-Edits the name and phone number of the patient with ID of '2' to be `Betsy Crower` and '45678901' respectively.
+* `edit-patient 2 n/Betsy Crower p/95678901` +
+Edits the name and phone number of the patient with ID of '2' to be `Betsy Crower` and '95678901' respectively.
 
-=== Locating patient by name: `search-patient`
+=== Search patient by name: `search-patient`
 
 Search and return patient(s) whose names contain any of the given keywords. +
 Format: `search-patient [NAME]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The order of the keywords does not matter +
+e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Only full words will be matched +
+e.g. `Han` will not match `Hans`
+* Patients matching at least one keyword will be returned +
+e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
@@ -112,32 +116,109 @@ Returns `john` and `John Doe`
 * `search-patient Betsy Tim John` +
 Returns any patient having names `Betsy`, `Tim`, or `John`
 
-=== Locating patient by name: `search-tag`
+=== Search patient by pid: `search-pid`
+
+Search and return patient(s) whose pid contain any of the given keywords. +
+Format: `search-patient [pid1] [pid2]...`
+
+****
+* Only the pid is searched.
+* Only full pid will be matched e.g. `12` will not match `120`
+****
+
+Examples:
+
+* `search-pid 12 1` +
+Returns `John Doe` and `Tom Darl` who has pid of `1` and `12` respectively.
+
+=== Search patient by tags: `search-tag`
 
 Search and return patient(s) whose tags contain any of the given keywords. +
-Format: `search-patient [tagName]`
+Format: `search-patient [tagName1] [tagName2]...`
 
 ****
 * The search is case insensitive. e.g `HighBloodPressure` will match `highbloodpressure`
 * The order of the keywords does not matter. e.g. `stroke cancer` will match `cancer stroke`
 * Only the tagName is searched.
 * Only full words will be matched e.g. `high` will not match `highbloodpressure`
-* Patients matching at least one keyword will be returned (i.e. `OR` search). e.g. `diabetic` will return Patients with `diabetic` as one of their tags
+* Patients matching at least one keyword will be returned +
+e.g. `diabetic` will return all patients with `diabetic` as one of their tags
 ****
 
 Examples:
 
 * `search-tag diabetic` +
-Returns `John Doe` who has a `diabetic` tag
+Returns `John Doe` who has both `diabetic` and `stoke` tags
+
+=== Search patient by appt status: `search-appt-status`
+
+Search and return patient(s) whose appointment status matches the specified keyword. +
+Format: `search-patient [STATUS]`
+
+****
+* Only the appointment status is searched.
+* Only one status can be searched and it must be one of the following:
+ACTIVE, ONGOING, COMPLETED, MISSED
+* Status search are not case-senstitive
+****
+
+Examples:
+
+* `search-appt-status ACTIVE` +
+Returns `John Doe` and `Tom Darl` who has appointment status `ACTIVE`.
+
+=== Advanced search patient by any info: `search-advanced`
+
+Search and return patient(s) whose info contain any of the given keywords,
+even if the keyword is only a substring of one of the patient's info +
+Use a quoted keyword to search when one of the patient's info
+must match exactly the keyword
+Format: `search-advanced [keyword] ["quoted keyword"]...`
+
+****
+* The search is case insensitive. e.g `ALeX` will match `Alex`
+* The order of the keywords does not matter. e.g. `stroke cancer` will match `cancer stroke`
+* With unquoted keyword, partial words will be matched +
+e.g. `Alex` will match `Alexander`
+* With quoted keyword, only full word will be matched +
+e.g. `"high"` will not match `highbloodpressure`
+* All the keywords must match a patient's full info to be true.
+****
+
+Examples:
+
+* `search-advanced blood "Doe"` +
+Returns `John Doe` who has a `highbloodpressure` tag
+* `search-advanced blood "Doe"` +
+Will not return `John Doeing` who has a `highbloodpressure` tag
+
+=== Selecting an existing patient : `select-patient`
+
+Select the specified patient from docX. +
+Displays his/her full information on the browser panel.
+Format: `select-patient [INDEX]`
+
+****
+* Selects the patient of the specified `INDEX` in docX.
+* The index refers to the current list ID of the patient.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list-patient` +
+* `select-patient 3` +
+Selects the patient with current list ID of '3' in the docX +
+The patient's full info can be easily viewd in the browser panel.
 
 === Deleting an existing patient : `delete-patient`
 
 Deletes the specified patient from docX. +
-Format: `delete-patient INDEX`
+Format: `delete-patient [INDEX]`
 
 ****
 * Deletes the patient of the specified `INDEX` in docX.
-* The index refers to the identification number (ID) of the patient.
+* The index refers to the current list ID of the patient.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -145,10 +226,9 @@ Examples:
 
 * `list-patient` +
 `delete-patient 3` +
-Deletes the patient with ID of '3' in the docX.
+Deletes the patient with current list ID of '3' in the docX.
 * `delete-patient 2` +
-Deletes the patient with ID of '2' in the docX.
-
+Deletes the patient with current list ID of '2' in the docX.
 
 === Adding a doctor: `add-doctor`
 
@@ -230,48 +310,106 @@ Deletes the doctor with ID of '2' in docX.
 
 === Adding a medical history: `add-med-hist`
 
-Adds a medical history to the patient +
+Adds a medical history +
 Format: `add-med-hist pid/PATIENT_ID did/DOCTOR_ID d/DATE sw/SHORT_WRITEUP`
 
 ****
-* Medical history and the attending doctor will be added under the patient of `PATIENT_NAME`.
-* Date of visit (same as entry date) will be added to the medical history.
-* If there are common names (patient/doctor) found, the system will stop the information from being added and prompt the user to insert the command with the specific ID of the patient/doctor.
+* To veiw the list of medical histories, execute "list-med-hist" first.
+* Medical history with attending patient, attending doctor, date and write up form doctor will be added to docX.
+* PATIENT_ID and DOCTOR_ID must be existing id in patient and doctor list.
+* Date of visit must be a valid date in calender and must be a past day or today. Cannot be a day in the future.
+* Two medical histories with the same PATIENT_ID, DOCTOR_ID and DATE are not allowed. On the same day, only one medical history can be maintained between a doctor and a patient. If the patient see one doctor more than one times on the same day, can edit the write up of the medical history.
+* However, a patient can have multiple medical histories with different doctors on the same day.
+* Write up is doctor's description about the medical record. Write up can be edited by "edit-med-hist" command.
+
+
 ****
 
 Examples:
 
-* `add-med-hist pid/1 did/2 d/2019-03-05 sw/Came down with a stomach flu, possibly due to eating expired food`
-* `add-med-hist pid/10 did/3 d/2018-07-09 w/Had a fever with sorethroat. Sleeps late.`
+* `add-med-hist pid/1 did/7 d/2019-03-05 sw/Came down with a stomach flu, possibly due to eating expired food`
+* `add-med-hist pid/3 did/8 d/2018-07-09 sw/Had a fever with sore throat. Sleeps late.`
 
-=== Listing all medical history of specified patient : `list-med-hist`
+=== Listing medical histories: `list-med-hist`
 
-Shows a list of all medical histories or a list of all medical histories of one specified patient. +
-Format: `list-med-hist` or `list-med-hist pid/PATIENT_ID`
+Show a list of all medical histories or medical histories with specified constraint(s). +
+Format: `list-med-hist [pid/PATIENT_ID] [did/DOCTOR_ID] [d/DATE]`
 
-=== Locating medical history : `search-med-hist`
+****
+* PATIENT_ID and DOCTOR_ID must be existing id in patient and doctor list.
+* Date must be a valid date in calender and must be a past day or today.
+* If there is no medical history satisfying all specified constraints, an empty list will be shown.
+* Write up of medical history will not be shown in the list. Can view all details of one medical history by "select-med-hist" command.
+
+
+****
+
+Examples:
+
+* 'list-med-hist': show all medical histories in docX
+* 'list-med-hist pid/1': show all medical histories of patient with id 1. If patient with id 1 is already deleted or not in docX, an error will be shown.
+
+=== Editing write up of medical history: `edit-med-hist`
+
+Edit the write up of medical history with specified index. +
+Format: `edit-med-hist INDEX sw/EDITED_WRITEUP`
+
+****
+* Can only edit write up of medical history. Patient id, doctor id and date are immutable.
+
+
+****
+
+Examples:
+
+* `edit-med-hist 1 sw/The patient came to me this morning, having a fever. This afternoon he came again because of higher fever.`
+
+=== Sorting medical history by date: `sort-med-hist`
+
+Sort medical history by date in ascending order or descending order. +
+Format: `sort-med-hist [ASC/DESC]`
+
+****
+* To view the sorted list, execute "list-med-hist" command.
+* When new medical history is added to docX, it will be added to the end of list. You can sort again to make the list in order.
+* If "ASC" or "DESC" is not specified in the command, the default order will be descending order(DESC). Medical histories will be listed from newest date to oldest date.
+* If "DESC" is specified, the order will be descending order. Medical histories will be listed from newest date to oldest date.
+* If "ASC" is specified, the order will be ascending order. Medical histories will be listed from oldest date or newest date.
+
+
+****
+
+Examples:
+
+* `sort-med-hist` +
+Medical histories will be listed from newest date to oldest date
+* `sort-med-hist ASC` +
+Medical histories will be listed from oldest date or newest date.
+
+=== Searching medical history : `search-med-hist`
 
 Finds medical history(ies) whose write up contains any of the given keywords. +
 Format: `search-med-hist KEYWORD`
 
 ****
+* To view the result of searching command is not shown, "list-med-hist" command must be executed before searching command.
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Write ups of the medical history matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-* Each keyword is to be quoted in quotation marks.
+* Each keyword should not be in quotation mark. There should be one space between two keywords.
 ****
 
 Examples:
 
-* `search-med-hist 'flu'` +
-Returns all medical history with the write up containing the keyword `flu`
-* `search-med-hist 'stomach flu' 'sorethroat'` +
-Returns all medical history with the write up containing either 'stomach flu' or 'sorethroat' or both keywords.
+* `search-med-hist fever` +
+Returns all medical history with the write up containing the keyword `fever`
+* `search-med-hist fever sorethroat` +
+Returns all medical history with the write up containing either 'fever' or 'sorethroat' or both keywords.
 
 === Viewing a certain medical history: `select-med-hist`
 
-View the full specified medical history with specified ID. +
+View the full specified medical history with index in displayed list. +
 Format: `select-med-hist index`
 
 ****
@@ -281,7 +419,7 @@ Format: `select-med-hist index`
 Examples:
 
 * `select-med-hist 1` +
-Returns full write up of the medical history with index 1.
+Returns full write up of the medical history with index 1 in medical history list.
 
 === Adding an appointment: `add-appt`
 

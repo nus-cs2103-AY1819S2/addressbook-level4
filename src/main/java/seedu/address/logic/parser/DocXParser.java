@@ -27,6 +27,7 @@ import seedu.address.logic.commands.ListDoctorCommand;
 import seedu.address.logic.commands.ListMedHistCommand;
 import seedu.address.logic.commands.ListPatientCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SearchAdvancedPatientCommand;
 import seedu.address.logic.commands.SearchDoctorCommand;
 import seedu.address.logic.commands.SearchDoctorDidCommand;
 import seedu.address.logic.commands.SearchDoctorSpecialisationCommand;
@@ -34,9 +35,10 @@ import seedu.address.logic.commands.SearchMedHistCommand;
 import seedu.address.logic.commands.SearchPatientCommand;
 import seedu.address.logic.commands.SearchPatientPidCommand;
 import seedu.address.logic.commands.SearchPatientTagCommand;
-import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SearchPatientWithApptStatusCommand;
 import seedu.address.logic.commands.SelectDoctorCommand;
 import seedu.address.logic.commands.SelectMedHistCommand;
+import seedu.address.logic.commands.SelectPatientCommand;
 import seedu.address.logic.commands.SortMedHistCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -57,8 +59,8 @@ public class DocXParser {
      *
      * @param userInput full user input string
      * @return the command based on the user input
-     * @throws ParseException if the user inp
-     * ut does not conform the expected format
+     * @throws ParseException if the user input
+     *                        does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -87,6 +89,12 @@ public class DocXParser {
 
         case SearchPatientTagCommand.COMMAND_WORD:
             return new SearchPatientTagCommandParser().parse(arguments);
+
+        case SearchPatientWithApptStatusCommand.COMMAND_WORD:
+            return new SearchPatientWithApptStatusCommandParser().parse(arguments);
+
+        case SearchAdvancedPatientCommand.COMMAND_WORD:
+            return new SearchAdvancedPatientCommandParser().parse(arguments);
 
         case DeletePatientCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
@@ -136,6 +144,9 @@ public class DocXParser {
         case EditMedHistCommand.COMMAND_WORD:
             return new EditMedHistCommandParser().parse(arguments);
 
+        case SelectPatientCommand.COMMAND_WORD:
+            return new SelectPatientCommandParser().parse(arguments);
+
         case SearchMedHistCommand.COMMAND_WORD:
             return new SearchMedHistCommandParser().parse(arguments);
 
@@ -147,9 +158,6 @@ public class DocXParser {
 
         case AddPrescriptionCommand.COMMAND_WORD:
             return new AddPrescriptionCommandParser().parse(arguments);
-
-        case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();

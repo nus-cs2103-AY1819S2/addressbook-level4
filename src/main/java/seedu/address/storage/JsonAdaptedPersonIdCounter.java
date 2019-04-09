@@ -1,3 +1,4 @@
+/* @@author wayneswq */
 package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -17,14 +18,14 @@ public class JsonAdaptedPersonIdCounter {
      * Constructs a {@code JsonAdaptedPersonIdCounter} with the given {@code id}.
      */
     @JsonCreator
-    public JsonAdaptedPersonIdCounter(int id) {
+    protected JsonAdaptedPersonIdCounter(int id) {
         this.id = id;
     }
 
     /**
      * Converts a given {@code PersonIdCounter} into this class for Jackson use.
      */
-    public JsonAdaptedPersonIdCounter(PersonIdCounter source) {
+    protected JsonAdaptedPersonIdCounter(PersonIdCounter source) {
         id = source.getCurrentMaxId();
     }
 

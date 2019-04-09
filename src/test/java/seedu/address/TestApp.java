@@ -8,7 +8,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
-//import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.HealthWorkerBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -93,25 +93,44 @@ public class TestApp extends MainApp {
     }
 
     /**
-     * Returns a defensive copy of the address book data stored inside the storage file.
+     * Returns a defensive copy of the health worker book data stored inside the storage file.
      */
-    //TODO: implement requestBook and HealthworkerBook for tests
-    //public AddressBook readStorageAddressBook() {
-    //  try {
-    //    return new AddressBook(storage.readAddressBook().get());
-    //} catch (DataConversionException dce) {
-    //   throw new AssertionError("Data is not in the AddressBook format.", dce);
-    //} catch (IOException ioe) {
-    //  throw new AssertionError("Storage file cannot be found.", ioe);
-    //}
-    //}
+    public HealthWorkerBook readStorageHealthWorkerBook() {
+        try {
+            return new HealthWorkerBook(storage.readHealthWorkerBook().get());
+        } catch (DataConversionException dce) {
+            throw new AssertionError("Data is not in the HealthWorkerBook format.", dce);
+        } catch (IOException ioe) {
+            throw new AssertionError("Storage file cannot be found.", ioe);
+        }
+    }
 
     /**
-     * Returns the file path of the storage file.
+     * Returns a defensive copy of the request book data stored inside the storage file.
      */
-    //public Path getStorageSaveLocation() {
-    //  return storage.getAddressBookFilePath();
-    //}
+    public RequestBook readStorageRequestBook() {
+        try {
+            return new RequestBook(storage.readRequestBook().get());
+        } catch (DataConversionException dce) {
+            throw new AssertionError("Data is not in the RequestBook format.", dce);
+        } catch (IOException ioe) {
+            throw new AssertionError("Storage file cannot be found.", ioe);
+        }
+    }
+
+    /**
+     * Returns the file path of the storage file for health worker book.
+     */
+    public Path getStorageSaveLocationHealthWorkerBook() {
+        return storage.getHealthWorkerBookFilePath();
+    }
+
+    /**
+     * Returns the file path of the storage file for request book.
+     */
+    public Path getStorageSaveLocationRequestBook() {
+        return storage.getRequestBookFilePath();
+    }
 
     /**
      * Returns a defensive copy of the model.

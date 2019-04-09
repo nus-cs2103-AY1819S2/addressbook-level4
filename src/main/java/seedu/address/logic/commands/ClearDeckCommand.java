@@ -7,7 +7,7 @@ import seedu.address.model.Model;
 import seedu.address.model.TopDeck;
 
 /**
- * Clears the address book.
+ * Clears TopDeck.
  */
 public class ClearDeckCommand extends Command {
 

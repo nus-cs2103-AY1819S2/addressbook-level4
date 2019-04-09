@@ -35,7 +35,9 @@ public class SelectCardCommand extends SelectCommand {
         }
 
         cardsView.setSelectedItem(filteredCardList.get(targetIndex.getZeroBased()));
-        return new CommandResult(String.format(MESSAGE_SELECT_SUCCESS, targetIndex.getOneBased()));
+        Card selectedCard = filteredCardList.get(targetIndex.getZeroBased());
+
+        return new CommandResult(String.format(MESSAGE_SELECT_SUCCESS, selectedCard.toString()));
     }
 
     @Override

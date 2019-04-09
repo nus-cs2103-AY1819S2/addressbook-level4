@@ -7,6 +7,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
 
+/**
+ * Clears the current deck
+ */
 public class ClearCardCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";

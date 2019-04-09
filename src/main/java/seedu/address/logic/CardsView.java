@@ -15,7 +15,6 @@ import javafx.scene.layout.Region;
 import seedu.address.logic.commands.AddCardCommand;
 import seedu.address.logic.commands.BackCommand;
 import seedu.address.logic.commands.ClearCardCommand;
-import seedu.address.logic.commands.ClearDeckCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCardCommand;
 import seedu.address.logic.commands.EditCardCommand;

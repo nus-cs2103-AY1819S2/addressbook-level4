@@ -1204,7 +1204,7 @@ The priority of <<user-stories, user stories>> are divided into three categories
 |search for the places I have visited by years
 |I am able to see which places I have visited in by year
 
-|`*` 
+|`*`
 |user
 |have a map view indicating all of the places I have visited
 |I can quickly find out the places by countries I have visited in a user-friendly way

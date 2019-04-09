@@ -70,4 +70,12 @@ public class BrightnessCommand extends Command {
         }
         return new CommandResult(Messages.MESSAGE_BRIGHTNESS_SUCCESS);
     }
+
+    @Override
+    public String toString() {
+        if (brightnessValue.isPresent()) {
+            return "brightness " + brightnessValue.getAsDouble();
+        }
+        return "brightness";
+    }
 }

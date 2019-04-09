@@ -70,4 +70,12 @@ public class BlackWhiteCommand extends Command {
         }
         return new CommandResult(Messages.MESSAGE_BLACKWHITE_SUCCESS);
     }
+
+    @Override
+    public String toString() {
+        if (threshold.isPresent()) {
+            return "bw " + threshold.getAsInt();
+        }
+        return "bw";
+    }
 }

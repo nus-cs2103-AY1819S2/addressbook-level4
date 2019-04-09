@@ -72,4 +72,12 @@ public class ContrastCommand extends Command {
         }
         return new CommandResult(Messages.MESSAGE_CONTRAST_SUCCESS);
     }
+
+    @Override
+    public String toString() {
+        if (contrastValue.isPresent()) {
+            return "contrast " + contrastValue.getAsDouble();
+        }
+        return "contrast";
+    }
 }

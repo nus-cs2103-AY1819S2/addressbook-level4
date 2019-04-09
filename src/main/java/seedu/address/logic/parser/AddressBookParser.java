@@ -24,6 +24,7 @@ import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListFilesCommand;
 import seedu.address.logic.commands.OpenCommand;
+import seedu.address.logic.commands.AddPresetCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.ResizeCommand;
 import seedu.address.logic.commands.RotateCommand;
@@ -136,9 +137,9 @@ public class AddressBookParser {
 
         case SavePresetCommand.COMMAND_WORD:
             return new SavePresetCommandParser().parse(arguments);
-
+        case AddPresetCommand.COMMAND_WORD:
+            return new AddPresetCommandParser().parse(arguments);
         default: throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
 }

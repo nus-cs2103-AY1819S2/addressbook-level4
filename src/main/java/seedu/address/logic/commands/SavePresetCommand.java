@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -33,16 +34,34 @@ public class SavePresetCommand extends Command {
     @Override
     public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history)
         throws CommandException {
+        List<Command> presetList = new ArrayList<>();
         Image initialImage = currentEdit.getTempImage();
         if (initialImage == null) {
             throw new CommandException(Messages.MESSAGE_DID_NOT_OPEN);
         }
-        List<Command> presetList = currentEdit.getTempSubHistory();
-        TransformationSet transformationSet = TransformationSet.getInstance();
-        transformationSet.addTransformation(presetName, presetList);
+        List<Command> commandList = currentEdit.getTempSubHistory();
+        for (Command command: commandList) {
+            if (!(command instanceof AddPresetCommand)) {
+                presetList.add(command);
+            }
+        }
         System.out.print(presetList);
+        if (presetList.size() < 1) {
+            throw new CommandException(Messages.MESSAGE_ADDPRESET_FAIL_EMPTY);
+        }
+        TransformationSet transformationSet = TransformationSet.getInstance();
+        boolean duplicate = transformationSet.isPresent(presetName);
+        if (duplicate) {
+            throw new CommandException(Messages.MESSAGE_ADDPRESET_FAIL_DUPLICATE);
+        }
+        transformationSet.addTransformation(presetName, presetList);
+        StringBuilder toPrint = new StringBuilder();
 
-        return new CommandResult(Messages.MESSAGE_ADDPRESET_SUCCESS);
+        for (Command command: presetList) {
+            toPrint.append("[" + command.toString() + "]");
+        }
+
+        return new CommandResult(Messages.MESSAGE_ADDPRESET_SUCCESS + ": \n" + toPrint.toString());
     }
 
 }

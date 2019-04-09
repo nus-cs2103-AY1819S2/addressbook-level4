@@ -66,4 +66,9 @@ public class CropCommand extends Command {
         }
         return new CommandResult(Messages.MESSAGE_CROP_SUCCESS);
     }
+
+    @Override
+    public String toString() {
+        return "crop " + xCoord + " " + yCoord + " " + width + " " + height;
+    }
 }

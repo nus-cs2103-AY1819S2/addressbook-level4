@@ -16,20 +16,20 @@ docX is a desktop clinic management application designed for receptionists in cl
 * *Major feature*: added *Medical History* and added *adding, listing, editing, sorting, searching and selecting of medical history*
 ** *Medical History* Medical History class links Doctor and Patient. The implementation of Medical History and all commands of Medical History allows the receptionists in clinic to record medical histories, which contain information of attending patient, attending doctor, happening date and doctor's description.
 ** *Add Medical History Command*:
-***Records patient's medical histories of seeing doctors. After a patient seeing a doctor, a medical history of the attending patient and doctor will be created.
-***Added medical history contains all information of the attending patient and doctor.
+*** Records patient's medical histories of seeing doctors. After a patient seeing a doctor, a medical history of the attending patient and doctor will be created.
+*** Added medical history contains all information of the attending patient and doctor.
 ** *List Medical History Command*:
-***Shows list of all medical histories recorded in docX
-***Shows filtered medical histories list that satisfies user-specified constraints. User can filter medical histories with a specified patient, a specified doctor and a specified date.
+*** Shows list of all medical histories recorded in docX
+*** Shows filtered medical histories list that satisfies user-specified constraints. User can filter medical histories with a specified patient, a specified doctor and a specified date.
 ** *Edit Medical History Command*:
-***Allows users to edit the write up of medical history.
-***Helps users to manage multiple records of the same patient and doctor on the same day. If a patient come to a doctor more than one times on the same day, receptionists just need to edit the write up of existing medical history instead of creating a new one.
+*** Allows users to edit the write up of medical history.
+*** Helps users to manage multiple records of the same patient and doctor on the same day. If a patient come to a doctor more than one times on the same day, receptionists just need to edit the write up of existing medical history instead of creating a new one.
 ** *Sort Medical History Command*:
-***Sorts medical histories in ascending order or descending order of happening date.
+*** Sorts medical histories in ascending order or descending order of happening date.
 ** *Search Medical History Command*:
-***Allows users to find all medical histories related to specified keywords.
+*** Allows users to find all medical histories related to specified keywords.
 ** *Select Medical History Command*:
-***Shows details of a specified medical history, including patient's information, doctor's information, date and write up from doctor.
+*** Shows details of a specified medical history, including patient's information, doctor's information, date and write up from doctor.
 
 ** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.

@@ -43,7 +43,7 @@ public class AppUtil {
      *
      * @throws IllegalArgumentException with {@code errorMessage} if {@code condition} is false.
      */
-    public static void checkArgument2(Pair<Boolean, String> booleanIntegerPair) {
+    public static void checkArgumentForDob(Pair<Boolean, String> booleanIntegerPair) {
         if (!(booleanIntegerPair.getKey())) {
             throw new IllegalArgumentException(booleanIntegerPair.getValue());
         }

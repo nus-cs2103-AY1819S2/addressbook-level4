@@ -7,7 +7,6 @@ import java.util.List;
 
 import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.TableStatus;
 
 /**

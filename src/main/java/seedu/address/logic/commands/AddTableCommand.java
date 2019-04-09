@@ -48,7 +48,7 @@ public class AddTableCommand extends Command {
             throw new CommandException(String.format(MESSAGE_TOO_MANY_TABLES,
                     String.valueOf(model.getRestOrRant().getTables().getTableList().size())));
         }
-            
+
         for (TableStatus tableStatus : tableStatusList) {
             addedTableNumber = model.addTable(tableStatus);
             requireNonNull(addedTableNumber);

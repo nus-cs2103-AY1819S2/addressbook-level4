@@ -2,11 +2,14 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.SpaceForCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.table.TableStatus;
 
+/**
+ * Parses input arguments and creates a new SpaceForCommand object
+ */
 public class SpaceForCommandParser implements Parser<SpaceForCommand> {
 
     public static final String MESSAGE_TOO_MANY_CUSTOMERS =

@@ -9,6 +9,9 @@ import seedu.address.model.Model;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableStatus;
 
+/**
+ * Looks for best fit available table for customers
+ */
 public class SpaceForCommand extends Command {
 
     public static final String COMMAND_WORD = "spaceFor";
@@ -22,6 +25,9 @@ public class SpaceForCommand extends Command {
 
     private int size;
 
+    /**
+     * Creates a SpaceForCommand to look for a table based on specified size required.
+     */
     public SpaceForCommand(int size) {
         this.size = size;
     }
@@ -43,13 +49,13 @@ public class SpaceForCommand extends Command {
                 break;
             }
         }
-        
+
         if (bestFitTable == null) {
             throw new CommandException(String.format(MESSAGE_NO_AVAILABLE_TABLE, String.valueOf(size)));
         }
         model.setTable(bestFitTable, new Table(bestFitTable.getTableNumber(),
                 new TableStatus(String.valueOf(size) + "/" + bestFitTable.getTableStatus().getNumberOfSeats())));
-        
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, String.valueOf(size), bestFitTable.getTableNumber()));
     }
 

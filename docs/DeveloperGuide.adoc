@@ -466,7 +466,7 @@ Step5. execute() calls hasMedHist() of Model. If medical history doesn't exist, 
 
 {Explain here how view medical history will be implemented}
 
-==== CRUD Doctor features
+=== CRUD Doctor features
 
 Doctor is one of the two valid types of Persons to be stored in the docX record.
 The following features are implemented or will be implemented for doctors of docX:
@@ -478,13 +478,13 @@ The following features are implemented or will be implemented for doctors of doc
 
 ===== Current(Proposed) Implementation
 
-When a user executes 'add-doctor n/John Doe g/M p/98765432 a/32 s/'acupuncture''
+When a user executes `add-doctor n/John Doe g/M p/98765432 y/3 s/'acupuncture`
 
-Step1. LogicManager calls parseCommand("add-doctor") in AddressBookParser.
+Step1. LogicManager calls parseCommand("add-doctor") in docXParser.
 
-Step2. Based on the COMMAND_WORD, AddressBookParser builds a new AddDoctorCommandParser() and call function parse(arguments) of AddDoctorCommandParser;
+Step2. Based on the COMMAND_WORD, docXParser builds a new AddDoctorCommandParser() and call function parse(arguments) of AddDoctorCommandParser;
 
-Step3. AddDoctorCommandParser parses the argument and get doctor's name, gender, age, phone and his/her specialisations. AddDoctorCommandParser calls constructors of Age, Gender, Phone, Specialisation and then calls the constructor of Doctor.
+Step3. AddDoctorCommandParser parses the argument and get doctor's name, gender, year of experience, phone and his/her specialisations. AddDoctorCommandParser calls constructors of Name, Year, Gender, Phone, Specialisation and then calls the constructor of Doctor.
 	   Then, AddDoctorCommandParser calls AddDoctorCommand(Doctor).
 
 Step4. LogicManager calls execute() of AddDoctorCommand.
@@ -494,6 +494,15 @@ Step5. execute() calls hasDoctor() of Model. If doctor does not exist, call addD
 ==== List Doctor feature
 
 list-doctor
+When a user executes `list-doctor`
+
+Step1. LogicManager calls parseCommand("list-doctor") in docXParser.
+
+Step2. Based on the COMMAND_WORD, docXParser builds a new ListDoctorCommand() and calls execute() of ListDoctorCommand().
+
+Step3. execute() calls Model Manager to update filtered doctor list to show all existing doctors in docX.
+
+Step4. commandresult -> UI??
 
 ==== Edit Doctor feature
 

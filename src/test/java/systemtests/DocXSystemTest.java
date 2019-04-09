@@ -34,6 +34,7 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteDoctorCommand;
 import seedu.address.logic.commands.ListDoctorCommand;
 import seedu.address.logic.commands.ListPatientCommand;
+import seedu.address.logic.commands.SearchDoctorNameCommand;
 import seedu.address.logic.commands.SearchPatientCommand;
 import seedu.address.logic.commands.SelectDoctorCommand;
 import seedu.address.logic.commands.SelectPatientCommand;
@@ -185,7 +186,7 @@ public abstract class DocXSystemTest {
      * Displays all doctors with any parts of their names matching {@code keyword} (case-insensitive).
      */
     protected void showDoctorsWithName(String keyword) {
-        executeCommand(SearchDoctorCommand.COMMAND_WORD + " " + keyword);
+        executeCommand(SearchDoctorNameCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredDoctorList().size()
                 < getModel().getDocX().getDoctorList().size());
     }

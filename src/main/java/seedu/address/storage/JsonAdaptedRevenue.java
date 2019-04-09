@@ -83,7 +83,7 @@ class JsonAdaptedRevenue {
         try {
             Float.parseFloat(totalRevenue);
         } catch (NumberFormatException nfe) {
-            throw new IllegalValueException(Year.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException("Total revenue should be a number.");
         }
 
         final Day modelDay = new Day(day);

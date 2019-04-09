@@ -95,7 +95,7 @@ https://github.com/CS2103-AY1819S2-W17-3/main/pull/121[#121]
 
 include::../UserGuide.adoc[tag=sort]
 
-include::../UserGuide.adoc[reverse]
+include::../UserGuide.adoc[tag=reverse]
 
 == Contributions to the Developer Guide
 |===
@@ -103,4 +103,5 @@ include::../UserGuide.adoc[reverse]
 |===
 
 include::../DeveloperGuide.adoc[tag=sort]
+
 include::../DeveloperGuide.adoc[tag=reverse]

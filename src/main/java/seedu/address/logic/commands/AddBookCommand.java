@@ -33,9 +33,6 @@ public class AddBookCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New book added: %1$s";
     public static final String MESSAGE_DUPLICATE_BOOK = "This book already exists in the bookShelf";
-    public static final String MESSAGE_BOOKNAME_CONFLICT = "Please provide only one book name";
-    public static final String MESSAGE_RATING_CONFLICT = "Please provide only one rating";
-
 
     private final Book toAdd;
 

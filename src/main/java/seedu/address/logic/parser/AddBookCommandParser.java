@@ -33,7 +33,7 @@ public class AddBookCommandParser implements Parser<AddBookCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AUTHOR, PREFIX_RATING)
                 || !argMultimap.getPreamble().isEmpty()
-                || !arePrefixesUnique(argMultimap, PREFIX_NAME, PREFIX_RATING)) {
+                || !arePrefixesUnique(argMultimap, PREFIX_NAME, PREFIX_AUTHOR, PREFIX_RATING)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddBookCommand.MESSAGE_USAGE));
         }
 

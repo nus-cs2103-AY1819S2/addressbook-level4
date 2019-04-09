@@ -29,6 +29,7 @@ public class ReviewTitleTest {
         // invalid name
         assertFalse(ReviewTitle.isValidReviewTitle("")); // empty string
         assertFalse(ReviewTitle.isValidReviewTitle(" ")); // spaces only
+        assertFalse(ReviewTitle.isValidReviewTitle("a review title with /c")); // invalid name
         assertFalse(ReviewTitle.isValidReviewTitle(tooLongStr)); // only non-alphanumeric characters
 
         // valid name
@@ -37,5 +38,7 @@ public class ReviewTitleTest {
         assertTrue(ReviewTitle.isValidReviewTitle("peter the 2nd")); // alphanumeric characters
         assertTrue(ReviewTitle.isValidReviewTitle("Capital Tan")); // with capital letters
         assertTrue(ReviewTitle.isValidReviewTitle("David Roger Jackson Ray Jr 2nd")); // long names
+        assertTrue(ReviewTitle.isValidReviewTitle("Annie's diary")); // special character
+        assertTrue(ReviewTitle.isValidReviewTitle("Mary&Max")); // special character
     }
 }

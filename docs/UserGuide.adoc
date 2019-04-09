@@ -58,6 +58,8 @@ E.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Review content should not exceed 350 characters (space included).
 * Rating should be integer from 0 to 10 inclusive and the input should be 1 or 2 digit number.
 * Tags should not exceed 20 characters (space included).
+* Book name and author name only accepts alphanumeric characters, space, '*', ',', '.', '?', ''' and '&'.
+* Author name only accepts alphanumeric characters and spaces.
 ====
 
 // tag::book[]
@@ -72,7 +74,7 @@ Examples:
 
 * `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale` +
 Adds a book named Alice in Wonderland to the record. The book is written by Lewis Carroll, rated 5 stars, and labeled with tags ‘fantasy’ and ‘fairy tale’.
-* `addBook n/Structure and Interpretation of Computer Programs a/Hal Abelson Jerry Sussman m/4 t/textbook` +
+* `addBook n/Structure and Interpretation of Computer Programs a/Jerry Sussman m/4 t/textbook` +
 Adds a book named Structure and Interpretation of Computer Programs to the record. The book is written by Hal Abelson Jerry Sussman, rated 4 stars, and labeled with tag ‘textbook’.
 
 ****

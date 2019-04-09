@@ -36,7 +36,7 @@ public class CommandTestUtil {
     public static final String VALID_BOOKNAME_PART_ALICE = "Alice";
     public static final String VALID_BOOKNAME_PART_CS = "Computer";
     public static final String VALID_AUTHOR_ALICE = "Lewis Carroll";
-    public static final String VALID_AUTHOR_CS = "Hal Abelson Jerry Sussman";
+    public static final String VALID_AUTHOR_CS = "Jerry Sussman";
     public static final String VALID_AUTHOR_LIFE = "Sue Monk Kidd";
     public static final String VALID_AUTHOR_PART_ALICE = "Carroll";
     public static final String VALID_AUTHOR_PART_CS = "Sussman";

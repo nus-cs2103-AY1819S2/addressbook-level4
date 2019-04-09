@@ -48,6 +48,17 @@ public class CurrentEditManager implements CurrentEdit {
         this.originalImageName = null;
     }
     /* @@author*/
+    /* @@author kayheen */
+    public CurrentEditManager(Image image) {
+        originalImage = image;
+        tempImage = image;
+        originalImageName = image.getName().fullName;
+        directoryTo = null;
+        originalFileName = null;
+        editFileName = null;
+        editFilePath = null;
+    }
+    /* @@author */
     /* @@author itszp */
 
     /**

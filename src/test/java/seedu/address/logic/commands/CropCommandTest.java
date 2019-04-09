@@ -14,7 +14,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.parser.CropCommandParser;
 import seedu.address.logic.parser.ImportCommandParser;
 import seedu.address.logic.parser.OpenCommandParser;
-//import seedu.address.model.Album;
+import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.CurrentEditManager;
 import seedu.address.model.Model;
@@ -84,8 +84,8 @@ public class CropCommandTest {
     }
     @After
     public void clearAlbum() {
-        //Album album = Album.getInstance();
-        //album.clearAlbum();
-        //currentEdit.clearTemp();
+        Album album = Album.getInstance();
+        album.clearAlbum();
+        currentEdit.clearTemp();
     }
 }

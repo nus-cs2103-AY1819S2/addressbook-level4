@@ -749,8 +749,8 @@ _Example:_ When a place is added via the `add` command, the charts are automatic
 *Example:* ::
 Given below is an example usage scenario and what the user will see in the GUI.
 
-:: *Step 1:* By default, the charts are displayed when TravelBuddy launches. To navigate away from the charts, type in `select 1`, as seen in <<generateCommand1Figure>>. +
-*Outcome:* The first place in the place list will be selected and displayed on the right-hand side of the panel, as shown in <<generateCommand2Figure>>.
+:: *Step 1:* By default, the charts are displayed when TravelBuddy launches. To navigate away from the charts, type in `select 1`, as seen in <<generateCommand1>>. +
+*Outcome:* The first place in the place list will be selected and displayed on the right-hand side of the panel, as shown in <<generateCommand2>>.
 
 [[generateCommand1]]
 [reftext="Figure 4.4.4"]
@@ -758,8 +758,8 @@ Given below is an example usage scenario and what the user will see in the GUI.
 .The user types in `select 1`
 image::generateCommand1.png[width="600"]
 
-:: *Step 2:* Type in `generate` to generate the charts, as seen in <<generateCommand2Figure>>. +
-*Outcome:* The charts will be displayed on the right-hand side of the panel, as shown in <<generateCommand3Figure>>.
+:: *Step 2:* Type in `generate` to generate the charts, as seen in <<generateCommand2>>. +
+*Outcome:* The charts will be displayed on the right-hand side of the panel, as shown in <<generateCommand3>>.
 
 [[generateCommand2]]
 [reftext="Figure 4.4.5"]
@@ -780,26 +780,21 @@ image::generateCommand3.png[width="600"]
 *Alternative 1 (current choice):* :: Charts are updated in real-time.
 *Pros:* :: Ease-of-use. Users do not need to type an additional `generate` command after changes are made to the Place list.
 :: Accurate. The chart reflects the latest changes regardless of whether the user types the `generate` command.
-
 *Cons:* :: Computationally more intensive, especially when the Place list is huge, as all three charts need to be regenerated every time a change is detected.
-
-*Example:* :: <<generateCommand7Figure>> shows the state of the bar charts before the command `edit 1 cc/USA` was executed, while <<generateCommand8Figure>> shows the state of the bar chart, with USA included, after the `edit` command was executed.
-
+*Example:* :: <<generateCommand7>> shows the state of the bar charts before the command `edit 1 cc/USA` was executed, while <<generateCommand8>> shows the state of the bar chart, with USA included, after the `edit` command was executed.
 *Alternative 2:* :: Charts are updated only when the `generate` command is used.
 *Pros:* :: Computationally less intensive, as the charts are only generated when required.
-
 *Cons:* :: Less user-friendly. Users will need to type the `generate` command for the charts to reflect the changes made to the Place list.
 :: Less accurate. The chart does not reflect the latest changes until the user types the `generate` command.
-
 *Decision:* :: Alternative 1, which is to update the charts in real-time, was adopted as it promotes ease-of-use, so users are not required to type in an additional `generate` command whenever changes are made to the Place list. Moreover, Alternative 1 is the more accurate option of the two, as the chart reflects the latest changes even if the user forgets to type the `generate` command.
 
-[[generateCommand7Figure]]
+[[generateCommand7]]
 [reftext="Figure 4.4.7"]
 [caption="Figure 4.4.7: "]
 .Before the `edit` command was executed
 image::generateCommand7.png[width="600"]
 
-[[generateCommand8Figure]]
+[[generateCommand8]]
 [reftext="Figure 4.4.8"]
 [caption="Figure 4.4.8: "]
 .After the `edit` command was executed

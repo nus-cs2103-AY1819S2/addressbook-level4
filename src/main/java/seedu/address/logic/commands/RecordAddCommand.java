@@ -82,8 +82,12 @@ public class RecordAddCommand extends Command {
      */
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof RecordAddCommand // instanceof handles nulls
-                && toAdd.equals(((RecordAddCommand) other).toAdd));
+        if (other == null) {
+            return false;
+        } else {
+            return other == this // short circuit if same object
+                    || (other instanceof RecordAddCommand // instanceof handles nulls
+                    && addRecord.equals(((RecordAddCommand) other).addRecord));
+        }
     }
 }

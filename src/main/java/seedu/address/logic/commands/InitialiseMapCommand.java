@@ -2,12 +2,17 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.LogicManager;
 import seedu.address.logic.battle.state.BattleState;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
+
 
 /**
  * Initialise map to size input by user.
@@ -30,6 +35,7 @@ public class InitialiseMapCommand extends Command {
     public static final String MESSAGE_INVALID_MAP_SIZE = "Map size must be between %d to %d, inclusive.";
 
     private final int mapSize;
+    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     /**
      * Initialise map command
@@ -51,15 +57,21 @@ public class InitialiseMapCommand extends Command {
 
         model.getHumanMapGrid().initialise(cellGrid);
         model.getEnemyMapGrid().initialise(cellGrid);
+        logger.info("HumanPlayer and EnemyPlayer maps initialised");
 
         model.getHumanPlayer().resetFleet(mapSize);
         model.getEnemyPlayer().resetFleet(mapSize);
 
+        logger.info("HumanPlayer and EnemyPlayer fleet reset.");
+
         model.getHumanPlayer().resetTargetHistory();
         model.getEnemyPlayer().resetTargetHistory();
+        logger.info("HumanPlayer and EnemyPlayer target history reset");
 
         model.setBattleState(BattleState.PLAYER_PUT_SHIP);
+        logger.info("Battle state reset to PLAYER_PUT_SHIP");
 
+        logger.info("--------------------------------");
         return new CommandResult(String.format(MESSAGE_SUCCESS, mapSize));
     }
 

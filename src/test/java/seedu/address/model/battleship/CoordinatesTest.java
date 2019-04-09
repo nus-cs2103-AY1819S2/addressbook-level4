@@ -36,6 +36,7 @@ public class CoordinatesTest {
         assertFalse(Coordinates.isValidCoordinates("9")); // single digit
         assertFalse(Coordinates.isValidCoordinates("z")); // single alphabet
         assertFalse(Coordinates.isValidCoordinates("a0")); // invalid column
+        assertFalse(Coordinates.isValidCoordinates("00")); // double digits
 
         // valid addresses
         assertTrue(Coordinates.isValidCoordinates("a1")); // starting coordinate

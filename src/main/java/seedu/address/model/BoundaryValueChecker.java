@@ -40,7 +40,7 @@ public class BoundaryValueChecker {
      */
     public void performChecks() throws CommandException {
         if (!this.isHeadWithinBounds()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(MESSAGE_OUT_OF_BOUNDS);
         } else if (this.orientation.isHorizontal()) {
             if (!this.isBattleshipAbsent()) {
                 throw new CommandException(MESSAGE_BATTLESHIP_PRESENT);

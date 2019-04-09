@@ -83,7 +83,7 @@ public class PutShipCommand extends Command {
             checkEnoughBattleships(model, battleship, 1);
             mapGrid.putShip(battleship, coordinates, orientation);
             model.deployBattleship(battleship, coordinates, orientation);
-        } catch (ArrayIndexOutOfBoundsException aiobe) {
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException nfe) {
             throw new CommandException(MESSAGE_OUT_OF_BOUNDS);
         } catch (Exception e) {
             throw new CommandException(e.getMessage());
@@ -92,8 +92,12 @@ public class PutShipCommand extends Command {
         Status status = model.getHumanMapGrid().getCellStatus(coordinates);
         model.updateUi();
 
+        String battleshipStatus = String.format("%s at %s in %s orientation",
+                battleship.getName(),
+                coordinates,
+                orientation);
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(status)
+        stringBuilder.append(battleshipStatus)
                 .append("\n\nNumber of aircraft carriers left: ")
                 .append(model.getFleet().getNumAircraftCarrierLeft())
                 .append("\nNumber of cruisers left: ")

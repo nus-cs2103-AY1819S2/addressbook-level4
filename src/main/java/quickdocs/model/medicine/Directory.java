@@ -17,9 +17,7 @@ public class Directory {
     public static final String VALIDATION_REGEX = "[^\\s].*";
     public static final String MESSAGE_CONSTRAINTS = "Directory name can take any values, and it should not be blank";
     public static final String ERROR_MESSAGE_MEDICINE_ALREADY_EXISTS_UNDER_SAME_DIRECTORY =
-            "Medicine with same name already exist under the same directory";
-    public static final String ERROR_MESSAGE_DIRECTORY_WITH_SAME_NAME_ALREADY_EXISTS =
-            "Directory with the same name already exists.";
+            "Medicine or Directory with same name already exist under the same directory";
 
     public final String name;
     private ArrayList<Medicine> listOfMedicine;
@@ -28,14 +26,14 @@ public class Directory {
 
     public Directory(String name) {
         requireNonNull(name);
-        checkArgument(isValidDirectory(name), MESSAGE_CONSTRAINTS);
+        checkArgument(ifFitsDirectoryFormat(name), MESSAGE_CONSTRAINTS);
         this.name = name;
         this.listOfDirectory = new ArrayList<>();
         this.listOfMedicine = new ArrayList<>();
         this.threshold = Optional.empty();
     }
 
-    private boolean isValidDirectory(String test) {
+    private boolean ifFitsDirectoryFormat(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -45,7 +43,8 @@ public class Directory {
      */
     public void addMedicine(Medicine medicine) {
         requireNonNull(medicine);
-        checkArgument(isValidMedicine(medicine), ERROR_MESSAGE_MEDICINE_ALREADY_EXISTS_UNDER_SAME_DIRECTORY);
+        checkArgument(isValidNewNameToBeAdded(medicine.name),
+                ERROR_MESSAGE_MEDICINE_ALREADY_EXISTS_UNDER_SAME_DIRECTORY);
         if (threshold.isPresent()) {
             medicine.setThreshold(threshold.get());
         }
@@ -59,7 +58,7 @@ public class Directory {
      */
     public Directory addDirectory(String name) {
         requireNonNull(name);
-        checkArgument(isValidNewDirectory(name), ERROR_MESSAGE_DIRECTORY_WITH_SAME_NAME_ALREADY_EXISTS);
+        checkArgument(isValidNewNameToBeAdded(name), ERROR_MESSAGE_MEDICINE_ALREADY_EXISTS_UNDER_SAME_DIRECTORY);
         Directory newDirectory = new Directory(name);
         if (threshold.isPresent()) {
             newDirectory.setThreshold(threshold.get());
@@ -76,19 +75,25 @@ public class Directory {
      */
     public Directory addDirectory(Directory subDirectory) {
         requireNonNull(subDirectory);
-        checkArgument(isValidNewDirectory(subDirectory.name), ERROR_MESSAGE_DIRECTORY_WITH_SAME_NAME_ALREADY_EXISTS);
+        checkArgument(isValidNewNameToBeAdded(subDirectory.name),
+                ERROR_MESSAGE_MEDICINE_ALREADY_EXISTS_UNDER_SAME_DIRECTORY);
         listOfDirectory.add(subDirectory);
         listOfDirectory.sort(Comparator.comparing((Directory directory) -> (directory.name.toLowerCase())));
         return subDirectory;
     }
+
+    private boolean isValidNewNameToBeAdded(String newName) {
+        return isNotExistingDirectoryName(newName) && isNotExistingMedicineName(newName);
+    }
+
     /**
      * Check whether there is no medicine with identical name in the directory
-     * @param med the medicine that needs checking
+     * @param newName the name that needs checking
      * @return if there is no existing medicine with the identical name
      */
-    private boolean isValidMedicine(Medicine med) {
+    private boolean isNotExistingMedicineName(String newName) {
         for (Medicine medicine : listOfMedicine) {
-            if (medicine.name.equalsIgnoreCase(med.name)) {
+            if (medicine.name.equalsIgnoreCase(newName)) {
                 return false;
             }
         }
@@ -100,7 +105,7 @@ public class Directory {
      * @param directoryName the directory name that need checking
      * @return if there is no existing sub-directory with identical name
      */
-    private boolean isValidNewDirectory(String directoryName) {
+    private boolean isNotExistingDirectoryName(String directoryName) {
         for (Directory directory : listOfDirectory) {
             if (directory.name.equalsIgnoreCase(directoryName)) {
                 return false;

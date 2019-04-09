@@ -2,15 +2,16 @@ package quickdocs.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static quickdocs.commons.util.StringUtil.fromPathToString;
+import static quickdocs.model.medicine.MedicineManager.ERROR_MESSAGE_NO_EXISTING_MED_FOUND;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Optional;
 
 import quickdocs.logic.CommandHistory;
-import quickdocs.model.medicine.Medicine;
 import quickdocs.logic.commands.exceptions.CommandException;
 import quickdocs.model.Model;
+import quickdocs.model.medicine.Medicine;
 
 /**
  * An command to add Medicine to the path specified. If no Medicine with same name yet exists, new medicine is added.
@@ -39,8 +40,6 @@ public class AddMedicineCommand extends Command {
     public static final String MESSAGE_SUCCESS_EXISTING_MED = "Existing %1$s, added to %2$s\n";
     public static final String ERRORMESSAGE_INSUFFICIENTINFO_NEWMEDICINE =
             "Only one field among price and quantity is supplied for new medicine";
-    public static final String ERRORMESSAGE_NOEXISTINGMEDFOUND =
-            "No existing medicine with name %1$s found in the storage.";
 
     private final String name;
     private final Optional<Integer> quantity;
@@ -83,7 +82,7 @@ public class AddMedicineCommand extends Command {
                             findMedicine.get().toString(), fromPathToString(path));
                     return new CommandResult(feedback);
                 } else {
-                    throw new CommandException(String.format(ERRORMESSAGE_NOEXISTINGMEDFOUND, name));
+                    throw new CommandException(String.format(ERROR_MESSAGE_NO_EXISTING_MED_FOUND, name));
                 }
             } else {
                 model.addMedicine(name, quantity.get(), path, price.get());

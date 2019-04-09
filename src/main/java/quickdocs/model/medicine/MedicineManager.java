@@ -21,6 +21,8 @@ public class MedicineManager {
             "No Medicine is found at the given path.";
     public static final String ERROR_MESSAGE_NO_MEDICINE_FOUND_BY_NAME =
             "No Medicine is found by the given name.";
+    public static final String ERROR_MESSAGE_NO_EXISTING_MED_FOUND =
+            "No existing medicine with name %1$s found in the storage.";
 
     private Directory root;
     private ArrayList<Medicine> listOfMedicine;
@@ -164,6 +166,9 @@ public class MedicineManager {
         Optional<Directory> directory = findDirectory(path);
         if (!directory.isPresent()) {
             throw new IllegalArgumentException(ERROR_MESSAGE_NO_DIRECTORY_FOUND);
+        }
+        if (!listOfMedicine.contains(medicine)) {
+            throw new IllegalArgumentException(ERROR_MESSAGE_NO_EXISTING_MED_FOUND);
         }
         directory.get().addMedicine(medicine);
     }

@@ -10,7 +10,7 @@ import seedu.finance.logic.commands.SetFileCommand;
 import seedu.finance.logic.parser.exceptions.ParseException;
 
 /**
- * Parse given string of argumentsin context of SetFileCommand
+ * Parse given string of arguments in context of SetFileCommand
  */
 public class SetFileCommandParser implements Parser<SetFileCommand> {
 

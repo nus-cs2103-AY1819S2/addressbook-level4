@@ -24,7 +24,7 @@ import seedu.finance.storage.StorageManager;
  */
 public class SetFileCommand extends Command {
 
-    public static final String COMMAND_WORD = "setfile";
+    public static final String COMMAND_WORD = "setFile";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets the file path to store data. "
             + "Parameters: "
@@ -38,7 +38,7 @@ public class SetFileCommand extends Command {
     private final Path path;
 
     /**
-     * Creates a SetCommand to set the specificed {@code Amount} as budget
+     * Creates a SetFileCommand to set the specified Path as the new Finance Tracker Storage json.
      */
     public SetFileCommand(Path path) {
         requireNonNull(path);
@@ -56,8 +56,10 @@ public class SetFileCommand extends Command {
             financeTrackerOptional = newStorage.readFinanceTracker();
             if (!financeTrackerOptional.isPresent()) {
                 logger.info("Data file not found. A new empty FinanceTracker will be created with file name.");
+                initialData = new FinanceTracker();
+            } else {
+                initialData = financeTrackerOptional.get();
             }
-            initialData = new FinanceTracker();
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty FinanceTracker");
             initialData = new FinanceTracker();

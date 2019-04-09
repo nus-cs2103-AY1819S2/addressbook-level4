@@ -33,7 +33,7 @@ public class JsonAdaptedCategoryBudget {
     }
 
     /**
-     * Converts a given {@code Budget} into this class for Jackson use.
+     * Converts a given {@code CategoryBudget} into this class for Jackson use.
      */
     public JsonAdaptedCategoryBudget(CategoryBudget source) {
         totalBudget = Double.toString(source.getTotalBudget());
@@ -42,7 +42,7 @@ public class JsonAdaptedCategoryBudget {
     }
 
     /**
-     * Converts this Jackson-friendly adapted record object into the model's {@code Budget} object.
+     * Converts this Jackson-friendly adapted record object into the model's {@code CategoryBudget} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted record.
      */

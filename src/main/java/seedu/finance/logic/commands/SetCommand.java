@@ -27,7 +27,7 @@ public class SetCommand extends Command {
     private final String amount;
 
     /**
-     * Creates a SetCommand to set the specificed {@code Amount} as budget
+     * Creates a SetCommand to set the specified {@code Amount} as budget
      */
     public SetCommand(String amount) {
         requireNonNull(amount);
@@ -55,7 +55,7 @@ public class SetCommand extends Command {
             return true;
         }
 
-        // instaceof handles null
+        // instanceof handles null
         if (!(other instanceof SetCommand)) {
             return false;
         }

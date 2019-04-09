@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 import seedu.finance.commons.exceptions.IllegalValueException;
 
 import seedu.finance.model.budget.CategoryBudget;
@@ -28,7 +29,7 @@ public class JsonAdaptedTotalBudget {
     private final List<JsonAdaptedCategoryBudget> categoryBudgets = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedBudget} with the given record details.
+     * Constructs a {@code JsonAdaptedTotalBudget} with the given budget details.
      */
     @JsonCreator
     public JsonAdaptedTotalBudget(@JsonProperty("totalBudget") String totalBudget,
@@ -40,7 +41,7 @@ public class JsonAdaptedTotalBudget {
     }
 
     /**
-     * Converts a given {@code Budget} into this class for Jackson use.
+     * Converts a given {@code TotalBudget} into this class for Jackson use.
      */
     public JsonAdaptedTotalBudget(TotalBudget source) {
         currentBudget = Double.toString(source.getCurrentBudget());
@@ -54,7 +55,7 @@ public class JsonAdaptedTotalBudget {
     }
 
     /**
-     * Converts this Jackson-friendly adapted record object into the model's {@code Budget} object.
+     * Converts this Jackson-friendly adapted record object into the model's {@code TotalBudget} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted record.
      */

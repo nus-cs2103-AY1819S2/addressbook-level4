@@ -83,10 +83,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String date} into an {@code Date}.
+     * Parses a {@code String filename} into an {@code Path}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code date} is invalid.
+     * @throws ParseException if the given {@code path} is invalid.
      */
     public static Path parseFile(String filename) throws ParseException {
         requireNonNull(filename);

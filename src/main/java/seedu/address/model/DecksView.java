@@ -112,13 +112,8 @@ public class DecksView implements ListViewState<Deck> {
         return selectedDeck.getValue();
     }
 
-    @Override
-    public ReadOnlyProperty<Deck> getSelectedItemProperty() {
-        return selectedDeck;
-    }
-
     public UiPart<Region> getPanel() {
-        return new ListPanel<>(getFilteredList(), getSelectedItemProperty(), this::setSelectedItem);
+        return new ListPanel<>(getFilteredList(), selectedDeck, this::setSelectedItem);
     }
 
     @Override

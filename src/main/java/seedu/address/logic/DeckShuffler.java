@@ -18,7 +18,7 @@ public class DeckShuffler {
     private ObservableList<Card> cards;
     private int itCounter;
 
-    public DeckShuffler(Deck deck) {
+    DeckShuffler(Deck deck) {
         this.deck = deck;
         Deck shuffledDeck = new Deck(deck);
         cards = shuffledDeck.getCards().internalList;

@@ -108,17 +108,8 @@ public class CardsView implements ListViewState<Card> {
         return selectedCard.getValue();
     }
 
-    /**
-     * Returns the selected Item in the filtered list.
-     * null if no card is selected.
-     */
-    @Override
-    public ReadOnlyProperty<Card> getSelectedItemProperty() {
-        return selectedCard;
-    }
-
     public UiPart<Region> getPanel() {
-        return new ListPanel<>(getFilteredList(), getSelectedItemProperty(), this::setSelectedItem);
+        return new ListPanel<>(getFilteredList(), selectedCard, this::setSelectedItem);
     }
 
     @Override

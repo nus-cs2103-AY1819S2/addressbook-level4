@@ -18,6 +18,7 @@ import seedu.address.model.person.Person;
 public class MemberExportCommand extends MemberCommand {
 
     public static final String COMMAND_WORD = "memberExport";
+    public static final String COMMAND_ALIAS = "mExport";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Exports the person identified by the index number used in the displayed person list.\n"

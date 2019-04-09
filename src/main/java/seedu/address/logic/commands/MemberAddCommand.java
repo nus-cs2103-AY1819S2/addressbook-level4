@@ -22,6 +22,7 @@ import seedu.address.model.person.Person;
 public class MemberAddCommand extends MemberCommand {
 
     public static final String COMMAND_WORD = "memberAdd";
+    public static final String COMMAND_ALIAS = "mAdd";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a member to Club Manager. "
             + "Parameters: "

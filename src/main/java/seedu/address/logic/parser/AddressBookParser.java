@@ -75,63 +75,82 @@ public class AddressBookParser {
             return new ModeCommandParser().parse(arguments);
 
         case MemberAddCommand.COMMAND_WORD:
+            case MemberAddCommand.COMMAND_ALIAS:
             return new MemberAddCommandParser().parse(arguments);
 
         case MemberEditCommand.COMMAND_WORD:
+            case MemberEditCommand.COMMAND_ALIAS:
             return new MemberEditCommandParser().parse(arguments);
 
         case MemberSelectCommand.COMMAND_WORD:
+            case MemberSelectCommand.COMMAND_ALIAS:
             return new MemberSelectCommandParser().parse(arguments);
 
         case MemberDeleteCommand.COMMAND_WORD:
+            case MemberDeleteCommand.COMMAND_ALIAS:
             return new MemberDeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
         case MemberFindCommand.COMMAND_WORD:
+            case MemberFindCommand.COMMAND_ALIAS:
             return new MemberFindCommandParser().parse(arguments);
 
         case MemberSortCommand.COMMAND_WORD:
+            case MemberSortCommand.COMMAND_ALIAS:
             return new MemberSortCommandParser().parse(arguments);
 
         case MemberListCommand.COMMAND_WORD:
+            case MemberListCommand.COMMAND_ALIAS:
             return new MemberListCommand();
 
         case MemberFilterCommand.COMMAND_WORD:
+            case MemberFilterCommand.COMMAND_ALIAS:
             return new MemberFilterCommandParser().parse(arguments);
 
         case MemberExportCommand.COMMAND_WORD:
+            case MemberExportCommand.COMMAND_ALIAS:
             return new MemberExportCommandParser().parse(arguments);
 
         case ActivityAddCommand.COMMAND_WORD:
+            case ActivityAddCommand.COMMAND_ALIAS:
             return new ActivityAddCommandParser().parse(arguments);
 
         case ActivityAddMemberCommand.COMMAND_WORD:
+            case ActivityAddMemberCommand.COMMAND_ALIAS:
             return new ActivityAddMemberCommandParser().parse(arguments);
 
         case ActivityDeleteMemberCommand.COMMAND_WORD:
+            case ActivityDeleteMemberCommand.COMMAND_ALIAS:
             return new ActivityDeleteMemberCommandParser().parse(arguments);
 
         case ActivityEditCommand.COMMAND_WORD:
+            case ActivityEditCommand.COMMAND_ALIAS:
             return new ActivityEditCommandParser().parse(arguments);
 
         case ActivityFindCommand.COMMAND_WORD:
+            case ActivityFindCommand.COMMAND_ALIAS:
             return new ActivityFindCommandParser().parse(arguments);
 
         case ActivityFilterCommand.COMMAND_WORD:
+            case ActivityFilterCommand.COMMAND_ALIAS:
             return new ActivityFilterCommandParser().parse(arguments);
 
         case ActivitySelectCommand.COMMAND_WORD:
+            case ActivitySelectCommand.COMMAND_ALIAS:
             return new ActivitySelectCommandParser().parse(arguments);
 
         case ActivityExportCommand.COMMAND_WORD:
+            case ActivityExportCommand.COMMAND_ALIAS:
             return new ActivityExportCommandParser().parse(arguments);
 
         case ActivityDeleteCommand.COMMAND_WORD:
+            case ActivityDeleteCommand.COMMAND_ALIAS:
             return new ActivityDeleteCommandParser().parse(arguments);
 
         case ActivityListCommand.COMMAND_WORD:
+            case ActivityListCommand.COMMAND_ALIAS:
             return new ActivityListCommand();
 
         case HistoryCommand.COMMAND_WORD:

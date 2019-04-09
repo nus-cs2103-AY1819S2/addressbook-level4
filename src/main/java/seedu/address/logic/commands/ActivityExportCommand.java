@@ -18,6 +18,7 @@ import seedu.address.model.activity.Activity;
 public class ActivityExportCommand extends ActivityCommand {
 
     public static final String COMMAND_WORD = "activityExport";
+    public static final String COMMAND_ALIAS = "aExport";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Exports the activity identified by the index number used in the displayed activity list.\n"

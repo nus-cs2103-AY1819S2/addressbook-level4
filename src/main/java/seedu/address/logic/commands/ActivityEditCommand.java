@@ -31,6 +31,7 @@ import seedu.address.model.person.MatricNumber;
 public class ActivityEditCommand extends ActivityCommand {
 
     public static final String COMMAND_WORD = "activityEdit";
+    public static final String COMMAND_ALIAS = "aEdit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the activity identified "
             + "by the index number used in the displayed activity list. "

@@ -1,12 +1,14 @@
 /* @@author Carrein */
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Config.MAX_FILE_SIZE;
 import static seedu.address.commons.core.Config.SAMPLE_FOLDER;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
@@ -24,7 +26,6 @@ public class ImportCommandParser implements Parser<ImportCommand> {
 
     private final Album album = Album.getInstance();
     private final File directory = new File(album.getAssetsFilepath());
-    private final String assetsFilepath = album.getAssetsFilepath();
 
     /**
      * Parses the given {@code String} of arguments in the context
@@ -43,67 +44,69 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         File[] listOfFiles;
         try {
             switch (validPath(args)) {
-            // TODO - Pending refactor.
-            case 2:
-                isDirectory = true;
-                try {
-                    ResourceWalker.walk(SAMPLE_FOLDER);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
-            case 1:
-                isDirectory = true;
-                folder = new File(args);
-                listOfFiles = folder.listFiles();
-                for (File f : listOfFiles) {
-                    String path = f.getAbsolutePath();
-                    // File must be valid and not hidden and not ridiculously large.
-                    if (validFormat(path) && !isHidden(path) && !isLarge(path)) {
-                        Image image = new Image(path);
-                        if (!duplicateFile(image)) {
-                            try {
-                                File file = new File(path);
-                                FileUtils.copyFileToDirectory(file, directory);
-                                System.out.println("✋ IMPORTED: " + path);
-                            } catch (IOException e) {
-                                System.out.println(e.toString());
+                // TODO - Pending refactor.
+                case 2:
+                    isDirectory = true;
+                    try {
+                        ResourceWalker.walk(SAMPLE_FOLDER);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 1:
+                    isDirectory = true;
+                    folder = new File(args);
+                    listOfFiles = folder.listFiles();
+                    for (File f : listOfFiles) {
+                        String path = f.getAbsolutePath();
+                        // File must be valid and not hidden and not ridiculously large.
+                        if (validFormat(path) && !isHidden(path) && !isLarge(path)) {
+                            Image image = new Image(path);
+                            if (!duplicateFile(image)) {
+                                try {
+                                    File file = new File(path);
+                                    album.addToImageList(path);
+                                    FileUtils.copyFileToDirectory(file, directory);
+                                    System.out.println("✋ IMPORTED: " + path);
+                                } catch (IOException e) {
+                                    System.out.println(e.toString());
+                                }
                             }
                         }
                     }
-                }
-                break;
-            case 0:
-                // File must be valid and not hidden and not ridiculously large.
-                if (validFormat(args) && !isHidden(args)) {
-                    if (!isLarge(args)) {
-                        Image image = new Image(args);
-                        if (!duplicateFile(image)) {
-                            try {
-                                File file = new File(args);
-                                FileUtils.copyFileToDirectory(file, directory);
-
-                                System.out.println("✋ IMPORTED: " + args);
-                            } catch (IOException e) {
-                                System.out.println(e.toString());
+                    break;
+                case 0:
+                    // File must be valid and not hidden and not ridiculously large.
+                    if (validFormat(args) && !isHidden(args)) {
+                        if (!isLarge(args)) {
+                            Image image = new Image(args);
+                            if (!duplicateFile(image)) {
+                                try {
+                                    File file = new File(args);
+                                    FileUtils.copyFileToDirectory(file, directory);
+                                    album.addToImageList(args);
+                                    System.out.println("✋ IMPORTED: " + args);
+                                } catch (IOException e) {
+                                    System.out.println(e.toString());
+                                }
+                            } else {
+                                throw new ParseException(Messages.MESSAGE_DUPLICATE_FILE);
                             }
                         } else {
-                            throw new ParseException(Messages.MESSAGE_DUPLICATE_FILE);
+                            throw new ParseException(Messages.MESSAGE_INVALID_SIZE);
                         }
                     } else {
-                        throw new ParseException(Messages.MESSAGE_INVALID_SIZE);
+                        throw new ParseException(Messages.MESSAGE_INVALID_FORMAT);
                     }
-                } else {
-                    throw new ParseException(Messages.MESSAGE_INVALID_FORMAT);
-                }
-                break;
-            default:
-                throw new ParseException(Messages.MESSAGE_INVALID_PATH);
+                    break;
+                default:
+                    throw new ParseException(Messages.MESSAGE_INVALID_PATH);
             }
 
         } catch (IOException e) {
             System.out.println(e.toString());
         }
+        album.refreshAlbum();
         return new ImportCommand(isDirectory);
     }
 
@@ -135,7 +138,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
      * @return True if image file name exist, false otherwise.
      */
     public boolean duplicateFile(Image image) {
-        return (new File(assetsFilepath + image.getName().toString()).exists()) ? true : false;
+        return album.imageExist(image.getName().fullName);
     }
 
     /**
@@ -171,7 +174,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
     public boolean isLarge(String url) {
         File file = new File(url);
         System.out.println(file.length());
-        return file.length() > 6000000;
+        return file.length() > MAX_FILE_SIZE;
     }
 }
 

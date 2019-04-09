@@ -23,8 +23,10 @@ import seedu.address.model.image.Image;
 public class Album {
     // Represents a singleton copy of the Album.
     private static Album instance;
+
     // Represents the Storage path of assets folder for all raw images.
     private final String assetsFilepath;
+
     // Represents an ArrayList of image available in assets folder.
     private List<Image> imageList = new ArrayList<>();
 
@@ -58,8 +60,28 @@ public class Album {
         return imageList;
     }
 
+    /**
+     * Gets the filepath of assets folder.
+     *
+     * @return String of filepath location.
+     */
     public String getAssetsFilepath() {
         return assetsFilepath;
+    }
+
+    /**
+     * Checks if image exists in assets directory.
+     *
+     * @param imageName Image name to check for.
+     * @return True if image exist, false otherwise.
+     */
+    public boolean imageExist(String imageName) {
+        for (Image i : imageList) {
+            if (i.getName().fullName.equals(imageName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -89,14 +111,17 @@ public class Album {
      */
     public void populateAlbum() {
         try {
-            imageList.clear();
             File folder = new File(assetsFilepath);
             for (File file : folder.listFiles()) {
-                imageList.add(new Image(file.getAbsolutePath()));
+                addToImageList(file.getAbsolutePath());
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void addToImageList(String args) {
+        imageList.add(new Image(args));
     }
 
     /**

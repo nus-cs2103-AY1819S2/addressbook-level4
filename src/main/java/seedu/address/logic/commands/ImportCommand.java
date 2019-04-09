@@ -38,7 +38,6 @@ public class ImportCommand extends Command {
     @Override
     public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history) {
         requireNonNull(model);
-        album.populateAlbum();
         album.refreshAlbum();
         String returnString = isDirectory ? MESSAGE_DIR_SUCCESS : MESSAGE_SUCCESS;
         return new CommandResult(returnString);

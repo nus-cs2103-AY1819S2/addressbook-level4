@@ -125,24 +125,4 @@ public interface Model {
      * Sets the selected person in the filtered person list.
      */
     void setSelectedPerson(Person person);
-
-    /**
-     * Clears asset folder
-     */
-    void clearAssetFolder(File directory);
-
-    /**
-     * Updates tempImage to Opened image
-     *
-     * @param image
-     */
-
-    /**
-     * Saves the edited image as {@code name} into assets folder)
-     * To use originalName if {@code name} is empty
-     */
-
-    //=========== Filtered Person List Accessors =============================================================
-
-    void refreshAlbum();
 }

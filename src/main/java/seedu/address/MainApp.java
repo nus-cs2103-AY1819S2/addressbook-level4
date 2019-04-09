@@ -16,6 +16,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
+import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.CurrentEditManager;
 import seedu.address.model.Model;
@@ -48,6 +49,7 @@ public class MainApp extends Application {
     protected Model model;
     protected CurrentEdit currentEdit;
     protected Config config;
+    protected Album album;
 
     @Override
     public void init() throws Exception {
@@ -67,6 +69,8 @@ public class MainApp extends Application {
         currentEdit = new CurrentEditManager();
         logic = new LogicManager(model, storage, currentEdit);
         ui = new UiManager(logic);
+        album = Album.getInstance();
+        album.populateAlbum();
     }
 
     /**

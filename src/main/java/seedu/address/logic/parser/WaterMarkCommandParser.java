@@ -4,6 +4,9 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.WaterMarkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * This class parses the WaterMark command.
+ */
 public class WaterMarkCommandParser implements Parser<WaterMarkCommand> {
     /**
      * Parses the Rotate Command.

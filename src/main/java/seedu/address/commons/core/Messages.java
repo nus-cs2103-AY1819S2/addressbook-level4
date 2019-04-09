@@ -46,5 +46,4 @@ public class Messages {
     public static final String MESSAGE_INVALID_SAVE_NAME = "Unable to save. Save file name cannot be empty.";
     public static final String MESSAGE_WATERMARK_SUCCESS = "Watermark created.";
     public static final String MESSAGE_HAS_WATERMARK = "A watermark has been added to this image already.";
-    
 }

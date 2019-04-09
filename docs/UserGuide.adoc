@@ -77,6 +77,8 @@ Examples:
 Shows a list of all persons in the address book. +
 Format: `list`
 
+* `Useful after using search/find/displayJob which shows a subset of the list.`
+
 ==== Editing a person : `edit`
 
 Edits an existing person in the address book. +
@@ -88,7 +90,6 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE]
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person's tags by typing `t/` without specifying any tags after it.
-* You can remove all the person's moudles by typing `mo/` without specifying any moudles after it.
 ****
 
 Examples:

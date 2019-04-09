@@ -84,7 +84,6 @@ public class AssignRequestCommand extends Command implements RequestCommand {
         }
 
         model.updateFilteredRequestList(Model.PREDICATE_SHOW_ALL_REQUESTS);
-        //model.commitRequestBook();
         commitRequestBook(model);
 
         StringJoiner sj = new StringJoiner(", ");

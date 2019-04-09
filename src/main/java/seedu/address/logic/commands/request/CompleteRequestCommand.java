@@ -49,18 +49,18 @@ public class CompleteRequestCommand extends Command implements RequestCommand {
         }
 
         Request requestToBeCompleted = lastShownList.get(targetIndex.getZeroBased());
-
+        Request completedRequest = new Request(requestToBeCompleted);
         if (!requestToBeCompleted.getRequestStatus().equals(new RequestStatus("ONGOING"))) {
             throw new CommandException(MESSAGE_ONGOING_REQUEST);
         }
 
-        requestToBeCompleted.complete();
+        completedRequest.complete();
 
-        model.updateRequest(requestToBeCompleted, requestToBeCompleted);
+        model.updateRequest(requestToBeCompleted, completedRequest);
         model.updateFilteredRequestList(Model.PREDICATE_SHOW_ALL_REQUESTS);
-        model.commitRequestBook();
+        commitRequestBook(model);
 
-        return new CommandResult(String.format(MESSAGE_COMPLETED_REQUEST_SUCCESS, requestToBeCompleted));
+        return new CommandResult(String.format(MESSAGE_COMPLETED_REQUEST_SUCCESS, completedRequest));
     }
 
     @Override

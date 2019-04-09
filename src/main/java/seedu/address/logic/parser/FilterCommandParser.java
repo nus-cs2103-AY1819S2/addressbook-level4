@@ -260,7 +260,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             if (criterion[1] != null) {
                 criterion[1] = infoBetweenPrefixes(args, PREFIX_FILTER_PHONE.toString(),
                         PREFIX_FILTER_PHONE_REVERSE.toString(), typeOfProcess, false);
-                if (criterion[1] == null ||!numberInputControl(criterion[1])) {
+                if (criterion[1] == null || !numberInputControl(criterion[1])) {
                     inputParameterInCorrectForm = false;
                     typeOfProcess.set(-1);
                 }
@@ -269,7 +269,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             if (criterion[2] != null) {
                 criterion[2] = infoBetweenPrefixes(args, PREFIX_FILTER_EMAIL.toString(),
                         PREFIX_FILTER_EMAIL_REVERSE.toString(), typeOfProcess, false);
-                if (criterion[2] == null ||!isValidAsciiInput(criterion[2])) {
+                if (criterion[2] == null || !isValidAsciiInput(criterion[2])) {
                     inputParameterInCorrectForm = false;
                     typeOfProcess.set(-1);
                 }
@@ -278,7 +278,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             if (criterion[3] != null) {
                 criterion[3] = infoBetweenPrefixes(args, PREFIX_FILTER_ADDRESS.toString(),
                         PREFIX_FILTER_ADDRESS_REVERSE.toString(), typeOfProcess, false);
-                if (criterion[3] == null ||!Address.isValidAddress(criterion[3])) {
+                if (criterion[3] == null || !Address.isValidAddress(criterion[3])) {
                     inputParameterInCorrectForm = false;
                     typeOfProcess.set(-1);
                 }
@@ -349,7 +349,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     }
 
     /**
-     * Since filter form is like prefix<text>prefix, this function returns the text between given prefixes.
+     * Since filter form is like prefix + text + prefix, this function returns the text between given prefixes.
      */
     private String infoBetweenPrefixes(String args, String prefixBegin, String prefixEnd,
                                        AtomicInteger typeOfProcess, boolean isInputGpa) {

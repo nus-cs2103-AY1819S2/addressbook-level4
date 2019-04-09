@@ -6,7 +6,24 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GPA_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_ADDRESS_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_EDUCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_EDUCATION_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_EMAIL_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_ENDORSEMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_ENDORSEMENT_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_GPA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_GPA_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_NAME_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_PHONE_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_POS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_POS_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_SKILL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_SKILL_REVERSE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 

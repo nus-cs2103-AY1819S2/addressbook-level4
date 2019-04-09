@@ -17,16 +17,16 @@ memorization techniques. With it, you will be able to learn more with less time.
 happens through Command Line Interface (CLI) and it has a minimal Graphical User Interface (GUI)
 created with JavaFX. It is written in Java, and has about 10 kLoC.
 
-My role in BrainTrain is to design and manage the quiz mode. The following sections will give a
-summary of how I have contributed to the project and showcases my ability to write both the user and
-developer guide.
+My role in BrainTrain is to design and manage the app's quiz mode. The following sections
+give a summary of how I have contributed to the project and showcases my ability to write both
+the user and developer guide.
 
 == Summary of contributions
 
 * *Major enhancement*: Implementation of quiz mode
 
 ** *What it does*: Quiz mode manages user interaction during a quiz. It comprises of 6 commands
-which are only available in quiz mode and takes in all other inputs as answer.
+which are only available in quiz mode. Quiz mode also reads in answer inputs.
 
 ** *Justification*: To ensure that answers are not limited or excluded of certain keywords,
 BrainTrain supports two different modes, management and quiz mode. To differentiate the

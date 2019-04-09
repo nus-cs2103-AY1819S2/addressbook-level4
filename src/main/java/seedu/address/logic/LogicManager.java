@@ -31,7 +31,7 @@ public class LogicManager implements Logic {
     public static final String CHECK_LOGS_MESSAGE = "\nPlease check the logs for more information.";
     public static final String FAIL_SAVE_LESSONS_MESSAGE = "Failed to save some lessons.";
     public static final String FAIL_DELETE_LESSON_MESSAGE = "Failed to delete lesson: \"%1$s\".";
-    public static final String FAIL_SAVE_USERPREFS_MESSAGE = "Failed to save user perference.";
+    public static final String FAIL_SAVE_USERPREFS_MESSAGE = "Failed to save user preference.";
 
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 

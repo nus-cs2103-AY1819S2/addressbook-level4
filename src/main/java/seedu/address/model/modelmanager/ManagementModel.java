@@ -121,7 +121,7 @@ public interface ManagementModel extends Model {
     boolean hasLessonWithName(String name);
 
     /**
-     * Toggle theme from light to dark vice versa and returns the changed theme.
+     * Toggles theme from light to dark scheme or vice versa, and returns the new theme.
      */
     String changeTheme();
 

@@ -25,7 +25,7 @@ public class QuizAnswerCommand extends QuizCommand {
     private String answer;
     private QuizModel quizModel;
     private QuizCard card;
-    private boolean currentCardIsWrong;
+    private boolean isCurrentCardWrong;
 
     public QuizAnswerCommand(String answer) {
         requireNonNull(answer);
@@ -37,7 +37,7 @@ public class QuizAnswerCommand extends QuizCommand {
         requireNonNull(model);
         this.quizModel = requireQuizModel(model);
         this.card = quizModel.getCurrentQuizCard();
-        this.currentCardIsWrong = false;
+        this.isCurrentCardWrong = false;
 
         StringBuilder sb = new StringBuilder();
 
@@ -49,7 +49,7 @@ public class QuizAnswerCommand extends QuizCommand {
             sb.append(handleCurrentCardAnswer());
         }
 
-        if (!currentCardIsWrong) {
+        if (!isCurrentCardWrong) {
             String result = handleIfCardLeft();
             sb.append(result);
         }
@@ -80,7 +80,7 @@ public class QuizAnswerCommand extends QuizCommand {
      * returns prompt message with the correct answer.
      */
     private String handleWrongAnswer() {
-        this.currentCardIsWrong = true;
+        this.isCurrentCardWrong = true;
 
         if (!card.isWrongTwice()) {
             return String.format(MESSAGE_WRONG_ONCE, answer);

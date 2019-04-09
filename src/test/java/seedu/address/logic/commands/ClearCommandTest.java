@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Messages.MESSAGE_CLEAR_SUCCESS;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -26,7 +27,7 @@ public class ClearCommandTest {
         Model expectedModel = new ModelManager();
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel,
+        assertCommandSuccess(new ClearCommand(), model, commandHistory, MESSAGE_CLEAR_SUCCESS, expectedModel,
             currentEdit);
     }
 
@@ -37,7 +38,7 @@ public class ClearCommandTest {
         expectedModel.setAddressBook(new AddressBook());
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel,
+        assertCommandSuccess(new ClearCommand(), model, commandHistory, MESSAGE_CLEAR_SUCCESS, expectedModel,
             currentEdit);
     }
 

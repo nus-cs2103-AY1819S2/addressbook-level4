@@ -24,6 +24,7 @@ public class MainPanel extends UiPart<Region> {
     private TextFlow mainPanel;
 
     private QuizCard quizCard;
+    private String totalCorrectAndTotalAttempts;
 
     public MainPanel() {
         super(FXML);
@@ -34,6 +35,7 @@ public class MainPanel extends UiPart<Region> {
 
         if (quizCard != null) {
             this.quizCard = quizCard;
+            this.totalCorrectAndTotalAttempts = totalCorrectAndTotalAttempts;
 
             QuizMode mode = quizCard.getQuizMode();
             Text questionAnswer = new Text();
@@ -46,17 +48,20 @@ public class MainPanel extends UiPart<Region> {
                 if (!quizCard.isWrongTwice()) {
                     Text text = new Text("\nPress Enter to go to the next question");
                     mainPanel.getChildren().addAll(questionAnswer, text);
+                    setTotalCorrect();
                     break;
                 }
 
                 mainPanel.getChildren().add(questionAnswer);
                 setAnswerPrompt();
+                setTotalCorrect();
                 break;
             case REVIEW:
                 questionAnswer.setText(String.format(MESSAGE_QUESTION, quizCard.getQuestionHeader(),
                     quizCard.getQuestion()));
                 mainPanel.getChildren().add(questionAnswer);
                 setAnswerPrompt();
+                setTotalCorrect();
                 break;
             default:
                 break;
@@ -74,5 +79,9 @@ public class MainPanel extends UiPart<Region> {
         answer.setStyle(boldStyle);
         List<Text> texts = Arrays.asList(text1, answer, text2);
         mainPanel.getChildren().addAll(texts);
+    }
+    private void setTotalCorrect() {
+        Text text1 = new Text("\n\nCurrent total correct questions: " + totalCorrectAndTotalAttempts);
+        mainPanel.getChildren().add(text1);
     }
 }

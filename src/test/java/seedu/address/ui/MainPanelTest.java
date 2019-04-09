@@ -39,15 +39,15 @@ public class MainPanelTest extends GuiUnitTest {
         guiRobot.interact(() -> mainPanel.setFeedbackToUser(
             quizCard.generateOrderedQuizCardWithIndex(0, QuizMode.PREVIEW), totalCorrectAndTotalAttempts));
         guiRobot.pauseForHuman();
-        assertEquals("Question: some question\nAnswer: some answer\n\nPress Enter to go to the next question",
-            mainPanelHandle.getText());
+        assertEquals("Question: some question\nAnswer: some answer\n\nPress Enter to go to the next question"
+            + "\n\nCurrent total correct questions: " + totalCorrectAndTotalAttempts, mainPanelHandle.getText());
 
         // only question
         guiRobot.interact(() -> mainPanel.setFeedbackToUser(
             quizCard.generateOrderedQuizCardWithIndex(0, QuizMode.REVIEW), totalCorrectAndTotalAttempts));
         guiRobot.pauseForHuman();
-        assertEquals("Question: some question\n\nType the Answer for the Question above and press Enter",
-            mainPanelHandle.getText());
+        assertEquals("Question: some question\n\nType the Answer for the Question above and press Enter"
+            + "\n\nCurrent total correct questions: " + totalCorrectAndTotalAttempts, mainPanelHandle.getText());
 
         // wrong twice in a row
         QuizCard wrongTwiceCard = quizCard.generateOrderedQuizCardWithIndex(0, QuizMode.REVIEW);
@@ -57,8 +57,8 @@ public class MainPanelTest extends GuiUnitTest {
         guiRobot.interact(() -> mainPanel.setFeedbackToUser(wrongTwiceCard, totalCorrectAndTotalAttempts));
         guiRobot.pauseForHuman();
         assertEquals("Question: some question\nAnswer: some answer\n"
-                + "\nType the Answer for the Question above and press Enter",
-            mainPanelHandle.getText());
+            + "\nType the Answer for the Question above and press Enter"
+            + "\n\nCurrent total correct questions: " + totalCorrectAndTotalAttempts, mainPanelHandle.getText());
 
         // switch back to management mode, so become blank
         guiRobot.interact(() -> mainPanel.setFeedbackToUser(null, totalCorrectAndTotalAttempts));

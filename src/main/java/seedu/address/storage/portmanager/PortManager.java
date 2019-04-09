@@ -6,9 +6,11 @@ import static seedu.address.commons.core.Messages.MESSAGE_IMPORTED_DECK_INVALID;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
@@ -64,8 +66,9 @@ public class PortManager implements Porter {
     @Override
     public Deck importDeck(String stringPath) throws DeckImportException {
         Path filepath = makeFilePath(stringPath);
-        JsonExportableDeck jsonDeck = loadDeckFromFile(filepath);
-        return convertDeck(jsonDeck);
+        Optional <JsonExportableDeck> jsonDeck = loadDeckFromFile(filepath);
+
+        return convertDeck(jsonDeck.get());
     }
 
     /**
@@ -73,16 +76,15 @@ public class PortManager implements Porter {
      * Returns a JsonExportableDeck object.
      */
 
-    private JsonExportableDeck loadDeckFromFile(Path filepath) throws DeckImportException {
-        JsonExportableDeck jsonDeck;
+    private <T> Optional <JsonExportableDeck> loadDeckFromFile(Path filepath) throws DeckImportException {
+        Optional <JsonExportableDeck> jsonDeck;
         try {
             jsonDeck = JsonUtil.getDataFromFile(filepath, JsonExportableDeck.class);
             return jsonDeck;
-        } catch (javax.xml.bind.JAXBException e) {
-            logger.info("Illegal values found in " + filepath + ": " + e.getMessage());
-            throw new DeckImportException(MESSAGE_IMPORTED_DECK_INVALID);
         } catch (FileNotFoundException e) {
             throw new DeckImportException(String.format(MESSAGE_FILEPATH_INVALID, filepath));
+        } catch (DataConversionException e) {
+            throw new DeckImportException(String.format(MESSAGE_IMPORTED_DECK_INVALID, filepath));
         }
     }
 

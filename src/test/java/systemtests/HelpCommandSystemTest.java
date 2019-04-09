@@ -62,7 +62,7 @@ public class HelpCommandSystemTest extends BookShelfSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertCommandBoxShowsDefaultStyle();
         assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
-        // assertNotEquals(BookBrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        // assertNotEquals(ReviewBrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertListMatching(getBookListPanel(), getModel().getFilteredBookList());
 
         // assert that the status bar too is updated correctly while the help window is open

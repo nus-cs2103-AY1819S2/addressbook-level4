@@ -10,15 +10,15 @@ import javafx.beans.property.SimpleObjectProperty;
 import seedu.address.model.book.Review;
 import seedu.address.testutil.ReviewBuilder;
 
-public class BookBrowserPanelTest extends GuiUnitTest {
+public class ReviewBrowserPanelTest extends GuiUnitTest {
     private Review review = new ReviewBuilder().build();
     private SimpleObjectProperty<Review> selectedReview = new SimpleObjectProperty<>();
-    private BookBrowserPanel browserPanel;
+    private ReviewBrowserPanel browserPanel;
     private BookBrowserPanelHandle browserPanelHandle;
 
     @Before
     public void setUp() {
-        guiRobot.interact(() -> browserPanel = new BookBrowserPanel(selectedReview));
+        guiRobot.interact(() -> browserPanel = new ReviewBrowserPanel(selectedReview));
         uiPartRule.setUiPart(browserPanel);
 
         browserPanelHandle = new BookBrowserPanelHandle(browserPanel.getRoot());

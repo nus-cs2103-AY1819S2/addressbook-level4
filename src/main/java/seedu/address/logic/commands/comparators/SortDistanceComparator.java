@@ -8,12 +8,15 @@ import seedu.address.model.Model;
 import seedu.address.model.PostalData;
 import seedu.address.model.restaurant.Restaurant;
 
+/**
+ * Sorts Resturant based on distance from given postal code.
+ */
 public class SortDistanceComparator implements Comparator<Restaurant> {
-    HashMap<Integer,Double> distanceData;
-    PostalData current;
-    double x;
-    double y;
-    Model model;
+    private HashMap<Integer, Double> distanceData;
+    private PostalData current;
+    private double x;
+    private double y;
+    private Model model;
     public SortDistanceComparator(Model model, int postal) {
         this.model = model;
         distanceData = new HashMap<>();

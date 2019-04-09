@@ -34,13 +34,10 @@ public class ListUnvisitedCommandTest {
     }
 
     @Test
-    public void execute_listIsFiltered_showsEverything_invalid_Postal() {
+    public void execute_listIsFiltered_invalidPostal() {
         showRestaurantAtIndex(model, INDEX_FIRST_RESTAURANT);
         assertCommandSuccess(new ListUnvisitedCommand((new Postal("000000"))), model, commandHistory,
                 ListUnvisitedCommand.MESSAGE_SUCCESS, expectedModel);
     }
-/*
-    @Test
-    publc void excute
-*/
+
 }

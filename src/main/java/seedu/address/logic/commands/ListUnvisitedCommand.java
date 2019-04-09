@@ -4,16 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_POSTAL;
 import static seedu.address.model.Model.PREDICATE_SHOW_UNVISITED_RESTAURANTS;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Optional;
-
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.comparators.SortDistanceComparator;
 import seedu.address.model.Model;
-import seedu.address.model.PostalData;
 import seedu.address.model.restaurant.Postal;
-import seedu.address.model.restaurant.Restaurant;
 
 /**
  * Lists all restaurants that have yet to be visited in the food diary to the user.
@@ -40,7 +34,7 @@ public class ListUnvisitedCommand extends Command {
         requireNonNull(model);
         if (model.getPostalData(postal).isPresent()) {
             model.updateFilteredRestaurantListAndSort(PREDICATE_SHOW_UNVISITED_RESTAURANTS,
-                    new SortDistanceComparator(model,postal));
+                    new SortDistanceComparator(model, postal));
         } else {
             model.updateFilteredRestaurantList(PREDICATE_SHOW_UNVISITED_RESTAURANTS);
         }

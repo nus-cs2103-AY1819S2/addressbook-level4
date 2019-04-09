@@ -20,6 +20,7 @@ import seedu.travel.logic.commands.DeleteCommand;
 import seedu.travel.logic.commands.EditCommand;
 import seedu.travel.logic.commands.EditCommand.EditPlaceDescriptor;
 import seedu.travel.logic.commands.ExitCommand;
+import seedu.travel.logic.commands.GenerateCommand;
 import seedu.travel.logic.commands.HelpCommand;
 import seedu.travel.logic.commands.HistoryCommand;
 import seedu.travel.logic.commands.ListCommand;
@@ -114,60 +115,33 @@ public class TravelBuddyParserTest {
     }
 
     @Test
-    public void parseCommand_search() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        SearchCommand command = (SearchCommand) parser.parseCommand(SearchCommand.COMMAND_WORD
-                + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new SearchCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    public void parseCommand_exitAlias() throws Exception {
+        assertTrue(parser.parseCommand(ExitCommand.COMMAND_ALIAS) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(ExitCommand.COMMAND_ALIAS + " 3") instanceof ExitCommand);
     }
 
     @Test
-    public void parseCommand_searchAlias() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        SearchCommand command = (SearchCommand) parser.parseCommand(SearchCommand.COMMAND_ALIAS
-                + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new SearchCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    public void parseCommand_generate() throws Exception {
+        assertTrue(parser.parseCommand(GenerateCommand.COMMAND_WORD) instanceof GenerateCommand);
+        assertTrue(parser.parseCommand(GenerateCommand.COMMAND_WORD + " 3") instanceof GenerateCommand);
     }
 
     @Test
-    public void parseCommand_searchRating() throws Exception {
-        List<String> keywords = Arrays.asList("1", "4", "5");
-        SearchRatingCommand command = (SearchRatingCommand) parser.parseCommand(
-                SearchRatingCommand.COMMAND_WORD + " "
-                        + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new SearchRatingCommand(new RatingContainsKeywordsPredicate(keywords)), command);
-    }
-
-    @Test
-    public void parseCommand_searchTags() throws Exception {
-        List<String> keywords = Arrays.asList("school", "temple", "airport");
-        SearchTagsCommand command = (SearchTagsCommand) parser.parseCommand(SearchTagsCommand.COMMAND_WORD
-                + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new SearchTagsCommand(new TagContainsKeywordsPredicate(keywords)), command);
-    }
-
-    @Test
-    public void parseCommand_searchCountry() throws Exception {
-        List<String> keywords = Arrays.asList("DEU", "FRA", "ITA");
-        SearchCountryCommand command = (SearchCountryCommand) parser.parseCommand(
-                SearchCountryCommand.COMMAND_WORD + " "
-                        + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new SearchCountryCommand(new CountryCodeContainsKeywordsPredicate(keywords)), command);
-    }
-
-    @Test
-    public void parseCommand_searchYear() throws Exception {
-        List<String> keywords = Arrays.asList("2011", "2015", "2017");
-        SearchYearCommand command = (SearchYearCommand) parser.parseCommand(
-                SearchYearCommand.COMMAND_WORD + " "
-                        + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new SearchYearCommand(new YearContainsKeywordsPredicate(keywords)), command);
+    public void parseCommand_generateAlias() throws Exception {
+        assertTrue(parser.parseCommand(GenerateCommand.COMMAND_ALIAS) instanceof GenerateCommand);
+        assertTrue(parser.parseCommand(GenerateCommand.COMMAND_ALIAS + " 3") instanceof GenerateCommand);
     }
 
     @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
+    }
+
+    @Test
+    public void parseCommand_helpAlias() throws Exception {
+        assertTrue(parser.parseCommand(HelpCommand.COMMAND_ALIAS) instanceof HelpCommand);
+        assertTrue(parser.parseCommand(HelpCommand.COMMAND_ALIAS + " 3") instanceof HelpCommand);
     }
 
     @Test
@@ -209,6 +183,104 @@ public class TravelBuddyParserTest {
     }
 
     @Test
+    public void parseCommand_redoCommandWord_returnsRedoCommand() throws Exception {
+        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
+        assertTrue(parser.parseCommand("redo 1") instanceof RedoCommand);
+    }
+
+    @Test
+    public void parseCommand_redoCommandAlias_returnsRedoCommand() throws Exception {
+        assertTrue(parser.parseCommand(RedoCommand.COMMAND_ALIAS) instanceof RedoCommand);
+        assertTrue(parser.parseCommand("redo 1") instanceof RedoCommand);
+    }
+
+    @Test
+    public void parseCommand_search() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        SearchCommand command = (SearchCommand) parser.parseCommand(SearchCommand.COMMAND_WORD
+                + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_searchAlias() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        SearchCommand command = (SearchCommand) parser.parseCommand(SearchCommand.COMMAND_ALIAS
+                + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_searchRating() throws Exception {
+        List<String> keywords = Arrays.asList("1", "4", "5");
+        SearchRatingCommand command = (SearchRatingCommand) parser.parseCommand(
+                SearchRatingCommand.COMMAND_WORD + " "
+                        + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchRatingCommand(new RatingContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_searchRatingAlias() throws Exception {
+        List<String> keywords = Arrays.asList("1", "4", "5");
+        SearchRatingCommand command = (SearchRatingCommand) parser.parseCommand(
+                SearchRatingCommand.COMMAND_ALIAS + " "
+                        + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchRatingCommand(new RatingContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_searchTags() throws Exception {
+        List<String> keywords = Arrays.asList("school", "temple", "airport");
+        SearchTagsCommand command = (SearchTagsCommand) parser.parseCommand(SearchTagsCommand.COMMAND_WORD
+                + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchTagsCommand(new TagContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_searchTagsAlias() throws Exception {
+        List<String> keywords = Arrays.asList("school", "temple", "airport");
+        SearchTagsCommand command = (SearchTagsCommand) parser.parseCommand(SearchTagsCommand.COMMAND_ALIAS
+                + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchTagsCommand(new TagContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_searchCountry() throws Exception {
+        List<String> keywords = Arrays.asList("DEU", "FRA", "ITA");
+        SearchCountryCommand command = (SearchCountryCommand) parser.parseCommand(
+                SearchCountryCommand.COMMAND_WORD + " "
+                        + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchCountryCommand(new CountryCodeContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_searchCountryAlias() throws Exception {
+        List<String> keywords = Arrays.asList("DEU", "FRA", "ITA");
+        SearchCountryCommand command = (SearchCountryCommand) parser.parseCommand(
+                SearchCountryCommand.COMMAND_ALIAS + " "
+                        + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchCountryCommand(new CountryCodeContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_searchYear() throws Exception {
+        List<String> keywords = Arrays.asList("2011", "2015", "2017");
+        SearchYearCommand command = (SearchYearCommand) parser.parseCommand(
+                SearchYearCommand.COMMAND_WORD + " "
+                        + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchYearCommand(new YearContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_searchYearAlias() throws Exception {
+        List<String> keywords = Arrays.asList("2011", "2015", "2017");
+        SearchYearCommand command = (SearchYearCommand) parser.parseCommand(
+                SearchYearCommand.COMMAND_ALIAS + " "
+                        + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchYearCommand(new YearContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
     public void parseCommand_select() throws Exception {
         SelectCommand command = (SelectCommand) parser.parseCommand(
                 SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PLACE.getOneBased());
@@ -220,18 +292,6 @@ public class TravelBuddyParserTest {
         SelectCommand command = (SelectCommand) parser.parseCommand(
                 SelectCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PLACE.getOneBased());
         assertEquals(new SelectCommand(INDEX_FIRST_PLACE), command);
-    }
-
-    @Test
-    public void parseCommand_redoCommandWord_returnsRedoCommand() throws Exception {
-        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
-        assertTrue(parser.parseCommand("redo 1") instanceof RedoCommand);
-    }
-
-    @Test
-    public void parseCommand_redoCommandAlias_returnsRedoCommand() throws Exception {
-        assertTrue(parser.parseCommand(RedoCommand.COMMAND_ALIAS) instanceof RedoCommand);
-        assertTrue(parser.parseCommand("redo 1") instanceof RedoCommand);
     }
 
     @Test

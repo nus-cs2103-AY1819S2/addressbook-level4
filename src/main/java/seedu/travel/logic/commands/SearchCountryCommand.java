@@ -14,6 +14,7 @@ import seedu.travel.model.place.CountryCodeContainsKeywordsPredicate;
 public class SearchCountryCommand extends Command {
 
     public static final String COMMAND_WORD = "searchc";
+    public static final String COMMAND_ALIAS = "sc";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all places whose country code contain "
             + "the specified keywords and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"

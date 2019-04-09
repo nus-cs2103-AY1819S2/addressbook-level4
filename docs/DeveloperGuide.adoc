@@ -6,6 +6,7 @@
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:sourceDir: ../src/main/java
 :xrefstyle: full
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -16,7 +17,6 @@ endif::[]
 :repoURL: https://github.com/CS2103-AY1819S2-W11-3/main
 
 By: `CS2103T W11-3 Team`      Since: `Feb 2019`      Licence: `MIT`
-
 
 == Introduction
 
@@ -55,10 +55,10 @@ For this section, we will integrate JDK, IntelliJ and GitHub with TravelBuddy, b
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/src/main/java/seedu/travel/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/travel/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the Setup
 
@@ -109,15 +109,18 @@ including the design and structure of components and their constituent classes.
 [[Design-Architecture]]
 === Architecture
 
+[[ArchitectureDiagram]]
+[reftext="Figure 3.1.1"]
+[caption="Figure 3.1.1: "]
 .Architecture Diagram
 image::Architecture.png[width="600"]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+<<ArchitectureDiagram>> above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/travel/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -139,16 +142,22 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component, as seen in the class diagram in <<LogicClassDiagram>>, defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
+[[LogicClassDiagram]]
+[reftext="Figure 3.1.2"]
+[caption="Figure 3.1.2: "]
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The sequence diagram, as seen in <<SeqDiagramDforDeletePlace>>, below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
+[[SeqDiagramDforDeletePlace]]
+[reftext="Figure 3.1.3"]
+[caption="Figure 3.1.3: "]
 .Component interactions for `delete 1` command
 image::SDforDeletePlace.png[width="800"]
 
@@ -157,12 +166,15 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI Component
 
+[[UiClassDiagram]]
+[reftext="Figure 3.2.1"]
+[caption="Figure 3.2.1: "]
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-The `UI` component uses JavaFx UI framework. The *layout* of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component, as seen in <<UiClassDiagram>>, uses JavaFx UI framework. The *layout* of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/travel/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The 'UI' component *controllers* are found in the `src/main/java/seedu/address/ui` folder. Each class corresponds to a specific `.fxml` file.
+The 'UI' component *controllers* are found in the `src/main/java/seedu/travel/ui` folder. Each class corresponds to a specific `.fxml` file.
 
 The `UI` component,
 
@@ -206,11 +218,13 @@ contains helper methods for switching functionality, interacts with model and lo
 === Logic Component
 
 [[fig-LogicClassDiagram]]
+[reftext="Figure 3.3.1"]
+[caption="Figure 3.3.1: "]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/travel/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `TravelBuddyParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -218,18 +232,24 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given in <<DeletePersonSdForLogic>> below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
+[[DeletePersonSdForLogic]]
+[reftext="Figure 3.3.2"]
+[caption="Figure 3.3.2: "]
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model Component
 
+[[ModelClassDiagram]]
+[reftext="Figure 3.4.1"]
+[caption="Figure 3.4.1: "]
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/travel/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -240,8 +260,7 @@ the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `TravelBuddy`, which `Place` can reference. This would allow `Address
- Book` to only require one `Tag` object per unique `Tag`, instead of each `Place` needing their own `Tag` object. An
+As a more OOP model, we can store a `Tag` list in `TravelBuddy`, which `Place` can reference. This would allow `TravelBuddy` to only require one `Tag` object per unique `Tag`, instead of each `Place` needing their own `Tag` object. An
  example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
@@ -249,10 +268,13 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 [[Design-Storage]]
 === Storage Component
 
+[[StorageClassDiagram]]
+[reftext="Figure 3.5.1"]
+[caption="Figure 3.5.1: "]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/travel/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -272,8 +294,7 @@ This section describes some noteworthy details on how certain features are imple
 === Undo/Redo Feature
 
 Called by the `undo` and `redo` commands to undo and redo changes to TravelBuddy Place entries.
-Undoable commands include `add` `edit` `delete` `deletem` `clear` `generate` and 'redo'
-Redoable commands include `add` `edit` `delete` `deletem` `clear` `generate` and 'undo'
+Undoable commands include `add`, `edit`, `delete`, `deletem`, `clear`, `generate` and `redo`. Redoable commands include `add`, `edit`, `delete`, `deletem`, `clear`, `generate` and `undo`.
 
 ==== Current Implementation
 
@@ -360,21 +381,54 @@ image::UndoRedoActivityDiagram.png[width="650"]
 === Search Feature
 ==== Current Implementation
 
-The following diagram shows how the search feature works:
+The `search` command provides functionality for users to search for places in TravelBuddy that contains the specified input.
+The user's input is split in separate keywords and matched as a `Predicate` to the list of places in TravelBuddy.
+Places with matching keywords will be displayed on the GUI, which allows users to retrieve a list of places according to their input.
 
+The example below is a usage scenario for the search feature and is based on the search name feature.
+[NOTE]
+The various search features (i.e. search name, country code, rating, tags, year) function on a similar concept, differing only in the `Parser` which is called using different command words and the `Predicate` to filter arguments.
+
+The following sequence diagram shows how the search feature works:
+
+[SearchCommandSequenceDiagram]
+.Sequence Diagram for `search` command.
+[#img-SearchCommandSequenceDiagram]
+[caption="Figure 4.2.1.1: "]
 image::SearchCommandSequenceDiagram.png[width="800"]
-Figure 4.2.1.1 Sequence Diagram for `search` command
 
 The control flow of the sequence diagram above is as follows:
 
-. A command with the command word `search` followed by argument(s) is used entered by the user.
+. Initially, a user enters a command with the command word `search` followed by argument(s).
 . `LogicManager` receives the `execute` command and calls the `parseCommand` method in `TravelBuddyParser`.
 . `TravelBuddyParser` parses `search` as the command and a `SearchCommandParser` will be instantiated to further parse the command.
-. `SearchCommandParser` receives the fields if at least one field is provided, a NameContainsKeywordPredicate will be instantiated with the fields as the predicate.
-. `SearchCommand` will be created and returned to `LogicManager`.
-. The `execute` command of `SearchCommand` is then called by `LogicManager`.
-. The list is updated in the `Model` by `SearchCommand`.
-. A `CommandResult` is instantiated and returned to `LogicManager`.
+. `SearchCommandParser` receives the arguments if the command word input matches the command word of any search command.
+
+** The argument string is split into an array of keywords based on the `regex` which is `\\s+` in the code snippet below.
++
+[source, java]
+String[] nameKeywords = trimmedArgs.split("\\s+");
+return new SearchCommand(new
+    NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+** A NameContainsKeywordPredicate will be instantiated with the array of arguments as the predicate, which will be used to check if any of the places in TravelBuddy matches the user's input.
++
+[source, java]
+public boolean test(Place place) {
+    return keywords.stream().anyMatch(
+        keyword -> StringUtil.containsWordIgnoreCase(
+        place.getName().fullName, keyword));
+}
+. Subsequently, `SearchCommandParser` creates a `SearchCommand` object with the predicate and returns it to `LogicManager`.
+. Following that, `LogicManager` calls the `execute` method of `SearchCommand`, shown in the code snippet below.
++
+[source, java]
+public CommandResult execute(Model model, CommandHistory history) {
+    requireNonNull(model);
+    model.updateFilteredPlaceList(predicate);
+    return new CommandResult(constructFeedbackToUser(model));
+}
+. `SearchCommand` updates the list in `Model`, which will be displayed in the GUI.
+. `SearchCommand` instantiates a `CommandResult` object and passes it to `LogicManager` .
 
 The search feature comprises of:
 
@@ -384,7 +438,6 @@ The search feature comprises of:
 * `Search by Country`
 * `Search by Year`
 
-The various search features are differentiated by the `Parser` which is called using different command words and the `Predicate` to filter arguments.
 
 ===== Search Name Feature
 The command word for search name is `search` and is parsed by `TravelBuddyParser`. The arguments are then passed into `SearchCommandParser`.
@@ -393,15 +446,15 @@ The name arguments entered by the user are stored in a list of keywords and pass
 
 The search name mechanism is facilitated by `SearchCommand`, which extends `Command` with a predicate that specifies the conditions of the name of the place to be chosen from TravelBuddy.
 
-
 Given below is an example usage scenario and how the search mechanism behaves at each step.
 
 Step 1. The user launches the application and sees the GUI with the user's list of places as shown in the diagram below.
 
+[UIsearch]
+.GUI with user's list of places, prior to running `search Singapore` command.
+[#img-UIsearch]
+[caption="Figure 4.2.1.2: "]
 image::UIsearch.png[width="800"]
-
-Figure 4.2.1.2 GUI with user's list of places, prior to running `search Singapore` command
-
 
 Step 2. The user executes `search Singapore` command to search for all entries in TravelBuddy with `Singapore` in its name.
 The user input will be passed into `LogicManager#execute()`, which in turn uses `TravelBuddyParser#parseCommand()`. Since the argument is `search`, `SearchCommandParser#parse(arguments)` will be called to parse the arguments to be used in `SearchCommand`.
@@ -412,14 +465,16 @@ The command `search` is in lower-case. Mixed-case or upper-case commands are not
 
 Step 3. The filtered list is now displayed according to the requirements set by the user input as shown in the diagram below.
 
+[UIsearchresults]
+.Application Interface displaying the results of `search Singapore` command.
+[#img-UIsearchresults]
+[caption="Figure 4.2.1.3: "]
 image::UIsearchresults.png[width="800"]
-
-Figure 4.2.1.3 Application Interface displaying the results of `search Singapore` command
 
 ===== Search Rating Feature
 The command word for search rating is `searchr` and is parsed by `TravelBuddyParser`. The arguments are then passed into `SearchRatingCommandParser`.
 
-The rating arguments entered by the user are stored in a list of keywords and passed into `RatingContainsKeywordsPredicate`, where the list is converted into a stream and individually matched to the rating of each entry in TravelBuddy.
+The rating arguments entered by the user are first checked for validity before being stored in a list of keywords and passed into `RatingContainsKeywordsPredicate`. The list is then converted into a stream and individually matched to the rating of each entry in TravelBuddy.
 
 The search rating mechanism is facilitated by `SearchRatingCommand`, which extends `Command` with a predicate that specifies the conditions of the rating of the place to be chosen from TravelBuddy.
 
@@ -427,14 +482,27 @@ Given below is an example usage scenario and how the search rating mechanism beh
 
 Step 1. The user launches the application and sees the GUI with the user's list of places as shown in the diagram below.
 
+[UIsearchrating]
+.GUI with user's list of places, prior to running `searchr 4` command.
+[#img-UIsearchrating]
+[caption="Figure 4.2.1.4: "]
 image::UIsearchrating.png[width="800"]
-
-Figure 4.2.1.4 GUI with user's list of places, prior to running `searchr 4` command
 
 Step 2. The user executes `searchr 4` command to search for all entries in TravelBuddy with `4` as its rating.
 The user input will be passed into `LogicManager#execute()`, which in turn uses `TravelBuddyParser#parseCommand()`. Since
 the argument is `searchr`, `SearchRatingCommandParser#parse(arguments)` will be called to parse the arguments to be
-used in `SearchRatingCommand`.
+used in `SearchRatingCommand`. The arguments are checked for validity (i.e. rating value between 1 to 5) as seen in the code snippet below before being parsed.
+
+[source, java]
+String[] ratingKeywords = trimmedArgs.split("\\s+");
+for (String rating : ratingKeywords) {
+    if (!Rating.isValidRating(rating)) {
+        throw new ParseException(String.format(Rating.MESSAGE_CONSTRAINTS,
+             SearchRatingCommand.MESSAGE_USAGE));
+    }
+}
+return new SearchRatingCommand(new RatingContainsKeywordsPredicate(Arrays.asList(ratingKeywords)));
+
 The parsed arguments will be used as a predicate to filter out entries that satisfy the predicate to be displayed.
 
 [NOTE]
@@ -445,9 +513,11 @@ The arguments for `searchr` range from 1 to 5. Non-integer values outside the ra
 
 Step 3. The filtered list is now displayed according to the requirements set by the user input as shown in the diagram below.
 
+[UIsearchratingresults]
+.Application Interface displaying the results of `searchr 4` command.
+[#img-UIsearchratingresults]
+[caption="Figure 4.2.1.5: "]
 image::UIsearchratingresults.png[width="800"]
-
-Figure 4.2.1.5 Application Interface displaying the results of `searchr 4` command
 
 ===== Search Tags Feature
 The command word for search tags is `searcht` and is parsed by `TravelBuddyParser`. The arguments are then passed into `SearchTagsCommandParser`.
@@ -460,9 +530,11 @@ Given below is an example usage scenario and how the search tags mechanism behav
 
 Step 1. The user launches the application and sees the GUI with the user's list of places as shown in the diagram below.
 
+[UIsearchtags]
+.GUI with user's list of places, prior to running `searcht distillery` command.
+[#img-UIsearchtags]
+[caption="Figure 4.2.1.6: "]
 image::UIsearchtags.png[width="800"]
-
-Figure 4.2.1.6 GUI with user's list of places, prior to running `searcht distillery` command
 
 Step 2. The user executes `searcht distillery` command to search for all entries in TravelBuddy with `distillery`
 as its tag. The user input will be passed into `LogicManager#execute()`, which in turn uses
@@ -475,9 +547,11 @@ The command `searcht` is in lower-case. Mixed-case or upper-case commands are no
 
 Step 3. The filtered list is now displayed according to the requirements set by the user input as shown in the diagram below.
 
+[UIsearchtagsresults]
+.Application Interface displaying the results of `searcht distillery` command.
+[#img-UIsearchtagsresults]
+[caption="Figure 4.2.1.7: "]
 image::UIsearchtagsresults.png[width="800"]
-
-Figure 4.2.1.7 Application Interface displaying the results of `searcht distillery` command
 
 ===== Search Country Feature
 The command word for search country is `searchc` and is parsed by `TravelBuddyParser`. The arguments are then passed into `SearchCountryCommandParser`.
@@ -490,15 +564,17 @@ Given below is an example usage scenario and how the search country mechanism be
 
 Step 1. The user launches the application and sees the GUI with the user's list of places as shown in the diagram below.
 
+[UIsearchcountry]
+.GUI with user's list of places, prior to running `searchc JPN` command.
+[#img-UIsearchcountry]
+[caption="Figure 4.2.1.8: "]
 image::UIsearchcountry.png[width="800"]
-
-Figure 4.2.1.8 GUI with user's list of places, prior to running `searchc JPN` command
 
 Step 2. The user executes `searchc SGP JPN` command to search for all entries in TravelBuddy with `SGP` or `JPN`
 as its country. The `searchc` command will call `LogicManager#execute()`, which in turn uses
 `TravelBuddyParser#parseCommand()`. Since the argument is `searchc`, `SearchCountryCommandParser#parse(arguments)`
-will be called to parse the arguments to be used in `SearchCountryCommand`. The parsed arguments will be used as a
-predicate to filter out entries that satisfy the predicate to be displayed.
+will be called to parse the arguments to be used in `SearchCountryCommand`. The arguments are then checked for validity (i.e. valid ISO-3166 country code).
+The parsed arguments will be used as a predicate to filter out entries that satisfy the predicate to be displayed.
 
 [NOTE]
 The command `searchc` is in lower-case. Mixed-case or upper-case commands are not recognised by the application.
@@ -508,9 +584,11 @@ The country code arguments for `searchc` must be valid 3-letter ISO-3166 country
 
 Step 3. The filtered list is now displayed according to the requirements set by the user input as shown in the diagram below.
 
+[UIsearchcountryresults]
+.Application Interface displaying the results of `searchc JPN` command.
+[#img-UIsearchcountryresults]
+[caption="Figure 4.2.1.9: "]
 image::UIsearchcountryresults.png[width="800"]
-
-Figure 4.2.1.9 Application Interface displaying the results of `searchc JPN` command
 
 ===== Search Year Feature
 The command word for search year is `searchyear` and is parsed by `TravelBuddyParser`. The arguments are then passed into `SearchYearCommandParser`.
@@ -523,15 +601,17 @@ Given below is an example usage scenario and how the search year mechanism behav
 
 Step 1. The user launches the application and sees the GUI with the user's list of places as shown in the diagram below.
 
+[UIsearchyear]
+.GUI with user's list of places, prior to running `searchyear 2016` command.
+[#img-UIsearchyear]
+[caption="Figure 4.2.1.10: "]
 image::UIsearchyear.png[width="800"]
-
-Figure 4.2.1.10 GUI with user's list of places, prior to running `searchyear 2016` command
 
 Step 2. The user executes `searchyear 2016` command to search for all entries in TravelBuddy with `2016`
 as its year visited. The `searchyear` command will call `LogicManager#execute()`, which in turn uses
 `TravelBuddyParser#parseCommand()`. Since the argument is `searchyear`, `SearchYearCommandParser#parse(arguments)`
-will be called to parse the arguments to be used in `SearchYearCommand`. The parsed arguments will be used as a
-predicate to filter out entries that satisfy the predicate to be displayed.
+will be called to parse the arguments to be used in `SearchYearCommand`. The arguments are then checked for validity (i.e. valid year from 1900 to the current year).
+The parsed arguments will be used as a predicate to filter out entries that satisfy the predicate to be displayed.
 
 [NOTE]
 The command `searchyear` is in lower-case. Mixed-case or upper-case commands are not recognised by the application.
@@ -541,9 +621,19 @@ The year arguments range from 1900 to the current year. A single year, multiple 
 
 Step 3. The filtered list is now displayed according to the requirements set by the user input as shown in the diagram below.
 
+[UIsearchyearresults]
+.Application Interface displaying the results of `searchyear 2016` command.
+[#img-UIsearchyearresults]
+[caption="Figure 4.2.1.11: "]
 image::UIsearchyearresults.png[width="800"]
 
-Figure 4.2.1.11 Application Interface displaying the results of `searchyear 2016` command
+The activity diagram below summarises what happens when a user inputs a search command:
+
+[SearchCommandActivityDiagram]
+.Activity Diagram showing the process flow when a search command is issued.
+[#img-SearchCommandActivityDiagram]
+[caption="Figure 4.2.1.12: "]
+image::SearchCommandActivityDiagram.png[width="800"]
 
 ==== Design Considerations
 
@@ -647,30 +737,137 @@ The command `add` is in lower-case. Mixed-case or upper-case commands are not re
 // end::countrycode[]
 
 // tag::generate[]
-=== Generate Feature
-The `generate` command is used to generate different charts in the application.
+=== Chart Feature
+
+The Chart feature displays to users three different charts in TravelBuddy. They are:
+
+* The Number of Places Visited by Rating Category
+* The Number of Places Visited by Year
+* The Number of Places Visited by Country
+
+The Chart feature is activated in TravelBuddy by default when the application launches. Alternatively, the `generate` command is also used to generate the charts. The `generate` command does not require any parameters.
+
+[TIP]
+Instead of typing `generate`, you can simply type the shortcut `g`.
 
 ==== Current Implementation
-At the GUI, the user enters the `generate` command, without any parameters. The UI takes in the input and passes it
-on to `LogicManager#execute()` in the Logic. The`TravelBuddyParser#parseCommand()` is then called, which parses the
-command and redirects to the `GenerateCommand` class.
 
-The `GenerateCommand#execute()` in Logic calls on Model to do two things:
-.  It stores the different country code found in TravelBuddy as keys, and stores the number of times each country
-code appears in TravelBuddy as values.
-.  A similar approach is done, except country code is now replaced with rating found in TravelBuddy as keys, and the
-number of times each rating appears as values.
+*Logic:* :: The `generate` mechanism is executed by `GenerateCommand`, which extends from `Command`. A code snippet is shown below:
 
-Once the two sets of data are obtained, a new Chart object is created. The Chart object displays the data to the user.
+// [source,java]
+// ----
+// include::{sourceDir}/seedu/travel/logic/commands/GenerateCommand.java[tags=execute,indent=5]
+// ----
 
-==== Future Implementation
-For future implementation, the task is to use JavaFX's charting library to create a chart that can be displayed
-to the user, as seen in the figure below.
+:: The operations implemented are:
+* `GenerateCommand#setChartDisplayed(chartDisplayed)` - Signals to the UI to display the charts.
+* `GenerateCommand#commitTravelBuddy()` - Saves the current TravelBuddy state from its history.
+* `GenerateCommand#getFilteredPlaceList()` - Verifies if the list is empty.
 
-image::Ui.png[width="800"]
+:: These operations are exposed in the `Model` interface as `Model#setChartDisplayed(chartDisplayed)`, `Model#commitTravelBuddy()` and `Model#getFilteredPlaceList()`.
 
-Furthermore, the `generate` command will have user input to specify if they want to generate either a chart by
-country or a chart by rating.
+*Model:* :: The chart generation mechanism is facilitated by `VersionedTravelBuddy`, which extends from `TravelBuddy`, as seen in the Model Class Diagram in <<ModelClassDiagram>>. 
+
+[[chartOopDiagramFigure]]
+[reftext="Figure 4.4.3"]
+[caption="Figure 4.4.3: "]
+.OOP Diagram
+image::Chart_ModelClassBetterOopDiagram.png[width="600"]
+
+:: For this section on Charts, the focus is on the class diagram as seen in <<chartOopDiagramFigure>>. The step-by-step explanation of the class diagram can be found below:
+. The `ModelManager` is a container for a `VersionedTravelBuddy` object.
+. VersionedTravelBuddy consists of a `UniquePlaceList` object.
+. `UniquePlaceList` is a container for one or more `ChartBook` objects and for one or more `Place` object.
+. `ChartBook` consists of a `CountryChartList` object, a `RatingChartList` object and a `YearChartList` object.
+. `countryChartList` is a container for one or more `CountryChart` objects. Similarly, `ratingChartList` is a container for one or more `RatingChart` objects and `yearChartList` is a container for one or more `YearChart` objects.
+. `CountryChart` consists of a `CountryCode` object and a `Total` object. Similarly, `RatingChart` consists of a `Rating` object and a `Total` object and `YearChart` consists of a `Year` object and a `Total` object.
+
+
+
+*Storage:* :: It is stored internally 
+
+*UI:* :: 
+
+[[chartSeqDiagramFigure]]
+[reftext="Figure 4.4.1"]
+[caption="Figure 4.4.1: "]
+.Sequence Diagram for the `generate` command
+image::GenerateCommandSeqDiagram.png[width="600"]
+
+<<chartSeqDiagramFigure>> is a sequence diagram which illustrates the interaction between various classes when the `generate` command is entered. The step-by-step explanation of the sequence diagram are:
+
+*Step 1:* :: The user enters the command `generate` without any parameters.
+*Step 2:* :: The command is processed by the Logic component, which will then call `LogicManager#execute()`.
+*Step 3:* :: The `GenerateCommand#execute()` method s invoked.
+*Step 4:* :: The `Model#setChartDisplayed()` method is invoked with the argument `true`. The `Model#commitTravelBuddy()` method is also invoked.
+*Step 5:* :: The `TravelBuddy#commitTravelBuddy()` method is invoked by `Model`.
+*Step 6:* :: The `ChartBook#commitChart()` method is invoked by `TravelBuddy`.
+*Step 7:* :: A result object is returned.
+
+==== Generate Command
+
+*Preconditions:* ::
+Given below is a list of preconditions that must be met for the `generate` command to work:
+* By default, the charts are automatically generated each time TravelBuddy loads.
+* The `generate` command always triggers the display of all three charts.
+* The charts always update themselves in real-time. +
+_Example:_ When a place is added via the `add` command, the charts are automatically updated so that no `generate` command is necessary.
+* The chart will not display anything when the list is empty.
+* You can type in any parameters after the `generate` command, TravelBuddy will simply ignore them.
+
+*Example:* ::
+Given below is an example usage scenario and what the user will see in the GUI.
+
+:: *Step 1:* By default, the charts are displayed when TravelBuddy launches. To navigate away from the charts, type in `select 1`, as seen in <<generateCommand1>>. +
+*Outcome:* The first place in the place list will be selected and displayed on the right-hand side of the panel, as shown in <<generateCommand2>>.
+
+[[generateCommand1]]
+[reftext="Figure 4.4.4"]
+[caption="Figure 4.4.4: "]
+.The user types in `select 1`
+image::generateCommand1.png[width="600"]
+
+:: *Step 2:* Type in `generate` to generate the charts, as seen in <<generateCommand2>>. +
+*Outcome:* The charts will be displayed on the right-hand side of the panel, as shown in <<generateCommand3>>.
+
+[[generateCommand2]]
+[reftext="Figure 4.4.5"]
+[caption="Figure 4.4.5: "]
+.The user types in `generate`
+image::generateCommand2.png[width="600"]
+
+[[generateCommand3]]
+[reftext="Figure 4.4.6"]
+[caption="Figure 4.4.6: "]
+.The charts are generated
+image::generateCommand3.png[width="600"]
+
+==== Design Considerations
+
+===== Aspect: How Chart Generation Executes
+
+*Alternative 1 (current choice):* :: Charts are updated in real-time.
+*Pros:* :: Ease-of-use. Users do not need to type an additional `generate` command after changes are made to the Place list.
+:: Accurate. The chart reflects the latest changes regardless of whether the user types the `generate` command.
+*Cons:* :: Computationally more intensive, especially when the Place list is huge, as all three charts need to be regenerated every time a change is detected.
+*Example:* :: <<generateCommand7>> shows the state of the bar charts before the command `edit 1 cc/USA` was executed, while <<generateCommand8>> shows the state of the bar chart, with USA included, after the `edit` command was executed.
+*Alternative 2:* :: Charts are updated only when the `generate` command is used.
+*Pros:* :: Computationally less intensive, as the charts are only generated when required.
+*Cons:* :: Less user-friendly. Users will need to type the `generate` command for the charts to reflect the changes made to the Place list.
+:: Less accurate. The chart does not reflect the latest changes until the user types the `generate` command.
+*Decision:* :: Alternative 1, which is to update the charts in real-time, was adopted as it promotes ease-of-use, so users are not required to type in an additional `generate` command whenever changes are made to the Place list. Moreover, Alternative 1 is the more accurate option of the two, as the chart reflects the latest changes even if the user forgets to type the `generate` command.
+
+[[generateCommand7]]
+[reftext="Figure 4.4.7"]
+[caption="Figure 4.4.7: "]
+.Before the `edit` command was executed
+image::generateCommand7.png[width="600"]
+
+[[generateCommand8]]
+[reftext="Figure 4.4.8"]
+[caption="Figure 4.4.8: "]
+.After the `edit` command was executed
+image::generateCommand8.png[width="600"]
 
 // end::generate[]
 === Logging
@@ -887,7 +1084,7 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/src/main/java/seedu/travel/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.

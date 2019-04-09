@@ -6,13 +6,14 @@ import static seedu.address.logic.commands.Statistics.updateStatistics;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_HEALTHWORKERS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_REQUESTS;
 
-import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRequestBook;
 import seedu.address.model.request.Request;
 import seedu.address.model.tag.Condition;
+
+import javafx.collections.ObservableList;
 
 import java.util.Set;
 
@@ -40,7 +41,7 @@ public class RedoCommand extends Command {
         ReadOnlyRequestBook requestBook = model.getRequestBook();
         ObservableList<Request> requestList = requestBook.getRequestList();
         clearStatistics();
-        for(Request request : requestList) {
+        for (Request request : requestList) {
             Set<Condition> conditionSet = request.getConditions();
             updateStatistics(conditionSet);
         }

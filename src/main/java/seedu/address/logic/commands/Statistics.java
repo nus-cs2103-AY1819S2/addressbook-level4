@@ -40,7 +40,7 @@ public class Statistics {
             String conditionName = condition.toString().toUpperCase();
             Integer count = statistics.get(conditionName);
             statistics.put(conditionName, count - 1);
-            if(getConditionStatistics(condition) == 0) {
+            if (getConditionStatistics(condition) == 0) {
                 statistics.remove(conditionName);
             }
         }

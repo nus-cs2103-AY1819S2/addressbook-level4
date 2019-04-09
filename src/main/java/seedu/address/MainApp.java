@@ -1,5 +1,7 @@
 package seedu.address;
 
+import static seedu.address.logic.commands.Statistics.updateStatistics;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -7,7 +9,6 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
@@ -39,8 +40,6 @@ import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
-
-import static seedu.address.logic.commands.Statistics.updateStatistics;
 
 /**
  * The main entry point to the application.
@@ -79,7 +78,7 @@ public class MainApp extends Application {
 
         ReadOnlyRequestBook requestBook = model.getRequestBook();
         ObservableList<Request> requestList = requestBook.getRequestList();
-        for(Request request : requestList) {
+        for (Request request : requestList) {
             Set<Condition> conditionSet = request.getConditions();
             updateStatistics(conditionSet);
         }

@@ -29,12 +29,24 @@ public class JobCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label id;
+    @FXML
+    private Label applicants;
+    @FXML
+    private Label kiv;
+    @FXML
+    private Label interviewed;
+    @FXML
+    private Label shortlist;
 
     public JobCard(Job job, int displayedIndex) {
         super(FXML);
         this.job = job;
         id.setText(displayedIndex + ". ");
         name.setText(job.getName().toString());
+        applicants.setText("Applicants: " + job.getList(0).size());
+        kiv.setText("KIV: " + job.getList(1).size());
+        interviewed.setText("Interviewed: " + job.getList(2).size());
+        shortlist.setText("Shortlist: " + job.getList(3).size());
     }
 
     @Override

@@ -158,7 +158,7 @@ public class AddressBookParser {
             return new ClearInterviewsCommand();
 
         case GenerateAnalyticsCommand.COMMAND_WORD:
-            return new GenerateAnalyticsCommand();
+            return new AnalyticsCommandParser().parse(arguments);
 
         case SetBlockOutDatesCommand.COMMAND_WORD:
             return new SetBlockOutDatesCommandParser().parse(arguments);

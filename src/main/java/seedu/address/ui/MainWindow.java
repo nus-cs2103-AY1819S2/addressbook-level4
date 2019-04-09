@@ -1,10 +1,11 @@
 package seedu.address.ui;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
@@ -19,6 +20,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.job.JobListName;
+import seedu.address.model.person.predicate.UniquePredicateList;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -26,18 +29,21 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    private static final String FXML = "jobDisplayWindow.fxml";
+    private static final String FXML = "MainJobWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
     private Logic logic;
+    private String currScene;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel allApplicantsListPanel;
     private PersonListPanel kivListPanel;
     private PersonListPanel interviewedListPanel;
     private PersonListPanel selectedListPanel;
+    private PersonListPanel allListPanel;
+    private JobListPanel jobsListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -67,6 +73,22 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private FlowPane allFilter;
+
+    @FXML
+    private FlowPane kivFilter;
+
+    @FXML
+    private FlowPane interviewFilter;
+
+    @FXML
+    private FlowPane shortlistFilter;
+
+    @FXML
+    private StackPane allPlaceholder;
+
+    @FXML
+    private StackPane jobsPlaceholder;
+
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -125,14 +147,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
-        ArrayList<String> testFilter = new ArrayList<>();
-        String test = "testing";
-        testFilter.add(test);
-
-        testFilter.forEach(tag -> allFilter.getChildren().add(new Label(tag)));
-
-        refreshJobPersonList();
+    private void fillInnerParts() {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -142,12 +157,65 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+    }
+
+    /**
+     * Fills up all the placeholders of this window when in display all jobs and applicants scene.
+     */
+
+    void fillAllJobsParts() {
+
+        try {
+            switchToAllJobsScene();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        allListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
+                logic::setSelectedPerson);
+        allPlaceholder.getChildren().add(allListPanel.getRoot());
+
+        jobsListPanel = new JobListPanel(logic.getAllJobs(), logic.selectedJobProperty(),
+                logic::setSelectedJob);
+        jobsPlaceholder.getChildren().add(jobsListPanel.getRoot());
+
+        fillInnerParts();
+    }
+
+    /**
+     * Change scene to display all jobs and applicants
+     */
+
+    private void switchToAllJobsScene() throws IOException {
+        currScene = "allJobs";
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/displayAllScene.fxml"));
+        loader.setController(this);
+        primaryStage.setScene(loader.load());
+    }
+
+    /**
+     * Change scene to display a specific job and its four lists
+     */
+
+    private void switchToDisplayJobScene() throws IOException {
+        currScene = "displayJobs";
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/displayJobScene.fxml"));
+        loader.setController(this);
+        primaryStage.setScene(loader.load());
     }
 
     /**
      * Refreshes the jobPersonListPanel
      */
-    void refreshJobPersonList() {
+    private void fillDisplayJobParts() {
+
+        try {
+            switchToDisplayJobScene();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
         allApplicantsListPanel = new PersonListPanel(logic.getJobsList(0), logic.selectedPersonProperty(),
             logic::setSelectedAll);
         allApplicantsPlaceholder.getChildren().add(allApplicantsListPanel.getRoot());
@@ -163,6 +231,31 @@ public class MainWindow extends UiPart<Stage> {
         selectedListPanel = new PersonListPanel(logic.getJobsList(3), logic.selectedPersonProperty(),
             logic::setSelectedSelected);
         selectedPlaceholder.getChildren().add(selectedListPanel.getRoot());
+
+        fillInnerParts();
+    }
+
+    /**
+     * stores and updates the filtered parameters for each list
+     */
+
+    private void updateFilterTags(JobListName listName, UniquePredicateList list) {
+        switch (listName) {
+            case APPLICANT:
+                list.forEach(filter -> allFilter.getChildren().add(new Label(filter.getPredicateName())));
+                break;
+            case KIV:
+                list.forEach(filter -> kivFilter.getChildren().add(new Label(filter.getPredicateName())));
+                break;
+            case INTERVIEW:
+                list.forEach(filter -> interviewFilter.getChildren().add(new Label(filter.getPredicateName())));
+                break;
+            case SHORTLIST:
+                list.forEach(filter -> shortlistFilter.getChildren().add(new Label(filter.getPredicateName())));
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -221,8 +314,13 @@ public class MainWindow extends UiPart<Stage> {
                 analytics.show(commandResult.getAnalytics());
             }
 
+            if (commandResult.isSuccessfulSearch()) {
+                updateFilterTags(commandResult.getJobListName(), commandResult.getFilterList());
+            }
+
             if (commandResult.isSuccessfulDisplayJob()) {
-                refreshJobPersonList();
+                fillDisplayJobParts();
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             }
 
             if (commandResult.isSuccessfulInterviews()) {
@@ -232,6 +330,11 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            }
+
+            if (commandResult.isList()) {
+                fillAllJobsParts();
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             }
 
             if (commandResult.isExit()) {

@@ -11,6 +11,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
+import seedu.address.model.job.JobListName;
 import seedu.address.model.job.JobName;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
@@ -185,10 +186,12 @@ public interface Model {
      */
     ObservableList<Person> getFilteredPersonList();
 
-    /**
-     * Returns an unmodifiable view of the predicate list
-     */
+    /** Returns an unmodifiable view of the filtered  people list in job */
+
     ObservableList<Person> getJobsList(int listNum);
+
+    /** Returns an unmodifiable view of the filtered job list */
+    ObservableList<Job> getAllJobs();
 
     /**
      * Returns an unmodifiable view of the filtered job list
@@ -280,6 +283,12 @@ public interface Model {
     ReadOnlyProperty<Person> selectedPersonProperty();
 
     /**
+     * Selected job in the filtered job list.
+     * null if no job is selected.
+     */
+    ReadOnlyProperty<Job> selectedJobProperty();
+
+    /**
      * Returns the selected person in the filtered person list.
      * null if no person is selected.
      */
@@ -297,6 +306,8 @@ public interface Model {
     void setSelectedInterviewed(Person person);
 
     void setSelectedSelected(Person person);
+
+    void setSelectedJob(Job job);
 
     /**
      * Generates an interview list.
@@ -327,5 +338,7 @@ public interface Model {
      * Generates analytics.
      */
     Analytics generateAnalytics();
+
+    Analytics generateAnalytics(JobListName listName);
 
 }

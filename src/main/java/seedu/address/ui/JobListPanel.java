@@ -1,7 +1,10 @@
 package seedu.address.ui;
 
+import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -20,9 +23,32 @@ public class JobListPanel extends UiPart<Region> {
     @FXML
     private ListView<Job> jobListView;
 
-    public JobListPanel(ObservableList<Job> jobList) {
+    public JobListPanel(ObservableList<Job> jobList, ObservableValue<Job> selectedJob,
+                           Consumer<Job> onSelectedJobChange) {
         super(FXML);
         jobListView.setItems(jobList);
+        jobListView.setCellFactory(listView -> new JobListViewCell());
+        jobListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            logger.fine("Selection in job list panel changed to : '" + newValue + "'");
+            onSelectedJobChange.accept(newValue);
+        });
+        selectedJob.addListener((observable, oldValue, newValue) -> {
+            logger.fine("Selected job changed to: " + newValue);
+
+            // Don't modify selection if we are already selecting the selected job,
+            // otherwise we would have an infinite loop.
+            if (Objects.equals(jobListView.getSelectionModel().getSelectedItem(), newValue)) {
+                return;
+            }
+
+            if (newValue == null) {
+                jobListView.getSelectionModel().clearSelection();
+            } else {
+                int index = jobListView.getItems().indexOf(newValue);
+                jobListView.scrollTo(index);
+                jobListView.getSelectionModel().clearAndSelect(index);
+            }
+        });
     }
 
     /**
@@ -41,6 +67,5 @@ public class JobListPanel extends UiPart<Region> {
             }
         }
     }
+
 }
-
-

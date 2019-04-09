@@ -290,7 +290,7 @@ public class MainWindow extends UiPart<Stage> {
         Timeline timeline = new Timeline();
 
         browserPlaceholder.setOpacity(0.0);
-        if (browserPlaceholder.getChildren().get(0).getId() == null) {
+        if (browserPlaceholder.getChildren().get(0).getId().equals("browser")) {
             browserPlaceholder.getChildren().clear();
             browserPlaceholder.getChildren().add(summaryPanel.getRoot());
         } else if (browserPlaceholder.getChildren().get(0).getId().equals("summaryPanel")) {

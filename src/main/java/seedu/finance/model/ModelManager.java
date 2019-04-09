@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.Comparator;
 //import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -24,6 +25,7 @@ import seedu.finance.logic.commands.SummaryCommand.SummaryPeriod;
 import seedu.finance.model.budget.Budget;
 import seedu.finance.model.budget.CategoryBudget;
 import seedu.finance.model.exceptions.CategoryBudgetExceedTotalBudgetException;
+import seedu.finance.model.exceptions.SpendingInCategoryBudgetExceededException;
 import seedu.finance.model.record.Date;
 import seedu.finance.model.record.Record;
 import seedu.finance.model.record.exceptions.RecordNotFoundException;
@@ -152,8 +154,13 @@ public class ModelManager implements Model {
 
     //================ Category Budget =========================================================================
     //@author Jackimaru96
-    public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException {
+    public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException,
+            SpendingInCategoryBudgetExceededException {
         this.versionedFinanceTracker.addCategoryBudget(budget);
+    }
+
+    public HashSet<CategoryBudget> getCatBudget() {
+        return this.versionedFinanceTracker.getBudget().getCategoryBudgets();
     }
 
     @Override

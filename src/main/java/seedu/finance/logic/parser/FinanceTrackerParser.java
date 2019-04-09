@@ -23,6 +23,7 @@ import seedu.finance.logic.commands.SearchCommand;
 import seedu.finance.logic.commands.SelectCommand;
 import seedu.finance.logic.commands.SetCommand;
 import seedu.finance.logic.commands.SetFileCommand;
+import seedu.finance.logic.commands.ShowCategoryBudgetCommand;
 import seedu.finance.logic.commands.SortCommand;
 import seedu.finance.logic.commands.SpendCommand;
 import seedu.finance.logic.commands.SummaryCommand;
@@ -58,6 +59,9 @@ public class FinanceTrackerParser {
         final String arguments = matcher.group("arguments");
 
         switch (commandWord.toLowerCase()) {
+        case ShowCategoryBudgetCommand.COMMAND_WORD:
+        case ShowCategoryBudgetCommand.COMMAND_ALIAS:
+            return new ShowCategoryBudgetCommand();
 
         case SetFileCommand.COMMAND_WORD:
             return new SetFileCommandParser().parse(arguments);

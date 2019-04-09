@@ -3,6 +3,7 @@ package seedu.finance.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,6 +14,7 @@ import seedu.finance.model.budget.Budget;
 import seedu.finance.model.budget.CategoryBudget;
 import seedu.finance.model.budget.TotalBudget;
 import seedu.finance.model.exceptions.CategoryBudgetExceedTotalBudgetException;
+import seedu.finance.model.exceptions.SpendingInCategoryBudgetExceededException;
 import seedu.finance.model.record.Record;
 import seedu.finance.model.record.UniqueRecordList;
 
@@ -135,8 +137,21 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
         return budget;
     }
 
-    public void addCategoryBudget(CategoryBudget catBudget) throws CategoryBudgetExceedTotalBudgetException {
-        budget.setNewCategoryBudget(catBudget);
+    public HashSet<CategoryBudget> getCategoryBudget() {
+        return this.budget.getCategoryBudgets();
+    }
+
+    /**
+     * Adds category budget
+     * @param catBudget the category budget to be added
+     * @throws CategoryBudgetExceedTotalBudgetException if adding this cat budget will exceed total budget
+     * @throws SpendingInCategoryBudgetExceededException if the spending in this category is more than allocated
+     *                                                   cat budget
+     */
+    public void addCategoryBudget(CategoryBudget catBudget) throws CategoryBudgetExceedTotalBudgetException,
+            SpendingInCategoryBudgetExceededException {
+        this.budget.setNewCategoryBudget(catBudget, records);
+        indicateModified();
     }
 
     @Override

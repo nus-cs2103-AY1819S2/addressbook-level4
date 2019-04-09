@@ -216,13 +216,22 @@ image::deck_ug_diagrams/study_deck.png[width="800"]
 These commands are only available in cards view.
 In this section, the active deck is the deck used in the `open` command.
 
+==== Selecting a card in the active deck: `select`
+
+**Format**: `select INDEX`
+
+**Outcome**: Selects the card in the deck with index at `INDEX`
+
+**Example**: `select 1`
+
 ==== Adding a card to the active deck: `add`
 
-**Format**: `add q/QUESTION a/ANSWER`
+**Format**: `add q/QUESTION a/ANSWER [t/TAG]`
 
-**Outcome**: Creates a new card with some front and back text and add it to the current deck.
+**Outcome**: Creates a new card with question and answers and
+adds it to the current deck.
 
-**Example**: `add q/Hello a/World`
+**Example**: `add q/Hello a/World t/TopDeckSample`
 
 Below is an example of what the user should see upon the execution of the command:
 
@@ -244,11 +253,11 @@ image::card_ug_diagrams/add_card_2.png[width="800"]
 
 ==== Editing a card in the active deck: `edit`
 
-**Format**: `edit INDEX q/QUESTION a/ANSWER`
+**Format**: `edit INDEX q/QUESTION a/ANSWER [t/TAG]`
 
 **Outcome**: Edits the text of the card at `INDEX`.
 
-**Example**: `edit 3 q/Hello a/World`
+**Example**: `edit 1 q/Edit Hello a/World t/Editted`
 
 **Auto-Complete**: Instead of typing the whole command,
 TopDeck also provides an auto-complete feature for the `edit` command.
@@ -261,18 +270,18 @@ Suppose the user adds a new card with a typo:
 
 image::card_ug_diagrams/edit_card_1.png[width="800"]
 
-The user can then retrieve the full detail of the card by simply typing `edit 2`
+The user can then retrieve the full detail of the card by simply typing
+`edit 2` and pressing enter. The following would appear
 
 image::card_ug_diagrams/edit_card_2.png[width="800"]
 
-After pressing enter, the following should appear:
+The user can then edit and correct the mistake made.
 
 image::card_ug_diagrams/edit_card_3.png[width="800"]
 
-The user can then edit and correct the mistake made.
+This would be the end result:
 
 image::card_ug_diagrams/edit_card_4.png[width="800"]
-
 
 ==== Finding a card in the active deck by name: `find`
 
@@ -282,37 +291,42 @@ image::card_ug_diagrams/edit_card_4.png[width="800"]
 specific question by searching for a whole phrase instead of only individual words.
 This is done by putting `"` around `KEYWORD`.
 
-[CAUTION]
-Phrases should have only alphanumeric characters and spaces.
-
 **Outcome**: Lists all cards within the current deck containing `KEYWORD` in its text.
 
 [NOTE]
 `find` will only search for full-matching words. For e.g. `Animals` will not be found if
 `animal` is used to search for it.
 
+[CAUTION]
+The entire phrase inside `"` will be matched word for word. For example, `find "Is there a question"`
+will show the question with the entire phrase `Is there a question` and the phrase
+`Is there a question?` will not be matched due to the extra `?`
+
 **Example**:
 
-* `find animals`
+* `find Singapore`
+
+Below is the result of executing this command:
+
+image::card_ug_diagrams/find_card_1.png[width="800"]
+
+* `find "When was Singapore founded?"`
 
 Below is the result of executing this command:
 
 image::card_ug_diagrams/find_card_2.png[width="800"]
 
-* `find "What is the largest"`
+==== Clearing all cards in the active deck: `clear`
 
-Below is the result of executing this command:
+**Format**: `clear`
 
-image::card_ug_diagrams/find_card_3.png[width="800"]
-
-
+**Outcome**: Clears all of the cards in the deck.
 
 ==== Listing all cards in the active deck: `list`
 
 **Format**: `list`
 
 **Outcome**: Displays a list of all cards in the deck.
-
 
 ==== Studying the active deck: `study`
 

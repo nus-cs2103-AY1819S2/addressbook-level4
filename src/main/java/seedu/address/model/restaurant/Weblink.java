@@ -22,7 +22,7 @@ public class Weblink {
             + "    - start and end with alphanumeric characters\n"
             + "    - consist of alphanumeric characters, a period or a hyphen for the characters in between, if any.";
     // alphanumeric and special characters
-    private static final String OPTIONAL_PROTOCOL_REGEX = "^(https://)?";
+    private static final String OPTIONAL_PROTOCOL_REGEX = "^(https://|http://)?";
     private static final String LOCAL_PART_REGEX = "[\\w" + SPECIAL_CHARACTERS + "]+";
     private static final String AT_LEAST_ONE_DOMAIN_REGEX = "\\.";
     private static final String DOMAIN_FIRST_CHARACTER_REGEX = "[^\\W_]"; // alphanumeric characters except underscore

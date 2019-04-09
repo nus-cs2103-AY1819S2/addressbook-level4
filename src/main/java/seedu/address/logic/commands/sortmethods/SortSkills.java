@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.sortmethods;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.List;
 
@@ -26,7 +27,8 @@ public class SortSkills {
         //Modify each Person to organise tags alphabetically
         List<Person> personsWithCorrectTagOrder = orderPersonsTags(lastShownList, prefix);
         //Sort Persons alphabetically by tags
-        List<Person> newList = SortUtil.sortPersonsByTags(personsWithCorrectTagOrder);
+        Comparator<Person> personTagComparator = Comparator.comparing(Person::tagsToString);
+        List<Person> newList = SortUtil.sortPersons(personsWithCorrectTagOrder, personTagComparator);
 
         this.newList = newList;
     }

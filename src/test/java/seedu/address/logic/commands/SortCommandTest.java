@@ -146,4 +146,18 @@ public class SortCommandTest {
         expectedModel.commitAddressBook();
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
+
+    @Test
+    public void execute_sortSkillNumber_success() {
+        String expectedMessage = String.format("Sorted all persons by skill number");
+        SortWord type = new SortWord("skill number");
+        SortCommand command = new SortCommand(type);
+        expectedModel.deleteAllPerson();
+        correctPersonOrder = Arrays.asList(GEORGE, DANIEL, ALICE, CARL, BENSON, ELLE, FIONA);
+        for (Person newPerson : correctPersonOrder) {
+            expectedModel.addPersonWithFilter(newPerson);
+        }
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+    }
 }

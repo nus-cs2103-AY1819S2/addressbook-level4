@@ -778,9 +778,15 @@ image::medicineModule_example3.png[width='800']
 
 Step 4: Now the user can add new medicines into the storage via `addmed root\Internal\General paracetamol p/40 q/50`. +
 
+[[medicineManager_example4]]
+image::medicineManager_example4.png[width='800']
+
 The list of unique medicine is also updated.
 
+[[listOfMedicine_example1]]
+image::listOfMedicine_example1.png[width='800']
 
+Step 5: 
 
 4. The user could view detailed information about a directory or medicine through "viewMed" command.
 

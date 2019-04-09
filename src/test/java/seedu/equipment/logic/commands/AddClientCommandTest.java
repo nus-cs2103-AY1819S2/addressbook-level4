@@ -132,11 +132,19 @@ public class AddClientCommandTest {
 
         @Override
         public void putEquipment(WorkListId id, SerialNumber sr) {
+
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeEquipment(WorkListId id, SerialNumber sr) {
+
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void setEquipmentManager(ReadOnlyEquipmentManager newData) {
+
             throw new AssertionError("This method should not be called.");
         }
 

@@ -24,6 +24,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.equipment.model.equipment.exceptions.DuplicateEquipmentException;
 import seedu.equipment.model.equipment.exceptions.EquipmentNotFoundException;
+import seedu.equipment.model.equipment.exceptions.WorkListNotFoundException;
 //import seedu.equipment.testutil.EquipmentBuilder;
 
 public class UniqueWorkListListTest {
@@ -46,7 +47,7 @@ public class UniqueWorkListListTest {
 
     @Test
     public void addEquipment_noSuchWorkListFound() {
-        thrown.expect(EquipmentNotFoundException.class);
+        thrown.expect(WorkListNotFoundException.class);
         WorkListId noSuchId = new WorkListId("999");
         uniqueWorkListList.addEquipment(ANCHORVALECC, noSuchId);
     }
@@ -58,6 +59,22 @@ public class UniqueWorkListListTest {
         UniqueWorkListList expectedUniqueWorkListList = new UniqueWorkListList();
         expectedUniqueWorkListList.add(LISTA);
         expectedUniqueWorkListList.addEquipment(ANCHORVALECC, LISTA.getId());
+        assertEquals(expectedUniqueWorkListList, uniqueWorkListList);
+    }
+
+    @Test
+    public void removeEquipment_noSuchWorkListFound() {
+        thrown.expect(WorkListNotFoundException.class);
+        WorkListId noSuchId = new WorkListId("999");
+        uniqueWorkListList.removeEquipment(ANCHORVALECC, noSuchId);
+    }
+
+    @Test
+    public void removeEquipment_workListFound_success() {
+        uniqueWorkListList.add(LISTA);
+        uniqueWorkListList.removeEquipment(ANCHORVALECC, LISTA.getId());
+        UniqueWorkListList expectedUniqueWorkListList = new UniqueWorkListList();
+        expectedUniqueWorkListList.add(LISTA);
         assertEquals(expectedUniqueWorkListList, uniqueWorkListList);
     }
 

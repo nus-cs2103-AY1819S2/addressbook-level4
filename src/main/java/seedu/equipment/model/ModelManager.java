@@ -154,6 +154,13 @@ public class ModelManager implements Model {
     @Override
     public void putEquipment(WorkListId workListId, SerialNumber serialNumber) {
         versionedEquipmentManager.putEquipment(workListId, serialNumber);
+        updateFilteredWorkListList(PREDICATE_SHOW_ALL_WORKLISTS);
+    }
+
+    @Override
+    public void removeEquipment(WorkListId workListId, SerialNumber serialNumber) {
+        versionedEquipmentManager.removeEquipment(workListId, serialNumber);
+        updateFilteredWorkListList(PREDICATE_SHOW_ALL_WORKLISTS);
     }
 
     @Override

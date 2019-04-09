@@ -11,14 +11,14 @@ import seedu.equipment.model.WorkListId;
 import seedu.equipment.model.equipment.SerialNumber;
 
 /**
- * Put an equipment into a WorkList in the Equipment Manager.
+ * Remove an equipment from a WorkList in the Equipment Manager.
  */
-public class PutCommand extends Command {
+public class RemoveCommand extends Command {
 
-    public static final String COMMAND_WORD = "put";
+    public static final String COMMAND_WORD = "remove";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Put an equipment into a WorkList in the Equipment Manager. "
+            + ": Remove an equipment from a WorkList in the Equipment Manager. "
             + "Parameters: "
             + CliSyntax.PREFIX_ID + "WORKLISTID "
             + CliSyntax.PREFIX_SERIALNUMBER + "EQUIPMENT \n"
@@ -26,7 +26,7 @@ public class PutCommand extends Command {
             + CliSyntax.PREFIX_ID + "1 "
             + CliSyntax.PREFIX_SERIALNUMBER + "A008866X ";
 
-    public static final String MESSAGE_SUCCESS_ONE = "The equipment added into the worklist(ID = ";
+    public static final String MESSAGE_SUCCESS_ONE = "The equipment removed from the worklist(ID = ";
     public static final String MESSAGE_SUCCESS_TWO = "): Serial Number: %1$s";
     public static final String MESSAGE_EQUIPMENT_NOT_FOUND = "This equipment serial number is not found.";
     public static final String MESSAGE_WORKLIST_NOT_FOUND = "This worklist id is not found.";
@@ -37,7 +37,7 @@ public class PutCommand extends Command {
     /**
      * Creates a PutCommand.
      */
-    public PutCommand(WorkListId id, SerialNumber sr) {
+    public RemoveCommand(WorkListId id, SerialNumber sr) {
         requireNonNull(id);
         requireNonNull(sr);
         this.id = id;
@@ -52,12 +52,12 @@ public class PutCommand extends Command {
             throw new CommandException(MESSAGE_EQUIPMENT_NOT_FOUND);
         }
 
-        WorkList sampleWorkList = new WorkList("09-09-2019", "sampleName", id);
+        WorkList sampleWorkList = new WorkList("09-09-2018", "sampleName", id);
         if (!model.hasWorkList(sampleWorkList)) {
             throw new CommandException(MESSAGE_WORKLIST_NOT_FOUND);
         }
 
-        model.putEquipment(id, sr);
+        model.removeEquipment(id, sr);
 
         model.commitEquipmentManager();
         String success = MESSAGE_SUCCESS_ONE + id.value + MESSAGE_SUCCESS_TWO;
@@ -67,8 +67,8 @@ public class PutCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof PutCommand // instanceof handles nulls
-                && id.equals(((PutCommand) other).id)
-                && sr.equals(((PutCommand) other).sr));
+                || (other instanceof RemoveCommand // instanceof handles nulls
+                && id.equals(((RemoveCommand) other).id)
+                && sr.equals(((RemoveCommand) other).sr));
     }
 }

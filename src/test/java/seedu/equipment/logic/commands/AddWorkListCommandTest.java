@@ -192,6 +192,13 @@ public class AddWorkListCommandTest {
 
         @Override
         public void putEquipment(WorkListId id, SerialNumber sr) {
+
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeEquipment(WorkListId id, SerialNumber sr) {
+
             throw new AssertionError("This method should not be called.");
         }
 

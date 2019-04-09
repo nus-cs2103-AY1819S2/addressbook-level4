@@ -129,6 +129,12 @@ public class EquipmentManagerTest {
     }
 
     @Test
+    public void removeEquipment_nullSerialNumberAndId_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        equipmentManager.removeEquipment(null, null);
+    }
+
+    @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         equipmentManager.addPerson(ANCHORVALECC);
         Equipment editedAlice = new EquipmentBuilder(ANCHORVALECC).withAddress(VALID_ADDRESS_BOB)

@@ -1,8 +1,5 @@
 package seedu.equipment.testutil;
 
-//import static seedu.equipment.logic.commands.CommandTestUtil.ASSIGNEE_DESC_LISTA;
-//import static seedu.equipment.logic.commands.CommandTestUtil.DATE_DESC_LISTA;
-//import static seedu.equipment.logic.commands.CommandTestUtil.ID_DESC_LISTA;
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_ASSIGNEE_LISTA;
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_DATE_LISTA;
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_ID_LISTA;
@@ -17,7 +14,6 @@ import java.util.List;
 
 import seedu.equipment.model.EquipmentManager;
 import seedu.equipment.model.WorkList;
-//import seedu.equipment.model.WorkListId;
 
 /**
  * A utility class containing a list of {@code WorkList} objects to be used in tests.

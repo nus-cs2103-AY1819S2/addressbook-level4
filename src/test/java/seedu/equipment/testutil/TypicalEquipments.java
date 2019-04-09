@@ -70,11 +70,11 @@ public class TypicalEquipments {
      * Returns an {@code EquipmentManager} with all the typical persons.
      */
     public static EquipmentManager getTypicalAddressBook() {
-        EquipmentManager ab = new EquipmentManager();
+        EquipmentManager em = new EquipmentManager();
         for (Equipment equipment : getTypicalPersons()) {
-            ab.addPerson(equipment);
+            em.addPerson(equipment);
         }
-        return ab;
+        return em;
     }
 
     public static List<Equipment> getTypicalPersons() {

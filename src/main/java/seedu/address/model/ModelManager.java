@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
@@ -21,6 +20,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
+import seedu.address.model.job.JobListName;
 import seedu.address.model.job.JobName;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
@@ -70,15 +70,18 @@ public class ModelManager implements Model {
         originalFilteredPersons.addListener(this::ensureSelectedPersonIsValid);
         filteredJobs.addListener(this::ensureSelectedJobIsValid);
         displayedFilteredPersons = originalFilteredPersons;
+
         UniquePersonList fakeList = new UniquePersonList();
         activeJobAllApplicants = new FilteredList<>(fakeList.asUnmodifiableObservableList());
         activeJobKiv = new FilteredList<>(fakeList.asUnmodifiableObservableList());
         activeJobShortlist = new FilteredList<>(fakeList.asUnmodifiableObservableList());
         activeJobInterview = new FilteredList<>(fakeList.asUnmodifiableObservableList());
+
         filterListJobAllApplicants = new UniquePredicateList();
         filterListJobKiv = new UniquePredicateList();
         filterListJobInterview = new UniquePredicateList();
         filterListJobShortlist = new UniquePredicateList();
+
         allJobsList = new FilteredList<>(versionedAddressBook.getAllJobList());
     }
 
@@ -218,7 +221,10 @@ public class ModelManager implements Model {
         return job.getList(listNumber);
     }
 
-    @Override
+    public ObservableList<Job> getAllJobs() {
+        return allJobsList;
+    }
+
     public ObservableList<Person> getJobsList(int listNumber) {
         if (listNumber == 0) {
             return activeJobAllApplicants;
@@ -397,6 +403,10 @@ public class ModelManager implements Model {
         return selectedPerson;
     }
 
+    public ReadOnlyProperty<Job> selectedJobProperty() {
+        return selectedJob;
+    }
+
     @Override
     public Person getSelectedPerson() {
         return selectedPerson.getValue();
@@ -436,6 +446,13 @@ public class ModelManager implements Model {
             throw new PersonNotFoundException();
         }
         selectedPerson.setValue(person);
+    }
+
+    public void setSelectedJob(Job job) {
+        if (job != null && !allJobsList.contains(job)) {
+            throw new PersonNotFoundException();
+        }
+        selectedJob.setValue(job);
     }
 
     /**
@@ -521,6 +538,28 @@ public class ModelManager implements Model {
      */
     public Analytics generateAnalytics() {
         Analytics analytics = new Analytics(getFilteredPersonList());
+        return analytics;
+    }
+
+    @Override
+    public Analytics generateAnalytics(JobListName listName) {
+        Analytics analytics;
+        switch (listName) {
+            case APPLICANT:
+                analytics = new Analytics(activeJobAllApplicants);
+                break;
+            case KIV:
+                analytics = new Analytics(activeJobKiv);
+                break;
+            case INTERVIEW:
+                analytics = new Analytics(activeJobInterview);
+                break;
+            case SHORTLIST:
+                analytics = new Analytics(activeJobShortlist);
+                break;
+            default:
+                analytics = new Analytics(getFilteredPersonList());
+        }
         return analytics;
     }
 

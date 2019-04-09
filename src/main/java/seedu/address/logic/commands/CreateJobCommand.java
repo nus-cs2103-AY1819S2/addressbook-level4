@@ -56,9 +56,6 @@ public class CreateJobCommand extends Command {
         ArrayList<String> jobNameCollection = new ArrayList<>();
         jobNameCollection.add(toAdd.getName().toString());
         Predicate<Person> predicator = new JobsApplyContainsKeywordsPredicate(jobNameCollection);
-        //model.updateFilteredPersonList(predicator);
-        model.addFilteredPersonsToJob(toAdd.getName());
-        //model.changeFilteredPersonList(model.getJobList(toAdd.getName(), 0));
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

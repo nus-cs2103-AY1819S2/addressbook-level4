@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<Scene fx:id="mainJobScene" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <stylesheets>
+      <URL value="@DarkTheme.css" />
+      <URL value="@Extensions.css" />
+   </stylesheets>
+   <root>
+      <VBox stylesheets="@DarkTheme.css">
+         <children>
+            <MenuBar fx:id="menuBar" stylesheets="@DarkTheme.css" VBox.vgrow="NEVER">
+               <menus>
+                  <Menu mnemonicParsing="false" text="File">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Help">
+                     <items>
+                        <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+                     </items>
+                  </Menu>
+               </menus>
+            </MenuBar>
+            <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+               <padding>
+                  <Insets bottom="5" left="10" right="10" top="5" />
+               </padding>
+            </StackPane>
+            <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="5" left="10" right="10" top="5" />
+               </padding>
+            </StackPane>
+            <HBox fx:id="fourList" focusTraversable="true" maxHeight="1.7976931348623157E308" stylesheets="@DarkTheme.css" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox fx:id="allList" maxHeight="1.7976931348623157E308" minWidth="400.0" prefWidth="400.0">
+                     <children>
+                        <Label fx:id="allLabel" prefHeight="31.0" prefWidth="413.0" text="All Applicants" />
+                        <StackPane fx:id="allPlaceholder" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                     </children>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </VBox>
+                  <VBox fx:id="kivList" maxHeight="1.7976931348623157E308" minWidth="400.0" prefWidth="400.0">
+                     <children>
+                        <Label fx:id="jobsLabel" prefHeight="31.0" prefWidth="407.0" text="Jobs Open" />
+                        <StackPane fx:id="jobsPlaceholder" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+         </children>
+      </VBox>
+   </root>
+</Scene>

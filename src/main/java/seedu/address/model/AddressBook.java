@@ -72,8 +72,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.interviews.setInterviews(interviews);
     }
 
-    public void setJobs(List<Job> Jobs) {
-        this.jobs.setJobs(Jobs);
+    public void setJobs(List<Job> jobs) {
+        this.jobs.setJobs(jobs);
         indicateModified();
     }
 

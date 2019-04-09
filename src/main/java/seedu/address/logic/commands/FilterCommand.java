@@ -38,6 +38,7 @@ import seedu.address.model.person.predicate.PhoneContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.PredicateManager;
 import seedu.address.model.person.predicate.RaceContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.SchoolContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.UniquePredicateList;
 
 
 /**
@@ -98,7 +99,8 @@ public class FilterCommand extends Command {
      * @param predicatePersonDescriptor details to predicate the person with
      */
     @SuppressWarnings("unchecked")
-    public FilterCommand(String commandName, JobListName listName, PredicatePersonDescriptor predicatePersonDescriptor) {
+    public FilterCommand(String commandName, JobListName listName,
+                         PredicatePersonDescriptor predicatePersonDescriptor) {
         requireNonNull(commandName);
         requireNonNull(listName);
         requireNonNull(predicatePersonDescriptor);
@@ -110,29 +112,37 @@ public class FilterCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
+        UniquePredicateList predicateList;
+
         requireNonNull(model);
         switch (listName) {
         case APPLICANT:
             model.updateJobAllApplicantsFilteredPersonList(predicate);
             model.addPredicateJobAllApplicants(predicate);
+            predicateList = model.getPredicateLists(0);
             break;
         case KIV:
             model.updateJobKivFilteredPersonList(predicate);
             model.addPredicateJobKiv(predicate);
+            predicateList = model.getPredicateLists(1);
             break;
         case INTERVIEW:
             model.updateJobInterviewFilteredPersonList(predicate);
             model.addPredicateJobInterview(predicate);
+            predicateList = model.getPredicateLists(2);
             break;
         case SHORTLIST:
             model.updateJobShortlistFilteredPersonList(predicate);
             model.addPredicateJobShortlist(predicate);
+            predicateList = model.getPredicateLists(3);
             break;
         default:
             model.updateBaseFilteredPersonList(predicate);
+            predicateList = model.getPredicateLists(0);
         }
         return new CommandResult(
-            String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+            String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()), listName,
+                predicateList);
     }
 
     @Override

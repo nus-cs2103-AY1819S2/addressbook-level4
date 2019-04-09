@@ -8,7 +8,7 @@ public class SelectCommand extends Command {
     public static final String COMMAND_WORD = "select";
     private static final String MAIN_USAGE = "Did you mean:\n"
         + "Finding a patient: \"patientselect\" or \"pselect\"\n";
-    private static final String GOTO_USAGE = "No relevant find command in Records mode.\n";
+    private static final String GOTO_USAGE = "No relevant select command in Records mode.\n";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {

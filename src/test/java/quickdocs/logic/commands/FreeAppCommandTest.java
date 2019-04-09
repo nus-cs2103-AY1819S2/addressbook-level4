@@ -1,6 +1,7 @@
 package quickdocs.logic.commands;
 
 import static quickdocs.testutil.TypicalAppointments.APP_A;
+import static quickdocs.testutil.TypicalAppointments.APP_E;
 import static quickdocs.testutil.TypicalAppointments.getTypicalAppointmentsQuickDocs;
 
 import java.time.LocalDate;
@@ -9,9 +10,9 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import quickdocs.logic.CommandHistory;
-import quickdocs.model.QuickDocs;
 import quickdocs.model.Model;
 import quickdocs.model.ModelManager;
+import quickdocs.model.QuickDocs;
 import quickdocs.model.UserPrefs;
 
 public class FreeAppCommandTest {
@@ -31,10 +32,11 @@ public class FreeAppCommandTest {
     }
 
     @Test
-    public void executeFreeAppAllFree() {
-        LocalDate start = APP_A.getDate().minusDays(1);
+    public void executeFreeAppNoFree() {
+        model.addApp(APP_E);
+        LocalDate start = APP_E.getDate();
         CommandResult result = new FreeAppCommand(start, start).execute(model, commandHistory);
-        String expected = String.format(FreeAppCommand.MESSAGE_ALL_FREE, start, start)
+        String expected = String.format(FreeAppCommand.MESSAGE_NO_FREE_SLOTS, start, start)
                 + model.freeApp(start, start);
 
         Assert.assertEquals(result.getFeedbackToUser(), expected);

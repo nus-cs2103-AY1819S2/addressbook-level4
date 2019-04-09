@@ -33,8 +33,12 @@ public class ListAppCommand extends Command {
             + "Parameters: [" + PREFIX_NRIC + "NRIC]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NRIC + "S9637645A";
-    public static final String MESSAGE_SUCCESS_BY_DATE = "Listed all appointments from %1$s to %2$s\n";
-    public static final String MESSAGE_SUCCESS_BY_NRIC = "Listed all appointments for %1$s\n";
+    public static final String MESSAGE_SUCCESS_BY_DATE =
+            "Listing all appointments from %1$s to %2$s:\n"
+            + "============================================\n";
+    public static final String MESSAGE_SUCCESS_BY_NRIC =
+            "Listing all appointments for %1$s:\n"
+            + "============================================\n";
     public static final String MESSAGE_PATIENT_NOT_FOUND = "No patient with the given nric found";
 
     private final LocalDate start;

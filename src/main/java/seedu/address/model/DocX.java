@@ -213,6 +213,8 @@ public class DocX implements ReadOnlyDocX {
     public void setAppointment(Appointment target, Appointment changedAppointment) {
         requireNonNull(changedAppointment);
 
+        changedAppointment.setPatient(getPatientById(changedAppointment.getPatientId()));
+        changedAppointment.setDoctor(getDoctorById(changedAppointment.getDoctorId()));
         appointments.setAppointment(target, changedAppointment);
         indicateModified();
     }

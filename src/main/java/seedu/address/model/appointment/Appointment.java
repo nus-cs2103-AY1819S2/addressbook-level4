@@ -85,18 +85,22 @@ public class Appointment {
     }
 
     public Patient getPatient() {
+        requireAllNonNull(patient);
         return patient;
     }
 
     public void setPatient(Patient patient) {
+        requireAllNonNull(patient);
         this.patient = patient;
     }
 
     public Doctor getDoctor() {
+        requireAllNonNull(doctor);
         return doctor;
     }
 
     public void setDoctor(Doctor doctor) {
+        requireAllNonNull(doctor);
         this.doctor = doctor;
     }
 
@@ -154,16 +158,6 @@ public class Appointment {
         }
 
         if (!this.time.equals(that.time)) {
-            return false;
-        }
-
-        // Cancelled appointments can have duplicates
-        if (this.getAppointmentStatus().equals(AppointmentStatus.CANCELLED)
-                || that.appointmentStatus.equals(AppointmentStatus.CANCELLED)) {
-            return false;
-        }
-
-        if (!this.appointmentStatus.equals(that.appointmentStatus)) {
             return false;
         }
 

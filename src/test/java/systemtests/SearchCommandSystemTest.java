@@ -11,7 +11,9 @@ import static seedu.finance.testutil.TypicalRecords.DONUT;
 import static seedu.finance.testutil.TypicalRecords.FRUITS;
 import static seedu.finance.testutil.TypicalRecords.KEYWORD_MATCHING_DONUT;
 
+import java.util.Iterator;
 import javafx.collections.ObservableList;
+
 import org.junit.Test;
 
 import seedu.finance.commons.core.index.Index;
@@ -23,7 +25,7 @@ import seedu.finance.model.Model;
 import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Record;
 
-import java.util.Iterator;
+
 
 public class SearchCommandSystemTest extends FinanceTrackerSystemTest {
 

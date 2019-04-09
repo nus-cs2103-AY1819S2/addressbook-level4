@@ -1,3 +1,4 @@
+/* @@author kayheen */
 package seedu.address.logic.parser;
 
 import seedu.address.commons.core.Messages;
@@ -29,13 +30,15 @@ public class ResizeCommandParser implements Parser<ResizeCommand> {
             int height = Integer.parseInt(h);
 
             if (width <= 0 || height <= 0) {
-                throw new ParseException(Messages.MESSAGE_RESIZE_VALUE_ERROR);
+                throw new ParseException(String.format(Messages.MESSAGE_RESIZE_VALUE_ERROR,
+                        ResizeCommand.MESSAGE_USAGE));
             }
             return new ResizeCommand(width, height);
         } catch (NumberFormatException e) {
-            throw new ParseException(Messages.MESSAGE_RESIZE_VALUE_ERROR);
+            throw new ParseException(String.format(Messages.MESSAGE_RESIZE_VALUE_ERROR, ResizeCommand.MESSAGE_USAGE));
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ParseException(ResizeCommand.MESSAGE_USAGE);
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    ResizeCommand.MESSAGE_USAGE));
         }
     }
 }

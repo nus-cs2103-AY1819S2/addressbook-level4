@@ -1,6 +1,7 @@
 /* @@author kayheen */
 package seedu.address.logic.parser;
 
+import javafx.scene.transform.Rotate;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.RotateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -26,9 +27,13 @@ public class RotateCommandParser implements Parser<RotateCommand> {
             }
             String deg = parsed[0];
             int degree = Integer.parseInt(deg);
+            if (degree < 0) {
+                throw new ParseException(String.format(Messages.MESSAGE_ROTATE_DEGREE_ERROR,
+                        RotateCommand.MESSAGE_USAGE));
+            }
             return new RotateCommand(degree);
         } catch (NumberFormatException e) {
-            throw new ParseException(Messages.MESSAGE_ROTATE_DEGREE_ERROR);
+            throw new ParseException(String.format(Messages.MESSAGE_ROTATE_DEGREE_ERROR, RotateCommand.MESSAGE_USAGE));
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                     RotateCommand.MESSAGE_USAGE));

@@ -27,12 +27,17 @@ public class CropCommandParser implements Parser<CropCommand> {
             int yValue = Integer.parseInt(parsed[1]);
             int width = Integer.parseInt(parsed[2]);
             int height = Integer.parseInt(parsed[3]);
+
+            if (xValue < 0 || yValue < 0 || width < 0 || height < 0) {
+                throw new ParseException(String.format(Messages.MESSAGE_CROP_INT_ERROR,
+                        CropCommand.MESSAGE_USAGE));
+            }
             System.out.println(xValue + " " + yValue + " " + width + " " + height);
             return new CropCommand(xValue, yValue, width, height);
         } catch (NumberFormatException e) {
-            throw new ParseException(Messages.MESSAGE_CROP_INT_ERROR);
+            throw new ParseException(String.format(Messages.MESSAGE_CROP_INT_ERROR, CropCommand.MESSAGE_USAGE));
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ParseException(CropCommand.MESSAGE_USAGE);
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, CropCommand.MESSAGE_USAGE));
         }
 
     }

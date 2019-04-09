@@ -50,7 +50,7 @@ public class ResizeCommand extends Command {
         try {
             BufferedImage bufferedImage = initialImage.getBufferedImage();
             BufferedImage editedBuffer = Scalr.resize(bufferedImage, Scalr.Method.QUALITY,
-                    Scalr.Mode.FIT_EXACT, width, height, null);
+                    Scalr.Mode.FIT_EXACT, width, height);
             // need to give a sneak peak before you actually write into the file.
             currentEdit.updateTempImage(editedBuffer);
         } catch (IllegalArgumentException x) {
@@ -63,6 +63,16 @@ public class ResizeCommand extends Command {
         }
 
         return new CommandResult(Messages.MESSAGE_RESIZE_SUCCESS);
+    }
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ResizeCommand // instanceof handles nulls
+                && isValuesEqual(other));
+    }
+    private boolean isValuesEqual(Object other) {
+        ResizeCommand temp = (ResizeCommand) other;
+        return this.width == temp.width && this.height == temp.height;
     }
 }
 

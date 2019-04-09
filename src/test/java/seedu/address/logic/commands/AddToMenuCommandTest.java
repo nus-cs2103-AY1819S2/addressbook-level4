@@ -226,6 +226,16 @@ public class AddToMenuCommandTest {
         }
 
         @Override
+        public ObservableList<MenuItem> getFilteredSortedMenuItemList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setMenuItems(List<MenuItem> menuItems) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasOrderItem(OrderItem orderItem) {
             throw new AssertionError("This method should not be called.");
         }

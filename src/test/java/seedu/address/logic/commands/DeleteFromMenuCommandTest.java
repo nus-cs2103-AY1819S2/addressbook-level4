@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.DeleteFromMenuCommand.MESSAGE_RESTAURANT_OCCUPIED;
+import static seedu.address.logic.commands.DeleteFromMenuCommand.INVALID_RESTAURANT_STATE;
 import static seedu.address.logic.commands.DeleteFromOrderCommand.MESSAGE_INVALID_ITEM_CODE;
 import static seedu.address.testutil.TypicalRestOrRant.getTypicalRestOrRant;
 
@@ -38,7 +38,7 @@ public class DeleteFromMenuCommandTest {
     public void execute_invalidRestaurantOccupancy_failure() {
         Code itemCode = new Code("W09");
         DeleteFromMenuCommand command = new DeleteFromMenuCommand(itemCode);
-        assertCommandFailure(Mode.MENU_MODE, command, model, commandHistory, MESSAGE_RESTAURANT_OCCUPIED);
+        assertCommandFailure(Mode.MENU_MODE, command, model, commandHistory, INVALID_RESTAURANT_STATE);
     }
 
     @Test

@@ -412,6 +412,16 @@ public class AddToOrderCommandTest {
         }
 
         @Override
+        public ObservableList<MenuItem> getFilteredSortedMenuItemList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setMenuItems(List<MenuItem> menuItems) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addRevenue(Revenue revenue) {
             throw new AssertionError("This method should not be called.");
         }
@@ -503,6 +513,11 @@ public class AddToOrderCommandTest {
 
         @Override
         public void updateMenuItemQuantity(MenuItem menuItem, int quantity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setMenuItems(List<MenuItem> menuItems) {
             throw new AssertionError("This method should not be called.");
         }
 

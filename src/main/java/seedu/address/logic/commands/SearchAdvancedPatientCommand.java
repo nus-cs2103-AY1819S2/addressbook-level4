@@ -14,7 +14,7 @@ import seedu.address.model.person.AdvancedPatientSearchPredicate;
  */
 public class SearchAdvancedPatientCommand extends Command {
 
-    public static final String COMMAND_WORD = "search-advanced";
+    public static final String COMMAND_WORD = "search-p-advanced";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches all patients whose full details contain "
             + "any of the specified keywords, even if the keyword is only a substring of the details.\n"

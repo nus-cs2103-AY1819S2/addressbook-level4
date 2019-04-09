@@ -18,7 +18,7 @@ import seedu.address.model.person.Patient;
  */
 public class AddPatientCommand extends Command {
 
-    public static final String COMMAND_WORD = "add-patient";
+    public static final String COMMAND_WORD = "add-p";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a patient to the docX. "
             + "Parameters: "

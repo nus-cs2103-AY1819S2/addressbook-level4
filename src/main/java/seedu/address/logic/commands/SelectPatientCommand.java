@@ -16,7 +16,7 @@ import seedu.address.model.person.Patient;
  */
 public class SelectPatientCommand extends Command {
 
-    public static final String COMMAND_WORD = "select-patient";
+    public static final String COMMAND_WORD = "select-p";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Selects the patient identified by the list index used in the displayed patient list.\n"

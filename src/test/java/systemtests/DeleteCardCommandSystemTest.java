@@ -188,7 +188,7 @@ public class DeleteCardCommandSystemTest extends TopDeckSystemTest {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
-        //assertStatusBarChangedExceptSaveLocation();
+        assertStatusBarChangedExceptSaveLocation();
     }
 
     /**
@@ -206,6 +206,6 @@ public class DeleteCardCommandSystemTest extends TopDeckSystemTest {
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
         assertCommandBoxShowsErrorStyle();
-        //assertStatusBarUnchanged();
+        assertStatusBarUnchanged();
     }
 }

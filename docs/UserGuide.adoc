@@ -216,6 +216,9 @@ image::deck_ug_diagrams/study_deck.png[width="800"]
 These commands are only available in cards view.
 In this section, the active deck is the deck used in the `open` command.
 
+[NOTE]
+The Footer Bar will continue to track the number of decks in the app.
+
 ==== Selecting a card in the active deck: `select`
 
 **Format**: `select INDEX`

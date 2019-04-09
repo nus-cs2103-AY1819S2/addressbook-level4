@@ -16,6 +16,7 @@ endif::[]
 
 By: `Team T12-1`      Since: `Feb 2019`      Licence: `MIT`
 
+// tag::introduction[]
 == Introducing HMS+
 
 You need a world-class property management system to run your hotel’s front desk and back office. We’ve spent years listening to what independent hoteliers need to take their business to the next level. From before check-in to post check out, we have everything you need to get your customers moving and your hotel running.
@@ -23,6 +24,8 @@ You need a world-class property management system to run your hotel’s front de
 HMS+ is for hotels that want to use a *single, integrated system to manage all aspects of their requirements*.
 
 This user guide provides in-depth documentation on the HMS+ installation process, system configuration and management, monitoring and troubleshooting problems. In addition, the <<Getting Started>> will provide the basic knowledge of the setup process and how you can get started.
+
+// end::introduction[]
 
 == Getting Started
 
@@ -318,6 +321,7 @@ Returns all gym bookings for customer with identification number, A0124422.
 
 // end::booking-commands[]
 
+// tag::generation-bill-commands[]
 === [underline]#Bill Generation commands#
 
 ==== Generate bill for specific booking: `generate-bill-booking`, `gb-b`
@@ -359,6 +363,8 @@ Example:
 
 *  `gb-c 2` +
 Returns the total bill (includes all bookings and reservations) for the customer at index 2
+
+// end::generation-bill-commands[]
 
 === [underline]#Switch tab command# : `switch-tab`, `st`
 

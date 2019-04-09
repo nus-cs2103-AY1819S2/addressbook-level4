@@ -25,7 +25,7 @@ public class SavePresetCommandParser implements Parser<SavePresetCommand> {
         String[] parsed = args.split(" ");
         System.out.println("length is " + parsed.length);
         if (parsed.length != 1) {
-           throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                SavePresetCommand.MESSAGE_USAGE));
         }
         return new SavePresetCommand(parsed[0]);

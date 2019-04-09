@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddPresetCommand;
 import seedu.address.logic.commands.BlackWhiteCommand;
 import seedu.address.logic.commands.BrightnessCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -24,7 +25,6 @@ import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListFilesCommand;
 import seedu.address.logic.commands.OpenCommand;
-import seedu.address.logic.commands.AddPresetCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.ResizeCommand;
 import seedu.address.logic.commands.RotateCommand;

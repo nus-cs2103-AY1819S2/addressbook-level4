@@ -1,5 +1,6 @@
 package systemtests;
 
+import static org.junit.Assert.assertEquals;
 import static seedu.finance.testutil.TypicalRecords.AMY;
 import static seedu.finance.testutil.TypicalRecords.KEYWORD_MATCHING_DONUT;
 
@@ -14,6 +15,7 @@ import seedu.finance.logic.parser.comparator.RecordCategoryComparator;
 import seedu.finance.logic.parser.comparator.RecordDateComparator;
 import seedu.finance.logic.parser.comparator.RecordNameComparator;
 import seedu.finance.model.Model;
+import seedu.finance.model.ModelManager;
 import seedu.finance.model.record.Record;
 import seedu.finance.testutil.RecordUtil;
 
@@ -119,7 +121,9 @@ public class ReverseCommandSystemTest extends FinanceTrackerSystemTest {
 
 
         /* Case: Clears the finance tracker then reverse list -> show list is empty message */
-
+        deleteAllRecords();
+        Model emptyModel = new ModelManager();
+        assertCommandSuccess(ReverseCommand.COMMAND_WORD, ReverseCommand.MESSAGE_EMPTY_LIST, emptyModel);
 
 
     }
@@ -129,9 +133,6 @@ public class ReverseCommandSystemTest extends FinanceTrackerSystemTest {
      * the result display box displays {@code expectedResultMessage}
      * and the model related components equal to {@code expectedModel}.
      * Also verifies that the command box has the default style class and the status bar's sync status changes.
-     * @param command
-     * @param expectedResultMessage
-     * @param expectedModel
      */
     private void assertCommandSuccess(String command, String expectedResultMessage, Model expectedModel) {
         executeCommand(command);

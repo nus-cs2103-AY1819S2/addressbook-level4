@@ -120,6 +120,7 @@ Format: `edit INDEX [q/QUESTION] [a/ANSWER] [h/HINT]`
 * Existing values will be updated to the input values.
 * **(MCQ cards)** When editing incorrect options, the existing incorrect options of the card will be removed i.e adding of options is not cumulative.
 * You can remove the card's hint by typing `h/` without specifying any hint after it.
+* If multiple hints are specified, only the last hint input will be selected to replace the existing hint.
 ====
 
 Examples:
@@ -128,6 +129,8 @@ Examples:
 Edits the answer of the 1st card to be 'Skin' and removes the hint associated, if any.
 * `edit 2 h/history q/Who discovered Penicillin? a/Alexander Fleming` +
 Edits the hint, question and answer of the 2nd card respectively.
+* `edit 3 h/cells h/biology h/organs` +
+Replaces the hint of the current card with "organs" only.
 // end::edit[]
 
 ==== Selecting a flashcard : `select`

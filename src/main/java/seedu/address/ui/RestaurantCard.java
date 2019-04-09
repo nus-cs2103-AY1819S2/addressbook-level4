@@ -78,7 +78,7 @@ public class RestaurantCard extends UiPart<Region> {
             weblink.setVisible(false);
             weblink.setManaged(false);
         } else {
-            weblink.setText(restaurant.getWeblink().value);
+            weblink.setText(restaurant.getWeblink().toString());
         }
 
         // if restaurant opening hours is not added, it should not appear on restaurant card

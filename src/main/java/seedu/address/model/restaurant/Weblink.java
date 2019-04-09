@@ -61,7 +61,7 @@ public class Weblink {
 
     @Override
     public String toString() {
-        return value;
+        return value.replaceAll("https://", "").replaceAll("http://", "");
     }
 
     @Override

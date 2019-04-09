@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -14,7 +13,7 @@ public class Statistics {
 
     private static final String MESSAGE_EMPTY_STATISTICS = "Conditions and their related occurences are not available";
 
-    private static Map<String, Integer> statistics = new TreeMap<>(Collections.reverseOrder());
+    private static Map<String, Integer> statistics = new TreeMap<>();
 
     /**
      * Returns the number of times the specific condition has appeared in added requests
@@ -40,7 +39,10 @@ public class Statistics {
         for (Condition condition : conditionSet) {
             String conditionName = condition.toString().toUpperCase();
             Integer count = statistics.get(conditionName);
-            statistics.put(conditionName, (count == 0) ? 0 : count - 1);
+            statistics.put(conditionName, count - 1);
+            if (getConditionStatistics(condition) == 0) {
+                statistics.remove(conditionName);
+            }
         }
     }
 

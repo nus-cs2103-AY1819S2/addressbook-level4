@@ -621,6 +621,7 @@ Visits website of `Restaurant` selected by user.
 The following sequence diagram shows how the visitWeb `index` works:
 
 image::VisitWebSequenceDiagram.png[width="800"]
+_Figure 1.1 Sequence diagram of visitWeb `INDEX` command_
 
 ==== visitWeb `weblink`
 Visits website entered by user.
@@ -632,15 +633,36 @@ Visits website entered by user.
 * This `weblink` will be passed to CommandResult which is passed to `MainWindow` in `UI` component.
 * `MainWindow` will then load the `weblink` through `BrowserPanel`.
 
-The following activity diagram and sequence diagram shows how the visitWeb `weblink` works:
+The following sequence diagram shows how the visitWeb `weblink` works:
 
-image::VisitWebUrlActivityDiagram.png[width="800"]
 image::VisitWebUrlSequenceDiagram.png[width="800"]
+_Figure 2.2 Sequence diagram of visitWeb `weblink` command_
+
+
+To illustrate the level of checks done in visiting web further, the command is broken down into the following steps.
+
+Step 1. FoodLover enters visitWeb `weblink` command.
+
+Step 2. FoodDiary checks if internet connection is present. If not, throw `NoInternetException` and show error message.
+
+Step 3. FoodDiary validates the weblink entered. If weblink does not exist, or it is not in the correct Url format, throw `ParseException` and show error message.
+
+Step 4. Display website on browser window.
+
+The following activity diagram shows the steps of visitWeb command:
+
+image::VisitWebUrlActivityDiagram.png[width="400"]
+_Figure 2.1 Activity diagram of visitWeb `weblink` command_
 
 ==== Enhancements
 * Before loading the website, the `weblink` will be validated by checking it's HTTP response code.
 * If response code is above 400, it suggests that the `weblink` is not found and that there is an error requesting the website if response code is above 500
-* If there is no internet connection, throws an `NoInternetException` that prints an error message to inform user that there is no internet connection.
+* Also, a `NoInternetException` is thrown if internet is absent. This is done by pinging to a Google as a reliable web server. If application fails to get a response,
+we can say that there is high chance that internet connection is poor and hence `NoInternetException` is thrown.
+
+==== Design considerations
+* To reduce coupling of `Weblink` to `AddCommandParser`, `EditCommandParsers` in `Logic`, and also `BrowserPanel` in `UI` component, a `WebUtil` class is implemented under Util of Commons component.
+This `WebUtil` comprises of functions such as prepending https to weblinks without it and also validates the weblink.
 // end::visitweb[]
 
 // tag::dataencryption[]

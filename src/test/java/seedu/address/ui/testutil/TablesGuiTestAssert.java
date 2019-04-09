@@ -3,7 +3,6 @@ package seedu.address.ui.testutil;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -48,17 +47,17 @@ public class TablesGuiTestAssert {
         assertEquals(expected, resultDisplayHandle.getText());
     }
 
-//    /**
-//     * Asserts that the list in {@code tableFlowPanelHandle} displays the details of {@code tables} correctly
-//     * and in the correct order.
-//     */
-//    public static void assertListMatching(TablesFlowPanelHandle tablesFlowPanelHandle, Table... tables) {
-//        Set<Node> nodes = tablesFlowPanelHandle.getAllCardNodes();
-//        for (int i = 0; i < tables.length; i++) {
-//            nodes.containsAll(tables);
-////            assertCardDisplaysTable(tables[i], nodes);
-//        }
-//    }
+    //    /**
+    //     * Asserts that the list in {@code tableFlowPanelHandle} displays the details of {@code tables} correctly
+    //     * and in the correct order.
+    //     */
+    //    public static void assertListMatching(TablesFlowPanelHandle tablesFlowPanelHandle, Table... tables) {
+    //        Set<Node> nodes = tablesFlowPanelHandle.getAllCardNodes();
+    //        for (int i = 0; i < tables.length; i++) {
+    //            nodes.containsAll(tables);
+    ////            assertCardDisplaysTable(tables[i], nodes);
+    //        }
+    //    }
 
     /**
      * Asserts that the list in {@code tableFlowPanelHandle} displays the details of {@code tables} correctly

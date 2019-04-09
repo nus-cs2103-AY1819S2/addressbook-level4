@@ -12,7 +12,6 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddTableCommand;
-import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.TableStatus;
 
 public class AddTableCommandParserTest {

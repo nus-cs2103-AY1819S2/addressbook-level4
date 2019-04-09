@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.testutil.OrdersGuiTestAssert.assertListMatching;
 
 import org.junit.Test;
 
@@ -13,7 +12,6 @@ import guitests.guihandles.HelpWindowHandle;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.MenuModeCommand;
 import seedu.address.logic.commands.RestaurantModeCommand;
-import seedu.address.logic.commands.TableModeCommand;
 import seedu.address.ui.StatusBarFooter;
 
 /**

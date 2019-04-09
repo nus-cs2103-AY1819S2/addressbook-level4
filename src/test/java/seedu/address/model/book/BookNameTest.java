@@ -31,6 +31,7 @@ public class BookNameTest {
         assertFalse(BookName.isValidBookName("")); // empty string
         assertFalse(BookName.isValidBookName(" ")); // spaces only
         assertFalse(BookName.isValidBookName(tooLongStr)); // book name too long
+        assertFalse(BookName.isValidBookName("A Book Name with /c")); // illegal character
 
         // valid name
         assertTrue(BookName.isValidBookName("peter jack")); // alphabets only

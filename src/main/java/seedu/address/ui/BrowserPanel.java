@@ -66,11 +66,9 @@ public class BrowserPanel extends UiPart<Stage> {
      * Takes in a Weblink and validate whether it is a valid Url.
      * @throws NoInternetException if there is no internet connection, NoInternetException is called
      */
-    public void loadPage(Weblink weblink) throws NoInternetException {
+    public void loadPage(Weblink weblink) {
         // Load restaurant page when selected restaurant changes.
-        if (!WebUtil.isNotValidWeblinkUrl(weblink.value)) {
-            loadPage(WebUtil.prependHttps(weblink.value));
-        }
+        loadPage(WebUtil.prependHttps(weblink.value));
     }
 
     /**

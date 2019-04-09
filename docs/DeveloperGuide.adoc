@@ -444,7 +444,7 @@ Each recommended module is represented by a `RecModule` which contains a unique 
 `CourseReqType` satisfied, as shown in the diagram below.
 
 .`RecModule` class diagram
-image::RecModuleClassDiagram.png[width="800"]
+image::RecModuleClassDiagram.png[width="400"]
 
 
 When `ModelManager` is initialised, `Model#getObservableRecModuleList` is called which generates an
@@ -481,7 +481,7 @@ must be run again to reflect the updated recommendation list.
 The sequence diagram summarising the above execution is shown below. Details of `RecModulePredicate#test` and `RecModuleComparator#compare` are omitted.
 
 .`RecCommand` sequence diagram
-image::RecCommandSequenceDiagram.png[width="800"]
+image::RecCommandSequenceDiagram.png[width="1000"]
 
 ==== Design Considerations
 ===== Aspect: Sorting of recommendation list

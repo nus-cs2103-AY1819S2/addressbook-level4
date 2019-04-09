@@ -263,7 +263,8 @@ public class ParserUtil {
         requireNonNull(customerIndices);
         final List<Customer> result = new ArrayList<>();
         for (String customerIndex : customerIndices) {
-            result.add(customers.get(Integer.parseInt(customerIndex) - 1));
+            Customer customer = parseOtherCustomer(customerIndex, customers);
+            result.add(customer);
         }
         return Optional.of(result);
     }
@@ -278,5 +279,19 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String customerIndex} into a {@code Customer} using the {@code customers}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Customer parseOtherCustomer(String customerIndex, List<Customer> customers) throws ParseException {
+        requireNonNull(customerIndex);
+        try {
+            int index = Integer.parseInt(customerIndex);
+            return customers.get(index - 1);
+        } catch (Exception e) {
+            throw new ParseException(String.format("Invalid customer index for other users: %s", customerIndex));
+        }
     }
 }

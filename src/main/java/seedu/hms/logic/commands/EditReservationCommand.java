@@ -39,7 +39,7 @@ public class EditReservationCommand extends ReservationCommand {
         + "[" + PREFIX_PAYER + "PAYER INDEX]\n"
         + "[" + PREFIX_CUSTOMERS + "CUSTOMER INDEX(s)...] "
         + "[" + PREFIX_COMMENT + "COMMENT]\n"
-        + "Example: " + COMMAND_WORD + " "
+        + "Example: " + COMMAND_WORD + " 1 "
         + PREFIX_ROOM + "GYM "
         + PREFIX_PAYER + "2 "
         + PREFIX_CUSTOMERS + "1,3 "

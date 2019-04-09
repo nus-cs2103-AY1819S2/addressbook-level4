@@ -83,22 +83,22 @@ public class TypicalCustomers {
         .build();
 
     // Bookings
-    private static final Booking ALICE_GYM =
-        new BookingBuilder().withService(ServiceType.GYM).withTiming(14, 15).withPayer(ALICE)
+    public static final Booking ALICE_GYM =
+        new BookingBuilder().withService(ServiceType.GYM).withTiming(14, 15).withPayer(ALICE).withPayerIndex("1")
             .build();
 
-    private static final Booking ALICE_GAMES_WITH_CARL =
-        new BookingBuilder().withService(ServiceType.GAMES).withTiming(12, 13).withPayer(ALICE)
+    public static final Booking ALICE_GAMES_WITH_CARL =
+        new BookingBuilder().withService(ServiceType.GAMES).withTiming(12, 13).withPayer(ALICE).withPayerIndex("1")
             .build();
 
     // Reservations
 
-    private static final Reservation ALICE_SINGLE_ROOM =
+    public static final Reservation ALICE_SINGLE_ROOM =
         new ReservationBuilder().withRoom(RoomType.SINGLE).withDates("14/04/2010", "17/04/2010").withPayer(ALICE)
             .build();
 
-    private static final Reservation BENSON_DOUBLE_ROOM_WITH_CARL =
-        new ReservationBuilder().withRoom(RoomType.DOUBLE).withDates("14/04/2010", "17/04/2010").withPayer(ALICE)
+    public static final Reservation BENSON_DOUBLE_ROOM =
+        new ReservationBuilder().withRoom(RoomType.DOUBLE).withDates("14/04/2010", "17/04/2010").withPayer(BENSON)
             .build();
 
     private TypicalCustomers() {
@@ -131,6 +131,6 @@ public class TypicalCustomers {
     }
 
     public static List<Reservation> getTypicalReservations() {
-        return new ArrayList<>(Arrays.asList(ALICE_SINGLE_ROOM, BENSON_DOUBLE_ROOM_WITH_CARL));
+        return new ArrayList<>(Arrays.asList(ALICE_SINGLE_ROOM, BENSON_DOUBLE_ROOM));
     }
 }

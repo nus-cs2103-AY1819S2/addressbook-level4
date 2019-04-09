@@ -20,6 +20,7 @@ import seedu.address.logic.commands.ExportDeckCommand;
 import seedu.address.logic.commands.FindDeckCommand;
 import seedu.address.logic.commands.ImportDeckCommand;
 import seedu.address.logic.commands.OpenDeckCommand;
+import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.StudyDeckCommand;
 import seedu.address.logic.parser.AddDeckCommandParser;
 import seedu.address.logic.parser.DeleteDeckCommandParser;
@@ -27,6 +28,7 @@ import seedu.address.logic.parser.EditDeckCommandParser;
 import seedu.address.logic.parser.ExportDeckCommandParser;
 import seedu.address.logic.parser.FindDeckCommandParser;
 import seedu.address.logic.parser.ImportDeckCommandParser;
+import seedu.address.logic.parser.SelectCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Deck;
 import seedu.address.ui.ListPanel;
@@ -55,8 +57,8 @@ public class DecksView implements ListViewState<Deck> {
         switch (commandWord) {
             case AddDeckCommand.COMMAND_WORD:
                 return new AddDeckCommandParser(this).parse(arguments);
-            //case SelectCommand.COMMAND_WORD:
-                //return new SelectCommandParser(this).parse(arguments);
+            case SelectCommand.COMMAND_WORD:
+                return new SelectCommandParser(this).parse(arguments);
             case OpenDeckCommand.COMMAND_WORD:
                 return new OpenDeckCommandParser(this).parse(arguments);
             case StudyDeckCommand.COMMAND_WORD:

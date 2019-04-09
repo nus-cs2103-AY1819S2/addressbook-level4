@@ -265,6 +265,11 @@ image::deck_ug_diagrams/export_deck_1.png[width="800"]
 
 image::deck_ug_diagrams/export_deck_2.png[width="350"]
 
+==== Selecting a deck: `select`
+
+Currently select does not do much. However, we will be adding more features
+for select in v2.0. Refer to <<Upcoming Features>> for more details.
+
 
 === Cards View
 
@@ -542,6 +547,8 @@ Use `back` to navigate out of the deck.
 |`study INDEX` | Studying the deck at INDEX.
 |`import FILEPATH` | Imports a deck from the `json` file at the specified FILEPATH.
 |`export INDEX` | Exports the deck at the specified INDEX. (Default location is the same folder as TopDeck)
+|`select INDEX` | Selects the deck at the specified INDEX. (Does not do much now, more
+functionality will be added in v2.0)
 |=======================================================================
 
 === Cards View
@@ -588,3 +595,8 @@ At least one parameter must be present.
 |`study` | Cards view to study view.
 |`study DECK_INDEX` | Decks view to study view.
 |=======================================================================
+
+== Upcoming Features
+
+Selecting a deck in Decks View using the `select` command will produce a report of your performance
+on that deck.

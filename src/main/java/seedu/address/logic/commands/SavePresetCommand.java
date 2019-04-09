@@ -10,25 +10,27 @@ import seedu.address.model.Model;
 import seedu.address.model.TransformationSet;
 import seedu.address.model.image.Image;
 
-public class AddPresetCommand extends Command{
-
-    public static final String COMMAND_WORD = "savePresetCommand";
-
+/**
+ * This command allows users to save a preset of commands.
+ */
+public class SavePresetCommand extends Command {
+    public static final String COMMAND_WORD = "savePreset";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Create a command which saves a preset list of image editing commands used on your currently editing image."
-        + "Example: " + COMMAND_WORD;
+        + ": Saves a preset list of image editing commands used on your currently editing image.\n"
+        + "Name of the preset list should not contain any spaces.\n"
+        + "Example: " + COMMAND_WORD + "preset1\n";
 
     private String presetName;
 
     /**
-     * Creates a AddPreserCommand object.
+     * Creates a SavePresetCommand object.
      * @param presetName name given to the preset set by user
      */
-    public AddPresetCommand(String presetName) {
+    public SavePresetCommand(String presetName) {
         this.presetName = presetName;
     }
 
-
+    @Override
     public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history)
         throws CommandException {
         Image initialImage = currentEdit.getTempImage();
@@ -38,6 +40,7 @@ public class AddPresetCommand extends Command{
         List<Command> presetList = currentEdit.getTempSubHistory();
         TransformationSet transformationSet = TransformationSet.getInstance();
         transformationSet.addTransformation(presetName, presetList);
+        System.out.print(presetList);
 
         return new CommandResult(Messages.MESSAGE_ADDPRESET_SUCCESS);
     }

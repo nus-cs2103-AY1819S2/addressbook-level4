@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 import seedu.address.model.analytics.Analytics;
-import seedu.address.model.job.Job;
 import seedu.address.model.job.JobName;
 
 /**
@@ -15,7 +14,9 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
-    /** Analytics information should be shown to user*/
+    /**
+     * Analytics information should be shown to user
+     */
 
     private Analytics analytics;
 
@@ -23,10 +24,14 @@ public class CommandResult {
 
     private String interviews;
 
-    /** Help information should be shown to the user. */
+    /**
+     * Help information should be shown to the user.
+     */
     private final boolean showHelp;
 
-    /** The application should exit. */
+    /**
+     * The application should exit.
+     */
     private final boolean exit;
 
 
@@ -90,14 +95,18 @@ public class CommandResult {
         return feedbackToUser.equals("Interviews shown");
     }
 
-    public boolean isSuccessfulDisplayJob() { return feedbackToUser.equals("Displaying job");}
+    public boolean isSuccessfulDisplayJob() {
+        return feedbackToUser.equals("Displaying job");
+    }
 
     //remember to handle null later
     public Analytics getAnalytics() {
         return analytics;
     }
 
-    public JobName getJob() {return job;}
+    public JobName getJob() {
+        return job;
+    }
 
     public String getInterviews() {
         return interviews;
@@ -116,8 +125,8 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+            && showHelp == otherCommandResult.showHelp
+            && exit == otherCommandResult.exit;
     }
 
     @Override

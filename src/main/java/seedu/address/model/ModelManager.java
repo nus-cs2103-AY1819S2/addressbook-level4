@@ -40,7 +40,7 @@ public class ModelManager implements Model {
     private FilteredList<Person> displayedFilteredPersons;
     private FilteredList<Job> filteredJobs;
     private Job activeJob;
-    private FilteredList<Person> activeJobAllApplcants;
+    private FilteredList<Person> activeJobAllApplicants;
     private FilteredList<Person> activeJobKiv;
     private FilteredList<Person> activeJobInterview;
     private FilteredList<Person> activeJobShortlist;
@@ -64,7 +64,7 @@ public class ModelManager implements Model {
         filteredJobs.addListener(this::ensureSelectedJobIsValid);
         displayedFilteredPersons = originalFilteredPersons;
         UniquePersonList fakeList = new UniquePersonList();
-        activeJobAllApplcants = new FilteredList<>(fakeList.asUnmodifiableObservableList());
+        activeJobAllApplicants = new FilteredList<>(fakeList.asUnmodifiableObservableList());
         activeJobKiv = new FilteredList<>(fakeList.asUnmodifiableObservableList());
         activeJobShortlist = new FilteredList<>(fakeList.asUnmodifiableObservableList());
         activeJobInterview = new FilteredList<>(fakeList.asUnmodifiableObservableList());
@@ -190,17 +190,12 @@ public class ModelManager implements Model {
 
     public ObservableList<Person> getJobsList(int listNumber) {
         if (listNumber == 0) {
-            return activeJobAllApplcants;
-        }
-        else if (listNumber == 1) {
+            return activeJobAllApplicants;
+        } else if (listNumber == 1) {
             return activeJobKiv;
-        }
-
-        else if (listNumber == 2) {
+        } else if (listNumber == 2) {
             return activeJobInterview;
-        }
-
-        else {
+        } else {
             return activeJobShortlist;
         }
     }
@@ -208,14 +203,14 @@ public class ModelManager implements Model {
     @Override
     public Job getJob(JobName name) {
         this.activeJob = versionedAddressBook.getJob(name);
-        this.activeJobAllApplcants =
-                new FilteredList<>(activeJob.getList(0).asUnmodifiableObservableList());
+        this.activeJobAllApplicants =
+            new FilteredList<>(activeJob.getList(0).asUnmodifiableObservableList());
         this.activeJobKiv =
-                new FilteredList<>(activeJob.getList(1).asUnmodifiableObservableList());
+            new FilteredList<>(activeJob.getList(1).asUnmodifiableObservableList());
         this.activeJobInterview =
-                new FilteredList<>(activeJob.getList(2).asUnmodifiableObservableList());
+            new FilteredList<>(activeJob.getList(2).asUnmodifiableObservableList());
         this.activeJobShortlist =
-                new FilteredList<>(activeJob.getList(3).asUnmodifiableObservableList());
+            new FilteredList<>(activeJob.getList(3).asUnmodifiableObservableList());
         return activeJob;
     }
 
@@ -234,6 +229,30 @@ public class ModelManager implements Model {
     public void updateBaseFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         originalFilteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateJobAllApplicantsFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        activeJobAllApplicants.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateJobKivFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        activeJobKiv.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateJobInterviewFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        activeJobInterview.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateJobShortlistFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        activeJobShortlist.setPredicate(predicate);
     }
 
     @Override
@@ -313,7 +332,7 @@ public class ModelManager implements Model {
     }
 
     public void setSelectedAll(Person person) {
-        if (person != null && !activeJobAllApplcants.contains(person)) {
+        if (person != null && !activeJobAllApplicants.contains(person)) {
             throw new PersonNotFoundException();
         }
         selectedPerson.setValue(person);
@@ -351,7 +370,7 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedPerson.getValue());
+                && change.getRemoved().contains(selectedPerson.getValue());
             if (wasSelectedPersonReplaced) {
                 // Update selectedPerson to its new value.
                 int index = change.getRemoved().indexOf(selectedPerson.getValue());
@@ -360,7 +379,7 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
+                .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
             if (wasSelectedPersonRemoved) {
                 // Select the person that came before it in the list,
                 // or clear the selection if there is no such person.
@@ -420,7 +439,7 @@ public class ModelManager implements Model {
 
     /**
      * Obtains current viewed list and generate analytics based on it
-     * */
+     */
     public Analytics generateAnalytics() {
         Analytics analytics = new Analytics(getFilteredPersonList());
         return analytics;
@@ -446,9 +465,9 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
-                && userPrefs.equals(other.userPrefs)
-                && originalFilteredPersons.equals(other.originalFilteredPersons)
-                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
+            && userPrefs.equals(other.userPrefs)
+            && originalFilteredPersons.equals(other.originalFilteredPersons)
+            && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 
 }

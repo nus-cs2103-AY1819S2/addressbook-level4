@@ -135,8 +135,52 @@ public class CreateJobCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        public void setSelectedSelected(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Person> getJobsList(int listNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedAll(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedKiv(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedInterviewed(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateJobAllApplicantsFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateJobKivFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateJobInterviewFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateJobShortlistFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -342,6 +386,7 @@ public class CreateJobCommandTest {
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             requireNonNull(predicate);
         }
+
         @Override
         public void addFilteredPersonsToJob(JobName jobName) {
             requireNonNull(jobName);

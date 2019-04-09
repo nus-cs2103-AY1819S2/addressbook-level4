@@ -22,6 +22,7 @@ import java.util.function.Predicate;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.model.job.JobListName;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.predicate.AddressContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.EmailContainsKeywordsPredicate;
@@ -88,21 +89,40 @@ public class SearchCommand extends Command {
 
     private final Predicate<Person> predicate;
     private final PredicatePersonDescriptor predicatePersonDescriptor;
+    private final JobListName listName;
 
     /**
+     * @param listName                  which job list to predicate the person with
      * @param predicatePersonDescriptor details to predicate the person with
      */
     @SuppressWarnings("unchecked")
-    public SearchCommand(PredicatePersonDescriptor predicatePersonDescriptor) {
+    public SearchCommand(JobListName listName, PredicatePersonDescriptor predicatePersonDescriptor) {
+        requireNonNull(listName);
         requireNonNull(predicatePersonDescriptor);
         this.predicatePersonDescriptor = new PredicatePersonDescriptor(predicatePersonDescriptor);
         this.predicate = (Predicate<Person>) this.predicatePersonDescriptor.toPredicate();
+        this.listName = listName;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateBaseFilteredPersonList(predicate);
+        switch (listName) {
+        case APPLICANT:
+            model.updateJobAllApplicantsFilteredPersonList(predicate);
+            break;
+        case KIV:
+            model.updateJobKivFilteredPersonList(predicate);
+            break;
+        case INTERVIEW:
+            model.updateJobInterviewFilteredPersonList(predicate);
+            break;
+        case SHORTLIST:
+            model.updateJobShortlistFilteredPersonList(predicate);
+            break;
+        default:
+            model.updateBaseFilteredPersonList(predicate);
+        }
         return new CommandResult(
             String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }

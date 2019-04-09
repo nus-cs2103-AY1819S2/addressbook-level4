@@ -16,6 +16,7 @@ public class SearchPatientPidCommandParser implements Parser<SearchPatientPidCom
     /**
      * Parses the given {@code String} of arguments in the context of the SearchPatientPidCommand
      * and returns an SearchPatientPidCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public SearchPatientPidCommand parse(String args) throws ParseException {
@@ -25,7 +26,15 @@ public class SearchPatientPidCommandParser implements Parser<SearchPatientPidCom
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchPatientPidCommand.MESSAGE_USAGE));
         }
 
+        String[] pid = trimmedArgs.split("\\s+");
+
+        // more than one pid
+        if (pid.length > 1) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            SearchPatientPidCommand.MESSAGE_MORE_THAN_ONE_PID));
+        }
+
         return new SearchPatientPidCommand(new RecordContainsPatientIdPredicate(new PersonId(trimmedArgs)));
     }
-
 }

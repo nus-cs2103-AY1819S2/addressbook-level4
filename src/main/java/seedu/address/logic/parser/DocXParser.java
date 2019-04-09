@@ -33,10 +33,10 @@ import seedu.address.logic.commands.SearchDoctorCommand;
 import seedu.address.logic.commands.SearchDoctorDidCommand;
 import seedu.address.logic.commands.SearchDoctorSpecialisationCommand;
 import seedu.address.logic.commands.SearchMedHistCommand;
+import seedu.address.logic.commands.SearchPatientApptStatusCommand;
 import seedu.address.logic.commands.SearchPatientCommand;
 import seedu.address.logic.commands.SearchPatientPidCommand;
 import seedu.address.logic.commands.SearchPatientTagCommand;
-import seedu.address.logic.commands.SearchPatientWithApptStatusCommand;
 import seedu.address.logic.commands.SelectDoctorCommand;
 import seedu.address.logic.commands.SelectMedHistCommand;
 import seedu.address.logic.commands.SelectPatientCommand;
@@ -91,8 +91,8 @@ public class DocXParser {
         case SearchPatientTagCommand.COMMAND_WORD:
             return new SearchPatientTagCommandParser().parse(arguments);
 
-        case SearchPatientWithApptStatusCommand.COMMAND_WORD:
-            return new SearchPatientWithApptStatusCommandParser().parse(arguments);
+        case SearchPatientApptStatusCommand.COMMAND_WORD:
+            return new SearchPatientApptStatusCommandParser().parse(arguments);
 
         case SearchAdvancedPatientCommand.COMMAND_WORD:
             return new SearchAdvancedPatientCommandParser().parse(arguments);

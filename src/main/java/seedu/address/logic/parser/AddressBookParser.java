@@ -27,6 +27,7 @@ import seedu.address.logic.commands.SetPresetCommand;
 import seedu.address.logic.commands.TabCommand;
 import seedu.address.logic.commands.UndoCommand;
 
+import seedu.address.logic.commands.WaterMarkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -106,11 +107,12 @@ public class AddressBookParser {
 
         case ExportCommand.COMMAND_WORD:
             return new ExportCommandParser().parse(arguments);
-
         case SavePresetCommand.COMMAND_WORD:
             return new SavePresetCommandParser().parse(arguments);
         case SetPresetCommand.COMMAND_WORD:
             return new SetPresetCommandParser().parse(arguments);
+        case WaterMarkCommand.COMMAND_WORD:
+            return new WaterMarkCommandParser().parse(arguments);
         default: throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }

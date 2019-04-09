@@ -10,9 +10,22 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.ClearCommand;
+<<<<<<< HEAD
+=======
+import seedu.address.logic.commands.CropCommand;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+>>>>>>> upstream/master
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.RedoCommand;
+<<<<<<< HEAD
+=======
+import seedu.address.logic.commands.ResizeCommand;
+import seedu.address.logic.commands.RotateCommand;
+import seedu.address.logic.commands.SelectCommand;
+>>>>>>> upstream/master
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -59,7 +72,29 @@ public class AddressBookParserTest {
         thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         parser.parseCommand("");
     }
+    /* @author kayheen */
+    @Test
+    public void parseCommand_rotate() throws Exception {
+        assertTrue(parser.parseCommand(RotateCommand.COMMAND_WORD + " 90") instanceof RotateCommand);
+        RotateCommand expected = (RotateCommand) parser.parseCommand(RotateCommand.COMMAND_WORD + " 90");
+        assertEquals(new RotateCommand(90), expected);
+    }
 
+    @Test
+    public void parseCommand_crop() throws Exception {
+        assertTrue(parser.parseCommand(CropCommand.COMMAND_WORD + " 0 0 200 200") instanceof CropCommand);
+        CropCommand expected = (CropCommand) parser.parseCommand(CropCommand.COMMAND_WORD + " 0 0 200 200");
+        assertEquals(new CropCommand(0, 0, 200, 200), expected);
+    }
+
+    @Test
+    public void parseCommand_resize() throws Exception {
+        assertTrue(parser.parseCommand(ResizeCommand.COMMAND_WORD + " 200 400") instanceof ResizeCommand);
+        ResizeCommand expected = (ResizeCommand) parser.parseCommand(ResizeCommand.COMMAND_WORD + " 200 400");
+        assertEquals(new ResizeCommand(200, 400), expected);
+    }
+
+    /* @author */
     @Test
     public void parseCommand_unknownCommand_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);

@@ -53,7 +53,8 @@ public class RotateCommand extends Command {
         } else if (degree == 270) {
             rotate = Scalr.Rotation.CW_270;
         } else {
-            throw new CommandException(Messages.MESSAGE_ROTATE_DEGREE_ERROR);
+            throw new CommandException(String.format(Messages.MESSAGE_ROTATE_DEGREE_ERROR,
+                    RotateCommand.MESSAGE_USAGE));
         }
 
         BufferedImage bufferedImage = initialImage.getBufferedImage();
@@ -61,7 +62,6 @@ public class RotateCommand extends Command {
         currentEdit.updateTempImage(editedBuffer);
 
         if (this.isNewCommand) {
-            System.out.println("enters new command");
             this.isNewCommand = false;
             currentEdit.addCommand(this);
             currentEdit.displayTempImage();
@@ -72,6 +72,11 @@ public class RotateCommand extends Command {
     }
 
     @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RotateCommand // instanceof handles nulls
+                && (this.degree == ((RotateCommand) other).degree));
+    }
     public String toString() {
         return "rotate " + degree;
     }

@@ -49,7 +49,17 @@ public class CurrentEditManager implements CurrentEdit {
         this.originalImageName = null;
     }
     /* @@author*/
-
+    /* @@author kayheen */
+    public CurrentEditManager(Image image) {
+        originalImage = image;
+        tempImage = image;
+        originalImageName = image.getName().fullName;
+        directoryTo = null;
+        originalFileName = null;
+        editFileName = null;
+        editFilePath = null;
+    }
+    /* @@author */
     /* @@author itszp */
 
     /**
@@ -132,10 +142,12 @@ public class CurrentEditManager implements CurrentEdit {
     public void updateTempImage(com.sksamuel.scrimage.Image image) {
         tempList = tempImage.getCommandHistory();
         tempIndex = tempImage.getIndex();
+        boolean hasWaterMark = tempImage.hasWaterMark();
         image.output(tempImage.getUrl(), new JpegWriter(100, true));
         tempImage = new Image(editFileName);
         tempImage.setIndex(tempIndex);
         tempImage.setHistory(tempList);
+        tempImage.addWaterMark(hasWaterMark);
     }
     /* @@author*/
 
@@ -147,6 +159,7 @@ public class CurrentEditManager implements CurrentEdit {
     public void updateTempImage(BufferedImage bufferedimage) {
         tempList = tempImage.getCommandHistory();
         tempIndex = tempImage.getIndex();
+        boolean hasWaterMark = tempImage.hasWaterMark();
         try {
             File outputFile = new File(editFileName);
             ImageIO.write(bufferedimage, tempImage.getFileType(), outputFile);
@@ -156,6 +169,7 @@ public class CurrentEditManager implements CurrentEdit {
         tempImage = new Image(editFileName);
         tempImage.setHistory(tempList);
         tempImage.setIndex(tempIndex);
+        tempImage.addWaterMark(hasWaterMark);
     }
 
     /* @@author itszp */

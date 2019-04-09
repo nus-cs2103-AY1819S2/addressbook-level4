@@ -68,6 +68,16 @@ public class CropCommand extends Command {
     }
 
     @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof CropCommand // instanceof handles nulls
+                && isValuesEqual(other));
+    }
+    private boolean isValuesEqual(Object other) {
+        CropCommand temp = (CropCommand) other;
+        return this.xCoord == temp.xCoord && this.yCoord == temp.yCoord && this.width == temp.width
+                && this.height == temp.height;
+    }
     public String toString() {
         return "crop " + xCoord + " " + yCoord + " " + width + " " + height;
     }

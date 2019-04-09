@@ -90,6 +90,25 @@ public class CommandTestUtil {
         }
     }
 
+    /* @@kayheen */
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
+     *
+     */
+    public static void assertCommandSuccess(Command command, Model model, CommandHistory commandHistory,
+                                            String expectedMessage, CurrentEdit currentEdit) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        try {
+            CommandResult result = command.execute(currentEdit, model, commandHistory);
+            assertEquals(expectedCommandResult, result);
+        } catch (CommandException e) {
+            throw new AssertionError("Execution of command should not fail.", e);
+        }
+
+    }
+    /* @@author */
+
     /**
      * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandHistory, CommandResult, Model,
      * CurrentEdit)}
@@ -101,6 +120,7 @@ public class CommandTestUtil {
         assertCommandSuccess(command, actualModel, actualCommandHistory, expectedCommandResult, expectedModel,
             currentEdit);
     }
+
 
     /**
      * Executes the given {@code command}, confirms that <br>

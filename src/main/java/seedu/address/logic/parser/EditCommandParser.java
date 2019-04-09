@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANIZATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILLS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
@@ -98,12 +99,12 @@ public class EditCommandParser implements Parser<EditCommand> {
     /**
      * @author Lookaz
      * Method for parsing the arguments into respective fields for edit in EditRequestCommand.
-     * TODO: David - please review this method.
      * @throws ParseException if user does not confirm to command format
      */
     private EditRequestCommand parseEditRequest(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
-                PREFIX_NAME, PREFIX_NRIC, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_DATE, PREFIX_CONDITION);
+                PREFIX_NAME, PREFIX_NRIC, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_DATE,
+            PREFIX_CONDITION, PREFIX_STATUS);
 
         Index index;
 
@@ -131,6 +132,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         if (argMultimap.getValue(PREFIX_CONDITION).isPresent()) {
             descriptor.setConditions(ParserUtil.parseConditions(argMultimap.getAllValues(PREFIX_CONDITION)));
+        }
+        if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
+            descriptor.setRequestStatus(ParserUtil.parseRequestStatus(argMultimap.getValue(PREFIX_STATUS).get()));
         }
 
         if (!descriptor.isAnyFieldEdited()) {

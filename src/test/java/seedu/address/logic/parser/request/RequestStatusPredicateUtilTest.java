@@ -12,6 +12,9 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.request.RequestStatus;
 
+/**
+ * @@author daviddl9
+ */
 public class RequestStatusPredicateUtilTest {
     @Rule
     public final ExpectedException thrown = ExpectedException.none();

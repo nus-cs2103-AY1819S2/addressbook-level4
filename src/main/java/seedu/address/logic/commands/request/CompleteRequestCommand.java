@@ -16,6 +16,8 @@ import seedu.address.model.request.RequestStatus;
 
 /**
  * Marks a request as COMPLETED.
+ *
+ * @@author daviddl9
  */
 public class CompleteRequestCommand extends Command implements RequestCommand {
 

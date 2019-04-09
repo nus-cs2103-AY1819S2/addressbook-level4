@@ -10,6 +10,8 @@ import java.util.Date;
 /**
  * Represents a Request's date in the request book.
  * Guarantees: immutable
+ *
+ * @@author daviddl9
  */
 public class RequestDate {
 

@@ -49,8 +49,8 @@ public class CsvManager implements CsvCommands {
     }
 
     @Override
-    public CardFolder readFoldersFromCsv (CsvFile csvFile) throws IOException, CommandException, IllegalArgumentException,
-            IncorrectCsvHeadersException {
+    public CardFolder readFoldersFromCsv (CsvFile csvFile) throws IOException, CommandException,
+            IllegalArgumentException, IncorrectCsvHeadersException {
         if (!fileExists(csvFile)) {
             throw new FileNotFoundException();
         }

@@ -80,9 +80,16 @@ class JsonAdaptedRevenue {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "TotalRevenue"));
         }
 
+        try {
+            Float.parseFloat(totalRevenue);
+        } catch (NumberFormatException nfe) {
+            throw new IllegalValueException(Year.MESSAGE_CONSTRAINTS);
+        }
+
         final Day modelDay = new Day(day);
         final Month modelMonth = new Month(month);
         final Year modelYear = new Year(year);
+
         final float modelTotalRevenue = Float.parseFloat(totalRevenue);
 
         return new Revenue(modelDay, modelMonth, modelYear, modelTotalRevenue);

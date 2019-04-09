@@ -76,6 +76,10 @@ class JsonAdaptedRevenue {
             throw new IllegalValueException(Year.MESSAGE_CONSTRAINTS);
         }
 
+        if (totalRevenue == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "TotalRevenue"));
+        }
+
         final Day modelDay = new Day(day);
         final Month modelMonth = new Month(month);
         final Year modelYear = new Year(year);

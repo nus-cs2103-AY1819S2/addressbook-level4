@@ -476,7 +476,7 @@ The following features are implemented or will be implemented for doctors of doc
 * Search doctors by keywords
 * Delete existing doctors
 
-===== Current(Proposed) Implementation
+==== Add Doctor feature
 
 When a user executes `add-doctor n/John Doe g/M p/98765432 y/3 s/'acupuncture`
 
@@ -502,7 +502,7 @@ Step2. Based on the COMMAND_WORD, docXParser builds a new ListDoctorCommand() an
 
 Step3. execute() calls Model Manager to update filtered doctor list to show all existing doctors in docX.
 
-Step4. commandresult -> UI??
+Step4. // to continue
 
 ==== Edit Doctor feature
 

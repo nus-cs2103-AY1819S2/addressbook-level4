@@ -43,10 +43,13 @@ public class EditSeatsCommand extends Command {
         Table editedTable;
         try {
             editedTable = new Table(tableNumber,
-                    new TableStatus(oldTable.get().getTableStatus().toString().substring(0, 2) + numberOfSeats));
+                    new TableStatus(oldTable.get().getTableStatus().getNumberOfTakenSeats() + "/" + numberOfSeats));
         } catch (IllegalArgumentException e) {
-            throw new CommandException(String.format(INVALID_TABLE_SEATS,
-                    oldTable.get().getTableStatus().toString().substring(0, 1)));
+            throw new CommandException(e.getMessage());
+        }
+        if (editedTable.getTableStatus().equals(oldTable.get().getTableStatus())) {
+            throw new CommandException(String.format(EditPaxCommand.MESSAGE_NO_CHANGE_IN_STATUS, tableNumber.toString(),
+                    editedTable.getTableStatus()));
         }
         model.setTable(oldTable.get(), editedTable);
         return new CommandResult(String.format(MESSAGE_SUCCESS, tableNumber, editedTable.getTableStatus()));

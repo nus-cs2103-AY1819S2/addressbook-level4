@@ -51,4 +51,16 @@ public class ModeCommand extends GeneralCommand {
                     false, false, true);
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+
+        String argInStrThis = (modeToChange != null) ? modeToChange.toString() : "";
+        String argInStrOther = (((ModeCommand) other).modeToChange != null)
+                ? ((ModeCommand) other).modeToChange.toString() : "";
+
+        return other == this // short circuit if same object
+                || (other instanceof ModeCommand// instanceof handles Member / Activity
+                && argInStrThis.equals(argInStrOther));
+    }
 }

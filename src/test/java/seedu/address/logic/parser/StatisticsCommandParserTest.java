@@ -33,11 +33,13 @@ class StatisticsCommandParserTest {
         assertParseFailure(parser, "",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatisticsCommand.MESSAGE_USAGE));
     }
+
     @Test
     public void parse_invalidFromArgs_throwsParseException() {
         assertParseFailure(parser, "122018",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatisticsCommand.MESSAGE_USAGE));
     }
+
     @Test
     public void parse_invalidFromToArgs_throwsParseException() {
         assertParseFailure(parser, "022019 012019",

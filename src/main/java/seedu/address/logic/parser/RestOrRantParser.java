@@ -22,11 +22,13 @@ import seedu.address.logic.commands.EditPaxCommand;
 import seedu.address.logic.commands.EditSeatsCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.MenuModeCommand;
 import seedu.address.logic.commands.MonthlyCommand;
 import seedu.address.logic.commands.RestaurantModeCommand;
 import seedu.address.logic.commands.RevenueCommand;
 import seedu.address.logic.commands.ServeCommand;
+import seedu.address.logic.commands.SpaceForCommand;
 import seedu.address.logic.commands.StatisticsModeCommand;
 import seedu.address.logic.commands.TableModeCommand;
 import seedu.address.logic.commands.YearlyCommand;
@@ -66,9 +68,9 @@ public class RestOrRantParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        // case HistoryCommand.COMMAND_WORD: // Fallthrough
-        // case HistoryCommand.COMMAND_ALIAS:
-        //    return new HistoryCommand();
+        case HistoryCommand.COMMAND_WORD: // Fallthrough
+        case HistoryCommand.COMMAND_ALIAS:
+            return new HistoryCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -113,6 +115,12 @@ public class RestOrRantParser {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }
             return new EditSeatsCommandParser().parse(arguments);
+
+        case SpaceForCommand.COMMAND_WORD:
+            if (mode != Mode.RESTAURANT_MODE) {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            return new SpaceForCommandParser().parse(arguments);
 
         // Commands that work in Menu Mode
         case AddToMenuCommand.COMMAND_WORD:

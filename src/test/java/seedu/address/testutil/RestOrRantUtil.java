@@ -90,14 +90,14 @@ public class RestOrRantUtil {
      * Return the part of command string for the given {@code table}'s details.
      */
     public static String getAddTableDetails(Table table) {
-        return table.getTableStatus().toString().split("/")[1];
+        return table.getTableStatus().getNumberOfSeats();
     }
 
     public static String getUpdateTableDetails(Table table) {
         StringBuilder sb = new StringBuilder();
         sb.append(table.getTableNumber());
         sb.append(" ");
-        sb.append(table.getTableStatus().toString().split("/")[0]);
+        sb.append(table.getTableStatus().getNumberOfSeats());
         return sb.toString();
     }
 

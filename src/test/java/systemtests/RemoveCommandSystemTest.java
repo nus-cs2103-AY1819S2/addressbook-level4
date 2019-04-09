@@ -16,7 +16,7 @@ public class RemoveCommandSystemTest extends EquipmentManagerSystemTest {
     public void remove() {
         Model model = getModel();
 
-        /* ------------------------ Perform remove operations on the shown unfiltered list ----------------------------- */
+        /* ------------------------ Perform remove operations on the shown unfiltered list ----------------------- */
 
         /* Case: remove an equipment from a worklist in the equipment manager.
          */

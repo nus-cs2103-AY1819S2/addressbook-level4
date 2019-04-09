@@ -16,10 +16,15 @@ public class ReverseCommand extends Command {
 
 
     public static final String MESSAGE_SUCCESS = "Order of the list is reversed";
+    public static final String MESSAGE_EMPTY_LIST = "List is empty!";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
+
+        if (model.getFilteredRecordList().size() == 0) {
+            return new CommandResult(MESSAGE_EMPTY_LIST);
+        }
 
         model.reverseFilteredRecordList();
 

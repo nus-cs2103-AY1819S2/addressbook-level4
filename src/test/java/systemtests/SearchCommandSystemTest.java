@@ -12,10 +12,10 @@ import static seedu.finance.testutil.TypicalRecords.FRUITS;
 import static seedu.finance.testutil.TypicalRecords.KEYWORD_MATCHING_DONUT;
 
 import java.util.Iterator;
-import javafx.collections.ObservableList;
 
 import org.junit.Test;
 
+import javafx.collections.ObservableList;
 import seedu.finance.commons.core.index.Index;
 import seedu.finance.logic.commands.DeleteCommand;
 import seedu.finance.logic.commands.RedoCommand;

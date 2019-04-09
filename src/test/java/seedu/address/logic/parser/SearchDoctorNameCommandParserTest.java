@@ -11,9 +11,9 @@ import org.junit.Test;
 import seedu.address.logic.commands.SearchDoctorNameCommand;
 import seedu.address.model.person.DoctorNameContainsKeywordsPredicate;
 
-public class SearchDoctorCommandParserTest {
+public class SearchDoctorNameCommandParserTest {
 
-    private SearchDoctorCommandParser parser = new SearchDoctorCommandParser();
+    private SearchDoctorNameCommandParser parser = new SearchDoctorNameCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {

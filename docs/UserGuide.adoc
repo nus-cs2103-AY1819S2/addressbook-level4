@@ -230,6 +230,7 @@ Deletes the patient with current list ID of '3' in the docX.
 * `delete-patient 2` +
 Deletes the patient with current list ID of '2' in the docX.
 
+tag::doctorcommands[]
 === Adding a doctor: `add-doctor`
 
 Adds a doctor to docX +
@@ -303,9 +304,9 @@ Returns `john` and `John Doe`
 * `search-doctor Alvin` +
 Returns `Alvin` and `Alvin Tan`
 
-=== Locating doctor by name: `search-doctor`
+=== Locating doctor by specialisation: `search-spec`
 
-Finds doctor(s) whose specialisations contain any of the given keywords. +
+Finds doctor(s) whose specialisation(s) contain any of the given keywords. +
 Format: `search-spec KEYWORD`
 
 ****
@@ -359,6 +360,7 @@ Lists the doctors who has the specialisation of `acupuncture` and is free on 2nd
 * `match-doctor s/general d/2019-10-04 t/15:00` +
 Lists the doctors who has the specialisation of `general` and is free on 4th October 2019 at 3pm.
 
+end::doctorcommands[]
 
 === Adding a medical history: `add-med-hist`
 
@@ -784,15 +786,19 @@ eg. `delete-patient 2`
 
 DOCTOR COMMANDS
 
-* *Add a new doctor* `add-doctor n/NAME g/GENDER a/AGE p/PHONE_NUMBER s/SPECIALISATION` +
-e.g. `add-doctor n/John Doe g/Male a/21 p/98765432 s/`acupuncture' 'general'`
+* *Add a new doctor* `add-doctor n/NAME g/GENDER y/YEAR_OF_SPECIALISATION p/PHONE_NUMBER s/SPECIALISATION` +
+e.g. `add-doctor n/Aaron Doe g/Male y/3 p/98765432 s/`acupuncture' 'general'`
 * *List existing doctors* : `list-doctor`
-* *Delete doctor* : `delete-doctor INDEX` +
-e.g. `delete-doctor 3`
+* *Select a doctor* : `select-doctor INDEX` +
+e.g. `select-doctor 3`
 * *Edit an existing doctor* : `edit-doctor INDEX [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [s/SPECIALISATION]` +
 e.g. `edit-doctor 2 n/Betsy Crower p/45678901`
-* *Locating a doctor* : `search-patient NAME [PHONE_NUMBER]` +
-e.g. `search-doctor 'general practitioner' 'acupuncture'`
+* *Locating a doctor by name* : `search-doctor KEYWORD` +
+e.g. `search-doctor john`
+* *Locating a doctor by specialisation* : `search-spec KEYWORD` +
+e.g. `search-spec acupuncture`
+* *Finding a doctor for an appointment* : `match-doctor s/SPECIALISATION d/DESIRED_DATE_OF_APPT t/DESIRED_TIME_OF_APPT` +
+e.g. `match-doctor s/acupuncture d/2019-06-02 t/09:00`
 * *Delete an existing doctor* : `delete-doctor INDEX` +
 eg. `delete-doctor 2`
 

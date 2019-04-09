@@ -11,7 +11,7 @@ import seedu.address.model.person.DoctorNameContainsKeywordsPredicate;
 /**
  * Parses input arguments and creates a new SearchDoctorNameCommand object
  */
-public class SearchDoctorCommandParser implements Parser<SearchDoctorNameCommand> {
+public class SearchDoctorNameCommandParser implements Parser<SearchDoctorNameCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindDoctorCommand

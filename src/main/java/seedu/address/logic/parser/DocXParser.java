@@ -125,7 +125,7 @@ public class DocXParser {
             return new DeleteDoctorCommandParser().parse(arguments);
 
         case SearchDoctorNameCommand.COMMAND_WORD:
-            return new SearchDoctorCommandParser().parse(arguments);
+            return new SearchDoctorNameCommandParser().parse(arguments);
 
         case SelectDoctorCommand.COMMAND_WORD:
             return new SelectDoctorCommandParser().parse(arguments);

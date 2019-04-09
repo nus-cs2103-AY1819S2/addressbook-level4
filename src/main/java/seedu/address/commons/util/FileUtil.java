@@ -13,10 +13,6 @@ public class FileUtil {
 
     private static final String CHARSET = "UTF-8";
 
-    public static boolean isFileExists(Path file) {
-        return Files.exists(file) && Files.isRegularFile(file);
-    }
-
     /**
      * Returns true if {@code path} can be converted into a {@code Path} via {@link Paths#get(String)},
      * otherwise returns false.
@@ -29,40 +25,6 @@ public class FileUtil {
             return false;
         }
         return true;
-    }
-
-    /**
-     * Creates a file if it does not exist along with its missing parent directories.
-     * @throws IOException if the file or directory cannot be created.
-     */
-    public static void createIfMissing(Path file) throws IOException {
-        if (!isFileExists(file)) {
-            createFile(file);
-        }
-    }
-
-    /**
-     * Creates a file if it does not exist along with its missing parent directories.
-     */
-    public static void createFile(Path file) throws IOException {
-        if (Files.exists(file)) {
-            return;
-        }
-
-        createParentDirsOfFile(file);
-
-        Files.createFile(file);
-    }
-
-    /**
-     * Creates parent directories of file if it has a parent directory
-     */
-    public static void createParentDirsOfFile(Path file) throws IOException {
-        Path parentDir = file.getParent();
-
-        if (parentDir != null) {
-            Files.createDirectories(parentDir);
-        }
     }
 
     /**

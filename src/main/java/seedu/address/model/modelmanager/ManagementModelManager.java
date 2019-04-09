@@ -68,6 +68,18 @@ public class ManagementModelManager implements ManagementModel {
         userPrefs.setGuiSettings(guiSettings);
     }
 
+    @Override
+    public String changeTheme() {
+        String newTheme = userPrefs.toggleTheme();
+        userPrefs.setTheme(newTheme);
+        return newTheme;
+    }
+
+    @Override
+    public String getTheme() {
+        return userPrefs.getTheme();
+    }
+
     //=========== LessonList ==================================================================================
 
     @Override

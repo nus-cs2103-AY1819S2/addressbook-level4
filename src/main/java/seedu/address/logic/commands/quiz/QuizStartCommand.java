@@ -11,19 +11,15 @@ import java.util.List;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-
 import seedu.address.logic.commands.management.ManagementCommand;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.LessonList;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.Model;
-
 import seedu.address.model.modelmanager.QuizModel;
-
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
-import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
 import seedu.address.model.session.SrsCardsManager;
 import seedu.address.model.srscard.SrsCard;
@@ -71,16 +67,8 @@ public class QuizStartCommand extends ManagementCommand {
         List<QuizCard> quizCards = session.generateSession();
         Quiz quiz = new Quiz(quizCards, session.getMode());
         model.init(quiz, session);
-        QuizCard card = model.getNextCard();
-        if (card.getQuizMode() == QuizMode.PREVIEW) {
-            model.setDisplayFormatter(new QuizUiDisplayFormatter(
-                    model.getQuestionHeader(), card.getQuestion(), model.getAnswerHeader(), card.getAnswer(),
-                    0, QuizMode.PREVIEW));
-        } else {
-            model.setDisplayFormatter(new QuizUiDisplayFormatter(
-                    model.getQuestionHeader(), card.getQuestion(), model.getAnswerHeader(), 0,
-                    QuizMode.REVIEW));
-        }
+        model.getNextCard();
+
         return new CommandResult(sb.toString(), true, false, false);
     }
 

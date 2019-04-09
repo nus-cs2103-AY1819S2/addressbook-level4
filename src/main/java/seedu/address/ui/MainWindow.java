@@ -21,6 +21,7 @@ import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.UserPrefs;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -79,6 +80,7 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
+        setTheme();
 
         setAccelerators();
 
@@ -130,14 +132,15 @@ public class MainWindow extends UiPart<Stage> {
         lessonListPanel = new LessonListPanel(logic.getLessons());
         lessonListPanelPlaceholder.getChildren().add(lessonListPanel.getRoot());
 
+        mainPanel = new MainPanel();
+        mainPanelPlaceholder.getChildren().add(mainPanel.getRoot());
+
         flashcardPanel = new FlashcardPanel();
         mainPanelPlaceholder.getChildren().add(flashcardPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplay.setFeedbackToUser(MESSAGE_LESSON_COMMANDS);
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        mainPanel = new MainPanel();
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -163,14 +166,23 @@ public class MainWindow extends UiPart<Stage> {
             splitPane.setDividerPosition(0, 0.1);
             sidePanel.setMinWidth(340);
             sidePanel.setPrefWidth(340);
-            mainPanelPlaceholder.getChildren().set(0, flashcardPanel.getRoot());
+            mainPanelPlaceholder.getChildren().clear();
+            mainPanelPlaceholder.getChildren().add(flashcardPanel.getRoot());
             resultDisplay.setFeedbackToUser(MESSAGE_LESSON_COMMANDS);
         } else {
             splitPane.setDividerPosition(0, 0);
             sidePanel.setMinWidth(0);
             sidePanel.setPrefWidth(0);
-            mainPanelPlaceholder.getChildren().set(0, mainPanel.getRoot());
+            mainPanelPlaceholder.getChildren().clear();
+            mainPanelPlaceholder.getChildren().add(mainPanel.getRoot());
         }
+    }
+
+    /**
+     * Sets the display for quiz mode.
+     */
+    private void handleQuiz() {
+        mainPanel.setFeedbackToUser(logic.getCurrentQuizCard(), logic.getTotalCorrectAndTotalAttempts());
     }
 
     /**
@@ -202,6 +214,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Sets stylesheet according to the current theme from {@link UserPrefs} object.
+     */
+    private void setTheme() {
+        primaryStage.getScene().getStylesheets().clear();
+        primaryStage.getScene().getStylesheets().add(logic.getTheme());
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see Logic#execute(String)
@@ -212,6 +232,7 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             LogicManager.Mode currentMode = logic.getMode();
+            setTheme();
 
             if (!currentMode.equals(mode)) {
                 this.mode = currentMode;
@@ -219,7 +240,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowQuiz()) {
-                mainPanel.setFeedbackToUser(logic.getDisplayFormatter());
+                handleQuiz();
             }
 
             if (commandResult.isShowHelp()) {

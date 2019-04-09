@@ -26,8 +26,6 @@ import seedu.address.model.modelmanager.Model;
 import seedu.address.model.modelmanager.QuizModelManager;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
-import seedu.address.model.quiz.QuizMode;
-import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.testutil.Assert;
 
 public class QuizAnswerCommandTest {
@@ -165,8 +163,6 @@ public class QuizAnswerCommandTest {
         expectedModel.getNextCard();
         expectedModel.updateTotalAttemptsAndStreak(0, correctAns);
         QuizCard card = expectedModel.getNextCard();
-        expectedModel.setDisplayFormatter(new QuizUiDisplayFormatter("question", card.getQuestion(),
-            "answer", 0, QuizMode.REVIEW));
 
         String expectedMessage = MESSAGE_CORRECT;
         QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
@@ -174,16 +170,14 @@ public class QuizAnswerCommandTest {
 
         // wrong
         quizAnswerCommand = new QuizAnswerCommand(wrongAns);
-        actualModel.getNextCard();
-        expectedModel.updateTotalAttemptsAndStreak(0, wrongAns);
-        card = expectedModel.getNextCard();
+        expectedModel.updateTotalAttemptsAndStreak(1, wrongAns);
 
         expectedMessage = String.format(QuizAnswerCommand.MESSAGE_WRONG_ONCE, wrongAns);
         QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
             expectedMessage, expectedModel);
 
         // wrong twice
-        expectedModel.updateTotalAttemptsAndStreak(0, wrongAns);
+        expectedModel.updateTotalAttemptsAndStreak(1, wrongAns);
         expectedMessage = String.format(QuizAnswerCommand.MESSAGE_WRONG, wrongAns, card.getAnswer());
         QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
             expectedMessage, expectedModel);
@@ -191,6 +185,8 @@ public class QuizAnswerCommandTest {
         // complete the quiz
         quizAnswerCommand = new QuizAnswerCommand("Japan");
         actualModel.getNextCard();
+        actualModel.getNextCard();
+        expectedModel.getNextCard();
         expectedModel.getNextCard();
         expectedModel.updateTotalAttemptsAndStreak(1, "Japan");
         expectedModel.end();

@@ -9,7 +9,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.lesson.Lesson;
-import seedu.address.model.quiz.QuizUiDisplayFormatter;
+import seedu.address.model.quiz.QuizCard;
 
 /**
  * API of the Logic component
@@ -37,9 +37,14 @@ public interface Logic {
     Lesson getOpenedLesson();
 
     /**
-     * Returns the Quiz Display formatter for QuizDisplayResult
+     * Returns the current quiz card for UI MainPanel display
      */
-    QuizUiDisplayFormatter getDisplayFormatter();
+    QuizCard getCurrentQuizCard();
+
+    /**
+     * Returns the total correct out of total attempts for UI MainPanel display
+     */
+    String getTotalCorrectAndTotalAttempts();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -56,4 +61,9 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Returns the user prefs' theme.
+     */
+    String getTheme();
 }

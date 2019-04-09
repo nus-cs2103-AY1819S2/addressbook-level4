@@ -6,6 +6,8 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.model.UserPrefs.DARK_THEME;
+import static seedu.address.model.UserPrefs.LIGHT_THEME;
 
 import java.time.Instant;
 
@@ -64,6 +66,19 @@ public class ManagementModelManagerTest {
         GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
         modelManager.setGuiSettings(guiSettings);
         assertEquals(guiSettings, modelManager.getGuiSettings());
+    }
+
+    @Test
+    public void changeTheme_changeToDark_success() {
+        modelManager.changeTheme();
+        assertEquals(DARK_THEME, modelManager.getTheme());
+    }
+
+    @Test
+    public void changeTheme_changeTwiceToLight_success() {
+        modelManager.changeTheme();
+        modelManager.changeTheme();
+        assertEquals(LIGHT_THEME, modelManager.getTheme());
     }
 
     @Test

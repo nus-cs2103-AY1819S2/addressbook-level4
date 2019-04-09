@@ -445,7 +445,7 @@ image::dg-consultation/consultationSD1.png[width="800"]
 
 finally, saving the consultation record into QuickDocs:
 
-image::dg-consultation/endConsultSD.png[width="800"]
+image::dg-consultation/endconsultSD.png[width="800"]
 
 
 ==== Design considerations
@@ -792,8 +792,6 @@ Step 5: Via a few more `addmed` commands, some more new medicines are added to t
 image::medicineModule_example5.png[width='800']
 
 The list of unique medicine is also updated.
-
-
 
 4. The user could view detailed information about a directory or medicine through "viewMed" command.
 

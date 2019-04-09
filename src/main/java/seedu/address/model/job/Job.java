@@ -15,6 +15,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.predicate.UniquePredicateList;
 
 /**
  * Represents a Person in the address book.
@@ -29,6 +30,7 @@ public class Job {
     // Data fields
     private ArrayList<UniquePersonList> personsList = new ArrayList<> (NUMBER_OF_LISTS);
     private ArrayList<Set<Nric>> personsNricList = new ArrayList<>(NUMBER_OF_LISTS);
+    private ArrayList<UniquePredicateList> predicateList = new ArrayList<> (NUMBER_OF_LISTS);
 
 
     /**
@@ -84,11 +86,19 @@ public class Job {
     }
 
     /**
+     * Returns one of the four UniqurePredicateLists
+     */
+    public UniquePredicateList getPredicateList(Integer listNumber) {
+        return predicateList.get(listNumber);
+    }
+
+    /**
      * Returns one of the four UniqurePersonLists
      */
     public UniquePersonList getList(Integer listNumber) {
         return personsList.get(listNumber);
     }
+
 
     /**
      * Moves a person from one list to another

@@ -87,21 +87,25 @@ public class FilterCommand extends Command {
         + PREFIX_JOBSAPPLY + "Software Engineer ";
 
 
-    private final Predicate<Person> predicate;
+    private final PredicateManager predicate;
     private final PredicatePersonDescriptor predicatePersonDescriptor;
     private final JobListName listName;
+    private final String commandName;
 
     /**
+     * @param commandName                  command name
      * @param listName                  which job list to predicate the person with
      * @param predicatePersonDescriptor details to predicate the person with
      */
     @SuppressWarnings("unchecked")
-    public FilterCommand(JobListName listName, PredicatePersonDescriptor predicatePersonDescriptor) {
+    public FilterCommand(String commandName, JobListName listName, PredicatePersonDescriptor predicatePersonDescriptor) {
+        requireNonNull(commandName);
         requireNonNull(listName);
         requireNonNull(predicatePersonDescriptor);
         this.predicatePersonDescriptor = new PredicatePersonDescriptor(predicatePersonDescriptor);
-        this.predicate = (Predicate<Person>) this.predicatePersonDescriptor.toPredicate();
+        this.predicate = (PredicateManager) this.predicatePersonDescriptor.toPredicate();
         this.listName = listName;
+        this.commandName = commandName;
     }
 
     @Override
@@ -110,15 +114,19 @@ public class FilterCommand extends Command {
         switch (listName) {
         case APPLICANT:
             model.updateJobAllApplicantsFilteredPersonList(predicate);
+            model.addPredicateJobAllApplicants(predicate);
             break;
         case KIV:
             model.updateJobKivFilteredPersonList(predicate);
+            model.addPredicateJobKiv(predicate);
             break;
         case INTERVIEW:
             model.updateJobInterviewFilteredPersonList(predicate);
+            model.addPredicateJobInterview(predicate);
             break;
         case SHORTLIST:
             model.updateJobShortlistFilteredPersonList(predicate);
+            model.addPredicateJobShortlist(predicate);
             break;
         default:
             model.updateBaseFilteredPersonList(predicate);
@@ -149,6 +157,7 @@ public class FilterCommand extends Command {
      * corresponding field value of the person.
      */
     public static class PredicatePersonDescriptor {
+        private String predicateName;
         private Set<String> name;
         private Set<String> phone;
         private Set<String> email;
@@ -172,6 +181,7 @@ public class FilterCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public PredicatePersonDescriptor(PredicatePersonDescriptor toCopy) {
+            setPredicateName(toCopy.predicateName);
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
@@ -191,7 +201,7 @@ public class FilterCommand extends Command {
          * Translate and returns a Predicate object for search command
          */
         public Predicate toPredicate() {
-            Predicate<Person> predicator = new PredicateManager();
+            Predicate<Person> predicator = new PredicateManager(this.getPredicateName());
             if (this.getName().isPresent()) {
                 predicator = predicator.and(new NameContainsKeywordsPredicate(
                     new ArrayList<>(this.getName().get())));
@@ -249,6 +259,13 @@ public class FilterCommand extends Command {
                     new ArrayList<>(this.getKnownProgLangs().get())));
             }
             return predicator;
+        }
+        public void setPredicateName(String name) {
+            this.predicateName = name;
+        }
+
+        public String getPredicateName() {
+            return this.predicateName;
         }
 
         public void setName(Set<String> name) {

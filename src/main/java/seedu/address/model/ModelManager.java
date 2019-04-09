@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
@@ -25,6 +26,8 @@ import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.predicate.PredicateManager;
+import seedu.address.model.person.predicate.UniquePredicateList;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -44,6 +47,10 @@ public class ModelManager implements Model {
     private FilteredList<Person> activeJobKiv;
     private FilteredList<Person> activeJobInterview;
     private FilteredList<Person> activeJobShortlist;
+    private UniquePredicateList filterListJobAllApplicants;
+    private UniquePredicateList filterListJobKiv;
+    private UniquePredicateList filterListJobInterview;
+    private UniquePredicateList filterListJobShortlist;
     private FilteredList<Job> allJobsList;
 
 
@@ -68,6 +75,10 @@ public class ModelManager implements Model {
         activeJobKiv = new FilteredList<>(fakeList.asUnmodifiableObservableList());
         activeJobShortlist = new FilteredList<>(fakeList.asUnmodifiableObservableList());
         activeJobInterview = new FilteredList<>(fakeList.asUnmodifiableObservableList());
+        filterListJobAllApplicants = new UniquePredicateList();
+        filterListJobKiv = new UniquePredicateList();
+        filterListJobInterview = new UniquePredicateList();
+        filterListJobShortlist = new UniquePredicateList();
         allJobsList = new FilteredList<>(versionedAddressBook.getAllJobList());
     }
 
@@ -183,11 +194,31 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public UniquePredicateList getPredicateList(JobName name, Integer listNumber) {
+        Job job = getJob(name);
+        return job.getPredicateList(listNumber);
+    }
+
+    @Override
+    public UniquePredicateList getPredicateLists(int listNumber) {
+        if (listNumber == 0) {
+            return filterListJobAllApplicants;
+        } else if (listNumber == 1) {
+            return filterListJobKiv;
+        } else if (listNumber == 2) {
+            return filterListJobInterview;
+        } else {
+            return filterListJobShortlist;
+        }
+    }
+
+    @Override
     public UniquePersonList getJobList(JobName name, Integer listNumber) {
         Job job = getJob(name);
         return job.getList(listNumber);
     }
 
+    @Override
     public ObservableList<Person> getJobsList(int listNumber) {
         if (listNumber == 0) {
             return activeJobAllApplicants;
@@ -247,6 +278,54 @@ public class ModelManager implements Model {
     public void updateJobInterviewFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         activeJobInterview.setPredicate(predicate);
+    }
+
+    @Override
+    public void addPredicateJobShortlist(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filterListJobAllApplicants.add((PredicateManager) predicate);
+    }
+
+    @Override
+    public void addPredicateJobInterview(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filterListJobInterview.add((PredicateManager) predicate);
+    }
+
+    @Override
+    public void addPredicateJobKiv(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filterListJobKiv.add((PredicateManager) predicate);
+    }
+
+    @Override
+    public void addPredicateJobAllApplicants(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filterListJobAllApplicants.add((PredicateManager) predicate);
+    }
+
+    @Override
+    public void removePredicateJobShortlist(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filterListJobAllApplicants.remove((PredicateManager) predicate);
+    }
+
+    @Override
+    public void removePredicateJobInterview(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filterListJobInterview.remove((PredicateManager) predicate);
+    }
+
+    @Override
+    public void removePredicateJobKiv(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filterListJobKiv.remove((PredicateManager) predicate);
+    }
+
+    @Override
+    public void removePredicateJobAllApplicants(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filterListJobAllApplicants.remove((PredicateManager) predicate);
     }
 
     @Override
@@ -399,7 +478,7 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedJobChanged = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedJob.getValue());
+                && change.getRemoved().contains(selectedJob.getValue());
             if (wasSelectedJobChanged) {
                 // Update selectedJob to its new value.
                 int index = change.getRemoved().indexOf(selectedJob.getValue());
@@ -408,7 +487,7 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedJobRemoved = change.getRemoved().stream()
-                    .anyMatch(removedJob -> selectedJob.getValue().isSameJob(removedJob));
+                .anyMatch(removedJob -> selectedJob.getValue().isSameJob(removedJob));
             if (wasSelectedJobChanged) {
                 // Select the job that came before it in the list,
                 // or clear the selection if there is no such job.

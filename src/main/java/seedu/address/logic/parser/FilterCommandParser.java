@@ -43,8 +43,11 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                 PREFIX_SCHOOL, PREFIX_MAJOR, PREFIX_PASTJOB, PREFIX_TAG, PREFIX_GENDER, PREFIX_GRADE,
                 PREFIX_NRIC, PREFIX_JOBSAPPLY, PREFIX_KNOWNPROGLANG);
         JobListName listName;
+        String preambleString = argMultimap.getPreamble();
+        String listNameString = preambleString.split("\\s+")[0].trim();
+        String commandName = preambleString.split("\\s+")[1].trim();
         try {
-            listName = ParserUtil.parseJobListName(argMultimap.getPreamble());
+            listName = ParserUtil.parseJobListName(listNameString);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 FilterCommand.MESSAGE_USAGE), pe);
@@ -57,6 +60,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         }
 
         PredicatePersonDescriptor predicatePersonDescriptor = new PredicatePersonDescriptor();
+        predicatePersonDescriptor.setPredicateName(commandName);
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             predicatePersonDescriptor.setName(new HashSet<>((
                 Arrays.asList(argMultimap.getValue(PREFIX_NAME).get().split("\\s+")))));
@@ -110,7 +114,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                 Arrays.asList(argMultimap.getValue(PREFIX_KNOWNPROGLANG).get().split("\\s+")))));
         }
 
-        return new FilterCommand(listName, predicatePersonDescriptor);
+        return new FilterCommand(commandName, listName, predicatePersonDescriptor);
     }
 
 

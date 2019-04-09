@@ -12,13 +12,14 @@ import java.util.Calendar;
 public class Year {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Year should be in the format <four digit integer>, it should not be blank or larger than current year";
+            "Year should be in the format <four digit integer>, it should not be blank or larger than current year.\n"
+            + "Years before 2000s are not supported (2000 to current year).";
 
     /*
      * The first character of the item code must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[0-9][0-9]{0,1}[0-9]{0,1}[0-9]{0,1}";
+    public static final String VALIDATION_REGEX = "[0-9][0-9][0-9][0-9]";
 
     private static boolean isInvalid = false;
 
@@ -44,7 +45,7 @@ public class Year {
         Calendar calendar = Calendar.getInstance();
         if (Integer.parseInt(test) > calendar.get(Calendar.YEAR)) {
             return isInvalid;
-        } else if (Integer.parseInt(test) < 1) {
+        } else if (Integer.parseInt(test) < 2000) {
             return isInvalid;
         }
         return test.matches(VALIDATION_REGEX);

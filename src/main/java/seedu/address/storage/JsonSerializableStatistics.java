@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.ReadOnlyStatistics;
+import seedu.address.model.statistics.Revenue;
 import seedu.address.model.statistics.Statistics;
 
 /**
@@ -19,14 +19,14 @@ import seedu.address.model.statistics.Statistics;
 @JsonRootName(value = "statisticsList")
 class JsonSerializableStatistics {
 
-    public static final String MESSAGE_DUPLICATE_ITEM = "Statistics list contains duplicate daily revenue(s).";
-    private final List<JsonAdaptedDailyRevenue> statisticsList = new ArrayList<>();
+    public static final String MESSAGE_DUPLICATE_ITEM = "Statistics list contains duplicate revenue(s).";
+    private final List<JsonAdaptedRevenue> statisticsList = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableRestOrRant} with the given daily revenue.
+     * Constructs a {@code JsonSerializableRestOrRant} with the given revenue.
      */
     @JsonCreator
-    public JsonSerializableStatistics(@JsonProperty("statisticsList") List<JsonAdaptedDailyRevenue> statsList) {
+    public JsonSerializableStatistics(@JsonProperty("statisticsList") List<JsonAdaptedRevenue> statsList) {
         this.statisticsList.addAll(statsList);
     }
 
@@ -36,7 +36,7 @@ class JsonSerializableStatistics {
      * @param source future changes to this will not affect the created {@code JsonSerializableRestOrRant}.
      */
     public JsonSerializableStatistics(ReadOnlyStatistics source) {
-        statisticsList.addAll(source.getDailyRevenueList().stream().map(JsonAdaptedDailyRevenue::new)
+        statisticsList.addAll(source.getRevenueList().stream().map(JsonAdaptedRevenue::new)
                 .collect(Collectors.toList()));
     }
 
@@ -47,12 +47,12 @@ class JsonSerializableStatistics {
      */
     public Statistics toModelType() throws IllegalValueException {
         Statistics statistics = new Statistics();
-        for (JsonAdaptedDailyRevenue jsonAdaptedDailyRevenue : statisticsList) {
-            DailyRevenue dailyRevenue = jsonAdaptedDailyRevenue.toModelType();
-            if (statistics.hasDailyRevenue(dailyRevenue)) {
+        for (JsonAdaptedRevenue jsonAdaptedRevenue : statisticsList) {
+            Revenue revenue = jsonAdaptedRevenue.toModelType();
+            if (statistics.hasRevenue(revenue)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_ITEM);
             }
-            statistics.addDailyRevenue(dailyRevenue);
+            statistics.addRevenue(revenue);
         }
         return statistics;
     }

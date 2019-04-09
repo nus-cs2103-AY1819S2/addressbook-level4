@@ -35,7 +35,7 @@ import seedu.travel.model.chart.YearChart;
  */
 public class ChartCard extends UiPart<Region> {
 
-    private static final String FXML = "DisplayListCard.fxml";
+    private static final String FXML = "ChartListCard.fxml";
 
     public final ChartBook chartBook;
 

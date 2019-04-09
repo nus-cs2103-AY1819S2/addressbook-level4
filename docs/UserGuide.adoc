@@ -133,8 +133,6 @@ The `add` command adds a place to TravelBuddy.
 
 *Shortcut:* :: `a`
 
-*Format:* :: `add n/NAME cc/COUNTRY_CODE dv/DATE_VISITED r/RATING d/DESCRIPTION a/ADDRESS [t/TAG]...`
-
 ****
 *Examples:* ::
 Given below are some examples on how to utilize the `add` command:
@@ -410,8 +408,6 @@ Deletes the 1st place in the results of the `search` command.
 *Description:* :: The `deletem` command deletes multiple places from TravelBuddy's currently displayed list on the left.
 
 *Shortcut:* :: `dm`
-
-*Format:* :: `deletem START_INDEX END_INDEX`
 
 *Preconditions:* ::
 Given below is a list of precondiitions that must be met for the `deletem` command to work:

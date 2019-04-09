@@ -50,11 +50,11 @@ public class ImportCommandParserTest {
         }
     }
 
-    @Test
-    public void parse_sampleDir_success() {
-        String samplePath = "sample";
-        assertParseSuccess(parser, samplePath, new ImportCommand(true));
-    }
+    //    @Test
+    //    public void parse_sampleDir_success() {
+    //        String samplePath = "sample";
+    //        assertParseSuccess(parser, samplePath, new ImportCommand(true));
+    //    }
 
     //    @Test
     //    public void parse_validDir_success() {

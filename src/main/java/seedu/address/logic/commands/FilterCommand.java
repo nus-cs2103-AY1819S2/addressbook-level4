@@ -1,7 +1,5 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_EMAIL_REVERSE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_NAME;
@@ -10,6 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_PHONE_REVERSE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_SKILL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_SKILL_REVERSE;
+
+import java.util.Arrays;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
@@ -59,9 +59,8 @@ public class FilterCommand extends Command {
     private String endorseCount;
     private boolean isFilterCleared;
 
-    public FilterCommand(String filteringConditions, String[] criterion, int processNumber) {
+    public FilterCommand(String[] criterion, int processNumber) {
 
-        requireNonNull(filteringConditions);
         processNum = processNumber;
         name = criterion[0];
         phone = criterion[1];
@@ -132,6 +131,7 @@ public class FilterCommand extends Command {
             } else if (processNum == 0 && !isFilterCleared) {
                 return new CommandResult(MESSAGE_NO_FILTER_TO_CLEAR);
             } else if (processNum == 3) {
+                model.commitAddressBook();
                 return new CommandResult(MESSAGE_FILTER_REVERSE_SUCCESS);
             } else {
                 model.commitAddressBook();
@@ -141,5 +141,33 @@ public class FilterCommand extends Command {
             System.out.println(e.toString());
             return new CommandResult(MESSAGE_NOT_FILTERED);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this || (other instanceof FilterCommand
+                && ((name == null && ((FilterCommand) other).name == null)
+                || name.equals(((FilterCommand) other).name))
+                && ((phone == null && ((FilterCommand) other).phone == null)
+                || phone.equals(((FilterCommand) other).phone))
+                && ((email == null && ((FilterCommand) other).email == null)
+                || email.equals(((FilterCommand) other).email))
+                && ((address == null && ((FilterCommand) other).address == null)
+                || address.equals(((FilterCommand) other).address))
+                && ((skillList == null && ((FilterCommand) other).skillList == null)
+                || Arrays.equals(skillList, ((FilterCommand) other).skillList))
+                && ((posList == null && ((FilterCommand) other).posList == null)
+                || Arrays.equals(posList, ((FilterCommand) other).posList))
+                && ((education == null && ((FilterCommand) other).education == null)
+                || education.equals(((FilterCommand) other).education))
+                && ((gpa == null && ((FilterCommand) other).gpa == null)
+                || gpa.equals(((FilterCommand) other).gpa))
+                && ((endorseCount == null && ((FilterCommand) other).endorseCount == null)
+                || endorseCount.equals(((FilterCommand) other).endorseCount)))) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -6,8 +6,9 @@ import static seedu.address.logic.commands.Statistics.updateStatistics;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_HEALTHWORKERS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_REQUESTS;
 
-import javafx.collections.ObservableList;
 import java.util.Set;
+
+import javafx.collections.ObservableList;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;

@@ -82,7 +82,7 @@ public class SetLimitCommandParser implements Parser<SetSemLimitCommand> {
         }
         if (argMultimap.getValue(PREFIX_MAX_LAB_HOUR).isPresent()) {
             editSemLimitDescriptor.setMaxLabHour(
-                    ParserUtil.parseHour(argMultimap.getValue(PREFIX_MIN_LAB_HOUR).get()));
+                    ParserUtil.parseHour(argMultimap.getValue(PREFIX_MAX_LAB_HOUR).get()));
         }
         if (argMultimap.getValue(PREFIX_MIN_PROJECT_HOUR).isPresent()) {
             editSemLimitDescriptor.setMinProjectHour(

@@ -12,15 +12,14 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditModuleTakenDescriptorBuilder;
 
 public class EditModuleTakenDescriptorTest {
 
     @Test
     public void equals() {
         // same values -> returns true
-        EditPersonDescriptor descriptorWithSameValues = new EditPersonDescriptor(DESC_CS2103T);
+        EditCommand.EditModuleTakenDescriptor descriptorWithSameValues = new EditCommand.EditModuleTakenDescriptor(DESC_CS2103T);
         assertTrue(DESC_CS2103T.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -36,27 +35,27 @@ public class EditModuleTakenDescriptorTest {
         assertFalse(DESC_CS2103T.equals(DESC_CS1010));
 
         // different name -> returns false
-        EditPersonDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_CS2103T)
+        EditCommand.EditModuleTakenDescriptor editedAmy = new EditModuleTakenDescriptorBuilder(DESC_CS2103T)
                 .withName(VALID_MODULE_INFO_CODE_CS1010).build();
         assertFalse(DESC_CS2103T.equals(editedAmy));
 
         // different semester -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_CS2103T)
+        editedAmy = new EditModuleTakenDescriptorBuilder(DESC_CS2103T)
                 .withSemester(VALID_SEMESTER_CS1010).build();
         assertFalse(DESC_CS2103T.equals(editedAmy));
 
         // different email -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_CS2103T)
+        editedAmy = new EditModuleTakenDescriptorBuilder(DESC_CS2103T)
                 .withExpectedMinGrade(VALID_EXPECTED_MIN_GRADE_CS1010).build();
         assertFalse(DESC_CS2103T.equals(editedAmy));
 
         // different address -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_CS2103T)
+        editedAmy = new EditModuleTakenDescriptorBuilder(DESC_CS2103T)
                 .withExpectedMaxGrade(VALID_EXPECTED_MAX_GRADE_CS1010).build();
         assertFalse(DESC_CS2103T.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_CS2103T)
+        editedAmy = new EditModuleTakenDescriptorBuilder(DESC_CS2103T)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertFalse(DESC_CS2103T.equals(editedAmy));
     }

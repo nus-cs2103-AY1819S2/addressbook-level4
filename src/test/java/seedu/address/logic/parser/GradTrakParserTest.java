@@ -14,7 +14,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditCommand.EditModuleTakenDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindCommand.FindModuleDescriptor;
@@ -26,7 +26,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.moduletaken.ModuleTaken;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditModuleTakenDescriptorBuilder;
 import seedu.address.testutil.FindModuleDescriptorBuilder;
 import seedu.address.testutil.ModuleTakenBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -60,7 +60,7 @@ public class GradTrakParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         ModuleTaken moduleTaken = new ModuleTakenBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(moduleTaken).build();
+        EditModuleTakenDescriptor descriptor = new EditModuleTakenDescriptorBuilder(moduleTaken).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);

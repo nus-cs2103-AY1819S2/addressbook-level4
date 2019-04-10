@@ -180,6 +180,7 @@ image::maplegend.png[width=400]
 
 // end::map[]
 
+// tag::ship[]
 ==== Ship Management:
 ===== Placing a ship on the map: `put`
 
@@ -261,6 +262,8 @@ Examples: `listTags`
 
 [NOTE]
 The list of tags is given in square brackets.
+
+// end::ship[]
 
 // tag::battle[]
 === Battle Phase

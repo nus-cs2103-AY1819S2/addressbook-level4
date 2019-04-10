@@ -45,6 +45,7 @@ public class UnarchiveCommand extends Command {
         model.commitAddressBook();
         model.commitArchiveBook();
         model.commitPinBook();
+        model.setSelectedArchivedPerson(null);
         return new CommandResult(String.format(MESSAGE_UNARCHIVE_PERSON_SUCCESS, personToUnarchive),
                 false, false, true);
     }

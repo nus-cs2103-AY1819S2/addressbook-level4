@@ -45,6 +45,7 @@ public class ArchiveCommand extends Command {
         model.commitAddressBook();
         model.commitArchiveBook();
         model.commitPinBook();
+        model.setSelectedPerson(null);
         return new CommandResult(String.format(MESSAGE_ARCHIVE_PERSON_SUCCESS, personToArchive));
     }
 

@@ -27,7 +27,7 @@ public class BeginCommandTest {
     private Model model;
 
     @Before
-    public void prepareModel() {
+    public void setUp() {
         player = new Player();
         enemy = new InterceptedEnemy();
         initialisePlayerSizeTen(player);

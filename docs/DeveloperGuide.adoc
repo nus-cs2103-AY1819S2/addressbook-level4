@@ -275,7 +275,7 @@ The method `copy2dArray` copies the `map` parameter passed in to the internal `c
 Below is the code snippet for the `copy2dArray` method.
 [source,java]
 ----
-include::../src/main/java/seedu/address/model/MapGrid.java[lines=118..124]
+include::../src/main/java/seedu/address/model/MapGrid.java[lines=92..98]
 ----
 
 The `copy2dArray` method creates a new `Cell` object for each of the input `Cell` objects.
@@ -283,7 +283,7 @@ The copying is done using a constructor in `Cell` that takes in a parameter `Cel
 This constructor copies the private attributes of the given `Cell` parameter.
 
 {empty} +
-The following sequence diagram shows how a map is initialised:
+The following sequence diagram shows what happens when the initialise map command is used.:
 
 image::InitialiseMapCommandSequenceDiagram.png[width=800]
 
@@ -844,6 +844,8 @@ _{More to be added}_
 
 (For all use cases below, the *System* is the `Battleship` and the *Actor* is the `user`, unless specified otherwise)
 
+// tag::mapuse[]
+
 [discrete]
 === Use case: Initialise Maps
 
@@ -863,6 +865,8 @@ Use case ends.
 ** 2a1. Battleship shows an error message
 +
 Use case resumes at step 1.
+
+// end::mapuse[]
 
 === Use case: Put Battleship
 
@@ -1002,6 +1006,8 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
+// tag::maptest[]
+
 === Initialising the maps
 . Initialising the maps after launching the game
 
@@ -1012,6 +1018,8 @@ _{ more test cases ... }_
    Error message will be displayed in the result display box.
 .. Other incorrect initialise commands to try: `init`, `init x` (where x is smaller or larger than the specified minimum or maximum map size respectively). +
    Expected: No map will be displayed if this is the first command ran. Otherwise, no changes will be made to the displayed map.
+
+// end::maptest[]
 
 === Putting a ship
 

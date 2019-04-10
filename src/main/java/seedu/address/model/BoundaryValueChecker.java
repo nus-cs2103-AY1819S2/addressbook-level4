@@ -7,6 +7,7 @@ import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.Status;
+import seedu.address.model.exceptions.BoundaryValueException;
 
 /**
  * Wraps all data at the address-book level
@@ -32,32 +33,30 @@ public class BoundaryValueChecker {
         this.battleship = battleship;
         this.coordinates = coordinates;
         this.orientation = orientation;
-
-
     }
 
     /**
      * Performs all the relevant checks.
      * @throws CommandException when a check fails
      */
-    public void performChecks() throws CommandException {
+    public void performChecks() throws BoundaryValueException {
         if (!this.isHeadWithinBounds()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new BoundaryValueException(MESSAGE_OUT_OF_BOUNDS);
         } else if (this.orientation.isHorizontal()) {
             if (!this.isBattleshipAbsent()) {
-                throw new CommandException(MESSAGE_BATTLESHIP_PRESENT);
+                throw new BoundaryValueException(MESSAGE_BATTLESHIP_PRESENT);
             } else if (!this.isBodyWithinHorizontalBounds()) {
-                throw new CommandException(Messages.MESSAGE_BODY_LENGTH_TOO_LONG);
+                throw new BoundaryValueException(Messages.MESSAGE_BODY_LENGTH_TOO_LONG);
             } else if (!this.isHorizontalClear()) {
-                throw new CommandException(MESSAGE_BATTLESHIP_PRESENT_BODY_HORIZONTAL);
+                throw new BoundaryValueException(MESSAGE_BATTLESHIP_PRESENT_BODY_HORIZONTAL);
             }
         } else if (this.orientation.isVertical()) {
             if (!this.isBattleshipAbsent()) {
-                throw new CommandException(MESSAGE_BATTLESHIP_PRESENT);
+                throw new BoundaryValueException(MESSAGE_BATTLESHIP_PRESENT);
             } else if (!this.isBodyWithinVerticalBounds()) {
-                throw new CommandException(Messages.MESSAGE_BODY_LENGTH_TOO_LONG);
+                throw new BoundaryValueException(Messages.MESSAGE_BODY_LENGTH_TOO_LONG);
             } else if (!this.isVerticalClear()) {
-                throw new CommandException(MESSAGE_BATTLESHIP_PRESENT_BODY_VERTICAL);
+                throw new BoundaryValueException(MESSAGE_BATTLESHIP_PRESENT_BODY_VERTICAL);
             }
         }
     }
@@ -69,8 +68,8 @@ public class BoundaryValueChecker {
         Index rowIndex = coordinates.getRowIndex();
         Index colIndex = coordinates.getColIndex();
 
-        if ((rowIndex.getZeroBased() > mapGrid.getMapSize())
-                || colIndex.getZeroBased() > mapGrid.getMapSize()) {
+        if ((rowIndex.getZeroBased() >= mapGrid.getMapSize())
+                || colIndex.getZeroBased() >= mapGrid.getMapSize()) {
             return false;
         }
 

@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BoundaryValueChecker;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Name;
@@ -15,7 +14,7 @@ import seedu.address.model.battleship.Name;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.Status;
-
+import seedu.address.model.exceptions.BoundaryValueException;
 
 
 /**
@@ -171,6 +170,7 @@ public class Enemy extends Player {
         // public Battleship(Name name, int length, int life, Set<Tag> tags) {
         //should have no error, since it is the first ship placed, and all map sizes have a max of 1 aircraft carrier
         //AircraftCarrierBattleship x = new AircraftCarrierBattleship(currentBattleshipName);
+        this.getFleet().deployOneBattleship(currentBattleship, currentBattleshipHead, useOrientation);
         this.getMapGrid().putShip(currentBattleship, currentBattleshipHead, useOrientation);
         markAsOccupied(currentBattleshipHead, 5, useOrientation);
         logger.info(String.format("++++++++POPULATED aircraft carrier at " + currentBattleshipHead.toString()
@@ -195,6 +195,7 @@ public class Enemy extends Player {
                 BoundaryValueChecker boundaryValueChecker = new BoundaryValueChecker(this.getMapGrid(), useShip,
                         useCoord, useOrientation);
                 boundaryValueChecker.performChecks();
+                this.getFleet().deployOneBattleship(useShip, useCoord, useOrientation);
                 this.getMapGrid().putShip(useShip, useCoord, useOrientation);
                 preppedShips.remove(0);
                 markAsOccupied(useCoord, shipSize, useOrientation);
@@ -203,7 +204,7 @@ public class Enemy extends Player {
                         + " orientation is " + useOrientation.toString()));
             } catch (ArrayIndexOutOfBoundsException aIoObEx) {
                 //TODO log the error later from putship
-            } catch (CommandException cmdEx) {
+            } catch (BoundaryValueException bve) {
                 logger.info(String.format("++++++++REJECTED POPULATING " + useShip.getName())
                         + " at " + useCoord + " orientation: " + useOrientation);
             }
@@ -325,17 +326,17 @@ public class Enemy extends Player {
                     modeCleanup(updatedCoord);
                 }
             }
-            if (oldRow + 1 < mapSize) {
-                //add cardinal SOUTH to watchlist  ROW PLUS ONE
-                updatedCoord = new Coordinates(oldRow + 1, oldCol);
+            if (oldCol - 1 >= 0) {
+                //add cardinal WEST to watchlist   COL MINUS ONE
+                updatedCoord = new Coordinates(oldRow, oldCol - 1);
                 if (isValidCardinal(updatedCoord)) {
                     watchlist.push(updatedCoord);
                     modeCleanup(updatedCoord);
                 }
             }
-            if (oldCol - 1 >= 0) {
-                //add cardinal WEST to watchlist   COL MINUS ONE
-                updatedCoord = new Coordinates(oldRow, oldCol - 1);
+            if (oldRow + 1 < mapSize) {
+                //add cardinal SOUTH to watchlist  ROW PLUS ONE
+                updatedCoord = new Coordinates(oldRow + 1, oldCol);
                 if (isValidCardinal(updatedCoord)) {
                     watchlist.push(updatedCoord);
                     modeCleanup(updatedCoord);

@@ -11,6 +11,7 @@ import seedu.finance.commons.core.GuiSettings;
 import seedu.finance.logic.commands.SummaryCommand.SummaryPeriod;
 import seedu.finance.model.budget.Budget;
 import seedu.finance.model.budget.CategoryBudget;
+import seedu.finance.model.budget.TotalBudget;
 import seedu.finance.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.finance.model.exceptions.SpendingInCategoryBudgetExceededException;
 import seedu.finance.model.record.Record;
@@ -119,7 +120,7 @@ public interface Model {
     /**
      * Returns the amount value of {@code budget} in a ObjectProperty wrapper
      */
-    Budget getBudget();
+    TotalBudget getBudget();
 
     /**
      * Returns an unmodifiable view of the filtered record list

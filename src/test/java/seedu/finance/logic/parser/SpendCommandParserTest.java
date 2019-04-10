@@ -15,10 +15,16 @@ import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.finance.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.finance.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.finance.testutil.TypicalRecords.AMY;
 import static seedu.finance.testutil.TypicalRecords.BOB;
+
+import java.time.LocalDate;
 
 import org.junit.Test;
 
@@ -59,17 +65,16 @@ public class SpendCommandParserTest {
                 new SpendCommand(expectedRecord));
     }
 
-    // Category is now a compulsory field
-    /*@Test
-    public void parse_optionalFieldsMissing_success() {
-        // zero categories
-        Record expectedRecord = new RecordBuilder(AMY).withCategory().build();
-        assertParseSuccess(parser, NAME_DESC_AMY + AMOUNT_DESC_AMY + DATE_DESC_AMY,
+    @Test
+    public void parse_optionalDateFieldMissing_success() {
+        Date date = new Date(LocalDate.now());
+        Record expectedRecord = new RecordBuilder(AMY).withDate(date.toString()).build();
+        assertParseSuccess(parser, NAME_DESC_AMY + AMOUNT_DESC_AMY + CATEGORY_DESC_FRIEND,
                 new SpendCommand(expectedRecord));
-    }*/
+    }
 
     // TODO: Failed Test; need to update
-    /*
+
     @Test
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SpendCommand.MESSAGE_USAGE);
@@ -82,17 +87,13 @@ public class SpendCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + VALID_AMOUNT_BOB + DATE_DESC_BOB
                 + CATEGORY_DESC_FRIEND, expectedMessage);
 
-        // missing date prefix
-        assertParseFailure(parser, NAME_DESC_BOB + AMOUNT_DESC_BOB + VALID_DATE_BOB
-                + CATEGORY_DESC_FRIEND, expectedMessage);
-
         // missing category prefix
         assertParseFailure(parser, NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
                 + VALID_CATEGORY_FRIEND, expectedMessage);
 
         // all prefixes missing
         assertParseFailure(parser, VALID_NAME_BOB + VALID_AMOUNT_BOB + VALID_DATE_BOB, expectedMessage);
-    }*/
+    }
 
     @Test
     public void parse_invalidValue_failure() {

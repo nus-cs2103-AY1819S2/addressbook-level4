@@ -23,8 +23,13 @@ public class SummaryPanel extends UiPart<Region> {
 
     private static final String FXML = "SummaryPanel.fxml";
 
+    private static final String[] PIE_CHART_COLOUR_STYLES =
+        { "teal", "red", "yellow", "blue", "orange", "brown", "green", "pink", "black", "grey", "purple",
+            "coral", "tan", "turquoise" };
+
     @FXML
     private StackPane chartArea;
+
 
 
     /**
@@ -96,6 +101,10 @@ public class SummaryPanel extends UiPart<Region> {
         }
 
         pieChart.getData().forEach(data ->
+                data.getNode().setStyle("-fx-pie-color: " + getPieChartColorStyleFor(data.getName()) + ";")
+        );
+
+        pieChart.getData().forEach(data ->
                 data.nameProperty().bind(
                         Bindings.concat(
                                 data.getName(), " - $", String.format("%.2f", data.getPieValue())
@@ -106,6 +115,10 @@ public class SummaryPanel extends UiPart<Region> {
         pieChart.setLegendSide(Side.BOTTOM);
 
         chartArea.getChildren().add(pieChart);
+    }
+
+    private String getPieChartColorStyleFor(String categoryName) {
+        return PIE_CHART_COLOUR_STYLES[Math.abs(categoryName.hashCode()) % PIE_CHART_COLOUR_STYLES.length];
     }
 
 }

@@ -48,8 +48,6 @@ public class BudgetPanel extends UiPart<Region> {
         budgetDisplay.setFont(Font.font("Abel", SIZE_OF_FONT));
         spendingDisplay.setFont(Font.font("Abel", SIZE_OF_FONT));
         percentageDisplay.getChildren().addAll(spendingDisplay, budgetDisplay);
-        updateTotalBudgetTextDisplay(budget.getTotalBudget());
-        updateCurrentSpendingTextDisplay(budget.getCurrentSpendings());
 
         update(budget);
     }

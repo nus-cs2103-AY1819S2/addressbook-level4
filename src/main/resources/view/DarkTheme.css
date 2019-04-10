@@ -430,3 +430,12 @@
     -fx-text-fill: black !important;
     -fx-background-color: turquoise;
 }
+
+.chart-pie-label-line {
+    -fx-stroke: white;
+    -fx-fill: white;
+}
+
+.chart-pie-label {
+    -fx-fill: white;
+}

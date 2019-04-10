@@ -42,6 +42,14 @@ public class SearchCommand extends Command {
             + COMMAND_FLAG_CATEGORY + ": Find all records with specified keywords in category.\n"
             + "Example: " + COMMAND_WORD + " " + COMMAND_FLAG_NAME + " fries chicken bus fare";
 
+    public static final String ONE_FLAG_ONLY = "Only one flag should be used.";
+
+    public static final String NO_FLAG = "Please input at least one flag. Valid flags:\n"
+            + COMMAND_FLAG_NAME + ": Find all records that contain specified keywords in name\n"
+            + COMMAND_FLAG_DATE + ": Find all records that contain specified dates.\n"
+            + COMMAND_FLAG_CATEGORY + ": Find all records with specified keywords in category.\n"
+            + "Example: " + COMMAND_WORD + " " + COMMAND_FLAG_NAME + " fries chicken bus fare";
+
     private final Predicate<Record> predicate;
 
     public SearchCommand(NameContainsKeywordsPredicate predicate) {

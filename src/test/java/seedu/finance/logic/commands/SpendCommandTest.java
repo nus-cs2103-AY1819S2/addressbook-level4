@@ -38,6 +38,7 @@ import seedu.finance.model.ReadOnlyUserPrefs;
 import seedu.finance.model.UserPrefs;
 import seedu.finance.model.budget.Budget;
 import seedu.finance.model.budget.CategoryBudget;
+import seedu.finance.model.budget.TotalBudget;
 import seedu.finance.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.finance.model.record.Record;
 import seedu.finance.testutil.RecordBuilder;
@@ -155,7 +156,7 @@ public class SpendCommandTest {
         }
 
         @Override
-        public Budget getBudget() {
+        public TotalBudget getBudget() {
             throw new AssertionError("This method should not be called.");
         }
 

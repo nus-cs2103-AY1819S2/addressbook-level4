@@ -20,6 +20,7 @@ import seedu.address.model.person.UniqueDoctorList;
 import seedu.address.model.person.UniquePatientList;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.UniquePrescriptionList;
+import seedu.address.ui.PrescriptionListPanel;
 
 
 /**
@@ -111,6 +112,15 @@ public class DocX implements ReadOnlyDocX {
     }
 
     /**
+     * Replaces the contents of the medical history list with {@code medHists}.
+     * {@code medHists} must not contain duplicate medical histories.
+     */
+    public void setPrescriptions(List<Prescription> prescriptions) {
+        this.prescriptions.setPrescriptions(prescriptions);
+        indicateModified();
+    }
+
+    /**
      * Resets the existing data of this {@code DocX} with {@code newData}.
      */
     public void resetData(ReadOnlyDocX newData) {
@@ -119,6 +129,7 @@ public class DocX implements ReadOnlyDocX {
         setMedHists(newData.getMedHistList());
         setDoctors(newData.getDoctorList());
         setAppointments(newData.getAppointmentList());
+        setPrescriptions(newData.getPrescriptionList());
     }
 
     //// patient-level operations
@@ -343,6 +354,7 @@ public class DocX implements ReadOnlyDocX {
         prescriptions.setPrescription(target, editedPrescription);
         indicateModified();
     }
+
 
     /**
      * Removes {@code key} from this {@code DocX}.

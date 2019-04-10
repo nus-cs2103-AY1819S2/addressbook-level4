@@ -85,8 +85,8 @@ public class StatWindow extends UiPart<Stage> {
     }
 
     public void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
+        primaryStage.setHeight(720.0);
+        primaryStage.setWidth(860.0);
 
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());

@@ -73,6 +73,9 @@ public class ModelManager implements Model {
         viewState = new CardsView(deck);
     }
 
+    /**
+     * Changes view state to show a single card at a time
+     */
     public void studyDeck(Deck deck) throws EmptyDeckException {
         if (deck.isEmpty()) {
             throw new EmptyDeckException("Empty deck cannot be studied");

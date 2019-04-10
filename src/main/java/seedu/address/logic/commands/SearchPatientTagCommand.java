@@ -14,7 +14,7 @@ import seedu.address.model.person.PatientTagContainsKeywordsPredicate;
  */
 public class SearchPatientTagCommand extends Command {
 
-    public static final String COMMAND_WORD = "search-tag";
+    public static final String COMMAND_WORD = "search-p-tag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches all patients whose tags contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"

@@ -18,24 +18,23 @@ import seedu.address.model.person.Patient;
  */
 public class AddPatientCommand extends Command {
 
-    public static final String COMMAND_WORD = "add-patient";
+    public static final String COMMAND_WORD = "add-p";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a patient to the docX. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_GENDER + "GENDER "
-            + PREFIX_AGE + "AGE "
-            + PREFIX_PHONE + "PHONE "
-            + PREFIX_ADDRESS + "ADDRESS "
+            + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_GENDER + "GENDER] "
+            + "[" + PREFIX_AGE + "AGE] "
+            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
+            + PREFIX_NAME + "Terence Tan "
             + PREFIX_GENDER + "M "
             + PREFIX_AGE + "25 "
             + PREFIX_PHONE + "98765432 "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "diabetes "
-            + PREFIX_TAG + "highbloodpressure";
+            + PREFIX_ADDRESS + "311 Clementi Ave 2 #02-25 "
+            + PREFIX_TAG + "fever ";
 
     public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
     public static final String MESSAGE_DUPLICATE_PATIENT = "This patient already exists in docX";

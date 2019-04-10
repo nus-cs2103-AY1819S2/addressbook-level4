@@ -57,10 +57,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a patient: `add-patient`
+=== Adding a patient: `add-p`
 
 Adds a patient to docX +
-Format: `add-patient [n/NAME] [g/GENDER] [a/AGE] [p/PHONE_NUMBER] [adr/ADDRESS] [t/TAG]`
+Format: `add-p [n/NAME] [g/GENDER] [a/AGE] [p/PHONE_NUMBER] [adr/ADDRESS] [t/TAG]`
 
 ****
 * A patient can have any number of tags (including 0) +
@@ -69,21 +69,21 @@ Format: `add-patient [n/NAME] [g/GENDER] [a/AGE] [p/PHONE_NUMBER] [adr/ADDRESS] 
 
 Examples:
 
-* `add-patient n/John Doe g/M a/21 p/98765432 adr/Utown College 2`
-* `add-patient n/Betsy Crowe g/F p/8234567 a/32 adr/RVRC House 12 t/diabetic`
+* `add-p n/John Doe g/M a/21 p/98765432 adr/Utown College 2`
+* `add-p n/Betsy Crowe g/F p/8234567 a/32 adr/RVRC House 12 t/diabetic`
 
 [TIP]
 For constraints of name, gender, age, phone, address and tags, please refer to the section below.
 
-=== Listing all patients : `list-patient`
+=== Listing all patients : `list-p`
 
 Shows a list of all patients in docX. +
-Format: `list-patient`
+Format: `list-p`
 
-=== Editing a patient : `edit-patient`
+=== Editing a patient : `edit-p`
 
 Edits an existing patient in docX. +
-Format: `edit-patient [INDEX] [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS]`
+Format: `edit-p [INDEX] [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS]`
 
 ****
 * Edits the patient at the specified `INDEX`. +
@@ -99,7 +99,7 @@ Edits the phone number of the patient with ID of '1' to be `91234567`.
 * `edit-patient 2 n/Betsy Crower p/95678901` +
 Edits the name and phone number of the patient with ID of '2' to be `Betsy Crower` and '95678901' respectively.
 
-=== Search patient by name: `search-patient`
+=== Search patient by name: `search-p`
 
 Search and return patient(s) whose names contain any of the given keywords. +
 Format: `search-patient [NAME]`
@@ -117,30 +117,30 @@ e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
 
-* `search-patient John` +
+* `search-p John` +
 Returns `john` and `John Doe`
-* `search-patient Betsy Tim John` +
+* `search-p Betsy Tim John` +
 Returns any patient having names containing `Betsy`, `Tim`, or `John`
 
 === Search patient by pid: `search-pid`
 
-Search and return patient(s) whose pid contain any of the given keywords. +
-Format: `search-patient [pid1] [pid2]...`
+Search and return patient(s) whose pid matches the input pid. +
+Format: `search-pid [pid]`
 
 ****
-* Only the pid is searched.
+* Only one pid can be entered and searched.
 * Only full pid will be matched e.g. `12` will not match `120`
 ****
 
 Examples:
 
-* `search-pid 12 1` +
-Returns `John Doe` and `Tom Darl` who has pid of `1` and `12` respectively.
+* `search-pid 1` +
+Returns `John Doe` who has pid of `1`.
 
-=== Search patient by tags: `search-tag`
+=== Search patient by tags: `search-p-tag`
 
 Search and return patient(s) whose tags contain any of the given keywords. +
-Format: `search-patient [tagName1] [tagName2]...`
+Format: `search-p-tag [tagName1] [tagName2]...`
 
 ****
 * The search is case insensitive. e.g `HighBloodPressure` will match `highbloodpressure`
@@ -153,15 +153,15 @@ e.g. `diabetic` will return all patients with `diabetic` as one of their tags
 
 Examples:
 
-* `search-tag diabetic` +
+* `search-p-tag diabetic` +
 Returns `John Doe` who has both `diabetic` and `stroke` tags
-* `search-tag diabetic stroke` +
+* `search-p-tag diabetic stroke` +
 Returns `Tim Muller` who has only `diabetic` tag
 
-=== Search patient by appt status: `search-appt-status`
+=== Search patient by appt status: `search-p-status`
 
 Search and return patient(s) whose appointment status matches the specified keyword. +
-Format: `search-patient [STATUS]`
+Format: `search-p-status [STATUS]`
 
 ****
 * Only the appointment status is searched.
@@ -172,16 +172,16 @@ ACTIVE, ONGOING, COMPLETED, MISSED
 
 Examples:
 
-* `search-appt-status ACTIVE` +
+* `search-p-status ACTIVE` +
 Returns `John Doe` and `Tom Darl` who has appointment status of `ACTIVE`.
 
-=== Advanced search patient by any info: `search-advanced`
+=== Advanced search patient by any info: `search-p-advanced`
 
 Search and return patient(s) whose info contain any of the given keywords,
 even if the keyword is only a substring of one of the patient's info +
 Use a quoted keyword to search when one of the patient's info
 must match exactly the keyword
-Format: `search-advanced [keyword] ["quoted_keyword"]...`
+Format: `search-p-advanced [keyword] ["quoted_keyword"]...`
 
 ****
 * The search is case insensitive. e.g `ALeX` will match `Alex`
@@ -199,16 +199,16 @@ A patient's info does not include his pid and appointment status
 
 Examples:
 
-* `search-advanced blood "Doe"` +
+* `search--padvanced blood "Doe"` +
 Returns `John Doe` who has a `highbloodpressure` tag
 * `search-advanced blood "Doe"` +
 Will not return `John Doeing` who has a `highbloodpressure` tag
 
-=== Selecting an existing patient : `select-patient`
+=== Selecting an existing patient : `select-p`
 
 Select the specified patient from docX. +
 Displays his/her full information on the browser panel.
-Format: `select-patient [INDEX]`
+Format: `select-p [INDEX]`
 
 ****
 * Selects the patient of the specified `INDEX` in docX.
@@ -218,15 +218,15 @@ Format: `select-patient [INDEX]`
 
 Examples:
 
-* `list-patient` +
-* `select-patient 3` +
+* `list-p` +
+* `select-p 3` +
 Selects the patient with current list ID of '3' in the docX +
-The patient's full info can be easily viewd in the browser panel.
+The patient's full info can be easily viewed in the browser panel.
 
-=== Deleting an existing patient : `delete-patient`
+=== Deleting an existing patient : `delete-p`
 
 Deletes the specified patient from docX. +
-Format: `delete-patient [INDEX]`
+Format: `delete-p [INDEX]`
 
 ****
 * Deletes the patient of the specified `INDEX` in docX.
@@ -236,16 +236,17 @@ Format: `delete-patient [INDEX]`
 
 Examples:
 
-* `list-patient` +
-`delete-patient 3` +
+* `list-p` +
+`delete-p 3` +
 Deletes the patient with current list ID of '3' in the docX.
-* `delete-patient 2` +
+* `delete-p 2` +
 Deletes the patient with current list ID of '2' in the docX.
 
+tag::doctorcommands[]
 === Adding a doctor: `add-doctor`
 
 Adds a doctor to docX +
-Format: `add-doctor n/NAME g/GENDER a/AGE p/PHONE_NUMBER s/SPECIALISATION`
+Format: `add-doctor n/NAME g/GENDER y/YEAR_OF_EXPERIENCE p/PHONE_NUMBER s/SPECIALISATION`
 
 ****
 * A doctor must have at least 1 specialisation.
@@ -253,53 +254,86 @@ Format: `add-doctor n/NAME g/GENDER a/AGE p/PHONE_NUMBER s/SPECIALISATION`
 
 Examples:
 
-* `add-doctor n/John Doe g/Male a/21 p/98765432 s/`acupuncture' 'general'`
-* `add-doctor n/Betsy Crowe g/Female p/1234567 a/32 s/'general'`
+* `add-doctor n/John Doe g/M y/5 p/98765432 s/acupuncture s/general`
+* `add-doctor n/Betsy Crowe g/f p/1234567 y/22 s/general`
 
 === Listing all doctors : `list-doctor`
 
 Shows a list of all doctors in docX. +
 Format: `list-doctor`
 
+=== Selecting a doctor : `select-doctor`
+
+Selects an existing doctor in docX to display all the information about this doctor in the browser panel. +
+Format: `select-doctor INDEX`
+
+****
+* Selects the doctor at the specified `INDEX`. The index refers to the relative ID of the doctor. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `select-doctor 1` +
+Selects the doctor with ID of '1'.
+* `select-doctor 5` +
+Selects the doctor with ID of '5'.
+
 === Editing a doctor : `edit-doctor`
 
 Edits an existing doctor in docX. +
-Format: `edit-doctor INDEX [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [s/SPECIALISATION]`
+Format: `edit-doctor INDEX [n/NAME] [g/GENDER] [y/YEAR_OF_EXPERIENCE] [p/PHONE] [s/SPECIALISATION]`
 
 ****
-* Edits the doctor at the specified `INDEX`. The index refers to the identification number (ID) of the doctor. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the doctor at the specified `INDEX`. The index refers to the relative ID of the doctor. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing specialisation, the existing specialisations of the doctor will be removed i.e adding of specialisation(s) is not cumulative.
-* You can remove all the doctor's specialisations by typing `s/` without specifying any specialisation after it.
 ****
 
 Examples:
 
 * `edit-doctor 1 p/91234567` +
 Edits the phone number of the doctor with ID of '1' to be `91234567`.
-* `edit-doctor 2 n/Betsy Crower p/45678901` +
-Edits the name and phone number of the doctor with ID of '2' to be `Betsy Crower` and '45678901' respectively.
+* `edit-doctor 2 s/acupuncture s/general` +
+Edits the specialisations of the doctor with ID of '2' to be `acupuncture` and 'general'.
 
 === Locating doctor by name: `search-doctor`
 
 Finds doctor(s) whose names contain any of the given keywords. +
-Format: `search-doctor NAME [PHONE_NUMBER]` or `search-doctor SPECIALISATION`
+Format: `search-doctor KEYWORD` or
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Doctors matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-* Each specialisation is to be quoted in quotation marks.
 ****
 
 Examples:
 
 * `search-doctor John` +
 Returns `john` and `John Doe`
-* `search-doctor 'general practitioner' 'acupuncture'` +
-Returns any doctor having either 'general practitioner' or 'acupuncture' or both.
+* `search-doctor Alvin` +
+Returns `Alvin` and `Alvin Tan`
+
+=== Locating doctor by specialisation: `search-spec`
+
+Finds doctor(s) whose specialisation(s) contain any of the given keywords. +
+Format: `search-spec KEYWORD`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Doctors matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `search-spec general` +
+Returns any doctor(s) having `general` as one of their specialisation.
+* `search-spec general acupuncture` +
+Returns any doctor(s) having either `general` or `acupuncture` or both.
 
 === Deleting an existing doctor : `delete-doctor`
 
@@ -308,7 +342,7 @@ Format: `delete-doctor INDEX`
 
 ****
 * Deletes the doctor of the specified `INDEX`.
-* The index refers to the identification number (ID) of the doctor.
+* The index refers to the relative ID of the doctor.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -319,6 +353,26 @@ Examples:
 Deletes the doctor with ID of '1' in docX.
 * `delete-doctor 2` +
 Deletes the doctor with ID of '2' in docX.
+
+=== Finding a doctor for appointment : `match-doctor`
+
+Lists the doctors whose specialisations match and are free for an appointment at the stated date and time. +
+Format: `match-doctor s/SPECIALISATION d/DESIRED_DATE_OF_APPT t/DESIRED_START_TIME_OF_APPT`
+
+****
+* Search can only be done with 1 specialisation.
+* `DESIRED_DATE_OF_APPT` is in the format `YYYY-MM-DD`.
+* `DESIRED_START_TIME_OF_APPT` is in the 24-hour format as `HH:mm`.
+****
+
+Examples:
+
+* `match-doctor s/acupuncture d/2019-06-02 t/10:00` +
+Lists the doctors who has the specialisation of `acupuncture` and is free on 2nd June 2019 at 10am.
+* `match-doctor s/general d/2019-10-04 t/15:00` +
+Lists the doctors who has the specialisation of `general` and is free on 4th October 2019 at 3pm.
+
+end::doctorcommands[]
 
 === Adding a medical history: `add-med-hist`
 
@@ -682,27 +736,32 @@ _{explain how the user can enable/disable data encryption}_
 
 PATIENT COMMANDS
 
-* *Add a new patient* `add-patient [n/NAME] [g/GENDER] [a/AGE] [p/PHONE_NUMBER] [adr/ADDRESS] [t/TAG]` +
-* *List existing patients* : `list-patient`
-* *Delete an existing patient* : `delete-patient [INDEX]` +
+* *Add a new patient* `add-p [n/NAME] [g/GENDER] [a/AGE] [p/PHONE_NUMBER] [adr/ADDRESS] [t/TAG]` +
+* *List existing patients* : `list-p`
+* *Delete an existing patient* : `delete-p [INDEX]` +
 e.g. `delete-patient 3`
-* *Edit an existing patient* : `edit-patient [INDEX] [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS] [t/TAG]` +
-* *Searching a patient by name* : `search-patient [NAME]` +
-* *Searching a patient by tags* : `search-tag [TAG]` +
+* *Edit an existing patient* : `edit-p [INDEX] [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS] [t/TAG]` +
+* *Searching a patient by name* : `search-p [NAME]` +
+* *Searching a patient by tags* : `search-p-tag [TAG]` +
+* *Searching a patient by appt status* : `search-p-status [STATUS]` +
 * *Searching a patient by pid* : `search-pid [pid]` +
-* *Searching a patient (advanced)* : `search-advanced [KEYWORD] ["QUOTED_KEYWORD"]` +
+* *Searching a patient (advanced)* : `search-p-ad [KEYWORD] ["QUOTED_KEYWORD"]` +
 
 DOCTOR COMMANDS
 
-* *Add a new doctor* `add-doctor n/NAME g/GENDER a/AGE p/PHONE_NUMBER s/SPECIALISATION` +
-e.g. `add-doctor n/John Doe g/Male a/21 p/98765432 s/`acupuncture' 'general'`
+* *Add a new doctor* `add-doctor n/NAME g/GENDER y/YEAR_OF_SPECIALISATION p/PHONE_NUMBER s/SPECIALISATION` +
+e.g. `add-doctor n/Aaron Doe g/Male y/3 p/98765432 s/`acupuncture' 'general'`
 * *List existing doctors* : `list-doctor`
-* *Delete doctor* : `delete-doctor INDEX` +
-e.g. `delete-doctor 3`
+* *Select a doctor* : `select-doctor INDEX` +
+e.g. `select-doctor 3`
 * *Edit an existing doctor* : `edit-doctor INDEX [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [s/SPECIALISATION]` +
 e.g. `edit-doctor 2 n/Betsy Crower p/45678901`
-* *Locating a doctor* : `search-patient NAME [PHONE_NUMBER]` +
-e.g. `search-doctor 'general practitioner' 'acupuncture'`
+* *Locating a doctor by name* : `search-doctor KEYWORD` +
+e.g. `search-doctor john`
+* *Locating a doctor by specialisation* : `search-spec KEYWORD` +
+e.g. `search-spec acupuncture`
+* *Finding a doctor for an appointment* : `match-doctor s/SPECIALISATION d/DESIRED_DATE_OF_APPT t/DESIRED_TIME_OF_APPT` +
+e.g. `match-doctor s/acupuncture d/2019-06-02 t/09:00`
 * *Delete an existing doctor* : `delete-doctor INDEX` +
 eg. `delete-doctor 2`
 

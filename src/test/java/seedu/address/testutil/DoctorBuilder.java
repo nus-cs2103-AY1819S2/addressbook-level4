@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -97,7 +98,7 @@ public class DoctorBuilder {
      * Sets the {@code Appointment} of the {@code Doctor} that we are building.
      */
     public DoctorBuilder withAppointments() {
-        this.appointments = SampleDataUtil.getAppointments();
+        this.appointments = Arrays.asList(SampleDataUtil.getAppointments());
         return this;
     }
 

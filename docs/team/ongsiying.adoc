@@ -1,21 +1,21 @@
-= John Doe - Project Portfolio
+= Ong Si Ying - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
+== PROJECT: docX
 
 ---
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+docX is a desktop clinic data management application used to maintain clinic's database. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+* *Major enhancement*: added *the ability to auto match patient with relevant and available doctors*
+** What it does: allows the user to find doctors who are relevant to the illness of the patient based on patient's tag, and available at the desired date and time for an appointment.
+** Justification: This feature improves the product significantly because a user can find available doctors that match with the patient's illness with just one line of command, instead of having to scroll through the list of doctors and find manually.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 ** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
@@ -50,7 +50,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=undoredo]
+//include::../UserGuide.adoc[tag=doctorcommands]
 
 //include::../UserGuide.adoc[tag=dataencryption]
 

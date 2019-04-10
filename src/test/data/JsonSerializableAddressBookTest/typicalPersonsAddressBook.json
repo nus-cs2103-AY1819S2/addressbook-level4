@@ -5,56 +5,56 @@
     "phone" : "94351253",
     "email" : "alice@example.com",
     "education" : "NUS",
-    "gpa" : "2.0",
+    "gpa" : "3.4",
     "address" : "123, Jurong West Ave 6, #08-111",
-    "tagged" : [ "friends" ]
+    "tagged" : [ "s:C++", "s:Debugging", "p:Software Engineer"]
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
     "email" : "johnd@example.com",
     "education" : "NTU",
-    "gpa" : "3.0",
+    "gpa" : "3.1",
     "address" : "311, Clementi Ave 2, #02-25",
-    "tagged" : [ "owesMoney", "friends" ]
+    "tagged" : [ "s:C++", "s:Debugging", "s:JavaScript", "p:Website Developer" ]
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",
     "email" : "heinz@example.com",
-    "education" : "NUS",
-    "gpa" : "1.4",
+    "education" : "NTU",
+    "gpa" : "3.2",
     "address" : "wall street",
-    "tagged" : [ ]
+    "tagged" : [ "s:Python", "s:Photography", "s:Cyber Crime", "s:Finance", "s:JavaScript", "p:Systems Analyst", "p:UI Developer"]
   }, {
     "name" : "Daniel Meier",
     "phone" : "87652533",
     "email" : "cornelia@example.com",
     "education" : "NUS",
-    "gpa" : "3.2",
+    "gpa" : "2.6",
     "address" : "10th street",
-    "tagged" : [ "friends" ]
+    "tagged" : [ "s:C++", "s:Debugging", "s:Linux", "e:Bill Gates", "e:Mark Cuban", "e:Elon Musk", "e:Barak Obama", "p:UI Developer" ]
   }, {
     "name" : "Elle Meyer",
     "phone" : "9482224",
     "email" : "werner@example.com",
-    "education" : "NUS",
-    "gpa" : "1.2",
+    "education" : "Harvard",
+    "gpa" : "1.3",
     "address" : "michegan ave",
-    "tagged" : [ ]
+    "tagged" : [ "s:C++", "s:C#", "s:Java", "s:excel", "e:Elon Musk", "e:Mark Cuban" ]
   }, {
     "name" : "Fiona Kunz",
     "phone" : "9482427",
     "email" : "lydia@example.com",
-    "education" : "NTU",
+    "education" : "HARVARD",
     "gpa" : "4.0",
     "address" : "little tokyo",
-    "tagged" : [ ]
+    "tagged" : [ "s:C++", "s:Java", "s:MATlab", "p:Civil Servant", "p:Project Manager", "e:Stan Lee", "e:Barak Obama" ]
   }, {
     "name" : "George Best",
     "phone" : "9482442",
     "email" : "anna@example.com",
-    "education" : "Oxford",
-    "gpa" : "2.4",
+    "education" : "NUS",
+    "gpa" : "0.0",
     "address" : "4th street",
-    "tagged" : [ ]
+    "tagged" : [ "s:Linux", "s:PHP", "p:Data Analyst", "e:Mark Zuckerberg" ]
   } ]
 }

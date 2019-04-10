@@ -1,7 +1,5 @@
 package seedu.address;
 
-import static seedu.address.commons.core.Config.ASSETS_FOLDER_TEMP_NAME;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

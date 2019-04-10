@@ -10,7 +10,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.Statistics;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.request.Request;
@@ -51,7 +50,7 @@ public class DeleteRequestCommand extends DeleteCommand implements RequestComman
 
         Request requestToDelete = lastShownList.get(index.getZeroBased());
         Set<Condition> conditionSetToDelete = requestToDelete.getConditions();
-        Statistics.deleteStatistics(conditionSetToDelete);
+        // Statistics.deleteStatistics(conditionSetToDelete);
         delete(model, requestToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_REQUEST_SUCCESS, requestToDelete));
     }

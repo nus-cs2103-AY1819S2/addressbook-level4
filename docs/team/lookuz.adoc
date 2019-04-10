@@ -141,8 +141,9 @@ sections both at the start and at the summary.
 
 * Reviewed PRs of fellow teammates, and gave suggestions on certain code
 snippets
-* Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-* Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+* Contributed to discussions on github pull requests by other team members,
+providing suggestions that were eventually adopted in our existing
+development releases.
 
 *Tools*:
 

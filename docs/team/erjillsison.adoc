@@ -58,6 +58,9 @@ include::../UserGuide.adoc[tag=map]
 |===
 
 include::../DeveloperGuide.adoc[tag=map]
+
+---
+
 include::../DeveloperGuide.adoc[tag=mapuse]
 
 ---

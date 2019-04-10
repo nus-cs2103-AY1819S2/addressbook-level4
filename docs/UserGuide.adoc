@@ -197,6 +197,11 @@ Example:
 
 * `import Users/Fomo/Pictures/sample.jpg`
 
+[NOTE]
+====
+The `import` command only accepts files with a maximum size of 10MB.
+====
+
 // tag::ListAndOpen[]
 === List Files: `listfiles`
 

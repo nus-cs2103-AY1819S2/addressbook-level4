@@ -11,7 +11,7 @@ import seedu.address.model.statistics.PlayerStatistics;
  * the JsonSerializableStatistics will format the statistics class in a json serializable way.
  */
 @JsonRootName(value = "statistics")
-class JsonSerializableStatistics {
+public class JsonSerializableStatistics {
 
     private String hitCount = "";
     private String missCount = "";
@@ -46,7 +46,7 @@ class JsonSerializableStatistics {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public PlayerStatistics toModelType() throws IllegalValueException {
+    public PlayerStatistics toModelType() {
         PlayerStatistics playerStats = new PlayerStatistics();
         playerStats.setHitCount(Integer.parseInt(this.hitCount));
         playerStats.setMissCount(Integer.parseInt(this.missCount));

@@ -20,7 +20,7 @@ public class SavePresetCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Saves a preset list of image editing commands used on your currently editing image.\n"
         + "Name of the preset list should not contain any spaces.\n"
-        + "Example: " + COMMAND_WORD + "preset1\n";
+        + "Example: " + COMMAND_WORD + " preset1\n";
 
     private String presetName;
 
@@ -62,7 +62,7 @@ public class SavePresetCommand extends Command {
             toPrint.append("[" + command.toString() + "]");
         }
 
-        return new CommandResult(Messages.MESSAGE_SAVEPRESET_SUCCESS + ": \n" + toPrint.toString());
+        return new CommandResult(Messages.MESSAGE_SAVEPRESET_SUCCESS + " " + toPrint.toString());
     }
 }
 /* @@author */

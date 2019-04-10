@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.logic.commands.DecryptCommand;
+import seedu.address.logic.commands.EncryptCommand;
 
 /**
  * Stores the history of commands executed.
@@ -24,7 +26,7 @@ public class CommandHistory {
      */
     public void add(String userInput) {
         requireNonNull(userInput);
-        if (!userInput.contains("encrypt") && !userInput.contains("decrypt")) {
+        if (!userInput.contains(EncryptCommand.COMMAND_WORD) && !userInput.contains(DecryptCommand.COMMAND_WORD)) {
             userInputHistory.add(userInput);
         }
     }

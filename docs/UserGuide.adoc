@@ -24,10 +24,10 @@ During your travels, have you ever wanted to curate all your travel moments, and
 
 Introducing *TravelBuddy*. TravelBuddy is a desktop journal app that curates all your travel moments! Here are 4 reasons why you would want to use it:
 
-* *_TravelBuddy Records_*: Lets you capture, store, organize and modify the places you want to curate.
-* *_TravelBuddy Search_*: Lets you search through your list of places quickly to pick out the specific place you were looking for.
-* *_TravelBuddy Photos_*: Lets you attach photos to your list of places.
-* *_TravelBuddy Analytics_*: Lets you gather insights into your travel patterns and behavior, based on the places you have visited.
+* *_TravelBuddy Records_*: Helps you capture, store, organize and modify the places you want to curate.
+* *_TravelBuddy Search_*: Helps you search through your list of places quickly to pick out the specific place you were looking for.
+* *_TravelBuddy Photos_*: Helps you attach photos to your list of places.
+* *_TravelBuddy Analytics_*: Helps you gather insights into your travel patterns and behavior, based on the places you have visited.
 
 Best of all, you can accomplish any of these tasks with just _a single command line_. So, are you ready to _redefine traveling_?
 // end::intro[]
@@ -101,14 +101,16 @@ The code in this section is merely for illustrative purposes. It is kept brief t
 *Example:* For `add n/NAME`, `NAME` is a parameter which can be substituted to be `add n/Botanic Gardens`.
 
 * _Items in square brackets are optional._ +
-*Example:* For `n/NAME [t/TAG]`, it can either be specified as `n/Botanic Gardens t/faculty` or as `n/Botanic Gardens`.
+*Example:* For `add n/NAME [t/TAG]`, it can either be specified as `add n/Botanic Gardens t/faculty` or as `add n/Botanic Gardens`.
 
 * _Parameters can be in any order._ +
-*Example:* If the command specifies `n/NAME r/RATING`, then changing the order to `r/RATING n/NAME` is also acceptable.
+*Example:* If the command specifies the parameters `n/NAME r/RATING`, then changing the order to `r/RATING n/NAME` is also acceptable.
 
 * _Whenever there are duplicate parameters, the last duplicated parameter is chosen._ +
 *Example:* If the command is `add n/Singapore Zoo n/Botanic Gardens`, where there are duplicates of the `n/NAME` parameters, the last parameter, `n/Botanic Gardens`, is chosen to be added to the list of places.
 
+* _Some parameters have a specific input format_ +
+*Example:* For `dv/DATE_VISITED`, the `DATE_VISITED` needs to follow the `DD/MM/YYYY` format.
 
 === Seeking help: `help`
 
@@ -123,7 +125,7 @@ The help page will be shown in another window, but you can resize and move it
 around. This can be useful to refer to when using the app.
 
 [TIP]
-A quick alternatvive way to seek help is to hit the kbd:[F1] key.
+A quick alternative way to seek help is to hit the kbd:[F1] key.
 
 // tag::crud[]
 === Adding a place: `add`
@@ -132,12 +134,29 @@ A quick alternatvive way to seek help is to hit the kbd:[F1] key.
 
 *Shortcut:* `a`
 
+The table below shows the parameters that require a specific input format to be added.
+[width="100%",cols="20%,<70%"]
+|=======================================================================
+|*Parameter*
+|*Specific Input Format*
+
+|`RATING`
+|An integer ranging from `1` to `5`
+
+|`COUNTRY_CODE`
+|A valid ISO-3166 country code +
+e.g. `JPN` to represent `Japan`
+
+|`DATE_VISITED`
+|A valid date that follows the `DD/MM/YYYY` format ranging from `01/01/1900` to the current date
+|=======================================================================
+
 ****
 *Examples:* Given below are some examples on how to utilize the `add` command:
 
-* `add n/Botanic Gardens cc/SGP dv/1/1/2017 r/4 d/UNESCO World Heritage Site a/1 Cluny Rd, Singapore 259569 t/nature` +
+* `add n/Botanic Gardens cc/SGP dv/01/01/2017 r/4 d/UNESCO World Heritage Site a/1 Cluny Rd, Singapore 259569 t/nature` +
 Adds Botanic Gardens to the list of places you have visited into TravelBuddy. +
-* `add n/Raffles Hotel cc/SGP dv/5/5/2016 t/hotel d/This place is lovely a/Raffles Road r/5 t/staycation` +
+* `add n/Raffles Hotel cc/SGP dv/05/05/2016 t/hotel d/This place is lovely a/Raffles Road r/5 t/staycation` +
 Adds Raffles Hotel to the list of places you have visited into TravelBuddy.
 ****
 
@@ -184,14 +203,15 @@ image::listCommand.png[width="400"]
 * Its existing values will be updated to the input values.
 * The adding of tags is not cumulative. Hence, when the tags are edited, the existing tags of the place will be removed.
 * The tags can all be removed by typing `t/` without specifying any tags after it.
+* Some parameters have a specific input format.
 
 ****
 *Examples:* Given below are some examples on how to utilize the `edit` command:
 
 * `edit 1 r/3 d/No description` +
-Edits the rating and description address of the 1st place to be `3` and `No description` respectively.
+Edits the rating and description of the 1st place entry in the list to be `3` and `No description` respectively.
 * `edit 2 n/Raffles Hotel t/` +
-Edits the name of the 2nd place to be `Raffles Hotel` and clears all existing tags.
+Edits the name of the 2nd place entry in the list to be `Raffles Hotel` and clears all existing tags.
 ****
 
 <<editFigureBefore>> below shows the list of places before the `edit` command was used.
@@ -199,15 +219,15 @@ Edits the name of the 2nd place to be `Raffles Hotel` and clears all existing ta
 [[editFigureBefore]]
 [reftext="Figure 4.5.1"]
 [caption="Figure 4.5.1: "]
-.Before the `edit` command was used
+.Before the `edit` command is used
 image::editCommandBefore.png[width="400"]
 
-<<editFigureAfter>> below shows the list of places after the `edit` command was used.
+<<editFigureAfter>> below shows the list of places after the `edit` command is used.
 [[editFigureAfter]]
 
 [reftext="Figure 4.5.2"]
 [caption="Figure 4.5.2: "]
-.After the `edit` command was used
+.After the `edit` command is used
 image::editCommandAfter.png[width="400"]
 // end::crud[]
 
@@ -223,10 +243,13 @@ image::editCommandAfter.png[width="400"]
 *Preconditions:* Given below is a list of preconditions that must be met for the `search` command to work:
 
 * The search is case insensitive. e.g `national` will match `National`.
-* The order of the keywords does not matter. e.g. `University National of Singapore` will match `National University of Singapore`.
+* The order of the keywords does not matter. +
+e.g. `University National of Singapore` will match `National University of Singapore`.
 * Only the name of the places in TravelBuddy is searched.
-* Only full words will be matched e.g. `Nation` will not match `National`
-* Places matching at least one keyword will be returned (i.e. `OR` search). e.g. `National Museum` will return `National Museum of Singapore`, `National University Hospital`.
+* Only full words will be matched +
+e.g. `Nation` will not match `National`
+* Places matching at least one keyword will be returned (i.e. `OR` search). +
+e.g. `National Museum` will return `National Museum of Singapore` and `National University Hospital`.
 
 ****
 *Example:* `search Singapore` +
@@ -255,14 +278,15 @@ image::UIsearchresults.png[width="400"]
 
 *Preconditions:* Given below is a list of preconditions that must be met for the `searchr` command to work:
 
-* The search rating is from a range of 1 to 5. e.g `5` will return places with 5 star ratings.
+* The rating used in the search must be an integer ranging from 1 to 5. +
+e.g `searchr 5` will return places with 5-star ratings.
 * Only the rating of the places in TravelBuddy is searched.
 * Multiple indices can be included in the query, i.e. `searchr 4 5` will return places with `4` or `5` star ratings.
 
 ****
 *Example:* `searchr 4` +
 Executes a search for places with a rating of `4`. +
-From <<searchRatingFigure>>, using `searchr 4` will return all places in your TravelBuddy that have a rating of `4`.
+From <<searchRatingFigure>> below, using `searchr 4` will return all places in your TravelBuddy that have a rating of `4`.
 ****
 
 [[searchRatingFigure]]
@@ -290,7 +314,7 @@ image::UIsearchratingresults.png[width="400"]
 ****
 *Example:* `searcht distillery` +
 Executes a search for places that are tagged with `distillery`. +
-From <<searchTagFigure>>, using `searcht distillery` will return all places in your TravelBuddy that are tagged with `distillery`.
+From <<searchTagFigure>> below, using `searcht distillery` will return all places in your TravelBuddy that are tagged with `distillery`.
 ****
 
 [[searchTagFigure]]
@@ -317,7 +341,7 @@ image::UIsearchtagsresults.png[width="400"]
 ****
 *Example:* `searchc JPN` +
 Executes a search for places located in `JPN` (Japan). +
-From <<searchCountryFigure>>, using `searchc JPN` will return all places in your TravelBuddy that are located in Japan.
+From <<searchCountryFigure>> below, using `searchc JPN` will return all places in your TravelBuddy that are located in Japan.
 ****
 
 [[searchCountryFigure]]
@@ -345,7 +369,7 @@ image::UIsearchcountryresults.png[width="400"]
 ****
 *Example:* `searchyear 2016` +
 Executes a search for places visited in the year `2016`. +
-From <<searchYearFigure>>, using `searchyear 2016` will return all places in your TravelBuddy you visited in the year `2016`.
+From <<searchYearFigure>> below, using `searchyear 2016` will return all places in your TravelBuddy you visited in the year `2016`.
 ****
 
 [[searchYearFigure]]
@@ -370,12 +394,12 @@ image::UIsearchyearresults.png[width="400"]
 * The index refers to the index number shown in the currently displayed list, on the left.
 * The index *must be a positive integer* 1, 2, 3, ...
 
-<<deleteFigureBefore>> below shows TravelBuddy before `delete` command was used.
+<<deleteFigureBefore>> below shows TravelBuddy before `delete` command is used.
 
 [[deleteFigureBefore]]
 [reftext="Figure 4.11.1"]
 [caption="Figure 4.11.1: "]
-.Before the `delete` command was used
+.Before the `delete` command is used
 image::deleteCommandBefore.png[width="400"]
 
 <<deleteFigureAfter>> below shows the result of using the `delete` command on the first place of interest.
@@ -383,7 +407,7 @@ image::deleteCommandBefore.png[width="400"]
 [[deleteFigureAfter]]
 [reftext="Figure 4.11.2"]
 [caption="Figure 4.11.2: "]
-.After the `delete` command was used
+.After the `delete` command is used
 image::deleteCommandAfter.png[width="400"]
 
 ****
@@ -412,7 +436,7 @@ Deletes the 1st place in the results of the `search` command.
 *Preconditions:* Given below is a list of precondiitions that must be met for the `deletem` command to work:
 
 * Deletes multiple places within a specified range from `START_INDEX` to `END_INDEX`.
-* `START_INDEX` must be smaller than or equal to the last index in the list.
+* `START_INDEX` must be smaller than or equal to the last index in the list and `END_INDEX`.
 * Deletem will delete up till the last entry in TravelBuddy if specified `END_INDEX` exceeds the last entry.
 * Inclusive of both places specified by `START_INDEX` and `END_INDEX`.
 * The index refers to the index number to the left of each place name, ie. "4. Jalan Kayu".

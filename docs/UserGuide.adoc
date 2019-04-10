@@ -278,7 +278,7 @@ Create a Job hiring process with four person lists: "All Applicants", "KIV", "In
 Format : `createJob jn/JOBNAME`
 
 ****
-* JOBNAME indicate the job name. For examle: `IOS-Developer`.
+* JOBNAME indicate the job name. For example: `IOS-Developer`.
 * All people in the storage who want to apply this job will automatically be added in "Applied" list. `Coming in v1.4`
 * All people in "Applied" list will show on the display list after this command. `Coming in v1.4`
 * A label with JOBNAME will show on the display board to indicate the current Job Hiring Process. `Coming in v1.4`

@@ -42,9 +42,9 @@ public class EndorseCommand extends Command {
         requireNonNull(index);
         this.index = index;
         this.endorseName = endorseName;
-        if (process == 1){
+        if (process == 1) {
             this.clearName = true;
-        }else {
+        } else {
             this.clearName = false;
         }
 
@@ -63,17 +63,17 @@ public class EndorseCommand extends Command {
 
         Set<SkillsTag> personTags = new HashSet<>(personToEdit.getTags());
 
-        if (clearName){
+        if (clearName) {
             SkillsTag foundTag = null;
-            for(SkillsTag t: personTags){
-                if (t.tagName.equals("e:" + endorseName)){
+            for (SkillsTag t : personTags) {
+                if (t.tagName.equals("e:" + endorseName)) {
                     foundTag = t;
 
                 }
             }
-            if(foundTag != null){
+            if (foundTag != null) {
                 personTags.remove(foundTag);
-            }else{
+            } else {
                 throw new CommandException(MESSAGE_MISSING_ENDORSEMENT);
             }
 
@@ -91,9 +91,9 @@ public class EndorseCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         model.commitAddressBook();
-        if(clearName){
+        if (clearName) {
             return new CommandResult(String.format(MESSAGE_REMOVE_ENDORSE_SUCESS, editedPerson.getName()));
-        }else{
+        } else {
             return new CommandResult(String.format(MESSAGE_ENDORSE_PERSON_SUCCESS, editedPerson.getName()));
         }
 

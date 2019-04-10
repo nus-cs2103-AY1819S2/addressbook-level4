@@ -324,13 +324,18 @@ public class ParserUtil {
     static ParsedInOut parseOpenSave(String filePath) throws ParseException {
         requireNonNull(filePath);
         filePath = filePath.trim();
-        String newPath = "data/";
+        String newPath = "data" + File.separator;
 
-        // Convert example/example.json to example\example.json
         char[] pathArr = filePath.toCharArray();
         for (int i = 0; i < filePath.length(); i++) {
+            // Convert example\example.json to example/example.json if the system prefers /
             if (pathArr[i] == '\\') {
-                pathArr[i] = '/';
+                pathArr[i] = File.separator.toCharArray()[0];
+                continue;
+            }
+            // Convert example/example.json to example\example.json if the system prefers \
+            if (pathArr[i] == '/') {
+                pathArr[i] = File.separator.toCharArray()[0];
             }
         }
         filePath = String.valueOf(pathArr);
@@ -357,15 +362,21 @@ public class ParserUtil {
     static ParsedInOut parseImportExport(String input) throws ParseException {
         requireNonNull(input);
         input = input.trim();
-        String newPath = "data/";
-        String filepath = "";
-        String fileType = "";
+        String newPath = "data" + File.separator;
+        String filepath;
+        String fileType;
 
         // Convert example/example.json to example\example.json
         char[] pathArr = input.toCharArray();
         for (int i = 0; i < input.length(); i++) {
+            // Convert example\example.json to example/example.json if the system prefers /
             if (pathArr[i] == '\\') {
-                pathArr[i] = '/';
+                pathArr[i] = File.separator.toCharArray()[0];
+                continue;
+            }
+            // Convert example/example.json to example\example.json if the system prefers \
+            if (pathArr[i] == '/') {
+                pathArr[i] = File.separator.toCharArray()[0];
             }
         }
         input = String.valueOf(pathArr);
@@ -397,7 +408,7 @@ public class ParserUtil {
         // Parse for index range
         final Pattern splitRegex = Pattern.compile("([\\w-/\\s.()]+)+\\.(json|pdf)+\\s?([0-9,-]*)?");
         Matcher splitMatcher = splitRegex.matcher(input);
-        String indexRange = "";
+        String indexRange;
 
         if (splitMatcher.find()) {
             filepath = splitMatcher.group(1).concat(".");

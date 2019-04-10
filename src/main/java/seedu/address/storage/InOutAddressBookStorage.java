@@ -3,6 +3,7 @@ package seedu.address.storage;
 import static java.util.Objects.requireNonNull;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
@@ -49,7 +50,7 @@ public class InOutAddressBookStorage implements AddressBookStorage {
     private static final PDFont FONT = PDType1Font.HELVETICA;
     private static final int FONT_SIZE = 12;
     private static final int LINE_SPACING = 3;
-    private static final String TEETH_IMAGE_PATH = "images/tooth.png";
+    private static final String TEETH_IMAGE_PATH = "images" + File.separator + "tooth.png";
 
     private static final Logger logger = LogsCenter.getLogger(InOutAddressBookStorage.class);
 

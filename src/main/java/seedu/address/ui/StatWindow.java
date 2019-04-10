@@ -22,6 +22,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
@@ -84,8 +85,8 @@ public class StatWindow extends UiPart<Stage> {
     }
 
     public void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
+        primaryStage.setHeight(720.0);
+        primaryStage.setWidth(860.0);
 
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
@@ -175,7 +176,9 @@ public class StatWindow extends UiPart<Stage> {
         NumberAxis yAxis = new NumberAxis();
         BarChart<String, Number> recordBarChart = new BarChart<String, Number>(xAxis, yAxis);
         xAxis.setLabel("Procedure");
+        xAxis.setTickLabelFill(Color.WHITE);
         yAxis.setLabel("Count");
+        yAxis.setTickLabelFill(Color.WHITE);
 
         XYChart.Series series = new XYChart.Series();
         series.setName("Overall Stat");

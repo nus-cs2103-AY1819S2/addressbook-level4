@@ -240,7 +240,6 @@ public class Patient extends Person {
             }
             return nric.equals(((Patient) otherPerson).getNric());
         } else {
-            System.out.println(otherPerson);
             throw new PersonIsNotPatient();
         }
     }

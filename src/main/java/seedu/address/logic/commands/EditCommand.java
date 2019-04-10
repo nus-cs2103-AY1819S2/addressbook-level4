@@ -109,7 +109,8 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editPdfDescriptor.getTags().orElse(pdfToEdit.getTags());
         Deadline updatedDeadline = pdfToEdit.getDeadline();
 
-        return new Pdf(updatedName, pdfToEdit.getDirectory(), updatedSize, updatedTags, updatedDeadline);
+        return new Pdf(updatedName, pdfToEdit.getDirectory(), updatedSize,
+                updatedTags, updatedDeadline, pdfToEdit.getIsEncrypted());
     }
 
     @Override

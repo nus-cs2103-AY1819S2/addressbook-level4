@@ -49,6 +49,17 @@ public class Pdf {
         this.isEncrypted = isFileEncrypted(name, directory);
     }
 
+    public Pdf(Name name, Directory directory, Size size, Set<Tag> tags, Deadline deadline, boolean isEncrypted) {
+        requireAllNonNull(name, directory, size, tags, deadline, isEncrypted);
+
+        this.name = name;
+        this.directory = directory;
+        this.size = size;
+        this.deadline = deadline;
+        this.tags.addAll(tags);
+        this.isEncrypted = isEncrypted;
+    }
+
     public Pdf(Pdf oldPdf, boolean isEncrypted) {
         requireAllNonNull(oldPdf, isEncrypted);
 

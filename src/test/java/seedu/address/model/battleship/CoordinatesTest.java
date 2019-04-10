@@ -14,17 +14,6 @@ import seedu.address.testutil.Assert;
 public class CoordinatesTest {
 
     @Test
-    public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Address(null));
-    }
-
-    @Test
-    public void constructor_invalidAddress_throwsIllegalArgumentException() {
-        String invalidAddress = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Address(invalidAddress));
-    }
-
-    @Test
     public void isValidCoordinates() {
         // null address
         Assert.assertThrows(NullPointerException.class, () -> Coordinates.isValidCoordinates(null));

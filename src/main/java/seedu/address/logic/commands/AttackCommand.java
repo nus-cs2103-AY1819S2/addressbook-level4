@@ -71,6 +71,7 @@ public class AttackCommand extends Command {
             if (res.isWin()) {
                 // Player wins!
                 model.setBattleState(BattleState.PLAYER_WIN);
+
                 return new CommandResult(MESSAGE_PLAYER_WIN);
             } else {
                 return new CommandResult(res.formatAsUserAttack() + "\n" + MESSAGE_ANOTHER_TURN);

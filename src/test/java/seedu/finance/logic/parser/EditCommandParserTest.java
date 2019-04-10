@@ -7,6 +7,7 @@ import static seedu.finance.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
 import static seedu.finance.logic.commands.CommandTestUtil.CATEGORY_DESC_HUSBAND;
 import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
 import static seedu.finance.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
 import static seedu.finance.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
@@ -18,8 +19,10 @@ import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.finance.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
@@ -40,6 +43,8 @@ import seedu.finance.testutil.EditRecordDescriptorBuilder;
 public class EditCommandParserTest {
 
     private static final String CATEGORY_EMPTY = " " + PREFIX_CATEGORY;
+
+    public static final String DESCRIPTION_EMPTY = PREFIX_DESCRIPTION + " ";
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
@@ -151,6 +156,12 @@ public class EditCommandParserTest {
         // categories
         userInput = targetIndex.getOneBased() + CATEGORY_DESC_FRIEND;
         descriptor = new EditRecordDescriptorBuilder().withCategory(VALID_CATEGORY_FRIEND).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        //description
+        userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_AMY;
+        descriptor = new EditRecordDescriptorBuilder().withDescription(VALID_DESCRIPTION_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

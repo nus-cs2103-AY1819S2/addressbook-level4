@@ -1,14 +1,10 @@
 package seedu.finance.testutil;
 
-import static seedu.finance.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.finance.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.finance.logic.parser.CliSyntax.PREFIX_NAME;
-
 import seedu.finance.logic.commands.EditCommand.EditRecordDescriptor;
 import seedu.finance.logic.commands.SpendCommand;
 import seedu.finance.model.record.Record;
 
+import static seedu.finance.logic.parser.CliSyntax.*;
 
 
 /**
@@ -47,6 +43,8 @@ public class RecordUtil {
         descriptor.getDate().ifPresent(date -> sb.append(PREFIX_DATE).append(date.toString()).append(" "));
         descriptor.getCategory().ifPresent(category -> sb.append(PREFIX_CATEGORY)
                 .append(category.toString()).append(" "));
+        descriptor.getDescription().ifPresent(description -> sb.append(PREFIX_DESCRIPTION)
+                .append(description.toString()).append(" "));
         return sb.toString();
     }
 }

@@ -73,8 +73,6 @@ public class SpendCommandParserTest {
                 new SpendCommand(expectedRecord));
     }
 
-    // TODO: Failed Test; need to update
-
     @Test
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SpendCommand.MESSAGE_USAGE);

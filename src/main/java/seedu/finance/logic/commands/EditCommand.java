@@ -1,10 +1,7 @@
 package seedu.finance.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.finance.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.finance.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.finance.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.finance.logic.parser.CliSyntax.*;
 import static seedu.finance.model.Model.PREDICATE_SHOW_ALL_RECORD;
 
 import java.util.List;
@@ -38,7 +35,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
             + "[" + PREFIX_DATE + "DATE] "
-            + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
+            + "[" + PREFIX_CATEGORY + "CATEGORY] "
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_AMOUNT + "1234 "
             + PREFIX_DATE + "12/02/2009";
@@ -90,7 +88,7 @@ public class EditCommand extends Command {
         Name updatedName = editRecordDescriptor.getName().orElse(recordToEdit.getName());
         Amount updatedAmount = editRecordDescriptor.getAmount().orElse(recordToEdit.getAmount());
         Date updatedDate = editRecordDescriptor.getDate().orElse(recordToEdit.getDate());
-        Description updatedDescription = recordToEdit.getDescription();
+        Description updatedDescription = editRecordDescriptor.getDescription().orElse(recordToEdit.getDescription());
         Category updatedCategory = editRecordDescriptor.getCategory().orElse(recordToEdit.getCategory());
 
         return new Record(updatedName, updatedAmount, updatedDate, updatedDescription, updatedCategory);
@@ -123,6 +121,7 @@ public class EditCommand extends Command {
         private Amount amount;
         private Date date;
         private Category category;
+        private Description description;
 
         public EditRecordDescriptor() {}
 
@@ -135,13 +134,14 @@ public class EditCommand extends Command {
             setAmount(toCopy.amount);
             setDate(toCopy.date);
             setCategory(toCopy.category);
+            setDescription(toCopy.description);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, amount, date, category);
+            return CollectionUtil.isAnyNonNull(name, amount, date, category, description);
         }
 
         public void setName(Name name) {
@@ -186,6 +186,14 @@ public class EditCommand extends Command {
             return (category != null) ? Optional.of(category) : Optional.empty();
         }
 
+        public void setDescription(Description description) {
+            this.description = description;
+        }
+
+        public Optional<Description> getDescription() {
+            return Optional.ofNullable(description);
+        }
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -204,7 +212,8 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getAmount().equals(e.getAmount())
                     && getDate().equals(e.getDate())
-                    && getCategory().equals(e.getCategory());
+                    && getCategory().equals(e.getCategory())
+                    && getDescription().equals(e.getDescription());
         }
     }
 }

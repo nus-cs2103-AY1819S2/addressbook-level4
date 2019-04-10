@@ -15,6 +15,7 @@ import seedu.finance.logic.parser.exceptions.ParseException;
 import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Date;
+import seedu.finance.model.record.Description;
 import seedu.finance.model.record.Name;
 
 /**
@@ -122,6 +123,12 @@ public class ParserUtil {
             categorySet.add(parseCategory(categoryName));
         }
         return categorySet;
+    }
+
+    public static Description parseDescription(String description) {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        return new Description(trimmedDescription);
     }
 
     /**

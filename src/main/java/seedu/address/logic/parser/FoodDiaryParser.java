@@ -26,6 +26,7 @@ import seedu.address.logic.commands.NameCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetCategoriesCommand;
+import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.commands.VisitWebCommand;
@@ -101,7 +102,6 @@ public class FoodDiaryParser {
         case ViewCommand.COMMAND_WORD:
             return new ViewCommand();
 
-
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
 
@@ -125,6 +125,9 @@ public class FoodDiaryParser {
 
         case FilterCommand.COMMAND_WORD:
             return new FilterCommandParser().parse(arguments);
+
+        case SortCommand.COMMAND_WORD:
+            return new SortCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

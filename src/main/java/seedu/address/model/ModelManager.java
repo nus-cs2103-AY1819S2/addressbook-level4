@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -105,6 +107,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ArrayList<Float> getUniqueRatings() {
+        ArrayList<Float> ratingsList = new ArrayList<>();
+        List<Restaurant> restaurants = versionedFoodDiary.getRestaurantList();
+        for (Restaurant r : restaurants) {
+            Float rating = r.getSummary().getAvgRating();
+            if (!ratingsList.contains(rating)) {
+                ratingsList.add(rating);
+            }
+        }
+
+        return ratingsList;
+    }
+
+    @Override
     public void setFoodDiaryFilePath(Path foodDiaryFilePath) {
         requireNonNull(foodDiaryFilePath);
         userPrefs.setFoodDiaryFilePath(foodDiaryFilePath);
@@ -143,6 +159,17 @@ public class ModelManager implements Model {
     public void setRestaurant(Restaurant target, Restaurant editedRestaurant) {
         requireAllNonNull(target, editedRestaurant);
         versionedFoodDiary.setRestaurant(target, editedRestaurant);
+    }
+
+    //=========== Sort Restaurant List =============================================================
+
+    /**
+     * Sorts the list of Restaurants in {@code versionedFoodDiary} using the given comparator
+     */
+    @Override
+    public void sortRestaurantList(Comparator<Restaurant> sortBy) {
+        requireNonNull(sortBy);
+        versionedFoodDiary.sortRestaurants(sortBy);
     }
 
     //=========== Filtered Restaurant List Accessors =============================================================

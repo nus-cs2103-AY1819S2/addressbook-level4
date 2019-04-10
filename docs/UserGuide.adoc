@@ -163,8 +163,8 @@ Format: `{[aqua]#add-reservation#/[aqua]#ar#} [blue]#r/# [lime]#ROOM_TYPE# [blue
 ====
 
 Examples:
-
-* `list-customers`, then `ar r/SINGLE ROOM d/20/5/19-25/5/19 $/15` +
+* Assume current date is 10 May, 2019.
+* `list-customers`, then `ar r/SINGLE ROOM d/20/5/2019-25/5/2019 $/15` +
 Adds a reservation of Single Room in the name of the 15th customer from 20 May 2019 to 25 May 2019.
 * `find-name Jack Rose`, then `add-reservation r/DELUXE ROOM d/14/2/2019-15/2/2019 $/1 c/2` +
 Adds a reservation of Deluxe Room, in the name of the first customer for both him/her and the second customer, from 14 Feb 2019 to 15 Feb 2019.

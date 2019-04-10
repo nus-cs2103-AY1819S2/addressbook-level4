@@ -8,7 +8,6 @@ import java.nio.file.Paths;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_FILE;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseFailure;
 
-import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 public class SetFileCommandParserTest {

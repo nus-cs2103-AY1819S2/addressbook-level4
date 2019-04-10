@@ -272,6 +272,7 @@ and expenditure in the following categories:
 _(See Graphical User Interface Introduction (GUI) if you are
 unsure of the elements of the GUI):_
 
+.Example of `show` command
 image::show_example.png[]
 ****
 
@@ -686,6 +687,7 @@ to `Blue`)
 the menu bar.
 * You *cannot* undo/redo this command.
 
+.Menu Bar with Theme tab
 image::themeMenuBar.png[]
 ====
 

@@ -23,12 +23,7 @@ PDF++ is a desktop application that is meant for anyone who wants or needs a con
 This application can be used by both *Text Input (TI)* and a Graphical *User Interface (GUI)*
 hence, both technical users and casual users can enjoy a comfortable experience using our program. All features provided by our application can be used via the *TI* and relevant feedback, based on your command, will be displayed in the Response Area of the application.
 
-This File Management System plans to enhance your typical experience managing your documents and
-it strives to be the last document manager you will ever need. It includes a multitude of
-functions in elevating your PDF reading and management experience. There are many features offered by our application that you can refer to in the table of contents on the left side of this screen with many more to come! Are you fascinated by PDF++? What are you waiting for?
-Jump to the <<Quick Start>> to get started. Enjoy!
-
-==== Proper Usage of PDF++
+=== Proper Usage of PDF++
 As PDF++ aims to replace your existing File Management System, all operations should be done
 through the application. In order to ensure smooth user experience, you should not perform any
 operation, such as removing, renaming or replacing, on the files that was previously added into
@@ -36,6 +31,11 @@ the application outside of the application.
 
 Furthermore, due to the properties of the Operating Systems, no operation can be performed on the
 files that are opened. Please ensure that your files are not opened before executing the command.
+
+This File Management System plans to enhance your typical experience managing your documents and
+it strives to be the last document manager you will ever need. It includes a multitude of
+functions in elevating your PDF reading and management experience. There are many features offered by our application that you can refer to in the table of contents on the left side of this screen with many more to come! Are you fascinated by PDF++? What are you waiting for?
+Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -128,7 +128,8 @@ Format: `sort CRITERIA ORDER`
 Example:
 
 * `sort name up` +
-* `sort date down` +
+* `sort deadline down` +
+* `sort size up` +
 
 === Opening a file : `open`
 
@@ -304,6 +305,10 @@ Examples:
 * `merge 1 2 3` +
 * `merge 1 2 1` +
 * `merge 1 1`
+
+[NOTE]
+If the combined file size is > 100MB, the operation will take more than a minute to execute. Please
+give the application some time to completely execute the operation.
 
 ****
 * A minimum of 2 files must be specified by their indexes

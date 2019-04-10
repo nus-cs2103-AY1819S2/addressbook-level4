@@ -16,11 +16,12 @@ public class SortCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sorts all the PDFs based on certain criteria.\n"
-            + "Parameters: CRITERIA (name/date) ORDER (up/down)\n"
+            + "Parameters: CRITERIA (name/deadline) ORDER (up/down)\n"
             + "CRITERIA can only be either name or date corresponding to alphabetical or deadline order\n"
             + "ORDER can only be either up or down corresponding to ascending or descending order\n"
             + "Example: " + COMMAND_WORD + " name up\n"
-            + "Example: " + COMMAND_WORD + " date down\n";
+            + "Example: " + COMMAND_WORD + " date down\n"
+            + "Example: " + COMMAND_WORD + " size up\n";
 
     public static final String MESSAGE_SUCCESS = "Sort success!";
 

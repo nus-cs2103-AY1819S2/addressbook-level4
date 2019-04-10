@@ -21,8 +21,12 @@ public interface Model {
     Comparator<Pdf> COMPARATOR_NAME_DESCENDING_PDFS = COMPARATOR_NAME_ASCENDING_PDFS.reversed();
 
     /** {@code Comparator} that compares two PDFs chronologically based on deadline */
-    Comparator<Pdf> COMPARATOR_DATE_ASCENDING_PDFS = Comparator.comparing(Pdf::getDeadline);
-    Comparator<Pdf> COMPARATOR_DATE_DESCENDING_PDFS = COMPARATOR_DATE_ASCENDING_PDFS.reversed();
+    Comparator<Pdf> COMPARATOR_DEADLINE_ASCENDING_PDFS = Comparator.comparing(Pdf::getDeadline);
+    Comparator<Pdf> COMPARATOR_DEADLINE_DESCENDING_PDFS = COMPARATOR_DEADLINE_ASCENDING_PDFS.reversed();
+
+    /** {@code Comparator} that compares two PDFs numerically based on size */
+    Comparator<Pdf> COMPARATOR_SIZE_ASCENDING_PDFS = Comparator.comparing(Pdf::getSize);
+    Comparator<Pdf> COMPARATOR_SIZE_DESCENDING_PDFS = COMPARATOR_SIZE_ASCENDING_PDFS.reversed();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

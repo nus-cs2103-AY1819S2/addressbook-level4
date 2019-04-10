@@ -39,7 +39,7 @@ public class AddCustomerCommandTest {
             new CustomerManager(new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()),
                 new UserPrefs());
         Customer validCustomer = new CustomerBuilder().withName("Tejas").withIdNum("Z4264533")
-        .withEmail("tejasbhuwania@gmail.com").withPhone("9830240327").build();
+            .withEmail("tejasbhuwania@gmail.com").withPhone("9830240327").build();
 
         CommandResult commandResult = new AddCustomerCommand(validCustomer).execute(modelStub, commandHistory);
 

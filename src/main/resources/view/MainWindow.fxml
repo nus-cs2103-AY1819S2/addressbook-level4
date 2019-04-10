@@ -12,9 +12,9 @@
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8"
-         title="hms App" minWidth="1080" minHeight="600" onCloseRequest="#handleExit">
+         title="Hotel Management System Plus" minWidth="1080" minHeight="1000" onCloseRequest="#handleExit">
     <icons>
-        <Image url="@/images/hms_book_32.png"/>
+        <Image url="@/images/App_logo.png"/>
     </icons>
     <scene>
         <Scene>

@@ -38,6 +38,7 @@ import seedu.address.storage.ParsedInOut;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_NOT_JSON_OR_PDF = "Input file type is not a .json or .pdf.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -323,13 +324,18 @@ public class ParserUtil {
     static ParsedInOut parseOpenSave(String filePath) throws ParseException {
         requireNonNull(filePath);
         filePath = filePath.trim();
-        String newPath = "data/";
+        String newPath = "data" + File.separator;
 
-        // Convert example/example.json to example\example.json
         char[] pathArr = filePath.toCharArray();
         for (int i = 0; i < filePath.length(); i++) {
+            // Convert example\example.json to example/example.json if the system prefers /
             if (pathArr[i] == '\\') {
-                pathArr[i] = '/';
+                pathArr[i] = File.separator.toCharArray()[0];
+                continue;
+            }
+            // Convert example/example.json to example\example.json if the system prefers \
+            if (pathArr[i] == '/') {
+                pathArr[i] = File.separator.toCharArray()[0];
             }
         }
         filePath = String.valueOf(pathArr);
@@ -344,7 +350,7 @@ public class ParserUtil {
             if (filePath.matches(pdfRegex)) {
                 return new ParsedInOut(file, "pdf");
             } else {
-                throw new ParseException("Input file type is not a .json or .pdf.");
+                throw new ParseException(MESSAGE_NOT_JSON_OR_PDF);
             }
         }
     }
@@ -356,15 +362,21 @@ public class ParserUtil {
     static ParsedInOut parseImportExport(String input) throws ParseException {
         requireNonNull(input);
         input = input.trim();
-        String newPath = "data/";
-        String filepath = "";
-        String fileType = "";
+        String newPath = "data" + File.separator;
+        String filepath;
+        String fileType;
 
         // Convert example/example.json to example\example.json
         char[] pathArr = input.toCharArray();
         for (int i = 0; i < input.length(); i++) {
+            // Convert example\example.json to example/example.json if the system prefers /
             if (pathArr[i] == '\\') {
-                pathArr[i] = '/';
+                pathArr[i] = File.separator.toCharArray()[0];
+                continue;
+            }
+            // Convert example/example.json to example\example.json if the system prefers \
+            if (pathArr[i] == '/') {
+                pathArr[i] = File.separator.toCharArray()[0];
             }
         }
         input = String.valueOf(pathArr);
@@ -386,17 +398,17 @@ public class ParserUtil {
                     return new ParsedInOut(new File(filepath), fileType);
                 } else {
                     // This shouldn't be possible after validationRegex
-                    throw new ParseException("Input file type is not a .json or .pdf.");
+                    throw new ParseException(MESSAGE_NOT_JSON_OR_PDF);
                 }
             } else {
-                throw new ParseException("Input file type is not a .json or .pdf.");
+                throw new ParseException(MESSAGE_NOT_JSON_OR_PDF);
             }
         }
 
         // Parse for index range
         final Pattern splitRegex = Pattern.compile("([\\w-/\\s.()]+)+\\.(json|pdf)+\\s?([0-9,-]*)?");
         Matcher splitMatcher = splitRegex.matcher(input);
-        String indexRange = "";
+        String indexRange;
 
         if (splitMatcher.find()) {
             filepath = splitMatcher.group(1).concat(".");
@@ -406,7 +418,7 @@ public class ParserUtil {
             indexRange = splitMatcher.group(3);
         } else {
             // This shouldn't be possible after validationRegex
-            throw new ParseException("Input file type is not a .json or .pdf.");
+            throw new ParseException(MESSAGE_NOT_JSON_OR_PDF);
         }
 
         HashSet<Integer> parsedIndex = new HashSet<>();
@@ -427,7 +439,7 @@ public class ParserUtil {
                     parsedIndex.add(i - 1);
                 }
             } else {
-                throw new ParseException("Invalid index range!");
+                throw new ParseException("Invalid index range! Please input a non-zero unsigned index range.");
             }
         }
 

@@ -80,7 +80,7 @@ public interface Model {
     /**
      * adds all persons in filtered personlist to {@code job}.
      */
-    void addFilteredPersonsToJob(JobName jobName);
+    void addFilteredPersonsToJob(JobName jobName, JobListName from, JobListName to);
 
     /**
      * adds person with {@code nric} to {@code job}.

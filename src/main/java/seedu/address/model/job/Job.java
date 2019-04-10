@@ -62,12 +62,12 @@ public class Job {
      * Adds all persons on displayed filter list to first list of job.
      * Only adds if not already in job.
      */
-    public void addFilteredList(FilteredList<Person> filteredPersons) {
+    public void addFilteredList(FilteredList<Person> filteredPersons, Integer to) {
         for (int i = 0; i < filteredPersons.size(); i++) {
-            if (personsList.get(0).contains(filteredPersons.get(i))) {
+            if (personsList.get(to).contains(filteredPersons.get(i))) {
                 continue;
             }
-            add(filteredPersons.get(i));
+            add(filteredPersons.get(i), to);
         }
     }
 
@@ -75,12 +75,12 @@ public class Job {
      * Adds a person to a job.
      * Goes to the first list
      */
-    public boolean add(Person person) {
-        if (personsList.get(0).contains(person)) {
+    public boolean add(Person person, Integer destination) {
+        if (personsList.get(destination).contains(person)) {
             return false;
         }
-        personsList.get(0).add(person);
-        personsNricList.get(0).add(person.getNric());
+        personsList.get(destination).add(person);
+        personsNricList.get(destination).add(person.getNric());
 
         return true;
     }

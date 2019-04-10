@@ -149,9 +149,25 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addFilteredPersonsToJob(JobName jobName) {
+    public void addFilteredPersonsToJob(JobName jobName, JobListName from, JobListName to) {
         requireNonNull(jobName);
-        versionedAddressBook.addFilteredListToJob(displayedFilteredPersons, jobName);
+        this.getJob(jobName);
+        switch(from) {
+        case APPLICANT:
+            versionedAddressBook.addFilteredListToJob(activeJobAllApplicants, jobName, to);
+            break;
+        case KIV:
+            versionedAddressBook.addFilteredListToJob(activeJobKiv, jobName, to);
+            break;
+        case INTERVIEW:
+            versionedAddressBook.addFilteredListToJob(activeJobInterview, jobName, to);
+            break;
+        case SHORTLIST:
+            versionedAddressBook.addFilteredListToJob(activeJobShortlist, jobName, to);
+            break;
+        default:
+            versionedAddressBook.addFilteredListToJob(displayedFilteredPersons, jobName, to);
+        }
     }
 
     @Override

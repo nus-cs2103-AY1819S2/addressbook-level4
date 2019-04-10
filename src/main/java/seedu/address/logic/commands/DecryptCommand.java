@@ -25,12 +25,11 @@ public class DecryptCommand extends Command {
     public static final String COMMAND_WORD = "decrypt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Decrypts the the pdf identified "
-            + "by the index number used in the displayed pdf list. "
-            + "Existing values will be overwritten by the input values.\n"
+            + "by the index number used in the displayed pdf list.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_PASSWORD + "PASSWORD]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PASSWORD + "NewSecuredPassword";
+            + PREFIX_PASSWORD + "SecuredPassword";
 
     public static final String MESSAGE_DECRYPT_PDF_SUCCESS = "Decrypted PDF: %1$s";
     public static final String MESSAGE_DECRYPT_PDF_FAILURE = "%1$s did not get decrypted successfully.\n"

@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIRECTORY;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
 
 import java.io.File;
@@ -29,7 +30,7 @@ public class MoveCommand extends Command {
             + "by the index number used in the displayed pdf list.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[NEW_DIRECTORY]\n"
-            + "Example: " + COMMAND_WORD + " 1 C:\\Users\\[username]\\Desktop\\[target]";
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_DIRECTORY + "C:\\Users\\[username]\\Desktop\\[target]";
 
     public static final String MESSAGE_MOVE_PDF_SUCCESS = "Moved PDF: %1$s";
     public static final String MESSAGE_NOT_MOVED_SAME = "Why are you moving the PDF to the same place?";

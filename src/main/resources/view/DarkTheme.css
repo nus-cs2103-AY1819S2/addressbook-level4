@@ -65,7 +65,7 @@
 }
 
 .table-view .column-header .label {
-    -fx-font-size: 16pt;
+    -fx-font-size: 14pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-alignment: center-left;
@@ -164,6 +164,13 @@
     -fx-padding: 1 10 0 0
 }
 
+.chart-pie-label {
+    -fx-fill: white;
+}
+
+.axis-label {
+  -fx-text-fill: white;
+}
 
 
 .display_title {

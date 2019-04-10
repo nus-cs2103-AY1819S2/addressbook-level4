@@ -22,6 +22,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
@@ -175,7 +176,9 @@ public class StatWindow extends UiPart<Stage> {
         NumberAxis yAxis = new NumberAxis();
         BarChart<String, Number> recordBarChart = new BarChart<String, Number>(xAxis, yAxis);
         xAxis.setLabel("Procedure");
+        xAxis.setTickLabelFill(Color.WHITE);
         yAxis.setLabel("Count");
+        yAxis.setTickLabelFill(Color.WHITE);
 
         XYChart.Series series = new XYChart.Series();
         series.setName("Overall Stat");

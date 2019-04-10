@@ -45,7 +45,7 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        mapGrid = new MapGrid(addressBook);
+        mapGrid = new MapGrid();
         this.userPrefs = new UserPrefs(userPrefs);
 
         // Initialize new statistics

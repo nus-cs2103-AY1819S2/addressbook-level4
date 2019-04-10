@@ -2,23 +2,19 @@ package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.address.testutil.SizeTenMapGrid.getSizeTenMapGrid;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-
-import java.util.Collections;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.property.SimpleIntegerProperty;
-
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Coordinates;
+import seedu.address.model.cell.Status;
 
 public class MapGridTest {
 
@@ -50,45 +46,39 @@ public class MapGridTest {
     }
 
     @Test
-    public void constructor() {
-        assertEquals(Collections.emptyList(), mapGrid.getPersonList());
+    public void equals() {
+        MapGrid firstMapGrid = getSizeTenMapGrid();
+        MapGrid sameMapGrid = new MapGrid(firstMapGrid);
+
+        assertEquals(firstMapGrid, sameMapGrid);
+
+        sameMapGrid.putShip(new Battleship(), new Coordinates(0, 0), new Orientation("vertical"));
+        assertNotEquals(firstMapGrid, sameMapGrid);
     }
 
     @Test
-    public void resetData_null_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        mapGrid.resetData(null);
+    public void getPlayerMapView() {
+        MapGrid mapGrid = getSizeTenMapGrid();
+        Coordinates a1 = new Coordinates("a1");
+        mapGrid.putShip(new Battleship(), a1, new Orientation("vertical"));
+
+        Status[][] playerMapView = mapGrid.getPlayerMapView();
+        assertEquals(playerMapView[0][0], mapGrid.getCellStatus(a1));
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        MapGrid newData = new MapGrid();
-        mapGrid.resetData(newData);
-        assertEquals(newData, mapGrid);
-    }
+    public void getEnemyMapView() {
+        MapGrid mapGrid = getSizeTenMapGrid();
+        Coordinates a1 = new Coordinates("a1");
+        mapGrid.putShip(new Battleship(), a1, new Orientation("vertical"));
 
-    @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        thrown.expect(UnsupportedOperationException.class);
-        mapGrid.getPersonList().remove(0);
-    }
+        // Status hidden
+        Status[][] enemyMapView = mapGrid.getEnemyMapView();
+        assertEquals(enemyMapView[0][0], Status.HIDDEN);
 
-    @Test
-    public void addListener_withInvalidationListener_listenerAdded() {
-        SimpleIntegerProperty counter = new SimpleIntegerProperty();
-        InvalidationListener listener = observable -> counter.set(counter.get() + 1);
-        mapGrid.addListener(listener);
-        mapGrid.addPerson(ALICE);
-        assertEquals(1, counter.get());
-    }
-
-    @Test
-    public void removeListener_withInvalidationListener_listenerRemoved() {
-        SimpleIntegerProperty counter = new SimpleIntegerProperty();
-        InvalidationListener listener = observable -> counter.set(counter.get() + 1);
-        mapGrid.addListener(listener);
-        mapGrid.removeListener(listener);
-        mapGrid.addPerson(ALICE);
-        assertEquals(0, counter.get());
+        // Cell attacked
+        mapGrid.attackCell(a1);
+        enemyMapView = mapGrid.getEnemyMapView();
+        assertEquals(enemyMapView[0][0], Status.SHIPHIT);
     }
 }

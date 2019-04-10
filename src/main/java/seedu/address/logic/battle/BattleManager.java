@@ -27,6 +27,7 @@ public class BattleManager implements Battle {
      * The enemy player
      */
     private Enemy enemyPlayer;
+    private long delay = 300;
 
     public BattleManager(Player humanPlayer, Enemy enemyPlayer) {
         requireNonNull(humanPlayer);
@@ -43,7 +44,9 @@ public class BattleManager implements Battle {
     @Override
     public AttackResult humanPerformAttack(Coordinates coord) {
         requireNonNull(coord);
-        return performAttack(humanPlayer, enemyPlayer, coord);
+        AttackResult res = performAttack(humanPlayer, enemyPlayer, coord);
+        logger.info(res.formatAsUserAttack());
+        return res;
     }
 
     /**
@@ -56,12 +59,21 @@ public class BattleManager implements Battle {
             if (targetMapGrid.attackCell(coord)) {
                 // we hit a ship
                 if (targetMapGrid.getCellStatus(coord) == Status.DESTROYED) {
+                    // we destroyed a ship
                     String hitShipName = targetMapGrid.getShipNameInCell(coord);
-                    return new AttackDestroyedShip(attacker, target, coord, hitShipName);
+                    if (target.getFleet().isAllDestroyed()) {
+                        // all enemy ships destroyed - win!
+                        return new AttackDefeatedEnemy(attacker, target, coord, hitShipName);
+                    } else {
+                        // one enemy ship destroyed
+                        return new AttackDestroyedShip(attacker, target, coord, hitShipName);
+                    }
                 } else {
+                    // we hit but did not destroy a ship
                     return new AttackHit(attacker, target, coord);
                 }
             } else {
+                // we didn't hit anything
                 return new AttackMissed(attacker, target, coord);
             }
         } catch (IndexOutOfBoundsException ioobe) {
@@ -78,25 +90,31 @@ public class BattleManager implements Battle {
         try {
             AttackResult lastRes;
             do {
+                // ask enemy for an attack
                 Coordinates enemyAttack = enemyPlayer.enemyShootAt();
                 lastRes = performAttack(enemyPlayer, humanPlayer, enemyAttack);
                 // update the enemy with its result
                 enemyPlayer.receiveStatus(humanPlayer.getMapGrid().getCellStatus(enemyAttack));
-                logger.info(String.format("+++++++BATMAN SAYS: LAST HIT ON: " + enemyAttack.toString()
-                    + " status: " + lastRes.toString()));
+                logger.info(lastRes.formatAsEnemyAttack());
                 resList.add(lastRes);
-                enemyPlayer.getMapGrid().updateUi();
+                // update the UI for every enemy attack
                 try {
-                    Thread.sleep(300);
+                    Thread.sleep(delay);
+                    enemyPlayer.getMapGrid().updateUi();
+                    Thread.sleep(delay);
                 } catch (InterruptedException ex) {
                     logger.info(ex.getMessage());
                 }
+                // if the Enemy has won, just end it now
+                if (lastRes.isWin()) {
+                    break;
+                }
+                // if the Enemy hit, they get to take another turn
             } while (lastRes.isHit());
             return resList;
         } catch (Exception ex) {
             resList.add(
                 new AttackFailed(enemyPlayer, humanPlayer, null, ex.getMessage()));
-        } finally {
             return resList;
         }
     }
@@ -115,5 +133,9 @@ public class BattleManager implements Battle {
     @Override
     public Enemy getEnemyPlayer() {
         return enemyPlayer;
+    }
+
+    public void setDelay(long delay) {
+        this.delay = delay;
     }
 }

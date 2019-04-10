@@ -35,16 +35,6 @@ class JsonAdaptedPerson {
     }
 
     /**
-     * Converts a given {@code Cell} into this class for Jackson use.
-     */
-    public JsonAdaptedPerson(Cell source) {
-        name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
-    }
-
-    /**
      * Converts this Jackson-friendly adapted cell object into the model's {@code Cell} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted cell.
@@ -83,7 +73,7 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
-        return new Cell(modelName, modelPhone, modelEmail, modelAddress);
+        return new Cell();
     }
 
 }

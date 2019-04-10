@@ -1,6 +1,9 @@
 package seedu.address.model.cell;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -32,6 +35,15 @@ public class CellTest {
     }
 
     @Test
+    public void hasBattleship() {
+        Cell cell = new Cell();
+        assertFalse(cell.hasBattleShip());
+
+        cell.putShip(new Battleship());
+        assertTrue(cell.hasBattleShip());
+    }
+
+    @Test
     public void copyConstructor() {
         Cell emptyCell = new Cell();
         Cell copyCell = new Cell(emptyCell);
@@ -46,5 +58,33 @@ public class CellTest {
 
     @Test
     public void equals() {
+        // Exact same cell
+        Cell firstCell = new Cell(new Coordinates(0, 0));
+        assertEquals(firstCell, firstCell);
+
+        // Compare with null
+        assertNotEquals(firstCell, null);
+
+        // Same coordinates
+        Cell secondCell = new Cell(new Coordinates(0, 0));
+        assertEquals(firstCell, secondCell);
+
+        // Ship one one cell. Both cell same coord
+        secondCell.putShip(new Battleship());
+        assertNotEquals(firstCell, secondCell);
+
+        // Same coord. Same ship
+        firstCell.putShip(new Battleship());
+        assertEquals(firstCell, secondCell);
+
+        // Not equals, different coordinates
+        Cell diffCoordCell = new Cell(new Coordinates(0, 1));
+        assertNotEquals(firstCell, diffCoordCell);
+    }
+
+    @Test
+    public void toStringTest() {
+        Cell cell = new Cell(new Coordinates("a1"));
+        assertEquals(cell.toString(), "a1");
     }
 }

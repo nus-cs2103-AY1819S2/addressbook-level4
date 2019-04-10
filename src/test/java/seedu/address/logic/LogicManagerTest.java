@@ -23,6 +23,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonStatisticsStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 
@@ -41,9 +42,10 @@ public class LogicManagerTest {
 
     @Before
     public void setUp() throws Exception {
+        JsonStatisticsStorage statisticsStorage = new JsonStatisticsStorage(temporaryFolder.newFile().toPath());
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(userPrefsStorage, statisticsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -65,6 +67,29 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() throws Exception {
+        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
+        //JsonStatisticsStorage statisticsStorage = new JsonStatisticsStorage(temporaryFolder.newFile().toPath());
+        //JsonAddressBookStorage addressBookStorage =
+        //        new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
+        //JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
+        //StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, statisticsStorage);
+        //logic = new LogicManager(model, storage);
+        //
+        //// Execute add command
+        //String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+        //        + ADDRESS_DESC_AMY;
+        //Cell expectedCell = new PersonBuilder(AMY).withTags().build();
+        //ModelManager expectedModel = new ModelManager();
+        //expectedModel.addPerson(expectedCell);
+        //expectedModel.commitAddressBook();
+        //String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+        //assertCommandBehavior(CommandException.class, addCommand, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+        //thrown.expect(UnsupportedOperationException.class);
+        //logic.getFilteredPersonList().remove(0);
     }
 
     /**

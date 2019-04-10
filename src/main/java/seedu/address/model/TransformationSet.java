@@ -38,6 +38,11 @@ public class TransformationSet {
         return instance;
     }
 
+    /**
+     * Check if there is a watermarkcommand in the list of command found with the key.
+     * @param presetName name of the preset
+     * @return true if there is a watermarkcommand, else false
+     */
     public boolean hasWaterMarkCommand(String presetName) {
         List<Command> commandList = transformationMap.get(presetName);
         for (Command command: commandList) {

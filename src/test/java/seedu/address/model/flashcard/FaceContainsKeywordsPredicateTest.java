@@ -45,14 +45,21 @@ public class FaceContainsKeywordsPredicateTest {
 
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
+        FaceContainsKeywordsPredicate frontFacePredicate;
+        FaceContainsKeywordsPredicate backFacePredicate;
+
         // One keyword
-        FaceContainsKeywordsPredicate frontFacePredicate = new FaceContainsKeywordsPredicate(
-                Collections.singletonList("Hello"), IS_FRONT_FACE);
+        frontFacePredicate = new FaceContainsKeywordsPredicate(Collections.singletonList("Hello"), IS_FRONT_FACE);
         assertTrue(frontFacePredicate.test(new FlashcardBuilder().withFrontFace("Hello").build()));
 
+        // Substring keywords
+        backFacePredicate = new FaceContainsKeywordsPredicate(Arrays.asList("Hell"), !IS_FRONT_FACE);
+        frontFacePredicate = new FaceContainsKeywordsPredicate(Arrays.asList("Hell"), IS_FRONT_FACE);
+        assertTrue(frontFacePredicate.test(new FlashcardBuilder().withFrontFace("Hello Hola").build()));
+        assertTrue(backFacePredicate.test(new FlashcardBuilder().withBackFace("Hello Hola").build()));
+
         // Multiple keywords
-        FaceContainsKeywordsPredicate backFacePredicate = new FaceContainsKeywordsPredicate(
-                Arrays.asList("Hello", "Hola"), !IS_FRONT_FACE);
+        backFacePredicate = new FaceContainsKeywordsPredicate(Arrays.asList("Hello", "Hola"), !IS_FRONT_FACE);
         frontFacePredicate = new FaceContainsKeywordsPredicate(Arrays.asList("Hello", "Hola"), IS_FRONT_FACE);
         assertTrue(frontFacePredicate.test(new FlashcardBuilder().withFrontFace("Hello Hola").build()));
         assertTrue(backFacePredicate.test(new FlashcardBuilder().withBackFace("Hello Hola").build()));

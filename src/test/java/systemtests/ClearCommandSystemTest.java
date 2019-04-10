@@ -1,6 +1,5 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalFlashcards.KEYWORD_MATCHING_GOOD;
 
 import org.junit.Test;
@@ -30,6 +29,16 @@ public class ClearCommandSystemTest extends CardCollectionSystemTest {
         assertCommandSuccess(command, expectedResultMessage, defaultModel);
         assertSelectedCardUnchanged();
 
+        /* Case: mixed case command word -> rejected */
+        assertCommandSuccess("ClEaR");
+        assertSelectedCardUnchanged();
+
+        /* Case: undo clearing card collection -> original card collection restored */
+        command = UndoCommand.COMMAND_WORD;
+        expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, expectedResultMessage, defaultModel);
+        assertSelectedCardUnchanged();
+
         /* Case: redo clearing card collection -> cleared */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
@@ -52,8 +61,6 @@ public class ClearCommandSystemTest extends CardCollectionSystemTest {
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 
-        /* Case: mixed case command word -> rejected */
-        assertCommandFailure("ClEaR", MESSAGE_UNKNOWN_COMMAND);
     }
 
     /**

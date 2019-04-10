@@ -16,6 +16,7 @@ public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE_SUCCESS = "Listed all flashcards";
+    public static final String MESSAGE_EMPTY = "Nothing to show";
     private static final String MESSAGE_IN_QUIZ = "Cannot list in quiz mode";
 
 
@@ -26,6 +27,6 @@ public class ListCommand extends Command {
             throw new CommandException(MESSAGE_IN_QUIZ);
         }
         model.updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(model.getFilteredFlashcardList().size() > 0 ? MESSAGE_SUCCESS : MESSAGE_EMPTY);
     }
 }

@@ -3,7 +3,6 @@ package systemtests;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_FLASHCARD_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
@@ -52,6 +51,10 @@ public class SelectCommandSystemTest extends CardCollectionSystemTest {
         /* Case: select the current selected card -> selected */
         assertCommandSuccess(command, middleIndex);
 
+        /* Case: mixed case command word -> selected */
+        command = "SelEcT" + " " + middleIndex.getOneBased();
+        assertCommandSuccess(command, middleIndex);
+
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
         /* Case: filtered flashcard list, select index within bounds of card collection but out of bounds of
@@ -92,9 +95,6 @@ public class SelectCommandSystemTest extends CardCollectionSystemTest {
         /* Case: invalid arguments (extra argument) -> rejected */
         assertCommandFailure(SelectCommand.COMMAND_WORD + " 1 abc",
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-
-        /* Case: mixed case command word -> rejected */
-        assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: select from empty card collection -> rejected */
         deleteAllFlashcards();

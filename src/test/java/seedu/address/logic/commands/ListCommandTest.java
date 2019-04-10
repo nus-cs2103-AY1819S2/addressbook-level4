@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.model.CardCollection;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -37,5 +38,13 @@ public class ListCommandTest {
     public void execute_listIsFiltered_showsEverything() {
         showFlashcardAtIndex(model, INDEX_FIRST_FLASHCARD);
         assertCommandSuccess(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_emptyList_emptyMessage() {
+        showFlashcardAtIndex(model, INDEX_FIRST_FLASHCARD);
+        model = new ModelManager(new CardCollection(), new UserPrefs());
+        expectedModel = new ModelManager(new CardCollection(), new UserPrefs());
+        assertCommandSuccess(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_EMPTY, expectedModel);
     }
 }

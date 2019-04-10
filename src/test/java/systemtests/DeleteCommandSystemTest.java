@@ -2,7 +2,6 @@ package systemtests;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.BACKFACE_DESC_GOOD;
 import static seedu.address.logic.commands.CommandTestUtil.FRONTFACE_DESC_GOOD;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_FLASHCARD_SUCCESS;
@@ -32,13 +31,15 @@ public class DeleteCommandSystemTest extends CardCollectionSystemTest {
     public void delete() {
         /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
 
-        /* Case: delete the first flashcard in the list, command with leading spaces and trailing spaces -> deleted */
+        /* Case: delete the first flashcard in the list, command with leading spaces and trailing spaces and mixed case
+         * -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_FLASHCARD.getOneBased() + "   "
+        String command = "     " + "DeLetE" + "      " + INDEX_FIRST_FLASHCARD.getOneBased() + "   "
             + "    ";
         Flashcard deletedFlashcard = removeFlashcard(expectedModel, INDEX_FIRST_FLASHCARD);
         String expectedResultMessage = String.format(MESSAGE_DELETE_FLASHCARD_SUCCESS, deletedFlashcard);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
+
 
         /* Case: delete the last flashcard in the list -> deleted */
         Model modelBeforeDeletingLast = getModel();
@@ -115,8 +116,6 @@ public class DeleteCommandSystemTest extends CardCollectionSystemTest {
         /* Case: invalid arguments (extra argument) -> rejected */
         assertCommandFailure(DeleteCommand.COMMAND_WORD + " 1 abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
-        /* Case: mixed case command word -> rejected */
-        assertCommandFailure("DelETE 1", MESSAGE_UNKNOWN_COMMAND);
     }
 
     /**

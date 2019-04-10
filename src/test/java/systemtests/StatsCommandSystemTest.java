@@ -1,7 +1,6 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
-import static seedu.address.commons.core.Messages.MESSAGE_FLASHCARDS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT_FACE;
 import static seedu.address.testutil.TypicalFlashcards.EAT;
@@ -14,124 +13,122 @@ import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
+import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.flashcard.Statistics;
 
-public class FindCommandSystemTest extends CardCollectionSystemTest {
+public class StatsCommandSystemTest extends CardCollectionSystemTest {
 
     @Test
-    public void find() {
-        /* Case: find multiple flashcards in card collection, command with leading spaces and trailing spaces
-         * -> 2 flashcards found
+    public void stats() {
+        /* Case: find statistics of multiple flashcards in card collection, command with leading spaces and
+         * trailing spaces
          */
-        String command = "   " + FindCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + KEYWORD_MATCHING_GOOD + "   ";
+        String command = "   " + StatsCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + KEYWORD_MATCHING_GOOD + "   ";
         Model expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, GOOD);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: repeat previous find command where flashcard list is displaying the flashcards we are finding
-         * -> 2 flashcards found
-         */
-        command = FindCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + KEYWORD_MATCHING_GOOD;
+        /* Case: repeat previous stats command where flashcard list is displaying the flashcards we are finding */
+        command = StatsCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + KEYWORD_MATCHING_GOOD;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find flashcard where flashcard list is not displaying the flashcard we are finding -> 1 flashcard
-        found */
-        command = FindCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + " Eat";
+        /* Case: find statistics of flashcard where flashcard list is not displaying the flashcard we are finding */
+        command = StatsCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + " Eat";
         ModelHelper.setFilteredList(expectedModel, EAT);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple flashcards in card collection, 2 keywords -> 2 flashcards found */
-        command = FindCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + "Eat Newton's";
+        /* Case: find statistics of multiple flashcards in card collection, 2 keywords */
+        command = StatsCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + "Eat Newton's";
         ModelHelper.setFilteredList(expectedModel, EAT, NEWTON);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple flashcards in card collection, 2 keywords in reversed order -> 2 flashcards found */
-        command = FindCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + "Newton's Eat";
+        /* Case: find statistics of multiple flashcards in card collection, 2 keywords in reversed order */
+        command = StatsCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + "Newton's Eat";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple flashcards in card collection, 2 keywords with 1 repeat -> 2 flashcards found */
-        command = FindCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + "Newton's Eat Newton's";
+        /* Case: find statistics of multiple flashcards in card collection, 2 keywords with 1 repeat */
+        command = StatsCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + "Newton's Eat Newton's";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple flashcards in card collection, 2 matching keywords and 1 non-matching keyword
-         * -> 2 flashcards found
+        /* Case: find statistics of multiple flashcards in card collection, 2 matching keywords and
+         * 1 non-matching keyword
          */
-        command = FindCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + "Newton's Eat Cow";
+        command = StatsCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + "Newton's Eat Cow";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: undo previous find command -> rejected */
+        /* Case: undo previous stats command -> rejected */
         command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: redo previous find command -> rejected */
+        /* Case: redo previous stats command -> rejected */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: find same flashcards in card collection after deleting 1 of them -> 1 flashcard found */
-        executeCommand(FindCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + " Newton's");
+        /* Case: find statistics of same flashcards in card collection after deleting 1 of them */
+        executeCommand(StatsCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + " Newton's");
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
         assertFalse(getModel().getCardCollection().getFlashcardList().contains(NEWTON));
-        command = FindCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + KEYWORD_MATCHING_GOOD;
+        command = StatsCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + KEYWORD_MATCHING_GOOD;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, GOOD);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find flashcard in card collection, keyword is same as name but of different case -> 1 flashcard
-        found */
-        command = FindCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + " GoOd";
+        /* Case: find statistics of flashcard in card collection, keyword is same as name but of different case */
+        command = StatsCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + " GoOd";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find flashcard in card collection, keyword is substring of name -> 1 flashcards found */
-        command = FindCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + " Hell";
+        /* Case: find statistics of flashcard in card collection, keyword is substring of name */
+        command = StatsCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + " Hell";
         ModelHelper.setFilteredList(expectedModel, HELLO);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find flashcard in card collection, name is substring of keyword -> 0 flashcards found */
-        command = FindCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + " Hellow";
+        /* Case: find statistics of flashcard in card collection, name is substring of keyword */
+        command = StatsCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + " Hellow";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find flashcard not in card collection -> 0 flashcards found */
-        command = FindCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + " LUL";
+        /* Case: find statistics of flashcard not in card collection */
+        command = StatsCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + " LUL";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find while a flashcard is selected -> selected card deselected */
+        /* Case: find statistics of while a flashcard is selected */
         showAllFlashcards();
         selectFlashcard(Index.fromOneBased(1));
         assertFalse(getFlashcardListPanel().getHandleToSelectedCard().getFrontFace().equals(GOOD.getFrontFace().text));
-        command = FindCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + " Good";
+        command = StatsCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + " Good";
         ModelHelper.setFilteredList(expectedModel, GOOD);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
-        /* Case: find flashcard in empty card collection -> 0 flashcards found */
+        /* Case: find statistics of flashcard in empty card collection */
         deleteAllFlashcards();
-        command = FindCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + KEYWORD_MATCHING_GOOD;
+        command = StatsCommand.COMMAND_WORD + " " + PREFIX_FRONT_FACE + KEYWORD_MATCHING_GOOD;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, GOOD);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: mixed case command word -> rejected */
-        command = "FiNd Hello";
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        command = "StaTs Hello";
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
     }
 
     /**
@@ -147,7 +144,14 @@ public class FindCommandSystemTest extends CardCollectionSystemTest {
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
         String expectedResultMessage = String.format(
-            MESSAGE_FLASHCARDS_LISTED_OVERVIEW, expectedModel.getFilteredFlashcardList().size());
+                StatsCommand.MESSAGE_STATISTICS_FORMAT,
+                expectedModel.getFilteredFlashcardList()
+                        .stream()
+                        .map(Flashcard::getStatistics)
+                        .reduce(Statistics::merge)
+                        .map(s -> s.getSuccessRate() * 100)
+                        .orElse(0.0)
+        );
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);

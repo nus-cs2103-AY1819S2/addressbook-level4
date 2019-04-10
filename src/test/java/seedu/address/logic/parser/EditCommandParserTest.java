@@ -13,8 +13,8 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.SKILL_DESC_PYTHON;
 import static seedu.address.logic.commands.CommandTestUtil.SKILL_DESC_JAVA;
+import static seedu.address.logic.commands.CommandTestUtil.SKILL_DESC_PYTHON;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
@@ -22,8 +22,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SKILL_PYTHON;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SKILL_JAVA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SKILL_PYTHON;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -96,13 +96,16 @@ public class EditCommandParserTest {
 
         // while parsing {@code PREFIX_SKILL} alone will reset the tags of the {@code Person} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + SKILL_DESC_PYTHON + SKILL_DESC_JAVA + TAG_EMPTY, SkillsTag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + SKILL_DESC_PYTHON + TAG_EMPTY + SKILL_DESC_JAVA, SkillsTag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + SKILL_DESC_PYTHON + SKILL_DESC_JAVA, SkillsTag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + SKILL_DESC_PYTHON + SKILL_DESC_JAVA
+                + TAG_EMPTY, SkillsTag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + SKILL_DESC_PYTHON + TAG_EMPTY
+                + SKILL_DESC_JAVA, SkillsTag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_EMPTY + SKILL_DESC_PYTHON
+                + SKILL_DESC_JAVA, SkillsTag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
-                Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC
+                        + VALID_ADDRESS_AMY + VALID_PHONE_AMY, Name.MESSAGE_CONSTRAINTS);
     }
 
     @Test

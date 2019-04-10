@@ -533,47 +533,83 @@ Thus, its behaviour will be different for every game session.__
 // tag::stats[]
 === Statistics Feature
 ==== Current Implementation
-The `stats` feature allows users to view their current gameplay information. This information will be displayed in a pop-up window and will include: Number of Attacks Made, Number of Successful Hits, Number of Misses, Number of Enemy Ships Destroyed and Accuracy of Shots made.
-This feature stems from a central abstract class that is extended to for a player. It is initialized with the main components upon the start of the application and is subsequently passed down as a parameter to the relevant methods which will invoke the corresponding updating methods to the statistical information.
+The statistics feature allows users to view their current gameplay information. This information will be displayed in a
+pop-up window that includes: Number of Attacks Made, Number of Successful Hits, Number of Misses and Number of Enemy Ships
+ Destroyed. The statistics command can be called at any juncture of the game.
+
+Upon a successful win game, the statistics feature also implements a save command that automatically saves the
+statistical data into the game's storage. At the same time, the command will retrieve the statistical data from the
+previous game and perform a comparison of game data.
 
 The following operations are invoked upon the calling of the `stats` command.
 
-** `getAttacksMade()` - Returns the number of attacks made by the User
-** `getMovesLeft()` - Returns the remaining number of moves left for the User
-** `getHitCount()` - Returns the number of successful hit on enemy ships
-** `getMissCount()` Returns the number of misses made
-** `getEnemyShipsDestroyed()` Returns the number of Enemy Ships Destroyed by the player
-** `getAccuracy()` Returns the current Hit-Miss Ratio of the User based on the game so far
+** `getAttacksMade()` - Returns the number of attacks made by the User.
+** `getMovesLeft()` - Returns the remaining number of moves left for the User.
+** `getHitCount()` - Returns the number of successful hit on enemy ships.
+** `getMissCount()` Returns the number of misses made.
+** `getEnemyShipsDestroyed()` Returns the number of Enemy Ships Destroyed by the player.
+** `getAccuracy()` Returns the current Hit-Miss Ratio of the User based on the game so far.
+** `generateData()` Formats the current statistical data into a json serializable format.
+
+==== Display Statistics
 
 Given below is an example usage scenario and how the `stats` command behaves at each step.
 
 Step 1. The User initializes the game with the `init 8` which will create a 8x8 map.
 
-! The Map can be initialized to any valid size (This is just a sample scenario)
+[Note]
+The Map can be initialized to any valid size (This is just a sample scenario)
 
-Step 2. Put the ships accordingly...
+Step 2. Put the ships onto the grid via the `put` ship command.
 
 Step 3. Input `stats` into the command-line and press enter to obtain the current statistical data.
 
+Inputting `stats` :
+
 image::inputStatsCommandSS.png[width=250]
-! Note, there should not be any valid data at the moment as the game as not started.
-! Include Screenshot explaining pop-up window and lack of data
+
+Pop-up window for `stats` :
 
 image::StatsWindowSS.png[width=600]
-Step 4. Now proceed with the game and perform an attack ....
 
-Step 5. Invoke the `stats` command again to view the updated statistics
+There should not be any valid data at the moment as the game as not started.
+
+Step 4. Now proceed with the game and perform an attack. Input `attack a1`.
+
+Step 5. Invoke the `stats` command again to view the updated statistics of the attack result.
 
 image::StatsWindowUpdatedSS.PNG[width=400]
+
+Besides the pop-up window, the data is also captured in the command-line result box.
+
+image::StatsCommandBox.PNG[width=400]
+
+End of Example Usage Scenario
 
 The following sequence diagram summarizes what happens when a User invokes the `stats` command.
 
 image::StatsSequenceDiagram.PNG[width=800]
 
-==== Output Statistical Data
-Besides the pop-up window, the data is also captured in the command-line result box.
+==== Save and Compare
+Given below is an example usage scenario of the automatic save and compare feature.
 
-image::StatsCommandBox.PNG[width=400]
+1. Upon winning a game, a user will be presented with the following screen.
+
+image::StatsWinScreen.png[width=650]
+Notice the displayed 'Statistics Analysis' section that displays a comparison of the player's accuracy in the current game and
+the previous game.
+
+2. By inputting `init 6` and press enter. The game will be restarted with a new map.
+
+3. Next, input the command `stats` to observe how the previous statistics data has also been cleared in preparation for the
+new game.
+
+End of Example Usage Scenario.
+
+The following sequence diagram summarizes what happens at the end of a game and an automatic save and comparison is
+performed.
+
+<To Include Sequence Diagram>
 
 ==== Design Considerations
 * **Alternative 1 (current choice):** Statistics class will have an initialise method that with a set of default configuration that are used by any Statistics Variant.

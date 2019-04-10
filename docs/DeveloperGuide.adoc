@@ -575,8 +575,8 @@ allocated to the same category, it should be reflected accordingly.
 
 * *Alternative 2*: Have two other commands `increaseCatBudget` and `decreaseCatBudget` to allow user
 to control the budget of the category
-** Pros: User is able to adjust the budget by increasing/decreasing the budget instead of having to use
-one command to allocate a fixed amount to the budget
+** Pros: User is able to adjust the budget by increasing/decreasing the budget and error message will be shown
+if the category was not previously allocated with a budget
 ** Cons: User might be confused with too many commands and not intuitive.
 // end::categorybudget[]
 

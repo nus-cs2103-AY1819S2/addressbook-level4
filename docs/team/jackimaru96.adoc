@@ -27,6 +27,23 @@ image::travis.png[66,90,link=https://travis-ci.org/]
 
 ====
 
+== Quick Start
+[TIP]
+====
+This box will give you some tips to help you understand the feature or document better
+====
+[NOTE]
+====
+This box will provide you with more information about the section
+====
+[WARNING]
+====
+This box will appear when there are warnings that you should take note of
+====
+****
+This box will show you examples of how you can use the commands
+****
+
 == PROJECT: In-Credit-Ble (Finance Tracker)
 
 ---
@@ -59,6 +76,9 @@ This section will be split into *Major Enhancement*, *Minor Enhancements* and *N
 link:https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide]
 and link:https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/UserGuide.adoc[User Guide]
 to find out more about our application before reading on about my contributions to the project.
+
+* If you would like to download our application, head on to the `Quick Start` section
+of our User Guide for more information on how to do so.
 ====
 
 * *Major enhancement*: added `CategoryBudget`
@@ -72,18 +92,18 @@ as this will allow the user to categorise their spending to know which area he/s
 start spending less and which category they are able to increase their spending. It also requires
 integration of the `Logic`, `Model` and `UI` components of the project.
 
-* Highlights of feature:
+** Highlights of feature:
 *** This enhancement can be triggered using the `allocate` command. Each of the category
 budget is stored in the `TotalBudget` class which is implemented in the `Model` component.
-*** Each category budget will be displayed on the UI to show the user the current spending
-for that category over the total budget allocated for it.
+*** Each category budget can be shown to the user in the Result Display when the user executes the `show`
+command. It shows the current spending over the the total budget allocated for each individual category.
 
-** *Minor enhancement*: Changing theme of application
-* _What it does_: Allows user to change the colour theme of the application to pre-set themes
+* *Minor enhancement*: Changing theme of application
+** _What it does_: Allows user to change the colour theme of the application to pre-set themes
 such as `Dark`, `Light`, `Blue`, `Pink`.
-* _Justification_: This feature allows the user to have minor customisation of their In-Credit-Ble
+** _Justification_: This feature allows the user to have minor customisation of their In-Credit-Ble
 Finance Tracker Application
-* Highlights of feature:
+** Highlights of feature:
 *** This feature can be triggered using the `theme` command. Triggering this command will result in
 the `UI` component changing its stylesheet to fit the pre-set themes indicated by the user.
 
@@ -132,7 +152,25 @@ To view the full User Guide, click
 link:https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/UserGuide.adoc[here].
 |===
 
+[NOTE]
+====
+To allow users to start getting used to the application quickly, I've included a Quick Start and
+Graphical User Interface Introduction sections. These two sections shows how I am able to use diagrams
+to support my writing so that users can have visual aids to guide their understanding.
+====
+
 include::../UserGuide.adoc[tag=quickstart]
+
+include::../UserGuide.adoc[tag=userinterface]
+
+[NOTE]
+====
+The following sections are the instructions to user on how to use the features that I have
+implemented for this project. It includes the `allocate`, `show` and `theme` commands.
+These three sections show how I am able to describe the feature in simple terms that users are able to follow.
+In addition, examples on how to use the commands are also included so that the users are able to
+follow in a sequential manner.
+====
 
 include::../UserGuide.adoc[tag=allocate]
 

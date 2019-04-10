@@ -1,11 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SPECIALISATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -24,13 +24,13 @@ public class AddDoctorCommand extends Command {
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_GENDER + "GENDER "
-            + PREFIX_AGE + "AGE "
+            + PREFIX_YEAR + "YEAR OF SPECIALISATION "
             + "[" + PREFIX_SPECIALISATION + "SPECIALISATION]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_GENDER + "M "
-            + PREFIX_AGE + "31 "
+            + PREFIX_YEAR + "3 "
             + PREFIX_SPECIALISATION + "general "
             + PREFIX_SPECIALISATION + "acupuncture";
 

@@ -13,7 +13,7 @@ import seedu.address.model.person.PatientNameContainsKeywordsPredicate;
  */
 public class SearchPatientCommand extends Command {
 
-    public static final String COMMAND_WORD = "search-patient";
+    public static final String COMMAND_WORD = "search-p";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches all patients whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"

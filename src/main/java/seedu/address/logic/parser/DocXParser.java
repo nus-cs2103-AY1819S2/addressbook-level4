@@ -32,7 +32,7 @@ import seedu.address.logic.commands.MarkAppointmentCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SearchAdvancedPatientCommand;
 import seedu.address.logic.commands.SearchDoctorDidCommand;
-//import seedu.address.logic.commands.SearchDoctorNameCommand;
+import seedu.address.logic.commands.SearchDoctorNameCommand;
 import seedu.address.logic.commands.SearchDoctorSpecialisationCommand;
 import seedu.address.logic.commands.SearchMedHistCommand;
 import seedu.address.logic.commands.SearchPatientApptStatusCommand;
@@ -126,8 +126,9 @@ public class DocXParser {
             case DeleteDoctorCommand.COMMAND_WORD:
                 return new DeleteDoctorCommandParser().parse(arguments);
 
-            //case SearchDoctorNameCommand.COMMAND_WORD:
-                //return new SearchDoctorNameCommandParser().parse(arguments);
+            case SearchDoctorNameCommand.COMMAND_WORD:
+                return new SearchDoctorNameCommandParser().parse(arguments);
+
 
             case SelectDoctorCommand.COMMAND_WORD:
                 return new SelectDoctorCommandParser().parse(arguments);

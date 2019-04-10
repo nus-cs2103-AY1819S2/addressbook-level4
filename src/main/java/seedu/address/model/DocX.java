@@ -199,9 +199,9 @@ public class DocX implements ReadOnlyDocX {
      * The appointment must not already exist.
      */
     public void addAppointment(Appointment appointment) {
+        appointments.add(appointment);
         appointment.setPatient(getPatientById(appointment.getPatientId()));
         appointment.setDoctor(getDoctorById(appointment.getDoctorId()));
-        appointments.add(appointment);
         indicateModified();
     }
 
@@ -213,6 +213,8 @@ public class DocX implements ReadOnlyDocX {
     public void setAppointment(Appointment target, Appointment changedAppointment) {
         requireNonNull(changedAppointment);
 
+        changedAppointment.setPatient(getPatientById(changedAppointment.getPatientId()));
+        changedAppointment.setDoctor(getDoctorById(changedAppointment.getDoctorId()));
         appointments.setAppointment(target, changedAppointment);
         indicateModified();
     }

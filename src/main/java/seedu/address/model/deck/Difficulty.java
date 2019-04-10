@@ -1,7 +1,5 @@
 package seedu.address.model.deck;
 
-import static java.util.Objects.requireNonNull;
-
 /**
  * Represents a card's difficulty.
  */

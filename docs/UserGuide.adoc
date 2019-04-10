@@ -18,6 +18,7 @@ endif::[]
 
 By: `Team W14-3`      Since: `Jan 2019`      Licence: `MIT`
 
+// tag::intro[]
 == Introduction
 
 Ships ahoy! Battleship is a simple computer-based remake of the classic Battleship game, for people who want to have the
@@ -35,6 +36,10 @@ A Command Line Interface (CLI) interacts with the user by accepting words that a
 ====
 
 Battleship, as you will see, is a hybrid application. It combines both a CLI and GUI, meaning that the user must type in commands but will see the changes caused by those commands graphically.
+
+// end::intro[]
+
+// tag::quickstart[]
 
 == Quick Start
 
@@ -70,6 +75,8 @@ image::Ui5.png[width=800]
 The game will go on until either party's ships are totally destroyed.
 
 Refer to <<Features>> for details of each command.
+
+// end::quickstart[]
 
 == Game Rules
 // tag::gamerules[]
@@ -196,10 +203,10 @@ Examples:
 [NOTE]
 The head of a battleship refers to the top-most and left-most cell of the battleship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the battleship, as shown in the figure below.
 
-image:BattleshipHeadExample.png[width=800]
+image::BattleshipHeadExample.png[width=800]
 
 .The coordinates of the `put` command refer to the coordinates of the battleship head.
-image:BattleshipHeadExample2.png[width=800]
+image::BattleshipHeadExample2.png[width=800]
 
 _Figure 3_ shows how a battleship is put at coordinate `a5`. The head of the battleship is therefore at `a5`. +
 

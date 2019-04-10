@@ -38,6 +38,7 @@ import seedu.address.storage.ParsedInOut;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_NOT_JSON_OR_PDF = "Input file type is not a .json or .pdf.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -349,7 +350,7 @@ public class ParserUtil {
             if (filePath.matches(pdfRegex)) {
                 return new ParsedInOut(file, "pdf");
             } else {
-                throw new ParseException("Input file type is not a .json or .pdf.");
+                throw new ParseException(MESSAGE_NOT_JSON_OR_PDF);
             }
         }
     }
@@ -397,10 +398,10 @@ public class ParserUtil {
                     return new ParsedInOut(new File(filepath), fileType);
                 } else {
                     // This shouldn't be possible after validationRegex
-                    throw new ParseException("Input file type is not a .json or .pdf.");
+                    throw new ParseException(MESSAGE_NOT_JSON_OR_PDF);
                 }
             } else {
-                throw new ParseException("Input file type is not a .json or .pdf.");
+                throw new ParseException(MESSAGE_NOT_JSON_OR_PDF);
             }
         }
 
@@ -417,7 +418,7 @@ public class ParserUtil {
             indexRange = splitMatcher.group(3);
         } else {
             // This shouldn't be possible after validationRegex
-            throw new ParseException("Input file type is not a .json or .pdf.");
+            throw new ParseException(MESSAGE_NOT_JSON_OR_PDF);
         }
 
         HashSet<Integer> parsedIndex = new HashSet<>();
@@ -438,7 +439,7 @@ public class ParserUtil {
                     parsedIndex.add(i - 1);
                 }
             } else {
-                throw new ParseException("Invalid index range!");
+                throw new ParseException("Invalid index range! Please input a non-zero unsigned index range.");
             }
         }
 

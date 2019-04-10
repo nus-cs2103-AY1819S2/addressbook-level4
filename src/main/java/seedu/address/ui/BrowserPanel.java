@@ -23,6 +23,7 @@ public class BrowserPanel extends UiPart<Region> {
 
     public static final URL DEFAULT_PAGE =
             requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
+    public static final String SEARCH_PAGE_URL = "https://se-education.org/dummy-search-page/?name=";
     public static final String SEARCH_PAGE_URL_1 = "https://www.google.com/search?q=";
     public static final String SEARCH_PAGE_URL_2 = "https://sg.linkedin.com/pub/dir/";
     public static final String SEARCH_PAGE_URL_3 = "https://www.linkedin.com/search/results/all/?keywords=";
@@ -59,6 +60,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     private void loadPersonPage(Person person) {
+        String searchString = SEARCH_PAGE_URL + person.getName().fullName;
         List<String> positions = person.getPositionString();
         String positionString = "";
         for (String position : positions) {
@@ -74,12 +76,13 @@ public class BrowserPanel extends UiPart<Region> {
                 + MUST_INCLUDE + person.surnameToString() + MUST_INCLUDE + DELIM_1 + LINKED_IN + DELIM_1 +
                 trimToSearchFormat_1(positions.get(1) + FIRST_RESULT);
         String searchString5 = SEARCH_PAGE_URL_3 + person.firstNameToString() + DELIM_3 + person.surnameToString() + DELIM_3 + trimToSearchFormat_2(positions.get(1));
+        System.out.println(searchString);
         System.out.println(searchString1);
         System.out.println(searchString2);
         System.out.println(searchString3);
         System.out.println(searchString4);
         System.out.println(searchString5);
-        loadPage(searchString1);
+        loadPage(searchString);
     }
 
     public void loadPage(String url) {

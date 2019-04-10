@@ -14,7 +14,7 @@ public class SavePresetCommandParser implements Parser<SavePresetCommand> {
 
     /**
      * Parses the SavePreset Command.
-     * @param args
+     * @param args argument
      * @return a SavePresetCommand object
      * @throws ParseException is thrown if the value is not an integer or unspecified.
      */

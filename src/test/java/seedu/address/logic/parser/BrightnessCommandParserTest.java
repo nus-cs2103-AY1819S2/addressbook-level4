@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import java.util.OptionalDouble;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.BrightnessCommand;

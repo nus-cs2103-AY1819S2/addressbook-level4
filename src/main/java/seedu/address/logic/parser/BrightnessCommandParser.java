@@ -14,9 +14,9 @@ public class BrightnessCommandParser implements Parser<BrightnessCommand> {
 
     /**
      * Parses the Contrast Command.
-     * @param args
+     * @param args argument
      * @return a ContrastCommand object
-     * @throws ParseException
+     * @throws ParseException is thrown if the value is not an integer or unspecified.
      */
     public BrightnessCommand parse(String args) throws ParseException {
         OptionalDouble brightnessValue;

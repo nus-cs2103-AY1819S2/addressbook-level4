@@ -206,6 +206,14 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+The addition of the 'Company' class has altered the 'Model Class Diagram' in several ways
+
+* In order to store the list of companies required for the application, a 'UniqueCompanyList' class was added
+* The company class was added in order to distinguish between company and person objects within the UI
+* Each class has the same attributes but each with a different connotations
+
+At the current time, with the commands 'addcpny' and 'listcpny' the user can add a company to the address book and list all of the companies added respectively
+
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
@@ -314,9 +322,44 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 
 // tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== Favorite System
+==== Current Implementation
 
-_{Explain here how the data encryption feature will be implemented}_
+The favorite system is facilitated by `AddressBook`,
+It extends the address book system by allowing the user to save favorites, stored internally as a `UniquePersonList`.
+Additionally, it implements the following operations:
+
+* `AddressBook#addFavorites()` -- Saves the person into the favorites list.
+* `AddressBook#getFavoritesList()` -- Returns a list of all favorite persons.
+
+These operations are exposed in the `Model` interface as `Model#addFavorites()` and `Model#getFavoritesList()`.
+
+Given below is an example usage scenario of how the favorite mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. An empty UniquePersonList is created in `AddressBook`.
+
+Step 2. The user executes `favorite Alex` to save the person Alex into their favorites list. The favorite command creates a new `NameContainsKeywordsPredicate` updating the filteredPersonList and calls `Model#addFavorites()` and `Model#commitAddressBook` thereby updating the favorites list stored in `AddressBook` and updating the filteredPersonList.
+
+Step 3. The user repeats this a few times, adding a few other persons.
+
+Step 4. The user wants to view all favorites and executes `listFav` to view all favorites. This creates a new `PersonIsFavoritePredicate` which is passed in a model and calls `Model#getFavoritesList` and check if it contains the person. The command class then calls `Model#updateFilteredPersonList` with the predicate to only display all filtered (favorite) persons.
+
+[NOTE]
+We must still implement persistent storage of favorite lists and deleting favorites.
+
+image::favoriteActivityDiagram.png[width="650"]
+
+==== Design Considerations
+
+===== Aspect: Data structure to save the favorites
+
+* **Alternative 1 (current choice):** Save all favorites using a simple list.
+** Pros: Easy to implement.
+** Cons: May have runtime issues in deleting if the list gets large.
+* **Alternative 2:** Linked list to store favorites.
+** Pros: Efficient to delete favorites from anywhere in the list.
+** Cons: We must ensure that the implementation is proper as there is a lot of complexity.
+_
 
 // end::dataencryption[]
 
@@ -339,6 +382,26 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+
+=== Three new attributes: Salary, Occupation, Relationship
+==== Current Implementation
+The add Command is modified in this enhancement. Previously, user can only add a person's name, phone number, address and tags to the address book.
+After this enhancement, following attributes are added to the person's information:
+
+* `SALARY`: salary must be a string with more than one digits
+* `OCCUPATION`: occupation can be a string with any characters
+*  `RELATIONSHIP`: relationship must be a string with one word (no blank allowed)
+
+===== How to implement the command
+Users just input:
+add n/NAME p/PHONE e/EMAIL a/ADDRESS s/SALARY o/OCCUPATION r/RELATIONSHIP [t/TAG]
+Example: add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 s/100000o/bankerr/singlet/friends t/owesMoney
+
+
+===== Pros and Cons
+** Pros: Easy to implement, and the add format just follows the previous version
+** Cons: When implementing add Command, Users must add all information except the optional TAG attribute, this makes the command not flexible enough
 
 == Documentation
 
@@ -829,7 +892,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new person | name, phone, address, salary, occupation, relationship, tags (optional)
 
 |`* * *` |user |delete a person |remove entries that I no longer need
 

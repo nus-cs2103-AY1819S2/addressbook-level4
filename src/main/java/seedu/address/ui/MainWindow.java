@@ -33,8 +33,10 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
+    private CompanyListPanel companyListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private AnalyzePanel analyzePanel;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -49,10 +51,16 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
+    private StackPane companyListPanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane analyzePanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -118,10 +126,23 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedPerson);
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+
+         analyzePanel = new AnalyzePanel(logic.getFilteredPersonList());
+         analyzePanelPlaceholder.getChildren().add(analyzePanel.getRoot());
+         // analyzePanelPlaceholder.setVisible(false);
+
+
+        /*
+        companyListPanel = new CompanyListPanel(logic.getFilteredCompanyList(), logic.selectedCompanyProperty(),
+                logic::setSelectedCompany);
+        companyListPanelPlaceholder.getChildren().add(companyListPanel.getRoot());
+        */
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook(),
+                logic.getFilteredPersonList().size());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
@@ -156,6 +177,16 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.show();
     }
 
+    @FXML
+    public void handleAnalyze() {
+        analyzePanel = new AnalyzePanel(logic.getFilteredPersonList());
+        analyzePanelPlaceholder.getChildren().clear();
+        analyzePanelPlaceholder.getChildren().add(analyzePanel.getRoot());
+        browserPlaceholder.setVisible(false);
+        analyzePanelPlaceholder.setVisible(true);
+
+    }
+
     /**
      * Closes the application.
      */
@@ -170,6 +201,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
+    }
+
+    public CompanyListPanel getCompanyListPanel() {
+        return companyListPanel;
     }
 
     /**
@@ -189,6 +224,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isAnalyze()) {
+                handleAnalyze();
             }
 
             return commandResult;

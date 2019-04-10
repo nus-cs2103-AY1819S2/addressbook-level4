@@ -11,4 +11,5 @@
   </columnConstraints>
   <Label fx:id="syncStatus" />
   <Label fx:id="saveLocationStatus" GridPane.columnIndex="1" />
+  <Label fx:id="numContactsStatus" GridPane.columnIndex="2" />
 </GridPane>

@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= Marketing Morph - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,11 +14,11 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Sky Walker`      Since: `Feb 2019`      Licence: `NUS`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Marketing Morph is for marketers who want to organize consumer data. More importantly, Marketing Morph will allow marketers to use a GUI to keep track of different consumers, maintain client lists, and perform market analysis and research in one simple interface.
 
 == Quick Start
 
@@ -58,7 +58,7 @@ Format: `help`
 
 === Adding a person: `add`
 
-Adds a person to the address book +
+Adds a person to the consumer list. +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 [TIP]
@@ -71,12 +71,12 @@ Examples:
 
 === Listing all persons : `list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all persons in the consumer list. +
 Format: `list`
 
 === Editing a person : `edit`
 
-Edits an existing person in the address book. +
+Edits an existing person in the consumer list. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
@@ -149,7 +149,7 @@ Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd person in the address book.
+Selects the 2nd person in the consumer list.
 * `find Betsy` +
 `select 1` +
 Selects the 1st person in the results of the `find` command.
@@ -224,6 +224,102 @@ Format: `clear`
 Exits the program. +
 Format: `exit`
 
+=== Sorting persons by name/salary/occupation/residential area/group : `sort` `[coming in v1.4]`
+
+Lists all people that meet the specified filter requirement.
+
+Format: sort [ALL] [s/ >N] [s/ <= N] [n/ NAME] [o/ OCCUPATION] [a/ STREET NAME] [GROUPS]
+
+Examples:
+
+`sort` s/ > 50000     (list all persons with income greater than $50000)
+
+`sort` ALL            (list all persons in the consumer list)
+
+`sort` o/ Plumber			(list all persons who’s occupation is plumber)
+
+=== Adding a company : `add`
+
+Adds a company to the client list
+
+Format: `add` n/NAME p/NUMBER e/AVG$$ a/ADRESS s/SECTOR n/#EMPS r/REVENUES [t/TAG]…
+
+Examples:
+
+`add` n/Walmart p/98765432 e/low a/John street, block 123, #01-01  s/Retail n/500
+
+`add` n/Betsy Cakes e/medium a/Bob street, block 232 n p/1234567 s/Bakery n/20 t/popular t/local
+
+=== Find clients: `findCli` `[coming in v1.4]`
+
+Lists all persons deemed capable of affording a specific product based on salary
+
+Format: `findCli` PRICE
+
+Examples:
+
+findCli 100
+
+findCli 20
+
+=== Find shops: `findShops` `[coming in v1.4]`
+
+Lists all stores a person is deemed capable of visiting based on salary and store pricing
+
+Format: `findShops` [n/NAME] [s/SALARY]
+
+Examples:
+
+`findShops` n/steve smith
+
+`findShops` s/25000
+
+=== Add to favorite list: `favorite`
+
+Adds a person to the  “favorite” list
+
+Format: `favorite` [NAME]
+
+=== Add to favorite list: `delFav`
+
+Removes a person to the  “favorite” list
+
+Format: `delFav` [NAME]
+
+=== Add to favorite list: `listFav`
+
+Lists all persons in the “favorite” list
+
+Format: `favorite` [NAME]
+
+=== Create group: `group` `[coming in v1.4]`
+
+Creates a group of persons
+
+Format: `group` GROUPNAME [[n/NAME] [a/ADDRESS]]...
+
+Examples:
+
+`group` g1 n/bob a/123 streets n/steve a/456 main n/smith a/111 abc st
+
+`group` winners n/jacob a/1 queen st n/adam a/10 north st
+
+=== Export data as CSV: `export`
+
+Exports the data to a CSV file
+
+Format: `export` [CLIENTS] [CONSUMERS] [ALL]
+
+Examples:
+
+`export` clients
+
+`export` all
+
+
+
+
+
 === Saving the data
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
@@ -255,6 +351,11 @@ e.g. `find James Jake`
 * *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
+* *Add Favorite* : `favorite`
+* *Delete Favorite* : `delFav`
+* *List Favorite* : `listFav`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *group* : `group` GROUPNAME [[n/NAME] [a/ADDRESS]]...
+* *export* : `export` [CLIENTS] [CONSUMERS] [ALL]

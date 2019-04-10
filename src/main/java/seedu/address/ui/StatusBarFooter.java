@@ -17,6 +17,7 @@ public class StatusBarFooter extends UiPart<Region> {
 
     public static final String SYNC_STATUS_INITIAL = "Not updated yet in this session";
     public static final String SYNC_STATUS_UPDATED = "Last Updated: %s";
+    public static final String SYNC_STATUS_NUM_CONTACTS = "Total Contacts: %d";
 
     /**
      * Used to generate time stamps.
@@ -34,12 +35,15 @@ public class StatusBarFooter extends UiPart<Region> {
     private Label syncStatus;
     @FXML
     private Label saveLocationStatus;
+    @FXML
+    private Label numContactsStatus;
 
 
-    public StatusBarFooter(Path saveLocation, ReadOnlyAddressBook addressBook) {
+    public StatusBarFooter(Path saveLocation, ReadOnlyAddressBook addressBook, int numContacts) {
         super(FXML);
-        addressBook.addListener(observable -> updateSyncStatus());
+        addressBook.addListener(observable -> updateSyncStatus(addressBook.getPersonList().size()));
         syncStatus.setText(SYNC_STATUS_INITIAL);
+        numContactsStatus.setText(String.format(SYNC_STATUS_NUM_CONTACTS, numContacts));
         saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
     }
 
@@ -60,10 +64,11 @@ public class StatusBarFooter extends UiPart<Region> {
     /**
      * Updates "last updated" status to the current time.
      */
-    private void updateSyncStatus() {
+    private void updateSyncStatus(int numContacts) {
         long now = clock.millis();
         String lastUpdated = new Date(now).toString();
         syncStatus.setText(String.format(SYNC_STATUS_UPDATED, lastUpdated));
+        numContactsStatus.setText(String.format(SYNC_STATUS_NUM_CONTACTS, numContacts));
     }
 
 }

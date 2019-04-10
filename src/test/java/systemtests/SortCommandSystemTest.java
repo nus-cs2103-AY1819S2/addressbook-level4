@@ -2,20 +2,28 @@ package systemtests;
 
 import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_AMOUNT;
 import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_ASCENDING;
+import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_CATEGORY;
 import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_DATE;
 import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_DESCENDING;
 import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_NAME;
 import static seedu.finance.testutil.TypicalRecords.AMY;
+import static seedu.finance.testutil.TypicalRecords.KEYWORD_MATCHING_DONUT;
 
 import org.junit.Test;
+import seedu.finance.commons.core.index.Index;
+import seedu.finance.logic.commands.DeleteCommand;
 import seedu.finance.logic.commands.RedoCommand;
+import seedu.finance.logic.commands.ReverseCommand;
 import seedu.finance.logic.commands.SortCommand;
 import seedu.finance.logic.commands.SpendCommand;
 import seedu.finance.logic.commands.UndoCommand;
 import seedu.finance.logic.parser.comparator.RecordAmountComparator;
+import seedu.finance.logic.parser.comparator.RecordCategoryComparator;
 import seedu.finance.logic.parser.comparator.RecordDateComparator;
 import seedu.finance.logic.parser.comparator.RecordNameComparator;
 import seedu.finance.model.Model;
+import seedu.finance.model.ModelManager;
+import seedu.finance.model.record.Record;
 import seedu.finance.testutil.RecordUtil;
 
 public class SortCommandSystemTest extends FinanceTrackerSystemTest {
@@ -77,22 +85,55 @@ public class SortCommandSystemTest extends FinanceTrackerSystemTest {
         assertCommandSuccess(command, expectedResultMessage, expectedModel);
 
 
-
         /* Case: delete a record then sort list by date in default ordering (descending) -> sorted */
-        
+        Record targetedRecord = expectedModel.getFilteredRecordList().get(0);
+        expectedModel.deleteRecord(targetedRecord);
+        assertCommandSuccess("delete 1", String.format(DeleteCommand.MESSAGE_DELETE_RECORD_SUCCESS, targetedRecord), expectedModel);
+        command = SortCommand.COMMAND_WORD + " " + COMMAND_FLAG_DATE;
+        expectedResultMessage = SortCommand.MESSAGE_SUCCESS;
+        expectedModel.sortFilteredRecordList(new RecordDateComparator());
+        assertCommandSuccess(command, expectedResultMessage, expectedModel);
 
 
         /* Case: Mixed case command word -> sorted */
+        command = "soRt " + COMMAND_FLAG_NAME;
+        expectedResultMessage = SortCommand.MESSAGE_SUCCESS;
+        expectedModel.sortFilteredRecordList(new RecordNameComparator());
+        assertCommandSuccess(command, expectedResultMessage, expectedModel);
+
 
         /* Case: filters the record before sorting by category in descending order -> sorted */
+        showRecordsWithName(KEYWORD_MATCHING_DONUT);
+        command = SortCommand.COMMAND_WORD + " " + COMMAND_FLAG_CATEGORY + " " + COMMAND_FLAG_DESCENDING;
+        expectedResultMessage = SortCommand.MESSAGE_SUCCESS;
+        expectedModel.sortFilteredRecordList(new RecordCategoryComparator().reversed());
+        assertCommandSuccess(command, expectedResultMessage, expectedModel);
 
 
         /* Case: Select first card then sort by category in default ordering (ascending) -> sorted */
+        selectRecord(Index.fromOneBased(1));
+        command = SortCommand.COMMAND_WORD + " " + COMMAND_FLAG_CATEGORY;
+        expectedResultMessage = SortCommand.MESSAGE_SUCCESS;
+        expectedModel.sortFilteredRecordList(new RecordCategoryComparator());
+        assertCommandSuccess(command, expectedResultMessage, expectedModel);
+
 
         /* Case: reverse list then sort by name in ascending order -> sorted */
+        command = ReverseCommand.COMMAND_WORD;
+        expectedResultMessage = ReverseCommand.MESSAGE_SUCCESS;
+        expectedModel.reverseFilteredRecordList();
+        assertCommandSuccess(command, expectedResultMessage, expectedModel);
+        command = SortCommand.COMMAND_WORD + " " + COMMAND_FLAG_NAME;
+        expectedResultMessage = SortCommand.MESSAGE_SUCCESS;
+        expectedModel.sortFilteredRecordList(new RecordNameComparator());
+        assertCommandSuccess(command, expectedResultMessage, expectedModel);
 
 
         /* Case: Clears the finance tracker then sort list -> show list is empty message */
+        deleteAllRecords();
+        Model emptyModel = new ModelManager();
+        assertCommandSuccess(SortCommand.COMMAND_WORD + " " + COMMAND_FLAG_NAME,
+                SortCommand.MESSAGE_EMPTY_LIST, emptyModel);
 
 
         /* --------------------------------- Performing invalid delete operation ------------------------------------ */
@@ -101,7 +142,7 @@ public class SortCommandSystemTest extends FinanceTrackerSystemTest {
 
         /* Case: Invalid order -> rejected */
 
-        /* Case: INvalid arguments (extra argument) -> rejected */
+        /* Case: Invalid arguments (extra argument) -> rejected */
 
     }
 

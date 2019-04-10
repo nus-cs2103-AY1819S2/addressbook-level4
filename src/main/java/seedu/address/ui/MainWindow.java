@@ -220,9 +220,9 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isSwapList()) {
+                removeSelectedNonPinnedPerson();
                 personListPanelPlaceholder.getChildren().get(0).toFront();
                 swapListTitle();
-                logic.removeSelectedNonPinnedPerson();
             }
 
             return commandResult;
@@ -241,6 +241,17 @@ public class MainWindow extends UiPart<Stage> {
             displayedList.setText(ARCHIVE_LIST_DISPLAYED);
         } else {
             displayedList.setText(MAIN_LIST_DISPLAYED);
+        }
+    }
+
+    /**
+     * Removes the current selection of a non-pinned person before swapping list.
+     */
+    private void removeSelectedNonPinnedPerson() {
+        if (displayedList.getText().equals(MAIN_LIST_DISPLAYED)) {
+            logic.removeSelectedPerson();
+        } else {
+            logic.removeSelectedArchivedPerson();
         }
     }
 }

@@ -103,12 +103,7 @@ public class StatWindow extends UiPart<Stage> {
      */
     public void populateData() {
         Patient statPatient = StatWindow.toStat;
-        this.patientTitle.setText("Statistics Report for " + statPatient.getName().toString());
-        nric.setText(statPatient.getNric().toString());
-        dateOfBirth.setText(statPatient.getDateOfBirth().getDate());
-        phone.setText(statPatient.getPhone().toString());
-        address.setText(statPatient.getAddress().toString());
-        email.setText(statPatient.getEmail().toString());
+        populatePatientInfo();
 
         String[] procList = Procedure.PROCEDURE_LIST;
         for (String procType: procList) {
@@ -145,6 +140,21 @@ public class StatWindow extends UiPart<Stage> {
     }
 
     /**
+     * Populates patient info
+     */
+    private void populatePatientInfo() {
+        Patient statPatient = StatWindow.toStat;
+        this.patientTitle.setText("Statistics Report for " + statPatient.getName().toString());
+        nric.setText(statPatient.getNric().toString());
+        dateOfBirth.setText(statPatient.getDateOfBirth().getDate());
+        phone.setText(statPatient.getPhone().toString());
+        address.setText(statPatient.getAddress().toString());
+        address.setWrapText(true);
+        email.setText(statPatient.getEmail().toString());
+        email.setWrapText(true);
+    }
+
+    /**
      * Populates stats table.
      */
     private void populateStatTable() {
@@ -158,9 +168,11 @@ public class StatWindow extends UiPart<Stage> {
 
         TableColumn<Pair<String, Integer>, String> procCol = new TableColumn<>("Procedure");
         procCol.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getKey()));
+        procCol.prefWidthProperty().bind(recordStatTable.widthProperty().multiply(0.5));
 
         TableColumn<Pair<String, Integer>, Integer> numCol = new TableColumn<>("Number");
         numCol.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getValue()));
+        numCol.prefWidthProperty().bind(recordStatTable.widthProperty().multiply(0.5));
 
         recordStatTable.getColumns().addAll(procCol, numCol);
         recordStatTable.getItems().addAll(data);

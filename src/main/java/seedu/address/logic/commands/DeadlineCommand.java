@@ -95,9 +95,17 @@ public class DeadlineCommand extends Command {
         if (action == DeadlineAction.NEW) {
             nPdf = getPdfWithNewDeadline(oPdf, deadline);
         } else if (action == DeadlineAction.DONE) {
-            nPdf = getPdfWithNewDeadline(oPdf, Deadline.setDone(oDeadline));
+            if (oPdf.getDeadline().exists()) {
+                nPdf = getPdfWithNewDeadline(oPdf, Deadline.setDone(oDeadline));
+            } else {
+                throw new CommandException(Messages.MESSAGE_NO_DEADLINE_IN_PDF);
+            }
         } else {
-            nPdf = getPdfWithNewDeadline(oPdf, Deadline.setRemove(oDeadline));
+            if (oPdf.getDeadline().exists()) {
+                nPdf = getPdfWithNewDeadline(oPdf, Deadline.setRemove(oDeadline));
+            } else {
+                throw new CommandException(Messages.MESSAGE_NO_DEADLINE_IN_PDF);
+            }
         }
 
         model.setPdf(oPdf, nPdf);

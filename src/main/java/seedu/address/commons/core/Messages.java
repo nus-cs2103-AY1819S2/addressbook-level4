@@ -11,5 +11,6 @@ public class Messages {
     public static final String MESSAGE_PDFS_LISTED_OVERVIEW = "%1$d pdfs listed!";
     public static final String MESSAGE_PDF_OPEN_FAIL = "This pdf file could not be accessed: %1$s";
     public static final String MESSAGE_MISSING_PREFIX = "One or more parameters has missing prefix '$1$s'";
+    public static final String MESSAGE_NO_DEADLINE_IN_PDF = "The file you selected does not have an existing deadline.";
 
 }

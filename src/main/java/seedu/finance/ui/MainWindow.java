@@ -168,8 +168,8 @@ public class MainWindow extends UiPart<Stage> {
             budgetPanel.setLightThemes(theme);
         }
 
-        browserPanel.updateBudget(logic.getBudget());
         budgetPanel.update(logic.getBudget());
+        browserPanel.updateBudget(logic.getBudget());
 
         summaryPanel = new SummaryPanel(
                 logic.getRecordSummary(),
@@ -207,7 +207,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleChangeBudget() {
-        logger.info("Budget Info: " + logic.getBudget().getCurrentBudget());
         budgetPanel.update(logic.getBudget());
         browserPanel.updateBudget(logic.getBudget());
         summaryPanel.setData(
@@ -279,7 +278,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleShowSummary() { //Need to think how to link to the D3 files
-
         handleChangeBudget();
         handleBrowserPlaceholderSwap();
     }
@@ -289,6 +287,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void handleBrowserPlaceholderSwap() {
         Timeline timeline = new Timeline();
+
         browserPlaceholder.setOpacity(0.0);
         if (browserPlaceholder.getChildren().get(0).getId().equals("browser")) {
             browserPlaceholder.getChildren().clear();
@@ -296,7 +295,6 @@ public class MainWindow extends UiPart<Stage> {
         } else if (browserPlaceholder.getChildren().get(0).getId().equals("summaryPanel")) {
             browserPlaceholder.getChildren().clear();
             browserPlaceholder.getChildren().add(browserPanel.getRoot());
-            handleChangeBudget();
         }
         addFadeInAnimation(browserPlaceholder, 0.0, timeline);
         timeline.playFromStart();

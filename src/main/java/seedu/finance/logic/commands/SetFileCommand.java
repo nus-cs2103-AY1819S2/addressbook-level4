@@ -33,12 +33,15 @@ public class SetFileCommand extends Command {
             + PREFIX_FILE + "finance";
     public static final String MESSAGE_SUCCESS = "File Set: %1$s";
 
+    public static final String MESSAGE_CONSTRAINTS =
+            "Filename should not contain special characters, '\\' character, or be blank.";
+
     private static final Logger logger = LogsCenter.getLogger(JsonFinanceTrackerStorage.class);
 
     private final Path path;
 
     /**
-     * Creates a SetCommand to set the specificed {@code Amount} as budget
+     * Creates a SetFileCommand to set the specified Path as the new Finance Tracker Storage json.
      */
     public SetFileCommand(Path path) {
         requireNonNull(path);
@@ -56,8 +59,10 @@ public class SetFileCommand extends Command {
             financeTrackerOptional = newStorage.readFinanceTracker();
             if (!financeTrackerOptional.isPresent()) {
                 logger.info("Data file not found. A new empty FinanceTracker will be created with file name.");
+                initialData = new FinanceTracker();
+            } else {
+                initialData = financeTrackerOptional.get();
             }
-            initialData = new FinanceTracker();
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty FinanceTracker");
             initialData = new FinanceTracker();

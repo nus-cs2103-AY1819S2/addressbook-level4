@@ -41,6 +41,25 @@ public class Image {
     private boolean hasWaterMark;
 
     /**
+     * Default Image constructor
+     */
+    public Image(Name name, Height height,
+                 Width width, Size size, BufferedImage buffer, String url,
+                 String fileType, Metadata metadata, List<Command> commandHistory, int index, boolean hasWaterMark) {
+        this.name = name;
+        this.height = height;
+        this.width = width;
+        this.size = size;
+        this.buffer = buffer;
+        this.url = url;
+        this.fileType = fileType;
+        this.metadata = metadata;
+        this.commandHistory = commandHistory;
+        this.index = index;
+        this.hasWaterMark = hasWaterMark;
+    }
+
+    /**
      * Every field must be present and not null.
      */
     public Image(String url) {
@@ -122,6 +141,7 @@ public class Image {
 
     /**
      * This method changes the hasWaterMark field so that it reflects the current state of the tempImage.
+     *
      * @param x the new value to set
      */
     public void setWaterMark(boolean x) {

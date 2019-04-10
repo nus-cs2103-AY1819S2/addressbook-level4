@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Collections;
 
@@ -9,11 +10,19 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.logic.commands.ImportCommand;
+import seedu.address.logic.parser.ImportCommandParser;
+import seedu.address.model.image.Image;
+import seedu.address.testutil.Assert;
+
 public class AlbumTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
     public final Album album = Album.getInstance();
+    public final Image image = new Image("src/main/resources/imageTest/valid/iu.jpg");
+    private ImportCommandParser parser = new ImportCommandParser();
 
     @Before
     public void init() {
@@ -26,7 +35,10 @@ public class AlbumTest {
     }
 
     @Test
-    public void a(){
+    public void valid_saveToAssets() {
+        assertParseSuccess(parser, "src/main/resources/imageTest/valid/iu.jpg",
+                new ImportCommand(false));
+        Assert.assertThrows(IllegalArgumentException.class, () -> album.saveToAssets(image, ""));
 
     }
 

@@ -322,6 +322,8 @@ Simpler implementation means the likelihood of bugs being introduced is less whe
 
 {empty} +
 
+// tag::ship[]
+
 === Battleship Feature
 ==== Current Implementation
 A battleship is a basic class representing a battleship that can be placed on the map grid. The length of the battleship varies, depending on the type of battleship. There are three types of battleships: +
@@ -427,6 +429,8 @@ Have two separate `Battleship` and `BattleshipPart` objects. The `BattleshipPart
 * **Alternative 2:** `ArrayList` of `Battleship`.
 ** Pros: Easier to implement and provides a cleaner design.
 ** Cons: Harder check position of `Battleship` on the map grid. In order to do so, a separate data structure has to be initialised to store the coordinates and orientation of the battleship. This data structure then has to be aligned with the original `ArrayList` that stores the battleship.
+
+// end::ship[]
 
 // tag::battle[]
 === Battle Feature

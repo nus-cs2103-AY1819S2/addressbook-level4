@@ -225,6 +225,10 @@ public class AddDoctorCommandTest {
         }
 
         @Override
+        public void setPrescription(Prescription target, Prescription editedPrescription) {
+        }
+
+        @Override
         public void deleteMedHist(MedicalHistory target) {
             throw new AssertionError("This method should not be called.");
         }

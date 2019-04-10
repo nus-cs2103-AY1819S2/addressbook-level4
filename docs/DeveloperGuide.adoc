@@ -139,11 +139,6 @@ Each of the four components above:
 * Defines its Application Programming Interface (API) in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[width="800"]
-
 [discrete]
 ==== How the architecture components interact with each other
 
@@ -203,7 +198,10 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`:
 
 * stores a `UserPref` object that represents the user's preferences.
+* stores a `UserInfo` object that represents user's information such as `Course` and `SemLimit`
 * stores the GradTrak data.
+* stores a filtered list of `ModuleInfo`, `RecModule` that represents a list of modules NUS offers
+* stores a `RequirementStatus` that keep tracks of the status of the requirement of the Course
 * exposes an unmodifiable `ObservableList<ModuleTaken>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -222,8 +220,9 @@ image::StorageClassDiagram.png[width="800"]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
+* can save `UserPref`, `UserInfo` objects in json format and read it back.
 * can save the GradTrak data in json format and read it back.
+* can load `ModuleInfo`, `Course` in json format into `Model`.
 
 [[Design-Commons]]
 === Common classes
@@ -367,68 +366,77 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 
 // tag::CourseRequirement[]
-=== Checking whether Course Requirement is fulfilled Feature
-
+=== Display Course Requirement feature
 ==== Current Implementation
-Users are able to check whether they have satisfied course requirements through a function `displayreq`.
-Similar to the implementation of the feature related to `displaymod`, when the application is
-launched, a JSON file containing pre-existing information on courses (either default or pre-defined by users) and their respective course requirement
-will loaded as `Course` objects and `CourseRequirement` interface (`Course` contains multiple `CourseRequirement` interface implementees)
-and stored in an `CourseList` inside of `ModelManager`. While the app does not support adding or removing courses and course requirements,
-users can still define their own course or course requirements by modifying the JSON file.
+The `displayreq` command allows the users to see all their course requirements and also check if the modules they have
+taken fulfils them. This command is currently facilitated by 2 classes in `Model`:
+
+1. `CourseRequirement` - an interface that represents course requirement data in model.
+2. `RequirementStatus` - an association class that links `CourseRequirement` with a list of `ModuleInfoCode` from `ModulesTakenList`. Each `RequirementStatus` class stores a copy of `ModuleInfoCode` from `ModulesTakenList`,
+a `CourseRequirement`, as well as each of the results when functions of `CourseRequirement` acts on the list of `ModuleInfoCode`.
 
 
-We employ the "Composite" design pattern for this class as there are desirable boolean binary operations such as
-"and", "or", that we would like to apply on two different requirements and we would want to regard the "simple" CourseRequirement,
-(one that can be achieved without "and", "or") and a more complicated one (one that can only be achieved with "and", "or") to be the same.
-As such the logical choice would be to make `CourseRequirement` an interface and its implementation is restricted to
-the `PrimitiveRequirement` and `CompositeRequirement` classes.
+`CourseRequirement` interface follows a `Composite` design pattern. It is implemented by 2 classes,
+`PrimitiveRequirement` and `CompositeRequirement`. A `Composite` design pattern is favoured as it allows us to treat
+composition of `CourseRequirement` objects uniformly. This is achieved through the use of polymorphism.
 
-image::CompositeDesignPattern.png[width==800]
+`PrimitiveRequirement` stores a list of `Condition` objects and each `Condition` stores a
+`Pattern` and an `int`, `minToSatisfy`. A `Condition` is satisfied if there are at least `minToSatisfy` distinct
+`ModuleInfoCode` that matches `Pattern` in `Condition`.
 
-As the name suggests,
-`CompositeRequirement` is made up of two other `CourseRequirements`, a `LogicalConnector` enumerations (which is used to represent
-logical binary operators such conjunctions and disjunctions). On the other hand, a `PrimitiveRequirement` is a standalone `CourseRequirement` implementation
-that contains a `Condition` class, which is really a helper class that is used to check whether a list of `ModuleInfoCode` can satisfy the `CourseRequirement`.
-The `Condition` class has the following attribute to decide whether the a condition of `PrimitiveRequirement` is fulfilled, namely one String, Regular Expression,
-and an integer `minToSatisfy`. We will further elaborate the details below.
+`CompositeRequirement` contains two `CourseRequirement` interface objects as well as a `LogicalConnector` enumeration
+to combine two different `CourseRequirement` using logical operations.
 
 There currently 3 ways that `CourseRequirement` provides information to the user:
 
-* `isFulfilled()` -- a method that accepts a list of `ModuleInfoCode` and returns a `boolean` to indicate whether the list of
-`ModuleInfoCode` can satisfy the requirement.
-** For `PrimitiveRequirement`, if the number of distinct `ModuleInfoCode` satisfies the list of Regular Expression pre-defined in
-`Condition` class exceeds `minToSatisfy`, we define the `PrimitiveRequirement` to be satisfied.
-** Similarly, for `CompositeRequirement`, it depends on the `LogicalConnector`; if we have "and", then both `CourseRequirement` must be satisfied
-in order for `CompositeRequirement` to be satisfied and likewise for "or".
-* `percentageFulfilled()` -- a method that also accepts a list of ModuleInfoCode returns a `double` value on the percentage of completion of the
-`CourseRequirement`.
-** For `PrimitiveRequirement` this will be the proportion of distinct modules that satisfy at least one of the regular expression
-divided by `minToSatisfy`.
-** For `CompositeRequirement`, a `LogicalConnector` of "or" wil result in the max of the two requirements whereas for "and", we take average
-of both classes to approximate the degree of completion.
+* `isFulfilled` -- a method that accepts a list of `ModuleInfoCode` and returns a `boolean` to indicate whether the list of
+`ModuleInfoCode` can satisfy the all the `CourseRequirement`
 
-* `getUnfulfilled()` -- a method that accepts a list of `ModuleInfoCode` and returns a list of Strings that matches regular expressions (defined under Condition) of the `ModuleInfoCode`
-that can be used to satisfy the `CourseRequirement`.
+** In `PrimitiveRequirement`, this is achieved by checking whether all the `ModuleInfoCode` satisfies all the
+`Condition` stored in it.
+
+** In `CompositeRequirement`, this is dependent on the `LogicalConnector` it has. It would return the value of
+first `CourseRequirement#isFulfilled` `LogicalConnector` second `CourseRequirement#isFulfilled`.
+
+* `percentageFulfilled` -- a method that also accepts a list of ModuleInfoCode returns a `double` value that represents the
+percentage of completion of the `CourseRequirement`
+** In `PrimitiveRequirement`, this is achieved by calculating the number of distinct modules that satisfy at least
+1 of the `Condition` in the list and divided by the sum of `minToSatisfy`.
+//type something here
+* `getUnfulfilled` -- a method that accepts a list of `ModuleInfoCode` and returns a list of RegExes that none of the
+`ModuleInfoCode` satisfies
+
+The results of above the 3 method is also stored in `RequirementStatus`.
+
+When `displayreq` command is called by the user, the sequence of execution is as follows:
+
+1. `Model#updateRequirementStatusList` is called. This clears the pre-existing `RequirementStatusList`
+and fills it with new `RequirementStatusObject` based on current `Course` and `ModulesTakenList`.
+
+2. `UI` calls `getRequirementStatusList` from `Logic` and retrieves the updated `RequirementStatusList`
+from `Model`. This list is displayed in the `ResultPanel`.
+
 
 ==== Design Considerations
 ===== Aspect: How condition checks whether Course Requirement is fulfilled
-* **Alternative 1 (current choice): Checking Requirement fulfilled by only using `ModuleInfoCode` of
+* **Current choice: Checking Requirement fulfilled by only using `ModuleInfoCode` of
 `ModuleTaken`**
 ** Pros: Easier to implement since we are restricting scope to only checking of strings
-** Cons: There could be 'corner cases' that we left out; actual NUS Course Requirement that we cannot represent by
-merely checking the module code.
+** Cons: There could be corner cases that we left out; actual course requirement that we check by
+only checking the module code.
 
-
-* ** Alternative 2: Checking Requirement fulfilled by accessing any attribute of `ModuleTaken`**
+* ** Alternative: Checking Requirement fulfilled by accessing any attribute of `ModuleTaken`**
 ** Pros: Increased flexibility allows for more powerful expressions and increased usability for users side
-** Cons: More Java classes/coding required (to Separate Responsibilities and Concerns) also means that more tests
+** Cons: More Java classes/coding required also means that more tests
 and storage components for different classes.
 
-Alternative 1 is chosen over alternative 2 because it is much easier to implement in terms of scope.
-Another reason why we chose alternative 1 over alternative 2 is due to the lack of time.
-For most cases, alternative 1 seems to be sufficient.
-However, in the future, we might extend the Condition class to check for other attributes of `ModuleTaken`.
+We chose the current method over the alternative because it is requires much fewer classes to implement
+and is sufficient to cover most cases. It is also more feasible to implement due to the limited amount of time we have.
+
+===== Aspect:
+
+==== Possible Improvements
+
 //end::CourseRequirement[]
 
 //tag::recommend[]

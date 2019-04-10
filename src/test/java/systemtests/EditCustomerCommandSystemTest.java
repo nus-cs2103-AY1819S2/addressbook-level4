@@ -1,8 +1,6 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
-
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
@@ -56,7 +54,6 @@ import seedu.hms.model.customer.Phone;
 import seedu.hms.model.tag.Tag;
 import seedu.hms.testutil.CustomerBuilder;
 import seedu.hms.testutil.CustomerUtil;
-import seedu.hms.testutil.CustomerUtil;
 
 public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTest {
 
@@ -64,7 +61,7 @@ public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTe
     public void edit() {
         CustomerModel model = getModel();
 
-      /* ----------------- Performing edit operation while an unfiltered list is being shown ---------------------- */
+        /* ----------------- Performing edit operation while an unfiltered list is being shown ---------------------- */
 
         /* Case: edit all fields, command with leading spaces, trailing spaces and multiple spaces between each field
          * -> edited
@@ -94,7 +91,7 @@ public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTe
             + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, index, BOB);
 
-      /* Case: edit a customer with new values same as another customer's values but with different name -> edited */
+        /* Case: edit a customer with new values same as another customer's values but with different name -> edited */
         assertTrue(getModel().getHotelManagementSystem().getCustomerList().contains(BOB));
         index = INDEX_SECOND_CUSTOMER;
         assertNotEquals(getModel().getFilteredCustomerList().get(index.getZeroBased()), BOB);
@@ -122,7 +119,7 @@ public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTe
         editedCustomer = new CustomerBuilder(customerToEdit).withTags().build();
         assertCommandSuccess(command, index, editedCustomer);
 
-      /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
+        /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered customer list, edit index within bounds of hms book and customer list -> edited */
         showCustomersWithName(KEYWORD_MATCHING_MEIER);
@@ -141,7 +138,7 @@ public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTe
         assertCommandFailure(EditCustomerCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
             Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
 
-      /* --------------------- Performing edit operation while a customer card is selected ------------------------ */
+        /* --------------------- Performing edit operation while a customer card is selected ------------------------ */
 
         /* Case: selects first card in the customer list, edit a customer -> not edited, card selection remains
         unchanged
@@ -157,7 +154,7 @@ public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTe
         // browser's url is updated to reflect the new customer's name
         assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
 
-      /* --------------------------------- Performing invalid edit operation -------------------------------------- */
+        /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
         /* Case: invalid index (0) -> rejected */
         assertCommandFailure(EditCustomerCommand.COMMAND_WORD + " 0" + NAME_DESC_BOB,
@@ -226,7 +223,7 @@ public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTe
             + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
 
-      /* Case: edit a customer with new values same as another customer's values but with different tag -> rejected*/
+        /* Case: edit a customer with new values same as another customer's values but with different tag -> rejected*/
         command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
             + DATE_OF_BIRTH_DESC_BOB + EMAIL_DESC_BOB + ID_DESC_BOB
             + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;

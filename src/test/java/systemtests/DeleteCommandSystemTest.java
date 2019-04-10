@@ -27,7 +27,7 @@ public class DeleteCommandSystemTest extends HotelManagementSystemSystemTest {
 
     @Test
     public void delete() {
-      /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
+        /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
 
         /* Case: delete the first customer in the list, command with leading spaces and trailing spaces -> deleted */
         CustomerModel expectedModel = getModel();
@@ -57,7 +57,7 @@ public class DeleteCommandSystemTest extends HotelManagementSystemSystemTest {
         Index middleCustomerIndex = getMidIndex(getModel());
         assertCommandSuccess(middleCustomerIndex);
 
-      /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
+        /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered customer list, delete index within bounds of address book and customer list -> deleted */
         showCustomersWithName(KEYWORD_MATCHING_MEIER);
@@ -73,9 +73,9 @@ public class DeleteCommandSystemTest extends HotelManagementSystemSystemTest {
         command = DeleteCustomerCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
 
-      /* --------------------- Performing delete operation while a customer card is selected ---------------------- */
+        /* --------------------- Performing delete operation while a customer card is selected ---------------------- */
 
-      /* Case: delete the selected customer -> customer list panel selects the customer before the deleted customer */
+        /* Case: delete the selected customer -> customer list panel selects the customer before the deleted customer */
         showAllCustomers();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
@@ -86,7 +86,7 @@ public class DeleteCommandSystemTest extends HotelManagementSystemSystemTest {
         expectedResultMessage = String.format(MESSAGE_DELETE_CUSTOMER_SUCCESS, deletedCustomer);
         assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 
-      /* --------------------------------- Performing invalid delete operation ------------------------------------ */
+        /* --------------------------------- Performing invalid delete operation ------------------------------------ */
 
         /* Case: invalid index (0) -> rejected */
         command = DeleteCustomerCommand.COMMAND_WORD + " 0";
@@ -113,10 +113,10 @@ public class DeleteCommandSystemTest extends HotelManagementSystemSystemTest {
     }
 
     /**
-    * Removes the {@code Customer} at the specified {@code index} in {@code model}'s address book.
-    *
-    * @return the removed customer
-    */
+     * Removes the {@code Customer} at the specified {@code index} in {@code model}'s address book.
+     *
+     * @return the removed customer
+     */
     private Customer removeCustomer(CustomerModel model, Index index) {
         Customer targetCustomer = getCustomer(model, index);
         model.deleteCustomer(targetCustomer);
@@ -125,7 +125,7 @@ public class DeleteCommandSystemTest extends HotelManagementSystemSystemTest {
 
     /**
      * Deletes the customer at {@code toDelete} by creating a default {@code DeleteCustomerCommand}
-     using {@code toDelete} and
+     * using {@code toDelete} and
      * performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
      *
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, CustomerModel, String)

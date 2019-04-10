@@ -114,7 +114,7 @@ public class GenerateBillForBookingCommandTest {
     }
 
     @Test
-    public void execute_onlyIndex_zeroKeywords_allAliceBookingBillGenerated() {
+    public void executeOnlyIndexZeroKeywordsAllAliceBookingBillGenerated() {
 
         Customer customer = new CustomerBuilder().build();
 
@@ -147,7 +147,7 @@ public class GenerateBillForBookingCommandTest {
     }
 
     @Test
-    public void execute_index_multipleKeywords_bookingBillGenerated() {
+    public void executeIndexMultipleKeywordsBookingBillGenerated() {
 
         Customer customer = new CustomerBuilder().build();
 

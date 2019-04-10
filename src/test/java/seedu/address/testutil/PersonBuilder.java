@@ -68,13 +68,14 @@ public class PersonBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<SkillsTag>} and set it to the {@code Person} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(Arrays.asList(tags), null, null);
-        return this;
-    }
+    //public PersonBuilder withTags(String ... tags) {
+     //   this.tags = SampleDataUtil.getTagSet(Arrays.asList(tags), null, null);
+     //   return this;
+    //}
 
     /**
-     * Parses the {@code tags} into a {@code Set<SkillsTag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code skills} into a {@code Set<SkillsTag>}, appends any other tags already present
+     * and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withSkills(String ... skills) {
         Set otherTags = this.tags;
@@ -84,7 +85,8 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<SkillsTag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code positions} into a {@code Set<SkillsTag>}, appends any other tags already present
+     * and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withPositions(String ... positions) {
         Set otherTags = this.tags;
@@ -94,7 +96,8 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<SkillsTag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code endorsements} into a {@code Set<SkillsTag>}, appends any other tags already present
+     * and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withEndorsements(String ... endorsements) {
         Set otherTags = this.tags;

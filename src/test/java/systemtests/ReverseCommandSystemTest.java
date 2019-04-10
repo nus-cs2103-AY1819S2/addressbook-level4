@@ -1,6 +1,5 @@
 package systemtests;
 
-import static org.junit.Assert.assertEquals;
 import static seedu.finance.testutil.TypicalRecords.AMY;
 import static seedu.finance.testutil.TypicalRecords.KEYWORD_MATCHING_DONUT;
 

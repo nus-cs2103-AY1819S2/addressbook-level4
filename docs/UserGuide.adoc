@@ -216,7 +216,7 @@ The colour Green, indicates that there is more `7` days till the deadline is due
 
 image::UGDeadlineFar.png[width="300"]
 
-The colour Orange, indicates that you have less than `7` days till it is due. As shown below. +
+The colour Orange, indicates that you have `7` or less days till it is due. As shown below. +
 
 image::UGDeadlineNear.png[width="300"]
 

@@ -1,5 +1,7 @@
 package seedu.address;
 
+import static seedu.address.commons.core.Config.ASSETS_FOLDER_TEMP_NAME;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -47,6 +49,7 @@ public class ResourceWalker {
                 return FileVisitResult.CONTINUE;
             }
         });
+        FileSystems.getFileSystem(uri).close();
     }
 
     /**
@@ -59,7 +62,7 @@ public class ResourceWalker {
         File tempFile = null;
         try {
             InputStream in = Files.newInputStream(path);
-            String tDir = album.getAssetsFilepath();
+            String tDir = System.getProperty("user.dir") + File.separator + ASSETS_FOLDER_TEMP_NAME;
             tempFile = new File(tDir + File.separator + path.getFileName());
             try (FileOutputStream out = new FileOutputStream(tempFile)) {
                 IOUtils.copy(in, out);

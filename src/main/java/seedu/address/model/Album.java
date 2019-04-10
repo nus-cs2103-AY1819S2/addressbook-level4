@@ -94,6 +94,7 @@ public class Album {
         String tempPath = null;
         try {
             String tDir = System.getProperty("user.dir") + File.separator + ASSETS_FOLDER_TEMP_NAME;
+            System.out.println(tDir);
             File assetsFolder = new File(tDir);
             tempPath = assetsFolder.getAbsolutePath() + File.separator;
             if (!assetsFolder.exists()) {

@@ -823,18 +823,34 @@ Examples:
 ////
 // end::viewingInfo[]
 
-== Cloud Functionality [Coming in v2.0]
-To increase data redundancy and reduce the risk of data being lost,
-you will be able to synchronise your data with a cloud account.
-
-== Spell-Checker Functionality [Coming in v2.0]
-
-Automatically correct an improperly typed command(e.g. sirt to sort).
-
 == Patient Teeth per record [Coming in v1.5]
 
 Currently, TeethHub stores and displays the latest teeth image of each patient.
-In v1.5, TeethHub would be able to store and display a teeth image for each record.
+We understand that you may want to see teeth changes over time.
+In v1.5, TeethHub will be able to store and display a teeth image for each record.
+
+== Adding images to records [Coming in v1.6]
+
+Currently, TeethHub is not equipped to accept images from you.
+We understand that you may want to store x-rays of teeth or other relevant images you have taken.
+In v1.6, TeethHub will have a new command for you to upload images.
+
+== Spell-Checker Functionality [Coming in v1.7]
+
+Currently, TeethHub does not have a spell checker.
+It would be great if TeethHub would automatically correct an improperly typed command(e.g. sirt to sort).
+In v1.7, TeethHub will have a spell checker functionality.
+
+== Placeholder [Coming in v1.8]
+
+== Placeholder [Coming in v1.9]
+
+== Cloud Functionality [Coming in v2.0]
+
+Currently, TeethHub is not connected to a cloud.
+To increase data redundancy and reduce the risk of data being lost,
+you should be able to synchronise your data with a cloud account.
+In v2.0, TeethHub will be synchronized with a cloud server.
 
 == Frequently Asked Questions (FAQ)
 

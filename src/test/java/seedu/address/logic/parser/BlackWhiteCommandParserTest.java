@@ -15,7 +15,7 @@ public class BlackWhiteCommandParserTest {
     private BlackWhiteCommandParser parser = new BlackWhiteCommandParser();
 
     @Test
-    public void parse_validArgs_returnsContrastCommand() {
+    public void parse_validArgs_returnsBlackWhiteCommand() {
         assertParseSuccess(parser, " 123", new BlackWhiteCommand(OptionalInt.of(123)));
         assertParseSuccess(parser, " 9", new BlackWhiteCommand(OptionalInt.of(9)));
         assertParseSuccess(parser, "", new BlackWhiteCommand(OptionalInt.empty()));

@@ -66,5 +66,12 @@ public class SavePresetCommand extends Command {
 
         return new CommandResult(Messages.MESSAGE_SAVEPRESET_SUCCESS + " " + toPrint.toString());
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof SavePresetCommand // instanceof handles nulls
+            && (this.presetName.equals(((SavePresetCommand) other).presetName)));
+    }
 }
 /* @@author */

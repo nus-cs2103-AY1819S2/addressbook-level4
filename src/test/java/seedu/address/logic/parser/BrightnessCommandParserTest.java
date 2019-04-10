@@ -15,7 +15,7 @@ public class BrightnessCommandParserTest {
     private BrightnessCommandParser parser = new BrightnessCommandParser();
 
     @Test
-    public void parse_validArgs_returnsContrastCommand() {
+    public void parse_validArgs_returnsBrightnessCommand() {
         assertParseSuccess(parser, " 1.3", new BrightnessCommand(OptionalDouble.of(1.3)));
         assertParseSuccess(parser, "0.5", new BrightnessCommand(OptionalDouble.of(0.5)));
         assertParseSuccess(parser, "", new BrightnessCommand(OptionalDouble.empty()));

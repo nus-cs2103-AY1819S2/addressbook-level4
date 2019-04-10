@@ -7,6 +7,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:source-highlighter: rouge
 :experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -54,7 +55,7 @@ Here are the steps to get you started with using TravelBuddy:
 .  Double-click `travelBuddy.jar` to start the app. TravelBuddy's Graphical User Interface (GUI) should appear in a few seconds.
 +
 .An illustration of how the TravelBuddy GUI looks
-image::Ui.png[width="600"]
+image::Ui.png[width="400"]
 +
 .  Perform a quick test to verify that TravelBuddy works by typing in a command in the command box and press kbd:[Enter] to execute it.
 +
@@ -111,12 +112,11 @@ The code in this section is merely for illustrative purposes. It is kept brief t
 
 === Seeking help: `help`
 
-*Description:* ::
-The `help` command opens up a help page.
+*Description:* The `help` command opens up a help page.
 
-*Shortcut:* :: `he`
+*Shortcut:* `he`
 
-*Format:* :: `help`
+*Format:* `help`
 
 [NOTE]
 The help page will be shown in another window, but you can resize and move it
@@ -128,14 +128,13 @@ A quick alternatvive way to seek help is to hit the kbd:[F1] key.
 // tag::crud[]
 === Adding a place: `add`
 
-*Description:* ::
-The `add` command adds a place to TravelBuddy.
+*Description:* The `add` command adds a place to TravelBuddy.
 
-*Shortcut:* :: `a`
+*Shortcut:* `a`
 
 ****
-*Examples:* ::
-Given below are some examples on how to utilize the `add` command:
+*Examples:* Given below are some examples on how to utilize the `add` command:
+
 * `add n/Botanic Gardens cc/SGP dv/1/1/2017 r/4 d/UNESCO World Heritage Site a/1 Cluny Rd, Singapore 259569 t/nature` +
 Adds Botanic Gardens to the list of places you have visited into TravelBuddy. +
 * `add n/Raffles Hotel cc/SGP dv/5/5/2016 t/hotel d/This place is lovely a/Raffles Road r/5 t/staycation` +
@@ -148,19 +147,18 @@ Adds Raffles Hotel to the list of places you have visited into TravelBuddy.
 [reftext="Figure 4.3.1"]
 [caption="Figure 4.3.1: "]
 .Adding a place to TravelBuddy
-image::addCommand.png[width="600"]
+image::addCommand.png[width="400"]
 
 [TIP]
 A place can have any number of tags (including 0 tags).
 
 === Listing all places: `list`
 
-*Description:* ::
-The `list` command displays a list of all the places in TravelBuddy.
+*Description:* The `list` command displays a list of all the places in TravelBuddy.
 
-*Shortcut:* :: `l`
+*Shortcut:* `l`
 
-*Format:* :: `list`
+*Format:* `list`
 
 [NOTE]
 Calling the `list` command returns a list of all the places in TravelBuddy as shown in <<listFigure>> below.
@@ -169,18 +167,18 @@ Calling the `list` command returns a list of all the places in TravelBuddy as sh
 [reftext="Figure 4.4.1"]
 [caption="Figure 4.4.1: "]
 .Listing all the places in TravelBuddy
-image::listCommand.png[width="600"]
+image::listCommand.png[width="400"]
 
 === Editing a place: `edit`
 
-*Description:* :: The `edit` command edits an existing place in TravelBuddy.
+*Description:* The `edit` command edits an existing place in TravelBuddy.
 
-*Shortcut:* :: `e`
+*Shortcut:* `e`
 
-*Format:* :: `edit INDEX [n/NAME] [cc/COUNTRY_CODE] [dv/DATE_VISITED] [r/RATING] [d/DESCRIPTION] [a/ADDRESS] [t/TAG]...`
+*Format:* `edit INDEX [n/NAME] [cc/COUNTRY_CODE] [dv/DATE_VISITED] [r/RATING] [d/DESCRIPTION] [a/ADDRESS] [t/TAG]...`
 
-*Preconditions:* ::
-Given below is a list of preconditions that must be met for the `edit` command to work:
+*Preconditions:* Given below is a list of preconditions that must be met for the `edit` command to work:
+
 * The command edits the place at the specified `INDEX`. The index refers to the index number shown in the displayed place list. The index *must be a positive integer* 1, 2, 3, ...
 * It must have at least one of the optional fields.
 * Its existing values will be updated to the input values.
@@ -188,8 +186,8 @@ Given below is a list of preconditions that must be met for the `edit` command t
 * The tags can all be removed by typing `t/` without specifying any tags after it.
 
 ****
-*Examples:* ::
-Given below are some examples on how to utilize the `edit` command:
+*Examples:* Given below are some examples on how to utilize the `edit` command:
+
 * `edit 1 r/3 d/No description` +
 Edits the rating and description address of the 1st place to be `3` and `No description` respectively.
 * `edit 2 n/Raffles Hotel t/` +
@@ -202,7 +200,7 @@ Edits the name of the 2nd place to be `Raffles Hotel` and clears all existing ta
 [reftext="Figure 4.5.1"]
 [caption="Figure 4.5.1: "]
 .Before the `edit` command was used
-image::editCommandBefore.png[width="600"]
+image::editCommandBefore.png[width="400"]
 
 <<editFigureAfter>> below shows the list of places after the `edit` command was used.
 [[editFigureAfter]]
@@ -210,20 +208,20 @@ image::editCommandBefore.png[width="600"]
 [reftext="Figure 4.5.2"]
 [caption="Figure 4.5.2: "]
 .After the `edit` command was used
-image::editCommandAfter.png[width="600"]
+image::editCommandAfter.png[width="400"]
 // end::crud[]
 
 // tag::search[]
 === Searching places by name: `search`
 
-*Description:* :: The `search` command searches for places whose names contain any of the given keywords.
+*Description:* The `search` command searches for places whose names contain any of the given keywords.
 
-*Shortcut:* :: `se`
+*Shortcut:* `se`
 
-*Format:* :: `search KEYWORD [MORE_KEYWORDS]`
+*Format:* `search KEYWORD [MORE_KEYWORDS]`
 
-*Preconditions:* ::
-Given below is a list of preconditions that must be met for the `search` command to work:
+*Preconditions:* Given below is a list of preconditions that must be met for the `search` command to work:
+
 * The search is case insensitive. e.g `national` will match `National`.
 * The order of the keywords does not matter. e.g. `University National of Singapore` will match `National University of Singapore`.
 * Only the name of the places in TravelBuddy is searched.
@@ -231,7 +229,7 @@ Given below is a list of preconditions that must be met for the `search` command
 * Places matching at least one keyword will be returned (i.e. `OR` search). e.g. `National Museum` will return `National Museum of Singapore`, `National University Hospital`.
 
 ****
-*Example:* :: `search Singapore` +
+*Example:* `search Singapore` +
 Executes a search for places that contain the keyword `Singapore` in its name. +
 From <<searchFigure>>, using `search Singapore` will return all places in your TravelBuddy that contain `Singapore` in its name. +
 In this case, the following are returned as they contain `Singapore` in their names:
@@ -245,24 +243,24 @@ In this case, the following are returned as they contain `Singapore` in their na
 [reftext="Figure 4.6.1"]
 [caption="Figure 4.6.1: "]
 .Search results of `search Singapore`
-image::UIsearchresults.png[width="600"]
+image::UIsearchresults.png[width="400"]
 
 === Searching places by ratings: `searchr`
 
-*Description:* :: The `searchr` command searches for places whose ratings match the specified rating from 1 to 5. +
+*Description:* The `searchr` command searches for places whose ratings match the specified rating from 1 to 5. +
 
-*Shortcut:* :: `sr`
+*Shortcut:* `sr`
 
-*Format:* :: `searchr INDEX [MORE_INDICES]`
+*Format:* `searchr INDEX [MORE_INDICES]`
 
-*Preconditions:* ::
-Given below is a list of preconditions that must be met for the `searchr` command to work:
+*Preconditions:* Given below is a list of preconditions that must be met for the `searchr` command to work:
+
 * The search rating is from a range of 1 to 5. e.g `5` will return places with 5 star ratings.
 * Only the rating of the places in TravelBuddy is searched.
 * Multiple indices can be included in the query, i.e. `searchr 4 5` will return places with `4` or `5` star ratings.
 
 ****
-*Example:* :: `searchr 4` +
+*Example:* `searchr 4` +
 Executes a search for places with a rating of `4`. +
 From <<searchRatingFigure>>, using `searchr 4` will return all places in your TravelBuddy that have a rating of `4`.
 ****
@@ -271,18 +269,18 @@ From <<searchRatingFigure>>, using `searchr 4` will return all places in your Tr
 [reftext="Figure 4.7.1"]
 [caption="Figure 4.7.1: "]
 .Search results of `searchr 4`
-image::UIsearchratingresults.png[width="600"]
+image::UIsearchratingresults.png[width="400"]
 
 === Searching places by tags: `searcht`
 
-*Description:* :: The `searcht` command searches for places whose tags correspond to any given keywords. +
+*Description:* The `searcht` command searches for places whose tags correspond to any given keywords. +
 
-*Shortcut:* :: `st`
+*Shortcut:* `st`
 
-*Format:* :: `searcht KEYWORD [MORE_KEYWORDS]`
+*Format:* `searcht KEYWORD [MORE_KEYWORDS]`
 
-*Preconditions:* ::
-Given below is a list of preconditions that must be met for the `searcht` command to work:
+*Preconditions:* Given below is a list of preconditions that must be met for the `searcht` command to work:
+
 * The search is case insensitive. e.g `Temple` will match `temple`.
 * Only the tags of the places in TravelBuddy are searched.
 * Only full words will be matched e.g. `temp` will not match `temple`.
@@ -290,7 +288,7 @@ Given below is a list of preconditions that must be met for the `searcht` comman
 * Multiple keywords can be included in the query, i.e. `searcht distillery temple` will return places tagged with `distillery` or `temple`.
 
 ****
-*Example:* :: `searcht distillery` +
+*Example:* `searcht distillery` +
 Executes a search for places that are tagged with `distillery`. +
 From <<searchTagFigure>>, using `searcht distillery` will return all places in your TravelBuddy that are tagged with `distillery`.
 ****
@@ -299,25 +297,25 @@ From <<searchTagFigure>>, using `searcht distillery` will return all places in y
 [reftext="Figure 4.8.1"]
 [caption="Figure 4.8.1: "]
 .Search results of `searcht distillery`
-image::UIsearchtagsresults.png[width="600"]
+image::UIsearchtagsresults.png[width="400"]
 
 === Searching places by country: `searchc`
 
-*Description:* :: The `searchc` command searches for places whose country matches the specified ISO-3166 3-letter country code. +
+*Description:* The `searchc` command searches for places whose country matches the specified ISO-3166 3-letter country code. +
 
-*Shortcut:* :: `sc`
+*Shortcut:* `sc`
 
-*Format:* :: `searchc KEYWORD [MORE_KEYWORDS]`
+*Format:* `searchc KEYWORD [MORE_KEYWORDS]`
 
-*Preconditions:* ::
-Given below is a list of preconditions that must be met for the `searchc` command to work:
+*Preconditions:* Given below is a list of preconditions that must be met for the `searchc` command to work:
+
 * The country code keywords for `searchc` must be valid 3-letter ISO-3166 country codes.
 * The search country is from a list of ISO-3166 country codes. e.g `JPN` will return places located in Japan.
 * Only the country of the places in TravelBuddy is searched.
 * Multiple keywords can be included in the query, i.e. `searchc JPN CHN` will return places located in Japan or China.
 
 ****
-*Example:* :: `searchc JPN` +
+*Example:* `searchc JPN` +
 Executes a search for places located in `JPN` (Japan). +
 From <<searchCountryFigure>>, using `searchc JPN` will return all places in your TravelBuddy that are located in Japan.
 ****
@@ -326,26 +324,26 @@ From <<searchCountryFigure>>, using `searchc JPN` will return all places in your
 [reftext="Figure 4.9.1"]
 [caption="Figure 4.9.1: "]
 .Search results of `searchc JPN`
-image::UIsearchcountryresults.png[width="600"]
+image::UIsearchcountryresults.png[width="400"]
 
 === Searching places by year of visit: `searchyear`
 
-*Description:* :: The `searchyear` command searches for places whose year of visit matches the specified year of interest.
+*Description:* The `searchyear` command searches for places whose year of visit matches the specified year of interest.
 
-*Shortcut:* :: `sy`
+*Shortcut:* `sy`
 
-*Format:* :: `searchyear KEYWORD [MORE_KEYWORDS]` OR +
+*Format:* `searchyear KEYWORD [MORE_KEYWORDS]` OR +
 `searchyear KEYWORD-KEYWORD`
 
-*Preconditions:* ::
-Given below is a list of preconditions that must be met for the `searchyear` command to work:
+*Preconditions:* Given below is a list of preconditions that must be met for the `searchyear` command to work:
+
 * The search year is bounded from 1900 to the current year. e.g `2016` will return places visited in the year 2016.
 * Search requests outside the bounds will issue a warning.
 * The year keywords for `searchyear` can be entered as a range. e.g `2010-2017` will return all the places visited from `2010` to `2017`.
 * Only the year of visit of the places in TravelBuddy is searched.
 
 ****
-*Example:* :: `searchyear 2016` +
+*Example:* `searchyear 2016` +
 Executes a search for places visited in the year `2016`. +
 From <<searchYearFigure>>, using `searchyear 2016` will return all places in your TravelBuddy you visited in the year `2016`.
 ****
@@ -354,20 +352,20 @@ From <<searchYearFigure>>, using `searchyear 2016` will return all places in you
 [reftext="Figure 4.10.1"]
 [caption="Figure 4.10.1: "]
 .Search results of `searchyear 2016`
-image::UIsearchyearresults.png[width="600"]
+image::UIsearchyearresults.png[width="400"]
 // end::search[]
 
 // tag::delete[]
 === Deleting a place: `delete`
 
-*Description:* :: The `delete` command deletes the specified place from TravelBuddy.
+*Description:* The `delete` command deletes the specified place from TravelBuddy.
 
-*Shortcut:* :: `d`
+*Shortcut:* `d`
 
-*Format:* :: `delete INDEX`
+*Format:* `delete INDEX`
 
-*Preconditions:* ::
-Given below is a list of preconditions that must be met for the `delete` command to work:
+*Preconditions:* Given below is a list of preconditions that must be met for the `delete` command to work:
+
 * Deletes the place at the specified `INDEX`.
 * The index refers to the index number shown in the currently displayed list, on the left.
 * The index *must be a positive integer* 1, 2, 3, ...
@@ -378,7 +376,7 @@ Given below is a list of preconditions that must be met for the `delete` command
 [reftext="Figure 4.11.1"]
 [caption="Figure 4.11.1: "]
 .Before the `delete` command was used
-image::deleteCommandBefore.png[width="600"]
+image::deleteCommandBefore.png[width="400"]
 
 <<deleteFigureAfter>> below shows the result of using the `delete` command on the first place of interest.
 
@@ -386,11 +384,11 @@ image::deleteCommandBefore.png[width="600"]
 [reftext="Figure 4.11.2"]
 [caption="Figure 4.11.2: "]
 .After the `delete` command was used
-image::deleteCommandAfter.png[width="600"]
+image::deleteCommandAfter.png[width="400"]
 
 ****
-*Examples:* ::
-Given below are some examples on how to utilize the `delete` command:
+*Examples:* Given below are some examples on how to utilize the `delete` command:
+
 * `list` +
 Lists all the places in TravelBuddy +
 `delete 2` +
@@ -405,12 +403,14 @@ Deletes the 1st place in the results of the `search` command.
 // tag::deleteMultiple[]
 === Deleting multiple places: `deletem`
 
-*Description:* :: The `deletem` command deletes multiple places from TravelBuddy's currently displayed list on the left.
+*Description:* The `deletem` command deletes multiple places from TravelBuddy's currently displayed list on the left.
 
-*Shortcut:* :: `dm`
+*Shortcut:* `dm`
 
-*Preconditions:* ::
-Given below is a list of precondiitions that must be met for the `deletem` command to work:
+*Format:* `deletem START_INDEX END_INDEX`
+
+*Preconditions:* Given below is a list of precondiitions that must be met for the `deletem` command to work:
+
 * Deletes multiple places within a specified range from `START_INDEX` to `END_INDEX`.
 * `START_INDEX` must be smaller than or equal to the last index in the list.
 * Deletem will delete up till the last entry in TravelBuddy if specified `END_INDEX` exceeds the last entry.
@@ -422,11 +422,11 @@ Given below is a list of precondiitions that must be met for the `deletem` comma
 [reftext="Figure 4.12.1"]
 [caption="Figure 4.12.1: "]
 .An example of the `deletem` command
-image::deletemExample.png[width="600"]
+image::deletemExample.png[width="400"]
 
 ****
-*Examples:* ::
-Given below are some examples on how to utilize the `deletem` command:
+*Examples:* Given below are some examples on how to utilize the `deletem` command:
+
 * `list` +
 Lists all the places in TravelBuddy +
 `deletem 1 4` +
@@ -441,15 +441,15 @@ Deletes the 1st, 2nd and 3rd place in the results of the `search Singapore` comm
 // tag::select[]
 === Selecting a place: `select`
 
-*Description:* :: The `select` command selects the place identified by the index number used in the currently displayed list on the left,
+*Description:* The `select` command selects the place identified by the index number used in the currently displayed list on the left,
 which loads expanded details of the selected place on the right of the displayed list.
 
-*Shortcut:* :: `s`
+*Shortcut:* `s`
 
-*Format:* :: `select INDEX`
+*Format:* `select INDEX`
 
-*Preconditions:* ::
-Given below is a list of preconditions that must be met for the `select` command to work:
+*Preconditions:* Given below is a list of preconditions that must be met for the `select` command to work:
+
 * The index refers to the index number to the left of each place name, ie. "4. Jalan Kayu"
 * The index *must be a positive integer* `1, 2, 3, ...`
 
@@ -460,11 +460,11 @@ box and additional information is shown on the right side of the GUI.
 [reftext="Figure 4.13.1"]
 [caption="Figure 4.13.1: "]
 .An example of the `select` command
-image::selectCommand.png[width="600"]
+image::selectCommand.png[width="400"]
 
 ****
-*Examples:* ::
-Given below are some examples on how to utilize the `select` command:
+*Examples:* Given below are some examples on how to utilize the `select` command:
+
 * `list` +
 Lists all the places in TravelBuddy +
 `select 2` +
@@ -479,11 +479,11 @@ Selects the 1st place in the results of the `search` command.
 // tag::history[]
 === Listing previously entered commands: `history`
 
-*Description:* :: The `history` command lists all the commands that you have entered in reverse chronological order. +
+*Description:* The `history` command lists all the commands that you have entered in reverse chronological order. +
 
-*Shortcut:* :: `hi`
+*Shortcut:* `hi`
 
-*Format:* :: `history`
+*Format:* `history`
 
 <<historyFigure>> shows the result of running the `history` command.
 
@@ -491,7 +491,7 @@ Selects the 1st place in the results of the `search` command.
 [reftext="Figure 4.14.1"]
 [caption="Figure 4.14.1: "]
 .An example of the `history` command
-image::historyCommand.png[width="600"]
+image::historyCommand.png[width="400"]
 
 [NOTE]
 ====
@@ -502,11 +502,11 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command: `undo`
 
-*Description:* :: The `undo` command restores TravelBuddy to the state before the previous _undoable_ command was executed. +
+*Description:* The `undo` command restores TravelBuddy to the state before the previous _undoable_ command was executed. +
 
-*Shortcut:* :: `u`
+*Shortcut:* `u`
 
-*Format:* :: `undo`
+*Format:* `undo`
 
 [NOTE]
 ====
@@ -514,8 +514,8 @@ Undoable commands: Commands that modify TravelBuddy's data (`add`, `delete`, `de
 ====
 
 ****
-*Examples:* ::
-Given below are some examples on how to utilize the `undo` command:
+*Examples:* Given below are some examples on how to utilize the `undo` command:
+
 * `delete 1` +
 Deletes the 1st place on the list currently displayed +
 `undo` +
@@ -536,15 +536,15 @@ Reverses the `delete 1` command +
 
 === Redoing the previously undone command: `redo`
 
-*Description:* :: The `redo` command reverses the most recent `undo` command. +
+*Description:* The `redo` command reverses the most recent `undo` command. +
 
-*Shortcut:* :: `r`
+*Shortcut:* `r`
 
-*Format:* :: `redo`
+*Format:* `redo`
 
 ****
-*Examples:* ::
-Given below are some examples on how to utilize the `redo` command:
+*Examples:* Given below are some examples on how to utilize the `redo` command:
+
 * `delete 1` +
 Deletes the 1st place on the list currently displayed +
 `undo` +
@@ -573,106 +573,66 @@ Reapplies the `clear` command +
 // tag::generate[]
 === Generating charts: `generate`
 
-*Description:* ::
-The `generate` command generates charts based on the list of places in TravelBuddy.
+*Description:* The `generate` command generates charts based on the list of places in TravelBuddy. TravelBuddy serves up three charts (<<Chart_Combined>>) that are the most relevant to you as a traveler:
 
-:: TravelBuddy serves up three charts that are the most relevant to you as a traveler:
-* The number of places visited for each country, as seen in <<chart1Figure>>
-* The number of places visited for each rating category, as seen in <<chart2Figure>>
-* The number of places visited for each year, as seen in <<chart3Figure>>
+* The number of places visited for each country
+* The number of places visited for each rating category
+* The number of places visited for each year
 
-[[chart1Figure]]
-[reftext="Figure 4.17.1"]
-[caption="Figure 4.17.1: "]
-.The Number of Places Visited for Each Country
-image::chart1.png[width="600"]
+*Shortcut:* `g`
 
-[[chart2Figure]]
-[reftext="Figure 4.17.2"]
-[caption="Figure 4.17.2: "]
-.The Number of Places Visited for Each Rating Category
-image::chart2.png[width="600"]
+*Format:* `generate`
 
-[[chart3Figure]]
-[reftext="Figure 4.17.3"]
-[caption="Figure 4.17.3: "]
-.The Number of Places Visited for Each Year
-image::chart3.png[width="600"]
+*Preconditions:* Given below is a list of preconditions that must be met for the `generate` command to work:
 
-*Shortcut:* :: `g`
-
-*Format:* :: `generate`
-
-*Preconditions:* ::
-Given below is a list of preconditions that must be met for the `generate` command to work:
 * By default, the charts are automatically generated each time TravelBuddy loads.
-* The `generate` command always triggers the display of all three charts.
+* The `generate` command always triggers the display of all three charts, as seen in <<Chart_Combined>>.
 * The charts always update themselves in real-time. +
-_Example:_ When a place is added via the `add` command, the charts are automatically updated so that no `generate` command is necessary.
-* If the list is empty (<<generateCommand5Figure>>), the `generate` command will not display any charts (<<generateCommand6Figure>>).
-* You can type in any parameters after the `generate` command, TravelBuddy will simply ignore them.
+*_Example:_* When a place is added via the `add` command, the charts are automatically updated so that no `generate` command is necessary.
+* If the list is empty, the `generate` command will not display any charts (<<Generate_ListIsEmpty>>).
+* You can type in any parameters after the `generate` command, TravelBuddy will simply ignore them (<<Generate_BeforeParamAfterParam>>).
 
-****
-*Examples:* ::
-Given below are some examples on how to utilize the `generate` command:
-* `select 1` +
-Selects the 1st place in the current list displayed, as seen in <<generateCommand1Figure>> +
-`generate` +
-Generates the charts, as seen in <<generateCommand2Figure>>  +
-_Outcome:_ The charts were successfully generated, as seen in <<generateCommand3Figure>> +
-* `clear` +
-Clears all places in the list, as seen in <<generateCommand4Figure>> +
-`generate` +
-Generates the charts, as seen in <<generateCommand5Figure>>  +
-_Outcome:_ Unable to generate the charts as the list is empty, as seen in <<generateCommand6Figure>>
-****
+[[Chart_Combined]]
+.The number of places visited by country, rating category and year
+image::Chart_Combined.png[width="800", caption="Figure 4.17.1: ", reftext="Figure 4.17.1"]
 
-[[generateCommand1Figure]]
-[reftext="Figure 4.17.4"]
-[caption="Figure 4.17.4: "]
-.Selects the 1st place in the current list displayed
-image::generateCommand1.png[width="600"]
+[[Generate_BeforeParamAfterParam]]
+.Before and after a parameter was used in the `generate` command
+image::Generate_BeforeParamAfterParam.png[width="800", caption="Figure 4.17.2: ", reftext="Figure 4.17.2"]
 
-[[generateCommand2Figure]]
-[reftext="Figure 4.17.5"]
-[caption="Figure 4.17.5: "]
-.Generates the charts
-image::generateCommand2.png[width="600"]
-
-[[generateCommand3Figure]]
-[reftext="Figure 4.17.6"]
-[caption="Figure 4.17.6: "]
+[[Generate_Successful]]
 .The charts were successfully generated
-image::generateCommand3.png[width="600"]
+image::Generate_Successful.png[width="400", caption="Figure 4.17.3: ", reftext="Figure 4.17.3"]
 
-[[generateCommand4Figure]]
-[reftext="Figure 4.17.7"]
-[caption="Figure 4.17.7: "]
-.Clears all places in the list
-image::generateCommand4.png[width="600"]
-
-[[generateCommand5Figure]]
-[reftext="Figure 4.17.8"]
-[caption="Figure 4.17.8: "]
-.Generates the charts
-image::generateCommand5.png[width="600"]
-
-[[generateCommand6Figure]]
-[reftext="Figure 4.17.9"]
-[caption="Figure 4.17.9: "]
+[[Generate_ListIsEmpty]]
 .Unable to generate the charts as the list is empty
-image::generateCommand6.png[width="600"]
+image::Generate_ListIsEmpty.png[width="400", caption="Figure 4.17.4: ", reftext="Figure 4.17.4"]
+
+****
+*Examples:* Given below are some examples on how to utilize the `generate` command:
+
+* `select 1` +
+Selects the 1st place in the current list displayed. +
+`generate` +
+Generates the charts.  +
+*_Outcome:_* The charts were successfully generated, as seen in <<Generate_Successful>> +
+* `clear` +
+Clears all places in the list. +
+`generate` +
+Generates the charts.  +
+*_Outcome:_* Unable to generate the charts as the list is empty, as seen in <<Generate_ListIsEmpty>>
+****
 
 // end::generate[]
 
 // tag::clear[]
 === Clearing all entries: `clear`
 
-*Description:* :: The `clear` command clears all place entries from TravelBuddy. +
+*Description:* The `clear` command clears all place entries from TravelBuddy. +
 
-*Shortcut:* :: `c`
+*Shortcut:* `c`
 
-*Format:* :: `clear`
+*Format:* `clear`
 
 <<clearFigure>> below shows the results of running a `clear` command, which will remove all places in TravelBuddy.
 
@@ -680,17 +640,17 @@ image::generateCommand6.png[width="600"]
 [reftext="Figure 4.18.1"]
 [caption="Figure 4.18.1: "]
 .The outcome of the `clear` command
-image::clearCommand.png[width="600"]
+image::clearCommand.png[width="400"]
 // end::clear[]
 
 // tag::exit[]
 === Exiting the program: `exit`
 
-*Description:* :: The `exit` command exits the program. +
+*Description:* The `exit` command exits the program. +
 
-*Shortcut:* :: `ex`
+*Shortcut:* `ex`
 
-*Format:* :: `exit`
+*Format:* `exit`
 
 [TIP]
 An alternative way to exit TravelBuddy is to click kbd:[FILE] > kbd:[EXIT], as seen in <<exitFigure>>
@@ -699,7 +659,7 @@ An alternative way to exit TravelBuddy is to click kbd:[FILE] > kbd:[EXIT], as s
 [reftext="Figure 4.19.1"]
 [caption="Figure 4.19.1: "]
 .An alternative way to exit TravelBuddy
-image::exit.png[width="600"]
+image::exit.png[width="400"]
 // end::exit[]
 
 // tag::addphoto[]

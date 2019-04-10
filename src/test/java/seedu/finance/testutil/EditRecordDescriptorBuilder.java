@@ -4,6 +4,7 @@ import seedu.finance.logic.commands.EditCommand;
 import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Date;
+import seedu.finance.model.record.Description;
 import seedu.finance.model.record.Name;
 import seedu.finance.model.record.Record;
 
@@ -31,6 +32,7 @@ public class EditRecordDescriptorBuilder {
         descriptor.setAmount(record.getAmount());
         descriptor.setDate(record.getDate());
         descriptor.setCategory(record.getCategory());
+        descriptor.setDescription(record.getDescription());
     }
 
     /**
@@ -64,6 +66,14 @@ public class EditRecordDescriptorBuilder {
     public EditRecordDescriptorBuilder withCategory(String categoryName) {
         Category category = new Category(categoryName);
         descriptor.setCategory(category);
+        return this;
+    }
+
+    /**
+     * Sets the {@code description} into a {@code EditRecordDescriptor} that we are building
+     */
+    public EditRecordDescriptorBuilder withDescription(String description) {
+        descriptor.setDescription(new Description(description));
         return this;
     }
 

@@ -7,9 +7,12 @@ import static seedu.finance.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
 import static seedu.finance.logic.commands.CommandTestUtil.CATEGORY_DESC_HUSBAND;
 import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.DESCRIPTION_DESC_BOB;
 import static seedu.finance.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
 import static seedu.finance.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
 import static seedu.finance.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.finance.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_BOB;
@@ -34,6 +37,7 @@ import seedu.finance.model.Model;
 import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Date;
+import seedu.finance.model.record.Description;
 import seedu.finance.model.record.Name;
 import seedu.finance.model.record.Record;
 import seedu.finance.testutil.RecordBuilder;
@@ -57,7 +61,7 @@ public class SpendCommandSystemTest extends FinanceTrackerSystemTest {
 
         Record toSpend = AMY;
         String command = "   " + SpendCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "   " + AMOUNT_DESC_AMY + "   "
-                + DATE_DESC_AMY + "   " + CATEGORY_DESC_FRIEND + " ";
+                + DATE_DESC_AMY + "   " + CATEGORY_DESC_FRIEND + "  " + DESCRIPTION_DESC_AMY + "   ";
         assertCommandSuccess(command, toSpend);
 
 
@@ -81,14 +85,15 @@ public class SpendCommandSystemTest extends FinanceTrackerSystemTest {
 
         toSpend = new RecordBuilder(BOB).withName("bread").build();
         command = SpendCommand.COMMAND_ALIAS + " n/bread" + AMOUNT_DESC_BOB
-                + DATE_DESC_BOB + CATEGORY_DESC_HUSBAND;
+                + DATE_DESC_BOB + CATEGORY_DESC_HUSBAND + DESCRIPTION_DESC_BOB;
         assertCommandSuccess(command, toSpend);
 
 
         /* Case: add a record with all fields same as another record in the finance tracker except name -> added */
 
         toSpend = new RecordBuilder(AMY).withName(VALID_NAME_BOB).build();
-        command = SpendCommand.COMMAND_WORD + NAME_DESC_BOB + AMOUNT_DESC_AMY + DATE_DESC_AMY + CATEGORY_DESC_FRIEND;
+        command = SpendCommand.COMMAND_WORD + NAME_DESC_BOB + AMOUNT_DESC_AMY + DATE_DESC_AMY
+                + CATEGORY_DESC_FRIEND + DESCRIPTION_DESC_AMY;
         assertCommandSuccess(command, toSpend);
 
 
@@ -112,7 +117,7 @@ public class SpendCommandSystemTest extends FinanceTrackerSystemTest {
 
         toSpend = BOB;
         command = SpendCommand.COMMAND_WORD + NAME_DESC_BOB + CATEGORY_DESC_HUSBAND
-                + DATE_DESC_BOB + AMOUNT_DESC_BOB;
+                + DATE_DESC_BOB + AMOUNT_DESC_BOB + DESCRIPTION_DESC_BOB;
         assertCommandSuccessExceededBudget(command, toSpend);
 
 
@@ -149,7 +154,7 @@ public class SpendCommandSystemTest extends FinanceTrackerSystemTest {
         /* Case: mixed case command word -> added */
 
         toSpend = new RecordBuilder(BOB).withName("mango").build();
-        command = "spEnD n/mango" + AMOUNT_DESC_BOB + DATE_DESC_BOB + CATEGORY_DESC_HUSBAND;
+        command = "spEnD n/mango" + AMOUNT_DESC_BOB + DATE_DESC_BOB + CATEGORY_DESC_HUSBAND + DESCRIPTION_DESC_BOB;
         assertCommandSuccessExceededBudget(command, toSpend);
 
 
@@ -224,6 +229,12 @@ public class SpendCommandSystemTest extends FinanceTrackerSystemTest {
 
         command = SpendCommand.COMMAND_WORD + NAME_DESC_AMY + AMOUNT_DESC_AMY + DATE_DESC_AMY + INVALID_CATEGORY_DESC;
         assertCommandFailure(command, Category.MESSAGE_CONSTRAINTS);
+
+        /* Case: invalid description -> rejected */
+        command = SpendCommand.COMMAND_WORD + NAME_DESC_AMY + AMOUNT_DESC_AMY + DATE_DESC_AMY + CATEGORY_DESC_FRIEND
+                + INVALID_DESCRIPTION_DESC;
+        assertCommandFailure(command, Description.MESSAGE_CONSTRAINTS);
+
     }
 
 

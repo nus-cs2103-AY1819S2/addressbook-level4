@@ -81,7 +81,7 @@ public class RecordBuilder {
      * Sets the {@code Description} of the {@code Record} that we are building.
      */
     public RecordBuilder withDescription(Description description) {
-        this.description = new Description(description.value);
+        this.description = description;
         return this;
     }
 

@@ -328,37 +328,11 @@ in lowercase (in the above example, it will be shown as `Clothes`)
 * Category name supplied must be https://en.wikipedia.org/wiki/Alphanumeric[alphanumeric]
 and cannot contain special characters such as `:<>;\/|?~^%$#@`
 * If no date is inputted, current local date will be used instead.
+* Description is limited to 40 characters.
 * Order of the different parameters does not matter.
 
 ====
 // end::spend[]
-
-// tag::description[]
-==== Adding a description to an entry: `description`
-
-You can add a description to an existing entry in the records to include details about that particular transactions.
-
-*Alias*: `descr`
-
-*Format*: `description INDEX [r/DESCRIPTION]`
-
-****
-*Examples*:
-
-* `description 1 r/Father's birthday present` +
-Changes the description of entry at index 1 to "Father's birthday present"
-
-* `description 1 r/` +
-Removes the description of entry at index 1
-****
-
-[NOTE]
-====
-* `INDEX` here refers to the index number shown in the displayed records.
-* `INDEX` *must be a positive integer* 1, 2, 3, ...
-* `INDEX` must be within the total number of records that are displayed.
-====
-// end::description[]
 
 // tag::edit[]
 ==== Editing an entry: `edit`
@@ -368,7 +342,7 @@ Index refers to the index number shown in the list.
 
 *Alias*: `e`
 
-*Format*: `edit INDEX [n/NAME] [$/AMOUNT] [d/DATE] [c/CATEGORY]`
+*Format*: `edit INDEX [n/NAME] [$/AMOUNT] [d/DATE] [c/CATEGORY] [r/DESCRIPTION]`
 
 ****
 *Examples*:
@@ -774,8 +748,7 @@ _In-Credit-Ble_  aims to support multi-currency transactions in `v2.0`.
 | Command | Command Format | Alias | Example
 | Add expense | `spend n/NAME $/AMOUNT [d/DATE] c/CATEGORY ... [r/Description]` | `add` | `spend n/movie $/10
   d/16/03/2019 c/Entertainment r/Avengers: Endgame`
-| Add a description to an entry | `description INDEX r/DESCRIPTION` | `descr` | `description 1 d/Father's birthday present`
-| Edit an entry | `edit INDEX [n/NAME] [$/AMOUNT] [d/DATE] [c/CATEGORY]` | `e` | `edit 1 n/burger c/Food`
+| Edit an entry | `edit INDEX [n/NAME] [$/AMOUNT] [d/DATE] [c/CATEGORY] [r/DESCRIPTION]` | `e` | `edit 1 n/burger c/Food`
 | Select an entry | `select INDEX` | `s`, `sel` | `select 3`
 | Delete an entry | `delete INDEX` | `d`, `del` | `delete 2`
 

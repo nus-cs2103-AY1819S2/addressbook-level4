@@ -240,10 +240,9 @@ command shown in the next command
 
 [IMPORTANT]
 ====
-* Take note that you can still spend over the category budget set. The rationale is for you to be able to see
+Take note that you can still spend over the category budget set. The rationale is for you to be able to see
 how much you have exceeded your budget allocated in that category so that you will be able to better plan your
 expenditure in the future.
-*
 ====
 // end::allocate[]
 

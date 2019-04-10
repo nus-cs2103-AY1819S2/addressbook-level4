@@ -449,7 +449,7 @@ However, in the future, we might extend the Condition class to check for other a
 //tag::recommend[]
 === Module recommendation feature
 
-The module recommendation feature displays modules which the user the recommended to take based on existing GradTrak modules
+The module recommendation feature displays modules which the user is recommended to take based on existing GradTrak modules
 and specific course requirements. It generates a list of module codes together with their corresponding titles and requirement
 types satisfied. The entire list is displayed on the Result Panel upon entering the `rec` command.
 
@@ -472,7 +472,7 @@ When the `rec` command is entered, the sequence of execution is as follows:
 .  The `RecModulePredicate` is applied to the `FilteredList` of `RecModule`.
 .. It first tests if the `ModuleInfoCode` (call it `codeToTest`) in a `RecModule` is eligible to be taken,
 using an `EligibleModulePredicate` which takes in `GradTrak`. Those `RecModule` corresponding to `ModuleTaken` in `GradTrak`
-which are already passed or to be taken in a future semester (non-failed modules) are filtered out at this stage.
+which are already passed or to be taken in a future semester (collectively known as non-failed modules) are filtered out at this stage.
 .. The `codeToTest` is then passed into `Course#getCourseReqTypeOf`, which in turn calls `CourseRequirement#canFulfill` for each `CourseRequirement` listed in `Course`.
  A list of `CourseReqType` that the `codeToTest` can satisfy is returned.
 This `courseReqTypeList` is sorted by the priority of `CourseReqType` as defined in the `enum` class: `CORE`, `BD`, `IE`, `FAC`, `GE`, `UE`.

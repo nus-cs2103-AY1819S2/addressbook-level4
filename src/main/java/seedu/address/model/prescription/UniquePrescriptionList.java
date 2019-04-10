@@ -1,6 +1,7 @@
 package seedu.address.model.prescription;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 
@@ -49,6 +50,27 @@ public class UniquePrescriptionList implements Iterable<Prescription> {
         if (!result) {
             throw new PrescriptionNotFoundException();
         }
+    }
+
+    /**
+     * Replaces the prescription {@code target} in the list with {@code editedPrescription}.
+     * {@code target} must exist in the list.
+     * The prescription identity of {@code editedPrescription} must not be the same as another existing prescription
+     * in the list.
+     */
+    public void setPrescription(Prescription target, Prescription editedPrescription) {
+        requireAllNonNull(target, editedPrescription);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new PrescriptionNotFoundException();
+        }
+
+        if (!target.isSamePrescription(editedPrescription) && contains(editedPrescription)) {
+            throw new DuplicatePrescriptionException();
+        }
+
+        internalList.set(index, editedPrescription);
     }
 
     @Override

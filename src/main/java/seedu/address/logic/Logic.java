@@ -13,6 +13,7 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
+import seedu.address.model.prescription.Prescription;
 
 /**
  * API of the Logic component
@@ -42,6 +43,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of medical histories */
     ObservableList<Appointment> getFilteredAppointmentList();
+
+    /** Returns an unmodifiable view of the filtered list of prescriptions */
+    ObservableList<Prescription> getFilteredPrescriptionList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -89,6 +93,14 @@ public interface Logic {
     ReadOnlyProperty<Appointment> selectedAppointmentProperty();
 
     /**
+     * Selected prescription in the filtered prescription list.
+     * null if no prescription is selected.
+     *
+     * @see seedu.address.model.Model#selectedPrescriptionProperty()
+     */
+    ReadOnlyProperty<Prescription> selectedPrescriptionProperty();
+
+    /**
      * Sets the selected patient in the filtered patient list.
      *
      * @see seedu.address.model.Model#setSelectedPatient(Patient)
@@ -102,6 +114,12 @@ public interface Logic {
      */
     void setSelectedMedHist(MedicalHistory medHist);
 
+    /**
+     * Sets the selected medical history in the filtered medHist list.
+     *
+     * @see seedu.address.model.Model#setSelectedPrescription(Prescription)
+     */
+    void setSelectedPrescription(Prescription prescription);
 
     /**
      * Sets the selected appointment in the filtered appointment list.

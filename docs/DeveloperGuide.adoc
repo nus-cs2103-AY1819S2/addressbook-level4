@@ -726,6 +726,25 @@ Use case ends.
 Use case ends.
 
 [discrete]
+=== Use case: Select contact
+
+*MSS*
+
+1. User requests to select a contact.
+2. TheRealApp selects the contact and shows the information of the contact.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given index is invalid.
+[none]
+** 1a1. TheRealApp shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
 === Use case: Display contact list sorted in a specific category
 
 *MSS*
@@ -767,25 +786,6 @@ Use case ends.
 ** 1a1. The RealApp shows an error message.
 +
 Use case resumes from step 1.
-
-[discrete]
-=== Use case: Select contact
-
-*MSS*
-
-1. User requests to select a contact.
-2. TheRealApp selects the contact and shows the information of the contact.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. The given index is invalid.
-[none]
-** 1a1. TheRealApp shows an error message.
-+
-Use case resumes at step 1.
 
 [discrete]
 === Use case: Edit contact
@@ -877,16 +877,7 @@ Use case resumes at step 3.
 *MSS*
 
 1. User requests to clear the contact list.
-2. TheRealApp requests for confirmation.
-3. User confirms the request.
-4. TheRealApp clears the entire contact list.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 3a. User cancels the request.
+2. TheRealApp clears the entire contact list.
 +
 Use case ends.
 
@@ -991,6 +982,25 @@ Use case ends.
 Use case ends.
 
 [discrete]
+=== Use case: Select archived contact
+
+*MSS*
+
+1. User requests to select an archived contact.
+2. TheRealApp selects the contact and shows the information of the archived contact.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given index is invalid.
+[none]
+** 1a1. TheRealApp shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
 === Use case: Find archived contact
 
 *MSS*
@@ -1041,16 +1051,7 @@ Use case resumes at step 3.
 *MSS*
 
 1. User requests to clear the archived contact list.
-2. TheRealApp requests for confirmation.
-3. User confirms the request.
-4. TheRealApp clears the entire archived contact list.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 3a. User cancels the request.
+2. TheRealApp clears the entire archived contact list.
 +
 Use case ends.
 

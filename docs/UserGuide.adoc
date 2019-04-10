@@ -205,7 +205,7 @@ Example:
 
 * `move 1 d/C:\User\Jeremy\Downloads` [Windows Operating System]
 * `move 1 d//Users/jet/Documents/Important` [Mac / Linux Operating System]
-* `move` [Any Operating System]
+* `move 1` [Any Operating System]
 
 === Exiting the program : `exit`
 

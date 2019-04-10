@@ -65,7 +65,8 @@ public class MoveCommand extends Command {
             throw new CommandException(MESSAGE_NOT_MOVED_SAME);
         }
 
-        Pdf editedPdf = new Pdf(pdfToEdit.getName(), movePdfDirectory, pdfToEdit.getSize(), pdfToEdit.getTags());
+        Pdf editedPdf = new Pdf(pdfToEdit.getName(), movePdfDirectory, pdfToEdit.getSize(), pdfToEdit.getTags(),
+                pdfToEdit.getDeadline(), pdfToEdit.getIsEncrypted());
 
         if (editedPdf.isValidPdf()) {
             throw new CommandException(MESSAGE_NOT_MOVED_DUPLICATE, new DuplicatePdfException());

@@ -69,17 +69,17 @@ public class BrowserPanel extends UiPart<Region> {
         for (String position : positions) {
             positionString += " " + position + ",";
         }
-        String trimmedPositionString_1 = trimToSearchFormat1(positionString
+        String trimmedPositionString1 = trimToSearchFormat1(positionString
                 .substring(1, positionString.length() - 1)); //remove final comma
         String searchString1 = SEARCH_PAGE_URL_1 + MUST_INCLUDE + person.firstNameToString() + MUST_INCLUDE + DELIM_1
-                + MUST_INCLUDE + person.surnameToString() + MUST_INCLUDE + DELIM_1 + LINKED_IN + DELIM_1 +
-                trimmedPositionString_1 + FIRST_RESULT;
+                + MUST_INCLUDE + person.surnameToString() + MUST_INCLUDE + DELIM_1 + LINKED_IN + DELIM_1
+                + trimmedPositionString1 + FIRST_RESULT;
         String searchString2 = SEARCH_PAGE_URL_2 + person.firstNameToString() + DELIM_2 + person.surnameToString();
         String searchString3 = SEARCH_PAGE_URL_3 + person.firstNameToString() + DELIM_3 + person.surnameToString()
                 + DELIM_3 + trimToSearchFormat3(positionString.substring(1, positionString.length() - 1));
         String searchString4 = SEARCH_PAGE_URL_1 + MUST_INCLUDE + person.firstNameToString() + MUST_INCLUDE + DELIM_1
-                + MUST_INCLUDE + person.surnameToString() + MUST_INCLUDE + DELIM_1 + LINKED_IN + DELIM_1 +
-                trimToSearchFormat1(positions.get(1) + FIRST_RESULT);
+                + MUST_INCLUDE + person.surnameToString() + MUST_INCLUDE + DELIM_1 + LINKED_IN + DELIM_1
+                + trimToSearchFormat1(positions.get(1) + FIRST_RESULT);
         String searchString5 = SEARCH_PAGE_URL_3 + person.firstNameToString() + DELIM_3 + person.surnameToString()
                 + DELIM_3 + trimToSearchFormat3(positions.get(1));
         System.out.println(searchString);

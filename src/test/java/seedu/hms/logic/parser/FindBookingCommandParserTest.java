@@ -3,7 +3,6 @@ package seedu.hms.logic.parser;
 import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.hms.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.hms.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.hms.testutil.TypicalCustomers.GYM;
 
 import org.junit.Test;
 

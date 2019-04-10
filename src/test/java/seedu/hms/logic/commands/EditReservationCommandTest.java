@@ -39,7 +39,8 @@
 //        EditReservationCommand.EditReservationDescriptor descriptor =
 //            new EditReservationDescriptorBuilder(editedReservation)
 //                .build();
-//        EditReservationCommand editReservationCommand = new EditReservationCommand(INDEX_FIRST_RESERVATION, descriptor);
+//        EditReservationCommand editReservationCommand = new EditReservationCommand(INDEX_FIRST_RESERVATION,
+//        descriptor);
 //
 //        String expectedMessage = String.format(EditReservationCommand.MESSAGE_EDIT_RESERVATION_SUCCESS,
 //            editedReservation);

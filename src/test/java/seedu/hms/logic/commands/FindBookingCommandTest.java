@@ -122,7 +122,7 @@ public class FindBookingCommandTest {
         if ((" ").equals(userInput)) {
             return new BookingWithinTimePredicate(new TimeRange(0, 23));
         }
-        String time[] = userInput.split("-");
+        String[] time = userInput.split("-");
         return new BookingWithinTimePredicate(new TimeRange(Integer.parseInt(time[0]), Integer.parseInt(time[1])));
     }
 

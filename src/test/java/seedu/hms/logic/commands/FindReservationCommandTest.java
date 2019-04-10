@@ -107,6 +107,13 @@ public class FindReservationCommandTest {
         return new ReservationContainsPayerPredicate(userInput);
     }
 
+    /**
+     * Parses {@code userInput} into a {@code ReservationWithTypePredicate}.
+     */
+    private ReservationWithTypePredicate preparePredicateOfType(String userInput) {
+        return new ReservationWithTypePredicate(userInput);
+    }
+
 //    /**
 //     * Parses {@code userInput} into a {@code ReservationWithinTimePredicate}.
 //     */
@@ -119,11 +126,5 @@ public class FindReservationCommandTest {
 // (time[1])));
 //    }
 
-    /**
-     * Parses {@code userInput} into a {@code ReservationWithTypePredicate}.
-     */
-    private ReservationWithTypePredicate preparePredicateOfType(String userInput) {
-        return new ReservationWithTypePredicate(userInput);
-    }
 
 }

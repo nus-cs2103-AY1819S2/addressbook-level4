@@ -186,7 +186,7 @@
 //        EditCustomerCommand.EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder(customer).build();
 //        EditCustomerCommand command = (EditCustomerCommand) parser.parseCommand(
 //            EditCustomerCommand.COMMAND_WORD + " "
-//                + INDEX_FIRST_CUSTOMER.getOneBased() + " " + CustomerUtil.getEditCustomerDescriptorDetails(descriptor),
+//                + INDEX_FIRST_CUSTOMER.getOneBased() + " " + CustomerUtil.getEditCustomerDescriptorDetails(descripto
 //            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
 //        assertEquals(new EditCustomerCommand(INDEX_FIRST_CUSTOMER, descriptor), command);
 //    }
@@ -197,7 +197,7 @@
 //        EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder(customer).build();
 //        EditCustomerCommand commandAlias = (EditCustomerCommand) parser.parseCommand(
 //            EditCustomerCommand.COMMAND_ALIAS + " "
-//                + INDEX_FIRST_CUSTOMER.getOneBased() + " " + CustomerUtil.getEditCustomerDescriptorDetails(descriptor),
+//                + INDEX_FIRST_CUSTOMER.getOneBased() + " " + CustomerUtil.getEditCustomerDescriptorDetails(descripto
 //            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
 //        assertEquals(new EditCustomerCommand(INDEX_FIRST_CUSTOMER, descriptor), commandAlias);
 //    }

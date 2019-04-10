@@ -1,7 +1,27 @@
 package seedu.finance.logic.parser;
 
 import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.finance.logic.commands.CommandTestUtil.*;
+import static seedu.finance.logic.commands.CommandTestUtil.AMOUNT_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.AMOUNT_DESC_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
+import static seedu.finance.logic.commands.CommandTestUtil.CATEGORY_DESC_HUSBAND;
+import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.DESCRIPTION_DESC_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
+import static seedu.finance.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.finance.testutil.TypicalRecords.AMY;
@@ -13,7 +33,11 @@ import org.junit.Test;
 
 import seedu.finance.logic.commands.SpendCommand;
 import seedu.finance.model.category.Category;
-import seedu.finance.model.record.*;
+import seedu.finance.model.record.Amount;
+import seedu.finance.model.record.Date;
+import seedu.finance.model.record.Description;
+import seedu.finance.model.record.Name;
+import seedu.finance.model.record.Record;
 import seedu.finance.testutil.RecordBuilder;
 
 public class SpendCommandParserTest {
@@ -92,7 +116,7 @@ public class SpendCommandParserTest {
                 + INVALID_CATEGORY_DESC, Category.MESSAGE_CONSTRAINTS);
 
         //invalid description
-        assertParseFailure(parser,NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
+        assertParseFailure(parser, NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
                 + CATEGORY_DESC_FRIEND + INVALID_DESCRIPTION_DESC, Description.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported

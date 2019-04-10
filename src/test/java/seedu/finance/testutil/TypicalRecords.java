@@ -1,5 +1,16 @@
 package seedu.finance.testutil;
 
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,8 +19,6 @@ import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.budget.TotalBudget;
 import seedu.finance.model.record.Description;
 import seedu.finance.model.record.Record;
-
-import static seedu.finance.logic.commands.CommandTestUtil.*;
 
 /**
  * A utility class containing a list of {@code Record} objects to be used in tests.

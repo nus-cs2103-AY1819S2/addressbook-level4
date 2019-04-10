@@ -1,7 +1,24 @@
 package systemtests;
 
 import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.finance.logic.commands.CommandTestUtil.*;
+import static seedu.finance.logic.commands.CommandTestUtil.AMOUNT_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.AMOUNT_DESC_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
+import static seedu.finance.logic.commands.CommandTestUtil.CATEGORY_DESC_HUSBAND;
+import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.DESCRIPTION_DESC_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.finance.testutil.TypicalRecords.AMY;
 import static seedu.finance.testutil.TypicalRecords.BOB;
 import static seedu.finance.testutil.TypicalRecords.CAP;
@@ -18,7 +35,11 @@ import seedu.finance.logic.commands.SpendCommand;
 import seedu.finance.logic.commands.UndoCommand;
 import seedu.finance.model.Model;
 import seedu.finance.model.category.Category;
-import seedu.finance.model.record.*;
+import seedu.finance.model.record.Amount;
+import seedu.finance.model.record.Date;
+import seedu.finance.model.record.Description;
+import seedu.finance.model.record.Name;
+import seedu.finance.model.record.Record;
 import seedu.finance.testutil.RecordBuilder;
 import seedu.finance.testutil.RecordUtil;
 
@@ -210,7 +231,7 @@ public class SpendCommandSystemTest extends FinanceTrackerSystemTest {
         assertCommandFailure(command, Category.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid description -> rejected */
-        command = SpendCommand.COMMAND_WORD + NAME_DESC_AMY + AMOUNT_DESC_AMY + DATE_DESC_AMY +CATEGORY_DESC_FRIEND
+        command = SpendCommand.COMMAND_WORD + NAME_DESC_AMY + AMOUNT_DESC_AMY + DATE_DESC_AMY + CATEGORY_DESC_FRIEND
                 + INVALID_DESCRIPTION_DESC;
         assertCommandFailure(command, Description.MESSAGE_CONSTRAINTS);
 

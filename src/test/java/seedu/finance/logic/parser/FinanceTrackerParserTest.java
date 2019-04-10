@@ -7,7 +7,6 @@ import static seedu.finance.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_NAME;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.finance.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.finance.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
 
 import java.util.Arrays;
@@ -37,7 +36,6 @@ import seedu.finance.logic.commands.SummaryCommand;
 import seedu.finance.logic.commands.UndoCommand;
 import seedu.finance.logic.parser.comparator.RecordNameComparator;
 import seedu.finance.logic.parser.exceptions.ParseException;
-import seedu.finance.model.record.Description;
 import seedu.finance.model.record.NameContainsKeywordsPredicate;
 import seedu.finance.model.record.Record;
 import seedu.finance.testutil.EditRecordDescriptorBuilder;

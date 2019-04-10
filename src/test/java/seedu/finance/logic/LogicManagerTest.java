@@ -3,7 +3,12 @@ package seedu.finance.logic;
 import static org.junit.Assert.assertEquals;
 import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_RECORD_DISPLAYED_INDEX;
 import static seedu.finance.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.finance.logic.commands.CommandTestUtil.*;
+import static seedu.finance.logic.commands.CommandTestUtil.AMOUNT_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
+import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND;
 import static seedu.finance.testutil.TypicalRecords.AMY;
 
 import java.io.IOException;

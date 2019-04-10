@@ -1,11 +1,14 @@
 package seedu.finance.testutil;
 
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_NAME;
+
 import seedu.finance.logic.commands.EditCommand.EditRecordDescriptor;
 import seedu.finance.logic.commands.SpendCommand;
 import seedu.finance.model.record.Record;
-
-import static seedu.finance.logic.parser.CliSyntax.*;
-
 
 /**
  * A utility class for Record.

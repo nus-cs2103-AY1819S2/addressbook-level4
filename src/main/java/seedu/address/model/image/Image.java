@@ -64,7 +64,6 @@ public class Image {
         commandHistory = new ArrayList<>();
         index = 0;
         this.hasWaterMark = false;
-        System.out.println(this.toString());
     }
 
     public Image(File file) {
@@ -86,7 +85,6 @@ public class Image {
         commandHistory = new ArrayList<>();
         index = 0;
         this.hasWaterMark = false;
-        System.out.println(this.toString());
     }
 
     public Height getHeight() {
@@ -123,6 +121,7 @@ public class Image {
 
     /**
      * This method changes the hasWaterMark field so that it reflects the current state of the tempImage.
+     *
      * @param x the new value to set
      */
     public void setWaterMark(boolean x) {
@@ -229,8 +228,6 @@ public class Image {
                 .append(getWidth())
                 .append("\nFormat: ")
                 .append(getFileType())
-                .append("\nURL: ")
-                .append(getUrl())
                 .append("\n====================");
         return builder.toString();
     }

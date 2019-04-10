@@ -53,6 +53,19 @@
 //            System.out.println(e.toString());
 //        }
 //    }
+//    @Test
+//    public void execute_invalidArgs_fail() {
+//        try {
+//            ResizeCommandParser parser = new ResizeCommandParser();
+//            ResizeCommand command = parser.parse(" 9999 9999");
+//            String expectedMessage = Messages.MESSAGE_RESIZE_VALUES_TOO_LARGE;
+//            assertCommandFailure(command, model, commandHistory, expectedMessage, currentEdit);
+//        } catch (Exception e) {
+//            System.out.println(e.toString());
+//        }
+//
+//
+//    }
 //    @After
 //    public void clearAlbum() {
 //        Album album = Album.getInstance();

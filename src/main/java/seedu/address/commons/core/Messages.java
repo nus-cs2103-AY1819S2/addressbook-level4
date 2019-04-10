@@ -48,4 +48,5 @@ public class Messages {
     public static final String MESSAGE_CLEAR_SUCCESS = "Album has been cleared!";
     public static final String MESSAGE_WATERMARK_SUCCESS = "Watermark created.";
     public static final String MESSAGE_HAS_WATERMARK = "A watermark has been added to this image already.";
+    public static final String MESSAGE_RESIZE_VALUES_TOO_LARGE = "The resultant image is too large.";
 }

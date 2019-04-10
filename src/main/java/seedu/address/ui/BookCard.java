@@ -45,7 +45,9 @@ public class BookCard extends UiPart<Region> {
         this.book = book;
         id.setText(displayedIndex + ". ");
         name.setText(book.getBookName().fullName);
+        name.setWrapText(true);
         author.setText(book.getAuthor().fullName);
+        author.setWrapText(true);
         rating.setText("Rating:  " + book.getRating().value);
         initTags(book);
     }

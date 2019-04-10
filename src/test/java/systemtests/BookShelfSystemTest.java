@@ -264,7 +264,7 @@ public abstract class BookShelfSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getBookListPanel(), getModel().getFilteredBookList());
-        // assertEquals(BookBrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        // assertEquals(ReviewBrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
             getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

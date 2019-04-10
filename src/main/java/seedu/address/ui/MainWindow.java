@@ -113,7 +113,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     public void fillInnerParts() {
-        BookBrowserPanel browserPanel = new BookBrowserPanel(logic.selectedReviewProperty());
+        ReviewBrowserPanel browserPanel = new ReviewBrowserPanel(logic.selectedReviewProperty());
 
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 

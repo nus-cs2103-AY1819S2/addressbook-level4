@@ -3,6 +3,7 @@ package quickdocs.ui;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
@@ -85,17 +86,17 @@ public class ReminderListPanel extends UiPart<Region> {
             } else {
                 setGraphic(new ReminderCard(reminder, getIndex() + 1).getRoot());
                 String title = reminder.getTitle();
-                LocalTime end = reminder.getEnd();
+                Optional<LocalTime> end = Optional.ofNullable(reminder.getEnd());
                 String comment = reminder.getComment();
 
                 if (title.startsWith("Appointment with ")
-                        && end != null
+                        && end.isPresent()
                         && !comment.isEmpty()) {
                     // Reminder is for an appointment
                     setStyle("-fx-control-inner-background: " + APPOINTMENT_BACKGROUND + ";");
                 } else if (title.startsWith("Quantity of ")
                         && title.endsWith(" is low.")
-                        && end == null
+                        && !end.isPresent()
                         && !comment.isEmpty()) {
                     // Reminder is for low medicine
                     setStyle("-fx-control-inner-background: " + MEDICINE_BACKGROUND + ";");

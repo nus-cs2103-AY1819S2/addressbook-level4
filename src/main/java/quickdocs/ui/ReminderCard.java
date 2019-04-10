@@ -1,5 +1,8 @@
 package quickdocs.ui;
 
+import java.time.LocalTime;
+import java.util.Optional;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
@@ -37,11 +40,38 @@ public class ReminderCard extends UiPart<Region> {
         super(FXML);
         this.reminder = reminder;
         id.setText(displayedIndex + ". ");
-        title.setText(reminder.getTitle());
+        setTitle(reminder);
         title.setStyle("-fx-font-weight: bold;" + "-fx-font-size: 14px");
         date.setText(reminder.getDate().toString());
-        time.setText(reminder.getStart().toString());
+        setTime(reminder);
         comment.setText(reminder.getComment());
+    }
+
+    /**
+     * Initialises the text of {@code Label time} given the {@code Reminder}.
+     *
+     * @param reminder the {@code Reminder} to initialise the time
+     */
+    private void setTime(Reminder reminder) {
+        LocalTime start = reminder.getStart();
+        String time = start.toString();
+        Optional<LocalTime> end = Optional.ofNullable(reminder.getEnd());
+        if (end.isPresent()) {
+            time += " to "
+                    + end.get().toString();
+        }
+        this.time.setText(time);
+    }
+
+    /**
+     * Initialises the text of {@code Label title} given the {@code Reminder}.
+     *
+     * @param reminder the {@code Reminder} to initialise the title
+     */
+    private void setTitle(Reminder reminder) {
+        String title = reminder.getTitle();
+        title = title.replace("Appointment", "Apt");
+        this.title.setText(title);
     }
 
     @Override

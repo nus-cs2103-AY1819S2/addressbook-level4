@@ -30,6 +30,7 @@ public class RecordUtil {
         sb.append(PREFIX_AMOUNT + record.getAmount().toString() + " ");
         sb.append(PREFIX_DATE + record.getDate().toString() + " ");
         sb.append(PREFIX_CATEGORY + record.getCategory().toString() + " ");
+        sb.append(PREFIX_DESCRIPTION + record.getDescription().toString() + " ");
         return sb.toString();
     }
 

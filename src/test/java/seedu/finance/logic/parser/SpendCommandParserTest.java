@@ -1,24 +1,7 @@
 package seedu.finance.logic.parser;
 
 import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.finance.logic.commands.CommandTestUtil.AMOUNT_DESC_AMY;
-import static seedu.finance.logic.commands.CommandTestUtil.AMOUNT_DESC_BOB;
-import static seedu.finance.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
-import static seedu.finance.logic.commands.CommandTestUtil.CATEGORY_DESC_HUSBAND;
-import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_AMY;
-import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_BOB;
-import static seedu.finance.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
-import static seedu.finance.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
-import static seedu.finance.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
-import static seedu.finance.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.finance.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
-import static seedu.finance.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
-import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND;
-import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_BOB;
-import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.*;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.finance.testutil.TypicalRecords.AMY;
@@ -45,23 +28,23 @@ public class SpendCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
-                + CATEGORY_DESC_FRIEND, new SpendCommand(expectedRecord));
+                + CATEGORY_DESC_FRIEND + DESCRIPTION_DESC_BOB, new SpendCommand(expectedRecord));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
-                + CATEGORY_DESC_FRIEND, new SpendCommand(expectedRecord));
+                + CATEGORY_DESC_FRIEND + DESCRIPTION_DESC_BOB, new SpendCommand(expectedRecord));
 
         // multiple amounts - last amount accepted
         assertParseSuccess(parser, NAME_DESC_BOB + AMOUNT_DESC_AMY + AMOUNT_DESC_BOB + DATE_DESC_BOB
-                + CATEGORY_DESC_FRIEND, new SpendCommand(expectedRecord));
+                + CATEGORY_DESC_FRIEND + DESCRIPTION_DESC_BOB, new SpendCommand(expectedRecord));
 
         // multiple dates - last date accepted
         assertParseSuccess(parser, NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_AMY + DATE_DESC_BOB
-                + CATEGORY_DESC_FRIEND, new SpendCommand(expectedRecord));
+                + CATEGORY_DESC_FRIEND + DESCRIPTION_DESC_BOB, new SpendCommand(expectedRecord));
 
         // multiple categories - last category accepted
         assertParseSuccess(parser, NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
-                        + CATEGORY_DESC_HUSBAND + CATEGORY_DESC_FRIEND,
+                        + CATEGORY_DESC_HUSBAND + DESCRIPTION_DESC_BOB + CATEGORY_DESC_FRIEND,
                 new SpendCommand(expectedRecord));
     }
 
@@ -69,8 +52,8 @@ public class SpendCommandParserTest {
     public void parse_optionalDateFieldMissing_success() {
         Date date = new Date(LocalDate.now());
         Record expectedRecord = new RecordBuilder(AMY).withDate(date.toString()).build();
-        assertParseSuccess(parser, NAME_DESC_AMY + AMOUNT_DESC_AMY + CATEGORY_DESC_FRIEND,
-                new SpendCommand(expectedRecord));
+        assertParseSuccess(parser, NAME_DESC_AMY + AMOUNT_DESC_AMY + CATEGORY_DESC_FRIEND
+                + DESCRIPTION_DESC_AMY, new SpendCommand(expectedRecord));
     }
 
     @Test

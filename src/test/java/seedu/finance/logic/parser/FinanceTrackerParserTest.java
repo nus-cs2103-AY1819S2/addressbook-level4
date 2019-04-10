@@ -21,7 +21,6 @@ import org.junit.rules.ExpectedException;
 import seedu.finance.logic.commands.AllocateCommand;
 import seedu.finance.logic.commands.ClearCommand;
 import seedu.finance.logic.commands.DeleteCommand;
-import seedu.finance.logic.commands.DescriptionCommand;
 import seedu.finance.logic.commands.EditCommand;
 import seedu.finance.logic.commands.ExitCommand;
 import seedu.finance.logic.commands.HelpCommand;
@@ -110,21 +109,6 @@ public class FinanceTrackerParserTest {
         assertEquals(new DeleteCommand(INDEX_FIRST_RECORD), command);
     }
 
-    @Test
-    public void parseCommand_description() throws Exception {
-        final Description description = new Description("Some description.");
-        DescriptionCommand command = (DescriptionCommand) parser.parseCommand(DescriptionCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_RECORD.getOneBased() + " " + PREFIX_DESCRIPTION + description.value);
-        assertEquals(new DescriptionCommand(INDEX_FIRST_RECORD, description), command);
-    }
-
-    @Test
-    public void parseCommand_descriptionAlias() throws Exception {
-        final Description description = new Description("Some description.");
-        DescriptionCommand command = (DescriptionCommand) parser.parseCommand(DescriptionCommand.COMMAND_ALIAS + " "
-                + INDEX_FIRST_RECORD.getOneBased() + " " + PREFIX_DESCRIPTION + description.value);
-        assertEquals(new DescriptionCommand(INDEX_FIRST_RECORD, description), command);
-    }
 
     @Test
     public void parseCommand_edit() throws Exception {

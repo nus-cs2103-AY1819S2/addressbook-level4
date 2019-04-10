@@ -24,8 +24,8 @@ import seedu.address.model.cell.Status;
  */
 public class Enemy extends Player {
 
-    private static final Random randGen = new Random();
-    private static final Random randGen2 = new Random();
+    private static final Random randGen = new Random(123);
+    private static final Random randGen2 = new Random(321);
     private static final Logger logger = LogsCenter.getLogger(Enemy.class);
 
 
@@ -327,17 +327,17 @@ public class Enemy extends Player {
                     modeCleanup(updatedCoord);
                 }
             }
-            if (oldRow + 1 < mapSize) {
-                //add cardinal SOUTH to watchlist  ROW PLUS ONE
-                updatedCoord = new Coordinates(oldRow + 1, oldCol);
+            if (oldCol - 1 >= 0) {
+                //add cardinal WEST to watchlist   COL MINUS ONE
+                updatedCoord = new Coordinates(oldRow, oldCol - 1);
                 if (isValidCardinal(updatedCoord)) {
                     watchlist.push(updatedCoord);
                     modeCleanup(updatedCoord);
                 }
             }
-            if (oldCol - 1 >= 0) {
-                //add cardinal WEST to watchlist   COL MINUS ONE
-                updatedCoord = new Coordinates(oldRow, oldCol - 1);
+            if (oldRow + 1 < mapSize) {
+                //add cardinal SOUTH to watchlist  ROW PLUS ONE
+                updatedCoord = new Coordinates(oldRow + 1, oldCol);
                 if (isValidCardinal(updatedCoord)) {
                     watchlist.push(updatedCoord);
                     modeCleanup(updatedCoord);

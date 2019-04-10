@@ -258,9 +258,13 @@ the UI automatically updates when the data in the list change.
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `TravelBuddy`, which `Place` can reference. This would allow `TravelBuddy` to only require one `Tag` object per unique `Tag`, instead of each `Place` needing their own `Tag` object. An
- example of how such a model may look like is given below. +
+ example of how such a model may look like is seen in <<ModelClassBetterOopDiagram>>. +
  +
-image:ModelClassBetterOopDiagram.png[width="800"]
+[[ModelClassBetterOopDiagram]]
+[reftext="Figure 3.4.2"]
+[caption="Figure 3.4.2: "]
+.OOP Class Diagram
+image::ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage Component
@@ -283,7 +287,9 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.travel.commons` package.
 
+// tag::implementation[]
 == Implementation
+// end::implementation[]
 
 This section describes some noteworthy details on how certain features are implemented.
 
@@ -733,7 +739,7 @@ The command `add` is in lower-case. Mixed-case or upper-case commands are not re
 ** Cons: Tedious process of typing out country codes in the data structure.
 // end::countrycode[]
 
-// tag::generate[]
+// tag::chartFeature[]
 === Chart Feature
 
 The Chart feature displays to users three different charts in TravelBuddy. They are:
@@ -749,29 +755,29 @@ Instead of typing `generate`, you can simply type the shortcut `g`.
 
 ==== Current Implementation
 
-*Logic:* :: The `generate` mechanism is executed by `GenerateCommand`, which extends from `Command`. A code snippet is shown below:
+*Logic:* The `generate` mechanism is executed by `GenerateCommand`, which extends from `Command`. A code snippet is shown below:
 
 [source,java]
 ----
 include::{sourceDir}/seedu/travel/logic/commands/GenerateCommand.java[tags=execute,indent=1]
 ----
 
-:: The operations implemented are:
+The operations implemented are:
+
 * `GenerateCommand#setChartDisplayed(chartDisplayed)` - Signals to the UI to display the charts.
 * `GenerateCommand#commitTravelBuddy()` - Saves the current TravelBuddy state from its history.
 * `GenerateCommand#getFilteredPlaceList()` - Verifies if the list is empty.
 
-:: These operations are exposed in the `Model` interface as `Model#setChartDisplayed(chartDisplayed)`, `Model#commitTravelBuddy()` and `Model#getFilteredPlaceList()`.
+These operations are exposed in the `Model` interface as `Model#setChartDisplayed(chartDisplayed)`, `Model#commitTravelBuddy()` and `Model#getFilteredPlaceList()`.
 
-*Model:* :: The chart generation mechanism is facilitated by `VersionedTravelBuddy`, which extends from `TravelBuddy`, as seen in the Model Class Diagram in <<ModelClassDiagram>>.
+*Model:* The chart generation mechanism is facilitated by `VersionedTravelBuddy`, which extends from `TravelBuddy`, as seen in the Model Class Diagram in <<ModelClassDiagram>>.
 
 [[chartOopDiagramFigure]]
-[reftext="Figure 4.4.3"]
-[caption="Figure 4.4.3: "]
 .OOP Diagram
-image::Chart_ModelClassBetterOopDiagram.png[width="600"]
+image::Chart_ModelClassBetterOopDiagram.png[width="600", caption="Figure 4.4.1: ", reftext="Figure 4.4.1"]
 
-:: For this section on Charts, the focus is on the <<class-diagram, class diagram>> as seen in <<chartOopDiagramFigure>>. The step-by-step explanation of the class diagram can be found below:
+For this section on Charts, the focus is on the <<class-diagram, class diagram>> as seen in <<chartOopDiagramFigure>>. The step-by-step explanation of the class diagram can be found below:
+
 . The `ModelManager` is a container for a `VersionedTravelBuddy` object.
 . VersionedTravelBuddy consists of a `UniquePlaceList` object.
 . `UniquePlaceList` is a container for one or more `ChartBook` objects and for one or more `Place` object.
@@ -779,36 +785,33 @@ image::Chart_ModelClassBetterOopDiagram.png[width="600"]
 . `countryChartList` is a container for one or more `CountryChart` objects. Similarly, `ratingChartList` is a container for one or more `RatingChart` objects and `yearChartList` is a container for one or more `YearChart` objects.
 . `CountryChart` consists of a `CountryCode` object and a `Total` object. Similarly, `RatingChart` consists of a `Rating` object and a `Total` object and `YearChart` consists of a `Year` object and a `Total` object.
 
-*Logic & Model Interaction:* :: Having discussed Logic and Model, we can now model the workflow of the `generate` command. This can be accomplished using an <<activity-diagram, activity diagram>>, as seen in <<GenerateCommandActivityDiagramFigure>> below.
+*Logic & Model Interaction:* Having discussed Logic and Model, we can now model the workflow of the `generate` command. This can be accomplished using an <<activity-diagram, activity diagram>>, as seen in <<GenerateCommandActivityDiagram>>.
 
-[[GenerateCommandActivityDiagramFigure]]
-[reftext="Figure 4.4.1"]
-[caption="Figure 4.4.1: "]
-.Activity Diagram for the `generate` command
-image::GenerateCommandActivityDiagram.png[width="600"]
-
-:: Additionally, we want to be able to capture the interaction between multiple objects for the `generate` command. This can be accomplished using a <<sequence-diagram, sequence diagram>>, as seen in <<GenerateCommandSeqDiagramFigure>> below. The step-by-step explanation of the sequence diagram is as follows:
+Additionally, we want to be able to capture the interaction between multiple objects for the `generate` command. This can be accomplished using a <<sequence-diagram, sequence diagram>>, as seen in <<GenerateCommandSeqDiagramFigure>> below. The step-by-step explanation of the sequence diagram is as follows:
 
 . The user enters the command `generate` without any parameters.
 . The command is processed by the Logic component, which will then call `LogicManager#execute()`.
-. The `GenerateCommand#execute()` method s invoked.
+. The `GenerateCommand#execute()` method is invoked.
 . The `Model#setChartDisplayed()` method is invoked with the argument `true`. The `Model#commitTravelBuddy()` method is also invoked.
 . The `TravelBuddy#commitTravelBuddy()` method is invoked by `Model`.
 . The `ChartBook#commitChart()` method is invoked by `TravelBuddy`.
 . A result object is returned.
 
-[[GenerateCommandSeqDiagramFigure]]
-[reftext="Figure 4.4.2"]
-[caption="Figure 4.4.2: "]
-.Sequence Diagram for the `generate` command
-image::GenerateCommandSeqDiagram.png[width="600"]
+[[GenerateCommandActivityDiagram]]
+.Activity Diagram for the `generate` command
+image::GenerateCommandActivityDiagram.png[width="400", caption="Figure 4.4.2: ", reftext="Figure 4.4.2"]
 
-*Storage:* :: The Chart's storage is handled by `JsonChartBookStorage`, which implements from `ChartBookStorage`. The three main methods it implement are:
+[[GenerateCommandSeqDiagramFigure]]
+.Sequence Diagram for the `generate` command
+image::GenerateCommandSeqDiagram.png[width="700", caption="Figure 4.4.3: ", reftext="Figure 4.4.3"]
+
+*Storage:* The Chart's storage is handled by `JsonChartBookStorage`, which implements from `ChartBookStorage`. The three main methods it implement are:
+
 * `saveCountryChart(filePath)` - Saves the countries data into a JSON file.
 * `saveRatingChart(filePath)` - Saves the ratings data into a JSON file.
 * `saveYearChart(filePath)` - Saves the years data into a JSON file.
 
-:: A code snippet for `saveCountryChart(filePath)` is shown below. A third-party library called Gson was used to convert Java Objects into JSON and back. The Gson API can be found https://www.javadoc.io/doc/com.google.code.gson/gson/2.8.5[here].
+A code snippet for `saveCountryChart(filePath)` is shown below. A third-party library called Gson was used to convert Java Objects into JSON and back. The Gson API can be found https://www.javadoc.io/doc/com.google.code.gson/gson/2.8.5[here].
 
 [source,java]
 ----
@@ -817,8 +820,8 @@ include::{sourceDir}/seedu/travel/storage/JsonChartBookStorage.java[tags=saveCou
 
 ==== Generate Command
 
-*Preconditions:* ::
-Given below is a list of preconditions that must be met for the `generate` command to work:
+*Preconditions:* Given below is a list of preconditions that must be met for the `generate` command to work:
+
 * By default, the charts are automatically generated each time TravelBuddy loads.
 * The `generate` command always triggers the display of all three charts.
 * The charts always update themselves in real-time. +
@@ -826,38 +829,19 @@ _Example:_ When a place is added via the `add` command, the charts are automatic
 * The chart will not display anything when the list is empty.
 * You can type in any parameters after the `generate` command, TravelBuddy will simply ignore them.
 
-*Example:* ::
-Given below is an example usage scenario and what the user will see in the GUI.
+*Example:* Given below is an example usage scenario and what the user will see in the GUI.
 
-:: *Step 1:* By default, the charts are displayed when TravelBuddy launches. To navigate away from the charts, type in `select 1`, as seen in <<generateCommand1>>. +
-*Outcome:* The first place in the place list will be selected and displayed on the right-hand side of the panel, as shown in <<generateCommand2>>.
+*Step 1:* By default, the charts are displayed when TravelBuddy launches. To navigate away from the charts, type in `select 1`.+
+*Outcome:* The first index in the place list will be selected and displayed on the right-hand side of the panel..
 
-[[generateCommand1]]
-[reftext="Figure 4.4.3"]
-[caption="Figure 4.4.3: "]
-.The user types in `select 1`
-image::generateCommand1.png[width="600"]
-
-:: *Step 2:* Type in `generate` to generate the charts, as seen in <<generateCommand2>>. +
-*Outcome:* The charts will be displayed on the right-hand side of the panel, as shown in <<generateCommand3>>.
-
-[[generateCommand2]]
-[reftext="Figure 4.4.4"]
-[caption="Figure 4.4.4: "]
-.The user types in `generate`
-image::generateCommand2.png[width="600"]
-
-[[generateCommand3]]
-[reftext="Figure 4.4.5"]
-[caption="Figure 4.4.5: "]
-.The charts are generated
-image::generateCommand3.png[width="600"]
+*Step 2:* Type in `generate` to generate the charts.. +
+*Outcome:* The charts will be displayed on the right-hand side of the panel..
 
 ==== Design Considerations
 
 ===== Aspect: How Chart Generation Executes
 
-[width="100%",cols="14%,<50%,<50%",options="header"]
+[width="100%",cols="16%,<50%,<50%",options="header"]
 |=======================================================================
 
 |
@@ -869,38 +853,28 @@ image::generateCommand3.png[width="600"]
 |Updates the charts only when the `generate` command is used.
 
 |*Pros*
-|Ease-of-use. This approach is more user-friendly, as users do not need to type an additional `generate` command after changes are made to the Place list. +
+|*Ease-of-use*. This approach is more user-friendly, as users do not need to type an additional `generate` command after changes are made to the Place list. +
+*Accuracy*. This approach is more accurate as the charts reflect the latest changes regardless of whether the user types the `generate` command.
 
-Accuracy. This approach is more accurate as the charts reflect the latest changes regardless of whether the user types the `generate` command.
-
-|Scalability. This approach is computationally less intensive, as the charts are only generated when required.
+|*Scalability*. This approach is computationally less intensive, as the charts are only generated when required.
 
 |*Cons*
-|Scalability. This approach is computationally more intensive, especially when the Place list is huge, as all three charts need to be regenerated every time a change is detected.
-|Ease-of-use. This approach is Less user-friendly as users will need to type the `generate` command for the charts to reflect the changes made to the Place list. +
-
-Accuracy. This approach is less accurate as the charts does not reflect the latest changes until the user types the `generate` command.
+|*Scalability*. This approach is computationally more intensive, especially when the Place list is huge, as all three charts need to be regenerated every time a change is detected.
+|*Ease-of-use*. This approach is Less user-friendly as users will need to type the `generate` command for the charts to reflect the changes made to the Place list. +
+*Accuracy*. This approach is less accurate as the charts does not reflect the latest changes until the user types the `generate` command.
 
 |*Example*
-|<<generateCommand7>> shows the state of the bar charts before the command `edit 1 cc/USA` was executed, while <<generateCommand8>> shows the state of the bar chart, with USA included, after the `edit` command was executed.
+|As shown in <<Generate_BeforeEditAfterEdit>>, before the `edit 1 cc/USA` command was executed, the chart did not have a separate bar for USA. After the command was executed, the chart updated in real-time to include a bar for USA. All this was done without invoking the `generate` command.
 |N.A.
 |=======================================================================
 
-*Decision:* :: Alternative 1, which is to update the charts in real-time, was adopted as it promotes ease-of-use, so users are not required to type in an additional `generate` command whenever changes are made to the Place list. Moreover, Alternative 1 is the more accurate option of the two, as the chart reflects the latest changes even if the user forgets to type the `generate` command.
+*Decision:* Alternative 1, which is to update the charts in real-time, was adopted as it promotes ease-of-use, so users are not required to type in an additional `generate` command whenever changes are made to the Place list. Moreover, Alternative 1 is the more accurate option of the two, as the chart reflects the latest changes even if the user forgets to type the `generate` command.
 
-[[generateCommand7]]
-[reftext="Figure 4.4.6"]
-[caption="Figure 4.4.6: "]
-.Before the `edit` command was executed
-image::generateCommand7.png[width="600"]
+[[Generate_BeforeEditAfterEdit]]
+.A comparison before and after the `edit` command was executed
+image::Generate_BeforeEditAfterEdit.png[width="800", caption="Figure 4.4.4: ", reftext="Figure 4.4.4"]
+//end::chartFeature[]
 
-[[generateCommand8]]
-[reftext="Figure 4.4.7"]
-[caption="Figure 4.4.7: "]
-.After the `edit` command was executed
-image::generateCommand8.png[width="600"]
-
-// end::generate[]
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and

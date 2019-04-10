@@ -2,66 +2,82 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:sourceDir: ../src/main/java
+:repoURL: https://github.com/CS2103-AY1819S2-W11-3/main
+:source-highlighter: rouge
+:doctype: article
+:reproducible:
 
 == PROJECT: TravelBuddy
-
 ---
-
 == Overview
 
-This document serves to highlight my contributions to *TravelBuddy*, a travel log application that lets users efficiently manage their travel records, i.e. the places that they have visited. Additional features built into TravelBuddy allows them to search through the records, attach photos and view statistical models. This project is part of the CS2103 Software Engineering module in NUS, in which my https://cs2103-ay1819s2-w11-3.github.io/main/AboutUs.html[team] and I were tasked to morph a given https://se-education.org/addressbook-level4/[addressbook] product into a new product -- TravelBuddy. The full source code is available on https://github.com/CS2103-AY1819S2-W11-3/main[GitHub].
+This document serves to highlight my contributions to *TravelBuddy*, a travel log application that lets users efficiently manage their travel records, i.e. the places that they have visited. Additional features built into TravelBuddy allows them to search through the records, attach photos and view statistical models. This project is part of the CS2103 Software Engineering module in NUS, in which link:https://cs2103-ay1819s2-w11-3.github.io/main/AboutUs.html[my team and I] were tasked to morph a given link:https://se-education.org/addressbook-level4/[addressbook] product into a new product -- TravelBuddy. The complete source code for TravelBuddy is available on link:{repoURL}[GitHub].
 
 My role was to design the chart feature. The following sections describes these enhancements in more detail, as well as the relevant sections I have added to the user and developer guides in relation to these enhancements.
 
 == Summary of Contributions
 
 === Major Enhancement
-The major enhancement I did was adding the ability to generate charts in real-time and via the `generate` command, details of which can be found below: ::
+The major enhancement I did was adding the ability to generate charts in real-time and via the `generate` command, details of which can be found below:
 
-*What it does:* It allows users to generate three different charts based on their travel data that they have accumulated in the product. The three charts are:
+*What it does:* It allows users to generate charts based on their travel data that they have accumulated in the product.
 
-* Number of places visited by rating category
-* Number of places visited by year
-* Number of places visited by country
+*Justification:* This feature allows users to gather insights into their travel patterns. It improves the user-friendliness of the product, gives the product additional functionality and is the differentiating factor among other travel log products on the market.
 
-:: *Justification:* This feature allows users to gather insights into their travel patterns. It improves the user-friendliness of the product, gives the product additional functionality and is the differentiating factor among other travel log products on the market.
-
-:: *Highlights:* Due to the real-time update of the charts, this enhancement affects existing and future commands. Furthermore, the complexity of this enhancement is due to the fact that it links up with all the components of the existing architecture, as described below:
+*Highlights:* Due to the real-time update of the charts, this enhancement affects existing and future commands. Furthermore, the complexity of this enhancement is due to the fact that it links up with all the components of the existing architecture, as described below:
 
 * *Logic:* The chart feature can be activated via the `generate` command. Hence, a parser is required to parse the command.
 * *Model:* Any changes made to the travel records has to be reflected in the charts. Hence, relevant data is extracted from the latest version of the travel records.
-* *Storage:* The extracted data has to be stored into the charts respective JSON files.
+* *Storage:* The extracted data has to be stored into the charts' respective JSON files.
 * *User Interface (UI):* The charts have to be displayed to the users.
 
-:: The enhancement required an in-depth analysis of various design alternatives. The challenge was to redesign the architecture to suit the enhancement while still maintaining the integrity of other existing commands and features.
+The enhancement required an in-depth analysis of various design alternatives. The challenge was to redesign the architecture to suit the enhancement while still maintaining the integrity of other existing commands and features.
 
-:: *Credits:* https://github.com/google/gson[Gson], a third-party library, was used in the enhancement of this product to convert Java Objects into JSON and back.
+*Credits:* link:https://github.com/google/gson[Gson], a third-party library, was used in the enhancement of this product to convert Java Objects into JSON and back.
 
-:: *Code contributed to major enhancement*: [https://github.com/CS2103-AY1819S2-W11-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Achung-ming+-label%3Atype.MinorEnhancement+-label%3Atype.Testing[Functional code]] [https://github.com/CS2103-AY1819S2-W11-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Achung-ming+label%3Atype.Testing[Test code]]
+*Code contributed to major enhancement*: [link:{repoURL}/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Achung-ming+-label%3Atype.MinorEnhancement+-label%3Atype.Testing[Functional code]] [link:{repoURL}/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Achung-ming+label%3Atype.Testing[Test code]]
 
 === Minor Enhancement
 
 The minor enhancement I did was to convert the `add` command's Email parameter in the previous addressbook product to a Description parameter in the current product.
 
-:: *Code contributed to minor enhancement*: [https://github.com/CS2103-AY1819S2-W11-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Achung-ming+label%3Atype.MinorEnhancement[Functional code]]
+*Code contributed to minor enhancement*: [link:{repoURL}/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Achung-ming+label%3Atype.MinorEnhancement[Functional code]]
 
-:: *Other contributions*:
+*Other contributions*:
 
-* Project management:
-** Managed releases of https://github.com/CS2103-AY1819S2-W11-3/main/releases/tag/v1.2[`v1.2`], https://github.com/CS2103-AY1819S2-W11-3/main/releases/tag/v1.2.1[`v1.2.1`], https://github.com/CS2103-AY1819S2-W11-3/main/releases/tag/v1.3.1[`v1.3.1`], https://github.com/CS2103-AY1819S2-W11-3/main/releases/tag/1.4[`v1.4`] (4 releases) on GitHub
-* Enhancements to existing features:
-** Updated the GUI color scheme from a `DarkTheme.css` to `LightTheme.css` (Pull requests https://github.com/CS2103-AY1819S2-W11-3/main/pull/88[#88])
-** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/CS2103-AY1819S2-W11-3/main/pull/117[#117], https://github.com/CS2103-AY1819S2-W11-3/main/pull/119[#119])
-* Documentation:
-** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/CS2103-AY1819S2-W11-3/main/pull/165[#165]
-* Community:
-** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-* Tools:
-** Integrated a third party library (Natty) to the project (https://github.com[#42])
-** Integrated a new Github plugin (CircleCI) to the team repo
+.Details of Other Contributions
+[width="100%",cols="16%,<75%"]
+|=======================================================================
+
+|*Project management*
+|Managed releases of link:{repoURL}/releases/tag/v1.2[`v1.2`], link:{repoURL}/releases/tag/v1.2.1[`v1.2.1`], link:{repoURL}/releases/tag/v1.3.1[`v1.3.1`] and link:{repoURL}/releases/tag/1.4[`v1.4`] (4 releases) on GitHub
+
+|*Enhancements to existing features*
+|Updated the GUI color scheme to a `LightTheme.css` (Pull requests link:{repoURL}/pull/88[#88])
+
+|*Documentation*
+|- Improved readability to existing contents of the User Guide: link:{repoURL}/pull/165[#165] +
+- Added user stories and use cases to Developer Guide: link:{repoURL}/pull/170[#170]
+
+|*Community*
+|- Reviewed PRs (with non-trivial review comments): link:{repoURL}/pull/115#discussion_r271991549[#115] +
+- Contributed to forum discussions (example: link:https://github.com/nus-cs2103-AY1819S2/forum/issues/37#issuecomment-474714683[1]) +
+- Reported bugs and suggestions for other teams (examples:
+https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/268[1],
+https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/318[2],
+https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/486[3],
+https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/558[4],
+https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/632[5],
+https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/796[6],
+https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/968[7],
+https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/18[8])
+
+|*Tools*
+|- Integrated a third party library (Gson) to the project ({repoURL}/pull/80[#80]) +
+- Integrated a new GitHub plugin (Codacy) to the team repo ({repoURL}/pull/113[#113])
+
+|=======================================================================
 
 == Contributions to the User Guide
 
@@ -72,15 +88,12 @@ The minor enhancement I did was to convert the `add` command's Email parameter i
 |===
 |_This is the start of extract of the User Guide._
 |===
-include::../UserGuide.adoc[tag=intro]
 
+//include::../UserGuide.adoc[tag=intro]
 include::../UserGuide.adoc[tag=features]
-
 include::../UserGuide.adoc[tag=generate]
-
-include::../UserGuide.adoc[tag=cheatsheet]
-
-include::../UserGuide.adoc[tag=commandFormats]
+//include::../UserGuide.adoc[tag=cheatsheet]
+//include::../UserGuide.adoc[tag=commandFormats]
 
 |===
 |_This is the end of extract of the User Guide._
@@ -96,11 +109,10 @@ include::../UserGuide.adoc[tag=commandFormats]
 |_This is the start of extract of the Developer Guide._
 |===
 
-include::../DeveloperGuide.adoc[tag=generate]
-
-include::../DeveloperGuide.adoc[tag=user-stories]
-
-include::../DeveloperGuide.adoc[tag=use-cases]
+include::../DeveloperGuide.adoc[tag=implementation]
+include::../DeveloperGuide.adoc[tag=chartFeature]
+//include::../DeveloperGuide.adoc[tag=user-stories]
+//include::../DeveloperGuide.adoc[tag=use-cases]
 
 |===
 |_This is the end of extract of the Developer Guide._

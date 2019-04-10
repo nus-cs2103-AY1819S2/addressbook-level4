@@ -50,4 +50,13 @@ public class OpenCommand extends Command {
         currentEdit.displayTempImage();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toOpen));
     }
+    /* @@author*/
+
+    /* @@author carrein */
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof OpenCommand // instanceof handles nulls
+                && fileName.equals(((OpenCommand) other).fileName)); // state check
+    }
 }

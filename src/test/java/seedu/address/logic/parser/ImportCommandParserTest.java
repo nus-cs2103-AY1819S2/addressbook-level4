@@ -1,3 +1,4 @@
+/* @@author Carrein */
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -7,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
@@ -23,12 +23,11 @@ public class ImportCommandParserTest {
         album.clearAlbum();
     }
 
-    @Ignore
     @Test
     public void parse_validFiles_success() {
         String validBmpTest = "src/main/resources/imageTest/valid/validBMPTest.bmp";
         String validDuplicateTest = "src/main/resources/imageTest/valid/validDuplicateTest.jpg";
-        String validGifTest = "src/main/resources/imageTest/valid/validGIFtest.gif";
+        String validGifTest = "src/main/resources/imageTest/valid/validGIFTest.gif";
         String validJpgTest = "src/main/resources/imageTest/valid/validJPGTest.jpg";
         String validMimeTest = "src/main/resources/imageTest/valid/validMIMETest.png";
         String validNoMimeTest = "src/main/resources/imageTest/valid/validNOMIMETest.png";
@@ -36,20 +35,15 @@ public class ImportCommandParserTest {
         String validTifTest = "src/main/resources/imageTest/valid/validTIFTest.tif";
         String validUnreasonablySmallTest = "src/main/resources/imageTest/valid/validUnreasonablySmallTest.jpg";
 
-        List<String> validFiles = new ArrayList<>();
-        validFiles.add(validBmpTest);
-        validFiles.add(validDuplicateTest);
-        validFiles.add(validGifTest);
-        validFiles.add(validJpgTest);
-        validFiles.add(validMimeTest);
-        validFiles.add(validNoMimeTest);
-        validFiles.add(validPngTest);
-        validFiles.add(validTifTest);
-        validFiles.add(validUnreasonablySmallTest);
-
-        for (String s : validFiles) {
-            assertParseSuccess(parser, s, new ImportCommand(false));
-        }
+        assertParseSuccess(parser, validBmpTest, new ImportCommand(false));
+        assertParseSuccess(parser, validDuplicateTest, new ImportCommand(false));
+        assertParseSuccess(parser, validGifTest, new ImportCommand(false));
+        assertParseSuccess(parser, validJpgTest, new ImportCommand(false));
+        assertParseSuccess(parser, validMimeTest, new ImportCommand(false));
+        assertParseSuccess(parser, validNoMimeTest, new ImportCommand(false));
+        assertParseSuccess(parser, validPngTest, new ImportCommand(false));
+        assertParseSuccess(parser, validTifTest, new ImportCommand(false));
+        assertParseSuccess(parser, validUnreasonablySmallTest, new ImportCommand(false));
     }
 
     @Test
@@ -126,13 +120,11 @@ public class ImportCommandParserTest {
         assertParseFailure(parser, emptyPath, Messages.MESSAGE_UNABLE_TO_READ_FILE);
     }
 
-    @Ignore
     @Test
     public void parse_invalidDuplicate_failure() {
         String firstFile = "src/main/resources/imageTest/valid/validDuplicateTest.jpg";
-        String secondFile = "src/main/resources/imageTest/valid/validDuplicateTest.jpg";
 
         assertParseSuccess(parser, firstFile, new ImportCommand(false));
-        assertParseFailure(parser, secondFile, Messages.MESSAGE_DUPLICATE_FILE);
+        assertParseFailure(parser, firstFile, Messages.MESSAGE_DUPLICATE_FILE);
     }
 }

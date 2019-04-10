@@ -49,6 +49,7 @@ public class ResourceWalker {
                 return FileVisitResult.CONTINUE;
             }
         });
+        FileSystems.getFileSystem(uri).close();
     }
 
     /**
@@ -61,7 +62,7 @@ public class ResourceWalker {
         File tempFile = null;
         try {
             InputStream in = Files.newInputStream(path);
-            String tDir = System.getProperty("java.io.tmpdir") + ASSETS_FOLDER_TEMP_NAME;
+            String tDir = System.getProperty("user.dir") + File.separator + ASSETS_FOLDER_TEMP_NAME;
             tempFile = new File(tDir + File.separator + path.getFileName());
             try (FileOutputStream out = new FileOutputStream(tempFile)) {
                 IOUtils.copy(in, out);

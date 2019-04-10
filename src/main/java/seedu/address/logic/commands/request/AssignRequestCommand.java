@@ -9,7 +9,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.StringJoiner;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -37,6 +39,8 @@ public class AssignRequestCommand extends Command implements RequestCommand {
         + PREFIX_HEALTHWORKER + "1 "
         + PREFIX_REQUEST + "1 " + PREFIX_REQUEST + "3";
 
+    private static final Logger logger = LogsCenter.getLogger(AssignRequestCommand.class);
+
     private final Index healthworkerId;
     private final Set<Index> requestIds;
 
@@ -58,6 +62,8 @@ public class AssignRequestCommand extends Command implements RequestCommand {
         Set<Request> requestsToAdd = new HashSet<>();
 
         if (healthworkerId.getZeroBased() >= lastShownHealthworkerList.size()) {
+            logger.warning("Invalid healthworker index " + healthworkerId.getOneBased()
+                + " accessed for assign");
             throw new CommandException(Messages.MESSAGE_INVALID_HEALTHWORKER_DISPLAYED_INDEX);
         }
 
@@ -66,11 +72,14 @@ public class AssignRequestCommand extends Command implements RequestCommand {
 
         for (Index i : requestIds) {
             if (i.getZeroBased() >= lastShownRequestList.size()) {
+                logger.warning("Invalid request index " + healthworkerId.getOneBased()
+                    + " accessed for assign");
                 throw new CommandException(Messages.MESSAGE_INVALID_REQUEST_DISPLAYED_INDEX);
             }
 
             Request request = lastShownRequestList.get(i.getZeroBased());
             if (request.isCompleted()) {
+                logger.info("Error: attempted to assign to a completed request at index " + i.getOneBased());
                 throw new CommandException(Messages.MESSAGE_REQUEST_COMPLETED_CANNOT_ASSIGN);
             }
             requestsToAdd.add(request);

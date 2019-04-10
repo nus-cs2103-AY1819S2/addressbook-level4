@@ -140,6 +140,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasEditedPerson(Person editedPerson) {
+        requireNonNull(editedPerson);
+        return versionedAddressBook.hasEditedPerson(editedPerson);
+    }
+
+    @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
     }

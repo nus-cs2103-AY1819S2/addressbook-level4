@@ -14,21 +14,18 @@ import seedu.address.model.tag.Tag;
  */
 public class Property {
 
+    public static final String PROPERTY_TYPE_SELL = "sell";
+    public static final String PROPERTY_TYPE_RENT = "rent";
     private final Address address;
     private final Price sellingPrice;
     private final Price rentalPrice;
     private final Set<Tag> tags = new HashSet<>();
 
     public Property(String propertyType, Address address, Price price, Set<Tag> tags) {
-        requireAllNonNull(address);
+        requireAllNonNull(address, price);
         this.address = address;
-        if (propertyType.equals("selling")) {
-            this.sellingPrice = price;
-            rentalPrice = new Price("0");
-        } else {
-            this.rentalPrice = price;
-            sellingPrice = new Price("0");
-        }
+        this.sellingPrice = price;
+        this.rentalPrice = price;
         this.tags.addAll(tags);
     }
 
@@ -50,5 +47,17 @@ public class Property {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(" Address: ")
+                .append(getAddress())
+                .append(" Price: ")
+                .append(getRentalPrice())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
     }
 }

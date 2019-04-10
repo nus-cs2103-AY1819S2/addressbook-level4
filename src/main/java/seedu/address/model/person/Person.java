@@ -2,13 +2,7 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
-
-import seedu.address.model.property.Price;
-import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
@@ -16,33 +10,37 @@ import seedu.address.model.tag.Tag;
  */
 public class Person {
 
+    public static final String CUSTOMER_TYPE_BUYER = "buyer";
+    public static final String CUSTOMER_TYPE_SELLER = "seller";
+    public static final String CUSTOMER_TYPE_LANDLORD = "landlord";
+    public static final String CUSTOMER_TYPE_TENANT = "tenant";
+
     // Identity fields
     private final Name name;
     private final Phone phone;
     private final Email email;
 
     // Data fields
-    private final Address address;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Remark remark;
+
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
-    }
-
     public Person(Name name, Phone phone, Email email) {
         requireAllNonNull(name, phone, email);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = new Address("dummy");
+        this.remark = new Remark("No Remark");
+    }
+
+    public Person(Name name, Phone phone, Email email, Remark remark) {
+        requireAllNonNull(name, phone, email, remark);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.remark = remark;
     }
 
     public Name getName() {
@@ -57,27 +55,10 @@ public class Person {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public Remark getRemark() {
+        return remark;
     }
 
-    public Price getSellingPrice() {
-        return new Price("0");
-    }
-
-    public Price getRentalPrice() {
-        return new Price("0");
-    }
-
-
-
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
 
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
@@ -111,14 +92,13 @@ public class Person {
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getRemark().equals(getRemark());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, remark);
     }
 
     @Override
@@ -129,10 +109,8 @@ public class Person {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(" Remark: ")
+                .append(getRemark());
         return builder.toString();
     }
 

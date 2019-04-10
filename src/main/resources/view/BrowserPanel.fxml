@@ -7,7 +7,7 @@
 
 <GridPane xmlns:fx="http://javafx.com/fxml/1">
   <Label fx:id="browserLabel" styleClass="browser_panel_label" GridPane.halignment="LEFT"/>
-  <StackPane GridPane.rowIndex="1" GridPane.hgrow="ALWAYS">
+  <StackPane GridPane.rowIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
     <WebView fx:id="browser"/>
   </StackPane>
 </GridPane>

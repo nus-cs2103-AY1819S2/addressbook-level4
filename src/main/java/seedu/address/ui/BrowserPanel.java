@@ -15,7 +15,11 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.person.Buyer;
+import seedu.address.model.person.Landlord;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Seller;
+import seedu.address.model.person.Tenant;
 
 /**
  * The Browser Panel of the App.
@@ -31,6 +35,7 @@ public class BrowserPanel extends UiPart<Region> {
     private static final String NO_CONNECTION = "No Internet connection! Establish connection to display map";
     private static final String NO_CONTACT_SELECTED = "No contact selected";
     private static final String NO_ADDRESS_AVAILABLE = "No map location to display!";
+
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -61,10 +66,22 @@ public class BrowserPanel extends UiPart<Region> {
                     browserLabel.setText(NO_CONTACT_SELECTED);
                     loadDefaultPage();
                     return;
-                } else if (newValue.getAddress().value == null) {
-                    browserLabel.setText(NO_ADDRESS_AVAILABLE);
-                    loadDefaultPage();
-                    return;
+                } else {
+                    if (newValue instanceof Buyer || newValue instanceof Tenant) {
+                        browserLabel.setText(NO_ADDRESS_AVAILABLE);
+                        loadDefaultPage();
+                        return;
+                    }
+                    if (newValue instanceof Seller && ((Seller) newValue).getAddress().value == null) {
+                        browserLabel.setText(NO_ADDRESS_AVAILABLE);
+                        loadDefaultPage();
+                        return;
+                    }
+                    if (newValue instanceof Landlord && ((Landlord) newValue).getAddress().value == null) {
+                        browserLabel.setText(NO_ADDRESS_AVAILABLE);
+                        loadDefaultPage();
+                        return;
+                    }
                 }
 
                 browserLabel.setText(newValue.getName().fullName + "'s Map Location:");
@@ -88,10 +105,22 @@ public class BrowserPanel extends UiPart<Region> {
                     browserLabel.setText(NO_CONTACT_SELECTED);
                     loadDefaultPage();
                     return;
-                } else if (newValue.getAddress().value == null) {
-                    browserLabel.setText(NO_ADDRESS_AVAILABLE);
-                    loadDefaultPage();
-                    return;
+                } else {
+                    if (newValue instanceof Buyer || newValue instanceof Tenant) {
+                        browserLabel.setText(NO_ADDRESS_AVAILABLE);
+                        loadDefaultPage();
+                        return;
+                    }
+                    if (newValue instanceof Seller && ((Seller) newValue).getAddress().value == null) {
+                        browserLabel.setText(NO_ADDRESS_AVAILABLE);
+                        loadDefaultPage();
+                        return;
+                    }
+                    if (newValue instanceof Landlord && ((Landlord) newValue).getAddress().value == null) {
+                        browserLabel.setText(NO_ADDRESS_AVAILABLE);
+                        loadDefaultPage();
+                        return;
+                    }
                 }
 
                 browserLabel.setText(newValue.getName().fullName + "'s Map Location:");
@@ -115,10 +144,22 @@ public class BrowserPanel extends UiPart<Region> {
                     browserLabel.setText(NO_CONTACT_SELECTED);
                     loadDefaultPage();
                     return;
-                } else if (newValue.getAddress().value == null) {
-                    browserLabel.setText(NO_ADDRESS_AVAILABLE);
-                    loadDefaultPage();
-                    return;
+                } else {
+                    if (newValue instanceof Buyer || newValue instanceof Tenant) {
+                        browserLabel.setText(NO_ADDRESS_AVAILABLE);
+                        loadDefaultPage();
+                        return;
+                    }
+                    if (newValue instanceof Seller && ((Seller) newValue).getAddress().value == null) {
+                        browserLabel.setText(NO_ADDRESS_AVAILABLE);
+                        loadDefaultPage();
+                        return;
+                    }
+                    if (newValue instanceof Landlord && ((Landlord) newValue).getAddress().value == null) {
+                        browserLabel.setText(NO_ADDRESS_AVAILABLE);
+                        loadDefaultPage();
+                        return;
+                    }
                 }
 
                 browserLabel.setText(newValue.getName().fullName + "'s Map Location:");
@@ -133,8 +174,18 @@ public class BrowserPanel extends UiPart<Region> {
         loadDefaultPage();
     }
 
+    /**
+     * Loads the Google Map search page with the person's address as input.
+     */
     private void loadMapsPage(Person person) {
-        loadPage(SEARCH_PAGE_URL + person.getAddress().value);
+        if (person instanceof Seller) {
+            loadPage(SEARCH_PAGE_URL + ((Seller) person).getAddress().value);
+        } else if (person instanceof Landlord) {
+            loadPage(SEARCH_PAGE_URL + ((Landlord) person).getAddress().value);
+        } else {
+            browserLabel.setText(NO_ADDRESS_AVAILABLE);
+            loadDefaultPage();
+        }
     }
 
     public void loadPage(String url) {

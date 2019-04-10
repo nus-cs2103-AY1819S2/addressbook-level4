@@ -33,6 +33,14 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public boolean contains(Person toCheck) {
         requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::equals);
+    }
+
+    /**
+     * Returns true if the list contains an equivalent person as the given argument.
+     */
+    public boolean fuzzyContains(Person toCheck) {
+        requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSamePerson);
     }
 
@@ -127,7 +135,7 @@ public class UniquePersonList implements Iterable<Person> {
     private boolean personsAreUnique(List<Person> persons) {
         for (int i = 0; i < persons.size() - 1; i++) {
             for (int j = i + 1; j < persons.size(); j++) {
-                if (persons.get(i).isSamePerson(persons.get(j))) {
+                if (persons.get(i).equals(persons.get(j))) {
                     return false;
                 }
             }

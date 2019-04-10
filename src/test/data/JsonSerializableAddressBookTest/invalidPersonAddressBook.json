@@ -1,8 +1,13 @@
 {
-  "persons": [ {
-    "name": "Hans Muster",
-    "phone": "9482424",
-    "email": "invalid@email!3e",
-    "address": "4th street"
+  "persons" : [ {
+    "name" : "Alice Pauline",
+    "phone" : "invalid",
+    "email" : "alice@example",
+    "remark" : "Alice is a seller",
+    "address" : "123, Jurong West Ave 6, #08-111",
+    "customer" : "seller",
+    "sellingPrice" : "540000",
+    "rentalPrice" : null,
+    "tagged" : [ "mrt" ]
   } ]
 }

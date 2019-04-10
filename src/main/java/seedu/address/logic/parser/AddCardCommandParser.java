@@ -8,9 +8,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.model.CardsView;
 import seedu.address.logic.commands.AddCardCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.CardsView;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Difficulty;
 import seedu.address.model.tag.Tag;

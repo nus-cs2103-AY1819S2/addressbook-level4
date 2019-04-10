@@ -6,10 +6,10 @@ import static seedu.address.testutil.TypicalDecks.KEYWORD_MATCHING_JOHN;
 
 import org.junit.Test;
 
-import seedu.address.model.DecksView;
 import seedu.address.logic.commands.ClearDeckCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.DecksView;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 

@@ -13,10 +13,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.CardsView;
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.DecksView;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.CardsView;
+import seedu.address.model.DecksView;
 import seedu.address.model.Model;
 import seedu.address.model.TopDeck;
 import seedu.address.model.deck.Card;

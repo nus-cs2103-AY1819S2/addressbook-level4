@@ -11,8 +11,8 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.address.model.CardsView;
 import seedu.address.logic.commands.DeleteCardCommand;
+import seedu.address.model.CardsView;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;

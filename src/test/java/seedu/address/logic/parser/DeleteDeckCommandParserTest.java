@@ -8,8 +8,8 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DECK;
 
 import org.junit.Test;
 
-import seedu.address.model.DecksView;
 import seedu.address.logic.commands.DeleteDeckCommand;
+import seedu.address.model.DecksView;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;

@@ -21,6 +21,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.DecksView;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.StudyView;
 import seedu.address.model.UserPrefs;
 
 public class OpenDeckCommandTest {

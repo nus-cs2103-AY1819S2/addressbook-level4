@@ -8,9 +8,9 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 
 import org.junit.Test;
 
-import seedu.address.model.DecksView;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SelectDeckCommand;
+import seedu.address.model.DecksView;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;

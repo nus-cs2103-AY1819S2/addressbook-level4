@@ -211,6 +211,62 @@ public class QuizAnswerCommandTest {
     }
 
     @Test
+    public void execute_lastCardWithWrongTwice_success() {
+        final String correctAns = "Japan";
+        final String wrongAns = "wronganswer";
+
+        expectedModel = new QuizModelManager(managementModelManager);
+        ManagementModelManager actualMgmtManager = new ManagementModelManager();
+        actualModel = new QuizModelManager(actualMgmtManager);
+
+        expectedModel.init(quizExpected, SESSION_DEFAULT_2);
+        actualModel.init(quizActual, SESSION_DEFAULT_2_ACTUAL);
+
+        actualModel.getNextCard();
+        actualModel.getNextCard();
+        actualModel.getNextCard();
+        actualModel.getNextCard();
+        actualModel.getNextCard();
+        actualModel.getNextCard();
+
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+
+        // wrong
+        QuizAnswerCommand quizAnswerCommand = new QuizAnswerCommand(wrongAns);
+        expectedModel.updateTotalAttemptsAndStreak(1, wrongAns);
+
+        String expectedMessage = String.format(QuizAnswerCommand.MESSAGE_WRONG_ONCE, wrongAns);
+        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
+            expectedMessage, expectedModel);
+
+        // wrong twice
+        expectedModel.updateTotalAttemptsAndStreak(1, wrongAns);
+        expectedMessage = String.format(QuizAnswerCommand.MESSAGE_WRONG, wrongAns, correctAns);
+        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
+            expectedMessage, expectedModel);
+
+        // correct
+        expectedModel.updateTotalAttemptsAndStreak(1, correctAns);
+        expectedModel.setResultDisplay(true);
+        expectedMessage = MESSAGE_CORRECT + QuizAnswerCommand.MESSAGE_SUCCESS;
+        quizAnswerCommand = new QuizAnswerCommand(correctAns);
+        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
+            expectedMessage, expectedModel);
+
+        // complete the quiz
+        expectedModel.setResultDisplay(false);
+        expectedModel.end();
+        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
+            "", expectedModel);
+
+    }
+
+    @Test
     public void equals() {
         QuizAnswerCommand quizAnswerCommand = new QuizAnswerCommand("Tokyo");
         QuizAnswerCommand quizAnswerCommandDiff = new QuizAnswerCommand("Something");

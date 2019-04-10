@@ -26,19 +26,28 @@ public class EndorseCommand extends Command {
             + " endorse " + "(index) " + "n/(your name) "
             + "EXAMPLE: endorse 2 n/Warren Buffett";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Endorsed Person: %1$s";
+    public static final String MESSAGE_ENDORSE_PERSON_SUCCESS = "Endorsed Person: %1$s";
+    public static final String MESSAGE_REMOVE_ENDORSE_SUCESS = "You have unendorsed : %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "You have already endorsed this person";
+    public static final String MESSAGE_MISSING_ENDORSEMENT = "You have not endorsed this person";
 
     private final Index index;
     private final String endorseName;
+    private final boolean clearName;
 
     /**
      * @param index of the person in the filtered person list to edit
      */
-    public EndorseCommand(Index index, String endorseName) {
+    public EndorseCommand(int process, Index index, String endorseName) {
         requireNonNull(index);
         this.index = index;
         this.endorseName = endorseName;
+        if (process == 1){
+            this.clearName = true;
+        }else {
+            this.clearName = false;
+        }
+
     }
 
     @Override
@@ -53,10 +62,28 @@ public class EndorseCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
 
         Set<SkillsTag> personTags = new HashSet<>(personToEdit.getTags());
-        if (personToEdit.isTagExist(endorseName)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+
+        if (clearName){
+            SkillsTag foundTag = null;
+            for(SkillsTag t: personTags){
+                if (t.tagName.equals("e:" + endorseName)){
+                    foundTag = t;
+
+                }
+            }
+            if(foundTag != null){
+                personTags.remove(foundTag);
+            }else{
+                throw new CommandException(MESSAGE_MISSING_ENDORSEMENT);
+            }
+
+
+        } else {
+            if (personToEdit.isTagExist(endorseName)) {
+                throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            }
+            personTags.add(new SkillsTag(endorseName, "endorse"));
         }
-        personTags.add(new SkillsTag(endorseName, "endorse"));
 
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
                 personToEdit.getEducation(), personToEdit.getGpa(), personToEdit.getAddress(), personTags);
@@ -64,7 +91,12 @@ public class EndorseCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson.getName()));
+        if(clearName){
+            return new CommandResult(String.format(MESSAGE_REMOVE_ENDORSE_SUCESS, editedPerson.getName()));
+        }else{
+            return new CommandResult(String.format(MESSAGE_ENDORSE_PERSON_SUCCESS, editedPerson.getName()));
+        }
+
     }
 
 

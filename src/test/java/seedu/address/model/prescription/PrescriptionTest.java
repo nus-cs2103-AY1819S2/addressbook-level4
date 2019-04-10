@@ -12,9 +12,12 @@ public class PrescriptionTest {
     @Test
 
     public void equals() {
-        Prescription p1 = new Prescription( new PersonId("1"), new PersonId("2"), new Medicine("M1"), new Description("Testing"));
-        Prescription p2 = new Prescription( new PersonId("1"), new PersonId("2"), new Medicine("M1"), new Description("Testing"));
-        Prescription p3 = new Prescription( new PersonId("1"), new PersonId("2"), new Medicine("M1"), new Description("Not the same"));
+        Prescription p1 = new Prescription(new PersonId("1"), new PersonId("2"),
+                new Medicine("M1"), new Description("Testing"));
+        Prescription p2 = new Prescription(new PersonId("1"), new PersonId("2"),
+                new Medicine("M1"), new Description("Testing"));
+        Prescription p3 = new Prescription(new PersonId("1"), new PersonId("2"),
+                new Medicine("M1"), new Description("Not the same"));
 
 
 

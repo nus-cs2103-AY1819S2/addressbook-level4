@@ -2,6 +2,7 @@ package seedu.address.commons.util.pdf;
 
 import static java.util.Objects.requireNonNull;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -129,6 +130,10 @@ public class PdfWrapper {
                     contents.newLineAtOffset(0, -leading);
                 }
                 contents.endText();
+                contents.setNonStrokingColor(Color.DARK_GRAY);
+                contents.addRect(50, 550, 350, 200);
+                contents.addRect(40, 540, 370, 220);
+                contents.stroke();
             }
 
             doc.save(fileName);

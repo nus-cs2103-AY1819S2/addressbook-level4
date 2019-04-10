@@ -329,6 +329,7 @@ Out of the three key operations stated above, *only* `CsvWrapper#export()` is a 
 
 Given below is a sequence diagram overview of how these 3 key operations behaves when the user executes the `export` command in order to export the current medicine inventory data shown in the GUI to CSV file format:
 
+.Export Command Sequence Diagram Overview
 image::ExportCommandSequenceDiagramOverview.png[width="800"]
 
 Given below is a brief description of how the exporting as CSV file format mechanism behaves as shown in the sequence diagram above:
@@ -337,16 +338,16 @@ Step 1: When the user executes the `export` command, assuming parsing of the com
 
 Step 2: The `ExportCommand#execute()` operation initialises the `CsvWrapper` with the _file name of the CSV file to be stored_ and _the current model instance_ as its input parameters.
 
-Step 3: The `ExportCommand#execute()` operation then calls `CsvWrapper#export()` operation which is the first key operation which implements the export to CSV file format feature.
+Step 3: The `ExportCommand#execute()` operation then calls `CsvWrapper#export()` operation which is the first key operation implementing the export to CSV file format feature.
 
 Step 4: The `CsvWrapper#export()` operation retrieves the current medicine inventory data shown in the GUI by calling the `Model#getFilteredMedicineList()` operation.
 
 Step 5: After retrieving the data, the `CsvWrapper#createCsvFile(String csvFileName)` operation, which is the second key operation, is called. It creates an empty CSV file with the input file name in the default `exported` directory.
 
 [NOTE]
-If a CSV file with the input file name already exists in the `exported` directory, a `"Could not export data to csv file: {Input File Name} already exists in "exported" directory"` exception will be shown in the `CommandResult` panel of the GUI as a `CommandException` is thrown and the exporting process will stop executing. In other words, the current medicine inventory data shown in the GUI would not be exported.
+If a CSV file with the input file name already exists in the `exported` directory, a `"Could not export data to csv file: {Input File Name} already exists in "exported" directory"` exception will be shown in the `ResultDisplay` panel of the GUI as a `CommandException` is thrown and the exporting process will stop executing. In other words, the current medicine inventory data shown in the GUI would not be exported.
 
-Step 6: After the empty CSV file is created, the `CsvWrapper#writeDataToCsv`, which is the third key operation, is called to process the current medicine inventory data retrieved earlier in Step 4 and writes to the CSV file in an organised format for easier reference by the users of the exported CSV file.
+Step 6: After the empty CSV file is created, the `CsvWrapper#writeDataToCsv(List currentGuiList)`, which is the third key operation, is called to process the current medicine inventory data retrieved earlier in Step 4 and writes to the CSV file in an organised format for easier reference by the users of the exported CSV file.
 
 Step 7: The current medicine inventory data shown in the GUI is exported successfully to CSV file format.
 
@@ -354,27 +355,28 @@ Step 8: The `ExportCommand#execute()` operation returns a `CommandResult` which 
 
 The following activity diagram summarizes what happens when a user executes the `export` command:
 
+.Export Command Activity Diagram
 image::ExportCommandActivityDiagram.png[width="800"]
 
 ==== Design Considerations
 
 ===== Aspect: How exporting as CSV file format executes
 
-* **Alternative 1 (current choice):** Export the current medicine inventory data shown in the GUI to CSV file format.
-** Pros: Easy to implement and users have a preview of the data before exporting.
+* **Alternative 1 (current choice):** Exports the current medicine inventory data shown in the GUI to CSV file format using the `export` command.
+** Pros: Easy to implement and users can preview the data before exporting.
 ** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual commands each adds an additional parameter to export as CSV file.
-** Pros: Users can export directly through a single command (e.g. for `filter` command when the export option is enabled, export the filtered medicine inventory data immediately without having to retrieve from `Model#getFilteredMedicineList()` operation.
+* **Alternative 2:** Individual commands can add an additional `export` parameter to support exporting as CSV file.
+** Pros: Users can export directly through individual commands which support the additional `export` parameter (e.g. The `find` command with its additional `export` parameter set to true, exports the filtered medicine inventory data immediately without having to retrieve from `Model#getFilteredMedicineList()` operation).
 ** Cons: We must ensure that the implementation and integration of the exporting to CSV file of each individual commands are correct. Furthermore, users are not able to preview the data before exporting.
 
 ===== Aspect: Data structure/Algorithm/Implementation to support the `export` command
 
-* **Alternative 1 (current choice):** Iterate through each of the Medicine in the list retrieved from `Model#getFilterMedicineList()` operation to build the structure in which the data is organised when exported to CSV file format.
-** Pros: Easy for developers to understand, especially for those who want to modify the way the data is organised when exported to CSV file format but have no prior knowledge on `Opencsv` Java CSV parser library.
-** Cons: The time complexity of the algorithm is O(n) and might not be as efficient especially when involving large amounts of data. Furthermore, it does not take full advantage of the more advanced features provided by the `Opencsv` Java CSV parser library.
-* **Alternative 2:** Use `Opencsv` Java CSV parser library's `StatefulBeanToCsvBuilder` operation for building the structure in which the data is organised from the list retrieved from `Model#getFilterMedicineList()` operation when exported to CSV file format.
-** Pros: We do not need to iterate through the list and convert it to a String Array as we can just use the library's `StatefulBeanToCsvBuilder` operation to build the structure from the list by passing the list as a parameter to the operation. Furthermore, the formatting process can be automated using the operation. It is also more efficient in terms of performance according to the library's documentation if ordering of the data exported is not a concern to the developer.
-** Cons: Requires prior knowledge on the way in which the library's `StatefulBeanToCsvBuilder` operation works. If the developers want to modify the data exported to be ordered in a specific way, it requires knowledge on the library's `MappingStrategy` related operations which may be complicated for developers new to the library.
+* **Alternative 1 (current choice):** Iterate through each of the medicine in the list retrieved from `Model#getFilterMedicineList()` operation to build the structure in which the data is organised when exported to CSV file format.
+** Pros: Easy for developers to understand, especially for those who want to modify the way in which the data is organised when exported to CSV file format but have no prior knowledge on `Opencsv` Java CSV parser library.
+** Cons: The time complexity of the algorithm is O(n) and might not be as efficient especially when a large amount of data is involved. Furthermore, it does not take full advantage of the more advanced features provided by the `Opencsv` Java CSV parser library.
+* **Alternative 2:** Use `Opencsv` Java CSV parser library's `StatefulBeanToCsvBuilder` operation for building the structure in which the data is organised from the list retrieved using the `Model#getFilterMedicineList()` operation when exporting to CSV file format.
+** Pros: Does not require iterating through the list and convert it to a String Array as we can use the library's `StatefulBeanToCsvBuilder` operation to build the structure from the list by passing the list as a parameter to the operation. Furthermore, the formatting process can be automated using the operation. It is also more efficient in terms of performance according to the library's documentation if ordering of the data exported is not a concern to the developer.
+** Cons: Requires prior knowledge on the way in which the library's `StatefulBeanToCsvBuilder` operation works. If a developer wants to modify the data exported to be ordered in a specific format, it requires knowledge on the library's `MappingStrategy` related operations which may be complicated for developers new to the library.
 [NOTE]
 More information on `Opencsv` library's `StatefulBeanToCsvBuilder` operation can be found in the library's link:http://opencsv.sourceforge.net/[documentation].
 // end::exportcommand[]
@@ -459,6 +461,63 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::labelcommand[]
+=== Medicine Label using Label Command
+
+Users can use the command to output medicines information to a specific folder. Information will be in Portable Document Format (PDF) files.
+
+Current implementation:
+Under the build.gradle file, we have added new dependency implementation group: `org.apache.pdfbox`, name: `pdfbox`, version: `2.0.13`. This imports the library over to the project for use.
+
+There are many operations available added in the Apache PDFBox, the key operations that we are using would only be:
+
+* `PDDocument()` - For creating a new blank PDF file for the medicine details to be exported to.
+* `PDPage()` - Creates a new PDPage instance for embedding.
+* `PDPageContentStream(PDDocument, PDPage)` - Provides the ability to write a page content stream.
+
+The following sequence diagram shows how the label operation works:
+
+image::LabelUML.png[width="800"]
+Fig 4.4.1
+
+==== Usage scenario example
+===== Below shows how the label command behaves in each step:
+
+.  The user launches the application for the first time. An empty InformationPanel is displayed. (Fig 4.5.2 )
+
+.  The user executes the `label 2` to output the label of the 2nd medicine indexed in the inventory. Since no file name is included in the argument, the default filename 'to_print' is used instead. `LabelCommand#execute()` is called.
+
+.  The user can find the file `to_print` under the main folder. (Fig 4.5.3)
+
+
+image::label2_taken.png[width="790"]
+Fig 4.4.1.1
+
+image::mainPDF.png[width="790"]
+Fig 4.4.1.2 (PDF folder highlighted)
+
+===== Label command with filename specified
+
+.  The user executes `label 1 f/file_to_print` to output the label of the 1st medicine indexed in the inventory. The `LabelCommandParser` class will be able to tokenize and read the desired file name. Then, `LabelCommand#execute()` is called.
+
+.  The user can find a new file `file_to_print` under the same main folder.
+
+[NOTE]
+If the user would execute another `label 1`, the original `to_print` file will be replaced with the information of the 1st medicine indexed in the inventory. Users are warned in the User Guide to be caution about overwriting files.
+
+==== Design Consideration
+
+===== Aspect: How label executes
+
+* **Alternative 1 (current choice):** Creates a new `PDFDocument` every time a medicine it to be labeled.
+** Pros: Easy to implement.
+** Cons: Uses more of the user computer memory space as it creates the temporary file.
+* **Alternative 2:** Find the existing PDF file and edit.
+** Pros: Will use less memory.
+** Cons: We have to read the existing file which requires more time to execute.
+
+// end::labelcommand[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
@@ -485,50 +544,6 @@ Data encryption is likely to be implemented in future versions of the MediTabs i
 ** Cons: Need to implement packing/unpacking of encrypted data and plaintext during startup/shutdown.
 
 // end::dataencryption[]
-
-// tag::labelcommand[]
-=== Exporting Medicine Label
-
-The exporting of a medicine label to a PDF formatted file is implemented by using Apache PDFBox.
-
-Current implementation:
-Under the build.gradle file, we have added new dependency implementation group: `org.apache.pdfbox`, name: `pdfbox`, version: `2.0.13`. This imports the library over to the project for use.
-
-There are many operations available added in the Apache PDFBox, the key operations that we are using would only be:
-
-`PDDocument()` - For creating a new blank PDF file for the medicine details to be exported to.
-`PDPage()` - Creates a new PDPage instance for embedding.
-`PDPageContentStream(PDDocument , PDPage)` - Provides the ability to write a page content stream.
-
-image::UMLLabelDiagram.png[width="800"]
-
-Given below is an example usage scenario and how the label command behaves in each step:
-
-Step 1. The user launches the application for the first time. An empty InformationPanel is displayed.
-
-Step 2. The user executes the `label 2` to output the label of the 2nd medicine indexed in the inventory. Since no file name is included in the argument, the default filename 'to_print' is used instead. Then, `LabelCommand#execute()` is called.
-
-Step 3. The user can find the file `to_print` under the main folder.
-
-Step 4. The user executes `label 1 f/file_to_print` to output the label of the 1st medicine indexed in the inventory. The `LabelCommandParser` class will be able to tokenize and read the desired file name. Then, `LabelCommand#execute()` is called.
-
-Step 5. The user can find a new file `file_to_print` under the same main folder.
-
-[NOTE]
-If the user would execute another `label 1`, the original `to_print` file will be replaced with the information of the 1st medicine indexed in the inventory. Users are warned in the User Guide to be caution about overwriting files.
-
-==== Design Consideration
-
-===== Aspect: How label executes
-
-* **Alternative 1 (current choice):** Creates a new `PDFDocument` every time a medicine it to be labeled.
-** Pros: Easy to implement.
-** Cons: Uses more of the user computer memory space as it creates the temporary file.
-* **Alternative 2:** Find the existing PDF file and edit.
-** Pros: Will use less memory.
-** Cons: We have to read the existing file which requires more time to execute.
-
-// end::labelcommand[]
 
 // tag::warningpanel[]
 === Warning Panel

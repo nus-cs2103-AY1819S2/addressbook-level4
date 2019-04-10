@@ -5,46 +5,51 @@
 
 == PROJECT: MediTabs
 
----
+== Introduction
+This  Project Portfolio shows my contributions to the group project, such as features and documentation.
+
 
 == Overview
 
-Our team of 4 was task to either enhance or morph a basic addressbook for our project. We decided to morph it to be a medicine inventory management system named MediTabs. We chose pharmacist to be our target audience, favouring keyboard inputs.
+The group project, Meditabs, is a medicine inventory management for pharmacist to streamline the process of handling the stick taking process. The user mainly uses the Command-Line Interface (CLI) to interact.
 
 == Summary of contributions
 
-* *Major enhancement*: added the label command to allow user to output the medicine information onto a pdf file
-** What it does: Enables the user to transfer the medicine information over to a pdf file. Then, the user could use printers or external 3rd party software to print or edit the file.
-** Justification: Pharmacist would like to have the printed information of certain medicine and label the physical counterpart. With the PDF, the pharmacist may use external printers and print out the information on the label as a sticker. PDF is widely used as a file extension and hence very portable which all computers and printer can identify.
+* *Major enhancement*: Added the `Label` command
+** What it does: Allows the user to output the information of the medicine onto a Portable Document Format (PDF).
+** Justification: Pharmacist would like to have the printed information of certain medicine and label the physical counterpart. With the PDF, the pharmacist may use external printers and print out the information on the label as a sticker. PDF is widely used as a file extension.
 ** Highlights: Added security layer to the naming of the file (Auto include .pdf extension) such that users may not over write other important files.
 ** Credits: Apache PDFBox external library is imported to help manipulate and output the stream of information to the PDF file.
 
-* *Minor enhancement*:
+* *Minor enhancement*: -
 
-* *Code contributed*:
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
-
-_{you can add/remove categories in the list above}_
+** Project management:
+*** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/CS2103-AY1819S2-T12-3/main/pull/131[#131], https://github.com/CS2103-AY1819S2-T12-3/main/pull/142[#142])
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-T12-3/main/pull/103[#103], https://github.com/CS2103-AY1819S2-T12-3/main/pull/124[#124]
+** Documentation:
+*** Added label command to the User Guide: https://github.com/CS2103-AY1819S2-T12-3/main/pull/106[#106]
+*** Changed About Us documentation to describe our group instead: https://github.com/CS2103-AY1819S2-T12-3/main/pull/24[#24], https://github.com/CS2103-AY1819S2-T12-3/main/pull/27[#27]
+** Tools:
+*** Integrated third party libraries (Apache PDFBox) to the project: https://github.com/CS2103-AY1819S2-T12-3/main/pull/40[#40]
 
 == Contributions to the User Guide
 
+
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|Below are my contributions to the user guide to showcase my technical skills on user end documentation.
 |===
 
-include::../UserGuide.adoc[tag=label]
-
-
-
+include::../UserGuide.adoc[tag=labelcommand]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|Below are my contributions to the developer guide to showcase my technical skills on developer end documentation.
 |===
 
-include::../DeveloperGuide.adoc[tag=label]
-
-include::../DeveloperGuide.adoc[tag=usecase]
+include::../DeveloperGuide.adoc[tag=labelcommand]

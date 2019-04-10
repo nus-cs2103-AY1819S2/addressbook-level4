@@ -1,0 +1,81 @@
+= Yong Xin Shen - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: DocX
+
+---
+
+== Overview
+
+DocX is a desktop application designed for receptionists in clinics.
+It features patient management, doctor management, medical history management and appointment management.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *appointment management features*
+** What it does: allows the user to manage appointments between patients and doctors.
+** Justification: This is a core feature to allow appointments to be managed in an organized manner.
+** Highlights: Appointments can be prone to many issues as it deals with date and time. Therefore, extreme care must be
+taken when handling user input to prevent any issues with invalid date and time combinations. Also there are numerous
+constraints, such as new appointments can only be created during business hours, in the future and patients can only
+complete their appointments after they are over.
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Minor enhancement*: enhanced the user interface to include 4 sections, a section to display patients, a section to
+display doctors, a section to display medical history, a section to display appointments. Also added the ability to
+switch an entire panel to display the current relevant content. Helped to resolve several technical issues with
+implementing a unique ID for both patients and doctors.
+
+* *Code contributed*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=amuletxheart
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+** Tools:
+*** Integrated a third party library (Natty) to the project (https://github.com[#42])
+*** Integrated a new Github plugin (CircleCI) to the team repo
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=undoredo]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

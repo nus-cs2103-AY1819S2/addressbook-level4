@@ -199,9 +199,9 @@ public class DocX implements ReadOnlyDocX {
      * The appointment must not already exist.
      */
     public void addAppointment(Appointment appointment) {
+        appointments.add(appointment);
         appointment.setPatient(getPatientById(appointment.getPatientId()));
         appointment.setDoctor(getDoctorById(appointment.getDoctorId()));
-        appointments.add(appointment);
         indicateModified();
     }
 
@@ -213,6 +213,8 @@ public class DocX implements ReadOnlyDocX {
     public void setAppointment(Appointment target, Appointment changedAppointment) {
         requireNonNull(changedAppointment);
 
+        changedAppointment.setPatient(getPatientById(changedAppointment.getPatientId()));
+        changedAppointment.setDoctor(getDoctorById(changedAppointment.getDoctorId()));
         appointments.setAppointment(target, changedAppointment);
         indicateModified();
     }
@@ -326,6 +328,19 @@ public class DocX implements ReadOnlyDocX {
      */
     public void addPrescription(Prescription prescription) {
         prescriptions.addPrescription(prescription);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the given medical history {@code target} in the list with {@code editedMedHist}.
+     * {@code target} must exist in the docX.
+     * The medical history identity of {@code editedMedHist} must not be the same as another existing medical history
+     * in the docX.
+     */
+    public void setPrescription(Prescription target, Prescription editedPrescription) {
+        requireNonNull(editedPrescription);
+
+        prescriptions.setPrescription(target, editedPrescription);
         indicateModified();
     }
 

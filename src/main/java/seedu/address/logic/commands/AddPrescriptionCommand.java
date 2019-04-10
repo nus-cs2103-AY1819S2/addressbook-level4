@@ -2,11 +2,15 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Doctor;
+import seedu.address.model.person.Patient;
 import seedu.address.model.prescription.Prescription;
 
 
@@ -17,15 +21,23 @@ public class AddPrescriptionCommand extends Command {
 
     public static final String COMMAND_WORD = "add-presc";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds a medical history of a patient to the docX."
+            + ": Adds a prescription to the docX."
             + "Parameters: "
+            + PREFIX_PATIENT_ID + "PATIENT-ID "
+            + PREFIX_DOCTOR_ID + "DOCTOR-ID "
             + PREFIX_MEDICINE_NAME + "name of the medicine "
-            + PREFIX_DESCRIPTION + "description "
+            + PREFIX_DESCRIPTION + "description \n"
             + "Example: " + COMMAND_WORD + " "
+            + PREFIX_PATIENT_ID + "1 "
+            + PREFIX_DOCTOR_ID + "1 "
             + PREFIX_MEDICINE_NAME + "Acetaminophen" + " "
-            + PREFIX_DESCRIPTION + "500 mg, for relieving pain";
+            + PREFIX_DESCRIPTION + "500 mg for relieving pain";
     public static final String MESSAGE_SUCCESS = "New prescription added: %1$s";
     public static final String MESSAGE_DUPLICATE_PRESCRIPTION = "This prescription already exists in the docX";
+    public static final String MESSAGE_PATIENT_NOT_FOUND =
+            "Patient with the ID is not found. Please enter a valid patient ID.";
+    public static final String MESSAGE_DOCTOR_NOT_FOUND =
+            "Doctor with the ID is not found. Please enter a valid doctor ID.";
 
     private final Prescription prescriptionToAdd;
 
@@ -44,13 +56,30 @@ public class AddPrescriptionCommand extends Command {
         if (model.hasPrescription(prescriptionToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PRESCRIPTION);
         }
+        getPatientById(model);
+        getDoctorById(model);
+
         model.addPrescription(prescriptionToAdd);
         model.commitDocX();
         return new CommandResult(String.format(MESSAGE_SUCCESS, prescriptionToAdd));
 
     }
 
+    private void getPatientById(Model model) throws CommandException {
+        Patient patientWithId = model.getPatientById(prescriptionToAdd.getPatientId());
+        if (patientWithId == null) {
+            throw new CommandException(MESSAGE_PATIENT_NOT_FOUND);
+        }
+        this.prescriptionToAdd.setPatient(patientWithId);
+    }
 
+    private void getDoctorById(Model model) throws CommandException {
+        Doctor doctorWithId = model.getDoctorById(prescriptionToAdd.getDoctorId());
+        if (doctorWithId == null) {
+            throw new CommandException(MESSAGE_DOCTOR_NOT_FOUND);
+        }
+        this.prescriptionToAdd.setDoctor(doctorWithId);
+    }
 
     @Override
     public boolean equals(Object other) {

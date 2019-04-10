@@ -21,7 +21,7 @@ public class Patient extends Person {
     private final Age age;
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-    private final AppointmentStatus appointmentStatus;
+    private AppointmentStatus appointmentStatus;
 
     /**
      * Every field must be present and not null.
@@ -36,6 +36,7 @@ public class Patient extends Person {
     }
 
     /**
+     * For id counter.
      * This is an existing patient and does not need to generate a new ID.
      */
     public Patient(PersonId id, Name name, Gender gender, Age age, Phone phone, Address address, Set<Tag> tags) {
@@ -47,12 +48,35 @@ public class Patient extends Person {
         this.appointmentStatus = AppointmentStatus.ACTIVE;
     }
 
+    /**
+     * For mark-appt command.
+     * This is an existing patient and does not need to generate a new ID.
+     */
+    public Patient(PersonId id, Name name, Gender gender, Age age, Phone phone, Address address, Set<Tag> tags,
+                   AppointmentStatus appointmentStatus) {
+        super(id, name, phone, gender);
+        requireAllNonNull(name, phone, gender);
+        this.age = age;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.appointmentStatus = appointmentStatus;
+    }
+
     public Age getAge() {
         return age;
     }
 
     public Address getAddress() {
         return address;
+    }
+
+    /**
+     * Returns the same patient with the changed appointment status
+     * This is to facilitate mark-appt command
+     */
+    public Patient changeAppointmentStatus(AppointmentStatus status) {
+        this.appointmentStatus = status;
+        return this;
     }
 
     public AppointmentStatus getAppointmentStatus() {

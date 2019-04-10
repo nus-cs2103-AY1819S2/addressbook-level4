@@ -23,5 +23,6 @@
     "writeUp" : "Sneeze"
   } ],
   "appointments": [ ],
+  "prescriptions": [ ],
   "personIdCounter" : 0
 }

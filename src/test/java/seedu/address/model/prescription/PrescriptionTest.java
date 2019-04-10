@@ -5,16 +5,19 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-
+import seedu.address.model.person.PersonId;
 
 
 public class PrescriptionTest {
     @Test
 
     public void equals() {
-        Prescription p1 = new Prescription(null, null, new Medicine("M1"), new Description("Testing"));
-        Prescription p2 = new Prescription(null, null, new Medicine("M1"), new Description("Testing"));
-        Prescription p3 = new Prescription(null, null, new Medicine("M1"), new Description("NotTheSame"));
+        Prescription p1 = new Prescription(new PersonId("1"), new PersonId("2"),
+                new Medicine("M1"), new Description("Testing"));
+        Prescription p2 = new Prescription(new PersonId("1"), new PersonId("2"),
+                new Medicine("M1"), new Description("Testing"));
+        Prescription p3 = new Prescription(new PersonId("1"), new PersonId("2"),
+                new Medicine("M1"), new Description("Not the same"));
 
 
 

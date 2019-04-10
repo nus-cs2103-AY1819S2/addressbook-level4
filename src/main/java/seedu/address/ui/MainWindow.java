@@ -38,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private PatientListPanel patientListPanel;
     private MedHistListPanel medHistListPanel;
     private AppointmentListPanel appointmentListPanel;
+    private PrescriptionListPanel prescriptionListPanel;
     private DoctorListPanel doctorListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -183,6 +184,17 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Show the medical history panel
+     */
+    public void showPrescriptionPanel() {
+        prescriptionListPanel = new PrescriptionListPanel(logic.getFilteredPrescriptionList(),
+                logic.selectedPrescriptionProperty(),
+                logic::setSelectedPrescription);
+        middleListPanelPlaceholder.getChildren().clear();
+        middleListPanelPlaceholder.getChildren().add(prescriptionListPanel.getRoot());
+    }
+
+    /**
      * Show the appointment panel
      */
     public void showAppointmentPanel() {
@@ -245,6 +257,10 @@ public class MainWindow extends UiPart<Stage> {
         return doctorListPanel;
     }
 
+    public PrescriptionListPanel getPrescriptionListPanel() {
+        return prescriptionListPanel;
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -271,6 +287,10 @@ public class MainWindow extends UiPart<Stage> {
             case APPOINTMENT_PANEL:
                 showAppointmentPanel();
                 break;
+            case PRESC_PANEL:
+                showPrescriptionPanel();
+                break;
+
             default:
                 break;
             }

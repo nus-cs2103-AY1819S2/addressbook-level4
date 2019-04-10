@@ -1,8 +1,6 @@
 package seedu.address.model.util;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -37,13 +35,13 @@ public class SampleDataUtil {
         return new Patient[] {
             new Patient(new Name("Tan Ah Ming"), new Gender("M"), new Age("29"), new Phone("87438807"),
                 new Address("Blk 30 Geylang Street 29 #06-40"),
-                getTagSet("foodpoisoning", "headache")),
+                getTagSet("foodpoisoning", "heatstroke")),
             new Patient(new Name("Bernice Yu Ye Sim"), new Gender("F"), new Age("23"), new Phone("99272758"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens #07-18"),
                 getTagSet("highbloodpressure", "stroke")),
             new Patient(new Name("David Li"), new Gender("M"), new Age("53"), new Phone("91031282"),
                 new Address("Blk 436 Serangoon Gardens Street 26 #16-43"),
-                getTagSet("diabetes", "stroke")),
+                getTagSet("diabetes", "fever", "lungcancer")),
             new Patient(new Name("Charlie Oldman"), new Gender("M"), new Age("101"), new Phone("93210283"),
                     new Address("Blk 11 Ang Mo Kio Street 74 #11-04"),
                     getTagSet()),
@@ -94,6 +92,10 @@ public class SampleDataUtil {
             sampleDocX.addMedHist(sampleMedHist);
         }
 
+        for (Appointment sampleAppointment : getAppointments()) {
+            sampleDocX.addAppointment(sampleAppointment);
+        }
+
         return sampleDocX;
     }
 
@@ -112,14 +114,23 @@ public class SampleDataUtil {
                 .collect(Collectors.toSet());
     }
 
-    public static List<Appointment> getAppointments() {
-        List<Appointment> appointments = new ArrayList<>();
-        FutureAppointment appointment1 = new FutureAppointment(new AppointmentPatientId("1"),
-                new AppointmentDoctorId("2"), new AppointmentDate("2016-06-01"), new AppointmentTime("09:00"));
-        FutureAppointment appointment2 = new FutureAppointment(new AppointmentPatientId("1"),
-                new AppointmentDoctorId("3"), new AppointmentDate("2016-06-01"), new AppointmentTime("10:00"));
-        appointments.add(appointment1);
-        appointments.add(appointment2);
+    public static Appointment[] getAppointments() {
+        Appointment[] appointments = new Appointment[4];
+        Appointment appointment1 = new FutureAppointment(new AppointmentPatientId("1"),
+                new AppointmentDoctorId("7"), new AppointmentDate("2019-06-01"), new AppointmentTime("09:00"));
+        Appointment appointment2 = new FutureAppointment(new AppointmentPatientId("2"),
+                new AppointmentDoctorId("8"), new AppointmentDate("2019-06-01"), new AppointmentTime("10:00"));
+
+
+        Appointment appointment3 = new Appointment(new AppointmentPatientId("1"),
+                new AppointmentDoctorId("7"), new AppointmentDate("2019-02-01"), new AppointmentTime("09:00"));
+        Appointment appointment4 = new Appointment(new AppointmentPatientId("2"),
+                new AppointmentDoctorId("8"), new AppointmentDate("2019-02-01"), new AppointmentTime("10:00"));
+
+        appointments[0] = appointment1;
+        appointments[1] = appointment2;
+        appointments[2] = appointment3;
+        appointments[3] = appointment4;
 
         return appointments;
     }

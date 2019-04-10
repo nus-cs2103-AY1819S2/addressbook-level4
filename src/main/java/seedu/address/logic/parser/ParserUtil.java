@@ -342,11 +342,11 @@ public class ParserUtil {
 
         File file = new File(newPath.concat(filePath));
 
-        final String jsonRegex = "^([\\w-/\\s.()]+)+\\.(json)$";
+        final String jsonRegex = "^([\\w-\\\\/\\s.()]+)+\\.(json)$";
         if (filePath.matches(jsonRegex)) {
             return new ParsedInOut(file, "json");
         } else {
-            final String pdfRegex = "^([\\w-/\\s.()]+)+\\.(pdf)$";
+            final String pdfRegex = "^([\\w-\\\\/\\s.()]+)+\\.(pdf)$";
             if (filePath.matches(pdfRegex)) {
                 return new ParsedInOut(file, "pdf");
             } else {
@@ -381,13 +381,13 @@ public class ParserUtil {
         }
         input = String.valueOf(pathArr);
 
-        final String validationRegex = "^([\\w-/\\s.()]+)+\\.(json|pdf)+\\s?([0-9,-]*)?$";
+        final String validationRegex = "^([\\w-\\\\/\\s.()]+)+\\.(json|pdf)+\\s?([0-9,-]*)?$";
 
         // Parse for "all" keyword
-        final String allRegex = "^([\\w-/\\s.()]+)+\\.(json|pdf)+\\s(all)$";
+        final String allRegex = "^([\\w-\\\\/\\s.()]+)+\\.(json|pdf)+\\s(all)$";
         if (!input.matches(validationRegex)) {
             if (input.matches(allRegex)) {
-                final Pattern splitRegex = Pattern.compile("^([\\w-/\\s.()]+)+\\.(json|pdf)+\\s(all)$");
+                final Pattern splitRegex = Pattern.compile("^([\\w-\\\\/\\s.()]+)+\\.(json|pdf)+\\s(all)$");
                 Matcher splitMatcher = splitRegex.matcher(input);
 
                 if (splitMatcher.find()) {
@@ -406,7 +406,7 @@ public class ParserUtil {
         }
 
         // Parse for index range
-        final Pattern splitRegex = Pattern.compile("([\\w-/\\s.()]+)+\\.(json|pdf)+\\s?([0-9,-]*)?");
+        final Pattern splitRegex = Pattern.compile("([\\w-\\\\/\\s.()]+)+\\.(json|pdf)+\\s?([0-9,-]*)?");
         Matcher splitMatcher = splitRegex.matcher(input);
         String indexRange;
 

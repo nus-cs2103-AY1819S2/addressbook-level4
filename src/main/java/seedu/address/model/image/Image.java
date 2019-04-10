@@ -178,6 +178,9 @@ public class Image {
     }
 
     public void setRedo() {
+        if (commandHistory.get(index) instanceof WaterMarkCommand) {
+            setWaterMark(true);
+        }
         index++;
     }
 

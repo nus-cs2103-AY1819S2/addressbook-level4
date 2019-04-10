@@ -20,6 +20,6 @@ public class WaterMarkCommandParser implements Parser<WaterMarkCommand> {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                     WaterMarkCommand.MESSAGE_USAGE));
         }
-        return new WaterMarkCommand(args);
+        return new WaterMarkCommand(args, true);
     }
 }

@@ -28,12 +28,14 @@ public class WaterMarkCommand extends Command {
             + "Example: " + COMMAND_WORD + " FomoFoto";
     private String text;
     private boolean isNewCommand;
+    private boolean isPreset;
 
-    public WaterMarkCommand(String words) {
+    public WaterMarkCommand(String words, boolean isNewCommand) {
         setCommandName(COMMAND_WORD);
         setArguments(words);
         this.text = "\u00a9 " + words;
-        this.isNewCommand = true;
+        this.isNewCommand = isNewCommand;
+        this.isPreset = !isNewCommand;
     }
 
     @Override
@@ -67,26 +69,29 @@ public class WaterMarkCommand extends Command {
         // add text overlay to the image
         w.drawString(text, centerX, centerY);
         w.dispose();
-
-
-
-        if (initialImage.hasWaterMark()) {
-            throw new CommandException(Messages.MESSAGE_HAS_WATERMARK);
-        }
-
-        initialImage.setWaterMark(true);
-
         if (this.isNewCommand) {
+            // this is when user types in a new command on the commandline.
             this.isNewCommand = false;
+            if (initialImage.hasWaterMark()) {
+                throw new CommandException(Messages.MESSAGE_HAS_WATERMARK);
+            }
+            initialImage.setWaterMark(true);
             currentEdit.updateTempImage(watermarked);
             currentEdit.addCommand(this);
             currentEdit.displayTempImage();
-        } else {
-            currentEdit.updateTempImage(watermarked);
-            initialImage.setWaterMark(true);
+        } else { //for undo- redo commands
+            //this is when undo redo or when preset and image has no watermark.
+            if (!isPreset || !initialImage.hasWaterMark()) {
+                currentEdit.updateTempImage(watermarked);
+                initialImage.setWaterMark(true);
+            } else {
+                //this when preset and image already has a watermark.
+                throw new CommandException(Messages.MESSAGE_HAS_WATERMARK);
+            }
         }
         return new CommandResult(Messages.MESSAGE_WATERMARK_SUCCESS);
     }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

@@ -17,7 +17,7 @@ public class ResizeCommandParserTest {
     private ResizeCommandParser parser = new ResizeCommandParser();
 
     @Test
-    public void parse_validArgs_returnsRotateCommand() {
+    public void parse_validArgs_returnsResizeCommand() {
         assertParseSuccess(parser, " 200 200", new ResizeCommand(200, 200));
         assertParseSuccess(parser, " 10 20", new ResizeCommand(10, 20));
     }

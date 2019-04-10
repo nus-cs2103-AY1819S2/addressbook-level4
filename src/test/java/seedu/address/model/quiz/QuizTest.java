@@ -243,21 +243,6 @@ public class QuizTest {
     }
 
     @Test
-    public void getHeader() {
-        Quiz quiz = new Quiz(validQuizCard, REVIEW);
-        quiz.getNextCard();
-
-        assertEquals("Country", quiz.getQuestionHeader());
-        assertEquals("Capital", quiz.getAnswerHeader());
-
-        quiz.getNextCard();
-        quiz.getNextCard(); // flipped first card
-        assertEquals("Capital", quiz.getQuestionHeader());
-        assertEquals("Country", quiz.getAnswerHeader());
-
-    }
-
-    @Test
     public void equals() {
         Quiz quiz = new Quiz(validQuizCard, LEARN);
 

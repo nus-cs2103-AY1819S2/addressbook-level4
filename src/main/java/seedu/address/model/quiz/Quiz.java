@@ -177,39 +177,8 @@ public class Quiz {
         return sessionCard.isCardDifficult();
     }
 
-    /**
-     * Returns the question header of the {@code QuizCard} if the order of question and answer is not flipped,
-     * otherwise returns answer header.
-     */
-    public String getQuestionHeader() {
-        QuizCard original = getOriginalCardByIndex(currOrignalQuizCardIndex);
-
-        if (original.getQuestion().equals(currentQuizCard.getQuestion())) {
-            return original.getQuestionHeader();
-        }
-
-        return original.getAnswerHeader();
-    }
-
-    /**
-     * Gets the answer header if not flipped, else gets question header
-     */
-    public String getAnswerHeader() {
-        QuizCard original = getOriginalCardByIndex(currOrignalQuizCardIndex);
-
-        if (original.getAnswer().equals(currentQuizCard.getAnswer())) {
-            return original.getAnswerHeader();
-        }
-
-        return original.getQuestionHeader();
-    }
-
     public List<String> getOpt() {
         return currentQuizCard.getOpt();
-    }
-
-    private QuizCard getOriginalCardByIndex(int index) {
-        return originalQuizCardList.get(index);
     }
 
     /**

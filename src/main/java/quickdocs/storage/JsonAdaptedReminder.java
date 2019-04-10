@@ -3,6 +3,7 @@ package quickdocs.storage;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -47,7 +48,7 @@ public class JsonAdaptedReminder {
         this.date = source.getDate().toString();
         this.start = source.getStart().toString();
         LocalTime endTime = source.getEnd();
-        if (endTime != null) {
+        if (Optional.ofNullable(endTime).isPresent()) {
             this.end = endTime.toString();
         }
     }
@@ -72,7 +73,7 @@ public class JsonAdaptedReminder {
 
         try {
             modelStart = LocalTime.parse(start);
-            if (end != null) {
+            if (Optional.ofNullable(end).isPresent()) {
                 modelEnd = LocalTime.parse(end);
             } else {
                 modelEnd = null;
@@ -84,6 +85,4 @@ public class JsonAdaptedReminder {
         Reminder reminder = new Reminder(modelTitle, modelComment, modelDate, modelStart, modelEnd);
         return reminder;
     }
-
-
 }

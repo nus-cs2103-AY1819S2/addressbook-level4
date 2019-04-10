@@ -1,7 +1,9 @@
 package quickdocs.model;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import static quickdocs.testutil.TypicalSlots.SLOT_A;
+import static quickdocs.testutil.TypicalSlots.SLOT_B;
+import static quickdocs.testutil.TypicalSlots.SLOT_C;
+import static quickdocs.testutil.TypicalSlots.SLOT_NULL_END;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,48 +11,56 @@ import org.junit.Test;
 public class SlotTest {
 
     @Test
-    public void equals() {
-        LocalDate dateA = LocalDate.parse("2019-05-22");
-        LocalDate dateB = LocalDate.parse("2019-05-23");
-        LocalTime startA = LocalTime.parse("12:00");
-        LocalTime startB = LocalTime.parse("13:00");
-        LocalTime endA = LocalTime.parse("16:00");
-        LocalTime endB = LocalTime.parse("17:00");
+    public void compareTo() {
+        int result;
+        // SLOT_A date < SLOT_B date
+        result = SLOT_A.compareTo(SLOT_B);
+        Assert.assertEquals(result, -1);
 
-        Slot slotA = new Slot(dateA, startA, endA);
+        // SLOT_A date == SLOT_C date,
+        // SLOT_A start time < SLOT_C start time
+        result = SLOT_A.compareTo(SLOT_C);
+        Assert.assertEquals(result, -1);
+
+        // same date and start time
+        Slot slotACopy = new Slot(SLOT_A.getDate(), SLOT_A.getStart(), SLOT_A.getEnd());
+        result = SLOT_A.compareTo(slotACopy);
+        Assert.assertEquals(result, 0);
+    }
+
+    @Test
+    public void equals() {
 
         // test equality of same referenced object
-        Assert.assertEquals(slotA, slotA);
+        Assert.assertEquals(SLOT_A, SLOT_A);
 
         // test equality of object with same values
-        Slot slotB = new Slot(dateA, startA, endA);
-        Assert.assertEquals(slotA, slotB);
+        Slot slotACopy = new Slot(SLOT_A.getDate(), SLOT_A.getStart(), SLOT_A.getEnd());
+        Assert.assertEquals(SLOT_A, slotACopy);
 
         // test equality with null
-        Assert.assertFalse(slotA.equals(null));
+        Assert.assertFalse(SLOT_A.equals(null));
 
         // test equality with different type
-        Assert.assertNotEquals(slotA, dateA);
+        Assert.assertNotEquals(SLOT_A, SLOT_A.getDate());
 
         // test equality of same referenced object with null end time
-        slotB = new Slot(dateA, startA, null);
-        Slot slotBCopy = new Slot(dateA, startA, null);
-        Assert.assertEquals(slotB, slotBCopy);
+        Slot slotNullEndCopy = new Slot(SLOT_NULL_END.getDate(), SLOT_NULL_END.getStart(), null);
+        Assert.assertEquals(SLOT_NULL_END, slotNullEndCopy);
 
         // test equality of two different slot objects with different date
-        slotB = new Slot(dateB, startA, endA);
-        Assert.assertNotEquals(slotA, slotB);
+        Slot slotDiffDate = new Slot(SLOT_A.getDate().minusDays(1), SLOT_A.getStart(), SLOT_A.getEnd());
+        Assert.assertNotEquals(SLOT_A, slotDiffDate);
 
         // test equality of two different slot objects with different start time
-        slotB = new Slot(dateA, startB, endA);
-        Assert.assertNotEquals(slotA, slotB);
+        Slot slotDiffStart = new Slot(SLOT_A.getDate(), SLOT_A.getStart().minusMinutes(1), SLOT_A.getEnd());
+        Assert.assertNotEquals(SLOT_A, slotDiffStart);
 
         // test equality of two different slot objects with different end time
-        slotB = new Slot(dateA, startA, endB);
-        Assert.assertNotEquals(slotA, slotB);
+        Slot slotDiffEnd = new Slot(SLOT_A.getDate(), SLOT_A.getStart(), SLOT_A.getEnd().minusMinutes(1));
+        Assert.assertNotEquals(SLOT_A, slotDiffEnd);
 
         // test equality of two different slot objects, one with null end time
-        slotB = new Slot(dateA, startA, null);
-        Assert.assertNotEquals(slotA, slotB);
+        Assert.assertNotEquals(SLOT_A, SLOT_NULL_END);
     }
 }

@@ -53,11 +53,30 @@
                             </padding>
                             <Label fx:id="detailsTitle" text="Personal Details." styleClass="cell_big_label_bright" />
 
-                            <Label fx:id="nric" styleClass="cell_small_label_bright" text="Tes: \$nric"/>
-                            <Label fx:id="dateOfBirth" styleClass="cell_small_label_bright" text="\$dateOfBirth" />
-                            <Label fx:id="phone" styleClass="cell_small_label_bright" text="\$phone" />
-                            <Label fx:id="address" styleClass="cell_small_label_bright" text="\$address" />
-                            <Label fx:id="email" styleClass="cell_small_label_bright" text="\$email" />
+                            <HBox>
+                                <Label fx:id="nricLabel" text="NRIC: " styleClass="stat_header" />
+                                <Label fx:id="nric" styleClass="stat_text" text="\$nric"/>
+
+                                <Label fx:id="birthLabel" text="D.O.B: " styleClass="stat_header" />
+                                <Label fx:id="dateOfBirth" styleClass="stat_text" text="\$dateOfBirth" />
+                            </HBox>
+
+                            <HBox>
+                                <Label fx:id="phoneLabel" text="Phone: " styleClass="stat_header" />
+                                <Label fx:id="phone" styleClass="stat_text" text="\$phone" />
+                            </HBox>
+
+                            <HBox>
+                                <Label fx:id="emailLabel" text="Email: " styleClass="stat_header" />
+                                <Label fx:id="email" styleClass="stat_text" text="\$email" />
+                            </HBox>
+
+                            <HBox>
+                                <Label fx:id="addressLabel" text="Address: " styleClass="stat_header" />
+                                <Label fx:id="address" styleClass="stat_text" text="\$address" />
+
+                            </HBox>
+
                         </VBox>
 
                         <VBox VBox.vgrow="ALWAYS" fx:id="recordsBox" alignment="CENTER" minWidth="200" maxHeight="300"

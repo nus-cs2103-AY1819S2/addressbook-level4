@@ -326,6 +326,9 @@ public class MainWindow extends UiPart<Stage> {
             case ANSWER_WRONG:
                 handleWrongAnswer();
                 break;
+            case ANSWER_REVEAL:
+                handleRevealAnswer();
+                break;
             default:
             }
 

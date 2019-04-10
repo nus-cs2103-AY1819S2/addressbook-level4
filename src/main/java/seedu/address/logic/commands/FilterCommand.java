@@ -22,6 +22,7 @@ import java.util.function.Predicate;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.model.job.JobListName;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.predicate.AddressContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.EmailContainsKeywordsPredicate;
@@ -37,18 +38,19 @@ import seedu.address.model.person.predicate.PhoneContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.PredicateManager;
 import seedu.address.model.person.predicate.RaceContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.SchoolContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.UniquePredicateList;
 
 
 /**
  * Searches and lists all persons in address book whose information contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class SearchCommand extends Command {
+public class FilterCommand extends Command {
 
-    public static final String COMMAND_WORD = "search";
-    public static final String COMMAND_ALIAS = "sh";
+    public static final String COMMAND_WORD = "filter";
+    public static final String COMMAND_ALIAS = "f";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Search all persons whose informations contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filter all persons whose informations contain any of "
         + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
         + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
         + "[" + PREFIX_NAME + "NAME KEYWORD] "
@@ -86,25 +88,61 @@ public class SearchCommand extends Command {
         + PREFIX_JOBSAPPLY + "Software Engineer ";
 
 
-    private final Predicate<Person> predicate;
+    private final PredicateManager predicate;
     private final PredicatePersonDescriptor predicatePersonDescriptor;
+    private final JobListName listName;
+    private final String commandName;
 
     /**
+     * @param commandName                  command name
+     * @param listName                  which job list to predicate the person with
      * @param predicatePersonDescriptor details to predicate the person with
      */
     @SuppressWarnings("unchecked")
-    public SearchCommand(PredicatePersonDescriptor predicatePersonDescriptor) {
+    public FilterCommand(String commandName, JobListName listName,
+                         PredicatePersonDescriptor predicatePersonDescriptor) {
+        requireNonNull(commandName);
+        requireNonNull(listName);
         requireNonNull(predicatePersonDescriptor);
         this.predicatePersonDescriptor = new PredicatePersonDescriptor(predicatePersonDescriptor);
-        this.predicate = (Predicate<Person>) this.predicatePersonDescriptor.toPredicate();
+        this.predicate = (PredicateManager) this.predicatePersonDescriptor.toPredicate();
+        this.listName = listName;
+        this.commandName = commandName;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
+        UniquePredicateList predicateList;
+
         requireNonNull(model);
-        model.updateBaseFilteredPersonList(predicate);
+        switch (listName) {
+        case APPLICANT:
+            model.updateJobAllApplicantsFilteredPersonList(predicate);
+            model.addPredicateJobAllApplicants(predicate);
+            predicateList = model.getPredicateLists(0);
+            break;
+        case KIV:
+            model.updateJobKivFilteredPersonList(predicate);
+            model.addPredicateJobKiv(predicate);
+            predicateList = model.getPredicateLists(1);
+            break;
+        case INTERVIEW:
+            model.updateJobInterviewFilteredPersonList(predicate);
+            model.addPredicateJobInterview(predicate);
+            predicateList = model.getPredicateLists(2);
+            break;
+        case SHORTLIST:
+            model.updateJobShortlistFilteredPersonList(predicate);
+            model.addPredicateJobShortlist(predicate);
+            predicateList = model.getPredicateLists(3);
+            break;
+        default:
+            model.updateBaseFilteredPersonList(predicate);
+            predicateList = model.getPredicateLists(0);
+        }
         return new CommandResult(
-            String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+            String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()), listName,
+                predicateList);
     }
 
     @Override
@@ -115,12 +153,12 @@ public class SearchCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof SearchCommand)) {
+        if (!(other instanceof FilterCommand)) {
             return false;
         }
 
         // state check
-        SearchCommand e = (SearchCommand) other;
+        FilterCommand e = (FilterCommand) other;
         return predicatePersonDescriptor.equals(e.predicatePersonDescriptor);
     }
 
@@ -129,6 +167,7 @@ public class SearchCommand extends Command {
      * corresponding field value of the person.
      */
     public static class PredicatePersonDescriptor {
+        private String predicateName;
         private Set<String> name;
         private Set<String> phone;
         private Set<String> email;
@@ -152,6 +191,7 @@ public class SearchCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public PredicatePersonDescriptor(PredicatePersonDescriptor toCopy) {
+            setPredicateName(toCopy.predicateName);
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
@@ -171,7 +211,7 @@ public class SearchCommand extends Command {
          * Translate and returns a Predicate object for search command
          */
         public Predicate toPredicate() {
-            Predicate<Person> predicator = new PredicateManager();
+            Predicate<Person> predicator = new PredicateManager(this.getPredicateName());
             if (this.getName().isPresent()) {
                 predicator = predicator.and(new NameContainsKeywordsPredicate(
                     new ArrayList<>(this.getName().get())));
@@ -229,6 +269,13 @@ public class SearchCommand extends Command {
                     new ArrayList<>(this.getKnownProgLangs().get())));
             }
             return predicator;
+        }
+        public void setPredicateName(String name) {
+            this.predicateName = name;
+        }
+
+        public String getPredicateName() {
+            return this.predicateName;
         }
 
         public void setName(Set<String> name) {

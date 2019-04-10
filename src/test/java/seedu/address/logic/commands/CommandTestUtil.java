@@ -28,6 +28,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.job.Job;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.predicate.NameContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -224,6 +225,15 @@ public class CommandTestUtil {
         Person firstPerson = model.getFilteredPersonList().get(0);
         model.deletePerson(firstPerson);
         model.commitAddressBook();
+    }
+
+    /**
+     * Deletes the first job in {@code model}'s filtered list from {@code model}'s address book.
+     */
+    public static void deleteFirstJob(Model model) {
+        Job firstJob = model.getFilteredJobList().get(0);
+        model.deleteJob(firstJob);
+
     }
 
 }

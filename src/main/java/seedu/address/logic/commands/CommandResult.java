@@ -5,8 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 import seedu.address.model.analytics.Analytics;
-import seedu.address.model.job.Job;
+import seedu.address.model.job.JobListName;
 import seedu.address.model.job.JobName;
+import seedu.address.model.person.predicate.UniquePredicateList;
 
 /**
  * Represents the result of a command execution.
@@ -15,7 +16,9 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
-    /** Analytics information should be shown to user*/
+    /**
+     * Analytics information should be shown to user
+     */
 
     private Analytics analytics;
 
@@ -23,10 +26,21 @@ public class CommandResult {
 
     private String interviews;
 
-    /** Help information should be shown to the user. */
+    private boolean search = false;
+
+    private UniquePredicateList filterList;
+
+    private JobListName listName;
+
+
+    /**
+     * Help information should be shown to the user.
+     */
     private final boolean showHelp;
 
-    /** The application should exit. */
+    /**
+     * The application should exit.
+     */
     private final boolean exit;
 
 
@@ -53,6 +67,13 @@ public class CommandResult {
             analytics = results;
         }
 
+    }
+
+    public CommandResult(String feedbackToUser, JobListName name, UniquePredicateList list) {
+        this(feedbackToUser, false, false);
+        search = true;
+        listName = name;
+        filterList = list;
     }
 
     public CommandResult(String feedbackToUser, JobName results) {
@@ -83,21 +104,41 @@ public class CommandResult {
     }
 
     public boolean isSuccessfulAnalytics() {
-        return feedbackToUser.equals("Analytics generated!");
+        return feedbackToUser.equals(GenerateAnalyticsCommand.MESSAGE_SUCCESS);
     }
 
     public boolean isSuccessfulInterviews() {
-        return feedbackToUser.equals("Interviews shown");
+        return feedbackToUser.equals(ShowInterviewsCommand.COMMAND_SUCCESS);
     }
 
-    public boolean isSuccessfulDisplayJob() { return feedbackToUser.equals("Displaying job");}
+    public boolean isSuccessfulDisplayJob() {
+        return feedbackToUser.equals(DisplayJobCommand.MESSAGE_SUCCESS);
+    }
+
+    public boolean isSuccessfulSearch() {
+        return search;
+    }
+
+    public boolean isList() {
+        return feedbackToUser.equals(ListCommand.MESSAGE_SUCCESS);
+    }
 
     //remember to handle null later
     public Analytics getAnalytics() {
         return analytics;
     }
 
-    public JobName getJob() {return job;}
+    public JobListName getJobListName() {
+        return listName;
+    }
+
+    public UniquePredicateList getFilterList() {
+        return filterList;
+    }
+
+    public JobName getJob() {
+        return job;
+    }
 
     public String getInterviews() {
         return interviews;
@@ -116,8 +157,8 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+            && showHelp == otherCommandResult.showHelp
+            && exit == otherCommandResult.exit;
     }
 
     @Override

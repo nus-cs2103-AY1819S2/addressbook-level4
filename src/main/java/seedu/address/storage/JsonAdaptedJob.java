@@ -78,7 +78,7 @@ class JsonAdaptedJob {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
-    public Job toModelType(UniquePersonList Ab) throws IllegalValueException {
+    public Job toModelType(UniquePersonList ab) throws IllegalValueException {
         final List<Nric> firstList = new ArrayList<>();
         final List<Nric> secondList = new ArrayList<>();
         final List<Nric> thirdList = new ArrayList<>();
@@ -90,7 +90,10 @@ class JsonAdaptedJob {
         Set<Nric> firstNricSet = new HashSet<>(firstList);
         UniquePersonList firstPList = new UniquePersonList();
         for (int i = 0; i < firstList.size(); i++) {
-            Person tempPerson = Ab.getPerson(firstList.get(i));
+            Person tempPerson = ab.getPerson(firstList.get(i));
+            if (tempPerson == null) {
+                continue;
+            }
             firstPList.add(tempPerson);
         }
 
@@ -100,7 +103,10 @@ class JsonAdaptedJob {
         Set<Nric> secondNricSet = new HashSet<>(secondList);
         UniquePersonList secondPList = new UniquePersonList();
         for (int i = 0; i < secondList.size(); i++) {
-            Person tempPerson = Ab.getPerson(secondList.get(i));
+            Person tempPerson = ab.getPerson(secondList.get(i));
+            if (tempPerson == null) {
+                continue;
+            }
             secondPList.add(tempPerson);
         }
 
@@ -110,7 +116,10 @@ class JsonAdaptedJob {
         Set<Nric> thirdNricSet = new HashSet<>(thirdList);
         UniquePersonList thirdPList = new UniquePersonList();
         for (int i = 0; i < thirdList.size(); i++) {
-            Person tempPerson = Ab.getPerson(thirdList.get(i));
+            Person tempPerson = ab.getPerson(thirdList.get(i));
+            if (tempPerson == null) {
+                continue;
+            }
             thirdPList.add(tempPerson);
         }
 
@@ -120,7 +129,10 @@ class JsonAdaptedJob {
         Set<Nric> fourthNricSet = new HashSet<>(fourthList);
         UniquePersonList fourthPList = new UniquePersonList();
         for (int i = 0; i < fourthList.size(); i++) {
-            Person tempPerson = Ab.getPerson(fourthList.get(i));
+            Person tempPerson = ab.getPerson(fourthList.get(i));
+            if (tempPerson == null) {
+                continue;
+            }
             fourthPList.add(tempPerson);
         }
 

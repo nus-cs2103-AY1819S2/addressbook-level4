@@ -64,11 +64,17 @@ public class StringUtil {
 
         String preppedSentence = sentence.trim();
         checkArgument(!preppedSentence.isEmpty(), "Range parameter cannot be empty");
-        String[] rangesInPreppedSentence = preppedSentence.split("\\s+");
+        String[] rangesInPreppedSentence = preppedSentence.split(";");
         for (String range : rangesInPreppedSentence) {
             checkArgument(range.split("-").length == 2, "Range parameter format wrong");
-            String[] vaules = range.split("-");
-            if (value >= Float.parseFloat(vaules[0]) && value <= Float.parseFloat(vaules[1])) {
+            String[] values = range.split("-");
+            String preppedUpperBound = values[1].trim();
+            String preppedLowerBound = values[0].trim();
+            checkArgument(preppedLowerBound.matches(
+                "\\d" + "." + "\\d+"), "lower bound parameter format wrong");
+            checkArgument(preppedUpperBound.matches(
+                "\\d" + "." + "\\d+"), "upper bound parameter format wrong");
+            if (value >= Float.parseFloat(preppedLowerBound) && value <= Float.parseFloat(preppedUpperBound)) {
                 return true;
             }
         }
@@ -106,6 +112,7 @@ public class StringUtil {
         }
         return stringBuilder.toString();
     }
+
 
     /**
      * Returns true if {@code s} represents a non-zero unsigned integer

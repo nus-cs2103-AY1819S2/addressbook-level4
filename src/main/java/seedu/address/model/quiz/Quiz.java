@@ -221,20 +221,26 @@ public class Quiz {
 
     /**
      * Format data needed by Session
-     * @return a list of index of card, total attempts, streak and isDifficult in this session.
+     * @return a list of index of card, total attempts, streak and isDifficult in this session
+     *         which contains streak higher than 0.
      */
     public List<List<Integer>> end() {
-        this.isQuizDone = true;
-
         List<List<Integer>> session = new ArrayList<>();
         QuizCard card;
         for (int i = 0; i < originalQuizCardList.size(); i++) {
             card = originalQuizCardList.get(i);
             int isCardDifficult = card.isCardDifficult() ? 1 : 0;
-            session.add(Arrays.asList(i, card.getTotalAttempts(), card.getStreak(), isCardDifficult));
+
+            if (card.getStreak() != 0) {
+                session.add(Arrays.asList(i, card.getTotalAttempts(), card.getStreak(), isCardDifficult));
+            }
         }
 
         return session;
+    }
+
+    public void setQuizDone() {
+        isQuizDone = true;
     }
 
     public boolean isQuizDone() {

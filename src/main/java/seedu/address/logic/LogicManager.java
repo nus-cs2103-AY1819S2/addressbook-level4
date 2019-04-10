@@ -158,6 +158,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public List<QuizCard> getQuizCardList() {
+        return quizModel.isResultDisplay() ? quizModel.getQuizCardList() : null;
+    }
+
+    @Override
     public ObservableList<String> getHistory() {
         return history.getHistory();
     }

@@ -104,14 +104,20 @@ public class QuizAnswerCommandTest {
         QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
             "", expectedModel);
 
-        // complete preview quiz
-        quizAnswerCommand = new QuizAnswerCommand(answer);
-        expectedModel.end();
+        // view result for preview quiz
+        expectedModel.setResultDisplay(true);
 
         CommandResult commandResult = new CommandResult(QuizAnswerCommand.MESSAGE_SUCCESS, true, false, false);
 
         QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
             commandResult, expectedModel);
+
+        // complete preview quiz
+        expectedModel.setResultDisplay(false);
+        expectedModel.end();
+
+        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
+            "", expectedModel);
     }
 
     @Test
@@ -182,19 +188,25 @@ public class QuizAnswerCommandTest {
         QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
             expectedMessage, expectedModel);
 
-        // complete the quiz
+        // view quiz result
         quizAnswerCommand = new QuizAnswerCommand("Japan");
         actualModel.getNextCard();
         actualModel.getNextCard();
         expectedModel.getNextCard();
         expectedModel.getNextCard();
         expectedModel.updateTotalAttemptsAndStreak(1, "Japan");
-        expectedModel.end();
+        expectedModel.setResultDisplay(true);
 
         expectedMessage = MESSAGE_CORRECT + QuizAnswerCommand.MESSAGE_SUCCESS;
 
         QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
             expectedMessage, expectedModel);
+
+        // complete the quiz
+        expectedModel.setResultDisplay(false);
+        expectedModel.end();
+        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
+            "", expectedModel);
 
     }
 

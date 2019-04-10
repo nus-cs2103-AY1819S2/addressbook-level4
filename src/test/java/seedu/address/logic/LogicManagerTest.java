@@ -19,6 +19,7 @@ import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2;
 import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2_ACTUAL;
 
 import java.io.File;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -48,6 +49,7 @@ import seedu.address.model.modelmanager.ManagementModelManager;
 import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.modelmanager.QuizModelManager;
 import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.user.User;
 import seedu.address.storage.CsvLessonListStorage;
 import seedu.address.storage.CsvUserStorage;
@@ -247,15 +249,22 @@ public class LogicManagerTest {
         assertCommandSuccess("", "", expectedModel);
         assertEquals(LogicManager.Mode.QUIZ, logic.getMode());
 
-        // after quiz ended
+        // view result display
         quizModel.getNextCard();
         quizModel.getNextCard();
         quizModel.getNextCard();
         quizModel.getNextCard();
+        expectedModel.setResultDisplay(true);
         new QuizAnswerCommand("japan").execute(quizModel, history);
+
+        assertEquals(LogicManager.Mode.QUIZ, logic.getMode());
+
+        // after quiz ended
+        new QuizAnswerCommand("").execute(quizModel, history);
 
         assertEquals(LogicManager.Mode.MANAGEMENT, logic.getMode());
     }
+
     @Test
     public void getLessons() {
         LessonList lessonList = new LessonList();
@@ -300,6 +309,33 @@ public class LogicManagerTest {
 
         assertCommandSuccess("Brussels", MESSAGE_CORRECT, expectedModel);
         assertEquals(expectedResult, logic.getTotalCorrectAndTotalAttempts());
+    }
+
+    @Test
+    public void getEndResult() {
+        expectedModel.init(quizExpected, SESSION_DEFAULT_2);
+        quizModel.init(quizActual, SESSION_DEFAULT_2_ACTUAL);
+
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.updateTotalAttemptsAndStreak(1, "japan");
+        expectedModel.setResultDisplay(true);
+        List<QuizCard> expectedResult = expectedModel.getQuizCardList();
+        String expectedMessage = MESSAGE_CORRECT + QuizAnswerCommand.MESSAGE_SUCCESS;
+
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+
+        assertCommandSuccess("japan", expectedMessage, expectedModel);
+        assertEquals(expectedResult, logic.getQuizCardList());
     }
 
     @Test

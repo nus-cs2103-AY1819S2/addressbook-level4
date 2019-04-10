@@ -106,6 +106,21 @@ public interface QuizModel extends Model {
     void updateUserProfile(List<List<Integer>> quizInformation);
 
     /**
+     * Returns the list of original {@link QuizCard} that includes streak and total attempts.
+     */
+    List<QuizCard> getQuizCardList();
+
+    /**
+     * Returns true to display quiz result.
+     */
+    boolean isResultDisplay();
+
+    /**
+     * Sets result display to display quiz result or not.
+     */
+    void setResultDisplay(boolean resultDisplay);
+
+    /**
      * Returns user {@link User} from {@link ManagementModel}.
      */
     User getManagementModelUser();

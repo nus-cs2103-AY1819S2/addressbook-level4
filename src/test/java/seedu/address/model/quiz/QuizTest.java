@@ -215,7 +215,6 @@ public class QuizTest {
     public void end() {
         List<List<Integer>> expected = new ArrayList<>();
         expected.add(Arrays.asList(0, 1, 1, 0));
-        expected.add(Arrays.asList(1, 1, 0, 0));
 
         // quiz just started
         Quiz quiz = new Quiz(validQuizCard, LEARN);
@@ -226,6 +225,7 @@ public class QuizTest {
         quiz.updateTotalAttemptsAndStreak(0, "Tokyo");
         quiz.getNextCard();
         quiz.updateTotalAttemptsAndStreak(1, "wrong answer");
+        quiz.setQuizDone();
 
         assertEquals(expected, quiz.end());
         assertTrue(quiz.isQuizDone());

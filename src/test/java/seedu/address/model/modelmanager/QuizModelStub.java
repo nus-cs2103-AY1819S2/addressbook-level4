@@ -143,6 +143,21 @@ public class QuizModelStub implements QuizModel {
     }
 
     @Override
+    public List<QuizCard> getQuizCardList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean isResultDisplay() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setResultDisplay(boolean resultDisplay) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public User getManagementModelUser() {
         throw new AssertionError("This method should not be called.");
     }

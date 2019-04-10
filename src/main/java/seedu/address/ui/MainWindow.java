@@ -40,6 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
     private MainPanel mainPanel;
+    private QuizResultPanel quizResultPanel;
     private HelpWindow helpWindow;
     private LessonListPanel lessonListPanel;
     private FlashcardPanel flashcardPanel;
@@ -182,7 +183,15 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the display for quiz mode.
      */
     private void handleQuiz() {
-        mainPanel.setFeedbackToUser(logic.getCurrentQuizCard(), logic.getTotalCorrectAndTotalAttempts());
+        if (logic.getQuizCardList() != null) {
+            quizResultPanel = new QuizResultPanel();
+            mainPanelPlaceholder.getChildren().clear();
+            mainPanelPlaceholder.getChildren().add(quizResultPanel.getRoot());
+            quizResultPanel.setFeedbackToUser(logic.getQuizCardList());
+        } else {
+            mainPanel.setFeedbackToUser(logic.getCurrentQuizCard(), logic.getTotalCorrectAndTotalAttempts());
+        }
+
     }
 
     /**

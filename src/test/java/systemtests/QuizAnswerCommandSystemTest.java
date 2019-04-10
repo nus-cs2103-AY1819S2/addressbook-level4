@@ -3,6 +3,7 @@ package systemtests;
 import static seedu.address.commons.core.Messages.MESSAGE_LESSON_COMMANDS;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.quiz.QuizAnswerCommand.MESSAGE_CORRECT;
+import static seedu.address.logic.commands.quiz.QuizAnswerCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.TypicalSession.SESSION_REVIEW_2;
 
 import org.junit.Test;
@@ -61,9 +62,17 @@ public class QuizAnswerCommandSystemTest extends BrainTrainSystemTest {
          * -> answer 4th and last question
          */
         command = "Japan";
-        // switch back to management mode
-        expectedResultMessage = MESSAGE_LESSON_COMMANDS;
+        expectedResultMessage = MESSAGE_CORRECT + MESSAGE_SUCCESS;
         expectedModel.updateTotalAttemptsAndStreak(1, command);
+        expectedModel.setResultDisplay(true);
+        assertCommandSuccess(command, expectedResultMessage, expectedModel);
+
+        /* Case: exit quiz mode
+         * -> returns to management mode
+         */
+        command = "any valid answer input works";
+        expectedResultMessage = MESSAGE_LESSON_COMMANDS;
+        expectedModel.setResultDisplay(false);
         expectedModel.updateUserProfile(expectedModel.end());
 
         assertCommandSuccess(command, expectedResultMessage, expectedModel);

@@ -26,7 +26,7 @@ public class JsonAdaptedPrescription {
     @JsonCreator
     public JsonAdaptedPrescription(@JsonProperty("patientId") int patientId,
                                    @JsonProperty("doctorId") int doctorId,
-                                   @JsonProperty("medcineName") String medicineName,
+                                   @JsonProperty("medicineName") String medicineName,
                                    @JsonProperty("description") String description) {
         this.patientId = patientId;
         this.doctorId = doctorId;

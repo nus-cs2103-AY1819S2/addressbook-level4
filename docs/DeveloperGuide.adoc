@@ -857,24 +857,29 @@ image::generateCommand3.png[width="600"]
 
 ===== Aspect: How Chart Generation Executes
 
-[width="100%",cols="10%,<50%,<50%",options="header"]
+[width="100%",cols="14%,<50%,<50%",options="header"]
 |=======================================================================
 
 |
 |*Alternative 1 (current choice)*
 |*Alternative 2*
 
-|*Pros*
-|Ease-of-use. Users do not need to type an additional `generate` command after changes are made to the Place list. +
+|*Description*
+|Updates the charts both in real-time and when the `generate` command is used.
+|Updates the charts only when the `generate` command is used.
 
-Accurate. The chart reflects the latest changes regardless of whether the user types the `generate` command.
-|Computationally less intensive, as the charts are only generated when required.
+|*Pros*
+|Ease-of-use. This approach is more user-friendly, as users do not need to type an additional `generate` command after changes are made to the Place list. +
+
+Accuracy. This approach is more accurate as the charts reflect the latest changes regardless of whether the user types the `generate` command.
+
+|Scalability. This approach is computationally less intensive, as the charts are only generated when required.
 
 |*Cons*
-|Computationally more intensive, especially when the Place list is huge, as all three charts need to be regenerated every time a change is detected.
-|Less user-friendly. Users will need to type the `generate` command for the charts to reflect the changes made to the Place list. +
+|Scalability. This approach is computationally more intensive, especially when the Place list is huge, as all three charts need to be regenerated every time a change is detected.
+|Ease-of-use. This approach is Less user-friendly as users will need to type the `generate` command for the charts to reflect the changes made to the Place list. +
 
-Less accurate. The chart does not reflect the latest changes until the user types the `generate` command.
+Accuracy. This approach is less accurate as the charts does not reflect the latest changes until the user types the `generate` command.
 
 |*Example*
 |<<generateCommand7>> shows the state of the bar charts before the command `edit 1 cc/USA` was executed, while <<generateCommand8>> shows the state of the bar chart, with USA included, after the `edit` command was executed.

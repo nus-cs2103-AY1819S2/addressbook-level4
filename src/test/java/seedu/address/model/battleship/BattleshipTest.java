@@ -20,17 +20,6 @@ public class BattleshipTest {
     private final Set<Tag> emptySet = new HashSet<>();
 
     @Test
-    public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Address(null));
-    }
-
-    @Test
-    public void constructor_invalidAddress_throwsIllegalArgumentException() {
-        String invalidAddress = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Address(invalidAddress));
-    }
-
-    @Test
     public void testDefaultConstructors() {
         Battleship battleshipOne = new Battleship();
         Battleship battleshipTwo = new Battleship(new Name("destroyer"), new HashSet<>());

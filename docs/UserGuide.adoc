@@ -39,8 +39,8 @@ Battleship, as you will see, is a hybrid application. It combines both a CLI and
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:https://github.com/CS2103-AY1819S2-W14-3/main/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `battleship.jar` link:https://github.com/CS2103-AY1819S2-W14-3/main/releases[here].
+.  Copy the file to the folder you want to use as the home folder for Battleship.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui1.png[width=800]
@@ -118,13 +118,15 @@ Had fun? You can view the game statistics with the command `stats`.
 
 [[Features]]
 == Features
+This section will describe the features of the game in more detail.
 
 ====
 *Command Format*
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `init MAP_SIZE`, `MAP_SIZE` is a parameter which can be used as `init 10`.
+* Items in square brackets are optional e.g `put n/NAME [t/TAG]` can be used as `put n/Destroyer t/bestship` or as `put n/Destroyer`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/alpha`, `t/best t/captain` etc.
+* Parameters can be in any order e.g. if the command specifies `n/NAME c/COORDINATES`, `c/COORDINATES n/NAME` is also acceptable.
 ====
 
 [NOTE]
@@ -145,7 +147,7 @@ This section describes the commands used in the preparation phase.
 
 Initialises both player's maps to the specified size. The size of the maps must be between 6 and 10, inclusive. +
 
-The `init` command can be used at any point in time during gameplay. When used in the middle of a game, the `init` command will act like a "new game" function and will reset the board to a clean state.
+The `init` command can be used at any point in time during gameplay. When used in the middle of a game, the `init` command functions like a "new game" command and will reset the board to a clean state.
 
 Format: `init MAP_SIZE` +
 Example: `init 10`

@@ -593,7 +593,7 @@ Reapplies the `clear` command +
 * You can type in any parameters after the `generate` command, TravelBuddy will simply ignore them (<<Generate_BeforeParamAfterParam>>).
 
 [[Chart_Combined]]
-.The number of places visited by country, rating category and year 
+.The number of places visited by country, rating category and year
 image::Chart_Combined.png[width="800", caption="Figure 4.17.1: ", reftext="Figure 4.17.1"]
 
 [[Generate_BeforeParamAfterParam]]

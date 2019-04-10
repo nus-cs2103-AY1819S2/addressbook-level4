@@ -83,7 +83,7 @@ public class EditPrescriptionCommand extends Command {
      * edited with {@code editPatientDescriptor}.
      */
     private static Prescription createEditedPrescription(Prescription prescriptionToEdit,
-                                                         EditPrescriptionCommand.EditPrescriptionDescriptor editPrescriptionDescriptor) {
+             EditPrescriptionCommand.EditPrescriptionDescriptor editPrescriptionDescriptor) {
         assert prescriptionToEdit != null;
 
         Description updatedDescription = editPrescriptionDescriptor.getDescription();

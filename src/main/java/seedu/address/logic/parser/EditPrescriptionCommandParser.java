@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditPrescriptionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -34,8 +33,8 @@ public class EditPrescriptionCommandParser implements Parser<EditPrescriptionCom
         EditPrescriptionCommand.EditPrescriptionDescriptor editPrescriptionDescriptor =
                 new EditPrescriptionCommand.EditPrescriptionDescriptor();
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
-            editPrescriptionDescriptor.setDescription
-                    (ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
+            editPrescriptionDescriptor.setDescription(ParserUtil.
+                    parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
 
         if (!editPrescriptionDescriptor.isDescriptionEdited()) {

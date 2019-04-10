@@ -128,7 +128,7 @@ Format: `sort CRITERIA ORDER`
 Example:
 
 * `sort name up` +
-* `sort deadline down` +
+* `sort date down` +
 
 === Opening a file : `open`
 

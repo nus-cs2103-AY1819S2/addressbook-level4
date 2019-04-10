@@ -9,7 +9,7 @@
   <VBox fx:id="initial">
 
     <Label styleClass="defaultpage" fx:id="welcome" alignment="CENTER" textFill="white" text="Hello,"/>
-    <Label styleClass="defaultpage" wrapText="true" text="You have upcoming deadline for the following documents:"/>
+    <Label styleClass="defaultpage" wrapText="true" text="You have upcoming deadlines for the following documents:"/>
     <Label styleClass="defaultpage" fx:id="deadlines"/>
 
   </VBox>

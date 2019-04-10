@@ -203,7 +203,7 @@ Index refers to the index number shown in the list.
 
 *Alias*: `e`
 
-*Format*: `edit INDEX [n/NAME] [$/AMOUNT] [d/DATE] [c/CATEGORY]`
+*Format*: `edit INDEX [n/NAME] [$/AMOUNT] [d/DATE] [c/CATEGORY] [r/DESCRIPTION]`
 
 ****
 *Examples*:
@@ -609,7 +609,7 @@ _In-Credit-Ble_  aims to support multi-currency transactions in `v2.0`.
 | Add expense | `spend n/NAME $/AMOUNT [d/DATE] c/CATEGORY ... [r/Description]` | `add` | `spend n/movie $/10
   d/16/03/2019 c/Entertainment r/Avengers: Endgame`
 | Add a description to an entry | `description INDEX r/DESCRIPTION` | `descr` | `description 1 d/Father's birthday present`
-| Edit an entry | `edit INDEX [n/NAME] [$/AMOUNT] [d/DATE] [c/CATEGORY]` | `e` | `edit 1 n/burger c/Food`
+| Edit an entry | `edit INDEX [n/NAME] [$/AMOUNT] [d/DATE] [c/CATEGORY] [r/DESCRIPTION]` | `e` | `edit 1 n/burger c/Food`
 | Select an entry | `select INDEX` | `s`, `sel` | `select 3`
 | Delete an entry | `delete INDEX` | `d`, `del` | `delete 2`
 

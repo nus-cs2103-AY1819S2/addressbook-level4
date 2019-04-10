@@ -15,11 +15,11 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.logic.CardsView;
 import seedu.address.logic.commands.DeleteCardCommand;
 import seedu.address.logic.commands.FindCardCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.CardsView;
 import seedu.address.model.Model;
 import seedu.address.model.deck.QuestionContainsKeywordsPredicate;
 import seedu.address.model.tag.Tag;

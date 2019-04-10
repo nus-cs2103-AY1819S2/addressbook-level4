@@ -21,10 +21,11 @@ public class Messages {
     public static final String MESSAGE_CONTRAST_SUCCESS = "Contrast filter applied successfully.";
     public static final String MESSAGE_BRIGHTNESS_SUCCESS = "Brightness filter applied successfully.";
     public static final String MESSAGE_BLACKWHITE_SUCCESS = "Black/White filter applied successfully.";
-    public static final String MESSAGE_CONTRAST_DOUBLE_ERROR = "Value keyed in is not double. E.g: contrast 1.3";
-    public static final String MESSAGE_BRIGHTNESS_DOUBLE_ERROR = "Value keyed in is not double. E.g: brightness 1.3";
-    public static final String MESSAGE_BLACKWHITE_INT_ERROR = "Value keyed in is not integer. E.g: bw 123";
-    public static final String MESSAGE_NEGATIVE_ERROR = "Value keyed in is not positive.";
+    public static final String MESSAGE_CONTRAST_DOUBLE_ERROR = "Value keyed in is not double. \n%1$s";
+    public static final String MESSAGE_BRIGHTNESS_DOUBLE_ERROR = "Value keyed in is not double. E.g: brightness 1.3 "
+        + "n\n%1$s";
+    public static final String MESSAGE_BLACKWHITE_INT_ERROR = "Value keyed in is not integer. E.g: bw 123 \n%1$s";
+    public static final String MESSAGE_NEGATIVE_ERROR = "Value keyed in is not positive. \n%1$s";
     public static final String MESSAGE_ROTATE_DEGREE_ERROR = "Value keyed in is not a valid integer or rotating degree."
             + " \n%1$s";
     public static final String MESSAGE_CROP_INT_ERROR = "Values keyed in are not all integers. \n%1$s";

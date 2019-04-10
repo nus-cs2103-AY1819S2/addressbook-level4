@@ -43,6 +43,9 @@ public class SavePresetCommand extends Command {
         List<Command> commandList = currentEdit.getTempSubHistory();
         for (Command command: commandList) {
             if (!(command instanceof SetPresetCommand)) {
+                if (command instanceof WaterMarkCommand) {
+                    command = new WaterMarkCommand(command.getArguments(), false);
+                }
                 presetList.add(command);
             }
         }

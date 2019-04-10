@@ -64,15 +64,18 @@ public class CommandTestUtil {
     public static final String REMARK_DESC_AMY = " " + PREFIX_REMARK + VALID_REMARK_AMY;
     public static final String REMARK_DESC_BOB = " " + PREFIX_REMARK + VALID_REMARK_BOB;
 
-    public static final String INVALID_CUSTOMER_DESC = " " + PREFIX_CUSTOMER + "random"; // customer type can only by buyer, seller, landlord or tenant
+    public static final String INVALID_CUSTOMER_DESC = " " + PREFIX_CUSTOMER + "random";
+    // customer type can only by buyer, seller, landlord or tenant
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "mrt*"; // '*' not allowed in tags
     public static final String INVALID_REMARK_DESC = " " + PREFIX_REMARK; // empty string not allowed for remark
-    public static final String INVALID_SELLINGPRICE_DESC = " " + PREFIX_SELLINGPRICE + "price"; // price must be a string of digits
-    public static final String INVALID_RENTALPRICE_DESC = " " + PREFIX_RENTALPRICE + "price"; // price must be a string of digits
+    public static final String INVALID_SELLINGPRICE_DESC = " " + PREFIX_SELLINGPRICE + "price";
+    // price must be a string of digits
+    public static final String INVALID_RENTALPRICE_DESC = " " + PREFIX_RENTALPRICE + "price";
+    // price must be a string of digits
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

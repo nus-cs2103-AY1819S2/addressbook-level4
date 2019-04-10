@@ -9,8 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RENTALPRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLINGPRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Set;
-
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.person.Buyer;
@@ -18,7 +16,6 @@ import seedu.address.model.person.Landlord;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Seller;
 import seedu.address.model.person.Tenant;
-import seedu.address.model.tag.Tag;
 
 /**
  * A utility class for Person.
@@ -96,7 +93,7 @@ public class PersonUtil {
         sb.append(PREFIX_ADDRESS + seller.getAddress().value + " ");
         sb.append(PREFIX_SELLINGPRICE + seller.getSellingPrice().toString() + " ");
         seller.getTags().stream().forEach(
-                s -> sb.append(PREFIX_TAG + s.tagName + " "));
+            s -> sb.append(PREFIX_TAG + s.tagName + " "));
         return sb.toString();
     }
 
@@ -112,7 +109,7 @@ public class PersonUtil {
         sb.append(PREFIX_ADDRESS + landlord.getAddress().value + " ");
         sb.append(PREFIX_RENTALPRICE + landlord.getRentalPrice().toString() + " ");
         landlord.getTags().stream().forEach(
-                s -> sb.append(PREFIX_TAG + s.tagName + " "));
+            s -> sb.append(PREFIX_TAG + s.tagName + " "));
         return sb.toString();
     }
 

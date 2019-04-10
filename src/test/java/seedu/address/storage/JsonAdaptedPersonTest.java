@@ -24,10 +24,10 @@ public class JsonAdaptedPersonTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
-    private static final String INVALID_REMARK = " ";
-    private static final String INVALID_SELLINGPRICE = "price";
-    private static final String INVALID_RENTALPRICE = "price";
-    private static final String INVALID_CUSTOMER = "random";
+    //private static final String INVALID_REMARK = " ";
+    //private static final String INVALID_SELLINGPRICE = "price";
+    //private static final String INVALID_RENTALPRICE = "price";
+    //private static final String INVALID_CUSTOMER = "random";
 
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();

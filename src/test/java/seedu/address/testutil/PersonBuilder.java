@@ -1,6 +1,5 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
@@ -152,11 +151,17 @@ public class PersonBuilder {
         return new Buyer(name, phone, email, remark);
     }
 
+    /**
+     * Returns a (@code Seller) from the builder.
+     */
     public Seller buildSeller() {
         return new Seller(name, phone, email, remark,
                 new Property(Property.PROPERTY_TYPE_SELL, address, sellingPrice, tags));
     }
 
+    /**
+     * Returns a (@code Landlord) from the builder.
+     */
     public Landlord buildLandlord() {
         return new Landlord(name, phone, email, remark,
                 new Property(Property.PROPERTY_TYPE_RENT, address, rentalPrice, tags));

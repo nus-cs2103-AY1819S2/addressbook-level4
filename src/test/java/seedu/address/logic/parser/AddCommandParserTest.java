@@ -150,7 +150,8 @@ public class AddCommandParserTest {
 
         // invalid tag
         assertParseFailure(parser, CUSTOMER_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + REMARK_DESC_BOB + ADDRESS_DESC_BOB + RENTALPRICE_DESC_BOB + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS);
+                + REMARK_DESC_BOB + ADDRESS_DESC_BOB + RENTALPRICE_DESC_BOB + INVALID_TAG_DESC,
+                Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, CUSTOMER_DESC_BOB + INVALID_NAME_DESC + PHONE_DESC_BOB

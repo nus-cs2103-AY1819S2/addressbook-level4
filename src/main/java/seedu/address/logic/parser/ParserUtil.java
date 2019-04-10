@@ -79,7 +79,7 @@ public class ParserUtil {
         String trimmedName = value.trim().toLowerCase();
         if (!JobListName.isValidJobListName(trimmedName)) {
             throw new ParseException(JobListName.MESSAGE_CONSTRAINTS);
-        }else if (value.equals(APPLICANT_NAME) || value.equals(APPLICANT_PREFIX)) {
+        } else if (value.equals(APPLICANT_NAME) || value.equals(APPLICANT_PREFIX)) {
             return JobListName.APPLICANT;
         } else if (value.equals(KIV_NAME) || value.equals(KIV_PREFIX)) {
             return JobListName.KIV;

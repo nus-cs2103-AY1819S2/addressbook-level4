@@ -28,10 +28,12 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
+import seedu.address.model.job.JobListName;
 import seedu.address.model.job.JobName;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.predicate.UniqueFilterList;
 import seedu.address.testutil.JobBuilder;
 
 public class CreateJobCommandTest {
@@ -165,22 +167,102 @@ public class CreateJobCommandTest {
         }
 
         @Override
-        public void updateJobAllApplicantsFilteredPersonList(Predicate<Person> predicate) {
+        public void updateJobAllApplicantsFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateJobKivFilteredPersonList(Predicate<Person> predicate) {
+        public void updateJobKivFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateJobInterviewFilteredPersonList(Predicate<Person> predicate) {
+        public void updateJobInterviewFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateJobShortlistFilteredPersonList(Predicate<Person> predicate) {
+        public void updateJobShortlistFilteredPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPredicateJobAllApplicants(String predicateName, Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPredicateJobKiv(String predicateName, Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPredicateJobInterview(String predicateName, Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPredicateJobShortlist(String predicateName, Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removePredicateJobAllApplicants(String predicateName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removePredicateJobKiv(String predicateName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removePredicateJobInterview(String predicateName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removePredicateJobShortlist(String predicateName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public UniqueFilterList getPredicateList(JobName name, Integer listNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public UniqueFilterList getPredicateLists(JobListName listName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Job> getAllJobs() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearJobFilteredLists() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Job> selectedJobProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean getIsAllJobScreen() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setIsAllJobScreen(boolean staus) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedJob(Job job) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -282,6 +364,11 @@ public class CreateJobCommandTest {
         @Override
         public void setBlockOutDates(List<Calendar> blockOutDates) {
             throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public Analytics generateAnalytics(JobListName listName) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

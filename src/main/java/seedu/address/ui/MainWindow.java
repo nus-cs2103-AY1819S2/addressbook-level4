@@ -173,11 +173,11 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         allListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
-                logic::setSelectedPerson);
+            logic::setSelectedPerson);
         allPlaceholder.getChildren().add(allListPanel.getRoot());
 
         jobsListPanel = new JobListPanel(logic.getAllJobs(), logic.selectedJobProperty(),
-                logic::setSelectedJob);
+            logic::setSelectedJob);
         jobsPlaceholder.getChildren().add(jobsListPanel.getRoot());
 
         fillInnerParts();
@@ -241,24 +241,24 @@ public class MainWindow extends UiPart<Stage> {
 
     private void updateFilterTags(JobListName listName, UniqueFilterList list) {
         switch (listName) {
-            case APPLICANT:
-                allFilter.getChildren().clear();
-                list.forEach(filter -> allFilter.getChildren().add(new Label(filter.getFilterName())));
-                break;
-            case KIV:
-                kivFilter.getChildren().clear();
-                list.forEach(filter -> kivFilter.getChildren().add(new Label(filter.getFilterName())));
-                break;
-            case INTERVIEW:
-                interviewFilter.getChildren().clear();
-                list.forEach(filter -> interviewFilter.getChildren().add(new Label(filter.getFilterName())));
-                break;
-            case SHORTLIST:
-                shortlistFilter.getChildren().clear();
-                list.forEach(filter -> shortlistFilter.getChildren().add(new Label(filter.getFilterName())));
-                break;
-            default:
-                break;
+        case APPLICANT:
+            allFilter.getChildren().clear();
+            list.forEach(filter -> allFilter.getChildren().add(new Label(filter.getFilterName())));
+            break;
+        case KIV:
+            kivFilter.getChildren().clear();
+            list.forEach(filter -> kivFilter.getChildren().add(new Label(filter.getFilterName())));
+            break;
+        case INTERVIEW:
+            interviewFilter.getChildren().clear();
+            list.forEach(filter -> interviewFilter.getChildren().add(new Label(filter.getFilterName())));
+            break;
+        case SHORTLIST:
+            shortlistFilter.getChildren().clear();
+            list.forEach(filter -> shortlistFilter.getChildren().add(new Label(filter.getFilterName())));
+            break;
+        default:
+            break;
         }
     }
 

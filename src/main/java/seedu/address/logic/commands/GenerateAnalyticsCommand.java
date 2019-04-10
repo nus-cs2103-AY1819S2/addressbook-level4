@@ -20,10 +20,10 @@ public class GenerateAnalyticsCommand extends Command {
     public static final String COMMAND_WORD = "analytics";
     public static final String MESSAGE_SUCCESS = "Analytics generated!";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Generates analytics of desired list. "
-            + "Parameters: list name (If no list name provided, analytics of all applicants will be shown)"
-            + "\n" + "Possible lists are: applicant, kiv, interview, shortlist"
-            + "\n" + "Example: " + COMMAND_WORD + " " + "kiv";
+        + ": Generates analytics of desired list. "
+        + "Parameters: list name (If no list name provided, analytics of all applicants will be shown)"
+        + "\n" + "Possible lists are: applicant, kiv, interview, shortlist"
+        + "\n" + "Example: " + COMMAND_WORD + " " + "kiv";
 
     private final JobListName listName;
 
@@ -41,23 +41,23 @@ public class GenerateAnalyticsCommand extends Command {
         requireNonNull(model);
         Analytics analytics;
         switch (listName) {
-            case APPLICANT:
-                analytics = model.generateAnalytics(APPLICANT);
-                break;
-            case KIV:
-                analytics = model.generateAnalytics(KIV);
-                break;
-            case INTERVIEW:
-                analytics = model.generateAnalytics(INTERVIEW);
-                break;
-            case SHORTLIST:
-                analytics = model.generateAnalytics(SHORTLIST);
-                break;
-            case STUB:
-                analytics = model.generateAnalytics();
-                break;
-            default:
-                analytics = model.generateAnalytics();
+        case APPLICANT:
+            analytics = model.generateAnalytics(APPLICANT);
+            break;
+        case KIV:
+            analytics = model.generateAnalytics(KIV);
+            break;
+        case INTERVIEW:
+            analytics = model.generateAnalytics(INTERVIEW);
+            break;
+        case SHORTLIST:
+            analytics = model.generateAnalytics(SHORTLIST);
+            break;
+        case STUB:
+            analytics = model.generateAnalytics();
+            break;
+        default:
+            analytics = model.generateAnalytics();
         }
         return new CommandResult(MESSAGE_SUCCESS, analytics);
     }

@@ -59,7 +59,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         if (argMultimap.getValue(PREFIX_FILTERNAME).isPresent()) {
             commandName = argMultimap.getValue(PREFIX_FILTERNAME).get();
             predicatePersonDescriptor.setPredicateName(commandName);
-        }else{
+        } else {
             commandName = "";
             predicatePersonDescriptor.setPredicateName(commandName);
         }

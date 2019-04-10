@@ -37,10 +37,10 @@ public class FilterCommandTest {
     @Test
     public void equals() {
         FilterCommand.PredicatePersonDescriptor firstDescriptor = preparePredicatePersonDescriptor("first");
-        FilterCommand firstCommand = new FilterCommand(JobListName.APPLICANT, firstDescriptor);
+        FilterCommand firstCommand = new FilterCommand("", JobListName.EMPTY, firstDescriptor);
         FilterCommand.PredicatePersonDescriptor secondDescriptor =
             preparePredicatePersonDescriptor("second");
-        FilterCommand secondCommand = new FilterCommand(JobListName.APPLICANT, secondDescriptor);
+        FilterCommand secondCommand = new FilterCommand("", JobListName.EMPTY, secondDescriptor);
         NameContainsKeywordsPredicate findPredicate =
             new NameContainsKeywordsPredicate(Collections.singletonList("first"));
         FindCommand findCommand = new FindCommand(findPredicate);
@@ -49,7 +49,7 @@ public class FilterCommandTest {
         assertTrue(firstCommand.equals(firstCommand));
 
         // same values -> returns true
-        FilterCommand firstCommandCopy = new FilterCommand(JobListName.APPLICANT, firstDescriptor);
+        FilterCommand firstCommandCopy = new FilterCommand("", JobListName.EMPTY, firstDescriptor);
         assertTrue(firstCommand.equals(firstCommandCopy));
 
         // different types -> returns false
@@ -80,8 +80,8 @@ public class FilterCommandTest {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         FilterCommand.PredicatePersonDescriptor descriptor =
             preparePredicatePersonDescriptor("Kurz Elle Kunz");
-        FilterCommand command = new FilterCommand(JobListName.APPLICANT, descriptor);
-        Predicate<Person> predicator = (Predicate<Person>) descriptor.toPredicate();
+        FilterCommand command = new FilterCommand("", JobListName.EMPTY, descriptor);
+        Predicate<Person> predicator = descriptor.toPredicate();
         expectedModel.updateBaseFilteredPersonList(predicator);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());

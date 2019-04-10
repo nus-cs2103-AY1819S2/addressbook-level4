@@ -9,11 +9,12 @@ import static seedu.address.model.Model.COMPARATOR_NAME_DESCENDING_PDFS;
 import static seedu.address.model.Model.COMPARATOR_SIZE_ASCENDING_PDFS;
 import static seedu.address.model.Model.COMPARATOR_SIZE_DESCENDING_PDFS;
 
+import java.util.Comparator;
+import java.util.HashMap;
+
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.pdf.Pdf;
-import java.util.Comparator;
-import java.util.HashMap;
 
 /**
  * Parses input arguments and creates a new SortCommand object
@@ -50,7 +51,7 @@ public class SortCommandParser implements Parser<SortCommand> {
     }
 
     /**
-     * Returns a hash map of <String, Comparator<Pdf>> pair
+     * Returns a hash map of <String,Comparator<Pdf>> pair.
      */
     private HashMap<String, Comparator<Pdf>> getSortCriteriaMap() {
         HashMap<String, Comparator<Pdf>> sortCriteriaMap = new HashMap<>();

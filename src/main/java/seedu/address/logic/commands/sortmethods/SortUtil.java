@@ -43,12 +43,10 @@ public class SortUtil {
     }
 
     /**
-     * sorts the persons by their tags
+     *  uses the comparator to sort a list of persons
      */
-    public static List<Person> sortPersonsByTags(List<Person> persons) {
-        //Sort persons by tags
-        List<Person> sortedList =
-                persons.stream().sorted(Comparator.comparing(Person::tagsToString)).collect(Collectors.toList());
+    public static List<Person> sortPersons(List<Person> persons, Comparator<Person> comparator) {
+        List<Person> sortedList = persons.stream().sorted(comparator).collect(Collectors.toList());
         return sortedList;
     }
 

@@ -68,8 +68,41 @@ public class PersonBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<SkillsTag>} and set it to the {@code Person} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(Arrays.asList(tags), null, null);
+    //public PersonBuilder withTags(String ... tags) {
+     //   this.tags = SampleDataUtil.getTagSet(Arrays.asList(tags), null, null);
+     //   return this;
+    //}
+
+    /**
+     * Parses the {@code skills} into a {@code Set<SkillsTag>}, appends any other tags already present
+     * and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withSkills(String ... skills) {
+        Set otherTags = this.tags;
+        Set newTags = SampleDataUtil.getTagSet(Arrays.asList(skills), null, null);
+        otherTags.addAll(newTags);
+        return this;
+    }
+
+    /**
+     * Parses the {@code positions} into a {@code Set<SkillsTag>}, appends any other tags already present
+     * and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withPositions(String ... positions) {
+        Set otherTags = this.tags;
+        Set newTags = SampleDataUtil.getTagSet(null, Arrays.asList(positions), null);
+        otherTags.addAll(newTags);
+        return this;
+    }
+
+    /**
+     * Parses the {@code endorsements} into a {@code Set<SkillsTag>}, appends any other tags already present
+     * and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withEndorsements(String ... endorsements) {
+        Set otherTags = this.tags;
+        Set newTags = SampleDataUtil.getTagSet(null, null, Arrays.asList(endorsements));
+        otherTags.addAll(newTags);
         return this;
     }
 

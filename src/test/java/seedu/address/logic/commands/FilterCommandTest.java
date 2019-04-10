@@ -96,7 +96,7 @@ public class FilterCommandTest {
         assertEquals(Collections.emptyList(), modelOr.getFilteredPersonList());
 
         // skills tag condition - 3 persons are listed: ALICE, BENSON, DANIEL
-        String[] skillArr = {"friends"};
+        String[] skillArr = {"Debugging"};
         modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelAnd.filterAnd(null, null, null, null, skillArr,
                 null, null, null, null);
@@ -108,7 +108,7 @@ public class FilterCommandTest {
         assertEquals(Arrays.asList(ALICE, BENSON, DANIEL), modelOr.getFilteredPersonList());
 
         // multiple skills tags together condition
-        String[] skillMultipleInfoArr = {"friends", "owesmoney"};
+        String[] skillMultipleInfoArr = {"C++", "JavaScript"};
 
         // and condition - 1 person is listed: BENSON
         modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -116,11 +116,11 @@ public class FilterCommandTest {
                 null, null, null, null);
         assertEquals(Arrays.asList(BENSON), modelAnd.getFilteredPersonList());
 
-        // or condition - 3 persons are listed: ALICE, BENSON, DANIEL
+        // or condition - 6 persons are listed: ALICE, BENSON, CARL, DANIEL, ELLE, FIONA
         modelOr = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelOr.filterOr(null, null, null, null, skillMultipleInfoArr,
                 null, null, null, null);
-        assertEquals(Arrays.asList(ALICE, BENSON, DANIEL), modelOr.getFilteredPersonList());
+        assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA), modelOr.getFilteredPersonList());
 
         // TODO: Add Positions and Endorsement conditions after updating the person data
 
@@ -279,7 +279,7 @@ public class FilterCommandTest {
 
     @Test
     public void execute_allConditionsAtOneFilter() {
-        String[] skillArr = {"friends"};
+        String[] skillArr = {"C++"};
 
         // TODO: include also endorsement and positions data here
         modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());

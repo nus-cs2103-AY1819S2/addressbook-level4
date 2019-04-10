@@ -99,10 +99,10 @@ public class InformationPanelTest extends GuiUnitTest {
             sortedData.sort(Comparator.comparing(b -> b.getBatchNumber().toString()));
             break;
         case EXPIRY:
-            sortedData.sort(Comparator.comparing(b -> b.getExpiry()));
+            sortedData.sort(Comparator.comparing(Batch::getExpiry));
             break;
         case QUANTITY:
-            sortedData.sort(Comparator.comparing(b -> b.getQuantity().getNumericValue()));
+            sortedData.sort(Comparator.comparing(Batch::getQuantity));
             break;
         default:
             throw new IllegalArgumentException("Unknown Sort Property");

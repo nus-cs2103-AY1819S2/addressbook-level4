@@ -43,7 +43,6 @@ public class AddRoomTypeCommand extends ReservationCommand {
     public CommandResult execute(ReservationModel model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         model.addRoomType(toAdd);
-        model.setSelectedRoomType(toAdd);
         model.commitHotelManagementSystem();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

@@ -47,7 +47,6 @@ public class AddServiceTypeCommand extends BookingCommand {
         requireNonNull(model);
         model.addServiceType(toAdd);
         model.commitHotelManagementSystem();
-        model.setSelectedServiceType(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

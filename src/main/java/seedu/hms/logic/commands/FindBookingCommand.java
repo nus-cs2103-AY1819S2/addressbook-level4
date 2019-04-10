@@ -66,6 +66,6 @@ public class FindBookingCommand extends BookingCommand {
             && bookingContainsPayerPredicate.equals(((FindBookingCommand) other).bookingContainsPayerPredicate)
             && bookingWithTypePredicate.equals(((FindBookingCommand) other).bookingWithTypePredicate)
             && bookingWithinTimePredicate.equals(((FindBookingCommand) other).bookingWithinTimePredicate)); // state
-        // check
+            // check
     }
 }

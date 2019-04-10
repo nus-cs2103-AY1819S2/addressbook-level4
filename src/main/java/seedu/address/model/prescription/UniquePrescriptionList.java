@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -73,6 +74,19 @@ public class UniquePrescriptionList implements Iterable<Prescription> {
         internalList.set(index, editedPrescription);
     }
 
+    /**
+     * Replaces the contents of this list with {@code medHists}.
+     * {@code medHists} must not contain duplicate medical histories.
+     */
+    public void setPrescriptions(List<Prescription> medHists) {
+        requireAllNonNull(medHists);
+        if (!prescriptionsAreUnique(medHists)) {
+            throw new DuplicatePrescriptionException();
+        }
+
+        internalList.setAll(medHists);
+    }
+
     @Override
     public Iterator<Prescription> iterator() {
         return internalList.iterator();
@@ -88,6 +102,20 @@ public class UniquePrescriptionList implements Iterable<Prescription> {
      */
     public ObservableList<Prescription> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    /**
+     * Returns true if {@code medHists} contains only unique medHists.
+     */
+    private boolean prescriptionsAreUnique(List<Prescription> prescriptions) {
+        for (int i = 0; i < prescriptions.size() - 1; i++) {
+            for (int j = i + 1; j < prescriptions.size(); j++) {
+                if (prescriptions.get(i).isSamePrescription(prescriptions.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 }

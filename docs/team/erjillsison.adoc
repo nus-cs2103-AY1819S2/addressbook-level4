@@ -31,14 +31,12 @@ The following sections illustrate the feature in more detail, as well as the rel
 ** Project management:
 *** Managed releases `v1.3` - `v1.4` (2 releases) on GitHub
 ** Enhancements to existing features:
-*** Overhaul of UI to display the maps (Pull requests https://github.com[#33], https://github.com[#34])
+*** Overhaul of UI to display the maps (PRs: https://github.com/CS2103-AY1819S2-W14-3/main/pull/87[#87] )
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Restructure the UG to be easier followed when playing the game. (PRs: https://github.com/CS2103-AY1819S2-W14-3/main/pull/256[#256])
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** Reported bugs and suggestions for other teams in the class (examples: https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/672[#672], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/563[#563] )
 ** Tools:
 *** Integrated Netlify to the project
 
@@ -58,5 +56,9 @@ include::../UserGuide.adoc[tag=map]
 |===
 
 include::../DeveloperGuide.adoc[tag=map]
+
+---
+
+include::../DeveloperGuide.adoc[tag=mapuse]
 
 ---

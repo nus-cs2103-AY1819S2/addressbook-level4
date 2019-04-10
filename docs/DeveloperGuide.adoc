@@ -161,7 +161,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `Map`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -275,7 +275,7 @@ The method `copy2dArray` copies the `map` parameter passed in to the internal `c
 Below is the code snippet for the `copy2dArray` method.
 [source,java]
 ----
-include::../src/main/java/seedu/address/model/MapGrid.java[lines=118..124]
+include::../src/main/java/seedu/address/model/MapGrid.java[lines=92..98]
 ----
 
 The `copy2dArray` method creates a new `Cell` object for each of the input `Cell` objects.
@@ -283,7 +283,7 @@ The copying is done using a constructor in `Cell` that takes in a parameter `Cel
 This constructor copies the private attributes of the given `Cell` parameter.
 
 {empty} +
-The following sequence diagram shows how a map is initialised:
+The following sequence diagram shows what happens when the initialise map command is used.:
 
 image::InitialiseMapCommandSequenceDiagram.png[width=800]
 

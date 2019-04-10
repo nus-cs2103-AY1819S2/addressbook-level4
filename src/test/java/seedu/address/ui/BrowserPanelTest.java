@@ -41,7 +41,7 @@ public class BrowserPanelTest extends GuiUnitTest {
         // there are two options depending on if the page has been logged into or not
         try {
             assertEquals(expectedPersonUrlLogin, browserPanelHandle.getLoadedUrl());
-        } catch(Exception AssertionError) {
+        } catch (Exception AssertionError) {
             assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
         }
     }

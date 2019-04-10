@@ -64,14 +64,13 @@ public class TeethPanel extends UiPart<Region> {
      */
     private void loadTeeth(Person person) throws IOException {
         StackPane stack = new StackPane();
-        stack.setMaxWidth(Double.MAX_VALUE);
-        stack.setMaxHeight(Double.MAX_VALUE);
         try {
             BufferedImage main = DrawTeethUtil.drawTeeth(((Patient) person).getTeeth().exportTeeth());
             Image fin = SwingFXUtils.toFXImage(main, null);
             ImageView test = new ImageView(fin);
-            test.setPreserveRatio(true);
-            test.setFitHeight(550);
+            test.xProperty().bind(space.widthProperty().subtract(test.fitWidthProperty()).divide(2));
+            test.setFitWidth(space.getWidth()/1.25);
+            test.fitHeightProperty().bind(space.heightProperty());
             space.getChildren().add(test);
 
         } catch (IOException e) {

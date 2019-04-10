@@ -58,7 +58,7 @@
 
                         <VBox>
                             <SplitPane id="splitPane2" fx:id="splitPane2" dividerPositions="0.4" orientation="VERTICAL"
-                                       minWidth="800" VBox.vgrow="ALWAYS">
+                                       minWidth="600" VBox.vgrow="ALWAYS">
                         <StackPane fx:id="patientInfoPlaceholder" prefWidth="340">
                         </StackPane>
 

@@ -31,7 +31,7 @@ public class TypicalPersons {
             .withPhone("94351253")
             .withEducation("NUS")
             .withGpa("3.4")
-            .withSkills("C++, JavaScript")
+            .withSkills("C++", "Debugging")
             .withPositions("Software Engineer").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withPhone("98765432")
@@ -39,31 +39,32 @@ public class TypicalPersons {
             .withEducation("NTU")
             .withGpa("3.1")
             .withAddress("311, Clementi Ave 2, #02-25")
-            .withSkills("C++, JavaScript").build();
+            .withSkills("C++", "Debugging", "JavaScript")
+            .withPositions("Website Developer").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz")
             .withPhone("95352563")
             .withEducation("NTU")
             .withGpa("3.2")
             .withEmail("heinz@example.com")
             .withAddress("wall street")
-            .withSkills("Python, Photography, Cyber Crime, Finance, JavaScript")
-            .withPositions("Systems Analyst, UI Developer").build();
+            .withSkills("Python", "Photography", "Cyber Crime", "Finance", "JavaScript")
+            .withPositions("Systems Analyst", "UI Developer").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier")
             .withPhone("87652533")
             .withEducation("NUS")
             .withGpa("2.6")
             .withEmail("cornelia@example.com")
             .withAddress("10th street")
-            .withSkills("C++")
+            .withSkills("C++", "Debugging", "Linux")
             .withEndorsements("Bill Gates", "Mark Cuban", "Elon Musk", "Barak Obama")
-            .withPositions("Software Engineer").build();
+            .withPositions("UI Developer").build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer")
             .withPhone("9482224")
             .withEducation("Harvard")
             .withGpa("1.3")
             .withEmail("werner@example.com")
             .withAddress("michegan ave")
-            .withSkills("C++, C#, Java, excel")
+            .withSkills("C++", "C#", "Java", "excel")
             .withEndorsements("Elon Musk", "Mark Cuban").build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz")
             .withPhone("9482427")
@@ -71,17 +72,17 @@ public class TypicalPersons {
             .withGpa("4.0")
             .withEmail("lydia@example.com")
             .withAddress("little tokyo")
-            .withSkills("C++, Java, MATlab")
-            .withPositions("Civil Servant, Project Manager")
-            .withEndorsements("Stan Lee, Barak Obama").build();
+            .withSkills("C++", "Java", "MATlab")
+            .withPositions("Civil Servant", "Project Manager")
+            .withEndorsements("Stan Lee", "Barak Obama").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best")
             .withPhone("9482442")
             .withEducation("NUS")
             .withGpa("0.0")
             .withEmail("anna@example.com")
             .withAddress("4th street")
-            .withSkills("Linux, PHP")
-            .withPositions("Software Engineer")
+            .withSkills("Linux", "PHP")
+            .withPositions("Data Analyst")
             .withEndorsements("Mark Zuckerberg").build();
 
     // Manually added

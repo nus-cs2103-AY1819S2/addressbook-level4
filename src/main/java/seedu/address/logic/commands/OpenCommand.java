@@ -80,4 +80,12 @@ public class OpenCommand extends Command {
 
         model.setAddressBook(openData);
     }
+
+    /**
+     * For OpenCommandParserTest.
+     * @return file
+     */
+    public File getFile() {
+        return file;
+    }
 }

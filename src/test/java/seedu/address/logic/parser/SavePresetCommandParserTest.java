@@ -12,7 +12,7 @@ public class SavePresetCommandParserTest {
     private SavePresetCommandParser parser = new SavePresetCommandParser();
 
     @Test
-    public void parse_validArgsWithTrueIsNewCommand_returnsWaterMarkCommand() {
+    public void parse_validArgsWithTrueIsNewCommand_returnsSavePresetCommand() {
         assertParseSuccess(parser, " hellohello123", new SavePresetCommand("hellohello123"));
         assertParseSuccess(parser, " 你好你好你好123", new SavePresetCommand("你好你好你好123"));
         assertParseSuccess(parser, " hello this string is long", new SavePresetCommand("hello this "

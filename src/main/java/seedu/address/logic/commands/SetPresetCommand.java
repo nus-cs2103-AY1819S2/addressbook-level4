@@ -22,6 +22,7 @@ public class SetPresetCommand extends Command {
 
     private String presetName;
     private boolean isNewCommand;
+    private boolean hasWaterMarkCommand;
 
     /**
      * Creates a PresetCommand object.
@@ -30,6 +31,7 @@ public class SetPresetCommand extends Command {
     public SetPresetCommand(String presetName) {
         this.presetName = presetName;
         this.isNewCommand = true;
+        this.hasWaterMarkCommand = false;
     }
 
     @Override
@@ -45,12 +47,16 @@ public class SetPresetCommand extends Command {
             throw new CommandException(Messages.MESSAGE_SETPRESET_FAIL_NOTFOUND);
         }
         List<Command> presetList = transformationSet.findTransformation(presetName);
+        this.hasWaterMarkCommand = transformationSet.hasWaterMarkCommand(presetName);
         System.out.print(presetList);
+        StringBuilder toPrint = new StringBuilder();
         for (Command command: presetList) {
             try {
+                toPrint.append("[" + command.toString() + "]");
                 command.execute(currentEdit, model, history);
             } catch (CommandException exception) {
-                throw new CommandException("Error in [" + command.toString() + "\n" + exception.toString());
+                String exceptionString = exception.toString().substring(58);
+                throw new CommandException("Error in [" + command.toString() + "]:\n" + exceptionString);
             }
         }
 
@@ -60,7 +66,11 @@ public class SetPresetCommand extends Command {
             currentEdit.displayTempImage();
         }
 
-        return new CommandResult(Messages.MESSAGE_SETPRESET_SUCCESS);
+        return new CommandResult(Messages.MESSAGE_SETPRESET_SUCCESS + " " + toPrint.toString());
+    }
+
+    public boolean hasWaterMarkCommand() {
+        return this.hasWaterMarkCommand;
     }
 }
 /* @@author*/

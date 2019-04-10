@@ -1,7 +1,10 @@
 /* @@author kayheen */
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Config.MAX_FILE_SIZE;
+
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBuffer;
 
 import org.imgscalr.Scalr;
 
@@ -52,10 +55,14 @@ public class ResizeCommand extends Command {
             BufferedImage bufferedImage = initialImage.getBufferedImage();
             BufferedImage editedBuffer = Scalr.resize(bufferedImage, Scalr.Method.QUALITY,
                     Scalr.Mode.FIT_EXACT, width, height);
-            // need to give a sneak peak before you actually write into the file.
+            if (size(editedBuffer) > MAX_FILE_SIZE) {
+                throw new CommandException(Messages.MESSAGE_RESIZE_VALUES_TOO_LARGE);
+            }
             currentEdit.updateTempImage(editedBuffer);
         } catch (IllegalArgumentException x) {
             throw new CommandException(MESSAGE_USAGE);
+        } catch (OutOfMemoryError | NegativeArraySizeException e) {
+            throw new CommandException(Messages.MESSAGE_RESIZE_VALUES_TOO_LARGE);
         }
         if (this.isNewCommand) {
             this.isNewCommand = false;
@@ -65,6 +72,19 @@ public class ResizeCommand extends Command {
 
         return new CommandResult(Messages.MESSAGE_RESIZE_SUCCESS);
     }
+
+    /**
+     * This method calculates the size of the final image.
+     * @param buffer the BufferedImage object to calculate size.
+     * @return the size of the object in bytes.
+     */
+    private long size(BufferedImage buffer) {
+        DataBuffer dataBuffer = buffer.getData().getDataBuffer();
+
+        // Each bank element in the data buffer is a 32-bit integer
+        return ((long) dataBuffer.getSize()) * 4L;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

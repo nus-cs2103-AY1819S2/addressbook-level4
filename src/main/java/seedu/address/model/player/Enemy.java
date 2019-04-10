@@ -24,8 +24,8 @@ import seedu.address.model.cell.Status;
  */
 public class Enemy extends Player {
 
-    private static final Random randGen = new Random(123);
-    private static final Random randGen2 = new Random(321);
+    private static final Random randGen = new Random();
+    private static final Random randGen2 = new Random();
     private static final Logger logger = LogsCenter.getLogger(Enemy.class);
 
 

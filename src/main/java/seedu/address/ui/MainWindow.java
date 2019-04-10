@@ -205,6 +205,10 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.setScene(loader.load());
     }
 
+    public String getCurrScene() {
+        return currScene;
+    }
+
     /**
      * Refreshes the jobPersonListPanel
      */

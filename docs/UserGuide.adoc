@@ -119,6 +119,42 @@ and cannot contain special characters such as `:<>;\/|?~^%$#@`
 ====
 // end::allocate[]
 
+// tag::show[]
+==== Showing allocated budget and spending in categories: `show`
+
+You can use this command to see the budget allocated to and spending in categories in _In-Credit-Ble_ Finance Tracker. +
+
+*Alias*: `showCatBudget`
+
+*Format*: `show`, `showCatBudget`
+
+****
+*Example*:
+
+* The following example will show what will be listed given the following budget allocation
+and expenditure in the following categories:
+** `set $/500`
+** `allocate $/100 c/CloThEs`
+** `allocate $/100.10 c/FOOD`
+** `allo $/123.10 c/GiRLfrIEND`
+** `spend n/Buffet $/50.00 c/Food`
+** `spend n/Versace Jacket $/95.00 c/Clothes`
+** `spend n/Girlfriend gift $/99.99 c/Girlfriend`
+** `show`
+* The following will be displayed on the Result Display:
+
+image::show_example.png[]
+
+
+****
+[NOTE]
+====
+* The category budgets will be shown with the latest allocated category budget
+* If there are no category budgets allocated yet, the result display will display a message
+to let you know so
+====
+// end::show[]
+
 // tag::increase[]
 //==== Increasing the budget: `increase`
 //

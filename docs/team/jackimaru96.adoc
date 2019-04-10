@@ -136,6 +136,8 @@ include::../UserGuide.adoc[tag=quickstart]
 
 include::../UserGuide.adoc[tag=allocate]
 
+include::../UserGuide.adoc[tag=show]
+
 include::../UserGuide.adoc[tag=theme]
 
 == Contributions to the Developer Guide

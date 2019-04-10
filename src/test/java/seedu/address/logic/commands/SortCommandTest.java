@@ -97,7 +97,7 @@ public class SortCommandTest {
         SortWord type = new SortWord("education");
         SortCommand command = new SortCommand(type);
         expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(FIONA, ELLE, BENSON, CARL, ALICE, DANIEL, GEORGE);
+        correctPersonOrder = Arrays.asList(ELLE, FIONA, BENSON, CARL, ALICE, DANIEL, GEORGE);
         for (Person newPerson : correctPersonOrder) {
             expectedModel.addPersonWithFilter(newPerson);
         }
@@ -111,7 +111,7 @@ public class SortCommandTest {
         SortWord type = new SortWord("reverse education");
         SortCommand command = new SortCommand(type);
         expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(GEORGE, DANIEL, ALICE, CARL, BENSON, ELLE, FIONA);
+        correctPersonOrder = Arrays.asList(GEORGE, DANIEL, ALICE, CARL, BENSON, FIONA, ELLE);
         for (Person newPerson : correctPersonOrder) {
             expectedModel.addPersonWithFilter(newPerson);
         }
@@ -148,12 +148,82 @@ public class SortCommandTest {
     }
 
     @Test
+    public void execute_sortSkills_success() {
+        String expectedMessage = String.format("Sorted all persons by skills");
+        SortWord type = new SortWord("skills");
+        SortCommand command = new SortCommand(type);
+        expectedModel.deleteAllPerson();
+        correctPersonOrder = Arrays.asList(ELLE, ALICE, BENSON, DANIEL, FIONA, CARL, GEORGE);
+        for (Person newPerson : correctPersonOrder) {
+            expectedModel.addPersonWithFilter(newPerson);
+        }
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_sortPositions_success() {
+        String expectedMessage = String.format("Sorted all persons by positions");
+        SortWord type = new SortWord("positions");
+        SortCommand command = new SortCommand(type);
+        expectedModel.deleteAllPerson();
+        correctPersonOrder = Arrays.asList(ELLE, FIONA, GEORGE, ALICE, CARL, DANIEL, BENSON);
+        for (Person newPerson : correctPersonOrder) {
+            expectedModel.addPersonWithFilter(newPerson);
+        }
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_sortEndorsements_success() {
+        String expectedMessage = String.format("Sorted all persons by endorsements");
+        SortWord type = new SortWord("endorsements");
+        SortCommand command = new SortCommand(type);
+        expectedModel.deleteAllPerson();
+        correctPersonOrder = Arrays.asList(DANIEL, FIONA, ELLE, GEORGE, ALICE, BENSON, CARL);
+        for (Person newPerson : correctPersonOrder) {
+            expectedModel.addPersonWithFilter(newPerson);
+        }
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void execute_sortSkillNumber_success() {
         String expectedMessage = String.format("Sorted all persons by skill number");
         SortWord type = new SortWord("skill number");
         SortCommand command = new SortCommand(type);
         expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(GEORGE, DANIEL, ALICE, CARL, BENSON, ELLE, FIONA);
+        correctPersonOrder = Arrays.asList(CARL, ELLE, FIONA, DANIEL, BENSON, GEORGE, ALICE);
+        for (Person newPerson : correctPersonOrder) {
+            expectedModel.addPersonWithFilter(newPerson);
+        }
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_sortPositionNumber_success() {
+        String expectedMessage = String.format("Sorted all persons by position number");
+        SortWord type = new SortWord("position number");
+        SortCommand command = new SortCommand(type);
+        expectedModel.deleteAllPerson();
+        correctPersonOrder = Arrays.asList(FIONA, CARL, GEORGE, DANIEL, BENSON, ALICE, ELLE);
+        for (Person newPerson : correctPersonOrder) {
+            expectedModel.addPersonWithFilter(newPerson);
+        }
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_sortEndorsementNumber_success() {
+        String expectedMessage = String.format("Sorted all persons by endorsement number");
+        SortWord type = new SortWord("endorsement number");
+        SortCommand command = new SortCommand(type);
+        expectedModel.deleteAllPerson();
+        correctPersonOrder = Arrays.asList(DANIEL, FIONA, ELLE, GEORGE, CARL, BENSON, ALICE);
         for (Person newPerson : correctPersonOrder) {
             expectedModel.addPersonWithFilter(newPerson);
         }

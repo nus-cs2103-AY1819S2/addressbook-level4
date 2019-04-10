@@ -38,12 +38,12 @@ public class SortSkills {
      */
     private List<Person> orderPersonsTags(List<Person> lastShownList, String prefix) {
         List<Person> personsWithCorrectTagOrder = new ArrayList<>();
-        for (int i = 0; i < lastShownList.size(); i++) {
+        for (Person person : lastShownList) {
             //Change Set to List to utilise stream sorting
             List<SkillsTag> individualTags = new ArrayList<>();
             List<SkillsTag> tagsToSort = new ArrayList<>();
             List<SkillsTag> otherTags = new ArrayList<>();
-            individualTags.addAll(lastShownList.get(i).getTags());
+            individualTags.addAll(person.getTags());
             for (SkillsTag tag : individualTags) {
                 String tagString = tag.toString();
                 //first element of string is "["
@@ -56,17 +56,17 @@ public class SortSkills {
             List<SkillsTag> individualSortedTags = SortUtil.sortSkillTags(tagsToSort);
             individualSortedTags.addAll(otherTags);
 
-            Name name = lastShownList.get(i).getName();
-            Phone phone = lastShownList.get(i).getPhone();
-            Email email = lastShownList.get(i).getEmail();
-            Education education = lastShownList.get(i).getEducation();
-            Gpa gpa = lastShownList.get(i).getGpa();
-            Address address = lastShownList.get(i).getAddress();
+            Name name = person.getName();
+            Phone phone = person.getPhone();
+            Email email = person.getEmail();
+            Education education = person.getEducation();
+            Gpa gpa = person.getGpa();
+            Address address = person.getAddress();
             //change list back to set
             LinkedHashSet<SkillsTag> tagSet = SortUtil.toTags(individualSortedTags);
 
-            Person person = new Person(name, phone, email, education, gpa, address, tagSet);
-            personsWithCorrectTagOrder.add(person);
+            Person newPerson = new Person(name, phone, email, education, gpa, address, tagSet);
+            personsWithCorrectTagOrder.add(newPerson);
         }
         return personsWithCorrectTagOrder;
     }

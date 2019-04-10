@@ -332,3 +332,8 @@
     -fx-text-fill: black !important;
     -fx-background-color: turquoise;
 }
+
+.chart-pie-label-line {
+    -fx-stroke: black;
+    -fx-fill: black;
+}

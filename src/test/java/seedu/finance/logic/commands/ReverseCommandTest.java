@@ -23,7 +23,7 @@ public class ReverseCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_emptyList_showEmptyListMessage(){
+    public void execute_emptyList_showEmptyListMessage() {
         Model expectedModel = new ModelManager();
         assertCommandFailure(new ReverseCommand(), expectedModel, commandHistory, ReverseCommand.MESSAGE_EMPTY_LIST);
     }

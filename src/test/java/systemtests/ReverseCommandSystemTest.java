@@ -21,7 +21,7 @@ import seedu.finance.testutil.RecordUtil;
 public class ReverseCommandSystemTest extends FinanceTrackerSystemTest {
 
     @Test
-    public void reverse(){
+    public void reverse() {
         final Model defaultModel = getModel();
 
         /* Case: Reverse list in finance tracker -> reversed */
@@ -60,12 +60,11 @@ public class ReverseCommandSystemTest extends FinanceTrackerSystemTest {
         expectedModel.reverseFilteredRecordList();
         assertCommandSuccess(command, expectedResultMessage, expectedModel);
 
-
         /* Case: Mixed case command word -> reversed */
-       command = "rEvErsE";
-       expectedResultMessage = ReverseCommand.MESSAGE_SUCCESS;
-       expectedModel.reverseFilteredRecordList();
-       assertCommandSuccess(command, expectedResultMessage, expectedModel);
+        command = "rEvErsE";
+        expectedResultMessage = ReverseCommand.MESSAGE_SUCCESS;
+        expectedModel.reverseFilteredRecordList();
+        assertCommandSuccess(command, expectedResultMessage, expectedModel);
 
 
         /* Case: Execute reverse command with command alias: rev -> reversed */

@@ -35,7 +35,7 @@ public class SortCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_emptyList_showEmptyListMessage(){
+    public void execute_emptyList_showEmptyListMessage() {
         Model expectedModel = new ModelManager();
         assertCommandFailure(new SortCommand(new RecordNameComparator()), expectedModel, commandHistory,
                 SortCommand.MESSAGE_EMPTY_LIST);

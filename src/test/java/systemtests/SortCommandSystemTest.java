@@ -11,6 +11,7 @@ import static seedu.finance.testutil.TypicalRecords.AMY;
 import static seedu.finance.testutil.TypicalRecords.KEYWORD_MATCHING_DONUT;
 
 import org.junit.Test;
+
 import seedu.finance.commons.core.index.Index;
 import seedu.finance.logic.commands.DeleteCommand;
 import seedu.finance.logic.commands.RedoCommand;
@@ -32,7 +33,7 @@ public class SortCommandSystemTest extends FinanceTrackerSystemTest {
     private static final String MESSAGE_INVALID_SORT_COMMAND_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE);
     @Test
-    public void sort(){
+    public void sort() {
         Model defaultModel = getModel();
 
 
@@ -92,7 +93,8 @@ public class SortCommandSystemTest extends FinanceTrackerSystemTest {
         /* Case: delete a record then sort list by date in default ordering (descending) -> sorted */
         Record targetedRecord = expectedModel.getFilteredRecordList().get(0);
         expectedModel.deleteRecord(targetedRecord);
-        assertCommandSuccess("delete 1", String.format(DeleteCommand.MESSAGE_DELETE_RECORD_SUCCESS, targetedRecord), expectedModel);
+        assertCommandSuccess("delete 1", String.format(DeleteCommand.MESSAGE_DELETE_RECORD_SUCCESS,
+                targetedRecord), expectedModel);
         command = SortCommand.COMMAND_WORD + " " + COMMAND_FLAG_DATE;
         expectedResultMessage = SortCommand.MESSAGE_SUCCESS;
         expectedModel.sortFilteredRecordList(new RecordDateComparator());
@@ -158,7 +160,7 @@ public class SortCommandSystemTest extends FinanceTrackerSystemTest {
         command = SortCommand.COMMAND_WORD + " " + COMMAND_FLAG_NAME + " " + "-inc";
         assertCommandFailure(command, MESSAGE_INVALID_SORT_COMMAND_FORMAT);
 
-        
+
         /* Case: Invalid arguments (extra argument) -> rejected */
         command = SortCommand.COMMAND_WORD + " " + COMMAND_FLAG_NAME + " " + COMMAND_FLAG_ASCENDING
                 + " " + COMMAND_FLAG_DATE;

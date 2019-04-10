@@ -26,7 +26,8 @@ public class ListPrescriptionCommandParser implements Parser<ListPrescriptionCom
         PersonId doctorId = null;
 
         if (!argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListPrescriptionCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ListPrescriptionCommand.MESSAGE_USAGE));
         }
 
         patientId = presentPatientIdOrNull(PREFIX_PATIENT_ID, argMultimap);

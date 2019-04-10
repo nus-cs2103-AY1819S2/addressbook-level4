@@ -20,7 +20,7 @@ public class ImportResumesCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Resumes have been imported";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
-    Set<Person> toAdd;
+    private Set<Person> toAdd;
 
     public ImportResumesCommand(Set<Person> people) {
         toAdd = people;

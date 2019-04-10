@@ -51,7 +51,7 @@ public class SortCommandParser implements Parser<SortCommand> {
     }
 
     /**
-     * Returns a hash map of <String,Comparator<Pdf>> pair.
+     * @return a hash map of String-Comparator pair
      */
     private HashMap<String, Comparator<Pdf>> getSortCriteriaMap() {
         HashMap<String, Comparator<Pdf>> sortCriteriaMap = new HashMap<>();

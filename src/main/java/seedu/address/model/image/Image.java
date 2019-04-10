@@ -18,6 +18,7 @@ import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.SetPresetCommand;
 import seedu.address.logic.commands.WaterMarkCommand;
 
 /**
@@ -174,11 +175,25 @@ public class Image {
         if (commandHistory.get(index) instanceof WaterMarkCommand) {
             setWaterMark(false);
         }
+
+        if (commandHistory.get(index) instanceof SetPresetCommand) {
+            SetPresetCommand presetCommand = (SetPresetCommand) (commandHistory.get(index));
+            if (presetCommand.hasWaterMarkCommand()) {
+                setWaterMark(false);
+            }
+        }
     }
 
     public void setRedo() {
         if (commandHistory.get(index) instanceof WaterMarkCommand) {
             setWaterMark(true);
+        }
+
+        if (commandHistory.get(index) instanceof SetPresetCommand) {
+            SetPresetCommand presetCommand = (SetPresetCommand) (commandHistory.get(index));
+            if (presetCommand.hasWaterMarkCommand()) {
+                setWaterMark(true);
+            }
         }
         index++;
     }

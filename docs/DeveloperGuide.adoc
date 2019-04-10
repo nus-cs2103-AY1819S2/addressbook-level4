@@ -893,25 +893,26 @@ teeth condition better
 
 |`* * *` |user |edit a task |change details of certains tasks that I have already added
 
-|`* * *` |user |encrypt the imported/exported data | ensure patient information remains confidential
-
-|`* * *` |user |append imported/exported data | work more flexibly with patient information
-
-|`* * *` |user |my imported/exported data supported by multiple file types | work more flexibly with patient information
-
 |`* * *` |user |see a statistics report on each patient's dental history | have an easier time understanding their potential problems
 
-|`* * *` |user | warning to come up when I'm exiting the program if there exists duplicate entries | be reminded to
+|`* * *` |user |see a warning come up when I'm exiting the program if there exists duplicate entries | be reminded to
 edit them before exiting.
 
-|`* *` |user | see an overall statistics report on my patients | analyze potential trends
+|`* *` |user |see an overall statistics report on my patients | analyze potential trends
 
 |`* *` |user |copy a person |reduce the time needed to create a new person who has similar records to an existing person in the list
 
-|`* *` |user |export entries into an external file |view certain entries even when I am not using the application
+|`* *` |user |open an external file |work with patients and tasks saved in another file
 
-|`* *` |user |import entries from an external file |reduce the time needed to create a person whose information can
-be already be obtained from an external source
+|`* *` |user |import specific patients from an external file |add patients and tasks from another file
+
+|`* *` |user |save to an external file |have multiple files for cataloguing
+
+|`* *` |user |export specific patients to an external file |have multiple files for cataloguing
+
+|`* *` |user |save/export to PDF |have a more presentable format for reading
+
+|`* *` |user |see suggestions when I type common commands |do not have to keep consulting the Help page
 
 |`* *` |user |see relevant dentistry tags on my patients' entries | have an overview of my patients' condition
 
@@ -952,6 +953,124 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
+
+=== Use case: Open file
+
+*MSS*
+
+1.  User requests to open a .json file
+2.  TeethHub opens the file and replaces the current contents with the file contents.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The specified path file is not a .json file.
++
+
+** 1a1. TeethHub shows an error message.
++
+Use case resumes at step 0.
+
+* 1b. The specified .json file contents to not conform to TeethHub's reading algorithm.
++
+[none]
+** 1b1. TeethHub shows an error message.
++
+Use case resumes at step 0.
+
+=== Use case: Save file
+
+*MSS*
+
+1.  User requests to save a .json file or a .pdf file.
+2.  TeethHub saves the file, overwriting if the specified file already exists.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The specified file path is not a .json file or a .pdf file.
++
+
+** 1a1. TeethHub shows an error message.
++
+Use case resumes at step 0.
+
+* 1b. The specified file path is read only.
++
+[none]
+** 1b1. TeethHub shows an error message.
++
+Use case resumes at step 0.
+
+=== Use case: Import file
+
+*MSS*
+
+1.  User requests to import a .json file.
+2.  TeethHub imports the file, adding the file contents to the current TeethHub contents.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The specified file path is not a .json file.
++
+
+** 1a1. TeethHub shows an error message.
++
+Use case resumes at step 0.
+
+* 1b. The specified file path is read only.
++
+[none]
+** 1b1. TeethHub shows an error message.
++
+Use case resumes at step 0.
+
+** 1c. The given index is invalid.
++
+[none]
+** 1c1. TeethHub shows an error message.
++
+Use case resumes at step 0.
+
+=== Use case: Export file
+
+*MSS*
+
+1.  User requests to export a .json file or a .pdf file.
+2.  TeethHub exports the specified contents to the file, overwriting if the specified file already exists.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The specified file path is not a .json file or a .pdf file.
++
+
+** 1a1. TeethHub shows an error message.
++
+Use case resumes at step 0.
+
+* 1b. The specified file path is read only.
++
+[none]
+** 1b1. TeethHub shows an error message.
++
+Use case resumes at step 0.
+
+** 1c. The given index is invalid.
++
+[none]
+** 1c1. TeethHub shows an error message.
++
+Use case resumes at step 0.
 
 _{More to be added}_
 

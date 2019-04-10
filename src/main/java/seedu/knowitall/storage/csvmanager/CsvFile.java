@@ -1,5 +1,8 @@
 package seedu.knowitall.storage.csvmanager;
 
+import java.util.regex.Matcher;
+
+import java.util.regex.Pattern;
 
 /**
  * Represents a Csv file for either import or export
@@ -8,7 +11,7 @@ public class CsvFile {
 
     public static final String MESSAGE_CONSTRAINTS = "File name should not be left blank and should have"
             + ".csv format";
-    private static final String FILE_EXT_REGEX = "\\.(?=[^\\.]+$)";
+    private static final String FILE_EXT_REGEX = "\\.(?=[^.]+$)";
 
     public final String filename;
 
@@ -29,7 +32,13 @@ public class CsvFile {
      * Returns true if file extension is of .csv format.
      */
     private static boolean isCorrectFileExtension(String filename) {
-        return filename.split(FILE_EXT_REGEX)[1].equals("csv");
+        Pattern pattern = Pattern.compile(FILE_EXT_REGEX);
+        Matcher matcher = pattern.matcher(filename);
+        if (matcher.find()) {
+            return filename.split(FILE_EXT_REGEX)[1].equals("csv");
+        } else {
+            return false;
+        }
     }
 
     public String getFileNameWithoutExt() {

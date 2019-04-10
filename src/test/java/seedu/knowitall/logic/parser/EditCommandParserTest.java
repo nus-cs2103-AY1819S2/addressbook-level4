@@ -70,7 +70,6 @@ public class EditCommandParserTest {
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_QUESTION_DESC, Question.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_ANSWER_DESC, Answer.MESSAGE_CONSTRAINTS); // invalid answer
-        assertParseFailure(parser, "1" + INVALID_HINT_DESC, Hint.MESSAGE_CONSTRAINTS); // invalid hint
 
         // valid answer followed by invalid answer. The test case for invalid answer followed by valid answer
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}

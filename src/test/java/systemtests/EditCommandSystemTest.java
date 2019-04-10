@@ -8,7 +8,6 @@ import static seedu.knowitall.logic.commands.CommandTestUtil.ANSWER_DESC_SAMPLE_
 import static seedu.knowitall.logic.commands.CommandTestUtil.HINT_DESC_FRIEND;
 import static seedu.knowitall.logic.commands.CommandTestUtil.HINT_DESC_HUSBAND;
 import static seedu.knowitall.logic.commands.CommandTestUtil.INVALID_ANSWER_DESC;
-import static seedu.knowitall.logic.commands.CommandTestUtil.INVALID_HINT_DESC;
 import static seedu.knowitall.logic.commands.CommandTestUtil.INVALID_QUESTION_DESC;
 import static seedu.knowitall.logic.commands.CommandTestUtil.QUESTION_DESC_SAMPLE_1;
 import static seedu.knowitall.logic.commands.CommandTestUtil.QUESTION_DESC_SAMPLE_2;
@@ -35,7 +34,6 @@ import seedu.knowitall.model.Model;
 import seedu.knowitall.model.card.Answer;
 import seedu.knowitall.model.card.Card;
 import seedu.knowitall.model.card.Question;
-import seedu.knowitall.model.hint.Hint;
 import seedu.knowitall.testutil.CardBuilder;
 import seedu.knowitall.testutil.CardUtil;
 
@@ -162,10 +160,6 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         /* Case: invalid answer -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased()
                 + INVALID_ANSWER_DESC, Answer.MESSAGE_CONSTRAINTS);
-
-        /* Case: invalid hint -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased()
-                + INVALID_HINT_DESC, Hint.MESSAGE_CONSTRAINTS);
 
         /* Case: edit a card with new values same as another card's values -> rejected */
         executeCommand(CardUtil.getAddCommand(CARD_2));

@@ -9,7 +9,10 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.BackCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.GenerateQuestionCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.OpenDeckCommand;
 import seedu.address.logic.commands.ShowAnswerCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -53,6 +56,12 @@ public class StudyView implements ViewState {
                 return new OpenDeckCommand(activeDeck);
             case BackCommand.COMMAND_WORD:
                 return new BackCommand();
+            case ExitCommand.COMMAND_WORD:
+                return new ExitCommand();
+            case HelpCommand.COMMAND_WORD:
+                return new HelpCommand();
+            case HistoryCommand.COMMAND_WORD:
+                return new HistoryCommand();
             default:
                 if (getCurrentStudyState() == StudyState.QUESTION) {
                     return new ShowAnswerCommand(commandWord + arguments);

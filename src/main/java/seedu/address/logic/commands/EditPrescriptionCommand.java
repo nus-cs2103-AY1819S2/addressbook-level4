@@ -3,8 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
-
-
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -12,9 +10,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.Description;
-import seedu.address.model.prescription.Medicine;
+import seedu.address.model.prescription.Prescription;
+//import seedu.address.model.prescription.Medicine;
 
 /**
  * Edits the writeUp of an existing medical history in the docX.
@@ -31,9 +29,11 @@ public class EditPrescriptionCommand extends Command {
             + PREFIX_DESCRIPTION + "For curing fever ";
 
 
-    public static final String MESSAGE_EDIT_PRESCRIPTION_SUCCESS = "Edited description of the prescription specified: %1$s";
+    public static final String MESSAGE_EDIT_PRESCRIPTION_SUCCESS =
+            "Edited description of the prescription specified: %1$s";
     public static final String MESSAGE_NOT_EDITED = "WriteUp to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PRESCRIPTION = "This medical history already exists in the docX.";
+    public static final String MESSAGE_DUPLICATE_PRESCRIPTION =
+            "This medical history already exists in the docX.";
 
     private final Index index;
     private final EditPrescriptionDescriptor editPrescriptionDescriptor;
@@ -42,12 +42,14 @@ public class EditPrescriptionCommand extends Command {
      * @param index                 of the medical history in the filtered medical history list to edit
      * @param editPrescriptionDescriptor details to edit the medical history with
      */
-    public EditPrescriptionCommand(Index index, EditPrescriptionCommand.EditPrescriptionDescriptor editPrescriptionDescriptor) {
+    public EditPrescriptionCommand(Index index, EditPrescriptionCommand.EditPrescriptionDescriptor
+            editPrescriptionDescriptor) {
         requireNonNull(index);
         requireNonNull(editPrescriptionDescriptor);
 
         this.index = index;
-        this.editPrescriptionDescriptor = new EditPrescriptionCommand.EditPrescriptionDescriptor(editPrescriptionDescriptor);
+        this.editPrescriptionDescriptor = new
+                EditPrescriptionCommand.EditPrescriptionDescriptor(editPrescriptionDescriptor);
     }
 
 
@@ -65,7 +67,8 @@ public class EditPrescriptionCommand extends Command {
         editedPrescription.setPatient(prescriptionToEdit.getPatient());
         editedPrescription.setDoctor(prescriptionToEdit.getDoctor());
 
-        if (!prescriptionToEdit.isSamePrescription(editedPrescription) && model.hasPrescription(editedPrescription)) {
+        if (!prescriptionToEdit.isSamePrescription(editedPrescription)
+                && model.hasPrescription(editedPrescription)) {
             throw new CommandException(MESSAGE_DUPLICATE_PRESCRIPTION);
         }
 
@@ -80,7 +83,7 @@ public class EditPrescriptionCommand extends Command {
      * edited with {@code editPatientDescriptor}.
      */
     private static Prescription createEditedPrescription(Prescription prescriptionToEdit,
-                                                      EditPrescriptionCommand.EditPrescriptionDescriptor editPrescriptionDescriptor) {
+                                                         EditPrescriptionCommand.EditPrescriptionDescriptor editPrescriptionDescriptor) {
         assert prescriptionToEdit != null;
 
         Description updatedDescription = editPrescriptionDescriptor.getDescription();
@@ -153,7 +156,8 @@ public class EditPrescriptionCommand extends Command {
             }
 
             // state check
-            EditPrescriptionCommand.EditPrescriptionDescriptor e = (EditPrescriptionCommand.EditPrescriptionDescriptor) other;
+            EditPrescriptionCommand.EditPrescriptionDescriptor e =
+                    (EditPrescriptionCommand.EditPrescriptionDescriptor) other;
 
             return getDescription().equals(e.getDescription());
         }

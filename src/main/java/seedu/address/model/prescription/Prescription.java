@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
-import seedu.address.model.person.Person;
+//import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonId;
 
 /**

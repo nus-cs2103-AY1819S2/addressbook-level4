@@ -10,7 +10,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX = "The patient index provided is invalid";
     public static final String MESSAGE_INVALID_MEDHIST_DISPLAYED_INDEX =
             "The medical history index provided is invalid";
-    public static final String MESSAGE_INVALID_PRESCRIPTION_DISPLAYED_INDEX = "The prescription index provided is invalid";
+    public static final String MESSAGE_INVALID_PRESCRIPTION_DISPLAYED_INDEX =
+             "The prescription index provided is invalid";
     public static final String MESSAGE_INVALID_DOCTOR_DISPLAYED_INDEX = "The doctor index provided is invalid";
     public static final String MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX =
             "The appointment index provided is invalid";

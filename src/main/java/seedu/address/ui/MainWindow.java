@@ -187,7 +187,8 @@ public class MainWindow extends UiPart<Stage> {
      * Show the medical history panel
      */
     public void showPrescriptionPanel() {
-        prescriptionListPanel = new PrescriptionListPanel(logic.getFilteredPrescriptionList(), logic.selectedPrescriptionProperty(),
+        prescriptionListPanel = new PrescriptionListPanel(logic.getFilteredPrescriptionList(),
+                logic.selectedPrescriptionProperty(),
                 logic::setSelectedPrescription);
         middleListPanelPlaceholder.getChildren().clear();
         middleListPanelPlaceholder.getChildren().add(prescriptionListPanel.getRoot());

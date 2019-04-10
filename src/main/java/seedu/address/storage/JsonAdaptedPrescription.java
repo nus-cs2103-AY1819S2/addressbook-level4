@@ -4,9 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.model.person.PersonId;
+import seedu.address.model.prescription.Description;
 import seedu.address.model.prescription.Medicine;
 import seedu.address.model.prescription.Prescription;
-import seedu.address.model.prescription.Description;
+
 
 /**
  * Jackson-friendly version of {@link Prescription}.
@@ -26,8 +27,7 @@ public class JsonAdaptedPrescription {
     public JsonAdaptedPrescription(@JsonProperty("patientId") int patientId,
                                    @JsonProperty("doctorId") int doctorId,
                                    @JsonProperty("medcineName") String medicineName,
-                                   @JsonProperty("description") String description
-                                     ) {
+                                   @JsonProperty("description") String description) {
         this.patientId = patientId;
         this.doctorId = doctorId;
         this.medicineName = medicineName;

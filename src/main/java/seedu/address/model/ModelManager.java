@@ -554,7 +554,8 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedPrescriptionRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPrescription -> selectedPrescription.getValue().isSamePrescription(removedPrescription));
+                    .anyMatch(removedPrescription -> selectedPrescription.getValue().
+                            isSamePrescription(removedPrescription));
             if (wasSelectedPrescriptionRemoved) {
                 // Select the prescription that came before it in the list,
                 // or clear the selection if there is no such prescription.

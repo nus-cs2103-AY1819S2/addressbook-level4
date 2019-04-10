@@ -10,8 +10,8 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddPrescriptionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Doctor;
-import seedu.address.model.person.Patient;
+//import seedu.address.model.person.Doctor;
+//import seedu.address.model.person.Patient;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.prescription.Description;
 import seedu.address.model.prescription.Medicine;
@@ -30,9 +30,11 @@ public class AddPrescriptionCommandParser implements Parser<AddPrescriptionComma
      */
     public AddPrescriptionCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_PATIENT_ID, PREFIX_DOCTOR_ID, PREFIX_MEDICINE_NAME, PREFIX_DESCRIPTION);
+                ArgumentTokenizer.tokenize(args, PREFIX_PATIENT_ID,
+                        PREFIX_DOCTOR_ID, PREFIX_MEDICINE_NAME, PREFIX_DESCRIPTION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_PATIENT_ID, PREFIX_DOCTOR_ID, PREFIX_MEDICINE_NAME, PREFIX_DESCRIPTION)
+        if (!arePrefixesPresent(argMultimap, PREFIX_PATIENT_ID,
+                PREFIX_DOCTOR_ID, PREFIX_MEDICINE_NAME, PREFIX_DESCRIPTION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddPrescriptionCommand.MESSAGE_USAGE));

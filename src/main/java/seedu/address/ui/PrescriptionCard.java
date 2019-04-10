@@ -9,7 +9,7 @@ import seedu.address.model.prescription.Prescription;
 /**
  * An UI component that displays information of a {@code Prescription}.
  */
-public class PrescriptionCard extends UiPart<Region>{
+public class PrescriptionCard extends UiPart<Region> {
     private static final String FXML = "PrescriptionListCard.fxml";
 
     public final Prescription prescription;
@@ -38,12 +38,13 @@ public class PrescriptionCard extends UiPart<Region>{
 
     }
 
-    public boolean equals(Object other){
-        if(other == this) {
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
             return true;
         }
 
-        if(other instanceof PrescriptionCard == false) {
+        if (other instanceof PrescriptionCard == false) {
             return false;
         }
 

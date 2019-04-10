@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
 
 import seedu.address.logic.CommandHistory;

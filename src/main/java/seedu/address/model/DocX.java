@@ -20,7 +20,7 @@ import seedu.address.model.person.UniqueDoctorList;
 import seedu.address.model.person.UniquePatientList;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.UniquePrescriptionList;
-import seedu.address.ui.PrescriptionListPanel;
+
 
 
 /**

@@ -35,6 +35,7 @@ public class ModelManager implements Model {
     private final FilteredList<WorkList> filteredWorkList;
     private final SimpleObjectProperty<Equipment> selectedEquipment = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<WorkList> selectedWorkList = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Name> selectedClient = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given equipmentManager and userPrefs.
@@ -325,6 +326,26 @@ public class ModelManager implements Model {
             throw new EquipmentNotFoundException();
         }
         selectedEquipment.setValue(equipment);
+    }
+
+    //=========== Selected client ===========================================================================
+
+    @Override
+    public ReadOnlyProperty<Name> selectedClientProperty() {
+        return selectedClient;
+    }
+
+    @Override
+    public Name getSelectedClient() {
+        return selectedClient.getValue();
+    }
+
+    @Override
+    public void setSelectedClient(Name equipment) {
+        if (equipment != null && !filteredClient.contains(equipment)) {
+            throw new EquipmentNotFoundException();
+        }
+        selectedClient.setValue(equipment);
     }
 
     @Override

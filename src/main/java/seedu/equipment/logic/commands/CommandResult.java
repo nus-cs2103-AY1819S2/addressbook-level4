@@ -13,6 +13,9 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
+    /** The application should show list of client's equipment in the equipment details panel. */
+//    private final boolean selectClient;
+
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 

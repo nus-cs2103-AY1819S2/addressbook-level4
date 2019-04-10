@@ -114,6 +114,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyProperty<Name> selectedClientProperty() {
+        return model.selectedClientProperty();
+    }
+
+    @Override
     public ReadOnlyProperty<WorkList> selectedWorkListProperty() {
         return model.selectedWorkListProperty();
     }
@@ -121,6 +126,11 @@ public class LogicManager implements Logic {
     @Override
     public void setSelectedPerson(Equipment equipment) {
         model.setSelectedEquipment(equipment);
+    }
+
+    @Override
+    public void setSelectedClient(Name name) {
+        model.setSelectedClient(name);
     }
 
     @Override

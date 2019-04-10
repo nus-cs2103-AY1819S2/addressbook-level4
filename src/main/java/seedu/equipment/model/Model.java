@@ -214,6 +214,12 @@ public interface Model {
     ReadOnlyProperty<Equipment> selectedEquipmentProperty();
 
     /**
+     * Selected client in the filtered equipment list.
+     * null if no client is selected.
+     */
+    ReadOnlyProperty<Name> selectedClientProperty();
+
+    /**
      * Selected WorkList in the filtered WorkList list.
      * null if no WorkList is selected.
      */
@@ -225,6 +231,13 @@ public interface Model {
      */
     Equipment getSelectedEquipment();
 
+
+    /**
+     * Returns the selected client in the filtered equipment list.
+     * null if no client is selected.
+     */
+    Name getSelectedClient();
+
     /**
      * Returns the selected WorkList in the filtered WorkList list.
      * null if no WorkList is selected.
@@ -235,6 +248,11 @@ public interface Model {
      * Sets the selected equipment in the filtered equipment list.
      */
     void setSelectedEquipment(Equipment equipment);
+
+    /**
+     * Sets the selected client in the filtered equipment list.
+     */
+    void setSelectedClient(Name equipment);
 
     /**
      * Sets the selected WorkList in the filtered WorkList list.

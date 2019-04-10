@@ -135,7 +135,8 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedWorkList);
         workListPanelPlaceholder.getChildren().add(workListListPanel.getRoot());
 
-        clientListPanel = new ClientListPanel(logic.getFilteredClientList());
+        clientListPanel = new ClientListPanel(logic.getFilteredClientList(), logic.selectedClientProperty(),
+                logic::setSelectedClient);
         clientListPanelPlaceholder.getChildren().add(clientListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

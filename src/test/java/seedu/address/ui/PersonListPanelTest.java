@@ -87,7 +87,7 @@ public class PersonListPanelTest extends GuiUnitTest {
             Phone phone = new Phone("000");
             Email email = new Email("a@aa");
             Education education = new Education("aaa");
-            Gpa gpa = new Gpa("a");
+            Gpa gpa = new Gpa("1");
             Address address = new Address("a");
             Person person = new Person(name, phone, email, education, gpa, address, Collections.emptySet());
             backingList.add(person);

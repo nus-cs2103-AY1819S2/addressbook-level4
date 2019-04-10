@@ -7,8 +7,8 @@ import java.util.Iterator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.exceptions.DuplicatePredicateManagerException;
-import seedu.address.model.person.exceptions.PredicateManagerNotFoundException;
+import seedu.address.model.person.exceptions.DuplicateFilterException;
+import seedu.address.model.person.exceptions.FilterNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -21,25 +21,25 @@ import seedu.address.model.person.exceptions.PredicateManagerNotFoundException;
  *
  * @see PredicateManager#isSamePredicateManager(PredicateManager)
  */
-public class UniquePredicateList implements Iterable<PredicateManager> {
+public class UniqueFilterList implements Iterable<Filter> {
 
-    private final ObservableList<PredicateManager> internalList = FXCollections.observableArrayList();
-    private final ObservableList<PredicateManager> internalUnmodifiableList =
+    private final ObservableList<Filter> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Filter> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
-    public boolean contains(PredicateManager toCheck) {
+    public boolean contains(Filter toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePredicateManager);
+        return internalList.stream().anyMatch(toCheck::isSameFilter);
     }
 
-    public PredicateManager getPredicateManager(String predicateName) {
+    public Filter getFilter(String predicateName) {
         requireAllNonNull(predicateName);
-        PredicateManager predicateManager = new PredicateManager(predicateName);
+        Filter predicateManager = new Filter(predicateName,null);
         for (int i = 0; i < internalList.size(); i++) {
-            if (internalList.get(i).isSamePredicateManager(predicateManager)) {
+            if (internalList.get(i).isSameFilter(predicateManager)) {
                 return internalList.get(i);
             }
         }
@@ -50,10 +50,10 @@ public class UniquePredicateList implements Iterable<PredicateManager> {
      * Adds a person to the list.
      * The person must not already exist in the list.
      */
-    public void add(PredicateManager toAdd) {
+    public void add(Filter toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePredicateManagerException();
+            throw new DuplicateFilterException();
         }
         internalList.add(toAdd);
     }
@@ -62,10 +62,10 @@ public class UniquePredicateList implements Iterable<PredicateManager> {
      * Removes the equivalent person from the list.
      * The person must exist in the list.
      */
-    public void remove(PredicateManager toRemove) {
+    public void remove(Filter toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PredicateManagerNotFoundException();
+            throw new FilterNotFoundException();
         }
     }
 
@@ -73,20 +73,20 @@ public class UniquePredicateList implements Iterable<PredicateManager> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<PredicateManager> asUnmodifiableObservableList() {
+    public ObservableList<Filter> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<PredicateManager> iterator() {
+    public Iterator<Filter> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePredicateList // instanceof handles nulls
-                        && internalList.equals(((UniquePredicateList) other).internalList));
+                || (other instanceof UniqueFilterList // instanceof handles nulls
+                        && internalList.equals(((UniqueFilterList) other).internalList));
     }
 
     @Override

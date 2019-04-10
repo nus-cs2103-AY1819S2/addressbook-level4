@@ -16,7 +16,7 @@ import seedu.address.model.job.JobName;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.predicate.UniquePredicateList;
+import seedu.address.model.person.predicate.UniqueFilterList;
 
 /**
  * The API of the Model component.
@@ -128,48 +128,48 @@ public interface Model {
     /**
      * add Predicate to JobShortlist
      */
-    void addPredicateJobShortlist(Predicate<Person> predicate);
+    void addPredicateJobShortlist(String predicateName, Predicate<Person> predicate);
 
     /**
      * add Predicate to JobInterview
      */
-    void addPredicateJobInterview(Predicate<Person> predicate);
+    void addPredicateJobInterview(String predicateName, Predicate<Person> predicate);
 
     /**
      * add Predicate to JobKiv
      */
-    void addPredicateJobKiv(Predicate<Person> predicate);
+    void addPredicateJobKiv(String predicateName, Predicate<Person> predicate);
 
     /**
      * add Predicate to JobAllApplicants
      */
-    void addPredicateJobAllApplicants(Predicate<Person> predicate);
+    void addPredicateJobAllApplicants(String predicateName, Predicate<Person> predicate);
     /**
-     * Returns one of the UniquePredicateList in the job
+     * Returns one of the UniqueFilterList in the job
      */
     /**
      * remove Predicate to JobShortlist
      */
-    void removePredicateJobShortlist(Predicate<Person> predicate);
+    void removePredicateJobShortlist(String predicateName);
 
     /**
      * remove Predicate to JobInterview
      */
-    void removePredicateJobInterview(Predicate<Person> predicate);
+    void removePredicateJobInterview(String predicateName);
 
     /**
      * remove Predicate to JobKiv
      */
-    void removePredicateJobKiv(Predicate<Person> predicate);
+    void removePredicateJobKiv(String predicateName);
 
     /**
      * remove Predicate to JobAllApplicants
      */
-    void removePredicateJobAllApplicants(Predicate<Person> predicate);
+    void removePredicateJobAllApplicants(String predicateName);
     /**
-     * Returns one of the UniquePredicateList in the job
+     * Returns one of the UniqueFilterList in the job
      */
-    UniquePredicateList getPredicateList(JobName name, Integer listNumber);
+    UniqueFilterList getPredicateList(JobName name, Integer listNumber);
 
     /**
      * Returns one of the UniquePersonList in the job
@@ -196,7 +196,7 @@ public interface Model {
     /**
      * Returns an unmodifiable view of the filtered job list
      */
-    UniquePredicateList getPredicateLists(int listNumber);
+    UniqueFilterList getPredicateLists(int listNumber);
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.

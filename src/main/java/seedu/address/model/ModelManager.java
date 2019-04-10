@@ -26,8 +26,9 @@ import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.predicate.Filter;
 import seedu.address.model.person.predicate.PredicateManager;
-import seedu.address.model.person.predicate.UniquePredicateList;
+import seedu.address.model.person.predicate.UniqueFilterList;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -47,10 +48,10 @@ public class ModelManager implements Model {
     private FilteredList<Person> activeJobKiv;
     private FilteredList<Person> activeJobInterview;
     private FilteredList<Person> activeJobShortlist;
-    private UniquePredicateList filterListJobAllApplicants;
-    private UniquePredicateList filterListJobKiv;
-    private UniquePredicateList filterListJobInterview;
-    private UniquePredicateList filterListJobShortlist;
+    private UniqueFilterList filterListJobAllApplicants;
+    private UniqueFilterList filterListJobKiv;
+    private UniqueFilterList filterListJobInterview;
+    private UniqueFilterList filterListJobShortlist;
     private FilteredList<Job> allJobsList;
 
 
@@ -77,10 +78,10 @@ public class ModelManager implements Model {
         activeJobShortlist = new FilteredList<>(fakeList.asUnmodifiableObservableList());
         activeJobInterview = new FilteredList<>(fakeList.asUnmodifiableObservableList());
 
-        filterListJobAllApplicants = new UniquePredicateList();
-        filterListJobKiv = new UniquePredicateList();
-        filterListJobInterview = new UniquePredicateList();
-        filterListJobShortlist = new UniquePredicateList();
+        filterListJobAllApplicants = new UniqueFilterList();
+        filterListJobKiv = new UniqueFilterList();
+        filterListJobInterview = new UniqueFilterList();
+        filterListJobShortlist = new UniqueFilterList();
 
         allJobsList = new FilteredList<>(versionedAddressBook.getAllJobList());
     }
@@ -197,13 +198,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public UniquePredicateList getPredicateList(JobName name, Integer listNumber) {
+    public UniqueFilterList getPredicateList(JobName name, Integer listNumber) {
         Job job = getJob(name);
         return job.getPredicateList(listNumber);
     }
 
     @Override
-    public UniquePredicateList getPredicateLists(int listNumber) {
+    public UniqueFilterList getPredicateLists(int listNumber) {
         if (listNumber == 0) {
             return filterListJobAllApplicants;
         } else if (listNumber == 1) {
@@ -287,51 +288,51 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addPredicateJobShortlist(Predicate<Person> predicate) {
+    public void addPredicateJobShortlist(String predicateName, Predicate<Person> predicate) {
         requireNonNull(predicate);
-        filterListJobAllApplicants.add((PredicateManager) predicate);
+        filterListJobAllApplicants.add(new Filter(predicateName, predicate));
     }
 
     @Override
-    public void addPredicateJobInterview(Predicate<Person> predicate) {
+    public void addPredicateJobInterview(String predicateName, Predicate<Person> predicate) {
         requireNonNull(predicate);
-        filterListJobInterview.add((PredicateManager) predicate);
+        filterListJobInterview.add(new Filter(predicateName, predicate));
     }
 
     @Override
-    public void addPredicateJobKiv(Predicate<Person> predicate) {
+    public void addPredicateJobKiv(String predicateName, Predicate<Person> predicate) {
         requireNonNull(predicate);
-        filterListJobKiv.add((PredicateManager) predicate);
+        filterListJobKiv.add(new Filter(predicateName, predicate));
     }
 
     @Override
-    public void addPredicateJobAllApplicants(Predicate<Person> predicate) {
+    public void addPredicateJobAllApplicants(String predicateName, Predicate<Person> predicate) {
         requireNonNull(predicate);
-        filterListJobAllApplicants.add((PredicateManager) predicate);
+        filterListJobAllApplicants.add(new Filter(predicateName, predicate));
     }
 
     @Override
-    public void removePredicateJobShortlist(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filterListJobAllApplicants.remove((PredicateManager) predicate);
+    public void removePredicateJobShortlist(String predicateName) {
+        requireNonNull(predicateName);
+        filterListJobAllApplicants.remove(new Filter(predicateName));
     }
 
     @Override
-    public void removePredicateJobInterview(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filterListJobInterview.remove((PredicateManager) predicate);
+    public void removePredicateJobInterview(String predicateName) {
+        requireNonNull(predicateName);
+        filterListJobInterview.remove(new Filter(predicateName));
     }
 
     @Override
-    public void removePredicateJobKiv(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filterListJobKiv.remove((PredicateManager) predicate);
+    public void removePredicateJobKiv(String predicateName) {
+        requireNonNull(predicateName);
+        filterListJobKiv.remove(new Filter(predicateName));
     }
 
     @Override
-    public void removePredicateJobAllApplicants(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filterListJobAllApplicants.remove((PredicateManager) predicate);
+    public void removePredicateJobAllApplicants(String predicateName) {
+        requireNonNull(predicateName);
+        filterListJobAllApplicants.remove(new Filter(predicateName));
     }
 
     @Override
@@ -545,20 +546,20 @@ public class ModelManager implements Model {
     public Analytics generateAnalytics(JobListName listName) {
         Analytics analytics;
         switch (listName) {
-            case APPLICANT:
-                analytics = new Analytics(activeJobAllApplicants);
-                break;
-            case KIV:
-                analytics = new Analytics(activeJobKiv);
-                break;
-            case INTERVIEW:
-                analytics = new Analytics(activeJobInterview);
-                break;
-            case SHORTLIST:
-                analytics = new Analytics(activeJobShortlist);
-                break;
-            default:
-                analytics = new Analytics(getFilteredPersonList());
+        case APPLICANT:
+            analytics = new Analytics(activeJobAllApplicants);
+            break;
+        case KIV:
+            analytics = new Analytics(activeJobKiv);
+            break;
+        case INTERVIEW:
+            analytics = new Analytics(activeJobInterview);
+            break;
+        case SHORTLIST:
+            analytics = new Analytics(activeJobShortlist);
+            break;
+        default:
+            analytics = new Analytics(getFilteredPersonList());
         }
         return analytics;
     }

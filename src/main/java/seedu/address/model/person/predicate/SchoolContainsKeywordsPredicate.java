@@ -9,7 +9,7 @@ import seedu.address.model.person.Person;
 /**
  * Tests that a {@code Person}'s {@code Phone} matches any of the keywords given.
  */
-public class SchoolContainsKeywordsPredicate implements Predicate<Person> {
+public class SchoolContainsKeywordsPredicate extends PredicateManager {
     private final List<String> keywords;
 
     public SchoolContainsKeywordsPredicate(List<String> keywords) {

@@ -7,7 +7,7 @@ import java.util.Objects;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.job.JobListName;
 import seedu.address.model.job.JobName;
-import seedu.address.model.person.predicate.UniquePredicateList;
+import seedu.address.model.person.predicate.UniqueFilterList;
 
 /**
  * Represents the result of a command execution.
@@ -28,7 +28,7 @@ public class CommandResult {
 
     private boolean search = false;
 
-    private UniquePredicateList filterList;
+    private UniqueFilterList filterList;
 
     private JobListName listName;
 
@@ -69,7 +69,7 @@ public class CommandResult {
 
     }
 
-    public CommandResult(String feedbackToUser, JobListName name, UniquePredicateList list) {
+    public CommandResult(String feedbackToUser, JobListName name, UniqueFilterList list) {
         this(feedbackToUser, false, false);
         search = true;
         listName = name;
@@ -132,7 +132,7 @@ public class CommandResult {
         return listName;
     }
 
-    public UniquePredicateList getFilterList() {
+    public UniqueFilterList getFilterList() {
         return filterList;
     }
 

@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
 import quickdocs.commons.core.LogsCenter;
 import quickdocs.model.reminder.Reminder;
@@ -29,7 +30,7 @@ public class ReminderListPanel extends UiPart<Region> {
     private ListView<Reminder> reminderListView;
 
     public ReminderListPanel(List<Reminder> reminderList, ObservableValue<Reminder> selectedReminder,
-                             Consumer<Reminder> onSelectedReminderChange) {
+                             Consumer<Reminder> onSelectedReminderChange, TextArea display) {
         super(FXML);
         reminderListView.setItems((ObservableList<Reminder>) reminderList);
         reminderListView.setCellFactory(listView -> new ReminderListViewCell());
@@ -39,6 +40,7 @@ public class ReminderListPanel extends UiPart<Region> {
         });
         selectedReminder.addListener((observable, oldValue, newValue) -> {
             logger.fine("Selected reminder changed to: " + newValue);
+            listReminder(display, selectedReminder.getValue());
 
             // Don't modify selection if we are already selecting the selected reminder,
             // otherwise we would have an infinite loop.
@@ -54,6 +56,19 @@ public class ReminderListPanel extends UiPart<Region> {
                 reminderListView.getSelectionModel().clearAndSelect(index);
             }
         });
+    }
+
+    /**
+     * Displays the selected {@code Reminder} information on the main display.
+     *
+     * @param display the main display on the UI
+     * @param reminder the selected {@code Reminder} by mouse click
+     */
+    private void listReminder(TextArea display, Reminder reminder) {
+        String reminderString = "Displaying selected reminder:"
+                        + reminder.toString()
+                        + "\n";
+        display.appendText(reminderString);
     }
 
     /**
@@ -73,15 +88,16 @@ public class ReminderListPanel extends UiPart<Region> {
                 LocalTime end = reminder.getEnd();
                 String comment = reminder.getComment();
 
-                // Check if the reminder is for an appointment
                 if (title.startsWith("Appointment with ")
                         && end != null
                         && !comment.isEmpty()) {
+                    // Reminder is for an appointment
                     setStyle("-fx-control-inner-background: " + APPOINTMENT_BACKGROUND + ";");
                 } else if (title.startsWith("Quantity of ")
                         && title.endsWith(" is low.")
                         && end == null
                         && !comment.isEmpty()) {
+                    // Reminder is for low medicine
                     setStyle("-fx-control-inner-background: " + MEDICINE_BACKGROUND + ";");
                 } else {
                     setStyle("-fx-control-inner-background: " + OTHER_BACKGROUND + ";");

@@ -38,6 +38,7 @@ public class ReminderCard extends UiPart<Region> {
         this.reminder = reminder;
         id.setText(displayedIndex + ". ");
         title.setText(reminder.getTitle());
+        title.setStyle("-fx-font-weight: bold;" + "-fx-font-size: 14px");
         date.setText(reminder.getDate().toString());
         time.setText(reminder.getStart().toString());
         comment.setText(reminder.getComment());

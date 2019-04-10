@@ -13,6 +13,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import quickdocs.logic.Logic;
@@ -24,6 +25,7 @@ import quickdocs.logic.commands.PurchaseMedicineCommand;
 import quickdocs.logic.commands.SetPriceCommand;
 import quickdocs.logic.commands.ViewStorageCommand;
 import quickdocs.logic.parser.QuickDocsParser;
+import quickdocs.model.reminder.Reminder;
 
 /**
  * This class handles user interaction with the root layout
@@ -270,7 +272,7 @@ public class RootLayoutController {
      */
     public void fillReminderList() {
         reminderListPanel = new ReminderListPanel(logicManager.getFilteredReminderList(),
-                logicManager.selectedReminderProperty(), logicManager::setSelectedReminder);
+                logicManager.selectedReminderProperty(), logicManager::setSelectedReminder, this.getDisplay());
         reminderList.getChildren().add(reminderListPanel.getRoot());
     }
 
@@ -375,6 +377,4 @@ public class RootLayoutController {
             helpWindow.focus();
         }
     }
-
-
 }

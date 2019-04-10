@@ -24,13 +24,13 @@ public class ListAppCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists appointments.\n"
             + "Parameters: "
-            + "[" + PREFIX_FORMAT + "FORMAT] "
-            + "[" + PREFIX_DATE + "DATE]\n"
+            + PREFIX_FORMAT + "FORMAT "
+            + PREFIX_DATE + "DATE\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FORMAT + "day "
             + PREFIX_DATE + "2019-10-23\n"
             + "OR\n"
-            + "Parameters: [" + PREFIX_NRIC + "NRIC]\n"
+            + "Parameters:" + PREFIX_NRIC + "NRIC\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NRIC + "S9637645A";
     public static final String MESSAGE_SUCCESS_BY_DATE =

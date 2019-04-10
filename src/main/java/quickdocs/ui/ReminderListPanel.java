@@ -23,8 +23,8 @@ import quickdocs.model.reminder.Reminder;
 public class ReminderListPanel extends UiPart<Region> {
     private static final String FXML = "ReminderListPanel.fxml";
     private static final String APPOINTMENT_BACKGROUND = "derive(lightskyblue, 50%)";
-    private static final String MEDICINE_BACKGROUND = "derive(firebrick, 90%)";
-    private static final String OTHER_BACKGROUND = "derive(beige, 50%)";
+    private static final String MEDICINE_BACKGROUND = "derive(firebrick, 93%)";
+    private static final String OTHER_BACKGROUND = "derive(beige, 35%)";
     private final Logger logger = LogsCenter.getLogger(ReminderListPanel.class);
     private final TextArea display;
 

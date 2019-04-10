@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Stream;
 
+import quickdocs.commons.core.index.Index;
 import quickdocs.logic.commands.ListRemCommand;
 import quickdocs.logic.parser.exceptions.ParseException;
 
@@ -15,6 +16,7 @@ import quickdocs.logic.parser.exceptions.ParseException;
 public class ListRemCommandParser implements Parser<ListRemCommand> {
     public static final Prefix PREFIX_FORMAT = new Prefix("f/");
     public static final Prefix PREFIX_DATE = new Prefix("d/");
+    public static final Prefix PREFIX_INDEX = new Prefix("i/");
 
     /**
      * Parses the given {@code String} of arguments in the context of the ListRemCommand
@@ -28,13 +30,32 @@ public class ListRemCommandParser implements Parser<ListRemCommand> {
             return new ListRemCommand(dates.get(0), dates.get(1));
         }
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FORMAT, PREFIX_DATE);
-        boolean prefixesPresent = arePrefixesPresent(argMultimap, PREFIX_FORMAT, PREFIX_DATE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FORMAT, PREFIX_DATE, PREFIX_INDEX);
+        boolean listRemindersInRange = arePrefixesPresent(argMultimap, PREFIX_FORMAT, PREFIX_DATE);
+        boolean listSingleReminder = arePrefixesPresent(argMultimap, PREFIX_INDEX);
         boolean preamblePresent = argMultimap.getPreamble().isEmpty();
-        if (!preamblePresent || !prefixesPresent) {
+        // Wrong format for the following 3 cases:
+        // 1. preamble is present
+        // 2. both formats of listing, by range of dates and by index, is present
+        // 3. neither formats of listing, by range of dates nor by index, is present
+        if (!preamblePresent
+                || (listRemindersInRange && listSingleReminder)
+                || (!listRemindersInRange && !listSingleReminder)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListRemCommand.MESSAGE_USAGE));
         }
 
+        // List a single reminder
+        if (listSingleReminder) {
+            try {
+                Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get().trim());
+                return new ListRemCommand(index);
+            } catch (ParseException pe) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListRemCommand.MESSAGE_USAGE), pe);
+            }
+        }
+
+        // List reminders in a range of dates
         LocalDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get().trim());
         String format = argMultimap.getValue(PREFIX_FORMAT).get().trim();
 

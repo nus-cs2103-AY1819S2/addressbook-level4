@@ -80,9 +80,9 @@ public class TestApp extends MainApp {
     /**
      * Returns the file path of the storage file.
      */
-    public Path getStorageSaveLocation() {
-        return storage.getAddressBookFilePath();
-    }
+    //public Path getStorageSaveLocation() {
+    //    return storage.getAddressBookFilePath();
+    //}
 
     @Override
     public void start(Stage primaryStage) {

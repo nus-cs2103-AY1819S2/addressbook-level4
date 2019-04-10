@@ -45,7 +45,7 @@ public class LogicManagerTest {
         JsonStatisticsStorage statisticsStorage = new JsonStatisticsStorage(temporaryFolder.newFile().toPath());
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, statisticsStorage);
+        StorageManager storage = new StorageManager(userPrefsStorage, statisticsStorage);
         logic = new LogicManager(model, storage);
     }
 

@@ -198,4 +198,8 @@ public abstract class Statistics {
         this.storage = storage;
 
     }
+
+    public void resetData() {
+        defaultConfig();
+    }
 }

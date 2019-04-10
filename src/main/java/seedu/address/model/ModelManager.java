@@ -287,7 +287,7 @@ public class ModelManager implements Model {
     @Override
     public void updateJobAllApplicantsFilteredPersonList() {
         Predicate<Person> predicater = new PredicateManager();
-        for(Filter filter:filterListJobAllApplicants){
+        for (Filter filter : filterListJobAllApplicants) {
             predicater = predicater.and(filter.getPredicate());
         }
         activeJobAllApplicants.setPredicate(predicater);
@@ -296,7 +296,7 @@ public class ModelManager implements Model {
     @Override
     public void updateJobKivFilteredPersonList() {
         Predicate<Person> predicater = new PredicateManager();
-        for(Filter filter:filterListJobKiv){
+        for (Filter filter : filterListJobKiv) {
             predicater = predicater.and(filter.getPredicate());
         }
         activeJobKiv.setPredicate(predicater);
@@ -305,7 +305,7 @@ public class ModelManager implements Model {
     @Override
     public void updateJobInterviewFilteredPersonList() {
         Predicate<Person> predicater = new PredicateManager();
-        for(Filter filter:filterListJobInterview){
+        for (Filter filter : filterListJobInterview) {
             predicater = predicater.and(filter.getPredicate());
         }
         activeJobInterview.setPredicate(predicater);
@@ -314,7 +314,7 @@ public class ModelManager implements Model {
     @Override
     public void updateJobShortlistFilteredPersonList() {
         Predicate<Person> predicater = new PredicateManager();
-        for(Filter filter:filterListJobShortlist){
+        for (Filter filter : filterListJobShortlist) {
             predicater = predicater.and(filter.getPredicate());
         }
         activeJobShortlist.setPredicate(predicater);
@@ -457,6 +457,7 @@ public class ModelManager implements Model {
         selectedPerson.setValue(person);
     }
 
+    @Override
     public void setSelectedAll(Person person) {
         if (person != null && !activeJobAllApplicants.contains(person)) {
             throw new PersonNotFoundException();
@@ -464,6 +465,7 @@ public class ModelManager implements Model {
         selectedPerson.setValue(person);
     }
 
+    @Override
     public void setSelectedKiv(Person person) {
         if (person != null && !activeJobKiv.contains(person)) {
             throw new PersonNotFoundException();
@@ -471,6 +473,7 @@ public class ModelManager implements Model {
         selectedPerson.setValue(person);
     }
 
+    @Override
     public void setSelectedInterviewed(Person person) {
         if (person != null && !activeJobInterview.contains(person)) {
             throw new PersonNotFoundException();
@@ -478,6 +481,7 @@ public class ModelManager implements Model {
         selectedPerson.setValue(person);
     }
 
+    @Override
     public void setSelectedSelected(Person person) {
         if (person != null && !activeJobShortlist.contains(person)) {
             throw new PersonNotFoundException();
@@ -485,6 +489,7 @@ public class ModelManager implements Model {
         selectedPerson.setValue(person);
     }
 
+    @Override
     public void setSelectedJob(Job job) {
         if (job != null && !allJobsList.contains(job)) {
             throw new PersonNotFoundException();
@@ -573,6 +578,7 @@ public class ModelManager implements Model {
     /**
      * Obtains current viewed list and generate analytics based on it
      */
+    @Override
     public Analytics generateAnalytics() {
         Analytics analytics = new Analytics(getFilteredPersonList());
         return analytics;

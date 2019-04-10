@@ -93,7 +93,7 @@ public class Album {
     public String generateAssets() {
         String tempPath = null;
         try {
-            String tDir = System.getProperty("java.io.tmpdir") + ASSETS_FOLDER_TEMP_NAME;
+            String tDir = System.getProperty("user.dir") + File.separator + ASSETS_FOLDER_TEMP_NAME;
             File assetsFolder = new File(tDir);
             tempPath = assetsFolder.getAbsolutePath() + File.separator;
             if (!assetsFolder.exists()) {

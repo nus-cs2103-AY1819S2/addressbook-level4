@@ -123,9 +123,8 @@ public class ImportCommandParserTest {
     @Test
     public void parse_invalidDuplicate_failure() {
         String firstFile = "src/main/resources/imageTest/valid/validDuplicateTest.jpg";
-        String secondFile = "src/main/resources/imageTest/valid/validDuplicateTest.jpg";
 
         assertParseSuccess(parser, firstFile, new ImportCommand(false));
-        assertParseFailure(parser, secondFile, Messages.MESSAGE_DUPLICATE_FILE);
+        assertParseFailure(parser, firstFile, Messages.MESSAGE_DUPLICATE_FILE);
     }
 }

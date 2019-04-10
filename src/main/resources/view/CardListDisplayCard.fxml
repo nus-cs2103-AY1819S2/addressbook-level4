@@ -26,12 +26,13 @@
                 </minWidth>
             </Label>
             <Region prefWidth="10"/>
-            <Label fx:id="question" maxWidth="300" minWidth="50" styleClass="cell_big_label" text="\$first"/>
-            <Label fx:id="answer" maxWidth="300" minWidth="50" styleClass="cell_small_label" text="\$answer"/>
+            <Label fx:id="question" maxWidth="400" minWidth="100" prefWidth="400" styleClass="cell_big_label" text="\$first"/>
             <Region prefWidth="10"/>
-            <FlowPane fx:id="tags" alignment="CENTER_LEFT" maxWidth="300"/>
+            <Label fx:id="answer" maxWidth="400" minWidth="100" prefWidth="300" styleClass="cell_small_label" text="\$answer"/>
+            <Region prefWidth="10"/>
+            <FlowPane fx:id="tags" alignment="CENTER_LEFT" maxWidth="200"/>
             <Region prefWidth="10" HBox.hgrow="ALWAYS" />
-            <Label fx:id="statistics" alignment="BOTTOM_RIGHT" styleClass="cell_small_label">
+            <Label fx:id="statistics" prefWidth="120" alignment="BOTTOM_RIGHT" styleClass="cell_small_label">
                 <minWidth>
                     <!-- Ensures that the label text is never truncated -->
                     <Region fx:constant="USE_PREF_SIZE" />

@@ -350,15 +350,22 @@
 
 
 #question {
-    -fx-alignment: center;
     -fx-padding: 5px;
     -fx-font-weight: bold;
+    -fx-wrap-text: true;
 }
 
 #answer {
-    -fx-alignment: center;
     -fx-padding: 5px;
+    -fx-wrap-text: true;
 }
+
+
+#statistics {
+    -fx-padding: 5px;
+    -fx-wrap-text: true;
+}
+
 
 
 #sCard {

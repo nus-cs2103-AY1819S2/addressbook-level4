@@ -46,9 +46,7 @@ public class CardDisplay extends UiPart<Region> {
         this.card = card;
         id.setText(displayedIndex + ". ");
         question.setText(card.getQuestion());
-        question.setWrapText(true);
         answer.setText(card.getAnswer());
-        answer.setWrapText(true);
         DecimalFormat df = new DecimalFormat();
         statistics.setText("Average Difficulty: " + String.format("%.2f", card.getDifficulty()));
         initTags(card);

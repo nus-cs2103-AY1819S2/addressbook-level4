@@ -1,14 +1,14 @@
 package seedu.finance.logic.parser;
 
-import org.junit.Test;
-import seedu.finance.logic.commands.SetFileCommand;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_FILE;
+import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.nio.file.Paths;
 
-import static seedu.finance.logic.parser.CliSyntax.PREFIX_FILE;
-import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseFailure;
+import org.junit.Test;
 
-import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import seedu.finance.logic.commands.SetFileCommand;
 
 public class SetFileCommandParserTest {
     private SetFileCommandParser parser = new SetFileCommandParser();

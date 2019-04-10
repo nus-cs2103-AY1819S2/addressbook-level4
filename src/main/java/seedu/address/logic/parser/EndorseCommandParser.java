@@ -10,13 +10,14 @@ import seedu.address.logic.commands.EndorseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- *  Parser implementation for EndorseCommand
+ * Parser implementation for EndorseCommand
  */
 public class EndorseCommandParser implements Parser<EndorseCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the SelectCommand
      * and returns an SelectCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
 
@@ -37,7 +38,7 @@ public class EndorseCommandParser implements Parser<EndorseCommand> {
 
         try {
             String prefix = argMultimap.getPreamble();
-            index = ParserUtil.parseIndex(prefix.substring(prefix.length() -1));
+            index = ParserUtil.parseIndex(prefix.substring(prefix.length() - 1));
 
         } catch (ParseException pe) {
             throw new ParseException(

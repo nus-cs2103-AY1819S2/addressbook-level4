@@ -1,9 +1,7 @@
 package seedu.address.logic;
 
-import java.nio.file.Path;
 import java.util.logging.Logger;
 
-import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -15,8 +13,6 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.MapGrid;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.cell.Cell;
 import seedu.address.model.statistics.PlayerStatistics;
 import seedu.address.storage.Storage;
 
@@ -32,7 +28,6 @@ public class LogicManager implements Logic {
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
     private final PlayerStatistics statistics;
-    private boolean addressBookModified;
 
     public LogicManager(Model model, Storage storage) {
 
@@ -44,37 +39,28 @@ public class LogicManager implements Logic {
 
         // Set addressBookModified to true whenever the models' address book is modified.
         this.statistics.setStorage(storage);
-        // to remove
-        //model.getAddressBook().addListener(observable -> addressBookModified = true);
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        addressBookModified = false;
         boolean validCommand = false;
         CommandResult commandResult;
         try {
             Command command = addressBookParser.parseCommand(commandText);
-            commandResult = command.execute(model, history);
-            addToStatistics(commandText);
-            validCommand = true;
+            if (command.canExecuteIn(model.getBattleState())) {
+                commandResult = command.execute(model, history);
+                addToStatistics(commandText);
+                validCommand = true;
+            } else {
+                commandResult = new CommandResult("Cannot perform command while "
+                    + model.getBattleState().getDescription().toLowerCase());
+            }
         } finally {
             if (validCommand) {
                 history.add(commandText);
             }
         }
-        // STATS STORAGE upon modified, will save into StatisticData via saveAddressBook
-        //        if (addressBookModified) {
-        //            //logger.info("Detected Game End. Saving statistics...")
-        //            logger.info("Address book modified, saving to file.");
-        //            try {
-        //                storage.saveAddressBook(model.getAddressBook());
-        //            } catch (IOException ioe) {
-        //                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        //            }
-        //        }
-
         return commandResult;
     }
 
@@ -90,23 +76,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
-    }
-
-    @Override
-    public ObservableList<Cell> getFilteredPersonList() {
-        return model.getFilteredPersonList();
-    }
-
-    @Override
     public ObservableList<String> getHistory() {
         return history.getHistory();
-    }
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
     }
 
     @Override
@@ -117,11 +88,6 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
-    }
-
-    @Override
-    public ReadOnlyProperty<Cell> selectedPersonProperty() {
-        return model.selectedPersonProperty();
     }
 
     @Override
@@ -142,10 +108,5 @@ public class LogicManager implements Logic {
     @Override
     public MapGrid getEnemyMapGrid() {
         return model.getEnemyMapGrid();
-    }
-
-    @Override
-    public void setSelectedPerson(Cell cell) {
-        model.setSelectedPerson(cell);
     }
 }

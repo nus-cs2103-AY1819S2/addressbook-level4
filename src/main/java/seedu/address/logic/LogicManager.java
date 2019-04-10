@@ -35,7 +35,10 @@ public class LogicManager implements Logic {
         this.storage = storage;
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
-        this.statistics = new PlayerStatistics();
+        this.statistics = model.getPlayerStats();
+
+        // Set addressBookModified to true whenever the models' address book is modified.
+        this.statistics.setStorage(storage);
     }
 
     @Override
@@ -58,7 +61,6 @@ public class LogicManager implements Logic {
                 history.add(commandText);
             }
         }
-
         return commandResult;
     }
 

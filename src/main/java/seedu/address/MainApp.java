@@ -18,12 +18,13 @@ import seedu.address.logic.LogicManager;
 import seedu.address.model.MapGrid;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonStatisticsStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.StatisticsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -56,12 +57,14 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StatisticsStorage statisticsStorage = new JsonStatisticsStorage(userPrefs.getStatisticsFilePath());
+        storage = new StorageManager(userPrefsStorage, statisticsStorage);
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
-
+        model = initModelManager(userPrefs);
+        // you init wiht the STATS data
+        // then pass it to LogicManager
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
@@ -72,23 +75,7 @@ public class MainApp extends Application {
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
-        try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample MapGrid");
-            }
-            //initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty MapGrid");
-            //initialData = new MapGrid();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty MapGrid");
-            //initialData = new MapGrid();
-        }
-
+    private Model initModelManager(ReadOnlyUserPrefs userPrefs) {
         return new ModelManager(new MapGrid(), userPrefs);
     }
 

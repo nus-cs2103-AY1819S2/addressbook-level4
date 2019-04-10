@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private CompanyListPanel companyListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private AnalyzePanel analyzePanel;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -57,6 +58,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane analyzePanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -122,6 +126,12 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedPerson);
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+
+         analyzePanel = new AnalyzePanel(logic.getFilteredPersonList());
+         analyzePanelPlaceholder.getChildren().add(analyzePanel.getRoot());
+         // analyzePanelPlaceholder.setVisible(false);
+
+
         /*
         companyListPanel = new CompanyListPanel(logic.getFilteredCompanyList(), logic.selectedCompanyProperty(),
                 logic::setSelectedCompany);
@@ -167,6 +177,16 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.show();
     }
 
+    @FXML
+    public void handleAnalyze() {
+        analyzePanel = new AnalyzePanel(logic.getFilteredPersonList());
+        analyzePanelPlaceholder.getChildren().clear();
+        analyzePanelPlaceholder.getChildren().add(analyzePanel.getRoot());
+        browserPlaceholder.setVisible(false);
+        analyzePanelPlaceholder.setVisible(true);
+
+    }
+
     /**
      * Closes the application.
      */
@@ -204,6 +224,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isAnalyze()) {
+                handleAnalyze();
             }
 
             return commandResult;

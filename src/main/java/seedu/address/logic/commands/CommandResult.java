@@ -17,6 +17,8 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    private boolean analyze = false;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -24,6 +26,16 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean analyze) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.analyze = analyze;
     }
 
     /**
@@ -46,6 +58,10 @@ public class CommandResult {
         return exit;
     }
 
+    public boolean isAnalyze() {
+        return analyze;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -60,7 +76,8 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && analyze == otherCommandResult.analyze;
     }
 
     @Override

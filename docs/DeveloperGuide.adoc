@@ -457,7 +457,6 @@ An `ArrayList` of `FleetEntry` objects is used for storage, where `FleetEntry` c
 
 // tag::battle[]
 === Battle Feature
-==== Current Implementation
 The Battle feature handles the following:
 
 * keeping track of the stage of the battle, and ensuring that the player does not
@@ -473,14 +472,23 @@ The Battle feature is split between several packages:
   * `seedu.address.battle.result`: the attack result classes are implemented here.
     These classes are returned by `Battle#humanPerformAttack(coordinates)` and
     `Battle#takeComputerTurn()`.
-  * `BeginCommand`, `AttackCommand` and `EndTurnCommand` handle the player's interaction
+  * `BeginCommand`, and `AttackCommand` handle the player's interaction
     with this component.
 
-The sequence diagram of what happens when the user enters the `begin` command is as follows:
+==== Implementation of player interaction
 
+The player does battle by using the `begin` command to initiate the battle,
+then the `attack` command to attack the enemy.
+
+The following sequence diagram shows what happens when the user enters the `begin` command is as follows:
 
 .Sequence diagram of beginning the battle.
 image::BeginSequenceDiagram.png[width=800]
+
+The following sequence diagram shows what happens when the user enters the `attack a1` command is as follows:
+
+.Sequence diagram of attacking the cell a1.
+image::AttackSequenceDiagram.png[width=800]
 
 ==== Design Considerations
 * **Alternative 1 (current choice):** +

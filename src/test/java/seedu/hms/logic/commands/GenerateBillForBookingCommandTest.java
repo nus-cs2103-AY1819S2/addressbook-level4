@@ -154,7 +154,7 @@ public class GenerateBillForBookingCommandTest {
         String expectedMessage = String.format(GenerateBillForBookingCommand.MESSAGE_GENERATE_BILL_SUCCESS,
             customer.getName());
 
-        BookingWithTypePredicate bookingWithTypePredicate = preparePredicateOfType("GYM");
+        BookingWithTypePredicate bookingWithTypePredicate = preparePredicateOfType("");
         BookingWithinTimePredicate bookingWithinTimePredicate = preparePredicateOfTiming("14-15");
         BookingContainsPayerPredicate bookingContainsPayerPredicate =
             preparePredicateOfPayer(customer.getIdNum().toString());

@@ -86,8 +86,6 @@ In this view you can study a deck of cards.
 - Test your knowledge of the cards in your chosen deck
 - Rate the difficulty of the cards.
 
-image::study_ug_diagrams/study_1.png[width="800"]
-
 
 == Commands [[commands]]
 

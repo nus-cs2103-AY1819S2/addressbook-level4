@@ -111,6 +111,7 @@ public class Album {
      * For each image in assets folder, populate the Album with an Image object.
      */
     public void populateAlbum() {
+        imageList.clear();
         try {
             File folder = new File(assetsFilepath);
             for (File file : folder.listFiles()) {

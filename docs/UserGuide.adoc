@@ -764,6 +764,7 @@ _In-Credit-Ble_  aims to support multi-currency transactions in `v2.0`.
 | Command | Command Format | Alias | Example
 | Set Budget | `set $/AMOUNT` |- | `set $/500`
 | Allocate budgeting based on categories | `allocate $/AMOUNT c/CATEGORY` | `allo` | `allocate $/100 c/Shopping`
+| Show allocated category budget and spending | `show` | `showCatBudget` | -
 //| Increase budget | `increase $/AMOUNT` | - | `increase $/10.10`
 
 |=======================================================================
@@ -789,7 +790,8 @@ _In-Credit-Ble_  aims to support multi-currency transactions in `v2.0`.
 | Locate entry based on name, category or date |`search -FLAG* KEYWORD [MORE_KEYWORDS]` | `find` | `search -cat Food`
 | Sort the entries based on name, category, date, amount | `sort -FLAG* [ORDER]**` | - | `sort -name`
 | Reverse all entries | `reverse` | `rev` | -
-| Show summary of records | `summary` | - | -
+| Show summary of records | `summary`[#/] [p/] | `overview` | `summary #/5 p/d` +
+Shows summary for past 5 days
 
 |=======================================================================
 *Valid flags: `name`-> Name; `cat` -> Category; `date` -> Date; `amount` -> Amount;

@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import java.nio.file.Path;
 
@@ -82,9 +81,9 @@ public class StorageManagerTest {
          */
     }
 
-    @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
-    }
+    //@Test
+    //public void getAddressBookFilePath() {
+    //    assertNotNull(storageManager.getAddressBookFilePath());
+    //}
 
 }

@@ -71,7 +71,12 @@ public class InitialiseMapCommand extends Command {
         model.setBattleState(BattleState.PLAYER_PUT_SHIP);
         logger.info("Battle state reset to PLAYER_PUT_SHIP");
 
+        model.getPlayerStats().resetData();
+        logger.info("Statistics Data Refreshed");
+
         logger.info("--------------------------------");
+
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, mapSize));
     }
 

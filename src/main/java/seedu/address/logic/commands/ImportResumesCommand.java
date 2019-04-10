@@ -1,14 +1,14 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import java.util.Iterator;
+import java.util.Set;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-
-import java.util.Iterator;
-import java.util.Set;
 
 /**
  * Imports resume txt files from a given directory into slavefinder().

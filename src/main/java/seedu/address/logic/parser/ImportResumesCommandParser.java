@@ -29,6 +29,9 @@ import seedu.address.model.person.Race;
 import seedu.address.model.person.School;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Parses input arguments and creates a new ImportResumesCommand object
+ */
 public class ImportResumesCommandParser implements Parser<ImportResumesCommand> {
 
     public static final String FILE_NOT_FOUND_MESSAGE = "The specified file cannot be found.";
@@ -48,13 +51,12 @@ public class ImportResumesCommandParser implements Parser<ImportResumesCommand> 
 
         if (filesList == null) {
             throw new ParseException(INVALID_DIRECTORY_MESSAGE);
-        }
-        else if (filesList.length == 0) {
+        } else if (filesList.length == 0) {
             throw new ParseException(EMPTY_DIRECTORY_MESSAGE);
         }
 
         Set<Person> peopleToAdd = new HashSet<>();
-        for (int i=0; i<filesList.length; i++) {
+        for (int i = 0; i < filesList.length; i++) {
             Person currentPerson = parseOnePerson(filesList[i]);
             peopleToAdd.add(currentPerson);
         }

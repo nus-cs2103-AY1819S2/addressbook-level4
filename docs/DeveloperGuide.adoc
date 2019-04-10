@@ -435,7 +435,8 @@ The presence of required prefixes and whether any prefixes are duplicated would 
 Inputs would be checked in respective parser utils. +
 If all checks pass, an `ActivityAddCommand` would be generated with the specified `Activity`.
 
-Step 2. `ActivityAddCommand` would be executed and it would attempt to add the new `Activity` to `Model`. +
+Step 2. `ActivityAddCommand` would be executed by calling `ActivityAddCommand#execute` and it would attempt to
+add the new `Activity` to `Model` by calling `Model#addActivity` +
 Whether the `Activity` can be added to `Model` would be checked in this step.
 
 .Sequence of Checks for Adding Activity
@@ -444,13 +445,45 @@ image::ActivityAddChecks.png[width="600" height="300"]
 
 [discrete]
 ===== Activity Filter Command
-The `activityFilter` command enables users to filter activities based on the time
+The `activityFilter` command enables users to filter activities based on the time. Either past or
+future activities would be filtered based on the condition in the user input.
+
+The `activityFilter` mechanism is facilitated by `ActivityFilterCommand`, `ActivityFilterCommandParser`,
+`ActivityDateTimeAfterPredicate` and `ActivityDateTimeBeforePredicate`.
+
+Given below is an example usage scenario and how the `ActivityFilterCommand` is carried out at each step.
+
+Step 1. The users want to find all future `Activity` scheduled for the next seven days by inputting
+`activityFilter + 7` in the command box.
+
+Step 2. The `ActivityFilterCommandParser` will parse the input and generate an `ActivityDateTimeAfterPredicate`
+based on the `+` condition given. The predicate will be passed to `ActivityFilterCommand`.
+
+Step 3. The `ActivityFilterCommand` will call the `execute` function by executing `Model#updateFilteredActivityList`
+
+Step 4. `AddressBook` will be committed due to potential update to `ActivityStatus` for each `Activity`.
+
+The following diagram is a partial sequence diagram that summarises what happens when the user call
+`ActivityFilterCommand` starting from `ActivityFilterCommandParser`.
 
 .Activity Filter Command Sequence Diagram
 image::ActivityFilterCommandSequenceDiagram.png[width="800"]
 
 [discrete]
 ==== Activity Find Command
+The `activityFind` command enables users to search for activities with specific keywords in some attribute
+fields(i.e `ActivityName`, `ActivityDescription` and `ActivityLocation`).
+
+The structure and sequence of events after `activityFind` command is called is very similar to that of
+`activityFilter`. The one difference is, instead of generating a predicate based on conditions, the
+`ActivityFindCommandParser` would parse the input into a `Map` of `Prefix` mapped to a `List` of `String`(keywords)
+ and pass the map to generate an `ActivityContainsKeywordPredicate`.
+
+To avoid redundancy and repeating diagrams with minor details, the sequence of events could refer to the steps and
+sequence diagram for `ActivityFilterCommand` given above.
+
+The key component of `ActivityFindCommand` is the `ActivityContainsKeywordsPredicate#test` function. The snippet
+of code below is to show how it is implemented.
 
 [source,java]
 ----
@@ -481,12 +514,56 @@ public boolean test(Activity activity) {
 }
 ----
 
+Here is some usage scenarios to better elucidate the logic of the predicate use:
+
+* If a user want to find some `Activity` with name `Workshop` or `Outing`, it could be achieved by typing
+`activityFind n/Workshop Outing`.
+* If a user want to find some `Activity` with name `Movie` or `Viewing` and the location is a `cinema`,
+`activityFind n/Movie Viewing l/cinema` could be used. +
+`Activity` with `Movie Panel` as `ActivityName`, `Club Room` as `ActivityLocation` would not be displayed
+by this command because it does not match the keyword provided by the location prefix.
+* If no `Prexfix` is found, e.g. `activityFind Summer`, all `Activity` with `Summer` in any of the three
+fields would be listed.
 
 ==== Design Considerations
 This section describes the pros and cons of the current implementation of the activity list
 feature.
 
-==== Future Implementation
+===== Aspect: Updating the status of activities
+
+* **Alternative 1(current choice):** Loop through the entire `ActivityList` in `AddressBook` each time
+the predicate to `FilteredActivityList` is updated.
+
+** Pros: Ensures that all the status of `Activity` displayed by most command calls are accurate and every
+`Activity` is in the sorted position whenever the list is displayed. The given code snippet below demonstrates
+how this is achieved.
+[source, java]
+    //in ModelManager.java
+    public void updateFilteredActivityList(Predicate<Activity> predicate) {
+        requireNonNull(predicate);
+        updateActivityList(); //loop through activitylist to update any outdated status
+        filteredActivities.setPredicate(predicate);
+    }
+** Cons: The update function would be called for most activity commands, as it loops through the entire `ActivityList`,
+it would make the app slower in performance. There may be unnecessary loops as well.
+
+* **Alternative 2:** Implement an `activityUpdate` command and `ActivityStatus` would only be updated when
+the command is called.
+
+** Pros: Faster in performance.
+** Cons: `ActivityStatus` displayed in the List may be outdated and the `Activity` might not be in the correct
+sorted position.
+
+===== Aspect: How to specify search field for `activityFind`
+
+* **Alternative 1 (current choice):** Search conditions are specified by `Prefix` such as `n/` for `ActivityName`
+** Pros: Similar to other activity commands such as `activityAdd` or `activityEdit`. More accurate results.
+** Cons: May be hard for new users to remember and understand the logic.
+
+* **Alternative 2:** Use `name` etc. as search conditions.
+** Pros: More intuitive for new users.
+** Cons: Inconsistency with other activity commands. It may yield incorrect results as the app need to
+distinguish whether an input is a keyword or a search condition.
 
 // end::activity_list[]
 

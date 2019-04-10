@@ -35,7 +35,8 @@ public class DrawTeethUtil {
                         type = "A_";
                     }
                     InputStream layerFile = MainApp.class.getClassLoader()
-                            .getResourceAsStream("images/teeth/" + type + (i + 1) + ".png");
+                            .getResourceAsStream("images" + File.separator + "teeth" + File.separator
+                                                    + type + (i + 1) + ".png");
                     BufferedImage layer = ImageIO.read(layerFile);
                     Graphics g = main.getGraphics();
                     g.drawImage(layer, 0, 0, null);

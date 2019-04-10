@@ -59,6 +59,9 @@ from the mentioned directory to the PDF++ list.
 
 .  Refer to <<Features>> for details of each command.
 
+[[Features]]
+== Features
+
 CAUTION: Please ensure that you have the permissions to Read, Write and
 Execute the files that you wish to manage through our application. Please use
 a web search, like Google, to assist you in identifying if you possess the
@@ -69,9 +72,6 @@ WARNING: Please do not manipulate the files once you have added them to our
 application. Unforeseen actions such as moving, renaming and others might result
 in unexpected behaviour by the application. Our application is meant to replace
 the need for you to perform these actions manually on your files yourselves.
-
-[[Features]]
-== Features
 
 ====
 *Command Format*

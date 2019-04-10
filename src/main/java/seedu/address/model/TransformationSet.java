@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.WaterMarkCommand;
 
 /**
  * Represents a TransformationSet of preset commands.
@@ -35,6 +36,16 @@ public class TransformationSet {
             instance = new TransformationSet();
         }
         return instance;
+    }
+
+    public boolean hasWaterMarkCommand(String presetName) {
+        List<Command> commandList = transformationMap.get(presetName);
+        for (Command command: commandList) {
+            if (command instanceof WaterMarkCommand) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public List<Command> findTransformation(String presetName) {

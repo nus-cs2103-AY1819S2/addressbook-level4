@@ -7,10 +7,12 @@ import static quickdocs.logic.parser.FreeAppCommandParser.PREFIX_DATE;
 import static quickdocs.logic.parser.FreeAppCommandParser.PREFIX_FORMAT;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.junit.Test;
 
 import quickdocs.logic.commands.FreeAppCommand;
+import quickdocs.logic.parser.exceptions.ParseException;
 
 public class FreeAppCommandParserTest {
     private FreeAppCommandParser parser = new FreeAppCommandParser();
@@ -23,8 +25,10 @@ public class FreeAppCommandParserTest {
     private LocalDate date = LocalDate.parse(dateString);
 
     @Test
-    public void parse_noFieldsPresent_success() {
-        assertParseSuccess(parser, "", new FreeAppCommand());
+    public void parse_noFieldsPresent_success() throws ParseException {
+        LocalDate nextMonthDate = LocalDate.now().plusMonths(1);
+        List<LocalDate> dates = ParserUtil.parseFormatDate(ParserUtil.FORMAT_MONTH, nextMonthDate);
+        assertParseSuccess(parser, "", new FreeAppCommand(dates.get(0), dates.get(1)));
     }
 
     @Test

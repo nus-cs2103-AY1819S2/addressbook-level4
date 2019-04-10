@@ -22,9 +22,11 @@ public class FreeAppCommandParser implements Parser<FreeAppCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FreeAppCommand parse(String args) throws ParseException {
-        // Use default range of dates to list if there are no arguments
+        // Use dates of next month as default dates
         if (args.isEmpty()) {
-            return new FreeAppCommand();
+            LocalDate nextMonthDate = LocalDate.now().plusMonths(1);
+            List<LocalDate> dates = ParserUtil.parseFormatDate(ParserUtil.FORMAT_MONTH, nextMonthDate);
+            return new FreeAppCommand(dates.get(0), dates.get(1));
         }
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FORMAT, PREFIX_DATE);

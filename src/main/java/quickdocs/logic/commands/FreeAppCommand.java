@@ -30,11 +30,6 @@ public class FreeAppCommand extends Command {
     private final LocalDate start;
     private final LocalDate end;
 
-    public FreeAppCommand() {
-        start = LocalDate.now();
-        end = LocalDate.now();
-    }
-
     public FreeAppCommand(LocalDate start, LocalDate end) {
         this.start = start;
         this.end = end;

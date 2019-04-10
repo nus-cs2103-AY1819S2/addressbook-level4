@@ -146,17 +146,17 @@ test {
 
         if (runNonGuiTests) {
             //Initially Included
-            test.include 'seedu/address/**'
+            test.exclude 'seedu/address/**'
         }
 
         if (runGuiTests) {
             //Initially Included
-            test.include 'systemtests/**'
-            test.include 'seedu/address/ui/**'
+            test.exclude 'systemtests/**'
+            test.exclude 'seedu/address/ui/**'
         }
 
         if (!runGuiTests) {
-            test.include 'seedu/address/ui/**'
+            test.exclude 'seedu/address/ui/**'
         }
     }
 }

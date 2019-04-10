@@ -180,4 +180,22 @@ public class AttackCommandTest {
         model.setBattleState(BattleState.PLAYER_PUT_SHIP);
         cmd.execute(model, new CommandHistory());
     }
+
+    @Test
+    public void equals() {
+        AttackCommand cmd = new AttackCommand(TypicalIndexes.COORDINATES_A1);
+        AttackCommand cmd2 = new AttackCommand(TypicalIndexes.COORDINATES_A1);
+        AttackCommand cmd3 = new AttackCommand(TypicalIndexes.COORDINATES_A2);
+
+        // null fails
+        assertFalse(cmd.equals(null));
+        // wrong type
+        assertFalse(cmd.equals(5));
+        // same object
+        assertTrue(cmd.equals(cmd));
+        // same coordinate
+        assertTrue(cmd.equals(cmd2));
+        // different coordinate
+        assertFalse(cmd.equals(cmd3));
+    }
 }

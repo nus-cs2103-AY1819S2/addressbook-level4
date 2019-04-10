@@ -362,11 +362,12 @@ public class CommandTestUtil {
      * that takes a string {@code expectedMessage}.
      */
     public static void assertGenerateBillCommandSuccess(Command command, BillModel actualModel,
-                                                   CommandHistory actualCommandHistory,
-                                                   String expectedMessage,
-                                                   BillModel expectedModel) {
+                                                        CommandHistory actualCommandHistory,
+                                                        String expectedMessage,
+                                                        BillModel expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
-        assertGenerateBillCommandSuccess(command, actualModel, actualCommandHistory, expectedCommandResult, expectedModel);
+        assertGenerateBillCommandSuccess(command, actualModel, actualCommandHistory, expectedCommandResult,
+            expectedModel);
     }
 
     /**
@@ -376,9 +377,9 @@ public class CommandTestUtil {
      * - the {@code actualCommandHistory} remains unchanged.
      */
     public static void assertGenerateBillCommandSuccess(Command command, BillModel actualModel,
-                                                   CommandHistory actualCommandHistory,
-                                                   CommandResult expectedCommandResult,
-                                                   BillModel expectedModel) {
+                                                        CommandHistory actualCommandHistory,
+                                                        CommandResult expectedCommandResult,
+                                                        BillModel expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);

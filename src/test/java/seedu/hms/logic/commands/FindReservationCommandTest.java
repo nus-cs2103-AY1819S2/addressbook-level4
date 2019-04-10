@@ -25,7 +25,7 @@ import seedu.hms.model.reservation.ReservationContainsPayerPredicate;
 import seedu.hms.model.reservation.ReservationWithTypePredicate;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindNameCommand}.
+ * Contains integration tests (interaction with the Model) for {@code FindReservationCommand}.
  */
 public class FindReservationCommandTest {
     private ReservationModel model = new ReservationManager(
@@ -66,12 +66,12 @@ public class FindReservationCommandTest {
         // null -> returns false
         assertNotEquals(findFirstCommand, null);
 
-        // different customer -> returns false
+        // different reservation -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
     @Test
-    public void execute_zeroKeywords_allCustomerFound() {
+    public void execute_zeroKeywords_allReservationsFound() {
         String expectedMessage = String.format(MESSAGE_RESERVATIONS_LISTED_OVERVIEW,
             model.getFilteredReservationList().size());
         ReservationWithTypePredicate reservationWithTypePredicate = preparePredicateOfType("");
@@ -86,7 +86,7 @@ public class FindReservationCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multipleCustomersFound() {
+    public void execute_multipleKeywords_particularReservationFound() {
         String expectedMessage = String.format(MESSAGE_RESERVATIONS_LISTED_OVERVIEW, 1);
         ReservationWithTypePredicate reservationWithTypePredicate = preparePredicateOfType("SINGLE ROOM");
         ReservationContainsPayerPredicate reservationContainsPayerPredicate = preparePredicateOfPayer("");

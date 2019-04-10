@@ -36,6 +36,8 @@ public class GenerateBillForReservationCommand extends BillCommand {
 
     private final Predicate<Reservation> reservationPredicate;
     private final Bill bill;
+    private final ReservationContainsPayerPredicate reservationContainsPayerPredicate;
+    private final ReservationWithTypePredicate reservationWithTypePredicate;
 
 
     public GenerateBillForReservationCommand(ReservationContainsPayerPredicate reservationContainsPayerPredicate,
@@ -47,6 +49,8 @@ public class GenerateBillForReservationCommand extends BillCommand {
             && reservationWithTypePredicate.test(reservationTested);
         //   && reservationWithDatePredicate.test(reservationTested);
         this.bill = bill;
+        this.reservationContainsPayerPredicate = reservationContainsPayerPredicate;
+        this.reservationWithTypePredicate = reservationWithTypePredicate;
     }
 
 
@@ -69,6 +73,8 @@ public class GenerateBillForReservationCommand extends BillCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof GenerateBillForReservationCommand // instanceof handles nulls
-            && reservationPredicate.equals(((GenerateBillForReservationCommand) other).reservationPredicate));
+            && reservationContainsPayerPredicate.equals(((GenerateBillForReservationCommand) other).reservationContainsPayerPredicate)
+            && reservationWithTypePredicate.equals(((GenerateBillForReservationCommand) other).reservationWithTypePredicate)
+        );
     }
 }

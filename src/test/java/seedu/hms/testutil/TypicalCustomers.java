@@ -97,11 +97,11 @@ public class TypicalCustomers {
         new ReservationBuilder().withRoom(DOUBLE).withDates("14/04/2010", "17/04/2010").withPayer(BENSON)
             .build();
 
-    private static final Customer DANIEL =
+    public static final Customer DANIEL =
         new CustomerBuilder().withName("Daniel Meier").withPhone("87652533").withDateOfBirth("30/12/2002")
             .withEmail("cornelia@example.com").withAddress("10th street").withIdNum("1200512A")
             .withTags("friends").build();
-    private static final Customer GEORGE = new CustomerBuilder().withName("George Best").withPhone("9482442")
+    public static final Customer GEORGE = new CustomerBuilder().withName("George Best").withPhone("9482442")
         .withEmail("anna@example.com").withAddress("4th street").withIdNum("1233912A").withDateOfBirth("30/12/2005")
         .build();
 

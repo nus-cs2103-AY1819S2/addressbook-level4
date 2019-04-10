@@ -23,7 +23,6 @@ public class ImportCommandParserTest {
         album.clearAlbum();
     }
 
-    @Ignore
     @Test
     public void parse_validFiles_success() {
         String validBmpTest = "src/main/resources/imageTest/valid/validBMPTest.bmp";
@@ -126,7 +125,6 @@ public class ImportCommandParserTest {
         assertParseFailure(parser, emptyPath, Messages.MESSAGE_UNABLE_TO_READ_FILE);
     }
 
-    @Ignore
     @Test
     public void parse_invalidDuplicate_failure() {
         String firstFile = "src/main/resources/imageTest/valid/validDuplicateTest.jpg";

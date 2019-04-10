@@ -81,15 +81,17 @@ public class SaveCommand extends Command {
         // this game accuracy higher,
         if (pastAccuracy < (this.playerStats).getAccuracy()) {
             return new CommandResult(MESSAGE_SUCCESS + ">> Your accuracy improved!" + '\n'
-            + "Current Game : " + this.playerStats.getAccuracy() + '\n'
-            + "Previous Game : " + pastAccuracy);
+            + String.format("Current Game : %.1f", this.playerStats.getAccuracy())
+            + '\n'
+            + String.format("Previous Game : %.1f", pastAccuracy));
         } else if (pastAccuracy == this.playerStats.getAccuracy()) {
-            return new CommandResult(MESSAGE_SUCCESS + ">> Your accuracy is the same at " + pastAccuracy);
+            return new CommandResult(MESSAGE_SUCCESS
+            + String.format(">> Your accuracy is the same at %.1f", pastAccuracy));
         } else {
             return new CommandResult(MESSAGE_SUCCESS + ">> Your accuracy was better last round!" + '\n'
             + "Current Game : " + this.playerStats.getAccuracy()
             + '\n'
-            + "Previous Game : " + pastAccuracy);
+            + String.format("Previous Game : %.1f", pastAccuracy));
         }
 
     }

@@ -2,6 +2,7 @@ package seedu.hms.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.hms.commons.core.Messages.MESSAGE_BOOKINGS_LISTED_OVERVIEW;
 import static seedu.hms.logic.commands.CommandTestUtil.assertBookingCommandSuccess;
@@ -59,11 +60,16 @@ public class FindBookingCommandTest {
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
+        // same values -> returns true
+        FindBookingCommand findFirstCommandCopy = new FindBookingCommand(firstPredicateOfPayer, firstPredicateOfType,
+            firstPredicateOfTiming);
+        assertTrue(findFirstCommand.equals(findFirstCommandCopy));
+
         // different types -> returns false
         assertFalse(findFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(findFirstCommand.equals(null));
+        assertNotEquals(findFirstCommand, null);
 
         // different customer -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
@@ -113,7 +119,7 @@ public class FindBookingCommandTest {
      * Parses {@code userInput} into a {@code BookingWithinTimePredicate}.
      */
     private BookingWithinTimePredicate preparePredicateOfTiming(String userInput) {
-        if (userInput.equals(" ")) {
+        if ((" ").equals(userInput)) {
             return new BookingWithinTimePredicate(new TimeRange(0, 23));
         }
         String time[] = userInput.split("-");

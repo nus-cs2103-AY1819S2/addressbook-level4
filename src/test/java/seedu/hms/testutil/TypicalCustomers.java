@@ -74,17 +74,11 @@ public class TypicalCustomers {
             .withEmail(VALID_EMAIL_BOB).withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
             .build();
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
-    public static final ServiceType GYM = new ServiceType(50, new TimeRange(8, 22), "Gym", 7.0);
-    public static final ServiceType GAMES = new ServiceType(20, new TimeRange(10, 22), "Games Room", 5.0);
-    public static final Booking ALICE_GYM =
-        new BookingBuilder().withService(GYM).withTiming(14, 15).withPayer(ALICE).build();
-    public static final Booking BENSON_GAMES_WITH_CARL =
-        new BookingBuilder().withService(GAMES).withTiming(12, 13).withPayer(BENSON).withOtherUsers(CARL).build();
 
-    public static final RoomType SINGLE = new RoomType(100, "Single Room", 500.0);
-    public static final RoomType DOUBLE = new RoomType(75, "Double Room", 750.0);
-    // Bookings
+    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+
+
+
     private static final Customer DANIEL =
         new CustomerBuilder().withName("Daniel Meier").withPhone("87652533").withDateOfBirth("30/12/2002")
             .withEmail("cornelia@example.com").withAddress("10th street").withIdNum("1200512A")
@@ -93,24 +87,25 @@ public class TypicalCustomers {
         .withEmail("anna@example.com").withAddress("4th street").withIdNum("1233912A").withDateOfBirth("30/12/2005")
         .build();
 
+    //Bookings
+    public static final ServiceType GYM = new ServiceType(50, new TimeRange(8, 22), "Gym", 7.0);
+    public static final ServiceType GAMES = new ServiceType(20, new TimeRange(10, 22), "Games Room", 5.0);
 
-    // Bookings
     public static final Booking ALICE_GYM =
-        new BookingBuilder().withService(ServiceType.GYM).withTiming(14, 15).withPayer(ALICE).withPayerIndex("1")
-            .build();
-
+        new BookingBuilder().withService(GYM).withTiming(14, 15).withPayer(ALICE).build();
     public static final Booking ALICE_GAMES_WITH_CARL =
-        new BookingBuilder().withService(ServiceType.GAMES).withTiming(12, 13).withPayer(ALICE).withPayerIndex("1")
-            .build();
+        new BookingBuilder().withService(GAMES).withTiming(12, 13).withPayer(ALICE).withOtherUsers(CARL).build();
 
-    // Reservations
+    //Reservations
+    public static final RoomType SINGLE = new RoomType(100, "Single Room", 500.0);
+    public static final RoomType DOUBLE = new RoomType(75, "Double Room", 750.0);
 
     public static final Reservation ALICE_SINGLE_ROOM =
-        new ReservationBuilder().withRoom(RoomType.SINGLE).withDates("14/04/2010", "17/04/2010").withPayer(ALICE)
+        new ReservationBuilder().withRoom(SINGLE).withDates("14/04/2010", "17/04/2010").withPayer(ALICE)
             .build();
 
     public static final Reservation BENSON_DOUBLE_ROOM =
-        new ReservationBuilder().withRoom(RoomType.DOUBLE).withDates("14/04/2010", "17/04/2010").withPayer(BENSON)
+        new ReservationBuilder().withRoom(DOUBLE).withDates("14/04/2010", "17/04/2010").withPayer(BENSON)
             .build();
 
     private TypicalCustomers() {
@@ -145,12 +140,13 @@ public class TypicalCustomers {
     }
 
     public static List<Booking> getTypicalBookings() {
-        return new ArrayList<>(Arrays.asList(ALICE_GYM, BENSON_GAMES_WITH_CARL));
+        return new ArrayList<>(Arrays.asList(ALICE_GYM, ALICE_GAMES_WITH_CARL));
     }
 
     public static List<RoomType> getTypicalRoomTypes() {
         return new ArrayList<>(Arrays.asList(SINGLE, DOUBLE));
     }
+
     public static List<ServiceType> getTypicalServiceTypes() {
         return new ArrayList<>(Arrays.asList(GYM, GAMES));
     }

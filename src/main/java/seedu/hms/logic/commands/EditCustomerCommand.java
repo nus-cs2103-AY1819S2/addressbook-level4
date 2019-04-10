@@ -109,13 +109,12 @@ public class EditCustomerCommand extends CustomerCommand {
             throw new CommandException(MESSAGE_DUPLICATE_CUSTOMER);
         }
 
-        for(Customer customer : lastShownList) {
-            if(!customer.isSameCustomer(customerToEdit)) {
-                if (customer.isSameCustomer(editedCustomer)) {
-                    throw new CommandException(MESSAGE_DUPLICATE_CUSTOMER);
-                }
+        for (Customer customer : lastShownList) {
+            if (!(customer.isSameCustomer(customerToEdit)) && customer.isSameCustomer(editedCustomer)) {
+                throw new CommandException(MESSAGE_DUPLICATE_CUSTOMER);
             }
         }
+
 
         model.setCustomer(customerToEdit, editedCustomer);
         model.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);

@@ -2,6 +2,7 @@ package seedu.hms.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.hms.commons.core.Messages.MESSAGE_RESERVATIONS_LISTED_OVERVIEW;
 import static seedu.hms.logic.commands.CommandTestUtil.assertReservationCommandSuccess;
@@ -22,7 +23,6 @@ import seedu.hms.model.VersionedHotelManagementSystem;
 import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.ReservationContainsPayerPredicate;
 import seedu.hms.model.reservation.ReservationWithTypePredicate;
-import seedu.hms.model.util.TimeRange;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindNameCommand}.
@@ -55,11 +55,16 @@ public class FindReservationCommandTest {
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
+        // same values -> returns true
+        FindReservationCommand findFirstCommandCopy = new FindReservationCommand(firstPredicateOfPayer,
+            firstPredicateOfType);
+        assertTrue(findFirstCommandCopy.equals(findFirstCommand));
+
         // different types -> returns false
         assertFalse(findFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(findFirstCommand.equals(null));
+        assertNotEquals(findFirstCommand, null);
 
         // different customer -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
@@ -67,7 +72,8 @@ public class FindReservationCommandTest {
 
     @Test
     public void execute_zeroKeywords_allCustomerFound() {
-        String expectedMessage = String.format(MESSAGE_RESERVATIONS_LISTED_OVERVIEW, model.getFilteredReservationList().size());
+        String expectedMessage = String.format(MESSAGE_RESERVATIONS_LISTED_OVERVIEW,
+            model.getFilteredReservationList().size());
         ReservationWithTypePredicate reservationWithTypePredicate = preparePredicateOfType("");
         ReservationContainsPayerPredicate reservationContainsPayerPredicate = preparePredicateOfPayer("");
         FindReservationCommand command = new FindReservationCommand(reservationContainsPayerPredicate,
@@ -109,7 +115,8 @@ public class FindReservationCommandTest {
 //            return new ReservationWithinTimePredicate(new TimeRange(0, 23));
 //        }
 //        String time[] = userInput.split("-");
-//        return new ReservationWithinTimePredicate(new TimeRange(Integer.parseInt(time[0]), Integer.parseInt(time[1])));
+//        return new ReservationWithinTimePredicate(new TimeRange(Integer.parseInt(time[0]), Integer.parseInt
+// (time[1])));
 //    }
 
     /**

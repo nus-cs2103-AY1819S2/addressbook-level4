@@ -1,29 +1,14 @@
 package seedu.hms.testutil;
 
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_COMMENT;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_CUSTOMERS;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_PAYER;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_SERVICE;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_TIMING;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
 import seedu.hms.logic.commands.AddBookingCommand;
-import seedu.hms.logic.commands.AddCustomerCommand;
 import seedu.hms.logic.commands.EditBookingCommand;
-import seedu.hms.logic.commands.EditCustomerCommand;
 import seedu.hms.model.booking.Booking;
-import seedu.hms.model.customer.Customer;
-import seedu.hms.model.tag.Tag;
 
 /**
  * A utility class for Bookings.

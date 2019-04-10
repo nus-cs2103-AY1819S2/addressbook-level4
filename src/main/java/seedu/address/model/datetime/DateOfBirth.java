@@ -31,7 +31,18 @@ public class DateOfBirth extends DateBase {
      */
     static boolean isDateBeforeToday(String test) {
         String currentDateString = LocalDate.now().format(DateTimeFormatter.ofPattern(DATE_FORMAT));
-        return dateCompare(test, currentDateString);
+        return isToday(test) || dateCompare(test, currentDateString);
+    }
+
+    /**
+     * Test if both date represents the same day.
+     * @param test the date to be tested.
+     * @return true if same day, false otherwise.
+     */
+    static boolean isToday(String test) {
+        DateBase today = DateOfBirth.getToday();
+        DateBase toTest = new DateBase(test);
+        return today.equals(toTest);
     }
 
     /**

@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalDecks.getTypicalTopDeck;
 import static seedu.address.testutil.TypicalIndexes.INDEX_EMPTY_DECK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DECK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_DECK;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_DECK;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -18,7 +19,6 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.CardsView;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.DecksView;
 import seedu.address.model.Model;
@@ -26,8 +26,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 public class StudyDeckCommandTest {
-
-    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -37,14 +35,7 @@ public class StudyDeckCommandTest {
     private Model expectedModelDeck = new ModelManager(getTypicalTopDeck(), new UserPrefs());
     private Model getExpectedModelCard = new ModelManager(getTypicalTopDeck(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-    //from decks view
     private DecksView decksView;
-    private Index index;
-    private StudyDeckCommand studyDeckTargetIndex;
-    //from cards view
-    private CardsView cardsView;
-    private StudyDeckCommand studyDeckTargetDeck;
-
 
     @Before
     public void initializeDecksView() {
@@ -56,15 +47,17 @@ public class StudyDeckCommandTest {
     public void initializeCardsView() {
         modelCard.changeDeck(getTypicalDeck());
         assertTrue(modelCard.isAtCardsView());
-        cardsView = (CardsView) modelCard.getViewState();
         getExpectedModelCard.changeDeck(getTypicalDeck());
         assertTrue(getExpectedModelCard.isAtCardsView());
     }
-    //TODO
-    //    @Test
-    //    public void execute_validIndexUnfilteredList_success() {
-    //        assertExecutionSuccessIndex(INDEX_FIRST_DECK);
-    //    }
+
+    @Test
+    public void execute_validIndexUnfilteredList_success() {
+        assertExecutionSuccessIndex(INDEX_FIRST_DECK);
+        expectedModelDeck.goToDecksView();
+        modelDeck.goToDecksView();
+        assertExecutionSuccessIndex(INDEX_THIRD_DECK);
+    }
 
     @Test
     public void execute_invalidIndexUnfilteredList_failure() {
@@ -77,14 +70,13 @@ public class StudyDeckCommandTest {
     public void execute_emptyDeck_failure() {
         assertExecutionFailure(INDEX_EMPTY_DECK, Messages.MESSAGE_EMPTY_DECK);
     }
-    //TODO
-    //    @Test
-    //    public void execute_validIndexFilteredList_success() {
-    //        showDeckAtIndex(modelDeck, INDEX_FIRST_DECK);
-    //        showDeckAtIndex(expectedModelDeck, INDEX_FIRST_DECK);
-    //
-    //        assertExecutionSuccessIndex(INDEX_FIRST_DECK);
-    //    }
+
+    @Test
+    public void execute_validIndexFilteredList_success() {
+        showDeckAtIndex(modelDeck, INDEX_FIRST_DECK);
+        showDeckAtIndex(expectedModelDeck, INDEX_FIRST_DECK);
+        assertExecutionSuccessIndex(INDEX_FIRST_DECK);
+    }
 
     @Test
     public void execute_invalidIndexFilteredList_failure() {
@@ -98,17 +90,17 @@ public class StudyDeckCommandTest {
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
     }
-    //TODO
-    //    @Test
-    //    public void execute_validDeck_success() {
-    //        StudyDeckCommand studyDeckCommand = new StudyDeckCommand(getTypicalDeck());
-    //        String expectedMessage = String
-    //                .format(StudyDeckCommand.MESSAGE_STUDY_DECK_SUCCESS, getTypicalDeck().getName());
-    //        CommandResult expectedCommandResult = new StudyPanelCommandResult(expectedMessage);
-    //        expectedModelDeck.studyDeck(getTypicalDeck());
-    //        assertCommandSuccess(studyDeckCommand, modelDeck, commandHistory, expectedCommandResult,
-    //                             expectedModelDeck);
-    //    }
+
+    @Test
+    public void execute_validDeck_success() {
+        StudyDeckCommand studyDeckCommand = new StudyDeckCommand(getTypicalDeck());
+        String expectedMessage = String
+                .format(StudyDeckCommand.MESSAGE_STUDY_DECK_SUCCESS, getTypicalDeck().getName());
+        CommandResult expectedCommandResult = new UpdatePanelCommandResult(expectedMessage);
+        expectedModelDeck.studyDeck(getTypicalDeck());
+        assertCommandSuccess(studyDeckCommand, modelDeck, commandHistory, expectedCommandResult,
+                             expectedModelDeck);
+    }
 
     @Test
     public void equals() {
@@ -139,13 +131,12 @@ public class StudyDeckCommandTest {
      */
     private void assertExecutionSuccessIndex(Index index) {
         StudyDeckCommand studyDeckCommand = new StudyDeckCommand(decksView, index);
-        String expectedMessage = String.format(StudyDeckCommand.MESSAGE_STUDY_DECK_SUCCESS,
-                                               decksView.getFilteredList().get(index.getZeroBased())
-                                                        .getName());
-        CommandResult expectedCommandResult = new StudyPanelCommandResult(expectedMessage);
+        String expectedMessage = String.format(StudyDeckCommand.MESSAGE_STUDY_DECK_SUCCESS);
+        CommandResult expectedCommandResult = new UpdatePanelCommandResult(expectedMessage);
         expectedModelDeck.studyDeck(decksView.getFilteredList().get(index.getZeroBased()));
         assertCommandSuccess(studyDeckCommand, modelDeck, commandHistory, expectedCommandResult,
                              expectedModelDeck);
+
     }
 
     /**

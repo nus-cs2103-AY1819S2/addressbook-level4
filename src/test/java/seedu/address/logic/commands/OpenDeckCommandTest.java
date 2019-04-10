@@ -36,12 +36,7 @@ public class OpenDeckCommandTest {
     private Model expectedModelDeck = new ModelManager(getTypicalTopDeck(), new UserPrefs());
     private Model getExpectedModelStudy = new ModelManager(getTypicalTopDeck(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-    //from decks view
     private DecksView decksView;
-    private Index index;
-    //from study view
-    private StudyView studyView;
-
 
     @Before
     public void initializeDecksView() {
@@ -53,7 +48,6 @@ public class OpenDeckCommandTest {
     public void initializeStudyView() {
         modelStudy.studyDeck(getTypicalDeck());
         assertTrue(modelStudy.isAtStudyView());
-        studyView = (StudyView) modelStudy.getViewState();
         getExpectedModelStudy.studyDeck(getTypicalDeck());
         assertTrue(getExpectedModelStudy.isAtStudyView());
     }

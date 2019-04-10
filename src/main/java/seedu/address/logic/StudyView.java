@@ -163,15 +163,13 @@ public class StudyView implements ViewState {
         }
         // state check
         StudyView other = (StudyView) obj;
-        return Objects.equals(currentCard, other.currentCard)
-                && Objects.equals(currentStudyState.getValue(), other.currentStudyState.getValue())
-                && Objects.equals(deckShuffler, other.deckShuffler)
-                && Objects.equals(userAnswer.getValue(), other.userAnswer.getValue());
+        return Objects.equals(currentStudyState.getValue(), other.currentStudyState.getValue())
+                && Objects.equals(deckShuffler, other.deckShuffler);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(currentCard, currentStudyState.getValue(), deckShuffler, userAnswer.getValue());
+        return Objects.hash(currentStudyState.getValue(), deckShuffler);
     }
 
     /**

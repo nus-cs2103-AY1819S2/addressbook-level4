@@ -17,7 +17,7 @@ import seedu.address.model.deck.Deck;
  * An Immutable TopDeck that is serializable to JSON format.
  */
 @JsonRootName(value = "topdeck")
-class JsonSerializableTopDeck {
+public class JsonSerializableTopDeck {
 
     public static final String MESSAGE_DUPLICATE_DECK = "Decks list contains duplicate deck(s).";
     public static final String MESSAGE_DUPLICATE_CARD = "Cards list contains duplicate cards(s).";

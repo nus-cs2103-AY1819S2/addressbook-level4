@@ -3,28 +3,41 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
----
-
 == About the Project: TeethHub
 
-TeethHub is a desktop application specially designed for tech-savvy dentists, who prefers to use the command line interface, as opposed to the traditional graphical user interface. The user interacts with the application through the type via the command line interface, and graphical representations of data are provided. The program is written in Java.
+TeethHub is a desktop application specially designed for tech-savvy dentists, who prefers to use the command line interface, as opposed to the traditional graphical user interface.
+
+The user interacts with the application through the type via the command line interface, and graphical representations of the stored data will be shown.
+The program is written in Java.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: enhanced the *person* storage into a *dental patient* storage
+** What it does: This new data structure allows our users to store personal information of patients.
+** Justification: This data structure creates the foundation of the product, as TeethHub is an application which manages dental patients for our users.
+** Highlights: This enhancements affects existing commands and commands to be added in the future.
+The development of patient required an in-depth knowledge of the dentistry industry.
+The implementation too was challenging as it required major changes to existing commands.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement*: added the ability to *store and manage dental records* to patients
+** What it does: This allows our users to store dental records on TeethHub, which will be linked to a specified dental patient.
+** Justification: This feature is essential to TeethHub as the product wish to offload the workload for dentists, and dental records are the primary documents which dentists handle.
+** Highlights: This enhancement affects how data is stored, written and read.
+It required a thorough understanding of the design requirements, as well as its constraints.
+The implementation too was demanding, as many factors need to be considered.
+
+* *Minor enhancement*: added a goto command that allows the user to navigate to the specified patient's record list from the current patient list.
+
+* *Minor enhancement*: added a back command that allows the user to return back to the patient list from the current record list.
+
+* *Minor enhancement*: added a new user interface which displays the dental record information of a specified patient.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])

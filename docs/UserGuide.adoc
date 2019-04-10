@@ -163,6 +163,7 @@ in lowercase (in the above example, it will be shown as `Clothes`)
 * Category name supplied must be https://en.wikipedia.org/wiki/Alphanumeric[alphanumeric]
 and cannot contain special characters such as `:<>;\/|?~^%$#@`
 * If no date is inputted, current local date will be used instead.
+* Description is limited to 40 characters.
 * Order of the different parameters does not matter.
 
 ====

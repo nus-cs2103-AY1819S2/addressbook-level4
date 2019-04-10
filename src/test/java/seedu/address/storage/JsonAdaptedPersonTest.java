@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.datetime.DateBase;
 import seedu.address.model.datetime.DateOfBirth;
 import seedu.address.model.description.Description;
 import seedu.address.model.nextofkin.NextOfKinRelation;
@@ -168,6 +169,18 @@ public class JsonAdaptedPersonTest {
                 VALID_ADDRESS, VALID_DRUG_ALLERGY, VALID_TEETH,
                 VALID_TAGS, VALID_RECORDS, VALID_KIN, VALID_DESC);
         String expectedMessage = DateOfBirth.MESSAGE_CONSTRAINTS;
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_tomorrowDateOfBirth_throwsIllegalValueException() {
+        DateBase temp = DateOfBirth.getToday();
+        temp.setTo(temp.getDay(), temp.getMonth(), temp.getYear() + 1);
+        JsonAdaptedPerson person =
+                new JsonAdaptedPerson(VALID_NAME, VALID_NRIC, temp.toString(), VALID_SEX, VALID_PHONE, VALID_EMAIL,
+                        VALID_ADDRESS, VALID_DRUG_ALLERGY, VALID_TEETH,
+                        VALID_TAGS, VALID_RECORDS, VALID_KIN, VALID_DESC);
+        String expectedMessage = DateOfBirth.MESSAGE_CONSTRAINTS_FUTURE_DAY;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 

@@ -44,6 +44,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_SAVE_TYPE = "Invalid save file type."
             + "\nNames must end with either of the following: %1$s";
     public static final String MESSAGE_INVALID_SAVE_NAME = "Unable to save. Save file name cannot be empty.";
+    public static final String MESSAGE_CLEAR_SUCCESS = "Album has been cleared!";
     public static final String MESSAGE_WATERMARK_SUCCESS = "Watermark created.";
     public static final String MESSAGE_HAS_WATERMARK = "A watermark has been added to this image already.";
 }

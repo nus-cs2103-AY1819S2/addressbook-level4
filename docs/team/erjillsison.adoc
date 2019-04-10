@@ -4,41 +4,35 @@
 :stylesDir: ../stylesheets
 
 == Project Overview
+Battleship is a desktop game application based on the classic Battleship game.
+The user interacts with it using a command-line interface (CLI) and it has a graphical user interface(GUI) created using JavaFX.
+It is written in Java, and has about 10 kLoC.
 
 My team and I were presented with an existing code base for a command line interface(CLI) address book application.
 We were tasked to enhance or morph the product in to a product of our own choice.
 We chose to morph it into Battleship.
-
-Battleship is a desktop game application based on the classic Battleship game.
-The user interacts with it using a CLI and it has a graphical user interface(GUI) created using JavaFX.
-It is written in Java, and has about 10 kLoC.
 
 My role was to design and write the code for the `map` feature of the game.
 The following sections illustrate the feature in more detail, as well as the relevant sections I have added to the user and developer guides in relation to this feature.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the map feature of the game*
-** What it does: The player can initialise the maps to the size they specified at the start of the game. The players can place ships on their own map and shoot the opposing players map. The maps are displayed in the UI and each cell will change colour depending on its status.
-** Justification: The map feature is crucial to the development of the game as it is the basis of all the interactions made in the game.
-** Highlights: [placeholder]
-** Credits: [placeholder]
+* *Major enhancement*: Added the *map feature* of the game. This includes the internal data structure of the map, the cells that make up the map and how they are displayed in the UI.
+** What it does: The player can initialise the maps to the size they specified. The players can place ships on their own map and shoot the opposing players map. The maps are displayed in the UI and each cell will change colour depending on its status. The initialise command can be used at any point in time during the game and will reset the board to a clean state.
+** Justification: The maps are crucial to the gameplay as it is the basis of all of the game interactions.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=erjillsison&sort=displayName&since=2019-02-10&until=2019-04-10&timeframe=day&reverse=false&repoSort=true[Functional code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.4` (2 releases) on GitHub
+*** Reported bugs not related to my own feature: Issue https://github.com/CS2103-AY1819S2-W14-3/main/issues/105[#105]
 ** Enhancements to existing features:
-*** Overhaul of UI to display the maps (Pull requests https://github.com[#33], https://github.com[#34])
+*** Overhaul of UI to display the maps: Pull request https://github.com/CS2103-AY1819S2-W14-3/main/pull/87[#87]
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Restructured UG to make it easier to follow when playing the game: Pull Request https://github.com/CS2103-AY1819S2-W14-3/main/pull/256[#256]
 ** Community:
-*** PRs reviewed (with non-trivial review comments):
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** Reported bugs and suggestions for other teams in the class (examples:  Issue https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/672[#672], Issue https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/148[#148])
 ** Tools:
 *** Integrated Netlify to the project
 

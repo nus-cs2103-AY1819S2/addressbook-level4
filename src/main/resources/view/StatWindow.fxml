@@ -46,14 +46,17 @@
 
                 <HBox VBox.vgrow="ALWAYS" fx:id="detailsBox" minHeight="100" maxHeight="300" alignment="CENTER">
                     <SplitPane>
-                        <VBox VBox.vgrow="ALWAYS" fx:id="patientBox" alignment="CENTER" minWidth="100"
+                        <VBox VBox.vgrow="ALWAYS" fx:id="patientBox" alignment="TOP_CENTER" minWidth="100"
                               styleClass="pane-with-border">
                             <padding>
                                 <Insets top="5" right="10" bottom="5" left="10" />
                             </padding>
-                            <Label fx:id="detailsTitle" text="Personal Details." styleClass="cell_big_label_bright" />
+                            <Label fx:id="detailsTitle" text="Personal Details" styleClass="cell_big_label_bright" />
 
                             <HBox>
+                                <Label fx:id="sexLabel" text="Sex: " styleClass="stat_header" />
+                                <Label fx:id="sex" styleClass="stat_text" text="\$sex"/>
+
                                 <Label fx:id="nricLabel" text="NRIC: " styleClass="stat_header" />
                                 <Label fx:id="nric" styleClass="stat_text" text="\$nric"/>
 
@@ -74,7 +77,28 @@
                             <HBox>
                                 <Label fx:id="addressLabel" text="Address: " styleClass="stat_header" />
                                 <Label fx:id="address" styleClass="stat_text" text="\$address" />
+                            </HBox>
 
+                            <Label fx:id="kinTitle" text="Next Of Kin" styleClass="cell_big_label_bright" />
+
+                            <HBox>
+                                <Label fx:id="kinNameLabel" text="Name: " styleClass="stat_header" />
+                                <Label fx:id="kinName" styleClass="stat_text" text="\$kinName"/>
+                            </HBox>
+
+                            <HBox>
+                                <Label fx:id="kinRelationLabel" text="Relationship: " styleClass="stat_header" />
+                                <Label fx:id="kinRelation" styleClass="stat_text" text="\$kinRelation"/>
+                            </HBox>
+
+                            <HBox>
+                                <Label fx:id="kinPhoneLabel" text="Phone: " styleClass="stat_header" />
+                                <Label fx:id="kinPhone" styleClass="stat_text" text="\$kinPhone"/>
+                            </HBox>
+
+                            <HBox>
+                                <Label fx:id="kinAddressLabel" text="Address: " styleClass="stat_header" />
+                                <Label fx:id="kinAddress" styleClass="stat_text" text="\$kinAddress"/>
                             </HBox>
 
                         </VBox>

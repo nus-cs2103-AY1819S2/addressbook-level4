@@ -3,10 +3,12 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.EnumSet;
+import java.util.Set;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.battle.state.BattleState;
 import seedu.address.model.Model;
+import seedu.address.model.tag.Tag;
 
 /**
  * Lists all persons in the address book to the user.
@@ -30,6 +32,15 @@ public class ListTagsCommand extends Command {
         requireNonNull(model);
         assert canExecuteIn(model.getBattleState());
 
-        return new CommandResult(MESSAGE_SUCCESS + model.getHumanPlayer().getFleet().getAllTags());
+        StringBuilder stringBuilder = new StringBuilder();
+
+        Set<Tag> tagSet = model.getHumanPlayer().getFleet().getAllTags();
+        if (tagSet.isEmpty()) {
+            stringBuilder.append("no tags found");
+        } else {
+            stringBuilder.append(tagSet);
+        }
+
+        return new CommandResult(MESSAGE_SUCCESS + stringBuilder.toString());
     }
 }

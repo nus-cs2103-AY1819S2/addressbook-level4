@@ -58,6 +58,7 @@ public class AddReservationCommand extends ReservationCommand {
         try {
             model.addReservation(toAdd);
             model.updateFilteredReservationList(Model.PREDICATE_SHOW_ALL_RESERVATIONS);
+            model.setSelectedReservation(toAdd);
         } catch (RoomUnavailableException e) {
             return new CommandResult(MESSAGE_ROOM_UNAVAILABLE);
         } catch (RoomFullException e) {

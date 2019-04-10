@@ -11,7 +11,7 @@ public class Gpa {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Gpa values should only contain numbers, and it should be at least 1 digits long";
+            "Gpa values should only contain float numbers between 0.0 and 4.0 (American Grading System)";
     // public static final String VALIDATION_REGEX = "\\d{1,}";
     public final String value;
 

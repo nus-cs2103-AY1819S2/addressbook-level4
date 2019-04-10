@@ -1,15 +1,15 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_EMAIL_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_NAME_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_PHONE_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_SKILL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_SKILL_REVERSE;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL_REVERSE;
+import java.util.Arrays;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
@@ -23,23 +23,28 @@ public class FilterCommand extends Command {
     public static final String MESSAGE_CLEAR_FILTER_PERSON_SUCCESS = "The Address Book is cleared from "
             + "all the filters.";
     public static final String MESSAGE_FILTER_PERSON_SUCCESS = "The Address Book is filtered.";
+    public static final String MESSAGE_FILTER_REVERSE_SUCCESS = "The filtering is reversed.";
     public static final String MESSAGE_NOT_FILTERED = "Filtering is not successful!";
     public static final String MESSAGE_NO_FILTER_TO_CLEAR = "There is no filter to clear.";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " clear/or/and " + "[prefix/text/prefix] \n"
+    public static final String MESSAGE_USAGE =
+            COMMAND_WORD + " or/and " + "prefix1<text>prefix1 [prefix2<text>prefix2] "
+            + "--- OR --- " + COMMAND_WORD + " clear/reverse \n"
             + "Examples: \n"
-            + COMMAND_WORD + " or  " + PREFIX_PHONE + "91234567" + PREFIX_PHONE_REVERSE + " " + PREFIX_SKILL
-            + "C++, MS-Excel" + PREFIX_SKILL_REVERSE
+            + COMMAND_WORD + " or  " + PREFIX_FILTER_PHONE + "91234567" + PREFIX_FILTER_PHONE_REVERSE + " "
+            + PREFIX_FILTER_SKILL + "C++, MS-Excel" + PREFIX_FILTER_SKILL_REVERSE
             + " --> SAVES THE FILTER. IF ONE OF THE FILTER TYPES MATCH, IT PRINTS IT! \n"
-            + COMMAND_WORD + " and " + PREFIX_NAME + "Alex" + PREFIX_NAME_REVERSE + " " + PREFIX_EMAIL
-            + "johndoe@example.com" + PREFIX_EMAIL_REVERSE
+            + COMMAND_WORD + " and " + PREFIX_FILTER_NAME + "Alex" + PREFIX_FILTER_NAME_REVERSE + " "
+            + PREFIX_FILTER_EMAIL + "johndoe@example.com" + PREFIX_FILTER_EMAIL_REVERSE
             + " --> SAVES THE FILTER. IF ALL OF THE FILTER TYPES MATCH, IT PRINTS IT! \n"
-            + COMMAND_WORD + " clear " + " --> CLEARS ALL THE PREVIOUSLY MADE FILTERING!";
+            + COMMAND_WORD + " clear " + " --> CLEARS ALL THE PREVIOUSLY MADE FILTERING! \n"
+            + COMMAND_WORD + " reverse " + " --> REVERSES THE FILTERING!";
 
     /**
      * Explanation of process numbers:
      * 0 -> clear
      * 1 -> or
      * 2 -> and
+     * 3 -> reverse
      */
 
     private final int processNum;
@@ -51,11 +56,11 @@ public class FilterCommand extends Command {
     private String gpa;
     private String education;
     private String address;
+    private String endorseCount;
     private boolean isFilterCleared;
 
-    public FilterCommand(String filteringConditions, String[] criterion, int processNumber) {
+    public FilterCommand(String[] criterion, int processNumber) {
 
-        requireNonNull(filteringConditions);
         processNum = processNumber;
         name = criterion[0];
         phone = criterion[1];
@@ -63,6 +68,7 @@ public class FilterCommand extends Command {
         address = criterion[3];
         gpa = criterion[6];
         education = criterion[7];
+        endorseCount = criterion[8];
         isFilterCleared = false;
 
         if (criterion[4] != null) {
@@ -91,15 +97,18 @@ public class FilterCommand extends Command {
      */
     private void processCommand(Model model) {
 
-
         if (processNum == 1) {
             // or statement will be processed
             isFilterCleared = false;
-            model.filterOr(name, phone, email, address, skillList, posList, gpa, education);
+            model.filterOr(name, phone, email, address, skillList, posList, endorseCount, gpa, education);
         } else if (processNum == 2) {
             // and statement will be processed
             isFilterCleared = false;
-            model.filterAnd(name, phone, email, address, skillList, posList, gpa, education);
+            model.filterAnd(name, phone, email, address, skillList, posList, endorseCount, gpa, education);
+        } else if (processNum == 3) {
+            // reverse statement will be processed
+            isFilterCleared = false;
+            model.reverseFilter();
         } else {
             // clear statement will be processed
             if (model.getFilterInfo()) {
@@ -121,6 +130,9 @@ public class FilterCommand extends Command {
                 return new CommandResult(MESSAGE_CLEAR_FILTER_PERSON_SUCCESS);
             } else if (processNum == 0 && !isFilterCleared) {
                 return new CommandResult(MESSAGE_NO_FILTER_TO_CLEAR);
+            } else if (processNum == 3) {
+                model.commitAddressBook();
+                return new CommandResult(MESSAGE_FILTER_REVERSE_SUCCESS);
             } else {
                 model.commitAddressBook();
                 return new CommandResult(MESSAGE_FILTER_PERSON_SUCCESS);
@@ -129,5 +141,33 @@ public class FilterCommand extends Command {
             System.out.println(e.toString());
             return new CommandResult(MESSAGE_NOT_FILTERED);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this || (other instanceof FilterCommand
+                && ((name == null && ((FilterCommand) other).name == null)
+                || name.equals(((FilterCommand) other).name))
+                && ((phone == null && ((FilterCommand) other).phone == null)
+                || phone.equals(((FilterCommand) other).phone))
+                && ((email == null && ((FilterCommand) other).email == null)
+                || email.equals(((FilterCommand) other).email))
+                && ((address == null && ((FilterCommand) other).address == null)
+                || address.equals(((FilterCommand) other).address))
+                && ((skillList == null && ((FilterCommand) other).skillList == null)
+                || Arrays.equals(skillList, ((FilterCommand) other).skillList))
+                && ((posList == null && ((FilterCommand) other).posList == null)
+                || Arrays.equals(posList, ((FilterCommand) other).posList))
+                && ((education == null && ((FilterCommand) other).education == null)
+                || education.equals(((FilterCommand) other).education))
+                && ((gpa == null && ((FilterCommand) other).gpa == null)
+                || gpa.equals(((FilterCommand) other).gpa))
+                && ((endorseCount == null && ((FilterCommand) other).endorseCount == null)
+                || endorseCount.equals(((FilterCommand) other).endorseCount)))) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -21,29 +21,38 @@ public class SortSkills {
 
     private List<Person> newList;
 
-    public SortSkills(List<Person> lastShownList) {
+    public SortSkills(List<Person> lastShownList, String type) {
+        String prefix = type.substring(0, 1);
         //Modify each Person to organise tags alphabetically
-        List<Person> personsWithCorrectTagOrder = orderPersonsTags(lastShownList);
+        List<Person> personsWithCorrectTagOrder = orderPersonsTags(lastShownList, prefix);
         //Sort Persons alphabetically by tags
         List<Person> newList = SortUtil.sortPersonsByTags(personsWithCorrectTagOrder);
 
         this.newList = newList;
     }
 
-    public List<Person> getList() {
-        return this.newList;
-    }
-
     /**
      * Gets from the list the information of person and processes
      */
-    private List<Person> orderPersonsTags(List<Person> lastShownList) {
+    private List<Person> orderPersonsTags(List<Person> lastShownList, String prefix) {
         List<Person> personsWithCorrectTagOrder = new ArrayList<>();
         for (int i = 0; i < lastShownList.size(); i++) {
             //Change Set to List to utilise stream sorting
-            List<SkillsTag> individualSkills = new ArrayList<>();
-            individualSkills.addAll(lastShownList.get(i).getTags());
-            List<SkillsTag> individualSortedSkills = SortUtil.sortSkillTags(individualSkills);
+            List<SkillsTag> individualTags = new ArrayList<>();
+            List<SkillsTag> tagsToSort = new ArrayList<>();
+            List<SkillsTag> otherTags = new ArrayList<>();
+            individualTags.addAll(lastShownList.get(i).getTags());
+            for (SkillsTag tag : individualTags) {
+                String tagString = tag.toString();
+                //first element of string is "["
+                if (tagString.substring(1, 2).equals(prefix)) {
+                    tagsToSort.add(tag);
+                } else {
+                    otherTags.add(tag);
+                }
+            }
+            List<SkillsTag> individualSortedTags = SortUtil.sortSkillTags(tagsToSort);
+            individualSortedTags.addAll(otherTags);
 
             Name name = lastShownList.get(i).getName();
             Phone phone = lastShownList.get(i).getPhone();
@@ -52,11 +61,15 @@ public class SortSkills {
             Gpa gpa = lastShownList.get(i).getGpa();
             Address address = lastShownList.get(i).getAddress();
             //change list back to set
-            LinkedHashSet<SkillsTag> tagSet = SortUtil.toTags(individualSortedSkills);
+            LinkedHashSet<SkillsTag> tagSet = SortUtil.toTags(individualSortedTags);
 
             Person person = new Person(name, phone, email, education, gpa, address, tagSet);
             personsWithCorrectTagOrder.add(person);
         }
         return personsWithCorrectTagOrder;
+    }
+
+    public List<Person> getList() {
+        return this.newList;
     }
 }

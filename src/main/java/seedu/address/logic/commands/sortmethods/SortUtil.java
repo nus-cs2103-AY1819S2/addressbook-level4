@@ -53,43 +53,6 @@ public class SortUtil {
     }
 
     /**
-     * sorts the persons by their name
-     */
-    public static List<Person> sortPersonsByNames(List<Person> persons) {
-        //Sort persons alphabetically by name
-        List<Person> sortedList =
-                persons.stream().sorted(Comparator.comparing(Person::namesToString)).collect(Collectors.toList());
-        return sortedList;
-    }
-
-    /**
-     * sorts the persons by their surname
-     */
-    public static List<Person> sortPersonsBySurnames(List<Person> persons) {
-        List<Person> sortedList =
-                persons.stream().sorted(Comparator.comparing(Person::surnamesToString)).collect(Collectors.toList());
-        return sortedList;
-    }
-
-    /**
-     * sorts the persons by their gpa
-     */
-    public static List<Person> sortPersonsByGpa(List<Person> persons) {
-        List<Person> sortedList =
-                persons.stream().sorted(Comparator.comparing(Person::gpaToString)).collect(Collectors.toList());
-        return sortedList;
-    }
-
-    /**
-     * sorts the persons by their education
-     */
-    public static List<Person> sortPersonsByEducation(List<Person> persons) {
-        List<Person> sortedList =
-                persons.stream().sorted(Comparator.comparing(Person::educationToString)).collect(Collectors.toList());
-        return sortedList;
-    }
-
-    /**
      * reverses a List of Person
      */
     public static List<Person> reversePersonList(List<Person> persons) {

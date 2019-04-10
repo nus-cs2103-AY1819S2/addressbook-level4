@@ -79,6 +79,27 @@ public class Person {
     }
 
     /**
+     * Returns the number of Skills a person has
+     */
+    public int getSkillsNumber() {
+        return PersonUtil.getTagTypeNumber(getTags(), "s");
+    }
+
+    /**
+     * Returns the number of Positions a person has
+     */
+    public int getPositionsNumber() {
+        return PersonUtil.getTagTypeNumber(getTags(), "p");
+    }
+
+    /**
+     * Returns the number of Endorsements a person has
+     */
+    public int getEndorsementsNumber() {
+        return PersonUtil.getTagTypeNumber(getTags(), "e");
+    }
+
+    /**
      * Checks if a tag as a String parameter is contained in one of the tags of that person
      */
     public boolean isTagExist(String tag) {
@@ -88,6 +109,36 @@ public class Person {
             }
         }
 
+        return false;
+    }
+
+    /**
+     * Checks if the string parameter is contained in one of the skills of the person
+     */
+    public boolean isSkillExist(String tag) {
+        for (SkillsTag skill : tags) {
+            if (skill.toString().charAt(1) == 's') {
+                if (skill.toString().substring(3, skill.toString().length() - 1).trim().toLowerCase()
+                        .contains(tag.trim().toLowerCase())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the string parameter is contained in one of the positions of the person
+     */
+    public boolean isPositionExist(String tag) {
+        for (SkillsTag pos : tags) {
+            if (pos.toString().charAt(1) == 'p') {
+                if (pos.toString().substring(3, pos.toString().length() - 1).trim().toLowerCase()
+                        .contains(tag.trim().toLowerCase())) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 

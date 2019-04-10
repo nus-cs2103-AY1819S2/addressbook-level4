@@ -1,6 +1,8 @@
 package seedu.address.logic.commands.sortmethods;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import seedu.address.model.person.Person;
 
@@ -13,8 +15,9 @@ public class SortGpa {
     private List<Person> newList;
 
     public SortGpa(List<Person> lastShownList) {
-        List<Person> sortedList = SortUtil.sortPersonsByGpa(lastShownList);
-        this.newList = sortedList;
+        this.newList =
+                lastShownList.stream().sorted(Comparator.comparing(Person::gpaToString))
+                        .collect(Collectors.toList());
     }
 
     public List<Person> getList() {

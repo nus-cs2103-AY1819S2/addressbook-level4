@@ -36,45 +36,45 @@ public class PersonListPanelTest extends GuiUnitTest {
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
     private PersonListPanelHandle personListPanelHandle;
 
-//    @Test
-//    public void display() {
-//        initUi(TYPICAL_PERSONS);
-//
-//        for (int i = 0; i < TYPICAL_PERSONS.size(); i++) {
-//            personListPanelHandle.navigateToCard(TYPICAL_PERSONS.get(i));
-//            Person expectedPerson = TYPICAL_PERSONS.get(i);
-//            PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
-//
-//            assertCardDisplaysPerson(expectedPerson, actualCard);
-//            assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
-//        }
-//    }
-//
-//    @Test
-//    public void selection_modelSelectedPersonChanged_selectionChanges() {
-//        initUi(TYPICAL_PERSONS);
-//        Person secondPerson = TYPICAL_PERSONS.get(INDEX_SECOND_PERSON.getZeroBased());
-//        guiRobot.interact(() -> selectedPerson.set(secondPerson));
-//        guiRobot.pauseForHuman();
-//
-//        PersonCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
-//        PersonCardHandle selectedPerson = personListPanelHandle.getHandleToSelectedCard();
-//        assertCardEquals(expectedPerson, selectedPerson);
-//    }
-//
-//    /**
-//     * Verifies that creating and deleting large number of persons in {@code PersonListPanel} requires lesser than
-//     * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
-//     */
-//    @Test
-//    public void performanceTest() {
-//        ObservableList<Person> backingList = createBackingList(10000);
-//
-//        assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
-//            initUi(backingList);
-//            guiRobot.interact(backingList::clear);
-//        }, "Creation and deletion of person cards exceeded time limit");
-//    }
+    @Test
+    public void display() {
+        initUi(TYPICAL_PERSONS);
+
+        for (int i = 0; i < TYPICAL_PERSONS.size(); i++) {
+            personListPanelHandle.navigateToCard(TYPICAL_PERSONS.get(i));
+            Person expectedPerson = TYPICAL_PERSONS.get(i);
+            PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
+
+            assertCardDisplaysPerson(expectedPerson, actualCard);
+            assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
+        }
+    }
+
+    @Test
+    public void selection_modelSelectedPersonChanged_selectionChanges() {
+        initUi(TYPICAL_PERSONS);
+        Person secondPerson = TYPICAL_PERSONS.get(INDEX_SECOND_PERSON.getZeroBased());
+        guiRobot.interact(() -> selectedPerson.set(secondPerson));
+        guiRobot.pauseForHuman();
+
+        PersonCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        PersonCardHandle selectedPerson = personListPanelHandle.getHandleToSelectedCard();
+        assertCardEquals(expectedPerson, selectedPerson);
+    }
+
+    /**
+     * Verifies that creating and deleting large number of persons in {@code PersonListPanel} requires lesser than
+     * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
+     */
+    @Test
+    public void performanceTest() {
+        ObservableList<Person> backingList = createBackingList(10000);
+
+        assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
+            initUi(backingList);
+            guiRobot.interact(backingList::clear);
+        }, "Creation and deletion of person cards exceeded time limit");
+    }
 
     /**
      * Returns a list of persons containing {@code personCount} persons that is used to populate the

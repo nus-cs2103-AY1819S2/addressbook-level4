@@ -129,16 +129,21 @@ public interface Model {
     void clearFilter();
 
     /**
+     * Reverses the filtered persons if there is a filter available
+     */
+    void reverseFilter();
+
+    /**
      * Applies filtering and chooses the persons that pass all the conditions
      */
     void filterAnd(String name, String phone, String email, String address, String[] skillList,
-                   String[] posList, String gpa, String education);
+                   String[] posList, String endorseCount, String gpa, String education);
 
     /**
      * Applies filtering and chooses the persons that pass at least one of the conditions
      */
     void filterOr(String name, String phone, String email, String address, String[] skillList,
-                  String[] posList, String gpa, String education);
+                  String[] posList, String endorseCount, String gpa, String education);
 
     /**
      * gets if filtering is active in current situation

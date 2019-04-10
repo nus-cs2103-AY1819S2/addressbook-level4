@@ -28,7 +28,6 @@ public class ParserUtilTest {
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_TAG = "#friend";
     private static final String INVALID_COLOR = "black";
 
     private static final String VALID_NAME = "Rachel Walker";
@@ -165,12 +164,6 @@ public class ParserUtilTest {
         ParserUtil.parseTag(null, null);
     }
 
-//    @Test
-//    public void parseTag_invalidValue_throwsParseException() throws Exception {
-//        thrown.expect(ParseException.class);
-//        ParserUtil.parseTag(INVALID_TAG, INVALID_COLOR);
-//    }
-
     @Test
     public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
         SkillsTag expectedTag = new SkillsTag(VALID_TAG_1, VALID_COLOR);
@@ -189,12 +182,6 @@ public class ParserUtilTest {
         thrown.expect(NullPointerException.class);
         ParserUtil.parseTags(null, null);
     }
-
-//    @Test
-//    public void parseTags_collectionWithInvalidTags_throwsParseException() throws Exception {
-//        thrown.expect(ParseException.class);
-//        ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, INVALID_TAG), VALID_TYPE);
-//    }
 
     @Test
     public void parseTags_emptyCollection_returnsEmptySet() throws Exception {

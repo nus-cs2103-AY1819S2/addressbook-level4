@@ -51,16 +51,16 @@ public class StatusBarFooterTest extends GuiUnitTest {
         statusBarFooterHandle = new StatusBarFooterHandle(statusBarFooter.getRoot());
     }
 
-//    @Test
-//    public void display() {
-//        // initial state
-//        assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(), SYNC_STATUS_INITIAL);
-//
-//        // after address book is updated
-//        guiRobot.interact(() -> addressBook.addPerson(ALICE));
-//        assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
-//                String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));
-//    }
+    @Test
+    public void display() {
+        // initial state
+        assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(), SYNC_STATUS_INITIAL);
+
+        // after address book is updated
+        guiRobot.interact(() -> addressBook.addPerson(ALICE));
+        assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
+                String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));
+    }
 
     /**
      * Asserts that the save location matches that of {@code expectedSaveLocation}, and the
@@ -71,5 +71,4 @@ public class StatusBarFooterTest extends GuiUnitTest {
         assertEquals(expectedSyncStatus, statusBarFooterHandle.getSyncStatus());
         guiRobot.pauseForHuman();
     }
-
 }

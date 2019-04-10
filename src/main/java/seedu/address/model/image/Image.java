@@ -41,25 +41,6 @@ public class Image {
     private boolean hasWaterMark;
 
     /**
-     * Default Image constructor
-     */
-    public Image(Name name, Height height,
-                 Width width, Size size, BufferedImage buffer, String url,
-                 String fileType, Metadata metadata, List<Command> commandHistory, int index, boolean hasWaterMark) {
-        this.name = name;
-        this.height = height;
-        this.width = width;
-        this.size = size;
-        this.buffer = buffer;
-        this.url = url;
-        this.fileType = fileType;
-        this.metadata = metadata;
-        this.commandHistory = commandHistory;
-        this.index = index;
-        this.hasWaterMark = hasWaterMark;
-    }
-
-    /**
      * Every field must be present and not null.
      */
     public Image(String url) {
@@ -82,7 +63,6 @@ public class Image {
         commandHistory = new ArrayList<>();
         index = 0;
         this.hasWaterMark = false;
-        System.out.println(this.toString());
     }
 
     public Image(File file) {
@@ -104,7 +84,6 @@ public class Image {
         commandHistory = new ArrayList<>();
         index = 0;
         this.hasWaterMark = false;
-        System.out.println(this.toString());
     }
 
     public Height getHeight() {
@@ -231,8 +210,6 @@ public class Image {
                 .append(getWidth())
                 .append("\nFormat: ")
                 .append(getFileType())
-                .append("\nURL: ")
-                .append(getUrl())
                 .append("\n====================");
         return builder.toString();
     }

@@ -1,9 +1,17 @@
+/* @@author Carrein */
 package seedu.address.model;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static seedu.address.commons.core.Config.ASSETS_FOLDER_TEMP_NAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -21,8 +29,6 @@ public class AlbumTest {
     public ExpectedException thrown = ExpectedException.none();
 
     public final Album album = Album.getInstance();
-    public final Image image = new Image("src/main/resources/imageTest/valid/iu.jpg");
-    private ImportCommandParser parser = new ImportCommandParser();
 
     @Before
     public void init() {
@@ -35,111 +41,89 @@ public class AlbumTest {
     }
 
     @Test
-    public void valid_saveToAssets() {
-        assertParseSuccess(parser, "src/main/resources/imageTest/valid/iu.jpg",
-                new ImportCommand(false));
-        Assert.assertThrows(IllegalArgumentException.class, () -> album.saveToAssets(image, ""));
-
+    public void invalid_saveToAssets() {
+        Assert.assertThrows(NullPointerException.class, () -> album.saveToAssets(null, null)); //null
     }
 
-    //    @Test
-    //    public void resetData_null_throwsNullPointerException() {
-    //        thrown.expect(NullPointerException.class);
-    //        addressBook.resetData(null);
-    //    }
-    //
-    //    @Test
-    //    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-    //        AddressBook newData = getTypicalAddressBook();
-    //        addressBook.resetData(newData);
-    //        assertEquals(newData, addressBook);
-    //    }
-    //
-    //    @Test
-    //    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-    //        // Two persons with the same identity fields
-    //        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-    //                .build();
-    //        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-    //        AddressBookStub newData = new AddressBookStub(newPersons);
-    //
-    //        thrown.expect(DuplicatePersonException.class);
-    //        addressBook.resetData(newData);
-    //    }
-    //
-    //    @Test
-    //    public void hasPerson_nullPerson_throwsNullPointerException() {
-    //        thrown.expect(NullPointerException.class);
-    //        addressBook.hasPerson(null);
-    //    }
-    //
-    //    @Test
-    //    public void hasPerson_personNotInAddressBook_returnsFalse() {
-    //        assertFalse(addressBook.hasPerson(ALICE));
-    //    }
-    //
-    //    @Test
-    //    public void hasPerson_personInAddressBook_returnsTrue() {
-    //        addressBook.addPerson(ALICE);
-    //        assertTrue(addressBook.hasPerson(ALICE));
-    //    }
-    //
-    //    @Test
-    //    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-    //        addressBook.addPerson(ALICE);
-    //        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-    //                .build();
-    //        assertTrue(addressBook.hasPerson(editedAlice));
-    //    }
-    //
-    //    @Test
-    //    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-    //        thrown.expect(UnsupportedOperationException.class);
-    //        addressBook.getPersonList().remove(0);
-    //    }
-    //
-    //    @Test
-    //    public void addListener_withInvalidationListener_listenerAdded() {
-    //        SimpleIntegerProperty counter = new SimpleIntegerProperty();
-    //        InvalidationListener listener = observable -> counter.set(counter.get() + 1);
-    //        addressBook.addListener(listener);
-    //        addressBook.addPerson(ALICE);
-    //        assertEquals(1, counter.get());
-    //    }
-    //
-    //    @Test
-    //    public void removeListener_withInvalidationListener_listenerRemoved() {
-    //        SimpleIntegerProperty counter = new SimpleIntegerProperty();
-    //        InvalidationListener listener = observable -> counter.set(counter.get() + 1);
-    //        addressBook.addListener(listener);
-    //        addressBook.removeListener(listener);
-    //        addressBook.addPerson(ALICE);
-    //        assertEquals(0, counter.get());
-    //    }
-    //
-    //    /**
-    //     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
-    //     */
-    //    private static class AddressBookStub implements ReadOnlyAddressBook {
-    //        private final ObservableList<Person> persons = FXCollections.observableArrayList();
-    //
-    //        AddressBookStub(Collection<Person> persons) {
-    //            this.persons.setAll(persons);
-    //        }
-    //
-    //        @Override
-    //        public ObservableList<Person> getPersonList() {
-    //            return persons;
-    //        }
-    //
-    //        @Override
-    //        public void addListener(InvalidationListener listener) {
-    //            throw new AssertionError("This method should not be called.");
-    //        }
-    //
-    //        @Override
-    //        public void removeListener(InvalidationListener listener) {
-    //            throw new AssertionError("This method should not be called.");
-    //        }
-    //    }
+    @Test
+    public void valid_getFileName() {
+        assertParseSuccess(new ImportCommandParser(), "src/main/resources/imageTest/valid/iu.jpg",
+                new ImportCommand(false));
+        String[] array = {"iu.jpg"};
+        assertArrayEquals(album.getFileNames(), array);
+    }
+
+    @Test
+    public void valid_retrieveImage() {
+        Image image = new Image("src/main/resources/imageTest/valid/iu.jpg");
+        assertParseSuccess(new ImportCommandParser(), "src/main/resources/imageTest/valid/iu.jpg",
+                new ImportCommand(false));
+        assertEquals(album.retrieveImage("iu.jpg").toString(), image.toString());
+    }
+
+    @Test
+    public void invalid_retrieveImage() {
+        Assert.assertThrows(IllegalArgumentException.class, () -> album.retrieveImage(null)); //null
+        Assert.assertThrows(IllegalArgumentException.class, () -> album.retrieveImage("")); //empty
+    }
+
+    @Test
+    public void invalid_checkFileExist() {
+        assertFalse(album.checkFileExist(null)); //null
+        assertFalse(album.checkFileExist("")); //empty
+        assertFalse(album.checkFileExist(" ")); //space
+        assertFalse(album.checkFileExist("dalladalla")); //rubbish path
+        assertFalse(album.checkFileExist("iu.jpg")); //valid path but does not exist
+    }
+
+    @Test
+    public void valid_checkFileExist() {
+        assertParseSuccess(new ImportCommandParser(), "src/main/resources/imageTest/valid/iu.jpg",
+                new ImportCommand(false));
+        assertTrue(album.checkFileExist("iu.jpg")); //valid path and file
+    }
+
+    @Test
+    public void valid_clearAlbum() {
+        assertParseSuccess(new ImportCommandParser(), "src/main/resources/imageTest/valid/iu.jpg",
+                new ImportCommand(false));
+        album.clearAlbum();
+        List<Image> emptyList = new ArrayList<>();
+        assertTrue(album.getImageList().size() == 0);
+        assertTrue(album.getImageList().equals(emptyList));
+    }
+
+    @Test
+    public void invalid_clearAlbum() {
+        assertParseSuccess(new ImportCommandParser(), "src/main/resources/imageTest/valid/iu.jpg",
+                new ImportCommand(false));
+        album.clearAlbum();
+        assertFalse(album.getImageList().size() > 0);
+    }
+
+    @Test
+    public void valid_addToImageList() {
+        album.addToImageList("src/main/resources/imageTest/valid/iu.jpg");
+        assertTrue(album.getImageList().size() == 1);
+    }
+
+    @Test
+    public void valid_populateAlbum() {
+        album.addToImageList("src/main/resources/imageTest/valid/iu.jpg");
+        assertTrue(album.getImageList().size() > 0);
+    }
+
+    @Test
+    public void valid_generateAssets() {
+        String temp = System.getProperty("java.io.tmpdir") + ASSETS_FOLDER_TEMP_NAME + File.separator;
+        assertEquals(album.generateAssets(), temp);
+        assertTrue(new File(temp).exists());
+    }
+
+    @Test
+    public void valid_imageExist() {
+        album.addToImageList("src/main/resources/imageTest/valid/iu.jpg");
+        assertTrue(album.getImageList().size() == 1);
+    }
+
 }

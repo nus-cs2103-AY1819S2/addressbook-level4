@@ -406,7 +406,7 @@
 
 #tags .black {
     -fx-text-fill: white;
-    -fx-background-color: black;
+    -fx-background-color: #c594c5;
 }
 
 #tags .grey {

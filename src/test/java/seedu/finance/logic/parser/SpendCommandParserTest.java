@@ -13,10 +13,7 @@ import org.junit.Test;
 
 import seedu.finance.logic.commands.SpendCommand;
 import seedu.finance.model.category.Category;
-import seedu.finance.model.record.Amount;
-import seedu.finance.model.record.Date;
-import seedu.finance.model.record.Name;
-import seedu.finance.model.record.Record;
+import seedu.finance.model.record.*;
 import seedu.finance.testutil.RecordBuilder;
 
 public class SpendCommandParserTest {
@@ -93,6 +90,10 @@ public class SpendCommandParserTest {
         // invalid category
         assertParseFailure(parser, NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
                 + INVALID_CATEGORY_DESC, Category.MESSAGE_CONSTRAINTS);
+
+        //invalid description
+        assertParseFailure(parser,NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
+                + CATEGORY_DESC_FRIEND + INVALID_DESCRIPTION_DESC, Description.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + AMOUNT_DESC_BOB + INVALID_AMOUNT_DESC

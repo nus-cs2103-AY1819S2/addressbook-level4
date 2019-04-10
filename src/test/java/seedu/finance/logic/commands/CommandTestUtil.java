@@ -50,6 +50,8 @@ public class CommandTestUtil {
             " " + PREFIX_DATE + "29/29/2019"; // invalid date not allowed in dates
     public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY
             + "hubby*"; // '*' not allowed in categories
+    public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION
+            + "12345678901234567890123456789012345678901"; //41 characters not allowed
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

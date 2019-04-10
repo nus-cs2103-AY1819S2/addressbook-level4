@@ -9,9 +9,20 @@ import static java.util.Objects.requireNonNull;
 public class Description {
     public final String value;
 
+    public static final String MESSAGE_CONSTRAINTS =
+            "Description should not be longer than 40 characters long.";
+
     public Description(String description) {
         requireNonNull(description);
         this.value = description;
+    }
+
+    public static boolean isValidDescription(String test) {
+        if (test.length() > 40) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override

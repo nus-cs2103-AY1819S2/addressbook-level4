@@ -1,26 +1,7 @@
 package seedu.finance.logic.parser;
 
 import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.finance.logic.commands.CommandTestUtil.AMOUNT_DESC_AMY;
-import static seedu.finance.logic.commands.CommandTestUtil.AMOUNT_DESC_BOB;
-import static seedu.finance.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
-import static seedu.finance.logic.commands.CommandTestUtil.CATEGORY_DESC_HUSBAND;
-import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_AMY;
-import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_BOB;
-import static seedu.finance.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
-import static seedu.finance.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
-import static seedu.finance.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
-import static seedu.finance.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
-import static seedu.finance.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_AMY;
-import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
-import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND;
-import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
-import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_AMY;
-import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_BOB;
-import static seedu.finance.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMY;
-import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.*;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -37,6 +18,7 @@ import seedu.finance.logic.commands.EditCommand.EditRecordDescriptor;
 import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Date;
+import seedu.finance.model.record.Description;
 import seedu.finance.model.record.Name;
 import seedu.finance.testutil.EditRecordDescriptorBuilder;
 
@@ -83,8 +65,8 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_AMOUNT_DESC, Amount.MESSAGE_CONSTRAINTS); // invalid amount
         assertParseFailure(parser, "1" + INVALID_DATE_DESC, Date.MESSAGE_CONSTRAINTS); // invalid date
-        // invalid category
-        assertParseFailure(parser, "1" + INVALID_CATEGORY_DESC, Category.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_CATEGORY_DESC, Category.MESSAGE_CONSTRAINTS); // invalid category
+        assertParseFailure(parser, "1" + INVALID_DESCRIPTION_DESC, Description.MESSAGE_CONSTRAINTS); // invalid description
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}

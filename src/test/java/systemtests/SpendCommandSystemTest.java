@@ -18,10 +18,7 @@ import seedu.finance.logic.commands.SpendCommand;
 import seedu.finance.logic.commands.UndoCommand;
 import seedu.finance.model.Model;
 import seedu.finance.model.category.Category;
-import seedu.finance.model.record.Amount;
-import seedu.finance.model.record.Date;
-import seedu.finance.model.record.Name;
-import seedu.finance.model.record.Record;
+import seedu.finance.model.record.*;
 import seedu.finance.testutil.RecordBuilder;
 import seedu.finance.testutil.RecordUtil;
 
@@ -211,6 +208,12 @@ public class SpendCommandSystemTest extends FinanceTrackerSystemTest {
 
         command = SpendCommand.COMMAND_WORD + NAME_DESC_AMY + AMOUNT_DESC_AMY + DATE_DESC_AMY + INVALID_CATEGORY_DESC;
         assertCommandFailure(command, Category.MESSAGE_CONSTRAINTS);
+
+        /* Case: invalid description -> rejected */
+        command = SpendCommand.COMMAND_WORD + NAME_DESC_AMY + AMOUNT_DESC_AMY + DATE_DESC_AMY +CATEGORY_DESC_FRIEND
+                + INVALID_DESCRIPTION_DESC;
+        assertCommandFailure(command, Description.MESSAGE_CONSTRAINTS);
+
     }
 
 

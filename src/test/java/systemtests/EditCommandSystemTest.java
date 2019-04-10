@@ -237,6 +237,9 @@ public class EditCommandSystemTest extends FinanceTrackerSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased() + " "
                 + PREFIX_CATEGORY.getPrefix(), Category.MESSAGE_CONSTRAINTS);
 
+        /* Case: invalid description -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased() + " "
+                + INVALID_DESCRIPTION_DESC, Description.MESSAGE_CONSTRAINTS);
     }
 
 

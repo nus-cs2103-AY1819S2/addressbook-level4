@@ -115,7 +115,6 @@ public class FinanceTrackerParser {
         case ReverseCommand.COMMAND_ALIAS:
             return new ReverseCommand();
 
-
         case HistoryCommand.COMMAND_WORD:
         case HistoryCommand.COMMAND_ALIAS:
         case HistoryCommand.COMMAND_ALIAS2:

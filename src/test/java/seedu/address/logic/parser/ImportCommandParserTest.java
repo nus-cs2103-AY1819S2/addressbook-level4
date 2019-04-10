@@ -34,20 +34,15 @@ public class ImportCommandParserTest {
         String validTifTest = "src/main/resources/imageTest/valid/validTIFTest.tif";
         String validUnreasonablySmallTest = "src/main/resources/imageTest/valid/validUnreasonablySmallTest.jpg";
 
-        List<String> validFiles = new ArrayList<>();
-        validFiles.add(validBmpTest);
-        validFiles.add(validDuplicateTest);
-        validFiles.add(validGifTest);
-        validFiles.add(validJpgTest);
-        validFiles.add(validMimeTest);
-        validFiles.add(validNoMimeTest);
-        validFiles.add(validPngTest);
-        validFiles.add(validTifTest);
-        validFiles.add(validUnreasonablySmallTest);
-
-        for (String s : validFiles) {
-            assertParseSuccess(parser, s, new ImportCommand(false));
-        }
+        assertParseSuccess(parser, validBmpTest, new ImportCommand(false));
+        assertParseSuccess(parser, validDuplicateTest, new ImportCommand(false));
+        assertParseSuccess(parser, validGifTest, new ImportCommand(false));
+        assertParseSuccess(parser, validJpgTest, new ImportCommand(false));
+        assertParseSuccess(parser, validMimeTest, new ImportCommand(false));
+        assertParseSuccess(parser, validNoMimeTest, new ImportCommand(false));
+        assertParseSuccess(parser, validPngTest, new ImportCommand(false));
+        assertParseSuccess(parser, validTifTest, new ImportCommand(false));
+        assertParseSuccess(parser, validUnreasonablySmallTest, new ImportCommand(false));
     }
 
     @Test

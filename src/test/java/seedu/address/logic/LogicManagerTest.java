@@ -18,7 +18,6 @@ import org.junit.rules.TemporaryFolder;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CropCommand;
-import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CurrentEdit;
@@ -131,21 +130,6 @@ public class LogicManagerTest {
         }
 
         assertEquals(expectedModel, model);
-    }
-
-    /**
-     * Asserts that the result display shows all the {@code expectedCommands} upon the execution of
-     * {@code HistoryCommand}.
-     */
-    private void assertHistoryCorrect(String... expectedCommands) {
-        try {
-            CommandResult result = logic.execute(HistoryCommand.COMMAND_WORD);
-            String expectedMessage = String.format(
-                    HistoryCommand.MESSAGE_SUCCESS, String.join("\n", expectedCommands));
-            assertEquals(expectedMessage, result.getFeedbackToUser());
-        } catch (ParseException | CommandException e) {
-            throw new AssertionError("Parsing and execution of HistoryCommand.COMMAND_WORD should succeed.", e);
-        }
     }
 
     /**

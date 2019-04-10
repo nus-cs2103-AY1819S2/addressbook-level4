@@ -1,5 +1,6 @@
 package systemtests;
 
+import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_AMOUNT;
 import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_ASCENDING;
 import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_CATEGORY;
@@ -28,9 +29,12 @@ import seedu.finance.testutil.RecordUtil;
 
 public class SortCommandSystemTest extends FinanceTrackerSystemTest {
 
+    private static final String MESSAGE_INVALID_SORT_COMMAND_FORMAT =
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE);
     @Test
     public void sort(){
         Model defaultModel = getModel();
+
 
 
         /* Case: Sort list by name in descending order -> sorted */
@@ -138,11 +142,23 @@ public class SortCommandSystemTest extends FinanceTrackerSystemTest {
 
         /* --------------------------------- Performing invalid delete operation ------------------------------------ */
 
+
+        /* Case: Missing arguments -> rejected */
+        command = SortCommand.COMMAND_WORD;
+        assertCommandFailure(command, MESSAGE_INVALID_SORT_COMMAND_FORMAT);
+
         /* Case: Invalid flag -> rejected */
+        command = SortCommand.COMMAND_WORD + " 123";
+        assertCommandFailure(command, MESSAGE_INVALID_SORT_COMMAND_FORMAT);
 
         /* Case: Invalid order -> rejected */
+        command = SortCommand.COMMAND_WORD + " " + COMMAND_FLAG_NAME + " " + "-inc";
+        assertCommandFailure(command, MESSAGE_INVALID_SORT_COMMAND_FORMAT);
 
         /* Case: Invalid arguments (extra argument) -> rejected */
+        command = SortCommand.COMMAND_WORD + " " + COMMAND_FLAG_NAME + " " + COMMAND_FLAG_ASCENDING
+                + " " + COMMAND_FLAG_DATE;
+        assertCommandFailure(command, MESSAGE_INVALID_SORT_COMMAND_FORMAT);
 
     }
 

@@ -122,7 +122,7 @@ public class ReverseCommandSystemTest extends FinanceTrackerSystemTest {
         /* Case: Clears the finance tracker then reverse list -> show list is empty message */
         deleteAllRecords();
         Model emptyModel = new ModelManager();
-        assertCommandSuccess(ReverseCommand.COMMAND_WORD, ReverseCommand.MESSAGE_EMPTY_LIST, emptyModel);
+        assertCommandFailure(ReverseCommand.COMMAND_WORD, ReverseCommand.MESSAGE_EMPTY_LIST, emptyModel);
 
 
     }
@@ -138,6 +138,25 @@ public class ReverseCommandSystemTest extends FinanceTrackerSystemTest {
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         assertStatusBarUnchangedExceptSyncStatus();
+    }
+
+    /**
+     * Executes {@code command} and in addition,<br>
+     * 1. Asserts that the command box displays {@code command}.<br>
+     * 2. Asserts that result display box displays {@code expectedResultMessage}.<br>
+     * 3. Asserts that the selected card and status bar remain unchanged.<br>
+     * 4. Asserts that the command box has the error style.<br>
+     * Verifications 1 and 2 are performed by
+     * {@code FinanceTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     *
+     * @see FinanceTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     */
+    private void assertCommandFailure(String command, String expectedResultMessage, Model model) {
+        executeCommand(command);
+        assertApplicationDisplaysExpected(command, expectedResultMessage, model);
+        assertSelectedCardUnchanged();
+        assertCommandBoxShowsErrorStyle();
+        assertStatusBarUnchanged();
     }
 
 }

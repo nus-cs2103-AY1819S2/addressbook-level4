@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.finance.model.Model.PREDICATE_SHOW_ALL_RECORD;
 
 import seedu.finance.logic.CommandHistory;
+import seedu.finance.logic.commands.exceptions.CommandException;
 import seedu.finance.model.Model;
 
 /**
@@ -19,11 +20,11 @@ public class ReverseCommand extends Command {
     public static final String MESSAGE_EMPTY_LIST = "List is empty!";
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
         if (model.getFilteredRecordList().size() == 0) {
-            return new CommandResult(MESSAGE_EMPTY_LIST);
+            throw new CommandException(MESSAGE_EMPTY_LIST);
         }
 
         model.reverseFilteredRecordList();

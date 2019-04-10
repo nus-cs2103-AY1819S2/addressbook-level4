@@ -82,6 +82,10 @@ The help command displays this current page for any references you may need or q
 The add command allows you to add a file through TI into to the application, or through the GUI. +
 The added file will appear in the Files Section, highlighted in green, shown above. +
 
+NOTE: Files with the same name can be added to our application provided that
+they are not in the same directory. Just as any Operating System would allow the
+existence of files with the same name in different directories.
+
 Format: `add f/PATH_TO_FILE` [Text Input] +
 Format: `add` [GUI]
 

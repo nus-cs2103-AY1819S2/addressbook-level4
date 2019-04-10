@@ -63,6 +63,7 @@ public class SortCommandParserTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         assertParseFailure(parser, " -description " + COMMAND_FLAG_ASCENDING,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
-
+        assertParseFailure(parser, COMMAND_FLAG_NAME + " " + COMMAND_FLAG_ASCENDING + " "
+                + COMMAND_FLAG_AMOUNT, String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
     }
 }

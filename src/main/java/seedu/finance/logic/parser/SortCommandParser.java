@@ -35,8 +35,8 @@ public class SortCommandParser implements Parser<SortCommand> {
 
         String[] words = args.trim().split("\\s+");
 
-        if (words.length == 0 || !isValidCommandFlag(words[0])) {
-            // no arguments supplied or invalid command flag
+        if (words.length == 0 || words.length > 2 || !isValidCommandFlag(words[0])) {
+            // no arguments supplied or too many arguments supplied or invalid command flag
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
 

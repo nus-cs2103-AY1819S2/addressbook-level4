@@ -26,7 +26,7 @@ public class CommandResult {
 
     private String interviews;
 
-    private boolean search = false;
+    private boolean filter = false;
 
     private UniqueFilterList filterList;
 
@@ -71,7 +71,7 @@ public class CommandResult {
 
     public CommandResult(String feedbackToUser, JobListName name, UniqueFilterList list) {
         this(feedbackToUser, false, false);
-        search = true;
+        filter = true;
         listName = name;
         filterList = list;
     }
@@ -115,8 +115,8 @@ public class CommandResult {
         return feedbackToUser.equals(DisplayJobCommand.MESSAGE_SUCCESS);
     }
 
-    public boolean isSuccessfulSearch() {
-        return search;
+    public boolean isSuccessfulFilter() {
+        return filter;
     }
 
     public boolean isList() {

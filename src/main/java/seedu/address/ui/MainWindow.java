@@ -242,15 +242,19 @@ public class MainWindow extends UiPart<Stage> {
     private void updateFilterTags(JobListName listName, UniqueFilterList list) {
         switch (listName) {
             case APPLICANT:
+                allFilter.getChildren().clear();
                 list.forEach(filter -> allFilter.getChildren().add(new Label(filter.getFilterName())));
                 break;
             case KIV:
+                kivFilter.getChildren().clear();
                 list.forEach(filter -> kivFilter.getChildren().add(new Label(filter.getFilterName())));
                 break;
             case INTERVIEW:
+                interviewFilter.getChildren().clear();
                 list.forEach(filter -> interviewFilter.getChildren().add(new Label(filter.getFilterName())));
                 break;
             case SHORTLIST:
+                shortlistFilter.getChildren().clear();
                 list.forEach(filter -> shortlistFilter.getChildren().add(new Label(filter.getFilterName())));
                 break;
             default:
@@ -314,7 +318,7 @@ public class MainWindow extends UiPart<Stage> {
                 analytics.show(commandResult.getAnalytics());
             }
 
-            if (commandResult.isSuccessfulSearch()) {
+            if (commandResult.isSuccessfulFilter()) {
                 updateFilterTags(commandResult.getJobListName(), commandResult.getFilterList());
             }
 

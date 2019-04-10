@@ -45,28 +45,35 @@ public class DeleteFilterCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        UniqueFilterList predicateList;
+
         requireNonNull(model);
         switch (filterListName) {
         case APPLICANT:
             model.removePredicateJobAllApplicants(targetName);
             model.updateJobAllApplicantsFilteredPersonList();
+            predicateList = model.getPredicateLists(APPLICANT);
             break;
         case KIV:
             model.removePredicateJobKiv(targetName);
             model.updateJobKivFilteredPersonList();
+            predicateList = model.getPredicateLists(KIV);
             break;
         case INTERVIEW:
             model.removePredicateJobInterview(targetName);
             model.updateJobInterviewFilteredPersonList();
+            predicateList = model.getPredicateLists(INTERVIEW);
             break;
         case SHORTLIST:
             model.removePredicateJobShortlist(targetName);
             model.updateJobShortlistFilteredPersonList();
+            predicateList = model.getPredicateLists(SHORTLIST);
             break;
         default:
             throw new CommandException(MESSAGE_DELETE_FILTER_FAIL);
         }
-        return new CommandResult(String.format(MESSAGE_DELETE_FILTER_SUCCESS, targetName));
+        return new CommandResult(String.format(MESSAGE_DELETE_FILTER_SUCCESS, targetName), filterListName,
+                predicateList);
     }
 
     @Override

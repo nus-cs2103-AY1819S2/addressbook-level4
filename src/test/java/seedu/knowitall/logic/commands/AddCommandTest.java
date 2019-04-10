@@ -184,6 +184,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Card createScoredCard(Card cardToMark, boolean markCorrect) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setCardAsAnswered() {
             throw new AssertionError("This method should not be called.");
         }
@@ -218,7 +223,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setTestCsvPath() throws IOException {
+        public void setTestCsvPath(String path) {
             throw new AssertionError("This method should not be called.");
         }
 

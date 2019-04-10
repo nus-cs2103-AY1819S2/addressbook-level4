@@ -9,8 +9,8 @@ import static seedu.knowitall.commons.util.AppUtil.checkArgument;
  */
 public class Hint {
 
-    public static final String MESSAGE_CONSTRAINTS = "Hints should only contain alphanumeric characters and spaces";
-    public static final String VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String MESSAGE_CONSTRAINTS = "Hints can take any values, and should not be blank";
+    public static final String VALIDATION_REGEX = "[^\\s].*";
 
     public final String hintName;
 

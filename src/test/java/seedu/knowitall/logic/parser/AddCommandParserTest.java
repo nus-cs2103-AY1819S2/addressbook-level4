@@ -90,8 +90,8 @@ public class AddCommandParserTest {
                 + HINT_DESC_FRIEND, Answer.MESSAGE_CONSTRAINTS);
 
         // invalid hint
-        assertParseFailure(parser, QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_2 + INVALID_HINT_DESC
-                + VALID_HINT_FRIEND, Hint.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_2 + INVALID_HINT_DESC,
+                Hint.MESSAGE_CONSTRAINTS);
 
         // invalid option
         assertParseFailure(parser, QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_2 + INVALID_OPTION_DESC

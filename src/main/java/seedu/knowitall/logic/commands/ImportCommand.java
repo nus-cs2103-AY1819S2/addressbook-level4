@@ -9,10 +9,11 @@ import seedu.knowitall.model.DuplicateCardFolderException;
 import seedu.knowitall.model.Model;
 import seedu.knowitall.model.Model.State;
 import seedu.knowitall.storage.csvmanager.CsvFile;
+import seedu.knowitall.storage.csvmanager.exceptions.IncorrectCsvHeadersException;
 
 
 /**
- * Imports a .json file containing card folders data into the application
+ * Imports a .csv file containing card folders data into the application
  */
 public class ImportCommand extends Command {
 
@@ -23,12 +24,15 @@ public class ImportCommand extends Command {
             + "File imported must have a .csv extension.\n"
             + "Default file path if not specified will be in the root folder of this application\n"
             + "Parameters: CSV_FILE_NAME\n"
-            + "Example: " + COMMAND_WORD + "alice.csv";
+            + "Example: " + COMMAND_WORD + " alice.csv";
     public static final String MESSAGE_FILE_OPS_FAILURE = "Could not import from specified file. Check that it exists "
             + "in root directory";
     public static final String MESSAGE_SUCCESS = "Successfully imported: %1$s";
 
     public static final String MESSAGE_DUPLICATE_CARD_FOLDERS = "Card folder already exists in model";
+
+    public static final String MESSAGE_CARD_FIELD_WRONG_SPECIFICATION = "Card fields in csv file do not follow "
+            + "flashcard " + "specification:\n";
 
     private CsvFile csvFile;
 
@@ -50,15 +54,12 @@ public class ImportCommand extends Command {
             throw new CommandException(MESSAGE_FILE_OPS_FAILURE);
         } catch (DuplicateCardFolderException e) {
             throw new CommandException(MESSAGE_DUPLICATE_CARD_FOLDERS);
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(MESSAGE_CARD_FIELD_WRONG_SPECIFICATION + e.getMessage());
+        } catch (IncorrectCsvHeadersException e) {
+            throw new CommandException(Messages.MESSAGE_INCORRECT_CSV_FILE_HEADER);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, csvFile.filename));
-    }
-
-    /**
-     * Returns true if file extension is of .json format.
-     */
-    private boolean isCorrectFileExtension(String filename) {
-        return filename.split("\\.(?=[^\\.]+$)")[1].equals("csv");
     }
 
     @Override

@@ -15,6 +15,7 @@ import seedu.knowitall.model.card.Answer;
 import seedu.knowitall.model.card.Card;
 import seedu.knowitall.storage.csvmanager.CsvFile;
 import seedu.knowitall.storage.csvmanager.exceptions.CsvManagerNotInitialized;
+import seedu.knowitall.storage.csvmanager.exceptions.IncorrectCsvHeadersException;
 
 /**
  * The API of the Model component.
@@ -245,6 +246,14 @@ public interface Model extends Observable {
     boolean markAttemptedAnswer(Answer attemptedAnswer);
 
     /**
+     *
+     * @param cardToMark {@code Card} which is being marked correct or wrong
+     * @param markCorrect Boolean representing if card should be graded correct or wrong
+     * @return Card created with new score
+     */
+    Card createScoredCard(Card cardToMark, boolean markCorrect);
+
+    /**
      * Returns true if the index provided matches the answerIndex of the currently tested card,
      * false otherwise.
      */
@@ -265,13 +274,13 @@ public interface Model extends Observable {
 
     void exportCardFolders(List<Integer> cardFolderExports) throws IOException, CsvManagerNotInitialized;
 
-    void importCardFolders(CsvFile csvFile) throws IOException, CommandException;
+    void importCardFolders(CsvFile csvFile) throws IOException, CommandException, IncorrectCsvHeadersException;
 
     void enterReportDisplay();
 
     void exitReportDisplay();
 
-    void setTestCsvPath() throws IOException;
+    void setTestCsvPath(String path);
 
     String getDefaultPath();
 

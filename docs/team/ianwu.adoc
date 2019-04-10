@@ -28,7 +28,7 @@ The following sections illustrate the feature in more detail, as well as the rel
 *** Implements coordinates and orientation: Behind the scenes, the feature implements the `Coordinates` and `Orientation` classes that are used by the Battle Manager feature and the Computer Enemy feature.
 *** Implements boundary-value checking of the map grid: The feature implements code for checking the boundaries of the map grid for a given ship, which is used by the Battle Manager feature and the Computer Enemy feature to implement turn-taking in the game.
 
-* *Code contributed*: Here are my https://github.com/CS2103-AY1819S2-W14-3/main/commits/master?author=iwle[code commits].
+* *Code contributed*: Here are my https://github.com/CS2103-AY1819S2-W14-3/main/commits/master?author=iwle[code commits] and https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=iwle&sort=displayName&timeframe=day&reverse=false&repoSort=true[RepoSense].
 
 * *Other contributions*:
 

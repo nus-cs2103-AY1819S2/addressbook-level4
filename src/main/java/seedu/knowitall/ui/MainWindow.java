@@ -17,7 +17,6 @@ import seedu.knowitall.logic.Logic;
 import seedu.knowitall.logic.commands.CommandResult;
 import seedu.knowitall.logic.commands.exceptions.CommandException;
 import seedu.knowitall.logic.parser.exceptions.ParseException;
-import seedu.knowitall.model.CardFolder;
 import seedu.knowitall.model.ReadOnlyCardFolder;
 import seedu.knowitall.model.card.Card;
 

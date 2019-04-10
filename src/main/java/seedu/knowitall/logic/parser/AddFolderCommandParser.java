@@ -25,7 +25,7 @@ public class AddFolderCommandParser implements Parser<AddFolderCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFolderCommand.MESSAGE_USAGE));
         }
 
-        if (!trimmedArgs.chars().allMatch(c -> Character.isLetter(c) || Character.isDigit(c))) {
+        if (!CardFolder.isValidFolderName(trimmedArgs)) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReadOnlyCardFolder.MESSAGE_CONSTRAINTS));
         }

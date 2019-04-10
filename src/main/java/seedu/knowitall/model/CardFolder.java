@@ -50,6 +50,17 @@ public class CardFolder implements ReadOnlyCardFolder {
         setFolderScores(toBeCopied.getFolderScores());
     }
 
+    /**
+     * Returns true if folder name adheres to constraints as listed in {@code MESSAGE_CONSTRAINTS}.
+     */
+    public static boolean isValidFolderName(String folderName) {
+        if (folderName == null || folderName.isEmpty() || folderName.length() > 50) {
+            return false;
+        }
+        return folderName.chars().allMatch(
+            c -> Character.isLetter(c) || Character.isDigit(c) || Character.isWhitespace(c));
+    }
+
     //// list overwrite operations
 
     /**

@@ -153,6 +153,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public String getActiveCardFolderName() {
+        return getActiveCardFolder().getFolderName();
+    }
+
+    @Override
     public ReadOnlyCardFolder getActiveCardFolder() {
         return getActiveVersionedCardFolder();
     }

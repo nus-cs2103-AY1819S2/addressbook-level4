@@ -245,9 +245,9 @@ public abstract class CardFolderSystemTest {
     /**
      * Asserts that the status bar indicates that user is inside a folder.
      */
-    protected void assertStatusBarIsInFolder() {
+    protected void assertStatusBarIsInFolder(String folderName) {
         StatusBarFooterHandle handle = getStatusBarFooter();
-        assertEquals(String.format(STATUS_IN_FOLDER, TypicalCards.getTypicalFolderName()), handle.getCurrentStatus());
+        assertEquals(String.format(STATUS_IN_FOLDER, folderName), handle.getCurrentStatus());
     }
 
     /**
@@ -275,7 +275,7 @@ public abstract class CardFolderSystemTest {
         assertEquals(resultDisplayString, getResultDisplay().getText());
         assertListMatching(getCardListPanel(), getModel().getFilteredCards());
         assertEquals("", getBrowserPanel().getCurrentQuestion());
-        assertStatusBarIsInFolder();
+        assertStatusBarIsInFolder(getModel().getActiveCardFolderName());
     }
 
     /**

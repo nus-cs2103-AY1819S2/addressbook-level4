@@ -7,6 +7,7 @@ import javafx.util.Pair;
 import seedu.knowitall.commons.core.index.Index;
 import seedu.knowitall.logic.commands.EditFolderCommand;
 import seedu.knowitall.logic.parser.exceptions.ParseException;
+import seedu.knowitall.model.CardFolder;
 import seedu.knowitall.model.ReadOnlyCardFolder;
 
 /**
@@ -25,7 +26,7 @@ public class EditFolderCommandParser implements Parser<EditFolderCommand> {
         Pair<Index, String> parsedObjects;
         parsedObjects = ParserUtil.parseIndexAndFolderName(args);
 
-        if (!parsedObjects.getValue().chars().allMatch(c -> Character.isLetter(c) || Character.isDigit(c))) {
+        if (!CardFolder.isValidFolderName(parsedObjects.getValue())) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReadOnlyCardFolder.MESSAGE_CONSTRAINTS));
         }

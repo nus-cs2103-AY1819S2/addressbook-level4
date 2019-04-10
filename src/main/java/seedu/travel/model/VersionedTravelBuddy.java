@@ -1,5 +1,7 @@
 package seedu.travel.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,8 +39,9 @@ public class VersionedTravelBuddy extends TravelBuddy {
     /**
      * Saves a copy of the current {@code ChartBook} state at the end of the state list.
      */
-    void commitCharts() {
+    private void commitCharts() {
         ObservableList<Place> placeList = travelBuddyStateList.get(travelBuddyStateList.size() - 1).getPlaceList();
+        requireNonNull(placeList);
         new ChartBook(placeList);
     }
 

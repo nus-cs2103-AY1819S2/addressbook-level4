@@ -46,7 +46,6 @@ _{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
-
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
@@ -55,8 +54,6 @@ _{you can add/remove categories in the list above}_
 |_This is the start of extract of the User Guide._
 |===
 include::../UserGuide.adoc[tag=intro]
-
-include::../UserGuide.adoc[tag=additionalInfo]
 
 include::../UserGuide.adoc[tag=features]
 
@@ -82,12 +79,10 @@ include::../UserGuide.adoc[tag=commandFormats]
 
 include::../DeveloperGuide.adoc[tag=generate]
 
+include::../DeveloperGuide.adoc[tag=user-stories]
+
+include::../DeveloperGuide.adoc[tag=use-cases]
+
 |===
 |_This is the end of extract of the Developer Guide._
 |===
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

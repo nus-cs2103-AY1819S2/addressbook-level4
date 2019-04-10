@@ -31,7 +31,7 @@ import seedu.travel.model.chart.RatingChart;
 import seedu.travel.model.chart.YearChart;
 
 /**
- * An UI component that displays information of a {@code Place}.
+ * A UI component that displays information of a Chart.
  */
 public class ChartCard extends UiPart<Region> {
 
@@ -115,6 +115,7 @@ public class ChartCard extends UiPart<Region> {
     private void displayLabelForData(XYChart.Data<String, Number> data) {
         final Node node = data.getNode();
         final Text dataText = new Text(data.getYValue() + "");
+        dataText.setStyle("-fx-font-size: 11pt;");
 
         // adds a text label to the parent of each bar node
         node.parentProperty().addListener(new ChangeListener<Parent>() {

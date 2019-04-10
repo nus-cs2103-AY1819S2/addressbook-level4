@@ -31,9 +31,9 @@ public class AttackCommand extends Command {
     public static final String MESSAGE_ANOTHER_TURN = "Take another turn.";
     public static final String MESSAGE_TRY_AGAIN = "Please select another cell to attack.";
     public static final String MESSAGE_PLAYER_WIN = "You won. Congratulations!\n"
-        + "Start another game with 'init', or enter 'exit' to quit.";
+        + "Start another game with 'init', view your statistics with 'stats', or enter 'exit' to quit.";
     public static final String MESSAGE_PLAYER_LOSE = "You lost... maybe you'll do better next time!\n"
-        + "Start another game with 'init', or enter 'exit' to quit.";
+        + "Start another game with 'init', view your statistics with 'stats' or enter 'exit' to quit.";
 
     private Coordinates coord;
 
@@ -72,7 +72,8 @@ public class AttackCommand extends Command {
                 // Player wins!
                 model.setBattleState(BattleState.PLAYER_WIN);
 
-                return new CommandResult(MESSAGE_PLAYER_WIN);
+                return new CommandResult(MESSAGE_PLAYER_WIN + "\n"
+                    + new SaveCommand().execute(model, history).getFeedbackToUser());
             } else {
                 return new CommandResult(res.formatAsUserAttack() + "\n" + MESSAGE_ANOTHER_TURN);
             }

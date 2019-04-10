@@ -73,8 +73,9 @@ public class GenerateBillForReservationCommand extends BillCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof GenerateBillForReservationCommand // instanceof handles nulls
-            && reservationContainsPayerPredicate.equals(((GenerateBillForReservationCommand) other).reservationContainsPayerPredicate)
-            && reservationWithTypePredicate.equals(((GenerateBillForReservationCommand) other).reservationWithTypePredicate)
-        );
+            && reservationContainsPayerPredicate.equals(((GenerateBillForReservationCommand) other)
+            .reservationContainsPayerPredicate)
+            && reservationWithTypePredicate.equals(((GenerateBillForReservationCommand) other)
+            .reservationWithTypePredicate));
     }
 }

@@ -68,7 +68,7 @@ public class GenerateBillForBookingCommand extends BillCommand {
         model.commitHotelManagementSystem();
 
 
-        return new CommandResult(String.format(MESSAGE_GENERATE_BILL_SUCCESS, bill.getCustomer().getName()));
+        return new CommandResult(String.format(MESSAGE_GENERATE_BILL_SUCCESS, bill.getCustomer()));
     }
 
     @Override

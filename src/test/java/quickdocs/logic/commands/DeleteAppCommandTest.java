@@ -44,8 +44,21 @@ public class DeleteAppCommandTest {
 
         Assert.assertEquals(sb.toString(), commandResult.getFeedbackToUser());
     }
+
     @Test
-    public void executeInvalidDeleteAppointment() throws Exception {
+    public void executeInvalidDeleteAppointment_nonOfficeHours() throws Exception {
+        // Start time outside of office hours
+        LocalDate date = APP_E.getDate();
+        LocalTime start = LocalTime.parse("08:00");
+        DeleteAppCommand deleteAppCommand = new DeleteAppCommand(date, start);
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(DeleteAppCommand.MESSAGE_NON_OFFICE_HOURS);
+        deleteAppCommand.execute(model, commandHistory);
+    }
+
+    @Test
+    public void executeInvalidDeleteAppointment_appNotFound() throws Exception {
         // No such appointment with this date and start time
         LocalDate date = APP_E.getDate();
         LocalTime start = APP_E.getStart();
@@ -55,6 +68,7 @@ public class DeleteAppCommandTest {
         thrown.expectMessage(DeleteAppCommand.MESSAGE_APPOINTMENT_NOT_FOUND);
         deleteAppCommand.execute(model, commandHistory);
     }
+
     @Test
     public void equals() {
         LocalDate dateA = APP_A.getDate();

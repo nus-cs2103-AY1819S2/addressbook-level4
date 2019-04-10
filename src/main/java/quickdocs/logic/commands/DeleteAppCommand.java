@@ -11,6 +11,7 @@ import quickdocs.logic.commands.exceptions.CommandException;
 import quickdocs.logic.parser.DeleteAppCommandParser;
 import quickdocs.model.Model;
 import quickdocs.model.appointment.Appointment;
+import quickdocs.model.appointment.AppointmentManager;
 
 
 /**
@@ -31,6 +32,7 @@ public class DeleteAppCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Appointment deleted:\n%1$s\n";
     public static final String MESSAGE_APPOINTMENT_NOT_FOUND = "No appointment with the given date and time found";
+    public static final String MESSAGE_NON_OFFICE_HOURS = "Appointment start time is outside of office hours.";
 
     private final LocalDate date;
     private final LocalTime start;
@@ -46,6 +48,10 @@ public class DeleteAppCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
+        if (start.isBefore(AppointmentManager.OPENING_HOUR) || start.isAfter(AppointmentManager.CLOSING_HOUR)) {
+            throw new CommandException(MESSAGE_NON_OFFICE_HOURS);
+        }
 
         Optional<Appointment> appointmentToDelete = model.getAppointment(date, start);
         if (!appointmentToDelete.isPresent()) {

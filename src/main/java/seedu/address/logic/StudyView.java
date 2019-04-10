@@ -3,6 +3,7 @@ package seedu.address.logic;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -10,12 +11,10 @@ import javafx.scene.layout.Region;
 import seedu.address.logic.commands.BackCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.GenerateQuestionCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.OpenDeckCommand;
 import seedu.address.logic.commands.ShowAnswerCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.GenerateQuestionCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Card;
@@ -118,7 +117,6 @@ public class StudyView implements ViewState {
         textShown.setValue(text);
     }
 
-
     /**
      * Returns the current textShown
      */
@@ -148,24 +146,36 @@ public class StudyView implements ViewState {
         getCurrentCard().addDifficulty(rating);
     }
 
-    /**
-     * The type of possible states that the study view can have.
-     */
-    public enum StudyState { QUESTION, ANSWER }
-
     public UiPart<Region> getPanel() {
         return new StudyPanel(textShown, currentStudyState, userAnswer);
     }
 
     @Override
     public boolean equals(Object obj) {
-        // TODO
-        return super.equals(obj);
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof StudyView)) {
+            return false;
+        }
+        // state check
+        StudyView other = (StudyView) obj;
+        return Objects.equals(currentCard, other.currentCard)
+                && Objects.equals(currentStudyState.getValue(), other.currentStudyState.getValue())
+                && Objects.equals(deckShuffler, other.deckShuffler)
+                && Objects.equals(userAnswer.getValue(), other.userAnswer.getValue());
     }
 
     @Override
     public int hashCode() {
-        // TODO
-        return super.hashCode();
+        return Objects.hash(currentCard, currentStudyState.getValue(), deckShuffler, userAnswer.getValue());
     }
+
+    /**
+     * The type of possible states that the study view can have.
+     */
+    public enum StudyState { QUESTION, ANSWER }
 }

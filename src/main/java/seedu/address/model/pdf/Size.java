@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Pdf's file size in the pdf book.
  * Guarantees: immutable; is valid as declared in {@link #isValidSize(String)}
  */
-public class Size {
+public class Size implements Comparable<Size> {
     public static final String MESSAGE_CONSTRAINTS = "File size should be a non-negative number";
 
     public static final String VALIDATION_REGEX = "^\\d+$";
@@ -46,5 +46,13 @@ public class Size {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+
+    @Override
+    public int compareTo(Size other) {
+        int thisFileSize = Integer.parseInt(this.value);
+        int otherFileSize = Integer.parseInt(other.value);
+        return thisFileSize - otherFileSize;
     }
 }

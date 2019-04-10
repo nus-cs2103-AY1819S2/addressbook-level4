@@ -7,6 +7,7 @@ import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.Status;
+import seedu.address.model.exceptions.BoundaryValueException;
 
 /**
  * Wraps all data at the address-book level
@@ -38,24 +39,24 @@ public class BoundaryValueChecker {
      * Performs all the relevant checks.
      * @throws CommandException when a check fails
      */
-    public void performChecks() throws CommandException {
+    public void performChecks() throws BoundaryValueException {
         if (!this.isHeadWithinBounds()) {
-            throw new CommandException(MESSAGE_OUT_OF_BOUNDS);
+            throw new BoundaryValueException(MESSAGE_OUT_OF_BOUNDS);
         } else if (this.orientation.isHorizontal()) {
             if (!this.isBattleshipAbsent()) {
-                throw new CommandException(MESSAGE_BATTLESHIP_PRESENT);
+                throw new BoundaryValueException(MESSAGE_BATTLESHIP_PRESENT);
             } else if (!this.isBodyWithinHorizontalBounds()) {
-                throw new CommandException(Messages.MESSAGE_BODY_LENGTH_TOO_LONG);
+                throw new BoundaryValueException(Messages.MESSAGE_BODY_LENGTH_TOO_LONG);
             } else if (!this.isHorizontalClear()) {
-                throw new CommandException(MESSAGE_BATTLESHIP_PRESENT_BODY_HORIZONTAL);
+                throw new BoundaryValueException(MESSAGE_BATTLESHIP_PRESENT_BODY_HORIZONTAL);
             }
         } else if (this.orientation.isVertical()) {
             if (!this.isBattleshipAbsent()) {
-                throw new CommandException(MESSAGE_BATTLESHIP_PRESENT);
+                throw new BoundaryValueException(MESSAGE_BATTLESHIP_PRESENT);
             } else if (!this.isBodyWithinVerticalBounds()) {
-                throw new CommandException(Messages.MESSAGE_BODY_LENGTH_TOO_LONG);
+                throw new BoundaryValueException(Messages.MESSAGE_BODY_LENGTH_TOO_LONG);
             } else if (!this.isVerticalClear()) {
-                throw new CommandException(MESSAGE_BATTLESHIP_PRESENT_BODY_VERTICAL);
+                throw new BoundaryValueException(MESSAGE_BATTLESHIP_PRESENT_BODY_VERTICAL);
             }
         }
     }

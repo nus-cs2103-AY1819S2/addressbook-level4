@@ -45,7 +45,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         interviews = new Interviews();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
@@ -71,6 +72,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.interviews.setInterviews(interviews);
     }
 
+    public void setJobs(List<Job> jobs) {
+        this.jobs.setJobs(jobs);
+        indicateModified();
+    }
+
     public void setBlockOutDates(List<Calendar> blockOutDates) {
         this.interviews.setBlockOutDates(blockOutDates);
     }
@@ -83,6 +89,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setInterviews(newData.getInterviews());
+        setJobs(newData.getJobList());
     }
 
     //// person-level operations
@@ -134,11 +141,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Retrieves UniquePersonList from job
+     * Retrieves a job in the addressbook
      */
-    public UniquePersonList getJobPersonList(JobName jobName, int listNumber) {
-        Job job = jobs.getJob(jobName);
-        return job.getPeople(listNumber);
+    public Job getJob(JobName jobName) {
+        return jobs.getJob(jobName);
     }
 
     /**
@@ -228,6 +234,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+    public ObservableList<Job> getJobList() {
+        return jobs.asUnmodifiableObservableList();
+    }
+
+    public UniquePersonList getUniquePersonList() {
+        return persons;
+    }
+
     /**
      * Generates interviews
      */
@@ -277,11 +291,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.asUnmodifiableObservableList();
     }
 
+    public ObservableList<Job> getAllJobList() {
+        return jobs.asUnmodifiableObservableList();
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+            || (other instanceof AddressBook // instanceof handles nulls
+            && persons.equals(((AddressBook) other).persons));
     }
 
     @Override

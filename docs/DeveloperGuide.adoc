@@ -995,9 +995,9 @@ Use case resumes at step 2.
 
 *MSS*
 
-1. User requests to list persons
-2. slaveFinder() shows a list of persons
-3. User requests to view analytics for list of persons
+1. User requests to display lists of person from job lists
+2. slaveFinder() shows lists of persons
+3. User requests to view analytics for specific list of persons
 4. slaveFinder() shows analytics results
 +
 Use case ends.
@@ -1075,13 +1075,14 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-=== Searching a list of persons
+=== Filtering a list of persons
 
-. Searching a list of person while all persons are listed
+. Filtering a list of person while all persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `search m/CS` +
-   Expected: All persons with major CS will show on the list
+.. Prerequisites: Create a job object using the `createJob` command. Display job list using the `DisplayJob` command. 4 lists of persons +
+   will show.
+.. Test case: `filter a m/CS` +
+   Expected: All persons with major CS in "Applicant" list will show on the list
 .. Test case: `search none` +
    Expected: List unchangeed. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `search`, `search x/` (where x is not any prefix) _{give more}_ +

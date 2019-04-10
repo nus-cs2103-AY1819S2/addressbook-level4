@@ -137,6 +137,15 @@ public class StringUtilTest {
         assertTrue(StringUtil.containsWordIgnoreCase("AAA bBb ccc  bbb", "bbB"));
     }
 
+    @Test
+    public void valueInRange_validInputs_correctResult() {
+        assertTrue(StringUtil.valueInRange(" 1.00-2.00 ", "1.5"));
+        assertTrue(StringUtil.valueInRange(" 1.00-2.00;2.00-3.00 ", "1.5"));
+        assertTrue(StringUtil.valueInRange(" 1.00-2.00;2.00-3.00 ", "2.5"));
+        assertTrue(StringUtil.valueInRange(" 1.00  - 2.00;   2.00 -3.00 ", "2.5"));
+
+    }
+
     //---------------- Tests for getDetails --------------------------------------
 
     /*

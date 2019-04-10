@@ -53,9 +53,9 @@ public class AddCommand extends Command {
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_SCHOOL + "NUS "
             + PREFIX_MAJOR + "Computer Science "
-            + PREFIX_GRADE + "4.76"
-            + PREFIX_JOBSAPPLY + "Software Engineer"
-            + PREFIX_INTERVIEWSCORES + "1,2,3,4,5"
+            + PREFIX_GRADE + "4.76 "
+            + PREFIX_JOBSAPPLY + "Software Engineer "
+            + PREFIX_INTERVIEWSCORES + "1,2,3,4,5 "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney\n"
             + "The alias \"a\" can be used instead.\n"
@@ -63,11 +63,17 @@ public class AddCommand extends Command {
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
+            + PREFIX_NRIC + "S9671597H "
+            + PREFIX_GENDER + "Male "
+            + PREFIX_RACE + "Indian "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_SCHOOL + "NUS "
             + PREFIX_MAJOR + "Computer Science "
+            + PREFIX_GRADE + "4.76 "
+            + PREFIX_JOBSAPPLY + "Software Engineer "
+            + PREFIX_INTERVIEWSCORES + "1,2,3,4,5 "
             + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_TAG + "owesMoney\n";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";

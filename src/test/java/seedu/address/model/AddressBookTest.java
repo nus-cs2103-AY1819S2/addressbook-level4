@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalJobs.ENGINEER;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalObjects.ALICE;
+import static seedu.address.testutil.TypicalObjects.ENGINEER;
+import static seedu.address.testutil.TypicalObjects.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,6 +23,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.interviews.Interviews;
+import seedu.address.model.job.Job;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
@@ -138,6 +139,7 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Job> jobs = FXCollections.observableArrayList();
         private final Interviews interviews = new Interviews();
 
         AddressBookStub(Collection<Person> persons) {
@@ -152,6 +154,11 @@ public class AddressBookTest {
         @Override
         public Interviews getInterviews() {
             return interviews;
+        }
+
+        @Override
+        public ObservableList<Job> getJobList() {
+            return jobs;
         }
 
         @Override

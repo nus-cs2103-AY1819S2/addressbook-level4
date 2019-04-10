@@ -27,7 +27,8 @@ slaveFinder() is for those who *prefer to use a desktop app for managing contact
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::DisplayJob.png[width="790"]
+image::displayAll.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -65,7 +66,6 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS g/GENDER r/RACE m/MAJOR s/S
 [TIP]
 * A person can have any number of tags (including 0)
 * A person can have any number of past jobs (including 0)
-* A person can only have "CS", "ME", "MATH", "ECON", "Computer Science" as their majors (case sensitive)
 
 Examples:
 
@@ -74,8 +74,10 @@ Examples:
 
 ==== Listing all persons : `list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all job openings and applicants in the slave system. +
 Format: `list`
+
+* `Useful after using search/find/displayJob which shows a subset of the list.`
 
 ==== Editing a person : `edit`
 
@@ -88,7 +90,6 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE]
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person's tags by typing `t/` without specifying any tags after it.
-* You can remove all the person's moudles by typing `mo/` without specifying any moudles after it.
 ****
 
 Examples:
@@ -176,29 +177,6 @@ Examples:
 Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
-
-==== Searching persons by personal information: `search`
-
-Search persons whose personal information exactly to the given keywords in the specific fields. +
-Format: `search [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [s/SCHOOL] [m/MAJOR] [gr/GRADE]...`
-
-****
-* The search is case insensitive. e.g `cs` will match `CS`
-* Any personal information is searched.
-* Only full information will be matched e.g. `computer` will not match `Computer Science`
-* In each field, persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-* In whole command, persons matching all fields will be returned (i.e. `AND` search). e.g. `m/CS s/NUS` will only return persons who are NUS's CS students.
-* For search grade, the parameter should be in well formatt(i.e. 3.42-3.98), then all persons whose grade in this range will be returned.
-****
-
-Examples:
-
-* `search m/CS` +
-Returns people whose major is `CS`
-* `search m/CS s/NUS` +
-Returns any person whose major is `CS` and school is `NUS`
-* `search gr/3.0-4.0 1.0-2.0` +
-Returns any person whose grade is in range of 3.0-4.0 or 1.0-2.0.
 
 ==== Deleting a person : `delete`
 
@@ -294,16 +272,54 @@ Examples:
 Imports all resumes in the given path
 
 
-==== Create a Job Hiring Process: `createjob` `Coming in v1.4`
+==== Create a Job Hiring Process: `createjob`
 
-Create a Job hiring process with three person lists: "Applied", "Interview", "To be sent to boss". +
-Format : `createjob JOBNAME`
+Create a Job hiring process with four person lists: "All Applicants", "KIV", "Interview", "Shortlist". +
+Format : `createJob jn/JOBNAME`
 
 ****
 * JOBNAME indicate the job name. For examle: `IOS-Developer`.
-* All people in the storage who want to apply this job will automatically be added in "Applied" list.
-* All people in "Applied" list will show on the display list after this command.
-* A label with JOBNAME will show on the display board to indicate the current Job Hiring Process.
+* All people in the storage who want to apply this job will automatically be added in "Applied" list. `Coming in v1.4`
+* All people in "Applied" list will show on the display list after this command. `Coming in v1.4`
+* A label with JOBNAME will show on the display board to indicate the current Job Hiring Process. `Coming in v1.4`
+****
+
+==== Delete the Job Hiring Process : `deletejob`
+
+Delete a Job Hiring Process and all its information +
+Format : `deleteJob jn/JOBNAME`
+
+==== Add all shown persons to a job : `addAll`
+
+Adds all currently shown people to the "All Applicants" list of a job +
+Format : `addAll jn/JOBNAME`
+
+****
+* Filter function can be used to filter those who applied for the job before using this command
+****
+
+==== Add a specific person to Job using NRIC : `addPersonToJob`
+
+Adds person with NRIC to "All Applicants" list of a job +
+Format : `addPersonToJob jn/JOBNAME nric/NRIC`
+
+==== Displays one of the four persons list in a job : `DisplayJob`
+
+Displays LISTNUMBERth list of a Job +
+Format : `DisplayJob ln/LISTNUMBER jn/JOBNAME`
+
+****
+* Displays all four lists at once `Coming in v1.4`
+****
+
+==== Moves person of NRIC from one list to another in a Job: `movePerson`
+
+Moves a person of NRIC from list "from" to list "to" in a job +
+Format : `movePerson jn/JOBNAME nric/NRIC ln/FROM ln/TO`
+
+****
+* FROM and TO must be 0 to 3 as there are only 4 lists
+* Move a selected few people at a time `Coming in v1.4`
 ****
 
 ==== Switch a Job Hiring Process: `switchjob` `Coming in v1.4`
@@ -316,12 +332,15 @@ Format : `switchjob JOBNAME`
 * JOBNAME label will change after this command.
 ****
 
-==== Filter search results : `filter` `Coming in v1.4`
+==== Filter results : `filter`
 
 Filter the people displayed on the Person List. Each filer has a name and can be delete, diplay result always base on all filter request. +
-Format: `filter FILTERNAME [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...`
+Format: `filter FILTERLISTNAME [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...`
 
 ****
+* FILTERLISTNAME indicate which Job list this command will used.
+* FILTERLISTNAME can be full name of the job lists suach as "Applicant", "KIV", "Interview", "Shortlist".
+* FILTERLISTNAME also can be prefix of the job lists suach as "a", "k", "i", "s".
 * Multiple filters can be added to filter people. All the filter labels will show on the display board.
 * Display board always display people base on all undeleted filters.
 ****
@@ -336,20 +355,16 @@ Format: `deletefilter FILTERNAME1 FILTERNAME2...`
 * Display board always display people base on all undeleted filters.
 ****
 
-==== Get ranked list : `rank` `Coming in v1.4`
+==== Display Analytics : `analytics` 
 
-Rank the people displayed on the Person List base on their information like Name or Grade. Each rank command has a name and priority and can be delete, diplay result always base on all filter request. +
-Format : `rank`
+Display the analytics of applicants for desired job list (applicant, kiv, interview, shortlist, all applicants)
+Format : `analytics LISTNAME` or  `analytics`
 
-==== Delete a rank command : `deleterank` `Coming in v1.4`
-
-Delete a rank command showing on the display board and renew the update display people list. +
-Format: `deleterank RANKNAME1 RANKNAME2...`
-
-==== Display Analytics : `analytics` `Coming in v1.4`
-
-Display the analytics of applicants on a new window
-Format : `analytics`
+****
+* LISTNAME indicate which Job list this command will used.
+* LISTNAME can are the names of job lists such as "applicant", "kiv", "interview", "shortlist".
+* If no LISTNAME is entered, the analytis of all applicants in the slave system will be shown.
+****
 
 ==== Select people into "Interview" List: `selectInterview` `Coming in v1.4`
 
@@ -412,10 +427,6 @@ Generate `report.txt` to show 3 categories of applicants for a specific role:
 "Applied", "Interview", "To be sent to boss". in a Job Hiring Process. +
 Format : `report JOBNAME`
 
-==== Delete the Job Hiring Process : `deletejob` `Coming in v1.4`
-
-Delete a Job Hiring Process and all its information +
-Format : `deletejob JOBNAME`
 
 
 == FAQ
@@ -453,4 +464,10 @@ e.g.`select 2`
 [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...` +
 e.g. `filter r/Chinese`
 * *Display Hiring Process* : `displayProcess`
-* *Display Analytics* : `analytics`
+* *Display Analytics* : `analytics LISTNAME` or `analytics`
+* *Create Job* : `createJob jn/JOBNAME`
+* *Delete Job* : `deleteJob jn/JOBNAME`
+* *Add list of people to Job* : `addAll jn/JOBNAME`
+* *Add specific person to Job* : `addPersonToJob jn/JOBNAME nric/NRIC`
+* *Display selected list in Job* : `DisplayJob ln/LISTNUMBER jn/JOBNAME`
+* *Moves person from one list in Job to another* : `movePerson jn/JOBNAME nric/NRIC ln/FROM ln/TO`

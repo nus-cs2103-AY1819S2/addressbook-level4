@@ -29,27 +29,29 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_RACE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SCHOOL_AMY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.model.job.JobListName.APPLICANT_NAME;
 
 import java.util.Arrays;
 import java.util.HashSet;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.SearchCommand;
+import seedu.address.logic.commands.FilterCommand;
+import seedu.address.model.job.JobListName;
 
-public class SearchCommandParserTest {
+public class FilterCommandParserTest {
 
-    private SearchCommandParser parser = new SearchCommandParser();
+    private FilterCommandParser parser = new FilterCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_validArgs_returnsSearchCommand() {
         // no leading and trailing whitespaces
-        SearchCommand.PredicatePersonDescriptor descriptorAmy = new SearchCommand.PredicatePersonDescriptor();
+        FilterCommand.PredicatePersonDescriptor descriptorAmy = new FilterCommand.PredicatePersonDescriptor();
         descriptorAmy.setName(new HashSet<>(Arrays.asList(VALID_NAME_AMY.split("\\s+"))));
         descriptorAmy.setPhone(new HashSet<>(Arrays.asList(VALID_PHONE_AMY.split("\\s+"))));
         descriptorAmy.setEmail(new HashSet<>(Arrays.asList(VALID_EMAIL_AMY.split("\\s+"))));
@@ -60,22 +62,22 @@ public class SearchCommandParserTest {
         descriptorAmy.setGender(new HashSet<>(Arrays.asList(VALID_GENDER_AMY.split("\\s+"))));
         descriptorAmy.setGrade(new HashSet<>(Arrays.asList(VALID_GRADE_AMY.split("\\s+"))));
         descriptorAmy.setNric(new HashSet<>(Arrays.asList(VALID_NRIC_AMY.split("\\s+"))));
-        SearchCommand expectedSearchCommand = new SearchCommand(descriptorAmy);
+        FilterCommand expectedFilterCommand = new FilterCommand(JobListName.APPLICANT, descriptorAmy);
 
-        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + NRIC_DESC_AMY
-            + GENDER_DESC_AMY + RACE_DESC_AMY + ADDRESS_DESC_AMY + MAJOR_DESC_AMY + GRADE_DESC_AMY
-            + SCHOOL_DESC_AMY, expectedSearchCommand);
+        assertParseSuccess(parser, APPLICANT_NAME + NAME_DESC_AMY + PHONE_DESC_AMY
+            + EMAIL_DESC_AMY + NRIC_DESC_AMY + GENDER_DESC_AMY + RACE_DESC_AMY + ADDRESS_DESC_AMY
+            + MAJOR_DESC_AMY + GRADE_DESC_AMY + SCHOOL_DESC_AMY, expectedFilterCommand);
 
-        // test other fields
-        SearchCommand.PredicatePersonDescriptor descriptorOtherFields = new SearchCommand.PredicatePersonDescriptor();
+        // test List fields
+        FilterCommand.PredicatePersonDescriptor descriptorOtherFields = new FilterCommand.PredicatePersonDescriptor();
         descriptorOtherFields.setPastJobs(new HashSet<>(Arrays.asList(VALID_PASTJOB_PROFESSSOR.split("\\s+"))));
         descriptorOtherFields.setJobsApply(new HashSet<>(
             Arrays.asList(VALID_JOBSAPPLY_ENGINEER.split("\\s+"))));
         descriptorOtherFields.setKnownProgLangs(
             new HashSet<>(Arrays.asList(VALID_KNOWNPROGLANG_JAVA.split("\\s+"))));
-        expectedSearchCommand = new SearchCommand(descriptorOtherFields);
-        assertParseSuccess(parser, PASTJOB_DESC_PROFESSOR
-            + JOBSAPPLY_DESC_ENGINEER + KNOWNPROGLANG_DESC_JAVA, expectedSearchCommand);
+        expectedFilterCommand = new FilterCommand(JobListName.APPLICANT, descriptorOtherFields);
+        assertParseSuccess(parser, APPLICANT_NAME + PASTJOB_DESC_PROFESSOR
+            + JOBSAPPLY_DESC_ENGINEER + KNOWNPROGLANG_DESC_JAVA, expectedFilterCommand);
 
     }
 

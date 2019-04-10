@@ -11,16 +11,20 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
+import seedu.address.model.job.JobListName;
 import seedu.address.model.job.JobName;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.predicate.UniquePredicateList;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
@@ -58,7 +62,9 @@ public interface Model {
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
-    /** Returns the AddressBook */
+    /**
+     * Returns the AddressBook
+     */
     ReadOnlyAddressBook getAddressBook();
 
     /**
@@ -120,32 +126,130 @@ public interface Model {
     void setPerson(Person target, Person editedPerson);
 
     /**
+     * add Predicate to JobShortlist
+     */
+    void addPredicateJobShortlist(Predicate<Person> predicate);
+
+    /**
+     * add Predicate to JobInterview
+     */
+    void addPredicateJobInterview(Predicate<Person> predicate);
+
+    /**
+     * add Predicate to JobKiv
+     */
+    void addPredicateJobKiv(Predicate<Person> predicate);
+
+    /**
+     * add Predicate to JobAllApplicants
+     */
+    void addPredicateJobAllApplicants(Predicate<Person> predicate);
+    /**
+     * Returns one of the UniquePredicateList in the job
+     */
+    /**
+     * remove Predicate to JobShortlist
+     */
+    void removePredicateJobShortlist(Predicate<Person> predicate);
+
+    /**
+     * remove Predicate to JobInterview
+     */
+    void removePredicateJobInterview(Predicate<Person> predicate);
+
+    /**
+     * remove Predicate to JobKiv
+     */
+    void removePredicateJobKiv(Predicate<Person> predicate);
+
+    /**
+     * remove Predicate to JobAllApplicants
+     */
+    void removePredicateJobAllApplicants(Predicate<Person> predicate);
+    /**
+     * Returns one of the UniquePredicateList in the job
+     */
+    UniquePredicateList getPredicateList(JobName name, Integer listNumber);
+
+    /**
      * Returns one of the UniquePersonList in the job
      */
-    UniquePersonList getJobList(JobName name, int listNumber);
+    UniquePersonList getJobList(JobName name, Integer listNumber);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /**
+     * Returns the job and makes it the active job
+     */
+    Job getJob(JobName name);
+
+    /**
+     * Returns an unmodifiable view of the filtered person list
+     */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered  people list in job */
+
+    ObservableList<Person> getJobsList(int listNum);
+
+    /** Returns an unmodifiable view of the filtered job list */
+    ObservableList<Job> getAllJobs();
+
+    /**
+     * Returns an unmodifiable view of the filtered job list
+     */
+    UniquePredicateList getPredicateLists(int listNumber);
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateBaseFilteredPersonList(Predicate<Person> predicate);
 
     /**
+     * Updates the filter of the JobAllApplcants filtered person list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateJobAllApplicantsFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the JobKiv filtered person list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateJobKivFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the JobInterview filtered person list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateJobInterviewFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the JobShortlist filtered person list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateJobShortlistFilteredPersonList(Predicate<Person> predicate);
+
+    /**
      * Updates the filter of the active filtered person list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
      * Changes the filtered person list to the given {@code list}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void changeFilteredPersonList(UniquePersonList list);
 
     void revertList();
+
+    ObservableList<Job> getFilteredJobList();
 
     /**
      * Returns true if the model has previous address book states to restore.
@@ -179,6 +283,12 @@ public interface Model {
     ReadOnlyProperty<Person> selectedPersonProperty();
 
     /**
+     * Selected job in the filtered job list.
+     * null if no job is selected.
+     */
+    ReadOnlyProperty<Job> selectedJobProperty();
+
+    /**
      * Returns the selected person in the filtered person list.
      * null if no person is selected.
      */
@@ -188,6 +298,16 @@ public interface Model {
      * Sets the selected person in the filtered person list.
      */
     void setSelectedPerson(Person person);
+
+    void setSelectedAll(Person person);
+
+    void setSelectedKiv(Person person);
+
+    void setSelectedInterviewed(Person person);
+
+    void setSelectedSelected(Person person);
+
+    void setSelectedJob(Job job);
 
     /**
      * Generates an interview list.
@@ -218,5 +338,7 @@ public interface Model {
      * Generates analytics.
      */
     Analytics generateAnalytics();
+
+    Analytics generateAnalytics(JobListName listName);
 
 }

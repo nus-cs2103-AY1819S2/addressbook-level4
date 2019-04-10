@@ -141,6 +141,51 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Person> getJobsList(int listNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedAll(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedKiv(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedInterviewed(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedSelected(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateJobAllApplicantsFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateJobKivFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateJobInterviewFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateJobShortlistFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyAddressBook getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
@@ -276,7 +321,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public UniquePersonList getJobList(JobName name, int listNumber) {
+        public UniquePersonList getJobList(JobName name, Integer listNumber) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -287,6 +332,16 @@ public class AddCommandTest {
 
         @Override
         public void deleteJob(Job job) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Job getJob(JobName name) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Job> getFilteredJobList() {
             throw new AssertionError("This method should not be called.");
         }
     }

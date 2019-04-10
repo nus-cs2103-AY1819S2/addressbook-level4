@@ -283,6 +283,7 @@ public class ParserUtil {
         } catch (Exception e) {
             throw new ParseException(String.format("Invalid customer index for other users: %s", customerIndex));
         }
+    }
       
     /**  
      * Parses {@code String s} into a {@code capacity}.

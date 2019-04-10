@@ -115,7 +115,7 @@ public class AlbumTest {
 
     @Test
     public void valid_generateAssets() {
-        String tDir = System.getProperty("user.dir") + File.separator + ASSETS_FOLDER_TEMP_NAME;
+        String tDir = System.getProperty("user.dir") + File.separator + ASSETS_FOLDER_TEMP_NAME + File.separator;
         assertEquals(album.generateAssets(), tDir);
         assertTrue(new File(tDir).exists());
     }

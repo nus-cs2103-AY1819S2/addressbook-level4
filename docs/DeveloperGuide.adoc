@@ -1029,8 +1029,6 @@ For example, `alarm root\Internal 400` command sets the alarm level of all medic
 [[medicineModule_example8]]
 image::medicineModule_example8.png[width='800]
 
-
-
 ==== Design consideration
 
 1. The current implementation takes into consideration that the users may wish to have some freedom in determining the arrangement of medicine.

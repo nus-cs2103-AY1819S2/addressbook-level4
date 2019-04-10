@@ -3,39 +3,58 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== Project: Battleship CLI
+Hello there! My name is Ian and I am one of the developers of the Battleship Command Line Interface (CLI) game. The following document is a Project Portfolio Page for my contributions to Battleship CLI.
 
-Battleships CLI is a revival of the popular retro game Battleships, where two players try to destroy the opponent's fleets by shooting on a map grid. My team was presented with an existing codebase for a Command Line Interface (CLI) address book, which we decided to morph into the current Battleship CLI. While the user interacts with it using a CLI, the application has a Graphical User Interface (GUI) that was created using JavaFX. The codebase is also well-tested against a rigorous system of checks and tests to ensure that code quality is consistently high.
+== Project Overview
 
-My role in the team was to design and implement the `battleship` feature, which allows users to manage their battleships that have been deployed in the game.
+Battleship CLI is the product of a semester long project, in which our team was tasked with adapting an existing phone addressbook application into an application of our choice. It is a revival of the classic retro game Battleships, where players try to destroy each other's battleships by guessing the positions.
+
+In Battleship CLI, however, players have the opportunity to use both a Command Line Interface (CLI) and a Graphical User Interface (GUI) to play the game. The GUI was created with JavaFX and the application code is rigorously tested to ensure high quality code.
+
+My role in the team was to design and implement the Battleship Manager feature. The feature allows players to manage their battleships during the game. The Battleship Manager feature consists of the following commands: `put`, `list` and `listTags`. Together, these three commands provide an intuitive way for players to interact with their own battleships.
 
 The following sections illustrate the feature in more detail, as well as the relevant sections I have added to the user and developer guides in relation to this feature.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the battleship feature of the game*
-** What it does: the player can deploy the battleships of different sizes on the map grid and tag the battleships. There are three types of battleships: aircraft carriers, destroyers, and cruisers. Each of them have a different length.
-** Justification: the battleship feature is crucial to the game, as it works together with the map grid to allow the human player and computer player to interact in a turn-taking game.
-** Highlights: [placeholder]
-** Credits: [placeholder]
+* *Major enhancement*: I added the Battleship Manager feature of the game
+** What it does: The Battleship Manager feature consists of three commands, `put`, `list`, and `listTags`.
+*** The `put` command allows the user to place a battleship on the map grid. The user is also given the option of tagging the battleships. The battleship can be a `cruiser` of length 2, a `cruiser` of length 3, or an `aircraft carrier` of length 5.
+*** The `list` command allows the user to list down the battleships that have been placed on the map grid. The user can filter the list by the `name` of the battleship or by specific `tags`.
+*** The `listTags` command allows the user to list down all the tags that have been used on battleships.
+** Justification: The Battleship Manager feature is crucial to the game as it works together with the map grid to allow both the human player and the computer player to interact in a turn-taking game. Furthermore, behind the scenes, the  feature also implements the `Coordinates` and `Orientation` classes for the other features to work. Finally, the feature also implements code for boundary value checking, which is used by the Battle Manager feature and Computer Enemy feature.
 
-* *Code contributed*: Here are my [https://github.com/CS2103-AY1819S2-W14-3/main/commits/master?author=iwle[code commits]].
+** Highlights:
+*** Implements coordinates and orientation: Behind the scenes, the feature implements the `Coordinates` and `Orientation` classes that are used by the Battle Manager feature and the Computer Enemy feature.
+*** Implements boundary-value checking of the map grid: The feature implements code for checking the boundaries of the map grid for a given battleship, which is used by the Battle Manager feature and the Computer Enemy feature to implement turn-taking in the game.
+
+* *Code contributed*: Here are my https://github.com/CS2103-AY1819S2-W14-3/main/commits/master?author=iwle[code commits].
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.4` (2 releases) on GitHub
+*** Managed releases `v1.3` on GitHub
 ** Enhancements to existing features:
-*** Overhaul of UI to display the maps (Pull requests https://github.com[#33], https://github.com[#34])
+*** Morph from `AddCommand` and `EditCommand` to create `PutShipCommand`: https://github.com/CS2103-AY1819S2-W14-3/main/pull/54[#54], https://github.com/CS2103-AY1819S2-W14-3/main/pull/69[#69],
+https://github.com/CS2103-AY1819S2-W14-3/main/pull/96[#96],
+https://github.com/CS2103-AY1819S2-W14-3/main/pull/100[#100],
+https://github.com/CS2103-AY1819S2-W14-3/main/pull/114[#114]
+*** Morph `ListCommand` to list and filter battleships: https://github.com/CS2103-AY1819S2-W14-3/main/pull/161[#161],
+https://github.com/CS2103-AY1819S2-W14-3/main/pull/193[#193],
+https://github.com/CS2103-AY1819S2-W14-3/main/pull/214[#214]
+*** Add `ListTagsCommand`: https://github.com/CS2103-AY1819S2-W14-3/main/pull/2[#2],
+https://github.com/CS2103-AY1819S2-W14-3/main/pull/189[#189]
+
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments):
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** Contributed actively in issue tracking: https://github.com/CS2103-AY1819S2-W14-3/main/issues/created_by/iwle[issues] created by me.
+*** Contributed actively in forum discussions:  https://github.com/nus-cs2103-AY1819S2/forum/issues/13[#13], https://github.com/nus-cs2103-AY1819S2/forum/issues/62[#62], https://github.com/nus-cs2103-AY1819S2/forum/issues/69[#69]
+*** Reported bugs and suggestions for other teams in the class:
+https://github.com/cs2103-ay1819s2-t12-1/main/issues/187[#187], https://github.com/cs2103-ay1819s2-t12-1/main/issues/188[#188], https://github.com/cs2103-ay1819s2-t12-1/main/issues/205[#205]
 ** Tools:
-*** Integrated Netlify to the project
+*** Set up GitHub organisation for team.
+*** Integrated Travis CI Bot and Coveralls Checker with team repository.
 
 == Contributions to the User Guide
 
@@ -44,7 +63,7 @@ The following sections illustrate the feature in more detail, as well as the rel
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=map]
+include::../UserGuide.adoc[tag=ship]
 
 == Contributions to the Developer Guide
 
@@ -52,6 +71,6 @@ include::../UserGuide.adoc[tag=map]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=map]
+include::../DeveloperGuide.adoc[tag=battleship]
 
 ---

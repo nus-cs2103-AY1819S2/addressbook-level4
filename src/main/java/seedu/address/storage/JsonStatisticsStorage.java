@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.statistics.PlayerStatistics;
@@ -54,13 +53,13 @@ public class JsonStatisticsStorage implements StatisticsStorage {
             return Optional.empty();
         }
 
-        try {
-            //ystem.out.println("Reading Statistics");
-            return Optional.of(jsonStatisticsData.get().toModelType());
-        } catch (IllegalValueException ive) {
-            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-            throw new DataConversionException(ive);
-        }
+        //try {
+        //ystem.out.println("Reading Statistics");
+        return Optional.of(jsonStatisticsData.get().toModelType());
+        //} catch (IllegalValueException ive) {
+        //    logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+        //    throw new DataConversionException(ive);
+        //}
     }
 
     @Override

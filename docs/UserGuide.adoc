@@ -98,7 +98,7 @@ The index is used in command such as `delete`, `edit` and `select`
 
 === Budget Panel
 .Budget Panel: Shows your total spending against your total budget so far
-image::budgetpanel.png[]
+image::BudgetPanel.png[]
 
 This element is denoted by the green box in Figures 2 and 3.
 
@@ -115,10 +115,10 @@ See:
 
 
 .Budget progress bar turns orange to give warning
-image::budgetpanel_orange.png[]
+image::BudgetPanel_Orange.png[]
 
 .Budget progress bar turns red to give warning
-image::budgetpanel_red.png[]
+image::BudgetPanel_red.png[]
 
 * The budget progress bar will be *green* if you are still within your budget as shown in Figure 6
 * The budget progress bar will turn *orange* if your expenditure is above 80% of your total budget

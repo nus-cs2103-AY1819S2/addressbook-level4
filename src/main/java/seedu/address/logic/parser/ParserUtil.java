@@ -11,6 +11,8 @@ import static seedu.address.model.job.JobListName.INTERVIEW_NAME;
 import static seedu.address.model.job.JobListName.INTERVIEW_PREFIX;
 import static seedu.address.model.job.JobListName.KIV_NAME;
 import static seedu.address.model.job.JobListName.KIV_PREFIX;
+import static seedu.address.model.job.JobListName.SHORTLIST_NAME;
+import static seedu.address.model.job.JobListName.SHORTLIST_PREFIX;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -77,17 +79,16 @@ public class ParserUtil {
         String trimmedName = value.trim().toLowerCase();
         if (!JobListName.isValidJobListName(trimmedName)) {
             throw new ParseException(JobListName.MESSAGE_CONSTRAINTS);
-        }
-        if (value.equals(APPLICANT_NAME) || value.equals(APPLICANT_PREFIX)) {
+        }else if (value.equals(APPLICANT_NAME) || value.equals(APPLICANT_PREFIX)) {
             return JobListName.APPLICANT;
-        }
-        if (value.equals(KIV_NAME) || value.equals(KIV_PREFIX)) {
+        } else if (value.equals(KIV_NAME) || value.equals(KIV_PREFIX)) {
             return JobListName.KIV;
-        }
-        if (value.equals(INTERVIEW_NAME) || value.equals(INTERVIEW_PREFIX)) {
+        } else if (value.equals(INTERVIEW_NAME) || value.equals(INTERVIEW_PREFIX)) {
             return JobListName.INTERVIEW;
-        } else {
+        } else if (value.equals(SHORTLIST_NAME) || value.equals(SHORTLIST_PREFIX)) {
             return JobListName.SHORTLIST;
+        } else {
+            return JobListName.EMPTY;
         }
 
     }

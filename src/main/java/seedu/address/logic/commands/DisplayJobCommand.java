@@ -19,13 +19,13 @@ public class DisplayJobCommand extends Command {
     public static final String COMMAND_ALIAS = "dj";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": displays a list from a job. "
-            + "Parameters: "
-            + PREFIX_JOBNAME + "JobName "
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_JOBNAME + "Helper "
-            + "The alias \"dj\" can be used instead.\n"
-            + "Example: " + COMMAND_ALIAS + " "
-            + PREFIX_JOBNAME + "Helper ";
+        + "Parameters: "
+        + PREFIX_JOBNAME + "JobName "
+        + "Example: " + COMMAND_WORD + " "
+        + PREFIX_JOBNAME + "Helper "
+        + "The alias \"dj\" can be used instead.\n"
+        + "Example: " + COMMAND_ALIAS + " "
+        + PREFIX_JOBNAME + "Helper ";
 
     public static final String MESSAGE_SUCCESS = "Displaying job";
     public static final String MESSAGE_MISSING_JOB = "This job does not exist";
@@ -51,13 +51,15 @@ public class DisplayJobCommand extends Command {
 
         model.getJob(toAdd);
         model.commitAddressBook();
+        model.clearJobFilteredLists();
+        model.setIsAllJobScreen(false);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), toAdd);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DisplayJobCommand // instanceof handles nulls
-                && toAdd.equals(((DisplayJobCommand) other).toAdd));
+            || (other instanceof DisplayJobCommand // instanceof handles nulls
+            && toAdd.equals(((DisplayJobCommand) other).toAdd));
     }
 }

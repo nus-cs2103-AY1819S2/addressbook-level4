@@ -114,17 +114,4 @@ public class FindReservationCommandTest {
         return new ReservationWithTypePredicate(userInput);
     }
 
-//    /**
-//     * Parses {@code userInput} into a {@code ReservationWithinTimePredicate}.
-//     */
-//    private ReservationWithinTimePredicate preparePredicateOfTiming(String userInput) {
-//        if (userInput.equals(" ")) {
-//            return new ReservationWithinTimePredicate(new TimeRange(0, 23));
-//        }
-//        String time[] = userInput.split("-");
-//        return new ReservationWithinTimePredicate(new TimeRange(Integer.parseInt(time[0]), Integer.parseInt
-// (time[1])));
-//    }
-
-
 }

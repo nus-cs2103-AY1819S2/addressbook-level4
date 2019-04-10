@@ -12,6 +12,9 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.GenerateQuestionCommand;
 import seedu.address.logic.commands.OpenDeckCommand;
 import seedu.address.logic.commands.ShowAnswerCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.GenerateQuestionCommandParser;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.ui.StudyPanel;
@@ -44,7 +47,7 @@ public class StudyView implements ViewState {
     }
 
     @Override
-    public Command parse(String commandWord, String arguments) {
+    public Command parse(String commandWord, String arguments) throws ParseException {
         switch (commandWord) {
             case OpenDeckCommand.ALT_COMMAND_WORD:
                 return new OpenDeckCommand(activeDeck);
@@ -54,8 +57,7 @@ public class StudyView implements ViewState {
                 if (getCurrentStudyState() == StudyState.QUESTION) {
                     return new ShowAnswerCommand(commandWord + arguments);
                 } else {
-                    addRating(Integer.parseInt(commandWord));
-                    return new GenerateQuestionCommand();
+                    return new GenerateQuestionCommandParser(this).parse(commandWord);
                 }
         }
     }

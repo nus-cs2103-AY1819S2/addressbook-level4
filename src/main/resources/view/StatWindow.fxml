@@ -46,8 +46,8 @@
 
                 <HBox VBox.vgrow="ALWAYS" fx:id="detailsBox" minHeight="100" maxHeight="300" alignment="CENTER">
                     <SplitPane>
-                        <VBox VBox.vgrow="ALWAYS" fx:id="patientBox" alignment="TOP_CENTER" minWidth="100"
-                              styleClass="pane-with-border">
+                        <VBox VBox.vgrow="ALWAYS" fx:id="patientBox" alignment="TOP_CENTER" minWidth="300"
+                              styleClass="pane-with-border" maxWidth="400">
                             <padding>
                                 <Insets top="5" right="10" bottom="5" left="10" />
                             </padding>

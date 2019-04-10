@@ -147,7 +147,7 @@ public class CurrentEditManager implements CurrentEdit {
         tempImage = new Image(editFileName);
         tempImage.setIndex(tempIndex);
         tempImage.setHistory(tempList);
-        tempImage.addWaterMark(hasWaterMark);
+        tempImage.setWaterMark(hasWaterMark);
     }
     /* @@author*/
 
@@ -169,7 +169,7 @@ public class CurrentEditManager implements CurrentEdit {
         tempImage = new Image(editFileName);
         tempImage.setHistory(tempList);
         tempImage.setIndex(tempIndex);
-        tempImage.addWaterMark(hasWaterMark);
+        tempImage.setWaterMark(hasWaterMark);
     }
 
     /* @@author itszp */

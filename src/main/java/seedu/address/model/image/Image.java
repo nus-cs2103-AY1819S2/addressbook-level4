@@ -18,6 +18,7 @@ import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.WaterMarkCommand;
 
 /**
  * Represents an Image in FomoFoto.
@@ -119,7 +120,11 @@ public class Image {
         return hasWaterMark;
     }
 
-    public void addWaterMark(boolean x) {
+    /**
+     * This method changes the hasWaterMark field so that it reflects the current state of the tempImage.
+     * @param x the new value to set
+     */
+    public void setWaterMark(boolean x) {
         hasWaterMark = x;
     }
 
@@ -167,6 +172,9 @@ public class Image {
 
     public void setUndo() {
         index--;
+        if (commandHistory.get(index) instanceof WaterMarkCommand) {
+            setWaterMark(false);
+        }
     }
 
     public void setRedo() {

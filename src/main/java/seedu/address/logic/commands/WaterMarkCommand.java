@@ -29,6 +29,8 @@ public class WaterMarkCommand extends Command {
     private boolean isNewCommand;
 
     public WaterMarkCommand(String words) {
+        setCommandName(COMMAND_WORD);
+        setArguments(words);
         this.text = "\u00a9 " + words;
         this.isNewCommand = true;
     }
@@ -69,14 +71,14 @@ public class WaterMarkCommand extends Command {
                 throw new CommandException(Messages.MESSAGE_HAS_WATERMARK);
             } else {
                 this.isNewCommand = false;
-                initialImage.addWaterMark(true);
+                initialImage.setWaterMark(true);
                 currentEdit.updateTempImage(watermarked);
                 currentEdit.addCommand(this);
                 currentEdit.displayTempImage();
             }
         } else {
             currentEdit.updateTempImage(watermarked);
-            initialImage.addWaterMark(true);
+            initialImage.setWaterMark(true);
         }
         return new CommandResult(Messages.MESSAGE_WATERMARK_SUCCESS);
     }
@@ -85,5 +87,9 @@ public class WaterMarkCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof WaterMarkCommand // instanceof handles nulls
                 && (this.text.equals(((WaterMarkCommand) other).text)));
+    }
+
+    public String toString() {
+        return "WaterMark " + text;
     }
 }

@@ -893,25 +893,26 @@ teeth condition better
 
 |`* * *` |user |edit a task |change details of certains tasks that I have already added
 
-|`* * *` |user |encrypt the imported/exported data | ensure patient information remains confidential
-
-|`* * *` |user |append imported/exported data | work more flexibly with patient information
-
-|`* * *` |user |my imported/exported data supported by multiple file types | work more flexibly with patient information
-
 |`* * *` |user |see a statistics report on each patient's dental history | have an easier time understanding their potential problems
 
-|`* * *` |user | warning to come up when I'm exiting the program if there exists duplicate entries | be reminded to
+|`* * *` |user |see a warning come up when I'm exiting the program if there exists duplicate entries | be reminded to
 edit them before exiting.
 
-|`* *` |user | see an overall statistics report on my patients | analyze potential trends
+|`* *` |user |see an overall statistics report on my patients | analyze potential trends
 
 |`* *` |user |copy a person |reduce the time needed to create a new person who has similar records to an existing person in the list
 
-|`* *` |user |export entries into an external file |view certain entries even when I am not using the application
+|`* *` |user |open an external file |work with patients and tasks saved in another file
 
-|`* *` |user |import entries from an external file |reduce the time needed to create a person whose information can
-be already be obtained from an external source
+|`* *` |user |import specific patients from an external file |add patients and tasks from another file
+
+|`* *` |user |save to an external file |have multiple files for cataloguing
+
+|`* *` |user |export specific patients to an external file |have multiple files for cataloguing
+
+|`* *` |user |save/export to PDF |have a more presentable format for reading
+
+|`* *` |user |see suggestions when I type common commands |do not have to keep consulting the Help page
 
 |`* *` |user |see relevant dentistry tags on my patients' entries | have an overview of my patients' condition
 

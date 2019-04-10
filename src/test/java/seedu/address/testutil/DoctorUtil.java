@@ -6,10 +6,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SPECIALISATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
-//import java.util.Set;
+import java.util.Set;
 
 import seedu.address.logic.commands.AddDoctorCommand;
+import seedu.address.logic.commands.EditDoctorCommand.EditDoctorDescriptor;
 import seedu.address.model.person.Doctor;
+import seedu.address.model.tag.Specialisation;
 
 /**
  * A utility class for Doctor.
@@ -45,22 +47,20 @@ public class DoctorUtil {
     /**
      * Returns the part of command string for the given {@code EditDoctorDescriptor}'s details.
      */
-    /*
-    public static String getEditDoctorDescriptorDetails(EditPersonDescriptor descriptor) {
+    public static String getEditDoctorDescriptorDetails(EditDoctorDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
-        descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
-        descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
-        if (descriptor.getTags().isPresent()) {
-            Set<Tag> tags = descriptor.getTags().get();
-            if (tags.isEmpty()) {
-                sb.append(PREFIX_TAG);
+        descriptor.getGender().ifPresent(gender -> sb.append(PREFIX_GENDER).append(gender.value).append(" "));
+        descriptor.getYear().ifPresent(year -> sb.append(PREFIX_YEAR).append(year.value).append(" "));
+        if (descriptor.getSpecs().isPresent()) {
+            Set<Specialisation> specs = descriptor.getSpecs().get();
+            if (specs.isEmpty()) {
+                sb.append(PREFIX_SPECIALISATION);
             } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
+                specs.forEach(s -> sb.append(PREFIX_SPECIALISATION).append(s.specialisation).append(" "));
             }
         }
         return sb.toString();
     }
-    */
 }

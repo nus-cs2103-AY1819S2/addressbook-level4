@@ -469,7 +469,6 @@ the valid specialisation values provided under the `add` command section.
 Valid parameters may include case insensitive substrings (E.g 'physio' will
 match to 'PHYSIOTHERAPY'.
 ====
-// end::filterHealthWorker[]
 
 For example, to display only health workers who specialise in physiotherapy,
 the `filter h s/physio` command can entered, using the shortcut `h` for
@@ -485,6 +484,7 @@ found that has `PHYSIOTHERAPY` as a specialisation, and the health worker
 list on the right side of the GUI displays only health workers who has
 expertise in physiotherapy.
 
+// end::filterHealthWorker[]
 ==== *Filter requests*:
 
 *Format:*

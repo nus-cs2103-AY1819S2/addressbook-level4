@@ -152,6 +152,7 @@ Example:
 
 ****
 * TAG: Tags must be a continuous word without spaces
+* TAG: Can only contain alphanumeric characters.
 * TAG: You can only remove a tag that you have previously added.
 ****
 

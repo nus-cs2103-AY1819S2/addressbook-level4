@@ -44,22 +44,17 @@ public class JsonStatisticsStorage implements StatisticsStorage {
      * @throws DataConversionException
      * @throws IOException
      */
-    public Optional<PlayerStatistics> readStatisticsData(Path filePath) throws DataConversionException, IOException {
+    public Optional<PlayerStatistics> readStatisticsData(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableStatistics> jsonStatisticsData = JsonUtil.readJsonFile(
                 filePath, JsonSerializableStatistics.class);
-        if (!jsonStatisticsData.isPresent()) {
+
+        if (!(jsonStatisticsData.isPresent())) {
             return Optional.empty();
         }
 
-        //try {
-        //ystem.out.println("Reading Statistics");
         return Optional.of(jsonStatisticsData.get().toModelType());
-        //} catch (IllegalValueException ive) {
-        //    logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-        //    throw new DataConversionException(ive);
-        //}
     }
 
     @Override

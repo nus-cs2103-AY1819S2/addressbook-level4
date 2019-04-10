@@ -17,7 +17,7 @@ public class CropCommandParserTest {
     private CropCommandParser parser = new CropCommandParser();
 
     @Test
-    public void parse_validArgs_returnsRotateCommand() {
+    public void parse_validArgs_returnsCropCommand() {
         assertParseSuccess(parser, " 0 0 200 200", new CropCommand(0, 0, 200, 200));
         assertParseSuccess(parser, " 20 20 100 100", new CropCommand(20, 20, 100, 100));
     }

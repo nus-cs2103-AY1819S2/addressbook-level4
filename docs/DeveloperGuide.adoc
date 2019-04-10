@@ -342,6 +342,7 @@ The reason we use identification number(ID) instead of name or other factors is 
 ** Cons: Requiring more work and the old abstraction may break.
 // end::filteringBooking[]
 
+// tag::bill-generation[]
 === Generating Bill for Customer functionality
 ==== Current Implementation
 
@@ -379,6 +380,8 @@ creating more work.
 * **Alternative 2:**
 ** Pros: If bill history is required for a new feature, system will be able to provide it.
 ** Cons: Lot of work needs to be done for creating the storage of bills.
+
+// end::bill-generation[]
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -970,6 +973,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
 [appendix]
+// tag::user-stories[]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -1032,7 +1036,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |hotel management staff |sort customers by name |locate a customer easily
 |=======================================================================
 
-_{More to be added}_
+// end::user-stories[]
 
 [appendix]
 == Use Cases

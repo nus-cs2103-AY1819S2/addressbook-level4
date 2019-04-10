@@ -3,6 +3,7 @@ package seedu.hms.commons.util;
 import static java.util.Objects.requireNonNull;
 
 import javafx.scene.image.Image;
+import javafx.util.Pair;
 import seedu.hms.MainApp;
 
 /**
@@ -36,4 +37,17 @@ public class AppUtil {
             throw new IllegalArgumentException(errorMessage);
         }
     }
+
+    /**
+     * Checks that {@code condition} is true. Used for validating arguments to methods.
+     *
+     * @throws IllegalArgumentException with {@code errorMessage} if {@code condition} is false.
+     */
+    public static void checkArgumentForDob(Pair<Boolean, String> booleanIntegerPair) {
+        if (!(booleanIntegerPair.getKey())) {
+            throw new IllegalArgumentException(booleanIntegerPair.getValue());
+        }
+
+    }
 }
+

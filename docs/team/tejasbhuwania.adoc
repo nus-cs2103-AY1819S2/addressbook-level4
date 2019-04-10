@@ -1,7 +1,10 @@
-= Tejas Bhuwania - Project Portfolio image:tejas2805.png[width="150", align="right"]
+= Tejas Bhuwania - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+
+image:tejas2805.png[width="150", align="right"]
+
 
 == PROJECT: HMS+
 
@@ -15,40 +18,40 @@ It is written in Java and has around 15k LOC.
 
 == Summary of contributions
 
-* *Major enhancement*: Added the complete backend for the booking and reservation from commands upto storage
-** What it does: It allows the hotel staff to add service-bookings and reservations for the customers.
-** Justification: This is the backbone of the application as these are the main amenities of any hotel.
-** Highlights: This enhancement required in-depth analysis of the codebase as it involved extending a single-model dependent system to a multi-model based system.
-I had to make sure the design implementation preserved the extensibility of the system as well as allowed the different components to interact with each other.
+* *Major enhancement*: Added the complete backend for the bill generating commands.
+** What it does: It allows the hotel staff to generate bills for the customers.
+** Justification: This is important for the application as this generates the bill for the amenities used by the customer during his stay in the hotel.
+** Highlights: This enhancement allows the user to generate bills for a specific customer, a specific booking or a specific reservation. I had
+to make sure that I use the already implemented reservation and booking models while creating the newer bill model and make sure that the model has access to all bookings and reservations
+simultaneously so that it can generate the bill based on the command entered by the user.
 ** Credits: I mainly used the concepts from the existing codebase and those that were taught in CS2103T to implement my features.
 ** Related Files:
-*** https://github.com/cs2103-ay1819s2-t12-1/main/tree/master/src/main/java/seedu/hms/model/booking[Booking Model]
-*** https://github.com/cs2103-ay1819s2-t12-1/main/tree/master/src/main/java/seedu/hms/model/reservation[Reservation Model]
+*** https://github.com/cs2103-ay1819s2-t12-1/main/tree/master/src/main/java/seedu/hms/model/bill[Bill Model]
 
 * *Minor enhancements*:
-** https://github.com/cs2103-ay1819s2-t12-1/main/blob/master/docs/UserGuide.adoc#33-customer-commands[Added support for VIP status to customer]
-** https://github.com/cs2103-ay1819s2-t12-1/main/blob/master/docs/UserGuide.adoc#332-listing-all-customers--list-customers-lc[Ported the whole codebase from `AddressBook` to `HotelManagementSystem`]
-** https://github.com/cs2103-ay1819s2-t12-1/main/pull/138[Added API methods to show statistics]
+** Implemented the https://github.com/cs2103-ay1819s2-t12-1/main/pull/131[clear hotel management system command], https://github.com/cs2103-ay1819s2-t12-1/main/pull/134[the clear reservation command] and https://github.com/cs2103-ay1819s2-t12-1/main/pull/124[the clear booking command] so that the user can have an easy access to an empty database.
+** Implemented the https://github.com/cs2103-ay1819s2-t12-1/main/pull/81[Date of Birth] and https://github.com/cs2103-ay1819s2-t12-1/main/pull/28[Identification Number] fields for Customer keeping in mind that
+as a Hotel Management System these are important fields to identify a customer.
+** Made the UI more understandable to a first time user. https://github.com/cs2103-ay1819s2-t12-1/main/pull/145[#145], https://github.com/cs2103-ay1819s2-t12-1/main/pull/146[#146]
 
 * *Other contributions*:
 
 ** Project management:
-*** Created the Github Project Board and facilitated a https://github.com/cs2103-ay1819s2-t12-1/main/issues/created_by/sreycodes[issue-based workflow].
-*** https://github.com/cs2103-ay1819s2-t12-1/main/blob/master/docs/DeveloperGuide.adoc#32-ui-component[Reviewed and approves several PRs.]
-*** https://github.com/nus-cs2103-AY1819S2/forum/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3Asreycodes[Reported bugs and suggestions for other teams in the class]
+*** Did the jar release for Dry Run of CS2103 Practical Exam.
+*** Created a separate issue for all the user stories with labels, milestones and assignees. https://github.com/cs2103-ay1819s2-t12-1/main/issues/82[#82] to https://github.com/cs2103-ay1819s2-t12-1/main/issues/110[#110]
+*** Reviewed and approved several PRs. https://github.com/cs2103-ay1819s2-t12-1/main/pull/173[#173]
+*** Reported and fixed bugs along with suggestions for team-mates. https://github.com/cs2103-ay1819s2-t12-1/main/pull/175[#175]
+*** Kept on updating the user guide based on the features getting implemented in the application.
 ** Enhancements to existing features:
-*** Set the design structure for the implementation of future models.
-*** Created utility classes to handle timings and date intervals with
-https://github.com/cs2103-ay1819s2-t12-1/main/blob/master/src/test/java/seedu/hms/model/util/TimeRangeTest.java[relevant tests].
+*** Added aliases for each command so that the user can type a shorter version of the same command. https://github.com/cs2103-ay1819s2-t12-1/main/pull/2[#2]
+*** Made the Address field of a customer https://github.com/cs2103-ay1819s2-t12-1/main/pull/132[optional] for the user to input.
 ** Documentation:
-*** Added command formats and descriptions to the user guide.
-*** Added color-coding to the user guide.
-*** Reformated all the commands to match an intuitive convention in guides and codebase.
-*** Added sections to developer guide.
-https://github.com/cs2103-ay1819s2-t12-1/main/blob/master/docs/DeveloperGuide.adoc#41-adding-service-booking-functionality[Example] - I added a section to teach oncoming developers how to extend on the codebase.
+*** Added Prefix list to the user guide so that the user can easily refer to the prefixes in case required.
+*** Added color-coding to the user guide so that the user can easily understand the difference between the command word, the command prefixes and the command parameters.
+
 ** Tools:
-*** Set Up Travis, Codacy and Coveralls
-*** Set the minimum requirements for code to be merged to master.
+*** Set Up Asciidoctor. This helps in converting asciidocs to html files and viewing how will the file look as a Web page.
+
 
 == Contributions to the User Guide
 
@@ -56,9 +59,9 @@ https://github.com/cs2103-ay1819s2-t12-1/main/blob/master/docs/DeveloperGuide.ad
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=reservation-commands]
+include::../UserGuide.adoc[tag=introduction]
 
-include::../UserGuide.adoc[tag=booking-commands]
+include::../UserGuide.adoc[tag=generation-bill-commands]
 
 == Contributions to the Developer Guide
 
@@ -66,14 +69,11 @@ include::../UserGuide.adoc[tag=booking-commands]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=architecture]
+include::../DeveloperGuide.adoc[tag=user-stories]
 
-include::../DeveloperGuide.adoc[tag=booking]
+include::../DeveloperGuide.adoc[tag=bill-generation]
 
 == Achievements and Learnings
 
-* Worked with a team to implement complementing components smoothly
-* Learned how to evaluate user requirements using user stories
-* I was able to lead the module in terms of code contribution.
 
-image::reposense.png[align="right"]
+

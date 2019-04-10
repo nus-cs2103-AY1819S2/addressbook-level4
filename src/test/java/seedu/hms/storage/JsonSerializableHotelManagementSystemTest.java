@@ -28,15 +28,15 @@
 //    @Rule
 //    public ExpectedException thrown = ExpectedException.none();
 //
-////    @Test
-////    public void toModelType_typicalCustomersFile_success() throws Exception {
-////        JsonSerializableHotelManagementSystem dataFromFile = JsonUtil.readJsonFile(TYPICAL_CUSTOMERS_FILE,
-////            JsonSerializableHotelManagementSystem.class).get();
-////        HotelManagementSystem hotelManagementSystemFromFile = dataFromFile.toModelType();
-////        HotelManagementSystem typicalCustomersHotelManagementSystem =
-////            TypicalCustomers.getTypicalHotelManagementSystem();
-////        assertEquals(hotelManagementSystemFromFile, typicalCustomersHotelManagementSystem);
-////    }
+//    @Test
+//    public void toModelType_typicalCustomersFile_success() throws Exception {
+//        JsonSerializableHotelManagementSystem dataFromFile = JsonUtil.readJsonFile(TYPICAL_CUSTOMERS_FILE,
+//            JsonSerializableHotelManagementSystem.class).get();
+//        HotelManagementSystem hotelManagementSystemFromFile = dataFromFile.toModelType();
+//        HotelManagementSystem typicalCustomersHotelManagementSystem =
+//            TypicalCustomers.getTypicalHotelManagementSystem();
+//        assertEquals(hotelManagementSystemFromFile, typicalCustomersHotelManagementSystem);
+//    }
 //
 //    @Test
 //    public void toModelType_invalidCustomerFile_throwsIllegalValueException() throws Exception {

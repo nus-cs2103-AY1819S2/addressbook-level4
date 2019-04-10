@@ -12,7 +12,6 @@ import static seedu.address.model.Model.COMPARATOR_SIZE_DESCENDING_PDFS;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.pdf.Pdf;
-
 import java.util.Comparator;
 import java.util.HashMap;
 
@@ -50,15 +49,18 @@ public class SortCommandParser implements Parser<SortCommand> {
         }
     }
 
+    /**
+     * Returns a hash map of <String, Comparator<Pdf>> pair
+     */
     private HashMap<String, Comparator<Pdf>> getSortCriteriaMap() {
-        HashMap<String, Comparator<Pdf>> comparatorMap = new HashMap<>();
-        comparatorMap.put(name_ascending, COMPARATOR_NAME_ASCENDING_PDFS);
-        comparatorMap.put(name_descending, COMPARATOR_NAME_DESCENDING_PDFS);
-        comparatorMap.put(deadline_ascending, COMPARATOR_DEADLINE_ASCENDING_PDFS);
-        comparatorMap.put(deadline_descending, COMPARATOR_DEADLINE_DESCENDING_PDFS);
-        comparatorMap.put(size_ascending, COMPARATOR_SIZE_ASCENDING_PDFS);
-        comparatorMap.put(size_descending, COMPARATOR_SIZE_DESCENDING_PDFS);
-        return comparatorMap;
+        HashMap<String, Comparator<Pdf>> sortCriteriaMap = new HashMap<>();
+        sortCriteriaMap.put(name_ascending, COMPARATOR_NAME_ASCENDING_PDFS);
+        sortCriteriaMap.put(name_descending, COMPARATOR_NAME_DESCENDING_PDFS);
+        sortCriteriaMap.put(deadline_ascending, COMPARATOR_DEADLINE_ASCENDING_PDFS);
+        sortCriteriaMap.put(deadline_descending, COMPARATOR_DEADLINE_DESCENDING_PDFS);
+        sortCriteriaMap.put(size_ascending, COMPARATOR_SIZE_ASCENDING_PDFS);
+        sortCriteriaMap.put(size_descending, COMPARATOR_SIZE_DESCENDING_PDFS);
+        return sortCriteriaMap;
     }
 
 }

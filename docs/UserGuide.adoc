@@ -306,6 +306,10 @@ Examples:
 * `merge 1 2 1` +
 * `merge 1 1`
 
+[NOTE]
+If the combined file size is > 100MB, the operation will take more than a minute to execute. Please
+give the application some time to completely execute the operation.
+
 ****
 * A minimum of 2 files must be specified by their indexes
 * The same file can be merged with itself, hence creating a new file that is composed of the same file twice.

@@ -34,15 +34,18 @@ public class BrightnessCommandParser implements Parser<BrightnessCommand> {
                 try {
                     brightnessValue = OptionalDouble.of(Double.parseDouble(parsed[0]));
                 } catch (NumberFormatException e) {
-                    throw new ParseException(Messages.MESSAGE_BRIGHTNESS_DOUBLE_ERROR);
+                    throw new ParseException(String.format(Messages.MESSAGE_BRIGHTNESS_DOUBLE_ERROR,
+                        BrightnessCommand.MESSAGE_USAGE));
                 }
                 Character lastletter = parsed[0].charAt(parsed[0].length() - 1);
                 if (lastletter.equals('f') || lastletter.equals('F') || lastletter.equals('d')
                     || lastletter.equals('D')) {
-                    throw new ParseException(Messages.MESSAGE_BRIGHTNESS_DOUBLE_ERROR);
+                    throw new ParseException(String.format(Messages.MESSAGE_BRIGHTNESS_DOUBLE_ERROR,
+                        BrightnessCommand.MESSAGE_USAGE));
                 }
-                if (brightnessValue.getAsDouble() < 0) {
-                    throw new ParseException(Messages.MESSAGE_NEGATIVE_ERROR);
+                if (brightnessValue.isPresent() && (brightnessValue.getAsDouble() < 0)) {
+                    throw new ParseException(String.format(Messages.MESSAGE_NEGATIVE_ERROR,
+                        BrightnessCommand.MESSAGE_USAGE));
                 }
             } else {
                 brightnessValue = OptionalDouble.empty();

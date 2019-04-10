@@ -46,7 +46,7 @@ public class ContrastCommandParser implements Parser<ContrastCommand> {
                     throw new ParseException(String.format(Messages.MESSAGE_CONTRAST_DOUBLE_ERROR,
                         ContrastCommand.MESSAGE_USAGE));
                 }
-                if (contrastValue.getAsDouble() < 0) {
+                if (contrastValue.isPresent() && (contrastValue.getAsDouble() < 0)) {
                     throw new ParseException(String.format(Messages.MESSAGE_NEGATIVE_ERROR,
                         ContrastCommand.MESSAGE_USAGE));
                 }

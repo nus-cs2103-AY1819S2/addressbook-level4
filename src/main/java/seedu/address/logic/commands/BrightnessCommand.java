@@ -78,5 +78,26 @@ public class BrightnessCommand extends Command {
         }
         return "brightness";
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof BrightnessCommand) // instanceof handles nulls
+            && isValuesEqual(other);
+    }
+
+    /**
+     * Checks if the value in the contrast command is equal to the value in the other command.
+     *
+     * @param other command object to be compared
+     * */
+    private boolean isValuesEqual(Object other) {
+        BrightnessCommand otherCommand = (BrightnessCommand) other;
+        if (this.brightnessValue.isPresent() && otherCommand.brightnessValue.isPresent()) {
+            return this.brightnessValue.getAsDouble() == otherCommand.brightnessValue.getAsDouble();
+        } else {
+            return (!this.brightnessValue.isPresent() && !otherCommand.brightnessValue.isPresent());
+        }
+    }
 }
 /* @@author */

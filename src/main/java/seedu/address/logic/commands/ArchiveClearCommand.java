@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.ArchiveBook;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 
 /**
@@ -18,7 +18,7 @@ public class ArchiveClearCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.setArchiveBook(new ArchiveBook());
+        model.setArchiveBook(new AddressBook());
         model.commitAddressBook();
         model.commitArchiveBook();
         model.commitPinBook();
